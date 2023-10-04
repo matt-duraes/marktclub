@@ -10,8 +10,9 @@ class Ordem extends Order
         protected ?string $valor = null
     ) {
         $this->tabela(TABELA_SOLICITACAO_DECLARACAO);
+        $this->padrao('status');
+        $this->status();
         $this->maisNovo();
         $this->maisVelho();
-        $this->status();
     }
 }

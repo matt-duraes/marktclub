@@ -88,7 +88,9 @@ window.addEventListener('load', () => {
     if (inputFinalidadePrincipal.value != '') {
         buscarListaFinalidadeSecundaria(inputFinalidadePrincipal.value, inputFinalidadeSecundaria.value);
         if (inputFinalidadePrincipal.value == 'publica') {
-            blocoDataEleicao.classList.remove('display_none');
+            if(blocoDataEleicao) {
+                blocoDataEleicao.classList.remove('display_none');
+            }
         }
     }
     if (inputProdutoClube) {

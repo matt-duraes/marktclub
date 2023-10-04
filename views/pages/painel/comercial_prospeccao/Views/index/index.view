@@ -1,10 +1,27 @@
 @template "painel"
 
+<!--Bloco do popup standby -->
+<div class="bloco_pagina_popup display_none" id="bloco_motivo">
+    <div class="conteudo_pagina_popup popup_conteudo">
+        <header class="header_pagina_popup">
+            <h1 id="h1_motivo">Motivo Stand BY</h1>
+            <i class="popup_fechar fechar botao_fechar">@iconeFechar</i>
+        </header>
+        <form id="form_motivo" class="form_geral conteudo_pagina_popup">
+            @? formInput(name: 'motivo', label: 'Motivo Stand BY', placeholder: 'Digite o motivo do stand by', value: '')
+            <div class="footer_pagina_popup">
+                <div class="flex"></div>
+                <button id="botao_atualizar_motivo" class="botao_atualizar">Atualizar</button>
+            </div>
+        </form>
+    </div>
+</div>
+
 <div class="bloco_kambam_index" id="bloco_comercial_prospeccao">
     <div class="conteudo_geral">
         <section class="bloco_coluna">
             <header>
-                <h1>Abordagem <span>({!!count($abordagem)!!})</span></h1>
+                <h1>Pesquisa <span>({!!count($pesquisa)!!})</span></h1>
                 <div class="flex"></div>
                 <a href="{{LINK}}/app/add/comercial-prospeccao" class="botao">Add</a>
             </header>
@@ -64,5 +81,22 @@
             </div>
         </section>
 
+        <!-- Bloco de exemplo para ser clonado -->
+        <article id="bloco_standby_exemplo" class="display_none bloco_kambam_item" data-id="" data-status="">
+            <header>
+                <h1 class="titulo"></h1>
+            </header>
+            .
+            <a class="botao_link botao_link_standby" href="">ver prospecção</a>
+            <p class="status_standby"></p>
+            <div class="bloco">
+                <p class="data data_standby"></p>
+
+                <div class="linha"></div>
+
+                <i class="inativar botao_item_cancelar" data-ajuda="Cancelar contrato">@iconeFechar(10)</i>
+                <i class="voltar botao_item_voltar_standby" data-ajuda="Voltar contrato">@iconeVoltar(12)</i>
+            </div>
+        </article>
     </div>
 </div>

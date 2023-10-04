@@ -12,6 +12,8 @@ class FinalidadeSecundaria extends StatusStatus
     public const CONSELHO = 'conselho';
     public const FACULDADE = 'faculdade';
     public const BANCO = 'banco';
+    public const COOPERATIVA = 'cooperativa';
+    public const ASSOCIACAO_PRIVADA = 'associacao_privada';
     public const OUTRO = 'outro';
 
     public function __construct(
@@ -22,13 +24,15 @@ class FinalidadeSecundaria extends StatusStatus
     ) {
         if (empty($lista)) {
             $lista = [
-                self::ASSOCIACAO => 'Associação',
-                self::SINDICATO  => 'Sindicato',
-                self::EMBAIXADA  => 'Embaixada',
-                self::CONSELHO   => 'Conselho de classe',
-                self::FACULDADE  => 'Faculdade',
-                self::BANCO      => 'Banco',
-                self::OUTRO      => 'Outro'
+                self::ASSOCIACAO         => 'Associação',
+                self::SINDICATO          => 'Sindicato',
+                self::EMBAIXADA          => 'Embaixada',
+                self::CONSELHO           => 'Conselho de classe',
+                self::FACULDADE          => 'Faculdade',
+                self::BANCO              => 'Banco',
+                self::COOPERATIVA        => 'Cooperativa',
+                self::ASSOCIACAO_PRIVADA => 'Associação Privada',
+                self::OUTRO              => 'Outro'
             ];
         }
         parent::__construct(lista: $lista, cor: $cor, numero: $numero);

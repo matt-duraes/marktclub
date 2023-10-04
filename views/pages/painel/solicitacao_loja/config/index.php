@@ -12,7 +12,6 @@ $Painel
     ->campo('email', 'E-mail', 'normal')
     ->campo('origem', 'Origem', 'pequeno')
     ->dataCriacao()
-    ->dataAtualizacao()
     ->status('status', 'Status', new Status());
 
 $Painel->replace('origem', (new Origem())->select());

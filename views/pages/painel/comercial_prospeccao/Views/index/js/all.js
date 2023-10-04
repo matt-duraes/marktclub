@@ -1,26 +1,30 @@
 // @template "painel"
 // @painel "historico"
 // @painel "contato"
+// @system "DragDrop"
+// @system "Popup"
 
 window.addEventListener('load', () => {
     const blocoProspeccao = document.getElementById('bloco_comercial_prospeccao');
     const listaItem = blocoProspeccao.querySelectorAll('.bloco_kambam_item');
+    const PopupAtualizar = new Popup('atualizar-dado', $('#bloco_motivo'), true, true);
 
-    const blocoAbordagem = document.getElementById('bloco_abordagem');
+    const blocoPesquisa = document.getElementById('bloco_pesquisa');
     const blocoApresentacao = document.getElementById('bloco_apresentacao');
     const blocoNegociacao = document.getElementById('bloco_negociacao');
     const blocoAvaliacao = document.getElementById('bloco_avaliacao');
     const blocoMinuta = document.getElementById('bloco_minuta');
+    const blocoStandBy = document.getElementById('bloco_standby');
 
     const htmlZero = '<div class="tarefa_zero">Sem itens<br> no momento</div>';
 
-    listaItem.forEach(item => {
+    const setEvents = (item) => {
         const botaoAtendimento = item.querySelector('.botao_item_atendimento');
         const botaoHistorico = item.querySelector('.botao_item_historico');
         const botaoCancelar = item.querySelector('.botao_item_cancelar');
         const botaoConcluir = item.querySelector('.botao_item_concluir');
-        const botaoAnterior = item.querySelector('.botao_item_anterior');
-        const botaoProximo = item.querySelector('.botao_item_proximo');
+        const botaoStandBy = item.querySelector('.botao_item_standby');
+        const botaoVoltarStandBy = item.querySelector('.botao_item_voltar_standby');
         const id = item.getAttribute('data-id');
 
         const PaginaContato = new Pagina(
@@ -31,9 +35,6 @@ window.addEventListener('load', () => {
             true,
             contatoLoad
         );
-        botaoAtendimento.addEventListener('click', () => {
-            PaginaContato.abrir();
-        });
 
         const PaginaHistorico = new Pagina(
             'historico-' + id,
@@ -43,46 +44,201 @@ window.addEventListener('load', () => {
             true,
             historicoLoad
         );
-        botaoHistorico.addEventListener('click', () => {
+
+        const adicionarEventoBotao = (botao, callback) => {
+            if (botao) {
+                botao.addEventListener('click', callback);
+            }
+        }
+
+        adicionarEventoBotao(botaoAtendimento, () => {
+            PaginaContato.abrir();
+        });
+
+        adicionarEventoBotao(botaoHistorico, () => {
             PaginaHistorico.abrir();
         });
-        botaoCancelar.addEventListener('click', () => {
+
+        adicionarEventoBotao(botaoCancelar, () => {
             cancelarContrato(item, id);
         });
-        botaoConcluir.addEventListener('click', () => {
+
+        adicionarEventoBotao(botaoConcluir, () => {
             concluirContrato(id);
         });
-        botaoAnterior.addEventListener('click', () => {
-            moverParaBlocoAnterior(item, id);
+
+        adicionarEventoBotao(botaoStandBy, () => {
+            colocarStandby(item, id);
         });
-        botaoProximo.addEventListener('click', () => {
-            moverParaBlocoProximo(item, id);
+
+        adicionarEventoBotao(botaoVoltarStandBy, () => {
+            voltarStandby(item, id);
         });
+    }
+
+    listaItem.forEach(item => {
+        setEvents(item)
     });
 
     /*
     |--------------------------------------------------------------------------
-    | CANCELAR/CONCLUIR
+    | CANCELAR/CONCLUIR/STAND BY
     |--------------------------------------------------------------------------
     */
     cancelarContrato = async (item, id) => {
-        if (!(await Alerta.confirmar('Cancelar contrato!', 'Tem certeza que deseja finalizar esse contrato?', '!'))) {
-            return;
-        }
-        atualizarStatusContrato(item, id, 'inativo');
+        const h1_motivo = document.getElementById('h1_motivo');
+        const input_motivo = document.getElementById('input_motivo');
+        const label = input_motivo.parentNode.querySelector('label');
+        const botao = document.getElementById('botao_atualizar_motivo');
+
+        h1_motivo.textContent = "Cancelar contrato";
+        input_motivo.setAttribute('placeholder', "Digite o motivo para o cancelamento")
+        label.textContent = "Motivo para o cancelamento"
+        botao.textContent = "Cancelar"
+        botao.setAttribute('class', 'botao_cancelar')
+
+        PopupAtualizar.abrir();
+
+        const form_motivo = document.getElementById('form_motivo');
+        form_motivo.addEventListener('submit', async (e) => {
+            e.preventDefault();
+
+            const motivo = document.getElementById('input_motivo').value;
+
+            await atualizarStatusContrato(item, id, 'inativo', motivo);
+            PopupAtualizar.fechar();
+        })
     };
     concluirContrato = async id => {
-        if (!(await Alerta.confirmar('Concluir contrato!', 'Tem certeza que deseja concluir esse contrato?', true))) {
+        if (!(await Alerta.confirmar('Concluir contrato!', 'Tem certeza que deseja concluir esse contrato?', '!'))) {
             return;
         }
         window.location.assign(LINK + '/app/editar/comercial-empresa/' + id);
     };
-    const atualizarStatusContrato = async (item, id, status) => {
+
+    colocarStandby = async (item, id) => {
+        PopupAtualizar.abrir();
+
+        const form_motivo = document.getElementById('form_motivo');
+        form_motivo.addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const motivo = document.getElementById('input_motivo').value;
+
+            await atualizarStatusContrato(item, id, 'standby', motivo);
+
+            const listaStadbyExemplo = document.getElementById('bloco_standby_exemplo');
+            const newItem = listaStadbyExemplo.cloneNode(true);
+
+            newItem.querySelector('.titulo').innerText = item.querySelector('.titulo').innerText;
+            newItem.querySelector('.data').innerText = item.querySelector('.data').innerText;
+            newItem.querySelector('.botao_link').setAttribute('href', item.querySelector('.botao_link').getAttribute('href'));
+            newItem.setAttribute('class', 'bloco_kambam_item')
+            newItem.dataset.id = id;
+            newItem.dataset.status = item.dataset.status;
+            setEvents(newItem);
+
+            PopupAtualizar.fechar();
+
+            blocoStandBy.appendChild(newItem);
+            removerBlocoZero(blocoStandBy);
+            adicionarNumeroItem(blocoStandBy);
+        })
+    }
+    voltarStandby = async (item, id) => {
+        if (!(await Alerta.confirmar('Voltar contrato para prospecção!', 'Tem certeza que deseja voltar esse contrato para prospecção?', '!'))) {
+            return;
+        }
+        await atualizarStatusContrato(item, id, 'prospeccao');
+
+        const newItem = listaItem[0].cloneNode(true);
+
+        newItem.querySelector('.titulo').innerText = item.querySelector('.titulo').innerText;
+        newItem.querySelector('.data').innerText = item.querySelector('.data').innerText;
+        newItem.querySelector('.botao_link').setAttribute('href', item.querySelector('.botao_link').getAttribute('href'));
+        newItem.dataset.id = id;
+        newItem.dataset.status = item.dataset.status;
+        setEvents(newItem);
+
+        const status = item.getAttribute('data-status');
+        const bloco = pegarBlocoPeloStatus(status);
+
+        bloco.appendChild(newItem);
+        removerBlocoZero(bloco);
+        adicionarNumeroItem(blocoStandBy);
+        adicionarNumeroItem(bloco);
+    }
+
+    const pegarBlocoPeloStatus = (status) => {
+        switch (status) {
+            case 'pesquisa':
+                return blocoPesquisa;
+            case 'apresentacao':
+                return blocoApresentacao;
+            case 'negociacao':
+                return blocoNegociacao;
+            case 'avaliacao':
+                return blocoAvaliacao;
+            case 'minuta':
+                return blocoMinuta;
+            case 'standby':
+                return blocoStandBy;
+        }
+    }
+
+    /*
+    |--------------------------------------------------------------------------
+    | DRAG AND DROP
+    |--------------------------------------------------------------------------
+    */
+
+    const listaColuna = blocoProspeccao.querySelectorAll('.bloco_kambam_index .coluna_drop');
+    for (const item of listaColuna) {
+        new DragDrop()
+            .grupo('.bloco_kambam_index .coluna_drop')
+            .bloco(item)
+            .item('article')
+            .eventoMover(async e => {
+                manipularBlocoZero(e.to);
+            })
+            .eventoFim(e => {
+                atualizarStatusProspeccao(e.target, e.to, e.item);
+            })
+            .iniciar();
+    }
+
+    const manipularBlocoZero = atual => {
+        let blocoZero, quantidade;
+        for (const coluna of listaColuna) {
+            blocoZero = coluna.querySelector('.tarefa_zero');
+            quantidade = coluna.querySelectorAll('.bloco_kambam_item:not(.drag_drop_fantasma)').length;
+            if (quantidade == 0) {
+                blocoZero.classList.remove('display_none');
+                continue;
+            }
+            blocoZero.classList.add('display_none');
+        }
+        const blocoZeroAtual = atual.querySelector('.tarefa_zero');
+        blocoZeroAtual.classList.add('display_none');
+    };
+
+    /*
+    |--------------------------------------------------------------------------
+    | FUNÇÕES GERAIS
+    |--------------------------------------------------------------------------
+    */
+
+    const atualizarStatusContrato = async (item, id, status, dados = false) => {
         Loading.show();
 
         const body = new FormData();
         body.append('id', id);
         body.append('status', status);
+        if (dados && status == 'standby') {
+            body.append('motivo_standby', dados);
+        }
+        if (dados && status == 'inativo') {
+            body.append('motivo_perdido', dados);
+        }
         const resposta = await fetch(LINK + '/comercial-prospeccao/atualizar-status', {
             method: 'POST',
             body,
@@ -98,92 +254,24 @@ window.addEventListener('load', () => {
         adicionarBlocoZero(blocoAtual);
     };
 
-    /*
-    |--------------------------------------------------------------------------
-    | MOVER ITEM
-    |--------------------------------------------------------------------------
-    */
-    const moverParaBlocoAnterior = (item, id) => {
-        const blocoAtual = item.closest('.conteudo');
-        const blocoDestino = pegarBlocoAnterior(blocoAtual);
-        moverItem(blocoAtual, blocoDestino, item, id);
-    };
-    const moverParaBlocoProximo = (item, id) => {
-        const blocoAtual = item.closest('.conteudo');
-        const blocoDestino = pegarBlocoProximo(blocoAtual);
-        moverItem(blocoAtual, blocoDestino, item, id);
-    };
-    const pegarBlocoAnterior = bloco => {
-        const atual = bloco.getAttribute('data-prospeccao');
-        if (atual == 'abordagem') {
-            return false;
-        } else if (atual == 'apresentacao') {
-            return blocoAbordagem;
-        } else if (atual == 'negociacao') {
-            return blocoApresentacao;
-        } else if (atual == 'avaliacao') {
-            return blocoNegociacao;
-        } else if (atual == 'minuta') {
-            return blocoAvaliacao;
-        }
-    };
-    const pegarBlocoProximo = bloco => {
-        const atual = bloco.getAttribute('data-prospeccao');
-        if (atual == 'abordagem') {
-            return blocoApresentacao;
-        } else if (atual == 'apresentacao') {
-            return blocoNegociacao;
-        } else if (atual == 'negociacao') {
-            return blocoAvaliacao;
-        } else if (atual == 'avaliacao') {
-            return blocoMinuta;
-        } else if (atual == 'minuta') {
-            return false;
-        }
-    };
-
-    const moverItem = async (atual, destino, item, id) => {
-        if (false === destino || false === atual) {
-            return;
-        } else if (!(await Alerta.confirmar('Mover contrato!', 'Tem certeza que deseja mover esse contrato?', '!'))) {
-            return;
-        }
+    const atualizarStatusProspeccao = async (blocoAtual, blocoDestino, item) => {
+        const id = item.getAttribute('data-id');
+        const status = blocoDestino.getAttribute('data-prospeccao');
 
         Loading.show();
 
-        const status = destino.getAttribute('data-prospeccao');
-        const body = new FormData();
-        body.append('id', id);
-        body.append('prospeccao', status);
-
-        const resposta = await fetch(LINK + '/comercial-prospeccao/atualizar-prospeccao', {
-            method: 'POST',
-            body,
-        });
-        const json = await respostaJson(resposta, 'Erro ao mover o contrato, por favor, tente novamente.');
+        const resposta = await ajaxPost(LINK + '/comercial-prospeccao/atualizar-prospeccao', {
+            id,
+            'prospeccao' : status,
+        }, 'Mensagem de erro padrão');
 
         Loading.hide();
-        if (false === json) {
+
+        if(false === resposta) {
             return;
         }
-
-        const blocoZero = destino.querySelector('.tarefa_zero');
-        if (blocoZero) {
-            blocoZero.parentNode.removeChild(blocoZero);
-        }
-        const botaoAnterior = item.querySelector('.botao_item_anterior');
-        const botaoProximo = item.querySelector('.botao_item_proximo');
-        botaoAnterior.classList.remove('display_none');
-        botaoProximo.classList.remove('display_none');
-        if (status == 'abordagem') {
-            botaoAnterior.classList.add('display_none');
-        } else if (status == 'minuta') {
-            botaoProximo.classList.add('display_none');
-        }
-        destino.appendChild(item);
-        adicionarBlocoZero(atual);
-        adicionarNumeroItem(atual);
-        adicionarNumeroItem(destino);
+        adicionarNumeroItem(blocoAtual);
+        adicionarNumeroItem(blocoDestino);
     };
 
     const adicionarNumeroItem = bloco => {
@@ -197,4 +285,11 @@ window.addEventListener('load', () => {
             bloco.insertAdjacentHTML('afterbegin', htmlZero);
         }
     };
+
+    const removerBlocoZero = bloco => {
+        const blocoZero = bloco.querySelector('.tarefa_zero');
+        if (blocoZero) {
+            blocoZero.parentNode.removeChild(blocoZero);
+        }
+    }
 });

@@ -14,6 +14,7 @@ $Painel->coluna(callback: function () use ($Painel) {
             ->linha('origem', 'Origem')
             ->linha('mensagem', 'Mensagem');
     });
+
     $Painel->bloco('Usuário que indicou', callback: function () use ($Painel) {
         $Painel
             ->vazioBreak('quem_indicou', 'Usuário foi deletado e não existe mais.')
@@ -28,13 +29,20 @@ $Painel->coluna(callback: function () use ($Painel) {
             );
     });
 
+    $Painel->bloco(titulo: 'Dados da solicitação', callback: function () use ($Painel) {
+        $Painel
+            ->dataHora('data_criacao', 'Data de criação')
+            ->dataHora('data_atualizacao', 'Data da última atualização')
+            ->linha('status', 'Status');
+    });
+
     $Painel
         ->status(
             campo: 'status',
-            texto: 'Em Andamento',
-            inArray: [Status::NOVO],
+            texto: 'Em andamento',
+            inArray: ['Novo'],
             status: Status::ANDAMENTO,
-            mensagem: 'Tem certeza que deseja alterar o Status para Em Andamento?',
+            mensagem: 'Tem certeza que deseja alterar o status para Em Andamento?',
             cor: 'verde'
         );
 
@@ -42,9 +50,9 @@ $Painel->coluna(callback: function () use ($Painel) {
         ->status(
             campo: 'status',
             texto: 'Concluir',
-            inArray: [Status::ANDAMENTO],
+            inArray: ['Andamento'],
             status: Status::CONCLUIDO,
-            mensagem: 'Tem certeza que deseja alterar o Status para Concluído?',
+            mensagem: 'Tem certeza que deseja alterar o status para Concluído?',
             cor: 'verde'
         );
 
@@ -52,13 +60,14 @@ $Painel->coluna(callback: function () use ($Painel) {
         ->status(
             campo: 'status',
             texto: 'Cancelar',
-            inArray: [Status::ANDAMENTO],
+            inArray: ['Andamento'],
             status: Status::CANCELADO,
-            mensagem: 'Tem certeza que deseja alterar o Status para Cancelado?',
+            mensagem: 'Tem certeza que deseja alterar o status para Cancelado?',
             cor: 'vermelho'
         );
 });
 
 $Painel->replace(campo: 'origem', lista: (new Origem())->select());
+$Painel->replace(campo: 'status', lista: (new Status())->select());
 
 return $Painel;

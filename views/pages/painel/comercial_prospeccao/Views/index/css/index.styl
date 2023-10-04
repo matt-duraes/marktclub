@@ -1,3 +1,33 @@
+.botao_atualizar
+    color: #fff !important
+    font-size: 16px
+    background: $corLink
+    border-radius: 20px
+    width: 120px
+
+.botao_atualizar:hover
+    background: darken($corLink, 10%)
+    transition: background .3s ease-out
+
+.botao_cancelar
+    color: #fff !important
+    font-size: 16px
+    background: $corVermelho
+    border-radius: 20px
+    width: 120px
+
+.botao_cancelar:hover
+    background: darken($corVermelho, 10%)
+    transition: background .3s ease-out
+
+.bloco_pagina_popup ,conteudo_pagina_popup
+    .header_motivo
+        display: flex
+        flex-direction: row
+    .header_motivo h1
+        font-weight: bold
+        font-size: 16px
+
 .bloco_kambam_index .bloco_coluna
     .conteudo article
         width: 100%
@@ -5,7 +35,7 @@
         background: #FFF
         box-shadow: 0 4px 4px rgba(0,0,0,.1)
         border-radius: 4px
-        margin-top: 20px
+        margin-bottom: 20px
         transition: opacity .3s ease-out
         overflow: hidden
         flexCol()
@@ -39,6 +69,9 @@
         padding: 0 10px 0 12px
         margin: 5px 0 10px
         overflow: hidden
+    .conteudo .data_standby
+        width: 50% !important
+        margin: 0px !important
     .conteudo article .botao_link
         background-color: $corLink
         color: #FFF
@@ -46,6 +79,13 @@
         padding: 1px 10px
         border-radius: 20px
         margin-left: 10px
+    .conteudo article .botao_link_standby
+        margin-bottom: 10px
+    .conteudo article .status_standby
+        margin-left: 10px
+        margin-bottom: 10px
+        font-size: 1.5rem
+        color: #333
     .conteudo article .bloco
         width: 100%
         flexRow()
@@ -61,6 +101,8 @@
         cursor: pointer
     .conteudo article .bloco .inativar
     .conteudo article .bloco .ativar
+    .conteudo article .bloco .standby
+    .conteudo article .bloco .voltar
         width: 27px
         height: 27px
         flexCenter()
@@ -76,6 +118,10 @@
         background-color: $corVermelho
     .conteudo article .bloco .ativar
         background-color: $corVerde
+    .conteudo article .bloco .standby
+        background-color: #fbbf24
+    .conteudo article .bloco .voltar
+        background-color: #3b82f6
     .conteudo article .bloco .grow
         flexGrow()
     .conteudo article .bloco .linha

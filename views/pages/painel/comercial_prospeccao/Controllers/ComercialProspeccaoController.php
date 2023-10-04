@@ -2,6 +2,7 @@
 
 namespace Painel\ComercialProspeccao\Controllers;
 
+use App\Classes\ComercialEmpresa\Status;
 use Http\Request;
 use Helpers\ApiHelper;
 use Controller\Controller;
@@ -17,12 +18,13 @@ final class ComercialProspeccaoController extends Controller
         return view('comercial_prospeccao.index', [
             'app'             => 'comercial-prospeccao',
             'appTitulo'       => 'Prospecção',
-            'abordagem'       => $Prospeccao->listar(ProspeccaoStatus::ABORDAGEM),
+            'pesquisa'        => $Prospeccao->listar(ProspeccaoStatus::PESQUISA),
             'apresentacao'    => $Prospeccao->listar(ProspeccaoStatus::APRESENTACAO),
             'negociacao'      => $Prospeccao->listar(ProspeccaoStatus::NEGOCIACAO),
             'avaliacao'       => $Prospeccao->listar(ProspeccaoStatus::AVALIACAO),
             'minuta'          => $Prospeccao->listar(ProspeccaoStatus::MINUTA),
-            'primeiro_status' => ProspeccaoStatus::ABORDAGEM,
+            'standby'         => $Prospeccao->listar(status: Status::STANDBY),
+            'primeiro_status' => ProspeccaoStatus::PESQUISA,
             'ultimo_status'   => ProspeccaoStatus::MINUTA
         ]);
     }
@@ -44,11 +46,18 @@ final class ComercialProspeccaoController extends Controller
 
     public function postAtualizarStatus(Request $request)
     {
+        $body = [
+            'status' => $request->status,
+        ];
+        if ($request->motivo_standby) {
+            $body['motivo_standby'] = $request->motivo_standby;
+        }
+        if ($request->motivo_perdido) {
+            $body['motivo_perdido'] = $request->motivo_perdido;
+        }
         (new ApiHelper(token: true))
             ->validar('Erro ao mudar status do contrato, por favor, tente novamente.')
-            ->body([
-                'status' => $request->status
-            ])
+            ->body($body)
             ->put('/comercial-empresa/' . $request->id)
             ->object();
 

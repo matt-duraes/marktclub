@@ -116,9 +116,33 @@ return [
         'id'               => '++',
         'id_admin_empresa' => 1,
         'tipo'             => 3,
+        'titulo'           => 'Contato',
+        'url'              => '/app/comunicacao-contato',
+        'icone'            => '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 30 30"><path d="M19 7H24V9H19V7ZM17 12H24V14H17V12ZM20 17H24V19H20V17ZM2 22C2 17.5817 5.58172 14 10 14C14.4183 14 18 17.5817 18 22H16C16 18.6863 13.3137 16 10 16C6.68629 16 4 18.6863 4 22H2ZM10 13C6.685 13 4 10.315 4 7C4 3.685 6.685 1 10 1C13.315 1 16 3.685 16 7C16 10.315 13.315 13 10 13ZM10 11C12.21 11 14 9.21 14 7C14 4.79 12.21 3 10 3C7.79 3 6 4.79 6 7C6 9.21 7.79 11 10 11Z"></path></svg>',
+        'ordem'            => '++',
+        'menu'             => ['comunicacao-contato'],
+        'status'           => 1,
+        'permissao'        => '["comunicacao_contato_index"]'
+    ],
+    [
+        'id'               => '++',
+        'id_admin_empresa' => 1,
+        'tipo'             => 3,
+        'titulo'           => 'Popup',
+        'url'              => '/app/comunicacao-popup',
+        'icone'            => '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 30 30"><path d="M21 3C21.5523 3 22 3.44772 22 4V20C22 20.5523 21.5523 21 21 21H3C2.44772 21 2 20.5523 2 20V4C2 3.44772 2.44772 3 3 3H21ZM20 11H4V19H20V11ZM20 5H4V9H20V5ZM19 6V8H15V6H19Z"></path></svg>',
+        'ordem'            => '++',
+        'menu'             => ['comunicacao-popup'],
+        'status'           => 1,
+        'permissao'        => '["comunicacao_popup_index"]'
+    ],
+    [
+        'id'               => '++',
+        'id_admin_empresa' => 1,
+        'tipo'             => 3,
         'titulo'           => 'Pesquisa Satisfação',
         'url'              => '/app/enquete-satisfacao',
-        'icone'            => '<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 30 30" style="enable-background:new 0 0 30 30;" xml:space="preserve"><path d="M19.4,6.1v1.8h2.7c0.5,0,0.9,0.4,0.9,0.9V23c0,0.5-0.4,0.9-0.9,0.9H7.9C7.4,23.9,7,23.5,7,23V8.8c0-0.5,0.4-0.9,0.9-0.9h2.7V6.1H19.4z M10.6,9.7H8.8v12.4h12.4V9.7h-1.8v1.8h-8.9V9.7z M12.3,18.6v1.8h-1.8v-1.8H12.3z M12.3,15.9v1.8h-1.8v-1.8H12.3zM12.3,13.2V15h-1.8v-1.8H12.3z M17.7,7.9h-5.3v1.8h5.3V7.9z"/></svg>',
+        'icone'            => '<svg xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" viewBox="0 0 30 30" style="enable-background:new 0 0 30 30;" xml:space="preserve"><path d="M19.4,6.1v1.8h2.7c0.5,0,0.9,0.4,0.9,0.9V23c0,0.5-0.4,0.9-0.9,0.9H7.9C7.4,23.9,7,23.5,7,23V8.8c0-0.5,0.4-0.9,0.9-0.9h2.7V6.1H19.4z M10.6,9.7H8.8v12.4h12.4V9.7h-1.8v1.8h-8.9V9.7z M12.3,18.6v1.8h-1.8v-1.8H12.3z M12.3,15.9v1.8h-1.8v-1.8H12.3zM12.3,13.2V15h-1.8v-1.8H12.3z M17.7,7.9h-5.3v1.8h5.3V7.9z"/></svg>',
         'ordem'            => '++',
         'menu'             => ['enquete-satisfacao'],
         'status'           => 1,
@@ -164,7 +188,7 @@ return [
         'titulo'           => 'COMERCIAL',
         'ordem'            => '++',
         'status'           => 1,
-        'permissao'        => '["comercial_empresa_index", "comercial_prospeccao_index", "comercial_atendimento_index"]'
+        'permissao'        => '["comercial_empresa_index", "comercial_prospeccao_index", "comercial_perdido_index", "comercial_atendimento_index"]'
     ],
     [
         'id'               => '++',
@@ -189,6 +213,18 @@ return [
         'menu'             => ['comercial-prospeccao'],
         'status'           => 1,
         'permissao'        => '["comercial_prospeccao_index"]'
+    ],
+    [
+        'id'               => '++',
+        'id_admin_empresa' => 1,
+        'tipo'             => 3,
+        'titulo'           => 'Contratos Perdidos',
+        'url'              => '/app/comercial-perdido',
+        'icone'            => '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="6" height="6"><path d="M19 9H14V4H5V11.8571L6.5 13.25L10 9.5L13 14.5L15 12L18 15L15 14.5L13 17L10 13L7 16.5L5 15.25V20H19V9ZM21 8V20.9932C21 21.5501 20.5552 22 20.0066 22H3.9934C3.44495 22 3 21.556 3 21.0082V2.9918C3 2.45531 3.4487 2 4.00221 2H14.9968L21 8Z"></path></svg>',
+        'ordem'            => '++',
+        'menu'             => ['comercial-perdido'],
+        'status'           => 1,
+        'permissao'        => '["comercial_perdido_index"]'
     ],
     [
         'id'               => '++',
@@ -450,6 +486,18 @@ return [
         'menu'             => ['solicitacao-voucher'],
         'status'           => 1,
         'permissao'        => '["solicitacao_voucher_index"]'
+    ],
+    [
+        'id'               => '++',
+        'id_admin_empresa' => 1,
+        'tipo'             => 3,
+        'titulo'           => 'Crédito',
+        'url'              => '/app/solicitacao-credito',
+        'icone'            => '<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 30 30" style="enable-background:new 0 0 30 30;" xml:space="preserve"><path d="M24.1,12.1c0-0.3,0.1-0.6,0.3-0.9c0.3-0.3,0.4-0.8,0.4-1.2c0-0.4-0.2-0.8-0.5-1.1c-0.3-0.3-0.7-0.5-1.2-0.5H6.8C6.4,8.5,6,8.7,5.7,9c-0.3,0.3-0.5,0.7-0.5,1.1c0,0.4,0.1,0.8,0.4,1.2c0.2,0.2,0.3,0.5,0.3,0.9c0,0.4-0.2,0.7-0.4,1c-0.5,0.5-0.8,1.2-0.8,1.9c0,0.7,0.3,1.4,0.8,1.9c0.3,0.3,0.4,0.6,0.4,1c0,0.3-0.1,0.6-0.3,0.9c-0.3,0.3-0.4,0.8-0.4,1.2c0,0.4,0.2,0.8,0.5,1.1c0.3,0.3,0.7,0.5,1.1,0.5h16.4c0.4,0,0.8-0.2,1.2-0.5c0.3-0.3,0.5-0.7,0.5-1.1c0-0.4-0.1-0.8-0.4-1.2c-0.2-0.2-0.3-0.5-0.3-0.9c0-0.4,0.2-0.7,0.4-1c0.5-0.5,0.8-1.2,0.8-1.9c0-0.7-0.3-1.4-0.8-1.9C24.3,12.8,24.1,12.5,24.1,12.1L24.1,12.1z M23.5,16L23.5,16c-0.5,0.5-0.8,1.2-0.8,1.9c0,0.7,0.2,1.3,0.7,1.8c0.1,0.1,0.1,0.2,0,0.3c0,0.1-0.1,0.1-0.2,0.1H6.8c-0.1,0-0.2,0-0.2-0.1c0-0.1,0-0.2,0-0.3c0.4-0.5,0.7-1.1,0.7-1.8c0-0.7-0.3-1.4-0.8-1.9c-0.3-0.3-0.4-0.6-0.4-1s0.2-0.7,0.4-1c0.5-0.5,0.8-1.2,0.8-1.9c0-0.6-0.2-1.3-0.7-1.8c-0.1-0.1-0.1-0.2,0-0.3c0-0.1,0.1-0.1,0.2-0.1h16.4c0.1,0,0.2,0,0.2,0.1c0,0.1,0,0.2,0,0.3c-0.4,0.5-0.7,1.1-0.7,1.8c0,0.7,0.3,1.4,0.8,1.9c0.3,0.3,0.4,0.6,0.4,1C23.9,15.4,23.8,15.7,23.5,16L23.5,16z"/><path d="M17.4,12.6c-0.1-0.1-0.3-0.2-0.5-0.2c-0.2,0-0.4,0.1-0.5,0.2l-3.9,3.9c-0.1,0.1-0.2,0.3-0.2,0.5c0,0.2,0.1,0.4,0.2,0.5c0.1,0.1,0.3,0.2,0.5,0.2c0.2,0,0.4-0.1,0.5-0.2l3.9-3.9c0.1-0.1,0.2-0.3,0.2-0.5C17.6,12.9,17.6,12.7,17.4,12.6L17.4,12.6z"/><path d="M14,13.1c0,0.5-0.4,1-1,1s-1-0.4-1-1s0.4-1,1-1S14,12.5,14,13.1"/><path d="M17.9,16.9c0,0.5-0.4,1-1,1c-0.5,0-1-0.4-1-1c0-0.5,0.4-1,1-1C17.5,16,17.9,16.4,17.9,16.9"/></svg>',
+        'ordem'            => '++',
+        'menu'             => ['solicitacao-credito'],
+        'status'           => 1,
+        'permissao'        => '["solicitacao_credito_index"]'
     ],
     [
         'id'               => '++',

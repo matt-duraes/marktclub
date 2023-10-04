@@ -3,7 +3,7 @@
 return [
     [
         'uuid'             => uuid(),
-        'id_admin_empresa' => 1,
+        'id_admin_empresa' => rand(1, 49),
         'bg_frente'        => 'card_bg_asagu.png',
         'bg_fundo'         => 'asagu_catao.png',
         'texto_perdido'    => 'Se encontrado, favor entregar em qualquer ponto de atendimento da Marktclub.',
@@ -13,7 +13,7 @@ return [
     ],
     [
         'uuid'             => uuid(),
-        'id_admin_empresa' => 4,
+        'id_admin_empresa' => rand(1, 50),
         'bg_frente'        => 'card_bg_asagu.png',
         'bg_fundo'         => 'asagu_catao.png',
         'texto_perdido'    => 'Se encontrado, favor entregar em qualquer ponto de atendimento da ASAGU.',
@@ -22,7 +22,7 @@ return [
     ],
     [
         'uuid'             => uuid(),
-        'id_admin_empresa' => 2,
+        'id_admin_empresa' => rand(1, 50),
         'bg_frente'        => 'card_bg_asagu.png',
         'bg_fundo'         => 'asagu_catao.png',
         'texto_perdido'    => 'Se encontrado, favor entregar em qualquer ponto de atendimento da ANAFECARD.',
@@ -32,7 +32,7 @@ return [
     ],
     [
         'uuid'             => uuid(),
-        'id_admin_empresa' => 229,
+        'id_admin_empresa' => rand(1, 50),
         'bg_frente'        => 'frente_cemecard.png',
         'bg_fundo'         => null,
         'texto_perdido'    => 'Se encontrado, favor entregar em qualquer ponto de atendimento da CEMECARD.',
@@ -41,7 +41,7 @@ return [
     ],
     [
         'uuid'             => uuid(),
-        'id_admin_empresa' => 82,
+        'id_admin_empresa' => rand(1, 50),
         'bg_frente'        => 'frente_sinpoldf.png',
         'bg_fundo'         => 'fundo_sinpoldf.png',
         'texto_perdido'    => 'Se encontrado, favor entregar em qualquer ponto de atendimento da CEMECARD.',
