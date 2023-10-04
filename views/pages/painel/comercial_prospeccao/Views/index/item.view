@@ -12,10 +12,5 @@
         <i class="inativar botao_item_cancelar" data-ajuda="Cancelar contrato">@iconeFechar(10)</i>
         <i class="ativar botao_item_concluir" data-ajuda="Concluir contrato">@iconeCheck(12)</i>
         <i class="standby botao_item_standby" data-ajuda="Stand-by contrato">@iconeRelogio()</i>
-
-        <div class="grow"></div>
-
-        <i class="seta botao_item_anterior {!!$r->status == $primeiro_status ? 'display_none' : ''!!}" data-ajuda="Voltar contrato">@iconeSetaEsquerda(18)</i>
-        <i class="seta botao_item_proximo {!!$r->status == $ultimo_status ? 'display_none' : ''!!}" data-ajuda="Avançar contrato">@iconeSetaDireita(18)</i>
     </div>
 </article>

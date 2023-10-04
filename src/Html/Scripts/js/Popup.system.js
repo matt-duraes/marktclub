@@ -10,14 +10,14 @@ class Popup {
      * @param {bool} fechar Se a página terá o botao de fechar
      * @param {bool} historico Se o navegador vai monitorar o histórico para abrir e fechar a página
      */
-    constructor(titulo, bloco, fechar, historico, callback) {
+    constructor(titulo, bloco, botaoFechar, historico, callback) {
         if (titulo == undefined || titulo == '') {
             return;
         }
         const linkExplode = window.location.href.split('#');
         this.linkAtual = linkExplode[0];
         this.historico = historico !== undefined ? historico : true;
-        this.fechar = fechar !== undefined ? fechar : true;
+        this.botaoFechar = botaoFechar !== undefined ? botaoFechar : true;
 
         this.titulo = titulo;
         this.callback = callback;

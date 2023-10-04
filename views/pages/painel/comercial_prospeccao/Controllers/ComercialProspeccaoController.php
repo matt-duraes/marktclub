@@ -46,11 +46,18 @@ final class ComercialProspeccaoController extends Controller
 
     public function postAtualizarStatus(Request $request)
     {
+        $body = [
+            'status' => $request->status,
+        ];
+        if ($request->motivo_standby) {
+            $body['motivo_standby'] = $request->motivo_standby;
+        }
+        if ($request->motivo_perdido) {
+            $body['motivo_perdido'] = $request->motivo_perdido;
+        }
         (new ApiHelper(token: true))
             ->validar('Erro ao mudar status do contrato, por favor, tente novamente.')
-            ->body([
-                'status' => $request->status
-            ])
+            ->body($body)
             ->put('/comercial-empresa/' . $request->id)
             ->object();
 

@@ -6,6 +6,7 @@ use Helpers\ListaHelper;
 use App\Classes\ComercialEmpresa\Origem;
 use App\Classes\ComercialEmpresa\CanalPreferencia;
 use App\Classes\ComercialEmpresa\FormatoReuniao;
+use App\Classes\ComercialEmpresa\EtapaNegociacao;
 
 $Painel = new PainelConfig\Add(app: 'comercial-empresa', acao: $acao);
 
@@ -55,18 +56,18 @@ $Painel->coluna(callback: function () use ($Painel) {
 $Painel->coluna(callback: function () use ($Painel) {
     $Painel->fieldset('Dados de pesquisa', function () use ($Painel) {
         $Painel
-            ->checkbox(name: 'parceiro_proprio', label: 'Parceiro próprio')
-            ->checkbox(name: 'contratou_concorrente', label: 'Contratou concorrente')
-            ->input(name: 'qual_concorrente', label: 'Qual concorrente')
+            ->switch(name: 'parceiro_proprio', label: 'Parceiro próprio')
+            ->switch(name: 'concorrente_status', label: 'Contratou concorrente')
+            ->input(name: 'concorrente_nome', label: 'Qual concorrente')
             ->select(name: 'origem', label: 'Origem', lista: (new Origem())->select('Escolha uma opção'))
-            ->numero(name: 'base_usuarios', label: 'Base de usuários');
+            ->numero(name: 'usuario_possivel', label: 'Base de usuários');
     });
 });
 
 $Painel->coluna(callback: function () use ($Painel) {
     $Painel->fieldset('Dados de apresentação', function () use ($Painel) {
         $Painel
-            ->select(name: 'canal_preferencia', label: 'Canal de preferência', lista: (new CanalPreferencia())->select('Escolha uma opção'))
+            ->select(name: 'contato_preferencial', label: 'Canal de preferência', lista: (new CanalPreferencia())->select('Escolha uma opção'))
             ->data(name: 'data_apresentacao', label: 'Data de apresentação', placeholder: 'Data de apresentação')
             ->select(name: 'formato_reuniao', label: 'Formato da reunião', lista: (new FormatoReuniao())->select('Escolha uma opção'));
     });
@@ -76,8 +77,7 @@ $Painel->coluna(callback: function () use ($Painel) {
     $Painel->fieldset('Negociação', function () use ($Painel) {
         $Painel
             ->data(name: 'devolutiva', label: 'Devolutiva', placeholder: 'Devolutiva')
-            ->numero('nivel_decisao', 'Nível de decisão', maximo: 1)
-            ->numero('etapa_negociacao', 'Etapa', maximo: 1);
+            ->select(name: 'etapa_negociacao', label: 'Etapa', lista: (new EtapaNegociacao())->select('Escolha uma opção'));
     });
 });
 

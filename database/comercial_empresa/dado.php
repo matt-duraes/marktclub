@@ -139,14 +139,14 @@ for ($i = 2; $i <= 50; $i++) {
     ];
 
     if ($i % 3 == 0) {
-        $dado[$i]['contratou_concorrente'] = rand(0, 1);
-        $dado[$i]['qual_concorrente'] = nomeAleatorio();
+        $dado[$i]['concorrente_status'] = 1;
+        $dado[$i]['concorrente_nome'] = nomeAleatorio();
         $dado[$i]['origem'] = valorAleatorio($listaOrigem);
-        $dado[$i]['base_usuarios'] = rand(1, 10000);
+        $dado[$i]['usuario_possivel'] = rand(1, 10000);
     }
 
     if ($i % 2 == 0) {
-        $dado[$i]['canal_preferencia'] = valorAleatorio($listaCanalPreferencia);
+        $dado[$i]['contato_preferencial'] = valorAleatorio($listaCanalPreferencia);
         $dado[$i]['data_apresentacao'] = dataPassadaAleatorio();
         $dado[$i]['formato_reuniao'] = valorAleatorio($listaFormatoReuniao);
     }

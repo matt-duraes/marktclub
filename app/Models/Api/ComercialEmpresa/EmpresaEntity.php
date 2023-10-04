@@ -5,6 +5,7 @@ namespace App\Models\Api\ComercialEmpresa;
 use App\Classes\ComercialEmpresa\CanalPreferencia;
 use App\Classes\ComercialEmpresa\FormatoReuniao;
 use App\Classes\ComercialEmpresa\Origem;
+use App\Classes\ComercialEmpresa\EtapaNegociacao;
 use ORM\Entity;
 use Modules\Cpf;
 use Modules\Cnpj;
@@ -47,9 +48,9 @@ final class EmpresaEntity extends Entity
         'comunicacao_whatsapp', 'comunicacao_rede_social', 'email_disparo', 'prospeccao_status',
         'observacao_ti', 'observacao_comunicacao', 'observacao_financeiro', 'restricao_lista', 'contrato_data',
         'contrato_dia_pagamento', 'cobrar_aposentado', 'contrato_valor', 'contrato_valor_minimo',
-        'contrato_usuario_minimo', 'contrato_dia_fechamento', 'parceiro_proprio', 'contratou_concorrente', 'qual_concorrente',
-        'origem', 'base_usuarios', 'canal_preferencia', 'data_apresentacao', 'formato_reuniao', 'previsao_retorno', 'motivo_standby',
-        'motivo_standby', 'motivo_perdido', 'devolutiva', 'nivel_decisao', 'etapa_negociacao'
+        'contrato_usuario_minimo', 'contrato_dia_fechamento', 'parceiro_proprio', 'concorrente_status', 'concorrente_nome',
+        'origem', 'usuario_possivel', 'contato_preferencial', 'data_apresentacao', 'formato_reuniao', 'previsao_retorno', 'motivo_standby',
+        'motivo_standby', 'motivo_perdido', 'devolutiva', 'etapa_negociacao'
     ];
     protected array $ormSalvar = [
         'finalidade_empresa' => '->finalidade_principal',
@@ -62,9 +63,9 @@ final class EmpresaEntity extends Entity
         'comunicacao_whatsapp', 'comunicacao_rede_social', 'email_disparo', 'prospeccao_status',
         'observacao_ti', 'observacao_comunicacao', 'observacao_financeiro', 'restricao_lista', 'contrato_data',
         'contrato_dia_pagamento', 'cobrar_aposentado', 'contrato_valor', 'contrato_valor_minimo',
-        'contrato_usuario_minimo', 'contrato_dia_fechamento', 'parceiro_proprio', 'contratou_concorrente', 'qual_concorrente',
-        'origem', 'base_usuarios', 'canal_preferencia', 'data_apresentacao', 'formato_reuniao', 'previsao_retorno', 'motivo_standby',
-        'motivo_standby', 'motivo_perdido', 'devolutiva', 'nivel_decisao', 'etapa_negociacao'
+        'contrato_usuario_minimo', 'contrato_dia_fechamento', 'parceiro_proprio', 'concorrente_status', 'concorrente_nome',
+        'origem', 'usuario_possivel', 'contato_preferencial', 'data_apresentacao', 'formato_reuniao', 'previsao_retorno', 'motivo_standby',
+        'motivo_standby', 'motivo_perdido', 'devolutiva', 'etapa_negociacao'
     ];
     protected string $ormValidarSalvar = '
         titulo|Título|vazio
@@ -127,12 +128,12 @@ final class EmpresaEntity extends Entity
     public string $observacao_ti;
     public string $observacao_comunicacao;
     public Botao $parceiro_proprio;
-    public Botao $contratou_concorrente;
-    public string $qual_concorrente;
+    public Botao $concorrente_status;
+    public string $concorrente_nome;
     public Origem $origem;
-    public int $base_usuarios;
-    public CanalPreferencia $canal_preferencia;
-    public string $data_apresentacao;
+    public int $usuario_possivel;
+    public CanalPreferencia $contato_preferencial;
+    public Data $data_apresentacao;
     public FormatoReuniao $formato_reuniao;
     public string $observacao_financeiro;
     public array $restricao_lista;
@@ -140,8 +141,7 @@ final class EmpresaEntity extends Entity
     public string $motivo_standby;
     public string $motivo_perdido;
     public Data $devolutiva;
-    public int $nivel_decisao;
-    public int $etapa_negociacao;
+    public EtapaNegociacao $etapa_negociacao;
     private bool $atualizarValor = false;
 
     protected function regraInsert()

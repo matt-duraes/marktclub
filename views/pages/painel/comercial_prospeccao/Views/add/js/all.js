@@ -18,4 +18,18 @@ window.addEventListener('load', () => {
         blocoFieldsetPerdido.style.display = '';
     }
 
+    const input_contratou_concorrente = document.getElementById('input_contratou_concorrente')
+    const input_qual_concorrente = document.getElementById('input_qual_concorrente')
+
+    if(!input_qual_concorrente.value) {
+        input_qual_concorrente.parentNode.style.display = 'none';
+    }
+
+    input_contratou_concorrente.addEventListener('change', () => {
+        if (input_contratou_concorrente.value === 'sim') {
+            input_qual_concorrente.parentNode.style.display = '';
+        } else {
+            input_qual_concorrente.parentNode.style.display = 'none';
+        }
+    })
 });
