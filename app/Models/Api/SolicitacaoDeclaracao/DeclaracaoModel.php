@@ -6,7 +6,6 @@ use App\Classes\Solicitacao\Status;
 use App\Classes\SolicitacaoDeclaracao\Ordem;
 use App\Models\Api\Trait\ValidarEmpresaTrait;
 use Erro\Excecao;
-use Http\Request;
 use Modules\Data;
 use Modules\Pagina;
 use Modules\Quantidade;
@@ -17,7 +16,8 @@ use System\Trait\Model\OrdemTrait;
 use System\Trait\Model\PaginaTrait;
 use System\Trait\Model\QuantidadeTrait;
 
-class DeclaracaoModel extends ORM implements ModelListarInterface
+class DeclaracaoModel extends ORM implements
+    ModelListarInterface
 {
     use ValidarEmpresaTrait;
     use PaginaTrait;
@@ -25,42 +25,51 @@ class DeclaracaoModel extends ORM implements ModelListarInterface
     use OrdemTrait;
 
     protected string $ormTabela = TABELA_SOLICITACAO_DECLARACAO;
+    protected ?int $idEmpresa;
 
     /**
-     * @param Request $request
+     * @param Pagina      $pagina
+     * @param Quantidade  $quantidade
+     * @param Ordem       $ordem
+     * @param string|null $titulo
+     * @param string|null $empresa
+     * @param Data        $dataInicio
+     * @param Data        $dataFinal
+     * @param Status      $status
      *
      * @throws Excecao
      */
     public function __construct(
-        private Pagina $pagina = new Pagina(null),
-        private Quantidade $quantidade = new Quantidade(null),
-        private Data $dataCriacaoDe = new Data(null),
-        private Data $dataCriacaoAte = new Data(null),
-        private Status $status = new Status(null),
-        private ?string $empresa = null,
-        private Ordem $ordem = new Ordem(null)
+        private readonly Pagina $pagina = new Pagina(),
+        private readonly Quantidade $quantidade = new Quantidade(),
+        private readonly Ordem $ordem = new Ordem(),
+        private readonly ?string $titulo = null,
+        private readonly ?string $empresa = null,
+        private readonly Data $dataInicio = new Data(),
+        private readonly Data $dataFinal = new Data(),
+        private readonly Status $status = new Status()
     ) {
         $this->validarEmpresa();
-        $this->validarDado();
+        $this->validarDados();
         parent::__construct();
     }
 
     /**
      * @throws Excecao
      */
-    private function validarDado(): void
+    private function validarDados(): void
     {
-        if (!$this->dataCriacaoDe->vazio() && !$this->dataCriacaoDe->eDate()) {
-            mensagemErro('Campo inválido!', 'A data de criação de início não está no formato válido.');
+        if (!$this->dataInicio->vazio() && !$this->dataInicio->eData()) {
+            mensagemErro('Campo inválido!', 'A data início não está no formato válido.');
         }
-        if (!$this->dataCriacaoAte->vazio() && !$this->dataCriacaoAte->eDate()) {
-            mensagemErro('Campo inválido!', 'A data de criação final não está no formato válido.');
+        if (!$this->dataFinal->vazio() && !$this->dataFinal->eData()) {
+            mensagemErro('Campo inválido!', 'A data final não está no formato válido.');
+        }
+        if (!$this->ordem->vazio() && !$this->ordem->valido()) {
+            mensagemErro('Campo inválido!', 'A Ordem informada não é válida.');
         }
         if (!$this->status->vazio() && !$this->status->valido()) {
             mensagemErro('Campo inválido!', 'O Status informado não é válido.');
-        }
-        if (!$this->ordem->vazio() && !$this->ordem->valido()) {
-            mensagemErro('Campo inválido!', 'A ordem informada não é válida.');
         }
     }
 
@@ -74,12 +83,15 @@ class DeclaracaoModel extends ORM implements ModelListarInterface
             ->campo([
                 'uuid', 'status', 'data_criacao', 'data_atualizacao'
             ])
-            ->pagina($this->pegarPagina(), $this->pegarQuantidade())
             ->where($this->pegarWhere(), false)
+            ->pagina($this->pegarPagina(), $this->pegarQuantidade())
             ->order($this->pegarOrdem(new Ordem()))
             ->tabela(TABELA_PARCEIRO_LOJA)
-            ->join('id', 'id_parceiro_loja')
-            ->campo(['titulo'], as: 'parceiro')
+            ->where($this->pegarWhereParceiro(), false)
+            ->join('id', 'vinculo')
+            ->campo([
+                'titulo'
+            ], 'parceiro')
             ->read();
 
         $dado->lista = $this->montarRetorno($dado->lista);
@@ -93,20 +105,32 @@ class DeclaracaoModel extends ORM implements ModelListarInterface
     {
         $where = $this->ormWherePadrao;
 
+        if ($this->dataInicio->valido() && $this->dataFinal->valido()) {
+            $where[] = [
+                'data_criacao', 'between', [$this->dataInicio->date(), $this->dataFinal->date() . ' 23:59:59']
+            ];
+        } elseif ($this->dataInicio->valido()) {
+            $where[] = ['data_criacao', '>=', $this->dataInicio->date()];
+        } elseif ($this->dataFinal->valido()) {
+            $where[] = ['data_criacao', '<=', $this->dataFinal->date() . ' 23:59:59'];
+        }
+
         if ($this->status->valido()) {
             $where[] = ['status', $this->status->numero()];
         }
 
-        if ($this->dataCriacaoDe->valido() && $this->dataCriacaoAte->valido()) {
-            $where[] = [
-                'data_criacao', 'between', [$this->dataCriacaoDe->date(), $this->dataCriacaoAte->date() . ' 23:59:59']
-            ];
-        } elseif ($this->dataCriacaoDe->valido()) {
-            $where[] = ['data_criacao', '>=', $this->dataCriacaoDe->date()];
-        } elseif ($this->dataCriacaoAte->valido()) {
-            $where[] = ['data_criacao', '<=', $this->dataCriacaoAte->date() . ' 23:59:59'];
-        }
+        return $where;
+    }
 
+    /**
+     * @return array
+     */
+    protected function pegarWhereParceiro(): array
+    {
+        $where = [];
+        if (!empty($this->titulo)) {
+            $where[] = ['titulo', 'LIKE', '%' . $this->titulo . '%'];
+        }
         return $where;
     }
 
@@ -115,21 +139,23 @@ class DeclaracaoModel extends ORM implements ModelListarInterface
      *
      * @return array
      */
-    protected function montarRetorno(array $dado): array
+    protected function montarRetorno(array $declaracoes): array
     {
-        if (empty($dado)) {
-            return [];
+        if (empty($declaracoes)) {
+            return $declaracoes;
         }
 
         $Status = new Status();
         $retorno = [];
-        foreach ($dado as $r) {
+        foreach ($declaracoes as $declaracao) {
             $retorno[] = [
-                'id'               => $r->uuid,
-                'parceiro'         => $r->parceiro_titulo,
-                'data_criacao'     => $r->data_criacao,
-                'data_atualizacao' => $r->data_atualizacao,
-                'status'           => $Status->indice($r->status)
+                'id'               => $declaracao->uuid,
+                'parceiro'         => [
+                    'nome' => $declaracao->parceiro_titulo
+                ],
+                'status'           => $Status->indice($declaracao->status),
+                'data_criacao'     => $declaracao->data_criacao,
+                'data_atualizacao' => $declaracao->data_atualizacao
             ];
         }
         return $retorno;

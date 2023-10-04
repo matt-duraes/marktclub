@@ -2,19 +2,25 @@
 
 namespace App\Models\Api\SolicitacaoDeclaracao;
 
-use ORM\Entity;
-use Helpers\OrmHelper;
 use App\Classes\Solicitacao\Status;
 use App\Models\Api\Trait\ValidarEmpresaTrait;
+use Erro\Excecao;
+use Helpers\OrmHelper;
+use ORM\Entity;
 
 class DeclaracaoEntity extends Entity
 {
     use ValidarEmpresaTrait;
 
+    public array $usuario;
+    public array|string $parceiro;
+    public string $modelo;
+    public string $versao;
+    public Status $status;
     protected string $ormTabela = TABELA_SOLICITACAO_DECLARACAO;
     protected array $ormBuscar = [
-        'id_admin_empresa', 'id_usuario_cliente', 'id_parceiro_loja', 'data_criacao',
-        'data_atualizacao', 'modelo', 'versao', 'status'
+        'id_admin_empresa', 'id_usuario_cliente', 'id_parceiro_loja',
+        'modelo', 'versao', 'data_criacao', 'data_atualizacao', 'status'
     ];
     protected array $ormInsert = [
         'id_admin_empresa'   => '->idEmpresa',
@@ -36,18 +42,20 @@ class DeclaracaoEntity extends Entity
     protected int $id_admin_empresa;
     protected int $id_usuario_cliente;
     protected int $id_parceiro_loja;
-    public array $usuario;
-    public string|array $parceiro;
-    public string $modelo;
-    public string $versao;
-    public Status $status;
 
+    /**
+     * @throws Excecao
+     */
     public function __construct()
     {
         $this->validarEmpresa();
         parent::__construct();
     }
 
+    /**
+     * @return void
+     * @throws Excecao
+     */
     public function regraInsert(): void
     {
         if (!$this->propriedadeExiste('idUsuario') || empty($this->idUsuario)) {
@@ -56,7 +64,10 @@ class DeclaracaoEntity extends Entity
         $this->setarParceiro();
     }
 
-    private function setarParceiro()
+    /**
+     * @throws Excecao
+     */
+    private function setarParceiro(): void
     {
         if (empty($this->parceiro)) {
             mensagemErro('Campo obrigatório!', 'O campo parceiro é obrigatório.');
@@ -68,43 +79,45 @@ class DeclaracaoEntity extends Entity
         $this->id_parceiro_loja = $idParceiro;
     }
 
-    protected function regraPosBuscar()
+    protected function regraPosBuscar(): void
     {
         $this->buscarParceiro();
         $this->buscarUsuario();
     }
 
-    private function buscarParceiro()
+    private function buscarParceiro(): void
     {
         $parceiro = (new OrmHelper(TABELA_PARCEIRO_LOJA))->pegarUltimoRegistro(
-            where: ['id', $this->id_parceiro_loja],
-            campo: ['uuid', 'titulo'],
-            retorno: 'object'
+            ['id', $this->id_parceiro_loja],
+            ['uuid', 'titulo'],
+            'object'
         );
         if (!$parceiro) {
             $this->parceiro = [
-                'id'     => '',
-                'titulo' => 'Sem parceiro'
+                'id'   => '',
+                'nome' => 'Sem parceiro'
             ];
+            return;
         }
         $this->parceiro = [
-            'id'     => $parceiro->uuid,
-            'titulo' => $parceiro->titulo
+            'id'   => $parceiro->uuid,
+            'nome' => $parceiro->titulo
         ];
     }
 
-    private function buscarUsuario()
+    private function buscarUsuario(): void
     {
         $usuario = (new OrmHelper(TABELA_USUARIO_CLIENTE))->pegarUltimoRegistro(
-            where: ['id', $this->id_usuario_cliente],
-            campo: ['uuid', 'nome'],
-            retorno: 'object'
+            ['id', $this->id_usuario_cliente],
+            ['uuid', 'nome'],
+            'object'
         );
         if (!$usuario) {
             $this->usuario = [
                 'id'   => '',
                 'nome' => 'Sem usuário'
             ];
+            return;
         }
         $this->usuario = [
             'id'   => $usuario->uuid,

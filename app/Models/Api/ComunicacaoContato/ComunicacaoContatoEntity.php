@@ -21,7 +21,7 @@ class ComunicacaoContatoEntity extends Entity
     public string $mensagem;
     public string $url;
     public Status $status;
-    public array $parceiro;
+    public array $empresa;
     protected string $ormTabela = TABELA_COMUNICACAO_CONTATO;
     protected array $ormBuscar = [
         'id_admin_empresa', 'nome', 'email',
@@ -60,13 +60,20 @@ class ComunicacaoContatoEntity extends Entity
     public function regraPosBuscar(): void
     {
         if (empty($this->id_admin_empresa)) {
+            $this->empresa = [
+                'id'   => '',
+                'nome' => ''
+            ];
             return;
         }
 
-        $parceiro = (new OrmHelper(TABELA_COMERCIAL_EMPRESA))
-            ->pegarPrimeiroRegistro(['id', $this->id_admin_empresa], ['nome_fantasia']);
-        $this->parceiro = [
-            'nome' => $parceiro['nome_fantasia']
+        $empresa = (new OrmHelper(TABELA_COMERCIAL_EMPRESA))
+            ->pegarPrimeiroRegistro(['id', $this->id_admin_empresa], [
+                'uuid', 'nome_fantasia'
+            ]);
+        $this->empresa = [
+            'id'   => $empresa['uuid'],
+            'nome' => $empresa['nome_fantasia']
         ];
     }
 }

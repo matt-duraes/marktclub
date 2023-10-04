@@ -133,7 +133,8 @@ $scope = [
 
     'parceiro_cupom:buscar', 'parceiro_cupom:listar', 'parceiro_cupom:atualizar',
 
-    'contato:salvar', 'contato:listar', 'contato:buscar',
+    'contato:buscar', 'contato:listar', 'contato:salvar',
+    'contato:atualizar',
 
     'mensagem_indicacao_parceiro:salvar', 'mensagem_indicacao_parceiro:listar', 'mensagem_indicacao_parceiro:buscar',
 

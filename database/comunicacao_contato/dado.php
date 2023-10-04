@@ -8,7 +8,7 @@ $seeds = [];
 for ($i = 0; $i < env('QTD_SEEDS', 50); $i++) {
     $seeds[] = [
         'uuid'             => uuid(),
-        'id_admin_empresa' => rand(1, 50),
+        'id_admin_empresa' => 1,
         'nome'             => nomeCompletoAleatorio(),
         'email'            => emailAleatorio(),
         'mensagem'         => 'Lorem ipsum dolor sit amet, consectetur adipisicing elit.
@@ -17,5 +17,4 @@ for ($i = 0; $i < env('QTD_SEEDS', 50); $i++) {
         'status'           => valorAleatorio($listaStatus)
     ];
 }
-
 return $seeds;
