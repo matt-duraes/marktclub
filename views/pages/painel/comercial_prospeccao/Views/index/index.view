@@ -1,13 +1,13 @@
 @template "painel"
 
 <!--Bloco do popup standby -->
-<div class="bloco_pagina_popup display_none" id="bloco_motivo">
+<div class="bloco_pagina_popup display_none bloco_motivo">
     <div class="conteudo_pagina_popup popup_conteudo">
         <header class="header_pagina_popup">
             <h1 id="h1_motivo">Motivo Stand BY</h1>
             <i class="popup_fechar fechar botao_fechar">@iconeFechar</i>
         </header>
-        <form id="form_motivo" class="form_geral conteudo_pagina_popup">
+        <form class="form_geral conteudo_pagina_popup form_motivo">
             @? formInput(name: 'motivo', label: 'Motivo Stand BY', placeholder: 'Digite o motivo do stand by', value: '')
             <div class="footer_pagina_popup">
                 <div class="flex"></div>
@@ -25,11 +25,11 @@
                 <div class="flex"></div>
                 <a href="{{LINK}}/app/add/comercial-prospeccao" class="botao">Add</a>
             </header>
-            <div class="conteudo coluna_drop" id="bloco_abordagem" data-prospeccao="abordagem">
-                @ifforeach($abordagem as $r):
+            <div class="conteudo coluna_drop" id="bloco_pesquisa" data-prospeccao="pesquisa">
+                @ifforeach($pesquisa as $r):
                 @view painel/comercial_prospeccao/index/item.view
                 @endifforeach;
-                <div class="tarefa_zero {{$abordagem ? 'display_none' : ''}}">Sem itens<br> no momento</div>
+                <div class="tarefa_zero {{$pesquisa ? 'display_none' : ''}}">Sem itens<br> no momento</div>
             </div>
         </section>
 
@@ -78,6 +78,18 @@
                 @view painel/comercial_prospeccao/index/item.view
                 @endifforeach;
                 <div class="tarefa_zero {{$minuta ? 'display_none' : ''}}">Sem itens<br> no momento</div>
+            </div>
+        </section>
+
+        <section class="bloco_coluna">
+            <header>
+                <h1>Stand by <span>({!!count($standby)!!})</span></h1>
+            </header>
+            <div class="conteudo" id="bloco_standby" data-prospeccao="standby">
+                @ifforeach($standby as $r):
+                @view painel/comercial_prospeccao/index/item_standby.view
+                @endifforeach;
+                <div class="tarefa_zero {{$standby ? 'display_none' : ''}}">Sem itens<br> no momento</div>
             </div>
         </section>
 
