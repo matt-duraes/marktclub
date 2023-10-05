@@ -50,8 +50,8 @@ final class SolicitacaoCreditoTest extends Clube
                 'pagina'           => 1,
                 'tipo'             => '',
                 'status'           => '',
-                'data_criacao_de'  => '',
-                'data_criacao_ate' => ''
+                'data_inicio'  => '',
+                'data_final' => ''
             ])
             ->get('/solicitacao-credito');
 

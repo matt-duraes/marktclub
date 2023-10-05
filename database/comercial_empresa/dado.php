@@ -110,7 +110,7 @@ for ($i = 2; $i <= 50; $i++) {
 
     $dado[$i] = [
         'id'                      => $i,
-        'cod'                     => uuid(),
+        'cod'                     => $i == 2 ? '0ffc5c56b99f81ca0edea8bdf524b688' : uuid(), // Valor fixado para testes
         'id_usuario_equipe'       => 1,
         'titulo'                  => $nome,
         'razao_social'            => $nome,
