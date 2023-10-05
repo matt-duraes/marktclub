@@ -97,4 +97,40 @@ final class PerfilController extends Controller
     {
         return (new DadosModel())->postImagemSocial($request);
     }
+
+    /*
+    |--------------------------------------------------------------------------
+    | PONTO MAIS AÇÃO CVS
+    |--------------------------------------------------------------------------
+    */
+
+    public function pontoCvs()
+    {
+        $cvs = (object)(new DadosModel())->cvs();
+        $erro = !empty($cvs->erro) ? $cvs->texto : '';
+        $resultado = isset($cvs->dado) ? $cvs->dado  : [];
+
+        return view('perfil.ponto_cvs', [
+            'r' => $resultado,
+            'erro' => $erro
+        ]);
+    }
+
+    public function popupSolicitaPontoCvs()
+    {
+        return view('perfil.solicita_cvs');
+    }
+
+    public function postCvsSolicitar(Request $request)
+    {
+        if (!in_array($_SESSION['CLUBE']->id, ['5cc28dab736cb7d4ef436ee2447a07ee', '80b010d457c4329f4aadacd5b57766c8'])) {
+            return mensagemErro('Erro','Não foi possível acessar' ,status: 404);
+        }
+        return (new DadosModel())->solicitarPontoCvs($request);
+    }
+
+    public function buscarMais()
+    {
+
+    }
 }

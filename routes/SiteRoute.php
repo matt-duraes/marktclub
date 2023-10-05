@@ -666,6 +666,19 @@ Route
             ::nome('buscarCep')
             ::request(['cep'])
             ::post('/perfil/buscar-cep');
+        Route
+            ::nome('pontoCvs')
+            ::view('/perfil/ponto-cvs');
+        Route
+            ::nome('popupSolicitaPontoCvs')
+            ::view('/popup/solicita-ponto-cvs');
+        Route
+            ::nome('cvsSolicitar')
+            ::request(['email', 'ponto', '!nome'])
+            ::post('/ponto-cvs/solicitar');
+        Route
+            ::nome('buscarMais')
+            ::view('/ponto-cvs/buscar-mais');
     });
 
 Route

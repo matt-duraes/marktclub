@@ -1,0 +1,317 @@
+@resource "site/variavel"
+@resource "site/mixim"
+@template "site"
+@resource "site/form_geral"
+
+#bloco__perfil--cashback
+    width: 100%
+    display: flex
+    flex-direction: column
+#bloco__perfil--cashback .logo-silium
+    width: 100%
+    text-align: center
+    display: flex
+    align-items: center
+    justify-content: center
+    margin-bottom: 20px
+    img
+        max-width: 300px
+        width: 100%
+#bloco__perfil--cashback .cashback
+    width: 100%
+    display: flex
+    align-items: flex-start
+    flex-direction: column
+    .cashback__regulamento--descricao
+        width: 100%
+        padding: 10px
+        borda-padrao()
+        background: #FFF
+        p
+            font-size: 1.4em
+            line-height: 1.5em
+            margin: 10px 0
+            &:last-child
+                font-size: 1.2em
+                color: #666
+                margin-top: 20px
+    .cashback__regulamento--link
+        width: 200px
+        height: 25px
+        borda-padrao()
+        display: flex
+        align-items: center
+        justify-content: center
+        font-size: 1.2em
+        line-height: 25px
+        border-color: #2222aa
+        color: #2222aa
+        margin-top: 10px
+    .cashback__regulamento--link.cvs
+        background-image: linear-gradient(#3333BF, #2222AA)
+        color: #D4D4FF
+        border-radius: 5px
+        border: unset
+    .botao_extrato-cvs
+        width: 200px
+        height: 25px
+        borda-padrao()
+        font-size: 1.2em
+        line-height: 25px
+        border-color: #2222aa
+        color: #2222aa
+        margin-top: 10px
+        margin-left: 10px
+        padding: 10px 20px
+    .cashback__saldo
+        width: 100%
+        display: flex
+        justify-content: flex-start
+        margin: 20px 0px
+        .botao_solicita--resgate
+        .botao_solicita--cvs-resgate
+            background: $verde4
+            border: none
+            button
+                color: #FFF
+                border-radius: 3px
+    .cashback__saldo
+        .cashback__saldo--conta
+            width: 100%
+            max-width: 250px
+            padding: 10px 10px 10px 20px
+            margin-right: 10px
+            borda-padrao()
+            display: flex
+            p
+                font-size: 1.4em
+                color: #666
+            span
+                font-size: 1.4em
+                color: red
+                margin-left: 5px
+        .cashback__saldo--info
+            width: 100%
+            max-width: 740px
+            padding: 10px
+            background: #ccc
+            display: flex
+            align-items: center
+            justify-content: center
+            font-size: 1.4em
+            color: #fff
+            border-radius: 3px
+        .cashback__saldo--info.cvs
+            background-color: #C2C2C2
+            color: #383838
+.tabela
+    border: none
+    label.tabela-titulo:first-of-type
+        border-left: 1px solid #e8e8e8 !important
+        position: relative
+        z-index: 1
+    label.tabela-titulo:last-of-type
+        border-right: 1px solid #e8e8e8 !important
+        position: relative
+        z-index: 1
+    .tabela-conteudo
+        width: 1000px
+        border: 1px solid #e8e8e8
+        position: relative
+        margin-top: -1px
+        padding: 10px 0 0 0
+        &::after
+            content: ""
+            width: 50%
+            position: absolute
+            height: 2px
+            background: #fff
+            top: -1px
+            left: 0
+        .conteudo-extrato,
+        .conteudo-saque
+            width: 100%
+            .bloco-lista__compra
+                width: 100%
+                display: flex
+                flex-wrap: wrap
+                justify-content: flex-start
+            .bloco-lista__compra .lista--item
+                width: 100%
+                display: flex
+                align-items: center
+                justify-content: flex-start
+                &:first-child
+                    background: #ccc
+                    color: #fff
+                &:first-child p
+                    border-left: 1px solid #fff
+                &:last-child p
+                    border-bottom: none
+            .bloco-lista__compra .lista--item p
+                width: 18%
+                height: 100%
+                display: flex
+                align-items: center
+                padding-left: 10px
+                border-left: 1px solid #ccc
+                border-bottom: 1px solid #ccc
+                &:first-child
+                    width: 55%
+                    border-left: none
+                &:first-child
+                &:last-child
+                    padding: 10px 0px
+                    padding-left: 10px
+        .conteudo-vazio
+            width: 100%
+            display: flex
+            align-items: center
+            justify-content: center
+            height: 150px
+            text-align: center
+            padding: 0 10px
+            line-height: 2em
+            p
+                font-size: 1.4em
+                font-weight: bold
+                color: #ccc
+@media screen and (max-width: 1000px)
+    .tabela .tabela-conteudo
+        width: 100%
+@media screen and (max-width: 730px)
+    .tabela label.tabela-titulo
+        width: 50%
+    #bloco__perfil--cashback .cashback__conteudo .cashback__saldo
+        flex-wrap: wrap
+        .saldo--conta
+            max-width: 100%
+            margin-bottom: 10px
+        .saldo--info
+            text-align: center
+            line-height: 1.5em
+        .tabela-conteudo
+            overflow-y: auto
+            .conteudo-extrato,
+            .conteudo-saque
+                width: 700px
+
+.bloco-popup__busca .titulo
+    border-bottom: 1px solid #E8E8E8
+    .botao_fechar,
+    p
+        color: #666
+#tabela-conteudo1 p.aviso_moeda
+    position: absolute
+    margin-top: 10px
+    font-size: 0.9em
+.alerta_deposito
+    width: 100%
+    display: flex
+    justify-content: center
+    align-items: center
+    padding: 0px 20px 0px 20px
+    margin-top: 20px
+    .alerta_deposito_conteudo
+        background: $amarelo2
+        display: flex
+        justify-content: center
+        align-items: center
+        h2
+            font-size: 1.5em
+            width: 100%
+            padding: 10px
+        i
+            font-size: 2.5em
+            width: 20px
+            margin-left: 10px
+
+.tabela_cvs
+    width: 100%
+    .tabela-titulo
+        width: 25%
+        display: flex
+        align-items: center
+        justify-content: center
+        float: left
+        padding: 1em
+        border-bottom: 1px solid #e8e8e8
+        border-top: 1px solid #e8e8e8
+        border-right: none
+        text-align: center
+        font-size: 1.5em
+        color: #333
+        cursor: pointer
+        transition: background-color 150ms ease-in-out
+    .tabela-titulo:first-of-type
+        border-left: 1px solid #e8e8e8 !important
+        position: relative
+        z-index: 1
+    .tabela-titulo:last-of-type
+        border-right: 1px solid #e8e8e8 !important
+        position: relative
+        z-index: 1
+    .tabela
+        width: 100%
+        border-collapse: collapse
+        thead
+            background-color: #E0E0E0
+            tr th
+                width: 14%
+                font-size: 14px
+                padding: 10px
+                color: #2F2F2F
+                vertical-align: middle
+            th + th
+                border-left: 1px solid #fff
+        tbody tr td
+            font-size: 14px
+            text-align: center
+            background-color: #fff
+            color: #403F3F
+            padding: 10px
+            border: 1px solid #e8e8e8
+        .vazio td
+            width: 100%
+            height: 150px
+            text-align: center
+            vertical-align: middle
+            padding: 0 10px
+            font-size: 1rem
+            font-weight: bold
+            color: #D1D1D1
+@media screen and (max-width: 888px)
+    .tabela_cvs
+        .tabela thead
+            display: none
+        .tabela, .tabela tbody, .tabela tr, .tabela td
+            width: 100%
+        .tabela tr
+            margin-bottom: 15px
+        .tabela tbody tr td
+            text-align: right
+            padding-left: 50%
+            position: relative
+            min-height: 36px
+        .tabela td:before
+            content: attr(data-label)
+            position: absolute
+            left: 0
+            width: 50%
+            padding-left: 15px
+            font-size: 14px
+            text-align: left
+        .tabela .vazio
+            display: table
+        .tabela .vazio td
+            display: table-cell
+    #tabela-conteudo2 tbody tr:last-child td
+        padding-left: 0px
+        text-align: center
+    #tabela1:checked ~ #tabela-conteudo1 tbody,
+    #tabela1:checked ~ #tabela-conteudo1 tr,
+    #tabela1:checked ~ #tabela-conteudo1 td,
+    #tabela2:checked ~ #tabela-conteudo2 tbody,
+    #tabela2:checked ~ #tabela-conteudo2 tr,
+    #tabela2:checked ~ #tabela-conteudo2 td
+        display: block

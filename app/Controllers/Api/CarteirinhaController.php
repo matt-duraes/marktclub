@@ -22,7 +22,6 @@ class CarteirinhaController extends Controller implements
      */
     public function getBuscar(string $id): Response
     {
-
         if (empty($id)) {
             mensagemStatus(404);
         }

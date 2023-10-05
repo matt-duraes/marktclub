@@ -1364,7 +1364,7 @@ Route
             ::nome('listar')
             ::middleware(TokenMiddleware::class, 'scope', ['ponto_cvs:listar'])
             ::request([
-                'pagina', '!quantidade', '!ordem', '!cpf', '!status'
+                '!pagina', '!quantidade', '!ordem', '!cpf', '!status'
             ], 'json')
             ::get('/ponto-cvs');
 

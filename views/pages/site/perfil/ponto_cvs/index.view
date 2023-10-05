@@ -1,0 +1,162 @@
+@template "site"
+<div id="bloco__perfil--cashback">
+    <figure class="logo-silium">
+        <img src="<?= LINK ?>/images/logo_sindicato_bancarios.png" alt="">
+    </figure>
+    <header class="titulo--padrao">
+        <div class="esquerdo">
+            <h1 class="color_cor">PONTO + AÇÃO</h1>
+        </div>
+    </header>
+    <section class="cashback">
+        <div class="cashback__regulamento--descricao">
+            <p>&#128527;&#128521;PARABÉNS!</p>
+            <p>Se você chegou até aqui é porque trouxe mais colegas para fazer parte da família Sindicato dos Bancários. Sejam bem-vindos!</p>
+            <p>Agora, seus pontos valem vouchers, que podem ser utilizados nas lojas virtuais Casas Bahia, Ponto Frio e Extra. Cada indicação de novo associado vale 1 ponto!</p>
+            <p>Indique mais associados, fortaleça o Sindicato e acumule pontos para trocar por produtos da sua preferência.</p>
+            <p class="bold color_cor">#CategoriaUnidaSindicatoForte<br>#Sindicato100Anos</p>
+            <p><span class="bold">Obs:</span> Os vouchers só poderão ser usados nas lojas virtuais: <span class="bold">www.casasbahia.com.br</span>, <span class="bold">www.ponto.com.br</span> e <span class="bold">www.extra.com.br</span>.</p>
+            <p class="end">
+                1 PONTO = R$ 50,00 (SÓCIO BANCÁRIO)
+                <br>
+                1 PONTO = R$ 12,00 (SÓCIO PARCEIRO)
+            </p>
+        </div>
+        <div class="link">
+            <a href="<?= LINK_ARQUIVO ?>/arquivo/regulamento-ponto-acao.pdf" target="_blank" rel="noopener noreferrer" class="cashback__regulamento--link cvs">REGULAMENTO PONTO + AÇÃO</a>
+        </div>
+        <div class="cashback__saldo">
+            <div class="cashback__saldo--conta cvs">
+                <p>SALDO EM CONTA:</p><span><?= $r->saldo->saldo ?? 0 ?></span>
+            </div>
+            <a id="solicitar_resgate" class="botao--padrao botao_solicita--cvs-resgate" data-href="<?= !empty($r->lista[0]->usuario_nome) ? $r->lista[0]->usuario_nome : null ?>">
+                <button class="botao">
+                    <span>SOLICITAR RESGATE</span>
+                </button>
+            </a>
+
+        </div>
+        <section class="tabela_cvs">
+            <input type="radio" value="extrato-solicitacao" name="tabela" id="tabela1" checked>
+            <label class="tabela-titulo color_cor" for="tabela1">
+                EXTRATO DE PONTOS
+            </label>
+            <input type="radio" value="historico-solicitacao" name="tabela" id="tabela2">
+            <label class="tabela-titulo" for="tabela2">
+                HISTÓRICO DE SOLICITAÇÕES
+            </label>
+
+            <table class="tabela tabela-cvs-conteudo" id="tabela-conteudo1">
+                <thead>
+                    <tr>
+                        <th>Nome</th>
+                        <th>Bônus</th>
+                        <th>Prêmio</th>
+                        <th>Quantidade</th>
+                        <th>Crédito</th>
+                        <th>Débito</th>
+                        <th>Data</th>
+                        <th>Tipo</th>
+                        <th>Status</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <?php
+                    if (!empty($erro)) :
+                    ?>
+                        <tr class="vazio">
+                            <td colspan="12"><?= $erro ?></td>
+                        </tr>
+                        <?php
+                    elseif (array_key_exists('extrato', (array)$r) && isset($r->extrato) && !empty($r->extrato)) :
+                        foreach ($r->extrato as $i => $re) :
+                            if ($i == 5) {
+                        ?>
+                                <tr>
+                                    <td colspan="12" align="center">
+                                        <a href="#" target="_blank" class="botao_extrato-cvs">VER EXTRATO COMPLETO</a>
+                                    </td>
+                                </tr>
+                            <?php
+                                break;
+                            }
+                            ?>
+                            <tr>
+                                <td data-label="Nome"><?= $re->desc_ponto; ?></td>
+                                <td data-label="Bônus"><?= $re->descricao_bonus; ?></td>
+                                <td data-label="Prêmio"><?= $re->descricao_premio; ?></td>
+                                <td data-label="Quantidade"><?= $re->quantidade; ?></td>
+                                <td data-label="Crédito"><?= $re->credito; ?></td>
+                                <td data-label="Débito"><?= $re->debito; ?></td>
+                                <td data-label="Data"><?= date('d/m/Y', strtotime($re->data)); ?></td>
+                                <td data-label="Tipo"><?= $re->tipo_registro; ?></td>
+                                <td data-label="Status"><?= $re->status; ?></td>
+                            </tr>
+                        <?php endforeach; ?>
+                    <?php else : ?>
+                        <tr class="vazio">
+                            <td colspan="12">SEM EXTRATO NO MOMENTO</td>
+                        </tr>
+                    <?php endif; ?>
+                </tbody>
+            </table>
+            <table class="tabela tabela-cvs-conteudo" id="tabela-conteudo2">
+                <thead>
+                    <tr>
+                        <th>PONTOS</th>
+                        <th>VOUCHER</th>
+                        <th>DATA DE SOLICITAÇÃO</th>
+                        <th>DATA DE VENCIMENTO</th>
+                        <th>STATUS</th>
+                    </tr>
+                </thead>
+                <tbody>
+                <?php if (!empty($erro)) :?>
+                    <tr class="vazio">
+                        <td colspan="6">Não foi possivel fazer a conexão com a API.</td>
+                    </tr>
+                <?php elseif (isset($r->lista) && !empty($r->lista)) :
+                    foreach ($r->lista as $re) :
+                ?>
+                    <tr>
+                        <td data-label="PONTOS"><?= $re->ponto; ?></td>
+                        <td data-label="VOUCHER"><?= $re->voucher; ?></td>
+                        <td data-label="DATA DE SOLICITAÇÃO"><?= $re->data_solicitacao; ?></td>
+                        <td data-label="DATA DE VENCIMENTO"><?= $re->data_voucher; ?></td>
+                        <td data-label="STATUS"><?= $re->status; ?></td>
+                    </tr>
+                <?php endforeach; ?>
+                <?php else : ?>
+                    <tr class="vazio">
+                        <td colspan="6">SEM HISTÓRICO NO MOMENTO</td>
+                    </tr>
+                <?php endif; ?>
+
+                </tbody>
+            </table>
+            <?php if (isset($r->pagina) && $r->pagina && isset($r->pagina->total) && $r->pagina->total > 1) : ?>
+                <div class="bloco_paginacao">
+                    <?php if ($r->pagina->atual == 1) : ?>
+                        <div class="texto atual busca_mais" data-atual="1">PRIMEIRA</div>
+                    <?php else : ?>
+                        <p class="texto busca_mais" data-atual="1">PRIMEIRA</p>
+                    <?php endif; ?>
+                    <?php for ($i = 1; $i <= $r->pagina->total; $i++) : ?>
+                        <?php if ($i == $r->pagina->atual) : ?>
+                            <div class="numero atual busca_mais" data-atual="<?= $i ?>"><?= $i ?></div>
+                        <?php elseif ($r->pagina->atual == 1) : ?>
+                            <p class="numero busca_mais" data-atual="<?= $i ?>"><?= $i ?></p>
+                        <?php else : ?>
+                            <p class="numero busca_mais" data-atual="<?= $i ?>"><?= $i ?></p>
+                        <?php endif; ?>
+                    <?php endfor; ?>
+                    <?php if ($r->pagina->total == $r->pagina->atual) : ?>
+                        <div class="texto atual busca_mais" data-atual="<?= $r->pagina->total ?>">ÚLTIMA</div>
+                    <?php else : ?>
+                        <p class="texto busca_mais" data-atual="<?= $r->pagina->total ?>">ÚLTIMA</p>
+                    <?php endif; ?>
+                </div>
+            <?php endif; ?>
+        </section>
+    </section>
+</div>
