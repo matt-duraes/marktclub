@@ -27,7 +27,15 @@ final class BuscarModel extends ClubeApiHelper
             'email'    => $email,
             'pessoal'  => $emailPessoal,
             'trabalho' => $emailTrabalho,
-            'link'     => ''
+            'link'     => $this->pegarLinkSamsung()
         ];
+    }
+
+    private function pegarLinkSamsung()
+    {
+        return [
+            '556d7a18533d1e4d013dd9a8c5b86c58' => 'https://parcerias.samsung.com.br/markt-club?utm_source=markt-club_uber',
+            '8986a24345f36de15e2a7f4a51f1c9e7' => 'https://parcerias.samsung.com.br/markt-club?utm_source=markt-club_digio',
+        ][CLUBE_ID] ?? 'https://parcerias.samsung.com.br/markt-club';
     }
 }
