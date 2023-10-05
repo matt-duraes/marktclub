@@ -58,7 +58,7 @@ $dado = [];
 for ($i = 1; $i < 50; $i++) {
     $dado[] = [
         'id'                  => $i,
-        'uuid'                => uuid(),
+        'uuid'                => $i == 1 ? 'dc68285f-65e2-4db9-b37c-d216cf4ddd97' : uuid(), // Valor fixado para testes
         'id_automovel_modelo' => $i,
         'titulo'              => $titulos[$i],
         'valor_de'            => rand(100000, 200000),

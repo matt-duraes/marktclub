@@ -213,6 +213,7 @@ final class RequisicaoEnviar
                 'scope'      => $scope
             ]
         );
+
         return $this->pegarToken($token);
     }
 
@@ -224,14 +225,14 @@ final class RequisicaoEnviar
 
     private function criarTokenPainel($scope)
     {
-        $header = $this->gerarTokenPadrao($scope);
+        $header = $this->gerarTokenPadrao('login:painel');
         $token = $this->enviarCurl(
             metodo: 'POST',
             uri: '{{LINK}}/login/painel',
             body: [
                 'login'        => $this->Crypt->encode(env('POSTMAN_LOGIN')),
                 'senha'        => $this->Crypt->encode(env('POSTMAN_SENHA')),
-                'scope'        => '',
+                'scope'        => $scope,
                 'audience'     => env('POSTMAN_API_AUDIENCE'),
                 'redirect_uri' => env('POSTMAN_API_REDIRECT_URI'),
                 'state'        => uuid()
@@ -245,6 +246,7 @@ final class RequisicaoEnviar
     private function pegarToken($token)
     {
         $token = jsonDecode($token->retorno, true, true)['dado']['access_token'] ?? '';
+
         if (!empty($token)) {
             return $token;
         }

@@ -867,6 +867,7 @@ Route
     ::grupo(function () {
         Route
             ::nome('salvar')
+            ::middleware(TokenMiddleware::class, 'scope', ['mensageria:salvar'])
             ::request(['payload', 'tipo'])
             ::post('/mensageria');
     });
@@ -1569,7 +1570,7 @@ Route
     ::grupo(function () {
         Route
             ::nome('listar')
-            // ::middleware(TokenMiddleware::class, 'scope', ['demanda_dado:listar'])
+            ::middleware(TokenMiddleware::class, 'scope', ['demanda_dado:listar'])
             ::request([
                 'status', 'area', 'ordem'
             ], 'json')
@@ -1577,12 +1578,12 @@ Route
 
         Route
             ::nome('buscar')
-            // ::middleware(TokenMiddleware::class, 'scope', ['demanda_dado:buscar'])
+            ::middleware(TokenMiddleware::class, 'scope', ['demanda_dado:buscar'])
             ::get('/demanda-dado/{id}');
 
         Route
             ::nome('salvar')
-            // ::middleware(TokenMiddleware::class, 'scope', ['demanda_dado:salvar'])
+            ::middleware(TokenMiddleware::class, 'scope', ['demanda_dado:salvar'])
             ::request([
                 'empresa', 'titulo', 'tipo', 'area'
             ])
@@ -1590,7 +1591,7 @@ Route
 
         Route
             ::nome('atualizar')
-            // ::middleware(TokenMiddleware::class, 'scope', ['demanda_dado:atualizar'])
+            ::middleware(TokenMiddleware::class, 'scope', ['demanda_dado:atualizar'])
             ::request([
                 '!titulo', '!arquivo', '!id_admin_empresa', '!id_usuario_equipe',
                 '!data_entrega', '!com_prazo', '!status', '!ordem'
@@ -1599,7 +1600,7 @@ Route
 
         Route
             ::nome('cancelar')
-            // ::middleware(TokenMiddleware::class, 'scope', ['demanda_dado:cancelar'])
+            ::middleware(TokenMiddleware::class, 'scope', ['demanda_dado:cancelar'])
             ::request(['motivo'])
             ::post('/demanda-dado/cancelar/{id}');
     });

@@ -17,8 +17,18 @@ class SolicitacaoLojaTest extends Clube
     public function __construct()
     {
         $this->statusValidos = array_keys((new Status())->select());
-        $this->pegarToken();
         parent::__construct();
+    }
+
+    private function getBody(): array
+    {
+        return [
+            'nome'     => $this->cryptEncode(nomeCompletoAleatorio()),
+            'email'    => $this->cryptEncode(emailAleatorio()),
+            'telefone' => $this->cryptEncode(telefoneAleatorio()),
+            'mensagem' => 'Mensagem de teste ' . numeroAleatorio(),
+            'origem'   => 'clube'
+        ];
     }
 
     /**
@@ -27,8 +37,10 @@ class SolicitacaoLojaTest extends Clube
      */
     public function salvarIndicacaoNovoParceiroTest(): SolicitacaoLojaTest
     {
+        $this->api('solicitacao_loja:salvar');
         $dado = $this
             ->Curl
+            ->loginPainel()
             ->body($this->getBody())
             ->post('/solicitacao-loja')
             ->array();
@@ -42,20 +54,6 @@ class SolicitacaoLojaTest extends Clube
     }
 
     /**
-     * @return array
-     */
-    private function getBody(): array
-    {
-        return [
-            'nome'     => $this->nomeCompleto(),
-            'email'    => $this->email(),
-            'telefone' => $this->telefone(),
-            'mensagem' => 'Mensagem de teste ' . $this->numero(),
-            'origem'   => 'clube'
-        ];
-    }
-
-    /**
      * @return SolicitacaoLojaTest
      * @throws Excecao
      */
@@ -64,8 +62,10 @@ class SolicitacaoLojaTest extends Clube
         $body = $this->getBody();
         unset($body['nome']);
 
+        $this->api('solicitacao_loja:salvar');
         $this
             ->Curl
+            ->loginPainel()
             ->body($body)
             ->post('/solicitacao-loja');
 
@@ -84,8 +84,10 @@ class SolicitacaoLojaTest extends Clube
         $body = $this->getBody();
         unset($body['email']);
 
+        $this->api('solicitacao_loja:salvar');
         $this
             ->Curl
+            ->loginPainel()
             ->body($body)
             ->post('/solicitacao-loja');
 
@@ -104,8 +106,10 @@ class SolicitacaoLojaTest extends Clube
         $body = $this->getBody();
         unset($body['telefone']);
 
+        $this->api('solicitacao_loja:salvar');
         $this
             ->Curl
+            ->loginPainel()
             ->body($body)
             ->post('/solicitacao-loja');
 
@@ -121,8 +125,11 @@ class SolicitacaoLojaTest extends Clube
      */
     public function listarIndicacoesNovoParceiroTest(): SolicitacaoLojaTest
     {
+
+        $this->api('solicitacao_loja:listar');
         $this
             ->Curl
+            ->loginPainel()
             ->json([
                 'pagina'     => 1,
                 'quantidade' => '',
@@ -143,6 +150,7 @@ class SolicitacaoLojaTest extends Clube
      */
     public function buscarIndicacaoNovoParceiroTest(): SolicitacaoLojaTest
     {
+        $this->api('solicitacao_loja:buscar');
         $this
             ->Curl
             ->get('/solicitacao-loja/' . $this->idIndicacaoNovoParceiro);
@@ -159,8 +167,10 @@ class SolicitacaoLojaTest extends Clube
      */
     public function editarStatusIndicacaoNovoParceiroTest(): SolicitacaoLojaTest
     {
+        $this->api('solicitacao_loja:atualizar');
         $this
             ->Curl
+            ->loginPainel()
             ->body([
                 'status' => valorAleatorio($this->statusValidos)
             ])
@@ -176,8 +186,10 @@ class SolicitacaoLojaTest extends Clube
      */
     public function naoPodeEditarStatusInvalidoTest(): SolicitacaoLojaTest
     {
+        $this->api('solicitacao_loja:atualizar');
         $this
             ->Curl
+            ->loginPainel()
             ->body([
                 'status' => 'STATUS INVALIDO'
             ])
@@ -195,8 +207,10 @@ class SolicitacaoLojaTest extends Clube
      */
     public function deletarIndicacaoNovoParceiroTest(): SolicitacaoLojaTest
     {
+        $this->api('solicitacao_loja:deletar');
         $this
             ->Curl
+            ->loginPainel()
             ->delete('/solicitacao-loja/' . $this->idIndicacaoNovoParceiro);
 
         return $this
