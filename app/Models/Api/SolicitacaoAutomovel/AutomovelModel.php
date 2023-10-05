@@ -53,10 +53,10 @@ final class AutomovelModel extends ORM implements
      */
     private function validarDados(): void
     {
-        if (!$this->dataInicio->vazio() && !$this->dataInicio->eData()) {
+        if (!$this->dataInicio->vazio() && !$this->dataInicio->eDate()) {
             mensagemErro('Campo inválido!', 'A data início não está no formato válido.');
         }
-        if (!$this->dataFinal->vazio() && !$this->dataFinal->eData()) {
+        if (!$this->dataFinal->vazio() && !$this->dataFinal->eDate()) {
             mensagemErro('Campo inválido!', 'A data final não está no formato válido.');
         }
         if (!$this->ordem->vazio() && !$this->ordem->valido()) {
@@ -81,6 +81,17 @@ final class AutomovelModel extends ORM implements
             ->where($this->pegarWhere(), false)
             ->pagina($this->pegarPagina(), $this->pegarQuantidade())
             ->order($this->pegarOrdem(new Ordem()))
+            ->tabela(TABELA_COMERCIAL_EMPRESA)
+            ->where($this->pegarWhereEmpresa(), false)
+            ->join('id', 'id_admin_empresa')
+            ->campo([
+                'nome_fantasia'
+            ], 'empresa')
+            ->tabela(TABELA_USUARIO_CLIENTE)
+            ->join('id', 'id_usuario_cliente')
+            ->campo([
+                'nome'
+            ], 'usuario')
             ->read();
 
         $dado->lista = $this->montarDado($dado->lista);
@@ -105,6 +116,18 @@ final class AutomovelModel extends ORM implements
             $where[] = ['status', $this->status->numero()];
         }
 
+        return $where;
+    }
+
+    /**
+     * @return array
+     */
+    protected function pegarWhereEmpresa(): array
+    {
+        $where = [];
+        if (!empty($this->empresa)) {
+            $where[] = ['cod', $this->empresa];
+        }
         return $where;
     }
 

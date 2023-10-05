@@ -89,9 +89,10 @@ class PopupModel extends ORM
             ->pagina($this->pegarPagina(), $this->pegarQuantidade())
             ->order($this->pegarOrdem(new Ordem()))
             ->tabela(TABELA_COMERCIAL_EMPRESA)
+            ->where($this->pegarWhereEmpresa(), false)
             ->join('id', 'id_admin_empresa')
             ->campo([
-                'uuid', 'nome_fantasia'
+                'nome_fantasia'
             ], 'empresa')
             ->read();
 
@@ -128,6 +129,18 @@ class PopupModel extends ORM
     }
 
     /**
+     * @return array
+     */
+    protected function pegarWhereEmpresa(): array
+    {
+        $where = [];
+        if (!empty($this->empresa)) {
+            $where[] = ['cod', $this->empresa];
+        }
+        return $where;
+    }
+
+    /**
      * @param array $popups
      *
      * @return array
@@ -145,7 +158,6 @@ class PopupModel extends ORM
             $retorno[] = [
                 'id'             => $popup->uuid,
                 'empresa'        => [
-                    'id'   => $popup->empresa_uuid,
                     'nome' => $popup->empresa_nome_fantasia
                 ],
                 'slug'           => $popup->slug,

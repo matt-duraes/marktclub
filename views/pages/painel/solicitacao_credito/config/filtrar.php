@@ -8,6 +8,14 @@ $Painel = new PainelConfig\Filtrar('solicitacao_credito');
 
 $Painel
     ->input(name: 'nome', titulo: 'Nome do usuário', label: 'Nome do usuário', placeholder: 'Nome do usuário')
+    ->select(
+        name: 'empresa',
+        lista: 'empresa',
+        titulo: 'Empresa',
+        label: 'Empresa',
+        placeholder: 'Empresa',
+        permissao: \App\Classes\UsuarioCliente\Helper::PERMISSAO_EMPRESA
+    )
     ->bloco(function () use ($Painel) {
         $Painel
             ->select(
@@ -25,7 +33,7 @@ $Painel
                 placeholder: 'Tipo'
             );
     })
-    /*->bloco(function () use ($Painel) {
+    ->bloco(function () use ($Painel) {
         $Painel
             ->data(
                 name: 'data_inicio',
@@ -39,7 +47,7 @@ $Painel
                 label: 'Solicitado até',
                 placeholder: 'Solicitado até'
             );
-    })*/
+    })
     ->select(
         name: 'status',
         lista: (new Status())->select('Escolha um status'),

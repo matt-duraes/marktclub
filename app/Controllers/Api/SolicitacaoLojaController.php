@@ -22,8 +22,8 @@ use System\Interface\ControllerListarInterface;
 use System\Interface\ControllerSalvarInterface;
 
 class SolicitacaoLojaController extends Controller implements
-    ControllerListarInterface,
     ControllerBuscarInterface,
+    ControllerListarInterface,
     ControllerSalvarInterface,
     ControllerAtualizarInterface,
     ControllerDeletarInterface

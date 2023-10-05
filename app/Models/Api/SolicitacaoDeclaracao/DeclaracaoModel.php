@@ -59,10 +59,10 @@ class DeclaracaoModel extends ORM implements
      */
     private function validarDados(): void
     {
-        if (!$this->dataInicio->vazio() && !$this->dataInicio->eData()) {
+        if (!$this->dataInicio->vazio() && !$this->dataInicio->eDate()) {
             mensagemErro('Campo inválido!', 'A data início não está no formato válido.');
         }
-        if (!$this->dataFinal->vazio() && !$this->dataFinal->eData()) {
+        if (!$this->dataFinal->vazio() && !$this->dataFinal->eDate()) {
             mensagemErro('Campo inválido!', 'A data final não está no formato válido.');
         }
         if (!$this->ordem->vazio() && !$this->ordem->valido()) {
@@ -86,9 +86,20 @@ class DeclaracaoModel extends ORM implements
             ->where($this->pegarWhere(), false)
             ->pagina($this->pegarPagina(), $this->pegarQuantidade())
             ->order($this->pegarOrdem(new Ordem()))
+            ->tabela(TABELA_COMERCIAL_EMPRESA)
+            ->where($this->pegarWhereEmpresa(), false)
+            ->join('id', 'id_admin_empresa')
+            ->campo([
+                'nome_fantasia'
+            ], 'empresa')
+            ->tabela(TABELA_USUARIO_CLIENTE)
+            ->join('id', 'id_usuario_cliente')
+            ->campo([
+                'nome'
+            ], 'usuario')
             ->tabela(TABELA_PARCEIRO_LOJA)
             ->where($this->pegarWhereParceiro(), false)
-            ->join('id', 'vinculo')
+            ->join('id', 'id_parceiro_loja')
             ->campo([
                 'titulo'
             ], 'parceiro')
@@ -125,6 +136,18 @@ class DeclaracaoModel extends ORM implements
     /**
      * @return array
      */
+    protected function pegarWhereEmpresa(): array
+    {
+        $where = [];
+        if (!empty($this->empresa)) {
+            $where[] = ['cod', $this->empresa];
+        }
+        return $where;
+    }
+
+    /**
+     * @return array
+     */
     protected function pegarWhereParceiro(): array
     {
         $where = [];
@@ -150,6 +173,12 @@ class DeclaracaoModel extends ORM implements
         foreach ($declaracoes as $declaracao) {
             $retorno[] = [
                 'id'               => $declaracao->uuid,
+                'empresa'          => [
+                    'nome' => $declaracao->empresa_nome_fantasia
+                ],
+                'usuario'          => [
+                    'nome' => $declaracao->usuario_nome
+                ],
                 'parceiro'         => [
                     'nome' => $declaracao->parceiro_titulo
                 ],

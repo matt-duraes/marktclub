@@ -56,10 +56,10 @@ class SolicitacaoModel extends ORM implements
      */
     private function validarDado(): void
     {
-        if (!$this->dataInicio->vazio() && !$this->dataInicio->eData()) {
+        if (!$this->dataInicio->vazio() && !$this->dataInicio->eDate()) {
             mensagemErro('Campo inválido!', 'A Data início não está no formato válido.');
         }
-        if (!$this->dataFinal->vazio() && !$this->dataFinal->eData()) {
+        if (!$this->dataFinal->vazio() && !$this->dataFinal->eDate()) {
             mensagemErro('Campo inválido!', 'A Data final não está no formato válido.');
         }
         if (!$this->ordem->vazio() && !$this->ordem->valido()) {
@@ -82,7 +82,7 @@ class SolicitacaoModel extends ORM implements
         $dado = $this
             ->campo([
                 'uuid', 'nome', 'email', 'telefone',
-                'origem', 'status', 'data_criacao', 'data_atualizacao'
+                'origem', 'status', 'data_criacao'
             ])
             ->where($this->pegarWhere(), false)
             ->pagina($this->pegarPagina(), $this->pegarQuantidade())
@@ -141,14 +141,13 @@ class SolicitacaoModel extends ORM implements
         $retorno = [];
         foreach ($solicitacoes as $solicitacao) {
             $retorno[] = [
-                'id'               => $solicitacao->uuid,
-                'nome'             => $solicitacao->nome,
-                'email'            => $solicitacao->email,
-                'telefone'         => $solicitacao->telefone,
-                'origem'           => $Origem->indice($solicitacao->origem),
-                'status'           => $Status->indice($solicitacao->status),
-                'data_criacao'     => $solicitacao->data_criacao,
-                'data_atualizacao' => $solicitacao->data_atualizacao
+                'id'           => $solicitacao->uuid,
+                'nome'         => $solicitacao->nome,
+                'email'        => $solicitacao->email,
+                'telefone'     => $solicitacao->telefone,
+                'origem'       => $Origem->indice($solicitacao->origem),
+                'status'       => $Status->indice($solicitacao->status),
+                'data_criacao' => $solicitacao->data_criacao
             ];
         }
         return $retorno;

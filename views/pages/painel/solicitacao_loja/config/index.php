@@ -7,7 +7,7 @@ use App\Classes\SolicitacaoLoja\Status;
 $Painel = new PainelConfig\Index('solicitacao_loja', new Ordem());
 
 $Painel
-    ->campo('nome', 'Nome', 'normal')
+    ->campo('nome', 'Nome indicação', 'normal')
     ->campo('telefone', 'Telefone', 'pequeno', 'telefone')
     ->campo('email', 'E-mail', 'normal')
     ->campo('origem', 'Origem', 'pequeno')

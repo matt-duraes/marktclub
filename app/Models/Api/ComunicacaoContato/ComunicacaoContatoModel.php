@@ -88,9 +88,10 @@ class ComunicacaoContatoModel extends ORM implements
             ->pagina($this->pegarPagina(), $this->pegarQuantidade())
             ->order($this->pegarOrdem(new Ordem()))
             ->tabela(TABELA_COMERCIAL_EMPRESA)
+            ->where($this->pegarWhereEmpresa(), false)
             ->join('id', 'id_admin_empresa')
             ->campo([
-                'uuid', 'nome_fantasia'
+                'nome_fantasia'
             ], 'empresa')
             ->read();
 
@@ -127,6 +128,18 @@ class ComunicacaoContatoModel extends ORM implements
     }
 
     /**
+     * @return array
+     */
+    protected function pegarWhereEmpresa(): array
+    {
+        $where = [];
+        if (!empty($this->empresa)) {
+            $where[] = ['cod', $this->empresa];
+        }
+        return $where;
+    }
+
+    /**
      * @param array $contatos
      *
      * @return array
@@ -143,7 +156,6 @@ class ComunicacaoContatoModel extends ORM implements
             $retorno[] = [
                 'id'           => $contato->uuid,
                 'empresa'      => [
-                    'id'   => $contato->empresa_uuid,
                     'nome' => $contato->empresa_nome_fantasia
                 ],
                 'nome'         => $contato->nome,

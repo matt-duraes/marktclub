@@ -55,7 +55,8 @@ class SolicitacaoCreditoController extends Controller implements
         return mensagemSucesso(
             pegarPropriedadeDaEntity($creditoEntity, lista: [
                 'operadora', 'tipo', 'valor_total', 'parcela',
-                'valor_parcela', 'data_criacao', 'status', 'usuario', 'data_atualizacao'
+                'valor_parcela', 'data_criacao', 'status',
+                'usuario', 'data_atualizacao'
             ]),
             $status
         );
@@ -74,6 +75,7 @@ class SolicitacaoCreditoController extends Controller implements
             new Quantidade($request->quantidade),
             new Ordem($request->ordem),
             $request->nome,
+            $request->empresa,
             new Operadora($request->operadora),
             new Tipo($request->tipo),
             new Data($request->data_inicio),

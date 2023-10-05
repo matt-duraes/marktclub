@@ -12,7 +12,6 @@ use Erro\Excecao;
 use Helpers\OrmHelper;
 use Modules\Cpf;
 use Modules\Email;
-use Modules\Nome;
 use Modules\Telefone;
 use ORM\Entity;
 
@@ -21,7 +20,7 @@ final class SolicitacaoEntity extends Entity
     use ValidarEmpresaTrait;
 
     public Cpf $cpf;
-    public Nome $nome;
+    public string $nome;
     public Email $email;
     public Telefone $telefone;
     public Status $status;
@@ -42,16 +41,16 @@ final class SolicitacaoEntity extends Entity
         'status'
     ];
     protected string $ormValidarSalvar = '
-        nome|Nome|obrigatorio|vazio|valido
+        nome|Nome|obrigatorio|vazio
         email|Email|obrigatorio|vazio|valido
         telefone|Telefone|obrigatorio|vazio|valido
         mensagem|Mensagem|obrigatorio|vazio
         origem|Origem|obrigatorio|vazio|valido
         status|Status|obrigatorio|vazio|valido
     ';
-    protected ?int $id_usuario_cliente;
     protected ?int $idEmpresa;
     protected ?int $idUsuario;
+    protected ?int $id_usuario_cliente;
 
     /**
      * @throws Excecao

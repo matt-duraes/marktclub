@@ -32,7 +32,9 @@ final class ChequeBonusModel extends ORM implements
      * @param Pagina      $pagina
      * @param Quantidade  $quantidade
      * @param Ordem       $ordem
+     * @param string|null $nome
      * @param string|null $empresa
+     * @param TipoUsuario $tipoUsuario
      * @param Data        $dataInicio
      * @param Data        $dataFinal
      * @param Status      $status
@@ -43,7 +45,9 @@ final class ChequeBonusModel extends ORM implements
         private readonly Pagina $pagina = new Pagina(),
         private readonly Quantidade $quantidade = new Quantidade(),
         private readonly Ordem $ordem = new Ordem(),
+        private readonly ?string $nome = null,
         private readonly ?string $empresa = null,
+        private readonly TipoUsuario $tipoUsuario = new TipoUsuario(),
         private readonly Data $dataInicio = new Data(),
         private readonly Data $dataFinal = new Data(),
         private readonly Status $status = new Status()
@@ -58,14 +62,17 @@ final class ChequeBonusModel extends ORM implements
      */
     private function validarDados(): void
     {
-        if (!$this->dataInicio->vazio() && !$this->dataInicio->eData()) {
+        if (!$this->dataInicio->vazio() && !$this->dataInicio->eDate()) {
             mensagemErro('Campo inválido!', 'A data início não está no formato válido.');
         }
-        if (!$this->dataFinal->vazio() && !$this->dataFinal->eData()) {
+        if (!$this->dataFinal->vazio() && !$this->dataFinal->eDate()) {
             mensagemErro('Campo inválido!', 'A data final não está no formato válido.');
         }
         if (!$this->ordem->vazio() && !$this->ordem->valido()) {
             mensagemErro('Campo inválido!', 'A Ordem informada não é válida.');
+        }
+        if (!$this->tipoUsuario->vazio() && !$this->tipoUsuario->valido()) {
+            mensagemErro('Campo inválido!', 'O Tipo de usuário informado não é válido.');
         }
         if (!$this->status->vazio() && !$this->status->valido()) {
             mensagemErro('Campo inválido!', 'O Status informado não é válido.');
@@ -86,6 +93,12 @@ final class ChequeBonusModel extends ORM implements
             ->where($this->pegarWhere(), false)
             ->pagina($this->pegarPagina(), $this->pegarQuantidade())
             ->order($this->pegarOrdem(new Ordem()))
+            ->tabela(TABELA_COMERCIAL_EMPRESA)
+            ->where($this->pegarWhereEmpresa(), false)
+            ->join('id', 'id_admin_empresa')
+            ->campo([
+                'nome_fantasia'
+            ], 'empresa')
             ->read();
 
         $dado->lista = $this->montarRetorno($dado->lista);
@@ -98,6 +111,18 @@ final class ChequeBonusModel extends ORM implements
     protected function pegarWhere(): array
     {
         $where = $this->ormWherePadrao;
+
+        if (!empty($this->nome)) {
+            $where[] = [
+                'OR',
+                ['nome', 'LIKE', '%' . $this->nome . '%'],
+                ['dependente_nome', 'LIKE', '%' . $this->nome . '%']
+            ];
+        }
+
+        if ($this->tipoUsuario->valido()) {
+            $where[] = ['tipo_usuario', $this->tipoUsuario->numero()];
+        }
 
         if ($this->dataInicio->valido() && $this->dataFinal->valido()) {
             $where[] = [
@@ -113,6 +138,18 @@ final class ChequeBonusModel extends ORM implements
             $where[] = ['status', $this->status->numero()];
         }
 
+        return $where;
+    }
+
+    /**
+     * @return array
+     */
+    protected function pegarWhereEmpresa(): array
+    {
+        $where = [];
+        if (!empty($this->empresa)) {
+            $where[] = ['cod', $this->empresa];
+        }
         return $where;
     }
 
@@ -135,6 +172,9 @@ final class ChequeBonusModel extends ORM implements
             $nome = ($tipo === TipoUsuario::TITULAR) ? $solicitacao->nome : $solicitacao->dependente_nome;
             $retorno[] = [
                 'id'           => $solicitacao->cod,
+                'empresa'      => [
+                    'nome' => $solicitacao->empresa_nome_fantasia
+                ],
                 'nome'         => $nome,
                 'tipo_usuario' => $tipo,
                 'status'       => $Status->indice($solicitacao->status),
