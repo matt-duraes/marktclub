@@ -1,5 +1,5 @@
 // @template "painel"
-// @system "popup"
+// @system "Popup"
 // @import "demanda_detalhe"
 // @import "demanda_salvar"
 // @import "demanda_editar"
