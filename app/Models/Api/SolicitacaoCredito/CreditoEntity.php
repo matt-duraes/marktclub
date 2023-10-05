@@ -14,8 +14,8 @@ use ORM\Entity;
 
 class CreditoEntity extends Entity
 {
-    use ValidarTrait;
     use ValidarEmpresaTrait;
+    use ValidarTrait;
 
     public Dinheiro $valor_parcela;
     public Operadora $operadora;

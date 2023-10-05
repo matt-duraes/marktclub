@@ -19,7 +19,7 @@ $Painel
         placeholder: 'Empresa',
         permissao: \App\Classes\UsuarioCliente\Helper::PERMISSAO_EMPRESA
     )
-    /*->bloco(function () use ($Painel) {
+    ->bloco(function () use ($Painel) {
         $Painel
             ->data(
                 name: 'data_inicio',
@@ -33,7 +33,7 @@ $Painel
                 label: 'Solicitado até',
                 placeholder: 'Solicitado até'
             );
-    })*/
+    })
     ->select(
         name: 'status',
         lista: (new Status())->select('Escolha um status'),

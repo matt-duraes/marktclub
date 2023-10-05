@@ -37,7 +37,7 @@ $Painel->coluna(callback: function () use ($Painel) {
             texto: 'Enviado p/ Parceiro',
             inArray: ['Novo'],
             status: Status::ENVIADO_PARCEIRO,
-            mensagem: 'Tem certeza que deseja alterar o status para enviado para o parceiro?',
+            mensagem: 'Tem certeza que deseja alterar o status de enviado para o parceiro?',
             cor: 'verde'
         );
 
@@ -47,7 +47,7 @@ $Painel->coluna(callback: function () use ($Painel) {
             texto: 'Contratado',
             inArray: ['Novo', 'Enviado p/ Parceiro'],
             status: Status::CONTRATADO,
-            mensagem: 'Tem certeza que deseja alterar o status para contratado?',
+            mensagem: 'Tem certeza que deseja alterar o status de contratado?',
             cor: 'verde'
         );
 
@@ -57,7 +57,7 @@ $Painel->coluna(callback: function () use ($Painel) {
             texto: 'Cancelado',
             inArray: ['Novo', 'Enviado p/ Parceiro'],
             status: Status::CANCELADO,
-            mensagem: 'Tem certeza que deseja alterar o status para cancelado?',
+            mensagem: 'Tem certeza que deseja alterar o status de cancelado?',
             cor: 'vermelho'
         );
 });

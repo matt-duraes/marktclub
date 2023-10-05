@@ -37,8 +37,8 @@ class DeclaracaoEntity extends Entity
     protected string $ormValidarUpdate = '
         status|Status|obrigatorio|vazio|valido
     ';
-    protected int $idEmpresa;
-    protected int $idUsuario;
+    protected ?int $idEmpresa;
+    protected ?int $idUsuario;
     protected int $id_admin_empresa;
     protected int $id_usuario_cliente;
     protected int $id_parceiro_loja;
@@ -91,7 +91,7 @@ class DeclaracaoEntity extends Entity
             ['uuid', 'titulo'],
             'object'
         );
-        if (!$parceiro) {
+        if (empty($parceiro->uuid)) {
             $this->parceiro = [
                 'id'   => '',
                 'nome' => 'Sem parceiro'
@@ -111,7 +111,7 @@ class DeclaracaoEntity extends Entity
             ['uuid', 'nome'],
             'object'
         );
-        if (!$usuario) {
+        if (empty($usuario->uuid)) {
             $this->usuario = [
                 'id'   => '',
                 'nome' => 'Sem usuário'

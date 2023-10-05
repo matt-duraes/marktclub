@@ -7,6 +7,7 @@ use App\Classes\UsuarioCliente\TipoUsuario;
 $Painel = new PainelConfig\Index('solicitacao_cheque_bonus', new Ordem());
 
 $Painel
+    ->campo('empresa.nome', 'Empresa', 'normal', permissao: \App\Classes\UsuarioCliente\Helper::PERMISSAO_EMPRESA)
     ->campo('nome', 'Nome', 'normal')
     ->campo('tipo_usuario', 'Tipo de usuário', 'pequeno')
     ->dataCriacao()

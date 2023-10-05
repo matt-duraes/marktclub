@@ -5,7 +5,7 @@ use App\Classes\ComunicacaoContato\Status;
 $Painel = new PainelConfig\Visualizar('comunicacao_contato');
 
 $Painel->coluna(callback: function () use ($Painel) {
-    $Painel->bloco(titulo: 'Empresa', callback: function () use ($Painel) {
+    $Painel->bloco('Empresa', callback: function () use ($Painel) {
         $Painel
             ->linha('empresa.nome', 'Nome')
             ->botao(
@@ -16,7 +16,7 @@ $Painel->coluna(callback: function () use ($Painel) {
             );
     });
 
-    $Painel->bloco(titulo: 'Usuário', callback: function () use ($Painel) {
+    $Painel->bloco('Usuário', callback: function () use ($Painel) {
         $Painel
             ->linha('nome', 'Nome')
             ->email('email', 'E-mail')
@@ -24,7 +24,7 @@ $Painel->coluna(callback: function () use ($Painel) {
             ->linha('mensagem', 'Mensagem');
     });
 
-    $Painel->bloco(titulo: 'Dados do contato', callback: function () use ($Painel) {
+    $Painel->bloco('Dados do contato', callback: function () use ($Painel) {
         $Painel
             ->dataHora('data_criacao', 'Data de contato')
             ->dataHora('data_atualizacao', 'Data da última atualização')

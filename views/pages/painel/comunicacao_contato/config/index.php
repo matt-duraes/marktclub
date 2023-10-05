@@ -6,7 +6,7 @@ use App\Classes\ComunicacaoContato\Status;
 $Painel = new PainelConfig\Index('comunicacao_contato', new Ordem());
 
 $Painel
-    ->campo('empresa.nome', 'Empresa', 'normal')
+    ->campo('empresa.nome', 'Empresa', 'normal', permissao: \App\Classes\UsuarioCliente\Helper::PERMISSAO_EMPRESA)
     ->campo('nome', 'Nome', 'normal')
     ->campo('email', 'E-mail', 'normal')
     ->campo('telefone', 'Telefone', 'pequeno', 'telefone')

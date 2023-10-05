@@ -148,7 +148,7 @@ final class ChequeBonusEntity extends Entity
 
     protected function regraPosBuscar(): void
     {
-        if ($this->tipo_usuario->indice() == TipoUsuario::DEPENDENTE) {
+        if ($this->tipo_usuario->indice() === TipoUsuario::DEPENDENTE) {
             $this->montarDependente();
         }
         $this->buscarAutomovel();

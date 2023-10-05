@@ -8,7 +8,6 @@ use App\Classes\SolicitacaoCredito\Status;
 use App\Classes\SolicitacaoCredito\Tipo;
 use App\Models\Api\Trait\ValidarEmpresaTrait;
 use Erro\Excecao;
-use Http\Request;
 use Modules\Data;
 use Modules\Dinheiro;
 use Modules\Pagina;
@@ -29,7 +28,16 @@ class CreditoModel extends ORM
     protected ?int $idEmpresa;
 
     /**
-     * @param Request|null $request
+     * @param Pagina      $pagina
+     * @param Quantidade  $quantidade
+     * @param Ordem       $ordem
+     * @param string|null $empresa
+     * @param string|null $nome
+     * @param Operadora   $operadora
+     * @param Tipo        $tipo
+     * @param Data        $dataInicio
+     * @param Data        $dataFinal
+     * @param Status      $status
      *
      * @throws Excecao
      */
@@ -38,6 +46,7 @@ class CreditoModel extends ORM
         private readonly Quantidade $quantidade = new Quantidade(),
         private readonly Ordem $ordem = new Ordem(),
         private readonly ?string $nome = null,
+        private readonly ?string $empresa = null,
         private readonly Operadora $operadora = new Operadora(),
         private readonly Tipo $tipo = new Tipo(),
         private readonly Data $dataInicio = new Data(),
@@ -54,7 +63,7 @@ class CreditoModel extends ORM
      */
     private function validarDados(): void
     {
-        if (!$this->dataInicio->vazio() && $this->dataInicio->eDate()) {
+        if (!$this->dataInicio->vazio() && !$this->dataInicio->eDate()) {
             mensagemErro('Campo inválido!', 'A data de início não está no formato válido.');
         }
         if (!$this->dataFinal->vazio() && !$this->dataFinal->eDate()) {
@@ -85,6 +94,12 @@ class CreditoModel extends ORM
             ->where($this->pegarWhere(), false)
             ->pagina($this->pegarPagina(), $this->pegarQuantidade())
             ->order($this->pegarOrdem(new Ordem()))
+            ->tabela(TABELA_COMERCIAL_EMPRESA)
+            ->where($this->pegarWhereEmpresa(), false)
+            ->join('id', 'id_admin_empresa')
+            ->campo([
+                'nome_fantasia'
+            ], 'empresa')
             ->tabela(TABELA_USUARIO_CLIENTE)
             ->where($this->pegarWhereUsuario(), false)
             ->join('id', 'id_usuario_cliente')
@@ -132,6 +147,18 @@ class CreditoModel extends ORM
     /**
      * @return array
      */
+    protected function pegarWhereEmpresa(): array
+    {
+        $where = [];
+        if (!empty($this->empresa)) {
+            $where[] = ['cod', $this->empresa];
+        }
+        return $where;
+    }
+
+    /**
+     * @return array
+     */
     protected function pegarWhereUsuario(): array
     {
         $where = [];
@@ -159,8 +186,10 @@ class CreditoModel extends ORM
         foreach ($solicitacoes as $solicitacao) {
             $retorno[] = [
                 'id'            => $solicitacao->uuid,
+                'empresa'       => [
+                    'nome' => $solicitacao->empresa_nome_fantasia
+                ],
                 'usuario'       => [
-                    'id'   => $solicitacao->usuario_uuid,
                     'nome' => $solicitacao->usuario_nome
                 ],
                 'operadora'     => $Operadora->indice($solicitacao->operadora),

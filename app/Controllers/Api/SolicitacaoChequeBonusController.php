@@ -4,6 +4,7 @@ namespace App\Controllers\Api;
 
 use App\Classes\Solicitacao\Status;
 use App\Classes\SolicitacaoChequeBonus\Ordem;
+use App\Classes\UsuarioCliente\TipoUsuario;
 use App\Models\Api\SolicitacaoChequeBonus\ChequeBonusEntity;
 use App\Models\Api\SolicitacaoChequeBonus\ChequeBonusModel;
 use Controller\Controller;
@@ -69,7 +70,9 @@ class SolicitacaoChequeBonusController extends Controller implements
             new Pagina($request->pagina),
             new Quantidade($request->quantidade),
             new Ordem($request->ordem),
+            $request->nome,
             $request->empresa,
+            new TipoUsuario($request->tipo_usuario),
             new Data($request->data_inicio),
             new Data($request->data_final),
             new Status($request->status)
