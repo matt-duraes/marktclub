@@ -85,7 +85,7 @@
             <header>
                 <h1>Stand by <span>({!!count($standby)!!})</span></h1>
             </header>
-            <div class="conteudo coluna_drop" id="bloco_standby" data-prospeccao="standby">
+            <div class="conteudo" id="bloco_standby" data-prospeccao="standby">
                 @ifforeach($standby as $r):
                 @view painel/comercial_prospeccao/index/item_standby.view
                 @endifforeach;
