@@ -17,7 +17,7 @@ class Popup {
         const linkExplode = window.location.href.split('#');
         this.linkAtual = linkExplode[0];
         this.historico = historico !== undefined ? historico : true;
-        this.fechar = fechar !== undefined ? fechar : true;
+        this.botaoFechar = fechar !== undefined ? fechar : true;
 
         this.titulo = titulo;
         this.callback = callback;
@@ -72,6 +72,17 @@ class Popup {
         clone.classList.remove('display_none');
         clone.classList.remove('fw_popup_display_none');
         clone.classList.add('fw_popup_conteudo_animacao');
+        const blocoId = clone.getAttribute('id');
+        if (blocoId) {
+            clone.classList.add(blocoId);
+            clone.removeAttribute('id');
+        }
+
+        const listaId = clone.querySelectorAll('*[id]');
+        for (const id of listaId) {
+            id.classList.add(id.getAttribute('id'));
+            id.removeAttribute('id');
+        }
 
         const blocoAberto = blocoFwPopup.querySelector('.fw_popup_conteudo');
         if (blocoAberto) {
@@ -89,6 +100,7 @@ class Popup {
         }, 40);
         if (this.callback) {
             this.callback(clone);
+            LoadingSistema.carregar(blocoFwPopup);
         }
 
         if (historico) {
@@ -120,6 +132,7 @@ class Popup {
         }, 300);
     }
 }
+
 blocoFwPopup.addEventListener('click', e => {
     if (
         e.target.classList.contains('popup_fechar') ||

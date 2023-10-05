@@ -44,11 +44,17 @@ final class DemandaController extends Controller
 
     private function listar($titulo, $area, $quadro)
     {
+        $empresa = $this->Api
+            ->json(['titulo' => 'Escolha um cliente'])
+            ->get('/comercial-empresa/select')
+            ->array()['dado'] ?? [];
+
         return view('painel.demanda.index', [
             'app'       => 'demanda-' . $area,
             'appTitulo' => $titulo,
             'area'      => $area,
             'quadro'    => $quadro,
+            'empresa'   => $empresa,
             'Tipo'      => new Tipo(),
             'Area'      => new DemandaTarefaTipo(),
         ]);

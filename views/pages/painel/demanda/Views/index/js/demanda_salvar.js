@@ -1,117 +1,117 @@
 const demandaSalvar = () => {
     const area = document.querySelector('#input_area').value || '';
-    const inputTipo = document.getElementById('input_tipo');
-    const inputTitulo = document.getElementById('input_titulo');
-    const inputTexto = document.getElementById('input_texto');
+    const inputTipo = document.querySelector('.input_tipo');
+    const inputTitulo = document.querySelector('.input_titulo');
+    const inputTexto = document.querySelector('.input_texto');
 
     // Cliente
-    const inputEmpresaCliente = document.getElementById('input_empresa_cliente');
-    const inputDominioTipo = document.getElementById('input_dominio_tipo');
-    const inputDominioSub = document.getElementById('input_dominio_sub');
-    const inputDominioProprio = document.getElementById('input_dominio_proprio');
-    const inputConfigurarCdn = document.getElementById('input_configurar_cdn');
-    const inputLoginApi = document.getElementById('input_login_api');
-    const inputDominioLogin = document.getElementById('input_dominio_login');
-    const inputApp = document.getElementById('input_app');
-    const inputWebView = document.getElementById('input_webview');
+    const inputEmpresaCliente = document.querySelector('.input_empresa_cliente');
+    const inputDominioTipo = document.querySelector('.input_dominio_tipo');
+    const inputDominioSub = document.querySelector('.input_dominio_sub');
+    const inputDominioProprio = document.querySelector('.input_dominio_proprio');
+    const inputConfigurarCdn = document.querySelector('.input_configurar_cdn');
+    const inputLoginApi = document.querySelector('.input_login_api');
+    const inputDominioLogin = document.querySelector('.input_dominio_login');
+    const inputApp = document.querySelector('.input_app');
+    const inputWebView = document.querySelector('.input_webview');
     // Bub
-    const inputBugLocal = document.getElementById('input_bug_local');
-    const inputEmpresaBug = document.getElementById('input_empresa_bug');
-    const inputEmpresaEspecifica = document.getElementById('input_empresa_especifica');
-    const inputBugCritico = document.getElementById('input_bug_critico');
+    const inputBugLocal = document.querySelector('.input_bug_local');
+    const inputEmpresaBug = document.querySelector('.input_empresa_bug');
+    const inputEmpresaEspecifica = document.querySelector('.input_empresa_especifica');
+    const inputBugCritico = document.querySelector('.input_bug_critico');
     // Outro
-    const inputEmpresaOutro = document.getElementById('input_empresa_outro');
+    const inputEmpresaOutro = document.querySelector('.input_empresa_outro');
     // Associacao
-    const inputEmpresaAssociacao = document.getElementById('input_empresa_associacao');
-    const inputDominioSite = document.getElementById('input_dominio_site');
-    const inputSocialFacebook = document.getElementById('input_social_facebook');
-    const inputSocialInstagram = document.getElementById('input_social_instagram');
-    const inputSocialTwitter = document.getElementById('input_social_twitter');
-    const inputEmail = document.getElementById('input_email');
-    const inputTelefone = document.getElementById('input_telefone');
-    const inputEndereco = document.getElementById('input_endereco');
+    const inputEmpresaAssociacao = document.querySelector('.input_empresa_associacao');
+    const inputDominioSite = document.querySelector('.input_dominio_site');
+    const inputSocialFacebook = document.querySelector('.input_social_facebook');
+    const inputSocialInstagram = document.querySelector('.input_social_instagram');
+    const inputSocialTwitter = document.querySelector('.input_social_twitter');
+    const inputEmail = document.querySelector('.input_email');
+    const inputTelefone = document.querySelector('.input_telefone');
+    const inputEndereco = document.querySelector('.input_endereco');
     // Criacao
-    const inputEmpresaCriacao = document.getElementById('input_empresa_criacao');
-    const inputCriacaoCategoriaSite = document.getElementById('input_criacao_categoria_site');
-    const inputCriacaoCategoriaSocial = document.getElementById('input_criacao_categoria_social');
-    const inputCriacaoCategoriaImpresso = document.getElementById('input_criacao_categoria_impresso');
-    const inputCriacaoCategoriaKit = document.getElementById('input_criacao_categoria_kit');
-    const inputCriacaoCategoriaVideo = document.getElementById('input_criacao_categoria_video');
-    const inputCriacaoCategoriaOutro = document.getElementById('input_criacao_categoria_outro');
-    const inputSiteLargura = document.getElementById('input_site_largura');
-    const inputSiteAltura = document.getElementById('input_site_altura');
-    const inputDigitalStories = document.getElementById('input_digital_stories');
-    const inputDigitalFeed = document.getElementById('input_digital_feed');
-    const inputDigitalBanner = document.getElementById('input_digital_banner');
-    const inputFeedWhatsapp = document.getElementById('input_feed_whatsapp');
-    const inputFeedInstagram = document.getElementById('input_feed_instagram');
-    const inputFeedFacebook = document.getElementById('input_feed_facebook');
-    const inputFeedLinkedin = document.getElementById('input_feed_linkedin');
-    const inputFeedTwitter = document.getElementById('input_feed_twitter');
-    const inputFeedYoutube = document.getElementById('input_feed_youtube');
-    const inputFeedTiktok = document.getElementById('input_feed_tiktok');
-    const inputImpressoVoucher = document.getElementById('input_impresso_voucher');
-    const inputImpressoFolder = document.getElementById('input_impresso_folder');
-    const inputImpressoBanner = document.getElementById('input_impresso_banner');
-    const inputImpressoRevista = document.getElementById('input_impresso_revista');
-    const inputImpressoOutro = document.getElementById('input_impresso_outro');
-    const inputKitEmail = document.getElementById('input_kit_email');
-    const inputKitStories = document.getElementById('input_kit_stories');
-    const inputKitVideo = document.getElementById('input_kit_video');
-    const inputKitFeed = document.getElementById('input_kit_feed');
-    const inputKitComoAcessar = document.getElementById('input_kit_como_acessar');
-    const inputKitBaixarApp = document.getElementById('input_kit_baixar_app');
-    const inputKitPrevia = document.getElementById('input_kit_previa');
-    const inputVideoFormato = document.getElementById('input_video_formato');
-    const inputVideoLargura = document.getElementById('input_video_largura');
-    const inputVideoAltura = document.getElementById('input_video_altura');
-    const inputSiteTexto = document.getElementById('input_site_texto');
-    const inputRedeSocialTexto = document.getElementById('input_rede_social_texto');
-    const inputImpressoTexto = document.getElementById('input_impresso_texto');
-    const inputKitTexto = document.getElementById('input_kit_texto');
-    const inputVideoTexto = document.getElementById('input_video_texto');
-    const inputOutroTexto = document.getElementById('input_outro_texto');
+    const inputEmpresaCriacao = document.querySelector('.input_empresa_criacao');
+    const inputCriacaoCategoriaSite = document.querySelector('.input_criacao_categoria_site');
+    const inputCriacaoCategoriaSocial = document.querySelector('.input_criacao_categoria_social');
+    const inputCriacaoCategoriaImpresso = document.querySelector('.input_criacao_categoria_impresso');
+    const inputCriacaoCategoriaKit = document.querySelector('.input_criacao_categoria_kit');
+    const inputCriacaoCategoriaVideo = document.querySelector('.input_criacao_categoria_video');
+    const inputCriacaoCategoriaOutro = document.querySelector('.input_criacao_categoria_outro');
+    const inputSiteLargura = document.querySelector('.input_site_largura');
+    const inputSiteAltura = document.querySelector('.input_site_altura');
+    const inputDigitalStories = document.querySelector('.input_digital_stories');
+    const inputDigitalFeed = document.querySelector('.input_digital_feed');
+    const inputDigitalBanner = document.querySelector('.input_digital_banner');
+    const inputFeedWhatsapp = document.querySelector('.input_feed_whatsapp');
+    const inputFeedInstagram = document.querySelector('.input_feed_instagram');
+    const inputFeedFacebook = document.querySelector('.input_feed_facebook');
+    const inputFeedLinkedin = document.querySelector('.input_feed_linkedin');
+    const inputFeedTwitter = document.querySelector('.input_feed_twitter');
+    const inputFeedYoutube = document.querySelector('.input_feed_youtube');
+    const inputFeedTiktok = document.querySelector('.input_feed_tiktok');
+    const inputImpressoVoucher = document.querySelector('.input_impresso_voucher');
+    const inputImpressoFolder = document.querySelector('.input_impresso_folder');
+    const inputImpressoBanner = document.querySelector('.input_impresso_banner');
+    const inputImpressoRevista = document.querySelector('.input_impresso_revista');
+    const inputImpressoOutro = document.querySelector('.input_impresso_outro');
+    const inputKitEmail = document.querySelector('.input_kit_email');
+    const inputKitStories = document.querySelector('.input_kit_stories');
+    const inputKitVideo = document.querySelector('.input_kit_video');
+    const inputKitFeed = document.querySelector('.input_kit_feed');
+    const inputKitComoAcessar = document.querySelector('.input_kit_como_acessar');
+    const inputKitBaixarApp = document.querySelector('.input_kit_baixar_app');
+    const inputKitPrevia = document.querySelector('.input_kit_previa');
+    const inputVideoFormato = document.querySelector('.input_video_formato');
+    const inputVideoLargura = document.querySelector('.input_video_largura');
+    const inputVideoAltura = document.querySelector('.input_video_altura');
+    const inputSiteTexto = document.querySelector('.input_site_texto');
+    const inputRedeSocialTexto = document.querySelector('.input_rede_social_texto');
+    const inputImpressoTexto = document.querySelector('.input_impresso_texto');
+    const inputKitTexto = document.querySelector('.input_kit_texto');
+    const inputVideoTexto = document.querySelector('.input_video_texto');
+    const inputOutroTexto = document.querySelector('.input_outro_texto');
     // Sorteio
-    const inputEmpresaSorteio = document.getElementById('input_empresa_sorteio');
-    const inputSorteioDataInicio = document.getElementById('input_data_inicio');
-    const inputSorteioDataFinal = document.getElementById('input_data_final');
-    const inputSorteioDataSorteio = document.getElementById('input_data_sorteio');
-    const inputSorteioComoParticipar = document.getElementById('input_como_participar');
-    const inputSorteioMotivacao = document.getElementById('input_sorteio_motivacao');
-    const inputSorteioMotivacaoOutro = document.getElementById('input_sorteio_motivacao_outro');
-    const inputSorteioPremioItem = document.getElementById('input_premio_item');
-    const inputSorteioPremioCompra = document.getElementById('input_premio_compra');
-    const inputSorteioPremioEntrega = document.getElementById('input_premio_entrega');
-    const inputSorteioPremioEntregaOutro = document.getElementById('input_premio_entrega_outro');
-    const inputSorteioTexto = document.getElementById('input_sorteio_texto');
+    const inputEmpresaSorteio = document.querySelector('.input_empresa_sorteio');
+    const inputSorteioDataInicio = document.querySelector('.input_data_inicio');
+    const inputSorteioDataFinal = document.querySelector('.input_data_final');
+    const inputSorteioDataSorteio = document.querySelector('.input_data_sorteio');
+    const inputSorteioComoParticipar = document.querySelector('.input_como_participar');
+    const inputSorteioMotivacao = document.querySelector('.input_sorteio_motivacao');
+    const inputSorteioMotivacaoOutro = document.querySelector('.input_sorteio_motivacao_outro');
+    const inputSorteioPremioItem = document.querySelector('.input_premio_item');
+    const inputSorteioPremioCompra = document.querySelector('.input_premio_compra');
+    const inputSorteioPremioEntrega = document.querySelector('.input_premio_entrega');
+    const inputSorteioPremioEntregaOutro = document.querySelector('.input_premio_entrega_outro');
+    const inputSorteioTexto = document.querySelector('.input_sorteio_texto');
 
-    const botaoSalvar = document.getElementById('botao_salvar_demanda');
+    const botaoSalvar = document.querySelector('.botao_salvar_demanda');
 
-    const blocoEscolherTecnologia = document.getElementById('bloco_tipo_demanda_tecnologia');
-    const blocoEscolherCriacao = document.getElementById('bloco_tipo_demanda_criacao');
-    const botaoTipo = document.querySelectorAll('#bloco_demanda_nova .botao_lista .botao');
+    const blocoEscolherTecnologia = document.querySelector('.bloco_tipo_demanda_tecnologia');
+    const blocoEscolherCriacao = document.querySelector('.bloco_tipo_demanda_criacao');
+    const botaoTipo = document.querySelectorAll('.bloco_demanda_nova .botao_lista .botao');
 
-    const blocoTipoSorteio = document.getElementById('bloco_sorteio');
-    const blocoTipoCriacao = document.getElementById('bloco_criacao');
-    const blocoTipoAssociacao = document.getElementById('bloco_tipo_associacao');
-    const blocoTipoCliente = document.getElementById('bloco_tipo_cliente');
-    const blocoTipoBug = document.getElementById('bloco_tipo_bug');
-    const blocoTipoOutro = document.getElementById('bloco_tipo_outro');
-    const blocoHeader = document.getElementById('bloco_geral_header');
-    const blocoFooter = document.getElementById('bloco_geral_footer');
+    const blocoTipoSorteio = document.querySelector('.bloco_sorteio');
+    const blocoTipoCriacao = document.querySelector('.bloco_criacao');
+    const blocoTipoAssociacao = document.querySelector('.bloco_tipo_associacao');
+    const blocoTipoCliente = document.querySelector('.bloco_tipo_cliente');
+    const blocoTipoBug = document.querySelector('.bloco_tipo_bug');
+    const blocoTipoOutro = document.querySelector('.bloco_tipo_outro');
+    const blocoHeader = document.querySelector('.bloco_geral_header');
+    const blocoFooter = document.querySelector('.bloco_geral_footer');
 
-    const blocoCriacaoOutro = document.getElementById('bloco_criacao_outro');
-    const blocoCriacaoSite = document.getElementById('bloco_criacao_site');
-    const blocoCriacaoSocial = document.getElementById('bloco_criacao_social');
-    const blocoCriacaoFeed = document.getElementById('bloco_criacao_feed');
-    const blocoCriacaoImpresso = document.getElementById('bloco_criacao_impresso');
-    const blocoCriacaoImpressoOutro = document.getElementById('bloco_criacao_impresso_outro');
-    const blocoCriacaoKit = document.getElementById('bloco_criacao_kit');
-    const blocoCriacaoVideo = document.getElementById('bloco_criacao_video');
-    const blocoCriacaoVideoDimensao = document.getElementById('bloco_criacao_video_dimensao');
+    const blocoCriacaoOutro = document.querySelector('.bloco_criacao_outro');
+    const blocoCriacaoSite = document.querySelector('.bloco_criacao_site');
+    const blocoCriacaoSocial = document.querySelector('.bloco_criacao_social');
+    const blocoCriacaoFeed = document.querySelector('.bloco_criacao_feed');
+    const blocoCriacaoImpresso = document.querySelector('.bloco_criacao_impresso');
+    const blocoCriacaoImpressoOutro = document.querySelector('.bloco_criacao_impresso_outro');
+    const blocoCriacaoKit = document.querySelector('.bloco_criacao_kit');
+    const blocoCriacaoVideo = document.querySelector('.bloco_criacao_video');
+    const blocoCriacaoVideoDimensao = document.querySelector('.bloco_criacao_video_dimensao');
 
-    const blocoSorteioMotivacaoOutro = document.getElementById('bloco_sorteio_motivacao_outro');
-    const blocoSorteioEntregaOutro = document.getElementById('bloco_premio_entrega_outro');
+    const blocoSorteioMotivacaoOutro = document.querySelector('.bloco_sorteio_motivacao_outro');
+    const blocoSorteioEntregaOutro = document.querySelector('.bloco_premio_entrega_outro');
 
     if (area == 'tecnologia') {
         blocoEscolherTecnologia.classList.remove('display_none');
@@ -328,7 +328,7 @@ const demandaSalvar = () => {
     | HELPER DE AJUDA
     |--------------------------------------------------------------------------
     */
-    const listaAjuda = document.querySelectorAll('#bloco_demanda_nova *[data-ajuda]');
+    const listaAjuda = document.querySelectorAll('.bloco_demanda_nova *[data-ajuda]');
     listaAjuda.forEach(bloco => {
         bloco.addEventListener('mouseover', () => {
             const texto = bloco.getAttribute('data-ajuda');
@@ -341,26 +341,15 @@ const demandaSalvar = () => {
 
     /*
     |--------------------------------------------------------------------------
-    | FECHAR PÁGINA
-    |--------------------------------------------------------------------------
-    */
-    document.querySelectorAll('#bloco_demanda_nova .botao_fechar').forEach(botao => {
-        botao.addEventListener('click', () => {
-            Pagina.staticFechar();
-        });
-    });
-
-    /*
-    |--------------------------------------------------------------------------
     | DOMINIO
     |--------------------------------------------------------------------------
     */
-    const blocoDominioSub = document.getElementById('bloco_dominio_sub');
-    const blocoDominioSubTexto = document.getElementById('bloco_dominio_sub_texto');
-    const blocoDominioProprio = document.getElementById('bloco_dominio_proprio');
-    const blocoObservacaoDominioProprio = document.getElementById('bloco_observacao_dominio_proprio');
-    const blocoObservacaoSubDominioProprio = document.getElementById('bloco_observacao_sub_dominio_proprio');
-    const blocoConfigurarCdn = document.getElementById('bloco_configurar_cdn');
+    const blocoDominioSub = document.querySelector('.bloco_dominio_sub');
+    const blocoDominioSubTexto = document.querySelector('.bloco_dominio_sub_texto');
+    const blocoDominioProprio = document.querySelector('.bloco_dominio_proprio');
+    const blocoObservacaoDominioProprio = document.querySelector('.bloco_observacao_dominio_proprio');
+    const blocoObservacaoSubDominioProprio = document.querySelector('.bloco_observacao_sub_dominio_proprio');
+    const blocoConfigurarCdn = document.querySelector('.bloco_configurar_cdn');
 
     const mudarTipoDominio = () => {
         blocoDominioSub.classList.add('display_none');
@@ -397,7 +386,7 @@ const demandaSalvar = () => {
     | LOGIN
     |--------------------------------------------------------------------------
     */
-    const blocoDominioLogin = document.getElementById('bloco_dominio_login');
+    const blocoDominioLogin = document.querySelector('.bloco_dominio_login');
     inputLoginApi.addEventListener('change', () => {
         mostrarObservacaoApp();
         if (inputLoginApi.checked) {
@@ -413,7 +402,7 @@ const demandaSalvar = () => {
     | APP
     |--------------------------------------------------------------------------
     */
-    const blocoApp = document.getElementById('bloco_app');
+    const blocoApp = document.querySelector('.bloco_app');
 
     inputApp.addEventListener('click', () => {
         mostrarObservacaoApp();
@@ -431,7 +420,7 @@ const demandaSalvar = () => {
     | EMPRESA ESPECIFICA
     |--------------------------------------------------------------------------
     */
-    const blocoEmpresaEspecifica = document.getElementById('bloco_empresa_especifica');
+    const blocoEmpresaEspecifica = document.querySelector('.bloco_empresa_especifica');
     inputEmpresaEspecifica.addEventListener('change', () => {
         if (inputEmpresaEspecifica.checked) {
             blocoEmpresaEspecifica.classList.remove('display_none');
@@ -513,7 +502,7 @@ const demandaSalvar = () => {
                 mensagem = 'Digite um domínio/subdomínio para o clube.';
             } else if (inputLoginApi.checked && inputDominioLogin.value == '') {
                 mensagem = 'Digite o domínio de login do sistema do cliente.';
-            } else if (document.querySelectorAll('#bloco_menu_clube input:checked').length == 0) {
+            } else if (document.querySelectorAll('.bloco_menu_clube input:checked').length == 0) {
                 mensagem = 'Você deve escolher pelo menos um menu para o clube.';
             }
             if (mensagem != '') {
@@ -537,7 +526,7 @@ const demandaSalvar = () => {
                 <p>O clube deve ter os seguintes menus:</p>
                     <ul>
             `;
-            document.querySelectorAll('#bloco_menu_clube input:checked').forEach(item => {
+            document.querySelectorAll('.bloco_menu_clube input:checked').forEach(item => {
                 texto += `<li>${item.value}</li>`;
             });
             texto += `</ul>`;

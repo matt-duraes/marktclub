@@ -24,6 +24,7 @@ final class TermoController extends Controller
     {
         return view('termo.app');
     }
+
     public function excluir()
     {
         return view('termo.excluir');
