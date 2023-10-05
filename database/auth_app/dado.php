@@ -92,6 +92,13 @@ $scope = [
     'construtor_clube:buscar', 'construtor_clube:listar', 'construtor_clube:salvar', 'construtor_clube:atualizar',
     'construtor_clube:deletar',
 
+    'demanda_dado:listar', 'demanda_dado:buscar', 'demanda_dado:salvar', 'demanda_dado:atualizar',
+    'demanda_dado:cancelar',
+
+    'mensageria:salvar',
+
+    'pagina:turismo', 'pagina:cinema', 'pagina:samsung',
+
     'log_erro:listar', 'log_erro:buscar', 'log_erro:atualizar',
 
     'ponto_cvs:listar', 'ponto_cvs:buscar', 'ponto_cvs:salvar', 'ponto_cvs:atualizar',
