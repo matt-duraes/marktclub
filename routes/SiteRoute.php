@@ -633,13 +633,17 @@ Route
             ::nome('index')
             ::view('/perfil');
         Route
-            ::nome('salvaDados')
+            ::nome('salvarDados')
             ::request([
                 '!nome', '!data_nascimento', '!genero', '!estado_civil', '!email_pessoal', '!email_trabalho',
                 '!telefone_trabalho', '!telefone_pessoal', '!endereco_estado', '!endereco_cep', '!endereco_logradouro',
                 '!endereco_bairro', '!endereco_numero', '!endereco_complemento', '!endereco_cidade', '!imagem'
             ])
             ::post('/perfil/salvar-dados');
+        Route
+            ::nome('salvarEmail')
+            ::request(['!email_pessoal', '!email_trabalho'])
+            ::post('/perfil/salvar-email');
         Route
             ::nome('senha')
             ::view('/perfil/alterar-senha');
