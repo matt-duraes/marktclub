@@ -24,19 +24,19 @@ final class OperadoraModel extends ClubeApiHelper implements ListarInterface
         $lista = [
             (object)[
                 'id'     => uuid(),
-                'titulo' => 'Amil',
-                'link'   => route('planosaude.amil'),
-                'imagem' => LINK . '/images/site/logo_amil.png',
-                'tipo'   => 'operadora',
-                'status' => MENU_SAUDE_AMIL
-            ],
-            (object)[
-                'id'     => uuid(),
                 'titulo' => 'Unimed Vitória',
                 'link'   => route('planosaude.unimedVitoria'),
                 'imagem' => LINK . '/images/site/logo_unimed_vitoria.jpg',
                 'tipo'   => 'operadora',
                 'status' => MENU_SAUDE_VITORIA
+            ],
+            (object)[
+                'id'     => uuid(),
+                'titulo' => 'Amil',
+                'link'   => route('planosaude.amil'),
+                'imagem' => LINK . '/images/site/logo_amil.png',
+                'tipo'   => 'operadora',
+                'status' => MENU_SAUDE_AMIL
             ],
             (object)[
                 'id'     => uuid(),
