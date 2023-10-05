@@ -51,7 +51,7 @@ class EnqueteEntity extends Entity
     public function __construct(
         protected readonly ?Request $request = null
     ) {
-        $this->setarIdUsuario();
+        $this->validarEmpresa();
         parent::__construct();
     }
 
