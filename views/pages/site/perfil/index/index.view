@@ -24,6 +24,13 @@
             </div>
         </section>
         <form method="post" class="form_geral">
+            @php
+                $lista = [];
+                for($i=0;$i<100;$i++) $lista["valor_" . $i] = "Valor " . $i;
+                $lista['teste'] = "Teste 1000";
+                for($i=0;$i<100;$i++) $lista["valor_" . $i] = "Valor " . $i;
+            @end
+            @? formSelect(name: 'teste', placeholder: 'Teste', label: 'Teste', lista: $lista)
             <fieldset>
                 <p>Dados pessoais</p>
                 @? formInput(name: 'nome', placeholder: 'Digite um nome', label: 'Digite um nome', class: 'nome', value: $dado->nome)
