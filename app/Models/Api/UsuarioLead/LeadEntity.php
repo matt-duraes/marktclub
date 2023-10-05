@@ -2,27 +2,57 @@
 
 namespace App\Models\Api\UsuarioLead;
 
-use ORM\Entity;
-use Modules\Cpf;
-use Modules\Cnpj;
-use Modules\Data;
-use Modules\Nome;
-use Modules\Email;
-use Modules\Genero;
-use Modules\Telefone;
-use Modules\EnderecoCep;
-use Modules\EnderecoEstado;
-use App\Classes\UsuarioLead\Status;
 use App\Classes\UsuarioCliente\Origem;
 use App\Classes\UsuarioCliente\TrabalhoCargo;
 use App\Classes\UsuarioCliente\TrabalhoEmpresa;
-use App\Models\Api\UsuarioLead\Trait\EmailTrait;
+use App\Classes\UsuarioLead\Status;
 use App\Models\Api\UsuarioCliente\SalvarLeadModel;
+use App\Models\Api\UsuarioLead\Trait\EmailTrait;
+use Erro\Erro;
+use Erro\Excecao;
+use Modules\Cnpj;
+use Modules\Cpf;
+use Modules\Data;
+use Modules\Email;
+use Modules\EnderecoCep;
+use Modules\EnderecoEstado;
+use Modules\Genero;
+use Modules\Nome;
+use Modules\Telefone;
+use ORM\Entity;
+use SendGrid\Mail\TypeException;
 
 final class LeadEntity extends Entity
 {
     use EmailTrait;
 
+    public Nome $nome;
+    public Cpf $cpf;
+    public Data $data_nascimento;
+    public Data $trabalho_data_inicio;
+    public Email $email_trabalho;
+    public Email $email_pessoal;
+    public Email $email_funcional;
+    public Telefone $telefone_pessoal;
+    public Telefone $telefone_trabalho;
+    public Genero $genero;
+    public EnderecoCep $endereco_cep;
+    public EnderecoEstado $endereco_estado;
+    public array $lista_dependente;
+    public Status $status;
+    public TrabalhoEmpresa $trabalho_empresa;
+    public TrabalhoCargo $trabalho_cargo;
+    public Origem $origem;
+    public Cnpj $cnpj_trabalho;
+    public string $contrato_siape;
+    public string $siape;
+    public string $rg;
+    public string $endereco_logradouro;
+    public string $endereco_complemento;
+    public string $endereco_bairro;
+    public string $endereco_cidade;
+    public int|string $endereco_numero;
+    public int $id_admin_empresa;
     protected string $ormTabela = TABELA_USUARIO_LEAD;
     protected array $ormBuscar = [
         'nome'   => 'nome_completo',
@@ -64,69 +94,47 @@ final class LeadEntity extends Entity
         termo_lgpd|Termo da LGPD|dataDate|hoje
     ';
     private int $idEmpresa;
-    public Nome $nome;
-    public Cpf $cpf;
-    public Data $data_nascimento;
-    public Data $trabalho_data_inicio;
-    public Email $email_trabalho;
-    public Email $email_pessoal;
-    public Email $email_funcional;
-    public Telefone $telefone_pessoal;
-    public Telefone $telefone_trabalho;
-    public Genero $genero;
-    public EnderecoCep $endereco_cep;
-    public EnderecoEstado $endereco_estado;
-    public array $lista_dependente;
-    public Status $status;
-    public TrabalhoEmpresa $trabalho_empresa;
-    public TrabalhoCargo $trabalho_cargo;
-    public Origem $origem;
-    public Cnpj $cnpj_trabalho;
-    public string $contrato_siape;
-    public string $siape;
-    public string $rg;
-    public string $endereco_logradouro;
-    public string $endereco_complemento;
-    public string $endereco_bairro;
-    public string $endereco_cidade;
-    public int|string $endereco_numero;
-    public int $id_admin_empresa;
     private bool $usuarioAprovado = false;
     private bool $usuarioRecusado = false;
 
+    /**
+     * @throws Excecao
+     */
     public function __construct()
     {
         parent::__construct();
 
         if (!defined('TOKEN')) {
-            mensagemStatus(401, localhost: 'Token não foi encontrado no UsuarioLeed\LeedEntity');
+            mensagemStatus(401, localhost: 'Token não foi encontrado no UsuarioLead\LeadEntity');
         }
 
         $this->idEmpresa = TOKEN['empresa']->id;
         $this->ormWherePadrao = ['id_admin_empresa', $this->idEmpresa];
     }
 
-    protected function regraPosBuscar()
+    protected function regraPosBuscar(): void
     {
         $this->contrato_siape = '';
         if (
-            !$this->trabalho_empresa->vazio() && !empty($this->siape) && $this->idEmpresa == 19 &&
-            in_array($this->status->indice(), ['novo', 'andamento', 'cadastro_realizado'])
+            !$this->trabalho_empresa->vazio()
+            && !empty($this->siape)
+            && $this->idEmpresa == 19
+            && in_array($this->status->indice(), ['novo', 'andamento', 'cadastro_realizado'])
         ) {
             $this->contrato_siape = $this->trabalho_empresa->numero() . $this->siape . '341201';
         }
         $this->montarDependente();
     }
 
-    private function montarDependente()
+    private function montarDependente(): void
     {
         if (empty($this->lista_dependente)) {
             return;
         }
         foreach (array_keys($this->lista_dependente) as $ind) {
             if (
-                !array_key_exists($ind, $this->lista_dependente) ||
-                !array_key_exists('genero', $this->lista_dependente[$ind])
+                !array_key_exists($ind, $this->lista_dependente)
+                || !array_key_exists('genero', $this->lista_dependente[$ind])
             ) {
                 continue;
             }
@@ -134,13 +142,16 @@ final class LeadEntity extends Entity
         }
     }
 
-    protected function regraInsert()
+    protected function regraInsert(): void
     {
         $this->id_admin_empresa = $this->idEmpresa;
         $this->status = new Status(1);
     }
 
-    protected function regraUpdate()
+    /**
+     * @throws Excecao|Erro
+     */
+    protected function regraUpdate(): void
     {
         if (!$this->status->valido()) {
             mensagemErro('Campo inválido!', 'O campo status não está no formato correto.');
@@ -148,6 +159,7 @@ final class LeadEntity extends Entity
 
         $statusAtual = $this->prop('status');
         $statusNovo = $this->status->numero();
+
         if ($statusAtual == $statusNovo) {
             return;
         } elseif ($statusAtual == 2 && $statusNovo == 3) {
@@ -155,8 +167,8 @@ final class LeadEntity extends Entity
         } elseif ($statusAtual == 2 && $statusNovo == 4) {
             $this->usuarioRecusado = true;
         } elseif (
-            ($statusAtual == 4 && $statusNovo != 4) ||
-            ($statusAtual == 3 && $statusNovo != 3)
+            ($statusAtual == 4 && $statusNovo != 4)
+            || ($statusAtual == 3 && $statusNovo != 3)
         ) {
             mensagemErro('Erro!', 'Você não pode mudar o status de um Lead finalizado.');
         } elseif ($statusAtual == 1 && !in_array($statusNovo, [1, 2])) {
@@ -169,17 +181,23 @@ final class LeadEntity extends Entity
         }
     }
 
-    protected function regraPosUpdate()
+    /**
+     * @throws Excecao|TypeException
+     */
+    protected function regraPosUpdate(): void
     {
         if ($this->usuarioAprovado) {
             $this->enviarEmailAprovado();
-            $this->salvarLeedComoUsuario();
+            $this->salvarLeadComoUsuario();
         } elseif ($this->usuarioRecusado) {
             $this->enviarEmailRecusado();
         }
     }
 
-    private function salvarLeedComoUsuario()
+    /**
+     * @throws Excecao
+     */
+    private function salvarLeadComoUsuario(): void
     {
         $Cliente = new SalvarLeadModel();
         $Cliente->salvarLead([
@@ -198,7 +216,7 @@ final class LeadEntity extends Entity
             'endereco_complemento' => $this->endereco_complemento,
             'endereco_bairro'      => $this->endereco_bairro,
             'cidade'               => $this->endereco_cidade,
-            'uf'                   => $this->endereco_estado->estado(),
+            'uf'                   => $this->endereco_estado->uf(),
             'sexo'                 => $this->genero->numero(),
             'aniversario'          => $this->data_nascimento->date(),
             'trabalho_orgao'       => $this->trabalho_empresa->numero(),

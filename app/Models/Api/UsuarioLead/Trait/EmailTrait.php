@@ -2,9 +2,11 @@
 
 namespace App\Models\Api\UsuarioLead\Trait;
 
-use Modules\Email;
-use Helpers\EmailHelper;
 use App\Models\Api\ConstrutorClube\ConstrutorEntity;
+use Erro\Excecao;
+use Helpers\EmailHelper;
+use Modules\Email;
+use SendGrid\Mail\TypeException;
 
 trait EmailTrait
 {
@@ -12,7 +14,10 @@ trait EmailTrait
     public Email $email_pessoal;
     public Email $email_funcional;
 
-    public function enviarEmailAprovado()
+    /**
+     * @throws Excecao|TypeException
+     */
+    public function enviarEmailAprovado(): void
     {
         $email = $this->pegarEmail();
         if (empty($email)) {
@@ -32,19 +37,36 @@ trait EmailTrait
         $Email->mensagem(
             titulo: $titulo,
             mensagem: $mensagem,
+            botaoTexto: 'ACESSAR SITE',
+            botaoLink: $Construtor->link_clube,
             posMensagem: '
                 Informe seus dados para finalizar seu cadastro e criar sua senha. <br>
                 Não perca tempo! Aproveite esta oportunidade e venha conhecer o maior clube de vantagens
                 da América latina!',
-            botaoTexto: 'ACESSAR SITE',
-            botaoLink: $Construtor->link_clube,
             logo: $Construtor->logo_principal,
             cor: $Construtor->cor_principal
         );
         $Email->sendGrid($titulo, $nome, $email);
     }
 
-    public function enviarEmailRecusado()
+    /**
+     * @return string|void
+     */
+    private function pegarEmail()
+    {
+        if ($this->email_pessoal->valido()) {
+            return $this->email_pessoal->email();
+        } elseif ($this->email_trabalho->valido()) {
+            return $this->email_trabalho->email();
+        } elseif ($this->email_funcional->valido()) {
+            return $this->email_funcional->email();
+        }
+    }
+
+    /**
+     * @throws Excecao|TypeException
+     */
+    public function enviarEmailRecusado(): void
     {
         $email = $this->pegarEmail();
         if (empty($email)) {
@@ -68,16 +90,5 @@ trait EmailTrait
             cor: $Construtor->cor_principal
         );
         $Email->sendGrid($titulo, $nome, $email);
-    }
-
-    private function pegarEmail()
-    {
-        if ($this->email_pessoal->valido()) {
-            return $this->email_pessoal->email();
-        } elseif ($this->email_trabalho->valido()) {
-            return $this->email_trabalho->email();
-        } elseif ($this->email_funcional->valido()) {
-            return $this->email_funcional->email();
-        }
     }
 }

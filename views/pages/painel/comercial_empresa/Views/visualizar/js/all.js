@@ -1,4 +1,5 @@
 // @template "painel"
+// @painel "app_geral_visualizar"
 
 class GoogleMaps {
     /**

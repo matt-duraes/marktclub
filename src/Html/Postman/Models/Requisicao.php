@@ -46,6 +46,7 @@ final class Requisicao
                 'descricao'  => $dado['documentacao']['descricao'] ?? '',
                 'requisicao' => $dado['documentacao']['requisicao'] ?? '',
                 'resposta'   => $dado['documentacao']['resposta'] ?? '',
+                'scope'      => $dado['documentacao']['scope'] ?? '',
             ]
         ];
     }
@@ -133,6 +134,12 @@ final class Requisicao
     public function resposta(string $resposta)
     {
         $this->requisicao['documentacao']['resposta'] = $resposta;
+        return $this;
+    }
+
+    public function scope(string $scope)
+    {
+        $this->requisicao['documentacao']['scope'] = $scope;
         return $this;
     }
 

@@ -55,8 +55,19 @@
         </div>
     </div>
 
-    <div class="bloco_plano_saude">
-        <header>
+
+    <div class="bloco_plano_saude" id="bloco_coparticipacao">
+        <h1>Co-participações</h1>
+        <p>
+            Para obter informações detalhadas sobre como a co-participação funciona no nosso plano de saúde, consulte nossa tabela de co-participação. Ela contém uma lista abrangente de serviços e os valores de co-participação correspondentes.
+        </p>
+        <a href="{{!!LINK}}/images/tabela_coparticipacao.xlsx" class="botao_geral_cor cor_bg" download>
+            Baixar tabela
+        </a>
+    </div>
+
+	<div class="bloco_plano_saude">
+		<header>
             <h1>Carência</h1>
         </header>
         <div class="bloco_tabela_geral">
@@ -415,6 +426,6 @@
         </div>
     @endif
     @if(TIPO_USUARIO != 'indicado'):
-        <a href="@route(planosaude.simulacao)/unimed-vitoria" target="_blank" class="botao_geral_cor botao_fixo_bottom cor_bg botao_scroll">SIMULAR AGORA</a>
+        <a href="@route(planosaude.simulacao)/unimed-vitoria" class="botao_geral_cor botao_fixo_bottom cor_bg botao_scroll">SIMULAR AGORA</a>
     @endif
 </div>

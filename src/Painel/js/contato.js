@@ -12,7 +12,7 @@ const contatoLoad = () => {
             return;
         }
         Loading.show();
-        const resposta = await ajaxPost('/historico', {
+        const resposta = await ajaxPost(LINK + '/historico', {
             relacionado,
             mensagem,
             app,

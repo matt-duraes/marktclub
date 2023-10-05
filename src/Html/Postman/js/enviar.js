@@ -136,6 +136,7 @@ const mandarRequisicao = async (bloco, acao) => {
     const inputDocDescricao = bloco.querySelector('.input_descricao');
     const inputDocRequisicao = bloco.querySelector('.input_requisicao');
     const inputDocResposta = bloco.querySelector('.input_resposta');
+    const inputDocScope = bloco.querySelector('.input_scope');
     const menu = blocoMenuLista.querySelector('#' + id + '_menu');
     const pai = menu ? menu.closest('.grupo') : null;
     return await post('__postman', {
@@ -154,6 +155,7 @@ const mandarRequisicao = async (bloco, acao) => {
         descriaco: inputDocDescricao.value,
         requisicao: inputDocRequisicao.value,
         resposta: inputDocResposta.value,
+        scope: inputDocScope.value,
     });
 };
 const pegarParametro = bloco => {

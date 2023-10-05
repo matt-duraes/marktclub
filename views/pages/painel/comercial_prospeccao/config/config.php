@@ -12,7 +12,7 @@ return [
     'editar'     => true,
     'deletar'    => false,
     'download'   => false,
-    'historico'  => false,
+    'historico'  => true,
     'api'        => [
         'scope'        => 'comercial_empresa',
         'uri'          => '/comercial-empresa',

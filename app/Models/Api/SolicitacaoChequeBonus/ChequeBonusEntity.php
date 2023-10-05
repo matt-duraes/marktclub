@@ -2,27 +2,53 @@
 
 namespace App\Models\Api\SolicitacaoChequeBonus;
 
-use ORM\Entity;
+use App\Classes\Solicitacao\Status;
+use App\Classes\UsuarioCliente\GrauParentesco;
+use App\Classes\UsuarioCliente\TipoUsuario;
+use App\Models\Api\Automovel\Versao\DadoVersaoModel;
+use App\Models\Api\Trait\ValidarEmpresaTrait;
+use App\Models\Api\UsuarioCliente\DadoBaseModel;
+use Erro\Excecao;
+use Helpers\OrmHelper;
 use Modules\Cpf;
 use Modules\Data;
-use Modules\Nome;
 use Modules\Email;
-use Modules\Telefone;
-use Helpers\OrmHelper;
 use Modules\EnderecoCep;
-use Modules\EstadoCivil;
 use Modules\EnderecoEstado;
-use App\Classes\Solicitacao\Status;
-use App\Classes\UsuarioCliente\TipoUsuario;
-use App\Models\Api\Trait\ValidarEmpresaTrait;
-use App\Classes\UsuarioCliente\GrauParentesco;
-use App\Models\Api\UsuarioCliente\DadoBaseModel;
-use App\Models\Api\Automovel\Versao\DadoVersaoModel;
+use Modules\EstadoCivil;
+use Modules\Nome;
+use Modules\Telefone;
+use ORM\Entity;
 
 final class ChequeBonusEntity extends Entity
 {
     use ValidarEmpresaTrait;
 
+    public string|array $automovel;
+    public TipoUsuario $tipo_usuario;
+    public Nome $nome;
+    public Email $email_pessoal;
+    public Telefone $telefone_celular;
+    public EstadoCivil $estado_civil;
+    public string $rg;
+    public Data $data_nascimento;
+    public EnderecoCep $endereco_cep;
+    public string $endereco_logradouro;
+    public string $endereco_numero;
+    public string $endereco_complemento;
+    public string $endereco_bairro;
+    public string $endereco_cidade;
+    public EnderecoEstado $endereco_estado;
+    public Nome $dependente_nome;
+    public Email $dependente_email_pessoal;
+    public string $dependente_rg;
+    public Cpf $dependente_cpf;
+    public GrauParentesco $dependente_grau_parentesco;
+    public Data $dependente_data_nascimento;
+    public Status $status;
+    public array $dependente = [];
+    public array $usuario = [];
+    public Data $data_termo;
     protected string $ormTabela = TABELA_SOLICITACAO_CHEQUE_BONUS;
     protected array $ormBuscar = [
         'id_usuario_cliente', 'id_admin_empresa', 'id_automovel_versao', 'tipo_usuario', 'nome',
@@ -59,44 +85,25 @@ final class ChequeBonusEntity extends Entity
     protected string $ormValidarSalvar = '
         status|Status|obrigatorio|vazio|valido
     ';
-    protected int $idUsuario;
-    protected int $idEmpresa;
-    protected int $id_usuario_cliente;
+    protected ?int $idEmpresa;
+    protected ?int $idUsuario;
     protected int $id_admin_empresa;
+    protected int $id_usuario_cliente;
     protected int $id_automovel_versao;
-    public string|array $automovel;
-    public TipoUsuario $tipo_usuario;
-    public Nome $nome;
-    public Email $email_pessoal;
-    public Telefone $telefone_celular;
-    public EstadoCivil $estado_civil;
-    public string $rg;
-    public Data $data_nascimento;
-    public EnderecoCep $endereco_cep;
-    public string $endereco_logradouro;
-    public string $endereco_numero;
-    public string $endereco_complemento;
-    public string $endereco_bairro;
-    public string $endereco_cidade;
-    public EnderecoEstado $endereco_estado;
-    public Nome $dependente_nome;
-    public Email $dependente_email_pessoal;
-    public string $dependente_rg;
-    public Cpf $dependente_cpf;
-    public GrauParentesco $dependente_grau_parentesco;
-    public Data $dependente_data_nascimento;
-    public Status $status;
-    public array $dependente = [];
-    public array $usuario = [];
-    public Data $data_termo;
 
+    /**
+     * @throws Excecao
+     */
     public function __construct()
     {
-        parent::__construct();
         $this->validarEmpresa();
+        parent::__construct();
     }
 
-    protected function regraInsert()
+    /**
+     * @throws Excecao
+     */
+    protected function regraInsert(): void
     {
         if (empty($this->automovel)) {
             mensagemErro('Campo obrigatório!', 'O campo automovel é obrigatório.');
@@ -118,7 +125,10 @@ final class ChequeBonusEntity extends Entity
         $this->id_usuario_cliente = $this->idUsuario;
     }
 
-    protected function regraSalvar()
+    /**
+     * @throws Excecao
+     */
+    protected function regraSalvar(): void
     {
         if ($this->tipo_usuario->indice() == TipoUsuario::DEPENDENTE) {
             $this->ormValidarSalvar .= '
@@ -136,22 +146,34 @@ final class ChequeBonusEntity extends Entity
         }
     }
 
-    protected function regraPosBuscar()
+    protected function regraPosBuscar(): void
     {
-        if ($this->tipo_usuario->indice() == TipoUsuario::DEPENDENTE) {
+        if ($this->tipo_usuario->indice() === TipoUsuario::DEPENDENTE) {
             $this->montarDependente();
         }
         $this->buscarAutomovel();
         $this->buscarUsuario();
     }
 
-    private function buscarAutomovel()
+    private function montarDependente(): void
+    {
+        $this->dependente = [
+            'nome'            => $this->dependente_nome->nome(),
+            'email_pessoal'   => $this->dependente_email_pessoal->email(),
+            'rg'              => $this->dependente_rg,
+            'cpf'             => $this->dependente_cpf->cpf(),
+            'grau_parentesco' => $this->dependente_grau_parentesco->indice(),
+            'data_nascimento' => $this->dependente_data_nascimento->date()
+        ];
+    }
+
+    private function buscarAutomovel(): void
     {
         $Automovel = new DadoVersaoModel($this->id_automovel_versao);
         $this->automovel = $Automovel->automovel;
     }
 
-    private function buscarUsuario()
+    private function buscarUsuario(): void
     {
         $Usuario = new DadoBaseModel($this->id_usuario_cliente);
         if (!$Usuario->existe) {
@@ -161,19 +183,7 @@ final class ChequeBonusEntity extends Entity
             'id'     => $Usuario->id,
             'nome'   => $Usuario->nome->nome(),
             'email'  => $Usuario->email->email(),
-            'imagem' => $Usuario->imagem,
-        ];
-    }
-
-    private function montarDependente()
-    {
-        $this->dependente = [
-            'nome'            => $this->dependente_nome->nome(),
-            'email_pessoal'   => $this->dependente_email_pessoal->email(),
-            'rg'              => $this->dependente_rg,
-            'cpf'             => $this->dependente_cpf->cpf(),
-            'grau_parentesco' => $this->dependente_grau_parentesco->indice(),
-            'data_nascimento' => $this->dependente_data_nascimento->date()
+            'imagem' => $Usuario->imagem
         ];
     }
 }

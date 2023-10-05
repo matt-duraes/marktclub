@@ -1,0 +1,1 @@
+{"id":"id_6317e12c5f3f4ffc3aa78794ac12e38a","token":"token","metodo":"GET","nome":"\/comunicacao-popup\/:id","uri":"{{LINK}}\/comunicacao-popup\/$COMUNICACAO_POPUP_ID","parametro":[],"body":[],"header":[],"variavel":[],"json":[],"documentacao":{"status":false,"descricao":"","requisicao":"","resposta":"","scope":"comunicacao_popup:buscar"}}

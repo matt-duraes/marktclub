@@ -2,16 +2,26 @@
 
 namespace App\Models\Api\SolicitacaoAutomovel;
 
-use App\Models\Api\UsuarioCliente\DadoBaseModel;
-use ORM\Entity;
-use Modules\EnderecoEstado;
 use App\Classes\Solicitacao\Status;
 use App\Models\Api\Trait\ValidarEmpresaTrait;
+use App\Models\Api\UsuarioCliente\DadoBaseModel;
+use Erro\Excecao;
+use Modules\EnderecoEstado;
+use ORM\Entity;
 
 final class AutomovelEntity extends Entity
 {
     use ValidarEmpresaTrait;
 
+    public EnderecoEstado $endereco_estado;
+    public string $cidade;
+    public string $montadora;
+    public string $modelo;
+    public string $versao;
+    public string $cor;
+    public string $mensagem;
+    public Status $status;
+    public array $usuario;
     protected string $ormTabela = TABELA_SOLICITACAO_AUTOMOVEL;
     protected array $ormBuscar = [
         'id_usuario_cliente', 'id_admin_empresa', 'endereco_estado', 'endereco_cidade',
@@ -21,7 +31,9 @@ final class AutomovelEntity extends Entity
         'id_usuario_cliente', 'id_admin_empresa', 'endereco_estado', 'endereco_cidade',
         'montadora', 'modelo', 'versao', 'cor', 'mensagem'
     ];
-    protected array $ormSalvar = ['status'];
+    protected array $ormSalvar = [
+        'status'
+    ];
     protected string $ormValidarInsert = '
         endereco_estado|Estado|obrigatorio|vazio|valido
         endereco_cidade|Cidade|obrigatorio|vazio
@@ -32,39 +44,33 @@ final class AutomovelEntity extends Entity
     protected string $ormValidarUpdate = '
         status|Status|obrigatorio|vazio|valido
     ';
+    protected ?int $idEmpresa;
+    protected ?int $idUsuario;
     protected int $id_usuario_cliente;
     protected int $id_admin_empresa;
-    public EnderecoEstado $endereco_estado;
-    public string $cidade;
-    public string $montadora;
-    public string $modelo;
-    public string $versao;
-    public string $cor;
-    public string $mensagem;
-    public Status $status;
-    public array $usuario;
-    private int $idUsuario;
-    private int $idEmpresa;
 
+    /**
+     * @throws Excecao
+     */
     public function __construct()
     {
-        parent::__construct();
         $this->validarEmpresa();
+        parent::__construct();
     }
 
-    protected function regraInsert()
+    protected function regraInsert(): void
     {
         $this->id_usuario_cliente = $this->idUsuario;
         $this->id_admin_empresa = $this->idEmpresa;
         $this->status = new Status(Status::NOVO);
     }
 
-    protected function regraPosBuscar()
+    protected function regraPosBuscar(): void
     {
         $this->buscarUsuario();
     }
 
-    private function buscarUsuario()
+    private function buscarUsuario(): void
     {
         $Usuario = new DadoBaseModel($this->id_usuario_cliente);
         if (!$Usuario->existe) {
@@ -74,7 +80,7 @@ final class AutomovelEntity extends Entity
             'id'     => $Usuario->id,
             'nome'   => $Usuario->nome->nome(),
             'email'  => $Usuario->email->email(),
-            'imagem' => $Usuario->imagem,
+            'imagem' => $Usuario->imagem
         ];
     }
 }

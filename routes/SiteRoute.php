@@ -53,7 +53,6 @@ Route
     });
 Route
     ::nome('contato')
-    ::middleware(AuthMiddleware::class, 'deslogado')
     ::middleware(ClubeMiddleware::class, 'buscar')
     ::controller(App\Controllers\Site\ContatoController::class)
     ::grupo(function () {
@@ -61,8 +60,8 @@ Route
             ::nome('index')
             ::view('/login/contato');
         Route
-            ::nome('salvar')
-            ::request(['hash_validacao_captcha', 'nome', 'email', 'telefone', 'mensagem'])
+            ::nome('contatoLogin')
+            ::request(['nome', 'email', 'telefone', 'mensagem'])
             ::post('/login/contato');
     });
 Route

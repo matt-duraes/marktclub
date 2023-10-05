@@ -2,18 +2,21 @@
 
 namespace App\Models\Api\UsuarioLead;
 
+use App\Classes\UsuarioCliente\Origem;
+use App\Classes\UsuarioLead\Ordem;
+use App\Classes\UsuarioLead\Status;
+use App\Models\Api\Trait\ValidarEmpresaTrait;
+use Erro\Excecao;
+use Http\Request;
 use ORM\ORM;
 use stdClass;
-use Http\Request;
-use App\Classes\UsuarioLead\Ordem;
+use System\Interface\ModelListarInterface;
 use System\Trait\Model\OrdemTrait;
-use App\Classes\UsuarioLead\Status;
 use System\Trait\Model\PaginaTrait;
-use App\Classes\UsuarioCliente\Origem;
 use System\Trait\Model\QuantidadeTrait;
-use App\Models\Api\Trait\ValidarEmpresaTrait;
 
-final class LeadModel extends ORM
+final class LeadModel extends ORM implements
+    ModelListarInterface
 {
     use ValidarEmpresaTrait;
     use PaginaTrait;
@@ -23,61 +26,58 @@ final class LeadModel extends ORM
     protected string $ormTabela = TABELA_USUARIO_LEAD;
     private int $idEmpresa;
 
+    /**
+     * @param Request $request
+     *
+     * @throws Excecao
+     */
     public function __construct(
         protected Request $request
     ) {
-        parent::__construct();
         $this->validarEmpresa();
         $this->validarCampoDoRequest();
+        parent::__construct();
     }
 
+    private function validarCampoDoRequest()
+    {
+        $ordem = new Ordem($this->request->ordem);
+        $status = new Status($this->request->status);
+        $origem = new Origem($this->request->origem);
+
+        if (!$ordem->vazio() && !$ordem->valido()) {
+            mensagemErro('Campo inválido!', 'A ordem informada não é um valor válido.');
+        } elseif (!$status->vazio() && !$status->valido()) {
+            mensagemErro('Campo inválido!', 'O Status informado não é um valor válido.');
+        } elseif (!$origem->vazio() && !$origem->valido()) {
+            mensagemErro('Campo inválido!', 'O Origem informado não é um valor válido.');
+        }
+    }
+
+    /**
+     * @return stdClass
+     * @throws Excecao
+     */
     public function listarDados(): stdClass
     {
         $dado = $this
             ->campo([
-                'uuid', 'nome_completo', 'email_pessoal', 'email_trabalho', 'email_funcional',
-                'documento_cpf', 'data_criacao', 'lead_origem', 'status'
+                'uuid', 'nome_completo', 'email_pessoal', 'email_trabalho',
+                'email_funcional', 'documento_cpf', 'data_criacao',
+                'lead_origem', 'status'
             ])
             ->where($this->pegarWhere())
-            ->order($this->pegarOrdem(new Ordem()))
             ->pagina($this->pegarPagina(), $this->pegarQuantidade())
+            ->order($this->pegarOrdem(new Ordem()))
             ->read();
+
         $dado->lista = $this->montarRetorno($dado->lista);
         return $dado;
     }
 
-    protected function montarRetorno(array $dado): array
-    {
-        if (!$dado) {
-            return [];
-        }
-
-        $Status = new Status();
-        $Origem = new Origem();
-        $retorno = [];
-        foreach ($dado as $r) {
-            $email = '';
-            if (!empty($r->email_pessoal)) {
-                $email = $r->email_pessoal;
-            } elseif (!empty($r->email_trabalho)) {
-                $email = $r->email_trabalho;
-            } elseif (!empty($r->email_funcional)) {
-                $email = $r->email_funcional;
-            }
-
-            $retorno[] = object([
-                'id'           => $r->uuid,
-                'nome'         => strNull($r->nome_completo),
-                'cpf'          => strCpf($r->documento_cpf),
-                'email'        => strNull($email),
-                'data_criacao' => $r->data_criacao,
-                'origem'       => $Origem->indice($r->lead_origem),
-                'status'       => $Status->indice($r->status)
-            ]);
-        }
-        return $retorno;
-    }
-
+    /**
+     * @return array[]
+     */
     protected function pegarWhere(): array
     {
         $where = [['id_admin_empresa', $this->idEmpresa]];
@@ -138,18 +138,40 @@ final class LeadModel extends ORM
         return $where;
     }
 
-    private function validarCampoDoRequest()
+    /**
+     * @param array $dado
+     *
+     * @return array
+     */
+    protected function montarRetorno(array $dado): array
     {
-        $ordem = new Ordem($this->request->ordem);
-        $status = new Status($this->request->status);
-        $origem = new Origem($this->request->origem);
-
-        if (!$ordem->vazio() && !$ordem->valido()) {
-            mensagemErro('Campo inválido!', 'A ordem informada não é um valor válido.');
-        } elseif (!$status->vazio() && !$status->valido()) {
-            mensagemErro('Campo inválido!', 'O Status informado não é um valor válido.');
-        } elseif (!$origem->vazio() && !$origem->valido()) {
-            mensagemErro('Campo inválido!', 'O Origem informado não é um valor válido.');
+        if (!$dado) {
+            return [];
         }
+
+        $Status = new Status();
+        $Origem = new Origem();
+        $retorno = [];
+        foreach ($dado as $r) {
+            $email = '';
+            if (!empty($r->email_pessoal)) {
+                $email = $r->email_pessoal;
+            } elseif (!empty($r->email_trabalho)) {
+                $email = $r->email_trabalho;
+            } elseif (!empty($r->email_funcional)) {
+                $email = $r->email_funcional;
+            }
+
+            $retorno[] = object([
+                'id'           => $r->uuid,
+                'nome'         => strNull($r->nome_completo),
+                'cpf'          => strCpf($r->documento_cpf),
+                'email'        => strNull($email),
+                'data_criacao' => $r->data_criacao,
+                'origem'       => $Origem->indice($r->lead_origem),
+                'status'       => $Status->indice($r->status)
+            ]);
+        }
+        return $retorno;
     }
 }

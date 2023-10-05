@@ -2,20 +2,20 @@
 
 namespace App\Models\Api\UsuarioCliente;
 
-use Erro\Erro;
-use Throwable;
-use ORM\Entity;
-use Erro\Excecao;
-use Http\Request;
+use App\Models\Api\ComercialEmpresa\EmpresaEntity;
 use App\Models\Api\Painel\ConfiguracaoEntity;
 use App\Models\Api\Trait\ValidarEmpresaTrait;
-use App\Models\Api\ComercialEmpresa\EmpresaEntity;
 use App\Models\Api\UsuarioCliente\Trait\CampoUnicoTrait;
 use App\Models\Api\UsuarioCliente\Trait\EntityBuscarTrait;
 use App\Models\Api\UsuarioCliente\Trait\EntityInsertTrait;
 use App\Models\Api\UsuarioCliente\Trait\EntitySalvarTrait;
 use App\Models\Api\UsuarioCliente\Trait\EntityUpdateTrait;
 use App\Models\Api\UsuarioCliente\Trait\PropriedadeEntityTrait;
+use Erro\Erro;
+use Erro\Excecao;
+use Http\Request;
+use ORM\Entity;
+use Throwable;
 
 final class ClienteEntity extends Entity
 {
@@ -41,7 +41,7 @@ final class ClienteEntity extends Entity
     ];
     protected array $ormInsert = [
         'empresa' => '->idEmpresa',
-        'cod', 'tipo'
+        'cod', 'tipo', 'codigo_plano'
     ];
     protected array $ormBuscar = [
         'cpf'               => 'documento',
@@ -117,8 +117,7 @@ final class ClienteEntity extends Entity
 
     /**
      * @return mixed
-     * @throws Excecao
-     * @throws Erro
+     * @throws Erro|Excecao
      */
     public function getId(): mixed
     {
@@ -127,8 +126,7 @@ final class ClienteEntity extends Entity
 
     /**
      * @return mixed
-     * @throws Erro
-     * @throws Excecao
+     * @throws Erro|Excecao
      */
     public function getCpf(): mixed
     {

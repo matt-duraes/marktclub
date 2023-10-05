@@ -13,11 +13,13 @@ use Modules\Pagina;
 use Modules\Quantidade;
 use ORM\ORM;
 use stdClass;
+use System\Interface\ModelListarInterface;
 use System\Trait\Model\OrdemTrait;
 use System\Trait\Model\PaginaTrait;
 use System\Trait\Model\QuantidadeTrait;
 
-class EnqueteModel extends ORM
+class EnqueteModel extends ORM implements
+    ModelListarInterface
 {
     use PaginaTrait;
     use QuantidadeTrait;
@@ -26,18 +28,34 @@ class EnqueteModel extends ORM
     protected string $ormTabela = TABELA_ENQUETE_SATISFACAO;
 
     /**
-     * @param Pagina          $pagina
-     * @param Quantidade|null $quantidade
-     * @param Ordem|null      $ordem
-     * @param Status|null     $status
+     * @param Pagina     $pagina
+     * @param Quantidade $quantidade
+     * @param Ordem      $ordem
+     * @param Status     $status
+     *
+     * @throws Excecao
      */
     public function __construct(
-        protected readonly Pagina $pagina,
-        protected readonly ?Quantidade $quantidade = null,
-        protected readonly ?Ordem $ordem = null,
-        protected readonly ?Status $status = null
+        protected readonly Pagina $pagina = new Pagina(),
+        protected readonly Quantidade $quantidade = new Quantidade(),
+        protected readonly Ordem $ordem = new Ordem(),
+        protected readonly Status $status = new Status()
     ) {
+        $this->validarRequest();
         parent::__construct();
+    }
+
+    /**
+     * @throws Excecao
+     */
+    private function validarRequest(): void
+    {
+        if (!$this->ordem->vazio() && !$this->ordem->valido()) {
+            mensagemErro('Campo inválido!', 'A Ordem informada não é válida.');
+        }
+        if (!$this->status->vazio() && !$this->status->valido()) {
+            mensagemErro('Campo inválido!', 'O Status informado não é válido.');
+        }
     }
 
     /**
@@ -49,17 +67,17 @@ class EnqueteModel extends ORM
         $dado = $this
             ->campo([
                 'uuid', 'navegar', 'procura', 'suporte', 'atendimento',
-                'sistemas_clube', 'comentario', 'status', 'data_criacao'
+                'sistemas_clube', 'comentario', 'status', 'data_criacao',
+                'data_atualizacao'
             ])
             ->where($this->pegarWhere(), false)
-            ->tabela(TABELA_USUARIO_CLIENTE)
-            ->join('id', 'id_usuario_cliente')
-            ->campo(['nome'], 'usuario')
-            ->tabela(TABELA_PARCEIRO_LOJA)
-            ->join('id', 'id_admin_empresa')
-            ->campo(['titulo'], 'parceiro')
             ->pagina($this->pegarPagina(), $this->pegarQuantidade())
             ->order($this->pegarOrdem(new Ordem()))
+            ->tabela(TABELA_USUARIO_CLIENTE)
+            ->join('id', 'id_usuario_cliente')
+            ->campo([
+                'uuid', 'nome'
+            ], 'usuario')
             ->read();
 
         $dado->lista = $this->montarRetorno($dado->lista);
@@ -91,30 +109,28 @@ class EnqueteModel extends ORM
             return $respostas;
         }
 
-        $Suporte = new Suporte();
         $Navegar = new Navegar();
         $Procura = new Procura();
+        $Suporte = new Suporte();
         $Atendimento = new Atendimento();
         $Status = new Status();
-
         $retorno = [];
-        foreach ($respostas as $item) {
+        foreach ($respostas as $resposta) {
             $retorno[] = [
-                'id'             => $item->uuid,
-                'parceiro'       => [
-                    'nome' => $item->parceiro_titulo
+                'id'               => $resposta->uuid,
+                'usuario'          => [
+                    'id'   => $resposta->usuario_uuid,
+                    'nome' => $resposta->usuario_nome
                 ],
-                'usuario'        => [
-                    'nome' => $item->usuario_nome
-                ],
-                'navegar'        => $Navegar->indice($item->navegar),
-                'procura'        => $Procura->indice($item->procura),
-                'suporte'        => $Suporte->indice($item->suporte),
-                'atendimento'    => $Atendimento->indice($item->atendimento),
-                'sistemas_clube' => $item->sistemas_clube,
-                'comentario'     => $item->comentario,
-                'status'         => $Status->indice($item->status),
-                'data_criacao'   => $item->data_criacao
+                'navegar'          => $Navegar->indice($resposta->navegar),
+                'procura'          => $Procura->indice($resposta->procura),
+                'suporte'          => $Suporte->indice($resposta->suporte),
+                'atendimento'      => $Atendimento->indice($resposta->atendimento),
+                'sistemas_clube'   => $resposta->sistemas_clube,
+                'comentario'       => $resposta->comentario,
+                'status'           => $Status->indice($resposta->status),
+                'data_criacao'     => $resposta->data_criacao,
+                'data_atualizacao' => $resposta->data_atualizacao
             ];
         }
         return $retorno;

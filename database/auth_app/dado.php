@@ -92,6 +92,13 @@ $scope = [
     'construtor_clube:buscar', 'construtor_clube:listar', 'construtor_clube:salvar', 'construtor_clube:atualizar',
     'construtor_clube:deletar',
 
+    'demanda_dado:listar', 'demanda_dado:buscar', 'demanda_dado:salvar', 'demanda_dado:atualizar',
+    'demanda_dado:cancelar',
+
+    'mensageria:salvar',
+
+    'pagina:turismo', 'pagina:cinema', 'pagina:samsung',
+
     'log_erro:listar', 'log_erro:buscar', 'log_erro:atualizar',
 
     'ponto_cvs:listar', 'ponto_cvs:buscar', 'ponto_cvs:salvar', 'ponto_cvs:atualizar',
@@ -107,7 +114,7 @@ $scope = [
     'solicitacao_cheque_bonus:atualizar',
 
     'solicitacao_credito:listar', 'solicitacao_credito:buscar', 'solicitacao_credito:salvar',
-    'solicitacao_credito:simular',
+    'solicitacao_credito:simular', 'solicitacao_credito:atualizar',
 
     'solicitacao_premium:listar', 'solicitacao_premium:download',
 
@@ -121,7 +128,9 @@ $scope = [
 
     'carteirinha:buscar',
 
-    'popup:buscar', 'popup:salvar', 'popup:atualizar', 'popup:deletar',
+    'comunicacao_popup:buscar', 'comunicacao_popup:listar',
+    'comunicacao_popup:salvar', 'comunicacao_popup:atualizar', 'comunicacao_popup:deletar',
+    'comunicacao_popup:ordenar',
 
     'enquete_satisfacao:listar', 'enquete_satisfacao:buscar', 'enquete_satisfacao:salvar',
     'enquete_satisfacao:atualizar', 'enquete_satisfacao:deletar',
@@ -131,7 +140,8 @@ $scope = [
 
     'parceiro_cupom:buscar', 'parceiro_cupom:listar', 'parceiro_cupom:atualizar',
 
-    'contato:salvar', 'contato:listar', 'contato:buscar',
+    'comunicacao_contato:buscar', 'comunicacao_contato:listar', 'comunicacao_contato:salvar',
+    'comunicacao_contato:atualizar',
 
     'mensagem_indicacao_parceiro:salvar', 'mensagem_indicacao_parceiro:listar', 'mensagem_indicacao_parceiro:buscar',
 
@@ -148,7 +158,8 @@ $scope = [
     'solicitacao_loja:listar', 'solicitacao_loja:buscar', 'solicitacao_loja:salvar',
     'solicitacao_loja:atualizar', 'solicitacao_loja:deletar',
 
-    'chatbot_perguntas:salvar', 'chatbot_perguntas:atualizar', 'chatbot_perguntas:listar', 'chatbot_perguntas:buscar', 'chatbot_perguntas:perguntar',
+    'chatbot_perguntas:salvar', 'chatbot_perguntas:atualizar', 'chatbot_perguntas:listar', 'chatbot_perguntas:buscar',
+    'chatbot_perguntas:perguntar',
 
     'chatbot_categoria:salvar', 'chatbot_categoria:atualizar', 'chatbot_categoria:listar', 'chatbot_categoria:buscar',
 ];
@@ -243,8 +254,7 @@ EwIDAQAB
         'authorization_code' => '1',
         'client_credentials' => '1',
         'refresh_token'      => '1',
-        'redirect_uri'       => '["localhost.com:4000",
-"localhost.com:8000"]',
+        'redirect_uri'       => '["localhost.com:4000","localhost.com:8000","127.0.0.1"]',
         'scope_permitido'    => $scope,
         'campo_permitido'    => '{"usuario:salvar":["nome","cpf","email_trabalho","senha","telefone_celular"],"usuario:atualizar":["nome","cpf","email_trabalho","senha","telefone_celular"],"usuario:buscar":["uuid","nome","cpf"],"usuario:listar":["uuid","nome","cpf"]}',
         'tempo_vida'         => '50000',
