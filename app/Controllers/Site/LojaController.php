@@ -74,6 +74,18 @@ final class LojaController extends Controller
     {
         $Dado = new BuscarModel($url);
         $dado = $Dado->buscarDados();
+
+        if (
+            in_array(
+                $dado->id,
+                [
+                    '56e660e57971ece155e37a9a86bd32b7', '6857d871f6f0f11b5b866872f0612b99',
+                    '53e78ad604c8df17b89d3f38921c66d4'
+                ]
+            )) {
+            return new Response(url: route('samsung.index'));
+        }
+
         $Lista = new ListarModel(
             Filtro: new FiltroModel([
                 'quantidade' => 3,

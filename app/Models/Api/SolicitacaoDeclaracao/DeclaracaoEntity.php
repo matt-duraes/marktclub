@@ -53,7 +53,6 @@ class DeclaracaoEntity extends Entity
     }
 
     /**
-     * @return void
      * @throws Excecao
      */
     public function regraInsert(): void

@@ -41,19 +41,21 @@
         <p>O e-mail informado no site da Samsung deve ser o mesmo e-mail do seu cadastro.</p>
     </div>
     <div class="atualizar bloco_titulo_texto">
-        <div class="bloco_atencao_geral atencao {!! empty($dado->email) ? '' : 'display_none' !!} zero" id="bloco_email_zero">
+        <div class="bloco_atencao_geral atencao {!! empty($email) ? '' : 'display_none' !!} zero" id="bloco_email_zero">
             <p>Você não tem e-mail cadastrado, cadastre um e-mail antes de continuar.</p>
         </div>
 
-        <p class="{!! empty($dado->email) ? 'display_none' : '' !!}" id="bloco_email_lista">
+        <p class="{!! empty($email) ? 'display_none' : '' !!}" id="bloco_email_lista">
             Seus e-mails cadastrados são:<br>
-            <strong>{!!implode('</strong>/<strong>', $dado->email)!!}</strong>
+            <span id="bloco_email_novo">
+                <strong>{!!implode('</strong> ou <strong>', $email)!!}</strong>
+            </span>
         </p>
-        <div class="botao" id="botao_samsung_atualizar">{!! empty($dado->email) ? 'Atualizar e-mail' : 'Cadastrar e-mail' !!}</div>
+        <div class="botao" id="botao_samsung_atualizar">{!! !empty($email) ? 'Atualizar e-mail' : 'Cadastrar e-mail' !!}</div>
     </div>
 
-    <div class="bloco_botao {!! empty($dado->email) ? 'display_none' : '' !!}" id="bloco_botao">
-        <a href="" target="_blank" rel="noopener noreferrer" class="botao_acessar">Acessar site</a>
+    <div class="bloco_botao {!! empty($email) ? 'display_none' : '' !!}" id="bloco_botao">
+        <a href="{!!$link!!}" target="_blank" rel="noopener noreferrer" class="botao_acessar">Acessar site</a>
     </div>
 </div>
 
@@ -65,8 +67,8 @@
             <i class="popup_fechar fechar">@iconeFechar</i>
         </header>
         <form action="/" method="POST" class="form_geral">
-            @? formEmail(name: 'email_pessoal', label: 'E-mail pessoal', placeholder: 'Digite seu e-mail pessoal', value: '')
-            @? formEmail(name: 'email_trabalho', label: 'E-mail de trabalho', placeholder: 'Digite seu e-mail de trabalho', value: '')
+            @? formEmail(name: 'email_pessoal', label: 'E-mail pessoal', placeholder: 'Digite seu e-mail pessoal', value: $pessoal)
+            @? formEmail(name: 'email_trabalho', label: 'E-mail de trabalho', placeholder: 'Digite seu e-mail de trabalho', value: $trabalho)
         </form>
         <div class="footer_pagina_popup">
             <div></div>

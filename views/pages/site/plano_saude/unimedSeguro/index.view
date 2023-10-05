@@ -402,6 +402,6 @@
         @endif
     </section>
     @if(TIPO_USUARIO != 'indicado'):
-        <a href="@route(planosaude.simulacao)/unimed-seguros" target="_blank" class="botao_geral_cor botao_fixo_bottom cor_bg botao_scroll">SIMULAR AGORA</a>
+        <a href="@route(planosaude.simulacao)/unimed-seguros" class="botao_geral_cor botao_fixo_bottom cor_bg botao_scroll">SIMULAR AGORA</a>
     @endif
 </div>

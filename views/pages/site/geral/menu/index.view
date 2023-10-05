@@ -35,6 +35,14 @@
 </div>
 @ endif;
 
+@ if( MENU_SAMSUNG ):
+<a class="botao {!!MENU_HOVER == 'samsung' ? 'cor_bg pagina_atual' : ''!!}" href="@route(samsung.index)">
+    <i>@iconeCelular(16)</i>
+    Samsung
+    <div class="novo">novo</div>
+</a>
+@ endif;
+
 @if(MENU_FARMACIA):
 <a class="botao {!!MENU_HOVER == 'farmacia' ? 'cor_bg pagina_atual' : ''!!}" href="<?= route('farmacia.index') ?>">
     <i>@iconeMedicamento</i>

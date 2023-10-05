@@ -172,7 +172,7 @@ class Pagina {
         setTimeout(() => {
             bloco.classList.add('fw_pagina_animacao_conteudo');
         }, 20);
-        this._carregarScriptSistema(bloco);
+        LoadingSistema.carregar(bloco);
         if (this._callback) {
             this._callback();
         }
@@ -186,30 +186,6 @@ class Pagina {
         const time = parseFloat(window.getComputedStyle(blocoConteudo).getPropertyValue('transition-duration')) * 1000;
         bloco.classList.remove('fw_pagina_animacao_conteudo');
         return new Promise(r => setTimeout(r, time));
-    }
-
-    _carregarScriptSistema(bloco) {
-        // MASCARA
-        if (typeof fwMascaraLoading === 'function') {
-            fwMascaraLoading(bloco);
-        }
-
-        // FORM
-        if (typeof fwFormLoading === 'function') {
-            fwFormLoading(bloco);
-        }
-
-        // CKEDITOR;
-        if (typeof fwCkeditorLoading === 'function') {
-            fwCkeditorLoading(bloco);
-        }
-        // UPLOAD ARQUIVO;
-        if (typeof fwFormArquivoListaLoading === 'function') {
-            fwFormArquivoListaLoading(bloco);
-        }
-        if (typeof fwFormArquivoLoading === 'function') {
-            fwFormArquivoLoading(bloco);
-        }
     }
 }
 document.querySelector('body').insertAdjacentHTML('afterbegin', '<div id="bloco_fw_pagina"></div>');

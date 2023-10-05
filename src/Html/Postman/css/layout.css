@@ -710,14 +710,18 @@ body {
     font-size: 1.3rem;
     font-weight: bold;
 }
+#site .bloco_conteudo .bloco_parametro_documentacao > input,
 #site .bloco_conteudo .bloco_parametro_documentacao textarea {
     width: 100%;
-    height: 100px;
+    height: 40px;
     font-size: 1.3rem;
     border: 1px solid #666;
     border-radius: 5px;
     margin: 8px 0 20px;
     padding: 10px;
+}
+#site .bloco_conteudo .bloco_parametro_documentacao textarea {
+    height: 100px;
 }
 #site .bloco_conteudo .bloco_resposta_lista {
     width: 100%;

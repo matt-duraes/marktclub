@@ -1,0 +1,19 @@
+<div id="bloco_demanda_nova" class="bloco_pagina_popup">
+    <header class="header_pagina_popup">
+        <h1>EDITAR TAREFA</h1>
+    </header>
+    <form class="form_geral conteudo_pagina_popup">
+        <input type="hidden" id="input_id_demanda" value="{{$demanda}}">
+        <input type="hidden" id="input_id_tarefa" value="{{$r->id}}">
+        @? formInput(name: 'titulo', placeholder: 'Título curto e específico do que deseja criar', label: 'Título', obrigatorio: true, value: $r->titulo)
+        @? formEditor(name: 'texto', label: 'Texto', placeholder: 'Digite outras informacões', value: $r->texto, bar: 'bold,italic,underline,Strikethrough,|,fontColor,|,alignment,|,link,removeFormat,|,insertTable,codeBlock,|,horizontalLine,FwObservacao,|,numberedList,bulletedList', barBalao: 'bold,italic,underline,Strikethrough,|,fontColor,|,link,removeFormat')
+        <div class="row2">
+            @? formSelect(name: 'tipo', label: 'Tipo de tarefa', placeholder: 'Escolha uma opção', value: $r->tipo, lista: $tipoLista)
+            @? formNumero(name: 'minuto', label: 'Quantos minutos?', value: $r->minuto_producao_estimada, placeholder: 'Quantos minutos são preciso para a tarefa?')
+        </div>
+    </form>
+    <div class="footer_pagina_popup">
+        <div class="button voltar" id="botao_cancelar_edicao">CANCELAR</div>
+        <div class="button salvar" id="botao_editar_tarefa">SALVAR</div>
+    </div>
+</div>

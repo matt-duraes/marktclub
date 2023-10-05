@@ -136,12 +136,14 @@
                             <div class="bloco_bola"><span></span></div>
                         </div>
                     </div>
+                    <p>Scope:</p>
+                    <input type="text" name="scope" placeholder="Digite o scope" class="monitorar_salvar input_scope">
                     <p>Descrição:</p>
-                    <textarea name="descricao" placeholder="Digite uma descrição" class="input_descricao"></textarea>
+                    <textarea name="descricao" placeholder="Digite uma descrição" class="monitorar_salvar input_descricao"></textarea>
                     <p>Exemplo de requisição:</p>
-                    <textarea name="requisicao" placeholder="Digite um CURL de exemplo" class="input_requisicao"></textarea>
+                    <textarea name="requisicao" placeholder="Digite um CURL de exemplo" class="monitorar_salvar input_requisicao"></textarea>
                     <p>Exemplo da resposta:</p>
-                    <textarea name="resposta" placeholder="Digite um CURL de exemplo" class="input_resposta"></textarea>
+                    <textarea name="resposta" placeholder="Digite um CURL de exemplo" class="monitorar_salvar input_resposta"></textarea>
                 </div>
             </div>
             <div class="bloco_resposta_lista">

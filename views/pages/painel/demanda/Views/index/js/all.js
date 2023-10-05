@@ -1,4 +1,5 @@
 // @template "painel"
+// @system "popup"
 // @import "demanda_detalhe"
 // @import "demanda_salvar"
 // @import "demanda_editar"
@@ -52,14 +53,7 @@ window.addEventListener('load', () => {
     |--------------------------------------------------------------------------
     */
     const botaoAdd = document.getElementById('botao_add_tarefa');
-    const PaginaAddTarefa = new Pagina(
-        'demanda-salvar',
-        LINK + '/demanda/demanda-salvar/' + area,
-        {},
-        true,
-        true,
-        demandaSalvar
-    );
+    const PaginaAddTarefa = new Popup('demanda-salvar', $('#bloco_demanda_nova'), true, true, demandaSalvar);
 
     botaoAdd.addEventListener('click', () => {
         PaginaAddTarefa.abrir();

@@ -14,7 +14,7 @@
             </header>
             <div class="conteudo">
                 @ifforeach($item['lista'] as $r):
-                @view painel/demanda/index/tarefa.view
+                @view painel/demanda/tarefa-item/index.view
                 @elseforeach;
                 <div class="tarefa_zero">Sem itens<br> no momento</div>
                 @endif;
@@ -23,3 +23,4 @@
         @endforeach;
     </div>
 </div>
+@view painel/demanda/demanda-salvar/index.view

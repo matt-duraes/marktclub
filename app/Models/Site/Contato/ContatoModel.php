@@ -5,7 +5,6 @@ namespace App\Models\Site\Contato;
 use Erro\Excecao;
 use Http\Request;
 use Helpers\ApiHelper;
-use App\Classes\Contato\Tipo;
 
 final class ContatoModel extends ApiHelper
 {
