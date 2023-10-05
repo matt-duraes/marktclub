@@ -9,6 +9,7 @@ $Painel = new PainelConfig\Visualizar('solicitacao_cheque_bonus');
 $Painel->coluna(callback: function () use ($Painel) {
     $Painel->bloco('Automóvel', callback: function () use ($Painel) {
         $Painel
+            ->vazioBreak('automovel', 'Automóvel não encontrado')
             ->linha('automovel->parceiro', 'Parceiro')
             ->linha('automovel->modelo', 'Modelo')
             ->linha('automovel->versao', 'Versão')
