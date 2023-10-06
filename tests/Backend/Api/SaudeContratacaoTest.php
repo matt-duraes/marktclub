@@ -23,7 +23,7 @@ final class SaudeContratacaoTest extends Clube
     {
         $this->Curl
             ->body($this->pegarDadosFicticios())
-            ->post('/saude/contratacao');
+            ->post('/saude-contratacao');
 
         return $this
             ->checkStatus(201)

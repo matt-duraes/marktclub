@@ -460,7 +460,7 @@ Route
                 'endereco_cep', 'endereco_bairro', 'endereco_logradouro', 'endereco_numero',
                 'endereco_complemento', 'endereco_cidade', 'endereco_estado'
             ])
-            ::post('/saude/contratacao');
+            ::post('/saude-contratacao');
 
     });
 Route
