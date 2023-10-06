@@ -1,0 +1,1 @@
+{"id":"id_126b59ae89e80b5c8ccc7e9487cbc8f5","token":"painel","metodo":"GET","nome":"\/saude-contratacao\/:id","uri":"{{LINK}}\/saude-contratacao\/$ID_SAUDE_CONTRATACAO","parametro":[],"body":[],"header":[],"variavel":[],"json":[],"documentacao":{"status":false,"descricao":"","requisicao":"","resposta":"","scope":"saude_contratacao:buscar"}}

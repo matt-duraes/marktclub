@@ -81,6 +81,9 @@ $permissao = json_encode([
     'solicitacao_cheque_bonus_index', 'solicitacao_cheque_bonus_visualizar', 'solicitacao_cheque_bonus_status',
     'solicitacao_cheque_bonus_empresa',
 
+    'saude_contratacao_index', 'saude_contratacao_visualizar', 'saude_contratacao_status',
+    'saude_contratacao_empresa',
+
     'comercial_empresa_visualizar', 'comercial_empresa_editar',
 
     'comercial_prospeccao_index', 'comercial_prospeccao_add', 'comercial_prospeccao_editar',

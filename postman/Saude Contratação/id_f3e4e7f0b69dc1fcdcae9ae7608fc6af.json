@@ -1,0 +1,1 @@
+{"id":"id_f3e4e7f0b69dc1fcdcae9ae7608fc6af","token":"painel","metodo":"PUT","nome":"\/saude-contratacao\/:id","uri":"{{LINK}}\/saude-contratacao\/$ID_SAUDE_CONTRATACAO","parametro":[],"body":[["texto",true,"status","enviado",""]],"header":[],"variavel":[],"json":[],"documentacao":{"status":false,"descricao":"","requisicao":"","resposta":"","scope":""}}
