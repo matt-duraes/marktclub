@@ -10,7 +10,6 @@ use Modules\Data;
 
 class CNUFlorianopolis extends AbstractOperadora
 {
-
     protected array $planos = [
         Planos::REGIONAL, Planos::ESTADUAL, Planos::NACIONAL
     ];
@@ -28,7 +27,6 @@ class CNUFlorianopolis extends AbstractOperadora
             Acomodacao::ACOMODACAO_APARTAMENTO
         ]
     ];
-
     protected array $acomodacaoCodigo = [
         Acomodacao::ACOMODACAO_ENFERMARIA    => 1,
         Acomodacao::ACOMODACAO_APARTAMENTO   => 2,

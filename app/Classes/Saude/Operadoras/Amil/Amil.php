@@ -40,7 +40,6 @@ class Amil extends AbstractOperadora
             Planos::AMIL_S60QC_SP, Planos::AMIL_S75QC
         ]
     ];
-
     protected array $acomodacaoCodigo = [
         Acomodacao::ACOMODACAO_INDIVIDUAL => 9,
         Acomodacao::ACOMODACAO_COLETIVA   => 8
