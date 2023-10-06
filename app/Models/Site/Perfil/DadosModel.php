@@ -100,6 +100,7 @@ final class DadosModel extends ClubeApiHelper
 
         return new Response(status: 204);
     }
+
     public function atualizarEmail(Request $request): Response
     {
         $this
