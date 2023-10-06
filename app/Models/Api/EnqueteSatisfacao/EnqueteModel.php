@@ -28,27 +28,29 @@ class EnqueteModel extends ORM implements
     protected string $ormTabela = TABELA_ENQUETE_SATISFACAO;
 
     /**
-     * @param Pagina     $pagina
-     * @param Quantidade $quantidade
-     * @param Ordem      $ordem
-     * @param Status     $status
+     * @param Pagina      $pagina
+     * @param Quantidade  $quantidade
+     * @param Ordem       $ordem
+     * @param string|null $empresa
+     * @param Status      $status
      *
      * @throws Excecao
      */
     public function __construct(
-        protected readonly Pagina $pagina = new Pagina(),
-        protected readonly Quantidade $quantidade = new Quantidade(),
-        protected readonly Ordem $ordem = new Ordem(),
-        protected readonly Status $status = new Status()
+        private readonly Pagina $pagina = new Pagina(),
+        private readonly Quantidade $quantidade = new Quantidade(),
+        private readonly Ordem $ordem = new Ordem(),
+        private readonly ?string $empresa = null,
+        private readonly Status $status = new Status()
     ) {
-        $this->validarRequest();
+        $this->validarDados();
         parent::__construct();
     }
 
     /**
      * @throws Excecao
      */
-    private function validarRequest(): void
+    private function validarDados(): void
     {
         if (!$this->ordem->vazio() && !$this->ordem->valido()) {
             mensagemErro('Campo inválido!', 'A Ordem informada não é válida.');
@@ -73,10 +75,16 @@ class EnqueteModel extends ORM implements
             ->where($this->pegarWhere(), false)
             ->pagina($this->pegarPagina(), $this->pegarQuantidade())
             ->order($this->pegarOrdem(new Ordem()))
+            ->tabela(TABELA_COMERCIAL_EMPRESA)
+            ->where($this->pegarWhereEmpresa(), false)
+            ->join('id', 'id_admin_empresa')
+            ->campo([
+                'nome_fantasia'
+            ], 'empresa')
             ->tabela(TABELA_USUARIO_CLIENTE)
             ->join('id', 'id_usuario_cliente')
             ->campo([
-                'uuid', 'nome'
+                'nome'
             ], 'usuario')
             ->read();
 
@@ -90,11 +98,21 @@ class EnqueteModel extends ORM implements
     protected function pegarWhere(): array
     {
         $where = $this->ormWherePadrao;
-
         if ($this->status->valido()) {
             $where[] = ['status', $this->status->numero()];
         }
+        return $where;
+    }
 
+    /**
+     * @return array
+     */
+    protected function pegarWhereEmpresa(): array
+    {
+        $where = [];
+        if (!empty($this->empresa)) {
+            $where[] = ['cod', $this->empresa];
+        }
         return $where;
     }
 
@@ -118,8 +136,10 @@ class EnqueteModel extends ORM implements
         foreach ($respostas as $resposta) {
             $retorno[] = [
                 'id'               => $resposta->uuid,
+                'empresa'          => [
+                    'nome' => $resposta->empresa_nome_fantasia
+                ],
                 'usuario'          => [
-                    'id'   => $resposta->usuario_uuid,
                     'nome' => $resposta->usuario_nome
                 ],
                 'navegar'          => $Navegar->indice($resposta->navegar),

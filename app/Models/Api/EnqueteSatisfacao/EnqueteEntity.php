@@ -29,6 +29,7 @@ class EnqueteEntity extends Entity
         'comentario', 'sistemas_clube', 'status', 'data_criacao'
     ];
     protected array $ormInsert = [
+        'id_admin_empresa'   => '->idEmpresa',
         'id_usuario_cliente' => '->idUsuario'
     ];
     protected array $ormSalvar = [
@@ -52,7 +53,8 @@ class EnqueteEntity extends Entity
     public function __construct(
         protected readonly ?Request $request = null
     ) {
-        $this->validarEmpresa();
+        $this->setarIdEmpresa();
+        $this->setarIdUsuario();
         parent::__construct();
     }
 
@@ -63,6 +65,6 @@ class EnqueteEntity extends Entity
 
     public function regraPosBuscar(): void
     {
-        $this->sistemas_clube = explode(',', $this->sistemas_clube);
+        $this->sistemas_clube = jsonDecode($this->sistemas_clube, true, true);
     }
 }

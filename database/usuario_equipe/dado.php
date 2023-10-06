@@ -44,7 +44,7 @@ $permissao = json_encode([
     'comunicacao_popup_deletar', 'comunicacao_popup_status', 'comunicacao_popup_empresa',
 
     'enquete_satisfacao_index', 'enquete_satisfacao_visualizar', 'enquete_satisfacao_deletar',
-    'enquete_satisfacao_status',
+    'enquete_satisfacao_status', 'enquete_satisfacao_empresa',
 
     'construtor_clube_index', 'construtor_clube_add', 'construtor_clube_editar', 'construtor_clube_deletar',
 
