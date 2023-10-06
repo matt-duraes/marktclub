@@ -66,6 +66,16 @@ return [
         'status'            => 1
     ],
     [
+        'cod'               => 'cdc41730-abc7-4b51-abd7-698e2cb3c0b4',
+        'empresa'           => 1,
+        'tipo'              => 3,
+        'nome'              => 'Teste cvs',
+        'documento'         => '01767056001',
+        'email_pessoal'     => 'tessste@markt.club',
+        'salt'              => password('Teste@1324'),
+        'status'            => 1
+    ],
+    [
         'cod'               => uuid(),
         'empresa'           => 2,
         'tipo'              => 1,

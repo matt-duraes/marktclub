@@ -168,13 +168,9 @@ final class DadosModel extends ClubeApiHelper
 
     public function solicitarPontoCvs($dado)
     {
-        if (!isset($_SESSION['USUARIO']) || !isset($_SESSION['USUARIO']->id)) {
-            return mensagemErro('Erro!', 'Sessão encerrada, por favor, refaça seu login para continuar.', 401);
-        }
-
-        $ponto = $dado['ponto'] ?? false;
-        $nome = !empty($dado['nome']) ? $this->Crypt->encode($dado['nome']) :  false;
-        $email = !empty($dado['email']) ? $this->Crypt->encode($dado['email']) :  false;
+        $ponto = $dado->ponto ?? false;
+        $nome = !empty($dado->nome) ? $this->Crypt->encode($dado->nome) :  false;
+        $email = !empty($dado->email) ? $this->Crypt->encode($dado->email) :  false;
         $cpf = $this->Crypt->encode(sessao('USUARIO.cpf'));
 
         $buscar = $this
@@ -193,5 +189,20 @@ final class DadosModel extends ClubeApiHelper
         }
 
         return $buscar;
+    }
+
+    public function extrato()
+    {
+        $buscar = $this
+            ->validar('Erro ao fazer a requisição!', status: 400)
+            ->json([
+                'pagina' => 1,
+                'cpf' =>  $this->Crypt->encode(sessao('USUARIO.cpf')),
+                'ordem' => 'mais-novo'
+            ])
+            ->get('/ponto-cvs')
+            ->object();
+
+            return $buscar->dado->extrato ?? [];
     }
 }

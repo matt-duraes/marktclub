@@ -670,12 +670,15 @@ Route
             ::nome('pontoCvs')
             ::view('/perfil/ponto-cvs');
         Route
+            ::nome('cvsSolicitar')
+            ::request(['nome', 'email', 'ponto'])
+            ::post('/ponto-cvs/solicitar');
+        Route
             ::nome('popupSolicitaPontoCvs')
             ::view('/popup/solicita-ponto-cvs');
         Route
-            ::nome('cvsSolicitar')
-            ::request(['email', 'ponto', '!nome'])
-            ::post('/ponto-cvs/solicitar');
+            ::nome('extrato')
+            ::view('/popup/extrato-ponto-cvs');
         Route
             ::nome('buscarMais')
             ::view('/ponto-cvs/buscar-mais');

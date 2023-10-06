@@ -50,6 +50,7 @@ return [
         'menu_samsung'              => 1,
         'menu_corrida'              => 1,
         'menu_show_nacional'        => 1,
+        'menu_ponto_mais_acao'      => 1,
         'menu_show_internacional'   => 1,
         'menu_sair'                 => 1,
         'administrado_status'       => 1,

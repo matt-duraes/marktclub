@@ -4,20 +4,14 @@
         <i class="fechar botao_fechar_popup" id="botao_visualizar_fechar">@iconeFechar</i>
     </header>
 
-    <div class="popup_conteudo centralizado conteudo_pagina_popup">
+    <div class="popup_conteudo centralizado conteudo_pagina_popup" id="popup_solicitacao">
         <header class="header_padrao_popup">
             <h1>Valor mínimo para resgate: 1 ponto</h1>
         </header>
-        <form  method="POST" style="background-color: white; height: 400px; width: 300px;">
-            <label for="nome">Nome</label>
-            <input type="text" name="nome" id="nome"> <br>
-            <label for="email">Email</label>
-            <input type="email" name="email" id="email"> <br>
-            <label for="quantidade">Quantidade</label>
-            <input type="number" name="quantidade" id="quantidade" min="1"> <br>
-            <input type="submit" value="Enviar" id="enviarSolicitacao">
-        </form>
-
+        @? formInput(name: 'nome', placeholder: 'Nome', label: 'nome', obrigatorio: true, value: '')
+        @? formInput(name: 'email', placeholder: 'Email', label: 'email', obrigatorio: true, value: '')
+        @? formInput(name: 'quantidade', placeholder: 'Quantidade', label: 'quantidade', obrigatorio: true, value: '')
+        <button id="enviar_solicitacao"> Fazer solicitação</button>
     </div>
 
 </div>

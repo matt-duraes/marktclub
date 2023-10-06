@@ -69,7 +69,10 @@
                     Indique um amigo
                 </a>
                 @ endif;
-
+                <a href="@route(perfil.pontoCvs)">
+                    <i>@iconeCashbackHome(22)</i>
+                    Ponto + Ação
+                </a>
                 @ if( MENU_SAIR ):
                 <a class="botao" href="@route(sair.index)">
                     <i>@iconeSair(17)</i>
