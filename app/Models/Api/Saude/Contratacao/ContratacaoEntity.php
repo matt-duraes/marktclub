@@ -2,11 +2,17 @@
 
 namespace App\Models\Api\Saude\Contratacao;
 
+use App\Classes\Saude\Acomodacao;
+use App\Classes\Saude\Operadora;
+use App\Classes\Saude\Operadoras\Amil\Regioes;
+use App\Classes\Saude\Operadoras\Amil\Planos as PlanoAmil;
+use App\Classes\Saude\Operadoras\CNUFlorianopolis\Planos as PlanoCNU;
 use App\Classes\Saude\Status;
 use App\Classes\SaudeSimulacao\Status as SaudeSimulacaoStatus;
 use App\Models\Api\Saude\Simulacao\SimulacaoEntity;
 use App\Models\Api\Trait\ValidarEmpresaTrait;
 use Erro\Excecao;
+use Helpers\OrmHelper;
 use Modules\Cpf;
 use Modules\Data;
 use Modules\Email;
@@ -22,6 +28,8 @@ class ContratacaoEntity extends Entity
 {
     use ValidarEmpresaTrait;
 
+    public array $usuario;
+    public array $simulacao;
     public Cpf $documento_cpf;
     public string $documento_rg;
     public string $orgao_expedidor;
@@ -52,6 +60,7 @@ class ContratacaoEntity extends Entity
     protected int $id_saude_simulacao;
     protected int $idEmpresa;
     protected int $idUsuario;
+    protected int $idSimulacao;
     protected string $ormTabela = TABELA_SAUDE_CONTRATACAO;
     protected array $ormInsert = [
         'id_admin_empresa'   => '->idEmpresa',
@@ -64,7 +73,7 @@ class ContratacaoEntity extends Entity
         'nome_mae', 'responsavel_cpf', 'responsavel_rg', 'responsavel_nome', 'responsavel_orgao_expedidor',
         'email_pessoal', 'telefone_celular', 'telefone_residencial', 'telefone_comercial',
         'telefone_comercial_ramal', 'endereco_logradouro', 'endereco_cep', 'endereco_estado',
-        'endereco_cidade', 'endereco_bairro', 'endereco_numero', 'endereco_complemento', 'status'
+        'endereco_cidade', 'endereco_bairro', 'endereco_numero', 'endereco_complemento', 'status',
     ];
     protected array $ormSalvar = [
         'id_saude_simulacao', 'documento_cpf', 'documento_rg', 'orgao_expedidor', 'nome',
@@ -109,7 +118,7 @@ class ContratacaoEntity extends Entity
      * @throws Excecao
      */
     public function __construct(
-        private readonly SimulacaoEntity $Simulacao
+        private readonly ?SimulacaoEntity $Simulacao = null
     ) {
         $this->validarEmpresa();
         parent::__construct();
@@ -130,5 +139,101 @@ class ContratacaoEntity extends Entity
     {
         $this->Simulacao->status = new SaudeSimulacaoStatus(SaudeSimulacaoStatus::ENVIADO);
         $this->Simulacao->salvar();
+    }
+
+    protected function regraPosBuscar(): void
+    {
+        $this->buscarUsuario();
+        $this->buscarSimulacao();
+    }
+
+    private function buscarUsuario(): void
+    {
+        $usuario = (new OrmHelper(TABELA_USUARIO_CLIENTE))->pegarUltimoRegistro(
+            ['id', $this->idUsuario],
+            ['uuid', 'nome', 'email_pessoal'],
+            'object'
+        );
+
+        $this->usuario = [
+            'id'    => $usuario->uuid,
+            'nome'  => $usuario->nome,
+            'email' => $usuario->email_pessoal
+        ];
+    }
+
+    private function buscarSimulacao(): void
+    {
+        $simulacao = (new OrmHelper(TABELA_SAUDE_SIMULACAO))->pegarUltimoRegistro(
+            ['id', $this->id_saude_simulacao],
+            ['uuid', 'titular', 'quantidade_dependente', 'operadora', 'acomodacao', 'plano',
+                'regiao', 'valor_titular', 'lista_dependente', 'valor_total', 'data_criacao', 'status'],
+            'object'
+        );
+
+        $this->simulacao = array_merge([
+            'id'                    => $simulacao->uuid,
+            'titular'               => $simulacao->titular,
+            'quantidade_dependente' => $simulacao->quantidade_dependente,
+            'valor_titular'         => $simulacao->valor_titular,
+            'lista_dependente'      => $this->pegarListaDependente(jsonDecode($simulacao->lista_dependente)),
+            'valor_total'           => $simulacao->valor_total,
+            'data_criacao'          => $simulacao->data_criacao,
+        ], $this->pegarIndicesPlano($simulacao));
+    }
+
+    private function pegarListaDependente($listaDependente)
+    {
+        $lista = [];
+        foreach ($listaDependente as $dependente) {
+            $lista[] = [
+                'data_nascimento'  => $dependente->data_nascimento,
+                'valor'            => $dependente->valor
+            ];
+        }
+        return $lista;
+    }
+
+    private function pegarIndicesPlano($simulacao)
+    {
+        $operadora = (new Operadora($simulacao->operadora))->indice();
+
+        switch ($operadora) {
+            case Operadora::AMIL:
+                return [
+                    'operadora'  => $operadora,
+                    'plano'      => (new PlanoAmil($simulacao->plano))->indice(),
+                    'regiao'     => (new Regioes($simulacao->regiao))->indice(),
+                    'acomodacao' => (new Acomodacao($simulacao->acomodacao))->indice()
+                ];
+            case Operadora::CNU_FLORIANOPIS:
+                return [
+                    'operadora'  => $operadora,
+                    'plano'      => (new PlanoCNU($simulacao->plano))->indice(),
+                    'regiao'     => $simulacao->regiao,
+                    'acomodacao' => (new Acomodacao($simulacao->acomodacao))->indice()
+                ];
+            case Operadora::UNIMED:
+                return [
+                    'operadora'  => $operadora,
+                    'plano'      => $simulacao->plano,
+                    'regiao'     => $simulacao->regiao,
+                    'acomodacao' => (new Acomodacao($simulacao->acomodacao))->indice()
+                ];
+            case Operadora::UNIMED_SEGURO:
+                return [
+                    'operadora'  => $operadora,
+                    'plano'      => $simulacao->plano,
+                    'regiao'     => $simulacao->regiao,
+                    'acomodacao' => (new Acomodacao($simulacao->acomodacao))->indice()
+                ];
+            default:
+                return [
+                    'operadora'  => '',
+                    'plano'      => '',
+                    'regiao'     => '',
+                    'acomodacao' => ''
+                ];
+        }
     }
 }
