@@ -3,71 +3,81 @@
 namespace Painel\Demanda\Models;
 
 use Helpers\ApiHelper;
-use App\Classes\DemandaDado\Area;
+use App\Classes\DemandaDado\Status;
 
 final class ListaModel
 {
     public function quadroCriacao()
     {
-        $area = Area::CRIACAO;
         return [
             [
                 'titulo' => 'Backlog',
-                'lista'  => $this->buscarDemanda('nova', 'mais-novo', $area)
+                'classe' => 'drag',
+                'add'    => true,
+                'status' => Status::NOVA
             ],
             [
                 'titulo' => 'Liberada',
-                'lista'  => $this->buscarDemanda('liberada', 'ordem', $area)
+                'classe' => 'drag',
+                'status' => Status::LIBERADA
             ],
             [
                 'titulo' => 'Em andamento',
-                'lista'  => $this->buscarDemanda('andamento', 'mais-novo', $area)
+                'classe' => 'drag',
+                'status' => Status::ANDAMENTO
             ],
             [
                 'titulo' => 'Aguardando aprovação',
-                'lista'  => $this->buscarDemanda('teste', 'mais-novo', $area)
+                'classe' => 'drag',
+                'status' => Status::TESTE
             ],
             [
                 'titulo' => 'Concluída',
-                'lista'  => $this->buscarDemanda('concluida', 'mais-novo', $area)
+                'classe' => 'drag',
+                'status' => Status::CONCLUIDA
             ],
         ];
     }
 
     public function quadroTi()
     {
-        $area = Area::TECNOLOGIA;
         return [
             [
                 'titulo' => 'Backlog',
-                'lista'  => $this->buscarDemanda('nova', 'mais-novo', $area)
+                'classe' => 'drag',
+                'add'    => true,
+                'status' => Status::NOVA
             ],
             [
                 'titulo' => 'Liberada',
-                'lista'  => $this->buscarDemanda('liberada', 'ordem', $area)
+                'classe' => 'drag',
+                'status' => Status::LIBERADA
             ],
             [
                 'titulo' => 'Em andamento',
-                'lista'  => $this->buscarDemanda('andamento', 'mais-novo', $area)
+                'classe' => 'drag',
+                'status' => Status::ANDAMENTO
             ],
             [
                 'titulo' => 'Teste',
-                'lista'  => $this->buscarDemanda('teste', 'mais-novo', $area)
+                'classe' => 'drag',
+                'status' => Status::TESTE
             ],
             [
                 'titulo' => 'Concluída',
-                'lista'  => $this->buscarDemanda('concluida', 'mais-novo', $area)
+                'classe' => '',
+                'status' => Status::CONCLUIDA
             ],
         ];
     }
 
-    private function buscarDemanda($status, $ordem, $area)
+    public function buscarDemanda($area, $status)
     {
         return (new ApiHelper(token: true))
             ->json([
                 'status' => $status,
                 'area'   => $area,
-                'ordem'  => $ordem
+                'ordem'  => 'ordem'
             ])
             ->get('/demanda-dado')
             ->object()->dado ?? [];

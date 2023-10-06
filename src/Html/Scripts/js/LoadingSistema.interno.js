@@ -12,6 +12,7 @@ class LoadingSistema {
 
         // CKEDITOR;
         if (typeof fwCkeditorLoading === 'function') {
+            ppe(bloco);
             fwCkeditorLoading(bloco);
         }
         // UPLOAD ARQUIVO;

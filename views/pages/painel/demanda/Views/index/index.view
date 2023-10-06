@@ -3,24 +3,40 @@
 <div class="bloco_kambam_index" id="bloco_demanda_index">
     <input type="hidden" id="input_area" value="{{$area}}">
     <div class="conteudo_geral">
-        @ foreach($quadro as $ind => $item):
-        <section class="bloco_coluna">
+        @ foreach($quadro as $item):
+        <section class="bloco_coluna {{$item['classe'] ?? ''}}" data-status="{{$item['status']}}">
             <header>
-                <h1>{{$item['titulo']}} <span>({!!count($item['lista'])!!})</span></h1>
+                <h1>{{$item['titulo']}} <span></span></h1>
                 <div class="flex"></div>
-                @ if( $ind == 0 ):
+                @if ( $item['add'] ?? false ):
                 <button id="botao_add_tarefa" class="botao">Add</button>
                 @ endif;
             </header>
             <div class="conteudo">
-                @ifforeach($item['lista'] as $r):
-                @view painel/demanda/tarefa-item/index.view
-                @elseforeach;
-                <div class="tarefa_zero">Sem itens<br> no momento</div>
-                @endif;
+                <article class="bloco_tarefa_item bloco_loading">
+                    <h1 class="esqueleto"></h1>
+                    <p class="esqueleto"></p>
+                    <p class="esqueleto"></p>
+                    <p class="esqueleto"></p>
+                </article>
             </div>
         </section>
         @endforeach;
     </div>
 </div>
+
 @view painel/demanda/demanda-salvar/index.view
+
+<div class="display_none">
+    <div class="tarefa_zero" id="clone_item_erro">Erro ao<br> buscar lista</div>
+    <div class="tarefa_zero" id="clone_item_zero">Sem itens<br> no momento</div>
+    <article class="bloco_tarefa_item" data-id="" id="clone_item">
+        <header>
+            <h1 class="tarefa_titulo titulo"></h1>
+        </header>
+        <div class="bloco_data">
+            <div class="data">@iconeCalendario(14) <span class="data_criacao"></span></div>
+            <div class="data bloco_entrega">@iconeRelogio(15) <span class="data_entrega"></span></div>
+        </div>
+    </article>
+</div>

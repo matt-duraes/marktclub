@@ -551,7 +551,6 @@ Route
 Route
     ::nome('termo')
     ::middleware(ClubeMiddleware::class, 'buscar')
-    ::middleware(AuthMiddleware::class, 'logado')
     ::controller(App\Controllers\Site\TermoController::class)
     ::grupo(function () {
         Route

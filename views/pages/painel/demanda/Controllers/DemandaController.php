@@ -42,6 +42,11 @@ final class DemandaController extends Controller
         return $this->listar('Demanda da criação', Area::CRIACAO, $quadro);
     }
 
+    public function postListar(Request $request)
+    {
+        return mensagemSucesso((new ListaModel())->buscarDemanda($request->area, $request->status));
+    }
+
     private function listar($titulo, $area, $quadro)
     {
         $empresa = $this->Api

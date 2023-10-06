@@ -55,7 +55,8 @@
         </div>
     </form>
     <div class="footer_pagina_popup">
-        <div class="button voltar popup_fechar">CANCELAR</div>
-        <div class="button display_none salvar" id="botao_salvar_demanda">SALVAR</div>
+        <div class="button voltar popup_fechar" id="botao_demanda_fechar">CANCELAR</div>
+        <div class="button voltar display_none" id="botao_demanda_voltar">VOLTAR</div>
+        <div class="button display_none salvar" id="botao_demanda_salvar">SALVAR</div>
     </div>
 </div>

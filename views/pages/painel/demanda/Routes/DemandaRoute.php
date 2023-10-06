@@ -17,6 +17,11 @@ Route
             ::nome('criacao')
             ::view('/demanda/criacao');
         Route
+            ::nome('listar')
+            ::request(['area', 'status'])
+            ::post('/demanda/listar');
+
+        Route
             ::nome('demanda')
             ::view('/demanda/demanda/{id}');
         Route
