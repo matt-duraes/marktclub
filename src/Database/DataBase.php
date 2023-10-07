@@ -64,7 +64,7 @@ final class DataBase
 
     public function __construct()
     {
-        if (SISTEMA != 'LOCALHOST') {
+        if (!eLocalhost() || env('DB_STATUS', '') != 'localhost') {
             exit();
         }
         $this->banco = env('DB_BANCO');

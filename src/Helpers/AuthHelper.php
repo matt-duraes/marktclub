@@ -6,8 +6,6 @@ use Erro\Excecao;
 
 final class AuthHelper
 {
-    private string $location = LINK;
-
     /**
      * Validar se usuário está logado
      *
@@ -32,6 +30,7 @@ final class AuthHelper
         ) {
             return true;
         }
+
         if ($location) {
             $this->criarLocation($local, LINK . URI);
         }
@@ -82,7 +81,6 @@ final class AuthHelper
      */
     public function criar(array $usuario, ?string $local = null): bool
     {
-        $location = $this->location();
         $this->deletar();
 
         if (is_null($local)) {
@@ -98,7 +96,6 @@ final class AuthHelper
         sessao('AUTH_' . $local . '_' . $userAgent . '_HASH', $hash);
         sessao('AUTH_' . $local . '_' . $userAgent, $hash);
         sessao('USUARIO', $usuario);
-        $this->criarLocation($local, $location);
 
         return true;
     }
@@ -108,9 +105,16 @@ final class AuthHelper
      *
      * @return bool
      */
-    public function deletar(): bool
+    public function deletar(?string $local = null): bool
     {
+        $location = $this->location();
         sessaoDestruir();
+        if (!empty($location)) {
+            if (is_null($local)) {
+                $local = mb_strtoupper(ROUTE_DIRETORIO, 'UTF-8');
+            }
+            $this->criarLocation(local: $local, link: $location);
+        }
         return true;
     }
 }
