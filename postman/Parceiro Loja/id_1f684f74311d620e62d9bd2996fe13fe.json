@@ -1,0 +1,1 @@
+{"id":"id_1f684f74311d620e62d9bd2996fe13fe","token":"token","metodo":"GET","nome":"\/parceiro-loja\/relacionado\/:id","uri":"{{LINK}}\/parceiro-loja\/relacionado\/$PARCEIRO_ID","parametro":[],"body":[],"header":[],"variavel":[],"json":[],"documentacao":{"status":false,"descricao":"","requisicao":"","resposta":"","scope":"parceiro_loja:relacionado"}}

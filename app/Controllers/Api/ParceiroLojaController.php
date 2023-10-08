@@ -15,6 +15,7 @@ use App\Models\Api\ParceiroLoja\DestaqueModel;
 use System\Interface\ControllerBuscarInterface;
 use System\Interface\ControllerListarInterface;
 use System\Interface\ControllerSelectInterface;
+use App\Models\Api\ParceiroLoja\RelacionadoModel;
 
 final class ParceiroLojaController extends Controller implements
     ControllerListarInterface,
@@ -59,6 +60,12 @@ final class ParceiroLojaController extends Controller implements
             subcategoria: $request->subcategoria,
             quantidade: new Quantidade($request->quantidade)
         );
+        return mensagemSucesso($Parceiro->listarDados());
+    }
+
+    public function getRelacionado(string $id)
+    {
+        $Parceiro = new RelacionadoModel(id: $id);
         return mensagemSucesso($Parceiro->listarDados());
     }
 }
