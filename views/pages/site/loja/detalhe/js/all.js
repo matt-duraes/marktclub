@@ -2,7 +2,9 @@
 // @system "Esqueleto"
 // @resource "site/busca"
 // @resource "site/loja/favorito"
+// @resource "site/loja/parceiro"
 // @resource "site/loja/declaracao"
+// @resource "site/loja/relacionado"
 // @import "mapa"
 
 window.addEventListener('load', () => {

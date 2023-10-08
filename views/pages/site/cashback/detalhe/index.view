@@ -70,6 +70,4 @@
         @endif
     </div>
 
-    @view site/geral/relacionado.view
-
 </div>

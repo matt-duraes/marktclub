@@ -14,5 +14,10 @@
         <a class="cor_color botao_contar_click" data-botao="Ver mais" href="">Veja mais</a>
         @ endif;
     </header>
-    @view site/geral/parceiro.view
+    <div class="bloco_parceiro bloco_geral_article" id="bloco_parceiro_relacionado">
+        @ laco(3)
+            @view site/geral/parceiro_loading.view
+        @ endlaco;
+    </div>
 </aside>
+@view site/geral/parceiro_clone.view

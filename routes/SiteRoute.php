@@ -328,6 +328,10 @@ Route
             ])
             ::post('/convenios/listar');
         Route
+            ::nome('relacionado')
+            ::request(['id'])
+            ::post('/convenios/relacionado');
+        Route
             ::nome('detalhe')
             ::view('/convenios/{url}');
         Route
