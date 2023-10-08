@@ -7,7 +7,8 @@
 window.addEventListener('load', () => {
     const blocoProspeccao = document.getElementById('bloco_comercial_prospeccao');
     const listaItem = blocoProspeccao.querySelectorAll('.bloco_kambam_item');
-    const PopupAtualizar = new Popup('atualizar-dado', $('#bloco_motivo'), true, true);
+    const blocoMotivo = document.querySelector('.bloco_motivo');
+    const PopupAtualizar = new Popup('atualizar-dado', blocoMotivo, true, true);
 
     const blocoPesquisa = document.getElementById('bloco_pesquisa');
     const blocoApresentacao = document.getElementById('bloco_apresentacao');
@@ -99,13 +100,14 @@ window.addEventListener('load', () => {
 
         PopupAtualizar.abrir();
 
-        const form_motivo = document.getElementById('form_motivo');
+        const form_motivo = document.querySelector('.form_motivo');
         form_motivo.addEventListener('submit', async (e) => {
             e.preventDefault();
 
-            const motivo = document.getElementById('input_motivo').value;
+            const motivo = document.querySelector('.input_motivo').value;
 
             await atualizarStatusContrato(item, id, 'inativo', motivo);
+
             PopupAtualizar.fechar();
         })
     };
@@ -119,10 +121,10 @@ window.addEventListener('load', () => {
     colocarStandby = async (item, id) => {
         PopupAtualizar.abrir();
 
-        const form_motivo = document.getElementById('form_motivo');
+        const form_motivo = document.querySelector('.form_motivo');
         form_motivo.addEventListener('submit', async (e) => {
             e.preventDefault();
-            const motivo = document.getElementById('input_motivo').value;
+            const motivo = document.querySelector('.input_motivo').value;
 
             await atualizarStatusContrato(item, id, 'standby', motivo);
 

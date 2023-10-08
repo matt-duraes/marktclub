@@ -41,6 +41,7 @@ class EnqueteEntity extends Entity
         suporte|Suporte|obrigatorio|vazio|valido
         atendimento|Atendimento|obrigatorio|vazio|valido
     ';
+    protected ?int $idEmpresa;
     protected ?int $idUsuario;
 
     /**
@@ -51,12 +52,17 @@ class EnqueteEntity extends Entity
     public function __construct(
         protected readonly ?Request $request = null
     ) {
-        $this->setarIdUsuario();
+        $this->validarEmpresa();
         parent::__construct();
     }
 
     public function regraInsert(): void
     {
         $this->status = new Status(Status::NOVO);
+    }
+
+    public function regraPosBuscar(): void
+    {
+        $this->sistemas_clube = explode(',', $this->sistemas_clube);
     }
 }
