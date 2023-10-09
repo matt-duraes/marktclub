@@ -6,6 +6,7 @@ use ORM\Entity;
 use Modules\Data;
 use Modules\Botao;
 use Modules\DataHora;
+use Helpers\OrmHelper;
 use App\Classes\DemandaDado\Area;
 use App\Classes\DemandaDado\Tipo;
 use App\Classes\DemandaDado\Status;
@@ -13,7 +14,6 @@ use System\Classes\PainelHistorico\Acao;
 use ApiModel\PainelHistorico\HistoricoEntity;
 use App\Models\Api\Demanda\Trait\EquipeTrait;
 use App\Models\Api\Demanda\Trait\EmpresaTrait;
-use App\Models\Api\UsuarioEquipe\EquipeEntity;
 
 final class DemandaEntity extends Entity
 {
@@ -40,13 +40,9 @@ final class DemandaEntity extends Entity
         data_entrega|Data da entrega|valido
     ';
     public array $arquivo = [];
-    public array $dono = [];
-    public array $equipe = [];
+    public string $equipe;
     public array $seguindo = [];
     public array $tarefa = [];
-    public bool $estou_seguindo = false;
-    public bool $sou_dono = false;
-    public bool $sou_dev = false;
     public Botao $com_prazo;
     public Data $data_entrega;
     public DataHora $data_entrega_real;
@@ -71,91 +67,12 @@ final class DemandaEntity extends Entity
     */
     protected function regraPosBuscar()
     {
-        $this->dono = (array)$this->pegarUsuarioEquipe($this->id_usuario_equipe);
-        $this->empresa = $this->pegarEmpresa($this->id_admin_empresa);
-        $this->seguindo = $this->montarSeguidores();
+        $this->equipe = (new OrmHelper(TABELA_USUARIO_EQUIPE))->pegarUuidPeloId($this->id_usuario_equipe);
+        $this->empresa = (new OrmHelper(TABELA_COMERCIAL_EMPRESA))->pegarUuidPeloId($this->id_admin_empresa);
         $this->tarefa = (new TarefaModel($this))->pegarListaTarefa();
-        $this->equipe = $this->montarEquipe();
-        $this->estou_seguindo = $this->verificarSeEstouSeguindo();
-        $this->sou_dev = $this->verificarSeSouDev();
-        $this->sou_dono = $this->verificarSeSouDono();
         if ($this->com_prazo->valor() != 'sim') {
             $this->data_entrega = new Data('');
         }
-    }
-
-    private function montarSeguidores(): array
-    {
-        $seguindo = $this->seguindo;
-        $lista = [];
-        foreach ($seguindo as $usuario) {
-            $lista[$usuario] = $this->pegarUsuarioEquipe($usuario);
-        }
-        return array_values($lista);
-    }
-
-    private function montarEquipe()
-    {
-        $equipe = [];
-        foreach ($this->tarefa as $r) {
-            if (empty($r->dev->id)) {
-                continue;
-            }
-            $equipe[$r->dev->id] = $r->dev;
-        }
-        return array_values($equipe);
-    }
-
-    private function verificarSeEstouSeguindo(): bool
-    {
-        $Equipe = TOKEN['usuario'];
-        if (!($Equipe instanceof EquipeEntity)) {
-            return false;
-        }
-
-        $id = $Equipe->id;
-        if ($this->id_usuario_equipe == $id) {
-            return true;
-        }
-
-        $uuid = $Equipe->id;
-        foreach ($this->equipe as $r) {
-            if ($uuid == $r->id) {
-                return true;
-            }
-        }
-
-        foreach ($this->seguindo as $r) {
-            if ($uuid == $r->id) {
-                return true;
-            }
-        }
-        return false;
-    }
-
-    private function verificarSeSouDev()
-    {
-        $Equipe = TOKEN['usuario'];
-        if (!($Equipe instanceof EquipeEntity)) {
-            return false;
-        }
-
-        $uuid = $Equipe->id;
-        foreach ($this->equipe as $r) {
-            if ($uuid == $r->id) {
-                return true;
-            }
-        }
-        return false;
-    }
-
-    private function verificarSeSouDono()
-    {
-        $Equipe = TOKEN['usuario'];
-        if (!($Equipe instanceof EquipeEntity)) {
-            return false;
-        }
-        return $this->id_usuario_equipe == $Equipe->id;
     }
 
     /*

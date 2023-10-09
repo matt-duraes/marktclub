@@ -156,7 +156,6 @@ window.addEventListener('load', () => {
         botaoSalvar.classList.remove('display_none');
         botaoFechar.classList.add('display_none');
         botaoVoltar.classList.remove('display_none');
-        blocoFooter.classList.remove('display_none');
 
         if (tipo == 'associacao') {
             blocoTipoAssociacao.classList.remove('display_none');
@@ -168,6 +167,7 @@ window.addEventListener('load', () => {
         } else if (tipo == 'outro' || tipo == 'feature') {
             blocoHeader.classList.remove('display_none');
             blocoTipoOutro.classList.remove('display_none');
+            blocoFooter.classList.add('display_none');
         } else if (tipo == 'criacao') {
             blocoTipoCriacao.classList.remove('display_none');
             botaoSalvar.classList.add('display_none');
@@ -344,33 +344,6 @@ window.addEventListener('load', () => {
 
     /*
     |--------------------------------------------------------------------------
-    | HELPER DE AJUDA
-    |--------------------------------------------------------------------------
-    */
-    const listaAjuda = $$('#bloco_demanda_nova *[data-ajuda]');
-    listaAjuda.forEach(bloco => {
-        bloco.addEventListener('mouseover', () => {
-            const texto = bloco.getAttribute('data-ajuda');
-            Ajuda.show(bloco, texto);
-        });
-        bloco.addEventListener('mouseout', () => {
-            Ajuda.hide();
-        });
-    });
-
-    /*
-    |--------------------------------------------------------------------------
-    | FECHAR PÁGINA
-    |--------------------------------------------------------------------------
-    */
-    $$('#bloco_demanda_nova .botao_fechar').forEach(botao => {
-        botao.addEventListener('click', () => {
-            Pagina.staticFechar();
-        });
-    });
-
-    /*
-    |--------------------------------------------------------------------------
     | DOMINIO
     |--------------------------------------------------------------------------
     */
@@ -502,13 +475,13 @@ window.addEventListener('load', () => {
         });
 
         const json = await respostaJson(resposta, 'Ocorreu um erro ao salvar, por favor, tente novamente!');
+        Loading.hide();
         if (false === json) {
-            Loading.hide();
             return;
         }
-
-        window.location.assign(LINK + '/demanda/' + area + '#demanda-' + json.dado.id);
-        window.location.reload();
+        const PopupFechar = new Popup();
+        PopupFechar.fechar();
+        adicionarItem(primeiraColuna, json.dado, true);
     });
 
     /*
@@ -567,6 +540,7 @@ window.addEventListener('load', () => {
 
             const body = new FormData();
             body.append('tipo', inputTipo.value);
+            body.append('empresa_nome', pegarEmpresaNome(inputEmpresaCliente));
             body.append('empresa', inputEmpresaCliente.value);
             body.append('dominio_tipo', inputDominioTipo.value);
             body.append('dominio_link', dominioLink);
@@ -591,7 +565,7 @@ window.addEventListener('load', () => {
             if (inputEmpresaAssociacao.value == '') {
                 mensagem = 'Escolha uma empresa para continuar.';
             } else if (inputDominioSite.value == '') {
-                mensagem = 'Digite a descrição da demanda.';
+                mensagem = 'Digite o domínio do site para continuar.';
             }
             if (mensagem != '') {
                 Alerta.notificacao(mensagem, false);
@@ -625,6 +599,7 @@ window.addEventListener('load', () => {
             texto += inputTexto.value;
 
             const body = new FormData();
+            body.append('empresa_nome', pegarEmpresaNome(inputEmpresaAssociacao));
             body.append('tipo', inputTipo.value);
             body.append('empresa', inputEmpresaAssociacao.value);
             body.append('texto', texto);
@@ -644,8 +619,6 @@ window.addEventListener('load', () => {
                 mensagem = 'Digite um título para a demanda.';
             } else if (inputEmpresaOutro.value == '') {
                 mensagem = 'Escolha uma empresa para continuar.';
-            } else if (inputTexto.value == '') {
-                mensagem = 'Digite a descrição da demanda.';
             }
             if (mensagem != '') {
                 Alerta.notificacao(mensagem, false);
@@ -660,8 +633,8 @@ window.addEventListener('load', () => {
             const body = new FormData();
             body.append('tipo', inputTipo.value);
             body.append('titulo', inputTitulo.value);
+            body.append('empresa_nome', pegarEmpresaNome(inputEmpresaOutro));
             body.append('empresa', inputEmpresaOutro.value);
-            body.append('texto', inputTexto.value);
 
             resolve(body);
         });
@@ -680,8 +653,6 @@ window.addEventListener('load', () => {
                 mensagem = 'Escolha o local que o BUG está acontecedo continuar.';
             } else if (inputEmpresaEspecifica.checked && inputEmpresaBug.value == '') {
                 mensagem = 'Escolha uma empresa para continuar.';
-            } else if (inputTexto.value == '') {
-                mensagem = 'Digite a descrição da demanda.';
             }
             if (mensagem != '') {
                 Alerta.notificacao(mensagem, false);
@@ -697,6 +668,7 @@ window.addEventListener('load', () => {
             body.append('tipo', inputTipo.value);
             body.append('titulo', inputTitulo.value);
             body.append('local', inputBugLocal.value);
+            body.append('empresa_nome', pegarEmpresaNome(inputEmpresaBug));
             body.append('empresa', inputEmpresaBug.value);
             body.append('critico', inputBugCritico.value);
             body.append('texto', inputTexto.value);
@@ -751,6 +723,7 @@ window.addEventListener('load', () => {
         return new Promise(resolve => {
             const body = new FormData();
             body.append('tipo', inputTipo.value);
+            body.append('empresa_nome', pegarEmpresaNome(inputEmpresaSorteio));
             body.append('empresa', inputEmpresaSorteio.value);
             body.append('titulo', inputTitulo.value);
             body.append('sorteio_inicio', inputSorteioDataInicio.value);
@@ -865,6 +838,7 @@ window.addEventListener('load', () => {
         return new Promise(resolve => {
             const body = new FormData();
             body.append('tipo', inputTipo.value);
+            body.append('empresa_nome', pegarEmpresaNome(inputEmpresaCriacao));
             body.append('empresa', inputEmpresaCriacao.value);
             body.append('titulo', inputTitulo.value);
             body.append('criacao_site', inputCriacaoCategoriaSite.checked ? 'sim' : 'nao');
@@ -909,6 +883,18 @@ window.addEventListener('load', () => {
 
             resolve(body);
         });
+    };
+
+    const pegarEmpresaNome = empresa => {
+        if (empresa.value == '') {
+            return '';
+        }
+        const bloco = empresa.closest('.bloco_input');
+        const input = bloco.querySelector('.input_select_texto');
+        if (!input) {
+            return '';
+        }
+        return input.value + ' - ';
     };
 
     /*

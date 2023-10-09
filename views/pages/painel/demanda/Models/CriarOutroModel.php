@@ -13,14 +13,13 @@ final class CriarOutroModel
     private stdClass $Demanda;
 
     public function __construct(
+        private string $empresaNome,
         private string $titulo,
         private string $empresa,
-        private string $texto,
         private string $tipo
     ) {
-        $this->criarDemanda($titulo, $tipo, Area::TECNOLOGIA);
+        $this->criarDemanda($empresaNome . $titulo, $tipo, Area::TECNOLOGIA);
         $this->verificarSeSalvouDemanda();
-        $this->salvarTarefa('nao-definido', $titulo, $texto);
     }
 
     public function id()

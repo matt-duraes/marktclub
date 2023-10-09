@@ -26,6 +26,8 @@
 </div>
 
 @view painel/demanda/demanda-salvar/index.view
+@view painel/demanda/demanda-editar/index.view
+@view painel/demanda/tarefa-salvar/index.view
 
 <div class="display_none">
     <div class="tarefa_zero" id="clone_item_erro">Erro ao<br> buscar lista</div>
@@ -36,7 +38,7 @@
         </header>
         <div class="bloco_data">
             <div class="data">@iconeCalendario(14) <span class="data_criacao"></span></div>
-            <div class="data bloco_entrega">@iconeRelogio(15) <span class="data_entrega"></span></div>
+            <div class="data bloco_entrega display_none">@iconeRelogio(15) <span class="data_entrega"></span></div>
         </div>
     </article>
 </div>

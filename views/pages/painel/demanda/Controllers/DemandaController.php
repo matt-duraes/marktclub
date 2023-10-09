@@ -53,6 +53,10 @@ final class DemandaController extends Controller
             ->json(['titulo' => 'Escolha um cliente'])
             ->get('/comercial-empresa/select')
             ->array()['dado'] ?? [];
+        $equipe = $this->Api
+            ->json(['titulo' => 'Escolha um usuário'])
+            ->get('/usuario-equipe/select')
+            ->array()['dado'] ?? [];
 
         return view('painel.demanda.index', [
             'app'       => 'demanda-' . $area,
@@ -60,6 +64,8 @@ final class DemandaController extends Controller
             'area'      => $area,
             'quadro'    => $quadro,
             'empresa'   => $empresa,
+            'equipe'    => $equipe,
+            'tipoLista' => (new DemandaTarefaTipo())->select('Escolha uma opção'),
             'Tipo'      => new Tipo(),
             'Area'      => new DemandaTarefaTipo(),
         ]);
@@ -96,16 +102,6 @@ final class DemandaController extends Controller
     public function demandaEditar(string $id)
     {
         $demanda = $this->Api->get('/demanda-dado/' . $id)->object();
-
-        $empresa = $this->Api
-            ->json(['titulo' => 'Escolha um cliente'])
-            ->get('/comercial-empresa/select')
-            ->array();
-        $equipe = $this->Api
-            ->json(['titulo' => 'Escolha um usuário'])
-            ->get('/usuario-equipe/select')
-            ->array();
-
         return view('painel.demanda.demanda-editar', [
             'r'                 => $demanda->dado,
             'empresa'           => $empresa['dado'] ?? [],
@@ -224,32 +220,34 @@ final class DemandaController extends Controller
     {
         if ($request->tipo == 'cliente') {
             $Demanda = new CriarClienteModel(
-                $request->empresa,
-                $request->dominio_tipo,
-                $request->dominio_link,
-                new Botao($request->login_api),
-                $request->login_link,
-                new Botao($request->app),
-                $request->getPost('texto', html: false),
-                new Botao($request->cdn)
+                empresaNome: $request->empresa_nome,
+                empresa: $request->empresa,
+                dominioTipo: $request->dominio_tipo,
+                dominioLink: $request->dominio_link,
+                loginApi: new Botao($request->login_api),
+                loginLink: $request->login_link,
+                app: new Botao($request->app),
+                texto: $request->getPost('texto', html: false),
+                cdn: new Botao($request->cdn)
             );
         } elseif (in_array($request->tipo, ['outro', 'feature'])) {
             $Demanda = new CriarOutroModel(
+                empresaNome: $request->empresa_nome,
                 titulo: $request->titulo,
                 empresa: $request->empresa,
-                texto: $request->getPost('texto', html: false),
                 tipo: $request->tipo
             );
         } elseif ($request->tipo == 'bug') {
             $Demanda = new CriarBugModel(
+                empresaNome: $request->empresa_nome,
                 titulo: $request->titulo,
                 empresa: $request->empresa,
-                texto: $request->getPost('texto', html: false),
                 critico: $request->critico,
                 local: $request->local,
             );
         } elseif ($request->tipo == 'associacao') {
             $Demanda = new CriarAssociacaoModel(
+                empresaNome: $request->empresa_nome,
                 empresa: $request->empresa,
                 texto: $request->getPost('texto', html: false)
             );
@@ -259,7 +257,14 @@ final class DemandaController extends Controller
             $Demanda = new SorteioModel($request);
         }
 
-        return mensagemSucesso(['id' => $Demanda->id()], 201);
+        return mensagemSucesso([
+            'id'           => $Demanda->id(),
+            'titulo'       => $request->empresa_nome . $request->titulo,
+            'tipo'         => $request->tipo,
+            'data_criacao' => agora(),
+            'data_entrega' => '',
+            'status'       => 'nova'
+        ], 201);
     }
 
     public function postTarefaEditar(Request $request, string $id)

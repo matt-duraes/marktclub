@@ -37,7 +37,7 @@ Route
         Route
             ::nome('demandaSalvar')
             ::request([
-                'tipo', '!titulo', 'empresa', '!dominio_tipo', '!dominio_link', '!login_api',
+                'tipo', '!titulo', 'empresa_nome', 'empresa', '!dominio_tipo', '!dominio_link', '!login_api',
                 '!login_link', '!app', '!texto', '!cdn', '!local', '!critico', '!criacao_site',
                 '!criacao_social', '!criacao_impresso', '!criacao_kit', '!criacao_video', '!criacao_outro',
                 '!site_largura', '!site_altura', '!digital_stories', '!digital_feed', '!digital_banner',

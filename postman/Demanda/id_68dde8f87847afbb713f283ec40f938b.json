@@ -1,0 +1,1 @@
+{"id":"id_68dde8f87847afbb713f283ec40f938b","token":"painel","metodo":"GET","nome":"\/demanda-dado\/:id","uri":"{{LINK}}\/demanda-dado\/$DEMANDA_DADO_ID","parametro":[],"body":[],"header":[],"variavel":[],"json":[],"documentacao":{"status":false,"descricao":"","requisicao":"","resposta":"","scope":""}}

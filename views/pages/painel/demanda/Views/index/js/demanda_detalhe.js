@@ -1,18 +1,17 @@
-let idDemanda, idDono, area, blocoItem;
+let demandaId, demandaEquipe, area, blocoItem;
 const demandaDetalhe = () => {
-    idDemanda = document.getElementById('input_demanda_id').value;
-    idDono = document.getElementById('input_demanda_dono_id').value;
+    demandaStatus = $('#input_demanda_status').value;
+    demandaId = document.getElementById('input_demanda_id').value;
+    demandaEquipe = document.getElementById('input_demanda_equipe').value;
     area = document.querySelector('#input_area').value || '';
-    blocoItem = document.querySelector('.bloco_tarefa_item[data-id="' + idDemanda + '"]');
+    blocoItem = document.querySelector('.bloco_tarefa_item[data-id="' + demandaId + '"]');
 
     historicoLoad();
 
-    const botaoFechar = document.querySelectorAll('.botao_fechar_demanda');
-    botaoFechar.forEach(botao => {
-        botao.addEventListener('click', () => {
-            Pagina.staticFechar();
-        });
-    });
+    const PaginaSalvarTarefa = new Popup('tarefa-salvar', 'bloco_tarefa_nova', true, false);
+    if (demandaStatus == 'nova' && $$('#bloco_demanda_tarefa article.tarefa').length == 0) {
+        PaginaSalvarTarefa.abrir();
+    }
 
     /*
     |--------------------------------------------------------------------------
@@ -36,7 +35,7 @@ const demandaDetalhe = () => {
         const idDev = tarefa.getAttribute('data-dev');
         const PaginaEditar = new Pagina(
             'tarefa-editar-' + id,
-            LINK + '/demanda/tarefa-editar/' + id + '/' + idDemanda,
+            LINK + '/demanda/tarefa-editar/' + id + '/' + demandaId,
             {},
             true,
             false,
@@ -127,7 +126,7 @@ const demandaDetalhe = () => {
         let i = 0;
         for (i; i < quantidadeCurtida; ++i) {
             const figure = listaTarefa[i].querySelectorAll('.bloco_teste figure');
-            const dono = listaTarefa[i].querySelector('.bloco_teste figure[data-id="' + idDono + '"]');
+            const dono = listaTarefa[i].querySelector('.bloco_teste figure[data-id="' + demandaEquipe + '"]');
             if (!dono || figure.length < 2) {
                 concluir = false;
                 i = quantidadeCurtida;
@@ -205,7 +204,7 @@ const demandaDetalhe = () => {
 
     const comecarTrabalhoTarefa = async id => {
         Loading.show();
-        const resposta = await fetch(LINK + '/demanda/trabalho-comecar/' + id + '/' + idDemanda + '/' + area);
+        const resposta = await fetch(LINK + '/demanda/trabalho-comecar/' + id + '/' + demandaId + '/' + area);
         const json = await respostaJson(resposta, 'Erro ao começar a trabalhar na demanda.');
         if (false === json) {
             Loading.hide();
@@ -222,8 +221,8 @@ const demandaDetalhe = () => {
     const botaoEditar = document.querySelector('#botao_editar_demanda');
     if (botaoEditar) {
         const PaginaEditar = new Pagina(
-            'demanda-editar-' + idDemanda,
-            LINK + '/demanda/demanda-editar/' + idDemanda,
+            'demanda-editar-' + demandaId,
+            LINK + '/demanda/demanda-editar/' + demandaId,
             {},
             true,
             false,
@@ -277,7 +276,7 @@ const demandaDetalhe = () => {
         Loading.show();
         const body = new FormData();
         body.append('motivo', inputTextoCancelar.value);
-        const resposta = await fetch(LINK + '/demanda/demanda-cancelar/' + idDemanda, {
+        const resposta = await fetch(LINK + '/demanda/demanda-cancelar/' + demandaId, {
             method: 'POST',
             body,
         });
@@ -299,14 +298,6 @@ const demandaDetalhe = () => {
     */
     const botaoSalvarTarefa = document.getElementById('botao_salvar_tarefa');
     if (botaoSalvarTarefa) {
-        const PaginaSalvarTarefa = new Pagina(
-            'tarefa-salvar',
-            LINK + '/demanda/tarefa-salvar/' + idDemanda,
-            {},
-            true,
-            false,
-            tarefaSalvar
-        );
         botaoSalvarTarefa.addEventListener('click', () => {
             PaginaSalvarTarefa.abrir();
         });
@@ -327,7 +318,7 @@ const demandaDetalhe = () => {
     }
     const liberarDemandaParaDesenvolvimento = async () => {
         Loading.show();
-        const resposta = await fetch(LINK + '/demanda/demanda-liberar/' + idDemanda, {
+        const resposta = await fetch(LINK + '/demanda/demanda-liberar/' + demandaId, {
             method: 'POST',
         });
         const json = await respostaJson(resposta, 'Erro ao liberar demanda, por favor, tente novamente.');
@@ -352,7 +343,7 @@ fwFormArquivoListaChange = async () => {
         body.append('arquivo[]', item.value);
     });
 
-    const resposta = await fetch(LINK + '/demanda/tarefa-arquivo/' + idDemanda, {
+    const resposta = await fetch(LINK + '/demanda/tarefa-arquivo/' + demandaId, {
         method: 'POST',
         body,
     });

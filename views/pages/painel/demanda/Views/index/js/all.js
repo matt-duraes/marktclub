@@ -1,6 +1,7 @@
 // @template "painel"
 // @system "Popup"
 // @system "Esqueleto"
+// @import "demanda_detalhe"
 // @import "index"
 // @import "demanda_salvar"
 

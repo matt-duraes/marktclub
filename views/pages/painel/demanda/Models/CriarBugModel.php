@@ -14,9 +14,9 @@ final class CriarBugModel
     private stdClass $Demanda;
 
     public function __construct(
+        private string $empresaNome,
         private string $titulo,
         private string $empresa,
-        private string $texto,
         private string $critico,
         private string $local
     ) {
@@ -24,9 +24,8 @@ final class CriarBugModel
             $this->empresa = '14afa776394ada4be23be6acf7e3259e';
         }
 
-        $this->criarDemanda($titulo, 'bug-' . $local, Area::TECNOLOGIA);
+        $this->criarDemanda($empresaNome . $titulo, 'bug-' . $local, Area::TECNOLOGIA);
         $this->verificarSeSalvouDemanda();
-        $this->salvarTarefa('nao-definido', $titulo, $texto);
         $this->notificarUsuario();
     }
 

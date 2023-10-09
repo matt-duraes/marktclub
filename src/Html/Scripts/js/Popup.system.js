@@ -108,7 +108,7 @@ class Popup {
         bloco.classList.add('fw_popup_conteudo_animacao');
 
         let url = window.location.href.split('#');
-        if (url.length > 1) {
+        if (url.length > 1 && this.historico) {
             const titulo = $('title') || '';
             history.pushState({}, titulo, url[0]);
         }
