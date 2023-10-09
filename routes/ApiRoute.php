@@ -1870,6 +1870,24 @@ Route
     ::middleware(TokenMiddleware::class, 'token')
     ::grupo(function () {
         Route
+            ::nome('listar')
+            ::middleware(TokenMiddleware::class, 'scope', ['saude_contratacao:listar'])
+            ::request([
+                'pagina', '!quantidade', '!ordem', '!status', '!data_criacao_de', '!data_criacao_ate'
+            ], 'json')
+            ::get('/saude-contratacao');
+        Route
+            ::nome('buscar')
+            ::middleware(TokenMiddleware::class, 'scope', ['saude_contratacao:buscar'])
+            ::get('/saude-contratacao/{id}');
+        Route
+            ::nome('atualizar')
+            ::middleware(TokenMiddleware::class, 'scope', ['saude_contratacao:atualizar'])
+            ::request([
+                '!status'
+            ])
+            ::put('/saude-contratacao/{id}');
+        Route
             ::nome('salvar')
             ::middleware(TokenMiddleware::class, 'scope', ['saude_contratacao:salvar'])
             ::request([
@@ -1880,7 +1898,7 @@ Route
                 'telefone_comercial_ramal', 'endereco_logradouro', 'endereco_cep', 'endereco_estado',
                 'endereco_cidade', 'endereco_bairro', 'endereco_numero', 'endereco_complemento'
             ])
-            ::post('/saude/contratacao');
+            ::post('/saude-contratacao');
     });
 
 Route

@@ -49,7 +49,11 @@ return [
                 ]
             ],
             'enquete_satisfacao'      => [
-                'titulo' => 'Pesquisa Satisfação', 'acao' => ['index', 'visualizar', 'deletar', 'status']
+                'titulo'    => 'Pesquisa Satisfação',
+                'acao'      => ['index', 'visualizar', 'deletar', 'status', 'empresa'],
+                'permissao' => [
+                    'enquete_satisfacao_empresa' => 'Todas as empresas'
+                ]
             ],
             'construtor_clube'        => ['titulo' => 'Clube', 'acao' => ['index', 'add', 'editar', 'deletar']],
 
@@ -148,6 +152,13 @@ return [
             ],
             'solicitacao_credito'      => [
                 'titulo'    => 'Crédito',
+                'acao'      => ['index', 'visualizar', 'status', 'empresa'],
+                'permissao' => [
+                    'solicitacao_credito_empresa' => 'Todas as empresas'
+                ]
+            ],
+            'saude_contratacao'      => [
+                'titulo'    => 'Saúde Contratação',
                 'acao'      => ['index', 'visualizar', 'status', 'empresa'],
                 'permissao' => [
                     'solicitacao_credito_empresa' => 'Todas as empresas'

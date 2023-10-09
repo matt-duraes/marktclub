@@ -126,7 +126,7 @@ botaoContratarEnviar.addEventListener('click', async () => {
     }
     Loading.show();
     const resposta = await ajaxPost(
-        LINK + '/saude/contratacao',
+        LINK + '/saude-contratacao',
         {
             /* eslint-disable camelcase */
             id_saude_simulacao: idSimulacao,

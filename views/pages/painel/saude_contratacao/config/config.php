@@ -1,18 +1,18 @@
 <?php
 
 return [
-    'titulo'     => 'Pesquisa Satisfação',
+    'titulo'     => 'Páginas',
     'buscar'     => false,
     'filtrar'    => true,
     'ordem'      => true,
     'visualizar' => true,
     'add'        => false,
-    'editar'     => false,
-    'deletar'    => true,
+    'editar'     => true,
+    'deletar'    => false,
     'download'   => false,
-    'historico'  => true,
+    'historico'  => false,
     'api'        => [
-        'scope' => 'enquete_satisfacao',
-        'uri'   => '/enquete-satisfacao'
+        'scope' => 'saude_contratacao',
+        'uri'   => '/saude-contratacao'
     ]
 ];

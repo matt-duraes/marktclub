@@ -108,7 +108,7 @@ $scope = [
 
     'saude_simulacao:buscar', 'saude_simulacao:salvar',
 
-    'saude_contratacao:salvar',
+    'saude_contratacao:buscar', 'saude_contratacao:salvar', 'saude_contratacao:atualizar', 'saude_contratacao:listar',
 
     'solicitacao_declaracao:listar', 'solicitacao_declaracao:buscar', 'solicitacao_declaracao:salvar',
     'solicitacao_declaracao:atualizar',
