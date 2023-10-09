@@ -245,11 +245,15 @@ final class RequisicaoEnviar
 
     private function pegarToken($token)
     {
-        $token = jsonDecode($token->retorno, true, true)['dado']['access_token'] ?? '';
-
+        $retorno = jsonDecode($token->retorno, true, true);
+        $token = $retorno['dado']['access_token'] ?? '';
         if (!empty($token)) {
             return $token;
         }
-        mensagemErro('Erro!', 'Erro ao tentar gerar token.', status: 401);
+        mensagemErro(
+            $retorno['erro']['titulo'] ?? 'Erro!',
+            $retorno['erro']['mensagem'] ?? 'Erro ao tentar gerar token.',
+            status: 401
+        );
     }
 }
