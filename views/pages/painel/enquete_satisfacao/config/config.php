@@ -8,7 +8,7 @@ return [
     'visualizar' => true,
     'add'        => false,
     'editar'     => false,
-    'deletar'    => false,
+    'deletar'    => true,
     'download'   => false,
     'historico'  => true,
     'api'        => [
