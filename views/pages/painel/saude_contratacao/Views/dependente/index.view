@@ -1,0 +1,15 @@
+<div class="bloco_fieldset" id="bloco_dependente">
+    <h2>Lista de dependentes</h2>
+    <div class="bloco_linha_unica">
+        <div class="versao linha_dado">
+            <div class="linha">Data de nascimento</div>
+            <div class="linha">Valor</div>
+        </div>
+        @ifforeach($dado->simulacao->lista_dependente as $d):
+            <div class="versao linha_dado">
+                <div class="linha">{{dataBr($d->data_nascimento)}}</div>
+                <div class="linha">R$ {{$d->valor}}</div>
+            </div>
+        @endifforeach;
+    </div>
+</div>

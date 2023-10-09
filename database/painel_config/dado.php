@@ -153,6 +153,13 @@ return [
                     'solicitacao_credito_empresa' => 'Todas as empresas'
                 ]
             ],
+            'saude_contratacao'      => [
+                'titulo'    => 'Saúde Contratação',
+                'acao'      => ['index', 'visualizar', 'status', 'empresa'],
+                'permissao' => [
+                    'solicitacao_credito_empresa' => 'Todas as empresas'
+                ]
+            ],
             'comercial_empresa'        => [
                 'titulo' => 'Comercial Empresa', 'acao' => ['index', 'visualizar', 'editar']
             ],

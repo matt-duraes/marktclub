@@ -8,7 +8,6 @@ window.addEventListener('load', () => {
     const blocoProspeccao = document.getElementById('bloco_comercial_prospeccao');
     const listaItem = blocoProspeccao.querySelectorAll('.bloco_kambam_item');
     const blocoMotivo = document.querySelector('.bloco_motivo');
-    const PopupAtualizar = new Popup('atualizar-dado', blocoMotivo, true, true);
 
     const blocoPesquisa = document.getElementById('bloco_pesquisa');
     const blocoApresentacao = document.getElementById('bloco_apresentacao');
@@ -16,6 +15,12 @@ window.addEventListener('load', () => {
     const blocoAvaliacao = document.getElementById('bloco_avaliacao');
     const blocoMinuta = document.getElementById('bloco_minuta');
     const blocoStandBy = document.getElementById('bloco_standby');
+
+    const PopupAtualizar = new Popup('atualizar-dado', blocoMotivo, true, true);
+    const h1_popup = document.getElementById('h1_motivo');
+    const input_popup = document.getElementById('input_motivo');
+    const label_popup = input_popup.parentNode.querySelector('label');
+    const botao_popup = document.getElementById('botao_atualizar_motivo');
 
     const htmlZero = '<div class="tarefa_zero">Sem itens<br> no momento</div>';
 
@@ -87,16 +92,11 @@ window.addEventListener('load', () => {
     |--------------------------------------------------------------------------
     */
     cancelarContrato = async (item, id) => {
-        const h1_motivo = document.getElementById('h1_motivo');
-        const input_motivo = document.getElementById('input_motivo');
-        const label = input_motivo.parentNode.querySelector('label');
-        const botao = document.getElementById('botao_atualizar_motivo');
-
-        h1_motivo.textContent = "Cancelar contrato";
-        input_motivo.setAttribute('placeholder', "Digite o motivo para o cancelamento")
-        label.textContent = "Motivo para o cancelamento"
-        botao.textContent = "Cancelar"
-        botao.setAttribute('class', 'botao_cancelar')
+        h1_popup.textContent = "Cancelar contrato";
+        input_popup.setAttribute('placeholder', "Digite o motivo para o cancelamento")
+        label_popup.textContent = "Motivo para o cancelamento"
+        botao_popup.textContent = "Cancelar"
+        botao_popup.setAttribute('class', 'botao_cancelar')
 
         PopupAtualizar.abrir();
 
@@ -119,6 +119,12 @@ window.addEventListener('load', () => {
     };
 
     colocarStandby = async (item, id) => {
+        h1_popup.textContent = "Motivo Stand BY";
+        input_popup.setAttribute('placeholder', "Digite o motivo do stand by'")
+        label_popup.textContent = "Motivo Stand BY"
+        botao_popup.textContent = "Atualizar"
+        botao_popup.setAttribute('class', 'botao_atualizar')
+
         PopupAtualizar.abrir();
 
         const form_motivo = document.querySelector('.form_motivo');
@@ -203,6 +209,9 @@ window.addEventListener('load', () => {
                 manipularBlocoZero(e.to);
             })
             .eventoFim(e => {
+                if(e.from == e.to) {
+                    return;
+                }
                 atualizarStatusProspeccao(e.target, e.to, e.item);
             })
             .iniciar();

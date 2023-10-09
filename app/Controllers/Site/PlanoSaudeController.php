@@ -222,7 +222,7 @@ final class PlanoSaudeController extends Controller
                 'endereco_cidade'             => $request->endereco_cidade,
                 'endereco_estado'             => $request->endereco_estado
             ])
-            ->post('/saude/contratacao')
+            ->post('/saude-contratacao')
             ->object();
 
         return mensagemSucesso($dado, 201);

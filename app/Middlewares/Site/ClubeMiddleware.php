@@ -67,7 +67,6 @@ final class ClubeMiddleware extends ApiHelper
             ->validar(status: 404)
             ->get('/construtor-clube/clube/' . $host)
             ->object();
-
         sessao('CLUBE_' . $this->id, true);
         sessao('CLUBE', $this->montarClube($dado->dado));
     }
