@@ -2,12 +2,12 @@
 
 namespace App\Controllers\Api;
 
-use App\Controllers\Api\Trait\ClienteTrait;
-use Controller\Controller;
 use Erro\Excecao;
 use Http\Response;
-use System\Interface\ControllerBuscarInterface;
+use Controller\Controller;
+use App\Controllers\Api\Trait\ClienteTrait;
 use App\Models\Api\Carteirinha\CarteiraModel;
+use System\Interface\ControllerBuscarInterface;
 
 class CarteirinhaController extends Controller implements
     ControllerBuscarInterface

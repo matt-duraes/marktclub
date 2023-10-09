@@ -10,7 +10,6 @@ use App\Models\Site\Contato\ContatoModel;
 
 final class ContatoController extends Controller
 {
-
     /**
      * @param string|null $pesquisa
      *
@@ -29,7 +28,5 @@ final class ContatoController extends Controller
         (new ContatoModel($request))->postSalvar();
 
         return mensagemSucesso([], status: 201);
-
     }
-
 }

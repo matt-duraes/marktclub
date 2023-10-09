@@ -1,7 +1,7 @@
 
 <div id="carteirinha_sindfazenda">
     <div class="bloco_logo">
-        <img src="https://arquivo.marktclub.com.br/construtor/31d15fa1d817f8a83ca627c73c548852.png" height="50" />
+        <img src="{{logo}}" height="50" />
     </div>
     <div class="bloco_dado_duplo">
         <div class="nome">

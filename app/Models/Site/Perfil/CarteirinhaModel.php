@@ -9,14 +9,11 @@ final class CarteirinhaModel extends ClubeApiHelper
 {
     public function getDado(): object|array
     {
-        return (object) [
-            'nome'            => 'João das Neves',
-            'cpf'             => '07385666167',
-            'endereco_estado' => 'Brasília-DF',
-            'imagem'          => (object) [
-                'logo'   => 'teste.png',
-            ],
-        ];
+        $dado = $this
+            ->validar('Página não encontrada!', status: 404)
+            ->get('/carteirinha/' . sessao('USUARIO.id'))
+            ->object();
+        return $this->montarRetorno($dado);
     }
 
     /**

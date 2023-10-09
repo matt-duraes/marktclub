@@ -90,14 +90,13 @@ final class ClubeMiddleware extends ApiHelper
     private function montarDefine()
     {
         $clube = sessao('CLUBE');
-
         define('CLUBE_LOGO_PRINCIPAL', $clube->logo_principal);
         define('CLUBE_LOGO_SECUNDARIA', !empty($clube->logo_secundaria) ? $clube->logo_secundaria : $clube->logo_principal);
         define('CLUBE_LOGO_CLASSE', empty($clube->logo_secundaria) ? 'cor_fundo' : '');
         define('CLUBE_FAVICON', $clube->favicon);
         define('CLUBE_TITULO', $clube->titulo);
         define('CLUBE_ID', $clube->id);
-        define('CLUBE_COR_PRINCIPAL', $clube->cor_principal);
+        define('CLUBE_COR_PRINCIPAL','#F00068');
         define('CLUBE_COR_SECUNDARIA', $clube->cor_secundaria);
 
         define('EMPRESA_ID', $clube->empresa);

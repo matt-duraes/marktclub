@@ -50,6 +50,7 @@ return [
         'menu_samsung'              => 1,
         'menu_corrida'              => 1,
         'menu_show_nacional'        => 1,
+        'menu_ponto_mais_acao'      => 1,
         'menu_show_internacional'   => 1,
         'menu_sair'                 => 1,
         'administrado_status'       => 1,
@@ -101,16 +102,15 @@ return [
     [
         'id'               => 134,
         'uuid'             => '14bd832c9740b2e3093d402fd58c2f93',
-        'id_admin_empresa' => 153,
+        'id_admin_empresa' => 3,
         'titulo'           => 'Fenae',
         'link_clube'       => 'convenios.fenae.org.br',
         'cor_principal'    => '#20409a',
         'status'           => 1
     ],
     [
-        'id'               => 165,
         'uuid'             => '5cc28dab736cb7d4ef436ee2447a07ee',
-        'id_admin_empresa' => 198,
+        'id_admin_empresa' => 4,
         'titulo'           => 'CVS MAIS',
         'link_clube'       => 'clube.cvsmais.com.br',
         'cor_principal'    => '#f00068',
@@ -119,7 +119,7 @@ return [
     [
         'id'               => 221,
         'uuid'             => '122f833e84a78931e6fdcfa2e2a58771',
-        'id_admin_empresa' => 1967,
+        'id_admin_empresa' => 5,
         'titulo'           => 'Clube D+',
         'link_clube'       => 'clubedmais.com.br',
         'cor_principal'    => '#d9031c',
@@ -128,7 +128,7 @@ return [
     [
         'id'               => 72,
         'uuid'             => '61df17919405cf68f723510ec3af4acd',
-        'id_admin_empresa' => 82,
+        'id_admin_empresa' => 6,
         'titulo'           => 'CLUBE DE VANTAGENS SINPOLDF',
         'link_clube'       => 'sinpoldf.temmaisvantagens.com.br',
         'cor_principal'    => '#f00068',

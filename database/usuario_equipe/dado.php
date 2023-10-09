@@ -39,6 +39,9 @@ $permissao = json_encode([
 
     'comunicacao_contato_index', 'comunicacao_contato_visualizar', 'comunicacao_contato_status',
 
+    'comunicacao_popup_index', 'comunicacao_popup_add', 'comunicacao_popup_editar',
+    'comunicacao_popup_deletar', 'comunicacao_popup_status', 'comunicacao_popup_empresa',
+
     'enquete_satisfacao_index', 'enquete_satisfacao_visualizar', 'enquete_satisfacao_deletar',
     'enquete_satisfacao_status',
 
@@ -78,7 +81,8 @@ $permissao = json_encode([
     'solicitacao_cheque_bonus_empresa',
     'comercial_empresa_visualizar', 'comercial_empresa_editar', 'comercial_prospeccao_index',
     'comercial_prospeccao_add', 'comercial_prospeccao_editar', 'comercial_perdido_index', 'comercial_perdido_add',
-    'comercial_perdido_editar', 'comercial_perdido_visualizar', 'comercial_perdido_status', 'comercial_prospeccao_visualizar',
+    'comercial_perdido_editar', 'comercial_perdido_visualizar', 'comercial_perdido_status',
+    'comercial_prospeccao_visualizar',
     'comercial_atendimento_index', 'demanda_tecnologia', 'demanda_criacao', 'log_erro_index',
     'log_erro_visualizar', 'log_erro_status'
 ]);
