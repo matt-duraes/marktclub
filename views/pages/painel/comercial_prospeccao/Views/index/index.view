@@ -2,19 +2,18 @@
 
 <!--Bloco do popup standby -->
 <div class="bloco_pagina_popup display_none bloco_motivo">
-    <div class="conteudo_pagina_popup popup_conteudo">
-        <header class="header_pagina_popup">
-            <h1 id="h1_motivo">Motivo Stand BY</h1>
-            <i class="popup_fechar fechar botao_fechar">@iconeFechar</i>
-        </header>
-        <form class="form_geral conteudo_pagina_popup form_motivo">
-            @? formInput(name: 'motivo', label: 'Motivo Stand BY', placeholder: 'Digite o motivo do stand by', value: '')
-            <div class="footer_pagina_popup">
-                <div class="flex"></div>
-                <button id="botao_atualizar_motivo" class="botao_atualizar">Atualizar</button>
-            </div>
-        </form>
-    </div>
+    <header class="header_pagina_popup">
+        <h1 id="h1_motivo">Motivo Stand BY</h1>
+        <i class="popup_fechar fechar botao_fechar">@iconeFechar</i>
+    </header>
+
+    <form class="form_geral conteudo_pagina_popup form_motivo">
+        @? formInput(name: 'motivo', label: 'Motivo Stand BY', placeholder: 'Digite o motivo do stand by', value: '')
+        <div class="footer_pagina_popup">
+            <div class="flex"></div>
+            <button id="botao_atualizar_motivo" class="botao_atualizar">Atualizar</button>
+        </div>
+    </form>
 </div>
 
 <div class="bloco_kambam_index" id="bloco_comercial_prospeccao">
@@ -81,7 +80,7 @@
             </div>
         </section>
 
-        <section class="bloco_coluna">
+        <section class="bloco_coluna bloco_coluna_standby">
             <header>
                 <h1>Stand by <span>({!!count($standby)!!})</span></h1>
             </header>
