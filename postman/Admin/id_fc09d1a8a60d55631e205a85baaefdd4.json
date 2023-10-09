@@ -1,0 +1,1 @@
+{"id":"id_fc09d1a8a60d55631e205a85baaefdd4","token":"painel","metodo":"GET","nome":"\/admin\/chave-privada","uri":"{{LINK}}\/admin\/chave-privada","parametro":[],"body":[],"header":[],"variavel":[],"json":[],"documentacao":{"status":false,"descricao":"","requisicao":"","resposta":"","scope":"admin:chave_privada"}}

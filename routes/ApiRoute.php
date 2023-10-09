@@ -879,27 +879,33 @@ Route
     ::grupo(function () {
         Route
             ::nome('permissao')
+            ::middleware(TokenMiddleware::class, 'scope', ['admin:permissao'])
             ::get('/admin/permissao');
 
         Route
             ::nome('configuracao')
+            ::middleware(TokenMiddleware::class, 'scope', ['admin:configuracao'])
             ::get('/admin/configuracao');
 
         Route
             ::nome('uploadGrupo')
+            ::middleware(TokenMiddleware::class, 'scope', ['admin:upload_grupo'])
             ::get('/admin/upload-grupo');
 
         Route
             ::nome('menu')
+            ::middleware(TokenMiddleware::class, 'scope', ['admin:menu'])
             ::get('/admin/menu');
 
         Route
             ::nome('campoObrigatorio')
+            ::middleware(TokenMiddleware::class, 'scope', ['admin:campo_obrigatorio'])
             ::request(['!app'], 'json')
             ::get('/admin/campo-obrigatorio');
 
         Route
             ::nome('campoPermitido')
+            ::middleware(TokenMiddleware::class, 'scope', ['admin:campo_permitido'])
             ::request(['!app'], 'json')
             ::get('/admin/campo-permitido');
 

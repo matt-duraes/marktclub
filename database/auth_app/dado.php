@@ -38,9 +38,8 @@ $scope = [
 
     'login:painel', 'login:api', 'login:clube', 'login:token', 'login:digio',
 
-    'admin:chave_publica', 'admin:chave_privada',
-
-    'convenio_parceiro:destaque',
+    'admin:chave_publica', 'admin:chave_privada', 'admin:permissao', 'admin:configuracao',
+    'admin:upload_grupo', 'admin:menu', 'admin:campo_obrigatorio', 'admin:campo_permitido',
 
     'endereco:salvar', 'endereco:atualizar', 'endereco:listar', 'endereco:buscar', 'endereco:deletar',
 

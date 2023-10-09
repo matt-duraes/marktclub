@@ -1,0 +1,1 @@
+{"id":"id_e41258e4f885be9de6a4631244e1cec1","token":"painel","metodo":"GET","nome":"\/admin\/configuracao","uri":"{{LINK}}\/admin\/configuracao","parametro":[],"body":[],"header":[],"variavel":[],"json":[],"documentacao":{"status":false,"descricao":"","requisicao":"","resposta":"","scope":"admin:configuracao"}}
