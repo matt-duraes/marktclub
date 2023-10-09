@@ -95,6 +95,9 @@ $scope = [
     'demanda_dado:listar', 'demanda_dado:buscar', 'demanda_dado:salvar', 'demanda_dado:atualizar',
     'demanda_dado:cancelar',
 
+    'demanda_tarefa:listar', 'demanda_tarefa:salvar', 'demanda_tarefa:buscar', 'demanda_tarefa:atualizar',
+    'demanda_tarefa:deletar', 'demanda_tarefa:like',
+
     'mensageria:salvar',
 
     'pagina:turismo', 'pagina:cinema', 'pagina:samsung',

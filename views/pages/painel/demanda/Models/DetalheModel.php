@@ -2,35 +2,40 @@
 
 namespace Painel\Demanda\Models;
 
+use Helpers\ApiHelper;
+use PainelModel\Perfil\Equipe;
+use PainelModel\Perfil\Empresa;
+use stdClass;
+
 final class DetalheModel
 {
-    public function montarDado($dado)
+    private stdClass $demanda;
+
+    public function __construct($id)
     {
-        $tarefa = [];
-        $dado->data_criacao = dataBr($dado->data_criacao);
-        $dado->data_entrega = !empty($dado->data_entrega) ? dataBr($dado->data_entrega) : '';
-        foreach ($dado->tarefa as $r) {
-            $r->tempo_estimado = $this->calcularTempo($r->minuto_producao_estimada);
-            $r->tempo_real = $this->calcularTempo($r->minuto_producao_real);
-            $tarefa[] = $r;
-        }
-        $dado->tarefa = $tarefa;
-        return $dado;
+        $this->demanda = (new ApiHelper(token: true))
+            ->validar('Página não encontrada!', status: 404, login: true)
+            ->get('/demanda-dado/' . $id)
+            ->object()->dado ?? (object)[];
     }
 
-    private function calcularTempo($tempo)
+    public function montarDado()
     {
-        if (empty($tempo)) {
-            return '';
-        } elseif ($tempo < 60) {
-            return $tempo . ' minutos';
+        $dado = $this->demanda;
+        $Equipe = new Equipe();
+        $Empresa = new Empresa();
+
+        $notificar = $dado->seguindo;
+        if (!empty($dado->equipe)) {
+            $notificar = array_merge($notificar, [$dado->equipe]);
         }
-        $tempo = $tempo / 60;
-        $texto = $tempo < 2 ? 'hora' : 'horas';
-        if ($tempo > 24) {
-            $tempo = $tempo / 24;
-            $texto = $tempo < 2 ? 'dia' : 'dias';
-        }
-        return is_int($tempo) ? $tempo . ' ' . $texto : '+' . (int)$tempo . ' ' . $texto;
+        $dado->empresa = $Empresa->unico($dado->empresa);
+        $dado->data_criacao = dataBr($dado->data_criacao);
+        $dado->data_entrega = !empty($dado->data_entrega) ? dataBr($dado->data_entrega) : '';
+        $dado->equipe = $Equipe->unico($dado->equipe);
+        $dado->seguindo = $Equipe->lista($dado->seguindo);
+        $dado->notificar = !empty($notificar) ? array_unique($notificar) : [];
+
+        return $dado;
     }
 }

@@ -42,7 +42,6 @@ final class DemandaEntity extends Entity
     public array $arquivo = [];
     public string $equipe;
     public array $seguindo = [];
-    public array $tarefa = [];
     public Botao $com_prazo;
     public Data $data_entrega;
     public DataHora $data_entrega_real;
@@ -69,7 +68,6 @@ final class DemandaEntity extends Entity
     {
         $this->equipe = (new OrmHelper(TABELA_USUARIO_EQUIPE))->pegarUuidPeloId($this->id_usuario_equipe);
         $this->empresa = (new OrmHelper(TABELA_COMERCIAL_EMPRESA))->pegarUuidPeloId($this->id_admin_empresa);
-        $this->tarefa = (new TarefaModel($this))->pegarListaTarefa();
         if ($this->com_prazo->valor() != 'sim') {
             $this->data_entrega = new Data('');
         }

@@ -28,6 +28,9 @@ Route
             ::nome('demandaSalvar')
             ::view('/demanda/demanda-salvar/{area}');
         Route
+            ::nome('tarefaListar')
+            ::post('/demanda/tarefa-listar/{demanda}');
+        Route
             ::nome('tarefaSalvar')
             ::view('/demanda/tarefa-salvar/{demanda}');
         Route

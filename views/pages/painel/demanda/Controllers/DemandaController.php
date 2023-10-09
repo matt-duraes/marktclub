@@ -73,14 +73,8 @@ final class DemandaController extends Controller
 
     public function demanda(string $id)
     {
-        $demanda = $this
-            ->Api
-            ->validar('Página não encontrada!', status: 404)
-            ->get('/demanda-dado/' . $id)
-            ->object();
-
         return view('painel.demanda.demanda', [
-            'r'      => (new DetalheModel())->montarDado($demanda->dado),
+            'r'      => (new DetalheModel($id))->montarDado(),
             'Tipo'   => new DemandaTarefaTipo(),
             'Status' => new Status()
         ]);
@@ -166,6 +160,12 @@ final class DemandaController extends Controller
             $i++;
         }
         return new Response(status: 204);
+    }
+
+    public function postTarefaListar(string $demanda)
+    {
+        $Lista = new ListaModel();
+        return mensagemSucesso($Lista->buscarTarefa($demanda));
     }
 
     public function tarefaSalvar(string $demanda)

@@ -1,9 +1,12 @@
 // @template "painel"
 // @system "Popup"
 // @system "Esqueleto"
-// @import "demanda_detalhe"
+// @import "init"
 // @import "index"
+// @import "demanda_detalhe"
 // @import "demanda_salvar"
+// @import "tarefa_lista"
+// @import "tarefa_salvar"
 
 // const blocoListaSessao = document.querySelectorAll('.bloco_kambam_index .conteudo_geral .bloco_coluna');
 

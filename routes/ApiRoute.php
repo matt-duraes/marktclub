@@ -1472,6 +1472,11 @@ Route
             ::get('/comercial-empresa');
 
         Route
+            ::nome('perfil')
+            ::middleware(TokenMiddleware::class, 'scope', ['comercial_empresa:listar'])
+            ::get('/comercial-empresa/perfil');
+
+        Route
             ::nome('buscar')
             ::middleware(TokenMiddleware::class, 'scope', ['comercial_empresa:buscar'])
             ::get('/comercial-empresa/{id}');
@@ -1618,20 +1623,26 @@ Route
     ::grupo(function () {
         Route
             ::nome('salvar')
-            // ::middleware(TokenMiddleware::class, 'scope', ['demanda_tarefa:salvar'])
+            ::middleware(TokenMiddleware::class, 'scope', ['demanda_tarefa:salvar'])
             ::request([
                 'demanda', 'titulo', 'texto', 'tipo', '!minuto_producao_estimada', '!equipe'
             ])
             ::post('/demanda-tarefa');
 
         Route
+            ::nome('listar')
+            ::middleware(TokenMiddleware::class, 'scope', ['demanda_tarefa:listar'])
+            ::request(['demanda'], 'json')
+            ::get('/demanda-tarefa');
+
+        Route
             ::nome('buscar')
-            // ::middleware(TokenMiddleware::class, 'scope', ['demanda_tarefa:buscar'])
+            ::middleware(TokenMiddleware::class, 'scope', ['demanda_tarefa:buscar'])
             ::get('/demanda-tarefa/{id}');
 
         Route
             ::nome('atualizar')
-            // ::middleware(TokenMiddleware::class, 'scope', ['demanda_tarefa:atualizar'])
+            ::middleware(TokenMiddleware::class, 'scope', ['demanda_tarefa:atualizar'])
             ::request([
                 'titulo', 'texto', 'tipo', 'minuto_producao_estimada'
             ])
@@ -1639,17 +1650,17 @@ Route
 
         Route
             ::nome('deletar')
-            // ::middleware(TokenMiddleware::class, 'scope', ['demanda_tarefa:deletar'])
+            ::middleware(TokenMiddleware::class, 'scope', ['demanda_tarefa:deletar'])
             ::delete('/demanda-tarefa/{id}');
 
         Route
             ::nome('like')
-            // ::middleware(TokenMiddleware::class, 'scope', ['demanda_tarefa:deletar'])
+            ::middleware(TokenMiddleware::class, 'scope', ['demanda_tarefa:like'])
             ::post('/demanda-tarefa/like/{id}');
 
         Route
             ::nome('deslike')
-            // ::middleware(TokenMiddleware::class, 'scope', ['demanda_tarefa:deletar'])
+            ::middleware(TokenMiddleware::class, 'scope', ['demanda_tarefa:like'])
             ::request(['motivo'])
             ::post('/demanda-tarefa/deslike/{id}');
     });
