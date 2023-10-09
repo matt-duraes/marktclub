@@ -1,15 +1,17 @@
 .bloco_kambam_index
     width: 100%
-    padding: 20px 0 20px 20px
+    padding: 20px 10px
     overflow-x: auto
     .conteudo_geral
         width: 100%
         display: flex
         flex-direction: row
+        justify-content: space-between
 
 .bloco_kambam_index .bloco_coluna
-    width: calc(100% / 4)
-    margin-right: 20px
+    flex-grow: 1
+    min-width: 200px
+    margin: 0 10px
     > header
         width: 100%
         display: flex

@@ -34,7 +34,7 @@ const atualizarEmail = bloco => {
 
         Loading.show();
         const resposta = await ajaxPost(
-            LINK + '/perfil/salvar-dados',
+            LINK + '/perfil/salvar-email',
             {
                 /* eslint-disable */
                 email_pessoal: inputPessoal.value,

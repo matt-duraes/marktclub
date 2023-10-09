@@ -70,9 +70,16 @@ final class PerfilController extends Controller
     | SALVAR DADOS
     |--------------------------------------------------------------------------
     */
-    public function postSalvaDados(Request $request)
+    public function postSalvarDados(Request $request)
     {
         $Salvar = (new DadosModel())->postDado($request);
+
+        return new Response($Salvar);
+    }
+
+    public function postSalvarEmail(Request $request)
+    {
+        $Salvar = (new DadosModel())->atualizarEmail($request);
 
         return new Response($Salvar);
     }

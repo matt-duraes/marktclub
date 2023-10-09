@@ -61,7 +61,7 @@ final class BuscarUsuarioModel
 
         $imagem = $Crypt->decode($body->imagem);
         if (empty($imagem)) {
-            $imagem = LINK . '/images/painel/usuario_padrao_preto.png';
+            $imagem = LINK_PADRAO . '/images/painel/usuario_padrao_preto.png';
         }
 
         sessao('USUARIO', [

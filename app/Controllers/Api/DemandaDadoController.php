@@ -23,22 +23,6 @@ final class DemandaDadoController extends Controller implements
     ControllerBuscarInterface,
     ControllerAtualizarInterface
 {
-    public function getBuscar(string $id): Response
-    {
-        $Demanda = new DemandaEntity();
-        $Demanda->uuid($id);
-
-        return mensagemSucesso(
-            pegarPropriedadeDaEntity(
-                $Demanda,
-                lista: [
-                    'area', 'titulo', 'empresa', 'dono', 'equipe', 'seguindo', 'estou_seguindo',
-                    'com_prazo', 'data_entrega', 'sou_dono', 'sou_dev', 'tarefa', 'data_criacao', 'arquivo', 'status'
-                ]
-            )
-        );
-    }
-
     public function getListar(Request $request): Response
     {
         $Demanda = new DemandaModel(
@@ -50,18 +34,34 @@ final class DemandaDadoController extends Controller implements
         return mensagemSucesso($Demanda->listarDados());
     }
 
+    public function getBuscar(string $id): Response
+    {
+        $Demanda = new DemandaEntity();
+        $Demanda->uuid($id);
+
+        return $this->retornoPadrao($Demanda);
+    }
+
     public function postSalvar(Request $request): Response
     {
         $Demanda = new DemandaEntity();
         $Demanda->set(lista: $request->dado());
         $Demanda->salvar();
 
+        return $this->retornoPadrao($Demanda, 201);
+    }
+
+    private function retornoPadrao(DemandaEntity $Demanda, int $status = 200)
+    {
         return mensagemSucesso(
             pegarPropriedadeDaEntity(
                 $Demanda,
-                lista: ['id', 'titulo', 'data_criacao', 'status']
+                lista: [
+                    'area', 'titulo', 'empresa', 'dono', 'equipe', 'seguindo', 'estou_seguindo',
+                    'com_prazo', 'data_entrega', 'sou_dono', 'sou_dev', 'tarefa', 'data_criacao', 'arquivo', 'status'
+                ]
             ),
-            201
+            status: $status
         );
     }
 

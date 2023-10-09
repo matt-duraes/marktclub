@@ -101,6 +101,19 @@ final class DadosModel extends ClubeApiHelper
         return new Response(status: 204);
     }
 
+    public function atualizarEmail(Request $request): Response
+    {
+        $this
+            ->validar('Ocorre um erro ao atualizar seus e-mails, por favor, tente novamente.')
+            ->body([
+                'email_pessoal'        => $this->Crypt->encode($request->email_pessoal),
+                'email_trabalho'       => $this->Crypt->encode($request->email_trabalho),
+            ])
+            ->put('/usuario-cliente/' . $this->idUsuario);
+
+        return new Response(status: 204);
+    }
+
     /**
      * @param Request $request
      *

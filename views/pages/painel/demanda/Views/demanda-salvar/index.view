@@ -1,6 +1,6 @@
 <div id="bloco_demanda_nova" class="bloco_pagina_popup bloco_demanda_nova">
     <header class="header_pagina_popup">
-        <h1>NOVA TAREFA</h1>
+        <h1>NOVA DEMANDA</h1>
     </header>
     <form class="form_geral conteudo_pagina_popup">
         <input type="hidden" id="input_tipo">
@@ -9,8 +9,8 @@
             <p>Para facilitar a vida de todos, tenha certeza de abrir a demanda na categoria correta!</p>
 
             <div class="botao" data-tipo="cliente">Novo Cliente</div>
-            <div class="botao" data-tipo="bug">Bug</div>
             <div class="botao" data-tipo="associacao">Site Associação</div>
+            <div class="botao" data-tipo="bug">Bug</div>
             <div class="botao" data-tipo="feature">Feature</div>
             <div class="botao" data-tipo="outro">Outros</div>
         </div>
@@ -55,7 +55,8 @@
         </div>
     </form>
     <div class="footer_pagina_popup">
-        <div class="button voltar popup_fechar">CANCELAR</div>
-        <div class="button display_none salvar" id="botao_salvar_demanda">SALVAR</div>
+        <div class="button voltar popup_fechar" id="botao_demanda_fechar">CANCELAR</div>
+        <div class="button voltar display_none" id="botao_demanda_voltar">VOLTAR</div>
+        <div class="button display_none salvar" id="botao_demanda_salvar">SALVAR</div>
     </div>
 </div>
