@@ -2,5 +2,13 @@
 <style>
     :root{
         --cor-clube: {{CLUBE_COR_PRINCIPAL}} !important;
+        --cor-body: #F8F9FA !important;
+        --cor-branco-preto: #FFFFFF !important;
+        --cor-branco-cinza: #FFFFFF !important;
+        --cor-cinza-cinza: #888 !important;
+        --cor-preto-branco: #333333 !important;
+        --hover-branco-preto: #F8F9FA !important;
+        --cor-box-shadow: rgba(0,0,0,.1) !important;
+        --cor-alerta: #F00 !important;
     }
 </style>

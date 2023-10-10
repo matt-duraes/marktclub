@@ -61,7 +61,7 @@ final class AuthMiddleware
     {
         cookieDeletar('FWT');
         if (METODO == 'GET' && CONTENT_TYPE != 'application/json') {
-            return new Response(url: LINK . '/login');
+            return new Response(url: LINK . '/login?location=' . base64Encode(LINK . URI));
         }
 
         return new Response(json: [
