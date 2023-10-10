@@ -10,7 +10,6 @@ final class SaudeContratacaoTest extends Clube
 {
     private string $idSimulacao = '9d732e45-33ce-4e4d-a736-423cb057bd5e';
     private string $idContratacao;
-
     private string $status;
 
     public function __construct()
@@ -18,7 +17,7 @@ final class SaudeContratacaoTest extends Clube
         $this->pegarToken();
         parent::__construct();
 
-        $this->status = valorAleatorio(array_keys((new Status)->select()));
+        $this->status = valorAleatorio(array_keys((new Status())->select()));
     }
 
     /**
@@ -32,7 +31,7 @@ final class SaudeContratacaoTest extends Clube
             ->post('/saude-contratacao')
             ->array();
 
-        $this->idContratacao = $dado['dado']['id'] ?? "sem-id";
+        $this->idContratacao = $dado['dado']['id'] ?? 'sem-id';
 
         return $this
             ->checkStatus(201)
