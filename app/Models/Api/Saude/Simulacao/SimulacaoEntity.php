@@ -3,6 +3,7 @@
 namespace App\Models\Api\Saude\Simulacao;
 
 use App\Classes\Saude\Interface\PlanoInterface;
+use App\Classes\Saude\Acomodacao;
 use App\Classes\Saude\Interface\RegiaoInterface;
 use App\Classes\Saude\Operadora;
 use App\Classes\Saude\Operadoras\Amil\Amil;
@@ -31,7 +32,7 @@ class SimulacaoEntity extends Entity
     public Data $titular;
     public int $quantidade_dependente;
     public Operadora $operadora;
-    public int $acomodacao;
+    public Acomodacao $acomodacao;
     public Dinheiro $valor_titular;
     public array $lista_dependente;
     public Dinheiro $valor_total;
@@ -166,7 +167,7 @@ class SimulacaoEntity extends Entity
             $contador++;
         }
 
-        $this->acomodacao = $planoSaude->codigoAcomodacao ?? 0;
+        $this->acomodacao = new Acomodacao($planoSaude->codigoAcomodacao);
         $this->valor_titular = new Dinheiro(number_format($valor_titular, 2, thousands_separator: ''));
         $this->lista_dependente = $valor_dependente;
         $this->valor_total = new Dinheiro(number_format($valor_total, 2, thousands_separator: ''));
