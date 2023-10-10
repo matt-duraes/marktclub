@@ -4,7 +4,7 @@ use App\Classes\Saude\Operadora;
 use App\Classes\Saude\Operadoras\Amil\Planos as PlanoAmil;
 use App\Classes\Saude\Operadoras\Amil\Regioes;
 use App\Classes\Saude\Operadoras\CNUFlorianopolis\Planos as PlanoCNU;
-use App\Classes\SolicitacaoCredito\Status;
+use App\Classes\Saude\Status;
 use App\Classes\Saude\Acomodacao;
 use Modules\EstadoCivil;
 use Modules\Genero;
@@ -80,11 +80,36 @@ $Painel->coluna(callback: function () use ($Painel) {
             ->linha('endereco_complemento', 'Complemento');
     });
 
+    $Painel->bloco('Status', callback: function () use ($Painel) {
+        $Painel
+            ->linha('status', 'Status');
+    });
+
+    $Painel
+        ->status(
+            campo: 'status',
+            texto: 'Enviado',
+            inArray: ['Novo'],
+            status: Status::ENVIADO,
+            mensagem: 'Tem certeza que deseja alterar o status de cancelado?',
+            cor: 'verde'
+        );
+
+    $Painel
+        ->status(
+            campo: 'status',
+            texto: 'Contrado',
+            inArray: ['Novo', 'Enviado para operadora'],
+            status: Status::CONTRATADO,
+            mensagem: 'Tem certeza que deseja alterar o status de cancelado?',
+            cor: 'verde'
+        );
+
     $Painel
         ->status(
             campo: 'status',
             texto: 'Cancelado',
-            inArray: ['Novo', 'Enviado p/ Parceiro'],
+            inArray: ['Novo', 'Enviado para operadora'],
             status: Status::CANCELADO,
             mensagem: 'Tem certeza que deseja alterar o status de cancelado?',
             cor: 'vermelho'
@@ -105,6 +130,7 @@ $Painel
     ->replace('simulacao->regiao', (new Regioes())->select())
     ->replace('simulacao->acomodacao', (new Acomodacao())->select())
     ->replace('estado_civil', (new EstadoCivil())->select())
-    ->replace('genero', (new Genero())->select());
+    ->replace('genero', (new Genero())->select())
+    ->replace('status', (new Status())->select());
 
 return $Painel;

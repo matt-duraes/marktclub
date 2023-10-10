@@ -61,6 +61,7 @@ class ContratacaoEntity extends Entity
     protected int $idEmpresa;
     protected int $idUsuario;
     protected int $idSimulacao;
+    protected int $id_usuario_cliente;
     protected string $ormTabela = TABELA_SAUDE_CONTRATACAO;
     protected array $ormInsert = [
         'id_admin_empresa'   => '->idEmpresa',
@@ -68,7 +69,7 @@ class ContratacaoEntity extends Entity
         'status'             => 1
     ];
     protected array $ormBuscar = [
-        'id_saude_simulacao', 'documento_cpf', 'documento_rg', 'orgao_expedidor', 'nome',
+        'id_saude_simulacao', 'id_usuario_cliente', 'documento_cpf', 'documento_rg', 'orgao_expedidor', 'nome',
         'data_nascimento', 'estado_civil', 'naturalidade', 'genero', 'peso', 'altura',
         'nome_mae', 'responsavel_cpf', 'responsavel_rg', 'responsavel_nome', 'responsavel_orgao_expedidor',
         'email_pessoal', 'telefone_celular', 'telefone_residencial', 'telefone_comercial',
@@ -150,7 +151,7 @@ class ContratacaoEntity extends Entity
     private function buscarUsuario(): void
     {
         $usuario = (new OrmHelper(TABELA_USUARIO_CLIENTE))->pegarUltimoRegistro(
-            ['id', $this->idUsuario],
+            ['id', $this->id_usuario_cliente],
             ['uuid', 'nome', 'email_pessoal'],
             'object'
         );
@@ -185,11 +186,11 @@ class ContratacaoEntity extends Entity
     private function pegarListaDependente($listaDependente)
     {
         $lista = [];
-        
+
         if (!$listaDependente) {
             return $lista;
         }
-        
+
         foreach ($listaDependente as $dependente) {
             $lista[] = [
                 'data_nascimento'  => $dependente->data_nascimento,

@@ -1,3 +1,5 @@
+// @template "painel"
+// @painel "app_geral_visualizar"
 
 window.addEventListener('load', () => {
     const linha_dado = document.querySelectorAll('.linha_dado')
