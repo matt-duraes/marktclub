@@ -1,8 +1,8 @@
 <?php
 
-use App\Classes\ComunicacaoContato\Status;
+use App\Classes\SolicitacaoContato\Status;
 
-$Painel = new PainelConfig\Filtrar('comunicacao_contato');
+$Painel = new PainelConfig\Filtrar('solicitacao_contato');
 
 $Painel
     ->input(name: 'nome', titulo: 'Nome', label: 'Nome', placeholder: 'Digite um nome')

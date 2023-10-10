@@ -116,18 +116,6 @@ return [
         'id'               => '++',
         'id_admin_empresa' => 1,
         'tipo'             => 3,
-        'titulo'           => 'Contato',
-        'url'              => '/app/comunicacao-contato',
-        'icone'            => '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 30 30"><path d="M19 7H24V9H19V7ZM17 12H24V14H17V12ZM20 17H24V19H20V17ZM2 22C2 17.5817 5.58172 14 10 14C14.4183 14 18 17.5817 18 22H16C16 18.6863 13.3137 16 10 16C6.68629 16 4 18.6863 4 22H2ZM10 13C6.685 13 4 10.315 4 7C4 3.685 6.685 1 10 1C13.315 1 16 3.685 16 7C16 10.315 13.315 13 10 13ZM10 11C12.21 11 14 9.21 14 7C14 4.79 12.21 3 10 3C7.79 3 6 4.79 6 7C6 9.21 7.79 11 10 11Z"></path></svg>',
-        'ordem'            => '++',
-        'menu'             => ['comunicacao-contato'],
-        'status'           => 1,
-        'permissao'        => '["comunicacao_contato_index"]'
-    ],
-    [
-        'id'               => '++',
-        'id_admin_empresa' => 1,
-        'tipo'             => 3,
         'titulo'           => 'Popup',
         'url'              => '/app/comunicacao-popup',
         'icone'            => '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 30 30"><path d="M21 3C21.5523 3 22 3.44772 22 4V20C22 20.5523 21.5523 21 21 21H3C2.44772 21 2 20.5523 2 20V4C2 3.44772 2.44772 3 3 3H21ZM20 11H4V19H20V11ZM20 5H4V9H20V5ZM19 6V8H15V6H19Z"></path></svg>',
@@ -558,6 +546,18 @@ return [
         'menu'             => ['saude-contratacao'],
         'status'           => 1,
         'permissao'        => '["saude_contratacao_index"]'
+    ],
+    [
+        'id'               => '++',
+        'id_admin_empresa' => 1,
+        'tipo'             => 3,
+        'titulo'           => 'Contato',
+        'url'              => '/app/solicitacao-contato',
+        'icone'            => '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 30 30"><path d="M19 7H24V9H19V7ZM17 12H24V14H17V12ZM20 17H24V19H20V17ZM2 22C2 17.5817 5.58172 14 10 14C14.4183 14 18 17.5817 18 22H16C16 18.6863 13.3137 16 10 16C6.68629 16 4 18.6863 4 22H2ZM10 13C6.685 13 4 10.315 4 7C4 3.685 6.685 1 10 1C13.315 1 16 3.685 16 7C16 10.315 13.315 13 10 13ZM10 11C12.21 11 14 9.21 14 7C14 4.79 12.21 3 10 3C7.79 3 6 4.79 6 7C6 9.21 7.79 11 10 11Z"></path></svg>',
+        'ordem'            => '++',
+        'menu'             => ['solicitacao-contato'],
+        'status'           => 1,
+        'permissao'        => '["solicitacao_contato_index"]'
     ],
     [
         'id'               => '++',

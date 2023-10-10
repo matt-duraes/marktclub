@@ -1,9 +1,9 @@
 <?php
 
-namespace App\Models\Api\ComunicacaoContato;
+namespace App\Models\Api\SolicitacaoContato;
 
-use App\Classes\ComunicacaoContato\Status;
-use App\Models\Api\ComunicacaoContato\Trait\ConstrutorTrait;
+use App\Classes\SolicitacaoContato\Status;
+use App\Models\Api\SolicitacaoContato\Trait\ConstrutorTrait;
 use Helpers\OrmHelper;
 use Http\Request;
 use Modules\Email;
@@ -11,7 +11,7 @@ use Modules\Nome;
 use Modules\Telefone;
 use ORM\Entity;
 
-class ComunicacaoContatoEntity extends Entity
+class SolicitacaoContatoEntity extends Entity
 {
     use ConstrutorTrait;
 
@@ -22,7 +22,7 @@ class ComunicacaoContatoEntity extends Entity
     public string $url;
     public Status $status;
     public array $empresa;
-    protected string $ormTabela = TABELA_COMUNICACAO_CONTATO;
+    protected string $ormTabela = TABELA_SOLICITACAO_CONTATO;
     protected array $ormBuscar = [
         'id_admin_empresa', 'nome', 'email',
         'telefone', 'mensagem', 'status', 'data_criacao', 'data_atualizacao'

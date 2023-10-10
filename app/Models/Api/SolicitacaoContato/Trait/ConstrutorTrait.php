@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Models\Api\ComunicacaoContato\Trait;
+namespace App\Models\Api\SolicitacaoContato\Trait;
 
 use App\Classes\Geral\Status;
 use App\Models\Api\ConstrutorClube\ConstrutorEntity;

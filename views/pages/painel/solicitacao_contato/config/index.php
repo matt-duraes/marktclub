@@ -1,9 +1,9 @@
 <?php
 
-use App\Classes\ComunicacaoContato\Ordem;
-use App\Classes\ComunicacaoContato\Status;
+use App\Classes\SolicitacaoContato\Ordem;
+use App\Classes\SolicitacaoContato\Status;
 
-$Painel = new PainelConfig\Index('comunicacao_contato', new Ordem());
+$Painel = new PainelConfig\Index('solicitacao_contato', new Ordem());
 
 $Painel
     ->campo('empresa.nome', 'Empresa', 'normal', permissao: \App\Classes\UsuarioCliente\Helper::PERMISSAO_EMPRESA)

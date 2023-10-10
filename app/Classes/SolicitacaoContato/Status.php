@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Classes\ComunicacaoContato;
+namespace App\Classes\SolicitacaoContato;
 
 use Status\Status as StatusStatus;
 
