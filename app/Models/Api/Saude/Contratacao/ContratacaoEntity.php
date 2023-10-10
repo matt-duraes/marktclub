@@ -185,6 +185,11 @@ class ContratacaoEntity extends Entity
     private function pegarListaDependente($listaDependente)
     {
         $lista = [];
+        
+        if (!$listaDependente) {
+            return $lista;
+        }
+        
         foreach ($listaDependente as $dependente) {
             $lista[] = [
                 'data_nascimento'  => $dependente->data_nascimento,
