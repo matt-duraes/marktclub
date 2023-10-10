@@ -18,8 +18,8 @@ window.addEventListener('load', () => {
         blocoFieldsetPerdido.style.display = '';
     }
 
-    const input_contratou_concorrente = document.getElementById('input_contratou_concorrente')
-    const input_qual_concorrente = document.getElementById('input_qual_concorrente')
+    const input_contratou_concorrente = document.getElementById('input_concorrente_status')
+    const input_qual_concorrente = document.getElementById('input_concorrente_nome')
 
     if(!input_qual_concorrente.value) {
         input_qual_concorrente.parentNode.style.display = 'none';
