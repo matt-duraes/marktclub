@@ -5,7 +5,7 @@ namespace Tests\Api;
 use Erro\Excecao;
 use Tests\Tests;
 
-class PopupTest extends Tests
+class ComunicacaoPopupTest extends Tests
 {
     private string $idPopup;
 
@@ -15,20 +15,20 @@ class PopupTest extends Tests
     }
 
     /**
-     * @return PopupTest
+     * @return ComunicacaoPopupTest
      * @throws Excecao
      */
-    public function salvarPopupTest(): PopupTest
+    public function salvarPopupTest(): ComunicacaoPopupTest
     {
         $this->api('comunicacao_popup:salvar');
         $popup = $this
             ->Curl
             ->body([
-                'titulo'         => 'venha conferir a melhor',
-                'texto'          => 'Aqui vc tera o mejor do melhor sempre',
-                'imagem'         => 'https://via.placeholder.com/500.png',
-                'data_inicio'    => dataPassadaAleatorio(),
-                'status'         => 'ativo'
+                'titulo'      => 'venha conferir a melhor',
+                'texto'       => 'Aqui vc tera o mejor do melhor sempre',
+                'data_inicio' => '12/12/2012',
+                'data_final'  => '31/12/2012',
+                'status'      => 'ativo'
             ])
             ->post('/comunicacao-popup')
             ->array();
@@ -42,10 +42,10 @@ class PopupTest extends Tests
     }
 
     /**
-     * @return PopupTest
+     * @return ComunicacaoPopupTest
      * @throws Excecao
      */
-    public function buscarPopupTest(): PopupTest
+    public function buscarPopupTest(): ComunicacaoPopupTest
     {
         $this->api('comunicacao_popup:buscar');
         $this
@@ -60,16 +60,17 @@ class PopupTest extends Tests
     }
 
     /**
-     * @return PopupTest
+     * @return ComunicacaoPopupTest
      * @throws Excecao
      */
-    public function atualizarPopupTest(): PopupTest
+    public function atualizarPopupTest(): ComunicacaoPopupTest
     {
         $this->api('comunicacao_popup:atualizar');
         $this
             ->Curl
             ->body([
-                'status'    => 'inativo'
+                'titulo' => 'opa mais e mais',
+                'status' => 'inativo'
             ])
             ->put('/comunicacao-popup/' . $this->idPopup);
 
@@ -78,10 +79,10 @@ class PopupTest extends Tests
     }
 
     /**
-     * @return PopupTest
+     * @return ComunicacaoPopupTest
      * @throws Excecao
      */
-    public function deletarPopupTest(): PopupTest
+    public function deletarPopupTest(): ComunicacaoPopupTest
     {
         $this->api('comunicacao_popup:deletar');
         $this

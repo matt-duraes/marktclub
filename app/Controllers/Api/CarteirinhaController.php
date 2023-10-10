@@ -2,12 +2,13 @@
 
 namespace App\Controllers\Api;
 
+use App\Classes\Carteirinha\Helper;
 use App\Controllers\Api\Trait\ClienteTrait;
+use App\Models\Api\Carteirinha\CarteirinhaModel;
 use Controller\Controller;
 use Erro\Excecao;
 use Http\Response;
 use System\Interface\ControllerBuscarInterface;
-use App\Models\Api\Carteirinha\CarteiraModel;
 
 class CarteirinhaController extends Controller implements
     ControllerBuscarInterface
@@ -22,14 +23,10 @@ class CarteirinhaController extends Controller implements
      */
     public function getBuscar(string $id): Response
     {
-        if (empty($id)) {
-            mensagemStatus(404);
-        }
-
         $ClienteEntity = $this->pegarCliente($id, true);
-
-        $Carteira = (new CarteiraModel($ClienteEntity))->pegarCarteirinha();
-
-        return mensagemSucesso($Carteira);
+        return mensagemSucesso(
+            (new CarteirinhaModel($ClienteEntity))->pegarDados(),
+            criptografar: Helper::CRIPTOGRAFAR
+        );
     }
 }
