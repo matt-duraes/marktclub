@@ -18,7 +18,7 @@ final class AuthMiddleware
 
     public function deslogado(): bool|Response
     {
-        if ($this->verificarSeEstaLogado(location: false)) {
+        if ($this->verificarSeEstaLogado()) {
             return new Response(url: LINK . '/login');
         }
         return true;
@@ -26,7 +26,7 @@ final class AuthMiddleware
 
     public function logado(): bool|Response
     {
-        $retorno = $this->verificarSeEstaLogado(location: true);
+        $retorno = $this->verificarSeEstaLogado();
         if (!$retorno && !empty($this->token) && dataBanco($this->token['data']) == hoje()) {
             return $this->fazerLoginUsuario();
         } elseif (!$retorno) {
@@ -35,9 +35,9 @@ final class AuthMiddleware
         return true;
     }
 
-    private function verificarSeEstaLogado(bool $location): bool
+    private function verificarSeEstaLogado(): bool
     {
-        $retorno = (new AuthHelper())->validar(location: $location);
+        $retorno = (new AuthHelper())->validar();
         if (
             false === $retorno ||
             !sessaoExiste('USUARIO') ||
@@ -70,7 +70,7 @@ final class AuthMiddleware
         (new AuthHelper())->deletar();
         cookieDeletar('CLT');
         if (METODO == 'GET' && CONTENT_TYPE != 'application/json') {
-            return new Response(url: LINK . '/login');
+            return new Response(url: LINK . '/login?location=' . base64Encode(LINK . URI));
         }
         return new Response(json: [
             'status' => 'deslogado'

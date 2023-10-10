@@ -204,7 +204,7 @@ if (!function_exists('cookieDeletar')) {
     {
         if (isset($_COOKIE[$nome])) {
             unset($_COOKIE[$nome]);
-            return setcookie($nome, '', -1);
+            return setcookie($nome, '', time() - 3600);
         }
         return true;
     }

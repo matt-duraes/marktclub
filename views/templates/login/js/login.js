@@ -1,4 +1,7 @@
 const loadingLogin = () => {
+    const blocoLinkLocation = $('#LINK_LOCATION');
+    const linkLocation = blocoLinkLocation ? blocoLinkLocation.value : LINK;
+
     const inputLogin = $('#input_login');
     const inputSenha = $('#input_senha');
 
@@ -62,10 +65,10 @@ const loadingLogin = () => {
             },
             'Erro ao fazer seu login, por favor, tente novamente'
         );
-        if (!resposta) {
+        if (false === resposta) {
             Loading.hide();
             return;
         }
-        window.location.replace(resposta.dado.link);
+        window.location.replace(linkLocation);
     };
 };
