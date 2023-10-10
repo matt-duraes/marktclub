@@ -50,9 +50,9 @@ final class SimulacaoModel
     private function setarValorParcela(): void
     {
         $valorParcela = match ($this->tipo->indice()) {
-            Tipo::CONSIGNADO => $this->jurosConsignado()->calcularParcela(),
-            Tipo::CREDITO_PESSOAL => $this->jurosCreditoPessoal()->calcularParcela(),
-            Tipo::VEICULO_NOVO => $this->jurosVeiculoNovo()->calcularParcela(),
+            Tipo::CONSIGNADO       => $this->jurosConsignado()->calcularParcela(),
+            Tipo::CREDITO_PESSOAL  => $this->jurosCreditoPessoal()->calcularParcela(),
+            Tipo::VEICULO_NOVO     => $this->jurosVeiculoNovo()->calcularParcela(),
             Tipo::VEICULO_SEMINOVO => $this->jurosVeiculoSeminovo()->calcularParcela()
         };
 
@@ -66,7 +66,7 @@ final class SimulacaoModel
     {
         return match ($this->operadora->indice()) {
             Operadora::SICOOB => $this->calcularParcelaNaSicoob(),
-            default => 0
+            default           => 0
         };
     }
 
@@ -82,7 +82,7 @@ final class SimulacaoModel
 
         return match ($this->tipo->indice()) {
             Tipo::CONSIGNADO => $this->calcularSeguroSicoob($valorParcela),
-            default => $valorParcela
+            default          => $valorParcela
         };
     }
 

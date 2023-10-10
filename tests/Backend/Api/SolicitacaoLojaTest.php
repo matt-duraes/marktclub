@@ -125,7 +125,6 @@ class SolicitacaoLojaTest extends Clube
      */
     public function listarIndicacoesNovoParceiroTest(): SolicitacaoLojaTest
     {
-
         $this->api('solicitacao_loja:listar');
         $this
             ->Curl

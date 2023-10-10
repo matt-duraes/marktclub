@@ -38,9 +38,8 @@ $scope = [
 
     'login:painel', 'login:api', 'login:clube', 'login:token', 'login:digio',
 
-    'admin:chave_publica', 'admin:chave_privada',
-
-    'convenio_parceiro:destaque',
+    'admin:chave_publica', 'admin:chave_privada', 'admin:permissao', 'admin:configuracao',
+    'admin:upload_grupo', 'admin:menu', 'admin:campo_obrigatorio', 'admin:campo_permitido',
 
     'endereco:salvar', 'endereco:atualizar', 'endereco:listar', 'endereco:buscar', 'endereco:deletar',
 
@@ -53,7 +52,7 @@ $scope = [
     'parceiro_easylive:salvar', 'parceiro_easylive:atualizar', 'parceiro_easylive:listar',
     'parceiro_easylive:buscar', 'parceiro_easylive:deletar',
 
-    'parceiro_loja:listar', 'parceiro_loja:buscar',
+    'parceiro_loja:listar', 'parceiro_loja:buscar', 'parceiro_loja:relacionado',
 
     'parceiro_subcategoria:listar',
 
@@ -95,6 +94,9 @@ $scope = [
     'demanda_dado:listar', 'demanda_dado:buscar', 'demanda_dado:salvar', 'demanda_dado:atualizar',
     'demanda_dado:cancelar',
 
+    'demanda_tarefa:listar', 'demanda_tarefa:salvar', 'demanda_tarefa:buscar', 'demanda_tarefa:atualizar',
+    'demanda_tarefa:deletar', 'demanda_tarefa:like',
+
     'mensageria:salvar',
 
     'pagina:turismo', 'pagina:cinema', 'pagina:samsung',
@@ -105,7 +107,7 @@ $scope = [
 
     'saude_simulacao:buscar', 'saude_simulacao:salvar',
 
-    'saude_contratacao:salvar',
+    'saude_contratacao:buscar', 'saude_contratacao:salvar', 'saude_contratacao:atualizar', 'saude_contratacao:listar',
 
     'solicitacao_declaracao:listar', 'solicitacao_declaracao:buscar', 'solicitacao_declaracao:salvar',
     'solicitacao_declaracao:atualizar',

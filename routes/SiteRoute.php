@@ -328,6 +328,10 @@ Route
             ])
             ::post('/convenios/listar');
         Route
+            ::nome('relacionado')
+            ::request(['id'])
+            ::post('/convenios/relacionado');
+        Route
             ::nome('detalhe')
             ::view('/convenios/{url}');
         Route
@@ -460,7 +464,7 @@ Route
                 'endereco_cep', 'endereco_bairro', 'endereco_logradouro', 'endereco_numero',
                 'endereco_complemento', 'endereco_cidade', 'endereco_estado'
             ])
-            ::post('/saude/contratacao');
+            ::post('/saude-contratacao');
 
     });
 Route
@@ -551,7 +555,6 @@ Route
 Route
     ::nome('termo')
     ::middleware(ClubeMiddleware::class, 'buscar')
-    ::middleware(AuthMiddleware::class, 'logado')
     ::controller(App\Controllers\Site\TermoController::class)
     ::grupo(function () {
         Route

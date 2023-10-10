@@ -7,8 +7,13 @@ const fwFormBlocoGeralSelect = document.getElementById('fw_form_select');
 
 const formValue = (input, valor, obrigatorio) => {
     obrigatorio = obrigatorio == undefined ? false : true;
-    const bloco = input.closest('.bloco_input');
+    const bloco = input.closest('.bloco_input, .bloco_editor');
     if (!bloco) {
+        return;
+    }
+    if (bloco.classList.contains('bloco_editor')) {
+        input.value = valor;
+        input.dispatchEvent(new Event('formChange'));
         return;
     }
     const mensagemFooter = bloco.querySelector('.input_mensagem');

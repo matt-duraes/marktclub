@@ -44,7 +44,7 @@ $permissao = json_encode([
     'comunicacao_popup_deletar', 'comunicacao_popup_status', 'comunicacao_popup_empresa',
 
     'enquete_satisfacao_index', 'enquete_satisfacao_visualizar', 'enquete_satisfacao_deletar',
-    'enquete_satisfacao_status',
+    'enquete_satisfacao_status', 'enquete_satisfacao_empresa',
 
     'construtor_clube_index', 'construtor_clube_add', 'construtor_clube_editar', 'construtor_clube_deletar',
 
@@ -80,6 +80,9 @@ $permissao = json_encode([
 
     'solicitacao_cheque_bonus_index', 'solicitacao_cheque_bonus_visualizar', 'solicitacao_cheque_bonus_status',
     'solicitacao_cheque_bonus_empresa',
+
+    'saude_contratacao_index', 'saude_contratacao_visualizar', 'saude_contratacao_status',
+    'saude_contratacao_empresa',
 
     'comercial_empresa_visualizar', 'comercial_empresa_editar',
 

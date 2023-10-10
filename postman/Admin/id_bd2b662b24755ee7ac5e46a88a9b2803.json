@@ -1,0 +1,1 @@
+{"id":"id_bd2b662b24755ee7ac5e46a88a9b2803","token":"painel","metodo":"GET","nome":"\/admin\/chave-publica","uri":"{{LINK}}\/admin\/chave-publica","parametro":[],"body":[],"header":[],"variavel":[],"json":[],"documentacao":{"status":false,"descricao":"","requisicao":"","resposta":"","scope":"admin:chave_publica"}}

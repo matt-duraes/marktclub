@@ -17,7 +17,8 @@ final class ListarModel extends ClubeApiHelper implements ListarInterface
 
     public function __construct(
         private Tipo $tipo = new Tipo(),
-        private ?FiltroModel $Filtro = null
+        private ?FiltroModel $Filtro = null,
+        private ?string $id = null
     ) {
         parent::__construct();
         if ($Filtro instanceof FiltroModel) {
@@ -50,6 +51,21 @@ final class ListarModel extends ClubeApiHelper implements ListarInterface
             'paginacao' => $paginacao,
             'registro'  => $registro
         ];
+    }
+
+    /*
+    |--------------------------------------------------------------------------
+    | RELACIONADO
+    |--------------------------------------------------------------------------
+    */
+    public function listarRelacionado(): array
+    {
+        $dado = $this
+            ->validar(login: true)
+            ->get('/parceiro-loja/relacionado/' . $this->id)
+            ->object();
+
+        return $this->montarLista($dado->dado ?? []);
     }
 
     private function montarLista(array $dado): array

@@ -1,10 +1,11 @@
 <div id="bloco_demanda_tarefa" class="form_geral">
     <input type="hidden" id="input_demanda_id" value="{{$r->id}}">
-    <input type="hidden" id="input_demanda_dono_id" value="{{$r->dono->id}}">
+    <input type="hidden" id="input_demanda_equipe" value="{{$r->equipe->id}}">
+    <input type="hidden" id="input_demanda_status" value="{{$r->status}}">
     <header>
-        <i class="fechar mobile botao_fechar_demanda">@iconeVoltar</i>
+        <i class="fechar mobile pagina_fechar">@iconeVoltar</i>
         <h1>{{$r->titulo}}</h1>
-        @ if( ($r->sou_dono || sessao('USUARIO.gerente', padrao: 'nao') == 'sim') && $r->status != 'concluido' ):
+        @ if( sessao('USUARIO.gerente', padrao: 'nao') == 'sim' && !in_array($r->status, ['teste', 'concluido'] )):
         <div class="botao_topo">
             <i id="botao_editar_demanda" data-ajuda="Editar demanda">@iconeEditar(15)</i>
         </div>
@@ -13,38 +14,25 @@
         </div>
         <div class="linha"></div>
         @ endif;
-        <i class="fechar desktop botao_fechar_demanda">@iconeFechar</i>
+        <i class="fechar desktop pagina_fechar">@iconeFechar</i>
     </header>
 
     <div class="bloco_equipe">
         <figure style="background-image: url({!!$r->empresa->imagem!!});" data-ajuda="{{$r->empresa->nome}}"></figure>
         <div class="linha"></div>
-        <figure style="background-image: url({!!$r->dono->imagem!!});" data-ajuda="{{$r->dono->nome}}"></figure>
-        @ if( $r->equipe ):
-        <div class="linha"></div>
-        <div class="bloco_grupo">
-            @ foreach( $r->equipe as $equipe ):
-            <figure style="background-image: url({!!$equipe->imagem!!});" data-ajuda="{{$equipe->nome}}"></figure>
-            @ endforeach;
-        </div>
-        @ endif;
+        <figure style="background-image: url({!!$r->equipe->imagem!!});" data-ajuda="{{$r->equipe->nome}}"></figure>
         @ if( $r->seguindo ):
         <div class="linha"></div>
         <div class="bloco_grupo">
-            @ foreach( $r->seguindo as $seguindo ):
-            <figure style="background-image: url({!!$seguindo->imagem!!});" data-ajuda="{{$seguindo->nome}}"></figure>
+            @ foreach( $r->seguindo as $equipe ):
+            <figure style="background-image: url({!!$equipe->imagem!!});" data-ajuda="{{$equipe->nome}}"></figure>
             @ endforeach;
         </div>
         @ endif;
 
         <div class="resto"></div>
-        @ if( $r->status == 'nova' ):
-        <div class="botao" id="botao_liberar_demanda">Liberar demanda</div>
-        @ endif;
 
-        @ if( !$r->sou_dev && !$r->sou_dono ):
-        <div class="botao {!!$r->estou_seguindo ? 'sim' : 'nao'!!}">{!!$r->estou_seguindo ? 'seguindo' : 'seguir'!!}</div>
-        @ endif;
+        <div class="botao">seguir</div>
     </div>
 
     <div class="bloco_data">
@@ -62,97 +50,17 @@
 
     <div class="bloco_tarefa">
         <h2>Tarefas</h2>
-        @ if( in_array($r->status, ['nova', 'liberada', 'andamento']) ):
         <div class="botao_add" id="botao_salvar_tarefa">Nova tarefa</div>
-        @ endif;
-
-        @ foreach( $r->tarefa as $tarefa ):
-        <article class="tarefa {{$tarefa->status}}" data-id="{{$tarefa->id}}" data-dev="{!!$tarefa->dev->id!!}">
-            @ if( $tarefa->status != 'concluida' ):
-            <div class="bloco_botao">
-                <i class="botao botao_editar">@iconeEditar(15)</i>
-                <i class="botao botao_deletar">@iconeDeletar</i>
-            </div>
-            @ endif;
-            <figure style="background-image: url({!!$tarefa->dev->imagem!!});" data-ajuda="{{$tarefa->dev->nome}}"></figure>
-            <div class="conteudo">
-                <h1>{{$tarefa->titulo}}</h1>
-                <div class="dado">
-                    <div class="item">
-                        <span>Tipo:</span>
-                        <p>{{$Tipo->nome($tarefa->tipo)}}</p>
-                    </div>
-
-                    @ if( !empty($tarefa->minuto_producao_estimada) ):
-                    <div class="item">
-                        <span>Tempo estimado:</span>
-                        <p>{{$tarefa->tempo_estimado}}</p>
-                    </div>
-                    @ endif;
-
-                    @ if( !empty($tarefa->minuto_producao_real) && $tarefa->status == 'concluida'):
-                    <div class="item">
-                        <span>Tempo executado:</span>
-                        <p>{{$tarefa->tempo_real}}</p>
-                    </div>
-                    @ endif;
-
-                    <div class="item">
-                        <span>Status:</span>
-                        <p>{{$Status->nome($tarefa->status)}}</p>
-                    </div>
-
-                    @ if(!empty($tarefa->data_producao_final) || ( $tarefa->status == 'concluida' && !empty($tarefa->data_producao_final ))):
-                    <div class="linha"></div>
-                    @ endif;
-
-                    @ if( !empty($tarefa->data_producao_inicio) ):
-                    <div class="item">
-                        <span>Iniciado:</span>
-                        <p>{{dataBr($tarefa->data_producao_inicio)}}</p>
-                    </div>
-                    @ endif;
-
-                    @ if( $tarefa->status == 'concluida' && !empty($tarefa->data_producao_final) ):
-                    <div class="item">
-                        <span>Finalizado:</span>
-                        <p>{{dataBr($tarefa->data_producao_final)}}</p>
-                    </div>
-                    @ endif;
-                </div>
-                <div class="texto bloco_noticia_texto">
-                    {!!$tarefa->texto!!}
-                </div>
-                @ if( $tarefa->status == 'concluida' ):
-                <div class="bloco_teste">
-                    <i class="botao_like like" data-ajuda="Aprovar tarefa">@iconeLike</i>
-                    <div class="bloco_imagem">
-                        @ foreach($tarefa->teste as $usuarioTeste):
-                        <figure data-ajuda="{{$usuarioTeste->nome}}" data-id="{{$usuarioTeste->id}}" style="background-image: url({!!$usuarioTeste->imagem!!});"></figure>
-                        @ endforeach;
-                    </div>
-                    <i class="botao_deslike deslike" data-ajuda="Reprovar tarefa">@iconeDeslike</i>
-                </div>
-                @ elseif( $r->status == 'concluida' ):
-                <div class="bloco_testado">
-                    <p>Testado por:</p>
-                    <div class="bloco_imagem">
-                        @ foreach($tarefa->teste as $usuarioTeste):
-                        <figure data-ajuda="{{$usuarioTeste->nome}}" data-id="{{$usuarioTeste->id}}" style="background-image: url({!!$usuarioTeste->imagem!!});"></figure>
-                        @ endforeach;
-                    </div>
-                </div>
-                @ endif;
-            </div>
-
-            @ if( $tarefa->status == 'concluida' ):
-            <div class="check">@iconeCheck(20)</div>
-            @ elseif( in_array($r->status, ['liberada', 'andamento']) && in_array($tarefa->status, ['aguardando', 'andamento']) && !empty($tarefa->minuto_producao_estimada) ):
-            <div class="botao play botao_play">@iconePlay(40)</div>
-            <div class="botao display_none pause botao_pause">@iconePause(40)</div>
-            @ endif;
-        </article>
-        @ endforeach;
+        <div class="bloco_tarefa_lista display_none" id="bloco_tarefa_lista">
+        </div>
+        <div class="bloco_tarefa_loading" id="bloco_tarefa_loading">
+            <h1 class="esqueleto"></h1>
+            <p class="esqueleto"></p>
+            <p class="esqueleto"></p>
+        </div>
+        <div class="bloco_tarefa_zero display_none" id="bloco_tarefa_zero">
+            <p>Sem tarefa cadastrada</p>
+        </div>
     </div>
 
     <div class="bloco_arquivo fw_bloco_galeria">
@@ -160,7 +68,7 @@
     </div>
 
     <div class="bloco_historico">
-        @php painelHistorico($r->id, 'demanda_dado', boxShadow: false, titulo: 'Fez um comentário em uma demanda que você está seguindo', link: LINK . '/demanda/' . $r->area . '#demanda-' . $r->id, notificar: [$r->dono->id])
+        @php painelHistorico($r->id, 'demanda_dado', boxShadow: false, titulo: 'Fez um comentário em uma demanda que você está seguindo', link: LINK . '/demanda/' . $r->area . '#demanda-' . $r->id, notificar: $r->notificar)
     </div>
 
     <div id="bloco_recusar_tarefa" class="bloco_adicionar_motivo display_none">

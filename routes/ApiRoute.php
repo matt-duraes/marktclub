@@ -879,27 +879,33 @@ Route
     ::grupo(function () {
         Route
             ::nome('permissao')
+            ::middleware(TokenMiddleware::class, 'scope', ['admin:permissao'])
             ::get('/admin/permissao');
 
         Route
             ::nome('configuracao')
+            ::middleware(TokenMiddleware::class, 'scope', ['admin:configuracao'])
             ::get('/admin/configuracao');
 
         Route
             ::nome('uploadGrupo')
+            ::middleware(TokenMiddleware::class, 'scope', ['admin:upload_grupo'])
             ::get('/admin/upload-grupo');
 
         Route
             ::nome('menu')
+            ::middleware(TokenMiddleware::class, 'scope', ['admin:menu'])
             ::get('/admin/menu');
 
         Route
             ::nome('campoObrigatorio')
+            ::middleware(TokenMiddleware::class, 'scope', ['admin:campo_obrigatorio'])
             ::request(['!app'], 'json')
             ::get('/admin/campo-obrigatorio');
 
         Route
             ::nome('campoPermitido')
+            ::middleware(TokenMiddleware::class, 'scope', ['admin:campo_permitido'])
             ::request(['!app'], 'json')
             ::get('/admin/campo-permitido');
 
@@ -1204,11 +1210,17 @@ Route
             ::nome('buscar')
             ::middleware(TokenMiddleware::class, 'scope', ['parceiro_loja:buscar'])
             ::get('/parceiro-loja/{id}');
+
         Route
             ::nome('destaque')
             ::middleware(TokenMiddleware::class, 'scope', ['parceiro_loja:destaque'])
             ::request(['categoria', 'subcategoria', 'quantidade'], 'json')
             ::get('/parceiro-loja/destaque');
+
+            Route
+            ::nome('relacionado')
+            ::middleware(TokenMiddleware::class, 'scope', ['parceiro_loja:relacionado'])
+            ::get('/parceiro-loja/relacionado/{id}');
     });
 
 Route
@@ -1466,6 +1478,11 @@ Route
             ::get('/comercial-empresa');
 
         Route
+            ::nome('perfil')
+            ::middleware(TokenMiddleware::class, 'scope', ['comercial_empresa:listar'])
+            ::get('/comercial-empresa/perfil');
+
+        Route
             ::nome('buscar')
             ::middleware(TokenMiddleware::class, 'scope', ['comercial_empresa:buscar'])
             ::get('/comercial-empresa/{id}');
@@ -1612,20 +1629,26 @@ Route
     ::grupo(function () {
         Route
             ::nome('salvar')
-            // ::middleware(TokenMiddleware::class, 'scope', ['demanda_tarefa:salvar'])
+            ::middleware(TokenMiddleware::class, 'scope', ['demanda_tarefa:salvar'])
             ::request([
                 'demanda', 'titulo', 'texto', 'tipo', '!minuto_producao_estimada', '!equipe'
             ])
             ::post('/demanda-tarefa');
 
         Route
+            ::nome('listar')
+            ::middleware(TokenMiddleware::class, 'scope', ['demanda_tarefa:listar'])
+            ::request(['demanda'], 'json')
+            ::get('/demanda-tarefa');
+
+        Route
             ::nome('buscar')
-            // ::middleware(TokenMiddleware::class, 'scope', ['demanda_tarefa:buscar'])
+            ::middleware(TokenMiddleware::class, 'scope', ['demanda_tarefa:buscar'])
             ::get('/demanda-tarefa/{id}');
 
         Route
             ::nome('atualizar')
-            // ::middleware(TokenMiddleware::class, 'scope', ['demanda_tarefa:atualizar'])
+            ::middleware(TokenMiddleware::class, 'scope', ['demanda_tarefa:atualizar'])
             ::request([
                 'titulo', 'texto', 'tipo', 'minuto_producao_estimada'
             ])
@@ -1633,17 +1656,17 @@ Route
 
         Route
             ::nome('deletar')
-            // ::middleware(TokenMiddleware::class, 'scope', ['demanda_tarefa:deletar'])
+            ::middleware(TokenMiddleware::class, 'scope', ['demanda_tarefa:deletar'])
             ::delete('/demanda-tarefa/{id}');
 
         Route
             ::nome('like')
-            // ::middleware(TokenMiddleware::class, 'scope', ['demanda_tarefa:deletar'])
+            ::middleware(TokenMiddleware::class, 'scope', ['demanda_tarefa:like'])
             ::post('/demanda-tarefa/like/{id}');
 
         Route
             ::nome('deslike')
-            // ::middleware(TokenMiddleware::class, 'scope', ['demanda_tarefa:deletar'])
+            ::middleware(TokenMiddleware::class, 'scope', ['demanda_tarefa:like'])
             ::request(['motivo'])
             ::post('/demanda-tarefa/deslike/{id}');
     });
@@ -1853,6 +1876,24 @@ Route
     ::middleware(TokenMiddleware::class, 'token')
     ::grupo(function () {
         Route
+            ::nome('listar')
+            ::middleware(TokenMiddleware::class, 'scope', ['saude_contratacao:listar'])
+            ::request([
+                'pagina', '!quantidade', '!ordem', '!status', '!data_criacao_de', '!data_criacao_ate'
+            ], 'json')
+            ::get('/saude-contratacao');
+        Route
+            ::nome('buscar')
+            ::middleware(TokenMiddleware::class, 'scope', ['saude_contratacao:buscar'])
+            ::get('/saude-contratacao/{id}');
+        Route
+            ::nome('atualizar')
+            ::middleware(TokenMiddleware::class, 'scope', ['saude_contratacao:atualizar'])
+            ::request([
+                '!status'
+            ])
+            ::put('/saude-contratacao/{id}');
+        Route
             ::nome('salvar')
             ::middleware(TokenMiddleware::class, 'scope', ['saude_contratacao:salvar'])
             ::request([
@@ -1863,7 +1904,7 @@ Route
                 'telefone_comercial_ramal', 'endereco_logradouro', 'endereco_cep', 'endereco_estado',
                 'endereco_cidade', 'endereco_bairro', 'endereco_numero', 'endereco_complemento'
             ])
-            ::post('/saude/contratacao');
+            ::post('/saude-contratacao');
     });
 
 Route

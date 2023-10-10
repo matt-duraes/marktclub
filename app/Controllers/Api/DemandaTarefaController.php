@@ -6,18 +6,30 @@ use Http\Request;
 use Http\Response;
 use Controller\Controller;
 use App\Classes\DemandaTarefa\Tipo;
+use App\Models\Api\Demanda\DemandaEntity;
 use App\Models\Api\Demanda\TarefaEntity;
+use App\Models\Api\Demanda\TarefaModel;
 use System\Interface\ControllerBuscarInterface;
 use System\Interface\ControllerSalvarInterface;
 use System\Interface\ControllerDeletarInterface;
 use System\Interface\ControllerAtualizarInterface;
+use System\Interface\ControllerListarInterface;
 
 final class DemandaTarefaController extends Controller implements
     ControllerSalvarInterface,
     ControllerBuscarInterface,
     ControllerAtualizarInterface,
-    ControllerDeletarInterface
+    ControllerDeletarInterface,
+    ControllerListarInterface
 {
+    public function getListar(Request $request): Response
+    {
+        $Demanda = new DemandaEntity();
+        $Demanda->uuid($request->demanda);
+        $Tarefa = new TarefaModel($Demanda);
+        return mensagemSucesso($Tarefa->pegarListaTarefa());
+    }
+
     public function postSalvar(Request $request): Response
     {
         $minuto = $request->vazio('minuto_producao_estimada') ? null : $request->minuto_producao_estimada;

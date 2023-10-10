@@ -57,38 +57,6 @@ final class PainelController extends Controller
         return mensagemSucesso($campo);
     }
 
-    public function getTrabalhoOrgao(): Response
-    {
-        $Status = new StatusModel();
-        $lista = $Status->listar('usuario_cliente', 'trabalho_orgao');
-
-        return mensagemSucesso($lista);
-    }
-
-    public function getTrabalhoCargo(): Response
-    {
-        $Status = new StatusModel();
-        $lista = $Status->listar('usuario_cliente', 'trabalho_cargo');
-
-        return mensagemSucesso($lista);
-    }
-
-    public function getTipoPagamento(): Response
-    {
-        $Status = new StatusModel();
-        $lista = $Status->listar('usuario_cliente', 'tipo_pagamento');
-
-        return mensagemSucesso($lista);
-    }
-
-    public function getUsuarioSituacao(): Response
-    {
-        $Status = new StatusModel();
-        $lista = $Status->listar('usuario_cliente', 'situacao');
-
-        return mensagemSucesso($lista);
-    }
-
     public function getChavePublica()
     {
         return mensagemSucesso(['chave' => TOKEN['app']->chave_publica]);

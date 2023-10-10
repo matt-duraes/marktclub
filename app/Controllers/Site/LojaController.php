@@ -72,26 +72,12 @@ final class LojaController extends Controller
      */
     public function detalhe(string $url): Response
     {
-        $Dado = new BuscarModel($url);
+        $Dado = new BuscarModel(url: $url);
         $dado = $Dado->buscarDados();
 
-        if (
-            in_array(
-                $dado->id,
-                [
-                    '56e660e57971ece155e37a9a86bd32b7', '6857d871f6f0f11b5b866872f0612b99',
-                    '53e78ad604c8df17b89d3f38921c66d4'
-                ]
-            )) {
+        if ($this->verificaSeSamsung($dado->id)) {
             return new Response(url: route('samsung.index'));
         }
-
-        $Lista = new ListarModel(
-            Filtro: new FiltroModel([
-                'quantidade' => 3,
-                'ordem'      => 'randomico'
-            ])
-        );
 
         return view('loja.detalhe', [
             'menu'         => 'loja',
@@ -100,9 +86,25 @@ final class LojaController extends Controller
             'email'        => [],
             'tipo'         => 'loja',
             'Busca'        => (new FiltroModel([])),
-            'lista'        => $Lista->listarDados(),
             'procedimento' => new Procedimento()
         ]);
+    }
+
+    private function verificaSeSamsung(string $uuid)
+    {
+        return in_array(
+            $uuid,
+            [
+                '56e660e57971ece155e37a9a86bd32b7', '6857d871f6f0f11b5b866872f0612b99',
+                '53e78ad604c8df17b89d3f38921c66d4'
+            ]
+        );
+    }
+
+    public function postRelacionado(Request $request)
+    {
+        $Dado = new ListarModel(id: $request->id);
+        return mensagemSucesso($Dado->listarRelacionado());
     }
 
     public function getConfirmar(string $url): Response

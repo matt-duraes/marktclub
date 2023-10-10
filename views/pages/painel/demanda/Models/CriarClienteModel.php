@@ -21,6 +21,7 @@ final class CriarClienteModel
     private string $usuarioApp = '0f3a5572ba1343afca4c0b538354c59c';
 
     public function __construct(
+        private string $empresaNome,
         private string $empresa,
         private string $dominioTipo,
         private string $dominioLink,
@@ -30,7 +31,7 @@ final class CriarClienteModel
         private string $texto,
         private Botao $cdn
     ) {
-        $this->criarDemanda('Novo clube de vantagens', 'novo-cliente', Area::TECNOLOGIA);
+        $this->criarDemanda($empresaNome . 'Novo clube de vantagens', 'novo-cliente', Area::TECNOLOGIA);
         $this->verificarSeSalvouDemanda();
         $this->montarDominioLink();
         $this->configurarDnsCdn();

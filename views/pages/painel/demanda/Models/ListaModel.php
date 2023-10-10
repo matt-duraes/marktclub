@@ -3,73 +3,127 @@
 namespace Painel\Demanda\Models;
 
 use Helpers\ApiHelper;
-use App\Classes\DemandaDado\Area;
+use App\Classes\DemandaDado\Status;
+use App\Classes\DemandaTarefa\Status as DemandaTarefaStatus;
+use App\Classes\DemandaTarefa\Tipo;
+use PainelModel\Perfil\Perfil;
 
 final class ListaModel
 {
+    private ApiHelper $Api;
+
+    public function __construct()
+    {
+        $this->Api = new ApiHelper(token: true);
+    }
+
     public function quadroCriacao()
     {
-        $area = Area::CRIACAO;
         return [
             [
                 'titulo' => 'Backlog',
-                'lista'  => $this->buscarDemanda('nova', 'mais-novo', $area)
+                'classe' => 'drag',
+                'add'    => true,
+                'status' => Status::NOVA
             ],
             [
                 'titulo' => 'Liberada',
-                'lista'  => $this->buscarDemanda('liberada', 'ordem', $area)
+                'classe' => 'drag',
+                'status' => Status::LIBERADA
             ],
             [
                 'titulo' => 'Em andamento',
-                'lista'  => $this->buscarDemanda('andamento', 'mais-novo', $area)
+                'classe' => 'drag',
+                'status' => Status::ANDAMENTO
             ],
             [
                 'titulo' => 'Aguardando aprovação',
-                'lista'  => $this->buscarDemanda('teste', 'mais-novo', $area)
+                'classe' => 'drag',
+                'status' => Status::TESTE
             ],
             [
                 'titulo' => 'Concluída',
-                'lista'  => $this->buscarDemanda('concluida', 'mais-novo', $area)
+                'classe' => 'drag',
+                'status' => Status::CONCLUIDA
             ],
         ];
     }
 
     public function quadroTi()
     {
-        $area = Area::TECNOLOGIA;
         return [
             [
                 'titulo' => 'Backlog',
-                'lista'  => $this->buscarDemanda('nova', 'mais-novo', $area)
+                'classe' => 'drag',
+                'add'    => true,
+                'status' => Status::NOVA
             ],
             [
                 'titulo' => 'Liberada',
-                'lista'  => $this->buscarDemanda('liberada', 'ordem', $area)
+                'classe' => 'drag',
+                'status' => Status::LIBERADA
             ],
             [
                 'titulo' => 'Em andamento',
-                'lista'  => $this->buscarDemanda('andamento', 'mais-novo', $area)
+                'classe' => 'drag',
+                'status' => Status::ANDAMENTO
             ],
             [
                 'titulo' => 'Teste',
-                'lista'  => $this->buscarDemanda('teste', 'mais-novo', $area)
+                'classe' => 'drag',
+                'status' => Status::TESTE
             ],
             [
                 'titulo' => 'Concluída',
-                'lista'  => $this->buscarDemanda('concluida', 'mais-novo', $area)
+                'classe' => '',
+                'status' => Status::CONCLUIDA
             ],
         ];
     }
 
-    private function buscarDemanda($status, $ordem, $area)
+    public function buscarDemanda($area, $status)
     {
-        return (new ApiHelper(token: true))
+        return $this->Api
             ->json([
                 'status' => $status,
                 'area'   => $area,
-                'ordem'  => $ordem
+                'ordem'  => 'ordem'
             ])
             ->get('/demanda-dado')
             ->object()->dado ?? [];
+    }
+
+    public function buscarTarefa($demanda): array
+    {
+        $tarefa = $this->Api
+            ->validar(mensagem: 'Erro ao listar a tarefa, por favor, tente novamente.', login: true)
+            ->json([
+                'demanda' => $demanda
+            ])
+            ->get('/demanda-tarefa')
+            ->object()->dado ?? [];
+        return $this->montarTarefa($tarefa);
+    }
+
+    private function montarTarefa($tarefa): array
+    {
+        $retorno = [];
+        $Status = new DemandaTarefaStatus();
+        $Tipo = new Tipo();
+        $Perfil = new Perfil();
+        foreach ($tarefa as $r) {
+            $retorno[] = (object)[
+                'id'          => $r->id,
+                'equipe'      => $Perfil->usuario($r->equipe),
+                'dono'        => $r->equipe == sessao('USUARIO.id'),
+                'titulo'      => $r->titulo,
+                'texto'       => $r->texto,
+                'tipo'        => $Tipo->nome($r->tipo),
+                'data_inicio' => dataBr($r->data_producao_inicio),
+                'data_final'  => dataBr($r->data_producao_final),
+                'status'      => $Status->nome($r->status)
+            ];
+        }
+        return $retorno;
     }
 }

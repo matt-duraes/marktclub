@@ -30,6 +30,7 @@ define('EMPRESA_ID', sessao('EMPRESA.id', padrao: ''));
 define('EMPRESA_NOME', sessao('EMPRESA.nome', padrao: ''));
 define('EMPRESA_SLUG', sessao('EMPRESA.slug', padrao: ''));
 define('PAINEL_CONFIGURACAO', sessao('PAINEL.configuracao', padrao: []));
+define('USUARIO_ID', sessao('USUARIO.id'));
 define('USUARIO_NOME', sessao('USUARIO.nome'));
 define('USUARIO_CPF', sessao('USUARIO.cpf'));
 define('USUARIO_IMAGEM', sessao('USUARIO.imagem'));

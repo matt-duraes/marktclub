@@ -76,6 +76,7 @@ final class PerfilController extends Controller
 
         return new Response($Salvar);
     }
+
     public function postSalvarEmail(Request $request)
     {
         $Salvar = (new DadosModel())->atualizarEmail($request);

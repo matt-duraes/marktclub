@@ -3,24 +3,101 @@
 <div class="bloco_kambam_index" id="bloco_demanda_index">
     <input type="hidden" id="input_area" value="{{$area}}">
     <div class="conteudo_geral">
-        @ foreach($quadro as $ind => $item):
-        <section class="bloco_coluna">
+        @ foreach($quadro as $item):
+        <section class="bloco_coluna {{$item['classe'] ?? ''}}" data-status="{{$item['status']}}">
             <header>
-                <h1>{{$item['titulo']}} <span>({!!count($item['lista'])!!})</span></h1>
+                <h1>{{$item['titulo']}} <span></span></h1>
                 <div class="flex"></div>
-                @ if( $ind == 0 ):
+                @if ( $item['add'] ?? false ):
                 <button id="botao_add_tarefa" class="botao">Add</button>
                 @ endif;
             </header>
             <div class="conteudo">
-                @ifforeach($item['lista'] as $r):
-                @view painel/demanda/tarefa-item/index.view
-                @elseforeach;
-                <div class="tarefa_zero">Sem itens<br> no momento</div>
-                @endif;
+                <article class="bloco_tarefa_item bloco_loading">
+                    <h1 class="esqueleto"></h1>
+                    <p class="esqueleto"></p>
+                    <p class="esqueleto"></p>
+                    <p class="esqueleto"></p>
+                </article>
             </div>
         </section>
         @endforeach;
     </div>
 </div>
+
 @view painel/demanda/demanda-salvar/index.view
+@view painel/demanda/demanda-editar/index.view
+@view painel/demanda/tarefa-salvar/index.view
+
+<div class="display_none">
+    <div class="tarefa_zero" id="clone_item_erro">Erro ao<br> buscar lista</div>
+    <div class="tarefa_zero" id="clone_item_zero">Sem itens<br> no momento</div>
+    <!-- TAREFA INDEX -->
+    <article class="bloco_tarefa_item" data-id="" id="clone_item">
+        <header>
+            <h1 class="tarefa_titulo titulo"></h1>
+        </header>
+        <div class="bloco_data">
+            <div class="data">@iconeCalendario(14) <span class="data_criacao"></span></div>
+            <div class="data bloco_entrega display_none">@iconeRelogio(15) <span class="data_entrega"></span></div>
+        </div>
+    </article>
+
+    <!-- TAREFA NA DEMANDA -->
+    <article class="tarefa" id="clone_demanda_tarefa_item">
+        <div class="bloco_botao bloco_dono display_none">
+            <i class="botao botao_editar">@iconeEditar(15)</i>
+            <i class="botao botao_deletar">@iconeDeletar</i>
+        </div>
+        <figure class="item_equipe"></figure>
+        <div class="conteudo">
+            <h1 class="item_titulo"></h1>
+            <div class="dado">
+                <div class="item">
+                    <span>Tipo:</span>
+                    <p class="item_tipo"></p>
+                </div>
+
+                <div class="item">
+                    <span>Status:</span>
+                    <p class="item_status"></p>
+                </div>
+
+                <div class="linha"></div>
+
+                <div class="item bloco_data_inicio display_none">
+                    <span>Iniciado:</span>
+                    <p class="item_data_inicio"></p>
+                </div>
+
+                <div class="item bloco_data_final display_none">
+                    <span>Finalizado:</span>
+                    <p class="item_data_final"></p>
+                </div>
+            </div>
+
+            <div class="texto bloco_noticia_texto item_texto">
+            </div>
+
+
+            <div class="bloco_teste display_none">
+                <i class="botao_like like" data-ajuda="Aprovar tarefa">@iconeLike</i>
+                <div class="bloco_imagem">
+                    <figure data-ajuda="usuario_nome" data-id="usuario_id" style="background-image: url(usuario_imagem);"></figure>
+                </div>
+                <i class="botao_deslike deslike" data-ajuda="Reprovar tarefa">@iconeDeslike</i>
+            </div>
+
+            <div class="bloco_testado display_none">
+                <p>Testado por:</p>
+                <div class="bloco_imagem">
+                    <figure data-ajuda="usuario_nome" data-id="usuario_id" style="background-image: url(usuario_imagem);"></figure>
+                </div>
+            </div>
+        </div>
+
+        <div class="check display_none">@iconeCheck(20)</div>
+        <div class="botao display_none play botao_play">@iconePlay(40)</div>
+        <div class="botao display_none pause botao_pause">@iconePause(40)</div>
+    </article>
+</div>

@@ -1808,12 +1808,14 @@ if (!function_exists('formEditor')) {
         }
 
         $inputId = 'input_' . $name;
+        $editorId = 'ck_editor_' . $name;
 
         return '
             <div class="bloco_editor ' . $classSemLabel . ' bloco_ckeditor bloco_ckeditor_' . $tipo . ' ' . $class . '" id="' . $id . '">
                 ' . $labelHtml . '
                 <div class="centralizar">
                     <div
+                        id="' . $editorId . '"
                         class="fw_ckeditor ' . $classeEditor . '"
                         data-ckeditor-input="#' . $inputId . '"
                         data-ckeditor-tipo="' . $tipo . '"

@@ -82,6 +82,7 @@ final class EnqueteSatisfacaoController extends Controller implements
             new Pagina($request->pagina),
             new Quantidade($request->quantidade),
             new Ordem($request->ordem),
+            $request->empresa,
             new Status($request->status)
         );
         return mensagemSucesso($Enquete->listarDados());
