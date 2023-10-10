@@ -6,7 +6,6 @@ use Http\Request;
 use Http\Response;
 use Controller\Controller;
 use App\Models\Api\Painel\MenuModel;
-use App\Models\Api\Painel\StatusModel;
 use App\Models\Api\Painel\ConfiguracaoEntity;
 
 final class PainelController extends Controller

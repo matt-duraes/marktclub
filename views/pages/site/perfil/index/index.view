@@ -23,7 +23,7 @@
                 </button>
             </div>
         </section>
-        <form method="post" class="form_geral">
+        <form method="post" class="form_geral cinza">
             <fieldset>
                 <p>Dados pessoais</p>
                 @? formInput(name: 'nome', placeholder: 'Digite um nome', label: 'Digite um nome', class: 'nome', value: $dado->nome)
