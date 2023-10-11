@@ -1,3 +1,5 @@
+let idDemanda;
+
 const PopupTemp = new Popup();
 const usuarioGerente = false;
 
