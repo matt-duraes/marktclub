@@ -91,17 +91,17 @@ $Painel->coluna(callback: function () use ($Painel) {
             texto: 'Enviado',
             inArray: ['Novo'],
             status: Status::ENVIADO,
-            mensagem: 'Tem certeza que deseja alterar o status de cancelado?',
+            mensagem: 'Tem certeza que deseja alterar o status para enviado?',
             cor: 'verde'
         );
 
     $Painel
         ->status(
             campo: 'status',
-            texto: 'Contrado',
+            texto: 'Contratado',
             inArray: ['Novo', 'Enviado para operadora'],
             status: Status::CONTRATADO,
-            mensagem: 'Tem certeza que deseja alterar o status de cancelado?',
+            mensagem: 'Tem certeza que deseja alterar o status para contratado?',
             cor: 'verde'
         );
 
@@ -111,7 +111,7 @@ $Painel->coluna(callback: function () use ($Painel) {
             texto: 'Cancelado',
             inArray: ['Novo', 'Enviado para operadora'],
             status: Status::CANCELADO,
-            mensagem: 'Tem certeza que deseja alterar o status de cancelado?',
+            mensagem: 'Tem certeza que deseja alterar o status para cancelado?',
             cor: 'vermelho'
         );
 });
