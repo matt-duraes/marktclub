@@ -6,7 +6,7 @@ use Helpers\ApiHelper;
 use App\Classes\DemandaDado\Status;
 use App\Classes\DemandaTarefa\Status as DemandaTarefaStatus;
 use App\Classes\DemandaTarefa\Tipo;
-use PainelModel\Perfil\Perfil;
+use PainelModel\Perfil\Equipe;
 
 final class ListaModel
 {
@@ -110,11 +110,11 @@ final class ListaModel
         $retorno = [];
         $Status = new DemandaTarefaStatus();
         $Tipo = new Tipo();
-        $Perfil = new Perfil();
+        $Equipe = new Equipe();
         foreach ($tarefa as $r) {
             $retorno[] = (object)[
                 'id'          => $r->id,
-                'equipe'      => $Perfil->usuario($r->equipe),
+                'equipe'      => $Equipe->unico($r->equipe),
                 'dono'        => $r->equipe == sessao('USUARIO.id'),
                 'titulo'      => $r->titulo,
                 'texto'       => $r->texto,
