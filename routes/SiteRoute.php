@@ -87,12 +87,19 @@ Route
         Route
             ::nome('login')
             ::view('/login/login');
+
+        // UBER/DIGIO
         Route
             ::nome('digio')
             ::view('/login/digio');
         Route
             ::nome('digio')
             ::view('/login/uber');
+        Route
+            ::nome('digioApi')
+            ::request(['client-id'])
+            ::get('/digio-login-api');
+
         // SENHA
         Route
             ::nome('senha')
