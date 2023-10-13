@@ -18,12 +18,56 @@ final class LoginController extends Controller
 {
     public function index(Request $request): Response
     {
+        if (API && !MENU_DEPENDENTE) {
+            return new Response(url: LINK_LOGIN);
+        }
+
         $location = base64Decode($request->chave('location', ''));
         if (empty($location) || !str_starts_with($location, LINK) || preg_match('/\/login/', $location)) {
             $location = LINK;
         }
+
         return view('login.index', [
             'location' => $location
+        ]);
+    }
+
+    /*
+    |--------------------------------------------------------------------------
+    | DIGIO
+    |--------------------------------------------------------------------------
+    */
+    public function digio()
+    {
+        return $this->loginBasico(
+            titulo: 'Bem vindo ao Descontinho',
+            texto: 'Para acessar seu clube, você deve ser correntista. Baixe o APP para seu celular',
+            android: 'https://play.google.com/store/apps/details?id=br.com.digio&hl=pt_BR&gl=US',
+            ios: 'https://apps.apple.com/br/app/digio-seu-cart%C3%A3o-de-cr%C3%A9dito/id1128793569',
+        );
+    }
+
+    public function uber()
+    {
+        return $this->loginBasico(
+            titulo: 'Bem vindo ao Uber Conta by Digio',
+            texto: 'Para acessar seu clube, você deve ser correntista. Baixe o APP para seu celular',
+            android: 'https://play.google.com/store/apps/details?id=br.com.digio.uber&hl=pt_BR&gl=US',
+            ios: 'https://apps.apple.com/br/app/uber-conta/id1550784531',
+        );
+    }
+
+    private function loginBasico(
+        string $titulo = '',
+        string $texto = '',
+        string $android = '',
+        string $ios = ''
+    ) {
+        return view('login.basico', [
+            'titulo'  => $titulo,
+            'texto'   => $texto,
+            'android' => $android,
+            'ios'     => $ios,
         ]);
     }
 
