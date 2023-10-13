@@ -25,6 +25,12 @@
         Adicionar dependentes
     </a>
     @ endif;
+    @ if (MENU_PONTO_MAIS_ACAO) :
+    <a href="@route(pontoCvs.index)">
+        <i>@iconeCashbackHome(22)</i>
+        Ponto + Ação
+    </a>
+    @ endif;
 
     @ if( MENU_CASHBACK ):
     <a class="botao {!!MENU_HOVER == 'perfil-silium' ? 'cor_bg pagina_atual' : ''!!}" href="@route(cashback.extrato)">

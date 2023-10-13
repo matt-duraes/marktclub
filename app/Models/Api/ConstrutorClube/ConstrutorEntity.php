@@ -22,7 +22,7 @@ final class ConstrutorEntity extends Entity
         'menu_farmacia', 'menu_automovel', 'menu_saude_vitoria', 'menu_saude_amil', 'menu_saude_seguro',
         'menu_cashback', 'menu_indicar_usuario', 'menu_indicar_loja', 'menu_ponto_mais_acao', 'menu_cupom', 'menu_odontologico',
         'menu_premium', 'menu_dependente', 'menu_carteira', 'menu_salavip', 'menu_faq', 'menu_como_funciona',
-        'menu_meu_parceiro', 'api_status', 'link_login', 'menu_sair', 'menu_primeiro_acesso', 'menu_tema',
+        'menu_meu_parceiro', 'api_status', 'link_login', 'menu_sair', 'menu_ponto_mais_acao','menu_primeiro_acesso', 'menu_tema',
         'menu_corrida', 'menu_show_nacional', 'menu_show_internacional', 'administrado_status', 'chat_status',
         'menu_samsung', 'cor_principal', 'cor_secundaria', 'tipo_ativacao', 'status'
     ];
@@ -31,7 +31,7 @@ final class ConstrutorEntity extends Entity
         'menu_turismo', 'menu_credito_sicoob', 'logo_principal', 'logo_secundaria', 'favicon', 'titulo',
         'contato_telefone', 'contato_email', 'contato_whatsapp', 'contato_endereco', 'contato_horario',
         'link_app_android', 'link_app_ios', 'header_tag', 'header_descricao', 'menu_loja', 'menu_saude_cnu',
-        'menu_mapa', 'menu_cinema', 'menu_historico', 'menu_acesso_rapido', 'menu_saude_florianopolis',
+        'menu_mapa', 'menu_cinema', 'menu_historico', 'menu_acesso_rapido', 'menu_ponto_mais_acao' ,'menu_saude_florianopolis',
         'menu_farmacia', 'menu_automovel', 'menu_saude_vitoria', 'menu_saude_amil', 'menu_saude_seguro',
         'menu_cashback', 'menu_indicar_usuario', 'menu_indicar_loja', 'menu_ponto_mais_acao', 'menu_cupom', 'menu_odontologico',
         'menu_carteira', 'menu_salavip', 'menu_faq', 'menu_como_funciona', 'api_status', 'link_login',

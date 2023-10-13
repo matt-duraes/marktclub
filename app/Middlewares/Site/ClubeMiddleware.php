@@ -152,6 +152,7 @@ final class ClubeMiddleware extends ApiHelper
         define('MENU_MEU_PARCEIRO', $pagina->meu_parceiro);
         define('MENU_SAIR', $pagina->sair);
         define('MENU_PERFIL', !API || MENU_DEPENDENTE || MENU_CASHBACK || MENU_INDICAR_USUARIO);
+        define('MENU_PONTO_MAIS_ACAO', $pagina->ponto_mais_acao);
 
         define('LINK_APP_ANDROID', $clube->link_app_android);
         define('LINK_APP_IOS', $clube->link_app_ios);
