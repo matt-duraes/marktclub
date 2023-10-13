@@ -69,7 +69,7 @@
                     Indique um amigo
                 </a>
                 @ endif;
-                <a href="@route(perfil.pontoCvs)">
+                <a href="@route(pontoCvs.index)">
                     <i>@iconeCashbackHome(22)</i>
                     Ponto + Ação
                 </a>

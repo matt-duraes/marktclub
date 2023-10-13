@@ -8,9 +8,12 @@ use App\Classes\SolicitacaoCredito\Tipo;
 $Painel = new PainelConfig\Index('solicitacao_credito', new Ordem());
 
 $Painel
-    ->campo('operadora', 'Operadora', 'normal')
-    ->campo('tipo', 'Tipo', 'normal')
-    ->campo('valor_total', 'Valor Total', 'normal')
+    ->campo('empresa.nome', 'Empresa', 'normal', permissao: \App\Classes\UsuarioCliente\Helper::PERMISSAO_EMPRESA)
+    ->campo('usuario.nome', 'Usuário', 'normal')
+    ->campo('operadora', 'Operadora', 'pequeno')
+    ->campo('tipo', 'Tipo', 'pequeno')
+    ->campo('valor_total', 'Valor Total', 'pequeno')
+    ->dataCriacao()
     ->status('status', 'Status', new Status());
 
 $Painel->replace('operadora', (new Operadora())->select());

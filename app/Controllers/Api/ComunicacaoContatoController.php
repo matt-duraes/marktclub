@@ -47,13 +47,10 @@ class ComunicacaoContatoController extends Controller implements
     private function retornoSucesso(ComunicacaoContatoEntity $contatoEntity, int $status = 200): Response
     {
         return mensagemSucesso(
-            pegarPropriedadeDaEntity(
-                $contatoEntity,
-                lista: [
-                    'nome', 'email', 'telefone', 'mensagem', 'parceiro',
-                    'url', 'status', 'data_criacao', 'data_atualizacao'
-                ]
-            ),
+            pegarPropriedadeDaEntity($contatoEntity, lista: [
+                'nome', 'email', 'telefone', 'mensagem', 'empresa',
+                'url', 'status', 'data_criacao', 'data_atualizacao'
+            ]),
             $status
         );
     }
@@ -70,8 +67,10 @@ class ComunicacaoContatoController extends Controller implements
             new Pagina($request->pagina),
             new Quantidade($request->quantidade),
             new Ordem($request->ordem),
-            new Data($request->data_criacao_de),
-            new Data($request->data_criacao_ate),
+            $request->nome,
+            $request->empresa,
+            new Data($request->data_inicio),
+            new Data($request->data_final),
             new Status($request->status)
         );
         return mensagemSucesso($Contato->listarDados());

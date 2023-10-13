@@ -31,6 +31,7 @@ final class RequisicaoSalvar
             ->descriaco($post['descriaco'])
             ->requisicao($post['requisicao'])
             ->resposta($post['resposta'])
+            ->scope($post['scope'])
             ->salvar();
     }
 

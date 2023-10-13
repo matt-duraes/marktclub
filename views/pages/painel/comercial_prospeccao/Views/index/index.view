@@ -1,5 +1,21 @@
 @template "painel"
 
+<!--Bloco do popup standby -->
+<div class="bloco_pagina_popup display_none bloco_motivo">
+    <header class="header_pagina_popup">
+        <h1 id="h1_motivo">Motivo Stand BY</h1>
+        <i class="popup_fechar fechar botao_fechar">@iconeFechar</i>
+    </header>
+
+    <form class="form_geral conteudo_pagina_popup form_motivo">
+        @? formInput(name: 'motivo', label: 'Motivo Stand BY', placeholder: 'Digite o motivo do stand by', value: '')
+        <div class="footer_pagina_popup">
+            <div class="flex"></div>
+            <button id="botao_atualizar_motivo" class="botao_atualizar">Atualizar</button>
+        </div>
+    </form>
+</div>
+
 <div class="bloco_kambam_index" id="bloco_comercial_prospeccao">
     <div class="conteudo_geral">
         <section class="bloco_coluna">
@@ -8,12 +24,11 @@
                 <div class="flex"></div>
                 <a href="{{LINK}}/app/add/comercial-prospeccao" class="botao">Add</a>
             </header>
-            <div class="conteudo" id="bloco_pesquisa" data-prospeccao="pesquisa">
+            <div class="conteudo coluna_drop" id="bloco_pesquisa" data-prospeccao="pesquisa">
                 @ifforeach($pesquisa as $r):
                 @view painel/comercial_prospeccao/index/item.view
-                @elseforeach;
-                <div class="tarefa_zero">Sem itens<br> no momento</div>
-                @endif;
+                @endifforeach;
+                <div class="tarefa_zero {{$pesquisa ? 'display_none' : ''}}">Sem itens<br> no momento</div>
             </div>
         </section>
 
@@ -21,12 +36,11 @@
             <header>
                 <h1>Apresentação <span>({!!count($apresentacao)!!})</span></h1>
             </header>
-            <div class="conteudo" id="bloco_apresentacao" data-prospeccao="apresentacao">
+            <div class="conteudo coluna_drop" id="bloco_apresentacao" data-prospeccao="apresentacao">
                 @ifforeach($apresentacao as $r):
                 @view painel/comercial_prospeccao/index/item.view
-                @elseforeach;
-                <div class="tarefa_zero">Sem itens<br> no momento</div>
-                @endif;
+                @endifforeach;
+                <div class="tarefa_zero {{$apresentacao ? 'display_none' : ''}}">Sem itens<br> no momento</div>
             </div>
         </section>
 
@@ -34,12 +48,11 @@
             <header>
                 <h1>Negociação <span>({!!count($negociacao)!!})</span></h1>
             </header>
-            <div class="conteudo" id="bloco_negociacao" data-prospeccao="negociacao">
+            <div class="conteudo coluna_drop" id="bloco_negociacao" data-prospeccao="negociacao">
                 @ifforeach($negociacao as $r):
                 @view painel/comercial_prospeccao/index/item.view
-                @elseforeach;
-                <div class="tarefa_zero">Sem itens<br> no momento</div>
-                @endif;
+                @endifforeach;
+                <div class="tarefa_zero {{$negociacao ? 'display_none' : ''}}">Sem itens<br> no momento</div>
             </div>
         </section>
 
@@ -47,12 +60,11 @@
             <header>
                 <h1>Em Avaliação <span>({!!count($avaliacao)!!})</span></h1>
             </header>
-            <div class="conteudo" id="bloco_avaliacao" data-prospeccao="avaliacao">
+            <div class="conteudo coluna_drop" id="bloco_avaliacao" data-prospeccao="avaliacao">
                 @ifforeach($avaliacao as $r):
                 @view painel/comercial_prospeccao/index/item.view
-                @elseforeach;
-                <div class="tarefa_zero">Sem itens<br> no momento</div>
-                @endif;
+                @endifforeach;
+                <div class="tarefa_zero {{$avaliacao ? 'display_none' : ''}}">Sem itens<br> no momento</div>
             </div>
         </section>
 
@@ -60,30 +72,28 @@
             <header>
                 <h1>Minuta Enviada <span>({!!count($minuta)!!})</span></h1>
             </header>
-            <div class="conteudo" id="bloco_minuta" data-prospeccao="minuta">
+            <div class="conteudo coluna_drop" id="bloco_minuta" data-prospeccao="minuta">
                 @ifforeach($minuta as $r):
                 @view painel/comercial_prospeccao/index/item.view
-                @elseforeach;
-                <div class="tarefa_zero">Sem itens<br> no momento</div>
-                @endif;
+                @endifforeach;
+                <div class="tarefa_zero {{$minuta ? 'display_none' : ''}}">Sem itens<br> no momento</div>
             </div>
         </section>
 
-        <section class="bloco_coluna">
+        <section class="bloco_coluna bloco_coluna_standby">
             <header>
-                <h1>Stand-by <span>({!!count($standby)!!})</span></h1>
+                <h1>Stand by <span>({!!count($standby)!!})</span></h1>
             </header>
             <div class="conteudo" id="bloco_standby" data-prospeccao="standby">
                 @ifforeach($standby as $r):
                 @view painel/comercial_prospeccao/index/item_standby.view
-                @elseforeach;
-                <div class="tarefa_zero">Sem itens<br> no momento</div>
-                @endif;
+                @endifforeach;
+                <div class="tarefa_zero {{$standby ? 'display_none' : ''}}">Sem itens<br> no momento</div>
             </div>
         </section>
 
         <!-- Bloco de exemplo para ser clonado -->
-        <article id="bloco_standby_exemplo" class="bloco_hidden bloco_kambam_item" data-id="" data-status="">
+        <article id="bloco_standby_exemplo" class="display_none bloco_kambam_item" data-id="" data-status="">
             <header>
                 <h1 class="titulo"></h1>
             </header>

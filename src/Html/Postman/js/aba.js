@@ -170,6 +170,7 @@ const adicionarDadoAoRequest = (bloco, resposta, vazio) => {
     const inputDescricao = bloco.querySelector('.input_descricao');
     const inputRequisicao = bloco.querySelector('.input_requisicao');
     const inputResposta = bloco.querySelector('.input_resposta');
+    const inputScope = bloco.querySelector('.input_scope');
 
     botaoParametro.addEventListener('click', abrirNovoParametro);
     botaoBody.addEventListener('click', abrirNovoParametro);
@@ -200,6 +201,7 @@ const adicionarDadoAoRequest = (bloco, resposta, vazio) => {
     inputDescricao.value = resposta.documentacao.descricao;
     inputRequisicao.value = resposta.documentacao.requisicao;
     inputResposta.value = resposta.documentacao.resposta;
+    inputScope.value = resposta.documentacao.scope || '';
     const blocoParametro = bloco.querySelector('.bloco_parametro_parametro');
     const blocoBody = bloco.querySelector('.bloco_parametro_body');
     const blocoJson = bloco.querySelector('.bloco_parametro_json');

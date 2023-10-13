@@ -25,26 +25,6 @@ class SolicitacaoDeclaracaoController extends Controller implements
     ControllerAtualizarInterface
 {
     /**
-     * @param Request $request
-     *
-     * @return Response
-     * @throws Excecao
-     */
-    public function getListar(Request $request): Response
-    {
-        $Declaracao = new DeclaracaoModel(
-            pagina: new Pagina($request->getJson('pagina')),
-            quantidade: new Quantidade($request->getJson('quantidade')),
-            dataCriacaoDe: new Data($request->getJson('data_criacao_de')),
-            dataCriacaoAte: new Data($request->getJson('data_criacao_ate')),
-            status: new Status($request->getJson('status')),
-            empresa: $request->getJson('empresa'),
-            ordem: new Ordem($request->getJson('ordem'))
-        );
-        return mensagemSucesso($Declaracao->listarDados());
-    }
-
-    /**
      * @param string $id
      *
      * @return Response
@@ -67,15 +47,33 @@ class SolicitacaoDeclaracaoController extends Controller implements
     private function retornoSucesso(DeclaracaoEntity $Declaracao, int $status = 200): Response
     {
         return mensagemSucesso(
-            pegarPropriedadeDaEntity(
-                $Declaracao,
-                lista: [
-                    'id', 'parceiro', 'usuario', 'modelo', 'versao',
-                    'data_criacao', 'data_atualizacao', 'status'
-                ]
-            ),
+            pegarPropriedadeDaEntity($Declaracao, lista: [
+                'uuid', 'parceiro', 'usuario', 'modelo', 'versao',
+                'data_criacao', 'data_atualizacao', 'status'
+            ]),
             $status
         );
+    }
+
+    /**
+     * @param Request $request
+     *
+     * @return Response
+     * @throws Excecao
+     */
+    public function getListar(Request $request): Response
+    {
+        $Declaracao = new DeclaracaoModel(
+            new Pagina($request->pagina),
+            new Quantidade($request->quantidade),
+            new Ordem($request->ordem),
+            $request->titulo,
+            $request->empresa,
+            new Data($request->data_inicio),
+            new Data($request->data_final),
+            new Status($request->status)
+        );
+        return mensagemSucesso($Declaracao->listarDados());
     }
 
     /**
@@ -89,7 +87,6 @@ class SolicitacaoDeclaracaoController extends Controller implements
         $Declaracao = new DeclaracaoEntity();
         $Declaracao->set(lista: $request->dado());
         $Declaracao->salvar();
-
         return $this->retornoSucesso($Declaracao, 201);
     }
 
@@ -104,9 +101,8 @@ class SolicitacaoDeclaracaoController extends Controller implements
     {
         $Declaracao = new DeclaracaoEntity();
         $Declaracao->uuid($id);
-        $Declaracao->status = new Status($request->getPut('status'));
+        $Declaracao->set(lista: $request->dado());
         $Declaracao->salvar();
-
         return new Response(status: 204);
     }
 }

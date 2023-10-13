@@ -2,14 +2,14 @@
 
 return [
     'titulo'     => 'Popup',
-    'buscar'     => true,
+    'buscar'     => false,
     'filtrar'    => true,
     'ordem'      => true,
     'visualizar' => false,
-    'download'   => false,
     'add'        => true,
     'editar'     => true,
     'deletar'    => true,
+    'download'   => false,
     'historico'  => true,
     'api'        => [
         'scope' => 'comunicacao_popup',

@@ -6,18 +6,35 @@ $Painel = new PainelConfig\Filtrar('comunicacao_contato');
 
 $Painel
     ->input(name: 'nome', titulo: 'Nome', label: 'Nome', placeholder: 'Digite um nome')
+    ->select(
+        name: 'empresa',
+        lista: 'empresa',
+        titulo: 'Empresa',
+        label: 'Empresa',
+        placeholder: 'Empresa',
+        permissao: \App\Classes\UsuarioCliente\Helper::PERMISSAO_EMPRESA
+    )
     ->bloco(function () use ($Painel) {
         $Painel
-            ->data(name: 'data_criacao_de', titulo: 'Data Criação De', label: 'Data Criação De')
-            ->data(name: 'data_criacao_ate', titulo: 'Data Criação Até', label: 'Data Criação Até');
+            ->data(
+                name: 'data_inicio',
+                titulo: 'Data contato de',
+                label: 'Data contato de',
+                placeholder: 'Data contato de'
+            )
+            ->data(
+                name: 'data_final',
+                titulo: 'Data contato até',
+                label: 'Data contato até',
+                placeholder: 'Data contato até'
+            );
     })
     ->select(
         name: 'status',
         lista: (new Status())->select('Escolha um status'),
         titulo: 'Status',
-        label: 'Status'
+        label: 'Status',
+        placeholder: 'Status'
     );
-
-$Painel->replace('status', (new Status())->select());
 
 return $Painel;

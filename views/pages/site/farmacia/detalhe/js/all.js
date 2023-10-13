@@ -1,0 +1,5 @@
+// @template "site"
+// @system "Esqueleto"
+// @resource "site/loja/favorito"
+// @resource "site/loja/parceiro"
+// @resource "site/loja/relacionado"

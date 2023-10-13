@@ -67,7 +67,6 @@ final class ClubeMiddleware extends ApiHelper
             ->validar(status: 404)
             ->get('/construtor-clube/clube/' . $host)
             ->object();
-
         sessao('CLUBE_' . $this->id, true);
         sessao('CLUBE', $this->montarClube($dado->dado));
     }
@@ -96,7 +95,7 @@ final class ClubeMiddleware extends ApiHelper
         define('CLUBE_FAVICON', $clube->favicon);
         define('CLUBE_TITULO', $clube->titulo);
         define('CLUBE_ID', $clube->id);
-        define('CLUBE_COR_PRINCIPAL','#F00068');
+        define('CLUBE_COR_PRINCIPAL', $clube->cor_principal);
         define('CLUBE_COR_SECUNDARIA', $clube->cor_secundaria);
 
         define('EMPRESA_ID', $clube->empresa);
@@ -134,7 +133,7 @@ final class ClubeMiddleware extends ApiHelper
         define('MENU_SAUDE_VITORIA', $pagina->saude_vitoria);
         define('MENU_SAUDE_AMIL', $pagina->saude_amil);
         define('MENU_SAUDE_SEGURO', $pagina->saude_seguro);
-        define('MENU_SAUDE_SAUDE_CNU', $pagina->saude_cnu);
+        define('MENU_SAUDE_CNU', $pagina->saude_cnu);
         define('MENU_SAUDE_FLORIANOPOLIS', $pagina->saude_florianopolis);
         define('MENU_ODONTOLOGICO', $pagina->odontologico);
         define('MENU_INDICAR_LOJA', $pagina->indicar_loja);

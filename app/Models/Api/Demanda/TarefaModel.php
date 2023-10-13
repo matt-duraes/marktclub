@@ -44,7 +44,7 @@ final class TarefaModel extends ORM
                 'id'                       => $r->uuid,
                 'titulo'                   => $r->titulo,
                 'texto'                    => $r->texto,
-                'dev'                      => $this->pegarUsuarioEquipe($r->id_usuario_equipe),
+                'equipe'                   => $r->id_usuario_equipe,
                 'tipo'                     => $Tipo->indice($r->tipo),
                 'data_criacao'             => $r->data_criacao,
                 'data_atualizacao'         => $r->data_atualizacao,
@@ -52,7 +52,7 @@ final class TarefaModel extends ORM
                 'data_producao_final'      => $r->data_producao_final,
                 'minuto_producao_estimada' => $r->minuto_producao_estimada,
                 'minuto_producao_real'     => $r->minuto_producao_real,
-                'teste'                    => $Perfil->pegarLista(jsonDecode($r->like, true, true)),
+                'teste'                    => jsonDecode($r->like, true, true),
                 'status'                   => $Status->indice($r->status)
             ]);
         }

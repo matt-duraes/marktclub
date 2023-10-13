@@ -1,0 +1,1 @@
+{"id":"id_10fe20c547f74f71830cd68596f271f5","token":"painel","metodo":"GET","nome":"\/admin\/permissao","uri":"{{LINK}}\/admin\/permissao","parametro":[],"body":[],"header":[],"variavel":[],"json":[],"documentacao":{"status":false,"descricao":"","requisicao":"","resposta":"","scope":"admin:permissao"}}

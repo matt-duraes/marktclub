@@ -1,0 +1,1 @@
+{"id":"id_86fec28e4ae7e2129e8925624cf17d62","token":"painel","metodo":"GET","nome":"\/admin\/campo-obrigatorio","uri":"{{LINK}}\/admin\/campo-obrigatorio","parametro":[],"body":[],"header":[],"variavel":[],"json":[],"documentacao":{"status":false,"descricao":"","requisicao":"","resposta":"","scope":"admin:campo_obrigatorio"}}

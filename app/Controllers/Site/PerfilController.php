@@ -59,10 +59,12 @@ final class PerfilController extends Controller
     public function carteira(): Response
     {
         $dado = (new CarteirinhaModel())->getDado();
-        return view('perfil.carteira', [
-            'dado' => $dado,
-            'logo' => defined('CLUBE_LOGO_PRINCIPAL')
-        ]);
+        return view(
+            'perfil.carteira',
+            [
+                'dado' => $dado,
+            ]
+        );
     }
 
     /*
@@ -70,9 +72,16 @@ final class PerfilController extends Controller
     | SALVAR DADOS
     |--------------------------------------------------------------------------
     */
-    public function postSalvaDados(Request $request)
+    public function postSalvarDados(Request $request)
     {
         $Salvar = (new DadosModel())->postDado($request);
+
+        return new Response($Salvar);
+    }
+
+    public function postSalvarEmail(Request $request)
+    {
+        $Salvar = (new DadosModel())->atualizarEmail($request);
 
         return new Response($Salvar);
     }

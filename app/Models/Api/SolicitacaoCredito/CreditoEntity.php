@@ -14,8 +14,8 @@ use ORM\Entity;
 
 class CreditoEntity extends Entity
 {
-    use ValidarTrait;
     use ValidarEmpresaTrait;
+    use ValidarTrait;
 
     public Dinheiro $valor_parcela;
     public Operadora $operadora;
@@ -30,8 +30,8 @@ class CreditoEntity extends Entity
         'id_usuario_cliente' => '->idUsuario'
     ];
     protected array $ormBuscar = [
-        'operadora', 'tipo', 'valor_total', 'parcela',
-        'valor_parcela', 'data_criacao', 'status', 'id_usuario_cliente'
+        'id_usuario_cliente', 'operadora', 'tipo', 'valor_total', 'parcela',
+        'valor_parcela', 'data_criacao', 'data_atualizacao', 'status'
     ];
     protected array $ormSalvar = [
         'operadora', 'tipo', 'valor_total', 'parcela',
@@ -58,10 +58,12 @@ class CreditoEntity extends Entity
         parent::__construct();
     }
 
+    /**
+     * @throws Excecao
+     */
     protected function regraInsert(): void
     {
         $this->status = new Status(Status::NOVO);
-
         $Simulacao = new SimulacaoModel(
             operadora: $this->operadora,
             tipo: $this->tipo,
@@ -71,12 +73,12 @@ class CreditoEntity extends Entity
         $this->valor_parcela = $Simulacao->valorParcela;
     }
 
-    protected function regraPosBuscar()
+    protected function regraPosBuscar(): void
     {
         $this->buscarUsuario();
     }
 
-    private function buscarUsuario()
+    private function buscarUsuario(): void
     {
         $Usuario = new DadoBaseModel($this->id_usuario_cliente);
         if (!$Usuario->existe) {
@@ -86,7 +88,7 @@ class CreditoEntity extends Entity
             'id'     => $Usuario->id,
             'nome'   => $Usuario->nome->nome(),
             'email'  => $Usuario->email->email(),
-            'imagem' => $Usuario->imagem,
+            'imagem' => $Usuario->imagem
         ];
     }
 }

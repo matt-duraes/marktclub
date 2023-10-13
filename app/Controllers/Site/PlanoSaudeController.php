@@ -2,15 +2,15 @@
 
 namespace App\Controllers\Site;
 
-use App\Helpers\ClubeApiHelper;
-use App\Models\Site\BannerModel;
-use App\Models\Site\Saude\FazerSimulacaoModel;
-use App\Models\Site\Saude\OperadoraModel;
-use App\Models\Site\Saude\SimulacaoViewModel;
-use Controller\Controller;
 use Erro\Excecao;
 use Http\Request;
 use Http\Response;
+use Controller\Controller;
+use App\Helpers\ClubeApiHelper;
+use App\Models\Site\BannerModel;
+use App\Models\Site\Saude\OperadoraModel;
+use App\Models\Site\Saude\SimulacaoViewModel;
+use App\Models\Site\Saude\FazerSimulacaoModel;
 
 final class PlanoSaudeController extends Controller
 {
@@ -20,9 +20,16 @@ final class PlanoSaudeController extends Controller
      */
     public function index(): Response
     {
+        $lista = (new OperadoraModel())->listarDados();
+        if (empty($lista->lista)) {
+            mensagemStatus(404);
+        } elseif (count($lista->lista) == 1) {
+            return new Response(url: $lista->lista[0]->link);
+        }
+
         return view('plano_saude.index', [
             'menu'  => 'saude',
-            'lista' => (new OperadoraModel())->listarDados()
+            'lista' => $lista
         ]);
     }
 
@@ -215,7 +222,7 @@ final class PlanoSaudeController extends Controller
                 'endereco_cidade'             => $request->endereco_cidade,
                 'endereco_estado'             => $request->endereco_estado
             ])
-            ->post('/saude/contratacao')
+            ->post('/saude-contratacao')
             ->object();
 
         return mensagemSucesso($dado, 201);

@@ -1,0 +1,1 @@
+{"id":"id_07ef0551884a3892a9f95433578600bd","token":"token","metodo":"GET","nome":"\/usuario-equipe\/perfil","uri":"{{LINK}}\/usuario-equipe\/perfil","parametro":[],"body":[],"header":[],"variavel":[],"json":[],"documentacao":{"status":false,"descricao":"","requisicao":"","resposta":"","scope":"usuario_equipe:listar"}}

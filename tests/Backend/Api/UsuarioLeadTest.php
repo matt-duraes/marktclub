@@ -382,7 +382,7 @@ final class UsuarioLeadTest extends Tests
 
         return $this
             ->checkStatus(404)
-            ->checkIndiceIgual('erro.mensagem', 'Essa página ou recurso não existe ou foi movida para outra URL.');
+            ->checkIndiceIgual('erro.mensagem', 'Você deve enviar um COD ou UUID para fazer a busca.');
     }
 
     public function naoPodeAtualizarLeadPeloIdTest()
@@ -396,7 +396,7 @@ final class UsuarioLeadTest extends Tests
 
         return $this
             ->checkStatus(404)
-            ->checkIndiceIgual('erro.mensagem', 'Essa página ou recurso não existe ou foi movida para outra URL.');
+            ->checkIndiceIgual('erro.mensagem', 'Você deve enviar um COD ou UUID para fazer a busca.');
     }
 
     public function naoPodeDeletarLeadPeloIdTest()

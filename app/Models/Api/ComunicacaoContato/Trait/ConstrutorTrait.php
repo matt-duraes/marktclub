@@ -14,6 +14,6 @@ trait ConstrutorTrait
             ['link_clube', $this->url],
             ['status', (new Status(Status::ATIVO))->numero()]
         ]);
-        $this->idEmpresa = $Construtor->id_admin_empresa;
+        $this->idEmpresa = empty($Construtor->id) ?: $Construtor->id_admin_empresa;
     }
 }

@@ -65,10 +65,6 @@ botaoSolicitarResgate.addEventListener('click', () => {
     PaginaSolicitarCvs.abrir();
 });
 
-const blocoVerExtrato = () => {
-    console.log('testando');
-};
-
 const PaginaAbrirExtrato = new Pagina(
     'Extrato',
     LINK + '/popup/extrato-ponto-cvs',

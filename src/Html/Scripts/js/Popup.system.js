@@ -1,8 +1,6 @@
-document
-    .querySelector('body')
-    .insertAdjacentHTML('afterbegin', '<div id="bloco_fw_popup" class="fw_popup_display_none"></div>');
-const blocoFwPopup = document.getElementById('bloco_fw_popup');
 const blocoFwPopupBody = document.querySelector('body');
+blocoFwPopupBody.insertAdjacentHTML('afterbegin', '<div id="bloco_fw_popup" class="fw_popup_display_none"></div>');
+const blocoFwPopup = document.getElementById('bloco_fw_popup');
 class Popup {
     /**
      * @param {string} titulo Título para o histório ao abrir
@@ -10,21 +8,22 @@ class Popup {
      * @param {bool} fechar Se a página terá o botao de fechar
      * @param {bool} historico Se o navegador vai monitorar o histórico para abrir e fechar a página
      */
-    constructor(titulo, bloco, fechar, historico, callback) {
+    constructor(titulo, id, fechar, historico, callback) {
         if (titulo == undefined || titulo == '') {
             return;
         }
         const linkExplode = window.location.href.split('#');
         this.linkAtual = linkExplode[0];
         this.historico = historico !== undefined ? historico : true;
-        this.fechar = fechar !== undefined ? fechar : true;
+        this.botaoFechar = fechar !== undefined ? fechar : true;
 
         this.titulo = titulo;
         this.callback = callback;
-        this.bloco = bloco;
+        this.bloco = document.getElementById(id);
         this.bloco.classList.remove('display_none');
         this.bloco.classList.add('fw_popup_conteudo');
         this.bloco.classList.add('fw_popup_display_none');
+
         this.ancoraAtual = linkExplode[1] || '';
         this.ancora = this.criarSlug(titulo);
         if (this.historico) {
@@ -68,7 +67,7 @@ class Popup {
     }
     async abrirInterno(historico) {
         blocoFwPopupBody.classList.add('fw_popup_body');
-        const clone = this.bloco.cloneNode(true);
+        const clone = this.bloco;
         clone.classList.remove('display_none');
         clone.classList.remove('fw_popup_display_none');
         clone.classList.add('fw_popup_conteudo_animacao');
@@ -85,10 +84,11 @@ class Popup {
         blocoFwPopup.classList.remove('fw_popup_display_none');
         setTimeout(() => {
             blocoFwPopup.classList.add('fw_popup_animacao');
-            clone.classList.remove('fw_popup_conteudo_animacao');
+            this.bloco.classList.remove('fw_popup_conteudo_animacao');
         }, 40);
+
         if (this.callback) {
-            this.callback(clone);
+            this.callback();
         }
 
         if (historico) {
@@ -108,7 +108,7 @@ class Popup {
         bloco.classList.add('fw_popup_conteudo_animacao');
 
         let url = window.location.href.split('#');
-        if (url.length > 1) {
+        if (url.length > 1 && this.historico) {
             const titulo = $('title') || '';
             history.pushState({}, titulo, url[0]);
         }
@@ -120,6 +120,7 @@ class Popup {
         }, 300);
     }
 }
+
 blocoFwPopup.addEventListener('click', e => {
     if (
         e.target.classList.contains('popup_fechar') ||

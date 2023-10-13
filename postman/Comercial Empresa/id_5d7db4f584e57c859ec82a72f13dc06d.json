@@ -1,0 +1,1 @@
+{"id":"id_5d7db4f584e57c859ec82a72f13dc06d","token":"token","metodo":"GET","nome":"\/comercial-empresa\/select","uri":"{{LINK}}\/comercial-empresa\/select","parametro":[],"body":[],"header":[],"variavel":[],"json":[["texto",true,"titulo","Escolha uma empresa",""]],"documentacao":{"status":false,"descricao":"","requisicao":"","resposta":"","scope":"comercial_empresa:listar"}}

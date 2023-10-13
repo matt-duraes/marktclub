@@ -9,7 +9,7 @@ use App\Classes\EnqueteSatisfacao\Suporte;
 $Painel = new PainelConfig\Visualizar('enquete_satisfacao');
 
 $Painel->coluna(callback: function () use ($Painel) {
-    $Painel->bloco(titulo: 'Respostas', callback: function () use ($Painel) {
+    $Painel->bloco('Respostas', callback: function () use ($Painel) {
         $Painel
             ->linha('navegar', 'Navegação')
             ->linha('procura', 'Procurando')
@@ -25,7 +25,7 @@ $Painel->coluna(callback: function () use ($Painel) {
             campo: 'status',
             texto: 'Visualizado',
             inArray: ['Novo'],
-            status: 'visualizada',
+            status: Status::VISUALIZADA,
             mensagem: 'Tem certeza que deseja alterar para visualizado?',
             cor: 'verde'
         );

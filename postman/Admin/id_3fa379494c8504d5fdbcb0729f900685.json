@@ -1,0 +1,1 @@
+{"id":"id_3fa379494c8504d5fdbcb0729f900685","token":"painel","metodo":"GET","nome":"\/admin\/campo-permitido","uri":"{{LINK}}\/admin\/campo-permitido","parametro":[],"body":[],"header":[],"variavel":[],"json":[],"documentacao":{"status":false,"descricao":"","requisicao":"","resposta":"","scope":"admin:campo_permitido"}}

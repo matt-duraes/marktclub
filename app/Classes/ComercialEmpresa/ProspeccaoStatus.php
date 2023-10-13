@@ -11,7 +11,6 @@ final class ProspeccaoStatus extends StatusStatus
     public const NEGOCIACAO = 'negociacao';
     public const AVALIACAO = 'avaliacao';
     public const MINUTA = 'minuta';
-    public const STANDBY = 'standby';
 
     public function __construct(
         protected string|int|null $valor = null
@@ -22,7 +21,6 @@ final class ProspeccaoStatus extends StatusStatus
             self::NEGOCIACAO   => 'Nogociação',
             self::AVALIACAO    => 'Em avaliação',
             self::MINUTA       => 'Minuta enviada',
-            self::STANDBY      => 'Stand-by'
         ]);
     }
 }

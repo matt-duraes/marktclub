@@ -36,11 +36,7 @@ class ComunicacaoPopupController extends Controller implements
     public function getBuscar(string $id): Response
     {
         $PopupEntity = new PopupEntity();
-        $PopupEntity->uuid(
-            $id,
-            mensagem: 'Não foi possível realizar está ação',
-            titulo: 'Código inválido ou inexistente'
-        );
+        $PopupEntity->uuid($id);
         return $this->retornoPadrao($PopupEntity);
     }
 
@@ -108,11 +104,7 @@ class ComunicacaoPopupController extends Controller implements
     public function putAtualizar(Request $request, string $id): Response
     {
         $PopupEntity = new PopupEntity();
-        $PopupEntity->uuid(
-            $id,
-            mensagem: 'Não foi possível realizar está ação',
-            titulo: 'Código inválido ou inexistente'
-        );
+        $PopupEntity->uuid($id);
         $PopupEntity->set(lista: $request->dado());
         $PopupEntity->salvar();
         return new Response(status: 204);

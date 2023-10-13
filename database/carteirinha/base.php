@@ -1,13 +1,15 @@
 <?php
 
-return (new \DataBase\DataBase())
+use DataBase\DataBase;
+
+return (new DataBase())
     ->id()
     ->uuid()
-    ->int('id_admin_empresa')->relacionado(TABELA_COMERCIAL_EMPRESA, 'id')
+    ->int('id_admin_empresa')->tamanho(9)->relacionado(TABELA_COMERCIAL_EMPRESA, 'id')
     ->text('texto')->null()
+    ->text('texto_perdido')->null()
     ->imagem('bg_frente')->null()
     ->imagem('bg_fundo')->null()
-    ->text('texto_perdido')->null()
     ->dataCriacao()
     ->dataAtualizacao()
     ->status();

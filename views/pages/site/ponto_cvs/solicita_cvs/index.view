@@ -1,0 +1,46 @@
+<!-- <div class="bloco_popup_geral medio" id="popup_solicita_cvs">
+    <header class="header_pagina_popup">
+        <h1>Resgatar</h1>
+        <i class="fechar botao_fechar_popup" id="botao_visualizar_fechar">@iconeFechar</i>
+    </header>
+
+    <div class="popup_conteudo centralizado conteudo_pagina_popup" id="popup_solicitacao">
+        <header class="header_padrao_popup">
+            <h1>Valor mínimo para resgate: 1 ponto</h1>
+        </header>
+        @? formInput(name: 'nome', placeholder: 'Nome', label: 'nome', obrigatorio: true, value: '')
+        @? formInput(name: 'email', placeholder: 'Email', label: 'email', obrigatorio: true, value: '')
+        @? formInput(name: 'quantidade', placeholder: 'Quantidade', label: 'quantidade', obrigatorio: true, value: '')
+        <button id="enviar_solicitacao"> Fazer solicitação</button>
+    </div>
+
+</div> -->
+
+<div class="bloco_pagina_popup" id="pesquisa_satisfacao_popup">
+    <div class="conteudo_pagina_popup">
+        <header>
+            <h1>Resgatar</h1>
+            <i class="fechar pagina_fechar">@iconeFechar</i>
+        </header>
+        <fieldset>
+            <h2>Nome</h2>
+            <div class="botao_input">
+                @? formInput(name: 'nome', placeholder:'Insira o seu nome', obrigatorio: true, value: '')
+            </div>
+        </fieldset>
+        <fieldset>
+            <h2>Email</h2>
+            <div class="botao_input">
+                @? formInput(name: 'email', placeholder:'Insira o seu E-mail',  obrigatorio: true, value: '')
+            </div>
+        </fieldset>
+        <fieldset>
+            <h2>Quantos pontos você quer trocar?</h2>
+            @? formInput(name: 'quantidade', placeholder: 'Insira a quantidade de pontos', obrigatorio: true, value: '')
+        </fieldset>
+        <div class="footer_pagina_popup" id="footer_pesquisa">
+            <button class="botao_geral_cor cor_bg" id="enviar_solicitacao"> Fazer solicitação</button>
+        </div>
+    </div>
+</div>
+

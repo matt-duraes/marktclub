@@ -1,14 +1,43 @@
-.bloco_hidden
-    display: none
+.botao_atualizar
+    color: #fff !important
+    font-size: 16px
+    background: $corLink
+    border-radius: 20px
+    width: 120px
+
+.botao_atualizar:hover
+    background: darken($corLink, 10%)
+    transition: background .3s ease-out
+
+.botao_cancelar
+    color: #fff !important
+    font-size: 16px
+    background: $corVermelho
+    border-radius: 20px
+    width: 120px
+
+.botao_cancelar:hover
+    background: darken($corVermelho, 10%)
+    transition: background .3s ease-out
+
+.bloco_pagina_popup .conteudo_pagina_popup
+    .header_motivo
+        display: flex
+        flex-direction: row
+    .header_motivo h1
+        font-weight: bold
+        font-size: 16px
 
 .bloco_kambam_index .bloco_coluna
+    width: calc(100% / 6)
+    min-width: 200px
     .conteudo article
         width: 100%
         position: relative
         background: #FFF
         box-shadow: 0 4px 4px rgba(0,0,0,.1)
         border-radius: 4px
-        margin-top: 20px
+        margin-bottom: 20px
         transition: opacity .3s ease-out
         overflow: hidden
         flexCol()

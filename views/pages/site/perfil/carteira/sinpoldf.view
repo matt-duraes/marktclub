@@ -11,8 +11,7 @@
         <div class="matricula_sinpol">
             <p>DATA DE EMISSÃO</p>
             <p class="dados_carteirinha">
-                @php $dataAtual = date('H:i:s');
-                {{$dataAtual}}
+                {{$dado->data->emissao}}
             </p>
         </div>
     </div>

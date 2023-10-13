@@ -328,6 +328,10 @@ Route
             ])
             ::post('/convenios/listar');
         Route
+            ::nome('relacionado')
+            ::request(['id'])
+            ::post('/convenios/relacionado');
+        Route
             ::nome('detalhe')
             ::view('/convenios/{url}');
         Route
@@ -460,7 +464,7 @@ Route
                 'endereco_cep', 'endereco_bairro', 'endereco_logradouro', 'endereco_numero',
                 'endereco_complemento', 'endereco_cidade', 'endereco_estado'
             ])
-            ::post('/saude/contratacao');
+            ::post('/saude-contratacao');
 
     });
 Route
@@ -551,7 +555,6 @@ Route
 Route
     ::nome('termo')
     ::middleware(ClubeMiddleware::class, 'buscar')
-    ::middleware(AuthMiddleware::class, 'logado')
     ::controller(App\Controllers\Site\TermoController::class)
     ::grupo(function () {
         Route
@@ -563,6 +566,9 @@ Route
         Route
             ::nome('app')
             ::view('/termo-de-uso-app');
+        Route
+            ::nome('excluir')
+            ::view('/excluir-conta');
     });
 
 Route
@@ -630,13 +636,17 @@ Route
             ::nome('index')
             ::view('/perfil');
         Route
-            ::nome('salvaDados')
+            ::nome('salvarDados')
             ::request([
-                'nome', 'data_nascimento', '!genero', 'estado_civil', 'email_pessoal', 'email_trabalho',
-                '!telefone_trabalho', 'telefone_pessoal', 'endereco_estado', 'endereco_cep', 'endereco_logradouro',
-                'endereco_bairro', 'endereco_numero', 'endereco_complemento', 'endereco_cidade', '!imagem'
+                '!nome', '!data_nascimento', '!genero', '!estado_civil', '!email_pessoal', '!email_trabalho',
+                '!telefone_trabalho', '!telefone_pessoal', '!endereco_estado', '!endereco_cep', '!endereco_logradouro',
+                '!endereco_bairro', '!endereco_numero', '!endereco_complemento', '!endereco_cidade', '!imagem'
             ])
             ::post('/perfil/salvar-dados');
+        Route
+            ::nome('salvarEmail')
+            ::request(['!email_pessoal', '!email_trabalho'])
+            ::post('/perfil/salvar-email');
         Route
             ::nome('senha')
             ::view('/perfil/alterar-senha');
@@ -666,24 +676,31 @@ Route
             ::nome('buscarCep')
             ::request(['cep'])
             ::post('/perfil/buscar-cep');
+    });
+
+Route
+    ::nome('pontoCvs')
+    ::middleware(ClubeMiddleware::class, 'buscar')
+    ::middleware(AuthMiddleware::class, 'logado')
+    ::controller(App\Controllers\Site\PontoCvsController::class)
+    ::grupo(function () {
         Route
-            ::nome('pontoCvs')
-            ::view('/perfil/ponto-cvs');
+            ::nome('index')
+            ::view('/ponto-cvs');
         Route
-            ::nome('cvsSolicitar')
+            ::nome('postRealizarSolicitacao')
             ::request(['nome', 'email', 'ponto'])
             ::post('/ponto-cvs/solicitar');
         Route
-            ::nome('popupSolicitaPontoCvs')
+            ::nome('popupSolicitacao')
             ::view('/popup/solicita-ponto-cvs');
         Route
             ::nome('extrato')
             ::view('/popup/extrato-ponto-cvs');
-        Route
-            ::nome('buscarMais')
-            ::view('/ponto-cvs/buscar-mais');
+        // Route
+        //     ::nome('buscarMais')
+        //     ::view('/ponto-cvs/buscar-mais');
     });
-
 Route
     ::nome('campanha')
     ::middleware(ClubeMiddleware::class, 'buscar')

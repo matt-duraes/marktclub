@@ -38,12 +38,13 @@ $permissao = json_encode([
     'comunicacao_publicidade_deletar',
 
     'comunicacao_contato_index', 'comunicacao_contato_visualizar', 'comunicacao_contato_status',
+    'comunicacao_contato_empresa',
 
     'comunicacao_popup_index', 'comunicacao_popup_add', 'comunicacao_popup_editar',
     'comunicacao_popup_deletar', 'comunicacao_popup_status', 'comunicacao_popup_empresa',
 
     'enquete_satisfacao_index', 'enquete_satisfacao_visualizar', 'enquete_satisfacao_deletar',
-    'enquete_satisfacao_status',
+    'enquete_satisfacao_status', 'enquete_satisfacao_empresa',
 
     'construtor_clube_index', 'construtor_clube_add', 'construtor_clube_editar', 'construtor_clube_deletar',
 
@@ -79,12 +80,23 @@ $permissao = json_encode([
 
     'solicitacao_cheque_bonus_index', 'solicitacao_cheque_bonus_visualizar', 'solicitacao_cheque_bonus_status',
     'solicitacao_cheque_bonus_empresa',
-    'comercial_empresa_visualizar', 'comercial_empresa_editar', 'comercial_prospeccao_index',
-    'comercial_prospeccao_add', 'comercial_prospeccao_editar', 'comercial_perdido_index', 'comercial_perdido_add',
-    'comercial_perdido_editar', 'comercial_perdido_visualizar', 'comercial_perdido_status',
+
+    'saude_contratacao_index', 'saude_contratacao_visualizar', 'saude_contratacao_status',
+    'saude_contratacao_empresa',
+
+    'comercial_empresa_visualizar', 'comercial_empresa_editar',
+
+    'comercial_prospeccao_index', 'comercial_prospeccao_add', 'comercial_prospeccao_editar',
     'comercial_prospeccao_visualizar',
-    'comercial_atendimento_index', 'demanda_tecnologia', 'demanda_criacao', 'log_erro_index',
-    'log_erro_visualizar', 'log_erro_status'
+
+    'comercial_perdido_index', 'comercial_perdido_add',
+    'comercial_perdido_editar', 'comercial_perdido_visualizar', 'comercial_perdido_status',
+
+    'comercial_atendimento_index',
+
+    'demanda_tecnologia', 'demanda_criacao',
+
+    'log_erro_index', 'log_erro_visualizar', 'log_erro_status'
 ]);
 
 return [

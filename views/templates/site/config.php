@@ -2,6 +2,7 @@
 
 $USUARIO = sessao('USUARIO');
 
+define('USUARIO_ID', $USUARIO['id']);
 define('USUARIO_NOME', $USUARIO['nome']);
 define('USUARIO_IMAGEM', $USUARIO['imagem']);
 define('USUARIO_EMAIL', $USUARIO['email']);

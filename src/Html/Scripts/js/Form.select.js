@@ -7,8 +7,13 @@ const fwFormBlocoGeralSelect = document.getElementById('fw_form_select');
 
 const formValue = (input, valor, obrigatorio) => {
     obrigatorio = obrigatorio == undefined ? false : true;
-    const bloco = input.closest('.bloco_input');
+    const bloco = input.closest('.bloco_input, .bloco_editor');
     if (!bloco) {
+        return;
+    }
+    if (bloco.classList.contains('bloco_editor')) {
+        input.value = valor;
+        input.dispatchEvent(new Event('formChange'));
         return;
     }
     const mensagemFooter = bloco.querySelector('.input_mensagem');
@@ -306,23 +311,24 @@ const fwFormSelecionarAnteriorOption = (select, option) => {
  */
 const fwFormSelectPosicionarScroll = acao => {
     const liHover = fwFormBlocoGeralSelect.querySelector('li.hover');
-    const posicaoLiHover = liHover.getBoundingClientRect();
-    const liHeight = posicaoLiHover.height;
-    const liTop = liHover.offsetTop;
-    const blocoUl = fwFormBlocoGeralSelect.querySelector('ul.option');
-    const posicaoBlocoUl = blocoUl.getBoundingClientRect();
-    const blocoUlHeight = posicaoBlocoUl.height;
-    const scrollTop = blocoUl.scrollTop;
-    const scrollFim = scrollTop + blocoUlHeight;
-    let posicaoComparacao = liTop;
-    if (acao == 'proximo') {
-        posicaoComparacao = liTop + liHeight;
-    }
-    if (acao == 'anterior' && (posicaoComparacao < scrollTop || posicaoComparacao > scrollFim)) {
-        blocoUl.scrollTop = liTop;
-    } else if (acao == 'proximo' && (posicaoComparacao < scrollTop || posicaoComparacao > scrollFim)) {
-        blocoUl.scrollTop = liTop - (blocoUlHeight - liHeight);
-    }
+    liHover.scrollIntoView();
+    // const posicaoLiHover = liHover.getBoundingClientRect();
+    // const liHeight = posicaoLiHover.height;
+    // const liTop = liHover.offsetTop;
+    // const blocoUl = fwFormBlocoGeralSelect.querySelector('ul.option');
+    // const posicaoBlocoUl = blocoUl.getBoundingClientRect();
+    // const blocoUlHeight = posicaoBlocoUl.height;
+    // const scrollTop = blocoUl.scrollTop;
+    // const scrollFim = scrollTop + blocoUlHeight;
+    // let posicaoComparacao = liTop;
+    // if (acao == 'proximo') {
+    //     posicaoComparacao = liTop + liHeight;
+    // }
+    // if (acao == 'anterior' && (posicaoComparacao < scrollTop || posicaoComparacao > scrollFim)) {
+    //     blocoUl.scrollTop = liTop;
+    // } else if (acao == 'proximo' && (posicaoComparacao < scrollTop || posicaoComparacao > scrollFim)) {
+    //     blocoUl.scrollTop = liTop - (blocoUlHeight - liHeight);
+    // }
 };
 
 /**
@@ -377,6 +383,7 @@ const fwFormSelectSelecionarOption = (select, option) => {
     const blocoHover = option.querySelector('li.hover');
     const inputTexto = select.querySelector('.input_select_texto');
     const inputValue = select.querySelector('.input_select_value');
+
     if (!blocoHover || !select) {
         inputTexto.value = '';
         inputValue.value = '';
@@ -392,8 +399,8 @@ const fwFormSelectSelecionarOption = (select, option) => {
     blocoHover.classList.add('selected');
     blocoHover.classList.remove('hover');
 
-    let texto = blocoHover.innerText;
-    const value = blocoHover.getAttribute('data-value');
+    let texto = blocoHover.getAttribute('title').trim();
+    const value = blocoHover.getAttribute('data-value').trim();
     if (value == '') {
         texto = '';
     }
@@ -417,10 +424,8 @@ const fwFormBlocoSelectFechar = async () => {
     if (inputTexto.value != '') {
         let valorExiste = false;
         const valorTexto = inputTexto.value.trim();
-        const expressao = new RegExp('^' + valorTexto + '$', 'i');
-        const expressaoLimpa = new RegExp('^' + fwFormSelectRemoverAcento(valorTexto), 'i');
         for (const [key, value] of Object.entries(fwFormSelectListaTexto)) {
-            if (value != '' && (expressao.test(value) || expressaoLimpa.test(fwFormSelectRemoverAcento(value)))) {
+            if (value != '' && value == valorTexto) {
                 inputTexto.value = value;
                 inputValue.value = key;
                 valorExiste = true;
@@ -593,27 +598,33 @@ fwFormLoadingSelect = bloco => {
             }
             select.addEventListener('keydown', e => {
                 const option = fwFormBlocoGeralSelect.querySelector('.option');
-                if ((e.key == 'ArrowDown' || e.key == 'ArrowUp') && !option) {
+                let key = e.keyCode;
+                if ((key == 38 || key == 40) && !option) {
                     e.preventDefault();
                     return fwFormSelectAbrirListaOption(select, true, false, true);
-                } else if (e.key == 'ArrowDown' && option) {
+                } else if (key == 40 && option) {
                     e.preventDefault();
                     return fwFormSelecionarProximoOption(select, option);
-                } else if (e.key == 'ArrowUp' && option) {
+                } else if (key == 38 && option) {
                     e.preventDefault();
                     return fwFormSelecionarAnteriorOption(select, option);
-                } else if (e.key == 'Enter' && option) {
+                } else if (key == 13 && option) {
                     e.preventDefault();
                     return fwFormSelectSelecionarOption(select, option);
-                } else if (e.key == 'Tab' && option) {
+                } else if (key == 9 && option) {
                     return fwFormBlocoSelectFechar();
-                } else if (e.key == 'Escape') {
+                } else if (key == 27) {
                     return fwFormBlocoSelectFechar();
                 }
             });
             select.addEventListener('keyup', e => {
                 const option = fwFormBlocoGeralSelect.querySelector('.option');
-                const key = e.key;
+                let key = e.key;
+
+                if (key == 'Unidentified') {
+                    key = 'A';
+                }
+
                 if (
                     (/^[a-zA-Z0-9à-úÀ-Ú\!\@\#\$\%\&\*\(\)\[\]\{\}\_\-\:\;\.\,\?<>\ ]{1}$/.test(key) ||
                         key == 'Backspace' ||

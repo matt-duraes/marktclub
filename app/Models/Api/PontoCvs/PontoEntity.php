@@ -141,7 +141,6 @@ final class PontoEntity extends Entity
             mensagemErro('Erro!', 'Usuario não foi encontrado.', status: 404);
         }
 
-
         return $Usuario->get('id');
     }
 

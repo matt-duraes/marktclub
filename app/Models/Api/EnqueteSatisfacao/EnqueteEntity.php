@@ -20,7 +20,7 @@ class EnqueteEntity extends Entity
     public Procura $procura;
     public Suporte $suporte;
     public Atendimento $atendimento;
-    public array $sistemas_clube;
+    public array|string $sistemas_clube;
     public string $comentario;
     public Status $status;
     protected string $ormTabela = TABELA_ENQUETE_SATISFACAO;
@@ -29,6 +29,7 @@ class EnqueteEntity extends Entity
         'comentario', 'sistemas_clube', 'status', 'data_criacao'
     ];
     protected array $ormInsert = [
+        'id_admin_empresa'   => '->idEmpresa',
         'id_usuario_cliente' => '->idUsuario'
     ];
     protected array $ormSalvar = [
@@ -41,6 +42,7 @@ class EnqueteEntity extends Entity
         suporte|Suporte|obrigatorio|vazio|valido
         atendimento|Atendimento|obrigatorio|vazio|valido
     ';
+    protected ?int $idEmpresa;
     protected ?int $idUsuario;
 
     /**
@@ -51,6 +53,7 @@ class EnqueteEntity extends Entity
     public function __construct(
         protected readonly ?Request $request = null
     ) {
+        $this->setarIdEmpresa();
         $this->setarIdUsuario();
         parent::__construct();
     }
@@ -58,5 +61,10 @@ class EnqueteEntity extends Entity
     public function regraInsert(): void
     {
         $this->status = new Status(Status::NOVO);
+    }
+
+    public function regraPosBuscar(): void
+    {
+        $this->sistemas_clube = jsonDecode($this->sistemas_clube, true, true);
     }
 }

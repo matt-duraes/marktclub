@@ -1,0 +1,1 @@
+{"id":"id_8d7da7dd1774c467b94b430c895c6cf5","token":"sem_token","metodo":"GET","nome":"\/demanda-tarefa","uri":"{{LINK}}\/demanda-tarefa","parametro":[["texto",true,"demanda","$DEMANDA_DADO_ID",""]],"body":[],"header":[],"variavel":[],"json":[],"documentacao":{"status":false,"descricao":"","requisicao":"","resposta":"","scope":""}}

@@ -1,5 +1,6 @@
 <?php
 
+use App\Classes\Solicitacao\Status;
 use App\Classes\UsuarioCliente\GrauParentesco;
 use App\Classes\UsuarioCliente\Helper;
 
@@ -8,6 +9,7 @@ $Painel = new PainelConfig\Visualizar('solicitacao_cheque_bonus');
 $Painel->coluna(callback: function () use ($Painel) {
     $Painel->bloco('Automóvel', callback: function () use ($Painel) {
         $Painel
+            ->vazioBreak('automovel', 'Automóvel não encontrado')
             ->linha('automovel->parceiro', 'Parceiro')
             ->linha('automovel->modelo', 'Modelo')
             ->linha('automovel->versao', 'Versão')
@@ -42,7 +44,7 @@ $Painel->coluna(callback: function () use ($Painel) {
             ->linha('nome', 'Nome')
             ->email('email_pessoal', 'E-mail')
             ->data('data_nascimento', 'Data de nascimento')
-            ->linha('rg', 'RG', formatar: 'rg')
+            ->linha('rg', 'RG', 'rg')
             ->cep('endereco_cep', 'CEP')
             ->linha('endereco_logradouro', 'Logradouro')
             ->linha('endereco_numero', 'Número')
@@ -54,8 +56,8 @@ $Painel->coluna(callback: function () use ($Painel) {
 
     $Painel->bloco('Dados do cheque bônus', callback: function () use ($Painel) {
         $Painel
-            ->data('data_criacao', 'Data de criação')
-            ->data('data_atualizacao', 'Data de atualização')
+            ->dataHora('data_criacao', 'Data de criação')
+            ->dataHora('data_atualizacao', 'Data da última atualização')
             ->data('data_termo', 'Data do termo')
             ->linha('status', 'Status');
     });
@@ -63,20 +65,20 @@ $Painel->coluna(callback: function () use ($Painel) {
     $Painel
         ->status(
             campo: 'status',
-            texto: 'Enviado p/ empresa',
-            inArray: ['novo'],
-            status: 'enviado-empresa',
-            mensagem: 'Tem certeza que deseja alterar o status para enviado para a empresa?',
+            texto: 'Enviar p/ usuário',
+            inArray: ['Novo', 'Enviado p/ Empresa', 'Enviado p/ Usuário'],
+            status: Status::ENVIADO_USUARIO,
+            mensagem: 'Tem certeza que deseja enviar para o usuário?',
             cor: 'verde'
         );
 
     $Painel
         ->status(
             campo: 'status',
-            texto: 'Enviado p/ usuário',
-            inArray: ['novo', 'enviado-empresa'],
-            status: 'enviado-usuario',
-            mensagem: 'Tem certeza que deseja alterar o status para enviado para o usuário?',
+            texto: 'Enviar p/ empresa',
+            inArray: ['Novo', 'Enviado p/ Empresa', 'Enviado p/ Usuário'],
+            status: Status::ENVIADO_EMPRESA,
+            mensagem: 'Tem certeza que deseja enviar para a empresa?',
             cor: 'verde'
         );
 
@@ -84,23 +86,24 @@ $Painel->coluna(callback: function () use ($Painel) {
         ->status(
             campo: 'status',
             texto: 'Solicitação com problema',
-            inArray: ['novo', 'enviado-empresa', 'enviado-usuario'],
-            status: 'problema',
-            mensagem: 'Tem certeza que deseja finalizar essa solicitação com o status problema?',
+            inArray: ['Novo', 'Enviado p/ Empresa', 'Enviado p/ Usuário'],
+            status: Status::PROBLEMA,
+            mensagem: 'Tem certeza que deseja finalizar essa solicitação?',
             cor: 'vermelho'
         );
 
     $Painel
         ->status(
             campo: 'status',
-            texto: 'Solicitação finalizada',
-            inArray: ['novo', 'enviado-empresa', 'enviado-usuario'],
-            status: 'finalizado',
-            mensagem: 'Tem certeza que deseja finalizar essa solicitação?',
-            cor: 'vermelho'
+            texto: 'Finalizar solicitação',
+            inArray: ['Novo', 'Enviado p/ Empresa', 'Enviado p/ Usuário', 'Problema'],
+            status: Status::FINALIZADO,
+            mensagem: 'Tem certeza que deseja fechar essa solicitação?',
+            cor: 'verde'
         );
 });
 
 $Painel->replace('dependente->grau_parentesco', (new GrauParentesco())->select());
+$Painel->replace('status', (new Status())->select());
 
 return $Painel;

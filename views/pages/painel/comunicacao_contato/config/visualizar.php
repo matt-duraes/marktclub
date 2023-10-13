@@ -5,12 +5,18 @@ use App\Classes\ComunicacaoContato\Status;
 $Painel = new PainelConfig\Visualizar('comunicacao_contato');
 
 $Painel->coluna(callback: function () use ($Painel) {
-    $Painel->bloco(titulo: 'Parceiro', callback: function () use ($Painel) {
+    $Painel->bloco('Empresa', callback: function () use ($Painel) {
         $Painel
-            ->linha('parceiro.nome', 'Nome');
+            ->linha('empresa.nome', 'Nome')
+            ->botao(
+                'empresa_link',
+                'Ver empresa',
+                link: LINK . '/app/visualizar/comercial-empresa/empresa->id',
+                permissao: \App\Classes\UsuarioCliente\Helper::PERMISSAO_EMPRESA
+            );
     });
 
-    $Painel->bloco(titulo: 'Usuário', callback: function () use ($Painel) {
+    $Painel->bloco('Usuário', callback: function () use ($Painel) {
         $Painel
             ->linha('nome', 'Nome')
             ->email('email', 'E-mail')
@@ -18,7 +24,7 @@ $Painel->coluna(callback: function () use ($Painel) {
             ->linha('mensagem', 'Mensagem');
     });
 
-    $Painel->bloco(titulo: 'Dados do contato', callback: function () use ($Painel) {
+    $Painel->bloco('Dados do contato', callback: function () use ($Painel) {
         $Painel
             ->dataHora('data_criacao', 'Data de contato')
             ->dataHora('data_atualizacao', 'Data da última atualização')
@@ -30,7 +36,7 @@ $Painel->coluna(callback: function () use ($Painel) {
             campo: 'status',
             texto: 'Aguardando',
             inArray: ['Novo'],
-            status: 'aguardando',
+            status: Status::AGUARDANDO,
             mensagem: 'Tem certeza que deseja alterar para aguardando?',
             cor: 'verde'
         )
@@ -38,7 +44,7 @@ $Painel->coluna(callback: function () use ($Painel) {
             campo: 'status',
             texto: 'Respondido',
             inArray: ['Aguardando'],
-            status: 'respondido',
+            status: Status::RESPONDIDO,
             mensagem: 'Tem certeza que deseja alterar para respondido?',
             cor: 'verde'
         );

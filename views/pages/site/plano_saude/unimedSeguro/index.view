@@ -106,63 +106,63 @@
                 <tbody>
                     <tr>
                         <td>0 a 18</td>
-                        <td>R$ 302,96</td>
-                        <td>R$ 402,57</td>
-                        <td>R$ 484,41</td>
+                        <td>R$ 332,14</td>
+                        <td>R$ 441,34</td>
+                        <td>R$ 531,06</td>
                     </tr>
                     <tr>
                         <td>19 a 23</td>
-                        <td>R$ 365,27</td>
-                        <td>R$ 488,18</td>
-                        <td>R$ 577,25</td>
+                        <td>R$ 400,45</td>
+                        <td>R$ 535,20</td>
+                        <td>R$ 632,84</td>
                     </tr>
                     <tr>
                         <td>24 a 28</td>
-                        <td>R$ 421,29</td>
-                        <td>R$ 565,10</td>
-                        <td>R$ 667,54</td>
+                        <td>R$ 461,86</td>
+                        <td>R$ 619,52</td>
+                        <td>R$ 731,82</td>
                     </tr>
                     <tr>
                         <td>29 a 33</td>
-                        <td>R$ 479,93</td>
-                        <td>R$ 645,61</td>
-                        <td>R$ 767,32</td>
+                        <td>R$ 526,15</td>
+                        <td>R$ 707,79</td>
+                        <td>R$ 841,21</td>
                     </tr>
                     <tr>
                         <td>34 a 38</td>
-                        <td>R$ 552,27</td>
-                        <td>R$ 742,55</td>
-                        <td>R$ 882,94</td>
+                        <td>R$ 605,45</td>
+                        <td>R$ 814,06</td>
+                        <td>R$ 967,97</td>
                     </tr>
                     <tr>
                         <td>39 a 43</td>
-                        <td>R$ 650,44</td>
-                        <td>R$ 865,98</td>
-                        <td>R$ 1.039,89</td>
+                        <td>R$ 713,08</td>
+                        <td>R$ 949,37</td>
+                        <td>R$ 1.140,03</td>
                     </tr>
                     <tr>
                         <td>44 a 48</td>
-                        <td>R$ 758,29</td>
-                        <td>R$ 1.003,56</td>
-                        <td>R$ 1.212,32</td>
+                        <td>R$ 831,31</td>
+                        <td>R$ 1.100,21</td>
+                        <td>R$ 1.329,07</td>
                     </tr>
                     <tr>
                         <td>49 a 53</td>
-                        <td>R$ 1.016,58</td>
-                        <td>R$ 1.354,63</td>
-                        <td>R$ 1.640,57</td>
+                        <td>R$ 1.114,48</td>
+                        <td>R$ 1.485,08</td>
+                        <td>R$ 1.798,56</td>
                     </tr>
                     <tr>
                         <td>54 a 58</td>
-                        <td>R$ 1.372,30</td>
-                        <td>R$ 1.828,17</td>
-                        <td>R$ 2.218,28</td>
+                        <td>R$ 1.504,45</td>
+                        <td>R$ 2.004,23</td>
+                        <td>R$ 2.431,90</td>
                     </tr>
                     <tr>
                         <td>59 ou mais</td>
-                        <td>R$ 1.805,72</td>
-                        <td>R$ 2.415,49</td>
-                        <td>R$ 2.901,35</td>
+                        <td>R$ 1.979,60</td>
+                        <td>R$ 2.648,10</td>
+                        <td>R$ 3.180,75</td>
                     </tr>
                 </tbody>
             </table>
@@ -402,6 +402,6 @@
         @endif
     </section>
     @if(TIPO_USUARIO != 'indicado'):
-        <a href="@route(planosaude.simulacao)/unimed-seguros" target="_blank" class="botao_geral_cor botao_fixo_bottom cor_bg botao_scroll">SIMULAR AGORA</a>
+        <a href="@route(planosaude.simulacao)/unimed-seguros" class="botao_geral_cor botao_fixo_bottom cor_bg botao_scroll">SIMULAR AGORA</a>
     @endif
 </div>

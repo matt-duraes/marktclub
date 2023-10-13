@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Excluir conta</title>
+    @CSS
+    @JS
+</head>
+
+<body>
+
+    <div id="bloco_regulamento">
+        <section class="regulamento_conteudo">
+            <div class="bloco_geral_sem_resultado">
+                <h1>Excluir conta</h1>
+                <p>Para fazer um pedido de exclusão de conta, preenchar o formulário abaixo:</p>
+            </div>
+            <form action="" class="form_geral">
+                @? formInput(name: 'nome', label: 'Nome', placeholder: 'Digite seu nome')
+                @? formCpf(name: 'cpf', label: 'CPF', placeholder: 'Digite seu CPF')
+                <div class="botao" id="botao_fazer_solicitacao">Fazer solicitação</div>
+            </form>
+        </section>
+    </div>
+
+</body>
+</html>
