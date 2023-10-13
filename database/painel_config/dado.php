@@ -3,7 +3,7 @@
 return [
     [
         'id_admin_empresa'  => 1,
-        'permissao'         => json_encode([
+        'permissao'         => [
             'usuario_cliente'         => [
                 'titulo'    => 'Cliente',
                 'permissao' => [
@@ -190,7 +190,7 @@ return [
             'log_erro'                 => [
                 'titulo' => 'Log de erro', 'acao' => ['index', 'visualizar', 'status']
             ]
-        ]),
+        ],
         'configuracao'      => ['agenda', 'perfil', 'bloquear'],
         'campo_permitido'   => [
             'usuario_cliente' => [
