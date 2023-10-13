@@ -37,6 +37,20 @@ final class LoginController extends Controller
     | DIGIO
     |--------------------------------------------------------------------------
     */
+    public function getDigioApi(Request $request)
+    {
+        $clube = 'digio';
+        $link = (new ApiHelper(scope: 'login:' . $clube))
+            ->body([
+                'usuario' => $request->chave('client-id', ''),
+                'clube'   => $clube
+            ])
+            ->post('/login/digio')
+            ->object()->dado->link ?? LINK;
+
+        return new Response(url: $link);
+    }
+
     public function digio()
     {
         return $this->loginBasico(
