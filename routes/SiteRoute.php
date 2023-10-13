@@ -87,6 +87,12 @@ Route
         Route
             ::nome('login')
             ::view('/login/login');
+        Route
+            ::nome('digio')
+            ::view('/login/digio');
+        Route
+            ::nome('digio')
+            ::view('/login/uber');
         // SENHA
         Route
             ::nome('senha')

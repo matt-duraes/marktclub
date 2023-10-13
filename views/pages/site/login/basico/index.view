@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{CLUBE_TITULO}}</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --cor-clube: {!!CLUBE_COR_PRINCIPAL!!}
+        }
+    </style>
+    @CSS
+</head>
+<body>
+    <div id="site">
+        <figure><img src="{!!CLUBE_LOGO_PRINCIPAL!!}"></figure>
+        <header>
+            <h1>{{$titulo}}</h1>
+            <p>{{$texto}}</p>
+        </header>
+
+        @ if( !empty($android) || !empty($ios) ):
+        <div class="bloco_app">
+            @ if( !empty($android) ):
+            <a href="{{$android}}"><img src="{{LINK_PADRAO}}/images/site/app_google.png" alt="[Download App Android]"></a>
+            @ endif;
+            @ if( !empty($ios) ):
+            <a href="{{$ios}}"><img src="{{LINK_PADRAO}}/images/site/app_apple.png" alt="[Download App IOS]"></a>
+            @ endif;
+        </div>
+        @ endif;
+    </div>
+</body>
+</html>
