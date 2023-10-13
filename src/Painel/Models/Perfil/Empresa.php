@@ -52,7 +52,7 @@ final class Empresa
     {
         return (object)[
             'id'     => '',
-            'nome'   => 'Sem usuário',
+            'nome'   => 'Sem empresa',
             'imagem' => $this->imagemPadrao
         ];
     }

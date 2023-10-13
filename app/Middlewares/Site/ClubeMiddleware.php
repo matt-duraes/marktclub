@@ -61,7 +61,7 @@ final class ClubeMiddleware extends ApiHelper
         if (sessaoExiste('CLUBE_' . $this->id) && sessaoExiste('CLUBE') && !eLocalhost()) {
             return;
         }
-        $host = eLocalhost() ? 'clube.marktclub.com.br' : preg_replace('/^https\:\/\/(www.)?/', '', LINK);
+        $host = eLocalhost() ? 'clube.marktclub.com.br' : preg_replace('/^http(s)?\:\/\/(www.)?/', '', LINK);
 
         $dado = $this
             ->validar(status: 404)

@@ -83,7 +83,7 @@
             <div class="bloco_teste display_none">
                 <i class="botao_like like" data-ajuda="Aprovar tarefa">@iconeLike</i>
                 <div class="bloco_imagem">
-                    <figure data-ajuda="usuario_nome" data-id="usuario_id" style="background-image: url(usuario_imagem);"></figure>
+                    <figure></figure>
                 </div>
                 <i class="botao_deslike deslike" data-ajuda="Reprovar tarefa">@iconeDeslike</i>
             </div>
@@ -91,7 +91,7 @@
             <div class="bloco_testado display_none">
                 <p>Testado por:</p>
                 <div class="bloco_imagem">
-                    <figure data-ajuda="usuario_nome" data-id="usuario_id" style="background-image: url(usuario_imagem);"></figure>
+                    <figure></figure>
                 </div>
             </div>
         </div>

@@ -53,7 +53,7 @@ final class AppController extends PadraoController
                 $parametro = array_merge($parametro, $filtro);
             }
             $parametro = $this->criptografarListaDado($parametro, array_keys($parametro), $config->api->criptografar);
-            $dado = (new ApiHelper(token: true))->json($parametro)->get($config->api->uri);
+            $dado = (new ApiHelper(token: true))->validar(login: true)->json($parametro)->get($config->api->uri);
             $dado = $this->validarRetornoApi($dado, true);
 
             if ($dado instanceof Response) {
@@ -125,7 +125,6 @@ final class AppController extends PadraoController
         if (!in_array($metodo, ['get', 'post', 'put', 'delete'])) {
             mensagemStatus(400);
         }
-
         $dado = $request->exeto(['indice'], erro: false);
         $rotaApi = $config->rota;
         if (preg_match('/\/\{id\}$/', $rotaApi) && array_key_exists('id', $dado)) {
@@ -182,7 +181,7 @@ final class AppController extends PadraoController
             $Buscar = new $visualizarClass();
             $dado = $Buscar->buscar($uuid);
         } else {
-            $dado = (new ApiHelper(token: true))->get($config->api->uri . '/' . $uuid);
+            $dado = (new ApiHelper(token: true))->validar(login: true)->get($config->api->uri . '/' . $uuid);
             if ($dado->status() == 404) {
                 mensagemStatus(404);
             }
@@ -228,9 +227,12 @@ final class AppController extends PadraoController
         }
 
         $Api = new ApiHelper(token: true);
-        $dado = $Api->body([
-            'status' => $request->status
-        ])->put($config->api->uri . '/' . $request->id);
+        $dado = $Api
+            ->validar(login: true)
+            ->body([
+                'status' => $request->status
+            ])
+            ->put($config->api->uri . '/' . $request->id);
 
         $dado = $this->validarRetornoApi($dado);
         if ($dado instanceof Response) {
@@ -319,10 +321,10 @@ final class AppController extends PadraoController
         $uri = $config->api->uri;
         if ($acao == 'insert') {
             $Api = new ApiHelper(token: true);
-            $dado = $Api->body($lista)->post($uri);
+            $dado = $Api->validar(login: true)->body($lista)->post($uri);
         } else {
             $Api = new ApiHelper(token: true);
-            $dado = $Api->body($lista)->put($uri . '/' . $request->id);
+            $dado = $Api->validar(login: true)->body($lista)->put($uri . '/' . $request->id);
         }
 
         $dado = $this->validarRetornoApi($dado);
@@ -366,7 +368,7 @@ final class AppController extends PadraoController
             $SalvarModel = new $nomeClass();
             $dado = $SalvarModel->buscar($uuid);
         } else {
-            $dado = (new ApiHelper(token: true))->get($config->api->uri . '/' . $uuid);
+            $dado = (new ApiHelper(token: true))->validar(login: true)->get($config->api->uri . '/' . $uuid);
             $dado = $this->validarRetornoApi($dado, true);
             if ($dado instanceof Response) {
                 return $dado;

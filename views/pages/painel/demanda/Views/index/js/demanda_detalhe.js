@@ -1,7 +1,7 @@
 const demandaDetalhe = () => {
     historicoLoad();
 
-    const idDemanda = $('#input_demanda_id').value;
+    idDemanda = $('#input_demanda_id').value;
     const idEquipe = $('#input_demanda_equipe').value;
     const statusDemanda = $('#input_demanda_status').value;
 
@@ -33,6 +33,17 @@ const demandaDetalhe = () => {
     };
     buscarListaTarefa();
 
+    /*
+    |--------------------------------------------------------------------------
+    | ABRIR NOVA DEMANDA
+    |--------------------------------------------------------------------------
+    */
+    const botaoTarefaAbrir = $('#botao_salvar_tarefa');
+    const PopupTarefa = new Popup('Nova Tarefa', 'bloco_tarefa_nova', true, false);
+    botaoTarefaAbrir.addEventListener('click', () => {
+        PopupTarefa.abrir();
+        inputTarefaTitulo.focus();
+    });
     // /*
     // |--------------------------------------------------------------------------
     // | HELPER DE AJUDA
