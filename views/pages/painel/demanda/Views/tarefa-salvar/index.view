@@ -3,12 +3,13 @@
         <h1>TAREFA</h1>
     </header>
     <form class="form_geral conteudo_pagina_popup">
+        <input type="hidden" id="input_tarefa_id">
         @? formInput(name: 'tarefa_titulo', placeholder: 'Título curto e específico do que deseja criar', label: 'Título', obrigatorio: true)
         @? formEditor(name: 'tarefa_texto', label: 'Texto', obrigatorio: true, placeholder: 'Digite outras informacões', bar: 'bold,italic,underline,Strikethrough,|,fontColor,|,alignment,|,link,removeFormat,|,insertTable,codeBlock,|,horizontalLine,FwObservacao,|,numberedList,bulletedList', barBalao: 'bold,italic,underline,Strikethrough,|,fontColor,|,link,removeFormat')
         @? formSelect(name: 'tarefa_tipo', label: 'Tipo de tarefa', obrigatorio: true, placeholder: 'Escolha uma opção', lista: $tipoLista)
     </form>
     <div class="footer_pagina_popup">
-        <div class="button voltar popup_fechar" id="botao_tarefa_salvar_cancelar">CANCELAR</div>
+        <div class="button voltar popup_fechar">CANCELAR</div>
         <div class="button salvar" id="botao_tarefa_salvar_salvar">SALVAR</div>
     </div>
 </div>

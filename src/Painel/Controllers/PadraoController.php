@@ -3,13 +3,11 @@
 namespace PainelController;
 
 use stdClass;
-use Erro\Erro;
 use Erro\Excecao;
 use Http\Response;
 use Helpers\ApiHelper;
 use Helpers\CryptHelper;
 use Controller\Controller;
-use Painel\Historico\Models\Entity as HistoricoEntity;
 
 abstract class PadraoController extends Controller
 {
@@ -139,7 +137,6 @@ abstract class PadraoController extends Controller
             'permissao' => $Ajax->pegarPermissao(),
             'rota'      => $Ajax->pegarRota(),
             'metodo'    => $Ajax->pegarMetodo(),
-            'scope'     => $Ajax->pegarScope(),
             'request'   => $Ajax->pegarRequest()
         ];
     }
@@ -380,29 +377,6 @@ abstract class PadraoController extends Controller
             return $app;
         }
         return 'default';
-    }
-
-    /**
-     * @param string      $app  App da ação
-     * @param null|string $id   ID para relacionar
-     * @param string      $acao Ação que está sendo executada
-     * @param mixed       $dado Dado que estão sendo manipulados
-     */
-    protected function salvarHistorico(string $app, ?string $id = null, string $acao = '', $dado = ''): bool
-    {
-        $Entity = new HistoricoEntity(
-            app: $app,
-            relacionamento: $id,
-            acao: $acao,
-            dado: $dado
-        );
-        try {
-            $Entity->salvar();
-            sessao('HISTORICO_ID', $Entity->id);
-            return true;
-        } catch (Erro) {
-            return false;
-        }
     }
 
     protected function criptografarListaDado(array $lista, array $permitido = [], array $criptografia = [])

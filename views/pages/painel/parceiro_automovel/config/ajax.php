@@ -7,7 +7,6 @@ return $Painel
         $Painel
             ->request(['titulo', 'modelo', 'cor', 'valor_de', 'valor_por', 'status'])
             ->permissao('parceiro_automovel_add')
-            ->scope('automovel_versao:salvar')
             ->metodo('post')
             ->rota('/automovel-versao');
     })
@@ -15,7 +14,6 @@ return $Painel
         $Painel
             ->request(['id'])
             ->permissao('parceiro_automovel_deletar')
-            ->scope('automovel_versao:deletar')
             ->metodo('delete')
             ->rota('/automovel-versao/{id}');
     })
@@ -23,7 +21,6 @@ return $Painel
         $Painel
             ->request(['id'])
             ->permissao('parceiro_automovel_visualizar')
-            ->scope('automovel_versao:buscar')
             ->metodo('get')
             ->rota('/automovel-versao/{id}');
     })
@@ -31,7 +28,6 @@ return $Painel
         $Painel
             ->request(['id', 'titulo', 'cor', 'valor_de', 'valor_por', 'status'])
             ->permissao('parceiro_automovel_editar')
-            ->scope('automovel_versao:atualizar')
             ->metodo('put')
             ->rota('/automovel-versao/{id}');
     });

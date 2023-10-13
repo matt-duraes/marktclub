@@ -1,4 +1,3 @@
-const listaColuna = $$('#bloco_demanda_index .bloco_coluna');
 const primeiraColuna = listaColuna[0];
 
 const cloneItem = $('#clone_item');

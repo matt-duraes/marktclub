@@ -5,7 +5,6 @@ namespace App\Controllers\Site;
 use Http\Request;
 use Http\Response;
 use Helpers\ApiHelper;
-use Helpers\AuthHelper;
 use Helpers\CryptHelper;
 use Controller\Controller;
 use App\Classes\TextoClube\Tipo;
@@ -17,9 +16,15 @@ use App\Models\Site\Contato\SalvarModel as SalvarContatoModel;
 
 final class LoginController extends Controller
 {
-    public function index(): Response
+    public function index(Request $request): Response
     {
-        return view('login.index');
+        $location = base64Decode($request->chave('location', ''));
+        if (empty($location) || !str_starts_with($location, LINK) || preg_match('/\/login/', $location)) {
+            $location = LINK;
+        }
+        return view('login.index', [
+            'location' => $location
+        ]);
     }
 
     /*
@@ -48,19 +53,12 @@ final class LoginController extends Controller
         } catch (\Throwable) {
             return new Response(url: LINK);
         }
-        return $this->loginRealizado(true);
+        return $this->loginRealizado();
     }
 
-    private function loginRealizado(bool $location = false): Response
+    private function loginRealizado(): Response
     {
-        $link = (new AuthHelper())->location();
-        if ($location) {
-            return new Response(url: $link);
-        }
-
-        return mensagemSucesso([
-            'link' => str_contains($link, '/login') ? LINK : $link
-        ], status: 201);
+        return mensagemSucesso(['id' => uuid()], status: 201);
     }
 
     /*
@@ -72,7 +70,7 @@ final class LoginController extends Controller
     {
         $TipoAtivacao = new TipoAtivacao();
         return view('login.ativar.buscar', [
-            'tipoSiape'     => $TipoAtivacao::MATRICULA == TIPO_ATIVACAO,
+            'tipoSiape'     => $TipoAtivacao::SIAPE == TIPO_ATIVACAO,
             'tipoMatricula' => $TipoAtivacao::MATRICULA == TIPO_ATIVACAO
         ]);
     }

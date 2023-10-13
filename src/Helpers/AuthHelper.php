@@ -9,12 +9,11 @@ final class AuthHelper
     /**
      * Validar se usuário está logado
      *
-     * @param string|null $local    Qual o local está, por exemplo: site, painel, etc
-     * @param bool        $location Se vai salvar a URL para usar no location
+     * @param string|null $local Qual o local está, por exemplo: site, painel, etc
      *
      * @throws Excecao
      */
-    public function validar(string $local = null, bool $location = true): bool
+    public function validar(string $local = null): bool
     {
         if (is_null($local)) {
             $local = mb_strtoupper(ROUTE_DIRETORIO, 'UTF-8');
@@ -31,43 +30,7 @@ final class AuthHelper
             return true;
         }
 
-        if ($location) {
-            $this->criarLocation($local, LINK . URI);
-        }
-
         return false;
-    }
-
-    private function criarLocation($local, $link)
-    {
-        sessao('AUTH_' . $local . '_LOCATION', $link);
-    }
-
-    /**
-     * Retorna o link para o location após o login
-     *
-     * @param string|null $local Qual o local está, por exemplo: site, painel, etc
-     * @param string|null $link  Para qual link deve ser redirecionado, caso exista um link de redirecionamento,
-     *                           será ignorado
-     *
-     * @return mixed
-     * @throws Excecao
-     */
-    public function location(string $local = null, string $link = null): mixed
-    {
-        if (is_null($local)) {
-            $local = mb_strtoupper(ROUTE_DIRETORIO, 'UTF-8');
-        }
-
-        $link = $link ?? LINK;
-        $nomeDaLocation = 'AUTH_' . $local . '_LOCATION';
-
-        if (sessaoExiste($nomeDaLocation)) {
-            $link = sessao($nomeDaLocation);
-            sessaoDeletar($nomeDaLocation);
-        }
-
-        return $link;
     }
 
     /**
@@ -107,14 +70,7 @@ final class AuthHelper
      */
     public function deletar(?string $local = null): bool
     {
-        $location = $this->location();
         sessaoDestruir();
-        if (!empty($location)) {
-            if (is_null($local)) {
-                $local = mb_strtoupper(ROUTE_DIRETORIO, 'UTF-8');
-            }
-            $this->criarLocation(local: $local, link: $location);
-        }
         return true;
     }
 }
