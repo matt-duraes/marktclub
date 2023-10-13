@@ -9,7 +9,6 @@ final class Ajax
     private array $permissao = [];
     private array $rota = [];
     private array $metodo = [];
-    private array $scope = [];
 
     public function __construct()
     {
@@ -55,12 +54,6 @@ final class Ajax
         return $this;
     }
 
-    public function scope(string $scope)
-    {
-        $this->scope[$this->indice] = $scope;
-        return $this;
-    }
-
     public function pegarPermissao()
     {
         if (sessao('USUARIO.dev')) {
@@ -87,10 +80,5 @@ final class Ajax
     public function pegarMetodo()
     {
         return strCaixaBaixa($this->metodo[$this->indice] ?? 'POST');
-    }
-
-    public function pegarScope()
-    {
-        return $this->scope[$this->indice] ?? '';
     }
 }

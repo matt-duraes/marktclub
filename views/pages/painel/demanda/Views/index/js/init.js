@@ -2,6 +2,7 @@ let idDemanda;
 
 const PopupTemp = new Popup();
 const usuarioGerente = false;
+const listaColuna = $$('#bloco_demanda_index .bloco_coluna');
 
 const cloneDemandaTarefa = $('#clone_demanda_tarefa_item');
 cloneDemandaTarefa.removeAttribute('id');
@@ -36,4 +37,7 @@ const adicionarNovaTarefa = (blocoLista, item) => {
     removerDisplayNone(clone, '.bloco_data_inicio', item.data_inicio);
     removerDisplayNone(clone, '.bloco_data_final', item.data_final);
     blocoLista.insertBefore(clone, blocoLista.firstChild);
+};
+const atualizarTarefaExistente = (blocoLista, item) => {
+    //
 };

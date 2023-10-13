@@ -1,6 +1,9 @@
 window.addEventListener('load', () => {
     const blocoLinkLocation = $('#LINK_LOCATION');
-    const linkLocation = blocoLinkLocation ? blocoLinkLocation.value : LINK;
+    let linkLocation = blocoLinkLocation ? blocoLinkLocation.value : LINK;
+    if (linkLocation == '' || linkLocation == undefined || !linkLocation.startsWith(LINK)) {
+        linkLocation = LINK;
+    }
 
     const pegarCaptchaParaLogin = () => {
         const textoBotao = botaoLogin.innerText;

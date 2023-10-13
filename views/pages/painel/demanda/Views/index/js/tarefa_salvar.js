@@ -44,18 +44,11 @@ botaoSalvarTarefa.addEventListener('click', async () => {
     }, 300);
 
     if (id == '') {
-        adicionarNovaTarefa(resposta);
+        adicionarNovaTarefa(listaColuna[0].querySelector('.conteudo'), resposta);
         return;
     }
     atualizarTarefaExistente(resposta);
 });
-
-const adicionarNovaTarefa = dado => {
-    //
-};
-const atualizarTarefaExistente = dado => {
-    //
-};
 // window.addEventListener('load', () => {
 // const inputTarefaTitulo = $('#input_titulo');
 // const inputTarefaTexto = $('#input_texto');

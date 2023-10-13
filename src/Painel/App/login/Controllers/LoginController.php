@@ -87,7 +87,6 @@ final class LoginController extends Controller
     {
         (new AuthHelper())->deletar();
         cookieDeletar('FWT');
-        cookieDeletar('REFRESH_TOKEN');
         return new Response(url: route('login.index'));
     }
 
@@ -95,7 +94,6 @@ final class LoginController extends Controller
     {
         (new AuthHelper())->deletar();
         cookieDeletar('FWT');
-        cookieDeletar('REFRESH_TOKEN');
         return new Response(status: 200);
     }
 }

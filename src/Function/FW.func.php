@@ -200,11 +200,14 @@ if (!function_exists('cookieExiste')) {
  * @param string $nome Nome do cookie para deletar
  */
 if (!function_exists('cookieDeletar')) {
-    function cookieDeletar(string $nome): bool
-    {
+    function cookieDeletar(
+        string $nome,
+        string $path = '/',
+        string $dominio = ''
+    ): bool {
         if (isset($_COOKIE[$nome])) {
             unset($_COOKIE[$nome]);
-            return setcookie($nome, '', time() - 3600);
+            return setcookie($nome, '', time() - 3600, path: $path, domain: $dominio);
         }
         return true;
     }
