@@ -25,6 +25,7 @@
 // @import "menu"
 // @import "relogar"
 
+const usuarioGerente = $('#USUARIO_GERENTE') ? $('#USUARIO_GERENTE').value : 'nao';
 window.addEventListener('load', () => {
     historicoLoad();
     /*

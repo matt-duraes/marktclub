@@ -6,14 +6,14 @@ use Http\Request;
 use Http\Response;
 use Controller\Controller;
 use App\Classes\DemandaTarefa\Tipo;
-use App\Models\Api\Demanda\DemandaEntity;
-use App\Models\Api\Demanda\TarefaEntity;
 use App\Models\Api\Demanda\TarefaModel;
+use App\Models\Api\Demanda\TarefaEntity;
+use App\Models\Api\Demanda\DemandaEntity;
 use System\Interface\ControllerBuscarInterface;
+use System\Interface\ControllerListarInterface;
 use System\Interface\ControllerSalvarInterface;
 use System\Interface\ControllerDeletarInterface;
 use System\Interface\ControllerAtualizarInterface;
-use System\Interface\ControllerListarInterface;
 
 final class DemandaTarefaController extends Controller implements
     ControllerSalvarInterface,
@@ -32,13 +32,11 @@ final class DemandaTarefaController extends Controller implements
 
     public function postSalvar(Request $request): Response
     {
-        $minuto = $request->vazio('minuto_producao_estimada') ? null : $request->minuto_producao_estimada;
         $Tarefa = new TarefaEntity(
             demanda: $request->demanda,
             titulo: $request->titulo,
             texto: $request->getPost('texto', html: false),
             tipo: new Tipo($request->tipo),
-            minuto_producao_estimada: $minuto,
             equipe: $request->equipe
         );
         $Tarefa->salvar();
@@ -47,7 +45,8 @@ final class DemandaTarefaController extends Controller implements
             pegarPropriedadeDaEntity(
                 $Tarefa,
                 lista: [
-                    'id', 'titulo', 'texto', 'tipo', 'data_criacao', 'minuto_producao_estimada', 'status'
+                    'id', 'equipe', 'titulo', 'texto', 'tipo', 'data_producao_inicio',
+                    'data_producao_final', 'data_criacao', 'status'
                 ]
             ),
             201

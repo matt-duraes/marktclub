@@ -1,0 +1,1 @@
+{"id":"id_43f2b2289fbd16efba8949b90930913c","token":"painel","metodo":"PUT","nome":"\/demanda-tarefa\/:id","uri":"{{LINK}}\/demanda-tarefa\/$DEMANDA_TAREFA_ID","parametro":[],"body":[["texto",true,"titulo","Ol\u00e1 mundo!",""]],"header":[],"variavel":[],"json":[],"documentacao":{"status":false,"descricao":"","requisicao":"","resposta":"","scope":""}}

@@ -24,7 +24,7 @@ window.addEventListener('load', () => {
 
     const htmlZero = '<div class="tarefa_zero">Sem itens<br> no momento</div>';
 
-    const setEvents = (item) => {
+    const setEvents = item => {
         const botaoAtendimento = item.querySelector('.botao_item_atendimento');
         const botaoHistorico = item.querySelector('.botao_item_historico');
         const botaoCancelar = item.querySelector('.botao_item_cancelar');
@@ -55,7 +55,7 @@ window.addEventListener('load', () => {
             if (botao) {
                 botao.addEventListener('click', callback);
             }
-        }
+        };
 
         adicionarEventoBotao(botaoAtendimento, () => {
             PaginaContato.abrir();
@@ -80,10 +80,10 @@ window.addEventListener('load', () => {
         adicionarEventoBotao(botaoVoltarStandBy, () => {
             voltarStandby(item, id);
         });
-    }
+    };
 
     listaItem.forEach(item => {
-        setEvents(item)
+        setEvents(item);
     });
 
     /*
@@ -92,16 +92,16 @@ window.addEventListener('load', () => {
     |--------------------------------------------------------------------------
     */
     cancelarContrato = async (item, id) => {
-        h1_popup.textContent = "Cancelar contrato";
-        input_popup.setAttribute('placeholder', "Digite o motivo para o cancelamento")
-        label_popup.textContent = "Motivo para o cancelamento"
-        botao_popup.textContent = "Cancelar"
-        botao_popup.setAttribute('class', 'botao_cancelar')
+        h1_popup.textContent = 'Cancelar contrato';
+        input_popup.setAttribute('placeholder', 'Digite o motivo para o cancelamento');
+        label_popup.textContent = 'Motivo para o cancelamento';
+        botao_popup.textContent = 'Cancelar';
+        botao_popup.setAttribute('class', 'botao_cancelar');
 
         PopupAtualizar.abrir();
 
         const form_motivo = document.querySelector('.form_motivo');
-        form_motivo.addEventListener('submit', async (e) => {
+        form_motivo.addEventListener('submit', async e => {
             e.preventDefault();
 
             const motivo = document.querySelector('.input_motivo').value;
@@ -109,7 +109,7 @@ window.addEventListener('load', () => {
             await atualizarStatusContrato(item, id, 'inativo', motivo);
 
             PopupAtualizar.fechar();
-        })
+        });
     };
     concluirContrato = async id => {
         if (!(await Alerta.confirmar('Concluir contrato!', 'Tem certeza que deseja concluir esse contrato?', '!'))) {
@@ -119,16 +119,16 @@ window.addEventListener('load', () => {
     };
 
     colocarStandby = async (item, id) => {
-        h1_popup.textContent = "Motivo Stand BY";
-        input_popup.setAttribute('placeholder', "Digite o motivo do stand by'")
-        label_popup.textContent = "Motivo Stand BY"
-        botao_popup.textContent = "Atualizar"
-        botao_popup.setAttribute('class', 'botao_atualizar')
+        h1_popup.textContent = 'Motivo Stand BY';
+        input_popup.setAttribute('placeholder', "Digite o motivo do stand by'");
+        label_popup.textContent = 'Motivo Stand BY';
+        botao_popup.textContent = 'Atualizar';
+        botao_popup.setAttribute('class', 'botao_atualizar');
 
         PopupAtualizar.abrir();
 
         const form_motivo = document.querySelector('.form_motivo');
-        form_motivo.addEventListener('submit', async (e) => {
+        form_motivo.addEventListener('submit', async e => {
             e.preventDefault();
             const motivo = document.querySelector('.input_motivo').value;
 
@@ -139,8 +139,10 @@ window.addEventListener('load', () => {
 
             newItem.querySelector('.titulo').innerText = item.querySelector('.titulo').innerText;
             newItem.querySelector('.data').innerText = item.querySelector('.data').innerText;
-            newItem.querySelector('.botao_link').setAttribute('href', item.querySelector('.botao_link').getAttribute('href'));
-            newItem.setAttribute('class', 'bloco_kambam_item')
+            newItem
+                .querySelector('.botao_link')
+                .setAttribute('href', item.querySelector('.botao_link').getAttribute('href'));
+            newItem.setAttribute('class', 'bloco_kambam_item');
             newItem.dataset.id = id;
             newItem.dataset.status = item.dataset.status;
             setEvents(newItem);
@@ -150,10 +152,16 @@ window.addEventListener('load', () => {
             blocoStandBy.appendChild(newItem);
             removerBlocoZero(blocoStandBy);
             adicionarNumeroItem(blocoStandBy);
-        })
-    }
+        });
+    };
     voltarStandby = async (item, id) => {
-        if (!(await Alerta.confirmar('Voltar contrato para prospecção!', 'Tem certeza que deseja voltar esse contrato para prospecção?', '!'))) {
+        if (
+            !(await Alerta.confirmar(
+                'Voltar contrato para prospecção!',
+                'Tem certeza que deseja voltar esse contrato para prospecção?',
+                '!'
+            ))
+        ) {
             return;
         }
         await atualizarStatusContrato(item, id, 'prospeccao');
@@ -162,7 +170,9 @@ window.addEventListener('load', () => {
 
         newItem.querySelector('.titulo').innerText = item.querySelector('.titulo').innerText;
         newItem.querySelector('.data').innerText = item.querySelector('.data').innerText;
-        newItem.querySelector('.botao_link').setAttribute('href', item.querySelector('.botao_link').getAttribute('href'));
+        newItem
+            .querySelector('.botao_link')
+            .setAttribute('href', item.querySelector('.botao_link').getAttribute('href'));
         newItem.dataset.id = id;
         newItem.dataset.status = item.dataset.status;
         setEvents(newItem);
@@ -174,9 +184,9 @@ window.addEventListener('load', () => {
         removerBlocoZero(bloco);
         adicionarNumeroItem(blocoStandBy);
         adicionarNumeroItem(bloco);
-    }
+    };
 
-    const pegarBlocoPeloStatus = (status) => {
+    const pegarBlocoPeloStatus = status => {
         switch (status) {
             case 'pesquisa':
                 return blocoPesquisa;
@@ -191,7 +201,7 @@ window.addEventListener('load', () => {
             case 'standby':
                 return blocoStandBy;
         }
-    }
+    };
 
     /*
     |--------------------------------------------------------------------------
@@ -209,7 +219,7 @@ window.addEventListener('load', () => {
                 manipularBlocoZero(e.to);
             })
             .eventoFim(e => {
-                if(e.from == e.to) {
+                if (e.from == e.to) {
                     return;
                 }
                 atualizarStatusProspeccao(e.target, e.to, e.item);
@@ -271,14 +281,18 @@ window.addEventListener('load', () => {
 
         Loading.show();
 
-        const resposta = await ajaxPost(LINK + '/comercial-prospeccao/atualizar-prospeccao', {
-            id,
-            'prospeccao' : status,
-        }, 'Mensagem de erro padrão');
+        const resposta = await ajaxPost(
+            LINK + '/comercial-prospeccao/atualizar-prospeccao',
+            {
+                id,
+                prospeccao: status,
+            },
+            'Mensagem de erro padrão'
+        );
 
         Loading.hide();
 
-        if(false === resposta) {
+        if (false === resposta) {
             return;
         }
         adicionarNumeroItem(blocoAtual);
@@ -302,5 +316,5 @@ window.addEventListener('load', () => {
         if (blocoZero) {
             blocoZero.parentNode.removeChild(blocoZero);
         }
-    }
+    };
 });

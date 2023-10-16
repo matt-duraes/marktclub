@@ -17,6 +17,7 @@ use Painel\Demanda\Models\SorteioModel;
 use Painel\Demanda\Models\CriarBugModel;
 use Painel\Demanda\Models\CriarOutroModel;
 use Painel\Demanda\Models\CriarClienteModel;
+use Painel\Demanda\Models\TarefaSalvarModel;
 use Painel\Demanda\Models\CriarAssociacaoModel;
 use App\Classes\DemandaTarefa\Tipo as DemandaTarefaTipo;
 
@@ -155,10 +156,22 @@ final class DemandaController extends Controller
         $i = 1;
         foreach ($request->id as $id) {
             $this->Api
+                ->validar(mensagem: 'Erro ao mudar a ordem, por favor, tente novamente.', login: true)
                 ->body(['ordem' => $i])
                 ->put('/demanda-dado/' . $id);
             $i++;
         }
+        return new Response(status: 204);
+    }
+
+    public function postDemandaStatus(Request $request)
+    {
+        $this->Api
+            ->validar(mensagem: 'Erro ao mudar o status, por favor, tente novamente.', login: true)
+            ->body([
+                'status' => $request->status
+            ])
+            ->put('/demanda-dado/' . $request->id);
         return new Response(status: 204);
     }
 
@@ -177,28 +190,6 @@ final class DemandaController extends Controller
         ]);
     }
 
-    public function postTarefaSalvar(Request $request)
-    {
-        $request
-            ->vazio('demanda', mensagem: 'Você deve passar a demanda da tarefa.')
-            ->vazio('titulo', mensagem: 'Digite o título da tarefa para continuar.')
-            ->vazio('texto', mensagem: 'Digite o texto da tarefa para continuar.')
-            ->vazio('tipo', mensagem: 'Escolha um tipo para a tarefa.');
-
-        $tarefa = $this->Api
-            ->validar('Erro ao salvar nova tarefa, por favor, tente novamente.')
-            ->body([
-                'demanda'                  => $request->demanda,
-                'titulo'                   => $request->titulo,
-                'texto'                    => $request->getPost('texto', html: false),
-                'tipo'                     => $request->tipo,
-                'minuto_producao_estimada' => $request->minuto,
-            ])
-            ->post('/demanda-tarefa')->object();
-
-        return mensagemSucesso($tarefa, 201);
-    }
-
     public function tarefaEditar(string $id, string $demanda)
     {
         $tarefa = $this->Api->get('/demanda-tarefa/' . $id)->object();
@@ -214,6 +205,30 @@ final class DemandaController extends Controller
             'tipoLista' => $Tipo->select('Escolha uma opção'),
             'r'         => $tarefa->dado
         ]);
+    }
+
+    public function postTarefaSalvar(Request $request)
+    {
+        $Tarefa = new TarefaSalvarModel(
+            titulo: $request->titulo,
+            texto: $request->getPost('texto', html: false),
+            tipo: $request->tipo,
+            demanda: $request->demanda
+        );
+
+        return mensagemSucesso($Tarefa->tarefa, 201);
+    }
+
+    public function postTarefaEditar(Request $request, string $id)
+    {
+        new TarefaSalvarModel(
+            titulo: $request->titulo,
+            texto: $request->getPost('texto', html: false),
+            tipo: $request->tipo,
+            id: $id
+        );
+
+        return new Response(status: 204);
     }
 
     public function postDemandaSalvar(Request $request)
@@ -261,32 +276,10 @@ final class DemandaController extends Controller
             'id'           => $Demanda->id(),
             'titulo'       => $request->empresa_nome . $request->titulo,
             'tipo'         => $request->tipo,
-            'data_criacao' => agora(),
+            'data_criacao' => agora(true),
             'data_entrega' => '',
             'status'       => 'nova'
         ], 201);
-    }
-
-    public function postTarefaEditar(Request $request, string $id)
-    {
-        $request
-            ->vazio('titulo', mensagem: 'Você precisa passar um título para a tarefa.')
-            ->vazio('texto', mensagem: 'Você precisa passar um texto para a tarefa.')
-            ->vazio('tipo', mensagem: 'Você precisa passar um tipo para a tarefa.');
-
-        $dado = $this->Api->body([
-            'titulo'                   => $request->titulo,
-            'texto'                    => $request->getPost('texto', html: false),
-            'tipo'                     => $request->tipo,
-            'minuto_producao_estimada' => $request->minuto
-        ])->put('/demanda-tarefa/' . $id);
-
-        respostaJson(
-            resposta: $dado,
-            mensagem: 'Ocorre um erro ao atualizar sua demanda, por favor, tente novamente.'
-        );
-
-        return new Response(status: 204);
     }
 
     public function postTarefaArquivo(Request $request, string $id)
