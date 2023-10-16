@@ -1,5 +1,8 @@
 <?php
 
+use App\Classes\ParceiroCupom\Status;
+use App\Classes\ParceiroCupom\Tipo;
+
 $titulos = [
     'Cupom de Desconto Moda10',
     'Oferta Beleza20',
@@ -55,19 +58,25 @@ $titulos = [
 
 $dado = [];
 
+$listaTipo = (new Tipo())->listarNumero();
+$listaStatus = (new Status())->listarNumero();
+$tipoCodigo = (new Tipo(Tipo::CODIGO))->numero();
+$tipoLink = (new Tipo(Tipo::LINK))->numero();
+
 for ($i = 1; $i < 50; $i++) {
-    $slug = strtolower(preg_replace('/[ -]+/', '-', $titulos[$i]));
-    $cupom = strtoupper(preg_replace('/[ -]+/', '', $titulos[$i]));
+    $slug = strtolower(preg_replace('/[ -]+/', '-', $titulos[$i - 1]));
+    $cupom = strtoupper(preg_replace('/[ -]+/', '', $titulos[$i - 1]));
+    $tipo = valorAleatorio($listaTipo);
+
     $dado[] = [
-        'id_parceiro_loja' => 1,
-        'descricao'        => $titulos[$i],
-        'cupom'            => $cupom,
-        'desconto'         => rand(1, 100) . '%',
-        'categoria'        => rand(1, 5),
-        'link'             => 'https://google.com/' . $slug,
-        'validade'         => dataFuturaAleatorio(),
-        'status'           => 1,
-        'auditado'         => 1,
+        'titulo'           => $titulos[$i - 1],
+        'tipo'             => $tipo,
+        'texto'            => 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla euismod, nisl eget aliquam ultricies, nunc nisl aliquet nunc, quis aliquam nisl',
+        'data_validade'    => dataFuturaAleatorio(),
+        'cupom'            => $tipo == $tipoCodigo ? $cupom : null,
+        'link'             => $tipo == $tipoLink ? 'https://google.com/' . $slug : null,
+        'imagem'           => 'https://via.placeholder.com/300x300.png?text=' . $slug,
+        'status'           => valorAleatorio($listaStatus),
     ];
 }
 

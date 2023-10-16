@@ -69,6 +69,9 @@ return [
             'parceiro_cashback'        => [
                 'titulo' => 'Cashback', 'acao' => ['index', 'add', 'editar', 'deletar', 'empresa']
             ],
+            'parceiro_cupom'        => [
+                'titulo' => 'Cupom', 'acao' => ['index', 'status']
+            ],
             'parceiro_easylive'        => ['titulo' => 'Easylive', 'acao' => ['index', 'add', 'editar', 'deletar']],
             'parceiro_automovel'       => [
                 'titulo' => 'Automóvel', 'acao' => ['index', 'add', 'editar', 'visualizar', 'deletar']
