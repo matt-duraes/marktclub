@@ -27,7 +27,7 @@
         @ if( !empty(CONTATO_EMAIL) ):
         <div class="dado">
             <i>@iconeEmail(15)</i>
-            {{CONTATO_EMAIL}}
+            <p class="email_contato_footer">{{CONTATO_EMAIL}}</p>
         </div>
         @ endif;
 
