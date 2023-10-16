@@ -1,7 +1,7 @@
 @CSS
 <div id="bloco_carteirinha">
     <div class="bloco_frente" style="background-image: {{$dado->imagem->bg_frente}}">
-        @if (CLUBE_ID == '61df17919405cf68f723510ec3af4acd'):
+        @if (defined(CLUBE_ID) == '61df17919405cf68f723510ec3af4acd'):
             @view site/perfil/carteira/sinpoldf.view
         @elseif(defined('CLUBE_ID') == '2affb17c25aa6f614852b20e0b3cf74f'):
             @view site/perfil/carteira/sindfazenda.view
