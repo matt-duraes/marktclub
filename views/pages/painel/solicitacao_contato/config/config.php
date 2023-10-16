@@ -6,13 +6,13 @@ return [
     'filtrar'    => true,
     'ordem'      => true,
     'visualizar' => true,
-    'download'   => false,
     'add'        => false,
     'editar'     => false,
     'deletar'    => false,
+    'download'   => false,
     'historico'  => true,
     'api'        => [
-        'scope' => 'comunicacao_contato',
-        'uri'   => '/comunicacao-contato'
+        'scope' => 'solicitacao_contato',
+        'uri'   => '/solicitacao-contato'
     ]
 ];

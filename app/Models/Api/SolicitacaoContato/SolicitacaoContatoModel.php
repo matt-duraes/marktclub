@@ -1,9 +1,9 @@
 <?php
 
-namespace App\Models\Api\ComunicacaoContato;
+namespace App\Models\Api\SolicitacaoContato;
 
-use App\Classes\ComunicacaoContato\Ordem;
-use App\Classes\ComunicacaoContato\Status;
+use App\Classes\SolicitacaoContato\Ordem;
+use App\Classes\SolicitacaoContato\Status;
 use App\Models\Api\Trait\ValidarEmpresaTrait;
 use Erro\Excecao;
 use Modules\Data;
@@ -16,7 +16,7 @@ use System\Trait\Model\OrdemTrait;
 use System\Trait\Model\PaginaTrait;
 use System\Trait\Model\QuantidadeTrait;
 
-class ComunicacaoContatoModel extends ORM implements
+class SolicitacaoContatoModel extends ORM implements
     ModelListarInterface
 {
     use ValidarEmpresaTrait;
@@ -24,7 +24,7 @@ class ComunicacaoContatoModel extends ORM implements
     use QuantidadeTrait;
     use OrdemTrait;
 
-    protected string $ormTabela = TABELA_COMUNICACAO_CONTATO;
+    protected string $ormTabela = TABELA_SOLICITACAO_CONTATO;
     protected ?int $idEmpresa;
 
     /**

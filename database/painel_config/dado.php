@@ -34,11 +34,11 @@ return [
                 ]
             ],
             'comunicacao_publicidade' => ['titulo' => 'Publicidade', 'acao' => ['index', 'add', 'editar', 'deletar']],
-            'comunicacao_contato'     => [
+            'solicitacao_contato'     => [
                 'titulo'    => 'Contato',
                 'acao'      => ['index', 'visualizar', 'status', 'empresa'],
                 'permissao' => [
-                    'comunicacao_contato_empresa' => 'Todas as empresas'
+                    'solicitacao_contato_empresa' => 'Todas as empresas'
                 ]
             ],
             'comunicacao_popup'       => [
@@ -157,7 +157,7 @@ return [
                     'solicitacao_credito_empresa' => 'Todas as empresas'
                 ]
             ],
-            'saude_contratacao'      => [
+            'saude_contratacao'        => [
                 'titulo'    => 'Saúde Contratação',
                 'acao'      => ['index', 'visualizar', 'status', 'empresa'],
                 'permissao' => [
