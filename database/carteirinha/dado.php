@@ -12,7 +12,7 @@ for ($i = 0; $i < env('QTD_SEEDS', 50); $i++) {
         'bg_fundo'         => 'asagu_catao.png',
         'texto'            => "Texto $i",
         'texto_perdido'    => "Perdido $i",
-        'status'           => 1,
+        'status'           => valorAleatorio($listaStatus)
     ];
 }
 return $seeds;

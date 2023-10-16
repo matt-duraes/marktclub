@@ -96,6 +96,9 @@ $permissao = [
 
     'comercial_atendimento_index',
 
+    'carteirinha_index', 'carteirinha_add', 'carteirinha_editar', 'carteirinha_deletar',
+    'carteirinha_status', 'carteirinha_empresa',
+
     'demanda_tecnologia', 'demanda_criacao',
 
     'log_erro_index', 'log_erro_visualizar', 'log_erro_status'

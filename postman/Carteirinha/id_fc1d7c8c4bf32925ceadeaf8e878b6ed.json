@@ -1,0 +1,1 @@
+{"id":"id_fc1d7c8c4bf32925ceadeaf8e878b6ed","token":"painel","metodo":"PUT","nome":"\/carteirinha\/:id","uri":"{{LINK}}\/carteirinha\/$CARTEIRINHA_ID","parametro":[],"body":[["texto",true,"status","inativo",""]],"header":[],"variavel":[],"json":[],"documentacao":{"status":false,"descricao":"","requisicao":"","resposta":"","scope":""}}
