@@ -192,4 +192,12 @@ final class OrmHelper extends ORM
         }
         return $retorno;
     }
+
+    public function atualizar(array $dado, int $id)
+    {
+        if (empty($dado) || empty($id)) {
+            return false;
+        }
+        return $this->dado($dado)->where(['id', $id])->update();
+    }
 }

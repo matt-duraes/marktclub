@@ -53,7 +53,7 @@ final class AppController extends PadraoController
                 $parametro = array_merge($parametro, $filtro);
             }
             $parametro = $this->criptografarListaDado($parametro, array_keys($parametro), $config->api->criptografar);
-            $dado = (new ApiHelper(token: true))->validar(login: true)->json($parametro)->get($config->api->uri);
+            $dado = (new ApiHelper(token: true))->json($parametro)->get($config->api->uri);
             $dado = $this->validarRetornoApi($dado, true);
 
             if ($dado instanceof Response) {
@@ -181,7 +181,7 @@ final class AppController extends PadraoController
             $Buscar = new $visualizarClass();
             $dado = $Buscar->buscar($uuid);
         } else {
-            $dado = (new ApiHelper(token: true))->validar(login: true)->get($config->api->uri . '/' . $uuid);
+            $dado = (new ApiHelper(token: true))->get($config->api->uri . '/' . $uuid);
             if ($dado->status() == 404) {
                 mensagemStatus(404);
             }
@@ -368,7 +368,7 @@ final class AppController extends PadraoController
             $SalvarModel = new $nomeClass();
             $dado = $SalvarModel->buscar($uuid);
         } else {
-            $dado = (new ApiHelper(token: true))->validar(login: true)->get($config->api->uri . '/' . $uuid);
+            $dado = (new ApiHelper(token: true))->get($config->api->uri . '/' . $uuid);
             $dado = $this->validarRetornoApi($dado, true);
             if ($dado instanceof Response) {
                 return $dado;

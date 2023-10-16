@@ -5,7 +5,7 @@
     <nav id="menu_principal">
         <div class="background" id="bloco_menu_mobile">
             <div class="conteudo">
-                @ if( API && !DEPENDENTE ):
+                @ if( API && !MENU_DEPENDENTE ):
                 <a href="{!!LINK_LOGIN!!}" class="entrar_mobile">Entrar</a>
                 @else
                 <div class="botao_fazer_login entrar_mobile">Entrar</div>
@@ -44,7 +44,7 @@
         <i class="botao_mobile" id="botao_abrir_menu">
             @iconeMenuMobile()
         </i>
-        @ if( API && !DEPENDENTE ):
+        @ if( API && !MENU_DEPENDENTE ):
         <a href="{!!LINK_LOGIN!!}" class="entrar">Entrar</a>
         @else
         <div class="botao_fazer_login entrar">Entrar</div>

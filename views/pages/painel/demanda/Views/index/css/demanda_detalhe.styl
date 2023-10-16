@@ -231,9 +231,15 @@
         width: 40px
         height: 40px
         flexCenter()
-        fill: #FFF
-        background-color: $corVerde
         border-radius: 50%
+        &.item_finalizar
+            background-color: #EEE
+            fill: #999
+            cursor: pointer
+        &.item_finalizado:hover
+        &.item_finalizado
+            background-color: $corVerde
+            fill: #FFF
 
 #bloco_demanda_tarefa .bloco_tarefa
     article.concluida .texto

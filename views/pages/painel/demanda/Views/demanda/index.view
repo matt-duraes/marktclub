@@ -2,16 +2,21 @@
     <input type="hidden" id="input_demanda_id" value="{{$r->id}}">
     <input type="hidden" id="input_demanda_equipe" value="{{$r->equipe->id}}">
     <input type="hidden" id="input_demanda_status" value="{{$r->status}}">
+    <input type="hidden" id="input_demanda_liberado" value="{{$r->liberado}}">
     <header>
         <i class="fechar mobile pagina_fechar">@iconeVoltar</i>
         <h1>{{$r->titulo}}</h1>
-        @ if( sessao('USUARIO.gerente', padrao: 'nao') == 'sim' && !in_array($r->status, ['teste', 'concluido'] )):
+        @ if( (sessao('USUARIO.gerente', padrao: 'nao') == 'sim' || $r->dono == 'sim') && !in_array($r->status, ['teste', 'concluido'])):
         <div class="botao_topo">
             <i id="botao_editar_demanda" data-ajuda="Editar demanda">@iconeEditar(15)</i>
         </div>
+        @ endif;
+        @ if( sessao('USUARIO.gerente', padrao: 'nao') == 'sim' && !in_array($r->status, ['teste', 'concluido'])):
         <div class="botao_topo">
             <i id="botao_cancelar_demanda" data-ajuda="Cancelar demanda">@iconeBloquear(19)</i>
         </div>
+        @ endif;
+        @ if( (sessao('USUARIO.gerente', padrao: 'nao') == 'sim' || $r->dono == 'sim') && !in_array($r->status, ['teste', 'concluido'])):
         <div class="linha"></div>
         @ endif;
         <i class="fechar desktop pagina_fechar">@iconeFechar</i>
@@ -32,7 +37,9 @@
 
         <div class="resto"></div>
 
-        <div class="botao">seguir</div>
+        @ if(!$r->dono):
+        <div class="botao" id="botao_seguir_demanda">{{$r->estouSeguindo ? 'seguindo' : 'seguir'}}</div>
+        @ endif;
     </div>
 
     <div class="bloco_data">

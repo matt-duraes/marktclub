@@ -1084,7 +1084,7 @@ if (!function_exists('base64Encode')) {
      * @param  null|string  $url  Se deve converter a hash para URL
      * @return string       Criptografia gerada
      */
-    function base64Encode(string | array $dado, bool $url = false)
+    function base64Encode(string|array $dado, bool $url = false)
     {
         return (new \Helpers\CryptHelper(url: $url))->encode($dado);
     }
@@ -1094,12 +1094,12 @@ if (!function_exists('base64Decode')) {
      * @param  string       $hash Hash que deseja descriptografar
      * @return string|array Conteúdo descriptografado
      */
-    function base64Decode(?string $hash): array | string | bool
+    function base64Decode(?string $hash, bool $url = false): array|string|bool
     {
         if (!is_string($hash)) {
             return false;
         }
-        return (new \Helpers\CryptHelper())->decode($hash);
+        return (new \Helpers\CryptHelper(url: $url))->decode($hash);
     }
 }
 if (!function_exists('arrayString')) {
