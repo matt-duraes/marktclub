@@ -33,6 +33,4 @@ unset(
     $__APP_TIMEZONE,
     $__APP_DEBUG,
     $__INI_LISTA,
-    $__SESSION_TEMP,
-    $__SESSION_NAME
 );

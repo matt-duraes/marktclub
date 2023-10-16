@@ -12,12 +12,10 @@ use App\Classes\DemandaDado\Tipo;
 use App\Classes\DemandaDado\Status;
 use System\Classes\PainelHistorico\Acao;
 use ApiModel\PainelHistorico\HistoricoEntity;
-use App\Models\Api\Demanda\Trait\EquipeTrait;
 use App\Models\Api\Demanda\Trait\EmpresaTrait;
 
 final class DemandaEntity extends Entity
 {
-    use EquipeTrait;
     use EmpresaTrait;
 
     protected string $ormTabela = TABELA_DEMANDA_DADO;
@@ -53,11 +51,6 @@ final class DemandaEntity extends Entity
     public string|array $empresa;
     public Tipo $tipo;
     public Area $area;
-
-    public function __construct()
-    {
-        parent::__construct();
-    }
 
     /*
     |--------------------------------------------------------------------------
