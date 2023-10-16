@@ -7,7 +7,6 @@ return $Painel
         $Painel
             ->request(['empresa', 'titulo'])
             ->permissao('usuario_cliente_add')
-            ->scope('usuario_grupo:listar')
             ->metodo('get')
             ->rota('/usuario-grupo/select');
     })
@@ -15,7 +14,6 @@ return $Painel
         $Painel
             ->request(['empresa', 'titulo'])
             ->permissao('usuario_cliente_add')
-            ->scope('comercial_subempresa:select')
             ->metodo('get')
             ->rota('/comercial-subempresa/select');
     })
@@ -23,7 +21,6 @@ return $Painel
         $Painel
             ->request(['usuario', 'de', 'ate', 'pagina', 'quantidade'])
             ->permissao('usuario_cliente_index')
-            ->scope('relatorio_analytics:listar')
             ->metodo('get')
             ->rota('/relatorio/analytics');
     });

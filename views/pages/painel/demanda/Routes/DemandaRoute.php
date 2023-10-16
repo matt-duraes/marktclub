@@ -76,11 +76,11 @@ Route
 
         Route
             ::nome('tarefaEditar')
-            ::request(['titulo', 'texto', 'tipo', 'minuto'])
+            ::request(['titulo', 'texto', 'tipo'])
             ::post('/demanda/tarefa-editar/{id}');
         Route
             ::nome('tarefaSalvar')
-            ::request(['demanda', 'titulo', 'texto', 'tipo', 'minuto'])
+            ::request(['demanda', 'titulo', 'texto', 'tipo'])
             ::post('/demanda/tarefa-salvar');
         Route
             ::nome('tarefaArquivo')

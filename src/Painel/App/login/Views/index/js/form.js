@@ -1,4 +1,10 @@
 window.addEventListener('load', () => {
+    const blocoLinkLocation = $('#LINK_LOCATION');
+    let linkLocation = blocoLinkLocation ? blocoLinkLocation.value : LINK;
+    if (linkLocation == '' || linkLocation == undefined || !linkLocation.startsWith(LINK)) {
+        linkLocation = LINK;
+    }
+
     const pegarCaptchaParaLogin = () => {
         const textoBotao = botaoLogin.innerText;
         if (textoBotao == 'AGUARDE') {
@@ -49,7 +55,7 @@ window.addEventListener('load', () => {
         }
 
         if (resposta.status == 201 && json.status == 'sucesso') {
-            window.location.assign(json.dado.link);
+            window.location.assign(linkLocation);
             Alerta.notificacao('Login realizado com sucesso, aguarde redirecionamento.', true);
             return;
         }

@@ -18,9 +18,15 @@ final class LoginController extends Controller
     | INDEX
     |--------------------------------------------------------------------------
     */
-    public function index()
+    public function index(Request $request)
     {
-        return view(arquivo: 'login.index');
+        $location = base64Decode($request->chave('location', ''));
+        if (empty($location) || !str_starts_with($location, LINK) || preg_match('/\/login/', $location)) {
+            $location = LINK;
+        }
+        return view(arquivo: 'login.index', var: [
+            'location' => $location
+        ]);
     }
 
     /*
@@ -66,12 +72,10 @@ final class LoginController extends Controller
         return $this->loginRealizado($Login);
     }
 
-    private function loginRealizado(LoginInterface $Login, int $status = 201): Response
+    private function loginRealizado(LoginInterface $Login): Response
     {
         new LoginAutorizadoModel(Login: $Login);
-        return mensagemSucesso([
-            'link' => (new AuthHelper())->location()
-        ], 201);
+        return mensagemSucesso(['id' => uuid()], 201);
     }
 
     /*
