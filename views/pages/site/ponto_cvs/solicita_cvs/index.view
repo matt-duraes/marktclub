@@ -1,0 +1,32 @@
+
+<!-- teste -->
+<div class="bloco_pagina_popup" id="pesquisa_satisfacao_popup">
+    <div class="conteudo_pagina_popup">
+        <div id="formulario_pesquisa" class="form_geral conteudo_popup conteudo">
+            <header>
+                <h1>Resgatar</h1>
+                <i class="fechar pagina_fechar">@iconeFechar</i>
+            </header>
+            <fieldset>
+                <h2>Nome</h2>
+                <div class="botao_input">
+                    @? formInput(name: 'nome', placeholder:'Insira o seu nome', obrigatorio: true, value: '')
+                </div>
+            </fieldset>
+            <fieldset>
+                <h2>Email</h2>
+                <div class="botao_input">
+                    @? formInput(name: 'email', placeholder:'Insira o seu E-mail',  obrigatorio: true, value: '')
+                </div>
+            </fieldset>
+            <fieldset>
+                <h2>Quantos pontos você quer trocar?</h2>
+                @? formInput(name: 'quantidade', placeholder: 'Insira a quantidade de pontos', obrigatorio: true, value: '')
+            </fieldset>
+            <div class="footer_pagina_popup" id="footer_pesquisa">
+                <button class="botao_geral_cor cor_bg" id="enviar_solicitacao"> Fazer solicitação</button>
+            </div>
+        </div>
+    </div>
+</div>
+

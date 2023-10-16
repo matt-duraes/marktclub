@@ -76,6 +76,7 @@ final class ClubeModel
                 'dependente'          => $dependente,
                 'carteira'            => $Construtor->menu_carteira->valor(),
                 'salavip'             => $Construtor->menu_salavip->valor(),
+                'ponto_mais_acao'     => $Construtor->menu_ponto_mais_acao->valor(),
                 'sair'                => $Construtor->menu_sair->valor()
             ],
             'tipo_ativacao' => $Construtor->tipo_ativacao->indice(),

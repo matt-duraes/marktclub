@@ -692,6 +692,29 @@ Route
     });
 
 Route
+    ::nome('pontoCvs')
+    ::middleware(ClubeMiddleware::class, 'buscar')
+    ::middleware(AuthMiddleware::class, 'logado')
+    ::controller(App\Controllers\Site\PontoCvsController::class)
+    ::grupo(function () {
+        Route
+            ::nome('index')
+            ::view('/ponto-cvs');
+        Route
+            ::nome('postRealizarSolicitacao')
+            ::request(['nome', 'email', 'ponto'])
+            ::post('/ponto-cvs/solicitar');
+        Route
+            ::nome('popupSolicitacao')
+            ::view('/popup/solicita-ponto-cvs');
+        Route
+            ::nome('extrato')
+            ::view('/popup/extrato-ponto-cvs');
+        // Route
+        //     ::nome('buscarMais')
+        //     ::view('/ponto-cvs/buscar-mais');
+    });
+Route
     ::nome('campanha')
     ::middleware(ClubeMiddleware::class, 'buscar')
     ::middleware(AuthMiddleware::class, 'logado')

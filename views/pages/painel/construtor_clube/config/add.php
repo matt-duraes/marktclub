@@ -133,6 +133,7 @@ $Painel->coluna(callback: function () use ($Painel) {
             $Painel->checkbox(name: 'menu_premium', label: 'Loja Premium');
             $Painel->checkbox(name: 'menu_credito_sicoob', label: 'Crédido Sicoob');
             $Painel->checkbox(name: 'menu_indicar_loja', label: 'Indicar loja');
+            $Painel->checkbox(name: 'menu_ponto_mais_acao', label: 'Ponto+ Ação');
         }
     );
 });

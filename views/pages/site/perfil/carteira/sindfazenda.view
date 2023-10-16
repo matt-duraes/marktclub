@@ -1,7 +1,6 @@
-
 <div id="carteirinha_sindfazenda">
     <div class="bloco_logo">
-        <img src="{{$dado->imagem->logo}}" height="50" />
+        <img src="{{$dado->imagem->logo_principal}}" height="50" />
     </div>
     <div class="bloco_dado_duplo">
         <div class="nome">
@@ -13,9 +12,12 @@
             <p class="titulo_dados documento">
                 {{$dado->cpf}}
             </p>
+            <p class="titulo_dados documento">
+                Associado
+            </p>
         </div>
     </div>
-    <div class="bloco_dados">
-        <p class="titulo_dados">{{$dado->endereco_estado}} </p>
+    <div class="bloco_estado">
+        <p class="titulo_dados estado">{{$dado->estado}} </p>
     </div>
 </div>

@@ -146,6 +146,8 @@
 
 <div class="mobile" id="bloco_perfil_mobile">
     <div class="categoria">PERFIL</div>
+    @view site/geral/menu/perfil_menu.view
+
 </div>
 
 <div class="linha"></div>

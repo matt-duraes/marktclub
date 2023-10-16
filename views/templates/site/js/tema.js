@@ -1,5 +1,6 @@
 window.addEventListener('load', () => {
     const botaoTema = $('#botao_tema');
+    const botaoTemaMobile = $('#botao_tema_mobile');
     if (!botaoTema) {
         return;
     }
@@ -34,6 +35,9 @@ window.addEventListener('load', () => {
     };
     const PaginaThema = new Pagina('escolher-tema', LINK + '/tema', undefined, true, true, loadingTema);
     botaoTema.addEventListener('click', () => {
+        PaginaThema.abrir();
+    });
+    botaoTemaMobile.addEventListener('click', () => {
         PaginaThema.abrir();
     });
 });

@@ -134,6 +134,7 @@ final class DadosModel extends ClubeApiHelper
             ->put('/usuario-cliente/' . $this->idUsuario)
             ->object();
         sessao('USUARIO.imagem', $imagem);
+
         return mensagemSucesso([
             'imagem' => $imagem
         ], status: 201);
@@ -153,5 +154,67 @@ final class DadosModel extends ClubeApiHelper
         );
 
         return $Social->imagem();
+    }
+
+    public function cvs($pagina = 1)
+    {
+        $buscar = $this
+            ->validar('Erro ao fazer a requisição!', status: 400)
+            ->json([
+                'pagina'     => $pagina,
+                'quantidade' => 5,
+                'cpf'        => $this->Crypt->encode(sessao('USUARIO.cpf')),
+                'ordem'      => 'mais-novo'
+            ])
+            ->get('/ponto-cvs')
+            ->object();
+        if (!empty($buscar->dado)) :
+            foreach ($buscar->dado->lista as $r) :
+                $r->usuario_nome = $this->Crypt->decode($r->usuario_nome)($r->usuario_nome);
+                $r->usuario_email = $this->Crypt->decode($r->usuario_email)($r->usuario_email);
+            endforeach;
+        endif;
+
+        return $buscar;
+    }
+
+    public function solicitarPontoCvs($dado)
+    {
+        $ponto = $dado->ponto ?? false;
+        $nome = !empty($dado->nome) ? $this->Crypt->encode($dado->nome) : false;
+        $email = !empty($dado->email) ? $this->Crypt->encode($dado->email) : false;
+        $cpf = $this->Crypt->encode(sessao('USUARIO.cpf'));
+
+        $buscar = $this
+            ->validar('Erro ao fazer a requisição!', status: 400)
+            ->body([
+                'ponto_solicitado' => $ponto,
+                'nome'             => $nome,
+                'cpf'              => $cpf,
+                'email'            => $email,
+            ])
+            ->post('/ponto-cvs')
+            ->object();
+
+        if (!$buscar) {
+            return false;
+        }
+
+        return $buscar;
+    }
+
+    public function extrato()
+    {
+        $buscar = $this
+            ->validar('Erro ao fazer a requisição!', status: 400)
+            ->json([
+                'pagina' => 1,
+                'cpf'    => $this->Crypt->encode(sessao('USUARIO.cpf')),
+                'ordem'  => 'mais-novo'
+            ])
+            ->get('/ponto-cvs')
+            ->object();
+
+        return $buscar->dado->extrato ?? [];
     }
 }
