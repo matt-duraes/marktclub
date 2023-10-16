@@ -8,7 +8,6 @@ use App\Classes\DemandaTarefa\Helper;
 use App\Classes\DemandaTarefa\Status;
 use App\Models\Api\Demanda\Trait\EquipeTrait;
 use App\Models\Api\UsuarioEquipe\PerfilModel;
-use App\Classes\DemandaDado\Status as DemandaDadoStatus;
 
 final class TarefaModel extends ORM
 {
@@ -57,40 +56,5 @@ final class TarefaModel extends ORM
             ]);
         }
         return $retorno;
-    }
-
-    public function verificarSeTodasAsTarefasEstaoConcluidas(): bool
-    {
-        $dado = $this->campo(['status'])->where(['id_demanda_dado', $this->Demanda->get('id')])->read();
-        if (!$dado) {
-            return false;
-        }
-        $Status = new Status();
-        foreach ($dado as $r) {
-            if ($Status->indice($r->status) == 'concluida') {
-                continue;
-            }
-            return false;
-        }
-        return true;
-    }
-
-    public function verificarSePodeConcluirTarefa()
-    {
-        $dado = $this->campo(['like'])->where(['id_demanda_dado', $this->Demanda->get('id')])->read();
-
-        if (!$dado) {
-            return;
-        }
-        $dono = $this->Demanda->id_usuario_equipe;
-        foreach ($dado as $r) {
-            $like = jsonDecode($r->like, true, true);
-            if (count($like) < 2 || !in_array($dono, $like)) {
-                return;
-            }
-        }
-
-        $this->Demanda->status = new DemandaDadoStatus('concluida');
-        $this->Demanda->salvar();
     }
 }

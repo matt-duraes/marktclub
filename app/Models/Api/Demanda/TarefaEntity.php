@@ -4,12 +4,12 @@ namespace App\Models\Api\Demanda;
 
 use ORM\Entity;
 use Modules\DataHora;
+use Helpers\OrmHelper;
 use App\Classes\DemandaTarefa\Tipo;
 use App\Classes\DemandaTarefa\Status;
 use System\Classes\PainelHistorico\Acao;
 use ApiModel\PainelHistorico\HistoricoEntity;
 use App\Models\Api\UsuarioEquipe\PerfilModel;
-use App\Models\Api\UsuarioEquipe\EquipeEntity;
 use App\Classes\DemandaDado\Status as DemandaDadoStatus;
 
 final class TarefaEntity extends Entity
@@ -17,7 +17,7 @@ final class TarefaEntity extends Entity
     protected string $ormTabela = TABELA_DEMANDA_TAREFA;
     protected array $ormBuscar = [
         'minuto_producao_estimada', 'titulo', 'texto', 'status', 'tipo', 'id_usuario_equipe', 'minuto_producao_real',
-        'data_producao_inicio', 'data_producao_final', 'id_demanda_dado', 'like'
+        'data_producao_inicio', 'data_producao_final', 'id_demanda_dado', 'like', 'data_criacao'
     ];
     protected array $ormInsert = [
         'id_demanda_dado'
@@ -38,30 +38,25 @@ final class TarefaEntity extends Entity
     public DataHora $data_producao_inicio;
     public DataHora $data_producao_final;
     public int $minuto_producao_real;
-    private DemandaEntity $Demanda;
     protected array $like;
     public array $teste;
+    private OrmHelper $OrmEquipe;
 
     public function __construct(
         private ?string $demanda = null,
         public ?string $titulo = null,
         public ?string $texto = null,
         public ?Tipo $tipo = null,
-        public ?int $minuto_producao_estimada = null,
-        public null|string|EquipeEntity $equipe = null
+        public ?string $equipe = null
     ) {
         parent::__construct();
+        $this->OrmEquipe = new OrmHelper(TABELA_USUARIO_EQUIPE);
     }
 
     protected function regraPosBuscar()
     {
-        $this->pegarDemanda($this->id_demanda_dado);
         if (!empty($this->id_usuario_equipe)) {
-            $this->pegarUsuarioEquipe($this->id_usuario_equipe);
-        }
-        if (!empty($this->like)) {
-            $Perfil = new PerfilModel();
-            $this->teste[] = $Perfil->pegarLista($this->like);
+            $this->equipe = $this->OrmEquipe->pegarUuidPeloId($this->id_usuario_equipe);
         }
     }
 
@@ -72,14 +67,11 @@ final class TarefaEntity extends Entity
     */
     protected function regraInsert()
     {
-        $this->pegarDemanda($this->demanda);
-
-        $this->id_demanda_dado = $this->Demanda->get('id');
-        $this->status = new Status(1);
+        $this->id_demanda_dado = (new OrmHelper(TABELA_DEMANDA_DADO))->pegarIdPeloUuid($this->demanda);
+        $this->status = new Status(Status::AGUARDANDO);
         $this->minuto_producao_real = 0;
         if (!empty($this->equipe)) {
-            $this->pegarUsuarioEquipe($this->equipe);
-            $this->id_usuario_equipe = $this->equipe->get('id');
+            $this->id_usuario_equipe = $this->OrmEquipe->pegarIdPeloUuid($this->equipe);
         }
     }
 
@@ -98,54 +90,21 @@ final class TarefaEntity extends Entity
         }
     }
 
-    protected function regraPosUpdate()
-    {
-        if ($this->status->indice() == 'andamento') {
-            $this->Demanda->status = new DemandaDadoStatus('andamento');
-            $this->Demanda->salvar();
-        } elseif (
-            $this->status->indice() == 'concluida' &&
-            (new TarefaModel($this->Demanda))->verificarSeTodasAsTarefasEstaoConcluidas()
-        ) {
-            $this->Demanda->status = new DemandaDadoStatus('teste');
-            $this->Demanda->salvar();
-        }
-    }
-
     /*
     |--------------------------------------------------------------------------
     | DEMAIS MÉTODOS
     |--------------------------------------------------------------------------
     */
-    private function pegarDemanda($id)
-    {
-        try {
-            $Demanda = new DemandaEntity();
-            if (is_int($id)) {
-                $Demanda->id($id);
-            } else {
-                $Demanda->uuid($id);
-            }
-            $this->Demanda = $Demanda;
-        } catch (\Throwable) {
-            mensagemErro('Erro!', 'Não foi encontrado nenhuma demanda pelo id enviado.', status: 404);
-        }
-    }
-
-    private function pegarUsuarioEquipe($id)
-    {
-        try {
-            $Equipe = new EquipeEntity(validarToken: false);
-            is_int($id) ? $Equipe->id($id) : $Equipe->uuid($id);
-            $this->equipe = $Equipe;
-        } catch (\Throwable) {
-            mensagemErro('Erro!', 'Não foi encontrado nenhum usuário pelo id enviado.', status: 404);
-        }
-    }
-
     public function getId()
     {
         return $this->prop('id');
+    }
+
+    private function pegarDemanda()
+    {
+        $Demanda = new DemandaEntity();
+        $Demanda->id($this->id_demanda_dado);
+        return $Demanda;
     }
 
     public function like()
@@ -156,8 +115,6 @@ final class TarefaEntity extends Entity
         }
         $this->like[] = $id;
         $this->salvar();
-        $Tarefa = new TarefaModel($this->Demanda);
-        $Tarefa->verificarSePodeConcluirTarefa();
     }
 
     public function deslike(string $motivo)
@@ -166,21 +123,22 @@ final class TarefaEntity extends Entity
         $this->like = [];
         $this->salvar();
 
-        $this->Demanda->status = new DemandaDadoStatus('andamento');
-        $this->Demanda->salvar();
+        $Demanda = $this->pegarDemanda();
+        $Demanda->status = new DemandaDadoStatus('andamento');
+        $Demanda->salvar();
 
         $Perfil = new PerfilModel();
         $usuario = $Perfil->pegarDado($this->id_usuario_equipe);
 
         $Historico = new HistoricoEntity();
         $Historico->mensagem = 'Tarefa recusada: ' . $this->titulo . '<br>' . $motivo;
-        $Historico->relacionado = [$this->Demanda->id];
+        $Historico->relacionado = [$Demanda->id];
         $Historico->app = ['demanda_dado'];
         $Historico->acao = new Acao('mensagem');
         $Historico->notificar_equipe = [$usuario['id']];
         $Historico->notificar_titulo = 'Recusou sua tarefa, acesse a demanda para verificar o motivo.';
         $Historico->notificar_link = LINK_PAINEL . '/demanda/'
-            . $this->Demanda->area->indice() . '#demanda-' . $this->Demanda->id;
+            . $Demanda->area->indice() . '#demanda-' . $Demanda->id;
         $Historico->salvar();
     }
 }

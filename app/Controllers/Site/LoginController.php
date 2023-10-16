@@ -22,13 +22,8 @@ final class LoginController extends Controller
             return new Response(url: LINK_LOGIN);
         }
 
-        $location = base64Decode($request->chave('location', ''));
-        if (empty($location) || !str_starts_with($location, LINK) || preg_match('/\/login/', $location)) {
-            $location = LINK;
-        }
-
         return view('login.index', [
-            'location' => $location
+            'location' => base64Decode($request->chave('location', ''), true)
         ]);
     }
 

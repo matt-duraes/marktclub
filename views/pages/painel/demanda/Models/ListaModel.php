@@ -4,12 +4,11 @@ namespace Painel\Demanda\Models;
 
 use Helpers\ApiHelper;
 use App\Classes\DemandaDado\Status;
-use App\Classes\DemandaTarefa\Status as DemandaTarefaStatus;
-use App\Classes\DemandaTarefa\Tipo;
-use PainelModel\Perfil\Equipe;
 
 final class ListaModel
 {
+    use TarefaTrait;
+
     private ApiHelper $Api;
 
     public function __construct()
@@ -83,7 +82,7 @@ final class ListaModel
 
     public function buscarDemanda($area, $status)
     {
-        return $this->Api
+        $dado = $this->Api
             ->json([
                 'status' => $status,
                 'area'   => $area,
@@ -91,6 +90,23 @@ final class ListaModel
             ])
             ->get('/demanda-dado')
             ->object()->dado ?? [];
+
+        return $this->montarDemanda($dado);
+    }
+
+    private function montarDemanda($dado): array
+    {
+        $retorno = [];
+        foreach ($dado as $r) {
+            $retorno[] = [
+                'id'           => $r->id,
+                'titulo'       => $r->titulo,
+                'data_criacao' => dataBr($r->data_criacao),
+                'data_entrega' => dataBr($r->data_entrega),
+                'status'       => $r->status
+            ];
+        }
+        return $retorno;
     }
 
     public function buscarTarefa($demanda): array
@@ -103,27 +119,5 @@ final class ListaModel
             ->get('/demanda-tarefa')
             ->object()->dado ?? [];
         return $this->montarTarefa($tarefa);
-    }
-
-    private function montarTarefa($tarefa): array
-    {
-        $retorno = [];
-        $Status = new DemandaTarefaStatus();
-        $Tipo = new Tipo();
-        $Equipe = new Equipe();
-        foreach ($tarefa as $r) {
-            $retorno[] = (object)[
-                'id'          => $r->id,
-                'equipe'      => $Equipe->unico($r->equipe),
-                'dono'        => $r->equipe == sessao('USUARIO.id'),
-                'titulo'      => $r->titulo,
-                'texto'       => $r->texto,
-                'tipo'        => $Tipo->nome($r->tipo),
-                'data_inicio' => dataBr($r->data_producao_inicio),
-                'data_final'  => dataBr($r->data_producao_final),
-                'status'      => $Status->nome($r->status)
-            ];
-        }
-        return $retorno;
     }
 }

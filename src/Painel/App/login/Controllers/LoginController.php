@@ -20,12 +20,8 @@ final class LoginController extends Controller
     */
     public function index(Request $request)
     {
-        $location = base64Decode($request->chave('location', ''));
-        if (empty($location) || !str_starts_with($location, LINK) || preg_match('/\/login/', $location)) {
-            $location = LINK;
-        }
         return view(arquivo: 'login.index', var: [
-            'location' => $location
+            'location' => base64Decode($request->chave('location', ''), true)
         ]);
     }
 

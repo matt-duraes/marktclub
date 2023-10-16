@@ -1650,7 +1650,7 @@ Route
             ::nome('atualizar')
             ::middleware(TokenMiddleware::class, 'scope', ['demanda_tarefa:atualizar'])
             ::request([
-                'titulo', 'texto', 'tipo', 'minuto_producao_estimada'
+                'titulo', '!texto', '!tipo', '!minuto_producao_estimada'
             ])
             ::put('/demanda-tarefa/{id}');
 
