@@ -977,7 +977,7 @@ Route
             ::nome('listar')
             ::middleware(TokenMiddleware::class, 'scope', ['parceiro_cupom:listar'])
             ::request([
-                'pagina', '!quantidade', '!ordem', '!empresa', '!status', '!pesquisa', "!categoria"
+                'pagina', '!quantidade', '!ordem', '!pesquisa',
             ], 'json')
             ::get('/parceiro-cupom');
         Route
@@ -991,10 +991,6 @@ Route
                 '!status', '!auditado'
             ])
             ::put('/parceiro-cupom/{id}');
-        Route
-            ::nome('deletar')
-            ::middleware(TokenMiddleware::class, 'scope', ['parceiro_cupom:atualizar'])
-            ::delete('/parceiro-cupom/{id}');
     });
 
 Route
