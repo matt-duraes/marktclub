@@ -408,9 +408,9 @@ a
     z-index: 3
     .dado i
         fill: $corPretoBranco
-    .dado .email_contato_footer
+    .dado .texto_footer
         font-size: 1.6rem
-        max-width: 86%
+        width: calc( 100% - 40px )
         text-align: justify
         word-wrap: break-word
         padding-left: 1px
@@ -483,3 +483,7 @@ a
             max-width: 230px
             margin: 10px 0
             justify-content: center
+
+@media screen and (max-width: 425px)
+    #rodape_principal .texto
+        margin-bottom: 20px
