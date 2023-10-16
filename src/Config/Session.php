@@ -32,8 +32,8 @@ final class Session
 
         $__SESSION_SAMESITE = env('SESSION_SAMESITE', 'Strict');
         $option = eLocalhost() ? [] : [
-            'cookie_secure'   => eLocalhost() ? false : true,
-            'cookie_httponly' => eLocalhost() ? false : true,
+            'cookie_secure'   => true,
+            'cookie_httponly' => true,
             'cookie_path'     => '/',
             'cookie_samesite' => $__SESSION_SAMESITE
         ];
