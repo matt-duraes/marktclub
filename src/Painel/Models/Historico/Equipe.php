@@ -2,53 +2,26 @@
 
 namespace PainelModel\Historico;
 
-use Helpers\ApiHelper;
-use Helpers\CryptHelper;
-
 final class Equipe
 {
-    private array $equipe = [];
-
     public function pegarListaEquipe()
     {
-        $lista = $this->buscarEquipeApi();
-        if (!object_key_exists('dado', $lista)) {
-            return [];
-        }
-        $this->montarDadoEquipe($lista);
-
-        $paginaTotal = $lista->dado->pagina->total;
-        if ($paginaTotal > 1) {
-            for ($i = 2; $i <= $paginaTotal; $i++) {
-                $this->montarDadoEquipe($this->buscarEquipeApi($i));
-            }
-        }
-        return $this->equipe;
-    }
-
-    private function buscarEquipeApi(int $pagina = 1)
-    {
         $Api = new \Helpers\ApiHelper(token: true);
-        return $Api->json([
-            'pagina' => $pagina
-        ])->get('/usuario-equipe')->object();
+        $dado = $Api->get('/usuario-equipe/perfil')->object()->dado ?? [];
+        return $this->montarDadoEquipe($dado);
     }
 
     private function montarDadoEquipe($lista)
     {
-        if (!object_key_exists('dado', $lista)) {
-            return;
-        }
-
-        $chave = (new ApiHelper('admin:chave_privada'))->get('/admin/chave-privada')->object()->dado->chave ?? '';
-        $Crypt = new CryptHelper(chavePrivada: $chave);
-        foreach ($lista->dado->lista as $r) {
-            $this->equipe[] = object([
+        $retorno = [];
+        foreach ($lista as $r) {
+            $retorno[] = object([
                 'id'     => $r->id,
-                'perfil' => $Crypt->decode($r->perfil),
-                'nome'   => $Crypt->decode($r->nome),
-                'imagem' => $Crypt->decode($r->imagem)
+                'perfil' => $r->perfil,
+                'nome'   => $r->nome,
+                'imagem' => $r->imagem
             ]);
         }
+        return $retorno;
     }
 }

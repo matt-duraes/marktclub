@@ -74,7 +74,7 @@ final class ListaModel
             ],
             [
                 'titulo' => 'Concluída',
-                'classe' => '',
+                'classe' => 'drag',
                 'status' => Status::CONCLUIDA
             ],
         ];

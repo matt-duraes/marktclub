@@ -2,10 +2,10 @@
 
 namespace App\Controllers\Api;
 
-use App\Classes\ComunicacaoContato\Ordem;
-use App\Classes\ComunicacaoContato\Status;
-use App\Models\Api\ComunicacaoContato\ComunicacaoContatoEntity;
-use App\Models\Api\ComunicacaoContato\ComunicacaoContatoModel;
+use App\Classes\SolicitacaoContato\Ordem;
+use App\Classes\SolicitacaoContato\Status;
+use App\Models\Api\SolicitacaoContato\SolicitacaoContatoEntity;
+use App\Models\Api\SolicitacaoContato\SolicitacaoContatoModel;
 use Controller\Controller;
 use Erro\Excecao;
 use Http\Request;
@@ -18,7 +18,7 @@ use System\Interface\ControllerBuscarInterface;
 use System\Interface\ControllerListarInterface;
 use System\Interface\ControllerSalvarInterface;
 
-class ComunicacaoContatoController extends Controller implements
+class SolicitacaoContatoController extends Controller implements
     ControllerBuscarInterface,
     ControllerListarInterface,
     ControllerSalvarInterface,
@@ -32,19 +32,19 @@ class ComunicacaoContatoController extends Controller implements
      */
     public function getBuscar(string $id): Response
     {
-        $Contato = new ComunicacaoContatoEntity();
+        $Contato = new SolicitacaoContatoEntity();
         $Contato->uuid($id);
         return $this->retornoSucesso($Contato);
     }
 
     /**
-     * @param ComunicacaoContatoEntity $contatoEntity
+     * @param SolicitacaoContatoEntity $contatoEntity
      * @param int                      $status
      *
      * @return Response
      * @throws Excecao
      */
-    private function retornoSucesso(ComunicacaoContatoEntity $contatoEntity, int $status = 200): Response
+    private function retornoSucesso(SolicitacaoContatoEntity $contatoEntity, int $status = 200): Response
     {
         return mensagemSucesso(
             pegarPropriedadeDaEntity($contatoEntity, lista: [
@@ -63,7 +63,7 @@ class ComunicacaoContatoController extends Controller implements
      */
     public function getListar(Request $request): Response
     {
-        $Contato = new ComunicacaoContatoModel(
+        $Contato = new SolicitacaoContatoModel(
             new Pagina($request->pagina),
             new Quantidade($request->quantidade),
             new Ordem($request->ordem),
@@ -84,7 +84,7 @@ class ComunicacaoContatoController extends Controller implements
      */
     public function postSalvar(Request $request): Response
     {
-        $Contato = new ComunicacaoContatoEntity();
+        $Contato = new SolicitacaoContatoEntity();
         $Contato->set(lista: $request->dado());
         $Contato->salvar();
         return $this->retornoSucesso($Contato, 201);
@@ -99,7 +99,7 @@ class ComunicacaoContatoController extends Controller implements
      */
     public function putAtualizar(Request $request, string $id): Response
     {
-        $Contato = new ComunicacaoContatoEntity();
+        $Contato = new SolicitacaoContatoEntity();
         $Contato->uuid($id);
         $Contato->set(lista: $request->dado());
         $Contato->salvar();

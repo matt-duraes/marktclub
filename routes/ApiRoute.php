@@ -977,7 +977,7 @@ Route
             ::nome('listar')
             ::middleware(TokenMiddleware::class, 'scope', ['parceiro_cupom:listar'])
             ::request([
-                'pagina', '!quantidade', '!ordem', '!empresa', '!status', '!pesquisa', "!categoria"
+                'pagina', '!quantidade', '!ordem', '!pesquisa',
             ], 'json')
             ::get('/parceiro-cupom');
         Route
@@ -991,10 +991,6 @@ Route
                 '!status', '!auditado'
             ])
             ::put('/parceiro-cupom/{id}');
-        Route
-            ::nome('deletar')
-            ::middleware(TokenMiddleware::class, 'scope', ['parceiro_cupom:atualizar'])
-            ::delete('/parceiro-cupom/{id}');
     });
 
 Route
@@ -1217,7 +1213,7 @@ Route
             ::request(['categoria', 'subcategoria', 'quantidade'], 'json')
             ::get('/parceiro-loja/destaque');
 
-            Route
+        Route
             ::nome('relacionado')
             ::middleware(TokenMiddleware::class, 'scope', ['parceiro_loja:relacionado'])
             ::get('/parceiro-loja/relacionado/{id}');
@@ -2000,39 +1996,39 @@ Route
     });
 
 Route
-    ::nome('comunicacao_contato')
-    ::controller(App\Controllers\Api\ComunicacaoContatoController::class)
+    ::nome('solicitacao_contato')
+    ::controller(App\Controllers\Api\SolicitacaoContatoController::class)
     ::middleware(TokenMiddleware::class, 'token')
     ::grupo(function () {
         Route
             ::nome('buscar')
-            ::middleware(TokenMiddleware::class, 'scope', ['comunicacao_contato:buscar'])
-            ::get('/comunicacao-contato/{id}');
+            ::middleware(TokenMiddleware::class, 'scope', ['solicitacao_contato:buscar'])
+            ::get('/solicitacao-contato/{id}');
 
         Route
             ::nome('listar')
-            ::middleware(TokenMiddleware::class, 'scope', ['comunicacao_contato:listar'])
+            ::middleware(TokenMiddleware::class, 'scope', ['solicitacao_contato:listar'])
             ::request([
                 'pagina', '!quantidade', '!ordem', '!nome', '!empresa',
                 '!data_inicio', '!data_final', '!status'
             ], 'json')
-            ::get('/comunicacao-contato');
+            ::get('/solicitacao-contato');
 
         Route
             ::nome('salvar')
-            ::middleware(TokenMiddleware::class, 'scope', ['comunicacao_contato:salvar'])
+            ::middleware(TokenMiddleware::class, 'scope', ['solicitacao_contato:salvar'])
             ::request([
                 'nome', 'email', 'telefone', 'mensagem', 'url'
             ])
-            ::post('/comunicacao-contato');
+            ::post('/solicitacao-contato');
 
         Route
             ::nome('atualizar')
-            ::middleware(TokenMiddleware::class, 'scope', ['comunicacao_contato:atualizar'])
+            ::middleware(TokenMiddleware::class, 'scope', ['solicitacao_contato:atualizar'])
             ::request([
                 '!status'
             ])
-            ::put('/comunicacao-contato/{id}');
+            ::put('/solicitacao-contato/{id}');
     });
 
 Route

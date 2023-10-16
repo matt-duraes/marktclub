@@ -1,8 +1,8 @@
 <?php
 
-use App\Classes\ComunicacaoContato\Status;
+use App\Classes\SolicitacaoContato\Status;
 
-$Painel = new PainelConfig\Visualizar('comunicacao_contato');
+$Painel = new PainelConfig\Visualizar('solicitacao_contato');
 
 $Painel->coluna(callback: function () use ($Painel) {
     $Painel->bloco('Empresa', callback: function () use ($Painel) {
