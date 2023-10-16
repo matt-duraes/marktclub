@@ -410,26 +410,33 @@ Route
     ::criptografia(App\Classes\UsuarioIndicacao\Helper::CRIPTOGRAFAR)
     ::grupo(function () {
         Route
-            ::nome('salvar')
-            ::middleware(TokenMiddleware::class, 'scope', ['usuario_indicacao:salvar'])
-            ::request(['usuario', 'nome', 'email', 'telefone'])
-            ::post('/usuario-indicacao');
-
-        Route
-            ::nome('listar')
-            ::middleware(TokenMiddleware::class, 'scope', ['usuario_indicacao:listar'])
-            ::request(['pagina', '!pesquisa', '!nome', '!email', '!status', '!ordem'], 'json')
-            ::get('/usuario-indicacao');
-
-        Route
             ::nome('buscar')
             ::middleware(TokenMiddleware::class, 'scope', ['usuario_indicacao:buscar'])
             ::get('/usuario-indicacao/{id}');
 
         Route
+            ::nome('listar')
+            ::middleware(TokenMiddleware::class, 'scope', ['usuario_indicacao:listar'])
+            ::request([
+                'pagina', '!quantidade', '!ordem', '!pesquisa',
+                '!nome', '!email', '!status'
+            ], 'json')
+            ::get('/usuario-indicacao');
+
+        Route
+            ::nome('salvar')
+            ::middleware(TokenMiddleware::class, 'scope', ['usuario_indicacao:salvar'])
+            ::request([
+                'usuario', 'nome', 'email', 'telefone'
+            ])
+            ::post('/usuario-indicacao');
+
+        Route
             ::nome('atualizar')
             ::middleware(TokenMiddleware::class, 'scope', ['usuario_indicacao:atualizar'])
-            ::request(['status'])
+            ::request([
+                '!status'
+            ])
             ::put('/usuario-indicacao/{id}');
 
         Route
@@ -1717,6 +1724,40 @@ Route
             ::nome('buscar')
             ::middleware(TokenMiddleware::class, 'scope', ['carteirinha:buscar'])
             ::get('/carteirinha/{id}');
+
+        Route
+            ::nome('listar')
+            ::middleware(TokenMiddleware::class, 'scope', ['carteirinha:listar'])
+            ::request([
+                'pagina', '!quantidade', '!ordem', '!empresa', '!status'
+            ], 'json')
+            ::get('/carteirinha');
+
+        Route
+            ::nome('salvar')
+            ::middleware(TokenMiddleware::class, 'scope', ['carteirinha:salvar'])
+            ::request([
+                '!texto', '!texto_perdido', 'bg_frente', 'bg_fundo'
+            ])
+            ::post('/carteirinha');
+
+        Route
+            ::nome('atualizar')
+            ::middleware(TokenMiddleware::class, 'scope', ['carteirinha:atualizar'])
+            ::request([
+                '!texto', '!texto_perdido', '!bg_frente', '!bg_fundo', '!status'
+            ])
+            ::put('/carteirinha/{id}');
+
+        Route
+            ::nome('deletar')
+            ::middleware(TokenMiddleware::class, 'scope', ['carteirinha:deletar'])
+            ::delete('/carteirinha/{id}');
+
+        Route
+            ::nome('carteirinha')
+            ::middleware(TokenMiddleware::class, 'scope', ['carteirinha:carteirinha'])
+            ::get('/usuario-carteirinha/{id}');
     });
 
 Route

@@ -184,6 +184,13 @@ return [
                 'titulo' => 'Comercial Regra de Negócio',
                 'acao'   => ['index', 'add', 'visualizar', 'editar', 'deletar']
             ],
+            'carteirinha'              => [
+                'titulo'    => 'Carteirinha',
+                'acao'      => ['index', 'add', 'editar', 'deletar', 'status', 'empresa'],
+                'permissao' => [
+                    'carteirinha_empresa' => 'Todas as empresas'
+                ]
+            ],
             'demanda'                  => [
                 'titulo'    => 'Demanda',
                 'permissao' => [
