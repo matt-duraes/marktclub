@@ -1,0 +1,1 @@
+{"id":"id_31a179ed896e8321e9f1db588cf54ead","token":"painel","metodo":"DELETE","nome":"\/carteirinha\/:id","uri":"{{LINK}}\/carteirinha\/$CARTEIRINHA_ID","parametro":[],"body":[],"header":[],"variavel":[],"json":[],"documentacao":{"status":false,"descricao":"","requisicao":"","resposta":"","scope":""}}
