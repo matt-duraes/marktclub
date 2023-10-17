@@ -630,7 +630,7 @@ Route
             ::view('/enquete-popup/{id}');
         Route
             ::nome('abrirModalPopupImagem')
-            ::view('/enquete-imagem/{id}');
+            ::view('/enquete-imagem');
         Route
             ::nome('ajuda')
             ::get('/ajuda');

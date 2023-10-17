@@ -9,6 +9,7 @@ use App\Classes\ParceiroLoja\Ordem;
 use App\Models\Site\Saude\HomeModel;
 use App\Models\Site\Loja\FiltroModel;
 use App\Models\Site\Loja\ListarModel;
+use App\Models\Site\Popup\PopupModel;
 use App\Models\Site\Comunicacao\BannerModel;
 
 final class IndexController extends Controller

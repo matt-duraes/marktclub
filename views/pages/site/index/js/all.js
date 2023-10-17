@@ -75,4 +75,12 @@ window.addEventListener('load', () => {
         });
         bloco.insertAdjacentHTML('beforeend', `<div class="article_fake"></div><div class="article_fake"></div>`);
     };
+
+    /** POPUP DE PROMOÇÕES */
+    const popupAcao = () => {
+        console.log('fazer algo');
+    };
+    const PaginaPopup = new Pagina('Popup', LINK + '/enquete-imagem', undefined, true, true, popupAcao);
+
+    PaginaPopup.abrir();
 });
