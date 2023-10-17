@@ -7,6 +7,7 @@ use App\Classes\Carteirinha\Status;
 use App\Controllers\Api\Trait\ClienteTrait;
 use App\Models\Api\Carteirinha\CarteirinhaEntity;
 use App\Models\Api\Carteirinha\CarteirinhaModel;
+use App\Models\Api\UsuarioCliente\PegarCarteirinhaModel;
 use Controller\Controller;
 use Erro\Excecao;
 use Http\Request;
@@ -36,8 +37,7 @@ class CarteirinhaController extends Controller implements
      */
     public function getCarteirinha(string $id): Response
     {
-        $ClienteEntity = $this->pegarCliente($id, true);
-        return mensagemSucesso((new CarteirinhaModel())->gerarCarteirinha($ClienteEntity));
+        return mensagemSucesso((new PegarCarteirinhaModel($id))->gerarCarteirinha());
     }
 
     /**
@@ -49,7 +49,7 @@ class CarteirinhaController extends Controller implements
     public function getBuscar(string $id): Response
     {
         $CarteirinhaEntity = new CarteirinhaEntity();
-        $CarteirinhaEntity->uuid($id);
+        $CarteirinhaEntity->uuid($id, mensagem: 'Modelo de carteirinha não encontrado ou inexistente');
         return $this->retornoSucesso($CarteirinhaEntity);
     }
 
@@ -64,8 +64,8 @@ class CarteirinhaController extends Controller implements
     {
         return mensagemSucesso(
             pegarPropriedadeDaEntity($carteirinhaEntity, lista: [
-                'empresa', 'uuid', 'texto', 'texto_perdido', 'bg_frente',
-                'bg_fundo', 'status', 'data_criacao', 'data_atualizacao'
+                'empresa', 'uuid', 'bg_frente', 'bg_fundo',
+                'status', 'data_criacao', 'data_atualizacao'
             ]),
             $status
         );
@@ -113,7 +113,7 @@ class CarteirinhaController extends Controller implements
     public function putAtualizar(Request $request, string $id): Response
     {
         $CarteirinhaEntity = new CarteirinhaEntity();
-        $CarteirinhaEntity->uuid($id);
+        $CarteirinhaEntity->uuid($id, mensagem: 'Modelo de carteirinha não encontrado ou inexistente');
         $CarteirinhaEntity->set(lista: $request->dado());
         $CarteirinhaEntity->salvar();
         return new Response(status: 204);
@@ -128,7 +128,7 @@ class CarteirinhaController extends Controller implements
     public function deleteDeletar(string $id): Response
     {
         $CarteirinhaEntity = new CarteirinhaEntity();
-        $CarteirinhaEntity->uuid($id);
+        $CarteirinhaEntity->uuid($id, mensagem: 'Modelo de carteirinha não encontrado ou inexistente');
         $CarteirinhaEntity->destruir();
         return new Response(status: 204);
     }
