@@ -1,21 +1,14 @@
 @CSS
-@php $logo = defined('CLUBE_LOGO_PRINCIPAL');
 <div id="bloco_carteirinha">
-    @if (CLUBE_ID == '61df17919405cf68f723510ec3af4acd')
-        <div class="bloco_frente" style="background-image: url('{{LINK}}/images/site/frente_sinpoldf.png'); background-size: 100% 100%;">
+    <div class="bloco_frente" style="background-image: url({{$dado->imagem->bg_frente}})">
+        @if (defined(CLUBE_ID) == '61df17919405cf68f723510ec3af4acd'):
             @view site/perfil/carteira/sinpoldf.view
-        </div>
-    @else
-        <div class="bloco_frente">
-            @if(defined('CLUBE_ID') == '2affb17c25aa6f614852b20e0b3cf74f'):
-                @view site/perfil/carteira/sindfazenda.view
-            @elseif(defined('CLUBE_ID') == 'ea964013e0feec5b5f52bc8a94fe7574'):
-                @view site/perfil/carteira/cemecard.view
-            @else
-                <h1>teste</h1>
-                @view site/perfil/carteira/padrao.view
-            @endif
-        </div>
-    @endif
+        @elseif(defined('CLUBE_ID') == '2affb17c25aa6f614852b20e0b3cf74f'):
+            @view site/perfil/carteira/sindfazenda.view
+        @elseif(defined('CLUBE_ID') == 'ea964013e0feec5b5f52bc8a94fe7574'):
+            @view site/perfil/carteira/cemecard.view
+        @else
+            @view site/perfil/carteira/padrao.view
+        @endif
+    </div>
 </div>
-

@@ -1,6 +1,6 @@
 <?php
 
-$permissao = json_encode([
+$permissao = [
     'usuario_cliente_index', 'usuario_cliente_add', 'usuario_cliente_editar',
     'usuario_cliente_apple', 'usuario_cliente_deletar', 'usuario_cliente_download',
     'usuario_cliente_empresa', 'usuario_cliente_analytics', 'usuario_cliente_visualizar',
@@ -31,14 +31,16 @@ $permissao = json_encode([
 
     'parceiro_easylive_index', 'parceiro_easylive_add', 'parceiro_easylive_editar', 'parceiro_easylive_deletar',
 
+    'parceiro_cupom_index', 'parceiro_cupom_status',
+
     'parceiro_automovel_index', 'parceiro_automovel_add', 'parceiro_automovel_editar', 'parceiro_automovel_deletar',
     'parceiro_automovel_visualizar',
 
     'comunicacao_publicidade_index', 'comunicacao_publicidade_add', 'comunicacao_publicidade_editar',
     'comunicacao_publicidade_deletar',
 
-    'comunicacao_contato_index', 'comunicacao_contato_visualizar', 'comunicacao_contato_status',
-    'comunicacao_contato_empresa',
+    'solicitacao_contato_index', 'solicitacao_contato_visualizar', 'solicitacao_contato_status',
+    'solicitacao_contato_empresa',
 
     'comunicacao_popup_index', 'comunicacao_popup_add', 'comunicacao_popup_editar',
     'comunicacao_popup_deletar', 'comunicacao_popup_status', 'comunicacao_popup_empresa',
@@ -94,10 +96,13 @@ $permissao = json_encode([
 
     'comercial_atendimento_index',
 
+    'carteirinha_index', 'carteirinha_add', 'carteirinha_editar', 'carteirinha_deletar',
+    'carteirinha_status', 'carteirinha_empresa',
+
     'demanda_tecnologia', 'demanda_criacao',
 
     'log_erro_index', 'log_erro_visualizar', 'log_erro_status'
-]);
+];
 
 return [
     [

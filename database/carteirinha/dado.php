@@ -10,9 +10,7 @@ for ($i = 0; $i < env('QTD_SEEDS', 50); $i++) {
         'id_admin_empresa' => numeroAleatorio(1, 50),
         'bg_frente'        => 'card_bg_asagu.png',
         'bg_fundo'         => 'asagu_catao.png',
-        'texto'            => "Texto $i",
-        'texto_perdido'    => "Perdido $i",
-        'status'           => 1,
+        'status'           => valorAleatorio($listaStatus)
     ];
 }
 return $seeds;

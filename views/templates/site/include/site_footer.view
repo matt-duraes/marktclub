@@ -9,32 +9,32 @@
         @ if( !empty(CONTATO_TELEFONE) ):
         <a class="dado mobile" href="tel:{{soNumero(CONTATO_TELEFONE)}}">
             <i>@iconeTelefoneLoja</i>
-            {{CONTATO_TELEFONE}}
+            <p class="texto_footer">{{CONTATO_TELEFONE}}</p>
         </a>
         <div class="dado desktop">
             <i>@iconeTelefoneLoja</i>
-            {{CONTATO_TELEFONE}}
+            <p class="texto_footer">{{CONTATO_TELEFONE}}</p>
         </div>
         @ endif;
 
         @ if( !empty(CONTATO_WHATSAPP) ):
         <a class="dado" href="https://wa.me/55{{soNumero(CONTATO_WHATSAPP)}}" target="_blank" rel="noopener noreferer">
             <i>@iconeWhatsapp(19)</i>
-            {{CONTATO_WHATSAPP}}
+            <p class="texto_footer">{{CONTATO_WHATSAPP}}</p>
         </a>
         @ endif;
 
         @ if( !empty(CONTATO_EMAIL) ):
         <div class="dado">
             <i>@iconeEmail(15)</i>
-            {{CONTATO_EMAIL}}
+            <p class="texto_footer">{{CONTATO_EMAIL}}</p>
         </div>
         @ endif;
 
         @ if( !empty(CONTATO_HORARIO) ):
         <div class="dado">
             <i>@iconeCalendario</i>
-            {{CONTATO_HORARIO}}
+            <p class="texto_footer">{{CONTATO_HORARIO}}</p>
         </div>
         @ endif;
     </section>
@@ -46,20 +46,20 @@
         </header>
         <a class="dado" id="botao_abrir_ajuda">
             <i>@iconeFaleConosco(20)</i>
-            Fale Conosco
+            <p class="texto_footer">Fale Conosco</p>
         </a>
 
         @ if( MENU_INDICAR_USUARIO ):
         <a class="dado" href="@route(site.indiqueAmigo)">
             <i>@iconeIndiqueAmigoOutline(20)</i>
-            Indicar um amigo
+            <p class="texto_footer">Indicar um amigo</p>
         </a>
         @ endif;
 
         @ if( MENU_INDICAR_LOJA ):
         <a class="dado botao_indicar_loja">
             <i>@iconeLojaHome(15)</i>
-            Indicar um parceiro
+            <p class="texto_footer">Indicar um parceiro</p>
         </a>
         @ endif;
     </section>
@@ -70,12 +70,12 @@
         </header>
         <a class="dado" href="@route(termo.termosite)" target="_blank" rel="noopener noreferrer">
             <i>@iconeTermoUso(19)</i>
-            Termo de uso
+            <p class="texto_footer">Termo de uso</p>
         </a>
         @ if( MENU_CASHBACK ):
         <a class="dado" href="@route(termo.termocashback)" target="_blank" rel="noopener noreferrer">
             <i>@iconeTermoUso(19)</i>
-            Termo do Silium
+            <p class="texto_footer">Termo do Silium</p>
         </a>
         @ endif;
     </section>

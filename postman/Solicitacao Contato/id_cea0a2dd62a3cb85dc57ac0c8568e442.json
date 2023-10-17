@@ -1,0 +1,1 @@
+{"id":"id_cea0a2dd62a3cb85dc57ac0c8568e442","token":"token","metodo":"PUT","nome":"\/solicitacao-contato\/:id","uri":"{{LINK}}\/solicitacao-contato\/$CONTATO_ID","parametro":[],"body":[["texto",true,"status","aguardando",""]],"header":[],"variavel":[],"json":[],"documentacao":{"status":false,"descricao":"","requisicao":"","resposta":"","scope":"solicitacao_contato:atualizar"}}
