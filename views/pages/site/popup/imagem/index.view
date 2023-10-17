@@ -3,14 +3,14 @@
 
 <div class="bloco_pagina_popup" id="bloco_faq_favorito">
     <header class="header_pagina_popup">
-        <h1>Título do Popup</h1>
-        <i class="fechar botao_fechar_popup">@iconeFechar</i>
+        <h1>{{$popup->titulo}}</h1>
+        <i id="fechar_popup_home">@iconeFechar</i>
     </header>
     <div class="conteudo_pagina_popup">
         <div class="conteudo">
+            <p>{{$popup->texto}}</p>
             <figure class="figure_popup" style="background-image: url( {{$popup->imagem}})">
             </figure>
-            <p>{{$popup->texto}}</p>
             <p>{{$popup->regulamento}} </p>
             <a href="{{$popup->botao_link}}" target="{{$popup->botao_target}}">Ler Regulamento</a>
         </div>

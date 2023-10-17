@@ -78,9 +78,16 @@ window.addEventListener('load', () => {
 
     /** POPUP DE PROMOÇÕES */
     const popupAcao = () => {
-        console.log('fazer algo');
+        const fecharPopup = document.querySelector('#fechar_popup_home');
+        fecharPopup.addEventListener('click', e => {
+            PaginaPopup.fechar();
+            sessionStorage.setItem('fechouPopup', 'true');
+            console.log(sessionStorage);
+        });
     };
     const PaginaPopup = new Pagina('Popup', LINK + '/enquete-imagem', undefined, true, true, popupAcao);
 
-    PaginaPopup.abrir();
+    if (!sessionStorage.getItem('fechouPopup') === 'true') {
+        PaginaPopup.abrir();
+    }
 });
