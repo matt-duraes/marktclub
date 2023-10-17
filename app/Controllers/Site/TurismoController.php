@@ -4,7 +4,6 @@ namespace App\Controllers\Site;
 
 use Erro\Excecao;
 use Http\Response;
-use Modules\Inteiro;
 use Controller\Controller;
 use App\Models\Site\BannerModel;
 use App\Classes\ParceiroLoja\Tipo;
@@ -19,7 +18,7 @@ final class TurismoController extends Controller
     public function index(): Response
     {
         $Listar = new ListarModel(
-            quantidade: new Inteiro(3),
+            quantidade: 3,
             tipo: new Tipo(Tipo::LOJA)
         );
         return view('turismo.index', [
