@@ -18,7 +18,8 @@ final class ListarModel extends ClubeApiHelper implements ListarInterface
     public function __construct(
         private Tipo $tipo = new Tipo(),
         private ?FiltroModel $Filtro = null,
-        private ?string $id = null
+        private ?string $id = null,
+        private int $quantidade = 24
     ) {
         parent::__construct();
         if ($Filtro instanceof FiltroModel) {
@@ -120,15 +121,13 @@ final class ListarModel extends ClubeApiHelper implements ListarInterface
     private function setarWhere()
     {
         $where = [
-            'status' => Status::CONCLUIDO,
-            'tipo'   => $this->tipo->indice()
+            'status'     => Status::CONCLUIDO,
+            'tipo'       => $this->tipo->indice(),
+            'quantidade' => $this->quantidade
         ];
         $where = array_merge($where, $this->where);
         if (!array_key_exists('pagina', $where)) {
             $where['pagina'] = 1;
-        }
-        if (!array_key_exists('quantidade', $where)) {
-            $where['quantidade'] = 24;
         }
         if (array_key_exists('acessado', $where)) {
             $where['mais_acessado'] = $where['acessado'];
