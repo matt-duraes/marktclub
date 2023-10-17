@@ -1,0 +1,1 @@
+{"id":"id_9688a60d785857db39b0a845407a5702","token":"painel","metodo":"DELETE","nome":"\/usuario-indicacao\/:id","uri":"{{LINK}}\/usuario-indicacao\/$USUARIO_INDICACAO_ID","parametro":[],"body":[],"header":[],"variavel":[],"json":[],"documentacao":{"status":false,"descricao":"","requisicao":"","resposta":"","scope":""}}

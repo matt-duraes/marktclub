@@ -2,90 +2,136 @@
 
 namespace App\Models\Api\UsuarioIndicacao;
 
-use ORM\ORM;
-use Http\Request;
 use App\Classes\UsuarioIndicacao\Ordem;
 use App\Classes\UsuarioIndicacao\Status;
 use App\Models\Api\Trait\ValidarEmpresaTrait;
+use Erro\Excecao;
+use Modules\Pagina;
+use Modules\Quantidade;
+use ORM\ORM;
+use stdClass;
+use System\Interface\ModelListarInterface;
+use System\Trait\Model\OrdemTrait;
+use System\Trait\Model\PaginaTrait;
+use System\Trait\Model\QuantidadeTrait;
 
-final class IndicacaoModel extends ORM
+final class IndicacaoModel extends ORM implements
+    ModelListarInterface
 {
     use ValidarEmpresaTrait;
+    use PaginaTrait;
+    use QuantidadeTrait;
+    use OrdemTrait;
 
     protected string $ormTabela = TABELA_USUARIO_INDICACAO;
-    private int $idEmpresa;
+    protected ?int $idEmpresa;
 
+    /**
+     * @param Pagina      $pagina
+     * @param Quantidade  $quantidade
+     * @param Ordem       $ordem
+     * @param string|null $pesquisa
+     * @param string|null $nome
+     * @param string|null $email
+     * @param Status      $status
+     *
+     * @throws Excecao
+     */
     public function __construct(
-        private Request $request
+        private readonly Pagina $pagina = new Pagina(),
+        private readonly Quantidade $quantidade = new Quantidade(),
+        private readonly Ordem $ordem = new Ordem(),
+        private readonly ?string $pesquisa = null,
+        private readonly ?string $nome = null,
+        private readonly ?string $email = null,
+        private readonly Status $status = new Status()
     ) {
-        parent::__construct();
+        $this->validarDados();
         $this->setarIdEmpresa();
+        parent::__construct();
     }
 
-    public function listar()
+    /**
+     * @throws Excecao
+     */
+    private function validarDados(): void
     {
-        $where = $this->pegarWhere();
-        $pagina = $this->request->chave('pagina', 1);
-        $pagina = preg_match('/^[1-9]{1}[0-9]{0,}$/', $pagina) ? $pagina : 1;
+        if (!$this->status->vazio() && !$this->status->valido()) {
+            mensagemErro('Campo inválido!', 'O Status informado não é válido.');
+        }
+    }
 
+    /**
+     * @return stdClass
+     * @throws Excecao
+     */
+    public function listarDados(): stdClass
+    {
         $dado = $this
-            ->pagina($pagina)
-            ->campo(['cod', 'nome', 'email', 'data_criacao', 'status'])
-            ->where($where)
-            ->order(new Ordem($this->request->ordem))
+            ->campo([
+                'uuid', 'nome', 'email', 'status', 'data_criacao'
+            ])
+            ->where($this->pegarWhere(), false)
+            ->pagina($this->pegarPagina(), $this->pegarQuantidade())
+            ->order($this->pegarOrdem(new Ordem()))
             ->read();
 
         $dado->lista = $this->montarRetorno($dado->lista);
         return $dado;
     }
 
-    private function montarRetorno($dado)
+    /**
+     * @return array[]
+     */
+    private function pegarWhere(): array
     {
-        if (empty($dado)) {
-            return [];
-        }
-        $Status = new Status();
-        $retorno = [];
-        foreach ($dado as $r) {
-            $retorno[] = [
-                'id'           => $r->cod,
-                'nome'         => strNull($r->nome),
-                'email'        => strEmail($r->email),
-                'data_criacao' => $r->data_criacao,
-                'status'       => $Status->indice($r->status)
-            ];
-        }
-        return $retorno;
-    }
+        $where = $this->ormWherePadrao;
 
-    private function pegarWhere()
-    {
-        $where = [['id_admin_empresa', $this->idEmpresa]];
-
-        $request = $this->request;
-
-        $pesquisa = $request->pesquisa;
-        if (!empty($pesquisa)) {
+        if (!empty($this->pesquisa)) {
             $where[] = [
                 'OR',
-                ['nome', 'like', '%' . $pesquisa . '%'],
-                ['email', 'like', $pesquisa . '%']
+                ['nome', 'LIKE', '%' . $this->pesquisa . '%'],
+                ['email', 'LIKE', $this->pesquisa . '%']
             ];
         }
 
-        $nome = $request->nome;
-        if (!empty($nome)) {
-            $where[] = ['nome', 'like', '%' . $nome . '%'];
+        if (!empty($this->nome)) {
+            $where[] = ['nome', 'LIKE', '%' . $this->nome . '%'];
         }
-        $email = $request->email;
-        if (!empty($nome)) {
-            $where[] = ['email', 'like', $email . '%'];
+
+        if (!empty($this->email)) {
+            $where[] = ['email', 'LIKE', $this->email . '%'];
         }
-        $status = new Status($request->status);
-        if ($status->valido()) {
-            $where[] = ['status', $status->numero()];
+
+        if ($this->status->valido()) {
+            $where[] = ['status', $this->status->numero()];
         }
 
         return $where;
+    }
+
+    /**
+     * @param array $indicados
+     *
+     * @return array
+     */
+    private function montarRetorno(array $indicados): array
+    {
+        if (empty($indicados)) {
+            return $indicados;
+        }
+
+        $Status = new Status();
+        $retorno = [];
+        foreach ($indicados as $indicado) {
+            $retorno[] = [
+                'id'           => $indicado->uuid,
+                'nome'         => $indicado->nome,
+                'email'        => $indicado->email,
+                'status'       => $Status->indice($indicado->status),
+                'data_criacao' => $indicado->data_criacao
+            ];
+        }
+        return $retorno;
     }
 }
