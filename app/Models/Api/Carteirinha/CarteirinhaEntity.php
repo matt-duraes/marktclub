@@ -14,8 +14,6 @@ class CarteirinhaEntity extends Entity
 {
     use ValidarEmpresaTrait;
 
-    public string $texto;
-    public string $texto_perdido;
     public UploadedFile|UploadHelper|string $bg_frente;
     public UploadedFile|UploadHelper|string $bg_fundo;
     public Status $status;
@@ -25,21 +23,17 @@ class CarteirinhaEntity extends Entity
         'id_admin_empresa' => '->idEmpresa'
     ];
     protected array $ormBuscar = [
-        'id_admin_empresa', 'uuid', 'texto', 'texto_perdido', 'bg_frente',
-        'bg_fundo', 'status', 'data_criacao', 'data_atualizacao'
+        'id_admin_empresa', 'uuid', 'bg_frente', 'bg_fundo',
+        'status', 'data_criacao', 'data_atualizacao'
     ];
     protected array $ormSalvar = [
-        'texto', 'texto_perdido', 'bg_frente', 'bg_fundo', 'status'
+        'bg_frente', 'bg_fundo', 'status'
     ];
     protected string $ormValidarInsert = '
-        texto|Texto
-        texto_perdido|Texto Perdido
         bg_frente|Imagem frente|obrigatorio|vazio|valido
         bg_fundo|Imagem verso|obrigatorio|vazio|valido
     ';
     protected string $ormValidarUpdate = '
-        texto|Texto
-        texto_perdido|Texto Perdido
         bg_frente|Imagem frente|valido
         bg_fundo|Imagem verso|valido
         status|Status|valido

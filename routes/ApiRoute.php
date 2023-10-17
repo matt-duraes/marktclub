@@ -1737,7 +1737,7 @@ Route
             ::nome('salvar')
             ::middleware(TokenMiddleware::class, 'scope', ['carteirinha:salvar'])
             ::request([
-                '!texto', '!texto_perdido', 'bg_frente', 'bg_fundo'
+                'bg_frente', 'bg_fundo'
             ])
             ::post('/carteirinha');
 
@@ -1745,7 +1745,7 @@ Route
             ::nome('atualizar')
             ::middleware(TokenMiddleware::class, 'scope', ['carteirinha:atualizar'])
             ::request([
-                '!texto', '!texto_perdido', '!bg_frente', '!bg_fundo', '!status'
+                '!bg_frente', '!bg_fundo', '!status'
             ])
             ::put('/carteirinha/{id}');
 
