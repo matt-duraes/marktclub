@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Classes\ComunicacaoPopup;
+namespace App\Classes\ComercialPopup;
 
 use Status\Status;
 

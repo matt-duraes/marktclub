@@ -1,8 +1,8 @@
 <?php
 
-use App\Classes\ComunicacaoPopup\Status;
+use App\Classes\ComercialPopup\Status;
 
-$Painel = new PainelConfig\Filtrar('comunicacao_popup');
+$Painel = new PainelConfig\Filtrar('comercial_popup');
 
 $Painel
     ->input(name: 'titulo', titulo: 'Título', label: 'Título', placeholder: 'Título')

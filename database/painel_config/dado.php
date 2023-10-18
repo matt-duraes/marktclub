@@ -41,11 +41,11 @@ return [
                     'solicitacao_contato_empresa' => 'Todas as empresas'
                 ]
             ],
-            'comunicacao_popup'       => [
+            'comercial_popup'         => [
                 'titulo'    => 'Popup',
                 'acao'      => ['index', 'add', 'editar', 'deletar', 'status', 'empresa'],
                 'permissao' => [
-                    'comunicacao_popup_empresa' => 'Todas as empresas'
+                    'comercial_popup_empresa' => 'Todas as empresas'
                 ]
             ],
             'enquete_satisfacao'      => [
@@ -69,7 +69,7 @@ return [
             'parceiro_cashback'        => [
                 'titulo' => 'Cashback', 'acao' => ['index', 'add', 'editar', 'deletar', 'empresa']
             ],
-            'parceiro_cupom'        => [
+            'parceiro_cupom'           => [
                 'titulo' => 'Cupom', 'acao' => ['index', 'status']
             ],
             'parceiro_easylive'        => ['titulo' => 'Easylive', 'acao' => ['index', 'add', 'editar', 'deletar']],
