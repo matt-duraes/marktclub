@@ -190,7 +190,7 @@ class PopupModel extends ORM
         $hoje = date('Y-m-d');
         $popup = $this
             ->campo([
-                'slug', 'imagem', 'titulo', 'texto', 'regulamento', 'data_inicio',
+                'uuid', 'slug', 'imagem', 'titulo', 'texto', 'regulamento', 'data_inicio',
                 'data_final', 'atualizar_dado', 'botao_texto', 'botao_link',
                 'botao_target'
             ])
@@ -219,6 +219,7 @@ class PopupModel extends ORM
         $retorno = [];
         foreach ($popup as $item) {
             $retorno[] = [
+                'id'             => $item->uuid,
                 'slug'           => $item->slug,
                 'imagem'         => arquivoPublico(LINK_ARQUIVO_PUBLICO, $item->imagem ?? ''),
                 'titulo'         => $item->titulo,
