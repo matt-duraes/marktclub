@@ -101,10 +101,9 @@ final class SiteController extends Controller
      */
     public function abrirModalPopupImagem($id = null): Response
     {
-        $popup = ((new PopupModel()))->listarPopup();
-
+        // $popup = ((new PopupModel()))->buscarPopup();
         return view('popup.imagem', [
-            'popup' => $popup->dado->lista['0'],
+            // 'popup' => $popup->dado->lista['0'],
         ]);
     }
 

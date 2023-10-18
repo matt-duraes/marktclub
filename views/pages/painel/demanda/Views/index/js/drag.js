@@ -6,6 +6,7 @@ for (const item of listaDragDrop) {
         .eventoMover(async e => {
             manipularBlocoZero(e.to);
         })
+        .botao('.drag')
         .eventoFim(e => {
             const bloco = e.to.closest('.bloco_coluna');
             if (e.from != e.to) {

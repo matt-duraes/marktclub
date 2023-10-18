@@ -7,15 +7,10 @@ use App\Helpers\ClubeApiHelper;
 final class PopupModel extends ClubeApiHelper
 {
 
-    public function listarPopup()
+    public function buscarPopup()
     {
         $dado = $this
-            ->json([
-                'empresa' => sessao('CLUBE')->empresa,
-                'status' => 'ativo',
-                'pagina' => 1,
-            ])
-            ->get('/comunicacao-popup')
+            ->get('/comercial-popup/popup/'.sessao('CLUBE')->empresa)
             ->object();
         return $dado;
     }

@@ -1,7 +1,6 @@
 
 
-
-<div class="bloco_pagina_popup" id="bloco_faq_favorito">
+<div class="bloco_pagina_popup" id="bloco_faq_favorito" data-id="{{$popup->id}}">
     <header class="header_pagina_popup">
         <h1>{{$popup->titulo}}</h1>
         <i id="fechar_popup_home">@iconeFechar</i>

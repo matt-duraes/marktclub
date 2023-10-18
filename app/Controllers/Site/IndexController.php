@@ -20,7 +20,9 @@ final class IndexController extends Controller
      */
     public function index(): Response
     {
+        $popup = ((new PopupModel()))->buscarPopup();
         return view('index', [
+            'popup' => $popup->dado->lista['0'],
             'menu'           => 'home',
             'banner'         => (new BannerModel())->home(),
             'plano_saude'    => (new HomeModel())->valor

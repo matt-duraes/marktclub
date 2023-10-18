@@ -38,6 +38,9 @@ final class DemandaModel extends ORM
             ])
             ->where($this->montarWhere())
             ->order($this->pegarOrdem())
+            ->tabela(TABELA_USUARIO_EQUIPE)
+            ->join('id', 'id_usuario_equipe')
+            ->campo(['uuid'], 'usuario')
             ->read();
 
         return $this->montarRetorno($lista);
@@ -82,6 +85,7 @@ final class DemandaModel extends ORM
         foreach ($lista as $r) {
             $retorno[$r->id] = [
                 'id'               => $r->uuid,
+                'equipe'           => $r->usuario_uuid,
                 'titulo'           => $r->titulo,
                 'tipo'             => (new Tipo($r->tipo))->indice(),
                 'data_criacao'     => $r->data_criacao,

@@ -21,8 +21,10 @@ final class AuthMiddleware
     {
         $retorno = $this->verificarSeEstaLogado();
         if (!$retorno && !empty($this->token) && dataBanco($this->token['data']) == hoje()) {
+            pp('TENTOU REFAZER LOGIN COM REFRESH TOKEN');
             return $this->fazerLoginUsuario();
         } elseif (!$retorno) {
+            ppe('USUÁRIO DESLOGOU E NÃO TEM REFRASH TOKEN');
             return $this->usuarioNaoLogado();
         }
         return true;
@@ -50,9 +52,13 @@ final class AuthMiddleware
             $Login = new LoginRefreshModel(
                 refreshToken: $this->token['token']
             );
+            pp('FAZ LOGIN COM O REFRESH TOKEN');
             new LoginAutorizadoModel(Login: $Login);
+            ppe('CRIOU NOVO TOKEN');
             return true;
-        } catch (\Throwable) {
+        } catch (\Throwable $e) {
+            pp('OCORRE UM ERRO AO REFRAZER LOGIN COM REFRESH TOKEN');
+            ppe($e);
             return $this->usuarioNaoLogado();
         }
     }

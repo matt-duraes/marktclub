@@ -30,9 +30,9 @@ final class AuthMiddleware
         return true;
     }
 
-    private function verificarSeEstaLogado(bool $location = true)
+    private function verificarSeEstaLogado()
     {
-        $logado = (new AuthHelper())->validar(location: $location);
+        $logado = (new AuthHelper())->validar();
         if (true === $logado) {
             return true;
         }

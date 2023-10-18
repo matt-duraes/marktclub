@@ -1619,6 +1619,15 @@ Route
             ::put('/demanda-dado/{id}');
 
         Route
+            ::nome('seguir')
+            ::middleware(TokenMiddleware::class, 'scope', ['demanda_dado:atualizar'])
+            ::post('/demanda-dado/seguir/{id}');
+        Route
+            ::nome('seguir')
+            ::middleware(TokenMiddleware::class, 'scope', ['demanda_dado:atualizar'])
+            ::delete('/demanda-dado/seguir/{id}');
+
+        Route
             ::nome('cancelar')
             ::middleware(TokenMiddleware::class, 'scope', ['demanda_dado:cancelar'])
             ::request(['motivo'])
