@@ -130,7 +130,8 @@ const adicionarNovaDemanda = (bloco, item, abrir) => {
             PaginaDemanda.abrir();
         }
         clone.addEventListener('click', e => {
-            if (e.target.classList('botao_drag') || e.target.closest('.botao_drag')) {
+            ppe(e.target);
+            if (e.target.classList.contains('botao_drag') || e.target.closest('.botao_drag')) {
                 return;
             }
             PaginaDemanda.abrir();

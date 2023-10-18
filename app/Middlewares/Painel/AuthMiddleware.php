@@ -52,7 +52,9 @@ final class AuthMiddleware
             $Login = new LoginRefreshModel(
                 refreshToken: $this->token['token']
             );
+            pp('FAZ LOGIN COM O REFRESH TOKEN');
             new LoginAutorizadoModel(Login: $Login);
+            ppe('CRIOU NOVO TOKEN');
             return true;
         } catch (\Throwable $e) {
             pp('OCORRE UM ERRO AO REFRAZER LOGIN COM REFRESH TOKEN');

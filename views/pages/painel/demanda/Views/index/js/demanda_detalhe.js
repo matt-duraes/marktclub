@@ -24,14 +24,16 @@ const demandaDetalhe = () => {
         });
     });
 
-    botaoSeguir.addEventListener('click', () => {
-        const texto = botaoSeguir.innerText.trim();
-        if (texto == 'seguir') {
-            seguirDemanda();
-            return;
-        }
-        paraSeguirDemanda();
-    });
+    if (botaoSeguir) {
+        botaoSeguir.addEventListener('click', () => {
+            const texto = botaoSeguir.innerText.trim();
+            if (texto == 'seguir') {
+                seguirDemanda();
+                return;
+            }
+            paraSeguirDemanda();
+        });
+    }
     const seguirDemanda = async () => {
         botaoSeguir.innerText = 'seguindo';
         const resposta = await ajaxPost(LINK + '/demanda/demanda-seguir', { id: idDemanda }, 'Erro ao seguir demanda');
