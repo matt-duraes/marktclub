@@ -1,9 +1,9 @@
 <?php
 
-use App\Classes\ComunicacaoPopup\BotaoTarget;
-use App\Classes\ComunicacaoPopup\Status;
+use App\Classes\ComercialPopup\BotaoTarget;
+use App\Classes\ComercialPopup\Status;
 
-$Painel = new PainelConfig\Add(app: 'comunicacao_popup', acao: $acao);
+$Painel = new PainelConfig\Add(app: 'comercial_popup', acao: $acao);
 
 $Painel->coluna(callback: function () use ($Painel) {
     $Painel->fieldset('Dados Principais', function () use ($Painel) {

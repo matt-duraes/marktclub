@@ -22,7 +22,7 @@ final class IndexController extends Controller
     {
         $popup = ((new PopupModel()))->buscarPopup();
         return view('index', [
-            'popup' => $popup->dado->lista['0'],
+            'popup' => $popup->dado[0],
             'menu'           => 'home',
             'banner'         => (new BannerModel())->home(),
             'plano_saude'    => (new HomeModel())->valor

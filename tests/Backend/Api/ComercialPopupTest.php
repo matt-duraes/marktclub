@@ -2,10 +2,11 @@
 
 namespace Tests\Api;
 
+use App\Classes\ComercialPopup\Status;
 use Erro\Excecao;
 use Tests\Tests;
 
-class ComunicacaoPopupTest extends Tests
+class ComercialPopupTest extends Tests
 {
     private string $idPopup;
 
@@ -15,22 +16,21 @@ class ComunicacaoPopupTest extends Tests
     }
 
     /**
-     * @return ComunicacaoPopupTest
+     * @return ComercialPopupTest
      * @throws Excecao
      */
-    public function salvarPopupTest(): ComunicacaoPopupTest
+    public function salvarPopupTest(): ComercialPopupTest
     {
-        $this->api('comunicacao_popup:salvar');
+        $this->api('comercial_popup:salvar');
         $popup = $this
             ->Curl
             ->body([
                 'titulo'      => 'venha conferir a melhor',
                 'texto'       => 'Aqui vc tera o mejor do melhor sempre',
-                'data_inicio' => '12/12/2012',
-                'data_final'  => '31/12/2012',
-                'status'      => 'ativo'
+                'data_inicio' => date('d/m/Y'),
+                'data_final'  => date('d/m/Y')
             ])
-            ->post('/comunicacao-popup')
+            ->post('/comercial-popup')
             ->array();
 
         $this->idPopup = $popup['dado']['id'] ?? 'sem-id';
@@ -42,15 +42,15 @@ class ComunicacaoPopupTest extends Tests
     }
 
     /**
-     * @return ComunicacaoPopupTest
+     * @return ComercialPopupTest
      * @throws Excecao
      */
-    public function buscarPopupTest(): ComunicacaoPopupTest
+    public function buscarPopupTest(): ComercialPopupTest
     {
-        $this->api('comunicacao_popup:buscar');
+        $this->api('comercial_popup:buscar');
         $this
             ->Curl
-            ->get('/comunicacao-popup/' . $this->idPopup);
+            ->get('/comercial-popup/' . $this->idPopup);
 
         return $this
             ->checkStatus(200)
@@ -60,34 +60,33 @@ class ComunicacaoPopupTest extends Tests
     }
 
     /**
-     * @return ComunicacaoPopupTest
+     * @return ComercialPopupTest
      * @throws Excecao
      */
-    public function atualizarPopupTest(): ComunicacaoPopupTest
+    public function atualizarPopupTest(): ComercialPopupTest
     {
-        $this->api('comunicacao_popup:atualizar');
+        $this->api('comercial_popup:atualizar');
         $this
             ->Curl
             ->body([
-                'titulo' => 'opa mais e mais',
-                'status' => 'inativo'
+                'status' => Status::EXPIRADO
             ])
-            ->put('/comunicacao-popup/' . $this->idPopup);
+            ->put('/comercial-popup/' . $this->idPopup);
 
         return $this
             ->checkStatus(204);
     }
 
     /**
-     * @return ComunicacaoPopupTest
+     * @return ComercialPopupTest
      * @throws Excecao
      */
-    public function deletarPopupTest(): ComunicacaoPopupTest
+    public function deletarPopupTest(): ComercialPopupTest
     {
-        $this->api('comunicacao_popup:deletar');
+        $this->api('comercial_popup:deletar');
         $this
             ->Curl
-            ->delete('/comunicacao-popup/' . $this->idPopup);
+            ->delete('/comercial-popup/' . $this->idPopup);
 
         return $this
             ->checkStatus(204);

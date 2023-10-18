@@ -1,0 +1,1 @@
+{"id":"id_28bcbf94c7c83c95508f37fc25965aa7","token":"token","metodo":"PUT","nome":"\/comercial-popup\/:id","uri":"{{LINK}}\/comercial-popup\/$COMERCIAL_POPUP_ID","parametro":[],"body":[["texto",true,"status","ativo",""]],"header":[],"variavel":[],"json":[],"documentacao":{"status":false,"descricao":"","requisicao":"","resposta":"","scope":"comercial_popup:atualizar"}}

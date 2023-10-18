@@ -7,7 +7,6 @@
 window.addEventListener('load', () => {
     const blocoProspeccao = document.getElementById('bloco_comercial_prospeccao');
     const listaItem = blocoProspeccao.querySelectorAll('.bloco_kambam_item');
-    const blocoMotivo = document.querySelector('.bloco_motivo');
 
     const blocoPesquisa = document.getElementById('bloco_pesquisa');
     const blocoApresentacao = document.getElementById('bloco_apresentacao');
@@ -16,11 +15,11 @@ window.addEventListener('load', () => {
     const blocoMinuta = document.getElementById('bloco_minuta');
     const blocoStandBy = document.getElementById('bloco_standby');
 
-    const PopupAtualizar = new Popup('atualizar-dado', blocoMotivo, true, true);
-    const h1_popup = document.getElementById('h1_motivo');
-    const input_popup = document.getElementById('input_motivo');
-    const label_popup = input_popup.parentNode.querySelector('label');
-    const botao_popup = document.getElementById('botao_atualizar_motivo');
+    const PopupAtualizar = new Popup('atualizar-dado', 'bloco_motivo', true, true);
+    const h1Popup = document.getElementById('h1_motivo');
+    const inputPopup = document.getElementById('input_motivo');
+    const labelPopup = inputPopup.parentNode.querySelector('label');
+    const botaoPopup = document.getElementById('botao_atualizar_motivo');
 
     const htmlZero = '<div class="tarefa_zero">Sem itens<br> no momento</div>';
 
@@ -92,16 +91,16 @@ window.addEventListener('load', () => {
     |--------------------------------------------------------------------------
     */
     cancelarContrato = async (item, id) => {
-        h1_popup.textContent = 'Cancelar contrato';
-        input_popup.setAttribute('placeholder', 'Digite o motivo para o cancelamento');
-        label_popup.textContent = 'Motivo para o cancelamento';
-        botao_popup.textContent = 'Cancelar';
-        botao_popup.setAttribute('class', 'botao_cancelar');
+        h1Popup.textContent = 'Cancelar contrato';
+        inputPopup.setAttribute('placeholder', 'Digite o motivo para o cancelamento');
+        labelPopup.textContent = 'Motivo para o cancelamento';
+        botaoPopup.textContent = 'Cancelar';
+        botaoPopup.setAttribute('class', 'botao_cancelar');
 
         PopupAtualizar.abrir();
 
-        const form_motivo = document.querySelector('.form_motivo');
-        form_motivo.addEventListener('submit', async e => {
+        const formMotivo = document.querySelector('.form_motivo');
+        formMotivo.addEventListener('submit', async e => {
             e.preventDefault();
 
             const motivo = document.querySelector('.input_motivo').value;
@@ -119,16 +118,16 @@ window.addEventListener('load', () => {
     };
 
     colocarStandby = async (item, id) => {
-        h1_popup.textContent = 'Motivo Stand BY';
-        input_popup.setAttribute('placeholder', "Digite o motivo do stand by'");
-        label_popup.textContent = 'Motivo Stand BY';
-        botao_popup.textContent = 'Atualizar';
-        botao_popup.setAttribute('class', 'botao_atualizar');
+        h1Popup.textContent = 'Motivo Stand BY';
+        inputPopup.setAttribute('placeholder', "Digite o motivo do stand by'");
+        labelPopup.textContent = 'Motivo Stand BY';
+        botaoPopup.textContent = 'Atualizar';
+        botaoPopup.setAttribute('class', 'botao_atualizar');
 
         PopupAtualizar.abrir();
 
-        const form_motivo = document.querySelector('.form_motivo');
-        form_motivo.addEventListener('submit', async e => {
+        const formMotivo = document.querySelector('.form_motivo');
+        formMotivo.addEventListener('submit', async e => {
             e.preventDefault();
             const motivo = document.querySelector('.input_motivo').value;
 

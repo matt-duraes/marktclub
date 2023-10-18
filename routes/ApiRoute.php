@@ -1158,7 +1158,7 @@ Route
                 'menu_saude_vitoria', 'menu_saude_amil', 'menu_saude_seguro', 'menu_saude_cnu',
                 'menu_saude_florianopolis', 'menu_cashback', 'menu_indicar_usuario', 'menu_indicar_loja',
                 'menu_odontologico', 'menu_premium', 'menu_dependente', 'menu_carteira', 'menu_cupom',
-                'menu_salavip', 'menu_ponto_mais_acao','menu_credito_sicoob', 'menu_primeiro_acesso', 'chat_status',
+                'menu_salavip', 'menu_ponto_mais_acao', 'menu_credito_sicoob', 'menu_primeiro_acesso', 'chat_status',
                 'menu_meu_parceiro', 'administrado_status', 'api_status', 'tipo_ativacao', 'status',
                 'menu_corrida', 'menu_show_nacional', 'menu_show_internacional', 'link_odontologico'
             ])
@@ -1176,7 +1176,8 @@ Route
                 '!menu_turismo', '!menu_historico', '!menu_farmacia', '!menu_automovel', '!menu_tema',
                 '!menu_saude_vitoria', '!menu_saude_amil', '!menu_saude_seguro', '!menu_saude_cnu',
                 '!menu_saude_florianopolis', '!menu_cashback', '!menu_indicar_usuario', '!menu_indicar_loja',
-                '!menu_odontologico','!menu_ponto_mais_acao','!menu_premium', '!menu_dependente', '!menu_carteira', '!menu_cupom',
+                '!menu_odontologico', '!menu_ponto_mais_acao', '!menu_premium', '!menu_dependente', '!menu_carteira',
+                '!menu_cupom',
                 '!menu_salavip', '!menu_credito_sicoob', '!menu_primeiro_acesso', '!chat_status',
                 '!menu_meu_parceiro', '!administrado_status', '!api_status', '!tipo_ativacao', '!status',
                 '!menu_corrida', '!menu_show_nacional', '!menu_show_internacional', '!link_odontologico'
@@ -1770,56 +1771,61 @@ Route
     });
 
 Route
-    ::nome('comunicacao_popup')
-    ::controller(App\Controllers\Api\ComunicacaoPopupController::class)
+    ::nome('comercial_popup')
+    ::controller(App\Controllers\Api\ComercialPopupController::class)
     ::middleware(TokenMiddleware::class, 'token')
     ::grupo(function () {
         Route
             ::nome('buscar')
-            ::middleware(TokenMiddleware::class, 'scope', ['comunicacao_popup:buscar'])
-            ::get('/comunicacao-popup/{id}');
+            ::middleware(TokenMiddleware::class, 'scope', ['comercial_popup:buscar'])
+            ::get('/comercial-popup/{id}');
 
         Route
             ::nome('listar')
-            ::middleware(TokenMiddleware::class, 'scope', ['comunicacao_popup:listar'])
+            ::middleware(TokenMiddleware::class, 'scope', ['comercial_popup:listar'])
             ::request([
                 'pagina', '!quantidade', '!ordem', '!titulo', '!empresa',
                 '!data_inicio', '!data_final', '!status'
             ], 'json')
-            ::get('/comunicacao-popup');
+            ::get('/comercial-popup');
 
         Route
             ::nome('salvar')
-            ::middleware(TokenMiddleware::class, 'scope', ['comunicacao_popup:salvar'])
+            ::middleware(TokenMiddleware::class, 'scope', ['comercial_popup:salvar'])
             ::request([
                 'titulo', '!texto', '!imagem', '!regulamento', '!data_inicio',
                 '!data_final', '!atualizar_dado', '!botao_texto', '!botao_link',
                 '!botao_target', '!status'
             ])
-            ::post('/comunicacao-popup');
+            ::post('/comercial-popup');
 
         Route
             ::nome('atualizar')
-            ::middleware(TokenMiddleware::class, 'scope', ['comunicacao_popup:atualizar'])
+            ::middleware(TokenMiddleware::class, 'scope', ['comercial_popup:atualizar'])
             ::request([
                 '!titulo', '!texto', '!imagem', '!regulamento', '!data_inicio',
                 '!data_final', '!atualizar_dado', '!botao_texto', '!botao_link',
                 '!botao_target', '!status'
             ])
-            ::put('/comunicacao-popup/{id}');
+            ::put('/comercial-popup/{id}');
 
         Route
             ::nome('deletar')
-            ::middleware(TokenMiddleware::class, 'scope', ['comunicacao_popup:deletar'])
-            ::delete('/comunicacao-popup/{id}');
+            ::middleware(TokenMiddleware::class, 'scope', ['comercial_popup:deletar'])
+            ::delete('/comercial-popup/{id}');
 
         Route
             ::nome('ordenar')
-            ::middleware(TokenMiddleware::class, 'scope', ['comunicacao_popup:ordenar'])
+            ::middleware(TokenMiddleware::class, 'scope', ['comercial_popup:ordenar'])
             ::request([
                 'id', 'pagina', '!quantidade'
             ])
-            ::put('/comunicacao-popup/ordenar');
+            ::put('/comercial-popup/ordenar');
+
+        Route
+            ::nome('popup')
+            ::middleware(TokenMiddleware::class, 'scope', ['comercial_popup:popup'])
+            ::get('/comercial-popup/popup/{id}');
     });
 
 Route

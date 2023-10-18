@@ -1,10 +1,11 @@
 <?php
 
-namespace App\Models\Api\ComunicacaoPopup;
+namespace App\Models\Api\ComercialPopup;
 
-use App\Classes\ComunicacaoPopup\BotaoTarget;
-use App\Classes\ComunicacaoPopup\Ordem;
-use App\Classes\ComunicacaoPopup\Status;
+use App\Classes\ComercialPopup\BotaoTarget;
+use App\Classes\ComercialPopup\Ordem;
+use App\Classes\ComercialPopup\Status;
+use App\Models\Api\ComercialEmpresa\EmpresaEntity;
 use App\Models\Api\Trait\ValidarEmpresaTrait;
 use Erro\Excecao;
 use Modules\Data;
@@ -24,7 +25,7 @@ class PopupModel extends ORM
     use QuantidadeTrait;
     use OrdemTrait;
 
-    protected string $ormTabela = TABELA_COMUNICACAO_POPUP;
+    protected string $ormTabela = TABELA_COMERCIAL_POPUP;
     protected ?int $idEmpresa;
 
     /**
@@ -103,7 +104,7 @@ class PopupModel extends ORM
     /**
      * @return array
      */
-    protected function pegarWhere(): array
+    private function pegarWhere(): array
     {
         $where = $this->ormWherePadrao;
 
@@ -131,7 +132,7 @@ class PopupModel extends ORM
     /**
      * @return array
      */
-    protected function pegarWhereEmpresa(): array
+    private function pegarWhereEmpresa(): array
     {
         $where = [];
         if (!empty($this->empresa)) {
@@ -145,7 +146,7 @@ class PopupModel extends ORM
      *
      * @return array
      */
-    protected function montarRetorno(array $popups): array
+    private function montarRetorno(array $popups): array
     {
         if (empty($popups)) {
             return $popups;
@@ -172,6 +173,64 @@ class PopupModel extends ORM
                 'botao_link'     => (new Link($popup->botao_link))->valor(),
                 'botao_target'   => $BotaoTarget->indice($popup->botao_target),
                 'status'         => $Status->indice($popup->status)
+            ];
+        }
+        return $retorno;
+    }
+
+    /**
+     * @param EmpresaEntity $empresaEntity
+     *
+     * @return array
+     * @throws Excecao
+     */
+    public function pegarPopupDoDia(EmpresaEntity $empresaEntity): array
+    {
+        $Status = new Status();
+        $hoje = date('Y-m-d');
+        $popup = $this
+            ->campo([
+                'uuid', 'slug', 'imagem', 'titulo', 'texto', 'regulamento', 'data_inicio',
+                'data_final', 'atualizar_dado', 'botao_texto', 'botao_link',
+                'botao_target'
+            ])
+            ->where([
+                ['id_admin_empresa', $empresaEntity->get('id')],
+                ['data_inicio', '<=', $hoje],
+                ['data_final', '>=', $hoje],
+                ['status', $Status->numero(Status::ATIVO)]
+            ])
+            ->read();
+        return $this->montarPopup($popup);
+    }
+
+    /**
+     * @param array $popup
+     *
+     * @return array
+     */
+    private function montarPopup(array $popup): array
+    {
+        if (empty($popup)) {
+            return $popup;
+        }
+
+        $BotaoTarget = new BotaoTarget();
+        $retorno = [];
+        foreach ($popup as $item) {
+            $retorno[] = [
+                'id'             => $item->uuid,
+                'slug'           => $item->slug,
+                'imagem'         => arquivoPublico(LINK_ARQUIVO_PUBLICO, $item->imagem ?? ''),
+                'titulo'         => $item->titulo,
+                'texto'          => $item->texto,
+                'regulamento'    => $item->regulamento,
+                'atualizar_dado' => $item->atualizar_dado,
+                'data_inicio'    => $item->data_inicio,
+                'data_final'     => $item->data_final,
+                'botao_texto'    => $item->botao_texto,
+                'botao_link'     => (new Link($item->botao_link))->valor(),
+                'botao_target'   => $BotaoTarget->indice($item->botao_target)
             ];
         }
         return $retorno;

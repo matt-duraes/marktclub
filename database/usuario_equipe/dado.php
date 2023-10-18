@@ -42,8 +42,8 @@ $permissao = [
     'solicitacao_contato_index', 'solicitacao_contato_visualizar', 'solicitacao_contato_status',
     'solicitacao_contato_empresa',
 
-    'comunicacao_popup_index', 'comunicacao_popup_add', 'comunicacao_popup_editar',
-    'comunicacao_popup_deletar', 'comunicacao_popup_status', 'comunicacao_popup_empresa',
+    'comercial_popup_index', 'comercial_popup_add', 'comercial_popup_editar',
+    'comercial_popup_deletar', 'comercial_popup_status', 'comercial_popup_empresa',
 
     'enquete_satisfacao_index', 'enquete_satisfacao_visualizar', 'enquete_satisfacao_deletar',
     'enquete_satisfacao_status', 'enquete_satisfacao_empresa',
@@ -130,7 +130,6 @@ return [
         'status'            => '1'
     ],
     [
-        'id'                => '18',
         'uuid'              => 'f9cff03397e1be63c18772fccd298cdc',
         'id_admin_empresa'  => '1',
         'tipo'              => '1',
@@ -152,7 +151,6 @@ return [
         'status'            => '1'
     ],
     [
-        'id'                => '28',
         'uuid'              => '3df1a38ec0919bd14162beabb73e12b4',
         'id_admin_empresa'  => '1',
         'tipo'              => '1',
@@ -174,7 +172,6 @@ return [
         'status'            => '1'
     ],
     [
-        'id'                => '179',
         'uuid'              => '0b077500f13856833d1d62bebceac6eb',
         'id_admin_empresa'  => '1',
         'tipo'              => '1',
@@ -196,7 +193,6 @@ return [
         'status'            => '1'
     ],
     [
-        'id'                => '225',
         'uuid'              => '060d9bc1e911b67a6c80d0dbf403ca14',
         'id_admin_empresa'  => '1',
         'tipo'              => '1',
@@ -218,7 +214,6 @@ return [
         'status'            => '1'
     ],
     [
-        'id'                => '441',
         'uuid'              => '0f3a5572ba1343afca4c0b538354c59c',
         'id_admin_empresa'  => '1',
         'tipo'              => '1',
@@ -240,7 +235,6 @@ return [
         'status'            => '1'
     ],
     [
-        'id'                => '3060',
         'uuid'              => 'a014996d75cb01f470dfc21c1f60c6d3',
         'id_admin_empresa'  => '1',
         'tipo'              => '1',
@@ -263,7 +257,6 @@ return [
         'status'            => '1'
     ],
     [
-        'id'               => '1126',
         'uuid'             => '5d608f97-1e64-4aba-9b94-2ba1c6376db5',
         'id_admin_empresa' => 1,
         'tipo'             => 3,
