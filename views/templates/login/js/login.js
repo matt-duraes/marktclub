@@ -32,7 +32,7 @@ const loadingLogin = () => {
     inputLogin.focus();
 
     botaoAtivar.addEventListener('click', () => {
-        PaginaAtivarBuscar.abrir();
+        PaginaAtivar.abrir();
     });
     botaoFazerLogin.addEventListener('click', () => {
         fazerLogin();
