@@ -4,7 +4,17 @@
     <header>
         <form action="/" class="form_geral">
             @ if ( temPermissaoEmpresa('relatorio_acesso') ):
-            @? formSelect(name: 'relatorio_empresa', label: '', placeholder: 'Empresa', lista: $empresa, value: EMPRESA_ID)
+            <button class="botao_filtrar" type="button">
+                Filtros
+            </button>
+
+            <div class="bloco_checkbox" style="display: none;">
+                <section>
+                    @ifforeach($empresa as $k => $e):
+                    @? formCheckbox(name: "", label: "{$e}", value: "{$k}");
+                    @endifforeach;
+                </section>
+            </div>
             @ endif;
             <div class="bloco_linha">
                 @? formData(name: ['relatorio_data_de', 'relatorio_data_ate'], label: '', value: [$de, $ate], separador: 'até');
