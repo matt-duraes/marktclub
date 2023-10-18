@@ -82,6 +82,7 @@ final class DemandaModel extends ORM
         foreach ($lista as $r) {
             $retorno[$r->id] = [
                 'id'               => $r->uuid,
+                'equipe'           => $r->id_usuario_equipe,
                 'titulo'           => $r->titulo,
                 'tipo'             => (new Tipo($r->tipo))->indice(),
                 'data_criacao'     => $r->data_criacao,

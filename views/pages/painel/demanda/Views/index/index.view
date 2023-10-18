@@ -35,9 +35,11 @@
     <!-- TAREFA INDEX -->
     <article class="bloco_tarefa_item bloco_kambam_item" data-id="" id="clone_tarefa_lista">
         <header>
+            <div class="drag">@iconeDrag(8)</div>
             <h1 class="tarefa_titulo titulo"></h1>
         </header>
         <div class="bloco_data">
+            <figure class="perfil tarefa_perfil"></figure>
             <div class="data">@iconeCalendario(14) <span class="tarefa_data_criacao"></span></div>
             <div class="data bloco_entrega display_none">@iconeRelogio(15) <span class="tarefa_data_entrega"></span></div>
         </div>

@@ -33,7 +33,7 @@
         ) ?>
         <p>Aperte Shift+Enter para quebrar linha ou apenas Enter para salvar</p>
         <ul class="bloco_marcar_equipe" id="bloco_historico_marcacao_equipe">
-            <?php foreach ((new \PainelModel\Historico\Equipe())->pegarListaEquipe() as $hE) : ?>
+            <?php foreach ((new \PainelModel\Perfil\Equipe())->todos() as $hE) : ?>
                 <li data-usuario="<?= $hE->perfil ?>" class="">
                     <div class="imagem" style="background-image: url(<?= $hE->imagem ?>);"></div>
                     <div class="usuario"><?= $hE->perfil ?></div>

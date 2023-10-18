@@ -3,6 +3,7 @@
 namespace Painel\Demanda\Models;
 
 use Helpers\ApiHelper;
+use PainelModel\Perfil\Equipe;
 use App\Classes\DemandaDado\Status;
 
 final class ListaModel
@@ -50,31 +51,37 @@ final class ListaModel
 
     public function quadroTi()
     {
+        $gerente = sessao('USUARIO.gerente', false) ? 'drag' : '';
         return [
             [
                 'titulo' => 'Backlog',
-                'classe' => 'drag',
+                'classe' => $gerente,
                 'add'    => true,
                 'status' => Status::NOVA
             ],
             [
+                'titulo' => 'Bloqueada',
+                'classe' => $gerente,
+                'status' => Status::BLOQUEADA
+            ],
+            [
                 'titulo' => 'Liberada',
-                'classe' => 'drag',
+                'classe' => $gerente,
                 'status' => Status::LIBERADA
             ],
             [
                 'titulo' => 'Em andamento',
-                'classe' => 'drag',
+                'classe' => $gerente,
                 'status' => Status::ANDAMENTO
             ],
             [
                 'titulo' => 'Teste',
-                'classe' => 'drag',
+                'classe' => $gerente,
                 'status' => Status::TESTE
             ],
             [
                 'titulo' => 'Concluída',
-                'classe' => 'drag',
+                'classe' => $gerente,
                 'status' => Status::CONCLUIDA
             ],
         ];
@@ -97,9 +104,11 @@ final class ListaModel
     private function montarDemanda($dado): array
     {
         $retorno = [];
+        $Perfil = new Equipe();
         foreach ($dado as $r) {
             $retorno[] = [
                 'id'           => $r->id,
+                'equipe'       => $Perfil->unico($r->equipe),
                 'titulo'       => $r->titulo,
                 'data_criacao' => dataBr($r->data_criacao),
                 'data_entrega' => dataBr($r->data_entrega),

@@ -45,7 +45,15 @@
         background-position: center center
     .conteudo article header
         width: 100%
-        padding: 20px 20px 0 20px
+        padding: 15px 20px 0 0
+        flexRow()
+        align-items: center
+    .conteudo article header .drag
+        width: 30px
+        height: 30px
+        flexCenter()
+        fill: #999
+        margin: 0 5px 0 10px
     .conteudo article header h1
         width: 100%
         font-size: 1.5rem
@@ -79,6 +87,16 @@
         border-top: 1px solid #ddd
         margin-top: 10px
         padding: 10px 5px 15px 10px
+        align-items: center
+    .conteudo article .bloco_data figure
+        width: 30px
+        height: 30px
+        flexCenter()
+        background-size: cover
+        background-position: center center
+        background-color: #EEE
+        border-radius: 30px
+        margin-right: 5px
     .conteudo article .bloco_data .data
         border: 1px solid #CCC
         border-radius: 15px
@@ -86,8 +104,13 @@
         font-size: 1.2rem
         color: #333
         fill: #777
-        margin: 5px 5px 0 0
+        margin-right: 5px
         flexCenter()
+        &.bloco_entrega
+            fill: #FFF
+            color: #FFF
+            border-color: $corErro
+            background-color: $corErro
     .conteudo article .bloco_data .data svg
         margin-right: 5px
     .conteudo article footer

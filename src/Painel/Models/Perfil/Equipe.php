@@ -31,6 +31,14 @@ final class Equipe
         return $retorno;
     }
 
+    public function todos()
+    {
+        if (empty($this->usuario)) {
+            $this->pegarPerfil();
+        }
+        return $this->usuario;
+    }
+
     private function pegarPerfil()
     {
         $lista = (new ApiHelper(token: true))
