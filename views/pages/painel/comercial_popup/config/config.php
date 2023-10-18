@@ -12,7 +12,7 @@ return [
     'download'   => false,
     'historico'  => true,
     'api'        => [
-        'scope' => 'comunicacao_popup',
-        'uri'   => '/comunicacao-popup'
+        'scope' => 'comercial_popup',
+        'uri'   => '/comercial-popup'
     ]
 ];

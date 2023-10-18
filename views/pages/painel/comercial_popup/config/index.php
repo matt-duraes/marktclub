@@ -1,9 +1,9 @@
 <?php
 
-use App\Classes\ComunicacaoPopup\Ordem;
-use App\Classes\ComunicacaoPopup\Status;
+use App\Classes\ComercialPopup\Ordem;
+use App\Classes\ComercialPopup\Status;
 
-$Painel = new PainelConfig\Index('comunicacao_popup', new Ordem());
+$Painel = new PainelConfig\Index('comercial_popup', new Ordem());
 
 $Painel
     ->drag()

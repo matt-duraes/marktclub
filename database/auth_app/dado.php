@@ -131,9 +131,9 @@ $scope = [
     'carteirinha:buscar', 'carteirinha:listar', 'carteirinha:salvar',
     'carteirinha:atualizar', 'carteirinha:deletar', 'carteirinha:carteirinha',
 
-    'comunicacao_popup:buscar', 'comunicacao_popup:listar',
-    'comunicacao_popup:salvar', 'comunicacao_popup:atualizar', 'comunicacao_popup:deletar',
-    'comunicacao_popup:ordenar',
+    'comercial_popup:buscar', 'comercial_popup:listar',
+    'comercial_popup:salvar', 'comercial_popup:atualizar', 'comercial_popup:deletar',
+    'comercial_popup:ordenar', 'comercial_popup:popup',
 
     'enquete_satisfacao:listar', 'enquete_satisfacao:buscar', 'enquete_satisfacao:salvar',
     'enquete_satisfacao:atualizar', 'enquete_satisfacao:deletar',

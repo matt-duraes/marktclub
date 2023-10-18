@@ -1,15 +1,18 @@
 <?php
 
-namespace App\Classes\ComunicacaoPopup;
+namespace App\Classes\ComercialPopup;
 
 use Order\Order;
 
 class Ordem extends Order
 {
+    /**
+     * @param string|null $valor
+     */
     public function __construct(
         protected ?string $valor = null
     ) {
-        $this->tabela(TABELA_COMUNICACAO_POPUP);
+        $this->tabela(TABELA_COMERCIAL_POPUP);
         $this->padrao('ordem');
         $this->campo('ordem', 'Ordem', 'ordem', 'ASC');
         $this->status();

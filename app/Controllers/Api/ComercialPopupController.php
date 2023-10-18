@@ -2,10 +2,11 @@
 
 namespace App\Controllers\Api;
 
-use App\Classes\ComunicacaoPopup\Ordem;
-use App\Classes\ComunicacaoPopup\Status;
-use App\Models\Api\ComunicacaoPopup\PopupEntity;
-use App\Models\Api\ComunicacaoPopup\PopupModel;
+use App\Classes\ComercialPopup\Ordem;
+use App\Classes\ComercialPopup\Status;
+use App\Models\Api\ComercialEmpresa\EmpresaEntity;
+use App\Models\Api\ComercialPopup\PopupEntity;
+use App\Models\Api\ComercialPopup\PopupModel;
 use App\Models\Api\OrdenarModel;
 use Controller\Controller;
 use Erro\Excecao;
@@ -20,7 +21,7 @@ use System\Interface\ControllerDeletarInterface;
 use System\Interface\ControllerListarInterface;
 use System\Interface\ControllerSalvarInterface;
 
-class ComunicacaoPopupController extends Controller implements
+class ComercialPopupController extends Controller implements
     ControllerBuscarInterface,
     ControllerListarInterface,
     ControllerSalvarInterface,
@@ -139,5 +140,18 @@ class ComunicacaoPopupController extends Controller implements
             quantidade: new Quantidade($request->quantidade)
         );
         return new Response(status: 204);
+    }
+
+    /**
+     * @param string $id Identificação(Uuid) da Empresa
+     *
+     * @return Response
+     * @throws Excecao
+     */
+    public function getPopup(string $id): Response
+    {
+        $EmpresaEntity = new EmpresaEntity();
+        $EmpresaEntity->uuid($id);
+        return mensagemSucesso((new PopupModel())->pegarPopupDoDia($EmpresaEntity));
     }
 }
