@@ -354,6 +354,7 @@ final class TextoHelper
             return $this;
         }
         $valor = preg_replace('/[^0-9]/', '', $this->valor);
+        $valor = !empty($valor) ? str_pad($valor, 8, '0', STR_PAD_LEFT) : '';
         if (strlen($valor) == 8) {
             $this->valor = substr($valor, 0, 5) . '-' . substr($valor, 5, 3);
         } else {

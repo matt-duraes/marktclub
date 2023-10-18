@@ -119,7 +119,7 @@ const loadingAtivar = () => {
             Loading.hide();
             return;
         }
-        window.location.replace(resposta.dado.link);
+        window.location.replace(LINK);
     };
     botaoSalvar.addEventListener('click', salvarUsuario);
 };
