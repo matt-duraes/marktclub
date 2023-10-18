@@ -16,33 +16,33 @@ window.addEventListener('load', () => {
     const buscarDados = async () => {
         for (const coluna of listaColuna) {
             const status = coluna.getAttribute('data-status');
-            const resposta = await ajaxPost(
+            ajaxPost(
                 LINK + '/demanda/listar',
                 {
                     area,
                     status,
                 },
                 ''
-            );
-            const conteudo = coluna.querySelector('.conteudo');
-            const loading = coluna.querySelector('.bloco_loading');
-            loading.remove();
-            if (false === resposta) {
-                adicionarBlocoErro(conteudo);
-                continue;
-            }
+            ).then(resposta => {
+                const conteudo = coluna.querySelector('.conteudo');
+                const loading = coluna.querySelector('.bloco_loading');
+                loading.remove();
+                if (false === resposta) {
+                    adicionarBlocoErro(conteudo);
+                    return;
+                }
 
-            if (resposta.dado.length == 0) {
-                coluna.querySelector('header h1 span').innerText = `(0)`;
-                adicionarBlocoZero(conteudo);
-                continue;
-            }
-            adicionarBlocoZero(conteudo, 'display_none');
-            for (const item of resposta.dado) {
-                await adicionarNovaDemanda(conteudo, item);
-            }
-            contarTarefaDemanda(coluna);
-            // adicionarDragDrop();
+                if (resposta.dado.length == 0) {
+                    coluna.querySelector('header h1 span').innerText = `(0)`;
+                    adicionarBlocoZero(conteudo);
+                    return;
+                }
+                adicionarBlocoZero(conteudo, 'display_none');
+                for (const item of resposta.dado) {
+                    adicionarNovaDemanda(conteudo, item);
+                }
+                contarTarefaDemanda(coluna);
+            });
         }
     };
     buscarDados();
