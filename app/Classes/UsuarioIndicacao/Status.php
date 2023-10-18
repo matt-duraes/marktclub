@@ -10,6 +10,9 @@ final class Status extends StatusStatus
     public const ATIVADO = 'ativado';
     public const BLOQUEADO = 'bloqueado';
 
+    /**
+     * @param string|int|null $valor
+     */
     public function __construct(
         protected string|int|null $valor = null
     ) {
