@@ -105,6 +105,24 @@ final class DemandaController extends Controller
         ]);
     }
 
+    public function postDemandaSeguir(Request $request)
+    {
+        $this
+            ->Api
+            ->validar('Erro ao seguir demanda, por favor, tente novamente.', login: true)
+            ->post('/demanda-dado/seguir/' . $request->id);
+        return new Response(status: 204);
+    }
+
+    public function postDemandaSeguirParar(Request $request)
+    {
+        $this
+            ->Api
+            ->validar('Erro ao parar de seguir demanda, por favor, tente novamente.', login: true)
+            ->delete('/demanda-dado/seguir/' . $request->id);
+        return new Response(status: 204);
+    }
+
     public function postDemandaEditar(Request $request, string $id)
     {
         $request

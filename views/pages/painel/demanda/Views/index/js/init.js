@@ -94,11 +94,30 @@ const adicionarNovaDemanda = (bloco, item, abrir) => {
         const clone = cloneTarefaLista.cloneNode(true);
         clone.setAttribute('data-id', item.id);
         clone.setAttribute('data-status', item.status);
+
+        const perfil = clone.querySelector('.tarefa_perfil');
+        perfil.setAttribute('data-ajuda', item.equipe.nome);
+        perfil.style.backgroundImage = `url(${item.equipe.imagem})`;
+
+        perfil.addEventListener('mouseover', () => {
+            const texto = perfil.getAttribute('data-ajuda');
+            Ajuda.show(perfil, texto);
+        });
+        perfil.addEventListener('mouseout', () => {
+            Ajuda.hide();
+        });
+
         adicionarTexto(clone, '.tarefa_titulo', item.titulo);
         adicionarTexto(clone, '.tarefa_data_criacao', item.data_criacao);
         adicionarTexto(clone, '.tarefa_data_entrega', item.data_entrega);
         removerDisplayNone(clone, '.bloco_entrega', item.data_entrega);
         bloco.appendChild(clone);
+
+        const blocoZero = bloco.querySelector('.tarefa_zero');
+        if (blocoZero) {
+            blocoZero.classList.add('display_none');
+        }
+
         const PaginaDemanda = new Pagina(
             'demanda-' + id,
             LINK + '/demanda/demanda/' + id,
