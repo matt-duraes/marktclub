@@ -2,7 +2,7 @@
 
 namespace Tests\Api;
 
-use App\Classes\Geral\Status;
+use App\Classes\ParceiroCupom\Status;
 use Tests\Token\Clube;
 
 class ParceiroCupomTest extends Clube
@@ -61,7 +61,7 @@ class ParceiroCupomTest extends Clube
         $this
             ->Curl
             ->body([
-                'status' => Status::INATIVO
+                'status' => Status::CANCELADO
             ])
             ->put('/parceiro-cupom/' . $this->idCupom);
 
@@ -76,29 +76,6 @@ class ParceiroCupomTest extends Clube
             ->get('/parceiro-cupom/' . $this->idCupom);
 
         return $this
-            ->checkIndiceIgual('dado.status', Status::INATIVO);
-    }
-
-    public function atualizarAuditadoTest(): ParceiroCupomTest
-    {
-        $this
-            ->Curl
-            ->body([
-                'auditado' => 'auditado'
-            ])
-            ->put('/parceiro-cupom/' . $this->idCupom);
-
-        return $this
-            ->checkStatus(204);
-    }
-
-    public function verificarSeAuditadoMudouTest(): ParceiroCupomTest
-    {
-        $this
-            ->Curl
-            ->get('/parceiro-cupom/' . $this->idCupom);
-
-        return $this
-            ->checkIndiceIgual('dado.auditado', 'auditado');
+            ->checkIndiceIgual('dado.status', Status::CANCELADO);
     }
 }
