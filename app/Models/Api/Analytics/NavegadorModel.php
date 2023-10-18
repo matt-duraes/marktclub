@@ -6,7 +6,6 @@ use ORM\ORM;
 use Modules\Data;
 use App\Models\Api\Trait\ValidarEmpresaTrait;
 use App\Models\Api\Analytics\Trait\WhereTrait;
-use App\Models\Api\ComercialEmpresa\EmpresaEntity;
 
 final class NavegadorModel extends ORM
 {
@@ -18,10 +17,9 @@ final class NavegadorModel extends ORM
     public function __construct(
         protected Data $de,
         protected Data $ate,
-        private ?EmpresaEntity $Empresa = null
+        private string|array|null $Empresa = null
     ) {
         parent::__construct();
-        $this->validarEmpresa();
     }
 
     public function listarDado(): array
