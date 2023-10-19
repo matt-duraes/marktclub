@@ -12,6 +12,7 @@ class DeclaracaoEntity extends Entity
 {
     use ValidarEmpresaTrait;
 
+    public array $empresa;
     public array $usuario;
     public array|string $parceiro;
     public string $modelo;
@@ -80,8 +81,51 @@ class DeclaracaoEntity extends Entity
 
     protected function regraPosBuscar(): void
     {
-        $this->buscarParceiro();
+        $this->buscarEmpresa();
         $this->buscarUsuario();
+        $this->buscarParceiro();
+    }
+
+    private function buscarEmpresa(): void
+    {
+        $empresa = (new OrmHelper(TABELA_COMERCIAL_EMPRESA))->pegarUltimoRegistro(
+            ['id', $this->id_admin_empresa],
+            ['cod', 'nome_fantasia'],
+            'object'
+        );
+        if (empty($empresa->cod)) {
+            $this->empresa = [
+                'id'   => '',
+                'nome' => 'Sem empresa'
+            ];
+            return;
+        }
+        $this->empresa = [
+            'id'   => $empresa->cod,
+            'nome' => $empresa->nome_fantasia
+        ];
+    }
+
+    private function buscarUsuario(): void
+    {
+        $usuario = (new OrmHelper(TABELA_USUARIO_CLIENTE))->pegarUltimoRegistro(
+            ['id', $this->id_usuario_cliente],
+            ['uuid', 'nome', 'email_pessoal'],
+            'object'
+        );
+        if (empty($usuario->uuid)) {
+            $this->usuario = [
+                'id'    => '',
+                'nome'  => 'Sem usuário',
+                'email' => ''
+            ];
+            return;
+        }
+        $this->usuario = [
+            'id'    => $usuario->uuid,
+            'nome'  => $usuario->nome,
+            'email' => $usuario->email_pessoal
+        ];
     }
 
     private function buscarParceiro(): void
@@ -101,26 +145,6 @@ class DeclaracaoEntity extends Entity
         $this->parceiro = [
             'id'   => $parceiro->uuid,
             'nome' => $parceiro->titulo
-        ];
-    }
-
-    private function buscarUsuario(): void
-    {
-        $usuario = (new OrmHelper(TABELA_USUARIO_CLIENTE))->pegarUltimoRegistro(
-            ['id', $this->id_usuario_cliente],
-            ['uuid', 'nome'],
-            'object'
-        );
-        if (empty($usuario->uuid)) {
-            $this->usuario = [
-                'id'   => '',
-                'nome' => 'Sem usuário'
-            ];
-            return;
-        }
-        $this->usuario = [
-            'id'   => $usuario->uuid,
-            'nome' => $usuario->nome
         ];
     }
 }

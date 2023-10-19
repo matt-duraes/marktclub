@@ -2,27 +2,64 @@
 
 namespace App\Controllers\Api;
 
+use App\Classes\Automovel\Versao\Ordem;
+use App\Classes\Geral\Status;
+use App\Models\Api\Automovel\Versao\VersaoEntity;
+use App\Models\Api\Automovel\Versao\VersaoModel;
+use Controller\Controller;
+use Erro\Excecao;
 use Http\Request;
 use Http\Response;
 use Modules\Pagina;
-use Controller\Controller;
-use App\Classes\Geral\Status;
-use App\Classes\Automovel\Versao\Ordem;
+use System\Interface\ControllerAtualizarInterface;
 use System\Interface\ControllerBuscarInterface;
+use System\Interface\ControllerDeletarInterface;
 use System\Interface\ControllerListarInterface;
 use System\Interface\ControllerSalvarInterface;
-use App\Models\Api\Automovel\Versao\VersaoModel;
-use System\Interface\ControllerDeletarInterface;
-use App\Models\Api\Automovel\Versao\VersaoEntity;
-use System\Interface\ControllerAtualizarInterface;
 
 final class AutomovelVersaoController extends Controller implements
+    ControllerBuscarInterface,
     ControllerListarInterface,
     ControllerSalvarInterface,
-    ControllerDeletarInterface,
     ControllerAtualizarInterface,
-    ControllerBuscarInterface
+    ControllerDeletarInterface
 {
+    /**
+     * @param string $id
+     *
+     * @return Response
+     * @throws Excecao
+     */
+    public function getBuscar(string $id): Response
+    {
+        $Versao = new VersaoEntity();
+        $Versao->uuid($id);
+        return $this->retornoSucesso($Versao, 200);
+    }
+
+    /**
+     * @param VersaoEntity $Versao
+     * @param int          $status
+     *
+     * @return Response
+     * @throws Excecao
+     */
+    private function retornoSucesso(VersaoEntity $Versao, int $status = 200): Response
+    {
+        return mensagemSucesso(
+            pegarPropriedadeDaEntity($Versao, lista: [
+                'titulo', 'cor', 'valor_de', 'valor_por', 'status'
+            ]),
+            $status
+        );
+    }
+
+    /**
+     * @param Request $request
+     *
+     * @return Response
+     * @throws Excecao
+     */
     public function getListar(Request $request): Response
     {
         $Versao = new VersaoModel(
@@ -31,57 +68,50 @@ final class AutomovelVersaoController extends Controller implements
             status: new Status($request->status),
             ordem: new Ordem($request->ordem)
         );
-        $dado = $Versao->listarDados();
-
-        return mensagemSucesso($dado);
+        return mensagemSucesso($Versao->listarDados());
     }
 
-    public function getBuscar(string $id): Response
-    {
-        $Versao = new VersaoEntity();
-        $Versao->uuid($id);
-
-        return $this->retornoSucesso($Versao, 200);
-    }
-
+    /**
+     * @param Request $request
+     *
+     * @return Response
+     * @throws Excecao
+     */
     public function postSalvar(Request $request): Response
     {
         $Versao = new VersaoEntity();
         $Versao->set(lista: $request->dado());
         $Versao->salvar();
-
         return $this->retornoSucesso($Versao, 201);
     }
 
+    /**
+     * @param Request $request
+     * @param string  $id
+     *
+     * @return Response
+     * @throws Excecao
+     */
     public function putAtualizar(Request $request, string $id): Response
     {
         $Versao = new VersaoEntity();
         $Versao->uuid($id);
         $Versao->set(lista: $request->dado());
         $Versao->salvar();
-
         return new Response(status: 204);
     }
 
+    /**
+     * @param string $id
+     *
+     * @return Response
+     * @throws Excecao
+     */
     public function deleteDeletar(string $id): Response
     {
         $Versao = new VersaoEntity();
         $Versao->uuid($id);
         $Versao->destruir();
-
         return new Response(status: 204);
-    }
-
-    private function retornoSucesso(VersaoEntity $Versao, int $status = 200)
-    {
-        return mensagemSucesso(
-            dado: pegarPropriedadeDaEntity(
-                $Versao,
-                lista: [
-                    'titulo', 'cor', 'valor_de', 'valor_por', 'status'
-                ]
-            ),
-            status: $status,
-        );
     }
 }

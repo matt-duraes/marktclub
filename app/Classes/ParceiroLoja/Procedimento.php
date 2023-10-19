@@ -11,6 +11,9 @@ final class Procedimento extends Status
     public const DECLARACAO = 'declaracao';
     public const CHEQUE_BONUS = 'cheque-bonus';
 
+    /**
+     * @param string|int|null $valor
+     */
     public function __construct(
         protected string|int|null $valor = null
     ) {

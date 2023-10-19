@@ -4,7 +4,7 @@ namespace App\Classes\SolicitacaoChequeBonus;
 
 use Order\Order;
 
-class Ordem extends Order
+final class Ordem extends Order
 {
     /**
      * @param string|null $valor

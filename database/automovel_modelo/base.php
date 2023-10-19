@@ -1,15 +1,17 @@
 <?php
 
-return (new \DataBase\DataBase())
+use DataBase\DataBase;
+
+return (new DataBase())
     ->id()
     ->uuid()
-    ->int('id_parceiro_loja')->relacionado(TABELA_PARCEIRO_LOJA, 'id')
+    ->int('id_parceiro_loja')->tamanho(9)->relacionado(TABELA_PARCEIRO_LOJA, 'id')
+    ->slug('url', 'titulo')
     ->varchar('titulo')->tamanho(250)
     ->text('texto')->null()
-    ->slug('url', 'titulo')
     ->imagem('imagem')->null()
-    ->dataCriacao()
-    ->dataAtualizacao()
     ->date('data_inicio')
     ->date('data_final')
+    ->dataCriacao()
+    ->dataAtualizacao()
     ->status();

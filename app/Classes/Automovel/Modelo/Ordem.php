@@ -6,8 +6,11 @@ use Order\Order;
 
 final class Ordem extends Order
 {
+    /**
+     * @param string|null $valor
+     */
     public function __construct(
-        protected null|string $valor = null
+        protected ?string $valor = null
     ) {
         $this->tabela(TABELA_AUTOMOVEL_MODELO);
         $this->maisNovo();

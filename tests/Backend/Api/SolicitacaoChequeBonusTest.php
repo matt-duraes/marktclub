@@ -2,16 +2,70 @@
 
 namespace Tests\Api;
 
-use Tests\Tests;
-use Modules\EstadoCivil;
 use App\Classes\Solicitacao\Status;
-use App\Classes\UsuarioCliente\TipoUsuario;
 use App\Classes\UsuarioCliente\GrauParentesco;
+use App\Classes\UsuarioCliente\TipoUsuario;
+use Erro\Excecao;
+use Modules\EstadoCivil;
+use Tests\Token\Clube;
 
-class SolicitacaoChequeBonusTest extends Tests
+class SolicitacaoChequeBonusTest extends Clube
 {
     private string $idSolicitacao;
 
+    /**
+     * @throws Excecao
+     */
+    public function __construct()
+    {
+        $this->pegarToken();
+        parent::__construct();
+    }
+
+    /**
+     * @return SolicitacaoChequeBonusTest
+     * @throws Excecao
+     */
+    public function listarTodosTest(): SolicitacaoChequeBonusTest
+    {
+        $this->api('solicitacao_cheque_bonus:listar');
+        $this
+            ->Curl
+            ->loginPainel()
+            ->json([
+                'pagina' => 1
+            ])
+            ->get('/solicitacao-cheque-bonus');
+
+        return $this
+            ->checkStatus(200)
+            ->checkIndiceExiste('dado.lista');
+    }
+
+    /**
+     * @return SolicitacaoChequeBonusTest
+     * @throws Excecao
+     */
+    public function salvarNovaSolicitacaoTipoUsuarioNaoDependenteTest(): SolicitacaoChequeBonusTest
+    {
+        $this->api('solicitacao_cheque_bonus:salvar');
+        $this
+            ->Curl
+            ->loginPainel()
+            ->body($this->getBody())
+            ->post('/solicitacao-cheque-bonus');
+
+        return $this
+            ->checkStatus(201)
+            ->checkIndiceExiste('dado')
+            ->checkIndiceExiste('dado.id');
+    }
+
+    /**
+     * @param array $array
+     *
+     * @return array
+     */
     private function getBody(array $array = []): array
     {
         return array_merge([
@@ -36,54 +90,14 @@ class SolicitacaoChequeBonusTest extends Tests
             'dependente_rg'              => '',
             'dependente_cpf'             => '',
             'dependente_grau_parentesco' => '',
-            'dependente_data_nascimento' => '',
+            'dependente_data_nascimento' => ''
         ], $array);
     }
 
-    private function getArrayDependete(): array
-    {
-        return [
-            'tipo_usuario'               => TipoUsuario::DEPENDENTE,
-            'dependente_nome'            => nomeCompletoAleatorio(),
-            'dependente_email_pessoal'   => emailAleatorio(),
-            'dependente_rg'              => rgAleatorio(),
-            'dependente_cpf'             => cpfAleatorio(),
-            'dependente_grau_parentesco' => valorAleatorio(array_keys((new GrauParentesco())->select())),
-            'dependente_data_nascimento' => $this->dataPassada()
-        ];
-    }
-
-    public function listarTodosTest(): SolicitacaoChequeBonusTest
-    {
-        $this->api('solicitacao_cheque_bonus:listar');
-        $this
-            ->Curl
-            ->loginPainel()
-            ->json([
-                'pagina' => 1
-            ])
-            ->get('/solicitacao-cheque-bonus');
-
-        return $this
-            ->checkStatus(200)
-            ->checkIndiceExiste('dado.lista');
-    }
-
-    public function salvarNovaSolicitacaoTipoUsuarioNaoDependenteTest(): SolicitacaoChequeBonusTest
-    {
-        $this->api('solicitacao_cheque_bonus:salvar');
-        $this
-            ->Curl
-            ->loginPainel()
-            ->body($this->getBody())
-            ->post('/solicitacao-cheque-bonus');
-
-        return $this
-            ->checkStatus(201)
-            ->checkIndiceExiste('dado')
-            ->checkIndiceExiste('dado.id');
-    }
-
+    /**
+     * @return SolicitacaoChequeBonusTest
+     * @throws Excecao
+     */
     public function salvarNovaSolicitacaoTipoUsuarioDependenteTest(): SolicitacaoChequeBonusTest
     {
         $this->api('solicitacao_cheque_bonus:salvar');
@@ -102,6 +116,26 @@ class SolicitacaoChequeBonusTest extends Tests
             ->checkIndiceExiste('dado.id');
     }
 
+    /**
+     * @return array
+     */
+    private function getArrayDependete(): array
+    {
+        return [
+            'tipo_usuario'               => TipoUsuario::DEPENDENTE,
+            'dependente_nome'            => nomeCompletoAleatorio(),
+            'dependente_email_pessoal'   => emailAleatorio(),
+            'dependente_rg'              => rgAleatorio(),
+            'dependente_cpf'             => cpfAleatorio(),
+            'dependente_grau_parentesco' => valorAleatorio(array_keys((new GrauParentesco())->select())),
+            'dependente_data_nascimento' => $this->dataPassada()
+        ];
+    }
+
+    /**
+     * @return SolicitacaoChequeBonusTest
+     * @throws Excecao
+     */
     public function naoPodeSalvarComDataNascimentoFuturaTest(): SolicitacaoChequeBonusTest
     {
         $this->api('solicitacao_cheque_bonus:salvar');
@@ -121,15 +155,21 @@ class SolicitacaoChequeBonusTest extends Tests
             ->checkIndiceIgual('erro.mensagem', 'A data de nascimento do dependente está inválida.');
     }
 
+    /**
+     * @return SolicitacaoChequeBonusTest
+     * @throws Excecao
+     */
     public function naoPodeSalvarComDataTermoDiferenteDeHojeTest(): SolicitacaoChequeBonusTest
     {
         $this->api('solicitacao_cheque_bonus:salvar');
         $this
             ->Curl
             ->loginPainel()
-            ->body($this->getBody([
-                'data_termo' => $this->dataFutura()
-            ]))
+            ->body(
+                $this->getBody([
+                    'data_termo' => $this->dataFutura()
+                ])
+            )
             ->post('/solicitacao-cheque-bonus');
 
         return $this
@@ -138,16 +178,22 @@ class SolicitacaoChequeBonusTest extends Tests
             ->checkIndiceIgual('erro.mensagem', 'A data do termo está inválida.');
     }
 
+    /**
+     * @return SolicitacaoChequeBonusTest
+     * @throws Excecao
+     */
     public function naoPodeSalvarComDataNascimentoDependenteFuturaTest(): SolicitacaoChequeBonusTest
     {
         $this->api('solicitacao_cheque_bonus:salvar');
         $this
             ->Curl
             ->loginPainel()
-            ->body($this->getBody([
-                'tipo_usuario'               => TipoUsuario::DEPENDENTE,
-                'dependente_data_nascimento' => $this->dataFutura()
-            ]))
+            ->body(
+                $this->getBody([
+                    'tipo_usuario'               => TipoUsuario::DEPENDENTE,
+                    'dependente_data_nascimento' => $this->dataFutura()
+                ])
+            )
             ->post('/solicitacao-cheque-bonus');
 
         return $this
@@ -156,6 +202,10 @@ class SolicitacaoChequeBonusTest extends Tests
             ->checkIndiceIgual('erro.mensagem', 'A data de nascimento do dependente está inválida.');
     }
 
+    /**
+     * @return SolicitacaoChequeBonusTest
+     * @throws Excecao
+     */
     public function atualizarStatusValidoTest(): SolicitacaoChequeBonusTest
     {
         $this->api('solicitacao_cheque_bonus:atualizar');
@@ -171,6 +221,10 @@ class SolicitacaoChequeBonusTest extends Tests
             ->checkStatus(204);
     }
 
+    /**
+     * @return SolicitacaoChequeBonusTest
+     * @throws Excecao
+     */
     public function naoPodeAtualizarComStatusInvalidoTest(): SolicitacaoChequeBonusTest
     {
         $this->api('solicitacao_cheque_bonus:atualizar');
@@ -188,6 +242,10 @@ class SolicitacaoChequeBonusTest extends Tests
             ->checkIndiceIgual('erro.mensagem', 'O campo Status não é um valor válido.');
     }
 
+    /**
+     * @return SolicitacaoChequeBonusTest
+     * @throws Excecao
+     */
     public function buscarPorIdTest(): SolicitacaoChequeBonusTest
     {
         $this->api('solicitacao_cheque_bonus:buscar');

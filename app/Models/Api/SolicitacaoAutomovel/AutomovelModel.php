@@ -147,6 +147,9 @@ final class AutomovelModel extends ORM implements
         foreach ($solicitacoes as $solicitacao) {
             $retorno[] = [
                 'id'              => $solicitacao->uuid,
+                'empresa'         => [
+                    'nome' => $solicitacao->empresa_nome_fantasia
+                ],
                 'endereco_estado' => $solicitacao->endereco_estado,
                 'endereco_cidade' => $solicitacao->endereco_cidade,
                 'montadora'       => $solicitacao->montadora,

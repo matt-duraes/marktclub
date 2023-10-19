@@ -55,14 +55,14 @@ class PegarCarteirinhaModel extends ORM
     }
 
     /**
-     * @param stdClass $carteirinha
+     * @param stdClass|array $carteirinha
      *
      * @return stdClass
      */
-    private function montarCarteirinha(stdClass $carteirinha): stdClass
+    private function montarCarteirinha(stdClass|array $carteirinha): stdClass
     {
-        if (!get_object_vars($carteirinha)) {
-            return $carteirinha;
+        if (is_array($carteirinha)) {
+            return object([]);
         }
 
         return object([

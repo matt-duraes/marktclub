@@ -48,7 +48,7 @@ class SolicitacaoAutomovelController extends Controller implements
     {
         return mensagemSucesso(
             pegarPropriedadeDaEntity($Automovel, lista: [
-                'usuario', 'endereco_estado', 'endereco_cidade',
+                'empresa', 'usuario', 'endereco_estado', 'endereco_cidade',
                 'montadora', 'modelo', 'versao', 'cor', 'data_criacao',
                 'data_atualizacao', 'mensagem', 'status'
             ]),

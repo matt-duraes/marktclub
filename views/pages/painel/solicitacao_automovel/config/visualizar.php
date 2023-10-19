@@ -5,7 +5,18 @@ use App\Classes\Solicitacao\Status;
 $Painel = new PainelConfig\Visualizar('solicitacao_automovel');
 
 $Painel->coluna(callback: function () use ($Painel) {
-    $Painel->bloco(titulo: 'Usuario', callback: function () use ($Painel) {
+    $Painel->bloco('Empresa', callback: function () use ($Painel) {
+        $Painel
+            ->linha('empresa->nome', 'Nome')
+            ->botao(
+                'empresa_link',
+                'Ver empresa',
+                link: LINK . '/app/visualizar/comercial-empresa/empresa->id',
+                permissao: \App\Classes\UsuarioCliente\Helper::PERMISSAO_EMPRESA
+            );
+    });
+
+    $Painel->bloco('Usuario', callback: function () use ($Painel) {
         $Painel
             ->linha('usuario->nome', 'Nome')
             ->linha('usuario->email', 'E-mail')
@@ -16,13 +27,14 @@ $Painel->coluna(callback: function () use ($Painel) {
                 permissao: \App\Classes\UsuarioCliente\Helper::PERMISSAO_VISUALIZAR
             );
     });
-    $Painel->bloco(titulo: 'Endereço', callback: function () use ($Painel) {
+
+    $Painel->bloco('Endereço', callback: function () use ($Painel) {
         $Painel
             ->linha('endereco_estado', 'Estado')
             ->linha('endereco_cidade', 'Cidade');
     });
 
-    $Painel->bloco(titulo: 'Automóvel', callback: function () use ($Painel) {
+    $Painel->bloco('Automóvel', callback: function () use ($Painel) {
         $Painel
             ->linha('montadora', 'Montadora')
             ->linha('modelo', 'Modelo')
@@ -30,12 +42,12 @@ $Painel->coluna(callback: function () use ($Painel) {
             ->linha('cor', 'Cor');
     });
 
-    $Painel->bloco(titulo: 'Mensagem', callback: function () use ($Painel) {
+    $Painel->bloco('Mensagem', callback: function () use ($Painel) {
         $Painel
             ->linha('mensagem', 'Mensagem');
     });
 
-    $Painel->bloco(titulo: 'Dados da solicitação', callback: function () use ($Painel) {
+    $Painel->bloco('Dados da solicitação', callback: function () use ($Painel) {
         $Painel
             ->dataHora('data_criacao', 'Data de criação')
             ->dataHora('data_atualizacao', 'Data da última atualização')

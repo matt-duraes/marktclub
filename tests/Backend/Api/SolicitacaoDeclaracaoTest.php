@@ -9,7 +9,7 @@ use Tests\Token\Clube;
 class SolicitacaoDeclaracaoTest extends Clube
 {
     private string $idSolicitacaoDeclaracao;
-    private string $idParceiro = '4502e7e8-9359-470e-9588-0a1501449675';
+    private string $idParceiro = 'f10e05c0-5b02-4bff-8e22-719a8797f0d6';
 
     /**
      * @throws Excecao
