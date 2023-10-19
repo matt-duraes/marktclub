@@ -55,29 +55,24 @@ $titulos = [
     'CupomTecnologia',
     'CupomEntretenimento'
 ];
-
-$dado = [];
-
 $listaTipo = (new Tipo())->listarNumero();
 $listaStatus = (new Status())->listarNumero();
 $tipoCodigo = (new Tipo(Tipo::CODIGO))->numero();
 $tipoLink = (new Tipo(Tipo::LINK))->numero();
-
+$seeds = [];
 for ($i = 1; $i < 50; $i++) {
     $slug = strtolower(preg_replace('/[ -]+/', '-', $titulos[$i - 1]));
     $cupom = strtoupper(preg_replace('/[ -]+/', '', $titulos[$i - 1]));
     $tipo = valorAleatorio($listaTipo);
-
-    $dado[] = [
-        'titulo'           => $titulos[$i - 1],
-        'tipo'             => $tipo,
-        'texto'            => 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla euismod, nisl eget aliquam ultricies, nunc nisl aliquet nunc, quis aliquam nisl',
-        'data_validade'    => dataFuturaAleatorio(),
-        'cupom'            => $tipo == $tipoCodigo ? $cupom : null,
-        'link'             => $tipo == $tipoLink ? 'https://google.com/' . $slug : null,
-        'imagem'           => 'https://via.placeholder.com/300x300.png?text=' . $slug,
-        'status'           => valorAleatorio($listaStatus),
+    $seeds[] = [
+        'titulo'        => valorAleatorio($titulos),
+        'tipo'          => $tipo,
+        'texto'         => 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla euismod, nisl eget aliquam ultricies, nunc nisl aliquet nunc, quis aliquam nisl',
+        'data_validade' => dataFuturaAleatorio(),
+        'cupom'         => $tipo == $tipoCodigo ? $cupom : null,
+        'link'          => $tipo == $tipoLink ? 'https://google.com/' . $slug : null,
+        'imagem'        => 'https://via.placeholder.com/300x300.png?text=' . $slug,
+        'status'        => valorAleatorio($listaStatus),
     ];
 }
-
-return $dado;
+return $seeds;

@@ -1,6 +1,8 @@
 <?php
 
-return (new \DataBase\DataBase())
+use DataBase\DataBase;
+
+return (new DataBase())
     ->id()
     ->cod()
     ->json('empresa')->replace('id_admin_empresa')

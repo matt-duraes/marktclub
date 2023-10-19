@@ -6,6 +6,9 @@ use Order\Order;
 
 final class OrdemClube extends Order
 {
+    /**
+     * @param string|null $valor
+     */
     public function __construct(
         protected ?string $valor = null
     ) {

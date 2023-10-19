@@ -4,7 +4,7 @@ namespace App\Classes\SolicitacaoCredito;
 
 use Status\Status;
 
-class Tipo extends Status
+final class Tipo extends Status
 {
     public const CONSIGNADO = 'consignado';
     public const CREDITO_PESSOAL = 'credito_pessoal';
@@ -12,6 +12,9 @@ class Tipo extends Status
     public const VEICULO_SEMINOVO = 'veiculo_seminovo';
     public const PORTABILIDADE = 'portabilidade';
 
+    /**
+     * @param string|int|null $valor
+     */
     public function __construct(
         protected string|int|null $valor = null
     ) {
