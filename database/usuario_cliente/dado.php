@@ -60,7 +60,7 @@ return [
         'empresa'           => 1,
         'tipo'              => 1,
         'nome'              => 'Usuário de Teste',
-        'documento'         => '01234567890',
+        'documento'         => '55525957000',
         'email_pessoal'     => 'teste@markt.club',
         'salt'              => password('Teste@1324'),
         'status'            => 1

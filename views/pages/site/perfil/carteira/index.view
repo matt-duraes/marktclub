@@ -1,6 +1,4 @@
 @CSS
-
-@if (!empty($dado->dado)):
 <div id="bloco_carteirinha">
     <div class="bloco_frente" style="background-image: url({{$dado->imagem->bg_frente}})">
         @if (defined(CLUBE_ID) == '61df17919405cf68f723510ec3af4acd'):
@@ -14,7 +12,4 @@
         @endif
     </div>
 </div>
-@else
-    @template "site"
-    @view site/perfil/carteira/paginaErro.view
-@endif
+

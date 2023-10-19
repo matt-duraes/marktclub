@@ -1,7 +1,7 @@
 @template "site"
 
 <!-- POPUP DO PARCEIRO -->
-
+@if ($popup):
 <div class="bloco_pagina_popup display_none" id="popup_parceiro" data-id="{{$popup->id}}">
     <header class="header_pagina_popup">
         <h1>{{$popup->titulo}}</h1>
@@ -25,7 +25,7 @@
         </div>
     </div>
 </div>
-
+@endif
 
 <div id="bloco_index">
     @if(TIPO_USUARIO == 'indicado'):

@@ -26,7 +26,7 @@ final class PontoCvsController extends Controller
         return view('ponto_cvs.solicita_cvs');
     }
 
-    public function postRealizarSolicitacao(Request $request): Response
+    public function postRealizarSolicitacao(Request $request)
     {
         return (new BuscarModel())->solicitarPontoCvs($request);
     }

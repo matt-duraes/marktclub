@@ -9,12 +9,11 @@ final class BuscarModel extends ClubeApiHelper
     public function buscarDados($pagina = 1)
     {
         $dados = $this
-            ->validar('Erro ao fazer a requisição!', status: 400)
             ->json([
-                'pagina'     => $pagina,
-                'quantidade' => 5,
-                'cpf'        => $this->Crypt->encode(sessao('USUARIO.cpf')),
-                'ordem'      => 'mais-novo'
+                'pagina'         => 1,
+                'quantidade'     => 5,
+                'cpf'            => $this->Crypt->encode(sessao('USUARIO.cpf')),
+                'ordem'          => 'mais-novo',
             ])
             ->get('/ponto-cvs')
             ->object();
