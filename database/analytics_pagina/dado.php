@@ -1,37 +1,34 @@
 <?php
 
 $data = hoje();
-return [
-    ['id' => '1', 'id_admin_empresa' => '1', 'quantidade' => '28', 'url' => '/convenios/fisk', 'data_acesso' => dataRemover($data, 8, 'dia')],
-    ['id' => '2', 'id_admin_empresa' => '1', 'quantidade' => '38', 'url' => '/convenios', 'data_acesso' => dataRemover($data, 8, 'dia')],
-    ['id' => '3', 'id_admin_empresa' => '1', 'quantidade' => '26', 'url' => '/convenios/kalunga', 'data_acesso' => dataRemover($data, 8, 'dia')],
-    ['id' => '4', 'id_admin_empresa' => '1', 'quantidade' => '30', 'url' => '/convenios/salavip', 'data_acesso' => dataRemover($data, 8, 'dia')],
-    ['id' => '5', 'id_admin_empresa' => '1', 'quantidade' => '36', 'url' => '/convenios/salavip', 'data_acesso' => dataRemover($data, 7, 'dia')],
-    ['id' => '6', 'id_admin_empresa' => '1', 'quantidade' => '41', 'url' => '/convenios/fisk', 'data_acesso' => dataRemover($data, 7, 'dia')],
-    ['id' => '7', 'id_admin_empresa' => '1', 'quantidade' => '30', 'url' => '/convenios', 'data_acesso' => dataRemover($data, 7, 'dia')],
-    ['id' => '8', 'id_admin_empresa' => '1', 'quantidade' => '36', 'url' => '/convenios/kalunga', 'data_acesso' => dataRemover($data, 7, 'dia')],
-    ['id' => '9', 'id_admin_empresa' => '1', 'quantidade' => '37', 'url' => '/convenios/salavip', 'data_acesso' => dataRemover($data, 6, 'dia')],
-    ['id' => '10', 'id_admin_empresa' => '1', 'quantidade' => '39', 'url' => '/convenios/fisk', 'data_acesso' => dataRemover($data, 6, 'dia')],
-    ['id' => '11', 'id_admin_empresa' => '1', 'quantidade' => '44', 'url' => '/convenios/kalunga', 'data_acesso' => dataRemover($data, 6, 'dia')],
-    ['id' => '12', 'id_admin_empresa' => '1', 'quantidade' => '39', 'url' => '/convenios', 'data_acesso' => dataRemover($data, 6, 'dia')],
-    ['id' => '13', 'id_admin_empresa' => '1', 'quantidade' => '43', 'url' => '/convenios', 'data_acesso' => dataRemover($data, 5, 'dia')],
-    ['id' => '14', 'id_admin_empresa' => '1', 'quantidade' => '52', 'url' => '/convenios/salavip', 'data_acesso' => dataRemover($data, 5, 'dia')],
-    ['id' => '15', 'id_admin_empresa' => '1', 'quantidade' => '44', 'url' => '/convenios/fisk', 'data_acesso' => dataRemover($data, 5, 'dia')],
-    ['id' => '16', 'id_admin_empresa' => '1', 'quantidade' => '47', 'url' => '/convenios/kalunga', 'data_acesso' => dataRemover($data, 5, 'dia')],
-    ['id' => '17', 'id_admin_empresa' => '1', 'quantidade' => '40', 'url' => '/convenios/fisk', 'data_acesso' => dataRemover($data, 4, 'dia')],
-    ['id' => '18', 'id_admin_empresa' => '1', 'quantidade' => '43', 'url' => '/convenios/salavip', 'data_acesso' => dataRemover($data, 4, 'dia')],
-    ['id' => '19', 'id_admin_empresa' => '1', 'quantidade' => '41', 'url' => '/convenios/kalunga', 'data_acesso' => dataRemover($data, 4, 'dia')],
-    ['id' => '20', 'id_admin_empresa' => '1', 'quantidade' => '51', 'url' => '/convenios', 'data_acesso' => dataRemover($data, 4, 'dia')],
-    ['id' => '21', 'id_admin_empresa' => '1', 'quantidade' => '47', 'url' => '/convenios/salavip', 'data_acesso' => dataRemover($data, 3, 'dia')],
-    ['id' => '22', 'id_admin_empresa' => '1', 'quantidade' => '37', 'url' => '/convenios/kalunga', 'data_acesso' => dataRemover($data, 3, 'dia')],
-    ['id' => '23', 'id_admin_empresa' => '1', 'quantidade' => '41', 'url' => '/convenios/fisk', 'data_acesso' => dataRemover($data, 3, 'dia')],
-    ['id' => '24', 'id_admin_empresa' => '1', 'quantidade' => '48', 'url' => '/convenios', 'data_acesso' => dataRemover($data, 3, 'dia')],
-    ['id' => '25', 'id_admin_empresa' => '1', 'quantidade' => '44', 'url' => '/convenios/salavip', 'data_acesso' => dataRemover($data, 2, 'dia')],
-    ['id' => '26', 'id_admin_empresa' => '1', 'quantidade' => '36', 'url' => '/convenios/kalunga', 'data_acesso' => dataRemover($data, 2, 'dia')],
-    ['id' => '27', 'id_admin_empresa' => '1', 'quantidade' => '42', 'url' => '/convenios/fisk', 'data_acesso' => dataRemover($data, 2, 'dia')],
-    ['id' => '28', 'id_admin_empresa' => '1', 'quantidade' => '34', 'url' => '/convenios', 'data_acesso' => dataRemover($data, 2, 'dia')],
-    ['id' => '29', 'id_admin_empresa' => '1', 'quantidade' => '32', 'url' => '/convenios', 'data_acesso' => dataRemover($data, 1, 'dia')],
-    ['id' => '30', 'id_admin_empresa' => '1', 'quantidade' => '37', 'url' => '/convenios/salavip', 'data_acesso' => dataRemover($data, 1, 'dia')],
-    ['id' => '31', 'id_admin_empresa' => '1', 'quantidade' => '27', 'url' => '/convenios/fisk', 'data_acesso' => dataRemover($data, 1, 'dia')],
-    ['id' => '32', 'id_admin_empresa' => '1', 'quantidade' => '45', 'url' => '/convenios/kalunga', 'data_acesso' => dataRemover($data, 1, 'dia')]
+$urls = [
+    '/convenios/fisk',
+    '/convenios/kalunga',
+    '/convenios/salavip',
 ];
+$dado = [];
+
+for ($e = 0; $e <= 50; $e++) {
+    for ($i = 0; $i <= 10; $i++) {
+        $dado[] = [
+            'id_admin_empresa' => $e,
+            'quantidade'       => rand(1, 1000),
+            'url'              => $urls[0],
+            'data_acesso'      => dataRemover($data, $i, 'dia')
+        ];
+        $dado[] = [
+            'id_admin_empresa' => $e,
+            'quantidade'       => rand(1, 100),
+            'url'              => $urls[1],
+            'data_acesso'      => dataRemover($data, $i, 'dia')
+        ];
+        $dado[] = [
+            'id_admin_empresa' => $e,
+            'quantidade'       => rand(1, 100),
+            'url'              => $urls[2],
+            'data_acesso'      => dataRemover($data, $i, 'dia')
+        ];
+    }
+}
+
+return $dado;

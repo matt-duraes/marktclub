@@ -39,7 +39,7 @@
             <h1 class="tarefa_titulo titulo"></h1>
         </header>
         <div class="bloco_data">
-            <figure class="perfil tarefa_perfil"></figure>
+            <figure class="perfil tarefa_perfil"><span></span></figure>
             <div class="data bloco_entrega display_none">@iconeRelogio(15) <span class="tarefa_data_entrega"></span></div>
             <div class="data">@iconeCalendario(14) <span class="tarefa_data_criacao"></span></div>
         </div>

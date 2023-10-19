@@ -4,7 +4,7 @@ namespace App\Models\Api\Pagina;
 
 final class SamsungModel extends PaginaPadraoModel
 {
-    private string $linkArquivo = LINK_ARQUIVO . '/pagina/cinema';
+    private string $linkArquivo = LINK_ARQUIVO . '/pagina/samsung';
     private string $link;
 
     public function __construct()
@@ -52,6 +52,6 @@ final class SamsungModel extends PaginaPadraoModel
 
     private function setarLink()
     {
-        $this->link = '';
+        $this->link = 'https://parcerias.samsung.com.br/markt-club';
     }
 }

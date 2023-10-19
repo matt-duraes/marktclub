@@ -1,13 +1,19 @@
 <?php
 
 $data = hoje();
-return [
-    ['id' => '1', 'id_admin_empresa' => '1', 'quantidade_total' => '122', 'quantidade_unico' => '3', 'data_acesso' => dataRemover($data, 8, 'dia')],
-    ['id' => '2', 'id_admin_empresa' => '1', 'quantidade_total' => '143', 'quantidade_unico' => '3', 'data_acesso' => dataRemover($data, 7, 'dia')],
-    ['id' => '3', 'id_admin_empresa' => '1', 'quantidade_total' => '159', 'quantidade_unico' => '3', 'data_acesso' => dataRemover($data, 6, 'dia')],
-    ['id' => '4', 'id_admin_empresa' => '1', 'quantidade_total' => '186', 'quantidade_unico' => '3', 'data_acesso' => dataRemover($data, 5, 'dia')],
-    ['id' => '5', 'id_admin_empresa' => '1', 'quantidade_total' => '175', 'quantidade_unico' => '3', 'data_acesso' => dataRemover($data, 4, 'dia')],
-    ['id' => '6', 'id_admin_empresa' => '1', 'quantidade_total' => '173', 'quantidade_unico' => '3', 'data_acesso' => dataRemover($data, 3, 'dia')],
-    ['id' => '7', 'id_admin_empresa' => '1', 'quantidade_total' => '156', 'quantidade_unico' => '3', 'data_acesso' => dataRemover($data, 2, 'dia')],
-    ['id' => '8', 'id_admin_empresa' => '1', 'quantidade_total' => '141', 'quantidade_unico' => '3', 'data_acesso' => dataRemover($data, 1, 'dia')]
+$dado = [
+    ['id_admin_empresa' => '1', 'quantidade_total' => '122', 'quantidade_unico' => '3', 'data_acesso' => dataRemover($data, 1, 'dia')]
 ];
+
+for ($e = 1; $e <= 50; $e++) {
+    for ($i = 1; $i <= 20; $i++) {
+        $dado[] = [
+            'id_admin_empresa' => $e,
+            'quantidade_total' => rand(1, 100),
+            'quantidade_unico' => rand(1, 100),
+            'data_acesso'      => dataRemover($data, $i, 'dia')
+        ];
+    }
+}
+
+return $dado;
