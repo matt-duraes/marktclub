@@ -851,19 +851,22 @@ Route
 
 Route
     ::nome('pagina')
-    ::middleware(TokenProvMiddleware::class, 'token')
+    ::middleware(TokenMiddleware::class, 'token')
     ::controller(App\Controllers\Api\PaginaController::class)
     ::grupo(function () {
         Route
             ::nome('turismo')
+            ::middleware(TokenMiddleware::class, 'scope', ['pagina:turismo'])
             ::get('/pagina/turismo');
 
         Route
             ::nome('cinema')
+            ::middleware(TokenMiddleware::class, 'scope', ['pagina:cinema'])
             ::get('/pagina/cinema');
 
         Route
             ::nome('samsung')
+            ::middleware(TokenMiddleware::class, 'scope', ['pagina:samsung'])
             ::get('/pagina/samsung');
     });
 
