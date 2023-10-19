@@ -46,7 +46,7 @@ for ($i = 0; $i <= 10; $i++) {
             'usuario'      => $usuario['id'],
             'usuario_cpf'  => $usuario['cpf'],
             'usuario_nome' => $usuario['nome'],
-            'empresa'      => 1,
+            'empresa'      => rand(1, 50),
             'vinculo'      => $vinculo['id'],
             'vinculo_nome' => $vinculo['nome'],
             'usuario_tipo' => 1,

@@ -2,27 +2,35 @@
 
 namespace App\Models\Api\Analytics\Trait;
 
-use App\Models\Api\ComercialEmpresa\EmpresaEntity;
+use Helpers\OrmHelper;
 
 trait WhereTrait
 {
-    private function pegarWherePadrao()
+    private function pegarWherePadrao(bool $dataAcesso = true)
     {
-        $de = $this->de->date();
-        $ate = $this->ate->date();
-
-        $this->validarData($de, $ate);
-
-        $where = [
-            ['data_acesso', 'between', [$de . ' 00:00:00', $ate . ' 23:59:59']]
-        ];
-
-        $podeMudarEmpresa = $this->verificarSePodeMudarEmpresa();
-        if ($this->Empresa instanceof EmpresaEntity && $podeMudarEmpresa) {
-            $where[] = ['id_admin_empresa', $this->Empresa->get('id')];
-        } elseif (!$podeMudarEmpresa) {
-            $where[] = ['id_admin_empresa', TOKEN['empresa']->id];
+        if ($dataAcesso) {
+            $this->validarData($this->de, $this->ate);
+            $where[] = ['data_acesso', 'between', [$this->de->banco() . ' 00:00:00', $this->ate->banco() . ' 23:59:59']];
         }
+
+        if (empty($this->Empresa)) {
+            $where[] = ['id_admin_empresa', TOKEN['empresa']->id];
+            return $where;
+        }
+
+        $ormHelper = new OrmHelper(TABELA_COMERCIAL_EMPRESA);
+
+        if (!is_array($this->Empresa)) {
+            $empresaId = $ormHelper->pegarIdPeloUuid($this->Empresa);
+            $where[] = ['id_admin_empresa', $empresaId];
+            return $where;
+        }
+
+        $empresaId = [];
+        foreach ($this->Empresa as $e) {
+            $empresaId[] = $ormHelper->pegarIdPeloUuid($e);
+        }
+        $where[] = ['id_admin_empresa', 'in', $empresaId];
         return $where;
     }
 

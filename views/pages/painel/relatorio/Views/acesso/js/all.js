@@ -1,8 +1,8 @@
 // @template "painel"
 // @system "Grafico"
+// @import "../../filtros/js/all"
 
 window.addEventListener('load', () => {
-    const inputEmpresa = document.querySelector('#input_relatorio_empresa');
     const inputDe = document.querySelector('#input_relatorio_data_de');
     const inputAte = document.querySelector('#input_relatorio_data_ate');
     const botaoBuscar = document.querySelector('#botao_buscar_relatorio');
@@ -21,7 +21,9 @@ window.addEventListener('load', () => {
     const buscarAcessoPorPagina = async () => {
         const de = inputDe.value;
         const ate = inputAte.value;
-        const empresa = inputEmpresa ? inputEmpresa.value : '';
+        const empresa = pegarValoresMarcados();
+
+
 
         graficoAcesso.classList.add('loading');
         const resposta = await ajaxGet(LINK + `/relatorio/acesso-dia`, { de, ate, empresa }, undefined, {
@@ -62,7 +64,7 @@ window.addEventListener('load', () => {
     const buscarMaisAcessado = async local => {
         const de = inputDe.value;
         const ate = inputAte.value;
-        const empresa = inputEmpresa ? inputEmpresa.value : '';
+        const empresa = pegarValoresMarcados();
 
         let bloco, loading;
         let estabelecimento = '';
@@ -146,7 +148,7 @@ window.addEventListener('load', () => {
     const buscarPorDispositivo = async tipo => {
         const de = inputDe.value;
         const ate = inputAte.value;
-        const empresa = inputEmpresa ? inputEmpresa.value : '';
+        const empresa = pegarValoresMarcados();
 
         let bloco;
         if (tipo == 'dispositivo') {

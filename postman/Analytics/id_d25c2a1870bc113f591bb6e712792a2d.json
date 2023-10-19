@@ -1,0 +1,1 @@
+{"id":"id_d25c2a1870bc113f591bb6e712792a2d","token":"token","metodo":"GET","nome":"\/relatio\/dado-usuario","uri":"{{LINK}}\/relatorio\/dado-usuario","parametro":[],"body":[],"header":[],"variavel":[],"json":[],"documentacao":{"status":false,"descricao":"","requisicao":"","resposta":"","scope":"relatorio_usuario:listar"}}

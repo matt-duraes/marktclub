@@ -2,12 +2,11 @@
 
 namespace App\Models\Api\Analytics;
 
+use App\Models\Api\Trait\ValidarEmpresaTrait;
 use ORM\ORM;
 use Modules\Data;
 use App\Classes\ParceiroLoja\Estabelecimento;
-use App\Models\Api\Trait\ValidarEmpresaTrait;
 use App\Models\Api\Analytics\Trait\WhereTrait;
-use App\Models\Api\ComercialEmpresa\EmpresaEntity;
 
 final class LojaMaisAcessadaModel extends ORM
 {
@@ -20,17 +19,16 @@ final class LojaMaisAcessadaModel extends ORM
         protected Data $de,
         protected Data $ate,
         protected Estabelecimento $estabelecimento,
-        private ?EmpresaEntity $Empresa = null
+        private array|string|null $Empresa = null
     ) {
         parent::__construct();
-        $this->validarEmpresa();
     }
 
     public function listarDado(): array
     {
         $lista = $this
             ->campo(['quantidade', 'parceiro_nome', 'id_parceiro_loja'])
-            ->where($this->pegarWhere())
+            ->where($this->pegarWhere(), false)
             ->order('quantidade', 'DESC')
             ->read();
 
@@ -40,6 +38,7 @@ final class LojaMaisAcessadaModel extends ORM
     private function pegarWhere()
     {
         $where = $this->pegarWherePadrao();
+
         if ($this->estabelecimento->valido()) {
             $where[] = ['parceiro_estabelecimento', $this->estabelecimento->numero()];
         }

@@ -17,7 +17,7 @@ final class RelatorioController extends Controller
             'de'        => dataRemover(date('Y-m-d'), 8, 'dias', 'd/m/Y'),
             'ate'       => dataRemover(date('d/m/Y'), 1, 'dia', 'd/m/Y'),
             'empresa'   => $this->pegarSelectEmpresa()
-        ]);
+        ], css: 'painel_relatorio_venda');
     }
 
     public function usuario()
@@ -66,12 +66,11 @@ final class RelatorioController extends Controller
             'ate' => dataBanco($ate),
         ];
         if ($request->empresa) {
-            $body['empresa'] = $request->empresa;
+            $body['empresa'] = explode(',', $request->empresa);
         }
 
         $Api = new ApiHelper(token: true);
         $dado = $Api
-            ->validar('Erro ao buscar relatório, por favor, tente novamente.')
             ->json($body)->get('/relatorio/acesso-dia')
             ->object();
 
@@ -104,7 +103,7 @@ final class RelatorioController extends Controller
             'ate' => dataBanco($ate),
         ];
         if ($request->empresa) {
-            $body['empresa'] = $request->empresa;
+            $body['empresa'] = explode(',', $request->empresa);
         }
         if ($local == 'loja' && !empty($request->estabelecimento)) {
             $body['estabelecimento'] = $request->estabelecimento;
@@ -112,7 +111,6 @@ final class RelatorioController extends Controller
 
         $Api = new ApiHelper(token: true);
         $dado = $Api
-            ->validar('Erro ao buscar relatório, por favor, tente novamente.')
             ->json($body)
             ->get('/relatorio/' . $uri[$local])
             ->object()->dado ?? [];
@@ -140,12 +138,11 @@ final class RelatorioController extends Controller
             'ate' => dataBanco($ate),
         ];
         if ($request->empresa) {
-            $body['empresa'] = $request->empresa;
+            $body['empresa'] = explode(',', $request->empresa);
         }
 
         $Api = new ApiHelper(token: true);
         $dado = $Api
-            ->validar('Erro ao buscar relatório, por favor, tente novamente.')
             ->json($body)
             ->get('/relatorio/' . $tipo)
             ->object();
@@ -184,12 +181,11 @@ final class RelatorioController extends Controller
     {
         $body = [];
         if ($request->empresa) {
-            $body['empresa'] = $request->empresa;
+            $body['empresa'] = explode(',', $request->empresa);
         }
 
         $Api = new ApiHelper(token: true);
         $dado = $Api
-            ->validar('Ocorreu um erro ao buscar os gráficos, por favor, recarregue a página e tente novamente.')
             ->json($body)
             ->get('/relatorio/dado-usuario')
             ->object();
@@ -222,11 +218,10 @@ final class RelatorioController extends Controller
             'ate' => dataBanco($ate),
         ];
         if ($request->empresa) {
-            $body['empresa'] = $request->empresa;
+            $body['empresa'] = explode(',', $request->empresa);
         }
 
         $dado = (new ApiHelper(token: true))
-            ->validar('Ocorre um erro ao buscar o relatório, por favor, tente novamente.')
             ->json($body)
             ->get('/relatorio/loja-venda')
             ->object();

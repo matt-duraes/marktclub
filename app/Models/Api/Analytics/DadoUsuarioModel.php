@@ -2,9 +2,10 @@
 
 namespace App\Models\Api\Analytics;
 
+use Helpers\OrmHelper;
+use Http\Request;
 use ORM\ORM;
 use App\Models\Api\Trait\ValidarEmpresaTrait;
-use App\Models\Api\ComercialEmpresa\EmpresaEntity;
 
 final class DadoUsuarioModel extends ORM
 {
@@ -14,31 +15,16 @@ final class DadoUsuarioModel extends ORM
     private int $idEmpresa;
 
     public function __construct(
-        private ?EmpresaEntity $Empresa = null
+        private Request $request
     ) {
         parent::__construct();
-
-        $this->setarEmpresaDaBusca();
-    }
-
-    private function setarEmpresaDaBusca()
-    {
-        $this->verificarSeExisteToken();
-        $this->setarIdUsuario();
-
-        if ($this->Empresa instanceof EmpresaEntity && $this->verificarSePodeMudarEmpresa()) {
-            $this->idEmpresa = $this->Empresa->get('id');
-            return;
-        }
         $this->idEmpresa = TOKEN['empresa']->id;
     }
 
     public function listarDados(): array
     {
         $dado = $this
-            ->where([
-                ['id_admin_empresa', $this->idEmpresa],
-            ])
+            ->where($this->pegarWhere(), false)
             ->order('data_criacao', 'DESC')
             ->limit(0, 1)
             ->primeiro();
@@ -48,6 +34,26 @@ final class DadoUsuarioModel extends ORM
         }
 
         return $this->montarDado($dado);
+    }
+
+    private function pegarWhere()
+    {
+        $empresaUuid = $this->request->empresa;
+        if (empty($empresaUuid)) {
+            return [
+                ['id_admin_empresa', $this->idEmpresa]
+            ];
+        }
+        $ormHelper = new OrmHelper(TABELA_COMERCIAL_EMPRESA);
+
+        $empresaId = [];
+        foreach ($empresaUuid as $e) {
+            $empresaId[] = $ormHelper->pegarIdPeloUuid($e);
+        }
+
+        return [
+            ['id_admin_empresa', 'in', $empresaId]
+        ];
     }
 
     private function retornarListaZerada()
