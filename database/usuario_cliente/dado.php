@@ -38,13 +38,24 @@ $seeds = [
         'email_pessoal' => 'teste@markt.club',
         'salt'          => password('Teste@1324'),
         'status'        => 1
+    ],
+    [
+        'id'            => 4,
+        'cod'           => 'cdc41730-abc7-4b51-abd7-698e2cb3c0b1',
+        'empresa'       => 198,
+        'tipo'          => 1,
+        'nome'          => 'Teste CVS',
+        'documento'     => '55525957000',
+        'email_pessoal' => 'teste2@cvs.club',
+        'salt'          => password('Teste@1324'),
+        'status'        => 1
     ]
 ];
 for ($i = 0; $i < env('QTD_SEEDS', 50); $i++) {
     $tipo = valorAleatorio($listaTipoUsuario);
     $seeds[] = [
         'cod'           => uuid(),
-        'empresa'       => numeroAleatorio(1, 50),
+        'empresa'       => 1,
         'titular'       => ($tipo != 2) ? null : 1,
         'tipo'          => $tipo,
         'nome'          => nomeCompletoAleatorio(),

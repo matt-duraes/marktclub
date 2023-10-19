@@ -6,13 +6,13 @@ use ORM\ORM;
 use stdClass;
 use Modules\Cpf;
 use Http\Request;
+use Helpers\OrmHelper;
 use App\Classes\PontoCvs\Ordem;
 use App\Helpers\PontoCvsHelper;
 use App\Classes\PontoCvs\Status;
 use System\Trait\Model\PaginaTrait;
 use App\Classes\UsuarioCliente\Helper;
 use System\Trait\Model\QuantidadeTrait;
-use App\Models\Api\UsuarioCliente\ClienteEntity;
 
 final class PontoModel extends ORM
 {
@@ -109,9 +109,7 @@ final class PontoModel extends ORM
 
     private function buscarIdUsuarioPeloCpf()
     {
-        $Usuario = new ClienteEntity(validarToken: false);
-
-        $Usuario->buscar([
+        $usuario = (new OrmHelper(TABELA_USUARIO_CLIENTE))->pegarPrimeiroRegistro([
             ['documento', soNumero($this->request->cpf)],
             ['status', 'in', Helper::STATUS_LIBERADO],
             [
@@ -122,15 +120,9 @@ final class PontoModel extends ORM
                     ['tipo', 3]
                 ]
             ]
-        ], false);
-
-        if (empty($Usuario->id)) {
-            return $this->request->cpf;
-        }
-
-        $this->buscaCpf = $Usuario->getCpf();
-
-        return $Usuario->get('id');
+        ], campo: ['cpf', 'id'], retorno: 'object');
+        $this->buscaCpf = $usuario->cpf;
+        return $usuario->id;
     }
 
     private function validarRequest()
