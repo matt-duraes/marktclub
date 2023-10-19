@@ -34,10 +34,12 @@
                     <i>@iconeTema</i>
                     Mudar Tema
                 </a>
-                <a href="@route(perfil.carteira)" class="botao">
+                @ if (MENU_CARTEIRA):
+                <a href="@route(perfil.carteira)" class="botao" target="_blank">
                     <i>@iconeCarteirinha</i>
                     Carteirinha
                 </a>
+                @endif;
                 @ if( !API ):
                 <a class="botao {!!MENU_HOVER == 'perfil-dado' ? 'cor_bg pagina_atual' : ''!!}" href="@route(perfil.index)">
                     <i>@iconeUsuarioOutline(22)</i>
@@ -70,7 +72,7 @@
                 </a>
                 @ endif;
                 @ if (MENU_PONTO_MAIS_ACAO) :
-                <a href="@route(pontoCvs.index)">
+                <a href="@route(pontoCvs.index)" class="botao {!!MENU_HOVER == 'ponto-mais-acao' ? 'cor_bg pagina_atual' : ''!!}">
                     <i>@iconeCashbackHome(22)</i>
                     Ponto + Ação
                 </a>

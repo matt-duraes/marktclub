@@ -630,7 +630,7 @@ Route
             ::view('/enquete-popup/{id}');
         Route
             ::nome('abrirModalPopupImagem')
-            ::view('/enquete-imagem/{id}');
+            ::view('/enquete-imagem');
         Route
             ::nome('ajuda')
             ::get('/ajuda');
@@ -701,7 +701,7 @@ Route
             ::nome('index')
             ::view('/ponto-cvs');
         Route
-            ::nome('postRealizarSolicitacao')
+            ::nome('realizarSolicitacao')
             ::request(['nome', 'email', 'ponto'])
             ::post('/ponto-cvs/solicitar');
         Route
@@ -710,9 +710,6 @@ Route
         Route
             ::nome('extrato')
             ::view('/popup/extrato-ponto-cvs');
-        // Route
-        //     ::nome('buscarMais')
-        //     ::view('/ponto-cvs/buscar-mais');
     });
 Route
     ::nome('campanha')

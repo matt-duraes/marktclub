@@ -5,12 +5,12 @@
     <div class="bloco_dado_duplo">
         <div class="nome">
             <p class="titulo_dados">
-                {{$dado->nome}}
+                {{$dado->usuario->nome}}
             </p>
         </div>
         <div class="documento">
             <p class="titulo_dados documento">
-                {{$dado->cpf}}
+                {{$dado->usuario->cpf}}
             </p>
             <p class="titulo_dados documento">
                 Associado
@@ -18,6 +18,6 @@
         </div>
     </div>
     <div class="bloco_estado">
-        <p class="titulo_dados estado">{{$dado->estado}} </p>
+        <p class="titulo_dados estado">{{$dado->usuario->estado}} </p>
     </div>
 </div>

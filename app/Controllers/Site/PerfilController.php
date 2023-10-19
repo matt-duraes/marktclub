@@ -59,10 +59,11 @@ final class PerfilController extends Controller
     public function carteira(): Response
     {
         $dado = (new CarteirinhaModel())->getDado();
+
         return view(
             'perfil.carteira',
             [
-                'dado' => $dado,
+                'dado' => $dado->dado[0],
             ]
         );
     }

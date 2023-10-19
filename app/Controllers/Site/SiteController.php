@@ -6,6 +6,7 @@ use Erro\Excecao;
 use Http\Request;
 use Http\Response;
 use Controller\Controller;
+use App\Models\Site\Popup\PopupModel;
 use App\Models\Site\Pesquisa\SalvarModel as SalvarPesquisaModel;
 
 final class SiteController extends Controller
@@ -98,7 +99,7 @@ final class SiteController extends Controller
      * @return Response
      * @throws Excecao
      */
-    public function abrirModalPopupImagem($id = null): Response
+    public function abrirModalPopupImagem(): Response
     {
         return view('popup.imagem');
     }

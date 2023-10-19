@@ -214,4 +214,5 @@ final class LojaController extends Controller
 
         return mensagemSucesso([], status: 201);
     }
+
 }
