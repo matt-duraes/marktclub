@@ -67,6 +67,7 @@ final class AnalyticsNavegadorTest extends Tests
     public function buscarPrimeiraEmpresaTest()
     {
         $this->dadoEmpresa1 = $this->fazerRequest(empresa: 1);
+
         return $this;
     }
 
@@ -84,10 +85,24 @@ final class AnalyticsNavegadorTest extends Tests
             $this->id2,
         ];
         $dado = $this->fazerRequest(body: $body);
+        $dispositivosSoma = [];
+
+        foreach ($this->dadoEmpresa1 as $item) {
+            $dispositivo = $item['navegador'];
+            $dispositivosSoma[$dispositivo] = $item['total'];
+        }
+
+        foreach ($this->dadoEmpresa2 as $item) {
+            $dispositivo = $item['navegador'];
+            if (isset($dispositivosSoma[$dispositivo])) {
+                $dispositivosSoma[$dispositivo] += $item['total'];
+            } else {
+                $dispositivosSoma[$dispositivo] = $item['total'];
+            }
+        }
 
         foreach ($dado as $k => $d) {
-            $somaTotalEmpresas = $this->dadoEmpresa1[$k]['total'] + $this->dadoEmpresa2[$k]['total'];
-            $this->checkIgual($d['total'], $somaTotalEmpresas);
+            $this->checkIgual($d['total'], $dispositivosSoma[$d['navegador']]);
         }
 
         return $this;

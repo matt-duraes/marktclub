@@ -85,12 +85,24 @@ final class AnalyticsDispositivosTest extends Tests
         ];
         $dado = $this->fazerRequest(body: $body);
 
-        foreach ($dado as $k => $d) {
-            $somaTotalEmpresas = $this->dadoEmpresa1[$k]['total'] + $this->dadoEmpresa2[$k]['total'];
-            $somaUnicoEmpresas = round(($this->dadoEmpresa1[$k]['porcentagem'] + $this->dadoEmpresa2[$k]['porcentagem']) / 2);
+        $dispositivosSoma = [];
 
-            $this->checkIgual($d['total'], $somaTotalEmpresas);
-            $this->checkIgual(round($d['porcentagem']), $somaUnicoEmpresas);
+        foreach ($this->dadoEmpresa1 as $item) {
+            $dispositivo = $item['dispositivo'];
+            $dispositivosSoma[$dispositivo] = $item['total'];
+        }
+
+        foreach ($this->dadoEmpresa2 as $item) {
+            $dispositivo = $item['dispositivo'];
+            if (isset($dispositivosSoma[$dispositivo])) {
+                $dispositivosSoma[$dispositivo] += $item['total'];
+            } else {
+                $dispositivosSoma[$dispositivo] = $item['total'];
+            }
+        }
+
+        foreach ($dado as $k => $d) {
+            $this->checkIgual($d['total'], $dispositivosSoma[$d['dispositivo']]);
         }
 
         return $this;
