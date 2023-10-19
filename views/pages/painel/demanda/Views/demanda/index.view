@@ -49,7 +49,7 @@
         </div>
         @ if( !empty($r->data_entrega) ):
         <div class="data" data-ajuda="Previsto para">
-            <i>@iconeEmail(12)</i>
+            <i>@iconeRelogio(15)</i>
             <p>{{$r->data_entrega}}</p>
         </div>
         @ endif;

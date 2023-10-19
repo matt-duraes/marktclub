@@ -1,6 +1,6 @@
 <?php
 
-return [
+$dado = [
     [
         'id'                => 1,
         'cod'               => '5595203c-f7b1-4211-9981-bf09eb236b35',
@@ -21,28 +21,6 @@ return [
         'documento'         => '44609809087',
         'email_pessoal'     => emailAleatorio(),
         'status'            => 2
-    ],
-    [
-        'id'                => 2,
-        'cod'               => '87cd8f94-601e-4e8e-b800-7f42a75fc0e1',
-        'empresa'           => 1,
-        'tipo'              => 1,
-        'nome'              => nomeCompletoAleatorio(),
-        'email_pessoal'     => emailAleatorio(),
-        'documento'         => cpfAleatorio(),
-        'salt'              => password('Teste@1324'),
-        'status'            => 1
-    ],
-    [
-        'id'                => 3,
-        'cod'               => 'c91d0f54-d166-456e-9f21-e072722faa34',
-        'empresa'           => 1,
-        'tipo'              => 1,
-        'nome'              => nomeCompletoAleatorio(),
-        'documento'         => cpfAleatorio(),
-        'email_pessoal'     => emailAleatorio(),
-        'salt'              => password('Teste@1324'),
-        'status'            => 1
     ],
     [
         'cod'               => uuid(),
@@ -146,3 +124,19 @@ return [
         'status'         => 1
     ]
 ];
+
+for ($i = 2; $i <= 50; $i++) {
+    $dado[] = [
+        'id'                => $i,
+        'cod'               => uuid(),
+        'empresa'           => 1,
+        'tipo'              => 1,
+        'nome'              => nomeCompletoAleatorio(),
+        'documento'         => cpfAleatorio(),
+        'email_pessoal'     => emailAleatorio(),
+        'salt'              => password('Teste@1324'),
+        'status'            => 1
+    ];
+}
+
+return $dado;

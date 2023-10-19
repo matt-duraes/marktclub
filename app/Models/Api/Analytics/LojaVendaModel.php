@@ -2,15 +2,13 @@
 
 namespace App\Models\Api\Analytics;
 
+use Helpers\OrmHelper;
 use ORM\ORM;
 use Http\Request;
 use Helpers\DataHelper;
-use App\Models\Api\Trait\ValidarEmpresaTrait;
 
 final class LojaVendaModel extends ORM
 {
-    use ValidarEmpresaTrait;
-
     protected string $ormTabela = TABELA_ANALYTICS_LOJA_VENDA;
     private int $idEmpresa;
     private string $de;
@@ -20,17 +18,15 @@ final class LojaVendaModel extends ORM
         private Request $request
     ) {
         parent::__construct();
-        $this->validarEmpresa();
+        $this->idEmpresa = TOKEN['empresa']->id;
         $this->pegarDataBusca();
     }
 
     public function listarDados(): array
     {
-        $this->setarWherePadrao(['data_relatorio', 'between', [$this->de, $this->ate]]);
-
         $dado = $this
             ->campo(['id_parceiro_loja', 'numero_transacao', 'valor_venda', 'data_relatorio'])
-            ->where($this->ormWherePadrao)
+            ->where($this->pegarWhere(), false)
             ->order('data_criacao', 'DESC')
             ->tabela(TABELA_PARCEIRO_LOJA)
             ->campo(['titulo'], 'parceiro')
@@ -42,6 +38,29 @@ final class LojaVendaModel extends ORM
         }
 
         return $this->montarDado($dado);
+    }
+
+    private function pegarWhere()
+    {
+        $whereData = ['data_relatorio', 'between', [$this->de, $this->ate]];
+
+        if (empty($this->request->empresa)) {
+            return [
+                $whereData,
+                ['id_admin_empresa', $this->idEmpresa]
+            ];
+        }
+        $empresaUuid = $this->request->empresa;
+        $ormHelper = new OrmHelper(TABELA_COMERCIAL_EMPRESA);
+
+        $empresaId = [];
+        foreach ($empresaUuid as $e) {
+            $empresaId[] = $ormHelper->pegarIdPeloUuid($e);
+        }
+        return [
+            $whereData,
+            ['id_admin_empresa', 'in', $empresaId]
+        ];
     }
 
     public function montarDado($r): array

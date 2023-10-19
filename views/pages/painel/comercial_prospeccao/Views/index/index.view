@@ -1,7 +1,7 @@
 @template "painel"
 
 <!--Bloco do popup standby -->
-<div class="bloco_pagina_popup display_none bloco_motivo">
+<div class="bloco_pagina_popup display_none" id="bloco_motivo">
     <header class="header_pagina_popup">
         <h1 id="h1_motivo">Motivo Stand BY</h1>
         <i class="popup_fechar fechar botao_fechar">@iconeFechar</i>

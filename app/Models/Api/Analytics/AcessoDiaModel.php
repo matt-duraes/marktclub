@@ -6,7 +6,6 @@ use ORM\ORM;
 use Modules\Data;
 use App\Models\Api\Trait\ValidarEmpresaTrait;
 use App\Models\Api\Analytics\Trait\WhereTrait;
-use App\Models\Api\ComercialEmpresa\EmpresaEntity;
 
 final class AcessoDiaModel extends ORM
 {
@@ -18,15 +17,13 @@ final class AcessoDiaModel extends ORM
     public function __construct(
         protected Data $de,
         protected Data $ate,
-        private ?EmpresaEntity $Empresa = null
+        private array|string|null $Empresa = null
     ) {
         parent::__construct();
-        $this->validarEmpresa();
     }
 
     public function listarDado()
     {
-        $where = $this->pegarWherePadrao();
         $de = $this->de->data();
         $ate = $this->ate->data();
 
@@ -51,13 +48,31 @@ final class AcessoDiaModel extends ORM
 
         $lista = $this
             ->campo(['quantidade_total', 'quantidade_unico', 'data_acesso'])
-            ->where($where)
+            ->where($this->pegarWherePadrao())
             ->read();
 
+        $somas_por_data = [];
+
+        foreach ($lista as $objeto) {
+            $data_acesso = $objeto->data_acesso;
+            if (!isset($somas_por_data[$data_acesso])) {
+                $somas_por_data[$data_acesso] = [
+                    'data_acesso'      => $data_acesso,
+                    'quantidade_total' => $objeto->quantidade_total,
+                    'quantidade_unico' => $objeto->quantidade_unico
+                ];
+            } else {
+                $somas_por_data[$data_acesso]['quantidade_total'] += $objeto->quantidade_total;
+                $somas_por_data[$data_acesso]['quantidade_unico'] += $objeto->quantidade_unico;
+            }
+        }
+
+        $lista = array_values($somas_por_data);
         foreach ($lista as $r) {
-            $data = dataBr($r->data_acesso);
-            $dado[$data]['unico'] = $r->quantidade_unico;
-            $dado[$data]['total'] = $r->quantidade_total;
+            $data = dataBr($r['data_acesso']);
+            $dado[$data]['data'] = $data;
+            $dado[$data]['unico'] = $r['quantidade_unico'];
+            $dado[$data]['total'] = $r['quantidade_total'];
         }
 
         return array_values($dado);

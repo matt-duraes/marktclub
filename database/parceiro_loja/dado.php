@@ -4,7 +4,6 @@ $estado = ['AC', 'AL', 'AP', 'AM', 'BA', 'CE', 'DF', 'ES', 'GO', 'MA', 'MT', 'MS
 
 $dado = [
     [
-        'id'                  => 2,
         'cod'                 => '890713a200a9e45aa85e2ae67aa41e74',
         'categoria_principal' => '1',
         'categoria_todas'     => '["1","2","3","4","5","6","7","8"]',
@@ -72,7 +71,6 @@ $dado = [
         'status'              => 4
     ],
     [
-        'id'                  => 1,
         'cod'                 => 'f10e05c0-5b02-4bff-8e22-719a8797f0d6',
         'categoria_principal' => '1',
         'categoria_todas'     => '["1","2","3","4","5","6","7","8"]',
@@ -95,7 +93,6 @@ $dado = [
         'status'              => 4
     ],
     [
-        'id'                  => 3,
         'cod'                 => '4502e7e8-9359-470e-9588-0a1501449675',
         'categoria_principal' => '1',
         'categoria_todas'     => '["1","2","3","4","5","6","7","8"]',
@@ -120,7 +117,6 @@ $dado = [
     ],
     [
         'tipo'                => 1,
-        'id'                  => 4,
         'cod'                 => 'adca39ea4a6d6bcc51eba8afcdb54eaa',
         'categoria_principal' => '1',
         'categoria_todas'     => '["1","2","3","4","5","6","7","8"]',
@@ -145,7 +141,6 @@ $dado = [
         'status'              => 4
     ],
     [
-        'id'                  => 5,
         'cod'                 => 'f9cbb6ae-b847-43cf-b9b8-6f72b67789df',
         'categoria_principal' => '1',
         'categoria_todas'     => '["1","2","3","4","5","6","7","8"]',
@@ -218,7 +213,6 @@ $dado = [
         'status'              => 4
     ],
     [
-        'id'                  => 100,
         'cod'                 => '7b1476c3-2627-490c-a0cf-dff7b9196b45',
         'categoria_principal' => '1',
         'categoria_todas'     => '["1","2","3","4","5","6","7","8"]',
@@ -591,8 +585,9 @@ $dado = [
     ],
 ];
 
-for ($i = 1; $i < 100; ++$i) {
+for ($i = 2; $i <= 100; ++$i) {
     $dado[] = [
+        'id'                  => $i,
         'cod'                 => uuid(),
         'categoria_principal' => '1',
         'categoria_todas'     => '["1"]',
