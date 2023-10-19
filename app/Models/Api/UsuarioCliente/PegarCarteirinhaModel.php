@@ -6,6 +6,7 @@ use App\Classes\Carteirinha\Status;
 use Erro\Excecao;
 use Modules\DataHora;
 use ORM\ORM;
+use stdClass;
 
 class PegarCarteirinhaModel extends ORM
 {
@@ -21,10 +22,10 @@ class PegarCarteirinhaModel extends ORM
     }
 
     /**
-     * @return array
+     * @return stdClass
      * @throws Excecao
      */
-    public function gerarCarteirinha(): array
+    public function gerarCarteirinha(): stdClass
     {
         $carteirinha = $this
             ->campo([
@@ -48,47 +49,42 @@ class PegarCarteirinhaModel extends ORM
             ->campo([
                 'bg_frente', 'bg_fundo'
             ], 'carteirinha')
-            ->read();
+            ->primeiro();
 
         return $this->montarCarteirinha($carteirinha);
     }
 
     /**
-     * @param array $carteirinha
+     * @param stdClass $carteirinha
      *
-     * @return array
+     * @return stdClass
      */
-    private function montarCarteirinha(array $carteirinha): array
+    private function montarCarteirinha(stdClass $carteirinha): stdClass
     {
-        if (empty($carteirinha)) {
+        if (!get_object_vars($carteirinha)) {
             return $carteirinha;
         }
 
-        $dataEmissao = new DataHora(agora());
-        $retorno = [];
-        foreach ($carteirinha as $item) {
-            $retorno[] = [
-                'usuario'      => [
-                    'nome'            => $item->nome,
-                    'cpf'             => $item->cpf,
-                    'matricula'       => $item->matricula,
-                    'data_nascimento' => $item->data_nascimento,
-                    'data_filiacao'   => $item->data_filiacao,
-                    'estado'          => $item->endereco_estado
-                ],
-                'empresa'      => [
-                    'id'   => $item->empresa_cod,
-                    'nome' => $item->empresa_nome_fantasia
-                ],
-                'imagem'       => [
-                    'logo_principal'  => LINK_ARQUIVO . '/construtor/' . $item->construtor_clube_logo_principal,
-                    'logo_secundaria' => LINK_ARQUIVO . '/construtor/' . $item->construtor_clube_logo_secundaria,
-                    'bg_frente'       => LINK_ARQUIVO . '/construtor/' . $item->carteirinha_bg_frente,
-                    'bg_fundo'        => LINK_ARQUIVO . '/construtor/' . $item->carteirinha_bg_fundo
-                ],
-                'data_emissao' => $dataEmissao->date()
-            ];
-        }
-        return $retorno;
+        return object([
+            'usuario'      => [
+                'nome'            => $carteirinha->nome,
+                'cpf'             => $carteirinha->cpf,
+                'matricula'       => $carteirinha->matricula,
+                'data_nascimento' => $carteirinha->data_nascimento,
+                'data_filiacao'   => $carteirinha->data_filiacao,
+                'estado'          => $carteirinha->endereco_estado
+            ],
+            'empresa'      => [
+                'id'   => $carteirinha->empresa_cod,
+                'nome' => $carteirinha->empresa_nome_fantasia
+            ],
+            'imagem'       => [
+                'logo_principal'  => LINK_ARQUIVO . '/construtor/' . $carteirinha->construtor_clube_logo_principal,
+                'logo_secundaria' => LINK_ARQUIVO . '/construtor/' . $carteirinha->construtor_clube_logo_secundaria,
+                'bg_frente'       => LINK_ARQUIVO . '/construtor/' . $carteirinha->carteirinha_bg_frente,
+                'bg_fundo'        => LINK_ARQUIVO . '/construtor/' . $carteirinha->carteirinha_bg_fundo
+            ],
+            'data_emissao' => (new DataHora(agora()))->date()
+        ]);
     }
 }
