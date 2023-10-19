@@ -52,7 +52,7 @@ class SolicitacaoChequeBonusController extends Controller implements
                 'id', 'automovel', 'usuario', 'dependente', 'tipo_usuario', 'nome', 'email_pessoal',
                 'data_nascimento', 'endereco_cep', 'endereco_logradouro', 'endereco_numero',
                 'endereco_complemento', 'endereco_bairro', 'endereco_cidade', 'endereco_estado', 'rg',
-                'data_criacao', 'data_atualizacao', 'data_termo', 'status'
+                'data_criacao', 'data_atualizacao', 'data_termo', 'status', 'estado_civil'
             ]),
             $status
         );

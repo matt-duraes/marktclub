@@ -3,6 +3,7 @@
 use App\Classes\Solicitacao\Status;
 use App\Classes\UsuarioCliente\GrauParentesco;
 use App\Classes\UsuarioCliente\Helper;
+use Modules\EstadoCivil;
 
 $Painel = new PainelConfig\Visualizar('solicitacao_cheque_bonus');
 
@@ -33,10 +34,10 @@ $Painel->coluna(callback: function () use ($Painel) {
         $Painel
             ->linha('dependente->nome', 'Nome')
             ->email('dependente->email_pessoal', 'E-mail')
-            ->linha('dependente->rg', 'RG', formatar: 'rg')
+            ->linha('dependente->rg', 'RG', 'rg')
             ->cpf('dependente->cpf', 'CPF')
             ->linha('dependente->grau_parentesco', 'Grau de parentesco')
-            ->linha('dependente->data_nascimento', 'Data de nascimento', formatar: 'data');
+            ->data('dependente->data_nascimento', 'Data de nascimento');
     });
 
     $Painel->bloco('Usuário', callback: function () use ($Painel) {
@@ -45,6 +46,7 @@ $Painel->coluna(callback: function () use ($Painel) {
             ->email('email_pessoal', 'E-mail')
             ->data('data_nascimento', 'Data de nascimento')
             ->linha('rg', 'RG', 'rg')
+            ->linha('estado_civil', 'Estado Cívil')
             ->cep('endereco_cep', 'CEP')
             ->linha('endereco_logradouro', 'Logradouro')
             ->linha('endereco_numero', 'Número')
@@ -104,6 +106,7 @@ $Painel->coluna(callback: function () use ($Painel) {
 });
 
 $Painel->replace('dependente->grau_parentesco', (new GrauParentesco())->select());
+$Painel->replace('estado_civil', (new EstadoCivil())->select());
 $Painel->replace('status', (new Status())->select());
 
 return $Painel;

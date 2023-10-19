@@ -1770,6 +1770,7 @@ Route
         Route
             ::nome('carteirinha')
             ::middleware(TokenMiddleware::class, 'scope', ['carteirinha:carteirinha'])
+            ::criptografia(App\Classes\Carteirinha\Helper::CRIPTOGRAFAR)
             ::get('/usuario-carteirinha/{id}');
     });
 

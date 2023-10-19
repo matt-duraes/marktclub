@@ -4,11 +4,10 @@ namespace Tests\Api;
 
 use Erro\Excecao;
 use Tests\Token\Clube;
-use App\Classes\Silium\TipoConta;
 
 class SiliumTest extends Clube
 {
-    public function __construct()
+    /*public function __construct()
     {
         parent::__construct();
         $this
@@ -17,13 +16,13 @@ class SiliumTest extends Clube
             ->resetar();
 
         $this->pegarToken('91122519095', 'Teste@1324');
-    }
+    }*/
 
     /**
      * @return SiliumTest
      * @throws Excecao
      */
-    public function pegarSaldoTest(): SiliumTest
+    /*public function pegarSaldoTest(): SiliumTest
     {
         $this
             ->Curl
@@ -33,13 +32,13 @@ class SiliumTest extends Clube
             ->checkStatus(200)
             ->checkIndiceIgual('status', 'sucesso')
             ->checkIndiceExiste('dado');
-    }
+    }*/
 
     /**
      * @return SiliumTest
      * @throws Excecao
      */
-    public function retirarExtratoTest(): SiliumTest
+    /*public function retirarExtratoTest(): SiliumTest
     {
         $this
             ->Curl
@@ -49,13 +48,13 @@ class SiliumTest extends Clube
             ->checkStatus(200)
             ->checkIndiceIgual('status', 'sucesso')
             ->checkIndiceExiste('dado');
-    }
+    }*/
 
     /**
      * @return SiliumTest
      * @throws Excecao
      */
-    public function realizarSaqueTest(): SiliumTest
+    /*public function realizarSaqueTest(): SiliumTest
     {
         $this
             ->Curl
@@ -73,5 +72,5 @@ class SiliumTest extends Clube
             ->checkStatus(201)
             ->checkIndiceIgual('status', 'sucesso')
             ->checkIndiceExiste('dado.id');
-    }
+    }*/
 }

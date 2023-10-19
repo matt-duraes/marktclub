@@ -4,7 +4,7 @@ namespace App\Classes\SolicitacaoLoja;
 
 use Status\Status as StatusStatus;
 
-class Origem extends StatusStatus
+final class Origem extends StatusStatus
 {
     public const CLUBE = 'clube';
     public const PAINEL = 'painel';

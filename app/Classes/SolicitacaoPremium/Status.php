@@ -12,6 +12,9 @@ final class Status extends StatusStatus
     public const ESTOURADO = 'estourado';
     public const SEM_STATUS = 'sem-status';
 
+    /**
+     * @param string|int|null $valor
+     */
     public function __construct(
         protected string|int|null $valor = null
     ) {

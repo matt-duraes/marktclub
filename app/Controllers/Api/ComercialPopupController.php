@@ -134,10 +134,10 @@ class ComercialPopupController extends Controller implements
     public function putOrdenar(Request $request): Response
     {
         new OrdenarModel(
-            id: jsonDecode($request->id, true, true),
-            tabela: TABELA_COMUNICACAO_POPUP,
-            pagina: new Pagina($request->pagina),
-            quantidade: new Quantidade($request->quantidade)
+            jsonDecode($request->id, true, true),
+            TABELA_COMERCIAL_POPUP,
+            new Pagina($request->pagina),
+            new Quantidade($request->quantidade)
         );
         return new Response(status: 204);
     }

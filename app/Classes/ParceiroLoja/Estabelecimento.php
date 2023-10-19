@@ -9,6 +9,9 @@ final class Estabelecimento extends Status
     public const FISICO = 'fisico';
     public const ONLINE = 'online';
 
+    /**
+     * @param string|int|null $valor
+     */
     public function __construct(
         protected string|int|null $valor = null
     ) {

@@ -1,5 +1,7 @@
 <?php
 
+use App\Classes\IndicacaoAutomovel\Status;
+
 $titulos = [
     'Volkswagen Gol Comfortline',
     'Chevrolet Onix LT',
@@ -52,19 +54,24 @@ $titulos = [
     'Ford Focus SEL',
     'Renault Megane GT'
 ];
-
-$dado = [];
-
-for ($i = 1; $i < 50; $i++) {
-    $dado[] = [
-        'id'                  => $i,
-        'uuid'                => $i == 1 ? 'dc68285f-65e2-4db9-b37c-d216cf4ddd97' : uuid(), // Valor fixado para testes
-        'id_automovel_modelo' => $i,
-        'titulo'              => $titulos[$i],
-        'valor_de'            => rand(100000, 200000),
-        'valor_por'           => rand(100000, 200000),
-        'status'              => 1
+$listaStatus = (new Status())->listarNumero();
+$seeds = [];
+$seeds[] = [
+    'uuid'                => 'dc68285f-65e2-4db9-b37c-d216cf4ddd97',
+    'id_automovel_modelo' => numeroAleatorio(1, 50),
+    'titulo'              => valorAleatorio($titulos),
+    'valor_de'            => numeroAleatorio(1, 100000),
+    'valor_por'           => numeroAleatorio(1, 10000),
+    'status'              => 1
+];
+for ($i = 0; $i < env('QTD_SEEDS', 50); $i++) {
+    $seeds[] = [
+        'uuid'                => uuid(),
+        'id_automovel_modelo' => numeroAleatorio(1, 50),
+        'titulo'              => valorAleatorio($titulos),
+        'valor_de'            => numeroAleatorio(1, 100000),
+        'valor_por'           => numeroAleatorio(1, 10000),
+        'status'              => valorAleatorio($listaStatus)
     ];
 }
-
-return $dado;
+return $seeds;

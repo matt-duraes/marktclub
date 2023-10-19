@@ -11,6 +11,9 @@ final class Tipo extends Status
     public const FARMACIA = 'farmacia';
     public const PREMIUM = 'premium';
 
+    /**
+     * @param string|int|null $valor
+     */
     public function __construct(
         protected string|int|null $valor = null
     ) {
@@ -18,7 +21,7 @@ final class Tipo extends Status
             self::LOJA      => 'Loja',
             self::AUTOMOVEL => 'Automóvel',
             self::FARMACIA  => 'Farmácia',
-            self::PREMIUM   => 'Premium',
+            self::PREMIUM   => 'Premium'
         ]);
     }
 }

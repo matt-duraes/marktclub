@@ -1,5 +1,7 @@
 <?php
 
+use App\Classes\Geral\Status;
+
 $titulos = [
     'Volkswagen Gol',
     'Chevrolet Onix',
@@ -52,21 +54,27 @@ $titulos = [
     'Ford Focus',
     'Renault Megane'
 ];
-
-$dado = [];
-
-for ($i = 1; $i < 50; $i++) {
-    $slug = strtolower(preg_replace('/[ -]+/', '-', $titulos[$i]));
-    $dado[] = [
-        'id'               => $i,
+$listaStatus = (new Status())->listarNumero();
+$seeds = [];
+$seeds[] = [
+    'uuid'             => 'dc68285f-65e2-4db9-b37c-d216cf4ddd97',
+    'id_parceiro_loja' => 1,
+    'url'              => 'alguma-coisa',
+    'titulo'           => 'Alguma coisa',
+    'data_inicio'      => dataPassadaAleatorio(),
+    'data_final'       => dataFuturaAleatorio(),
+    'status'           => 1
+];
+for ($i = 0; $i < env('QTD_SEEDS', 50); $i++) {
+    $titulo = valorAleatorio($titulos) . $i;
+    $seeds[] = [
         'uuid'             => uuid(),
-        'id_parceiro_loja' => 1001,
-        'titulo'           => $titulos[$i],
-        'url'              => $slug,
+        'id_parceiro_loja' => numeroAleatorio(1, 50),
+        'url'              => strSlug($titulo),
+        'titulo'           => $titulo,
         'data_inicio'      => dataPassadaAleatorio(),
         'data_final'       => dataFuturaAleatorio(),
-        'status'           => 1
+        'status'           => valorAleatorio($listaStatus)
     ];
 }
-
-return $dado;
+return $seeds;

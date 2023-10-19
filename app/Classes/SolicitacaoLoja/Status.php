@@ -4,7 +4,7 @@ namespace App\Classes\SolicitacaoLoja;
 
 use Status\Status as StatusStatus;
 
-class Status extends StatusStatus
+final class Status extends StatusStatus
 {
     public const NOVO = 'novo';
     public const ANDAMENTO = 'andamento';

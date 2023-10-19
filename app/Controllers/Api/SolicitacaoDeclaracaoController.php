@@ -4,8 +4,10 @@ namespace App\Controllers\Api;
 
 use App\Classes\Solicitacao\Status;
 use App\Classes\SolicitacaoDeclaracao\Ordem;
+use App\Models\Api\DownloadPrivado\ArquivoEntity;
 use App\Models\Api\SolicitacaoDeclaracao\DeclaracaoEntity;
 use App\Models\Api\SolicitacaoDeclaracao\DeclaracaoModel;
+use App\Models\Api\SolicitacaoVoucher\DownloadModel;
 use Controller\Controller;
 use Erro\Excecao;
 use Http\Request;
@@ -48,8 +50,8 @@ class SolicitacaoDeclaracaoController extends Controller implements
     {
         return mensagemSucesso(
             pegarPropriedadeDaEntity($Declaracao, lista: [
-                'uuid', 'parceiro', 'usuario', 'modelo', 'versao',
-                'data_criacao', 'data_atualizacao', 'status'
+                'uuid', 'empresa', 'usuario', 'parceiro', 'modelo',
+                'versao', 'data_criacao', 'data_atualizacao', 'status'
             ]),
             $status
         );
@@ -104,5 +106,21 @@ class SolicitacaoDeclaracaoController extends Controller implements
         $Declaracao->set(lista: $request->dado());
         $Declaracao->salvar();
         return new Response(status: 204);
+    }
+
+    /**
+     * @param Request $request
+     *
+     * @return Response
+     * @throws Excecao
+     */
+    public function postDownload(Request $request): Response
+    {
+        $Voucher = new DownloadModel($request);
+        $Download = new ArquivoEntity($Voucher->download(), $request->usuario);
+        $Download->salvar();
+        return mensagemSucesso([
+            'id' => $Download->id
+        ], 201);
     }
 }

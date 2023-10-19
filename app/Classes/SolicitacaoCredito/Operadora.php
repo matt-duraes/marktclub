@@ -4,10 +4,13 @@ namespace App\Classes\SolicitacaoCredito;
 
 use Status\Status;
 
-class Operadora extends Status
+final class Operadora extends Status
 {
     public const SICOOB = 'sicoob';
 
+    /**
+     * @param string|int|null $valor
+     */
     public function __construct(
         protected string|int|null $valor = null
     ) {

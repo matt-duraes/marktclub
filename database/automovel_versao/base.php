@@ -1,6 +1,8 @@
 <?php
 
-return (new \DataBase\DataBase())
+use DataBase\DataBase;
+
+return (new DataBase())
     ->id()
     ->uuid()
     ->int('id_automovel_modelo')->relacionado(TABELA_AUTOMOVEL_MODELO, 'id')
