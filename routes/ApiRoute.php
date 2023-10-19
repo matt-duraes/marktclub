@@ -856,10 +856,12 @@ Route
     ::grupo(function () {
         Route
             ::nome('turismo')
+            ::middleware(TokenMiddleware::class, 'scope', ['pagina:turismo'])
             ::get('/pagina/turismo');
 
         Route
             ::nome('cinema')
+            ::middleware(TokenMiddleware::class, 'scope', ['pagina:cinema'])
             ::get('/pagina/cinema');
 
         Route
