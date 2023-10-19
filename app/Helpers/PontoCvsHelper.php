@@ -2,8 +2,8 @@
 
 namespace App\Helpers;
 
-use Helpers\CurlHelper;
 use stdClass;
+use Helpers\CurlHelper;
 
 final class PontoCvsHelper
 {
