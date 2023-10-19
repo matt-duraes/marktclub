@@ -37,7 +37,7 @@ const blocoRealizarResgate = () => {
 
     const fazerSolicitacao = async () => {
         const resposta = await ajaxPost(
-            LINK + '/ponto-cvs/sol',
+            LINK + '/ponto-cvs/solicitar',
             {
                 nome: nome.value,
                 email: email.value,
