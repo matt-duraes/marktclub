@@ -2,13 +2,14 @@
     <div class="conteudo">
         <header>
             <h1>ATIVAR CONTA</h1>
-            <p>Preencha seus dados para completar o cadastro</p>
+            <i class="fechar pagina_fechar">@iconeFechar</i>
         </header>
 
         <input type="hidden" id="input_ativar_cpf_busca" value="{{$cpf}}">
         <input type="hidden" id="input_ativar_hash_busca" value="{{$hash}}">
 
         <div class="bloco">
+            <p>Preencha seus dados para completar o cadastro</p> <br>
             <h2>Dados pessoais</h2>
             @? formInput(name: 'ativar_nome', label: 'Nome', placeholder: 'Nome completo', obrigatorio: true)
             @ if( !validarCpf($cpf) ):
