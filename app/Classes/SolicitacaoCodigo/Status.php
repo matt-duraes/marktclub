@@ -10,6 +10,9 @@ final class Status extends StatusStatus
     public const SOLICITADO = 'solicitado';
     public const VENCIDO = 'vencido';
 
+    /**
+     * @param string|int|null $valor
+     */
     public function __construct(
         protected string|int|null $valor = null
     ) {

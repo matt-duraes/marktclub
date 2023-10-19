@@ -2,7 +2,7 @@
 
 $Painel = new PainelConfig\Download('solicitacao_salavip');
 
-return $Painel
+$Painel
     ->bloco('Campos', function () use ($Painel) {
         $Painel
             ->campo('empresa', 'Empresa')

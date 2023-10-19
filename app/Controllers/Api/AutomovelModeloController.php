@@ -2,22 +2,23 @@
 
 namespace App\Controllers\Api;
 
+use App\Classes\Automovel\Modelo\Ordem;
+use App\Classes\Geral\Status;
+use App\Models\Api\Automovel\Modelo\ModeloEntity;
+use App\Models\Api\Automovel\Modelo\ModeloModel;
+use Controller\Controller;
+use Erro\Excecao;
 use Http\Request;
-use Modules\Data;
 use Http\Response;
 use Modules\Botao;
+use Modules\Data;
 use Modules\Pagina;
 use Modules\Quantidade;
-use Controller\Controller;
-use App\Classes\Geral\Status;
-use App\Classes\Automovel\Modelo\Ordem;
+use System\Interface\ControllerAtualizarInterface;
 use System\Interface\ControllerBuscarInterface;
+use System\Interface\ControllerDeletarInterface;
 use System\Interface\ControllerListarInterface;
 use System\Interface\ControllerSalvarInterface;
-use App\Models\Api\Automovel\Modelo\ModeloModel;
-use System\Interface\ControllerDeletarInterface;
-use App\Models\Api\Automovel\Modelo\ModeloEntity;
-use System\Interface\ControllerAtualizarInterface;
 
 final class AutomovelModeloController extends Controller implements
     ControllerBuscarInterface,
@@ -36,8 +37,25 @@ final class AutomovelModeloController extends Controller implements
     {
         $Modelo = new ModeloEntity();
         $Modelo->idSlug($id);
-
         return $this->retornoSucesso($Modelo);
+    }
+
+    /**
+     * @param ModeloEntity $Modelo
+     * @param int          $status
+     *
+     * @return Response
+     * @throws Excecao
+     */
+    private function retornoSucesso(ModeloEntity $Modelo, int $status = 200): Response
+    {
+        return mensagemSucesso(
+            pegarPropriedadeDaEntity($Modelo, lista: [
+                'parceiro', 'titulo', 'procedimento', 'texto_procedimento',
+                'imagem', 'versao', 'data_inicio', 'data_final', 'url', 'status'
+            ]),
+            $status
+        );
     }
 
     /**
@@ -61,45 +79,47 @@ final class AutomovelModeloController extends Controller implements
         return mensagemSucesso($Modelo->listarDados());
     }
 
+    /**
+     * @param Request $request
+     *
+     * @return Response
+     * @throws Excecao
+     */
     public function postSalvar(Request $request): Response
     {
         $Modelo = new ModeloEntity();
         $Modelo->set(lista: $request->dado());
         $Modelo->salvar();
-
         return $this->retornoSucesso($Modelo, 201);
     }
 
-    private function retornoSucesso(ModeloEntity $Modelo, int $status = 200)
-    {
-        return mensagemSucesso(
-            dado: pegarPropriedadeDaEntity(
-                $Modelo,
-                lista: [
-                    'parceiro', 'titulo', 'procedimento', 'texto_procedimento', 'imagem', 'versao',
-                    'data_inicio', 'data_final', 'url', 'status'
-                ]
-            ),
-            status: $status,
-        );
-    }
-
+    /**
+     * @param Request $request
+     * @param string  $id
+     *
+     * @return Response
+     * @throws Excecao
+     */
     public function putAtualizar(Request $request, string $id): Response
     {
         $Modelo = new ModeloEntity();
         $Modelo->uuid($id);
         $Modelo->set(lista: $request->dado());
         $Modelo->salvar();
-
         return new Response(status: 204);
     }
 
+    /**
+     * @param string $id
+     *
+     * @return Response
+     * @throws Excecao
+     */
     public function deleteDeletar(string $id): Response
     {
         $Modelo = new ModeloEntity();
         $Modelo->uuid($id);
         $Modelo->destruir();
-
         return new Response(status: 204);
     }
 }

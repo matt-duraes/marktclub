@@ -6,6 +6,20 @@ use App\Classes\EnqueteSatisfacao\Procura;
 use App\Classes\EnqueteSatisfacao\Status;
 use App\Classes\EnqueteSatisfacao\Suporte;
 
+$comentarios = [
+    'Estou bastante frustrado(a) com a situação atual.',
+    'Sinto-me desapontado(a) com o que aconteceu.',
+    'Esta situação é realmente decepcionante.',
+    'Não estava esperando por isso, e estou me sentindo contrariado(a).',
+    'Gostaria que as coisas tivessem sido diferentes.',
+    'Estou enfrentando dificuldades, e isso está me deixando preocupado(a).',
+    'Houve um mal-entendido que está me incomodando.',
+    'Não estou feliz com o desfecho desta situação.',
+    'Esperava algo melhor, mas não foi o que aconteceu.',
+    'Precisamos encontrar uma solução para este problema.',
+    'Esta situação não está de acordo com as minhas expectativas.',
+    'Estou determinado(a) a superar essas dificuldades.'
+];
 $seeds = [];
 for ($i = 0; $i < env('QTD_SEEDS', 50); $i++) {
     $seeds[] = [
@@ -17,10 +31,8 @@ for ($i = 0; $i < env('QTD_SEEDS', 50); $i++) {
         'suporte'            => valorAleatorio((new Suporte())->listarNumero()),
         'atendimento'        => valorAleatorio((new Atendimento())->listarNumero()),
         'sistemas_clube'     => '["teste","testes","sasd"]',
-        'comentario'         => 'Lorem ipsum dolor sit amet, consectetur adipisicing elit.
-         Suscipit, assumenda! Accusantium inventore ad velit iusto dicta mollitia minus officiis saepe!',
+        'comentario'         => valorAleatorio($comentarios),
         'status'             => valorAleatorio((new Status())->listarNumero())
     ];
 }
-
 return $seeds;

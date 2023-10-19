@@ -21,10 +21,10 @@ const adicionarNovoEmail = (pessoal, trabalho) => {
     blocoEmaiNovo.innerHTML = '<strong>' + email.join('</strong> ou <strong>', email) + '</strong>';
     Popup.staticFechar();
 };
-const atualizarEmail = bloco => {
-    const botao = bloco.querySelector('.botao_atualizar_email');
-    const inputPessoal = bloco.querySelector('input[name="email_pessoal"]');
-    const inputTrabalho = bloco.querySelector('input[name="email_trabalho"]');
+const atualizarEmail = () => {
+    const botao = document.querySelector('.botao_atualizar_email');
+    const inputPessoal = document.querySelector('input[name="email_pessoal"]');
+    const inputTrabalho = document.querySelector('input[name="email_trabalho"]');
 
     const salvarEmail = async () => {
         if (inputPessoal.value == '' && inputTrabalho.value == '') {
@@ -56,7 +56,7 @@ const atualizarEmail = bloco => {
     adicionarEventoEnter([inputPessoal, inputTrabalho], salvarEmail);
 };
 
-const PopupAtualizar = new Popup('atualizar-dado', $('#bloco_atualizar_email'), true, true, atualizarEmail);
+const PopupAtualizar = new Popup('atualizar-dado', 'bloco_atualizar_email', true, true, atualizarEmail);
 const botaoAbrirPopupAtualizar = $('#botao_samsung_atualizar');
 const blocoEmailLista = $('#bloco_email_lista');
 const blocoEmailZero = $('#bloco_email_zero');

@@ -15,6 +15,9 @@ final class Categoria extends Status
     public const VEICULO = 'veiculo';
     public const VESTUARIO = 'vestuario';
 
+    /**
+     * @param string|int|null $valor
+     */
     public function __construct(
         protected string|int|null $valor = null
     ) {

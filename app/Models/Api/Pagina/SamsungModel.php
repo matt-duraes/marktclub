@@ -2,8 +2,12 @@
 
 namespace App\Models\Api\Pagina;
 
+use App\Classes\LoginClube\PegarClienteTrait;
+
 final class SamsungModel extends PaginaPadraoModel
 {
+    use PegarClienteTrait;
+
     private string $linkArquivo = LINK_ARQUIVO . '/pagina/samsung';
     private string $link;
 
@@ -46,8 +50,56 @@ final class SamsungModel extends PaginaPadraoModel
                     texto: 'Desconto já aplicado no site de parceria. Não perca tempo, aproveite e boas compras!<br>O e-mail informado no site da Samsung deve ser o mesmo e-mail do seu cadastro.'
                     // @codingStandardsIgnoreEnd
                 )
-                ->botaoDestaque(texto: 'Acessar loja', link: $this->link, target: self::TARGET_BLANK);
+                ->bloco(function () {
+                    $this
+                        ->blocoItem('Seus e-mails cadastrados são:')
+                        ->blocoItem($this->pegarTextoEmail())
+                        ->blocoBotao(
+                            texto: 'Atualizar e-mail',
+                            acao: 'atualizar-email'
+                        );
+                })
+                ->botaoDestaque(texto: 'Acessar site', link: $this->link, target: self::TARGET_BLANK);
         });
+    }
+
+    private function pegarTextoEmail()
+    {
+        $emails = $this->pegarEmails();
+
+        if (empty($emails)) {
+            return 'Você não possui e-mail cadastrado.';
+        }
+
+        $texto = '';
+        switch (count($emails)) {
+            case 1:
+                $texto = $emails[0];
+                break;
+            case 2:
+                $texto = $emails[0] . ' e ' . $emails[1];
+                break;
+        }
+
+        return $texto;
+    }
+
+    private function pegarEmails()
+    {
+        if (isset(TOKEN['usuario']->id)) {
+            $dado = $this->pegarCliente(['id', TOKEN['usuario']->id]);
+
+            $email = [];
+            if (!empty($dado->email_pessoal)) {
+                $email[] = $dado->email_pessoal;
+            }
+            if (!empty($dado->email_trabalho)) {
+                $email[] = $dado->email_trabalho;
+            }
+            return $email;
+        }
+
+        return '';
     }
 
     private function setarLink()

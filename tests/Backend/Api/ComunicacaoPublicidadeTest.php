@@ -4,25 +4,33 @@ namespace Tests\Api;
 
 use App\Classes\ComunicacaoPublicidade\Tipo;
 use App\Classes\Geral\Status;
+use Erro\Excecao;
 use Tests\Token\Clube;
 
 class ComunicacaoPublicidadeTest extends Clube
 {
     private string $idComunicacaoPublicidade;
 
+    /**
+     * @throws Excecao
+     */
     public function __construct()
     {
         $this->pegarToken();
         parent::__construct();
     }
 
+    /**
+     * @return ComunicacaoPublicidadeTest
+     * @throws Excecao
+     */
     public function salvarComunicacaoPublicidadeTest(): ComunicacaoPublicidadeTest
     {
         $dado = $this
             ->Curl
             ->body($this->getBodyPadrao())
             ->post('/comunicacao-publicidade')
-        ->array();
+            ->array();
 
         $this->idComunicacaoPublicidade = $dado['dado']['id'] ?? 'sem-id';
 
@@ -32,6 +40,28 @@ class ComunicacaoPublicidadeTest extends Clube
             ->checkIndiceIgual('status', 'sucesso');
     }
 
+    /**
+     * @return array
+     */
+    private function getBodyPadrao(): array
+    {
+        return [
+            'titulo'         => $this->nomeCompleto(),
+            'data_inicio'    => $this->dataPassada(),
+            'data_final'     => $this->dataFutura(),
+            'parceiro'       => 'f10e05c0-5b02-4bff-8e22-719a8797f0d6',
+            'status'         => valorAleatorio(array_keys((new Status())->select())),
+            'imagem_desktop' => '2ee20169-49eb-4dcd-891d-e1c03a85ec80',
+            'link'           => '',
+            'tipo'           => valorAleatorio(array_keys((new Tipo())->select())),
+            'imagem_mobile'  => '2ee20169-49eb-4dcd-891d-e1c03a85ec80'
+        ];
+    }
+
+    /**
+     * @return ComunicacaoPublicidadeTest
+     * @throws Excecao
+     */
     public function naoPodeSalvarDataInicioMaiorTest(): ComunicacaoPublicidadeTest
     {
         $body = $this->getBodyPadrao();
@@ -49,6 +79,10 @@ class ComunicacaoPublicidadeTest extends Clube
             ->checkIndiceIgual('status', 'erro');
     }
 
+    /**
+     * @return ComunicacaoPublicidadeTest
+     * @throws Excecao
+     */
     public function naoPodeSalvarSatausInvalidoTest(): ComunicacaoPublicidadeTest
     {
         $body = $this->getBodyPadrao();
@@ -65,6 +99,10 @@ class ComunicacaoPublicidadeTest extends Clube
             ->checkIndiceIgual('status', 'erro');
     }
 
+    /**
+     * @return ComunicacaoPublicidadeTest
+     * @throws Excecao
+     */
     public function listarComunicacaoPublicidadeTest(): ComunicacaoPublicidadeTest
     {
         $this
@@ -79,6 +117,10 @@ class ComunicacaoPublicidadeTest extends Clube
             ->checkIndiceIgual('status', 'sucesso');
     }
 
+    /**
+     * @return ComunicacaoPublicidadeTest
+     * @throws Excecao
+     */
     public function buscarComunicacaoPublicidadeTest(): ComunicacaoPublicidadeTest
     {
         $this
@@ -90,6 +132,10 @@ class ComunicacaoPublicidadeTest extends Clube
             ->checkIndiceIgual('status', 'sucesso');
     }
 
+    /**
+     * @return ComunicacaoPublicidadeTest
+     * @throws Excecao
+     */
     public function atualizarComunicacaoPublicidadeTest(): ComunicacaoPublicidadeTest
     {
         $this
@@ -101,6 +147,10 @@ class ComunicacaoPublicidadeTest extends Clube
             ->checkStatus(204);
     }
 
+    /**
+     * @return ComunicacaoPublicidadeTest
+     * @throws Excecao
+     */
     public function deletarComunicacaoPublicidadeTest(): ComunicacaoPublicidadeTest
     {
         $this
@@ -109,20 +159,5 @@ class ComunicacaoPublicidadeTest extends Clube
 
         return $this
             ->checkStatus(204);
-    }
-
-    private function getBodyPadrao()
-    {
-        return [
-            'titulo'            => $this->nomeCompleto(),
-            'data_inicio'       => $this->dataPassada(),
-            'data_final'        => $this->dataFutura(),
-            'parceiro'          => 'f10e05c0-5b02-4bff-8e22-719a8797f0d6',
-            'status'            => valorAleatorio(array_keys((new Status())->select())),
-            'imagem_desktop'    => '2ee20169-49eb-4dcd-891d-e1c03a85ec80',
-            'link'              => '',
-            'tipo'              => valorAleatorio(array_keys((new Tipo())->select())),
-            'imagem_mobile'     => '2ee20169-49eb-4dcd-891d-e1c03a85ec80'
-        ];
     }
 }
