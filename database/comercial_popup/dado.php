@@ -1,7 +1,7 @@
 <?php
 
-use App\Classes\ComercialPopup\BotaoTarget;
 use App\Classes\ComercialPopup\Status;
+use App\Classes\ComercialPopup\BotaoTarget;
 
 $listaTitulos = [
     'A sorte está lançada! Quem será o grande vencedor?',
