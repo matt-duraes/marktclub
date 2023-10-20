@@ -8,7 +8,6 @@ use Tests\Token\Clube;
 
 class CarterinhaTest extends Clube
 {
-    private ?string $idUsuario = '5595203c-f7b1-4211-9981-bf09eb236b35';
     private string $idCarteirinha;
 
     /**
@@ -17,11 +16,11 @@ class CarterinhaTest extends Clube
      */
     public function buscarCarteirinhaTest(): CarterinhaTest
     {
-        $this->api('carteirinha:carteirinha');
+        $this->api('carteirinha:clube');
         $this
             ->Curl
             ->loginPainel()
-            ->get('/usuario-carteirinha/' . $this->idUsuario);
+            ->get('/carteirinha-clube');
 
         return $this
             ->checkStatus(200)
