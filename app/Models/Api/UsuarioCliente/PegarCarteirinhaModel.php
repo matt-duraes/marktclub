@@ -3,26 +3,23 @@
 namespace App\Models\Api\UsuarioCliente;
 
 use App\Classes\Carteirinha\Status;
-use App\Classes\LoginClube\PegarClienteTrait;
+use App\Controllers\Api\Trait\ClienteTrait;
 use Modules\DataHora;
 use ORM\ORM;
 use stdClass;
 
 class PegarCarteirinhaModel extends ORM
 {
-    use PegarClienteTrait;
+    use ClienteTrait;
 
     protected string $ormTabela = TABELA_CARTEIRINHA;
-    private stdClass $usuario;
+    private ClienteEntity $usuario;
     private int $idEmpresa;
 
     public function __construct(
     ) {
         parent::__construct();
-        $this->usuario = $this->pegarCliente(
-            where: ['id', TOKEN['usuario']->id],
-            campoAdicional: ['matricula', 'data_filiacao', 'endereco_estado', 'data_nascimento']
-        );
+        $this->usuario = $this->pegarCliente(TOKEN['usuario']->uuid);
         $this->idEmpresa = TOKEN['empresa']->id;
     }
 
@@ -91,8 +88,6 @@ class PegarCarteirinhaModel extends ORM
                 'cpf'             => $usuario->cpf,
                 'matricula'       => $usuario->matricula,
                 'data_nascimento' => $usuario->data_nascimento,
-                'data_filiacao'   => $usuario->data_filiacao,
-                'estado'          => $usuario->endereco_estado
             ],
             criptografia: ['nome', 'cpf', 'matricula', 'data_nascimento', 'data_filiacao', 'estado']
         );
