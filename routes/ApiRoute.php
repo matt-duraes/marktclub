@@ -1768,10 +1768,9 @@ Route
             ::delete('/carteirinha/{id}');
 
         Route
-            ::nome('carteirinha')
-            ::middleware(TokenMiddleware::class, 'scope', ['carteirinha:carteirinha'])
-            ::criptografia(App\Classes\Carteirinha\Helper::CRIPTOGRAFAR)
-            ::get('/usuario-carteirinha/{id}');
+            ::nome('carteirinhaClube')
+            ::middleware(TokenMiddleware::class, 'scope', ['carteirinha:clube'])
+            ::get('/carteirinha-clube');
     });
 
 Route

@@ -129,7 +129,7 @@ $scope = [
     'solicitacao_automovel:atualizar',
 
     'carteirinha:buscar', 'carteirinha:listar', 'carteirinha:salvar',
-    'carteirinha:atualizar', 'carteirinha:deletar', 'carteirinha:carteirinha',
+    'carteirinha:atualizar', 'carteirinha:deletar', 'carteirinha:clube',
 
     'comercial_popup:buscar', 'comercial_popup:listar',
     'comercial_popup:salvar', 'comercial_popup:atualizar', 'comercial_popup:deletar',

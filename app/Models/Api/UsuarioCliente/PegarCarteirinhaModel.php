@@ -3,88 +3,98 @@
 namespace App\Models\Api\UsuarioCliente;
 
 use App\Classes\Carteirinha\Status;
-use Erro\Excecao;
+use App\Models\Api\Trait\BuscarClienteTrait;
 use Modules\DataHora;
 use ORM\ORM;
 use stdClass;
 
 class PegarCarteirinhaModel extends ORM
 {
-    protected string $ormTabela = TABELA_USUARIO_CLIENTE;
+    use BuscarClienteTrait;
 
-    /**
-     * @param string $idCliente
-     */
+    protected string $ormTabela = TABELA_CARTEIRINHA;
+    private stdClass $usuario;
+    private int $idEmpresa;
+
     public function __construct(
-        private readonly string $idCliente
     ) {
         parent::__construct();
+        $this->usuario = $this->pegarCliente(
+            where: ['id', TOKEN['usuario']->id],
+            campoAdicional: ['matricula', 'data_filiacao', 'endereco_estado', 'data_nascimento']
+        );
+        $this->idEmpresa = TOKEN['empresa']->id;
     }
 
-    /**
-     * @return stdClass
-     * @throws Excecao
-     */
     public function gerarCarteirinha(): stdClass
     {
         $carteirinha = $this
-            ->campo([
-                'nome', 'cpf', 'matricula', 'data_nascimento',
-                'data_filiacao', 'endereco_estado'
-            ])
-            ->where(['cod', $this->idCliente])
+            ->where($this->pegarWhere())
+            ->campo(['bg_frente', 'bg_fundo'], 'carteirinha')
             ->tabela(TABELA_COMERCIAL_EMPRESA)
             ->join('id', 'id_admin_empresa')
             ->campo([
-                'cod', 'nome_fantasia'
+                'cod',
+                'nome_fantasia'
             ], 'empresa')
             ->tabela(TABELA_CONSTRUTOR_CLUBE)
             ->join('id_admin_empresa', 'id_admin_empresa')
             ->campo([
-                'uuid', 'logo_principal', 'logo_secundaria'
+                'uuid',
+                'logo_principal',
+                'logo_secundaria'
             ], 'construtor_clube')
-            ->tabela(TABELA_CARTEIRINHA)
-            ->where(['status', (new Status(Status::ATIVO))->numero()])
-            ->join('id_admin_empresa', 'id_admin_empresa')
-            ->campo([
-                'bg_frente', 'bg_fundo'
-            ], 'carteirinha')
             ->primeiro();
 
         return $this->montarCarteirinha($carteirinha);
     }
 
-    /**
-     * @param stdClass|array $carteirinha
-     *
-     * @return stdClass
-     */
+    private function pegarWhere()
+    {
+        return [
+            ['status', (new Status(Status::ATIVO))->numero()],
+            ['id_admin_empresa', $this->idEmpresa]
+        ];
+    }
+
     private function montarCarteirinha(stdClass|array $carteirinha): stdClass
     {
         if (is_array($carteirinha)) {
             return object([]);
         }
 
+        $link = LINK_ARQUIVO . '/construtor/';
+
         return object([
-            'usuario'      => [
-                'nome'            => $carteirinha->nome,
-                'cpf'             => $carteirinha->cpf,
-                'matricula'       => $carteirinha->matricula,
-                'data_nascimento' => $carteirinha->data_nascimento,
-                'data_filiacao'   => $carteirinha->data_filiacao,
-                'estado'          => $carteirinha->endereco_estado
-            ],
-            'empresa'      => [
+            'usuario' => $this->pegarUsuarioCriptografado(),
+            'empresa' => [
                 'id'   => $carteirinha->empresa_cod,
                 'nome' => $carteirinha->empresa_nome_fantasia
             ],
-            'imagem'       => [
-                'logo_principal'  => LINK_ARQUIVO . '/construtor/' . $carteirinha->construtor_clube_logo_principal,
-                'logo_secundaria' => LINK_ARQUIVO . '/construtor/' . $carteirinha->construtor_clube_logo_secundaria,
-                'bg_frente'       => LINK_ARQUIVO . '/construtor/' . $carteirinha->carteirinha_bg_frente,
-                'bg_fundo'        => LINK_ARQUIVO . '/construtor/' . $carteirinha->carteirinha_bg_fundo
+            'imagem' => [
+                'logo_principal'  => $link . $carteirinha->construtor_clube_logo_principal,
+                'logo_secundaria' => $link . $carteirinha->construtor_clube_logo_secundaria,
+                'bg_frente'       => $link . $carteirinha->carteirinha_bg_frente,
+                'bg_fundo'        => $link . $carteirinha->carteirinha_bg_fundo
             ],
             'data_emissao' => (new DataHora(agora()))->date()
         ]);
+    }
+
+    private function pegarUsuarioCriptografado()
+    {
+        $usuario = $this->usuario;
+
+        return criptografarDado(
+            dado: [
+                'nome'            => $usuario->nome,
+                'cpf'             => $usuario->cpf,
+                'matricula'       => $usuario->matricula,
+                'data_nascimento' => $usuario->data_nascimento,
+                'data_filiacao'   => $usuario->data_filiacao,
+                'estado'          => $usuario->endereco_estado
+            ],
+            criptografia: ['nome', 'cpf', 'matricula', 'data_nascimento', 'data_filiacao', 'estado']
+        );
     }
 }
