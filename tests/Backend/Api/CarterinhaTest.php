@@ -17,9 +17,9 @@ class CarterinhaTest extends Clube
     public function buscarCarteirinhaTest(): CarterinhaTest
     {
         $this->api('carteirinha:clube');
+        $this->pegarToken();
         $this
             ->Curl
-            ->loginPainel()
             ->get('/carteirinha-clube');
 
         return $this

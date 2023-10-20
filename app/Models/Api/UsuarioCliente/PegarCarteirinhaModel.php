@@ -13,12 +13,17 @@ class PegarCarteirinhaModel extends ORM
     use BuscarClienteTrait;
 
     protected string $ormTabela = TABELA_CARTEIRINHA;
-    private stdClass $usuario;
+    private array|stdClass $usuario;
     private int $idEmpresa;
 
     public function __construct(
     ) {
         parent::__construct();
+
+        if(empty(TOKEN['usuario'])) {
+            mensagemErro('Usuário não encontrado');
+        }
+
         $this->usuario = $this->pegarCliente(
             where: ['id', TOKEN['usuario']->id],
             campoAdicional: ['matricula', 'data_filiacao', 'endereco_estado', 'data_nascimento']
@@ -59,7 +64,7 @@ class PegarCarteirinhaModel extends ORM
 
     private function montarCarteirinha(stdClass|array $carteirinha): stdClass
     {
-        if (is_array($carteirinha)) {
+        if (is_array($carteirinha) || empty($carteirinha)) {
             return object([]);
         }
 
@@ -84,6 +89,10 @@ class PegarCarteirinhaModel extends ORM
     private function pegarUsuarioCriptografado()
     {
         $usuario = $this->usuario;
+
+        if(empty($usuario)) {
+            return object([]);
+        }
 
         return criptografarDado(
             dado: [
