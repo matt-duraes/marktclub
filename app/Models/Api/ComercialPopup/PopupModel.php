@@ -2,21 +2,23 @@
 
 namespace App\Models\Api\ComercialPopup;
 
-use App\Classes\ComercialPopup\BotaoTarget;
-use App\Classes\ComercialPopup\Ordem;
-use App\Classes\ComercialPopup\Status;
-use App\Models\Api\ComercialEmpresa\EmpresaEntity;
-use App\Models\Api\Trait\ValidarEmpresaTrait;
+use ORM\ORM;
+use stdClass;
 use Erro\Excecao;
 use Modules\Data;
 use Modules\Link;
+use Modules\Botao;
 use Modules\Pagina;
 use Modules\Quantidade;
-use ORM\ORM;
-use stdClass;
+use App\Classes\Geral\Publicado;
 use System\Trait\Model\OrdemTrait;
 use System\Trait\Model\PaginaTrait;
+use App\Classes\ComercialPopup\Ordem;
+use App\Classes\ComercialPopup\Status;
 use System\Trait\Model\QuantidadeTrait;
+use App\Classes\ComercialPopup\BotaoTarget;
+use App\Models\Api\Trait\ValidarEmpresaTrait;
+use App\Models\Api\ComercialEmpresa\EmpresaEntity;
 
 class PopupModel extends ORM
 {
@@ -48,7 +50,8 @@ class PopupModel extends ORM
         private readonly ?string $empresa = null,
         private readonly Data $dataInicio = new Data(),
         private readonly Data $dataFinal = new Data(),
-        private readonly Status $status = new Status()
+        private readonly Status $status = new Status(),
+        private readonly Botao $publicado = new Botao(null),
     ) {
         $this->validarEmpresa();
         $this->validarDados();
@@ -89,12 +92,6 @@ class PopupModel extends ORM
             ->where($this->pegarWhere(), false)
             ->pagina($this->pegarPagina(), $this->pegarQuantidade())
             ->order($this->pegarOrdem(new Ordem()))
-            ->tabela(TABELA_COMERCIAL_EMPRESA)
-            ->where($this->pegarWhereEmpresa(), false)
-            ->join('id', 'id_admin_empresa')
-            ->campo([
-                'nome_fantasia'
-            ], 'empresa')
             ->read();
 
         $dado->lista = $this->montarRetorno($dado->lista);
@@ -107,36 +104,42 @@ class PopupModel extends ORM
     private function pegarWhere(): array
     {
         $where = $this->ormWherePadrao;
+        $publicado = $this->publicado->valido();
 
         if (!empty($this->titulo)) {
             $where[] = ['titulo', 'LIKE', '%' . $this->titulo . '%'];
         }
 
-        if ($this->dataInicio->valido() && $this->dataFinal->valido()) {
+        if ($this->dataInicio->valido() && $this->dataFinal->valido() && !$publicado) {
             $where[] = [
                 'data_inicio', 'between', [$this->dataInicio->date(), $this->dataFinal->date()]
             ];
-        } elseif ($this->dataInicio->valido()) {
+        } elseif ($this->dataInicio->valido() && !$publicado) {
             $where[] = ['data_inicio', $this->dataInicio->date()];
-        } elseif ($this->dataFinal->valido()) {
+        } elseif ($this->dataFinal->valido() && !$publicado) {
             $where[] = ['data_final', $this->dataFinal->date()];
         }
 
-        if ($this->status->valido()) {
+        if ($this->status->valido() && !$publicado) {
             $where[] = ['status', $this->status->numero()];
         }
 
-        return $where;
-    }
-
-    /**
-     * @return array
-     */
-    private function pegarWhereEmpresa(): array
-    {
-        $where = [];
-        if (!empty($this->empresa)) {
-            $where[] = ['cod', $this->empresa];
+        if ($publicado) {
+            $where[] = [
+                [
+                    'OR',
+                    ['data_inicio', 'null'],
+                    ['data_inicio', ''],
+                    ['data_inicio', '<=', hoje() . ' 23:59:59'],
+                ],
+                [
+                    'OR',
+                    ['data_final', 'null'],
+                    ['data_final', ''],
+                    ['data_final', '>=', hoje()],
+                ],
+                ['status', (new Status(Status::ATIVO))->numero()]
+            ];
         }
         return $where;
     }
@@ -156,11 +159,15 @@ class PopupModel extends ORM
         $Status = new Status();
         $retorno = [];
         foreach ($popups as $popup) {
+            $statusIndice = $Status->indice($popup->status);
+            $publicado = new Publicado(
+                new Data($popup->data_inicio),
+                new Data($popup->data_final),
+                $statusIndice == Status::ATIVO
+            );
+
             $retorno[] = [
                 'id'             => $popup->uuid,
-                'empresa'        => [
-                    'nome' => $popup->empresa_nome_fantasia
-                ],
                 'slug'           => $popup->slug,
                 'imagem'         => arquivoPublico(LINK_ARQUIVO_PUBLICO, $popup->imagem ?? ''),
                 'titulo'         => $popup->titulo,
@@ -172,7 +179,8 @@ class PopupModel extends ORM
                 'botao_texto'    => $popup->botao_texto,
                 'botao_link'     => (new Link($popup->botao_link))->valor(),
                 'botao_target'   => $BotaoTarget->indice($popup->botao_target),
-                'status'         => $Status->indice($popup->status)
+                'publicado'      => $publicado->indice(),
+                'status'         => $statusIndice
             ];
         }
         return $retorno;

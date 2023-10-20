@@ -76,21 +76,4 @@ window.addEventListener('load', () => {
         });
         bloco.insertAdjacentHTML('beforeend', `<div class="article_fake"></div><div class="article_fake"></div>`);
     };
-
-    /** POPUP DE PROMOÇÕES */
-    const popupAcao = () => {
-        const fecharPopup = document.querySelector('#fechar_popup_home');
-
-        fecharPopup.addEventListener('click', () => {
-            PaginaPopup.fechar();
-        });
-    };
-    const PaginaPopup = new Popup('Popup', 'popup_parceiro', true, false, popupAcao);
-    const popup = document.querySelector('#popup_parceiro');
-    let idPopup = popup.getAttribute('data-id');
-    // return;
-    if (sessionStorage.getItem('idPopup') != idPopup) {
-        sessionStorage.setItem('idPopup', `${idPopup}`);
-        PaginaPopup.abrir();
-    }
 });

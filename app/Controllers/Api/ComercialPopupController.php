@@ -2,24 +2,25 @@
 
 namespace App\Controllers\Api;
 
-use App\Classes\ComercialPopup\Ordem;
-use App\Classes\ComercialPopup\Status;
-use App\Models\Api\ComercialEmpresa\EmpresaEntity;
-use App\Models\Api\ComercialPopup\PopupEntity;
-use App\Models\Api\ComercialPopup\PopupModel;
-use App\Models\Api\OrdenarModel;
-use Controller\Controller;
 use Erro\Excecao;
 use Http\Request;
-use Http\Response;
 use Modules\Data;
+use Http\Response;
+use Modules\Botao;
 use Modules\Pagina;
 use Modules\Quantidade;
-use System\Interface\ControllerAtualizarInterface;
+use Controller\Controller;
+use App\Models\Api\OrdenarModel;
+use App\Classes\ComercialPopup\Ordem;
+use App\Classes\ComercialPopup\Status;
+use App\Models\Api\ComercialPopup\PopupModel;
+use App\Models\Api\ComercialPopup\PopupEntity;
 use System\Interface\ControllerBuscarInterface;
-use System\Interface\ControllerDeletarInterface;
 use System\Interface\ControllerListarInterface;
 use System\Interface\ControllerSalvarInterface;
+use System\Interface\ControllerDeletarInterface;
+use App\Models\Api\ComercialEmpresa\EmpresaEntity;
+use System\Interface\ControllerAtualizarInterface;
 
 class ComercialPopupController extends Controller implements
     ControllerBuscarInterface,
@@ -76,7 +77,8 @@ class ComercialPopupController extends Controller implements
             $request->empresa,
             new Data($request->data_inicio),
             new Data($request->data_final),
-            new Status($request->status)
+            new Status($request->status),
+            new Botao($request->publicado)
         );
         return mensagemSucesso($PopupModel->listarDados());
     }

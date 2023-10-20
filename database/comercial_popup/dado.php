@@ -63,7 +63,40 @@ $texto = '
     Agora é a sua oportunidade!
     Estamos animados em anunciar nosso sorteio incrível que pode tornar seus sonhos realidade.
 ';
-$seeds = [];
+$seeds = [
+    [
+        'uuid'             => uuid(),
+        'id_admin_empresa' => 1,
+        'slug'             => 'popup-01-teste',
+        'imagem'           => null,
+        'titulo'           => 'Popup de teste 01',
+        'texto'            => 'Texto do popup de teste 01',
+        'regulamento'      => 'Regulamento do popup de teste 01',
+        'data_inicio'      => dataPassadaAleatorio(),
+        'data_final'       => dataFuturaAleatorio(),
+        'atualizar_dado'   => null,
+        'botao_texto'      => 'Abrir Google',
+        'botao_link'       => 'https://google.com',
+        'botao_target'     => 2,
+        'status'           => 1
+    ],
+    [
+        'uuid'             => uuid(),
+        'id_admin_empresa' => 1,
+        'slug'             => 'popup-02-teste',
+        'imagem'           => null,
+        'titulo'           => 'Popup de teste 02',
+        'texto'            => 'Texto do popup de teste 02',
+        'regulamento'      => 'Regulamento do popup de teste 02',
+        'data_inicio'      => dataPassadaAleatorio(),
+        'data_final'       => dataFuturaAleatorio(),
+        'atualizar_dado'   => null,
+        'botao_texto'      => 'Abrir Google',
+        'botao_link'       => 'https://google.com',
+        'botao_target'     => 2,
+        'status'           => 1
+    ]
+];
 for ($i = 0; $i < env('QTD_SEEDS', 50); $i++) {
     $titulo = valorAleatorio($listaTitulos);
     $regulamento = "
@@ -74,13 +107,13 @@ for ($i = 0; $i < env('QTD_SEEDS', 50); $i++) {
     ";
     $seeds[] = [
         'uuid'             => uuid(),
-        'id_admin_empresa' => numeroAleatorio(1, 50),
+        'id_admin_empresa' => numeroAleatorio(2, 50),
         'slug'             => strSlug($titulo) . 'n° ' . $i + 1,
         'imagem'           => null,
         'titulo'           => $titulo,
         'texto'            => $texto,
         'regulamento'      => $regulamento,
-        'data_inicio'      => hoje(),
+        'data_inicio'      => dataPassadaAleatorio(),
         'data_final'       => dataFuturaAleatorio(),
         'atualizar_dado'   => null,
         'botao_texto'      => null,
