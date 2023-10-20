@@ -8,9 +8,9 @@ final class BuscarModel extends ClubeApiHelper
 {
     public function buscarDados($pagina = 1)
     {
-        $dados = $this
+        $dado = $this
             ->json([
-                'pagina'         => 1,
+                'pagina'         => $pagina,
                 'quantidade'     => 5,
                 'cpf'            => $this->Crypt->encode(sessao('USUARIO.cpf')),
                 'ordem'          => 'mais-novo',
@@ -18,14 +18,13 @@ final class BuscarModel extends ClubeApiHelper
             ->get('/ponto-cvs')
             ->object();
 
-        if (!empty($dados->dado)) :
-            foreach ($dados->dado->lista as $r) :
-                $r->usuario_nome = $this->Crypt->decode($r->usuario_nome)($r->usuario_nome);
-                $r->usuario_email = $this->Crypt->decode($r->usuario_email)($r->usuario_email);
+        if (!empty($dado->dado)) :
+            foreach ($dado->dado->lista as $r) :
+                $r->usuario_nome = $this->Crypt->decode($r->usuario_nome);
+                $r->usuario_email = $this->Crypt->decode($r->usuario_email);
             endforeach;
         endif;
-
-        return $dados;
+        return $dado->dado ?? [];
     }
 
     public function solicitarPontoCvs($dado)

@@ -11,13 +11,9 @@ final class PontoCvsController extends Controller
 {
     public function index(): Response
     {
-        $dadosCvs = (object)(new BuscarModel())->buscarDados();
-        $erro = !empty($dadosCvs->erro) ? $dadosCvs->texto : '';
-        $resultado = isset($dadosCvs->dado) ? $dadosCvs->dado : [];
-
+        $dado = (new BuscarModel())->buscarDados();
         return view('ponto_cvs.index', [
-            'r'    => $resultado,
-            'erro' => $erro
+            'r' => $dado
         ]);
     }
 
