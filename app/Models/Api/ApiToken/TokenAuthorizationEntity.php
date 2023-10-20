@@ -18,10 +18,11 @@ final class TokenAuthorizationEntity extends Entity
 
     // protected array $ormBuscar = [];
     protected array $ormInsert = [
-        'id_usuario', 'id_api_app', 'redirect_uri', 'scope_permitido', 'state_cliente', 'authorization_code',
+        'id_usuario', 'id_admin_empresa', 'id_api_app', 'redirect_uri', 'scope_permitido', 'state_cliente',
         'access_token', 'grant_type', 'ip', 'sistema_operacional', 'navegador', 'data_ativacao', 'data_vencimento',
-        'status', 'refresh_token', 'hash', 'tipo'
+        'authorization_code', 'status', 'refresh_token', 'hash', 'tipo'
     ];
+    protected int $id_admin_empresa;
     protected string $id_usuario;
     protected int $id_api_app;
     protected string $redirect_uri;
@@ -47,7 +48,8 @@ final class TokenAuthorizationEntity extends Entity
         string $audience,
         string $redirectUri,
         string $state,
-        ?Tipo $tipo = null
+        int $empresa,
+        ?Tipo $tipo = null,
     ) {
         if ($app->id != env('API_CLUBE_ID') && !in_array($redirectUri, (array)$app->redirect_uri)) {
             mensagemErro('Erro!', 'Redirect Uri não está autorizado a criar token.', 403);
@@ -62,7 +64,7 @@ final class TokenAuthorizationEntity extends Entity
 
         $accessToken = uuid();
         $refreshToken = uuid();
-        $this->salvarToken($accessToken, $refreshToken, $body, $app, $scope, $redirectUri, $state, $tipo);
+        $this->salvarToken($accessToken, $refreshToken, $body, $app, $scope, $redirectUri, $state, $tipo, $empresa);
 
         $token = [
             'access_token'  => $accessToken,
@@ -76,9 +78,10 @@ final class TokenAuthorizationEntity extends Entity
         return $token;
     }
 
-    private function salvarToken($accessToken, $refreshToken, $body, $app, $scope, $redirectUri, $state, $tipo)
+    private function salvarToken($accessToken, $refreshToken, $body, $app, $scope, $redirectUri, $state, $tipo, $empresa)
     {
         $idApp = $app->id;
+        $this->id_admin_empresa = $empresa;
         $this->id_usuario = $body['sub'];
         $this->id_api_app = $idApp;
         $this->redirect_uri = $redirectUri;
