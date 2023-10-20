@@ -9,7 +9,6 @@ use App\Classes\ParceiroLoja\Ordem;
 use App\Models\Site\Saude\HomeModel;
 use App\Models\Site\Loja\FiltroModel;
 use App\Models\Site\Loja\ListarModel;
-use App\Models\Site\Popup\PopupModel;
 use App\Models\Site\Comunicacao\BannerModel;
 
 final class IndexController extends Controller
@@ -20,9 +19,7 @@ final class IndexController extends Controller
      */
     public function index(): Response
     {
-        $popup = ((new PopupModel()))->buscarPopup();
         return view('index', [
-            'popup' => $popup->dado[0] ?? '',
             'menu'           => 'home',
             'banner'         => (new BannerModel())->home(),
             'plano_saude'    => (new HomeModel())->valor

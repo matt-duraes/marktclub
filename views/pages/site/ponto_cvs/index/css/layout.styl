@@ -1,109 +1,25 @@
-@resource "site/variavel"
-@resource "site/mixim"
 @template "site"
-@resource "site/form_geral"
-@resource "site/tabela"
-
-h1
-    titulo()
-
-p, button
-    texto()
-
-.bloco_tem_mais_acao,
-.bloco_tabela_cvs
-    blocoShadow()
-    width: 100%
-    max-width: $maxWidth
-
-.titulo
-    bold()
+@system "form"
+@resource "site/tab"
 
 .bloco_tem_mais_acao
-    .titulo
-        margin-top: 20px
-    .texto_descricao
-        margin-top: 0px
-        margin-bottom: 20px !important
-    .link_regulamento
-        texto()
-        border-bottom: 1px solid $corClube
-        color: $corPretoBranco
-        cursor: pointer
-        &:hover
-            color: $corClube
-            padding: 5px
-            border-radius: 8px
-            transition: color 0.7s ease
-            margin-top: 10px
-    .valores_troca
-        margin: 20px 0px
-    .bloco_saldo #solicitar_resgate
-        margin-top: 10px
-
-.bloco_tabela_cvs
-    margin-top: 20px
-    .vazio td
-        width: 100%
-        height: 150px
-        text-align: center
-        vertical-align: middle
-        padding: 0 10px
-        font-size: 1rem
-        font-weight: bold
-        color: #D1D1D1
-    label
-        texto()
-        font-weight: bold
-        border-right: 1px solid #ccc
-        border-bottom: 1px solid #ccc
-        text-align: center
-        cursor: pointer
-        padding: 10px
-        border-radius: 5px
-        &:checked
-            background-color: #ccc
-            color: $corClube
-        &:last-child
-            margin-left: 20px
-        &:hover
-            background-color: #ccc
-            color: $corClube
-
-[data-theme="dark"] .bloco_logo_ponto_mais_acao
-    background: white
-    width: 200px
-    text-align: center
-    border-radius: 8px
-    margin-bottom: 20px
-
-@media screen and (max-width: 425px)
-    #solicitar_resgate
-        width: 100%
-    .bloco_botoes_tabela
-        display: flex
-        flex-direction: column
-        button
-            width: 100%
+    width: 100%
+    max-width: $maxWidth
+    .bloco_titulo_texto
+        align-items: flex-start
+        figure
             margin-bottom: 20px
-    tr:not(.vazio)
-        display: none
-    .bloco_tabela_geral table
-        min-width: initial
-    .bloco_tabela_cvs .vazio td
-        width: calc(100vw - 80px)
-        display: flex
-        justify-content: center
-        align-items: center
-        text-align: left
-
-.escondido
-    display: none !important
-
-#elemento
-    opacity: 0
-    display: none
-    transition: opacity 10s ease-in-out
-
-.visivel
-    opacity: 1
+        h1
+            color: $corClube
+        p
+            margin: 2px 0
+        strong
+            texto()
+            font-weight: bold
+        a
+            botaoPadraoPequeno()
+            background-color: $corClube
+            color: #FFF
+            margin: 10px 0
+    .atencao
+        margin: 20px 0

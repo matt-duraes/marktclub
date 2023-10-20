@@ -50,20 +50,11 @@ final class PontoModel extends ORM
             ->pagina($this->pegarPagina(), $this->pegarQuantidade())
             ->read();
 
-        $saldo = [];
-        $extrato = [];
-
         if (!empty($this->buscaCpf)) {
             $PontoCvsHelper = new PontoCvsHelper();
-            $saldo = $PontoCvsHelper->buscarPontos($this->buscaCpf);
-            $extrato = $PontoCvsHelper->buscarExtrato($this->buscaCpf);
+            $dado->saldo = $PontoCvsHelper->buscarPontos($this->buscaCpf);
+            $dado->extrato = $PontoCvsHelper->buscarExtrato($this->buscaCpf);
         }
-
-        if (!empty($saldo) && !empty($extrato)) {
-            $dado->saldo = $saldo;
-            $dado->extrato = $extrato;
-        }
-
         $dado->lista = $this->montarRetorno($dado->lista);
 
         return $dado;
@@ -109,8 +100,9 @@ final class PontoModel extends ORM
 
     private function buscarIdUsuarioPeloCpf()
     {
+        $cpf = soNumero($this->request->cpf);
         $usuario = (new OrmHelper(TABELA_USUARIO_CLIENTE))->pegarPrimeiroRegistro([
-            ['documento', soNumero($this->request->cpf)],
+            ['documento', $cpf],
             ['status', 'in', Helper::STATUS_LIBERADO],
             [
                 'OR',
@@ -121,8 +113,8 @@ final class PontoModel extends ORM
                 ]
             ]
         ], campo: ['cpf', 'id'], retorno: 'object');
-        $this->buscaCpf = $usuario->cpf;
-        return $usuario->id;
+        $this->buscaCpf = $cpf;
+        return $usuario->id ?? '';
     }
 
     private function validarRequest()

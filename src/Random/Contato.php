@@ -60,9 +60,9 @@ trait Contato
         ];
 
         return $this->pegarNomeAleatorio(rand(1, 2)) . '.' . rand(1930, date('Y')) . '@' . $dominio[rand(
-                0,
-                count($dominio) - 1
-            )];
+            0,
+            count($dominio) - 1
+        )];
     }
 
     private function pegarNomeAleatorio($quantidade): string

@@ -180,4 +180,3 @@ for ($i = 0; $i < env('QTD_SEEDS', 50); $i++) {
     ];
 }
 return $seeds;
-
