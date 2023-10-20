@@ -1,8 +1,8 @@
 <?php
 
-use App\Classes\ParceiroLoja\Procedimento;
-use App\Classes\ParceiroLoja\Status;
 use App\Classes\ParceiroLoja\Tipo;
+use App\Classes\ParceiroLoja\Status;
+use App\Classes\ParceiroLoja\Procedimento;
 
 $estados = [
     'AC', 'AL', 'AP', 'AM', 'BA', 'CE', 'DF', 'ES', 'GO', 'MA', 'MT', 'MS', 'MG',
@@ -123,6 +123,29 @@ $listaTipo = (new Tipo())->listarNumero();
 $listaStatus = (new Status())->listarNumero();
 $seeds = [
     [
+        'id' => 1,
+        'cod'                 => '9792e058562303f9e7e0604c5117c569',
+        'categoria_principal' => '1',
+        'categoria_todas'     => '["1","2","3","4","5","6","7","8"]',
+        'titulo'              => 'SalaVip Anape',
+        'url'                 => 'salavip-anape',
+        'imagem'              => '52cfc6409e8ecc3db661829269b0020b.png',
+        'site'                => 'https://google.com',
+        'capa'                => 'a9300961c8f22333fa54a3420fd5aad8.png',
+        'texto'               => 'Lorem ipsum dolor sit, amet consectetur adipisicing elit. Mollitia, fugiat.',
+        'desconto'            => '50% ou 100% de desconto',
+        'desconto_texto'      => 'Texto de desconto do parceiro',
+        'procedimento_texto'  => 'Texto de procedimento do parceiro',
+        'voucher_texto'       => 'Texto para o voucher do parceiro',
+        'procedimento'        => 1,
+        'destaque'            => ['66'],
+        'empresa'             => ['66'],
+        'data_publicacao'     => dataPassadaAleatorio(),
+        'estado'              => $estados,
+        'tipo'                => 1,
+        'status'              => 4
+    ],
+    [
         'id'                  => 2,
         'cod'                 => '890713a200a9e45aa85e2ae67aa41e74',
         'categoria_principal' => '1',
@@ -140,28 +163,6 @@ $seeds = [
         'voucher_texto'       => 'Texto para o voucher do parceiro',
         'destaque'            => ['2'],
         'empresa'             => ['2'],
-        'data_publicacao'     => dataPassadaAleatorio(),
-        'estado'              => $estados,
-        'tipo'                => 1,
-        'status'              => 4
-    ],
-    [
-        'cod'                 => '9792e058562303f9e7e0604c5117c569',
-        'categoria_principal' => '1',
-        'categoria_todas'     => '["1","2","3","4","5","6","7","8"]',
-        'titulo'              => 'SalaVip Anape',
-        'url'                 => 'salavip-anape',
-        'imagem'              => '52cfc6409e8ecc3db661829269b0020b.png',
-        'site'                => 'https://google.com',
-        'capa'                => 'a9300961c8f22333fa54a3420fd5aad8.png',
-        'texto'               => 'Lorem ipsum dolor sit, amet consectetur adipisicing elit. Mollitia, fugiat.',
-        'desconto'            => '50% ou 100% de desconto',
-        'desconto_texto'      => 'Texto de desconto do parceiro',
-        'procedimento_texto'  => 'Texto de procedimento do parceiro',
-        'voucher_texto'       => 'Texto para o voucher do parceiro',
-        'procedimento'        => 1,
-        'destaque'            => ['66'],
-        'empresa'             => ['66'],
         'data_publicacao'     => dataPassadaAleatorio(),
         'estado'              => $estados,
         'tipo'                => 1,
