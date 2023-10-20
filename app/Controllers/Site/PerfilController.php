@@ -59,7 +59,6 @@ final class PerfilController extends Controller
     public function carteira(): Response
     {
         $dado = (new CarteirinhaModel())->getDado();
-
         return view(
             'perfil.carteira',
             [
@@ -108,38 +107,4 @@ final class PerfilController extends Controller
         return (new DadosModel())->postImagemSocial($request);
     }
 
-    /*
-    |--------------------------------------------------------------------------
-    | PONTO MAIS AÇÃO CVS
-    |--------------------------------------------------------------------------
-    */
-
-    public function pontoCvs()
-    {
-        $cvs = (object)(new DadosModel())->cvs();
-        $erro = !empty($cvs->erro) ? $cvs->texto : '';
-        $resultado = isset($cvs->dado) ? $cvs->dado : [];
-        return view('perfil.ponto_cvs', [
-            'r'    => $resultado,
-            'erro' => $erro
-        ]);
-    }
-
-    public function popupSolicitaPontoCvs()
-    {
-        return view('perfil.solicita_cvs');
-    }
-
-    public function postCvsSolicitar(Request $request)
-    {
-        return (new DadosModel())->solicitarPontoCvs($request);
-    }
-
-    public function extrato()
-    {
-        $extrato = (new DadosModel())->extrato();
-        return view('perfil.extrato_cvs', [
-            'extrato' => $extrato
-        ]);
-    }
 }

@@ -168,6 +168,8 @@ final class DadosModel extends ClubeApiHelper
             ])
             ->get('/ponto-cvs')
             ->object();
+
+        ppe($buscar);
         if (!empty($buscar->dado)) :
             foreach ($buscar->dado->lista as $r) :
                 $r->usuario_nome = $this->Crypt->decode($r->usuario_nome)($r->usuario_nome);
