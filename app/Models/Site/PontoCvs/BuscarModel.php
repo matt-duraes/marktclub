@@ -34,7 +34,7 @@ final class BuscarModel extends ClubeApiHelper
         $email = !empty($dado->email) ? $this->Crypt->encode($dado->email) : false;
         $cpf = $this->Crypt->encode(sessao('USUARIO.cpf'));
 
-        $buscar = $this
+        $this
             ->validar('Erro ao fazer a requisição!', status: 400)
             ->body([
                 'ponto_solicitado' => $ponto,
@@ -42,10 +42,7 @@ final class BuscarModel extends ClubeApiHelper
                 'cpf'              => $cpf,
                 'email'            => $email,
             ])
-            ->post('/ponto-cvs')
-            ->object();
-
-        return $buscar;
+            ->post('/ponto-cvs');
     }
 
     public function extrato()
