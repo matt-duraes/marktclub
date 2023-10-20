@@ -104,12 +104,12 @@ final class PontoCvsHelper
      *
      * @return stdClass|string Classe de pontos ou mensagem de erro
      */
-    public function buscarSolicitacao(int $codigo): stdClass|string
+    public function buscarSolicitacao(int $codigo): stdClass|string|array
     {
         try {
             return $this->verificarSolicitacao($codigo);
         } catch (\Throwable) {
-            mensagemErro('Erro!', 'Ocorreu um erro ao atualizar as solicitações pendentes .', status: 500);
+            return [];
         }
     }
 

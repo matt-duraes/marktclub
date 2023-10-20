@@ -42,8 +42,8 @@ $seeds = [
     [
         'id'            => 4,
         'cod'           => 'cdc41730-abc7-4b51-abd7-698e2cb3c0b1',
-        'empresa'       => 198,
-        'tipo'          => 1,
+        'empresa'       => 1,
+        'tipo'          => 3,
         'nome'          => 'Teste CVS',
         'documento'     => '55525957000',
         'email_pessoal' => 'teste2@cvs.club',

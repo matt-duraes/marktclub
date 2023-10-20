@@ -2,7 +2,7 @@
 
 <div class="bloco_tem_mais_acao">
     <input type="hidden" id="input_ponto_saldo" value="{{$r->saldo->saldo ?? 0}}">
-    <div class="bloco_titulo_texto">
+    <div class="bloco_texto bloco_titulo_texto">
         <figure>
             <img src="{!!LINK!!}/images/site/logo_silium.png" height="80" alt="Logo Silium">
         </figure>
@@ -16,22 +16,22 @@
             #CategoriaUnidaSindicatoForte<br>
             #Sindicato100Anos
         </strong>
-        <a href="<?= LINK_ARQUIVO ?>/arquivo/regulamento-ponto-acao.pdf" target="_blank" rel="noopener noreferrer" class="link_regulamento ">REGULAMENTO PONTO + AÇÃO</a>
+        <a href="<?= LINK_ARQUIVO ?>/arquivo/regulamento-ponto-acao.pdf" target="_blank" rel="noopener noreferrer" class="link_regulamento ">Regulamento Ponto + Ação</a>
     </div>
     <div class="bloco_atencao_geral atencao">
         <p>Obs: Os vouchers só poderão ser usados nas lojas virtuais:</p>
         <p>www.casasbahia.com.br, www.ponto.com.br e www.extra.com.br</p>
     </div>
-    <p class="valores_troca">
-        1 PONTO = R$ 50,00 (SÓCIO BANCÁRIO)<br>
-        1 PONTO = R$ 12,00 (SÓCIO PARCEIRO)
-    </p>
-    <div class="bloco_saldo">
+    <div class="bloco_solicitar bloco_titulo_texto">
+        <p>
+            1 PONTO = R$ 50,00 (SÓCIO BANCÁRIO)<br>
+            1 PONTO = R$ 12,00 (SÓCIO PARCEIRO)
+        </p>
         <h1>Saldo em conta: {{$r->saldo->saldo ?? 0}}</h1>
-        <div id="botao_popup_resgate">Solicitar resgate</div>
+        <div class="botao" id="botao_popup_resgate">Solicitar resgate</div>
     </div>
 
-    <div class="bloco_tab_geral bloco_procedimento">
+    <div class="bloco_tab_geral bloco_tabela">
         <div class="bloco_botao">
             <button class="botao ativo" data-id="bloco_extrato">
                 <span class="texto_inativo">Extrato de pontos</span>
@@ -62,7 +62,15 @@
             <p>Preencha o formulário abaixo para solicitar resgate de pontos</p>
             <i class="popup_fechar fechar">@iconeFechar</i>
         </header>
-        <div class="conteudo"></div>
-        <div class="botao" id="botao_solicitar_ponto">Solicitar ponto</div>
+        <form action="" class="form_geral">
+            <div class="bloco">
+                @? formInput(name: 'ponto_nome', label: 'Nome', placeholder:'Digite seu nome', obrigatorio: true, value: '', local: 'André Rodrigues')
+                @? formInput(name: 'ponto_email', label: 'E-mail', placeholder:'Digite seu E-mail',  obrigatorio: true, value: '', local: 'andre@markt.club')
+                @? formNumero(name: 'ponto_quantidade', label: 'Pontos', placeholder: 'Digite a quantidade de pontos', obrigatorio: true, value: '', local: 1)
+            </div>
+        </form>
+        <div class="bloco_botao">
+            <div class="botao" id="botao_solicitar_ponto">Solicitar ponto</div>
+        </div>
     </div>
 </div>
