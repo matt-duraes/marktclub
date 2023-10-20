@@ -1768,10 +1768,9 @@ Route
             ::delete('/carteirinha/{id}');
 
         Route
-            ::nome('carteirinha')
-            ::middleware(TokenMiddleware::class, 'scope', ['carteirinha:carteirinha'])
-            ::criptografia(App\Classes\Carteirinha\Helper::CRIPTOGRAFAR)
-            ::get('/usuario-carteirinha/{id}');
+            ::nome('carteirinhaClube')
+            ::middleware(TokenMiddleware::class, 'scope', ['carteirinha:clube'])
+            ::get('/carteirinha-clube');
     });
 
 Route
@@ -1789,7 +1788,7 @@ Route
             ::middleware(TokenMiddleware::class, 'scope', ['comercial_popup:listar'])
             ::request([
                 'pagina', '!quantidade', '!ordem', '!titulo', '!empresa',
-                '!data_inicio', '!data_final', '!status'
+                '!data_inicio', '!data_final', '!status', '!publicado'
             ], 'json')
             ::get('/comercial-popup');
 
@@ -1825,11 +1824,6 @@ Route
                 'id', 'pagina', '!quantidade'
             ])
             ::put('/comercial-popup/ordenar');
-
-        Route
-            ::nome('popup')
-            ::middleware(TokenMiddleware::class, 'scope', ['comercial_popup:popup'])
-            ::get('/comercial-popup/popup/{id}');
     });
 
 Route

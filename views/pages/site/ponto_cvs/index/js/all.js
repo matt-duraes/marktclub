@@ -1,80 +1,55 @@
 // @template "site"
-// @system "Alerta"
-// @system "Icone"
-// @system "Form"
-// @system "Loading"
 // @system "Mascara"
 // @system "Form"
 // @system "Alerta"
 // @system "Loading"
+// @resource "site/tab"
 
-const botaoSolicitarResgate = document.querySelector('#solicitar_resgate');
-const botaoExtrato = document.querySelector('#extrato_cvs');
-
-const botaoTabelaExtrato = document.querySelector('#botao_tabela_extrato');
-const botaoTabelaHistorico = document.querySelector('#botao_tabela_historico');
-const tabelaExtrato = document.querySelector('#tabela_extrato');
-const tabelaHistorico = document.querySelector('#tabela_historico');
-
-botaoTabelaExtrato.addEventListener('click', () => {
-    tabelaHistorico.classList.add('display_none');
-    tabelaExtrato.classList.remove('display_none');
-});
-botaoTabelaHistorico.addEventListener('click', () => {
-    tabelaExtrato.classList.add('display_none');
-    tabelaHistorico.classList.remove('display_none');
-});
-
-const blocoRealizarResgate = () => {
-    const nome = document.querySelector('input#input_nome');
-    const email = document.querySelector('input#input_email');
-    const quantidade = document.querySelector('input#input_quantidade');
-    const enviarResgate = document.querySelector('#enviar_solicitacao');
-
-    enviarResgate.addEventListener('click', () => {
-        fazerSolicitacao();
+window.addEventListener('load', () => {
+    const saldo = $('#input_ponto_saldo').value;
+    const botaoPopupResgate = $('#botao_popup_resgate');
+    if (saldo <= 0) {
+        // botaoSolicitarResgate.addEventListener('click', () => {
+        //     Alerta.mensagem('Verificar titulo', 'Verificar qual mensagem está hoje.', '!');
+        // });
+        // return;
+    }
+    const PopupResgate = new Popup('Resgatar pontos', 'bloco_resgatar_ponto');
+    botaoPopupResgate.addEventListener('click', () => {
+        PopupResgate.abrir();
     });
 
-    const fazerSolicitacao = async () => {
-        const resposta = await ajaxPost(
-            LINK + '/ponto-cvs/solicitar',
-            {
-                nome: nome.value,
-                email: email.value,
-                ponto: quantidade.value,
-            },
-            'Não foi possível fazer a solicitação'
-        );
+    const botaoSolicitarPonto = $('#botao_solicitar_ponto');
+    const form = $('#bloco_resgatar_ponto form');
+    const inputNome = $('#input_ponto_nome');
+    const inputEmail = $('#input_ponto_email');
+    const inputQuantidade = $('#input_ponto_quantidade');
 
+    const solicitarResgate = async () => {
+        if (!(await validarInput(form))) {
+            return;
+        } else if (inputQuantidade.value > saldo) {
+            Alerta.notificacao('Você não pode solicitar mais pontos que seu saldo atual.', false);
+            return;
+        }
+        Loading.show();
+        const resposta = await ajaxPost(LINK + '/ponto-cvs', {
+            nome: inputNome.value,
+            email: inputEmail.value,
+            ponto: inputQuantidade.value,
+        });
+        Loading.hide();
         if (false === resposta) {
             return;
         }
-        Alerta.notificacao('Solicitação enviada com sucesso.', true);
+        PopupResgate.fechar();
+        await Alerta.mensagem('Mensagem Sucesso!', 'Mensagem de sucesso aqui.', true);
+        Loading.show();
+        window.location.replace(LINK + '/ponto-cvs');
     };
-};
 
-const PaginaSolicitarCvs = new Pagina(
-    'Solicitar',
-    LINK + '/popup/solicita-ponto-cvs',
-    undefined,
-    true,
-    true,
-    blocoRealizarResgate
-);
-
-botaoSolicitarResgate.addEventListener('click', () => {
-    PaginaSolicitarCvs.abrir();
-});
-
-const PaginaAbrirExtrato = new Pagina(
-    'Extrato',
-    LINK + '/popup/extrato-ponto-cvs',
-    undefined,
-    true,
-    true,
-    blocoVerExtrato
-);
-
-botaoExtrato.addEventListener('click', () => {
-    PaginaAbrirExtrato.abrir();
+    adicionarEventoEnter([inputNome, inputEmail, inputQuantidade], solicitarResgate);
+    botaoSolicitarPonto.addEventListener('click', () => {
+        solicitarResgate();
+    });
 });

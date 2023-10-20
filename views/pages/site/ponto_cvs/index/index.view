@@ -1,145 +1,145 @@
 @template "site"
 
 <div class="bloco_tem_mais_acao">
-    <figure class="bloco_logo_ponto_mais_acao">
-        <img src="{!!LINK!!}/images/site/logo_silium.png" height="80" alt="Logo Silium">
-    </figure>
+    <input type="hidden" id="input_ponto_saldo" value="{{$r->saldo->saldo ?? 0}}">
+    <div class="bloco_texto bloco_titulo_texto">
+        <figure>
+            <img src="{!!LINK!!}/images/site/logo_silium.png" height="80" alt="Logo Silium">
+        </figure>
 
-    <h1 class="titulo">PONTO + AÇÃO </h1>
-    <p class="texto_descricao">
-        <br>&#128527;&#128521;PARABÉNS! <br>
-        Se você chegou até aqui é porque trouxe mais colegas para fazer parte da família Sindicato dos Bancários. Sejam bem-vindos!<br>
-        Agora, seus pontos valem vouchers, que podem ser utilizados nas lojas virtuais Casas Bahia, Ponto Frio e Extra. Cada indicação de novo associado vale 1 ponto!</section>
-        Indique mais associados, fortaleça o Sindicato e acumule pontos para trocar por produtos da sua preferência.<br>
-        <span class="bold color_cor">
+        <h1 class="titulo">PONTO + AÇÃO </h1>
+        <p>&#128527;&#128521;PARABÉNS!</p>
+        <p>Se você chegou até aqui é porque trouxe mais colegas para fazer parte da família Sindicato dos Bancários. Sejam bem-vindos!</p>
+        <p>Agora, seus pontos valem vouchers, que podem ser utilizados nas lojas virtuais Casas Bahia, Ponto Frio e Extra.</p>
+        <p>Cada indicação de novo associado vale 1 ponto! Indique mais associados, fortaleça o Sindicato e acumule pontos para trocar por produtos da sua preferência.</p>
+        <strong>
             #CategoriaUnidaSindicatoForte<br>
-            #Sindicato100Anos<br>
-            Obs: Os vouchers só poderão ser usados nas lojas virtuais: <br>
-            www.casasbahia.com.br, www.ponto.com.br e www.extra.com.br
-        </span>
-    </p>
-    <a href="<?= LINK_ARQUIVO ?>/arquivo/regulamento-ponto-acao.pdf" target="_blank" rel="noopener noreferrer" class="link_regulamento ">REGULAMENTO PONTO + AÇÃO</a>
-    <p class="valores_troca">
-        1 PONTO = R$ 50,00 (SÓCIO BANCÁRIO)<br>
-        1 PONTO = R$ 12,00 (SÓCIO PARCEIRO)
-    </p>
-    <div class="bloco_saldo">
-        <h1>Saldo em conta:  {{$r->saldo->saldo ?? 0}}</h1>
-        <button id="solicitar_resgate" class="botao_geral_cor cor_bg">
-            SOLICITAR RESGATE
-        </button>
+            #Sindicato100Anos
+        </strong>
+        <a href="<?= LINK_ARQUIVO ?>/arquivo/regulamento-ponto-acao.pdf" target="_blank" rel="noopener noreferrer" class="link_regulamento ">Regulamento Ponto + Ação</a>
+    </div>
+    <div class="bloco_atencao_geral atencao">
+        <p>Obs: Os vouchers só poderão ser usados nas lojas virtuais:</p>
+        <p>www.casasbahia.com.br, www.ponto.com.br e www.extra.com.br</p>
+    </div>
+    <div class="bloco_solicitar bloco_titulo_texto">
+        <p>
+            1 PONTO = R$ 50,00 (SÓCIO BANCÁRIO)<br>
+            1 PONTO = R$ 12,00 (SÓCIO PARCEIRO)
+        </p>
+        <h1>Saldo em conta: {!!$r->saldo->saldo!!} </h1>
+        @if($r->saldo->saldo > 0):
+            <div class="botao" id="botao_popup_resgate">Solicitar resgate</div>
+        @endif;
+    </div>
+
+    <div class="bloco_tab_geral bloco_tabela">
+        <div class="bloco_botao">
+            <button class="botao ativo" data-id="bloco_extrato">
+                <span class="texto_inativo">Extrato de pontos</span>
+                <span class="texto_ativo cor_color">Extrato de pontos</span>
+            </button>
+            <button class="botao" data-id="bloco_historico">
+                <span class="texto_inativo">Histórico</span>
+                <span class="texto_ativo cor_color">Histórico</span>
+            </button>
+        </div>
+        <div id="bloco_extrato" class="conteudo">
+            <div class="bloco_tabela_geral">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Nome</th>
+                            <th>Bônus</th>
+                            <th>Prêmio</th>
+                            <th>Quantidade</th>
+                            <th>Crédito</th>
+                            <th>Débito</th>
+                            <th>Data</th>
+                            <th>Tipo</th>
+                            <th>Status</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @if (array_key_exists('extrato', (array)$r) && isset($r->extrato) && !empty($r->extrato)) :
+                            @foreach ($r->extrato as $i => $extrato) :
+                                @if ($i == 5):
+                                    @php break;
+                                @endif
+                                <tr>
+                                    <td data-label="Nome">{!!$extrato->desc_ponto!!}</td>
+                                    <td data-label="Bônus">{{$extrato->descricao_bonus}}</td>
+                                    <td data-label="Prêmio">{{$extrato->descricao_premio}}</td>
+                                    <td data-label="Quantidade">{!!$extrato->quantidade!!}</td>
+                                    <td data-label="Crédito">{!!$extrato->credito!!}</td>
+                                    <td data-label="Débito">{{$extrato->debito}}</td>
+                                    <td data-label="Data">{{date('d/m/Y', strtotime($extrato->data))}}</td>
+                                    <td data-label="Tipo">{{$extrato->tipo_registro}}</td>
+                                    <td data-label="Status">{{$extrato->status}}</td>
+                                </tr>
+                            @endforeach
+                        @else
+                            <tr class="vazio">
+                                <td colspan="12">SEM EXTRATO NO MOMENTO</td>
+                            </tr>
+                        @endif
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <div id="bloco_historico" class="conteudo display_none">
+            <div class="bloco_tabela_geral">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>PONTOS</th>
+                            <th>VOUCHER</th>
+                            <th>DATA DE SOLICITAÇÃO</th>
+                            <th>DATA DE VENCIMENTO</th>
+                            <th>STATUS</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @if (isset($r->lista) && !empty($r->lista)):
+                            @foreach ($r->lista as $re) :
+                            <tr>
+                                <td data-label="PONTOS">{{$re->ponto}}</td>
+                                <td data-label="VOUCHER">{{$re->voucher}}</td>
+                                <td data-label="DATA DE SOLICITAÇÃO">{{$re->data_solicitacao}}</td>
+                                <td data-label="DATA DE VENCIMENTO">{{$re->data_voucher}}</td>
+                                <td data-label="STATUS">{{$re->status}}</td>
+                            </tr>
+                            @endforeach
+                        @else:
+                            <tr class="vazio">
+                                <td colspan="6">SEM HISTÓRICO NO MOMENTO</td>
+                            </tr>
+                        @endif;
+                    </tbody>
+                </table>
+            </div>
+        </div>
     </div>
 </div>
 
-
-<section class="bloco_tabela_cvs">
-    <div class="bloco_botoes_tabela">
-        <button id="botao_tabela_extrato" class="botao_geral_cor cor_bg">
-            EXTRATO DE PONTOS
-        </button>
-        <button id="botao_tabela_historico" class="botao_geral_cor cor_bg">
-            HISTÓRICO
-        </button>
-    </div>
-    <div class="bloco_tabela_geral">
-        <table class="tabela" id="tabela_extrato">
-            <thead>
-                <tr>
-                    <th>Nome</th>
-                    <th>Bônus</th>
-                    <th>Prêmio</th>
-                    <th>Quantidade</th>
-                    <th>Crédito</th>
-                    <th>Débito</th>
-                    <th>Data</th>
-                    <th>Tipo</th>
-                    <th>Status</th>
-                </tr>
-            </thead>
-            <tbody>
-                @if (!empty ($erro)):
-                    <tr class="vazio">
-                        <td colspan="12">{{$erro}}</td>
-                    </tr>
-                @elseif (array_key_exists('extrato', (array)$r) && isset($r->extrato) && !empty($r->extrato)) :
-                    @foreach ($r->extrato as $i => $extrato) :
-                        @if ($i == 5):
-                            @php break;
-                        @endif
-                        <tr>
-                            <td data-label="Nome">{{$extrato->desc_ponto}}</td>
-                            <td data-label="Bônus">{{$extrato->descricao_bonus}}</td>
-                            <td data-label="Prêmio">{{$extrato->descricao_premio}}</td>
-                            <td data-label="Quantidade">{{$extrato->quantidade}}</td>
-                            <td data-label="Crédito">{{$extrato->credito}}</td>
-                            <td data-label="Débito">{{$extrato->debito}}</td>
-                            <td data-label="Data">{{date('d/m/Y', strtotime($extrato->data))}}</td>
-                            <td data-label="Tipo">{{$extrato->tipo_registro}}</td>
-                            <td data-label="Status">{{$extrato->status}}</td>
-                        </tr>
-                    @endforeach
-                @else
-                    <tr class="vazio">
-                        <td colspan="12">SEM EXTRATO NO MOMENTO</td>
-                    </tr>
-                @endif
-            </tbody>
-        </table>
-        <table class="tabela display_none" id="tabela_historico">
-            <thead>
-                <tr>
-                    <th>PONTOS</th>
-                    <th>VOUCHER</th>
-                    <th>DATA DE SOLICITAÇÃO</th>
-                    <th>DATA DE VENCIMENTO</th>
-                    <th>STATUS</th>
-                </tr>
-            </thead>
-            <tbody>
-            @if (!empty($erro))
-                <tr class="vazio">
-                    <td colspan="6">Não foi possivel fazer a conexão com a API.</td>
-                </tr>
-            @elseif (isset($r->lista) && !empty($r->lista))
-                @foreach ($r->lista as $re) :
-                <tr>
-                    <td data-label="PONTOS">{{$re->ponto}}</td>
-                    <td data-label="VOUCHER">{{$re->voucher}}</td>
-                    <td data-label="DATA DE SOLICITAÇÃO">{{$re->data_solicitacao}}</td>
-                    <td data-label="DATA DE VENCIMENTO">{{$re->data_voucher}}</td>
-                    <td data-label="STATUS">{{$re->status}}</td>
-                </tr>
-                @endforeach
-            @else
-                <tr class="vazio">
-                    <td colspan="6">SEM HISTÓRICO NO MOMENTO</td>
-                </tr>
-            @endif
-            </tbody>
-        </table>
-        @if (isset($r->pagina) && $r->pagina && isset($r->pagina->total) && $r->pagina->total > 1)
-            <div class="bloco_paginacao">
-                @if ($r->pagina->atual == 1)
-                    <div class="texto atual busca_mais" data-atual="1">PRIMEIRA</div>
-                @else
-                    <p class="texto busca_mais" data-atual="1">PRIMEIRA</p>
-                @endif
-                @for ($i = 1; $i <= $r->pagina->total; $i++)
-                    @if ($i == $r->pagina->atual)
-                        <div class="numero atual busca_mais" data-atual="<?= $i ?>"><?= $i ?></div>
-                    @elseif ($r->pagina->atual == 1)
-                        <p class="numero busca_mais" data-atual="<?= $i ?>"><?= $i ?></p>
-                    @else
-                        <p class="numero busca_mais" data-atual="<?= $i ?>"><?= $i ?></p>
-                    @endif
-                @endfor
-                @if ($r->pagina->total == $r->pagina->atual)
-                    <div class="texto atual busca_mais" data-atual="<?= $r->pagina->total ?>">ÚLTIMA</div>
-                @else
-                    <p class="texto busca_mais" data-atual="<?= $r->pagina->total ?>">ÚLTIMA</p>
-                @endif
+<div class="bloco_pagina_popup display_none" id="bloco_resgatar_ponto">
+    <div class="conteudo_pagina_popup conteudo_popup">
+        <header>
+            <h1>Resgatar pontos</h1>
+            <p>Preencha o formulário abaixo para solicitar resgate de pontos</p>
+            <i class="popup_fechar fechar">@iconeFechar</i>
+        </header>
+        <form action="" class="form_geral">
+            <div class="bloco">
+                @? formInput(name: 'ponto_nome', label: 'Nome', placeholder:'Digite seu nome', obrigatorio: true, value: '', local: 'André Rodrigues')
+                @? formInput(name: 'ponto_email', label: 'E-mail', placeholder:'Digite seu E-mail',  obrigatorio: true, value: '', local: 'andre@markt.club')
+                @? formNumero(name: 'ponto_quantidade', label: 'Pontos', placeholder: 'Digite a quantidade de pontos', obrigatorio: true, value: '', local: 1)
             </div>
-        @endif
+        </form>
+        <div class="bloco_botao">
+            <div class="botao" id="botao_solicitar_ponto">Solicitar ponto</div>
+        </div>
     </div>
+</div>
 
-</section>

@@ -1,6 +1,18 @@
 <?php
 
-return [
+use App\Classes\ComercialEmpresa\Origem;
+use App\Classes\ComercialEmpresa\Status;
+use App\Classes\ComercialEmpresa\ContratoPrazo;
+use App\Classes\ComercialEmpresa\FormatoReuniao;
+use App\Classes\ComercialEmpresa\CadastroUsuario;
+use App\Classes\ComercialEmpresa\CanalPreferencia;
+use App\Classes\ComercialEmpresa\ProspeccaoStatus;
+use App\Classes\ComercialEmpresa\ContratoRenovacao;
+use App\Classes\ComercialEmpresa\FinalidadePrivada;
+use App\Classes\ComercialEmpresa\FinalidadePublica;
+use App\Classes\ComercialEmpresa\FinalidadePrincipal;
+
+$dado = [
     [
         'id'                      => 1,
         'cod'                     => '14afa776394ada4be23be6acf7e3259e',
@@ -122,6 +134,7 @@ return [
         'status'                  => 1
     ],
     [
+        'id'                      => 3,
         'cod'                     => '14afa776394ada4be23be6acf7e3259f',
         'id_usuario_equipe'       => 1,
         'id_admin_empresa'        => 1,
@@ -142,6 +155,7 @@ return [
         'status'                  => 1
     ],
     [
+        'id'                      => 7,
         'cod'                     => uuid(),
         'id_usuario_equipe'       => 1,
         'titulo'                  => 'Prospecção Nome 01',
@@ -164,6 +178,7 @@ return [
         'status'                  => 3
     ],
     [
+        'id'                      => 5,
         'cod'                     => uuid(),
         'id_usuario_equipe'       => 1,
         'titulo'                  => 'Prospecção Nome 02',
@@ -186,6 +201,7 @@ return [
         'status'                  => 3
     ],
     [
+        'id'                      => 6,
         'cod'                     => uuid(),
         'id_usuario_equipe'       => 1,
         'titulo'                  => 'Prospecção Nome 03',
@@ -268,3 +284,76 @@ return [
         'status'                  => 1
     ],
 ];
+
+$listaStatus = (new Status())->listarNumero();
+$prospeccaoNumero = (new Status(Status::PROSPECCAO))->numero();
+$standByNUmero = (new Status(Status::STANDBY))->numero();
+$perdidoNumero = (new Status(Status::INATIVO))->numero();
+$finalidadaePublica = (new FinalidadePrincipal(FinalidadePrincipal::PUBLICA))->numero();
+$finalidadePrivada = (new FinalidadePrincipal(FinalidadePrincipal::PRIVADA))->numero();
+$listaFinalidadesPublicas = (new FinalidadePublica())->listarNumero();
+$listaFinalidadePrivada = (new FinalidadePrivada())->listarNumero();
+$listaStatusProspeccao = (new ProspeccaoStatus())->listarNumero();
+$listaCadastroUsuario = (new CadastroUsuario())->listarNumero();
+$listaContratoPrazo = (new ContratoPrazo())->listarNumero();
+$lisatContratoRenovacao = (new ContratoRenovacao())->listarNumero();
+$listaOrigem = (new Origem())->listarNumero();
+$listaCanalPreferencia = (new CanalPreferencia())->listarNumero();
+$listaFormatoReuniao = (new FormatoReuniao())->listarNumero();
+
+for ($i = 8; $i <= 50; $i++) {
+    $nome = $titulos[$i - 3] ?? nomeAleatorio();
+    $slug = strtolower(preg_replace('/[ -]+/', '-', $nome));
+    $status = valorAleatorio($listaStatus);
+    $condicaoStatusProspecao = $status == $prospeccaoNumero || $status == $standByNUmero;
+
+    $dado[] = [
+        'id'                      => $i,
+        'cod'                     => $i == 2 ? '0ffc5c56b99f81ca0edea8bdf524b688' : uuid(), // Valor fixado para testes
+        'id_usuario_equipe'       => 1,
+        'titulo'                  => $nome,
+        'razao_social'            => $nome,
+        'nome_fantasia'           => $nome,
+        'cnpj'                    => cnpjAleatorio(),
+        'responsavel_nome'        => nomeCompletoAleatorio(),
+        'responsavel_cpf'         => cpfAleatorio(),
+        'responsavel_email'       => emailAleatorio(),
+        'responsavel_telefone'    => telefoneAleatorio(),
+        'tipo_pagamento'          => rand(1, 2),
+        'contrato_valor'          => rand(1, 10000),
+        'contrato_dia_fechamento' => rand(1, 28),
+        'contrato_dia_pagamento'  => rand(1, 28),
+        'cobrar_aposentado'       => rand(0, 1),
+        'slug'                    => $slug . $i,
+        'prospeccao_status'       => $condicaoStatusProspecao || $status == $perdidoNumero ? valorAleatorio($listaStatusProspeccao) : null,
+        'data_eleicao'            => $condicaoStatusProspecao ? null : dataPassadaAleatorio(),
+        'cadastro_usuario'        => $condicaoStatusProspecao ? null : valorAleatorio($listaCadastroUsuario),
+        'renda_media'             => $condicaoStatusProspecao ? null : rand(1, 10000),
+        'contrato_data'           => $condicaoStatusProspecao ? null : dataPassadaAleatorio(),
+        'contrato_prazo'          => $condicaoStatusProspecao ? null : valorAleatorio($listaContratoPrazo),
+        'contrato_renovacao'      => $condicaoStatusProspecao ? null : valorAleatorio($lisatContratoRenovacao),
+        'finalidade_empresa'      => $i % 2 == 0 ? $finalidadaePublica : $finalidadePrivada,
+        'finalidade_secundaria'   => $i % 2 == 0 ? valorAleatorio($listaFinalidadesPublicas) : valorAleatorio($listaFinalidadePrivada),
+        'status'                  => $status
+    ];
+
+    if ($i % 3 == 0) {
+        $dado[$i]['concorrente_status'] = 1;
+        $dado[$i]['concorrente_nome'] = nomeAleatorio();
+        $dado[$i]['origem'] = valorAleatorio($listaOrigem);
+        $dado[$i]['usuario_possivel'] = rand(1, 10000);
+    }
+
+    if ($i % 2 == 0) {
+        $dado[$i]['contato_preferencial'] = valorAleatorio($listaCanalPreferencia);
+        $dado[$i]['data_apresentacao'] = dataPassadaAleatorio();
+        $dado[$i]['formato_reuniao'] = valorAleatorio($listaFormatoReuniao);
+    }
+
+    if ($i % 7 == 0) {
+        $dado[$i]['motivo_standby'] = 'Motivo standby';
+        $dado[$i]['previsao_retorno'] = dataFuturaAleatorio();
+    }
+}
+
+return $dado;

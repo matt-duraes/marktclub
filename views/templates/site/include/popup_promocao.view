@@ -1,0 +1,29 @@
+@if ($popupPromocao):
+<div class="bloco_pagina_popup display_none" id="bloco_popup_promocao">
+    <div class="conteudo_pagina_popup conteudo_popup">
+        <header>
+            <h1>{{$popupPromocao->titulo}}</h1>
+            <i class="popup_fechar fechar">@iconeFechar</i>
+        </header>
+
+        @if ($popupPromocao->imagem):
+        <figure class="figure_popup">
+            <img src="{{$popupPromocao->imagem}}" alt="">
+        </figure>
+        @endif
+
+        @if ($popupPromocao->texto):
+        <p>{{$popupPromocao->texto}}</p>
+        @endif
+
+        @if ($popupPromocao->regulamento):
+        <span>Regulamento:</span>
+        <p>{{$popupPromocao->regulamento}} </p>
+        @endif
+
+        @if ($popupPromocao->botao_link):
+        <a class="botao_regulamento cor_bg" href="{{$popupPromocao->botao_link}}" target="{{$popupPromocao->botao_target}}">{{$popupPromocao->botao_texto}}</a>
+        @endif
+    </div>
+</div>
+@endif

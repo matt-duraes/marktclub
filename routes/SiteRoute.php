@@ -703,13 +703,7 @@ Route
         Route
             ::nome('realizarSolicitacao')
             ::request(['nome', 'email', 'ponto'])
-            ::post('/ponto-cvs/solicitar');
-        Route
-            ::nome('popupSolicitacao')
-            ::view('/popup/solicita-ponto-cvs');
-        Route
-            ::nome('extrato')
-            ::view('/popup/extrato-ponto-cvs');
+            ::post('/ponto-cvs');
     });
 Route
     ::nome('campanha')

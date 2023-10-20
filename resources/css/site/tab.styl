@@ -1,7 +1,6 @@
 .bloco_tab_geral
     width: 100%
     flexCol()
-    background-color: $corBrancoCinza
 .bloco_tab_geral .bloco_botao
     width: 100%
     flexRow()
@@ -16,13 +15,13 @@
         transition: background-color .3s ease-out
         &.ativo
         &:hover
-            background-color: rgba(255,255,255,1)
+            background-color: $corBrancoCinza
             boxShadow()
     .botao span
         textoFontSize()
         position: relative
         z-index: 2
-        color: #999
+        color: $corPretoBranco
         text-transform: uppercase
     .botao span.texto_ativo
         display: none
@@ -34,6 +33,7 @@
         display: none
 
 .bloco_tab_geral .conteudo
+    background-color: $corBrancoCinza
     box-shadow: 0 4px 5px rgba(0,0,0,.1)
     border-radius: 0 5px 5px 5px
     z-index: 2

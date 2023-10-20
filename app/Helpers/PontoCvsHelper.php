@@ -56,13 +56,15 @@ final class PontoCvsHelper
      * @param  int           $cpf CPF do usuário
      * @return stdClass|null Classe de pontos ou null quando der erro
      */
-    public function buscarPontos(int $cpf): stdClass|null
+    public function buscarPontos(int $cpf): stdClass
     {
         try {
             $dadoUsuario = $this->buscarUsuario($cpf);
             return $dadoUsuario->dados_socio[0];
         } catch (\Throwable) {
-            return null;
+            return (object)[
+                'saldo' => 0
+            ];
         }
     }
 
@@ -71,13 +73,13 @@ final class PontoCvsHelper
      * @param  int        $cpf CPF do usuário
      * @return array|null Array com extratos ou null quando der erro
      */
-    public function buscarExtrato(int $cpf): array|null
+    public function buscarExtrato(int $cpf): array
     {
         try {
             $dadoUsuario = $this->buscarUsuario($cpf);
             return $dadoUsuario->extrato;
         } catch (\Throwable) {
-            return null;
+            return [];
         }
     }
 
@@ -102,12 +104,12 @@ final class PontoCvsHelper
      *
      * @return stdClass|string Classe de pontos ou mensagem de erro
      */
-    public function buscarSolicitacao(int $codigo): stdClass|string
+    public function buscarSolicitacao(int $codigo): stdClass|string|array
     {
         try {
             return $this->verificarSolicitacao($codigo);
         } catch (\Throwable) {
-            mensagemErro('Erro!', 'Ocorreu um erro ao atualizar as solicitações pendentes .', status: 500);
+            return [];
         }
     }
 

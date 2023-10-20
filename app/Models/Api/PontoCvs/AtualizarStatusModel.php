@@ -19,6 +19,9 @@ final class AtualizarStatusModel extends ORM
         $PontoCvsHelper = new PontoCvsHelper();
         foreach ($codigoPonto as $codigo) {
             $solicitacao = $PontoCvsHelper->buscarSolicitacao($codigo);
+            if (empty($solicitacao)) {
+                continue;
+            }
             $dado = $this->montarDadoSolicitacao($solicitacao);
 
             if (empty($dado)) {
