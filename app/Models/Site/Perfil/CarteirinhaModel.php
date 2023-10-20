@@ -11,10 +11,9 @@ final class CarteirinhaModel extends ClubeApiHelper
     {
         $dado = $this
             ->validar('Página não encontrada!', status: 404)
-            ->get('/usuario-carteirinha/' . sessao('USUARIO.id'))
+            ->get('/carteirinha-clube')
             ->object();
-        return $dado;
-        // return $this->montarRetorno($dado);
+        return $this->montarRetorno($dado->dado);
     }
 
     /**
@@ -25,26 +24,25 @@ final class CarteirinhaModel extends ClubeApiHelper
      */
     private function montarRetorno($dado): object|array
     {
-        $r = end($dado->dado);
         return (object)[
-            'nome'            => $this->Crypt->decode($r->usuario->nome) ?? '',
-            'matricula'       => $this->Crypt->decode($r->usuario->matricula) ?? '',
-            'cpf'             => $this->Crypt->decode($r->usuario->cpf) ?? '',
-            'data_nascimento' => $this->Crypt->decode($r->usuario->data_nascimento) ?? '',
-            'data_filiacao'   => $this->Crypt->decode($r->usuario->data_filiacao) ?? '',
-            'estado'          => $this->Crypt->decode($r->usuario->estado) ?? '',
+            'usuario' => (object) [
+            'nome'            => $this->Crypt->decode($dado->usuario->nome) ?? '',
+            'matricula'       => $this->Crypt->decode($dado->usuario->matricula) ?? '',
+            'cpf'             => $this->Crypt->decode($dado->usuario->cpf) ?? '',
+            'data_nascimento' => $this->Crypt->decode($dado->usuario->data_nascimento) ?? '',
+            'data_filiacao'   => $this->Crypt->decode($dado->usuario->data_filiacao) ?? '',
+            'estado'          => $this->Crypt->decode($dado->usuario->estado) ?? '',
+            ],
             'empresa'         => (object)[
-                'nome' => $r->empresa->nome
+                'nome' => $dado->empresa->nome
             ],
             'imagem' => (object)[
-                'logo_principal'   => $r->imagem->logo_principal,
-                'logo_secundaria'  => $r->imagem->logo_secundaria,
-                'bg_frente'        => $r->imagem->bg_frente,
-                'bg_fundo'         => $r->imagem->bg_fundo
+                'logo_principal'   => $dado->imagem->logo_principal,
+                'logo_secundaria'  => $dado->imagem->logo_secundaria,
+                'bg_frente'        => $dado->imagem->bg_frente,
+                'bg_fundo'         => $dado->imagem->bg_fundo
             ],
-            'data' => (object)[
-                'emissao'     => $r->data->emissao ?? false,
-            ]
+            'data_emissao'     => $dado->data_emissao ?? '',
         ];
     }
 }

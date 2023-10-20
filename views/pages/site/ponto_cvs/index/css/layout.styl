@@ -1,5 +1,6 @@
 @template "site"
-@system "form"
+@system "Form"
+@resource "site/tabela"
 @resource "site/tab"
 
 .bloco_tem_mais_acao
@@ -30,7 +31,23 @@
         margin-bottom: 10px
     .bloco_tabela
         margin-top: 20px
-
+.bloco_tabela_geral table
+    min-width: initial
+    width: 100%
+    thead th
+        background: $corBoxShadow
+        text-align: center
+        border-right: 1px solid #eee
+        &:first-child
+            border-left: 1px solid #eee
+    tbody td
+        text-align: center
+        border-right: 1px solid #eee
+        &:first-child
+            border-left: 1px solid #eee
+@media screen and (max-width: 600px)
+    .bloco_tabela_geral table tbody td
+        text-align: initial
 #bloco_resgatar_ponto .bloco_botao
     width: 100%
     flexRow()
