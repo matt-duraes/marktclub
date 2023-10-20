@@ -105,5 +105,4 @@ final class PerfilController extends Controller
     {
         return (new DadosModel())->postImagemSocial($request);
     }
-
 }

@@ -11,8 +11,8 @@ trait PegarEquipeTrait
         return (new OrmHelper(TABELA_USUARIO_EQUIPE))->pegarUltimoRegistro(
             where: $where,
             campo: [
-                'id', 'uuid', 'salt', 'imagem_tipo', 'imagem_arquivo', 'imagem_facebook', 'imagem_google',
-                'data_criacao', 'data_atualizacao', 'nome_real', 'email_pessoal', 'email_trabalho'
+                'id', 'id_admin_empresa', 'uuid', 'salt', 'imagem_tipo', 'imagem_arquivo', 'imagem_facebook',
+                'imagem_google', 'data_criacao', 'data_atualizacao', 'nome_real', 'email_pessoal', 'email_trabalho'
             ],
             retorno: 'object'
         );
