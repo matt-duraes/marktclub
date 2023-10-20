@@ -2,33 +2,20 @@
 
 namespace Tests\Api;
 
+use App\Classes\SolicitacaoLoja\Origem;
+use App\Classes\SolicitacaoLoja\Status;
 use Erro\Excecao;
 use Tests\Token\Clube;
-use App\Classes\SolicitacaoLoja\Status;
 
 class SolicitacaoLojaTest extends Clube
 {
     private array $statusValidos;
     private string $idIndicacaoNovoParceiro;
 
-    /**
-     * @throws Excecao
-     */
     public function __construct()
     {
         $this->statusValidos = array_keys((new Status())->select());
         parent::__construct();
-    }
-
-    private function getBody(): array
-    {
-        return [
-            'nome'     => $this->cryptEncode(nomeCompletoAleatorio()),
-            'email'    => $this->cryptEncode(emailAleatorio()),
-            'telefone' => $this->cryptEncode(telefoneAleatorio()),
-            'mensagem' => 'Mensagem de teste ' . numeroAleatorio(),
-            'origem'   => 'clube'
-        ];
     }
 
     /**
@@ -51,6 +38,20 @@ class SolicitacaoLojaTest extends Clube
             ->checkStatus(201)
             ->checkIndiceExiste('dado.id')
             ->checkIndiceIgual('status', 'sucesso');
+    }
+
+    /**
+     * @return array
+     */
+    private function getBody(): array
+    {
+        return [
+            'nome'     => nomeCompletoAleatorio(),
+            'email'    => emailAleatorio(),
+            'telefone' => telefoneAleatorio(),
+            'mensagem' => 'Mensagem de teste ' . numeroAleatorio(),
+            'origem'   => Origem::CLUBE
+        ];
     }
 
     /**
