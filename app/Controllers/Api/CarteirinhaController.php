@@ -2,7 +2,6 @@
 
 namespace App\Controllers\Api;
 
-use App\Classes\Carteirinha\Helper;
 use App\Classes\Carteirinha\Ordem;
 use App\Classes\Carteirinha\Status;
 use App\Controllers\Api\Trait\ClienteTrait;
@@ -36,11 +35,10 @@ class CarteirinhaController extends Controller implements
      * @return Response
      * @throws Excecao
      */
-    public function getCarteirinha(string $id): Response
+    public function getCarteirinhaClube(): Response
     {
         return mensagemSucesso(
-            (new PegarCarteirinhaModel($id))->gerarCarteirinha(),
-            criptografar: Helper::CRIPTOGRAFAR
+            (new PegarCarteirinhaModel())->gerarCarteirinha()
         );
     }
 
