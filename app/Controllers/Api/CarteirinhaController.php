@@ -49,7 +49,7 @@ class CarteirinhaController extends Controller implements
     {
         return mensagemSucesso(
             pegarPropriedadeDaEntity($carteirinhaEntity, lista: [
-                'empresa', 'bg_frente', 'bg_fundo', 'nome', 'cpf', 'data_nascimento', 'matricula',
+                'empresa', 'bg_frente', 'bg_fundo', 'titulo', 'estado', 'nome', 'cpf', 'data_nascimento', 'matricula',
                 'status', 'data_criacao', 'data_atualizacao'
             ]),
             $status

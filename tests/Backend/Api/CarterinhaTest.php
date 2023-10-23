@@ -10,23 +10,25 @@ class CarterinhaTest extends Clube
 {
     private string $idCarteirinha;
 
-    /**
-     * @return CarterinhaTest
-     * @throws Excecao
-     */
-    public function buscarCarteirinhaTest(): CarterinhaTest
+    public function __construct()
     {
-        $this->api('carteirinha:clube');
-        $this->pegarToken();
-        $this
-            ->Curl
-            ->get('/carteirinha-clube');
+        $this->tabela(TABELA_CARTEIRINHA)->resetar();
+    }
 
-        return $this
-            ->checkStatus(200)
-            ->checkIndiceExiste('dado')
-            ->checkNaoVazio('dado')
-            ->checkIndiceIgual('status', 'sucesso');
+    private function getBody()
+    {
+        return [
+            'bg_fundo'        => 'b',
+            'bg_frente'       => 'b',
+            'empresa'         => '369fc307129e405b3f2f00620c7b012d',
+            'titulo'          => 'Titulo carteirinha de teste',
+            'nome'            => rand(0, 1),
+            'cpf'             => rand(0, 1),
+            'matricula'       => rand(0, 1),
+            'data_nascimento' => rand(0, 1),
+            'estado'          => rand(0, 1),
+            'status'          => Status::ATIVO
+        ];
     }
 
     /**
@@ -66,10 +68,7 @@ class CarterinhaTest extends Clube
         $modelo = $this
             ->Curl
             ->loginPainel()
-            ->body([
-                'bg_frente' => 'a',
-                'bg_fundo'  => 'a'
-            ])
+            ->body($this->getBody())
             ->post('/carteirinha')
             ->array();
 
@@ -101,6 +100,26 @@ class CarterinhaTest extends Clube
             ->checkIndiceIgual('status', 'sucesso');
     }
 
+    public function listarCarteirinhaPelaEmpresaTest(): CarterinhaTest
+    {
+        $this->api('carteirinha:listar');
+        $this
+            ->Curl
+            ->json([
+                'pagina'  => 1,
+                'empresa' => '369fc307129e405b3f2f00620c7b012d',
+                'status'  => Status::ATIVO
+            ])
+            ->loginPainel()
+            ->get('/carteirinha');
+
+        return $this
+            ->checkStatus(200)
+            ->checkIndiceExiste('dado')
+            ->checkNaoVazio('dado')
+            ->checkIndiceIgual('status', 'sucesso');
+    }
+
     /**
      * @return CarterinhaTest
      * @throws Excecao
@@ -111,11 +130,7 @@ class CarterinhaTest extends Clube
         $this
             ->Curl
             ->loginPainel()
-            ->body([
-                'bg_frente' => 'b',
-                'bg_fundo'  => 'b',
-                'status'    => Status::ATIVO
-            ])
+            ->body($this->getBody())
             ->put('/carteirinha/' . $this->idCarteirinha);
 
         return $this
@@ -177,7 +192,7 @@ class CarterinhaTest extends Clube
             ->checkIndiceExiste('erro')
             ->checkNaoVazio('erro')
             ->checkIndiceIgual('status', 'erro')
-            ->checkIndiceIgual('erro.titulo', 'Não encontrado!')
-            ->checkIndiceIgual('erro.mensagem', 'Modelo de carteirinha não encontrado ou inexistente');
+            ->checkIndiceIgual('erro.titulo', 'Página não existe!')
+            ->checkIndiceIgual('erro.mensagem', 'Essa página ou recurso não existe ou foi movida para outra URL.');
     }
 }
