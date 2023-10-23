@@ -124,7 +124,7 @@ class PopupEntity extends Entity
      */
     public function regraSalvar(): void
     {
-        $this->validarLimitePopup();
+        //$this->validarLimitePopup();
     }
 
     /**

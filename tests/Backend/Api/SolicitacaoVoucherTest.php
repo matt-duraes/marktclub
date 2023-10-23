@@ -10,7 +10,7 @@ final class SolicitacaoVoucherTest extends Tests
     private ?stdClass $voucher;
     private string $usuario1 = '5595203c-f7b1-4211-9981-bf09eb236b35';
     private string $usuario2 = '87cd8f94-601e-4e8e-b800-7f42a75fc0e1';
-    private string $usuario3 = 'c91d0f54-d166-456e-9f21-e072722faa34';
+    private string $usuario3 = 'cdc41730-abc7-4b51-abd7-698e2cb3c0b2';
     private string $usuarioGrupoDiario = '00956a04-3b7e-446b-9a5e-7a425ce1b408';
     private string $parceiroId = 'f10e05c0-5b02-4bff-8e22-719a8797f0d6';
     private string $parceiroUrl = 'parceiro-normal';
@@ -24,7 +24,6 @@ final class SolicitacaoVoucherTest extends Tests
     public function __construct()
     {
         parent::__construct();
-
         $this
             ->tabela('solicitacao_voucher')
             ->tabela('solicitacao_codigo')
@@ -49,6 +48,11 @@ final class SolicitacaoVoucherTest extends Tests
             ->checkStatus(201)
             ->checkIndiceExiste('status')
             ->checkIndiceIgual('status', 'sucesso');
+    }
+
+    private function scopeSalvar()
+    {
+        $this->api('solicitacao_voucher:salvar');
     }
 
     public function salvarParceiroNormalPelaUrlTest()
@@ -234,6 +238,7 @@ final class SolicitacaoVoucherTest extends Tests
                 'tipo'    => 'loja'
             ])
             ->post('/solicitacao-voucher');
+
         return $this
             ->checkStatus(400)
             ->checkIndiceIgual('status', 'erro')
@@ -333,6 +338,12 @@ final class SolicitacaoVoucherTest extends Tests
             ->checkIndiceIgual('erro.mensagem', 'Não foi encontrado um parceiro pelo ID enviado.');
     }
 
+    /*
+    |--------------------------------------------------------------------------
+    | BLUEFIT
+    |--------------------------------------------------------------------------
+    */
+
     public function naoPodeSalvarVoucherComUsuarioInvalidoTest()
     {
         $this->scopeSalvar();
@@ -351,11 +362,6 @@ final class SolicitacaoVoucherTest extends Tests
             ->checkIndiceIgual('erro.mensagem', 'Não foi encontrado o usuário pelo código enviado.');
     }
 
-    /*
-    |--------------------------------------------------------------------------
-    | BLUEFIT
-    |--------------------------------------------------------------------------
-    */
     public function salvarParceiroDaBlueFitTest()
     {
         $this->scopeSalvar();
@@ -447,10 +453,5 @@ final class SolicitacaoVoucherTest extends Tests
             ->checkStatus(201)
             ->checkIndiceIgual('status', 'sucesso')
             ->checkIndiceIgual('dado.data_vencimento', '2040-01-01');
-    }
-
-    private function scopeSalvar()
-    {
-        $this->api('solicitacao_voucher:salvar');
     }
 }

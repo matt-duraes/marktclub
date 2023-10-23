@@ -88,7 +88,8 @@ final class LoginClubeModel
             audience: $App->audience,
             redirectUri: 'clube.markt.club',
             state: $this->state,
-            tipo: new Tipo(Tipo::CLUBE)
+            tipo: new Tipo(Tipo::CLUBE),
+            empresa: $this->idEmpresa
         );
     }
 }

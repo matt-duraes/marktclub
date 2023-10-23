@@ -49,6 +49,31 @@ $seeds = [
         'email_pessoal' => 'teste2@cvs.club',
         'salt'          => password('Teste@1324'),
         'status'        => 1
+    ],
+    [
+        'id'             => 100,
+        'cod'            => '00956a04-3b7e-446b-9a5e-7a425ce1b408',
+        'empresa'        => 1967,
+        'tipo'           => 1,
+        'nome'           => nomeCompletoAleatorio(),
+        'email_trabalho' => emailAleatorio(),
+        'telefone_fixo'  => telefoneAleatorio(),
+        'documento'      => 67783406815,
+        'email_pessoal'  => emailAleatorio(),
+        'salt'           => password('Teste@1324'),
+        'status'         => 1
+    ],
+    [
+        'cod'            => '0ab2712a-625f-4588-85e4-33aa68288915',
+        'empresa'        => 1,
+        'tipo'           => 1,
+        'nome'           => 'Usuário Silium',
+        'email_trabalho' => emailAleatorio(),
+        'telefone_fixo'  => telefoneAleatorio(),
+        'documento'      => 91122519095,
+        'email_pessoal'  => emailAleatorio(),
+        'salt'           => password('Teste@1324'),
+        'status'         => 1
     ]
 ];
 for ($i = 0; $i < env('QTD_SEEDS', 50); $i++) {
@@ -56,7 +81,7 @@ for ($i = 0; $i < env('QTD_SEEDS', 50); $i++) {
     $seeds[] = [
         'cod'           => uuid(),
         'empresa'       => 1,
-        'titular'       => ($tipo != 2) ? null : 1,
+        'titular'       => null,
         'tipo'          => $tipo,
         'nome'          => nomeCompletoAleatorio(),
         'documento'     => cpfAleatorio(),
