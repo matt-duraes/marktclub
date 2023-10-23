@@ -1,1 +1,0 @@
-{"id":"id_132489a3c4fc07132b8dcf8e1f052ca4","token":"painel","metodo":"GET","nome":"\/usuario-carteirinha\/:id","uri":"{{LINK}}\/usuario-carteirinha\/$USUARIO_ID","parametro":[],"body":[],"header":[],"variavel":[],"json":[],"documentacao":{"status":false,"descricao":"","requisicao":"","resposta":"","scope":""}}
