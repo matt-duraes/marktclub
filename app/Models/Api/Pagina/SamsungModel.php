@@ -2,17 +2,19 @@
 
 namespace App\Models\Api\Pagina;
 
-use App\Classes\LoginClube\PegarClienteTrait;
+use App\Models\Api\Trait\BuscarClienteTrait;
+use Http\Request;
 
 final class SamsungModel extends PaginaPadraoModel
 {
-    use PegarClienteTrait;
+    use BuscarClienteTrait;
 
     private string $linkArquivo = LINK_ARQUIVO . '/pagina/samsung';
     private string $link;
 
-    public function __construct()
-    {
+    public function __construct(
+        private Request $request
+    ) {
         $this->setarLink();
         $this->sessao(function () {
             $this
@@ -86,20 +88,16 @@ final class SamsungModel extends PaginaPadraoModel
 
     private function pegarEmails()
     {
-        if (isset(TOKEN['usuario']->id)) {
-            $dado = $this->pegarCliente(['id', TOKEN['usuario']->id]);
+        $dado = $this->pegarCliente(['cod', $this->request->usuario]);
 
-            $email = [];
-            if (!empty($dado->email_pessoal)) {
-                $email[] = $dado->email_pessoal;
-            }
-            if (!empty($dado->email_trabalho)) {
-                $email[] = $dado->email_trabalho;
-            }
-            return $email;
+        $email = [];
+        if (!empty($dado->email_pessoal)) {
+            $email[] = $dado->email_pessoal;
         }
-
-        return '';
+        if (!empty($dado->email_trabalho)) {
+            $email[] = $dado->email_trabalho;
+        }
+        return $email;
     }
 
     private function setarLink()
