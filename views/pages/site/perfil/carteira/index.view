@@ -1,15 +1,42 @@
 @CSS
-<div id="bloco_carteirinha">
-    <div class="bloco_frente" style="background-image: url({{$dado->imagem->bg_frente}})">
-        @if (defined(CLUBE_ID) == '61df17919405cf68f723510ec3af4acd'):
-            @view site/perfil/carteira/sinpoldf.view
-        @elseif(defined('CLUBE_ID') == '2affb17c25aa6f614852b20e0b3cf74f'):
-            @view site/perfil/carteira/sindfazenda.view
-        @elseif(defined('CLUBE_ID') == 'ea964013e0feec5b5f52bc8a94fe7574'):
-            @view site/perfil/carteira/cemecard.view
-        @else
-            @view site/perfil/carteira/padrao.view
-        @endif
+<div id="carteirinha_clube">
+    <div class="bloco_frente" style="background-image: url({{$dado->bg_frente}})">
+        @if ($dado->empresa != '61df17919405cf68f723510ec3af4acd'):
+        <div class="bloco_logo">
+            <img
+            src="{!!CLUBE_LOGO_PRINCIPAL!!}"
+            alt="logo do clube">
+        </div>
+        @endif;
+        <div class="bloco_dados">
+            @if ($dado->nome == 'sim'):
+            <div class="bloco_nome">
+                <p>NOME</p>
+                <p class="dados_carteirinha">{{$dadosCliente->nome}}</p>
+            </div>
+            @endif;
+            <div class="dois_blocos">
+                @if ($dado->cpf == 'sim'):
+                <div class="bloco_cpf">
+                    <p>CPF</p>
+                    <p class="dados_carteirinha">{{$dadosCliente->cpf}}</p>
+                </div>
+                @endif
+                @if ($dado->data_criacao == 'sim'):
+                <div class="bloco_data_emissao">
+                    <p>DATA DE EMISSÃO</p>
+                    <p class="dados_carteirinha">{{$dado->data_criacao}}</p>
+                </div>
+                @endif;
+            </div>
+
+            <div class="bloco_estado">
+                <p>{{$dadosCliente->estado}}</p>
+            </div>
+        </div>
     </div>
 </div>
+
+
+
 

@@ -8,6 +8,7 @@ use Controller\Controller;
 use App\Models\Site\Perfil\DadosModel;
 use App\Models\Site\Perfil\SenhaModel;
 use App\Models\Site\Perfil\DependenteModel;
+use App\Models\Api\ApiUsuario\UsuarioEntity;
 use App\Models\Site\Perfil\CarteirinhaModel;
 
 final class PerfilController extends Controller
@@ -58,10 +59,12 @@ final class PerfilController extends Controller
 
     public function carteira(): Response
     {
+        $dadosCliente = ((new CarteirinhaModel())->buscarDadosUsuario());
         return view(
             'perfil.carteira',
             [
-                'dado' => (new CarteirinhaModel())->getDado(),
+                'dado' =>  (new CarteirinhaModel())->getDado(),
+                'dadosCliente' => $dadosCliente->usuario,
             ]
         );
     }

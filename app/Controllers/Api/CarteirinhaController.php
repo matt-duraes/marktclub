@@ -2,23 +2,21 @@
 
 namespace App\Controllers\Api;
 
-use App\Classes\Carteirinha\Ordem;
-use App\Classes\Carteirinha\Status;
-use App\Controllers\Api\Trait\ClienteTrait;
-use App\Models\Api\Carteirinha\CarteirinhaEntity;
-use App\Models\Api\Carteirinha\CarteirinhaModel;
-use App\Models\Api\UsuarioCliente\PegarCarteirinhaModel;
-use Controller\Controller;
 use Erro\Excecao;
 use Http\Request;
 use Http\Response;
 use Modules\Pagina;
 use Modules\Quantidade;
-use System\Interface\ControllerAtualizarInterface;
+use Controller\Controller;
+use App\Classes\Carteirinha\Ordem;
+use App\Classes\Carteirinha\Status;
 use System\Interface\ControllerBuscarInterface;
-use System\Interface\ControllerDeletarInterface;
 use System\Interface\ControllerListarInterface;
 use System\Interface\ControllerSalvarInterface;
+use App\Models\Api\Carteirinha\CarteirinhaModel;
+use System\Interface\ControllerDeletarInterface;
+use App\Models\Api\Carteirinha\CarteirinhaEntity;
+use System\Interface\ControllerAtualizarInterface;
 
 class CarteirinhaController extends Controller implements
     ControllerBuscarInterface,
@@ -27,21 +25,6 @@ class CarteirinhaController extends Controller implements
     ControllerAtualizarInterface,
     ControllerDeletarInterface
 {
-    use ClienteTrait;
-
-    /**
-     * @param string $id
-     *
-     * @return Response
-     * @throws Excecao
-     */
-    public function getCarteirinhaClube(): Response
-    {
-        return mensagemSucesso(
-            (new PegarCarteirinhaModel())->gerarCarteirinha()
-        );
-    }
-
     /**
      * @param string $id
      *
@@ -51,7 +34,7 @@ class CarteirinhaController extends Controller implements
     public function getBuscar(string $id): Response
     {
         $CarteirinhaEntity = new CarteirinhaEntity();
-        $CarteirinhaEntity->uuid($id, mensagem: 'Modelo de carteirinha não encontrado ou inexistente');
+        $CarteirinhaEntity->uuid($id);
         return $this->retornoSucesso($CarteirinhaEntity);
     }
 
@@ -66,7 +49,7 @@ class CarteirinhaController extends Controller implements
     {
         return mensagemSucesso(
             pegarPropriedadeDaEntity($carteirinhaEntity, lista: [
-                'empresa', 'uuid', 'bg_frente', 'bg_fundo',
+                'empresa', 'bg_frente', 'bg_fundo', 'nome', 'cpf', 'data_nascimento', 'matricula',
                 'status', 'data_criacao', 'data_atualizacao'
             ]),
             $status

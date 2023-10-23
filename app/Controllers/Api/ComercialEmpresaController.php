@@ -10,6 +10,7 @@ use System\Interface\ControllerBuscarInterface;
 use System\Interface\ControllerListarInterface;
 use System\Interface\ControllerSalvarInterface;
 use System\Interface\ControllerSelectInterface;
+use App\Models\Api\ComercialEmpresa\PerfilModel;
 use App\Models\Api\ComercialEmpresa\EmpresaModel;
 use App\Models\Api\ComercialEmpresa\EmpresaEntity;
 use System\Interface\ControllerAtualizarInterface;
@@ -45,6 +46,12 @@ final class ComercialEmpresaController extends Controller implements
         );
 
         return mensagemSucesso($dado);
+    }
+
+    public function getPerfil(): Response
+    {
+        $Empresa = new PerfilModel();
+        return mensagemSucesso($Empresa->listarDados());
     }
 
     public function getBuscar(string $id): Response

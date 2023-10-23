@@ -1,18 +1,28 @@
 <div id="container_sinpol_frente">
     <div class="um_bloco">
-        <p>NOME</p>
-        <p class="dados_carteirinha">{{$dado->nome}}</p>
+        @if($dado->nome == 'sim'):
+            <p>NOME</p>
+            <p class="dados_carteirinha">
+                {{sessao('USUARIO.nome')}}
+            </p>
+        @endif;
     </div>
     <div class="dois_blocos">
         <div class="data_filiacao_sinpol">
-            <p class="titulo_bloco">CPF</p>
-            <p class="dados_carteirinha">{{$dado->cpf}}</p>
+            @if($dado->cpf == 'sim'):
+                <p class="titulo_bloco">CPF</p>
+                <p class="dados_carteirinha">
+                    {{sessao('USUARIO.cpf')}}
+                </p>
+            @endif
         </div>
         <div class="matricula_sinpol">
-            <p>DATA DE EMISSÃO</p>
-            <p class="dados_carteirinha">
-                {{$dado->data->emissao}}
-            </p>
+            @if ($dado->data_criacao == 'sim'):
+                <p>DATA DE EMISSÃO</p>
+                <p class="dados_carteirinha">
+                    {{$dado->data_criacao}}
+                </p>
+            @endif;
         </div>
     </div>
 </div>
