@@ -1,37 +1,38 @@
 @CSS
+@php $frenteTeste = '../../../../../../images/site/padrao_carteirinha.png'
 <div id="carteirinha_clube">
-    <div class="bloco_frente" style="background-image: url({{$dado->bg_frente}})">
+    <div class="bloco_frente" style="background-image: url({{$frenteTeste}})">
         @if ($dado->empresa != '61df17919405cf68f723510ec3af4acd'):
         <div class="bloco_logo">
             <img
-            src="{!!CLUBE_LOGO_PRINCIPAL!!}"
+            src="https://apiv4.markt.club/aqiorvd.Qr5ceRUSr1vZkcWzCEctToo5lxTaPtsqqMBpq-wCFlBHfpZAE3Hv17r2vnsAthZB"
             alt="logo do clube">
         </div>
         @endif;
         <div class="bloco_dados">
-            @if ($dado->nome == 'sim'):
+            <!-- @if ($dado->nome == 'sim'): -->
             <div class="bloco_nome">
                 <p>NOME</p>
-                <p class="dados_carteirinha">{{$dadosCliente->nome}}</p>
+                <p class="dados_carteirinha">{{$dados_cliente->nome}}</p>
             </div>
-            @endif;
+            <!-- @endif; -->
             <div class="dois_blocos">
-                @if ($dado->cpf == 'sim'):
+                <!-- @if ($dado->cpf == 'sim'): -->
                 <div class="bloco_cpf">
                     <p>CPF</p>
-                    <p class="dados_carteirinha">{{$dadosCliente->cpf}}</p>
+                    <p class="dados_carteirinha">{{$dados_cliente->cpf}}</p>
                 </div>
-                @endif
-                @if ($dado->data_criacao == 'sim'):
+                <!-- @endif -->
+                <!-- @if ($dado->data_criacao == 'sim'): -->
                 <div class="bloco_data_emissao">
                     <p>DATA DE EMISSÃO</p>
-                    <p class="dados_carteirinha">{{$dado->data_criacao}}</p>
+                    <p class="dados_carteirinha">{{$data_emissao}}</p>
                 </div>
-                @endif;
+                <!-- @endif; -->
             </div>
 
             <div class="bloco_estado">
-                <p>{{$dadosCliente->estado}}</p>
+                <p>Brasília-DF</p>
             </div>
         </div>
     </div>

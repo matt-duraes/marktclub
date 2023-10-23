@@ -7,7 +7,7 @@ use App\Helpers\ClubeApiHelper;
 
 final class CarteirinhaModel extends ClubeApiHelper
 {
-    public function getDado(): object|array
+    public function buscarCampos(): object|array
     {
         $empresa = sessao('CLUBE');
 
