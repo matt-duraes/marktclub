@@ -2,18 +2,19 @@
 
 namespace App\Models\Api\Carteirinha;
 
-use App\Classes\Carteirinha\Ordem;
-use App\Classes\Carteirinha\Status;
-use App\Models\Api\Trait\ValidarEmpresaTrait;
-use Erro\Excecao;
-use Modules\Pagina;
-use Modules\Quantidade;
 use ORM\ORM;
 use stdClass;
-use System\Interface\ModelListarInterface;
+use Erro\Excecao;
+use Modules\Botao;
+use Modules\Pagina;
+use Modules\Quantidade;
+use App\Classes\Carteirinha\Ordem;
 use System\Trait\Model\OrdemTrait;
+use App\Classes\Carteirinha\Status;
 use System\Trait\Model\PaginaTrait;
 use System\Trait\Model\QuantidadeTrait;
+use System\Interface\ModelListarInterface;
+use App\Models\Api\Trait\ValidarEmpresaTrait;
 
 class CarteirinhaModel extends ORM implements
     ModelListarInterface
@@ -53,17 +54,16 @@ class CarteirinhaModel extends ORM implements
     {
         $dados = $this
             ->campo([
-                'uuid', 'bg_frente', 'bg_fundo',
+                'uuid', 'bg_frente', 'bg_fundo', 'nome', 'cpf', 'matricula', 'data_nascimento',
                 'status', 'data_criacao', 'data_atualizacao'
             ])
             ->where($this->pegarWhere(), false)
             ->pagina($this->pegarPagina(), $this->pegarQuantidade())
             ->order($this->pegarOrdem(new Ordem()))
             ->tabela(TABELA_COMERCIAL_EMPRESA)
-            ->where($this->pegarWhereEmpresa(), false)
             ->join('id', 'id_admin_empresa')
             ->campo([
-                'cod', 'nome_fantasia'
+                'uuid', 'nome_fantasia'
             ], 'empresa')
             ->read();
 
@@ -84,18 +84,6 @@ class CarteirinhaModel extends ORM implements
     }
 
     /**
-     * @return array
-     */
-    private function pegarWhereEmpresa(): array
-    {
-        $where = [];
-        if (!empty($this->empresa)) {
-            $where[] = ['cod', $this->empresa];
-        }
-        return $where;
-    }
-
-    /**
      * @param array $carteirinhas
      *
      * @return array
@@ -108,18 +96,19 @@ class CarteirinhaModel extends ORM implements
 
         $Status = new Status();
         $retorno = [];
-        foreach ($carteirinhas as $carteirinha) {
+        foreach ($carteirinhas as $r) {
             $retorno[] = [
-                'id'               => $carteirinha->uuid,
-                'empresa'          => [
-                    'id'   => $carteirinha->empresa_cod,
-                    'nome' => $carteirinha->empresa_nome_fantasia,
-                ],
-                'bg_frente'        => arquivoPublico(LINK_ARQUIVO . '/construtor', $carteirinha->bg_frente ?? ''),
-                'bg_fundo'         => arquivoPublico(LINK_ARQUIVO . '/construtor', $carteirinha->bg_fundo ?? ''),
-                'status'           => $Status->indice($carteirinha->status),
-                'data_criacao'     => $carteirinha->data_criacao,
-                'data_atualizacao' => $carteirinha->data_atualizacao
+                'id'               => $r->uuid,
+                'empresa'          => $r->empresa_uuid,
+                'bg_frente'        => arquivoPrivado($r->bg_frente),
+                'bg_fundo'         => arquivoPrivado($r->bg_fundo),
+                'nome'             => (new Botao($r->nome))->valor(),
+                'cpf'              => (new Botao($r->nome))->valor(),
+                'matricula'        => (new Botao($r->nome))->valor(),
+                'data_nascimento'  => (new Botao($r->nome))->valor(),
+                'data_criacao'     => $r->data_criacao,
+                'data_atualizacao' => $r->data_atualizacao,
+                'status'           => $Status->indice($r->status),
             ];
         }
         return $retorno;

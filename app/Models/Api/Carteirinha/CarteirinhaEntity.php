@@ -2,77 +2,55 @@
 
 namespace App\Models\Api\Carteirinha;
 
+use ORM\Entity;
+use Modules\Botao;
+use Helpers\OrmHelper;
 use App\Classes\Carteirinha\Status;
 use App\Models\Api\Trait\ValidarEmpresaTrait;
-use Erro\Excecao;
-use Helpers\OrmHelper;
-use Helpers\UploadHelper;
-use ORM\Entity;
-use Symfony\Component\HttpFoundation\File\UploadedFile;
 
 class CarteirinhaEntity extends Entity
 {
     use ValidarEmpresaTrait;
 
-    public UploadedFile|UploadHelper|string $bg_frente;
-    public UploadedFile|UploadHelper|string $bg_fundo;
-    public Status $status;
-    public array $empresa;
     protected string $ormTabela = TABELA_CARTEIRINHA;
-    protected array $ormInsert = [
-        'id_admin_empresa' => '->idEmpresa'
-    ];
     protected array $ormBuscar = [
-        'id_admin_empresa', 'uuid', 'bg_frente', 'bg_fundo',
+        'id_admin_empresa', 'bg_frente', 'bg_fundo', 'nome', 'cpf', 'matricula', 'data_nascimento',
         'status', 'data_criacao', 'data_atualizacao'
     ];
     protected array $ormSalvar = [
-        'bg_frente', 'bg_fundo', 'status'
+        'id_admin_empresa', 'bg_frente', 'bg_fundo', 'nome', 'cpf', 'matricula', 'data_nascimento', 'status'
     ];
-    protected string $ormValidarInsert = '
+    protected string $ormValidarSalvar = '
+        id_admin_empresa|Empresa|obrigatorio|vazio
         bg_frente|Imagem frente|obrigatorio|vazio|valido
-        bg_fundo|Imagem verso|obrigatorio|vazio|valido
+        status|Status|obrigatorio|vazio|valido
     ';
-    protected string $ormValidarUpdate = '
-        bg_frente|Imagem frente|valido
-        bg_fundo|Imagem verso|valido
-        status|Status|valido
-    ';
-    protected ?int $idEmpresa;
+    public string $bg_frente;
+    public string $bg_fundo;
+    public Botao $nome;
+    public Botao $cpf;
+    public Botao $matricula;
+    public Botao $data_nascimento;
+    public Status $status;
+    public string $empresa;
     protected int $id_admin_empresa;
+    private OrmHelper $OrmEmpresa;
 
-    /**
-     * @throws Excecao
-     */
     public function __construct()
     {
-        $this->validarEmpresa();
+        $this->OrmEmpresa = new OrmHelper(TABELA_COMERCIAL_EMPRESA);
         parent::__construct();
     }
 
-    public function regraInsert(): void
+    public function regraSalvar()
     {
-        $this->status = new Status(Status::INATIVO);
+        if ($this->propriedadeExiste('empresa') && !empty($this->empresa)) {
+            $this->id_admin_empresa = $this->OrmEmpresa->pegarIdPeloUuid($this->empresa);
+        }
     }
 
     public function regraPosBuscar(): void
     {
-        $this->obterEmpresa();
-    }
-
-    private function obterEmpresa(): void
-    {
-        $empresa = (new OrmHelper(TABELA_COMERCIAL_EMPRESA))->pegarUltimoRegistro([
-            'id', $this->id_admin_empresa
-        ], ['cod', 'nome_fantasia'], 'object');
-
-        if (empty($empresa)) {
-            return;
-        }
-
-        $this->empresa = [
-            'id'   => $empresa->cod,
-            'nome' => $empresa->nome_fantasia
-        ];
+        $this->empresa = $this->OrmEmpresa->pegarUuidPeloId($this->id_admin_empresa);
     }
 }

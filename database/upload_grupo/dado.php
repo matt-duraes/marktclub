@@ -34,4 +34,10 @@ return [
         'diretorio' => 'texto_clube',
         'extensao'  => ['png', 'jpg', 'jpeg', 'gif']
     ],
+    [
+        'uuid'      => '3828fc5c-51cf-44b1-b8f0-6f8d1d3def19',
+        'nome'      => 'Carteirinha',
+        'diretorio' => 'carteirinha',
+        'extensao'  => ['png']
+    ],
 ];

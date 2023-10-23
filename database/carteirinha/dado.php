@@ -1,27 +1,13 @@
 <?php
 
-use App\Classes\Carteirinha\Status;
-
-$seeds = [
+return [
     [
         'uuid'             => uuid(),
         'id_admin_empresa' => 1,
-        'bg_frente'        => 'card_bg_asagu.png',
-        'bg_fundo'         => 'asagu_catao.png',
-        'status'           => (new Status(Status::ATIVO))->numero()
+        'bg_frente'        => uuid(),
+        'bg_fundo'         => uuid(),
+        'nome'             => 1,
+        'cpf'              => 1,
+        'status'           => 1
     ]
 ];
-
-$listaStatus = (new Status())->listarNumero();
-
-for ($i = 0; $i < env('QTD_SEEDS', 50); $i++) {
-    $seeds[] = [
-        'uuid'             => uuid(),
-        'id_admin_empresa' => numeroAleatorio(1, 50),
-        'bg_frente'        => 'card_bg_asagu.png',
-        'bg_fundo'         => 'asagu_catao.png',
-        'status'           => valorAleatorio($listaStatus)
-    ];
-}
-
-return $seeds;

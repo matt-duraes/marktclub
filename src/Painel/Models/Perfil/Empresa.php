@@ -16,7 +16,7 @@ final class Empresa
 
     public function unico(?string $id)
     {
-        if (array_key_exists($id, $this->empresa)) {
+        if (!array_key_exists($id, $this->empresa)) {
             $this->pegarPerfil();
         }
         return $this->empresa[$id] ?? $this->empresaPadrao();
@@ -36,7 +36,6 @@ final class Empresa
         $lista = (new ApiHelper(token: true))
             ->get('/comercial-empresa/perfil')
             ->object()->dado ?? [];
-
         $empresa = [];
         foreach ($lista as $r) {
             if (empty($r->imagem)) {
