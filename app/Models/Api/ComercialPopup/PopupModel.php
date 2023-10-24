@@ -2,23 +2,23 @@
 
 namespace App\Models\Api\ComercialPopup;
 
-use ORM\ORM;
-use stdClass;
-use Erro\Excecao;
-use Modules\Data;
-use Modules\Link;
-use Modules\Botao;
-use Modules\Pagina;
-use Modules\Quantidade;
-use App\Classes\Geral\Publicado;
-use System\Trait\Model\OrdemTrait;
-use System\Trait\Model\PaginaTrait;
+use App\Classes\ComercialPopup\BotaoTarget;
 use App\Classes\ComercialPopup\Ordem;
 use App\Classes\ComercialPopup\Status;
-use System\Trait\Model\QuantidadeTrait;
-use App\Classes\ComercialPopup\BotaoTarget;
-use App\Models\Api\Trait\ValidarEmpresaTrait;
+use App\Classes\Geral\Publicado;
 use App\Models\Api\ComercialEmpresa\EmpresaEntity;
+use App\Models\Api\Trait\ValidarEmpresaTrait;
+use Erro\Excecao;
+use Modules\Botao;
+use Modules\Data;
+use Modules\Link;
+use Modules\Pagina;
+use Modules\Quantidade;
+use ORM\ORM;
+use stdClass;
+use System\Trait\Model\OrdemTrait;
+use System\Trait\Model\PaginaTrait;
+use System\Trait\Model\QuantidadeTrait;
 
 class PopupModel extends ORM
 {
@@ -229,7 +229,7 @@ class PopupModel extends ORM
             $retorno[] = [
                 'id'             => $item->uuid,
                 'slug'           => $item->slug,
-                'imagem'         => arquivoPublico(LINK_ARQUIVO_PUBLICO, $item->imagem ?? ''),
+                'imagem'         => arquivoPublico('00a9c7ca-7dd9-43a1-9dc7-20297a26d49d', $item->imagem ?? ''),
                 'titulo'         => $item->titulo,
                 'texto'          => $item->texto,
                 'regulamento'    => $item->regulamento,
