@@ -7,13 +7,28 @@ use App\Helpers\ClubeApiHelper;
 
 final class CarteirinhaModel extends ClubeApiHelper
 {
-    public function getDado(): object|array
+    public function buscarCampos(): object|array
     {
+        $empresa = sessao('CLUBE');
         $dado = $this
             ->validar('Página não encontrada!', status: 404)
-            ->get('/carteirinha-clube')
+            ->json([
+                'empresa' => $empresa->empresa,
+                'pagina'    => 1
+            ])
+            ->get('/carteirinha')
+            ->object();
+        return $dado->dado->lista[0];
+    }
+
+    public function buscarDadosUsuario(): object|array
+    {
+        $dado = $this
+            ->validar('Usuário não encontrado!', status: 404)
+            ->get('/usuario-cliente/'.sessao('USUARIO.id'))
             ->object();
         return $this->montarRetorno($dado->dado);
+
     }
 
     /**
@@ -26,23 +41,13 @@ final class CarteirinhaModel extends ClubeApiHelper
     {
         return (object)[
             'usuario' => (object) [
-                'nome'            => $this->Crypt->decode($dado->usuario->nome) ?? '',
-                'matricula'       => $this->Crypt->decode($dado->usuario->matricula) ?? '',
-                'cpf'             => $this->Crypt->decode($dado->usuario->cpf) ?? '',
-                'data_nascimento' => $this->Crypt->decode($dado->usuario->data_nascimento) ?? '',
-                'data_filiacao'   => $this->Crypt->decode($dado->usuario->data_filiacao) ?? '',
-                'estado'          => $this->Crypt->decode($dado->usuario->estado) ?? '',
+                'nome'            => $this->Crypt->decode($dado->nome) ?? '',
+                'matricula'       => $this->Crypt->decode($dado->matricula) ?? '',
+                'cpf'             => $this->Crypt->decode($dado->cpf) ?? '',
+                'estado'          => $this->Crypt->decode($dado->endereco_estado) ?? '',
+                'data_nascimento' => $this->Crypt->decode($dado->data_nascimento) ?? '',
             ],
-            'empresa'         => (object)[
-                'nome' => $dado->empresa->nome
-            ],
-            'imagem' => (object)[
-                'logo_principal'   => $dado->imagem->logo_principal,
-                'logo_secundaria'  => $dado->imagem->logo_secundaria,
-                'bg_frente'        => $dado->imagem->bg_frente,
-                'bg_fundo'         => $dado->imagem->bg_fundo
-            ],
-            'data_emissao'     => $dado->data_emissao ?? '',
         ];
     }
+
 }

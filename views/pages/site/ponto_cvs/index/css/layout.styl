@@ -2,6 +2,8 @@
 @system "Form"
 @resource "site/tabela"
 @resource "site/tab"
+@resource "site/variavel"
+
 
 .bloco_tem_mais_acao
     width: 100%
@@ -45,6 +47,10 @@
         border-right: 1px solid #eee
         &:first-child
             border-left: 1px solid #eee
+
+.bloco_tem_mais_acao .bloco_tab_geral .bloco_botao .botao.ativo .texto_ativo,
+.bloco_tab_geral .bloco_botao .botao:hover .texto_ativo
+    color: $corClube
 @media screen and (max-width: 600px)
     .bloco_tabela_geral table tbody td
         text-align: initial

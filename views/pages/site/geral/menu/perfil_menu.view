@@ -4,7 +4,7 @@
         Mudar Tema
     </a>
     @if (MENU_CARTEIRA):
-    <a href="@route(perfil.carteira)" class="botao" target="_blank">
+    <a href="@route(perfil.carteirinha)" class="botao" target="_blank">
         <i>@iconeCarteirinha</i>
         Carteirinha
     </a>
