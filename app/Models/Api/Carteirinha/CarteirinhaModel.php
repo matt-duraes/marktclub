@@ -105,16 +105,21 @@ class CarteirinhaModel extends ORM implements
                 'empresa'          => $r->empresa_uuid,
                 'bg_frente'        => arquivoPrivado($r->bg_frente),
                 'bg_fundo'         => arquivoPrivado($r->bg_fundo),
-                'nome'             => (new Botao($r->nome))->valor(),
-                'cpf'              => (new Botao($r->cpf))->valor(),
-                'matricula'        => (new Botao($r->matricula))->valor(),
-                'data_nascimento'  => (new Botao($r->data_nascimento))->valor(),
-                'estado'           => (new Botao($r->estado))->valor(),
+                'nome'             => $this->pegarValorBotao($r->nome),
+                'cpf'              => $this->pegarValorBotao($r->cpf),
+                'matricula'        => $this->pegarValorBotao($r->matricula),
+                'data_nascimento'  => $this->pegarValorBotao($r->data_nascimento),
+                'estado'           => $this->pegarValorBotao($r->estado),
                 'data_criacao'     => $r->data_criacao,
                 'data_atualizacao' => $r->data_atualizacao,
                 'status'           => $Status->indice($r->status),
             ];
         }
         return $retorno;
+    }
+
+    private function pegarValorBotao($valor)
+    {
+        return (new Botao($valor ? 'sim' : 'nao'))->valor();
     }
 }
