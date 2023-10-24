@@ -5,6 +5,14 @@ use App\Middlewares\Site\AuthMiddleware;
 use App\Middlewares\Site\ClubeMiddleware;
 
 Route
+    ::nome('temp')
+    ::controller(App\Controllers\Site\TempController::class)
+    ::grupo(function () {
+        Route
+            ::nome('undefined')
+            ::view('/undefined');
+    });
+Route
     ::nome('thema')
     ::controller(App\Controllers\Site\TemaController::class)
     ::grupo(function () {
