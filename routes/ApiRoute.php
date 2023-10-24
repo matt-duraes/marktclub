@@ -864,6 +864,7 @@ Route
 
         Route
             ::nome('samsung')
+            ::request(['usuario'], 'json')
             ::get('/pagina/samsung');
     });
 

@@ -6,6 +6,7 @@ use Controller\Controller;
 use App\Models\Api\Pagina\CinemaModel;
 use App\Models\Api\Pagina\SamsungModel;
 use App\Models\Api\Pagina\TurismoModel;
+use Http\Request;
 
 final class PaginaController extends Controller
 {
@@ -19,8 +20,8 @@ final class PaginaController extends Controller
         return mensagemSucesso((new CinemaModel())->pegarHtml());
     }
 
-    public function getSamsung()
+    public function getSamsung(Request $request)
     {
-        return mensagemSucesso((new SamsungModel())->pegarHtml());
+        return mensagemSucesso((new SamsungModel($request))->pegarHtml());
     }
 }
