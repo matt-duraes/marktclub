@@ -1,7 +1,8 @@
 @CSS
 
 <div id="carteirinha_clube">
-    <div class="bloco_frente" style="background-image: ({{$dado->bg_frente}});">
+    <div class="bloco_frente" style="background-image: ({{$dado->bg_frente}});border-top: 10px solid {{CLUBE_COR_PRINCIPAL}};
+        ">
         <div class="bloco_logo">
             <img
             src="{{CLUBE_LOGO_PRINCIPAL}}"
