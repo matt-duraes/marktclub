@@ -18,13 +18,21 @@ class SelectModel extends ORM
 
     public function listarDados(): array
     {
-        return $this
-            ->pegarSelect(
-                indice: 'uuid',
-                valor: 'titulo',
-                where: $this->pegarWhere(),
-                titulo: $this->titulo
-            );
+        $dado = $this
+            ->campo(['uuid', 'titulo', 'titulo_interno'])
+            ->where($this->pegarWhere())
+            ->order('titulo', 'ASC')
+            ->read();
+        return $this->montarDado($dado);
+    }
+
+    private function montarDado($dado)
+    {
+        $retorno = [];
+        foreach ($dado as $r) {
+            $retorno[$r->uuid] = !empty($r->titulo_interno) ? $r->titulo_interno : $r->titulo;
+        }
+        return $retorno;
     }
 
     protected function pegarWhere(): array
