@@ -19,8 +19,11 @@ final class ValidarTokenAuthorizationEntity extends Entity
     use PegarEquipeTrait;
 
     protected string $ormTabela = TABELA_AUTH_TOKEN;
-    protected array $ormBuscar = ['id_api_app', 'id_usuario', 'access_token', 'scope_permitido', 'grant_type', 'tipo'];
+    protected array $ormBuscar = [
+        'id_api_app', 'id_admin_empresa', 'id_usuario', 'access_token', 'scope_permitido', 'grant_type', 'tipo'
+    ];
     protected Tipo $tipo;
+    protected int $id_admin_empresa;
     protected int $id_api_app;
     protected string $id_usuario;
     protected string $access_token;
@@ -46,8 +49,10 @@ final class ValidarTokenAuthorizationEntity extends Entity
         } elseif ($tipoUsuario == Tipo::PAINEL) {
             $Usuario = $this->pegarEquipe($whereUsuario);
         }
-        $where = ['id', $App->id_admin_empresa];
-        if (!vazio($Usuario)) {
+
+        $idEmpresa = !empty($this->id_admin_empresa) ? $this->id_admin_empresa : $App->id_admin_empresa;
+        $where = ['id', $idEmpresa];
+        if (!vazio($Usuario) && empty($this->id_admin_empresa)) {
             $where = ['id', $Usuario->id_admin_empresa];
         }
         $Empresa = $this->pegarEmpresa($where);

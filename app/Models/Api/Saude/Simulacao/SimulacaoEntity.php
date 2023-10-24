@@ -2,6 +2,7 @@
 
 namespace App\Models\Api\Saude\Simulacao;
 
+use App\Classes\Saude\Acomodacao;
 use App\Classes\Saude\Interface\PlanoInterface;
 use App\Classes\Saude\Acomodacao;
 use App\Classes\Saude\Interface\RegiaoInterface;

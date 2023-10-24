@@ -1,8 +1,8 @@
 // @template "painel"
 // @system "Grafico"
+// @import "../../filtros/js/all"
 
 window.addEventListener('load', () => {
-    const inputEmpresa = document.querySelector('#input_relatorio_empresa');
     const inputDe = document.querySelector('#input_relatorio_data_de');
     const inputAte = document.querySelector('#input_relatorio_data_ate');
     const botaoBuscar = document.getElementById('botao_buscar_relatorio');
@@ -23,9 +23,11 @@ window.addEventListener('load', () => {
         graficoLojaValor.classList.add('loading');
         graficoLojaTicket.classList.add('loading');
 
+        var valoresMarcados = pegarValoresMarcados();
+
         const de = inputDe.value;
         const ate = inputAte.value;
-        const empresa = inputEmpresa ? inputEmpresa.value : '';
+        const empresa = valoresMarcados;
 
         const resposta = await fetch(LINK + `/relatorio/loja-venda-buscar?de=${de}&ate=${ate}&empresa=${empresa}`, {
             method: 'GET',

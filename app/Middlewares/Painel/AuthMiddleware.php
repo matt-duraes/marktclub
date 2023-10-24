@@ -52,7 +52,7 @@ final class AuthMiddleware
             );
             new LoginAutorizadoModel(Login: $Login);
             return true;
-        } catch (\Throwable) {
+        } catch (\Throwable $e) {
             return $this->usuarioNaoLogado();
         }
     }
@@ -61,10 +61,18 @@ final class AuthMiddleware
     {
         cookieDeletar('FWT');
         if (METODO == 'GET' && CONTENT_TYPE != 'application/json') {
-            return new Response(url: LINK . '/login?location=' . base64Encode(LINK . URI));
+            return new Response(url: LINK . '/login' . $this->pegarLocation());
         }
         return new Response(json: [
             'status' => 'deslogado'
         ], status: 401);
+    }
+
+    private function pegarLocation(): string
+    {
+        if (!defined('ROTA_VIEW') || !ROTA_VIEW) {
+            return '';
+        }
+        return '?location=' . base64Encode(LINK . URI, true);
     }
 }

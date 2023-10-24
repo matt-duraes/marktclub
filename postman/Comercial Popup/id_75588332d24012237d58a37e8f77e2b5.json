@@ -1,0 +1,1 @@
+{"id":"id_75588332d24012237d58a37e8f77e2b5","token":"token","metodo":"DELETE","nome":"\/comercial-popup\/:id","uri":"{{LINK}}\/comercial-popup\/$COMERCIAL_POPUP_ID","parametro":[],"body":[],"header":[],"variavel":[],"json":[],"documentacao":{"status":false,"descricao":"","requisicao":"","resposta":"","scope":"comercial_popup:deletar"}}

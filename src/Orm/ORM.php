@@ -13,6 +13,8 @@ use ORM\Trait\TabelaTrait;
 use ORM\Salvar\InsertTrait;
 use ORM\Salvar\UpdateTrait;
 use ORM\Trait\ValidarTrait;
+use Status\StatusInterface;
+use Modules\ModuleInterface;
 use ORM\Condicao\WhereTrait;
 use ORM\Deletar\DeleteTrait;
 use ORM\Condicao\HavingTrait;
@@ -126,6 +128,7 @@ abstract class ORM
                 mensagem: 'Você precisa enviar um array no método dado.'
             );
         }
+        $dado = $this->replaceClasseDado($dado);
 
         $replace = is_array($replace) ? array_flip($replace) : array_flip($this->pegarReplace());
         if (is_array($replace) && $replace) {
@@ -140,6 +143,22 @@ abstract class ORM
 
         $this->ormDado = $dado;
         return $this;
+    }
+
+    private function replaceClasseDado($dado)
+    {
+        $retorno = [];
+        foreach ($dado as $ind => $val) {
+            if ($val instanceof ModuleInterface) {
+                $val = $val->banco();
+            } elseif ($val instanceof StatusInterface) {
+                $val = $val->numero();
+            } elseif ($val instanceof Entity && method_exists($val, 'getId')) {
+                $val = $val->get('id');
+            }
+            $retorno[$ind] = $val;
+        }
+        return $retorno;
     }
 
     protected function debug()

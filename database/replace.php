@@ -33,8 +33,8 @@ return [
     ],
     'solicitacao_declaracao' => [
         'cod'     => 'uuid',
-        'usuario' => 'id_usuario_cliente',
         'empresa' => 'id_admin_empresa',
+        'usuario' => 'id_usuario_cliente',
         'vinculo' => 'id_parceiro_loja'
     ],
     'solicitacao_voucher' => [
@@ -50,8 +50,5 @@ return [
         'cidade'      => 'endereco_cidade',
         'uf'          => 'endereco_estado',
         'hash'        => 'hash_valor'
-    ],
-    'usuario_indicacao' => [
-        'cod' => 'uuid'
     ]
 ];

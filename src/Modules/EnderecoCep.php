@@ -81,6 +81,7 @@ final class EnderecoCep implements ModuleInterface
     private function validarCep(): bool
     {
         $cep = preg_replace('/[^0-9]/', '', $this->cep);
+        $cep = str_pad($cep, 8, '0', STR_PAD_LEFT);
         return preg_match('/^[0-9]{8}$/', $cep);
     }
 }

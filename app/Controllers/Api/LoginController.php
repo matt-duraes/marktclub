@@ -121,6 +121,7 @@ final class LoginController extends Controller
             redirectUri: $request->redirect_uri,
             state: $request->state,
             scope: $request->scope,
+            empresa: $Usuario->id_admin_empresa,
             tipo: new Tipo(Tipo::PAINEL)
         );
     }
@@ -131,6 +132,7 @@ final class LoginController extends Controller
         string $redirectUri,
         string $state,
         string $scope,
+        int $empresa,
         Tipo $tipo
     ): Response {
         $Token = new TokenAuthorizationEntity();
@@ -141,7 +143,8 @@ final class LoginController extends Controller
             $audience,
             $redirectUri,
             $state,
-            $tipo
+            $empresa,
+            $tipo,
         );
 
         return new Response(json: [
@@ -202,6 +205,7 @@ final class LoginController extends Controller
             env('API_AUDIENCE', ''),
             env('API_REDIRECT_URI', ''),
             uuid(),
+            $Usuario->id_admin_empresa,
             new Tipo(TIPO::CLUBE)
         );
 

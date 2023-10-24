@@ -7,7 +7,6 @@
 window.addEventListener('load', () => {
     const blocoProspeccao = document.getElementById('bloco_comercial_prospeccao');
     const listaItem = blocoProspeccao.querySelectorAll('.bloco_kambam_item');
-    const blocoMotivo = document.querySelector('.bloco_motivo');
 
     const blocoPesquisa = document.getElementById('bloco_pesquisa');
     const blocoApresentacao = document.getElementById('bloco_apresentacao');
@@ -16,15 +15,15 @@ window.addEventListener('load', () => {
     const blocoMinuta = document.getElementById('bloco_minuta');
     const blocoStandBy = document.getElementById('bloco_standby');
 
-    const PopupAtualizar = new Popup('atualizar-dado', blocoMotivo, true, true);
-    const h1_popup = document.getElementById('h1_motivo');
-    const input_popup = document.getElementById('input_motivo');
-    const label_popup = input_popup.parentNode.querySelector('label');
-    const botao_popup = document.getElementById('botao_atualizar_motivo');
+    const PopupAtualizar = new Popup('atualizar-dado', 'bloco_motivo', true, true);
+    const h1Popup = document.getElementById('h1_motivo');
+    const inputPopup = document.getElementById('input_motivo');
+    const labelPopup = inputPopup.parentNode.querySelector('label');
+    const botaoPopup = document.getElementById('botao_atualizar_motivo');
 
     const htmlZero = '<div class="tarefa_zero">Sem itens<br> no momento</div>';
 
-    const setEvents = (item) => {
+    const setEvents = item => {
         const botaoAtendimento = item.querySelector('.botao_item_atendimento');
         const botaoHistorico = item.querySelector('.botao_item_historico');
         const botaoCancelar = item.querySelector('.botao_item_cancelar');
@@ -55,7 +54,7 @@ window.addEventListener('load', () => {
             if (botao) {
                 botao.addEventListener('click', callback);
             }
-        }
+        };
 
         adicionarEventoBotao(botaoAtendimento, () => {
             PaginaContato.abrir();
@@ -80,10 +79,10 @@ window.addEventListener('load', () => {
         adicionarEventoBotao(botaoVoltarStandBy, () => {
             voltarStandby(item, id);
         });
-    }
+    };
 
     listaItem.forEach(item => {
-        setEvents(item)
+        setEvents(item);
     });
 
     /*
@@ -92,16 +91,16 @@ window.addEventListener('load', () => {
     |--------------------------------------------------------------------------
     */
     cancelarContrato = async (item, id) => {
-        h1_popup.textContent = "Cancelar contrato";
-        input_popup.setAttribute('placeholder', "Digite o motivo para o cancelamento")
-        label_popup.textContent = "Motivo para o cancelamento"
-        botao_popup.textContent = "Cancelar"
-        botao_popup.setAttribute('class', 'botao_cancelar')
+        h1Popup.textContent = 'Cancelar contrato';
+        inputPopup.setAttribute('placeholder', 'Digite o motivo para o cancelamento');
+        labelPopup.textContent = 'Motivo para o cancelamento';
+        botaoPopup.textContent = 'Cancelar';
+        botaoPopup.setAttribute('class', 'botao_cancelar');
 
         PopupAtualizar.abrir();
 
-        const form_motivo = document.querySelector('.form_motivo');
-        form_motivo.addEventListener('submit', async (e) => {
+        const formMotivo = document.querySelector('.form_motivo');
+        formMotivo.addEventListener('submit', async e => {
             e.preventDefault();
 
             const motivo = document.querySelector('.input_motivo').value;
@@ -109,7 +108,7 @@ window.addEventListener('load', () => {
             await atualizarStatusContrato(item, id, 'inativo', motivo);
 
             PopupAtualizar.fechar();
-        })
+        });
     };
     concluirContrato = async id => {
         if (!(await Alerta.confirmar('Concluir contrato!', 'Tem certeza que deseja concluir esse contrato?', '!'))) {
@@ -119,16 +118,16 @@ window.addEventListener('load', () => {
     };
 
     colocarStandby = async (item, id) => {
-        h1_popup.textContent = "Motivo Stand BY";
-        input_popup.setAttribute('placeholder', "Digite o motivo do stand by'")
-        label_popup.textContent = "Motivo Stand BY"
-        botao_popup.textContent = "Atualizar"
-        botao_popup.setAttribute('class', 'botao_atualizar')
+        h1Popup.textContent = 'Motivo Stand BY';
+        inputPopup.setAttribute('placeholder', "Digite o motivo do stand by'");
+        labelPopup.textContent = 'Motivo Stand BY';
+        botaoPopup.textContent = 'Atualizar';
+        botaoPopup.setAttribute('class', 'botao_atualizar');
 
         PopupAtualizar.abrir();
 
-        const form_motivo = document.querySelector('.form_motivo');
-        form_motivo.addEventListener('submit', async (e) => {
+        const formMotivo = document.querySelector('.form_motivo');
+        formMotivo.addEventListener('submit', async e => {
             e.preventDefault();
             const motivo = document.querySelector('.input_motivo').value;
 
@@ -139,8 +138,10 @@ window.addEventListener('load', () => {
 
             newItem.querySelector('.titulo').innerText = item.querySelector('.titulo').innerText;
             newItem.querySelector('.data').innerText = item.querySelector('.data').innerText;
-            newItem.querySelector('.botao_link').setAttribute('href', item.querySelector('.botao_link').getAttribute('href'));
-            newItem.setAttribute('class', 'bloco_kambam_item')
+            newItem
+                .querySelector('.botao_link')
+                .setAttribute('href', item.querySelector('.botao_link').getAttribute('href'));
+            newItem.setAttribute('class', 'bloco_kambam_item');
             newItem.dataset.id = id;
             newItem.dataset.status = item.dataset.status;
             setEvents(newItem);
@@ -150,10 +151,16 @@ window.addEventListener('load', () => {
             blocoStandBy.appendChild(newItem);
             removerBlocoZero(blocoStandBy);
             adicionarNumeroItem(blocoStandBy);
-        })
-    }
+        });
+    };
     voltarStandby = async (item, id) => {
-        if (!(await Alerta.confirmar('Voltar contrato para prospecção!', 'Tem certeza que deseja voltar esse contrato para prospecção?', '!'))) {
+        if (
+            !(await Alerta.confirmar(
+                'Voltar contrato para prospecção!',
+                'Tem certeza que deseja voltar esse contrato para prospecção?',
+                '!'
+            ))
+        ) {
             return;
         }
         await atualizarStatusContrato(item, id, 'prospeccao');
@@ -162,7 +169,9 @@ window.addEventListener('load', () => {
 
         newItem.querySelector('.titulo').innerText = item.querySelector('.titulo').innerText;
         newItem.querySelector('.data').innerText = item.querySelector('.data').innerText;
-        newItem.querySelector('.botao_link').setAttribute('href', item.querySelector('.botao_link').getAttribute('href'));
+        newItem
+            .querySelector('.botao_link')
+            .setAttribute('href', item.querySelector('.botao_link').getAttribute('href'));
         newItem.dataset.id = id;
         newItem.dataset.status = item.dataset.status;
         setEvents(newItem);
@@ -174,9 +183,9 @@ window.addEventListener('load', () => {
         removerBlocoZero(bloco);
         adicionarNumeroItem(blocoStandBy);
         adicionarNumeroItem(bloco);
-    }
+    };
 
-    const pegarBlocoPeloStatus = (status) => {
+    const pegarBlocoPeloStatus = status => {
         switch (status) {
             case 'pesquisa':
                 return blocoPesquisa;
@@ -191,7 +200,7 @@ window.addEventListener('load', () => {
             case 'standby':
                 return blocoStandBy;
         }
-    }
+    };
 
     /*
     |--------------------------------------------------------------------------
@@ -209,7 +218,7 @@ window.addEventListener('load', () => {
                 manipularBlocoZero(e.to);
             })
             .eventoFim(e => {
-                if(e.from == e.to) {
+                if (e.from == e.to) {
                     return;
                 }
                 atualizarStatusProspeccao(e.target, e.to, e.item);
@@ -271,14 +280,18 @@ window.addEventListener('load', () => {
 
         Loading.show();
 
-        const resposta = await ajaxPost(LINK + '/comercial-prospeccao/atualizar-prospeccao', {
-            id,
-            'prospeccao' : status,
-        }, 'Mensagem de erro padrão');
+        const resposta = await ajaxPost(
+            LINK + '/comercial-prospeccao/atualizar-prospeccao',
+            {
+                id,
+                prospeccao: status,
+            },
+            'Mensagem de erro padrão'
+        );
 
         Loading.hide();
 
-        if(false === resposta) {
+        if (false === resposta) {
             return;
         }
         adicionarNumeroItem(blocoAtual);
@@ -302,5 +315,5 @@ window.addEventListener('load', () => {
         if (blocoZero) {
             blocoZero.parentNode.removeChild(blocoZero);
         }
-    }
+    };
 });

@@ -73,6 +73,19 @@ Route
             ::nome('demandaOrdenar')
             ::request(['id'])
             ::post('/demanda/demanda-ordenar');
+        Route
+            ::nome('demandaStatus')
+            ::request(['id', 'status'])
+            ::post('/demanda/demanda-status');
+
+        Route
+            ::nome('demandaSeguir')
+            ::request(['id'])
+            ::post('/demanda/demanda-seguir');
+        Route
+            ::nome('demandaSeguirParar')
+            ::request(['id'])
+            ::post('/demanda/demanda-seguir-parar');
 
         Route
             ::nome('tarefaEditar')

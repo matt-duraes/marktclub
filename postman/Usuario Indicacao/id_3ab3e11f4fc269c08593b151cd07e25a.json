@@ -1,0 +1,1 @@
+{"id":"id_3ab3e11f4fc269c08593b151cd07e25a","token":"painel","metodo":"GET","nome":"\/usuario-indicacao\/:id","uri":"{{LINK}}\/usuario-indicacao\/$USUARIO_INDICACAO_ID","parametro":[],"body":[],"header":[],"variavel":[],"json":[],"documentacao":{"status":false,"descricao":"","requisicao":"","resposta":"","scope":""}}

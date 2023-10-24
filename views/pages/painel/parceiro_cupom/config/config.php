@@ -2,14 +2,14 @@
 
 return [
     'titulo'     => 'Parceiro Cupom',
-    'buscar'     => false,
-    'filtrar'    => true,
+    'buscar'     => true,
+    'filtrar'    => false,
     'ordem'      => true,
-    'visualizar' => true,
+    'visualizar' => false,
     'add'        => false,
     'editar'     => false,
-    'deletar'    => true,
-    'historico'  => true,
+    'deletar'    => false,
+    'historico'  => false,
     'api'        => [
         'scope' => 'parceiro_cupom',
         'uri'   => '/parceiro-cupom'

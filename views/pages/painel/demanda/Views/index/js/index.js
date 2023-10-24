@@ -1,34 +1,5 @@
 const primeiraColuna = listaColuna[0];
 
-const cloneItem = $('#clone_item');
-cloneItem.removeAttribute('id');
-
-const adicionarItem = (bloco, item, abrir) => {
-    const clone = cloneItem.cloneNode(true);
-    clone.querySelector('.titulo').innerText = item.titulo;
-    clone.querySelector('.data_criacao').innerText = item.data_criacao;
-    const dataEntrega = item.data_entrega;
-    if (dataEntrega != '') {
-        clone.querySelector('.bloco_entrega').classList.remove('display_none');
-        clone.querySelector('.data_entrega').innerText = dataEntrega;
-    }
-    bloco.insertBefore(clone, bloco.firstChild);
-    const id = item.id;
-    const PaginaDemanda = new Pagina(
-        'demanda-' + id,
-        LINK + '/demanda/demanda/' + id,
-        undefined,
-        true,
-        true,
-        demandaDetalhe
-    );
-    if (abrir === true) {
-        PaginaDemanda.abrir();
-    }
-    clone.addEventListener('click', () => {
-        PaginaDemanda.abrir();
-    });
-};
 window.addEventListener('load', () => {
     const cloneErro = $('#clone_item_erro');
     cloneErro.removeAttribute('id');
@@ -45,29 +16,33 @@ window.addEventListener('load', () => {
     const buscarDados = async () => {
         for (const coluna of listaColuna) {
             const status = coluna.getAttribute('data-status');
-            const resposta = await ajaxPost(
+            ajaxPost(
                 LINK + '/demanda/listar',
                 {
                     area,
                     status,
                 },
                 ''
-            );
-            const conteudo = coluna.querySelector('.conteudo');
-            const loading = coluna.querySelector('.bloco_loading');
-            loading.remove();
-            if (false === resposta) {
-                adicionarBlocoErro(conteudo);
-                continue;
-            }
+            ).then(resposta => {
+                const conteudo = coluna.querySelector('.conteudo');
+                const loading = coluna.querySelector('.bloco_loading');
+                loading.remove();
+                if (false === resposta) {
+                    adicionarBlocoErro(conteudo);
+                    return;
+                }
 
-            if (resposta.dado.length == 0) {
-                adicionarBlocoZero(conteudo);
-                continue;
-            }
-            for (const item of resposta.dado) {
-                adicionarItem(conteudo, item);
-            }
+                if (resposta.dado.length == 0) {
+                    coluna.querySelector('header h1 span').innerText = `(0)`;
+                    adicionarBlocoZero(conteudo);
+                    return;
+                }
+                adicionarBlocoZero(conteudo, 'display_none');
+                for (const item of resposta.dado) {
+                    adicionarNovaDemanda(conteudo, item);
+                }
+                contarTarefaDemanda(coluna);
+            });
         }
     };
     buscarDados();
@@ -76,8 +51,11 @@ window.addEventListener('load', () => {
         const clone = cloneErro.cloneNode(true);
         conteudo.prepend(clone);
     };
-    const adicionarBlocoZero = conteudo => {
+    const adicionarBlocoZero = (conteudo, classe) => {
         const clone = cloneZero.cloneNode(true);
+        if (classe !== undefined && classe != '') {
+            clone.classList.add(classe);
+        }
         conteudo.prepend(clone);
     };
 });

@@ -2,13 +2,14 @@
 
 namespace App\Models\Api\ParceiroCupom;
 
-use App\Classes\Geral\Status;
-use App\Classes\ParceiroCupom\Auditado;
-use App\Classes\ParceiroLoja\Categoria;
+use App\Classes\ParceiroCupom\Ordem;
+use App\Classes\ParceiroCupom\Status;
+use App\Classes\ParceiroCupom\Tipo;
 use stdClass;
 use Modules\Pagina;
 use Modules\Quantidade;
 use ORM\ORM;
+use System\Trait\Model\OrdemTrait;
 use System\Trait\Model\PaginaTrait;
 use System\Trait\Model\QuantidadeTrait;
 
@@ -16,14 +17,15 @@ class CupomModel extends ORM
 {
     use PaginaTrait;
     use QuantidadeTrait;
+    use OrdemTrait;
 
     protected string $ormTabela = TABELA_PARCEIRO_CUPOM;
 
     public function __construct(
         private ?string $pesquisa,
-        private ?Categoria $categoria,
         private Pagina $pagina = new Pagina(null),
-        private Quantidade $quantidade = new Quantidade(null)
+        private Quantidade $quantidade = new Quantidade(null),
+        private Ordem $ordem = new Ordem(),
     ) {
         parent::__construct();
     }
@@ -32,11 +34,9 @@ class CupomModel extends ORM
     {
         $dado = $this
             ->pagina($this->pegarPagina(), $this->pegarQuantidade())
-            ->campo(['uuid', 'descricao', 'cupom', 'desconto', 'categoria', 'link', 'validade', 'auditado', 'status', 'id_parceiro_loja'])
+            ->campo(['uuid', 'titulo', 'tipo', 'texto', 'data_validade', 'cupom', 'link', 'imagem', 'status'])
+            ->order($this->pegarOrdem())
             ->where($this->pegarWhere(), false)
-            ->tabela(TABELA_PARCEIRO_LOJA)
-            ->join('id', 'id_parceiro_loja')
-            ->campo(['titulo'], 'parceiro')
             ->read();
 
         $dado->lista = $this->montarRetorno($dado->lista);
@@ -49,11 +49,8 @@ class CupomModel extends ORM
         if ($this->pesquisa) {
             $where[] = [
                 'OR',
-                ['descricao', 'like', "%{$this->pesquisa}%"]
+                ['titulo', 'like', "%{$this->pesquisa}%"]
             ];
-        }
-        if ($this->categoria->valido()) {
-            $where[] = ['categoria', $this->categoria->numero()];
         }
         return $where;
     }
@@ -61,18 +58,21 @@ class CupomModel extends ORM
     private function montarRetorno(array $dado): array
     {
         $retorno = [];
+
+        $status = new Status();
+        $tipo = new Tipo();
+
         foreach ($dado as $item) {
             $retorno[] = [
-                'id'        => $item->uuid,
-                'parceiro'  => $item->parceiro_titulo,
-                'descricao' => $item->descricao,
-                'cupom'     => $item->cupom,
-                'desconto'  => $item->desconto,
-                'categoria' => (new Categoria($item->categoria))->indice(),
-                'link'      => $item->link,
-                'validade'  => $item->validade,
-                'status'    => (new Status($item->status))->indice(),
-                'auditado'  => (new Auditado($item->auditado))->indice(),
+                'id'            => $item->uuid,
+                'titulo'        => $item->titulo,
+                'tipo'          => $tipo->indice($item->tipo),
+                'texto'         => $item->texto,
+                'data_validade' => $item->data_validade,
+                'cupom'         => $item->cupom,
+                'link'          => $item->link,
+                'imagem'        => $item->imagem,
+                'status'        => $status->indice($item->status)
             ];
         }
         return $retorno;

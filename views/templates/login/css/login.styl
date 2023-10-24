@@ -170,7 +170,20 @@
         cursor: pointer
         &:hover
             text-decoration: underline
-
+@media screen and (max-width: 425px)
+    #bloco_form_ativar
+        .conteudo
+            flex-direction: column
+        .bloco
+            width: 100%
+        .lista
+            flex-direction: column
+        .lista .bloco_input
+            width: 100%
+        .bloco_botao
+            flex-direction: column
+            .termo
+                padding-bottom: 20px
 #bloco_form_recuperar_senha
     max-width: 500px
     .bloco_geral

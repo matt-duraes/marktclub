@@ -87,6 +87,19 @@ Route
         Route
             ::nome('login')
             ::view('/login/login');
+
+        // UBER/DIGIO
+        Route
+            ::nome('digio')
+            ::view('/login/digio');
+        Route
+            ::nome('digio')
+            ::view('/login/uber');
+        Route
+            ::nome('digioApi')
+            ::request(['client-id'])
+            ::get('/digio-login-api');
+
         // SENHA
         Route
             ::nome('senha')
@@ -617,7 +630,7 @@ Route
             ::view('/enquete-popup/{id}');
         Route
             ::nome('abrirModalPopupImagem')
-            ::view('/enquete-imagem/{id}');
+            ::view('/enquete-imagem');
         Route
             ::nome('ajuda')
             ::get('/ajuda');
@@ -670,14 +683,28 @@ Route
             ::request(['code'])
             ::post('/perfil/vincular-google');
         Route
-            ::nome('carteira')
-            ::view('/perfil/carteira');
+            ::nome('carteirinha')
+            ::view('/perfil/carteirinha');
         Route
             ::nome('buscarCep')
             ::request(['cep'])
             ::post('/perfil/buscar-cep');
     });
 
+Route
+    ::nome('pontoCvs')
+    ::middleware(ClubeMiddleware::class, 'buscar')
+    ::middleware(AuthMiddleware::class, 'logado')
+    ::controller(App\Controllers\Site\PontoCvsController::class)
+    ::grupo(function () {
+        Route
+            ::nome('index')
+            ::view('/ponto-cvs');
+        Route
+            ::nome('realizarSolicitacao')
+            ::request(['nome', 'email', 'ponto'])
+            ::post('/ponto-cvs');
+    });
 Route
     ::nome('campanha')
     ::middleware(ClubeMiddleware::class, 'buscar')

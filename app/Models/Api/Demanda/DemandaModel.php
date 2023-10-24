@@ -6,6 +6,7 @@ use ORM\ORM;
 use App\Classes\DemandaDado\Area;
 use App\Classes\DemandaDado\Tipo;
 use App\Classes\DemandaDado\Ordem;
+use System\Trait\Model\OrdemTrait;
 use App\Classes\DemandaDado\Status;
 use App\Models\Api\Demanda\Trait\EquipeTrait;
 use App\Models\Api\Demanda\Trait\EmpresaTrait;
@@ -14,13 +15,14 @@ final class DemandaModel extends ORM
 {
     use EquipeTrait;
     use EmpresaTrait;
+    use OrdemTrait;
 
     protected string $ormTabela = TABELA_DEMANDA_DADO;
 
     public function __construct(
-        private Status $status,
-        private Ordem $ordem,
-        private Area $area
+        protected Status $status,
+        protected Ordem $ordem,
+        protected Area $area
     ) {
         parent::__construct();
         $this->validarRequest();
@@ -35,7 +37,10 @@ final class DemandaModel extends ORM
                 'data_criacao', 'data_atualizacao', 'com_prazo', 'data_entrega', 'status'
             ])
             ->where($this->montarWhere())
-            ->order($this->ordem)
+            ->order($this->pegarOrdem())
+            ->tabela(TABELA_USUARIO_EQUIPE)
+            ->join('id', 'id_usuario_equipe')
+            ->campo(['uuid'], 'usuario')
             ->read();
 
         return $this->montarRetorno($lista);
@@ -80,6 +85,7 @@ final class DemandaModel extends ORM
         foreach ($lista as $r) {
             $retorno[$r->id] = [
                 'id'               => $r->uuid,
+                'equipe'           => $r->usuario_uuid,
                 'titulo'           => $r->titulo,
                 'tipo'             => (new Tipo($r->tipo))->indice(),
                 'data_criacao'     => $r->data_criacao,

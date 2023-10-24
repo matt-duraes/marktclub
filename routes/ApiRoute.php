@@ -410,26 +410,33 @@ Route
     ::criptografia(App\Classes\UsuarioIndicacao\Helper::CRIPTOGRAFAR)
     ::grupo(function () {
         Route
-            ::nome('salvar')
-            ::middleware(TokenMiddleware::class, 'scope', ['usuario_indicacao:salvar'])
-            ::request(['usuario', 'nome', 'email', 'telefone'])
-            ::post('/usuario-indicacao');
-
-        Route
-            ::nome('listar')
-            ::middleware(TokenMiddleware::class, 'scope', ['usuario_indicacao:listar'])
-            ::request(['pagina', '!pesquisa', '!nome', '!email', '!status', '!ordem'], 'json')
-            ::get('/usuario-indicacao');
-
-        Route
             ::nome('buscar')
             ::middleware(TokenMiddleware::class, 'scope', ['usuario_indicacao:buscar'])
             ::get('/usuario-indicacao/{id}');
 
         Route
+            ::nome('listar')
+            ::middleware(TokenMiddleware::class, 'scope', ['usuario_indicacao:listar'])
+            ::request([
+                'pagina', '!quantidade', '!ordem', '!pesquisa',
+                '!nome', '!email', '!status'
+            ], 'json')
+            ::get('/usuario-indicacao');
+
+        Route
+            ::nome('salvar')
+            ::middleware(TokenMiddleware::class, 'scope', ['usuario_indicacao:salvar'])
+            ::request([
+                'usuario', 'nome', 'email', 'telefone'
+            ])
+            ::post('/usuario-indicacao');
+
+        Route
             ::nome('atualizar')
             ::middleware(TokenMiddleware::class, 'scope', ['usuario_indicacao:atualizar'])
-            ::request(['status'])
+            ::request([
+                '!status'
+            ])
             ::put('/usuario-indicacao/{id}');
 
         Route
@@ -857,6 +864,7 @@ Route
 
         Route
             ::nome('samsung')
+            ::request(['usuario'], 'json')
             ::get('/pagina/samsung');
     });
 
@@ -977,7 +985,7 @@ Route
             ::nome('listar')
             ::middleware(TokenMiddleware::class, 'scope', ['parceiro_cupom:listar'])
             ::request([
-                'pagina', '!quantidade', '!ordem', '!empresa', '!status', '!pesquisa', "!categoria"
+                'pagina', '!quantidade', '!ordem', '!pesquisa',
             ], 'json')
             ::get('/parceiro-cupom');
         Route
@@ -991,10 +999,6 @@ Route
                 '!status', '!auditado'
             ])
             ::put('/parceiro-cupom/{id}');
-        Route
-            ::nome('deletar')
-            ::middleware(TokenMiddleware::class, 'scope', ['parceiro_cupom:atualizar'])
-            ::delete('/parceiro-cupom/{id}');
     });
 
 Route
@@ -1155,7 +1159,7 @@ Route
                 'menu_saude_vitoria', 'menu_saude_amil', 'menu_saude_seguro', 'menu_saude_cnu',
                 'menu_saude_florianopolis', 'menu_cashback', 'menu_indicar_usuario', 'menu_indicar_loja',
                 'menu_odontologico', 'menu_premium', 'menu_dependente', 'menu_carteira', 'menu_cupom',
-                'menu_salavip', 'menu_credito_sicoob', 'menu_primeiro_acesso', 'chat_status',
+                'menu_salavip', 'menu_ponto_mais_acao', 'menu_credito_sicoob', 'menu_primeiro_acesso', 'chat_status',
                 'menu_meu_parceiro', 'administrado_status', 'api_status', 'tipo_ativacao', 'status',
                 'menu_corrida', 'menu_show_nacional', 'menu_show_internacional', 'link_odontologico'
             ])
@@ -1173,7 +1177,8 @@ Route
                 '!menu_turismo', '!menu_historico', '!menu_farmacia', '!menu_automovel', '!menu_tema',
                 '!menu_saude_vitoria', '!menu_saude_amil', '!menu_saude_seguro', '!menu_saude_cnu',
                 '!menu_saude_florianopolis', '!menu_cashback', '!menu_indicar_usuario', '!menu_indicar_loja',
-                '!menu_odontologico', '!menu_premium', '!menu_dependente', '!menu_carteira', '!menu_cupom',
+                '!menu_odontologico', '!menu_ponto_mais_acao', '!menu_premium', '!menu_dependente', '!menu_carteira',
+                '!menu_cupom',
                 '!menu_salavip', '!menu_credito_sicoob', '!menu_primeiro_acesso', '!chat_status',
                 '!menu_meu_parceiro', '!administrado_status', '!api_status', '!tipo_ativacao', '!status',
                 '!menu_corrida', '!menu_show_nacional', '!menu_show_internacional', '!link_odontologico'
@@ -1217,7 +1222,7 @@ Route
             ::request(['categoria', 'subcategoria', 'quantidade'], 'json')
             ::get('/parceiro-loja/destaque');
 
-            Route
+        Route
             ::nome('relacionado')
             ::middleware(TokenMiddleware::class, 'scope', ['parceiro_loja:relacionado'])
             ::get('/parceiro-loja/relacionado/{id}');
@@ -1377,7 +1382,7 @@ Route
             ::nome('listar')
             ::middleware(TokenMiddleware::class, 'scope', ['ponto_cvs:listar'])
             ::request([
-                'pagina', '!quantidade', '!ordem', '!cpf', '!status'
+                '!pagina', '!quantidade', '!ordem', '!cpf', '!status'
             ], 'json')
             ::get('/ponto-cvs');
 
@@ -1616,6 +1621,15 @@ Route
             ::put('/demanda-dado/{id}');
 
         Route
+            ::nome('seguir')
+            ::middleware(TokenMiddleware::class, 'scope', ['demanda_dado:atualizar'])
+            ::post('/demanda-dado/seguir/{id}');
+        Route
+            ::nome('seguir')
+            ::middleware(TokenMiddleware::class, 'scope', ['demanda_dado:atualizar'])
+            ::delete('/demanda-dado/seguir/{id}');
+
+        Route
             ::nome('cancelar')
             ::middleware(TokenMiddleware::class, 'scope', ['demanda_dado:cancelar'])
             ::request(['motivo'])
@@ -1650,7 +1664,7 @@ Route
             ::nome('atualizar')
             ::middleware(TokenMiddleware::class, 'scope', ['demanda_tarefa:atualizar'])
             ::request([
-                'titulo', 'texto', 'tipo', 'minuto_producao_estimada'
+                'titulo', '!texto', '!tipo', '!minuto_producao_estimada'
             ])
             ::put('/demanda-tarefa/{id}');
 
@@ -1721,59 +1735,88 @@ Route
             ::nome('buscar')
             ::middleware(TokenMiddleware::class, 'scope', ['carteirinha:buscar'])
             ::get('/carteirinha/{id}');
+
+        Route
+            ::nome('listar')
+            ::middleware(TokenMiddleware::class, 'scope', ['carteirinha:listar'])
+            ::request([
+                'pagina', '!quantidade', '!ordem', '!empresa', '!status'
+            ], 'json')
+            ::get('/carteirinha');
+
+        Route
+            ::nome('salvar')
+            ::middleware(TokenMiddleware::class, 'scope', ['carteirinha:salvar'])
+            ::request([
+                'empresa', 'bg_frente', 'bg_fundo', 'titulo', 'nome', 'cpf', 'matricula', 'data_nascimento', 'status', 'estado'
+            ])
+            ::post('/carteirinha');
+
+        Route
+            ::nome('atualizar')
+            ::middleware(TokenMiddleware::class, 'scope', ['carteirinha:atualizar'])
+            ::request([
+                '!bg_frente', '!empresa', '!titulo', '!bg_fundo', '!nome', '!cpf', '!matricula', '!data_nascimento', '!status', '!estado'
+            ])
+            ::put('/carteirinha/{id}');
+
+        Route
+            ::nome('deletar')
+            ::middleware(TokenMiddleware::class, 'scope', ['carteirinha:deletar'])
+            ::delete('/carteirinha/{id}');
     });
 
 Route
-    ::nome('comunicacao_popup')
-    ::controller(App\Controllers\Api\ComunicacaoPopupController::class)
+    ::nome('comercial_popup')
+    ::controller(App\Controllers\Api\ComercialPopupController::class)
     ::middleware(TokenMiddleware::class, 'token')
     ::grupo(function () {
         Route
             ::nome('buscar')
-            ::middleware(TokenMiddleware::class, 'scope', ['comunicacao_popup:buscar'])
-            ::get('/comunicacao-popup/{id}');
+            ::middleware(TokenMiddleware::class, 'scope', ['comercial_popup:buscar'])
+            ::get('/comercial-popup/{id}');
 
         Route
             ::nome('listar')
-            ::middleware(TokenMiddleware::class, 'scope', ['comunicacao_popup:listar'])
+            ::middleware(TokenMiddleware::class, 'scope', ['comercial_popup:listar'])
             ::request([
                 'pagina', '!quantidade', '!ordem', '!titulo', '!empresa',
-                '!data_inicio', '!data_final', '!status'
+                '!data_inicio', '!data_final', '!status', '!publicado'
             ], 'json')
-            ::get('/comunicacao-popup');
+            ::get('/comercial-popup');
 
         Route
             ::nome('salvar')
-            ::middleware(TokenMiddleware::class, 'scope', ['comunicacao_popup:salvar'])
+            ::middleware(TokenMiddleware::class, 'scope', ['comercial_popup:salvar'])
             ::request([
                 'titulo', '!texto', '!imagem', '!regulamento', '!data_inicio',
                 '!data_final', '!atualizar_dado', '!botao_texto', '!botao_link',
                 '!botao_target', '!status'
             ])
-            ::post('/comunicacao-popup');
+            ::post('/comercial-popup');
 
         Route
             ::nome('atualizar')
-            ::middleware(TokenMiddleware::class, 'scope', ['comunicacao_popup:atualizar'])
+            ::middleware(TokenMiddleware::class, 'scope', ['comercial_popup:atualizar'])
             ::request([
                 '!titulo', '!texto', '!imagem', '!regulamento', '!data_inicio',
                 '!data_final', '!atualizar_dado', '!botao_texto', '!botao_link',
                 '!botao_target', '!status'
             ])
-            ::put('/comunicacao-popup/{id}');
+            ::put('/comercial-popup/{id}');
 
         Route
             ::nome('deletar')
-            ::middleware(TokenMiddleware::class, 'scope', ['comunicacao_popup:deletar'])
-            ::delete('/comunicacao-popup/{id}');
+            ::middleware(TokenMiddleware::class, 'scope', ['comercial_popup:deletar'])
+            ::delete('/comercial-popup/{id}');
 
         Route
             ::nome('ordenar')
-            ::middleware(TokenMiddleware::class, 'scope', ['comunicacao_popup:ordenar'])
+            ::middleware(TokenMiddleware::class, 'scope', ['comercial_popup:ordenar'])
             ::request([
                 'id', 'pagina', '!quantidade'
             ])
-            ::put('/comunicacao-popup/ordenar');
+            ::put('/comercial-popup/ordenar');
     });
 
 Route
@@ -2000,39 +2043,39 @@ Route
     });
 
 Route
-    ::nome('comunicacao_contato')
-    ::controller(App\Controllers\Api\ComunicacaoContatoController::class)
+    ::nome('solicitacao_contato')
+    ::controller(App\Controllers\Api\SolicitacaoContatoController::class)
     ::middleware(TokenMiddleware::class, 'token')
     ::grupo(function () {
         Route
             ::nome('buscar')
-            ::middleware(TokenMiddleware::class, 'scope', ['comunicacao_contato:buscar'])
-            ::get('/comunicacao-contato/{id}');
+            ::middleware(TokenMiddleware::class, 'scope', ['solicitacao_contato:buscar'])
+            ::get('/solicitacao-contato/{id}');
 
         Route
             ::nome('listar')
-            ::middleware(TokenMiddleware::class, 'scope', ['comunicacao_contato:listar'])
+            ::middleware(TokenMiddleware::class, 'scope', ['solicitacao_contato:listar'])
             ::request([
                 'pagina', '!quantidade', '!ordem', '!nome', '!empresa',
                 '!data_inicio', '!data_final', '!status'
             ], 'json')
-            ::get('/comunicacao-contato');
+            ::get('/solicitacao-contato');
 
         Route
             ::nome('salvar')
-            ::middleware(TokenMiddleware::class, 'scope', ['comunicacao_contato:salvar'])
+            ::middleware(TokenMiddleware::class, 'scope', ['solicitacao_contato:salvar'])
             ::request([
                 'nome', 'email', 'telefone', 'mensagem', 'url'
             ])
-            ::post('/comunicacao-contato');
+            ::post('/solicitacao-contato');
 
         Route
             ::nome('atualizar')
-            ::middleware(TokenMiddleware::class, 'scope', ['comunicacao_contato:atualizar'])
+            ::middleware(TokenMiddleware::class, 'scope', ['solicitacao_contato:atualizar'])
             ::request([
                 '!status'
             ])
-            ::put('/comunicacao-contato/{id}');
+            ::put('/solicitacao-contato/{id}');
     });
 
 Route

@@ -108,13 +108,6 @@ final class PontoEntity extends Entity
         $this->status = new Status('solicitado');
         $this->id_usuario_cliente = $this->pegarIdUsuario();
 
-        $Cliente = new AtualizarUsuarioModel();
-        $Cliente->atualizarUsuario([
-            'nome'          => $this->nome,
-            'cpf'           => $this->cpf,
-            'email_pessoal' => $this->email->email(),
-        ]);
-
         $this->verificarSeUsuarioConstaNaBase();
         $this->verificarSeFoiPedidoNumeroMinimoPonto();
         $this->validarSeUsuarioTemPontoSuficiente();
@@ -188,7 +181,7 @@ final class PontoEntity extends Entity
 
         $titulo = $Construtor->titulo;
 
-        $email = 'arrecadacao@spbancarios.com.br';
+        $email = 'mensalidade@spbancarios.com.br';
         $assunto = "Voucher Solicitado - Matrícula $matricula";
 
         if (eLocalhost()) {

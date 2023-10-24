@@ -2,7 +2,7 @@
 
 namespace App\Controllers\Api;
 
-use App\Classes\ParceiroLoja\Categoria;
+use App\Classes\ParceiroCupom\Ordem;
 use App\Models\Api\ParceiroCupom\CupomEntity;
 use Http\Request;
 use Http\Response;
@@ -12,14 +12,12 @@ use Modules\Pagina;
 use Modules\Quantidade;
 use System\Interface\ControllerAtualizarInterface;
 use System\Interface\ControllerBuscarInterface;
-use System\Interface\ControllerDeletarInterface;
 use System\Interface\ControllerListarInterface;
 
 final class ParceiroCupomController extends Controller implements
     ControllerListarInterface,
     ControllerBuscarInterface,
-    ControllerAtualizarInterface,
-    ControllerDeletarInterface
+    ControllerAtualizarInterface
 {
     public function getListar(Request $request): Response
     {
@@ -27,7 +25,7 @@ final class ParceiroCupomController extends Controller implements
             pagina: new Pagina($request->pagina),
             quantidade: new Quantidade($request->quantidade),
             pesquisa: $request->pesquisa,
-            categoria: new Categoria($request->categoria)
+            ordem: new Ordem($request->ordem),
         );
         $listar = $CupomHelper->listarDados();
 
@@ -47,7 +45,10 @@ final class ParceiroCupomController extends Controller implements
         return mensagemSucesso(
             pegarPropriedadeDaEntity(
                 $Cupom,
-                lista: ['parceiro', 'descricao', 'cupom', 'desconto', 'categoria', 'link', 'validade', 'auditado', 'status']
+                lista: [
+                    'titulo', 'tipo', 'texto', 'data_validade', 'cupom',
+                    'link', 'imagem', 'status', 'data_criacao'
+                ]
             )
         );
     }
@@ -59,15 +60,6 @@ final class ParceiroCupomController extends Controller implements
         $Cupom->uuid($id);
         $Cupom->set(lista: $request->dado());
         $Cupom->salvar();
-
-        return new Response(status: 204);
-    }
-
-    public function deleteDeletar(string $id): Response
-    {
-        $Cupom = new CupomEntity();
-        $Cupom->uuid($id);
-        $Cupom->destruir();
 
         return new Response(status: 204);
     }

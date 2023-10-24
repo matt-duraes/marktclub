@@ -50,7 +50,9 @@ return [
         'menu_samsung'              => 1,
         'menu_corrida'              => 1,
         'menu_show_nacional'        => 1,
+        'menu_ponto_mais_acao'      => 1,
         'menu_show_internacional'   => 1,
+        'menu_ponto_mais_acao'      => 1,
         'menu_sair'                 => 1,
         'administrado_status'       => 1,
         'chat_status'               => 1,
@@ -108,6 +110,7 @@ return [
         'status'           => 1
     ],
     [
+        'id'               => 165,
         'uuid'             => '5cc28dab736cb7d4ef436ee2447a07ee',
         'id_admin_empresa' => 4,
         'titulo'           => 'CVS MAIS',

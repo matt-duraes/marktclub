@@ -6,6 +6,7 @@ use App\Classes\Solicitacao\Status;
 use App\Models\Api\Trait\ValidarEmpresaTrait;
 use App\Models\Api\UsuarioCliente\DadoBaseModel;
 use Erro\Excecao;
+use Helpers\OrmHelper;
 use Modules\EnderecoEstado;
 use ORM\Entity;
 
@@ -21,14 +22,16 @@ final class AutomovelEntity extends Entity
     public string $cor;
     public string $mensagem;
     public Status $status;
+    public array $empresa;
     public array $usuario;
     protected string $ormTabela = TABELA_SOLICITACAO_AUTOMOVEL;
     protected array $ormBuscar = [
-        'id_usuario_cliente', 'id_admin_empresa', 'endereco_estado', 'endereco_cidade',
-        'montadora', 'modelo', 'versao', 'cor', 'mensagem', 'data_criacao', 'data_atualizacao', 'status'
+        'id_admin_empresa', 'id_usuario_cliente', 'endereco_estado', 'endereco_cidade',
+        'montadora', 'modelo', 'versao', 'cor', 'mensagem', 'data_criacao',
+        'data_atualizacao', 'status'
     ];
     protected array $ormInsert = [
-        'id_usuario_cliente', 'id_admin_empresa', 'endereco_estado', 'endereco_cidade',
+        'id_admin_empresa', 'id_usuario_cliente', 'endereco_estado', 'endereco_cidade',
         'montadora', 'modelo', 'versao', 'cor', 'mensagem'
     ];
     protected array $ormSalvar = [
@@ -46,8 +49,8 @@ final class AutomovelEntity extends Entity
     ';
     protected ?int $idEmpresa;
     protected ?int $idUsuario;
-    protected int $id_usuario_cliente;
     protected int $id_admin_empresa;
+    protected int $id_usuario_cliente;
 
     /**
      * @throws Excecao
@@ -67,7 +70,25 @@ final class AutomovelEntity extends Entity
 
     protected function regraPosBuscar(): void
     {
+        $this->buscarEmpresa();
         $this->buscarUsuario();
+    }
+
+    private function buscarEmpresa(): void
+    {
+        $empresa = (new OrmHelper(TABELA_COMERCIAL_EMPRESA))
+            ->pegarPrimeiroRegistro([
+                ['id', $this->id_admin_empresa]
+            ], ['cod', 'nome_fantasia'], 'object');
+
+        if (empty($empresa->cod)) {
+            return;
+        }
+
+        $this->empresa = [
+            'id'   => $empresa->cod,
+            'nome' => $empresa->nome_fantasia
+        ];
     }
 
     private function buscarUsuario(): void

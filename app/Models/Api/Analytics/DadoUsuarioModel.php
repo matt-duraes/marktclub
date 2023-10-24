@@ -2,9 +2,11 @@
 
 namespace App\Models\Api\Analytics;
 
+use Helpers\OrmHelper;
+use Http\Request;
 use ORM\ORM;
 use App\Models\Api\Trait\ValidarEmpresaTrait;
-use App\Models\Api\ComercialEmpresa\EmpresaEntity;
+use stdClass;
 
 final class DadoUsuarioModel extends ORM
 {
@@ -14,40 +16,65 @@ final class DadoUsuarioModel extends ORM
     private int $idEmpresa;
 
     public function __construct(
-        private ?EmpresaEntity $Empresa = null
+        private Request $request
     ) {
         parent::__construct();
-
-        $this->setarEmpresaDaBusca();
-    }
-
-    private function setarEmpresaDaBusca()
-    {
-        $this->verificarSeExisteToken();
-        $this->setarIdUsuario();
-
-        if ($this->Empresa instanceof EmpresaEntity && $this->verificarSePodeMudarEmpresa()) {
-            $this->idEmpresa = $this->Empresa->get('id');
-            return;
-        }
         $this->idEmpresa = TOKEN['empresa']->id;
     }
 
     public function listarDados(): array
     {
         $dado = $this
-            ->where([
-                ['id_admin_empresa', $this->idEmpresa],
-            ])
+            ->where($this->pegarWhere(), false)
             ->order('data_criacao', 'DESC')
-            ->limit(0, 1)
-            ->primeiro();
+            ->read();
 
         if (!$dado) {
             return $this->retornarListaZerada();
         }
+        $dado = $this->somarAsEmpresas($dado);
 
         return $this->montarDado($dado);
+    }
+
+    private function pegarWhere()
+    {
+        $empresaUuid = $this->request->empresa;
+        if (empty($empresaUuid)) {
+            return ['id_admin_empresa', $this->idEmpresa];
+        }
+
+        $ormHelper = new OrmHelper(TABELA_COMERCIAL_EMPRESA);
+
+        if (!is_array($empresaUuid)) {
+            return ['id_admin_empresa', $ormHelper->pegarIdPeloUuid($empresaUuid)];
+        }
+
+        $empresaId = [];
+        foreach ($empresaUuid as $e) {
+            $empresaId[] = $ormHelper->pegarIdPeloUuid($e);
+        }
+
+        return ['id_admin_empresa', 'in', $empresaId];
+    }
+
+    private function somarAsEmpresas($dados)
+    {
+        $somaChaves = new stdClass();
+        foreach ($dados as $objeto) {
+            foreach ($objeto as $key => $value) {
+                if ($key == 'data_criacao') {
+                    continue;
+                }
+
+                if (!isset($somaChaves->$key)) {
+                    $somaChaves->$key = 0;
+                }
+                $somaChaves->$key += $value;
+            }
+        }
+
+        return $somaChaves;
     }
 
     private function retornarListaZerada()
@@ -109,8 +136,34 @@ final class DadoUsuarioModel extends ORM
             'lista' => []
         ];
         $estado = [
-            'outro', 'ac', 'al', 'ap', 'am', 'ba', 'ce', 'df', 'es', 'go', 'ma', 'mt', 'ms', 'mg', 'pa', 'pb',
-            'pr', 'pe', 'pi', 'rj', 'rn', 'rs', 'ro', 'rr', 'sc', 'sp', 'se', 'to'
+            'outro',
+            'ac',
+            'al',
+            'ap',
+            'am',
+            'ba',
+            'ce',
+            'df',
+            'es',
+            'go',
+            'ma',
+            'mt',
+            'ms',
+            'mg',
+            'pa',
+            'pb',
+            'pr',
+            'pe',
+            'pi',
+            'rj',
+            'rn',
+            'rs',
+            'ro',
+            'rr',
+            'sc',
+            'sp',
+            'se',
+            'to'
         ];
         foreach ($estado as $uf) {
             $indiceTotal = 'uf_' . $uf . '_total';

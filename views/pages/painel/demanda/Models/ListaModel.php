@@ -3,13 +3,13 @@
 namespace Painel\Demanda\Models;
 
 use Helpers\ApiHelper;
-use App\Classes\DemandaDado\Status;
-use App\Classes\DemandaTarefa\Status as DemandaTarefaStatus;
-use App\Classes\DemandaTarefa\Tipo;
 use PainelModel\Perfil\Equipe;
+use App\Classes\DemandaDado\Status;
 
 final class ListaModel
 {
+    use TarefaTrait;
+
     private ApiHelper $Api;
 
     public function __construct()
@@ -51,31 +51,37 @@ final class ListaModel
 
     public function quadroTi()
     {
+        $gerente = sessao('USUARIO.gerente', padrao: false) || sessao('USUARIO.admin', padrao: false) ? 'drag' : '';
         return [
             [
                 'titulo' => 'Backlog',
-                'classe' => 'drag',
+                'classe' => $gerente,
                 'add'    => true,
                 'status' => Status::NOVA
             ],
             [
+                'titulo' => 'Bloqueada',
+                'classe' => $gerente,
+                'status' => Status::BLOQUEADA
+            ],
+            [
                 'titulo' => 'Liberada',
-                'classe' => 'drag',
+                'classe' => $gerente,
                 'status' => Status::LIBERADA
             ],
             [
                 'titulo' => 'Em andamento',
-                'classe' => 'drag',
+                'classe' => $gerente,
                 'status' => Status::ANDAMENTO
             ],
             [
                 'titulo' => 'Teste',
-                'classe' => 'drag',
+                'classe' => $gerente,
                 'status' => Status::TESTE
             ],
             [
                 'titulo' => 'Concluída',
-                'classe' => '',
+                'classe' => $gerente,
                 'status' => Status::CONCLUIDA
             ],
         ];
@@ -83,7 +89,7 @@ final class ListaModel
 
     public function buscarDemanda($area, $status)
     {
-        return $this->Api
+        $dado = $this->Api
             ->json([
                 'status' => $status,
                 'area'   => $area,
@@ -91,6 +97,25 @@ final class ListaModel
             ])
             ->get('/demanda-dado')
             ->object()->dado ?? [];
+
+        return $this->montarDemanda($dado);
+    }
+
+    private function montarDemanda($dado): array
+    {
+        $retorno = [];
+        $Perfil = new Equipe();
+        foreach ($dado as $r) {
+            $retorno[] = [
+                'id'           => $r->id,
+                'equipe'       => $Perfil->unico($r->equipe),
+                'titulo'       => $r->titulo,
+                'data_criacao' => dataBr($r->data_criacao),
+                'data_entrega' => dataBr($r->data_entrega),
+                'status'       => $r->status
+            ];
+        }
+        return $retorno;
     }
 
     public function buscarTarefa($demanda): array
@@ -103,27 +128,5 @@ final class ListaModel
             ->get('/demanda-tarefa')
             ->object()->dado ?? [];
         return $this->montarTarefa($tarefa);
-    }
-
-    private function montarTarefa($tarefa): array
-    {
-        $retorno = [];
-        $Status = new DemandaTarefaStatus();
-        $Tipo = new Tipo();
-        $Equipe = new Equipe();
-        foreach ($tarefa as $r) {
-            $retorno[] = (object)[
-                'id'          => $r->id,
-                'equipe'      => $Equipe->unico($r->equipe),
-                'dono'        => $r->equipe == sessao('USUARIO.id'),
-                'titulo'      => $r->titulo,
-                'texto'       => $r->texto,
-                'tipo'        => $Tipo->nome($r->tipo),
-                'data_inicio' => dataBr($r->data_producao_inicio),
-                'data_final'  => dataBr($r->data_producao_final),
-                'status'      => $Status->nome($r->status)
-            ];
-        }
-        return $retorno;
     }
 }

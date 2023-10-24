@@ -12,12 +12,10 @@ use App\Classes\DemandaDado\Tipo;
 use App\Classes\DemandaDado\Status;
 use System\Classes\PainelHistorico\Acao;
 use ApiModel\PainelHistorico\HistoricoEntity;
-use App\Models\Api\Demanda\Trait\EquipeTrait;
 use App\Models\Api\Demanda\Trait\EmpresaTrait;
 
 final class DemandaEntity extends Entity
 {
-    use EquipeTrait;
     use EmpresaTrait;
 
     protected string $ormTabela = TABELA_DEMANDA_DADO;
@@ -30,7 +28,7 @@ final class DemandaEntity extends Entity
     ];
     protected array $ormSalvar = [
         'arquivo', 'id_admin_empresa', 'id_usuario_equipe', 'titulo', 'status', 'com_prazo', 'data_entrega',
-        'ordem', 'data_entrega_real'
+        'ordem', 'data_entrega_real', 'seguindo'
     ];
     protected string $ormValidarSalvar = '
         titulo|Título|obrigatorio|vazio
@@ -53,11 +51,6 @@ final class DemandaEntity extends Entity
     public string|array $empresa;
     public Tipo $tipo;
     public Area $area;
-
-    public function __construct()
-    {
-        parent::__construct();
-    }
 
     /*
     |--------------------------------------------------------------------------
@@ -117,5 +110,33 @@ final class DemandaEntity extends Entity
         $Historico->app = ['demanda_dado'];
         $Historico->acao = new Acao('mensagem');
         $Historico->salvar();
+    }
+
+    public function seguir()
+    {
+        $id = $this->pegarIdUsuario();
+        if (empty($id) || in_array($id, $this->seguindo)) {
+            return;
+        }
+        $this->seguindo[] = $id;
+    }
+
+    public function seguirParar()
+    {
+        $id = $this->pegarIdUsuario();
+        if (empty($id)) {
+            return;
+        }
+        $seguindo = array_flip($this->seguindo);
+        unset($seguindo[$id]);
+        $this->seguindo = array_keys($seguindo);
+    }
+
+    private function pegarIdUsuario()
+    {
+        if (!defined('TOKEN') || !array_key_exists('usuario', TOKEN)) {
+            return '';
+        }
+        return TOKEN['usuario']->uuid;
     }
 }

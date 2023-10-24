@@ -59,14 +59,18 @@ final class ChequeBonusEntity extends Entity
         'status', 'email_pessoal', 'telefone_celular', 'data_criacao', 'data_atualizacao'
     ];
     protected array $ormInsert = [
-        'id_usuario_cliente', 'id_admin_empresa', 'id_automovel_versao', 'tipo_usuario', 'nome',
+        'id_admin_empresa'   => '->idEmpresa',
+        'id_usuario_cliente' => '->idUsuario',
+        'id_automovel_versao', 'tipo_usuario', 'nome',
         'estado_civil', 'rg', 'data_nascimento', 'endereco_cep', 'endereco_logradouro',
         'endereco_numero', 'endereco_complemento', 'endereco_bairro', 'endereco_cidade',
         'endereco_estado', 'dependente_nome', 'dependente_email_pessoal', 'dependente_rg',
         'dependente_cpf', 'dependente_grau_parentesco', 'dependente_data_nascimento',
         'email_pessoal', 'telefone_celular', 'data_termo'
     ];
-    protected array $ormSalvar = ['status'];
+    protected array $ormSalvar = [
+        'status'
+    ];
     protected string $ormValidarInsert = '
         data_termo|Termo de aceite|obrigatorio|vazio|valido
         tipo_usuario|Tipo de usuário|obrigatorio|vazio|valido
@@ -121,8 +125,6 @@ final class ChequeBonusEntity extends Entity
             'Não foi encontrado nenhum veículo pelo código enviado.'
         );
         $this->status = new Status(Status::NOVO);
-        $this->id_admin_empresa = $this->idEmpresa;
-        $this->id_usuario_cliente = $this->idUsuario;
     }
 
     /**
@@ -148,7 +150,7 @@ final class ChequeBonusEntity extends Entity
 
     protected function regraPosBuscar(): void
     {
-        if ($this->tipo_usuario->indice() === TipoUsuario::DEPENDENTE) {
+        if ($this->tipo_usuario->indice() == TipoUsuario::DEPENDENTE) {
             $this->montarDependente();
         }
         $this->buscarAutomovel();

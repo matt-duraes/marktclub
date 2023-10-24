@@ -56,13 +56,19 @@ final class PerfilController extends Controller
         return new Response(status: 204);
     }
 
-    public function carteira(): Response
+    public function carteirinha()
     {
-        $dado = (new CarteirinhaModel())->getDado();
-        return view('perfil.carteira', [
-            'dado' => $dado,
-            'logo' => defined('CLUBE_LOGO_PRINCIPAL')
-        ]);
+        $campos_carteirinha = (new CarteirinhaModel())->buscarCampos();
+        $dados_cliente = ((new CarteirinhaModel())->buscarDadosUsuario());
+        $data_emissao = date('d/m/Y', strtotime($campos_carteirinha->data_criacao));
+        return view(
+            'perfil.carteirinha',
+            [
+                'dado'          => $campos_carteirinha,
+                'dados_cliente' => $dados_cliente->usuario,
+                'data_emissao'  => $data_emissao,
+            ]
+        );
     }
 
     /*

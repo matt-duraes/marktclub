@@ -4,6 +4,7 @@
 // @system "SwipeEvent"
 // @system "Alerta"
 // @system "Loading"
+// @system "Popup"
 // @system "Mascara"
 // @import "menu_principal"
 // @import "menu_perfil"
@@ -14,3 +15,4 @@
 // @import "indicar_parceiro"
 // @import "analytics"
 // @import "tema"
+// @import "popup_promocao"

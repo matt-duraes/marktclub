@@ -76,7 +76,7 @@ final class ConstrutorClubeController extends Controller implements
                     'link_salavip', 'link_app_ios', 'link_app_android', 'contato_telefone', 'contato_whatsapp',
                     'contato_email', 'contato_horario', 'contato_endereco', 'menu_faq', 'menu_como_funciona',
                     'menu_sair', 'menu_acesso_rapido', 'menu_loja', 'menu_mapa', 'menu_cinema', 'menu_tema',
-                    'menu_turismo', 'menu_historico', 'menu_farmacia', 'menu_automovel', 'link_odontologico',
+                    'menu_turismo', 'menu_ponto_mais_acao', 'menu_historico', 'menu_farmacia', 'menu_automovel', 'link_odontologico',
                     'menu_saude_vitoria', 'menu_saude_amil', 'menu_saude_seguro', 'menu_saude_cnu',
                     'menu_saude_florianopolis', 'menu_cashback', 'menu_indicar_usuario', 'menu_indicar_loja',
                     'menu_odontologico', 'menu_premium', 'menu_dependente', 'menu_carteira', 'menu_cupom',

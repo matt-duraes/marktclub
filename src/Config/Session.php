@@ -25,20 +25,20 @@ final class Session
         ) {
             session_cache_expire($__SESSION_CACHE);
         }
-
         $__SESSION_DIRETORIO = str_replace('{{ROOT}}', ROOT, env('SESSION_DIRETORIO', ''));
         if (!empty($__SESSION_DIRETORIO) && file_exists($__SESSION_DIRETORIO)) {
             session_save_path($__SESSION_DIRETORIO);
         }
 
         $__SESSION_SAMESITE = env('SESSION_SAMESITE', 'Strict');
+        $option = eLocalhost() ? [] : [
+            'cookie_secure'   => true,
+            'cookie_httponly' => true,
+            'cookie_path'     => '/',
+            'cookie_samesite' => $__SESSION_SAMESITE
+        ];
         $session = new SessionSession(
-            new NativeSessionStorage([
-                'cookie_secure'   => true,
-                'cookie_httponly' => true,
-                'cookie_path'     => '/',
-                'cookie_samesite' => $__SESSION_SAMESITE
-            ])
+            new NativeSessionStorage($option)
         );
 
         $userAgent = $_SERVER['HTTP_USER_AGENT'] ?? '';

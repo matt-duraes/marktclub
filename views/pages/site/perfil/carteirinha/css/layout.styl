@@ -1,0 +1,59 @@
+@system "Resetar"
+@resource "site/variavel"
+
+body
+    font-family: 'Inter', sans-serif
+
+.texto_claro
+    color: #FFF
+    font-weight: bold
+
+#carteirinha_clube
+    width: 100%
+    min-width: 100vw
+    min-height: 100vh
+    display: flex
+    flex-direction: column
+    align-items: center
+
+#carteirinha_clube .bloco_frente
+    width: 100%
+    max-width: 500px
+    position: relative
+    border-radius: 10px
+    overflow: hidden
+    box-shadow: 3px 2px 11px 3px rgba(0,0,0,0.3)
+    display: flex
+    flex-direction: column
+    margin-top: 20px
+    .bg
+        width: 100%
+        position: relative
+        z-index: 1
+    .bg img
+        width: 100%
+        float: left
+    figure
+        position: absolute
+        top: 20px
+        left: 20px
+    .bloco_dado
+        width: calc(100% - 40px)
+        position: absolute
+        bottom: 20px
+        left: 20px
+        z-index: 2
+        display: flex
+        flex-direction: column
+        align-items: flex-start
+    .bloco_dado .bloco_infos
+        background: #FFF
+        padding: 5px
+        border-radius: 5px
+        margin-top: 5px
+    .bloco_dado .bloco_infos span
+        font-size: 1.2rem
+        color: #666
+    .bloco_dado .bloco_infos p
+        margin-top: 5px
+        font-size: 1.5rem

@@ -6,13 +6,13 @@ use ORM\ORM;
 use stdClass;
 use Modules\Cpf;
 use Http\Request;
+use Helpers\OrmHelper;
 use App\Classes\PontoCvs\Ordem;
 use App\Helpers\PontoCvsHelper;
 use App\Classes\PontoCvs\Status;
 use System\Trait\Model\PaginaTrait;
 use App\Classes\UsuarioCliente\Helper;
 use System\Trait\Model\QuantidadeTrait;
-use App\Models\Api\UsuarioCliente\ClienteEntity;
 
 final class PontoModel extends ORM
 {
@@ -50,20 +50,11 @@ final class PontoModel extends ORM
             ->pagina($this->pegarPagina(), $this->pegarQuantidade())
             ->read();
 
-        $saldo = [];
-        $extrato = [];
-
         if (!empty($this->buscaCpf)) {
             $PontoCvsHelper = new PontoCvsHelper();
-            $saldo = $PontoCvsHelper->buscarPontos($this->buscaCpf);
-            $extrato = $PontoCvsHelper->buscarExtrato($this->buscaCpf);
+            $dado->saldo = $PontoCvsHelper->buscarPontos($this->buscaCpf);
+            $dado->extrato = $PontoCvsHelper->buscarExtrato($this->buscaCpf);
         }
-
-        if (!empty($saldo) && !empty($extrato)) {
-            $dado->saldo = $saldo;
-            $dado->extrato = $extrato;
-        }
-
         $dado->lista = $this->montarRetorno($dado->lista);
 
         return $dado;
@@ -109,10 +100,9 @@ final class PontoModel extends ORM
 
     private function buscarIdUsuarioPeloCpf()
     {
-        $Usuario = new ClienteEntity(validarToken: false);
-
-        $Usuario->buscar([
-            ['documento', soNumero($this->request->cpf)],
+        $cpf = soNumero($this->request->cpf);
+        $usuario = (new OrmHelper(TABELA_USUARIO_CLIENTE))->pegarPrimeiroRegistro([
+            ['documento', $cpf],
             ['status', 'in', Helper::STATUS_LIBERADO],
             [
                 'OR',
@@ -122,15 +112,9 @@ final class PontoModel extends ORM
                     ['tipo', 3]
                 ]
             ]
-        ], false);
-
-        if (empty($Usuario->id)) {
-            return $this->request->cpf;
-        }
-
-        $this->buscaCpf = $Usuario->getCpf();
-
-        return $Usuario->get('id');
+        ], campo: ['cpf', 'id'], retorno: 'object');
+        $this->buscaCpf = $cpf;
+        return $usuario->id ?? '';
     }
 
     private function validarRequest()

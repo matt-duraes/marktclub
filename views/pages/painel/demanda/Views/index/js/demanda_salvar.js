@@ -444,6 +444,7 @@ window.addEventListener('load', () => {
         const tipo = inputTipo.value;
         let valido = false;
         let body;
+        let abrir = false;
         if (tipo == 'cliente') {
             valido = await validarDadoCliente();
             body = await montarDadoCliente();
@@ -453,9 +454,11 @@ window.addEventListener('load', () => {
         } else if (tipo == 'bug') {
             valido = await validarDadoBug();
             body = await montarDadoBug();
+            abrir = true;
         } else if (tipo == 'outro' || tipo == 'feature') {
             valido = await validarDadoOutro();
             body = await montarDadoOutro();
+            abrir = true;
         } else if (tipo == 'criacao') {
             valido = await validarDadoCriacao();
             body = await montarDadoCriacao();
@@ -479,9 +482,14 @@ window.addEventListener('load', () => {
         if (false === json) {
             return;
         }
-        const PopupFechar = new Popup();
-        PopupFechar.fechar();
-        adicionarItem(primeiraColuna, json.dado, true);
+
+        PopupTemp.fechar();
+        setTimeout(() => {
+            resetarDemanda();
+        }, 300);
+
+        await adicionarNovaDemanda(primeiraColuna.querySelector('.conteudo'), json.dado, abrir);
+        contarTarefaDemanda(primeiraColuna);
     });
 
     /*
@@ -540,6 +548,7 @@ window.addEventListener('load', () => {
 
             const body = new FormData();
             body.append('tipo', inputTipo.value);
+            body.append('titulo', 'Novo clube de vantagens');
             body.append('empresa_nome', pegarEmpresaNome(inputEmpresaCliente));
             body.append('empresa', inputEmpresaCliente.value);
             body.append('dominio_tipo', inputDominioTipo.value);
@@ -600,6 +609,7 @@ window.addEventListener('load', () => {
 
             const body = new FormData();
             body.append('empresa_nome', pegarEmpresaNome(inputEmpresaAssociacao));
+            body.append('titulo', 'Novo site para associação');
             body.append('tipo', inputTipo.value);
             body.append('empresa', inputEmpresaAssociacao.value);
             body.append('texto', texto);

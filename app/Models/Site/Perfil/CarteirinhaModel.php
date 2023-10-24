@@ -7,18 +7,27 @@ use App\Helpers\ClubeApiHelper;
 
 final class CarteirinhaModel extends ClubeApiHelper
 {
-    /**
-     * @return object|array
-     * @throws Excecao
-     */
-    public function getDado(): object|array
+    public function buscarCampos(): object|array
     {
+        $empresa = sessao('CLUBE');
         $dado = $this
             ->validar('Página não encontrada!', status: 404)
-            ->get('/carteirinha/' . sessao('USUARIO.id'))
+            ->json([
+                'empresa'   => $empresa->empresa,
+                'pagina'    => 1
+            ])
+            ->get('/carteirinha')
             ->object();
+        return $dado->dado->lista[0];
+    }
 
-        return $this->montarRetorno($dado);
+    public function buscarDadosUsuario(): object|array
+    {
+        $dado = $this
+            ->validar('Usuário não encontrado!', status: 404)
+            ->get('/usuario-cliente/' . sessao('USUARIO.id'))
+            ->object();
+        return $this->montarRetorno($dado->dado);
     }
 
     /**
@@ -29,30 +38,14 @@ final class CarteirinhaModel extends ClubeApiHelper
      */
     private function montarRetorno($dado): object|array
     {
-        $r = $dado->dado[0];
         return (object)[
-            'nome'            => $this->Crypt->decode($r->usuario->nome) ?? '',
-            'matricula'       => $this->Crypt->decode($r->usuario->matricula) ?? '',
-            'cpf'             => $this->Crypt->decode($r->usuario->documento) ?? '',
-            'rg'              => $this->Crypt->decode($r->usuario->documento_rg) ?? '',
-            'endereco_estado' => $r->usuario->endereco_estado ?? '',
-            'texto'           => (object)[
-                'principal' => $r->texto->principal,
-                'perdido'   => $r->texto->perdido
+            'usuario' => (object) [
+                'nome'            => $this->Crypt->decode($dado->nome) ?? '',
+                'matricula'       => $this->Crypt->decode($dado->matricula) ?? '',
+                'cpf'             => $this->Crypt->decode($dado->cpf) ?? '',
+                'estado'          => $this->Crypt->decode($dado->endereco_estado) ?? '',
+                'data_nascimento' => $this->Crypt->decode($dado->data_nascimento) ?? '',
             ],
-            'empresa' => (object)[
-                'nome' => $r->empresa->nome
-            ],
-            'imagem' => (object)[
-                'logo'   => $r->imagem->logo,
-                'frente' => $r->imagem->frente,
-                'fundo'  => $r->imagem->fundo
-            ],
-            'data' => (object)[
-                'aniversario' => $r->data->aniversario ?? false,
-                'filiacao'    => $r->data->data_filiacao ?? false,
-                'emissao'     => $r->data->emissao ?? false,
-            ]
         ];
     }
 }

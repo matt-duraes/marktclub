@@ -1,17 +1,17 @@
 // @template "painel"
 // @system "Grafico"
+// @import "../../filtros/js/all"
+
 
 window.addEventListener('load', () => {
     const botaoBuscar = document.querySelector('#botao_buscar_relatorio');
-    const inputEmpresa = document.querySelector('#input_relatorio_empresa');
 
     const buscarGrafico = async () => {
-        let parametro = '';
-        if (inputEmpresa) {
-            parametro = '?empresa=' + inputEmpresa.value;
-        }
+        const valoresMarcados = pegarValoresMarcados();
 
-        const resposta = await fetch(LINK + '/relatorio/dado-usuario' + parametro, {
+        Loading.show();
+
+        const resposta = await fetch(LINK + `/relatorio/dado-usuario?empresa=${valoresMarcados}`, {
             method: 'GET',
             headers: {
                 'Content-Type': 'application/json',
@@ -21,6 +21,8 @@ window.addEventListener('load', () => {
             resposta,
             'Ocorreu um erro ao buscar gráficos, por favor, recarregue a página e tente novamente.'
         );
+
+        Loading.hide();
 
         if (false === json) {
             return;

@@ -41,6 +41,7 @@
     <div id="bloco_template_buscar"></div>
 
     @dir "/include/login.view"
+    @dir "/include/popup_promocao.view"
 
     <form action="/" method="post">
         <input type="hidden" name="LINK" id="LINK" value="{!!LINK!!}">

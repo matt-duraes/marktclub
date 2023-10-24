@@ -79,6 +79,59 @@ abstract class PaginaPadraoModel implements PaginaInterface
         return $this;
     }
 
+    protected function bloco(Closure $funcao, string $local = self::LOCAL_GERAL): self
+    {
+        $this->validarLocal($local);
+        call_user_func($funcao);
+        $funcaoFinal = $this->temp;
+
+        $this->funcao[] = [
+            'tipo'  => 'bloco',
+            'local' => $local,
+            'lista' => $funcaoFinal
+        ];
+
+        $this->temp = [];
+        return $this;
+    }
+
+    protected function blocoItem(string $texto, string $local = self::LOCAL_GERAL): self
+    {
+        $this->temp[] = [
+            'tipo'  => 'bloco_item',
+            'local' => $local,
+            'texto' => $texto
+        ];
+        return $this;
+    }
+
+    protected function blocoBotao(
+        string $texto,
+        string $link = null,
+        string $target = null,
+        string $acao = null,
+        string $local = self::LOCAL_GERAL
+    ): self {
+        $botao = [
+            'tipo'  => 'bloco_botao',
+            'local' => $local,
+            'texto' => $texto,
+        ];
+
+        if (!empty($link)) {
+            $this->validarLink($link);
+            $botao['link'] = $link;
+            $botao['target'] = $this->pegarTarget($target);
+        }
+
+        if (!empty($acao)) {
+            $botao['acao'] = $acao;
+        }
+
+        $this->temp[] = $botao;
+        return $this;
+    }
+
     /**
      * Cria um lista com logo
      *
@@ -305,13 +358,18 @@ abstract class PaginaPadraoModel implements PaginaInterface
     | PRIVADOS
     |--------------------------------------------------------------------------
     */
-    private function botaoGeral($texto, $link, $target, $local, $tipo)
-    {
+    private function botaoGeral(
+        $texto,
+        $link,
+        $target,
+        $local,
+        $tipo
+    ) {
         $this->validarLocal($local);
         $dado = [
             'tipo'  => $tipo,
             'local' => $local,
-            'texto' => $texto
+            'texto' => $texto,
         ];
         if (!empty($link)) {
             $this->validarLink($link);
@@ -319,6 +377,7 @@ abstract class PaginaPadraoModel implements PaginaInterface
             $dado['target'] = $this->pegarTarget($target);
         }
         $this->funcao[] = $dado;
+        return $dado;
     }
 
     private function textoGeral($tipo, $texto, $local)
@@ -336,7 +395,7 @@ abstract class PaginaPadraoModel implements PaginaInterface
         if (in_array($local, [self::LOCAL_DESKTOP, self::LOCAL_GERAL, self::LOCAL_MOBILE])) {
             return;
         }
-        mensagemErro(titulo: 'Erro!', mensagem: 'Local inválido.');
+        mensagemErro(mensagem: 'Local inválido.');
     }
 
     private function validarLink(string $link): void

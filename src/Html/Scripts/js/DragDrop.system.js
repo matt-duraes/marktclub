@@ -162,8 +162,8 @@ class DragDrop {
         if (!this._vazio(this._eventoClone)) {
             option.onClone = this._eventoClone;
         }
-        if (!this._vazio(this._eventoChange)) {
-            option.onChange = this._eventoChange;
+        if (!this._vazio(this._eventoAlterar)) {
+            option.onChange = this._eventoAlterar;
         }
         return option;
     }

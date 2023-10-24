@@ -10,6 +10,9 @@ final class Ordem extends Order
     public const TITULO_AZ = 'titulo-a-z';
     public const TITULO_ZA = 'titulo-z-a';
 
+    /**
+     * @param string|null $valor
+     */
     public function __construct(
         protected ?string $valor = null
     ) {

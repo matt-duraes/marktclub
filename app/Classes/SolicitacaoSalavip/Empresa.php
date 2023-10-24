@@ -9,6 +9,9 @@ final class Empresa extends Status
     public const ANAFE = 'anafe';
     public const ANAPE = 'anape';
 
+    /**
+     * @param string|int|null $valor
+     */
     public function __construct(
         protected string|int|null $valor = null
     ) {

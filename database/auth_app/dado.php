@@ -128,11 +128,12 @@ $scope = [
     'solicitacao_automovel:listar', 'solicitacao_automovel:buscar', 'solicitacao_automovel:salvar',
     'solicitacao_automovel:atualizar',
 
-    'carteirinha:buscar',
+    'carteirinha:buscar', 'carteirinha:listar', 'carteirinha:salvar',
+    'carteirinha:atualizar', 'carteirinha:deletar', 'carteirinha:clube',
 
-    'comunicacao_popup:buscar', 'comunicacao_popup:listar',
-    'comunicacao_popup:salvar', 'comunicacao_popup:atualizar', 'comunicacao_popup:deletar',
-    'comunicacao_popup:ordenar',
+    'comercial_popup:buscar', 'comercial_popup:listar',
+    'comercial_popup:salvar', 'comercial_popup:atualizar', 'comercial_popup:deletar',
+    'comercial_popup:ordenar', 'comercial_popup:popup',
 
     'enquete_satisfacao:listar', 'enquete_satisfacao:buscar', 'enquete_satisfacao:salvar',
     'enquete_satisfacao:atualizar', 'enquete_satisfacao:deletar',
@@ -142,8 +143,8 @@ $scope = [
 
     'parceiro_cupom:buscar', 'parceiro_cupom:listar', 'parceiro_cupom:atualizar',
 
-    'comunicacao_contato:buscar', 'comunicacao_contato:listar', 'comunicacao_contato:salvar',
-    'comunicacao_contato:atualizar',
+    'solicitacao_contato:buscar', 'solicitacao_contato:listar', 'solicitacao_contato:salvar',
+    'solicitacao_contato:atualizar',
 
     'mensagem_indicacao_parceiro:salvar', 'mensagem_indicacao_parceiro:listar', 'mensagem_indicacao_parceiro:buscar',
 

@@ -352,10 +352,7 @@ class CurlHelper
         curl_close($ch);
 
         $tokenInvalido = $this->erroLogin && in_array($this->status(), [401, 403]) && !empty(route('sair.index'));
-        if ($tokenInvalido && defined('VIEW') && VIEW) {
-            header('LOCATION: ' . route('sair.index'));
-            exit();
-        } elseif ($tokenInvalido) {
+        if ($tokenInvalido) {
             mensagemErro(
                 'Usuário deslogado!',
                 'O usuário foi deslogado, por favor, faça o login novamente.',

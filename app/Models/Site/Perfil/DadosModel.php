@@ -134,6 +134,7 @@ final class DadosModel extends ClubeApiHelper
             ->put('/usuario-cliente/' . $this->idUsuario)
             ->object();
         sessao('USUARIO.imagem', $imagem);
+
         return mensagemSucesso([
             'imagem' => $imagem
         ], status: 201);

@@ -1,5 +1,7 @@
 <?php
 
+use App\Models\Site\Popup\PopupModel;
+
 $USUARIO = sessao('USUARIO');
 
 define('USUARIO_ID', $USUARIO['id']);
@@ -11,3 +13,5 @@ define('MENU_HOVER', isset($menu) ? $menu : '');
 
 include ROOT . '/resources/php/site/icone.php';
 include ROOT . '/resources/php/site/tema.php';
+
+$popupPromocao = (new PopupModel())->listar();

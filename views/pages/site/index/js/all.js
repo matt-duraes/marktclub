@@ -2,6 +2,7 @@
 // @system "Historico"
 // @system "Banner"
 // @system "Esqueleto"
+// @system "Popup"
 // @resource "site/loja/favorito"
 // @resource "site/loja/parceiro"
 

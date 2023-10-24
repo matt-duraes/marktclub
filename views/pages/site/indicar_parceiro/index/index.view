@@ -8,8 +8,8 @@
             </header>
 
             @? formInput(name: 'indicar_loja_nome', placeholder: 'Qual o nome do parceiro?', label: '', obrigatorio: true, class: 'busca_nome', local: 'Nome da loja')
-            @? formTelefone(name: 'indicar_loja_telefone', placeholder: 'Você tem o telefone do parceiro?', label: '', class: 'busca_telefone', local: '61981777773')
-            @? formEmail(name: 'indicar_loja_email', label: 'E-mail do parceiro', placeholder: 'Você tem o e-mail do parceiro?', local: 'email@loja.com')
+            @? formTelefone(name: 'indicar_loja_telefone',obrigatorio: true, placeholder: 'Você tem o telefone do parceiro?', label: '', class: 'busca_telefone', local: '61981777773')
+            @? formEmail(name: 'indicar_loja_email', label: 'E-mail do parceiro', obrigatorio: true, placeholder: 'Você tem o e-mail do parceiro?', local: 'email@loja.com')
             @? formTextarea(name: 'indicar_loja_nome_mensagem', placeholder: 'Digite uma mensagem', obrigatorio: true, label: 'Mensagem', local: 'Olá mundo!')
 
             <div class="footer_pagina_popup">
