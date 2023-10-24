@@ -683,8 +683,8 @@ Route
             ::request(['code'])
             ::post('/perfil/vincular-google');
         Route
-            ::nome('carteira')
-            ::view('/perfil/carteira');
+            ::nome('carteirinha')
+            ::view('/perfil/carteirinha');
         Route
             ::nome('buscarCep')
             ::request(['cep'])

@@ -1,35 +1,36 @@
 @CSS
 
+
 <div id="carteirinha_clube">
     <!-- /style="background-image: url(frente_sinpoldf.png)/ -->
     <div class="bloco_frente">
-        <!-- @if ($dado->empresa != '61df17919405cf68f723510ec3af4acd'): -->
+        @if ($dado->empresa != '61df17919405cf68f723510ec3af4acd'):
         <div class="bloco_logo">
             <img
-            src="https://apiv4.markt.club/aqiorvd.Qr5ceRUSr1vZkcWzCEctToo5lxTaPtsqqMBpq-wCFlBHfpZAE3Hv17r2vnsAthZB"
+            src="{{$dado->bg_frente}}"
             alt="logo do clube">
         </div>
-        <!-- @endif; -->
+        @endif;
         <div class="bloco_dados">
-            <!-- @if ($dado->nome == 'sim'): -->
+            @if ($dado->nome == 'sim'):
             <div class="bloco_nome">
                 <p class="{texto_claro}">NOME</p>
-                <p class="dados_carteirinha ">Mateus Durães</p>
+                <p class="dados_carteirinha ">{{$dados_cliente->nome}}</p>
             </div>
-            <!-- @endif; -->
+            @endif;
             <div class="dois_blocos">
-                <!-- @if ($dado->cpf == 'sim'): -->
+                @if ($dado->cpf == 'sim'):
                 <div class="bloco_cpf">
                     <p class="{texto_claro}">CPF</p>
-                    <p class="dados_carteirinha">07385666167</p>
+                    <p class="dados_carteirinha">{{$dados_cliente->cpf}}</p>
                 </div>
-                <!-- @endif -->
-                <!-- @if ($dado->data_criacao == 'sim'): -->
+                @endif
+                @if ($dado->data_criacao == 'sim'):
                 <div class="bloco_data_emissao">
                     <p class="{texto_claro}">DATA DE EMISSÃO</p>
-                    <p class="dados_carteirinha ">23/10/2023</p>
+                    <p class="dados_carteirinha ">{{$data_emissao}}</p>
                 </div>
-                <!-- @endif; -->
+                @endif;
             </div>
 
             <div class="bloco_estado">
@@ -38,9 +39,5 @@
         </div>
     </div>
 </div>
-
-
-
-
 
 

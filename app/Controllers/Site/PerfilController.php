@@ -56,6 +56,20 @@ final class PerfilController extends Controller
         (new DependenteModel())->deletarDependente($request);
         return new Response(status: 204);
     }
+    public function carteirinha()
+    {
+        $campos_carteirinha = (new CarteirinhaModel())->buscarCampos();
+        $dados_cliente = ((new CarteirinhaModel())->buscarDadosUsuario());
+        $data_emissao  = date('d/m/Y', strtotime($campos_carteirinha->data_criacao));
+        return view(
+            'perfil.carteirinha',
+            [
+                'dado' =>  $campos_carteirinha,
+                'dados_cliente' => $dados_cliente->usuario,
+                'data_emissao' => $data_emissao,
+            ]
+        );
+    }
 
     public function carteira(): Response
     {
