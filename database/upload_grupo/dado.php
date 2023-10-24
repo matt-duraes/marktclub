@@ -40,4 +40,10 @@ return [
         'diretorio' => 'carteirinha',
         'extensao'  => ['png']
     ],
+    [
+        'uuid'      => '00a9c7ca-7dd9-43a1-9dc7-20297a26d49d',
+        'nome'      => 'Popup',
+        'diretorio' => 'popup',
+        'extensao'  => ['png', 'jpg', 'jpeg', 'gif']
+    ]
 ];

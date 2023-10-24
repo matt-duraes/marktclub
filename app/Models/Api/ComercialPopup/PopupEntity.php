@@ -7,11 +7,9 @@ use App\Classes\ComercialPopup\Status;
 use App\Models\Api\Trait\ValidarEmpresaTrait;
 use Erro\Excecao;
 use Helpers\OrmHelper;
-use Helpers\UploadHelper;
 use Modules\Data;
 use Modules\Link;
 use ORM\Entity;
-use Symfony\Component\HttpFoundation\File\UploadedFile;
 
 class PopupEntity extends Entity
 {
@@ -19,7 +17,7 @@ class PopupEntity extends Entity
 
     public ?int $id_form_popup;
     public string $slug;
-    public UploadedFile|UploadHelper|string $imagem;
+    public string $imagem;
     public string $titulo;
     public string $texto;
     public string $regulamento;
