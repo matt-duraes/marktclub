@@ -9,10 +9,10 @@ window.addEventListener('load', () => {
     const saldo = $('#input_ponto_saldo').value;
     const botaoPopupResgate = $('#botao_popup_resgate');
     if (saldo <= 0) {
-        // botaoSolicitarResgate.addEventListener('click', () => {
-        //     Alerta.mensagem('Verificar titulo', 'Verificar qual mensagem está hoje.', '!');
-        // });
-        // return;
+        botaoSolicitarResgate.addEventListener('click', () => {
+            Alerta.mensagem('Salvo inválido!', 'Você precisa de pelo menos 1 ponto para solictar resgate.', '!');
+        });
+        return;
     }
     const PopupResgate = new Popup('Resgatar pontos', 'bloco_resgatar_ponto');
     botaoPopupResgate.addEventListener('click', () => {
@@ -43,7 +43,7 @@ window.addEventListener('load', () => {
             return;
         }
         PopupResgate.fechar();
-        await Alerta.mensagem('Mensagem Sucesso!', 'Mensagem de sucesso aqui.', true);
+        await Alerta.mensagem('Dados Enviados!', 'Sua solicitação foi enviada. Aguarde nosso retorno!', true);
         Loading.show();
         window.location.replace(LINK + '/ponto-cvs');
     };
