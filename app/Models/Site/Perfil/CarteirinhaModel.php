@@ -18,7 +18,6 @@ final class CarteirinhaModel extends ClubeApiHelper
             ])
             ->get('/carteirinha')
             ->object();
-        ppe($dado);
         return $dado->dado->lista[0];
     }
 
@@ -46,6 +45,7 @@ final class CarteirinhaModel extends ClubeApiHelper
                 'matricula'       => $this->Crypt->decode($dado->matricula) ?? '',
                 'cpf'             => $this->Crypt->decode($dado->cpf) ?? '',
                 'estado'          => $this->Crypt->decode($dado->endereco_estado) ?? '',
+                'data_nascimento' => $this->Crypt->decode($dado->data_nascimento) ?? '',
             ],
         ];
     }

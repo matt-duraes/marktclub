@@ -1,41 +1,51 @@
 @CSS
 
-
 <div id="carteirinha_clube">
-    <!-- /style="background-image: url(frente_sinpoldf.png)/ -->
-    <div class="bloco_frente">
-        @if ($dado->empresa != '61df17919405cf68f723510ec3af4acd'):
+    <div class="bloco_frente" style="background-image: ({{$dado->bg_frente}});">
         <div class="bloco_logo">
             <img
-            src="{{$dado->bg_frente}}"
+            src="{{CLUBE_LOGO_PRINCIPAL}}"
             alt="logo do clube">
         </div>
-        @endif;
         <div class="bloco_dados">
             @if ($dado->nome == 'sim'):
-            <div class="bloco_nome">
-                <p class="{texto_claro}">NOME</p>
-                <p class="dados_carteirinha ">{{$dados_cliente->nome}}</p>
+            <div class="bloco_nome bloco_infos">
+                <p>Nome</p>
+                <p>{{$dados_cliente->nome}}</p>
             </div>
             @endif;
-            <div class="dois_blocos">
-                @if ($dado->cpf == 'sim'):
-                <div class="bloco_cpf">
-                    <p class="{texto_claro}">CPF</p>
-                    <p class="dados_carteirinha">{{$dados_cliente->cpf}}</p>
-                </div>
-                @endif
-                @if ($dado->data_criacao == 'sim'):
-                <div class="bloco_data_emissao">
-                    <p class="{texto_claro}">DATA DE EMISSÃO</p>
-                    <p class="dados_carteirinha ">{{$data_emissao}}</p>
-                </div>
-                @endif;
+            @if ($dado->cpf == 'sim'):
+            <div class="bloco_cpf bloco_infos">
+                <p>Cpf</p>
+                <p>{{$dados_cliente->cpf}}</p>
             </div>
+            @endif
+            @if ($dado->data_criacao == 'sim'):
+            <div class="bloco_data_emissao bloco_infos">
+                <p>Data de emissão</p>
+                <p>{{$data_emissao}}</p>
+            </div>
+            @endif;
+            @if($dado->data_nascimento == 'sim'):
+            <div class="bloco_estado bloco_infos">
+                <p>Data de nascimento</p>
+                <p>{{$dados_cliente->data_nascimento}}</p>
+            </div>
+            @endif;
+            @if($dado->matricula == 'sim'):
+            <div class="bloco_estado bloco_infos">
+                <p>Matrícula</p>
+                <p>{{$dados_cliente->matricula}}</p>
+            </div>
+            @endif;
 
-            <div class="bloco_estado">
-                <p class="{texto_claro}">BRASÍLIA-DF</p>
+            @if($dado->estado == 'sim'):
+            <div class="bloco_estado bloco_infos">
+                <p>Estado</p>
+                <p>{{$dados_cliente->estado}}</p>
             </div>
+            @endif;
+
         </div>
     </div>
 </div>
