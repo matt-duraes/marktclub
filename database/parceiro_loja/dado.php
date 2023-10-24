@@ -123,7 +123,7 @@ $listaTipo = (new Tipo())->listarNumero();
 $listaStatus = (new Status())->listarNumero();
 $seeds = [
     [
-        'id' => 1,
+        'id'                  => 1,
         'cod'                 => '9792e058562303f9e7e0604c5117c569',
         'categoria_principal' => '1',
         'categoria_todas'     => '["1","2","3","4","5","6","7","8"]',
