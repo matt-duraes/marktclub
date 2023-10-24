@@ -20,7 +20,7 @@ class PegarCarteirinhaModel extends ORM
     ) {
         parent::__construct();
 
-        if(empty(TOKEN['usuario'])) {
+        if (empty(TOKEN['usuario'])) {
             mensagemErro('Usuário não encontrado');
         }
 
@@ -90,7 +90,7 @@ class PegarCarteirinhaModel extends ORM
     {
         $usuario = $this->usuario;
 
-        if(empty($usuario)) {
+        if (empty($usuario)) {
             return object([]);
         }
 

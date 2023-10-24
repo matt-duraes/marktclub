@@ -60,7 +60,7 @@
         <p>
             Para obter informações detalhadas sobre como a co-participação funciona no nosso plano de saúde, consulte nossa tabela de co-participação. Ela contém uma lista abrangente de serviços e os valores de co-participação correspondentes.
         </p>
-        <a href="{{!!LINK_PADRAO}}/images/saude/tabela_coparticipacao.pdf" class="botao_geral_cor cor_bg" download="tabela_coparticipacao">
+        <a href="{!!LINK_PADRAO!!}/images/saude/tabela_coparticipacao.pdf" class="botao_geral_cor cor_bg" download="tabela_coparticipacao">
             Baixar tabela
         </a>
     </div>

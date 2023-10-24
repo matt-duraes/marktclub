@@ -13,7 +13,7 @@ final class CarteirinhaModel extends ClubeApiHelper
         $dado = $this
             ->validar('Página não encontrada!', status: 404)
             ->json([
-                'empresa' => $empresa->empresa,
+                'empresa'   => $empresa->empresa,
                 'pagina'    => 1
             ])
             ->get('/carteirinha')
@@ -25,10 +25,9 @@ final class CarteirinhaModel extends ClubeApiHelper
     {
         $dado = $this
             ->validar('Usuário não encontrado!', status: 404)
-            ->get('/usuario-cliente/'.sessao('USUARIO.id'))
+            ->get('/usuario-cliente/' . sessao('USUARIO.id'))
             ->object();
         return $this->montarRetorno($dado->dado);
-
     }
 
     /**
@@ -49,5 +48,4 @@ final class CarteirinhaModel extends ClubeApiHelper
             ],
         ];
     }
-
 }
