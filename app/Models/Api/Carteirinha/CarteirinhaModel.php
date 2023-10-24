@@ -2,6 +2,7 @@
 
 namespace App\Models\Api\Carteirinha;
 
+use Helpers\OrmHelper;
 use ORM\ORM;
 use stdClass;
 use Erro\Excecao;
@@ -14,12 +15,10 @@ use App\Classes\Carteirinha\Status;
 use System\Trait\Model\PaginaTrait;
 use System\Trait\Model\QuantidadeTrait;
 use System\Interface\ModelListarInterface;
-use App\Models\Api\Trait\ValidarEmpresaTrait;
 
 class CarteirinhaModel extends ORM implements
     ModelListarInterface
 {
-    use ValidarEmpresaTrait;
     use PaginaTrait;
     use QuantidadeTrait;
     use OrdemTrait;
@@ -42,7 +41,6 @@ class CarteirinhaModel extends ORM implements
         private readonly ?string $empresa = null,
         private readonly Status $status = new Status()
     ) {
-        $this->validarEmpresa();
         parent::__construct();
     }
 
@@ -54,8 +52,8 @@ class CarteirinhaModel extends ORM implements
     {
         $dados = $this
             ->campo([
-                'uuid', 'bg_frente', 'bg_fundo', 'nome', 'cpf', 'matricula', 'data_nascimento',
-                'status', 'data_criacao', 'data_atualizacao'
+                'uuid', 'bg_frente', 'bg_fundo', 'titulo', 'nome', 'cpf', 'matricula', 'data_nascimento',
+                'status', 'data_criacao', 'data_atualizacao', 'estado'
             ])
             ->where($this->pegarWhere(), false)
             ->pagina($this->pegarPagina(), $this->pegarQuantidade())
@@ -63,7 +61,7 @@ class CarteirinhaModel extends ORM implements
             ->tabela(TABELA_COMERCIAL_EMPRESA)
             ->join('id', 'id_admin_empresa')
             ->campo([
-                'uuid', 'nome_fantasia'
+                'uuid'
             ], 'empresa')
             ->read();
 
@@ -79,6 +77,10 @@ class CarteirinhaModel extends ORM implements
         $where = $this->ormWherePadrao;
         if ($this->status->valido()) {
             $where[] = ['status', $this->status->numero()];
+        }
+        if (!empty($this->empresa)) {
+            $ormHelper = new OrmHelper(TABELA_COMERCIAL_EMPRESA);
+            $where[] = ['id_admin_empresa', $ormHelper->pegarIdPeloUuid($this->empresa)];
         }
         return $where;
     }
@@ -99,13 +101,15 @@ class CarteirinhaModel extends ORM implements
         foreach ($carteirinhas as $r) {
             $retorno[] = [
                 'id'               => $r->uuid,
+                'titulo'           => $r->titulo,
                 'empresa'          => $r->empresa_uuid,
                 'bg_frente'        => arquivoPrivado($r->bg_frente),
                 'bg_fundo'         => arquivoPrivado($r->bg_fundo),
                 'nome'             => (new Botao($r->nome))->valor(),
-                'cpf'              => (new Botao($r->nome))->valor(),
-                'matricula'        => (new Botao($r->nome))->valor(),
-                'data_nascimento'  => (new Botao($r->nome))->valor(),
+                'cpf'              => (new Botao($r->cpf))->valor(),
+                'matricula'        => (new Botao($r->matricula))->valor(),
+                'data_nascimento'  => (new Botao($r->data_nascimento))->valor(),
+                'estado'           => (new Botao($r->estado))->valor(),
                 'data_criacao'     => $r->data_criacao,
                 'data_atualizacao' => $r->data_atualizacao,
                 'status'           => $Status->indice($r->status),

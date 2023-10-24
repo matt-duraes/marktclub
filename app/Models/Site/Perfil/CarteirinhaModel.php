@@ -10,17 +10,15 @@ final class CarteirinhaModel extends ClubeApiHelper
     public function buscarCampos(): object|array
     {
         $empresa = sessao('CLUBE');
-
         $dado = $this
             ->validar('Página não encontrada!', status: 404)
             ->json([
-                'empresa' => $empresa->id,
-                'status' => 'ativo',
+                'empresa' => $empresa->empresa,
                 'pagina'    => 1
             ])
             ->get('/carteirinha')
             ->object();
-
+        ppe($dado);
         return $dado->dado->lista[0];
     }
 

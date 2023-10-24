@@ -851,22 +851,19 @@ Route
 
 Route
     ::nome('pagina')
-    ::middleware(TokenMiddleware::class, 'token')
+    ::middleware(TokenProvMiddleware::class, 'token')
     ::controller(App\Controllers\Api\PaginaController::class)
     ::grupo(function () {
         Route
             ::nome('turismo')
-            ::middleware(TokenMiddleware::class, 'scope', ['pagina:turismo'])
             ::get('/pagina/turismo');
 
         Route
             ::nome('cinema')
-            ::middleware(TokenMiddleware::class, 'scope', ['pagina:cinema'])
             ::get('/pagina/cinema');
 
         Route
             ::nome('samsung')
-            ::middleware(TokenMiddleware::class, 'scope', ['pagina:samsung'])
             ::get('/pagina/samsung');
     });
 
@@ -1750,7 +1747,7 @@ Route
             ::nome('salvar')
             ::middleware(TokenMiddleware::class, 'scope', ['carteirinha:salvar'])
             ::request([
-                'empresa', 'bg_frente', 'bg_fundo', 'nome', 'cpf', 'matricula', 'data_nascimento', 'status'
+                'empresa', 'bg_frente', 'bg_fundo', 'titulo', 'nome', 'cpf', 'matricula', 'data_nascimento', 'status', 'estado'
             ])
             ::post('/carteirinha');
 
@@ -1758,7 +1755,7 @@ Route
             ::nome('atualizar')
             ::middleware(TokenMiddleware::class, 'scope', ['carteirinha:atualizar'])
             ::request([
-                '!bg_frente', '!bg_fundo', '!nome', '!cpf', '!matricula', '!data_nascimento', '!status'
+                '!bg_frente', '!empresa', '!titulo', '!bg_fundo', '!nome', '!cpf', '!matricula', '!data_nascimento', '!status', '!estado'
             ])
             ::put('/carteirinha/{id}');
 
