@@ -4,7 +4,7 @@
     <input type="hidden" id="input_ponto_saldo" value="{{$r->saldo->saldo ?? 0}}">
     <div class="bloco_texto bloco_titulo_texto">
         <figure>
-            <img src="{!!LINK_PADRAO!!}/images/site/logo_sindicato_bancarios.png" height="80" alt="Logo Silium">
+            <img src="{!!LINK_PADRAO!!}/images/site/logo_sindicato_bancarios.png" height="50" alt="Logo Ponto Cvs">
         </figure>
 
         <h1 class="titulo">PONTO + AÇÃO </h1>
@@ -94,7 +94,7 @@
                     <thead>
                         <tr>
                             <th>PONTOS</th>
-                            <th>VOUCHER</th>
+                            <th>CARTÃO PRESENTE</th>
                             <th>DATA DE SOLICITAÇÃO</th>
                             <th>DATA DE VENCIMENTO</th>
                             <th>STATUS</th>
@@ -105,7 +105,7 @@
                             @foreach ($r->lista as $re) :
                             <tr>
                                 <td data-label="PONTOS">{{$re->ponto}}</td>
-                                <td data-label="VOUCHER">{{$re->voucher}}</td>
+                                <td data-label="CARTÃO PRESENTE">{{$re->voucher}}</td>
                                 <td data-label="DATA DE SOLICITAÇÃO">{{$re->data_solicitacao}}</td>
                                 <td data-label="DATA DE VENCIMENTO">{{$re->data_voucher}}</td>
                                 <td data-label="STATUS">{{$re->status}}</td>
