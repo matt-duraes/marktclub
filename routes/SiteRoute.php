@@ -446,7 +446,7 @@ Route
             ::view('/saude/unimed-vitoria');
         Route
             ::nome('unimedflorianopolis')
-            ::view('/saude/central-nacional-unimed-florianopolis');
+            ::view('/saude/cnu-florianopolis');
         Route
             ::nome('tabela')
             ::request(['id'])

@@ -155,12 +155,13 @@ final class PlanoSaudeController extends Controller
     public function simulacao($url = null): Response
     {
         $operadora = ($url == 'unimed-vitoria') ? 'unimed' : $url;
-        if ($operadora == 'central-nacional-unimed-florianopolis') {
+        if ($operadora == 'cnu-florianopolis') {
             $operadora = str_replace('-', '_', $url);
         }
         if ($operadora == 'unimed-seguros') {
             $operadora = str_replace('-', '_', $url);
         }
+
         return view('plano_saude.simulacao', [
             'menu'      => 'saude',
             'operadora' => $operadora,
