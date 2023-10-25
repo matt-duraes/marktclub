@@ -55,7 +55,6 @@ final class AppController extends PadraoController
             $parametro = $this->criptografarListaDado($parametro, array_keys($parametro), $config->api->criptografar);
             $dado = (new ApiHelper(token: true))->json($parametro)->get($config->api->uri);
             $dado = $this->validarRetornoApi($dado, true);
-
             if ($dado instanceof Response) {
                 return $dado;
             }

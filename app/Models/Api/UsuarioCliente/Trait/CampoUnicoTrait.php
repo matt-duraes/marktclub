@@ -20,7 +20,11 @@ trait CampoUnicoTrait
         ];
 
         if ($this->ormEntityExiste) {
-            $where[] = ['id', '!=', $this->prop('id')];
+            $where = [
+                ['documento', $cpf],
+                ['empresa', $this->id_admin_empresa],
+                ['id', '!=', $this->prop('id')]
+            ];
         }
 
         if ($this->existe($where)) {
@@ -47,7 +51,15 @@ trait CampoUnicoTrait
         ];
 
         if ($this->ormEntityExiste) {
-            $where[] = ['id', '!=', $this->prop('id')];
+            $where = [
+                [
+                    'OR',
+                    ['email_trabalho', $this->email_trabalho->email()],
+                    ['email_pessoal', $this->email_trabalho->email()]
+                ],
+                ['empresa', $this->id_admin_empresa],
+                ['id', '!=', $this->prop('id')]
+            ];
         }
 
         if ($this->existe($where)) {
@@ -63,13 +75,26 @@ trait CampoUnicoTrait
         if (!$this->propriedadeExiste('email_pessoal') || empty($this->email_pessoal->email())) {
             return;
         }
+
         $where = [
-            ['email_pessoal', $this->email_pessoal->email()],
+            [
+                'OR',
+                ['email_trabalho', $this->email_pessoal->email()],
+                ['email_pessoal', $this->email_pessoal->email()]
+            ],
             ['empresa', $this->idEmpresa]
         ];
 
         if ($this->ormEntityExiste) {
-            $where[] = ['id', '!=', $this->prop('id')];
+            $where = [
+                [
+                    'OR',
+                    ['email_trabalho', $this->email_pessoal->email()],
+                    ['email_pessoal', $this->email_pessoal->email()]
+                ],
+                ['empresa', $this->id_admin_empresa],
+                ['id', '!=', $this->prop('id')]
+            ];
         }
 
         if ($this->existe($where)) {
@@ -92,7 +117,11 @@ trait CampoUnicoTrait
         ];
 
         if ($this->ormEntityExiste) {
-            $where[] = ['id', '!=', $this->prop('id')];
+            $where = [
+                ['matricula', $matricula],
+                ['empresa', $this->id_admin_empresa],
+                ['id', '!=', $this->prop('id')]
+            ];
         }
 
         if ($this->existe($where)) {
@@ -115,7 +144,11 @@ trait CampoUnicoTrait
         ];
 
         if ($this->ormEntityExiste) {
-            $where[] = ['id', '!=', $this->prop('id')];
+            $where = [
+                ['siape', $siape],
+                ['empresa', $this->id_admin_empresa],
+                ['id', '!=', $this->prop('id')]
+            ];
         }
 
         if ($this->existe($where)) {
