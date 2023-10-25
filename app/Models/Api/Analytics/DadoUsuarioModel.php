@@ -32,8 +32,9 @@ final class DadoUsuarioModel extends ORM
         if (!$dado) {
             return $this->retornarListaZerada();
         }
-        $dado = $this->somarAsEmpresas($dado);
 
+        $dado = $this->pegarPrimerioDasEmpresas($dado);
+        $dado = $this->somarAsEmpresas($dado);
         return $this->montarDado($dado);
     }
 
@@ -56,6 +57,22 @@ final class DadoUsuarioModel extends ORM
         }
 
         return ['id_admin_empresa', 'in', $empresaId];
+    }
+
+    private function pegarPrimerioDasEmpresas($dado)
+    {
+        $resultados = [];
+        $idsEncontrados = [];
+
+        foreach ($dado as $item) {
+            $id = $item->id_admin_empresa;
+            if (!in_array($id, $idsEncontrados)) {
+                $idsEncontrados[] = $id;
+                $resultados[] = $item;
+            }
+        }
+
+        return $resultados;
     }
 
     private function somarAsEmpresas($dados)
