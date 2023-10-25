@@ -12,7 +12,7 @@
     @? formInput(name: 'evento_metragem', label: 'Metragem utilizável', placeholder: 'Metragem utilizável')
     @? formNumero(name: 'evento_participantes_quantidade', label: 'Número de participantes', placeholder: 'Número de participantes')
     @? formInput(name: 'evento_publico_esperado', label: 'Público esperado', placeholder: 'Público esperado')
-    @? formInput(name: 'evento_parceiros_quantidade', label: 'Quantidade de parceiros esperado', placeholder: 'Quantidade de parceiros esperado')
+    @? formNumero(name: 'evento_parceiros_quantidade', label: 'Quantidade de parceiros esperado', placeholder: 'Quantidade de parceiros esperado')
     @? formInput(name: 'evento_esperado_da_empresa', label: 'O que é esperado da empresa?', placeholder: 'O que é esperado da empresa?')
     @? formInput(name: 'evento_materiais', label: 'Materiais para levar', placeholder: 'Materiais para levar')
 </div>
