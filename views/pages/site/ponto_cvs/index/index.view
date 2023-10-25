@@ -94,7 +94,7 @@
                     <thead>
                         <tr>
                             <th>PONTOS</th>
-                            <th>VOUCHER</th>
+                            <th>CARTÃO PRESENTE</th>
                             <th>DATA DE SOLICITAÇÃO</th>
                             <th>DATA DE VENCIMENTO</th>
                             <th>STATUS</th>
@@ -105,7 +105,7 @@
                             @foreach ($r->lista as $re) :
                             <tr>
                                 <td data-label="PONTOS">{{$re->ponto}}</td>
-                                <td data-label="VOUCHER">{{$re->voucher}}</td>
+                                <td data-label="CARTÃO PRESENTE">{{$re->voucher}}</td>
                                 <td data-label="DATA DE SOLICITAÇÃO">{{$re->data_solicitacao}}</td>
                                 <td data-label="DATA DE VENCIMENTO">{{$re->data_voucher}}</td>
                                 <td data-label="STATUS">{{$re->status}}</td>
