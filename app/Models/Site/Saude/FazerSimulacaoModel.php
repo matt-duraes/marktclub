@@ -2,9 +2,9 @@
 
 namespace App\Models\Site\Saude;
 
-use App\Helpers\ClubeApiHelper;
 use Erro\Excecao;
 use Http\Request;
+use App\Helpers\ClubeApiHelper;
 
 final class FazerSimulacaoModel extends ClubeApiHelper
 {
@@ -30,6 +30,7 @@ final class FazerSimulacaoModel extends ClubeApiHelper
     private function salvarSimulacao($request): void
     {
         $dado = $this
+            ->validar('Ocorreu um erro ao fazer a sua simulação')
             ->body([
                 'operadora'        => $request->operadora,
                 'regiao'           => $request->regiao,
@@ -40,7 +41,6 @@ final class FazerSimulacaoModel extends ClubeApiHelper
             ])
             ->post('/saude/simulacao')
             ->object();
-
         $this->montarSimulacao($dado->dado);
     }
 

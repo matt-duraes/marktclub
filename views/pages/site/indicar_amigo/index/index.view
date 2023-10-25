@@ -10,6 +10,7 @@
         <p>Basta colocar os dados do seu amigo, que a liberação do seu acesso será automática! Quando você indica, você também demonstra sua amizade!</p>
 
         @? formInput(name: 'nome', placeholder: 'Digite o nome do seu amigo', label: 'Nome', local: 'André Rodrigues')
+        @? formTelefone(name: 'telefone', label: 'Telefone', placeholder: 'Digite o telefone do seu amigo');
         @? formEmail(name: 'email', placeholder: 'Digite o email do seu amigo', label: 'E-mail', local: 'andrerodrigues@andrerodrigues.com')
 
         <div class="bloco_botao">
