@@ -634,6 +634,12 @@ Route
             ::nome('indiqueAmigo')
             ::view('/indique-um-amigo');
         Route
+            ::nome('indicarAmigo')
+            ::request([
+                'nome', 'email', 'telefone'
+            ])
+            ::post('/indicar-amigo');
+        Route
             ::nome('abrirModalEnquetePopup')
             ::view('/enquete-popup/{id}');
         Route
