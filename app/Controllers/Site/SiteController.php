@@ -6,7 +6,6 @@ use Erro\Excecao;
 use Http\Request;
 use Http\Response;
 use Controller\Controller;
-use App\Models\Api\UsuarioIndicacao\IndicacaoModel;
 use App\Models\Site\Site\IndicacaoModel as SiteIndicacaoModel;
 use App\Models\Site\Pesquisa\SalvarModel as SalvarPesquisaModel;
 
