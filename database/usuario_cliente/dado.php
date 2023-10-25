@@ -74,7 +74,27 @@ $seeds = [
         'email_pessoal'  => emailAleatorio(),
         'salt'           => password('Teste@1324'),
         'status'         => 1
-    ]
+    ],
+    [
+        'cod'           => '7e3795ef-ef0c-49af-bfda-afd948a23d6e',
+        'empresa'       => 1,
+        'tipo'          => 1,
+        'nome'          => 'Usuário duplicado',
+        'documento'     => '52910622070',
+        'email_pessoal' => 'usuario@duplicado.com',
+        'salt'          => password('Teste@1324'),
+        'status'        => 1
+    ],
+    [
+        'cod'           => '32e9c475-bbbc-4cd6-854c-6cf1bb88fd8d',
+        'empresa'       => 2,
+        'tipo'          => 1,
+        'nome'          => 'Usuário duplicado',
+        'documento'     => '52910622070',
+        'email_pessoal' => 'usuario@duplicado.com',
+        'salt'          => password('Teste@1324'),
+        'status'        => 1
+    ],
 ];
 for ($i = 0; $i < env('QTD_SEEDS', 50); $i++) {
     $tipo = valorAleatorio($listaTipoUsuario);

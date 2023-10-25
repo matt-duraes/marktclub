@@ -4,7 +4,7 @@
     <input type="hidden" id="input_ponto_saldo" value="{{$r->saldo->saldo ?? 0}}">
     <div class="bloco_texto bloco_titulo_texto">
         <figure>
-            <img src="{!!LINK_PADRAO!!}/images/site/logo_sindicato_bancarios.png" height="80" alt="Logo Silium">
+            <img src="{!!LINK_PADRAO!!}/images/site/logo_sindicato_bancarios.png" height="50" alt="Logo Ponto Cvs">
         </figure>
 
         <h1 class="titulo">PONTO + AÇÃO </h1>
