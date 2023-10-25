@@ -1,53 +1,63 @@
-@CSS
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Carteirinha</title>
 
-<div id="carteirinha_clube">
-    <div class="bloco_frente" style="background-image: ({{$dado->bg_frente}});">
-        <div class="bloco_logo">
-            <img
-            src="{{CLUBE_LOGO_PRINCIPAL}}"
-            alt="logo do clube">
-        </div>
-        <div class="bloco_dados">
-            @if ($dado->nome == 'sim'):
-            <div class="bloco_nome bloco_infos">
-                <p>Nome</p>
-                <p>{{$dados_cliente->nome}}</p>
-            </div>
-            @endif;
-            @if ($dado->cpf == 'sim'):
-            <div class="bloco_cpf bloco_infos">
-                <p>Cpf</p>
-                <p>{{$dados_cliente->cpf}}</p>
-            </div>
-            @endif
-            @if ($dado->data_criacao == 'sim'):
-            <div class="bloco_data_emissao bloco_infos">
-                <p>Data de emissão</p>
-                <p>{{$data_emissao}}</p>
-            </div>
-            @endif;
-            @if($dado->data_nascimento == 'sim'):
-            <div class="bloco_estado bloco_infos">
-                <p>Data de nascimento</p>
-                <p>{{$dados_cliente->data_nascimento}}</p>
-            </div>
-            @endif;
-            @if($dado->matricula == 'sim'):
-            <div class="bloco_estado bloco_infos">
-                <p>Matrícula</p>
-                <p>{{$dados_cliente->matricula}}</p>
-            </div>
-            @endif;
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    @CSS
+</head>
+<body>
 
-            @if($dado->estado == 'sim'):
-            <div class="bloco_estado bloco_infos">
-                <p>Estado</p>
-                <p>{{$dados_cliente->estado}}</p>
-            </div>
-            @endif;
+    <div id="carteirinha_clube">
+        <div class="bloco_frente">
+            <div class="bg"><img src="{!!$dado->bg_frente!!}"></div>
+            <figure><img src="{{CLUBE_LOGO_PRINCIPAL}}" height="50px" alt="logo do clube"></figure>
+            <div class="bloco_dado">
+                @if ($dado->nome == 'sim'):
+                <div class="bloco_nome bloco_infos">
+                    <span>Nome</span>
+                    <p>{{$dados_cliente->nome}}</p>
+                </div>
+                @endif;
+                @if ($dado->cpf == 'sim'):
+                <div class="bloco_cpf bloco_infos">
+                    <span>Cpf</span>
+                    <p>{{$dados_cliente->cpf}}</p>
+                </div>
+                @endif
+                @if ($dado->data_criacao == 'sim'):
+                <div class="bloco_data_emissao bloco_infos">
+                    <span>Data de emissão</span>
+                    <p>{{$data_emissao}}</p>
+                </div>
+                @endif;
+                @if($dado->data_nascimento == 'sim'):
+                <div class="bloco_estado bloco_infos">
+                    <span>Data de nascimento</span>
+                    <p>{{$dados_cliente->data_nascimento}}</p>
+                </div>
+                @endif;
+                @if($dado->matricula == 'sim'):
+                <div class="bloco_estado bloco_infos">
+                    <span>Matrícula</span>
+                    <p>{{$dados_cliente->matricula}}</p>
+                </div>
+                @endif;
 
+                @if($dado->estado == 'sim'):
+                <div class="bloco_estado bloco_infos">
+                    <span>Estado</span>
+                    <p>{{$dados_cliente->estado}}</p>
+                </div>
+                @endif;
+
+            </div>
         </div>
     </div>
-</div>
 
-
+</body>
+</html>

@@ -4,7 +4,7 @@
     <input type="hidden" id="input_ponto_saldo" value="{{$r->saldo->saldo ?? 0}}">
     <div class="bloco_texto bloco_titulo_texto">
         <figure>
-            <img src="{!!LINK!!}/images/site/logo_silium.png" height="80" alt="Logo Silium">
+            <img src="{!!LINK_PADRAO!!}/images/site/logo_sindicato_bancarios.png" height="80" alt="Logo Silium">
         </figure>
 
         <h1 class="titulo">PONTO + AÇÃO </h1>
@@ -16,7 +16,7 @@
             #CategoriaUnidaSindicatoForte<br>
             #Sindicato100Anos
         </strong>
-        <a href="<?= LINK_ARQUIVO ?>/arquivo/regulamento-ponto-acao.pdf" target="_blank" rel="noopener noreferrer" class="link_regulamento ">Regulamento Ponto + Ação</a>
+        <a href="{!!LINK_ARQUIVO!!}/regulamento-ponto-acao.pdf" target="_blank" rel="noopener noreferrer" class="link_regulamento ">Regulamento Ponto + Ação</a>
     </div>
     <div class="bloco_atencao_geral atencao">
         <p>Obs: Os vouchers só poderão ser usados nas lojas virtuais:</p>
