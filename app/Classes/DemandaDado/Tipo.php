@@ -17,6 +17,11 @@ final class Tipo extends Status
     public const FEATURE = 'feature';
     public const CRIACAO = 'criacao';
     public const SORTEIO = 'sorteio';
+    public const EVENTO = 'evento';
+    public const BRINDE = 'brinde';
+    public const CAMPANHA = 'campanha';
+    public const INDICACAO = 'indicacao';
+    public const AUTOINDICACAO = 'autoindicacao';
 
     public function __construct(
         protected string|int|null $valor = null
@@ -32,7 +37,12 @@ final class Tipo extends Status
             self::BUG_OUTRO       => 'Bug outros',
             self::FEATURE         => 'Feature',
             self::CRIACAO         => 'Criação',
-            self::SORTEIO         => 'Sorteio'
+            self::SORTEIO         => 'Sorteio',
+            self::EVENTO          => 'Evento',
+            self::BRINDE          => 'Brinde',
+            self::CAMPANHA        => 'Campanha',
+            self::INDICACAO       => 'Indicação',
+            self::AUTOINDICACAO   => 'Autoindicação',
         ]);
     }
 }

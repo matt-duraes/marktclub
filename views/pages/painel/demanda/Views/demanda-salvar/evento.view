@@ -1,0 +1,41 @@
+<h3>Cliente</h3>
+@? formSelect(name: 'empresa_evento', placeholder: 'Escolha um cliente', label: 'Cliente', obrigatorio: 1, lista: $empresa)
+
+<div class="bloco bloco_grupo">
+    <h3>Data do evento</h3>
+    @? formDataHora(name: 'evento_data_inicio', label: 'Data inicio', placeholder: 'Data inicio')
+    @? formDataHora(name: 'evento_data_fim', label: 'Data fim', placeholder: 'Data fim')
+</div>
+
+<div class="bloco bloco_grupo">
+    <h3>Dados do evento</h3>
+    @? formInput(name: 'evento_metragem', label: 'Metragem utilizável', placeholder: 'Metragem utilizável')
+    @? formNumero(name: 'evento_participantes_quantidade', label: 'Número de participantes', placeholder: 'Número de participantes')
+    @? formInput(name: 'evento_publico_esperado', label: 'Público esperado', placeholder: 'Público esperado')
+    @? formInput(name: 'evento_parceiros_quantidade', label: 'Quantidade de parceiros esperado', placeholder: 'Quantidade de parceiros esperado')
+    @? formInput(name: 'evento_esperado_da_empresa', label: 'O que é esperado da empresa?', placeholder: 'O que é esperado da empresa?')
+    @? formInput(name: 'evento_materiais', label: 'Materiais para levar', placeholder: 'Materiais para levar')
+</div>
+
+<div class="bloco bloco_grupo">
+    <h3>Resposável pelo evento</h3>
+    @? formInput(name: 'evento_responsavel_nome', label: 'Nome do resposável', placeholder: 'Nome do resposável')
+    @? formEmail(name: 'evento_responsavel_email', label: 'Email do responável', placeholder: 'Email do responável')
+    @? formTelefone(name: 'evento_responsavel_telefone', label: 'Telefone do responsável', placeholder: 'Telefone do responsável')
+</div>
+
+<div class="bloco bloco_grupo">
+    <h3>Estrutura oferecida</h3>
+    <div class="checkbox" id="bloco_estrutura_oferecida">
+        @? formCheckbox(name: 'evento_cobertura', label: 'Cobertura', value: 'Cobertura')
+        @? formCheckbox(name: 'evento_wifi', label: 'Wi-Fi', value: 'Wi-Fi')
+        @? formCheckbox(name: 'evento_energia', label: 'Energia', value: 'Energia')
+        @? formCheckbox(name: 'evento_agua', label: 'Água', value: 'Água')
+        @? formCheckbox(name: 'evento_alimentacao', label: 'Alimentação', value: 'Alimentação')
+        @? formCheckbox(name: 'evento_mesa_cadeira', label: 'Mesa/cadeira', value: 'Mesa/cadeira')
+    </div>
+    @? formInput(name: 'evento_outros', label: 'Outros', placeholder: 'Outros')
+</div>
+
+<h3>Observações</h3>
+@? formTextarea(name: 'evento_observacao', label: 'Observações', placeholder: 'Observações')

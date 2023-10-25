@@ -13,6 +13,7 @@ final class Tipo extends Status
     public const BANCO = 'banco';
     public const INFRA = 'infra';
     public const NAO_DEFINIDO = 'nao-definido';
+    public const CONVENIO = 'convenio';
 
     public function __construct(
         protected string|int|null $valor = null
@@ -24,7 +25,8 @@ final class Tipo extends Status
             self::APP          => 'APP',
             self::BANCO        => 'Banco de dados',
             self::INFRA        => 'Infraestrutura',
-            self::NAO_DEFINIDO => 'Não definido'
+            self::NAO_DEFINIDO => 'Não definido',
+            self::CONVENIO     => 'Convênio',
         ]);
     }
 }

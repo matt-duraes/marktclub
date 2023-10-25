@@ -10,6 +10,11 @@ use Controller\Controller;
 use App\Classes\DemandaDado\Area;
 use App\Classes\DemandaDado\Tipo;
 use App\Classes\DemandaTarefa\Status;
+use Painel\Demanda\Models\CriarAutoindicacaoModel;
+use Painel\Demanda\Models\CriarBrindeModel;
+use Painel\Demanda\Models\CriarCampanhaModel;
+use Painel\Demanda\Models\CriarEventoModel;
+use Painel\Demanda\Models\CriarIndicacaoModel;
 use Painel\Demanda\Models\ListaModel;
 use Painel\Demanda\Models\CriacaoModel;
 use Painel\Demanda\Models\DetalheModel;
@@ -41,6 +46,12 @@ final class DemandaController extends Controller
     {
         $quadro = (new ListaModel())->quadroCriacao();
         return $this->listar('Demanda da criação', Area::CRIACAO, $quadro);
+    }
+
+    public function convenio()
+    {
+        $quadro = (new ListaModel())->quadroConvenio();
+        return $this->listar('Demanda do convênio', Area::CONVENIO, $quadro);
     }
 
     public function postListar(Request $request)
@@ -288,6 +299,16 @@ final class DemandaController extends Controller
             $Demanda = new CriacaoModel($request);
         } elseif ($request->tipo == Tipo::SORTEIO) {
             $Demanda = new SorteioModel($request);
+        } elseif ($request->tipo == Tipo::EVENTO) {
+            $Demanda = new CriarEventoModel($request);
+        } elseif ($request->tipo == Tipo::BRINDE) {
+            $Demanda = new CriarBrindeModel($request);
+        } elseif ($request->tipo == Tipo::CAMPANHA) {
+            $Demanda = new CriarCampanhaModel($request);
+        } elseif ($request->tipo == Tipo::INDICACAO) {
+            $Demanda = new CriarIndicacaoModel($request);
+        } elseif ($request->tipo == Tipo::AUTOINDICACAO) {
+            $Demanda = new CriarAutoindicacaoModel($request);
         }
 
         return mensagemSucesso([

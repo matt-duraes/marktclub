@@ -17,6 +17,9 @@ Route
             ::nome('criacao')
             ::view('/demanda/criacao');
         Route
+            ::nome('convenio')
+            ::view('/demanda/convenio');
+        Route
             ::nome('listar')
             ::request(['area', 'status'])
             ::post('/demanda/listar');
@@ -52,7 +55,15 @@ Route
                 '!digital_texto', '!impresso_texto', '!kit_texto', '!video_texto', '!sorteio_inicio',
                 '!sorteio_final', '!sorteio_data', '!sorteio_como_participar', '!sorteio_motivacao',
                 '!sorteio_motivacao_outro', '!sorteio_premio', '!sorteio_premio_compra', '!sorteio_premio_entrega',
-                '!sorteio_premio_entrega_outro', '!sorteio_texto'
+                '!sorteio_premio_entrega_outro', '!sorteio_texto', '!data_retorno', '!data_inicio', '!data_fim', '!metragem',
+                '!participantes_quantidade', '!publico_esperado', '!parceiros_quantidade', '!esperado_empresa', '!materiais',
+                '!resposavel_nome', '!responsavel_email', '!resposavel_telefone', '!cobertura', '!wifi', '!energia',
+                '!agua', '!alimentacao', '!mesaCadeira', '!outros', '!observacao', '!inicio_divulgacao', '!fim_divulgacao',
+                '!tema', '!segmento', '!participantes', '!instagram', '!facebook', '!email', '!flyer', '!divulgacao', '!usuario_nome',
+                '!usuario_email', '!usuario_telefone', '!empresa_email', '!empresa_telefone', '!empresa_cep',
+                '!empresa_logradouro', '!empresa_numero', '!empresa_complemento', '!empresa_bairro', '!empresa_cidade', '!empresa_estado',
+                '!empresa_loja_fisica', '!empresa_indicada_nome', '!nome', '!ramo', '!email', '!telefone', '!loja_fisica',
+                '!cep', '!logradouro', '!numero', '!complemento', '!bairro', '!cidade', '!estado',
             ])
                 ::post('/demanda/demanda-salvar');
         Route

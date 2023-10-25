@@ -22,6 +22,17 @@
             <div class="botao" data-tipo="sorteio">Sorteio</div>
         </div>
 
+        <div class="botao_lista {{$area == 'convenio' ? '' : 'display_none'}}" id="bloco_tipo_demanda_convenio">
+            <div class="botao" data-tipo="evento">Evento</div>
+            <div class="botao" data-tipo="campanha">Campanha desconto</div>
+            <div class="botao" data-tipo="brinde">Brindes</div>
+            <div class="botao" data-tipo="indicacao">Indicação</div>
+            <div class="botao" data-tipo="autoindicacao">Auto Indicação</div>
+            <div class="botao" data-tipo="cotacao-carro">Cotação - Carro</div>
+            <div class="botao" data-tipo="cotacao-produto">Cotação - Produto</div>
+            <div class="botao" data-tipo="auditoria">Auditoria</div>
+        </div>
+
         <div class="geral display_none" id="bloco_geral_header">
             <h3>Título da demanda</h3>
             @? formInput(name: 'titulo', placeholder: 'Título curto e específico do que deseja criar', label: 'Título', obrigatorio: true)
@@ -47,6 +58,21 @@
         </div>
         <div class="bloco_conjunto display_none" id="bloco_sorteio">
             @view "painel/demanda/demanda-salvar/sorteio"
+        </div>
+        <div class="bloco_conjunto display_none" id="bloco_evento">
+            @view "painel/demanda/demanda-salvar/evento"
+        </div>
+        <div class="bloco_conjunto display_none" id="bloco_campanha">
+            @view "painel/demanda/demanda-salvar/campanha"
+        </div>
+        <div class="bloco_conjunto display_none" id="bloco_brinde">
+            @view "painel/demanda/demanda-salvar/brinde"
+        </div>
+        <div class="bloco_conjunto display_none" id="bloco_indicacao">
+            @view "painel/demanda/demanda-salvar/indicacao"
+        </div>
+        <div class="bloco_conjunto display_none" id="bloco_autoindicacao">
+            @view "painel/demanda/demanda-salvar/autoindicacao"
         </div>
 
         <div class="geral display_none" id="bloco_geral_footer">

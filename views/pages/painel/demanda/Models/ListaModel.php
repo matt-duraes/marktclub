@@ -87,6 +87,39 @@ final class ListaModel
         ];
     }
 
+    public function quadroConvenio()
+    {
+        $gerente = sessao('USUARIO.gerente', padrao: false) || sessao('USUARIO.admin', padrao: false) ? 'drag' : '';
+        return [
+            [
+                'titulo' => 'Backlog',
+                'classe' => $gerente,
+                'add'    => true,
+                'status' => Status::NOVA
+            ],
+            [
+                'titulo' => 'Bloqueada',
+                'classe' => $gerente,
+                'status' => Status::BLOQUEADA
+            ],
+            [
+                'titulo' => 'Liberada',
+                'classe' => $gerente,
+                'status' => Status::LIBERADA
+            ],
+            [
+                'titulo' => 'Em andamento',
+                'classe' => $gerente,
+                'status' => Status::ANDAMENTO
+            ],
+            [
+                'titulo' => 'Concluída',
+                'classe' => $gerente,
+                'status' => Status::CONCLUIDA
+            ],
+        ];
+    }
+
     public function buscarDemanda($area, $status)
     {
         $dado = $this->Api
