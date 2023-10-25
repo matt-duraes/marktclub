@@ -80,6 +80,9 @@
         <div class="bloco_conjunto display_none" id="bloco_cotacao_produto">
             @view "painel/demanda/demanda-salvar/cotacao_produto"
         </div>
+        <div class="bloco_conjunto display_none" id="bloco_auditoria">
+            @view "painel/demanda/demanda-salvar/auditoria"
+        </div>
 
         <div class="geral display_none" id="bloco_geral_footer">
             <h3>Outros dados</h3>

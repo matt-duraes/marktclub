@@ -101,6 +101,8 @@ window.addEventListener('load', () => {
     const inputEmpresaCotacaoCarro = $('#input_empresa_cotacao_carro');
     // Cotação - Produto
     const inputEmpresaCotacaoProduto = $('#input_empresa_cotacao_produto');
+    // Auditoria
+    const inputEmpresaAuditoria = $('#input_empresa_auditoria');
 
     const botaoSalvar = $('#botao_demanda_salvar');
     const botaoFechar = $('#botao_demanda_fechar');
@@ -111,6 +113,7 @@ window.addEventListener('load', () => {
     const blocoConvenio = $('#bloco_tipo_demanda_convenio');
     const botaoTipo = $$('#bloco_demanda_nova .botao_lista .botao');
 
+    const blocoTipoAuditoria = $('#bloco_auditoria');
     const blocoTipoCotacaoProduto = $('#bloco_cotacao_produto');
     const blocoTipoCotacaoCarro = $('#bloco_cotacao_carro');
     const blocoTipoAutoindicacao = $('#bloco_autoindicacao');
@@ -235,6 +238,10 @@ window.addEventListener('load', () => {
                 break;
             case 'cotacao_produto':
                 blocoTipoCotacaoProduto.classList.remove('display_none');
+                blocoHeader.classList.remove('display_none');
+                break;
+            case 'auditoria':
+                blocoTipoAuditoria.classList.remove('display_none');
                 blocoHeader.classList.remove('display_none');
                 break;
         };
@@ -522,6 +529,20 @@ window.addEventListener('load', () => {
     });
     /*
     |--------------------------------------------------------------------------
+    | EMPRESA FÍSICA AUDITORIA
+    |--------------------------------------------------------------------------
+    */
+    const blocoAuditoriaEndereco = $('#bloco_auditoria_endereco');
+    const botaoLojaFisicaAuditoria = $('#input_auditoria_loja_fisica');
+    botaoLojaFisicaAuditoria.addEventListener('change', () => {
+        if (botaoLojaFisicaAuditoria.checked) {
+            blocoAuditoriaEndereco.classList.remove('display_none');
+            return;
+        }
+        blocoAuditoriaEndereco.classList.add('display_none');
+    });
+    /*
+    |--------------------------------------------------------------------------
     | SALVAR
     |--------------------------------------------------------------------------
     */
@@ -588,6 +609,10 @@ window.addEventListener('load', () => {
             case 'cotacao_produto':
                 valido = await validarDadoCotacaoProduto();
                 body = await montarDadoCotacaoProduto();
+                break;
+            case 'auditoria':
+                valido = await validarDadoAuditoria();
+                body = await montarDadoAuditoria();
                 break;
         }
 
@@ -1162,6 +1187,37 @@ window.addEventListener('load', () => {
     };
     /*
     |--------------------------------------------------------------------------
+    | ABRIR TAREFA AUTOINDICACAO
+    |--------------------------------------------------------------------------
+    */
+    const validarDadoAuditoria = () => {
+        return new Promise(resolve => {
+            const mensagemErro = {
+                auditoria_relatorio_problema: 'Digite o relatório do problema.'
+            };
+            resolve(testarCampos(mensagemErro));
+        });
+    };
+
+    const montarDadoAuditoria = () => {
+        return new Promise(resolve => {
+            const campos = {
+                relatorio: 'auditoria_relatorio_problema',
+                loja_fisica: 'auditoria_loja_fisica',
+                unidade: 'auditoria_empresa_unidade',
+                atendente: 'auditoria_empresa_atendente',
+                gerente: 'auditoria_empresa_gerente',
+                email: 'auditoria_email',
+                telefone: 'auditoria_telefone',
+                observacao: 'auditoria_observacao'
+            };
+            const body = montarBody(campos, inputEmpresaAuditoria);
+            resolve(body);
+        });
+    };
+
+    /*
+    |--------------------------------------------------------------------------
     | FUNÇÕES PARA ABRIR TAREFA
     |--------------------------------------------------------------------------
     */
@@ -1520,7 +1576,8 @@ window.addEventListener('load', () => {
             blocoTipoIndicacao,
             blocoTipoAutoindicacao,
             blocoTipoCotacaoCarro,
-            blocoTipoCotacaoProduto
+            blocoTipoCotacaoProduto,
+            blocoTipoAuditoria
         ];
 
         blocos.forEach(bloco => {

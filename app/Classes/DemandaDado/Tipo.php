@@ -24,6 +24,7 @@ final class Tipo extends Status
     public const AUTOINDICACAO = 'autoindicacao';
     public const COTACAO_CARRO = 'cotacao_carro';
     public const COTACAO_PRODUTO = 'cotacao_produto';
+    public const AUDITORIA = 'auditoria';
 
     public function __construct(
         protected string|int|null $valor = null
@@ -47,6 +48,7 @@ final class Tipo extends Status
             self::AUTOINDICACAO   => 'Autoindicação',
             self::COTACAO_CARRO   => 'Cotação - Carro',
             self::COTACAO_PRODUTO => 'Cotação - Produto',
+            self::AUDITORIA       => 'Auditoria',
         ]);
     }
 }

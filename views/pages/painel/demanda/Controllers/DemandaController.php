@@ -10,6 +10,7 @@ use Controller\Controller;
 use App\Classes\DemandaDado\Area;
 use App\Classes\DemandaDado\Tipo;
 use App\Classes\DemandaTarefa\Status;
+use Painel\Demanda\Models\CriarAuditoriaModel;
 use Painel\Demanda\Models\CriarAutoindicacaoModel;
 use Painel\Demanda\Models\CriarBrindeModel;
 use Painel\Demanda\Models\CriarCampanhaModel;
@@ -315,6 +316,8 @@ final class DemandaController extends Controller
             $Demanda = new CriarCotacaoCarroModel($request);
         } elseif ($request->tipo == Tipo::COTACAO_PRODUTO) {
             $Demanda = new CriarCotacaoProdutoModel($request);
+        } elseif ($request->tipo == Tipo::AUDITORIA) {
+            $Demanda = new CriarAuditoriaModel($request);
         }
 
         return mensagemSucesso([
