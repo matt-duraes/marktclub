@@ -97,6 +97,10 @@ window.addEventListener('load', () => {
     const inputEmpresaIndicacao = $('#input_empresa_indicacao');
     // Autoindicacao
     const inputEmpresaAutoindicacao = $('#input_empresa_autoindicacao');
+    // Cotação - Carro
+    const inputEmpresaCotacaoCarro = $('#input_empresa_cotacao_carro');
+    // Cotação - Produto
+    const inputEmpresaCotacaoProduto = $('#input_empresa_cotacao_produto');
 
     const botaoSalvar = $('#botao_demanda_salvar');
     const botaoFechar = $('#botao_demanda_fechar');
@@ -107,6 +111,8 @@ window.addEventListener('load', () => {
     const blocoConvenio = $('#bloco_tipo_demanda_convenio');
     const botaoTipo = $$('#bloco_demanda_nova .botao_lista .botao');
 
+    const blocoTipoCotacaoProduto = $('#bloco_cotacao_produto');
+    const blocoTipoCotacaoCarro = $('#bloco_cotacao_carro');
     const blocoTipoAutoindicacao = $('#bloco_autoindicacao');
     const blocoTipoIndicacao = $('#bloco_indicacao');
     const blocoTipoBrinde = $('#bloco_brinde');
@@ -221,6 +227,14 @@ window.addEventListener('load', () => {
                 break;
             case 'autoindicacao':
                 blocoTipoAutoindicacao.classList.remove('display_none');
+                blocoHeader.classList.remove('display_none');
+                break;
+            case 'cotacao_carro':
+                blocoTipoCotacaoCarro.classList.remove('display_none');
+                blocoHeader.classList.remove('display_none');
+                break;
+            case 'cotacao_produto':
+                blocoTipoCotacaoProduto.classList.remove('display_none');
                 blocoHeader.classList.remove('display_none');
                 break;
         };
@@ -566,6 +580,14 @@ window.addEventListener('load', () => {
             case 'autoindicacao':
                 valido = await validarDadoAutoindicacao();
                 body = await montarDadoAutoindicacao();
+                break;
+            case 'cotacao_carro':
+                valido = await validarDadoCotacaoCarro();
+                body = await montarDadoCotacaoCarro();
+                break;
+            case 'cotacao_produto':
+                valido = await validarDadoCotacaoProduto();
+                body = await montarDadoCotacaoProduto();
                 break;
         }
 
@@ -1063,6 +1085,83 @@ window.addEventListener('load', () => {
     };
     /*
     |--------------------------------------------------------------------------
+    | ABRIR TAREFA AUTOINDICACAO
+    |--------------------------------------------------------------------------
+    */
+    const validarDadoCotacaoCarro = () => {
+        return new Promise(resolve => {
+            const mensagemErro = {
+                cotacao_carro_cpf: 'Digita o CPF do usuário solicitante.',
+                cotacao_carro_email: 'Digite o E-mail do usuário solicitante.',
+                cotacao_carro_telefone: 'Digite o telefone do usuário solicitante.',
+                cotacao_carro_marca: 'Digite a marca do carro.',
+                cotacao_carro_modelo: 'Digite o modelo do carro.',
+                cotacao_carro_ano: 'Digite o ano do carro.',
+                cotacao_carro_cor: 'Digite a cor do carro.'
+            };
+
+            resolve(testarCampos(mensagemErro));
+        });
+    };
+
+    const montarDadoCotacaoCarro = () => {
+        return new Promise(resolve => {
+            const campos = {
+                cpf: 'cotacao_carro_cpf',
+                email: 'cotacao_carro_email',
+                telefone: 'cotacao_carro_telefone',
+                marca: 'cotacao_carro_marca',
+                modelo: 'cotacao_carro_modelo',
+                ano: 'cotacao_carro_ano',
+                cor: 'cotacao_carro_cor',
+                extra : 'cotacao_carro_extra',
+                observacao: 'cotacao_carro_observacao'
+            };
+
+            const body = montarBody(campos, inputEmpresaCotacaoCarro);
+            resolve(body);
+        });
+    };
+    /*
+    |--------------------------------------------------------------------------
+    | ABRIR TAREFA AUTOINDICACAO
+    |--------------------------------------------------------------------------
+    */
+    const validarDadoCotacaoProduto = () => {
+        return new Promise(resolve => {
+            const mensagemErro = {
+                cotacao_produto_cpf: 'Digita o CPF do usuário solicitante.',
+                cotacao_produto_email: 'Digite o E-mail do usuário solicitante.',
+                cotacao_produto_telefone: 'Digite o telefone do usuário solicitante.',
+                cotacao_produto_tipo: 'Digite o tipo do produto.',
+                cotacao_produto_marca: 'Digite a marca do produto.',
+                cotacao_produto_modelo: 'Digite o modelo do produto.',
+                cotacao_produto_extra: 'Digite o extra do produto.'
+            };
+
+            resolve(testarCampos(mensagemErro));
+        });
+    };
+
+    const montarDadoCotacaoProduto = () => {
+        return new Promise(resolve => {
+            const campos = {
+                cpf: 'cotacao_produto_cpf',
+                email: 'cotacao_produto_email',
+                telefone: 'cotacao_produto_telefone',
+                produto_tipo: 'cotacao_produto_tipo',
+                marca: 'cotacao_produto_marca',
+                modelo: 'cotacao_produto_modelo',
+                extra : 'cotacao_produto_extra',
+                observacao: 'cotacao_produto_observacao'
+            };
+
+            const body = montarBody(campos, inputEmpresaCotacaoProduto);
+            resolve(body);
+        });
+    };
+    /*
+    |--------------------------------------------------------------------------
     | FUNÇÕES PARA ABRIR TAREFA
     |--------------------------------------------------------------------------
     */
@@ -1419,7 +1518,9 @@ window.addEventListener('load', () => {
             blocoTipoCampanha,
             blocoTipoBrinde,
             blocoTipoIndicacao,
-            blocoTipoAutoindicacao
+            blocoTipoAutoindicacao,
+            blocoTipoCotacaoCarro,
+            blocoTipoCotacaoProduto
         ];
 
         blocos.forEach(bloco => {

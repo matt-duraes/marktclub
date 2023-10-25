@@ -63,7 +63,8 @@ Route
                 '!usuario_email', '!usuario_telefone', '!empresa_email', '!empresa_telefone', '!empresa_cep',
                 '!empresa_logradouro', '!empresa_numero', '!empresa_complemento', '!empresa_bairro', '!empresa_cidade', '!empresa_estado',
                 '!empresa_loja_fisica', '!empresa_indicada_nome', '!nome', '!ramo', '!email', '!telefone', '!loja_fisica',
-                '!cep', '!logradouro', '!numero', '!complemento', '!bairro', '!cidade', '!estado',
+                '!cep', '!logradouro', '!numero', '!complemento', '!bairro', '!cidade', '!estado', '!cpf', '!marca', '!modelo',
+                '!ano', '!cor', '!extra', '!produto_tipo'
             ])
                 ::post('/demanda/demanda-salvar');
         Route

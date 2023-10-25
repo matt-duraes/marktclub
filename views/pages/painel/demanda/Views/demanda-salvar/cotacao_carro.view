@@ -1,0 +1,21 @@
+<h3>Cliente</h3>
+@? formSelect(name: 'empresa_cotacao_carro', placeholder: 'Escolha um cliente', label: 'Cliente', obrigatorio: 1, lista: $empresa)
+
+<div class="bloco bloco_grupo">
+    <h3>Dados do solicitante</h3>
+    @? formCpf(name: 'cotacao_carro_cpf', label: 'CPF', placeholder: 'CPF')
+    @? formEmail(name: 'cotacao_carro_email', label: 'E-mail', placeholder: 'E-mail')
+    @? formTelefone(name: 'cotacao_carro_telefone', label: 'Telefone', placeholder: 'Telefone')
+</div>
+
+<div class="bloco bloco_grupo">
+    <h3>Dados do carro</h3>
+    @? formInput(name: 'cotacao_carro_marca', label: 'Marca', placeholder: 'Marca')
+    @? formInput(name: 'cotacao_carro_modelo', label: 'Modelo', placeholder: 'Modelo')
+    @? formInput(name: 'cotacao_carro_ano', label: 'Ano', placeholder: 'Ano')
+    @? formInput(name: 'cotacao_carro_cor', label: 'Cor', placeholder: 'Cor')
+    @? formInput(name: 'cotacao_carro_extra', label: 'Extra', placeholder: 'Extra')
+</div>
+
+<h3>Observações</h3>
+@? formTextarea(name: 'cotacao_carro_observacao', label: 'Observações', placeholder: 'Observações')
