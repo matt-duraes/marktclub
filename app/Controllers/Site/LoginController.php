@@ -106,7 +106,7 @@ final class LoginController extends Controller
         } catch (\Throwable) {
             return new Response(url: LINK);
         }
-        return $this->loginRealizado();
+        return new Response(url: LINK);
     }
 
     private function loginRealizado(): Response
