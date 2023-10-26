@@ -20,7 +20,6 @@
         flexCenter()
     .item .bola span
         texto()
-        color: #999
     .item .check
         display: none
     .item .linha_direita
@@ -38,12 +37,13 @@
         font-size: 1.4rem
         margin-top: 5px
         text-align: center
-        color: #999
     .item.concluido .bola span
         display: none
     .item.concluido .bola .check
         display: block
-
+        fill: $corClube
+.atual .cor_border , .concluido .cor_border
+    border: 2px solid $corClube !important
 .bloco_passo_passo_geral .bloco_conteudo
     width: 100%
     overflow: hidden

@@ -6,6 +6,7 @@ final class Helper
 {
     public const CRIPTOGRAFAR = [
         'nome', 'email', 'cpf', 'telefone',
-        'quem_indicou' => ['nome', 'cpf', 'email']
+        'quem_indicou'  => ['nome', 'cpf', 'email'],
+        'usuario_ativo' => ['nome', 'cpf', 'email']
     ];
 }
