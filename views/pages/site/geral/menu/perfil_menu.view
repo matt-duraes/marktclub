@@ -1,50 +1,45 @@
-<div id="bloco_menu_perfil">
-    <a class="botao" id="botao_tema_mobile">
-        <i>@iconeTema</i>
-        Mudar Tema
-    </a>
-    @if (MENU_CARTEIRA):
-    <a href="@route(perfil.carteirinha)" class="botao" target="_blank">
-        <i>@iconeCarteirinha</i>
-        Carteirinha
-    </a>
-    @endif;
-    @ if( !API ):
-    <a class="botao {!!MENU_HOVER == 'perfil-dado' ? 'cor_bg pagina_atual' : ''!!}" href="@route(perfil.index)">
-        <i>@iconeUsuarioOutline(22)</i>
-        Alterar Dados
-    </a>
-    <a class="botao {!!MENU_HOVER == 'perfil-senha' ? 'cor_bg pagina_atual' : ''!!}" href="@route(perfil.senha)">
-        <i>@iconeSenhaOutline(22)</i>
-        Alterar Senha
-    </a>
-    @ endif;
+@if (MENU_CARTEIRA):
+<a href="@route(perfil.carteirinha)" class="botao" target="_blank">
+    <i>@iconeCarteirinha</i>
+    Carteirinha
+</a>
+@endif;
+@ if( !API ):
+<a class="botao {!!MENU_HOVER == 'perfil-dado' ? 'cor_bg pagina_atual' : ''!!}" href="@route(perfil.index)">
+    <i>@iconeUsuarioOutline(22)</i>
+    Alterar Dados
+</a>
+<a class="botao {!!MENU_HOVER == 'perfil-senha' ? 'cor_bg pagina_atual' : ''!!}" href="@route(perfil.senha)">
+    <i>@iconeSenhaOutline(22)</i>
+    Alterar Senha
+</a>
+@ endif;
 
-    @ if( MENU_DEPENDENTE ):
-    <a class="botao {!!MENU_HOVER == 'perfil-dependente' ? 'cor_bg pagina_atual' : ''!!}" href="@route(perfil.dependente)">
-        <i>@iconeDependenteOutline(22)</i>
-        Adicionar dependentes
-    </a>
-    @ endif;
-    @ if (MENU_PONTO_MAIS_ACAO) :
-    <a href="@route(pontoCvs.index)" class="botao {!!MENU_HOVER == 'ponto-mais-acao' ? 'cor_bg pagina_atual' : ''!!}">
-        <i>@iconeCashbackHome(22)</i>
-        Ponto + Ação
-    </a>
-    @ endif;
+@ if( MENU_DEPENDENTE ):
+<a class="botao {!!MENU_HOVER == 'perfil-dependente' ? 'cor_bg pagina_atual' : ''!!}" href="@route(perfil.dependente)">
+    <i>@iconeDependenteOutline(22)</i>
+    Adicionar dependentes
+</a>
+@ endif;
+@ if (MENU_PONTO_MAIS_ACAO) :
+<a href="@route(pontoCvs.index)" class="botao {!!MENU_HOVER == 'ponto-mais-acao' ? 'cor_bg pagina_atual' : ''!!}">
+    <i>@iconeCashbackHome(22)</i>
+    Ponto + Ação
+</a>
+@ endif;
 
-    @ if( MENU_CASHBACK ):
-    <a class="botao {!!MENU_HOVER == 'perfil-silium' ? 'cor_bg pagina_atual' : ''!!}" href="@route(cashback.extrato)">
-        <i>@iconeCashbackHome(22)</i>
-        Extrato do Silium
-    </a>
-    @ endif;
+@ if( MENU_CASHBACK ):
+<a class="botao {!!MENU_HOVER == 'perfil-silium' ? 'cor_bg pagina_atual' : ''!!}" href="@route(cashback.extrato)">
+    <i>@iconeCashbackHome(22)</i>
+    Extrato do Silium
+</a>
+@ endif;
 
-    @ if( MENU_INDICAR_USUARIO ):
-    <a class="botao {!!MENU_HOVER == 'perfil-indicacao' ? 'cor_bg pagina_atual' : ''!!}" href="@route(site.indiqueAmigo)">
-        <i>@iconeIndiqueAmigoOutline(22)</i>
-        Indique um amigo
-    </a>
-    @ endif;
+@ if( MENU_INDICAR_USUARIO ):
+<a class="botao {!!MENU_HOVER == 'perfil-indicacao' ? 'cor_bg pagina_atual' : ''!!}" href="@route(site.indiqueAmigo)">
+    <i>@iconeIndiqueAmigoOutline(22)</i>
+    Indique um amigo
+</a>
+@ endif;
 
-</div>
+

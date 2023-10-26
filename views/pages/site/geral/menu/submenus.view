@@ -1,0 +1,10 @@
+<div class="botao footer" id="abrePesquisaSatisfacao">Pesquisa de satisfação</div>
+@ if( MENU_SALAVIP ):
+    <a class="botao footer" href="@route('loja.detalhe')/sala-vip-do-aeroporto-internacional-de-brasilia-presidente-juscelino-kubitschek-1">Sala VIP</a>
+@ endif;
+<a class="botao footer" href="@route('sosmulher.index')">SOS Mulher</a>
+
+@ if( MENU_SAIR ):
+    <div class="linha"></div>
+    <a href="@route('sair.index')" class="botao sair">Sair do clube</a>
+@ endif;
