@@ -19,7 +19,7 @@ final class AuthMiddleware
     public function deslogado(): bool|Response
     {
         if ($this->verificarSeEstaLogado()) {
-            return new Response(url: LINK . '/login');
+            return new Response(url: LINK);
         }
         return true;
     }
