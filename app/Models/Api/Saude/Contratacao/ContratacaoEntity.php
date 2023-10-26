@@ -29,6 +29,7 @@ class ContratacaoEntity extends Entity
     use ValidarEmpresaTrait;
 
     public array $usuario;
+    public array $empresa;
     public array $simulacao;
     public Cpf $documento_cpf;
     public string $documento_rg;
@@ -62,6 +63,7 @@ class ContratacaoEntity extends Entity
     protected int $idUsuario;
     protected int $idSimulacao;
     protected int $id_usuario_cliente;
+    protected int $id_admin_empresa;
     protected string $ormTabela = TABELA_SAUDE_CONTRATACAO;
     protected array $ormInsert = [
         'id_admin_empresa'   => '->idEmpresa',
@@ -69,8 +71,8 @@ class ContratacaoEntity extends Entity
         'status'             => 1
     ];
     protected array $ormBuscar = [
-        'id_saude_simulacao', 'id_usuario_cliente', 'documento_cpf', 'documento_rg', 'orgao_expedidor', 'nome',
-        'data_nascimento', 'estado_civil', 'naturalidade', 'genero', 'peso', 'altura',
+        'id_saude_simulacao', 'id_usuario_cliente', 'id_admin_empresa', 'documento_cpf', 'documento_rg',
+        'orgao_expedidor', 'nome', 'data_nascimento', 'estado_civil', 'naturalidade', 'genero', 'peso', 'altura',
         'nome_mae', 'responsavel_cpf', 'responsavel_rg', 'responsavel_nome', 'responsavel_orgao_expedidor',
         'email_pessoal', 'telefone_celular', 'telefone_residencial', 'telefone_comercial',
         'telefone_comercial_ramal', 'endereco_logradouro', 'endereco_cep', 'endereco_estado',
@@ -145,6 +147,7 @@ class ContratacaoEntity extends Entity
     protected function regraPosBuscar(): void
     {
         $this->buscarUsuario();
+        $this->buscarEmpresa();
         $this->buscarSimulacao();
     }
 
@@ -160,6 +163,20 @@ class ContratacaoEntity extends Entity
             'id'    => $usuario->uuid,
             'nome'  => $usuario->nome,
             'email' => $usuario->email_pessoal
+        ];
+    }
+
+    private function buscarEmpresa(): void
+    {
+        $empresa = (new OrmHelper(TABELA_COMERCIAL_EMPRESA))->pegarUltimoRegistro(
+            ['id', $this->id_admin_empresa],
+            ['uuid', 'nome_fantasia'],
+            'object'
+        );
+
+        $this->empresa = [
+            'id'   => $empresa->uuid,
+            'nome' => $empresa->nome_fantasia
         ];
     }
 
