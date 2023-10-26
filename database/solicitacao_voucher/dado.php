@@ -36,6 +36,28 @@ $listaTipoUsuario = (new TipoUsuario())->listarNumero();
 $listaStatus = (new Status())->listarNumero();
 $seeds = [
     [
+        'cod'            => uuid(),
+        'tipo'           => 1,
+        'tipo_usuario'   => 1,
+        'vinculo'        => '890713a200a9e45aa85e2ae67aa41e74',
+        'usuario'        => 1,
+        'empresa'        => 2,
+        'codigo'         => rand(10000000, 99999999),
+        'data_validacao' => agora(),
+        'status'         => 2,
+    ],
+    [
+        'cod'            => uuid(),
+        'tipo'           => 1,
+        'tipo_usuario'   => 1,
+        'vinculo'        => '9792e058562303f9e7e0604c5117c569',
+        'usuario'        => 1,
+        'empresa'        => 66,
+        'codigo'         => rand(10000000, 99999999),
+        'data_validacao' => agora(),
+        'status'         => 2,
+    ],
+    [
         'cod'                  => uuid(),
         'empresa'              => 1,
         'usuario'              => 1,
