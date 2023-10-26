@@ -8,6 +8,7 @@ use App\Classes\UsuarioCliente\Helper;
 trait UsuarioTrait
 {
     private int $idRealUsuario;
+
     private function verificarSeUsuarioJaExiste()
     {
         $usuario = $this->campo(['id', 'cod', 'status'])->where([
