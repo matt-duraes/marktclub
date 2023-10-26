@@ -8,6 +8,8 @@ use App\Models\Api\Trait\ValidarEmpresaTrait;
 use App\Models\Api\UsuarioCliente\ClienteEntity;
 use Erro\Erro;
 use Erro\Excecao;
+use Helpers\OrmHelper;
+use Modules\Cpf;
 use Modules\Email;
 use Modules\Telefone;
 use ORM\Entity;
@@ -85,21 +87,21 @@ final class IndicacaoEntity extends Entity
 
     protected function setarQuemIndicou(): void
     {
-        $Usuario = new ClienteEntity();
-        $Usuario->buscar([
-            ['id', $this->id_usuario_cliente],
-            ['status', 'in', Helper::STATUS_LIBERADO]
-        ], false);
+        $Usuario = (new OrmHelper(TABELA_USUARIO_CLIENTE))
+            ->pegarPrimeiroRegistro([
+                ['id', $this->id_usuario_cliente],
+                ['status', 'in', Helper::STATUS_LIBERADO]
+            ], ['cod', 'nome', 'documento', 'email_pessoal'], 'object');
 
-        if (empty($Usuario->id)) {
+        if (empty($Usuario)) {
             return;
         }
 
         $this->quem_indicou = [
-            'id'    => $Usuario->id,
+            'id'    => $Usuario->cod,
             'nome'  => $Usuario->nome,
-            'cpf'   => $Usuario->cpf->cpf(),
-            'email' => $Usuario->email->email()
+            'cpf'   => (new Cpf($Usuario->documento))->cpf(),
+            'email' => (new Email($Usuario->email_pessoal))->email()
         ];
     }
 
@@ -112,21 +114,21 @@ final class IndicacaoEntity extends Entity
             return;
         }
 
-        $Usuario = new ClienteEntity();
-        $Usuario->buscar([
-            ['id_usuario_indicacao', $this->prop('id')],
-            ['status', 'in', Helper::STATUS_LIBERADO]
-        ], false);
+        $Usuario = (new OrmHelper(TABELA_USUARIO_CLIENTE))
+            ->pegarPrimeiroRegistro([
+                ['id_usuario_indicacao', $this->prop('id')],
+                ['status', 'in', Helper::STATUS_LIBERADO]
+            ], ['cod', 'nome', 'documento', 'email_pessoal'], 'object');
 
-        if (empty($Usuario->id)) {
+        if (empty($Usuario)) {
             return;
         }
 
         $this->usuario_ativo = [
-            'id'    => $Usuario->id,
+            'id'    => $Usuario->cod,
             'nome'  => $Usuario->nome,
-            'cpf'   => $Usuario->cpf->cpf(),
-            'email' => $Usuario->email->email()
+            'cpf'   => (new Cpf($Usuario->documento))->cpf(),
+            'email' => (new Email($Usuario->email_pessoal))->email()
         ];
     }
 }
