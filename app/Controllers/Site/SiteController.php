@@ -95,6 +95,7 @@ final class SiteController extends Controller
         $dado = (new SiteIndicacaoModel())->indicarAmigo($request);
         return mensagemSucesso($dado);
     }
+
     public function abrirModalEnquetePopup($id = null): Response
     {
         return view('popup.enquete');

@@ -1,20 +1,29 @@
 @template "painel"
 
+@ if ( temPermissaoEmpresa('relatorio_acesso') ):
+    <div class="bloco_pagina_popup display_none" id="bloco_empresas">
+        <header class="header_pagina_popup">
+            <h1>Empresas</h1>
+            <i class="popup_fechar fechar botao_fechar">@iconeFechar</i>
+        </header>
+
+        <div class="form_geral conteudo_pagina_popup form_motivo" id="popup_empresas">
+            <div class="bloco_checkbox">
+                @ifforeach($empresa as $k => $e):
+                @? formCheckbox(name: "", label: "{$e}", value: "{$k}");
+                @endifforeach;
+            </div>
+        </div>
+    </div>
+@ endif;
+
 <div class="bloco_app_relatorio">
     <header>
         <form action="/" class="form_geral">
             @ if ( temPermissaoEmpresa('relatorio_loja_venda') ):
-            <button class="botao_filtrar" type="button">
-                Filtros
+            <button class="botao_empresa" type="button">
+                Empresas
             </button>
-
-            <div class="bloco_checkbox" style="display: none;">
-                <section>
-                    @ifforeach($empresa as $k => $e):
-                    @? formCheckbox(name: "", label: "{$e}", value: "{$k}");
-                    @endifforeach;
-                </section>
-            </div>
             @ endif;
             <div class="bloco_linha">
                 @? formData(name: ['relatorio_data_de', 'relatorio_data_ate'], label: '', value: [$de, $ate], separador: 'até');

@@ -17,7 +17,7 @@ final class RelatorioController extends Controller
             'de'        => dataRemover(date('Y-m-d'), 8, 'dias', 'd/m/Y'),
             'ate'       => dataRemover(date('d/m/Y'), 1, 'dia', 'd/m/Y'),
             'empresa'   => $this->pegarSelectEmpresa()
-        ], css: 'painel_relatorio_venda');
+        ]);
     }
 
     public function usuario()
