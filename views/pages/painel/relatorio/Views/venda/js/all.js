@@ -1,6 +1,7 @@
 // @template "painel"
 // @system "Grafico"
-// @import "../../filtros/js/all"
+// @system "Popup"
+// @painel 'relatorio_filtro'
 
 window.addEventListener('load', () => {
     const inputDe = document.querySelector('#input_relatorio_data_de');

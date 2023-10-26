@@ -3,8 +3,6 @@
 namespace App\Models\Site\Site;
 
 use Erro\Excecao;
-use Http\Request;
-use Http\Response;
 use App\Helpers\ClubeApiHelper;
 
 final class IndicacaoModel extends ClubeApiHelper
@@ -29,6 +27,4 @@ final class IndicacaoModel extends ClubeApiHelper
             ->object();
         return $dado;
     }
-
-
 }
