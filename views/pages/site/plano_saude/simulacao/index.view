@@ -36,7 +36,7 @@
                     @ endforeach;
                 </div>
                 <div class="bloco_botao bloco_botao_acomodacao">
-                    <div class="botao_geral_cor cinza botao_geral_voltar">Voltar</div>
+                    <div class="botao_geral_cor cor_bg botao_geral_voltar">Voltar</div>
                     <div class="flex"></div>
                 </div>
             </div>
@@ -59,7 +59,7 @@
                     @endif
                 @ endforeach;
                 <div class="bloco_botao botao_voltar_plano display_none">
-                    <div class="botao_geral_cor cinza botao_geral_voltar">Voltar</div>
+                    <div class="botao_geral_cor cor_bg botao_geral_voltar">Voltar</div>
                     <div class="flex"></div>
                 </div>
             </div>
@@ -77,7 +77,7 @@
                     </div>
                 </div>
                 <div class="bloco_botao">
-                    <div class="botao_geral_cor botao_geral_voltar cinza">Voltar</div>
+                    <div class="botao_geral_cor botao_geral_voltar cor_bg">Voltar</div>
                     <div class="botao_geral_cor cor_bg" id="botao_simulacao_continuar">Continuar</div>
                 </div>
             </form>
@@ -105,7 +105,7 @@
                     </div>
                 </div>
                 <div class="bloco_botao">
-                    <div class="botao_geral_cor cinza botao_geral_voltar" id="voltar_simulacao">Voltar</div>
+                    <div class="botao_geral_cor botao_geral_voltar cor_bg" id="voltar_simulacao">Voltar</div>
                     <a href="@route('saude.contratacao')/" class="botao_geral_cor cor_bg" id="botao_contratar">Prosseguir</a>
                 </div>
             </div>
