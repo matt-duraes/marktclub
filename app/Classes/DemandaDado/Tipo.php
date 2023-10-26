@@ -17,6 +17,14 @@ final class Tipo extends Status
     public const FEATURE = 'feature';
     public const CRIACAO = 'criacao';
     public const SORTEIO = 'sorteio';
+    public const EVENTO = 'evento';
+    public const BRINDE = 'brinde';
+    public const CAMPANHA = 'campanha';
+    public const INDICACAO = 'indicacao';
+    public const AUTOINDICACAO = 'autoindicacao';
+    public const COTACAO_CARRO = 'cotacao_carro';
+    public const COTACAO_PRODUTO = 'cotacao_produto';
+    public const AUDITORIA = 'auditoria';
 
     public function __construct(
         protected string|int|null $valor = null
@@ -32,7 +40,15 @@ final class Tipo extends Status
             self::BUG_OUTRO       => 'Bug outros',
             self::FEATURE         => 'Feature',
             self::CRIACAO         => 'Criação',
-            self::SORTEIO         => 'Sorteio'
+            self::SORTEIO         => 'Sorteio',
+            self::EVENTO          => 'Evento',
+            self::BRINDE          => 'Brinde',
+            self::CAMPANHA        => 'Campanha',
+            self::INDICACAO       => 'Indicação',
+            self::AUTOINDICACAO   => 'Autoindicação',
+            self::COTACAO_CARRO   => 'Cotação - Carro',
+            self::COTACAO_PRODUTO => 'Cotação - Produto',
+            self::AUDITORIA       => 'Auditoria',
         ]);
     }
 }

@@ -1,0 +1,29 @@
+<h3>Cliente</h3>
+@? formSelect(name: 'empresa_autoindicacao', placeholder: 'Escolha um cliente', label: 'Cliente', obrigatorio: 1, lista: $empresa)
+
+<div class="bloco bloco_grupo">
+    <h3>Empresa indicada</h3>
+    @? formInput(name: 'autoindicacao_nome', label: 'Nome', placeholder: 'Nome')
+    @? formInput(name: 'autoindicacao_ramo', label: 'Ramo', placeholder: 'Ramo')
+</div>
+
+<div class="bloco bloco_grupo">
+    <h3>Formas de contato</h3>
+    @? formEmail(name: 'autoindicacao_email', label: 'E-mail', placeholder: 'E-mail')
+    @? formTelefone(name: 'autoindicacao_telefone', label: 'Telefone', placeholder: 'Telefone')
+</div>
+
+@? formSwitch(name: 'autoindicacao_loja_fisica', label: 'Possui loja física?')
+<div class="bloco bloco_grupo display_none" id="bloco_autoindicacao_endereco">
+    <h3>Endereço</h3>
+    @? formInput(name: 'autoindicacao_cep', label: 'CEP', placeholder: 'CEP')
+    @? formInput(name: 'autoindicacao_logradouro', label: 'Logradouro', placeholder: 'Logradouro')
+    @? formInput(name: 'autoindicacao_numero', label: 'Número', placeholder: 'Número')
+    @? formInput(name: 'autoindicacao_complemento', label: 'Complemento', placeholder: 'Complemento')
+    @? formInput(name: 'autoindicacao_bairro', label: 'Bairro', placeholder: 'Bairro')
+    @? formInput(name: 'autoindicacao_cidade', label: 'Cidade', placeholder: 'Cidade')
+    @? formInput(name: 'autoindicacao_estado', label: 'Estado', placeholder: 'Estado')
+</div>
+
+<h3>Observações</h3>
+@? formTextarea(name: 'autoindicacao_observacao', label: 'Observações', placeholder: 'Observações')

@@ -1,0 +1,31 @@
+<h3>Cliente</h3>
+@? formSelect(name: 'empresa_indicacao', placeholder: 'Escolha um cliente', label: 'Cliente', obrigatorio: 1, lista: $empresa)
+
+<div class="bloco bloco_grupo">
+    <h3>Quem indicou</h3>
+    @? formInput(name: 'indicacao_usuario_nome', label: 'Nome', placeholder: 'Nome')
+    @? formEmail(name: 'indicacao_usuario_email', label: 'E-mail', placeholder: 'E-mail')
+    @? formTelefone(name: 'indicacao_usuario_telefone', label: 'Telefone', placeholder: 'Telefone')
+</div>
+
+<div class="bloco bloco_grupo">
+    <h3>Empresa indicada</h3>
+    @? formInput(name: 'indicacao_empresa_nome', label: 'Nome', placeholder: 'Nome')
+    @? formEmail(name: 'indicacao_empresa_email', label: 'E-mail', placeholder: 'E-mail')
+    @? formTelefone(name: 'indicacao_empresa_telefone', label: 'Telefone', placeholder: 'Telefone')
+</div>
+
+@? formSwitch(name: 'indicacao_empresa_loja_fisica', label: 'Possui loja física?')
+<div class="bloco bloco_grupo display_none" id="bloco_indicacao_endereco">
+    <h3>Endereço</h3>
+    @? formInput(name: 'indicacao_empresa_cep', label: 'CEP', placeholder: 'CEP')
+    @? formInput(name: 'indicacao_empresa_logradouro', label: 'Logradouro', placeholder: 'Logradouro')
+    @? formInput(name: 'indicacao_empresa_numero', label: 'Número', placeholder: 'Número')
+    @? formInput(name: 'indicacao_empresa_complemento', label: 'Complemento', placeholder: 'Complemento')
+    @? formInput(name: 'indicacao_empresa_bairro', label: 'Bairro', placeholder: 'Bairro')
+    @? formInput(name: 'indicacao_empresa_cidade', label: 'Cidade', placeholder: 'Cidade')
+    @? formInput(name: 'indicacao_empresa_estado', label: 'Estado', placeholder: 'Estado')
+</div>
+
+<h3>Observações</h3>
+@? formTextarea(name: 'indicacao_observacao', label: 'Observações', placeholder: 'Observações')
