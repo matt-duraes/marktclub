@@ -1,7 +1,7 @@
 // @template "painel"
 // @system "Grafico"
 // @system "Popup"
-// @painel 'relatorio_filtro'
+// @painel 'relatorio_empresas'
 
 
 window.addEventListener('load', () => {
