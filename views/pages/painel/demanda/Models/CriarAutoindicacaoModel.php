@@ -17,9 +17,7 @@ final class CriarAutoindicacaoModel
     public function __construct(
         private Request $request
     ) {
-        if (empty($request->empresa)) {
-            $this->empresa = '14afa776394ada4be23be6acf7e3259e';
-        }
+        $this->empresa = $request->empresa;
 
         $this->criarDemanda($this->montarTitulo(), $request->tipo, Area::CONVENIO);
         $this->verificarSeSalvouDemanda();
