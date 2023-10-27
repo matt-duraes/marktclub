@@ -32,6 +32,7 @@ final class FiltroModel extends ClubeApiHelper
     public bool $mapa = false;
     public bool $acessado = false;
     public bool $favorito = false;
+    public bool $latitude_erro = false;
     public string $estado = '';
     public string $cidade = '';
     public string $categoria = '';
@@ -107,15 +108,21 @@ final class FiltroModel extends ClubeApiHelper
 
     private function pegarGeolocalizacao($dado)
     {
+        $linkInicio = str_contains($this->link, '?') ? '&' : '?';
         $Localizacao = new LocalizacaoHelper();
-        $geolocalicacao = $Localizacao->pegarGeolocalizacaoPeloEndereco(pais: 'BR', estado: $dado['estado'], cidade: $dado['cidade']);
+        try {
+            $geolocalicacao = $Localizacao->pegarGeolocalizacaoPeloEndereco(pais: 'BR', estado: $dado['estado'], cidade: $dado['cidade']);
+        } catch (\Throwable) {
+            $this->link .= $linkInicio . 'latitude_erro=sim';
+            return $dado;
+        }
+
         $this->latitude = $geolocalicacao['latitude'];
         $this->longitude = $geolocalicacao['longitude'];
         $dado['latitude'] = $this->latitude;
         $dado['longitude'] = $this->longitude;
 
-        $this->link .= str_contains($this->link, '?') ? '&' : '?';
-        $this->link .= 'latitude=' . $this->latitude . '&longitude=' . $this->longitude;
+        $this->link .= $linkInicio . 'latitude=' . $this->latitude . '&longitude=' . $this->longitude;
 
         return $dado;
     }
