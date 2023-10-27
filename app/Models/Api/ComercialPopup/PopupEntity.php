@@ -4,7 +4,6 @@ namespace App\Models\Api\ComercialPopup;
 
 use App\Classes\ComercialPopup\BotaoTarget;
 use App\Classes\ComercialPopup\Status;
-use App\Models\Api\Trait\ValidarEmpresaTrait;
 use Erro\Excecao;
 use Helpers\OrmHelper;
 use Modules\Data;
@@ -13,9 +12,7 @@ use ORM\Entity;
 
 class PopupEntity extends Entity
 {
-    use ValidarEmpresaTrait;
-
-    public ?int $id_form_popup;
+    public array $empresa;
     public string $slug;
     public string $imagem;
     public string $titulo;
@@ -29,16 +26,13 @@ class PopupEntity extends Entity
     public BotaoTarget $botao_target;
     public Status $status;
     protected string $ormTabela = TABELA_COMERCIAL_POPUP;
-    protected array $ormInsert = [
-        'id_admin_empresa' => '->idEmpresa'
-    ];
     protected array $ormBuscar = [
         'id_admin_empresa', 'id', 'slug', 'imagem', 'titulo', 'texto', 'regulamento',
         'data_inicio', 'data_final', 'atualizar_dado', 'botao_texto', 'botao_link',
         'botao_target', 'status'
     ];
     protected array $ormSalvar = [
-        'slug', 'imagem', 'titulo', 'texto', 'regulamento', 'data_inicio',
+        'id_admin_empresa', 'slug', 'imagem', 'titulo', 'texto', 'regulamento', 'data_inicio',
         'data_final', 'atualizar_dado', 'botao_texto', 'botao_link',
         'botao_target', 'status'
     ];
@@ -55,22 +49,17 @@ class PopupEntity extends Entity
         botao_target|Tipo de Link|valido
         status|Status|obrigatorio|vazio|valido
     ';
-    protected ?int $idEmpresa;
-    protected int $id_admin_empresa;
+    protected array $id_admin_empresa;
 
-    /**
-     * @throws Excecao
-     */
     public function __construct()
     {
-        $this->validarEmpresa();
         parent::__construct();
     }
 
     /**
      * @throws Excecao
      */
-    public function regraInsert(): void
+    protected function regraInsert(): void
     {
         $this->validarDataPassadaInsert();
         $this->slug = strSlug($this->titulo);
@@ -95,7 +84,7 @@ class PopupEntity extends Entity
     /**
      * @throws Excecao
      */
-    public function regraUpdate(): void
+    protected function regraUpdate(): void
     {
         $this->validarDataPassadaUpdate();
     }
@@ -117,12 +106,16 @@ class PopupEntity extends Entity
         }
     }
 
-    /**
-     * @throws Excecao
-     */
-    public function regraSalvar(): void
+    protected function regraSalvar(): void
     {
-        //$this->validarLimitePopup();
+        $this->id_admin_empresa = (new OrmHelper(TABELA_COMERCIAL_EMPRESA))
+            ->mudarListaUuidParaId($this->empresa);
+    }
+
+    protected function regraPosBuscar(): void
+    {
+        $this->empresa = (new OrmHelper(TABELA_COMERCIAL_EMPRESA))
+            ->mudarListaIdParaUuid($this->id_admin_empresa);
     }
 
     /**

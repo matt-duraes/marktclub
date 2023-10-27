@@ -2,25 +2,24 @@
 
 namespace App\Controllers\Api;
 
-use Erro\Excecao;
-use Http\Request;
-use Modules\Data;
-use Http\Response;
-use Modules\Botao;
-use Modules\Pagina;
-use Modules\Quantidade;
-use Controller\Controller;
-use App\Models\Api\OrdenarModel;
 use App\Classes\ComercialPopup\Ordem;
 use App\Classes\ComercialPopup\Status;
-use App\Models\Api\ComercialPopup\PopupModel;
 use App\Models\Api\ComercialPopup\PopupEntity;
+use App\Models\Api\ComercialPopup\PopupModel;
+use App\Models\Api\OrdenarModel;
+use Controller\Controller;
+use Erro\Excecao;
+use Http\Request;
+use Http\Response;
+use Modules\Botao;
+use Modules\Data;
+use Modules\Pagina;
+use Modules\Quantidade;
+use System\Interface\ControllerAtualizarInterface;
 use System\Interface\ControllerBuscarInterface;
+use System\Interface\ControllerDeletarInterface;
 use System\Interface\ControllerListarInterface;
 use System\Interface\ControllerSalvarInterface;
-use System\Interface\ControllerDeletarInterface;
-use App\Models\Api\ComercialEmpresa\EmpresaEntity;
-use System\Interface\ControllerAtualizarInterface;
 
 class ComercialPopupController extends Controller implements
     ControllerBuscarInterface,
@@ -53,7 +52,7 @@ class ComercialPopupController extends Controller implements
     {
         return mensagemSucesso(
             pegarPropriedadeDaEntity($PopupEntity, lista: [
-                'id', 'slug', 'imagem', 'titulo', 'texto', 'regulamento', 'data_inicio',
+                'empresa', 'id', 'slug', 'imagem', 'titulo', 'texto', 'regulamento', 'data_inicio',
                 'data_final', 'atualizar_dado', 'botao_texto', 'botao_link',
                 'botao_target', 'status'
             ]),
@@ -142,18 +141,5 @@ class ComercialPopupController extends Controller implements
             new Quantidade($request->quantidade)
         );
         return new Response(status: 204);
-    }
-
-    /**
-     * @param string $id Identificação(Uuid) da Empresa
-     *
-     * @return Response
-     * @throws Excecao
-     */
-    public function getPopup(string $id): Response
-    {
-        $EmpresaEntity = new EmpresaEntity();
-        $EmpresaEntity->uuid($id);
-        return mensagemSucesso((new PopupModel())->pegarPopupDoDia($EmpresaEntity));
     }
 }

@@ -1,7 +1,7 @@
 <?php
 
-use App\Classes\ComercialPopup\Status;
 use App\Classes\ComercialPopup\BotaoTarget;
+use App\Classes\ComercialPopup\Status;
 
 $listaTitulos = [
     'A sorte está lançada! Quem será o grande vencedor?',
@@ -63,10 +63,11 @@ $texto = '
     Agora é a sua oportunidade!
     Estamos animados em anunciar nosso sorteio incrível que pode tornar seus sonhos realidade.
 ';
-$seeds = [
+$seeds = [];
+$default = [
     [
         'uuid'             => uuid(),
-        'id_admin_empresa' => 1,
+        'id_admin_empresa' => jsonEncode([1]),
         'slug'             => 'popup-01-teste',
         'imagem'           => null,
         'titulo'           => 'Popup de teste 01',
@@ -82,7 +83,7 @@ $seeds = [
     ],
     [
         'uuid'             => uuid(),
-        'id_admin_empresa' => 1,
+        'id_admin_empresa' => jsonEncode([1]),
         'slug'             => 'popup-02-teste',
         'imagem'           => null,
         'titulo'           => 'Popup de teste 02',
@@ -97,7 +98,7 @@ $seeds = [
         'status'           => 1
     ]
 ];
-for ($i = 0; $i < env('QTD_SEEDS', 50); $i++) {
+for ($i = 0; $i < env('QTD_SEEDS', 20); $i++) {
     $titulo = valorAleatorio($listaTitulos);
     $regulamento = "
         O regulamento do sorteio $titulo, organizado pela Marktclub,
@@ -107,7 +108,7 @@ for ($i = 0; $i < env('QTD_SEEDS', 50); $i++) {
     ";
     $seeds[] = [
         'uuid'             => uuid(),
-        'id_admin_empresa' => numeroAleatorio(2, 50),
+        'id_admin_empresa' => jsonEncode([numeroAleatorio(1, 5)]),
         'slug'             => strSlug($titulo) . 'n° ' . $i + 1,
         'imagem'           => null,
         'titulo'           => $titulo,
@@ -122,4 +123,4 @@ for ($i = 0; $i < env('QTD_SEEDS', 50); $i++) {
         'status'           => valorAleatorio((new Status())->listarNumero())
     ];
 }
-return $seeds;
+return array_merge($default, $seeds);

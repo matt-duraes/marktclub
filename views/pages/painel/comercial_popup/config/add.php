@@ -2,6 +2,11 @@
 
 use App\Classes\ComercialPopup\BotaoTarget;
 use App\Classes\ComercialPopup\Status;
+use Helpers\ApiHelper;
+
+$empresa = (new ApiHelper(token: true))
+    ->get('/comercial-empresa/select')
+    ->array()['dado'] ?? [];
 
 $Painel = new PainelConfig\Add(app: 'comercial_popup', acao: $acao);
 
@@ -27,6 +32,19 @@ $Painel->coluna(callback: function () use ($Painel) {
                 label: 'Tipo de Link'
             );
     });
+});
+
+$Painel->coluna(callback: function () use ($Painel, $empresa) {
+    $Painel->fieldsetCheckbox(
+        titulo: 'Empresas',
+        callback: function () use ($Painel, $empresa) {
+            foreach ($empresa as $id => $nome) {
+                $Painel->checkbox(name: 'empresa[]', label: $nome ?? 'sem nome fantasia', value: $id);
+            }
+        },
+        todos: 'Marcar todas as empresas',
+        mais: true
+    );
 });
 
 $Painel->coluna(callback: function () use ($Painel) {
