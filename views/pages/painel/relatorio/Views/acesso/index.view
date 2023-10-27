@@ -1,36 +1,49 @@
 @template "painel"
 
 @ if ( temPermissaoEmpresa('relatorio_acesso') ):
-    <div class="bloco_pagina_popup display_none" id="bloco_empresas">
-        <header class="header_pagina_popup">
-            <h1>Empresas</h1>
-            <i class="popup_fechar fechar botao_fechar">@iconeFechar</i>
-        </header>
+<div class="bloco_pagina_popup display_none" id="bloco_empresas">
+    <header class="header_pagina_popup">
+        <h1>Empresas</h1>
+        <i class="popup_fechar fechar botao_fechar">@iconeFechar</i>
+    </header>
 
-        <div class="form_geral conteudo_pagina_popup form_motivo" id="popup_empresas">
-            <div class="bloco_checkbox">
-                @ifforeach($empresa as $k => $e):
-                @? formCheckbox(name: "", label: "{$e}", value: "{$k}");
-                @endifforeach;
-            </div>
+    <div class="form_geral conteudo_pagina_popup form_motivo" id="popup_empresas">
+        <div class="bloco_checkbox">
+            @ifforeach($empresa as $k => $e):
+            @? formCheckbox(name: "", label: "{$e}", value: "{$k}");
+            @endifforeach;
         </div>
     </div>
+</div>
 @ endif;
 
 <div class="bloco_app_relatorio">
     <header>
-        <form action="/" class="form_geral">
-            @ if ( temPermissaoEmpresa('relatorio_acesso') ):
+        @ if ( temPermissaoEmpresa('relatorio_acesso') ):
+            <form action="/" class="empresas form_geral">
+                <div class="bloco_busca">
+                    <i class="botao" id="botao_buscar_relatorio">@iconeBuscar</i>
+                    <div class="empresas_busca"></div>
+                </div>
 
-            <button class="botao_empresa" type="button">
-                Empresas
-            </button>
-            @ endif;
-            <div class="bloco_linha">
-                @? formData(name: ['relatorio_data_de', 'relatorio_data_ate'], label: '', value: [$de, $ate], separador: 'até');
-            </div>
-            <i class="botao" id="botao_buscar_relatorio">@iconeBuscar</i>
-        </form>
+                <div class="bloco_filtros">
+                    <div class="bloco_linha">
+                        @? formData(name: ['relatorio_data_de', 'relatorio_data_ate'], label: '', value: [$de, $ate], separador: 'até');
+                    </div>
+
+                    <button class="botao_empresa" type="button">
+                        Empresas
+                    </button>
+                </div>
+            </form>
+        @ else:
+            <form action="/" class="form_geral">
+                <div class="bloco_linha">
+                    @? formData(name: ['relatorio_data_de', 'relatorio_data_ate'], label: '', value: [$de, $ate], separador: 'até');
+                </div>
+                <i class="botao" id="botao_buscar_relatorio">@iconeBuscar</i>
+            </form>
+        @ endif;
     </header>
 
     <div class="lista">

@@ -16,6 +16,8 @@
         display: flex
         padding: 10px
         flex-direction: row
+    header .empresas
+        width: calc(100% - 30px)
     header form.form_geral .bloco_input
         width: auto
         margin-top: 0
@@ -31,20 +33,36 @@
         margin-right: 0
         &:last-child
             margin-right: 10px
+    header form .bloco_busca
+        display: flex
+        align-items: center
+        flex-grow: 1
+        margin: 0 10px
+        border: 1px solid #ddd
+    header form .empresas_busca
+        display: flex
+        flex-wrap: wrap
+    header form .bloco_busca .empresas_busca div
+        border: 1px solid #ddd
+        padding: 12px 5px
+        text-overflow: ellipsis
+        white-space: nowrap
+        overflow: hidden
+        width: 8em
+        text-align: center
+        margin: 0 2px
+    header form .bloco_filtros
+        display: flex
     header form i
         width: 50px
         height: 50px
         flexCenter()
-        fill: #333
-        background-color: #CCC
-        border-radius: 5px
         z-index: 3
         cursor: pointer
         &.show
             display: flex
     header form i.botao
-        background-color: $corAzul
-        fill: #FFF
+        fill: #666
         z-index: 5
     .lista
         width: 100%
