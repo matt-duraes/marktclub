@@ -155,6 +155,7 @@ final class LocalizacaoHelper
         string $cidade = null,
         string $estado = null,
     ) {
+        mensagemErro('Erro!', 'Não foi possível achar uma geolocalização pelo endereço');
         $dado = $this->buscarGeolocalizacaoNoGoogle(
             pais: $pais,
             titulo: $titulo

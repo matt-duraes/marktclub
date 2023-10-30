@@ -2,19 +2,19 @@
 
 namespace App\Models\Api\UsuarioCliente;
 
-use App\Classes\UsuarioCliente\Ordem;
-use App\Classes\UsuarioCliente\Status;
-use App\Classes\UsuarioCliente\TipoUsuario;
-use App\Classes\UsuarioCliente\TrabalhoCargo;
-use App\Classes\UsuarioCliente\TrabalhoEmpresa;
-use App\Models\Api\Trait\ValidarEmpresaTrait;
-use App\Models\Api\UsuarioCliente\Trait\BuscarUsuarioTrait;
+use ORM\ORM;
+use stdClass;
 use Erro\Excecao;
 use Http\Request;
 use Modules\Data;
 use Modules\Genero;
-use ORM\ORM;
-use stdClass;
+use App\Classes\UsuarioCliente\Ordem;
+use App\Classes\UsuarioCliente\Status;
+use App\Classes\UsuarioCliente\TipoUsuario;
+use App\Classes\UsuarioCliente\TrabalhoCargo;
+use App\Models\Api\Trait\ValidarEmpresaTrait;
+use App\Classes\UsuarioCliente\TrabalhoEmpresa;
+use App\Models\Api\UsuarioCliente\Trait\BuscarUsuarioTrait;
 
 final class ClienteModel extends ORM
 {
@@ -91,7 +91,6 @@ final class ClienteModel extends ORM
             'cod', 'nome', 'documento', 'email_trabalho', 'email_pessoal',
             'data_criacao', 'usuario_lead', 'tipo', 'titular', 'federacao', 'status'
         ], true);
-
         $dado->lista = $this->montarRetornoLista($dado->lista);
         return $dado;
     }
@@ -121,9 +120,16 @@ final class ClienteModel extends ORM
             if ($r->federacao == 'FU') {
                 $tipo = TipoUsuario::FUNCIONARIO;
             }
+
             $uuid = $r->cod;
-            if ($r->tipo == 2) {
+            if ($r->tipo == 2 && empty($r->titular)) {
+                continue;
+            } elseif ($r->tipo == 2) {
                 $uuid = $this->campo(['cod'])->where(['id', $r->titular])->read(indice: 0, campo: 'cod');
+            }
+
+            if (empty($uuid)) {
+                continue;
             }
 
             $lista[] = [

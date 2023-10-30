@@ -7,9 +7,11 @@ use App\Classes\UsuarioCliente\Helper;
 
 trait UsuarioTrait
 {
+    private int $idRealUsuario;
+
     private function verificarSeUsuarioJaExiste()
     {
-        $usuario = $this->campo(['cod', 'status'])->where([
+        $usuario = $this->campo(['id', 'cod', 'status'])->where([
             ['empresa', $this->idEmpresa],
             ['documento', $this->dadoUsuario['documento']],
             ['status', 'in', Helper::STATUS_LIBERADO]
@@ -18,6 +20,7 @@ trait UsuarioTrait
         if (existeErro($usuario, 'cod')) {
             return;
         }
+        $this->idRealUsuario = $usuario->id;
         $this->idUsuario = $usuario->cod;
         $this->statusUsuario = $usuario->status;
     }
@@ -50,7 +53,7 @@ trait UsuarioTrait
             unset($this->dadoUsuario['documento']);
         }
 
-        $salvar = $this->dado(array_merge($this->dadoUsuario, $dado))->where(['cod', $this->idUsuario])->update();
+        $salvar = $this->dado(array_merge($this->dadoUsuario, $dado))->where(['id', $this->idRealUsuario])->update();
         if (existeErro($salvar, 'id') || empty($salvar['id'])) {
             mensagemErro('Erro ao atualizar!', 'Ocorreu um erro ao atualizar o usuário.', status: 500);
         }

@@ -29,8 +29,13 @@ final class LojaController extends Controller
      */
     public function getBuscar(Request $request): Response
     {
-        $Filtro = new FiltroModel($request->dado());
-        return new Response(url: $Filtro->link);
+        try {
+            $Filtro = new FiltroModel($request->dado());
+            return new Response(url: $Filtro->link);
+        } catch (\Throwable) {
+            return new Response(route('loja.index'));
+        }
+
     }
 
     /**
