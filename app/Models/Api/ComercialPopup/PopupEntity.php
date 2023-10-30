@@ -63,7 +63,6 @@ class PopupEntity extends Entity
     {
         $this->validarDataPassadaInsert();
         $this->slug = strSlug($this->titulo);
-        $this->status = new Status(Status::INATIVO);
     }
 
     /**
@@ -94,13 +93,11 @@ class PopupEntity extends Entity
      */
     private function validarDataPassadaUpdate(): void
     {
-        $popup = (new OrmHelper($this->ormTabela))
-            ->pegarPrimeiroRegistro(['uuid', $this->id], ['data_inicio']);
-
-        if ($this->data_inicio->date() < $popup['data_inicio']) {
+        $hoje = date('Y-m-d');
+        if ($this->data_inicio->date() < $hoje) {
             mensagemErro(
                 'Acão recusada',
-                'A Data de início não pode ser menor do que há atual',
+                'A Data de início não pode ser antes da data atual ' . dataBr($hoje),
                 localhost: 'A Data de início não pode ser no passado. Você não é viajante do tempo.'
             );
         }
@@ -116,27 +113,5 @@ class PopupEntity extends Entity
     {
         $this->empresa = (new OrmHelper(TABELA_COMERCIAL_EMPRESA))
             ->mudarListaIdParaUuid($this->id_admin_empresa);
-    }
-
-    /**
-     * @throws Excecao
-     */
-    private function validarLimitePopup(): void
-    {
-        $popups = (new OrmHelper($this->ormTabela))->pegarListaCampo(
-            [
-                ['id_admin_empresa', $this->idEmpresa],
-                ['status', (new Status(Status::ATIVO))->numero()]
-            ],
-            'id'
-        );
-
-        if (count($popups) >= 1) {
-            mensagemErro(
-                'Acão recusada',
-                'Número limite de popups ativo atingido',
-                localhost: 'Já existe um popup ativo no momento.'
-            );
-        }
     }
 }
