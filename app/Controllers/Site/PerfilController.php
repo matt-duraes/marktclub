@@ -71,7 +71,7 @@ final class PerfilController extends Controller
                 'dado'          => $campos_carteirinha,
                 'dados_cliente' => $dados_cliente->usuario,
                 'data_emissao'  => $data_emissao,
-                'data_nascimento' => $data_nascimento
+                'data_nascimento_cliente' => str_replace('/', '-', $data_nascimento)
             ]
         );
     }
