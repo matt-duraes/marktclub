@@ -1,0 +1,20 @@
+<h3>Cliente</h3>
+@? formSelect(name: 'empresa_cotacao_produto', placeholder: 'Escolha um cliente', label: 'Cliente', obrigatorio: 1, lista: $empresa)
+
+<div class="bloco bloco_grupo">
+    <h3>Dados do solicitante</h3>
+    @? formCpf(name: 'cotacao_produto_cpf', label: 'CPF', placeholder: 'CPF')
+    @? formEmail(name: 'cotacao_produto_email', label: 'E-mail', placeholder: 'E-mail')
+    @? formTelefone(name: 'cotacao_produto_telefone', label: 'Telefone', placeholder: 'Telefone')
+</div>
+
+<div class="bloco bloco_grupo">
+    <h3>Dados do produto</h3>
+    @? formInput(name: 'cotacao_produto_tipo', label: 'Tipo', placeholder: 'Tipo')
+    @? formInput(name: 'cotacao_produto_marca', label: 'Marca', placeholder: 'Marca')
+    @? formInput(name: 'cotacao_produto_modelo', label: 'Modelo', placeholder: 'Modelo')
+    @? formInput(name: 'cotacao_produto_extra', label: 'Extra', placeholder: 'Extra')
+</div>
+
+<h3>Observações</h3>
+@? formTextarea(name: 'cotacao_produto_observacao', label: 'Observações', placeholder: 'Observações')

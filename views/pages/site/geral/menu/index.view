@@ -3,14 +3,14 @@
     <i>@iconeSiteHome</i>
     Início
 </a>
-
-@ if( MENU_ACESSO_RAPIDO ):
-<a class="botao {!!MENU_HOVER == 'acesso-rapido' ? 'cor_bg pagina_atual' : ''!!} acesso_rapido_link" href="@route(acessoRapido.index)">
-    <i>@iconeAcessoRapido(25)</i>
-    Acesso Rápido
-</a>
-@ endif;
-
+@ if(!$melhorIdade) :
+    @ if( MENU_ACESSO_RAPIDO ):
+    <a class="botao {!!MENU_HOVER == 'acesso-rapido' ? 'cor_bg pagina_atual' : ''!!} acesso_rapido_link" href="@route(acessoRapido.index)">
+        <i>@iconeAcessoRapido(25)</i>
+        Acesso Rápido
+    </a>
+    @ endif;
+@endif;
 @ if( MENU_LOJA || MENU_MAPA || MENU_FARMACIA || MENU_AUTOMOVEL || MENU_CUPOM || MENU_CASHBACK || MENU_PREMIUM):
 <div class="categoria">DESCONTOS</div>
 
@@ -144,23 +144,3 @@
 </a>
 @ endif;
 
-<div class="mobile" id="bloco_perfil_mobile">
-    <div class="categoria">PERFIL</div>
-    @view site/geral/menu/perfil_menu.view
-
-</div>
-
-<div class="linha"></div>
-
-<div class="botao footer" id="abrePesquisaSatisfacao">Pesquisa de satisfação</div>
-@ if( MENU_SALAVIP ):
-<a class="botao footer" href="@route('loja.detalhe')/sala-vip-do-aeroporto-internacional-de-brasilia-presidente-juscelino-kubitschek-1">Sala VIP</a>
-@ endif;
-<a class="botao footer" href="@route('sosmulher.index')">SOS Mulher</a>
-
-@ if( MENU_SAIR ):
-<div class="linha"></div>
-<a href="@route('sair.index')" class="botao sair">Sair do clube</a>
-@ endif;
-
-<div class="resto"></div>

@@ -13,22 +13,7 @@ class CarterinhaTest extends Clube
     public function __construct()
     {
         $this->tabela(TABELA_CARTEIRINHA)->resetar();
-    }
-
-    private function getBody()
-    {
-        return [
-            'bg_fundo'        => 'b',
-            'bg_frente'       => 'b',
-            'empresa'         => '369fc307129e405b3f2f00620c7b012d',
-            'titulo'          => 'Titulo carteirinha de teste',
-            'nome'            => rand(0, 1),
-            'cpf'             => rand(0, 1),
-            'matricula'       => rand(0, 1),
-            'data_nascimento' => rand(0, 1),
-            'estado'          => rand(0, 1),
-            'status'          => Status::ATIVO
-        ];
+        parent::__construct();
     }
 
     /**
@@ -79,6 +64,25 @@ class CarterinhaTest extends Clube
             ->checkIndiceExiste('dado')
             ->checkNaoVazio('dado')
             ->checkIndiceIgual('status', 'sucesso');
+    }
+
+    /**
+     * @return array
+     */
+    private function getBody(): array
+    {
+        return [
+            'bg_fundo'        => 'b',
+            'bg_frente'       => 'b',
+            'empresa'         => '369fc307129e405b3f2f00620c7b012d',
+            'titulo'          => 'Titulo carteirinha de teste',
+            'nome'            => $this->nomeCompleto(),
+            'cpf'             => $this->cpf(),
+            'matricula'       => $this->numero(),
+            'data_nascimento' => $this->dataPassada(),
+            'estado'          => $this->estado(),
+            'status'          => Status::ATIVO
+        ];
     }
 
     /**

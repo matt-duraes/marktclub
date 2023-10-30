@@ -1,0 +1,25 @@
+<h3>Cliente</h3>
+@? formSelect(name: 'empresa_brinde', placeholder: 'Escolha um cliente', label: 'Cliente', obrigatorio: 1, lista: $empresa)
+
+<div class="bloco bloco_grupo" id="evento_data">
+    <h3>Dados da divulgação</h3>
+    @? formDataHora(name: 'brinde_inicio_divulgacao', label: 'Data de inicio da divulgação', placeholder: 'Data de inicio da divulgação')
+    @? formDataHora(name: 'brinde_fim_divulgacao', label: 'Data final da divulgação', placeholder: 'Data final da divulgação')
+    @? formInput(name: 'brinde_tema', label: 'Tema da camapanha', placeholder: 'Tema da camapanha')
+    @? formInput(name: 'brinde_segmento', label: 'Segmento desejável', placeholder: 'Segmento desejável')
+    @? formNumero(name: 'brinde_participantes', label: 'Total de participantes', placeholder: 'Total de participantes')
+</div>
+
+<div class="bloco bloco_grupo" id="estrutura_oferecida">
+    <h3>Canais de divulgação</h3>
+    <div class="checkbox" id="bloco_estrutura_oferecida">
+        @? formCheckbox(name: 'brinde_instagram', label: 'Instagram', value: 'Instagram')
+        @? formCheckbox(name: 'brinde_facebook', label: 'Facebook', value: 'Facebook')
+        @? formCheckbox(name: 'brinde_email', label: 'Email', value: 'Email')
+        @? formCheckbox(name: 'brinde_flyer', label: 'Flyer', value: 'Flyer')
+    </div>
+    @? formInput(name: 'brinde_divulgacao', label: 'Outros', placeholder: 'Outros')
+</div>
+
+<h3>Observações</h3>
+@? formTextarea(name: 'brinde_observacao', label: 'Observações', placeholder: 'Observações')

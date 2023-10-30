@@ -87,6 +87,22 @@ window.addEventListener('load', () => {
     const inputSorteioPremioEntrega = $('#input_premio_entrega');
     const inputSorteioPremioEntregaOutro = $('#input_premio_entrega_outro');
     const inputSorteioTexto = $('#input_sorteio_texto');
+    // Evento
+    const inputEmpresaEvento = $('#input_empresa_evento');
+    // Brinde
+    const inputEmpresaBrinde = $('#input_empresa_brinde');
+    // Campanha
+    const inputEmpresaCampanha = $('#input_empresa_campanha');
+    // Indicacao
+    const inputEmpresaIndicacao = $('#input_empresa_indicacao');
+    // Autoindicacao
+    const inputEmpresaAutoindicacao = $('#input_empresa_autoindicacao');
+    // Cotação - Carro
+    const inputEmpresaCotacaoCarro = $('#input_empresa_cotacao_carro');
+    // Cotação - Produto
+    const inputEmpresaCotacaoProduto = $('#input_empresa_cotacao_produto');
+    // Auditoria
+    const inputEmpresaAuditoria = $('#input_empresa_auditoria');
 
     const botaoSalvar = $('#botao_demanda_salvar');
     const botaoFechar = $('#botao_demanda_fechar');
@@ -94,8 +110,17 @@ window.addEventListener('load', () => {
 
     const blocoEscolherTecnologia = $('#bloco_tipo_demanda_tecnologia');
     const blocoEscolherCriacao = $('#bloco_tipo_demanda_criacao');
+    const blocoConvenio = $('#bloco_tipo_demanda_convenio');
     const botaoTipo = $$('#bloco_demanda_nova .botao_lista .botao');
 
+    const blocoTipoAuditoria = $('#bloco_auditoria');
+    const blocoTipoCotacaoProduto = $('#bloco_cotacao_produto');
+    const blocoTipoCotacaoCarro = $('#bloco_cotacao_carro');
+    const blocoTipoAutoindicacao = $('#bloco_autoindicacao');
+    const blocoTipoIndicacao = $('#bloco_indicacao');
+    const blocoTipoBrinde = $('#bloco_brinde');
+    const blocoTipoCampanha = $('#bloco_campanha');
+    const blocoTipoEvento = $('#bloco_evento');
     const blocoTipoSorteio = $('#bloco_sorteio');
     const blocoTipoCriacao = $('#bloco_criacao');
     const blocoTipoAssociacao = $('#bloco_tipo_associacao');
@@ -153,31 +178,73 @@ window.addEventListener('load', () => {
 
         blocoEscolherTecnologia.classList.add('display_none');
         blocoEscolherCriacao.classList.add('display_none');
+        blocoConvenio.classList.add('display_none');
+
         botaoSalvar.classList.remove('display_none');
         botaoFechar.classList.add('display_none');
         botaoVoltar.classList.remove('display_none');
 
-        if (tipo == 'associacao') {
-            blocoTipoAssociacao.classList.remove('display_none');
-        } else if (tipo == 'cliente') {
-            blocoTipoCliente.classList.remove('display_none');
-        } else if (tipo == 'bug') {
-            blocoHeader.classList.remove('display_none');
-            blocoTipoBug.classList.remove('display_none');
-        } else if (tipo == 'outro' || tipo == 'feature') {
-            blocoHeader.classList.remove('display_none');
-            blocoTipoOutro.classList.remove('display_none');
-            blocoFooter.classList.add('display_none');
-        } else if (tipo == 'criacao') {
-            blocoTipoCriacao.classList.remove('display_none');
-            botaoSalvar.classList.add('display_none');
-            blocoFooter.classList.add('display_none');
-            blocoHeader.classList.remove('display_none');
-        } else if (tipo == 'sorteio') {
-            blocoTipoSorteio.classList.remove('display_none');
-            blocoFooter.classList.add('display_none');
-            blocoHeader.classList.remove('display_none');
-        }
+        switch (tipo) {
+            case 'associacao':
+                blocoTipoAssociacao.classList.remove('display_none');
+                break;
+            case 'cliente':
+                blocoTipoCliente.classList.remove('display_none');
+                break;
+            case 'bug':
+                blocoHeader.classList.remove('display_none');
+                blocoTipoBug.classList.remove('display_none');
+                break;
+            case 'feature':
+            case 'outro':
+                blocoHeader.classList.remove('display_none');
+                blocoTipoOutro.classList.remove('display_none');
+                blocoFooter.classList.add('display_none');
+                break;
+            case 'criacao':
+                blocoTipoCriacao.classList.remove('display_none');
+                botaoSalvar.classList.add('display_none');
+                blocoFooter.classList.add('display_none');
+                blocoHeader.classList.remove('display_none');
+                break;
+            case 'sorteio':
+                blocoTipoSorteio.classList.remove('display_none');
+                blocoFooter.classList.add('display_none');
+                blocoHeader.classList.remove('display_none');
+                break;
+            case 'evento':
+                blocoTipoEvento.classList.remove('display_none');
+                blocoHeader.classList.remove('display_none');
+                break;
+            case 'campanha':
+                blocoTipoCampanha.classList.remove('display_none');
+                blocoHeader.classList.remove('display_none');
+                break;
+            case 'brinde':
+                blocoTipoBrinde.classList.remove('display_none');
+                blocoHeader.classList.remove('display_none');
+                break;
+            case 'indicacao':
+                blocoTipoIndicacao.classList.remove('display_none');
+                blocoHeader.classList.remove('display_none');
+                break;
+            case 'autoindicacao':
+                blocoTipoAutoindicacao.classList.remove('display_none');
+                blocoHeader.classList.remove('display_none');
+                break;
+            case 'cotacao_carro':
+                blocoTipoCotacaoCarro.classList.remove('display_none');
+                blocoHeader.classList.remove('display_none');
+                break;
+            case 'cotacao_produto':
+                blocoTipoCotacaoProduto.classList.remove('display_none');
+                blocoHeader.classList.remove('display_none');
+                break;
+            case 'auditoria':
+                blocoTipoAuditoria.classList.remove('display_none');
+                blocoHeader.classList.remove('display_none');
+                break;
+        };
     };
 
     /*
@@ -432,7 +499,48 @@ window.addEventListener('load', () => {
         blocoEmpresaEspecifica.classList.add('display_none');
         formSelectValue(inputEmpresaBug, '');
     });
-
+    /*
+    |--------------------------------------------------------------------------
+    | EMPRESA FÍSICA INDICAÇÃO
+    |--------------------------------------------------------------------------
+    */
+    const blocoIndicacaoEndereco = $('#bloco_indicacao_endereco');
+    const botaoEmpresaLojaFisica = $('#input_indicacao_empresa_loja_fisica');
+    botaoEmpresaLojaFisica.addEventListener('change', () => {
+        if (botaoEmpresaLojaFisica.checked) {
+            blocoIndicacaoEndereco.classList.remove('display_none');
+            return;
+        }
+        blocoIndicacaoEndereco.classList.add('display_none');
+    });
+    /*
+    |--------------------------------------------------------------------------
+    | EMPRESA FÍSICA AUTOINDICAÇÃO
+    |--------------------------------------------------------------------------
+    */
+    const blocoAutoIndicacaoEndereco = $('#bloco_autoindicacao_endereco');
+    const botaoLojaFisica = $('#input_autoindicacao_loja_fisica');
+    botaoLojaFisica.addEventListener('change', () => {
+        if (botaoLojaFisica.checked) {
+            blocoAutoIndicacaoEndereco.classList.remove('display_none');
+            return;
+        }
+        blocoAutoIndicacaoEndereco.classList.add('display_none');
+    });
+    /*
+    |--------------------------------------------------------------------------
+    | EMPRESA FÍSICA AUDITORIA
+    |--------------------------------------------------------------------------
+    */
+    const blocoAuditoriaEndereco = $('#bloco_auditoria_endereco');
+    const botaoLojaFisicaAuditoria = $('#input_auditoria_loja_fisica');
+    botaoLojaFisicaAuditoria.addEventListener('change', () => {
+        if (botaoLojaFisicaAuditoria.checked) {
+            blocoAuditoriaEndereco.classList.remove('display_none');
+            return;
+        }
+        blocoAuditoriaEndereco.classList.add('display_none');
+    });
     /*
     |--------------------------------------------------------------------------
     | SALVAR
@@ -445,26 +553,67 @@ window.addEventListener('load', () => {
         let valido = false;
         let body;
         let abrir = false;
-        if (tipo == 'cliente') {
-            valido = await validarDadoCliente();
-            body = await montarDadoCliente();
-        } else if (tipo == 'associacao') {
-            valido = await validarDadoAssociacao();
-            body = await montarDadoAssociacao();
-        } else if (tipo == 'bug') {
-            valido = await validarDadoBug();
-            body = await montarDadoBug();
-            abrir = true;
-        } else if (tipo == 'outro' || tipo == 'feature') {
-            valido = await validarDadoOutro();
-            body = await montarDadoOutro();
-            abrir = true;
-        } else if (tipo == 'criacao') {
-            valido = await validarDadoCriacao();
-            body = await montarDadoCriacao();
-        } else if (tipo == 'sorteio') {
-            valido = await validarDadoSorteio();
-            body = await montarDadoSorteio();
+
+        switch (tipo) {
+            case 'cliente':
+                valido = await validarDadoCliente();
+                body = await montarDadoCliente();
+                break;
+            case 'associacao':
+                valido = await validarDadoAssociacao();
+                body = await montarDadoAssociacao();
+                break;
+            case 'bug':
+                valido = await validarDadoBug();
+                body = await montarDadoBug();
+                abrir = true;
+                break;
+            case 'outro':
+            case 'feature':
+                valido = await validarDadoOutro();
+                body = await montarDadoOutro();
+                abrir = true;
+                break;
+            case 'criacao':
+                valido = await validarDadoCriacao();
+                body = await montarDadoCriacao();
+                break;
+            case 'sorteio':
+                valido = await validarDadoSorteio();
+                body = await montarDadoSorteio();
+                break;
+            case 'evento':
+                valido = await validarDadoEvento();
+                body = await montarDadoEvento();
+                break;
+            case 'brinde':
+                valido = await validarDadoBrinde();
+                body = await montarDadoBrinde();
+                break;
+            case 'campanha':
+                valido = await validarDadoCampanha();
+                body = await montarDadoCampanha();
+                break;
+            case 'indicacao':
+                valido = await validarDadoIndicacao();
+                body = await montarDadoIndicacao();
+                break;
+            case 'autoindicacao':
+                valido = await validarDadoAutoindicacao();
+                body = await montarDadoAutoindicacao();
+                break;
+            case 'cotacao_carro':
+                valido = await validarDadoCotacaoCarro();
+                body = await montarDadoCotacaoCarro();
+                break;
+            case 'cotacao_produto':
+                valido = await validarDadoCotacaoProduto();
+                body = await montarDadoCotacaoProduto();
+                break;
+            case 'auditoria':
+                valido = await validarDadoAuditoria();
+                body = await montarDadoAuditoria();
+                break;
         }
 
         if (!valido) {
@@ -751,6 +900,358 @@ window.addEventListener('load', () => {
             resolve(body);
         });
     };
+    /*
+    |--------------------------------------------------------------------------
+    | ABRIR TAREFA EVENTO
+    |--------------------------------------------------------------------------
+    */
+    const validarDadoEvento = () => {
+        return new Promise(resolve => {
+            const mensagemErro = {
+                evento_data_inicio: 'Digite a data de início do evento.',
+                evento_data_fim: 'Digite a data final do evento.',
+                evento_metragem: 'Digite a metragem do evento.',
+                evento_participantes_quantidade: 'Digite a quantidade de participantes do evento.',
+                evento_publico_esperado: 'Digite o público esperado do evento.',
+                evento_parceiros_quantidade: 'Digite a quantidade de parceiros do evento.',
+                evento_esperado_da_empresa: 'Digite o que é esperado da empresa no evento.',
+                evento_materiais: 'Digite os materiais que serão usados no evento.',
+                evento_responsavel_nome: 'Digite o nome do responsável pelo evento.',
+                evento_responsavel_email: 'Digite o e-mail do responsável pelo evento.',
+                evento_responsavel_telefone: 'Digite o telefone do responsável pelo evento.'
+            };
+
+            resolve(testarCampos(mensagemErro));
+        });
+    };
+
+    const montarDadoEvento = () => {
+        return new Promise(resolve => {
+            const campos = {
+                data_inicio: 'evento_data_inicio',
+                data_fim: 'evento_data_fim',
+                metragem: 'evento_metragem',
+                participantes_quantidade: 'evento_participantes_quantidade',
+                publico_esperado: 'evento_publico_esperado',
+                parceiros_quantidade: 'evento_parceiros_quantidade',
+                esperado_empresa: 'evento_esperado_da_empresa',
+                materiais: 'evento_materiais',
+                resposavel_nome: 'evento_responsavel_nome',
+                responsavel_email: 'evento_responsavel_email',
+                resposavel_telefone: 'evento_responsavel_telefone',
+                cobertura: 'evento_cobertura',
+                wifi: 'evento_wifi',
+                energia: 'evento_energia',
+                agua: 'evento_agua',
+                alimentacao: 'evento_alimentacao',
+                mesaCadeira: 'evento_mesa_cadeira',
+                outros: 'evento_outros',
+                observacao: 'evento_observacao'
+            };
+
+            const body = montarBody(campos, inputEmpresaEvento);
+            resolve(body);
+        });
+    };
+    /*
+    |--------------------------------------------------------------------------
+    | ABRIR TAREFA EVENTO
+    |--------------------------------------------------------------------------
+    */
+    const validarDadoBrinde = () => {
+        return new Promise(resolve => {
+            const mensagemErro = {
+                brinde_inicio_divulgacao: 'Digite a data de início da divulgação.',
+                brinde_fim_divulgacao: 'Digite a data final da divulgação.',
+                brinde_tema: 'Digite o tema do brinde.',
+                brinde_segmento: 'Digite o segmento do brinde.',
+                brinde_participantes: 'Digite a quantidade de participantes do brinde.',
+            };
+
+            resolve(testarCampos(mensagemErro));
+        });
+    };
+
+    const montarDadoBrinde = () => {
+        return new Promise(resolve => {
+            const campos = {
+                inicio_divulgacao: 'brinde_inicio_divulgacao',
+                fim_divulgacao: 'brinde_fim_divulgacao',
+                tema: 'brinde_tema',
+                segmento: 'brinde_segmento',
+                participantes: 'brinde_participantes',
+                instagram: 'brinde_instagram',
+                facebook: 'brinde_facebook',
+                email: 'brinde_email',
+                flyer: 'brinde_flyer',
+                outros: 'brinde_divulgacao',
+                observacao: 'brinde_observacao'
+            };
+
+            const body = montarBody(campos, inputEmpresaBrinde);
+            resolve(body);
+        });
+    };
+    /*
+    |--------------------------------------------------------------------------
+    | ABRIR TAREFA CAMPANHA
+    |--------------------------------------------------------------------------
+    */
+    const validarDadoCampanha = () => {
+        return new Promise(resolve => {
+            const mensagemErro = {
+                campanha_inicio_divulgacao: 'Digite a data de início da divulgação.',
+                campanha_fim_divulgacao: 'Digite a data final da divulgação.',
+                campanha_tema: 'Digite o tema da campanha.',
+                campanha_segmento: 'Digite o segmento da campanha.'
+            };
+
+            resolve(testarCampos(mensagemErro));
+        });
+    };
+
+    const montarDadoCampanha = () => {
+        return new Promise(resolve => {
+            const campos = {
+                inicio_divulgacao: 'campanha_inicio_divulgacao',
+                fim_divulgacao: 'campanha_fim_divulgacao',
+                tema: 'campanha_tema',
+                segmento: 'campanha_segmento',
+                observacao: 'campanha_observacao'
+            };
+
+            const body = montarBody(campos, inputEmpresaCampanha);
+            resolve(body);
+        });
+    };
+    /*
+    |--------------------------------------------------------------------------
+    | ABRIR TAREFA INDICACAO
+    |--------------------------------------------------------------------------
+    */
+    const validarDadoIndicacao = () => {
+        return new Promise(resolve => {
+            const mensagemErro = {
+                indicacao_usuario_nome: 'Digite o nome de quem indicou.',
+                indicacao_usuario_email: 'Digite o e-mail de quem indicou.',
+                indicacao_usuario_telefone: 'Digite o telefone de quem indicou.',
+                indicacao_empresa_nome: 'Digite o nome da empresa indicada.',
+                indicacao_empresa_email: 'Digite o e-mail da empresa indicada.',
+                indicacao_empresa_telefone: 'Digite o telefone da empresa indicada.',
+            };
+
+            resolve(testarCampos(mensagemErro));
+        });
+    };
+
+    const montarDadoIndicacao = () => {
+        return new Promise(resolve => {
+            const campos = {
+                usuario_nome: 'indicacao_usuario_nome',
+                usuario_email: 'indicacao_usuario_email',
+                usuario_telefone: 'indicacao_usuario_telefone',
+                empresa_indicada_nome: 'indicacao_empresa_nome',
+                empresa_email: 'indicacao_empresa_email',
+                empresa_telefone: 'indicacao_empresa_telefone',
+                empresa_loja_fisica: 'indicacao_empresa_loja_fisica',
+                empresa_cep: 'indicacao_empresa_cep',
+                empresa_logradouro: 'indicacao_empresa_logradouro',
+                empresa_numero: 'indicacao_empresa_numero',
+                empresa_complemento: 'indicacao_empresa_complemento',
+                empresa_bairro: 'indicacao_empresa_bairro',
+                empresa_cidade: 'indicacao_empresa_cidade',
+                empresa_estado: 'indicacao_empresa_estado',
+                observacao: 'indicacao_observacao',
+            };
+
+            const body = montarBody(campos, inputEmpresaIndicacao);
+            resolve(body);
+        });
+    };
+    /*
+    |--------------------------------------------------------------------------
+    | ABRIR TAREFA AUTOINDICACAO
+    |--------------------------------------------------------------------------
+    */
+    const validarDadoAutoindicacao = () => {
+        return new Promise(resolve => {
+            const mensagemErro = {
+                autoindicacao_nome: 'Digite o nome da empresa.',
+                autoindicacao_ramo: 'Digite o ramo da empresa.',
+                autoindicacao_email: 'Digite o e-mail da empresa.',
+                autoindicacao_telefone: 'Digite o telefone da empresa.',
+            };
+
+            resolve(testarCampos(mensagemErro));
+        });
+    };
+
+    const montarDadoAutoindicacao = () => {
+        return new Promise(resolve => {
+            const campos = {
+                empresa_indicada_nome: 'autoindicacao_nome',
+                ramo: 'autoindicacao_ramo',
+                email: 'autoindicacao_email',
+                telefone: 'autoindicacao_telefone',
+                loja_fisica: 'autoindicacao_loja_fisica',
+                cep: 'autoindicacao_cep',
+                logradouro: 'autoindicacao_logradouro',
+                numero: 'autoindicacao_numero',
+                complemento: 'autoindicacao_complemento',
+                bairro: 'autoindicacao_bairro',
+                cidade: 'autoindicacao_cidade',
+                estado: 'autoindicacao_estado',
+                observacao: 'autoindicacao_observacao',
+            };
+
+            const body = montarBody(campos, inputEmpresaAutoindicacao);
+            resolve(body);
+        });
+    };
+    /*
+    |--------------------------------------------------------------------------
+    | ABRIR TAREFA AUTOINDICACAO
+    |--------------------------------------------------------------------------
+    */
+    const validarDadoCotacaoCarro = () => {
+        return new Promise(resolve => {
+            const mensagemErro = {
+                cotacao_carro_cpf: 'Digita o CPF do usuário solicitante.',
+                cotacao_carro_email: 'Digite o E-mail do usuário solicitante.',
+                cotacao_carro_telefone: 'Digite o telefone do usuário solicitante.',
+                cotacao_carro_marca: 'Digite a marca do carro.',
+                cotacao_carro_modelo: 'Digite o modelo do carro.',
+                cotacao_carro_ano: 'Digite o ano do carro.',
+                cotacao_carro_cor: 'Digite a cor do carro.'
+            };
+
+            resolve(testarCampos(mensagemErro));
+        });
+    };
+
+    const montarDadoCotacaoCarro = () => {
+        return new Promise(resolve => {
+            const campos = {
+                cpf: 'cotacao_carro_cpf',
+                email: 'cotacao_carro_email',
+                telefone: 'cotacao_carro_telefone',
+                marca: 'cotacao_carro_marca',
+                modelo: 'cotacao_carro_modelo',
+                ano: 'cotacao_carro_ano',
+                cor: 'cotacao_carro_cor',
+                extra : 'cotacao_carro_extra',
+                observacao: 'cotacao_carro_observacao'
+            };
+
+            const body = montarBody(campos, inputEmpresaCotacaoCarro);
+            resolve(body);
+        });
+    };
+    /*
+    |--------------------------------------------------------------------------
+    | ABRIR TAREFA AUTOINDICACAO
+    |--------------------------------------------------------------------------
+    */
+    const validarDadoCotacaoProduto = () => {
+        return new Promise(resolve => {
+            const mensagemErro = {
+                cotacao_produto_cpf: 'Digita o CPF do usuário solicitante.',
+                cotacao_produto_email: 'Digite o E-mail do usuário solicitante.',
+                cotacao_produto_telefone: 'Digite o telefone do usuário solicitante.',
+                cotacao_produto_tipo: 'Digite o tipo do produto.',
+                cotacao_produto_marca: 'Digite a marca do produto.',
+                cotacao_produto_modelo: 'Digite o modelo do produto.',
+                cotacao_produto_extra: 'Digite o extra do produto.'
+            };
+
+            resolve(testarCampos(mensagemErro));
+        });
+    };
+
+    const montarDadoCotacaoProduto = () => {
+        return new Promise(resolve => {
+            const campos = {
+                cpf: 'cotacao_produto_cpf',
+                email: 'cotacao_produto_email',
+                telefone: 'cotacao_produto_telefone',
+                produto_tipo: 'cotacao_produto_tipo',
+                marca: 'cotacao_produto_marca',
+                modelo: 'cotacao_produto_modelo',
+                extra : 'cotacao_produto_extra',
+                observacao: 'cotacao_produto_observacao'
+            };
+
+            const body = montarBody(campos, inputEmpresaCotacaoProduto);
+            resolve(body);
+        });
+    };
+    /*
+    |--------------------------------------------------------------------------
+    | ABRIR TAREFA AUTOINDICACAO
+    |--------------------------------------------------------------------------
+    */
+    const validarDadoAuditoria = () => {
+        return new Promise(resolve => {
+            const mensagemErro = {
+                auditoria_relatorio_problema: 'Digite o relatório do problema.'
+            };
+            resolve(testarCampos(mensagemErro));
+        });
+    };
+
+    const montarDadoAuditoria = () => {
+        return new Promise(resolve => {
+            const campos = {
+                relatorio: 'auditoria_relatorio_problema',
+                loja_fisica: 'auditoria_loja_fisica',
+                unidade: 'auditoria_empresa_unidade',
+                atendente: 'auditoria_empresa_atendente',
+                gerente: 'auditoria_empresa_gerente',
+                email: 'auditoria_email',
+                telefone: 'auditoria_telefone',
+                observacao: 'auditoria_observacao'
+            };
+            const body = montarBody(campos, inputEmpresaAuditoria);
+            resolve(body);
+        });
+    };
+
+    /*
+    |--------------------------------------------------------------------------
+    | FUNÇÕES PARA ABRIR TAREFA
+    |--------------------------------------------------------------------------
+    */
+    const testarCampos = (mensagemErro) => {
+        for (const campo in mensagemErro) {
+            const elemento = document.getElementById('input_' + campo);
+            if (elemento.value === '') {
+                Alerta.notificacao(mensagemErro[campo], false);
+                return false;
+            }
+        }
+        return true;
+    };
+
+    const montarBody = (campos, inputEmpresa) => {
+        const body = new FormData();
+
+        body.append('titulo', inputTitulo.value);
+        body.append('tipo', inputTipo.value);
+        body.append('empresa_nome', pegarEmpresaNome(inputEmpresa));
+        body.append('empresa', inputEmpresa.value);
+
+        for (const key in campos) {
+            const campo = campos[key];
+            const elemento = document.getElementById('input_' + campo);
+            if(elemento.type == 'checkbox'){
+                body.append(key, elemento.checked ? 1 : 0);
+                continue;
+            }
+            body.append(key, elemento.value);
+        }
+
+        return body;
+    };
 
     /*
     |--------------------------------------------------------------------------
@@ -915,11 +1416,17 @@ window.addEventListener('load', () => {
     const resetarDemanda = () => {
         escolherTipoDemanda();
 
-        if (area == 'tecnologia') {
-            limparTecnologia();
-            return;
+        switch (area) {
+            case 'tecnologia':
+                limparTecnologia();
+                break;
+            case 'criacao':
+                limparCriacao();
+                break;
+            case 'convenio':
+                limparConvenio();
+                break;
         }
-        limparCriacao();
     };
 
     botaoVoltar.addEventListener('click', () => {
@@ -1059,5 +1566,47 @@ window.addEventListener('load', () => {
         formValue(inputSorteioTexto, '');
         blocoSorteioMotivacaoOutro.classList.add('display_none');
         blocoSorteioEntregaOutro.classList.add('display_none');
+    };
+
+    const limparConvenio = () => {
+        const blocos = [
+            blocoTipoEvento,
+            blocoTipoCampanha,
+            blocoTipoBrinde,
+            blocoTipoIndicacao,
+            blocoTipoAutoindicacao,
+            blocoTipoCotacaoCarro,
+            blocoTipoCotacaoProduto,
+            blocoTipoAuditoria
+        ];
+
+        blocos.forEach(bloco => {
+            resetarInputs(bloco);
+        });
+
+        inputTipo.value = '';
+        inputTitulo.value = '';
+
+        blocoConvenio.classList.remove('display_none');
+        blocoHeader.classList.add('display_none');
+        blocoFooter.classList.add('display_none');
+
+        botaoSalvar.classList.add('display_none');
+        botaoVoltar.classList.add('display_none');
+        botaoFechar.classList.remove('display_none');
+    };
+
+    const resetarInputs = (bloco) => {
+        bloco.classList.add('display_none');
+
+        bloco.querySelectorAll('input').forEach(item => {
+            if(item.type == 'checkbox') {
+                item.checked = false;
+            };
+
+            if(item.type == 'text') {
+                item.value = '';
+            };
+        });
     };
 });

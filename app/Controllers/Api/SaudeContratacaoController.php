@@ -55,7 +55,7 @@ class SaudeContratacaoController extends Controller implements
     private function retornoPadrao(ContratacaoEntity $ContratacaoEntity, int $status = 200): Response
     {
         $Contratacao = pegarPropriedadeDaEntity($ContratacaoEntity, lista: [
-            'usuario', 'simulacao', 'documento_cpf', 'documento_rg', 'orgao_expedidor', 'nome',
+            'usuario', 'empresa', 'simulacao', 'documento_cpf', 'documento_rg', 'orgao_expedidor', 'nome',
             'data_nascimento', 'estado_civil', 'naturalidade', 'genero', 'peso', 'altura',
             'nome_mae', 'responsavel_cpf', 'responsavel_rg', 'responsavel_nome', 'responsavel_orgao_expedidor',
             'email_pessoal', 'telefone_celular', 'telefone_residencial', 'telefone_comercial',

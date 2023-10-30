@@ -1,0 +1,13 @@
+<h3>Cliente</h3>
+@? formSelect(name: 'empresa_campanha', placeholder: 'Escolha um cliente', label: 'Cliente', obrigatorio: 1, lista: $empresa)
+
+<div class="bloco bloco_grupo">
+    <h3>Dados da divulgação</h3>
+    @? formDataHora(name: 'campanha_inicio_divulgacao', label: 'Data de inicio da divulgação', placeholder: 'Data de inicio da divulgação')
+    @? formDataHora(name: 'campanha_fim_divulgacao', label: 'Data final da divulgação', placeholder: 'Data final da divulgação')
+    @? formInput(name: 'campanha_tema', label: 'Tema da camapanha', placeholder: 'Tema da camapanha')
+    @? formInput(name: 'campanha_segmento', label: 'Segmento desejável', placeholder: 'Segmento desejável')
+</div>
+
+<h3>Observações</h3>
+@? formTextarea(name: 'campanha_observacao', label: 'Observações', placeholder: 'Observações')

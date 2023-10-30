@@ -23,10 +23,11 @@ $Painel->coluna(callback: function () use ($Painel) {
 
     $Painel->bloco('Usuário após ativar', callback: function () use ($Painel) {
         $Painel
-            ->vazioBreak('usuario', 'Usuário não ativou o cadastro ainda.')
-            ->linha('usuario->nome', 'Nome')
-            ->cpf('usuario->cpf', 'CPF')
-            ->email('usuario->email', 'E-mail');
+            ->vazioBreak('usuario_ativo', 'Usuário não ativou o cadastro ainda.')
+            ->linha('usuario_ativo->nome', 'Nome')
+            ->cpf('usuario_ativo->cpf', 'CPF')
+            ->email('usuario_ativo->email', 'E-mail')
+            ->botao('usuario_ativo_link', 'Ver usuário', link: LINK . '/app/visualizar/usuario-cliente/->usuario_ativo->id');
     });
 
     $Painel->bloco('Dados da indicação', callback: function () use ($Painel) {

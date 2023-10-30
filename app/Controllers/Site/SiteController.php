@@ -6,6 +6,7 @@ use Erro\Excecao;
 use Http\Request;
 use Http\Response;
 use Controller\Controller;
+use App\Models\Site\Site\IndicacaoModel as SiteIndicacaoModel;
 use App\Models\Site\Pesquisa\SalvarModel as SalvarPesquisaModel;
 
 final class SiteController extends Controller
@@ -89,6 +90,12 @@ final class SiteController extends Controller
      * @return Response
      * @throws Excecao
      */
+    public function postIndicarAmigo(Request $request): Response
+    {
+        $dado = (new SiteIndicacaoModel())->indicarAmigo($request);
+        return mensagemSucesso($dado);
+    }
+
     public function abrirModalEnquetePopup($id = null): Response
     {
         return view('popup.enquete');

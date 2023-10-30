@@ -1,0 +1,1 @@
+{"id":"id_534ad0ae49a09b929ef152686ae1337e","token":"token","metodo":"GET","nome":"\/solicitacao-salavip","uri":"{{LINK}}\/solicitacao-salavip","parametro":[],"body":[],"header":[],"variavel":[],"json":[["texto",true,"pagina","1",""]],"documentacao":{"status":false,"descricao":"","requisicao":"","resposta":"","scope":"solicitacao_salavip:listar"}}

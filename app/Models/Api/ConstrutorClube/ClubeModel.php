@@ -43,7 +43,7 @@ final class ClubeModel
             'header_tag'              => $Construtor->header_tag,
             'header_descricao'        => $Construtor->header_descricao,
             'menu'                    => [
-                'primeiro_acesso'     => $api == Botao::NAO || $dependente == Botao::SIM ? Botao::SIM : Botao::NAO,
+                'primeiro_acesso'     => $Construtor->menu_primeiro_acesso->valor(),
                 'baixar_app'          => !empty($linkAndroid) || !empty($linkIos) ? Botao::SIM : Botao::NAO,
                 'faq'                 => $Construtor->menu_faq->valor(),
                 'acesso_rapido'       => $Construtor->menu_acesso_rapido->valor(),

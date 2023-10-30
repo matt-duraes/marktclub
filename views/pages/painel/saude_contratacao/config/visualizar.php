@@ -24,6 +24,17 @@ $Painel->coluna(callback: function () use ($Painel) {
             );
     });
 
+    $Painel->bloco('Empresa', callback: function () use ($Painel) {
+        $Painel
+            ->linha('empresa->nome', 'Nome')
+            ->botao(
+                'empresa_link',
+                'Ver empresa',
+                link: LINK . '/app/visualizar/comercial-empresa/empresa->id',
+                permissao: \App\Classes\UsuarioCliente\Helper::PERMISSAO_EMPRESA
+            );
+    });
+
     $Painel->bloco('Simulação', callback: function () use ($Painel) {
         $Painel
             ->data('simulacao->titular', 'Data de nascimento')

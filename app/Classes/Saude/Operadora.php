@@ -16,7 +16,7 @@ class Operadora extends Status
         protected string|int|null $valor = null
     ) {
         parent::__construct([
-            self::UNIMED                  => 'Unimed',
+            self::UNIMED                  => 'Unimed Vitória',
             self::UNIMED_SEGURO           => 'Unimed Seguro',
             self::CENTRAL_NACIONAL_UNIMED => 'Central Nacional Unimed',
             self::CNU_FLORIANOPIS         => 'Central Nacional Unimed Florianópolis',
