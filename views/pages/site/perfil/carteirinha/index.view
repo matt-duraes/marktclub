@@ -40,7 +40,7 @@
                 @if($dado->data_nascimento == 'sim'):
                 <div class="bloco_estado bloco_infos">
                     <span>Data de nascimento</span>
-                    <p>{{$data_nascimento}}</p>
+                    <p>{{$data_nascimento_cliente}}</p>
                 </div>
                 @endif;
                 @if($dado->matricula == 'sim'):
