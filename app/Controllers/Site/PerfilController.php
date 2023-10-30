@@ -58,9 +58,9 @@ final class PerfilController extends Controller
 
     public function carteirinha()
     {
+
         $dados_cliente = ((new CarteirinhaModel())->buscarDadosUsuario());
         $data_nascimento = date('d/m/Y', strtotime($dados_cliente->usuario->data_nascimento));
-
         $campos_carteirinha = (new CarteirinhaModel())->buscarCampos();
         $data_emissao = date('d/m/Y', strtotime($campos_carteirinha->data_criacao));
         return view(
