@@ -15,7 +15,9 @@
     <div id="carteirinha_clube">
         <div class="bloco_frente">
             <div class="bg"><img src="{!!$dado->bg_frente!!}"></div>
-            <figure><img src="{{CLUBE_LOGO_PRINCIPAL}}" height="50px" alt="logo do clube"></figure>
+            <figure>
+                <img src="{{CLUBE_LOGO_PRINCIPAL}}" height="50px" alt="logo do clube">
+            </figure>
             <div class="bloco_dado">
                 @if ($dado->nome == 'sim'):
                 <div class="bloco_nome bloco_infos">

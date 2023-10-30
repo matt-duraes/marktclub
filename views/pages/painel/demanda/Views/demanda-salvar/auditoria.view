@@ -1,0 +1,22 @@
+<h3>Cliente</h3>
+@? formSelect(name: 'empresa_auditoria', placeholder: 'Escolha um cliente', label: 'Cliente', obrigatorio: 1, lista: $empresa)
+
+<h3>Relatório do problema</h3>
+@? formTextarea(name: 'auditoria_relatorio_problema', label: 'Relatório do problema', placeholder: 'Relatório do problema')
+
+@? formSwitch(name: 'auditoria_loja_fisica', label: 'Convênio físico?')
+<div class="bloco bloco_grupo display_none" id="bloco_auditoria_endereco">
+    <h3>Dados do convênio</h3>
+    @? formInput(name: 'auditoria_empresa_unidade', label: 'Unidade', placeholder: 'Unidade')
+    @? formInput(name: 'auditoria_empresa_atendente', label: 'Nome do atendente', placeholder: 'Nome do atendente')
+    @? formInput(name: 'auditoria_empresa_gerente', label: 'Nome do gerente', placeholder: 'Nome do gerente')
+</div>
+
+<div class="bloco bloco_grupo">
+    <h3>Formas de contato</h3>
+    @? formEmail(name: 'auditoria_email', label: 'E-mail', placeholder: 'E-mail')
+    @? formTelefone(name: 'auditoria_telefone', label: 'Telefone', placeholder: 'Telefone')
+</div>
+
+<h3>Observações</h3>
+@? formTextarea(name: 'auditoria_observacao', label: 'Observações', placeholder: 'Observações')

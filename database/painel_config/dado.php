@@ -194,7 +194,9 @@ return [
             'demanda'                  => [
                 'titulo'    => 'Demanda',
                 'permissao' => [
-                    'demanda_tecnologia' => 'Tecnologia', 'demanda_criacao' => 'Criação'
+                    'demanda_tecnologia' => 'Tecnologia',
+                    'demanda_criacao'    => 'Criação',
+                    'demanda_convenio'   => 'Convênio',
                 ]
             ],
             'log_erro'                 => [

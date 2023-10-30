@@ -2,28 +2,28 @@
 
 namespace App\Models\Api\Saude\Simulacao;
 
-use App\Classes\Saude\Acomodacao;
-use App\Classes\Saude\Interface\PlanoInterface;
-use App\Classes\Saude\Interface\RegiaoInterface;
-use App\Classes\Saude\Operadora;
-use App\Classes\Saude\Operadoras\Amil\Amil;
-use App\Classes\Saude\Operadoras\Amil\Planos as PlanoAmil;
-use App\Classes\Saude\Operadoras\Amil\Regioes as RegiaoAmil;
-use App\Classes\Saude\Operadoras\CNUFlorianopolis\CNUFlorianopolis;
-use App\Classes\Saude\Operadoras\CNUFlorianopolis\Planos as PlanoCnuFlorianopolis;
-use App\Classes\Saude\Operadoras\Unimed\Unimed;
-use App\Classes\Saude\Operadoras\UnimedSeguro\UnimedSeguro;
-use App\Classes\Saude\PlanoSaude;
-use App\Classes\SaudeSimulacao\Status;
-use App\Models\Api\Trait\ValidarEmpresaTrait;
 use Erro\Erro;
-use Erro\Excecao;
 use Exception;
-use Helpers\ValidarHelper;
+use ORM\Entity;
+use Erro\Excecao;
 use Http\Request;
 use Modules\Data;
 use Modules\Dinheiro;
-use ORM\Entity;
+use Helpers\ValidarHelper;
+use App\Classes\Saude\Operadora;
+use App\Classes\Saude\Acomodacao;
+use App\Classes\Saude\PlanoSaude;
+use App\Classes\SaudeSimulacao\Status;
+use App\Classes\Saude\Operadoras\Amil\Amil;
+use App\Models\Api\Trait\ValidarEmpresaTrait;
+use App\Classes\Saude\Interface\PlanoInterface;
+use App\Classes\Saude\Operadoras\Unimed\Unimed;
+use App\Classes\Saude\Interface\RegiaoInterface;
+use App\Classes\Saude\Operadoras\Amil\Planos as PlanoAmil;
+use App\Classes\Saude\Operadoras\UnimedSeguro\UnimedSeguro;
+use App\Classes\Saude\Operadoras\Amil\Regioes as RegiaoAmil;
+use App\Classes\Saude\Operadoras\CNUFlorianopolis\CNUFlorianopolis;
+use App\Classes\Saude\Operadoras\CNUFlorianopolis\Planos as PlanoCnuFlorianopolis;
 
 class SimulacaoEntity extends Entity
 {

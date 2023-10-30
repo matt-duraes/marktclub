@@ -4,11 +4,12 @@ use App\Classes\UsuarioIndicacao\Status;
 
 $listaStatus = (new Status())->listarNumero();
 $seeds = [];
-for ($i = 0; $i < env('QTD_SEEDS', 50); $i++) {
+$default = [];
+for ($i = 0; $i < env('QTD_SEEDS', 20); $i++) {
     $seeds[] = [
         'uuid'               => uuid(),
-        'id_admin_empresa'   => numeroAleatorio(1, 50),
-        'id_usuario_cliente' => numeroAleatorio(1, 50),
+        'id_admin_empresa'   => numeroAleatorio(1, 5),
+        'id_usuario_cliente' => numeroAleatorio(1, env('QTD_SEEDS', 20)),
         'hash'               => uuid(),
         'nome'               => nomeCompletoAleatorio(),
         'email'              => emailAleatorio(),
@@ -16,4 +17,4 @@ for ($i = 0; $i < env('QTD_SEEDS', 50); $i++) {
         'status'             => valorAleatorio($listaStatus)
     ];
 }
-return $seeds;
+return array_merge($default, $seeds);

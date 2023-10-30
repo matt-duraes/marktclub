@@ -5,6 +5,14 @@ use App\Middlewares\Site\AuthMiddleware;
 use App\Middlewares\Site\ClubeMiddleware;
 
 Route
+    ::nome('temp')
+    ::controller(App\Controllers\Site\TempController::class)
+    ::grupo(function () {
+        Route
+            ::nome('undefined')
+            ::view('/undefined');
+    });
+Route
     ::nome('thema')
     ::controller(App\Controllers\Site\TemaController::class)
     ::grupo(function () {
@@ -438,7 +446,7 @@ Route
             ::view('/saude/unimed-vitoria');
         Route
             ::nome('unimedflorianopolis')
-            ::view('/saude/central-nacional-unimed-florianopolis');
+            ::view('/saude/cnu-florianopolis');
         Route
             ::nome('tabela')
             ::request(['id'])
@@ -625,6 +633,12 @@ Route
         Route
             ::nome('indiqueAmigo')
             ::view('/indique-um-amigo');
+        Route
+            ::nome('indicarAmigo')
+            ::request([
+                'nome', 'email', 'telefone'
+            ])
+            ::post('/indicar-amigo');
         Route
             ::nome('abrirModalEnquetePopup')
             ::view('/enquete-popup/{id}');

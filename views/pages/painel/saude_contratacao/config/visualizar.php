@@ -4,7 +4,7 @@ use App\Classes\Saude\Operadora;
 use App\Classes\Saude\Operadoras\Amil\Planos as PlanoAmil;
 use App\Classes\Saude\Operadoras\Amil\Regioes;
 use App\Classes\Saude\Operadoras\CNUFlorianopolis\Planos as PlanoCNU;
-use App\Classes\SolicitacaoCredito\Status;
+use App\Classes\Saude\Status;
 use App\Classes\Saude\Acomodacao;
 use Modules\EstadoCivil;
 use Modules\Genero;
@@ -21,6 +21,17 @@ $Painel->coluna(callback: function () use ($Painel) {
                 'Ver usuário',
                 link: LINK . '/app/visualizar/usuario-cliente/usuario->id',
                 permissao: \App\Classes\UsuarioCliente\Helper::PERMISSAO_VISUALIZAR
+            );
+    });
+
+    $Painel->bloco('Empresa', callback: function () use ($Painel) {
+        $Painel
+            ->linha('empresa->nome', 'Nome')
+            ->botao(
+                'empresa_link',
+                'Ver empresa',
+                link: LINK . '/app/visualizar/comercial-empresa/empresa->id',
+                permissao: \App\Classes\UsuarioCliente\Helper::PERMISSAO_EMPRESA
             );
     });
 
@@ -80,13 +91,38 @@ $Painel->coluna(callback: function () use ($Painel) {
             ->linha('endereco_complemento', 'Complemento');
     });
 
+    $Painel->bloco('Status', callback: function () use ($Painel) {
+        $Painel
+            ->linha('status', 'Status');
+    });
+
+    $Painel
+        ->status(
+            campo: 'status',
+            texto: 'Enviado',
+            inArray: ['Novo'],
+            status: Status::ENVIADO,
+            mensagem: 'Tem certeza que deseja alterar o status para enviado?',
+            cor: 'verde'
+        );
+
+    $Painel
+        ->status(
+            campo: 'status',
+            texto: 'Contratado',
+            inArray: ['Novo', 'Enviado para operadora'],
+            status: Status::CONTRATADO,
+            mensagem: 'Tem certeza que deseja alterar o status para contratado?',
+            cor: 'verde'
+        );
+
     $Painel
         ->status(
             campo: 'status',
             texto: 'Cancelado',
-            inArray: ['Novo', 'Enviado p/ Parceiro'],
+            inArray: ['Novo', 'Enviado para operadora'],
             status: Status::CANCELADO,
-            mensagem: 'Tem certeza que deseja alterar o status de cancelado?',
+            mensagem: 'Tem certeza que deseja alterar o status para cancelado?',
             cor: 'vermelho'
         );
 });
@@ -105,6 +141,7 @@ $Painel
     ->replace('simulacao->regiao', (new Regioes())->select())
     ->replace('simulacao->acomodacao', (new Acomodacao())->select())
     ->replace('estado_civil', (new EstadoCivil())->select())
-    ->replace('genero', (new Genero())->select());
+    ->replace('genero', (new Genero())->select())
+    ->replace('status', (new Status())->select());
 
 return $Painel;

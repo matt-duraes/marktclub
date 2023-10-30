@@ -13,4 +13,9 @@ $Painel
     ->campo('publicado', 'Publicado', 'pequeno')
     ->status('status', 'Status', new Status());
 
+$Painel->replace('publicado', [
+    'sim' => 'Sim',
+    'nao' => 'Não'
+]);
+
 return $Painel;
