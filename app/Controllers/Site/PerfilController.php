@@ -2,11 +2,13 @@
 
 namespace App\Controllers\Site;
 
+use DateTime;
 use Http\Request;
 use Http\Response;
 use Controller\Controller;
 use App\Models\Site\Perfil\DadosModel;
 use App\Models\Site\Perfil\SenhaModel;
+use Google\Service\AdExchangeBuyerII\Date;
 use App\Models\Site\Perfil\DependenteModel;
 use App\Models\Site\Perfil\CarteirinhaModel;
 
@@ -60,9 +62,10 @@ final class PerfilController extends Controller
     {
 
         $dados_cliente = ((new CarteirinhaModel())->buscarDadosUsuario());
-        $data_nascimento = date('d/m/Y', strtotime($dados_cliente->usuario->data_nascimento));
+        //$data_nascimento = date('d/m/Y', strtotime($dados_cliente->usuario->data_nascimento));
         $campos_carteirinha = (new CarteirinhaModel())->buscarCampos();
         $data_emissao = date('d/m/Y', strtotime($campos_carteirinha->data_criacao));
+        $data_nascimento = (new DateTime($dados_cliente->usuario->data_nascimento))->format('d/m/Y');
         return view(
             'perfil.carteirinha',
             [
