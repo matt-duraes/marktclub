@@ -190,4 +190,26 @@ class PopupModel extends ORM
         }
         return $retorno;
     }
+
+    /**
+     * @throws Excecao
+     */
+    public function expirados(): void
+    {
+        $popups = $this
+            ->campo([
+                'uuid', 'data_inicio', 'data_final', 'status'
+            ])
+            ->where(['status', (new Status(Status::ATIVO))->numero()])
+            ->read();
+
+        foreach ($popups as $popup) {
+            if (date('Y-m-d') > (new Data($popup->data_final))->date()) {
+                $PopupEntity = new PopupEntity();
+                $PopupEntity->uuid($popup->uuid);
+                $PopupEntity->status = new Status(Status::EXPIRADO);
+                $PopupEntity->salvar();
+            }
+        }
+    }
 }

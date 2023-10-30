@@ -1748,7 +1748,8 @@ Route
             ::nome('salvar')
             ::middleware(TokenMiddleware::class, 'scope', ['carteirinha:salvar'])
             ::request([
-                'empresa', 'bg_frente', 'bg_fundo', 'titulo', 'nome', 'cpf', 'matricula', 'data_nascimento', 'status', 'estado'
+                'empresa', 'bg_frente', 'bg_fundo', 'titulo', 'nome', 'cpf', 'matricula', 'data_nascimento', 'status',
+                'estado'
             ])
             ::post('/carteirinha');
 
@@ -1756,7 +1757,8 @@ Route
             ::nome('atualizar')
             ::middleware(TokenMiddleware::class, 'scope', ['carteirinha:atualizar'])
             ::request([
-                '!bg_frente', '!empresa', '!titulo', '!bg_fundo', '!nome', '!cpf', '!matricula', '!data_nascimento', '!status', '!estado'
+                '!bg_frente', '!empresa', '!titulo', '!bg_fundo', '!nome', '!cpf', '!matricula', '!data_nascimento',
+                '!status', '!estado'
             ])
             ::put('/carteirinha/{id}');
 
@@ -1817,6 +1819,11 @@ Route
                 'id', 'pagina', '!quantidade'
             ])
             ::put('/comercial-popup/ordenar');
+
+        Route
+            ::nome('expirado')
+            ::middleware(TokenMiddleware::class, 'scope', ['comercial_popup:expirado'])
+            ::get('/comercial-popup/expirado');
     });
 
 Route
