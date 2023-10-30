@@ -67,7 +67,7 @@ class CarteirinhaEntity extends Entity
         if ($this->propriedadeExiste('empresa') && !empty($this->empresa)) {
             $this->empresa = $this->OrmEmpresa->pegarIdPeloUuid($this->empresa);
         }
-        
+
         if ($this->existe(['id_admin_empresa', $this->empresa]) && $this->id_admin_empresa != $this->empresa) {
             mensagemErro('Empresa duplicada', 'Já existe uma carteirinha cadastrada!');
         }

@@ -26,22 +26,12 @@ final class BannerModel extends ClubeApiHelper
                     'target' => '_self',
                     'link'   => route('loja.index')
                 ],
-                (object)[
-                    'imagem' => LINK_PADRAO . '/images/temp/index_desktop.png',
-                    'target' => '_self',
-                    'link'   => route('loja.index')
-                ]
             ],
             'mobile'  => [
                 (object)[
                     'imagem' => LINK_PADRAO . '/images/temp/index_mobile.png',
                     'target' => '_self',
                     'link'   => route('loja.index'),
-                ],
-                (object)[
-                    'imagem' => LINK_PADRAO . '/images/temp/index_mobile.png',
-                    'target' => '_self',
-                    'link'   => route('loja.index')
                 ]
             ]
         ];

@@ -35,7 +35,6 @@ final class LojaController extends Controller
         } catch (\Throwable) {
             return new Response(route('loja.index'));
         }
-
     }
 
     /**
