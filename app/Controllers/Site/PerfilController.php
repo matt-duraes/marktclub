@@ -58,8 +58,10 @@ final class PerfilController extends Controller
 
     public function carteirinha()
     {
-        $campos_carteirinha = (new CarteirinhaModel())->buscarCampos();
         $dados_cliente = ((new CarteirinhaModel())->buscarDadosUsuario());
+        $data_nascimento = date('d/m/Y', strtotime($dados_cliente->usuario->data_nascimento));
+
+        $campos_carteirinha = (new CarteirinhaModel())->buscarCampos();
         $data_emissao = date('d/m/Y', strtotime($campos_carteirinha->data_criacao));
         return view(
             'perfil.carteirinha',
@@ -67,6 +69,7 @@ final class PerfilController extends Controller
                 'dado'          => $campos_carteirinha,
                 'dados_cliente' => $dados_cliente->usuario,
                 'data_emissao'  => $data_emissao,
+                'data_nascimento' => $data_nascimento
             ]
         );
     }
