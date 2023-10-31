@@ -60,7 +60,7 @@ final class PerfilController extends Controller
     {
         $campos_carteirinha = (new CarteirinhaModel())->buscarCampos();
         $dados_cliente = ((new CarteirinhaModel())->buscarDadosUsuario());
-        $data_emissao = date('d/m/Y', strtotime($campos_carteirinha->data_criacao));
+        $data_emissao = dataBr($campos_carteirinha->data_criacao);
         return view(
             'perfil.carteirinha',
             [
