@@ -96,18 +96,4 @@ $seeds = [
         'status'        => 1
     ],
 ];
-for ($i = 0; $i < env('QTD_SEEDS', 50); $i++) {
-    $tipo = valorAleatorio($listaTipoUsuario);
-    $seeds[] = [
-        'cod'           => uuid(),
-        'empresa'       => 1,
-        'titular'       => null,
-        'tipo'          => $tipo,
-        'nome'          => nomeCompletoAleatorio(),
-        'documento'     => cpfAleatorio(),
-        'email_pessoal' => emailAleatorio(),
-        'salt'          => password('Teste@' . $i),
-        'status'        => valorAleatorio($listaStatus)
-    ];
-}
 return $seeds;
