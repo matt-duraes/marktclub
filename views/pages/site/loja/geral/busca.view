@@ -16,7 +16,7 @@
                     <h2>Gostaria de buscar apenas lojas próximas a você? Para isso, basta marcar o botão abaixo:</h2>
                     @? formSwitch(name: '', id:'input_mapa', label: 'Buscar lojas próximas', check: $Busca->mapa)
                 </div>
-                <input type="text" id="input_latitude_erro" value="{{$Busca->latitude_erro ?? '' ? 'sim' : 'nao'}}">
+                <input type="hidden" id="input_latitude_erro" value="{{$Busca->latitude_erro ?? '' ? 'sim' : 'nao'}}">
                 <input type="hidden" name="latitude" id="input_latitude" value="{{$Busca->latitude ?? ''}}">
                 <input type="hidden" name="longitude" id="input_longitude" value="{{$Busca->longitude ?? ''}}">
                 <input type="hidden" id="input_acessado" value="{{$Busca->acessado ?? '' ? 'sim' : 'nao'}}">
