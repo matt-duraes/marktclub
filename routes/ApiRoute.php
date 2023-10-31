@@ -2069,14 +2069,6 @@ Route
             ::get('/solicitacao-contato');
 
         Route
-            ::nome('salvar')
-            ::middleware(TokenMiddleware::class, 'scope', ['solicitacao_contato:salvar'])
-            ::request([
-                'nome', 'email', 'telefone', 'mensagem', 'url'
-            ])
-            ::post('/solicitacao-contato');
-
-        Route
             ::nome('atualizar')
             ::middleware(TokenMiddleware::class, 'scope', ['solicitacao_contato:atualizar'])
             ::request([
@@ -2084,6 +2076,18 @@ Route
             ])
             ::put('/solicitacao-contato/{id}');
     });
+
+Route
+    ::nome('solicitacao_contato')
+    ::controller(App\Controllers\Api\SolicitacaoContatoController::class)
+    ::grupo(function () {
+        Route
+            ::nome('salvar')
+            ::request([
+                'nome', 'email', 'telefone', 'mensagem', 'url'
+            ])
+            ::post('/solicitacao-contato');
+});
 
 Route
     ::nome('solicitacao_automovel')
