@@ -31,7 +31,8 @@ class ComercialPopupTest extends Tests
                 'titulo'      => 'venha conferir a melhor',
                 'texto'       => 'Aqui vc tera o mejor do melhor sempre',
                 'data_inicio' => date('d/m/Y'),
-                'data_final'  => date('d/m/Y')
+                'data_final'  => date('d/m/Y'),
+                'status'      => Status::ATIVO
             ])
             ->post('/comercial-popup')
             ->array();
