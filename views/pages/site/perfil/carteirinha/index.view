@@ -28,19 +28,19 @@
                 @if ($dado->cpf == 'sim'):
                 <div class="bloco_cpf bloco_infos">
                     <span>Cpf</span>
-                    <p>{{!!$cpf!!}}</p>
+                    <p>{!!$cpf!!}</p>
                 </div>
                 @endif
                 @if ($dado->data_criacao == 'sim'):
                 <div class="bloco_data_emissao bloco_infos">
                     <span>Data de emissão</span>
-                    <p>{{!!$data_emissao!!}}</p>
+                    <p>{{$data_emissao}}</p>
                 </div>
                 @endif;
                 @if($dado->data_nascimento == 'sim'):
                 <div class="bloco_estado bloco_infos">
                     <span>Data de nascimento</span>
-                    <p>{{!!$data_nascimento_cliente!!}}</p>
+                    <p>{!!$data_nascimento_cliente!!}</p>
                 </div>
                 @endif;
                 @if($dado->matricula == 'sim'):
