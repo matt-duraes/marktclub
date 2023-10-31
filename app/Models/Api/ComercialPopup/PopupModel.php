@@ -53,7 +53,7 @@ class PopupModel extends ORM
         private readonly Botao $publicado = new Botao(null),
     ) {
         parent::__construct();
-        $this->validarEmpresa();
+        $this->validarEmpresa(json: true);
         $this->validarDados();
     }
 
@@ -103,15 +103,7 @@ class PopupModel extends ORM
     private function pegarWhere(): array
     {
         $where = $this->ormWherePadrao;
-
         $publicado = $this->publicado->valido();
-
-        if (!empty($this->empresa)) {
-            $where = [
-                ['id_admin_empresa', 'json', $this->empresa]
-            ];
-        }
-
         if (!empty($this->titulo)) {
             $where[] = ['titulo', 'LIKE', '%' . $this->titulo . '%'];
         }
