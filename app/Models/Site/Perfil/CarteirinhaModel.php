@@ -19,8 +19,8 @@ final class CarteirinhaModel extends ClubeApiHelper
             ->get('/carteirinha')
             ->object();
 
-        if (empty($dado->dado->lista)) {
-            mensagemErro('Nenhuma carteirinha cadastrada', 'Sua empresa ainda não cadastrou uma carteirinha');
+        if (empty($dado->dado->lista) || $dado->dado->lista[0]->status != 'ativo') {
+            mensagemErro('Nenhuma carteirinha cadastrada', 'Sua empresa ainda não ativou nenhuma carteirinha');
         }
 
         return $dado->dado->lista[0];
@@ -47,9 +47,9 @@ final class CarteirinhaModel extends ClubeApiHelper
             'usuario' => (object) [
                 'nome'            => $this->Crypt->decode($dado->nome) ?? '',
                 'matricula'       => $this->Crypt->decode($dado->matricula) ?? '',
-                'cpf'             => $this->Crypt->decode($dado->cpf) ?? '',
+                'cpf'             => strCpf($this->Crypt->decode($dado->cpf) ?? ''),
                 'estado'          => $this->Crypt->decode($dado->endereco_estado) ?? '',
-                'data_nascimento' => $this->Crypt->decode($dado->data_nascimento) ?? '',
+                'data_nascimento' => dataBr($this->Crypt->decode($dado->data_nascimento) ?? ''),
             ],
         ];
     }

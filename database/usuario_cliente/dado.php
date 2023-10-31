@@ -51,6 +51,17 @@ $seeds = [
         'status'        => 1
     ],
     [
+        'id'            => 5,
+        'cod'           => '114907f3-effc-43db-8211-64e684576f55',
+        'empresa'       => 2,
+        'tipo'          => 1,
+        'nome'          => 'Usuário ANAFE',
+        'documento'     => '01234567890',
+        'email_pessoal' => 'teste@anafecard.com.br',
+        'salt'          => password('Teste@1324'),
+        'status'        => 1
+    ],
+    [
         'id'             => 100,
         'cod'            => '00956a04-3b7e-446b-9a5e-7a425ce1b408',
         'empresa'        => 1967,
