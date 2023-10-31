@@ -39,7 +39,6 @@ trait ValidarEmpresaTrait
         $scope = defined('TOKEN_SCOPE') ? explode(':', TOKEN_SCOPE)[0] ?? '' : '';
         $usuarioPermissao = TOKEN['usuario']->permissao ?? [];
         $usuarioIdEmpresa = TOKEN['usuario']->id_admin_empresa ?? 0;
-
         return
             !empty($this->idUsuario)
             && !empty($scope)
@@ -147,11 +146,9 @@ trait ValidarEmpresaTrait
         if ($this->idEmpresa != 1 || empty($this->idUsuario)) {
             return;
         }
-
         if (!$this->verificarSePodeMudarEmpresa()) {
             return;
         }
-
         if (
             !property_exists($this, 'request')
             || !($this->request instanceof Request)
@@ -177,12 +174,16 @@ trait ValidarEmpresaTrait
      */
     private function setarWherePadrao(array $where = []): void
     {
+        $wherePadrao = [[$this->nomeCampoEmpresa, $this->whereEmpresa]];
+        if ($this->campoEmpresaJson) {
+            $wherePadrao = [[$this->nomeCampoEmpresa, 'json', $this->whereEmpresa]];
+        }
         if (!empty($where) && !empty($this->ormWherePadrao)) {
-            $this->ormWherePadrao = array_merge([$where], [$this->ormWherePadrao]);
+            $this->ormWherePadrao = array_merge([$where], $wherePadrao);
         } elseif (!empty($where)) {
             $this->ormWherePadrao = $where;
         } elseif (!empty($this->whereEmpresa)) {
-            $this->ormWherePadrao = [$this->ormWherePadrao];
+            $this->ormWherePadrao = $wherePadrao;
         }
     }
 }

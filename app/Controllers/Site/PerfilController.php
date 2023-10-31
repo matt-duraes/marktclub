@@ -2,14 +2,11 @@
 
 namespace App\Controllers\Site;
 
-use DateTime;
-use Modules\Cpf;
 use Http\Request;
 use Http\Response;
 use Controller\Controller;
 use App\Models\Site\Perfil\DadosModel;
 use App\Models\Site\Perfil\SenhaModel;
-use Google\Service\AdExchangeBuyerII\Date;
 use App\Models\Site\Perfil\DependenteModel;
 use App\Models\Site\Perfil\CarteirinhaModel;
 
@@ -61,11 +58,10 @@ final class PerfilController extends Controller
 
     public function carteirinha()
     {
-
         $dados_cliente = ((new CarteirinhaModel())->buscarDadosUsuario());
         $campos_carteirinha = (new CarteirinhaModel())->buscarCampos();
         $data_emissao = dataBr($campos_carteirinha->data_criacao);
-      
+
         return view(
             'perfil.carteirinha',
             [
