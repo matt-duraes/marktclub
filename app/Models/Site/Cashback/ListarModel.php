@@ -75,4 +75,5 @@ final class ListarModel extends ClubeApiHelper implements ListarInterface
         }
         return $retorno;
     }
+
 }

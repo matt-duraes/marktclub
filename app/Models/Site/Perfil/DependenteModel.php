@@ -58,7 +58,7 @@ final class DependenteModel extends ClubeApiHelper
     public function salvarDependente(Request $request): array
     {
         $dado = $this
-            ->validar('Ocorre um erro ao atualizar sua demanda, por favor, tente novamente.', login: true)
+            ->validar('Ocorre um erro ao salvar seu dependente, por favor, tente novamente.', login: true)
             ->body([
                 'nome'    => $this->Crypt->encode($request->nome),
                 'email'   => $this->Crypt->encode($request->email),
