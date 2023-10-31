@@ -15,7 +15,7 @@
                 <article class="{!!$tema == 'dark' ? 'hover' : ''!!}" data-tema="dark">
                     <figure><img src="@LINK/images/site/tema_escuro.png" alt=""></figure>
                     <h1>Escura</h1>
-                    <p>Tema com cores escurar</p>
+                    <p>Tema com cores escuras</p>
                 </article>
                 <article class="{!!$tema == 'sistema' ? 'hover' : ''!!}" data-tema="sistema">
                     <figure><img src="@LINK/images/site/tema_auto.png" alt=""></figure>
