@@ -72,7 +72,6 @@ final class CashbackController extends Controller
             pagina: new Pagina(1),
             quantidade: new Quantidade(3)
         );
-
         return view(
             'cashback.detalhe',
             [
