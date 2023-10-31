@@ -61,7 +61,7 @@ for ($i = 1; $i <= 50; $i++) {
 
     $dado[] = [
         'id'               => $i,
-        'id_admin_empresa' => numeroAleatorio(1, 40),
+        'id_admin_empresa' => [numeroAleatorio(1, 40)],
         'titulo'           => $nome,
         'texto_descricao'  => 'Um dos maiores ecommerces do mundo, com preços agressivos e excelente promoções. Não perca essa! AliExpress possui mais de 5900 tipos de produto de mais de 44 indústrias, incluindo: vestuário e acessórios, carros e motos, celulares etc.',
         'texto_restricao'  => 'Não contempla venda de produtos ofertados via hotsites, paralelos ao site principal. Os pontos referentes à compras via boletos bancários serão computados apenas após o pagamento do mesmo.',
