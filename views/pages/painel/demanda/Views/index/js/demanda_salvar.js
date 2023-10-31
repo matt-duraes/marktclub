@@ -1222,6 +1222,8 @@ window.addEventListener('load', () => {
     |--------------------------------------------------------------------------
     */
     const testarCampos = (mensagemErro) => {
+        mensagemErro['titulo'] = 'O campo título não pode ser vazio';
+
         for (const campo in mensagemErro) {
             const elemento = document.getElementById('input_' + campo);
             if (elemento.value === '') {
