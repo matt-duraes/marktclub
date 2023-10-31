@@ -65,6 +65,7 @@ final class PerfilController extends Controller
         $dados_cliente = ((new CarteirinhaModel())->buscarDadosUsuario());
         $campos_carteirinha = (new CarteirinhaModel())->buscarCampos();
         $data_emissao = dataBr($campos_carteirinha->data_criacao);
+      
         return view(
             'perfil.carteirinha',
             [
