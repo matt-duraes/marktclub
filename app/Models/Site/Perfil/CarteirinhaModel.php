@@ -19,8 +19,8 @@ final class CarteirinhaModel extends ClubeApiHelper
             ->get('/carteirinha')
             ->object();
 
-        if (empty($dado->dado->lista)) {
-            mensagemErro('Nenhuma carteirinha cadastrada', 'Sua empresa ainda não cadastrou uma carteirinha');
+        if (empty($dado->dado->lista) || $dado->dado->lista[0]->status != 'ativo') {
+            mensagemErro('Nenhuma carteirinha cadastrada', 'Sua empresa ainda não ativou nenhuma carteirinha');
         }
 
         return $dado->dado->lista[0];

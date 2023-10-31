@@ -246,7 +246,15 @@ class Historico {
     | ABRE/FECHA BLOCO VISUALIZACAO
     |--------------------------------------------------------------------------
     */
-    abrirBloco() {
+    async abrirBloco() {
+        const parceiro = this.parceiroAtual;
+
+        const idImagem = parceiro.getAttribute('data-id');
+        if (!localStorage.getItem(idImagem)) {
+            localStorage.setItem(idImagem, 1);
+        }
+        parceiro.classList.add('fw_historico_visto');
+
         this.show(this.blocoHistorico);
         setTimeout(() => {
             this.blocoHistorico.classList.add('fw_historico_abrir');

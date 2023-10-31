@@ -5,11 +5,12 @@ namespace App\Models\Api\Trait;
 use Throwable;
 use Erro\Excecao;
 use Http\Request;
-use App\Models\Api\ComercialEmpresa\EmpresaEntity;
+use Helpers\OrmHelper;
 
 trait ValidarEmpresaTrait
 {
     private string $nomeCampoEmpresa;
+    private bool $campoEmpresaJson = false;
 
     /**
      * Mudar o ID da empresa se tiver pemissão
@@ -23,7 +24,11 @@ trait ValidarEmpresaTrait
         }
         $this->whereEmpresa = $id;
         $this->idEmpresa = $id;
-        $this->ormWherePadrao = [$this->nomeCampoEmpresa, $id];
+        $where = [$this->nomeCampoEmpresa, $id];
+        if ($this->campoEmpresaJson) {
+            [$this->nomeCampoEmpresa, 'json', $id];
+        }
+        $this->ormWherePadrao = $where;
     }
 
     /**
@@ -51,8 +56,9 @@ trait ValidarEmpresaTrait
      *
      * @throws Excecao
      */
-    private function validarEmpresa(string $campoEmpresa = 'id_admin_empresa'): void
+    private function validarEmpresa(string $campoEmpresa = 'id_admin_empresa', bool $json = false): void
     {
+        $this->campoEmpresaJson = $json;
         $this->setarIdEmpresa();
         $this->setarIdUsuario();
         $this->setaPropriedadeInicial($campoEmpresa);
@@ -60,7 +66,7 @@ trait ValidarEmpresaTrait
         $this->setarWherePadrao();
     }
 
-    private function validarSubempresa()
+    private function validarSubempresa(bool $json = false)
     {
         if (!defined('TOKEN') || !is_array(TOKEN) || !array_key_exists('usuario', TOKEN)) {
             return;
@@ -72,6 +78,10 @@ trait ValidarEmpresaTrait
         }
         $where = $this->ormWherePadrao;
         $whereSubempresa = [['id_admin_subempresa', $id]];
+        if ($json) {
+            $whereSubempresa = [['id_admin_subempresa', 'json', $id]];
+        }
+
         if (empty($where)) {
             $this->ormWherePadrao = $whereSubempresa;
             return;
@@ -122,7 +132,11 @@ trait ValidarEmpresaTrait
             : 'id_admin_empresa';
 
         $this->whereEmpresa = $this->idEmpresa;
-        $this->ormWherePadrao = [$this->nomeCampoEmpresa, $this->idEmpresa];
+        $where = [$this->nomeCampoEmpresa, $this->idEmpresa];
+        if ($this->campoEmpresaJson) {
+            $where = [$this->nomeCampoEmpresa, 'json', $this->idEmpresa];
+        }
+        $this->ormWherePadrao = $where;
     }
 
     /**
@@ -148,11 +162,9 @@ trait ValidarEmpresaTrait
             $this->ormWherePadrao = [];
             return;
         }
-
         try {
-            $Empresa = new EmpresaEntity();
-            $Empresa->uuid($this->request->empresa);
-            $this->whereEmpresa = $Empresa->get('id');
+            $Empresa = new OrmHelper(TABELA_COMERCIAL_EMPRESA);
+            $this->whereEmpresa = $Empresa->pegarIdPeloUuid($this->request->empresa);
         } catch (Throwable $e) {
             mensagemErro('Empresa inválida!', 'Não foi encontrado uma empresa pelo código enviado.', error: $e);
         }
@@ -166,11 +178,11 @@ trait ValidarEmpresaTrait
     private function setarWherePadrao(array $where = []): void
     {
         if (!empty($where) && !empty($this->ormWherePadrao)) {
-            $this->ormWherePadrao = array_merge([$where], [[$this->nomeCampoEmpresa, $this->whereEmpresa]]);
+            $this->ormWherePadrao = array_merge([$where], [$this->ormWherePadrao]);
         } elseif (!empty($where)) {
             $this->ormWherePadrao = $where;
         } elseif (!empty($this->whereEmpresa)) {
-            $this->ormWherePadrao = [[$this->nomeCampoEmpresa, $this->whereEmpresa]];
+            $this->ormWherePadrao = [$this->ormWherePadrao];
         }
     }
 }

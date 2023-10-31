@@ -142,4 +142,14 @@ class ComercialPopupController extends Controller implements
         );
         return new Response(status: 204);
     }
+
+    /**
+     * @return Response
+     * @throws Excecao
+     */
+    public function getExpirado(): Response
+    {
+        (new PopupModel())->expirados();
+        return new Response(status: 204);
+    }
 }

@@ -78,6 +78,14 @@ class PopupEntity extends Entity
                 localhost: 'A Data de início está no passado. Não existe máquina do tempo ainda. :|'
             );
         }
+
+        if ($hoje > $this->data_final->date()) {
+            mensagemErro(
+                'Acão recusada',
+                'A Data final não pode ser antes da data atual ' . dataBr($hoje),
+                localhost: 'A Data final está no passado. Não existe máquina do tempo ainda. :|'
+            );
+        }
     }
 
     /**
@@ -94,11 +102,22 @@ class PopupEntity extends Entity
     private function validarDataPassadaUpdate(): void
     {
         $hoje = date('Y-m-d');
-        if ($this->data_inicio->date() < $hoje) {
+        $popup = (new OrmHelper($this->ormTabela))
+            ->pegarPrimeiroRegistro(['uuid', $this->id], ['data_inicio', 'data_final']);
+
+        if (($this->data_inicio->date() != $popup['data_inicio']) && ($this->data_inicio->date() < $hoje)) {
             mensagemErro(
                 'Acão recusada',
                 'A Data de início não pode ser antes da data atual ' . dataBr($hoje),
                 localhost: 'A Data de início não pode ser no passado. Você não é viajante do tempo.'
+            );
+        }
+
+        if (($this->data_final->date() != $popup['data_final']) && ($this->data_final->date() < $hoje)) {
+            mensagemErro(
+                'Acão recusada',
+                'A Data final não pode ser antes da data atual ' . dataBr($hoje),
+                localhost: 'A Data final não pode ser no passado. Você não é viajante do tempo.'
             );
         }
     }

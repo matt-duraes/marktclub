@@ -53,7 +53,7 @@ class PopupModel extends ORM
         private readonly Botao $publicado = new Botao(null),
     ) {
         parent::__construct();
-        $this->validarEmpresa();
+        $this->validarEmpresa(json: true);
         $this->validarDados();
     }
 
@@ -103,15 +103,7 @@ class PopupModel extends ORM
     private function pegarWhere(): array
     {
         $where = $this->ormWherePadrao;
-
         $publicado = $this->publicado->valido();
-
-        if (!empty($this->empresa)) {
-            $where = [
-                ['id_admin_empresa', 'json', $this->empresa]
-            ];
-        }
-
         if (!empty($this->titulo)) {
             $where[] = ['titulo', 'LIKE', '%' . $this->titulo . '%'];
         }
@@ -190,5 +182,27 @@ class PopupModel extends ORM
             ];
         }
         return $retorno;
+    }
+
+    /**
+     * @throws Excecao
+     */
+    public function expirados(): void
+    {
+        $popups = $this
+            ->campo([
+                'uuid', 'data_inicio', 'data_final', 'status'
+            ])
+            ->where(['status', (new Status(Status::ATIVO))->numero()])
+            ->read();
+
+        foreach ($popups as $popup) {
+            if (date('Y-m-d') > (new Data($popup->data_final))->date()) {
+                $PopupEntity = new PopupEntity();
+                $PopupEntity->uuid($popup->uuid);
+                $PopupEntity->status = new Status(Status::EXPIRADO);
+                $PopupEntity->salvar();
+            }
+        }
     }
 }
