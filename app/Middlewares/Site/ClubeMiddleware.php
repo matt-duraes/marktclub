@@ -62,7 +62,7 @@ final class ClubeMiddleware extends ApiHelper
             return;
         }
         $host = preg_replace('/^http(s)?\:\/\/(www.)?/', '', LINK);
-        if(eLocalhost()) {
+        if (eLocalhost()) {
             $host = urlencode($host);
         }
 
