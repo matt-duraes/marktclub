@@ -3,6 +3,7 @@
 namespace App\Controllers\Site;
 
 use DateTime;
+use Modules\Cpf;
 use Http\Request;
 use Http\Response;
 use Controller\Controller;
@@ -62,6 +63,7 @@ final class PerfilController extends Controller
     {
 
         $dados_cliente = ((new CarteirinhaModel())->buscarDadosUsuario());
+        $cpf = (new Cpf($dados_cliente->usuario->cpf))->cpf();
         $campos_carteirinha = (new CarteirinhaModel())->buscarCampos();
         $data_emissao = date('d/m/Y', strtotime($campos_carteirinha->data_criacao));
         $data_nascimento = (new DateTime($dados_cliente->usuario->data_nascimento))->format('d/m/Y');
@@ -70,8 +72,9 @@ final class PerfilController extends Controller
             [
                 'dado'          => $campos_carteirinha,
                 'dados_cliente' => $dados_cliente->usuario,
+                'cpf' => $cpf,
                 'data_emissao'  => $data_emissao,
-                'data_nascimento_cliente' => str_replace('/', '-', $data_nascimento)
+                'data_nascimento_cliente' => $data_nascimento
             ]
         );
     }
