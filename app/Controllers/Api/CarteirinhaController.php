@@ -2,21 +2,21 @@
 
 namespace App\Controllers\Api;
 
+use App\Classes\Carteirinha\Ordem;
+use App\Classes\Carteirinha\Status;
+use App\Models\Api\Carteirinha\CarteirinhaEntity;
+use App\Models\Api\Carteirinha\CarteirinhaModel;
+use Controller\Controller;
 use Erro\Excecao;
 use Http\Request;
 use Http\Response;
 use Modules\Pagina;
 use Modules\Quantidade;
-use Controller\Controller;
-use App\Classes\Carteirinha\Ordem;
-use App\Classes\Carteirinha\Status;
+use System\Interface\ControllerAtualizarInterface;
 use System\Interface\ControllerBuscarInterface;
+use System\Interface\ControllerDeletarInterface;
 use System\Interface\ControllerListarInterface;
 use System\Interface\ControllerSalvarInterface;
-use App\Models\Api\Carteirinha\CarteirinhaModel;
-use System\Interface\ControllerDeletarInterface;
-use App\Models\Api\Carteirinha\CarteirinhaEntity;
-use System\Interface\ControllerAtualizarInterface;
 
 class CarteirinhaController extends Controller implements
     ControllerBuscarInterface,
@@ -49,8 +49,9 @@ class CarteirinhaController extends Controller implements
     {
         return mensagemSucesso(
             pegarPropriedadeDaEntity($carteirinhaEntity, lista: [
-                'empresa', 'bg_frente', 'bg_fundo', 'titulo', 'estado', 'nome', 'cpf', 'data_nascimento', 'matricula',
-                'status', 'data_criacao', 'data_atualizacao'
+                'empresa', 'bg_frente', 'bg_fundo', 'titulo',
+                'estado', 'nome', 'cpf', 'data_nascimento', 'matricula',
+                'status', 'data_validade', 'data_criacao', 'data_atualizacao'
             ]),
             $status
         );
