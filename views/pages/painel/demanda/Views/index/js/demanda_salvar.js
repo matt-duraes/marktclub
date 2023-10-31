@@ -963,7 +963,7 @@ window.addEventListener('load', () => {
             const mensagemErro = {
                 brinde_inicio_divulgacao: 'Digite a data de início da divulgação.',
                 brinde_fim_divulgacao: 'Digite a data final da divulgação.',
-                brinde_tema: 'Digite o tema do brinde.',
+                brinde_tema: 'Digite o tema da campanha.',
                 brinde_segmento: 'Digite o segmento do brinde.',
                 brinde_participantes: 'Digite a quantidade de participantes do brinde.',
             };
