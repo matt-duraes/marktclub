@@ -253,12 +253,11 @@ final class AnalisarModel
             if (in_array('siape', $obrigatorio)) {
                 $titulo = 'SIAPE: ' . $siape;
             }
-
             if ($dado) {
                 $listaOk[] = [
                     'linha'  => $linha,
                     'titulo' => $titulo,
-                    'hash'   => base64Encode($dado, true)
+                    'hash'   => base64_encode(jsonEncode($dado))
                 ];
             }
         }
