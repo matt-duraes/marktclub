@@ -47,9 +47,9 @@ final class CarteirinhaModel extends ClubeApiHelper
             'usuario' => (object) [
                 'nome'            => $this->Crypt->decode($dado->nome) ?? '',
                 'matricula'       => $this->Crypt->decode($dado->matricula) ?? '',
-                'cpf'             => $this->Crypt->decode($dado->cpf) ?? '',
+                'cpf'             => strCpf($this->Crypt->decode($dado->cpf) ?? ''),
                 'estado'          => $this->Crypt->decode($dado->endereco_estado) ?? '',
-                'data_nascimento' => $this->Crypt->decode($dado->data_nascimento) ?? '',
+                'data_nascimento' => dataBr($this->Crypt->decode($dado->data_nascimento) ?? ''),
             ],
         ];
     }
