@@ -7,6 +7,7 @@ use App\Models\Api\Trait\ValidarEmpresaTrait;
 use Erro\Excecao;
 use Helpers\OrmHelper;
 use Modules\Botao;
+use Modules\Data;
 use ORM\Entity;
 
 class CarteirinhaEntity extends Entity
@@ -22,6 +23,7 @@ class CarteirinhaEntity extends Entity
     public Botao $estado;
     public Status $status;
     public string $empresa;
+    public Data $data_validade;
     protected string $ormTabela = TABELA_CARTEIRINHA;
     protected array $ormBuscar = [
         'id_admin_empresa', 'bg_frente', 'bg_fundo', 'nome', 'cpf', 'matricula', 'data_nascimento',
@@ -67,7 +69,7 @@ class CarteirinhaEntity extends Entity
         if ($this->propriedadeExiste('empresa') && !empty($this->empresa)) {
             $this->empresa = $this->OrmEmpresa->pegarIdPeloUuid($this->empresa);
         }
-        
+
         if ($this->existe(['id_admin_empresa', $this->empresa]) && $this->id_admin_empresa != $this->empresa) {
             mensagemErro('Empresa duplicada', 'Já existe uma carteirinha cadastrada!');
         }
@@ -76,5 +78,6 @@ class CarteirinhaEntity extends Entity
     public function regraPosBuscar(): void
     {
         $this->empresa = $this->OrmEmpresa->pegarUuidPeloId($this->id_admin_empresa);
+        $this->data_validade = new Data(dataAdicionar(date('Y-m-d'), 30, 'dias'));
     }
 }
