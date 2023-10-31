@@ -63,18 +63,15 @@ final class PerfilController extends Controller
     {
 
         $dados_cliente = ((new CarteirinhaModel())->buscarDadosUsuario());
-        $cpf = (new Cpf($dados_cliente->usuario->cpf))->cpf();
         $campos_carteirinha = (new CarteirinhaModel())->buscarCampos();
-        $data_emissao = date('d/m/Y', strtotime($campos_carteirinha->data_criacao));
-        $data_nascimento = (new DateTime($dados_cliente->usuario->data_nascimento))->format('d/m/Y');
+        $data_emissao = dataBr($campos_carteirinha->data_criacao);
+        pp
         return view(
             'perfil.carteirinha',
             [
                 'dado'          => $campos_carteirinha,
                 'dados_cliente' => $dados_cliente->usuario,
-                'cpf' => $cpf,
                 'data_emissao'  => $data_emissao,
-                'data_nascimento_cliente' => $data_nascimento
             ]
         );
     }

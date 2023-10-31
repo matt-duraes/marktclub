@@ -55,8 +55,7 @@ final class UsuarioTabelaModel extends ORM
      */
     public function salvarUsuario($request): void
     {
-        $request = (new CryptHelper())
-            ->decode($request);
+        $request = jsonDecode(base64_decode($request), true, true);
         $this->request = $request;
 
         if (!is_array($request) || !$request) {
