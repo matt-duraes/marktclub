@@ -27,21 +27,10 @@
                 </div>
 
                 <div class="bloco_filtros">
-                    <div class="bloco_linha">
-                        @? formData(name: ['relatorio_data_de', 'relatorio_data_ate'], label: '', value: [$de, $ate], separador: 'até');
-                    </div>
-
                     <button class="botao_empresa" type="button">
                         Empresas
                     </button>
                 </div>
-            </form>
-        @ else:
-            <form action="/" class="form_geral">
-                <div class="bloco_linha">
-                    @? formData(name: ['relatorio_data_de', 'relatorio_data_ate'], label: '', value: [$de, $ate], separador: 'até');
-                </div>
-                <i class="botao" id="botao_buscar_relatorio">@iconeBuscar</i>
             </form>
         @ endif;
     </header>
