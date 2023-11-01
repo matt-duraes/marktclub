@@ -2,12 +2,19 @@
 
 namespace App\Models\Api\Analytics\Trait;
 
+use App\Models\Api\Trait\ValidarEmpresaTrait;
 use Helpers\OrmHelper;
 
 trait WhereTrait
 {
+    use ValidarEmpresaTrait;
     private function pegarWherePadrao(bool $dataAcesso = true)
     {
+        $this->setarIdUsuario();
+        if(!$this->verificarSePodeMudarEmpresa()) {
+            mensagemErro('Empresa inválida!', 'Você não tem permissão para acessar essa empresa.');
+        }
+
         if ($dataAcesso) {
             $this->validarData($this->de, $this->ate);
             $where[] = ['data_acesso', 'between', [$this->de->banco() . ' 00:00:00', $this->ate->banco() . ' 23:59:59']];

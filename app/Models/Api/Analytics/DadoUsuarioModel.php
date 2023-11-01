@@ -40,6 +40,11 @@ final class DadoUsuarioModel extends ORM
 
     private function pegarWhere()
     {
+        $this->setarIdUsuario();
+        if(!$this->verificarSePodeMudarEmpresa()) {
+            mensagemErro('Empresa inválida!', 'Você não tem permissão para acessar essa empresa.');
+        }
+
         $empresaUuid = $this->request->empresa;
         if (empty($empresaUuid)) {
             return ['id_admin_empresa', $this->idEmpresa];

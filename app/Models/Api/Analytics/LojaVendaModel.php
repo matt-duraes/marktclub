@@ -2,6 +2,7 @@
 
 namespace App\Models\Api\Analytics;
 
+use App\Models\Api\Trait\ValidarEmpresaTrait;
 use Helpers\OrmHelper;
 use ORM\ORM;
 use Http\Request;
@@ -9,6 +10,8 @@ use Helpers\DataHelper;
 
 final class LojaVendaModel extends ORM
 {
+    use ValidarEmpresaTrait;
+
     protected string $ormTabela = TABELA_ANALYTICS_LOJA_VENDA;
     private int $idEmpresa;
     private string $de;
@@ -42,6 +45,11 @@ final class LojaVendaModel extends ORM
 
     private function pegarWhere()
     {
+        $this->setarIdUsuario();
+        if (!$this->verificarSePodeMudarEmpresa()) {
+            mensagemErro('Empresa inválida!', 'Você não tem permissão para acessar essa empresa.');
+        }
+
         $whereData = ['data_relatorio', 'between', [$this->de, $this->ate]];
 
         if (empty($this->request->empresa)) {
@@ -50,6 +58,16 @@ final class LojaVendaModel extends ORM
                 ['id_admin_empresa', $this->idEmpresa]
             ];
         }
+
+        if (!is_array($this->request->empresa)) {
+            $ormHelper = new OrmHelper(TABELA_COMERCIAL_EMPRESA);
+            $empresaId = $ormHelper->pegarIdPeloUuid($this->request->empresa);
+            return [
+                $whereData,
+                ['id_admin_empresa', $empresaId]
+            ];
+        }
+
         $empresaUuid = $this->request->empresa;
         $ormHelper = new OrmHelper(TABELA_COMERCIAL_EMPRESA);
 

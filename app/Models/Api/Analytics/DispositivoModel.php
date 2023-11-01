@@ -9,7 +9,6 @@ use App\Models\Api\Analytics\Trait\WhereTrait;
 
 final class DispositivoModel extends ORM
 {
-    use ValidarEmpresaTrait;
     use WhereTrait;
 
     protected string $ormTabela = TABELA_ANALYTICS_DISPOSITIVO;
