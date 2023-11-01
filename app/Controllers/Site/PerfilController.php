@@ -68,9 +68,9 @@ final class PerfilController extends Controller
         $data_emissao = dataBr($campos_carteirinha->data_criacao);
         $data_validade = dataBr($campos_carteirinha->data_validade);
         return view('perfil.carteirinha', [
-            'dado' => $campos_carteirinha,
+            'dado'          => $campos_carteirinha,
             'dados_cliente' => $dados_cliente->usuario,
-            'data_emissao' => $data_emissao,
+            'data_emissao'  => $data_emissao,
             'data_validade' => $data_validade
         ]);
     }
