@@ -64,7 +64,7 @@
         <div class="bloco_botao bloco_termo">
             <div class="termo">
                 @?formCheckbox(name: 'ativar_termo', label: 'Aceito os Termos de acordo com a Lei 13.709/2018')
-                <div class="botao_termo">(Ler termo)</div>
+                <a class="botao_termo" target="_blank" href="/termo-de-uso-do-site">(Ler termo)</a>
             </div>
             <div class="botao" id="botao_ativar_usuario">Salvar dados</div>
         </div>
