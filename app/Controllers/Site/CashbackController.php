@@ -96,7 +96,7 @@ final class CashbackController extends Controller
         $extrato = (new SiliumModel)->extrato_conta();
         return view('cashback.extrato', [
             'menu'   => 'extrato_silium',
-            'saldo' => $dado,
+            'saldo' => $dado->dado->saldo,
             'extrato' => $extrato,
         ]);
     }

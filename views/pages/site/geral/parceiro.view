@@ -7,16 +7,16 @@
             <a href="@route('loja.voucher')/{{$loja}}" target="_blank" rel="noopener noreferrer"></a>
         @ elseif( !in_array($lista->tipo, ['cupom', 'automovel-versao']) ):
             <a href="{!!$r->link!!}"></a>
-        @endif;
-        @if( in_array($r->tipo, ['automovel-versao', 'automovel-modelo', 'operadora', 'sosmulher']) ):
+        @ endif;
+        @ if( in_array($r->tipo, ['automovel-versao', 'automovel-modelo', 'operadora', 'sosmulher']) ):
             <figure class="completo"><img src="{!!$r->imagem!!}" alt=""></figure>
-        @else:
+        @ else:
             <figure class="logo"><img src="{!!$r->imagem!!}" alt=""></figure>
-        @endif;
+        @ endif;
         <header>
-            <h1>{{$r->titulo}}</h1>
+            <h1>{!!$r->titulo!!}</h1>
             @ if( $r->tipo == 'cupom' ):
-                <p>{{$r->texto}}</p>
+                <p>{!!$r->texto!!}</p>
             @ endif;
         </header>
 

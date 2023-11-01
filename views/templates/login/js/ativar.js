@@ -1,4 +1,11 @@
 const loadingAtivarBuscar = () => {
+    let tipoUsuario = document.querySelectorAll('.botao_tipo_usuario');
+    console.log(tipoUsuario);
+    tipoUsuario.forEach(tipo => {
+        tipo.addEventListener('click', e => {
+            e.target.id;
+        });
+    });
     const form = $('#bloco_form_buscar');
     const botaoBuscar = $('#botao_buscar_usuario');
     const inputBuscar = $('#input_buscar');

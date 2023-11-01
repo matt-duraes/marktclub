@@ -112,6 +112,7 @@
 
 </div>
 
+
 <div class="bloco_pagina_popup display_none" id="bloco_resgatar_ponto">
     <div class="conteudo_pagina_popup conteudo_popup">
         <header>
@@ -130,3 +131,4 @@
             <div class="botao" id="botao_solicitar_ponto">Solicitar ponto</div>
         </div>
     </div>
+</div>

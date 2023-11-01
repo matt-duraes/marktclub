@@ -1,21 +1,33 @@
 <form id="bloco_form_buscar" class="bloco_form_login form_geral" action="/" method="post">
-    <div class="conteudo">
+    <div class="conteudo" >
         <header>
             <h1>BUSCAR CONTA</h1>
             <p>Preencha os campos abaixo para buscar sua conta</p>
             <i class="fechar pagina_fechar">@iconeFechar</i>
         </header>
 
-        @ if( $tipoSiape ):
-        @? formInput(name: 'buscar', label: 'Buscar', obrigatorio: true, placeholder: 'Digite seu SIAPE');
-        @ elseif( $tipoMatricula ):
-        @? formInput(name: 'buscar', label: 'Buscar', obrigatorio: true, placeholder: 'Digite sua matrícula');
-        @ else:
-        @? formCpf(name: 'buscar', label: 'Buscar', obrigatorio: true, placeholder: 'Digite seu CPF', local: '44609809087')
-        @ endif;
+        <h1>Tipo de usuário</h1>
+        <div class="botao_tipo_usuario" id="titular">Titular</div>
+        <div class="botao_tipo_usuario" id="dependente">Dependente</div>
+
+        <div class="bloco_titular">
+            @ if($tipoSiape):
+                @? formInput(name: 'buscar', label: 'Buscar', obrigatorio: true, placeholder: 'Digite seu SIAPE');
+            @ elseif( $tipoMatricula ):
+                @? formInput(name: 'buscar', label: 'Buscar', obrigatorio: true, placeholder: 'Digite sua matrícula');
+            @ else:
+                @? formCpf(name: 'buscar', label: 'Buscar', obrigatorio: true, placeholder: 'Digite seu CPF', local: '44609809087')
+            @ endif;
+        </div>
+        <div class="bloco_dependente display_none">
+            @? formCpf(name: 'buscar', label: 'Buscar', obrigatorio: true, placeholder: 'Digite seu CPF', local: '44609809087')
+        </div>
+
+    </div>
 
         <div class="bloco_botao">
             <div class="botao" id="botao_buscar_usuario">Buscar</div>
         </div>
     </div>
+
 </div>

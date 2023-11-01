@@ -124,7 +124,7 @@ final class LoginController extends Controller
         $TipoAtivacao = new TipoAtivacao();
         return view('login.ativar.buscar', [
             'tipoSiape'     => $TipoAtivacao::SIAPE == TIPO_ATIVACAO,
-            'tipoMatricula' => $TipoAtivacao::MATRICULA == TIPO_ATIVACAO
+            'tipoMatricula' => $TipoAtivacao::MATRICULA == TIPO_ATIVACAO,
         ]);
     }
 
