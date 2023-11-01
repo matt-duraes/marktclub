@@ -11,17 +11,17 @@ final class PopupModel extends ClubeApiHelper
     public function __construct()
     {
         parent::__construct();
-        if (sessaoExiste('POPUP_PROMOCAO')) {
+        if (sessaoExiste('POPUP_PROMOCAO') && !eLocalhost()) {
             return;
         }
         $dado = $this
             ->json([
                 'publicado' => Botao::SIM,
+                'empresa'   => CLUBE_ID,
                 'pagina'    => 1
             ])
             ->get('/comercial-popup')
-            ->object()->dado->lista ?? [];
-
+        ->object()->dado->lista ?? [];
         sessao('POPUP_PROMOCAO', $this->montarPopup($dado));
     }
 

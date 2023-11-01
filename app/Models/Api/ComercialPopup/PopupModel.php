@@ -2,22 +2,22 @@
 
 namespace App\Models\Api\ComercialPopup;
 
-use App\Classes\ComercialPopup\BotaoTarget;
-use App\Classes\ComercialPopup\Ordem;
-use App\Classes\ComercialPopup\Status;
-use App\Classes\Geral\Publicado;
-use App\Models\Api\Trait\ValidarEmpresaTrait;
-use Erro\Excecao;
-use Modules\Botao;
-use Modules\Data;
-use Modules\Link;
-use Modules\Pagina;
-use Modules\Quantidade;
 use ORM\ORM;
 use stdClass;
+use Erro\Excecao;
+use Modules\Data;
+use Modules\Link;
+use Modules\Botao;
+use Modules\Pagina;
+use Modules\Quantidade;
+use App\Classes\Geral\Publicado;
 use System\Trait\Model\OrdemTrait;
 use System\Trait\Model\PaginaTrait;
+use App\Classes\ComercialPopup\Ordem;
+use App\Classes\ComercialPopup\Status;
 use System\Trait\Model\QuantidadeTrait;
+use App\Classes\ComercialPopup\BotaoTarget;
+use App\Models\Api\Trait\ValidarEmpresaTrait;
 
 class PopupModel extends ORM
 {
@@ -52,8 +52,9 @@ class PopupModel extends ORM
         private readonly Status $status = new Status(),
         private readonly Botao $publicado = new Botao(null),
     ) {
-        $this->validarDados();
         parent::__construct();
+        $this->validarEmpresa(json: true);
+        $this->validarDados();
     }
 
     /**
@@ -102,15 +103,7 @@ class PopupModel extends ORM
     private function pegarWhere(): array
     {
         $where = $this->ormWherePadrao;
-
         $publicado = $this->publicado->valido();
-
-        if (!empty($this->empresa)) {
-            $where = [
-                ['id_admin_empresa', 'json', $this->empresa]
-            ];
-        }
-
         if (!empty($this->titulo)) {
             $where[] = ['titulo', 'LIKE', '%' . $this->titulo . '%'];
         }
