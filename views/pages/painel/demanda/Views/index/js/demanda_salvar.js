@@ -1222,12 +1222,15 @@ window.addEventListener('load', () => {
     |--------------------------------------------------------------------------
     */
     const testarCampos = (mensagemErro) => {
-        mensagemErro['titulo'] = 'O campo título não pode ser vazio';
-
-        for (const campo in mensagemErro) {
+        const campos = {
+            titulo: 'Digite um título para a demanda.',
+            ...mensagemErro
+        };
+        for (const campo in campos) {
             const elemento = document.getElementById('input_' + campo);
+
             if (elemento.value === '') {
-                Alerta.notificacao(mensagemErro[campo], false);
+                Alerta.notificacao(campos[campo], false);
                 return false;
             }
         }
