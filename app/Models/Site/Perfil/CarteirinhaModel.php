@@ -50,7 +50,8 @@ final class CarteirinhaModel extends ClubeApiHelper
                 'cpf'             => strCpf($this->Crypt->decode($dado->cpf) ?? ''),
                 'estado'          => $this->Crypt->decode($dado->endereco_estado) ?? '',
                 'data_nascimento' => dataBr($this->Crypt->decode($dado->data_nascimento) ?? ''),
-            ],
+                'data_validade'   => dataBr($dado->data_validade ?? '')
+            ]
         ];
     }
 }
