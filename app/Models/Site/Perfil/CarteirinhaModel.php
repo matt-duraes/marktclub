@@ -2,8 +2,8 @@
 
 namespace App\Models\Site\Perfil;
 
-use Erro\Excecao;
 use App\Helpers\ClubeApiHelper;
+use Erro\Excecao;
 
 final class CarteirinhaModel extends ClubeApiHelper
 {
@@ -13,8 +13,8 @@ final class CarteirinhaModel extends ClubeApiHelper
         $dado = $this
             ->validar('Página não encontrada!', status: 404)
             ->json([
-                'empresa'   => $empresa->empresa,
-                'pagina'    => 1
+                'empresa' => $empresa->empresa,
+                'pagina'  => 1
             ])
             ->get('/carteirinha')
             ->object();
@@ -44,13 +44,13 @@ final class CarteirinhaModel extends ClubeApiHelper
     private function montarRetorno($dado): object|array
     {
         return (object)[
-            'usuario' => (object) [
+            'usuario' => (object)[
                 'nome'            => $this->Crypt->decode($dado->nome) ?? '',
                 'matricula'       => $this->Crypt->decode($dado->matricula) ?? '',
                 'cpf'             => strCpf($this->Crypt->decode($dado->cpf) ?? ''),
                 'estado'          => $this->Crypt->decode($dado->endereco_estado) ?? '',
-                'data_nascimento' => dataBr($this->Crypt->decode($dado->data_nascimento) ?? ''),
-            ],
+                'data_nascimento' => dataBr($this->Crypt->decode($dado->data_nascimento) ?? '')
+            ]
         ];
     }
 }
