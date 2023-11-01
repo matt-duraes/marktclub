@@ -11,8 +11,8 @@
             @? formCpf(name: 'senha_cpf', label: 'CPF', obrigatorio: true, placeholder: 'Digite seu CPF', local: '01234567890')
         </div>
         <div class="bloco_geral bloco_usar_codigo display_none" id="bloco_codigo">
-            <p>Verifique seu e-mail e pegue o código de autorização, esse e-mail pode demorar alguns segundos para chegar.</p>
-            <div class="atencao bloco_atencao_geral"><p>Seu e-mail pode achar que nosso e-mail é um spam, por isso, verifique sua caixa de span ou lixo eletrônico</p></div>
+            <p>Confira seu e-mail para encontrar o código de autorização. O e-mail pode levar alguns segundos para chegar até você.</p>
+            <div class="atencao bloco_atencao_geral"><p>Seu provedor de e-mail pode interpretar nossa mensagem como spam. Portanto, por favor, verifique sua pasta de spam ou lixo eletrônico.</p></div>
             <input type="text" id="input_codigo_1" placeholder="0" data-mascara="0">
             <input type="text" id="input_codigo_2" placeholder="0" data-mascara="0">
             <input type="text" id="input_codigo_3" placeholder="0" data-mascara="0">
