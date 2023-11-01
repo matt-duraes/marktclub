@@ -4,12 +4,10 @@ namespace App\Models\Api\Analytics;
 
 use ORM\ORM;
 use Modules\Data;
-use App\Models\Api\Trait\ValidarEmpresaTrait;
 use App\Models\Api\Analytics\Trait\WhereTrait;
 
 final class AcessoDiaModel extends ORM
 {
-    use ValidarEmpresaTrait;
     use WhereTrait;
 
     protected string $ormTabela = TABELA_ANALYTICS_ACESSO_DIA;
