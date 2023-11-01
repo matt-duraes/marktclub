@@ -4,7 +4,6 @@ namespace App\Models\Api\Analytics;
 
 use ORM\ORM;
 use Modules\Data;
-use App\Models\Api\Trait\ValidarEmpresaTrait;
 use App\Models\Api\Analytics\Trait\WhereTrait;
 
 final class DispositivoModel extends ORM

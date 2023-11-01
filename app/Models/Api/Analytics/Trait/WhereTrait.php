@@ -8,13 +8,9 @@ use Helpers\OrmHelper;
 trait WhereTrait
 {
     use ValidarEmpresaTrait;
+
     private function pegarWherePadrao(bool $dataAcesso = true)
     {
-        $this->setarIdUsuario();
-        if(!$this->verificarSePodeMudarEmpresa()) {
-            mensagemErro('Empresa inválida!', 'Você não tem permissão para acessar essa empresa.');
-        }
-
         if ($dataAcesso) {
             $this->validarData($this->de, $this->ate);
             $where[] = ['data_acesso', 'between', [$this->de->banco() . ' 00:00:00', $this->ate->banco() . ' 23:59:59']];
@@ -23,6 +19,11 @@ trait WhereTrait
         if (empty($this->Empresa)) {
             $where[] = ['id_admin_empresa', TOKEN['empresa']->id];
             return $where;
+        }
+
+        $this->setarIdUsuario();
+        if (!$this->verificarSePodeMudarEmpresa()) {
+            mensagemErro('Empresa inválida!', 'Você não tem permissão para acessar essa empresa.');
         }
 
         $ormHelper = new OrmHelper(TABELA_COMERCIAL_EMPRESA);

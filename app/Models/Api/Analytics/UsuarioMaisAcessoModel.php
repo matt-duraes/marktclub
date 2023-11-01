@@ -2,7 +2,6 @@
 
 namespace App\Models\Api\Analytics;
 
-use App\Models\Api\Trait\ValidarEmpresaTrait;
 use ORM\ORM;
 use Modules\Data;
 use App\Models\Api\Analytics\Trait\WhereTrait;

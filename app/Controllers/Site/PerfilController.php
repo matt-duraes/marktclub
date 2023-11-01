@@ -9,7 +9,6 @@ use Http\Response;
 use Controller\Controller;
 use App\Models\Site\Perfil\DadosModel;
 use App\Models\Site\Perfil\SenhaModel;
-use Google\Service\AdExchangeBuyerII\Date;
 use App\Models\Site\Perfil\DependenteModel;
 use App\Models\Site\Perfil\CarteirinhaModel;
 
@@ -61,7 +60,6 @@ final class PerfilController extends Controller
 
     public function carteirinha()
     {
-
         $dados_cliente = ((new CarteirinhaModel())->buscarDadosUsuario());
         $cpf = (new Cpf($dados_cliente->usuario->cpf))->cpf();
         $campos_carteirinha = (new CarteirinhaModel())->buscarCampos();
@@ -70,10 +68,10 @@ final class PerfilController extends Controller
         return view(
             'perfil.carteirinha',
             [
-                'dado'          => $campos_carteirinha,
-                'dados_cliente' => $dados_cliente->usuario,
-                'cpf' => $cpf,
-                'data_emissao'  => $data_emissao,
+                'dado'                    => $campos_carteirinha,
+                'dados_cliente'           => $dados_cliente->usuario,
+                'cpf'                     => $cpf,
+                'data_emissao'            => $data_emissao,
                 'data_nascimento_cliente' => $data_nascimento
             ]
         );
