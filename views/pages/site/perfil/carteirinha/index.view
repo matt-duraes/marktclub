@@ -57,6 +57,11 @@
                 </div>
                 @endif;
 
+                <div class="bloco_estado bloco_infos">
+                    <span>Data de Validade</span>
+                    <p>{!!$dado->data_validade!!}</p>
+                </div>
+
             </div>
         </div>
     </div>
