@@ -59,7 +59,7 @@
 
                 <div class="bloco_estado bloco_infos">
                     <span>Data de Validade</span>
-                    <p>{{$data_validade}}</p>
+                    <p>{!!$data_validade!!}</p>
                 </div>
 
             </div>
