@@ -42,7 +42,7 @@ window.addEventListener('load', () => {
 */
 
 const pegarValoresMarcados = () => {
-    if(!blocoCheckboxEmpresa) return '';
+    if(!blocoCheckboxEmpresa) return;
 
     var valoresMarcados = [];
     var checkboxes = blocoCheckboxEmpresa.getElementsByTagName('input');
