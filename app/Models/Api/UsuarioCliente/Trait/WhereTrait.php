@@ -2,6 +2,7 @@
 
 namespace App\Models\Api\UsuarioCliente\Trait;
 
+use App\Models\Api\Trait\ValidarEmpresaTrait;
 use Helpers\ListaHelper;
 use App\Classes\UsuarioCliente\Helper;
 use App\Classes\UsuarioCliente\Origem;
@@ -9,15 +10,20 @@ use App\Classes\UsuarioCliente\Status;
 use App\Classes\UsuarioCliente\TipoUsuario;
 use App\Classes\UsuarioCliente\TrabalhoCargo;
 use App\Classes\UsuarioCliente\TrabalhoEmpresa;
+use Helpers\OrmHelper;
 
 trait WhereTrait
 {
+    use ValidarEmpresaTrait;
+
     protected function pegarWhere(): array
     {
         $request = $this->request;
         $where = [];
-        if ($this->ormWherePadrao) {
-            $where[] = $this->ormWherePadrao;
+
+        $whereEmpresa = $this->pegarWhereEmpresa();
+        if ($whereEmpresa) {
+            $where[] = $whereEmpresa;
         }
 
         if (!empty($this->idSubempresa)) {
@@ -148,5 +154,16 @@ trait WhereTrait
         }
 
         return $where;
+    }
+
+    private function pegarWhereEmpresa()
+    {
+        if (!$this->verificarSePodeMudarEmpresa()) {
+            return $this->ormWherePadrao;
+        }
+
+        if (!empty($this->request->empresa)) {
+            return ['empresa', (new OrmHelper(TABELA_COMERCIAL_EMPRESA))->pegarIdPeloUuid($this->request->empresa)];
+        }
     }
 }
