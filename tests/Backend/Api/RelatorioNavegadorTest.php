@@ -5,11 +5,11 @@ namespace Tests\Api;
 use Tests\Api\Trait\AnalyticsTrait;
 use Tests\Tests;
 
-final class AnalyticsOsTest extends Tests
+final class RelatorioNavegadorTest extends Tests
 {
     use AnalyticsTrait;
 
-    private string $uri = '/relatorio/os';
+    private string $uri = '/relatorio/navegador';
     private array $dadoEmpresa1;
     private array $dadoEmpresa2;
 
@@ -44,10 +44,10 @@ final class AnalyticsOsTest extends Tests
             $this->id2,
         ];
         $dado = $this->fazerRequest(body: $body);
-        $dispositivosSoma = $this->pegarSoma('os');
+        $dispositivosSoma = $this->pegarSoma('navegador');
 
         foreach ($dado as $k => $d) {
-            $this->checkIgual($d['total'], $dispositivosSoma[$d['os']]);
+            $this->checkIgual($d['total'], $dispositivosSoma[$d['navegador']]);
         }
 
         return $this;
