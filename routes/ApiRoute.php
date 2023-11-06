@@ -310,7 +310,7 @@ Route
         Route
             ::nome('ativar')
             ::middleware(TokenMiddleware::class, 'scope', ['usuario_cliente:ativar'])
-            ::request(['chave', 'valor', '!empresa'])
+            ::request(['tipo_usuario', 'chave', 'valor', '!empresa'])
             ::post('/usuario-cliente/ativar');
         Route
             ::nome('ativar')
@@ -1757,8 +1757,8 @@ Route
             ::nome('atualizar')
             ::middleware(TokenMiddleware::class, 'scope', ['carteirinha:atualizar'])
             ::request([
-                '!bg_frente', '!empresa', '!titulo', '!bg_fundo', '!nome', '!cpf', '!matricula', '!data_nascimento',
-                '!status', '!estado'
+                '!bg_frente', '!empresa', '!titulo', '!bg_fundo', '!nome',
+                '!cpf', '!matricula', '!data_nascimento', '!status', '!estado'
             ])
             ::put('/carteirinha/{id}');
 
