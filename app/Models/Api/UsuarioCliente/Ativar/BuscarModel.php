@@ -126,7 +126,6 @@ final class BuscarModel extends ORM
     /**
      * @param array|object $usuario
      *
-     * @return void
      * @throws Excecao
      */
     private function validarUsuario(array|object $usuario): void

@@ -2,11 +2,11 @@
 
 namespace App\Models\Api\Analytics;
 
-use App\Models\Api\Trait\ValidarEmpresaTrait;
-use Helpers\OrmHelper;
 use ORM\ORM;
 use Http\Request;
+use Helpers\OrmHelper;
 use Helpers\DataHelper;
+use App\Models\Api\Trait\ValidarEmpresaTrait;
 
 final class LojaVendaModel extends ORM
 {
@@ -119,6 +119,9 @@ final class LojaVendaModel extends ORM
         }
 
         foreach ($lista as $r) {
+            if (!array_key_exists($r->data_relatorio, $dado)) {
+                continue;
+            }
             $dado[$r->data_relatorio]->valor += $r->valor_venda;
             $dado[$r->data_relatorio]->venda += $r->numero_transacao;
         }
