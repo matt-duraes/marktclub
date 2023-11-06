@@ -44,6 +44,7 @@ trait TokenTrait
         string $audience,
         string $redirectUri,
         string $state,
+        int $empresa,
         Tipo $tipo,
         ?string $chave = null
     ) {
@@ -57,6 +58,7 @@ trait TokenTrait
             $audience,
             $redirectUri,
             $state,
+            $empresa,
             $tipo
         );
     }
