@@ -22,13 +22,13 @@
             <div class="saldo_conta">
                 <p>SALDO EM CONTA:</p><span>{!!$saldo!!}</span>
             </div>
-            <div class="botao_resgata">
-                <button class="botao">
-                    <span id="botao_popup_resgate">SOLICITAR RESGATE</span>
-                </button>
-            </div>
             @if ($saldo >= 10000):
-            <!-- @else: -->
+                <div class="botao_resgata">
+                    <button class="botao">
+                        <span id="botao_popup_resgate">SOLICITAR RESGATE</span>
+                    </button>
+                </div>
+            @else:
                 <div class="saldo_zero">
                     <p>VOCÊ PRECISA ACUMULAR 10.000 PONTOS PARA SOLICITAR RESGATE.</p>
                 </div>
@@ -128,7 +128,7 @@
             </div>
         </form>
         <div class="bloco_botao">
-            <div class="botao" id="botao_solicitar_ponto">Solicitar ponto</div>
+            <div class="botao cor_bg botao" id="botao_solicitar_ponto">Solicitar ponto</div>
         </div>
     </div>
 </div>

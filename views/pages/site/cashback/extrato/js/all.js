@@ -33,7 +33,7 @@ window.addEventListener('load', () => {
             return;
         }
         Loading.show();
-        const resposta = await ajaxPost(LINK + '/ponto-cvs', {
+        const resposta = await ajaxPost(LINK + '/cashback/resgatar', {
             nome: inputNome.value,
             email: inputEmail.value,
             ponto: inputQuantidade.value,
@@ -45,7 +45,6 @@ window.addEventListener('load', () => {
         PopupResgate.fechar();
         await Alerta.mensagem('Dados Enviados!', 'Sua solicitação foi enviada. Aguarde nosso retorno!', true);
         Loading.show();
-        window.location.replace(LINK + '/ponto-cvs');
     };
 
     adicionarEventoEnter([inputNome, inputEmail, inputQuantidade], solicitarResgate);

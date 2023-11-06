@@ -15,8 +15,7 @@ final class SiliumModel extends ClubeApiHelper
         return $dado;
     }
 
-
-    public function extrato_conta()
+    public function extratoConta()
     {
         $dado = $this
             ->validar('Não foi possível pegar extrato!', status: 404)
@@ -46,7 +45,6 @@ final class SiliumModel extends ClubeApiHelper
 
     public function solicitar_deposito($dado)
     {
-
         $titular = $dado['titular'] ?? false;
         $cpf = $dado['cpf'] ?? false;
         $banco = $dado['banco'] ?? false;
@@ -54,7 +52,7 @@ final class SiliumModel extends ClubeApiHelper
         $conta = $dado['conta'] ?? false;
         $tipo_conta = $dado['tipo_conta'] ?? false;
 
-        $validar = (new Validar)
+        $validar = (new Validar())
             ->valor($titular, 'Nome do titular')->obrigatorio()->vazio()
             ->valor($cpf, 'CPF do titular')->obrigatorio()->vazio()->cpf()
             ->valor($banco, 'Nome do banco')->obrigatorio()->vazio()
@@ -66,12 +64,12 @@ final class SiliumModel extends ClubeApiHelper
             return $validar->erro();
         endif;
 
-        $salvar = (new Api)->parametro([
-            'titular' => $titular,
-            'cpf' => $cpf,
-            'banco' => $banco,
-            'agencia' => $agencia,
-            'conta' => $conta,
+        $salvar = (new Api())->parametro([
+            'titular'    => $titular,
+            'cpf'        => $cpf,
+            'banco'      => $banco,
+            'agencia'    => $agencia,
+            'conta'      => $conta,
             'tipo_conta' => $tipo_conta,
         ])->post('/silium/saque')->array();
 
