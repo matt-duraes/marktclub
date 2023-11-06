@@ -1,11 +1,24 @@
 const loadingAtivarBuscar = () => {
-    let tipoUsuario = document.querySelectorAll('.botao_tipo_usuario');
-    console.log(tipoUsuario);
-    tipoUsuario.forEach(tipo => {
-        tipo.addEventListener('click', e => {
-            e.target.id;
+    const botoesTipoUsuario = document.querySelectorAll('.botao_tipo_usuario');
+    let valorData = '';
+    botoesTipoUsuario.forEach(botao => {
+        botao.addEventListener('click', e => {
+            valorData = botao.getAttribute('data-tipo');
+
+            if (valorData == 'dependente') {
+                $('.bloco_titular').classList.add('display_none');
+                $('.botao_titular').classList.remove('cor_bg');
+                $('.botao_dependente').classList.add('cor_bg');
+                $('.bloco_dependente').classList.remove('display_none');
+                return;
+            }
+            $('.bloco_dependente').classList.add('display_none');
+            $('.botao_dependente').classList.remove('cor_bg');
+            $('.botao_titular').classList.add('cor_bg');
+            $('.bloco_titular').classList.remove('display_none');
         });
     });
+
     const form = $('#bloco_form_buscar');
     const botaoBuscar = $('#botao_buscar_usuario');
     const inputBuscar = $('#input_buscar');
@@ -17,10 +30,12 @@ const loadingAtivarBuscar = () => {
             return;
         }
         Loading.show();
+        console.log(inputBuscar.value);
         const resposta = await ajaxPost(
             LINK + '/login/ativar-buscar',
             {
                 busca: inputBuscar.value,
+                tipo_usuario: valorData,
             },
             'Ocorre um erro ao buscar o usuário, por favor, tente novamente.'
         );

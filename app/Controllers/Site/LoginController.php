@@ -133,9 +133,10 @@ final class LoginController extends Controller
         $buscar = (new ApiHelper('usuario_cliente:ativar'))
             ->validar('Ocorreu um erro ao buscar seu usuário, por favor, tente novamente.')
             ->body([
-                'chave'   => TIPO_ATIVACAO,
-                'valor'   => $request->busca,
-                'empresa' => EMPRESA_ID
+                'tipo_usuario' => $request->tipo_usuario,
+                'chave'        => TIPO_ATIVACAO,
+                'valor'        => $request->busca,
+                'empresa'      => EMPRESA_ID
             ])
             ->post('/usuario-cliente/ativar')
             ->object();

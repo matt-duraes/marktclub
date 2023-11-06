@@ -6,11 +6,20 @@
             <i class="fechar pagina_fechar">@iconeFechar</i>
         </header>
 
-        <h1>Tipo de usuário</h1>
-        <div class="botao_tipo_usuario" id="titular">Titular</div>
-        <div class="botao_tipo_usuario" id="dependente">Dependente</div>
+        <div class="bloco_escolha_usuario">
+            <h1>Selecione o tipo de usuário</h1>
+            <div class="bloco_tipo_usuario">
+                <div class="botao_tipo_usuario botao_titular" data-tipo="titular">
+                    Titular
+                </div>
+                <div class="botao_tipo_usuario botao_dependente" data-tipo="dependente">
+                    Dependente
+                </div>
+            </div>
+        </div>
 
-        <div class="bloco_titular">
+        <div class="bloco_titular display_none">
+            <h1>Insira o dado solicitado</h1>
             @ if($tipoSiape):
                 @? formInput(name: 'buscar', label: 'Buscar', obrigatorio: true, placeholder: 'Digite seu SIAPE');
             @ elseif( $tipoMatricula ):
@@ -20,6 +29,7 @@
             @ endif;
         </div>
         <div class="bloco_dependente display_none">
+            <h1>Insira o seu cpf</h1>
             @? formCpf(name: 'buscar', label: 'Buscar', obrigatorio: true, placeholder: 'Digite seu CPF', local: '44609809087')
         </div>
 
