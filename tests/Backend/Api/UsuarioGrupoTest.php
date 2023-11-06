@@ -9,11 +9,6 @@ final class UsuarioGrupoTest extends Tests
     private string $id;
     private string $uri = '/usuario-grupo';
 
-    public function __construct()
-    {
-        parent::__construct();
-    }
-
     public function listarGruposTest()
     {
         $this->api('usuario_grupo:listar');
