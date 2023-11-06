@@ -18,19 +18,12 @@
             </div>
         </div>
 
-        <div class="bloco_titular display_none">
+        <div class="bloco_titular" data-ativacao="{{TIPO_ATIVACAO ? TIPO_ATIVACAO : ''}}">
             <h1>Insira o dado solicitado</h1>
-            @ if($tipoSiape):
-                @? formInput(name: 'buscar', label: 'Buscar', obrigatorio: true, placeholder: 'Digite seu SIAPE');
-            @ elseif( $tipoMatricula ):
-                @? formInput(name: 'buscar', label: 'Buscar', obrigatorio: true, placeholder: 'Digite sua matrícula');
-            @ else:
-                @? formCpf(name: 'buscar', label: 'Buscar', obrigatorio: true, placeholder: 'Digite seu CPF', local: '44609809087')
-            @ endif;
-        </div>
-        <div class="bloco_dependente display_none">
-            <h1>Insira o seu cpf</h1>
-            @? formCpf(name: 'buscar', label: 'Buscar', obrigatorio: true, placeholder: 'Digite seu CPF', local: '44609809087')
+            <div class="display_none">
+                @? formCpf(name: 'buscar22', label: 'Buscar', placeholder: 'Digite seu CPF', local: '44609809087');
+            </div>
+            @? formInput(name: 'buscar', label: 'Buscar', obrigatorio: true, placeholder: 'Insira seus dados');
         </div>
 
     </div>

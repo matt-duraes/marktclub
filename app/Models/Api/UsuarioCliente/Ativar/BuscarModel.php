@@ -2,15 +2,15 @@
 
 namespace App\Models\Api\UsuarioCliente\Ativar;
 
-use App\Classes\ConstrutorClube\TipoAtivacao;
+use ORM\ORM;
+use Throwable;
+use Modules\Cpf;
+use Erro\Excecao;
+use Helpers\OrmHelper;
 use App\Classes\UsuarioCliente\Hash;
 use App\Classes\UsuarioCliente\Status;
 use App\Classes\UsuarioCliente\TipoUsuario;
-use Erro\Excecao;
-use Helpers\OrmHelper;
-use Modules\Cpf;
-use ORM\ORM;
-use Throwable;
+use App\Classes\ConstrutorClube\TipoAtivacao;
 
 final class BuscarModel extends ORM
 {
@@ -28,9 +28,9 @@ final class BuscarModel extends ORM
         private readonly string $valor,
         private readonly ?string $empresa = null
     ) {
+        parent::__construct();
         $this->validarDados();
         $this->buscarUsuario();
-        parent::__construct();
     }
 
     /**
@@ -128,16 +128,18 @@ final class BuscarModel extends ORM
      *
      * @throws Excecao
      */
-    private function validarUsuario(array|object $usuario): void
+    private function validarUsuario($usuario): void
     {
-        $status = new Status($usuario->status);
-        if (is_array($usuario) && empty($usuario)) {
+        if (empty($usuario)) {
             mensagemErro(
                 'Usuário não encontrado!',
                 'Não foi possível achar seu usuário pelos dados informados, por favor, verifique os dados informados e tente novamente. Caso os dados estejam corretos, entre em contato com o atendimento.',
-                codigo: 4040
+                codigo: 404
             );
-        } elseif ((is_object($usuario) && !object_key_exists('id', $usuario)) || empty($usuario->id)) {
+        }
+
+        $status = new Status($usuario->status);
+        if (!object_key_exists('id', $usuario) || empty($usuario->id)) {
             mensagemErro(
                 'Erro!',
                 'Ocorreu um erro ao achar seus dados, por favor, tente novamente.',
