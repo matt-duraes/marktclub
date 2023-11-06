@@ -370,7 +370,7 @@ Route
         Route
             ::nome('atualizar')
             ::middleware(TokenMiddleware::class, 'scope', ['usuario_grupo:atualizar'])
-            ::request(['indice', 'titulo', 'status'])
+            ::request(['!indice', '!titulo', '!status'])
             ::put('/usuario-grupo/{id}');
 
         Route
@@ -2322,38 +2322,6 @@ Route
                 'categoria', 'pergunta'
             ])
             ::post('/chatbot-perguntas/perguntar');
-    });
-
-Route
-    ::nome('chatbot_categoria')
-    ::controller(App\Controllers\Api\ChatbotCategoriaController::class)
-    ::middleware(TokenMiddleware::class, 'token')
-    ::grupo(function () {
-        Route
-            ::nome('listar')
-            ::middleware(TokenMiddleware::class, 'scope', ['chatbot_categoria:listar'])
-            ::request([
-                '!pagina'
-            ], 'json')
-            ::get('/chatbot-categoria');
-        Route
-            ::nome('buscar')
-            ::middleware(TokenMiddleware::class, 'scope', ['chatbot_categoria:buscar'])
-            ::get('/chatbot-categoria/{id}');
-        Route
-            ::nome('salvar')
-            ::middleware(TokenMiddleware::class, 'scope', ['chatbot_categoria:salvar'])
-            ::request([
-                'categoria', 'status'
-            ])
-            ::post('/chatbot-categoria');
-        Route
-            ::nome('atualizar')
-            ::middleware(TokenMiddleware::class, 'scope', ['chatbot_categoria:atualizar'])
-            ::request([
-                'categoria', 'status'
-            ])
-            ::put('/chatbot-categoria/{id}');
     });
 
 Route
