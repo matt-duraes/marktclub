@@ -30,7 +30,6 @@ const loadingAtivarBuscar = () => {
             return;
         }
         Loading.show();
-        console.log(inputBuscar.value);
         const resposta = await ajaxPost(
             LINK + '/login/ativar-buscar',
             {

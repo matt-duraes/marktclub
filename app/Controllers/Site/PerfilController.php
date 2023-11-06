@@ -2,14 +2,12 @@
 
 namespace App\Controllers\Site;
 
-use DateTime;
-use Modules\Cpf;
+use Erro\Excecao;
 use Http\Request;
 use Http\Response;
 use Controller\Controller;
 use App\Models\Site\Perfil\DadosModel;
 use App\Models\Site\Perfil\SenhaModel;
-use Google\Service\AdExchangeBuyerII\Date;
 use App\Models\Site\Perfil\DependenteModel;
 use App\Models\Site\Perfil\CarteirinhaModel;
 
@@ -59,20 +57,23 @@ final class PerfilController extends Controller
         return new Response(status: 204);
     }
 
-    public function carteirinha()
+    /**
+     * @return Response
+     * @throws Excecao
+     */
+    public function carteirinha(): Response
     {
-
         $dados_cliente = ((new CarteirinhaModel())->buscarDadosUsuario());
         $campos_carteirinha = (new CarteirinhaModel())->buscarCampos();
         $data_emissao = dataBr($campos_carteirinha->data_criacao);
-        return view(
-            'perfil.carteirinha',
-            [
-                'dado'          => $campos_carteirinha,
-                'dados_cliente' => $dados_cliente->usuario,
-                'data_emissao'  => $data_emissao,
-            ]
-        );
+        $data_validade = dataBr($campos_carteirinha->data_validade);
+
+        return view('perfil.carteirinha', [
+            'dado'          => $campos_carteirinha,
+            'dados_cliente' => $dados_cliente->usuario,
+            'data_emissao'  => $data_emissao,
+            'data_validade' => $data_validade
+        ]);
     }
 
     /*

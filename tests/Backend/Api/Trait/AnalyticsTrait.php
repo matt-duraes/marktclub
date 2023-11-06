@@ -25,6 +25,7 @@ trait AnalyticsTrait
         }
         $dado = $this
             ->Curl
+            ->loginPainel()
             ->json($body)
             ->get($this->uri)
             ->array()['dado'] ?? [];
@@ -64,6 +65,7 @@ trait AnalyticsTrait
 
         $this
             ->Curl
+            ->loginPainel()
             ->json($body)
             ->get($this->uri);
 
