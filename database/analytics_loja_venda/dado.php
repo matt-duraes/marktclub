@@ -8,7 +8,14 @@ $data = [
         'id_parceiro_loja' => 1,
         'numero_transacao' => rand(2, 8),
         'valor_venda'      => number_format(rand(500, 2000), 2, '.', ''),
-        'data_relatorio'   => dataRemover($hoje, 6, 'meses')
+        'data_relatorio'   => dataRemover($hoje, 1, 'meses')
+    ],
+    [
+        'id_admin_empresa' => 2,
+        'id_parceiro_loja' => 1,
+        'numero_transacao' => rand(2, 8),
+        'valor_venda'      => number_format(rand(500, 2000), 2, '.', ''),
+        'data_relatorio'   => dataRemover($hoje, 1, 'meses')
     ],
 ];
 
