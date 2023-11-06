@@ -17,6 +17,8 @@
         padding: 10px
         flex-direction: row
     header .empresas
+        display: flex
+        align-items: center
         width: calc(100% - 30px)
     header form.form_geral .bloco_input
         width: auto
@@ -41,18 +43,24 @@
         border: 1px solid #ddd
     header form .empresas_busca
         display: flex
+        justify-content: center
+        max-height: 100px
+        width: 100%
+        overflow-y: auto
         flex-wrap: wrap
+        gap: 2px
     header form .bloco_busca .empresas_busca div
+        width: calc((100% / 8) - 2px)
         border: 1px solid #ddd
         padding: 12px 5px
         text-overflow: ellipsis
         white-space: nowrap
         overflow: hidden
-        width: 8em
         text-align: center
-        margin: 0 2px
     header form .bloco_filtros
+        min-width: 350px
         display: flex
+        justify-content: right
     header form i
         width: 50px
         height: 50px
@@ -62,6 +70,7 @@
         &.show
             display: flex
     header form i.botao
+        min-width: 30px
         fill: #666
         z-index: 5
     .lista

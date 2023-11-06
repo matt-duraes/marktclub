@@ -270,6 +270,7 @@ return [
         'primeiro_acesso'  => null,
         'mudar_senha'      => null,
         'desenvolvedor'    => 1,
+        'marktclub'        => 1,
         'admin'            => 1,
         'status'           => 1,
     ],
