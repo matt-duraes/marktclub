@@ -19,7 +19,8 @@
     </header>
 
     <div class="qr_code">
-        <h1 class="titulo">ESCANEIE O QR CODE APENAS NA LOJA.</h1>
+        <h1 class="titulo">VALIDAÇÃO EXCLUSIVA PELO LOJISTA.</h1>
+        <p class="subtitulo">Após a leitura, o voucher será invalidado. Por favor, evite escaneá-lo.</p>
         <img src="{!!$dado->qr_code!!}" height="200">
         <div class="codigo"><span>Código:</span>{{$dado->codigo}}</div>
     </div>
