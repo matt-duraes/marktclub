@@ -48,6 +48,7 @@ final class RefreshTokenModel extends ORM implements TokenInterface
             audience: $this->App->audience,
             redirectUri: $this->App->redirect_uri[0] ?? '',
             state: $this->tokenAtual->state_cliente,
+            empresa: $this->tokenAtual->id_admin_empresa,
             tipo: new Tipo($this->tokenAtual->tipo),
             chave: $this->App->chave_publica
         );
@@ -65,7 +66,7 @@ final class RefreshTokenModel extends ORM implements TokenInterface
     private function pegarTokenAtual()
     {
         $token = $this
-            ->campo(['id_usuario', 'id_api_app', 'scope_permitido', 'state_cliente', 'tipo'])
+            ->campo(['id_usuario', 'id_admin_empresa', 'id_api_app', 'scope_permitido', 'state_cliente', 'tipo'])
             ->where([
                 ['refresh_token', $this->refreshToken],
                 ['grant_type', 'implicit'],
