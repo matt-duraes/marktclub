@@ -309,7 +309,7 @@ window.addEventListener('load', () => {
             const nome = formulario.querySelector('input[name=nome]');
             const telefone = formulario.querySelector('input[name=telefone]');
             const email = formulario.querySelector('input[name=email]');
-            const comentario = formulario.querySelector('textarea[name=comentario]');
+            const mensagem = formulario.querySelector('textarea[name=mensagem]');
 
             Loading.show();
             const resposta = await ajaxPost(
@@ -318,9 +318,9 @@ window.addEventListener('load', () => {
                     nome: nome.value,
                     telefone: telefone.value,
                     email: email.value,
-                    mensagem: comentario.value,
+                    mensagem: mensagem.value,
                 },
-                'Ocorreu um erro ao salvar solicitação, por favor, tente novamente.'
+                'Ocorreu um erro ao salvar a solicitação, por favor, tente novamente.'
             );
             Loading.hide();
 
@@ -328,7 +328,7 @@ window.addEventListener('load', () => {
                 Alerta.notificacao('Ocorreu um erro, tente novamente.', false);
                 return;
             }
-            Alerta.notificacao('Formulário enviado', 'Seu formulário foi enviado com sucesso!', true);
+            Alerta.mensagem('Formulário enviado', 'Seu formulário foi enviado com sucesso!', true);
         });
 
         const botaoFechar = document.querySelectorAll('.botao_fechar_popup');

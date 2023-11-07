@@ -14,7 +14,6 @@ final class ContatoModel extends ApiHelper
     public function enviarContato($request): object
     {
         $this
-            ->validar('Não foi possível enviar o formulário', status: 400)
             ->body([
                 'nome'     => $request->nome,
                 'telefone' => $request->telefone,
@@ -24,7 +23,6 @@ final class ContatoModel extends ApiHelper
             ])
             ->post('/solicitacao-contato')
             ->object();
-
         return mensagemSucesso([], 201);
     }
 }

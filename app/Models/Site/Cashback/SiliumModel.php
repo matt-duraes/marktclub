@@ -29,7 +29,7 @@ final class SiliumModel extends ClubeApiHelper
         return $dado;
     }
 
-    public function extrato_saque()
+    public function extratoSaque()
     {
         $dado = $this
             ->validar('Não foi possível pegar extrato!', status: 404)
@@ -43,7 +43,7 @@ final class SiliumModel extends ClubeApiHelper
         return $dado;
     }
 
-    public function solicitar_deposito($dado)
+    public function solicitarDeposito($dado)
     {
         $titular = $dado['titular'] ?? false;
         $cpf = $dado['cpf'] ?? false;
