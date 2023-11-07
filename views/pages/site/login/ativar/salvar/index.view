@@ -57,7 +57,6 @@
         </ul>
 
         <div class="lista bloco_senha">
-            @? formSenha(name: 'ativar_senha_repetir', label: 'Confirmar Senha', placeholder: 'Confirmar senha', obrigatorio: true)
             @? formSenha(name: 'ativar_senha_nova', label: 'Senha', placeholder: 'Senha', obrigatorio: true)
             @? formSenha(name: 'ativar_senha_repetir', label: 'Confirmar Senha', placeholder: 'Confirmar senha', obrigatorio: true)
         </div>
