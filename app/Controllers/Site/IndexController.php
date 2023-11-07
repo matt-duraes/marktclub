@@ -20,6 +20,7 @@ final class IndexController extends Controller
     public function index(): Response
     {
         return view('index', [
+            'tipo_usuario'   => sessao('USUARIO.tipo'),
             'menu'           => 'home',
             'banner'         => (new BannerModel())->home(),
             'plano_saude'    => (new HomeModel())->valor
