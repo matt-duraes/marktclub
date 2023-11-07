@@ -141,6 +141,7 @@ final class LoginController extends Controller
             ])
             ->post('/usuario-cliente/ativar')
             ->object();
+
         return mensagemSucesso([
             'hash'  => $buscar->dado->hash,
             'cpf'   => $buscar->dado->cpf

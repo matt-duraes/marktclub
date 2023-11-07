@@ -12,6 +12,12 @@ const setarTipoInput = (valorData = '') => {
         return;
     }
 
+    if (tipoAtivacao == 'email' && valorData != 'dependente') {
+        input.setAttribute('placeholder', 'Digite o seu e-mail');
+        input.setAttribute('type', 'email');
+        return;
+    }
+
     input.setAttribute('placeholder', 'Digite o seu CPF');
     input.setAttribute('data-mascara', '000.000.000-00');
     input.setAttribute('inputmode', 'numeric');
@@ -46,10 +52,14 @@ const loadingAtivarBuscar = () => {
             return;
         }
         Loading.show();
-        const resposta = await ajaxPost(LINK + '/login/ativar-buscar', {
-            busca: inputBuscar.value,
-            tipo_usuario: valorData,
-        });
+        const resposta = await ajaxPost(
+            LINK + '/login/ativar-buscar',
+            {
+                busca: inputBuscar.value,
+                tipo_usuario: valorData,
+            },
+            'É necessário marcar o tipo de usuário'
+        );
         Loading.hide();
         if (false == resposta) {
             return;
