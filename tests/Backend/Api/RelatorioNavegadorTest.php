@@ -5,11 +5,11 @@ namespace Tests\Api;
 use Tests\Api\Trait\AnalyticsTrait;
 use Tests\Tests;
 
-final class AnalyticsAcessoDiaTest extends Tests
+final class RelatorioNavegadorTest extends Tests
 {
     use AnalyticsTrait;
 
-    private string $uri = '/relatorio/acesso-dia';
+    private string $uri = '/relatorio/navegador';
     private array $dadoEmpresa1;
     private array $dadoEmpresa2;
 
@@ -44,13 +44,10 @@ final class AnalyticsAcessoDiaTest extends Tests
             $this->id2,
         ];
         $dado = $this->fazerRequest(body: $body);
+        $dispositivosSoma = $this->pegarSoma('navegador');
 
         foreach ($dado as $k => $d) {
-            $somaTotalEmpresas = $this->dadoEmpresa1[$k]['total'] + $this->dadoEmpresa2[$k]['total'];
-            $somaUnicoEmpresas = $this->dadoEmpresa1[$k]['unico'] + $this->dadoEmpresa2[$k]['unico'];
-
-            $this->checkIgual($d['total'], $somaTotalEmpresas);
-            $this->checkIgual($d['unico'], $somaUnicoEmpresas);
+            $this->checkIgual($d['total'], $dispositivosSoma[$d['navegador']]);
         }
 
         return $this;
