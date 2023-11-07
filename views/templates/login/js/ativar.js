@@ -52,10 +52,14 @@ const loadingAtivarBuscar = () => {
             return;
         }
         Loading.show();
-        const resposta = await ajaxPost(LINK + '/login/ativar-buscar', {
-            busca: inputBuscar.value,
-            tipo_usuario: valorData,
-        });
+        const resposta = await ajaxPost(
+            LINK + '/login/ativar-buscar',
+            {
+                busca: inputBuscar.value,
+                tipo_usuario: valorData,
+            },
+            'É necessário marcar o tipo de usuário'
+        );
         Loading.hide();
         if (false == resposta) {
             return;
