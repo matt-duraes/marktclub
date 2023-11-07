@@ -1,4 +1,40 @@
+const setarTipoInput = (valorData = '') => {
+    const dataTipo = document.querySelector('.bloco_titular');
+    const tipoAtivacao = dataTipo.getAttribute('data-ativacao');
+    const input = document.querySelector('#input_buscar');
+
+    if (tipoAtivacao == 'siape' && valorData != 'dependente') {
+        input.setAttribute('placeholder', 'Digite o seu SIAPE');
+        return;
+    }
+    if (tipoAtivacao == 'matricula' && valorData != 'dependente') {
+        input.setAttribute('placeholder', 'Digite a sua matrícula');
+        return;
+    }
+
+    input.setAttribute('placeholder', 'Digite o seu CPF');
+    input.setAttribute('data-mascara', '000.000.000-00');
+    input.setAttribute('inputmode', 'numeric');
+};
+
 const loadingAtivarBuscar = () => {
+    setarTipoInput();
+    const botoesTipoUsuario = document.querySelectorAll('.botao_tipo_usuario');
+    let valorData = '';
+    botoesTipoUsuario.forEach(botao => {
+        botao.addEventListener('click', e => {
+            valorData = botao.getAttribute('data-tipo');
+            setarTipoInput(valorData);
+            if (valorData == 'dependente') {
+                $('.botao_titular').classList.remove('cor_bg');
+                $('.botao_dependente').classList.add('cor_bg');
+                return;
+            }
+            $('.botao_dependente').classList.remove('cor_bg');
+            $('.botao_titular').classList.add('cor_bg');
+        });
+    });
+
     const form = $('#bloco_form_buscar');
     const botaoBuscar = $('#botao_buscar_usuario');
     const inputBuscar = $('#input_buscar');
@@ -10,13 +46,10 @@ const loadingAtivarBuscar = () => {
             return;
         }
         Loading.show();
-        const resposta = await ajaxPost(
-            LINK + '/login/ativar-buscar',
-            {
-                busca: inputBuscar.value,
-            },
-            'Ocorre um erro ao buscar o usuário, por favor, tente novamente.'
-        );
+        const resposta = await ajaxPost(LINK + '/login/ativar-buscar', {
+            busca: inputBuscar.value,
+            tipo_usuario: valorData,
+        });
         Loading.hide();
         if (false == resposta) {
             return;

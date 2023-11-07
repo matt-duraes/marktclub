@@ -42,4 +42,10 @@
 </a>
 @ endif;
 
+@ if( MENU_SAIR ):
+    <a href="@route('sair.index')" class="botao sair">
+        <i>@iconeSair</i>
+        Sair do clube
+    </a>
+@ endif;
 

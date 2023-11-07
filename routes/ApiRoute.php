@@ -2075,14 +2075,15 @@ Route
                 '!status'
             ])
             ::put('/solicitacao-contato/{id}');
+
     });
 
 Route
-    ::nome('solicitacao_contato')
+    ::nome('contato_login')
     ::controller(App\Controllers\Api\SolicitacaoContatoController::class)
     ::grupo(function () {
         Route
-            ::nome('salvar')
+            ::nome('contato')
             ::request([
                 'nome', 'email', 'telefone', 'mensagem', 'url'
             ])

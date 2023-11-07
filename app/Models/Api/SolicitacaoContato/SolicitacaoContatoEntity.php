@@ -2,14 +2,14 @@
 
 namespace App\Models\Api\SolicitacaoContato;
 
+use ORM\Entity;
+use Http\Request;
+use Modules\Nome;
+use Modules\Email;
+use Modules\Telefone;
+use Helpers\OrmHelper;
 use App\Classes\SolicitacaoContato\Status;
 use App\Models\Api\SolicitacaoContato\Trait\ConstrutorTrait;
-use Helpers\OrmHelper;
-use Http\Request;
-use Modules\Email;
-use Modules\Nome;
-use Modules\Telefone;
-use ORM\Entity;
 
 class SolicitacaoContatoEntity extends Entity
 {
