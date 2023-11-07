@@ -5,11 +5,11 @@ namespace Tests\Api;
 use Tests\Api\Trait\AnalyticsTrait;
 use Tests\Tests;
 
-final class AnalyticsNavegadorTest extends Tests
+final class RelatorioUsuarioMaisAcessoTest extends Tests
 {
     use AnalyticsTrait;
 
-    private string $uri = '/relatorio/navegador';
+    private string $uri = '/relatorio/usuario-mais-acesso';
     private array $dadoEmpresa1;
     private array $dadoEmpresa2;
 
@@ -43,11 +43,13 @@ final class AnalyticsNavegadorTest extends Tests
             $this->id1,
             $this->id2,
         ];
+
         $dado = $this->fazerRequest(body: $body);
-        $dispositivosSoma = $this->pegarSoma('navegador');
+        $dispositivosSoma = $this->pegarSoma('usuario', crypto: true);
 
         foreach ($dado as $k => $d) {
-            $this->checkIgual($d['total'], $dispositivosSoma[$d['navegador']]);
+            $usuario = $this->cryptDecode($d['usuario']);
+            $this->checkIgual($d['total'], $dispositivosSoma[$usuario]);
         }
 
         return $this;

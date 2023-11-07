@@ -37,21 +37,27 @@ trait AnalyticsTrait
         return $dado;
     }
 
-    private function pegarSoma($key)
+    private function pegarSoma($key, $crypto = false)
     {
         $soma = [];
 
         foreach ($this->dadoEmpresa1 as $item) {
             $dispositivo = $item[$key];
+            if ($crypto) {
+                $dispositivo = $this->cryptDecode($dispositivo);
+            }
             $soma[$dispositivo] = $item['total'];
         }
 
         foreach ($this->dadoEmpresa2 as $item) {
             $dispositivo = $item[$key];
+            if ($crypto) {
+                $dispositivo = $this->cryptDecode($dispositivo);
+            }
             if (isset($soma[$dispositivo])) {
                 $soma[$dispositivo] += $item['total'];
             } else {
-                $soma[$dispositivo] = $item[$key];
+                $soma[$dispositivo] = $item['total'];
             }
         }
 

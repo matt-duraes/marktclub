@@ -14,6 +14,12 @@ return [
         'status'           => 1
     ],
     [
+        'id_admin_empresa' => 1,
+        'indice'           => 'teste-03',
+        'titulo'           => 'Grupo de Teste 03',
+        'status'           => 2
+    ],
+    [
         'id_admin_empresa' => 2,
         'indice'           => 'grupo-anafe',
         'titulo'           => 'Grupo de teste Anafe',
