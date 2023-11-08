@@ -6,6 +6,7 @@
             <i class="fechar pagina_fechar">@iconeFechar</i>
         </header>
 
+        @if(TIPO_ATIVACAO != 'cpf'):
         <div class="bloco_escolha_usuario">
             <h1>Selecione o tipo de usuário</h1>
             <div class="bloco_tipo_usuario">
@@ -17,13 +18,12 @@
                 </div>
             </div>
         </div>
+        @endif;
 
-        <div class="bloco_titular" data-ativacao="{{TIPO_ATIVACAO ? TIPO_ATIVACAO : ''}}">
+        <div class="bloco_titular {{TIPO_ATIVACAO != 'cpf' ? 'display_none' : ''}}" data-ativacao="{{TIPO_ATIVACAO ? TIPO_ATIVACAO : ''}}">
             <h1>Insira o dado solicitado</h1>
-            <div class="display_none">
-                @? formCpf(name: 'buscar22', label: 'Buscar', placeholder: 'Digite seu CPF', local: '44609809087');
-            </div>
-            @? formInput(name: 'buscar', label: 'Buscar', obrigatorio: true, placeholder: 'Insira seus dados');
+            @? formCpf(name: 'buscar_cpf', label: 'Buscar', placeholder: 'Digite seu CPF');
+            @? formInput(name: 'buscar', label: 'Buscar', placeholder: 'Insira seus dados');
         </div>
 
     </div>

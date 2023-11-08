@@ -1,7 +1,11 @@
 const setarTipoInput = (valorData = '') => {
-    const dataTipo = document.querySelector('.bloco_titular');
-    const tipoAtivacao = dataTipo.getAttribute('data-ativacao');
+    const blocoTitular = document.querySelector('.bloco_titular');
+    const tipoAtivacao = blocoTitular.getAttribute('data-ativacao');
     const input = document.querySelector('#input_buscar');
+    const inputCpf = document.querySelector('#input_buscar_cpf');
+    blocoTitular.classList.remove('display_none');
+    inputCpf.parentNode.classList.add('display_none');
+    input.parentNode.classList.remove('display_none');
 
     if (tipoAtivacao == 'siape' && valorData != 'dependente') {
         input.setAttribute('placeholder', 'Digite o seu SIAPE');
@@ -18,13 +22,11 @@ const setarTipoInput = (valorData = '') => {
         return;
     }
 
-    input.setAttribute('placeholder', 'Digite o seu CPF');
-    input.setAttribute('data-mascara', '000.000.000-00');
-    input.setAttribute('inputmode', 'numeric');
+    input.parentNode.classList.add('display_none');
+    inputCpf.parentNode.classList.remove('display_none');
 };
 
 const loadingAtivarBuscar = () => {
-    setarTipoInput();
     const botoesTipoUsuario = document.querySelectorAll('.botao_tipo_usuario');
     let valorData = '';
     botoesTipoUsuario.forEach(botao => {
@@ -44,6 +46,7 @@ const loadingAtivarBuscar = () => {
     const form = $('#bloco_form_buscar');
     const botaoBuscar = $('#botao_buscar_usuario');
     const inputBuscar = $('#input_buscar');
+    const inputBuscarCpf = $('#input_buscar_cpf');
 
     inputBuscar.focus();
 
@@ -53,7 +56,7 @@ const loadingAtivarBuscar = () => {
         }
         Loading.show();
         const resposta = await ajaxPost(LINK + '/login/ativar-buscar', {
-            busca: inputBuscar.value,
+            busca: inputBuscar.value ? inputBuscar.value : inputBuscarCpf.value,
             tipo_usuario: valorData,
         });
         Loading.hide();
