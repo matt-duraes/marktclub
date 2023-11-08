@@ -23,7 +23,9 @@
         <div class="bloco_titular {{TIPO_ATIVACAO != 'cpf' ? 'display_none' : ''}}" data-ativacao="{{TIPO_ATIVACAO ? TIPO_ATIVACAO : ''}}">
             <h1>Insira o dado solicitado</h1>
             @? formCpf(name: 'buscar_cpf', label: 'Buscar', placeholder: 'Digite seu CPF');
+            <div class="{{TIPO_ATIVACAO == 'cpf' ? 'display_none' : ''}}">
             @? formInput(name: 'buscar', label: 'Buscar', placeholder: 'Insira seus dados');
+            </div>
         </div>
 
     </div>
