@@ -310,7 +310,7 @@ Route
         Route
             ::nome('ativar')
             ::middleware(TokenMiddleware::class, 'scope', ['usuario_cliente:ativar'])
-            ::request(['tipo_usuario', 'chave', 'valor', '!empresa'])
+            ::request(['valor', '!empresa', '!tipo_usuario', '!chave'])
             ::post('/usuario-cliente/ativar');
         Route
             ::nome('ativar')
@@ -2075,7 +2075,6 @@ Route
                 '!status'
             ])
             ::put('/solicitacao-contato/{id}');
-
     });
 
 Route
@@ -2088,7 +2087,7 @@ Route
                 'nome', 'email', 'telefone', 'mensagem', 'url'
             ])
             ::post('/solicitacao-contato');
-});
+    });
 
 Route
     ::nome('solicitacao_automovel')

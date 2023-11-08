@@ -2,15 +2,15 @@
 
 namespace App\Models\Api\UsuarioCliente\Ativar;
 
-use ORM\ORM;
-use Throwable;
-use Modules\Cpf;
-use Erro\Excecao;
-use Helpers\OrmHelper;
+use App\Classes\ConstrutorClube\TipoAtivacao;
 use App\Classes\UsuarioCliente\Hash;
 use App\Classes\UsuarioCliente\Status;
 use App\Classes\UsuarioCliente\TipoUsuario;
-use App\Classes\ConstrutorClube\TipoAtivacao;
+use Erro\Excecao;
+use Helpers\OrmHelper;
+use Modules\Cpf;
+use ORM\ORM;
+use Throwable;
 
 final class BuscarModel extends ORM
 {
@@ -23,10 +23,10 @@ final class BuscarModel extends ORM
      * @throws Excecao
      */
     public function __construct(
-        private readonly TipoUsuario $tipoUsuario,
-        private readonly TipoAtivacao $tipoAtivacao,
         private readonly string $valor,
-        private readonly ?string $empresa = null
+        private readonly ?string $empresa = null,
+        private readonly TipoAtivacao $tipoAtivacao = new TipoAtivacao(),
+        private readonly TipoUsuario $tipoUsuario = new TipoUsuario(),
     ) {
         parent::__construct();
         $this->validarDados();
@@ -38,15 +38,17 @@ final class BuscarModel extends ORM
      */
     private function validarDados(): void
     {
-        if (!$this->tipoUsuario->valido()) {
-            mensagemErro('Usuário!', 'Não foi possível identificar seu usuário.');
-        }
+        if (!$this->tipoUsuario->vazio()) {
+            if (!$this->tipoUsuario->valido()) {
+                mensagemErro('Usuário!', 'Não foi possível identificar seu usuário.');
+            }
 
-        if ($this->tipoUsuario->indice() === TipoUsuario::DEPENDENTE) {
-            if (empty($this->valor)) {
-                mensagemErro('Campo obrigatorio!', 'Digite seu CPF para continuar.');
-            } elseif (!validarCpf($this->valor)) {
-                mensagemErro('Campo inválido!', 'Digite um CPF válido para continuar.');
+            if ($this->tipoUsuario->indice() === TipoUsuario::DEPENDENTE) {
+                if (empty($this->valor)) {
+                    mensagemErro('Campo obrigatorio!', 'Digite seu CPF para continuar.');
+                } elseif (!validarCpf($this->valor)) {
+                    mensagemErro('Campo inválido!', 'Digite um CPF válido para continuar.');
+                }
             }
         }
 
@@ -94,9 +96,12 @@ final class BuscarModel extends ORM
         $empresa = (new OrmHelper(TABELA_COMERCIAL_EMPRESA))
             ->pegarIdPeloUuid($this->empresa);
 
-        if ($this->tipoUsuario->indice() === TipoUsuario::DEPENDENTE) {
+        if (
+            ($this->tipoUsuario !== null)
+            && ($this->tipoUsuario->indice() === TipoUsuario::DEPENDENTE)
+        ) {
             return [
-                ['cpf', $this->valor],
+                ['cpf', soNumero($this->valor)],
                 ['id_admin_empresa', $empresa]
             ];
         }
@@ -128,13 +133,13 @@ final class BuscarModel extends ORM
      *
      * @throws Excecao
      */
-    private function validarUsuario($usuario): void
+    private function validarUsuario(array|object $usuario): void
     {
-        if (empty($usuario)) {
+        if (is_array($usuario) || empty($usuario)) {
             mensagemErro(
                 'Usuário não encontrado!',
-                'Não foi possível achar seu usuário pelos dados informados, por favor, verifique os dados informados e tente novamente. Caso os dados estejam corretos, entre em contato com o atendimento.',
-                codigo: 404
+                'Não foi possível achar seu usuário pelos dados informados. Por favor, verifique os dados informados e tente novamente. Caso os dados estejam corretos, entre em contato com o atendimento.',
+                codigo: 4040
             );
         }
 
