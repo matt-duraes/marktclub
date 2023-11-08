@@ -18,7 +18,11 @@
             @if ( !empty(CONTATO_WHATSAPP) ):
             <p class="contato">
                 <i class="icone">@iconeWhatsapp(19)</i>
-                <span>{{CONTATO_WHATSAPP}}</span>
+                <a href="https://wa.me/55{{soNumero(CONTATO_WHATSAPP)}}" target="_blank" rel="noopener noreferer">
+                    <span>
+                        {{CONTATO_WHATSAPP}}
+                    </span>
+                </a>
                 <i class="copiar">@iconeCopiar(12)</i>
             </p>
             @endif;
