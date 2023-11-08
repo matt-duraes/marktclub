@@ -20,10 +20,8 @@
 
         <div class="bloco_titular" data-ativacao="{{TIPO_ATIVACAO ? TIPO_ATIVACAO : ''}}">
             <h1>Insira o dado solicitado</h1>
-            <div class="display_none">
-                @? formCpf(name: 'buscar22', label: 'Buscar', placeholder: 'Digite seu CPF', local: '44609809087');
-            </div>
-            @? formInput(name: 'buscar', label: 'Buscar', obrigatorio: true, placeholder: 'Insira seus dados');
+            @? formCpf(name: 'buscar_cpf', label: 'Buscar', placeholder: 'Digite seu CPF', local: '44609809087');
+            @? formInput(name: 'buscar', label: 'Buscar', placeholder: 'Insira seus dados');
         </div>
 
     </div>

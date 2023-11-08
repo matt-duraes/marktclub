@@ -2,6 +2,9 @@ const setarTipoInput = (valorData = '') => {
     const dataTipo = document.querySelector('.bloco_titular');
     const tipoAtivacao = dataTipo.getAttribute('data-ativacao');
     const input = document.querySelector('#input_buscar');
+    const inputCpf = document.querySelector('#input_buscar_cpf');
+    inputCpf.classList.add('display_none');
+    input.classList.remove('display_none');
 
     if (tipoAtivacao == 'siape' && valorData != 'dependente') {
         input.setAttribute('placeholder', 'Digite o seu SIAPE');
@@ -18,19 +21,16 @@ const setarTipoInput = (valorData = '') => {
         return;
     }
 
-    input.setAttribute('placeholder', 'Digite o seu CPF');
-    input.setAttribute('data-mascara', '000.000.000-00');
-    input.setAttribute('inputmode', 'numeric');
+    input.classList.add('display_none');
+    inputCpf.classList.remove('display_none');
 };
 
 const loadingAtivarBuscar = () => {
-    setarTipoInput();
     const botoesTipoUsuario = document.querySelectorAll('.botao_tipo_usuario');
     let valorData = '';
     botoesTipoUsuario.forEach(botao => {
         botao.addEventListener('click', e => {
             valorData = botao.getAttribute('data-tipo');
-            setarTipoInput(valorData);
             if (valorData == 'dependente') {
                 $('.botao_titular').classList.remove('cor_bg');
                 $('.botao_dependente').classList.add('cor_bg');
@@ -40,6 +40,8 @@ const loadingAtivarBuscar = () => {
             $('.botao_titular').classList.add('cor_bg');
         });
     });
+
+    setarTipoInput(valorData);
 
     const form = $('#bloco_form_buscar');
     const botaoBuscar = $('#botao_buscar_usuario');
