@@ -279,7 +279,7 @@ return [
         'id_admin_empresa' => '2',
         'tipo'             => '1',
         'nome_real'        => 'Usuário Empresa 2',
-        'documento_cpf'    => cpfAleatorio(),
+        'documento_cpf'    => '22222222222',
         'email_pessoal'    => null,
         'email_trabalho'   => emailAleatorio(),
         'telefone_pessoal' => telefoneAleatorio(),
