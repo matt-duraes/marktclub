@@ -2,21 +2,21 @@
 
 namespace App\Controllers\Api;
 
-use App\Classes\SolicitacaoContato\Ordem;
-use App\Classes\SolicitacaoContato\Status;
-use App\Models\Api\SolicitacaoContato\SolicitacaoContatoEntity;
-use App\Models\Api\SolicitacaoContato\SolicitacaoContatoModel;
-use Controller\Controller;
 use Erro\Excecao;
 use Http\Request;
-use Http\Response;
 use Modules\Data;
+use Http\Response;
 use Modules\Pagina;
 use Modules\Quantidade;
-use System\Interface\ControllerAtualizarInterface;
+use Controller\Controller;
+use App\Classes\SolicitacaoContato\Ordem;
+use App\Classes\SolicitacaoContato\Status;
 use System\Interface\ControllerBuscarInterface;
 use System\Interface\ControllerListarInterface;
 use System\Interface\ControllerSalvarInterface;
+use System\Interface\ControllerAtualizarInterface;
+use App\Models\Api\SolicitacaoContato\SolicitacaoContatoModel;
+use App\Models\Api\SolicitacaoContato\SolicitacaoContatoEntity;
 
 class SolicitacaoContatoController extends Controller implements
     ControllerBuscarInterface,
@@ -104,5 +104,10 @@ class SolicitacaoContatoController extends Controller implements
         $Contato->set(lista: $request->dado());
         $Contato->salvar();
         return new Response(status: 204);
+    }
+
+    public function postContato(Request $request)
+    {
+        return $this->postSalvar($request);
     }
 }

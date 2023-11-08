@@ -25,7 +25,7 @@ final class ContatoController extends Controller
 
     public function postContatoLogin(Request $request): Response
     {
-        (new ContatoModel($request))->postSalvar();
+        (new ContatoModel())->enviarContato($request);
 
         return mensagemSucesso([], status: 201);
     }

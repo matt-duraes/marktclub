@@ -5,11 +5,11 @@ namespace Tests\Api;
 use Tests\Api\Trait\AnalyticsTrait;
 use Tests\Tests;
 
-final class AnalyticsDispositivosTest extends Tests
+final class RelatorioPaginaMaisAcessadaTest extends Tests
 {
     use AnalyticsTrait;
 
-    private string $uri = '/relatorio/dispositivo';
+    private string $uri = '/relatorio/pagina-mais-acessada';
     private array $dadoEmpresa1;
     private array $dadoEmpresa2;
 
@@ -43,11 +43,12 @@ final class AnalyticsDispositivosTest extends Tests
             $this->id1,
             $this->id2,
         ];
+
         $dado = $this->fazerRequest(body: $body);
-        $dispositivosSoma = $this->pegarSoma('dispositivo');
+        $dispositivosSoma = $this->pegarSoma('pagina');
 
         foreach ($dado as $k => $d) {
-            $this->checkIgual($d['total'], $dispositivosSoma[$d['dispositivo']]);
+            $this->checkIgual($d['total'], $dispositivosSoma[$d['pagina']]);
         }
 
         return $this;

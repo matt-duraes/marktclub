@@ -130,7 +130,7 @@ Route
             ::view('/login/ativar-buscar');
         Route
             ::nome('ativarBuscar')
-            ::request(['busca'])
+            ::request(['busca', 'tipo_usuario'])
             ::post('/login/ativar-buscar');
         Route
             ::nome('ativarSalvar')

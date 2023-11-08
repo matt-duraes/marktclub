@@ -97,6 +97,14 @@ $seeds = [
         'status'        => 1
     ],
     [
+        'cod'            => 'e0f96058-18a8-48d6-843d-b593243cb7ee',
+        'empresa'        => 1,
+        'tipo'           => 2,
+        'documento'      => 52149649004,
+        'status'         => 5,
+        'titular'        => 1
+    ],
+    [
         'cod'           => '32e9c475-bbbc-4cd6-854c-6cf1bb88fd8d',
         'empresa'       => 2,
         'tipo'          => 1,
