@@ -46,17 +46,16 @@ final class LojaVendaModel extends ORM
     private function pegarWhere()
     {
         $this->setarIdUsuario();
-        if (!$this->verificarSePodeMudarEmpresa()) {
-            mensagemErro('Empresa inválida!', 'Você não tem permissão para acessar essa empresa.');
-        }
-
         $whereData = ['data_relatorio', 'between', [$this->de, $this->ate]];
-
         if (empty($this->request->empresa)) {
             return [
                 $whereData,
                 ['id_admin_empresa', $this->idEmpresa]
             ];
+        }
+
+        if (!$this->verificarSePodeMudarEmpresa()) {
+            mensagemErro('Empresa inválida!', 'Você não tem permissão para acessar essa empresa.');
         }
 
         if (!is_array($this->request->empresa)) {
