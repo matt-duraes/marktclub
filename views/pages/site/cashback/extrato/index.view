@@ -22,11 +22,6 @@
             <div class="saldo_conta">
                 <p>SALDO EM CONTA:</p><span>{!!$saldo!!}</span>
             </div>
-            <!-- <div class="botao_resgata"> -->
-                <!-- <button class="botao"> -->
-                    <!-- <span id="botao_popup_resgate">SOLICITAR RESGATE</span> -->
-                <!-- </button> -->
-            <!-- </div> -->
             <div class="saldo_zero">
                 <p>VOCÊ PRECISA ACUMULAR 10.000 PONTOS PARA SOLICITAR RESGATE.</p>
             </div>
@@ -38,63 +33,26 @@
                     <span class="texto_inativo">Extrato de compra</span>
                     <span class="texto_ativo">Extrato de compra</span>
                 </button>
-                @if (isset($extrato_saque) && !empty($extrato_saque)):
-                    <button class="botao" data-id="bloco_nome_02">
-                        <span class="texto_inativo">Extrato de saque</span>
-                        <span class="texto_ativo">Extrato de saque</span>
-                    </button>
-                @endif;
+                <button class="botao" data-id="bloco_nome_02">
+                    <span class="texto_inativo">Extrato de saque</span>
+                    <span class="texto_ativo">Extrato de saque</span>
+                </button>
             </div>
 
             <div id="bloco_nome_01" class="conteudo">
                 <div class="bloco_tabela_geral">
                     <table>
-                        @if ($extrato):
-                        <thead>
-                            <tr>
-                                <th>Convênios</th>
-                                <th>Pontos</th>
-                                <th>Data</th>
-                                <th>Status</th>
-                            </tr>
-                        </thead>
                         <tbody>
-                            @foreach ($extrato as $i => $extrato) :
-                                @if ($i == 5):
-                                    @php break;
-                                @endif
-                                <tr>
-                                    <td data-label="Nome">{!!$extrato->desc_ponto!!}</td>
-                                    <td data-label="Bônus">{{$extrato->descricao_bonus}}</td>
-                                    <td data-label="Prêmio">{{$extrato->descricao_premio}}</td>
-                                    <td data-label="Quantidade">{!!$extrato->quantidade!!}</td>
-                                    <td data-label="Crédito">{!!$extrato->credito!!}</td>
-                                    <td data-label="Débito">{{$extrato->debito}}</td>
-                                    <td data-label="Data">{{date('d/m/Y', strtotime($extrato->data))}}</td>
-                                    <td data-label="Tipo">{{$extrato->tipo_registro}}</td>
-                                    <td data-label="Status">{{$extrato->status}}</td>
-                                </tr>
-                            @endforeach
-                        @else:
                             <tr class="vazio">
                                 <td colspan="12">SEM EXTRATO NO MOMENTO</td>
                             </tr>
-                        @endif;
                         </tbody>
                     </table>
                 </div>
             </div>
-            @if (isset($extrato_saque) && !empty($extrato_saque)):
                 <div id="bloco_nome_02" class="conteudo display_none">
                 <div class="bloco_tabela_geral">
                     <table>
-                        <thead>
-                            <tr>
-                                <th>Conta</th>
-                                <th>Valor</th>
-                                <th>Status</th>
-                            </tr>
-                        </thead>
                         <tbody>
                             <tr class="vazio">
                                 <td colspan="12">SEM EXTRATO NO MOMENTO</td>
@@ -103,7 +61,6 @@
                     </table>
                 </div>
             </div>
-            @endif;
         </div>
     </div>
 
