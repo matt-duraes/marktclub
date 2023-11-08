@@ -56,7 +56,11 @@ final class PerfilController extends Controller
         return new Response(status: 204);
     }
 
-    public function carteirinha()
+    /**
+     * @return Response
+     * @throws Excecao
+     */
+    public function carteirinha(): Response
     {
         $dados_cliente = ((new CarteirinhaModel())->buscarDadosUsuario());
         $campos_carteirinha = (new CarteirinhaModel())->buscarCampos();

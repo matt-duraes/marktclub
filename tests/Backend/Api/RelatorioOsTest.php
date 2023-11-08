@@ -5,7 +5,7 @@ namespace Tests\Api;
 use Tests\Api\Trait\AnalyticsTrait;
 use Tests\Tests;
 
-final class AnalyticsOsTest extends Tests
+final class RelatorioOsTest extends Tests
 {
     use AnalyticsTrait;
 

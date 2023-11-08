@@ -59,6 +59,7 @@ window.addEventListener('load', () => {
     | ATIVAR
     |--------------------------------------------------------------------------
     */
+
     const botaoAtivar = $('#botao_ativar_conta_home');
     if (botaoAtivar) {
         botaoAtivar.addEventListener('click', () => {

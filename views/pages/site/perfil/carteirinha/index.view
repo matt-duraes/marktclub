@@ -11,7 +11,6 @@
     @CSS
 </head>
 <body>
-
     <div id="carteirinha_clube">
         <div class="bloco_frente">
             <div class="bg"><img src="{!!$dado->bg_frente!!}"></div>
@@ -49,13 +48,17 @@
                     <p>{{$dados_cliente->matricula}}</p>
                 </div>
                 @endif;
-
                 @if($dado->estado == 'sim'):
                 <div class="bloco_estado bloco_infos">
                     <span>Estado</span>
                     <p>{{$dados_cliente->estado}}</p>
                 </div>
                 @endif;
+
+                <div class="bloco_estado bloco_infos">
+                    <span>Data de Validade</span>
+                    <p>{!!$data_validade!!}</p>
+                </div>
 
             </div>
         </div>

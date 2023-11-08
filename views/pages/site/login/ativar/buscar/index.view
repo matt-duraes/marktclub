@@ -1,21 +1,38 @@
 <form id="bloco_form_buscar" class="bloco_form_login form_geral" action="/" method="post">
-    <div class="conteudo">
+    <div class="conteudo" >
         <header>
             <h1>BUSCAR CONTA</h1>
             <p>Preencha os campos abaixo para buscar sua conta</p>
             <i class="fechar pagina_fechar">@iconeFechar</i>
         </header>
 
-        @ if( $tipoSiape ):
-        @? formInput(name: 'buscar', label: 'Buscar', obrigatorio: true, placeholder: 'Digite seu SIAPE');
-        @ elseif( $tipoMatricula ):
-        @? formInput(name: 'buscar', label: 'Buscar', obrigatorio: true, placeholder: 'Digite sua matrícula');
-        @ else:
-        @? formCpf(name: 'buscar', label: 'Buscar', obrigatorio: true, placeholder: 'Digite seu CPF', local: '44609809087')
-        @ endif;
+        @if(TIPO_ATIVACAO != 'cpf'):
+        <div class="bloco_escolha_usuario">
+            <h1>Selecione o tipo de usuário</h1>
+            <div class="bloco_tipo_usuario">
+                <div class="botao_tipo_usuario botao_titular" data-tipo="titular">
+                    Titular
+                </div>
+                <div class="botao_tipo_usuario botao_dependente" data-tipo="dependente">
+                    Dependente
+                </div>
+            </div>
+        </div>
+        @endif;
+
+        <div class="bloco_titular {{TIPO_ATIVACAO != 'cpf' ? 'display_none' : ''}}" data-ativacao="{{TIPO_ATIVACAO ? TIPO_ATIVACAO : ''}}">
+            <h1>Insira o dado solicitado</h1>
+            @? formCpf(name: 'buscar_cpf', label: 'Buscar', placeholder: 'Digite seu CPF');
+            <div class="{{TIPO_ATIVACAO == 'cpf' ? 'display_none' : ''}}">
+            @? formInput(name: 'buscar', label: 'Buscar', placeholder: 'Insira seus dados');
+            </div>
+        </div>
+
+    </div>
 
         <div class="bloco_botao">
             <div class="botao" id="botao_buscar_usuario">Buscar</div>
         </div>
     </div>
+
 </div>

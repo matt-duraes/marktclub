@@ -692,6 +692,25 @@ $seeds = [
         'procedimento'        => 1,
         'status'              => 4
     ],
+    [
+        'id'                  => 270,
+        'cod'                 => '814b9d1792724316417c96b8fc33aacb',
+        'categoria_principal' => '1',
+        'categoria_todas'     => '["1","2"]',
+        'titulo'              => 'Dell Brasil',
+        'url'                 => 'dell-brasil',
+        'imagem'              => '924269f06184a947b465447ac7bbc99c.png',
+        'site'                => 'https://webapp.dell.epsilon.com/BR/UCVM/Coupons/Register/MPPBR-Referrallink?c=BR&l=pt',
+        'desconto'            => 'Desconto de até 6%',
+        'desconto_texto'      => 'Este convênio possui condições especiais  que variam conforme o modelo de veículo desejado.',
+        'procedimento_texto'  => 'Para aplicação do benefício, basta clicar em abrir site no botão ao lado e seguir as instruções.',
+        'destaque'            => ['1', '2', '66'],
+        'empresa'             => ['1', '2', '66'],
+        'tipo'                => 1,
+        'estabelecimento'     => 1,
+        'procedimento'        => 1,
+        'status'              => 4
+    ],
 ];
 for ($i = 0; $i < env('QTD_SEEDS', 50); $i++) {
     $titulo = valorAleatorio($titulos) . $i;

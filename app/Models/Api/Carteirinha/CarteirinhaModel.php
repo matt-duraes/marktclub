@@ -2,19 +2,19 @@
 
 namespace App\Models\Api\Carteirinha;
 
-use Helpers\OrmHelper;
-use ORM\ORM;
-use stdClass;
+use App\Classes\Carteirinha\Ordem;
+use App\Classes\Carteirinha\Status;
 use Erro\Excecao;
+use Helpers\OrmHelper;
 use Modules\Botao;
 use Modules\Pagina;
 use Modules\Quantidade;
-use App\Classes\Carteirinha\Ordem;
+use ORM\ORM;
+use stdClass;
+use System\Interface\ModelListarInterface;
 use System\Trait\Model\OrdemTrait;
-use App\Classes\Carteirinha\Status;
 use System\Trait\Model\PaginaTrait;
 use System\Trait\Model\QuantidadeTrait;
-use System\Interface\ModelListarInterface;
 
 class CarteirinhaModel extends ORM implements
     ModelListarInterface
@@ -31,8 +31,6 @@ class CarteirinhaModel extends ORM implements
      * @param Ordem       $ordem
      * @param string|null $empresa
      * @param Status      $status
-     *
-     * @throws Excecao
      */
     public function __construct(
         private readonly Pagina $pagina = new Pagina(),
@@ -110,6 +108,7 @@ class CarteirinhaModel extends ORM implements
                 'matricula'        => $this->pegarValorBotao($r->matricula),
                 'data_nascimento'  => $this->pegarValorBotao($r->data_nascimento),
                 'estado'           => $this->pegarValorBotao($r->estado),
+                'data_validade'    => dataAdicionar(date('Y-m-d'), 30, 'dias'),
                 'data_criacao'     => $r->data_criacao,
                 'data_atualizacao' => $r->data_atualizacao,
                 'status'           => $Status->indice($r->status),

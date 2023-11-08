@@ -18,7 +18,7 @@
 
             <fieldset class="texto">
                 <h1 class="texto">MENSAGEM</h1>
-                @? formTextarea(name: 'comentario', placeholder: 'Digite uma breve mensagem', label: 'Mensagem')
+                @? formTextarea(name: 'mensagem', placeholder: 'Digite uma breve mensagem', label: 'Mensagem')
             </fieldset>
 
             <button id="botao_enviar_contato" class="botao_enviar_contato botao_geral_cor">ENVIAR</button>

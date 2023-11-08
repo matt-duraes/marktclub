@@ -13,7 +13,7 @@ trait ConstrutorTrait
         $Construtor->buscar([
             ['link_clube', $this->url],
             ['status', (new Status(Status::ATIVO))->numero()]
-        ]);
+        ], false);
         $this->idEmpresa = empty($Construtor->id) ?: $Construtor->id_admin_empresa;
     }
 }

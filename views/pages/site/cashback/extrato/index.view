@@ -1,7 +1,7 @@
 @template "site"
 
 <div id="bloco_pagina_cashback">
-
+    <input type="hidden" id="input_ponto_saldo" value="{$saldo}">
     <div class="conteudo">
 
         <figure>
@@ -16,23 +16,20 @@
             Para você receber no dia 10 do mesmo mês, faça a sua solicitação até dia 05. Para receber até dia 25 do mesmo mês, faça sua solicitação até dia 20.</p>
         </section>
 
-        <a href="#" target="_blank" class="regulamento botao_pequeno_borda">REGULAMENTO SILIUM</a>
+        <a href="@route(termo.termocashback)" target="_blank" class="regulamento botao_pequeno_borda">REGULAMENTO SILIUM</a>
 
         <div class="saldo">
             <div class="saldo_conta">
-                <p>SALDO EM CONTA:</p><span>0</span>
+                <p>SALDO EM CONTA:</p><span>{!!$saldo!!}</span>
             </div>
-
-            <!-- <div class="botao_resgata">
-                <button class="botao">
-                    <span>SOLICITAR RESGATE</span>
-                </button>
-            </div> -->
-
+            <!-- <div class="botao_resgata"> -->
+                <!-- <button class="botao"> -->
+                    <!-- <span id="botao_popup_resgate">SOLICITAR RESGATE</span> -->
+                <!-- </button> -->
+            <!-- </div> -->
             <div class="saldo_zero">
                 <p>VOCÊ PRECISA ACUMULAR 10.000 PONTOS PARA SOLICITAR RESGATE.</p>
             </div>
-
         </div>
 
         <div class="bloco_tab_geral bloco_procedimento">
@@ -41,15 +38,18 @@
                     <span class="texto_inativo">Extrato de compra</span>
                     <span class="texto_ativo">Extrato de compra</span>
                 </button>
-                <button class="botao" data-id="bloco_nome_02">
-                    <span class="texto_inativo">Extrato de saque</span>
-                    <span class="texto_ativo">Extrato de saque</span>
-                </button>
+                @if (isset($extrato_saque) && !empty($extrato_saque)):
+                    <button class="botao" data-id="bloco_nome_02">
+                        <span class="texto_inativo">Extrato de saque</span>
+                        <span class="texto_ativo">Extrato de saque</span>
+                    </button>
+                @endif;
             </div>
 
             <div id="bloco_nome_01" class="conteudo">
                 <div class="bloco_tabela_geral">
                     <table>
+                        @if ($extrato):
                         <thead>
                             <tr>
                                 <th>Convênios</th>
@@ -59,13 +59,33 @@
                             </tr>
                         </thead>
                         <tbody>
-
+                            @foreach ($extrato as $i => $extrato) :
+                                @if ($i == 5):
+                                    @php break;
+                                @endif
+                                <tr>
+                                    <td data-label="Nome">{!!$extrato->desc_ponto!!}</td>
+                                    <td data-label="Bônus">{{$extrato->descricao_bonus}}</td>
+                                    <td data-label="Prêmio">{{$extrato->descricao_premio}}</td>
+                                    <td data-label="Quantidade">{!!$extrato->quantidade!!}</td>
+                                    <td data-label="Crédito">{!!$extrato->credito!!}</td>
+                                    <td data-label="Débito">{{$extrato->debito}}</td>
+                                    <td data-label="Data">{{date('d/m/Y', strtotime($extrato->data))}}</td>
+                                    <td data-label="Tipo">{{$extrato->tipo_registro}}</td>
+                                    <td data-label="Status">{{$extrato->status}}</td>
+                                </tr>
+                            @endforeach
+                        @else:
+                            <tr class="vazio">
+                                <td colspan="12">SEM EXTRATO NO MOMENTO</td>
+                            </tr>
+                        @endif;
                         </tbody>
                     </table>
                 </div>
             </div>
-
-            <div id="bloco_nome_02" class="conteudo display_none">
+            @if (isset($extrato_saque) && !empty($extrato_saque)):
+                <div id="bloco_nome_02" class="conteudo display_none">
                 <div class="bloco_tabela_geral">
                     <table>
                         <thead>
@@ -76,13 +96,36 @@
                             </tr>
                         </thead>
                         <tbody>
-
+                            <tr class="vazio">
+                                <td colspan="12">SEM EXTRATO NO MOMENTO</td>
+                            </tr>
                         </tbody>
                     </table>
                 </div>
             </div>
-
+            @endif;
         </div>
     </div>
 
+</div>
+
+
+<div class="bloco_pagina_popup display_none" id="bloco_resgatar_ponto">
+    <div class="conteudo_pagina_popup conteudo_popup">
+        <header>
+            <h1>Resgatar pontos</h1>
+            <p>Preencha o formulário abaixo para solicitar resgate de pontos</p>
+            <i class="popup_fechar fechar">@iconeFechar</i>
+        </header>
+        <form action="" class="form_geral">
+            <div class="bloco">
+                @? formInput(name: 'ponto_nome', label: 'Nome', placeholder:'Digite seu nome', obrigatorio: true, value: '', local: 'André Rodrigues')
+                @? formInput(name: 'ponto_email', label: 'E-mail', placeholder:'Digite seu E-mail',  obrigatorio: true, value: '', local: 'andre@markt.club')
+                @? formNumero(name: 'ponto_quantidade', label: 'Pontos', placeholder: 'Digite a quantidade de pontos', obrigatorio: true, value: '', local: 1)
+            </div>
+        </form>
+        <div class="bloco_botao">
+            <div class="botao cor_bg botao" id="botao_solicitar_ponto">Solicitar ponto</div>
+        </div>
+    </div>
 </div>

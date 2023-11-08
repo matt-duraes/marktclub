@@ -1,7 +1,24 @@
 <?php
 
 $data = hoje();
-$dado = [];
+$dado = [
+    [
+        'id_admin_empresa'   => 1,
+        'id_usuario_cliente' => 1,
+        'usuario_cpf'        => '01234567890',
+        'usuario_nome'       => 'Usuario de teste',
+        'quantidade'         => rand(1, 100),
+        'data_acesso'        => $data
+    ],
+    [
+        'id_admin_empresa'   => 2,
+        'id_usuario_cliente' => 1,
+        'usuario_cpf'        => '01234567890',
+        'usuario_nome'       => 'Usuario de teste',
+        'quantidade'         => rand(1, 100),
+        'data_acesso'        => $data
+    ]
+];
 
 for ($e = 1; $e <= 50; $e++) {
     $usuario1 = [

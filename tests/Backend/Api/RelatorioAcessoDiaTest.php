@@ -5,25 +5,18 @@ namespace Tests\Api;
 use Tests\Api\Trait\AnalyticsTrait;
 use Tests\Tests;
 
-final class AnalyticsDadoUsuarioTest extends Tests
+final class RelatorioAcessoDiaTest extends Tests
 {
     use AnalyticsTrait;
 
-    private string $uri = '/relatorio/dado-usuario';
+    private string $uri = '/relatorio/acesso-dia';
     private array $dadoEmpresa1;
     private array $dadoEmpresa2;
 
     public function __construct()
     {
         parent::__construct();
-        $this->api('relatorio_usuario:listar');
-    }
-
-    private function getBody(string|null $id = null)
-    {
-        return [
-            'empresa' => $id,
-        ];
+        $this->api('relatorio_acesso:listar');
     }
 
     public function buscarSemEmpresaTest()
@@ -54,7 +47,10 @@ final class AnalyticsDadoUsuarioTest extends Tests
 
         foreach ($dado as $k => $d) {
             $somaTotalEmpresas = $this->dadoEmpresa1[$k]['total'] + $this->dadoEmpresa2[$k]['total'];
+            $somaUnicoEmpresas = $this->dadoEmpresa1[$k]['unico'] + $this->dadoEmpresa2[$k]['unico'];
+
             $this->checkIgual($d['total'], $somaTotalEmpresas);
+            $this->checkIgual($d['unico'], $somaUnicoEmpresas);
         }
 
         return $this;

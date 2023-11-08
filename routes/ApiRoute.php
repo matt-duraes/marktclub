@@ -310,7 +310,7 @@ Route
         Route
             ::nome('ativar')
             ::middleware(TokenMiddleware::class, 'scope', ['usuario_cliente:ativar'])
-            ::request(['chave', 'valor', '!empresa'])
+            ::request(['valor', '!empresa', '!tipo_usuario', '!chave'])
             ::post('/usuario-cliente/ativar');
         Route
             ::nome('ativar')
@@ -370,7 +370,7 @@ Route
         Route
             ::nome('atualizar')
             ::middleware(TokenMiddleware::class, 'scope', ['usuario_grupo:atualizar'])
-            ::request(['indice', 'titulo', 'status'])
+            ::request(['!indice', '!titulo', '!status'])
             ::put('/usuario-grupo/{id}');
 
         Route
@@ -864,7 +864,7 @@ Route
 
         Route
             ::nome('samsung')
-            ::request(['usuario'], 'json')
+            ::request(['usuario'])
             ::get('/pagina/samsung');
     });
 
@@ -1757,8 +1757,8 @@ Route
             ::nome('atualizar')
             ::middleware(TokenMiddleware::class, 'scope', ['carteirinha:atualizar'])
             ::request([
-                '!bg_frente', '!empresa', '!titulo', '!bg_fundo', '!nome', '!cpf', '!matricula', '!data_nascimento',
-                '!status', '!estado'
+                '!bg_frente', '!empresa', '!titulo', '!bg_fundo', '!nome',
+                '!cpf', '!matricula', '!data_nascimento', '!status', '!estado'
             ])
             ::put('/carteirinha/{id}');
 
@@ -2078,16 +2078,16 @@ Route
     });
 
 Route
-    ::nome('solicitacao_contato')
+    ::nome('contato_login')
     ::controller(App\Controllers\Api\SolicitacaoContatoController::class)
     ::grupo(function () {
         Route
-            ::nome('salvar')
+            ::nome('contato')
             ::request([
                 'nome', 'email', 'telefone', 'mensagem', 'url'
             ])
             ::post('/solicitacao-contato');
-});
+    });
 
 Route
     ::nome('solicitacao_automovel')
@@ -2322,38 +2322,6 @@ Route
                 'categoria', 'pergunta'
             ])
             ::post('/chatbot-perguntas/perguntar');
-    });
-
-Route
-    ::nome('chatbot_categoria')
-    ::controller(App\Controllers\Api\ChatbotCategoriaController::class)
-    ::middleware(TokenMiddleware::class, 'token')
-    ::grupo(function () {
-        Route
-            ::nome('listar')
-            ::middleware(TokenMiddleware::class, 'scope', ['chatbot_categoria:listar'])
-            ::request([
-                '!pagina'
-            ], 'json')
-            ::get('/chatbot-categoria');
-        Route
-            ::nome('buscar')
-            ::middleware(TokenMiddleware::class, 'scope', ['chatbot_categoria:buscar'])
-            ::get('/chatbot-categoria/{id}');
-        Route
-            ::nome('salvar')
-            ::middleware(TokenMiddleware::class, 'scope', ['chatbot_categoria:salvar'])
-            ::request([
-                'categoria', 'status'
-            ])
-            ::post('/chatbot-categoria');
-        Route
-            ::nome('atualizar')
-            ::middleware(TokenMiddleware::class, 'scope', ['chatbot_categoria:atualizar'])
-            ::request([
-                'categoria', 'status'
-            ])
-            ::put('/chatbot-categoria/{id}');
     });
 
 Route

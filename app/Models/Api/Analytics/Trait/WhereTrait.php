@@ -2,10 +2,13 @@
 
 namespace App\Models\Api\Analytics\Trait;
 
+use App\Models\Api\Trait\ValidarEmpresaTrait;
 use Helpers\OrmHelper;
 
 trait WhereTrait
 {
+    use ValidarEmpresaTrait;
+
     private function pegarWherePadrao(bool $dataAcesso = true)
     {
         if ($dataAcesso) {
@@ -16,6 +19,11 @@ trait WhereTrait
         if (empty($this->Empresa)) {
             $where[] = ['id_admin_empresa', TOKEN['empresa']->id];
             return $where;
+        }
+
+        $this->setarIdUsuario();
+        if (!$this->verificarSePodeMudarEmpresa()) {
+            mensagemErro('Empresa inválida!', 'Você não tem permissão para acessar essa empresa.');
         }
 
         $ormHelper = new OrmHelper(TABELA_COMERCIAL_EMPRESA);

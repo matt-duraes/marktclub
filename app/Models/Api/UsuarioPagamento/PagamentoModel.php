@@ -70,7 +70,7 @@ final class PagamentoModel extends ORM
             ->campo([
                 'data_cobranca', 'status'
             ])->where($this->pegarWherePagamento())
-            ->group('id_usuario_cliente')
+            //->group('id_usuario_cliente')
             ->order('id', 'ASC')
             // Usuario
             ->tabela(TABELA_USUARIO_CLIENTE)->join('id', 'id_usuario_cliente')

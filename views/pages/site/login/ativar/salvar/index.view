@@ -35,9 +35,9 @@
 
         <h2>Endereço</h2>
         <div class="lista">
-            @? formNumero(name: 'ativar_endereco_cep', label: 'CEP', placeholder: 'CEP', mascara: '00000-000', class: 'bloco_cep')
+            @? formNumero(name: 'ativar_endereco_cep', label: 'CEP', placeholder: 'CEP', mascara: '00000-000', class: 'bloco_cep', obrigatorio: true)
             @? formInput(name: 'ativar_endereco_logradouro', label: 'Logradouro', placeholder: 'Logradouro', class: 'bloco_logradouro')
-            @? formInput(name: 'ativar_endereco_numero', label: 'Número', placeholder: 'Número', class: 'bloco_numero')
+            @? formNumero(name: 'ativar_endereco_numero', label: 'Número', placeholder: 'Número', class: 'bloco_numero')
             @? formInput(name: 'ativar_endereco_complemento', label: 'Complemento', placeholder: 'Complemento', class: 'bloco_complemento')
             @? formInput(name: 'ativar_endereco_bairro', label: 'Bairro', placeholder: 'Bairro', class: 'bloco_bairro')
             @? formSelect(name: 'ativar_endereco_estado', label: 'Estado', obrigatorio: true, placeholder: 'Estado', lista: (new \Modules\EnderecoEstado())->select('Escolha um estado'), class: 'bloco_estado')
@@ -64,7 +64,7 @@
         <div class="bloco_botao bloco_termo">
             <div class="termo">
                 @?formCheckbox(name: 'ativar_termo', label: 'Aceito os Termos de acordo com a Lei 13.709/2018')
-                <div class="botao_termo">(Ler termo)</div>
+                <a class="botao_termo" target="_blank" href="/termo-de-uso-do-site">(Ler termo)</a>
             </div>
             <div class="botao" id="botao_ativar_usuario">Salvar dados</div>
         </div>
