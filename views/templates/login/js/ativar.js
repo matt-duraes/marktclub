@@ -1,7 +1,52 @@
+const setarTipoInput = (valorData = '') => {
+    const blocoTitular = document.querySelector('.bloco_titular');
+    const tipoAtivacao = blocoTitular.getAttribute('data-ativacao');
+    const input = document.querySelector('#input_buscar');
+    const inputCpf = document.querySelector('#input_buscar_cpf');
+    blocoTitular.classList.remove('display_none');
+    inputCpf.parentNode.classList.add('display_none');
+    input.parentNode.classList.remove('display_none');
+
+    if (tipoAtivacao == 'siape' && valorData != 'dependente') {
+        input.setAttribute('placeholder', 'Digite o seu SIAPE');
+        return;
+    }
+    if (tipoAtivacao == 'matricula' && valorData != 'dependente') {
+        input.setAttribute('placeholder', 'Digite a sua matrícula');
+        return;
+    }
+
+    if (tipoAtivacao == 'email' && valorData != 'dependente') {
+        input.setAttribute('placeholder', 'Digite o seu e-mail');
+        input.setAttribute('type', 'email');
+        return;
+    }
+
+    input.parentNode.classList.add('display_none');
+    inputCpf.parentNode.classList.remove('display_none');
+};
+
 const loadingAtivarBuscar = () => {
+    const botoesTipoUsuario = document.querySelectorAll('.botao_tipo_usuario');
+    let valorData = '';
+    botoesTipoUsuario.forEach(botao => {
+        botao.addEventListener('click', e => {
+            valorData = botao.getAttribute('data-tipo');
+            setarTipoInput(valorData);
+            if (valorData == 'dependente') {
+                $('.botao_titular').classList.remove('cor_bg');
+                $('.botao_dependente').classList.add('cor_bg');
+                return;
+            }
+            $('.botao_dependente').classList.remove('cor_bg');
+            $('.botao_titular').classList.add('cor_bg');
+        });
+    });
+
     const form = $('#bloco_form_buscar');
     const botaoBuscar = $('#botao_buscar_usuario');
     const inputBuscar = $('#input_buscar');
+    const inputBuscarCpf = $('#input_buscar_cpf');
 
     inputBuscar.focus();
 
@@ -10,13 +55,10 @@ const loadingAtivarBuscar = () => {
             return;
         }
         Loading.show();
-        const resposta = await ajaxPost(
-            LINK + '/login/ativar-buscar',
-            {
-                busca: inputBuscar.value,
-            },
-            'Ocorre um erro ao buscar o usuário, por favor, tente novamente.'
-        );
+        const resposta = await ajaxPost(LINK + '/login/ativar-buscar', {
+            busca: inputBuscar.value ? inputBuscar.value : inputBuscarCpf.value,
+            tipo_usuario: valorData,
+        });
         Loading.hide();
         if (false == resposta) {
             return;

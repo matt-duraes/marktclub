@@ -310,7 +310,7 @@ Route
         Route
             ::nome('ativar')
             ::middleware(TokenMiddleware::class, 'scope', ['usuario_cliente:ativar'])
-            ::request(['tipo_usuario', 'chave', 'valor', '!empresa'])
+            ::request(['valor', '!empresa', '!tipo_usuario', '!chave'])
             ::post('/usuario-cliente/ativar');
         Route
             ::nome('ativar')
@@ -2078,16 +2078,16 @@ Route
     });
 
 Route
-    ::nome('solicitacao_contato')
+    ::nome('contato_login')
     ::controller(App\Controllers\Api\SolicitacaoContatoController::class)
     ::grupo(function () {
         Route
-            ::nome('salvar')
+            ::nome('contato')
             ::request([
                 'nome', 'email', 'telefone', 'mensagem', 'url'
             ])
             ::post('/solicitacao-contato');
-});
+    });
 
 Route
     ::nome('solicitacao_automovel')

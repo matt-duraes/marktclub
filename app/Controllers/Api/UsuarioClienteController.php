@@ -183,10 +183,10 @@ final class UsuarioClienteController extends Controller implements
     public function postAtivar(Request $request): Response
     {
         $Ativar = new BuscarModel(
-            new TipoUsuario($request->tipo_usuario),
-            new TipoAtivacao($request->chave),
             $request->valor,
-            $request->empresa
+            $request->empresa,
+            new TipoAtivacao($request->chave),
+            new TipoUsuario($request->tipo_usuario)
         );
         return mensagemSucesso([
             'id'   => uuid(),

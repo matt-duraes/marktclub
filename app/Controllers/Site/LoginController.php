@@ -123,22 +123,31 @@ final class LoginController extends Controller
     {
         $TipoAtivacao = new TipoAtivacao();
         return view('login.ativar.buscar', [
-            'tipoSiape'     => $TipoAtivacao::SIAPE == TIPO_ATIVACAO,
-            'tipoMatricula' => $TipoAtivacao::MATRICULA == TIPO_ATIVACAO
+            'tipoSiape'      => $TipoAtivacao::SIAPE == TIPO_ATIVACAO,
+            'tipoMatricula'  => $TipoAtivacao::MATRICULA == TIPO_ATIVACAO,
         ]);
     }
 
     public function postAtivarBuscar(Request $request): Response
     {
+        $valor = $request->busca;
+        if(TIPO_ATIVACAO == 'cpf') {
+            $valor = str_replace(['.', '-'], '', $valor);
+        }
+
         $buscar = (new ApiHelper('usuario_cliente:ativar'))
-            ->validar('Ocorreu um erro ao buscar seu usuário, por favor, tente novamente.')
             ->body([
-                'chave'   => TIPO_ATIVACAO,
-                'valor'   => $request->busca,
-                'empresa' => EMPRESA_ID
+                'tipo_usuario' => $request->tipo_usuario,
+                'chave'        => TIPO_ATIVACAO,
+                'valor'        => $valor,
+                'empresa'      => EMPRESA_ID
             ])
             ->post('/usuario-cliente/ativar')
             ->object();
+
+        if ($buscar->status == 'erro') {
+            return mensagemErro(404, $buscar->erro->mensagem);
+        }
 
         return mensagemSucesso([
             'hash'  => $buscar->dado->hash,

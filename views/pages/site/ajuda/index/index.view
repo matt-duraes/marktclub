@@ -18,7 +18,11 @@
             @if ( !empty(CONTATO_WHATSAPP) ):
             <p class="contato">
                 <i class="icone">@iconeWhatsapp(19)</i>
-                <span>{{CONTATO_WHATSAPP}}</span>
+                <a href="https://wa.me/55{{soNumero(CONTATO_WHATSAPP)}}" target="_blank" rel="noopener noreferer">
+                    <span>
+                        {{CONTATO_WHATSAPP}}
+                    </span>
+                </a>
                 <i class="copiar">@iconeCopiar(12)</i>
             </p>
             @endif;
@@ -50,10 +54,10 @@
             <a class="link" href="@route('sicoob.index')">CRÉDITO SICOOB</a>
             @endif;
             @if ( MENU_CINEMA ):
-            <a class="link" href="@route(('cinema.index')">COMPRAR INGRESSOS PARA O CINEMA</a>
+            <a class="link" href="@route('cinema.index')">COMPRAR INGRESSOS PARA O CINEMA</a>
             @endif;
             @if ( MENU_TURISMO):
-            <a class="link" href="@route(('turismo.index')">FAZER COTAÇÃO DE VIAGENS</a>
+            <a class="link" href="@route('turismo.index')">FAZER COTAÇÃO DE VIAGENS</a>
             @endif;
             <p class="fechar pagina_fechar">NÃO PRECISO DE ATENDIMENTO</p>
         </div>

@@ -11,6 +11,7 @@ use Controller\Controller;
 use App\Classes\ParceiroCashback\Ordem;
 use App\Models\Site\Cashback\BuscarModel;
 use App\Models\Site\Cashback\ListarModel;
+use App\Models\Site\Cashback\SiliumModel;
 
 final class CashbackController extends Controller
 {
@@ -89,8 +90,12 @@ final class CashbackController extends Controller
      */
     public function extrato(): Response
     {
+        $dado = (new SiliumModel())->saldo();
+        $extrato = (new SiliumModel())->extratoConta();
         return view('cashback.extrato', [
-            'menu'   => 'extrato_silium'
+            'menu'    => 'extrato_silium',
+            'saldo'   => $dado->dado->saldo,
+            'extrato' => $extrato,
         ]);
     }
 }
