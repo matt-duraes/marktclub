@@ -1,10 +1,11 @@
 const setarTipoInput = (valorData = '') => {
-    const dataTipo = document.querySelector('.bloco_titular');
-    const tipoAtivacao = dataTipo.getAttribute('data-ativacao');
+    const blocoTitular = document.querySelector('.bloco_titular');
+    const tipoAtivacao = blocoTitular.getAttribute('data-ativacao');
     const input = document.querySelector('#input_buscar');
     const inputCpf = document.querySelector('#input_buscar_cpf');
-    inputCpf.classList.add('display_none');
-    input.classList.remove('display_none');
+    blocoTitular.classList.remove('display_none');
+    inputCpf.parentNode.classList.add('display_none');
+    input.parentNode.classList.remove('display_none');
 
     if (tipoAtivacao == 'siape' && valorData != 'dependente') {
         input.setAttribute('placeholder', 'Digite o seu SIAPE');
@@ -21,8 +22,8 @@ const setarTipoInput = (valorData = '') => {
         return;
     }
 
-    input.classList.add('display_none');
-    inputCpf.classList.remove('display_none');
+    input.parentNode.classList.add('display_none');
+    inputCpf.parentNode.classList.remove('display_none');
 };
 
 const loadingAtivarBuscar = () => {
@@ -31,6 +32,7 @@ const loadingAtivarBuscar = () => {
     botoesTipoUsuario.forEach(botao => {
         botao.addEventListener('click', e => {
             valorData = botao.getAttribute('data-tipo');
+            setarTipoInput(valorData);
             if (valorData == 'dependente') {
                 $('.botao_titular').classList.remove('cor_bg');
                 $('.botao_dependente').classList.add('cor_bg');
@@ -41,11 +43,10 @@ const loadingAtivarBuscar = () => {
         });
     });
 
-    setarTipoInput(valorData);
-
     const form = $('#bloco_form_buscar');
     const botaoBuscar = $('#botao_buscar_usuario');
     const inputBuscar = $('#input_buscar');
+    const inputBuscarCpf = $('#input_buscar_cpf');
 
     inputBuscar.focus();
 
@@ -55,7 +56,7 @@ const loadingAtivarBuscar = () => {
         }
         Loading.show();
         const resposta = await ajaxPost(LINK + '/login/ativar-buscar', {
-            busca: inputBuscar.value,
+            busca: inputBuscar.value ? inputBuscar.value : inputBuscarCpf.value,
             tipo_usuario: valorData,
         });
         Loading.hide();

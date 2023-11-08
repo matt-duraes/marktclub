@@ -142,6 +142,10 @@ final class LoginController extends Controller
             ->post('/usuario-cliente/ativar')
             ->object();
 
+        if ($buscar->status == 'erro') {
+            return mensagemErro(404, $buscar->erro->mensagem);
+        }
+
         return mensagemSucesso([
             'hash'  => $buscar->dado->hash,
             'cpf'   => $buscar->dado->cpf
