@@ -2,7 +2,6 @@
 
 namespace App\Controllers\Site;
 
-use Erro\Excecao;
 use Http\Request;
 use Http\Response;
 use Controller\Controller;
@@ -66,14 +65,15 @@ final class PerfilController extends Controller
         $dados_cliente = ((new CarteirinhaModel())->buscarDadosUsuario());
         $campos_carteirinha = (new CarteirinhaModel())->buscarCampos();
         $data_emissao = dataBr($campos_carteirinha->data_criacao);
-        $data_validade = dataBr($campos_carteirinha->data_validade);
 
-        return view('perfil.carteirinha', [
-            'dado'          => $campos_carteirinha,
-            'dados_cliente' => $dados_cliente->usuario,
-            'data_emissao'  => $data_emissao,
-            'data_validade' => $data_validade
-        ]);
+        return view(
+            'perfil.carteirinha',
+            [
+                'dado'          => $campos_carteirinha,
+                'dados_cliente' => $dados_cliente->usuario,
+                'data_emissao'  => $data_emissao,
+            ]
+        );
     }
 
     /*

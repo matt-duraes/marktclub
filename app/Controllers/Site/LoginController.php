@@ -131,7 +131,7 @@ final class LoginController extends Controller
     public function postAtivarBuscar(Request $request): Response
     {
         $valor = $request->busca;
-        if(TIPO_ATIVACAO == 'cpf') {
+        if (TIPO_ATIVACAO == 'cpf') {
             $valor = str_replace(['.', '-'], '', $valor);
         }
 

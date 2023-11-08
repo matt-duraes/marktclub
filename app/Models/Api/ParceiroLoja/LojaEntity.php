@@ -49,6 +49,7 @@ final class LojaEntity extends Entity
         $this->link_capa_desktop = !empty($this->capa) ? LINK_ARQUIVO . '/parceiro/' . $this->capa : '';
         $this->link_capa_mobile = !empty($this->capa) ? LINK_ARQUIVO . '/parceiro/' . $this->capa : '';
         $this->favorito = new Botao('nao');
+        $this->link_site = (new LinkSiteModel($this))->link;
     }
 
     protected function getId()
