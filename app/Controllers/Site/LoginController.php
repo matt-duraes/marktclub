@@ -130,13 +130,16 @@ final class LoginController extends Controller
 
     public function postAtivarBuscar(Request $request): Response
     {
-        $cpf = str_replace(['.', '-'], '', $request->busca);
+        $valor = $request->busca;
+        if(TIPO_ATIVACAO == 'cpf') {
+            $valor = str_replace(['.', '-'], '', $valor);
+        }
 
         $buscar = (new ApiHelper('usuario_cliente:ativar'))
             ->body([
                 'tipo_usuario' => $request->tipo_usuario,
                 'chave'        => TIPO_ATIVACAO,
-                'valor'        => $cpf,
+                'valor'        => $valor,
                 'empresa'      => EMPRESA_ID
             ])
             ->post('/usuario-cliente/ativar')
