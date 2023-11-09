@@ -1345,7 +1345,7 @@ Route
             ::middleware(TokenMiddleware::class, 'scope', ['solicitacao_voucher:download'])
             ::request([
                 'campo', 'usuario', '!empresa', '!status', '!data_criacao_de', '!data_criacao_ate',
-                '!data_validacao_de', '!data_validacao_ate', '!tipo',
+                '!data_validacao_de', '!data_validacao_ate', '!tipo', '!tipo_usuario'
             ])
             ::post('/solicitacao-voucher/download');
     });
