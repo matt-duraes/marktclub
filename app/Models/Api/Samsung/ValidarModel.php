@@ -52,9 +52,12 @@ final class ValidarModel extends ORM
         $usuario = $this
             ->campo(['nome', 'status'])
             ->where([
-                'OR',
-                ['email_pessoal', $this->email],
-                ['email_trabalho', $this->email],
+                [
+                    'OR',
+                    ['email_pessoal', $this->email],
+                    ['email_trabalho', $this->email],
+                ],
+                ['status', 'in', [1, 2]]
             ])
             ->primeiro();
         if (!$usuario) {
