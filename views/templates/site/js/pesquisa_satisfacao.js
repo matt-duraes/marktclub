@@ -22,7 +22,10 @@ window.addEventListener('load', () => {
             sistemaInputs.forEach(function (input) {
                 sistema.push(input.value);
             });
-            validarCampos(navegar, procura, suporte, atendimento, sistema);
+
+            if(!validarCampos(navegar, procura, suporte, atendimento, sistema)) {
+                return;
+            };
 
             Loading.show();
             const resposta = await ajaxPost(
@@ -62,13 +65,15 @@ window.addEventListener('load', () => {
         for (const campo of campos) {
             if (campo.valor === null) {
                 Alerta.notificacao(campo.mensagem, false);
-                return;
+                return false;
             }
             if (sistema.length === 0) {
                 Alerta.notificacao('Marque os sistemas que você conhece', false);
-                return;
+                return false;
             }
         }
+
+        return true;
     };
 
     const paginaPesquisaSatisfacao = new Pagina(
