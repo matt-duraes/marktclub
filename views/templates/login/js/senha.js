@@ -1,4 +1,4 @@
-const loadingSenha = () => {
+window.addEventListener('load', () => {
     let usuario, hash;
     const blocoCpf = $('#bloco_cpf');
     const blocoCodigo = $('#bloco_codigo');
@@ -189,4 +189,4 @@ const loadingSenha = () => {
     };
     adicionarEventoEnter([inputSenhaNova, inputSenhaRepetir], alterarSenha);
     adicionarEvento('click', botaoAlterarSenha, alterarSenha);
-};
+});

@@ -11,7 +11,6 @@ use Controller\Controller;
 use App\Classes\ParceiroCashback\Ordem;
 use App\Models\Site\Cashback\BuscarModel;
 use App\Models\Site\Cashback\ListarModel;
-use App\Models\Site\Cashback\SiliumModel;
 
 final class CashbackController extends Controller
 {
