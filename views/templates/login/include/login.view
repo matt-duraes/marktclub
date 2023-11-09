@@ -1,0 +1,44 @@
+<div id="popup_login">
+    @ if( API ):
+    <div id="bloco_escolha_login" class="bloco_form_login">
+        <i class="fechar esquerda mobile pagina_fechar">@iconeVoltar</i>
+        <i class="fechar direita desktop pagina_fechar">@iconeFechar</i>
+        <i class="icone">@iconeUsuario(30)</i>
+        <h1>Escolha um tipo de login</h1>
+        <p>Escolha entre as opções abaixo para fazer seu login</p>
+
+        <a href="{{LINK_LOGIN}}" class="botao">Sou associado</a>
+        <div class="botao" id="botao_abrir_dependente">Sou dependente</div>
+    </div>
+    @ endif;
+    <form id="bloco_form_login" class="bloco_form_login form_geral {!!API ? 'display_none' : ''!!}" action="/" method="post">
+        <div class="conteudo">
+            <header>
+                <h1>FAÇA SEU LOGIN</h1>
+                <p>Digite seu CPF e sua senha para fazer login, caso não tenha senha, clique em "Primeiro acesso" para criar sua conta</p>
+                <i class="fechar pagina_fechar">@iconeFechar</i>
+            </header>
+
+            <input type="text" autocomplete="username" value="" class="input_hidden">
+            <input type="password" autocomplete="current-password" value="" class="input_hidden">
+            <input type="password" autocomplete="new-password" value="" class="input_hidden">
+
+            @? formCpf(name: 'login', label: 'Login', placeholder: 'Digite seu CPF')
+            @? formSenha(name: 'senha', label: 'Senha', placeholder: 'Digite sua senha')
+
+            <div class="bloco_botao">
+                <div class="botao" id="botao_fazer_login">Fazer Login</div>
+            </div>
+
+            <div class="bloco_link">
+                <div class="botao" tabindex="-1" id="botao_esqueceu_senha">Esqueceu sua senha?</div>
+                @ if( !empty(LINK_CADASTRO) ):
+                <a class="botao" tabindex="-1" href="{!!LINK_CADASTRO!!}" target="_blank" rel="noopener noreferrer">Não tem cadastro?</a>
+                @ endif;
+            </div>
+            <div class="bloco_ativar">
+                <div class="ativar" id="botao_ativar_conta">Primeiro acesso</div>
+            </div>
+        </div>
+    </form>
+</div>

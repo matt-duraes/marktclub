@@ -3,12 +3,13 @@
 // @system "Mascara"
 // @system "Form"
 // @system "Pagina"
+// @system "Popup"
 // @import "senha"
 // @import "login"
 // @import "ativar"
 
-const PaginaLogin = new Pagina('login', LINK + '/login/login', undefined, true, true, loadingLogin);
-const PaginaSenha = new Pagina('pagina-senha', LINK + '/login/senha', undefined, true, true, loadingSenha);
+const PopupLogin = new Popup('login', 'popup_login', true, true);
+const PopupSenha = new Popup('senha', 'popup_senha', true, true);
 const PaginaAtivar = new Pagina('ativar', LINK + '/login/ativar-buscar', undefined, true, true, loadingAtivarBuscar);
 
 window.addEventListener('load', () => {
@@ -48,7 +49,7 @@ window.addEventListener('load', () => {
             if (blocoMenuMobile.classList.contains('aberto')) {
                 fecharMenu();
             }
-            PaginaLogin.abrir();
+            PopupLogin.abrir();
         };
         botaoLogin.forEach(botao => {
             botao.addEventListener('click', abrirPaginaLogin);
