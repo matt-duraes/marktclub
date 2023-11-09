@@ -1,4 +1,4 @@
-const loadingLogin = () => {
+window.addEventListener('load', () => {
     const blocoLinkLocation = $('#LINK_LOCATION');
     let linkLocation = blocoLinkLocation ? blocoLinkLocation.value : LINK;
     if (linkLocation == '' || linkLocation == undefined || !linkLocation.startsWith(LINK)) {
@@ -15,7 +15,8 @@ const loadingLogin = () => {
 
     if (botaoRecuperarSenha) {
         botaoRecuperarSenha.addEventListener('click', () => {
-            PaginaSenha.abrir();
+            PopupLogin.fechar();
+            PopupSenha.abrir();
         });
     }
 
@@ -32,6 +33,7 @@ const loadingLogin = () => {
     inputLogin.focus();
 
     botaoAtivar.addEventListener('click', () => {
+        PopupLogin.fechar();
         PaginaAtivar.abrir();
     });
     botaoFazerLogin.addEventListener('click', () => {
@@ -74,4 +76,4 @@ const loadingLogin = () => {
         }
         window.location.replace(linkLocation);
     };
-};
+});
