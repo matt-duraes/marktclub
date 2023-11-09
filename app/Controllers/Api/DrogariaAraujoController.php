@@ -2,6 +2,8 @@
 
 namespace App\Controllers\Api;
 
+use App\Classes\UsuarioCliente\Status;
+use App\Helpers\DrogariaAraujoHelper;
 use App\Models\Api\UsuarioCliente\ClienteEntity;
 use App\Models\Api\UsuarioCliente\ClienteModel;
 use Controller\Controller;
@@ -21,10 +23,12 @@ class DrogariaAraujoController extends Controller implements
      */
     public function getBuscar(string $id): Response
     {
+        $DrogariaAraujoHelper = new DrogariaAraujoHelper();
         $Response = new Response();
         $ClienteEntity = new ClienteEntity();
         $ClienteEntity->buscar([
-            ['documento', $id]
+            ['documento', $id],
+            ['status', (new Status(Status::ATIVO))->numero()]
         ], false);
 
         if (empty($ClienteEntity->id)) {
@@ -35,24 +39,25 @@ class DrogariaAraujoController extends Controller implements
             ]);
         }
 
-        $dependentes = (new ClienteModel())->buscarDependentesUsuario($ClienteEntity->getId());
+        $dependentes = (new ClienteModel())
+            ->buscarDependentesUsuario($ClienteEntity->getId());
 
         $vida = [
             'cpf'                    => $ClienteEntity->cpf->numero(),
-            'matricula'              => $ClienteEntity->matricula,
+            'matricula'              => $ClienteEntity->cpf->numero(),
             'nome'                   => $ClienteEntity->nome->nome(),
-            'tipo'                   => $ClienteEntity->tipo->indice(),
-            'sexo'                   => $ClienteEntity->genero->genero(),
+            'tipo'                   => ucfirst($ClienteEntity->tipo->indice()),
+            'sexo'                   => ucfirst($ClienteEntity->genero->genero()),
             'dataNascimento'         => $ClienteEntity->data_nascimento->date(),
             'saldoFinanciamento'     => ClienteModel::FINANCIAMENTO_SALDO,
             'limiteFinanciamento'    => ClienteModel::FINANCIAMENTO_LIMITE,
-            'grupoCronicoDependente' => 'nao',
+            'grupoCronicoDependente' => 'Nao',
             'cartao'                 => [
                 'nome'   => $ClienteEntity->nome->nome(),
-                'numero' => null
+                'numero' => $ClienteEntity->cpf->numero()
             ],
             'dependentes'            => $dependentes,
-            'codigoPlano'            => $ClienteEntity->codigo_plano
+            'codigoPlano'            => $DrogariaAraujoHelper->getCodigoPlano()
         ];
 
         return $Response->json([
