@@ -1,8 +1,8 @@
 <div id="popup_login">
     @ if( API ):
     <div id="bloco_escolha_login" class="bloco_form_login">
-        <i class="fechar esquerda mobile pagina_fechar">@iconeVoltar</i>
-        <i class="fechar direita desktop pagina_fechar">@iconeFechar</i>
+        <i class="fechar esquerda mobile popup_fechar">@iconeVoltar</i>
+        <i class="fechar direita desktop popup_fechar">@iconeFechar</i>
         <i class="icone">@iconeUsuario(30)</i>
         <h1>Escolha um tipo de login</h1>
         <p>Escolha entre as opções abaixo para fazer seu login</p>
@@ -16,7 +16,7 @@
             <header>
                 <h1>FAÇA SEU LOGIN</h1>
                 <p>Digite seu CPF e sua senha para fazer login, caso não tenha senha, clique em "Primeiro acesso" para criar sua conta</p>
-                <i class="fechar pagina_fechar">@iconeFechar</i>
+                <i class="fechar popup_fechar">@iconeFechar</i>
             </header>
 
             <input type="text" autocomplete="username" value="" class="input_hidden">
