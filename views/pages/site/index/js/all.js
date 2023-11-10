@@ -3,6 +3,8 @@
 // @system "Banner"
 // @system "Esqueleto"
 // @system "Popup"
+// @resource "site/loja/busca"
+// @resource "site/busca"
 // @resource "site/loja/favorito"
 // @resource "site/loja/parceiro"
 

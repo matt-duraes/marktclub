@@ -2,10 +2,11 @@
 
 <div id="bloco_cupom">
     <div class="bloco_buscar_geral bloco_buscar_loja" id="bloco_buscar">
-        <div class="buscar" id="botao_buscar_abrir">
+        <form class="form_geral buscar botao_buscar_abrir">
             <p>Busque um cupom</p>
+            @? formInput(name: 'input_pesquisa_fake', id: 'bloco_input_pesquisa_fake', placeholder: 'Busque por um convênio', label: 'Pesquisa', class: 'botao_buscar_input busca_pesquisa_fake')
             <div class="botao">Buscar</div>
-        </div>
+        </form>
 
         <form action="@route(cupom.buscar)" method="get" id="form_buscar" class="form_geral display_none">
             <div class="conteudo">
@@ -16,7 +17,7 @@
                         <i class="desktop botao_buscar_fechar">@iconeFechar</i>
                     </header>
                     <fieldset>
-                        @? formInput(name: 'pesquisa', placeholder: 'Busque por um cupom', label: 'Pesquisa', class: 'busca_pesquisa', value: $pesquisa)
+                        @? formInput(name: 'pesquisa', placeholder: 'Busque por um cupom', label: 'Pesquisa', class: 'busca_pesquisa', id: 'bloco_input_pesquisa', value: $pesquisa)
                         <button class="botao_geral_cor cor_bg">Buscar</button>
                     </fieldset>
                 </div>

@@ -11,7 +11,7 @@ final class PopupModel extends ClubeApiHelper
     public function __construct()
     {
         parent::__construct();
-        if (sessaoExiste('POPUP_PROMOCAO') && !eLocalhost()) {
+        if (sessaoExiste('POPUP_PROMOCAO')) {
             return;
         }
         $dado = $this
