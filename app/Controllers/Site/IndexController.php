@@ -19,8 +19,10 @@ final class IndexController extends Controller
      */
     public function index(): Response
     {
+        $Filtro = new FiltroModel([]);
         return view('index', [
             'menu'           => 'home',
+            'Busca'          => $Filtro,
             'banner'         => (new BannerModel())->home(),
             'plano_saude'    => (new HomeModel())->valor
         ]);

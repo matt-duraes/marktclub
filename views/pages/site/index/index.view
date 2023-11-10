@@ -1,5 +1,7 @@
 @template "site"
 
+@view site/loja/geral/busca.view
+
 <div id="bloco_index">
     @if(TIPO_USUARIO == 'indicado'):
     <div class="bloco_atencao_geral">
