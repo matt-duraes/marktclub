@@ -30,6 +30,9 @@ class Banner {
     bannerProximo() {
         const itemAtual = this.banner.querySelector('.fw_banner_atual');
         const quantidade = this.quantidade;
+        if (quantidade < 2) {
+            return;
+        }
         let lista = this.lista;
         let proximo;
         let i = 0;
@@ -44,6 +47,9 @@ class Banner {
     bannerAnterior() {
         const itemAtual = this.banner.querySelector('.fw_banner_atual');
         const quantidade = this.quantidade;
+        if (quantidade < 2) {
+            return;
+        }
         let lista = this.lista;
         let proximo;
         let i = 0;
