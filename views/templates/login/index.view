@@ -39,6 +39,9 @@
         <input type="hidden" name="LINK_LOCATION" id="LINK_LOCATION" value="{!!$location ?? LINK!!}">
     </form>
 
+    @dir "/include/login.view"
+    @dir "/include/senha.view"
+
     <script src="https://apis.google.com/js/api.js"></script>
     <script src="https://apis.google.com/js/platform.js" async defer></script>
     <script src="https://accounts.google.com/gsi/client" async defer></script>
