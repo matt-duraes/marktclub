@@ -4,7 +4,7 @@
             <header>
                 <h1>NOVA SENHA</h1>
                 <p>Siga os passos abaixo para recuperar sua senha, caso não consiga, entre em contato com o atendimento</p>
-                <i class="fechar pagina_fechar">@iconeFechar</i>
+                <i class="fechar popup_fechar">@iconeFechar</i>
             </header>
 
             <div class="bloco_geral bloco_buscar_usuario" id="bloco_cpf">
