@@ -47,7 +47,7 @@
                 </div>
                 <div class="form_input_dupla">
                     @? formInput(name: 'logradouro', placeholder: 'Logradouro', label: 'Logradouro', value: $dado->endereco_logradouro)
-                    @? formInput(name: 'numero', placeholder: 'Número', label: 'Número', value: $dado->endereco_numero)
+                    @? formNumero(name: 'numero', placeholder: 'Número', label: 'Número', value: $dado->endereco_numero)
                 </div>
                     @? formInput(name: 'complemento', placeholder: 'Complemento', label: 'Complemento', value: $dado->endereco_complemento)
                 <div class="form_input_dupla">
