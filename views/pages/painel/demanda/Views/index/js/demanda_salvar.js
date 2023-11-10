@@ -921,7 +921,27 @@ window.addEventListener('load', () => {
                 evento_responsavel_telefone: 'Digite o telefone do responsável pelo evento.'
             };
 
-            resolve(testarCampos(mensagemErro));
+            let resultadoTest = testarCampos(mensagemErro);
+            const dataOriginal = document.getElementById('input_evento_data_inicio').value;
+            const dataFormatada = formatarData(dataOriginal);
+
+            const dataInicio = new Date(dataFormatada);
+            const hoje = new Date();
+            const limite = 30;
+
+            const dataAtualMais30Dias = new Date(hoje);
+            dataAtualMais30Dias.setDate(dataAtualMais30Dias.getDate() + 30);
+
+            if (dataInicio < hoje) {
+                Alerta.notificacao('A data de inicio do evento deve ser maior que hoje.', false);
+                resultadoTest = false;
+             } else if (dataInicio > dataAtualMais30Dias) {
+                Alerta.notificacao('KKKKKKKKKKKKKKKKKK', false);
+                resultadoTest = false;
+            }
+
+            resolve(resultadoTest);
+
         });
     };
 
@@ -1257,6 +1277,18 @@ window.addEventListener('load', () => {
 
         return body;
     };
+
+    const formatarData = (dataOriginal) => {
+        var partes = dataOriginal.split(/[\s\/:]+/);
+        var data = new Date(partes[2], partes[1] - 1, partes[0], partes[3], partes[4], partes[5]);
+        var dataFormatada = data.getFullYear() + '-' +
+                            (data.getMonth() + 1).toString().padStart(2, '0') + '-' +
+                            data.getDate().toString().padStart(2, '0') + ' ' +
+                            data.getHours().toString().padStart(2, '0') + ':' +
+                            data.getMinutes().toString().padStart(2, '0') + ':' +
+                            data.getSeconds().toString().padStart(2, '0');
+        return dataFormatada;
+    }
 
     /*
     |--------------------------------------------------------------------------
