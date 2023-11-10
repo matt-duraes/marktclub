@@ -1,3 +1,33 @@
+#form_buscar
+    .bloco_mapa
+        width: 100%
+        margin: 20px 0 10px
+        border-left: 5px solid $corClube
+        padding-left: 15px
+    .bloco_mapa h2
+        texto()
+    .bloco_mapa .bloco_switch
+        margin-top: 10px
+        margin-bottom: 0
+    .busca_cidade
+        display: none
+    .busca_mapa
+        max-width: 150px
+#form_buscar.busca_mapa
+    .busca_cidade
+        display: flex
+    .busca_estabelecimento
+    .busca_ordem
+        display: none
+
+.bloco_buscar_geral .buscar
+    .bloco_input.busca_categoria_fake
+        width: 300px
+    .bloco_input.busca_pesquisa_fake
+        flexGrow()
+@media screen and (max-width: 800px)
+    .bloco_buscar_geral .buscar .bloco_input.busca_categoria_fake
+        display: none
 .bloco_buscar_loja
     .busca_estado
         width: 100%

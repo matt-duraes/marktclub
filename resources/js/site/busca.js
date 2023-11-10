@@ -6,14 +6,31 @@ window.addEventListener('load', () => {
 
     blocoBuscarTemplate.appendChild(formBuscar);
 
-    const abrirBlocoBusca = () => {
+    const abrirBlocoBusca = e => {
+        const target = e.target;
+        let id = '';
+        if (target.classList.contains('botao_buscar_input') || target.closest('.botao_buscar_input')) {
+            const bloco = target.classList.contains('botao_buscar_input')
+                ? target
+                : target.closest('.botao_buscar_input');
+            id = bloco.getAttribute('id').replace(/\_fake(_texto){0,1}$/, '');
+        }
         BODY.classList.add('body_scroll_hidden');
         formBuscar.classList.remove('display_none');
         setTimeout(() => {
             formBuscar.classList.add('ativo');
         }, 40);
+        setTimeout(() => {
+            if (id != '') {
+                formFocus($('#' + id));
+            }
+        }, 340);
     };
-    adicionarEvento('click', botaoBuscarAbrir, abrirBlocoBusca);
+    botaoBuscarAbrir.forEach(botao => {
+        botao.addEventListener('click', e => {
+            abrirBlocoBusca(e);
+        });
+    });
 
     formBuscar.addEventListener('click', e => {
         if (e.target.getAttribute('id') == 'form_buscar') {

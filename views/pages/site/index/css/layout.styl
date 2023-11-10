@@ -2,13 +2,16 @@
 @system "Historico"
 @system "Esqueleto"
 @system "Banner"
+@resource "site/busca"
+@resource "site/loja/busca"
 @resource "site/banner"
 @resource "site/loja/parceiro"
 @import "favorito"
 
 .bloco_historico
     width: 100%
-    margin-bottom: 20px
+    min-height: 95px
+    margin: 20px 0
     position: relative
     .seta
         width: 30px
