@@ -244,7 +244,7 @@ window.addEventListener('load', () => {
                 blocoTipoAuditoria.classList.remove('display_none');
                 blocoHeader.classList.remove('display_none');
                 break;
-        };
+        }
     };
 
     /*
@@ -918,7 +918,7 @@ window.addEventListener('load', () => {
                 evento_materiais: 'Digite os materiais que serão usados no evento.',
                 evento_responsavel_nome: 'Digite o nome do responsável pelo evento.',
                 evento_responsavel_email: 'Digite o e-mail do responsável pelo evento.',
-                evento_responsavel_telefone: 'Digite o telefone do responsável pelo evento.'
+                evento_responsavel_telefone: 'Digite o telefone do responsável pelo evento.',
             };
 
             resolve(testarCampos(mensagemErro));
@@ -946,7 +946,7 @@ window.addEventListener('load', () => {
                 alimentacao: 'evento_alimentacao',
                 mesaCadeira: 'evento_mesa_cadeira',
                 outros: 'evento_outros',
-                observacao: 'evento_observacao'
+                observacao: 'evento_observacao',
             };
 
             const body = montarBody(campos, inputEmpresaEvento);
@@ -985,7 +985,7 @@ window.addEventListener('load', () => {
                 email: 'brinde_email',
                 flyer: 'brinde_flyer',
                 outros: 'brinde_divulgacao',
-                observacao: 'brinde_observacao'
+                observacao: 'brinde_observacao',
             };
 
             const body = montarBody(campos, inputEmpresaBrinde);
@@ -1003,7 +1003,7 @@ window.addEventListener('load', () => {
                 campanha_inicio_divulgacao: 'Digite a data de início da divulgação.',
                 campanha_fim_divulgacao: 'Digite a data final da divulgação.',
                 campanha_tema: 'Digite o tema da campanha.',
-                campanha_segmento: 'Digite o segmento da campanha.'
+                campanha_segmento: 'Digite o segmento da campanha.',
             };
 
             resolve(testarCampos(mensagemErro));
@@ -1017,7 +1017,7 @@ window.addEventListener('load', () => {
                 fim_divulgacao: 'campanha_fim_divulgacao',
                 tema: 'campanha_tema',
                 segmento: 'campanha_segmento',
-                observacao: 'campanha_observacao'
+                observacao: 'campanha_observacao',
             };
 
             const body = montarBody(campos, inputEmpresaCampanha);
@@ -1122,7 +1122,7 @@ window.addEventListener('load', () => {
                 cotacao_carro_marca: 'Digite a marca do carro.',
                 cotacao_carro_modelo: 'Digite o modelo do carro.',
                 cotacao_carro_ano: 'Digite o ano do carro.',
-                cotacao_carro_cor: 'Digite a cor do carro.'
+                cotacao_carro_cor: 'Digite a cor do carro.',
             };
 
             resolve(testarCampos(mensagemErro));
@@ -1139,8 +1139,8 @@ window.addEventListener('load', () => {
                 modelo: 'cotacao_carro_modelo',
                 ano: 'cotacao_carro_ano',
                 cor: 'cotacao_carro_cor',
-                extra : 'cotacao_carro_extra',
-                observacao: 'cotacao_carro_observacao'
+                extra: 'cotacao_carro_extra',
+                observacao: 'cotacao_carro_observacao',
             };
 
             const body = montarBody(campos, inputEmpresaCotacaoCarro);
@@ -1161,7 +1161,7 @@ window.addEventListener('load', () => {
                 cotacao_produto_tipo: 'Digite o tipo do produto.',
                 cotacao_produto_marca: 'Digite a marca do produto.',
                 cotacao_produto_modelo: 'Digite o modelo do produto.',
-                cotacao_produto_extra: 'Digite o extra do produto.'
+                cotacao_produto_extra: 'Digite o extra do produto.',
             };
 
             resolve(testarCampos(mensagemErro));
@@ -1177,8 +1177,8 @@ window.addEventListener('load', () => {
                 produto_tipo: 'cotacao_produto_tipo',
                 marca: 'cotacao_produto_marca',
                 modelo: 'cotacao_produto_modelo',
-                extra : 'cotacao_produto_extra',
-                observacao: 'cotacao_produto_observacao'
+                extra: 'cotacao_produto_extra',
+                observacao: 'cotacao_produto_observacao',
             };
 
             const body = montarBody(campos, inputEmpresaCotacaoProduto);
@@ -1193,7 +1193,7 @@ window.addEventListener('load', () => {
     const validarDadoAuditoria = () => {
         return new Promise(resolve => {
             const mensagemErro = {
-                auditoria_relatorio_problema: 'Digite o relatório do problema.'
+                auditoria_relatorio_problema: 'Digite o relatório do problema.',
             };
             resolve(testarCampos(mensagemErro));
         });
@@ -1209,7 +1209,7 @@ window.addEventListener('load', () => {
                 gerente: 'auditoria_empresa_gerente',
                 email: 'auditoria_email',
                 telefone: 'auditoria_telefone',
-                observacao: 'auditoria_observacao'
+                observacao: 'auditoria_observacao',
             };
             const body = montarBody(campos, inputEmpresaAuditoria);
             resolve(body);
@@ -1221,10 +1221,10 @@ window.addEventListener('load', () => {
     | FUNÇÕES PARA ABRIR TAREFA
     |--------------------------------------------------------------------------
     */
-    const testarCampos = (mensagemErro) => {
+    const testarCampos = mensagemErro => {
         const campos = {
             titulo: 'Digite um título para a demanda.',
-            ...mensagemErro
+            ...mensagemErro,
         };
         for (const campo in campos) {
             const elemento = document.getElementById('input_' + campo);
@@ -1248,7 +1248,7 @@ window.addEventListener('load', () => {
         for (const key in campos) {
             const campo = campos[key];
             const elemento = document.getElementById('input_' + campo);
-            if(elemento.type == 'checkbox'){
+            if (elemento.type == 'checkbox') {
                 body.append(key, elemento.checked ? 1 : 0);
                 continue;
             }
@@ -1582,7 +1582,7 @@ window.addEventListener('load', () => {
             blocoTipoAutoindicacao,
             blocoTipoCotacaoCarro,
             blocoTipoCotacaoProduto,
-            blocoTipoAuditoria
+            blocoTipoAuditoria,
         ];
 
         blocos.forEach(bloco => {
@@ -1601,17 +1601,17 @@ window.addEventListener('load', () => {
         botaoFechar.classList.remove('display_none');
     };
 
-    const resetarInputs = (bloco) => {
+    const resetarInputs = bloco => {
         bloco.classList.add('display_none');
 
         bloco.querySelectorAll('input').forEach(item => {
-            if(item.type == 'checkbox') {
+            if (item.type == 'checkbox') {
                 item.checked = false;
-            };
+            }
 
-            if(item.type == 'text') {
+            if (item.type == 'text') {
                 item.value = '';
-            };
+            }
         });
     };
 });

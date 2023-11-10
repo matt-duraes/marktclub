@@ -6,6 +6,7 @@ const demandaDetalhe = () => {
     liberadoDemanda = $('#input_demanda_liberado').value;
 
     const botaoSeguir = $('#botao_seguir_demanda');
+    const botaoEditar = $('#botao_editar_demanda');
 
     const blocoEsqueleto = $('#bloco_tarefa_loading');
     const blocoZero = $('#bloco_tarefa_zero');
@@ -91,4 +92,13 @@ const demandaDetalhe = () => {
         }
     };
     buscarListaTarefa();
+
+    /*
+    |--------------------------------------------------------------------------
+    | EDITAR DEMANDA
+    |--------------------------------------------------------------------------
+    */
+    botaoEditar.addEventListener('click', () => {
+        PopupDemandaEditar.abrir();
+    });
 };

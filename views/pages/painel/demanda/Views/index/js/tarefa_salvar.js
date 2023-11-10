@@ -41,6 +41,10 @@ botaoSalvarTarefa.addEventListener('click', async () => {
     }, 300);
 
     if (id == '') {
+        const blocoZero = $('#bloco_tarefa_zero');
+        if (blocoZero) {
+            blocoZero.classList.add('display_none');
+        }
         adicionarNovaTarefa(resposta.dado);
         return;
     }
