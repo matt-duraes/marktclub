@@ -76,6 +76,19 @@ final class DependenteModel extends ClubeApiHelper
         ];
     }
 
+    public function reenviarConvite(Request $request): array
+    {
+        $dado = $this
+            ->validar('Ocorreu um erro ao reenviar convite, por favor, tente novamente.', login: true)
+            ->body([
+                'usuario' => $request->id
+            ])
+            ->post('/usuario-dependente/email')
+            ->object()->dado;
+
+        return $dado;
+
+    }
     /**
      * @param Request $request
      *

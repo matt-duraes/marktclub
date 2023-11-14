@@ -51,6 +51,11 @@ final class PerfilController extends Controller
         return mensagemSucesso((new DependenteModel())->salvarDependente($request), 201);
     }
 
+    public function postReenviarConvite(Request $request)
+    {
+        return mensagemSucesso((new DependenteModel())->reenviarConvite($request), 201);
+    }
+
     public function postDeletaDependente(Request $request)
     {
         (new DependenteModel())->deletarDependente($request);
