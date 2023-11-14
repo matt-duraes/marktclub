@@ -9,10 +9,9 @@
     </div>
     @endif
     <div class="bloco_historico">
-        <i class="seta anterior display_none">@iconeSetaEsquerda(18)</i>
-        <div class="conteudo scrollbar_hidden bloco_scrollbar_item" id="bloco_historico">
-        </div>
-        <i class="seta proximo display_none">@iconeSetaDireita(18)</i>
+        <i class="seta anterior" id="botao_anterior_historico">@iconeSetaEsquerda(18)</i>
+        <div class="conteudo scrollbar_hidden bloco_scrollbar_item" id="bloco_historico"></div>
+        <i class="seta proximo" id="botao_proximo_historico">@iconeSetaDireita(18)</i>
     </div>
 
     @view site/geral/banner.view
