@@ -209,6 +209,9 @@
         top: 0
         right: 0
         z-index: 1
+@media screen and (max-width: 1200px)
+    #bloco_loja_mapa .atualizar
+        top: 169px
 
 #header_acesso_rapido
     position: fixed
@@ -249,7 +252,7 @@ body.body_scroll_hidden #bloco_loja_mapa .mapa
         width: 100%
         max-width: 1000px
         border-radius: 15px 15px 0 0
-        background: #FFF
+        background: $corBrancoPreto
         box-shadow: 0 -5px 8px rgba(0,0,0,.2)
         flexRow()
         padding: 20px
@@ -275,6 +278,7 @@ body.body_scroll_hidden #bloco_loja_mapa .mapa
         height: 30px
         flexCenter()
         cursor: pointer
+        fill: $corPretoBranco
     .dado p
         texto()
     .dado a
@@ -285,9 +289,8 @@ body.body_scroll_hidden #bloco_loja_mapa .mapa
 body.body_scroll_hidden #bloco_loja_mapa .parceiro_previa
     width: calc(100% - 310px)
     right: 10px
-
 @media screen and (max-width: 1250px)
-    #bloco_loja_mapa .parceiro_previa
+    #bloco_parceiro_previa
         width: 100%
     body.body_scroll_hidden #bloco_loja_mapa .parceiro_previa
         width: calc(100% - 10px)
