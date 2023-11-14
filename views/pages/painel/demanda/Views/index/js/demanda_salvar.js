@@ -920,8 +920,10 @@ window.addEventListener('load', () => {
                 evento_responsavel_email: 'Digite o e-mail do responsável pelo evento.',
                 evento_responsavel_telefone: 'Digite o telefone do responsável pelo evento.'
             };
-
-            resolve(testarCampos(mensagemErro));
+            const inputs = [
+                'evento_data_inicio', 'evento_data_fim'
+            ]
+            resolve(testarCampos(mensagemErro) && testarDataInicio(inputs, 30));
         });
     };
 
@@ -967,8 +969,10 @@ window.addEventListener('load', () => {
                 brinde_segmento: 'Digite o segmento do brinde.',
                 brinde_participantes: 'Digite a quantidade de participantes do brinde.',
             };
-
-            resolve(testarCampos(mensagemErro));
+            const inputs = [
+                'brinde_inicio_divulgacao', 'brinde_fim_divulgaca'
+            ];
+            resolve(testarCampos(mensagemErro) && testarDataInicio(inputs, 60));
         });
     };
 
@@ -1005,8 +1009,11 @@ window.addEventListener('load', () => {
                 campanha_tema: 'Digite o tema da campanha.',
                 campanha_segmento: 'Digite o segmento da campanha.'
             };
+            const inputs = [
+                'campanha_inicio_divulgacao', 'campanha_fim_divulgacao'
+            ];
 
-            resolve(testarCampos(mensagemErro));
+            resolve(testarCampos(mensagemErro) && testarDataInicio(inputs, 30));
         });
     };
 
@@ -1257,6 +1264,65 @@ window.addEventListener('load', () => {
 
         return body;
     };
+
+    const testarDataInicio = async (input, periodo) => {
+        const { dataInicio, dataFim } = pegarInputsData(input);
+
+        const hoje = new Date();
+
+        const dataInicioMenosPeriodo = new Date(dataInicio.getTime() - (periodo * 24 * 60 * 60 * 1000));
+
+        if (dataFim && dataInicio > dataFim) {
+            Alerta.notificacao(`A data de início não pode ser maior que a data final.`, false);
+            return false;
+        }
+
+        if (dataInicio < hoje) {
+            Alerta.notificacao(`A data de inicio não pode ser menor que hoje.`, false);
+            return false;
+        }
+
+        if (hoje > dataInicioMenosPeriodo) {
+            return await Alerta.confirmar(
+                'Atenção!',
+                `A demanda está sendo cadastrada antes do limite recomendado de ${periodo} dias.`,
+                '!'
+            ) ? true : false; // Apesar de estar após o limite não bloqueia o cadastro
+        }
+
+        return true;
+    }
+
+    const pegarInputsData = (input) => {
+        if (Array.isArray(input)) {
+            const inputDataInicio = document.getElementById('input_' + input[0]).value
+            const inputDataFim = document.getElementById('input_' + input[1]).value
+
+            return {
+                dataInicio: new Date(formatarData(inputDataInicio)),
+                dataFim: new Date(formatarData(inputDataFim))
+            }
+        }
+
+        const inputDataInicio = document.getElementById('input_' + input).value
+
+        return {
+            dataInicio: new Date(formatarData(inputDataInicio)),
+            undefined
+        }
+    }
+
+    const formatarData = (dataOriginal) => {
+        var partes = dataOriginal.split(/[\s\/:]+/);
+        var data = new Date(partes[2], partes[1] - 1, partes[0], partes[3], partes[4], partes[5]);
+        var dataFormatada = data.getFullYear() + '-' +
+                            (data.getMonth() + 1).toString().padStart(2, '0') + '-' +
+                            data.getDate().toString().padStart(2, '0') + ' ' +
+                            data.getHours().toString().padStart(2, '0') + ':' +
+                            data.getMinutes().toString().padStart(2, '0') + ':' +
+                            data.getSeconds().toString().padStart(2, '0');
+        return dataFormatada;
+    }
 
     /*
     |--------------------------------------------------------------------------
