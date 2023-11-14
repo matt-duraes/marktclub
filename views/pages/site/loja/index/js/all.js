@@ -269,7 +269,7 @@ const carregarPontoMapa = async loja => {
         const link = item.link;
         const titulo = item.titulo;
         const desconto = item.desconto;
-
+        const botaoWpp = document.querySelector('.botao_chat');
         const icone = document.createElement('figure');
         icone.classList.add('icone_mapa');
         icone.style = `background-image: url(${imagem})`;
@@ -283,7 +283,7 @@ const carregarPontoMapa = async loja => {
         });
 
         marker.addListener('click', () => {
-            abrirPreviaMapa(titulo, desconto, imagem, link);
+            abrirPreviaMapa(titulo, desconto, imagem, link, botaoWpp);
         });
         return marker;
     });
@@ -291,7 +291,8 @@ const carregarPontoMapa = async loja => {
     new markerClusterer.MarkerClusterer({ markers, map: MAPA.mapa });
 };
 
-const abrirPreviaMapa = (titulo, desconto, imagem, link) => {
+const abrirPreviaMapa = (titulo, desconto, imagem, link, botaoWpp) => {
+    botaoWpp.classList.add('display_none');
     blocoPreviaFigure.innerHTML = `<img src="${imagem}">`;
     blocoPreviaTitulo.innerText = titulo;
     blocoPreviaDesconto.innerText = desconto;
@@ -302,7 +303,9 @@ const abrirPreviaMapa = (titulo, desconto, imagem, link) => {
     }, 40);
 };
 const fecharPreviaMapa = () => {
+    const botaoWpp = document.querySelector('.botao_chat');
     blocoPrevia.classList.remove('ativo');
+    botaoWpp.classList.remove('display_none');
     setTimeout(() => {
         blocoPrevia.classList.add('display_none');
         blocoPreviaFigure.innerHTML = '';
