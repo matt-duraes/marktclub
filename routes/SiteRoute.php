@@ -685,6 +685,10 @@ Route
             ::nome('dependente')
             ::view('/perfil/dependente');
         Route
+            ::nome('reenviarConvite')
+            ::request(['id'])
+            ::post('/perfil/reenviar-convite');
+        Route
             ::nome('salvaDependente')
             ::request(['nome', 'email', 'cpf'])
             ::post('/perfil/dependente-salvar');
