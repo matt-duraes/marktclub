@@ -5,12 +5,6 @@ use Helpers\ApiHelper;
 
 $Painel = new PainelConfig\Add(app: 'carteirinha', acao: $acao);
 
-/*$Painel->coluna(callback: function () use ($Painel) {
-    $Painel->fieldset('Imagem da frente', function () use ($Painel) {
-        $Painel->imagem(name: 'bg_frente', diretorio: '3828fc5c-51cf-44b1-b8f0-6f8d1d3def19');
-    });
-});*/
-
 $Painel->coluna(callback: function () use ($Painel) {
     $Painel->fieldset('Dados principais', function () use ($Painel) {
         $equipe = (new ApiHelper(token: true))
@@ -47,7 +41,5 @@ $Painel->coluna(callback: function () use ($Painel) {
             ->switch(name: 'estado', label: 'Vai ter estado?');
     });
 });
-
-$Painel->js('painel_carteirinha_add');
 
 return $Painel;
