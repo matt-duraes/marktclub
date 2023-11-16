@@ -2,56 +2,82 @@
 
 namespace App\Controllers\Api;
 
-use Http\Request;
-use Http\Response;
-use Controller\Controller;
 use App\Classes\UsuarioDependente\Helper;
 use App\Models\Api\UsuarioCliente\DeletarModel;
+use App\Models\Api\UsuarioDependente\DependenteEntity;
+use App\Models\Api\UsuarioDependente\DependenteModel;
+use Controller\Controller;
+use Erro\Excecao;
+use Http\Request;
+use Http\Response;
+use SendGrid\Mail\TypeException;
+use System\Interface\ControllerDeletarInterface;
 use System\Interface\ControllerListarInterface;
 use System\Interface\ControllerSalvarInterface;
-use System\Interface\ControllerDeletarInterface;
-use App\Models\Api\UsuarioDependente\DependenteModel;
-use App\Models\Api\UsuarioDependente\DependenteEntity;
 
 final class UsuarioDependenteController extends Controller implements
-    ControllerSalvarInterface,
     ControllerListarInterface,
+    ControllerSalvarInterface,
     ControllerDeletarInterface
 {
+    /**
+     * @param Request $request
+     *
+     * @return Response
+     * @throws Excecao
+     */
     public function getListar(Request $request): Response
     {
-        $Usuario = new DependenteModel($request);
-        $dado = $Usuario->listar();
-
-        return new Response(json: [
-            'status' => 'sucesso',
-            'dado'   => $dado
-        ]);
+        $DependenteModel = new DependenteModel($request->usuario);
+        return mensagemSucesso($DependenteModel->listarDados());
     }
 
+    /**
+     * @param Request $request
+     *
+     * @return Response
+     * @throws Excecao
+     */
     public function postSalvar(Request $request): Response
     {
-        $dado = $request->dado();
-
-        $Usuario = new DependenteEntity($request);
-        $Usuario->set(lista: $dado);
-        $Usuario->salvar();
-
+        $DependenteEntity = new DependenteEntity();
+        $DependenteEntity->set(lista: $request->dado());
+        $DependenteEntity->salvar();
         return mensagemSucesso(
-            dado: pegarPropriedadeDaEntity($Usuario, lista: ['nome', 'email', 'cpf', 'status']),
-            status: 201,
-            criptografar: Helper::CRIPTOGRAFAR
+            pegarPropriedadeDaEntity($DependenteEntity, lista: [
+                'uuid', 'nome', 'email', 'cpf', 'status'
+            ]),
+            201,
+            Helper::CRIPTOGRAFAR
         );
     }
 
+    /**
+     * @param string $id
+     *
+     * @return Response
+     * @throws Excecao
+     */
     public function deleteDeletar(string $id): Response
     {
-        validarUuid($id);
-
-        $Usuario = new DeletarModel();
-        $Usuario->uuid($id);
-        $Usuario->deletar();
-
+        $DeletarModel = new DeletarModel();
+        $DeletarModel->uuid($id);
+        $DeletarModel->deletar();
         return new Response(status: 204);
+    }
+
+    /**
+     * @param Request $request
+     *
+     * @return Response
+     * @throws Excecao
+     * @throws TypeException
+     */
+    public function getReenviarEmail(Request $request): Response
+    {
+        $DependenteEntity = new DependenteEntity();
+        $DependenteEntity->uuid($request->usuario);
+        $DependenteEntity->enviarEmail();
+        return new Response(status: 200);
     }
 }
