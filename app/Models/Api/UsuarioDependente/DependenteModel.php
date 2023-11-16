@@ -25,7 +25,6 @@ final class DependenteModel extends ORM
     }
 
     /**
-     * @return void
      * @throws Excecao
      */
     private function validarDados(): void
@@ -88,9 +87,9 @@ final class DependenteModel extends ORM
             }
 
             $retorno[] = [
-                'id' => $dependente->cod,
-                'nome' => $dependente->nome ?? 'Sem nome',
-                'email' => $email,
+                'id'     => $dependente->cod,
+                'nome'   => $dependente->nome ?? 'Sem nome',
+                'email'  => $email,
                 'status' => $Status->indice($dependente->status)
             ];
         }
