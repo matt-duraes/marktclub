@@ -28,7 +28,7 @@
             <div class="botao" data-tipo="brinde">Brindes</div>
             <div class="botao" data-tipo="indicacao">Indicação</div>
             <div class="botao" data-tipo="autoindicacao">Auto Indicação</div>
-            <div class="botao" data-tipo="cotacao_carro">Cotação - Carro</div>
+            <div class="botao" data-tipo="cotacao_automovel">Cotação - Automóvel</div>
             <div class="botao" data-tipo="cotacao_produto">Cotação - Produto</div>
             <div class="botao" data-tipo="auditoria">Auditoria</div>
         </div>
@@ -74,8 +74,8 @@
         <div class="bloco_conjunto display_none" id="bloco_autoindicacao">
             @view "painel/demanda/demanda-salvar/autoindicacao"
         </div>
-        <div class="bloco_conjunto display_none" id="bloco_cotacao_carro">
-            @view "painel/demanda/demanda-salvar/cotacao_carro"
+        <div class="bloco_conjunto display_none" id="bloco_cotacao_automovel">
+            @view "painel/demanda/demanda-salvar/cotacao_automovel"
         </div>
         <div class="bloco_conjunto display_none" id="bloco_cotacao_produto">
             @view "painel/demanda/demanda-salvar/cotacao_produto"

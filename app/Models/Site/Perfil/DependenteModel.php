@@ -87,8 +87,8 @@ final class DependenteModel extends ClubeApiHelper
             ->object()->dado;
         ppe($dado);
         return $dado;
-
     }
+
     /**
      * @param Request $request
      *
