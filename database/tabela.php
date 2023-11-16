@@ -15,6 +15,7 @@ define('TABELA_AUTH_APP', 'auth_app');
 define('TABELA_AUTH_BLACK_LIST', 'auth_black_list');
 define('TABELA_AUTH_LOG', 'auth_log');
 define('TABELA_AUTH_TOKEN', 'auth_token');
+define('TABELA_AUTH_TOKEN_ANTIGO', 'api_token');
 define('TABELA_AUTH_USUARIO', 'auth_usuario');
 define('TABELA_AUTOMOVEL_MODELO', 'automovel_modelo');
 define('TABELA_AUTOMOVEL_VERSAO', 'automovel_versao');

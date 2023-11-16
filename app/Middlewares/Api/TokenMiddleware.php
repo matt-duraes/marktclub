@@ -5,11 +5,13 @@ namespace App\Middlewares\Api;
 use Throwable;
 use Erro\Excecao;
 use Helpers\JwtHelper;
+use App\Models\Api\ApiToken\ValidarTokenAntigoEntity;
 use App\Models\Api\ApiToken\ValidarTokenCredentialModel;
 use App\Models\Api\ApiToken\ValidarTokenAuthorizationEntity;
 
 final class TokenMiddleware
 {
+    private bool $old = false;
     private string $token;
     private array $body = [];
     private string $tipoToken;
@@ -34,6 +36,10 @@ final class TokenMiddleware
         $token = $this->token;
         if (empty($token)) {
             $this->erroToken('Middleware Token - Token vazio.');
+        } elseif (str_starts_with($token, 'Old ') && mb_strlen($this->token) == 40) {
+            $this->old = true;
+            $this->token = preg_replace('/^Old /', '', $this->token);
+            return;
         } elseif (!str_starts_with($token, 'Bearer ')) {
             $this->erroToken('Middleware Token - Token não começa com Bearer.');
         }
@@ -100,7 +106,11 @@ final class TokenMiddleware
             $Token = new ValidarTokenCredentialModel();
             return $Token->validar($this->token);
         } elseif ($tipo == 'authorization') {
-            $Token = new ValidarTokenAuthorizationEntity();
+            if ($this->old) {
+                $Token = new ValidarTokenAntigoEntity();
+            } else {
+                $Token = new ValidarTokenAuthorizationEntity();
+            }
             try {
                 $Token->buscar([
                     ['access_token', $this->token],

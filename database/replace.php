@@ -1,6 +1,9 @@
 <?php
 
 return [
+    'api_token' => [
+        'token_acesso' => 'access_token'
+    ],
     'empresa_novo' => [
         'cod' => 'uuid'
     ],
