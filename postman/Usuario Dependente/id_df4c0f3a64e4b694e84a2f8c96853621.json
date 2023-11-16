@@ -1,0 +1,1 @@
+{"id":"id_df4c0f3a64e4b694e84a2f8c96853621","token":"token","metodo":"GET","nome":"\/usuario-dependente\/email\/:id","uri":"{{LINK}}\/usuario-dependente\/email\/f7318168-32d8-4695-8557-52531364f60e","parametro":[],"body":[],"header":[],"variavel":[],"json":[],"documentacao":{"status":false,"descricao":"","requisicao":"","resposta":"","scope":"usuario_dependente:email"}}
