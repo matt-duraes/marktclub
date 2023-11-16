@@ -401,6 +401,12 @@ Route
             ::nome('deletar')
             ::middleware(TokenMiddleware::class, 'scope', ['usuario_dependente:deletar'])
             ::delete('/usuario-dependente/{id}');
+
+        Route
+            ::nome('reenviarEmail')
+            ::middleware(TokenMiddleware::class, 'scope', ['usuario_dependente:email'])
+            ::request(['usuario'])
+            ::post('/usuario-dependente/email');
     });
 
 Route
