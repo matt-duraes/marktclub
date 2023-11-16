@@ -14,7 +14,7 @@ use Painel\Demanda\Models\CriarAuditoriaModel;
 use Painel\Demanda\Models\CriarAutoindicacaoModel;
 use Painel\Demanda\Models\CriarBrindeModel;
 use Painel\Demanda\Models\CriarCampanhaModel;
-use Painel\Demanda\Models\CriarCotacaoCarroModel;
+use Painel\Demanda\Models\CriarCotacaoAutomovelModel;
 use Painel\Demanda\Models\CriarCotacaoProdutoModel;
 use Painel\Demanda\Models\CriarEventoModel;
 use Painel\Demanda\Models\CriarIndicacaoModel;
@@ -312,8 +312,8 @@ final class DemandaController extends Controller
             $Demanda = new CriarIndicacaoModel($request);
         } elseif ($request->tipo == Tipo::AUTOINDICACAO) {
             $Demanda = new CriarAutoindicacaoModel($request);
-        } elseif ($request->tipo == Tipo::COTACAO_CARRO) {
-            $Demanda = new CriarCotacaoCarroModel($request);
+        } elseif ($request->tipo == Tipo::COTACAO_AUTOMOVEL) {
+            $Demanda = new CriarCotacaoAutomovelModel($request);
         } elseif ($request->tipo == Tipo::COTACAO_PRODUTO) {
             $Demanda = new CriarCotacaoProdutoModel($request);
         } elseif ($request->tipo == Tipo::AUDITORIA) {

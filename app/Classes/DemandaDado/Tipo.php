@@ -22,7 +22,7 @@ final class Tipo extends Status
     public const CAMPANHA = 'campanha';
     public const INDICACAO = 'indicacao';
     public const AUTOINDICACAO = 'autoindicacao';
-    public const COTACAO_CARRO = 'cotacao_carro';
+    public const COTACAO_AUTOMOVEL = 'cotacao_automovel';
     public const COTACAO_PRODUTO = 'cotacao_produto';
     public const AUDITORIA = 'auditoria';
 
@@ -30,25 +30,25 @@ final class Tipo extends Status
         protected string|int|null $valor = null
     ) {
         parent::__construct([
-            self::NOVO_CLIENTE    => 'Novo Cliente',
-            self::NOVO_ASSOCIACAO => 'Site associação',
-            self::OUTRO           => 'Outro',
-            self::BUG_CLUBE       => 'Bug no clube',
-            self::BUG_ASSOCIACAO  => 'Bug na associação',
-            self::BUG_PAINEL      => 'Bug no painel',
-            self::BUG_APP         => 'Bug no APP',
-            self::BUG_OUTRO       => 'Bug outros',
-            self::FEATURE         => 'Feature',
-            self::CRIACAO         => 'Criação',
-            self::SORTEIO         => 'Sorteio',
-            self::EVENTO          => 'Evento',
-            self::BRINDE          => 'Brinde',
-            self::CAMPANHA        => 'Campanha',
-            self::INDICACAO       => 'Indicação',
-            self::AUTOINDICACAO   => 'Autoindicação',
-            self::COTACAO_CARRO   => 'Cotação - Carro',
-            self::COTACAO_PRODUTO => 'Cotação - Produto',
-            self::AUDITORIA       => 'Auditoria',
+            self::NOVO_CLIENTE        => 'Novo Cliente',
+            self::NOVO_ASSOCIACAO     => 'Site associação',
+            self::OUTRO               => 'Outro',
+            self::BUG_CLUBE           => 'Bug no clube',
+            self::BUG_ASSOCIACAO      => 'Bug na associação',
+            self::BUG_PAINEL          => 'Bug no painel',
+            self::BUG_APP             => 'Bug no APP',
+            self::BUG_OUTRO           => 'Bug outros',
+            self::FEATURE             => 'Feature',
+            self::CRIACAO             => 'Criação',
+            self::SORTEIO             => 'Sorteio',
+            self::EVENTO              => 'Evento',
+            self::BRINDE              => 'Brinde',
+            self::CAMPANHA            => 'Campanha',
+            self::INDICACAO           => 'Indicação',
+            self::AUTOINDICACAO       => 'Autoindicação',
+            self::COTACAO_AUTOMOVEL   => 'Cotação - Automovel',
+            self::COTACAO_PRODUTO     => 'Cotação - Produto',
+            self::AUDITORIA           => 'Auditoria',
         ]);
     }
 }
