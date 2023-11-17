@@ -7,6 +7,7 @@ const demandaDetalhe = () => {
 
     const botaoSeguir = $('#botao_seguir_demanda');
     const botaoEditar = $('#botao_editar_demanda');
+    const botaoCancelar = $('#botao_cancelar_demanda');
 
     const blocoEsqueleto = $('#bloco_tarefa_loading');
     const blocoZero = $('#bloco_tarefa_zero');
@@ -98,9 +99,22 @@ const demandaDetalhe = () => {
     | EDITAR DEMANDA
     |--------------------------------------------------------------------------
     */
-    botaoEditar.addEventListener('click', () => {
-        PopupDemandaEditar.abrir();
-    });
+    if (botaoEditar) {
+        botaoEditar.addEventListener('click', () => {
+            PopupDemandaEditar.abrir();
+        });
+    }
+
+    /*
+    |--------------------------------------------------------------------------
+    | CANCELAR DEMANDA
+    |--------------------------------------------------------------------------
+    */
+    if (botaoCancelar) {
+        botaoCancelar.addEventListener('click', async () => {
+            PopupDemandaCancelar.abrir();
+        });
+    }
 
     /*
     |--------------------------------------------------------------------------
