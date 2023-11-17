@@ -15,8 +15,8 @@ class DeclaracaoEntity extends Entity
     public array $empresa;
     public array $usuario;
     public array|string $parceiro;
-    public string $modelo;
-    public string $versao;
+    public ?string $modelo;
+    public ?string $versao;
     public Status $status;
     protected string $ormTabela = TABELA_SOLICITACAO_DECLARACAO;
     protected array $ormBuscar = [
@@ -24,9 +24,9 @@ class DeclaracaoEntity extends Entity
         'modelo', 'versao', 'data_criacao', 'data_atualizacao', 'status'
     ];
     protected array $ormInsert = [
-        'id_admin_empresa'   => '->idEmpresa',
+        'id_admin_empresa' => '->idEmpresa',
         'id_usuario_cliente' => '->idUsuario',
-        'status'             => 1,
+        'status' => 1,
         'id_parceiro_loja', 'modelo', 'versao'
     ];
     protected array $ormSalvar = [
@@ -88,62 +88,65 @@ class DeclaracaoEntity extends Entity
 
     private function buscarEmpresa(): void
     {
-        $empresa = (new OrmHelper(TABELA_COMERCIAL_EMPRESA))->pegarUltimoRegistro(
-            ['id', $this->id_admin_empresa],
-            ['cod', 'nome_fantasia'],
-            'object'
-        );
+        $empresa = (new OrmHelper(TABELA_COMERCIAL_EMPRESA))
+            ->pegarUltimoRegistro(
+                ['id', $this->id_admin_empresa],
+                ['cod', 'nome_fantasia'],
+                'object'
+            );
         if (empty($empresa->cod)) {
             $this->empresa = [
-                'id'   => '',
+                'id' => '',
                 'nome' => 'Sem empresa'
             ];
             return;
         }
         $this->empresa = [
-            'id'   => $empresa->cod,
+            'id' => $empresa->cod,
             'nome' => $empresa->nome_fantasia
         ];
     }
 
     private function buscarUsuario(): void
     {
-        $usuario = (new OrmHelper(TABELA_USUARIO_CLIENTE))->pegarUltimoRegistro(
-            ['id', $this->id_usuario_cliente],
-            ['uuid', 'nome', 'email_pessoal'],
-            'object'
-        );
+        $usuario = (new OrmHelper(TABELA_USUARIO_CLIENTE))
+            ->pegarUltimoRegistro(
+                ['id', $this->id_usuario_cliente],
+                ['uuid', 'nome', 'email_pessoal'],
+                'object'
+            );
         if (empty($usuario->uuid)) {
             $this->usuario = [
-                'id'    => '',
-                'nome'  => 'Sem usuário',
+                'id' => '',
+                'nome' => 'Sem usuário',
                 'email' => ''
             ];
             return;
         }
         $this->usuario = [
-            'id'    => $usuario->uuid,
-            'nome'  => $usuario->nome,
+            'id' => $usuario->uuid,
+            'nome' => $usuario->nome,
             'email' => $usuario->email_pessoal
         ];
     }
 
     private function buscarParceiro(): void
     {
-        $parceiro = (new OrmHelper(TABELA_PARCEIRO_LOJA))->pegarUltimoRegistro(
-            ['id', $this->id_parceiro_loja],
-            ['uuid', 'titulo'],
-            'object'
-        );
-        if (empty($parceiro->uuid)) {
+        $parceiro = (new OrmHelper(TABELA_PARCEIRO_LOJA))
+            ->pegarUltimoRegistro(
+                ['id', $this->id_parceiro_loja],
+                ['cod', 'titulo'],
+                'object'
+            );
+        if (empty($parceiro->cod)) {
             $this->parceiro = [
-                'id'   => '',
+                'id' => '',
                 'nome' => 'Sem parceiro'
             ];
             return;
         }
         $this->parceiro = [
-            'id'   => $parceiro->uuid,
+            'id' => $parceiro->cod,
             'nome' => $parceiro->titulo
         ];
     }
