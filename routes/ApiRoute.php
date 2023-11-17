@@ -403,7 +403,7 @@ Route
             ::delete('/usuario-dependente/{id}');
 
         Route
-            ::nome('reenviarEmail')
+            ::nome('email')
             ::middleware(TokenMiddleware::class, 'scope', ['usuario_dependente:email'])
             ::request(['usuario'])
             ::post('/usuario-dependente/email');
