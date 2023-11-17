@@ -5,8 +5,8 @@ const inputTarefaTitulo = $('#input_tarefa_titulo');
 const inputTarefaTexto = $('#input_tarefa_texto');
 const inputTarefaTipo = $('#input_tarefa_tipo');
 
-const PopupDemandaEditar = new Popup('Editar Demanda', 'bloco_demanda_editar', true, false, demandaEditar);
-const PopupTarefa = new Popup('Nova Tarefa', 'bloco_tarefa_nova', true, false);
+const PopupDemandaEditar = new Popup('Editar Demanda', 'bloco_demanda_editar', false, false, demandaEditar);
+const PopupTarefa = new Popup('Nova Tarefa', 'bloco_tarefa_nova', false, false);
 const PopupTemp = new Popup();
 const listaColuna = $$('#bloco_demanda_index .bloco_coluna');
 

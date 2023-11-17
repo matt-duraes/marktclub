@@ -36,66 +36,52 @@ const demandaEditar = () => {
     const botaoSalvar = $('#botao_editar_tarefa');
 
     botaoFechar.addEventListener('click', () => {
-        PopupDemandaEditar.abrir();
+        PopupDemandaEditar.fechar();
     });
-    // botaoSalvar.addEventListener('click', async () => {
-    //     if (!validarCamposParaEditar()) {
-    //         return;
-    //     }
-    //     const body = montarBodyParaEditar();
-    //     const resposta = await fetch(LINK + '/demanda/demanda-editar/' + idDemanda, {
-    //         method: 'POST',
-    //         body,
-    //     });
+    botaoSalvar.addEventListener('click', async () => {
+        if (!validarCamposParaEditar()) {
+            return;
+        }
+        Loading.show();
+        const resposta = await ajaxPost(
+            LINK + '/demanda/demanda-editar/' + idDemanda,
+            {
+                titulo: demandaTitulo.value,
+                empresa: demandaEmpresa.value,
+                dono: demandaEquipe.value,
+                /* eslint-disable */
+                com_prazo: demandaComPrazo.value,
+                data_entrega: demandaEntrega.value,
+                /* eslint-enable */
+            },
+            'Erro ao editar demanda, por favor, tente novamente.'
+        );
+        Loading.hide();
+        if (false === resposta) {
+            return;
+        }
 
-    //     const json = await respostaJson(
-    //         resposta,
-    //         'Ocorreu um erro ao atualizar sua demanda, por favor, tente novamente.'
-    //     );
-    //     if (false === json) {
-    //         return;
-    //     }
+        Alerta.notificacao('Demanda atualizada com sucesso.', true);
+        PopupDemandaEditar.fechar();
+    });
 
-    //     Alerta.notificacao('Demanda atualizada com sucesso.', true);
-    //     PaginaDemanda.abrir();
-    // });
+    const validarCamposParaEditar = () => {
+        let mensagem = '';
+        if (demandaTitulo.value == '') {
+            mensagem = 'Digite um título para a demanda para continuar.';
+        } else if (demandaEmpresa.value == '') {
+            mensagem = 'Escolha uma empresa para continuar.';
+        } else if (demandaEquipe.value == '') {
+            mensagem = 'Escolha um dono da demanda para continuar.';
+        } else if (demandaComPrazo.checked && demandaEntrega.value == '') {
+            mensagem = 'Demanda com prazo deve ter uma data para entrega.';
+        }
 
-    // const validarCamposParaEditar = () => {
-    //     let mensagem = '';
-    //     if (inputTitulo.value == '') {
-    //         mensagem = 'Digite um título para a demanda para continuar.';
-    //     } else if (inputEmpresa.value == '') {
-    //         mensagem = 'Escolha uma empresa para continuar.';
-    //     } else if (inputDono.value == '') {
-    //         mensagem = 'Escolha um dono da demanda para continuar.';
-    //     } else if (inputComPrazo.checked && inputDataEntrega.value == '') {
-    //         mensagem = 'Demanda com prazo deve ter uma data para entrega.';
-    //     }
+        if (mensagem == '') {
+            return true;
+        }
 
-    //     if (mensagem == '') {
-    //         return true;
-    //     }
-
-    //     Alerta.notificacao(mensagem, false);
-    //     return false;
-    // };
-    // const montarBodyParaEditar = () => {
-    //     const body = new FormData();
-    //     body.append('titulo', inputTitulo.value);
-    //     body.append('empresa', inputEmpresa.value);
-    //     body.append('dono', inputDono.value);
-    //     body.append('com_prazo', inputComPrazo.value);
-    //     body.append('data_entrega', inputDataEntrega.value);
-    //     return body;
-    // };
-
-    // inputComPrazo.addEventListener('change', () => {
-    //     if (inputComPrazo.checked) {
-    //         blocoDataEntrega.classList.add('ativo');
-    //         inputDataEntrega.focus();
-    //         return;
-    //     }
-    //     blocoDataEntrega.classList.remove('ativo');
-    //     inputDataEntrega.value = '';
-    // });
+        Alerta.notificacao(mensagem, false);
+        return false;
+    };
 };

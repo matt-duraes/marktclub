@@ -30,7 +30,9 @@ botaoSalvarTarefa.addEventListener('click', async () => {
     if (id == '') {
         body.demanda = idDemanda;
     }
+    Loading.show();
     const resposta = await ajaxPost(LINK + uri, body, 'Erro ao salvar tarefa, por favor, tente novamente.');
+    Loading.hide();
     if (false === resposta) {
         return;
     }
