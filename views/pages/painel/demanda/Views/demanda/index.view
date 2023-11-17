@@ -1,6 +1,9 @@
 <div id="bloco_demanda_tarefa" class="form_geral">
     <input type="hidden" id="input_demanda_id" value="{{$r->id}}">
+    <input type="hidden" id="input_demanda_titulo" value="{{$r->titulo}}">
+    <input type="hidden" id="input_demanda_empresa" value="{{$r->empresa->id}}">
     <input type="hidden" id="input_demanda_equipe" value="{{$r->equipe->id}}">
+    <input type="hidden" id="input_demanda_entrega" value="{{$r->data_entrega}}">
     <input type="hidden" id="input_demanda_status" value="{{$r->status}}">
     <input type="hidden" id="input_demanda_liberado" value="{{$r->liberado}}">
     <header>

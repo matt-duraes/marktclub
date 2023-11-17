@@ -123,7 +123,7 @@ const adicionarNovaDemanda = (bloco, item, abrir) => {
             'demanda-' + id,
             LINK + '/demanda/demanda/' + id,
             undefined,
-            true,
+            false,
             true,
             demandaDetalhe
         );
