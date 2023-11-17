@@ -32,6 +32,10 @@ final class DependenteEntity extends Entity
         'email_pessoal' => '->email',
         'empresa'       => '->idEmpresa'
     ];
+    protected array $ormBuscar = [
+        'id', 'nome', 'documento', 'status',
+        'email' => 'email_pessoal'
+    ];
     protected int $titular;
     protected string $cod;
     protected TipoUsuario $tipo;
