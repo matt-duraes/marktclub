@@ -272,6 +272,7 @@ return [
         'desenvolvedor'    => 1,
         'marktclub'        => 1,
         'admin'            => 1,
+        'gerente'          => 1,
         'status'           => 1,
     ],
     [

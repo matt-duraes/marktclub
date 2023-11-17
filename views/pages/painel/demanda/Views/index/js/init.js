@@ -5,6 +5,8 @@ const inputTarefaTitulo = $('#input_tarefa_titulo');
 const inputTarefaTexto = $('#input_tarefa_texto');
 const inputTarefaTipo = $('#input_tarefa_tipo');
 
+const PaginaFechar = new Pagina();
+const PopupDemandaCancelar = new Popup('Cancelar Demanda', 'bloco_demanda_cancelar', false, false, demandaCancelar);
 const PopupDemandaEditar = new Popup('Editar Demanda', 'bloco_demanda_editar', false, false, demandaEditar);
 const PopupTarefa = new Popup('Nova Tarefa', 'bloco_tarefa_nova', false, false);
 const PopupTemp = new Popup();
