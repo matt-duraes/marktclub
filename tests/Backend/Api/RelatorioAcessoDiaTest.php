@@ -2,12 +2,12 @@
 
 namespace Tests\Api;
 
-use Tests\Api\Trait\AnalyticsTrait;
+use Tests\Api\Trait\RelatorioTrait;
 use Tests\Tests;
 
 final class RelatorioAcessoDiaTest extends Tests
 {
-    use AnalyticsTrait;
+    use RelatorioTrait;
 
     private string $uri = '/relatorio/acesso-dia';
     private array $dadoEmpresa1;
