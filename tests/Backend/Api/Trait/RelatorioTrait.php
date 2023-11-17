@@ -2,7 +2,7 @@
 
 namespace Tests\Api\Trait;
 
-trait AnalyticsTrait
+trait RelatorioTrait
 {
     private string $id1 = '14afa776394ada4be23be6acf7e3259e';
     private string $id2 = '0ffc5c56b99f81ca0edea8bdf524b688';
