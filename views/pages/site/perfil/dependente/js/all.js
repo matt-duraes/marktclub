@@ -25,6 +25,7 @@ window.addEventListener('load', () => {
     reenviarConvite.forEach(element => {
         element.addEventListener('click', async e => {
             const blocoClique = e.target.parentNode;
+            Loading.show();
             const resposta = await ajaxPost(
                 LINK + '/perfil/reenviar-convite',
                 {

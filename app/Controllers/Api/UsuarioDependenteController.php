@@ -73,11 +73,13 @@ final class UsuarioDependenteController extends Controller implements
      * @throws Excecao
      * @throws TypeException
      */
-    public function getReenviarEmail(Request $request): Response
+    public function postEmail(Request $request): Response
     {
         $DependenteEntity = new DependenteEntity();
         $DependenteEntity->uuid($request->usuario);
         $DependenteEntity->enviarEmail();
-        return new Response(status: 200);
+        return mensagemSucesso(
+            ['E-mail enviado com sucesso!']
+        );
     }
 }

@@ -85,6 +85,7 @@ final class DependenteModel extends ClubeApiHelper
             ])
             ->post('/usuario-dependente/email')
             ->object()->dado;
+        ppe($dado);
         return $dado;
     }
 

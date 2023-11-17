@@ -28,9 +28,13 @@ final class DependenteEntity extends Entity
     protected string $ormTabela = TABELA_USUARIO_CLIENTE;
     protected array $ormInsert = [
         'cod', 'nome', 'tipo', 'titular', 'data_email', 'status',
-        'documento' => '->cpf',
+        'documento'     => '->cpf',
         'email_pessoal' => '->email',
-        'empresa' => '->idEmpresa'
+        'empresa'       => '->idEmpresa'
+    ];
+    protected array $ormBuscar = [
+        'id', 'nome', 'documento', 'status',
+        'email' => 'email_pessoal'
     ];
     protected int $titular;
     protected string $cod;
@@ -154,7 +158,6 @@ final class DependenteEntity extends Entity
     }
 
     /**
-     * @return void
      * @throws Excecao
      */
     private function emailJaExiste(): void
