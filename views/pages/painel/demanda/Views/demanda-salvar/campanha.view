@@ -3,7 +3,7 @@
 
 <div class="bloco bloco_grupo">
     <h3>Dados da divulgação</h3>
-    @? formDataHora(name: 'campanha_inicio_divulgacao', label: 'Data de inicio da divulgação', placeholder: 'Data de inicio da divulgação')
+    @? formDataHora(name: 'campanha_inicio_divulgacao', label: 'Data de inicio da divulgação', placeholder: 'Data de inicio da divulgação', ajuda: 'A recomendação é de no mínio 30 dias de antecedência')
     @? formDataHora(name: 'campanha_fim_divulgacao', label: 'Data final da divulgação', placeholder: 'Data final da divulgação')
     @? formInput(name: 'campanha_tema', label: 'Tema da campanha', placeholder: 'Tema da camapanha')
     @? formInput(name: 'campanha_segmento', label: 'Segmento desejável', placeholder: 'Segmento desejável')

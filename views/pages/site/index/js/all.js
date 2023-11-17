@@ -27,6 +27,12 @@ const loadingFavoritoFaq = () => {
 const PaginaFavorito = new Pagina('faq-favorito', LINK + '/faq/favorito', {}, true, true, loadingFavoritoFaq);
 
 window.addEventListener('load', () => {
+    const botaoProximoHistorico = document.querySelector('#botao_proximo_historico');
+    const botaoAnteriorHistorico = document.querySelector('#botao_anterior_historico');
+    const blocoHistorico = document.querySelector('#bloco_historico');
+    botaoAnteriorHistorico.style.display = 'none';
+    botaoProximoHistorico.style.display = 'none';
+
     const botaoFavorito = $('#botao_favorito_tutorial');
     if (botaoFavorito) {
         botaoFavorito.addEventListener('click', () => {
@@ -77,5 +83,41 @@ window.addEventListener('load', () => {
             adicionarParceiro(bloco, item);
         });
         bloco.insertAdjacentHTML('beforeend', `<div class="article_fake"></div><div class="article_fake"></div>`);
+
+        verificarBotoes();
     };
+
+    botaoProximoHistorico.addEventListener('click', () => {
+        blocoHistorico.style.scrollBehavior = 'smooth';
+        blocoHistorico.scrollLeft += 300;
+        verificarBotoes();
+    });
+
+    botaoAnteriorHistorico.addEventListener('click', () => {
+        blocoHistorico.style.scrollBehavior = 'smooth';
+        blocoHistorico.scrollLeft -= 300;
+        verificarBotoes();
+    });
+
+    blocoHistorico.addEventListener('scroll', () => {
+        blocoHistorico.style.scrollBehavior = 'auto';
+        verificarBotoes();
+    });
+
+    function verificarBotoes() {
+        const scrollAtual = blocoHistorico.scrollLeft;
+        const larguraTotal = blocoHistorico.scrollWidth - blocoHistorico.clientWidth;
+
+        if (scrollAtual >= larguraTotal) {
+            botaoProximoHistorico.style.display = 'none';
+        } else {
+            botaoProximoHistorico.style.display = '';
+        }
+
+        if (scrollAtual === 0) {
+            botaoAnteriorHistorico.style.display = 'none';
+        } else {
+            botaoAnteriorHistorico.style.display = '';
+        }
+    }
 });

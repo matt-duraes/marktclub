@@ -3,7 +3,7 @@
 
 <div class="bloco bloco_grupo">
     <h3>Data do evento</h3>
-    @? formDataHora(name: 'evento_data_inicio', label: 'Data inicio', placeholder: 'Data inicio')
+    @? formDataHora(name: 'evento_data_inicio', label: 'Data inicio', placeholder: 'Data inicio', ajuda: 'A recomendação é de no mínio 30 dias de antecedência')
     @? formDataHora(name: 'evento_data_fim', label: 'Data fim', placeholder: 'Data fim')
 </div>
 

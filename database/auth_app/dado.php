@@ -8,6 +8,7 @@ $scope = [
     'usuario_cliente:download', 'usuario_cliente:apple', 'usuario_cliente:ativar', 'usuario_cliente:senha',
 
     'usuario_dependente:salvar', 'usuario_dependente:listar', 'usuario_dependente:deletar',
+    'usuario_dependente:email',
 
     'usuario_equipe:salvar', 'usuario_equipe:atualizar', 'usuario_equipe:listar',
     'usuario_equipe:buscar', 'usuario_equipe:deletar', 'usuario_equipe:validar_senha',
@@ -165,17 +166,19 @@ $scope = [
     'chatbot_perguntas:perguntar',
 
     'chatbot_categoria:salvar', 'chatbot_categoria:atualizar', 'chatbot_categoria:listar', 'chatbot_categoria:buscar',
+
+    'drogaria_araujo:buscar',
 ];
 
 return [
     [
-        'id'                 => '1',
-        'uuid'               => '1e01bddf-6ba5-437c-9dba-003f31988f71',
-        'id_admin_empresa'   => '1',
-        'nome'               => 'App Painel',
-        'descricao'          => 'App para integração',
-        'imagem_app'         => null,
-        'chave_privada'      => '-----BEGIN PRIVATE KEY-----
+        'id'               => '1',
+        'uuid'             => '1e01bddf-6ba5-437c-9dba-003f31988f71',
+        'id_admin_empresa' => '1',
+        'nome'             => 'App Painel',
+        'descricao'        => 'App para integração',
+        'imagem_app'       => null,
+        'chave_privada'    => '-----BEGIN PRIVATE KEY-----
 MIIEvwIBADANBgkqhkiG9w0BAQEFAASCBKkwggSlAgEAAoIBAQC1sakflQqRcKs8
 ssPuJZUlRacksw+VnXhCcEwYa3GN2RmeWOccJEGObrR5umITk3Uy/cExUj/o+AiE
 Fqmtq9/IpbCi3w0qgbs8ALilciWoEpQ07e/s8DOaj5Ywt5YbSPqvqq570iUWZ+hi
@@ -231,7 +234,7 @@ m/ln7Q3lMYjyLgOCZha4hQnYssoic5lRnyRei/b49wTOkn5WijG4W3OkBCuwfcy0
 4njHoKowgcU7I/cEOKiACi/JbvEeS+NNoMwPCdrbxFno6zy4MjW/4601XeqHtac5
 4PovwtLk7HihV7eDcofrLDqnLw==
 -----END PRIVATE KEY-----',
-        'chave_publica'      => '-----BEGIN PUBLIC KEY-----
+        'chave_publica' => '-----BEGIN PUBLIC KEY-----
 MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAtbGpH5UKkXCrPLLD7iWV
 JUWnJLMPlZ14QnBMGGtxjdkZnljnHCRBjm60ebpiE5N1Mv3BMVI/6PgIhBapravf
 yKWwot8NKoG7PAC4pXIlqBKUNO3v7PAzmo+WMLeWG0j6r6que9IlFmfoYgtY/LrC
@@ -267,13 +270,13 @@ EwIDAQAB
     ],
 
     [
-        'id'                 => '2',
-        'uuid'               => '5add7e1c-3da1-4c0f-90b4-da17d4f05eca',
-        'id_admin_empresa'   => '1',
-        'nome'               => 'App Clube',
-        'descricao'          => 'App para integração',
-        'imagem_app'         => null,
-        'chave_privada'      => '-----BEGIN PRIVATE KEY-----
+        'id'               => '2',
+        'uuid'             => '5add7e1c-3da1-4c0f-90b4-da17d4f05eca',
+        'id_admin_empresa' => '1',
+        'nome'             => 'App Clube',
+        'descricao'        => 'App para integração',
+        'imagem_app'       => null,
+        'chave_privada'    => '-----BEGIN PRIVATE KEY-----
 MIIEvQIBADANBgkqhkiG9w0BAQEFAASCBKcwggSjAgEAAoIBAQDBmtmEZ3fCBpww
 s7bbPuXkrjX3uTGR9BcjhVsRIPxda+Qz+0ybznZIkHj1uXH0b+OdeNQgwNO+ZEvQ
 OOlEMXZy1rJ7+qbOYkDIhS0T+MgB8uDg3FjguI0pX8CnH4PYS5fXK09R5lLRsWQQ
@@ -329,7 +332,7 @@ u9kreU+6JZ99dOABaduJ9Rg7cqjqiJXMiAlwPnuVg7mKk4hCxXjvlOj0KMmmmkoZ
 LMWHjhP/IMgxyi0mq6p0vPOq52ON4sCY0C8Cz4GClX9WyyBJx8+V6Y0tlywVY96L
 d+D449R4JnigoYwXdnGjPss=
 -----END PRIVATE KEY-----',
-        'chave_publica'      => '-----BEGIN PUBLIC KEY-----
+        'chave_publica' => '-----BEGIN PUBLIC KEY-----
 MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAwZrZhGd3wgacMLO22z7l
 5K4197kxkfQXI4VbESD8XWvkM/tMm852SJB49blx9G/jnXjUIMDTvmRL0DjpRDF2
 ctaye/qmzmJAyIUtE/jIAfLg4NxY4LiNKV/Apx+D2EuX1ytPUeZS0bFkEActki1c

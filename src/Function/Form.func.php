@@ -1417,6 +1417,11 @@ if (!function_exists('formDataHora')) {
         mixed $local = ''
     ): string {
         $attr = array_merge(['data-calendario' => 'datahora'], $attr);
+
+        $mascara = is_array($name) ? ['00/00/0000 00:00:00', '00/00/0000 00:00:00'] : '00/00/0000 00:00:00';
+        if (is_null($placeholder)) {
+            $placeholder = is_array($name) ? ['00/00/0000 00:00:00', '00/00/0000 00:00:00'] : '00/00/0000 00:00:00';
+        }
         return formInput(
             $name,
             $label,
@@ -1432,7 +1437,7 @@ if (!function_exists('formDataHora')) {
             null,
             'text',
             $attr,
-            '00/00/0000 00:00:00',
+            $mascara,
             $ajuda,
             true,
             true,

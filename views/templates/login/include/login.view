@@ -6,7 +6,6 @@
         <i class="icone">@iconeUsuario(30)</i>
         <h1>Escolha um tipo de login</h1>
         <p>Escolha entre as opções abaixo para fazer seu login</p>
-
         <a href="{{LINK_LOGIN}}" class="botao">Sou associado</a>
         <div class="botao" id="botao_abrir_dependente">Sou dependente</div>
     </div>
