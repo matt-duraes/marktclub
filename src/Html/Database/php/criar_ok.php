@@ -17,11 +17,11 @@
         <h1>DATABASE CRIADA COM SUCESSO.</h1>
     </header>
 
-    <a class="voltar" href="<?=LINK;?>/__base" target="_self">VOLTAR</a>
+    <a class="voltar" href="<?=LINK; ?>/__base" target="_self">VOLTAR</a>
 </div>
 
 <style>
-<?php include __DIR__ . '/../css/html.css';?>
+<?php include __DIR__ . '/../css/html.css'; ?>
 </style>
 
 </body>

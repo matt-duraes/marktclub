@@ -18,7 +18,7 @@ class Scanner
 {
     /**
      * @var string If called from another class, useful as an internal
-     *      indicator in some specific situations.
+     *             indicator in some specific situations.
      */
     public $CalledFrom = '';
 
@@ -61,7 +61,6 @@ class Scanner
      * Construct the scanner.
      *
      * @param \phpMussel\Core\Loader $Loader The instantiated loader object, passed by reference.
-     * @return void
      */
     public function __construct(\phpMussel\Core\Loader &$Loader)
     {
@@ -99,13 +98,13 @@ class Scanner
             }
 
             $Data = serialize([
-                'StartTime' => $this->Loader->InstanceCache['StartTime'] ?? '-',
-                'EndTime' => $this->Loader->InstanceCache['EndTime'] ?? '-',
-                'Origin' => $Origin,
-                'ObjectsScanned' => $this->Loader->InstanceCache['ObjectsScanned'] ?? 0,
+                'StartTime'       => $this->Loader->InstanceCache['StartTime'] ?? '-',
+                'EndTime'         => $this->Loader->InstanceCache['EndTime'] ?? '-',
+                'Origin'          => $Origin,
+                'ObjectsScanned'  => $this->Loader->InstanceCache['ObjectsScanned'] ?? 0,
                 'DetectionsCount' => $this->Loader->InstanceCache['DetectionsCount'] ?? 0,
-                'ScanErrors' => $this->Loader->InstanceCache['ScanErrors'] ?? 1,
-                'Detections' => $Detections
+                'ScanErrors'      => $this->Loader->InstanceCache['ScanErrors'] ?? 1,
+                'Detections'      => $Detections
             ]) . "\n";
             $Truncate = $this->Loader->readBytes($this->Loader->Configuration['core']['truncate']);
             $WriteMode = (!file_exists($File) || ($Truncate > 0 && filesize($File) >= $Truncate)) ? 'wb' : 'ab';
@@ -159,40 +158,40 @@ class Scanner
      * The main entry point to the phpMussel scanner.
      * @link https://github.com/phpMussel/Docs/blob/master/readme.en.md#SECTION3
      *
-     * @param string|array $Files What to scan (can be string indicating a specific
-     *      file or directory, or an array of such strings to specify multiple
-     *      files/directories). When as a string, it should point to where the data
-     *      can be found. When as an array, the array keys should indicate the
-     *      original names of the items to be scanned (this is mostly useful for
-     *      file upload scanning, whereby the source is normally temporary files,
-     *      and doesn't reflect the names of the files as given by the client), and
-     *      the values should point to where the data can be found.
-     * @param int $Format The format to return the results as (optional).
-     *      1 = An array of the scan results for each item scanned as integers.
-     *      ├── -5 = Indicates the scan failed to complete for other reasons.
-     *      ├── -4 = Indicates that data couldn't be scanned due to encryption.
-     *      ├── -3 = Indicates that problems were encountered with the
-     *      │        phpMussel signatures files and thus the scan failed to
-     *      │        complete.
-     *      ├── -2 = Indicates that corrupt data was detected during the scan and
-     *      │        thus the scan failed to complete.
-     *      ├── -1 = Indicates that extensions or addons required to execute the
-     *      │        scan were missing and thus the scan failed to complete.
-     *      ├────0 = Indicates that the scan target doesn't exist and thus there was
-     *      │        nothing to scan.
-     *      ├────1 = Indicates that the target was successfully scanned and no
-     *      │        problems were detected (scan target is probably okay).
-     *      └────2 = Indicates that the target was successfully scanned and problems
-     *               were detected (scan target is bad/dangerous).
-     *      2 = A boolean.
-     *      ├───True = Problems were detected (scan target is bad/dangerous).
-     *      └───False = Problems were not detected (scan target is probably okay).
-     *      3 = An array of the scan results for each item scanned as human-readable
-     *          text.
-     *      4 = A string of human-readable text (like 3, but imploded).
-     *      Any other value [default] = Formatted text (i.e., the scan results seen
-     *               when using phpMussel/CLI).
-     * @return mixed The scan results (as per the indicated format).
+     * @param  string|array $Files  What to scan (can be string indicating a specific
+     *                              file or directory, or an array of such strings to specify multiple
+     *                              files/directories). When as a string, it should point to where the data
+     *                              can be found. When as an array, the array keys should indicate the
+     *                              original names of the items to be scanned (this is mostly useful for
+     *                              file upload scanning, whereby the source is normally temporary files,
+     *                              and doesn't reflect the names of the files as given by the client), and
+     *                              the values should point to where the data can be found.
+     * @param  int          $Format The format to return the results as (optional).
+     *                              1 = An array of the scan results for each item scanned as integers.
+     *                              ├── -5 = Indicates the scan failed to complete for other reasons.
+     *                              ├── -4 = Indicates that data couldn't be scanned due to encryption.
+     *                              ├── -3 = Indicates that problems were encountered with the
+     *                              │        phpMussel signatures files and thus the scan failed to
+     *                              │        complete.
+     *                              ├── -2 = Indicates that corrupt data was detected during the scan and
+     *                              │        thus the scan failed to complete.
+     *                              ├── -1 = Indicates that extensions or addons required to execute the
+     *                              │        scan were missing and thus the scan failed to complete.
+     *                              ├────0 = Indicates that the scan target doesn't exist and thus there was
+     *                              │        nothing to scan.
+     *                              ├────1 = Indicates that the target was successfully scanned and no
+     *                              │        problems were detected (scan target is probably okay).
+     *                              └────2 = Indicates that the target was successfully scanned and problems
+     *                              were detected (scan target is bad/dangerous).
+     *                              2 = A boolean.
+     *                              ├───True = Problems were detected (scan target is bad/dangerous).
+     *                              └───False = Problems were not detected (scan target is probably okay).
+     *                              3 = An array of the scan results for each item scanned as human-readable
+     *                              text.
+     *                              4 = A string of human-readable text (like 3, but imploded).
+     *                              Any other value [default] = Formatted text (i.e., the scan results seen
+     *                              when using phpMussel/CLI).
+     * @return mixed        The scan results (as per the indicated format).
      */
     public function scan($Files, int $Format = 0)
     {
@@ -244,7 +243,8 @@ class Scanner
         $this->Loader->Events->fireEvent('writeToSerialLog');
 
         /** Register scan event. */
-        $this->statsIncrement($this->CalledFrom === 'Web' ? 'Web-Events' : ($this->CalledFrom === 'CLI' ? 'CLI-Events' : 'API-Events'
+        $this->statsIncrement($this->CalledFrom === 'Web' ? 'Web-Events' : (
+            $this->CalledFrom === 'CLI' ? 'CLI-Events' : 'API-Events'
         ), 1);
 
         /** Update statistics. */
@@ -293,7 +293,6 @@ class Scanner
     /**
      * Initialise statistics if they've been enabled.
      *
-     * @return void
      */
     public function statsInitialise(): void
     {
@@ -310,17 +309,17 @@ class Scanner
         }
         if (empty($this->Loader->InstanceCache['Statistics']['Other-Since'])) {
             $this->Loader->InstanceCache['Statistics'] = [
-                'Other-Since' => $this->Loader->Time,
-                'Web-Events' => 0,
-                'Web-Scanned' => 0,
-                'Web-Blocked' => 0,
+                'Other-Since'     => $this->Loader->Time,
+                'Web-Events'      => 0,
+                'Web-Scanned'     => 0,
+                'Web-Blocked'     => 0,
                 'Web-Quarantined' => 0,
-                'CLI-Events' => 0,
-                'CLI-Scanned' => 0,
-                'CLI-Flagged' => 0,
-                'API-Events' => 0,
-                'API-Scanned' => 0,
-                'API-Flagged' => 0
+                'CLI-Events'      => 0,
+                'CLI-Scanned'     => 0,
+                'CLI-Flagged'     => 0,
+                'API-Events'      => 0,
+                'API-Scanned'     => 0,
+                'API-Flagged'     => 0
             ];
             $this->Loader->InstanceCache['StatisticsModified'] = true;
         }
@@ -330,8 +329,7 @@ class Scanner
      * Increments statistics if they've been enabled.
      *
      * @param string $Statistic The statistic to increment.
-     * @param int $Amount The amount to increment it by.
-     * @return void
+     * @param int    $Amount    The amount to increment it by.
      */
     public function statsIncrement(string $Statistic, int $Amount): void
     {
@@ -347,7 +345,7 @@ class Scanner
     /**
      * Implodes multidimensional arrays.
      *
-     * @param array $Arr An array to implode.
+     * @param  array  $Arr An array to implode.
      * @return string The imploded array.
      */
     public function implodeMd(array $Arr): string
@@ -364,9 +362,9 @@ class Scanner
      * Uses iterators to generate an array of the contents of a specified directory.
      * Used both by the scanner as well as by CLI.
      *
-     * @param string $Base Directory root.
-     * @param bool $Directories Includes directories in the array when true.
-     * @return array Directory tree.
+     * @param  string $Base        Directory root.
+     * @param  bool   $Directories Includes directories in the array when true.
+     * @return array  Directory tree.
      */
     public function directoryRecursiveList(string $Base, bool $Directories = false): array
     {
@@ -374,7 +372,7 @@ class Scanner
         $Offset = strlen($Base);
         $List = new \RecursiveIteratorIterator(new \RecursiveDirectoryIterator($Base), \RecursiveIteratorIterator::SELF_FIRST);
         foreach ($List as $Item => $List) {
-            if (preg_match('~^(?:/\.\.|./\.|\.{3})$~', str_replace("\\", '/', substr($Item, -3))) || !is_readable($Item)) {
+            if (preg_match('~^(?:/\.\.|./\.|\.{3})$~', str_replace('\\', '/', substr($Item, -3))) || !is_readable($Item)) {
                 continue;
             }
             if (is_dir($Item) && !$Directories) {
@@ -397,11 +395,11 @@ class Scanner
      * those files, which is the whole point of quarantining them in the first
      * place. Improvements might be made in the future.
      *
-     * @param string $In The input string (the file upload / source data).
-     * @param string $Key Your quarantine key.
-     * @param string $IP Data origin (usually, the IP address of the uploader).
-     * @param string $ID The QFU filename to use (calculated beforehand).
-     * @return bool True on success; False on failure.
+     * @param  string $In  The input string (the file upload / source data).
+     * @param  string $Key Your quarantine key.
+     * @param  string $IP  Data origin (usually, the IP address of the uploader).
+     * @param  string $ID  The QFU filename to use (calculated beforehand).
+     * @return bool   True on success; False on failure.
      */
     public function quarantine(string $In, string $Key, string $IP, string $ID): bool
     {
@@ -413,7 +411,8 @@ class Scanner
             return false;
         }
 
-        if (!$In || !$Key || !$IP || !$ID || !function_exists('gzdeflate') || (strlen($Key) < 128 &&
+        if (!$In || !$Key || !$IP || !$ID || !function_exists('gzdeflate') || (
+            strlen($Key) < 128 &&
             !$Key = $this->Loader->hexSafe(hash('sha512', $Key) . hash('whirlpool', $Key))
         )) {
             return false;
@@ -473,10 +472,10 @@ class Scanner
      * Returns the high and low nibbles corresponding to the first byte of the
      * input string.
      *
-     * @param string $Input The input string.
-     * @return array Contains two elements, both standard decimal integers; The
-     *      first is the high nibble of the input string, and the second is the low
-     *      nibble of the input string.
+     * @param  string $Input The input string.
+     * @return array  Contains two elements, both standard decimal integers; The
+     *                first is the high nibble of the input string, and the second is the low
+     *                nibble of the input string.
      */
     public function splitNibble(string $Input): array
     {
@@ -490,38 +489,38 @@ class Scanner
      * threshold of the levenshtein distance between the $Needle and the
      * $Haystack or the $Haystack substring specified.
      *
-     * @param string $Needle The needle (will be matched against the $Haystack,
-     *      or, if substring positions are specified, against the $Haystack
-     *      substring specified).
-     * @param string $Haystack The haystack (will be matched against the
-     *      $Needle). Note that for the purposes of calculating the levenshtein
-     *      distance, it doesn't matter which string is a $Needle and which is
-     *      a $Haystack (the value should be the same if the two were
-     *      reversed). However, when specifying substring positions, those
-     *      substring positions are applied to the $Haystack, and not the
-     *      $Needle. Note, too, that if the $Needle length is greater than the
-     *      $Haystack length (after having applied the substring positions to
-     *      the $Haystack), $Needle and $Haystack will be switched.
-     * @param int $pos_A The initial position of the $Haystack to use for the
-     *      substring, if using a substring (optional; defaults to `0`; `0` is
-     *      the beginning of the $Haystack).
-     * @param int $pos_Z The final position of the $Haystack to use for the
-     *      substring, if using a substring (optional; defaults to `0`; `0`
-     *      will instruct the method to continue to the end of the $Haystack,
-     *      and thus, if both $pos_A and $pos_Z are `0`, the entire $Haystack
-     *      will be used).
-     * @param int $min The threshold minimum (the minimum levenshtein distance
-     *      required in order for the two strings to be considered a match).
-     *      Optional; Defaults to `0`. If `0` or less is specified, there is no
-     *      minimum, and so, any and all strings should always match, as long
-     *      as the levenshtein distance doesn't surpass the threshold maximum.
-     * @param int $max The threshold maximum (the maximum levenshtein distance
-     *      allowed for the two strings to be considered a match). Optional;
-     *      Defaults to `-1`. If exactly `-1` is specified, there is no
-     *      maximum, and so, any and all strings should always match, as long
-     *      as the threshold minimum is met.
-     * @return bool True if the values are confined to the threshold; False
-     *      otherwise and on error.
+     * @param  string $Needle   The needle (will be matched against the $Haystack,
+     *                          or, if substring positions are specified, against the $Haystack
+     *                          substring specified).
+     * @param  string $Haystack The haystack (will be matched against the
+     *                          $Needle). Note that for the purposes of calculating the levenshtein
+     *                          distance, it doesn't matter which string is a $Needle and which is
+     *                          a $Haystack (the value should be the same if the two were
+     *                          reversed). However, when specifying substring positions, those
+     *                          substring positions are applied to the $Haystack, and not the
+     *                          $Needle. Note, too, that if the $Needle length is greater than the
+     *                          $Haystack length (after having applied the substring positions to
+     *                          the $Haystack), $Needle and $Haystack will be switched.
+     * @param  int    $pos_A    The initial position of the $Haystack to use for the
+     *                          substring, if using a substring (optional; defaults to `0`; `0` is
+     *                          the beginning of the $Haystack).
+     * @param  int    $pos_Z    The final position of the $Haystack to use for the
+     *                          substring, if using a substring (optional; defaults to `0`; `0`
+     *                          will instruct the method to continue to the end of the $Haystack,
+     *                          and thus, if both $pos_A and $pos_Z are `0`, the entire $Haystack
+     *                          will be used).
+     * @param  int    $min      The threshold minimum (the minimum levenshtein distance
+     *                          required in order for the two strings to be considered a match).
+     *                          Optional; Defaults to `0`. If `0` or less is specified, there is no
+     *                          minimum, and so, any and all strings should always match, as long
+     *                          as the levenshtein distance doesn't surpass the threshold maximum.
+     * @param  int    $max      The threshold maximum (the maximum levenshtein distance
+     *                          allowed for the two strings to be considered a match). Optional;
+     *                          Defaults to `-1`. If exactly `-1` is specified, there is no
+     *                          maximum, and so, any and all strings should always match, as long
+     *                          as the threshold minimum is met.
+     * @return bool   True if the values are confined to the threshold; False
+     *                otherwise and on error.
      */
     public function lvMatch(string $Needle, string $Haystack, int $pos_A = 0, int $pos_Z = 0, int $min = 0, int $max = -1): bool
     {
@@ -536,7 +535,8 @@ class Scanner
         $min = (int)$min;
         $max = (int)$max;
         if ($pos_A !== 0 || $pos_Z !== 0) {
-            $Haystack = ($pos_Z === 0
+            $Haystack = (
+                $pos_Z === 0
             ) ? substr($Haystack, $pos_A) : substr($Haystack, $pos_A, $pos_Z);
         }
         $hlen = strlen($Haystack);
@@ -555,7 +555,7 @@ class Scanner
      * byte of the output is either one or zero.
      * Output can be reversed with implodeBits.
      *
-     * @param string $Input The input string (see method description above).
+     * @param  string $Input The input string (see method description above).
      * @return string The output string (see method description above).
      */
     public function explodeBits(string $Input): string
@@ -571,7 +571,7 @@ class Scanner
     /**
      * The reverse of explodeBits.
      *
-     * @param string $Input The input string (see method description above).
+     * @param  string $Input The input string (see method description above).
      * @return string The output string (see method description above).
      */
     public function implodeBits(string $Input): string
@@ -588,7 +588,6 @@ class Scanner
      * Assigns an array to use for dumping scan debug information (optional).
      *
      * @param array $Arr
-     * @return void
      */
     public function setScanDebugArray(&$Arr): void
     {
@@ -603,7 +602,6 @@ class Scanner
      * Destroys the scan debug array (optional).
      *
      * @param array $Arr
-     * @return void
      */
     public function destroyScanDebugArray(&$Arr): void
     {
@@ -628,9 +626,8 @@ class Scanner
      * multidimensional array of multiple files and/or directories).
      *
      * @param string|array $Files Supplied by the scan method.
-     * @param int $Depth Represents the current depth of recursion from which the
-     *      method has been called.
-     * @return void
+     * @param int          $Depth Represents the current depth of recursion from which the
+     *                            method has been called.
      */
     private function recursor($Files = '', int $Depth = -1): void
     {
@@ -779,7 +776,8 @@ class Scanner
                 return;
             }
         }
-        if (!$this->Loader->Configuration['files']['allow_leading_trailing_dots'] && (substr($OriginalFilenameClean, 0, 1) === '.' || substr($OriginalFilenameClean, -1) === '.'
+        if (!$this->Loader->Configuration['files']['allow_leading_trailing_dots'] && (
+            substr($OriginalFilenameClean, 0, 1) === '.' || substr($OriginalFilenameClean, -1) === '.'
         )) {
             $this->Loader->InstanceCache['ThisScanDone']++;
             $this->Loader->Events->fireEvent('countersChanged');
@@ -883,13 +881,11 @@ class Scanner
          * only bother doing this if the file hasn't already been flagged though.
          */
         if (!empty($this->Loader->InstanceCache['CheckWasLast'])) {
-
             /** Create a new compression object. */
             $CompressionObject = new CompressionHandler($In);
 
             /** Now we'll try to decompress the file. */
             if (!$CompressionResults = $CompressionObject->TryEverything()) {
-
                 /** Success! Now we'll send it to the data handler. */
                 $this->dataHandler($CompressionObject->Data, $Depth, $this->dropTrailingCompressionExtension($OriginalFilenameClean));
 
@@ -908,7 +904,6 @@ class Scanner
 
         /** Executed if any problems were detected. */
         if (empty($this->Loader->InstanceCache['CheckWasLast'])) {
-
             /** Quarantine if necessary. */
             if (
                 $this->Loader->Configuration['quarantine']['quarantine_key'] &&
@@ -1026,17 +1021,16 @@ class Scanner
      * phpMussel, before returning the results of those checks back to the
      * recursor.
      *
-     * @param string $str Raw binary data to be checked, supplied by the calling
-     *      method (generally, the contents of the files to be scanned).
-     * @param int $Depth Represents the current depth of recursion from which the
-     *      closure has been called, used for determining how far to indent any
-     *      entries generated for logging and for the display of scan results in
-     *      CLI.
+     * @param string $str              Raw binary data to be checked, supplied by the calling
+     *                                 method (generally, the contents of the files to be scanned).
+     * @param int    $Depth            Represents the current depth of recursion from which the
+     *                                 closure has been called, used for determining how far to indent any
+     *                                 entries generated for logging and for the display of scan results in
+     *                                 CLI.
      * @param string $OriginalFilename Represents the "original filename" of the file being
-     *      scanned (in this context, referring to the name supplied by the upload
-     *      client or CLI operator, as opposed to the temporary filename assigned
-     *      by the server or anything else).
-     * @return void
+     *                                 scanned (in this context, referring to the name supplied by the upload
+     *                                 client or CLI operator, as opposed to the temporary filename assigned
+     *                                 by the server or anything else).
      */
     private function dataHandler(string $str = '', int $Depth = 0, string $OriginalFilename = ''): void
     {
@@ -1110,27 +1104,28 @@ class Scanner
             if (isset($this->debugArr)) {
                 $this->Loader->InstanceCache['DebugArrKey'] = count($this->debugArr);
                 $this->debugArr[$this->Loader->InstanceCache['DebugArrKey']] = [
-                    'Filename' => $OriginalFilename,
+                    'Filename'  => $OriginalFilename,
                     'FromCache' => true,
-                    'Depth' => $Depth,
-                    'Size' => $StringLength,
-                    'MD5' => $md5,
-                    'SHA1' => $sha1,
-                    'SHA256' => $sha256,
-                    'CRC32B' => $crc32b,
-                    '2CC' => $twocc,
-                    '4CC' => $fourcc,
+                    'Depth'     => $Depth,
+                    'Size'      => $StringLength,
+                    'MD5'       => $md5,
+                    'SHA1'      => $sha1,
+                    'SHA256'    => $sha256,
+                    'CRC32B'    => $crc32b,
+                    '2CC'       => $twocc,
+                    '4CC'       => $fourcc,
                     'ScanPhase' => $this->Loader->InstanceCache['phase'],
                     'Container' => $this->Loader->InstanceCache['container'],
-                    'Results' => $HashCacheEntry[0],
-                    'Output' => $HashCacheEntry[1]
+                    'Results'   => $HashCacheEntry[0],
+                    'Output'    => $HashCacheEntry[1]
                 ];
             }
 
             /** Something was detected. */
             if ($HashCacheEntry[0] !== 1) {
                 /** Register object flagged. */
-                $this->statsIncrement($this->CalledFrom === 'Web' ? 'Web-Blocked' : ($this->CalledFrom === 'CLI' ? 'CLI-Flagged' : 'API-Flagged'
+                $this->statsIncrement($this->CalledFrom === 'Web' ? 'Web-Blocked' : (
+                    $this->CalledFrom === 'CLI' ? 'CLI-Flagged' : 'API-Flagged'
                 ), 1);
 
                 /** Register the hit. */
@@ -1161,7 +1156,8 @@ class Scanner
         }
 
         /** Indicates whether we need to decode the contents of the scan target. */
-        $decode_or_not = (($this->Loader->Configuration['files']['decode_threshold'] > 0 &&
+        $decode_or_not = ((
+            $this->Loader->Configuration['files']['decode_threshold'] > 0 &&
             $StringLength > $this->Loader->readBytes($this->Loader->Configuration['files']['decode_threshold'])
         ) || $StringLength < 16) ? 0 : 1;
 
@@ -1251,7 +1247,8 @@ class Scanner
         $is_pdf = ($pdf_magic || $xt === 'pdf');
 
         /** Look for potential Shockwave/SWF indicators. */
-        $is_swf = (strpos(',435753,465753,5a5753,', ',' . substr($str_hex, 0, 6) . ',') !== false ||
+        $is_swf = (
+            strpos(',435753,465753,5a5753,', ',' . substr($str_hex, 0, 6) . ',') !== false ||
             strpos(',swf,swt,', ',' . $xt . ',') !== false
         );
 
@@ -1262,7 +1259,8 @@ class Scanner
         $asciiable = (bool)$str_hex_norm_len;
 
         /** Used to identify whether to check against OLE signatures. */
-        $is_ole = !empty($this->Loader->InstanceCache['file_is_ole']) && (!empty($this->Loader->InstanceCache['file_is_macro']) ||
+        $is_ole = !empty($this->Loader->InstanceCache['file_is_ole']) && (
+            !empty($this->Loader->InstanceCache['file_is_macro']) ||
             strpos(',bin,ole,xml,rels,', ',' . $xt . ',') !== false
         );
 
@@ -1311,26 +1309,34 @@ class Scanner
                     if (isset($Fragment[3])) {
                         if ($Fragment[2] === 'A') {
                             if (
-                                strpos(',FD,FD-RX,FD-NORM,FD-NORM-RX,', ',' . $Fragment[0] . ',') === false || ($Fragment[0] === 'FD' &&
+                                strpos(',FD,FD-RX,FD-NORM,FD-NORM-RX,', ',' . $Fragment[0] . ',') === false || (
+                                    $Fragment[0] === 'FD' &&
                                     strpos("\1" . substr($str_hex, 0, $Fragment[3] * 2), "\1" . $Fragment[1]) === false
-                                ) || ($Fragment[0] === 'FD-RX' &&
+                                ) || (
+                                    $Fragment[0] === 'FD-RX' &&
                                     !preg_match('/\A(?:' . $Fragment[1] . ')/i', substr($str_hex, 0, $Fragment[3] * 2))
-                                ) || ($Fragment[0] === 'FD-NORM' &&
+                                ) || (
+                                    $Fragment[0] === 'FD-NORM' &&
                                     strpos("\1" . substr($str_hex_norm, 0, $Fragment[3] * 2), "\1" . $Fragment[1]) === false
-                                ) || ($Fragment[0] === 'FD-NORM-RX' &&
+                                ) || (
+                                    $Fragment[0] === 'FD-NORM-RX' &&
                                     !preg_match('/\A(?:' . $Fragment[1] . ')/i', substr($str_hex_norm, 0, $Fragment[3] * 2))
                                 )
                             ) {
                                 continue 2;
                             }
                         } elseif (
-                            strpos(',FD,FD-RX,FD-NORM,FD-NORM-RX,', ',' . $Fragment[0] . ',') === false || ($Fragment[0] === 'FD' &&
+                            strpos(',FD,FD-RX,FD-NORM,FD-NORM-RX,', ',' . $Fragment[0] . ',') === false || (
+                                $Fragment[0] === 'FD' &&
                                 strpos(substr($str_hex, $Fragment[2] * 2, $Fragment[3] * 2), $Fragment[1]) === false
-                            ) || ($Fragment[0] === 'FD-RX' &&
+                            ) || (
+                                $Fragment[0] === 'FD-RX' &&
                                 !preg_match('/(?:' . $Fragment[1] . ')/i', substr($str_hex, $Fragment[2] * 2, $Fragment[3] * 2))
-                            ) || ($Fragment[0] === 'FD-NORM' &&
+                            ) || (
+                                $Fragment[0] === 'FD-NORM' &&
                                 strpos(substr($str_hex_norm, $Fragment[2] * 2, $Fragment[3] * 2), $Fragment[1]) === false
-                            ) || ($Fragment[0] === 'FD-NORM-RX' &&
+                            ) || (
+                                $Fragment[0] === 'FD-NORM-RX' &&
                                 !preg_match('/(?:' . $Fragment[1] . ')/i', substr($str_hex_norm, $Fragment[2] * 2, $Fragment[3] * 2))
                             )
                         ) {
@@ -1339,28 +1345,37 @@ class Scanner
                     } else {
                         if ($Fragment[2] === 'A') {
                             if (
-                                strpos(',FN,FD,FD-RX,FD-NORM,FD-NORM-RX,', ',' . $Fragment[0] . ',') === false || ($Fragment[0] === 'FN' &&
+                                strpos(',FN,FD,FD-RX,FD-NORM,FD-NORM-RX,', ',' . $Fragment[0] . ',') === false || (
+                                    $Fragment[0] === 'FN' &&
                                     !preg_match('/\A(?:' . $Fragment[1] . ')/i', $OriginalFilename)
-                                ) || ($Fragment[0] === 'FD' &&
+                                ) || (
+                                    $Fragment[0] === 'FD' &&
                                     strpos("\1" . $str_hex, "\1" . $Fragment[1]) === false
-                                ) || ($Fragment[0] === 'FD-RX' &&
+                                ) || (
+                                    $Fragment[0] === 'FD-RX' &&
                                     !preg_match('/\A(?:' . $Fragment[1] . ')/i', $str_hex)
-                                ) || ($Fragment[0] === 'FD-NORM' &&
+                                ) || (
+                                    $Fragment[0] === 'FD-NORM' &&
                                     strpos("\1" . $str_hex_norm, "\1" . $Fragment[1]) === false
-                                ) || ($Fragment[0] === 'FD-NORM-RX' &&
+                                ) || (
+                                    $Fragment[0] === 'FD-NORM-RX' &&
                                     !preg_match('/\A(?:' . $Fragment[1] . ')/i', $str_hex_norm)
                                 )
                             ) {
                                 continue 2;
                             }
                         } elseif (
-                            strpos(',FD,FD-RX,FD-NORM,FD-NORM-RX,', ',' . $Fragment[0] . ',') === false || ($Fragment[0] === 'FD' &&
+                            strpos(',FD,FD-RX,FD-NORM,FD-NORM-RX,', ',' . $Fragment[0] . ',') === false || (
+                                $Fragment[0] === 'FD' &&
                                 strpos(substr($str_hex, $Fragment[2] * 2), $Fragment[1]) === false
-                            ) || ($Fragment[0] === 'FD-RX' &&
+                            ) || (
+                                $Fragment[0] === 'FD-RX' &&
                                 !preg_match('/(?:' . $Fragment[1] . ')/i', substr($str_hex, $Fragment[2] * 2))
-                            ) || ($Fragment[0] === 'FD-NORM' &&
+                            ) || (
+                                $Fragment[0] === 'FD-NORM' &&
                                 strpos(substr($str_hex_norm, $Fragment[2] * 2), $Fragment[1]) === false
-                            ) || ($Fragment[0] === 'FD-NORM-RX' &&
+                            ) || (
+                                $Fragment[0] === 'FD-NORM-RX' &&
                                 !preg_match('/(?:' . $Fragment[1] . ')/i', substr($str_hex_norm, $Fragment[2] * 2))
                             )
                         ) {
@@ -1526,7 +1541,8 @@ class Scanner
                             ["O\0r\0i\0g\0i\0n\0a\0l\0F\0i\0l\0e\0n\0a\0m\0e\0\0\0", 'PEOriginalFilename'],
                             ["C\0o\0m\0p\0a\0n\0y\0N\0a\0m\0e\0\0\0", 'PECompanyName'],
                         ] as $PEVars) {
-                            if (strpos($PEArr['Parts'], $PEVars[0]) !== false && (${$PEVars[1]} = trim(str_ireplace("\0", '', $this->Loader->substrBeforeFirst(
+                            if (strpos($PEArr['Parts'], $PEVars[0]) !== false && (
+                                ${$PEVars[1]} = trim(str_ireplace("\0", '', $this->Loader->substrBeforeFirst(
                                     $this->Loader->substrAfterLast($PEArr['Parts'], $PEVars[0]),
                                     "\0\0\0"
                                 )))
@@ -1552,7 +1568,8 @@ class Scanner
         $is_not_html = (!$is_html && ($is_macho || $is_elf || $is_pe));
 
         /** Look for potential indicators of not being PHP. */
-        $is_not_php = ((strpos(',phar,', ',' . $xt . ',') === false &&
+        $is_not_php = ((
+            strpos(',phar,', ',' . $xt . ',') === false &&
             strpos(',php*,', ',' . $xts . ',') === false &&
             strpos(',phar,', ',' . $gzxt . ',') === false &&
             strpos(',php*,', ',' . $gzxts . ',') === false &&
@@ -1563,40 +1580,40 @@ class Scanner
         if (isset($this->debugArr)) {
             $this->Loader->InstanceCache['DebugArrKey'] = count($this->debugArr);
             $this->debugArr[$this->Loader->InstanceCache['DebugArrKey']] = [
-                'Filename' => $OriginalFilename,
-                'FromCache' => false,
-                'Depth' => $Depth,
-                'Size' => $StringLength,
-                'MD5' => $md5,
-                'SHA1' => $sha1,
-                'SHA256' => $sha256,
-                'CRC32B' => $crc32b,
-                '2CC' => $twocc,
-                '4CC' => $fourcc,
-                'ScanPhase' => $phase,
-                'Container' => $container,
-                'FileSwitch' => $fileswitch,
-                'Is_ELF' => $is_elf,
+                'Filename'    => $OriginalFilename,
+                'FromCache'   => false,
+                'Depth'       => $Depth,
+                'Size'        => $StringLength,
+                'MD5'         => $md5,
+                'SHA1'        => $sha1,
+                'SHA256'      => $sha256,
+                'CRC32B'      => $crc32b,
+                '2CC'         => $twocc,
+                '4CC'         => $fourcc,
+                'ScanPhase'   => $phase,
+                'Container'   => $container,
+                'FileSwitch'  => $fileswitch,
+                'Is_ELF'      => $is_elf,
                 'Is_Graphics' => $is_graphics,
-                'Is_HTML' => $is_html,
-                'Is_Email' => $is_email,
-                'Is_MachO' => $is_macho,
-                'Is_PDF' => $is_pdf,
-                'Is_SWF' => $is_swf,
-                'Is_PE' => $is_pe,
+                'Is_HTML'     => $is_html,
+                'Is_Email'    => $is_email,
+                'Is_MachO'    => $is_macho,
+                'Is_PDF'      => $is_pdf,
+                'Is_SWF'      => $is_swf,
+                'Is_PE'       => $is_pe,
                 'Is_Not_HTML' => $is_not_html,
-                'Is_Not_PHP' => $is_not_php
+                'Is_Not_PHP'  => $is_not_php
             ];
             if ($is_pe) {
                 $this->debugArr[$this->Loader->InstanceCache['DebugArrKey']] += [
-                    'NumOfSections' => $NumOfSections,
-                    'PEFileDescription' => $PEFileDescription,
-                    'PEFileVersion' => $PEFileVersion,
-                    'PEProductName' => $PEProductName,
-                    'PEProductVersion' => $PEProductVersion,
-                    'PECopyright' => $PECopyright,
+                    'NumOfSections'      => $NumOfSections,
+                    'PEFileDescription'  => $PEFileDescription,
+                    'PEFileVersion'      => $PEFileVersion,
+                    'PEProductName'      => $PEProductName,
+                    'PEProductVersion'   => $PEProductVersion,
+                    'PECopyright'        => $PECopyright,
                     'PEOriginalFilename' => $PEOriginalFilename,
-                    'PECompanyName' => $PECompanyName
+                    'PECompanyName'      => $PECompanyName
                 ];
             }
         }
@@ -1611,21 +1628,21 @@ class Scanner
         ) {
             $this->Loader->InstanceCache['LookupCount'] = 0;
             $URLScanner = [
-                'FixedSource' => preg_replace('~(data|f(ile|tps?)|https?|sftp):~i', "\x01\\1:", str_replace("\\", '/', $str_norm)) . "\1",
-                'DomainsNoLookup' => [],
-                'DomainsCount' => 0,
-                'Domains' => [],
+                'FixedSource'         => preg_replace('~(data|f(ile|tps?)|https?|sftp):~i', "\x01\\1:", str_replace('\\', '/', $str_norm)) . "\1",
+                'DomainsNoLookup'     => [],
+                'DomainsCount'        => 0,
+                'Domains'             => [],
                 'DomainPartsNoLookup' => [],
-                'DomainParts' => [],
-                'Queries' => [],
-                'URLsNoLookup' => [],
-                'URLsCount' => 0,
-                'URLs' => [],
-                'URLPartsNoLookup' => [],
-                'URLParts' => [],
-                'TLDs' => [],
-                'Iterable' => 0,
-                'Matches' => []
+                'DomainParts'         => [],
+                'Queries'             => [],
+                'URLsNoLookup'        => [],
+                'URLsCount'           => 0,
+                'URLs'                => [],
+                'URLPartsNoLookup'    => [],
+                'URLParts'            => [],
+                'TLDs'                => [],
+                'Iterable'            => 0,
+                'Matches'             => []
             ];
             if (preg_match_all(
                 '~(?:data|f(?:ile|tps?)|https?|sftp)://(?:www\d{0,3}\.)?([\da-z.-]{1,512})[^\da-z.-]~i',
@@ -1711,7 +1728,6 @@ class Scanner
             ['URL_Scanner', 4],
             ['Complex_Extended', 5]
         ] as $ThisConf) {
-
             /** Fire event: "beforeSigFiles". */
             $this->Loader->Events->fireEvent('beforeSigFiles');
 
@@ -1885,7 +1901,8 @@ class Scanner
                         if (!isset($$ThisCheckFor)) {
                             continue;
                         }
-                        $ThisCheckValue = "\n$" . $ThisCheckFor . ':' . (substr($ThisCheckFor, 0, 3) !== 'is_' ? $$ThisCheckFor : ($$ThisCheckFor ? '1' : '0')
+                        $ThisCheckValue = "\n$" . $ThisCheckFor . ':' . (
+                            substr($ThisCheckFor, 0, 3) !== 'is_' ? $$ThisCheckFor : ($$ThisCheckFor ? '1' : '0')
                         ) . ';';
                         if (strpos($this->Loader->InstanceCache[$SigFile], $ThisCheckValue) === false) {
                             continue;
@@ -1937,30 +1954,40 @@ class Scanner
                                     if (isset($ThisSigPart[2])) {
                                         if (isset($ThisSigPart[3])) {
                                             if ($ThisSigPart[2] === 'A') {
-                                                if (strpos(',FD,FD-RX,FD-NORM,FD-NORM-RX,META,', ',' . $ThisSigPart[0] . ',') === false || ($ThisSigPart[0] === 'FD' &&
+                                                if (strpos(',FD,FD-RX,FD-NORM,FD-NORM-RX,META,', ',' . $ThisSigPart[0] . ',') === false || (
+                                                    $ThisSigPart[0] === 'FD' &&
                                                     strpos("\1" . substr($str_hex, 0, $ThisSigPart[3] * 2), "\1" . $ThisSigPart[1]) === false
-                                                ) || ($ThisSigPart[0] === 'FD-RX' &&
+                                                ) || (
+                                                    $ThisSigPart[0] === 'FD-RX' &&
                                                     !preg_match('/\A(?:' . $ThisSigPart[1] . ')/i', substr($str_hex, 0, $ThisSigPart[3] * 2))
-                                                ) || ($ThisSigPart[0] === 'FD-NORM' &&
+                                                ) || (
+                                                    $ThisSigPart[0] === 'FD-NORM' &&
                                                     strpos("\1" . substr($str_hex_norm, 0, $ThisSigPart[3] * 2), "\1" . $ThisSigPart[1]) === false
-                                                ) || ($ThisSigPart[0] === 'FD-NORM-RX' &&
+                                                ) || (
+                                                    $ThisSigPart[0] === 'FD-NORM-RX' &&
                                                     !preg_match('/\A(?:' . $ThisSigPart[1] . ')/i', substr($str_hex_norm, 0, $ThisSigPart[3] * 2))
-                                                ) || ($ThisSigPart[0] === 'META' &&
+                                                ) || (
+                                                    $ThisSigPart[0] === 'META' &&
                                                     !preg_match('/\A(?:' . $ThisSigPart[1] . ')/i', substr($CoExMeta, 0, $ThisSigPart[3] * 2))
                                                 )) {
                                                     continue 2;
                                                 }
                                                 continue;
                                             }
-                                            if (strpos(',FD,FD-RX,FD-NORM,FD-NORM-RX,META,', ',' . $ThisSigPart[0] . ',') === false || ($ThisSigPart[0] === 'FD' &&
+                                            if (strpos(',FD,FD-RX,FD-NORM,FD-NORM-RX,META,', ',' . $ThisSigPart[0] . ',') === false || (
+                                                $ThisSigPart[0] === 'FD' &&
                                                 strpos(substr($str_hex, $ThisSigPart[2] * 2, $ThisSigPart[3] * 2), $ThisSigPart[1]) === false
-                                            ) || ($ThisSigPart[0] === 'FD-RX' &&
+                                            ) || (
+                                                $ThisSigPart[0] === 'FD-RX' &&
                                                 !preg_match('/(?:' . $ThisSigPart[1] . ')/i', substr($str_hex, $ThisSigPart[2] * 2, $ThisSigPart[3] * 2))
-                                            ) || ($ThisSigPart[0] === 'FD-NORM' &&
+                                            ) || (
+                                                $ThisSigPart[0] === 'FD-NORM' &&
                                                 strpos(substr($str_hex_norm, $ThisSigPart[2] * 2, $ThisSigPart[3] * 2), $ThisSigPart[1]) === false
-                                            ) || ($ThisSigPart[0] === 'FD-NORM-RX' &&
+                                            ) || (
+                                                $ThisSigPart[0] === 'FD-NORM-RX' &&
                                                 !preg_match('/(?:' . $ThisSigPart[1] . ')/i', substr($str_hex_norm, $ThisSigPart[2] * 2, $ThisSigPart[3] * 2))
-                                            ) || ($ThisSigPart[0] === 'META' &&
+                                            ) || (
+                                                $ThisSigPart[0] === 'META' &&
                                                 !preg_match('/(?:' . $ThisSigPart[1] . ')/i', substr($CoExMeta, $ThisSigPart[2] * 2, $ThisSigPart[3] * 2))
                                             )) {
                                                 continue 2;
@@ -1968,53 +1995,72 @@ class Scanner
                                             continue;
                                         }
                                         if ($ThisSigPart[2] === 'A') {
-                                            if (strpos(',FN,FD,FD-RX,FD-NORM,FD-NORM-RX,META,', ',' . $ThisSigPart[0] . ',') === false || ($ThisSigPart[0] === 'FN' &&
+                                            if (strpos(',FN,FD,FD-RX,FD-NORM,FD-NORM-RX,META,', ',' . $ThisSigPart[0] . ',') === false || (
+                                                $ThisSigPart[0] === 'FN' &&
                                                 !preg_match('/\A(?:' . $ThisSigPart[1] . ')/i', $OriginalFilename)
-                                            ) || ($ThisSigPart[0] === 'FD' &&
+                                            ) || (
+                                                $ThisSigPart[0] === 'FD' &&
                                                 strpos("\1" . $str_hex, "\1" . $ThisSigPart[1]) === false
-                                            ) || ($ThisSigPart[0] === 'FD-RX' &&
+                                            ) || (
+                                                $ThisSigPart[0] === 'FD-RX' &&
                                                 !preg_match('/\A(?:' . $ThisSigPart[1] . ')/i', $str_hex)
-                                            ) || ($ThisSigPart[0] === 'FD-NORM' &&
+                                            ) || (
+                                                $ThisSigPart[0] === 'FD-NORM' &&
                                                 strpos("\1" . $str_hex_norm, "\1" . $ThisSigPart[1]) === false
-                                            ) || ($ThisSigPart[0] === 'FD-NORM-RX' &&
+                                            ) || (
+                                                $ThisSigPart[0] === 'FD-NORM-RX' &&
                                                 !preg_match('/\A(?:' . $ThisSigPart[1] . ')/i', $str_hex_norm)
-                                            ) || ($ThisSigPart[0] === 'META' &&
+                                            ) || (
+                                                $ThisSigPart[0] === 'META' &&
                                                 !preg_match('/\A(?:' . $ThisSigPart[1] . ')/i', $CoExMeta)
                                             )) {
                                                 continue 2;
                                             }
                                             continue;
                                         }
-                                        if (strpos(',FD,FD-RX,FD-NORM,FD-NORM-RX,META,', ',' . $ThisSigPart[0] . ',') === false || ($ThisSigPart[0] === 'FD' &&
+                                        if (strpos(',FD,FD-RX,FD-NORM,FD-NORM-RX,META,', ',' . $ThisSigPart[0] . ',') === false || (
+                                            $ThisSigPart[0] === 'FD' &&
                                             strpos(substr($str_hex, $ThisSigPart[2] * 2), $ThisSigPart[1]) === false
-                                        ) || ($ThisSigPart[0] === 'FD-RX' &&
+                                        ) || (
+                                            $ThisSigPart[0] === 'FD-RX' &&
                                             !preg_match('/(?:' . $ThisSigPart[1] . ')/i', substr($str_hex, $ThisSigPart[2] * 2))
-                                        ) || ($ThisSigPart[0] === 'FD-NORM' &&
+                                        ) || (
+                                            $ThisSigPart[0] === 'FD-NORM' &&
                                             strpos(substr($str_hex_norm, $ThisSigPart[2] * 2), $ThisSigPart[1]) === false
-                                        ) || ($ThisSigPart[0] === 'FD-NORM-RX' &&
+                                        ) || (
+                                            $ThisSigPart[0] === 'FD-NORM-RX' &&
                                             !preg_match('/(?:' . $ThisSigPart[1] . ')/i', substr($str_hex_norm, $ThisSigPart[2] * 2))
-                                        ) || ($ThisSigPart[0] === 'META' &&
+                                        ) || (
+                                            $ThisSigPart[0] === 'META' &&
                                             !preg_match('/(?:' . $ThisSigPart[1] . ')/i', substr($CoExMeta, $ThisSigPart[2] * 2))
                                         )) {
                                             continue 2;
                                         }
                                         continue;
                                     }
-                                    if (($ThisSigPart[0] === 'FN' &&
+                                    if ((
+                                        $ThisSigPart[0] === 'FN' &&
                                         !preg_match('/(?:' . $ThisSigPart[1] . ')/i', $OriginalFilename)
-                                    ) || ($ThisSigPart[0] === 'FS-MIN' &&
+                                    ) || (
+                                        $ThisSigPart[0] === 'FS-MIN' &&
                                         $StringLength < $ThisSigPart[1]
-                                    ) || ($ThisSigPart[0] === 'FS-MAX' &&
+                                    ) || (
+                                        $ThisSigPart[0] === 'FS-MAX' &&
                                         $StringLength > $ThisSigPart[1]
-                                    ) || ($ThisSigPart[0] === 'FD' &&
+                                    ) || (
+                                        $ThisSigPart[0] === 'FD' &&
                                         strpos($str_hex, $ThisSigPart[1]) === false
-                                    ) || ($ThisSigPart[0] === 'FD-RX' &&
+                                    ) || (
+                                        $ThisSigPart[0] === 'FD-RX' &&
                                         !preg_match('/(?:' . $ThisSigPart[1] . ')/i', $str_hex)
-                                    ) || ($ThisSigPart[0] === 'FD-NORM' &&
+                                    ) || (
+                                        $ThisSigPart[0] === 'FD-NORM' &&
                                         strpos($str_hex_norm, $ThisSigPart[1]) === false
-                                    ) || ($ThisSigPart[0] === 'FD-NORM-RX' &&
+                                    ) || (
+                                        $ThisSigPart[0] === 'FD-NORM-RX' &&
                                         !preg_match('/(?:' . $ThisSigPart[1] . ')/i', $str_hex_norm)
-                                    ) || ($ThisSigPart[0] === 'META' &&
+                                    ) || (
+                                        $ThisSigPart[0] === 'META' &&
                                         !preg_match('/(?:' . $ThisSigPart[1] . ')/i', $CoExMeta)
                                     )) {
                                         continue 2;
@@ -2197,7 +2243,8 @@ class Scanner
                                 }
                             }
                         } elseif ($ThisConf[3] === 0 || $ThisConf[3] === 1) {
-                            $ThisSig = preg_split(($ThisConf[3] === 0 ? '/[^\da-f>]+/i' : '/[\x00-\x1F]+/'
+                            $ThisSig = preg_split((
+                                $ThisConf[3] === 0 ? '/[^\da-f>]+/i' : '/[\x00-\x1F]+/'
                             ), $VN[1], -1, PREG_SPLIT_NO_EMPTY);
                             $ThisSig = ($ThisSig === false ? '' : implode('', $ThisSig));
                             $ThisSigLen = strlen($ThisSig);
@@ -2208,8 +2255,10 @@ class Scanner
                             $xstrt = $VN[3] ?? '*';
                             $VN = $this->getShorthand($VN[0]);
                             $VNLC = strtolower($VN);
-                            if (($is_not_php && (strpos($VNLC, '-php') !== false || strpos($VNLC, '.php') !== false
-                            )) || ($is_not_html && (strpos($VNLC, '-htm') !== false || strpos($VNLC, '.htm') !== false
+                            if (($is_not_php && (
+                                strpos($VNLC, '-php') !== false || strpos($VNLC, '.php') !== false
+                            )) || ($is_not_html && (
+                                strpos($VNLC, '-htm') !== false || strpos($VNLC, '.htm') !== false
                             ))) {
                                 continue;
                             }
@@ -2275,11 +2324,11 @@ class Scanner
 
             /** Codeblock for performing Google Safe Browsing API lookups. */
             if ($this->Loader->Configuration['urlscanner']['google_api_key'] && $URLScanner['URLsCount']) {
-                $URLScanner['URLsChunked'] = ($URLScanner['URLsCount'] > 500
+                $URLScanner['URLsChunked'] = (
+                    $URLScanner['URLsCount'] > 500
                 ) ? array_chunk($URLScanner['URLParts'], 500) : [$URLScanner['URLParts']];
                 $URLScanner['URLChunks'] = count($URLScanner['URLsChunked']);
                 for ($i = 0; $i < $URLScanner['URLChunks']; $i++) {
-
                     /** Maximum API lookups reached; abort accordingly. */
                     if (
                         $this->Loader->Configuration['urlscanner']['maximum_api_lookups'] > 0 &&
@@ -2328,7 +2377,8 @@ class Scanner
         $this->Loader->Events->fireEvent('beforeChameleonDetections');
 
         /** Chameleon attack bypasses for Mac OS X thumbnails and screenshots. */
-        $ThumbnailBypass = (substr($OriginalFilename, 0, 2) === '._' &&
+        $ThumbnailBypass = (
+            substr($OriginalFilename, 0, 2) === '._' &&
             !preg_match('~[^\x00-\x1F]~', substr($str, 0, 8)) &&
             substr($str, 8, 8) === 'Mac OS X'
         );
@@ -2493,7 +2543,7 @@ class Scanner
                 }
                 if ($VTLookups < $this->Loader->Configuration['virustotal']['vt_quota_rate']) {
                     $VTParams = [
-                        'apikey' => $this->Loader->Configuration['virustotal']['vt_public_api_key'],
+                        'apikey'   => $this->Loader->Configuration['virustotal']['vt_public_api_key'],
                         'resource' => $md5
                     ];
                     $VTRequest = $this->Loader->Request->request(
@@ -2587,7 +2637,8 @@ class Scanner
 
         /** Register object flagged. */
         if (!empty($this->Loader->ScanResultsText[$AtInstanceLookupKey])) {
-            $this->statsIncrement($this->CalledFrom === 'Web' ? 'Web-Blocked' : ($this->CalledFrom === 'CLI' ? 'CLI-Flagged' : 'API-Flagged'
+            $this->statsIncrement($this->CalledFrom === 'Web' ? 'Web-Blocked' : (
+                $this->CalledFrom === 'CLI' ? 'CLI-Flagged' : 'API-Flagged'
             ), 1);
         }
     }
@@ -2597,12 +2648,11 @@ class Scanner
      *
      * This is where we recurse through archives during the scan.
      *
-     * @param string $Data The data to be scanned (preferably an archive).
-     * @param string $File A path to the file, to be able to access it directly if
-     *      needed (because the zip and rar classes require a file pointer).
-     * @param int $ScanDepth The current scan depth (supplied during recursion).
-     * @param string $ItemRef A reference to the parent container (for logging).
-     * @return void
+     * @param  string    $Data      The data to be scanned (preferably an archive).
+     * @param  string    $File      A path to the file, to be able to access it directly if
+     *                              needed (because the zip and rar classes require a file pointer).
+     * @param  int       $ScanDepth The current scan depth (supplied during recursion).
+     * @param  string    $ItemRef   A reference to the parent container (for logging).
      * @throws Exception if the metadata scanner throws an exception (forwarded on).
      */
     private function archiveRecursor(string $Data, string $File = '', int $ScanDepth = 0, string $ItemRef = ''): void
@@ -2852,8 +2902,8 @@ class Scanner
 
                     /** Fetch and prepare filename. */
                     if ($Filename = $ArchiveObject->EntryName()) {
-                        while (strpos($Filename, "\\") !== false || strpos($Filename, '/') !== false) {
-                            $Filename = $this->Loader->substrAfterLast($Filename, "\\");
+                        while (strpos($Filename, '\\') !== false || strpos($Filename, '/') !== false) {
+                            $Filename = $this->Loader->substrAfterLast($Filename, '\\');
                             $Filename = $this->Loader->substrAfterLast($Filename, '/');
                         }
                     }
@@ -2869,7 +2919,8 @@ class Scanner
                     $ThisItemRef = $ItemRef . '→' . preg_replace(['~[\x00-\x1F]~', '~^[\\\/]~'], '', $Filename);
 
                     /** Verify filesize, integrity, etc. Exit early in case of problems. */
-                    if ($Filesize !== strlen($Content) || ($InternalCRC &&
+                    if ($Filesize !== strlen($Content) || (
+                        $InternalCRC &&
                         preg_replace('~^0+~', '', $DataCRC32) !== preg_replace('~^0+~', '', $InternalCRC)
                     )) {
                         $this->Loader->atHit($Hash, $Filesize, $ThisItemRef, sprintf(
@@ -2939,7 +2990,6 @@ class Scanner
     /**
      * Fetch information about signature files for the scan process.
      *
-     * @return void
      */
     private function organiseSigFiles(): void
     {
@@ -2990,7 +3040,7 @@ class Scanner
     /**
      * Does some simple decoding work on strings.
      *
-     * @param string $str The string to be decoded.
+     * @param  string $str The string to be decoded.
      * @return string The decoded string.
      */
     private function prescanDecode(string $str): string
@@ -3005,8 +3055,8 @@ class Scanner
     /**
      * Fetches extensions data from filenames.
      *
-     * @param string $OriginalFilename The original filename.
-     * @return array The extensions data.
+     * @param  string $OriginalFilename The original filename.
+     * @return array  The extensions data.
      */
     private function fetchExtension(string $OriginalFilename): array
     {
@@ -3033,12 +3083,12 @@ class Scanner
     /**
      * All needles must assert as the assert state being instances of haystacks.
      *
-     * @param array $Haystacks The haystacks.
-     * @param array $Needles The needles.
-     * @param string $Padding An optional string to pad haystacks and needles.
-     * @param bool $AssertState MUST (true) or must NOT (false) be an instance of.
-     * @param bool $Mode ALL (false) or ANY (true) must assert.
-     * @return bool True if requirement conforms; False otherwise.
+     * @param  array  $Haystacks   The haystacks.
+     * @param  array  $Needles     The needles.
+     * @param  string $Padding     An optional string to pad haystacks and needles.
+     * @param  bool   $AssertState MUST (true) or must NOT (false) be an instance of.
+     * @param  bool   $Mode        ALL (false) or ANY (true) must assert.
+     * @return bool   True if requirement conforms; False otherwise.
      */
     private function containsMustAssert(array $Haystacks, array $Needles, string $Padding = ',', bool $AssertState = false, bool $Mode = false): bool
     {
@@ -3063,17 +3113,17 @@ class Scanner
     /**
      * Looks for image file indicators (i.e., checks whether a file is an image file).
      *
-     * @param string $Ext The file extension.
-     * @param string $Head The file header.
-     * @return bool True: Indicators found. False: Indicators not found.
+     * @param  string $Ext  The file extension.
+     * @param  string $Head The file header.
+     * @return bool   True: Indicators found. False: Indicators not found.
      */
     private function imageIndicators(string $Ext, string $Head): bool
     {
         return (preg_match(
-                '/^(?:bm[2p]|c(d5|gm)|d(ib|w[fg]|xf)|ecw|fits|gif|img|j(f?if?|p[2s]|pe?g?2?|xr)|p(bm|cx|dd|gm|ic|n[gms]|' .
-                    'pm|s[dp])|s(id|v[ag])|tga|w(bmp?|ebp|mp)|x(cf|bmp))$/',
-                $Ext
-            ) ||
+            '/^(?:bm[2p]|c(d5|gm)|d(ib|w[fg]|xf)|ecw|fits|gif|img|j(f?if?|p[2s]|pe?g?2?|xr)|p(bm|cx|dd|gm|ic|n[gms]|' .
+                'pm|s[dp])|s(id|v[ag])|tga|w(bmp?|ebp|mp)|x(cf|bmp))$/',
+            $Ext
+        ) ||
             preg_match(
                 '/^(?:0000000c6a502020|25504446|38425053|424d|474946383[79]61|57454250|67696d7020786366|89504e47|ffd8ff)/',
                 $Head
@@ -3085,7 +3135,7 @@ class Scanner
      * Drops trailing extensions from filenames if the extension matches that of a
      * compression format supported by the compression handler.
      *
-     * @param string $Filename The filename.
+     * @param  string $Filename The filename.
      * @return string The filename sans compression extension.
      */
     private function dropTrailingCompressionExtension(string $Filename): string
@@ -3098,14 +3148,14 @@ class Scanner
      * memory usage and number of files limits on that directory. Should be
      * regarded as part of the phpMussel quarantine functionality.
      *
-     * @param string $Path The path of the directory to be checked.
-     * @param int $Delete How many bytes to delete from the target directory; Omit
-     *      or set to 0 to avoid deleting files on the basis of total bytes.
-     * @param int $DeleteFiles How many files to delete from the target directory;
-     *      Omit or set to 0 to avoid deleting files.
-     * @return array Contains two integer elements: `Size`: The actual, total
-     *      memory used by the target directory. `Count`: The total number of files
-     *      found in the target directory by the time of method exit.
+     * @param  string $Path        The path of the directory to be checked.
+     * @param  int    $Delete      How many bytes to delete from the target directory; Omit
+     *                             or set to 0 to avoid deleting files on the basis of total bytes.
+     * @param  int    $DeleteFiles How many files to delete from the target directory;
+     *                             Omit or set to 0 to avoid deleting files.
+     * @return array  Contains two integer elements: `Size`: The actual, total
+     *                memory used by the target directory. `Count`: The total number of files
+     *                found in the target directory by the time of method exit.
      */
     private function memoryUse(string $Path, int $Delete = 0, int $DeleteFiles = 0): array
     {
@@ -3113,7 +3163,7 @@ class Scanner
         $Files = [];
         $List = new \RecursiveIteratorIterator(new \RecursiveDirectoryIterator($Path), \RecursiveIteratorIterator::SELF_FIRST);
         foreach ($List as $Item => $List) {
-            $File = str_replace("\\", '/', substr($Item, $Offset));
+            $File = str_replace('\\', '/', substr($Item, $Offset));
             if ($File && strtolower(substr($Item, -4)) === '.qfu' && is_file($Item) && !is_link($Item) && is_readable($Item)) {
                 $Files[$File] = filemtime($Item);
             }
@@ -3138,12 +3188,12 @@ class Scanner
     /**
      * Does some more complex decoding and normalisation work on strings.
      *
-     * @param string $str The string to be decoded/normalised.
-     * @param bool $html If true, "style" and "script" tags will be stripped from
-     *      the input string (optional; defaults to false).
-     * @param bool $decode If false, the input string will be normalised, but not
-     *      decoded; If true, the input string will be normalised *and* decoded.
-     *      Optional; Defaults to false.
+     * @param  string $str    The string to be decoded/normalised.
+     * @param  bool   $html   If true, "style" and "script" tags will be stripped from
+     *                        the input string (optional; defaults to false).
+     * @param  bool   $decode If false, the input string will be normalised, but not
+     *                        decoded; If true, the input string will be normalised *and* decoded.
+     *                        Optional; Defaults to false.
      * @return string The decoded/normalised string.
      */
     private function normalise(string $str, bool $html = false, bool $decode = false): string
@@ -3251,10 +3301,10 @@ class Scanner
      * greater number of signatures without causing excessive footprint bloat. Its
      * purpose has expanded since then though.
      *
-     * @param string $VN The signature name WITH identifiers compressed (i.e.,
-     *      the shorthand version of the signature name).
+     * @param  string $VN The signature name WITH identifiers compressed (i.e.,
+     *                    the shorthand version of the signature name).
      * @return string The signature name WITHOUT identifiers compressed (i.e., the
-     *      identifiers have been decompressed/expanded), or the input verbatim.
+     *                identifiers have been decompressed/expanded), or the input verbatim.
      */
     private function getShorthand(string $VN): string
     {
@@ -3297,9 +3347,11 @@ class Scanner
         }
 
         /** Populate weight options. */
-        if ((!empty($this->Loader->InstanceCache['shorthand.yml']['Vendor Weight Options'][$Nibbles[0]][$Nibbles[1]]) &&
+        if ((
+            !empty($this->Loader->InstanceCache['shorthand.yml']['Vendor Weight Options'][$Nibbles[0]][$Nibbles[1]]) &&
             $this->Loader->InstanceCache['shorthand.yml']['Vendor Weight Options'][$Nibbles[0]][$Nibbles[1]] === 'Weighted'
-        ) || (!empty($this->Loader->InstanceCache['shorthand.yml']['Vendor Weight Options'][$Nibbles[0]]) &&
+        ) || (
+            !empty($this->Loader->InstanceCache['shorthand.yml']['Vendor Weight Options'][$Nibbles[0]]) &&
             $this->Loader->InstanceCache['shorthand.yml']['Vendor Weight Options'][$Nibbles[0]] === 'Weighted'
         )) {
             $this->HeuristicMode = true;
@@ -3342,15 +3394,15 @@ class Scanner
      * Used for performing lookups to the Google Safe Browsing API (v4).
      * @link https://developers.google.com/safe-browsing/v4/lookup-api
      *
-     * @param array $URLs An array of the URLs to lookup.
-     * @param array $URLsNoLookup An optional array of URLs to NOT lookup.
-     * @param array $DomainsNoLookup An optional array of domains to NOT lookup.
-     * @return int The results of the lookup. 200 if AT LEAST ONE of the queried
-     *      URLs are listed on any of Google Safe Browsing lists; 204 if NONE of
-     *      the queried URLs are listed on any of Google Safe Browsing lists; 400
-     *      if the request is malformed or if there aren't any URLs to look up; 401
-     *      if the API key is missing or isn't authorised; 503 if the service is
-     *      unavailable (e.g., if it's been throttled).
+     * @param  array $URLs            An array of the URLs to lookup.
+     * @param  array $URLsNoLookup    An optional array of URLs to NOT lookup.
+     * @param  array $DomainsNoLookup An optional array of domains to NOT lookup.
+     * @return int   The results of the lookup. 200 if AT LEAST ONE of the queried
+     *               URLs are listed on any of Google Safe Browsing lists; 204 if NONE of
+     *               the queried URLs are listed on any of Google Safe Browsing lists; 400
+     *               if the request is malformed or if there aren't any URLs to look up; 401
+     *               if the API key is missing or isn't authorised; 503 if the service is
+     *               unavailable (e.g., if it's been throttled).
      */
     private function safeBrowseLookup(array $URLs, array $URLsNoLookup = [], array $DomainsNoLookup = []): int
     {
@@ -3377,7 +3429,7 @@ class Scanner
         /** After preparing URLs, prepare JSON array. */
         $Arr = json_encode([
             'client' => [
-                'clientId' => 'phpMussel',
+                'clientId'      => 'phpMussel',
                 'clientVersion' => $this->Loader->ScriptVersion
             ],
             'threatInfo' => [
@@ -3388,9 +3440,9 @@ class Scanner
                     'UNWANTED_SOFTWARE',
                     'POTENTIALLY_HARMFUL_APPLICATION'
                 ],
-                'platformTypes' => ['ANY_PLATFORM'],
+                'platformTypes'    => ['ANY_PLATFORM'],
                 'threatEntryTypes' => ['URL'],
-                'threatEntries' => $URLs
+                'threatEntries'    => $URLs
             ]
         ], JSON_UNESCAPED_SLASHES | JSON_PRETTY_PRINT);
 
@@ -3427,7 +3479,6 @@ class Scanner
 
         /** If this lookup has already been performed, return the results. */
         if (!empty($Response)) {
-
             /** Potentially harmful URL detected. */
             if ($Response === '200') {
                 return 200;
@@ -3475,13 +3526,11 @@ class Scanner
         if (strpos($Response, '"matches":') !== false) {
             $returnVal = 200;
         } else {
-
             /**
              * Other possible problem detected.
              * @link https://developers.google.com/safe-browsing/v4/status-codes
              */
             if (isset($this->Loader->MostRecentHttpCode) && $this->Loader->MostRecentHttpCode !== 200) {
-
                 /**
                  * Malformed request detected (e.g., invalid argument, invalid
                  * request payload, etc).
@@ -3524,7 +3573,6 @@ class Scanner
                  */
                 $newExpiry += 86400;
             } else {
-
                 /** Potentially harmful URL *NOT* detected, and no other problems detected. */
                 $returnVal = 204;
             }
@@ -3540,7 +3588,7 @@ class Scanner
     /**
      * Checks whether signature length is confined within an acceptable limit.
      *
-     * @param int $Length
+     * @param  int  $Length
      * @return bool
      */
     private function confineLength(int $Length): bool
@@ -3551,12 +3599,11 @@ class Scanner
     /**
      * Detection trigger method (appends detection information).
      *
-     * @param string $VN What was detected.
+     * @param string $VN               What was detected.
      * @param string $OriginalFilename
      * @param string $Checksum
-     * @param int $StringLength
-     * @param int $Depth
-     * @return void
+     * @param int    $StringLength
+     * @param int    $Depth
      */
     private function detected(string $VN, string $OriginalFilename, string $Checksum, int $StringLength, int $Depth): void
     {
@@ -3587,11 +3634,10 @@ class Scanner
     /**
      * Confines a string boundary as per rules specified by parameters.
      *
-     * @param string $Data The string.
-     * @param string|int $Initial The start of the boundary or string initial offset value.
-     * @param string|int $Terminal The end of the boundary or string terminal offset value.
-     * @param array $SectionOffsets Section offset values.
-     * @return void
+     * @param string     $Data           The string.
+     * @param string|int $Initial        The start of the boundary or string initial offset value.
+     * @param string|int $Terminal       The end of the boundary or string terminal offset value.
+     * @param array      $SectionOffsets Section offset values.
      */
     private function dataConfineByOffsets(string &$Data, &$Initial, &$Terminal, array &$SectionOffsets): void
     {
@@ -3653,9 +3699,9 @@ class Scanner
      * Match a variable referenced by a signature file (guards against some obscure
      * referencing and typecasting problems).
      *
-     * @param mixed $Actual The actual data found in the signature file.
-     * @param mixed $Expected The expected data to be matched against.
-     * @return bool True when they match; False when they don't.
+     * @param  mixed $Actual   The actual data found in the signature file.
+     * @param  mixed $Expected The expected data to be matched against.
+     * @return bool  True when they match; False when they don't.
      */
     private function matchVarInSigFile($Actual, $Expected): bool
     {
@@ -3678,9 +3724,9 @@ class Scanner
     /**
      * Splits a signature into its constituent parts (name, pattern, etc).
      *
-     * @param string $Sig The signature.
-     * @param int $Max The maximum number of parts to return (optional).
-     * @return array The parts.
+     * @param  string $Sig The signature.
+     * @param  int    $Max The maximum number of parts to return (optional).
+     * @return array  The parts.
      */
     private function splitSigParts(string $Sig, int $Max = -1): array
     {
@@ -3690,16 +3736,15 @@ class Scanner
     /**
      * Handles scanning for files contained within archives.
      *
-     * @param string $Indent Line padding for the scan results.
-     * @param string $ItemRef A reference to the path and original filename of the
-     *      item being scanned in relation to its container and/or its hierarchy
-     *      within the scan process.
+     * @param string $Indent   Line padding for the scan results.
+     * @param string $ItemRef  A reference to the path and original filename of the
+     *                         item being scanned in relation to its container and/or its hierarchy
+     *                         within the scan process.
      * @param string $Filename The original filename of the item being scanned.
-     * @param string $Data The data to be scanned.
-     * @param int $Depth The depth of the item being scanned in relation to its
-     *      container and/or its hierarchy within the scan process.
+     * @param string $Data     The data to be scanned.
+     * @param int    $Depth    The depth of the item being scanned in relation to its
+     *                         container and/or its hierarchy within the scan process.
      * @param string $Checksum A hash for the content, inherited from the parent.
-     * @return void
      */
     private function metaDataScan(string $ItemRef, string $Filename, string &$Data, int $Depth, string $Checksum): void
     {
@@ -3741,7 +3786,8 @@ class Scanner
                 $this->Loader->atHit($Checksum, $Filesize, $ItemRef, '', 1, $Depth);
                 return;
             }
-            if ($this->containsMustAssert([$this->Loader->Configuration['files']['filetype_blacklist']], [$xt, $xts], ',', true, true) || (!empty($this->Loader->Configuration['files']['filetype_greylist']) &&
+            if ($this->containsMustAssert([$this->Loader->Configuration['files']['filetype_blacklist']], [$xt, $xts], ',', true, true) || (
+                !empty($this->Loader->Configuration['files']['filetype_greylist']) &&
                 $this->containsMustAssert([$this->Loader->Configuration['files']['filetype_greylist']], [$xt, $xts])
             )) {
                 $this->Loader->InstanceCache['blacklist_triggered'] = true;
@@ -3758,7 +3804,8 @@ class Scanner
         }
 
         /** Determine whether the file being scanned is a macro. */
-        $this->Loader->InstanceCache['file_is_macro'] = (strtolower(substr($Filename, -14)) === 'vbaproject.bin' ||
+        $this->Loader->InstanceCache['file_is_macro'] = (
+            strtolower(substr($Filename, -14)) === 'vbaproject.bin' ||
             preg_match('~^\xD0\xCF|\x00Attribut|\x01CompObj|\x05Document~', $Data)
         );
 
@@ -3787,13 +3834,11 @@ class Scanner
          * only bother doing this if the file hasn't already been flagged though.
          */
         if (!empty($this->Loader->InstanceCache['CheckWasLast'])) {
-
             /** Create a new compression object. */
             $CompressionObject = new CompressionHandler($Data);
 
             /** Now we'll try to decompress the file. */
             if (!$CompressionResults = $CompressionObject->TryEverything()) {
-
                 /** Success! Now we'll send it to the data handler. */
                 $this->dataHandler($CompressionObject->Data, $Depth, $this->dropTrailingCompressionExtension($Filename));
 
@@ -3816,12 +3861,12 @@ class Scanner
     /**
      * Quine detection for the archive handler.
      *
-     * @param int $ScanDepth The current scan depth.
-     * @param string $ParentHash Parent data hash.
-     * @param int $ParentLen Parent data length.
-     * @param string $ChildHash Child data hash.
-     * @param int $ChildLen Child data length.
-     * @return bool True when a quine is detected; False otherwise.
+     * @param  int    $ScanDepth  The current scan depth.
+     * @param  string $ParentHash Parent data hash.
+     * @param  int    $ParentLen  Parent data length.
+     * @param  string $ChildHash  Child data hash.
+     * @param  int    $ChildLen   Child data length.
+     * @return bool   True when a quine is detected; False otherwise.
      */
     private function quineDetector(int $ScanDepth, string $ParentHash, int $ParentLen, string $ChildHash, int $ChildLen): bool
     {
@@ -3837,8 +3882,8 @@ class Scanner
     /**
      * Convert Chrome Extension data to standard Zip data.
      *
-     * @param string $Data Referenced via the archive recursor.
-     * @return bool True when conversion succeeds; False otherwise (e.g., not Crx).
+     * @param  string $Data Referenced via the archive recursor.
+     * @return bool   True when conversion succeeds; False otherwise (e.g., not Crx).
      */
     private function convertCrx(string &$Data): bool
     {
@@ -3863,7 +3908,6 @@ class Scanner
     /**
      * Reset heuristics.
      *
-     * @return void
      */
     private function resetHeuristics(): void
     {
