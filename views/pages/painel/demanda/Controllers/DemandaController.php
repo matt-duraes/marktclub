@@ -10,23 +10,23 @@ use Controller\Controller;
 use App\Classes\DemandaDado\Area;
 use App\Classes\DemandaDado\Tipo;
 use App\Classes\DemandaTarefa\Status;
-use Painel\Demanda\Models\CriarAuditoriaModel;
-use Painel\Demanda\Models\CriarAutoindicacaoModel;
-use Painel\Demanda\Models\CriarBrindeModel;
-use Painel\Demanda\Models\CriarCampanhaModel;
-use Painel\Demanda\Models\CriarCotacaoAutomovelModel;
-use Painel\Demanda\Models\CriarCotacaoProdutoModel;
-use Painel\Demanda\Models\CriarEventoModel;
-use Painel\Demanda\Models\CriarIndicacaoModel;
 use Painel\Demanda\Models\ListaModel;
 use Painel\Demanda\Models\CriacaoModel;
 use Painel\Demanda\Models\DetalheModel;
 use Painel\Demanda\Models\SorteioModel;
 use Painel\Demanda\Models\CriarBugModel;
 use Painel\Demanda\Models\CriarOutroModel;
+use Painel\Demanda\Models\CriarBrindeModel;
+use Painel\Demanda\Models\CriarEventoModel;
 use Painel\Demanda\Models\CriarClienteModel;
 use Painel\Demanda\Models\TarefaSalvarModel;
+use Painel\Demanda\Models\CriarCampanhaModel;
+use Painel\Demanda\Models\CriarAuditoriaModel;
+use Painel\Demanda\Models\CriarIndicacaoModel;
 use Painel\Demanda\Models\CriarAssociacaoModel;
+use Painel\Demanda\Models\CriarCotacaoCarroModel;
+use Painel\Demanda\Models\CriarAutoindicacaoModel;
+use Painel\Demanda\Models\CriarCotacaoProdutoModel;
 use App\Classes\DemandaTarefa\Tipo as DemandaTarefaTipo;
 
 final class DemandaController extends Controller
@@ -263,6 +263,17 @@ final class DemandaController extends Controller
         return new Response(status: 204);
     }
 
+    public function postTarefaDeletar(string $id)
+    {
+        $this->Api
+            ->validar(mensagem: 'Erro ao deletar tarefa, por favor, tente novamente.', login: true)
+            ->delete('/demanda-tarefa/' . $id);
+
+        return mensagemSucesso([
+            'id' => uuid()
+        ]);
+    }
+
     public function postDemandaSalvar(Request $request)
     {
         if ($request->tipo == 'cliente') {
@@ -312,8 +323,8 @@ final class DemandaController extends Controller
             $Demanda = new CriarIndicacaoModel($request);
         } elseif ($request->tipo == Tipo::AUTOINDICACAO) {
             $Demanda = new CriarAutoindicacaoModel($request);
-        } elseif ($request->tipo == Tipo::COTACAO_AUTOMOVEL) {
-            $Demanda = new CriarCotacaoAutomovelModel($request);
+        } elseif ($request->tipo == Tipo::COTACAO_CARRO) {
+            $Demanda = new CriarCotacaoCarroModel($request);
         } elseif ($request->tipo == Tipo::COTACAO_PRODUTO) {
             $Demanda = new CriarCotacaoProdutoModel($request);
         } elseif ($request->tipo == Tipo::AUDITORIA) {
@@ -323,6 +334,10 @@ final class DemandaController extends Controller
         return mensagemSucesso([
             'id'           => $Demanda->id(),
             'titulo'       => $request->empresa_nome . $request->titulo,
+            'equipe'       => [
+                'nome'   => sessao('USUARIO.nome'),
+                'imagem' => sessao('USUARIO.imagem')
+            ],
             'tipo'         => $request->tipo,
             'data_criacao' => agora(true),
             'data_entrega' => '',
@@ -338,15 +353,6 @@ final class DemandaController extends Controller
                 'arquivo' => jsonEncode($request->arquivo)
             ])
             ->put('/demanda-dado/' . $id);
-
-        return new Response(status: 204);
-    }
-
-    public function deleteTarefa(string $id)
-    {
-        $this->Api
-            ->validar('Erro ao deletar a tarefa, por favor, tente novamente.')
-            ->delete('/demanda-tarefa/' . $id);
 
         return new Response(status: 204);
     }

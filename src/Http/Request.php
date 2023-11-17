@@ -14,6 +14,7 @@ use Symfony\Component\HttpFoundation\Request as Psr7Request;
 final class Request extends Psr7Request
 {
     private Psr7Request $psr7Request;
+    public bool $criptografar = true;
     private string $metodo;
     private array $dados = [];
 
@@ -54,7 +55,7 @@ final class Request extends Psr7Request
             $lista = $lista + $file;
         }
 
-        if (empty($chave)) {
+        if (empty($chave) || !$this->criptografar) {
             $this->dados = $lista;
             return;
         }

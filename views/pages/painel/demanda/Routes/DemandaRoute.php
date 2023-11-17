@@ -39,6 +39,9 @@ Route
         Route
             ::nome('tarefaEditar')
             ::view('/demanda/tarefa-editar/{id}/{demanda}');
+        Route
+            ::nome('tarefaDeletar')
+            ::post('/demanda/tarefa-deletar/{id}');
 
         Route
             ::nome('demandaSalvar')

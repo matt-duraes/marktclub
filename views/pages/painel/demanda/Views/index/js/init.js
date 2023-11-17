@@ -5,7 +5,8 @@ const inputTarefaTitulo = $('#input_tarefa_titulo');
 const inputTarefaTexto = $('#input_tarefa_texto');
 const inputTarefaTipo = $('#input_tarefa_tipo');
 
-const PopupTarefa = new Popup('Nova Tarefa', 'bloco_tarefa_nova', true, false);
+const PopupDemandaEditar = new Popup('Editar Demanda', 'bloco_demanda_editar', false, false, demandaEditar);
+const PopupTarefa = new Popup('Nova Tarefa', 'bloco_tarefa_nova', false, false);
 const PopupTemp = new Popup();
 const listaColuna = $$('#bloco_demanda_index .bloco_coluna');
 
@@ -67,7 +68,7 @@ const adicionarNovaTarefa = item => {
             abrirPopupTarefaEditar(item.id);
         });
         clone.querySelector('.botao_deletar').addEventListener('click', () => {
-            //
+            tarefaDeletar(item.id);
         });
     }
 };
@@ -122,7 +123,7 @@ const adicionarNovaDemanda = (bloco, item, abrir) => {
             'demanda-' + id,
             LINK + '/demanda/demanda/' + id,
             undefined,
-            true,
+            false,
             true,
             demandaDetalhe
         );
@@ -144,4 +145,45 @@ const contarTarefaDemanda = coluna => {
     const numero = coluna.querySelectorAll('.conteudo .bloco_tarefa_item').length;
     const blocoNumero = coluna.querySelector('header h1 span');
     blocoNumero.innerText = `(${numero})`;
+};
+
+// DELETAR TAREFA
+const tarefaDeletar = async id => {
+    if (
+        !(await Alerta.confirmar(
+            'Deletar tarefa',
+            'Tem certeza que deseja deletar essa tarefa? Essa ação não poderá ser desfeita.',
+            false
+        ))
+    ) {
+        return;
+    }
+
+    const bloco = $('#id_tarefa_' + id);
+    if (!bloco) {
+        return;
+    }
+    bloco.classList.add('display_none');
+    const resposta = await ajaxPost(
+        LINK + '/demanda/tarefa-deletar/' + id,
+        undefined,
+        'Erro ao deletar tarefa, por favor, tente novamente.'
+    );
+    if (false === resposta) {
+        bloco.classList.remove('display_none');
+        return;
+    }
+    bloco.remove();
+    verificarExisteTarefa();
+};
+const verificarExisteTarefa = () => {
+    const quantidade = $$('#bloco_tarefa_lista article.tarefa').length;
+    if (quantidade > 0) {
+        return;
+    }
+    const bloco = $('#bloco_tarefa_zero');
+    if (!bloco) {
+        return;
+    }
+    bloco.classList.remove('display_none');
 };

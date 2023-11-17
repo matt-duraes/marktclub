@@ -153,7 +153,7 @@ final class UltimoAcessoModel extends ORM
                 botaoLink: $linkLogin,
                 cor: $cor,
                 logo: $linkLogo,
-                linkRemover: 'https://apiv4.marktclub.net.br/emailmarketing/remover/' . base64Encode($r->id),
+                linkRemover: 'https://apiv4.markt.club/emailmarketing/remover/' . base64Encode($r->id),
                 posMensagem: $this->montarMensagemLoja($loja, $linkSite)
             );
             $Email->sendGrid(titulo: $assunto, nome: $r->nome, email: $r->email, deNome: $tituloClube);

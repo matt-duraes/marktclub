@@ -97,8 +97,8 @@ window.addEventListener('load', () => {
     const inputEmpresaIndicacao = $('#input_empresa_indicacao');
     // Autoindicacao
     const inputEmpresaAutoindicacao = $('#input_empresa_autoindicacao');
-    // Cotação - Automovel
-    const inputEmpresaCotacaoAutomovel = $('#input_empresa_cotacao_automovel');
+    // Cotação - Carro
+    const inputEmpresaCotacaoCarro = $('#input_empresa_cotacao_carro');
     // Cotação - Produto
     const inputEmpresaCotacaoProduto = $('#input_empresa_cotacao_produto');
     // Auditoria
@@ -115,7 +115,7 @@ window.addEventListener('load', () => {
 
     const blocoTipoAuditoria = $('#bloco_auditoria');
     const blocoTipoCotacaoProduto = $('#bloco_cotacao_produto');
-    const blocoTipoCotacaoAutomovel = $('#bloco_cotacao_automovel');
+    const blocoTipoCotacaoCarro = $('#bloco_cotacao_carro');
     const blocoTipoAutoindicacao = $('#bloco_autoindicacao');
     const blocoTipoIndicacao = $('#bloco_indicacao');
     const blocoTipoBrinde = $('#bloco_brinde');
@@ -232,8 +232,8 @@ window.addEventListener('load', () => {
                 blocoTipoAutoindicacao.classList.remove('display_none');
                 blocoHeader.classList.remove('display_none');
                 break;
-            case 'cotacao_automovel':
-                blocoTipoCotacaoAutomovel.classList.remove('display_none');
+            case 'cotacao_carro':
+                blocoTipoCotacaoCarro.classList.remove('display_none');
                 blocoHeader.classList.remove('display_none');
                 break;
             case 'cotacao_produto':
@@ -244,7 +244,7 @@ window.addEventListener('load', () => {
                 blocoTipoAuditoria.classList.remove('display_none');
                 blocoHeader.classList.remove('display_none');
                 break;
-        };
+        }
     };
 
     /*
@@ -602,9 +602,9 @@ window.addEventListener('load', () => {
                 valido = await validarDadoAutoindicacao();
                 body = await montarDadoAutoindicacao();
                 break;
-            case 'cotacao_automovel':
-                valido = await validarDadoCotacaoAutomovel();
-                body = await montarDadoCotacaoAutomovel();
+            case 'cotacao_carro':
+                valido = await validarDadoCotacaoCarro();
+                body = await montarDadoCotacaoCarro();
                 break;
             case 'cotacao_produto':
                 valido = await validarDadoCotacaoProduto();
@@ -918,12 +918,10 @@ window.addEventListener('load', () => {
                 evento_materiais: 'Digite os materiais que serão usados no evento.',
                 evento_responsavel_nome: 'Digite o nome do responsável pelo evento.',
                 evento_responsavel_email: 'Digite o e-mail do responsável pelo evento.',
-                evento_responsavel_telefone: 'Digite o telefone do responsável pelo evento.'
+                evento_responsavel_telefone: 'Digite o telefone do responsável pelo evento.',
             };
-            const inputs = [
-                'evento_data_inicio', 'evento_data_fim'
-            ]
-            resolve(testarCampos(mensagemErro) && testarDataInicio(inputs, 30));
+
+            resolve(testarCampos(mensagemErro));
         });
     };
 
@@ -948,7 +946,7 @@ window.addEventListener('load', () => {
                 alimentacao: 'evento_alimentacao',
                 mesaCadeira: 'evento_mesa_cadeira',
                 outros: 'evento_outros',
-                observacao: 'evento_observacao'
+                observacao: 'evento_observacao',
             };
 
             const body = montarBody(campos, inputEmpresaEvento);
@@ -969,10 +967,8 @@ window.addEventListener('load', () => {
                 brinde_segmento: 'Digite o segmento do brinde.',
                 brinde_participantes: 'Digite a quantidade de participantes do brinde.',
             };
-            const inputs = [
-                'brinde_inicio_divulgacao', 'brinde_fim_divulgaca'
-            ];
-            resolve(testarCampos(mensagemErro) && testarDataInicio(inputs, 60));
+
+            resolve(testarCampos(mensagemErro));
         });
     };
 
@@ -989,7 +985,7 @@ window.addEventListener('load', () => {
                 email: 'brinde_email',
                 flyer: 'brinde_flyer',
                 outros: 'brinde_divulgacao',
-                observacao: 'brinde_observacao'
+                observacao: 'brinde_observacao',
             };
 
             const body = montarBody(campos, inputEmpresaBrinde);
@@ -1007,13 +1003,10 @@ window.addEventListener('load', () => {
                 campanha_inicio_divulgacao: 'Digite a data de início da divulgação.',
                 campanha_fim_divulgacao: 'Digite a data final da divulgação.',
                 campanha_tema: 'Digite o tema da campanha.',
-                campanha_segmento: 'Digite o segmento da campanha.'
+                campanha_segmento: 'Digite o segmento da campanha.',
             };
-            const inputs = [
-                'campanha_inicio_divulgacao', 'campanha_fim_divulgacao'
-            ];
 
-            resolve(testarCampos(mensagemErro) && testarDataInicio(inputs, 30));
+            resolve(testarCampos(mensagemErro));
         });
     };
 
@@ -1024,7 +1017,7 @@ window.addEventListener('load', () => {
                 fim_divulgacao: 'campanha_fim_divulgacao',
                 tema: 'campanha_tema',
                 segmento: 'campanha_segmento',
-                observacao: 'campanha_observacao'
+                observacao: 'campanha_observacao',
             };
 
             const body = montarBody(campos, inputEmpresaCampanha);
@@ -1041,7 +1034,6 @@ window.addEventListener('load', () => {
             const mensagemErro = {
                 indicacao_usuario_nome: 'Digite o nome de quem indicou.',
                 indicacao_usuario_email: 'Digite o e-mail de quem indicou.',
-                indicacao_usuario_cpf: 'Digite o cpf de quem indicou',
                 indicacao_usuario_telefone: 'Digite o telefone de quem indicou.',
                 indicacao_empresa_nome: 'Digite o nome da empresa indicada.',
                 indicacao_empresa_email: 'Digite o e-mail da empresa indicada.',
@@ -1057,7 +1049,6 @@ window.addEventListener('load', () => {
             const campos = {
                 usuario_nome: 'indicacao_usuario_nome',
                 usuario_email: 'indicacao_usuario_email',
-                usuario_cpf: 'indicacao_usuario_cpf',
                 usuario_telefone: 'indicacao_usuario_telefone',
                 empresa_indicada_nome: 'indicacao_empresa_nome',
                 empresa_email: 'indicacao_empresa_email',
@@ -1122,39 +1113,37 @@ window.addEventListener('load', () => {
     | ABRIR TAREFA AUTOINDICACAO
     |--------------------------------------------------------------------------
     */
-    const validarDadoCotacaoAutomovel = () => {
+    const validarDadoCotacaoCarro = () => {
         return new Promise(resolve => {
             const mensagemErro = {
-                cotacao_automovel_nome: 'Digite o Nome do usuário solicitante.',
-                cotacao_automovel_cpf: 'Digite o CPF do usuário solicitante.',
-                cotacao_automovel_email: 'Digite o E-mail do usuário solicitante.',
-                cotacao_automovel_telefone: 'Digite o telefone do usuário solicitante.',
-                cotacao_automovel_marca: 'Digite a marca do automóvel.',
-                cotacao_automovel_modelo: 'Digite o modelo do automóvel.',
-                cotacao_automovel_ano: 'Digite o ano do automóvel.',
-                cotacao_automovel_cor: 'Digite a cor do automóvel.'
+                cotacao_carro_cpf: 'Digita o CPF do usuário solicitante.',
+                cotacao_carro_email: 'Digite o E-mail do usuário solicitante.',
+                cotacao_carro_telefone: 'Digite o telefone do usuário solicitante.',
+                cotacao_carro_marca: 'Digite a marca do carro.',
+                cotacao_carro_modelo: 'Digite o modelo do carro.',
+                cotacao_carro_ano: 'Digite o ano do carro.',
+                cotacao_carro_cor: 'Digite a cor do carro.',
             };
 
             resolve(testarCampos(mensagemErro));
         });
     };
 
-    const montarDadoCotacaoAutomovel = () => {
+    const montarDadoCotacaoCarro = () => {
         return new Promise(resolve => {
             const campos = {
-                nome: 'cotacao_automovel_nome',
-                cpf: 'cotacao_automovel_cpf',
-                email: 'cotacao_automovel_email',
-                telefone: 'cotacao_automovel_telefone',
-                marca: 'cotacao_automovel_marca',
-                modelo: 'cotacao_automovel_modelo',
-                ano: 'cotacao_automovel_ano',
-                cor: 'cotacao_automovel_cor',
-                extra : 'cotacao_automovel_extra',
-                observacao: 'cotacao_automovel_observacao'
+                cpf: 'cotacao_carro_cpf',
+                email: 'cotacao_carro_email',
+                telefone: 'cotacao_carro_telefone',
+                marca: 'cotacao_carro_marca',
+                modelo: 'cotacao_carro_modelo',
+                ano: 'cotacao_carro_ano',
+                cor: 'cotacao_carro_cor',
+                extra: 'cotacao_carro_extra',
+                observacao: 'cotacao_carro_observacao',
             };
 
-            const body = montarBody(campos, inputEmpresaCotacaoAutomovel);
+            const body = montarBody(campos, inputEmpresaCotacaoCarro);
             resolve(body);
         });
     };
@@ -1172,7 +1161,7 @@ window.addEventListener('load', () => {
                 cotacao_produto_tipo: 'Digite o tipo do produto.',
                 cotacao_produto_marca: 'Digite a marca do produto.',
                 cotacao_produto_modelo: 'Digite o modelo do produto.',
-                cotacao_produto_extra: 'Digite o extra do produto.'
+                cotacao_produto_extra: 'Digite o extra do produto.',
             };
 
             resolve(testarCampos(mensagemErro));
@@ -1188,8 +1177,8 @@ window.addEventListener('load', () => {
                 produto_tipo: 'cotacao_produto_tipo',
                 marca: 'cotacao_produto_marca',
                 modelo: 'cotacao_produto_modelo',
-                extra : 'cotacao_produto_extra',
-                observacao: 'cotacao_produto_observacao'
+                extra: 'cotacao_produto_extra',
+                observacao: 'cotacao_produto_observacao',
             };
 
             const body = montarBody(campos, inputEmpresaCotacaoProduto);
@@ -1204,7 +1193,7 @@ window.addEventListener('load', () => {
     const validarDadoAuditoria = () => {
         return new Promise(resolve => {
             const mensagemErro = {
-                auditoria_relatorio_problema: 'Digite o relatório do problema.'
+                auditoria_relatorio_problema: 'Digite o relatório do problema.',
             };
             resolve(testarCampos(mensagemErro));
         });
@@ -1220,7 +1209,7 @@ window.addEventListener('load', () => {
                 gerente: 'auditoria_empresa_gerente',
                 email: 'auditoria_email',
                 telefone: 'auditoria_telefone',
-                observacao: 'auditoria_observacao'
+                observacao: 'auditoria_observacao',
             };
             const body = montarBody(campos, inputEmpresaAuditoria);
             resolve(body);
@@ -1232,10 +1221,10 @@ window.addEventListener('load', () => {
     | FUNÇÕES PARA ABRIR TAREFA
     |--------------------------------------------------------------------------
     */
-    const testarCampos = (mensagemErro) => {
+    const testarCampos = mensagemErro => {
         const campos = {
             titulo: 'Digite um título para a demanda.',
-            ...mensagemErro
+            ...mensagemErro,
         };
         for (const campo in campos) {
             const elemento = document.getElementById('input_' + campo);
@@ -1259,7 +1248,7 @@ window.addEventListener('load', () => {
         for (const key in campos) {
             const campo = campos[key];
             const elemento = document.getElementById('input_' + campo);
-            if(elemento.type == 'checkbox'){
+            if (elemento.type == 'checkbox') {
                 body.append(key, elemento.checked ? 1 : 0);
                 continue;
             }
@@ -1268,65 +1257,6 @@ window.addEventListener('load', () => {
 
         return body;
     };
-
-    const testarDataInicio = async (input, periodo) => {
-        const { dataInicio, dataFim } = pegarInputsData(input);
-
-        const hoje = new Date();
-
-        const dataInicioMenosPeriodo = new Date(dataInicio.getTime() - (periodo * 24 * 60 * 60 * 1000));
-
-        if (dataFim && dataInicio > dataFim) {
-            Alerta.notificacao(`A data de início não pode ser maior que a data final.`, false);
-            return false;
-        }
-
-        if (dataInicio < hoje) {
-            Alerta.notificacao(`A data de inicio não pode ser menor que hoje.`, false);
-            return false;
-        }
-
-        if (hoje > dataInicioMenosPeriodo) {
-            return await Alerta.confirmar(
-                'Atenção!',
-                `A demanda está sendo cadastrada antes do limite recomendado de ${periodo} dias.`,
-                '!'
-            ) ? true : false; // Apesar de estar após o limite não bloqueia o cadastro
-        }
-
-        return true;
-    }
-
-    const pegarInputsData = (input) => {
-        if (Array.isArray(input)) {
-            const inputDataInicio = document.getElementById('input_' + input[0]).value
-            const inputDataFim = document.getElementById('input_' + input[1]).value
-
-            return {
-                dataInicio: new Date(formatarData(inputDataInicio)),
-                dataFim: new Date(formatarData(inputDataFim))
-            }
-        }
-
-        const inputDataInicio = document.getElementById('input_' + input).value
-
-        return {
-            dataInicio: new Date(formatarData(inputDataInicio)),
-            undefined
-        }
-    }
-
-    const formatarData = (dataOriginal) => {
-        var partes = dataOriginal.split(/[\s\/:]+/);
-        var data = new Date(partes[2], partes[1] - 1, partes[0], partes[3], partes[4], partes[5]);
-        var dataFormatada = data.getFullYear() + '-' +
-                            (data.getMonth() + 1).toString().padStart(2, '0') + '-' +
-                            data.getDate().toString().padStart(2, '0') + ' ' +
-                            data.getHours().toString().padStart(2, '0') + ':' +
-                            data.getMinutes().toString().padStart(2, '0') + ':' +
-                            data.getSeconds().toString().padStart(2, '0');
-        return dataFormatada;
-    }
 
     /*
     |--------------------------------------------------------------------------
@@ -1650,9 +1580,9 @@ window.addEventListener('load', () => {
             blocoTipoBrinde,
             blocoTipoIndicacao,
             blocoTipoAutoindicacao,
-            blocoTipoCotacaoAutomovel,
+            blocoTipoCotacaoCarro,
             blocoTipoCotacaoProduto,
-            blocoTipoAuditoria
+            blocoTipoAuditoria,
         ];
 
         blocos.forEach(bloco => {
@@ -1671,17 +1601,17 @@ window.addEventListener('load', () => {
         botaoFechar.classList.remove('display_none');
     };
 
-    const resetarInputs = (bloco) => {
+    const resetarInputs = bloco => {
         bloco.classList.add('display_none');
 
         bloco.querySelectorAll('input').forEach(item => {
-            if(item.type == 'checkbox') {
+            if (item.type == 'checkbox') {
                 item.checked = false;
-            };
+            }
 
-            if(item.type == 'text') {
+            if (item.type == 'text') {
                 item.value = '';
-            };
+            }
         });
     };
 });

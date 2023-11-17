@@ -42,11 +42,16 @@ final class Request
 
         $request = $this->request;
 
-        if ($request->metodo() != 'PUT') {
-            $this->verificaRequestEstaOk($request->getGet(), $get);
+        $requestJson = $request->getJson();
+        $requestGet = $request->getGet();
+        if ($request->metodo() == 'GET' && empty($requestJson) && !empty($json) && !empty($requestGet) && empty($get)) {
+            $requestJson = $requestGet;
+            $this->request->criptografar = false;
+        } elseif ($request->metodo() != 'PUT') {
+            $this->verificaRequestEstaOk($requestGet, $get);
         }
 
-        $this->verificaRequestEstaOk($request->getJson(), $json);
+        $this->verificaRequestEstaOk($requestJson, $json);
         $this->verificaRequestEstaOk($request->getPost(), $post);
         $this->verificaRequestEstaOk($request->getFiles(), $files);
 
