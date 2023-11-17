@@ -31,7 +31,6 @@ window.addEventListener('load', () => {
     const botaoAnteriorHistorico = document.querySelector('#botao_anterior_historico');
     const blocoHistorico = document.querySelector('#bloco_historico');
     botaoAnteriorHistorico.style.display = 'none';
-    botaoProximoHistorico.style.display = 'none';
 
     const botaoFavorito = $('#botao_favorito_tutorial');
     if (botaoFavorito) {
@@ -40,7 +39,7 @@ window.addEventListener('load', () => {
         });
     }
 
-    new Historico($('#bloco_historico'), LINK + '/historico');
+    new Historico($('#bloco_historico'), LINK + '/historico', verificarBotoes);
 
     const loading = $$('.parceiro_esqueleto');
     loading.forEach(item => {
@@ -83,8 +82,6 @@ window.addEventListener('load', () => {
             adicionarParceiro(bloco, item);
         });
         bloco.insertAdjacentHTML('beforeend', `<div class="article_fake"></div><div class="article_fake"></div>`);
-
-        verificarBotoes();
     };
 
     botaoProximoHistorico.addEventListener('click', () => {
@@ -107,6 +104,12 @@ window.addEventListener('load', () => {
     function verificarBotoes() {
         const scrollAtual = blocoHistorico.scrollLeft;
         const larguraTotal = blocoHistorico.scrollWidth - blocoHistorico.clientWidth;
+        const historico = blocoHistorico.querySelector('div');
+        const quantidadeHistorico = blocoHistorico.querySelectorAll('div').length;
+
+        if(historico.clientWidth * quantidadeHistorico < blocoHistorico.clientWidth) {
+            botaoProximoHistorico.style.display = 'none';
+        }
 
         if (scrollAtual >= larguraTotal) {
             botaoProximoHistorico.style.display = 'none';
