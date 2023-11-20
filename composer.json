@@ -66,8 +66,8 @@
     },
     "config": {
         "allow-plugins": {
-            "captainhook/plugin-composer": true,
-            "ergebnis/composer-normalize": true
+            "ergebnis/composer-normalize": true,
+            "captainhook/plugin-composer": true
         },
         "optimize-autoloader": true
     },
