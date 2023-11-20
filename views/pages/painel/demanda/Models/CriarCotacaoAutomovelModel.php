@@ -7,7 +7,7 @@ use Http\Request;
 use stdClass;
 use App\Classes\DemandaDado\Area;
 
-final class CriarCotacaoCarroModel
+final class CriarCotacaoAutomovelModel
 {
     use DemandaTrait;
     use TarefaTrait;
