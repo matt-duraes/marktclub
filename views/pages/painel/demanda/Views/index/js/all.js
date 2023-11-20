@@ -3,6 +3,7 @@
 // @system "Esqueleto"
 // @system "DragDrop"
 // @import "demanda_editar"
+// @import "demanda_cancelar"
 // @import "init"
 // @import "drag"
 // @import "index"
