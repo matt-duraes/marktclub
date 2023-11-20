@@ -1,11 +1,14 @@
 <div id="bloco_demanda_tarefa" class="form_geral">
     <input type="hidden" id="input_demanda_id" value="{{$r->id}}">
+    <input type="hidden" id="input_demanda_titulo" value="{{$r->titulo}}">
+    <input type="hidden" id="input_demanda_empresa" value="{{$r->empresa->id}}">
     <input type="hidden" id="input_demanda_equipe" value="{{$r->equipe->id}}">
+    <input type="hidden" id="input_demanda_entrega" value="{{$r->data_entrega}}">
     <input type="hidden" id="input_demanda_status" value="{{$r->status}}">
     <input type="hidden" id="input_demanda_liberado" value="{{$r->liberado}}">
     <header>
         <i class="fechar mobile pagina_fechar">@iconeVoltar</i>
-        <h1>{{$r->titulo}}</h1>
+        <h1 id="bloco_demanda_titulo">{{$r->titulo}}</h1>
         @ if( (sessao('USUARIO.gerente', padrao: 'nao') == 'sim' || $r->dono == 'sim') && !in_array($r->status, ['teste', 'concluido'])):
         <div class="botao_topo">
             <i id="botao_editar_demanda" data-ajuda="Editar demanda">@iconeEditar(15)</i>
@@ -23,9 +26,9 @@
     </header>
 
     <div class="bloco_equipe">
-        <figure style="background-image: url({!!$r->empresa->imagem!!});" data-ajuda="{{$r->empresa->nome}}"></figure>
+        <figure id="bloco_demanda_empresa" style="background-image: url({!!$r->empresa->imagem!!});" data-ajuda="{{$r->empresa->nome}}"></figure>
         <div class="linha"></div>
-        <figure style="background-image: url({!!$r->equipe->imagem!!});" data-ajuda="{{$r->equipe->nome}}"></figure>
+        <figure id="bloco_demanda_equipe" style="background-image: url({!!$r->equipe->imagem!!});" data-ajuda="{{$r->equipe->nome}}"></figure>
         @ if( $r->seguindo ):
         <div class="linha"></div>
         <div class="bloco_grupo">
@@ -43,16 +46,14 @@
     </div>
 
     <div class="bloco_data">
-        <div class="data" data-ajuda="Criado em">
+        <div class="data {!! !empty($r->data_entrega) ? 'borda' : '' !!}" data-ajuda="Criado em">
             <i>@iconeCalendario(15)</i>
             <p>{{$r->data_criacao}}</p>
         </div>
-        @ if( !empty($r->data_entrega) ):
-        <div class="data" data-ajuda="Previsto para">
+        <div id="bloco_demanda_entrega_bloco" class="data {!! !empty($r->data_entrega) ? '' : 'display_none' !!}" data-ajuda="Previsto para">
             <i>@iconeRelogio(15)</i>
-            <p>{{$r->data_entrega}}</p>
+            <p id="bloco_demanda_entrega_valor">{{$r->data_entrega}}</p>
         </div>
-        @ endif;
     </div>
 
     <div class="bloco_tarefa">

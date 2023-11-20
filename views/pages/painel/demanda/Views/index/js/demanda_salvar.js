@@ -922,8 +922,8 @@ window.addEventListener('load', () => {
                 evento_responsavel_email: 'Digite o e-mail do responsável pelo evento.',
                 evento_responsavel_telefone: 'Digite o telefone do responsável pelo evento.',
             };
-            const inputs = ['evento_data_inicio', 'evento_data_fim'];
-            resolve(testarCampos(mensagemErro) && testarDataInicio(inputs, 30));
+
+            resolve(testarCampos(mensagemErro));
         });
     };
 
@@ -969,8 +969,8 @@ window.addEventListener('load', () => {
                 brinde_segmento: 'Digite o segmento do brinde.',
                 brinde_participantes: 'Digite a quantidade de participantes do brinde.',
             };
-            const inputs = ['brinde_inicio_divulgacao', 'brinde_fim_divulgaca'];
-            resolve(testarCampos(mensagemErro) && testarDataInicio(inputs, 60));
+
+            resolve(testarCampos(mensagemErro));
         });
     };
 
@@ -1007,9 +1007,8 @@ window.addEventListener('load', () => {
                 campanha_tema: 'Digite o tema da campanha.',
                 campanha_segmento: 'Digite o segmento da campanha.',
             };
-            const inputs = ['campanha_inicio_divulgacao', 'campanha_fim_divulgacao'];
 
-            resolve(testarCampos(mensagemErro) && testarDataInicio(inputs, 30));
+            resolve(testarCampos(mensagemErro));
         });
     };
 
@@ -1037,7 +1036,6 @@ window.addEventListener('load', () => {
             const mensagemErro = {
                 indicacao_usuario_nome: 'Digite o nome de quem indicou.',
                 indicacao_usuario_email: 'Digite o e-mail de quem indicou.',
-                indicacao_usuario_cpf: 'Digite o cpf de quem indicou',
                 indicacao_usuario_telefone: 'Digite o telefone de quem indicou.',
                 indicacao_empresa_nome: 'Digite o nome da empresa indicada.',
                 indicacao_empresa_email: 'Digite o e-mail da empresa indicada.',
@@ -1053,7 +1051,6 @@ window.addEventListener('load', () => {
             const campos = {
                 usuario_nome: 'indicacao_usuario_nome',
                 usuario_email: 'indicacao_usuario_email',
-                usuario_cpf: 'indicacao_usuario_cpf',
                 usuario_telefone: 'indicacao_usuario_telefone',
                 empresa_indicada_nome: 'indicacao_empresa_nome',
                 empresa_email: 'indicacao_empresa_email',
@@ -1121,14 +1118,14 @@ window.addEventListener('load', () => {
     const validarDadoCotacaoAutomovel = () => {
         return new Promise(resolve => {
             const mensagemErro = {
-                cotacao_automovel_nome: 'Digite o Nome do usuário solicitante. ',
-                cotacao_automovel_cpf: 'Digite o CPF do usuário solicitante. ',
-                cotacao_automovel_email: 'Digite o E-mail do usuário solicitante. ',
-                cotacao_automovel_telefone: 'Digite o telefone do usuário solicitante. ',
-                cotacao_automovel_marca: 'Digite a marca do automóvel. ',
-                cotacao_automovel_modelo: 'Digite o modelo do automóvel. ',
-                cotacao_automovel_ano: 'Digite o ano do automóvel. ',
-                cotacao_automovel_cor: 'Digite a cor do automóvel. ',
+                cotacao_automovel_nome: 'Digita o nome do usuário solicitante.',
+                cotacao_automovel_cpf: 'Digita o CPF do usuário solicitante.',
+                cotacao_automovel_email: 'Digite o E-mail do usuário solicitante.',
+                cotacao_automovel_telefone: 'Digite o telefone do usuário solicitante.',
+                cotacao_automovel_marca: 'Digite a marca do carro.',
+                cotacao_automovel_modelo: 'Digite o modelo do carro.',
+                cotacao_automovel_ano: 'Digite o ano do carro.',
+                cotacao_automovel_cor: 'Digite a cor do carro.',
             };
 
             resolve(testarCampos(mensagemErro));
@@ -1138,16 +1135,16 @@ window.addEventListener('load', () => {
     const montarDadoCotacaoAutomovel = () => {
         return new Promise(resolve => {
             const campos = {
-                nome: 'cotacao_automovel_nome ',
-                cpf: 'cotacao_automovel_cpf ',
-                email: 'cotacao_automovel_email ',
-                telefone: 'cotacao_automovel_telefone ',
-                marca: 'cotacao_automovel_marca ',
-                modelo: 'cotacao_automovel_modelo ',
-                ano: 'cotacao_automovel_ano ',
-                cor: 'cotacao_automovel_cor ',
-                extra: 'cotacao_automovel_extra ',
-                observacao: 'cotacao_automovel_observacao ',
+                nome: 'cotacao_automovel_nome',
+                cpf: 'cotacao_automovel_cpf',
+                email: 'cotacao_automovel_email',
+                telefone: 'cotacao_automovel_telefone',
+                marca: 'cotacao_automovel_marca',
+                modelo: 'cotacao_automovel_modelo',
+                ano: 'cotacao_automovel_ano',
+                cor: 'cotacao_automovel_cor',
+                extra: 'cotacao_automovel_extra',
+                observacao: 'cotacao_automovel_observacao',
             };
 
             const body = montarBody(campos, inputEmpresaCotacaoAutomovel);
@@ -1263,73 +1260,6 @@ window.addEventListener('load', () => {
         }
 
         return body;
-    };
-
-    const testarDataInicio = async (input, periodo) => {
-        const { dataInicio, dataFim } = pegarInputsData(input);
-
-        const hoje = new Date();
-
-        const dataInicioMenosPeriodo = new Date(dataInicio.getTime() - periodo * 24 * 60 * 60 * 1000);
-
-        if (dataFim && dataInicio > dataFim) {
-            Alerta.notificacao(`A data de início não pode ser maior que a data final.`, false);
-            return false;
-        }
-
-        if (dataInicio < hoje) {
-            Alerta.notificacao(`A data de inicio não pode ser menor que hoje.`, false);
-            return false;
-        }
-
-        if (hoje > dataInicioMenosPeriodo) {
-            return (await Alerta.confirmar(
-                'Atenção!',
-                `A demanda está sendo cadastrada antes do limite recomendado de ${periodo} dias.`,
-                '!'
-            ))
-                ? true
-                : false; // Apesar de estar após o limite não bloqueia o cadastro
-        }
-
-        return true;
-    };
-
-    const pegarInputsData = input => {
-        if (Array.isArray(input)) {
-            const inputDataInicio = document.getElementById('input_' + input[0]).value;
-            const inputDataFim = document.getElementById('input_' + input[1]).value;
-
-            return {
-                dataInicio: new Date(formatarData(inputDataInicio)),
-                dataFim: new Date(formatarData(inputDataFim)),
-            };
-        }
-
-        const inputDataInicio = document.getElementById('input_' + input).value;
-
-        return {
-            dataInicio: new Date(formatarData(inputDataInicio)),
-            undefined,
-        };
-    };
-
-    const formatarData = dataOriginal => {
-        var partes = dataOriginal.split(/[\s\/:]+/);
-        var data = new Date(partes[2], partes[1] - 1, partes[0], partes[3], partes[4], partes[5]);
-        var dataFormatada =
-            data.getFullYear() +
-            '-' +
-            (data.getMonth() + 1).toString().padStart(2, '0') +
-            '-' +
-            data.getDate().toString().padStart(2, '0') +
-            ' ' +
-            data.getHours().toString().padStart(2, '0') +
-            ':' +
-            data.getMinutes().toString().padStart(2, '0') +
-            ':' +
-            data.getSeconds().toString().padStart(2, '0');
-        return dataFormatada;
     };
 
     /*

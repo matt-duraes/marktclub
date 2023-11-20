@@ -7,11 +7,12 @@ class Historico {
      * @param {elemento} botao Qual vai ser o elemento que abrirá a foto, caso não informe, será o figure
      * @param {string} download Link para download da imagem caso queira abilitar essa opção
      */
-    constructor(bloco, link) {
+    constructor(bloco, link, callback) {
         this.blocoDestino = bloco;
         bloco.classList.add('fw_historico_destino');
         this.link = link;
         this.montarClasse();
+        this.callback = callback ? callback : function () { };
     }
 
     // MONTA O HISTORICO INICIAL
@@ -28,6 +29,7 @@ class Historico {
         }
         this.setarEventoGeral();
         this.carregarEventoParceiro();
+        this.callback();
     }
     // CARREGA O HTML DO VISUALIZAR DO HISTORICO
     carregarHtml() {

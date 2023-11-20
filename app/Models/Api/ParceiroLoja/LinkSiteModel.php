@@ -29,10 +29,10 @@ final class LinkSiteModel
             campo: ['logo_principal', 'titulo', 'cor_principal', 'link_clube'],
             retorno: 'object'
         );
-        $logo = arquivoPrivado($clube->logo_principal);
-        $titulo = $clube->titulo;
-        $cor = $clube->cor_principal;
-        $link = $clube->link_clube;
+        $logo = arquivoPrivado($clube->logo_principal ?? '');
+        $titulo = $clube->titulo ?? '';
+        $cor = $clube->cor_principal ?? '';
+        $link = $clube->link_clube ?? '';
 
         $criado_em = time();
         $vence_em = time() + 120;
