@@ -3,6 +3,8 @@
 
 <div class="bloco bloco_grupo">
     <h3>Dados do solicitante</h3>
+
+    @? formInput(name: 'cotacao_automovel_nome', label: 'Nome', placeholder: 'Nome')
     @? formCpf(name: 'cotacao_automovel_cpf', label: 'CPF', placeholder: 'CPF')
     @? formEmail(name: 'cotacao_automovel_email', label: 'E-mail', placeholder: 'E-mail')
     @? formTelefone(name: 'cotacao_automovel_telefone', label: 'Telefone', placeholder: 'Telefone')

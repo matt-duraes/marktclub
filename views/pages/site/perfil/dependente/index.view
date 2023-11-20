@@ -33,7 +33,7 @@
                         <div class="td status">
                             <p class="{{$r->status}}">{{$r->status_texto}}</p>
                             @ if( $r->status == 'inativo' ):
-                            <span>Reenviar convite</span>
+                            <span class="botao_reenviar_convite">Reenviar convite</span>
                             @ endif;
                         </div>
                         <div class="td deletar"><i class="botao_deletar_dependente">@iconeFechar</i></div>
@@ -52,9 +52,9 @@
 </div>
 
 <div class="display_none">
-    <div class="linha" id="bloco_dependente_linha">
+    <div class="linha" id="bloco_dependente_linha" >
         <div class="td nome"></div>
-        <div class="td status"><p class="inativo">Status</p><span>Reenviar convite</span></div>
+        <div class="td status"><p class="inativo">Status</p><span >Reenviar convite</span></div>
         <div class="td deletar"><i class="botao_deletar_dependente">@iconeFechar</i></div>
     </div>
 </div>

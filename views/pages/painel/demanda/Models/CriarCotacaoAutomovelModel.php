@@ -38,6 +38,7 @@ final class CriarCotacaoAutomovelModel
             texto: <<<HTML
                 <h1>Dados do solicitante</h1>
                 <ul>
+                    <li>Nome: $dado->nome</li>
                     <li>CPF: $dado->cpf</li>
                     <li>E-mail: $dado->email</li>
                     <li>Telefone: $dado->telefone</li>

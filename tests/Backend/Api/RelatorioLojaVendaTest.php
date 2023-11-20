@@ -2,12 +2,12 @@
 
 namespace Tests\Api;
 
-use Tests\Api\Trait\AnalyticsTrait;
+use Tests\Api\Trait\RelatorioTrait;
 use Tests\Tests;
 
 final class RelatorioLojaVendaTest extends Tests
 {
-    use AnalyticsTrait;
+    use RelatorioTrait;
 
     private string $uri = '/relatorio/loja-venda';
     private array $dadoEmpresa1;

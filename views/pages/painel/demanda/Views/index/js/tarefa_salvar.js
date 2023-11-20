@@ -30,7 +30,9 @@ botaoSalvarTarefa.addEventListener('click', async () => {
     if (id == '') {
         body.demanda = idDemanda;
     }
+    Loading.show();
     const resposta = await ajaxPost(LINK + uri, body, 'Erro ao salvar tarefa, por favor, tente novamente.');
+    Loading.hide();
     if (false === resposta) {
         return;
     }
@@ -41,6 +43,10 @@ botaoSalvarTarefa.addEventListener('click', async () => {
     }, 300);
 
     if (id == '') {
+        const blocoZero = $('#bloco_tarefa_zero');
+        if (blocoZero) {
+            blocoZero.classList.add('display_none');
+        }
         adicionarNovaTarefa(resposta.dado);
         return;
     }

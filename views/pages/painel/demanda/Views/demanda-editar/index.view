@@ -1,16 +1,16 @@
-<div id="bloco_demanda_nova" class="bloco_pagina_popup">
+<div id="bloco_demanda_editar" class="bloco_pagina_popup">
     <header class="header_pagina_popup">
         <h1>EDITAR DEMANDA</h1>
     </header>
     <form class="form_geral conteudo_pagina_popup">
-        @? formInput(name: 'demanda_titulo', placeholder: 'Título curto e específico do que deseja criar', label: 'Título', obrigatorio: true)
+        @? formInput(name: 'demanda_editar_titulo', placeholder: 'Título curto e específico do que deseja criar', label: 'Título', obrigatorio: true)
         <div class="row2">
-            @? formSelect(name: 'demanda_empresa', placeholder: 'Escolha um cliente', label: 'Empresa', lista: $empresa)
-            @? formSelect(name: 'demanda_dono', placeholder: 'Escolha um dono para a demanda', label: 'Dono da demanda', lista: $equipe)
+            @? formSelect(name: 'demanda_editar_empresa', placeholder: 'Escolha um cliente', label: 'Empresa', lista: $empresa)
+            @? formSelect(name: 'demanda_editar_equipe', placeholder: 'Escolha um dono para a demanda', label: 'Dono da demanda', lista: $equipe)
         </div>
         <div class="row_livre">
-            @? formSwitch(name: 'demanda_com_prazo', label: 'A demanda tem prazo?', check: false)
-            @? formData(name: 'demanda_data_entrega', label: 'Data da entrega', placeholder: 'Prazo de entrega', class: 'bloco_input_data_entrega')
+            @? formSwitch(name: 'demanda_editar_com_prazo', label: 'A demanda tem prazo?', check: false)
+            @? formData(name: 'demanda_editar_data_entrega', label: 'Data da entrega', placeholder: 'Prazo de entrega', class: 'bloco_input_data_entrega')
         </div>
     </form>
     <div class="footer_pagina_popup">

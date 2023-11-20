@@ -3,13 +3,13 @@
 
 <div class="bloco_coluna">
     <h3>Datas do sorteio</h3>
-    @? formData(name: ['data_inicio', 'data_final'], placeholder: ['Data de início da campanha', 'Data final da campanha'], label: 'Data do sorteio')
-    @? formData(name: 'data_sorteio', label: 'Data do sorteio', placeholder: 'Data do sorteio')
+    @? formDataHora(name: ['data_inicio', 'data_final'], placeholder: ['Data de início da campanha', 'Data final da campanha'], label: 'Data da campanha')
+    @? formDataHora(name: 'data_sorteio', label: 'Data do sorteio', placeholder: 'Data do sorteio')
 </div>
 
 <h3>Como o sorteio irá funcinar?</h3>
 @? formInput(name: 'como_participar', label: 'Como participar', placeholder: 'Como o usuário participa do sorteio?')
-@? formSelect(name: 'sorteio_motivacao', placeholder: 'Escolha uma motivação', label: 'Motivação', obrigatorio: 1, lista: ['' => 'Escolha uma opção', 'Campanha de ativação', 'Dia comemorativo', 'outro' => 'Outro'])
+@? formSelect(name: 'sorteio_motivacao', placeholder: 'Escolha uma motivação', label: 'Motivação', obrigatorio: 1, lista: ['' => 'Escolha uma opção', 'Campanha de ativação', 'Dia comemorativo', 'Campanha de acesso', 'outro' => 'Outro'])
 @? formInput(name: 'sorteio_motivacao_outro', placeholder: 'Motivação do sorteio', class: 'display_none', id: 'bloco_sorteio_motivacao_outro')
 
 <h3>Dados do prémio</h3>

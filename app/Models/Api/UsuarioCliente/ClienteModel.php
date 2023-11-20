@@ -2,27 +2,28 @@
 
 namespace App\Models\Api\UsuarioCliente;
 
-use ORM\ORM;
-use stdClass;
-use Erro\Excecao;
-use Http\Request;
-use Modules\Data;
-use Modules\Genero;
 use App\Classes\UsuarioCliente\Ordem;
 use App\Classes\UsuarioCliente\Status;
 use App\Classes\UsuarioCliente\TipoUsuario;
 use App\Classes\UsuarioCliente\TrabalhoCargo;
-use App\Models\Api\Trait\ValidarEmpresaTrait;
 use App\Classes\UsuarioCliente\TrabalhoEmpresa;
+use App\Helpers\DrogariaAraujoHelper;
+use App\Models\Api\Trait\ValidarEmpresaTrait;
 use App\Models\Api\UsuarioCliente\Trait\BuscarUsuarioTrait;
+use Erro\Excecao;
+use Http\Request;
+use Modules\Data;
+use Modules\Genero;
+use ORM\ORM;
+use stdClass;
 
 final class ClienteModel extends ORM
 {
     use ValidarEmpresaTrait;
     use BuscarUsuarioTrait;
 
-    public const FINANCIAMENTO_SALDO = 1324;
-    public const FINANCIAMENTO_LIMITE = self::FINANCIAMENTO_SALDO * 2;
+    public const FINANCIAMENTO_SALDO = 0;
+    public const FINANCIAMENTO_LIMITE = 0;
 
     protected string $ormTabela = TABELA_USUARIO_CLIENTE;
     private int $idEmpresa;
@@ -171,12 +172,14 @@ final class ClienteModel extends ORM
      */
     public function buscarDependentesUsuario(string $id): array
     {
+        $DrogariaAraujoHelper = new DrogariaAraujoHelper();
         $dependentes = $this
             ->campo([
-                'cpf', 'matricula', 'nome', 'tipo', 'genero', 'aniversario', 'codigo_plano'
+                'cpf', 'matricula', 'nome', 'tipo', 'genero', 'aniversario'
             ])
             ->where([
-                ['titular', $id]
+                ['titular', $id],
+                ['status', (new Status(Status::ATIVO))->numero()]
             ])
             ->read();
 
@@ -184,20 +187,20 @@ final class ClienteModel extends ORM
         foreach ($dependentes as $dependente) {
             $retorno[] = [
                 'cpf'                    => $dependente->cpf,
-                'matricula'              => $dependente->matricula,
+                'matricula'              => $dependente->cpf,
                 'nome'                   => $dependente->nome,
-                'tipo'                   => (new TipoUsuario($dependente->tipo))->indice(),
-                'sexo'                   => (new Genero($dependente->genero))->genero(),
+                'tipo'                   => ucfirst((new TipoUsuario($dependente->tipo))->indice()),
+                'sexo'                   => ucfirst((new Genero($dependente->genero))->genero()),
                 'dataNascimento'         => (new Data($dependente->aniversario))->date(),
                 'saldoFinanciamento'     => self::FINANCIAMENTO_SALDO,
                 'limiteFinanciamento'    => self::FINANCIAMENTO_LIMITE,
-                'grupoCronicoDependente' => 'nao',
+                'grupoCronicoDependente' => 'Nao',
                 'cartao'                 => [
                     'nome'   => $dependente->nome,
-                    'numero' => null
+                    'numero' => $dependente->cpf
                 ],
                 'dependentes'            => null,
-                'codigoPlano'            => $dependente->codigo_plano
+                'codigoPlano'            => $DrogariaAraujoHelper->getCodigoPlano()
             ];
         }
         return $retorno;

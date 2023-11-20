@@ -2,22 +2,29 @@
 
 namespace App\Models\Api\UsuarioDependente;
 
-use ORM\Entity;
-use Modules\Cpf;
-use Modules\Data;
-use Modules\Nome;
-use Modules\Email;
-use Helpers\EmailHelper;
 use App\Classes\UsuarioCliente\Helper;
 use App\Classes\UsuarioCliente\Status;
 use App\Classes\UsuarioCliente\TipoUsuario;
-use App\Models\Api\Trait\ValidarEmpresaTrait;
 use App\Models\Api\ConstrutorClube\ConstrutorEntity;
+use App\Models\Api\Trait\ValidarEmpresaTrait;
+use Erro\Excecao;
+use Helpers\EmailHelper;
+use Modules\Cpf;
+use Modules\Data;
+use Modules\Email;
+use Modules\Nome;
+use ORM\Entity;
+use SendGrid\Mail\TypeException;
 
 final class DependenteEntity extends Entity
 {
     use ValidarEmpresaTrait;
 
+    public Nome $nome;
+    public Cpf $cpf;
+    public Email $email;
+    public string $usuario;
+    public Status $status;
     protected string $ormTabela = TABELA_USUARIO_CLIENTE;
     protected array $ormInsert = [
         'cod', 'nome', 'tipo', 'titular', 'data_email', 'status',
@@ -25,55 +32,32 @@ final class DependenteEntity extends Entity
         'email_pessoal' => '->email',
         'empresa'       => '->idEmpresa'
     ];
-    public Nome $nome;
-    public Cpf $cpf;
-    public Email $email;
-    public string $usuario;
+    protected array $ormBuscar = [
+        'id', 'nome', 'documento', 'status',
+        'email' => 'email_pessoal'
+    ];
     protected int $titular;
     protected string $cod;
     protected TipoUsuario $tipo;
     protected Data $data_email;
-    public Status $status;
     private int $idEmpresa;
 
+    /**
+     * @throws Excecao
+     */
     public function __construct()
     {
         parent::__construct();
         if (!defined('TOKEN')) {
             mensagemStatus(401, localhost: 'Token não foi encontrado no UsuarioDependente\DependenteEntity.');
         }
-
         $this->validarEmpresa('empresa');
     }
 
-    protected function regraPosInsert()
-    {
-        if (eLocalhost()) {
-            return;
-        }
-        $Construtor = new ConstrutorEntity();
-        $Construtor->buscar(['id_admin_empresa', $this->idEmpresa]);
-
-        $link = $Construtor->link_clube;
-        $titulo = $Construtor->titulo;
-
-        $Email = new EmailHelper();
-        $Email->mensagem(
-            titulo: 'Cadastro realizado!',
-            assunto: 'Cadastro realizado!',
-            mensagem: 'Olá <strong>' . $this->nome->primeiroNome() . '</strong>, você foi cadastrado no ' . $titulo . '. Para ativar seu
-            cadastro, clique no botão abaixo:',
-            posMensagem: 'Caso fique com alguma dúvida, por favor, entre em contato.',
-            botaoTexto: 'Ativar cadastro',
-            botaoLink: $link . '/login#ativar',
-            logo: $Construtor->logo_principal,
-            acao: 'Cadastro de dependente',
-            cor: $Construtor->cor_principal
-        );
-        $Email->sendGrid('Cadastro Realizado', $this->nome->nome(), $this->email->email(), deNome: $titulo);
-    }
-
-    protected function regraInsert()
+    /**
+     * @throws Excecao
+     */
+    protected function regraInsert(): void
     {
         $this->pegarTitular();
         $this->validarNumeroDependentes();
@@ -87,10 +71,16 @@ final class DependenteEntity extends Entity
         $this->status = new Status(Status::INATIVO);
     }
 
-    private function pegarTitular()
+    /**
+     * @throws Excecao
+     */
+    private function pegarTitular(): void
     {
         if (empty($this->usuario)) {
-            mensagemErro('Campo obrigatório!', 'Você deve passar o titular do dependente para salvar.');
+            mensagemErro(
+                'Campo obrigatório!',
+                'Você deve passar o titular do dependente para salvar.'
+            );
         }
 
         $usuario = $this
@@ -102,14 +92,23 @@ final class DependenteEntity extends Entity
             ->primeiro();
 
         if (empty($usuario)) {
-            mensagemErro('Erro!', 'Não foi possível encontrar o usuário para vincular o dependente.');
+            mensagemErro(
+                'Erro!',
+                'Não foi possível encontrar o usuário para vincular o dependente.'
+            );
         } elseif ((new TipoUsuario($usuario->tipo))->indice() == TipoUsuario::DEPENDENTE) {
-            mensagemErro('Erro!', 'Um dependente não pode adicionar outros dependentes.');
+            mensagemErro(
+                'Erro!',
+                'Um dependente não pode adicionar outros dependentes.'
+            );
         }
         $this->titular = $usuario->id;
     }
 
-    private function validarNumeroDependentes()
+    /**
+     * @throws Excecao
+     */
+    private function validarNumeroDependentes(): void
     {
         if (
             $this->contar([
@@ -123,7 +122,10 @@ final class DependenteEntity extends Entity
         }
     }
 
-    private function validarCampos()
+    /**
+     * @throws Excecao
+     */
+    private function validarCampos(): void
     {
         if ($this->nome->vazio()) {
             mensagemErro('Campo obrigatório!', 'O campo Nome é obrigatório.');
@@ -140,7 +142,10 @@ final class DependenteEntity extends Entity
         }
     }
 
-    private function cpfJaExiste()
+    /**
+     * @throws Excecao
+     */
+    private function cpfJaExiste(): void
     {
         if (
             $this->existe([
@@ -152,7 +157,10 @@ final class DependenteEntity extends Entity
         }
     }
 
-    private function emailJaExiste()
+    /**
+     * @throws Excecao
+     */
+    private function emailJaExiste(): void
     {
         if (
             $this->existe([
@@ -167,5 +175,46 @@ final class DependenteEntity extends Entity
         ) {
             mensagemErro('E-mail duplicado!', 'O e-mail informado já está em uso por outro usuário.');
         }
+    }
+
+    /**
+     * @throws Excecao
+     * @throws TypeException
+     */
+    protected function regraPosInsert(): void
+    {
+        $this->enviarEmail();
+    }
+
+    /**
+     * @throws Excecao
+     * @throws TypeException
+     */
+    public function enviarEmail(): void
+    {
+        if (eLocalhost()) {
+            return;
+        }
+
+        $Construtor = new ConstrutorEntity();
+        $Construtor->buscar(['id_admin_empresa', $this->idEmpresa]);
+
+        $link = $Construtor->link_clube;
+        $titulo = $Construtor->titulo;
+
+        $Email = new EmailHelper();
+        $Email->mensagem(
+            titulo: 'Cadastro realizado!',
+            mensagem: 'Olá <strong>' . $this->nome->primeiroNome() . '</strong>, você foi cadastrado no ' . $titulo . '. Para ativar seu
+            cadastro, clique no botão abaixo:',
+            assunto: 'Cadastro realizado!',
+            botaoTexto: 'Ativar cadastro',
+            botaoLink: $link . '/login#ativar',
+            posMensagem: 'Caso fique com alguma dúvida, por favor, entre em contato.',
+            acao: 'Cadastro de dependente',
+            logo: $Construtor->logo_principal,
+            cor: $Construtor->cor_principal
+        );
+        $Email->sendGrid('Cadastro Realizado', $this->nome->nome(), $this->email->email(), deNome: $titulo);
     }
 }

@@ -20,6 +20,27 @@ window.addEventListener('load', () => {
     const inputEmail = $('#input_dependente_email');
 
     const botaoSalvar = $('#botao_cadastrar_dependente');
+    const reenviarConvite = document.querySelectorAll('.botao_reenviar_convite');
+
+    reenviarConvite.forEach(element => {
+        element.addEventListener('click', async e => {
+            const blocoClique = e.target.parentNode;
+            Loading.show();
+            const resposta = await ajaxPost(
+                LINK + '/perfil/reenviar-convite',
+                {
+                    id: blocoClique.parentNode.getAttribute('data-id'),
+                },
+                'Ocorreu um erro ao salvar o dependente, por favor, tente novamente.'
+            );
+            Loading.hide();
+            if (false === resposta) {
+                return;
+            }
+
+            Alerta.notificacao('Convite reenviado com sucesso.', true);
+        });
+    });
 
     const salvarDependente = async () => {
         if (!(await validarInput(form))) {

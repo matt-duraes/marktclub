@@ -2,13 +2,14 @@
 
 namespace App\Controllers\Site;
 
-use App\Models\Site\Perfil\CarteirinhaModel;
-use App\Models\Site\Perfil\DadosModel;
-use App\Models\Site\Perfil\DependenteModel;
-use App\Models\Site\Perfil\SenhaModel;
-use Controller\Controller;
+use Erro\Excecao;
 use Http\Request;
 use Http\Response;
+use Controller\Controller;
+use App\Models\Site\Perfil\DadosModel;
+use App\Models\Site\Perfil\SenhaModel;
+use App\Models\Site\Perfil\DependenteModel;
+use App\Models\Site\Perfil\CarteirinhaModel;
 
 final class PerfilController extends Controller
 {
@@ -50,6 +51,11 @@ final class PerfilController extends Controller
         return mensagemSucesso((new DependenteModel())->salvarDependente($request), 201);
     }
 
+    public function postReenviarConvite(Request $request)
+    {
+        return mensagemSucesso((new DependenteModel())->reenviarConvite($request), 201);
+    }
+
     public function postDeletaDependente(Request $request)
     {
         (new DependenteModel())->deletarDependente($request);
@@ -86,7 +92,6 @@ final class PerfilController extends Controller
     public function postSalvarDados(Request $request)
     {
         $Salvar = (new DadosModel())->postDado($request);
-
         return new Response($Salvar);
     }
 
