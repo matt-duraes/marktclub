@@ -33,9 +33,6 @@
                 <i class="copiar">@iconeCopiar(12)</i>
             </p>
             @endif;
-            @if ( !empty(CHAT) ):
-            <p class="contato" target="_blank" rel="noopener noreferrer"><i class="icone">@iconeChat(18)</i> <span>CHAT</span></p>
-            @endif;
 
             @if ( !empty(CONTATO_EMAIL) || !empty(CONTATO_WHATSAPP) || !empty(CONTATO_TELEFONE) ):
             <div class="linha"><span>ou escolha uma opção</span></div>

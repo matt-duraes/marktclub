@@ -1,4 +1,5 @@
 @template "site"
+
 @view site/cashback/geral/busca.view
 
 <div id="bloco_cashback_detalhe">

@@ -71,7 +71,7 @@
                     <h1>PREENCHA AS INFORMAÇÕES</h1>
                 </header>
                 <div class="conteudo_menor">
-                    @? formData(name: 'data_titular', placeholder: 'Data de nascimento do titular', label: 'Data de nascimento do titular', focus: true ,obrigatorio: true)
+                    @? formData(name: 'data_titular', placeholder: 'Data de nascimento do titular', label: 'Data de nascimento do titular', obrigatorio: true)
                     <h2>Dependentes</h2>
                     <p>Adicione os seus dependentes para fazer a simulação</p>
                     <div class="botao" id="botao_adicionar_dependente">Adicionar Dependente</div>

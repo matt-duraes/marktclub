@@ -46,8 +46,8 @@
         <div class="conteudo">
             @ foreach( $Busca->filtro as $r ):
             <div class="item" data-indice="{{$r->indice}}" data-valor="{{$r->valor_real}}">
-                <div class="nome">{{$r->nome}}</div>
-                <div class="valor">{{$r->valor}}</div>
+                <div class="nome">{!!$r->nome!!}</div>
+                <div class="valor">{!!$r->valor!!}</div>
                 <div class="remover">@iconeFechar(10)</div>
             </div>
             @ endforeach;

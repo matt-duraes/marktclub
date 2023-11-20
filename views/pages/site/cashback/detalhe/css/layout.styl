@@ -1,9 +1,9 @@
 @system "Form"
 @template "site"
 @resource "site/busca"
-@resource "site/cashback/busca"
 @resource "site/variavel"
 @resource "site/loja/parceiro"
+@resource "site/cashback/busca"
 @resource "site/loja/relacionado"
 @resource "site/parceiro_header"
 @resource "site/passo_passo"
@@ -51,3 +51,11 @@
         margin-left: 20px
     .atencao
         margin-top: 20px
+
+#bloco_input_categoria_fake
+    width: 300px
+@media screen and (max-width: 800px)
+    #bloco_input_categoria_fake
+        display: none
+#bloco_input_pesquisa_fake
+    flex: 1
