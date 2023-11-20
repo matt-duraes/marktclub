@@ -14,8 +14,8 @@ class GlobalFunctionsHelper
      * Wrapper around global function fopen()
      * @see fopen()
      *
-     * @param  string        $fileName
-     * @param  string        $mode
+     * @param string $fileName
+     * @param string $mode
      * @return resource|bool
      */
     public function fopen($fileName, $mode)
@@ -27,8 +27,8 @@ class GlobalFunctionsHelper
      * Wrapper around global function fgets()
      * @see fgets()
      *
-     * @param  resource $handle
-     * @param  int|null $length
+     * @param resource $handle
+     * @param int|null $length
      * @return string
      */
     public function fgets($handle, $length = null)
@@ -40,8 +40,8 @@ class GlobalFunctionsHelper
      * Wrapper around global function fputs()
      * @see fputs()
      *
-     * @param  resource $handle
-     * @param  string   $string
+     * @param resource $handle
+     * @param string $string
      * @return int
      */
     public function fputs($handle, $string)
@@ -53,7 +53,7 @@ class GlobalFunctionsHelper
      * Wrapper around global function fflush()
      * @see fflush()
      *
-     * @param  resource $handle
+     * @param resource $handle
      * @return bool
      */
     public function fflush($handle)
@@ -65,8 +65,8 @@ class GlobalFunctionsHelper
      * Wrapper around global function fseek()
      * @see fseek()
      *
-     * @param  resource $handle
-     * @param  int      $offset
+     * @param resource $handle
+     * @param int $offset
      * @return int
      */
     public function fseek($handle, $offset)
@@ -78,10 +78,10 @@ class GlobalFunctionsHelper
      * Wrapper around global function fgetcsv()
      * @see fgetcsv()
      *
-     * @param  resource    $handle
-     * @param  int|null    $length
-     * @param  string|null $delimiter
-     * @param  string|null $enclosure
+     * @param resource $handle
+     * @param int|null $length
+     * @param string|null $delimiter
+     * @param string|null $enclosure
      * @return array
      */
     public function fgetcsv($handle, $length = null, $delimiter = null, $enclosure = null)
@@ -99,10 +99,10 @@ class GlobalFunctionsHelper
      * Wrapper around global function fputcsv()
      * @see fputcsv()
      *
-     * @param  resource    $handle
-     * @param  array       $fields
-     * @param  string|null $delimiter
-     * @param  string|null $enclosure
+     * @param resource $handle
+     * @param array $fields
+     * @param string|null $delimiter
+     * @param string|null $enclosure
      * @return int
      */
     public function fputcsv($handle, array $fields, $delimiter = null, $enclosure = null)
@@ -120,8 +120,8 @@ class GlobalFunctionsHelper
      * Wrapper around global function fwrite()
      * @see fwrite()
      *
-     * @param  resource $handle
-     * @param  string   $string
+     * @param resource $handle
+     * @param string $string
      * @return int
      */
     public function fwrite($handle, $string)
@@ -133,7 +133,7 @@ class GlobalFunctionsHelper
      * Wrapper around global function fclose()
      * @see fclose()
      *
-     * @param  resource $handle
+     * @param resource $handle
      * @return bool
      */
     public function fclose($handle)
@@ -145,7 +145,7 @@ class GlobalFunctionsHelper
      * Wrapper around global function rewind()
      * @see rewind()
      *
-     * @param  resource $handle
+     * @param resource $handle
      * @return bool
      */
     public function rewind($handle)
@@ -157,7 +157,7 @@ class GlobalFunctionsHelper
      * Wrapper around global function file_exists()
      * @see file_exists()
      *
-     * @param  string $fileName
+     * @param string $fileName
      * @return bool
      */
     public function file_exists($fileName)
@@ -169,7 +169,7 @@ class GlobalFunctionsHelper
      * Wrapper around global function file_get_contents()
      * @see file_get_contents()
      *
-     * @param  string $filePath
+     * @param string $filePath
      * @return string
      */
     public function file_get_contents($filePath)
@@ -183,7 +183,7 @@ class GlobalFunctionsHelper
      * Updates the given file path to use a real path.
      * This is to avoid issues on some Windows setup.
      *
-     * @param  string $filePath File path
+     * @param string $filePath File path
      * @return string The file path using a real path
      */
     protected function convertToUseRealPath($filePath)
@@ -206,8 +206,8 @@ class GlobalFunctionsHelper
     /**
      * Returns whether the given path is a zip stream.
      *
-     * @param  string $path Path pointing to a document
-     * @return bool   TRUE if path is a zip stream, FALSE otherwise
+     * @param string $path Path pointing to a document
+     * @return bool TRUE if path is a zip stream, FALSE otherwise
      */
     protected function isZipStream($path)
     {
@@ -218,7 +218,7 @@ class GlobalFunctionsHelper
      * Wrapper around global function feof()
      * @see feof()
      *
-     * @param  resource $handle
+     * @param resource $handle
      * @return bool
      */
     public function feof($handle)
@@ -230,7 +230,7 @@ class GlobalFunctionsHelper
      * Wrapper around global function is_readable()
      * @see is_readable()
      *
-     * @param  string $fileName
+     * @param string $fileName
      * @return bool
      */
     public function is_readable($fileName)
@@ -242,8 +242,8 @@ class GlobalFunctionsHelper
      * Wrapper around global function basename()
      * @see basename()
      *
-     * @param  string      $path
-     * @param  string|null $suffix
+     * @param string $path
+     * @param string|null $suffix
      * @return string
      */
     public function basename($path, $suffix = '')
@@ -256,6 +256,7 @@ class GlobalFunctionsHelper
      * @see header()
      *
      * @param string $string
+     * @return void
      */
     public function header($string)
     {
@@ -266,6 +267,7 @@ class GlobalFunctionsHelper
      * Wrapper around global function ob_end_clean()
      * @see ob_end_clean()
      *
+     * @return void
      */
     public function ob_end_clean()
     {
@@ -278,9 +280,9 @@ class GlobalFunctionsHelper
      * Wrapper around global function iconv()
      * @see iconv()
      *
-     * @param  string      $string         The string to be converted
-     * @param  string      $sourceEncoding The encoding of the source string
-     * @param  string      $targetEncoding The encoding the source string should be converted to
+     * @param string $string The string to be converted
+     * @param string $sourceEncoding The encoding of the source string
+     * @param string $targetEncoding The encoding the source string should be converted to
      * @return string|bool the converted string or FALSE on failure.
      */
     public function iconv($string, $sourceEncoding, $targetEncoding)
@@ -292,9 +294,9 @@ class GlobalFunctionsHelper
      * Wrapper around global function mb_convert_encoding()
      * @see mb_convert_encoding()
      *
-     * @param  string      $string         The string to be converted
-     * @param  string      $sourceEncoding The encoding of the source string
-     * @param  string      $targetEncoding The encoding the source string should be converted to
+     * @param string $string The string to be converted
+     * @param string $sourceEncoding The encoding of the source string
+     * @param string $targetEncoding The encoding the source string should be converted to
      * @return string|bool the converted string or FALSE on failure.
      */
     public function mb_convert_encoding($string, $sourceEncoding, $targetEncoding)
@@ -317,7 +319,7 @@ class GlobalFunctionsHelper
      * Wrapper around global function function_exists()
      * @see function_exists()
      *
-     * @param  string $functionName
+     * @param string $functionName
      * @return bool
      */
     public function function_exists($functionName)

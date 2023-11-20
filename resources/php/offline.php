@@ -14,5 +14,5 @@
             <span>Notamos que você está sem acesso a internet, verifique sua conexão para continuar navegando.</span>
         </p>
     </div>
-    <button class="fechar" id="botao_offline_fechar"><?=iconeFechar(17); ?></button>
+    <button class="fechar" id="botao_offline_fechar"><?=iconeFechar(17);?></button>
 </div>
