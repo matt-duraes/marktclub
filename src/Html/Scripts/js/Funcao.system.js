@@ -1,5 +1,12 @@
-const $ = document.querySelector.bind(document);
-const $$ = document.querySelectorAll.bind(document);
+// const $ = document.querySelector.bind(document);
+const $ = (seletor, pai) => {
+    const paiElemento = typeof pai === 'string' ? document.querySelector(pai) : pai;
+    return (paiElemento || document).querySelector(seletor);
+};
+const $$ = (seletor, pai) => {
+    const paiElemento = typeof pai === 'string' ? document.querySelector(pai) : pai;
+    return (paiElemento || document).querySelectorAll(seletor);
+};
 const ppe = console.log.bind(console);
 
 const FW_BLOCO_LOGIN = $('#bloco_login_relogar');
