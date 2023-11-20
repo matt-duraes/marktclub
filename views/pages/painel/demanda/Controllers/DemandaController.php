@@ -25,7 +25,6 @@ use Painel\Demanda\Models\CriarCampanhaModel;
 use Painel\Demanda\Models\CriarAuditoriaModel;
 use Painel\Demanda\Models\CriarIndicacaoModel;
 use Painel\Demanda\Models\CriarAssociacaoModel;
-use Painel\Demanda\Models\CriarCotacaoCarroModel;
 use Painel\Demanda\Models\CriarAutoindicacaoModel;
 use Painel\Demanda\Models\CriarCotacaoProdutoModel;
 use App\Classes\DemandaTarefa\Tipo as DemandaTarefaTipo;
