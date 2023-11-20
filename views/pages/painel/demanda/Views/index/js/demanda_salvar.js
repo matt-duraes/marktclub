@@ -97,6 +97,7 @@ window.addEventListener('load', () => {
     const inputEmpresaIndicacao = $('#input_empresa_indicacao');
     // Autoindicacao
     const inputEmpresaAutoindicacao = $('#input_empresa_autoindicacao');
+
     // Cotação - Automovel
     const inputEmpresaCotacaoAutomovel = $('#input_empresa_cotacao_automovel');
     // Cotação - Produto
@@ -115,6 +116,7 @@ window.addEventListener('load', () => {
 
     const blocoTipoAuditoria = $('#bloco_auditoria');
     const blocoTipoCotacaoProduto = $('#bloco_cotacao_produto');
+
     const blocoTipoCotacaoAutomovel = $('#bloco_cotacao_automovel');
     const blocoTipoAutoindicacao = $('#bloco_autoindicacao');
     const blocoTipoIndicacao = $('#bloco_indicacao');

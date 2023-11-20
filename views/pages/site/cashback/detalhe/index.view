@@ -8,7 +8,7 @@
             <h1>{{$dado->titulo}}</h1>
             <p>{!!$dado->texto_descricao!!}</p>
             @if(TIPO_USUARIO != 'indicado'):
-            <a href="" data-botao="Regulamento" class="botao_pequeno_borda cor_border botao_contar_click">Regulamento do SILIUM</a>
+            <a href="@route(termo.termocashback)" target="_blank" data-botao="Regulamento" class="botao_pequeno_borda cor_border botao_contar_click">Regulamento do SILIUM</a>
             @endif
         </header>
     </div>
