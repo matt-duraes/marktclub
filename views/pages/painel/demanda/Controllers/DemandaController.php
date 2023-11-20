@@ -10,6 +10,7 @@ use Controller\Controller;
 use App\Classes\DemandaDado\Area;
 use App\Classes\DemandaDado\Tipo;
 use App\Classes\DemandaTarefa\Status;
+use Painel\Demanda\Models\CriarCotacaoAutomovelModel;
 use Painel\Demanda\Models\ListaModel;
 use Painel\Demanda\Models\CriacaoModel;
 use Painel\Demanda\Models\DetalheModel;
@@ -323,8 +324,8 @@ final class DemandaController extends Controller
             $Demanda = new CriarIndicacaoModel($request);
         } elseif ($request->tipo == Tipo::AUTOINDICACAO) {
             $Demanda = new CriarAutoindicacaoModel($request);
-        } elseif ($request->tipo == Tipo::COTACAO_CARRO) {
-            $Demanda = new CriarCotacaoCarroModel($request);
+        } elseif ($request->tipo == Tipo::COTACAO_AUTOMOVEL) {
+            $Demanda = new CriarCotacaoAutomovelModel($request);
         } elseif ($request->tipo == Tipo::COTACAO_PRODUTO) {
             $Demanda = new CriarCotacaoProdutoModel($request);
         } elseif ($request->tipo == Tipo::AUDITORIA) {

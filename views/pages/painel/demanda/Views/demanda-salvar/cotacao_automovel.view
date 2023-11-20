@@ -3,6 +3,7 @@
 
 <div class="bloco bloco_grupo">
     <h3>Dados do solicitante</h3>
+
     @? formInput(name: 'cotacao_automovel_nome', label: 'Nome', placeholder: 'Nome')
     @? formCpf(name: 'cotacao_automovel_cpf', label: 'CPF', placeholder: 'CPF')
     @? formEmail(name: 'cotacao_automovel_email', label: 'E-mail', placeholder: 'E-mail')
@@ -10,7 +11,7 @@
 </div>
 
 <div class="bloco bloco_grupo">
-    <h3>Dados do automovel</h3>
+    <h3>Dados do automóvel</h3>
     @? formInput(name: 'cotacao_automovel_marca', label: 'Marca', placeholder: 'Marca')
     @? formInput(name: 'cotacao_automovel_modelo', label: 'Modelo', placeholder: 'Modelo')
     @? formInput(name: 'cotacao_automovel_ano', label: 'Ano', placeholder: 'Ano')

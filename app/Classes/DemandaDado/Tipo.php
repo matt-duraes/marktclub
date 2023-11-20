@@ -46,7 +46,7 @@ final class Tipo extends Status
             self::CAMPANHA            => 'Campanha',
             self::INDICACAO           => 'Indicação',
             self::AUTOINDICACAO       => 'Autoindicação',
-            self::COTACAO_AUTOMOVEL   => 'Cotação - Automovel',
+            self::COTACAO_AUTOMOVEL   => 'Cotação - Automóvel',
             self::COTACAO_PRODUTO     => 'Cotação - Produto',
             self::AUDITORIA           => 'Auditoria',
         ]);

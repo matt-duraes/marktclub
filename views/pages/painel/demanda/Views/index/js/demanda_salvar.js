@@ -97,8 +97,8 @@ window.addEventListener('load', () => {
     const inputEmpresaIndicacao = $('#input_empresa_indicacao');
     // Autoindicacao
     const inputEmpresaAutoindicacao = $('#input_empresa_autoindicacao');
-    // Cotação - Carro
-    const inputEmpresaCotacaoCarro = $('#input_empresa_cotacao_carro');
+    // Cotação - Automovel
+    const inputEmpresaCotacaoAutomovel = $('#input_empresa_cotacao_automovel');
     // Cotação - Produto
     const inputEmpresaCotacaoProduto = $('#input_empresa_cotacao_produto');
     // Auditoria
@@ -115,7 +115,7 @@ window.addEventListener('load', () => {
 
     const blocoTipoAuditoria = $('#bloco_auditoria');
     const blocoTipoCotacaoProduto = $('#bloco_cotacao_produto');
-    const blocoTipoCotacaoCarro = $('#bloco_cotacao_carro');
+    const blocoTipoCotacaoAutomovel = $('#bloco_cotacao_automovel');
     const blocoTipoAutoindicacao = $('#bloco_autoindicacao');
     const blocoTipoIndicacao = $('#bloco_indicacao');
     const blocoTipoBrinde = $('#bloco_brinde');
@@ -232,8 +232,8 @@ window.addEventListener('load', () => {
                 blocoTipoAutoindicacao.classList.remove('display_none');
                 blocoHeader.classList.remove('display_none');
                 break;
-            case 'cotacao_carro':
-                blocoTipoCotacaoCarro.classList.remove('display_none');
+            case 'cotacao_automovel':
+                blocoTipoCotacaoAutomovel.classList.remove('display_none');
                 blocoHeader.classList.remove('display_none');
                 break;
             case 'cotacao_produto':
@@ -602,9 +602,9 @@ window.addEventListener('load', () => {
                 valido = await validarDadoAutoindicacao();
                 body = await montarDadoAutoindicacao();
                 break;
-            case 'cotacao_carro':
-                valido = await validarDadoCotacaoCarro();
-                body = await montarDadoCotacaoCarro();
+            case 'cotacao_automovel':
+                valido = await validarDadoCotacaoAutomovel();
+                body = await montarDadoCotacaoAutomovel();
                 break;
             case 'cotacao_produto':
                 valido = await validarDadoCotacaoProduto();
@@ -1113,9 +1113,10 @@ window.addEventListener('load', () => {
     | ABRIR TAREFA AUTOINDICACAO
     |--------------------------------------------------------------------------
     */
-    const validarDadoCotacaoCarro = () => {
+    const validarDadoCotacaoAutomovel = () => {
         return new Promise(resolve => {
             const mensagemErro = {
+                cotacao_carro_cpf: 'Digita o nome do usuário solicitante.',
                 cotacao_carro_cpf: 'Digita o CPF do usuário solicitante.',
                 cotacao_carro_email: 'Digite o E-mail do usuário solicitante.',
                 cotacao_carro_telefone: 'Digite o telefone do usuário solicitante.',
@@ -1129,9 +1130,10 @@ window.addEventListener('load', () => {
         });
     };
 
-    const montarDadoCotacaoCarro = () => {
+    const montarDadoCotacaoAutomovel = () => {
         return new Promise(resolve => {
             const campos = {
+                nome: 'cotacao_carro_nome',
                 cpf: 'cotacao_carro_cpf',
                 email: 'cotacao_carro_email',
                 telefone: 'cotacao_carro_telefone',
@@ -1143,7 +1145,7 @@ window.addEventListener('load', () => {
                 observacao: 'cotacao_carro_observacao',
             };
 
-            const body = montarBody(campos, inputEmpresaCotacaoCarro);
+            const body = montarBody(campos, inputEmpresaCotacaoAutomovel);
             resolve(body);
         });
     };
@@ -1580,7 +1582,7 @@ window.addEventListener('load', () => {
             blocoTipoBrinde,
             blocoTipoIndicacao,
             blocoTipoAutoindicacao,
-            blocoTipoCotacaoCarro,
+            blocoTipoCotacaoAutomovel,
             blocoTipoCotacaoProduto,
             blocoTipoAuditoria,
         ];
