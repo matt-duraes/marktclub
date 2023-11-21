@@ -6,6 +6,8 @@ const demandaDetalhe = () => {
     liberadoDemanda = $('#input_demanda_liberado').value;
 
     const botaoSeguir = $('#botao_seguir_demanda');
+    const botaoEditar = $('#botao_editar_demanda');
+    const botaoCancelar = $('#botao_cancelar_demanda');
 
     const blocoEsqueleto = $('#bloco_tarefa_loading');
     const blocoZero = $('#bloco_tarefa_zero');
@@ -91,4 +93,43 @@ const demandaDetalhe = () => {
         }
     };
     buscarListaTarefa();
+
+    /*
+    |--------------------------------------------------------------------------
+    | EDITAR DEMANDA
+    |--------------------------------------------------------------------------
+    */
+    if (botaoEditar) {
+        botaoEditar.addEventListener('click', () => {
+            PopupDemandaEditar.abrir();
+        });
+    }
+
+    /*
+    |--------------------------------------------------------------------------
+    | CANCELAR DEMANDA
+    |--------------------------------------------------------------------------
+    */
+    if (botaoCancelar) {
+        botaoCancelar.addEventListener('click', async () => {
+            PopupDemandaCancelar.abrir();
+        });
+    }
+
+    /*
+    |--------------------------------------------------------------------------
+    | ADICIONAR NOVA DEMANDA
+    |--------------------------------------------------------------------------
+    */
+    fwFormArquivoListaChange = () => {
+        const lista = $$('.fw_form_arquivo_lista_arquivo input');
+        if (lista.length == 0) {
+            return;
+        }
+        const body = { arquivo: [] };
+        lista.forEach((input, i) => {
+            body.arquivo[i] = input.value;
+        });
+        ajaxPost(LINK + '/demanda/tarefa-arquivo/' + idDemanda, body, 'Erro ao fazer o upload dos arquivos.');
+    };
 };

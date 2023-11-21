@@ -15,7 +15,10 @@
             <li>Ter pelo menos um número</li>
         </ul>
         @? formSenha(name: 'senha_atual', label: 'Senha atual', placeholder: 'Digite sua senha atual', obrigatorio: 1);
-        @? formSenha(name: ['senha_nova', 'senha_repetir'], label: 'Nova senha', placeholder: ['Digite sua senha nova', 'Repita sua nova senha'], obrigatorio: 1);
+        <fieldset class="bloco_alterar_senha">
+            @? formSenha(name: 'senha_nova', label: 'Nova senha', placeholder: 'Digite sua nova senha')
+            @? formSenha(name: 'senha_repetir', label: 'Nova senha', placeholder: 'Repetir Senha')
+        </fieldset>
         <div class="bloco_botao">
             <div></div>
             <div id="botao_salvar_senha" class="botao_geral_cor cor_bg">Alterar senha</div>

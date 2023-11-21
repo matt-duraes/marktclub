@@ -72,6 +72,21 @@ window.addEventListener('load', () => {
 
         if (resposta.status == 204) {
             Alerta.notificacao('Dados alterados com sucesso!', true);
+
+            const h1Nome = document.querySelector('.legenda h1');
+            const pEmail = document.querySelector('.legenda p');
+            const divNome = document.querySelector('#bloco_perfil .nome');
+            const divEmail = document.querySelector('#bloco_perfil .email');
+
+            const email = inputEmailPessoal.value != ''
+                ? inputEmailPessoal.value
+                : inputEmailTrabalho.value;
+
+            h1Nome.innerHTML = inputNome.value;
+            pEmail.innerHTML = email;
+            divNome.innerHTML = inputNome.value;
+            divEmail.innerHTML = email;
+
             return;
         }
 

@@ -80,6 +80,10 @@ class Popup {
             blocoFwPopup.innerHTML = '';
         }
 
+        if (this.botaoFechar) {
+            blocoFwPopup.classList.add('fw_popup_box_fechar');
+        }
+
         blocoFwPopup.appendChild(clone);
         blocoFwPopup.classList.remove('fw_popup_display_none');
         setTimeout(() => {
@@ -103,6 +107,7 @@ class Popup {
         Popup.staticFechar();
     }
     static async staticFechar() {
+        blocoFwPopup.classList.remove('fw_popup_box_fechar');
         blocoFwPopup.classList.remove('fw_popup_animacao');
         const bloco = blocoFwPopup.querySelector('.fw_popup_conteudo');
         bloco.classList.add('fw_popup_conteudo_animacao');
@@ -125,7 +130,7 @@ blocoFwPopup.addEventListener('click', e => {
     if (
         e.target.classList.contains('popup_fechar') ||
         e.target.closest('.popup_fechar') ||
-        e.target.getAttribute('id') == 'bloco_fw_popup'
+        e.target.classList.contains('fw_popup_box_fechar')
     ) {
         Popup.staticFechar();
     }

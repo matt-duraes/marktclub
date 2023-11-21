@@ -22,6 +22,7 @@ $Painel->coluna(callback: function () use ($Painel) {
                 label: 'Status'
             );
     });
+
     $Painel->fieldset('Dados do Link', function () use ($Painel) {
         $Painel
             ->input(name: 'botao_texto', label: 'Texto do Botão')
@@ -31,6 +32,15 @@ $Painel->coluna(callback: function () use ($Painel) {
                 lista: (new BotaoTarget())->select('Escolha um tipo'),
                 label: 'Tipo de Link'
             );
+    });
+});
+
+$Painel->coluna(callback: function () use ($Painel) {
+    $Painel->fieldset('Conteúdo e Mídia', function () use ($Painel) {
+        $Painel
+            ->imagem('imagem', '00a9c7ca-7dd9-43a1-9dc7-20297a26d49d')
+            ->editor(name: 'texto', label: 'Texto')
+            ->editor(name: 'regulamento', label: 'Regulamento');
     });
 });
 
@@ -45,15 +55,6 @@ $Painel->coluna(callback: function () use ($Painel, $empresa) {
         todos: 'Marcar todas as empresas',
         mais: true
     );
-});
-
-$Painel->coluna(callback: function () use ($Painel) {
-    $Painel->fieldset('Conteúdo e Mídia', function () use ($Painel) {
-        $Painel
-            ->imagem('imagem', '00a9c7ca-7dd9-43a1-9dc7-20297a26d49d')
-            ->editor(name: 'texto', label: 'Texto')
-            ->editor(name: 'regulamento', label: 'Regulamento');
-    });
 });
 
 return $Painel;

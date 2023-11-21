@@ -10,6 +10,12 @@ class ParceiroEasyliveTest extends Tests
 {
     private array $idParceiro;
 
+    public function __construct()
+    {
+        parent::__construct();
+        $this->tabela(TABELA_PARCEIRO_EASYLIVE)->resetar();
+    }
+
     private function getBody(array $array = []): array
     {
         return array_merge([

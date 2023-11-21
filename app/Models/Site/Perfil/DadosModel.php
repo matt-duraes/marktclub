@@ -98,6 +98,13 @@ final class DadosModel extends ClubeApiHelper
             ])
             ->put('/usuario-cliente/' . $this->idUsuario);
 
+        $email = empty($request->email_pessoal)
+            ? $request->email_trabalho
+            : $request->email_pessoal;
+
+        sessao('USUARIO.nome', $request->nome);
+        sessao('USUARIO.email', $email);
+
         return new Response(status: 204);
     }
 

@@ -45,6 +45,7 @@
                 <header>
                     <h1>ESCOLHA SEU PLANO</h1>
                 </header>
+                <div class="bloco_escolhas">
                 @ foreach( $Simulacao->plano() as $regiao => $lista ):
                     @if ($operadora == 'amil'):
                         <div class="bloco_escolher_plano {{$regiao}} botao_selecao display_none">
@@ -58,6 +59,7 @@
                         </div>
                     @endif
                 @ endforeach;
+                </div>
                 <div class="bloco_botao botao_voltar_plano display_none">
                     <div class="botao_geral_cor cor_bg botao_geral_voltar">Voltar</div>
                     <div class="flex"></div>
@@ -69,7 +71,7 @@
                     <h1>PREENCHA AS INFORMAÇÕES</h1>
                 </header>
                 <div class="conteudo_menor">
-                    @? formData(name: 'data_titular', placeholder: 'Data de nascimento do titular', label: 'Data de nascimento do titular', focus: true ,obrigatorio: true)
+                    @? formData(name: 'data_titular', placeholder: 'Data de nascimento do titular', label: 'Data de nascimento do titular', obrigatorio: true)
                     <h2>Dependentes</h2>
                     <p>Adicione os seus dependentes para fazer a simulação</p>
                     <div class="botao" id="botao_adicionar_dependente">Adicionar Dependente</div>

@@ -41,6 +41,7 @@ final class CriarIndicacaoModel
                 <ul>
                     <li>Nome: $dado->usuario_nome</li>
                     <li>Email: $dado->usuario_email</li>
+                    <li>CPF: $dado->usuario_cpf</li>
                     <li>Telefone: $dado->usuario_telefone</li>
                 </ul>
 

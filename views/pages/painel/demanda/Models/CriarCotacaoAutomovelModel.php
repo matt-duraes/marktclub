@@ -7,7 +7,7 @@ use Http\Request;
 use stdClass;
 use App\Classes\DemandaDado\Area;
 
-final class CriarCotacaoCarroModel
+final class CriarCotacaoAutomovelModel
 {
     use DemandaTrait;
     use TarefaTrait;
@@ -38,6 +38,7 @@ final class CriarCotacaoCarroModel
             texto: <<<HTML
                 <h1>Dados do solicitante</h1>
                 <ul>
+                    <li>Nome: $dado->nome</li>
                     <li>CPF: $dado->cpf</li>
                     <li>E-mail: $dado->email</li>
                     <li>Telefone: $dado->telefone</li>

@@ -1,0 +1,12 @@
+<div id="bloco_demanda_cancelar" class="bloco_pagina_popup">
+    <header class="header_pagina_popup">
+        <h1>CANCELAR DEMANDA</h1>
+    </header>
+    <form class="form_geral conteudo_pagina_popup">
+        @? formTextarea(name: 'demanda_cancelar_motivo', placeholder: 'Digite o motivo do cancelamento', label: 'Motivo', obrigatorio: true)
+    </form>
+    <div class="footer_pagina_popup">
+        <div class="button voltar popup_fechar">CANCELAR</div>
+        <div class="button salvar" id="botao_demanda_cancelar_confirmar">SALVAR</div>
+    </div>
+</div>
