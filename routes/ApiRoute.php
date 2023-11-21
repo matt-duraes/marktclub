@@ -2374,7 +2374,7 @@ Route
         Route
             ::nome('deletar')
             ::middleware(TokenMiddleware::class, 'scope', ['banner_login:deletar'])
-            ::delete('/banner-login');
+            ::delete('/banner-login/{id}');
         Route
             ::nome('banner')
             ::middleware(TokenMiddleware::class, 'scope', ['banner_login:banner'])
