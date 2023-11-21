@@ -1540,6 +1540,47 @@ Route
     });
 
 Route
+    ::nome('comercial_subempresa')
+    ::controller(App\Controllers\Api\ComercialSubempresaController::class)
+    ::middleware(TokenMiddleware::class, 'token')
+    ::grupo(function () {
+        Route
+            ::nome('buscar')
+            ::middleware(TokenMiddleware::class, 'scope', ['comercial_subempresa:buscar'])
+            ::get('/comercial-subempresa/{id}');
+
+        Route
+            ::nome('listar')
+            ::middleware(TokenMiddleware::class, 'scope', ['comercial_subempresa:listar'])
+            ::request([
+                'pagina', '!quantidade', '!ordem',
+                '!titulo', '!empresa', '!status'
+            ], 'json')
+            ::get('/comercial-subempresa');
+
+        Route
+            ::nome('salvar')
+            ::middleware(TokenMiddleware::class, 'scope', ['comercial_subempresa:salvar'])
+            ::request([
+                'empresa', 'nome', 'documento_cnpj', 'status'
+            ])
+            ::post('/comercial-subempresa');
+
+        Route
+            ::nome('atualizar')
+            ::middleware(TokenMiddleware::class, 'scope', ['comercial_subempresa:atualizar'])
+            ::request([
+                '!empresa', '!nome', '!documento_cnpj', '!status'
+            ])
+            ::put('/comercial-subempresa/{id}');
+
+        Route
+            ::nome('deletar')
+            ::middleware(TokenMiddleware::class, 'scope', ['comercial_subempresa:deletar'])
+            ::delete('/comercial-subempresa/{id}');
+    });
+
+Route
     ::nome('comercial_restricao')
     ::controller(App\Controllers\Api\ComercialRestricaoController::class)
     ::middleware(TokenMiddleware::class, 'token')
