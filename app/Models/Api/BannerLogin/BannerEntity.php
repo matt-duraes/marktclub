@@ -24,13 +24,33 @@ class BannerEntity extends Entity
         'url_1', 'url_2', 'url_3', 'status', 'id_admin_empresa'
     ];
 
-    public function regraSalvar(): void
+    public function regraSalvar()
     {
+        $this->validarDados();
         $ormHelper = new OrmHelper(TABELA_COMERCIAL_EMPRESA);
         $this->id_admin_empresa = $ormHelper->mudarListaUuidParaId($this->empresa);
-        $this->uuid = $this->id ?? null;
-
+        $this->validarEmpresaNaoEncontrada();
         $this->validarSeJaExiste();
+    }
+
+    private function validarDados()
+    {
+        if (empty($this->empresa) || !is_array($this->empresa)) {
+            return mensagemErro(
+                'Campo obrigatório!',
+                'O campo empresa não pode ser vazio ou o formato está errado.'
+            );
+        }
+    }
+
+    private function validarEmpresaNaoEncontrada()
+    {
+        if (empty($this->id_admin_empresa)) {
+            return mensagemErro(
+                'Empresa inválida',
+                'Uma ou mais empresas informadas não são válidas.'
+            );
+        }
     }
 
     private function validarSeJaExiste()
@@ -43,7 +63,8 @@ class BannerEntity extends Entity
             ])
             ->read();
 
-        if (!empty($dado) && $dado[0]->uuid !== $this->uuid) {
+        $id = $this->id ?? null;
+        if (!empty($dado) && $dado[0]->uuid !== $id) {
             return mensagemErro(
                 'Banner já cadastrado',
                 'Já existe um banner cadastrado para esta empresa',
