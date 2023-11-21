@@ -24,9 +24,9 @@ class DeclaracaoEntity extends Entity
         'modelo', 'versao', 'data_criacao', 'data_atualizacao', 'status'
     ];
     protected array $ormInsert = [
-        'id_admin_empresa' => '->idEmpresa',
+        'id_admin_empresa'   => '->idEmpresa',
         'id_usuario_cliente' => '->idUsuario',
-        'status' => 1,
+        'status'             => 1,
         'id_parceiro_loja', 'modelo', 'versao'
     ];
     protected array $ormSalvar = [
@@ -96,13 +96,13 @@ class DeclaracaoEntity extends Entity
             );
         if (empty($empresa->cod)) {
             $this->empresa = [
-                'id' => '',
+                'id'   => '',
                 'nome' => 'Sem empresa'
             ];
             return;
         }
         $this->empresa = [
-            'id' => $empresa->cod,
+            'id'   => $empresa->cod,
             'nome' => $empresa->nome_fantasia
         ];
     }
@@ -117,15 +117,15 @@ class DeclaracaoEntity extends Entity
             );
         if (empty($usuario->uuid)) {
             $this->usuario = [
-                'id' => '',
-                'nome' => 'Sem usuário',
+                'id'    => '',
+                'nome'  => 'Sem usuário',
                 'email' => ''
             ];
             return;
         }
         $this->usuario = [
-            'id' => $usuario->uuid,
-            'nome' => $usuario->nome,
+            'id'    => $usuario->uuid,
+            'nome'  => $usuario->nome,
             'email' => $usuario->email_pessoal
         ];
     }
@@ -140,13 +140,13 @@ class DeclaracaoEntity extends Entity
             );
         if (empty($parceiro->cod)) {
             $this->parceiro = [
-                'id' => '',
+                'id'   => '',
                 'nome' => 'Sem parceiro'
             ];
             return;
         }
         $this->parceiro = [
-            'id' => $parceiro->cod,
+            'id'   => $parceiro->cod,
             'nome' => $parceiro->titulo
         ];
     }

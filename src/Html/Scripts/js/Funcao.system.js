@@ -9,6 +9,251 @@ const $$ = (seletor, pai) => {
 };
 const ppe = console.log.bind(console);
 
+Object.defineProperty(Object.prototype, 'html', {
+    value(html) {
+        let elemento = this;
+        let retornoLista = true;
+        if (!(elemento instanceof NodeList)) {
+            retornoLista = false;
+            elemento = [elemento];
+        }
+
+        let retorno = [];
+        for (item of elemento) {
+            if (html == undefined) {
+                retorno.push(item.innerHTML);
+                continue;
+            }
+            item.innerHTML = html;
+        }
+        if (html == undefined) {
+            return retornoLista ? retorno : retorno[0];
+        }
+        return this;
+    },
+    writable: true,
+    configurable: true,
+});
+
+Object.defineProperty(Object.prototype, 'texto', {
+    value(texto) {
+        let elemento = this;
+        let retornoLista = true;
+        if (!(elemento instanceof NodeList)) {
+            retornoLista = false;
+            elemento = [elemento];
+        }
+
+        let retorno = [];
+        for (item of elemento) {
+            if (texto == undefined) {
+                retorno.push(item.innerText);
+                continue;
+            }
+            item.innerText = texto;
+        }
+        if (texto == undefined) {
+            return retornoLista ? retorno : retorno[0];
+        }
+        return this;
+    },
+    writable: true,
+    configurable: true,
+});
+Object.defineProperty(Object.prototype, 'inicio', {
+    value(html) {
+        let elemento = this;
+        if (elemento instanceof NodeList) {
+            elemento = elemento[0];
+        }
+
+        if (typeof html === 'string') {
+            elemento.insertAdjacentHTML('afterbegin', html);
+        } else {
+            elemento.insertBefore(html, elemento.firstChild);
+        }
+        return this;
+    },
+    writable: true,
+    configurable: true,
+});
+Object.defineProperty(Object.prototype, 'final', {
+    value(html) {
+        let elemento = this;
+        if (elemento instanceof NodeList) {
+            elemento = elemento[0];
+        }
+
+        if (typeof html === 'string') {
+            elemento.insertAdjacentHTML('beforeend', html);
+        } else {
+            elemento.appendChild(html);
+        }
+        return this;
+    },
+    writable: true,
+    configurable: true,
+});
+Object.defineProperty(Object.prototype, 'css', {
+    value(propriedade, valor) {
+        let elemento = this;
+        let retornoLista = true;
+        if (!(elemento instanceof NodeList)) {
+            retornoLista = false;
+            elemento = [elemento];
+        }
+        let retorno = [];
+        for (const item of elemento) {
+            if (typeof propriedade == 'string' && valor == undefined) {
+                const style = window.getComputedStyle(item);
+                retorno.push(style.getPropertyValue(propriedade));
+                continue;
+            }
+            if (typeof propriedade == 'string') {
+                item.style[propriedade] = valor;
+            } else if (typeof propriedade == 'object') {
+                Object.entries(propriedade).forEach(val => {
+                    item.style[val[0]] = val[1];
+                });
+            }
+        }
+        if (valor == undefined) {
+            return retornoLista ? retorno : retorno[0];
+        }
+        return this;
+    },
+    writable: true,
+    configurable: true,
+});
+Object.defineProperty(Object.prototype, 'classeAdicionar', {
+    value(classe) {
+        let elemento = this;
+        if (!(elemento instanceof NodeList)) {
+            elemento = [elemento];
+        }
+        for (const item of elemento) {
+            if (typeof classe == 'string') {
+                item.classList.add(classe);
+            } else if (typeof propriedade == 'object') {
+                for (const nome of classe) {
+                    item.classList.add(nome);
+                }
+            }
+        }
+        return this;
+    },
+    writable: true,
+    configurable: true,
+});
+Object.defineProperty(Object.prototype, 'classeRemover', {
+    value(classe) {
+        let elemento = this;
+        if (!(elemento instanceof NodeList)) {
+            elemento = [elemento];
+        }
+        for (const item of elemento) {
+            if (typeof classe == 'string') {
+                item.classList.remove(classe);
+            } else if (typeof propriedade == 'object') {
+                for (const nome of classe) {
+                    item.classList.remove(nome);
+                }
+            }
+        }
+        return this;
+    },
+    writable: true,
+    configurable: true,
+});
+Object.defineProperty(Object.prototype, 'classeAlterar', {
+    value(classe) {
+        let elemento = this;
+        if (!(elemento instanceof NodeList)) {
+            elemento = [elemento];
+        }
+        for (const item of elemento) {
+            if (typeof classe == 'string') {
+                item.classList.toggle(classe);
+            } else if (typeof propriedade == 'object') {
+                for (const nome of classe) {
+                    item.classList.toggle(nome);
+                }
+            }
+        }
+        return this;
+    },
+    writable: true,
+    configurable: true,
+});
+Object.defineProperty(Object.prototype, 'classeExiste', {
+    value(classe) {
+        let elemento = this;
+        if (!(elemento instanceof NodeList)) {
+            elemento = [elemento];
+        }
+        let retorno = undefined;
+        for (const item of elemento) {
+            if (typeof classe == 'string') {
+                return item.classList.contains(classe);
+            } else if (typeof propriedade == 'object') {
+                for (const nome of classe) {
+                    if (!item.classList.contains(nome)) {
+                        retorno = false;
+                    }
+                }
+            }
+        }
+        return retorno === true;
+    },
+    writable: true,
+    configurable: true,
+});
+Object.defineProperty(Object.prototype, 'attr', {
+    value(propriedade, valor) {
+        let elemento = this;
+        let retornoLista = true;
+        if (!(elemento instanceof NodeList)) {
+            retornoLista = false;
+            elemento = [elemento];
+        }
+        let retorno = [];
+        for (const item of elemento) {
+            if (typeof propriedade == 'string' && valor == undefined) {
+                retorno.push(item.getAttribute(propriedade));
+                continue;
+            }
+            if (typeof propriedade == 'string') {
+                item.setAttribute(propriedade, valor);
+            } else if (typeof propriedade == 'object') {
+                Object.entries(propriedade).forEach(val => {
+                    item.setAttribute(val[0], val[1]);
+                });
+            }
+        }
+        if (valor == undefined) {
+            return retornoLista ? retorno : retorno[0];
+        }
+        return this;
+    },
+    writable: true,
+    configurable: true,
+});
+Object.defineProperty(Object.prototype, 'evento', {
+    value(evento, callback) {
+        let elemento = this;
+        if (!(elemento instanceof NodeList)) {
+            elemento = [elemento];
+        }
+        for (const item of elemento) {
+            item.addEventListener(evento, e => {
+                callback(e);
+            });
+        }
+    },
+    writable: true,
+    configurable: true,
+});
+
 const FW_BLOCO_LOGIN = $('#bloco_login_relogar');
 const LINK = $('#LINK') ? $('#LINK').value : undefined;
 const BODY = $('body');
