@@ -65,6 +65,12 @@ const adicionarNovaTarefa = item => {
         removerDisplayNone(clone, '.item_finalizado', 'sim');
     }
 
+    const botaoTrabalhar = clone.querySelector('.item_play');
+    const botaoFinalizado = clone.querySelector('.item_finalizado');
+    if (inArray(item.status_valor, ['aguardando', 'andamento'])) {
+        botaoTrabalhar.displayNone(false);
+    }
+
     if (editarDeletar == 'sim') {
         clone.querySelector('.botao_editar').addEventListener('click', () => {
             abrirPopupTarefaEditar(item.id);

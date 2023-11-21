@@ -99,7 +99,7 @@
             </div>
         </div>
 
-        <div class="check display_none item_finalizar">@iconeCheck(20)</div>
+        <div class="check display_none item_play">@iconePlay(20)</div>
         <div class="check display_none item_finalizado">@iconeCheck(20)</div>
     </article>
 </div>

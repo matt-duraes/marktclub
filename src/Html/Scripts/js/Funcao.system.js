@@ -9,6 +9,25 @@ const $$ = (seletor, pai) => {
 };
 const ppe = console.log.bind(console);
 
+Object.defineProperty(Object.prototype, 'displayNone', {
+    value(acao) {
+        let elemento = this;
+        if (!(elemento instanceof NodeList)) {
+            elemento = [elemento];
+        }
+
+        for (item of elemento) {
+            if (false === acao) {
+                item.classList.remove('display_none');
+                continue;
+            }
+            item.classList.add('display_none');
+        }
+        return this;
+    },
+    writable: true,
+    configurable: true,
+});
 Object.defineProperty(Object.prototype, 'html', {
     value(html) {
         let elemento = this;
