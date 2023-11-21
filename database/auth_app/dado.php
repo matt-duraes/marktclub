@@ -168,6 +168,9 @@ $scope = [
     'chatbot_categoria:salvar', 'chatbot_categoria:atualizar', 'chatbot_categoria:listar', 'chatbot_categoria:buscar',
 
     'drogaria_araujo:buscar',
+
+    'banner_login:listar', 'banner_login:buscar', 'banner_login:salvar', 'banner_login:atualizar', 'banner_login:deletar',
+    'banner_login:banner'
 ];
 
 return [
