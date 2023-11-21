@@ -97,6 +97,10 @@ class BannerModel extends ORM implements
             ])
             ->read();
 
+        if (empty($dados)) {
+            return mensagemErro('Erro!', 'Banner não encontrado!');
+        }
+
         return [
             'id'  => $dados[0]->uuid,
             'url' => [
