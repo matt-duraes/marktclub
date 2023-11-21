@@ -5,10 +5,11 @@ use DataBase\DataBase;
 return (new DataBase())
     ->id()
     ->uuid()
+    ->varchar('titulo')->tamanho(100)
     ->json('id_admin_empresa')
     ->text('url_1')
-    ->text('url_2')
-    ->text('url_3')
+    ->text('url_2')->null()
+    ->text('url_3')->null()
     ->dataCriacao()
     ->dataAtualizacao()
     ->status();

@@ -2361,14 +2361,14 @@ Route
             ::nome('salvar')
             ::middleware(TokenMiddleware::class, 'scope', ['banner_login:salvar'])
             ::request([
-                'url_1', 'url_2', 'url_3', 'status', 'empresa'
+                'url_1', 'url_2', 'url_3', 'status', 'empresa', 'titulo'
             ])
             ::post('/banner-login');
         Route
             ::nome('atualizar')
             ::middleware(TokenMiddleware::class, 'scope', ['banner_login:atualizar'])
             ::request([
-                '!url_1', '!url_2', '!url_3', '!status', '!empresa'
+                '!url_1', '!url_2', '!url_3', '!status', '!empresa', '!titulo'
             ])
             ::put('/banner-login/{id}');
         Route

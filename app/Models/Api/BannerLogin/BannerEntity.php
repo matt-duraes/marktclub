@@ -9,7 +9,7 @@ use ORM\Entity;
 class BannerEntity extends Entity
 {
     protected string $ormTabela = TABELA_BANNER_LOGIN;
-    public string|null $uuid = null;
+    public string $titulo;
     public string $id;
     public array $id_admin_empresa;
     public string $url_1;
@@ -18,11 +18,17 @@ class BannerEntity extends Entity
     public Status $status;
     public array $empresa;
     protected array $ormBuscar = [
-        'url_1', 'url_2', 'url_3', 'status'
+        'titulo', 'url_1', 'url_2', 'url_3', 'status', 'id_admin_empresa'
     ];
     protected array $ormSalvar = [
-        'url_1', 'url_2', 'url_3', 'status', 'id_admin_empresa'
+        'titulo', 'url_1', 'url_2', 'url_3', 'status', 'id_admin_empresa'
     ];
+
+    public function regraPosBuscar()
+    {
+        $ormHelper = new OrmHelper(TABELA_COMERCIAL_EMPRESA);
+        $this->empresa = $ormHelper->mudarListaIdParaUuid($this->id_admin_empresa);
+    }
 
     public function regraSalvar()
     {

@@ -44,7 +44,7 @@ final class BannerLoginController extends Controller implements
     {
         return mensagemSucesso(
             pegarPropriedadeDaEntity($BannerEntity, lista: [
-                'url_1', 'url_2', 'url_3', 'status'
+                'titulo', 'url_1', 'url_2', 'url_3', 'status', 'empresa'
             ]),
             $status
         );

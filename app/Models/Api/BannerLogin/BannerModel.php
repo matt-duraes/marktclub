@@ -36,7 +36,7 @@ class BannerModel extends ORM implements
     {
         $dados = $this
             ->campo([
-                'id_admin_empresa', 'url_1', 'url_2', 'url_3', 'uuid', 'status'
+                'id_admin_empresa', 'titulo', 'url_1', 'url_2', 'url_3', 'uuid', 'status'
             ])
             ->pagina($this->pegarPagina())
             ->where($this->pegarWhere(), false)
@@ -67,6 +67,7 @@ class BannerModel extends ORM implements
         foreach ($carteirinhas as $r) {
             $retorno[] = [
                 'id'     => $r->uuid,
+                'titulo' => $r->titulo,
                 'url'    => [
                     $r->url_1,
                     $r->url_2,
@@ -89,7 +90,7 @@ class BannerModel extends ORM implements
 
         $dados = $this
             ->campo([
-                'id_admin_empresa', 'url_1', 'url_2', 'url_3', 'uuid', 'status'
+                'id_admin_empresa', 'titulo', 'url_1', 'url_2', 'url_3', 'uuid', 'status'
             ])
             ->where([
                 ['id_admin_empresa', 'json', json_encode($ids)],
@@ -102,8 +103,9 @@ class BannerModel extends ORM implements
         }
 
         return [
-            'id'  => $dados[0]->uuid,
-            'url' => [
+            'id'     => $dados[0]->uuid,
+            'titulo' => $dados[0]->titulo,
+            'url'    => [
                 $dados[0]->url_1,
                 $dados[0]->url_2,
                 $dados[0]->url_3

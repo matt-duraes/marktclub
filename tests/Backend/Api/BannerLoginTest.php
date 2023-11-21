@@ -19,6 +19,7 @@ class BannerLoginTest extends Clube
         $status = 'ativo'
     ) {
         return [
+            'titulo'  => 'titulo',
             'url_1'   => 'https://www.google.com',
             'url_2'   => 'https://www.google.com',
             'url_3'   => 'https://www.google.com',
