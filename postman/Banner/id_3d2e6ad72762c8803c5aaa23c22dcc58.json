@@ -1,0 +1,1 @@
+{"id":"id_3d2e6ad72762c8803c5aaa23c22dcc58","token":"token","metodo":"GET","nome":"\/banner-login\/banner","uri":"{{LINK}}\/banner-login\/banner","parametro":[],"body":[],"header":[],"variavel":[],"json":[["texto",true,"empresa","[\"14afa776394ada4be23be6acf7e3259e\"]",""]],"documentacao":{"status":false,"descricao":"","requisicao":"","resposta":"","scope":"banner_login:banner"}}
