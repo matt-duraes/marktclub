@@ -170,6 +170,13 @@ return [
             'comercial_empresa'        => [
                 'titulo' => 'Comercial Empresa', 'acao' => ['index', 'visualizar', 'editar']
             ],
+            'comercial_subempresa'     => [
+                'titulo'    => 'Comercial Subempresa',
+                'acao'      => ['index', 'add', 'editar', 'deletar', 'empresa'],
+                'permissao' => [
+                    'comercial_subempresa_empresa' => 'Todas as empresas'
+                ]
+            ],
             'comercial_prospeccao'     => [
                 'titulo' => 'Comercial Prospecção', 'acao' => ['index', 'add', 'editar', 'visualizar']
             ],
