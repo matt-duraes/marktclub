@@ -36,11 +36,12 @@ class BannerModel extends ORM implements
     {
         $dados = $this
             ->campo([
-                'id_admin_empresa', 'titulo', 'url_1', 'url_2', 'url_3', 'uuid', 'status'
+                'id_admin_empresa', 'titulo', 'url_1', 'url_2', 'url_3', 'uuid',
+                'status'
             ])
             ->pagina($this->pegarPagina())
             ->where($this->pegarWhere(), false)
-            ->order($this->pegarOrdem(new Ordem()))
+            ->order('padrao', 'desc')
             ->read();
 
         $dados->lista = $this->montarRetorno($dados->lista);
@@ -93,10 +94,10 @@ class BannerModel extends ORM implements
                 'id_admin_empresa', 'titulo', 'url_1', 'url_2', 'url_3', 'uuid', 'status'
             ])
             ->where([
-                array_merge(['OR'], $this->pegarWhereIdEmpresa($id)),
+                array_merge(['OR'], $this->pegarWhereEmpresa($id)),
                 ['status', 1]
             ])
-            ->order('marktclub', 'asc')
+            ->order('padrao', 'asc')
             ->read();
 
         if (empty($dados)) {
@@ -114,13 +115,13 @@ class BannerModel extends ORM implements
         ];
     }
 
-    private function pegarWhereIdEmpresa($id): array
+    private function pegarWhereEmpresa($id): array
     {
         $where = [];
         if (!empty($id)) {
             $where[] = ['id_admin_empresa', 'json', $id];
         }
-        $where[] = ['id_admin_empresa', 'json', '[1]'];
+        $where[] = ['padrao', '1'];
         return $where;
     }
 }

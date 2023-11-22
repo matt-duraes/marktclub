@@ -44,7 +44,7 @@ final class BannerLoginController extends Controller implements
     {
         return mensagemSucesso(
             pegarPropriedadeDaEntity($BannerEntity, lista: [
-                'titulo', 'url_1', 'url_2', 'url_3', 'status', 'empresa'
+                'titulo', 'url_1', 'url_2', 'url_3', 'status', 'empresa', 'padrao'
             ]),
             $status
         );
@@ -79,6 +79,12 @@ final class BannerLoginController extends Controller implements
 
     public function deleteDeletar(string $id): Response
     {
+        if ($id === '14afa776394ada4be23be6acf7e3259e') {
+            return mensagemErro(
+                'Banner inválido',
+                'O banner padrão não pode ser desativado.'
+            );
+        }
         $BannerEntity = new BannerEntity();
         $BannerEntity->uuid($id);
         $BannerEntity->destruir();

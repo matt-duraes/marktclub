@@ -15,10 +15,11 @@ class BannerEntity extends Entity
     public string $url_1;
     public string $url_2;
     public string $url_3;
+    public int $padrao;
     public Status $status;
     public array $empresa;
     protected array $ormBuscar = [
-        'titulo', 'url_1', 'url_2', 'url_3', 'status', 'id_admin_empresa'
+        'titulo', 'url_1', 'url_2', 'url_3', 'status', 'id_admin_empresa', 'padrao'
     ];
     protected array $ormSalvar = [
         'titulo', 'url_1', 'url_2', 'url_3', 'status', 'id_admin_empresa'
