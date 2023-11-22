@@ -60,6 +60,27 @@ final class TarefaEntity extends Entity
         }
     }
 
+    private function mudarStatus()
+    {
+        $statusAtual = (new Status($this->prop('status')))->indice();
+        $statusNovo = $this->status->indice();
+        if (
+            in_array($statusAtual, [Status::CANCELADA, Status::CONCLUIDA]) &&
+            $statusNovo == Status::ANDAMENTO
+        ) {
+            mensagemErro('Sem permissão!', 'Você não pode começar a trabalhar em uma tarefa Cancelada ou Concluida.');
+        }
+        if ($statusNovo == Status::ANDAMENTO && $this->data_producao_inicio->vazio()) {
+            $this->data_producao_inicio = new DataHora(agora());
+        }
+        if ($statusNovo == Status::CONCLUIDA && $this->data_producao_final->vazio()) {
+            $this->data_producao_final = new DataHora(agora());
+        }
+        if ($statusAtual == Status::AGUARDANDO && $statusNovo == Status::ANDAMENTO) {
+            $this->id_usuario_equipe = TOKEN['usuario']->id;
+        }
+    }
+
     /*
     |--------------------------------------------------------------------------
     | INSERT
@@ -70,9 +91,6 @@ final class TarefaEntity extends Entity
         $this->id_demanda_dado = (new OrmHelper(TABELA_DEMANDA_DADO))->pegarIdPeloUuid($this->demanda);
         $this->status = new Status(Status::AGUARDANDO);
         $this->minuto_producao_real = 0;
-        if (!empty($this->equipe)) {
-            $this->id_usuario_equipe = $this->OrmEquipe->pegarIdPeloUuid($this->equipe);
-        }
     }
 
     /*
@@ -82,12 +100,7 @@ final class TarefaEntity extends Entity
     */
     protected function regraUpdate()
     {
-        if ($this->status->indice() == 'andamento' && $this->data_producao_inicio->vazio()) {
-            $this->data_producao_inicio = new DataHora(agora());
-        }
-        if ($this->status->indice() == 'concluida' && $this->data_producao_final->vazio()) {
-            $this->data_producao_final = new DataHora(agora());
-        }
+        $this->mudarStatus();
     }
 
     /*

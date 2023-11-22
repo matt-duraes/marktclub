@@ -127,17 +127,8 @@ Route
 
         Route
             ::nome('trabalhoComecar')
-            ::get('/demanda/trabalho-comecar/{tarefa}/{demanda}/{area}');
-        Route
-            ::nome('trabalhoAtualizar')
-            ::get('/demanda/trabalho-atualizar/{id}');
-        Route
-            ::nome('trabalhoParar')
-            ::get('/demanda/trabalho-parar/{id}');
+            ::put('/demanda/trabalho-comecar/{tarefa}');
         Route
             ::nome('trabalhoConcluir')
-            ::get('/demanda/trabalho-concluir/{id}');
-        Route
-            ::nome('trabalhoMinimizar')
-            ::get('/demanda/trabalho-minimizar/{acao}');
+            ::put('/demanda/trabalho-concluir/{tarefa}');
     });

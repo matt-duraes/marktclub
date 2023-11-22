@@ -12,7 +12,6 @@ window.addEventListener('load', () => {
         EsqueletoItem.show();
     });
 
-    const area = $('#input_area').value;
     const buscarDados = async () => {
         for (const coluna of listaColuna) {
             const status = coluna.getAttribute('data-status');

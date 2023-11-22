@@ -6,13 +6,9 @@ use ORM\ORM;
 use App\Classes\DemandaTarefa\Tipo;
 use App\Classes\DemandaTarefa\Helper;
 use App\Classes\DemandaTarefa\Status;
-use App\Models\Api\Demanda\Trait\EquipeTrait;
-use App\Models\Api\UsuarioEquipe\PerfilModel;
 
 final class TarefaModel extends ORM
 {
-    use EquipeTrait;
-
     protected string $ormTabela = TABELA_DEMANDA_TAREFA;
 
     public function __construct(
@@ -24,10 +20,19 @@ final class TarefaModel extends ORM
     public function pegarListaTarefa(): array
     {
         $lista = $this
+            ->campo([
+                'uuid', 'titulo', 'texto', 'tipo', 'data_criacao', 'data_atualizacao', 'data_producao_inicio',
+                'data_producao_final', 'like', 'status'
+            ])
             ->where([
                 ['id_demanda_dado', $this->Demanda->get('id')],
                 ['status', 'in', Helper::STATUS_LIBERADO]
-            ])->order('status', 'ASC')->read();
+            ])
+            ->order('status', 'ASC')
+            ->tabela(TABELA_USUARIO_EQUIPE)
+            ->leftJoin('id', 'id_usuario_equipe')
+            ->campo(['uuid'], 'usuario')
+            ->read();
 
         return $this->montarRetorno($lista);
     }
@@ -37,20 +42,17 @@ final class TarefaModel extends ORM
         $retorno = [];
         $Tipo = new Tipo();
         $Status = new Status();
-        $Perfil = new PerfilModel();
         foreach ($lista as $r) {
             $retorno[] = object([
                 'id'                       => $r->uuid,
                 'titulo'                   => $r->titulo,
                 'texto'                    => $r->texto,
-                'equipe'                   => $r->id_usuario_equipe,
+                'equipe'                   => $r->usuario_uuid,
                 'tipo'                     => $Tipo->indice($r->tipo),
                 'data_criacao'             => $r->data_criacao,
                 'data_atualizacao'         => $r->data_atualizacao,
                 'data_producao_inicio'     => $r->data_producao_inicio,
                 'data_producao_final'      => $r->data_producao_final,
-                'minuto_producao_estimada' => $r->minuto_producao_estimada,
-                'minuto_producao_real'     => $r->minuto_producao_real,
                 'teste'                    => jsonDecode($r->like, true, true),
                 'status'                   => $Status->indice($r->status)
             ]);

@@ -4,6 +4,7 @@
 // @system "DragDrop"
 // @import "demanda_editar"
 // @import "demanda_cancelar"
+// @import "tarefa_trabalhar"
 // @import "init"
 // @import "drag"
 // @import "index"

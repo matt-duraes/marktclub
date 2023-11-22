@@ -86,7 +86,7 @@
             <div class="bloco_teste display_none">
                 <i class="botao_like like" data-ajuda="Aprovar tarefa">@iconeLike</i>
                 <div class="bloco_imagem">
-                    <figure></figure>
+
                 </div>
                 <i class="botao_deslike deslike" data-ajuda="Reprovar tarefa">@iconeDeslike</i>
             </div>
@@ -99,7 +99,8 @@
             </div>
         </div>
 
-        <div class="check display_none item_play">@iconePlay(20)</div>
-        <div class="check display_none item_finalizado">@iconeCheck(20)</div>
+        <div class="check display_none item_play" data-ajuda="Começar a trabalhar">@iconePlay(40)</div>
+        <div class="check display_none item_finalizar" data-ajuda="Finalizar tarefa">@iconeCheck(15)</div>
+        <div class="check display_none item_concluido" data-ajuda="Tarefa Finalizada">@iconeCheck(20)</div>
     </article>
 </div>

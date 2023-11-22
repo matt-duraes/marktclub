@@ -1,5 +1,12 @@
 let idDemanda, statusDemanda, liberadoDemanda;
 
+const USUARIO_ID = $('#USUARIO_ID').value;
+const USUARIO_NOME = $('#USUARIO_NOME').value;
+const USUARIO_IMAGEM = $('#USUARIO_IMAGEM').value;
+const USUARIO_GERENTE = $('#USUARIO_GERENTE').value;
+
+const area = $('#input_area').value;
+
 const inputTarefaId = $('#input_tarefa_id');
 const inputTarefaTitulo = $('#input_tarefa_titulo');
 const inputTarefaTexto = $('#input_tarefa_texto');
@@ -40,12 +47,17 @@ const adicionarNovaTarefa = item => {
     bloco.classList.remove('display_none');
 
     const clone = cloneDemandaTarefa.cloneNode(true);
-    clone.setAttribute('id', 'id_tarefa_' + item.id);
-    clone.setAttribute('data-tipo', item.tipo_valor);
+    clone.attr({
+        id: 'id_tarefa_' + item.id,
+        'data-tipo': item.tipo_valor,
+    });
 
     const blocoEquipe = clone.querySelector('.item_equipe');
-    blocoEquipe.setAttribute('data-ajuda', item.equipe.nome);
-    blocoEquipe.style.backgroundImage = `url(${item.equipe.imagem})`;
+    blocoEquipe.attr({
+        'data-equipe': item.equipe.id,
+        'data-ajuda': item.equipe.nome,
+    });
+    blocoEquipe.css('backgroundImage', `url(${item.equipe.imagem})`);
     const editarDeletar = item.dono || usuarioGerente ? 'sim' : '';
 
     adicionarTexto(clone, '.item_titulo', item.titulo);
@@ -59,17 +71,26 @@ const adicionarNovaTarefa = item => {
     removerDisplayNone(clone, '.bloco_data_final', item.data_final);
     bloco.insertBefore(clone, bloco.firstChild);
 
-    if (liberadoDemanda && item.status == 'aguardando') {
-        removerDisplayNone(clone, '.item_finalizar', 'sim');
-    } else if (item.status == 'concluida') {
-        removerDisplayNone(clone, '.item_finalizado', 'sim');
-    }
-
     const botaoTrabalhar = clone.querySelector('.item_play');
-    const botaoFinalizado = clone.querySelector('.item_finalizado');
-    if (inArray(item.status_valor, ['aguardando', 'andamento'])) {
-        botaoTrabalhar.displayNone(false);
+    const botaoFinalizar = clone.querySelector('.item_finalizar');
+    const botaoConcluido = clone.querySelector('.item_concluido');
+    const blocoTeste = clone.querySelector('.bloco_teste');
+    const blocoTestado = clone.querySelector('.bloco_testado');
+
+    if (liberadoDemanda && item.status_valor == 'aguardando') {
+        botaoTrabalhar.displayShow();
+    } else if (liberadoDemanda && item.status_valor == 'andamento') {
+        botaoFinalizar.displayShow();
+    } else if (liberadoDemanda && item.status_valor == 'concluida') {
+        blocoTeste.displayShow();
+        botaoConcluido.displayShow();
     }
+    botaoTrabalhar.evento('click', () => {
+        comecarTrabalhar(botaoTrabalhar, botaoFinalizar, item.id);
+    });
+    botaoFinalizar.evento('click', () => {
+        finalizarTarefa(botaoFinalizar, botaoConcluido, blocoTeste, item.id);
+    });
 
     if (editarDeletar == 'sim') {
         clone.querySelector('.botao_editar').addEventListener('click', () => {
@@ -79,6 +100,17 @@ const adicionarNovaTarefa = item => {
             tarefaDeletar(item.id);
         });
     }
+
+    const listaAjuda = clone.querySelectorAll('*[data-ajuda]');
+    listaAjuda.forEach(bloco => {
+        bloco.addEventListener('mouseover', () => {
+            const texto = bloco.getAttribute('data-ajuda');
+            Ajuda.show(bloco, texto);
+        });
+        bloco.addEventListener('mouseout', () => {
+            Ajuda.hide();
+        });
+    });
 };
 const atualizarTarefaExistente = (id, titulo, texto, tipo) => {
     const bloco = $('#id_tarefa_' + id);
