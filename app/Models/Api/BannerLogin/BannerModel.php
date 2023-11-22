@@ -86,14 +86,14 @@ class BannerModel extends ORM implements
         }
 
         $ormHelper = new OrmHelper(TABELA_COMERCIAL_EMPRESA);
-        $ids = $ormHelper->mudarListaUuidParaId(jsonDecode($empresa));
+        $id = $ormHelper->pegarIdPeloUuid($empresa);
 
         $dados = $this
             ->campo([
                 'id_admin_empresa', 'titulo', 'url_1', 'url_2', 'url_3', 'uuid', 'status'
             ])
             ->where([
-                array_merge(['OR'], $this->pegarWhereIdEmpresa($ids)),
+                array_merge(['OR'], $this->pegarWhereIdEmpresa($id)),
                 ['status', 1]
             ])
             ->order('marktclub', 'asc')
@@ -114,11 +114,11 @@ class BannerModel extends ORM implements
         ];
     }
 
-    private function pegarWhereIdEmpresa($ids): array
+    private function pegarWhereIdEmpresa($id): array
     {
         $where = [];
-        if (!empty($ids)) {
-            $where[] = ['id_admin_empresa', 'json', jsonEncode($ids)];
+        if (!empty($id)) {
+            $where[] = ['id_admin_empresa', 'json', $id];
         }
         $where[] = ['id_admin_empresa', 'json', '[1]'];
         return $where;
