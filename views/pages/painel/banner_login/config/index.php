@@ -9,4 +9,6 @@ $Painel
     ->campo('titulo', 'Titulo', 'normal')
     ->status('status', 'Status', new Status());
 
+$Painel->js('painel_banner_login_index');
+
 return $Painel;

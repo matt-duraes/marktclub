@@ -4,7 +4,7 @@ return [
     [
         'uuid'             => uuid(),
         'titulo'           => 'MARKT',
-        'marktclub'        => 1,
+        'padrao'           => 1,
         'id_admin_empresa' => [1],
         'url_1'            => 'https://www.google.com',
         'url_2'            => 'https://www.google.com',

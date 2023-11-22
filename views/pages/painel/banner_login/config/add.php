@@ -51,6 +51,9 @@ $Painel->coluna(callback: function () use ($Painel) {
             mais: true
         );
     });
+    $Painel->hidden(name: 'padrao');
 });
+
+$Painel->js('painel_banner_login_add');
 
 return $Painel;
