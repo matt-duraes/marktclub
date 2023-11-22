@@ -2375,11 +2375,14 @@ Route
             ::nome('deletar')
             ::middleware(TokenMiddleware::class, 'scope', ['banner_login:deletar'])
             ::delete('/banner-login/{id}');
+    });
+
+Route
+    ::nome('banner_home')
+    ::controller(App\Controllers\Api\BannerLoginController::class)
+    ::grupo(function(){
         Route
             ::nome('banner')
-            ::middleware(TokenMiddleware::class, 'scope', ['banner_login:banner'])
-            ::request([
-                'empresa'
-            ], 'json')
+            ::request(['empresa'], 'json')
             ::get('/banner-login/banner');
     });

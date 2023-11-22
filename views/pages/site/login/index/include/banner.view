@@ -1,8 +1,10 @@
 
 <div class="bloco_banner">
-    <div class="lista">
-        <figure style="background-image: url(https://arquivo.marktclub.com.br/banner/808a12b44fd04e549063b02ff65e7ec4.png)"></figure>
-        <figure class="banner_01" style="background-image: url(https://arquivo.marktclub.com.br/banner/d67d3d483fc5c9270bf36cd227e2bc90.png)"></figure>
-        <figure style="background-image: url(https://arquivo.marktclub.com.br/banner/3052a367ceed91abfa5b2018615e4029.png)"></figure>
+    <div class="lista banners_{{$quantidade_banners}}" id="container_banners" >
+        @foreach($banners as $b):
+            @if(!empty($b)):
+                <figure style="background-image: url({{$b}});"> </figure>
+            @endif
+        @endforeach
     </div>
 </div>
