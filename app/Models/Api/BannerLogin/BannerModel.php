@@ -107,9 +107,9 @@ class BannerModel extends ORM implements
             'id'     => $dados[0]->uuid,
             'titulo' => $dados[0]->titulo,
             'url'    => [
-                $dados[0]->url_1,
-                $dados[0]->url_2,
-                $dados[0]->url_3
+                arquivoPrivado($dados[0]->url_1),
+                arquivoPrivado($dados[0]->url_2),
+                arquivoPrivado($dados[0]->url_3)
             ],
         ];
     }
