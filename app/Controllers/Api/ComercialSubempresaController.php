@@ -2,8 +2,8 @@
 
 namespace App\Controllers\Api;
 
-use App\Classes\ComercialSubempresa\Ordem;
-use App\Classes\ComercialSubempresa\Status;
+use App\Classes\ComercialEmpresa\Ordem;
+use App\Classes\ComercialEmpresa\Status;
 use App\Models\Api\ComercialSubempresa\SelectModel;
 use App\Models\Api\ComercialSubempresa\SubempresaEntity;
 use App\Models\Api\ComercialSubempresa\SubempresaModel;
@@ -51,8 +51,7 @@ final class ComercialSubempresaController extends Controller implements
         $SubempresaEntity = new SubempresaEntity();
         $SubempresaEntity->uuid(
             $id,
-            mensagem: '',
-            titulo: 'Nã'
+            mensagem: 'Subempresa não encontrada ou inexistente'
         );
         return $this->retornoSucesso($SubempresaEntity);
     }
@@ -70,7 +69,8 @@ final class ComercialSubempresaController extends Controller implements
             pegarPropriedadeDaEntity(
                 $subempresaEntity,
                 lista: [
-                    'nome', 'documento_cnpj', 'status'
+                    'empresa', 'titulo', 'razao_social',
+                    'nome_fantasia', 'cnpj', 'status'
                 ]
             ),
             $status
@@ -122,8 +122,7 @@ final class ComercialSubempresaController extends Controller implements
         $SubempresaEntity = new SubempresaEntity();
         $SubempresaEntity->uuid(
             $id,
-            mensagem: '',
-            titulo: 'Nã'
+            mensagem: 'Subempresa não encontrada ou inexistente'
         );
         $SubempresaEntity->set(lista: $request->dado());
         $SubempresaEntity->salvar();
@@ -141,8 +140,7 @@ final class ComercialSubempresaController extends Controller implements
         $SubempresaEntity = new SubempresaEntity();
         $SubempresaEntity->uuid(
             $id,
-            mensagem: '',
-            titulo: 'Nã'
+            mensagem: 'Subempresa não encontrada ou inexistente'
         );
         $SubempresaEntity->destruir();
         return new Response(status: 204);

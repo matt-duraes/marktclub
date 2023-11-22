@@ -2,10 +2,11 @@
 
 namespace App\Models\Api\ComercialSubempresa;
 
-use App\Classes\ComercialSubempresa\Ordem;
-use App\Classes\ComercialSubempresa\Status;
+use App\Classes\ComercialEmpresa\Ordem;
+use App\Classes\ComercialEmpresa\Status;
 use App\Models\Api\Trait\ValidarEmpresaTrait;
 use Erro\Excecao;
+use Helpers\OrmHelper;
 use Modules\Cnpj;
 use Modules\Pagina;
 use Modules\Quantidade;
@@ -24,7 +25,7 @@ final class SubempresaModel extends ORM implements
     use QuantidadeTrait;
     use OrdemTrait;
 
-    protected string $ormTabela = TABELA_COMERCIAL_SUBEMPRESA;
+    protected string $ormTabela = TABELA_COMERCIAL_EMPRESA;
     protected ?int $idEmpresa;
 
     /**
@@ -73,18 +74,12 @@ final class SubempresaModel extends ORM implements
     {
         $subempresas = $this
             ->campo([
-                'uuid', 'nome', 'documento_cnpj', 'status',
+                'cod', 'id_admin_empresa', 'nome_fantasia', 'cnpj', 'status',
                 'data_criacao', 'data_atualizacao'
             ])
             ->where($this->pegarWhere(), false)
             ->pagina($this->pegarPagina(), $this->pegarQuantidade())
             ->order($this->pegarOrdem(new Ordem()))
-            ->tabela(TABELA_COMERCIAL_EMPRESA)
-            ->where($this->pegarWhereEmpresa(), false)
-            ->join('id', 'id_admin_empresa')
-            ->campo([
-                'cod', 'nome_fantasia'
-            ], 'empresa')
             ->read();
 
         $subempresas->lista = $this->montarRetorno($subempresas->lista);
@@ -96,21 +91,21 @@ final class SubempresaModel extends ORM implements
      */
     private function pegarWhere(): array
     {
-        $where = $this->ormWherePadrao;
+        $wherePadrao = !empty($this->ormWherePadrao)
+            ? $this->ormWherePadrao
+            : [['id_admin_empresa', '<>', 'NULL']];
+        $where = array_merge(
+            $wherePadrao, [['status', (new Status(Status::ATIVO))->numero()]]
+        );
         if (!empty($this->titulo)) {
-            $where[] = ['nome', 'LIKE', "%$this->titulo%"];
-        }
-        return $where;
-    }
-
-    /**
-     * @return array
-     */
-    private function pegarWhereEmpresa(): array
-    {
-        $where = [];
-        if (!empty($this->empresa)) {
-            $where[] = ['cod', $this->empresa];
+            $where[] = [
+                'OR',
+                [
+                    ['titulo', 'LIKE', "%$this->titulo%"],
+                    ['razao_social', 'LIKE', "%$this->titulo%"],
+                    ['nome_fantasia', 'LIKE', "%$this->titulo%"]
+                ]
+            ];
         }
         return $where;
     }
@@ -121,17 +116,22 @@ final class SubempresaModel extends ORM implements
             return $subempresas;
         }
 
+        $OrmHelper = new OrmHelper($this->ormTabela);
         $Status = new Status();
         $retorno = [];
         foreach ($subempresas as $subempresa) {
+            $empresa = $OrmHelper->pegarPrimeiroRegistro(
+                ['id', $subempresa->id_admin_empresa],
+                ['nome_fantasia'],
+                'object'
+            );
             $retorno[] = [
-                'id'               => $subempresa->uuid,
+                'id'               => $subempresa->cod,
                 'empresa_matriz'   => [
-                    'id'   => $subempresa->empresa_cod,
-                    'nome' => $subempresa->empresa_nome_fantasia
+                    'nome_fantasia' => $empresa->nome_fantasia
                 ],
-                'nome'             => $subempresa->nome,
-                'documento_cnpj'   => (new Cnpj($subempresa->documento_cnpj))->cnpj(),
+                'nome_fantasia'    => $subempresa->nome_fantasia,
+                'cnpj'             => (new Cnpj($subempresa->cnpj))->cnpj(),
                 'status'           => $Status->indice($subempresa->status),
                 'data_criacao'     => $subempresa->data_criacao,
                 'data_atualizacao' => $subempresa->data_atualizacao
