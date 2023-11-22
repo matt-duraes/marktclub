@@ -45,5 +45,11 @@ return [
         'nome'      => 'Popup',
         'diretorio' => 'popup',
         'extensao'  => ['png', 'jpg', 'jpeg', 'gif']
+    ],
+    [
+        'uuid'      => '420e3bb0-4142-40a0-8fcb-b78c9678c5bd',
+        'nome'      => 'Banners',
+        'diretorio' => 'banners',
+        'extensao'  => ['png', 'jpg', 'jpeg', 'gif']
     ]
 ];
