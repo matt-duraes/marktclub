@@ -93,9 +93,10 @@ class BannerModel extends ORM implements
                 'id_admin_empresa', 'titulo', 'url_1', 'url_2', 'url_3', 'uuid', 'status'
             ])
             ->where([
-                ['id_admin_empresa', 'json', json_encode($ids)],
+                array_merge(['OR'], $this->pegarWhereIdEmpresa($ids)),
                 ['status', 1]
             ])
+            ->order('marktclub', 'asc')
             ->read();
 
         if (empty($dados)) {
@@ -111,5 +112,15 @@ class BannerModel extends ORM implements
                 $dados[0]->url_3
             ],
         ];
+    }
+
+    private function pegarWhereIdEmpresa($ids): array
+    {
+        $where = [];
+        if (!empty($ids)) {
+            $where[] = ['id_admin_empresa', 'json', jsonEncode($ids)];
+        }
+        $where[] = ['id_admin_empresa', 'json', '[1]'];
+        return $where;
     }
 }

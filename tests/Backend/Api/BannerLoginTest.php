@@ -15,7 +15,7 @@ class BannerLoginTest extends Clube
     }
 
     private function pegarBody(
-        string|array $empresa = ['14afa776394ada4be23be6acf7e3259e'],
+        string|array $empresa = ['369fc307129e405b3f2f00620c7b012d'],
         $status = 'ativo'
     ) {
         return [
@@ -51,12 +51,40 @@ class BannerLoginTest extends Clube
             ->post('/banner-login')
             ->array();
 
-        $this->id = $dado['dado']['id'];
+        $this->id = $dado['dado']['id'] ?? 'sem-id';
 
         return $this
             ->checkStatus(201)
             ->checkIndiceExiste('dado')
             ->checkIndiceExiste('dado.id');
+    }
+
+    public function buscarEmpresaComBannerTest()
+    {
+        $this->api('banner_login:buscar');
+        $this
+            ->Curl
+            ->get('/banner-login/' . $this->id);
+
+        return $this
+            ->checkStatus(200)
+            ->checkIndiceExiste('dado')
+            ->checkIndiceExiste('dado.id')
+            ->checkIndiceIgual('dado.id', $this->id);
+    }
+
+    public function buscarEmpresaSemBannerTest()
+    {
+        $id = '0ffc5c56b99f81ca0edea8bdf524b687';
+
+        $this->api('banner_login:banner');
+        $this
+            ->Curl
+            ->json(['empresa' => [$id]])
+            ->get('/banner-login/banner');
+
+        return $this
+            ->checkStatus(200);
     }
 
     public function naoPodelSalvarDoisBannersMesmaEmpresaTest()
@@ -136,20 +164,11 @@ class BannerLoginTest extends Clube
 
     public function naoPodeAtualizarBannerComMesmaEmpresaTest()
     {
-        $this->api('banner_login:salvar');
-        $dado = $this
-            ->Curl
-            ->body($this->pegarBody(empresa: ['0ffc5c56b99f81ca0edea8bdf524b688']))
-            ->post('/banner-login')
-            ->array();
-
-        $id = $dado['dado']['id'];
-
         $this->api('banner_login:atualizar');
         $this
             ->Curl
             ->body($this->pegarBody(empresa: ['14afa776394ada4be23be6acf7e3259e']))
-            ->put('/banner-login/' . $id);
+            ->put('/banner-login/' . $this->id);
 
         return $this
             ->checkStatus(400)
