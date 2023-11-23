@@ -60,10 +60,13 @@ class BannerEntity extends Entity
 
     private function validarSeJaExiste()
     {
-        $ormHelper = new OrmHelper(TABELA_BANNER_LOGIN);
-        $dado = $ormHelper
+        $ormEmpresa = new OrmHelper(TABELA_COMERCIAL_EMPRESA);
+        $id = $ormEmpresa->mudarListaUuidParaId($this->empresa);
+
+        $ormBanner = new OrmHelper(TABELA_BANNER_LOGIN);
+        $dado = $ormBanner
             ->where([
-                ['id_admin_empresa', 'json', json_encode($this->id_admin_empresa)]
+                ['id_admin_empresa', 'json', jsonEncode($id)]
             ])
             ->read();
 
@@ -71,7 +74,7 @@ class BannerEntity extends Entity
         if (!empty($dado) && $dado[0]->uuid !== $id) {
             return mensagemErro(
                 'Banner já cadastrado',
-                'Já existe um banner cadastrado para esta empresa',
+                'Já existe um banner cadastrado para uma ou mais empresas informadas.',
                 400
             );
         }
