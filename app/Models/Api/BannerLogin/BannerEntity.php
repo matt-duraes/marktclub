@@ -2,7 +2,6 @@
 
 namespace App\Models\Api\BannerLogin;
 
-use App\Classes\Geral\Status;
 use Helpers\OrmHelper;
 use ORM\Entity;
 
@@ -16,13 +15,12 @@ class BannerEntity extends Entity
     public string $url_2;
     public string $url_3;
     public int $padrao;
-    public Status $status;
     public array $empresa;
     protected array $ormBuscar = [
-        'titulo', 'url_1', 'url_2', 'url_3', 'status', 'id_admin_empresa', 'padrao'
+        'titulo', 'url_1', 'url_2', 'url_3', 'id_admin_empresa', 'padrao'
     ];
     protected array $ormSalvar = [
-        'titulo', 'url_1', 'url_2', 'url_3', 'status', 'id_admin_empresa', 'padrao'
+        'titulo', 'url_1', 'url_2', 'url_3', 'id_admin_empresa', 'padrao'
     ];
 
     public function regraPosBuscar()
@@ -42,14 +40,6 @@ class BannerEntity extends Entity
 
     private function validarDados()
     {
-        $padrao = $this->padrao ?? null;
-        if ($padrao == 1 && $this->status->numero() !== 1) {
-            return mensagemErro(
-                'Banner inválido',
-                'O banner padrão não pode ser desativado.',
-                400
-            );
-        }
         if (empty($this->empresa) || !is_array($this->empresa)) {
             return mensagemErro(
                 'Campo obrigatório!',
@@ -73,8 +63,7 @@ class BannerEntity extends Entity
         $ormHelper = new OrmHelper(TABELA_BANNER_LOGIN);
         $dado = $ormHelper
             ->where([
-                ['id_admin_empresa', 'json', json_encode($this->id_admin_empresa)],
-                ['status', 1]
+                ['id_admin_empresa', 'json', json_encode($this->id_admin_empresa)]
             ])
             ->read();
 

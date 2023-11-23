@@ -36,25 +36,15 @@ class BannerModel extends ORM implements
     {
         $dados = $this
             ->campo([
-                'id_admin_empresa', 'titulo', 'url_1', 'url_2', 'url_3', 'uuid',
-                'status'
+                'id_admin_empresa', 'titulo', 'url_1', 'url_2', 'url_3', 'uuid'
             ])
             ->pagina($this->pegarPagina())
-            ->where($this->pegarWhere(), false)
+            ->where($this->ormWherePadrao, false)
             ->order('padrao', 'desc')
             ->read();
 
         $dados->lista = $this->montarRetorno($dados->lista);
         return $dados;
-    }
-
-    private function pegarWhere(): array
-    {
-        $where = $this->ormWherePadrao;
-        if ($this->status->valido()) {
-            $where[] = ['status', $this->status->numero()];
-        }
-        return $where;
     }
 
     private function montarRetorno(array $carteirinhas): array
@@ -63,7 +53,6 @@ class BannerModel extends ORM implements
             return $carteirinhas;
         }
 
-        $Status = new Status();
         $retorno = [];
         foreach ($carteirinhas as $r) {
             $retorno[] = [
@@ -74,7 +63,6 @@ class BannerModel extends ORM implements
                     $r->url_2,
                     $r->url_3
                 ],
-                'status' => $Status->indice($r->status),
             ];
         }
         return $retorno;
@@ -91,11 +79,10 @@ class BannerModel extends ORM implements
 
         $dados = $this
             ->campo([
-                'id_admin_empresa', 'titulo', 'url_1', 'url_2', 'url_3', 'uuid', 'status'
+                'id_admin_empresa', 'titulo', 'url_1', 'url_2', 'url_3', 'uuid'
             ])
             ->where([
-                array_merge(['OR'], $this->pegarWhereEmpresa($id)),
-                ['status', 1]
+                array_merge(['OR'], $this->pegarWhereEmpresa($id))
             ])
             ->order('padrao', 'asc')
             ->read();

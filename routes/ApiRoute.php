@@ -2354,21 +2354,21 @@ Route
             ::nome('listar')
             ::middleware(TokenMiddleware::class, 'scope', ['banner_login:listar'])
             ::request([
-                'pagina', '!quantidade', '!ordem', '!status'
+                'pagina', '!quantidade', '!ordem'
             ], 'json')
             ::get('/banner-login');
         Route
             ::nome('salvar')
             ::middleware(TokenMiddleware::class, 'scope', ['banner_login:salvar'])
             ::request([
-                'url_1', 'url_2', 'url_3', 'status', 'empresa', 'titulo'
+                'url_1', 'url_2', 'url_3', 'empresa', 'titulo'
             ])
             ::post('/banner-login');
         Route
             ::nome('atualizar')
             ::middleware(TokenMiddleware::class, 'scope', ['banner_login:atualizar'])
             ::request([
-                '!url_1', '!url_2', '!url_3', '!status', '!empresa', '!titulo'
+                '!url_1', '!url_2', '!url_3', '!empresa', '!titulo'
             ])
             ::put('/banner-login/{id}');
         Route
