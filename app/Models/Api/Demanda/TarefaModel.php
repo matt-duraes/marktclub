@@ -44,17 +44,18 @@ final class TarefaModel extends ORM
         $Status = new Status();
         foreach ($lista as $r) {
             $retorno[] = object([
-                'id'                       => $r->uuid,
-                'titulo'                   => $r->titulo,
-                'texto'                    => $r->texto,
-                'equipe'                   => $r->usuario_uuid,
-                'tipo'                     => $Tipo->indice($r->tipo),
-                'data_criacao'             => $r->data_criacao,
-                'data_atualizacao'         => $r->data_atualizacao,
-                'data_producao_inicio'     => $r->data_producao_inicio,
-                'data_producao_final'      => $r->data_producao_final,
-                'teste'                    => jsonDecode($r->like, true, true),
-                'status'                   => $Status->indice($r->status)
+                'id'                   => $r->uuid,
+                'titulo'               => $r->titulo,
+                'texto'                => $r->texto,
+                'equipe'               => $r->usuario_uuid,
+                'like'                 => jsonDecode($r->like, true, true),
+                'tipo'                 => $Tipo->indice($r->tipo),
+                'data_criacao'         => $r->data_criacao,
+                'data_atualizacao'     => $r->data_atualizacao,
+                'data_producao_inicio' => $r->data_producao_inicio,
+                'data_producao_final'  => $r->data_producao_final,
+                'teste'                => jsonDecode($r->like, true, true),
+                'status'               => $Status->indice($r->status)
             ]);
         }
         return $retorno;

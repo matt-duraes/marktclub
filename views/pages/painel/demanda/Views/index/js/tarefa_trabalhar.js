@@ -8,7 +8,12 @@ const comecarTrabalhar = async (botaoTrabalhar, botaoFinalizar, tarefa) => {
     const equipe = blocoEquipe.attr('data-equipe');
     if (
         equipe != '' &&
-        !(await Alerta.confirmar('Mudar dono', 'Essa tarefa já tem um dono, gostaria de pegar ela mesmo assim?'))
+        !(await Alerta.confirmar('Mudar dono', 'Essa tarefa já tem um dono, gostaria de pegar ela mesmo assim?', '!'))
+    ) {
+        return;
+    } else if (
+        equipe == '' &&
+        !(await Alerta.confirmar('Pegar tarefa', 'Tem certeza que deseja começar a trabalhar nesse tarefa?', '!'))
     ) {
         return;
     }
@@ -22,6 +27,7 @@ const comecarTrabalhar = async (botaoTrabalhar, botaoFinalizar, tarefa) => {
     if (false === resposta) {
         return;
     }
+    bloco.attr('data-status', 'andamento');
     botaoTrabalhar.displayHide();
     botaoFinalizar.displayShow();
     blocoEquipe.attr({
@@ -29,6 +35,15 @@ const comecarTrabalhar = async (botaoTrabalhar, botaoFinalizar, tarefa) => {
         'data-id': USUARIO_ID,
     });
     blocoEquipe.css('backgroundImage', `url(${USUARIO_IMAGEM})`);
+
+    const blocoDemanda = $('#id_demanda_' + idDemanda);
+    const blocoStatus = blocoDemanda.closest('.bloco_coluna').attr('data-status');
+    const blocoAndamento = $('.bloco_coluna[data-status="andamento"] .conteudo');
+    const blocoAtual = blocoDemanda.closest('.bloco_coluna .conteudo');
+
+    if (blocoStatus != 'andamento' && blocoAndamento) {
+        mudarDemandaColuna(blocoAtual, blocoAndamento, blocoDemanda);
+    }
 };
 
 const finalizarTarefa = async (botaoFinalizar, botaoConcluido, blocoTeste, tarefa) => {
@@ -57,7 +72,74 @@ const finalizarTarefa = async (botaoFinalizar, botaoConcluido, blocoTeste, taref
     if (false === resposta) {
         return;
     }
+
     botaoFinalizar.displayHide();
     botaoConcluido.displayShow();
     blocoTeste.displayShow();
+    bloco.attr('data-status', 'concluida');
+    verificarPodePassarDemandaTeste();
+};
+
+const verificarPodePassarDemandaTeste = () => {
+    const listaTarefa = $$('#bloco_tarefa_lista .tarefa');
+    const concluido = true;
+    for (const item of listaTarefa) {
+        if (item.attr('data-status') != 'concluida') {
+            concluido = false;
+            break;
+        }
+    }
+    if (false == concluido) {
+        return;
+    }
+    const demanda = $('#id_demanda_' + idDemanda);
+    const blocoAtual = demanda.closest('.conteudo');
+    const blocoDestino = $('.bloco_coluna[data-status="teste"] .conteudo');
+    mudarDemandaColuna(blocoAtual, blocoDestino, demanda);
+};
+
+const adicionarLike = async id => {
+    const bloco = $('#id_tarefa_' + id);
+    if (!bloco || $('.bloco_teste .bloco_imagem figure[data-id="' + USUARIO_ID + '"]', bloco)) {
+        return;
+    }
+    const figure = elemento(
+        'figure',
+        {
+            'data-id': USUARIO_ID,
+            'data-ajuda': USUARIO_NOME,
+        },
+        {
+            backgroundImage: `url(${USUARIO_IMAGEM})`,
+        }
+    );
+    $('.bloco_teste .bloco_imagem', bloco).inicio(figure);
+    ajudaLoading(figure);
+
+    const resposta = await ajaxPost(
+        LINK + `/demanda/tarefa-like/${id}`,
+        undefined,
+        'Ocorre um erro ao adicionar like.'
+    );
+    if (false === resposta) {
+        figure.remove();
+        return;
+    }
+    verificarPodePassarDemandaConcluido();
+};
+const verificarPodePassarDemandaConcluido = () => {
+    const listaTarefa = $$('#bloco_tarefa_lista .tarefa');
+    const dono = $('#input_demanda_equipe').value;
+    for (const tarefa of listaTarefa) {
+        if (
+            $$('.bloco_teste .bloco_imagem figure', tarefa).length < 1 ||
+            !$('.bloco_teste .bloco_imagem figure[data-id="' + dono + '"]', tarefa)
+        ) {
+            return;
+        }
+    }
+    ppe(123);
+};
+const cancelarTarefa = id => {
+    //
 };

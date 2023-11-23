@@ -71,6 +71,7 @@ final class ListaModel
             ],
             [
                 'titulo' => 'Em andamento',
+                'classe' => $gerente,
                 'status' => Status::ANDAMENTO
             ],
             [

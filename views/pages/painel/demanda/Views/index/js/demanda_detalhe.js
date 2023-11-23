@@ -3,7 +3,7 @@ const demandaDetalhe = () => {
 
     idDemanda = $('#input_demanda_id').value;
     statusDemanda = $('#input_demanda_status').value;
-    liberadoDemanda = $('#input_demanda_liberado').value;
+    liberadoDemanda = $('#input_demanda_liberado').value == 'sim';
 
     const botaoSeguir = $('#botao_seguir_demanda');
     const botaoEditar = $('#botao_editar_demanda');

@@ -50,6 +50,7 @@ const adicionarNovaTarefa = item => {
     clone.attr({
         id: 'id_tarefa_' + item.id,
         'data-tipo': item.tipo_valor,
+        'data-status': item.status_valor,
     });
 
     const blocoEquipe = clone.querySelector('.item_equipe');
@@ -71,17 +72,22 @@ const adicionarNovaTarefa = item => {
     removerDisplayNone(clone, '.bloco_data_final', item.data_final);
     bloco.insertBefore(clone, bloco.firstChild);
 
-    const botaoTrabalhar = clone.querySelector('.item_play');
-    const botaoFinalizar = clone.querySelector('.item_finalizar');
-    const botaoConcluido = clone.querySelector('.item_concluido');
-    const blocoTeste = clone.querySelector('.bloco_teste');
-    const blocoTestado = clone.querySelector('.bloco_testado');
+    const botaoTrabalhar = $('.item_play', clone);
+    const botaoFinalizar = $('.item_finalizar', clone);
+    const botaoConcluido = $('.item_concluido', clone);
+    const blocoTeste = $('.bloco_teste', clone);
+    const blocoTestado = $('.bloco_testado', clone);
+    const botaoLike = $('.botao_like', clone);
+    const botaoDeslike = $('.botao_deslike', clone);
 
-    if (liberadoDemanda && item.status_valor == 'aguardando') {
+    if (statusDemanda == 'concluida') {
+        blocoTestado.displayShow();
+        botaoConcluido.displayShow();
+    } else if (liberadoDemanda && item.status_valor == 'aguardando') {
         botaoTrabalhar.displayShow();
     } else if (liberadoDemanda && item.status_valor == 'andamento') {
         botaoFinalizar.displayShow();
-    } else if (liberadoDemanda && item.status_valor == 'concluida') {
+    } else if (item.status_valor == 'concluida' || statusDemanda == 'teste') {
         blocoTeste.displayShow();
         botaoConcluido.displayShow();
     }
@@ -92,6 +98,13 @@ const adicionarNovaTarefa = item => {
         finalizarTarefa(botaoFinalizar, botaoConcluido, blocoTeste, item.id);
     });
 
+    botaoLike.evento('click', () => {
+        adicionarLike(item.id);
+    });
+    botaoDeslike.evento('click', () => {
+        cancelarTarefa(item.id);
+    });
+
     if (editarDeletar == 'sim') {
         clone.querySelector('.botao_editar').addEventListener('click', () => {
             abrirPopupTarefaEditar(item.id);
@@ -100,17 +113,7 @@ const adicionarNovaTarefa = item => {
             tarefaDeletar(item.id);
         });
     }
-
-    const listaAjuda = clone.querySelectorAll('*[data-ajuda]');
-    listaAjuda.forEach(bloco => {
-        bloco.addEventListener('mouseover', () => {
-            const texto = bloco.getAttribute('data-ajuda');
-            Ajuda.show(bloco, texto);
-        });
-        bloco.addEventListener('mouseout', () => {
-            Ajuda.hide();
-        });
-    });
+    ajudaLoading(clone);
 };
 const atualizarTarefaExistente = (id, titulo, texto, tipo) => {
     const bloco = $('#id_tarefa_' + id);
@@ -132,9 +135,12 @@ const abrirPopupTarefaEditar = id => {
 const adicionarNovaDemanda = (bloco, item, abrir) => {
     return new Promise(resolve => {
         const id = item.id;
-        const clone = cloneTarefaLista.cloneNode(true);
-        clone.setAttribute('data-id', item.id);
-        clone.setAttribute('data-status', item.status);
+        const clone = cloneTarefaLista.clonar();
+        clone.attr({
+            id: 'id_demanda_' + item.id,
+            'data-id': item.id,
+            'data-status': item.status,
+        });
 
         const perfil = clone.querySelector('.tarefa_perfil');
         perfil.setAttribute('data-ajuda', item.equipe.nome);
@@ -182,8 +188,9 @@ const adicionarNovaDemanda = (bloco, item, abrir) => {
 
 // CONTATO NUMERO TAREFA
 const contarTarefaDemanda = coluna => {
-    const numero = coluna.querySelectorAll('.conteudo .bloco_tarefa_item').length;
-    const blocoNumero = coluna.querySelector('header h1 span');
+    const blocoColuna = coluna.classe('.bloco_coluna', '?') ? coluna : coluna.closest('.bloco_coluna');
+    const numero = blocoColuna.querySelectorAll('.conteudo .bloco_tarefa_item').length;
+    const blocoNumero = blocoColuna.querySelector('header h1 span');
     blocoNumero.innerText = `(${numero})`;
 };
 
@@ -226,4 +233,28 @@ const verificarExisteTarefa = () => {
         return;
     }
     bloco.classList.remove('display_none');
+};
+
+const mudarDemandaColuna = (atual, destino, demanda) => {
+    const destinoZero = $('.tarefa_zero', destino);
+    if (destinoZero) {
+        destinoZero.displayHide();
+    }
+    destino.inicio(demanda);
+    contarTarefaDemanda(destino);
+    contarTarefaDemanda(atual);
+    if ($$('.bloco_tarefa_item', atual).length == 0) {
+        $('.tarefa_zero', atual).displayShow();
+    }
+
+    const id = demanda.attr('data-id');
+    const status = destino.closest('.bloco_coluna').attr('data-status');
+    ajaxPost(
+        LINK + '/demanda/demanda-status',
+        {
+            id,
+            status,
+        },
+        ''
+    );
 };

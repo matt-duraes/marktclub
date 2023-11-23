@@ -161,16 +161,21 @@ Object.defineProperty(Object.prototype, 'classe', {
         if (!(elemento instanceof NodeList)) {
             elemento = [elemento];
         }
+        let existe = true;
         for (const item of elemento) {
+            let retorno;
             if (typeof classe == 'string') {
-                fwClasseEvento(item, classe, acao);
+                retorno = fwClasseEvento(item, classe, acao);
             } else if (typeof propriedade == 'object') {
                 for (const nome of classe) {
-                    fwClasseEvento(item, classe, acao);
+                    retorno = fwClasseEvento(item, classe, acao);
                 }
             }
+            if (acao == '?' && false === retorno) {
+                existe = false;
+            }
         }
-        return this;
+        return acao == '?' ? existe : this;
     },
     writable: true,
     configurable: true,
@@ -231,7 +236,7 @@ Object.defineProperty(Object.prototype, 'evento', {
     writable: true,
     configurable: true,
 });
-Object.defineProperty(Object.prototype, 'clone', {
+Object.defineProperty(Object.prototype, 'clonar', {
     value() {
         let elemento = this;
         if (elemento instanceof NodeList) {
@@ -251,6 +256,30 @@ const BODY = $('body');
 
 const inArray = (element, array) => {
     return array.indexOf(element) !== -1;
+};
+
+const elemento = (elemento, attr, css) => {
+    const html = document.createElement(elemento);
+    if (typeof attr == 'object') {
+        html.attr(attr);
+    }
+    if (typeof css == 'object') {
+        html.css(css);
+    }
+    return html;
+};
+
+const ajudaLoading = bloco => {
+    const listaAjuda = bloco.attr('data-ajuda') != null ? [bloco] : bloco.querySelectorAll('*[data-ajuda]');
+    listaAjuda.forEach(bloco => {
+        bloco.addEventListener('mouseover', () => {
+            const texto = bloco.getAttribute('data-ajuda');
+            Ajuda.show(bloco, texto);
+        });
+        bloco.addEventListener('mouseout', () => {
+            Ajuda.hide();
+        });
+    });
 };
 
 const link = () => {

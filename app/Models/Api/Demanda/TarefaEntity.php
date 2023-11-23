@@ -122,7 +122,7 @@ final class TarefaEntity extends Entity
 
     public function like()
     {
-        $id = TOKEN['usuario']->id;
+        $id = TOKEN['usuario']->uuid;
         if (in_array($id, $this->like)) {
             return;
         }
