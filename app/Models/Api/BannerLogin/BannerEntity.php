@@ -61,13 +61,11 @@ class BannerEntity extends Entity
     private function validarSeJaExiste()
     {
         $ormEmpresa = new OrmHelper(TABELA_COMERCIAL_EMPRESA);
-        $id = $ormEmpresa->mudarListaUuidParaId($this->empresa);
+        $ids = $ormEmpresa->mudarListaUuidParaId($this->empresa);
 
         $ormBanner = new OrmHelper(TABELA_BANNER_LOGIN);
         $dado = $ormBanner
-            ->where([
-                ['id_admin_empresa', 'json', jsonEncode($id)]
-            ])
+            ->where($this->pegarWhereEmpresa($ids))
             ->read();
 
         $id = $this->id ?? null;
@@ -78,5 +76,14 @@ class BannerEntity extends Entity
                 400
             );
         }
+    }
+
+    private function pegarWhereEmpresa($ids)
+    {
+        foreach ($ids as $id) {
+            $where[] = ['id_admin_empresa', 'json', $id];
+        }
+
+        return array_merge(['OR'], $where);
     }
 }
