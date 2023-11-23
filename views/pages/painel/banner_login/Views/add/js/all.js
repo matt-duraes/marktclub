@@ -1,4 +1,5 @@
 // @template "painel"
+// @painel "app_geral_add"
 
    const inputPadrao = document.querySelector('#input_padrao');
 
