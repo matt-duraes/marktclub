@@ -1,6 +1,6 @@
 <?php
 
-use App\Classes\ComercialSubempresa\Status;
+use App\Classes\ComercialEmpresa\Status;
 
 $Painel = new PainelConfig\Filtrar('comercial_subempresa');
 

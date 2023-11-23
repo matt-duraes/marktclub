@@ -1,7 +1,7 @@
 <?php
 
-use App\Classes\ComercialSubempresa\Ordem;
-use App\Classes\ComercialSubempresa\Status;
+use App\Classes\ComercialEmpresa\Ordem;
+use App\Classes\ComercialEmpresa\Status;
 
 $Painel = new PainelConfig\Index('comercial_subempresa', new Ordem());
 

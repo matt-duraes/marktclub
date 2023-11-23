@@ -1,7 +1,6 @@
 <?php
 
-use App\Classes\ComercialSubempresa\Status;
-use Helpers\ApiHelper;
+use App\Classes\ComercialEmpresa\Status;
 
 $Painel = new PainelConfig\Add('comercial_subempresa', $acao);
 
