@@ -1,7 +1,7 @@
 <?php
 
 return [
-    'titulo'     => 'Chat-Bot Perguntas',
+    'titulo'     => 'Banners',
     'buscar'     => false,
     'filtrar'    => false,
     'ordem'      => false,
