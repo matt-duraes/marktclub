@@ -42,7 +42,8 @@ class BannerEntity extends Entity
 
     private function validarDados()
     {
-        if ($this->padrao === 1 && $this->status->numero() !== 1) {
+        $padrao = $this->padrao ?? null;
+        if ($padrao == 1 && $this->status->numero() !== 1) {
             return mensagemErro(
                 'Banner inválido',
                 'O banner padrão não pode ser desativado.',

@@ -10,3 +10,5 @@
        const blocoCheckBox = document.querySelector('.bloco_checkbox_geral');
        blocoCheckBox.parentNode.classList.add('display_none');
    }
+
+   inputPadrao.parentNode.removeChild(inputPadrao);
