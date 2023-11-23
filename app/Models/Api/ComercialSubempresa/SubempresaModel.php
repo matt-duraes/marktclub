@@ -8,6 +8,7 @@ use App\Models\Api\Trait\ValidarEmpresaTrait;
 use Erro\Excecao;
 use Helpers\OrmHelper;
 use Modules\Cnpj;
+use Modules\Data;
 use Modules\Pagina;
 use Modules\Quantidade;
 use ORM\ORM;
@@ -35,6 +36,8 @@ final class SubempresaModel extends ORM implements
         private readonly Pagina $pagina = new Pagina(),
         private readonly Quantidade $quantidade = new Quantidade(),
         private readonly Ordem $ordem = new Ordem(),
+        private readonly Data $dataInicio = new Data(),
+        private readonly Data $dataFinal = new Data(),
         private readonly ?string $titulo = null,
         private readonly ?string $empresa = null,
         private readonly Status $status = new Status()
@@ -57,6 +60,12 @@ final class SubempresaModel extends ORM implements
         }
         if (!$this->ordem->vazio() && !$this->ordem->valido()) {
             mensagemErro('Campo inválido!', 'A Ordem informada não é válida.');
+        }
+        if (!$this->dataInicio->vazio() && !$this->dataInicio->eDate()) {
+            mensagemErro('Campo inválido!', 'A data início não está no formato válido.');
+        }
+        if (!$this->dataFinal->vazio() && !$this->dataFinal->eDate()) {
+            mensagemErro('Campo inválido!', 'A data final não está no formato válido.');
         }
         if (!$this->status->vazio() && !$this->status->valido()) {
             mensagemErro('Campo inválido!', 'O Status informado não é válido.');
@@ -106,6 +115,18 @@ final class SubempresaModel extends ORM implements
                     ['nome_fantasia', 'LIKE', "%$this->titulo%"]
                 ]
             ];
+        }
+        if ($this->dataInicio->valido() && $this->dataFinal->valido()) {
+            $where[] = [
+                'data_criacao', 'between', [$this->dataInicio->date(), $this->dataFinal->date() . ' 23:59:59']
+            ];
+        } elseif ($this->dataInicio->valido()) {
+            $where[] = ['data_criacao', '>=', $this->dataInicio->date()];
+        } elseif ($this->dataFinal->valido()) {
+            $where[] = ['data_criacao', '<=', $this->dataFinal->date() . ' 23:59:59'];
+        }
+        if ($this->status->valido()) {
+            $where[] = ['status', $this->status->numero()];
         }
         return $where;
     }

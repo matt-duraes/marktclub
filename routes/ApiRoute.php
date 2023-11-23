@@ -1553,8 +1553,8 @@ Route
             ::nome('listar')
             ::middleware(TokenMiddleware::class, 'scope', ['comercial_subempresa:listar'])
             ::request([
-                'pagina', '!quantidade', '!ordem',
-                '!titulo', '!empresa', '!status'
+                'pagina', '!quantidade', '!ordem', '!dataInicio',
+                '!dataFinal', '!titulo', '!empresa', '!status'
             ], 'json')
             ::get('/comercial-subempresa');
 

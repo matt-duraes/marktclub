@@ -11,6 +11,7 @@ use Controller\Controller;
 use Erro\Excecao;
 use Http\Request;
 use Http\Response;
+use Modules\Data;
 use Modules\Pagina;
 use Modules\Quantidade;
 use System\Interface\ControllerAtualizarInterface;
@@ -89,6 +90,8 @@ final class ComercialSubempresaController extends Controller implements
             new Pagina($request->pagina),
             new Quantidade($request->quantidade),
             new Ordem($request->ordem),
+            new Data($request->dataInicio),
+            new Data($request->dataFinal),
             $request->titulo,
             $request->empresa,
             new Status($request->status)
