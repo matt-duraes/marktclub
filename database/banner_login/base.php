@@ -12,5 +12,4 @@ return (new DataBase())
     ->text('url_2')->null()
     ->text('url_3')->null()
     ->dataCriacao()
-    ->dataAtualizacao()
-    ->status();
+    ->dataAtualizacao();

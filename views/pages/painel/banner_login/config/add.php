@@ -1,6 +1,5 @@
 <?php
 
-use App\Classes\Geral\Status;
 use Helpers\ApiHelper;
 
 $Painel = new PainelConfig\Add(app: 'banner_login', acao: $acao);
@@ -23,12 +22,7 @@ $Painel->coluna(callback: function () use ($Painel) {
 $Painel->coluna(callback: function () use ($Painel) {
     $Painel->fieldset('Dados', function () use ($Painel) {
         $Painel
-            ->input(name: 'titulo', label: 'Título dos banners')
-            ->select(
-                name: 'status',
-                lista: (new Status())->select('Escolha um status'),
-                label: 'Status'
-            );
+            ->input(name: 'titulo', label: 'Título dos banners');
         ;
     });
 });

@@ -15,15 +15,13 @@ class BannerLoginTest extends Clube
     }
 
     private function pegarBody(
-        string|array $empresa = ['369fc307129e405b3f2f00620c7b012d'],
-        $status = 'ativo'
+        string|array $empresa = ['369fc307129e405b3f2f00620c7b012d']
     ) {
         return [
             'titulo'  => 'titulo',
             'url_1'   => 'https://www.google.com',
             'url_2'   => 'https://www.google.com',
             'url_3'   => 'https://www.google.com',
-            'status'  => $status,
             'empresa' => $empresa,
         ];
     }

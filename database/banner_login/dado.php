@@ -9,7 +9,6 @@ return [
         'url_1'            => 'https://www.google.com',
         'url_2'            => 'https://www.google.com',
         'url_3'            => 'https://www.google.com',
-        'status'           => 1,
     ],
     [
         'uuid'             => uuid(),
@@ -18,6 +17,5 @@ return [
         'url_1'            => 'https://www.google.com',
         'url_2'            => 'https://www.google.com',
         'url_3'            => 'https://www.google.com',
-        'status'           => 1,
     ]
 ];
