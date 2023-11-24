@@ -10,18 +10,6 @@ $Painel
         titulo: 'Título',
         label: 'Título',
         placeholder: 'Digite o título'
-    )
-    ->select(
-        name: 'empresa',
-        lista: 'empresa',
-        titulo: 'Empresa',
-        label: 'Empresa'
-    )
-    ->select(
-        name: 'status',
-        lista: (new Status())->select('Escolha uma opção'),
-        titulo: 'Status',
-        label: 'Status'
     );
 
 return $Painel;

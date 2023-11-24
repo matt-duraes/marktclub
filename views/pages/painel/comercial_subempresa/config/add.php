@@ -8,9 +8,9 @@ $Painel->coluna(coluna: 2, callback: function () use ($Painel) {
     $Painel->fieldset('Dados da Subempresa', function () use ($Painel) {
         $Painel
             ->select(
-                name: 'empresa',
+                name: 'Empresa Matriz',
                 lista: 'empresa',
-                label: 'Empresa'
+                label: 'Empresa Matriz'
             )
             ->input(name: 'titulo', label: 'Titulo', placeholder: 'Titulo')
             ->input(name: 'razao_social', label: 'Razão Social', placeholder: 'Razão Social')

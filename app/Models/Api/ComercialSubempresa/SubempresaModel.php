@@ -83,7 +83,8 @@ final class SubempresaModel extends ORM implements
     {
         $subempresas = $this
             ->campo([
-                'cod', 'id_admin_empresa', 'nome_fantasia', 'cnpj', 'status',
+                'cod', 'id_admin_empresa', 'titulo', 'razao_social',
+                'nome_fantasia', 'responsavel_nome', 'cnpj', 'status',
                 'data_criacao', 'data_atualizacao'
             ])
             ->where($this->pegarWhere(), false)
@@ -110,8 +111,8 @@ final class SubempresaModel extends ORM implements
             $where[] = [
                 'OR',
                 [
-                    ['titulo', 'LIKE', "%$this->titulo%"],
-                    ['razao_social', 'LIKE', "%$this->titulo%"],
+                    /*['titulo', 'LIKE', "%$this->titulo%"],
+                    ['razao_social', 'LIKE', "%$this->titulo%"],*/
                     ['nome_fantasia', 'LIKE', "%$this->titulo%"]
                 ]
             ];
@@ -131,6 +132,11 @@ final class SubempresaModel extends ORM implements
         return $where;
     }
 
+    /**
+     * @param array $subempresas
+     *
+     * @return array
+     */
     private function montarRetorno(array $subempresas): array
     {
         if (empty($subempresas)) {
@@ -143,15 +149,19 @@ final class SubempresaModel extends ORM implements
         foreach ($subempresas as $subempresa) {
             $empresa = $OrmHelper->pegarPrimeiroRegistro(
                 ['id', $subempresa->id_admin_empresa],
-                ['nome_fantasia'],
+                ['cod', 'nome_fantasia'],
                 'object'
             );
             $retorno[] = [
                 'id'               => $subempresa->cod,
                 'empresa_matriz'   => [
+                    'id'            => $empresa->cod,
                     'nome_fantasia' => $empresa->nome_fantasia
                 ],
+                'titulo'           => $subempresa->titulo,
+                'razao_social'     => $subempresa->razao_social,
                 'nome_fantasia'    => $subempresa->nome_fantasia,
+                'responsavel_nome' => $subempresa->responsavel_nome,
                 'cnpj'             => (new Cnpj($subempresa->cnpj))->cnpj(),
                 'status'           => $Status->indice($subempresa->status),
                 'data_criacao'     => $subempresa->data_criacao,
