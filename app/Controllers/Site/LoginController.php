@@ -11,6 +11,7 @@ use App\Classes\TextoClube\Tipo;
 use App\Models\Site\Login\LogarModel;
 use App\Models\Site\Ativar\SalvarModel;
 use App\Models\Site\Login\LoginApiModel;
+use App\Models\Site\Login\ComunicacaoModel;
 use App\Classes\ConstrutorClube\TipoAtivacao;
 use App\Models\Site\Contato\SalvarModel as SalvarContatoModel;
 
@@ -18,28 +19,14 @@ final class LoginController extends Controller
 {
     public function index(Request $request): Response
     {
-        $dado = (new ApiHelper())
-            ->json([
-                'empresa' => sessao('CLUBE')->empresa
-            ])
-            ->get('/banner-login/banner')
-            ->array()['dado'] ?? [];
-
         if (API && !MENU_DEPENDENTE) {
             return new Response(url: LINK_LOGIN);
         }
 
-        $quantidade_banners = 0;
-
-        foreach ($dado['url'] ?? [] as $url) {
-            if (!empty($url)) {
-                $quantidade_banners++;
-            }
-        }
-
+        $dado = (new ComunicacaoModel())->buscarBanners() ?? '';
         return view('login.index', [
-            'banners'            => $dado['url'] ?? [],
-            'quantidade_banners' => $quantidade_banners,
+            'banner'             => $dado->lista,
+            'quantidade_banners' => $dado->quantidade_banners,
             'location'           => base64Decode($request->chave('location', ''), true)
         ]);
     }
