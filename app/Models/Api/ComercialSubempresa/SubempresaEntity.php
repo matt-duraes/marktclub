@@ -24,7 +24,8 @@ final class SubempresaEntity extends Entity
     protected string $ormTabela = TABELA_COMERCIAL_EMPRESA;
     protected array $ormBuscar = [
         'id_admin_empresa', 'titulo', 'razao_social',
-        'nome_fantasia', 'cnpj', 'status'
+        'nome_fantasia', 'cnpj', 'responsavel_nome', 'status',
+        'data_criacao', 'data_atualizacao'
     ];
     protected array $ormSalvar = [
         'id_admin_empresa', 'titulo', 'razao_social',

@@ -6,7 +6,12 @@ use App\Classes\ComercialEmpresa\Status;
 $Painel = new PainelConfig\Index('comercial_subempresa', new Ordem());
 
 $Painel
-    ->campo('empresa_matriz.nome_fantasia', 'Empresa', 'grande')
+    ->campo(
+        'empresa_matriz.nome_fantasia',
+        'Empresa Matriz',
+        'grande',
+        \App\Classes\UsuarioCliente\Helper::PERMISSAO_EMPRESA
+    )
     ->campo('nome_fantasia', 'Nome', 'grande')
     ->campo('cnpj', 'CNPJ', 'normal', 'cnpj')
     ->dataCriacao()

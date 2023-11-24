@@ -70,8 +70,9 @@ final class ComercialSubempresaController extends Controller implements
             pegarPropriedadeDaEntity(
                 $subempresaEntity,
                 lista: [
-                    'empresa', 'titulo', 'razao_social',
-                    'nome_fantasia', 'cnpj', 'status'
+                    'empresa', 'titulo', 'razao_social', 'nome_fantasia',
+                    'responsavel_nome', 'cnpj', 'status', 'data_criacao',
+                    'data_atualizacao'
                 ]
             ),
             $status

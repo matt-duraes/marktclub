@@ -33,9 +33,9 @@ return [
                     'usuario_equipe_permissao' => 'Todas as permissões',
                 ]
             ],
-            'banner_login'             => ['titulo' => 'Banners', 'acao' => ['index', 'add', 'editar', 'deletar']],
-            'comunicacao_publicidade'  => ['titulo' => 'Publicidade', 'acao' => ['index', 'add', 'editar', 'deletar']],
-            'solicitacao_contato'      => [
+            'banner_login'            => ['titulo' => 'Banners', 'acao' => ['index', 'add', 'editar', 'deletar']],
+            'comunicacao_publicidade' => ['titulo' => 'Publicidade', 'acao' => ['index', 'add', 'editar', 'deletar']],
+            'solicitacao_contato'     => [
                 'titulo'    => 'Contato',
                 'acao'      => ['index', 'visualizar', 'status', 'empresa'],
                 'permissao' => [
@@ -173,7 +173,7 @@ return [
             ],
             'comercial_subempresa'     => [
                 'titulo'    => 'Comercial Subempresa',
-                'acao'      => ['index', 'add', 'editar', 'deletar', 'empresa'],
+                'acao'      => ['index', 'visualizar', 'add', 'editar', 'deletar', 'empresa'],
                 'permissao' => [
                     'comercial_subempresa_empresa' => 'Todas as empresas'
                 ]
