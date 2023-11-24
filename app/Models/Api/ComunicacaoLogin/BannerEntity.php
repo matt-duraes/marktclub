@@ -2,6 +2,7 @@
 
 namespace App\Models\Api\ComunicacaoLogin;
 
+use App\Classes\Geral\Status;
 use Modules\DataHora;
 use ORM\Entity;
 use Helpers\OrmHelper;
@@ -19,14 +20,14 @@ class BannerEntity extends Entity
     public array $empresa;
     public DataHora $data_inicio;
     public DataHora $data_fim;
-
+    public Status $status;
     protected array $ormBuscar = [
         'titulo', 'arquivo_1', 'arquivo_2', 'arquivo_3', 'id_admin_empresa', 'padrao',
-        'data_inicio', 'data_fim'
+        'data_inicio', 'data_fim', 'status'
     ];
     protected array $ormSalvar = [
         'titulo', 'arquivo_1', 'arquivo_2', 'arquivo_3', 'id_admin_empresa', 'padrao',
-        'data_fim', 'data_inicio'
+        'data_fim', 'data_inicio', 'status'
     ];
 
     public function regraPosBuscar()

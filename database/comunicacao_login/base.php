@@ -14,4 +14,5 @@ return (new DataBase())
     ->datetime('data_inicio')->null()
     ->datetime('data_fim')->null()
     ->dataCriacao()
-    ->dataAtualizacao();
+    ->dataAtualizacao()
+    ->status();

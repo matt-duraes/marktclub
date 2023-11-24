@@ -4,11 +4,12 @@ namespace App\Controllers\Api;
 
 use Http\Request;
 use Http\Response;
+use Modules\Botao;
+use Modules\Data;
 use Modules\Pagina;
 use Modules\Quantidade;
 use Controller\Controller;
 use App\Classes\Geral\Status;
-use App\Classes\ComunicacaoLogin\Ordem;
 use System\Interface\ControllerBuscarInterface;
 use System\Interface\ControllerListarInterface;
 use System\Interface\ControllerSalvarInterface;
@@ -45,7 +46,7 @@ final class ComunicacaoLoginController extends Controller implements
         return mensagemSucesso(
             pegarPropriedadeDaEntity($BannerEntity, lista: [
                 'titulo', 'arquivo_1', 'arquivo_2', 'arquivo_3', 'empresa', 'padrao',
-                'data_inicio', 'data_fim'
+                'data_inicio', 'data_fim', 'status'
             ]),
             $status
         );
@@ -56,8 +57,12 @@ final class ComunicacaoLoginController extends Controller implements
         $BannerModel = new BannerModel(
             new Pagina($request->pagina),
             new Quantidade($request->quantidade),
+            new Data($request->dataInicio),
+            new Data($request->dataFinal),
+            new Status($request->status),
+            new Botao($request->publicado),
             $request->empresa,
-            $request->publicado
+            $request->titulo
         );
         return mensagemSucesso($BannerModel->listarDados());
     }
