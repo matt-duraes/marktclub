@@ -1713,7 +1713,7 @@ Route
             ::nome('atualizar')
             ::middleware(TokenMiddleware::class, 'scope', ['demanda_tarefa:atualizar'])
             ::request([
-                'titulo', '!texto', '!tipo', '!minuto_producao_estimada'
+                '!titulo', '!texto', '!tipo', '!minuto_producao_estimada', '!equipe', '!status'
             ])
             ::put('/demanda-tarefa/{id}');
 
@@ -2385,47 +2385,37 @@ Route
     });
 
 Route
-    ::nome('banner_login')
-    ::controller(App\Controllers\Api\BannerLoginController::class)
+    ::nome('comunicacao_login')
+    ::controller(App\Controllers\Api\ComunicacaoLoginController::class)
     ::middleware(TokenMiddleware::class, 'token')
     ::grupo(function () {
         Route
             ::nome('buscar')
-            ::middleware(TokenMiddleware::class, 'scope', ['banner_login:buscar'])
-            ::get('/banner-login/{id}');
+            ::middleware(TokenMiddleware::class, 'scope', ['comunicacao_login:buscar'])
+            ::get('/comunicacao-login/{id}');
         Route
             ::nome('listar')
-            ::middleware(TokenMiddleware::class, 'scope', ['banner_login:listar'])
+            ::middleware(TokenMiddleware::class, 'scope', ['comunicacao_login:listar'])
             ::request([
-                'pagina', '!quantidade', '!ordem'
+                'pagina', '!empresa', '!quantidade', '!ordem'
             ], 'json')
-            ::get('/banner-login');
+            ::get('/comunicacao-login');
         Route
             ::nome('salvar')
-            ::middleware(TokenMiddleware::class, 'scope', ['banner_login:salvar'])
+            ::middleware(TokenMiddleware::class, 'scope', ['comunicacao_login:salvar'])
             ::request([
-                'url_1', 'url_2', 'url_3', 'empresa', 'titulo'
+                'arquivo_1', 'arquivo_2', 'arquivo_3', 'empresa', 'titulo'
             ])
-            ::post('/banner-login');
+            ::post('/comunicacao-login');
         Route
             ::nome('atualizar')
-            ::middleware(TokenMiddleware::class, 'scope', ['banner_login:atualizar'])
+            ::middleware(TokenMiddleware::class, 'scope', ['comunicacao_login:atualizar'])
             ::request([
-                '!url_1', '!url_2', '!url_3', '!empresa', '!titulo'
+                '!arquivo_1', '!arquivo_2', '!arquivo_3', '!empresa', '!titulo'
             ])
-            ::put('/banner-login/{id}');
+            ::put('/comunicacao-login/{id}');
         Route
             ::nome('deletar')
-            ::middleware(TokenMiddleware::class, 'scope', ['banner_login:deletar'])
-            ::delete('/banner-login/{id}');
-    });
-
-Route
-    ::nome('banner_home')
-    ::controller(App\Controllers\Api\BannerLoginController::class)
-    ::grupo(function(){
-        Route
-            ::nome('banner')
-            ::request(['empresa'], 'json')
-            ::get('/banner-login/banner');
+            ::middleware(TokenMiddleware::class, 'scope', ['comunicacao_login:deletar'])
+            ::delete('/comunicacao-login/{id}');
     });

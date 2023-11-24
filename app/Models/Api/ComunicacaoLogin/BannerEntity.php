@@ -1,9 +1,9 @@
 <?php
 
-namespace App\Models\Api\BannerLogin;
+namespace App\Models\Api\ComunicacaoLogin;
 
-use Helpers\OrmHelper;
 use ORM\Entity;
+use Helpers\OrmHelper;
 
 class BannerEntity extends Entity
 {

@@ -76,12 +76,10 @@ final class ListaModel
             ],
             [
                 'titulo' => 'Teste',
-                'classe' => $gerente,
                 'status' => Status::TESTE
             ],
             [
                 'titulo' => 'Concluída',
-                'classe' => $gerente,
                 'status' => Status::CONCLUIDA
             ],
         ];

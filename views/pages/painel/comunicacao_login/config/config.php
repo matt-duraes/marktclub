@@ -12,7 +12,7 @@ return [
     'download'   => false,
     'historico'  => false,
     'api'        => [
-        'scope' => 'banner_login',
-        'uri'   => '/banner-login'
+        'scope' => 'comunicacao_login',
+        'uri'   => '/comunicacao-login'
     ]
 ];

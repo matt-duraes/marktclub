@@ -9,6 +9,36 @@ const $$ = (seletor, pai) => {
 };
 const ppe = console.log.bind(console);
 
+Object.defineProperty(Object.prototype, 'displayShow', {
+    value() {
+        let elemento = this;
+        if (!(elemento instanceof NodeList)) {
+            elemento = [elemento];
+        }
+
+        for (item of elemento) {
+            item.classList.remove('display_none');
+        }
+        return this;
+    },
+    writable: true,
+    configurable: true,
+});
+Object.defineProperty(Object.prototype, 'displayHide', {
+    value() {
+        let elemento = this;
+        if (!(elemento instanceof NodeList)) {
+            elemento = [elemento];
+        }
+
+        for (item of elemento) {
+            item.classList.add('display_none');
+        }
+        return this;
+    },
+    writable: true,
+    configurable: true,
+});
 Object.defineProperty(Object.prototype, 'html', {
     value(html) {
         let elemento = this;
@@ -125,89 +155,42 @@ Object.defineProperty(Object.prototype, 'css', {
     writable: true,
     configurable: true,
 });
-Object.defineProperty(Object.prototype, 'classeAdicionar', {
-    value(classe) {
+Object.defineProperty(Object.prototype, 'classe', {
+    value(classe, acao) {
         let elemento = this;
         if (!(elemento instanceof NodeList)) {
             elemento = [elemento];
         }
+        let existe = true;
         for (const item of elemento) {
+            let retorno;
             if (typeof classe == 'string') {
-                item.classList.add(classe);
+                retorno = fwClasseEvento(item, classe, acao);
             } else if (typeof propriedade == 'object') {
                 for (const nome of classe) {
-                    item.classList.add(nome);
+                    retorno = fwClasseEvento(item, classe, acao);
                 }
             }
+            if (acao == '?' && false === retorno) {
+                existe = false;
+            }
         }
-        return this;
+        return acao == '?' ? existe : this;
     },
     writable: true,
     configurable: true,
 });
-Object.defineProperty(Object.prototype, 'classeRemover', {
-    value(classe) {
-        let elemento = this;
-        if (!(elemento instanceof NodeList)) {
-            elemento = [elemento];
-        }
-        for (const item of elemento) {
-            if (typeof classe == 'string') {
-                item.classList.remove(classe);
-            } else if (typeof propriedade == 'object') {
-                for (const nome of classe) {
-                    item.classList.remove(nome);
-                }
-            }
-        }
-        return this;
-    },
-    writable: true,
-    configurable: true,
-});
-Object.defineProperty(Object.prototype, 'classeAlterar', {
-    value(classe) {
-        let elemento = this;
-        if (!(elemento instanceof NodeList)) {
-            elemento = [elemento];
-        }
-        for (const item of elemento) {
-            if (typeof classe == 'string') {
-                item.classList.toggle(classe);
-            } else if (typeof propriedade == 'object') {
-                for (const nome of classe) {
-                    item.classList.toggle(nome);
-                }
-            }
-        }
-        return this;
-    },
-    writable: true,
-    configurable: true,
-});
-Object.defineProperty(Object.prototype, 'classeExiste', {
-    value(classe) {
-        let elemento = this;
-        if (!(elemento instanceof NodeList)) {
-            elemento = [elemento];
-        }
-        let retorno = undefined;
-        for (const item of elemento) {
-            if (typeof classe == 'string') {
-                return item.classList.contains(classe);
-            } else if (typeof propriedade == 'object') {
-                for (const nome of classe) {
-                    if (!item.classList.contains(nome)) {
-                        retorno = false;
-                    }
-                }
-            }
-        }
-        return retorno === true;
-    },
-    writable: true,
-    configurable: true,
-});
+const fwClasseEvento = (item, classe, acao) => {
+    if (acao == undefined) {
+        return item.classList.toggle(classe);
+    } else if (true === acao) {
+        return item.classList.add(classe);
+    } else if (false === acao) {
+        return item.classList.remove(classe);
+    } else if ('?' == acao) {
+        return item.classList.contains(classe);
+    }
+};
 Object.defineProperty(Object.prototype, 'attr', {
     value(propriedade, valor) {
         let elemento = this;
@@ -253,10 +236,51 @@ Object.defineProperty(Object.prototype, 'evento', {
     writable: true,
     configurable: true,
 });
+Object.defineProperty(Object.prototype, 'clonar', {
+    value() {
+        let elemento = this;
+        if (elemento instanceof NodeList) {
+            elemento = elemento[0];
+        }
+        const clone = elemento.cloneNode(true);
+        clone.removeAttribute('id');
+        return clone;
+    },
+    writable: true,
+    configurable: true,
+});
 
 const FW_BLOCO_LOGIN = $('#bloco_login_relogar');
 const LINK = $('#LINK') ? $('#LINK').value : undefined;
 const BODY = $('body');
+
+const inArray = (element, array) => {
+    return array.indexOf(element) !== -1;
+};
+
+const elemento = (elemento, attr, css) => {
+    const html = document.createElement(elemento);
+    if (typeof attr == 'object') {
+        html.attr(attr);
+    }
+    if (typeof css == 'object') {
+        html.css(css);
+    }
+    return html;
+};
+
+const ajudaLoading = bloco => {
+    const listaAjuda = bloco.attr('data-ajuda') != null ? [bloco] : bloco.querySelectorAll('*[data-ajuda]');
+    listaAjuda.forEach(bloco => {
+        bloco.addEventListener('mouseover', () => {
+            const texto = bloco.getAttribute('data-ajuda');
+            Ajuda.show(bloco, texto);
+        });
+        bloco.addEventListener('mouseout', () => {
+            Ajuda.hide();
+        });
+    });
+};
 
 const link = () => {
     return window.location.href.replace('://', ':||').split('/')[0].replace(':||', '://');

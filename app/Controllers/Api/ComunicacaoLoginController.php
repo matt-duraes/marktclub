@@ -2,22 +2,22 @@
 
 namespace App\Controllers\Api;
 
-use App\Classes\BannerLogin\Ordem;
-use App\Classes\Geral\Status;
-use App\Models\Api\BannerLogin\BannerEntity;
-use App\Models\Api\BannerLogin\BannerModel;
-use Controller\Controller;
 use Http\Request;
 use Http\Response;
 use Modules\Pagina;
 use Modules\Quantidade;
-use System\Interface\ControllerAtualizarInterface;
+use Controller\Controller;
+use App\Classes\Geral\Status;
+use App\Classes\ComunicacaoLogin\Ordem;
 use System\Interface\ControllerBuscarInterface;
-use System\Interface\ControllerDeletarInterface;
 use System\Interface\ControllerListarInterface;
 use System\Interface\ControllerSalvarInterface;
+use App\Models\Api\ComunicacaoLogin\BannerModel;
+use System\Interface\ControllerDeletarInterface;
+use App\Models\Api\ComunicacaoLogin\BannerEntity;
+use System\Interface\ControllerAtualizarInterface;
 
-final class BannerLoginController extends Controller implements
+final class ComunicacaoLoginController extends Controller implements
     ControllerBuscarInterface,
     ControllerListarInterface,
     ControllerSalvarInterface,
@@ -59,12 +59,6 @@ final class BannerLoginController extends Controller implements
             new Status($request->status)
         );
         return mensagemSucesso($BannerModel->listarDados());
-    }
-
-    public function getBanner(Request $request): Response
-    {
-        $BannerModel = new BannerModel();
-        return mensagemSucesso($BannerModel->buscarBanner($request->empresa));
     }
 
     public function putAtualizar(Request $request, string $id): Response

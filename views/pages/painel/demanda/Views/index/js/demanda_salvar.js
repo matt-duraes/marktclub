@@ -2,7 +2,6 @@ window.addEventListener('load', () => {
     const botaoAdd = $('#botao_add_tarefa');
     const PaginaAddTarefa = new Popup('demanda-salvar', 'bloco_demanda_nova', true, true);
 
-    const area = $('#input_area').value;
     const inputTipo = $('#input_tipo');
     const inputTitulo = $('#input_titulo');
     const inputTexto = $('#input_texto');

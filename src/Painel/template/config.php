@@ -58,16 +58,6 @@ try {
     $notificacaoNumeroNovaVisualizada = 0;
 }
 
-define('TRABALHO_AREA', sessao('TRABALHO.area', padrao: false));
-define('TRABALHO_INICIADO', sessao('TRABALHO.iniciado', padrao: false));
-define('TRABALHO_MINIMIZADO', sessao('TRABALHO.minimizado', padrao: false));
-define('TRABALHO_ID', sessao('TRABALHO.id', padrao: ''));
-define('TRABALHO_TAREFA', sessao('TRABALHO.tarefa', padrao: ''));
-define('TRABALHO_DEMANDA', sessao('TRABALHO.demanda', padrao: ''));
-define('TRABALHO_DATA', dataHoraBanco(sessao('TRABALHO.data', padrao: '')));
-define('TRABALHO_TEMPO', sessao('TRABALHO.tempo', padrao: 0));
-define('TRABALHO_TOTAL', sessao('TRABALHO.total', padrao: 0));
-
 function temPermissaoEmpresa(string $app): bool
 {
     $usuarioPermissao = sessao('USUARIO.permissao');

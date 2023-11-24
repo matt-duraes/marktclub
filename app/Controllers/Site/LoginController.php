@@ -31,14 +31,14 @@ final class LoginController extends Controller
 
         $quantidade_banners = 0;
 
-        foreach ($dado['url'] as $url) {
+        foreach ($dado['url'] ?? [] as $url) {
             if (!empty($url)) {
                 $quantidade_banners++;
             }
         }
 
         return view('login.index', [
-            'banners'            => $dado['url'],
+            'banners'            => $dado['url'] ?? [],
             'quantidade_banners' => $quantidade_banners,
             'location'           => base64Decode($request->chave('location', ''), true)
         ]);
@@ -157,7 +157,7 @@ final class LoginController extends Controller
                 'tipo_usuario' => $request->tipo_usuario,
                 'chave'        => TIPO_ATIVACAO,
                 'valor'        => $valor,
-                'empresa'      => EMPRESA_ID
+                'empresa'      => CLUBE_EMPRESA
             ])
             ->post('/usuario-cliente/ativar')
             ->object();
@@ -196,7 +196,7 @@ final class LoginController extends Controller
         try {
             $lista = (new ApiHelper(scope: 'texto_clube:listar'))
             ->json([
-                'empresa' => EMPRESA_ID,
+                'empresa' => CLUBE_EMPRESA,
                 'pagina'  => 1,
                 'tipo'    => Tipo::FAQ,
                 'status'  => 'ativo'
@@ -227,7 +227,7 @@ final class LoginController extends Controller
         $dado = $Api
             ->validar('Ocorreu um erro ao buscar seus dados, por favor, tente novamente.')
             ->json([
-                'empresa' => EMPRESA_ID,
+                'empresa' => CLUBE_EMPRESA,
                 'cpf'     => $Crypt->encode($request->cpf),
             ])
             ->get('/usuario-cliente/senha')

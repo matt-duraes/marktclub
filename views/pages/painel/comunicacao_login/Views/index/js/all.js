@@ -5,4 +5,4 @@ const linhas = document.querySelectorAll('.form_geral');
 const linhaPadrao = linhas[2];
 
 const checkbox = linhaPadrao.querySelector('.checkbox');
-checkbox.parentNode.removeChild(checkbox)
+checkbox.parentNode.removeChild(checkbox);

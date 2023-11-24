@@ -2,7 +2,7 @@
 
 namespace App\Models\Api\UsuarioCliente\Trait;
 
-use App\Models\Api\Trait\ValidarEmpresaTrait;
+use Helpers\OrmHelper;
 use Helpers\ListaHelper;
 use App\Classes\UsuarioCliente\Helper;
 use App\Classes\UsuarioCliente\Origem;
@@ -10,12 +10,9 @@ use App\Classes\UsuarioCliente\Status;
 use App\Classes\UsuarioCliente\TipoUsuario;
 use App\Classes\UsuarioCliente\TrabalhoCargo;
 use App\Classes\UsuarioCliente\TrabalhoEmpresa;
-use Helpers\OrmHelper;
 
 trait WhereTrait
 {
-    use ValidarEmpresaTrait;
-
     protected function pegarWhere(): array
     {
         $request = $this->request;
