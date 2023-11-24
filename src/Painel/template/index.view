@@ -69,9 +69,6 @@
                 @endif
             </div>
             <div class="bloco_config">
-                <div class="bloco_trabalho {{TRABALHO_INICIADO && TRABALHO_MINIMIZADO ? 'ativo' : ''}}" id="bloco_trabalho_header">
-                    <div class="botao"></div>
-                </div>
                 <dib class="bloco_notificacao" id="botao_notificacao_abrir">
                     <div class="numero {{$notificacaoNumeroNova > 0 ? '' : 'display_none'}}" id="bloco_numero_notificao_novas">{{$notificacaoNumeroNova > 9 ? '+9' : $notificacaoNumeroNova}}</div>
                     <i class="notificacao">@iconeNotificacao(20)</i>
@@ -109,7 +106,6 @@
     @dir "/include/ordem.view"
     @dir "/include/agenda.view"
     @dir "/include/notificacao.view"
-    @dir "/include/trabalho.view"
     @dir "/include/relogar.view"
 
     <div id="bloco_fw_pagina"></div>

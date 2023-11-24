@@ -15,7 +15,7 @@
 </a>
 @ endif;
 
-@ if( MENU_DEPENDENTE  && sessao('USUARIO.tipo') == 'titular'):
+@ if( MENU_DEPENDENTE  && sessao('USUARIO.tipo') != 'dependente'):
 <a class="botao {!!MENU_HOVER == 'perfil-dependente' ? 'cor_bg pagina_atual' : ''!!}" href="@route(perfil.dependente)">
     <i>@iconeDependenteOutline(22)</i>
     Adicionar dependentes

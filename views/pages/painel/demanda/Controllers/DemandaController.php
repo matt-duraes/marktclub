@@ -10,7 +10,6 @@ use Controller\Controller;
 use App\Classes\DemandaDado\Area;
 use App\Classes\DemandaDado\Tipo;
 use App\Classes\DemandaTarefa\Status;
-use Painel\Demanda\Models\CriarCotacaoAutomovelModel;
 use Painel\Demanda\Models\ListaModel;
 use Painel\Demanda\Models\CriacaoModel;
 use Painel\Demanda\Models\DetalheModel;
@@ -27,6 +26,7 @@ use Painel\Demanda\Models\CriarIndicacaoModel;
 use Painel\Demanda\Models\CriarAssociacaoModel;
 use Painel\Demanda\Models\CriarAutoindicacaoModel;
 use Painel\Demanda\Models\CriarCotacaoProdutoModel;
+use Painel\Demanda\Models\CriarCotacaoAutomovelModel;
 use App\Classes\DemandaTarefa\Tipo as DemandaTarefaTipo;
 
 final class DemandaController extends Controller
@@ -380,71 +380,26 @@ final class DemandaController extends Controller
         return new Response(status: 204);
     }
 
-    public function getTrabalhoComecar(string $tarefa, string $demanda, string $area)
-    {
-        $mensagemErro = 'Erro ao começar a demanda, por favor, tente novamente.';
-        $dado = $this->Api
-            ->validar($mensagemErro)
-            ->body(['tarefa' => $tarefa])
-            ->post('/demanda-trabalho')
-            ->object()->dado;
-
-        sessao('TRABALHO', [
-            'id'         => $dado->id,
-            'tarefa'     => $tarefa,
-            'demanda'    => $demanda,
-            'iniciado'   => true,
-            'minimizado' => false,
-            'data'       => $dado->data_criacao,
-            'tempo'      => $dado->tempo_trabalho,
-            'total'      => $dado->tempo_total,
-            'area'       => $area
-        ]);
-
-        return mensagemSucesso([
-            'id'           => $dado->id,
-            'tarefa'       => $tarefa,
-            'data_criacao' => $dado->data_criacao,
-            'tempo'        => $dado->tempo_trabalho,
-            'total'        => $dado->tempo_total
-        ]);
-    }
-
-    public function getTrabalhoMinimizar(string $acao)
-    {
-        sessao('TRABALHO.minimizado', $acao == 'sim');
-    }
-
-    public function getTrabalhoAtualizar(string $id)
+    public function putTrabalhoComecar(string $tarefa)
     {
         $this->Api
-            ->validar('Erro ao atualizar trabalho, por favor, tente novamente.')
-            ->body(['acao' => 'atualizar'])
-            ->put('/demanda-trabalho/' . $id);
+            ->validar('Erro ao começar a demanda, por favor, tente novamente.', login: true)
+            ->body([
+                'status' => (new Status())->indice(Status::ANDAMENTO)
+            ])
+            ->put('/demanda-tarefa/' . $tarefa);
 
         return new Response(status: 204);
     }
 
-    public function getTrabalhoParar(string $id)
+    public function putTrabalhoConcluir(string $tarefa)
     {
         $this->Api
-            ->validar('Erro ao parar trabalho, por favor, tente novamente.')
-            ->body(['acao' => 'parar'])
-            ->put('/demanda-trabalho/' . $id);
-
-        sessaoDeletar('TRABALHO');
-
-        return new Response(status: 204);
-    }
-
-    public function getTrabalhoConcluir(string $id)
-    {
-        $this->Api
-            ->validar('Erro ao concluir trabalho, por favor, tente novamente.')
-            ->body(['acao' => 'concluir'])
-            ->put('/demanda-trabalho/' . $id);
-
-        sessaoDeletar('TRABALHO');
+            ->validar('Erro ao concluir tarefa, por favor, tente novamente.')
+            ->body([
+                'status' => (new Status())->indice(Status::CONCLUIDA)
+            ])
+            ->put('/demanda-tarefa/' . $tarefa);
         return new Response(status: 204);
     }
 }

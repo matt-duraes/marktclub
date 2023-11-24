@@ -178,6 +178,7 @@
         texto()
     article .conteudo .bloco_testado
         flexCol()
+        align-items: center
         flex-wrap: wrap
         margin-top: 15px
     article .conteudo .bloco_testado p
@@ -190,28 +191,41 @@
         margin-top: 3px
         border-radius: 2px 20px 20px 20px
     article .conteudo .bloco_testado .bloco_imagem figure
-        width: 30px
-        height: 30px
+        width: 34px
+        height: 34px
         imagemRedonda()
-        margin-right: 5px
+        margin-right: 15px
         background-color: #FFF
+        transition: margin-right .3s ease-out
+        border: 2px solid #EEE
+    article .conteudo .bloco_testado:hover .bloco_imagem figure
+        margin-right: 2px
+        &:last-child
+            margin-right: 5px
     article .conteudo .bloco_teste
         height: 40px
         flexRow()
         margin-top: 20px
         background: #EEE
-        padding: 5px 10px
+        padding: 0 10px
+        align-items: center
         border-radius: 20px
     article .conteudo .bloco_teste .bloco_imagem
         flexRow()
     article .conteudo .bloco_teste .bloco_imagem figure
-        width: 30px
-        height: 30px
+        width: 34px
+        height: 34px
         imagemRedonda()
-        margin-right: 5px
+        margin-right: -15px
         background-color: #FFF
+        transition: margin-right .3s ease-out
+        border: 2px solid #EEE
         &:last-child
-            margin-right: 15px
+            margin-right: 5px
+    article .conteudo .bloco_teste:hover .bloco_imagem figure
+        margin-right: 2px
+        &:last-child
+            margin-right: 5px
     article .conteudo .bloco_teste i
         width: 30px
         height: 30px
@@ -219,7 +233,7 @@
         cursor: pointer
         &.like
             fill: $corVerde
-            margin-right: 15px
+            margin-right: 5px
         &.deslike
             margin-top: 2px
             fill: $corVermelho
@@ -231,12 +245,15 @@
         height: 40px
         flexCenter()
         border-radius: 50%
+        cursor: pointer
+        &.item_play
+            fill: $corDeletar
         &.item_finalizar
             background-color: #EEE
             fill: #999
             cursor: pointer
-        &.item_finalizado:hover
-        &.item_finalizado
+        &.item_concluido:hover
+        &.item_concluido
             background-color: $corVerde
             fill: #FFF
 

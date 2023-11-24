@@ -20,8 +20,8 @@ use App\Models\Api\UsuarioCliente\Trait\BuscarUsuarioTrait;
 
 final class DownloadModel extends ORM
 {
-    use BuscarUsuarioTrait;
     use ValidarEmpresaDownloadTrait;
+    use BuscarUsuarioTrait;
 
     protected string $ormTabela = TABELA_USUARIO_CLIENTE;
     private int $idEmpresa;
