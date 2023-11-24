@@ -44,7 +44,8 @@ final class ComunicacaoLoginController extends Controller implements
     {
         return mensagemSucesso(
             pegarPropriedadeDaEntity($BannerEntity, lista: [
-                'titulo', 'url_1', 'url_2', 'url_3', 'empresa', 'padrao'
+                'titulo', 'arquivo_1', 'arquivo_2', 'arquivo_3', 'empresa', 'padrao',
+                'data_inicio', 'data_fim'
             ]),
             $status
         );
@@ -55,8 +56,8 @@ final class ComunicacaoLoginController extends Controller implements
         $BannerModel = new BannerModel(
             new Pagina($request->pagina),
             new Quantidade($request->quantidade),
-            new Ordem($request->ordem),
-            new Status($request->status)
+            $request->empresa,
+            $request->publicado
         );
         return mensagemSucesso($BannerModel->listarDados());
     }

@@ -2,25 +2,31 @@
 
 namespace App\Models\Api\ComunicacaoLogin;
 
+use Modules\DataHora;
 use ORM\Entity;
 use Helpers\OrmHelper;
 
 class BannerEntity extends Entity
 {
-    protected string $ormTabela = TABELA_BANNER_LOGIN;
+    protected string $ormTabela = TABELA_COMUNICACAO_LOGIN;
     public string $titulo;
     public string $id;
     public array $id_admin_empresa;
-    public string $url_1;
-    public string $url_2;
-    public string $url_3;
+    public string $arquivo_1;
+    public string $arquivo_2;
+    public string $arquivo_3;
     public int $padrao;
     public array $empresa;
+    public DataHora $data_inicio;
+    public DataHora $data_fim;
+
     protected array $ormBuscar = [
-        'titulo', 'url_1', 'url_2', 'url_3', 'id_admin_empresa', 'padrao'
+        'titulo', 'arquivo_1', 'arquivo_2', 'arquivo_3', 'id_admin_empresa', 'padrao',
+        'data_inicio', 'data_fim'
     ];
     protected array $ormSalvar = [
-        'titulo', 'url_1', 'url_2', 'url_3', 'id_admin_empresa', 'padrao'
+        'titulo', 'arquivo_1', 'arquivo_2', 'arquivo_3', 'id_admin_empresa', 'padrao',
+        'data_fim', 'data_inicio'
     ];
 
     public function regraPosBuscar()
@@ -63,7 +69,7 @@ class BannerEntity extends Entity
         $ormEmpresa = new OrmHelper(TABELA_COMERCIAL_EMPRESA);
         $ids = $ormEmpresa->mudarListaUuidParaId($this->empresa);
 
-        $ormBanner = new OrmHelper(TABELA_BANNER_LOGIN);
+        $ormBanner = new OrmHelper(TABELA_COMUNICACAO_LOGIN);
         $dado = $ormBanner
             ->where($this->pegarWhereEmpresa($ids))
             ->read();

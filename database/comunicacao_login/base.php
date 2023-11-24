@@ -11,5 +11,7 @@ return (new DataBase())
     ->imagem('arquivo_1')
     ->imagem('arquivo_2')->null()
     ->imagem('arquivo_3')->null()
+    ->datetime('data_inicio')->null()
+    ->datetime('data_fim')->null()
     ->dataCriacao()
     ->dataAtualizacao();

@@ -26,8 +26,8 @@ class BannerModel extends ORM implements
     public function __construct(
         private readonly Pagina $pagina = new Pagina(),
         private readonly Quantidade $quantidade = new Quantidade(),
-        private readonly Ordem $ordem = new Ordem(),
-        private readonly Status $status = new Status()
+        private readonly null|string $empresa = '',
+        private readonly null|string $publicado = ''
     ) {
         parent::__construct();
     }
@@ -36,45 +36,76 @@ class BannerModel extends ORM implements
     {
         $dados = $this
             ->campo([
-                'id_admin_empresa', 'titulo', 'url_1', 'url_2', 'url_3', 'uuid'
+                'id_admin_empresa', 'titulo', 'arquivo_1', 'arquivo_2', 'arquivo_3',
+                'uuid', 'data_inicio', 'data_fim'
             ])
             ->pagina($this->pegarPagina())
-            ->where($this->ormWherePadrao, false)
-            ->order('padrao', 'desc')
+            ->where($this->pegarWhere(), false)
+            ->order('padrao', !empty($this->publicado) ? 'asc' : 'desc')
             ->read();
 
         $dados->lista = $this->montarRetorno($dados->lista);
         return $dados;
     }
 
-    private function montarRetorno(array $carteirinhas): array
+    private function pegarWhere()
     {
-        if (empty($carteirinhas)) {
-            return $carteirinhas;
+        if (!empty($this->publicado)) {
+            return $this->pegarWherePublicado();
+        }
+
+        return [];
+    }
+
+    private function montarRetorno(array $banners): array
+    {
+        if (empty($banners)) {
+            return $banners;
         }
 
         $retorno = [];
-        foreach ($carteirinhas as $r) {
+        foreach ($banners as $r) {
+            if (!$this->validarData($r->data_inicio, $r->data_fim) && !empty($this->publicado)) {
+                continue;
+            }
+
             $retorno[] = [
                 'id'     => $r->uuid,
                 'titulo' => $r->titulo,
                 'url'    => [
-                    $r->url_1,
-                    $r->url_2,
-                    $r->url_3
+                    arquivoPrivado($r->arquivo_1),
+                    arquivoPrivado($r->arquivo_2),
+                    arquivoPrivado($r->arquivo_3)
                 ],
             ];
         }
         return $retorno;
     }
 
-    private function pegarWhereEmpresa($id): array
+    private function validarData($data_inicio, $data_fim)
     {
+        if (empty($data_inicio) || empty($data_fim)) {
+            return true;
+        }
+
+        $data_inicio = strtotime($data_inicio);
+        $data_fim = strtotime($data_fim);
+        $data_atual = strtotime(date('Y-m-d H:i:s'));
+
+        return $data_atual >= $data_inicio && $data_atual <= $data_fim;
+    }
+
+    private function pegarWherePublicado(): array
+    {
+        $ormEmpresa = new OrmHelper(TABELA_COMERCIAL_EMPRESA);
+        $id = $ormEmpresa->pegarIdPeloUuid($this->empresa);
+
         $where = [];
         if (!empty($id)) {
             $where[] = ['id_admin_empresa', 'json', $id];
         }
         $where[] = ['padrao', '1'];
-        return $where;
+
+        return array_merge(['OR'], $where);
     }
 }

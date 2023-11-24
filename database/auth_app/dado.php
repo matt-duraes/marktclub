@@ -174,8 +174,8 @@ $scope = [
 
     'drogaria_araujo:buscar',
 
-    'banner_login:listar', 'banner_login:buscar', 'banner_login:salvar', 'banner_login:atualizar', 'banner_login:deletar',
-    'banner_login:banner'
+    'comunicacao_login:listar', 'comunicacao_login:buscar', 'comunicacao_login:salvar', 'comunicacao_login:atualizar',
+    'comunicacao_login:deletar',
 ];
 
 return [
