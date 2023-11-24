@@ -14,7 +14,7 @@ final class ComoFuncionaController extends Controller
         try {
             $lista = (new ApiHelper(scope: 'texto_clube:listar'))
             ->json([
-                'empresa' => EMPRESA_ID,
+                'empresa' => CLUBE_EMPRESA,
                 'pagina'  => 1,
                 'tipo'    => Tipo::COMO_FUNCIONA,
                 'status'  => 'ativo'

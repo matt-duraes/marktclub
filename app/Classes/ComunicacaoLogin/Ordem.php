@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Classes\BannerLogin;
+namespace App\Classes\ComunicacaoLogin;
 
 use Order\Order;
 

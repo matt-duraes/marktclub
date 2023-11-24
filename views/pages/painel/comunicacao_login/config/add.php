@@ -2,27 +2,27 @@
 
 use Helpers\ApiHelper;
 
-$Painel = new PainelConfig\Add(app: 'banner_login', acao: $acao);
+$Painel = new PainelConfig\Add(app: 'comunicacao_login', acao: $acao);
 
 $Painel->coluna(callback: function () use ($Painel) {
     $Painel->fieldset('Imagem 1', function () use ($Painel) {
         $Painel
-            ->imagem(name: 'url_1', diretorio: '420e3bb0-4142-40a0-8fcb-b78c9678c5bd', obrigatorio: true);
+            ->imagem(name: 'arquivo_1', diretorio: '420e3bb0-4142-40a0-8fcb-b78c9678c5bd', obrigatorio: true);
     });
     $Painel->fieldset('Imagem 2', function () use ($Painel) {
         $Painel
-            ->imagem(name: 'url_2', diretorio: '420e3bb0-4142-40a0-8fcb-b78c9678c5bd');
+            ->imagem(name: 'arquivo_2', diretorio: '420e3bb0-4142-40a0-8fcb-b78c9678c5bd');
     });
     $Painel->fieldset('Imagem 3', function () use ($Painel) {
         $Painel
-            ->imagem(name: 'url_3', diretorio: '420e3bb0-4142-40a0-8fcb-b78c9678c5bd');
+            ->imagem(name: 'arquivo_3', diretorio: '420e3bb0-4142-40a0-8fcb-b78c9678c5bd');
     });
 });
 
 $Painel->coluna(callback: function () use ($Painel) {
     $Painel->fieldset('Dados', function () use ($Painel) {
         $Painel
-            ->input(name: 'titulo', label: 'Título dos banners');
+            ->input(name: 'titulo', label: 'Título do banner');
         ;
     });
 });
@@ -48,6 +48,6 @@ $Painel->coluna(callback: function () use ($Painel) {
     $Painel->hidden(name: 'padrao');
 });
 
-$Painel->js('painel_banner_login_add');
+$Painel->js('painel_comunicacao_login_add');
 
 return $Painel;

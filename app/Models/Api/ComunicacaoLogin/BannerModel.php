@@ -1,18 +1,18 @@
 <?php
 
-namespace App\Models\Api\BannerLogin;
+namespace App\Models\Api\ComunicacaoLogin;
 
-use App\Classes\BannerLogin\Ordem;
-use App\Classes\Geral\Status;
-use Helpers\OrmHelper;
-use Modules\Pagina;
-use Modules\Quantidade;
 use ORM\ORM;
 use stdClass;
-use System\Interface\ModelListarInterface;
+use Modules\Pagina;
+use Helpers\OrmHelper;
+use Modules\Quantidade;
+use App\Classes\Geral\Status;
 use System\Trait\Model\OrdemTrait;
 use System\Trait\Model\PaginaTrait;
+use App\Classes\ComunicacaoLogin\Ordem;
 use System\Trait\Model\QuantidadeTrait;
+use System\Interface\ModelListarInterface;
 
 class BannerModel extends ORM implements
     ModelListarInterface
@@ -21,7 +21,7 @@ class BannerModel extends ORM implements
     use QuantidadeTrait;
     use OrdemTrait;
 
-    protected string $ormTabela = TABELA_BANNER_LOGIN;
+    protected string $ormTabela = TABELA_COMUNICACAO_LOGIN;
 
     public function __construct(
         private readonly Pagina $pagina = new Pagina(),
@@ -66,40 +66,6 @@ class BannerModel extends ORM implements
             ];
         }
         return $retorno;
-    }
-
-    public function buscarBanner($empresa)
-    {
-        if (empty($empresa)) {
-            return mensagemErro('Erro!', 'Empresa não informada!');
-        }
-
-        $ormHelper = new OrmHelper(TABELA_COMERCIAL_EMPRESA);
-        $id = $ormHelper->pegarIdPeloUuid($empresa);
-
-        $dados = $this
-            ->campo([
-                'id_admin_empresa', 'titulo', 'url_1', 'url_2', 'url_3', 'uuid'
-            ])
-            ->where([
-                array_merge(['OR'], $this->pegarWhereEmpresa($id))
-            ])
-            ->order('padrao', 'asc')
-            ->read();
-
-        if (empty($dados)) {
-            return mensagemErro('Erro!', 'Banner não encontrado!');
-        }
-
-        return [
-            'id'     => $dados[0]->uuid,
-            'titulo' => $dados[0]->titulo,
-            'url'    => [
-                arquivoPrivado($dados[0]->url_1),
-                arquivoPrivado($dados[0]->url_2),
-                arquivoPrivado($dados[0]->url_3)
-            ],
-        ];
     }
 
     private function pegarWhereEmpresa($id): array
