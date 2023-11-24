@@ -18,12 +18,29 @@ final class LoginController extends Controller
 {
     public function index(Request $request): Response
     {
+        $dado = (new ApiHelper())
+            ->json([
+                'empresa' => sessao('CLUBE')->empresa
+            ])
+            ->get('/banner-login/banner')
+            ->array()['dado'] ?? [];
+
         if (API && !MENU_DEPENDENTE) {
             return new Response(url: LINK_LOGIN);
         }
 
+        $quantidade_banners = 0;
+
+        foreach ($dado['url'] as $url) {
+            if (!empty($url)) {
+                $quantidade_banners++;
+            }
+        }
+
         return view('login.index', [
-            'location' => base64Decode($request->chave('location', ''), true)
+            'banners'            => $dado['url'],
+            'quantidade_banners' => $quantidade_banners,
+            'location'           => base64Decode($request->chave('location', ''), true)
         ]);
     }
 

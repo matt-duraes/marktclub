@@ -1540,6 +1540,49 @@ Route
     });
 
 Route
+    ::nome('comercial_subempresa')
+    ::controller(App\Controllers\Api\ComercialSubempresaController::class)
+    ::middleware(TokenMiddleware::class, 'token')
+    ::grupo(function () {
+        Route
+            ::nome('buscar')
+            ::middleware(TokenMiddleware::class, 'scope', ['comercial_subempresa:buscar'])
+            ::get('/comercial-subempresa/{id}');
+
+        Route
+            ::nome('listar')
+            ::middleware(TokenMiddleware::class, 'scope', ['comercial_subempresa:listar'])
+            ::request([
+                'pagina', '!quantidade', '!ordem', '!dataInicio',
+                '!dataFinal', '!titulo', '!empresa', '!status'
+            ], 'json')
+            ::get('/comercial-subempresa');
+
+        Route
+            ::nome('salvar')
+            ::middleware(TokenMiddleware::class, 'scope', ['comercial_subempresa:salvar'])
+            ::request([
+                'empresa', 'titulo', 'razao_social',
+                'nome_fantasia', 'cnpj', 'status'
+            ])
+            ::post('/comercial-subempresa');
+
+        Route
+            ::nome('atualizar')
+            ::middleware(TokenMiddleware::class, 'scope', ['comercial_subempresa:atualizar'])
+            ::request([
+                '!empresa', '!titulo', '!razao_social',
+                '!nome_fantasia', '!cnpj', '!status'
+            ])
+            ::put('/comercial-subempresa/{id}');
+
+        Route
+            ::nome('deletar')
+            ::middleware(TokenMiddleware::class, 'scope', ['comercial_subempresa:deletar'])
+            ::delete('/comercial-subempresa/{id}');
+    });
+
+Route
     ::nome('comercial_restricao')
     ::controller(App\Controllers\Api\ComercialRestricaoController::class)
     ::middleware(TokenMiddleware::class, 'token')
@@ -2339,4 +2382,50 @@ Route
             ::nome('buscar')
             ::middleware(TokenMiddleware::class, 'scope', ['drogaria_araujo:buscar'])
             ::get('/empresas/{id}');
+    });
+
+Route
+    ::nome('banner_login')
+    ::controller(App\Controllers\Api\BannerLoginController::class)
+    ::middleware(TokenMiddleware::class, 'token')
+    ::grupo(function () {
+        Route
+            ::nome('buscar')
+            ::middleware(TokenMiddleware::class, 'scope', ['banner_login:buscar'])
+            ::get('/banner-login/{id}');
+        Route
+            ::nome('listar')
+            ::middleware(TokenMiddleware::class, 'scope', ['banner_login:listar'])
+            ::request([
+                'pagina', '!quantidade', '!ordem'
+            ], 'json')
+            ::get('/banner-login');
+        Route
+            ::nome('salvar')
+            ::middleware(TokenMiddleware::class, 'scope', ['banner_login:salvar'])
+            ::request([
+                'url_1', 'url_2', 'url_3', 'empresa', 'titulo'
+            ])
+            ::post('/banner-login');
+        Route
+            ::nome('atualizar')
+            ::middleware(TokenMiddleware::class, 'scope', ['banner_login:atualizar'])
+            ::request([
+                '!url_1', '!url_2', '!url_3', '!empresa', '!titulo'
+            ])
+            ::put('/banner-login/{id}');
+        Route
+            ::nome('deletar')
+            ::middleware(TokenMiddleware::class, 'scope', ['banner_login:deletar'])
+            ::delete('/banner-login/{id}');
+    });
+
+Route
+    ::nome('banner_home')
+    ::controller(App\Controllers\Api\BannerLoginController::class)
+    ::grupo(function(){
+        Route
+            ::nome('banner')
+            ::request(['empresa'], 'json')
+            ::get('/banner-login/banner');
     });
