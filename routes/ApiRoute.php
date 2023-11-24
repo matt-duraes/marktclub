@@ -2397,21 +2397,21 @@ Route
             ::nome('listar')
             ::middleware(TokenMiddleware::class, 'scope', ['comunicacao_login:listar'])
             ::request([
-                'pagina', '!empresa', '!quantidade', '!ordem'
+                'pagina', '!empresa', '!publicado', '!quantidade'
             ], 'json')
             ::get('/comunicacao-login');
         Route
             ::nome('salvar')
             ::middleware(TokenMiddleware::class, 'scope', ['comunicacao_login:salvar'])
             ::request([
-                'arquivo_1', 'arquivo_2', 'arquivo_3', 'empresa', 'titulo'
+                'arquivo_1', 'arquivo_2', 'arquivo_3', 'empresa', 'titulo', 'data_fim', 'data_inicio'
             ])
             ::post('/comunicacao-login');
         Route
             ::nome('atualizar')
             ::middleware(TokenMiddleware::class, 'scope', ['comunicacao_login:atualizar'])
             ::request([
-                '!arquivo_1', '!arquivo_2', '!arquivo_3', '!empresa', '!titulo'
+                '!arquivo_1', '!arquivo_2', '!arquivo_3', '!empresa', '!titulo', '!data_fim', '!data_inicio'
             ])
             ::put('/comunicacao-login/{id}');
         Route

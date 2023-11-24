@@ -1,0 +1,1 @@
+{"id":"id_96672ac5f3c5978e3cb0471f3658e7e0","token":"token","metodo":"GET","nome":"\/comunicacao-login","uri":"{{LINK}}\/comunicacao-login","parametro":[],"body":[],"header":[],"variavel":[],"json":[["texto",true,"pagina","1",""]],"documentacao":{"status":false,"descricao":"","requisicao":"","resposta":"","scope":"comunicacao_login:listar"}}

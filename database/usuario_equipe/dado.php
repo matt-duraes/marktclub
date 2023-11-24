@@ -36,7 +36,7 @@ $permissao = [
     'parceiro_automovel_index', 'parceiro_automovel_add', 'parceiro_automovel_editar', 'parceiro_automovel_deletar',
     'parceiro_automovel_visualizar',
 
-    'banner_login_index', 'banner_login_add', 'banner_login_editar', 'banner_login_deletar',
+    'comunicacao_login_index', 'comunicacao_login_add', 'comunicacao_login_editar', 'comunicacao_login_deletar',
 
     'comunicacao_publicidade_index', 'comunicacao_publicidade_add', 'comunicacao_publicidade_editar',
     'comunicacao_publicidade_deletar',

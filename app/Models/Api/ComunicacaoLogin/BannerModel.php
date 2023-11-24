@@ -2,6 +2,9 @@
 
 namespace App\Models\Api\ComunicacaoLogin;
 
+use App\Classes\Geral\Publicado;
+use Modules\Botao;
+use Modules\Data;
 use ORM\ORM;
 use stdClass;
 use Modules\Pagina;
@@ -10,7 +13,6 @@ use Modules\Quantidade;
 use App\Classes\Geral\Status;
 use System\Trait\Model\OrdemTrait;
 use System\Trait\Model\PaginaTrait;
-use App\Classes\ComunicacaoLogin\Ordem;
 use System\Trait\Model\QuantidadeTrait;
 use System\Interface\ModelListarInterface;
 
@@ -26,8 +28,12 @@ class BannerModel extends ORM implements
     public function __construct(
         private readonly Pagina $pagina = new Pagina(),
         private readonly Quantidade $quantidade = new Quantidade(),
-        private readonly Ordem $ordem = new Ordem(),
-        private readonly Status $status = new Status()
+        private Data $dataInicio = new Data(null),
+        private Data $dataFinal = new Data(null),
+        private Status $status = new Status(null),
+        private readonly Botao $publicado = new Botao(null),
+        private readonly null|string $empresa = '',
+        private readonly null|string $titulo = null,
     ) {
         parent::__construct();
     }
@@ -36,45 +42,96 @@ class BannerModel extends ORM implements
     {
         $dados = $this
             ->campo([
-                'id_admin_empresa', 'titulo', 'url_1', 'url_2', 'url_3', 'uuid'
+                'id_admin_empresa', 'titulo', 'arquivo_1', 'arquivo_2', 'arquivo_3', 'uuid',
+                'data_inicio', 'data_fim', 'status'
             ])
             ->pagina($this->pegarPagina())
-            ->where($this->ormWherePadrao, false)
-            ->order('padrao', 'desc')
+            ->where($this->pegarWhere(), false)
+            ->order('padrao', !$this->publicado->vazio() ? 'asc' : 'desc')
             ->read();
 
         $dados->lista = $this->montarRetorno($dados->lista);
         return $dados;
     }
 
-    private function montarRetorno(array $carteirinhas): array
+    private function pegarWhere()
     {
-        if (empty($carteirinhas)) {
-            return $carteirinhas;
+        $where = [];
+        $publicadoVazio = $this->publicado->vazio();
+        if (!$publicadoVazio && $this->publicado->valor() == 'sim') {
+            $where[] = [
+                ['data_inicio', '<=', hoje()],
+                ['data_fim', '>=', hoje()],
+                ['status', 1]
+            ];
+        } elseif (!$publicadoVazio && $this->publicado->valor() == 'nao') {
+            $where[] = [
+                'OR',
+                ['data_inicio', '>', hoje()],
+                ['data_fim', '<', hoje()],
+                ['status', '!=', 1]
+            ];
+        }
+        if (!empty($this->empresa)) {
+            $ormEmpresa = new OrmHelper(TABELA_COMERCIAL_EMPRESA);
+            $id = $ormEmpresa->pegarIdPeloUuid($this->empresa);
+
+            if ($id && !empty($this->publicado)) {
+                $where[] = [
+                    'OR',
+                    ['id_admin_empresa', 'json', $id],
+                    ['padrao', '1']
+                ];
+            } else {
+                $where[] = ['id_admin_empresa', 'json', $id];
+            }
+        }
+        if (!empty($this->titulo)) {
+            $where[] = ['titulo', 'like', $this->titulo . '%'];
+        }
+        if ($this->dataInicio->valido() && $publicadoVazio) {
+            $where[] = ['data_inicio', '<=', $this->dataInicio->date()];
+        }
+        if ($this->dataFinal->valido() && $publicadoVazio) {
+            $where[] = ['data_final', '>=', $this->dataFinal->date()];
+        }
+        if ($this->status->valido() && $publicadoVazio) {
+            $where[] = ['status', $this->status->numero()];
+        }
+        return $where;
+    }
+
+    private function montarRetorno(array $banner): array
+    {
+        if (empty($banner)) {
+            return $banner;
         }
 
+        $Status = new Status();
+
         $retorno = [];
-        foreach ($carteirinhas as $r) {
+        foreach ($banner as $r) {
+            $statusAtual = $Status->indice($r->status);
+            $publicado = (
+                new Publicado(
+                    new Data($r->data_inicio),
+                    new Data($r->data_fim),
+                    $statusAtual == Status::ATIVO
+                )
+            )->indice();
+
             $retorno[] = [
                 'id'     => $r->uuid,
                 'titulo' => $r->titulo,
                 'url'    => [
-                    $r->url_1,
-                    $r->url_2,
-                    $r->url_3
+                    arquivoPrivado($r->arquivo_1),
+                    arquivoPrivado($r->arquivo_2),
+                    arquivoPrivado($r->arquivo_3)
                 ],
+                'publicado' => $publicado,
+                'status'    => $statusAtual
             ];
         }
         return $retorno;
-    }
-
-    private function pegarWhereEmpresa($id): array
-    {
-        $where = [];
-        if (!empty($id)) {
-            $where[] = ['id_admin_empresa', 'json', $id];
-        }
-        $where[] = ['padrao', '1'];
-        return $where;
     }
 }

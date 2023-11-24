@@ -23,7 +23,9 @@ $Painel->coluna(callback: function () use ($Painel) {
     $Painel->fieldset('Dados', function () use ($Painel) {
         $Painel
             ->input(name: 'titulo', label: 'Título do banner');
-        ;
+        $Painel
+            ->dataHora(name: 'data_inicio', label: 'Data de início', obrigatorio: true)
+            ->dataHora(name: 'data_fim', label: 'Data de fim', obrigatorio: true);
     });
 });
 

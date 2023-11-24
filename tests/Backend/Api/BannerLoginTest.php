@@ -11,7 +11,7 @@ class BannerLoginTest extends Clube
     public function __construct()
     {
         parent::__construct();
-        $this->tabela(TABELA_BANNER_LOGIN)->resetar();
+        $this->tabela(TABELA_COMUNICACAO_LOGIN)->resetar();
     }
 
     private function pegarBody(
@@ -19,20 +19,22 @@ class BannerLoginTest extends Clube
     ) {
         return [
             'titulo'  => 'titulo',
-            'url_1'   => 'https://www.google.com',
-            'url_2'   => 'https://www.google.com',
-            'url_3'   => 'https://www.google.com',
+            'arquivo_1'   => 'https://www.google.com',
+            'arquivo_2'   => 'https://www.google.com',
+            'arquivo_3'   => 'https://www.google.com',
+            'data_fim' => dataFuturaAleatorio(),
+            'data_inicio' => dataPassadaAleatorio(),
             'empresa' => $empresa,
         ];
     }
 
     public function listarBannersTest()
     {
-        $this->api('banner_login:listar');
+        $this->api('comunicacao_login:listar');
         $this
             ->Curl
             ->json(['pagina' => 1])
-            ->get('/banner-login');
+            ->get('/comunicacao-login');
 
         return $this
             ->checkStatus(200)
@@ -42,11 +44,11 @@ class BannerLoginTest extends Clube
 
     public function salvarBannerTest()
     {
-        $this->api('banner_login:salvar');
+        $this->api('comunicacao_login:salvar');
         $dado = $this
             ->Curl
             ->body($this->pegarBody())
-            ->post('/banner-login')
+            ->post('/comunicacao-login')
             ->array();
 
         $this->id = $dado['dado']['id'] ?? 'sem-id';
@@ -59,10 +61,10 @@ class BannerLoginTest extends Clube
 
     public function buscarEmpresaComBannerTest()
     {
-        $this->api('banner_login:buscar');
+        $this->api('comunicacao_login:buscar');
         $this
             ->Curl
-            ->get('/banner-login/' . $this->id);
+            ->get('/comunicacao-login/' . $this->id);
 
         return $this
             ->checkStatus(200)
@@ -71,27 +73,14 @@ class BannerLoginTest extends Clube
             ->checkIndiceIgual('dado.id', $this->id);
     }
 
-    public function buscarEmpresaSemBannerTest()
-    {
-        $id = '0ffc5c56b99f81ca0edea8bdf524b687';
-
-        $this->api('banner_login:banner');
-        $this
-            ->Curl
-            ->json(['empresa' => [$id]])
-            ->get('/banner-login/banner');
-
-        return $this
-            ->checkStatus(200);
-    }
 
     public function naoPodelSalvarDoisBannersMesmaEmpresaTest()
     {
-        $this->api('banner_login:salvar');
+        $this->api('comunicacao_login:salvar');
         $this
             ->Curl
             ->body($this->pegarBody())
-            ->post('/banner-login');
+            ->post('/comunicacao-login');
 
         return $this
             ->checkStatus(400)
@@ -99,16 +88,16 @@ class BannerLoginTest extends Clube
             ->checkIndiceExiste('erro')
             ->checkIndiceExiste('erro.titulo')
             ->checkIndiceIgual('erro.titulo', 'Banner já cadastrado')
-            ->checkIndiceIgual('erro.mensagem', 'Já existe um banner cadastrado para esta empresa');
+            ->checkIndiceIgual('erro.mensagem', 'Já existe um banner cadastrado para uma ou mais empresas informadas.');
     }
 
     public function naoPodeSalvarBannerSemEmpresaTest()
     {
-        $this->api('banner_login:salvar');
+        $this->api('comunicacao_login:salvar');
         $this
             ->Curl
             ->body($this->pegarBody(empresa: ''))
-            ->post('/banner-login');
+            ->post('/comunicacao-login');
 
         return $this
             ->checkStatus(400)
@@ -121,11 +110,11 @@ class BannerLoginTest extends Clube
 
     public function naoPodelSalvarComEmpresaInvalidaTest()
     {
-        $this->api('banner_login:salvar');
+        $this->api('comunicacao_login:salvar');
         $this
             ->Curl
             ->body($this->pegarBody(empresa: ['empresa_invalida']))
-            ->post('/banner-login');
+            ->post('/comunicacao-login');
 
         return $this
             ->checkStatus(400)
@@ -138,11 +127,11 @@ class BannerLoginTest extends Clube
 
     public function atualizarAdicionandoEmpresasDoBannerTest()
     {
-        $this->api('banner_login:atualizar');
+        $this->api('comunicacao_login:atualizar');
         $this
             ->Curl
             ->body($this->pegarBody(empresa: ['14afa776394ada4be23be6acf7e3259e', '0ffc5c56b99f81ca0edea8bdf524b688']))
-            ->put('/banner-login/' . $this->id);
+            ->put('/comunicacao-login/' . $this->id);
 
         return $this
             ->checkStatus(204);
@@ -150,36 +139,23 @@ class BannerLoginTest extends Clube
 
     public function atualizarRemovendoEmpresasDoBannerTest()
     {
-        $this->api('banner_login:atualizar');
+        $this->api('comunicacao_login:atualizar');
         $this
             ->Curl
             ->body($this->pegarBody())
-            ->put('/banner-login/' . $this->id);
+            ->put('/comunicacao-login/' . $this->id);
 
         return $this
             ->checkStatus(204);
     }
 
-    public function naoPodeAtualizarBannerComMesmaEmpresaTest()
-    {
-        $this->api('banner_login:atualizar');
-        $this
-            ->Curl
-            ->body($this->pegarBody(empresa: ['14afa776394ada4be23be6acf7e3259e']))
-            ->put('/banner-login/' . $this->id);
-
-        return $this
-            ->checkStatus(400)
-            ->checkIndiceIgual('status', 'erro');
-    }
-
     public function naoPodeAtualizarBannerComEmpresaInvalidaTest()
     {
-        $this->api('banner_login:atualizar');
+        $this->api('comunicacao_login:atualizar');
         $this
             ->Curl
             ->body($this->pegarBody(empresa: ['empresa_invalida']))
-            ->put('/banner-login/' . $this->id);
+            ->put('/comunicacao-login/' . $this->id);
 
         return $this
             ->checkStatus(400)
@@ -188,10 +164,10 @@ class BannerLoginTest extends Clube
 
     public function deletarBannerTest()
     {
-        $this->api('banner_login:deletar');
+        $this->api('comunicacao_login:deletar');
         $this
             ->Curl
-            ->delete('/banner-login/' . $this->id);
+            ->delete('/comunicacao-login/' . $this->id);
 
         return $this
             ->checkStatus(204);
@@ -199,10 +175,10 @@ class BannerLoginTest extends Clube
 
     public function validarSeApagouTest()
     {
-        $this->api('banner_login:buscar');
+        $this->api('comunicacao_login:buscar');
         $this
             ->Curl
-            ->get('/banner-login/' . $this->id);
+            ->get('/comunicacao-login/' . $this->id);
 
         return $this
             ->checkStatus(404)
