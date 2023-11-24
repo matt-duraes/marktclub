@@ -26,6 +26,12 @@ const demandaDetalhe = () => {
         });
     });
 
+    if (statusDemanda == 'concluida') {
+        botaoSeguir.displayHide();
+        botaoEditar.displayHide();
+        botaoCancelar.displayHide();
+    }
+
     if (botaoSeguir) {
         botaoSeguir.addEventListener('click', () => {
             const texto = botaoSeguir.innerText.trim();
@@ -67,6 +73,9 @@ const demandaDetalhe = () => {
         limparPopupTarefa();
         abrirPopupNovaTarefa();
     });
+    if (inArray(statusDemanda, ['teste', 'concluida'])) {
+        botaoTarefaAbrir.displayHide();
+    }
     const abrirPopupNovaTarefa = () => {
         PopupTarefa.abrir();
         inputTarefaTitulo.focus();
