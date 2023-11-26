@@ -5,7 +5,6 @@ namespace App\Models\Api\ComunicacaoLogin;
 use ORM\ORM;
 use stdClass;
 use Modules\Pagina;
-use Helpers\OrmHelper;
 use Modules\Quantidade;
 use App\Classes\Geral\Status;
 use System\Trait\Model\OrdemTrait;

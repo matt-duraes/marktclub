@@ -110,7 +110,7 @@ const adicionarNovaTarefa = item => {
         adicionarLike(item.id);
     });
     botaoDeslike.evento('click', () => {
-        cancelarTarefa(item.id);
+        popupRecusarTarefa(item.id);
     });
 
     const botaoEditar = clone.querySelector('.botao_editar');

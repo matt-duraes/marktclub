@@ -105,7 +105,8 @@ final class SubempresaModel extends ORM implements
             ? $this->ormWherePadrao
             : [['id_admin_empresa', '<>', 'NULL']];
         $where = array_merge(
-            $wherePadrao, [['status', (new Status(Status::ATIVO))->numero()]]
+            $wherePadrao,
+            [['status', (new Status(Status::ATIVO))->numero()]]
         );
         if (!empty($this->titulo)) {
             $where[] = [

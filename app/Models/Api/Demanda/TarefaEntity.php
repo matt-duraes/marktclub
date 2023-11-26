@@ -10,7 +10,6 @@ use App\Classes\DemandaTarefa\Status;
 use System\Classes\PainelHistorico\Acao;
 use ApiModel\PainelHistorico\HistoricoEntity;
 use App\Models\Api\UsuarioEquipe\PerfilModel;
-use App\Classes\DemandaDado\Status as DemandaDadoStatus;
 
 final class TarefaEntity extends Entity
 {
@@ -64,12 +63,6 @@ final class TarefaEntity extends Entity
     {
         $statusAtual = (new Status($this->prop('status')))->indice();
         $statusNovo = $this->status->indice();
-        if (
-            in_array($statusAtual, [Status::CANCELADA, Status::CONCLUIDA]) &&
-            $statusNovo == Status::ANDAMENTO
-        ) {
-            mensagemErro('Sem permissão!', 'Você não pode começar a trabalhar em uma tarefa Cancelada ou Concluida.');
-        }
         if ($statusNovo == Status::ANDAMENTO && $this->data_producao_inicio->vazio()) {
             $this->data_producao_inicio = new DataHora(agora());
         }
@@ -132,13 +125,11 @@ final class TarefaEntity extends Entity
 
     public function deslike(string $motivo)
     {
-        $this->status = new Status('andamento');
+        $this->status = new Status(Status::AGUARDANDO);
         $this->like = [];
         $this->salvar();
 
         $Demanda = $this->pegarDemanda();
-        $Demanda->status = new DemandaDadoStatus('andamento');
-        $Demanda->salvar();
 
         $Perfil = new PerfilModel();
         $usuario = $Perfil->pegarDado($this->id_usuario_equipe);
