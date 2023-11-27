@@ -61,15 +61,15 @@ class BannerModel extends ORM implements
         $publicadoVazio = $this->publicado->vazio();
         if (!$publicadoVazio && $this->publicado->valor() == 'sim') {
             $wherePublicado[] = [
-                ['data_inicio', '<=', agora()],
-                ['data_fim', '>=', agora()],
+                ['data_inicio', '<=', hoje()],
+                ['data_fim', '>=', hoje()],
                 ['status', 1]
             ];
         } elseif (!$publicadoVazio && $this->publicado->valor() == 'nao') {
             $wherePublicado[] = [
                 'OR',
-                ['data_inicio', '>', agora()],
-                ['data_fim', '<', agora()],
+                ['data_inicio', '>', hoje()],
+                ['data_fim', '<', hoje()],
                 ['status', '!=', 1]
             ];
         }
@@ -81,7 +81,7 @@ class BannerModel extends ORM implements
                 $where[] = [
                     'OR',
                     [
-                        ['id_admin_empresa', 'json', $id],
+                        ['id_admin_empresa', 'json', jsonEncode($id)],
                         $wherePublicado
                     ],
                     ['padrao', 1]
@@ -106,7 +106,6 @@ class BannerModel extends ORM implements
         if ($this->status->valido() && $publicadoVazio) {
             $where[] = ['status', $this->status->numero()];
         }
-
         return $where;
     }
 
