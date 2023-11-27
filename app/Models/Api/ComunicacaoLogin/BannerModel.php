@@ -2,14 +2,15 @@
 
 namespace App\Models\Api\ComunicacaoLogin;
 
-use App\Classes\Geral\Publicado;
-use Modules\Botao;
-use Modules\Data;
 use ORM\ORM;
 use stdClass;
+use Modules\Data;
+use Modules\Botao;
 use Modules\Pagina;
+use Helpers\OrmHelper;
 use Modules\Quantidade;
 use App\Classes\Geral\Status;
+use App\Classes\Geral\Publicado;
 use System\Trait\Model\OrdemTrait;
 use System\Trait\Model\PaginaTrait;
 use System\Trait\Model\QuantidadeTrait;
@@ -56,18 +57,19 @@ class BannerModel extends ORM implements
     private function pegarWhere()
     {
         $where = [];
+        $wherePublicado = [];
         $publicadoVazio = $this->publicado->vazio();
         if (!$publicadoVazio && $this->publicado->valor() == 'sim') {
-            $where[] = [
-                ['data_inicio', '<=', hoje()],
-                ['data_fim', '>=', hoje()],
+            $wherePublicado[] = [
+                ['data_inicio', '<=', agora()],
+                ['data_fim', '>=', agora()],
                 ['status', 1]
             ];
         } elseif (!$publicadoVazio && $this->publicado->valor() == 'nao') {
-            $where[] = [
+            $wherePublicado[] = [
                 'OR',
-                ['data_inicio', '>', hoje()],
-                ['data_fim', '<', hoje()],
+                ['data_inicio', '>', agora()],
+                ['data_fim', '<', agora()],
                 ['status', '!=', 1]
             ];
         }
@@ -78,12 +80,17 @@ class BannerModel extends ORM implements
             if ($id && !empty($this->publicado)) {
                 $where[] = [
                     'OR',
-                    ['id_admin_empresa', 'json', $id],
-                    ['padrao', '1']
+                    [
+                        ['id_admin_empresa', 'json', $id],
+                        $wherePublicado
+                    ],
+                    ['padrao', 1]
                 ];
             } else {
                 $where[] = ['id_admin_empresa', 'json', $id];
             }
+        } else {
+            $where[] = $wherePublicado;
         }
         if (!empty($this->titulo)) {
             $where[] = ['titulo', 'like', $this->titulo . '%'];
