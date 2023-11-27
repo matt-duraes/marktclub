@@ -1,5 +1,6 @@
 <?php
 
+use App\Classes\Geral\Status;
 use Helpers\ApiHelper;
 
 $Painel = new PainelConfig\Add(app: 'comunicacao_login', acao: $acao);
@@ -26,6 +27,8 @@ $Painel->coluna(callback: function () use ($Painel) {
         $Painel
             ->data(name: 'data_inicio', label: 'Data de início', obrigatorio: true)
             ->data(name: 'data_fim', label: 'Data de fim', obrigatorio: true);
+        $Painel
+            ->select(name: 'status', label: 'Status', lista: (new Status())->select('Selecione um status'), obrigatorio: true);
     });
 });
 

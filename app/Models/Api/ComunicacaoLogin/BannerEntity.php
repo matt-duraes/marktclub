@@ -43,6 +43,7 @@ class BannerEntity extends Entity
         $this->id_admin_empresa = $ormHelper->mudarListaUuidParaId($this->empresa);
         $this->validarEmpresaNaoEncontrada();
         $this->validarSeJaExiste();
+        $this->adicionarStatus();
     }
 
     private function validarDados()
@@ -92,5 +93,12 @@ class BannerEntity extends Entity
         }
 
         return array_merge(['OR'], $where);
+    }
+
+    private function adicionarStatus()
+    {
+        if (empty($this->status)) {
+            $this->status = new Status(Status::ATIVO);
+        }
     }
 }
