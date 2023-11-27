@@ -40,9 +40,7 @@
 
         <div class="resto"></div>
 
-        @ if(!$r->dono):
-        <div class="botao" id="botao_seguir_demanda">{{$r->estouSeguindo ? 'seguindo' : 'seguir'}}</div>
-        @ endif;
+        <div class="botao {!!$r->dono ? 'display_none' : ''!!}" id="botao_seguir_demanda">{{$r->estouSeguindo ? 'seguindo' : 'seguir'}}</div>
     </div>
 
     <div class="bloco_data">

@@ -58,7 +58,7 @@ const finalizarTarefa = async (botaoFinalizar, botaoConcluido, blocoTeste, taref
         return;
     }
 
-    if (!(await Alerta.confirmar('Concluir tarefa', 'Tem certeza que deseja concluir essa tarefa?', true))) {
+    if (!(await Alerta.confirmar('Concluir tarefa', 'Tem certeza que deseja concluir essa tarefa?', '!'))) {
         return;
     }
 
@@ -82,7 +82,7 @@ const finalizarTarefa = async (botaoFinalizar, botaoConcluido, blocoTeste, taref
 
 const verificarPodePassarDemandaTeste = () => {
     const listaTarefa = $$('#bloco_tarefa_lista .tarefa');
-    const concluido = true;
+    let concluido = true;
     for (const item of listaTarefa) {
         if (item.attr('data-status') != 'concluida') {
             concluido = false;
@@ -103,18 +103,8 @@ const adicionarLike = async id => {
     if (!bloco || $('.bloco_teste .bloco_imagem figure[data-id="' + USUARIO_ID + '"]', bloco)) {
         return;
     }
-    const figure = elemento(
-        'figure',
-        {
-            'data-id': USUARIO_ID,
-            'data-ajuda': USUARIO_NOME,
-        },
-        {
-            backgroundImage: `url(${USUARIO_IMAGEM})`,
-        }
-    );
-    $('.bloco_teste .bloco_imagem', bloco).inicio(figure);
-    ajudaLoading(figure);
+
+    adicionarImagemEquipe($('.bloco_teste .bloco_imagem', bloco), USUARIO_ID, USUARIO_NOME, USUARIO_IMAGEM);
 
     const resposta = await ajaxPost(
         LINK + `/demanda/tarefa-like/${id}`,
@@ -132,14 +122,60 @@ const verificarPodePassarDemandaConcluido = () => {
     const dono = $('#input_demanda_equipe').value;
     for (const tarefa of listaTarefa) {
         if (
-            $$('.bloco_teste .bloco_imagem figure', tarefa).length < 1 ||
+            $$('.bloco_teste .bloco_imagem figure', tarefa).length < 2 ||
             !$('.bloco_teste .bloco_imagem figure[data-id="' + dono + '"]', tarefa)
         ) {
             return;
         }
     }
-    ppe(123);
+    $$('.bloco_teste').classe('bloco_testado', true);
+    const demanda = $('#id_demanda_' + idDemanda);
+    const blocoAtual = demanda.closest('.conteudo');
+    const blocoDestino = $('.bloco_coluna[data-status="concluida"] .conteudo');
+    mudarDemandaColuna(blocoAtual, blocoDestino, demanda);
 };
-const cancelarTarefa = id => {
-    //
+
+const PopupTarefaRecusar = new Popup('Recusar Tarefa', 'bloco_tarefa_recusar', false, false);
+const inputTarefaRecusarId = $('#input_tarefa_recusar_id');
+const inputTarefaRecusarMotivo = $('#input_tarefa_recusar_motivo');
+const botaoRecusarTarefa = $('#botao_tarefa_recusar_salvar');
+
+const popupRecusarTarefa = id => {
+    inputTarefaRecusarId.value = id;
+    inputTarefaRecusarMotivo.value = '';
+    PopupTarefaRecusar.abrir();
 };
+botaoRecusarTarefa.evento('click', async () => {
+    const id = inputTarefaRecusarId.value;
+    const motivo = inputTarefaRecusarMotivo.value;
+    if (motivo == '') {
+        Alerta.notificacao('Digite um motivo para continuar.', false);
+        return;
+    }
+    Loading.show();
+    const resposta = await ajaxPost(
+        LINK + `/demanda/tarefa-deslike/${id}`,
+        {
+            motivo,
+        },
+        'Erro ao recusar tarefa, por favor, tente novamente.'
+    );
+    Loading.hide();
+    if (false === resposta) {
+        return;
+    }
+    const blocoTarefa = $('#id_tarefa_' + id);
+    const blocoTeste = $('.bloco_teste', blocoTarefa);
+    blocoTeste.classe('bloco_testado', false);
+    blocoTeste.displayHide();
+    const botaoConcluido = $('.item_concluido', blocoTarefa);
+    const botaoTrabalhar = $('.item_play', blocoTarefa);
+    botaoConcluido.displayHide();
+    botaoTrabalhar.displayShow();
+
+    const demanda = $('#id_demanda_' + idDemanda);
+    const blocoAtual = demanda.closest('.conteudo');
+    const blocoDestino = $('.bloco_coluna[data-status="andamento"] .conteudo');
+    mudarDemandaColuna(blocoAtual, blocoDestino, demanda);
+    PopupTarefaRecusar.fechar();
+});

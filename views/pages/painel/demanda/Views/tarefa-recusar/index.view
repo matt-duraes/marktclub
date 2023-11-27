@@ -1,0 +1,13 @@
+<div id="bloco_tarefa_recusar" class="bloco_pagina_popup">
+    <header class="header_pagina_popup">
+        <h1>RECUSAR TAREFA</h1>
+    </header>
+    <form class="form_geral conteudo_pagina_popup">
+        <input type="hidden" id="input_tarefa_recusar_id">
+        @? formTextarea(name: 'tarefa_recusar_motivo', placeholder: 'Digite o motivo da recusa', label: 'Detalhe', obrigatorio: true)
+    </form>
+    <div class="footer_pagina_popup">
+        <div class="button voltar popup_fechar">CANCELAR</div>
+        <div class="button salvar" id="botao_tarefa_recusar_salvar">SALVAR</div>
+    </div>
+</div>
