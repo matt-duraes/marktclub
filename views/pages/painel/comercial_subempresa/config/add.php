@@ -8,7 +8,7 @@ $Painel->coluna(coluna: 2, callback: function () use ($Painel) {
     $Painel->fieldset('Dados da Subempresa', function () use ($Painel) {
         $Painel
             ->select(
-                name: 'Empresa Matriz',
+                name: 'empresa',
                 lista: 'empresa',
                 label: 'Empresa Matriz'
             )
