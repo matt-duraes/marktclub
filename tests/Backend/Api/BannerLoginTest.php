@@ -18,13 +18,13 @@ class BannerLoginTest extends Clube
         string|array $empresa = ['369fc307129e405b3f2f00620c7b012d']
     ) {
         return [
-            'titulo'  => 'titulo',
+            'titulo'      => 'titulo',
             'arquivo_1'   => 'https://www.google.com',
             'arquivo_2'   => 'https://www.google.com',
             'arquivo_3'   => 'https://www.google.com',
-            'data_fim' => dataFuturaAleatorio(),
+            'data_fim'    => dataFuturaAleatorio(),
             'data_inicio' => dataPassadaAleatorio(),
-            'empresa' => $empresa,
+            'empresa'     => $empresa,
         ];
     }
 
@@ -72,7 +72,6 @@ class BannerLoginTest extends Clube
             ->checkIndiceExiste('dado.id')
             ->checkIndiceIgual('dado.id', $this->id);
     }
-
 
     public function naoPodelSalvarDoisBannersMesmaEmpresaTest()
     {
