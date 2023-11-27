@@ -90,7 +90,9 @@ class BannerModel extends ORM implements
                 $where[] = ['id_admin_empresa', 'json', $id];
             }
         } else {
-            $where[] = $wherePublicado;
+            if (!empty($wherePublicado)) {
+                $where[] = $wherePublicado;
+            }
         }
         if (!empty($this->titulo)) {
             $where[] = ['titulo', 'like', $this->titulo . '%'];
@@ -104,6 +106,7 @@ class BannerModel extends ORM implements
         if ($this->status->valido() && $publicadoVazio) {
             $where[] = ['status', $this->status->numero()];
         }
+
         return $where;
     }
 
