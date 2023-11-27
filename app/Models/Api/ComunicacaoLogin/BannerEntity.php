@@ -3,7 +3,7 @@
 namespace App\Models\Api\ComunicacaoLogin;
 
 use App\Classes\Geral\Status;
-use Modules\DataHora;
+use Modules\Data;
 use ORM\Entity;
 use Helpers\OrmHelper;
 
@@ -18,8 +18,8 @@ class BannerEntity extends Entity
     public string $arquivo_3;
     public int $padrao;
     public array $empresa;
-    public DataHora $data_inicio;
-    public DataHora $data_fim;
+    public Data $data_inicio;
+    public Data $data_fim;
     public Status $status;
     protected array $ormBuscar = [
         'titulo', 'arquivo_1', 'arquivo_2', 'arquivo_3', 'id_admin_empresa', 'padrao',

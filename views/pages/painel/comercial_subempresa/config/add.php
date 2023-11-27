@@ -1,7 +1,5 @@
 <?php
 
-use App\Classes\ComercialEmpresa\Status;
-
 $Painel = new PainelConfig\Add('comercial_subempresa', $acao);
 
 $Painel->coluna(coluna: 2, callback: function () use ($Painel) {
