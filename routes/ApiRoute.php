@@ -1562,8 +1562,7 @@ Route
             ::nome('salvar')
             ::middleware(TokenMiddleware::class, 'scope', ['comercial_subempresa:salvar'])
             ::request([
-                'empresa', 'titulo', 'razao_social',
-                'nome_fantasia', 'cnpj', 'status'
+                'empresa', 'titulo', 'cnpj', 'status'
             ])
             ::post('/comercial-subempresa');
 
@@ -1571,8 +1570,7 @@ Route
             ::nome('atualizar')
             ::middleware(TokenMiddleware::class, 'scope', ['comercial_subempresa:atualizar'])
             ::request([
-                '!empresa', '!titulo', '!razao_social',
-                '!nome_fantasia', '!cnpj', '!status'
+                '!empresa', '!titulo', '!cnpj', '!status'
             ])
             ::put('/comercial-subempresa/{id}');
 

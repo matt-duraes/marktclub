@@ -13,12 +13,12 @@ $Painel->coluna(coluna: 2, callback: function () use ($Painel) {
                 label: 'Empresa Matriz'
             )
             ->input(name: 'titulo', label: 'Titulo', placeholder: 'Titulo')
-            ->input(name: 'razao_social', label: 'Razão Social', placeholder: 'Razão Social')
-            ->input(name: 'nome_fantasia', label: 'Nome Fantasia', placeholder: 'Nome Fantasia')
+            /*->input(name: 'razao_social', label: 'Razão Social', placeholder: 'Razão Social')
+            ->input(name: 'nome_fantasia', label: 'Nome Fantasia', placeholder: 'Nome Fantasia')*/
             ->cnpj(name: 'cnpj', label: 'CNPJ', placeholder: 'CNPJ')
             ->select(
                 name: 'status',
-                lista: (new Status())->select('Escolha um status'),
+                lista: ['' => 'Escolha um status', 'ativo' => 'Ativo', 'inativo' => 'Inativo'],
                 label: 'Status'
             );
     });
