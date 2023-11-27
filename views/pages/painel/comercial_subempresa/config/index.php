@@ -12,7 +12,7 @@ $Painel
         'grande',
         \App\Classes\UsuarioCliente\Helper::PERMISSAO_EMPRESA
     )
-    ->campo('titulo', 'Nome', 'grande')
+    ->campo('nome_fantasia', 'Nome', 'grande')
     ->campo('cnpj', 'CNPJ', 'normal', 'cnpj')
     ->dataCriacao()
     ->status('status', 'Status', new Status());

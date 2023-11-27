@@ -2,6 +2,7 @@
 
 return [
     'salvar' => [
-        'empresa', 'titulo', 'cnpj', 'status'
+        'empresa', 'titulo', 'razao_social',
+        'nome_fantasia', 'cnpj', 'status'
     ]
 ];
