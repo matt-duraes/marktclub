@@ -2,18 +2,19 @@
 
 namespace App\Models\Api\Carteirinha;
 
+use ORM\Entity;
+use Erro\Excecao;
+use Modules\Data;
+use Modules\Botao;
+use Helpers\OrmHelper;
 use App\Classes\Carteirinha\Status;
 use App\Models\Api\Trait\ValidarEmpresaTrait;
-use Erro\Excecao;
-use Helpers\OrmHelper;
-use Modules\Botao;
-use Modules\Data;
-use ORM\Entity;
 
 class CarteirinhaEntity extends Entity
 {
     use ValidarEmpresaTrait;
 
+    public string $titulo;
     public string $bg_frente;
     public string $bg_fundo;
     public Botao $nome;
