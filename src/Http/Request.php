@@ -55,7 +55,7 @@ final class Request extends Psr7Request
         }
 
         if (empty($chave) || !$this->criptografar) {
-            $this->dados = $lista;
+            $this->dados = $this->converterJson($lista);
             return;
         }
 
@@ -73,7 +73,18 @@ final class Request extends Psr7Request
             $lista[$ind] = $valorDescriptografado;
         }
 
-        $this->dados = $lista;
+        $this->dados = $this->converterJson($lista);
+    }
+    private function converterJson($dado)
+    {
+        $retorno = [];
+        foreach($dado as $ind => $val) {
+            if(json_validate($val)) {
+                $val = jsonDecode($val, true, true);
+            }
+            $retorno[$ind] = $val;
+        }
+        return $retorno;
     }
 
     // doc
