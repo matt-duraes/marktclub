@@ -2,8 +2,8 @@
 
 namespace Tests\Api;
 
-use App\Classes\ParceiroLoja\Categoria;
 use Tests\Token\Clube;
+use App\Classes\ParceiroLoja\Categoria;
 
 class ParceiroLojaTest extends Clube
 {
@@ -43,7 +43,7 @@ class ParceiroLojaTest extends Clube
             ->get($this->uri)
             ->array();
 
-        $this->id = $dado['dado']['lista'][0]['id'];
+        $this->id = $dado['dado']['lista'][0]['id'] ?? 'sem-id';
 
         return $this
             ->checkStatus(200)

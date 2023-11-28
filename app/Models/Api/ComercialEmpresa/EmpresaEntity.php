@@ -2,10 +2,6 @@
 
 namespace App\Models\Api\ComercialEmpresa;
 
-use App\Classes\ComercialEmpresa\CanalPreferencia;
-use App\Classes\ComercialEmpresa\FormatoReuniao;
-use App\Classes\ComercialEmpresa\Origem;
-use App\Classes\ComercialEmpresa\EtapaNegociacao;
 use ORM\Entity;
 use Modules\Cpf;
 use Modules\Cnpj;
@@ -18,12 +14,16 @@ use Modules\Dinheiro;
 use Modules\Telefone;
 use Helpers\OrmHelper;
 use Modules\EnderecoEstado;
+use App\Classes\ComercialEmpresa\Origem;
 use App\Classes\ComercialEmpresa\Status;
 use App\Classes\ComercialEmpresa\TipoSite;
 use App\Classes\ComercialEmpresa\EmailDisparo;
 use App\Classes\ComercialEmpresa\ContratoPrazo;
 use App\Classes\ComercialEmpresa\TipoPagamento;
+use App\Classes\ComercialEmpresa\FormatoReuniao;
 use App\Classes\ComercialEmpresa\CadastroUsuario;
+use App\Classes\ComercialEmpresa\EtapaNegociacao;
+use App\Classes\ComercialEmpresa\CanalPreferencia;
 use App\Classes\ComercialEmpresa\ProspeccaoStatus;
 use App\Classes\ComercialEmpresa\ContratoRenovacao;
 use App\Classes\ComercialEmpresa\FinalidadePrincipal;
@@ -83,6 +83,7 @@ final class EmpresaEntity extends Entity
     public Cnpj $cnpj;
     public string $razao_social;
     public string $nome_fantasia;
+    public string $imagem_arquivo;
     public string $imagem;
     public string $slug;
     public ProspeccaoStatus $prospeccao_status;
