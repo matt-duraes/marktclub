@@ -1,14 +1,14 @@
 version: '3'
 services:
-    apache:
-        image: andrerodrigue5/apache2-php8.1
+    nginx:
+        image: andrerodrigue5/nginx-php8.3
         container_name: web-{{nome}}
         ports:
             - "{{portaHttp}}:80"
             - "{{portaHttps}}:443"
         volumes:
             - .:/var/www/html/
-            - ./files/docker_host:/etc/apache2/sites-enabled/
+            - ./files/docker_host:/etc/nginx/sites-enabled/
         networks:
             - docker-rede
         depends_on:

@@ -93,12 +93,7 @@ exports.buildDocker = () => {
     const dbNome = config.banco.nome;
     const dbSenha = config.banco.senha;
 
-    src('./src/Files/docker_host/000-default.conf')
-        .pipe(plumber())
-        .pipe(replace('{{public}}', public))
-        .pipe(dest('./files/docker_host'));
-
-    src('./src/Files/docker_host/default-ssl.conf')
+    src('./src/Files/docker_host/default')
         .pipe(plumber())
         .pipe(replace('{{public}}', public))
         .pipe(dest('./files/docker_host'));
