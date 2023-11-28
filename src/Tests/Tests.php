@@ -293,7 +293,7 @@ abstract class Tests
         $valorTemporario = $this->Curl->array();
 
         foreach ($campo as $item) {
-            if (!array_key_exists($item, $valorTemporario)) {
+            if (!is_array($valorTemporario) || !array_key_exists($item, $valorTemporario)) {
                 $this->setarRetorno(false, 'Não foi possível validar se o índice <strong>'
                     . $indice . '</strong> é igual a <strong>' . $valor . '</strong> porque o índice não existe.');
                 return $this;
