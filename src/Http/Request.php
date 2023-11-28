@@ -33,7 +33,6 @@ final class Request extends Psr7Request
             ? TOKEN['app']->chave_privada
             : '';
         $this->setarDado($descriptografar, $chave);
-        $this->setarPropriedadesPublicas();
     }
 
     /**
@@ -226,20 +225,6 @@ final class Request extends Psr7Request
 
     // doc
     /**
-     */
-    private function setarPropriedadesPublicas(): void
-    {
-        if (empty($this->dados)) {
-            return;
-        }
-
-        foreach (array_keys($this->dados) as $key) {
-            $this->$key = $this->purifier($this->dados, $key);
-        }
-    }
-
-    // doc
-    /**
      * @param string $propriedade
      *
      * @return mixed
@@ -251,6 +236,12 @@ final class Request extends Psr7Request
             return null;
         }
         return $dados[$propriedade];
+    }
+
+    public function __isset($propriedade)
+    {
+        $dados = $this->dado();
+        return array_key_exists($propriedade, $dados);
     }
 
     //doc

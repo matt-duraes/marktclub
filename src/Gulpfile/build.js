@@ -139,7 +139,7 @@ exports.buildEnv = async () => {
     const conteudoAdp =
         'GIT=' +
         config.gitOrigin +
-        '\n\nDB_HOST=0.0.0.0:' +
+        '\n\nDB_STATUS=\nDB_HOST=0.0.0.0:' +
         config.docker.db +
         '\nDB_BANCO=' +
         dbNome +
