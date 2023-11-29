@@ -14,9 +14,9 @@
     <div class="bg"></div>
     <div class="conteudo">
         <figure class="{{CLUBE_LOGO_CLASSE}}">
-            <a href="@route(index.index)">
-                <img class="tema_branco" src="{{CLUBE_LOGO_PRINCIPAL}}" alt="{{CLUBE_TITULO}}">
-                <img class="tema_escuro" src="{{CLUBE_LOGO_SECUNDARIA}}" alt="{{CLUBE_TITULO}}">
+            <a href="@route(index.index)" class="container_logo">
+                <img class="tema_branco" src="https://apiv4.markt.club/aqiorvd.Qr5ceRUSr1vZkcWzCEctToo5lxTaPtsqqMBpq-wCFlBHfpZAE3Hv17r2vnsAthZB" alt="{{CLUBE_TITULO}}">
+                <img class="tema_escuro" src="https://apiv4.markt.club/aqiorvd.Qr5ceRUSr1vZkcWzCEctToo5lxTaPtsqqMBpq-wCFlBHfpZAE3Hv17r2vnsAthZB" alt="{{CLUBE_TITULO}}">
             </a>
         </figure>
         <div class="perfil" id="bloco_perfil">
