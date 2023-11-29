@@ -2,19 +2,19 @@
 
 namespace App\Models\Api\UsuarioDependente;
 
+use ORM\Entity;
+use Modules\Cpf;
+use Erro\Excecao;
+use Modules\Data;
+use Modules\Nome;
+use Modules\Email;
+use Helpers\EmailHelper;
+use SendGrid\Mail\TypeException;
 use App\Classes\UsuarioCliente\Helper;
 use App\Classes\UsuarioCliente\Status;
 use App\Classes\UsuarioCliente\TipoUsuario;
-use App\Models\Api\ConstrutorClube\ConstrutorEntity;
 use App\Models\Api\Trait\ValidarEmpresaTrait;
-use Erro\Excecao;
-use Helpers\EmailHelper;
-use Modules\Cpf;
-use Modules\Data;
-use Modules\Email;
-use Modules\Nome;
-use ORM\Entity;
-use SendGrid\Mail\TypeException;
+use App\Models\Api\ConstrutorClube\ConstrutorEntity;
 
 final class DependenteEntity extends Entity
 {
@@ -28,12 +28,11 @@ final class DependenteEntity extends Entity
     protected string $ormTabela = TABELA_USUARIO_CLIENTE;
     protected array $ormInsert = [
         'cod', 'nome', 'tipo', 'titular', 'data_email', 'status',
-        'documento'     => '->cpf',
         'email_pessoal' => '->email',
         'empresa'       => '->idEmpresa'
     ];
     protected array $ormBuscar = [
-        'id', 'nome', 'documento', 'status',
+        'id', 'nome', 'cpf', 'status',
         'email' => 'email_pessoal'
     ];
     protected int $titular;

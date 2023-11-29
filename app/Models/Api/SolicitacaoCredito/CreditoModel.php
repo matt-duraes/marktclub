@@ -2,20 +2,20 @@
 
 namespace App\Models\Api\SolicitacaoCredito;
 
-use App\Classes\SolicitacaoCredito\Operadora;
-use App\Classes\SolicitacaoCredito\Ordem;
-use App\Classes\SolicitacaoCredito\Status;
-use App\Classes\SolicitacaoCredito\Tipo;
-use App\Models\Api\Trait\ValidarEmpresaTrait;
+use ORM\ORM;
 use Erro\Excecao;
 use Modules\Data;
-use Modules\Dinheiro;
 use Modules\Pagina;
+use Modules\Dinheiro;
 use Modules\Quantidade;
-use ORM\ORM;
 use System\Trait\Model\OrdemTrait;
 use System\Trait\Model\PaginaTrait;
 use System\Trait\Model\QuantidadeTrait;
+use App\Classes\SolicitacaoCredito\Tipo;
+use App\Classes\SolicitacaoCredito\Ordem;
+use App\Classes\SolicitacaoCredito\Status;
+use App\Classes\SolicitacaoCredito\Operadora;
+use App\Models\Api\Trait\ValidarEmpresaTrait;
 
 class CreditoModel extends ORM
 {
@@ -25,7 +25,6 @@ class CreditoModel extends ORM
     use OrdemTrait;
 
     protected string $ormTabela = TABELA_SOLICITACAO_CREDITO;
-    protected ?int $idEmpresa;
 
     /**
      * @param Pagina      $pagina

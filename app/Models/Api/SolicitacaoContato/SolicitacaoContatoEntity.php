@@ -43,7 +43,8 @@ class SolicitacaoContatoEntity extends Entity
     protected string $ormValidarUpdate = '
         status|Status|vazio|valido
     ';
-    protected ?int $idEmpresa;
+    private int $idEmpresa;
+    protected int $id_admin_empresa;
 
     public function __construct(
         protected readonly ?Request $request = null

@@ -2,20 +2,20 @@
 
 namespace App\Models\Api\SolicitacaoChequeBonus;
 
-use App\Classes\Solicitacao\Status;
-use App\Classes\SolicitacaoChequeBonus\Ordem;
-use App\Classes\UsuarioCliente\TipoUsuario;
-use App\Models\Api\Trait\ValidarEmpresaTrait;
+use ORM\ORM;
+use stdClass;
 use Erro\Excecao;
 use Modules\Data;
 use Modules\Pagina;
 use Modules\Quantidade;
-use ORM\ORM;
-use stdClass;
-use System\Interface\ModelListarInterface;
 use System\Trait\Model\OrdemTrait;
+use App\Classes\Solicitacao\Status;
 use System\Trait\Model\PaginaTrait;
 use System\Trait\Model\QuantidadeTrait;
+use System\Interface\ModelListarInterface;
+use App\Classes\UsuarioCliente\TipoUsuario;
+use App\Classes\SolicitacaoChequeBonus\Ordem;
+use App\Models\Api\Trait\ValidarEmpresaTrait;
 
 final class ChequeBonusModel extends ORM implements
     ModelListarInterface
@@ -26,7 +26,6 @@ final class ChequeBonusModel extends ORM implements
     use OrdemTrait;
 
     protected string $ormTabela = TABELA_SOLICITACAO_CHEQUE_BONUS;
-    protected ?int $idEmpresa;
 
     /**
      * @param Pagina      $pagina

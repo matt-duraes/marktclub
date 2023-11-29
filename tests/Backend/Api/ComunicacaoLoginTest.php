@@ -4,7 +4,7 @@ namespace Tests\Api;
 
 use Tests\Token\Clube;
 
-class BannerLoginTest extends Clube
+class ComunicacaoLoginTest extends Clube
 {
     private string $id;
 
@@ -129,7 +129,7 @@ class BannerLoginTest extends Clube
         $this->api('comunicacao_login:atualizar');
         $this
             ->Curl
-            ->body($this->pegarBody(empresa: ['14afa776394ada4be23be6acf7e3259e', '0ffc5c56b99f81ca0edea8bdf524b688']))
+            ->body($this->pegarBody(empresa: ['9954c5edcc9a7b72fed65715f326df81', '14afa776394ada4be23be6acf7e3259f']))
             ->put('/comunicacao-login/' . $this->id);
 
         return $this

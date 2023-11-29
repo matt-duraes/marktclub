@@ -2,28 +2,18 @@
 
 namespace App\Models\Api\SolicitacaoAutomovel;
 
-use App\Classes\Solicitacao\Status;
-use App\Models\Api\Trait\ValidarEmpresaTrait;
-use App\Models\Api\UsuarioCliente\DadoBaseModel;
+use ORM\Entity;
 use Erro\Excecao;
 use Helpers\OrmHelper;
 use Modules\EnderecoEstado;
-use ORM\Entity;
+use App\Classes\Solicitacao\Status;
+use App\Models\Api\Trait\ValidarEmpresaTrait;
+use App\Models\Api\UsuarioCliente\DadoBaseModel;
 
 final class AutomovelEntity extends Entity
 {
     use ValidarEmpresaTrait;
 
-    public EnderecoEstado $endereco_estado;
-    public string $cidade;
-    public string $montadora;
-    public string $modelo;
-    public string $versao;
-    public string $cor;
-    public string $mensagem;
-    public Status $status;
-    public array $empresa;
-    public array $usuario;
     protected string $ormTabela = TABELA_SOLICITACAO_AUTOMOVEL;
     protected array $ormBuscar = [
         'id_admin_empresa', 'id_usuario_cliente', 'endereco_estado', 'endereco_cidade',
@@ -47,10 +37,21 @@ final class AutomovelEntity extends Entity
     protected string $ormValidarUpdate = '
         status|Status|obrigatorio|vazio|valido
     ';
-    protected ?int $idEmpresa;
-    protected ?int $idUsuario;
+    private int $idEmpresa;
+    private ?int $idUsuario = null;
     protected int $id_admin_empresa;
     protected int $id_usuario_cliente;
+    protected string $endereco_cidade;
+    public EnderecoEstado $endereco_estado;
+    public string $montadora;
+    public string $modelo;
+    public string $versao;
+    public string $cor;
+    public string $mensagem;
+    public Status $status;
+    public array $empresa;
+    public array $usuario;
+
 
     /**
      * @throws Excecao

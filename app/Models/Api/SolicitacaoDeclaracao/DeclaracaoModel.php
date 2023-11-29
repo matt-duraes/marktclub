@@ -2,19 +2,19 @@
 
 namespace App\Models\Api\SolicitacaoDeclaracao;
 
-use App\Classes\Solicitacao\Status;
-use App\Classes\SolicitacaoDeclaracao\Ordem;
-use App\Models\Api\Trait\ValidarEmpresaTrait;
+use ORM\ORM;
+use stdClass;
 use Erro\Excecao;
 use Modules\Data;
 use Modules\Pagina;
 use Modules\Quantidade;
-use ORM\ORM;
-use stdClass;
-use System\Interface\ModelListarInterface;
 use System\Trait\Model\OrdemTrait;
+use App\Classes\Solicitacao\Status;
 use System\Trait\Model\PaginaTrait;
 use System\Trait\Model\QuantidadeTrait;
+use System\Interface\ModelListarInterface;
+use App\Classes\SolicitacaoDeclaracao\Ordem;
+use App\Models\Api\Trait\ValidarEmpresaTrait;
 
 class DeclaracaoModel extends ORM implements
     ModelListarInterface
@@ -25,7 +25,6 @@ class DeclaracaoModel extends ORM implements
     use OrdemTrait;
 
     protected string $ormTabela = TABELA_SOLICITACAO_DECLARACAO;
-    protected ?int $idEmpresa;
 
     /**
      * @param Pagina      $pagina

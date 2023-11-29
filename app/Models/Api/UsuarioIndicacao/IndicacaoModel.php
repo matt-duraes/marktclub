@@ -2,18 +2,18 @@
 
 namespace App\Models\Api\UsuarioIndicacao;
 
-use App\Classes\UsuarioIndicacao\Ordem;
-use App\Classes\UsuarioIndicacao\Status;
-use App\Models\Api\Trait\ValidarEmpresaTrait;
+use ORM\ORM;
+use stdClass;
 use Erro\Excecao;
 use Modules\Pagina;
 use Modules\Quantidade;
-use ORM\ORM;
-use stdClass;
-use System\Interface\ModelListarInterface;
 use System\Trait\Model\OrdemTrait;
 use System\Trait\Model\PaginaTrait;
+use App\Classes\UsuarioIndicacao\Ordem;
 use System\Trait\Model\QuantidadeTrait;
+use App\Classes\UsuarioIndicacao\Status;
+use System\Interface\ModelListarInterface;
+use App\Models\Api\Trait\ValidarEmpresaTrait;
 
 final class IndicacaoModel extends ORM implements
     ModelListarInterface
@@ -24,7 +24,6 @@ final class IndicacaoModel extends ORM implements
     use OrdemTrait;
 
     protected string $ormTabela = TABELA_USUARIO_INDICACAO;
-    protected ?int $idEmpresa;
 
     /**
      * @param Pagina      $pagina
