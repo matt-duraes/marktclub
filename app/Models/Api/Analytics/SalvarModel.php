@@ -15,7 +15,7 @@ final class SalvarModel extends ORM
 
     protected string $ormTabela = TABELA_ANALYTICS;
     private array $dado = [];
-    private int $idUsuario;
+    private ?int $idUsuario = null;
     private int $idEmpresa;
 
     public function __construct(
