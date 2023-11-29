@@ -141,6 +141,7 @@ final class EmpresaEntity extends Entity
     public string $previsao_retorno;
     public string $motivo_standby;
     public string $motivo_perdido;
+    public string $responsavel_cargo;
     public Data $devolutiva;
     public EtapaNegociacao $etapa_negociacao;
     private bool $atualizarValor = false;
