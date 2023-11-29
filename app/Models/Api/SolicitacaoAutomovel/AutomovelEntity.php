@@ -52,7 +52,6 @@ final class AutomovelEntity extends Entity
     public array $empresa;
     public array $usuario;
 
-
     /**
      * @throws Excecao
      */
