@@ -2,57 +2,30 @@
 
 namespace App\Models\Api\UsuarioLead;
 
+use Erro\Erro;
+use ORM\Entity;
+use Modules\Cpf;
+use Erro\Excecao;
+use Modules\Cnpj;
+use Modules\Data;
+use Modules\Nome;
+use Modules\Email;
+use Modules\Genero;
+use Modules\Telefone;
+use Modules\EnderecoCep;
+use Modules\EnderecoEstado;
+use SendGrid\Mail\TypeException;
+use App\Classes\UsuarioLead\Status;
 use App\Classes\UsuarioCliente\Origem;
 use App\Classes\UsuarioCliente\TrabalhoCargo;
 use App\Classes\UsuarioCliente\TrabalhoEmpresa;
-use App\Classes\UsuarioLead\Status;
-use App\Models\Api\UsuarioCliente\SalvarLeadModel;
 use App\Models\Api\UsuarioLead\Trait\EmailTrait;
-use Erro\Erro;
-use Erro\Excecao;
-use Modules\Cnpj;
-use Modules\Cpf;
-use Modules\Data;
-use Modules\Email;
-use Modules\EnderecoCep;
-use Modules\EnderecoEstado;
-use Modules\Genero;
-use Modules\Nome;
-use Modules\Telefone;
-use ORM\Entity;
-use SendGrid\Mail\TypeException;
+use App\Models\Api\UsuarioCliente\SalvarLeadModel;
 
 final class LeadEntity extends Entity
 {
     use EmailTrait;
 
-    public Nome $nome;
-    public Cpf $cpf;
-    public Data $data_nascimento;
-    public Data $trabalho_data_inicio;
-    public Email $email_trabalho;
-    public Email $email_pessoal;
-    public Email $email_funcional;
-    public Telefone $telefone_pessoal;
-    public Telefone $telefone_trabalho;
-    public Genero $genero;
-    public EnderecoCep $endereco_cep;
-    public EnderecoEstado $endereco_estado;
-    public array $lista_dependente;
-    public Status $status;
-    public TrabalhoEmpresa $trabalho_empresa;
-    public TrabalhoCargo $trabalho_cargo;
-    public Origem $origem;
-    public Cnpj $cnpj_trabalho;
-    public string $contrato_siape;
-    public string $siape;
-    public string $rg;
-    public string $endereco_logradouro;
-    public string $endereco_complemento;
-    public string $endereco_bairro;
-    public string $endereco_cidade;
-    public int|string $endereco_numero;
-    public int $id_admin_empresa;
     protected string $ormTabela = TABELA_USUARIO_LEAD;
     protected array $ormBuscar = [
         'nome'   => 'nome_completo',
@@ -96,6 +69,36 @@ final class LeadEntity extends Entity
     private int $idEmpresa;
     private bool $usuarioAprovado = false;
     private bool $usuarioRecusado = false;
+
+    public Nome $nome;
+    public Cpf $cpf;
+    public Data $data_nascimento;
+    public Data $trabalho_data_inicio;
+    public Email $email_trabalho;
+    public Email $email_pessoal;
+    public Email $email_funcional;
+    public Telefone $telefone_pessoal;
+    public Telefone $telefone_trabalho;
+    public Genero $genero;
+    public EnderecoCep $endereco_cep;
+    public EnderecoEstado $endereco_estado;
+    public array $lista_dependente;
+    public Status $status;
+    public TrabalhoEmpresa $trabalho_empresa;
+    public TrabalhoCargo $trabalho_cargo;
+    public Origem $origem;
+    public Cnpj $cnpj_trabalho;
+    public string $contrato_siape;
+    public string $siape;
+    public string $rg;
+    public string $endereco_logradouro;
+    public string $endereco_complemento;
+    public string $endereco_bairro;
+    public string $endereco_cidade;
+    public int|string $endereco_numero;
+    public int $id_admin_empresa;
+    public Data $termo_aceitar;
+    public Data $termo_lgpd;
 
     /**
      * @throws Excecao

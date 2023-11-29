@@ -2,30 +2,23 @@
 
 namespace App\Models\Api\UsuarioIndicacao;
 
+use Erro\Erro;
+use Throwable;
+use ORM\Entity;
+use Modules\Cpf;
+use Erro\Excecao;
+use Modules\Email;
+use Modules\Telefone;
+use Helpers\OrmHelper;
 use App\Classes\UsuarioCliente\Helper;
 use App\Classes\UsuarioIndicacao\Status;
 use App\Models\Api\Trait\ValidarEmpresaTrait;
 use App\Models\Api\UsuarioCliente\ClienteEntity;
-use Erro\Erro;
-use Erro\Excecao;
-use Helpers\OrmHelper;
-use Modules\Cpf;
-use Modules\Email;
-use Modules\Telefone;
-use ORM\Entity;
-use Throwable;
 
 final class IndicacaoEntity extends Entity
 {
     use ValidarEmpresaTrait;
 
-    public Email $email;
-    public Telefone $telefone;
-    public array $quem_indicou = [];
-    public array $usuario_ativo = [];
-    public string $usuario;
-    public Status $status;
-    public string $hash;
     protected string $ormTabela = TABELA_USUARIO_INDICACAO;
     protected array $ormBuscar = [
         'id_usuario_cliente', 'nome', 'email', 'telefone',
@@ -38,9 +31,17 @@ final class IndicacaoEntity extends Entity
     protected array $ormUpdate = [
         'status'
     ];
-    protected ?int $idEmpresa;
+    private int $idEmpresa;
     protected int $id_admin_empresa;
     protected int $id_usuario_cliente;
+    protected string $nome;
+    public Email $email;
+    public Telefone $telefone;
+    public array $quem_indicou = [];
+    public array $usuario_ativo = [];
+    public string $usuario;
+    public Status $status;
+    public string $hash;
 
     /**
      * @throws Excecao

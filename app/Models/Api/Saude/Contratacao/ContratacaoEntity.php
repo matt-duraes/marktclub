@@ -2,27 +2,27 @@
 
 namespace App\Models\Api\Saude\Contratacao;
 
-use App\Classes\Saude\Acomodacao;
-use App\Classes\Saude\Operadora;
-use App\Classes\Saude\Operadoras\Amil\Regioes;
-use App\Classes\Saude\Operadoras\Amil\Planos as PlanoAmil;
-use App\Classes\Saude\Operadoras\CNUFlorianopolis\Planos as PlanoCNU;
-use App\Classes\Saude\Status;
-use App\Classes\SaudeSimulacao\Status as SaudeSimulacaoStatus;
-use App\Models\Api\Saude\Simulacao\SimulacaoEntity;
-use App\Models\Api\Trait\ValidarEmpresaTrait;
-use Erro\Excecao;
-use Helpers\OrmHelper;
-use Modules\Cpf;
-use Modules\Data;
-use Modules\Email;
-use Modules\EnderecoCep;
-use Modules\EnderecoEstado;
-use Modules\EstadoCivil;
-use Modules\Genero;
-use Modules\Nome;
-use Modules\Telefone;
 use ORM\Entity;
+use Modules\Cpf;
+use Erro\Excecao;
+use Modules\Data;
+use Modules\Nome;
+use Modules\Email;
+use Modules\Genero;
+use Modules\Telefone;
+use Helpers\OrmHelper;
+use Modules\EnderecoCep;
+use Modules\EstadoCivil;
+use Modules\EnderecoEstado;
+use App\Classes\Saude\Status;
+use App\Classes\Saude\Operadora;
+use App\Classes\Saude\Acomodacao;
+use App\Models\Api\Trait\ValidarEmpresaTrait;
+use App\Classes\Saude\Operadoras\Amil\Regioes;
+use App\Models\Api\Saude\Simulacao\SimulacaoEntity;
+use App\Classes\Saude\Operadoras\Amil\Planos as PlanoAmil;
+use App\Classes\SaudeSimulacao\Status as SaudeSimulacaoStatus;
+use App\Classes\Saude\Operadoras\CNUFlorianopolis\Planos as PlanoCNU;
 
 class ContratacaoEntity extends Entity
 {
@@ -59,11 +59,12 @@ class ContratacaoEntity extends Entity
     public string $endereco_complemento;
     public Status $status;
     protected int $id_saude_simulacao;
-    protected int $idEmpresa;
-    protected int $idUsuario;
+    private int $idEmpresa;
+    private ?int $idUsuario = null;
     protected int $idSimulacao;
     protected int $id_usuario_cliente;
     protected int $id_admin_empresa;
+    protected string $responsavel_orgao_expedidor;
     protected string $ormTabela = TABELA_SAUDE_CONTRATACAO;
     protected array $ormInsert = [
         'id_admin_empresa'   => '->idEmpresa',

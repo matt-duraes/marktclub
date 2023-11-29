@@ -161,11 +161,11 @@ final class SolicitacaoVoucherTest extends Tests
             ->checkStatus(201)
             ->checkIndiceExiste('status')
             ->checkIndiceIgual('status', 'sucesso')
-            ->checkIgual($dado->id, $this->voucher->id)
-            ->checkIgual($dado->codigo, $this->voucher->codigo)
-            ->checkIgual($dado->data_criacao, $this->voucher->data_criacao)
-            ->checkIgual($dado->data_vencimento, $this->voucher->data_vencimento)
-            ->checkIgual($dado->status, $this->voucher->status);
+            ->checkIgual($dado->id ?? '', $this->voucher->id ?? '1')
+            ->checkIgual($dado->codigo ?? '', $this->voucher->codigo ?? '1')
+            ->checkIgual($dado->data_criacao ?? '', $this->voucher->data_criacao ?? '1')
+            ->checkIgual($dado->data_vencimento ?? '', $this->voucher->data_vencimento ?? '1')
+            ->checkIgual($dado->status ?? '', $this->voucher->status ?? '1');
     }
 
     public function deveGerarNovoVoucherComPrazoSeVoucherForCanceladoTest()
@@ -203,9 +203,9 @@ final class SolicitacaoVoucherTest extends Tests
             ->checkStatus(201)
             ->checkIndiceExiste('status')
             ->checkIndiceIgual('status', 'sucesso')
-            ->checkIgual($dado->codigo, '123123123')
-            ->checkIgual(dataBanco($dado->data_criacao), dataRemover(hoje(), '1', 'dia'), mensagem: 'Data de criação')
-            ->checkIgual($dado->data_vencimento, dataAdicionar(hoje(), '4', 'dia'), mensagem: 'Data vencimento');
+            ->checkIgual($dado->codigo ?? '', '123123123')
+            ->checkIgual(dataBanco($dado->data_criacao ?? ''), dataRemover(hoje(), '1', 'dia'), mensagem: 'Data de criação')
+            ->checkIgual($dado->data_vencimento ?? '', dataAdicionar(hoje(), '4', 'dia'), mensagem: 'Data vencimento');
     }
 
     public function temQueGerarUmNovoVoucherComPrazoParaOutroUsuarioTest()
@@ -224,7 +224,7 @@ final class SolicitacaoVoucherTest extends Tests
             ->checkStatus(201)
             ->checkIndiceExiste('status')
             ->checkIndiceIgual('status', 'sucesso')
-            ->checkDiferente($dado->codigo, $this->voucher->codigo);
+            ->checkDiferente($dado->codigo ?? '', $this->voucher->codigo ?? '');
     }
 
     public function naoPodeSalvarVoucherComLimiteAtingidoTest()
@@ -396,7 +396,7 @@ final class SolicitacaoVoucherTest extends Tests
             ->checkStatus(201)
             ->checkIndiceExiste('status')
             ->checkIndiceIgual('status', 'sucesso')
-            ->checkIgual($this->voucher->codigo, $dado->codigo);
+            ->checkIgual($this->voucher->codigo ?? '', $dado->codigo ?? '1');
     }
 
     public function outroUsuarioDeveCriarVoucherNovoDaBlueFitTest()
@@ -415,7 +415,7 @@ final class SolicitacaoVoucherTest extends Tests
             ->checkStatus(201)
             ->checkIndiceExiste('status')
             ->checkIndiceIgual('status', 'sucesso')
-            ->checkDiferente($this->voucher->codigo, $dado->codigo);
+            ->checkDiferente($this->voucher->codigo ?? '', $dado->codigo ?? '');
     }
 
     public function usuarioComVoucherVencidoDeveCriarNovoVoucherTest()
@@ -434,7 +434,7 @@ final class SolicitacaoVoucherTest extends Tests
             ->checkStatus(201)
             ->checkIndiceExiste('status')
             ->checkIndiceIgual('status', 'sucesso')
-            ->checkDiferente(123123, $dado->codigo);
+            ->checkDiferente(123123, $dado->codigo ?? '123132');
     }
 
     public function blueFitTemPrazoFixoEDeveUsarEleNoVencimentoTest()

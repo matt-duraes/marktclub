@@ -39,8 +39,8 @@ class SimulacaoEntity extends Entity
     public PlanoInterface|string|int|null $plano = null;
     public RegiaoInterface|string|int|null $regiao = null;
     public Status $status;
-    protected ?int $idEmpresa;
-    protected ?int $idUsuario;
+    private int $idEmpresa;
+    private ?int $idUsuario = null;
     protected string $ormTabela = TABELA_SAUDE_SIMULACAO;
     protected array $ormInsert = [
         'id_admin_empresa'   => '->idEmpresa',

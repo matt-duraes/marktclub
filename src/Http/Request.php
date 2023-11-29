@@ -79,7 +79,7 @@ final class Request extends Psr7Request
     {
         $retorno = [];
         foreach($dado as $ind => $val) {
-            if(preg_match('/^\[|\{/', $val) && json_validate($val)) {
+            if(!empty($val) && is_string($val) && preg_match('/^\[|\{/', $val) && json_validate($val)) {
                 $val = jsonDecode($val, true, true);
             }
             $retorno[$ind] = $val;
