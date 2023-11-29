@@ -4,8 +4,9 @@ namespace App\Models\Api\LoginClube;
 
 use stdClass;
 use Http\Request;
-use App\Classes\ApiToken\Tipo;
+use App\Classes\LoginClube\Tipo;
 use App\Models\Api\ApiToken\PayloadModel;
+use App\Classes\ApiToken\Tipo as TokenTipo;
 use App\Models\Api\ConstrutorClube\ClubeModel;
 use App\Models\Api\ApiToken\Trait\PegarAppTrait;
 use App\Models\Api\ConstrutorClube\ConstrutorEntity;
@@ -33,6 +34,7 @@ final class LoginClubeModel
         private ?string $redirectUri = null,
         private ?string $state = null,
         private ?string $hash = null,
+        private Tipo $tipo = new Tipo(null)
     ) {
         $this->listaUriHomologacao = env('API_REDIRECT_URI_HOMOLOGACAO', []);
         $this->pegarConstrutor();
@@ -66,6 +68,12 @@ final class LoginClubeModel
     {
         if ($this->idEmpresa == 153) {
             return;
+        } elseif ($this->idEmpresa == 2009 and $this->tipo->indice() == Tipo::TITULAR) {
+            $this->Usuario = (new LoginGeapModel(
+                login: $this->login,
+                senha: $this->senha
+            ))->Usuario;
+            return;
         }
         $this->Usuario = (new LoginMarktClubModel(
             login: $this->login,
@@ -88,7 +96,7 @@ final class LoginClubeModel
             audience: $App->audience,
             redirectUri: 'clube.markt.club',
             state: $this->state,
-            tipo: new Tipo(Tipo::CLUBE),
+            tipo: new TokenTipo(TokenTipo::CLUBE),
             empresa: $this->idEmpresa
         );
     }
