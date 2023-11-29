@@ -75,11 +75,12 @@ final class Request extends Psr7Request
 
         $this->dados = $this->converterJson($lista);
     }
+
     private function converterJson($dado)
     {
         $retorno = [];
-        foreach($dado as $ind => $val) {
-            if(!empty($val) && is_string($val) && preg_match('/^\[|\{/', $val) && json_validate($val)) {
+        foreach ($dado as $ind => $val) {
+            if (!empty($val) && is_string($val) && preg_match('/^\[|\{/', $val) && json_validate($val)) {
                 $val = jsonDecode($val, true, true);
             }
             $retorno[$ind] = $val;

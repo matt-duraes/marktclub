@@ -69,7 +69,6 @@ final class LeadEntity extends Entity
     private int $idEmpresa;
     private bool $usuarioAprovado = false;
     private bool $usuarioRecusado = false;
-
     public Nome $nome;
     public Cpf $cpf;
     public Data $data_nascimento;
