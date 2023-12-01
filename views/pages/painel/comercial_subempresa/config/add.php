@@ -16,7 +16,7 @@ $Painel->coluna(coluna: 2, callback: function () use ($Painel) {
             ->cnpj(name: 'cnpj', label: 'CNPJ', placeholder: 'CNPJ')
             ->select(
                 name: 'status',
-                lista: (new Status())->select('Escolha um status'),
+                lista: ['' => 'Escolha um status', 'ativo' => 'Ativo', 'inativo' => 'Inativo'],
                 label: 'Status'
             );
     });
