@@ -10,10 +10,8 @@ final class TokenHelper extends CurlHelper
     private string $username;
     private string $password;
 
-    public function __construct(
-        private readonly string $login,
-        private readonly string $senha
-    ) {
+    public function __construct()
+    {
         parent::__construct(env('GEAP_TOKEN_LINK', ''));
         $this->username = env('GEAP_TOKEN_USERNAME', '');
         $this->password = env('GEAP_TOKEN_PASSWORD', '');
