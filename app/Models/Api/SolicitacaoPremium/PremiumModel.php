@@ -2,14 +2,14 @@
 
 namespace App\Models\Api\SolicitacaoPremium;
 
-use App\Classes\SolicitacaoPremium\Status;
-use App\Models\Api\SolicitacaoPremium\Trait\SetarDataTrait;
-use App\Models\Api\SolicitacaoPremium\Trait\ValidarRequestTrait;
-use App\Models\Api\SolicitacaoPremium\Trait\WhereTrait;
-use App\Models\Api\Trait\ValidarEmpresaTrait;
+use ORM\ORM;
 use Erro\Excecao;
 use Http\Request;
-use ORM\ORM;
+use App\Classes\SolicitacaoPremium\Status;
+use App\Models\Api\Trait\ValidarEmpresaTrait;
+use App\Models\Api\SolicitacaoPremium\Trait\WhereTrait;
+use App\Models\Api\SolicitacaoPremium\Trait\SetarDataTrait;
+use App\Models\Api\SolicitacaoPremium\Trait\ValidarRequestTrait;
 
 final class PremiumModel extends ORM
 {
@@ -19,7 +19,6 @@ final class PremiumModel extends ORM
     use WhereTrait;
 
     protected string $ormTabela = TABELA_SOLICITACAO_VOUCHER;
-    private int $idEmpresa;
     private string $de;
     private string $ate;
     private bool $mesAtualInteiro = false;

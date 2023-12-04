@@ -124,7 +124,7 @@
     </div>
 
     <div class="resultado" id="bloco_resultado_titular_padrao">
-        <h2>Titular</h2>
+        <h2 class="titulo_resultado_simulacao">Titular</h2>
         <div class="dado">
             <p class="data"></p>
             <div class="linha"></div>
@@ -132,7 +132,7 @@
         </div>
     </div>
     <div class="resultado" id="bloco_resultado_dependente_padrao">
-        <h2>Dependente</h2>
+        <h2 class="titulo_resultado_simulacao">Dependente</h2>
         <div class="dado">
             <p class="data"></p>
             <div class="linha"></div>

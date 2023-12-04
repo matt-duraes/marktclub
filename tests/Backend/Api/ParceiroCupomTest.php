@@ -2,8 +2,8 @@
 
 namespace Tests\Api;
 
-use App\Classes\ParceiroCupom\Status;
 use Tests\Token\Clube;
+use App\Classes\ParceiroCupom\Status;
 
 class ParceiroCupomTest extends Clube
 {
@@ -46,8 +46,6 @@ class ParceiroCupomTest extends Clube
             ->Curl
             ->get('/parceiro-cupom/' . $this->idCupom)
             ->array();
-
-        $this->statusCupom = $dado['dado']['status'] ?? 'sem-status';
 
         return $this
             ->checkStatus(200)

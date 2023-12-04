@@ -16,20 +16,25 @@ final class SubempresaEntity extends Entity
 
     public string|array $empresa;
     public string $titulo;
+    public string $razao_social;
+    public string $nome_fantasia;
     public Nome $responsavel_nome;
     public Cnpj $cnpj;
     public Status $status;
     protected string $ormTabela = TABELA_COMERCIAL_EMPRESA;
     protected array $ormBuscar = [
-        'id_admin_empresa', 'titulo', 'cnpj', 'status',
+        'id_admin_empresa', 'titulo', 'razao_social',
+        'nome_fantasia', 'cnpj', 'responsavel_nome', 'status',
         'data_criacao', 'data_atualizacao'
     ];
     protected array $ormSalvar = [
-        'id_admin_empresa', 'titulo', 'cnpj',
-        'responsavel_nome', 'status'
+        'id_admin_empresa', 'titulo', 'razao_social',
+        'nome_fantasia', 'cnpj', 'responsavel_nome', 'status'
     ];
     protected string $ormValidarSalvar = '
         titulo|Titulo|obrigatorio|vazio
+        razao_social|Razão Social|obrigatorio|vazio
+        nome_fantasia|Nome Fantasia|obrigatorio|vazio
         cnpj|CNPJ|obrigatorio|vazio|valido
         status|Status|obrigatorio|vazio|valido
     ';

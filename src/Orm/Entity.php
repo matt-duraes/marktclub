@@ -4,19 +4,17 @@ namespace ORM;
 
 use Erro\Erro;
 use Erro\Excecao;
-use Modules\Botao;
-use Modules\Senha;
 use Modules\DataHora;
 use ReflectionObject;
 use ReflectionProperty;
 use ORM\Trait\MudouTrait;
+use ORM\Trait\SetGetTrait;
 use ORM\Buscar\BuscarTrait;
 use ORM\Salvar\SalvarTrait;
 use Status\StatusInterface;
 use Modules\ModuleInterface;
 use ORM\Join\RelacionarTrait;
 use ORM\Deletar\DestruirTrait;
-use Symfony\Component\HttpFoundation\File\UploadedFile;
 
 abstract class Entity extends ORM
 {
@@ -25,6 +23,7 @@ abstract class Entity extends ORM
     use BuscarTrait;
     use DestruirTrait;
     use MudouTrait;
+    use SetGetTrait;
 
     public string $id = '';
     public ?DataHora $data_criacao = null;
@@ -113,65 +112,12 @@ abstract class Entity extends ORM
         return $this->ormDiff;
     }
 
-    public function propriedadeExiste($propriedade)
-    {
-        if (!property_exists($this, $propriedade)) {
-            return false;
-        }
-        $propriedade = new \ReflectionProperty($this, $propriedade);
-        return $propriedade->isInitialized($this);
-    }
-
-    /**
-     * @param  null|string $propriedade Propriedade que será buscada
-     * @param  null|array  $lista       Lista com as propriedades que deseja listar
-     * @return mixed
-     */
-    public function get(?string $propriedade = null, ?array $lista = null)
-    {
-        if ($this->ormEntityDeletada) {
-            throw new Excecao(titulo: 'Erro!', mensagem: 'Esse Entity foi destruido.');
-        }
-        $this->ormVerificarSeEntityExiste();
-        if (is_null($lista)) {
-            return $this->ormPegarGet($propriedade);
-        }
-        $retorno = [];
-        foreach ($lista as $ind => $val) {
-            $retorno[] = $this->ormPegarGet($ind, $val);
-        }
-        return $retorno;
-    }
-
     public function foiSetado($propriedade): bool
     {
         try {
             return in_array(strSlug($propriedade, '-'), $this->ormPropriedadeSetada);
         } catch (\Throwable) {
             return false;
-        }
-    }
-
-    /**
-     * @param string     $propriedade Propriedade que será setada
-     * @param mixed      $valor       Valor da propriedade que será setada
-     * @param null|array $lista       Array com uma lista para setar em massa
-     */
-    public function set(string $propriedade = '', $valor = '', ?array $lista = null): void
-    {
-        if ($this->ormEntityDeletada) {
-            throw new Excecao(titulo: 'Erro!', mensagem: 'Esse Entity foi destruido.');
-        }
-        $this->ormVerificarSeEntityExiste();
-        if (is_null($lista)) {
-            $this->ormSetarSet($propriedade, $valor, true);
-            return;
-        }
-        if (!$lista) {
-            return;
-        }
-        foreach ($lista as $ind => $val) {
-            $this->ormSetarSet($ind, $val, true);
         }
     }
 
@@ -185,72 +131,6 @@ abstract class Entity extends ORM
             return $retorno[$propriedade];
         }
         throw new Erro(mensagem: 'Não existe a prop ' . $propriedade . '.');
-    }
-
-    private function ormPegarGet(string $propriedade)
-    {
-        $metodo = 'get' . str_replace(' ', '', ucwords(mb_strtolower(str_replace('_', ' ', $propriedade), 'UTF-8')));
-        if (method_exists($this, $metodo)) {
-            return $this->$metodo();
-        } elseif (
-            (property_exists($this, $propriedade) && !is_null($this->$propriedade)) &&
-            in_array($propriedade, $this->ormPropriedadePublica)
-        ) {
-            return $this->$propriedade;
-        }
-        throw new Erro(mensagem: 'A propriedade ' . $propriedade . ' não existe.');
-    }
-
-    private function ormSetarSet(string $propriedade, $valor): void
-    {
-        if (in_array($propriedade, ['id', 'uuid'])) {
-            return;
-        }
-
-        if (is_array($valor) && array_key_exists('name', $valor) && array_key_exists('postname', $valor)) {
-            $valor = new UploadedFile(
-                path: $valor['name'],
-                originalName: $valor['postname'],
-                mimeType: $valor['mime'] ?? ''
-            );
-        }
-
-        $metodo = 'set' . str_replace(' ', '', ucwords(mb_strtolower(str_replace('_', ' ', $propriedade), 'UTF-8')));
-        if (method_exists($this, $metodo)) {
-            $this->ormSetReal[$propriedade] = $valor;
-            $this->$metodo($valor);
-            return;
-        }
-
-        $valorValidacao = $valor;
-        if ($valorValidacao instanceof ModuleInterface) {
-            $valorValidacao = $this->ormPegarValorModule($valor);
-        } elseif ($valorValidacao instanceof StatusInterface) {
-            $valorValidacao = $valorValidacao->numero();
-        }
-        $existe = in_array($propriedade, $this->ormListaSet);
-        if (is_null($valorValidacao) && $existe) {
-            return;
-        } elseif ($existe) {
-            $valor = $this->ormConverterValorSeForUmModule($propriedade, $valor, 1);
-            $valor = $this->ormConverterValorSeForUmStatus($propriedade, $valor);
-            $this->ormSetReal[$propriedade] = $valor;
-            if ($valor instanceof Senha && $valor->vazio()) {
-                return;
-            }
-            $this->$propriedade = $valor;
-            $this->ormPropriedadeSetada[] = strSlug($propriedade);
-            return;
-        }
-        throw new Erro(mensagem: 'A propriedade ' . $propriedade . ' não existe ou você não tem acesso a ela.');
-    }
-
-    protected function ormPegarValorModule(ModuleInterface $valor)
-    {
-        if ($valor instanceof ModuleInterface) {
-            return $valor->banco();
-        }
-        return null;
     }
 
     private function ormPegarListaDeSalvarInsertUpdate()
@@ -500,74 +380,6 @@ abstract class Entity extends ORM
         return false;
     }
 
-    private function ormConverterValorSeForUmModule(string $indice, $valor, bool $teste = false)
-    {
-        if ($valor instanceof ModuleInterface) {
-            return $valor;
-        }
-
-        if (in_array($indice, ['data_criacao', 'data_atualizacao'])) {
-            return new DataHora($valor);
-        }
-
-        try {
-            $nome = (new ReflectionProperty($this, $indice))->getType()->getName();
-        } catch (\Throwable) {
-            $nome = '';
-        }
-
-        if (empty($nome)) {
-            return $valor;
-        }
-
-        $classNome = str_starts_with($nome, 'Modules\\') && class_exists($nome) ? new $nome(null) : $nome;
-
-        $valor = is_null($valor) ? '' : $valor;
-        if ($nome == 'Modules\Senha' && $this->propriedadeExiste($indice)) {
-            $this->$indice->mudarSenha($valor);
-            $valor = $this->$indice;
-        } elseif ($nome == 'Modules\Senha') {
-            $valor = new Senha(senha: $valor);
-        } elseif ($nome == 'Modules\Botao') {
-            $valor = new Botao(valor: in_array($valor, [1, 'sim']) ? 'sim' : 'nao');
-        } elseif ($classNome instanceof ModuleInterface) {
-            $valor = new $nome($valor);
-        } elseif ($nome == 'array') {
-            $valor = jsonDecode($valor, true, true);
-        } elseif ($nome == 'int') {
-            $valor = filter_var($valor, FILTER_VALIDATE_INT) ? $valor : 0;
-        } elseif ($nome == 'float') {
-            $valor = filter_var($valor, FILTER_VALIDATE_FLOAT) ? $valor : 0;
-        } elseif ($nome == 'bool') {
-            $valor = $valor == 1 ? true : false;
-        }
-        return $valor;
-    }
-
-    private function ormConverterValorSeForUmStatus(string $indice, $valor)
-    {
-        if ($valor instanceof StatusInterface) {
-            return $valor;
-        }
-
-        if ($indice == 'tipo_pagamento') {
-            $nome = (new ReflectionProperty($this, $indice))->getType()->getName();
-            $valorTemp = new $nome($valor);
-        }
-
-        try {
-            $nome = (new ReflectionProperty($this, $indice))->getType()->getName();
-            $valorTemp = new $nome($valor);
-        } catch (\Throwable) {
-            $valorTemp = '';
-        }
-
-        if ($valorTemp instanceof StatusInterface) {
-            return $valorTemp;
-        }
-        return $valor;
-    }
-
     private function ormMontarArrayIndiceForValor($dado)
     {
         $lista = [];
@@ -610,13 +422,6 @@ abstract class Entity extends ORM
             return $valor->numero();
         }
         return $valor;
-    }
-
-    private function ormVerificarSeEntityExiste()
-    {
-        if ($this->ormEntityDeletada) {
-            throw new Erro(mensagem: 'Essa entidade foi destruida e você não tem mais acesso a ela.');
-        }
     }
 
     private function ormPegarArquivoParaDeletar(array $dado, bool $todos = false): array

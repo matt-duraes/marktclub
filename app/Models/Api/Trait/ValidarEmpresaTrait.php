@@ -11,6 +11,10 @@ trait ValidarEmpresaTrait
 {
     private string $nomeCampoEmpresa;
     private bool $campoEmpresaJson = false;
+    private ?int $whereEmpresa = null;
+    private ?int $idUsuario = null;
+    private int $idEmpresa;
+    private int $idSubempresa;
 
     /**
      * Mudar o ID da empresa se tiver pemissão

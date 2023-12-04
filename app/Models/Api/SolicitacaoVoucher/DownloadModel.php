@@ -2,20 +2,20 @@
 
 namespace App\Models\Api\SolicitacaoVoucher;
 
-use App\Classes\SolicitacaoVoucher\Ordem;
-use App\Classes\SolicitacaoVoucher\Status;
-use App\Classes\SolicitacaoVoucher\Tipo;
-use App\Classes\SolicitacaoVoucher\TipoUsuario;
-use App\Models\Api\Painel\LogDownloadEntity;
-use App\Models\Api\SolicitacaoVoucher\Trait\ModelWhereTrait;
-use App\Models\Api\SolicitacaoVoucher\Trait\ValidarRequestTrait;
-use App\Models\Api\Trait\ValidarEmpresaDownloadTrait;
+use ORM\ORM;
+use Throwable;
 use Erro\Excecao;
 use Http\Request;
-use ORM\ORM;
 use System\Trait\Model\OrdemTrait;
 use System\Trait\Model\PaginaTrait;
-use Throwable;
+use App\Classes\SolicitacaoVoucher\Tipo;
+use App\Classes\SolicitacaoVoucher\Ordem;
+use App\Classes\SolicitacaoVoucher\Status;
+use App\Models\Api\Painel\LogDownloadEntity;
+use App\Classes\SolicitacaoVoucher\TipoUsuario;
+use App\Models\Api\Trait\ValidarEmpresaDownloadTrait;
+use App\Models\Api\SolicitacaoVoucher\Trait\ModelWhereTrait;
+use App\Models\Api\SolicitacaoVoucher\Trait\ValidarRequestTrait;
 
 final class DownloadModel extends ORM
 {
@@ -27,7 +27,6 @@ final class DownloadModel extends ORM
 
     protected string $ormTabela = TABELA_SOLICITACAO_VOUCHER;
     private array $campoInicial;
-    private int $idEmpresa;
 
     /**
      * @param Request $request

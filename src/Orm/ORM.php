@@ -9,6 +9,7 @@ use ORM\Buscar\ReadTrait;
 use ORM\Group\GroupTrait;
 use ORM\Limit\LimitTrait;
 use ORM\Order\OrderTrait;
+use ORM\Trait\SetGetTrait;
 use ORM\Trait\TabelaTrait;
 use ORM\Salvar\InsertTrait;
 use ORM\Salvar\UpdateTrait;
@@ -39,6 +40,7 @@ abstract class ORM
     use ReadTrait;
     use GroupTrait;
     use TabelaTrait;
+    use SetGetTrait;
 
     /**
      * @param array $option Option aceitos pelo PDO

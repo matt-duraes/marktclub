@@ -31,12 +31,13 @@ final class Session
         }
 
         $__SESSION_SAMESITE = env('SESSION_SAMESITE', 'Strict');
-        $option = eLocalhost() ? [] : [
+        $option = [
             'cookie_secure'   => true,
             'cookie_httponly' => true,
             'cookie_path'     => '/',
             'cookie_samesite' => $__SESSION_SAMESITE
         ];
+
         $session = new SessionSession(
             new NativeSessionStorage($option)
         );

@@ -2,24 +2,25 @@
 
 namespace App\Models\Api\UsuarioCliente\Trait;
 
+use Modules\Cpf;
+use Modules\Data;
+use Modules\Nome;
+use Modules\Botao;
+use Modules\Email;
+use Modules\Senha;
+use Modules\Genero;
+use Modules\Telefone;
+use Modules\EnderecoCep;
+use Modules\EstadoCivil;
+use Modules\EnderecoEstado;
 use App\Classes\UsuarioCliente\Origem;
-use App\Classes\UsuarioCliente\Situacao;
 use App\Classes\UsuarioCliente\Status;
-use App\Classes\UsuarioCliente\TipoPagamento;
+use App\Classes\UsuarioCliente\Situacao;
 use App\Classes\UsuarioCliente\TipoUsuario;
+use App\Classes\UsuarioCliente\TipoPagamento;
 use App\Classes\UsuarioCliente\TrabalhoCargo;
 use App\Classes\UsuarioCliente\TrabalhoEmpresa;
 use App\Models\Api\ComercialEmpresa\EmpresaEntity;
-use Modules\Botao;
-use Modules\Cpf;
-use Modules\Data;
-use Modules\Email;
-use Modules\EnderecoCep;
-use Modules\EstadoCivil;
-use Modules\Genero;
-use Modules\Nome;
-use Modules\Senha;
-use Modules\Telefone;
 
 trait PropriedadeEntityTrait
 {
@@ -29,6 +30,7 @@ trait PropriedadeEntityTrait
     public string $contratoSiape;
     public Nome $nome;
     public Cpf $cpf;
+    public string $rg;
     public Email $email;
     public Email $email_trabalho;
     public Email $email_pessoal;
@@ -63,6 +65,13 @@ trait PropriedadeEntityTrait
     public string $contrato_siape;
     public string $federacao;
     public EnderecoCep $endereco_cep;
+    public EnderecoEstado $endereco_estado;
+    public string $endereco_cidade;
+    public string $endereco_logradouro;
+    public string $endereco_numero;
+    public string $endereco_complemento;
+    public string $endereco_bairro;
+    public string $responsavel_cargo;
     public string $subempresa = '';
     protected string $cod;
     private array $campoObrigatorio = [];

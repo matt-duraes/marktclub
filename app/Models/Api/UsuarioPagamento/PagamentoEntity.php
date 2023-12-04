@@ -22,7 +22,7 @@ final class PagamentoEntity extends Entity
     ];
     protected array $ormSalvar = ['status'];
     public Data $data_pagamento;
-    private int $idUsuario;
+    private ?int $idUsuario = null;
     private int $idEmpresa;
     private ClienteEntity $Usuario;
     protected int $id_usuario_cliente;

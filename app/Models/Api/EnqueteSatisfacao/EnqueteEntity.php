@@ -2,15 +2,15 @@
 
 namespace App\Models\Api\EnqueteSatisfacao;
 
-use App\Classes\EnqueteSatisfacao\Atendimento;
-use App\Classes\EnqueteSatisfacao\Navegar;
-use App\Classes\EnqueteSatisfacao\Procura;
-use App\Classes\EnqueteSatisfacao\Status;
-use App\Classes\EnqueteSatisfacao\Suporte;
-use App\Models\Api\Trait\ValidarEmpresaTrait;
+use ORM\Entity;
 use Erro\Excecao;
 use Http\Request;
-use ORM\Entity;
+use App\Classes\EnqueteSatisfacao\Status;
+use App\Classes\EnqueteSatisfacao\Navegar;
+use App\Classes\EnqueteSatisfacao\Procura;
+use App\Classes\EnqueteSatisfacao\Suporte;
+use App\Models\Api\Trait\ValidarEmpresaTrait;
+use App\Classes\EnqueteSatisfacao\Atendimento;
 
 class EnqueteEntity extends Entity
 {
@@ -42,8 +42,8 @@ class EnqueteEntity extends Entity
         suporte|Suporte|obrigatorio|vazio|valido
         atendimento|Atendimento|obrigatorio|vazio|valido
     ';
-    protected ?int $idEmpresa;
-    protected ?int $idUsuario;
+    private int $idEmpresa;
+    private ?int $idUsuario = null;
 
     /**
      * @param Request|null $request

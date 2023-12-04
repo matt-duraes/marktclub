@@ -33,7 +33,6 @@ final class Request extends Psr7Request
             ? TOKEN['app']->chave_privada
             : '';
         $this->setarDado($descriptografar, $chave);
-        $this->setarPropriedadesPublicas();
     }
 
     /**
@@ -56,7 +55,7 @@ final class Request extends Psr7Request
         }
 
         if (empty($chave) || !$this->criptografar) {
-            $this->dados = $lista;
+            $this->dados = $this->converterJson($lista);
             return;
         }
 
@@ -74,7 +73,19 @@ final class Request extends Psr7Request
             $lista[$ind] = $valorDescriptografado;
         }
 
-        $this->dados = $lista;
+        $this->dados = $this->converterJson($lista);
+    }
+
+    private function converterJson($dado)
+    {
+        $retorno = [];
+        foreach ($dado as $ind => $val) {
+            if (!empty($val) && is_string($val) && preg_match('/^\[|\{/', $val) && json_validate($val)) {
+                $val = jsonDecode($val, true, true);
+            }
+            $retorno[$ind] = $val;
+        }
+        return $retorno;
     }
 
     // doc
@@ -226,20 +237,6 @@ final class Request extends Psr7Request
 
     // doc
     /**
-     */
-    private function setarPropriedadesPublicas(): void
-    {
-        if (empty($this->dados)) {
-            return;
-        }
-
-        foreach (array_keys($this->dados) as $key) {
-            $this->$key = $this->purifier($this->dados, $key);
-        }
-    }
-
-    // doc
-    /**
      * @param string $propriedade
      *
      * @return mixed
@@ -251,6 +248,12 @@ final class Request extends Psr7Request
             return null;
         }
         return $dados[$propriedade];
+    }
+
+    public function __isset($propriedade)
+    {
+        $dados = $this->dado();
+        return array_key_exists($propriedade, $dados);
     }
 
     //doc
