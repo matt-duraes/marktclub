@@ -27,7 +27,6 @@ final class SubempresaModel extends ORM implements
     use OrdemTrait;
 
     protected string $ormTabela = TABELA_COMERCIAL_EMPRESA;
-    protected ?int $idEmpresa;
 
     /**
      * @throws Excecao
