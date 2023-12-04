@@ -6,6 +6,7 @@ use Tests\Tests;
 use Erro\Excecao;
 use Helpers\ApiHelper;
 use Helpers\CryptHelper;
+use App\Classes\LoginClube\Tipo;
 
 abstract class Clube extends Tests
 {
@@ -31,7 +32,8 @@ abstract class Clube extends Tests
                 'senha'        => $Crypt->encode($senha),
                 'redirect_uri' => env('API_REDIRECT_URI', ''),
                 'scope'        => '',
-                'state'        => uuid()
+                'state'        => uuid(),
+                'tipo'         => Tipo::TITULAR
             ])
             ->post('/login/clube')
             ->array()['dado']['token']['access_token'] ?? '';
