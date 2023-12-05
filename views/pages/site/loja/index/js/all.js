@@ -48,8 +48,9 @@ const inputPesquisa = $('#input_pesquisa');
 const inputOrdem = $('#input_ordem');
 const formBusca = $('#form_buscar');
 
-const latitudeValor = inputLatitude.value;
-const longitudeValor = inputLongitude.value;
+let latitudeValor = inputLatitude.value;
+let longitudeValor = inputLongitude.value;
+
 const acessadoValor = inputAcessado.value;
 const favoritoValor = inputFavorito.value;
 const estadoValor = inputEstado.value;
@@ -116,6 +117,9 @@ if (inputEstado) {
 
 let pagina = '';
 const buscarParceiro = async () => {
+    latitudeValor = inputLatitude.value;
+    longitudeValor = inputLongitude.value;
+
     if (botaoCarregarMais.classList.contains('loading')) {
         return;
     }
@@ -124,6 +128,7 @@ const buscarParceiro = async () => {
     if (pagina != '') {
         pagina++;
     }
+
     const resposta = await ajaxPost(
         LINK + '/convenios/listar',
         {
@@ -143,7 +148,6 @@ const buscarParceiro = async () => {
         },
         ''
     );
-
     blocoLoading.classList.add('display_none');
     botaoCarregarMais.classList.remove('loading');
     if (false === resposta) {
@@ -164,6 +168,7 @@ const buscarParceiro = async () => {
 };
 buscarParceiro();
 botaoCarregarMais.addEventListener('click', () => {
+    buscarGeolocalizacao();
     buscarParceiro();
 });
 

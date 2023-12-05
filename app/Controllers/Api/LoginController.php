@@ -13,6 +13,7 @@ use App\Models\Api\LoginClube\LoginClubeModel;
 use App\Models\Api\LoginPainel\LoginFormModel;
 use App\Models\Api\LoginPainel\LoginGoogleModel;
 use App\Models\Api\UsuarioCliente\ClienteEntity;
+use App\Classes\LoginClube\Tipo as LoginClubeTipo;
 use App\Models\Api\LoginPainel\LoginFacebookModel;
 use App\Models\Api\ConstrutorClube\ConstrutorEntity;
 use App\Models\Api\ApiToken\TokenAuthorizationEntity;
@@ -72,7 +73,8 @@ final class LoginController extends Controller
             login: $request->login,
             senha: $request->senha,
             redirectUri: $request->redirect_uri,
-            state: $request->state
+            state: $request->state,
+            tipo: new LoginClubeTipo($request->tipo)
         );
 
         return mensagemSucesso([

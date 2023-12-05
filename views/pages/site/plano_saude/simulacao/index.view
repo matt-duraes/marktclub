@@ -73,7 +73,7 @@
                 <div class="conteudo_menor">
                     @? formData(name: 'data_titular', placeholder: 'Data de nascimento do titular', label: 'Data de nascimento do titular', obrigatorio: true)
                     <h2>Dependentes</h2>
-                    <p>Adicione os seus dependentes para fazer a simulação</p>
+                    <span>Podem ser dependentes de seu plano: o cônjuge; O companheiro, havendo união estável na forma da lei, sem eventual concorrência com o cônjuge salvo por decisão judicial; Filhos e enteados, ambos com até 18 anos incompletos ou, se estudantes universitários, até 24 incompletos; Tutelados e menores sob guarda.</span>
                     <div class="botao" id="botao_adicionar_dependente">Adicionar Dependente</div>
                     <div class="bloco_dependente" id="bloco_lista_dependente">
                     </div>

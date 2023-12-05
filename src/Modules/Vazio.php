@@ -2,8 +2,12 @@
 
 namespace Modules;
 
+use Modules\Trait\ValidarTrait;
+
 final class Vazio implements ModuleInterface
 {
+    use ValidarTrait;
+
     public function __toString()
     {
         return '';
