@@ -486,7 +486,7 @@ class CurlHelper
     private function retorno(bool $tipo): object|bool|array
     {
         $retorno = $this->retornoValor;
-        $eJson = json_validate($retorno);
+        $eJson = (json_decode($retorno) !== null);
         $dado = $eJson ? jsonDecode($retorno, $tipo) : $retorno;
 
         if ($tipo && (!$eJson || !is_array($dado))) {
