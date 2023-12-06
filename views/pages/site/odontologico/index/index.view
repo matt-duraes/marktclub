@@ -58,10 +58,9 @@
         </div>
 
         <div class="acessa_rede">
-            <p>Acesse o botão abaixo e pesquise por Plano Integral Cerd</p>
             @if(TIPO_USUARIO != 'indicado'):
                 <div class="display_flex">
-                    <a href="https://www.unimed.coop.br/guia-medico" class="botao_geral_cor cor_bg" target="_blank">VEJA AQUI</a>
+                    <a href="{!!LINK_ODONTOLOGICO!!}"class="botao_geral_cor cor_bg" target="_blank">VEJA AQUI</a>
                 </div>
             @else:
                 <div class="bloco_atencao_geral">

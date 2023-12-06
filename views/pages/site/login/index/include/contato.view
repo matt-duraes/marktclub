@@ -1,7 +1,7 @@
 <section class="meu_parceiro">
     <div class="item">
         <img class="parceiro_mobile" src="{!!LINK_PADRAO!!}/images/login/parceiroNovo.png" height="70">
-        <a href="https://meuparceiro.com.br" class="botao_saiba">
+        <a target="_blank" href="https://meuparceiro.com.br" class="botao_saiba">
             Saiba mais
         </a>
     </div>
