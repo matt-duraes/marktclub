@@ -2,16 +2,16 @@
 
 namespace App\Models\Api\SolicitacaoVoucher;
 
-use App\Classes\SolicitacaoVoucher\Status;
+use ORM\ORM;
+use stdClass;
+use Erro\Excecao;
+use Http\Request;
 use App\Classes\SolicitacaoVoucher\Tipo;
+use App\Classes\SolicitacaoVoucher\Status;
+use App\Models\Api\Trait\ValidarEmpresaTrait;
 use App\Classes\SolicitacaoVoucher\TipoUsuario;
 use App\Models\Api\SolicitacaoVoucher\Trait\ModelBuscarTrait;
 use App\Models\Api\SolicitacaoVoucher\Trait\ValidarRequestTrait;
-use App\Models\Api\Trait\ValidarEmpresaTrait;
-use Erro\Excecao;
-use Http\Request;
-use ORM\ORM;
-use stdClass;
 
 final class VoucherModel extends ORM
 {
@@ -20,7 +20,6 @@ final class VoucherModel extends ORM
     use ModelBuscarTrait;
 
     protected string $ormTabela = TABELA_SOLICITACAO_VOUCHER;
-    private int $idEmpresa;
 
     /**
      * @param Request $request

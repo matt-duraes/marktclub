@@ -8,8 +8,12 @@
 // @import "login"
 // @import "ativar"
 
-const PopupLogin = new Popup('login', 'popup_login', true, true);
-const PopupSenha = new Popup('senha', 'popup_senha', true, true);
+const PopupLogin = new Popup('login', 'popup_login', true, true, () => {
+    $('#input_login').focus();
+});
+const PopupSenha = new Popup('senha', 'popup_senha', true, true, () => {
+    $('#bloco_cpf').focus();
+});
 const PaginaAtivar = new Pagina('ativar', LINK + '/login/ativar-buscar', undefined, true, true, loadingAtivarBuscar);
 
 window.addEventListener('load', () => {

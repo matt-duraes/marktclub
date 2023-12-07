@@ -135,5 +135,14 @@ return [
         'link_clube'       => 'sinpoldf.temmaisvantagens.com.br',
         'cor_principal'    => '#f00068',
         'status'           => 1
+    ],
+    [
+        'id'               => 241,
+        'uuid'             => '538dd4ae-a2cd-4767-acc1-4b7dc5bd8750',
+        'id_admin_empresa' => 2009,
+        'titulo'           => 'GEAP',
+        'link_clube'       => 'maisbeneficios.geap.org.br',
+        'cor_principal'    => '#0089b1',
+        'status'           => 1
     ]
 ];

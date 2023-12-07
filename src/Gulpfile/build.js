@@ -93,12 +93,7 @@ exports.buildDocker = () => {
     const dbNome = config.banco.nome;
     const dbSenha = config.banco.senha;
 
-    src('./src/Files/docker_host/000-default.conf')
-        .pipe(plumber())
-        .pipe(replace('{{public}}', public))
-        .pipe(dest('./files/docker_host'));
-
-    src('./src/Files/docker_host/default-ssl.conf')
+    src('./src/Files/docker_host/default')
         .pipe(plumber())
         .pipe(replace('{{public}}', public))
         .pipe(dest('./files/docker_host'));
@@ -144,7 +139,7 @@ exports.buildEnv = async () => {
     const conteudoAdp =
         'GIT=' +
         config.gitOrigin +
-        '\n\nDB_HOST=0.0.0.0:' +
+        '\n\nDB_STATUS=\nDB_HOST=0.0.0.0:' +
         config.docker.db +
         '\nDB_BANCO=' +
         dbNome +

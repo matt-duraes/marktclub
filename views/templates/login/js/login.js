@@ -30,8 +30,6 @@ window.addEventListener('load', () => {
         });
     }
 
-    inputLogin.focus();
-
     botaoAtivar.addEventListener('click', () => {
         PopupLogin.fechar();
         PaginaAtivar.abrir();

@@ -27,7 +27,6 @@ final class ClienteModel extends ORM
 
     protected string $ormTabela = TABELA_USUARIO_CLIENTE;
     private int $idEmpresa;
-    private int $idSubempresa = 0;
 
     /**
      * @param Request|null $request

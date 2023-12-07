@@ -174,8 +174,8 @@ $scope = [
 
     'drogaria_araujo:buscar',
 
-    'banner_login:listar', 'banner_login:buscar', 'banner_login:salvar', 'banner_login:atualizar', 'banner_login:deletar',
-    'banner_login:banner'
+    'comunicacao_login:listar', 'comunicacao_login:buscar', 'comunicacao_login:salvar', 'comunicacao_login:atualizar',
+    'comunicacao_login:deletar',
 ];
 
 return [
@@ -268,7 +268,7 @@ EwIDAQAB
         'authorization_code' => '1',
         'client_credentials' => '1',
         'refresh_token'      => '1',
-        'redirect_uri'       => '["localhost.com:4000","localhost.com:8000","127.0.0.1"]',
+        'redirect_uri'       => '["localhost.com:4000","localhost.com:8000","127.0.0.1", "localhost:4000"]',
         'scope_permitido'    => $scope,
         'campo_permitido'    => '{"usuario:salvar":["nome","cpf","email_trabalho","senha","telefone_celular"],"usuario:atualizar":["nome","cpf","email_trabalho","senha","telefone_celular"],"usuario:buscar":["uuid","nome","cpf"],"usuario:listar":["uuid","nome","cpf"]}',
         'tempo_vida'         => '50000',

@@ -27,7 +27,6 @@ final class SubempresaModel extends ORM implements
     use OrdemTrait;
 
     protected string $ormTabela = TABELA_COMERCIAL_EMPRESA;
-    protected ?int $idEmpresa;
 
     /**
      * @throws Excecao
@@ -105,7 +104,8 @@ final class SubempresaModel extends ORM implements
             ? $this->ormWherePadrao
             : [['id_admin_empresa', '<>', 'NULL']];
         $where = array_merge(
-            $wherePadrao, [['status', (new Status(Status::ATIVO))->numero()]]
+            $wherePadrao,
+            [['status', (new Status(Status::ATIVO))->numero()]]
         );
         if (!empty($this->titulo)) {
             $where[] = [

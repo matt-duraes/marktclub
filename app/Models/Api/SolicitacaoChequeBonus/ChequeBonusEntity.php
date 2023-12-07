@@ -2,23 +2,23 @@
 
 namespace App\Models\Api\SolicitacaoChequeBonus;
 
-use App\Classes\Solicitacao\Status;
-use App\Classes\UsuarioCliente\GrauParentesco;
-use App\Classes\UsuarioCliente\TipoUsuario;
-use App\Models\Api\Automovel\Versao\DadoVersaoModel;
-use App\Models\Api\Trait\ValidarEmpresaTrait;
-use App\Models\Api\UsuarioCliente\DadoBaseModel;
-use Erro\Excecao;
-use Helpers\OrmHelper;
-use Modules\Cpf;
-use Modules\Data;
-use Modules\Email;
-use Modules\EnderecoCep;
-use Modules\EnderecoEstado;
-use Modules\EstadoCivil;
-use Modules\Nome;
-use Modules\Telefone;
 use ORM\Entity;
+use Modules\Cpf;
+use Erro\Excecao;
+use Modules\Data;
+use Modules\Nome;
+use Modules\Email;
+use Modules\Telefone;
+use Helpers\OrmHelper;
+use Modules\EnderecoCep;
+use Modules\EstadoCivil;
+use Modules\EnderecoEstado;
+use App\Classes\Solicitacao\Status;
+use App\Classes\UsuarioCliente\TipoUsuario;
+use App\Models\Api\Trait\ValidarEmpresaTrait;
+use App\Classes\UsuarioCliente\GrauParentesco;
+use App\Models\Api\UsuarioCliente\DadoBaseModel;
+use App\Models\Api\Automovel\Versao\DadoVersaoModel;
 
 final class ChequeBonusEntity extends Entity
 {
@@ -89,8 +89,8 @@ final class ChequeBonusEntity extends Entity
     protected string $ormValidarSalvar = '
         status|Status|obrigatorio|vazio|valido
     ';
-    protected ?int $idEmpresa;
-    protected ?int $idUsuario;
+    private int $idEmpresa;
+    private ?int $idUsuario = null;
     protected int $id_admin_empresa;
     protected int $id_usuario_cliente;
     protected int $id_automovel_versao;

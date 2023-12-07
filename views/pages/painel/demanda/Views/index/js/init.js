@@ -76,14 +76,22 @@ const adicionarNovaTarefa = item => {
     const botaoFinalizar = $('.item_finalizar', clone);
     const botaoConcluido = $('.item_concluido', clone);
     const blocoTeste = $('.bloco_teste', clone);
-    const blocoTestado = $('.bloco_testado', clone);
+    const blocoTesteEquipe = $('.bloco_imagem', blocoTeste);
     const botaoLike = $('.botao_like', clone);
     const botaoDeslike = $('.botao_deslike', clone);
 
+    for (const equipe of item.like) {
+        adicionarImagemEquipe(blocoTesteEquipe, equipe.id, equipe.nome, equipe.imagem);
+    }
+
     if (statusDemanda == 'concluida') {
-        blocoTestado.displayShow();
+        blocoTeste.displayShow();
+        blocoTeste.classe('bloco_testado', true);
         botaoConcluido.displayShow();
-    } else if (liberadoDemanda && item.status_valor == 'aguardando') {
+    } else if (
+        (liberadoDemanda && item.status_valor == 'aguardando') ||
+        (liberadoDemanda && item.status_valor == 'andamento' && item.equipe.id != USUARIO_ID)
+    ) {
         botaoTrabalhar.displayShow();
     } else if (liberadoDemanda && item.status_valor == 'andamento') {
         botaoFinalizar.displayShow();
@@ -102,18 +110,37 @@ const adicionarNovaTarefa = item => {
         adicionarLike(item.id);
     });
     botaoDeslike.evento('click', () => {
-        cancelarTarefa(item.id);
+        popupRecusarTarefa(item.id);
     });
 
-    if (editarDeletar == 'sim') {
-        clone.querySelector('.botao_editar').addEventListener('click', () => {
+    const botaoEditar = clone.querySelector('.botao_editar');
+    const botaoDeletar = clone.querySelector('.botao_deletar');
+    if (editarDeletar == 'sim' && item.status_valor != 'concluida' && inArray(statusDemanda, ['teste', 'concluida'])) {
+        botaoEditar.addEventListener('click', () => {
             abrirPopupTarefaEditar(item.id);
         });
-        clone.querySelector('.botao_deletar').addEventListener('click', () => {
+        botaoDeletar.addEventListener('click', () => {
             tarefaDeletar(item.id);
         });
+    } else {
+        botaoEditar.displayHide();
+        botaoDeletar.displayHide();
     }
     ajudaLoading(clone);
+};
+const adicionarImagemEquipe = (bloco, id, nome, imagem) => {
+    const figure = elemento(
+        'figure',
+        {
+            'data-id': id,
+            'data-ajuda': nome,
+        },
+        {
+            backgroundImage: `url(${imagem})`,
+        }
+    );
+    bloco.inicio(figure);
+    ajudaLoading(figure);
 };
 const atualizarTarefaExistente = (id, titulo, texto, tipo) => {
     const bloco = $('#id_tarefa_' + id);

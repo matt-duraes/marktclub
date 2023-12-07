@@ -2,18 +2,18 @@
 
 namespace App\Models\Api\SolicitacaoLoja;
 
-use App\Classes\SolicitacaoLoja\Origem;
-use App\Classes\SolicitacaoLoja\Status;
-use App\Classes\UsuarioCliente\Helper;
-use App\Models\Api\Trait\ValidarEmpresaTrait;
-use App\Models\Api\UsuarioCliente\ClienteEntity;
 use Erro\Erro;
-use Erro\Excecao;
-use Helpers\OrmHelper;
+use ORM\Entity;
 use Modules\Cpf;
+use Erro\Excecao;
 use Modules\Email;
 use Modules\Telefone;
-use ORM\Entity;
+use Helpers\OrmHelper;
+use App\Classes\UsuarioCliente\Helper;
+use App\Classes\SolicitacaoLoja\Origem;
+use App\Classes\SolicitacaoLoja\Status;
+use App\Models\Api\Trait\ValidarEmpresaTrait;
+use App\Models\Api\UsuarioCliente\ClienteEntity;
 
 final class SolicitacaoEntity extends Entity
 {
@@ -48,8 +48,8 @@ final class SolicitacaoEntity extends Entity
         origem|Origem|obrigatorio|vazio|valido
         status|Status|obrigatorio|vazio|valido
     ';
-    protected ?int $idEmpresa;
-    protected ?int $idUsuario;
+    private int $idEmpresa;
+    private ?int $idUsuario = null;
     protected ?int $id_usuario_cliente;
 
     /**

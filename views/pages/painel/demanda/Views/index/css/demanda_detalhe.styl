@@ -176,47 +176,34 @@
         font-size: 1.2rem
     article .conteudo .dado .item p
         texto()
-    article .conteudo .bloco_testado
-        flexCol()
-        align-items: center
-        flex-wrap: wrap
-        margin-top: 15px
-    article .conteudo .bloco_testado p
-        width: 100%
-        color: #333
-    article .conteudo .bloco_testado .bloco_imagem
-        flexRow()
-        background: #EEE
-        padding: 5px 0 5px 5px
-        margin-top: 3px
-        border-radius: 2px 20px 20px 20px
-    article .conteudo .bloco_testado .bloco_imagem figure
-        width: 34px
-        height: 34px
-        imagemRedonda()
-        margin-right: 15px
-        background-color: #FFF
-        transition: margin-right .3s ease-out
-        border: 2px solid #EEE
-    article .conteudo .bloco_testado:hover .bloco_imagem figure
-        margin-right: 2px
-        &:last-child
-            margin-right: 5px
     article .conteudo .bloco_teste
-        height: 40px
         flexRow()
+        height: 40px
+        position: relative
         margin-top: 20px
         background: #EEE
         padding: 0 10px
         align-items: center
         border-radius: 20px
+        &.bloco_testado
+            flex-wrap: wrap
+            padding: 0 0 0 5px
+    article .conteudo .bloco_teste p
+        width: 100%
+        min-width: 200px
+        height: 15px
+        line-height: 15px
+        font-size: 1rem
+        position: absolute
+        top: -17px
+        display: none
     article .conteudo .bloco_teste .bloco_imagem
         flexRow()
     article .conteudo .bloco_teste .bloco_imagem figure
         width: 34px
         height: 34px
         imagemRedonda()
-        margin-right: -15px
+        margin-right: -20px
         background-color: #FFF
         transition: margin-right .3s ease-out
         border: 2px solid #EEE
@@ -237,6 +224,10 @@
         &.deslike
             margin-top: 2px
             fill: $corVermelho
+    article .conteudo .bloco_teste.bloco_testado p
+        display: block
+    article .conteudo .bloco_teste.bloco_testado i
+        display: none
     article > .botao
         fill: $corVermelho
         cursor: pointer

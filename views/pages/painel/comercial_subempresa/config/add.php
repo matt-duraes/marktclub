@@ -1,14 +1,12 @@
 <?php
 
-use App\Classes\ComercialEmpresa\Status;
-
 $Painel = new PainelConfig\Add('comercial_subempresa', $acao);
 
 $Painel->coluna(coluna: 2, callback: function () use ($Painel) {
     $Painel->fieldset('Dados da Subempresa', function () use ($Painel) {
         $Painel
             ->select(
-                name: 'Empresa Matriz',
+                name: 'empresa',
                 lista: 'empresa',
                 label: 'Empresa Matriz'
             )
@@ -18,7 +16,7 @@ $Painel->coluna(coluna: 2, callback: function () use ($Painel) {
             ->cnpj(name: 'cnpj', label: 'CNPJ', placeholder: 'CNPJ')
             ->select(
                 name: 'status',
-                lista: (new Status())->select('Escolha um status'),
+                lista: ['' => 'Escolha um status', 'ativo' => 'Ativo', 'inativo' => 'Inativo'],
                 label: 'Status'
             );
     });

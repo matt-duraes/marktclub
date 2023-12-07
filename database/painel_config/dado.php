@@ -33,7 +33,7 @@ return [
                     'usuario_equipe_permissao' => 'Todas as permissões',
                 ]
             ],
-            'banner_login'            => ['titulo' => 'Banners', 'acao' => ['index', 'add', 'editar', 'deletar']],
+            'comunicacao_login'       => ['titulo' => 'Banner Login', 'acao' => ['index', 'add', 'editar', 'deletar']],
             'comunicacao_publicidade' => ['titulo' => 'Publicidade', 'acao' => ['index', 'add', 'editar', 'deletar']],
             'solicitacao_contato'     => [
                 'titulo'    => 'Contato',

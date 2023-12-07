@@ -1,7 +1,7 @@
 
 <div class="bloco_banner">
     <div class="lista banners_{{$quantidade_banners}}" id="container_banners" >
-        @foreach($banners as $b):
+        @foreach($banner as $b):
             @if(!empty($b)):
                 <figure style="background-image: url({{$b}});"> </figure>
             @endif
