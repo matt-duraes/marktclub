@@ -2,11 +2,11 @@
 
 namespace App\Models\Api\Trait;
 
-use App\Models\Api\ComercialEmpresa\EmpresaEntity;
-use Erro\Excecao;
-use Helpers\OrmHelper;
-use Http\Request;
 use Throwable;
+use Erro\Excecao;
+use Http\Request;
+use Helpers\OrmHelper;
+use App\Models\Api\ComercialEmpresa\EmpresaEntity;
 
 trait ValidarEmpresaDownloadTrait
 {

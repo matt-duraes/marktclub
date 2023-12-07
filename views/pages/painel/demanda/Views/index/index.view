@@ -30,6 +30,7 @@
     @view painel/demanda/demanda-editar/index.view
     @view painel/demanda/demanda-cancelar/index.view
     @view painel/demanda/tarefa-salvar/index.view
+    @view painel/demanda/tarefa-recusar/index.view
 
     <div class="tarefa_zero" id="clone_item_erro">Erro ao<br> buscar lista</div>
     <div class="tarefa_zero" id="clone_item_zero">Sem itens<br> no momento</div>
@@ -84,22 +85,17 @@
 
 
             <div class="bloco_teste display_none">
+                <p>Testado por:</p>
                 <i class="botao_like like" data-ajuda="Aprovar tarefa">@iconeLike</i>
                 <div class="bloco_imagem">
-                    <figure></figure>
+
                 </div>
                 <i class="botao_deslike deslike" data-ajuda="Reprovar tarefa">@iconeDeslike</i>
             </div>
-
-            <div class="bloco_testado display_none">
-                <p>Testado por:</p>
-                <div class="bloco_imagem">
-                    <figure></figure>
-                </div>
-            </div>
         </div>
 
-        <div class="check display_none item_finalizar">@iconeCheck(20)</div>
-        <div class="check display_none item_finalizado">@iconeCheck(20)</div>
+        <div class="check display_none item_play" data-ajuda="Começar a trabalhar">@iconePlay(40)</div>
+        <div class="check display_none item_finalizar" data-ajuda="Finalizar tarefa">@iconeCheck(15)</div>
+        <div class="check display_none item_concluido" data-ajuda="Tarefa Finalizada">@iconeCheck(20)</div>
     </article>
 </div>

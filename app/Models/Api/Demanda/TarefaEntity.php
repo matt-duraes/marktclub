@@ -10,7 +10,6 @@ use App\Classes\DemandaTarefa\Status;
 use System\Classes\PainelHistorico\Acao;
 use ApiModel\PainelHistorico\HistoricoEntity;
 use App\Models\Api\UsuarioEquipe\PerfilModel;
-use App\Classes\DemandaDado\Status as DemandaDadoStatus;
 
 final class TarefaEntity extends Entity
 {
@@ -60,6 +59,21 @@ final class TarefaEntity extends Entity
         }
     }
 
+    private function mudarStatus()
+    {
+        $statusAtual = (new Status($this->prop('status')))->indice();
+        $statusNovo = $this->status->indice();
+        if ($statusNovo == Status::ANDAMENTO && $this->data_producao_inicio->vazio()) {
+            $this->data_producao_inicio = new DataHora(agora());
+        }
+        if ($statusNovo == Status::CONCLUIDA && $this->data_producao_final->vazio()) {
+            $this->data_producao_final = new DataHora(agora());
+        }
+        if ($statusAtual == Status::AGUARDANDO && $statusNovo == Status::ANDAMENTO) {
+            $this->id_usuario_equipe = TOKEN['usuario']->id;
+        }
+    }
+
     /*
     |--------------------------------------------------------------------------
     | INSERT
@@ -70,9 +84,6 @@ final class TarefaEntity extends Entity
         $this->id_demanda_dado = (new OrmHelper(TABELA_DEMANDA_DADO))->pegarIdPeloUuid($this->demanda);
         $this->status = new Status(Status::AGUARDANDO);
         $this->minuto_producao_real = 0;
-        if (!empty($this->equipe)) {
-            $this->id_usuario_equipe = $this->OrmEquipe->pegarIdPeloUuid($this->equipe);
-        }
     }
 
     /*
@@ -82,12 +93,7 @@ final class TarefaEntity extends Entity
     */
     protected function regraUpdate()
     {
-        if ($this->status->indice() == 'andamento' && $this->data_producao_inicio->vazio()) {
-            $this->data_producao_inicio = new DataHora(agora());
-        }
-        if ($this->status->indice() == 'concluida' && $this->data_producao_final->vazio()) {
-            $this->data_producao_final = new DataHora(agora());
-        }
+        $this->mudarStatus();
     }
 
     /*
@@ -109,7 +115,7 @@ final class TarefaEntity extends Entity
 
     public function like()
     {
-        $id = TOKEN['usuario']->id;
+        $id = TOKEN['usuario']->uuid;
         if (in_array($id, $this->like)) {
             return;
         }
@@ -119,13 +125,11 @@ final class TarefaEntity extends Entity
 
     public function deslike(string $motivo)
     {
-        $this->status = new Status('andamento');
+        $this->status = new Status(Status::AGUARDANDO);
         $this->like = [];
         $this->salvar();
 
         $Demanda = $this->pegarDemanda();
-        $Demanda->status = new DemandaDadoStatus('andamento');
-        $Demanda->salvar();
 
         $Perfil = new PerfilModel();
         $usuario = $Perfil->pegarDado($this->id_usuario_equipe);

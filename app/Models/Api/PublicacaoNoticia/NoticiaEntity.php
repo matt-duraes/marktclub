@@ -71,7 +71,7 @@ final class NoticiaEntity extends Entity
     public Tipo $tipo;
     public Local $local;
     private int $idEmpresa;
-    private ?int $idUsuario;
+    private ?int $idUsuario = null;
     public Publicado $publicado;
 
     public function __construct()

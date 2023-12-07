@@ -61,7 +61,7 @@ trait Endereco
         }
 
         $numero = rand(0, count($retorno) - 1);
-        return $retorno[$numero]['nome'];
+        return $retorno[$numero]['nome'] ?? 'Brasília';
     }
 
     public function bairro(): string

@@ -36,6 +36,8 @@ $permissao = [
     'parceiro_automovel_index', 'parceiro_automovel_add', 'parceiro_automovel_editar', 'parceiro_automovel_deletar',
     'parceiro_automovel_visualizar',
 
+    'comunicacao_login_index', 'comunicacao_login_add', 'comunicacao_login_editar', 'comunicacao_login_deletar',
+
     'comunicacao_publicidade_index', 'comunicacao_publicidade_add', 'comunicacao_publicidade_editar',
     'comunicacao_publicidade_deletar',
 
@@ -75,8 +77,6 @@ $permissao = [
     'solicitacao_declaracao_index', 'solicitacao_declaracao_visualizar', 'solicitacao_declaracao_status',
     'solicitacao_declaracao_empresa',
 
-    'comercial_empresa_index',
-
     'solicitacao_automovel_index', 'solicitacao_automovel_visualizar', 'solicitacao_automovel_status',
     'solicitacao_automovel_empresa',
 
@@ -86,7 +86,10 @@ $permissao = [
     'saude_contratacao_index', 'saude_contratacao_visualizar', 'saude_contratacao_status',
     'saude_contratacao_empresa',
 
-    'comercial_empresa_visualizar', 'comercial_empresa_editar',
+    'comercial_empresa_index', 'comercial_empresa_visualizar', 'comercial_empresa_editar',
+
+    'comercial_subempresa_index', 'comercial_subempresa_visualizar', 'comercial_subempresa_add',
+    'comercial_subempresa_editar', 'comercial_subempresa_deletar', 'comercial_subempresa_empresa',
 
     'comercial_prospeccao_index', 'comercial_prospeccao_add', 'comercial_prospeccao_editar',
     'comercial_prospeccao_visualizar',

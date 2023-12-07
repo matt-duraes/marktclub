@@ -10,10 +10,12 @@
         "ext-openssl": "*",
         "ext-pdo": "*",
         "box/spout": "^3",
+        "erusev/parsedown": "^1.7",
         "ezyang/htmlpurifier": "^4",
         "firebase/php-jwt": "^6",
         "google/apiclient": "^2",
         "intervention/image": "^2",
+        "league/oauth2-client": "^2",
         "mpdf/mpdf": "^8",
         "phpmailer/phpmailer": "^6",
         "phpmussel/core": "^3",
@@ -32,7 +34,7 @@
         "php-webdriver/webdriver": "^1",
         "ramsey/conventional-commits": "^1",
         "squizlabs/php_codesniffer": "^3",
-        "symfony/finder": "^6.2"
+        "symfony/finder": "^6"
     },
     "autoload": {
         "psr-4": {
@@ -57,7 +59,7 @@
             "Status\\": "src/Status",
             "System\\": "src/",
             "Tests\\": [
-                "tests",
+                "tests/Backend",
                 "src/Tests"
             ]
         }

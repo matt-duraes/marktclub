@@ -110,7 +110,6 @@ final class AnalyticsUsuarioTest extends Tests
     public function podeListarSemDataMasComPaginacaoTest()
     {
         $this->fazerRequisicao(pagina: 1);
-
         return $this
             ->checkStatus(200)
             ->checkIndiceIgual('status', 'sucesso');

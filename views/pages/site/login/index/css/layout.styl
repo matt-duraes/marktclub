@@ -18,37 +18,52 @@
         max-width: 1300px
         position: relative
         display: grid
-        grid-template-columns: 640px 20px 640px
         grid-template-rows: 310px 20px 310px
         z-index: 3
         overflow: hidden
+    .banners_1
+        grid-template-columns: 1300px
+        figure:nth-child(1)
+            grid-column-start: 1
+            grid-column-end: 1
+            grid-row-start: 1
+            grid-row-end: 4
+    .banners_2, .banners_3
+        grid-template-columns: 1fr 20px 1fr
+    .banners_2
+        figure:nth-child(1),
+        figure:nth-child(2)
+            grid-row-start: 1
+            grid-row-end: 4
+        figure:nth-child(1),
+            grid-column-start: 1
+            grid-column-end: 1
+        figure:nth-child(2)
+            grid-column-start: 3
+            grid-column-end: 3
+    .banners_3
+        figure:nth-child(1)
+            grid-column-start: 1
+            grid-column-end: 1
+            grid-row-start: 1
+            grid-row-end: 4
+        figure:nth-child(2)
+            grid-column-start: 3
+            grid-column-end: 3
+            grid-row-start: 1
+            grid-row-end: 1
+        figure:nth-child(3)
+            grid-column-start: 3
+            grid-column-end: 3
+            grid-row-start: 3
+            grid-row-end: 3
+            grid-row-end: -1
     .lista figure
         border-radius: 15px
-        overflow: hidden
         background-position: center center
         background-size: cover
         overflow: hidden
-    .lista figure:nth-child(1)
-        grid-column-start: 1
-        grid-column-end: 1
-        grid-row-start: 1
-        grid-row-end: 4
-    .lista figure:nth-child(2)
-        grid-column-start: 3
-        grid-column-end: 3
-        grid-row-start: 1
-        grid-row-end: 1
-    .lista figure:nth-child(3)
-        grid-column-start: 3
-        grid-column-end: 3
-        grid-row-start: 3
-        grid-row-end: 3
-        grid-row-end: -1
-    .lista .banner_01:nth-of-type(1)
-        grid-column-start: 1
-        grid-column-end: -1
-        grid-row-start: 1
-        grid-row-end: -1
+
 
 #bloco_login #banner_secundario
     width: 100%
@@ -88,9 +103,6 @@
 @media screen and (max-width: 1340px)
     #bloco_login .bloco_banner .lista
         max-width: 1000px
-        grid-template-columns: 490px 20px 490px
-        grid-template-rows: 230px 20px 230px
-
 @media screen and (max-width: 1040px)
     #bloco_login .bloco_banner
         display: none

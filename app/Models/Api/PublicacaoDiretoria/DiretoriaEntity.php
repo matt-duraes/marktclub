@@ -31,6 +31,7 @@ final class DiretoriaEntity extends Entity
     public string $cargo;
     public Status $status;
     private int $idEmpresa;
+    public int $ordem;
 
     public function __construct()
     {

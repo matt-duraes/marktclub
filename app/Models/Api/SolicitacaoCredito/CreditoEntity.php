@@ -2,15 +2,15 @@
 
 namespace App\Models\Api\SolicitacaoCredito;
 
-use App\Classes\SolicitacaoCredito\Operadora;
-use App\Classes\SolicitacaoCredito\Status;
+use ORM\Entity;
+use Erro\Excecao;
+use Modules\Inteiro;
+use Modules\Dinheiro;
 use App\Classes\SolicitacaoCredito\Tipo;
+use App\Classes\SolicitacaoCredito\Status;
+use App\Classes\SolicitacaoCredito\Operadora;
 use App\Models\Api\Trait\ValidarEmpresaTrait;
 use App\Models\Api\UsuarioCliente\DadoBaseModel;
-use Erro\Excecao;
-use Modules\Dinheiro;
-use Modules\Inteiro;
-use ORM\Entity;
 
 class CreditoEntity extends Entity
 {
@@ -38,8 +38,8 @@ class CreditoEntity extends Entity
         'valor_parcela', 'status'
     ];
     protected ?int $id_usuario_cliente;
-    protected ?int $idEmpresa;
-    protected ?int $idUsuario;
+    private int $idEmpresa;
+    private ?int $idUsuario = null;
     protected string $validarSalvar = '
         operadora|Operadora|obrigatorio|vazio|valido
         tipo|Tipo de crédito|obrigatorio|vazio|valido

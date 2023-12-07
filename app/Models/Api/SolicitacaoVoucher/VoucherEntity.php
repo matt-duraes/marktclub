@@ -36,6 +36,8 @@ final class VoucherEntity extends Entity implements VoucherInterface
         'vinculo' => '->id_vinculo',
         'titulo', 'tipo', 'tipo_usuario', 'codigo', 'data_vencimento', 'status'
     ];
+    public string $titulo;
+    public string $codigo;
     public Data $data_vencimento;
     public DataHora $data_validacao;
     public Status $status;

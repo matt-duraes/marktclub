@@ -756,7 +756,7 @@ Route
             ::nome('loginClube')
             ::middleware(TokenMiddleware::class, 'scope', ['login:clube'])
             ::criptografia(['login', 'senha'])
-            ::request(['login', 'senha', 'scope', 'redirect_uri', 'state'])
+            ::request(['login', 'senha', 'scope', 'redirect_uri', 'state', 'tipo'])
             ::post('/login/clube');
         Route
             ::nome('loginHash')
@@ -1540,6 +1540,49 @@ Route
     });
 
 Route
+    ::nome('comercial_subempresa')
+    ::controller(App\Controllers\Api\ComercialSubempresaController::class)
+    ::middleware(TokenMiddleware::class, 'token')
+    ::grupo(function () {
+        Route
+            ::nome('buscar')
+            ::middleware(TokenMiddleware::class, 'scope', ['comercial_subempresa:buscar'])
+            ::get('/comercial-subempresa/{id}');
+
+        Route
+            ::nome('listar')
+            ::middleware(TokenMiddleware::class, 'scope', ['comercial_subempresa:listar'])
+            ::request([
+                'pagina', '!quantidade', '!ordem', '!dataInicio',
+                '!dataFinal', '!titulo', '!empresa', '!status'
+            ], 'json')
+            ::get('/comercial-subempresa');
+
+        Route
+            ::nome('salvar')
+            ::middleware(TokenMiddleware::class, 'scope', ['comercial_subempresa:salvar'])
+            ::request([
+                'empresa', 'titulo', 'razao_social',
+                'nome_fantasia', 'cnpj', 'status'
+            ])
+            ::post('/comercial-subempresa');
+
+        Route
+            ::nome('atualizar')
+            ::middleware(TokenMiddleware::class, 'scope', ['comercial_subempresa:atualizar'])
+            ::request([
+                '!empresa', '!titulo', '!razao_social',
+                '!nome_fantasia', '!cnpj', '!status'
+            ])
+            ::put('/comercial-subempresa/{id}');
+
+        Route
+            ::nome('deletar')
+            ::middleware(TokenMiddleware::class, 'scope', ['comercial_subempresa:deletar'])
+            ::delete('/comercial-subempresa/{id}');
+    });
+
+Route
     ::nome('comercial_restricao')
     ::controller(App\Controllers\Api\ComercialRestricaoController::class)
     ::middleware(TokenMiddleware::class, 'token')
@@ -1670,7 +1713,7 @@ Route
             ::nome('atualizar')
             ::middleware(TokenMiddleware::class, 'scope', ['demanda_tarefa:atualizar'])
             ::request([
-                'titulo', '!texto', '!tipo', '!minuto_producao_estimada'
+                '!titulo', '!texto', '!tipo', '!minuto_producao_estimada', '!equipe', '!status'
             ])
             ::put('/demanda-tarefa/{id}');
 
@@ -2339,4 +2382,40 @@ Route
             ::nome('buscar')
             ::middleware(TokenMiddleware::class, 'scope', ['drogaria_araujo:buscar'])
             ::get('/empresas/{id}');
+    });
+
+Route
+    ::nome('comunicacao_login')
+    ::controller(App\Controllers\Api\ComunicacaoLoginController::class)
+    ::middleware(TokenMiddleware::class, 'token')
+    ::grupo(function () {
+        Route
+            ::nome('buscar')
+            ::middleware(TokenMiddleware::class, 'scope', ['comunicacao_login:buscar'])
+            ::get('/comunicacao-login/{id}');
+        Route
+            ::nome('listar')
+            ::middleware(TokenMiddleware::class, 'scope', ['comunicacao_login:listar'])
+            ::request([
+                'pagina', '!empresa', '!publicado', '!quantidade'
+            ], 'json')
+            ::get('/comunicacao-login');
+        Route
+            ::nome('salvar')
+            ::middleware(TokenMiddleware::class, 'scope', ['comunicacao_login:salvar'])
+            ::request([
+                'arquivo_1', 'arquivo_2', 'arquivo_3', 'empresa', 'titulo', 'data_fim', 'data_inicio'
+            ])
+            ::post('/comunicacao-login');
+        Route
+            ::nome('atualizar')
+            ::middleware(TokenMiddleware::class, 'scope', ['comunicacao_login:atualizar'])
+            ::request([
+                '!arquivo_1', '!arquivo_2', '!arquivo_3', '!empresa', '!titulo', '!data_fim', '!data_inicio'
+            ])
+            ::put('/comunicacao-login/{id}');
+        Route
+            ::nome('deletar')
+            ::middleware(TokenMiddleware::class, 'scope', ['comunicacao_login:deletar'])
+            ::delete('/comunicacao-login/{id}');
     });

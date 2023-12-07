@@ -27,7 +27,6 @@ class PopupModel extends ORM
     use OrdemTrait;
 
     protected string $ormTabela = TABELA_COMERCIAL_POPUP;
-    protected ?int $idEmpresa;
 
     /**
      *

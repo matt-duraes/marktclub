@@ -2,7 +2,6 @@ window.addEventListener('load', () => {
     const botaoAdd = $('#botao_add_tarefa');
     const PaginaAddTarefa = new Popup('demanda-salvar', 'bloco_demanda_nova', true, true);
 
-    const area = $('#input_area').value;
     const inputTipo = $('#input_tipo');
     const inputTitulo = $('#input_titulo');
     const inputTexto = $('#input_texto');
@@ -923,7 +922,7 @@ window.addEventListener('load', () => {
                 evento_responsavel_telefone: 'Digite o telefone do responsável pelo evento.',
             };
 
-            resolve(testarCampos(mensagemErro));
+            resolve(testarCampos(mensagemErro) && testarDataInicio('input_evento_data_inicio', 30));
         });
     };
 
@@ -970,7 +969,7 @@ window.addEventListener('load', () => {
                 brinde_participantes: 'Digite a quantidade de participantes do brinde.',
             };
 
-            resolve(testarCampos(mensagemErro));
+            resolve(testarCampos(mensagemErro) && testarDataInicio('input_brinde_inicio_divulgacao', 60));
         });
     };
 
@@ -1008,7 +1007,7 @@ window.addEventListener('load', () => {
                 campanha_segmento: 'Digite o segmento da campanha.',
             };
 
-            resolve(testarCampos(mensagemErro));
+            resolve(testarCampos(mensagemErro) && testarDataInicio('input_campanha_inicio_divulgacao', 30));
         });
     };
 
@@ -1261,6 +1260,40 @@ window.addEventListener('load', () => {
 
         return body;
     };
+
+    const testarDataInicio = async (input, periodo) => {
+        const inputData = document.getElementById(input).value;
+        const dataInicio = new Date(formatarData(inputData));
+        const hoje = new Date();
+
+        const dataInicioMenosPeriodo = new Date(dataInicio.getTime() - (periodo * 24 * 60 * 60 * 1000));
+
+        if (dataInicio < hoje) {
+            Alerta.notificacao(`A data de inicio não pode ser menor que hoje.`, false);
+            return false;
+        } else if (hoje > dataInicioMenosPeriodo) {
+            return await Alerta.confirmar(
+                'Atenção!',
+                `A demanda está sendo cadastrada antes do limite recomendado de ${periodo} dias.`,
+                '!'
+            ) ? true : false; // Apesar de estar após o limite não bloqueia o cadastro
+        }
+
+        return true;
+    }
+
+    const formatarData = (dataOriginal) => {
+        var partes = dataOriginal.split(/[\s\/:]+/);
+        var data = new Date(partes[2], partes[1] - 1, partes[0], partes[3], partes[4], partes[5]);
+        var dataFormatada = data.getFullYear() + '-' +
+                            (data.getMonth() + 1).toString().padStart(2, '0') + '-' +
+                            data.getDate().toString().padStart(2, '0') + ' ' +
+                            data.getHours().toString().padStart(2, '0') + ':' +
+                            data.getMinutes().toString().padStart(2, '0') + ':' +
+                            data.getSeconds().toString().padStart(2, '0');
+        return dataFormatada;
+    }
+
 
     /*
     |--------------------------------------------------------------------------

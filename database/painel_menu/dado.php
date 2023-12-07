@@ -101,6 +101,18 @@ return [
         'permissao'        => '["comunicacao_publicidade_index","construtor_clube_index"]'
     ],
     [
+        'id'                => '++',
+        'id_admin_empresa'  => 1,
+        'tipo'              => 3,
+        'titulo'            => 'Banner Login',
+        'url'               => '/app/comunicacao-login',
+        'icone'             => '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 3C21.5523 3 22 3.44772 22 4V20C22 20.5523 21.5523 21 21 21H3C2.44772 21 2 20.5523 2 20V4C2 3.44772 2.44772 3 3 3H21ZM20 11H4V19H20V11ZM20 5H4V9H20V5ZM11 6V8H9V6H11ZM7 6V8H5V6H7Z"></path></svg>',
+        'ordem'             => '++',
+        'menu'              => ['comunicacao-login'],
+        'status'            => 1,
+        'permissao'         => '["comunicacao_login_index"]'
+    ],
+    [
         'id'               => '++',
         'id_admin_empresa' => 1,
         'tipo'             => 3,
@@ -177,6 +189,18 @@ return [
         'menu'             => ['comercial-empresa'],
         'status'           => 1,
         'permissao'        => '["comercial_empresa_index"]'
+    ],
+    [
+        'id'               => '++',
+        'id_admin_empresa' => 1,
+        'tipo'             => 3,
+        'titulo'           => 'Subempresa',
+        'url'              => '/app/comercial-subempresa',
+        'icone'            => '<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 30 30" style="enable-background:new 0 0 30 30;" xml:space="preserve"><path d="M10.7,9.9V7.3c0-0.5,0.3-0.9,0.9-0.9h6.8c0.5,0,0.9,0.3,0.9,0.9v2.6h3.4c0.5,0,0.9,0.3,0.9,0.9v11.9c0,0.5-0.3,0.9-0.9,0.9H7.3c-0.5,0-0.9-0.3-0.9-0.9V10.7c0-0.5,0.3-0.9,0.9-0.9H10.7z M8.2,19.3v2.6h13.6v-2.6H8.2z M8.2,17.6h13.6v-6H8.2V17.6z M12.4,8.2v1.7h5.1V8.2H12.4z M14.1,15h1.7v1.7h-1.7V15z"/></svg>',
+        'ordem'            => '++',
+        'menu'             => ['comercial-subempresa'],
+        'status'           => 1,
+        'permissao'        => '["comercial_subempresa_index"]'
     ],
     [
         'id'               => '++',

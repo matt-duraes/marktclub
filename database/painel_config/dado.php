@@ -33,6 +33,7 @@ return [
                     'usuario_equipe_permissao' => 'Todas as permissões',
                 ]
             ],
+            'comunicacao_login'       => ['titulo' => 'Banner Login', 'acao' => ['index', 'add', 'editar', 'deletar']],
             'comunicacao_publicidade' => ['titulo' => 'Publicidade', 'acao' => ['index', 'add', 'editar', 'deletar']],
             'solicitacao_contato'     => [
                 'titulo'    => 'Contato',
@@ -169,6 +170,13 @@ return [
             ],
             'comercial_empresa'        => [
                 'titulo' => 'Comercial Empresa', 'acao' => ['index', 'visualizar', 'editar']
+            ],
+            'comercial_subempresa'     => [
+                'titulo'    => 'Comercial Subempresa',
+                'acao'      => ['index', 'visualizar', 'add', 'editar', 'deletar', 'empresa'],
+                'permissao' => [
+                    'comercial_subempresa_empresa' => 'Todas as empresas'
+                ]
             ],
             'comercial_prospeccao'     => [
                 'titulo' => 'Comercial Prospecção', 'acao' => ['index', 'add', 'editar', 'visualizar']

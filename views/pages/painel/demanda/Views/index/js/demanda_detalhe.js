@@ -3,7 +3,7 @@ const demandaDetalhe = () => {
 
     idDemanda = $('#input_demanda_id').value;
     statusDemanda = $('#input_demanda_status').value;
-    liberadoDemanda = $('#input_demanda_liberado').value;
+    liberadoDemanda = $('#input_demanda_liberado').value == 'sim';
 
     const botaoSeguir = $('#botao_seguir_demanda');
     const botaoEditar = $('#botao_editar_demanda');
@@ -25,6 +25,12 @@ const demandaDetalhe = () => {
             Ajuda.hide();
         });
     });
+
+    if (statusDemanda == 'concluida') {
+        botaoSeguir.displayHide();
+        botaoEditar.displayHide();
+        botaoCancelar.displayHide();
+    }
 
     if (botaoSeguir) {
         botaoSeguir.addEventListener('click', () => {
@@ -67,6 +73,9 @@ const demandaDetalhe = () => {
         limparPopupTarefa();
         abrirPopupNovaTarefa();
     });
+    if (inArray(statusDemanda, ['teste', 'concluida'])) {
+        botaoTarefaAbrir.displayHide();
+    }
     const abrirPopupNovaTarefa = () => {
         PopupTarefa.abrir();
         inputTarefaTitulo.focus();

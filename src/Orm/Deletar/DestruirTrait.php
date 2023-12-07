@@ -37,7 +37,6 @@ trait DestruirTrait
         $this->ormEntityDeletada = true;
 
         $this->ormEntityId = null;
-        $this->ormEntityAcao = '';
         $this->ormEntityUuid = '';
         $this->ormPropriedadePublica = [];
         $this->ormPropriedadePrivada = [];

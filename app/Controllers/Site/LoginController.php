@@ -11,6 +11,7 @@ use App\Classes\TextoClube\Tipo;
 use App\Models\Site\Login\LogarModel;
 use App\Models\Site\Ativar\SalvarModel;
 use App\Models\Site\Login\LoginApiModel;
+use App\Models\Site\Login\ComunicacaoModel;
 use App\Classes\ConstrutorClube\TipoAtivacao;
 use App\Models\Site\Contato\SalvarModel as SalvarContatoModel;
 
@@ -22,8 +23,11 @@ final class LoginController extends Controller
             return new Response(url: LINK_LOGIN);
         }
 
+        $dado = (new ComunicacaoModel())->buscarBanners() ?? '';
         return view('login.index', [
-            'location' => base64Decode($request->chave('location', ''), true)
+            'banner'             => $dado->lista,
+            'quantidade_banners' => $dado->quantidade_banners,
+            'location'           => base64Decode($request->chave('location', ''), true)
         ]);
     }
 
@@ -140,7 +144,7 @@ final class LoginController extends Controller
                 'tipo_usuario' => $request->tipo_usuario,
                 'chave'        => TIPO_ATIVACAO,
                 'valor'        => $valor,
-                'empresa'      => EMPRESA_ID
+                'empresa'      => CLUBE_EMPRESA
             ])
             ->post('/usuario-cliente/ativar')
             ->object();
@@ -179,7 +183,7 @@ final class LoginController extends Controller
         try {
             $lista = (new ApiHelper(scope: 'texto_clube:listar'))
             ->json([
-                'empresa' => EMPRESA_ID,
+                'empresa' => CLUBE_EMPRESA,
                 'pagina'  => 1,
                 'tipo'    => Tipo::FAQ,
                 'status'  => 'ativo'
@@ -210,7 +214,7 @@ final class LoginController extends Controller
         $dado = $Api
             ->validar('Ocorreu um erro ao buscar seus dados, por favor, tente novamente.')
             ->json([
-                'empresa' => EMPRESA_ID,
+                'empresa' => CLUBE_EMPRESA,
                 'cpf'     => $Crypt->encode($request->cpf),
             ])
             ->get('/usuario-cliente/senha')

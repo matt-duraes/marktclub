@@ -2,11 +2,11 @@
 
 namespace App\Models\Api\SolicitacaoDeclaracao;
 
-use App\Classes\Solicitacao\Status;
-use App\Models\Api\Trait\ValidarEmpresaTrait;
+use ORM\Entity;
 use Erro\Excecao;
 use Helpers\OrmHelper;
-use ORM\Entity;
+use App\Classes\Solicitacao\Status;
+use App\Models\Api\Trait\ValidarEmpresaTrait;
 
 class DeclaracaoEntity extends Entity
 {
@@ -38,8 +38,8 @@ class DeclaracaoEntity extends Entity
     protected string $ormValidarUpdate = '
         status|Status|obrigatorio|vazio|valido
     ';
-    protected ?int $idEmpresa;
-    protected ?int $idUsuario;
+    private int $idEmpresa;
+    private ?int $idUsuario = null;
     protected int $id_admin_empresa;
     protected int $id_usuario_cliente;
     protected int $id_parceiro_loja;

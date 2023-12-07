@@ -1,0 +1,1 @@
+{"id":"id_f9cae030dd885e15e04a4eabe571948b","token":"token","metodo":"DELETE","nome":"\/comercial-subempresa\/:id","uri":"{{LINK}}\/comercial-subempresa\/$COMERRCIAL_SUBEMPRESA_ID","parametro":[],"body":[],"header":[],"variavel":[],"json":[],"documentacao":{"status":false,"descricao":"","requisicao":"","resposta":"","scope":""}}

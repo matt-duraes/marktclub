@@ -4,6 +4,7 @@ namespace App\Models\Site\Login;
 
 use Helpers\ApiHelper;
 use Helpers\CryptHelper;
+use App\Classes\LoginClube\Tipo;
 
 final class LogarModel
 {
@@ -41,6 +42,7 @@ final class LogarModel
                 'redirect_uri' => LINK,
                 'scope'        => '',
                 'state'        => uuid(),
+                'tipo'         => Tipo::TITULAR
             ])
             ->post('/login/clube')->array()['dado'];
 

@@ -2,19 +2,19 @@
 
 namespace App\Models\Api\SolicitacaoContato;
 
-use App\Classes\SolicitacaoContato\Ordem;
-use App\Classes\SolicitacaoContato\Status;
-use App\Models\Api\Trait\ValidarEmpresaTrait;
+use ORM\ORM;
+use stdClass;
 use Erro\Excecao;
 use Modules\Data;
 use Modules\Pagina;
 use Modules\Quantidade;
-use ORM\ORM;
-use stdClass;
-use System\Interface\ModelListarInterface;
 use System\Trait\Model\OrdemTrait;
 use System\Trait\Model\PaginaTrait;
 use System\Trait\Model\QuantidadeTrait;
+use App\Classes\SolicitacaoContato\Ordem;
+use App\Classes\SolicitacaoContato\Status;
+use System\Interface\ModelListarInterface;
+use App\Models\Api\Trait\ValidarEmpresaTrait;
 
 class SolicitacaoContatoModel extends ORM implements
     ModelListarInterface
@@ -25,7 +25,6 @@ class SolicitacaoContatoModel extends ORM implements
     use OrdemTrait;
 
     protected string $ormTabela = TABELA_SOLICITACAO_CONTATO;
-    protected ?int $idEmpresa;
 
     /**
      * @param Pagina      $pagina

@@ -20,7 +20,6 @@ final class TrabalhoEntity extends Entity
     protected DataHora $data_trabalho;
     private TarefaEntity $Tarefa;
     public int $tempo_trabalho;
-    public int $tempo_total;
     public int $minuto_trabalhado;
 
     public function __construct(
@@ -33,7 +32,6 @@ final class TrabalhoEntity extends Entity
     {
         $this->pegarTarefa($this->id_demanda_tarefa);
         $this->tempo_trabalho = $this->Tarefa->minuto_producao_real;
-        $this->tempo_total = $this->Tarefa->minuto_producao_estimada;
     }
 
     protected function regraInsert()

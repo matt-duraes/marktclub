@@ -1,5 +1,12 @@
 let idDemanda, statusDemanda, liberadoDemanda;
 
+const USUARIO_ID = $('#USUARIO_ID').value;
+const USUARIO_NOME = $('#USUARIO_NOME').value;
+const USUARIO_IMAGEM = $('#USUARIO_IMAGEM').value;
+const USUARIO_GERENTE = $('#USUARIO_GERENTE').value;
+
+const area = $('#input_area').value;
+
 const inputTarefaId = $('#input_tarefa_id');
 const inputTarefaTitulo = $('#input_tarefa_titulo');
 const inputTarefaTexto = $('#input_tarefa_texto');
@@ -40,12 +47,18 @@ const adicionarNovaTarefa = item => {
     bloco.classList.remove('display_none');
 
     const clone = cloneDemandaTarefa.cloneNode(true);
-    clone.setAttribute('id', 'id_tarefa_' + item.id);
-    clone.setAttribute('data-tipo', item.tipo_valor);
+    clone.attr({
+        id: 'id_tarefa_' + item.id,
+        'data-tipo': item.tipo_valor,
+        'data-status': item.status_valor,
+    });
 
     const blocoEquipe = clone.querySelector('.item_equipe');
-    blocoEquipe.setAttribute('data-ajuda', item.equipe.nome);
-    blocoEquipe.style.backgroundImage = `url(${item.equipe.imagem})`;
+    blocoEquipe.attr({
+        'data-equipe': item.equipe.id,
+        'data-ajuda': item.equipe.nome,
+    });
+    blocoEquipe.css('backgroundImage', `url(${item.equipe.imagem})`);
     const editarDeletar = item.dono || usuarioGerente ? 'sim' : '';
 
     adicionarTexto(clone, '.item_titulo', item.titulo);
@@ -59,20 +72,75 @@ const adicionarNovaTarefa = item => {
     removerDisplayNone(clone, '.bloco_data_final', item.data_final);
     bloco.insertBefore(clone, bloco.firstChild);
 
-    if (liberadoDemanda && item.status == 'aguardando') {
-        removerDisplayNone(clone, '.item_finalizar', 'sim');
-    } else if (item.status == 'concluida') {
-        removerDisplayNone(clone, '.item_finalizado', 'sim');
+    const botaoTrabalhar = $('.item_play', clone);
+    const botaoFinalizar = $('.item_finalizar', clone);
+    const botaoConcluido = $('.item_concluido', clone);
+    const blocoTeste = $('.bloco_teste', clone);
+    const blocoTesteEquipe = $('.bloco_imagem', blocoTeste);
+    const botaoLike = $('.botao_like', clone);
+    const botaoDeslike = $('.botao_deslike', clone);
+
+    for (const equipe of item.like) {
+        adicionarImagemEquipe(blocoTesteEquipe, equipe.id, equipe.nome, equipe.imagem);
     }
 
-    if (editarDeletar == 'sim') {
-        clone.querySelector('.botao_editar').addEventListener('click', () => {
+    if (statusDemanda == 'concluida') {
+        blocoTeste.displayShow();
+        blocoTeste.classe('bloco_testado', true);
+        botaoConcluido.displayShow();
+    } else if (
+        (liberadoDemanda && item.status_valor == 'aguardando') ||
+        (liberadoDemanda && item.status_valor == 'andamento' && item.equipe.id != USUARIO_ID)
+    ) {
+        botaoTrabalhar.displayShow();
+    } else if (liberadoDemanda && item.status_valor == 'andamento') {
+        botaoFinalizar.displayShow();
+    } else if (item.status_valor == 'concluida' || statusDemanda == 'teste') {
+        blocoTeste.displayShow();
+        botaoConcluido.displayShow();
+    }
+    botaoTrabalhar.evento('click', () => {
+        comecarTrabalhar(botaoTrabalhar, botaoFinalizar, item.id);
+    });
+    botaoFinalizar.evento('click', () => {
+        finalizarTarefa(botaoFinalizar, botaoConcluido, blocoTeste, item.id);
+    });
+
+    botaoLike.evento('click', () => {
+        adicionarLike(item.id);
+    });
+    botaoDeslike.evento('click', () => {
+        popupRecusarTarefa(item.id);
+    });
+
+    const botaoEditar = clone.querySelector('.botao_editar');
+    const botaoDeletar = clone.querySelector('.botao_deletar');
+    if (editarDeletar == 'sim' && item.status_valor != 'concluida' && inArray(statusDemanda, ['teste', 'concluida'])) {
+        botaoEditar.addEventListener('click', () => {
             abrirPopupTarefaEditar(item.id);
         });
-        clone.querySelector('.botao_deletar').addEventListener('click', () => {
+        botaoDeletar.addEventListener('click', () => {
             tarefaDeletar(item.id);
         });
+    } else {
+        botaoEditar.displayHide();
+        botaoDeletar.displayHide();
     }
+    ajudaLoading(clone);
+};
+const adicionarImagemEquipe = (bloco, id, nome, imagem) => {
+    const figure = elemento(
+        'figure',
+        {
+            'data-id': id,
+            'data-ajuda': nome,
+        },
+        {
+            backgroundImage: `url(${imagem})`,
+        }
+    );
+    bloco.inicio(figure);
+    ajudaLoading(figure);
 };
 const atualizarTarefaExistente = (id, titulo, texto, tipo) => {
     const bloco = $('#id_tarefa_' + id);
@@ -94,9 +162,12 @@ const abrirPopupTarefaEditar = id => {
 const adicionarNovaDemanda = (bloco, item, abrir) => {
     return new Promise(resolve => {
         const id = item.id;
-        const clone = cloneTarefaLista.cloneNode(true);
-        clone.setAttribute('data-id', item.id);
-        clone.setAttribute('data-status', item.status);
+        const clone = cloneTarefaLista.clonar();
+        clone.attr({
+            id: 'id_demanda_' + item.id,
+            'data-id': item.id,
+            'data-status': item.status,
+        });
 
         const perfil = clone.querySelector('.tarefa_perfil');
         perfil.setAttribute('data-ajuda', item.equipe.nome);
@@ -144,8 +215,9 @@ const adicionarNovaDemanda = (bloco, item, abrir) => {
 
 // CONTATO NUMERO TAREFA
 const contarTarefaDemanda = coluna => {
-    const numero = coluna.querySelectorAll('.conteudo .bloco_tarefa_item').length;
-    const blocoNumero = coluna.querySelector('header h1 span');
+    const blocoColuna = coluna.classe('.bloco_coluna', '?') ? coluna : coluna.closest('.bloco_coluna');
+    const numero = blocoColuna.querySelectorAll('.conteudo .bloco_tarefa_item').length;
+    const blocoNumero = blocoColuna.querySelector('header h1 span');
     blocoNumero.innerText = `(${numero})`;
 };
 
@@ -188,4 +260,28 @@ const verificarExisteTarefa = () => {
         return;
     }
     bloco.classList.remove('display_none');
+};
+
+const mudarDemandaColuna = (atual, destino, demanda) => {
+    const destinoZero = $('.tarefa_zero', destino);
+    if (destinoZero) {
+        destinoZero.displayHide();
+    }
+    destino.inicio(demanda);
+    contarTarefaDemanda(destino);
+    contarTarefaDemanda(atual);
+    if ($$('.bloco_tarefa_item', atual).length == 0) {
+        $('.tarefa_zero', atual).displayShow();
+    }
+
+    const id = demanda.attr('data-id');
+    const status = destino.closest('.bloco_coluna').attr('data-status');
+    ajaxPost(
+        LINK + '/demanda/demanda-status',
+        {
+            id,
+            status,
+        },
+        ''
+    );
 };
