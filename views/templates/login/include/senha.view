@@ -34,7 +34,8 @@
                     <li class="texto_pequeno">Ter pelo menos um símbolo (Por exemplo: !@#$%&*)</li>
                     <li class="texto_pequeno">Ter pelo menos um número</li>
                 </ul>
-                @? formSenha(name:['senha_nova', 'senha_repetir'], label: 'Senha', placeholder: ['Nova senha', 'Repetir senha'], obrigatorio: true)
+                @? formSenha(name: 'senha_nova', label: 'Nova senha', placeholder: 'Digite sua nova senha')
+                @? formSenha(name: 'senha_repetir', label: 'Repetir senha', placeholder:  'Repetir Senha')
             </div>
 
             <div class="bloco_botao">
