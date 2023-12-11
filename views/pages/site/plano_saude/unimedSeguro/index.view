@@ -57,7 +57,7 @@
 
     <div class="bloco_plano_saude">
         <figure>
-            <img src="{!!LINK!!}/images/site/cuidando_de_perto.png" alt="Cuidando de perto">
+            <img src="{!!LINK_ARQUIVO!!}/cuidando_de_perto.png" alt="Cuidando de perto">
         </figure>
         <header class="titulo_rede">
             <h1>Conheça o Cuidando de Perto</h1>
