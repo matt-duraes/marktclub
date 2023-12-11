@@ -13,8 +13,8 @@
 <nav id="menu_principal" class="menu_fechado">
     <div class="bg"></div>
     <div class="conteudo">
-        <figure class="{{CLUBE_LOGO_CLASSE}}">
-            <a href="@route(index.index)" class="container_logo">
+        <figure class="{{CLUBE_LOGO_CLASSE}} bloco_logo_menu">
+            <a href="@route(index.index)">
                 <img class="tema_branco" src="{{CLUBE_LOGO_PRINCIPAL}}" alt="{{CLUBE_TITULO}}">
                 <img class="tema_escuro" src="{{CLUBE_LOGO_SECUNDARIA}}" alt="{{CLUBE_TITULO}}">
             </a>

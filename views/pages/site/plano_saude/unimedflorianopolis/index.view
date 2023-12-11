@@ -447,10 +447,10 @@
         <p><span>Fator Moderador:</span>Coparticipação</p>
         <div class="bloco_tabela_geral">
             <table>
-                <thead>
+                <thead class="container_titulo_coparticipacao">
                     <tr>
-                        <th colspan="2">COPARTICIPAÇÃO 30%</th>
-                        <th colspan="2">COPARTICIPAÇÃO 50%</th>
+                        <th class="titulo_planos" colspan="2">COPARTICIPAÇÃO 30%</th>
+                        <th class="titulo_planos" colspan="2">COPARTICIPAÇÃO 50%</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -479,9 +479,9 @@
         <p><span>Fator Moderador:</span>Coparticipação</p>
         <div class="bloco_tabela_geral">
             <table>
-                <thead>
+                <thead class="container_titulo_coparticipacao">
                     <tr>
-                        <th colspan="4">COPARTICIPAÇÃO 50%</th>
+                        <th class="titulo_planos" colspan="4">COPARTICIPAÇÃO 50%</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -508,9 +508,9 @@
         <p><span>Fator Moderador:</span>Coparticipação</p>
         <div class="bloco_tabela_geral">
             <table>
-                <thead>
+                <thead class="container_titulo_coparticipacao">
                     <tr>
-                        <th colspan="4">COPARTICIPAÇÃO 50%</th>
+                        <th class="titulo_planos" colspan="4">COPARTICIPAÇÃO 50%</th>
                     </tr>
                 </thead>
                 <tbody>
