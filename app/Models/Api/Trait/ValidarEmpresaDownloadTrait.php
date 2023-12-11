@@ -11,6 +11,9 @@ use App\Models\Api\ComercialEmpresa\EmpresaEntity;
 trait ValidarEmpresaDownloadTrait
 {
     private string $nomeCampoEmpresa;
+    private string $idEmpresa;
+    private string $idUsuario;
+    private $whereEmpresa;
 
     /**
      * Mudar o ID da empresa se tiver pemissão
