@@ -20,5 +20,3 @@ return $Painel
         $Painel
             ->campo('usuario_nome', 'Nome');
     });
-
-return $Painel;
