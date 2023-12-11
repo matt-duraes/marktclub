@@ -34,7 +34,6 @@ $Painel->coluna(callback: function () use ($Painel) {
 
 $Painel->coluna(callback: function () use ($Painel) {
     $empresa = (new ApiHelper(token: true))
-        ->json(['titulo' => 'Escolha uma empresa'])
         ->get('/comercial-empresa/select')
         ->array()['dado'] ?? [];
 
@@ -46,7 +45,6 @@ $Painel->coluna(callback: function () use ($Painel) {
                     $Painel->checkbox(name: 'empresa[]', label: $nome ?? 'sem nome fantasia', value: $id);
                 }
             },
-            todos: 'Marcar todas as empresas',
             mais: true
         );
     });
