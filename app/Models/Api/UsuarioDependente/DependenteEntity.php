@@ -27,7 +27,7 @@ final class DependenteEntity extends Entity
     public Status $status;
     protected string $ormTabela = TABELA_USUARIO_CLIENTE;
     protected array $ormInsert = [
-        'cod', 'nome', 'tipo', 'titular', 'data_email', 'status',
+        'cod', 'nome', 'tipo', 'titular', 'data_email', 'status', 'cpf',
         'email_pessoal' => '->email',
         'empresa'       => '->idEmpresa'
     ];
