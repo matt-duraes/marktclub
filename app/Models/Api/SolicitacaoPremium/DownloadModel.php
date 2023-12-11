@@ -22,7 +22,6 @@ final class DownloadModel extends ORM
 
     protected string $ormTabela = TABELA_SOLICITACAO_VOUCHER;
     private array $campoInicial;
-    private int $idEmpresa;
     private string $de;
     private string $ate;
 
