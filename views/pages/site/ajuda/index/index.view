@@ -38,9 +38,6 @@
             <div class="linha"><span>ou escolha uma opção</span></div>
             @ endif;
 
-            @ if( MENU_INDICAR_LOJA ):
-            <a class="link" href="@route('loja.indiqueParceiro)">INDICAR UM PARCEIRO</a>
-            @endif;
             @if ( MENU_AUTOMOVEL ):
             <a class="link" href="@route('automovel.index)?indicar=sim">INDICAR UMA CONCESSIONÁRIA</a>
             @endif;
