@@ -1,4 +1,7 @@
 @CSS
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+</head>
 <div class="bloco_container_carteirinha">
     <div class="bloco_carteirinha">
         <div class="bloco_info">

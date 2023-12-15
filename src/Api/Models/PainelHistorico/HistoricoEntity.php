@@ -52,7 +52,6 @@ final class HistoricoEntity extends Entity
         status|Status|valido
     ';
     private array $usuarioNotificado = [];
-    private int $idUsuario;
 
     public function __construct()
     {
