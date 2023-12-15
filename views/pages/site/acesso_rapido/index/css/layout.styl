@@ -38,6 +38,7 @@ i, .categoria, .mobile, .linha, .resto, .acesso_rapido_link
     order: 1
     bold()
     flexCenter()
+    text-align: center
     margin: 6px 25px 6px 0px
     &:hover
         border: 1px solid $corClube
@@ -79,9 +80,8 @@ i, .categoria, .mobile, .linha, .resto, .acesso_rapido_link
         text-align: center
         width: calc(100% - 25px)
         margin-bottom: 25px
-@media screen and (max-width: 320px)
     .conteudo_principal_acesso_rapido
-        padding-left: 0px
+            padding-left: 0px
     .conteudo_principal_acesso_rapido .links_acesso_rapido
         flex-direction: column
         padding: 20px 0px
