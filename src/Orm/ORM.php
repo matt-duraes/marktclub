@@ -56,6 +56,16 @@ abstract class ORM
             $option[PDO::MYSQL_ATTR_INIT_COMMAND] = 'SET NAMES utf8';
         }
 
+        try {
+            $this->conn($option);
+        } catch (\Throwable) {
+            sleep(1);
+            $this->conn($option);
+        }
+    }
+
+    private function conn($option)
+    {
         $host = $conn['host'] ?? env('DB_HOST', '');
         $banco = $conn['banco'] ?? env('DB_BANCO', '');
         $usuario = $conn['usuario'] ?? env('DB_USUARIO', '');
