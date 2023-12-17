@@ -229,7 +229,7 @@ Object.defineProperty(Object.prototype, 'evento', {
         }
         for (const item of elemento) {
             item.addEventListener(evento, e => {
-                callback(e);
+                callback(e, item);
             });
         }
     },
