@@ -24,9 +24,9 @@
         <p>Um serviço da Seguros Unimed para os seus clientes. Assista o vídeo abaixo:</p>
         <iframe width="560" height="315" src="https://www.youtube.com/embed/wnppH0USXfM" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
         <div class="link_teleorientacao">
-            <a class="botao botao_geral_cor_auto_height cor_bg" href="https://arquivo.marktclub.com.br/download/programa_seguros_unimed.pdf" target="_blank">Clique e veja o cuidado da Seguros Unimed com os beneficiários</a>
+            <a class="botao botao_geral_cor_auto_height cor_bg" href="{!!LINK_ARQUIVO!!}/download/programa_seguros_unimed.pdf" target="_blank">Clique e veja o cuidado da Seguros Unimed com os beneficiários</a>
             <br>
-            <a class="botao botao_geral_cor_auto_height cor_bg" href="https://arquivo.marktclub.com.br/download/manual_acesso_unimed_seguro.pdf" target="_blank">Clique e veja o Manual de acesso ao Apps da Seguros Unimed</a>
+            <a class="botao botao_geral_cor_auto_height cor_bg" href="{!!LINK_ARQUIVO!!}/download/manual_acesso_unimed_seguro.pdf" target="_blank">Clique e veja o Manual de acesso ao Apps da Seguros Unimed</a>
         </div>
     </div>
 </div>
