@@ -19,67 +19,67 @@ final class ListarModel extends ClubeApiHelper
     {
         return [
             (object)[
-                'imagem' => 'https://arquivo.markt.club/pagina/cinema/cinemark.png',
+                'imagem' => LINK_ARQUIVO . '/pagina/cinema/cinemark.png',
                 'link'   => 'https://afiliados.easylive.com.br/?aid=5&category_id=86',
             ],
             (object)[
-                'imagem' => 'https://arquivo.markt.club/pagina/cinema/cinemaxx.png',
+                'imagem' => LINK_ARQUIVO . '/pagina/cinema/cinemaxx.png',
                 'link'   => 'https://afiliados.easylive.com.br/?aid=5&category_id=86',
             ],
             (object)[
-                'imagem' => 'https://arquivo.markt.club/pagina/cinema/kinoplex.png',
+                'imagem' => LINK_ARQUIVO . '/pagina/cinema/kinoplex.png',
                 'link'   => 'https://afiliados.easylive.com.br/?aid=5&category_id=86',
             ],
             (object)[
-                'imagem' => 'https://arquivo.markt.club/pagina/cinema/itau.png',
+                'imagem' => LINK_ARQUIVO . '/pagina/cinema/itau.png',
                 'link'   => 'https://afiliados.easylive.com.br/?aid=5&category_id=86',
             ],
             (object)[
-                'imagem' => 'https://arquivo.markt.club/pagina/cinema/playarte.png',
+                'imagem' => LINK_ARQUIVO . '/pagina/cinema/playarte.png',
                 'link'   => 'https://afiliados.easylive.com.br/?aid=5&category_id=86',
             ],
             (object)[
-                'imagem' => 'https://arquivo.markt.club/pagina/cinema/uci.png',
+                'imagem' => LINK_ARQUIVO . '/pagina/cinema/uci.png',
                 'link'   => 'https://afiliados.easylive.com.br/?aid=5&category_id=86',
             ],
             (object)[
-                'imagem' => 'https://arquivo.markt.club/pagina/cinema/moviecom.png',
+                'imagem' => LINK_ARQUIVO . '/pagina/cinema/moviecom.png',
                 'link'   => 'https://afiliados.easylive.com.br/?aid=5&category_id=86',
             ],
             (object)[
-                'imagem' => 'https://arquivo.markt.club/pagina/cinema/cineart.png',
+                'imagem' => LINK_ARQUIVO . '/pagina/cinema/cineart.png',
                 'link'   => 'https://afiliados.easylive.com.br/?aid=5&category_id=86',
             ],
             (object)[
-                'imagem' => 'https://arquivo.markt.club/pagina/cinema/topazio.png',
+                'imagem' => LINK_ARQUIVO . '/pagina/cinema/topazio.png',
                 'link'   => 'https://afiliados.easylive.com.br/?aid=5&category_id=86',
             ],
             (object)[
-                'imagem' => 'https://arquivo.markt.club/pagina/cinema/arcoplex.png',
+                'imagem' => LINK_ARQUIVO . '/pagina/cinema/arcoplex.png',
                 'link'   => 'https://afiliados.easylive.com.br/?aid=5&category_id=86',
             ],
             (object)[
-                'imagem' => 'https://arquivo.markt.club/pagina/cinema/cinepolis.png',
+                'imagem' => LINK_ARQUIVO . '/pagina/cinema/cinepolis.png',
                 'link'   => 'https://afiliados.easylive.com.br/?aid=5&category_id=86',
             ],
             (object)[
-                'imagem' => 'https://arquivo.markt.club/pagina/cinema/cinea.png',
+                'imagem' => LINK_ARQUIVO . '/pagina/cinema/cinea.png',
                 'link'   => 'https://afiliados.easylive.com.br/?aid=5&category_id=86',
             ],
             (object)[
-                'imagem' => 'https://arquivo.markt.club/pagina/cinema/cineplex.png',
+                'imagem' => LINK_ARQUIVO . '/pagina/cinema/cineplex.png',
                 'link'   => 'https://afiliados.easylive.com.br/?aid=5&category_id=86',
             ],
             (object)[
-                'imagem' => 'https://arquivo.markt.club/pagina/cinema/circuito.png',
+                'imagem' => LINK_ARQUIVO . '/pagina/cinema/circuito.png',
                 'link'   => 'https://afiliados.easylive.com.br/?aid=5&category_id=86',
             ],
             (object)[
-                'imagem' => 'https://arquivo.markt.club/pagina/cinema/gnc.png',
+                'imagem' => LINK_ARQUIVO . '/pagina/cinema/gnc.png',
                 'link'   => 'https://afiliados.easylive.com.br/?aid=5&category_id=86',
             ],
             (object)[
-                'imagem' => 'https://arquivo.markt.club/pagina/cinema/cinesystem.png',
+                'imagem' => LINK_ARQUIVO . '/pagina/cinema/cinesystem.png',
                 'link'   => 'https://afiliados.easylive.com.br/?aid=5&category_id=86',
             ]
         ];
