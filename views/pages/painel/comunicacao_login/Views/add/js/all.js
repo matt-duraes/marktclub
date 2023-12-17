@@ -14,4 +14,4 @@ if (inputPadrao.value == 1) {
     inputDataFim.parentNode.classList.add('display_none');
 }
 
-inputPadrao.parentNode.removeChild(inputPadrao);
+inputPadrao.remove();

@@ -173,7 +173,7 @@ botaoContratarEnviar.addEventListener('click', async () => {
     window.location.assign(LINK + '/saude');
 });
 
-$$('.tirar_tab input').evento('keydown', (e, el) => {
+$$('.tirar_tab input').evento('keydown', e => {
     if (!e.shiftKey && e.key == 'Tab') {
         e.preventDefault();
     }
