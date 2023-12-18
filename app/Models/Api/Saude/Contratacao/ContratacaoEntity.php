@@ -59,7 +59,6 @@ class ContratacaoEntity extends Entity
     public string $endereco_complemento;
     public Status $status;
     public string $responsavel_orgao_expedidor;
-
     protected int $id_saude_simulacao;
     private int $idEmpresa;
     private ?int $idUsuario = null;
