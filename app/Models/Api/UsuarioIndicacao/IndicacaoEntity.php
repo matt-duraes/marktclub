@@ -34,7 +34,7 @@ final class IndicacaoEntity extends Entity
     private int $idEmpresa;
     protected int $id_admin_empresa;
     protected int $id_usuario_cliente;
-    protected string $nome;
+    public string $nome;
     public Email $email;
     public Telefone $telefone;
     public array $quem_indicou = [];

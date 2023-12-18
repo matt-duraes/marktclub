@@ -41,7 +41,7 @@ final class AutomovelEntity extends Entity
     private ?int $idUsuario = null;
     protected int $id_admin_empresa;
     protected int $id_usuario_cliente;
-    protected string $endereco_cidade;
+    public string $endereco_cidade;
     public EnderecoEstado $endereco_estado;
     public string $montadora;
     public string $modelo;
