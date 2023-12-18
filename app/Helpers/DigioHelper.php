@@ -13,6 +13,7 @@ final class DigioHelper extends CurlHelper
         private ?string $id
     ) {
         parent::__construct(env('APIIP_LINK', ''));
+        $this->token = env('APIIP_TOKEN', '');
 
         $this->buscarUsuarioViaCurl();
         $this->validarRetornoUsuario();
