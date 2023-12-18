@@ -58,13 +58,14 @@ class ContratacaoEntity extends Entity
     public int $endereco_numero;
     public string $endereco_complemento;
     public Status $status;
+    public string $responsavel_orgao_expedidor;
+
     protected int $id_saude_simulacao;
     private int $idEmpresa;
     private ?int $idUsuario = null;
     protected int $idSimulacao;
     protected int $id_usuario_cliente;
     protected int $id_admin_empresa;
-    protected string $responsavel_orgao_expedidor;
     protected string $ormTabela = TABELA_SAUDE_CONTRATACAO;
     protected array $ormInsert = [
         'id_admin_empresa'   => '->idEmpresa',
