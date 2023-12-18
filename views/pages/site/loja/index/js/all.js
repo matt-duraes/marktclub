@@ -168,7 +168,6 @@ const buscarParceiro = async () => {
 };
 buscarParceiro();
 botaoCarregarMais.addEventListener('click', () => {
-    buscarGeolocalizacao();
     buscarParceiro();
 });
 
