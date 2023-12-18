@@ -18,7 +18,7 @@ final class ConstrutorEntity extends Entity
         'menu_turismo', 'menu_credito_sicoob', 'logo_principal', 'logo_secundaria', 'favicon', 'titulo',
         'contato_telefone', 'contato_email', 'contato_whatsapp', 'contato_endereco', 'contato_horario',
         'link_app_android', 'link_app_ios', 'header_tag', 'header_descricao', 'menu_loja', 'menu_saude_cnu',
-        'menu_mapa', 'menu_cinema', 'menu_historico', 'menu_acesso_rapido', 'menu_saude_florianopolis',
+        'menu_mapa', 'menu_cinema', 'menu_historico', 'menu_acesso_rapido', 'menu_saude_florianopolis', 'tela_login',
         'menu_farmacia', 'menu_automovel', 'menu_saude_vitoria', 'menu_saude_amil', 'menu_saude_seguro',
         'menu_cashback', 'menu_indicar_usuario', 'menu_indicar_loja', 'menu_ponto_mais_acao', 'menu_cupom', 'menu_odontologico',
         'menu_premium', 'menu_dependente', 'menu_carteira', 'menu_salavip', 'menu_faq', 'menu_como_funciona',
@@ -29,7 +29,7 @@ final class ConstrutorEntity extends Entity
     protected array $ormSalvar = [
         'id_admin_empresa', 'link_clube', 'link_cadastro', 'link_salavip', 'link_odontologico',
         'menu_turismo', 'menu_credito_sicoob', 'logo_principal', 'logo_secundaria', 'favicon', 'titulo',
-        'contato_telefone', 'contato_email', 'contato_whatsapp', 'contato_endereco', 'contato_horario',
+        'contato_telefone', 'contato_email', 'contato_whatsapp', 'contato_endereco', 'contato_horario', 'tela_login',
         'link_app_android', 'link_app_ios', 'header_tag', 'header_descricao', 'menu_loja', 'menu_saude_cnu',
         'menu_mapa', 'menu_cinema', 'menu_historico', 'menu_acesso_rapido', 'menu_ponto_mais_acao', 'menu_saude_florianopolis',
         'menu_farmacia', 'menu_automovel', 'menu_saude_vitoria', 'menu_saude_amil', 'menu_saude_seguro',
@@ -63,6 +63,7 @@ final class ConstrutorEntity extends Entity
     public Telefone $contato_telefone;
     public Telefone $contato_whatsapp;
     public Email $contato_email;
+    public Botao $tela_login;
     public Botao $menu_faq;
     public Botao $menu_como_funciona;
     public Botao $menu_acesso_rapido;
