@@ -68,13 +68,14 @@ final class LoginClubeModel
     {
         if ($this->idEmpresa == 153) {
             return;
-        } elseif ($this->idEmpresa == 2009 and $this->tipo->indice() == Tipo::TITULAR) {
-            $this->Usuario = (new LoginGeapModel(
-                login: $this->login,
-                senha: $this->senha
-            ))->Usuario;
-            return;
         }
+        // elseif ($this->idEmpresa == 2009 and $this->tipo->indice() == Tipo::TITULAR) {
+        //     $this->Usuario = (new LoginGeapModel(
+        //         login: $this->login,
+        //         senha: $this->senha
+        //     ))->Usuario;
+        //     return;
+        // }
         $this->Usuario = (new LoginMarktClubModel(
             login: $this->login,
             senha: $this->senha,
