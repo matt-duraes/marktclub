@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="robots" content="noindex">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login</title>
+    @CSS
+</head>
+<body>
+    <div id="site" class="display_none">
+        <form action="">
+            <input type="hidden" id="LINK" value="<?=LINK?>">
+            <div class="erro" id="bloco_erro"></div>
+            <input type="text" id="input_login" placeholder="CPF">
+            <input type="password" id="input_senha" placeholder="Senha">
+            <div class="botao" id="botao_fazer_login">Login</div>
+        </form>
+    </div>
+
+    <div class="voltar">
+        <a href="<?=LINK?>">Ir para tela de login</a>
+    </div>
+    @JS
+</body>
+</html>
