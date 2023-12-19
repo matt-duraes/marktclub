@@ -1,7 +1,7 @@
 <?php
 
-use App\Classes\Geral\Status;
 use Helpers\ApiHelper;
+use App\Classes\Geral\Status;
 
 $Painel = new PainelConfig\Add(app: 'comunicacao_login', acao: $acao);
 
@@ -33,23 +33,19 @@ $Painel->coluna(callback: function () use ($Painel) {
 });
 
 $Painel->coluna(callback: function () use ($Painel) {
-    $empresa = (new ApiHelper(token: true))
-        ->json(['titulo' => 'Escolha uma empresa'])
-        ->get('/comercial-empresa/select')
-        ->array()['dado'] ?? [];
-
-    $Painel->coluna(callback: function () use ($Painel, $empresa) {
-        $Painel->fieldsetCheckbox(
-            titulo: 'Empresas',
-            callback: function () use ($Painel, $empresa) {
-                foreach ($empresa as $id => $nome) {
-                    $Painel->checkbox(name: 'empresa[]', label: $nome ?? 'sem nome fantasia', value: $id);
-                }
-            },
-            todos: 'Marcar todas as empresas',
-            mais: true
-        );
-    });
+    $Painel->fieldsetCheckbox(
+        titulo: 'Empresas',
+        todos: 'Marcar todas as empresas',
+        mais: true,
+        callback: function () use ($Painel) {
+            $empresa = (new ApiHelper(token: true))
+                ->get('/comercial-empresa/select')
+                ->array()['dado'] ?? [];
+            foreach ($empresa as $id => $nome) {
+                $Painel->checkbox(name: 'empresa[]', label: $nome, value: $id);
+            }
+        }
+    );
     $Painel->hidden(name: 'padrao');
 });
 

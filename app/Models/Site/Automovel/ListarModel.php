@@ -28,7 +28,7 @@ final class ListarModel extends ClubeApiHelper implements ListarInterface
         return (object)[
             'tipo'      => 'automovel-modelo',
             'lista'     => $this->montarDado($dado->dado->lista ?? []),
-            'paginacao' => $dado->dado->pagina,
+            'paginacao' => $dado->dado->pagina ?? 0,
         ];
     }
 

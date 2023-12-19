@@ -24,7 +24,6 @@ final class DownloadModel extends ORM
     use BuscarUsuarioTrait;
 
     protected string $ormTabela = TABELA_USUARIO_CLIENTE;
-    private int $idEmpresa;
 
     public function __construct(
         private ?Request $request = null

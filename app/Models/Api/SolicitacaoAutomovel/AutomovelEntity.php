@@ -41,7 +41,7 @@ final class AutomovelEntity extends Entity
     private ?int $idUsuario = null;
     protected int $id_admin_empresa;
     protected int $id_usuario_cliente;
-    protected string $endereco_cidade;
+    public string $endereco_cidade;
     public EnderecoEstado $endereco_estado;
     public string $montadora;
     public string $modelo;
@@ -94,14 +94,11 @@ final class AutomovelEntity extends Entity
     private function buscarUsuario(): void
     {
         $Usuario = new DadoBaseModel($this->id_usuario_cliente);
-        if (!$Usuario->existe) {
-            return;
-        }
         $this->usuario = [
-            'id'     => $Usuario->id,
-            'nome'   => $Usuario->nome->nome(),
-            'email'  => $Usuario->email->email(),
-            'imagem' => $Usuario->imagem
+            'id'     => $Usuario->id ?? '',
+            'nome'   => $Usuario->nome->nome() ?? '',
+            'email'  => $Usuario->email->email() ?? '',
+            'imagem' => $Usuario->imagem ?? ''
         ];
     }
 }

@@ -70,6 +70,7 @@ final class ClubeMiddleware extends ApiHelper
             ->validar(status: 404)
             ->get('/construtor-clube/clube/' . $host)
             ->object();
+
         sessao('CLUBE_' . $this->id, true);
         sessao('CLUBE', $this->montarClube($dado->dado));
     }
@@ -86,6 +87,7 @@ final class ClubeMiddleware extends ApiHelper
         $dado->api = $dado->api == 'sim';
         $dado->administrado = $dado->administrado == 'sim';
         $dado->chat = $dado->chat == 'sim';
+        $dado->tela_login = $dado->tela_login == 'sim';
         return $dado;
     }
 
@@ -155,6 +157,8 @@ final class ClubeMiddleware extends ApiHelper
         define('MENU_SAIR', $pagina->sair);
         define('MENU_PERFIL', !API || MENU_DEPENDENTE || MENU_CASHBACK || MENU_INDICAR_USUARIO);
         define('MENU_PONTO_MAIS_ACAO', $pagina->ponto_mais_acao);
+
+        define('TELA_LOGIN', $clube->tela_login);
 
         define('LINK_APP_ANDROID', $clube->link_app_android);
         define('LINK_APP_IOS', $clube->link_app_ios);

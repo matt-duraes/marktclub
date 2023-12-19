@@ -25,10 +25,10 @@
         @ endif;
 
         @ if( !empty(CONTATO_EMAIL) ):
-        <div class="dado">
+        <a class="dado" href="mailto:{{CONTATO_EMAIL}}">
             <i>@iconeEmail(15)</i>
             <p class="texto_footer">{{CONTATO_EMAIL}}</p>
-        </div>
+        </a>
         @ endif;
 
         @ if( !empty(CONTATO_HORARIO) ):

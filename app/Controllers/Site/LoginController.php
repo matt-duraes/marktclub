@@ -19,7 +19,7 @@ final class LoginController extends Controller
 {
     public function index(Request $request): Response
     {
-        if (API && !MENU_DEPENDENTE) {
+        if (!TELA_LOGIN) {
             return new Response(url: LINK_LOGIN);
         }
 

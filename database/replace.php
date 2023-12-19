@@ -53,5 +53,8 @@ return [
         'cidade'      => 'endereco_cidade',
         'uf'          => 'endereco_estado',
         'hash'        => 'hash_valor'
+    ],
+    'usuario_indicacao' => [
+        'cod' => 'uuid'
     ]
 ];

@@ -39,7 +39,6 @@ final class SubempresaEntity extends Entity
         status|Status|obrigatorio|vazio|valido
     ';
     protected ?int $id_admin_empresa;
-    protected ?int $idEmpresa;
 
     /**
      * @throws Excecao

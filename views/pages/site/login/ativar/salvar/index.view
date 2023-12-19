@@ -52,7 +52,7 @@
             <li class="texto_pequeno">Ter pelo menos 8 caracteres</li>
             <li class="texto_pequeno">Ter pelo menos uma letra minúscula</li>
             <li class="texto_pequeno">Ter pelo menos uma letra maiúscula</li>
-            <li class="texto_pequeno">Ter pelo menos um símbolo(@, #, $, %)</li>
+            <li class="texto_pequeno">Ter pelo menos um símbolo (Por exemplo: !@#$%&*)</li>
             <li class="texto_pequeno">Ter pelo menos um número</li>
         </ul>
 
