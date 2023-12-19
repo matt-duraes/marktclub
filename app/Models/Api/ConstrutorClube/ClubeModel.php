@@ -81,6 +81,7 @@ final class ClubeModel
             ],
             'tipo_ativacao' => $Construtor->tipo_ativacao->indice(),
             'administrado'  => $Construtor->administrado_status->valor(),
+            'tela_login'    => $Construtor->tela_login->valor(),
             'chat'          => $Construtor->chat_status->valor(),
             'api'           => $api
         ];

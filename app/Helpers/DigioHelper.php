@@ -13,6 +13,7 @@ final class DigioHelper extends CurlHelper
         private ?string $id
     ) {
         parent::__construct(env('APIIP_LINK', ''));
+        $this->token = env('APIIP_TOKEN', '');
 
         $this->buscarUsuarioViaCurl();
         $this->validarRetornoUsuario();
@@ -35,10 +36,7 @@ final class DigioHelper extends CurlHelper
             ->header([
                 'Authorization' => $this->token
             ])
-            ->body(
-                ['client-id', $this->id]
-            )
-            ->post('/digio.php')
+            ->get('/' . $this->id)
             ->array();
         $this->usuario = is_array($usuario) ? $usuario : [];
     }
@@ -58,7 +56,7 @@ final class DigioHelper extends CurlHelper
     {
         $usuario = $this->usuario;
         $this->usuario = [
-            'nome'          => $usuario['name'],
+            'nome'          => $usuario['nome'],
             'email_pessoal' => $usuario['email'],
             'documento'     => $usuario['cpf']
         ];

@@ -4,8 +4,8 @@ namespace App\Models\Oauth\Fenae;
 
 use Erro\Excecao;
 use Helpers\CurlHelper;
-use League\OAuth2\Client\Provider\AbstractProvider;
 use League\OAuth2\Client\Provider\GenericProvider;
+use League\OAuth2\Client\Provider\AbstractProvider;
 
 trait ProviderTrait
 {
@@ -51,12 +51,12 @@ trait ProviderTrait
     {
         if (cookieExiste('MKCLCO')) {
             $this->configuracao = base64Decode(cookie('MKCLCO'));
-            return;
+            // return;
         }
         $configuracao = (new CurlHelper())
             ->get(env('FENAE_LINK_CONFIGURACAO'))
             ->array();
         $this->configuracao = $configuracao;
-        cookie('MKCLCO', base64Encode($configuracao), hora: 1);
+        // cookie('MKCLCO', base64Encode($configuracao), hora: 1);
     }
 }
