@@ -10,7 +10,17 @@ window.addEventListener('load', () => {
         cpf.focus();
     });
 
-    botao.evento('click', async () => {
+    $$('#input_login, #input_senha').evento('keydown', e => {
+        if (e.key == 'Enter') {
+            fazerLogin();
+        }
+    });
+
+    botao.evento('click', () => {
+        fazerLogin();
+    });
+
+    const fazerLogin = async () => {
         if (botao.classe('aguarde', '?')) {
             return;
         }
@@ -47,5 +57,5 @@ window.addEventListener('load', () => {
             return;
         }
         window.location.replace(LINK);
-    });
+    };
 });
