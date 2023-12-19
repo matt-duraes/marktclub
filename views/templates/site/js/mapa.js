@@ -39,7 +39,6 @@ window.addEventListener('load', () => {
                     'Ocorreu um erro ao pegar sua localização, verifique suas permissões no navegador e tente novamente.',
                     '!'
                 );
-                console.log(e.message);
             }
         );
     };

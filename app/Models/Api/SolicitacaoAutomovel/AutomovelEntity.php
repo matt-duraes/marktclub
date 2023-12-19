@@ -95,10 +95,10 @@ final class AutomovelEntity extends Entity
     {
         $Usuario = new DadoBaseModel($this->id_usuario_cliente);
         $this->usuario = [
-            'id'     => $Usuario->id ?? "",
-            'nome'   => $Usuario->nome->nome() ?? "",
-            'email'  => $Usuario->email->email() ?? "",
-            'imagem' => $Usuario->imagem ?? ""
+            'id'     => $Usuario->id ?? '',
+            'nome'   => $Usuario->nome->nome() ?? '',
+            'email'  => $Usuario->email->email() ?? '',
+            'imagem' => $Usuario->imagem ?? ''
         ];
     }
 }
