@@ -52,7 +52,7 @@
         @if(TIPO_USUARIO != 'indicado'):
             <div class="bloco_acessar">
                 <p>{{$dado->desconto}}% em SILIUM</p>
-                <a class="botao_geral_cor cor_bg botao botao_contar_click" data-botao="Acessar" href="{!!$dado->link!!}" target="_blank" rel="nofollow noopener">Acessar parceiro para acumular pontos</a>
+                <a class="botao_geral_cor cor_bg botao botao_contar_click" data-botao="Acessar" href="{!!$dado->link!!}" target="_blank" rel="nofollow noopener">Acessar parceiro</a>
             </div>
             @ if( !empty($dado->texto_outro) ):
             <div class="texto_destaque">{!!$dado->texto_outro!!}</div>

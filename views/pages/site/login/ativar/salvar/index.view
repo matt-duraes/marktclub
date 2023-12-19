@@ -52,11 +52,11 @@
             <li class="texto_pequeno">Ter pelo menos 8 caracteres</li>
             <li class="texto_pequeno">Ter pelo menos uma letra minúscula</li>
             <li class="texto_pequeno">Ter pelo menos uma letra maiúscula</li>
-            <li class="texto_pequeno">Ter pelo menos um símbolo</li>
+            <li class="texto_pequeno">Ter pelo menos um símbolo(@, #, $, %)</li>
             <li class="texto_pequeno">Ter pelo menos um número</li>
         </ul>
 
-        <div class="lista bloco_senha">
+        <div class="lista">
             @? formSenha(name: 'ativar_senha_nova', label: 'Senha', placeholder: 'Senha', obrigatorio: true)
             @? formSenha(name: 'ativar_senha_repetir', label: 'Confirmar Senha', placeholder: 'Confirmar senha', obrigatorio: true)
         </div>
