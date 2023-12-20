@@ -39,6 +39,9 @@ final class CodigoEntity extends Entity implements VoucherInterface
     public string $texto_validar = '';
     public string $qr_code;
     public ConstrutorEntity $Construtor;
+    protected string $id_admin_empresa;
+    protected string $id_usuario_cliente;
+    protected string $id_parceiro_loja;
 
     public function __construct(
         public ?LojaEntity $Parceiro = null,

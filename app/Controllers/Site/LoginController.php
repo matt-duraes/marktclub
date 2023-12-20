@@ -19,7 +19,7 @@ final class LoginController extends Controller
 {
     public function index(Request $request): Response
     {
-        if (API && !MENU_DEPENDENTE) {
+        if (!TELA_LOGIN) {
             return new Response(url: LINK_LOGIN);
         }
 
@@ -29,6 +29,11 @@ final class LoginController extends Controller
             'quantidade_banners' => $dado->quantidade_banners,
             'location'           => base64Decode($request->chave('location', ''), true)
         ]);
+    }
+
+    public function youhuul()
+    {
+        return view('login.youhuul');
     }
 
     /*

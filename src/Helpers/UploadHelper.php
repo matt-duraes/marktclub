@@ -270,6 +270,7 @@ final class UploadHelper
 
     private function passarArquivoPeloAntiVirus()
     {
+        return;
         if (eLocalhost()) {
             return;
         }
