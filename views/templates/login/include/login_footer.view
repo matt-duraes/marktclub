@@ -56,7 +56,7 @@
     <div class="bloco_copyright">
         @ if( ADMINISTRADO ):
         <p>Administrado por:</p>
-        <a href="http://marktclub.com.br" target="_blank" rel="noopener noreferrer"><img src="{{LINK_PADRAO}}/images/logo_marktclub.png" alt="[Administrado por MARKTCLUB]" height="40"></a>
+        <a href="https://youhuul.com.br" target="_blank" rel="noopener noreferrer"><img src="{{LINK_PADRAO}}/images/logo_youhuul.png" alt="[Administrado por YouHuul]" height="35"></a>
         @ endif;
         <p class="copy">
             @2011/{{date('Y')}} Todos os direitos reservados é de uso exclusivo {{str_replace('https://', '', LINK_PADRAO)}}<br>
