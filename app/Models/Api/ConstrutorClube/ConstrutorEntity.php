@@ -54,7 +54,7 @@ final class ConstrutorEntity extends Entity
     public string $link_cadastro;
     public string $link_salavip;
     public string $link_odontologico;
-    public string $header_tag;
+    public array $header_tag;
     public string $header_descricao;
     public string $cor_principal;
     public string $cor_secundaria;
