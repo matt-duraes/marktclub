@@ -2,17 +2,25 @@
 
 namespace App\Models\Api\Demanda;
 
-use ORM\Entity;
-use Modules\DataHora;
-use Helpers\OrmHelper;
-use App\Classes\DemandaTarefa\Tipo;
-use App\Classes\DemandaTarefa\Status;
-use System\Classes\PainelHistorico\Acao;
 use ApiModel\PainelHistorico\HistoricoEntity;
+use App\Classes\DemandaTarefa\Status;
+use App\Classes\DemandaTarefa\Tipo;
 use App\Models\Api\UsuarioEquipe\PerfilModel;
+use Helpers\OrmHelper;
+use Modules\DataHora;
+use ORM\Entity;
+use System\Classes\PainelHistorico\Acao;
 
 final class TarefaEntity extends Entity
 {
+    public Status $status;
+    public int $id_demanda_dado;
+    public int $id_usuario_equipe;
+    public DataHora $data_producao_inicio;
+    public DataHora $data_producao_final;
+    public int $minuto_producao_real;
+    public int $minuto_producao_estimada;
+    public array $teste;
     protected string $ormTabela = TABELA_DEMANDA_TAREFA;
     protected array $ormBuscar = [
         'minuto_producao_estimada', 'titulo', 'texto', 'status', 'tipo', 'id_usuario_equipe', 'minuto_producao_real',
@@ -31,14 +39,7 @@ final class TarefaEntity extends Entity
         tipo|Tipo|valido
         minuto_producao_estimada|Tempo de produção|int
     ';
-    public Status $status;
-    public int $id_demanda_dado;
-    public int $id_usuario_equipe;
-    public DataHora $data_producao_inicio;
-    public DataHora $data_producao_final;
-    public int $minuto_producao_real;
     protected array $like;
-    public array $teste;
     private OrmHelper $OrmEquipe;
 
     public function __construct(
@@ -52,65 +53,9 @@ final class TarefaEntity extends Entity
         $this->OrmEquipe = new OrmHelper(TABELA_USUARIO_EQUIPE);
     }
 
-    protected function regraPosBuscar()
-    {
-        if (!empty($this->id_usuario_equipe)) {
-            $this->equipe = $this->OrmEquipe->pegarUuidPeloId($this->id_usuario_equipe);
-        }
-    }
-
-    private function mudarStatus()
-    {
-        $statusAtual = (new Status($this->prop('status')))->indice();
-        $statusNovo = $this->status->indice();
-        if ($statusNovo == Status::ANDAMENTO && $this->data_producao_inicio->vazio()) {
-            $this->data_producao_inicio = new DataHora(agora());
-        }
-        if ($statusNovo == Status::CONCLUIDA && $this->data_producao_final->vazio()) {
-            $this->data_producao_final = new DataHora(agora());
-        }
-        if ($statusAtual == Status::AGUARDANDO && $statusNovo == Status::ANDAMENTO) {
-            $this->id_usuario_equipe = TOKEN['usuario']->id;
-        }
-    }
-
-    /*
-    |--------------------------------------------------------------------------
-    | INSERT
-    |--------------------------------------------------------------------------
-    */
-    protected function regraInsert()
-    {
-        $this->id_demanda_dado = (new OrmHelper(TABELA_DEMANDA_DADO))->pegarIdPeloUuid($this->demanda);
-        $this->status = new Status(Status::AGUARDANDO);
-        $this->minuto_producao_real = 0;
-    }
-
-    /*
-    |--------------------------------------------------------------------------
-    | REGRA UPDATE
-    |--------------------------------------------------------------------------
-    */
-    protected function regraUpdate()
-    {
-        $this->mudarStatus();
-    }
-
-    /*
-    |--------------------------------------------------------------------------
-    | DEMAIS MÉTODOS
-    |--------------------------------------------------------------------------
-    */
     public function getId()
     {
         return $this->prop('id');
-    }
-
-    private function pegarDemanda()
-    {
-        $Demanda = new DemandaEntity();
-        $Demanda->id($this->id_demanda_dado);
-        return $Demanda;
     }
 
     public function like()
@@ -122,6 +67,12 @@ final class TarefaEntity extends Entity
         $this->like[] = $id;
         $this->salvar();
     }
+
+    /*
+    |--------------------------------------------------------------------------
+    | INSERT
+    |--------------------------------------------------------------------------
+    */
 
     public function deslike(string $motivo)
     {
@@ -144,5 +95,58 @@ final class TarefaEntity extends Entity
         $Historico->notificar_link = LINK_PAINEL . '/demanda/'
             . $Demanda->area->indice() . '#demanda-' . $Demanda->id;
         $Historico->salvar();
+    }
+
+    /*
+    |--------------------------------------------------------------------------
+    | REGRA UPDATE
+    |--------------------------------------------------------------------------
+    */
+
+    private function pegarDemanda()
+    {
+        $Demanda = new DemandaEntity();
+        $Demanda->id($this->id_demanda_dado);
+        return $Demanda;
+    }
+
+    /*
+    |--------------------------------------------------------------------------
+    | DEMAIS MÉTODOS
+    |--------------------------------------------------------------------------
+    */
+
+    protected function regraPosBuscar()
+    {
+        if (!empty($this->id_usuario_equipe)) {
+            $this->equipe = $this->OrmEquipe->pegarUuidPeloId($this->id_usuario_equipe);
+        }
+    }
+
+    protected function regraInsert()
+    {
+        $this->id_demanda_dado = (new OrmHelper(TABELA_DEMANDA_DADO))->pegarIdPeloUuid($this->demanda);
+        $this->status = new Status(Status::AGUARDANDO);
+        $this->minuto_producao_real = 0;
+    }
+
+    protected function regraUpdate()
+    {
+        $this->mudarStatus();
+    }
+
+    private function mudarStatus()
+    {
+        $statusAtual = (new Status($this->prop('status')))->indice();
+        $statusNovo = $this->status->indice();
+        if ($statusNovo == Status::ANDAMENTO && $this->data_producao_inicio->vazio()) {
+            $this->data_producao_inicio = new DataHora(agora());
+        }
+        if ($statusNovo == Status::CONCLUIDA && $this->data_producao_final->vazio()) {
+            $this->data_producao_final = new DataHora(agora());
+        }
+        if ($statusAtual == Status::AGUARDANDO && $statusNovo == Status::ANDAMENTO) {
+            $this->id_usuario_equipe = TOKEN['usuario']->id;
+        }
     }
 }
