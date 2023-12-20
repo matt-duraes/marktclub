@@ -48,8 +48,8 @@ class SolicitacaoContatoController extends Controller implements
     {
         return mensagemSucesso(
             pegarPropriedadeDaEntity($contatoEntity, lista: [
-                'nome', 'email', 'telefone', 'mensagem', 'empresa',
-                'url', 'status', 'data_criacao', 'data_atualizacao'
+                'empresa', 'tipo', 'loca', 'nome', 'email', 'telefone', 'mensagem',
+                'url', 'data_criacao', 'data_atualizacao', 'status'
             ]),
             $status
         );
@@ -104,10 +104,5 @@ class SolicitacaoContatoController extends Controller implements
         $Contato->set(lista: $request->dado());
         $Contato->salvar();
         return new Response(status: 204);
-    }
-
-    public function postContato(Request $request)
-    {
-        return $this->postSalvar($request);
     }
 }
