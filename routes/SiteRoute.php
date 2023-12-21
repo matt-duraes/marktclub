@@ -96,6 +96,11 @@ Route
             ::nome('login')
             ::view('/login/login');
 
+        // Youhuul
+        Route
+            ::nome('youhuul')
+            ::view('/login/youhuul');
+
         // UBER/DIGIO
         Route
             ::nome('digio')
@@ -396,17 +401,6 @@ Route
                 'nome', 'telefone', 'email', 'mensagem'
             ])
             ::post('/convenios/indicar');
-    });
-
-Route
-    ::nome('voucher')
-    ::middleware(ClubeMiddleware::class, 'buscar')
-    ::middleware(AuthMiddleware::class, 'logado')
-    ::controller(App\Controllers\Site\VoucherController::class)
-    ::grupo(function () {
-        Route
-            ::nome('voucher')
-            ::view('/voucher/{url}');
     });
 
 Route

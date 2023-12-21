@@ -2118,24 +2118,20 @@ Route
             ::get('/solicitacao-contato');
 
         Route
+            ::nome('salvar')
+            ::middleware(TokenMiddleware::class, 'scope', ['solicitacao_contato:salvar'])
+            ::request([
+                'local', 'tipo', 'nome', 'email', 'telefone', 'mensagem'
+            ])
+            ::post('/solicitacao-contato');
+
+        Route
             ::nome('atualizar')
             ::middleware(TokenMiddleware::class, 'scope', ['solicitacao_contato:atualizar'])
             ::request([
                 '!status'
             ])
             ::put('/solicitacao-contato/{id}');
-    });
-
-Route
-    ::nome('contato_login')
-    ::controller(App\Controllers\Api\SolicitacaoContatoController::class)
-    ::grupo(function () {
-        Route
-            ::nome('contato')
-            ::request([
-                'nome', 'email', 'telefone', 'mensagem', 'url'
-            ])
-            ::post('/solicitacao-contato');
     });
 
 Route

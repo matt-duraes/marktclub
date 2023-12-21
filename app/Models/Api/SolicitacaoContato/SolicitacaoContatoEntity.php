@@ -3,38 +3,31 @@
 namespace App\Models\Api\SolicitacaoContato;
 
 use ORM\Entity;
-use Http\Request;
 use Modules\Nome;
 use Modules\Email;
 use Modules\Telefone;
 use Helpers\OrmHelper;
 use App\Classes\SolicitacaoContato\Status;
-use App\Models\Api\SolicitacaoContato\Trait\ConstrutorTrait;
+use App\Models\Api\Trait\ValidarEmpresaTrait;
 
 class SolicitacaoContatoEntity extends Entity
 {
-    use ConstrutorTrait;
+    use ValidarEmpresaTrait;
 
-    public Nome $nome;
-    public Email $email;
-    public Telefone $telefone;
-    public string $mensagem;
-    public string $url;
-    public Status $status;
-    public array $empresa;
     protected string $ormTabela = TABELA_SOLICITACAO_CONTATO;
     protected array $ormBuscar = [
-        'id_admin_empresa', 'nome', 'email',
-        'telefone', 'mensagem', 'status', 'data_criacao', 'data_atualizacao'
+        'id_admin_empresa', 'local', 'tipo', 'nome', 'email', 'telefone', 'mensagem',
+        'status', 'data_criacao', 'data_atualizacao'
     ];
     protected array $ormInsert = [
-        'id_admin_empresa' => '->idEmpresa',
-        'nome', 'email', 'telefone', 'mensagem', 'status'
+        'id_admin_empresa', 'local', 'tipo', 'nome', 'email', 'telefone', 'mensagem', 'status'
     ];
     protected array $ormUpdate = [
         'status'
     ];
     protected string $ormValidarInsert = '
+        local|Local|obrigatorio|vazio
+        tipo|Tipo|obrigatorio|vazio
         nome|Nome|obrigatorio|vazio|valido
         email|E-mail|obrigatorio|vazio|valido
         telefone|Telefone|obrigatorio|vazio|valido
@@ -45,29 +38,29 @@ class SolicitacaoContatoEntity extends Entity
     ';
     private int $idEmpresa;
     protected int $id_admin_empresa;
+    public string $local;
+    public string $tipo;
+    public Nome $nome;
+    public Email $email;
+    public Telefone $telefone;
+    public string $mensagem;
+    public Status $status;
+    public array $empresa;
 
-    public function __construct(
-        protected readonly ?Request $request = null
-    ) {
+    public function __construct()
+    {
+        $this->setarIdEmpresa();
         parent::__construct();
     }
 
     public function regraInsert(): void
     {
-        $this->buscarIdEmpresa();
+        $this->id_admin_empresa = $this->idEmpresa;
         $this->status = new Status(Status::NOVO);
     }
 
     public function regraPosBuscar(): void
     {
-        if (empty($this->id_admin_empresa)) {
-            $this->empresa = [
-                'id'   => '',
-                'nome' => ''
-            ];
-            return;
-        }
-
         $empresa = (new OrmHelper(TABELA_COMERCIAL_EMPRESA))
             ->pegarPrimeiroRegistro(['id', $this->id_admin_empresa], [
                 'uuid', 'nome_fantasia'

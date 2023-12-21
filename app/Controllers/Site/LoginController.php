@@ -31,6 +31,11 @@ final class LoginController extends Controller
         ]);
     }
 
+    public function youhuul()
+    {
+        return view('login.youhuul');
+    }
+
     /*
     |--------------------------------------------------------------------------
     | DIGIO
