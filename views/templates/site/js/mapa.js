@@ -43,3 +43,6 @@ window.addEventListener('load', () => {
         );
     };
 });
+window.addEventListener('beforeunload', () => {
+    Loading.hide();
+});
