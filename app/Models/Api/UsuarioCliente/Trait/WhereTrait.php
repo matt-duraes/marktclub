@@ -167,7 +167,7 @@ trait WhereTrait
         $tipo = new TipoUsuario($this->request->tipo);
         if (!$tipo->vazio() && $tipo->valido()) {
             // Funcionario é do tipo titular com federação = FU
-            return ['tipo', (new TipoUsuario(TipoUsuario::TITULAR))->numero()];
+            return ['tipo', $tipo->numero()];
         }
     }
 
