@@ -11,6 +11,7 @@ $seeds = [
         'cod'           => '5595203c-f7b1-4211-9981-bf09eb236b35',
         'empresa'       => 1,
         'tipo'          => 1,
+        'federacao'     => 'DF',
         'nome'          => nomeCompletoAleatorio(),
         'documento'     => cpfAleatorio(),
         'email_pessoal' => emailAleatorio(),
@@ -111,6 +112,17 @@ $seeds = [
         'nome'          => 'Usuário duplicado',
         'documento'     => '52910622070',
         'email_pessoal' => 'usuario@duplicado.com',
+        'salt'          => password('Teste@1324'),
+        'status'        => 1
+    ],
+    [
+        'cod'           => uuid(),
+        'empresa'       => 1,
+        'tipo'          => 1,
+        'federacao'     => 'FU',
+        'nome'          => 'Funcionario 1',
+        'documento'     => cpfAleatorio(),
+        'email_pessoal' => 'funcionario@funcionario.com',
         'salt'          => password('Teste@1324'),
         'status'        => 1
     ],

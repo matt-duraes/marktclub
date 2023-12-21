@@ -17,10 +17,21 @@ trait WhereTrait
     {
         $request = $this->request;
         $where = [];
+        $listaEstado = (new ListaHelper())->uf()->r();
 
         $whereEmpresa = $this->pegarWhereEmpresa();
         if ($whereEmpresa) {
             $where[] = $whereEmpresa;
+        }
+
+        $whereTipo = $this->pegarWhereTipo();
+        if ($whereTipo) {
+            $where[] = $whereTipo;
+        }
+
+        $whereFederacao = $this->pegarWhereFederacao($listaEstado);
+        if ($whereFederacao) {
+            $where[] = $whereFederacao;
         }
 
         if (!empty($this->idSubempresa)) {
@@ -47,26 +58,10 @@ trait WhereTrait
             $where[] = [$wherePesquisa];
         }
 
-        // federação
-        $listaEstado = (new ListaHelper())->uf()->r();
-        $federacao = $request->federacao;
-        if ($request->tipo == 'funcionario') {
-            $where[] = ['federacao', 'FU'];
-        }
-        if (in_array($federacao, $listaEstado)) {
-            $where[] = ['federacao', $federacao];
-        }
-
         // estado
         $enderecoEstado = $request->endereco_estado;
         if (in_array($enderecoEstado, $listaEstado)) {
             $where[] = ['uf', $enderecoEstado];
-        }
-
-        // tipo
-        $tipo = new TipoUsuario($request->tipo);
-        if (!$tipo->vazio() && $tipo->valido()) {
-            $where[] = ['tipo', $tipo->numero()];
         }
 
         // nome
@@ -149,7 +144,6 @@ trait WhereTrait
         if (!$TrabalhoCargo->vazio() && $TrabalhoCargo->valido()) {
             $where[] = ['trabalho_cargo', $TrabalhoCargo->numero()];
         }
-
         return $where;
     }
 
@@ -161,6 +155,41 @@ trait WhereTrait
 
         if (!empty($this->request->empresa)) {
             return ['empresa', (new OrmHelper(TABELA_COMERCIAL_EMPRESA))->pegarIdPeloUuid($this->request->empresa)];
+        }
+    }
+
+    private function pegarWhereTipo()
+    {
+        if ($this->request->tipo == 'funcionario') {
+            return ['tipo', (new TipoUsuario(TipoUsuario::TITULAR))->numero()];
+        }
+
+        $tipo = new TipoUsuario($this->request->tipo);
+        if (!$tipo->vazio() && $tipo->valido()) {
+            // Funcionario é do tipo titular com federação = FU
+            return ['tipo', (new TipoUsuario(TipoUsuario::TITULAR))->numero()];
+        }
+    }
+
+    private function pegarWhereFederacao(array $listaEstado)
+    {
+        $federacao = $this->request->federacao;
+        $tipo = $this->request->tipo;
+
+        if ($tipo == 'funcionario') {
+            return ['federacao', 'FU'];
+        }
+
+        if ($tipo === 'titular' && empty($federacao)) {
+            return [
+                'OR',
+                ['federacao', '!=', 'FU'],
+                ['federacao', 'isnull']
+            ];
+        }
+
+        if (in_array($federacao, $listaEstado)) {
+            return ['federacao', $federacao];
         }
     }
 }
