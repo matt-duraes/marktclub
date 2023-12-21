@@ -398,6 +398,12 @@ Route
             ::post('/usuario-dependente');
 
         Route
+            ::nome('atualizar')
+            ::middleware(TokenMiddleware::class, 'scope', ['usuario_dependente:atualizar'])
+            ::request(['!senha_nova', '!senha_repetida'])
+            ::put('/usuario-dependente');
+
+        Route
             ::nome('deletar')
             ::middleware(TokenMiddleware::class, 'scope', ['usuario_dependente:deletar'])
             ::delete('/usuario-dependente/{id}');

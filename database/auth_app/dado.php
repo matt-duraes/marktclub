@@ -7,8 +7,8 @@ $scope = [
     'usuario_cliente:buscar', 'usuario_cliente:deletar', 'usuario_cliente:deletar_cpf',
     'usuario_cliente:download', 'usuario_cliente:apple', 'usuario_cliente:ativar', 'usuario_cliente:senha',
 
-    'usuario_dependente:salvar', 'usuario_dependente:listar', 'usuario_dependente:deletar',
-    'usuario_dependente:email',
+    'usuario_dependente:listar', 'usuario_dependente:salvar', 'usuario_dependente:atualizar',
+    'usuario_dependente:deletar', 'usuario_dependente:email',
 
     'usuario_equipe:salvar', 'usuario_equipe:atualizar', 'usuario_equipe:listar',
     'usuario_equipe:buscar', 'usuario_equipe:deletar', 'usuario_equipe:validar_senha',
