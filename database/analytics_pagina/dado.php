@@ -8,8 +8,8 @@ $urls = [
 ];
 $dado = [];
 
-for ($e = 0; $e <= 50; $e++) {
-    for ($i = 0; $i <= 10; $i++) {
+for ($e = 0; $e <= 10; $e++) {
+    for ($i = 0; $i <= 2; $i++) {
         $dado[] = [
             'id_admin_empresa' => $e,
             'quantidade'       => rand(1, 1000),

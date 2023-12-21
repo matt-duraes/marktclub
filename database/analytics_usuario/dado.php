@@ -20,7 +20,7 @@ $dado = [
     ]
 ];
 
-for ($e = 1; $e <= 50; $e++) {
+for ($e = 1; $e <= 10; $e++) {
     $usuario1 = [
         'nome'               => nomeCompletoAleatorio(),
         'cpf'                => cpfAleatorio(),
@@ -37,7 +37,7 @@ for ($e = 1; $e <= 50; $e++) {
         'id_usuario_cliente' => $e * numeroAleatorio(1, 1000),
     ];
 
-    for ($i = 0; $i <= 10; $i++) {
+    for ($i = 0; $i <= 2; $i++) {
         $dado[] = [
             'id_admin_empresa'   => $e,
             'id_usuario_cliente' => $usuario1['id_usuario_cliente'],

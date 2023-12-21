@@ -13,8 +13,8 @@ $parceiros = [
     'Casa do Construtor',
 ];
 
-for ($e = 1; $e <= 50; $e++) {
-    for ($i = 1; $i <= 20; $i++) {
+for ($e = 1; $e <= 10; $e++) {
+    for ($i = 1; $i <= 2; $i++) {
         $id = numeroAleatorio(1, 3);
 
         $dado[] = [
