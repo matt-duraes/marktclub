@@ -42,6 +42,8 @@ abstract class ORM
     use TabelaTrait;
     use SetGetTrait;
 
+    private int $connFalha = 0;
+
     /**
      * @param array $option Option aceitos pelo PDO
      * @param array $conn   Option para a conexao podendo ser:
@@ -55,12 +57,21 @@ abstract class ORM
         if (empty($option)) {
             $option[PDO::MYSQL_ATTR_INIT_COMMAND] = 'SET NAMES utf8';
         }
+        $this->connLaco($option);
+    }
 
+    public function connLaco($option)
+    {
+        if ($this->connFalha == 10) {
+            $this->conn($option);
+            return;
+        }
         try {
             $this->conn($option);
         } catch (\Throwable) {
+            $this->connFalha++;
             sleep(1);
-            $this->conn($option);
+            $this->connLaco($option);
         }
     }
 
