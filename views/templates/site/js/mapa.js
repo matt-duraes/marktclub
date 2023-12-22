@@ -14,17 +14,17 @@ window.addEventListener('load', () => {
         });
     });
 
-    let abortController; // Variável para armazenar o controller para abortar a solicitação
+    let abortController;
 
     const pegarLocalizacao = () => {
-        abortController = new AbortController(); // Criar um novo AbortController
+        abortController = new AbortController();
 
         Loading.show();
 
         navigator.geolocation.getCurrentPosition(
             position => {
                 Loading.hide();
-                abortController.abort(); // Cancelar a solicitação quando a localização é obtida
+                abortController.abort();
                 window.location.assign(
                     LINK +
                         '/convenios?latitude=' +
@@ -49,14 +49,13 @@ window.addEventListener('load', () => {
                     '!'
                 );
             },
-            { signal: abortController.signal } // Passar o signal do AbortController para a solicitação
+            { signal: abortController.signal }
         );
     };
 
-    // Adicionar um listener para o evento popstate (quando o usuário clica no botão de voltar do navegador)
     window.addEventListener('popstate', () => {
         if (abortController) {
-            abortController.abort(); // Cancelar a solicitação se o usuário clicar no botão de voltar
+            abortController.abort();
         }
         Loading.hide();
     });
