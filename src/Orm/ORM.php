@@ -42,8 +42,6 @@ abstract class ORM
     use TabelaTrait;
     use SetGetTrait;
 
-    private int $connFalha = 0;
-
     /**
      * @param array $option Option aceitos pelo PDO
      * @param array $conn   Option para a conexao podendo ser:
@@ -57,38 +55,25 @@ abstract class ORM
         if (empty($option)) {
             $option[PDO::MYSQL_ATTR_INIT_COMMAND] = 'SET NAMES utf8';
         }
-        $this->connLaco($option);
-    }
 
-    public function connLaco($option)
-    {
-        if ($this->connFalha == 10) {
-            $this->conn($option);
-            return;
-        }
-        try {
-            $this->conn($option);
-        } catch (\Throwable) {
-            $this->connFalha++;
-            sleep(1);
-            $this->connLaco($option);
-        }
-    }
-
-    private function conn($option)
-    {
         $host = $conn['host'] ?? env('DB_HOST', '');
         $banco = $conn['banco'] ?? env('DB_BANCO', '');
         $usuario = $conn['usuario'] ?? env('DB_USUARIO', '');
         $senha = $conn['senha'] ?? env('DB_SENHA', '');
         $porta = $conn['porta'] ?? env('DB_PORT', '');
         $porta = !empty($porta) && preg_match('/^[0-9]+$/', $porta) ? ';port=' . $porta : '';
+
         $this->ormDB = new PDO(
-            'mysql:host=' . $host . ';dbname=' . $banco . $porta,
+            'mysql:host=' . $this->pegarIpSeDominio($host) . ';dbname=' . $banco . $porta,
             $usuario,
             $senha,
             $option
         );
+    }
+
+    private function pegarIpSeDominio($host)
+    {
+        return filter_var($host, FILTER_VALIDATE_DOMAIN) ? gethostbyname($host) : $host;
     }
 
     private function pegarReplace(string $tabela = null): array
