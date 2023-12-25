@@ -56,28 +56,24 @@ abstract class ORM
             $option[PDO::MYSQL_ATTR_INIT_COMMAND] = 'SET NAMES utf8';
         }
 
-        try {
-            $this->conn($option);
-        } catch (\Throwable) {
-            sleep(1);
-            $this->conn($option);
-        }
-    }
-
-    private function conn($option)
-    {
         $host = $conn['host'] ?? env('DB_HOST', '');
         $banco = $conn['banco'] ?? env('DB_BANCO', '');
         $usuario = $conn['usuario'] ?? env('DB_USUARIO', '');
         $senha = $conn['senha'] ?? env('DB_SENHA', '');
         $porta = $conn['porta'] ?? env('DB_PORT', '');
         $porta = !empty($porta) && preg_match('/^[0-9]+$/', $porta) ? ';port=' . $porta : '';
+
         $this->ormDB = new PDO(
-            'mysql:host=' . $host . ';dbname=' . $banco . $porta,
+            'mysql:host=' . $this->pegarIpSeDominio($host) . ';dbname=' . $banco . $porta,
             $usuario,
             $senha,
             $option
         );
+    }
+
+    private function pegarIpSeDominio($host)
+    {
+        return filter_var($host, FILTER_VALIDATE_DOMAIN) ? gethostbyname($host) : $host;
     }
 
     private function pegarReplace(string $tabela = null): array

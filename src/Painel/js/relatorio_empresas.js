@@ -11,10 +11,33 @@ window.addEventListener('load', () => {
 
     inputMarcarTodos.addEventListener('change', (e) => {
         const checkboxes = blocoCheckboxEmpresa.querySelectorAll('input[type=checkbox]');
-        for (let i = 0; i < checkboxes.length; i++) {
-            checkboxes[i].checked = e.target.checked;
-            adicionarEmpresaNaBusca(checkboxes[i]);
-        }
+        const empresas = Array.from(empresasBusca.children);        ;
+
+        const elementosAdicionados = new Set();
+
+        empresas.map((empresa) => {
+            empresasBusca.removeChild(empresa);
+        });
+
+        checkboxes.forEach((checkbox) => {
+            checkbox.checked = e.target.checked;
+            const div = checkbox.parentNode;
+            const label = div.querySelector('label');
+
+            if (e.target.checked) {
+                if (!elementosAdicionados.has(label.innerText)) {
+                    const divEmpresa = document.createElement('div');
+                    divEmpresa.title = label.innerText;
+                    divEmpresa.innerText = label.innerText;
+
+                    empresasBusca.appendChild(divEmpresa);
+
+                    elementosAdicionados.add(label.innerText);
+                }
+            } else {
+                elementosAdicionados.clear();
+            }
+        });
     });
 
     botaoEmpresa.addEventListener('click', () => {
