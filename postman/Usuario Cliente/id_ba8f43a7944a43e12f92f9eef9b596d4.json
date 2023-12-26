@@ -1,0 +1,1 @@
+{"id":"id_ba8f43a7944a43e12f92f9eef9b596d4","token":"token","metodo":"POST","nome":"\/usuario-cliente\/validar-senha","uri":"{{LINK}}\/usuario-cliente\/validar-senha","parametro":[],"body":[["cript",true,"senha","$senha",""]],"header":[],"variavel":[],"json":[],"documentacao":{"status":false,"descricao":"","requisicao":"","resposta":"","scope":"usuario_cliente:validar_senha"}}

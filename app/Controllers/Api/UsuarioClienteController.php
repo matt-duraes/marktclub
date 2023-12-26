@@ -258,4 +258,29 @@ final class UsuarioClienteController extends Controller implements
         );
         return new Response(status: 204);
     }
+
+    public function postValidarSenha(Request $request)
+    {
+        $id = TOKEN['usuario']->id;
+
+        $senha = $request->senha;
+        if (!defined('TOKEN')) {
+            mensagemStatus(401, localhost: 'Token não foi definido.');
+        } elseif (empty($id)) {
+            mensagemStatus(404);
+        } elseif (empty($senha)) {
+            mensagemErro('Campo obrigatório!', 'O campo senha é obrigatório.');
+        }
+
+        $Usuario = new ClienteEntity();
+        $Usuario->buscar([
+            ['id', $id]
+        ]);
+
+        if ($Usuario->senha->validarSenha($senha)) {
+            return mensagemSucesso(['senha' => true]);
+        }
+
+        mensagemErro('Senha inválida!', 'A senha informada é inválida.');
+    }
 }
