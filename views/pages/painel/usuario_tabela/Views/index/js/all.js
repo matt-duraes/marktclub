@@ -248,7 +248,7 @@ window.addEventListener('load', () => {
         }
 
         const body = new FormData();
-        const total = quantidadeUsuario > 30 ? 30 : quantidadeUsuario;
+        const total = quantidadeUsuario > 15 ? 15 : quantidadeUsuario;
         let i, item, hash;
         for (i = 0; i < total; ++i) {
             item = usuario[i];
