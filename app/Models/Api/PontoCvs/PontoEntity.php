@@ -43,6 +43,7 @@ final class PontoEntity extends Entity
     public string $usuario_telefone_fixo;
     public string $usuario_telefone_celular;
     public string $usuario_email_pessoal;
+    public string $usuario_email_trabalho;
     public string $usuario_status;
     public int $id_usuario_cliente;
     public array $usuario;
