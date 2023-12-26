@@ -284,7 +284,11 @@ Route
                 '!trabalho_data_inicio', '!grupo', '!empresa', '!subempresa', '!federacao'
             ])
             ::post('/usuario-cliente');
-
+        Route
+            ::nome('validarSenha')
+            ::middleware(TokenMiddleware::class, 'scope', ['usuario_cliente:validar_senha'])
+            ::request(['senha'])
+            ::post('/usuario-cliente/validar-senha');
         Route
             ::nome('atualizar')
             ::middleware(TokenMiddleware::class, 'scope', ['usuario_cliente:atualizar'])
