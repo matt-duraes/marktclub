@@ -19,16 +19,19 @@ final class ListarModel extends ClubeApiHelper implements ListarInterface
 
     public function listarDados(): stdClass
     {
-        $dado = $this->json([
-            'pagina'    => 1,
-            'parceiro'  => $this->url,
-            'publicado' => Botao::SIM
-        ])->get('/automovel-modelo')->object();
+        $dado = $this
+            ->json([
+                'pagina'    => 1,
+                'parceiro'  => $this->url,
+                'publicado' => Botao::SIM
+            ])
+            ->get('/automovel-modelo')
+            ->array()['dado'] ?? [];
 
         return (object)[
             'tipo'      => 'automovel-modelo',
-            'lista'     => $this->montarDado($dado->dado->lista ?? []),
-            'paginacao' => $dado->dado->pagina ?? 0,
+            'lista'     => $this->montarDado($dado['lista'] ?? []),
+            'paginacao' => $dado['pagina'] ?? 0,
         ];
     }
 
