@@ -7,8 +7,8 @@ $dado = [
     ['id' => '103', 'id_admin_empresa' => '1', 'quantidade' => '47', 'navegador' => 'Firefox', 'data_acesso' => dataRemover($data, 1, 'dia')]
 ];
 
-for ($e = 1; $e <= 100; $e++) {
-    for ($i = 1; $i <= 10; $i++) {
+for ($e = 1; $e <= 10; $e++) {
+    for ($i = 1; $i <= 5; $i++) {
         $dado[] = [
             'id_admin_empresa' => $e,
             'quantidade'       => rand(1, 100),

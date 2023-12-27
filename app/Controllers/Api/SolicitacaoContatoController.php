@@ -48,7 +48,7 @@ class SolicitacaoContatoController extends Controller implements
     {
         return mensagemSucesso(
             pegarPropriedadeDaEntity($contatoEntity, lista: [
-                'empresa', 'tipo', 'loca', 'nome', 'email', 'telefone', 'mensagem',
+                'empresa', 'tipo', 'local', 'nome', 'email', 'telefone', 'mensagem',
                 'url', 'data_criacao', 'data_atualizacao', 'status'
             ]),
             $status
