@@ -114,6 +114,18 @@ if (!function_exists('validarJson')) {
         }
     }
 }
+if (!function_exists('json_validate')) {
+    /**
+     * Valida se string é um json
+     *
+     * @param  null|string $json Json a ser validado
+     * @return bool        Retorna true caso o valor seja válido
+     */
+    function json_validate(?string $json): bool
+    {
+        return validarJson($json);
+    }
+}
 
 if (!function_exists('validarUrl')) {
     /**
