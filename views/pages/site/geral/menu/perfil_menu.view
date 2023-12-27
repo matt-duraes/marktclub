@@ -23,8 +23,8 @@
 @ endif;
 @ if (MENU_PONTO_MAIS_ACAO) :
 <a id="container_mais_acao" class="botao {!!MENU_HOVER == 'ponto-mais-acao' ? 'cor_bg pagina_atual' : ''!!}" href="@route(pontoCvs.index)">
-    <i id="iconeCvs">@iconeCvs(22)</i>
-    Ponto + Ação
+    <i id="icone_mais_acao">@iconeCvs(22)</i>
+    <p class="texto_menu_mais_acao">Ponto + Ação</p>
 </a>
 @ endif;
 
