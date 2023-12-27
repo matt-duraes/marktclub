@@ -41,7 +41,7 @@ final class ParceiroLojaController extends Controller implements
                 lista: [
                     'titulo', 'link_logo', 'link_capa_mobile', 'link_capa_desktop', 'texto_desconto',
                     'link_site', 'url', 'texto_voucher', 'texto_procedimento', 'texto_descricao',
-                    'procedimento', 'favorito', 'status'
+                    'procedimento', 'arquivo', 'favorito', 'status'
                 ]
             )
         );

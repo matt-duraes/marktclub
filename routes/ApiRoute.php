@@ -1216,7 +1216,6 @@ Route
             ::middleware(TokenMiddleware::class, 'scope', ['parceiro_loja:listar'])
             ::request(['!tipo', '!titulo'], 'json')
             ::get('/parceiro-loja/select');
-
         Route
             ::nome('listar')
             ::middleware(TokenMiddleware::class, 'scope', ['parceiro_loja:listar'])
@@ -1226,18 +1225,15 @@ Route
                 '!latitude', '!longitude', '!estado'
             ], 'json')
             ::get('/parceiro-loja');
-
         Route
             ::nome('buscar')
             ::middleware(TokenMiddleware::class, 'scope', ['parceiro_loja:buscar'])
             ::get('/parceiro-loja/{id}');
-
         Route
             ::nome('destaque')
             ::middleware(TokenMiddleware::class, 'scope', ['parceiro_loja:destaque'])
             ::request(['categoria', 'subcategoria', 'quantidade'], 'json')
             ::get('/parceiro-loja/destaque');
-
         Route
             ::nome('relacionado')
             ::middleware(TokenMiddleware::class, 'scope', ['parceiro_loja:relacionado'])
