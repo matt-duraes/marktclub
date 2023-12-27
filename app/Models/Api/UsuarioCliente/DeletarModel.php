@@ -2,10 +2,12 @@
 
 namespace App\Models\Api\UsuarioCliente;
 
-use ORM\ORM;
 use App\Classes\UsuarioCliente\Helper;
 use App\Classes\UsuarioCliente\TipoUsuario;
 use App\Models\Api\Trait\ValidarEmpresaTrait;
+use Erro\Excecao;
+use ORM\ORM;
+use stdClass;
 
 final class DeletarModel extends ORM
 {
@@ -15,37 +17,40 @@ final class DeletarModel extends ORM
     private int $idEmpresa;
     private array $usuario = [];
 
+    /**
+     * @throws Excecao
+     */
     public function __construct()
     {
-        parent::__construct();
         $this->validarEmpresa('empresa');
+        parent::__construct();
     }
 
-    public function uuid($id)
+    /**
+     * @param string $id
+     *
+     * @return void
+     * @throws Excecao
+     */
+    public function uuid(string $id): void
     {
         $usuario = $this
-            ->where($this->pegarWhereParaDeletar([
-                ['status', 'in', Helper::STATUS_LIBERADO],
-                ['cod', $id]
-            ]))
+            ->where(
+                $this->pegarWhereParaDeletar([
+                    ['cod', $id],
+                    ['status', 'in', Helper::STATUS_LIBERADO]
+                ])
+            )
             ->primeiro();
-
         $this->validarUsuarioPegarDependente($usuario);
     }
 
-    public function cpf($cpf)
-    {
-        $usuario = $this
-            ->where($this->pegarWhereParaDeletar([
-                ['status', 'in', Helper::STATUS_LIBERADO],
-                ['documento', soNumero($cpf)]
-            ]))
-            ->primeiro();
-
-        $this->validarUsuarioPegarDependente($usuario);
-    }
-
-    private function pegarWhereParaDeletar(array $where)
+    /**
+     * @param array $where
+     *
+     * @return array
+     */
+    private function pegarWhereParaDeletar(array $where): array
     {
         if (!empty($this->ormWherePadrao)) {
             $where[] = $this->ormWherePadrao;
@@ -53,34 +58,48 @@ final class DeletarModel extends ORM
         return $where;
     }
 
-    private function validarUsuarioPegarDependente($usuario)
+    /**
+     * @throws Excecao
+     */
+    private function validarUsuarioPegarDependente(stdClass|array $usuario): void
     {
         if (existeErro($usuario, 'id')) {
             mensagemStatus(404);
         }
 
-        if ($usuario->tipo == TipoUsuario::TITULAR) {
+        if ((new TipoUsuario($usuario->tipo))->indice() === TipoUsuario::TITULAR) {
             $this->pegarDependentes($usuario->id);
         }
 
         $this->setarUsuario($usuario);
     }
 
-    private function pegarDependentes($titular)
+    /**
+     * @param string $titular
+     *
+     * @return void
+     * @throws Excecao
+     */
+    private function pegarDependentes(string $titular): void
     {
-        $dependente = $this->where([
-            ['empresa', $this->idEmpresa],
-            ['status', 'in', Helper::STATUS_LIBERADO],
-            ['tipo', new TipoUsuario(TipoUsuario::DEPENDENTE)],
-            ['titular', $titular]
-        ])->read();
+        $dependente = $this
+            ->where([
+                ['empresa', $this->idEmpresa],
+                ['status', 'in', Helper::STATUS_LIBERADO],
+                ['tipo', (new TipoUsuario(TipoUsuario::DEPENDENTE))->numero()],
+                ['titular', $titular]
+            ])
+            ->read();
 
         if (!$dependente) {
             return;
         }
 
         if (!array_key_exists(0, $dependente)) {
-            mensagemErro('Erro!', 'Ocorreu um erro ao deletar dependentes, por favor, tente novamente.');
+            mensagemErro(
+                'Erro!',
+                'Ocorreu um erro ao deletar dependentes, por favor, tente novamente.'
+            );
         }
 
         foreach ($dependente as $r) {
@@ -88,7 +107,13 @@ final class DeletarModel extends ORM
         }
     }
 
-    private function setarUsuario($usuario)
+    /**
+     * @param $usuario
+     *
+     * @return void
+     * @throws Excecao
+     */
+    private function setarUsuario($usuario): void
     {
         if (empty($usuario->id)) {
             $this->erroPadrao();
@@ -109,24 +134,59 @@ final class DeletarModel extends ORM
         $this->usuario[] = ['id' => $id, 'dado' => $dado];
     }
 
-    public function deletar()
+    /**
+     * @return void
+     * @throws Excecao
+     */
+    private function erroPadrao(): void
+    {
+        mensagemErro(
+            'Erro ao deletar!',
+            'Ocorreu um erro ao deletar usuário, por favor, tente novamente.'
+        );
+    }
+
+    /**
+     * @param string $cpf
+     *
+     * @return void
+     * @throws Excecao
+     */
+    public function cpf(string $cpf): void
+    {
+        $usuario = $this
+            ->where(
+                $this->pegarWhereParaDeletar([
+                    ['documento', soNumero($cpf)],
+                    ['status', 'in', Helper::STATUS_LIBERADO]
+                ])
+            )
+            ->primeiro();
+        $this->validarUsuarioPegarDependente($usuario);
+    }
+
+    /**
+     * @return bool
+     * @throws Excecao
+     */
+    public function deletar(): bool
     {
         foreach ($this->usuario as $r) {
             $id = $r['id'];
             $dado = $r['dado'];
-            $deletar = $this->dado($dado)->where($this->pegarWhereParaDeletar([
-                ['id', $id]
-            ]))->update();
+            $deletar = $this
+                ->dado($dado)
+                ->where(
+                    $this->pegarWhereParaDeletar([
+                        ['id', $id]
+                    ])
+                )
+                ->update();
 
             if (existeErro($deletar, 'id')) {
                 $this->erroPadrao();
             }
         }
         return true;
-    }
-
-    private function erroPadrao()
-    {
-        mensagemErro('Erro ao deletar!', 'Ocorreu um erro ao deletar usuário, por favor, tente novamente.');
     }
 }
