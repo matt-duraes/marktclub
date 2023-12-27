@@ -22,8 +22,8 @@
 </a>
 @ endif;
 @ if (MENU_PONTO_MAIS_ACAO) :
-<a href="@route(pontoCvs.index)" class="botao {!!MENU_HOVER == 'ponto-mais-acao' ? 'cor_bg pagina_atual' : ''!!}">
-    <i>@iconeCashbackHome(22)</i>
+<a id="container_mais_acao" class="botao {!!MENU_HOVER == 'ponto-mais-acao' ? 'cor_bg pagina_atual' : ''!!}" href="@route(pontoCvs.index)">
+    <i id="iconeCvs">@iconeCvs(22)</i>
     Ponto + Ação
 </a>
 @ endif;
