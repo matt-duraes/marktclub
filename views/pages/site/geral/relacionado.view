@@ -1,17 +1,17 @@
 <aside class="bloco_relacionado">
     <header>
         @ if( $tipo == 'cashback' ):
-        <h1>Veja outras opções de cashback</h1>
-        <a class="cor_color botao_contar_click" data-botao="Ver mais" href="">Veja mais</a>
+            <h1>Veja outras opções de cashback</h1>
+            <a class="cor_color botao_contar_click" data-botao="Ver mais" href="@route('cashback.index')">Veja mais</a>
         @ elseif( $tipo == 'loja' ):
-        <h1>Veja outras lojas</h1>
-        <a class="cor_color botao_contar_click" data-botao="Ver mais" href="">Veja mais</a>
+            <h1>Veja outras lojas</h1>
+            <a class="cor_color botao_contar_click" data-botao="Ver mais" href="@route('loja.index')">Veja mais</a>
         @ elseif( $tipo == 'turismo' ):
-        <h1>Veja nossos parceiros direto de hotéis</h1>
-        <a class="cor_color botao_contar_click" data-botao="Ver mais" href="">Veja mais</a>
+            <h1>Veja nossos parceiros direto de hotéis</h1>
+            <a class="cor_color botao_contar_click" data-botao="Ver mais" href="">Veja mais</a>
         @ elseif( $tipo == 'farmacia' ):
-        <h1>Veja outras farmácias</h1>
-        <a class="cor_color botao_contar_click" data-botao="Ver mais" href="">Veja mais</a>
+            <h1>Veja outras farmácias</h1>
+            <a class="cor_color botao_contar_click" data-botao="Ver mais" href="@route('farmacia.index')">Veja mais</a>
         @ endif;
     </header>
     <div class="bloco_parceiro bloco_geral_article" id="bloco_parceiro_relacionado">
