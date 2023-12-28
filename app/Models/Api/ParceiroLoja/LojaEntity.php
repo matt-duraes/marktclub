@@ -17,7 +17,7 @@ final class LojaEntity extends Entity
         'texto_procedimento' => 'procedimento_texto',
         'texto_descricao'    => 'texto',
         'titulo', 'limite_voucher', 'prazo_voucher', 'prazo_voucher_fixo', 'data_contrato_inicio',
-        'imagem', 'capa', 'procedimento', 'url', 'status', 'link_site'
+        'imagem', 'capa', 'procedimento', 'url', 'status', 'link_site', 'arquivo'
     ];
     protected array $ormRetornoPadrao = ['id', 'titulo', 'link_logo'];
     protected string $capa;
@@ -36,6 +36,7 @@ final class LojaEntity extends Entity
     public string $link_capa_mobile;
     public string $link_logo;
     public string $link_site;
+    public array $arquivo;
     public Botao $favorito;
     public Status $status;
     public string $url;
@@ -50,6 +51,18 @@ final class LojaEntity extends Entity
         $this->link_capa_mobile = !empty($this->capa) ? LINK_ARQUIVO . '/parceiro/' . $this->capa : '';
         $this->favorito = new Botao('nao');
         $this->link_site = (new LinkSiteModel($this))->link;
+        $this->arquivo = $this->pegarUrlsArquivo();
+    }
+
+    private function pegarUrlsArquivo(): array
+    {
+        $arquivos = [];
+        if (!empty($this->arquivo)) {
+            foreach ($this->arquivo as $arquivo) {
+                $arquivos[] = arquivoPrivado($arquivo);
+            }
+        }
+        return $arquivos;
     }
 
     protected function getId()
