@@ -83,8 +83,8 @@ class PopupModel extends ORM
     {
         $dado = $this
             ->campo([
-                'uuid', 'slug', 'imagem', 'titulo', 'texto', 'regulamento', 'data_inicio',
-                'data_final', 'atualizar_dado', 'botao_texto', 'botao_link',
+                'uuid', 'titulo_painel', 'slug', 'imagem', 'titulo', 'texto', 'regulamento',
+                'data_inicio', 'data_final', 'atualizar_dado', 'botao_texto', 'botao_link',
                 'botao_target', 'status'
             ])
             ->where($this->pegarWhere(), false)
@@ -104,7 +104,7 @@ class PopupModel extends ORM
         $where = $this->ormWherePadrao;
         $publicado = $this->publicado->valido();
         if (!empty($this->titulo)) {
-            $where[] = ['titulo', 'LIKE', '%' . $this->titulo . '%'];
+            $where[] = ['titulo_painel', 'LIKE', '%' . $this->titulo . '%'];
         }
 
         if ($this->dataInicio->valido() && $this->dataFinal->valido() && !$publicado) {
@@ -165,6 +165,7 @@ class PopupModel extends ORM
 
             $retorno[] = [
                 'id'             => $popup->uuid,
+                'titulo_painel'  => $popup->titulo_painel,
                 'slug'           => $popup->slug,
                 'imagem'         => arquivoPrivado($popup->imagem ?? ''),
                 'titulo'         => $popup->titulo,
