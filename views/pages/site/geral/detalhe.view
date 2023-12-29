@@ -113,7 +113,6 @@
 
         @ foreach($dado->arquivo as $arquivo)
         <div class="arquivo">
-            <i class="download_icone">@iconeDownloadHome</i>
             <div class="arquivo_nome">{!!$arquivo->nome!!}</div>
             <a href="{!!$arquivo->link!!}" download rel="noopener noreferrer" class="botao_geral_cor" data-botao="Abrir Arquivo">
                 Download
