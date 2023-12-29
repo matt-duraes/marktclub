@@ -1711,8 +1711,8 @@ if (!function_exists('arquivoPrivadoDado')) {
         try {
             $Api = new ApiHelper(token: true);
             $arquivo = $Api
-                ->get('/upload-arquivo/' . $id);
-        } catch (\Throwable $e) {
+                ->get('/upload-arquivo/' . $id)->object();
+        } catch (\Throwable) {
             return false;
         }
         if (!object_key_exists('dado', $arquivo)) {
