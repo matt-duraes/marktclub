@@ -65,7 +65,6 @@ final class TarefaEntity extends Entity
     }
 
     /**
-     * @return void
      * @throws Excecao
      */
     public function like(): void
@@ -81,7 +80,6 @@ final class TarefaEntity extends Entity
     /**
      * @param string $motivo
      *
-     * @return void
      * @throws Excecao
      */
     public function deslike(string $motivo): void
@@ -133,7 +131,6 @@ final class TarefaEntity extends Entity
     }
 
     /**
-     * @return void
      * @throws Erro
      * @throws Excecao
      */
@@ -143,7 +140,6 @@ final class TarefaEntity extends Entity
     }
 
     /**
-     * @return void
      * @throws Erro
      * @throws Excecao
      */

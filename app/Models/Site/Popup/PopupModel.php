@@ -16,9 +16,10 @@ final class PopupModel extends ClubeApiHelper
         }
         $dado = $this
             ->json([
-                'publicado' => Botao::SIM,
-                'empresa'   => CLUBE_ID,
-                'pagina'    => 1
+                'publicado'    => Botao::SIM,
+                'usuario_tipo' => sessao('USUARIO.tipo'),
+                'empresa'      => CLUBE_ID,
+                'pagina'       => 1
             ])
             ->get('/comercial-popup')
         ->object()->dado->lista ?? [];
