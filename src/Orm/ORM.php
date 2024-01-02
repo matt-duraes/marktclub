@@ -74,7 +74,8 @@ abstract class ORM
             $senha,
             $option
         );
-        if (!empty($leitura)) {
+
+        if (!empty($leitura) && !($this instanceof Entity)) {
             $this->ormLeitura = true;
             $this->ormDBLeitura = new PDO(
                 'mysql:host=' . $leitura . ';dbname=' . $banco . $porta,
