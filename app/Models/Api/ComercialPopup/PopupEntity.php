@@ -20,6 +20,7 @@ class PopupEntity extends Entity
     public string $titulo;
     public string $texto;
     public string $regulamento;
+    public string $titulo_painel;
     public Data $data_inicio;
     public Data $data_final;
     public string $atualizar_dado;
