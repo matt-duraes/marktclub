@@ -2,19 +2,19 @@
 
 namespace App\Models\Api\UsuarioDependente;
 
-use ORM\Entity;
-use Modules\Cpf;
-use Erro\Excecao;
-use Modules\Data;
-use Modules\Nome;
-use Modules\Email;
-use Helpers\EmailHelper;
-use SendGrid\Mail\TypeException;
 use App\Classes\UsuarioCliente\Helper;
 use App\Classes\UsuarioCliente\Status;
 use App\Classes\UsuarioCliente\TipoUsuario;
-use App\Models\Api\Trait\ValidarEmpresaTrait;
 use App\Models\Api\ConstrutorClube\ConstrutorEntity;
+use App\Models\Api\Trait\ValidarEmpresaTrait;
+use Erro\Excecao;
+use Helpers\EmailHelper;
+use Modules\Cpf;
+use Modules\Data;
+use Modules\Email;
+use Modules\Nome;
+use ORM\Entity;
+use SendGrid\Mail\TypeException;
 
 final class DependenteEntity extends Entity
 {
@@ -25,14 +25,19 @@ final class DependenteEntity extends Entity
     public Email $email;
     public string $usuario;
     public Status $status;
+    public string $senha_nova;
+    public string $senha_repetida;
+    public string $hash;
     protected string $ormTabela = TABELA_USUARIO_CLIENTE;
     protected array $ormInsert = [
         'cod', 'nome', 'tipo', 'titular', 'data_email', 'status', 'cpf',
+        'salt'          => '->hash',
         'email_pessoal' => '->email',
         'empresa'       => '->idEmpresa'
     ];
     protected array $ormBuscar = [
         'id', 'nome', 'cpf', 'status',
+        'hash'  => 'salt',
         'email' => 'email_pessoal'
     ];
     protected int $titular;
@@ -174,6 +179,22 @@ final class DependenteEntity extends Entity
         ) {
             mensagemErro('E-mail duplicado!', 'O e-mail informado já está em uso por outro usuário.');
         }
+    }
+
+    /**
+     * @throws Excecao
+     */
+    protected function regraUpdate(): void
+    {
+        if ($this->status->indice() !== Status::ATIVO) {
+            mensagemErro('Edição negada!', 'Somente dependentes ativo podem ser editados!');
+        }
+
+        if ($this->senha_nova !== $this->senha_repetida) {
+            mensagemErro('Edição negada!', 'As senhas precisam ser identicas!');
+        }
+
+        $this->hash = password($this->senha_nova);
     }
 
     /**

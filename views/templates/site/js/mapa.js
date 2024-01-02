@@ -3,6 +3,7 @@ window.addEventListener('load', () => {
     if (botaoLojaProxima.length == 0) {
         return;
     }
+
     botaoLojaProxima.forEach(botao => {
         botao.addEventListener('click', () => {
             if ('geolocation' in navigator) {
@@ -12,10 +13,18 @@ window.addEventListener('load', () => {
             }
         });
     });
+
+    let abortController;
+
     const pegarLocalizacao = () => {
+        abortController = new AbortController();
+
         Loading.show();
+
         navigator.geolocation.getCurrentPosition(
             position => {
+                Loading.hide();
+                abortController.abort();
                 window.location.assign(
                     LINK +
                         '/convenios?latitude=' +
@@ -39,7 +48,15 @@ window.addEventListener('load', () => {
                     'Ocorreu um erro ao pegar sua localização, verifique suas permissões no navegador e tente novamente.',
                     '!'
                 );
-            }
+            },
+            { signal: abortController.signal }
         );
     };
+
+    window.addEventListener('popstate', () => {
+        if (abortController) {
+            abortController.abort();
+        }
+        Loading.hide();
+    });
 });

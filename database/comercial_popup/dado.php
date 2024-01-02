@@ -4,6 +4,7 @@ return [
     [
         'uuid'             => uuid(),
         'id_admin_empresa' => jsonEncode([1]),
+        'titulo_painel'    => 'Titulo de teste 1',
         'slug'             => 'popup-01-teste',
         'imagem'           => null,
         'titulo'           => 'Popup de teste 01',
@@ -20,6 +21,7 @@ return [
     [
         'uuid'             => uuid(),
         'id_admin_empresa' => jsonEncode([1]),
+        'titulo_painel'    => 'Titulo de teste 2',
         'slug'             => 'popup-02-teste',
         'imagem'           => null,
         'titulo'           => 'Popup de teste 02',

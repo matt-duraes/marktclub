@@ -166,7 +166,7 @@ final class LoginModel extends Entity
             'nome'             => $nome->nome(),
             'documento'        => (int)$cpf->numero(),
             'crm_numero'       => !empty($crmNumero) ? (int)$crmNumero : null,
-            'crm_estado'       => $crmEstado->estado(),
+            'crm_estado'       => $crmEstado->uf(),
             'matricula'        => $matricula,
             'siape'            => $siape,
             'sexo'             => $genero->numero(),

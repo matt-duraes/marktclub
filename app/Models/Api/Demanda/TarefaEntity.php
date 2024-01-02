@@ -6,6 +6,8 @@ use ApiModel\PainelHistorico\HistoricoEntity;
 use App\Classes\DemandaTarefa\Status;
 use App\Classes\DemandaTarefa\Tipo;
 use App\Models\Api\UsuarioEquipe\PerfilModel;
+use Erro\Erro;
+use Erro\Excecao;
 use Helpers\OrmHelper;
 use Modules\DataHora;
 use ORM\Entity;
@@ -43,7 +45,7 @@ final class TarefaEntity extends Entity
     private OrmHelper $OrmEquipe;
 
     public function __construct(
-        private ?string $demanda = null,
+        private readonly ?string $demanda = null,
         public ?string $titulo = null,
         public ?string $texto = null,
         public ?Tipo $tipo = null,
@@ -53,12 +55,19 @@ final class TarefaEntity extends Entity
         $this->OrmEquipe = new OrmHelper(TABELA_USUARIO_EQUIPE);
     }
 
-    public function getId()
+    /**
+     * @throws Erro
+     * @throws Excecao
+     */
+    public function getId(): mixed
     {
         return $this->prop('id');
     }
 
-    public function like()
+    /**
+     * @throws Excecao
+     */
+    public function like(): void
     {
         $id = TOKEN['usuario']->uuid;
         if (in_array($id, $this->like)) {
@@ -68,13 +77,12 @@ final class TarefaEntity extends Entity
         $this->salvar();
     }
 
-    /*
-    |--------------------------------------------------------------------------
-    | INSERT
-    |--------------------------------------------------------------------------
-    */
-
-    public function deslike(string $motivo)
+    /**
+     * @param string $motivo
+     *
+     * @throws Excecao
+     */
+    public function deslike(string $motivo): void
     {
         $this->status = new Status(Status::AGUARDANDO);
         $this->like = [];
@@ -97,45 +105,45 @@ final class TarefaEntity extends Entity
         $Historico->salvar();
     }
 
-    /*
-    |--------------------------------------------------------------------------
-    | REGRA UPDATE
-    |--------------------------------------------------------------------------
-    */
-
-    private function pegarDemanda()
+    /**
+     * @return DemandaEntity
+     */
+    private function pegarDemanda(): DemandaEntity
     {
         $Demanda = new DemandaEntity();
         $Demanda->id($this->id_demanda_dado);
         return $Demanda;
     }
 
-    /*
-    |--------------------------------------------------------------------------
-    | DEMAIS MÉTODOS
-    |--------------------------------------------------------------------------
-    */
-
-    protected function regraPosBuscar()
+    protected function regraPosBuscar(): void
     {
         if (!empty($this->id_usuario_equipe)) {
             $this->equipe = $this->OrmEquipe->pegarUuidPeloId($this->id_usuario_equipe);
         }
     }
 
-    protected function regraInsert()
+    protected function regraInsert(): void
     {
-        $this->id_demanda_dado = (new OrmHelper(TABELA_DEMANDA_DADO))->pegarIdPeloUuid($this->demanda);
+        $this->id_demanda_dado = (new OrmHelper(TABELA_DEMANDA_DADO))
+            ->pegarIdPeloUuid($this->demanda);
         $this->status = new Status(Status::AGUARDANDO);
         $this->minuto_producao_real = 0;
     }
 
-    protected function regraUpdate()
+    /**
+     * @throws Erro
+     * @throws Excecao
+     */
+    protected function regraUpdate(): void
     {
         $this->mudarStatus();
     }
 
-    private function mudarStatus()
+    /**
+     * @throws Erro
+     * @throws Excecao
+     */
+    private function mudarStatus(): void
     {
         $statusAtual = (new Status($this->prop('status')))->indice();
         $statusNovo = $this->status->indice();

@@ -1,3 +1,18 @@
+.conteudo_pagina_popup .texto_titulo
+    font-size: 20px
+    margin: 20px 12px
+
+.conteudo_pagina_popup .arquivo
+    margin: 8px 25px
+    padding: 12px 20px
+    display: flex
+    align-items: center
+
+    .arquivo_nome
+        flex: 1
+        font-size: 14px
+    .botao_geral_cor
+        color: white
 .bloco_loja_detalhe
     width: 100%
     max-width: $maxWidth
@@ -82,3 +97,10 @@
         width: 100%
         &:first-child
             margin-bottom: 20px
+@media screen and (max-width: 500px)
+   .conteudo_pagina_popup
+        .arquivo
+            margin: 8px 0px
+            padding: 12px 20px
+        .arquivo .download_icone
+            display: none

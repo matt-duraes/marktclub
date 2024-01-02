@@ -2,20 +2,21 @@
 
 namespace App\Models\Api\UsuarioCliente;
 
-use ORM\ORM;
-use stdClass;
-use Erro\Excecao;
-use Http\Request;
-use Modules\Data;
-use Modules\Genero;
 use App\Classes\UsuarioCliente\Ordem;
-use App\Helpers\DrogariaAraujoHelper;
 use App\Classes\UsuarioCliente\Status;
 use App\Classes\UsuarioCliente\TipoUsuario;
 use App\Classes\UsuarioCliente\TrabalhoCargo;
-use App\Models\Api\Trait\ValidarEmpresaTrait;
 use App\Classes\UsuarioCliente\TrabalhoEmpresa;
+use App\Helpers\DrogariaAraujoHelper;
+use App\Models\Api\Trait\ValidarEmpresaTrait;
 use App\Models\Api\UsuarioCliente\Trait\BuscarUsuarioTrait;
+use Erro\Excecao;
+use Http\Request;
+use Modules\Data;
+use Modules\Email;
+use Modules\Genero;
+use ORM\ORM;
+use stdClass;
 
 final class ClienteModel extends ORM
 {
@@ -52,11 +53,11 @@ final class ClienteModel extends ORM
         }
 
         $ordem = new Ordem($this->request->ordem);
-        $status = new Status($this->request->status);
         $dataUpload = new Data($this->request->data_upload);
         $dataCriacaoDe = new Data($this->request->data_criacao_de);
         $dataCriacaoAte = new Data($this->request->data_criacao_ate);
         $status = new Status($this->request->status);
+        $email = new Email($this->request->email);
         $TrabalhoEmpresa = new TrabalhoEmpresa($this->request->trabalho_empresa);
         $TrabalhoCargo = new TrabalhoCargo($this->request->trabalho_cargo);
 
@@ -78,6 +79,8 @@ final class ClienteModel extends ORM
             mensagemErro('Campo inválido!', 'O local de trabalho não é um valor válido.');
         } elseif (!$TrabalhoCargo->vazio() && !$TrabalhoCargo->valido()) {
             mensagemErro('Campo inválido!', 'O cargo não é um valor válido.');
+        } elseif (!$email->vazio() && !$email->valido()) {
+            mensagemErro('Campo inválido!', 'O e-mail não é um valor válido.');
         }
     }
 

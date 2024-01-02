@@ -15,9 +15,16 @@ final class Status extends StatusStatus
     public function __construct(
         protected string|int|null $valor = null
     ) {
-        parent::__construct([
-            self::CONCLUIDO => 'Concluído',
-            self::PREMIUM   => 'Premium'
-        ], numero: [4, 5]);
+        parent::__construct(
+            lista: [
+                self::CONCLUIDO => 'Concluído',
+                self::PREMIUM   => 'Premium'
+            ],
+            cor: [
+                self::CONCLUIDO => 'verde',
+                self::PREMIUM   => 'azul',
+            ],
+            numero: [4, 5]
+        );
     }
 }

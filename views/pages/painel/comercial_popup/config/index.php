@@ -7,7 +7,7 @@ $Painel = new PainelConfig\Index('comercial_popup', new Ordem());
 
 $Painel
     ->drag()
-    ->campo('titulo', 'Título', 'normal')
+    ->campo('titulo_painel', 'Título', 'normal')
     ->campo('data_inicio', 'Data Início', 'pequeno', 'data')
     ->campo('data_final', 'Data Final', 'pequeno', 'data')
     ->campo('publicado', 'Publicado', 'pequeno')

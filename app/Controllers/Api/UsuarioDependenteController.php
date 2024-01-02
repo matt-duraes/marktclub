@@ -11,6 +11,7 @@ use Erro\Excecao;
 use Http\Request;
 use Http\Response;
 use SendGrid\Mail\TypeException;
+use System\Interface\ControllerAtualizarInterface;
 use System\Interface\ControllerDeletarInterface;
 use System\Interface\ControllerListarInterface;
 use System\Interface\ControllerSalvarInterface;
@@ -18,6 +19,7 @@ use System\Interface\ControllerSalvarInterface;
 final class UsuarioDependenteController extends Controller implements
     ControllerListarInterface,
     ControllerSalvarInterface,
+    ControllerAtualizarInterface,
     ControllerDeletarInterface
 {
     /**
@@ -50,6 +52,22 @@ final class UsuarioDependenteController extends Controller implements
             201,
             Helper::CRIPTOGRAFAR
         );
+    }
+
+    /**
+     * @param Request $request
+     * @param string  $id
+     *
+     * @return Response
+     * @throws Excecao
+     */
+    public function putAtualizar(Request $request, string $id): Response
+    {
+        $DependenteEntity = new DependenteEntity();
+        $DependenteEntity->uuid($id);
+        $DependenteEntity->set(lista: $request->dado());
+        $DependenteEntity->salvar();
+        return new Response(status: 204);
     }
 
     /**

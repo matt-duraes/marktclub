@@ -2,14 +2,14 @@
 
 namespace App\Models\Api\UsuarioCliente\Trait;
 
-use Helpers\OrmHelper;
-use Helpers\ListaHelper;
 use App\Classes\UsuarioCliente\Helper;
 use App\Classes\UsuarioCliente\Origem;
 use App\Classes\UsuarioCliente\Status;
 use App\Classes\UsuarioCliente\TipoUsuario;
 use App\Classes\UsuarioCliente\TrabalhoCargo;
 use App\Classes\UsuarioCliente\TrabalhoEmpresa;
+use Helpers\ListaHelper;
+use Helpers\OrmHelper;
 
 trait WhereTrait
 {
@@ -52,7 +52,7 @@ trait WhereTrait
                 ['email_trabalho', 'like', $pesquisa . '%']
             ];
             $documento = soNumero($pesquisa);
-            if (!empty($documento)) {
+            if (!empty($documento) && validarCpf($documento)) {
                 $wherePesquisa[] = ['documento', 'like', $documento . '%'];
             }
             $where[] = [$wherePesquisa];

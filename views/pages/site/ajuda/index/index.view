@@ -6,7 +6,7 @@
     <div class="conteudo_pagina_popup">
         <div class="conteudo">
             <header>
-                <p>Abaixo seguem algumas opções. Se você precisa de ajuda, entre em contato pelo nosso atendimento. Caso não tenha encontrado a loja que procura, pode nos indicar! Teremos prazer em fechar uma nova parceria.</p>
+                <p>Abaixo seguem algumas opções. Se você precisa de ajuda, entre em contato pelo nosso atendimento.</p>
             </header>
             @if ( !empty(CONTATO_EMAIL) ):
             <p class="contato">

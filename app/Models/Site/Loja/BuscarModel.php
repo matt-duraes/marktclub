@@ -2,6 +2,7 @@
 
 namespace App\Models\Site\Loja;
 
+use Helpers\ApiHelper;
 use stdClass;
 use Helpers\MarkdownHelper;
 use App\Helpers\ClubeApiHelper;
@@ -21,6 +22,7 @@ final class BuscarModel extends ClubeApiHelper
             ->validar(mensagem: 'Página não encontrada', status: 404, login: true)
             ->get('/parceiro-loja/' . $this->url)
             ->object();
+
         if ($dado->dado->status != Status::CONCLUIDO) {
             mensagemStatus(404);
         }
@@ -44,7 +46,24 @@ final class BuscarModel extends ClubeApiHelper
             'capa_mobile'        => $r->link_capa_mobile,
             'link'               => $r->link_site,
             'url'                => $r->url,
+            'arquivo'            => $this->pegarArquivo($r->arquivo),
             'endereco'           => '',
         ];
+    }
+
+    private function pegarArquivo($arquivo)
+    {
+        if (empty($arquivo)) {
+            return [];
+        }
+        $Api = new ApiHelper(token: true);
+
+        $retorno = [];
+        foreach ($arquivo as $id) {
+            $retorno[] = $Api
+                ->get('/upload-arquivo/' . $id)
+                ->object()->dado ?? [];
+        }
+        return $retorno;
     }
 }

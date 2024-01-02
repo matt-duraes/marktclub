@@ -284,7 +284,11 @@ Route
                 '!trabalho_data_inicio', '!grupo', '!empresa', '!subempresa', '!federacao'
             ])
             ::post('/usuario-cliente');
-
+        Route
+            ::nome('validarSenha')
+            ::middleware(TokenMiddleware::class, 'scope', ['usuario_cliente:validar_senha'])
+            ::request(['senha'])
+            ::post('/usuario-cliente/validar-senha');
         Route
             ::nome('atualizar')
             ::middleware(TokenMiddleware::class, 'scope', ['usuario_cliente:atualizar'])
@@ -396,6 +400,12 @@ Route
             ::middleware(TokenMiddleware::class, 'scope', ['usuario_dependente:salvar'])
             ::request(['nome', 'cpf', 'email', 'usuario'])
             ::post('/usuario-dependente');
+
+        Route
+            ::nome('atualizar')
+            ::middleware(TokenMiddleware::class, 'scope', ['usuario_dependente:atualizar'])
+            ::request(['!senha_nova', '!senha_repetida'])
+            ::put('/usuario-dependente');
 
         Route
             ::nome('deletar')
@@ -1206,7 +1216,6 @@ Route
             ::middleware(TokenMiddleware::class, 'scope', ['parceiro_loja:listar'])
             ::request(['!tipo', '!titulo'], 'json')
             ::get('/parceiro-loja/select');
-
         Route
             ::nome('listar')
             ::middleware(TokenMiddleware::class, 'scope', ['parceiro_loja:listar'])
@@ -1216,18 +1225,15 @@ Route
                 '!latitude', '!longitude', '!estado'
             ], 'json')
             ::get('/parceiro-loja');
-
         Route
             ::nome('buscar')
             ::middleware(TokenMiddleware::class, 'scope', ['parceiro_loja:buscar'])
             ::get('/parceiro-loja/{id}');
-
         Route
             ::nome('destaque')
             ::middleware(TokenMiddleware::class, 'scope', ['parceiro_loja:destaque'])
             ::request(['categoria', 'subcategoria', 'quantidade'], 'json')
             ::get('/parceiro-loja/destaque');
-
         Route
             ::nome('relacionado')
             ::middleware(TokenMiddleware::class, 'scope', ['parceiro_loja:relacionado'])
@@ -1840,7 +1846,7 @@ Route
             ::nome('salvar')
             ::middleware(TokenMiddleware::class, 'scope', ['comercial_popup:salvar'])
             ::request([
-                'empresa', 'titulo', '!texto', '!imagem', '!regulamento', '!data_inicio',
+                'empresa', 'titulo_painel', 'titulo', '!texto', '!imagem', '!regulamento', '!data_inicio',
                 '!data_final', '!atualizar_dado', '!botao_texto', '!botao_link',
                 '!botao_target', '!status'
             ])
@@ -1850,7 +1856,7 @@ Route
             ::nome('atualizar')
             ::middleware(TokenMiddleware::class, 'scope', ['comercial_popup:atualizar'])
             ::request([
-                '!empresa', '!titulo', '!texto', '!imagem', '!regulamento', '!data_inicio',
+                '!empresa', '!titulo_painel', '!titulo', '!texto', '!imagem', '!regulamento', '!data_inicio',
                 '!data_final', '!atualizar_dado', '!botao_texto', '!botao_link',
                 '!botao_target', '!status'
             ])

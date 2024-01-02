@@ -20,7 +20,12 @@ final class SenhaModel extends ClubeApiHelper
         }
 
         $this
-            ->validar('Ocorre um erro ao atualizar sua senha, por favor, tente novamente.')
+            ->validar('A senha informada não é válida.')
+            ->body(['senha'   => $this->Crypt->encode($request->senha_atual)])
+            ->post('/usuario-cliente/validar-senha');
+
+        $this
+            ->validar('Ocorreu um erro ao alterar a senha.')
             ->body(['senha'   => $this->Crypt->encode($request->senha_nova)])
             ->put('/usuario-cliente/' . $this->idUsuario);
     }
