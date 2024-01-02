@@ -29,7 +29,6 @@ final class DeletarModel extends ORM
     /**
      * @param string $id
      *
-     * @return void
      * @throws Excecao
      */
     public function uuid(string $id): void
@@ -77,7 +76,6 @@ final class DeletarModel extends ORM
     /**
      * @param string $titular
      *
-     * @return void
      * @throws Excecao
      */
     private function pegarDependentes(string $titular): void
@@ -110,7 +108,6 @@ final class DeletarModel extends ORM
     /**
      * @param $usuario
      *
-     * @return void
      * @throws Excecao
      */
     private function setarUsuario($usuario): void
@@ -135,7 +132,6 @@ final class DeletarModel extends ORM
     }
 
     /**
-     * @return void
      * @throws Excecao
      */
     private function erroPadrao(): void
@@ -149,7 +145,6 @@ final class DeletarModel extends ORM
     /**
      * @param string $cpf
      *
-     * @return void
      * @throws Excecao
      */
     public function cpf(string $cpf): void

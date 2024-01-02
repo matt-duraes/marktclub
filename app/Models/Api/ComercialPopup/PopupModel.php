@@ -2,6 +2,7 @@
 
 namespace App\Models\Api\ComercialPopup;
 
+use App\Classes\UsuarioCliente\TipoUsuario;
 use ORM\ORM;
 use stdClass;
 use Erro\Excecao;
@@ -46,6 +47,7 @@ class PopupModel extends ORM
         private readonly Ordem $ordem = new Ordem(),
         private readonly ?string $titulo = null,
         private readonly ?string $empresa = null,
+        private readonly TipoUsuario $usuario_tipo = new TipoUsuario(),
         private readonly Data $dataInicio = new Data(),
         private readonly Data $dataFinal = new Data(),
         private readonly Status $status = new Status(),
@@ -119,6 +121,14 @@ class PopupModel extends ORM
 
         if ($this->status->valido() && !$publicado) {
             $where[] = ['status', $this->status->numero()];
+        }
+
+        if ($this->usuario_tipo->valido()) {
+            $where[] = [
+                'OR',
+                ['usuario_tipo', 'json', $this->usuario_tipo->numero()],
+                ['usuario_tipo', 'null']
+            ];
         }
 
         if ($publicado) {

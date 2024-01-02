@@ -2,6 +2,7 @@
 
 use App\Classes\ComercialPopup\BotaoTarget;
 use App\Classes\ComercialPopup\Status;
+use App\Classes\UsuarioCliente\TipoUsuario;
 use Helpers\ApiHelper;
 
 $empresa = (new ApiHelper(token: true))
@@ -40,6 +41,19 @@ $Painel->coluna(callback: function () use ($Painel) {
                 label: 'Tipo de Link'
             );
     });
+});
+
+$Painel->coluna(callback: function () use ($Painel) {
+    $Painel->fieldsetCheckbox(
+        titulo: 'Tipos de Usuário',
+        callback: function () use ($Painel) {
+            foreach ((new TipoUsuario())->select() as $id => $nome) {
+                $Painel->checkbox(name: 'usuario_tipo[]', label: $nome, value: $id);
+            }
+        },
+        todos: 'Marcar todos os tipos',
+        mais: false
+    );
 });
 
 $Painel->coluna(callback: function () use ($Painel) {
