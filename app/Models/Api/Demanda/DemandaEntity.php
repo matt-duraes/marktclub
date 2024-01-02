@@ -57,7 +57,6 @@ final class DemandaEntity extends Entity
     /**
      * @param string $motivo
      *
-     * @return void
      * @throws Excecao
      */
     public function cancelar(string $motivo): void
@@ -122,7 +121,6 @@ final class DemandaEntity extends Entity
     }
 
     /**
-     * @return void
      * @throws Excecao
      */
     protected function regraSalvar(): void

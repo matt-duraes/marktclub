@@ -74,7 +74,7 @@ abstract class ORM
             $senha,
             $option
         );
-        if(!empty($leitura)) {
+        if (!empty($leitura)) {
             $this->ormLeitura = true;
             $this->ormDBLeitura = new PDO(
                 'mysql:host=' . $leitura . ';dbname=' . $banco . $porta,
@@ -207,7 +207,7 @@ abstract class ORM
     private function ormExecute(string $query, array $dado = [])
     {
         $this->ormDB = $this->ormDBEscrita;
-        if($this->ormQueryLeitura($query)) {
+        if ($this->ormQueryLeitura($query)) {
             $this->ormDB = $this->ormDBLeitura;
         }
         $sql = $this->ormDB->prepare($query);
@@ -363,7 +363,8 @@ abstract class ORM
         if (empty($id) || !preg_match('/^[0-9]+$/', $id)) {
             return [];
         }
-        $query = $this->ormDB->prepare('SELECT * FROM `' . $this->ormTabela . '` WHERE `id` = ' . $id);
+        $DB = $this->ormLeitura ? $this->ormDBLeitura : $this->ormDBEscrita;
+        $query = $DB->prepare('SELECT * FROM `' . $this->ormTabela . '` WHERE `id` = ' . $id);
         $query->execute();
         $query->setFetchMode(PDO::FETCH_ASSOC);
         $dado = $query->fetchAll();

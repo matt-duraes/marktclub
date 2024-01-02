@@ -182,7 +182,6 @@ final class DependenteEntity extends Entity
     }
 
     /**
-     * @return void
      * @throws Excecao
      */
     protected function regraUpdate(): void
