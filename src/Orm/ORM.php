@@ -56,19 +56,33 @@ abstract class ORM
             $option[PDO::MYSQL_ATTR_INIT_COMMAND] = 'SET NAMES utf8';
         }
 
-        $host = $conn['host'] ?? env('DB_HOST', '');
         $banco = $conn['banco'] ?? env('DB_BANCO', '');
         $usuario = $conn['usuario'] ?? env('DB_USUARIO', '');
         $senha = $conn['senha'] ?? env('DB_SENHA', '');
-        $porta = $conn['porta'] ?? env('DB_PORT', '');
+        $porta = $conn['porta'] ?? env('DB_PORTA', '');
         $porta = !empty($porta) && preg_match('/^[0-9]+$/', $porta) ? ';port=' . $porta : '';
 
-        $this->ormDB = new PDO(
-            'mysql:host=' . $this->pegarIpSeDominio($host) . ';dbname=' . $banco . $porta,
+        $escrita = $conn['escrita'] ?? env('DB_ESCRITA', '');
+        $escrita = $this->pegarIpSeDominio($escrita);
+
+        $leitura = $conn['leitura'] ?? env('DB_LEITURA', '');
+        $leitura = $this->pegarIpSeDominio($leitura);
+
+        $this->ormDBEscrita = new PDO(
+            'mysql:host=' . $escrita . ';dbname=' . $banco . $porta,
             $usuario,
             $senha,
             $option
         );
+        if(!empty($leitura)) {
+            $this->ormLeitura = true;
+            $this->ormDBLeitura = new PDO(
+                'mysql:host=' . $leitura . ';dbname=' . $banco . $porta,
+                $usuario,
+                $senha,
+                $option
+            );
+        }
     }
 
     private function pegarIpSeDominio($host)
@@ -192,6 +206,10 @@ abstract class ORM
 
     private function ormExecute(string $query, array $dado = [])
     {
+        $this->ormDB = $this->ormDBEscrita;
+        if($this->ormQueryLeitura($query)) {
+            $this->ormDB = $this->ormDBLeitura;
+        }
         $sql = $this->ormDB->prepare($query);
         $this->ormDB->beginTransaction();
 
@@ -295,7 +313,9 @@ abstract class ORM
 
     protected function ormPegarColunaBanco(): array
     {
-        $query = $this->ormDB->query("SHOW FULL COLUMNS FROM `{$this->ormTabela}`");
+        $DB = $this->ormLeitura ? $this->ormDBLeitura : $this->ormDBEscrita;
+
+        $query = $DB->query("SHOW FULL COLUMNS FROM `{$this->ormTabela}`");
         $query->setFetchMode(PDO::FETCH_OBJ);
         $lista = $query->fetchAll();
 
@@ -364,6 +384,8 @@ abstract class ORM
     protected function ormDestruirPDO()
     {
         $this->ormDB = null;
+        $this->ormDBEscrita = null;
+        $this->ormDBLeitura = null;
     }
 
     protected function ormSalvarArquivo()
@@ -374,5 +396,11 @@ abstract class ORM
             }
         }
         $this->ormArquivoSalvar = [];
+    }
+
+    private function ormQueryLeitura($query)
+    {
+        $query = mb_strtoupper($query, 'UTF-8');
+        return $this->ormLeitura && !preg_match('/^(INSERT|DELETE|UPDATE)/', $query);
     }
 }

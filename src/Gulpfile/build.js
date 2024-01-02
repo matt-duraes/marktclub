@@ -124,7 +124,7 @@ exports.buildEnv = async () => {
     const conteudoLocal =
         'APP_URL=' +
         url +
-        '\nAPP_TIPO=localhost\n\nSESSION_DIRETORIO={{ROOT}}/files/sessions\n\nDB_HOST=mysql\nDB_BANCO=' +
+        '\nAPP_TIPO=localhost\n\nSESSION_DIRETORIO={{ROOT}}/files/sessions\n\nDB_ESCRITA=mysql\nDB_BANCO=' +
         dbNome +
         '\nDB_USUARIO=root\nDB_SENHA=' +
         dbSenha +

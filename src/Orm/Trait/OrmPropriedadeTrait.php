@@ -7,6 +7,9 @@ use PDO;
 trait OrmPropriedadeTrait
 {
     private ?PDO $ormDB;
+    private ?PDO $ormDBEscrita;
+    private ?PDO $ormDBLeitura;
+    private bool $ormLeitura = false;
     protected string $ormTipo = 'service';
     protected string $ormTabela;
     private string $ormTabelaAtual;
