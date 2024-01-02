@@ -69,6 +69,17 @@
         </a>
         @ endif;
 
+        @ if(!empty($dado->arquivo)):
+            @ if(count($dado->arquivo) > 1)
+            <a id="botao_arquivo" rel="noopener noreferrer" class="botao_contar_click botao botao_geral_cor" data-botao="Abrir Arquivo">
+            @ else
+            <a href="{!!$dado->arquivo[0]->link!!}" download rel="noopener noreferrer" class="botao_contar_click botao botao_geral_cor" data-botao="Abrir Arquivo">
+            @ endif
+                Download
+                <i>@iconeDownloadHome</i>
+            </a>
+        @ endif
+
     </div>
     @else
     <div class="bloco_atencao_geral">
@@ -91,6 +102,26 @@
     @view site/geral/relacionado.view
 </div>
 @ endif;
+
+@ if(!empty($dado->arquivo)):
+<div id="bloco_arquivos" class="bloco_pagina_popup">
+    <header class="header_pagina_popup">
+        <h1>Downloads</h1>
+        <i class="botao popup_fechar">@iconeFechar</i>
+    </header>
+    <div class="conteudo_pagina_popup">
+
+        @ foreach($dado->arquivo as $arquivo)
+        <div class="arquivo">
+            <div class="arquivo_nome">{!!$arquivo->nome!!}</div>
+            <a href="{!!$arquivo->link!!}" download rel="noopener noreferrer" class="botao_geral_cor" data-botao="Abrir Arquivo">
+                Download
+            </a>
+        </div>
+        @ endforeach
+    </div>
+</div>
+@ endif
 
 <!-- prettier-ignore -->
 <script src="https://unpkg.com/@googlemaps/markerclusterer/dist/index.min.js"></script>

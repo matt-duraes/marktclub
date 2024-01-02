@@ -33,6 +33,7 @@ return (new DataBase())
     ->date('prazo_voucher_fixo')->null()
     ->date('data_publicacao')->null()
     ->json('estado')->null()
+    ->json('arquivo')->null()
     ->status()->null()
     ->varchar('descricao')->tamanho(255)->null()
     ->int('favorito')->tamanho(1)->null();

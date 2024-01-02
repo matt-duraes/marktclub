@@ -17,7 +17,7 @@ final class LojaEntity extends Entity
         'texto_procedimento' => 'procedimento_texto',
         'texto_descricao'    => 'texto',
         'titulo', 'limite_voucher', 'prazo_voucher', 'prazo_voucher_fixo', 'data_contrato_inicio',
-        'imagem', 'capa', 'procedimento', 'url', 'status', 'link_site'
+        'imagem', 'capa', 'procedimento', 'url', 'status', 'link_site', 'arquivo'
     ];
     protected array $ormRetornoPadrao = ['id', 'titulo', 'link_logo'];
     protected string $capa;
@@ -36,6 +36,7 @@ final class LojaEntity extends Entity
     public string $link_capa_mobile;
     public string $link_logo;
     public string $link_site;
+    public array $arquivo;
     public Botao $favorito;
     public Status $status;
     public string $url;
