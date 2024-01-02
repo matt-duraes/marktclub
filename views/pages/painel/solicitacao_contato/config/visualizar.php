@@ -26,6 +26,8 @@ $Painel->coluna(callback: function () use ($Painel) {
 
     $Painel->bloco('Dados do contato', callback: function () use ($Painel) {
         $Painel
+            ->linha('tipo', 'Tipo de contato')
+            ->linha('local', 'Local de contato')
             ->dataHora('data_criacao', 'Data de contato')
             ->dataHora('data_atualizacao', 'Data da última atualização')
             ->linha('status', 'Status');
@@ -50,6 +52,7 @@ $Painel->coluna(callback: function () use ($Painel) {
         );
 });
 
-$Painel->replace('status', (new Status())->select());
+$Painel
+    ->replace('status', (new Status())->select());
 
 return $Painel;
