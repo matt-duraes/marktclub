@@ -11,6 +11,13 @@ $empresa = (new ApiHelper(token: true))
 $Painel = new PainelConfig\Add(app: 'comercial_popup', acao: $acao);
 
 $Painel->coluna(callback: function () use ($Painel) {
+    $Painel->fieldset('Dados gerais', function () use ($Painel) {
+        $Painel
+            ->input(name: 'titulo_painel', label: 'Título Interno');
+    });
+});
+
+$Painel->coluna(callback: function () use ($Painel) {
     $Painel->fieldset('Dados Principais', function () use ($Painel) {
         $Painel
             ->input(name: 'titulo', label: 'Título')

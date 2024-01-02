@@ -13,6 +13,7 @@ use ORM\Entity;
 class PopupEntity extends Entity
 {
     public array $empresa;
+    public string $titulo_painel;
     public string $slug;
     public string $imagem;
     public string $titulo;
@@ -27,13 +28,13 @@ class PopupEntity extends Entity
     public Status $status;
     protected string $ormTabela = TABELA_COMERCIAL_POPUP;
     protected array $ormBuscar = [
-        'id_admin_empresa', 'id', 'slug', 'imagem', 'titulo', 'texto', 'regulamento',
+        'id_admin_empresa', 'titulo_painel', 'slug', 'imagem', 'titulo', 'texto', 'regulamento',
         'data_inicio', 'data_final', 'atualizar_dado', 'botao_texto', 'botao_link',
         'botao_target', 'status'
     ];
     protected array $ormSalvar = [
-        'id_admin_empresa', 'slug', 'imagem', 'titulo', 'texto', 'regulamento', 'data_inicio',
-        'data_final', 'atualizar_dado', 'botao_texto', 'botao_link',
+        'id_admin_empresa', 'titulo_painel', 'slug', 'imagem', 'titulo', 'texto', 'regulamento',
+        'data_inicio', 'data_final', 'atualizar_dado', 'botao_texto', 'botao_link',
         'botao_target', 'status'
     ];
     protected string $ormValidarSalvar = '

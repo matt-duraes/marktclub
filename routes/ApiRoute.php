@@ -1846,7 +1846,7 @@ Route
             ::nome('salvar')
             ::middleware(TokenMiddleware::class, 'scope', ['comercial_popup:salvar'])
             ::request([
-                'empresa', 'titulo', '!texto', '!imagem', '!regulamento', '!data_inicio',
+                'empresa', 'titulo_painel', 'titulo', '!texto', '!imagem', '!regulamento', '!data_inicio',
                 '!data_final', '!atualizar_dado', '!botao_texto', '!botao_link',
                 '!botao_target', '!status'
             ])
@@ -1856,7 +1856,7 @@ Route
             ::nome('atualizar')
             ::middleware(TokenMiddleware::class, 'scope', ['comercial_popup:atualizar'])
             ::request([
-                '!empresa', '!titulo', '!texto', '!imagem', '!regulamento', '!data_inicio',
+                '!empresa', '!titulo_painel', '!titulo', '!texto', '!imagem', '!regulamento', '!data_inicio',
                 '!data_final', '!atualizar_dado', '!botao_texto', '!botao_link',
                 '!botao_target', '!status'
             ])
