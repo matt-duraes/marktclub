@@ -51,18 +51,6 @@ final class LojaEntity extends Entity
         $this->link_capa_mobile = !empty($this->capa) ? LINK_ARQUIVO . '/parceiro/' . $this->capa : '';
         $this->favorito = new Botao('nao');
         $this->link_site = (new LinkSiteModel($this))->link;
-        $this->arquivo = $this->pegarUrlsArquivo();
-    }
-
-    private function pegarUrlsArquivo(): array
-    {
-        $arquivos = [];
-        if (!empty($this->arquivo)) {
-            foreach ($this->arquivo as $arquivo) {
-                $arquivos[] = arquivoPrivado($arquivo);
-            }
-        }
-        return $arquivos;
     }
 
     protected function getId()
