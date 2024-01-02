@@ -123,7 +123,7 @@ class PopupModel extends ORM
             $where[] = ['status', $this->status->numero()];
         }
 
-        if ($this->usuario_tipo) {
+        if ($this->usuario_tipo->valido()) {
             $where[] = [
                 'OR',
                 ['usuario_tipo', 'json', $this->usuario_tipo->numero()],
