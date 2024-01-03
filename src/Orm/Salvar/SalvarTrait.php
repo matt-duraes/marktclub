@@ -53,7 +53,7 @@ trait SalvarTrait
         }
 
         if (is_array($salvar) && array_key_exists('id', $salvar)) {
-            $this->id($salvar['id']);
+            $this->buscar(['id', $salvar['id']], leitura: false);
             $this->ormAcaoPosSalvar($this->ormAcao);
             $this->ormDeletarArquivos($deletarArquivo);
             $this->ormDiff = $dado['salvar'];

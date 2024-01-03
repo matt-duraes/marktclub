@@ -47,8 +47,8 @@ $Doc
             ->tr(['API_CLIENT_SECRET', 'Client_secret do App da api'])
             ->tr(['API_AUDIENCE', 'Audience do App da api'])
 
-            ->tr(['DB_HOST', 'Host do banco de dados, no local usar mysql'])
-            ->tr(['DB_PORT', 'Porta do Banco de dados, deixar opcional para usar a padrão'])
+            ->tr(['DB_ESCRITA', 'Host do banco de dados, no local usar mysql'])
+            ->tr(['DB_PORTA', 'Porta do Banco de dados, deixar opcional para usar a padrão'])
             ->tr(['DB_BANCO', 'Nome do banco de dados'])
             ->tr(['DB_USUARIO', 'Usuário do banco de dados'])
             ->tr(['DB_SENHA', 'Senha do banco de dados'])

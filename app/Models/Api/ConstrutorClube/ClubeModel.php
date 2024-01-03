@@ -20,12 +20,13 @@ final class ClubeModel
         $dependente = $Construtor->menu_dependente->valor();
         $linkAndroid = $Construtor->link_app_android;
         $linkIos = $Construtor->link_app_ios;
+        $corSecundaria = !empty($Construtor->cor_secundaria) ? $Construtor->cor_secundaria : $Construtor->cor_principal;
         $this->construtor = [
             'id'                      => $Construtor->id,
             'empresa'                 => $Construtor->empresa,
             'titulo'                  => $Construtor->titulo,
             'cor_principal'           => $Construtor->cor_principal,
-            'cor_secundaria'          => $Construtor->cor_secundaria,
+            'cor_secundaria'          => $corSecundaria,
             'logo_principal'          => $Construtor->logo_principal,
             'logo_secundaria'         => $Construtor->logo_secundaria,
             'favicon'                 => $Construtor->favicon,

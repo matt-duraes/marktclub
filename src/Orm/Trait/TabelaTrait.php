@@ -30,7 +30,8 @@ trait TabelaTrait
 
     private function verificarSeTabelaExiste(string $tabela)
     {
-        if (empty($this->ormDB->query("SHOW TABLES LIKE '$tabela'")->rowCount())) {
+        $DB = $this->ormLeitura ? $this->ormDBLeitura : $this->ormDBEscrita;
+        if (empty($DB->query("SHOW TABLES LIKE '$tabela'")->rowCount())) {
             throw new Excecao(
                 titulo: 'Tabela não encontrada!',
                 mensagem: 'A tabela ' . $tabela . 'não foi encontrada na base de dados.'

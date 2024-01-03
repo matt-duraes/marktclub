@@ -67,6 +67,9 @@ return [
             'parceiro_relatorio'       => [
                 'titulo' => 'Relatório do parceiro', 'acao' => ['index', 'add', 'editar', 'deletar']
             ],
+            'parceiro_loja'        => [
+                'titulo' => 'Loja', 'acao' => ['index', 'add', 'editar', 'deletar', 'empresa']
+            ],
             'parceiro_cashback'        => [
                 'titulo' => 'Cashback', 'acao' => ['index', 'add', 'editar', 'deletar', 'empresa']
             ],
