@@ -126,9 +126,10 @@ trait BuscarTrait
      * @param  bool         $erro     Caso não encontre o resulta, retorna erro 404
      * @param  null|string  $mensagem Mensagem em caso de erro
      * @param  null|string  $titulo   Título em caso de erro
+     * @param  bool         $leitura  Se pode usar a rota de leitura
      * @throws Erro\Excecao
      */
-    public function buscar(array $where, $erro = true, ?string $mensagem = null, ?string $titulo = null)
+    public function buscar(array $where, $erro = true, ?string $mensagem = null, ?string $titulo = null, bool $leitura = true)
     {
         if (!empty($this->ormWherePadrao)) {
             $where = [$where, [$this->ormWherePadrao]];
@@ -167,7 +168,7 @@ trait BuscarTrait
             }
         }
 
-        $busca = $busca->read(indice: 0, retorno: 'array');
+        $busca = $busca->read(indice: 0, retorno: 'array', leitura: $leitura);
         if (empty($busca) && !empty($mensagem)) {
             $titulo = !empty($titulo) ? $titulo : 'Não encontrado!';
             throw new Excecao(titulo: $titulo, mensagem: $mensagem, status: 404);

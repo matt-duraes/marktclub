@@ -75,7 +75,7 @@ abstract class ORM
             $option
         );
 
-        if (!empty($leitura) && !($this instanceof Entity)) {
+        if (!empty($leitura)) {
             $this->ormLeitura = true;
             $this->ormDBLeitura = new PDO(
                 'mysql:host=' . $leitura . ';dbname=' . $banco . $porta,
@@ -205,10 +205,10 @@ abstract class ORM
         }
     }
 
-    private function ormExecute(string $query, array $dado = [])
+    private function ormExecute(string $query, array $dado = [], bool $leitura = true)
     {
         $this->ormDB = $this->ormDBEscrita;
-        if ($this->ormQueryLeitura($query)) {
+        if ($leitura && $this->ormQueryLeitura($query)) {
             $this->ormDB = $this->ormDBLeitura;
         }
         $sql = $this->ormDB->prepare($query);
