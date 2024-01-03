@@ -40,11 +40,11 @@ final class ListarModel extends ClubeApiHelper implements ListarInterface
         $retorno = [];
         foreach ($dado as $r) {
             $retorno[] = (object)[
-                'id'       => $r->id,
-                'titulo'   => $r->titulo,
+                'id'       => $r['id'],
+                'titulo'   => $r['titulo'],
                 'texto'    => '',
-                'link'     => route('automovel.versao') . '/' . $this->url . '/' . $r->url,
-                'imagem'   => $r->imagem,
+                'link'     => route('automovel.versao') . '/' . $this->url . '/' . $r['url'],
+                'imagem'   => $r['imagem'],
                 'tipo'     => 'automovel-modelo'
             ];
         }
