@@ -120,9 +120,10 @@ trait ReadTrait
      * @param  string   $campo   Campo que deseja pegar na requisição, caso não passe o indice, pegar o indice 0
      * @param  mixed    $padrao  Padrão caso não exista o campo
      * @param  string   $retorno Tipo de retorno podendo ser object ou array
+     * @param  bool     $leitura Se vai poder usar o host de leitura
      * @return mixed
      */
-    protected function read(?int $indice = null, string $campo = '', $padrao = null, string $retorno = 'object')
+    protected function read(?int $indice = null, string $campo = '', $padrao = null, string $retorno = 'object', bool $leitura = true)
     {
         if (!empty($campo) && is_null($indice)) {
             $indice = 0;
@@ -131,7 +132,7 @@ trait ReadTrait
             $this->limit($indice, 1);
         }
 
-        $busca = $this->ormExecute($this->ormMontarQueryString(), $this->ormCondicaoValue);
+        $busca = $this->ormExecute($this->ormMontarQueryString(), $this->ormCondicaoValue, $leitura);
         if (!$busca instanceof PDOStatement) {
             throw new Excecao(titulo: 'Erro na busca!', mensagem: is_string($busca) && SISTEMA != 'PRODUCAO' ? $busca : 'Ocorreu um erro na sua busca.');
         }
