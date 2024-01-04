@@ -1,0 +1,1 @@
+{"id":"id_723631361c40b99130c74d0f867394d6","token":"token","metodo":"GET","nome":"\/site-menu\/:id","uri":"{{LINK}}\/site-menu\/$SITE_MENU_ID","parametro":[],"body":[],"header":[],"variavel":[],"json":[],"documentacao":{"status":false,"descricao":"","requisicao":"","resposta":"","scope":"site_menu:buscar"}}

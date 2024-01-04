@@ -1,0 +1,1 @@
+{"id":"id_198684bc43c97e51e8aa5e08783fb939","token":"token","metodo":"PUT","nome":"\/site-config\/:id","uri":"{{LINK}}\/site-config\/$SITE_CONFIG_ID","parametro":[],"body":[["texto",true,"titulo","",""]],"header":[],"variavel":[],"json":[],"documentacao":{"status":false,"descricao":"","requisicao":"","resposta":"","scope":"site_config:atualizar"}}
