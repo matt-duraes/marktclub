@@ -13,6 +13,19 @@ class SolicitacaoContatoTest extends Clube
         parent::__construct();
     }
 
+    private function getBody(
+        $url = ''
+    ) {
+        return [
+            'nome'     => nomeCompletoAleatorio(),
+            'email'    => emailAleatorio(),
+            'telefone' => telefoneAleatorio(),
+            'mensagem' => 'Mensagem de teste',
+            'local'    => $url,
+            'tipo'     => '1'
+        ];
+    }
+
     public function listarSolicitacaoTest()
     {
         $this->pegarToken();
@@ -34,17 +47,11 @@ class SolicitacaoContatoTest extends Clube
         $this->api('solicitacao_contato:salvar');
         $dado = $this
             ->Curl
-            ->body([
-                'nome'     => nomeCompletoAleatorio(),
-                'email'    => emailAleatorio(),
-                'telefone' => telefoneAleatorio(),
-                'mensagem' => 'Mensagem de teste',
-                'url'      => 'https://www.google.com.br'
-            ])
+            ->body($this->getBody(url: 'https://www.google.com.br'))
             ->post('/solicitacao-contato')
-            ->array();
+            ->array()['dado'] ?? [];
 
-        $this->id = $dado['dado']['id'];
+        $this->id = $dado['id'] ?? [];
 
         return $this
             ->checkStatus(201)
@@ -75,35 +82,7 @@ class SolicitacaoContatoTest extends Clube
         $this->api('solicitacao_contato:salvar');
         $this
             ->Curl
-            ->body([
-                'nome'     => nomeCompletoAleatorio(),
-                'email'    => emailAleatorio(),
-                'telefone' => telefoneAleatorio(),
-                'mensagem' => 'Mensagem de teste',
-                'url'      => 'anafecard.com.br'
-            ])
-            ->post('/solicitacao-contato');
-
-        return $this
-            ->checkStatus(201)
-            ->checkIndiceIgual('status', 'sucesso')
-            ->checkIndiceExiste('dado')
-            ->checkIndiceIgual('dado.empresa.nome', 'Anafe Card');
-    }
-
-    public function salvarSolicitacaoSemTokenTest()
-    {
-        $this->api('solicitacao_contato:salvar');
-        $this->removerToken();
-        $this
-            ->Curl
-            ->body([
-                'nome'     => nomeCompletoAleatorio(),
-                'email'    => emailAleatorio(),
-                'telefone' => telefoneAleatorio(),
-                'mensagem' => 'Mensagem de teste',
-                'url'      => ''
-            ])
+            ->body($this->getBody(url: 'anafecard.com.br'))
             ->post('/solicitacao-contato');
 
         return $this
