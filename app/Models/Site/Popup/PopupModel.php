@@ -28,7 +28,7 @@ final class PopupModel extends ClubeApiHelper
 
     private function pegarUsuarioTipo()
     {
-        if (sessao('USUARIO.tipo') == 'titular' && sessao('USUARIO.federacao') == 'UF') {
+        if (sessao('USUARIO.tipo') == 'titular' && sessao('USUARIO.federacao') == 'FU') {
             return 'funcionario';
         }
 
