@@ -69,7 +69,7 @@ final class DataBase
         }
         $this->banco = env('DB_BANCO');
         $this->db = new PDO(
-            'mysql:host=' . env('DB_HOST') . ';dbname=' . $this->banco,
+            'mysql:host=' . env('DB_ESCRITA') . ';dbname=' . $this->banco,
             env('DB_USUARIO'),
             env('DB_SENHA'),
             [
