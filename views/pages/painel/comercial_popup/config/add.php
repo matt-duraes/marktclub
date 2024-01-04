@@ -68,6 +68,10 @@ $Painel->coluna(callback: function () use ($Painel) {
         titulo: 'Tipos de Usuário',
         callback: function () use ($Painel) {
             foreach ((new TipoUsuario())->select() as $key => $nome) {
+                if ($key == 'super') {
+                    continue;
+                }
+
                 $Painel->checkbox(name: 'usuario_tipo[]', label: $nome, value: $key);
             }
         },
