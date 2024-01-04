@@ -47,8 +47,8 @@ $Painel->coluna(callback: function () use ($Painel) {
     $Painel->fieldsetCheckbox(
         titulo: 'Tipos de Usuário',
         callback: function () use ($Painel) {
-            foreach ((new TipoUsuario())->select() as $id => $nome) {
-                $Painel->checkbox(name: 'usuario_tipo[]', label: $nome, value: $id);
+            foreach ((new TipoUsuario())->select() as $key => $nome) {
+                $Painel->checkbox(name: 'usuario_tipo[]', label: $nome, value: $key);
             }
         },
         todos: 'Marcar todos os tipos',
