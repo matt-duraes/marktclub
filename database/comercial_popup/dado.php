@@ -70,5 +70,24 @@ return [
         'botao_link'       => 'https://google.com',
         'botao_target'     => 2,
         'status'           => 1
+    ],
+    [
+        'uuid'             => uuid(),
+        'id_admin_empresa' => jsonEncode([1]),
+        'titulo_painel'    => 'Popup para convenio',
+        'usuario_tipo'     => jsonEncode([1]),
+        'slug'             => 'popup-para-convenio',
+        'uri'              => '/convenios',
+        'imagem'           => null,
+        'titulo'           => 'Popup para convenio',
+        'texto'            => 'Texto do popup do convenio',
+        'regulamento'      => 'Regulamento do popup de teste 01',
+        'data_inicio'      => dataPassadaAleatorio(),
+        'data_final'       => dataFuturaAleatorio(),
+        'atualizar_dado'   => null,
+        'botao_texto'      => 'Abrir Google',
+        'botao_link'       => 'https://google.com',
+        'botao_target'     => 2,
+        'status'           => 1
     ]
 ];

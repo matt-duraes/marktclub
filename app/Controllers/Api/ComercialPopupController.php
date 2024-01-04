@@ -53,9 +53,9 @@ class ComercialPopupController extends Controller implements
     {
         return mensagemSucesso(
             pegarPropriedadeDaEntity($PopupEntity, lista: [
-                'empresa', 'usuario_tipo', 'titulo_painel', 'slug', 'imagem', 'titulo', 'texto', 'regulamento', 'data_inicio',
-                'data_final', 'atualizar_dado', 'botao_texto', 'botao_link',
-                'botao_target', 'status'
+                'empresa', 'usuario_tipo', 'titulo_painel', 'slug', 'imagem', 'titulo', 'texto',
+                'regulamento', 'data_inicio', 'data_final', 'atualizar_dado', 'botao_texto', 'botao_link',
+                'uri', 'botao_target', 'status'
             ]),
             $status
         );
@@ -75,6 +75,7 @@ class ComercialPopupController extends Controller implements
             new Ordem($request->ordem),
             $request->titulo,
             $request->empresa,
+            $request->uri,
             new TipoUsuario($request->usuario_tipo),
             new Data($request->data_inicio),
             new Data($request->data_final),

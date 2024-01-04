@@ -47,6 +47,7 @@ class PopupModel extends ORM
         private readonly Ordem $ordem = new Ordem(),
         private readonly ?string $titulo = null,
         private readonly ?string $empresa = null,
+        private readonly ?string $uri = null,
         private readonly TipoUsuario $usuario_tipo = new TipoUsuario(),
         private readonly Data $dataInicio = new Data(),
         private readonly Data $dataFinal = new Data(),
@@ -85,7 +86,7 @@ class PopupModel extends ORM
     {
         $dado = $this
             ->campo([
-                'uuid', 'titulo_painel', 'slug', 'imagem', 'titulo', 'texto', 'regulamento',
+                'uuid', 'titulo_painel', 'slug', 'imagem', 'titulo', 'texto', 'uri', 'regulamento',
                 'data_inicio', 'data_final', 'atualizar_dado', 'botao_texto', 'botao_link',
                 'botao_target', 'status'
             ])
@@ -129,6 +130,10 @@ class PopupModel extends ORM
                 ['usuario_tipo', 'json', $this->usuario_tipo->numero()],
                 ['usuario_tipo', 'null']
             ];
+        }
+
+        if ($this->uri) {
+            $where[] = ['uri', $this->uri];
         }
 
         if ($publicado) {
@@ -176,6 +181,7 @@ class PopupModel extends ORM
             $retorno[] = [
                 'id'             => $popup->uuid,
                 'titulo_painel'  => $popup->titulo_painel,
+                'uri'            => $popup->uri,
                 'slug'           => $popup->slug,
                 'imagem'         => arquivoPrivado($popup->imagem ?? ''),
                 'titulo'         => $popup->titulo,

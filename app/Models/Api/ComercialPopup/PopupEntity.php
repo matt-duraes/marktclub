@@ -16,6 +16,7 @@ class PopupEntity extends Entity
     public array $empresa;
     public string $slug;
     public array $usuario_tipo;
+    public string $uri;
     public string $imagem;
     public string $titulo;
     public string $texto;
@@ -30,14 +31,14 @@ class PopupEntity extends Entity
     public Status $status;
     protected string $ormTabela = TABELA_COMERCIAL_POPUP;
     protected array $ormBuscar = [
-        'id_admin_empresa', 'titulo_painel', 'usuario_tipo', 'slug', 'imagem', 'titulo', 'texto', 'regulamento',
-        'data_inicio', 'data_final', 'atualizar_dado', 'botao_texto', 'botao_link',
-        'botao_target', 'status'
+        'id_admin_empresa', 'titulo_painel', 'usuario_tipo', 'slug', 'imagem', 'titulo',
+        'texto', 'regulamento', 'data_inicio', 'data_final', 'atualizar_dado', 'botao_texto',
+        'botao_link', 'botao_target', 'uri', 'status'
     ];
     protected array $ormSalvar = [
-        'id_admin_empresa', 'titulo_painel', 'usuario_tipo', 'slug', 'imagem', 'titulo', 'texto', 'regulamento', 'data_inicio',
-        'data_final', 'atualizar_dado', 'botao_texto', 'botao_link',
-        'botao_target', 'status'
+        'id_admin_empresa', 'titulo_painel', 'usuario_tipo', 'slug', 'imagem', 'titulo',
+        'texto', 'regulamento', 'data_inicio', 'data_final', 'atualizar_dado', 'botao_texto',
+        'botao_link', 'botao_target', 'uri', 'status'
     ];
     protected string $ormValidarSalvar = '
         imagem|Imagem|valido

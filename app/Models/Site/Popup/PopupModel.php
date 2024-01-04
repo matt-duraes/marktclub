@@ -51,8 +51,17 @@ final class PopupModel extends ClubeApiHelper
         if (!$lista) {
             return [];
         }
-        $primeiro = array_shift($lista);
+
+        $popup = null;
+        foreach ($lista as $key => $item) {
+            if ($item->uri == URI) {
+                $popup = $item;
+                unset($lista[$key]);
+                break;
+            }
+        }
+
         sessao('POPUP_PROMOCAO', $lista);
-        return $primeiro;
+        return $popup;
     }
 }
