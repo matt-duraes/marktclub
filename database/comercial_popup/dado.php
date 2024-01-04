@@ -22,7 +22,7 @@ return [
     [
         'uuid'             => uuid(),
         'id_admin_empresa' => jsonEncode([1]),
-        'titulo_painel'   => 'Popup para dependente',
+        'titulo_painel'    => 'Popup para dependente',
         'usuario_tipo'     => jsonEncode([2]),
         'slug'             => 'popup-para-dependente',
         'imagem'           => null,
