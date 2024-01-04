@@ -17,13 +17,22 @@ final class PopupModel extends ClubeApiHelper
         $dado = $this
             ->json([
                 'publicado'    => Botao::SIM,
-                'usuario_tipo' => sessao('USUARIO.tipo'),
+                'usuario_tipo' => $this->pegarUsuarioTipo(),
                 'empresa'      => CLUBE_ID,
                 'pagina'       => 1
             ])
             ->get('/comercial-popup')
         ->object()->dado->lista ?? [];
         sessao('POPUP_PROMOCAO', $this->montarPopup($dado));
+    }
+
+    private function pegarUsuarioTipo()
+    {
+        if (sessao('USUARIO.tipo') == 'titular' && sessao('USUARIO.federacao') == 'UF') {
+            return 'funcionario';
+        }
+
+        return sessao('USUARIO.tipo');
     }
 
     private function montarPopup($dado)

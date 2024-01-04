@@ -33,6 +33,7 @@ final class PayloadModel
                 'email'           => $email,
                 'email_verified'  => false,
                 'type'            => (new TipoUsuario($Usuario->tipo))->indice(),
+                'federation'      => $Usuario->federacao,
                 'group'           => $Usuario->grupo,
                 'new_user'        => $Usuario->primeiro_acesso == 1,
                 'update_password' => $Usuario->mudar_senha == 1,
