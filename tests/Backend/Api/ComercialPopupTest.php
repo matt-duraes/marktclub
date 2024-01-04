@@ -3,6 +3,7 @@
 namespace Tests\Api;
 
 use App\Classes\ComercialPopup\Status;
+use App\Classes\UsuarioCliente\TipoUsuario;
 use Erro\Excecao;
 use Tests\Token\Clube;
 
@@ -27,13 +28,14 @@ class ComercialPopupTest extends Clube
         $popup = $this
             ->Curl
             ->body([
-                'empresa'      => $this->idEmpresa,
-                'titulo'       => 'venha conferir a melhor',
-                'texto'        => 'Aqui vc tera o mejor do melhor sempre',
-                'data_inicio'  => date('d/m/Y'),
-                'data_final'   => date('d/m/Y'),
-                'usuario_tipo' => 'titular',
-                'status'       => Status::ATIVO
+                'empresa'       => $this->idEmpresa,
+                'titulo_painel' => 'Identificacao para o painel',
+                'titulo'        => 'venha conferir a melhor',
+                'texto'         => 'Aqui vc tera o mejor do melhor sempre',
+                'data_inicio'   => date('d/m/Y'),
+                'data_final'    => date('d/m/Y'),
+                'usuario_tipo'  => TipoUsuario::TITULAR,
+                'status'        => Status::ATIVO
             ])
             ->post('/comercial-popup')
             ->array();
