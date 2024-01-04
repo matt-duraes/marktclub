@@ -22,7 +22,10 @@
         @endif
 
         @if ($popupPromocao->botao_link):
-        <a class="botao_regulamento cor_bg" href="{{$popupPromocao->botao_link}}" target="{{$popupPromocao->botao_target}}">{{$popupPromocao->botao_texto}}</a>
+        <!-- Colocar o botão no centro caso tenha imagem no popup  -->
+        <div class="{{$popupPromocao->imagem ? 'botao_centro' : ''}}">
+            <a class="botao_regulamento cor_bg" href="{{$popupPromocao->botao_link}}" target="{{$popupPromocao->botao_target}}">{{$popupPromocao->botao_texto}}</a>
+        </div>
         @endif
     </div>
 </div>
