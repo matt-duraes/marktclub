@@ -54,7 +54,6 @@ class ApiHelper extends CurlHelper
             $this->header(['Authorization' => 'Bearer ' . $token['dado']['access_token']]);
             return;
         }
-
         throw new Excecao(status: 401);
     }
 }
