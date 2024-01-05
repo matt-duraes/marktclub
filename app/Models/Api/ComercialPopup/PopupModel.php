@@ -48,7 +48,7 @@ class PopupModel extends ORM
         private readonly ?string $titulo = null,
         private readonly ?string $empresa = null,
         private readonly ?string $uri = null,
-        private readonly TipoUsuario $usuario_tipo = new TipoUsuario(),
+        private readonly TipoUsuario $usuarioTipo = new TipoUsuario(),
         private readonly Data $dataInicio = new Data(),
         private readonly Data $dataFinal = new Data(),
         private readonly Status $status = new Status(),
@@ -124,10 +124,10 @@ class PopupModel extends ORM
             $where[] = ['status', $this->status->numero()];
         }
 
-        if ($this->usuario_tipo->valido()) {
+        if ($this->usuarioTipo->valido()) {
             $where[] = [
                 'OR',
-                ['usuario_tipo', 'json', $this->usuario_tipo->numero()],
+                ['usuario_tipo', 'json', $this->usuarioTipo->numero()],
                 ['usuario_tipo', 'null']
             ];
         }
