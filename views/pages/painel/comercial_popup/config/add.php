@@ -2,6 +2,7 @@
 
 use App\Classes\ComercialPopup\BotaoTarget;
 use App\Classes\ComercialPopup\Status;
+use App\Classes\UsuarioCliente\TipoUsuario;
 use Helpers\ApiHelper;
 
 $empresa = (new ApiHelper(token: true))
@@ -27,6 +28,26 @@ $Painel->coluna(callback: function () use ($Painel) {
                 name: 'status',
                 lista: (new Status())->select('Escolha um status'),
                 label: 'Status'
+            )
+            ->select(
+                name: 'uri',
+                lista: [
+                    ''                    => 'Todas',
+                    '/convenios'          => 'Convenios',
+                    '/samsung'            => 'Samsung',
+                    '/farmacia'           => 'Farmácia',
+                    '/cupom'              => 'Cupom',
+                    '/cashback'           => 'Cashback',
+                    '/automoveis'         => 'Automóveis',
+                    '/cinema'             => 'Cinema',
+                    '/corrida'            => 'Corrida',
+                    '/show-nacional'      => 'Show Nacional',
+                    '/show-internacional' => 'Show Internacional',
+                    '/credito'            => 'Crédito',
+                    '/plano-odontologico' => 'Plano Odontológico',
+                    '/saude'              => 'Saúde',
+                ],
+                label: 'Página'
             );
     });
 
@@ -40,6 +61,23 @@ $Painel->coluna(callback: function () use ($Painel) {
                 label: 'Tipo de Link'
             );
     });
+});
+
+$Painel->coluna(callback: function () use ($Painel) {
+    $Painel->fieldsetCheckbox(
+        titulo: 'Tipos de Usuário',
+        callback: function () use ($Painel) {
+            foreach ((new TipoUsuario())->select() as $key => $nome) {
+                if ($key == 'super') {
+                    continue;
+                }
+
+                $Painel->checkbox(name: 'usuario_tipo[]', label: $nome, value: $key);
+            }
+        },
+        todos: 'Marcar todos os tipos',
+        mais: false
+    );
 });
 
 $Painel->coluna(callback: function () use ($Painel) {

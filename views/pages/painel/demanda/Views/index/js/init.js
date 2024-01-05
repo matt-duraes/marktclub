@@ -115,7 +115,7 @@ const adicionarNovaTarefa = item => {
 
     const botaoEditar = clone.querySelector('.botao_editar');
     const botaoDeletar = clone.querySelector('.botao_deletar');
-    if (editarDeletar == 'sim' && item.status_valor != 'concluida' && inArray(statusDemanda, ['teste', 'concluida'])) {
+    if (editarDeletar == 'sim' && item.status_valor != 'concluida' && !inArray(statusDemanda, ['teste', 'concluida'])) {
         botaoEditar.addEventListener('click', () => {
             abrirPopupTarefaEditar(item.id);
         });

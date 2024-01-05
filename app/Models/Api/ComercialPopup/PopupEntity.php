@@ -4,6 +4,7 @@ namespace App\Models\Api\ComercialPopup;
 
 use App\Classes\ComercialPopup\BotaoTarget;
 use App\Classes\ComercialPopup\Status;
+use App\Classes\UsuarioCliente\TipoUsuario;
 use Erro\Excecao;
 use Helpers\OrmHelper;
 use Modules\Data;
@@ -13,12 +14,14 @@ use ORM\Entity;
 class PopupEntity extends Entity
 {
     public array $empresa;
-    public string $titulo_painel;
     public string $slug;
+    public array $usuario_tipo;
+    public string $uri;
     public string $imagem;
     public string $titulo;
     public string $texto;
     public string $regulamento;
+    public string $titulo_painel;
     public Data $data_inicio;
     public Data $data_final;
     public string $atualizar_dado;
@@ -28,14 +31,14 @@ class PopupEntity extends Entity
     public Status $status;
     protected string $ormTabela = TABELA_COMERCIAL_POPUP;
     protected array $ormBuscar = [
-        'id_admin_empresa', 'titulo_painel', 'slug', 'imagem', 'titulo', 'texto', 'regulamento',
-        'data_inicio', 'data_final', 'atualizar_dado', 'botao_texto', 'botao_link',
-        'botao_target', 'status'
+        'id_admin_empresa', 'titulo_painel', 'usuario_tipo', 'slug', 'imagem', 'titulo',
+        'texto', 'regulamento', 'data_inicio', 'data_final', 'atualizar_dado', 'botao_texto',
+        'botao_link', 'botao_target', 'uri', 'status'
     ];
     protected array $ormSalvar = [
-        'id_admin_empresa', 'titulo_painel', 'slug', 'imagem', 'titulo', 'texto', 'regulamento',
-        'data_inicio', 'data_final', 'atualizar_dado', 'botao_texto', 'botao_link',
-        'botao_target', 'status'
+        'id_admin_empresa', 'titulo_painel', 'usuario_tipo', 'slug', 'imagem', 'titulo',
+        'texto', 'regulamento', 'data_inicio', 'data_final', 'atualizar_dado', 'botao_texto',
+        'botao_link', 'botao_target', 'uri', 'status'
     ];
     protected string $ormValidarSalvar = '
         imagem|Imagem|valido
@@ -125,13 +128,38 @@ class PopupEntity extends Entity
 
     protected function regraSalvar(): void
     {
+        $this->pegarNumeroUsuarioTipo();
         $this->id_admin_empresa = (new OrmHelper(TABELA_COMERCIAL_EMPRESA))
             ->mudarListaUuidParaId($this->empresa);
+    }
+
+    private function pegarNumeroUsuarioTipo(): void
+    {
+        $usuario_tipo = [];
+        foreach ($this->usuario_tipo as $tipo) {
+            $usuario_tipo[] = (new TipoUsuario())->numero($tipo);
+        }
+        $this->usuario_tipo = $usuario_tipo;
+    }
+
+    protected function regraPosSalvar(): void
+    {
+        $this->pegarIndiceUsuarioTipo();
+    }
+
+    private function pegarIndiceUsuarioTipo(): void
+    {
+        $usuario_tipo = [];
+        foreach ($this->usuario_tipo as $tipo) {
+            $usuario_tipo[] = (new TipoUsuario())->indice($tipo);
+        }
+        $this->usuario_tipo = $usuario_tipo;
     }
 
     protected function regraPosBuscar(): void
     {
         $this->empresa = (new OrmHelper(TABELA_COMERCIAL_EMPRESA))
             ->mudarListaIdParaUuid($this->id_admin_empresa);
+        $this->pegarIndiceUsuarioTipo();
     }
 }

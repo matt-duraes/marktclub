@@ -49,7 +49,7 @@
 
     <!-- TAREFA NA DEMANDA -->
     <article class="tarefa" id="clone_demanda_tarefa_item">
-        <div class="bloco_botao bloco_dono display_none">
+        <div class="bloco_botao bloco_dono">
             <i class="botao botao_editar">@iconeEditar(15)</i>
             <i class="botao botao_deletar">@iconeDeletar</i>
         </div>
