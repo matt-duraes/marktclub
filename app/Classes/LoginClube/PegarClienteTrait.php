@@ -12,7 +12,8 @@ trait PegarClienteTrait
             where: $where,
             campo: [
                 'id', 'uuid', 'salt', 'cpf', 'nome', 'imagem', 'email_pessoal', 'email_trabalho', 'tipo',
-                'grupo', 'primeiro_acesso', 'mudar_senha', 'data_termo', 'data_criacao', 'data_atualizacao'
+                'grupo', 'primeiro_acesso', 'mudar_senha', 'data_termo', 'data_criacao', 'data_atualizacao',
+                'federacao'
             ],
             retorno: 'object'
         );

@@ -1819,8 +1819,8 @@ Route
             ::nome('listar')
             ::middleware(TokenMiddleware::class, 'scope', ['comercial_popup:listar'])
             ::request([
-                'pagina', '!quantidade', '!ordem', '!titulo', '!empresa',
-                '!data_inicio', '!data_final', '!status', '!publicado'
+                'pagina', '!quantidade', '!ordem', '!titulo', '!empresa', '!uri',
+                '!data_inicio', '!data_final', '!status', '!publicado', '!usuario_tipo'
             ], 'json')
             ::get('/comercial-popup');
 
@@ -1828,9 +1828,9 @@ Route
             ::nome('salvar')
             ::middleware(TokenMiddleware::class, 'scope', ['comercial_popup:salvar'])
             ::request([
-                'empresa', 'titulo_painel', 'titulo', '!texto', '!imagem', '!regulamento', '!data_inicio',
-                '!data_final', '!atualizar_dado', '!botao_texto', '!botao_link',
-                '!botao_target', '!status'
+                'empresa', 'titulo', 'titulo_painel', '!usuario_tipo', '!texto', '!imagem',
+                '!regulamento', '!data_inicio', '!data_final', '!atualizar_dado', '!botao_texto',
+                '!botao_link', '!botao_target', '!status', '!uri'
             ])
             ::post('/comercial-popup');
 
@@ -1838,9 +1838,9 @@ Route
             ::nome('atualizar')
             ::middleware(TokenMiddleware::class, 'scope', ['comercial_popup:atualizar'])
             ::request([
-                '!empresa', '!titulo_painel', '!titulo', '!texto', '!imagem', '!regulamento', '!data_inicio',
-                '!data_final', '!atualizar_dado', '!botao_texto', '!botao_link',
-                '!botao_target', '!status'
+                '!empresa', '!titulo_painel', '!usuario_tipo', '!titulo', '!texto', '!imagem',
+                '!regulamento', '!data_inicio', '!data_final', '!atualizar_dado', '!botao_texto',
+                '!botao_link', '!botao_target', '!status', '!uri'
             ])
             ::put('/comercial-popup/{id}');
 

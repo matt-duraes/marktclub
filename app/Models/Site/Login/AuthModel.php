@@ -39,6 +39,7 @@ final class AuthModel
             'email'           => $this->Crypt->decode($dado['email']),
             'imagem'          => $this->Crypt->decode($dado['picture']),
             'tipo'            => $dado['type'],
+            'federacao'       => $dado['federation'],
             'grupo'           => $dado['group'],
             'novo'            => $dado['new_user'],
             'atualizar_senha' => $dado['update_password'],

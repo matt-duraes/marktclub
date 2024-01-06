@@ -2,6 +2,7 @@
 
 namespace App\Models\Api\ComercialPopup;
 
+use App\Classes\UsuarioCliente\TipoUsuario;
 use ORM\ORM;
 use stdClass;
 use Erro\Excecao;
@@ -46,6 +47,8 @@ class PopupModel extends ORM
         private readonly Ordem $ordem = new Ordem(),
         private readonly ?string $titulo = null,
         private readonly ?string $empresa = null,
+        private readonly ?string $uri = null,
+        private readonly TipoUsuario $usuarioTipo = new TipoUsuario(),
         private readonly Data $dataInicio = new Data(),
         private readonly Data $dataFinal = new Data(),
         private readonly Status $status = new Status(),
@@ -83,7 +86,7 @@ class PopupModel extends ORM
     {
         $dado = $this
             ->campo([
-                'uuid', 'titulo_painel', 'slug', 'imagem', 'titulo', 'texto', 'regulamento',
+                'uuid', 'titulo_painel', 'slug', 'imagem', 'titulo', 'texto', 'uri', 'regulamento',
                 'data_inicio', 'data_final', 'atualizar_dado', 'botao_texto', 'botao_link',
                 'botao_target', 'status'
             ])
@@ -119,6 +122,18 @@ class PopupModel extends ORM
 
         if ($this->status->valido() && !$publicado) {
             $where[] = ['status', $this->status->numero()];
+        }
+
+        if ($this->usuarioTipo->valido()) {
+            $where[] = [
+                'OR',
+                ['usuario_tipo', 'json', $this->usuarioTipo->numero()],
+                ['usuario_tipo', 'null']
+            ];
+        }
+
+        if ($this->uri) {
+            $where[] = ['uri', $this->uri];
         }
 
         if ($publicado) {
@@ -166,6 +181,7 @@ class PopupModel extends ORM
             $retorno[] = [
                 'id'             => $popup->uuid,
                 'titulo_painel'  => $popup->titulo_painel,
+                'uri'            => $popup->uri,
                 'slug'           => $popup->slug,
                 'imagem'         => arquivoPrivado($popup->imagem ?? ''),
                 'titulo'         => $popup->titulo,

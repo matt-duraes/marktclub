@@ -16,13 +16,23 @@ final class PopupModel extends ClubeApiHelper
         }
         $dado = $this
             ->json([
-                'publicado' => Botao::SIM,
-                'empresa'   => CLUBE_ID,
-                'pagina'    => 1
+                'publicado'    => Botao::SIM,
+                'usuario_tipo' => $this->pegarUsuarioTipo(),
+                'empresa'      => CLUBE_ID,
+                'pagina'       => 1
             ])
             ->get('/comercial-popup')
         ->object()->dado->lista ?? [];
         sessao('POPUP_PROMOCAO', $this->montarPopup($dado));
+    }
+
+    private function pegarUsuarioTipo()
+    {
+        if (sessao('USUARIO.tipo') == 'titular' && sessao('USUARIO.federacao') == 'FU') {
+            return 'funcionario';
+        }
+
+        return sessao('USUARIO.tipo');
     }
 
     private function montarPopup($dado)
@@ -41,8 +51,17 @@ final class PopupModel extends ClubeApiHelper
         if (!$lista) {
             return [];
         }
-        $primeiro = array_shift($lista);
+
+        $popup = null;
+        foreach ($lista as $key => $item) {
+            if ($item->uri == URI) {
+                $popup = $item;
+                unset($lista[$key]);
+                break;
+            }
+        }
+
         sessao('POPUP_PROMOCAO', $lista);
-        return $primeiro;
+        return $popup;
     }
 }
