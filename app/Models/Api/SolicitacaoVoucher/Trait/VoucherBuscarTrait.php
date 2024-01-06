@@ -22,9 +22,7 @@ trait VoucherBuscarTrait
             ['status', 'in', [1, 2]]
         ]);
 
-        $this->qr_code =
-            'https://chart.apis.google.com/chart?cht=qr&chl=http://voucher.marktclub.com.br/validar/'
-            . $this->codigo . '&chs=300x300';
+        $this->qr_code = 'https://qrcode.youhuul.com/voucher/' . $this->codigo;
 
         $this->montarTexto();
     }
