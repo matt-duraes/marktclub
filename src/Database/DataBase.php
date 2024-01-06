@@ -7,6 +7,11 @@ use Throwable;
 
 final class DataBase
 {
+    public const CASCADE = 'CASCADE';
+    public const RESTRICT = 'RESTRICT';
+    public const SET_NULL = 'SET NULL';
+    public const NO_ACTION = 'NO ACTION';
+
     /**
      * @var string
      */
@@ -924,9 +929,9 @@ final class DataBase
      * @param  string      $tabela Nome da tabela que será relacionada
      * @param  string      $campo  Nome do campo que será relacionado
      * @param  null|string $delete Ação que será tomada quando o usuário foi deletado podendo ser: CASCADE, RESTRICT,
-     *                             SET NULL, NO ACTION
+     *                             SET_NULL, NO_ACTION
      * @param  null|string $update Ação que será tomada quando o usuário foi deletado podendo ser: CASCADE, RESTRICT,
-     *                             SET NULL, NO ACTION
+     *                             SET_NULL, NO_ACTION
      * @return self
      */
     public function relacionado(string $tabela, string $campo, ?string $delete = null, ?string $update = null): self

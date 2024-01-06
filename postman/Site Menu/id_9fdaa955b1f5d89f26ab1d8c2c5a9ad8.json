@@ -1,0 +1,1 @@
+{"id":"id_9fdaa955b1f5d89f26ab1d8c2c5a9ad8","token":"token","metodo":"DELETE","nome":"\/site-menu\/:id","uri":"{{LINK}}\/site-menu\/$SITE_MENU_ID","parametro":[],"body":[],"header":[],"variavel":[],"json":[],"documentacao":{"status":false,"descricao":"","requisicao":"","resposta":"","scope":"site_menu:deletar"}}

@@ -1,0 +1,1 @@
+{"id":"id_bfc7662ee8c966e556a9ff368c98238f","token":"token","metodo":"POST","nome":"\/site-menu","uri":"{{LINK}}\/site-menu","parametro":[],"body":[],"header":[],"variavel":[["texto",true,"$SITE_MENU_ID","dado.id",""]],"json":[],"documentacao":{"status":false,"descricao":"","requisicao":"","resposta":"","scope":"site_menu:salvar"}}

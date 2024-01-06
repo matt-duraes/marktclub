@@ -1,0 +1,75 @@
+<?php
+
+namespace App\Controllers\Api;
+
+use Http\Request;
+use Http\Response;
+use Controller\Controller;
+use App\Models\Api\SiteConfig\ConfigModel;
+use App\Models\Api\SiteConfig\ConfigEntity;
+use System\Interface\ControllerBuscarInterface;
+use System\Interface\ControllerListarInterface;
+use System\Interface\ControllerSalvarInterface;
+use System\Interface\ControllerDeletarInterface;
+use System\Interface\ControllerAtualizarInterface;
+
+final class SiteConfigController extends Controller implements
+    ControllerListarInterface,
+    ControllerBuscarInterface,
+    ControllerSalvarInterface,
+    ControllerAtualizarInterface,
+    ControllerDeletarInterface
+{
+    public function getListar(Request $request): Response
+    {
+        $Config = new ConfigModel();
+        return mensagemSucesso($Config->listarDados());
+    }
+
+    public function getBuscar(string $id): Response
+    {
+        $Config = new ConfigEntity();
+        $Config->uuid($id);
+
+        return $this->retornoPadrao($Config);
+    }
+
+    public function postSalvar(Request $request): Response
+    {
+        $Config = new ConfigEntity();
+        $Config->set(lista: $request->dado());
+        $Config->salvar();
+
+        return $this->retornoPadrao($Config, 201);
+    }
+
+    private function retornoPadrao(ConfigEntity $Config, int $status = 200)
+    {
+        return mensagemSucesso(
+            dado: pegarPropriedadeDaEntity(
+                Entity: $Config,
+                lista: []
+            ),
+            status: $status
+        );
+    }
+
+    public function putAtualizar(Request $request, string $id): Response
+    {
+        $Config = new ConfigEntity();
+        $Config->uuid($id);
+        $Config->set(lista: $request->dado());
+        $Config->salvar();
+
+        return new Response(status: 204);
+    }
+
+    public function deleteDeletar(string $id): Response
+    {
+        $Config = new ConfigEntity();
+        $Config->uuid($id);
+        $Config->destruir();
+
+        return new Response(status: 204);
+    }
+}

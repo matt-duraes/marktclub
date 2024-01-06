@@ -67,6 +67,8 @@ define('TABELA_SISTEMA_CONTATO', 'contato');
 define('TABELA_SISTEMA_DOWNLOAD', 'sistema_download');
 define('TABELA_SISTEMA_ENDERECO', 'endereco_novo');
 define('TABELA_SISTEMA_MENSAGERIA', 'sistema_mensageria');
+define('TABELA_SITE_CONFIG', 'site_config');
+define('TABELA_SITE_MENU', 'site_menu');
 define('TABELA_SOLICITACAO_AUTOMOVEL', 'solicitacao_automovel');
 define('TABELA_SOLICITACAO_CHEQUE_BONUS', 'solicitacao_cheque_bonus');
 define('TABELA_SOLICITACAO_CODIGO', 'solicitacao_codigo');

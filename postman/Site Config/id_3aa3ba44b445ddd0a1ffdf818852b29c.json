@@ -1,0 +1,1 @@
+{"id":"id_3aa3ba44b445ddd0a1ffdf818852b29c","token":"token","metodo":"DELETE","nome":"\/site-config\/:id","uri":"{{LINK}}\/site-config\/$SITE_CONFIG_ID","parametro":[],"body":[],"header":[],"variavel":[],"json":[],"documentacao":{"status":false,"descricao":"","requisicao":"","resposta":"","scope":"site_config:deletar"}}
