@@ -23,7 +23,7 @@ final class ListaModel extends ClubeApiHelper
         private Tipo $tipo,
         private Local $local
     ) {
-        sleep(3);
+        // sleep(3);
         parent::__construct();
         $this->buscarDado();
         $this->montarEndereco();
@@ -75,7 +75,7 @@ final class ListaModel extends ClubeApiHelper
                 $this->cidade[$cidade] = $cidade;
             }
 
-            $retorno[$pais][$estado][$cidade] = $this->setarEndereco($r);
+            $retorno[$pais][$estado][$cidade][] = $this->setarEndereco($r);
         }
         $this->endereco = $retorno;
     }

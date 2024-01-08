@@ -9,6 +9,31 @@
 @resource "site/parceiro_header"
 @resource "site/texto_destaque"
 
+#bloco_endereco
+    .conteudo_pagina_popup
+        .bloco_categoria_titulo p
+            font-size: 16px
+            color: var(--cor-cinza-cinza)
+        .bloco_categoria_estado
+            margin: 10px 0px 0px 10px
+        .bloco_categoria_cidade
+            margin: 10px 0px 0px 10px
+        .bloco_endereco_item
+            display: flex
+            flex-direction: row
+            padding: 10px 10px
+            margin: 2px 5px
+
+            &:hover
+                background-color: #eee
+                cursor: pointer
+
+            p
+                font-size: 14px
+
+            .bloco_detalhe_endereco
+                flex: 1
+
 #bloco_loja_detalhe
     margin-top: 20px
 

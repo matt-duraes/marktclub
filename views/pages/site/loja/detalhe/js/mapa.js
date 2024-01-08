@@ -9,9 +9,91 @@ window.addEventListener('load', async () => {
     const botaoLink = $('#botao_endereco_link');
     const blocoEnderecoTexto = $('#bloco_endereco_texto');
     const blocoGoogleMap = $('#bloco_endereco_google_map');
-    const EsqueletoMapa = new Esqueleto(blocoMapa, '.esqueleto');
+    const conteudoPopupEndereco = $('#conteudo_popup_endereco');
+    const PopupEndereco = new Popup('endereco', 'bloco_endereco', true, true);
 
-    const buscarEndereco = async () => {
+    const enderecos = await buscarEndereco();
+
+    blocoEnderecoTexto.innerText = enderecos.principal.endereco;
+    botaoLink.setAttribute('href', enderecos.principal.link);
+    adicionarEndereco(enderecos.principal.latitude, enderecos.principal.longitude);
+
+    if (enderecos.quantidade <= 1) {
+        botaoBuscar.classList.add('display_none');
+        return;
+    }
+
+    botaoBuscar.addEventListener('click', () => {
+        PopupEndereco.abrir();
+    });
+
+    exibirEnderecosPorCategoria(enderecos.endereco);
+    adicionarEventoBotaoEndereco();
+
+    function exibirEnderecosPorCategoria(enderecos) {
+        let htmlString = '';
+
+        for (const pais in enderecos) {
+            for (const estado in enderecos[pais]) {
+                htmlString += `<div class="bloco_categoria_estado">
+                                    <div class="bloco_categoria_titulo">
+                                        <p>${estado}</p>
+                                    </div>
+                                    `;
+
+                for (const cidade in enderecos[pais][estado]) {
+                    htmlString += `<div class="bloco_categoria_cidade">
+                                        <div class="bloco_categoria_titulo">
+                                            <p>${cidade}</p>
+                                        </div>`;
+
+                    const listaEnderecos = enderecos[pais][estado][cidade];
+                    const enderecoItems = listaEnderecos.map(e => `
+                        <div class="bloco_endereco_item">
+                            <div class="bloco_detalhe_endereco">
+                                <p>${e.endereco}</p>
+                                <p class="display_none latitude">${e.latitude}</p>
+                                <p class="display_none longitude">${e.longitude}</p>
+                                <p class="display_none telefone">${e.telefone}</p>
+                                <p class="display_none link">${e.link}</p>
+                            </div>
+                        </div>`
+                    );
+
+                    htmlString += enderecoItems.join('');
+                    htmlString += '</div>';
+                }
+
+                htmlString += '</div>';
+            }
+        }
+
+        conteudoPopupEndereco.innerHTML = htmlString;
+    }
+
+    function adicionarEventoBotaoEndereco() {
+        const listaBotao = $$('.bloco_endereco_item');
+        listaBotao.forEach(botao => {
+            botao.addEventListener('click', (e) => {
+                const bloco = e.target.parentNode;
+                const latitude = bloco.querySelector('.latitude').innerText;
+                const longitude = bloco.querySelector('.longitude').innerText;
+                const endereco = bloco.querySelector('p').innerText;
+                const telefone = bloco.querySelector('.telefone').innerText;
+                const link = bloco.querySelector('.link').innerText;
+
+
+                adicionarEndereco(latitude, longitude);
+                blocoEnderecoTexto.innerText = endereco;
+
+                botaoLink.setAttribute('href', link);
+
+                PopupEndereco.fechar();
+            });
+        });
+    }
+
+    async function buscarEndereco() {
         const resposta = await ajaxPost(
             LINK + '/endereco',
             {
@@ -26,22 +108,10 @@ window.addEventListener('load', async () => {
             return;
         }
         blocoMapa.classList.remove('display_none');
-        const dado = resposta.dado;
+        return resposta.dado;
+    };
 
-        if (dado.quantidade > 1) {
-            setarFormulario();
-        } else {
-            botaoBuscar.classList.add('display_none');
-        }
-        blocoEnderecoTexto.innerText = dado.principal.endereco;
-        botaoLink.setAttribute('href', dado.principal.link);
-        adicionarEndereco(dado.principal.latitude, dado.principal.longitude);
-    };
-    buscarEndereco(false);
-    const setarFormulario = () => {
-        botaoBuscar.classList.add('display_none');
-    };
-    const adicionarEndereco = async (latitude, longitude) => {
+    async function adicionarEndereco(latitude, longitude) {
         latitude = parseFloat(latitude);
         longitude = parseFloat(longitude);
         const posicao = { lat: latitude, lng: longitude };
@@ -54,6 +124,7 @@ window.addEventListener('load', async () => {
             disableDefaultUI: true,
             panControl: false,
             zoomControl: true,
+            clickableIcons: false,
             mapId: 'bloco_endereco_google_map',
         };
         const mapa = new Map(blocoGoogleMap, option);
