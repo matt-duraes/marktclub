@@ -11,16 +11,17 @@ final class TextoEntity extends Entity
 {
     protected string $ormTabela = TABELA_TEXTO_CLUBE;
     protected array $ormSalvar = [
-        'id_admin_empresa', 'titulo', 'texto', 'header_titulo', 'header_descricao', 'header_descricao',
-        'tipo', 'ordem', 'status'
+        'id_admin_empresa', 'titulo_painel', 'titulo', 'texto', 'header_titulo', 'header_descricao',
+        'header_descricao', 'tipo', 'ordem', 'status'
     ];
     protected array $ormBuscar = [
-        'id_admin_empresa', 'titulo', 'texto', 'tipo', 'ordem', 'data_criacao', 'data_atualizacao',
-        'header_titulo', 'header_descricao', 'header_tag', 'status'
+        'id_admin_empresa', 'titulo_painel', 'titulo', 'texto', 'tipo', 'ordem', 'data_criacao',
+        'data_atualizacao', 'header_titulo', 'header_descricao', 'header_tag', 'status'
     ];
     private OrmHelper $ormEmpresa;
     protected array $id_admin_empresa;
     public array $empresa;
+    public string $titulo_painel;
     public string $titulo;
     public string $texto;
     public string $header_titulo;
@@ -31,6 +32,7 @@ final class TextoEntity extends Entity
     public Status $status;
     protected string $ormValidarSalvar = '
         titulo|Titulo|obrigatorio|vazio
+        titulo_painel|Titulo Painel|obrigatorio|vazio
         texto|Texto|obrigatorio|vazio
         tipo|Tipo|obrigatorio|vazio|valido
         status|Status|obrigatorio|vazio|valido

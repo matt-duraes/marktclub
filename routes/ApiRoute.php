@@ -1119,16 +1119,16 @@ Route
             ::nome('salvar')
             ::middleware(TokenMiddleware::class, 'scope', ['texto_clube:salvar'])
             ::request([
-                'empresa', 'titulo', 'texto', 'header_titulo', 'header_descricao',
-                'header_tag', 'tipo', 'empresa', '!ordem', 'status'
+                'empresa', 'titulo_painel', 'titulo', 'texto', 'header_titulo',
+                'header_descricao', 'header_tag', 'tipo', 'empresa', '!ordem', 'status'
             ])
             ::post('/texto-clube');
         Route
             ::nome('atualizar')
             ::middleware(TokenMiddleware::class, 'scope', ['texto_clube:atualizar'])
             ::request([
-                '!empresa', '!titulo', '!texto', '!header_titulo', '!header_descricao',
-                '!header_tag', '!tipo', '!empresa', '!ordem', '!status'
+                '!empresa', '!titulo_painel', '!titulo', '!texto', '!header_titulo',
+                '!header_descricao', '!header_tag', '!tipo', '!empresa', '!ordem', '!status'
             ])
             ::put('/texto-clube/{id}');
         Route

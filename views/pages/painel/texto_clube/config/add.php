@@ -6,6 +6,16 @@ use App\Classes\TextoClube\Tipo;
 
 $Painel = new PainelConfig\Add(app: 'texto_clube', acao: $acao);
 
+$Painel->fieldset('Dados Gerais', function () use ($Painel) {
+    $Painel
+        ->input(
+            name: 'titulo_painel',
+            label: 'Título',
+            placeholder: 'Digite um título',
+            obrigatorio: true
+        );
+});
+
 $Painel->coluna(callback: function () use ($Painel) {
     $Painel->fieldset('Dados', function () use ($Painel) {
         $Painel
