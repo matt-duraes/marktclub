@@ -23,13 +23,15 @@ final class SiteConfigController extends Controller implements
     public function getListar(Request $request): Response
     {
         $Config = new ConfigModel();
+        $Config->set(lista: $request->dado());
+
         return mensagemSucesso($Config->listarDados());
     }
 
     public function getBuscar(string $id): Response
     {
         $Config = new ConfigEntity();
-        $Config->uuid($id);
+        $Config->idSlug($id, 'link_site');
 
         return $this->retornoPadrao($Config);
     }
@@ -48,7 +50,12 @@ final class SiteConfigController extends Controller implements
         return mensagemSucesso(
             dado: pegarPropriedadeDaEntity(
                 Entity: $Config,
-                lista: []
+                lista: [
+                    'titulo', 'descricao', 'template', 'contato_telefone', 'contato_celular',
+                    'contato_whatsapp', 'contato_email', 'contato_endereco', 'mapa_imagem', 'mapa_link',
+                    'cor_principal', 'rede_youtube', 'rede_facebook', 'rede_instagram', 'rede_x', 'logo_principal',
+                    'favicon', 'link_site', 'status'
+                ]
             ),
             status: $status
         );

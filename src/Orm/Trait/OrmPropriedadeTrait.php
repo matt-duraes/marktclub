@@ -10,6 +10,9 @@ trait OrmPropriedadeTrait
     private ?PDO $ormDBEscrita;
     private ?PDO $ormDBLeitura;
     private bool $ormLeitura = false;
+    protected array $ormListaSet = [];
+    protected array $ormSetReal = [];
+    protected array $ormPropriedadeSetada = [];
     protected string $ormTipo = 'service';
     protected string $ormTabela;
     private string $ormTabelaAtual;

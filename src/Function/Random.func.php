@@ -384,3 +384,17 @@ if (!function_exists('senhaAleatorio')) {
         return (new \Random\Random())->senha();
     }
 }
+if (!function_exists('dominioAleatorio')) {
+    // doc
+    // exemplo
+    // echo dominioAleatorio
+    /**
+     * Gera um dominio aleatório
+     *
+     * @return string
+     */
+    function dominioAleatorio(): string
+    {
+        return (new \Random\Random())->dominio();
+    }
+}

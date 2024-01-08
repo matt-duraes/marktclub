@@ -10,4 +10,5 @@ class Random
     use Endereco;
     use Outros;
     use Usuario;
+    use Dominio;
 }

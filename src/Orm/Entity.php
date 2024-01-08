@@ -7,6 +7,7 @@ use Erro\Excecao;
 use Modules\DataHora;
 use ReflectionObject;
 use ReflectionProperty;
+use ORM\Validar\Validar;
 use ORM\Trait\MudouTrait;
 use ORM\Trait\SetGetTrait;
 use ORM\Buscar\BuscarTrait;
@@ -24,6 +25,7 @@ abstract class Entity extends ORM
     use DestruirTrait;
     use MudouTrait;
     use SetGetTrait;
+    use Validar;
 
     public string $id = '';
     public ?DataHora $data_criacao = null;
@@ -40,16 +42,13 @@ abstract class Entity extends ORM
     protected string $ormValidarUpdate = '';
     protected array $ormDeletarArquivo = [];
     protected array $ormSet = [];
-    protected array $ormSetReal = [];
     protected array $ormEntityRetorno = [];
     private bool $ormEntityDeletada = false;
     private ?int $ormEntityId = 0;
     private string $ormEntityUuid = '';
     private array $ormPropriedadePublica = [];
     private array $ormPropriedadePrivada = [];
-    private array $ormListaSet = [];
     private array $ormListaAliasReal = [];
-    private array $ormPropriedadeSetada = [];
     protected array $ormRetornoPadrao = [];
     protected bool $ormEntityExiste = false;
     protected $ormCampoBanco = [];

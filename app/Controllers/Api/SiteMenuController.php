@@ -13,7 +13,7 @@ use System\Interface\ControllerSalvarInterface;
 use System\Interface\ControllerDeletarInterface;
 use System\Interface\ControllerAtualizarInterface;
 
-final class SiteConfigController extends Controller implements
+final class SiteMenuController extends Controller implements
     ControllerListarInterface,
     ControllerBuscarInterface,
     ControllerSalvarInterface,

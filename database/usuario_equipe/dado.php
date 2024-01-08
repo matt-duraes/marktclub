@@ -106,7 +106,10 @@ $permissao = [
 
     'demanda_tecnologia', 'demanda_criacao', 'demanda_convenio',
 
-    'log_erro_index', 'log_erro_visualizar', 'log_erro_status'
+    'log_erro_index', 'log_erro_visualizar', 'log_erro_status',
+
+    'site_config_index', 'site_config_add', 'site_config_editar', 'site_config_deletar', 'site_config_empresa',
+    'site_menu_index', 'site_menu_add', 'site_menu_editar', 'site_menu_deletar', 'site_menu_empresa',
 ];
 
 return [
