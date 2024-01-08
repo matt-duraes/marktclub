@@ -37,7 +37,10 @@ final class TextoModel extends ORM implements ModelListarInterface
     public function listarDados(): stdClass
     {
         $dado = $this
-            ->campo(['uuid', 'titulo', 'texto', 'tipo', 'data_criacao', 'url', 'status'])
+            ->campo([
+                'uuid', 'titulo_painel', 'titulo', 'texto', 'tipo',
+                'data_criacao', 'url', 'status'
+            ])
             ->where($this->pegarWhere(), obrigatorio: false)
             ->pagina($this->pegarPagina(), $this->pegarQuantidade())
             ->order($this->pegarOrdem())
@@ -54,13 +57,14 @@ final class TextoModel extends ORM implements ModelListarInterface
         $Tipo = new Tipo();
         foreach ($dado as $r) {
             $retorno[] = [
-                'id'           => $r->uuid,
-                'titulo'       => $r->titulo,
-                'texto'        => $r->texto,
-                'tipo'         => $Tipo->indice($r->tipo),
-                'data_criacao' => $r->data_criacao,
-                'url'          => $r->url,
-                'status'       => $Status->indice($r->status)
+                'id'            => $r->uuid,
+                'titulo_painel' => $r->titulo_painel,
+                'titulo'        => $r->titulo,
+                'texto'         => $r->texto,
+                'tipo'          => $Tipo->indice($r->tipo),
+                'data_criacao'  => $r->data_criacao,
+                'url'           => $r->url,
+                'status'        => $Status->indice($r->status)
             ];
         }
         return $retorno;
