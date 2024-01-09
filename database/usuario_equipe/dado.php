@@ -10,6 +10,7 @@ $permissao = [
     'usuario_dependente_index', 'usuario_dependente_add', 'usuario_dependente_deletar',
 
     'usuario_indicacao_index', 'usuario_indicacao_visualizar', 'usuario_indicacao_status',
+    'usuario_indicacao_empresa',
 
     'usuario_lead_index', 'usuario_lead_visualizar', 'usuario_lead_status',
 
