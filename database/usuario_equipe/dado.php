@@ -106,7 +106,10 @@ $permissao = [
 
     'demanda_tecnologia', 'demanda_criacao', 'demanda_convenio',
 
-    'log_erro_index', 'log_erro_visualizar', 'log_erro_status'
+    'log_erro_index', 'log_erro_visualizar', 'log_erro_status',
+
+    'painel_permissoes_index', 'painel_permissoes_add', 'painel_permissoes_editar',
+    'painel_permissoes_deletar',
 ];
 
 return [

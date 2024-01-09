@@ -67,7 +67,7 @@ return [
             'parceiro_relatorio'       => [
                 'titulo' => 'Relatório do parceiro', 'acao' => ['index', 'add', 'editar', 'deletar']
             ],
-            'parceiro_loja'        => [
+            'parceiro_loja'            => [
                 'titulo' => 'Loja', 'acao' => ['index', 'add', 'editar', 'deletar', 'empresa']
             ],
             'parceiro_cashback'        => [
@@ -212,6 +212,10 @@ return [
             ],
             'log_erro'                 => [
                 'titulo' => 'Log de erro', 'acao' => ['index', 'visualizar', 'status']
+            ],
+            'painel_permissoes'        => [
+                'titulo' => 'Permissões',
+                'acao'   => ['index', 'add', 'editar', 'deletar']
             ]
         ],
         'configuracao'      => ['agenda', 'perfil', 'bloquear'],
