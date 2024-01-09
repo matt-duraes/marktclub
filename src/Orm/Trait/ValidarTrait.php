@@ -2,7 +2,9 @@
 
 namespace ORM\Trait;
 
+use PDO;
 use Erro\Excecao;
+use PDOStatement;
 use Modules\Senha;
 use ReflectionObject;
 use ReflectionProperty;
@@ -13,6 +15,55 @@ use Modules\ModuleInterface;
 
 trait ValidarTrait
 {
+    /**
+     * Valida se o valor já existe no banco de dados
+     *
+     * @param  string      $campo
+     * @param  string      $mensagem
+     * @param  string|null $titulo
+     * @return bool
+     */
+    public function validarCampoDuplicado(string $campo, string $mensagem, ?string $titulo = null): void
+    {
+        if (!$this->propriedadeExiste($campo)) {
+            return;
+        }
+
+        $valor = $this->$campo;
+        $valor = $valor instanceof ModuleInterface || $valor instanceof StatusInterface ?
+            $valor->banco() : $valor;
+        $where = "`{$campo}` = :{$campo}";
+        if ($this->ormEntityExiste) {
+            $where .= " AND `id` != :id";
+        }
+
+        $DB = $this->ormLeitura ? $this->ormDBLeitura : $this->ormDBEscrita;
+        $sql = $DB->prepare("SELECT `id` FROM `{$this->ormTabela}` WHERE {$where}");
+        $sql->bindValue(":{$campo}", $valor);
+        if ($this->ormEntityExiste) {
+            $sql->bindValue(":id", $this->prop('id'), PDO::PARAM_STR);
+        }
+
+        try {
+            $run = $sql->execute();
+        } catch (\Throwable $e) {
+            $this->mensagemCampoDuplicado($titulo, $mensagem);
+            return;
+        }
+
+        if (!$run || $sql->fetch()) {
+            $this->mensagemCampoDuplicado($titulo, $mensagem);
+            return ;
+        }
+    }
+    private function mensagemCampoDuplicado(?string $titulo, string $mensagem)
+    {
+        $mensagem = str_starts_with($mensagem, '!')
+            ? substr($mensagem, 1) : 'O valor do campo ' . $mensagem . ' já existe.';
+        $titulo = !empty($titulo) ? $titulo : 'Campo duplicado!';
+        mensagemErro($titulo, $mensagem);
+    }
+
     private function ormValidarDadoParaSalvar(array $dado, array $coluna): array
     {
         foreach ($dado as $ind => $valor) {

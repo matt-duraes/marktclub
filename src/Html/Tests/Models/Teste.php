@@ -23,6 +23,28 @@ function __executarTeste($diretorio, $classe)
 
     $metodos = get_class_methods($classNome);
     $class = new $classNome();
+    $automatico = $class->automatico;
+
+    $metodos = array_filter($metodos, function ($item) {
+        return !in_array(
+            $item,
+            [
+                'listarTodosOsRegistrosTest', 'buscarPrimeiroRegistroTest',
+                'salvarNovoRegistroTest', 'buscarRegistroAposSalvarTest',
+                'atualizarPrimeiroCampoDoRegistroSalvoTest', 'verificaSeAtualizouPrimeiroRegistroTest'
+            ]
+        );
+    });
+
+    if (str_contains($automatico, 'u')) {
+        $metodos = array_merge(['atualizarPrimeiroCampoDoRegistroSalvoTest', 'verificaSeAtualizouPrimeiroRegistroTest'], $metodos);
+    }
+    if (str_contains($automatico, 'r')) {
+        $metodos = array_merge(['listarTodosOsRegistrosTest', 'buscarPrimeiroRegistroTest'], $metodos);
+    }
+    if (str_contains($automatico, 'c')) {
+        $metodos = array_merge(['salvarNovoRegistroTest', 'buscarRegistroAposSalvarTest'], $metodos);
+    }
 
     foreach ($metodos as $metodo) {
         if (!preg_match('/Test$/', $metodo)) {

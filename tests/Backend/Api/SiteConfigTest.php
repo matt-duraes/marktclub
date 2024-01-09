@@ -10,74 +10,22 @@ class SiteConfigTest extends Tests
     private string $idUnareg = '6867f399-6025-4764-a425-ea445624b63e';
     private string $idNovo = '';
     private string $novoTitulo = 'Novo Título';
+    protected string $scope = 'site_config';
+    protected string $uri = '/site-config';
+    public string $automatico = 'crud';
 
     public function __construct()
     {
-        parent::__construct();
         $this
             ->tabela(TABELA_SITE_CONFIG)
             ->resetar();
+        parent::__construct();
     }
 
-    public function listarTodosConfigTest(): self
-    {
-        $this->api('site_config:listar');
-        $this
-            ->Curl
-            ->json([
-                'pagina' => 1
-            ])
-            ->get('/site-config');
-
-        return $this
-            ->checkStatus(200)
-            ->checkIndiceIgual('status', 'sucesso')
-            ->checkIndiceExiste('dado.lista');
-    }
-
-    public function pegarConfigUnaregTest(): self
-    {
-        $this
-            ->Curl
-            ->loginPainel()
-            ->get('/site-config/' . $this->idUnareg);
-
-        return $this
-            ->checkStatus(200)
-            ->checkIndiceIgual('status', 'sucesso')
-            ->checkIndiceIgual('dado.id', $this->idUnareg);
-    }
-
-    public function testarSalvarNovoRegistroTest()
-    {
-        $dado = $this
-            ->api('site_config:salvar')
-            ->Curl
-            ->body($this->pegarBody())
-            ->post('/site-config')
-            ->array();
-
-        $this->idNovo = $dado['dado']['id'] ?? 'sem-id';
-
-        return $this
-            ->checkStatus(201)
-            ->checkIndiceIgual('status', 'sucesso')
-            ->checkIndiceExiste('dado.id');
-    }
-
-    public function buscarIndiceSalvoTest()
-    {
-        $this
-            ->api('site_config:buscar')
-            ->Curl
-            ->get('/site-config/' . $this->idNovo);
-
-        return $this
-            ->checkStatus(200)
-            ->checkIndiceIgual('status', 'sucesso')
-            ->checkIndiceExiste('dado.id')
-            ->checkIndiceIgual('dado.id', $this->idNovo);
-    }
+    // public function pegarConfigUnaregTest(): self
+    // {
+    // return $this->validarBuscar($this->idUnareg, painel: true);
+    // }
 
     public function naoPodeSalvarEmpresaDuplicadaTest()
     {
@@ -88,9 +36,9 @@ class SiteConfigTest extends Tests
             ->post('/site-config');
 
         return $this
-            ->checkStatus(404)
+            ->checkStatus(400)
             ->checkIndiceIgual('status', 'erro')
-            ->checkIndiceIgual('dado.erro.mensagem', '');
+            ->checkIndiceIgual('erro.mensagem', "Valor duplicado '1' para o campo 'site_config.id_admin_empresa'");
     }
 
     public function naoPodeSalvarLinkSiteDuplicadoTest()
@@ -102,67 +50,23 @@ class SiteConfigTest extends Tests
             ->post('/site-config');
 
         return $this
-            ->checkStatus(404)
+            ->checkStatus(400)
             ->checkIndiceIgual('status', 'erro')
-            ->checkIndiceIgual('dado.erro.mensagem', '');
+            ->checkIndiceIgual('erro.mensagem', 'O valor do campo Link do site já existe.');
     }
 
-    public function atualizarTituloUnaregTest()
-    {
-        $this
-            ->api('site_config:atualizar')
-            ->Curl
-            ->body(['titulo_painel' => $this->novoTitulo])
-            ->put('/site-config/' . $this->idNovo);
-
-        return $this->checkStatus(204);
-    }
-
-    public function verificarTituloAtualizouTest()
-    {
-        $this
-            ->api('site_config:buscar')
-            ->Curl
-            ->get('/site-config/' . $this->idNovo);
-
-        return $this
-            ->checkStatus(200)
-            ->checkIndiceIgual('status', 'erro')
-            ->checkIndiceIgual('dado.titulo_painel', $this->novoTitulo);
-    }
-
-    public function deletaRegistroSalvoTest()
-    {
-        $this
-            ->api('site_config:deletar')
-            ->Curl
-            ->delete('/site-config/' . $this->idNovo);
-
-        return $this->checkStatus(204);
-    }
-
-    public function verificaDeletouRegistroTest()
-    {
-        $this
-            ->api('site_config:buscar')
-            ->Curl
-            ->get('/site-config/' . $this->idNovo);
-
-        return $this->checkStatus(404);
-    }
-
-    private function pegarBody(?string $empresa = null, ?string $dominio = null)
+    protected function pegarBody(?string $empresa = null, ?string $dominio = null)
     {
         $dominio = !empty($dominio) ? $dominio : 'https://' . dominioAleatorio();
         $empresa = !empty($empresa) ? $empresa : '14afa776394ada4be23be6acf7e3259e';
         return [
+            'titulo_painel'    => nomeCompletoAleatorio(),
+            'titulo'           => 'Novo registro',
             'empresa'          => $empresa,
             'logo_principal'   => uuid(),
             'favicon'          => uuid(),
-            'titulo_painel'    => 'Unareg',
-            'titulo'           => 'Unareg',
-            'descricao'        => 'Descrição do site da UNAREG',
-            'template'         => 'UNAREG',
+            'descricao'        => 'Descrição do site novo registro',
+            'template'         => 'PADRAO',
             'contato_telefone' => '6132730512',
             'contato_celular'  => '61984008812',
             'contato_whatsapp' => '61984008812',

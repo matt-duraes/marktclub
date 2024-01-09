@@ -7,7 +7,6 @@ use Erro\Excecao;
 use Modules\DataHora;
 use ReflectionObject;
 use ReflectionProperty;
-use ORM\Validar\Validar;
 use ORM\Trait\MudouTrait;
 use ORM\Trait\SetGetTrait;
 use ORM\Buscar\BuscarTrait;
@@ -25,7 +24,6 @@ abstract class Entity extends ORM
     use DestruirTrait;
     use MudouTrait;
     use SetGetTrait;
-    use Validar;
 
     public string $id = '';
     public ?DataHora $data_criacao = null;

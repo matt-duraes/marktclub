@@ -6,10 +6,10 @@ use PDO;
 
 trait OrmPropriedadeTrait
 {
-    private ?PDO $ormDB;
-    private ?PDO $ormDBEscrita;
-    private ?PDO $ormDBLeitura;
-    private bool $ormLeitura = false;
+    protected ?PDO $ormDB;
+    protected ?PDO $ormDBEscrita;
+    protected ?PDO $ormDBLeitura;
+    protected bool $ormLeitura = false;
     protected array $ormListaSet = [];
     protected array $ormSetReal = [];
     protected array $ormPropriedadeSetada = [];

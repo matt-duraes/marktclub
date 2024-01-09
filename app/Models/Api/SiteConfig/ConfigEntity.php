@@ -19,10 +19,12 @@ final class ConfigEntity extends Entity
         'cor_principal', 'rede_youtube', 'rede_facebook', 'rede_instagram', 'rede_x', 'logo_principal',
         'favicon', 'link_site', 'status'
     ];
+    protected array $ormInsert = [
+        'id_admin_empresa' => '->idEmpresa'
+    ];
     protected array $ormSalvar = [
-        'id_admin_empresa' => '->idEmpresa',
-        'titulo_painel', 'titulo', 'descricao', 'template', 'contato_telefone', 'contato_celular',
-        'contato_whatsapp', 'contato_email', 'contato_endereco', 'mapa_imagem', 'mapa_link',
+        'titulo_painel', 'titulo', 'descricao', 'template', 'contato_telefone',
+        'contato_celular', 'contato_whatsapp', 'contato_email', 'contato_endereco', 'mapa_imagem', 'mapa_link',
         'cor_principal', 'rede_youtube', 'rede_facebook', 'rede_instagram', 'rede_x', 'logo_principal',
         'favicon', 'link_site', 'status'
     ];
@@ -41,6 +43,7 @@ final class ConfigEntity extends Entity
         status|Status|obrigatorio|vazio|valido
     ';
     private int $idEmpresa;
+    protected int $id_admin_empresa;
     public string $empresa = '';
     public string $titulo_painel;
     public string $titulo;
@@ -83,7 +86,7 @@ final class ConfigEntity extends Entity
         $this->logo_principal = arquivoPrivadoId($this->logo_principal);
         $this->favicon = arquivoPrivadoId($this->favicon);
         $this->link_site = strDominio($this->link_site);
-        $this->validarCampoDuplicado('id_admin_empresa', '!Já existe um registro cadastrado para essa empresa.');
+
         $this->validarCampoDuplicado('link_site', 'Link do site');
     }
 }

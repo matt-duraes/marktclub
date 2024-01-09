@@ -5,7 +5,6 @@ namespace ORM;
 use PDO;
 use Erro\Excecao;
 use ORM\Join\JoinTrait;
-use ORM\Validar\Validar;
 use ORM\Buscar\ReadTrait;
 use ORM\Group\GroupTrait;
 use ORM\Limit\LimitTrait;
@@ -14,6 +13,7 @@ use ORM\Trait\SetGetTrait;
 use ORM\Trait\TabelaTrait;
 use ORM\Salvar\InsertTrait;
 use ORM\Salvar\UpdateTrait;
+use ORM\Trait\ValidarTrait;
 use Status\StatusInterface;
 use Modules\ModuleInterface;
 use ORM\Condicao\WhereTrait;
@@ -40,7 +40,7 @@ abstract class ORM
     use GroupTrait;
     use TabelaTrait;
     use SetGetTrait;
-    use Validar;
+    use ValidarTrait;
 
     /**
      * @param array $option Option aceitos pelo PDO

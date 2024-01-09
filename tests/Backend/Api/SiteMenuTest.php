@@ -13,6 +13,8 @@ class SiteMenuTest extends Tests
     private string $idMenu = '';
     private string $idSubMenu = '';
     private string $novoTitulo = 'Novo título';
+    protected string $scope = 'site_menu';
+    protected string $uri = '/uri';
 
     public function __construct()
     {
@@ -24,15 +26,7 @@ class SiteMenuTest extends Tests
 
     public function listarTodosMenuTest(): self
     {
-        $this->api('site_menu:listar');
-        $this
-            ->Curl
-            ->get('/site-menu');
-
-        return $this
-            ->checkStatus(200)
-            ->checkIndiceIgual('status', 'sucesso')
-            ->checkIndiceExiste('dado.lista');
+        return $this->validarListar(parametro: ['pagina' => 1]);
     }
 
     public function pegarMenuUnaregTest(): self

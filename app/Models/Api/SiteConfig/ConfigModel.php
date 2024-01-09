@@ -24,6 +24,7 @@ final class ConfigModel extends ORM implements ModelListarInterface
             ->campo(['uuid', 'titulo_painel', 'titulo', 'link_site', 'data_criacao', 'status'])
             ->where($this->pegarWhere(), obrigatorio: false)
             ->pagina($this->pegarPagina())
+            ->order('id', 'DESC')
             ->read();
 
         if (!chaveExiste('lista', $dado)) {
