@@ -20,7 +20,13 @@ return [
             ],
             'usuario_grupo'           => ['titulo' => 'Grupo', 'acao' => ['index', 'add', 'editar', 'deletar']],
             'usuario_dependente'      => ['titulo' => 'Dependente', 'acao' => ['index', 'add', 'deletar']],
-            'usuario_indicacao'       => ['titulo' => 'Indicação', 'acao' => ['index', 'visualizar', 'status']],
+            'usuario_indicacao'       => [
+                'titulo'    => 'Indicação',
+                'acao'      => ['index', 'visualizar', 'status', 'empresa'],
+                'permissao' => [
+                    'usuario_indicacao_empresa' => 'Todas as empresas'
+                ]
+            ],
             'usuario_lead'            => ['titulo' => 'Lead', 'acao' => ['index', 'visualizar', 'status']],
             'usuario_equipe'          => [
                 'titulo'    => 'Equipe',
