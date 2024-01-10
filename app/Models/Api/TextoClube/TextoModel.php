@@ -27,6 +27,7 @@ final class TextoModel extends ORM implements ModelListarInterface
         private Pagina $pagina = new Pagina(null),
         private Quantidade $quantidade = new Quantidade(null),
         private ?string $empresa = null,
+        private ?string $pesquisa = null,
         private Tipo $tipo = new Tipo(null),
         private Ordem $ordem = new Ordem('ordem'),
         private Status $status = new Status(null),
@@ -85,6 +86,9 @@ final class TextoModel extends ORM implements ModelListarInterface
         }
         if ($this->status->valido()) {
             $where[] = ['status', $this->status->numero()];
+        }
+        if (!empty($this->pesquisa)) {
+            $where[] = ['titulo_painel', 'like', "%{$this->pesquisa}%"];
         }
         return $where;
     }

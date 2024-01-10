@@ -1143,7 +1143,7 @@ Route
         Route
             ::nome('listar')
             ::middleware(TokenMiddleware::class, 'scope', ['texto_clube:listar'])
-            ::request(['pagina', '!empresa', '!quantidade', '!tipo', '!ordem', '!status'], 'json')
+            ::request(['pagina', '!empresa', '!quantidade', '!tipo', '!ordem', '!pesquisa', '!status'], 'json')
             ::get('/texto-clube');
         Route
             ::nome('buscar')
