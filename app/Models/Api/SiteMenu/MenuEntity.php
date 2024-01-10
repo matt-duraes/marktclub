@@ -7,4 +7,6 @@ use ORM\Entity;
 final class MenuEntity extends Entity
 {
     protected string $ormTabela = TABELA_SITE_MENU;
+    public string $empresa = '';
+    public string $menu = '';
 }
