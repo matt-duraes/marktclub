@@ -11,6 +11,7 @@ use Controller\Controller;
 use Erro\Excecao;
 use Http\Request;
 use Http\Response;
+use Modules\Data;
 use Modules\Pagina;
 use Modules\Quantidade;
 use System\Interface\ControllerAtualizarInterface;
@@ -74,6 +75,8 @@ final class UsuarioIndicacaoController extends Controller implements
             $request->empresa,
             $request->nome,
             $request->email,
+            new Data($request->data_inicio),
+            new Data($request->data_final),
             new Status($request->status)
         );
         $dado = $Indicacao->listarDados();

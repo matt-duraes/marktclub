@@ -6,6 +6,7 @@ use App\Classes\UsuarioIndicacao\Ordem;
 use App\Classes\UsuarioIndicacao\Status;
 use App\Models\Api\Trait\ValidarEmpresaTrait;
 use Erro\Excecao;
+use Modules\Data;
 use Modules\Pagina;
 use Modules\Quantidade;
 use ORM\ORM;
@@ -30,8 +31,11 @@ final class IndicacaoModel extends ORM implements
      * @param Quantidade  $quantidade
      * @param Ordem       $ordem
      * @param string|null $pesquisa
+     * @param string|null $empresa
      * @param string|null $nome
      * @param string|null $email
+     * @param Data        $dataInicio
+     * @param Data        $dataFinal
      * @param Status      $status
      *
      * @throws Excecao
@@ -44,6 +48,8 @@ final class IndicacaoModel extends ORM implements
         private readonly ?string $empresa = null,
         private readonly ?string $nome = null,
         private readonly ?string $email = null,
+        private readonly Data $dataInicio = new Data(),
+        private readonly Data $dataFinal = new Data(),
         private readonly Status $status = new Status()
     ) {
         $this->validarDados();
@@ -107,6 +113,16 @@ final class IndicacaoModel extends ORM implements
 
         if (!empty($this->email)) {
             $where[] = ['email', 'LIKE', $this->email . '%'];
+        }
+
+        if ($this->dataInicio->valido() && $this->dataFinal->valido()) {
+            $where[] = [
+                'data_criacao', 'between', [$this->dataInicio->date(), $this->dataFinal->date() . ' 23:59:59']
+            ];
+        } elseif ($this->dataInicio->valido()) {
+            $where[] = ['data_criacao', '>=', $this->dataInicio->date()];
+        } elseif ($this->dataFinal->valido()) {
+            $where[] = ['data_criacao', '<=', $this->dataFinal->date() . ' 23:59:59'];
         }
 
         if ($this->status->valido()) {
