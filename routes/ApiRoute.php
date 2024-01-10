@@ -2445,21 +2445,21 @@ Route
             ::nome('listar')
             ::middleware(TokenMiddleware::class, 'scope', ['site_menu:listar'])
             ::request([
-                'pagina', '!empresa', '!ordem'
+                '!empresa', '!status'
             ], 'json')
             ::get('/site-menu');
         Route
             ::nome('salvar')
             ::middleware(TokenMiddleware::class, 'scope', ['site_menu:salvar'])
             ::request([
-                'id_site_menu', 'tipo', 'titulo', 'link', 'target', 'ordem', 'status'
+                'menu', '!empresa', 'tipo', 'titulo', 'link', 'target', 'ordem', 'status'
             ])
             ::post('/site-menu');
         Route
             ::nome('atualizar')
             ::middleware(TokenMiddleware::class, 'scope', ['site_menu:atualizar'])
             ::request([
-                'id_site_menu', 'tipo', 'titulo', 'link', 'target', 'ordem', 'status'
+                'menu', 'tipo', 'titulo', 'link', 'target', 'ordem', 'status'
             ])
             ::put('/site-menu/{id}');
         Route

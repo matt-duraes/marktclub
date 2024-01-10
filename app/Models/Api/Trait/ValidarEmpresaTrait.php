@@ -184,7 +184,9 @@ trait ValidarEmpresaTrait
      */
     private function setarWherePadrao(array $where = []): void
     {
-        $this->idEmpresa = $this->whereEmpresa;
+        if (!empty($whereEmpresa)) {
+            $this->idEmpresa = $this->whereEmpresa;
+        }
         $wherePadrao = [[$this->nomeCampoEmpresa, $this->whereEmpresa]];
         if ($this->campoEmpresaJson) {
             $wherePadrao = [[$this->nomeCampoEmpresa, 'json', $this->whereEmpresa]];

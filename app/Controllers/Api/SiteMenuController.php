@@ -23,7 +23,10 @@ final class SiteMenuController extends Controller implements
     public function getListar(Request $request): Response
     {
         $Menu = new MenuModel();
-        return mensagemSucesso([]);
+        $Menu->set(lista: $request->dado());
+        $Menu->validarEmpresa();
+
+        return mensagemSucesso($Menu->listarDados());
     }
 
     public function getBuscar(string $id): Response
