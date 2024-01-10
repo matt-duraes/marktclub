@@ -71,6 +71,7 @@ final class UsuarioIndicacaoController extends Controller implements
             new Quantidade($request->quantidade),
             new Ordem($request->ordem),
             $request->pesquisa,
+            $request->empresa,
             $request->nome,
             $request->email,
             new Status($request->status)

@@ -41,6 +41,7 @@ final class IndicacaoModel extends ORM implements
         private readonly Quantidade $quantidade = new Quantidade(),
         private readonly Ordem $ordem = new Ordem(),
         private readonly ?string $pesquisa = null,
+        private readonly ?string $empresa = null,
         private readonly ?string $nome = null,
         private readonly ?string $email = null,
         private readonly Status $status = new Status()

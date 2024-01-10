@@ -434,7 +434,7 @@ Route
             ::nome('listar')
             ::middleware(TokenMiddleware::class, 'scope', ['usuario_indicacao:listar'])
             ::request([
-                'pagina', '!quantidade', '!ordem', '!pesquisa',
+                'pagina', '!quantidade', '!ordem', '!pesquisa', '!empresa',
                 '!nome', '!email', '!status'
             ], 'json')
             ::get('/usuario-indicacao');
@@ -926,7 +926,7 @@ Route
             ::nome('atualizar')
             ::middleware(TokenMiddleware::class, 'scope', ['painel:atualizar'])
             ::request([
-                '!empresa', '!configuracao', '!campo_obrigatorio', '!permissao'
+                '!empresa', '!configuracao', '!campo_obrigatorio', '!permissao', '!titulo'
             ])
             ::put('/painel-configuracao/{id}');
 
