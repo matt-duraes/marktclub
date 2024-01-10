@@ -6,8 +6,8 @@
 // @resource "site/loja/declaracao"
 // @resource "site/loja/relacionado"
 // @resource "site/loja/download"
-// @import "mapa"
 // @system "Popup"
+// @import "mapa"
 
 window.addEventListener('load', () => {
     const parceiroId = $('#input_loja_id').value;
