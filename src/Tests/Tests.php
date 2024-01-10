@@ -105,6 +105,7 @@ abstract class Tests
     {
         return $this->validarDeletar($this->idSalvar);
     }
+
     public function verificaSeDeletouRegistroSalvoTest()
     {
         $this->api($this->scope . ':deletar');
@@ -200,6 +201,7 @@ abstract class Tests
 
         return $this->validacaoPadrao($validacao, $validar);
     }
+
     protected function validarDeletar(string $id, bool $painel = false, array $validar = [])
     {
         $Curl = $this->pegarCurlValidacaoPadrao($painel, 'deletar');

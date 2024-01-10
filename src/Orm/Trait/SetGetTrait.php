@@ -57,7 +57,7 @@ trait SetGetTrait
      */
     public function set(string $propriedade = '', $valor = '', ?array $lista = null): void
     {
-        if(!($this instanceof Entity)) {
+        if (!($this instanceof Entity)) {
             $this->setarMetodoORM($propriedade, $valor, $lista);
             return;
         }
@@ -80,26 +80,26 @@ trait SetGetTrait
     private function setarMetodoORM(string $propriedade = '', $valor = '', ?array $lista = null)
     {
         $propriedadeLista = get_class_vars(get_class($this));
-        if(!is_array($propriedadeLista) || !$propriedadeLista) {
+        if (!is_array($propriedadeLista) || !$propriedadeLista) {
             return;
         }
 
         $propriedadeFinal = [];
-        foreach(array_keys($propriedadeLista) as $ind) {
-            if(str_starts_with($ind, 'orm')) {
+        foreach (array_keys($propriedadeLista) as $ind) {
+            if (str_starts_with($ind, 'orm')) {
                 continue;
             }
             $propriedadeFinal[] = $ind;
         }
         $this->ormListaSet = $propriedadeFinal;
 
-        if(is_null($propriedade)) {
+        if (is_null($propriedade)) {
             $this->ormSetarSet($propriedade, $valor);
             return;
-        } else if(!is_array($lista)) {
+        } elseif (!is_array($lista)) {
             return;
         }
-        foreach($lista as $ind => $val) {
+        foreach ($lista as $ind => $val) {
             $this->ormSetarSet($ind, $val);
         }
     }
