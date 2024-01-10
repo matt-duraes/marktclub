@@ -31,6 +31,7 @@ final class TextoClubeController extends Controller implements
         $Texto = new TextoModel(
             pagina: new Pagina($request->pagina),
             quantidade: new Quantidade($request->quantidade),
+            pesquisa: $request->pesquisa,
             empresa: $request->empresa,
             tipo: new Tipo($request->tipo),
             ordem: new Ordem($request->ordem),
