@@ -31,15 +31,192 @@ abstract class Tests
     protected bool $checkRobo = true;
     protected bool $checkCurl = false;
     private CryptHelper $Crypt;
+    protected string $scope;
+    protected string $uri = '';
+    protected string $idListar;
+    protected string $idBuscar;
+    protected string $idSalvar;
+    protected string $idUltimo;
+    protected array $body = [];
+    private array $valorAtualizado = [];
+    public string $automatico = '';
 
     public function __construct()
     {
         $this->Robo = new Robo();
+        $this->uri = '/' . preg_replace('/^\//', '', $this->uri);
 
         $Curl = new ApiHelper('admin:chave_publica admin:chave_privada');
         $chavePublica = $Curl->get('/admin/chave-publica')->object()->dado->chave ?? '';
         $chavePrivada = $Curl->get('/admin/chave-privada')->object()->dado->chave ?? '';
         $this->Crypt = new CryptHelper(chavePublica: $chavePublica, chavePrivada: $chavePrivada);
+    }
+
+    protected function pegarBody()
+    {
+        return $this->body;
+    }
+
+    // CREATE
+    public function salvarNovoRegistroTest(): self
+    {
+        return $this->validarSalvar($this->pegarBody());
+    }
+
+    public function buscarRegistroAposSalvarTest(): self
+    {
+        return $this->validarBuscar($this->idSalvar);
+    }
+
+    // READ
+    public function listarTodosOsRegistrosTest(): self
+    {
+        return $this->validarListar();
+    }
+
+    public function buscarPrimeiroRegistroTest(): self
+    {
+        return $this->validarBuscar();
+    }
+
+    // UPDATE
+    public function atualizarPrimeiroCampoDoRegistroSalvoTest(): self
+    {
+        $body = [];
+        foreach ($this->pegarBody() as $ind => $val) {
+            $this->valorAtualizado = [$ind, $val];
+            $body[$ind] = $val;
+            break;
+        }
+
+        return $this->validarAtualizar($this->idSalvar, $body);
+    }
+
+    public function verificaSeAtualizouPrimeiroCampoDoRegistroTest()
+    {
+        return $this->validarBuscar(
+            $this->idSalvar,
+            validar: ['dado.' . $this->valorAtualizado[0] => $this->valorAtualizado[1]]
+        );
+    }
+
+    // DELETAR
+    public function deletarRegistroSalvoTest()
+    {
+        return $this->validarDeletar($this->idSalvar);
+    }
+    public function verificaSeDeletouRegistroSalvoTest()
+    {
+        $this->api($this->scope . ':deletar');
+        $this
+            ->Curl
+            ->delete($this->uri . '/' . $this->idSalvar);
+        return $this
+            ->checkStatus(404)
+            ->checkIndiceIgual('status', 'erro')
+            ->checkIndiceIgual('erro.mensagem', 'Essa página ou recurso não existe ou foi movida para outra URL.');
+    }
+
+    private function pegarCurlValidacaoPadrao(bool $painel, string $acao)
+    {
+        if (!$painel) {
+            $this->api($this->scope . ':' . $acao);
+        }
+        $Curl = $this->Curl;
+        if ($painel) {
+            $Curl->loginPainel();
+        }
+        return $Curl;
+    }
+
+    protected function validarListar(?array $parametro = null, bool $painel = false, array $validar = []): self
+    {
+        $parametro = is_null($parametro) ? ['pagina' => 1] : $parametro;
+        $Curl = $this->pegarCurlValidacaoPadrao($painel, 'listar');
+        $dado = $Curl
+            ->json($parametro)
+            ->get($this->uri);
+
+        $retorno = $dado->object();
+        $id = chaveExiste('dado.lista.0.id', $retorno) ? $retorno->dado->lista[0]->id : 'sem-id';
+
+        $this->idListar = $id;
+        $this->idUltimo = $id;
+
+        $validacao = $this
+            ->checkStatus(200)
+            ->checkIndiceIgual('status', 'sucesso')
+            ->checkIndiceExiste('dado.lista');
+
+        return $this->validacaoPadrao($validacao, $validar);
+    }
+
+    protected function validarBuscar(?string $id = null, bool $painel = false, array $validar = [])
+    {
+        $id = is_null($id) ? $this->idUltimo : $id;
+        $Curl = $this->pegarCurlValidacaoPadrao($painel, 'buscar');
+        $Curl->get($this->uri . '/' . $id);
+
+        $this->idBuscar = $id;
+        $this->idUltimo = $id;
+
+        $validacao = $this
+            ->checkStatus(200)
+            ->checkIndiceIgual('status', 'sucesso')
+            ->checkIndiceIgual('dado.id', $id);
+
+        return $this->validacaoPadrao($validacao, $validar);
+    }
+
+    protected function validarSalvar(array $body, bool $painel = false, array $validar = [])
+    {
+        $Curl = $this->pegarCurlValidacaoPadrao($painel, 'salvar');
+        $dado = $Curl
+            ->body($body)
+            ->post($this->uri);
+
+        $retorno = $dado->object();
+        $id = chaveExiste('dado.id', $retorno) ? $retorno->dado->id : 'sem-id';
+
+        $this->idSalvar = $id;
+        $this->idUltimo = $id;
+
+        $validacao = $this
+            ->checkStatus(201)
+            ->checkIndiceIgual('status', 'sucesso')
+            ->checkIndiceExiste('dado.id');
+
+        return $this->validacaoPadrao($validacao, $validar);
+    }
+
+    protected function validarAtualizar(string $id, array $body, bool $painel = false, array $validar = [])
+    {
+        $Curl = $this->pegarCurlValidacaoPadrao($painel, 'atualizar');
+        $Curl
+            ->body($body)
+            ->put($this->uri . '/' . $id);
+
+        $validacao = $this->checkStatus(204);
+
+        return $this->validacaoPadrao($validacao, $validar);
+    }
+    protected function validarDeletar(string $id, bool $painel = false, array $validar = [])
+    {
+        $Curl = $this->pegarCurlValidacaoPadrao($painel, 'deletar');
+        $Curl->delete($this->uri . '/' . $id);
+
+        $validacao = $this->checkStatus(204);
+
+        return $this->validacaoPadrao($validacao, $validar);
+    }
+
+    private function validacaoPadrao(self $validacao, array $validar): self
+    {
+        foreach ($validar as $ind => $val) {
+            $validacao->checkIndiceIgual($ind, $val);
+        }
+
+        return $validacao;
     }
 
     protected function cryptEncode(string|array $dado, array $lista = [])

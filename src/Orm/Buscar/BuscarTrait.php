@@ -38,9 +38,9 @@ trait BuscarTrait
         $quantidade = mb_strlen($id, 'UTF-8');
 
         if (!$eId || !in_array($quantidade, [32, 36])) {
-            mensagemStatus(404, localhost: 'Você deve enviar um COD ou UUID para fazer a busca.');
+            mensagemStatus(400, localhost: 'Você deve enviar um COD ou UUID para fazer a busca.');
         } elseif (!array_key_exists('uuid', $this->ormCampoBanco) && !array_key_exists('cod', $this->ormCampoBanco)) {
-            mensagemStatus(404, localhost: 'A tabela informada (' . $this->ormTabela . ') não contem um ID.');
+            mensagemStatus(400, localhost: 'A tabela informada (' . $this->ormTabela . ') não contem um ID.');
         } elseif (array_key_exists('uuid', $this->ormCampoBanco)) {
             $where = ['uuid', $id];
         } elseif (array_key_exists('cod', $this->ormCampoBanco)) {

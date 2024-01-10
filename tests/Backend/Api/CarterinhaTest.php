@@ -2,9 +2,9 @@
 
 namespace Tests\Api;
 
-use App\Classes\Carteirinha\Status;
 use Erro\Excecao;
 use Tests\Token\Clube;
+use App\Classes\Carteirinha\Status;
 
 class CarterinhaTest extends Clube
 {
@@ -109,12 +109,12 @@ class CarterinhaTest extends Clube
         $this->api('carteirinha:listar');
         $this
             ->Curl
+            ->loginPainel()
             ->json([
                 'pagina'  => 1,
                 'empresa' => '369fc307129e405b3f2f00620c7b012d',
                 'status'  => Status::ATIVO
             ])
-            ->loginPainel()
             ->get('/carteirinha');
 
         return $this

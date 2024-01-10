@@ -36,11 +36,11 @@ abstract class ORM
     use InsertTrait;
     use UpdateTrait;
     use DeleteTrait;
-    use ValidarTrait;
     use ReadTrait;
     use GroupTrait;
     use TabelaTrait;
     use SetGetTrait;
+    use ValidarTrait;
 
     /**
      * @param array $option Option aceitos pelo PDO
