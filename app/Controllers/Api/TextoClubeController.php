@@ -64,7 +64,10 @@ final class TextoClubeController extends Controller implements
         return mensagemSucesso(
             dado: pegarPropriedadeDaEntity(
                 Entity: $Texto,
-                lista: ['titulo_painel', 'titulo', 'texto', 'data_criacao', 'data_atualizacao', 'empresa', 'ordem', 'status']
+                lista: [
+                    'titulo_painel', 'titulo', 'texto', 'data_criacao', 'data_atualizacao',
+                    'empresa', 'tipo', 'ordem', 'status'
+                ]
             ),
             status: $status
         );
