@@ -14,7 +14,7 @@ $Painel
         permissao: \App\Classes\UsuarioCliente\Helper::PERMISSAO_EMPRESA
     )
     ->input(name: 'nome', titulo: 'Nome do indicado', label: 'Nome', placeholder: 'Digite um nome')
-    ->email(name: 'email', titulo: 'E-mail do indicado', label: 'E-mail', placeholder: 'Digite um e-mail')
+    ->input(name: 'email', titulo: 'E-mail do indicado', label: 'E-mail', placeholder: 'Digite um e-mail')
     ->select(
         name: 'status',
         lista: (new Status())->select('Selecione um status'),
