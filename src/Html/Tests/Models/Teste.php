@@ -31,13 +31,17 @@ function __executarTeste($diretorio, $classe)
             [
                 'listarTodosOsRegistrosTest', 'buscarPrimeiroRegistroTest',
                 'salvarNovoRegistroTest', 'buscarRegistroAposSalvarTest',
-                'atualizarPrimeiroCampoDoRegistroSalvoTest', 'verificaSeAtualizouPrimeiroRegistroTest'
+                'atualizarPrimeiroCampoDoRegistroSalvoTest', 'verificaSeAtualizouPrimeiroCampoDoRegistroTest',
+                'deletarRegistroSalvoTest', 'verificaSeDeletouRegistroSalvoTest'
             ]
         );
     });
 
+    if (str_contains($automatico, 'd')) {
+        $metodos = array_merge(['deletarRegistroSalvoTest', 'verificaSeDeletouRegistroSalvoTest'], $metodos);
+    }
     if (str_contains($automatico, 'u')) {
-        $metodos = array_merge(['atualizarPrimeiroCampoDoRegistroSalvoTest', 'verificaSeAtualizouPrimeiroRegistroTest'], $metodos);
+        $metodos = array_merge(['atualizarPrimeiroCampoDoRegistroSalvoTest', 'verificaSeAtualizouPrimeiroCampoDoRegistroTest'], $metodos);
     }
     if (str_contains($automatico, 'r')) {
         $metodos = array_merge(['listarTodosOsRegistrosTest', 'buscarPrimeiroRegistroTest'], $metodos);

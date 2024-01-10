@@ -23,15 +23,18 @@ trait ValidarTrait
      * @param  string|null $titulo
      * @return bool
      */
-    public function validarCampoDuplicado(string $campo, string $mensagem, ?string $titulo = null): void
+    public function validarCampoDuplicado(string $campo, string $mensagem, ?string $titulo = null, mixed $valor = null): void
     {
-        if (!$this->propriedadeExiste($campo)) {
+        if (empty($valor) && !$this->propriedadeExiste($campo)) {
             return;
         }
 
-        $valor = $this->$campo;
-        $valor = $valor instanceof ModuleInterface || $valor instanceof StatusInterface ?
-            $valor->banco() : $valor;
+        if(empty($valor)) {
+            $valor = $this->$campo;
+            $valor = $valor instanceof ModuleInterface || $valor instanceof StatusInterface ?
+                $valor->banco() : $valor;
+        }
+
         $where = "`{$campo}` = :{$campo}";
         if ($this->ormEntityExiste) {
             $where .= " AND `id` != :id";

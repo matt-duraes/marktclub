@@ -43,8 +43,7 @@ final class ConfigEntity extends Entity
         status|Status|obrigatorio|vazio|valido
     ';
     private int $idEmpresa;
-    protected int $id_admin_empresa;
-    public string $empresa = '';
+    public string $empresa;
     public string $titulo_painel;
     public string $titulo;
     public string $descricao;
@@ -66,18 +65,20 @@ final class ConfigEntity extends Entity
     public string $favicon;
     public Status $status;
 
-    public function __construct()
-    {
-        parent::__construct();
-        $this->validarEmpresa();
-    }
-
     protected function regraPosBuscar()
     {
         $this->mapa_imagem = arquivoPrivado($this->mapa_imagem);
         $this->logo_principal = arquivoPrivado($this->logo_principal);
         $this->favicon = arquivoPrivado($this->favicon);
         $this->link_site = 'https://' . strDominio($this->link_site);
+    }
+
+    protected function regraInsert()
+    {
+        if(!$this->propriedadeExiste('empresa') || empty($this->empresa)) {
+            return;
+        }
+        $this->validarCampoDuplicado(campo: 'id_admin_empresa', valor: $this->idEmpresa, mensagem: 'Empresa');
     }
 
     protected function regraSalvar()

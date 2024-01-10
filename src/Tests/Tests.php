@@ -92,12 +92,29 @@ abstract class Tests
         return $this->validarAtualizar($this->idSalvar, $body);
     }
 
-    public function verificaSeAtualizouPrimeiroRegistroTest()
+    public function verificaSeAtualizouPrimeiroCampoDoRegistroTest()
     {
         return $this->validarBuscar(
             $this->idSalvar,
             validar: ['dado.' . $this->valorAtualizado[0] => $this->valorAtualizado[1]]
         );
+    }
+
+    // DELETAR
+    public function deletarRegistroSalvoTest()
+    {
+        return $this->validarDeletar($this->idSalvar);
+    }
+    public function verificaSeDeletouRegistroSalvoTest()
+    {
+        $this->api($this->scope . ':deletar');
+        $this
+            ->Curl
+            ->delete($this->uri . '/' . $this->idSalvar);
+        return $this
+            ->checkStatus(404)
+            ->checkIndiceIgual('status', 'erro')
+            ->checkIndiceIgual('erro.mensagem', 'Essa página ou recurso não existe ou foi movida para outra URL.');
     }
 
     private function pegarCurlValidacaoPadrao(bool $painel, string $acao)
@@ -178,6 +195,15 @@ abstract class Tests
         $Curl
             ->body($body)
             ->put($this->uri . '/' . $id);
+
+        $validacao = $this->checkStatus(204);
+
+        return $this->validacaoPadrao($validacao, $validar);
+    }
+    protected function validarDeletar(string $id, bool $painel = false, array $validar = [])
+    {
+        $Curl = $this->pegarCurlValidacaoPadrao($painel, 'deletar');
+        $Curl->delete($this->uri . '/' . $id);
 
         $validacao = $this->checkStatus(204);
 

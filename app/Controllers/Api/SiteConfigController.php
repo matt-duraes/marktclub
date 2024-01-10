@@ -40,6 +40,7 @@ final class SiteConfigController extends Controller implements
     {
         $Config = new ConfigEntity();
         $Config->set(lista: $request->dado());
+        $Config->validarEmpresa();
         $Config->salvar();
 
         return $this->retornoPadrao($Config, 201);

@@ -7,9 +7,7 @@ use App\Classes\Geral\Status;
 
 class SiteConfigTest extends Tests
 {
-    private string $idUnareg = '6867f399-6025-4764-a425-ea445624b63e';
-    private string $idNovo = '';
-    private string $novoTitulo = 'Novo Título';
+    private string $idUnareg = '4cceef2a4ee3d677dd15955daace4bba';
     protected string $scope = 'site_config';
     protected string $uri = '/site-config';
     public string $automatico = 'crud';
@@ -22,23 +20,18 @@ class SiteConfigTest extends Tests
         parent::__construct();
     }
 
-    // public function pegarConfigUnaregTest(): self
-    // {
-    // return $this->validarBuscar($this->idUnareg, painel: true);
-    // }
-
     public function naoPodeSalvarEmpresaDuplicadaTest()
     {
         $this
-            ->api('site_config:salvar')
             ->Curl
-            ->body($this->pegarBody($this->idUnareg))
+            ->loginPainel()
+            ->body($this->pegarBody(empresa: $this->idUnareg))
             ->post('/site-config');
 
         return $this
             ->checkStatus(400)
             ->checkIndiceIgual('status', 'erro')
-            ->checkIndiceIgual('erro.mensagem', "Valor duplicado '1' para o campo 'site_config.id_admin_empresa'");
+            ->checkIndiceIgual('erro.mensagem', "O valor do campo Empresa já existe.");
     }
 
     public function naoPodeSalvarLinkSiteDuplicadoTest()
