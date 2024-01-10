@@ -7,14 +7,14 @@ window.addEventListener('load', async () => {
 
     const botaoBuscar = $('#botao_endereco_buscar');
     const botaoLink = $('#botao_endereco_link');
-    const blocoEnderecoTexto = $('#bloco_endereco_texto');
+    const blocoDetalheTexto = $('#bloco_detalhe_texto');
     const blocoGoogleMap = $('#bloco_endereco_google_map');
     const conteudoPopupEndereco = $('#conteudo_popup_endereco');
     const PopupEndereco = new Popup('endereco', 'bloco_endereco', true, true);
 
     const enderecos = await buscarEndereco();
 
-    blocoEnderecoTexto.innerText = enderecos.principal.endereco;
+    blocoDetalheTexto.innerText = pegarTextoDetalhe(enderecos.principal);
     botaoLink.setAttribute('href', enderecos.principal.link);
     adicionarEndereco(enderecos.principal.latitude, enderecos.principal.longitude);
 
@@ -36,32 +36,35 @@ window.addEventListener('load', async () => {
         for (const pais in enderecos) {
             for (const estado in enderecos[pais]) {
                 htmlString += `<div class="bloco_categoria_estado">
-                                    <div class="bloco_categoria_titulo">
-                                        <p>${estado}</p>
+                                    <div class="bloco_estado_titulo">
+                                        ${estado}
+                                        <hr class="divisoria_estado"/>
                                     </div>
                                     `;
 
                 for (const cidade in enderecos[pais][estado]) {
-                    htmlString += `<div class="bloco_categoria_cidade">
-                                        <div class="bloco_categoria_titulo">
-                                            <p>${cidade}</p>
-                                        </div>`;
+                    htmlString += `<ul class="bloco_categoria_cidade">
+                                        <li class="bloco_cidade_titulo">
+                                            ${cidade}
+                                        </li>`;
 
                     const listaEnderecos = enderecos[pais][estado][cidade];
                     const enderecoItems = listaEnderecos.map(e => `
-                        <div class="bloco_endereco_item">
+                        <li class="bloco_endereco_item">
                             <div class="bloco_detalhe_endereco">
-                                <p>${e.endereco}</p>
+                                <p class="endereco">${e.endereco}</p>
+                                <div class="botao_geral_cor botao_buscar_endereco">Buscar</div>
+
                                 <p class="display_none latitude">${e.latitude}</p>
                                 <p class="display_none longitude">${e.longitude}</p>
                                 <p class="display_none telefone">${e.telefone}</p>
                                 <p class="display_none link">${e.link}</p>
                             </div>
-                        </div>`
+                        </li>`
                     );
 
                     htmlString += enderecoItems.join('');
-                    htmlString += '</div>';
+                    htmlString += '</ul>';
                 }
 
                 htmlString += '</div>';
@@ -72,19 +75,19 @@ window.addEventListener('load', async () => {
     }
 
     function adicionarEventoBotaoEndereco() {
-        const listaBotao = $$('.bloco_endereco_item');
+        const listaBotao = $$('.botao_buscar_endereco');
         listaBotao.forEach(botao => {
             botao.addEventListener('click', (e) => {
                 const bloco = e.target.parentNode;
                 const latitude = bloco.querySelector('.latitude').innerText;
                 const longitude = bloco.querySelector('.longitude').innerText;
-                const endereco = bloco.querySelector('p').innerText;
+                const endereco = bloco.querySelector('.endereco').innerText;
                 const telefone = bloco.querySelector('.telefone').innerText;
                 const link = bloco.querySelector('.link').innerText;
 
 
                 adicionarEndereco(latitude, longitude);
-                blocoEnderecoTexto.innerText = endereco;
+                blocoDetalheTexto.innerText = pegarTextoDetalhe({telefone, endereco});
 
                 botaoLink.setAttribute('href', link);
 
@@ -143,4 +146,26 @@ window.addEventListener('load', async () => {
 
         new markerClusterer.MarkerClusterer({ markers, map: mapa });
     };
+
+
+    function pegarTextoDetalhe(dado) {
+        if (dado.telefone != "null") {
+            return `${dado.endereco} - ${formatarTelefone(dado.telefone)}`;
+        }
+        return dado.endereco;
+    }
+
+    function formatarTelefone(telefone) {
+        if(!telefone) return;
+
+        const numeros = telefone.toString().replace(/\D/g, '');
+
+        if (numeros.length === 10) {
+          return `(${numeros.substr(0, 2)}) ${numeros.substr(2, 4)}-${numeros.substr(6, 4)}`;
+        } else if (numeros.length === 11) {
+          return `(${numeros.substr(0, 2)}) ${numeros.substr(2, 5)}-${numeros.substr(7, 4)}`;
+        }
+
+        return telefone;
+      }
 });
