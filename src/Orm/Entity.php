@@ -40,16 +40,13 @@ abstract class Entity extends ORM
     protected string $ormValidarUpdate = '';
     protected array $ormDeletarArquivo = [];
     protected array $ormSet = [];
-    protected array $ormSetReal = [];
     protected array $ormEntityRetorno = [];
     private bool $ormEntityDeletada = false;
     private ?int $ormEntityId = 0;
     private string $ormEntityUuid = '';
     private array $ormPropriedadePublica = [];
     private array $ormPropriedadePrivada = [];
-    private array $ormListaSet = [];
     private array $ormListaAliasReal = [];
-    private array $ormPropriedadeSetada = [];
     protected array $ormRetornoPadrao = [];
     protected bool $ormEntityExiste = false;
     protected $ormCampoBanco = [];

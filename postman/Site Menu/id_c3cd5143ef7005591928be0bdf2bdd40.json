@@ -1,0 +1,1 @@
+{"id":"id_c3cd5143ef7005591928be0bdf2bdd40","token":"token","metodo":"GET","nome":"\/site-menu","uri":"{{LINK}}\/site-menu","parametro":[],"body":[],"header":[],"variavel":[["texto",true,"$SITE_MENU_ID","data.lista.0.id",""]],"json":[["texto",true,"pagina","1",""]],"documentacao":{"status":false,"descricao":"","requisicao":"","resposta":"","scope":"site_menu:listar"}}

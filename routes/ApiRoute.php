@@ -821,15 +821,6 @@ Route
     });
 
 Route
-    ::nome('loginFenae')
-    ::controller(App\Controllers\Api\FenaeLoginController::class)
-    ::grupo(function () {
-        Route
-            ::nome('paginaLogin')
-            ::view('/login/fenae');
-    });
-
-Route
     ::nome('termoLgpd')
     ::controller(App\Controllers\Api\TermoLgpdController::class)
     ::grupo(function () {
@@ -1807,15 +1798,6 @@ Route
     });
 
 Route
-    ::nome('emeilmarketing')
-    ::controller(App\Controllers\Api\EmailMarketing::class)
-    ::grupo(function () {
-        Route
-            ::nome('remover')
-            ::view('/emailmarketing/remover/{hash}');
-    });
-
-Route
     ::nome('carteirinha')
     ::controller(App\Controllers\Api\CarteirinhaController::class)
     ::middleware(TokenMiddleware::class, 'token')
@@ -2293,18 +2275,6 @@ Route
     });
 
 Route
-    ::nome('automovel')
-    ::controller(App\Controllers\Api\AutomovelController::class)
-    ::middleware(TokenMiddleware::class, 'token')
-    ::grupo(function () {
-        Route
-            ::nome('listar')
-            ::middleware(TokenMiddleware::class, 'scope', ['automovel:listar'])
-            ::request(['pagina', '!url', '!quantidade', '!vinculo', '!ordem', '!status'], 'json')
-            ::get('/automovel');
-    });
-
-Route
     ::nome('silium')
     ::controller(App\Controllers\Api\SiliumController::class)
     ::middleware(TokenMiddleware::class, 'token')
@@ -2454,4 +2424,80 @@ Route
             ::nome('deletar')
             ::middleware(TokenMiddleware::class, 'scope', ['comunicacao_login:deletar'])
             ::delete('/comunicacao-login/{id}');
+    });
+Route
+    ::nome('site_config')
+    ::controller(App\Controllers\Api\SiteConfigController::class)
+    ::middleware(TokenMiddleware::class, 'token')
+    ::grupo(function () {
+        Route
+            ::nome('buscar')
+            ::middleware(TokenMiddleware::class, 'scope', ['site_config:buscar'])
+            ::get('/site-config/{id}');
+        Route
+            ::nome('listar')
+            ::middleware(TokenMiddleware::class, 'scope', ['site_config:listar'])
+            ::request([
+                'pagina', '!empresa', '!ordem'
+            ], 'json')
+            ::get('/site-config');
+        Route
+            ::nome('salvar')
+            ::middleware(TokenMiddleware::class, 'scope', ['site_config:salvar'])
+            ::request([
+                '!empresa', 'titulo_painel', 'titulo', 'descricao', 'template', 'contato_telefone', 'contato_celular',
+                'contato_whatsapp', 'contato_email', 'contato_endereco', 'mapa_imagem', 'mapa_link',
+                'cor_principal', 'rede_youtube', 'rede_facebook', 'rede_instagram', 'rede_x', 'logo_principal',
+                'favicon', 'link_site', 'status'
+            ])
+            ::post('/site-config');
+        Route
+            ::nome('atualizar')
+            ::middleware(TokenMiddleware::class, 'scope', ['site_config:atualizar'])
+            ::request([
+                '!empresa', '!titulo_painel', '!titulo', '!descricao', '!template', '!contato_telefone',
+                '!contato_celular', '!contato_whatsapp', '!contato_email', '!contato_endereco', '!mapa_imagem',
+                '!mapa_link', '!cor_principal', '!rede_youtube', '!rede_facebook', '!rede_instagram', '!rede_x',
+                '!logo_principal', '!favicon', '!link_site', '!status'
+            ])
+            ::put('/site-config/{id}');
+        Route
+            ::nome('deletar')
+            ::middleware(TokenMiddleware::class, 'scope', ['site_config:deletar'])
+            ::delete('/site-config/{id}');
+    });
+Route
+    ::nome('site_menu')
+    ::controller(App\Controllers\Api\SiteMenuController::class)
+    ::middleware(TokenMiddleware::class, 'token')
+    ::grupo(function () {
+        Route
+            ::nome('buscar')
+            ::middleware(TokenMiddleware::class, 'scope', ['site_menu:buscar'])
+            ::get('/site-menu/{id}');
+        Route
+            ::nome('listar')
+            ::middleware(TokenMiddleware::class, 'scope', ['site_menu:listar'])
+            ::request([
+                'pagina', '!empresa', '!ordem'
+            ], 'json')
+            ::get('/site-menu');
+        Route
+            ::nome('salvar')
+            ::middleware(TokenMiddleware::class, 'scope', ['site_menu:salvar'])
+            ::request([
+                'id_site_menu', 'tipo', 'titulo', 'link', 'target', 'ordem', 'status'
+            ])
+            ::post('/site-menu');
+        Route
+            ::nome('atualizar')
+            ::middleware(TokenMiddleware::class, 'scope', ['site_menu:atualizar'])
+            ::request([
+                'id_site_menu', 'tipo', 'titulo', 'link', 'target', 'ordem', 'status'
+            ])
+            ::put('/site-menu/{id}');
+        Route
+            ::nome('deletar')
+            ::middleware(TokenMiddleware::class, 'scope', ['site_menu:deletar'])
+            ::delete('/site-menu/{id}');
     });

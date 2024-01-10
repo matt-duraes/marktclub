@@ -1,0 +1,1 @@
+{"id":"id_8553bcc8c2ce7fa5f1479280368f70ac","token":"token","metodo":"GET","nome":"\/site-config\/:id","uri":"{{LINK}}\/site-config\/$SITE_CONFIG_URL","parametro":[],"body":[],"header":[],"variavel":[],"json":[],"documentacao":{"status":false,"descricao":"","requisicao":"","resposta":"","scope":"site_config:buscar"}}

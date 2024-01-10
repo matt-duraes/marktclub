@@ -42,6 +42,26 @@ return [
         'status'                  => 1
     ],
     [
+        'id'                      => 19,
+        'cod'                     => '4cceef2a4ee3d677dd15955daace4bba',
+        'id_usuario_equipe'       => 1,
+        'titulo'                  => 'Unareg',
+        'razao_social'            => 'Unareg',
+        'nome_fantasia'           => 'Unareg',
+        'cnpj'                    => '07597210000158',
+        'responsavel_nome'        => nomeCompletoAleatorio(),
+        'responsavel_cpf'         => cpfAleatorio(),
+        'responsavel_email'       => emailAleatorio(),
+        'responsavel_telefone'    => telefoneCelularAleatorio(),
+        'slug'                    => 'unareg',
+        'tipo_pagamento'          => 1,
+        'contrato_valor'          => 1.2,
+        'contrato_dia_fechamento' => 1,
+        'contrato_dia_pagamento'  => 10,
+        'cobrar_aposentado'       => 1,
+        'status'                  => 1
+    ],
+    [
         'id'                      => 153,
         'cod'                     => '369fc307129e405b3f2f00620c7b012d',
         'id_usuario_equipe'       => 1,

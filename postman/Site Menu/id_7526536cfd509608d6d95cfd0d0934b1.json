@@ -1,0 +1,1 @@
+{"id":"id_7526536cfd509608d6d95cfd0d0934b1","token":"token","metodo":"PUT","nome":"\/site-menu\/:id","uri":"{{LINK}}\/site-menu\/$SITE_MENU_ID","parametro":[],"body":[],"header":[],"variavel":[],"json":[],"documentacao":{"status":false,"descricao":"","requisicao":"","resposta":"","scope":"site_menu:atualizar"}}
