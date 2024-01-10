@@ -4,3 +4,12 @@
 @system "Popup"
 @resource "site/pagina_popup"
 @painel 'relatorio_empresas'
+
+@media print
+    #lista_acesso_usuario
+        break-after: page
+
+    #lista_acesso_parceiro
+    #lista_acesso_parceiro_online
+    #lista_acesso_parceiro_fisico
+        margin-top: 70px

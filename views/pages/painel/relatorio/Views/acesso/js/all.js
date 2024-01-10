@@ -24,8 +24,6 @@ window.addEventListener('load', () => {
         const ate = inputAte.value;
         const empresa = pegarValoresMarcados();
 
-
-
         graficoAcesso.classList.add('loading');
         const resposta = await ajaxGet(LINK + `/relatorio/acesso-dia`, { de, ate, empresa }, undefined, {
             headers: {
