@@ -17,12 +17,9 @@ final class DeletarModel extends ORM
     private int $idEmpresa;
     private array $usuario = [];
 
-    /**
-     * @throws Excecao
-     */
     public function __construct()
     {
-        $this->validarEmpresa('empresa');
+        //$this->validarEmpresa('empresa');
         parent::__construct();
     }
 
@@ -82,7 +79,6 @@ final class DeletarModel extends ORM
     {
         $dependente = $this
             ->where([
-                ['empresa', $this->idEmpresa],
                 ['status', 'in', Helper::STATUS_LIBERADO],
                 ['tipo', (new TipoUsuario(TipoUsuario::DEPENDENTE))->numero()],
                 ['titular', $titular]

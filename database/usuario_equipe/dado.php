@@ -10,6 +10,7 @@ $permissao = [
     'usuario_dependente_index', 'usuario_dependente_add', 'usuario_dependente_deletar',
 
     'usuario_indicacao_index', 'usuario_indicacao_visualizar', 'usuario_indicacao_status',
+    'usuario_indicacao_empresa',
 
     'usuario_lead_index', 'usuario_lead_visualizar', 'usuario_lead_status',
 
@@ -110,6 +111,9 @@ $permissao = [
 
     'site_config_index', 'site_config_add', 'site_config_editar', 'site_config_deletar', 'site_config_empresa',
     'site_menu_index', 'site_menu_add', 'site_menu_editar', 'site_menu_deletar', 'site_menu_empresa',
+
+    'painel_permissoes_index', 'painel_permissoes_add', 'painel_permissoes_editar',
+    'painel_permissoes_deletar',
 ];
 
 return [

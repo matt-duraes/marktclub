@@ -23,7 +23,7 @@ final class ListaModel extends ClubeApiHelper
         private Tipo $tipo,
         private Local $local
     ) {
-        sleep(3);
+        // sleep(3);
         parent::__construct();
         $this->buscarDado();
         $this->montarEndereco();
@@ -53,7 +53,7 @@ final class ListaModel extends ClubeApiHelper
                 continue;
             }
 
-            $estado = !empty($r->estado) ? $r->estado : 'outro';
+            $estado = !empty($r->estado) ? $estadoLista[$r->estado] : 'outro';
             $cidade = !empty($r->cidade) ? $r->cidade : 'outro';
 
             $pais = $r->pais;
@@ -68,14 +68,14 @@ final class ListaModel extends ClubeApiHelper
             }
             if (!array_key_exists($estado, $retorno[$pais])) {
                 $retorno[$pais][$estado] = [];
-                $this->estado[$estado] = $estadoLista[$estado];
+                $this->estado[$estado] = $estado;
             }
             if (!array_key_exists($cidade, $retorno[$pais][$estado])) {
                 $retorno[$pais][$estado][$cidade] = [];
                 $this->cidade[$cidade] = $cidade;
             }
 
-            $retorno[$pais][$estado][$cidade] = $this->setarEndereco($r);
+            $retorno[$pais][$estado][$cidade][] = $this->setarEndereco($r);
         }
         $this->endereco = $retorno;
     }
@@ -88,6 +88,7 @@ final class ListaModel extends ClubeApiHelper
             'endereco'  => $r->titulo . ' - ' . $r->completo,
             'latitude'  => $r->latitude,
             'longitude' => $r->longitude,
+            'telefone'  => $r->telefone,
             'link'      => 'https://www.google.com.br/maps/dir//' . $r->latitude . ',%20' . $r->longitude
         ];
     }

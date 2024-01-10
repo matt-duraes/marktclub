@@ -182,6 +182,9 @@ $scope = [
     'site_config:deletar', 'site_config:empresa',
     'site_menu:listar', 'site_menu:buscar', 'site_menu:salvar', 'site_menu:atualizar',
     'site_menu:deletar', 'site_menu:empresa'
+
+    'painel:buscar', 'painel:listar', 'painel:salvar', 'painel:atualizar',
+    'painel:deletar'
 ];
 
 return [

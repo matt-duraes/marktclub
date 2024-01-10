@@ -2,18 +2,19 @@
 
 namespace App\Models\Api\UsuarioIndicacao;
 
-use ORM\ORM;
-use stdClass;
+use App\Classes\UsuarioIndicacao\Ordem;
+use App\Classes\UsuarioIndicacao\Status;
+use App\Models\Api\Trait\ValidarEmpresaTrait;
 use Erro\Excecao;
+use Modules\Data;
 use Modules\Pagina;
 use Modules\Quantidade;
+use ORM\ORM;
+use stdClass;
+use System\Interface\ModelListarInterface;
 use System\Trait\Model\OrdemTrait;
 use System\Trait\Model\PaginaTrait;
-use App\Classes\UsuarioIndicacao\Ordem;
 use System\Trait\Model\QuantidadeTrait;
-use App\Classes\UsuarioIndicacao\Status;
-use System\Interface\ModelListarInterface;
-use App\Models\Api\Trait\ValidarEmpresaTrait;
 
 final class IndicacaoModel extends ORM implements
     ModelListarInterface
@@ -30,8 +31,11 @@ final class IndicacaoModel extends ORM implements
      * @param Quantidade  $quantidade
      * @param Ordem       $ordem
      * @param string|null $pesquisa
+     * @param string|null $empresa
      * @param string|null $nome
      * @param string|null $email
+     * @param Data        $dataInicio
+     * @param Data        $dataFinal
      * @param Status      $status
      *
      * @throws Excecao
@@ -41,12 +45,15 @@ final class IndicacaoModel extends ORM implements
         private readonly Quantidade $quantidade = new Quantidade(),
         private readonly Ordem $ordem = new Ordem(),
         private readonly ?string $pesquisa = null,
+        private readonly ?string $empresa = null,
         private readonly ?string $nome = null,
         private readonly ?string $email = null,
+        private readonly Data $dataInicio = new Data(),
+        private readonly Data $dataFinal = new Data(),
         private readonly Status $status = new Status()
     ) {
         $this->validarDados();
-        $this->setarIdEmpresa();
+        $this->validarEmpresa();
         parent::__construct();
     }
 
@@ -73,6 +80,12 @@ final class IndicacaoModel extends ORM implements
             ->where($this->pegarWhere(), false)
             ->pagina($this->pegarPagina(), $this->pegarQuantidade())
             ->order($this->pegarOrdem(new Ordem()))
+            ->tabela(TABELA_COMERCIAL_EMPRESA)
+            ->where($this->pegarWhereEmpresa(), false)
+            ->join('id', 'id_admin_empresa')
+            ->campo([
+                'nome_fantasia'
+            ], 'empresa')
             ->read();
 
         $dado->lista = $this->montarRetorno($dado->lista);
@@ -90,7 +103,7 @@ final class IndicacaoModel extends ORM implements
             $where[] = [
                 'OR',
                 ['nome', 'LIKE', '%' . $this->pesquisa . '%'],
-                ['email', 'LIKE', $this->pesquisa . '%']
+                ['email', 'LIKE', '%' . $this->pesquisa . '%']
             ];
         }
 
@@ -102,10 +115,32 @@ final class IndicacaoModel extends ORM implements
             $where[] = ['email', 'LIKE', $this->email . '%'];
         }
 
+        if ($this->dataInicio->valido() && $this->dataFinal->valido()) {
+            $where[] = [
+                'data_criacao', 'between', [$this->dataInicio->date(), $this->dataFinal->date() . ' 23:59:59']
+            ];
+        } elseif ($this->dataInicio->valido()) {
+            $where[] = ['data_criacao', '>=', $this->dataInicio->date()];
+        } elseif ($this->dataFinal->valido()) {
+            $where[] = ['data_criacao', '<=', $this->dataFinal->date() . ' 23:59:59'];
+        }
+
         if ($this->status->valido()) {
             $where[] = ['status', $this->status->numero()];
         }
 
+        return $where;
+    }
+
+    /**
+     * @return array
+     */
+    protected function pegarWhereEmpresa(): array
+    {
+        $where = [];
+        if (!empty($this->empresa)) {
+            $where[] = ['cod', $this->empresa];
+        }
         return $where;
     }
 
@@ -125,6 +160,7 @@ final class IndicacaoModel extends ORM implements
         foreach ($indicados as $indicado) {
             $retorno[] = [
                 'id'           => $indicado->uuid,
+                'empresa'      => $indicado->empresa_nome_fantasia,
                 'nome'         => $indicado->nome,
                 'email'        => $indicado->email,
                 'status'       => $Status->indice($indicado->status),

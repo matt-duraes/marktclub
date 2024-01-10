@@ -405,7 +405,7 @@ Route
             ::nome('atualizar')
             ::middleware(TokenMiddleware::class, 'scope', ['usuario_dependente:atualizar'])
             ::request(['!senha_nova', '!senha_repetida'])
-            ::put('/usuario-dependente');
+            ::put('/usuario-dependente/{id}');
 
         Route
             ::nome('deletar')
@@ -434,8 +434,8 @@ Route
             ::nome('listar')
             ::middleware(TokenMiddleware::class, 'scope', ['usuario_indicacao:listar'])
             ::request([
-                'pagina', '!quantidade', '!ordem', '!pesquisa',
-                '!nome', '!email', '!status'
+                'pagina', '!quantidade', '!ordem', '!pesquisa', '!empresa',
+                '!nome', '!email', '!data_inicio', '!data_final', '!status'
             ], 'json')
             ::get('/usuario-indicacao');
 
@@ -893,6 +893,40 @@ Route
     ::controller(App\Controllers\Api\PainelController::class)
     ::grupo(function () {
         Route
+            ::nome('buscar')
+            ::middleware(TokenMiddleware::class, 'scope', ['painel:buscar'])
+            ::get('/painel-configuracao/{id}');
+
+        Route
+            ::nome('listar')
+            ::middleware(TokenMiddleware::class, 'scope', ['painel:listar'])
+            ::request([
+                'pagina', '!quantidade', '!ordem'
+            ], 'json')
+            ::get('/painel-configuracao');
+
+        Route
+            ::nome('salvar')
+            ::middleware(TokenMiddleware::class, 'scope', ['painel:salvar'])
+            ::request([
+                'empresa', 'configuracao', 'campo_obrigatorio', 'permissao', 'titulo'
+            ])
+            ::post('/painel-configuracao');
+
+        Route
+            ::nome('atualizar')
+            ::middleware(TokenMiddleware::class, 'scope', ['painel:atualizar'])
+            ::request([
+                '!empresa', '!configuracao', '!campo_obrigatorio', '!permissao', '!titulo'
+            ])
+            ::put('/painel-configuracao/{id}');
+
+        Route
+            ::nome('deletar')
+            ::middleware(TokenMiddleware::class, 'scope', ['painel:deletar'])
+            ::delete('/painel-configuracao/{id}');
+
+        Route
             ::nome('permissao')
             ::middleware(TokenMiddleware::class, 'scope', ['admin:permissao'])
             ::get('/admin/permissao');
@@ -1100,7 +1134,7 @@ Route
         Route
             ::nome('listar')
             ::middleware(TokenMiddleware::class, 'scope', ['texto_clube:listar'])
-            ::request(['pagina', '!empresa', '!quantidade', '!tipo', '!ordem', '!status'], 'json')
+            ::request(['pagina', '!empresa', '!quantidade', '!tipo', '!ordem', '!pesquisa', '!status'], 'json')
             ::get('/texto-clube');
         Route
             ::nome('buscar')
@@ -1110,16 +1144,16 @@ Route
             ::nome('salvar')
             ::middleware(TokenMiddleware::class, 'scope', ['texto_clube:salvar'])
             ::request([
-                'empresa', 'titulo', 'texto', 'header_titulo', 'header_descricao',
-                'header_tag', 'tipo', 'empresa', '!ordem', 'status'
+                'empresa', 'titulo_painel', 'titulo', 'texto', 'header_titulo',
+                'header_descricao', 'header_tag', 'tipo', 'empresa', '!ordem', 'status'
             ])
             ::post('/texto-clube');
         Route
             ::nome('atualizar')
             ::middleware(TokenMiddleware::class, 'scope', ['texto_clube:atualizar'])
             ::request([
-                '!empresa', '!titulo', '!texto', '!header_titulo', '!header_descricao',
-                '!header_tag', '!tipo', '!empresa', '!ordem', '!status'
+                '!empresa', '!titulo_painel', '!titulo', '!texto', '!header_titulo',
+                '!header_descricao', '!header_tag', '!tipo', '!empresa', '!ordem', '!status'
             ])
             ::put('/texto-clube/{id}');
         Route
