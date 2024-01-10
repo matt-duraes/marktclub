@@ -14,7 +14,12 @@ $Painel
         permissao: \App\Classes\UsuarioCliente\Helper::PERMISSAO_EMPRESA
     )
     ->input(name: 'nome', titulo: 'Nome do indicado', label: 'Nome', placeholder: 'Digite um nome')
-    ->email(name: 'email', titulo: 'E-mail do indicado', label: 'E-mail', placeholder: 'Digite um e-mail')
+    ->input(name: 'email', titulo: 'E-mail do indicado', label: 'E-mail', placeholder: 'Digite um e-mail')
+    ->bloco(function () use ($Painel) {
+        $Painel
+            ->data(name: 'data_inicio', titulo: 'Data Inicío', label: 'Data Inicío', placeholder: 'Data de Inicío')
+            ->data(name: 'data_final', titulo: 'Data Final', label: 'Data Final', placeholder: 'Data Final');
+    })
     ->select(
         name: 'status',
         lista: (new Status())->select('Selecione um status'),

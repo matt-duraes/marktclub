@@ -435,7 +435,7 @@ Route
             ::middleware(TokenMiddleware::class, 'scope', ['usuario_indicacao:listar'])
             ::request([
                 'pagina', '!quantidade', '!ordem', '!pesquisa', '!empresa',
-                '!nome', '!email', '!status'
+                '!nome', '!email', '!data_inicio', '!data_final', '!status'
             ], 'json')
             ::get('/usuario-indicacao');
 
