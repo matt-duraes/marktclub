@@ -6,7 +6,7 @@ $Painel = new PainelConfig\Add(app: 'parceiro_loja', acao: $acao);
 
 $Painel->coluna(callback: function () use ($Painel) {
     $Painel->fieldset('Imagem', function () use ($Painel) {
-        $Painel->imagem(name: 'imagem', diretorio: '');
+        $Painel->imagem(name: 'imagem', diretorio: '0493d060-44ba-470b-a0a2-7211ba138d8c');
     });
     $Painel->fieldset('Dados principais', function () use ($Painel) {
         $Painel

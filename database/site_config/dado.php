@@ -1,5 +1,7 @@
 <?php
 
+use App\Classes\SiteConfig\Template;
+
 return [
     [
         'id'               => 1,
@@ -11,7 +13,7 @@ return [
         'titulo'           => 'Unareg',
         'descricao'        => 'Descrição do site da UNAREG',
         'link_site'        => 'unareg.org.br',
-        'template'         => 'UNAREG',
+        'template'         => (new Template())->numero(Template::UNAREG),
         'contato_telefone' => '6132730512',
         'contato_celular'  => '61984008812',
         'contato_whatsapp' => '61984008812',
