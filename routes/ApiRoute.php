@@ -1655,7 +1655,7 @@ Route
             ::nome('atualizar')
             ::middleware(TokenMiddleware::class, 'scope', ['comercial_regra:atualizar'])
             ::request([
-                'titulo', 'texto', 'empresa'
+                '!titulo', '!texto', '!empresa'
             ])
             ::put('/comercial-regra/{id}');
 

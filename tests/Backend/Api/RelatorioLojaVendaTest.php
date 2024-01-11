@@ -9,7 +9,7 @@ final class RelatorioLojaVendaTest extends Tests
 {
     use RelatorioTrait;
 
-    private string $uri = '/relatorio/loja-venda';
+    protected string $uri = '/relatorio/loja-venda';
     private array $dadoEmpresa1;
     private array $dadoEmpresa2;
 

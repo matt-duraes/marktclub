@@ -9,7 +9,7 @@ final class RelatorioPaginaMaisAcessadaTest extends Tests
 {
     use RelatorioTrait;
 
-    private string $uri = '/relatorio/pagina-mais-acessada';
+    protected string $uri = '/relatorio/pagina-mais-acessada';
     private array $dadoEmpresa1;
     private array $dadoEmpresa2;
 

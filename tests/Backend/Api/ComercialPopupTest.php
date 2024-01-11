@@ -4,13 +4,14 @@ namespace Tests\Api;
 
 use App\Classes\ComercialPopup\Status;
 use App\Classes\UsuarioCliente\TipoUsuario;
-use Erro\Excecao;
 use Tests\Token\Clube;
 
 class ComercialPopupTest extends Clube
 {
     private array $idEmpresa = ['14afa776394ada4be23be6acf7e3259e'];
-    private string $idPopup;
+    protected string $scope = 'comercial_popup';
+    protected string $uri = '/comercial-popup';
+    public string $automatico = 'crud';
 
     public function __construct()
     {
@@ -18,123 +19,17 @@ class ComercialPopupTest extends Clube
         parent::__construct();
     }
 
-    /**
-     * @return ComercialPopupTest
-     * @throws Excecao
-     */
-    public function salvarPopupTest(): ComercialPopupTest
+    protected function pegarBody()
     {
-        $this->api('comercial_popup:salvar');
-        $popup = $this
-            ->Curl
-            ->body([
-                'empresa'       => $this->idEmpresa,
-                'titulo_painel' => 'Identificacao para o painel',
-                'titulo'        => 'venha conferir a melhor',
-                'texto'         => 'Aqui vc tera o mejor do melhor sempre',
-                'data_inicio'   => date('d/m/Y'),
-                'data_final'    => date('d/m/Y'),
-                'usuario_tipo'  => TipoUsuario::TITULAR,
-                'status'        => Status::ATIVO
-            ])
-            ->post('/comercial-popup')
-            ->array();
-
-        $this->idPopup = $popup['dado']['id'] ?? 'sem-id';
-
-        return $this
-            ->checkStatus(201)
-            ->checkIndiceIgual('status', 'sucesso')
-            ->checkIndiceExiste('dado');
-    }
-
-    /**
-     * @return ComercialPopupTest
-     * @throws Excecao
-     */
-    public function buscarPopupTest(): ComercialPopupTest
-    {
-        $this->api('comercial_popup:buscar');
-        $this
-            ->Curl
-            ->get('/comercial-popup/' . $this->idPopup);
-
-        return $this
-            ->checkStatus(200)
-            ->checkIndiceIgual('status', 'sucesso')
-            ->checkIndiceExiste('dado')
-            ->checkIndiceIgual('dado.id', $this->idPopup);
-    }
-
-    /**
-     * @return ComercialPopupTest
-     * @throws Excecao
-     */
-    public function atualizarPopupTest(): ComercialPopupTest
-    {
-        $this->api('comercial_popup:atualizar');
-        $this
-            ->Curl
-            ->body([
-                'status' => Status::EXPIRADO
-            ])
-            ->put('/comercial-popup/' . $this->idPopup);
-
-        return $this
-            ->checkStatus(204);
-    }
-
-    /**
-     * @return ComercialPopupTest
-     * @throws Excecao
-     */
-    public function verificaSeFoiAtualizadoPopupTest(): ComercialPopupTest
-    {
-        $this->api('comercial_popup:buscar');
-        $this
-            ->Curl
-            ->get('/comercial-popup/' . $this->idPopup);
-
-        return $this
-            ->checkStatus(200)
-            ->checkIndiceIgual('status', 'sucesso')
-            ->checkIndiceExiste('dado')
-            ->checkIndiceIgual('dado.id', $this->idPopup)
-            ->checkIndiceIgual('dado.status', Status::EXPIRADO);
-    }
-
-    /**
-     * @return ComercialPopupTest
-     * @throws Excecao
-     */
-    public function deletarPopupTest(): ComercialPopupTest
-    {
-        $this->api('comercial_popup:deletar');
-        $this
-            ->Curl
-            ->delete('/comercial-popup/' . $this->idPopup);
-
-        return $this
-            ->checkStatus(204);
-    }
-
-    /**
-     * @return ComercialPopupTest
-     * @throws Excecao
-     */
-    public function verificaSeFoiDeletadoPopupTest(): ComercialPopupTest
-    {
-        $this->api('comercial_popup:buscar');
-        $this
-            ->Curl
-            ->get('/comercial-popup/' . $this->idPopup);
-
-        return $this
-            ->checkStatus(404)
-            ->checkIndiceExiste('erro')
-            ->checkNaoVazio('erro')
-            ->checkIndiceIgual('status', 'erro')
-            ->checkIndiceIgual('erro.titulo', 'Página não existe!')
-            ->checkIndiceIgual('erro.mensagem', 'Essa página ou recurso não existe ou foi movida para outra URL.');
+        return [
+            'titulo_painel' => nomeCompletoAleatorio(),
+            'empresa'       => $this->idEmpresa,
+            'titulo'        => 'venha conferir a melhor',
+            'texto'         => 'Aqui vc tera o mejor do melhor sempre',
+            'data_inicio'   => date('d/m/Y'),
+            'data_final'    => date('d/m/Y'),
+            'usuario_tipo'  => TipoUsuario::TITULAR,
+            'status'        => Status::ATIVO
+        ];
     }
 }

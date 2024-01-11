@@ -2,19 +2,16 @@
 
 namespace Tests\Api;
 
-use Tests\Token\Clube;
+use Tests\Tests;
 
-class PublicacaoPaginaTest extends Clube
+class PublicacaoPaginaTest extends Tests
 {
-    private string $idPublicacao;
+    protected string $scope = 'publicacao_pagina';
+    protected string $uri = '/publicacao-pagina';
+    public string $automatico = 'ru';
+    public bool $automaticoPainel = true;
 
-    public function __construct()
-    {
-        $this->pegarToken();
-        parent::__construct();
-    }
-
-    private function getBody(array $array = []): array
+    protected function pegarBody(array $array = []): array
     {
         return array_merge([
             'titulo'           => 'Título da página',
@@ -23,34 +20,5 @@ class PublicacaoPaginaTest extends Clube
             'header_descricao' => '',
             'header_tag'       => [1, 2],
         ], $array);
-    }
-
-    public function listarPaginasTest(): PublicacaoPaginaTest
-    {
-        $dado = $this
-            ->Curl
-            ->json([
-                'pagina' => 1
-            ])
-            ->get('/publicacao-pagina')
-            ->array();
-
-        $this->idPublicacao = $dado['dado']['lista'][0]['id'] ?? 'sem-id';
-
-        return $this
-            ->checkStatus(200)
-            ->checkIndiceExiste('dado.lista')
-            ->checkIndiceIgual('status', 'sucesso');
-    }
-
-    public function atualizarPaginaTest(): PublicacaoPaginaTest
-    {
-        $this
-            ->Curl
-            ->body($this->getBody())
-            ->put('/publicacao-pagina/' . $this->idPublicacao);
-
-        return $this
-            ->checkStatus(204);
     }
 }

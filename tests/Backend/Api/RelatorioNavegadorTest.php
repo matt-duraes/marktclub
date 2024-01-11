@@ -9,7 +9,7 @@ final class RelatorioNavegadorTest extends Tests
 {
     use RelatorioTrait;
 
-    private string $uri = '/relatorio/navegador';
+    protected string $uri = '/relatorio/navegador';
     private array $dadoEmpresa1;
     private array $dadoEmpresa2;
 

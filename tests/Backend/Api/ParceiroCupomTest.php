@@ -2,78 +2,19 @@
 
 namespace Tests\Api;
 
-use Tests\Token\Clube;
 use App\Classes\ParceiroCupom\Status;
+use Tests\Tests;
 
-class ParceiroCupomTest extends Clube
+class ParceiroCupomTest extends Tests
 {
-    private string $idCupom;
+    protected string $scope = 'parceiro_cupom';
+    protected string $uri = '/parceiro-cupom';
+    public string $automatico = 'ru';
 
-    public function __construct()
+    public function pegarBody()
     {
-        parent::__construct();
-        $this->pegarToken();
-    }
-
-    public function __destruct()
-    {
-        $this
-            ->tabela(TABELA_PARCEIRO_CUPOM)
-            ->resetar();
-    }
-
-    public function listarCuponsTest(): ParceiroCupomTest
-    {
-        $dado = $this
-            ->Curl
-            ->json([
-                'pagina' => 1
-            ])
-            ->get('/parceiro-cupom')
-            ->array();
-
-        $this->idCupom = $dado['dado']['lista'][0]['id'] ?? 'sem-id';
-
-        return $this
-            ->checkStatus(200)
-            ->checkIndiceExiste('dado')
-            ->checkIndiceExiste('dado.lista');
-    }
-
-    public function buscarCupomTest(): ParceiroCupomTest
-    {
-        $dado = $this
-            ->Curl
-            ->get('/parceiro-cupom/' . $this->idCupom)
-            ->array();
-
-        return $this
-            ->checkStatus(200)
-            ->checkIndiceExiste('dado')
-            ->checkIndiceExiste('dado.id')
-            ->checkIndiceExiste('dado.status');
-    }
-
-    public function atualizarStatusTest(): ParceiroCupomTest
-    {
-        $this
-            ->Curl
-            ->body([
-                'status' => Status::CANCELADO
-            ])
-            ->put('/parceiro-cupom/' . $this->idCupom);
-
-        return $this
-            ->checkStatus(204);
-    }
-
-    public function verificarSeStatusMudouTest(): ParceiroCupomTest
-    {
-        $this
-            ->Curl
-            ->get('/parceiro-cupom/' . $this->idCupom);
-
-        return $this
-            ->checkIndiceIgual('dado.status', Status::CANCELADO);
+        return [
+            'status' => Status::CANCELADO,
+        ];
     }
 }

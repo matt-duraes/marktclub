@@ -46,9 +46,4 @@ abstract class Clube extends Tests
         $this->checkRobo = false;
         $this->Curl = new ApiHelper(token: $token);
     }
-
-    public function removerToken(): void
-    {
-        $this->Curl = new ApiHelper(token: '');
-    }
 }
