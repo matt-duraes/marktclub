@@ -23,35 +23,16 @@ final class PainelModel
         $permissaoMontar = $Api->headerJson()->get('/admin/permissao')->array();
         $permissaoMontar = array_key_exists('dado', $permissaoMontar) ? $permissaoMontar['dado'] : [];
         $permissaoLista = [];
-        foreach ($permissaoMontar as $ind => $val) {
-            if (array_key_exists('acao', $val)) {
-                foreach ($val['acao'] as $acao) {
-                    $permissaoLista[] = $ind . '_' . $acao;
-                }
-            } elseif (array_key_exists('permissao', $val)) {
-                foreach (array_keys($val['permissao']) as $acao) {
-                    $permissaoLista[] = $acao;
+        foreach ($permissaoMontar as $permissoesApp) {
+            if (array_key_exists('permissao', $permissoesApp)) {
+                foreach (array_keys($permissoesApp['permissao']) as $permissao) {
+                    $permissaoLista[] = $permissao;
                 }
             }
         }
 
         sessao('PAINEL.permissao.montar', $permissaoMontar);
         sessao('PAINEL.permissao.lista', $permissaoLista);
-    }
-
-    private function pegandoCampoPermitidos()
-    {
-        $Api = new ApiHelper(token: true);
-        $campo = $Api->headerJson()->get('/admin/campo-permitido')->array();
-        $campo = array_key_exists('dado', $campo) ? $campo['dado'] : [
-            'usuario_cliente' => [
-                'nome', 'cpf', 'matricula', 'siape', 'genero', 'data_nascimento',
-                'email', 'telefone', 'endereco_estado',
-                'endereco_cidade', 'senha', 'status', 'primeiro_acesso', 'mudar_senha', 'estado_civil'
-            ]
-        ];
-
-        sessao('PAINEL.campo', $campo);
     }
 
     private function pegandoCampoObrigatorio()
@@ -85,6 +66,21 @@ final class PainelModel
         $grupo = array_key_exists('dado', $grupo) ? $grupo['dado'] : [];
 
         sessao('PAINEL.upload_grupo', $grupo);
+    }
+
+    private function pegandoCampoPermitidos()
+    {
+        $Api = new ApiHelper(token: true);
+        $campo = $Api->headerJson()->get('/admin/campo-permitido')->array();
+        $campo = array_key_exists('dado', $campo) ? $campo['dado'] : [
+            'usuario_cliente' => [
+                'nome', 'cpf', 'matricula', 'siape', 'genero', 'data_nascimento',
+                'email', 'telefone', 'endereco_estado',
+                'endereco_cidade', 'senha', 'status', 'primeiro_acesso', 'mudar_senha', 'estado_civil'
+            ]
+        ];
+
+        sessao('PAINEL.campo', $campo);
     }
 
     private function pegandoListaMenu()
