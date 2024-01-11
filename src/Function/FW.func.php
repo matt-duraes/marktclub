@@ -1885,16 +1885,15 @@ if (!function_exists('retornarPaginacao')) {
 if (!function_exists('chaveExiste')) {
     function chaveExiste(string|array $indice, array|object $array)
     {
-        if(is_string($indice)) {
+        if (is_string($indice)) {
             $indice = [$indice];
         }
 
-
-        foreach($indice as $chave) {
+        foreach ($indice as $chave) {
             $chave = explode('.', str_replace('->', '.', $chave));
             $atual = $array;
-            foreach($chave as $item) {
-                if(
+            foreach ($chave as $item) {
+                if (
                     (is_object($atual) && !object_key_exists($item, $atual)) ||
                     (is_array($atual) && !array_key_exists($item, $atual))
                 ) {

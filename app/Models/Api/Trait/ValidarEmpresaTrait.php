@@ -160,7 +160,7 @@ trait ValidarEmpresaTrait
             || !$this->request->existe('empresa')
             || $this->request->vazio('empresa')) &&
             (
-                !$this->propriedadeExiste('empresa')
+                !$this->propriedadeExiste('empresa') || empty($this->empresa)
             )
         ) {
             $this->whereEmpresa = null;

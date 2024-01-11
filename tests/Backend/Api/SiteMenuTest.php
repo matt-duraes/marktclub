@@ -9,9 +9,8 @@ use App\Classes\SiteMenu\Tipo;
 
 class SiteMenuTest extends Tests
 {
-    private string $idUnareg = '4cceef2a4ee3d677dd15955daace4bba';
     protected string $scope = 'site_menu';
-    protected string $uri = '/uri';
+    protected string $uri = '/site-menu';
     public string $automatico = 'crud';
 
     public function __construct()

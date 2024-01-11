@@ -381,7 +381,7 @@ final class UsuarioLeadTest extends Tests
             ->get('/usuario-lead/1');
 
         return $this
-            ->checkStatus(404)
+            ->checkStatus(400)
             ->checkIndiceIgual('erro.mensagem', 'Você deve enviar um COD ou UUID para fazer a busca.');
     }
 
@@ -395,7 +395,7 @@ final class UsuarioLeadTest extends Tests
             ->put('/usuario-lead/1');
 
         return $this
-            ->checkStatus(404)
+            ->checkStatus(400)
             ->checkIndiceIgual('erro.mensagem', 'Você deve enviar um COD ou UUID para fazer a busca.');
     }
 

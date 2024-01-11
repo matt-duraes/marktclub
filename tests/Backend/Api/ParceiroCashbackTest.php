@@ -8,9 +8,25 @@ use Tests\Tests;
 
 class ParceiroCashbackTest extends Tests
 {
-    private string $idParceiro;
+    protected string $idUltimo;
+    protected string $scope = 'parceiro_cashback';
+    protected string $uri = '/parceiro-cashback';
+    public string $automatico = 'crud';
 
-    private function getBody(): array
+    public function atualizarApenasOStatusTest(): ParceiroCashbackTest
+    {
+        $this->api('parceiro_cashback:atualizar');
+        $this
+            ->Curl
+            ->body([
+                'status' => Status::INATIVO
+            ])
+            ->put('/parceiro-cashback/' . $this->idUltimo);
+
+        return $this->checkStatus(204);
+    }
+
+    protected function pegarBody(): array
     {
         return [
             'titulo'          => nomeCompletoAleatorio(),
@@ -25,84 +41,5 @@ class ParceiroCashbackTest extends Tests
             'link_site'       => 'https://www.google.com.br',
             'imagem'          => '123',
         ];
-    }
-
-    public function listarParceirosTest(): ParceiroCashbackTest
-    {
-        $this->api('parceiro_cashback:listar');
-        $this
-            ->Curl
-            ->json([
-                'pagina'     => 1,
-                'quantidade' => 50
-            ])
-            ->get('/parceiro-cashback');
-
-        return $this
-            ->checkStatus(200)
-            ->checkIndiceExiste('dado.lista');
-    }
-
-    public function salvarNovoParceiroTest(): ParceiroCashbackTest
-    {
-        $this->api('parceiro_cashback:salvar');
-        $dado = $this
-            ->Curl
-            ->body($this->getBody())
-            ->post('/parceiro-cashback')
-            ->array();
-
-        $this->idParceiro = $dado['dado']['id'] ?? 'sem-id';
-
-        return $this
-            ->checkStatus(201)
-            ->checkIndiceExiste('dado.id');
-    }
-
-    public function buscarParceiroSalvoTest(): ParceiroCashbackTest
-    {
-        $this->api('parceiro_cashback:buscar');
-        $this
-            ->Curl
-            ->get('/parceiro-cashback/' . $this->idParceiro);
-
-        return $this
-            ->checkStatus(200)
-            ->checkIndiceExiste('dado')
-            ->checkIndiceExiste('dado.id');
-    }
-
-    public function atualizarTodasAsInformacoesTest(): ParceiroCashbackTest
-    {
-        $this->api('parceiro_cashback:atualizar');
-        $this
-            ->Curl
-            ->body($this->getBody())
-            ->put('/parceiro-cashback/' . $this->idParceiro);
-
-        return $this->checkStatus(204);
-    }
-
-    public function atualizarApenasOStatusTest(): ParceiroCashbackTest
-    {
-        $this->api('parceiro_cashback:atualizar');
-        $this
-            ->Curl
-            ->body([
-                'status' => Status::INATIVO
-            ])
-            ->put('/parceiro-cashback/' . $this->idParceiro);
-
-        return $this->checkStatus(204);
-    }
-
-    public function deletarParceiroTest(): ParceiroCashbackTest
-    {
-        $this->api('parceiro_cashback:deletar');
-        $this
-            ->Curl
-            ->delete('/parceiro-cashback/' . $this->idParceiro);
-
-        return $this->checkStatus(204);
     }
 }

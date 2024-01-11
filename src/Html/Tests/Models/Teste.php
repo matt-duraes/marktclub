@@ -38,7 +38,7 @@ function __executarTeste($diretorio, $classe)
     });
 
     if (str_contains($automatico, 'd')) {
-        $metodos = array_merge(['deletarRegistroSalvoTest', 'verificaSeDeletouRegistroSalvoTest'], $metodos);
+        $metodos = array_merge($metodos, ['deletarRegistroSalvoTest', 'verificaSeDeletouRegistroSalvoTest']);
     }
     if (str_contains($automatico, 'u')) {
         $metodos = array_merge(['atualizarPrimeiroCampoDoRegistroSalvoTest', 'verificaSeAtualizouPrimeiroCampoDoRegistroTest'], $metodos);
