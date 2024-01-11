@@ -2,38 +2,23 @@
 
 namespace App\Models\Api\Automovel\Modelo;
 
-use ORM\Entity;
+use App\Classes\Geral\Publicado;
+use App\Classes\Geral\Status;
+use App\Classes\ParceiroLoja\Procedimento;
+use App\Classes\ParceiroLoja\Status as StatusParceiro;
+use App\Models\Api\Automovel\Versao\VersaoModel;
+use Erro\Erro;
+use Erro\Excecao;
+use Helpers\OrmHelper;
 use Modules\Data;
 use Modules\Pagina;
-use Helpers\OrmHelper;
 use Modules\Quantidade;
-use App\Classes\Geral\Status;
-use App\Classes\Geral\Publicado;
-use App\Classes\ParceiroLoja\Procedimento;
-use App\Models\Api\Automovel\Versao\VersaoModel;
-use App\Classes\ParceiroLoja\Status as StatusParceiro;
+use ORM\Entity;
 
 final class ModeloEntity extends Entity
 {
-    protected string $ormTabela = TABELA_AUTOMOVEL_MODELO;
-    protected array $ormBuscar = [
-        'id_parceiro_loja', 'titulo', 'imagem', 'url', 'texto', 'data_inicio', 'data_final', 'status'
-    ];
-    protected array $ormSalvar = [
-        'id_parceiro_loja', 'titulo', 'imagem', 'url', 'texto', 'data_inicio', 'data_final', 'status'
-    ];
-    protected string $ormValidarInsert = '
-        titulo|Título|obrigatorio|vazio
-        parceiro|Parceiro|obrigatorio|vazio
-        status|Status|obrigatorio|vazio|valido
-    ';
-    protected string $ormValidarUpdate = '
-        titulo|Título|vazio
-        parceiro|Parceiro|vazio
-        status|Status|vazio|valido
-    ';
-    public string $imagem;
     public int $id_parceiro_loja;
+    public string $imagem;
     public string $titulo;
     public string $texto;
     public Status $status;
@@ -45,6 +30,26 @@ final class ModeloEntity extends Entity
     public Data $data_inicio;
     public Data $data_final;
     public Publicado $publicado;
+    protected string $ormTabela = TABELA_AUTOMOVEL_MODELO;
+    protected array $ormBuscar = [
+        'id_parceiro_loja', 'titulo', 'imagem', 'url', 'texto',
+        'data_inicio', 'data_final', 'status', 'data_criacao',
+        'data_atualizacao'
+    ];
+    protected array $ormSalvar = [
+        'id_parceiro_loja', 'titulo', 'imagem', 'url', 'texto',
+        'data_inicio', 'data_final', 'status'
+    ];
+    protected string $ormValidarInsert = '
+        titulo|Título|obrigatorio|vazio
+        parceiro|Parceiro|obrigatorio|vazio
+        status|Status|obrigatorio|vazio|valido
+    ';
+    protected string $ormValidarUpdate = '
+        titulo|Título|vazio
+        parceiro|Parceiro|vazio
+        status|Status|vazio|valido
+    ';
     private OrmHelper $ormParceiro;
 
     public function __construct()
@@ -53,24 +58,18 @@ final class ModeloEntity extends Entity
         parent::__construct();
     }
 
-    /*
-    |--------------------------------------------------------------------------
-    | INSERT/UPDATE
-    |--------------------------------------------------------------------------
-    */
-    public function regraInsert()
+    /**
+     * @throws Excecao
+     */
+    protected function regraInsert(): void
     {
         $this->erroParceiroObrigatorio(is_string($this->parceiro) && empty($this->parceiro));
     }
 
-    public function regraUpdate()
-    {
-        $this->erroParceiroObrigatorio(
-            $this->propriedadeExiste('parceiro') && is_string($this->parceiro) && empty($this->parceiro)
-        );
-    }
-
-    private function erroParceiroObrigatorio(bool $erro)
+    /**
+     * @throws Excecao
+     */
+    private function erroParceiroObrigatorio(bool $erro): void
     {
         if (!$erro) {
             return;
@@ -78,60 +77,88 @@ final class ModeloEntity extends Entity
         mensagemErro('Campo obrigatorio!', 'O campo parceiro é obrigatório.');
     }
 
-    public function regraSalvar()
+    /**
+     * @throws Excecao
+     */
+    protected function regraUpdate(): void
+    {
+        $this->erroParceiroObrigatorio(
+            $this->propriedadeExiste('parceiro') && is_string($this->parceiro) && empty($this->parceiro)
+        );
+    }
+
+    /**
+     * @return void
+     * @throws Excecao
+     */
+    protected function regraSalvar(): void
     {
         if (is_string($this->parceiro) && !empty($this->parceiro)) {
-            $this->id_parceiro_loja = $this->ormParceiro->pegarIdPeloUuid($this->parceiro, 'Parceiro não encontrado.', 'Não encontrado');
+            $this->id_parceiro_loja = $this->ormParceiro->pegarIdPeloUuid(
+                $this->parceiro,
+                'Parceiro não encontrado.',
+                'Não encontrado'
+            );
         }
         $this->imagem = arquivoPrivadoId($this->imagem);
         $this->validarDataInicioMenorQueFinal();
     }
 
-    /*
-    |--------------------------------------------------------------------------
-    | READ
-    |--------------------------------------------------------------------------
-    */
-    protected function regraPosBuscar()
+    /**
+     * @throws Excecao
+     */
+    private function validarDataInicioMenorQueFinal(): void
+    {
+        if ($this->data_inicio->date() > $this->data_final->date()) {
+            mensagemErro(
+                'Data Inválida!',
+                'A data de inicio não pode ser maior que a data final.'
+            );
+        }
+    }
+
+    /**
+     * @throws Excecao
+     * @throws Erro
+     */
+    protected function regraPosBuscar(): void
     {
         $this->buscarParceiro();
         $this->imagem = arquivoPrivado($this->imagem);
         $this->pegarListaVersao();
     }
 
-    private function buscarParceiro()
+    private function buscarParceiro(): void
     {
         $Parceiro = $this->ormParceiro->pegarUltimoRegistro(
-            where: ['id', $this->id_parceiro_loja],
-            campo: ['uuid', 'titulo', 'procedimento', 'texto_procedimento', 'status']
+            ['id', $this->id_parceiro_loja],
+            ['uuid', 'titulo', 'procedimento', 'texto_procedimento', 'status']
         );
+        $ativo = (new StatusParceiro($Parceiro['status'] ?? ''))->indice() === StatusParceiro::CONCLUIDO;
         $this->publicado = new Publicado(
             $this->data_inicio,
             $this->data_final,
-            (new StatusParceiro($Parceiro['status'] ?? ''))->indice() == StatusParceiro::CONCLUIDO
+            $ativo
         );
         $this->procedimento = new Procedimento($Parceiro['procedimento'] ?? '');
         $this->texto_procedimento = $Parceiro['texto_procedimento'] ?? '';
         $this->parceiro = [
-            'id'     => $Parceiro['uuid'],
+            'id' => $Parceiro['uuid'],
             'titulo' => $Parceiro['titulo']
         ];
     }
 
-    private function pegarListaVersao()
+    /**
+     * @throws Excecao
+     * @throws Erro
+     */
+    private function pegarListaVersao(): void
     {
         $VersaoModel = new VersaoModel(
-            pagina: new Pagina(1),
-            quantidade: new Quantidade(50),
+            new Pagina(1),
+            new Quantidade(50),
             modelo: $this->prop('id')
         );
         $this->versao = $VersaoModel->listarDados()->lista ?? [];
-    }
-
-    private function validarDataInicioMenorQueFinal(): void
-    {
-        if ($this->data_inicio->date() > $this->data_final->date()) {
-            mensagemErro('Data Inválida!', 'A data de inicio não pode ser maior que a data final.');
-        }
     }
 }

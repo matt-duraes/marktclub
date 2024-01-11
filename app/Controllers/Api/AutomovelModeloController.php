@@ -52,7 +52,8 @@ final class AutomovelModeloController extends Controller implements
         return mensagemSucesso(
             pegarPropriedadeDaEntity($Modelo, lista: [
                 'parceiro', 'titulo', 'procedimento', 'texto_procedimento',
-                'imagem', 'versao', 'data_inicio', 'data_final', 'url', 'status'
+                'imagem', 'versao', 'data_inicio', 'data_final', 'url',
+                'status', 'data_criacao', 'data_atualizacao'
             ]),
             $status
         );
@@ -67,14 +68,15 @@ final class AutomovelModeloController extends Controller implements
     public function getListar(Request $request): Response
     {
         $Modelo = new ModeloModel(
-            pagina: new Pagina($request->pagina),
-            quantidade: new Quantidade($request->quantidade),
-            publicado: new Botao($request->publicado),
-            dataInicio: new Data($request->data_inicio),
-            dataFinal: new Data($request->data_final),
-            parceiro: $request->parceiro,
-            status: new Status($request->status),
-            ordem: new Ordem($request->ordem),
+            new Pagina($request->pagina),
+            new Quantidade($request->quantidade),
+            new Ordem($request->ordem),
+            $request->parceiro,
+            $request->pesquisa,
+            new Botao($request->publicado),
+            new Data($request->data_inicio),
+            new Data($request->data_final),
+            new Status($request->status)
         );
         return mensagemSucesso($Modelo->listarDados());
     }
