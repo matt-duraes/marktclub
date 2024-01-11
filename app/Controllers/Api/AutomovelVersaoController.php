@@ -11,6 +11,7 @@ use Erro\Excecao;
 use Http\Request;
 use Http\Response;
 use Modules\Pagina;
+use Modules\Quantidade;
 use System\Interface\ControllerAtualizarInterface;
 use System\Interface\ControllerBuscarInterface;
 use System\Interface\ControllerDeletarInterface;
@@ -34,7 +35,7 @@ final class AutomovelVersaoController extends Controller implements
     {
         $Versao = new VersaoEntity();
         $Versao->uuid($id);
-        return $this->retornoSucesso($Versao, 200);
+        return $this->retornoSucesso($Versao);
     }
 
     /**
@@ -48,7 +49,8 @@ final class AutomovelVersaoController extends Controller implements
     {
         return mensagemSucesso(
             pegarPropriedadeDaEntity($Versao, lista: [
-                'titulo', 'cor', 'valor_de', 'valor_por', 'status'
+                'titulo', 'cor', 'valor_de', 'valor_por', 'status',
+                'data_criacao', 'data_atualizacao'
             ]),
             $status
         );
@@ -63,10 +65,11 @@ final class AutomovelVersaoController extends Controller implements
     public function getListar(Request $request): Response
     {
         $Versao = new VersaoModel(
-            pagina: new Pagina($request->pagina),
-            modelo: $request->modelo,
-            status: new Status($request->status),
-            ordem: new Ordem($request->ordem)
+            new Pagina($request->pagina),
+            new Quantidade($request->quantidade),
+            new Ordem($request->ordem),
+            $request->modelo,
+            new Status($request->status)
         );
         return mensagemSucesso($Versao->listarDados());
     }

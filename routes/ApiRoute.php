@@ -2199,24 +2199,25 @@ Route
     ::middleware(TokenMiddleware::class, 'token')
     ::grupo(function () {
         Route
-            ::nome('listar')
-            ::middleware(TokenMiddleware::class, 'scope', ['automovel_modelo:listar'])
-            ::request([
-                'pagina', '!quantidade', '!publicado', '!data_inicio',
-                '!data_final', '!parceiro', '!ordem', '!status'
-            ], 'json')
-            ::get('/automovel-modelo');
-
-        Route
             ::nome('buscar')
             ::middleware(TokenMiddleware::class, 'scope', ['automovel_modelo:buscar'])
             ::get('/automovel-modelo/{id}');
 
         Route
+            ::nome('listar')
+            ::middleware(TokenMiddleware::class, 'scope', ['automovel_modelo:listar'])
+            ::request([
+                'pagina', '!quantidade', '!ordem', '!parceiro', '!pesquisa', '!publicado',
+                '!data_inicio', '!data_final', '!status'
+            ], 'json')
+            ::get('/automovel-modelo');
+
+        Route
             ::nome('salvar')
             ::middleware(TokenMiddleware::class, 'scope', ['automovel_modelo:salvar'])
             ::request([
-                'titulo', 'parceiro', 'imagem', 'data_inicio', 'data_final', 'status'
+                'titulo', 'parceiro', 'imagem', 'data_inicio',
+                'data_final', 'status'
             ])
             ::post('/automovel-modelo');
 
@@ -2224,7 +2225,8 @@ Route
             ::nome('atualizar')
             ::middleware(TokenMiddleware::class, 'scope', ['automovel_modelo:atualizar'])
             ::request([
-                '!titulo', '!parceiro', '!imagem', '!data_inicio', '!data_final', '!status'
+                '!titulo', '!parceiro', '!imagem', '!data_inicio',
+                '!data_final', '!status'
             ])
             ::put('/automovel-modelo/{id}');
 
@@ -2240,17 +2242,17 @@ Route
     ::middleware(TokenMiddleware::class, 'token')
     ::grupo(function () {
         Route
-            ::nome('listar')
-            ::middleware(TokenMiddleware::class, 'scope', ['automovel_versao:listar'])
-            ::request([
-                'pagina', '!quantidade', '!modelo', '!ordem', '!status'
-            ], 'json')
-            ::get('/automovel-versao');
-
-        Route
             ::nome('buscar')
             ::middleware(TokenMiddleware::class, 'scope', ['automovel_versao:buscar'])
             ::get('/automovel-versao/{id}');
+
+        Route
+            ::nome('listar')
+            ::middleware(TokenMiddleware::class, 'scope', ['automovel_versao:listar'])
+            ::request([
+                'pagina', '!quantidade', '!ordem', '!modelo', '!status'
+            ], 'json')
+            ::get('/automovel-versao');
 
         Route
             ::nome('salvar')
