@@ -9,6 +9,52 @@
 @resource "site/parceiro_header"
 @resource "site/texto_destaque"
 
+#bloco_endereco
+    .conteudo_pagina_popup
+        display: flex
+        align-items: center
+        margin: 10px 0
+
+        .bloco_categoria_estado
+            width: calc(100% - 40px)
+            text-align: center
+
+            .divisoria_estado
+                width: 90%
+                border-top: 1px solid #ddd
+                opacity: 0.5
+
+            .bloco_estado_titulo
+                font-size: 1.8rem !important
+
+            .bloco_cidade_titulo
+            .bloco_estado_titulo
+                texto()
+        .bloco_categoria_cidade
+            text-align: left
+            padding: 10px
+        .bloco_endereco_item
+            list-style-type: disc
+            margin-left: 20px
+            font-size: 20px
+
+            .bloco_detalhe_endereco
+                margin: 10px 0
+                display: flex
+                justify-content: center
+                align-items: center
+
+                .botao_buscar_endereco
+                    height: 30px
+                    line-height: 30px
+                    color: white
+                    background: var(--cor-clube);
+
+                .endereco
+                    flex: 1
+        p
+            texto()
+
 #bloco_loja_detalhe
     margin-top: 20px
 
@@ -72,12 +118,13 @@
         width: 30px
         height: 30px
         flexCenter()
-    .endereco
+    .detalhe
         min-width: 100px
         max-width: calc(100% - 40px)
         min-height: 1.5em
-        texto()
         margin: 5px 20px
+        display: flex
+        texto()
     .mapa_falso
         width: calc(100% - 40px)
         height: 580px
@@ -94,3 +141,10 @@
         max-height: calc(100vh - 200px)
         position: relative
         z-index: 1
+
+@media screen and ( max-width: 400px)
+    .bloco_endereco_item
+        list-style-type: none !important
+        margin-left: 10px !important
+    .bloco_categoria_estado
+        width: 100% !important

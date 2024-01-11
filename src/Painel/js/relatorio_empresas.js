@@ -11,7 +11,7 @@ window.addEventListener('load', () => {
 
     inputMarcarTodos.addEventListener('change', (e) => {
         const checkboxes = blocoCheckboxEmpresa.querySelectorAll('input[type=checkbox]');
-        const empresas = Array.from(empresasBusca.children);        ;
+        const empresas = Array.from(empresasBusca.children);
 
         const elementosAdicionados = new Set();
 

@@ -31,6 +31,7 @@ final class TextoClubeController extends Controller implements
         $Texto = new TextoModel(
             pagina: new Pagina($request->pagina),
             quantidade: new Quantidade($request->quantidade),
+            pesquisa: $request->pesquisa,
             empresa: $request->empresa,
             tipo: new Tipo($request->tipo),
             ordem: new Ordem($request->ordem),
@@ -64,7 +65,10 @@ final class TextoClubeController extends Controller implements
         return mensagemSucesso(
             dado: pegarPropriedadeDaEntity(
                 Entity: $Texto,
-                lista: ['titulo', 'texto', 'data_criacao', 'data_atualizacao', 'ordem', 'status']
+                lista: [
+                    'titulo_painel', 'titulo', 'texto', 'data_criacao', 'data_atualizacao',
+                    'empresa', 'tipo', 'ordem', 'status'
+                ]
             ),
             status: $status
         );
