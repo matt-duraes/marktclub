@@ -61,7 +61,6 @@ final class ModeloModel extends ORM implements
     }
 
     /**
-     * @return void
      * @throws Excecao
      */
     private function validarDados(): void
@@ -84,7 +83,6 @@ final class ModeloModel extends ORM implements
     }
 
     /**
-     * @return void
      * @throws Excecao
      */
     private function pegarParceiro(): void

@@ -25,9 +25,9 @@ final class VersaoModel extends ORM implements
     protected string $ormTabela = TABELA_AUTOMOVEL_VERSAO;
 
     /**
-     * @param Pagina          $pagina
-     * @param Quantidade      $quantidade
-     * @param Ordem           $ordem
+     * @param Pagina     $pagina
+     * @param Quantidade $quantidade
+     * @param Ordem      $ordem
      *
      * @param string|int|null $modelo
      * @param Status          $status

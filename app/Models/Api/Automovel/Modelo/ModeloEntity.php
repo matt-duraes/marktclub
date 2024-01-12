@@ -88,7 +88,6 @@ final class ModeloEntity extends Entity
     }
 
     /**
-     * @return void
      * @throws Excecao
      */
     protected function regraSalvar(): void
@@ -143,7 +142,7 @@ final class ModeloEntity extends Entity
         $this->procedimento = new Procedimento($Parceiro['procedimento'] ?? '');
         $this->texto_procedimento = $Parceiro['texto_procedimento'] ?? '';
         $this->parceiro = [
-            'id' => $Parceiro['uuid'],
+            'id'     => $Parceiro['uuid'],
             'titulo' => $Parceiro['titulo']
         ];
     }
