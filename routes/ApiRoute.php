@@ -1674,7 +1674,7 @@ Route
             ::nome('listar')
             ::middleware(TokenMiddleware::class, 'scope', ['demanda_dado:listar'])
             ::request([
-                'status', 'area', 'ordem'
+                'status', 'area', 'ordem', '!tarefa_tipo', '!empresa'
             ], 'json')
             ::get('/demanda-dado');
 
@@ -1696,7 +1696,7 @@ Route
             ::middleware(TokenMiddleware::class, 'scope', ['demanda_dado:atualizar'])
             ::request([
                 '!titulo', '!arquivo', '!id_admin_empresa', '!id_usuario_equipe',
-                '!data_entrega', '!com_prazo', '!status', '!ordem'
+                '!data_entrega', '!com_prazo', '!status', '!ordem', '!tarefa_tipo'
             ])
             ::put('/demanda-dado/{id}');
 

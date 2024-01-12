@@ -118,17 +118,18 @@ final class ListaModel
         ];
     }
 
-    public function buscarDemanda($area, $status)
+    public function buscarDemanda($request)
     {
         $dado = $this->Api
             ->json([
-                'status' => $status,
-                'area'   => $area,
-                'ordem'  => 'ordem'
+                'status'      => $request->status,
+                'area'        => $request->area,
+                'tarefa_tipo' => $request->tarefa_tipo,
+                'empresa'     => $request->empresa,
+                'ordem'       => 'ordem'
             ])
             ->get('/demanda-dado')
             ->object()->dado ?? [];
-
         return $this->montarDemanda($dado);
     }
 
