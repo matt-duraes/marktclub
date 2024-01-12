@@ -2,12 +2,14 @@
 
 namespace App\Models\Api\Demanda;
 
+use Helpers\OrmHelper;
 use ORM\ORM;
 use App\Classes\DemandaDado\Area;
 use App\Classes\DemandaDado\Tipo;
 use App\Classes\DemandaDado\Ordem;
 use System\Trait\Model\OrdemTrait;
 use App\Classes\DemandaDado\Status;
+use App\Classes\DemandaTarefa\Tipo as DemandaTarefaTipo;
 use App\Models\Api\Demanda\Trait\EquipeTrait;
 use App\Models\Api\Demanda\Trait\EmpresaTrait;
 
@@ -22,7 +24,9 @@ final class DemandaModel extends ORM
     public function __construct(
         protected Status $status,
         protected Ordem $ordem,
-        protected Area $area
+        protected Area $area,
+        protected ?string $tarefa_tipo,
+        protected ?string $empresa
     ) {
         parent::__construct();
         $this->validarRequest();
@@ -34,7 +38,7 @@ final class DemandaModel extends ORM
         $lista = $this
             ->campo([
                 'uuid', 'id', 'id_usuario_equipe', 'id_admin_empresa', 'titulo', 'tipo',
-                'data_criacao', 'data_atualizacao', 'com_prazo', 'data_entrega', 'status'
+                'tarefa_tipo', 'data_criacao', 'data_atualizacao', 'com_prazo', 'data_entrega', 'status'
             ])
             ->where($this->montarWhere())
             ->order($this->pegarOrdem())
@@ -65,6 +69,25 @@ final class DemandaModel extends ORM
 
     private function montarWhere()
     {
+        $where = [];
+
+        $where[] = $this->pegarWhereStatus();
+
+        if (!empty($this->tarefa_tipo)) {
+            $tarefa_tipo = (new DemandaTarefaTipo($this->tarefa_tipo))->numero();
+            $where[] = ['tarefa_tipo', 'json', $tarefa_tipo];
+        }
+
+        if (!empty($this->empresa)) {
+            $empresa = (new OrmHelper(TABELA_COMERCIAL_EMPRESA))->pegarIdPeloUuid($this->empresa);
+            $where[] = ['id_admin_empresa', $empresa];
+        }
+
+        return $where;
+    }
+
+    private function pegarWhereStatus()
+    {
         $status = $this->status;
         if ($status->indice() == Status::CONCLUIDA) {
             return [
@@ -73,6 +96,7 @@ final class DemandaModel extends ORM
                 ['data_atualizacao', '>=', dataRemover(agora(), 10, 'dias')]
             ];
         }
+
         return [
             ['status', $status->numero()],
             ['area', $this->area->numero()]

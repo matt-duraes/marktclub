@@ -1,5 +1,22 @@
 @template "painel"
 
+<div class="bloco_pagina_popup display_none" id="bloco_filtro">
+    <header class="header_pagina_popup">
+        <h1 id="h1_motivo">FILTRAR DADOS</h1>
+        <i class="popup_fechar fechar botao_fechar">@iconeFechar</i>
+    </header>
+
+    <div class="form_geral conteudo_pagina_popup form_motivo">
+        @? formSelect(name: 'demanda_filtro_tipo', label: 'Tipos', placeholder: 'Escolha o tipo', lista: (new \App\Classes\DemandaTarefa\Tipo())->select('Escolha uma opção'))
+        @? formSelect(name: 'demanda_filtro_empresa', placeholder: 'Escolha um cliente', label: 'Empresa', lista: $empresa)
+    </div>
+
+    <div class="footer_pagina_popup">
+        <div class="flex"></div>
+        <button class="button salvar" id="botao_buscar_filtro">Buscar</button>
+    </div>
+</div>
+
 <div class="bloco_kambam_index" id="bloco_demanda_index">
     <input type="hidden" id="input_area" value="{{$area}}">
     <div class="conteudo_geral">
@@ -34,6 +51,10 @@
 
     <div class="tarefa_zero" id="clone_item_erro">Erro ao<br> buscar lista</div>
     <div class="tarefa_zero" id="clone_item_zero">Sem itens<br> no momento</div>
+    <!-- BOTAO FILTRAR -->
+    <button class="buscar" id="botao_filtrar">
+        @iconeFiltrar(16)
+    </button>
     <!-- TAREFA INDEX -->
     <article class="bloco_tarefa_item bloco_kambam_item" data-id="" id="clone_tarefa_lista">
         <header>

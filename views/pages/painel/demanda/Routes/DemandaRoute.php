@@ -21,7 +21,7 @@ Route
             ::view('/demanda/convenio');
         Route
             ::nome('listar')
-            ::request(['area', 'status'])
+            ::request(['area', 'status', '!tarefa_tipo', '!empresa'])
             ::post('/demanda/listar');
 
         Route
@@ -41,6 +41,9 @@ Route
             ::view('/demanda/tarefa-editar/{id}/{demanda}');
         Route
             ::nome('tarefaDeletar')
+            ::request([
+                'tarefa_tipo', 'demanda'
+            ])
             ::post('/demanda/tarefa-deletar/{id}');
 
         Route
@@ -104,11 +107,11 @@ Route
 
         Route
             ::nome('tarefaEditar')
-            ::request(['titulo', 'texto', 'tipo'])
+            ::request(['titulo', 'texto', 'tipo', 'tarefa_tipo', 'demanda'])
             ::post('/demanda/tarefa-editar/{id}');
         Route
             ::nome('tarefaSalvar')
-            ::request(['demanda', 'titulo', 'texto', 'tipo'])
+            ::request(['demanda', 'titulo', 'texto', 'tipo', 'tarefa_tipo'])
             ::post('/demanda/tarefa-salvar');
         Route
             ::nome('tarefaArquivo')

@@ -28,7 +28,9 @@ final class DemandaDadoController extends Controller implements
         $Demanda = new DemandaModel(
             new Status($request->status),
             new Ordem($request->ordem),
-            new Area($request->area)
+            new Area($request->area),
+            $request->tarefa_tipo,
+            $request->empresa
         );
 
         return mensagemSucesso($Demanda->listarDados());

@@ -15,7 +15,11 @@ const atualizarOrdemDemanda = async bloco => {
     const lista = bloco.querySelectorAll('.bloco_tarefa_item');
     const id = [];
     for (const item of lista) {
-        id.push(item.getAttribute('data-id'));
+        const itemId = item.getAttribute('data-id');
+
+        if(itemId) {
+            id.push(itemId);
+        }
     }
     await ajaxPost(
         LINK + '/demanda/demanda-ordenar',
