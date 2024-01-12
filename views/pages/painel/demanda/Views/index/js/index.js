@@ -22,6 +22,10 @@ async function buscarDados(filtros) {
     for (const coluna of listaColuna) {
         const status = coluna.getAttribute('data-status');
 
+        if(status != 'nova' && status != 'bloqueada') {
+            return
+        }
+
         ajaxPost(
             LINK + '/demanda/listar',
             {

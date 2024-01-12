@@ -21,7 +21,7 @@ Route
             ::view('/demanda/convenio');
         Route
             ::nome('listar')
-            ::request(['area', 'status', '!tarefa_tipo', '!empresa'])
+            ::request(['area', 'status', '!tarefa_tipo', '!empresa', '!tipo'])
             ::post('/demanda/listar');
 
         Route

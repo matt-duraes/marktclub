@@ -7,8 +7,9 @@
     </header>
 
     <div class="form_geral conteudo_pagina_popup form_motivo">
-        @? formSelect(name: 'demanda_filtro_tipo', label: 'Tipos', placeholder: 'Escolha o tipo', lista: (new \App\Classes\DemandaTarefa\Tipo())->select('Escolha uma opção'))
+        @? formSelect(name: 'demanda_filtro_tipo_tarefa', label: 'Tipos de tarefa', placeholder: 'Escolha o tipo de tarefa', lista: (new \App\Classes\DemandaTarefa\Tipo())->select('Escolha uma opção'))
         @? formSelect(name: 'demanda_filtro_empresa', placeholder: 'Escolha um cliente', label: 'Empresa', lista: $empresa)
+        @? formSelect(name: 'demanda_filtro_tipo_demanda', label: 'Tipo de demanda', placeholder: 'Escolha o tipo de demanda', lista: (new \App\Classes\DemandaDado\Tipo())->selectTecnologia ('Escolha uma opção'))
     </div>
 
     <div class="footer_pagina_popup">

@@ -9,6 +9,7 @@ use Controller\Controller;
 use App\Classes\DemandaDado\Area;
 use App\Classes\DemandaDado\Ordem;
 use App\Classes\DemandaDado\Status;
+use App\Classes\DemandaDado\Tipo;
 use App\Models\Api\Demanda\DemandaModel;
 use App\Models\Api\Demanda\DemandaEntity;
 use System\Interface\ControllerBuscarInterface;
@@ -29,6 +30,7 @@ final class DemandaDadoController extends Controller implements
             new Status($request->status),
             new Ordem($request->ordem),
             new Area($request->area),
+            new Tipo($request->tipo),
             $request->tarefa_tipo,
             $request->empresa
         );
