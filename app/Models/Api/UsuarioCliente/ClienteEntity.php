@@ -109,7 +109,8 @@ final class ClienteEntity extends Entity
     {
         try {
             $Config = new ConfiguracaoEntity();
-            $this->campoObrigatorio = $Config->campo_obrigatorio['usuario_cliente'] ?? [];
+            $configuracoes = $Config->pegarConfiguracoes();
+            $this->campoObrigatorio = $configuracoes['usuario_cliente'] ?? [];
         } catch (Throwable) {
             $this->campoObrigatorio = ['cpf', 'email', 'status'];
         }
