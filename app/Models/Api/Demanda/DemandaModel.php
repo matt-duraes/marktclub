@@ -25,6 +25,7 @@ final class DemandaModel extends ORM
         protected Status $status,
         protected Ordem $ordem,
         protected Area $area,
+        protected Tipo $tipo,
         protected ?string $tarefa_tipo,
         protected ?string $empresa
     ) {
@@ -81,6 +82,10 @@ final class DemandaModel extends ORM
         if (!empty($this->empresa)) {
             $empresa = (new OrmHelper(TABELA_COMERCIAL_EMPRESA))->pegarIdPeloUuid($this->empresa);
             $where[] = ['id_admin_empresa', $empresa];
+        }
+
+        if ($this->tipo->valido()) {
+            $where[] = ['tipo', $this->tipo->numero()];
         }
 
         return $where;

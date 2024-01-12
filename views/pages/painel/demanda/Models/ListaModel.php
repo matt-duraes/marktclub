@@ -125,6 +125,7 @@ final class ListaModel
                 'status'      => $request->status,
                 'area'        => $request->area,
                 'tarefa_tipo' => $request->tarefa_tipo,
+                'tipo'        => $request->tipo,
                 'empresa'     => $request->empresa,
                 'ordem'       => 'ordem'
             ])
