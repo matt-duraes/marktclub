@@ -320,8 +320,8 @@ final class ConfiguracoesPadrao
                 'solicitacao_loja_index'      => 'Listar',
                 'solicitacao_loja_visualizar' => 'Visualizar',
                 'solicitacao_loja_add'        => 'Salvar',
-                'solicitacao_loja_editar'     => 'Editar',
                 'solicitacao_loja_deletar'    => 'Deletar',
+                'solicitacao_loja_status'     => 'Status',
                 'solicitacao_loja_empresa'    => 'Todas as empresas',
             ]
         ],
