@@ -124,7 +124,7 @@ final class ConfiguracaoEntity extends Entity
                 $acao = 'Convenio';
                 $app = str_replace('_convenio', '', $permissao);
             }
-            $acoes[$app][] = $permissao;
+            //$acoes[$app][] = $permissao;
             $acoes[$app][$permissao] = $acao;
         }
 

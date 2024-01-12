@@ -29,9 +29,6 @@ final class ConfiguracoesPadrao
         ],
         'usuario_grupo'            => [
             'titulo'    => 'Grupo',
-            'acao'      => [
-                'index', 'add', 'editar', 'deletar'
-            ],
             'permissao' => [
                 'usuario_grupo_index'   => 'Listar',
                 'usuario_grupo_add'     => 'Salvar',
@@ -41,9 +38,6 @@ final class ConfiguracoesPadrao
         ],
         'usuario_dependente'       => [
             'titulo'    => 'Dependente',
-            'acao'      => [
-                'index', 'add', 'editar', 'deletar'
-            ],
             'permissao' => [
                 'usuario_dependente_index'   => 'Listar',
                 'usuario_dependente_add'     => 'Salvar',
@@ -53,9 +47,6 @@ final class ConfiguracoesPadrao
         ],
         'usuario_indicacao'        => [
             'titulo'    => 'Indicação',
-            'acao'      => [
-                'index', 'visualizar', 'status', 'empresa'
-            ],
             'permissao' => [
                 'usuario_indicacao_index'      => 'Listar',
                 'usuario_indicacao_visualizar' => 'Visualizar',
@@ -65,9 +56,6 @@ final class ConfiguracoesPadrao
         ],
         'usuario_lead'             => [
             'titulo'    => 'Lead',
-            'acao'      => [
-                'index', 'visualizar', 'status', 'empresa'
-            ],
             'permissao' => [
                 'usuario_lead_index'      => 'Listar',
                 'usuario_lead_visualizar' => 'Visualizar',
@@ -88,9 +76,6 @@ final class ConfiguracoesPadrao
         ],
         'comunicacao_login'        => [
             'titulo'    => 'Banner Login',
-            'acao'      => [
-                'index', 'add', 'editar', 'deletar', 'empresa'
-            ],
             'permissao' => [
                 'comunicacao_login_index'   => 'Listar',
                 'comunicacao_login_add'     => 'Salvar',
@@ -101,9 +86,6 @@ final class ConfiguracoesPadrao
         ],
         'comunicacao_publicidade'  => [
             'titulo'    => 'Publicidade',
-            'acao'      => [
-                'index', 'add', 'editar', 'deletar', 'empresa'
-            ],
             'permissao' => [
                 'comunicacao_publicidade_index'   => 'Listar',
                 'comunicacao_publicidade_add'     => 'Salvar',
@@ -114,9 +96,6 @@ final class ConfiguracoesPadrao
         ],
         'solicitacao_contato'      => [
             'titulo'    => 'Contato',
-            'acao'      => [
-                'index', 'visualizar', 'status', 'empresa'
-            ],
             'permissao' => [
                 'solicitacao_contato_index'      => 'Listar',
                 'solicitacao_contato_visualizar' => 'Visualizar',
@@ -126,9 +105,6 @@ final class ConfiguracoesPadrao
         ],
         'comercial_popup'          => [
             'titulo'    => 'Popup',
-            'acao'      => [
-                'index', 'add', 'editar', 'deletar', 'status', 'empresa'
-            ],
             'permissao' => [
                 'comercial_popup_index'   => 'Listar',
                 'comercial_popup_add'     => 'Salvar',
@@ -140,9 +116,6 @@ final class ConfiguracoesPadrao
         ],
         'enquete_satisfacao'       => [
             'titulo'    => 'Pesquisa Satisfação',
-            'acao'      => [
-                'index', 'visualizar', 'deletar', 'status', 'empresa'
-            ],
             'permissao' => [
                 'enquete_satisfacao_index'      => 'Listar',
                 'enquete_satisfacao_visualizar' => 'Visualizar',
@@ -153,9 +126,6 @@ final class ConfiguracoesPadrao
         ],
         'construtor_clube'         => [
             'titulo'    => 'Clube',
-            'acao'      => [
-                'index', 'add', 'editar', 'deletar', 'empresa'
-            ],
             'permissao' => [
                 'construtor_clube_index'   => 'Listar',
                 'construtor_clube_add'     => 'Salvar',
@@ -166,9 +136,6 @@ final class ConfiguracoesPadrao
         ],
         'publicacao_noticia'       => [
             'titulo'    => 'Notícia',
-            'acao'      => [
-                'index', 'add', 'editar', 'deletar'
-            ],
             'permissao' => [
                 'publicacao_noticia_index'   => 'Listar',
                 'publicacao_noticia_add'     => 'Salvar',
@@ -178,9 +145,6 @@ final class ConfiguracoesPadrao
         ],
         'publicacao_pagina'        => [
             'titulo'    => 'Páginas',
-            'acao'      => [
-                'index', 'editar'
-            ],
             'permissao' => [
                 'publicacao_pagina_index'  => 'Listar',
                 'publicacao_pagina_editar' => 'Editar',
@@ -188,9 +152,6 @@ final class ConfiguracoesPadrao
         ],
         'publicacao_diretoria'     => [
             'titulo'    => 'Diretoria',
-            'acao'      => [
-                'index', 'add', 'editar', 'deletar'
-            ],
             'permissao' => [
                 'publicacao_diretoria_index'   => 'Listar',
                 'publicacao_diretoria_add'     => 'Salvar',
@@ -200,9 +161,6 @@ final class ConfiguracoesPadrao
         ],
         'texto_clube'              => [
             'titulo'    => 'Texto do clube',
-            'acao'      => [
-                'index', 'add', 'editar', 'deletar'
-            ],
             'permissao' => [
                 'texto_clube_index'   => 'Listar',
                 'texto_clube_add'     => 'Salvar',
@@ -212,9 +170,6 @@ final class ConfiguracoesPadrao
         ],
         'parceiro_relatorio'       => [
             'titulo'    => 'Relatório do parceiro',
-            'acao'      => [
-                'index', 'add', 'editar', 'deletar'
-            ],
             'permissao' => [
                 'parceiro_relatorio_index'   => 'Listar',
                 'parceiro_relatorio_add'     => 'Salvar',
@@ -224,9 +179,6 @@ final class ConfiguracoesPadrao
         ],
         'parceiro_loja'            => [
             'titulo'    => 'Loja',
-            'acao'      => [
-                'index', 'add', 'editar', 'deletar', 'empresa'
-            ],
             'permissao' => [
                 'parceiro_loja_index'   => 'Listar',
                 'parceiro_loja_add'     => 'Salvar',
@@ -237,9 +189,6 @@ final class ConfiguracoesPadrao
         ],
         'parceiro_cashback'        => [
             'titulo'    => 'Cashback',
-            'acao'      => [
-                'index', 'add', 'editar', 'deletar', 'empresa'
-            ],
             'permissao' => [
                 'parceiro_cashback_index'   => 'Listar',
                 'parceiro_cashback_add'     => 'Salvar',
@@ -250,9 +199,6 @@ final class ConfiguracoesPadrao
         ],
         'parceiro_cupom'           => [
             'titulo'    => 'Cupom',
-            'acao'      => [
-                'index', 'status'
-            ],
             'permissao' => [
                 'parceiro_cupom_index'  => 'Listar',
                 'parceiro_cupom_status' => 'Status'
@@ -260,9 +206,6 @@ final class ConfiguracoesPadrao
         ],
         'parceiro_easylive'        => [
             'titulo'    => 'Easylive',
-            'acao'      => [
-                'index', 'add', 'editar', 'deletar'
-            ],
             'permissao' => [
                 'parceiro_easylive_index'   => 'Listar',
                 'parceiro_easylive_add'     => 'Salvar',
@@ -272,9 +215,6 @@ final class ConfiguracoesPadrao
         ],
         'parceiro_automovel'       => [
             'titulo'    => 'Automóvel',
-            'acao'      => [
-                'index', 'visualizar', 'add', 'editar', 'deletar'
-            ],
             'permissao' => [
                 'parceiro_automovel_index'      => 'Listar',
                 'parceiro_automovel_visualizar' => 'Visualizar',
@@ -313,9 +253,6 @@ final class ConfiguracoesPadrao
         ],
         'solicitacao_loja'         => [
             'titulo'    => 'Solicitação Loja',
-            'acao'      => [
-                'index', 'visualizar', 'add', 'deletar', 'status', 'empresa'
-            ],
             'permissao' => [
                 'solicitacao_loja_index'      => 'Listar',
                 'solicitacao_loja_visualizar' => 'Visualizar',
@@ -327,9 +264,6 @@ final class ConfiguracoesPadrao
         ],
         'solicitacao_voucher'      => [
             'titulo'    => 'Voucher',
-            'acao'      => [
-                'index', 'visualizar', 'download', 'empresa'
-            ],
             'permissao' => [
                 'solicitacao_voucher_index'      => 'Listar',
                 'solicitacao_voucher_visualizar' => 'Visualizar',
@@ -339,9 +273,6 @@ final class ConfiguracoesPadrao
         ],
         'solicitacao_premium'      => [
             'titulo'    => 'Voucher Premium',
-            'acao'      => [
-                'index', 'visualizar', 'download', 'empresa'
-            ],
             'permissao' => [
                 'solicitacao_premium_index'      => 'Listar',
                 'solicitacao_premium_visualizar' => 'Visualizar',
@@ -351,9 +282,6 @@ final class ConfiguracoesPadrao
         ],
         'solicitacao_salavip'      => [
             'titulo'    => 'Salavip',
-            'acao'      => [
-                'index', 'download', 'empresa'
-            ],
             'permissao' => [
                 'solicitacao_salavip_index'    => 'Listar',
                 'solicitacao_salavip_download' => 'Download',
@@ -362,9 +290,6 @@ final class ConfiguracoesPadrao
         ],
         'solicitacao_declaracao'   => [
             'titulo'    => 'Declaração',
-            'acao'      => [
-                'index', 'visualizar', 'status', 'empresa'
-            ],
             'permissao' => [
                 'solicitacao_declaracao_index'      => 'Listar',
                 'solicitacao_declaracao_visualizar' => 'Visualizar',
@@ -373,10 +298,7 @@ final class ConfiguracoesPadrao
             ]
         ],
         'solicitacao_automovel'    => [
-            'titulo'    => 'Automóvel',
-            'acao'      => [
-                'index', 'visualizar', 'status', 'empresa'
-            ],
+            'titulo'    => 'Solicitação Automóvel',
             'permissao' => [
                 'solicitacao_automovel_index'      => 'Listar',
                 'solicitacao_automovel_visualizar' => 'Visualizar',
@@ -386,9 +308,6 @@ final class ConfiguracoesPadrao
         ],
         'solicitacao_cheque_bonus' => [
             'titulo'    => 'Cheque Bônus',
-            'acao'      => [
-                'index', 'visualizar', 'status', 'empresa'
-            ],
             'permissao' => [
                 'solicitacao_cheque_bonus_index'      => 'Listar',
                 'solicitacao_cheque_bonus_visualizar' => 'Visualizar',
@@ -398,9 +317,6 @@ final class ConfiguracoesPadrao
         ],
         'solicitacao_credito'      => [
             'titulo'    => 'Crédito',
-            'acao'      => [
-                'index', 'visualizar', 'status', 'empresa'
-            ],
             'permissao' => [
                 'solicitacao_credito_index'      => 'Listar',
                 'solicitacao_credito_visualizar' => 'Visualizar',
@@ -410,9 +326,6 @@ final class ConfiguracoesPadrao
         ],
         'saude_contratacao'        => [
             'titulo'    => 'Saúde Contratação',
-            'acao'      => [
-                'index', 'visualizar', 'status', 'empresa'
-            ],
             'permissao' => [
                 'saude_contratacao_index'      => 'Listar',
                 'saude_contratacao_visualizar' => 'Visualizar',
@@ -422,9 +335,6 @@ final class ConfiguracoesPadrao
         ],
         'comercial_empresa'        => [
             'titulo'    => 'Comercial Empresa',
-            'acao'      => [
-                'index', 'visualizar', 'editar'
-            ],
             'permissao' => [
                 'comercial_empresa_index'      => 'Listar',
                 'comercial_empresa_visualizar' => 'Visualizar',
@@ -433,9 +343,6 @@ final class ConfiguracoesPadrao
         ],
         'comercial_subempresa'     => [
             'titulo'    => 'Comercial Subempresa',
-            'acao'      => [
-                'index', 'visualizar', 'add', 'editar', 'deletar', 'empresa'
-            ],
             'permissao' => [
                 'comercial_subempresa_index'      => 'Listar',
                 'comercial_subempresa_visualizar' => 'Visualizar',
@@ -447,9 +354,6 @@ final class ConfiguracoesPadrao
         ],
         'comercial_prospeccao'     => [
             'titulo'    => 'Comercial Prospecção',
-            'acao'      => [
-                'index', 'visualizar', 'add', 'editar'
-            ],
             'permissao' => [
                 'comercial_prospeccao_index'      => 'Listar',
                 'comercial_prospeccao_visualizar' => 'Visualizar',
@@ -459,9 +363,6 @@ final class ConfiguracoesPadrao
         ],
         'comercial_perdido'        => [
             'titulo'    => 'Comercial Perdidos',
-            'acao'      => [
-                'index', 'visualizar', 'editar', 'status'
-            ],
             'permissao' => [
                 'comercial_perdido_index'      => 'Listar',
                 'comercial_perdido_visualizar' => 'Visualizar',
@@ -477,9 +378,6 @@ final class ConfiguracoesPadrao
         ],
         'comercial_regra'          => [
             'titulo'    => 'Comercial Regra de Negócio',
-            'acao'      => [
-                'index', 'visualizar', 'add', 'editar', 'deletar'
-            ],
             'permissao' => [
                 'comercial_regra_index'      => 'Listar',
                 'comercial_regra_visualizar' => 'Visualizar',
@@ -490,9 +388,6 @@ final class ConfiguracoesPadrao
         ],
         'carteirinha'              => [
             'titulo'    => 'Carteirinha',
-            'acao'      => [
-                'index', 'add', 'editar', 'deletar', 'status', 'empresa'
-            ],
             'permissao' => [
                 'carteirinha_index'   => 'Listar',
                 'carteirinha_add'     => 'Salvar',
@@ -512,9 +407,6 @@ final class ConfiguracoesPadrao
         ],
         'log_erro'                 => [
             'titulo'    => 'Log de erro',
-            'acao'      => [
-                'index', 'visualizar', 'status'
-            ],
             'permissao' => [
                 'log_erro_index'      => 'Listar',
                 'log_erro_visualizar' => 'Visualizar',
@@ -523,9 +415,6 @@ final class ConfiguracoesPadrao
         ],
         'painel_permissoes'        => [
             'titulo'    => 'Permissões Painel',
-            'acao'      => [
-                'index', 'add', 'editar'
-            ],
             'permissao' => [
                 'painel_permissoes_index'  => 'Listar',
                 'painel_permissoes_add'    => 'Salvar',
