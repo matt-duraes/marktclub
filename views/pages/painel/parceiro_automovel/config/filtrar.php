@@ -16,14 +16,6 @@ $Loja = (new ApiHelper(token: true))
 
 $Painel
     ->select(
-        name: 'empresa',
-        lista: 'empresa',
-        titulo: 'Empresa',
-        label: 'Empresa',
-        placeholder: 'Empresa',
-        permissao: \App\Classes\UsuarioCliente\Helper::PERMISSAO_EMPRESA
-    )
-    ->select(
         name: 'parceiro',
         lista: $Loja,
         titulo: 'Parceiro',
