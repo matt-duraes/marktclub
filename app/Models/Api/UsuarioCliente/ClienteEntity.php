@@ -15,7 +15,6 @@ use Erro\Erro;
 use Erro\Excecao;
 use Http\Request;
 use ORM\Entity;
-use Throwable;
 
 final class ClienteEntity extends Entity
 {
@@ -107,13 +106,11 @@ final class ClienteEntity extends Entity
 
     private function pegarCampoObrigatorio(): void
     {
-        try {
-            $Config = new ConfiguracaoEntity();
-            $configuracoes = $Config->pegarConfiguracoes();
-            $this->campoObrigatorio = $configuracoes['usuario_cliente'] ?? [];
-        } catch (Throwable) {
-            $this->campoObrigatorio = ['cpf', 'email', 'status'];
-        }
+        $Config = new ConfiguracaoEntity();
+        $configuracoes = $Config->pegarConfiguracoes();
+        $this->campoObrigatorio = empty($configuracoes->campo_obrigatorio->usuario_cliente)
+            ? ['cpf', 'email', 'status']
+            : $configuracoes->campo_obrigatorio->usuario_cliente;
     }
 
     /**
