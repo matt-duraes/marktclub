@@ -17,6 +17,8 @@
         @elseif($area == \App\Classes\DemandaDado\Area::CONVENIO)
         @? formSelect(name: 'demanda_filtro_tipo_demanda', label: 'Tipo de demanda', placeholder: 'Escolha o tipo de demanda', lista: (new \App\Classes\DemandaDado\Tipo())->selectConvenio ('Escolha uma opção'))
         @endif
+
+        @? formData(name: ['demanda_filtro_data_inicio', 'demanda_filtro_data_fim'], label: 'Data de criação', placeholder: 'Escolha uma data', separador: 'até')
     </div>
 
     <div class="footer_pagina_popup">

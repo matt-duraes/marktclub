@@ -32,7 +32,9 @@ final class DemandaDadoController extends Controller implements
             new Area($request->area),
             new Tipo($request->tipo),
             $request->tarefa_tipo,
-            $request->empresa
+            $request->empresa,
+            $request->data_inicio,
+            $request->data_fim,
         );
 
         return mensagemSucesso($Demanda->listarDados());

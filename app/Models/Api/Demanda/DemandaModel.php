@@ -27,7 +27,9 @@ final class DemandaModel extends ORM
         protected Area $area,
         protected Tipo $tipo,
         protected ?string $tarefa_tipo,
-        protected ?string $empresa
+        protected ?string $empresa,
+        protected ?string $data_inicio,
+        protected ?string $data_fim
     ) {
         parent::__construct();
         $this->validarRequest();
@@ -86,6 +88,14 @@ final class DemandaModel extends ORM
 
         if ($this->tipo->valido()) {
             $where[] = ['tipo', $this->tipo->numero()];
+        }
+
+        if (!empty($this->data_inicio)) {
+            $where[] = ['data_criacao', '>=', dataBanco($this->data_inicio) . ' 00:00:00'];
+        }
+
+        if (!empty($this->data_fim)) {
+            $where[] = ['data_criacao', '<=', dataBanco($this->data_fim) . ' 23:59:59'];
         }
 
         return $where;
