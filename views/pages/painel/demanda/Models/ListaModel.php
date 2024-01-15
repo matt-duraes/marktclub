@@ -51,7 +51,8 @@ final class ListaModel
 
     public function quadroTi()
     {
-        $gerente = sessao('USUARIO.gerente', padrao: false) || sessao('USUARIO.admin', padrao: false) ? 'drag' : '';
+        $gerente = sessao('USUARIO.gerente') != 'nao' || sessao('USUARIO.admin') != 'nao' ? 'drag' : '';
+
         return [
             [
                 'titulo' => 'Backlog',
@@ -76,10 +77,12 @@ final class ListaModel
             ],
             [
                 'titulo' => 'Teste',
+                'classe' => $gerente,
                 'status' => Status::TESTE
             ],
             [
                 'titulo' => 'Concluída',
+                'classe' => $gerente,
                 'status' => Status::CONCLUIDA
             ],
         ];
