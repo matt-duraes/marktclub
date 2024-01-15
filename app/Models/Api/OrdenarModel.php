@@ -43,7 +43,7 @@ final class OrdenarModel extends ORM
         if (empty($this->dado)) {
             mensagemErro('Erro!', 'Não foi encontrado registros para serem alterados.');
         }
-        $quantidade = $this->quantidade->numero() == 0 ? $this->quantidade->padrao() : $this->quantidade->numero();
+        $quantidade = $this->quantidade->numero() == '' ? $this->quantidade->padrao() : $this->quantidade->numero();
         $i = ($this->pagina->numero() - 1) * $quantidade;
         $dado = $this->dado;
         foreach ($this->id as $id) {
