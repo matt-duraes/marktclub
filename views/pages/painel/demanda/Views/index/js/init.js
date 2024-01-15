@@ -59,7 +59,7 @@ const adicionarNovaTarefa = item => {
         'data-ajuda': item.equipe.nome,
     });
     blocoEquipe.css('backgroundImage', `url(${item.equipe.imagem})`);
-    const editarDeletar = item.dono || usuarioGerente ? 'sim' : '';
+    const editarDeletar = item.dono || usuarioGerente != 'nao' ? 'sim' : '';
 
     adicionarTexto(clone, '.item_titulo', item.titulo);
     adicionarTexto(clone, '.item_tipo', item.tipo);
