@@ -4,13 +4,14 @@ namespace Tests\Api;
 
 use Tests\Tests;
 use App\Classes\Geral\Status;
+use App\Classes\SiteConfig\Template;
 
 class SiteConfigTest extends Tests
 {
     private string $idUnareg = '4cceef2a4ee3d677dd15955daace4bba';
     protected string $scope = 'site_config';
     protected string $uri = '/site-config';
-    public string $automatico = 'crud';
+    public string $automatico = 'lbsad';
 
     public function __construct()
     {
@@ -25,7 +26,7 @@ class SiteConfigTest extends Tests
         $this
             ->Curl
             ->loginPainel()
-            ->body($this->pegarBody(empresa: $this->idUnareg))
+            ->body($this->pegarBody())
             ->post('/site-config');
 
         return $this
@@ -37,9 +38,9 @@ class SiteConfigTest extends Tests
     public function naoPodeSalvarLinkSiteDuplicadoTest()
     {
         $this
-            ->api('site_config:salvar')
             ->Curl
-            ->body($this->pegarBody(dominio: 'unareg.org.br'))
+            ->loginPainel()
+            ->body($this->pegarBody(empresa: $this->idUnareg, dominio: 'https://unareg.org.br'))
             ->post('/site-config');
 
         return $this
@@ -59,7 +60,7 @@ class SiteConfigTest extends Tests
             'logo_principal'   => uuid(),
             'favicon'          => uuid(),
             'descricao'        => 'Descrição do site novo registro',
-            'template'         => 'PADRAO',
+            'template'         => Template::PADRAO,
             'contato_telefone' => '6132730512',
             'contato_celular'  => '61984008812',
             'contato_whatsapp' => '61984008812',

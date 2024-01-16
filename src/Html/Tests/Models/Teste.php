@@ -37,17 +37,29 @@ function __executarTeste($diretorio, $classe)
         );
     });
 
+    if (str_contains($automatico, 'd') && str_contains($automatico, 'b')) {
+        $metodos = array_merge(['verificaSeDeletouRegistroSalvoTest'], $metodos);
+    }
     if (str_contains($automatico, 'd')) {
-        $metodos = array_merge(['deletarRegistroSalvoTest', 'verificaSeDeletouRegistroSalvoTest'], $metodos);
+        $metodos = array_merge(['deletarRegistroSalvoTest'], $metodos);
     }
-    if (str_contains($automatico, 'u')) {
-        $metodos = array_merge(['atualizarPrimeiroCampoDoRegistroSalvoTest', 'verificaSeAtualizouPrimeiroCampoDoRegistroTest'], $metodos);
+    if (str_contains($automatico, 'a') && str_contains($automatico, 'b')) {
+        $metodos = array_merge(['verificaSeAtualizouPrimeiroCampoDoRegistroTest'], $metodos);
     }
-    if (str_contains($automatico, 'r')) {
-        $metodos = array_merge(['listarTodosOsRegistrosTest', 'buscarPrimeiroRegistroTest'], $metodos);
+    if (str_contains($automatico, 'a')) {
+        $metodos = array_merge(['atualizarPrimeiroCampoDoRegistroSalvoTest'], $metodos);
     }
-    if (str_contains($automatico, 'c')) {
-        $metodos = array_merge(['salvarNovoRegistroTest', 'buscarRegistroAposSalvarTest'], $metodos);
+    if (str_contains($automatico, 'l')) {
+        $metodos = array_merge(['listarTodosOsRegistrosTest'], $metodos);
+    }
+    if (str_contains($automatico, 'b')) {
+        $metodos = array_merge(['buscarPrimeiroRegistroTest'], $metodos);
+    }
+    if (str_contains($automatico, 's') && str_contains($automatico, 'b')) {
+        $metodos = array_merge(['buscarRegistroAposSalvarTest'], $metodos);
+    }
+    if (str_contains($automatico, 's')) {
+        $metodos = array_merge(['salvarNovoRegistroTest'], $metodos);
     }
 
     foreach ($metodos as $metodo) {

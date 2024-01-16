@@ -12,7 +12,7 @@ class SiteMenuTest extends Tests
     private string $idUnareg = '4cceef2a4ee3d677dd15955daace4bba';
     protected string $scope = 'site_menu';
     protected string $uri = '/uri';
-    public string $automatico = 'crud';
+    public string $automatico = 'lbsad';
 
     public function __construct()
     {
