@@ -75,7 +75,7 @@ final class ConfigEntity extends Entity
 
     protected function regraInsert()
     {
-        if(!$this->propriedadeExiste('empresa') || empty($this->empresa)) {
+        if (!$this->propriedadeExiste('empresa') || empty($this->empresa)) {
             return;
         }
         $this->validarCampoDuplicado(campo: 'id_admin_empresa', valor: $this->idEmpresa, mensagem: 'Empresa');

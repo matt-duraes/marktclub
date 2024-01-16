@@ -9,7 +9,7 @@ final class RelatorioAcessoDiaTest extends Tests
 {
     use RelatorioTrait;
 
-    private string $uri = '/relatorio/acesso-dia';
+    protected string $uri = '/relatorio/acesso-dia';
     private array $dadoEmpresa1;
     private array $dadoEmpresa2;
 

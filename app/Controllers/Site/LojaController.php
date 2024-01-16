@@ -88,7 +88,7 @@ final class LojaController extends Controller
             'dado'         => $dado,
             'telefone'     => [],
             'email'        => [],
-            'tipo'         => 'loja',
+            'tipo'         => $dado->tipo,
             'Busca'        => (new FiltroModel([])),
             'procedimento' => new Procedimento()
         ]);

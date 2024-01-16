@@ -31,7 +31,7 @@ class SiteConfigTest extends Tests
         return $this
             ->checkStatus(400)
             ->checkIndiceIgual('status', 'erro')
-            ->checkIndiceIgual('erro.mensagem', "O valor do campo Empresa já existe.");
+            ->checkIndiceIgual('erro.mensagem', 'O valor do campo Empresa já existe.');
     }
 
     public function naoPodeSalvarLinkSiteDuplicadoTest()

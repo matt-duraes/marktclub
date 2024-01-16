@@ -3,64 +3,20 @@
 namespace Tests\Api;
 
 use App\Classes\Geral\Status;
-use Tests\Token\Clube;
+use Tests\Tests;
 
-class PublicacaoDiretoriaTest extends Clube
+class PublicacaoDiretoriaTest extends Tests
 {
-    private string $idPublicacao;
-
-    public function __construct()
-    {
-        $this->pegarToken();
-        parent::__construct();
-    }
-
-    private function getBody(array $array = []): array
-    {
-        return array_merge([
-            'nome'   => nomeCompletoAleatorio(),
-            'texto'  => 'Texto da publicação',
-            'cargo'  => 'Cargo',
-            'imagem' => 'imagem',
-            'status' => valorAleatorio(array_keys((new Status())->select()))
-        ], $array);
-    }
-
-    public function litarPublicacoesTest(): PublicacaoDiretoriaTest
-    {
-        $this
-            ->Curl
-            ->json([
-                'pagina' => 1
-            ])
-            ->get('/publicacao-diretoria');
-
-        return $this
-            ->checkStatus(200)
-            ->checkIndiceIgual('status', 'sucesso')
-            ->checkIndiceExiste('dado.lista');
-    }
-
-    public function salvarPublicacaoValidaTest(): PublicacaoDiretoriaTest
-    {
-        $dado = $this
-            ->Curl
-            ->body($this->getBody())
-            ->post('/publicacao-diretoria')
-            ->array();
-
-        $this->idPublicacao = $dado['dado']['id'] ?? 'sem-id';
-
-        return $this
-            ->checkStatus(201)
-            ->checkIndiceExiste('dado.id');
-    }
+    protected string $scope = 'publicacao_diretoria';
+    protected string $uri = '/publicacao-diretoria';
+    public string $automatico = 'crud';
 
     public function naoPodeSalvarComStatusInvalidoTest(): PublicacaoDiretoriaTest
     {
+        $this->api('publicacao_diretoria:salvar');
         $this
             ->Curl
-            ->body($this->getBody([
+            ->body($this->pegarBody([
                 'status' => 'STATUS INVALIDO'
             ]))
             ->post('/publicacao-diretoria');
@@ -71,26 +27,12 @@ class PublicacaoDiretoriaTest extends Clube
             ->checkIndiceIgual('erro.mensagem', 'O campo Status não é um valor válido.');
     }
 
-    public function naoPodeSalvarComNomeSemSobrenomeTest(): PublicacaoDiretoriaTest
-    {
-        $this
-            ->Curl
-            ->body($this->getBody([
-                'nome' => nomeAleatorio()
-            ]))
-            ->post('/publicacao-diretoria');
-
-        return $this
-            ->checkStatus(400)
-            ->checkIndiceIgual('status', 'erro')
-            ->checkIndiceIgual('erro.mensagem', 'O campo Nome não é um valor válido.');
-    }
-
     public function naoPodeSalvarComNomeVaziosTest(): PublicacaoDiretoriaTest
     {
+        $this->api('publicacao_diretoria:salvar');
         $this
             ->Curl
-            ->body($this->getBody([
+            ->body($this->pegarBody([
                 'nome'   => ''
             ]))
             ->post('/publicacao-diretoria');
@@ -101,50 +43,14 @@ class PublicacaoDiretoriaTest extends Clube
             ->checkIndiceIgual('erro.mensagem', 'O campo Nome não pode ser vazio.');
     }
 
-    public function atualizarApenasOStatusTest(): PublicacaoDiretoriaTest
+    protected function pegarBody(array $array = []): array
     {
-        $this
-            ->Curl
-            ->body([
-                'status' => valorAleatorio(array_keys((new Status())->select()))
-            ])
-            ->put('/publicacao-diretoria/' . $this->idPublicacao);
-
-        return $this
-            ->checkStatus(204);
-    }
-
-    public function buscarPublicacaoTest(): PublicacaoDiretoriaTest
-    {
-        $this
-            ->Curl
-            ->get("/publicacao-diretoria/{$this->idPublicacao}");
-
-        return $this
-            ->checkStatus(200)
-            ->checkIndiceIgual('status', 'sucesso')
-            ->checkIndiceExiste('dado');
-    }
-
-    public function deletarPublicacaoTest(): PublicacaoDiretoriaTest
-    {
-        $this
-            ->Curl
-            ->delete('/publicacao-diretoria/' . $this->idPublicacao);
-
-        return $this
-            ->checkStatus(204);
-    }
-
-    public function naoPodeAcharPublicacaoApagadaTest(): PublicacaoDiretoriaTest
-    {
-        $this
-            ->Curl
-            ->get('/publicacao-diretoria/' . $this->idPublicacao);
-
-        return $this
-            ->checkStatus(404)
-            ->checkIndiceIgual('status', 'erro')
-            ->checkIndiceIgual('erro.mensagem', 'Essa página ou recurso não existe ou foi movida para outra URL.');
+        return array_merge([
+            'nome'   => nomeCompletoAleatorio(),
+            'texto'  => 'Texto da publicação',
+            'cargo'  => 'Cargo',
+            'imagem' => 'imagem',
+            'status' => valorAleatorio(array_keys((new Status())->select()))
+        ], $array);
     }
 }

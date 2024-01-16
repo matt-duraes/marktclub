@@ -21,10 +21,10 @@ $Painel->coluna(callback: function () use ($Painel, $Loja) {
     $Painel->fieldset('Dados', function () use ($Painel, $Loja) {
         $Painel
             ->input(name: 'titulo', label: 'Modelo')
-            ->select(name: 'parceiro->id', label: 'Parceiro', lista: $Loja)
-            ->data(name: 'data_inicio', label: 'Publicar em', separador: 'até', placeholder: 'Publicar em')
-            ->data(name: 'data_final', label: 'Remover em', separador: 'até', placeholder: 'Remover em')
-            ->select(name: 'status', label: 'Status', lista: (new Status())->select('Escolha uma opção'));
+            ->select(name: 'parceiro->id', lista: $Loja, label: 'Parceiro')
+            ->data(name: 'data_inicio', label: 'Publicar em', placeholder: 'Publicar em', separador: 'até')
+            ->data(name: 'data_final', label: 'Remover em', placeholder: 'Remover em', separador: 'até')
+            ->select(name: 'status', lista: (new Status())->select('Escolha uma opção'), label: 'Status');
     });
 });
 return $Painel;

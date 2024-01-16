@@ -9,6 +9,8 @@ class SolicitacaoAutomovelTest extends Clube
 {
     private string $idSolicitacao;
     private string $statusValido;
+    protected string $scope = 'solicitacao_automovel';
+    protected string $uri = '/solicitacao-automovel';
 
     public function __construct()
     {
@@ -17,44 +19,16 @@ class SolicitacaoAutomovelTest extends Clube
         parent::__construct();
     }
 
-    private function getBody(array $array = []): array
-    {
-        return array_merge([
-            'endereco_estado' => estadoAleatorio(),
-            'endereco_cidade' => cidadeAleatorio(),
-            'montadora'       => 'Fiat',
-            'modelo'          => 'Uno',
-            'versao'          => '1.0',
-            'cor'             => 'Branco',
-            'mensagem'        => 'Gostaria de um orçamento para o conserto do meu carro',
-        ], $array);
-    }
-
     private function pegarStatusValido(): void
     {
         $this->statusValido = valorAleatorio(array_keys((new Status())->select()));
-    }
-
-    public function listarSolicitacoesAutomovelTest(): SolicitacaoAutomovelTest
-    {
-        $this
-            ->Curl
-            ->json([
-                'pagina' => 1
-            ])
-            ->get('/solicitacao-automovel');
-
-        return $this
-            ->checkStatus(200)
-            ->checkIndiceIgual('status', 'sucesso')
-            ->checkIndiceExiste('dado.lista');
     }
 
     public function salvarNovaSolicitacaoValidaTest(): SolicitacaoAutomovelTest
     {
         $dado = $this
             ->Curl
-            ->body($this->getBody())
+            ->body($this->pegarBody())
             ->post('/solicitacao-automovel')
             ->array();
 
@@ -106,5 +80,28 @@ class SolicitacaoAutomovelTest extends Clube
             ->checkIndiceIgual('status', 'sucesso')
             ->checkIndiceIgual('dado.status', $this->statusValido)
             ->checkIndiceExiste('dado.id');
+    }
+
+    public function listarSolicitacoesAutomovelTest()
+    {
+        return $this->validarListar();
+    }
+
+    public function buscarSolicitacaoAutomovelPorIdTest()
+    {
+        return $this->validarBuscar();
+    }
+
+    protected function pegarBody(array $array = []): array
+    {
+        return array_merge([
+            'endereco_estado' => estadoAleatorio(),
+            'endereco_cidade' => cidadeAleatorio(),
+            'montadora'       => 'Fiat',
+            'modelo'          => 'Uno',
+            'versao'          => '1.0',
+            'cor'             => 'Branco',
+            'mensagem'        => 'Gostaria de um orçamento para o conserto do meu carro',
+        ], $array);
     }
 }

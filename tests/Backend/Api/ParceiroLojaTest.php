@@ -2,24 +2,15 @@
 
 namespace Tests\Api;
 
-use Tests\Token\Clube;
 use App\Classes\ParceiroLoja\Categoria;
+use Tests\Tests;
 
-class ParceiroLojaTest extends Clube
+class ParceiroLojaTest extends Tests
 {
-    private string $uri = '/parceiro-loja';
-    private string $id;
-
-    public function __construct()
-    {
-        $this->pegarToken();
-        parent::__construct();
-    }
-
-    public function __destruct()
-    {
-        $this->tabela(TABELA_ANALYTICS_LOJA_VENDA)->resetar();
-    }
+    protected string $idUltimo;
+    protected string $scope = 'parceiro_loja';
+    protected string $uri = '/parceiro-loja';
+    public string $automatico = 'r';
 
     public function selectLojaTest()
     {
@@ -31,37 +22,6 @@ class ParceiroLojaTest extends Clube
         return $this
             ->checkStatus(200)
             ->checkIndiceExiste('dado')
-            ->checkNaoVazio('dado');
-    }
-
-    public function listarLojaTest()
-    {
-        $this->api('parceiro_loja:listar');
-        $dado = $this
-            ->Curl
-            ->json(['pagina' => 1])
-            ->get($this->uri)
-            ->array();
-
-        $this->id = $dado['dado']['lista'][0]['id'] ?? 'sem-id';
-
-        return $this
-            ->checkStatus(200)
-            ->checkIndiceExiste('dado')
-            ->checkNaoVazio('dado.lista');
-    }
-
-    public function buscarLojaTest()
-    {
-        $this->api('parceiro_loja:buscar');
-        $this
-            ->Curl
-            ->get($this->uri . '/' . $this->id);
-
-        return $this
-            ->checkStatus(200)
-            ->checkIndiceExiste('dado')
-            ->checkIndiceIgual('dado.id', $this->id)
             ->checkNaoVazio('dado');
     }
 
@@ -106,7 +66,7 @@ class ParceiroLojaTest extends Clube
         $this->api('parceiro_loja:relacionado');
         $this
             ->Curl
-            ->get($this->uri . '/relacionado/' . $this->id);
+            ->get($this->uri . '/relacionado/' . $this->idUltimo);
 
         return $this
             ->checkStatus(200)

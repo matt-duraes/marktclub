@@ -59,7 +59,7 @@ const adicionarNovaTarefa = item => {
         'data-ajuda': item.equipe.nome,
     });
     blocoEquipe.css('backgroundImage', `url(${item.equipe.imagem})`);
-    const editarDeletar = item.dono || usuarioGerente ? 'sim' : '';
+    const editarDeletar = item.dono || usuarioGerente != 'nao' ? 'sim' : '';
 
     adicionarTexto(clone, '.item_titulo', item.titulo);
     adicionarTexto(clone, '.item_tipo', item.tipo);
@@ -232,6 +232,8 @@ const tarefaDeletar = async id => {
     ) {
         return;
     }
+    const tarefa_tipo = pegarTiposTarefa(id);
+    const demanda = $('#input_demanda_id').value;
 
     const bloco = $('#id_tarefa_' + id);
     if (!bloco) {
@@ -240,7 +242,7 @@ const tarefaDeletar = async id => {
     bloco.classList.add('display_none');
     const resposta = await ajaxPost(
         LINK + '/demanda/tarefa-deletar/' + id,
-        undefined,
+        {tarefa_tipo, demanda},
         'Erro ao deletar tarefa, por favor, tente novamente.'
     );
     if (false === resposta) {
@@ -285,3 +287,22 @@ const mudarDemandaColuna = (atual, destino, demanda) => {
         ''
     );
 };
+
+function pegarTiposTarefa(id, tipo) {
+    const tiposSet = new Set();
+    const itens = $$('#bloco_tarefa_lista article');
+
+    itens.forEach(item => {
+        if (item.id == 'id_tarefa_' + id) {
+            return;
+        }
+
+        tiposSet.add(item.getAttribute('data-tipo'));
+    });
+
+     if (tipo !== '' && tipo !== undefined) {
+        tiposSet.add(tipo);
+    }
+
+    return Array.from(tiposSet);
+}

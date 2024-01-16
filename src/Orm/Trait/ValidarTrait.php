@@ -4,7 +4,6 @@ namespace ORM\Trait;
 
 use PDO;
 use Erro\Excecao;
-use PDOStatement;
 use Modules\Senha;
 use ReflectionObject;
 use ReflectionProperty;
@@ -29,7 +28,7 @@ trait ValidarTrait
             return;
         }
 
-        if(empty($valor)) {
+        if (empty($valor)) {
             $valor = $this->$campo;
             $valor = $valor instanceof ModuleInterface || $valor instanceof StatusInterface ?
                 $valor->banco() : $valor;
@@ -37,14 +36,14 @@ trait ValidarTrait
 
         $where = "`{$campo}` = :{$campo}";
         if ($this->ormEntityExiste) {
-            $where .= " AND `id` != :id";
+            $where .= ' AND `id` != :id';
         }
 
         $DB = $this->ormLeitura ? $this->ormDBLeitura : $this->ormDBEscrita;
         $sql = $DB->prepare("SELECT `id` FROM `{$this->ormTabela}` WHERE {$where}");
         $sql->bindValue(":{$campo}", $valor);
         if ($this->ormEntityExiste) {
-            $sql->bindValue(":id", $this->prop('id'), PDO::PARAM_STR);
+            $sql->bindValue(':id', $this->prop('id'), PDO::PARAM_STR);
         }
 
         try {
@@ -59,6 +58,7 @@ trait ValidarTrait
             return ;
         }
     }
+
     private function mensagemCampoDuplicado(?string $titulo, string $mensagem)
     {
         $mensagem = str_starts_with($mensagem, '!')

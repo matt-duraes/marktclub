@@ -94,7 +94,7 @@ window.addEventListener('load', () => {
         h1Popup.textContent = 'Cancelar contrato';
         inputPopup.setAttribute('placeholder', 'Digite o motivo para o cancelamento');
         labelPopup.textContent = 'Motivo para o cancelamento';
-        botaoPopup.textContent = 'Cancelar';
+        botaoPopup.textContent = 'Salvar';
         botaoPopup.setAttribute('class', 'botao_cancelar');
 
         PopupAtualizar.abrir();
@@ -103,7 +103,7 @@ window.addEventListener('load', () => {
         formMotivo.addEventListener('submit', async e => {
             e.preventDefault();
 
-            const motivo = document.querySelector('.input_motivo').value;
+            const motivo = document.querySelector('#input_motivo').value;
 
             await atualizarStatusContrato(item, id, 'inativo', motivo);
 
@@ -129,7 +129,7 @@ window.addEventListener('load', () => {
         const formMotivo = document.querySelector('.form_motivo');
         formMotivo.addEventListener('submit', async e => {
             e.preventDefault();
-            const motivo = document.querySelector('.input_motivo').value;
+            const motivo = document.querySelector('#input_motivo').value;
 
             await atualizarStatusContrato(item, id, 'standby', motivo);
 

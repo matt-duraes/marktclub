@@ -59,7 +59,9 @@ final class DemandaController extends Controller
 
     public function postListar(Request $request)
     {
-        return mensagemSucesso((new ListaModel())->buscarDemanda($request->area, $request->status));
+        return mensagemSucesso(
+            (new ListaModel())->buscarDemanda($request)
+        );
     }
 
     private function listar($titulo, $area, $quadro)
@@ -188,7 +190,6 @@ final class DemandaController extends Controller
         $i = 1;
         foreach ($request->id as $id) {
             $this->Api
-                ->validar(mensagem: 'Erro ao mudar a ordem, por favor, tente novamente.', login: true)
                 ->body(['ordem' => $i])
                 ->put('/demanda-dado/' . $id);
             $i++;
@@ -244,6 +245,7 @@ final class DemandaController extends Controller
         $Tarefa = new TarefaSalvarModel(
             titulo: $request->titulo,
             texto: $request->getPost('texto', html: false),
+            tarefa_tipo: $request->tarefa_tipo,
             tipo: $request->tipo,
             demanda: $request->demanda
         );
@@ -256,6 +258,8 @@ final class DemandaController extends Controller
         new TarefaSalvarModel(
             titulo: $request->titulo,
             texto: $request->getPost('texto', html: false),
+            tarefa_tipo: $request->tarefa_tipo,
+            demanda: $request->demanda,
             tipo: $request->tipo,
             id: $id
         );
@@ -263,11 +267,17 @@ final class DemandaController extends Controller
         return new Response(status: 204);
     }
 
-    public function postTarefaDeletar(string $id)
+    public function postTarefaDeletar(Request $request, string $id)
     {
         $this->Api
             ->validar(mensagem: 'Erro ao deletar tarefa, por favor, tente novamente.', login: true)
             ->delete('/demanda-tarefa/' . $id);
+
+        $this->Api
+            ->body([
+                'tarefa_tipo' => $request->tarefa_tipo
+            ])
+            ->put('/demanda-dado/' . $request->demanda);
 
         return mensagemSucesso([
             'id' => uuid()
