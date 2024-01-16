@@ -10,6 +10,7 @@ final class Tipo extends Status
     public const AUTOMOVEL = 'automovel';
     public const FARMACIA = 'farmacia';
     public const PREMIUM = 'premium';
+    public const LABORATORIO = 'laboratorio';
 
     /**
      * @param string|int|null $valor
@@ -18,10 +19,11 @@ final class Tipo extends Status
         protected string|int|null $valor = null
     ) {
         parent::__construct([
-            self::LOJA      => 'Loja',
-            self::AUTOMOVEL => 'Automóvel',
-            self::FARMACIA  => 'Farmácia',
-            self::PREMIUM   => 'Premium'
+            self::LOJA        => 'Loja',
+            self::AUTOMOVEL   => 'Automóvel',
+            self::FARMACIA    => 'Farmácia',
+            self::PREMIUM     => 'Premium',
+            self::LABORATORIO => 'Laboratório'
         ]);
     }
 }

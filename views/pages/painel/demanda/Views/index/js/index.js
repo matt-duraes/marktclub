@@ -6,10 +6,10 @@ window.addEventListener('load', () => {
 
 async function buscarDados(filtros) {
     const loading = $$('.bloco_loading');
-    const conteudos = $$('.bloco_coluna .conteudo article');
+    const conteudos = $$('.bloco_coluna .conteudo article, .bloco_coluna .conteudo div');
 
     conteudos.forEach(conteudo => {
-        if(conteudo.id) {
+        if(!conteudo.classList.contains('bloco_loading')) {
             conteudo.remove();
         }
     });

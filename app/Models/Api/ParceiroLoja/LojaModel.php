@@ -126,9 +126,9 @@ class LojaModel extends ORM implements ModelListarInterface
             ['empresa', 'LIKE', '%"' . $this->idEmpresa . '"%']
         ];
 
-        $tipo = new Tipo($this->request->tipo);
-        if ($tipo->valido()) {
-            $where[] = ['tipo', $tipo->numero()];
+        $tipo = $this->pegarWhereTipo();
+        if (!empty($tipo)) {
+            $where[] = $tipo;
         }
 
         $categoria = new Categoria($this->request->categoria);
@@ -177,7 +177,21 @@ class LojaModel extends ORM implements ModelListarInterface
         } elseif ($status->valido()) {
             $where[] = ['status', $status->numero()];
         }
+
         return $where;
+    }
+
+    private function pegarWhereTipo()
+    {
+        $tipo = new Tipo($this->request->tipo);
+        if ($tipo->vazio()) {
+            return;
+        }
+
+        if ($tipo->indice() == 'loja') {
+            return ['tipo', 'in', [$tipo->numero(Tipo::LOJA), $tipo->numero(Tipo::LABORATORIO)]];
+        }
+        return ['tipo', $tipo->numero()];
     }
 
     private function pegarIdSubCategoria()
