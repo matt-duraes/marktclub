@@ -16,6 +16,7 @@ final class TarefaSalvarModel
         private string $titulo,
         private string $texto,
         private string $tipo,
+        private array $tarefa_tipo,
         private ?string $demanda = null,
         private ?string $equipe = null,
         private ?string $id = null,
@@ -52,6 +53,9 @@ final class TarefaSalvarModel
             ])
             ->post('/demanda-tarefa')
             ->object()->dado ?? [];
+
+        $this->atualizarTarefaDemanda();
+
         $this->tarefa = $this->montarTarefa([$dado])[0] ?? (object)[];
     }
 
@@ -65,5 +69,15 @@ final class TarefaSalvarModel
                 'tipo'    => $this->tipo
             ])
             ->put('/demanda-tarefa/' . $this->id);
+        $this->atualizarTarefaDemanda();
+    }
+
+    private function atualizarTarefaDemanda()
+    {
+        $this->Api
+            ->body([
+                'tarefa_tipo' => $this->tarefa_tipo
+            ])
+            ->put('/demanda-dado/' . $this->demanda);
     }
 }

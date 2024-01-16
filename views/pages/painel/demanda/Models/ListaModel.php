@@ -51,7 +51,8 @@ final class ListaModel
 
     public function quadroTi()
     {
-        $gerente = sessao('USUARIO.gerente', padrao: false) || sessao('USUARIO.admin', padrao: false) ? 'drag' : '';
+        $gerente = sessao('USUARIO.gerente') != 'nao' || sessao('USUARIO.admin') != 'nao' ? 'drag' : '';
+
         return [
             [
                 'titulo' => 'Backlog',
@@ -76,10 +77,12 @@ final class ListaModel
             ],
             [
                 'titulo' => 'Teste',
+                'classe' => $gerente,
                 'status' => Status::TESTE
             ],
             [
                 'titulo' => 'Concluída',
+                'classe' => $gerente,
                 'status' => Status::CONCLUIDA
             ],
         ];
@@ -118,17 +121,21 @@ final class ListaModel
         ];
     }
 
-    public function buscarDemanda($area, $status)
+    public function buscarDemanda($request)
     {
         $dado = $this->Api
             ->json([
-                'status' => $status,
-                'area'   => $area,
-                'ordem'  => 'ordem'
+                'status'      => $request->status,
+                'area'        => $request->area,
+                'tarefa_tipo' => $request->tarefa_tipo,
+                'tipo'        => $request->tipo,
+                'empresa'     => $request->empresa,
+                'data_inicio' => $request->data_inicio,
+                'data_fim'    => $request->data_fim,
+                'ordem'       => 'ordem'
             ])
             ->get('/demanda-dado')
             ->object()->dado ?? [];
-
         return $this->montarDemanda($dado);
     }
 

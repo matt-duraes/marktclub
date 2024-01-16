@@ -51,7 +51,6 @@ trait SalvarTrait
             $deletarArquivo = $this->ormPegarArquivoParaDeletar($dado['salvar']);
             $salvar = $this->dado($dado['salvar'])->where(['id', $this->ormEntityId])->update();
         }
-
         if (is_array($salvar) && array_key_exists('id', $salvar)) {
             $this->buscar(['id', $salvar['id']], leitura: false);
             $this->ormAcaoPosSalvar($this->ormAcao);

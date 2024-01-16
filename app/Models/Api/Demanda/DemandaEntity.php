@@ -34,17 +34,19 @@ final class DemandaEntity extends Entity
     public string|array $empresa;
     public Tipo $tipo;
     public Area $area;
+    public array|string $tarefa_tipo;
+    public array $tarefa;
     protected string $ormTabela = TABELA_DEMANDA_DADO;
     protected array $ormBuscar = [
         'id_admin_empresa', 'id_usuario_equipe', 'titulo', 'tipo', 'status', 'seguindo',
-        'arquivo', 'com_prazo', 'data_entrega', 'area', 'data_criacao'
+        'arquivo', 'com_prazo', 'data_entrega', 'area', 'data_criacao', 'tarefa_tipo'
     ];
     protected array $ormInsert = [
         'tipo', 'area'
     ];
     protected array $ormSalvar = [
         'arquivo', 'id_admin_empresa', 'id_usuario_equipe', 'titulo', 'status', 'com_prazo', 'data_entrega',
-        'ordem', 'data_entrega_real', 'seguindo'
+        'ordem', 'data_entrega_real', 'seguindo', 'tarefa_tipo'
     ];
     protected string $ormValidarSalvar = '
         titulo|Título|obrigatorio|vazio
@@ -128,6 +130,22 @@ final class DemandaEntity extends Entity
         if ($this->com_prazo->valor() == 'sim' && $this->data_entrega->vazio()) {
             mensagemErro('Campo obrigatório!', 'A data de entrega é obrigatória.');
         }
+    }
+
+    protected function regraUpdate(): void
+    {
+        if (!empty($this->tarefa_tipo) && is_array($this->tarefa_tipo)) {
+            $this->pegarTarefaTipo();
+        }
+    }
+
+    private function pegarTarefaTipo()
+    {
+        $novo_tarefa = [];
+        foreach ($this->tarefa_tipo as $tipo) {
+            $novo_tarefa[] = (new \App\Classes\DemandaTarefa\Tipo($tipo))->numero();
+        }
+        $this->tarefa_tipo = $novo_tarefa;
     }
 
     /**

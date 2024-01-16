@@ -36,10 +36,13 @@ abstract class Tests
     protected string $idListar;
     protected string $idBuscar;
     protected string $idSalvar;
+    protected string $idAtualizar;
     protected string $idUltimo;
     protected array $body = [];
     private array $valorAtualizado = [];
     public string $automatico = '';
+    protected bool $automaticoPainel = false;
+    protected string $mensagemErroDeletar;
 
     public function __construct()
     {
@@ -89,13 +92,14 @@ abstract class Tests
             break;
         }
 
-        return $this->validarAtualizar($this->idSalvar, $body);
+        $id = $this->idSalvar ?? $this->idUltimo;
+        return $this->validarAtualizar($id, $body);
     }
 
     public function verificaSeAtualizouPrimeiroCampoDoRegistroTest()
     {
         return $this->validarBuscar(
-            $this->idSalvar,
+            $this->idAtualizar,
             validar: ['dado.' . $this->valorAtualizado[0] => $this->valorAtualizado[1]]
         );
     }
@@ -105,16 +109,20 @@ abstract class Tests
     {
         return $this->validarDeletar($this->idSalvar);
     }
+
     public function verificaSeDeletouRegistroSalvoTest()
     {
         $this->api($this->scope . ':deletar');
         $this
             ->Curl
             ->delete($this->uri . '/' . $this->idSalvar);
+
+        $erro = $this->mensagemErroDeletar ?? 'Essa página ou recurso não existe ou foi movida para outra URL.';
+
         return $this
             ->checkStatus(404)
             ->checkIndiceIgual('status', 'erro')
-            ->checkIndiceIgual('erro.mensagem', 'Essa página ou recurso não existe ou foi movida para outra URL.');
+            ->checkIndiceIgual('erro.mensagem', $erro);
     }
 
     private function pegarCurlValidacaoPadrao(bool $painel, string $acao)
@@ -123,7 +131,7 @@ abstract class Tests
             $this->api($this->scope . ':' . $acao);
         }
         $Curl = $this->Curl;
-        if ($painel) {
+        if ($painel || $this->automaticoPainel) {
             $Curl->loginPainel();
         }
         return $Curl;
@@ -198,8 +206,12 @@ abstract class Tests
 
         $validacao = $this->checkStatus(204);
 
+        $this->idAtualizar = $id;
+        $this->idUltimo = $id;
+
         return $this->validacaoPadrao($validacao, $validar);
     }
+
     protected function validarDeletar(string $id, bool $painel = false, array $validar = [])
     {
         $Curl = $this->pegarCurlValidacaoPadrao($painel, 'deletar');

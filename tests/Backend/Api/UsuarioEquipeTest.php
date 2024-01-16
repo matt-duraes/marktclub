@@ -252,7 +252,7 @@ final class UsuarioEquipeTest extends Tests
             ->get('/usuario-equipe/1');
 
         return $this
-            ->checkStatus(404)
+            ->checkStatus(400)
             ->checkIndiceIgual('erro.mensagem', 'Você deve enviar um COD ou UUID para fazer a busca.');
     }
 
@@ -266,7 +266,7 @@ final class UsuarioEquipeTest extends Tests
             ->put('/usuario-equipe/1');
 
         return $this
-            ->checkStatus(404)
+            ->checkStatus(400)
             ->checkIndiceIgual('erro.mensagem', 'Você deve enviar um COD ou UUID para fazer a busca.');
     }
 
@@ -279,7 +279,7 @@ final class UsuarioEquipeTest extends Tests
             ->delete('/usuario-equipe/1');
 
         return $this
-            ->checkStatus(404)
+            ->checkStatus(400)
             ->checkIndiceIgual('erro.mensagem', 'Você deve enviar um COD ou UUID para fazer a busca.');
     }
 

@@ -9,6 +9,9 @@ use App\Classes\ParceiroEasylive\Tipo;
 class ParceiroEasyliveTest extends Tests
 {
     private array $idParceiro;
+    protected string $scope = 'parceiro_easylive';
+    protected string $uri = '/parceiro-easylive';
+    public string $automatico = 'crud';
 
     public function __construct()
     {
@@ -16,34 +19,24 @@ class ParceiroEasyliveTest extends Tests
         $this->tabela(TABELA_PARCEIRO_EASYLIVE)->resetar();
     }
 
-    private function getBody(array $array = []): array
+    public function salvarComImagemVaziaTest(): ParceiroEasyliveTest
     {
-        return array_merge([
-            'titulo'        => nomeAleatorio(),
-            'tipo'          => valorAleatorio(array_keys((new Tipo())->select())),
-            'data_validade' => '2021-12-31',
-            'status'        => 'ativo',
-            'imagem'        => 'imagem.jpg',
-            'empresa'       => ['14afa776394ada4be23be6acf7e3259e']
-        ], $array);
-    }
-
-    public function listarTodosTest(): ParceiroEasyliveTest
-    {
-        $this->api('parceiro_easylive:listar');
+        $this->api('parceiro_easylive:salvar');
         $dado = $this
             ->Curl
-            ->json([
-                'pagina' => 1
-            ])
-            ->get('/parceiro-easylive')
-            ->array()['dado'] ?? '';
+            ->loginPainel()
+            ->body($this->pegarBody([
+                'imagem' => ''
+            ]))
+            ->post('/parceiro-easylive')
+            ->array();
 
-        $this->idParceiro[] = $dado['lista'][0]['id'] ?? 'sem-id';
+        $this->idParceiro[] = $dado['dado']['id'] ?? 'sem-id';
 
         return $this
-            ->checkStatus(200)
-            ->checkIndiceExiste('dado.lista');
+            ->checkStatus(201)
+            ->checkIndiceExiste('dado')
+            ->checkIndiceExiste('dado.id');
     }
 
     public function listarStatusAtivoTest(): ParceiroEasyliveTest
@@ -59,54 +52,8 @@ class ParceiroEasyliveTest extends Tests
 
         return $this
             ->checkStatus(200)
-            ->checkIndiceExiste('dado.lista');
-    }
-
-    public function buscarPorIdTest(): ParceiroEasyliveTest
-    {
-        $this->api('parceiro_easylive:buscar');
-        $this
-            ->Curl
-            ->get('/parceiro-easylive/' . valorAleatorio($this->idParceiro));
-
-        return $this
-            ->checkStatus(200)
-            ->checkIndiceExiste('dado')
-            ->checkIndiceExiste('dado.id');
-    }
-
-    public function salvarValidoTest(): ParceiroEasyliveTest
-    {
-        $this->api('parceiro_easylive:salvar');
-        $this
-            ->Curl
-            ->body($this->getBody())
-            ->post('/parceiro-easylive');
-
-        return $this
-            ->checkStatus(201)
-            ->checkIndiceExiste('dado')
-            ->checkIndiceExiste('dado.id');
-    }
-
-    public function salvarComImagemVaziaTest(): ParceiroEasyliveTest
-    {
-        $this->api('parceiro_easylive:salvar');
-        $dado = $this
-            ->Curl
-            ->loginPainel()
-            ->body($this->getBody([
-                'imagem' => ''
-            ]))
-            ->post('/parceiro-easylive')
-            ->array();
-
-        $this->idParceiro[] = $dado['dado']['id'] ?? 'sem-id';
-
-        return $this
-            ->checkStatus(201)
-            ->checkIndiceExiste('dado')
-            ->checkIndiceExiste('dado.id');
+            ->checkIndiceExiste('dado.lista')
+            ->checkIndiceIgual('dado.lista.0.status', Status::ATIVO);
     }
 
     public function salvarComDataVaziaTest(): ParceiroEasyliveTest
@@ -115,7 +62,7 @@ class ParceiroEasyliveTest extends Tests
         $dado = $this
             ->Curl
             ->loginPainel()
-            ->body($this->getBody([
+            ->body($this->pegarBody([
                 'data_validade' => ''
             ]))
             ->post('/parceiro-easylive')
@@ -127,19 +74,6 @@ class ParceiroEasyliveTest extends Tests
             ->checkStatus(201)
             ->checkIndiceExiste('dado')
             ->checkIndiceExiste('dado.id');
-    }
-
-    public function atualizarTodosOsValoresTest(): ParceiroEasyliveTest
-    {
-        $this->api('parceiro_easylive:atualizar');
-        $this
-            ->Curl
-            ->loginPainel()
-            ->body($this->getBody())
-            ->put('/parceiro-easylive/' . valorAleatorio($this->idParceiro));
-
-        return $this
-            ->checkStatus(204);
     }
 
     public function atualizarApenasOStatusTest(): ParceiroEasyliveTest
@@ -169,5 +103,17 @@ class ParceiroEasyliveTest extends Tests
             $this->checkStatus(204);
         }
         return $this;
+    }
+
+    protected function pegarBody(array $array = []): array
+    {
+        return array_merge([
+            'titulo'        => nomeAleatorio(),
+            'tipo'          => valorAleatorio(array_keys((new Tipo())->select())),
+            'data_validade' => dataFuturaAleatorio(),
+            'status'        => Status::ATIVO,
+            'imagem'        => 'imagem.jpg',
+            'empresa'       => ['14afa776394ada4be23be6acf7e3259e']
+        ], $array);
     }
 }

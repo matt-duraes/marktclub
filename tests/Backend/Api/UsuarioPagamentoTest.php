@@ -8,7 +8,7 @@ final class UsuarioPagamentoTest extends Tests
 {
     private string $id;
     private string $idUsuario = '0ab2712a-625f-4588-85e4-33aa68288915';
-    private string $uri = '/usuario-pagamento';
+    protected string $uri = '/usuario-pagamento';
 
     public function listarPagamentosTest()
     {

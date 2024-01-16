@@ -2,64 +2,70 @@
 
 namespace App\Models\Api\Automovel\Versao;
 
+use App\Classes\Automovel\Versao\Ordem;
+use App\Classes\Geral\Status;
+use Erro\Excecao;
+use Helpers\OrmHelper;
+use Modules\Pagina;
+use Modules\Quantidade;
 use ORM\ORM;
 use stdClass;
-use Erro\Excecao;
-use Http\Request;
-use Modules\Pagina;
-use Helpers\OrmHelper;
-use Modules\Quantidade;
-use App\Classes\Geral\Status;
+use System\Interface\ModelListarInterface;
 use System\Trait\Model\OrdemTrait;
 use System\Trait\Model\PaginaTrait;
-use App\Classes\Automovel\Versao\Ordem;
 use System\Trait\Model\QuantidadeTrait;
 
-final class VersaoModel extends ORM
+final class VersaoModel extends ORM implements
+    ModelListarInterface
 {
+    use PaginaTrait;
     use QuantidadeTrait;
     use OrdemTrait;
-    use PaginaTrait;
 
     protected string $ormTabela = TABELA_AUTOMOVEL_VERSAO;
-    protected int $idEmpresa;
-    protected string $link_arquivo;
-    private stdClass $dadoModelo;
 
     /**
-     * @param  Request|null $request
+     * @param Pagina     $pagina
+     * @param Quantidade $quantidade
+     * @param Ordem      $ordem
+     *
+     * @param string|int|null $modelo
+     * @param Status          $status
+     *
      * @throws Excecao
      */
     public function __construct(
-        private Pagina $pagina = new Pagina(null),
-        private Quantidade $quantidade = new Quantidade(null),
-        private null|int|string $modelo = null,
-        private Status $status = new Status(null),
-        private Ordem $ordem = new Ordem(null)
+        private readonly Pagina $pagina = new Pagina(),
+        private readonly Quantidade $quantidade = new Quantidade(),
+        private readonly Ordem $ordem = new Ordem(),
+        private string|int|null $modelo = null,
+        private readonly Status $status = new Status(),
     ) {
-        parent::__construct();
-        $this->validarRequest();
+        $this->validarDados();
         $this->pegarModelo();
+        parent::__construct();
     }
 
     /**
      * @throws Excecao
      */
-    private function validarRequest(): void
+    private function validarDados(): void
     {
-        if ($this->pagina->vazio()) {
-            mensagemErroVazio('pagina');
-        } elseif (!$this->pagina->valido()) {
-            mensagemErroValido('pagina');
+        if (!$this->ordem->vazio() && !$this->ordem->valido()) {
+            mensagemErro('Campo inválido!', 'A Ordem informada não é válida.');
+        }
+        if (!$this->status->vazio() && !$this->status->valido()) {
+            mensagemErro('Campo inválido!', 'O Status informado não é válido.');
         }
     }
 
-    private function pegarModelo()
+    private function pegarModelo(): void
     {
         if (!empty($this->modelo) && is_int($this->modelo)) {
             return;
         }
-        $this->modelo = (new OrmHelper(TABELA_AUTOMOVEL_MODELO))->pegarIdPeloUuid($this->modelo);
+        $this->modelo = (new OrmHelper(TABELA_AUTOMOVEL_MODELO))
+            ->pegarIdPeloUuid($this->modelo);
     }
 
     /**
@@ -67,22 +73,23 @@ final class VersaoModel extends ORM
      */
     public function listarDados(): stdClass
     {
-        $dado = $this
-            ->campo(['uuid', 'titulo', 'cor', 'valor_de', 'valor_por', 'status'])
-            ->where($this->pegarWhere())
-            ->order($this->pegarOrdem())
+        $versoes = $this
+            ->campo([
+                'uuid', 'titulo', 'cor', 'valor_de', 'valor_por', 'status'
+            ])
+            ->where($this->pegarWhere(), false)
             ->pagina($this->pegarPagina(), $this->pegarQuantidade())
+            ->order($this->pegarOrdem(new Ordem()))
             ->read();
 
-        $dado->lista = $this->montarRetorno($dado->lista);
-
-        return $dado;
+        $versoes->lista = $this->montarRetorno($versoes->lista);
+        return $versoes;
     }
 
     /**
      * @return array
      */
-    protected function pegarWhere(): array
+    private function pegarWhere(): array
     {
         $where = [
             ['id_automovel_modelo', $this->modelo]
@@ -94,39 +101,46 @@ final class VersaoModel extends ORM
     }
 
     /**
-     * @param  array $dado
+     * @param array $versoes
+     *
      * @return array
      */
-    protected function montarRetorno(array $dado): array
+    private function montarRetorno(array $versoes): array
     {
-        $retorno = [];
-
         $Status = new Status();
-        foreach ($dado as $r) {
+        $retorno = [];
+        foreach ($versoes as $versao) {
             $retorno[] = [
-                'id'        => $r->uuid,
-                'titulo'    => $r->titulo,
-                'valor_de'  => $r->valor_de,
-                'valor_por' => $r->valor_por,
-                'cor'       => $r->cor,
-                'status'    => $Status->indice($r->status)
+                'id'        => $versao->uuid,
+                'titulo'    => $versao->titulo,
+                'valor_de'  => $versao->valor_de,
+                'valor_por' => $versao->valor_por,
+                'cor'       => $versao->cor,
+                'status'    => $Status->indice($versao->status)
             ];
         }
         return $retorno;
     }
 
-    public function pegarVersaoPeloVinculo(String $vinculo = null)
+    /**
+     * @param string|null $vinculo
+     *
+     * @return array
+     * @throws Excecao
+     */
+    public function pegarVersaoPeloVinculo(string $vinculo = null): array
     {
-        $dado = $this
-            ->campo(['uuid',  'vinculo', 'titulo', 'detalhe', 'cor', 'valor', 'valor_off', 'tipo', 'status', 'data_criacao'])
+        $versoes = $this
+            ->campo([
+                'uuid', 'vinculo', 'titulo', 'detalhe', 'cor', 'valor',
+                'valor_off', 'tipo', 'status', 'data_criacao'
+            ])
             ->where([
-                ['vinculo',  $vinculo],
-                ['status',  1]
+                ['vinculo', $vinculo],
+                ['status', (new Status(Status::ATIVO))->numero()]
             ])
             ->read();
 
-        $dado = $this->montarRetorno($dado);
-
-        return $dado;
+        return $this->montarRetorno($versoes);
     }
 }

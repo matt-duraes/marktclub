@@ -7,6 +7,7 @@ use stdClass;
 use Helpers\MarkdownHelper;
 use App\Helpers\ClubeApiHelper;
 use App\Classes\ParceiroLoja\Status;
+use App\Classes\ParceiroLoja\Tipo;
 
 final class BuscarModel extends ClubeApiHelper
 {
@@ -48,6 +49,7 @@ final class BuscarModel extends ClubeApiHelper
             'url'                => $r->url,
             'arquivo'            => $this->pegarArquivo($r->arquivo),
             'endereco'           => '',
+            'tipo'               => (new Tipo($r->tipo))->indice(),
         ];
     }
 

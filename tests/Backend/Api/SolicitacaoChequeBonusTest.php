@@ -13,19 +13,12 @@ class SolicitacaoChequeBonusTest extends Clube
 {
     private string $idSolicitacao;
 
-    /**
-     * @throws Excecao
-     */
     public function __construct()
     {
         $this->pegarToken();
         parent::__construct();
     }
 
-    /**
-     * @return SolicitacaoChequeBonusTest
-     * @throws Excecao
-     */
     public function listarTodosTest(): SolicitacaoChequeBonusTest
     {
         $this->api('solicitacao_cheque_bonus:listar');
@@ -42,10 +35,6 @@ class SolicitacaoChequeBonusTest extends Clube
             ->checkIndiceExiste('dado.lista');
     }
 
-    /**
-     * @return SolicitacaoChequeBonusTest
-     * @throws Excecao
-     */
     public function salvarNovaSolicitacaoTipoUsuarioNaoDependenteTest(): SolicitacaoChequeBonusTest
     {
         $this->api('solicitacao_cheque_bonus:salvar');
@@ -61,11 +50,6 @@ class SolicitacaoChequeBonusTest extends Clube
             ->checkIndiceExiste('dado.id');
     }
 
-    /**
-     * @param array $array
-     *
-     * @return array
-     */
     private function getBody(array $array = []): array
     {
         return array_merge([
@@ -94,10 +78,6 @@ class SolicitacaoChequeBonusTest extends Clube
         ], $array);
     }
 
-    /**
-     * @return SolicitacaoChequeBonusTest
-     * @throws Excecao
-     */
     public function salvarNovaSolicitacaoTipoUsuarioDependenteTest(): SolicitacaoChequeBonusTest
     {
         $this->api('solicitacao_cheque_bonus:salvar');

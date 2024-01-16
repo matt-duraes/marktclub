@@ -80,7 +80,7 @@ final class SaudeContratacaoTest extends Clube
             ->array();
 
         return $this
-            ->checkStatus(404)
+            ->checkStatus(400)
             ->checkIndiceIgual('status', 'erro')
             ->checkIndiceExiste('erro')
             ->checkIndiceIgual('erro.mensagem', 'Você deve enviar um COD ou UUID para fazer a busca.');

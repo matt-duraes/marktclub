@@ -8,7 +8,7 @@ use App\Classes\SiteConfig\Template;
 
 class SiteConfigTest extends Tests
 {
-    private string $idUnareg = '4cceef2a4ee3d677dd15955daace4bba';
+    private string $idAnafe = '0ffc5c56b99f81ca0edea8bdf524b688';
     protected string $scope = 'site_config';
     protected string $uri = '/site-config';
     public string $automatico = 'lbsad';
@@ -32,7 +32,7 @@ class SiteConfigTest extends Tests
         return $this
             ->checkStatus(400)
             ->checkIndiceIgual('status', 'erro')
-            ->checkIndiceIgual('erro.mensagem', "O valor do campo Empresa já existe.");
+            ->checkIndiceIgual('erro.mensagem', 'O valor do campo Empresa já existe.');
     }
 
     public function naoPodeSalvarLinkSiteDuplicadoTest()
@@ -40,7 +40,7 @@ class SiteConfigTest extends Tests
         $this
             ->Curl
             ->loginPainel()
-            ->body($this->pegarBody(empresa: $this->idUnareg, dominio: 'https://unareg.org.br'))
+            ->body($this->pegarBody(empresa: $this->idAnafe, dominio: 'https://unareg.org.br'))
             ->post('/site-config');
 
         return $this

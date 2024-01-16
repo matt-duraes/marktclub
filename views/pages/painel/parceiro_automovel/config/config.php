@@ -2,9 +2,9 @@
 
 return [
     'titulo'     => 'Modelo',
-    'buscar'     => false,
-    'filtrar'    => false,
-    'ordem'      => false,
+    'buscar'     => true,
+    'filtrar'    => true,
+    'ordem'      => true,
     'add'        => true,
     'editar'     => true,
     'visualizar' => true,

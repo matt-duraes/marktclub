@@ -13,6 +13,8 @@ final class Ordem extends Order
         protected ?string $valor = null
     ) {
         $this->tabela(TABELA_AUTOMOVEL_MODELO);
+        $this->padrao('status');
+        $this->status();
         $this->maisNovo();
         $this->maisVelho();
     }

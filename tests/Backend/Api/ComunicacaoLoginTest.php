@@ -2,11 +2,14 @@
 
 namespace Tests\Api;
 
-use Tests\Token\Clube;
+use Tests\Tests;
 
-class ComunicacaoLoginTest extends Clube
+class ComunicacaoLoginTest extends Tests
 {
-    private string $id;
+    protected string $idUltimo;
+    protected string $scope = 'comunicacao_login';
+    protected string $uri = '/comunicacao-login';
+    public string $automatico = 'crud';
 
     public function __construct()
     {
@@ -14,7 +17,7 @@ class ComunicacaoLoginTest extends Clube
         $this->tabela(TABELA_COMUNICACAO_LOGIN)->resetar();
     }
 
-    private function pegarBody(
+    protected function pegarBody(
         string|array $empresa = ['369fc307129e405b3f2f00620c7b012d']
     ) {
         return [
@@ -26,51 +29,6 @@ class ComunicacaoLoginTest extends Clube
             'data_inicio' => dataPassadaAleatorio(),
             'empresa'     => $empresa,
         ];
-    }
-
-    public function listarBannersTest()
-    {
-        $this->api('comunicacao_login:listar');
-        $this
-            ->Curl
-            ->json(['pagina' => 1])
-            ->get('/comunicacao-login');
-
-        return $this
-            ->checkStatus(200)
-            ->checkIndiceExiste('dado')
-            ->checkIndiceExiste('dado.lista');
-    }
-
-    public function salvarBannerTest()
-    {
-        $this->api('comunicacao_login:salvar');
-        $dado = $this
-            ->Curl
-            ->body($this->pegarBody())
-            ->post('/comunicacao-login')
-            ->array();
-
-        $this->id = $dado['dado']['id'] ?? 'sem-id';
-
-        return $this
-            ->checkStatus(201)
-            ->checkIndiceExiste('dado')
-            ->checkIndiceExiste('dado.id');
-    }
-
-    public function buscarEmpresaComBannerTest()
-    {
-        $this->api('comunicacao_login:buscar');
-        $this
-            ->Curl
-            ->get('/comunicacao-login/' . $this->id);
-
-        return $this
-            ->checkStatus(200)
-            ->checkIndiceExiste('dado')
-            ->checkIndiceExiste('dado.id')
-            ->checkIndiceIgual('dado.id', $this->id);
     }
 
     public function naoPodelSalvarDoisBannersMesmaEmpresaTest()
@@ -130,7 +88,7 @@ class ComunicacaoLoginTest extends Clube
         $this
             ->Curl
             ->body($this->pegarBody(empresa: ['9954c5edcc9a7b72fed65715f326df81', '14afa776394ada4be23be6acf7e3259f']))
-            ->put('/comunicacao-login/' . $this->id);
+            ->put('/comunicacao-login/' . $this->idUltimo);
 
         return $this
             ->checkStatus(204);
@@ -142,7 +100,7 @@ class ComunicacaoLoginTest extends Clube
         $this
             ->Curl
             ->body($this->pegarBody())
-            ->put('/comunicacao-login/' . $this->id);
+            ->put('/comunicacao-login/' . $this->idUltimo);
 
         return $this
             ->checkStatus(204);
@@ -154,37 +112,10 @@ class ComunicacaoLoginTest extends Clube
         $this
             ->Curl
             ->body($this->pegarBody(empresa: ['empresa_invalida']))
-            ->put('/comunicacao-login/' . $this->id);
+            ->put('/comunicacao-login/' . $this->idUltimo);
 
         return $this
             ->checkStatus(400)
             ->checkIndiceIgual('status', 'erro');
-    }
-
-    public function deletarBannerTest()
-    {
-        $this->api('comunicacao_login:deletar');
-        $this
-            ->Curl
-            ->delete('/comunicacao-login/' . $this->id);
-
-        return $this
-            ->checkStatus(204);
-    }
-
-    public function validarSeApagouTest()
-    {
-        $this->api('comunicacao_login:buscar');
-        $this
-            ->Curl
-            ->get('/comunicacao-login/' . $this->id);
-
-        return $this
-            ->checkStatus(404)
-            ->checkIndiceIgual('status', 'erro')
-            ->checkIndiceExiste('erro')
-            ->checkIndiceExiste('erro.titulo')
-            ->checkIndiceIgual('erro.titulo', 'Página não existe!')
-            ->checkIndiceIgual('erro.mensagem', 'Essa página ou recurso não existe ou foi movida para outra URL.');
     }
 }

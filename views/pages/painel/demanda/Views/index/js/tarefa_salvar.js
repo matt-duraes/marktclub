@@ -13,6 +13,7 @@ botaoSalvarTarefa.addEventListener('click', async () => {
     const titulo = inputTarefaTitulo.value;
     const texto = inputTarefaTexto.value;
     const tipo = inputTarefaTipo.value;
+    const tarefa_tipo = pegarTiposTarefa(id ? id : '', tipo);
 
     if (titulo == '') {
         inputTarefaTitulo.focus();
@@ -26,10 +27,9 @@ botaoSalvarTarefa.addEventListener('click', async () => {
         return;
     }
 
-    const body = { titulo, texto, tipo };
-    if (id == '') {
-        body.demanda = idDemanda;
-    }
+    const body = { titulo, texto, tipo, tarefa_tipo };
+    body.demanda = idDemanda;
+
     Loading.show();
     const resposta = await ajaxPost(LINK + uri, body, 'Erro ao salvar tarefa, por favor, tente novamente.');
     Loading.hide();

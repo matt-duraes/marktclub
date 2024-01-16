@@ -637,8 +637,8 @@ final class AppController extends PadraoController
 
         $Api = new ApiHelper(token: true);
         $dado = $Api->body([
-            'id'     => $id,
-            'pagina' => $pagina
+            'id'         => $id,
+            'pagina'     => $pagina
         ])->put($config->api->uri . '/ordenar');
 
         $dado = $this->validarRetornoApi($dado);

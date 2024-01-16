@@ -86,7 +86,7 @@ final class LoginPainelTest extends Tests
     | PRIVADOS
     |--------------------------------------------------------------------------
     */
-    private function pegarBody(string $login, string $senha)
+    protected function pegarBody(string $login = '', string $senha = '')
     {
         return [
             'login'        => $this->cryptEncode($login),
