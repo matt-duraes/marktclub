@@ -50,7 +50,7 @@ $Painel->coluna(callback: function () use ($Painel) {
         ->status(
             campo: 'status',
             texto: 'Concluir',
-            inArray: ['Andamento'],
+            inArray: ['Em andamento'],
             status: Status::CONCLUIDO,
             mensagem: 'Tem certeza que deseja alterar o status para Concluído?',
             cor: 'verde'
@@ -60,7 +60,7 @@ $Painel->coluna(callback: function () use ($Painel) {
         ->status(
             campo: 'status',
             texto: 'Cancelar',
-            inArray: ['Andamento'],
+            inArray: ['Em andamento'],
             status: Status::CANCELADO,
             mensagem: 'Tem certeza que deseja alterar o status para Cancelado?',
             cor: 'vermelho'

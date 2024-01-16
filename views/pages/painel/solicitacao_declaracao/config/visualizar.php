@@ -47,7 +47,7 @@ $Painel->coluna(callback: function () use ($Painel) {
         ->status(
             campo: 'status',
             texto: 'Enviar p/ usuário',
-            inArray: ['Novo', 'Enviado p/ Empresa', 'Enviado p/ Usuário'],
+            inArray: ['Novo', 'Enviado p/ Empresa'],
             status: Status::ENVIADO_USUARIO,
             mensagem: 'Tem certeza que deseja enviar para o usuário?',
             cor: 'verde'
@@ -57,7 +57,7 @@ $Painel->coluna(callback: function () use ($Painel) {
         ->status(
             campo: 'status',
             texto: 'Enviar p/ empresa',
-            inArray: ['Novo', 'Enviado p/ Empresa', 'Enviado p/ Usuário'],
+            inArray: ['Novo', 'Enviado p/ Usuário'],
             status: Status::ENVIADO_EMPRESA,
             mensagem: 'Tem certeza que deseja enviar para a empresa?',
             cor: 'verde'
@@ -67,7 +67,7 @@ $Painel->coluna(callback: function () use ($Painel) {
         ->status(
             campo: 'status',
             texto: 'Declaração com problema',
-            inArray: ['Novo', 'Enviado p/ Empresa', 'Enviado p/ Usuário'],
+            inArray: ['Enviado p/ Empresa', 'Enviado p/ Usuário'],
             status: Status::PROBLEMA,
             mensagem: 'Tem certeza que deseja finalizar essa solicitação?',
             cor: 'vermelho'
@@ -77,7 +77,7 @@ $Painel->coluna(callback: function () use ($Painel) {
         ->status(
             campo: 'status',
             texto: 'Finalizar solicitação',
-            inArray: ['Novo', 'Enviado p/ Empresa', 'Enviado p/ Usuário', 'Problema'],
+            inArray: ['Enviado p/ Empresa', 'Enviado p/ Usuário', 'Problema'],
             status: Status::FINALIZADO,
             mensagem: 'Tem certeza que deseja fechar essa solicitação?',
             cor: 'verde'
