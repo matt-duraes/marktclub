@@ -51,5 +51,11 @@ return [
         'nome'      => 'Banners',
         'diretorio' => 'banners',
         'extensao'  => ['png', 'jpg', 'jpeg', 'gif']
-    ]
+    ],
+    [
+        'uuid'      => '93bb55cb-56fb-4d42-af81-c8100b229348',
+        'nome'      => 'Site Config',
+        'diretorio' => 'site_config',
+        'extensao'  => ['png']
+    ],
 ];

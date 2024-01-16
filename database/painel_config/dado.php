@@ -201,6 +201,14 @@ return [
                 'titulo' => 'Comercial Regra de Negócio',
                 'acao'   => ['index', 'add', 'visualizar', 'editar', 'deletar']
             ],
+            'site_menu'          => [
+                'titulo' => 'Site - Menu',
+                'acao'   => ['index', 'add', 'editar', 'deletar', 'empresa']
+            ],
+            'site_config'        => [
+                'titulo' => 'Site - Config',
+                'acao'   => ['index', 'add', 'editar', 'deletar', 'empresa']
+            ],
             'carteirinha'              => [
                 'titulo'    => 'Carteirinha',
                 'acao'      => ['index', 'add', 'editar', 'deletar', 'status', 'empresa'],
@@ -259,8 +267,9 @@ return [
             'usuario_cliente' => ['cpf', 'email', 'status']
         ],
         'upload_grupo'      => [
-            'imagem'  => 'e53ae4e0-7b33-4988-99ad-50433a29b544',
-            'arquivo' => '2d978fba-4bd2-4af7-80bf-ebb94d9ac991'
+            'imagem'      => 'e53ae4e0-7b33-4988-99ad-50433a29b544',
+            'arquivo'     => '2d978fba-4bd2-4af7-80bf-ebb94d9ac991',
+            'site_config' => '93bb55cb-56fb-4d42-af81-c8100b229348'
         ]
     ],
     [
