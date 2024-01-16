@@ -2,16 +2,16 @@
 
 namespace Tests\Api;
 
+use Tests\Token\Clube;
 use App\Classes\ComercialPopup\Status;
 use App\Classes\UsuarioCliente\TipoUsuario;
-use Tests\Token\Clube;
 
 class ComercialPopupTest extends Clube
 {
     private array $idEmpresa = ['14afa776394ada4be23be6acf7e3259e'];
     protected string $scope = 'comercial_popup';
     protected string $uri = '/comercial-popup';
-    public string $automatico = 'crud';
+    public string $automatico = 'lbsad';
 
     public function __construct()
     {

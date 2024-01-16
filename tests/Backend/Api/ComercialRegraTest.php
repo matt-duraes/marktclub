@@ -8,7 +8,7 @@ class ComercialRegraTest extends Tests
 {
     protected string $scope = 'comercial_regra';
     protected string $uri = '/comercial-regra';
-    public string $automatico = 'crd';
+    public string $automatico = 'lbsd';
 
     public function naoPodeSalvarComEmpresaInvalidaTest(): ComercialRegraTest
     {

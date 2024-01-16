@@ -2,14 +2,14 @@
 
 namespace Tests\Api;
 
-use App\Classes\Carteirinha\Status;
 use Tests\Tests;
+use App\Classes\Carteirinha\Status;
 
 class CarterinhaTest extends Tests
 {
     protected string $scope = 'carteirinha';
     protected string $uri = '/carteirinha';
-    public string $automatico = 'crud';
+    public string $automatico = 'lbsad';
     public string $mensagemErroDeletar = 'Modelo de carteirinha não encontrado ou inexistente';
 
     public function __construct()

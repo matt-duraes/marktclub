@@ -2,18 +2,18 @@
 
 namespace Tests\Api;
 
-use App\Classes\Geral\Status;
-use App\Classes\PublicacaoNoticia\Local;
-use App\Classes\PublicacaoNoticia\Tipo;
-use Modules\Botao;
 use Tests\Tests;
+use Modules\Botao;
+use App\Classes\Geral\Status;
+use App\Classes\PublicacaoNoticia\Tipo;
+use App\Classes\PublicacaoNoticia\Local;
 
 class PublicacaoNoticiaTest extends Tests
 {
     private array $idsNotocia;
     protected string $scope = 'publicacao_noticia';
     protected string $uri = '/publicacao-noticia';
-    public string $automatico = 'crud';
+    public string $automatico = 'lbsad';
     public bool $automaticoPainel = true;
 
     public function naoPodeSalvarNoticiaSemTituloTest(): PublicacaoNoticiaTest
