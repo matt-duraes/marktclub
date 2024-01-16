@@ -126,7 +126,10 @@ class LojaModel extends ORM implements ModelListarInterface
             ['empresa', 'LIKE', '%"' . $this->idEmpresa . '"%']
         ];
 
-        $where[] = $this->pegarWhereTipo();
+        $tipo = $this->pegarWhereTipo();
+        if (!empty($tipo)) {
+            $where[] = $tipo;
+        }
 
         $categoria = new Categoria($this->request->categoria);
         if ($categoria->valido()) {
@@ -181,8 +184,8 @@ class LojaModel extends ORM implements ModelListarInterface
     private function pegarWhereTipo()
     {
         $tipo = new Tipo($this->request->tipo);
-        if (!$tipo->valido()) {
-            return mensagemErro('Erro!', 'O campo tipo não é um valor válido.');
+        if ($tipo->vazio()) {
+            return;
         }
 
         if ($tipo->indice() == 'loja') {
