@@ -9,7 +9,7 @@ final class UsuarioGrupoTest extends Tests
     protected string $idUltimo;
     protected string $uri = '/usuario-grupo';
     protected string $scope = 'usuario_grupo';
-    public string $automatico = 'cru';
+    public string $automatico = 'lbsa';
 
     public function listarGrupoPorStatusAtivoTest()
     {

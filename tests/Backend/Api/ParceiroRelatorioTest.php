@@ -8,7 +8,7 @@ class ParceiroRelatorioTest extends Tests
 {
     protected string $scope = 'parceiro_relatorio';
     protected string $uri = '/parceiro-relatorio';
-    public string $automatico = 'crud';
+    public string $automatico = 'lbsad';
 
     public function __destruct()
     {
