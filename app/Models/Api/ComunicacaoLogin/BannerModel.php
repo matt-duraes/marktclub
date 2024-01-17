@@ -11,6 +11,7 @@ use Helpers\OrmHelper;
 use Modules\Quantidade;
 use App\Classes\Geral\Status;
 use App\Classes\Geral\Publicado;
+use App\Models\Api\Trait\ValidarEmpresaTrait;
 use System\Trait\Model\OrdemTrait;
 use System\Trait\Model\PaginaTrait;
 use System\Trait\Model\QuantidadeTrait;
@@ -22,6 +23,7 @@ class BannerModel extends ORM implements
     use PaginaTrait;
     use QuantidadeTrait;
     use OrdemTrait;
+    use ValidarEmpresaTrait;
 
     protected string $ormTabela = TABELA_COMUNICACAO_LOGIN;
 
@@ -36,6 +38,7 @@ class BannerModel extends ORM implements
         private readonly null|string $titulo = null,
     ) {
         parent::__construct();
+        $this->validarEmpresa();
     }
 
     public function listarDados(): stdClass

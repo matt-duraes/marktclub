@@ -86,7 +86,6 @@ class DeclaracaoModel extends ORM implements
             ->pagina($this->pegarPagina(), $this->pegarQuantidade())
             ->order($this->pegarOrdem(new Ordem()))
             ->tabela(TABELA_COMERCIAL_EMPRESA)
-            ->where($this->pegarWhereEmpresa(), false)
             ->join('id', 'id_admin_empresa')
             ->campo([
                 'nome_fantasia'
@@ -97,7 +96,6 @@ class DeclaracaoModel extends ORM implements
                 'nome'
             ], 'usuario')
             ->tabela(TABELA_PARCEIRO_LOJA)
-            ->where($this->pegarWhereParceiro(), false)
             ->join('id', 'id_parceiro_loja')
             ->campo([
                 'titulo'
@@ -115,13 +113,10 @@ class DeclaracaoModel extends ORM implements
     {
         $where = $this->ormWherePadrao;
 
-        if ($this->dataInicio->valido() && $this->dataFinal->valido()) {
-            $where[] = [
-                'data_criacao', 'between', [$this->dataInicio->date(), $this->dataFinal->date() . ' 23:59:59']
-            ];
-        } elseif ($this->dataInicio->valido()) {
+        if ($this->dataInicio->valido()) {
             $where[] = ['data_criacao', '>=', $this->dataInicio->date()];
-        } elseif ($this->dataFinal->valido()) {
+        }
+        if ($this->dataFinal->valido()) {
             $where[] = ['data_criacao', '<=', $this->dataFinal->date() . ' 23:59:59'];
         }
 
@@ -132,35 +127,6 @@ class DeclaracaoModel extends ORM implements
         return $where;
     }
 
-    /**
-     * @return array
-     */
-    protected function pegarWhereEmpresa(): array
-    {
-        $where = [];
-        if (!empty($this->empresa)) {
-            $where[] = ['cod', $this->empresa];
-        }
-        return $where;
-    }
-
-    /**
-     * @return array
-     */
-    protected function pegarWhereParceiro(): array
-    {
-        $where = [];
-        if (!empty($this->titulo)) {
-            $where[] = ['titulo', 'LIKE', '%' . $this->titulo . '%'];
-        }
-        return $where;
-    }
-
-    /**
-     * @param array $declaracoes
-     *
-     * @return array
-     */
     protected function montarRetorno(array $declaracoes): array
     {
         if (empty($declaracoes)) {

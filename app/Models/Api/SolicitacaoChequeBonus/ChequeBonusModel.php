@@ -4,7 +4,6 @@ namespace App\Models\Api\SolicitacaoChequeBonus;
 
 use ORM\ORM;
 use stdClass;
-use Erro\Excecao;
 use Modules\Data;
 use Modules\Pagina;
 use Modules\Quantidade;
@@ -27,19 +26,6 @@ final class ChequeBonusModel extends ORM implements
 
     protected string $ormTabela = TABELA_SOLICITACAO_CHEQUE_BONUS;
 
-    /**
-     * @param Pagina      $pagina
-     * @param Quantidade  $quantidade
-     * @param Ordem       $ordem
-     * @param string|null $nome
-     * @param string|null $empresa
-     * @param TipoUsuario $tipoUsuario
-     * @param Data        $dataInicio
-     * @param Data        $dataFinal
-     * @param Status      $status
-     *
-     * @throws Excecao
-     */
     public function __construct(
         private readonly Pagina $pagina = new Pagina(),
         private readonly Quantidade $quantidade = new Quantidade(),
@@ -56,9 +42,6 @@ final class ChequeBonusModel extends ORM implements
         parent::__construct();
     }
 
-    /**
-     * @throws Excecao
-     */
     private function validarDados(): void
     {
         if (!$this->dataInicio->vazio() && !$this->dataInicio->eDate()) {
@@ -78,10 +61,6 @@ final class ChequeBonusModel extends ORM implements
         }
     }
 
-    /**
-     * @return stdClass
-     * @throws Excecao
-     */
     public function listarDados(): stdClass
     {
         $dado = $this
@@ -93,7 +72,6 @@ final class ChequeBonusModel extends ORM implements
             ->pagina($this->pegarPagina(), $this->pegarQuantidade())
             ->order($this->pegarOrdem(new Ordem()))
             ->tabela(TABELA_COMERCIAL_EMPRESA)
-            ->where($this->pegarWhereEmpresa(), false)
             ->join('id', 'id_admin_empresa')
             ->campo([
                 'nome_fantasia'
@@ -122,41 +100,18 @@ final class ChequeBonusModel extends ORM implements
         if ($this->tipoUsuario->valido()) {
             $where[] = ['tipo_usuario', $this->tipoUsuario->numero()];
         }
-
-        if ($this->dataInicio->valido() && $this->dataFinal->valido()) {
-            $where[] = [
-                'data_criacao', 'between', [$this->dataInicio->date(), $this->dataFinal->date() . ' 23:59:59']
-            ];
-        } elseif ($this->dataInicio->valido()) {
+        if ($this->dataInicio->valido()) {
             $where[] = ['data_criacao', '>=', $this->dataInicio->date()];
-        } elseif ($this->dataFinal->valido()) {
+        }
+        if ($this->dataFinal->valido()) {
             $where[] = ['data_criacao', '<=', $this->dataFinal->date() . ' 23:59:59'];
         }
-
         if ($this->status->valido()) {
             $where[] = ['status', $this->status->numero()];
         }
-
         return $where;
     }
 
-    /**
-     * @return array
-     */
-    protected function pegarWhereEmpresa(): array
-    {
-        $where = [];
-        if (!empty($this->empresa)) {
-            $where[] = ['cod', $this->empresa];
-        }
-        return $where;
-    }
-
-    /**
-     * @param array $solicitacoes
-     *
-     * @return array
-     */
     private function montarRetorno(array $solicitacoes): array
     {
         if (empty($solicitacoes)) {
