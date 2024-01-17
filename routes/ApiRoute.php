@@ -2094,7 +2094,7 @@ Route
             ::nome('listar')
             ::middleware(TokenMiddleware::class, 'scope', ['enquete_satisfacao:listar'])
             ::request([
-                'pagina', '!quantidade', '!ordem', '!status'
+                'pagina', '!quantidade', '!ordem', '!status', '!empresa'
             ], 'json')
             ::get('/enquete-satisfacao');
 

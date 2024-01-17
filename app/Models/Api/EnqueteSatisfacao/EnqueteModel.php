@@ -101,6 +101,9 @@ class EnqueteModel extends ORM implements
         if ($this->status->valido()) {
             $where[] = ['status', $this->status->numero()];
         }
+        if (!empty($this->empresa)) {
+            $where[] = ['id_admin_empresa', $this->empresa];
+        }
         return $where;
     }
 
