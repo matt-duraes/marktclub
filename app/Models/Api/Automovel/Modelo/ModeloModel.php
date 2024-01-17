@@ -139,7 +139,7 @@ final class ModeloModel extends ORM implements
             $where[] = ['titulo', 'LIKE', "%$this->pesquisa%"];
         }
 
-        if ($this->status->valido() && !$this->publicado->valido()) {
+        if ($this->status->valido()) {
             $where[] = ['status', $this->status->numero()];
         }
 

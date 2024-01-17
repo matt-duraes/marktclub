@@ -219,8 +219,8 @@ return [
             'log_erro'                 => [
                 'titulo' => 'Log de erro', 'acao' => ['index', 'visualizar', 'status']
             ],
-            'painel_permissoes'        => [
-                'titulo' => 'Permissões',
+            'painel_config'            => [
+                'titulo' => 'Configurações',
                 'acao'   => ['index', 'add', 'editar', 'deletar']
             ]
         ],

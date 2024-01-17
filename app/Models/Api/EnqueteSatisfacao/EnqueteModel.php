@@ -8,6 +8,7 @@ use App\Classes\EnqueteSatisfacao\Ordem;
 use App\Classes\EnqueteSatisfacao\Procura;
 use App\Classes\EnqueteSatisfacao\Status;
 use App\Classes\EnqueteSatisfacao\Suporte;
+use App\Models\Api\Trait\ValidarEmpresaTrait;
 use Erro\Excecao;
 use Modules\Pagina;
 use Modules\Quantidade;
@@ -21,6 +22,7 @@ use System\Trait\Model\QuantidadeTrait;
 class EnqueteModel extends ORM implements
     ModelListarInterface
 {
+    use ValidarEmpresaTrait;
     use PaginaTrait;
     use QuantidadeTrait;
     use OrdemTrait;
@@ -44,6 +46,7 @@ class EnqueteModel extends ORM implements
         private readonly Status $status = new Status()
     ) {
         $this->validarDados();
+        $this->validarEmpresa();
         parent::__construct();
     }
 

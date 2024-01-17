@@ -894,20 +894,20 @@ Route
     ::grupo(function () {
         Route
             ::nome('buscar')
-            ::middleware(TokenMiddleware::class, 'scope', ['painel:buscar'])
+            ::middleware(TokenMiddleware::class, 'scope', ['painel_config:buscar'])
             ::get('/painel-configuracao/{id}');
 
         Route
             ::nome('listar')
-            ::middleware(TokenMiddleware::class, 'scope', ['painel:listar'])
+            ::middleware(TokenMiddleware::class, 'scope', ['painel_config:listar'])
             ::request([
-                'pagina', '!quantidade', '!ordem'
+                'pagina', '!quantidade', '!ordem', '!empresa'
             ], 'json')
             ::get('/painel-configuracao');
 
         Route
             ::nome('salvar')
-            ::middleware(TokenMiddleware::class, 'scope', ['painel:salvar'])
+            ::middleware(TokenMiddleware::class, 'scope', ['painel_config:salvar'])
             ::request([
                 'empresa', 'configuracao', 'campo_obrigatorio', 'permissao', 'titulo'
             ])
@@ -915,7 +915,7 @@ Route
 
         Route
             ::nome('atualizar')
-            ::middleware(TokenMiddleware::class, 'scope', ['painel:atualizar'])
+            ::middleware(TokenMiddleware::class, 'scope', ['painel_config:atualizar'])
             ::request([
                 '!empresa', '!configuracao', '!campo_obrigatorio', '!permissao', '!titulo'
             ])
@@ -923,7 +923,7 @@ Route
 
         Route
             ::nome('deletar')
-            ::middleware(TokenMiddleware::class, 'scope', ['painel:deletar'])
+            ::middleware(TokenMiddleware::class, 'scope', ['painel_config:deletar'])
             ::delete('/painel-configuracao/{id}');
 
         Route
@@ -1819,8 +1819,8 @@ Route
             ::nome('salvar')
             ::middleware(TokenMiddleware::class, 'scope', ['carteirinha:salvar'])
             ::request([
-                'empresa', 'bg_frente', 'bg_fundo', 'titulo', 'nome', 'cpf', 'matricula', 'data_nascimento', 'status',
-                'estado'
+                'empresa', 'bg_frente', 'titulo', 'nome', 'cpf', 'matricula',
+                'data_nascimento', 'status', 'estado'
             ])
             ::post('/carteirinha');
 
@@ -2094,7 +2094,7 @@ Route
             ::nome('listar')
             ::middleware(TokenMiddleware::class, 'scope', ['enquete_satisfacao:listar'])
             ::request([
-                'pagina', '!quantidade', '!ordem', '!status'
+                'pagina', '!quantidade', '!ordem', '!empresa', '!status'
             ], 'json')
             ::get('/enquete-satisfacao');
 
@@ -2427,6 +2427,7 @@ Route
             ::middleware(TokenMiddleware::class, 'scope', ['comunicacao_login:deletar'])
             ::delete('/comunicacao-login/{id}');
     });
+
 Route
     ::nome('site_config')
     ::controller(App\Controllers\Api\SiteConfigController::class)
@@ -2468,6 +2469,7 @@ Route
             ::middleware(TokenMiddleware::class, 'scope', ['site_config:deletar'])
             ::delete('/site-config/{id}');
     });
+
 Route
     ::nome('site_menu')
     ::controller(App\Controllers\Api\SiteMenuController::class)
