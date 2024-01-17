@@ -9,7 +9,6 @@ use App\Classes\EnqueteSatisfacao\Procura;
 use App\Classes\EnqueteSatisfacao\Status;
 use App\Classes\EnqueteSatisfacao\Suporte;
 use App\Models\Api\Trait\ValidarEmpresaTrait;
-use Erro\Excecao;
 use Helpers\OrmHelper;
 use Modules\Data;
 use Modules\Pagina;
@@ -24,22 +23,13 @@ use System\Trait\Model\QuantidadeTrait;
 class EnqueteModel extends ORM implements
     ModelListarInterface
 {
-    use ValidarEmpresaTrait;
     use PaginaTrait;
     use QuantidadeTrait;
     use OrdemTrait;
+    use ValidarEmpresaTrait;
 
     protected string $ormTabela = TABELA_ENQUETE_SATISFACAO;
 
-    /**
-     * @param Pagina      $pagina
-     * @param Quantidade  $quantidade
-     * @param Ordem       $ordem
-     * @param string|null $empresa
-     * @param Status      $status
-     *
-     * @throws Excecao
-     */
     public function __construct(
         private readonly Pagina $pagina = new Pagina(),
         private readonly Quantidade $quantidade = new Quantidade(),
@@ -54,9 +44,6 @@ class EnqueteModel extends ORM implements
         parent::__construct();
     }
 
-    /**
-     * @throws Excecao
-     */
     private function validarDados(): void
     {
         if (!$this->ordem->vazio() && !$this->ordem->valido()) {
@@ -67,10 +54,6 @@ class EnqueteModel extends ORM implements
         }
     }
 
-    /**
-     * @return stdClass
-     * @throws Excecao
-     */
     public function listarDados(): stdClass
     {
         $dado = $this
@@ -83,7 +66,6 @@ class EnqueteModel extends ORM implements
             ->pagina($this->pegarPagina(), $this->pegarQuantidade())
             ->order($this->pegarOrdem(new Ordem()))
             ->tabela(TABELA_COMERCIAL_EMPRESA)
-            ->where($this->pegarWhereEmpresa(), false)
             ->join('id', 'id_admin_empresa')
             ->campo([
                 'nome_fantasia'
@@ -99,9 +81,6 @@ class EnqueteModel extends ORM implements
         return $dado;
     }
 
-    /**
-     * @return array
-     */
     protected function pegarWhere(): array
     {
         $where = $this->ormWherePadrao;
@@ -121,23 +100,6 @@ class EnqueteModel extends ORM implements
         return $where;
     }
 
-    /**
-     * @return array
-     */
-    protected function pegarWhereEmpresa(): array
-    {
-        $where = [];
-        if (!empty($this->empresa)) {
-            $where[] = ['cod', $this->empresa];
-        }
-        return $where;
-    }
-
-    /**
-     * @param array $respostas
-     *
-     * @return array
-     */
     protected function montarRetorno(array $respostas): array
     {
         if (empty($respostas)) {
