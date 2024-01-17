@@ -9,6 +9,7 @@ use App\Classes\EnqueteSatisfacao\Procura;
 use App\Classes\EnqueteSatisfacao\Status;
 use App\Classes\EnqueteSatisfacao\Suporte;
 use Erro\Excecao;
+use Helpers\OrmHelper;
 use Modules\Data;
 use Modules\Pagina;
 use Modules\Quantidade;
@@ -105,7 +106,8 @@ class EnqueteModel extends ORM implements
             $where[] = ['status', $this->status->numero()];
         }
         if (!empty($this->empresa)) {
-            $where[] = ['id_admin_empresa', $this->empresa];
+            $empresa = (new OrmHelper(TABELA_COMERCIAL_EMPRESA))->pegarIdPeloUuid($this->empresa);
+            $where[] = ['id_admin_empresa', $empresa];
         }
         if ($this->dataInicio->valido()) {
             $where[] = ['data_criacao', '>=', $this->dataInicio->banco() . ' 00:00:00'];
