@@ -87,7 +87,7 @@ if ($requestUri == '__endereco-cep' && $_SERVER['REQUEST_METHOD'] ?? '' == 'POST
 } elseif ($requestUri == '__tests' && SISTEMA == 'LOCALHOST') {
     require_once __DIR__ . '/../src/Html/Tests/index.php';
     exit();
-} elseif ($requestUri == '__documentacao' && SISTEMA == 'LOCALHOST') {
+} elseif ($requestUri == '__documentacao' && SISTEMA != 'PRODUCAO') {
     require_once __DIR__ . '/../src/Html/Documentacao/index.php';
     exit();
 } elseif ($requestUri == '__enviar-email-sistema' && METODO == 'POST') {
