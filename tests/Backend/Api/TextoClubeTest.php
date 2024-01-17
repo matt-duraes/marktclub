@@ -8,7 +8,7 @@ class TextoClubeTest extends Clube
 {
     protected string $scope = 'texto_clube';
     protected string $uri = '/texto-clube';
-    public string $automatico = 'crud';
+    public string $automatico = 'lbsad';
 
     protected function pegarBody()
     {

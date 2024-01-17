@@ -2,16 +2,16 @@
 
 namespace Tests\Api;
 
+use Tests\Tests;
 use App\Classes\Geral\Status;
 use App\Classes\ParceiroCashback\Categoria;
-use Tests\Tests;
 
 class ParceiroCashbackTest extends Tests
 {
     protected string $idUltimo;
     protected string $scope = 'parceiro_cashback';
     protected string $uri = '/parceiro-cashback';
-    public string $automatico = 'crud';
+    public string $automatico = 'lbsad';
 
     public function atualizarApenasOStatusTest(): ParceiroCashbackTest
     {

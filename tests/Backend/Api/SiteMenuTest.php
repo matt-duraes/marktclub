@@ -10,8 +10,8 @@ use App\Classes\SiteMenu\Tipo;
 class SiteMenuTest extends Tests
 {
     protected string $scope = 'site_menu';
-    protected string $uri = '/site-menu';
-    public string $automatico = 'crud';
+    protected string $uri = '/uri';
+    public string $automatico = 'lbsad';
 
     public function __construct()
     {

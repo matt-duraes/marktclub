@@ -2,14 +2,14 @@
 
 namespace Tests\Api;
 
-use App\Classes\Geral\Status;
 use Tests\Tests;
+use App\Classes\Geral\Status;
 
 class PublicacaoDiretoriaTest extends Tests
 {
     protected string $scope = 'publicacao_diretoria';
     protected string $uri = '/publicacao-diretoria';
-    public string $automatico = 'crud';
+    public string $automatico = 'lbsad';
 
     public function naoPodeSalvarComStatusInvalidoTest(): PublicacaoDiretoriaTest
     {

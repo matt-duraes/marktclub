@@ -9,6 +9,7 @@ use Helpers\OrmHelper;
 
 trait ValidarEmpresaTrait
 {
+    protected bool $empresaValidada = false;
     private string $nomeCampoEmpresa;
     private bool $campoEmpresaJson = false;
     private ?int $whereEmpresa = null;
@@ -23,6 +24,7 @@ trait ValidarEmpresaTrait
      */
     public function setarIdEmpresaManual(int $id): void
     {
+        $this->empresaValidada = true;
         if (!$this->verificarSePodeMudarEmpresa()) {
             return;
         }
@@ -59,8 +61,9 @@ trait ValidarEmpresaTrait
      *
      * @throws Excecao
      */
-    public function validarEmpresa(string $campoEmpresa = 'id_admin_empresa', bool $json = false): void
+    protected function validarEmpresa(string $campoEmpresa = 'id_admin_empresa', bool $json = false): void
     {
+        $this->empresaValidada = true;
         $this->campoEmpresaJson = $json;
         $this->setarIdEmpresa();
         $this->setarIdUsuario();
@@ -184,7 +187,7 @@ trait ValidarEmpresaTrait
      */
     private function setarWherePadrao(array $where = []): void
     {
-        if (!empty($whereEmpresa)) {
+        if (!empty($this->whereEmpresa)) {
             $this->idEmpresa = $this->whereEmpresa;
         }
         $wherePadrao = [[$this->nomeCampoEmpresa, $this->whereEmpresa]];
