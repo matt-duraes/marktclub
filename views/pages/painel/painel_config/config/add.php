@@ -3,18 +3,18 @@
 use App\Helpers\Painel\ConfiguracoesPadrao;
 use Helpers\ApiHelper;
 
-$Painel = new PainelConfig\Add('painel_permissoes', $acao);
+$Painel = new PainelConfig\Add('painel_config', $acao);
 
-$Painel->coluna(callback: function () use ($Painel) {
-    $empresas = (new ApiHelper(token: true))
-        ->json(['titulo' => 'Escolha uma empresa'])
-        ->get('/comercial-empresa/select')
-        ->array();
+$empresas = (new ApiHelper(token: true))
+    ->json(['titulo' => 'Escolha uma empresa'])
+    ->get('/comercial-empresa/select')
+    ->array()['dado'] ?? [];
 
+$Painel->coluna(callback: function () use ($Painel, $empresas) {
     $Painel
         ->select(
             name: 'empresa',
-            lista: $empresas['dado'] ?? [],
+            lista: $empresas,
             label: 'Escolha uma empresa',
             permissao: \App\Classes\UsuarioCliente\Helper::PERMISSAO_EMPRESA
         );

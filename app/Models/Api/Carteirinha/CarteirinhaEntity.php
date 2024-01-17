@@ -16,7 +16,6 @@ class CarteirinhaEntity extends Entity
 
     public string $titulo;
     public string $bg_frente;
-    public string $bg_fundo;
     public Botao $nome;
     public Botao $cpf;
     public Botao $matricula;
@@ -27,11 +26,11 @@ class CarteirinhaEntity extends Entity
     public Data $data_validade;
     protected string $ormTabela = TABELA_CARTEIRINHA;
     protected array $ormBuscar = [
-        'id_admin_empresa', 'bg_frente', 'bg_fundo', 'nome', 'cpf', 'matricula', 'data_nascimento',
+        'id_admin_empresa', 'bg_frente', 'nome', 'cpf', 'matricula', 'data_nascimento',
         'status', 'data_criacao', 'data_atualizacao', 'titulo', 'estado'
     ];
     protected array $ormSalvar = [
-        'id_admin_empresa', 'bg_frente', 'bg_fundo', 'nome', 'cpf', 'matricula', 'data_nascimento',
+        'id_admin_empresa', 'bg_frente', 'nome', 'cpf', 'matricula', 'data_nascimento',
         'status', 'titulo', 'estado'
     ];
     protected string $ormValidarSalvar = '

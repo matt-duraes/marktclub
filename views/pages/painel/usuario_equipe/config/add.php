@@ -67,7 +67,7 @@ if (sessao('EMPRESA.slug') != 'marktclub' || in_array('usuario_equipe_permissao'
             titulo: 'Permissões',
             callback: function () use ($Painel) {
                 $permissao = sessao('PAINEL.permissao.montar');
-                foreach ($permissao as $ind => $dado) {
+                foreach ($permissao as $dado) {
                     $titulo = $dado['titulo'] ?? '';
                     if (!empty($titulo)) {
                         $Painel->html('<h4>' . $titulo . '</h4>');

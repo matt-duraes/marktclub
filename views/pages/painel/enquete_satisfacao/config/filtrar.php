@@ -11,7 +11,7 @@ $Painel
         titulo: 'Empresa',
         label: 'Empresa',
         placeholder: 'Empresa',
-        permissao: \App\Classes\UsuarioCliente\Helper::PERMISSAO_EMPRESA
+        permissao: \App\Classes\EnqueteSatisfacao\Helper::PERMISSAO_EMPRESA
     )
     ->select(
         name: 'status',
@@ -20,5 +20,19 @@ $Painel
         label: 'Status',
         placeholder: 'Status'
     );
+
+$Painel->bloco(function () use ($Painel) {
+    $Painel
+        ->data(
+            name: 'data_inicio',
+            titulo: 'Criado em',
+            label: 'Criado em'
+        )
+        ->data(
+            name: 'data_fim',
+            titulo: 'Criado até',
+            label: 'Criado até'
+        );
+});
 
 return $Painel;

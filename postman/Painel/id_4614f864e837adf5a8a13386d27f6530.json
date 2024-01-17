@@ -1,0 +1,1 @@
+{"id":"id_4614f864e837adf5a8a13386d27f6530","token":"painel","metodo":"DELETE","nome":"\/painel-configuracao\/:id","uri":"{{LINK}}\/painel-configuracao\/$PAINEL_CONFIG_ID","parametro":[],"body":[],"header":[],"variavel":[],"json":[],"documentacao":{"status":false,"descricao":"","requisicao":"","resposta":"","scope":"painel_config:deletar"}}
