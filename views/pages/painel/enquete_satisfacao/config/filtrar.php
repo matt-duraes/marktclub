@@ -11,7 +11,7 @@ $Painel
         titulo: 'Empresa',
         label: 'Empresa',
         placeholder: 'Empresa',
-        permissao: \App\Classes\UsuarioCliente\Helper::PERMISSAO_EMPRESA
+        permissao: \App\Classes\EnqueteSatisfacao\Helper::PERMISSAO_EMPRESA
     )
     ->select(
         name: 'status',
