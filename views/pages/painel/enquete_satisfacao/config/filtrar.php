@@ -21,4 +21,18 @@ $Painel
         placeholder: 'Status'
     );
 
+$Painel->bloco(function () use ($Painel) {
+    $Painel
+        ->data(
+            name: 'data_inicio',
+            titulo: 'Criado em',
+            label: 'Criado em'
+        )
+        ->data(
+            name: 'data_fim',
+            titulo: 'Criado até',
+            label: 'Criado até'
+        );
+});
+
 return $Painel;

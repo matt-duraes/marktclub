@@ -9,6 +9,7 @@ use App\Classes\EnqueteSatisfacao\Procura;
 use App\Classes\EnqueteSatisfacao\Status;
 use App\Classes\EnqueteSatisfacao\Suporte;
 use Erro\Excecao;
+use Modules\Data;
 use Modules\Pagina;
 use Modules\Quantidade;
 use ORM\ORM;
@@ -41,7 +42,9 @@ class EnqueteModel extends ORM implements
         private readonly Quantidade $quantidade = new Quantidade(),
         private readonly Ordem $ordem = new Ordem(),
         private readonly ?string $empresa = null,
-        private readonly Status $status = new Status()
+        private readonly Status $status = new Status(),
+        private readonly Data $dataInicio = new Data(),
+        private readonly Data $dataFim = new Data(),
     ) {
         $this->validarDados();
         parent::__construct();
@@ -103,6 +106,12 @@ class EnqueteModel extends ORM implements
         }
         if (!empty($this->empresa)) {
             $where[] = ['id_admin_empresa', $this->empresa];
+        }
+        if ($this->dataInicio->valido()) {
+            $where[] = ['data_criacao', '>=', $this->dataInicio->banco() . ' 00:00:00'];
+        }
+        if ($this->dataFim->valido()) {
+            $where[] = ['data_criacao', '<=', $this->dataFim->banco() . ' 23:59:59'];
         }
         return $where;
     }
