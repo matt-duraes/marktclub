@@ -9,6 +9,8 @@ use App\Classes\EnqueteSatisfacao\Procura;
 use App\Classes\EnqueteSatisfacao\Status;
 use App\Classes\EnqueteSatisfacao\Suporte;
 use Erro\Excecao;
+use Helpers\OrmHelper;
+use Modules\Data;
 use Modules\Pagina;
 use Modules\Quantidade;
 use ORM\ORM;
@@ -41,7 +43,9 @@ class EnqueteModel extends ORM implements
         private readonly Quantidade $quantidade = new Quantidade(),
         private readonly Ordem $ordem = new Ordem(),
         private readonly ?string $empresa = null,
-        private readonly Status $status = new Status()
+        private readonly Status $status = new Status(),
+        private readonly Data $dataInicio = new Data(),
+        private readonly Data $dataFim = new Data(),
     ) {
         $this->validarDados();
         parent::__construct();
@@ -100,6 +104,16 @@ class EnqueteModel extends ORM implements
         $where = $this->ormWherePadrao;
         if ($this->status->valido()) {
             $where[] = ['status', $this->status->numero()];
+        }
+        if (!empty($this->empresa)) {
+            $empresa = (new OrmHelper(TABELA_COMERCIAL_EMPRESA))->pegarIdPeloUuid($this->empresa);
+            $where[] = ['id_admin_empresa', $empresa];
+        }
+        if ($this->dataInicio->valido()) {
+            $where[] = ['data_criacao', '>=', $this->dataInicio->banco() . ' 00:00:00'];
+        }
+        if ($this->dataFim->valido()) {
+            $where[] = ['data_criacao', '<=', $this->dataFim->banco() . ' 23:59:59'];
         }
         return $where;
     }
