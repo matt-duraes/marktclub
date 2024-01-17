@@ -2,15 +2,15 @@
 
 namespace Tests\Api;
 
-use App\Classes\ParceiroLoja\Categoria;
 use Tests\Tests;
+use App\Classes\ParceiroLoja\Categoria;
 
 class ParceiroLojaTest extends Tests
 {
     protected string $idUltimo;
     protected string $scope = 'parceiro_loja';
     protected string $uri = '/parceiro-loja';
-    public string $automatico = 'r';
+    public string $automatico = 'lb';
 
     public function selectLojaTest()
     {

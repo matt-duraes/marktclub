@@ -75,6 +75,14 @@ trait SetGetTrait
         foreach ($lista as $ind => $val) {
             $this->ormSetarSet($ind, $val, true);
         }
+        $this->ormValidarEmpresa();
+    }
+
+    private function ormValidarEmpresa()
+    {
+        if (method_exists($this, 'validarEmpresa') && !$this->empresaValidada) {
+            $this->validarEmpresa();
+        }
     }
 
     private function setarMetodoORM(string $propriedade = '', $valor = '', ?array $lista = null)
@@ -102,6 +110,7 @@ trait SetGetTrait
         foreach ($lista as $ind => $val) {
             $this->ormSetarSet($ind, $val);
         }
+        $this->ormValidarEmpresa();
     }
 
     private function ormVerificarSeEntityExiste()

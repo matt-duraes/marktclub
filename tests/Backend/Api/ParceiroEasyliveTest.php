@@ -11,7 +11,7 @@ class ParceiroEasyliveTest extends Tests
     private array $idParceiro;
     protected string $scope = 'parceiro_easylive';
     protected string $uri = '/parceiro-easylive';
-    public string $automatico = 'crud';
+    public string $automatico = 'lbsad';
 
     public function __construct()
     {

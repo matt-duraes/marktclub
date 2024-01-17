@@ -8,7 +8,7 @@ class PublicacaoPaginaTest extends Tests
 {
     protected string $scope = 'publicacao_pagina';
     protected string $uri = '/publicacao-pagina';
-    public string $automatico = 'ru';
+    public string $automatico = 'lba';
     public bool $automaticoPainel = true;
 
     protected function pegarBody(array $array = []): array

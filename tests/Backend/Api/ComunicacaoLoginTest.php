@@ -9,7 +9,7 @@ class ComunicacaoLoginTest extends Tests
     protected string $idUltimo;
     protected string $scope = 'comunicacao_login';
     protected string $uri = '/comunicacao-login';
-    public string $automatico = 'crud';
+    public string $automatico = 'lbsad';
 
     public function __construct()
     {

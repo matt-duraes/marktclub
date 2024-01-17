@@ -6,6 +6,7 @@ use ORM\Entity;
 use Modules\Email;
 use Modules\Telefone;
 use App\Classes\Geral\Status;
+use App\Classes\SiteConfig\Template;
 use App\Models\Api\Trait\ValidarEmpresaTrait;
 
 final class ConfigEntity extends Entity
@@ -47,7 +48,7 @@ final class ConfigEntity extends Entity
     public string $titulo_painel;
     public string $titulo;
     public string $descricao;
-    public string $template;
+    public Template $template;
     public Telefone $contato_telefone;
     public Telefone $contato_celular;
     public Telefone $contato_whatsapp;
