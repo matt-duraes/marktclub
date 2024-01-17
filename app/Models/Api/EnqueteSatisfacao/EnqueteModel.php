@@ -8,6 +8,7 @@ use App\Classes\EnqueteSatisfacao\Ordem;
 use App\Classes\EnqueteSatisfacao\Procura;
 use App\Classes\EnqueteSatisfacao\Status;
 use App\Classes\EnqueteSatisfacao\Suporte;
+use App\Models\Api\Trait\ValidarEmpresaTrait;
 use Erro\Excecao;
 use Helpers\OrmHelper;
 use Modules\Data;
@@ -23,6 +24,7 @@ use System\Trait\Model\QuantidadeTrait;
 class EnqueteModel extends ORM implements
     ModelListarInterface
 {
+    use ValidarEmpresaTrait;
     use PaginaTrait;
     use QuantidadeTrait;
     use OrdemTrait;
@@ -48,6 +50,7 @@ class EnqueteModel extends ORM implements
         private readonly Data $dataFim = new Data(),
     ) {
         $this->validarDados();
+        $this->validarEmpresa();
         parent::__construct();
     }
 

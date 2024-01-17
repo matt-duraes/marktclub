@@ -1,7 +1,7 @@
 <?php
 
 return [
-    'titulo'     => 'Permissões',
+    'titulo'     => 'Configurações',
     'buscar'     => false,
     'filtrar'    => true,
     'ordem'      => true,
@@ -10,9 +10,9 @@ return [
     'editar'     => true,
     'deletar'    => false,
     'download'   => false,
-    'historico'  => false,
+    'historico'  => true,
     'api'        => [
-        'scope' => 'painel',
+        'scope' => 'painel_config',
         'uri'   => '/painel-configuracao'
     ]
 ];

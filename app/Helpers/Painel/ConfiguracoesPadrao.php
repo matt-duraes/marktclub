@@ -413,12 +413,12 @@ final class ConfiguracoesPadrao
                 'log_erro_status'     => 'Status'
             ]
         ],
-        'painel_permissoes'        => [
-            'titulo'    => 'Permissões Painel',
+        'painel_config'            => [
+            'titulo'    => 'Painel Configurações',
             'permissao' => [
-                'painel_permissoes_index'  => 'Listar',
-                'painel_permissoes_add'    => 'Salvar',
-                'painel_permissoes_editar' => 'Editar'
+                'painel_config_index'  => 'Listar',
+                'painel_config_add'    => 'Salvar',
+                'painel_config_editar' => 'Editar'
             ]
         ]
     ];
