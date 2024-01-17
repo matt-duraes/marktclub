@@ -10,6 +10,7 @@ use Controller\Controller;
 use Erro\Excecao;
 use Http\Request;
 use Http\Response;
+use Modules\Data;
 use Modules\Pagina;
 use Modules\Quantidade;
 use System\Interface\ControllerAtualizarInterface;
@@ -83,7 +84,9 @@ final class EnqueteSatisfacaoController extends Controller implements
             new Quantidade($request->quantidade),
             new Ordem($request->ordem),
             $request->empresa,
-            new Status($request->status)
+            new Status($request->status),
+            new Data($request->data_inicio),
+            new Data($request->data_fim)
         );
         return mensagemSucesso($Enquete->listarDados());
     }

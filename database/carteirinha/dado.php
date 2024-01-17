@@ -6,7 +6,6 @@ return [
         'id_admin_empresa' => 1,
         'titulo'           => 'Titulo da carteirinha',
         'bg_frente'        => uuid(),
-        'bg_fundo'         => uuid(),
         'nome'             => 1,
         'cpf'              => 1,
         'status'           => 1

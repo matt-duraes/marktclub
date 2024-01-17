@@ -50,7 +50,7 @@ class CarteirinhaModel extends ORM implements
     {
         $dados = $this
             ->campo([
-                'uuid', 'bg_frente', 'bg_fundo', 'titulo', 'nome', 'cpf', 'matricula', 'data_nascimento',
+                'uuid', 'bg_frente', 'titulo', 'nome', 'cpf', 'matricula', 'data_nascimento',
                 'status', 'data_criacao', 'data_atualizacao', 'estado'
             ])
             ->where($this->pegarWhere(), false)
@@ -102,7 +102,6 @@ class CarteirinhaModel extends ORM implements
                 'titulo'           => $r->titulo,
                 'empresa'          => $r->empresa_uuid,
                 'bg_frente'        => arquivoPrivado($r->bg_frente),
-                'bg_fundo'         => arquivoPrivado($r->bg_fundo),
                 'nome'             => $this->pegarValorBotao($r->nome),
                 'cpf'              => $this->pegarValorBotao($r->cpf),
                 'matricula'        => $this->pegarValorBotao($r->matricula),
