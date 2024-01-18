@@ -16,5 +16,4 @@ foreach ($array as $arquivo) {
 if (!$lista) {
     return [];
 }
-
 return $lista;
