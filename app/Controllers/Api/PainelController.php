@@ -67,7 +67,8 @@ final class PainelController extends Controller implements
         $ConfiguracaoModel = new ConfiguracaoModel(
             new Pagina($request->pagina),
             new Quantidade($request->quantidade),
-            new Ordem($request->ordem)
+            new Ordem($request->ordem),
+            $request->empresa
         );
         return mensagemSucesso($ConfiguracaoModel->listarDados());
     }

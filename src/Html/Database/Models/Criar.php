@@ -15,9 +15,14 @@ if (!file_exists($ROOT . '/database/' . $tabela . '/base.php')) {
 }
 
 $listaTabela = listarArquivoDiretorio($ROOT . 'database/' . $tabela, inicio: 'tabela-');
-$Database = include $ROOT . '/database/' . $tabela . '/base.php';
-$Database->diretorio = $tabela;
-$Database->tabela = array_key_exists(0, $listaTabela) ? str_replace('tabela-', '', $listaTabela[0]) : $tabela;
+try {
+    $Database = include $ROOT . '/database/' . $tabela . '/base.php';
+    $Database->diretorio = $tabela;
+    $Database->tabela = array_key_exists(0, $listaTabela) ? str_replace('tabela-', '', $listaTabela[0]) : $tabela;
+} catch (\Throwable $th) {
+    echo json_encode(['status' => 'erro', 'mensagem' => 'Erro setar classe da tabela - ' . $th->getMessage()]);
+    exit();
+}
 try {
     $Database->sistemaDeletar();
 } catch (\Throwable $th) {

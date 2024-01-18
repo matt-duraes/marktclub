@@ -32,7 +32,8 @@ class ConfiguracaoModel extends ORM implements
     public function __construct(
         private readonly Pagina $pagina = new Pagina(),
         private readonly Quantidade $quantidade = new Quantidade(),
-        private readonly Ordem $ordem = new Ordem()
+        private readonly Ordem $ordem = new Ordem(),
+        private readonly ?string $empresa = null
     ) {
         $this->validarRequest();
         parent::__construct();
@@ -63,6 +64,7 @@ class ConfiguracaoModel extends ORM implements
             ->pagina($this->pegarPagina(), $this->pegarQuantidade())
             ->order($this->pegarOrdem(new Ordem()))
             ->tabela(TABELA_COMERCIAL_EMPRESA)
+            ->where($this->pegarWhereEmpresa(), false)
             ->join('id', 'id_admin_empresa')
             ->campo([
                 'cod', 'titulo'
@@ -71,6 +73,18 @@ class ConfiguracaoModel extends ORM implements
 
         $configuracoes->lista = $this->montarRetorno($configuracoes->lista);
         return $configuracoes;
+    }
+
+    /**
+     * @return array
+     */
+    protected function pegarWhereEmpresa(): array
+    {
+        $where = [];
+        if (!empty($this->empresa)) {
+            $where[] = ['cod', $this->empresa];
+        }
+        return $where;
     }
 
     /**

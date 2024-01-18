@@ -1,9 +1,9 @@
 <?php
 
-$Painel = new PainelConfig\Visualizar('painel_permissoes');
+$Painel = new PainelConfig\Visualizar('painel_config');
 
 $Painel->coluna(callback: function () use ($Painel) {
-    $Painel->bloco('App', callback: function () use ($Painel) {
+    $Painel->bloco('App Painel', callback: function () use ($Painel) {
         $Painel
             ->array('permissao', 'Permissões')
             ->array('configuracao', 'Configurações')

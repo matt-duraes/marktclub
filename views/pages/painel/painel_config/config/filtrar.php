@@ -1,6 +1,6 @@
 <?php
 
-$Painel = new PainelConfig\Filtrar('painel_permissoes');
+$Painel = new PainelConfig\Filtrar('painel_config');
 
 $Painel
     ->select(
