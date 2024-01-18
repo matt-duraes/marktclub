@@ -1,6 +1,6 @@
 <?php
 
-return (new \Database\DataBase())
+return (new \DataBase\DataBase())
     ->id()
     ->uuid()
     ->text('categoria')

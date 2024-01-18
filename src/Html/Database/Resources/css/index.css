@@ -375,6 +375,11 @@ nav input {
     color: var(--vermelho);
     margin-bottom: 5px;
 }
+.article iframe {
+    width: 100%;
+    height: 500px;
+    margin-top: 10px;
+}
 
 .bloco_erro {
     width: 100%;

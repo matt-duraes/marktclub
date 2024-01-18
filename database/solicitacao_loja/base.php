@@ -1,8 +1,6 @@
 <?php
 
-use Database\DataBase;
-
-return (new DataBase())
+return (new \DataBase\DataBase())
     ->id()
     ->uuid()
     ->int('id_admin_empresa')->tamanho(9)->relacionado(TABELA_COMERCIAL_EMPRESA, 'id')->null()
