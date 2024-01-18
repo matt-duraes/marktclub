@@ -9,7 +9,7 @@ final class ConfiguracoesPadrao
     ];
     public const CAMPOS_OBRIGATORIOS = [
         'usuario_cliente' => [
-            'cpf', 'email', 'matricula', 'siape', 'status'
+            'cpf', 'email', 'status'
         ]
     ];
     public const PERMISSOES = [
