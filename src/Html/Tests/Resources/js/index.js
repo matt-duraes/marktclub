@@ -355,6 +355,7 @@ window.addEventListener('load', () => {
         mostrarListaErro('falhou');
     });
     const mostrarListaErro = acao => {
+        blocoOk.classList.add('display_none');
         botaoGeralTodos.classList.remove('ativo');
         botaoGeralPassou.classList.remove('ativo');
         botaoGeralFalhou.classList.remove('ativo');

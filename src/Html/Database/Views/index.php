@@ -57,14 +57,18 @@
             <div class="bloco_header display_none" id="bloco_header">
                 <i class="passou"><?= iconeLike(16) ?> <span id="bloco_numero_passou"></span></i>
                 <i class="falhou"><?= iconeDeslike(16) ?> <span id="bloco_numero_falhou"></span></i>
+                <div class="grow"></div>
+                <div class="botao" id="botao_geral_todos">Todos</div>
+                <div class="botao" id="botao_geral_passou">Passou</div>
+                <div class="botao" id="botao_geral_falhou">Falhou</div>
             </div>
 
-            <div class="bloco_ok display_none" id="bloco_ok">
-                <i><?= iconeLike(40) ?></i>
-                <h1>OK</h1>
-                <p>Todos os testes passaram com sucesso!</p>
-            </div>
             <div class="scroll">
+                <div class="bloco_ok display_none" id="bloco_ok">
+                    <i><?= iconeLike(40) ?></i>
+                    <h1>OK</h1>
+                    <p>Todos os testes passaram com sucesso!</p>
+                </div>
                 <div id="bloco_conteudo" class="conteudo">
 
                 </div>

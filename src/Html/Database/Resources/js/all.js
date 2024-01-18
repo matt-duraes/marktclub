@@ -44,12 +44,24 @@ window.addEventListener('load', () => {
     const blocoNumeroTotal = $('#bloco_numero_total');
     const blocoNomeAtual = $('#bloco_nome_atual');
     const blocoConteudo = $('#bloco_conteudo');
+    const botaoGeralTodos = $('#botao_geral_todos');
+    const botaoGeralPassou = $('#botao_geral_passou');
+    const botaoGeralFalhou = $('#botao_geral_falhou');
+
+    let executando = false;
+    const listaRetorno = {
+        retorno: {},
+    };
 
     botaoComecar.addEventListener('click', () => {
         executar();
     });
 
-    let executando = false;
+    botaoCancelar.addEventListener('click', () => {
+        blocoLoading.classList.add('display_none');
+        blocoCancelar.classList.remove('display_none');
+        executando = false;
+    });
     const executar = async () => {
         const lista = $$('.input_classe:checked');
         const quantidade = lista.length;
@@ -57,6 +69,8 @@ window.addEventListener('load', () => {
         if (quantidade == 0) {
             return;
         }
+
+        listaRetorno.retorno = {};
         executando = true;
         blocoHeader.classList.add('display_none');
         blocoOk.classList.add('display_none');
@@ -67,6 +81,10 @@ window.addEventListener('load', () => {
         blocoNomeAtual.innerText = 'Configurando sistema';
         blocoNumeroAtual.innerText = 0;
         blocoNumeroTotal.innerText = quantidade;
+
+        botaoGeralTodos.classList.remove('ativo');
+        botaoGeralPassou.classList.remove('ativo');
+        botaoGeralFalhou.classList.remove('ativo');
 
         const bodyConf = new FormData();
         bodyConf.append('acao', 'configurar');
@@ -82,20 +100,20 @@ window.addEventListener('load', () => {
                 return;
             }
             const input = lista[i];
-
-            blocoNomeAtual.innerText = input.value;
+            const tabela = input.value;
+            blocoNomeAtual.innerText = tabela;
             blocoNumeroAtual.innerText = i + 1;
 
             const bodyCriar = new FormData();
             bodyCriar.append('acao', 'criar');
-            bodyCriar.append('tabela', input.value);
+            bodyCriar.append('tabela', tabela);
             const resposta = await fetch(LINK + '/__base', {
                 method: 'POST',
                 body: bodyCriar,
             });
 
             const retorno = await resposta.text();
-            validarRetorno(retorno);
+            validarRetorno(tabela, retorno, 'criar');
         }
 
         i = 0;
@@ -105,33 +123,74 @@ window.addEventListener('load', () => {
                 return;
             }
             const input = lista[i];
+            const tabela = input.value;
 
             const bodyCriar = new FormData();
             bodyCriar.append('acao', 'relacionar');
-            bodyCriar.append('tabela', input.value);
+            bodyCriar.append('tabela', tabela);
             const resposta = await fetch(LINK + '/__base', {
                 method: 'POST',
                 body: bodyCriar,
             });
 
             const retorno = await resposta.text();
-            validarRetorno(retorno);
+            validarRetorno(tabela, retorno, 'relacionar');
         }
+        montarHtmlRetorno();
         fecharLoading();
     };
 
-    const validarRetorno = retorno => {
+    const validarRetorno = (tabela, retorno, acao) => {
         let json;
         try {
             json = JSON.parse(retorno);
         } catch (error) {
             json = undefined;
         }
+        if (listaRetorno.retorno[tabela] == undefined) {
+            listaRetorno.retorno[tabela] = {
+                tabela,
+                relacionar: {},
+                criar: {},
+            };
+        }
         if (json == undefined || json.status == undefined) {
+            listaRetorno.retorno[tabela][acao] = { sucesso: false, mensagem: 'Ocorreu um erro.' };
             return;
         } else if (json.status == 'erro') {
+            listaRetorno.retorno[tabela][acao] = { sucesso: false, mensagem: retorno.mensagem };
             return;
         }
+        listaRetorno.retorno[tabela][acao] = { sucesso: true };
+    };
+    const montarHtmlRetorno = () => {
+        let html = '';
+        const lista = listaRetorno.retorno;
+        for (const item in lista) {
+            const criarStatus = lista[item].criar.sucesso;
+            const relacionarStatus = lista[item].relacionar.sucesso;
+
+            const status = criarStatus && relacionarStatus ? true : false;
+            const statusClasse = status ? 'passou' : 'falhou';
+            const statusTexto = status ? 'Passou' : 'Falhou';
+            const criarErro = criarStatus
+                ? ''
+                : `<pre class="erro"><span>Criar tabela:</span><br>${lista[item].criar.mensagem}</pre>`;
+            const relacionarErro = criarStatus
+                ? ''
+                : `<pre class="erro"><span>Relacionar tabela:</span><br>${lista[item].relacionar.mensagem}</pre>`;
+            html += `
+                <article class="article display_none ${statusClasse}">
+                    <header>
+                        <h1>${lista[item].tabela}</h1>
+                    </header>
+                    <div class="retorno ${statusClasse}"><span>${statusTexto}</span><p>Criar tabela</p></div>
+                    ${criarErro}
+                    ${relacionarErro}
+                </article>
+            `;
+        }
+        blocoConteudo.insertAdjacentHTML('afterbegin', html);
     };
 
     const fecharLoading = () => {
@@ -142,15 +201,48 @@ window.addEventListener('load', () => {
         blocoLoading.classList.add('display_none');
     };
     const setarDadoHeader = () => {
-        // blocoHeader.classList.remove('display_none');
-        // const passou = blocoConteudo.querySelectorAll('article.article .teste_numero_todos .teste_numero_passou');
-        // const falhou = blocoConteudo.querySelectorAll('article.article .teste_numero_todos .teste_numero_falhou');
-        // blocoNumeroPassou.innerText = passou.length;
-        // blocoNumeroFalhou.innerText = falhou.length;
-        // if (falhou.length == 0) {
-        //     blocoOk.classList.remove('display_none');
-        //     return;
-        // }
-        // botaoGeralFalhou.classList.add('ativo');
+        blocoHeader.classList.remove('display_none');
+        const passou = blocoConteudo.querySelectorAll('article.article.passou');
+        const falhou = blocoConteudo.querySelectorAll('article.article.falhou');
+        blocoNumeroPassou.innerText = passou.length;
+        blocoNumeroFalhou.innerText = falhou.length;
+        if (falhou.length == 0) {
+            blocoOk.classList.remove('display_none');
+            return;
+        }
+        botaoGeralFalhou.classList.add('ativo');
     };
+    botaoGeralTodos.addEventListener('click', () => {
+        botaoGeralTodos.classList.add('ativo');
+        botaoGeralPassou.classList.remove('ativo');
+        botaoGeralFalhou.classList.remove('ativo');
+        blocoOk.classList.add('display_none');
+        $$('#bloco_conteudo .article').forEach(item => {
+            item.classList.remove('display_none');
+        });
+    });
+    botaoGeralPassou.addEventListener('click', () => {
+        botaoGeralTodos.classList.remove('ativo');
+        botaoGeralPassou.classList.add('ativo');
+        botaoGeralFalhou.classList.remove('ativo');
+        blocoOk.classList.add('display_none');
+        $$('#bloco_conteudo .article.passou').forEach(item => {
+            item.classList.remove('display_none');
+        });
+        $$('#bloco_conteudo .article.falhou').forEach(item => {
+            item.classList.add('display_none');
+        });
+    });
+    botaoGeralFalhou.addEventListener('click', () => {
+        botaoGeralTodos.classList.remove('ativo');
+        botaoGeralPassou.classList.remove('ativo');
+        botaoGeralFalhou.classList.add('ativo');
+        blocoOk.classList.add('display_none');
+        $$('#bloco_conteudo .article.falhou').forEach(item => {
+            item.classList.remove('display_none');
+        });
+        $$('#bloco_conteudo .article.passou').forEach(item => {
+            item.classList.add('display_none');
+        });
+    });
 });

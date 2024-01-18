@@ -73,12 +73,12 @@
                 <div class="botao" id="botao_geral_passou">Passou</div>
                 <div class="botao" id="botao_geral_falhou">Falhou</div>
             </div>
-            <div class="bloco_ok display_none" id="bloco_ok">
-                <i><?= iconeLike(40) ?></i>
-                <h1>OK</h1>
-                <p>Todos os testes passaram com sucesso!</p>
-            </div>
             <div class="scroll">
+                <div class="bloco_ok display_none" id="bloco_ok">
+                    <i><?= iconeLike(40) ?></i>
+                    <h1>OK</h1>
+                    <p>Todos os testes passaram com sucesso!</p>
+                </div>
                 <div id="bloco_conteudo" class="conteudo">
 
                 </div>

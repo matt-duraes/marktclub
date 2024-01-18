@@ -1,10 +1,18 @@
 <?php
 
-if (array_key_exists('acao', $_POST) && $_POST['acao'] == 'criar') {
-    // $path = __DIR__ . '/../../../database/tabela.php';
-    // if(!file_exists($path)) {
-    //     include 'Models/Define.php';
-    // }
+if (env('DB_STATUS', '') != 'localhost' || env('APP_TIPO', '') != 'localhost') {
+    mensagemStatus(403);
+    exit();
+} elseif (array_key_exists('acao', $_POST) && $_POST['acao'] == 'login') {
+    include 'Models/Login.php';
+} elseif (!sessaoExiste('DATABASE_LOGIN')) {
+    $erro = '';
+    if (sessaoExiste('DATABASE_ERRO')) {
+        $erro = sessao('DATABASE_ERRO');
+        sessaoDeletar('DATABASE_ERRO');
+    }
+    include 'Views/login.php';
+} elseif (array_key_exists('acao', $_POST) && $_POST['acao'] == 'criar') {
     include 'Models/Criar.php';
 } elseif (array_key_exists('acao', $_POST) && $_POST['acao'] == 'configurar') {
     include 'Models/Define.php';
