@@ -6,10 +6,14 @@ use App\Helpers\ClubeApiHelper;
 
 final class BuscarModel extends ClubeApiHelper
 {
+    public function __construct()
+    {
+        parent::__construct('usuario_cliente:buscar');
+    }
+
     public function buscar()
     {
         $dado = $this
-            ->validar(login: true)
             ->get('/usuario-cliente/' . $this->idUsuario)
             ->object()->dado;
 
