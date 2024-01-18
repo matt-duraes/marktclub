@@ -23,7 +23,7 @@ final class HistoricoEntity extends Entity
     public string $notificar_titulo = '';
     public string $notificar_link = '';
     public array $notificar_equipe = [];
-    public string $idUsuario;
+    public int $idUsuario;
     protected string $ormTabela = TABELA_PAINEL_HISTORICO;
     protected array $ormInsert = [
         'id_relacionado' => '->relacionado',
