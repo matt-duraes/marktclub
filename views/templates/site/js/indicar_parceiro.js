@@ -32,10 +32,10 @@ window.addEventListener('load', () => {
                 return;
             }
 
-            formValue(inputNome, '');
-            formValue(inputTelefone, '');
-            formValue(inputEmail, '');
-            formValue(inputMensagem, '');
+            inputNome.value = '';
+            inputTelefone.value = '';
+            inputEmail.value = '';
+            inputMensagem.value = '';
 
             Alerta.mensagem(
                 'Indicação realizada',
