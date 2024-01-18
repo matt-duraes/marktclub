@@ -142,9 +142,12 @@ window.addEventListener('load', () => {
 
     const validarRetorno = (tabela, retorno, acao) => {
         let json;
+        let iframe = false;
         try {
             json = JSON.parse(retorno);
         } catch (error) {
+            iframe = true;
+            retorno = retorno.replace(/\"/g, '&quot;');
             json = undefined;
         }
         if (listaRetorno.retorno[tabela] == undefined) {
@@ -155,10 +158,10 @@ window.addEventListener('load', () => {
             };
         }
         if (json == undefined || json.status == undefined) {
-            listaRetorno.retorno[tabela][acao] = { sucesso: false, mensagem: 'Ocorreu um erro.' };
+            listaRetorno.retorno[tabela][acao] = { sucesso: false, iframe, mensagem: retorno };
             return;
         } else if (json.status == 'erro') {
-            listaRetorno.retorno[tabela][acao] = { sucesso: false, mensagem: retorno.mensagem };
+            listaRetorno.retorno[tabela][acao] = { sucesso: false, iframe, mensagem: json.mensagem };
             return;
         }
         listaRetorno.retorno[tabela][acao] = { sucesso: true };
@@ -170,17 +173,27 @@ window.addEventListener('load', () => {
             const criarStatus = lista[item].criar.sucesso;
             const relacionarStatus = lista[item].relacionar.sucesso;
 
+            const criarIframe = lista[item].criar.iframe;
+            const relacionarIframe = lista[item].relacionar.iframe;
+
             const status = criarStatus && relacionarStatus ? true : false;
             const statusClasse = status ? 'passou' : 'falhou';
             const statusTexto = status ? 'Passou' : 'Falhou';
-            const criarErro = criarStatus
-                ? ''
-                : `<pre class="erro"><span>Criar tabela:</span><br>${lista[item].criar.mensagem}</pre>`;
-            const relacionarErro = criarStatus
-                ? ''
-                : `<pre class="erro"><span>Relacionar tabela:</span><br>${lista[item].relacionar.mensagem}</pre>`;
+            let criarErro = '';
+            if (!criarStatus && criarIframe) {
+                criarErro = `<iframe srcdoc="${lista[item].criar.mensagem}"></iframe>`;
+            } else if (!criarStatus) {
+                criarErro = `<pre class="erro"><span>Criar tabela:</span><br>${lista[item].criar.mensagem}</pre>`;
+            }
+            let relacionarErro = '';
+            if (!relacionarStatus && relacionarIframe) {
+                relacionarErro = `<iframe srcdoc="${lista[item].relacionar.mensagem}"></iframe>`;
+            } else if (!relacionarStatus) {
+                relacionarErro = `<pre class="erro"><span>Criar tabela:</span><br>${lista[item].relacionar.mensagem}</pre>`;
+            }
+            const displayClasse = status ? 'display_none' : '';
             html += `
-                <article class="article display_none ${statusClasse}">
+                <article class="article ${displayClasse} ${statusClasse}">
                     <header>
                         <h1>${lista[item].tabela}</h1>
                     </header>
