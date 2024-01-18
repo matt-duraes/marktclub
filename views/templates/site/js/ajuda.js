@@ -1,5 +1,3 @@
-// @system "Form"
-
 window.addEventListener('load', () => {
     const botaoAbrirAjuda = document.getElementById('botao_abrir_ajuda');
     if (!botaoAbrirAjuda) {
