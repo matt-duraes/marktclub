@@ -18,8 +18,12 @@ window.addEventListener('load', () => {
         const inputMensagem = $('#input_indicar_loja_nome_mensagem');
         const botaoEnviarIndicacao = document.querySelector('#botao_enviar_indicacao');
 
-        botaoEnviarIndicacao.addEventListener('click', () => {
-            const resposta = ajaxPost(
+        botaoEnviarIndicacao.addEventListener('click', async () => {
+            if (!(await validarInput(form))) {
+                return;
+            }
+            Loading.show();
+            const resposta = await ajaxPost(
                 LINK + '/convenios/indicar',
                 {
                     nome: inputNome.value,
@@ -30,14 +34,15 @@ window.addEventListener('load', () => {
                 'Ocorre um erro ao fazer sua indicação, por favor, tente novamente.'
             );
 
+            Loading.hide();
             if (false === resposta) {
                 return;
             }
 
-            inputNome.value = '';
-            inputTelefone.value = '';
-            inputEmail.value = '';
-            inputMensagem.value = '';
+            formValue(inputNome, '');
+            formValue(inputTelefone, '');
+            formValue(inputEmail, '');
+            formValue(inputMensagem, '');
 
             Alerta.mensagem(
                 'Indicação realizada',
@@ -54,7 +59,7 @@ window.addEventListener('load', () => {
     const paginaIndicarParceiro = new Pagina(
         'Indicar um Parceiro',
         LINK + '/indique-um-parceiro',
-        null,
+        {},
         true,
         true,
         enviarDados
