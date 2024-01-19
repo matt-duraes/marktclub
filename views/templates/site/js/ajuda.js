@@ -18,7 +18,10 @@ window.addEventListener('load', () => {
         const inputMensagem = $('#input_indicar_loja_nome_mensagem');
         const botaoEnviarIndicacao = document.querySelector('#botao_enviar_indicacao');
 
-        botaoEnviarIndicacao.addEventListener('click', () => {
+        botaoEnviarIndicacao.addEventListener('click', async () => {
+            if (!(await validarInput(form))) {
+                return;
+            }
             const resposta = ajaxPost(
                 LINK + '/convenios/indicar',
                 {
@@ -34,10 +37,10 @@ window.addEventListener('load', () => {
                 return;
             }
 
-            inputNome.value = '';
-            inputTelefone.value = '';
-            inputEmail.value = '';
-            inputMensagem.value = '';
+            formValue(inputNome, '');
+            formValue(inputTelefone, '');
+            formValue(inputEmail, '');
+            formValue(inputMensagem, '');
 
             Alerta.mensagem(
                 'Indicação realizada',
