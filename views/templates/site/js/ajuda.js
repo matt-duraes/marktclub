@@ -22,7 +22,8 @@ window.addEventListener('load', () => {
             if (!(await validarInput(form))) {
                 return;
             }
-            const resposta = ajaxPost(
+            Loading.show();
+            const resposta = await ajaxPost(
                 LINK + '/convenios/indicar',
                 {
                     nome: inputNome.value,
@@ -33,6 +34,7 @@ window.addEventListener('load', () => {
                 'Ocorre um erro ao fazer sua indicação, por favor, tente novamente.'
             );
 
+            Loading.hide();
             if (false === resposta) {
                 return;
             }
@@ -57,7 +59,7 @@ window.addEventListener('load', () => {
     const paginaIndicarParceiro = new Pagina(
         'Indicar um Parceiro',
         LINK + '/indique-um-parceiro',
-        null,
+        {},
         true,
         true,
         enviarDados
