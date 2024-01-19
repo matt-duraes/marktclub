@@ -9,6 +9,8 @@ use App\Classes\DemandaTarefa\Status as DemandaTarefaStatus;
 
 trait TarefaTrait
 {
+    private array $listaTarefa;
+
     private function salvarTarefa(
         string $tipo,
         string $titulo,
@@ -33,6 +35,8 @@ trait TarefaTrait
         if (!empty($equipe) && !in_array($equipe, $this->listaNotificacao)) {
             $this->listaNotificacao[] = $equipe;
         }
+
+        $this->listaTarefa[] = $tipo;
     }
 
     private function montarTarefa($tarefa): array
@@ -58,5 +62,15 @@ trait TarefaTrait
             ];
         }
         return array_reverse($retorno);
+    }
+
+    private function atualizarTarefaTipoDemanda()
+    {
+        $Api = new ApiHelper(token: true);
+        $Api
+            ->body([
+                'tarefa_tipo' => $this->listaTarefa
+            ])
+            ->put('/demanda-dado/' . $this->Demanda->dado->id);
     }
 }
