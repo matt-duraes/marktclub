@@ -8,7 +8,6 @@
 // @system "Mascara"
 // @import "menu_principal"
 // @import "menu_perfil"
-// @import "ajuda"
 // @import "login"
 // @import "mapa"
 // @import "pesquisa_satisfacao"
@@ -16,3 +15,4 @@
 // @import "analytics"
 // @import "tema"
 // @import "popup_promocao"
+// @import "ajuda"
