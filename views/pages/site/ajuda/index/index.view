@@ -34,10 +34,15 @@
             </p>
             @endif;
 
+
             @if ( !empty(CONTATO_EMAIL) || !empty(CONTATO_WHATSAPP) || !empty(CONTATO_TELEFONE) ):
             <div class="linha"><span>ou escolha uma opção</span></div>
             @ endif;
-
+            @ if( MENU_INDICAR_LOJA ):
+                <a class="link botao_indicar_loja">
+                    <p class="texto_footer">INDICAR UM PARCEIRO</p>
+                </a>
+            @endif;
             @if ( MENU_AUTOMOVEL ):
             <a class="link" href="@route('automovel.index)?indicar=sim">INDICAR UMA CONCESSIONÁRIA</a>
             @endif;
