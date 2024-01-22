@@ -11,7 +11,7 @@ $Painel
         titulo: 'Empresa',
         label: 'Empresa',
         placeholder: 'Empresa',
-        permissao: \App\Classes\UsuarioCliente\Helper::PERMISSAO_EMPRESA
+        permissao: \App\Classes\UsuarioIndicacao\Helper::PERMISSAO_EMPRESA
     )
     ->input(name: 'nome', titulo: 'Nome do indicado', label: 'Nome', placeholder: 'Digite um nome')
     ->input(name: 'email', titulo: 'E-mail do indicado', label: 'E-mail', placeholder: 'Digite um e-mail')

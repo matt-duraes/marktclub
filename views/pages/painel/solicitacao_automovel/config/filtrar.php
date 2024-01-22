@@ -11,7 +11,7 @@ $Painel
         titulo: 'Empresa',
         label: 'Empresa',
         placeholder: 'Empresa',
-        permissao: \App\Classes\UsuarioCliente\Helper::PERMISSAO_EMPRESA
+        permissao: \App\Classes\SolicitacaoAutomovel\Helper::PERMISSAO_EMPRESA
     )
     ->bloco(function () use ($Painel) {
         $Painel
