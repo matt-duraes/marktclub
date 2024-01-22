@@ -1,5 +1,6 @@
 @template "painel"
 
+<!-- Popup filtro -->
 <div class="bloco_pagina_popup display_none" id="bloco_filtro">
     <header class="header_pagina_popup">
         <h1 id="h1_motivo">FILTRAR DADOS</h1>
@@ -7,8 +8,10 @@
     </header>
 
     <div class="form_geral conteudo_pagina_popup form_motivo">
+        @? formData(name: ['demanda_filtro_data_inicio', 'demanda_filtro_data_fim'], label: 'Data de criação', placeholder: 'Escolha uma data', separador: 'até')
         @? formSelect(name: 'demanda_filtro_tipo_tarefa', label: 'Tipos de tarefa', placeholder: 'Escolha o tipo de tarefa', lista: (new \App\Classes\DemandaTarefa\Tipo())->select('Escolha uma opção'))
         @? formSelect(name: 'demanda_filtro_empresa', placeholder: 'Escolha um cliente', label: 'Empresa', lista: $empresa)
+        @? formSelect(name: 'demanda_filtro_equipe', placeholder: 'Escolha um usuario', label: 'Equipe', lista: $equipe)
 
         @if($area == \App\Classes\DemandaDado\Area::TECNOLOGIA)
         @? formSelect(name: 'demanda_filtro_tipo_demanda', label: 'Tipo de demanda', placeholder: 'Escolha o tipo de demanda', lista: (new \App\Classes\DemandaDado\Tipo())->selectTecnologia ('Escolha uma opção'))
@@ -17,8 +20,6 @@
         @elseif($area == \App\Classes\DemandaDado\Area::CONVENIO)
         @? formSelect(name: 'demanda_filtro_tipo_demanda', label: 'Tipo de demanda', placeholder: 'Escolha o tipo de demanda', lista: (new \App\Classes\DemandaDado\Tipo())->selectConvenio ('Escolha uma opção'))
         @endif
-
-        @? formData(name: ['demanda_filtro_data_inicio', 'demanda_filtro_data_fim'], label: 'Data de criação', placeholder: 'Escolha uma data', separador: 'até')
     </div>
 
     <div class="footer_pagina_popup">

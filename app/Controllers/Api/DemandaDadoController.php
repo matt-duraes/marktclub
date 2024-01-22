@@ -33,6 +33,7 @@ final class DemandaDadoController extends Controller implements
             new Tipo($request->tipo),
             $request->tarefa_tipo,
             $request->empresa,
+            $request->equipe,
             $request->data_inicio,
             $request->data_fim,
         );

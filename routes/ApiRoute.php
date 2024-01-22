@@ -1674,7 +1674,8 @@ Route
             ::nome('listar')
             ::middleware(TokenMiddleware::class, 'scope', ['demanda_dado:listar'])
             ::request([
-                'status', 'area', 'ordem', '!tarefa_tipo', '!empresa', '!tipo', '!data_inicio', '!data_fim',
+                'status', 'area', 'ordem', '!tarefa_tipo', '!empresa', '!tipo',
+                '!data_inicio', '!data_fim', '!equipe'
             ], 'json')
             ::get('/demanda-dado');
 
