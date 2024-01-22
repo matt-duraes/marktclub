@@ -16,7 +16,7 @@ final class Equipe
 
     public function unico(?string $id)
     {
-        if (array_key_exists($id, $this->usuario)) {
+        if (!array_key_exists($id, $this->usuario)) {
             $this->pegarPerfil();
         }
         return $this->usuario[$id] ?? $this->usuarioPadrao();
