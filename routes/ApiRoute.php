@@ -2208,8 +2208,8 @@ Route
             ::nome('listar')
             ::middleware(TokenMiddleware::class, 'scope', ['automovel_modelo:listar'])
             ::request([
-                'pagina', '!quantidade', '!ordem', '!parceiro', '!pesquisa', '!publicado',
-                '!data_inicio', '!data_final', '!status'
+                'pagina', '!quantidade', '!ordem', '!parceiro', '!pesquisa', '!titulo',
+                '!publicado', '!data_inicio', '!data_final', '!status'
             ], 'json')
             ::get('/automovel-modelo');
 

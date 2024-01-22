@@ -36,6 +36,7 @@ final class ModeloModel extends ORM implements
      * @param Ordem       $ordem
      * @param string|null $parceiro
      * @param string|null $pesquisa
+     * @param string|null $titulo
      * @param Botao       $publicado
      * @param Data        $dataInicio
      * @param Data        $dataFinal
@@ -49,6 +50,7 @@ final class ModeloModel extends ORM implements
         private readonly Ordem $ordem = new Ordem(),
         private ?string $parceiro = null,
         private readonly ?string $pesquisa = null,
+        private readonly ?string $titulo = null,
         private readonly Botao $publicado = new Botao(),
         private readonly Data $dataInicio = new Data(),
         private readonly Data $dataFinal = new Data(),
@@ -131,12 +133,16 @@ final class ModeloModel extends ORM implements
     {
         $where = [];
 
-        if (is_int($this->parceiro)) {
+        if (is_numeric($this->parceiro)) {
             $where[] = ['id_parceiro_loja', $this->parceiro];
         }
 
         if (!empty($this->pesquisa)) {
             $where[] = ['titulo', 'LIKE', "%$this->pesquisa%"];
+        }
+
+        if (!empty($this->titulo)) {
+            $where[] = ['titulo', 'LIKE', "%$this->titulo%"];
         }
 
         if ($this->status->valido()) {
@@ -158,6 +164,17 @@ final class ModeloModel extends ORM implements
                 ['status', '!=', $status]
             ];
         }
+
+        if ($this->dataInicio->valido() && $this->dataFinal->valido()) {
+            $where[] = [
+                'data_final', 'between', [$this->dataInicio->date(), $this->dataFinal->date()]
+            ];
+        } elseif ($this->dataInicio->valido()) {
+            $where[] = ['data_inicio', $this->dataInicio->date()];
+        } elseif ($this->dataFinal->valido()) {
+            $where[] = ['data_final', $this->dataFinal->date()];
+        }
+
         return $where;
     }
 
