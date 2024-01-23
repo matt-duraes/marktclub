@@ -30,7 +30,7 @@
     </div>
 
     <div class="conteudo">
-        <div class="bloco_mensagem show" id="bloco_tabela_ajuda">
+        <div class="bloco_mensagem show" id="bloco_zero">
             <i>@iconeUpload(40)</i>
             <p>Faça o upload de uma tabela para analisar</p>
         </div>
@@ -59,11 +59,14 @@
             <i>@iconeCheck(30)</i>
             <p>Upload finalizado com sucesso</p>
         </div>
-
-        <div class="bloco_tabela erro" id="bloco_tabela_erro">
-        </div>
-
-        <div class="bloco_tabela sucesso" id="bloco_tabela_sucesso">
-        </div>
     </div>
+</div>
+
+<div class="bloco_pagina_popup display_none" id="popup_erros">
+    <header class="header_pagina_popup">
+        <h1>Erros</h1>
+        <i class="popup_fechar fechar botao_fechar">@iconeFechar</i>
+    </header>
+
+    <form class="form_geral conteudo_pagina_popup bloco_tabela erro" id="bloco_erros"></form>
 </div>

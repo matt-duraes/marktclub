@@ -620,16 +620,22 @@ Route
     ::middleware(TokenMiddleware::class, 'token')
     ::grupo(function () {
         Route
+            ::nome('listar')
+            ::middleware(TokenMiddleware::class, 'scope', ['tabela_usuario:listar'])
+            ::request(['pagina', '!quantidade', '!ordem', '!pesquisa', '!tipo'], 'json')
+            ::get('/tabela');
+        Route
             ::nome('salvar')
             ::middleware(TokenMiddleware::class, 'scope', ['tabela_usuario:salvar'])
-            ::request(['hash'])
-            ::post('/tabela/salvar');
-
+            ::request(['nome', 'tipo'])
+            ::request(['arquivo'], 'files')
+            ::post('/tabela');
         Route
-            ::nome('bloquear')
-            ::middleware(TokenMiddleware::class, 'scope', ['tabela_usuario:bloquear'])
-            ::request(['hash'])
-            ::post('/tabela/bloquear');
+            ::nome('atualizar')
+            ::middleware(TokenMiddleware::class, 'scope', ['tabela_usuario:atualizar'])
+            ::request(['!status'])
+            ::request(['arquivo'], 'files')
+            ::put('/tabela/{id}');
     });
 
 Route

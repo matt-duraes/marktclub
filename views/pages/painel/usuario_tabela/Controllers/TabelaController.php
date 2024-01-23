@@ -30,24 +30,15 @@ final class TabelaController extends Controller
         ]);
     }
 
-    public function postAnalisarSalvar(Request $request)
+    public function postAnalisar(Request $request)
     {
         $Analisar = new AnalisarModel($request->getFiles('arquivo'));
-        $dado = $Analisar->analisarParaSalvar();
 
-        if ($dado['status'] == 'sucesso') {
-            return mensagemSucesso($dado['dado']);
+        if ($request->tipo == 'bloquear') {
+            $dado = $Analisar->analisarParaBloquear();
+        } elseif ($request->tipo == 'salvar') {
+            $dado = $Analisar->analisarParaSalvar();
         }
-        return new Response(json: [
-            'status' => 'erro',
-            'lista'  => $dado['erro']
-        ], status: 400);
-    }
-
-    public function postAnalisarBloquear(Request $request)
-    {
-        $Analisar = new AnalisarModel($request->getFiles('arquivo'));
-        $dado = $Analisar->analisarParaBloquear();
 
         if ($dado['status'] == 'sucesso') {
             return mensagemSucesso($dado['dado']);
@@ -69,14 +60,6 @@ final class TabelaController extends Controller
         $resposta = $Api->body([
             'hash' => $hash
         ])->post('/tabela/salvar')->object();
-
-        return new Response(json: $resposta, status: 201);
-    }
-
-    public function postBloquear(Request $request)
-    {
-        $Api = new ApiHelper(token: true);
-        $resposta = $Api->body(['hash' => $request->hash])->post('/tabela/bloquear')->object();
 
         return new Response(json: $resposta, status: 201);
     }
