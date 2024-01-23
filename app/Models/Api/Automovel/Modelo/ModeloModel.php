@@ -48,7 +48,7 @@ final class ModeloModel extends ORM implements
         private readonly Pagina $pagina = new Pagina(),
         private readonly Quantidade $quantidade = new Quantidade(),
         private readonly Ordem $ordem = new Ordem(),
-        private ?string $parceiro = null,
+        private string|int|null $parceiro = null,
         private readonly ?string $pesquisa = null,
         private readonly ?string $titulo = null,
         private readonly Botao $publicado = new Botao(),
