@@ -1,80 +1,24 @@
 <?php
 
-use App\Classes\Geral\Status;
-
-$titulos = [
-    'Volkswagen Gol',
-    'Chevrolet Onix',
-    'Fiat Palio',
-    'Ford Ka',
-    'Renault Sandero',
-    'Hyundai HB20',
-    'Toyota Corolla',
-    'Honda Civic',
-    'Nissan Kicks',
-    'Volkswagen Polo',
-    'Chevrolet Prisma',
-    'Fiat Uno',
-    'Ford Fiesta',
-    'Renault Logan',
-    'Hyundai Creta',
-    'Toyota Etios',
-    'Honda Fit',
-    'Nissan Versa',
-    'Volkswagen Fox',
-    'Chevrolet Spin',
-    'Fiat Siena',
-    'Ford Ecosport',
-    'Renault Duster',
-    'Hyundai Tucson',
-    'Toyota Hilux',
-    'Honda HR-V',
-    'Nissan March',
-    'Volkswagen Up!',
-    'Chevrolet Tracker',
-    'Fiat Toro',
-    'Ford Ranger',
-    'Renault Captur',
-    'Hyundai i30',
-    'Toyota RAV4',
-    'Honda City',
-    'Nissan Sentra',
-    'Volkswagen Voyage',
-    'Chevrolet Cobalt',
-    'Fiat Mobi',
-    'Ford Fusion',
-    'Renault Fluence',
-    'Hyundai Santa Fe',
-    'Toyota Camry',
-    'Honda Accord',
-    'Nissan Altima',
-    'Volkswagen Jetta',
-    'Chevrolet Cruze',
-    'Fiat Cronos',
-    'Ford Focus',
-    'Renault Megane'
+return [
+    ['id' => '1','uuid' => '2c40a048-19e0-4414-bff3-35271c3f8ef4','id_parceiro_loja' => '2084','titulo' => 'S10','texto' => NULL,'url' => 's10','imagem' => '0e553781-277b-4983-a7f5-29d00a023804','data_criacao' => '2023-08-15 09:54:51','data_atualizacao' => '2024-01-03 10:04:34','data_inicio' => '2023-08-24','data_final' => '2024-02-06','status' => '1'],
+    ['id' => '2','uuid' => '9e01ed1a-7f51-478c-8939-abcd5172a953','id_parceiro_loja' => '2084','titulo' => 'CAMARO','texto' => NULL,'url' => 'camaro','imagem' => 'a32b7791-5e05-46be-9f8f-df0eae4d2765','data_criacao' => '2023-08-17 10:19:06','data_atualizacao' => '2024-01-03 09:57:28','data_inicio' => '2023-08-24','data_final' => '2024-02-06','status' => '1'],
+    ['id' => '3','uuid' => '1ba708e0-f2c6-4d01-8265-5292142b20f6','id_parceiro_loja' => '2084','titulo' => 'CRUZE SEDAN','texto' => NULL,'url' => 'ceruze-sedan','imagem' => '8aa128fb-9bf2-498b-a941-65fb6e31ca9a','data_criacao' => '2023-08-17 10:23:05','data_atualizacao' => '2024-01-03 10:04:13','data_inicio' => '2023-08-24','data_final' => '2024-02-06','status' => '1'],
+    ['id' => '4','uuid' => '6f7603ad-832e-48a2-8534-6f34469cd499','id_parceiro_loja' => '2084','titulo' => 'CRUZE SPORT6','texto' => NULL,'url' => 'cruze-sport6','imagem' => '8ab6f6d9-4db8-45b9-9e6e-d4f6e2fc24d4','data_criacao' => '2023-08-17 10:33:02','data_atualizacao' => '2024-01-03 10:03:41','data_inicio' => '2023-08-24','data_final' => '2024-02-06','status' => '1'],
+    ['id' => '5','uuid' => '2a01ac6b-93bb-48ff-951c-103a9341b872','id_parceiro_loja' => '2084','titulo' => 'EQUINOX','texto' => NULL,'url' => 'equinox','imagem' => 'a1d32529-85b6-4048-8321-0f91ebce0ddd','data_criacao' => '2023-08-17 10:36:38','data_atualizacao' => '2024-01-03 10:02:32','data_inicio' => '2023-08-24','data_final' => '2024-02-06','status' => '1'],
+    ['id' => '6','uuid' => '1e8860f2-5135-4073-8062-3e1f8aa0c544','id_parceiro_loja' => '2084','titulo' => 'NOVA MONTANA','texto' => NULL,'url' => 'montana','imagem' => 'ad6fc665-c835-48ad-8420-08f991ed6be9','data_criacao' => '2023-08-17 10:40:00','data_atualizacao' => '2024-01-03 10:01:05','data_inicio' => '2023-08-24','data_final' => '2024-02-06','status' => '1'],
+    ['id' => '7','uuid' => '783a6d06-0bd3-4066-8bc5-186d9ad2294d','id_parceiro_loja' => '2084','titulo' => 'NOVO TRACKER','texto' => NULL,'url' => 'tracker','imagem' => 'b75ab568-d770-4ac6-aaea-16bde7f43e74','data_criacao' => '2023-08-17 10:42:16','data_atualizacao' => '2024-01-03 10:00:39','data_inicio' => '2023-08-24','data_final' => '2024-02-06','status' => '1'],
+    ['id' => '8','uuid' => '73c5c8bd-ad7f-4fa6-881f-2e7efe11754c','id_parceiro_loja' => '2084','titulo' => 'ONIX','texto' => NULL,'url' => 'onix','imagem' => 'f2977bdc-4607-43fa-bd67-b1502c046d84','data_criacao' => '2023-08-17 10:44:53','data_atualizacao' => '2024-01-03 10:00:11','data_inicio' => '2023-08-24','data_final' => '2024-02-06','status' => '1'],
+    ['id' => '9','uuid' => '055c280d-600e-424f-b889-19e9ade863f1','id_parceiro_loja' => '2084','titulo' => 'ONIX PLUS','texto' => NULL,'url' => 'onix-plus','imagem' => '8d1c90a4-69ba-4677-b2de-6539a8b1ebd8','data_criacao' => '2023-08-17 10:45:19','data_atualizacao' => '2024-01-03 09:59:43','data_inicio' => '2023-08-24','data_final' => '2024-02-06','status' => '1'],
+    ['id' => '10','uuid' => '07479c37-46e7-42a8-991d-3bbbe796592b','id_parceiro_loja' => '2084','titulo' => 'SPIN','texto' => NULL,'url' => 'spin','imagem' => '8beaa117-e340-43e5-996e-86390ad90cc0','data_criacao' => '2023-08-17 10:48:20','data_atualizacao' => '2024-01-03 09:59:14','data_inicio' => '2023-08-24','data_final' => '2024-02-06','status' => '1'],
+    ['id' => '11','uuid' => 'ad9d3304-0f10-4ed8-a8b3-61a4838c0f10','id_parceiro_loja' => '2084','titulo' => 'TRAILBLAZER','texto' => NULL,'url' => 'trailblazer','imagem' => '1c50087e-66cb-4069-9cd3-87e5e55b1226','data_criacao' => '2023-08-17 10:50:13','data_atualizacao' => '2024-01-03 09:58:16','data_inicio' => '2023-08-24','data_final' => '2024-02-06','status' => '1'],
+    ['id' => '13','uuid' => 'b551f86e-abd3-4155-8973-469998706b17','id_parceiro_loja' => '431','titulo' => 'NEW CITY HATCHBACK','texto' => NULL,'url' => 'new-city-hatchback','imagem' => 'cbe32b39-430f-47b6-bde5-61c738c1ead6','data_criacao' => '2023-08-17 10:56:49','data_atualizacao' => '2024-01-02 12:26:46','data_inicio' => '2023-08-24','data_final' => '2024-01-31','status' => '1'],
+    ['id' => '14','uuid' => '3b0cee22-d0f9-4d90-bc29-dbbaed494b84','id_parceiro_loja' => '431','titulo' => 'NEW CITY SEDAN','texto' => NULL,'url' => 'new-city-sedan','imagem' => 'e77a341a-c759-4de2-8a37-cf153f155cc7','data_criacao' => '2023-08-17 10:57:15','data_atualizacao' => '2024-01-02 12:29:38','data_inicio' => '2023-08-24','data_final' => '2024-01-31','status' => '1'],
+    ['id' => '15','uuid' => 'a8de20fd-a929-496e-b788-9eb8943053c0','id_parceiro_loja' => '431','titulo' => 'NEW HR-V','texto' => NULL,'url' => 'new-hr-v','imagem' => '55fb3089-27d1-4d7d-a0cd-2fe698c82612','data_criacao' => '2023-08-17 10:57:38','data_atualizacao' => '2024-01-02 12:30:42','data_inicio' => '2023-08-24','data_final' => '2024-01-31','status' => '1'],
+    ['id' => '16','uuid' => '3e07ca93-8e54-4fa8-8559-1ff4845d062c','id_parceiro_loja' => '3041','titulo' => 'JEEP COMPASS','texto' => NULL,'url' => 'jepp-compass','imagem' => 'f8c02989-3773-427d-9686-4bc22f27155f','data_criacao' => '2023-08-17 14:12:09','data_atualizacao' => '2024-01-11 12:09:32','data_inicio' => '2023-10-06','data_final' => '2024-01-31','status' => '1'],
+    ['id' => '17','uuid' => '7cac79ab-f50b-46cd-8768-f80ce124ab0f','id_parceiro_loja' => '3041','titulo' => 'JEEP COMMANDER','texto' => NULL,'url' => 'jeep-commander','imagem' => '1dc572e0-636b-4305-8ce0-a3c08d5e66b6','data_criacao' => '2023-08-17 14:13:07','data_atualizacao' => '2024-01-11 12:14:11','data_inicio' => '2023-10-06','data_final' => '2024-01-31','status' => '1'],
+    ['id' => '18','uuid' => '83c78aea-d04d-46ee-a247-b32fafe8770b','id_parceiro_loja' => '777','titulo' => 'C40','texto' => NULL,'url' => 'c40','imagem' => '720dd859-e9e8-48e0-8569-d6935ed7664e','data_criacao' => '2023-08-17 14:27:02','data_atualizacao' => '2024-01-08 10:12:15','data_inicio' => '2023-08-24','data_final' => '2024-01-31','status' => '1'],
+    ['id' => '19','uuid' => '943b5e57-afde-465a-b624-0f910ffcfb7e','id_parceiro_loja' => '777','titulo' => 'XC40','texto' => NULL,'url' => 'xc40','imagem' => 'b2255496-a428-41f0-9674-cf9156afcfe8','data_criacao' => '2023-08-17 14:27:37','data_atualizacao' => '2024-01-08 10:19:14','data_inicio' => '2023-08-24','data_final' => '2024-01-31','status' => '1'],
+    ['id' => '20','uuid' => '30f5c819-36bf-4651-a00a-03a4a4083b74','id_parceiro_loja' => '777','titulo' => 'XC60','texto' => NULL,'url' => 'xc60','imagem' => 'bb12ab6f-8aaf-4949-a3c8-14d7513b6d78','data_criacao' => '2023-08-17 14:28:04','data_atualizacao' => '2024-01-08 11:01:31','data_inicio' => '2023-08-24','data_final' => '2024-01-31','status' => '1'],
+    ['id' => '21','uuid' => 'e2cb72f2-dca8-4044-8da9-c93209379cec','id_parceiro_loja' => '777','titulo' => 'XC90','texto' => NULL,'url' => 'xc90','imagem' => 'd8ac4d77-f0f4-46ed-a3da-db9f835f70ce','data_criacao' => '2023-08-17 14:28:33','data_atualizacao' => '2024-01-08 11:14:49','data_inicio' => '2023-08-24','data_final' => '2024-01-31','status' => '1'],
 ];
-$listaStatus = (new Status())->listarNumero();
-$seeds = [];
-$seeds[] = [
-    'uuid'             => 'dc68285f-65e2-4db9-b37c-d216cf4ddd97',
-    'id_parceiro_loja' => 1,
-    'url'              => 'alguma-coisa',
-    'titulo'           => 'Alguma coisa',
-    'data_inicio'      => dataPassadaAleatorio(),
-    'data_final'       => dataFuturaAleatorio(),
-    'status'           => 1
-];
-for ($i = 0; $i < env('QTD_SEEDS', 50); $i++) {
-    $titulo = valorAleatorio($titulos) . $i;
-    $seeds[] = [
-        'uuid'             => uuid(),
-        'id_parceiro_loja' => 1,
-        'url'              => strSlug($titulo),
-        'titulo'           => $titulo,
-        'data_inicio'      => dataPassadaAleatorio(),
-        'data_final'       => dataFuturaAleatorio(),
-        'status'           => valorAleatorio($listaStatus)
-    ];
-}
-return $seeds;
