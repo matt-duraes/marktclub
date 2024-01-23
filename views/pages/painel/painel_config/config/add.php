@@ -56,7 +56,7 @@ $Painel->coluna(callback: function () use ($Painel) {
                 $titulo = $dado['titulo'] ?? '';
                 $Painel->html(html: '<input type="hidden" name="titulo[' . $ind . ']" value="' . $titulo . '">');
                 if (!empty($titulo)) {
-                    $Painel->html('<h4>' . $titulo . '</h4>');
+                    $Painel->html('<h3>' . $titulo . '</h3>');
                 }
                 if (array_key_exists('permissao', $dado)) {
                     foreach ($dado['permissao'] as $permissaoFinal => $nomePermissao) {
