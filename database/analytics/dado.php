@@ -36,8 +36,8 @@ $vinculoLista = [
     ],
 ];
 
-for ($i = 0; $i <= 10; $i++) {
-    $total = rand(100, 200);
+for ($i = 0; $i <= 7; $i++) {
+    $total = rand(30, 80);
     $data = dataRemover($dataInicial, $dataNumero, 'dias');
     for ($i2 = 0; $i2 < $total; $i2++) {
         $usuario = $usuarioLista[rand(0, 2)];
