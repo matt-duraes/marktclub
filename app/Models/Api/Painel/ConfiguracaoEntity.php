@@ -55,8 +55,12 @@ final class ConfiguracaoEntity extends Entity
     protected function regraPosBuscar(): void
     {
         $permissoes = [];
-        foreach ($this->permissao as $permissoesApp) {
-            if (array_key_exists('permissao', $permissoesApp)) {
+        foreach ($this->permissao as $nomeApp => $permissoesApp) {
+            if (array_key_exists('acao', $permissoesApp) && !empty($permissoesApp['acao'])) {
+                foreach ($permissoesApp['acao'] as $permissao) {
+                    $permissoes[] = $nomeApp . '_' . $permissao;
+                }
+            } elseif (array_key_exists('permissao', $permissoesApp)) {
                 foreach (array_keys($permissoesApp['permissao']) as $permissao) {
                     $permissoes[] = $permissao;
                 }
