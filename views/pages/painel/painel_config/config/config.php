@@ -8,9 +8,9 @@ return [
     'visualizar' => false,
     'add'        => true,
     'editar'     => true,
-    'deletar'    => false,
+    'deletar'    => true,
     'download'   => false,
-    'historico'  => true,
+    'historico'  => false,
     'api'        => [
         'scope' => 'painel_config',
         'uri'   => '/painel-configuracao'

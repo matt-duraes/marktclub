@@ -147,16 +147,16 @@ final class ConfiguracaoEntity extends Entity
                 $nomeApp = str_replace('_convenio', '', $permissao);
             }
             $apps[] = $nomeApp;
-            $acoes[] = $acao;
-            $permissoes[$permissao] = $tituloPermissao;
+            $acoes[$nomeApp][] = $acao;
+            $permissoes[$nomeApp][$permissao] = $tituloPermissao;
         }
 
         $painelPermissao = [];
         foreach ($apps as $nomeApp) {
             $painelPermissao[$nomeApp] = [
                 'titulo'    => $this->titulo[$nomeApp] ?? '',
-                'acao'      => $acoes,
-                'permissao' => $permissoes
+                'acao'      => $acoes[$nomeApp],
+                'permissao' => $permissoes[$nomeApp]
             ];
         }
 
