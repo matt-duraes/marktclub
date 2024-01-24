@@ -1,0 +1,66 @@
+{
+    "formTextoBuscarCupom": [
+        {
+            "pt": "Busque um cupom",
+            "en": "",
+            "es": ""
+        }
+    ],
+    "formBusqueConvenio": [
+        {
+            "pt": "Busque por um convênio",
+            "en": "",
+            "es": ""
+        }
+    ],
+    "tituloBuscarLoja": [
+        {
+            "pt": "Busque por uma loja",
+            "en": "",
+            "es": ""
+        }
+    ],
+    "formBusqueCupom": [
+        {
+            "pt":"Busque por um cupom'",
+            "en": "",
+            "es": ""
+        }
+    ],
+    "botaoBuscar": [
+        {
+            "pt": "Buscar",
+            "en": "",
+            "es": ""
+        }
+    ],
+    "textoBemVindo": [
+        {
+            "pt": "Seja bem-vindo à nossa página de CUPONS.m",
+            "en": "",
+            "es": ""
+        }
+    ],
+    "textoEncontrarDescontos": [
+        {
+            "pt": "Aqui você encontra descontos sazonais que proporcionam vantagens no consumo de marcas e itens específicos em várias lojas do Brasil e do mundo.",
+            "en": "",
+            "es": ""
+        }
+    ],
+    "textoCuponsTestados": [
+        {
+            "pt": "Todos os cupons são testados, mas cada um tem prazo de validade e sua quantidade é LIMITADA. Antes de efetuar a compra, verifique se o desconto está sendo aplicado. Caso tenha alguma dúvida ou precise de suporte, estamos à disposição em todos os nossos canais de atendimento.",
+            "en": "",
+            "es": ""
+        }
+    ],
+    "textoBoasCompras": [
+        {
+            "pt": "Boas compras!",
+            "en": "",
+            "es": ""
+        }
+    ]
+
+}

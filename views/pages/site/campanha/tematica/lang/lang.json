@@ -1,0 +1,23 @@
+{
+    "tituloCampanha" : [
+        {
+            "pt": "Título da Campanha",
+            "en": "",
+            "es": ""
+        }
+    ],
+    "blocoSemResultado" : [
+        {
+            "pt": "Texto da abaixo do banner",
+            "en": "",
+            "es": ""
+        }
+    ],
+    "tituloCategoria" : [
+        {
+            "pt": "Título da Categoria",
+            "en": "",
+            "es": ""
+        }
+    ]
+}

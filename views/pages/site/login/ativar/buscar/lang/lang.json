@@ -1,0 +1,65 @@
+{
+    "tituloBuscarConta": [
+        {
+            "pt": "BUSCAR CONTA",
+            "en": "",
+            "es": ""
+        }
+    ],
+    "textoPreenchaOsCampos": [
+        {
+            "pt": "Preencha os campos abaixo para buscar sua conta",
+            "en": "",
+            "es": ""
+        }
+    ],
+    "tituloTipoUsuario": [
+        {
+            "pt": "Selecione o tipo de usuário",
+            "en": "",
+            "es": ""
+        }
+    ],
+    "textoTipoTitular": [
+        {
+            "pt": "Titular",
+            "en": "",
+            "es": ""
+        }
+    ],
+    "textoTipoDependente": [
+        {
+            "pt": "Dependente",
+            "en": "",
+            "es": ""
+        }
+    ],
+    "tituloDadoSolicitado": [
+        {
+            "pt": "Insira o dado solicitado",
+            "en": "",
+            "es": ""
+        }
+    ],
+    "formCpf": [
+        {
+            "pt": "Digite seu cpf",
+            "en": "",
+            "es": ""
+        }
+    ],
+    "formInsiraDados": [
+        {
+            "pt": "Insira seus dados",
+            "en": "",
+            "es": ""
+        }
+    ],
+    "botaoBuscar": [
+        {
+            "pt": "Buscar",
+            "en": "",
+            "es": ""
+        }
+    ]
+}

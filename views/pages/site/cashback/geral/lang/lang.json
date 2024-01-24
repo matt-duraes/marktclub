@@ -1,0 +1,37 @@
+{
+    "formCategoria": [
+        {
+            "pt": "Categoria",
+            "en": "",
+            "es": ""
+        }
+    ],
+    "formBusqueConvenio": [
+        {
+            "pt": "Busque por um convênio",
+            "en": "",
+            "es": ""
+        }
+    ],
+    "tituloBuscarLoja": [
+        {
+            "pt": "Busque uma loja",
+            "en": "",
+            "es": ""
+        }
+    ],
+    "formBusque": [
+        {
+            "pt": "Busque por uma loja",
+            "en": "",
+            "es": ""
+        }
+    ],
+    "formOrdem": [
+        {
+            "pt": "Ordenar por",
+            "en": "",
+            "es": ""
+        }
+    ]
+}

@@ -1,6 +1,5 @@
 @template "site"
 
-
 <div id="bloco_campanha_tematica">
     <div class="bloco_geral_texto">
         <header>

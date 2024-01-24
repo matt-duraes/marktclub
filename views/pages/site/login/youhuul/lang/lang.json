@@ -1,0 +1,16 @@
+{
+    "botaoFazerLogin": [
+        {
+            "pt": "Login",
+            "en": "",
+            "es": ""
+        }
+    ],
+    "textoVoltarTela": [
+        {
+            "pt": "Ir para tela de login",
+            "en": "",
+            "es": ""
+        }
+    ]
+}

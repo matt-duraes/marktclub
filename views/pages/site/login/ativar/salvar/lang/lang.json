@@ -1,0 +1,230 @@
+{
+    "tituloAtivarConta": [
+        {
+            "pt": "ATIVAR CONTA",
+            "en": "",
+            "es": ""
+        }
+    ],
+    "textoCompletarCadastro": [
+        {
+            "pt": "Preencha seus dados para completar o cadastro",
+            "en": "",
+            "es": ""
+        }
+    ],
+    "tituloDadosPessoais": [
+        {
+            "pt": "Dados pessoais",
+            "en": "",
+            "es": ""
+        }
+    ],
+    "formNome": [
+        {
+            "pt": "Nome completo",
+            "en": "",
+            "es": ""
+        }
+    ],
+    "formCpf": [
+        {
+            "pt": "Digite seu CPF",
+            "en": "",
+            "es": ""
+        }
+    ],
+    "formDataNascimento": [
+        {
+            "pt": "Data nascimento",
+            "en": "",
+            "es": ""
+        }
+    ],
+    "formSelectGenero": [
+        {
+            "pt": "Gênero",
+            "en": "",
+            "es": ""
+        }
+    ],
+    "formSelectEstadoCivil": [
+        {
+            "pt": "Estado civil",
+            "en": "",
+            "es": ""
+        }
+    ],
+    "tituloDadosContato": [
+        {
+            "pt": "Dados de contato",
+            "en": "",
+            "es": ""
+        }
+    ],
+    "formEmailPessoal": [
+        {
+            "pt": "E-mail pessoal",
+            "en": "",
+            "es": ""
+        }
+    ],
+    "formEmailTrabalho": [
+        {
+            "pt": "E-mail de trabalho",
+            "en": "",
+            "es": ""
+        }
+    ],
+    "formTelefonePessoal": [
+        {
+            "pt": "Telefone pessoal",
+            "en": "",
+            "es": ""
+        }
+    ],
+    "formTelefoneTrabalho": [
+        {
+            "pt": "Telefone de trabalho",
+            "en": "",
+            "es": ""
+        }
+    ],
+    "formCep": [
+        {
+            "pt": "CEP",
+            "en": "",
+            "es": ""
+        }
+    ],
+    "formLogradouro": [
+        {
+            "pt": "Logradouro",
+            "en": "",
+            "es":""
+        }
+    ],
+    "formEnderecoNumero": [
+        {
+            "pt": "Número",
+            "en": "",
+            "es": ""
+        }
+    ],
+    "formComplemento": [
+        {
+            "pt": "Complemento",
+            "en": "",
+            "es": ""
+        }
+    ],
+    "formBairro": [
+        {
+            "pt": "Bairro",
+            "en": "",
+            "es": ""
+        }
+    ],
+    "formSelectEstado": [
+        {
+            "pt": "Estado",
+            "en": "",
+            "es": ""
+        }
+    ],
+    "formSelectCidade": [
+        {
+            "pt": "Cidade",
+            "en": "",
+            "es": ""
+        }
+    ],
+    "tituloSenha": [
+        {
+            "pt": "Senha",
+            "en": "",
+            "es": ""
+        }
+    ],
+    "avisoSenha": [
+        {
+            "pt": "Sua senha deve ter:",
+            "en": "",
+            "es":""
+        }
+    ],
+    "textoRequisitoMinimoCaractere": [
+        {
+            "pt": "Ter pelo menos 8 caracteres",
+            "en": "",
+            "es":""
+        }
+    ],
+    "textoRequisitoLetraMinuscula": [
+        {
+            "pt": "Ter pelo menos uma letra minúscula",
+            "en": "",
+            "es":""
+        }
+    ],
+    "textoRequisitoLetraMaiscula": [
+        {
+            "pt": "Ter pelo menos uma letra maiúscula",
+            "en": "",
+            "es":""
+        }
+    ],
+    "textoRequisitoCaractere": [
+        {
+            "pt": "Ter pelo menos um símbolo (Por exemplo: $*&@#_)",
+            "en": "",
+            "es": ""
+        }
+    ],
+    "textoRequisitoNumero": [
+        {
+            "pt": "Ter pelo menos um número",
+            "en": "",
+            "es": ""
+        }
+    ],
+    "formSenha": [
+        {
+            "pt": "Senha",
+            "en": "",
+            "es": ""
+        }
+    ],
+    "formSenhaConfirmar": [
+        {
+            "pt": "Confirmar Senha",
+            "en": "",
+            "es": ""
+        }
+    ],
+    "formAceitarAcordo": [
+        {
+            "pt": "Aceito os Termos de acordo com a Lei 13.709/2018",
+            "en": "",
+            "es": ""
+        }
+    ],
+    "linkLerTermo": [
+        {
+            "pt": "Ler Termo",
+            "en": "",
+            "es": ""
+        }
+    ]
+    ,
+    "botaoSalvarDados": [
+        {
+            "pt": "Salvar Dados",
+            "en": "",
+            "es": ""
+        }
+    ]
+
+}
+
+

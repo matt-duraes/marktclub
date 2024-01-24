@@ -1,0 +1,51 @@
+{
+    "tituloIndicar": [
+        {
+            "pt": "Não achou o que procura?",
+            "en": "",
+            "es": ""
+        }
+    ],
+    "textoSugestaoLoja": [
+        {
+            "pt": "Preencha os campos abaixo e envia sua sugestão de loja",
+            "en": "",
+            "es": ""
+        }
+    ],
+    "formNomeParceiro": [
+        {
+            "pt": "Qual o nome do parceiro?",
+            "en": "",
+            "es": ""
+        }
+    ],
+    "formTelefoneParceiro": [
+        {
+            "pt": "Você tem o telefone do parceiro?",
+            "en": "",
+            "es": ""
+        }
+    ],
+    "formEmailParceiro": [
+        {
+            "pt": "E-mail do parceiro",
+            "en": "",
+            "es": ""
+        }
+    ],
+    "formMensagem": [
+        {
+            "pt": "Digite uma mensagem",
+            "en": "",
+            "es": ""
+        }
+    ],
+    "botaoEnviar": [
+        {
+            "pt": "ENVIAR",
+            "en": "",
+            "es": ""
+        }
+    ]
+}
