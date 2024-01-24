@@ -2,6 +2,7 @@
 
 namespace App\Models\Api\Painel;
 
+use Erro\Excecao;
 use Helpers\OrmHelper;
 use ORM\Entity;
 use stdClass;
@@ -67,11 +68,14 @@ final class ConfiguracaoEntity extends Entity
             }
         }
 
-        $this->permissao = $permissoes;
+        $this->permissao = array_unique($permissoes);
         $this->empresa = $this->OrmEmpresa->pegarUuidPeloId($this->id_admin_empresa);
         $this->campo_obrigatorio = $this->campo_obrigatorio['usuario_cliente'];
     }
 
+    /**
+     * @throws Excecao
+     */
     protected function regraSalvar(): void
     {
         $apps = [];
@@ -147,16 +151,16 @@ final class ConfiguracaoEntity extends Entity
                 $nomeApp = str_replace('_convenio', '', $permissao);
             }
             $apps[] = $nomeApp;
-            $acoes[] = $acao;
-            $permissoes[$permissao] = $tituloPermissao;
+            $acoes[$nomeApp][] = $acao;
+            $permissoes[$nomeApp][$permissao] = $tituloPermissao;
         }
 
         $painelPermissao = [];
         foreach ($apps as $nomeApp) {
             $painelPermissao[$nomeApp] = [
                 'titulo'    => $this->titulo[$nomeApp] ?? '',
-                'acao'      => $acoes,
-                'permissao' => $permissoes
+                'acao'      => $acoes[$nomeApp],
+                'permissao' => $permissoes[$nomeApp]
             ];
         }
 
@@ -166,6 +170,12 @@ final class ConfiguracaoEntity extends Entity
             'usuario_cliente' => $this->campo_obrigatorio
         ];
 
+        if (empty($this->idEmpresa)) {
+            mensagemErro(
+                'Empresa não encontrada ou inexistente',
+                'Não foi possível salvar por falta de Empresa'
+            );
+        }
         $this->validarCampoDuplicado(
             campo: 'id_admin_empresa',
             mensagem: 'Painel já cadastrado',

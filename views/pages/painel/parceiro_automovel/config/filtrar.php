@@ -22,6 +22,12 @@ $Painel
         label: 'Parceiro',
         placeholder: 'Parceiro'
     )
+    ->input(
+        name: 'titulo',
+        titulo: 'Nome do modelo',
+        label: 'Nome do modelo',
+        placeholder: 'Nome do modelo'
+    )
     ->bloco(function () use ($Painel) {
         $Painel
             ->data(
