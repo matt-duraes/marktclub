@@ -1,7 +1,7 @@
 @template "painel"
 
 <form action="/">
-    <input type="hidden" id="TABELA_ACAO" value="{{$tipo}}">
+    <input type="hidden" id="TABELA_TIPO" value="{{$tipo}}">
 </form>
 
 <div class="bloco_app_tabela">
@@ -59,14 +59,7 @@
             <i>@iconeCheck(30)</i>
             <p>Upload finalizado com sucesso</p>
         </div>
+
+        <div class="bloco_tabela erro" id="bloco_erros"></div>
     </div>
-</div>
-
-<div class="bloco_pagina_popup display_none" id="popup_erros">
-    <header class="header_pagina_popup">
-        <h1>Erros</h1>
-        <i class="popup_fechar fechar botao_fechar">@iconeFechar</i>
-    </header>
-
-    <form class="form_geral conteudo_pagina_popup bloco_tabela erro" id="bloco_erros"></form>
 </div>

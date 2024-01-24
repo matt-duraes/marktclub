@@ -26,7 +26,7 @@ $scope = [
     'usuario_grupo:salvar', 'usuario_grupo:atualizar', 'usuario_grupo:listar', 'usuario_grupo:buscar',
     'usuario_grupo:deletar',
 
-    'tabela_usuario:salvar', 'tabela_usuario:bloquear',
+    'tabela_usuario:salvar', 'tabela_usuario:listar', 'tabela_usuario:atualizar',
 
     'voucher:salvar', 'voucher:verificar', 'voucher:validar',
 

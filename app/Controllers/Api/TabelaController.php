@@ -2,42 +2,44 @@
 
 namespace App\Controllers\Api;
 
+use App\Models\Api\TabelaUsuario\TabelaEntity;
+use App\Models\Api\TabelaUsuario\TabelaModel;
 use Http\Request;
 use Http\Response;
 use Controller\Controller;
 use System\Interface\ControllerSalvarInterface;
-use App\Models\Api\UsuarioCliente\UsuarioTabelaModel;
 
 final class TabelaController extends Controller implements
     ControllerSalvarInterface
 {
-    public function postSalvar(Request $request): Response
+    public function getListar(Request $request): Response
     {
-        $Usuario = new UsuarioTabelaModel();
-        $hash = jsonDecode($request->hash, true, true);
-        foreach ($hash as $item) {
-            $Usuario->salvarUsuario($item);
-        }
-        $retorno = $Usuario->retorno();
-        return mensagemSucesso([
-            'retorno' => $retorno,
-            'tipo'    => 'salvar'
-        ], status: 201);
+        $Tabela = new TabelaModel($request);
+        return mensagemSucesso($Tabela->listarDados());
     }
 
-    public function postBloquear(Request $request)
+    public function postSalvar(Request $request): Response
     {
-        $Usuario = new UsuarioTabelaModel();
-        $hash = jsonDecode($request->hash, true, true);
+        $Tabela = new TabelaEntity(
+            arquivoUpload: $request->getFiles('arquivo')
+        );
+        $Tabela->set(lista: $request->dado());
+        $Tabela->salvar();
 
-        foreach ($hash as $item) {
-            $Usuario->bloquearUsuario($item);
-        }
-        $retorno = $Usuario->retorno();
+        return $this->retornoSucesso($Tabela);
+    }
 
-        return mensagemSucesso([
-            'retorno' => $retorno,
-            'tipo'    => 'bloquear'
-        ], status: 201);
+    private function retornoSucesso(TabelaEntity $Entity, int $status = 200)
+    {
+        return mensagemSucesso(
+            pegarPropriedadeDaEntity(
+                $Entity,
+                lista: [
+                    'id', 'usuario', 'empresa', 'arquivo', 'erro', 'novo',
+                    'atualizado', 'tipo', 'status', 'data_criacao', 'data_atualizacao'
+                ],
+            ),
+            status: $status
+        );
     }
 }

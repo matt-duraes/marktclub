@@ -615,7 +615,7 @@ Route
     });
 
 Route
-    ::nome('tabela')
+    ::nome('tabelaUsuario')
     ::controller(App\Controllers\Api\TabelaController::class)
     ::middleware(TokenMiddleware::class, 'token')
     ::grupo(function () {
@@ -623,19 +623,18 @@ Route
             ::nome('listar')
             ::middleware(TokenMiddleware::class, 'scope', ['tabela_usuario:listar'])
             ::request(['pagina', '!quantidade', '!ordem', '!pesquisa', '!tipo'], 'json')
-            ::get('/tabela');
+            ::get('/tabela-usuario');
         Route
             ::nome('salvar')
             ::middleware(TokenMiddleware::class, 'scope', ['tabela_usuario:salvar'])
-            ::request(['nome', 'tipo'])
-            ::request(['arquivo'], 'files')
-            ::post('/tabela');
+            ::request(['!tipo'])
+            ::request(['!arquivo'], 'files')
+            ::post('/tabela-usuario');
         Route
             ::nome('atualizar')
             ::middleware(TokenMiddleware::class, 'scope', ['tabela_usuario:atualizar'])
             ::request(['!status'])
-            ::request(['arquivo'], 'files')
-            ::put('/tabela/{id}');
+            ::put('/tabela-usuario/{id}');
     });
 
 Route

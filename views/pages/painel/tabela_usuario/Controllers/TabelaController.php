@@ -1,18 +1,18 @@
 <?php
 
-namespace Painel\UsuarioTabela\Controllers;
+namespace Painel\TabelaUsuario\Controllers;
 
 use Http\Request;
 use Http\Response;
-use Helpers\ApiHelper;
 use Controller\Controller;
-use Painel\UsuarioTabela\Models\AnalisarModel;
+use Helpers\ApiHelper;
+use Painel\TabelaUsuario\Models\AnalisarModel;
 
 final class TabelaController extends Controller
 {
     public function salvar()
     {
-        return view(arquivo: 'painel.usuario_tabela.index', var: [
+        return view(arquivo: 'painel.tabela_usuario.index', var: [
             'appTitulo' => 'TABELA / SALVAR',
             'app'       => 'tabela-salvar',
             'tipo'      => 'salvar',
@@ -22,11 +22,27 @@ final class TabelaController extends Controller
 
     public function bloquear()
     {
-        return view(arquivo: 'painel.usuario_tabela.index', var: [
+        return view(arquivo: 'painel.tabela_usuario.index', var: [
             'appTitulo' => 'TABELA / BLOQUEAR',
             'app'       => 'tabela-bloquear',
             'tipo'      => 'bloquear',
             'arquivo'   => arquivoPublico('tabela', 'layout_bloqueio.csv', parametro: ['download' => 'sim'])
+        ]);
+    }
+
+    public function historico()
+    {
+        $dado = (new ApiHelper(token: true))
+            ->json([
+                'pagina' => 1
+            ])
+            ->get('/tabela-usuario')
+            ->array()['dado'] ?? [];
+
+        return view(arquivo: 'painel.tabela_usuario.historico', var: [
+            'appTitulo' => 'TABELA / HISTÓRICO',
+            'app'       => 'tabela-historico',
+            'lista'     => $dado['lista'] ?? []
         ]);
     }
 
@@ -51,16 +67,16 @@ final class TabelaController extends Controller
 
     public function postSalvar(Request $request)
     {
-        $hash = $request->hash;
-        if (!is_array($hash) || !$hash) {
-            mensagemErro('Erro!', 'Não foi possível analisar dados para salvar usuário, por favor, tente novamente.');
-        }
+        $dado = (new ApiHelper(token: true))
+            ->arquivo([
+                'arquivo' => $request->getFiles('arquivo')
+            ])
+            ->body([
+                'tipo' => $request->tipo
+            ])
+            ->post('/tabela-usuario')
+            ->array();
 
-        $Api = new ApiHelper(token: true);
-        $resposta = $Api->body([
-            'hash' => $hash
-        ])->post('/tabela/salvar')->object();
-
-        return new Response(json: $resposta, status: 201);
+        return mensagemSucesso($dado);
     }
 }
