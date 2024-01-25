@@ -10,7 +10,6 @@ use App\Models\Site\Perfil\DadosModel;
 use App\Models\Site\Perfil\SenhaModel;
 use App\Models\Site\Perfil\DependenteModel;
 use App\Models\Site\Perfil\CarteirinhaModel;
-use SebastianFeldmann\Git\Command\LsTree\GetFiles;
 
 final class PerfilController extends Controller
 {
