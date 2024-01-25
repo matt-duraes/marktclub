@@ -9,18 +9,9 @@ window.addEventListener('load', () => {
 
     const inputUpload = document.querySelector('#input_upload');
     const botaoAnalisar = document.querySelector('#botao_analisar');
-    const blocoHeader = document.querySelector('#bloco_header');
 
-    const blocoTotal = document.querySelector('#bloco_total_upload');
-    const blocoFinalizado = document.querySelector('#bloco_tabela_finalizado');
     const blocoZero = document.querySelector('#bloco_zero');
     const blocoErro = document.querySelector('#bloco_erros');
-
-    const blocoComando = document.querySelector('#bloco_botao_comando');
-    const botaoEnviar = document.querySelector('#botao_enviar');
-    const botaoContinuar = document.querySelector('#botao_continuar');
-    const botaoCancelar = document.querySelector('#botao_cancelar');
-    const botaoReiniciar = document.querySelector('#botao_reiniciar');
 
     /*
     |--------------------------------------------------------------------------

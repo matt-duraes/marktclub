@@ -22,42 +22,10 @@
         </div>
     </header>
 
-    <div class="botao_comando" id="bloco_botao_comando">
-        <div class="botao reiniciar" id="botao_reiniciar">REINICIAR</div>
-        <div class="botao enviar" id="botao_enviar">ENVIAR <i>@iconeSetaDireita(15)</i></div>
-        <div class="botao enviar" id="botao_continuar">CONTINUAR <i>@iconeSetaDireita(15)</i></div>
-        <div class="botao cancelar" id="botao_cancelar">CANCELAR ENVIO</div>
-    </div>
-
     <div class="conteudo">
         <div class="bloco_mensagem show" id="bloco_zero">
             <i>@iconeUpload(40)</i>
             <p>Faça o upload de uma tabela para analisar</p>
-        </div>
-
-        <div class="bloco_total" id="bloco_total_upload">
-            <div class="item show">
-                <p>Sucesso</p>
-                <span id="total_sucesso" class="sucesso">0</span>
-            </div>
-            <div class="item show">
-                <p>Erro</p>
-                <span id="total_erro" class="erro">0</span>
-            </div>
-            <div class="linha {!! $tipo == 'salvar' ? 'show' : '' !!}"></div>
-            <div class="item {!! $tipo == 'salvar' ? 'show' : '' !!}">
-                <p>Novos</p>
-                <span id="total_novo" class="novo">0</span>
-            </div>
-            <div class="item {!! $tipo == 'salvar' ? 'show' : '' !!}">
-                <p>Atualizados</p>
-                <span id="total_atualizado" class="atualizado">0</span>
-            </div>
-        </div>
-
-        <div class="bloco_mensagem" id="bloco_tabela_finalizado">
-            <i>@iconeCheck(30)</i>
-            <p>Upload finalizado com sucesso</p>
         </div>
 
         <div class="bloco_tabela erro" id="bloco_erros"></div>
