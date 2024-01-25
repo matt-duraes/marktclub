@@ -136,8 +136,10 @@ final class DadosModel extends ClubeApiHelper
 
         $dado = $this
             ->arquivo([
+                'arquivo' => $imagem,
+            ])
+            ->body([
                 'id' => sessao('USUARIO.id'),
-                'imagem_google' => $imagem,
             ])
             ->post('/usuario-cliente/imagem')
             ->object();

@@ -301,7 +301,12 @@ Route
                 '!trabalho_data_inicio', '!grupo', '!federacao', '!imagem_google', '!subempresa'
             ])
             ::put('/usuario-cliente/{id}');
-
+        Route
+            ::nome('imagem')
+            ::middleware(TokenMiddleware::class, 'scope', ['usuario_cliente:imagem'])
+            ::request(['id'])
+            ::request(['arquivo'], 'files')
+            ::post('/usuario-cliente/imagem');
         Route
             ::nome('deletar')
             ::middleware(TokenMiddleware::class, 'scope', ['usuario_cliente:deletar'])
