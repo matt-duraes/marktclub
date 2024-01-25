@@ -165,7 +165,6 @@ return [
         'tipo'                => 1,
         'status'              => 4
     ],
-
     [
         'cod'                 => '5d20bebb-36d5-47ce-8bc8-178309983a9a',
         'categoria_principal' => '1',
@@ -257,7 +256,7 @@ return [
         'estado'              => [$estados[rand(0, 26)]],
         'limite_voucher'      => 10,
         'prazo_voucher'       => 5,
-        'tipo'                => 4,
+        'tipo'                => 1,
         'status'              => 5
     ],
     [
@@ -503,4 +502,49 @@ return [
     ['id' => '746', 'cod' => '349ecd13b9184a8a2d785478f26db474', 'categoria_principal' => '1', 'categoria_todas' => '["1"]', 'titulo' => 'GOIABEIRAS GOURMET RESTAURANTE', 'url' => 'goiabeiras-gourmet-restaurante', 'imagem' => '3e37b02c80588fef655666d3dc503d70.png', 'capa' => 'fb706525b86e17d5f09be401bcb0e9a5.jpg', 'procedimento' => '1', 'empresa' => '["6","42","233","100","1992","220","2003","1972","236","132","2088","133","58","215","218","200","53","159","197","194","195","235","59","65","106","2","98","66","73","41","109","1954","128","3","1975","4","56","45","147","112","35","156","163","68","145","96","1978","209","225","204","240","239","50","199","2013","229","1981","175","2087","198","1957","223","153","92","2007","95","2002","84","2009","1967","2008","192","1","1989","187","234","214","1971","217","118","216","154","1993","1959","186","2001","80","70","230","102","196","2004","60","52","1987","94","104","76","2000","2011","1994","1991","168","82","237","40","1956","2006","1988","1982","55","19","160","178","166","2091"]', 'estado' => '["MT"]', 'tipo' => '1', 'status' => '4', 'desconto' => '10% de desconto'],
     ['id' => '747', 'cod' => '14c42285620477dfcf4ddeea2ec4d7c8', 'categoria_principal' => '1', 'categoria_todas' => '["1"]', 'titulo' => 'VINO &amp; MARE EMPÓRIO GOURMET', 'url' => 'vino-e-mare-emporio-gourmet', 'imagem' => '67663b78e6991119aa387cda9992b35e.png', 'capa' => null, 'procedimento' => '2', 'empresa' => '["6","42","233","100","2003","1972","236","132","2088","133","58","215","218","200","53","159","197","194","195","235","59","65","106","2","98","66","73","41","109","1954","128","3","1975","4","56","45","147","112","35","156","163","68","145","96","1978","209","225","204","240","239","50","199","2013","229","1981","175","2087","198","1957","223","153","92","2007","95","2002","84","2009","1967","2008","192","1","1989","187","234","214","1971","217","118","216","154","1993","186","2001","80","70","230","102","196","2004","60","52","1987","94","104","76","2011","1994","1991","168","82","237","40","1956","2006","1988","1982","55","19","160","178","166","2091"]', 'estado' => '["AC","AL","AP","AM","BA","CE","DF","ES","GO","MA","MT","MS","MG","PA","PB","PR","PE","PI","RJ","RN","RS","RO","RR","SC","SP","SE","TO"]', 'tipo' => '1', 'status' => '4', 'desconto' => '10% de desconto'],
     ['id' => '752', 'cod' => '9d2178761d7bc5024d341612c2c52c99', 'categoria_principal' => '4', 'categoria_todas' => '["4"]', 'titulo' => 'KITCHENAID', 'url' => 'kitchenaid', 'imagem' => '4f3bddd5b28051b0d86181c7e08673af.jpg', 'capa' => 'fba55bb190839b9ffcb81364e5d48f03.jpg', 'procedimento' => '2', 'empresa' => '["6","42","233","100","1992","220","2003","1972","236","132","2088","133","58","215","218","200","53","159","197","194","195","235","59","65","106","2","98","66","73","41","109","1954","128","3","1975","4","56","45","147","112","35","156","163","68","145","96","1978","209","225","204","240","239","50","199","2013","229","1981","175","2087","198","1957","153","92","2007","95","2002","84","2009","1967","2008","192","1","1989","187","234","214","1971","217","118","216","154","1993","1959","186","2001","80","70","230","102","196","2004","60","52","1987","94","104","76","2000","2011","1994","1991","168","82","237","40","1956","2006","1988","1982","55","19","160","178","166","2091"]', 'estado' => '["AC","AL","AP","AM","BA","CE","DF","ES","GO","MA","MT","MS","MG","PA","PB","PR","PE","PI","RJ","RN","RS","RO","RR","SC","SP","SE","TO"]', 'tipo' => '1', 'status' => '4', 'desconto' => '10% de desconto'],
+    [
+        'cod'                 => '7b1476c3-2627-490c-a0cf-dff7b9196b00',
+        'categoria_principal' => '1',
+        'categoria_todas'     => '["1","2","3","4","5","6","7","8"]',
+        'titulo'              => 'Parceiro premium 06',
+        'url'                 => 'premium-06',
+        'imagem'              => '03d2b597a90afa3e3c8300f161a5f3d1.png',
+        'site'                => 'https://google.com',
+        'capa'                => '84169210f9e1185edf3049163d9f648d.jpg',
+        'texto'               => 'Lorem ipsum dolor sit, amet consectetur adipisicing elit. Mollitia, fugiat.',
+        'desconto'            => '10% de desconto',
+        'desconto_texto'      => 'Texto de desconto do parceiro',
+        'procedimento_texto'  => 'Texto de procedimento do parceiro',
+        'voucher_texto'       => 'Texto para o voucher do parceiro',
+        'destaque'            => ['1', '1967'],
+        'empresa'             => ['1', '1967'],
+        'procedimento'        => 1,
+        'prazo_voucher'       => 5,
+        'limite_voucher'      => 3,
+        'tipo'                => 1,
+        'status'              => 5
+    ],
+    [
+        'cod'                 => 'ca0bde20602db3ec777acbbcfb5a4c61',
+        'categoria_principal' => '1',
+        'categoria_todas'     => '["1","2","3","4","5","6","7","8"]',
+        'titulo'              => 'Blue Fit',
+        'url'                 => 'bluefit',
+        'imagem'              => '8c1b749f2b85c285abd1917de3c736b0.png',
+        'site'                => 'https://google.com',
+        'capa'                => '9badbb7d9bdbf5028821730188f6da24.png',
+        'texto'               => 'Lorem ipsum dolor sit, amet consectetur adipisicing elit. Mollitia, fugiat.',
+        'desconto'            => '10% de desconto',
+        'desconto_texto'      => 'Texto de desconto do parceiro',
+        'procedimento_texto'  => 'Texto de procedimento do parceiro',
+        'voucher_texto'       => 'Texto para o voucher do parceiro',
+        'procedimento'        => 3,
+        'destaque'            => ['1', '2', '66'],
+        'empresa'             => ['1', '2', '66'],
+        'data_publicacao'     => dataPassadaAleatorio(),
+        'estado'              => [$estados[rand(0, 26)]],
+        'prazo_voucher_fixo'  => '2040-01-01',
+        'tipo'                => 1,
+        'status'              => 4
+    ],
 ];

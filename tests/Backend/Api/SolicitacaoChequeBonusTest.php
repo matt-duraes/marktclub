@@ -53,7 +53,7 @@ class SolicitacaoChequeBonusTest extends Clube
     private function getBody(array $array = []): array
     {
         return array_merge([
-            'automovel'                  => 'dc68285f-65e2-4db9-b37c-d216cf4ddd97',
+            'automovel'                  => 'a11c5786-3c19-4a83-84b0-11b80e9d1f03',
             'data_termo'                 => $this->hoje(),
             'tipo_usuario'               => TipoUsuario::TITULAR,
             'nome'                       => nomeCompletoAleatorio(),

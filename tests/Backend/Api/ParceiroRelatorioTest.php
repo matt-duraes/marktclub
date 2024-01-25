@@ -36,7 +36,7 @@ class ParceiroRelatorioTest extends Tests
         return array_merge([
             'numero_transacao' => numeroAleatorio(1, 10000),
             'empresa'          => '14afa776394ada4be23be6acf7e3259e',
-            'parceiro'         => 'f10e05c0-5b02-4bff-8e22-719a8797f0d6',
+            'parceiro'         => '9792e058562303f9e7e0604c5117c569',
             'valor_venda'      => numeroAleatorio(1, 10000),
             'data_relatorio'   => dataPassadaAleatorio()
         ], $array);
