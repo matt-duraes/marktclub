@@ -319,15 +319,13 @@ final class ConfiguracoesPadrao
                 'relatorio_loja_venda_empresa' => 'Todas as empresas'
             ]
         ],
-        'usuario_tabela'           => [
-            'titulo'    => 'Usuário Tabela',
-            'acao'      => [
-                'index', 'add', 'editar'
-            ],
+        'tabela_usuario'           => [
+            'titulo'    => 'Tabela de Usuário',
             'permissao' => [
-                'usuario_tabela_index'  => 'Listar',
-                'usuario_tabela_add'    => 'Salvar',
-                'usuario_tabela_editar' => 'Editar'
+                'tabela_usuario_salvar'   => 'Salvar',
+                'tabela_usuario_bloquear' => 'Bloquear',
+                'tabela_historico_index'  => 'Histórico',
+                'tabela_usuario_empresa'  => 'Todas as empresas'
             ]
         ],
         'solicitacao_loja'         => [

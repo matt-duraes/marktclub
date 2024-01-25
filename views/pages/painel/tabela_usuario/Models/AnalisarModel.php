@@ -1,6 +1,6 @@
 <?php
 
-namespace Painel\UsuarioTabela\Models;
+namespace Painel\TabelaUsuario\Models;
 
 use Helpers\ListaHelper;
 use App\Classes\UsuarioCliente\Situacao;
