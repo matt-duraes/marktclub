@@ -145,6 +145,19 @@ final class UsuarioClienteController extends Controller implements
         return new Response(status: 204);
     }
 
+    public function postImagem(Request $request): Response
+    {
+        $Usuario = new ClienteEntity();
+        $Usuario->uuid($request->id);
+        $Usuario->imagem_arquivo = $request->getFiles('arquivo');
+        $Usuario->salvar();
+
+        return mensagemSucesso([
+            'id'     => $Usuario->id,
+            'imagem' => $Usuario->imagem
+        ], status: 201);
+    }
+
     /**
      * @param string $id
      *
