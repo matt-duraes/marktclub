@@ -3,11 +3,12 @@
     <div class="conteudo">
         <section class="foto">
             <figure id="imagem_fundo_perfil" style="background-image: url({!!USUARIO_IMAGEM!!})">
-                <!-- <i class="botao_editar_foto">
+                <i class="botao_editar_foto">
                     @iconeEditar()
-                </i> -->
+                </i>
                 <img src="" alt="" class="display_none" id="imagem_perfil">
             </figure>
+            <input class="display_none" type="file" id="fileInput"  accept="image/*">
             <div class="legenda">
                 <article>
                     <h1>{{$dado->nome}}</h1>
@@ -18,7 +19,6 @@
                     @ endif;
                     <p>Usuário desde: {{$dado->data_criacao}}</p>
                 <article>
-                    <input type="file" id="fileInput" name="userPhoto" accept="image/*">
                 <!-- <label for="upload_personalizado" id="upload_personalizado">Escolher Arquivo</label> -->
             </div>
         </section>

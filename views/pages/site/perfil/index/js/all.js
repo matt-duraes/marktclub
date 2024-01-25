@@ -28,6 +28,7 @@ window.addEventListener('load', () => {
     const fotoPerfil = document.querySelector('#imagem_fundo_perfil');
     const blocoPerfil = document.querySelector('#bloco_perfil figure');
     const inputBlocoFoto = document.querySelector('#input_foto_perfil');
+    const iconeEditarFoto = document.querySelector('.botao_editar_foto');
 
     buscarEnderecoPeloCep(inputCep, inputLogradouro, inputNumero, inputBairro, inputCidade, inputEstado, true);
     const buscarCidade = () => {
@@ -110,32 +111,57 @@ window.addEventListener('load', () => {
     | ALTERAR FOTO
     |--------------------------------------------------------------------------
     */
-    const setarNovaImagem = imagem => {
+    const setarNovaFoto = imagem => {
         fotoPerfil.style.backgroundImage = `url(${imagem})`;
         blocoPerfil.style.backgroundImage = `url(${imagem})`;
-        Alerta.notificacao('Imagem alterada com sucesso!', true);
     };
 
-    const fileInput = document.querySelector('#fileInput');
+    const salvarFoto = async imagem => {
+        Loading.show();
 
-    fileInput.addEventListener('change', e => {
-        const inputTarget = e.target;
-        const file = inputTarget.files[0];
+        let body = new FormData();
+        body.append('imagem', imagem);
 
-        if (file) {
-            const reader = new FileReader();
-            reader.addEventListener('load', e => {
-                const readerTarget = e.target.result;
-                setarNovaImagem(readerTarget);
+        const resposta = await fetch(LINK + '/perfil/vincular-google', {
+            method: 'POST',
+            body,
+        });
 
-                let body = new FormData();
-                body.append('imagem', file);
-                const resposta = fetch(LINK + '/perfil/vincular-google', {
-                    method: 'POST',
-                    body,
-                });
-            });
-            reader.readAsDataURL(file);
+        let json;
+        try {
+            json = await resposta.json();
+        } catch (error) {
+            json = {};
         }
+
+        Loading.hide();
+        if (resposta.status != 204) {
+            Alerta.notificacao(json.erro.mensagem != undefined ? json.erro.mensagem : 'Erro ao salvar imagem.', false);
+            return;
+        }
+
+        Alerta.notificacao('Foto Alterada com sucesso!', true);
+    };
+    const arquivoInput = document.querySelector('#fileInput');
+
+    arquivoInput.addEventListener('change', e => {
+        const inputTarget = e.target;
+        const arquivo = inputTarget.files[0];
+
+        if (!arquivo) {
+            Alerta.mensagem('Erro', 'Não é possível salvar foto', false);
+            return;
+        }
+        const leitor = new FileReader();
+        leitor.addEventListener('load', e => {
+            const leitorTarget = e.target.result;
+            setarNovaFoto(leitorTarget);
+            salvarFoto(arquivo);
+        });
+        leitor.readAsDataURL(arquivo);
+    });
+
+    iconeEditarFoto.addEventListener('click', () => {
+        arquivoInput.click();
     });
 });
