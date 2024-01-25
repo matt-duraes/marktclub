@@ -692,7 +692,7 @@ Route
             ::post('/perfil/dependente-deletar');
         Route
             ::nome('social')
-            ::request(['code'])
+            ::request(['imagem'], 'files')
             ::post('/perfil/vincular-google');
         Route
             ::nome('carteirinha')

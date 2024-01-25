@@ -10,6 +10,7 @@ use App\Models\Site\Perfil\DadosModel;
 use App\Models\Site\Perfil\SenhaModel;
 use App\Models\Site\Perfil\DependenteModel;
 use App\Models\Site\Perfil\CarteirinhaModel;
+use SebastianFeldmann\Git\Command\LsTree\GetFiles;
 
 final class PerfilController extends Controller
 {
@@ -120,6 +121,7 @@ final class PerfilController extends Controller
     */
     public function postSocial(Request $request)
     {
-        return (new DadosModel())->postImagemSocial($request);
+
+        return (new DadosModel())->postImagem($request);
     }
 }

@@ -127,9 +127,10 @@ window.addEventListener('load', () => {
             reader.addEventListener('load', e => {
                 const readerTarget = e.target.result;
                 setarNovaImagem(readerTarget);
+
                 let body = new FormData();
                 body.append('imagem', file);
-                const resposta = fetch(LINK + '/perfil/vincular-foto', {
+                const resposta = fetch(LINK + '/perfil/vincular-google', {
                     method: 'POST',
                     body,
                 });

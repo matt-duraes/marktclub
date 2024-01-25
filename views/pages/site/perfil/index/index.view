@@ -15,9 +15,9 @@
                     @ endif;
                     <p>Usuário desde: {{$dado->data_criacao}}</p>
                 <article>
-                <!-- <form id="uploadForm" enctype="multipart/form-data">
+                <form id="uploadForm" enctype="multipart/form-data">
                     <input type="file" id="fileInput" name="userPhoto" accept="image/*">
-                </form> -->
+                </form>
             </div>
         </section>
         <form method="post" class="form_geral cinza">
