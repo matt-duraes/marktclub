@@ -67,8 +67,8 @@ final class UsuarioClienteController extends Controller implements
             pegarPropriedadeDaEntity($Usuario, lista: [
                 'Empresa' => ['id', 'nome_fantasia'],
                 'subempresa', 'nome', 'siape', 'cpf', 'rg', 'email_trabalho', 'email_pessoal', 'email_funcional',
-                'telefone_trabalho', 'telefone_pessoal', 'estado_civil', 'genero', 'imagem', 'data_nascimento',
-                'matricula', 'federacao', 'endereco_cep', 'endereco_logradouro', 'endereco_numero',
+                'telefone_trabalho', 'telefone_pessoal', 'estado_civil', 'genero', 'imagem', 'imagem_arquivo',
+                'data_nascimento', 'matricula', 'federacao', 'endereco_cep', 'endereco_logradouro', 'endereco_numero',
                 'endereco_complemento', 'endereco_bairro', 'endereco_cidade', 'endereco_estado',
                 'primeiro_acesso', 'possui_senha', 'mudar_senha', 'situacao', 'contrato_siape',
                 'trabalho_empresa', 'trabalho_cargo', 'tipo_pagamento', 'pagamento',
@@ -155,7 +155,7 @@ final class UsuarioClienteController extends Controller implements
         return mensagemSucesso([
             'id'     => $Usuario->id,
             'imagem' => $Usuario->imagem
-        ], status: 201);
+        ], status: 201, criptografar: ['imagem']);
     }
 
     /**
