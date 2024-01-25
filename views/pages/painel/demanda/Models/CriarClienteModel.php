@@ -42,6 +42,7 @@ final class CriarClienteModel
         $this->rodarScriptSubirConvenio();
         $this->criarApp();
         $this->notificarUsuario();
+        $this->atualizarTarefaTipoDemanda();
     }
 
     private function montarDominioLink()

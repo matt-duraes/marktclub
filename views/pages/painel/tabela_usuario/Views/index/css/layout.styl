@@ -1,0 +1,296 @@
+@template "painel"
+@system "Popup"
+
+.bloco_app_tabela
+    width: 100%
+    display: flex
+    flex-direction: column
+    header
+        width: calc(100% - 40px)
+        display: none
+        flex-direction: row
+        padding: 10px
+        margin: 20px
+        align-items: center
+        background: #FFF
+        box-shadow: 0 4px 5px rgba(0,0,0,.1)
+        border-radius: 80px
+        &.show
+            display: flex
+    header .botao
+        min-width: 40px
+        height: 40px
+        line-height: 40px
+        position: relative
+        display: flex
+        flex-direction: row
+        align-items: center
+        border-radius: 25px
+        overflow: hidden
+        cursor: pointer
+        &.botao_download
+            background-color: $corAzul
+        &.botao_upload
+            background-color: $corVermelho
+        &.botao_analizar
+            background-color: #CCC
+        &.botao_analizar.ativo
+            background-color: $cor
+    header .botao input
+        width: 100%
+        height: 100%
+        position: absolute
+        top: 0
+        left: 0
+        z-index: 2
+        opacity: 0
+    header .botao i
+        width: 40px
+        height: 40px
+        position: absolute
+        top: 0
+        display: flex
+        align-items: center
+        justify-content: center
+        fill: #FFF
+    header .botao.botao_analizar i
+        right: 0
+    header .botao p
+        position: relative
+        z-index: 1
+        font-size: 1.4rem
+        color: #FFF
+        padding: 0 25px 0 50px
+    header .botao.botao_analizar p
+        padding: 0 45px 0 25px
+    header .linha
+        width: 1px
+        height: 20px
+        margin: 0 20px
+        background: #DDD
+    header .grow
+        flex-grow: 1
+        flex-basis: 0%
+@media screen and (max-width:800px)
+    .bloco_app_tabela header
+        .botao.botao_upload p
+            display: none
+        .linha
+            margin: 0 10px
+
+.bloco_app_tabela .conteudo
+    width: 100%
+    padding: 0 20px 20px 20px
+    display: flex
+    flex-direction: column
+
+
+.bloco_app_tabela .conteudo .bloco_total
+    width: 100%
+    display: flex
+    flex-direction: row
+    justify-content: center
+    margin-top: 40px
+    display: none
+    overflow-x: auto
+    &.show
+        display: flex
+    .item
+        display: none
+        flex-direction: row
+        margin: 0 10px
+        align-items: center
+        &.show
+            display: flex
+    .item p
+        height: 38px
+        line-height: 38px
+        border: 1px solid #CCC
+        border-right: none
+        height: 100%
+        padding: 0 20px
+        border-radius: 4px 0 0 4px
+        font-size: 1.4rem
+    .item span
+        height: 40px
+        line-height: 40px
+        color: #FFF
+        font-size: 2rem
+        padding: 0 10px
+        border-radius: 0 4px 4px 0
+        &.erro
+            background-color: $corVermelho
+        &.sucesso
+            background-color: $cor
+        &.novo
+            background-color: $corAzul
+        &.atualizado
+            background-color: $corLaranja
+    .linha
+        width: 1px
+        height: 40px
+        background: #CCC
+        margin: 0 10px
+        display: none
+        &.show
+            display: block
+@media screen and (max-width:800px)
+    .bloco_app_tabela .conteudo .bloco_total
+        justify-content: flex-start
+        .item
+            margin: 0 20px 0 0
+            &:last-child
+                margin-right: 0
+        .linha.show
+            display: none
+.bloco_app_tabela .conteudo .bloco_mensagem
+    width: 100%
+    display: none
+    flex-direction: column
+    align-items: center
+    margin-top: 50px
+    &.show
+        display: flex
+    i
+        width: 100px
+        height: 100px
+        border-radius: 50%
+        border: 1px solid #CCC
+        display: flex
+        align-items: center
+        justify-content: center
+        fill: #CCC
+    > p
+        margin-top: 30px
+        max-width: 230px
+        text-align: center
+        font-size: 1.6rem
+        color: #999
+        line-height: 1.5em
+
+.bloco_pagina_popup
+    max-width: (100% - 40px)
+
+.conteudo .bloco_tabela
+    &.erro .linha.dado:hover
+        border-color: $cor
+    .linha
+        width: 100%
+        position: relative
+        display: flex
+        flex-direction: row
+        align-items: center
+        background: #FFF
+        margin: 4px 0
+        padding: 5px 5px
+        border: 1px solid rgba(255,255,255,0)
+        border-left-width: 5px
+        border-radius: 5px
+    .linha.loading::before
+        width: 30%
+        content: ""
+        position: absolute
+        top: 0
+        left: 0
+        height: 1px
+        background-color: $corAzul
+        animation: loading_sucesso 1.5s linear infinite
+    .linha .id
+        width: 100px
+        font-size: 1.4rem
+        line-height: 1.5em
+    .linha .mensagem
+        flex-grow: 1
+        flex-basis: 0%
+        font-size: 1.4rem
+        line-height: 1.5em
+    .linha .bloco_botao_remover
+        width: 40px
+        height: 30px
+        display: flex
+        justify-content: center;
+        align-items: center;
+    .linha .bloco_botao_remover i
+        width: 20px
+        height: 20px
+        display: flex
+        align-items: center
+        justify-content: center
+        cursor: pointer
+        fill: #FFF
+        background-color: $corDeletar
+        border-radius: 50%
+    .linha.erro
+        border-color: $corDeletar
+    .linha.erro i
+        display: flex
+    .zero
+        width: 100%
+        display: flex
+        flex-direction: column
+        align-items: center
+        margin: 50px 0
+    .zero i
+        width: 80px
+        height: 80px
+        border-radius: 50%
+        display: flex
+        align-items: center
+        justify-content: center
+        border: 1px solid #ccc
+        fill: #CCC
+        margin-bottom: 30px
+    .zero p
+        width: 100%
+        text-align: center
+        line-height: 1.5em
+        font-size: 1.8rem
+        color: #999
+@keyframes loading_sucesso
+    0%
+        width: 0
+        left: 0
+    50%
+        width: 100%
+        left: 0
+    100%
+        width: 0
+        left: 100%
+
+.bloco_app_tabela .botao_comando
+    position: fixed
+    right: 20px
+    bottom: 20px
+    display: none
+    flex-direction: row
+    z-index: 2
+    &.show
+        display: flex
+    .botao
+        height: 50px
+        line-height: 50px
+        padding: 0 25px
+        border-radius: 25px
+        margin-left: 20px
+        font-size: 1.4rem
+        color: #FFF
+        fill: #FFF
+        display: none
+        cursor: pointer
+        align-items: center
+        &.show
+            display: flex
+        &.reiniciar
+            background-color: $corAzul
+        &.enviar
+            background-color: $cor
+        &.cancelar
+            background-color: $corDeletar
+    .botao i
+        width: 30px
+        height: 30px
+        display: flex
+        align-items: center
+        justify-content: center
+        margin-left: 5px
+        margin-right: -15px

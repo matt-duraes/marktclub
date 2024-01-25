@@ -16,6 +16,7 @@ $Painel->coluna(callback: function () use ($Painel) {
             ->linha('suporte', 'Suporte')
             ->linha('atendimento', 'Atendimento')
             ->array('sistemas_clube', 'Sistemas do Clube')
+            ->vazioBreak('sistemas_clube')
             ->linha('comentario', 'Comentários')
             ->linha('status', 'Status');
     });

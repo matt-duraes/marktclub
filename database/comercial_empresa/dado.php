@@ -42,6 +42,26 @@ return [
         'status'                  => 1
     ],
     [
+        'id'                      => 3,
+        'cod'                     => '8c85bc5bfd7093b175a7d44fdeb5050c',
+        'id_usuario_equipe'       => 1,
+        'titulo'                  => 'APCF Card',
+        'razao_social'            => 'APCF Card',
+        'nome_fantasia'           => 'APCF Card',
+        'cnpj'                    => 33521352000141,
+        'responsavel_nome'        => nomeCompletoAleatorio(),
+        'responsavel_cpf'         => cpfAleatorio(),
+        'responsavel_email'       => emailAleatorio(),
+        'responsavel_telefone'    => telefoneCelularAleatorio(),
+        'slug'                    => 'apcf',
+        'tipo_pagamento'          => 1,
+        'contrato_valor'          => 1.2,
+        'contrato_dia_fechamento' => 1,
+        'contrato_dia_pagamento'  => 10,
+        'cobrar_aposentado'       => 1,
+        'status'                  => 1
+    ],
+    [
         'id'                      => 19,
         'cod'                     => '4cceef2a4ee3d677dd15955daace4bba',
         'id_usuario_equipe'       => 1,
@@ -142,7 +162,6 @@ return [
         'status'                  => 1
     ],
     [
-        'id'                      => 3,
         'cod'                     => '14afa776394ada4be23be6acf7e3259f',
         'id_usuario_equipe'       => 1,
         'id_admin_empresa'        => 1,

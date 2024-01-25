@@ -11,6 +11,7 @@ class CarterinhaTest extends Tests
     protected string $uri = '/carteirinha';
     public string $automatico = 'lbsad';
     public string $mensagemErroDeletar = 'Modelo de carteirinha não encontrado ou inexistente';
+    protected bool $automaticoPainel = true;
 
     public function __construct()
     {
@@ -42,7 +43,6 @@ class CarterinhaTest extends Tests
     {
         return [
             'nome'            => valorAleatorio(['sim', 'nao']),
-            'bg_fundo'        => 'b',
             'bg_frente'       => 'b',
             'empresa'         => '369fc307129e405b3f2f00620c7b012d',
             'titulo'          => 'Titulo carteirinha de teste',

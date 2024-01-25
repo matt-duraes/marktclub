@@ -26,7 +26,7 @@ $scope = [
     'usuario_grupo:salvar', 'usuario_grupo:atualizar', 'usuario_grupo:listar', 'usuario_grupo:buscar',
     'usuario_grupo:deletar',
 
-    'tabela_usuario:salvar', 'tabela_usuario:bloquear',
+    'tabela_usuario:salvar', 'tabela_usuario:listar', 'tabela_usuario:atualizar',
 
     'voucher:salvar', 'voucher:verificar', 'voucher:validar',
 
@@ -178,13 +178,14 @@ $scope = [
     'comunicacao_login:listar', 'comunicacao_login:buscar', 'comunicacao_login:salvar', 'comunicacao_login:atualizar',
     'comunicacao_login:deletar',
 
-    'site_config:listar', 'site_config:buscar', 'site_config:salvar', 'site_config:atualizar',
-    'site_config:deletar',
+    'site_config:listar', 'site_config:buscar', 'site_config:salvar',
+    'site_config:atualizar', 'site_config:deletar', 'site_config:empresa',
+
     'site_menu:listar', 'site_menu:buscar', 'site_menu:salvar', 'site_menu:atualizar',
     'site_menu:deletar', 'site_menu:empresa',
 
-    'painel:buscar', 'painel:listar', 'painel:salvar', 'painel:atualizar',
-    'painel:deletar'
+    'painel_config:buscar', 'painel_config:listar', 'painel_config:salvar',
+    'painel_config:atualizar', 'painel_config:deletar'
 ];
 
 return [

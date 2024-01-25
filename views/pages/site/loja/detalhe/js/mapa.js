@@ -13,6 +13,9 @@ window.addEventListener('load', async () => {
     const PopupEndereco = new Popup('endereco', 'bloco_endereco', true, true);
 
     const enderecos = await buscarEndereco();
+    if (!enderecos) {
+        return;
+    }
 
     blocoDetalheTexto.innerText = pegarTextoDetalhe(enderecos.principal);
     botaoLink.setAttribute('href', enderecos.principal.link);
@@ -149,7 +152,7 @@ window.addEventListener('load', async () => {
 
 
     function pegarTextoDetalhe(dado) {
-        if (dado.telefone != "null") {
+        if (dado.telefone && dado.telefone != "null") {
             return `${dado.endereco} - ${formatarTelefone(dado.telefone)}`;
         }
         return dado.endereco;

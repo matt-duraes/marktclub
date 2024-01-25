@@ -36,6 +36,7 @@ final class ModeloModel extends ORM implements
      * @param Ordem       $ordem
      * @param string|null $parceiro
      * @param string|null $pesquisa
+     * @param string|null $titulo
      * @param Botao       $publicado
      * @param Data        $dataInicio
      * @param Data        $dataFinal
@@ -47,8 +48,9 @@ final class ModeloModel extends ORM implements
         private readonly Pagina $pagina = new Pagina(),
         private readonly Quantidade $quantidade = new Quantidade(),
         private readonly Ordem $ordem = new Ordem(),
-        private ?string $parceiro = null,
+        private string|int|null $parceiro = null,
         private readonly ?string $pesquisa = null,
+        private readonly ?string $titulo = null,
         private readonly Botao $publicado = new Botao(),
         private readonly Data $dataInicio = new Data(),
         private readonly Data $dataFinal = new Data(),
@@ -131,7 +133,7 @@ final class ModeloModel extends ORM implements
     {
         $where = [];
 
-        if (is_int($this->parceiro)) {
+        if (is_numeric($this->parceiro)) {
             $where[] = ['id_parceiro_loja', $this->parceiro];
         }
 
@@ -139,7 +141,11 @@ final class ModeloModel extends ORM implements
             $where[] = ['titulo', 'LIKE', "%$this->pesquisa%"];
         }
 
-        if ($this->status->valido() && !$this->publicado->valido()) {
+        if (!empty($this->titulo)) {
+            $where[] = ['titulo', 'LIKE', "%$this->titulo%"];
+        }
+
+        if ($this->status->valido()) {
             $where[] = ['status', $this->status->numero()];
         }
 
@@ -158,6 +164,17 @@ final class ModeloModel extends ORM implements
                 ['status', '!=', $status]
             ];
         }
+
+        if ($this->dataInicio->valido() && $this->dataFinal->valido()) {
+            $where[] = [
+                'data_final', 'between', [$this->dataInicio->date(), $this->dataFinal->date()]
+            ];
+        } elseif ($this->dataInicio->valido()) {
+            $where[] = ['data_inicio', $this->dataInicio->date()];
+        } elseif ($this->dataFinal->valido()) {
+            $where[] = ['data_final', $this->dataFinal->date()];
+        }
+
         return $where;
     }
 

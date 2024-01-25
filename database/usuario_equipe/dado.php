@@ -61,7 +61,7 @@ $permissao = [
 
     'relatorio_loja_venda_index', 'relatorio_loja_venda_empresa',
 
-    'tabela_usuario_salvar', 'tabela_usuario_bloquear',
+    'tabela_usuario_salvar', 'tabela_usuario_bloquear', 'tabela_historico_index', 'tabela_usuario_empresa',
 
     'solicitacao_loja_index', 'solicitacao_loja_add', 'solicitacao_loja_deletar', 'solicitacao_loja_visualizar',
     'solicitacao_loja_status', 'solicitacao_loja_empresa',
@@ -109,11 +109,14 @@ $permissao = [
 
     'log_erro_index', 'log_erro_visualizar', 'log_erro_status',
 
-    'site_config_index', 'site_config_add', 'site_config_editar', 'site_config_deletar', 'site_config_empresa',
-    'site_menu_index', 'site_menu_add', 'site_menu_editar', 'site_menu_deletar', 'site_menu_empresa',
+    'site_config_index', 'site_config_add', 'site_config_editar',
+    'site_config_deletar', 'site_config_empresa',
 
-    'painel_permissoes_index', 'painel_permissoes_add', 'painel_permissoes_editar',
-    'painel_permissoes_deletar',
+    'site_menu_index', 'site_menu_add', 'site_menu_editar', 'site_menu_deletar',
+    'site_menu_empresa',
+
+    'painel_config_index', 'painel_config_add', 'painel_config_editar',
+    'painel_config_deletar',
 ];
 
 return [

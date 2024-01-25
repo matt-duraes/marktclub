@@ -2,6 +2,7 @@
 
 namespace App\Models\Api\Painel;
 
+use Erro\Excecao;
 use Helpers\OrmHelper;
 use ORM\Entity;
 use stdClass;
@@ -55,90 +56,130 @@ final class ConfiguracaoEntity extends Entity
     protected function regraPosBuscar(): void
     {
         $permissoes = [];
-        foreach ($this->permissao as $permissoesApp) {
-            if (array_key_exists('permissao', $permissoesApp)) {
+        foreach ($this->permissao as $nomeApp => $permissoesApp) {
+            if (array_key_exists('acao', $permissoesApp) && !empty($permissoesApp['acao'])) {
+                foreach ($permissoesApp['acao'] as $permissao) {
+                    $permissoes[] = $nomeApp . '_' . $permissao;
+                }
+            } elseif (array_key_exists('permissao', $permissoesApp)) {
                 foreach (array_keys($permissoesApp['permissao']) as $permissao) {
                     $permissoes[] = $permissao;
                 }
             }
         }
 
-        $this->permissao = $permissoes;
+        $this->permissao = array_unique($permissoes);
         $this->empresa = $this->OrmEmpresa->pegarUuidPeloId($this->id_admin_empresa);
         $this->campo_obrigatorio = $this->campo_obrigatorio['usuario_cliente'];
     }
 
+    /**
+     * @throws Excecao
+     */
     protected function regraSalvar(): void
     {
+        $apps = [];
         $acoes = [];
         $permissoes = [];
         foreach ($this->permissao as $permissao) {
             $acao = '';
-            $app = '';
+            $tituloPermissao = '';
+            $nomeApp = '';
             if (str_ends_with($permissao, 'index')) {
-                $acao = 'Listar';
-                $app = str_replace('_index', '', $permissao);
+                $acao = 'index';
+                $tituloPermissao = 'Listar';
+                $nomeApp = str_replace('_index', '', $permissao);
             } elseif (str_ends_with($permissao, 'add')) {
-                $acao = 'Salvar';
-                $app = str_replace('_add', '', $permissao);
+                $acao = 'add';
+                $tituloPermissao = 'Salvar';
+                $nomeApp = str_replace('_add', '', $permissao);
             } elseif (str_ends_with($permissao, 'editar')) {
-                $acao = 'Editar';
-                $app = str_replace('_editar', '', $permissao);
+                $acao = 'editar';
+                $tituloPermissao = 'Editar';
+                $nomeApp = str_replace('_editar', '', $permissao);
             } elseif (str_ends_with($permissao, 'visualizar')) {
-                $acao = 'Visualizar';
-                $app = str_replace('_visualizar', '', $permissao);
+                $acao = 'visualizar';
+                $tituloPermissao = 'Visualizar';
+                $nomeApp = str_replace('_visualizar', '', $permissao);
             } elseif (str_ends_with($permissao, 'deletar')) {
-                $acao = 'Deletar';
-                $app = str_replace('_deletar', '', $permissao);
+                $acao = 'deletar';
+                $tituloPermissao = 'Deletar';
+                $nomeApp = str_replace('_deletar', '', $permissao);
             } elseif (str_ends_with($permissao, 'download')) {
-                $acao = 'Download';
-                $app = str_replace('_download', '', $permissao);
+                $acao = 'download';
+                $tituloPermissao = 'Download';
+                $nomeApp = str_replace('_download', '', $permissao);
             } elseif (str_ends_with($permissao, 'empresa')) {
-                $acao = 'Todas as Empresas';
-                $app = str_replace('_empresa', '', $permissao);
+                $acao = 'empresa';
+                $tituloPermissao = 'Todas as Empresas';
+                $nomeApp = str_replace('_empresa', '', $permissao);
             } elseif (str_ends_with($permissao, 'analytics')) {
-                $acao = 'Analytics';
-                $app = str_replace('_analytics', '', $permissao);
+                $acao = 'analytics';
+                $tituloPermissao = 'Analytics';
+                $nomeApp = str_replace('_analytics', '', $permissao);
             } elseif (str_ends_with($permissao, 'apple')) {
-                $acao = 'Apple';
-                $app = str_replace('_apple', '', $permissao);
+                $acao = 'apple';
+                $tituloPermissao = 'Apple';
+                $nomeApp = str_replace('_apple', '', $permissao);
             } elseif (str_ends_with($permissao, 'status')) {
-                $acao = 'Status';
-                $app = str_replace('_status', '', $permissao);
+                $acao = 'status';
+                $tituloPermissao = 'Status';
+                $nomeApp = str_replace('_status', '', $permissao);
             } elseif (str_ends_with($permissao, 'permissao')) {
-                $acao = 'Todas as permissões';
-                $app = str_replace('_permissao', '', $permissao);
+                $acao = 'permissao';
+                $tituloPermissao = 'Todas as Permissões';
+                $nomeApp = str_replace('_permissao', '', $permissao);
             } elseif (str_ends_with($permissao, 'salvar')) {
-                $acao = 'Cadastrar usuário';
-                $app = str_replace('_salvar', '', $permissao);
+                $acao = 'salvar';
+                $tituloPermissao = 'Cadastrar usuário';
+                $nomeApp = str_replace('_salvar', '', $permissao);
             } elseif (str_ends_with($permissao, 'bloquear')) {
-                $acao = 'Bloquear usuário';
-                $app = str_replace('_bloquear', '', $permissao);
+                $acao = 'bloquear';
+                $tituloPermissao = 'Bloquear usuário';
+                $nomeApp = str_replace('_bloquear', '', $permissao);
             } elseif (str_ends_with($permissao, 'tecnologia')) {
-                $acao = 'Tecnologia';
-                $app = str_replace('_tecnologia', '', $permissao);
+                $acao = 'tecnologia';
+                $tituloPermissao = 'Tecnologia';
+                $nomeApp = str_replace('_tecnologia', '', $permissao);
             } elseif (str_ends_with($permissao, 'criacao')) {
-                $acao = 'Criacão';
-                $app = str_replace('_criacao', '', $permissao);
+                $acao = 'criacao';
+                $tituloPermissao = 'Criação';
+                $nomeApp = str_replace('_criacao', '', $permissao);
             } elseif (str_ends_with($permissao, 'convenio')) {
-                $acao = 'Convenio';
-                $app = str_replace('_convenio', '', $permissao);
+                $acao = 'convenio';
+                $tituloPermissao = 'Convenio';
+                $nomeApp = str_replace('_convenio', '', $permissao);
             }
-            //$acoes[$app][] = $permissao;
-            $acoes[$app][$permissao] = $acao;
+            $apps[] = $nomeApp;
+            $acoes[$nomeApp][] = $acao;
+            $permissoes[$nomeApp][$permissao] = $tituloPermissao;
         }
 
-        foreach ($acoes as $app => $acao) {
-            $permissoes[$app] = [
-                'titulo'    => $this->titulo[$app] ?? '',
-                'permissao' => $acao
+        $painelPermissao = [];
+        foreach ($apps as $nomeApp) {
+            $painelPermissao[$nomeApp] = [
+                'titulo'    => $this->titulo[$nomeApp] ?? '',
+                'acao'      => $acoes[$nomeApp],
+                'permissao' => $permissoes[$nomeApp]
             ];
         }
 
-        $this->permissao = $permissoes;
+        $this->permissao = $painelPermissao;
         $this->idEmpresa = $this->OrmEmpresa->pegarIdPeloUuid($this->empresa);
         $this->campo_obrigatorio = [
             'usuario_cliente' => $this->campo_obrigatorio
         ];
+
+        if (empty($this->idEmpresa)) {
+            mensagemErro(
+                'Empresa não encontrada ou inexistente',
+                'Não foi possível salvar por falta de Empresa'
+            );
+        }
+        $this->validarCampoDuplicado(
+            campo: 'id_admin_empresa',
+            mensagem: 'Painel já cadastrado',
+            valor: $this->idEmpresa
+        );
     }
 }

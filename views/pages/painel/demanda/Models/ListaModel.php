@@ -130,6 +130,7 @@ final class ListaModel
                 'tarefa_tipo' => $request->tarefa_tipo,
                 'tipo'        => $request->tipo,
                 'empresa'     => $request->empresa,
+                'equipe'      => $request->equipe,
                 'data_inicio' => $request->data_inicio,
                 'data_fim'    => $request->data_fim,
                 'ordem'       => 'ordem'

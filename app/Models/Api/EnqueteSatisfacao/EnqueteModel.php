@@ -8,7 +8,9 @@ use App\Classes\EnqueteSatisfacao\Ordem;
 use App\Classes\EnqueteSatisfacao\Procura;
 use App\Classes\EnqueteSatisfacao\Status;
 use App\Classes\EnqueteSatisfacao\Suporte;
-use Erro\Excecao;
+use App\Models\Api\Trait\ValidarEmpresaTrait;
+use Helpers\OrmHelper;
+use Modules\Data;
 use Modules\Pagina;
 use Modules\Quantidade;
 use ORM\ORM;
@@ -24,32 +26,24 @@ class EnqueteModel extends ORM implements
     use PaginaTrait;
     use QuantidadeTrait;
     use OrdemTrait;
+    use ValidarEmpresaTrait;
 
     protected string $ormTabela = TABELA_ENQUETE_SATISFACAO;
 
-    /**
-     * @param Pagina      $pagina
-     * @param Quantidade  $quantidade
-     * @param Ordem       $ordem
-     * @param string|null $empresa
-     * @param Status      $status
-     *
-     * @throws Excecao
-     */
     public function __construct(
         private readonly Pagina $pagina = new Pagina(),
         private readonly Quantidade $quantidade = new Quantidade(),
         private readonly Ordem $ordem = new Ordem(),
         private readonly ?string $empresa = null,
-        private readonly Status $status = new Status()
+        private readonly Status $status = new Status(),
+        private readonly Data $dataInicio = new Data(),
+        private readonly Data $dataFim = new Data(),
     ) {
         $this->validarDados();
+        $this->validarEmpresa();
         parent::__construct();
     }
 
-    /**
-     * @throws Excecao
-     */
     private function validarDados(): void
     {
         if (!$this->ordem->vazio() && !$this->ordem->valido()) {
@@ -60,10 +54,6 @@ class EnqueteModel extends ORM implements
         }
     }
 
-    /**
-     * @return stdClass
-     * @throws Excecao
-     */
     public function listarDados(): stdClass
     {
         $dado = $this
@@ -76,7 +66,6 @@ class EnqueteModel extends ORM implements
             ->pagina($this->pegarPagina(), $this->pegarQuantidade())
             ->order($this->pegarOrdem(new Ordem()))
             ->tabela(TABELA_COMERCIAL_EMPRESA)
-            ->where($this->pegarWhereEmpresa(), false)
             ->join('id', 'id_admin_empresa')
             ->campo([
                 'nome_fantasia'
@@ -92,35 +81,25 @@ class EnqueteModel extends ORM implements
         return $dado;
     }
 
-    /**
-     * @return array
-     */
     protected function pegarWhere(): array
     {
         $where = $this->ormWherePadrao;
         if ($this->status->valido()) {
             $where[] = ['status', $this->status->numero()];
         }
-        return $where;
-    }
-
-    /**
-     * @return array
-     */
-    protected function pegarWhereEmpresa(): array
-    {
-        $where = [];
         if (!empty($this->empresa)) {
-            $where[] = ['cod', $this->empresa];
+            $empresa = (new OrmHelper(TABELA_COMERCIAL_EMPRESA))->pegarIdPeloUuid($this->empresa);
+            $where[] = ['id_admin_empresa', $empresa];
+        }
+        if ($this->dataInicio->valido()) {
+            $where[] = ['data_criacao', '>=', $this->dataInicio->banco() . ' 00:00:00'];
+        }
+        if ($this->dataFim->valido()) {
+            $where[] = ['data_criacao', '<=', $this->dataFim->banco() . ' 23:59:59'];
         }
         return $where;
     }
 
-    /**
-     * @param array $respostas
-     *
-     * @return array
-     */
     protected function montarRetorno(array $respostas): array
     {
         if (empty($respostas)) {

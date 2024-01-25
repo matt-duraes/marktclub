@@ -615,21 +615,29 @@ Route
     });
 
 Route
-    ::nome('tabela')
+    ::nome('tabelaUsuario')
     ::controller(App\Controllers\Api\TabelaController::class)
     ::middleware(TokenMiddleware::class, 'token')
     ::grupo(function () {
         Route
+            ::nome('listar')
+            ::middleware(TokenMiddleware::class, 'scope', ['tabela_usuario:listar'])
+            ::request([
+                'pagina', '!quantidade', '!ordem', '!pesquisa', '!tipo', '!empresa', '!status',
+                '!data_de', '!data_ate'
+            ], 'json')
+            ::get('/tabela-usuario');
+        Route
             ::nome('salvar')
             ::middleware(TokenMiddleware::class, 'scope', ['tabela_usuario:salvar'])
-            ::request(['hash'])
-            ::post('/tabela/salvar');
-
+            ::request(['!tipo'])
+            ::request(['!arquivo'], 'files')
+            ::post('/tabela-usuario');
         Route
-            ::nome('bloquear')
-            ::middleware(TokenMiddleware::class, 'scope', ['tabela_usuario:bloquear'])
-            ::request(['hash'])
-            ::post('/tabela/bloquear');
+            ::nome('atualizar')
+            ::middleware(TokenMiddleware::class, 'scope', ['tabela_usuario:atualizar'])
+            ::request(['!status'])
+            ::put('/tabela-usuario/{id}');
     });
 
 Route
@@ -894,20 +902,20 @@ Route
     ::grupo(function () {
         Route
             ::nome('buscar')
-            ::middleware(TokenMiddleware::class, 'scope', ['painel:buscar'])
+            ::middleware(TokenMiddleware::class, 'scope', ['painel_config:buscar'])
             ::get('/painel-configuracao/{id}');
 
         Route
             ::nome('listar')
-            ::middleware(TokenMiddleware::class, 'scope', ['painel:listar'])
+            ::middleware(TokenMiddleware::class, 'scope', ['painel_config:listar'])
             ::request([
-                'pagina', '!quantidade', '!ordem'
+                'pagina', '!quantidade', '!ordem', '!empresa'
             ], 'json')
             ::get('/painel-configuracao');
 
         Route
             ::nome('salvar')
-            ::middleware(TokenMiddleware::class, 'scope', ['painel:salvar'])
+            ::middleware(TokenMiddleware::class, 'scope', ['painel_config:salvar'])
             ::request([
                 'empresa', 'configuracao', 'campo_obrigatorio', 'permissao', 'titulo'
             ])
@@ -915,7 +923,7 @@ Route
 
         Route
             ::nome('atualizar')
-            ::middleware(TokenMiddleware::class, 'scope', ['painel:atualizar'])
+            ::middleware(TokenMiddleware::class, 'scope', ['painel_config:atualizar'])
             ::request([
                 '!empresa', '!configuracao', '!campo_obrigatorio', '!permissao', '!titulo'
             ])
@@ -923,7 +931,7 @@ Route
 
         Route
             ::nome('deletar')
-            ::middleware(TokenMiddleware::class, 'scope', ['painel:deletar'])
+            ::middleware(TokenMiddleware::class, 'scope', ['painel_config:deletar'])
             ::delete('/painel-configuracao/{id}');
 
         Route
@@ -1674,7 +1682,8 @@ Route
             ::nome('listar')
             ::middleware(TokenMiddleware::class, 'scope', ['demanda_dado:listar'])
             ::request([
-                'status', 'area', 'ordem', '!tarefa_tipo', '!empresa', '!tipo', '!data_inicio', '!data_fim',
+                'status', 'area', 'ordem', '!tarefa_tipo', '!empresa', '!tipo',
+                '!data_inicio', '!data_fim', '!equipe'
             ], 'json')
             ::get('/demanda-dado');
 
@@ -1819,8 +1828,8 @@ Route
             ::nome('salvar')
             ::middleware(TokenMiddleware::class, 'scope', ['carteirinha:salvar'])
             ::request([
-                'empresa', 'bg_frente', 'bg_fundo', 'titulo', 'nome', 'cpf', 'matricula', 'data_nascimento', 'status',
-                'estado'
+                'empresa', 'bg_frente', 'titulo', 'nome', 'cpf', 'matricula',
+                'data_nascimento', 'status', 'estado'
             ])
             ::post('/carteirinha');
 
@@ -2094,7 +2103,7 @@ Route
             ::nome('listar')
             ::middleware(TokenMiddleware::class, 'scope', ['enquete_satisfacao:listar'])
             ::request([
-                'pagina', '!quantidade', '!ordem', '!status'
+                'pagina', '!quantidade', '!ordem', '!status', '!empresa', '!data_inicio', '!data_fim'
             ], 'json')
             ::get('/enquete-satisfacao');
 
@@ -2207,8 +2216,8 @@ Route
             ::nome('listar')
             ::middleware(TokenMiddleware::class, 'scope', ['automovel_modelo:listar'])
             ::request([
-                'pagina', '!quantidade', '!ordem', '!parceiro', '!pesquisa', '!publicado',
-                '!data_inicio', '!data_final', '!status'
+                'pagina', '!quantidade', '!ordem', '!parceiro', '!pesquisa', '!titulo',
+                '!publicado', '!data_inicio', '!data_final', '!status'
             ], 'json')
             ::get('/automovel-modelo');
 
@@ -2427,6 +2436,7 @@ Route
             ::middleware(TokenMiddleware::class, 'scope', ['comunicacao_login:deletar'])
             ::delete('/comunicacao-login/{id}');
     });
+
 Route
     ::nome('site_config')
     ::controller(App\Controllers\Api\SiteConfigController::class)
@@ -2468,6 +2478,7 @@ Route
             ::middleware(TokenMiddleware::class, 'scope', ['site_config:deletar'])
             ::delete('/site-config/{id}');
     });
+
 Route
     ::nome('site_menu')
     ::controller(App\Controllers\Api\SiteMenuController::class)

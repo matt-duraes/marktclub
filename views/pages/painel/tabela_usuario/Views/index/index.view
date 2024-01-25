@@ -1,0 +1,33 @@
+@template "painel"
+
+<form action="/">
+    <input type="hidden" id="TABELA_TIPO" value="{{$tipo}}">
+</form>
+
+<div class="bloco_app_tabela">
+    <header id="bloco_header" class="show">
+        <a href="{!! $arquivo !!}" download="tabela_exemplo" data-ajuda="Download da tabela de exemplo" class="botao botao_download">
+            <i>@iconeDownload(14)</i>
+        </a>
+        <div class="linha"></div>
+        <div class="botao botao_upload">
+            <i>@iconeUpload(14)</i>
+            <input type="file" accept="" id="input_upload">
+            <p>Upload da tabela</p>
+        </div>
+        <div class="grow"></div>
+        <div class="botao botao_analizar" id="botao_analisar">
+            <p>Analisar</p>
+            <i>@iconeSetaDireita(15)</i>
+        </div>
+    </header>
+
+    <div class="conteudo">
+        <div class="bloco_mensagem show" id="bloco_zero">
+            <i>@iconeUpload(40)</i>
+            <p>Faça o upload de uma tabela para analisar</p>
+        </div>
+
+        <div class="bloco_tabela erro" id="bloco_erros"></div>
+    </div>
+</div>

@@ -73,6 +73,7 @@ final class AutomovelModeloController extends Controller implements
             new Ordem($request->ordem),
             $request->parceiro,
             $request->pesquisa,
+            $request->titulo,
             new Botao($request->publicado),
             new Data($request->data_inicio),
             new Data($request->data_final),
