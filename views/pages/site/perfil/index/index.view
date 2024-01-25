@@ -3,6 +3,9 @@
     <div class="conteudo">
         <section class="foto">
             <figure id="imagem_fundo_perfil" style="background-image: url({!!USUARIO_IMAGEM!!})">
+                <!-- <i class="botao_editar_foto">
+                    @iconeEditar()
+                </i> -->
                 <img src="" alt="" class="display_none" id="imagem_perfil">
             </figure>
             <div class="legenda">
@@ -15,9 +18,8 @@
                     @ endif;
                     <p>Usuário desde: {{$dado->data_criacao}}</p>
                 <article>
-                <form id="uploadForm" enctype="multipart/form-data">
                     <input type="file" id="fileInput" name="userPhoto" accept="image/*">
-                </form>
+                <!-- <label for="upload_personalizado" id="upload_personalizado">Escolher Arquivo</label> -->
             </div>
         </section>
         <form method="post" class="form_geral cinza">
