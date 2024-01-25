@@ -1,0 +1,61 @@
+{
+    "textoRegulamentoSilium": [
+        {
+            "pt" : "Regulamento do SILIUM",
+            "en" : "",
+            "es" : ""
+        }
+    ],
+    "textoAcessarSite" : [
+        {
+            "pt" : "Acesse o site do parceiro pelo Clube para ativar.",
+            "en" : "",
+            "es" : ""
+        }
+    ],
+    "textoEscolha" : [
+        {
+            "pt" : "Escolha e compre os produtos que possuam cashback.",
+            "en" : "",
+            "es" : ""
+        }
+    ],
+    "textoRecebimento" : [
+        {
+            "pt" : "Receba o % de retorno em pontos SILIUM em até 30 dias.",
+            "en" : "",
+            "es" : ""
+        }
+    ],
+    "textoAcompanheSaldo" : [
+        {
+            "pt" : "Acompanhe seu saldo e as regras de resgate. Você pode transformar SILIUM em $ na conta!",
+            "en" : "",
+            "es" : ""
+        }
+    ],
+    "tituloRecebaDeVolta" : [
+        {
+            "pt" : "Receba de volta",
+            "en" : "",
+            "es" : ""
+        }
+    ],
+    "linkAcessarParceiro": [
+        {
+            "pt" : "Acessar parceiro",
+            "en" : "",
+            "es" : ""
+        }
+    ],
+    "avisoApenasAssociados": [
+        {
+            "pt" : "Apenas associados possuem acesso a esse recurso",
+            "en" : "",
+            "es" : ""
+        }
+    ]
+
+
+
+}

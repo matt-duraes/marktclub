@@ -1,0 +1,37 @@
+{
+    "tituloAtualizarDados" : [
+        {
+            "pt": "Atualize seus dados",
+            "en": "",
+            "es": ""
+        }
+    ],
+    "textoAvisoParceiro" : [
+        {
+            "pt": "Para poder usar alguns parceiros, você deve salvar seu CPF para gerar voucher, declarações ou validar sua conta.",
+            "en": "",
+            "es": ""
+        }
+    ],
+    "formTextoAtualizar" : [
+        {
+            "pt": "Informe os dados abaixo para atualizar:",
+            "en": "",
+            "es": ""
+        }
+    ],
+    "formInputCpf" :  [
+        {
+            "pt": "Digite o seu cpf",
+            "en": "",
+            "es": ""
+        }
+    ],
+    "botaoEnviar" : [
+        {
+            "pt": "Enviar",
+            "en": "",
+            "es": ""
+        }
+    ]
+}

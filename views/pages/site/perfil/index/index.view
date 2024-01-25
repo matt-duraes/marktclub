@@ -2,7 +2,12 @@
 <div id="bloco_pagina_perfil">
     <div class="conteudo">
         <section class="foto">
-            <figure id="imagem_fundo_perfil" style="background-image: url({!!USUARIO_IMAGEM!!})"></figure>
+            <figure id="imagem_fundo_perfil" style="background-image: url({!!USUARIO_IMAGEM!!})">
+                <!-- <i class="botao_editar_foto">
+                    @iconeEditar()
+                </i> -->
+                <img src="" alt="" class="display_none" id="imagem_perfil">
+            </figure>
             <div class="legenda">
                 <article>
                     <h1>{{$dado->nome}}</h1>
@@ -13,18 +18,13 @@
                     @ endif;
                     <p>Usuário desde: {{$dado->data_criacao}}</p>
                 <article>
-                <button id="botao_vincular_google" type="button" class="google">
-                    <div class="logo_google">
-                        @iconeGoogleColorido()
-                    </div>
-                    <span class="texto" id="foto_google">
-                        Vincular foto
-                    </span>
-                </button>
+                    <input type="file" id="fileInput" name="userPhoto" accept="image/*">
+                <!-- <label for="upload_personalizado" id="upload_personalizado">Escolher Arquivo</label> -->
             </div>
         </section>
         <form method="post" class="form_geral cinza">
             <fieldset>
+                <input type="hidden" name="foto_perfil" id="input_foto_perfil">
                 <p>Dados pessoais</p>
                 @? formInput(name: 'nome', placeholder: 'Digite um nome', label: 'Digite um nome', class: 'nome', value: $dado->nome)
                 @? formData(name: 'data_nascimento', placeholder: 'Data de nascimento', label: 'Data de nascimento',  value: $dado->data_nascimento)

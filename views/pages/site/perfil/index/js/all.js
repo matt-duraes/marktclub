@@ -27,6 +27,7 @@ window.addEventListener('load', () => {
     const inputCidade = document.querySelector('#bloco_pagina_perfil form input[name=cidade]');
     const fotoPerfil = document.querySelector('#imagem_fundo_perfil');
     const blocoPerfil = document.querySelector('#bloco_perfil figure');
+    const inputBlocoFoto = document.querySelector('#input_foto_perfil');
 
     buscarEnderecoPeloCep(inputCep, inputLogradouro, inputNumero, inputBairro, inputCidade, inputEstado, true);
     const buscarCidade = () => {
@@ -62,8 +63,9 @@ window.addEventListener('load', () => {
         body.append('endereco_numero', inputNumero.value);
         body.append('endereco_complemento', inputComplemento.value);
         body.append('endereco_cidade', inputCidade.value);
-
+        body.append('foto_perfil', inputBlocoFoto.value);
         Loading.show();
+
         const resposta = await fetch(LINK + '/perfil/salvar-dados', {
             method: 'POST',
             body,
@@ -78,9 +80,7 @@ window.addEventListener('load', () => {
             const divNome = document.querySelector('#bloco_perfil .nome');
             const divEmail = document.querySelector('#bloco_perfil .email');
 
-            const email = inputEmailPessoal.value != ''
-                ? inputEmailPessoal.value
-                : inputEmailTrabalho.value;
+            const email = inputEmailPessoal.value != '' ? inputEmailPessoal.value : inputEmailTrabalho.value;
 
             h1Nome.innerHTML = inputNome.value;
             pEmail.innerHTML = email;
@@ -107,54 +107,35 @@ window.addEventListener('load', () => {
 
     /*
     |--------------------------------------------------------------------------
-    | GOOGLE
+    | ALTERAR FOTO
     |--------------------------------------------------------------------------
     */
-    document.getElementById('botao_vincular_google').addEventListener('click', async () => {
-        oauth2Google('imagem');
-    });
-
     const setarNovaImagem = imagem => {
         fotoPerfil.style.backgroundImage = `url(${imagem})`;
         blocoPerfil.style.backgroundImage = `url(${imagem})`;
+        Alerta.notificacao('Imagem alterada com sucesso!', true);
     };
 
-    const oauth2Google = acao => {
-        const client = google.accounts.oauth2.initCodeClient({
-            // eslint-disable-next-line camelcase
-            client_id: googleAppId,
-            scope: 'email profile',
-            // eslint-disable-next-line camelcase
-            ux_mode: 'popup',
-            callback: response => {
-                vincularContaSocial(response.code);
-            },
-        });
-        client.requestCode();
-    };
+    const fileInput = document.querySelector('#fileInput');
 
-    /*
-    |--------------------------------------------------------------------------
-    | VINCULAR REDE SOCIAL
-    |--------------------------------------------------------------------------
-    */
-    const vincularContaSocial = async code => {
-        Loading.show();
-        const resposta = await ajaxPost(
-            LINK + '/perfil/vincular-google',
-            {
-                code,
-            },
-            'Erro ao vincular imagem, por favor, tente novamente.'
-        );
+    fileInput.addEventListener('change', e => {
+        const inputTarget = e.target;
+        const file = inputTarget.files[0];
 
-        Loading.hide();
+        if (file) {
+            const reader = new FileReader();
+            reader.addEventListener('load', e => {
+                const readerTarget = e.target.result;
+                setarNovaImagem(readerTarget);
 
-        if (false === resposta) {
-            return;
+                let body = new FormData();
+                body.append('imagem', file);
+                const resposta = fetch(LINK + '/perfil/vincular-google', {
+                    method: 'POST',
+                    body,
+                });
+            });
+            reader.readAsDataURL(file);
         }
-        setarNovaImagem(resposta.dado.imagem);
-        Alerta.notificacao('Foto vinculada com sucesso!', true);
-        return;
-    };
+    });
 });

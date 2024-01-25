@@ -1,0 +1,23 @@
+{
+    "infoAcessoTitulo":[
+        {
+            "pt": "Bem-vindo(a)",
+            "en": "Welcome",
+            "es": "Bienvenido(a)"
+        }
+    ],
+    "infoAcessoTexto":[
+        {
+            "pt" : "O que você deseja fazer hoje? Selecione uma das opções abaixo",
+            "en" : "What do you want to do today? Please select one of the options below.",
+            "es" : "¿Qué deseas hacer hoy? Selecciona una de las opciones a continuación."
+        }
+    ],
+    "textoMudarTema":[
+        {
+            "pt": "Mudar Tema",
+            "en": "Change theme",
+            "es": "Cambiar de tema"
+        }
+    ]
+}

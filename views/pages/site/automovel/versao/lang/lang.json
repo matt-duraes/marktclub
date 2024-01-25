@@ -1,0 +1,30 @@
+{
+    "textoProcedimento" : [
+        {
+            "pt" : "Procedimento",
+            "en" : "",
+            "es" : ""
+        }
+    ],
+    "textoEndereco" : [
+        {
+            "pt" : "Endereço",
+            "en" : "",
+            "es" : ""
+        }
+    ],
+    "blocoAvisoIndicacao" : [
+        {
+            "pt" : "Apenas associados possuem acesso a esse recurso",
+            "en" : "",
+            "es" : ""
+        }
+    ],
+    "textoComoChegar" : [
+        {
+            "pt" : "Como chegar",
+            "en" : "",
+            "es" : ""
+        }
+    ]
+}

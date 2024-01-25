@@ -1,0 +1,219 @@
+{
+    "tituloChequeBonus": [
+        {
+            "pt": "Cheque Bônus",
+            "en": "",
+            "es": ""
+        }
+    ],
+    "tituloConfirmarDados": [
+        {
+            "pt": "Confirme seus dados",
+            "en": "",
+            "es": ""
+        }
+    ],
+    "textoSelecioneCartaBonus": [
+        {
+            "pt": "Selecione se a carta-bônus será destinada ao titular ou um dependente",
+            "en": "",
+            "es": ""
+        }
+    ],
+    "formSelectDestinatario": [
+        {
+            "pt": "Destinatário",
+            "en": "",
+            "es": ""
+        }
+    ],
+    "tituloDadosDependentes": [
+        {
+            "pt": "Dados dos dependentes",
+            "en": "",
+            "es": ""
+        }
+    ],
+    "textoDadosDependentes": [
+        {
+            "pt": "Digite os dados do seu dependente",
+            "en": "",
+            "es": ""
+        }
+    ],
+    "formDependenteNome": [
+        {
+            "pt": "Digite o nome do dependente",
+            "en": "",
+            "es": ""
+        }
+    ],
+    "formDependenteEmail": [
+        {
+            "pt": "Digite o e-mail do dependente",
+            "en": "",
+            "es": ""
+        }
+    ],
+    "formDependenteCpf": [
+        {
+            "pt": "Digite o cpf do dependente",
+            "en": "",
+            "es": ""
+        }
+    ],
+    "formDependenteRg": [
+        {
+            "pt": "Digite o rg do dependente",
+            "en": "",
+            "es": ""
+        }
+    ],
+    "formSelectDependenteGrauParentesco": [
+        {
+            "pt": "Grau de parêntesco",
+            "en": "",
+            "es": ""
+        }
+    ],
+    "formSelectDependenteDataNascimento": [
+        {
+            "pt": "Data de nascimento do dependente",
+            "en": "",
+            "es": ""
+        }
+    ],
+    "tituloSeusDados": [
+        {
+            "pt": "Seus dados",
+            "en": "",
+            "es": ""
+        }
+    ],
+    "textoDadosPessoais": [
+        {
+            "pt": "Digite seus dados pessoais",
+            "en": "",
+            "es": ""
+        }
+    ],
+    "formName": [
+        {
+            "pt": "Digite seu nome",
+            "en": "",
+            "es": ""
+        }
+    ],
+    "formEmail": [
+        {
+            "pt": "Digite seu e-mail pessoal",
+            "en": "",
+            "es": ""
+        }
+    ],
+    "formEstadoCivil": [
+        {
+            "pt": "Estado civil",
+            "en": "",
+            "es": ""
+        }
+    ],
+    "formRg": [
+        {
+            "pt": "Digite seu RG",
+            "en": "",
+            "es": ""
+        }
+    ],
+    "formCelular": [
+        {
+            "pt": "Digite seu celular",
+            "en": "",
+            "es": ""
+        }
+    ],
+    "formDataNascimento": [
+        {
+            "pt": "Digite sua data de nascimento",
+            "en": "",
+            "es": ""
+        }
+    ],
+    "tituloEndereco": [
+        {
+            "pt": "Seu endereço",
+            "en": "",
+            "es": ""
+        }
+    ],
+    "textoEndereco": [
+        {
+            "pt": "Digite seu endereço residencial atual",
+            "en": "",
+            "es": ""
+        }
+    ],
+    "formCep": [
+        {
+            "pt": "Digite seu CEP",
+            "en": "",
+            "es": ""
+        }
+    ],
+    "formLogradouro": [
+        {
+            "pt": "Digite seu logradouro",
+            "en": "",
+            "es": ""
+        }
+    ],
+    "formNumero": [
+        {
+            "pt": "Digite o número",
+            "en": "",
+            "es": ""
+        }
+    ],
+    "formComplemento": [
+        {
+            "pt": "Digite o complemento",
+            "en": "",
+            "es": ""
+        }
+    ],
+    "formBairro": [
+        {
+            "pt": "Digite o bairro",
+            "en": "",
+            "es": ""
+        }
+    ],
+    "formSelectEstado": [
+        {
+            "pt": "Estado",
+            "en": "",
+            "es": ""
+        }
+    ],
+    "formSelectCidade": [
+        {
+            "pt": "Cidade",
+            "en": "",
+            "es": ""
+        }
+    ],
+    "formCheckboxTermo": [
+        {
+            "pt": "Autorizo a inclusão/autorização e compartilhamento dos meus dados cadastrado com o parceiro para a criação do cheque bônus.",
+            "en": "",
+            "es": ""
+        }
+    ],
+    "botaoSolicitarCheque": [
+        {
+            "pt": "Solicitar Cheque Bônus",
+            "en": "",
+            "es": ""
+        }
+    ]
+}

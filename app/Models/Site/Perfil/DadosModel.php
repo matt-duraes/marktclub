@@ -127,20 +127,21 @@ final class DadosModel extends ClubeApiHelper
      * @return Response
      * @throws Excecao
      */
-    public function postImagemSocial(Request $request): Response
+    public function postImagem(Request $request): Response
     {
-        $imagem = $this->pegarIdRedeSocial($request);
+        $imagem = $request->getFiles('imagem');
         if (empty($imagem)) {
-            mensagemErro('Campo obrigatório!', 'Não existe imagem para ser atualizada.');
+            mensagemErro('Imagem inválida!', 'Ocorreu um erro.');
         }
 
-        $this
-            ->body([
-                'imagem_google' => $imagem
+        $dado = $this
+            ->arquivo([
+                'id' => sessao('USUARIO.id'),
+                'imagem_google' => $imagem,
             ])
-            ->put('/usuario-cliente/' . $this->idUsuario)
+            ->post('/usuario-cliente/imagem')
             ->object();
-        sessao('USUARIO.imagem', $imagem);
+        ppe($dado);
 
         return mensagemSucesso([
             'imagem' => $imagem

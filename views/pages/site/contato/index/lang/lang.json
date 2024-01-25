@@ -1,0 +1,51 @@
+{
+    "tituloEntrarEmContato": [
+        {
+            "pt": "ENTRAR EM CONTATO",
+            "en": "",
+            "es": ""
+        }
+    ],
+    "textoDivulgacaoDeMarca": [
+        {
+            "pt": "Gostaria de divulgar a sua marca ou está querendo tirar alguma dúvida?Basta preencher o formulário abaixo que entramos em contato",
+            "en": "",
+            "es": ""
+        }
+    ],
+    "formName": [
+        {
+            "pt": "Qual é o seu nome?",
+            "en": "",
+            "es": ""
+        }
+    ],
+    "formTelefone": [
+        {
+            "pt":"Insira o telefone do parceiro",
+            "en": "",
+            "es": ""
+        }
+    ],
+    "formEmail": [
+        {
+            "pt": "Insira o e-mail do parceiro",
+            "en": "",
+            "es": ""
+        }
+    ],
+    "formMensagem": [
+        {
+            "pt": "Digite uma breve mensagem",
+            "en": "",
+            "es": ""
+        }
+    ],
+    "botaoEnviar": [
+        {
+            "pt": "Enviar",
+            "en": "",
+            "es": ""
+        }
+    ]
+}

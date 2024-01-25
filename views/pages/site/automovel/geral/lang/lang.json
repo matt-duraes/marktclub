@@ -1,0 +1,72 @@
+{
+    "tituloSolicitacaoAutomovel": [
+        {
+            "pt": "Não achou o que procura?",
+            "en": "",
+            "es": ""
+        }
+    ],
+    "textoAviso": [
+        {
+            "pt": "Nos mande uma mensagem com os dados do veículo que iremos tentar achar o melhor preço para você",
+            "en": "",
+            "es": ""
+        }
+    ],
+    "formEnderecoEstado" : [
+        {
+            "pt": "Qual estado será feito a compra?",
+            "en": "",
+            "es": ""
+        }
+    ],
+    "formEnderecoCidade" : [
+        {
+            "pt": "Qual cidade será feito a compra?",
+            "en": "",
+            "es": ""
+        }
+    ],
+    "formMontadora" : [
+        {
+            "pt": "Qual a montadora?",
+            "en": "",
+            "es": ""
+        }
+    ],
+    "formModelo" : [
+        {
+            "pt": "Qual o modelo?",
+            "en": "",
+            "es": ""
+        }
+    ],
+    "formVersao" : [
+        {
+            "pt": "Existe alguma versão ou opcional?",
+            "en": "",
+            "es": ""
+        }
+    ],
+    "formCor": [
+        {
+            "pt": "Tem alguma cor em específico?",
+            "en": "",
+            "es": ""
+        }
+    ],
+    "formMensagem" : [
+        {
+            "pt": "Digite sua mensagem com todos os detalhes do veículo",
+            "en": "",
+            "es": ""
+        }
+    ],
+    "botaoEnviarMensagem" : [
+        {
+            "pt": "Mandar mensagem",
+            "en": "",
+            "es": ""
+        }
+    ]
+}
