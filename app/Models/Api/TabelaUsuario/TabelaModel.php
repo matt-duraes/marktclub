@@ -6,7 +6,9 @@ use App\Classes\TabelaUsuario\Ordem;
 use App\Classes\TabelaUsuario\Status;
 use App\Classes\TabelaUsuario\Tipo;
 use App\Models\Api\Trait\ValidarEmpresaTrait;
-use Http\Request;
+use Helpers\OrmHelper;
+use Modules\Pagina;
+use Modules\Quantidade;
 use ORM\ORM;
 use stdClass;
 use System\Interface\ModelListarInterface;
@@ -25,7 +27,14 @@ final class TabelaModel extends ORM implements
     protected string $ormTabela = TABELA_SISTEMA_USUARIO;
 
     public function __construct(
-        protected ?Request $request = null
+        protected readonly Pagina $pagina = new Pagina(),
+        protected readonly Quantidade $quantidade = new Quantidade(),
+        protected readonly Ordem $ordem = new Ordem(),
+        protected readonly Status $status = new Status(),
+        protected readonly Tipo $tipo = new Tipo(),
+        protected readonly ?string $empresa = null,
+        protected readonly ?string $data_de = null,
+        protected readonly ?string $data_ate = null,
     ) {
         $this->validarEmpresa();
         parent::__construct();
@@ -60,7 +69,26 @@ final class TabelaModel extends ORM implements
 
     private function pegarWhere(): array
     {
-        return $this->ormWherePadrao;
+        $where = $this->ormWherePadrao;
+
+        if ($this->status->valido()) {
+            $where[] = ['status', $this->status->numero()];
+        }
+        if ($this->tipo->valido()) {
+            $where[] = ['tipo', $this->tipo->numero()];
+        }
+        if (!empty($this->empresa)) {
+            $empresa = (new OrmHelper(TABELA_COMERCIAL_EMPRESA))->pegarIdPeloUuid($this->empresa);
+            $where[] = ['id_admin_empresa', $empresa];
+        }
+        if (!empty($this->data_de)) {
+            $where[] = ['data_criacao', '>=', $this->data_de . ' 00:00:00'];
+        }
+        if (!empty($this->data_ate)) {
+            $where[] = ['data_criacao', '<=', $this->data_ate . ' 23:59:59'];
+        }
+
+        return $where;
     }
 
     private function montarRetorno(array $dado): array
@@ -80,9 +108,9 @@ final class TabelaModel extends ORM implements
                     'nome'  => $r->empresa_nome_fantasia
                 ],
                 'arquivo'           => $r->arquivo,
-                'erro'              => $r->erro,
-                'novo'              => $r->novo,
-                'atualizado'        => $r->atualizado,
+                'erro'              => $r->erro ?? 0,
+                'novo'              => $r->novo ?? 0,
+                'atualizado'        => $r->atualizado ?? 0,
                 'tipo'              => $Tipo->indice($r->tipo),
                 'status'            => $Status->indice($r->status),
                 'data_criacao'      => $r->data_criacao,

@@ -15,9 +15,6 @@ Route
             ::action('bloquear')
             ::view('/tabela/bloquear');
         Route
-            ::action('historico')
-            ::view('/tabela/historico');
-        Route
             ::action('salvar')
             ::request(['tipo'])
             ::request(['arquivo'], 'files')

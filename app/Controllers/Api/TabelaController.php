@@ -2,11 +2,16 @@
 
 namespace App\Controllers\Api;
 
+use App\Classes\TabelaUsuario\Ordem;
+use App\Classes\TabelaUsuario\Status;
+use App\Classes\TabelaUsuario\Tipo;
 use App\Models\Api\TabelaUsuario\TabelaEntity;
 use App\Models\Api\TabelaUsuario\TabelaModel;
 use Http\Request;
 use Http\Response;
 use Controller\Controller;
+use Modules\Pagina;
+use Modules\Quantidade;
 use System\Interface\ControllerSalvarInterface;
 
 final class TabelaController extends Controller implements
@@ -14,7 +19,16 @@ final class TabelaController extends Controller implements
 {
     public function getListar(Request $request): Response
     {
-        $Tabela = new TabelaModel($request);
+        $Tabela = new TabelaModel(
+            pagina: new Pagina($request->pagina),
+            quantidade: new Quantidade($request->quantidade),
+            ordem: new Ordem($request->ordem),
+            status: new Status($request->status),
+            tipo: new Tipo($request->tipo),
+            empresa: $request->empresa,
+            data_de: $request->data_de,
+            data_ate: $request->data_ate,
+        );
         return mensagemSucesso($Tabela->listarDados());
     }
 

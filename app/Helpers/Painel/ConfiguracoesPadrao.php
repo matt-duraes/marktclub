@@ -322,9 +322,10 @@ final class ConfiguracoesPadrao
         'tabela_usuario'           => [
             'titulo'    => 'Tabela de Usuário',
             'permissao' => [
-                'tabela_usuario_salvar'    => 'Salvar',
-                'tabela_usuario_bloquear'  => 'Bloquear',
-                'tabela_usuario_historico' => 'Histórico'
+                'tabela_usuario_salvar'   => 'Salvar',
+                'tabela_usuario_bloquear' => 'Bloquear',
+                'tabela_historico_index'  => 'Histórico',
+                'tabela_usuario_empresa'  => 'Todas as empresas'
             ]
         ],
         'solicitacao_loja'         => [

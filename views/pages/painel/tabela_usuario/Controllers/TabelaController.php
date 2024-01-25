@@ -30,22 +30,6 @@ final class TabelaController extends Controller
         ]);
     }
 
-    public function historico()
-    {
-        $dado = (new ApiHelper(token: true))
-            ->json([
-                'pagina' => 1
-            ])
-            ->get('/tabela-usuario')
-            ->array()['dado'] ?? [];
-
-        return view(arquivo: 'painel.tabela_usuario.historico', var: [
-            'appTitulo' => 'TABELA / HISTÓRICO',
-            'app'       => 'tabela-historico',
-            'lista'     => $dado['lista'] ?? []
-        ]);
-    }
-
     public function postAnalisar(Request $request)
     {
         $Analisar = new AnalisarModel($request->getFiles('arquivo'));

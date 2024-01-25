@@ -622,7 +622,10 @@ Route
         Route
             ::nome('listar')
             ::middleware(TokenMiddleware::class, 'scope', ['tabela_usuario:listar'])
-            ::request(['pagina', '!quantidade', '!ordem', '!pesquisa', '!tipo'], 'json')
+            ::request([
+                'pagina', '!quantidade', '!ordem', '!pesquisa', '!tipo', '!empresa', '!status',
+                '!data_de', '!data_ate'
+            ], 'json')
             ::get('/tabela-usuario');
         Route
             ::nome('salvar')
