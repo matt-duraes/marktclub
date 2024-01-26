@@ -51,6 +51,7 @@ final class UsuarioClienteController extends Controller implements
             ['cod', $id],
             ['status', 'in', Helper::STATUS_LIBERADO]
         ]);
+
         return $this->retornoSucesso($Usuario);
     }
 
