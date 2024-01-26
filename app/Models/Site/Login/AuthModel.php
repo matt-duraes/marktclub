@@ -37,7 +37,7 @@ final class AuthModel
             'nome'            => $this->Crypt->decode($dado['name']),
             'cpf'             => $this->Crypt->decode($dado['document']),
             'email'           => $this->Crypt->decode($dado['email']),
-            'imagem'          => $this->Crypt->decode($dado['picture']),
+            'imagem'          => $this->Crypt->decode($dado['file_picture']),
             'tipo'            => $dado['type'],
             'federacao'       => $dado['federation'],
             'grupo'           => $dado['group'],

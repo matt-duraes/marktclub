@@ -5,7 +5,6 @@ namespace App\Models\Site\Perfil;
 use Erro\Excecao;
 use Http\Request;
 use Http\Response;
-use Helpers\SocialHelper;
 use App\Helpers\ClubeApiHelper;
 
 final class DadosModel extends ClubeApiHelper
@@ -65,7 +64,7 @@ final class DadosModel extends ClubeApiHelper
             'endereco_cidade'      => $this->Crypt->decode($r->endereco_cidade),
             'endereco_estado'      => $this->Crypt->decode($r->endereco_estado),
             'data_criacao'         => dataBr($r->data_criacao),
-            'imagem'               => $this->Crypt->decode($r->imagem)
+            'imagem'               => $this->Crypt->decode($r->imagem_arquivo)
         ];
     }
 
@@ -129,40 +128,34 @@ final class DadosModel extends ClubeApiHelper
      */
     public function postImagem(Request $request): Response
     {
-        $imagem = $request->getFiles('imagem');
-        if (empty($imagem)) {
-            mensagemErro('Imagem inválida!', 'Ocorreu um erro.');
-        }
-
         $dado = $this
-            ->arquivo([
-                'arquivo' => $imagem,
-            ])
-            ->body([
-                'id' => sessao('USUARIO.id'),
-            ])
+            ->arquivo(
+                [
+                    'arquivo' => $request->getFiles('imagem'),
+                ]
+            )
+            ->body(
+                [
+                    'id' => sessao('USUARIO.id'),
+                ]
+            )
             ->post('/usuario-cliente/imagem')
             ->object();
-        ppe($dado);
 
-        return mensagemSucesso([
-            'imagem' => $imagem
-        ], status: 201);
-    }
+        if ($dado->status != 'sucesso') {
+            return mensagemErro(
+                'Imagem inválida!',
+                'Ocorreu um erro ao salvar sua imagem.'
+            );
+        }
+        $imagemUsuario = $this->Crypt->decode($dado->dado->imagem);
+        sessao('USUARIO.imagem_arquivo', $imagemUsuario);
 
-    /**
-     * @param $request
-     *
-     * @return Response|void
-     * @throws Excecao
-     */
-    private function pegarIdRedeSocial($request)
-    {
-        $Social = new SocialHelper(
-            rede: 'google',
-            code: $request->code
+        return mensagemSucesso(
+            [
+                'imagem' => $imagemUsuario
+            ],
+            status: 201
         );
-
-        return $Social->imagem();
     }
 }

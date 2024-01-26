@@ -40,8 +40,9 @@ final class PayloadModel
                 'lgpd'            => !empty($Usuario->data_termo),
                 'create_at'       => $Usuario->data_criacao,
                 'updated_at'      => $Usuario->data_atualizacao,
+                'file_picture'    => arquivoPublico('usuario_cliente', $Usuario->imagem_arquivo),
             ],
-            criptografia: ['name', 'picture', 'document', 'email'],
+            criptografia: ['name', 'picture', 'document', 'email', 'file_picture'],
             chave: $chavePublica
         );
     }
