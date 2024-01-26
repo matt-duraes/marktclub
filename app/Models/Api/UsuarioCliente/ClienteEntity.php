@@ -106,25 +106,6 @@ final class ClienteEntity extends Entity
         $this->pegarCampoObrigatorio();
     }
 
-    protected function regraUpdate()
-    {
-        if ($this->imagem_arquivo instanceof UploadedFile) {
-            $this->imagem_arquivo = (new UploadHelper(
-                $this->imagem_arquivo,
-                diretorio: 'usuario_cliente',
-                ext: ['png', 'jpg', 'jpeg'],
-                nome: $this->id,
-                nomeForcar: true,
-                mbMaximo: 5
-            ))->redimencionar(1000, 1000);
-        }
-    }
-
-    protected function regraPosBuscar()
-    {
-        $this->imagem_arquivo = arquivoPublico('usuario_cliente', $this->imagem_arquivo);
-    }
-
     private function pegarCampoObrigatorio(): void
     {
         $Config = new ConfiguracaoEntity();
