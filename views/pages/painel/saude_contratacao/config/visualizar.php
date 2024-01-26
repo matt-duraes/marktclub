@@ -6,6 +6,7 @@ use App\Classes\Saude\Operadoras\Amil\Regioes;
 use App\Classes\Saude\Operadoras\CNUFlorianopolis\Planos as PlanoCNU;
 use App\Classes\Saude\Status;
 use App\Classes\Saude\Acomodacao;
+use App\Classes\UsuarioCliente\Helper;
 use Modules\EstadoCivil;
 use Modules\Genero;
 
@@ -20,7 +21,7 @@ $Painel->coluna(callback: function () use ($Painel) {
                 'usuario_link',
                 'Ver usuário',
                 link: LINK . '/app/visualizar/usuario-cliente/usuario->id',
-                permissao: \App\Classes\UsuarioCliente\Helper::PERMISSAO_VISUALIZAR
+                permissao: Helper::PERMISSAO_VISUALIZAR
             );
     });
 
@@ -31,7 +32,7 @@ $Painel->coluna(callback: function () use ($Painel) {
                 'empresa_link',
                 'Ver empresa',
                 link: LINK . '/app/visualizar/comercial-empresa/empresa->id',
-                permissao: \App\Classes\UsuarioCliente\Helper::PERMISSAO_EMPRESA
+                permissao: Helper::PERMISSAO_EMPRESA
             );
     });
 

@@ -10,14 +10,18 @@ $Status = new Status();
 $Painel = new PainelConfig\Filtrar('solicitacao_voucher');
 
 $Painel
-    ->select(name: 'empresa', label: 'Empresa', lista: 'empresa', permissao: Helper::PERMISSAO_EMPRESA)
+    ->select(name: 'empresa', lista: 'empresa', label: 'Empresa', permissao: Helper::PERMISSAO_EMPRESA)
     ->bloco(function () use ($Painel) {
         $Painel
-            ->select(name: 'tipo', label: 'Típo de voucher', lista: (new Tipo())->select('Escolha uma opção'))
+            ->select(
+                name: 'tipo',
+                lista: (new Tipo())->select('Escolha uma opção'),
+                label: 'Típo de voucher'
+            )
             ->select(
                 name: 'tipo_usuario',
-                label: 'Tipo de usuário',
-                lista: (new TipoUsuario())->select('Escolha uma opção')
+                lista: (new TipoUsuario())->select('Escolha uma opção'),
+                label: 'Tipo de usuário'
             );
     })
     ->bloco(function () use ($Painel) {
@@ -30,7 +34,12 @@ $Painel
             ->data(name: 'data_validacao_de', titulo: 'Validado em', label: 'Validado em')
             ->data(name: 'data_validacao_ate', titulo: 'Validado até', label: 'Validado até');
     })
-    ->select(name: 'status', titulo: 'Status', label: 'Status', lista: $Status->select('Escolha uma opção'));
+    ->select(
+        name: 'status',
+        lista: $Status->select('Escolha uma opção'),
+        titulo: 'Status',
+        label: 'Status'
+    );
 
 $Painel->replace('status', $Status->select());
 

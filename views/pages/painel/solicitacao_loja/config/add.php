@@ -3,6 +3,24 @@
 $Painel = new PainelConfig\Add('solicitacao_loja');
 
 $Painel->coluna(callback: function () use ($Painel) {
+    $Painel->fieldset('Dados do Solicitante', function () use ($Painel) {
+        $Painel
+            ->cpf(
+                name: 'cpf',
+                label: 'CPF',
+                placeholder: 'CPF do Solicitante'
+            )
+            ->select(
+                name: 'origem',
+                lista: ['painel' => 'Painel'],
+                label: 'Origem',
+                placeholder: 'Selecione a origem da solicitação',
+                obrigatorio: true
+            );
+    });
+});
+
+$Painel->coluna(callback: function () use ($Painel) {
     $Painel->fieldset('Dados da Loja', function () use ($Painel) {
         $Painel
             ->input(
@@ -23,25 +41,10 @@ $Painel->coluna(callback: function () use ($Painel) {
                 label: 'Telefone',
                 placeholder: 'Digite o telefone'
             )
-            ->textarea(
+            ->editor(
                 name: 'mensagem',
                 label: 'Mensagem',
                 placeholder: 'Informe mais detalhes ou informações',
-                obrigatorio: true
-            );
-    });
-    $Painel->fieldset('Dados do Solicitante', function () use ($Painel) {
-        $Painel
-            ->cpf(
-                name: 'cpf',
-                label: 'CPF',
-                placeholder: 'CPF do Solicitante'
-            )
-            ->select(
-                name: 'origem',
-                lista: ['painel' => 'Painel'],
-                label: 'Origem',
-                placeholder: 'Selecione a origem da solicitação',
                 obrigatorio: true
             );
     });
