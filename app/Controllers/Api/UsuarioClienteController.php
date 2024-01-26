@@ -155,7 +155,7 @@ final class UsuarioClienteController extends Controller implements
 
         return mensagemSucesso([
             'id'     => $Usuario->id,
-            'imagem' => $Usuario->imagem_arquivo
+            'imagem' => $Usuario->imagem
         ], status: 201, criptografar: ['imagem']);
     }
 
