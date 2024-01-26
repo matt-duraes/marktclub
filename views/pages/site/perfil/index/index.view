@@ -8,7 +8,7 @@
                 </i>
                 <img src="" alt="" class="display_none" id="imagem_perfil">
             </figure>
-            <input class="display_none" type="file" id="fileInput"  accept="image/*">
+            <input class="display_none" type="file" id="fileInput"  accept=".png, .jpg, .jpeg">
             <div class="legenda">
                 <article>
                     <h1>{{$dado->nome}}</h1>
@@ -19,7 +19,6 @@
                     @ endif;
                     <p>Usuário desde: {{$dado->data_criacao}}</p>
                 <article>
-                <!-- <label for="upload_personalizado" id="upload_personalizado">Escolher Arquivo</label> -->
             </div>
         </section>
         <form method="post" class="form_geral cinza">

@@ -2,21 +2,21 @@
 
 namespace App\Models\Api\UsuarioCliente;
 
-use App\Models\Api\ComercialEmpresa\EmpresaEntity;
+use Erro\Erro;
+use ORM\Entity;
+use Erro\Excecao;
+use Http\Request;
+use Helpers\UploadHelper;
 use App\Models\Api\Painel\ConfiguracaoEntity;
 use App\Models\Api\Trait\ValidarEmpresaTrait;
+use App\Models\Api\ComercialEmpresa\EmpresaEntity;
+use Symfony\Component\HttpFoundation\File\UploadedFile;
 use App\Models\Api\UsuarioCliente\Trait\CampoUnicoTrait;
 use App\Models\Api\UsuarioCliente\Trait\EntityBuscarTrait;
 use App\Models\Api\UsuarioCliente\Trait\EntityInsertTrait;
 use App\Models\Api\UsuarioCliente\Trait\EntitySalvarTrait;
 use App\Models\Api\UsuarioCliente\Trait\EntityUpdateTrait;
 use App\Models\Api\UsuarioCliente\Trait\PropriedadeEntityTrait;
-use Erro\Erro;
-use Erro\Excecao;
-use Helpers\UploadHelper;
-use Http\Request;
-use ORM\Entity;
-use Symfony\Component\HttpFoundation\File\UploadedFile;
 
 final class ClienteEntity extends Entity
 {
@@ -122,7 +122,7 @@ final class ClienteEntity extends Entity
 
     protected function regraPosBuscar()
     {
-        $this->imagem = arquivoPublico('usuario_cliente', $this->imagem_arquivo);
+        $this->imagem_arquivo = arquivoPublico('usuario_cliente', $this->imagem_arquivo);
     }
 
     private function pegarCampoObrigatorio(): void

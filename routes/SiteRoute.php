@@ -661,7 +661,7 @@ Route
             ::request([
                 '!nome', '!data_nascimento', '!genero', '!estado_civil', '!email_pessoal', '!email_trabalho',
                 '!telefone_trabalho', '!telefone_pessoal', '!endereco_estado', '!endereco_cep', '!endereco_logradouro',
-                '!endereco_bairro', '!endereco_numero', '!endereco_complemento', '!endereco_cidade', '!imagem'
+                '!endereco_bairro', '!endereco_numero', '!endereco_complemento', '!endereco_cidade',
             ])
             ::post('/perfil/salvar-dados');
         Route

@@ -64,7 +64,6 @@ window.addEventListener('load', () => {
         body.append('endereco_numero', inputNumero.value);
         body.append('endereco_complemento', inputComplemento.value);
         body.append('endereco_cidade', inputCidade.value);
-        body.append('foto_perfil', inputBlocoFoto.value);
         Loading.show();
 
         const resposta = await fetch(LINK + '/perfil/salvar-dados', {
@@ -114,6 +113,7 @@ window.addEventListener('load', () => {
     const setarNovaFoto = imagem => {
         fotoPerfil.style.backgroundImage = `url(${imagem})`;
         blocoPerfil.style.backgroundImage = `url(${imagem})`;
+        Alerta.mensagem('Foto alterada!', 'Após relogar suas informações serão salvas', true);
     };
 
     const salvarFoto = async imagem => {
@@ -127,20 +127,16 @@ window.addEventListener('load', () => {
             body,
         });
 
+        Loading.hide();
         let json;
         try {
             json = await resposta.json();
+            setarNovaFoto(json.dado.imagem);
+            Loading.hide();
         } catch (error) {
-            json = {};
+            const erro = json.erro;
+            Alerta.notificacao(`${erro.titulo} <br> ${erro.mensagem}`, false);
         }
-
-        Loading.hide();
-        if (resposta.status != 204) {
-            Alerta.notificacao(json.erro.mensagem != undefined ? json.erro.mensagem : 'Erro ao salvar imagem.', false);
-            return;
-        }
-
-        Alerta.notificacao('Foto Alterada com sucesso!', true);
     };
     const arquivoInput = document.querySelector('#fileInput');
 
@@ -154,8 +150,6 @@ window.addEventListener('load', () => {
         }
         const leitor = new FileReader();
         leitor.addEventListener('load', e => {
-            const leitorTarget = e.target.result;
-            setarNovaFoto(leitorTarget);
             salvarFoto(arquivo);
         });
         leitor.readAsDataURL(arquivo);
