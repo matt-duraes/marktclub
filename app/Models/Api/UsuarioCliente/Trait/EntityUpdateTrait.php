@@ -29,6 +29,10 @@ trait EntityUpdateTrait
 
     private function validarCamposObrigatorioNoUpdate()
     {
+        if ($this->imagem_arquivo) {
+            return;
+        }
+
         $campoObrigatorio = $this->campoObrigatorio;
         $request = $this->request;
         $emailExiste = $request->existe('email_pessoal') || $request->existe('email_trabalho');

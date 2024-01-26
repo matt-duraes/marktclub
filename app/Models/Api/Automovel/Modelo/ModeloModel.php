@@ -31,16 +31,16 @@ final class ModeloModel extends ORM implements
     protected string $ormTabela = TABELA_AUTOMOVEL_MODELO;
 
     /**
-     * @param Pagina      $pagina
-     * @param Quantidade  $quantidade
-     * @param Ordem       $ordem
-     * @param string|null $parceiro
-     * @param string|null $pesquisa
-     * @param string|null $titulo
-     * @param Botao       $publicado
-     * @param Data        $dataInicio
-     * @param Data        $dataFinal
-     * @param Status      $status
+     * @param Pagina          $pagina
+     * @param Quantidade      $quantidade
+     * @param Ordem           $ordem
+     * @param string|int|null $parceiro
+     * @param string|null     $pesquisa
+     * @param string|null     $titulo
+     * @param Botao           $publicado
+     * @param Data            $dataInicio
+     * @param Data            $dataFinal
+     * @param Status          $status
      *
      * @throws Excecao
      */
@@ -77,7 +77,7 @@ final class ModeloModel extends ORM implements
             mensagemErro('Campo inválido!', 'A Data de início não está no formato válido.');
         }
         if (!$this->dataFinal->vazio() && !$this->dataFinal->eDate()) {
-            mensagemErro('Campo inválido!', 'A Data de final não está no formato válido.');
+            mensagemErro('Campo inválido!', 'A Data final não está no formato válido.');
         }
         if (!$this->status->vazio() && !$this->status->valido()) {
             mensagemErro('Campo inválido!', 'O Status informado não é válido.');
@@ -119,7 +119,6 @@ final class ModeloModel extends ORM implements
                 'uuid', 'titulo', 'status'
             ], 'parceiro')
             ->join('id', 'id_parceiro_loja')
-            ->order('titulo')
             ->read();
 
         $modelos->lista = $this->montarRetorno($modelos->lista);

@@ -6,6 +6,7 @@ use App\Classes\SolicitacaoLoja\Ordem;
 use App\Classes\SolicitacaoLoja\Origem;
 use App\Classes\SolicitacaoLoja\Status;
 use App\Models\Api\Trait\ValidarEmpresaTrait;
+use Erro\Excecao;
 use Modules\Data;
 use Modules\Pagina;
 use Modules\Quantidade;
@@ -26,6 +27,18 @@ class SolicitacaoModel extends ORM implements
 
     protected string $ormTabela = TABELA_SOLICITACAO_LOJA;
 
+    /**
+     * @param Pagina      $pagina
+     * @param Quantidade  $quantidade
+     * @param Ordem       $ordem
+     * @param string|null $nome
+     * @param Data        $dataInicio
+     * @param Data        $dataFinal
+     * @param Origem      $origem
+     * @param Status      $status
+     *
+     * @throws Excecao
+     */
     public function __construct(
         private readonly Pagina $pagina = new Pagina(),
         private readonly Quantidade $quantidade = new Quantidade(),
@@ -41,6 +54,10 @@ class SolicitacaoModel extends ORM implements
         parent::__construct();
     }
 
+    /**
+     * @return void
+     * @throws Excecao
+     */
     private function validarDado(): void
     {
         if (!$this->dataInicio->vazio() && !$this->dataInicio->eDate()) {
@@ -60,6 +77,10 @@ class SolicitacaoModel extends ORM implements
         }
     }
 
+    /**
+     * @return stdClass
+     * @throws Excecao
+     */
     public function listarDados(): stdClass
     {
         $dado = $this

@@ -1,12 +1,18 @@
 <?php
 
 use App\Classes\Solicitacao\Status;
+use App\Classes\SolicitacaoChequeBonus\Helper;
 use App\Classes\UsuarioCliente\TipoUsuario;
 
 $Painel = new PainelConfig\Filtrar('solicitacao_cheque_bonus');
 
 $Painel
-    ->input(name: 'nome', titulo: 'Nome usuário', label: 'Nome usuário', placeholder: 'Nome usuário')
+    ->input(
+        name: 'nome',
+        titulo: 'Nome usuário',
+        label: 'Nome usuário',
+        placeholder: 'Nome usuário'
+    )
     ->bloco(function () use ($Painel) {
         $Painel
             ->select(
@@ -15,7 +21,7 @@ $Painel
                 titulo: 'Empresa',
                 label: 'Empresa',
                 placeholder: 'Empresa',
-                permissao: \App\Classes\SolicitacaoChequeBonus\Helper::PERMISSAO_EMPRESA
+                permissao: Helper::PERMISSAO_EMPRESA
             )
             ->select(
                 name: 'tipo_usuario',
