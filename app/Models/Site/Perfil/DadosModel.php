@@ -148,12 +148,12 @@ final class DadosModel extends ClubeApiHelper
                 'Ocorreu um erro ao salvar sua imagem.'
             );
         }
-        $imagemUsuario = $this->Crypt->decode($dado->dado->imagem);
-        sessao('USUARIO.imagem_arquivo', $imagemUsuario);
+        $urlImagem = $this->Crypt->decode($dado->dado->imagem);
+        sessao('USUARIO.imagem_arquivo', $urlImagem);
 
         return mensagemSucesso(
             [
-                'imagem' => $imagemUsuario
+                'imagem' => $urlImagem
             ],
             status: 201
         );
