@@ -63,7 +63,7 @@ final class ClienteEntity extends Entity
         'matricula', 'primeiro_acesso', 'mudar_senha', 'data_criacao', 'data_atualizacao', 'endereco_cep',
         'endereco_logradouro', 'endereco_numero', 'endereco_complemento', 'endereco_bairro', 'situacao',
         'trabalho_cargo', 'tipo_pagamento', 'trabalho_data_inicio', 'mensagem', 'grupo', 'tipo', 'federacao',
-        'data_termo', 'imagem_arquivo'
+        'data_termo', 'imagem_arquivo', 'imagem'
     ];
     protected string $ormValidarSalvar = '
         nome|Nome|valido

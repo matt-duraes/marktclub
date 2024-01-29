@@ -79,23 +79,23 @@ if (
                     if (array_key_exists('acao', $configuracoes) && !empty($configuracoes['acao'])) {
                         foreach ($configuracoes['acao'] as $permissao) {
                             $label = match ($permissao) {
-                                'index' => 'Listar',
-                                'add' => 'Salvar',
-                                'editar' => 'Editar',
-                                'deletar' => 'Deletar',
-                                'status' => 'Status',
-                                'empresa' => 'Todas as Empresas',
+                                'index'      => 'Listar',
+                                'add'        => 'Salvar',
+                                'editar'     => 'Editar',
+                                'deletar'    => 'Deletar',
+                                'status'     => 'Status',
+                                'empresa'    => 'Todas as Empresas',
                                 'visualizar' => 'Visualizar',
-                                'download' => 'Download',
+                                'download'   => 'Download',
                                 'tecnologia' => 'Tecnologia',
-                                'criacao' => 'Criação',
-                                'convenio' => 'Convênio',
-                                'permissao' => 'Todas as permissões',
-                                'analytics' => 'Analytics',
-                                'apple' => 'Apple',
-                                'salvar' => 'Cadastrar usuário',
-                                'bloquear' => 'Bloquear usuário',
-                                default => ''
+                                'criacao'    => 'Criação',
+                                'convenio'   => 'Convênio',
+                                'permissao'  => 'Todas as permissões',
+                                'analytics'  => 'Analytics',
+                                'apple'      => 'Apple',
+                                'salvar'     => 'Cadastrar usuário',
+                                'bloquear'   => 'Bloquear usuário',
+                                default      => ''
                             };
                             $Painel->checkbox(name: 'permissao[]', label: $label, value: $nomeApp . '_' . $permissao);
                         }
