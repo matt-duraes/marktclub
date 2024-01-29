@@ -16,7 +16,7 @@ trait EntityBuscarTrait
             $this->contratoSiape = $this->trabalho_empresa->numero() . $this->siape . '341201';
         }
 
-        if (!$this->imagem_arquivo->vazio()) {
+        if ($this->imagem_arquivo) {
             $this->imagem = arquivoPublico('usuario_cliente', $this->imagem_arquivo);
         }
 
