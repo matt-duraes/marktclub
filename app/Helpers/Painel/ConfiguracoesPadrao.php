@@ -133,14 +133,13 @@ final class ConfiguracoesPadrao
         'comercial_popup'          => [
             'titulo'    => 'Popup',
             'acao'      => [
-                'index', 'add', 'editar', 'deletar', 'status', 'empresa'
+                'index', 'add', 'editar', 'deletar', 'empresa'
             ],
             'permissao' => [
                 'comercial_popup_index'   => 'Listar',
                 'comercial_popup_add'     => 'Salvar',
                 'comercial_popup_editar'  => 'Editar',
                 'comercial_popup_deletar' => 'Deletar',
-                'comercial_popup_status'  => 'Status',
                 'comercial_popup_empresa' => 'Todas as empresas'
             ]
         ],
