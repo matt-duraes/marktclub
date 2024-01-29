@@ -39,7 +39,7 @@ $Painel->coluna(callback: function () use ($Painel) {
             ->linha('trabalho_cargo', 'Cargo')
             ->linha('trabalho_data_inicio', 'Data exercício')
             ->linha('tipo_pagamento', 'Tipo de pagamento')
-            ->linha('contrato_siape', 'Contrato')
+            ->linha('siape', 'Contrato')
             ->linha('grupo', 'Grupo')
             ->contar('pagamento', 'Pagamento aberto?')
             ->botao(
@@ -72,7 +72,7 @@ $Painel->coluna(callback: function () use ($Painel) {
     $Painel->bloco(titulo: 'Dados de acesso', callback: function () use ($Painel) {
         $Painel
             ->linha(['cpf', 'email_pessoal', 'email_trabalho'], 'Login')
-            ->checked('possui_senha', 'Possui senha?');
+            ->checked('mudar_senha', 'Possui senha?');
     });
 
     $Painel->bloco(titulo: 'Outros dados', callback: function () use ($Painel) {
