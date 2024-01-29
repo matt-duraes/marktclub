@@ -55,7 +55,6 @@ class SolicitacaoModel extends ORM implements
     }
 
     /**
-     * @return void
      * @throws Excecao
      */
     private function validarDado(): void

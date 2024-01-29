@@ -111,8 +111,10 @@ window.addEventListener('load', () => {
     |--------------------------------------------------------------------------
     */
     const setarNovaFoto = imagem => {
-        fotoPerfil.style.backgroundImage = `url(${imagem})`;
-        blocoPerfil.style.backgroundImage = `url(${imagem})`;
+        // Adicionando um parâmetro de consulta aleatório para evitar o cache
+        let linkImagem = imagem + '?' + 'nocache=' + Math.random();
+        fotoPerfil.setAttribute('style', 'background-image: url("' + linkImagem + '")');
+        blocoPerfil.setAttribute('style', 'background-image: url("' + linkImagem + '")');
         Alerta.mensagem('Foto alterada!', 'Após relogar suas informações serão salvas', true);
     };
 
@@ -121,21 +123,26 @@ window.addEventListener('load', () => {
 
         let body = new FormData();
         body.append('imagem', imagem);
-
         const resposta = await fetch(LINK + '/perfil/vincular-google', {
             method: 'POST',
             body,
         });
 
-        Loading.hide();
         let json;
+        Loading.hide();
+
         try {
             json = await resposta.json();
-            setarNovaFoto(json.dado.imagem);
-            Loading.hide();
+            if (json.dado && json.dado.imagem) {
+                setarNovaFoto(json.dado.imagem);
+            }
         } catch (error) {
+            json = {};
+        }
+        if (resposta.status != 201) {
             const erro = json.erro;
             Alerta.notificacao(`${erro.titulo} <br> ${erro.mensagem}`, false);
+            return;
         }
     };
     const arquivoInput = document.querySelector('#fileInput');
