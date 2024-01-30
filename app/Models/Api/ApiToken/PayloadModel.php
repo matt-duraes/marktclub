@@ -24,7 +24,7 @@ final class PayloadModel
     private function montarCliente(stdClass $Usuario, ?string $chavePublica)
     {
         $email = !empty($Usuario->email_pessoal) ? $Usuario->email_pessoal : $Usuario->email_trabalho;
-        $imagem = is_null($Usuario->imagem_arquivo) ?? '';
+        $imagem = $Usuario->imagem_arquivo ?? '';
 
         $this->payload = criptografarDado(
             dado: [
