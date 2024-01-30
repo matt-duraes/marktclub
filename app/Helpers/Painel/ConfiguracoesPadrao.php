@@ -314,8 +314,9 @@ final class ConfiguracoesPadrao
                 'index', 'empresa'
             ],
             'permissao' => [
-                'relatorio_loja_venda_index'   => 'Relatório de vendas',
-                'relatorio_loja_venda_empresa' => 'Todas as empresas'
+                'relatorio_loja_venda_index'    => 'Relatório de vendas',
+                'relatorio_loja_venda_empresa'  => 'Todas as empresas',
+                'relatorio_loja_venda_parceiro' => 'Todos os parceiros'
             ]
         ],
         'tabela_usuario'           => [

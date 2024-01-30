@@ -59,7 +59,7 @@ $permissao = [
 
     'relatorio_usuario_index', 'relatorio_usuario_empresa',
 
-    'relatorio_loja_venda_index', 'relatorio_loja_venda_empresa',
+    'relatorio_loja_venda_index', 'relatorio_loja_venda_empresa', 'relatorio_loja_venda_parceiro',
 
     'tabela_usuario_salvar', 'tabela_usuario_bloquear', 'tabela_historico_index', 'tabela_usuario_empresa',
 

@@ -8,7 +8,7 @@ window.addEventListener('load', () => {
     const botaoBuscar = document.querySelector('#botao_buscar_relatorio');
 
     const buscarGrafico = async () => {
-        const valoresMarcados = pegarValoresMarcados();
+        const valoresMarcados = pegarValoresMarcadosEmpresa();
 
         Loading.show();
 

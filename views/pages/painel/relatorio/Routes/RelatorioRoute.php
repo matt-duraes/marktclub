@@ -72,6 +72,6 @@ Route
 
         Route
             ::nome('lojaVendaBuscar')
-            ::request(['de', 'ate', '!empresa'])
+            ::request(['de', 'ate', '!empresa', '!parceiro'])
             ::get('/relatorio/loja-venda-buscar');
     });
