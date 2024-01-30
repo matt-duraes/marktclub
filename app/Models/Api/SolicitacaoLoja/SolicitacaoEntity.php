@@ -50,7 +50,7 @@ final class SolicitacaoEntity extends Entity
     ';
     private int $idEmpresa;
     private ?int $idUsuario = null;
-    protected ?int $id_usuario_cliente;
+    protected string|int|null $id_usuario_cliente;
 
     /**
      * @throws Excecao
