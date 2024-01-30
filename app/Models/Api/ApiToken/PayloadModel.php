@@ -24,6 +24,8 @@ final class PayloadModel
     private function montarCliente(stdClass $Usuario, ?string $chavePublica)
     {
         $email = !empty($Usuario->email_pessoal) ? $Usuario->email_pessoal : $Usuario->email_trabalho;
+        $imagem = is_null($Usuario->imagem_arquivo) ?? '';
+
         $this->payload = criptografarDado(
             dado: [
                 'sub'             => $Usuario->uuid,
@@ -40,7 +42,7 @@ final class PayloadModel
                 'lgpd'            => !empty($Usuario->data_termo),
                 'create_at'       => $Usuario->data_criacao,
                 'updated_at'      => $Usuario->data_atualizacao,
-                'file_picture'    => arquivoPublico('usuario_cliente', $Usuario->imagem_arquivo),
+                'file_picture'    => arquivoPublico('usuario_cliente', $imagem),
             ],
             criptografia: ['name', 'picture', 'document', 'email', 'file_picture'],
             chave: $chavePublica
