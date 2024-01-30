@@ -64,7 +64,7 @@ final class DadosModel extends ClubeApiHelper
             'endereco_cidade'      => $this->Crypt->decode($r->endereco_cidade),
             'endereco_estado'      => $this->Crypt->decode($r->endereco_estado),
             'data_criacao'         => dataBr($r->data_criacao),
-            'imagem'               => $this->Crypt->decode($r->imagem_arquivo)
+            'imagem'               => $this->Crypt->decode($r->imagem)
         ];
     }
 
