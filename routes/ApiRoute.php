@@ -697,7 +697,7 @@ Route
         Route
             ::nome('lojaVenda')
             ::middleware(TokenMiddleware::class, 'scope', ['relatorio_loja_venda:listar'])
-            ::request(['de', 'ate', '!empresa'], 'json')
+            ::request(['de', 'ate', '!empresa', '!parceiro'], 'json')
             ::get('/relatorio/loja-venda');
 
         Route

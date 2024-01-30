@@ -22,7 +22,7 @@ window.addEventListener('load', () => {
     const buscarAcessoPorPagina = async () => {
         const de = inputDe.value;
         const ate = inputAte.value;
-        const empresa = pegarValoresMarcados();
+        const empresa = pegarValoresMarcadosEmpresa();
 
         graficoAcesso.classList.add('loading');
         const resposta = await ajaxGet(LINK + `/relatorio/acesso-dia`, { de, ate, empresa }, undefined, {
@@ -63,7 +63,7 @@ window.addEventListener('load', () => {
     const buscarMaisAcessado = async local => {
         const de = inputDe.value;
         const ate = inputAte.value;
-        const empresa = pegarValoresMarcados();
+        const empresa = pegarValoresMarcadosEmpresa();
 
         let bloco, loading;
         let estabelecimento = '';
@@ -147,7 +147,7 @@ window.addEventListener('load', () => {
     const buscarPorDispositivo = async tipo => {
         const de = inputDe.value;
         const ate = inputAte.value;
-        const empresa = pegarValoresMarcados();
+        const empresa = pegarValoresMarcadosEmpresa();
 
         let bloco;
         if (tipo == 'dispositivo') {
