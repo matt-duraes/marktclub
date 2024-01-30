@@ -149,7 +149,7 @@ final class DadosModel extends ClubeApiHelper
             );
         }
         $urlImagem = $this->Crypt->decode($dado->dado->imagem);
-        sessao('USUARIO.imagem_arquivo', $urlImagem);
+        sessao('USUARIO.imagem', $urlImagem);
 
         return mensagemSucesso(
             [

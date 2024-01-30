@@ -693,7 +693,7 @@ Route
         Route
             ::nome('social')
             ::request(['imagem'], 'files')
-            ::post('/perfil/vincular-google');
+            ::post('/perfil/vincular-foto');
         Route
             ::nome('carteirinha')
             ::view('/perfil/carteirinha');

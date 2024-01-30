@@ -123,7 +123,7 @@ window.addEventListener('load', () => {
 
         let body = new FormData();
         body.append('imagem', imagem);
-        const resposta = await fetch(LINK + '/perfil/vincular-google', {
+        const resposta = await fetch(LINK + '/perfil/vincular-foto', {
             method: 'POST',
             body,
         });
