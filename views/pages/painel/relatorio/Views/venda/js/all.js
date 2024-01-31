@@ -24,13 +24,15 @@ window.addEventListener('load', () => {
         graficoLojaValor.classList.add('loading');
         graficoLojaTicket.classList.add('loading');
 
-        var valoresMarcados = pegarValoresMarcados();
+        const valoresEmpresa = pegarValoresMarcadosEmpresa();
+        const valoresParceiro = pegarValoresMarcadosParceiro();
 
         const de = inputDe.value;
         const ate = inputAte.value;
-        const empresa = valoresMarcados;
+        const empresa = valoresEmpresa;
+        const parceiro = valoresParceiro;
 
-        const resposta = await fetch(LINK + `/relatorio/loja-venda-buscar?de=${de}&ate=${ate}&empresa=${empresa}`, {
+        const resposta = await fetch(LINK + `/relatorio/loja-venda-buscar?de=${de}&ate=${ate}&empresa=${empresa}&parceiro=${parceiro}`, {
             method: 'GET',
             headers: {
                 'Content-Type': 'application/json',

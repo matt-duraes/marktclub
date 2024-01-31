@@ -49,7 +49,7 @@ class ComunicacaoPublicidadeTest extends Clube
             'titulo'         => $this->nomeCompleto(),
             'data_inicio'    => $this->dataPassada(),
             'data_final'     => $this->dataFutura(),
-            'parceiro'       => 'f10e05c0-5b02-4bff-8e22-719a8797f0d6',
+            'parceiro'       => '9792e058562303f9e7e0604c5117c569',
             'status'         => valorAleatorio(array_keys((new Status())->select())),
             'imagem_desktop' => '2ee20169-49eb-4dcd-891d-e1c03a85ec80',
             'link'           => '',

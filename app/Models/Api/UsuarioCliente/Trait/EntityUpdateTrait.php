@@ -2,6 +2,9 @@
 
 namespace App\Models\Api\UsuarioCliente\Trait;
 
+use Helpers\UploadHelper;
+use Symfony\Component\HttpFoundation\File\UploadedFile;
+
 trait EntityUpdateTrait
 {
     protected function regraUpdate()
@@ -11,10 +14,25 @@ trait EntityUpdateTrait
             mensagemErro('Erro!', 'Você não pode mudar o CPF desse usuário.');
         }
         $this->validarCamposObrigatorioNoUpdate();
+
+        if ($this->imagem_arquivo instanceof UploadedFile) {
+            $this->imagem_arquivo = (new UploadHelper(
+                $this->imagem_arquivo,
+                diretorio: 'usuario_cliente',
+                ext: ['png', 'jpg', 'jpeg'],
+                nome: $this->id,
+                nomeForcar: true,
+                mbMaximo: 5
+            ))->redimencionar(1000, 1000);
+        }
     }
 
     private function validarCamposObrigatorioNoUpdate()
     {
+        if ($this->imagem_arquivo) {
+            return;
+        }
+
         $campoObrigatorio = $this->campoObrigatorio;
         $request = $this->request;
         $emailExiste = $request->existe('email_pessoal') || $request->existe('email_trabalho');

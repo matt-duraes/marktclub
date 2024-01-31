@@ -51,6 +51,7 @@ final class UsuarioClienteController extends Controller implements
             ['cod', $id],
             ['status', 'in', Helper::STATUS_LIBERADO]
         ]);
+
         return $this->retornoSucesso($Usuario);
     }
 
@@ -67,8 +68,8 @@ final class UsuarioClienteController extends Controller implements
             pegarPropriedadeDaEntity($Usuario, lista: [
                 'Empresa' => ['id', 'nome_fantasia'],
                 'subempresa', 'nome', 'siape', 'cpf', 'rg', 'email_trabalho', 'email_pessoal', 'email_funcional',
-                'telefone_trabalho', 'telefone_pessoal', 'estado_civil', 'genero', 'imagem', 'data_nascimento',
-                'matricula', 'federacao', 'endereco_cep', 'endereco_logradouro', 'endereco_numero',
+                'telefone_trabalho', 'telefone_pessoal', 'estado_civil', 'genero', 'imagem',
+                'data_nascimento', 'matricula', 'federacao', 'endereco_cep', 'endereco_logradouro', 'endereco_numero',
                 'endereco_complemento', 'endereco_bairro', 'endereco_cidade', 'endereco_estado',
                 'primeiro_acesso', 'possui_senha', 'mudar_senha', 'situacao', 'contrato_siape',
                 'trabalho_empresa', 'trabalho_cargo', 'tipo_pagamento', 'pagamento',
@@ -143,6 +144,19 @@ final class UsuarioClienteController extends Controller implements
         $Usuario->set(lista: $request->dado());
         $Usuario->salvar();
         return new Response(status: 204);
+    }
+
+    public function postImagem(Request $request): Response
+    {
+        $Usuario = new ClienteEntity();
+        $Usuario->uuid($request->id);
+        $Usuario->imagem_arquivo = $request->getFiles('arquivo');
+        $Usuario->salvar();
+
+        return mensagemSucesso([
+            'id'     => $Usuario->id,
+            'imagem' => $Usuario->imagem
+        ], status: 201, criptografar: ['imagem']);
     }
 
     /**

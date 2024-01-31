@@ -2,19 +2,21 @@
 
 namespace App\Models\Api\UsuarioCliente;
 
-use App\Models\Api\ComercialEmpresa\EmpresaEntity;
+use Erro\Erro;
+use ORM\Entity;
+use Erro\Excecao;
+use Http\Request;
+use Helpers\UploadHelper;
 use App\Models\Api\Painel\ConfiguracaoEntity;
 use App\Models\Api\Trait\ValidarEmpresaTrait;
+use App\Models\Api\ComercialEmpresa\EmpresaEntity;
+use Symfony\Component\HttpFoundation\File\UploadedFile;
 use App\Models\Api\UsuarioCliente\Trait\CampoUnicoTrait;
 use App\Models\Api\UsuarioCliente\Trait\EntityBuscarTrait;
 use App\Models\Api\UsuarioCliente\Trait\EntityInsertTrait;
 use App\Models\Api\UsuarioCliente\Trait\EntitySalvarTrait;
 use App\Models\Api\UsuarioCliente\Trait\EntityUpdateTrait;
 use App\Models\Api\UsuarioCliente\Trait\PropriedadeEntityTrait;
-use Erro\Erro;
-use Erro\Excecao;
-use Http\Request;
-use ORM\Entity;
 
 final class ClienteEntity extends Entity
 {
@@ -30,13 +32,12 @@ final class ClienteEntity extends Entity
         'telefone_celular' => '->telefone_pessoal',
         'telefone_fixo'    => '->telefone_trabalho',
         'salt'             => '->senha',
-        'imagem'           => '->imagem_google',
         'trabalho_orgao'   => '->trabalho_empresa',
         'id_admin_subempresa', 'cpf', 'genero', 'data_nascimento', 'endereco_estado', 'endereco_cidade',
         'siape', 'nome', 'email_trabalho', 'email_pessoal', 'email_funcional', 'estado_civil', 'mensagem',
         'status', 'matricula', 'primeiro_acesso', 'mudar_senha', 'endereco_cep', 'endereco_logradouro',
         'endereco_numero', 'endereco_complemento', 'endereco_bairro', 'situacao', 'trabalho_cargo',
-        'tipo_pagamento', 'trabalho_data_inicio', 'grupo', 'federacao', 'data_termo'
+        'tipo_pagamento', 'trabalho_data_inicio', 'grupo', 'federacao', 'data_termo', 'imagem_arquivo'
     ];
     protected array $ormInsert = [
         'empresa' => '->idEmpresa',
@@ -57,13 +58,12 @@ final class ClienteEntity extends Entity
         'senha'             => 'salt',
         'origem'            => 'lead_origem',
         'lead'              => 'usuario_lead',
-        'imagem_google'     => 'imagem',
         'id_admin_subempresa',
         'nome', 'siape', 'email_trabalho', 'email_pessoal', 'email_funcional', 'status', 'estado_civil',
         'matricula', 'primeiro_acesso', 'mudar_senha', 'data_criacao', 'data_atualizacao', 'endereco_cep',
         'endereco_logradouro', 'endereco_numero', 'endereco_complemento', 'endereco_bairro', 'situacao',
         'trabalho_cargo', 'tipo_pagamento', 'trabalho_data_inicio', 'mensagem', 'grupo', 'tipo', 'federacao',
-        'data_termo'
+        'data_termo', 'imagem_arquivo', 'imagem'
     ];
     protected string $ormValidarSalvar = '
         nome|Nome|valido
@@ -83,6 +83,8 @@ final class ClienteEntity extends Entity
     ';
     protected array $ormRetornoPadrao = ['id', 'nome', 'cpf'];
     protected string $ormTabela = TABELA_USUARIO_CLIENTE;
+    public UploadedFile|UploadHelper|string $imagem_arquivo;
+    public string $imagem;
 
     /**
      * @param null|Request $request      Request para salvar um novo usuário

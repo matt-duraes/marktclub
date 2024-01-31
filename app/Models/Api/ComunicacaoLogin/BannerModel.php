@@ -59,7 +59,7 @@ class BannerModel extends ORM implements
 
     private function pegarWhere()
     {
-        $where = [];
+        $where = $this->ormWherePadrao;
         $wherePublicado = [];
         $publicadoVazio = $this->publicado->vazio();
         if (!$publicadoVazio && $this->publicado->valor() == 'sim') {

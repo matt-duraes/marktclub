@@ -22,7 +22,7 @@ trait TextoTrait
         }
 
         // @codingStandardsIgnoreStart
-        $this->texto_juridico = 'Este convênio é administrado pela empresa Markt Tec Serviços em Tecnologia da Informação, CNPJ. 14.150.830/0001-00 - (Markt Club), com contrato firmado no dia ' . $dataContrato->data() . ' e sua vigência é por prazo indeterminado. Caso tenha algum problema no ato da utilização, favor entrar em contato pelo meios abaixo:';
+        $this->texto_juridico = 'Este convênio é administrado pela empresa Youhuul Servicos em Tecnologia da Informacao e Clube de Descontos LTDA, CNPJ. 14.150.830/0001-00 - (Youhuul), com contrato firmado no dia ' . $dataContrato->data() . ' e sua vigência é por prazo indeterminado. Caso tenha algum problema no ato da utilização, favor entrar em contato pelo meios abaixo:';
         // @codingStandardsIgnoreEnd
 
         if ($this->Construtor->contato_telefone->valido()) {

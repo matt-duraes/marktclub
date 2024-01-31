@@ -23,6 +23,7 @@ final class LojaVendaModel extends ORM
         parent::__construct();
         $this->idEmpresa = TOKEN['empresa']->id;
         $this->pegarDataBusca();
+        $this->setarIdUsuario();
     }
 
     public function listarDados(): array
@@ -45,13 +46,27 @@ final class LojaVendaModel extends ORM
 
     private function pegarWhere()
     {
-        $this->setarIdUsuario();
-        $whereData = ['data_relatorio', 'between', [$this->de, $this->ate]];
+        $where = [];
+
+        $where[] = ['data_relatorio', 'between', [$this->de, $this->ate]];
+
+        $whereEmpresa = $this->pegarWhereEmpresa();
+        if (!empty($whereEmpresa)) {
+            $where[] = $whereEmpresa;
+        }
+
+        $whereParceiro = $this->pegarWhereParceiro();
+        if (!empty($whereParceiro)) {
+            $where[] = $whereParceiro;
+        }
+
+        return $where;
+    }
+
+    private function pegarWhereEmpresa()
+    {
         if (empty($this->request->empresa)) {
-            return [
-                $whereData,
-                ['id_admin_empresa', $this->idEmpresa]
-            ];
+            return ['id_admin_empresa', $this->idEmpresa];
         }
 
         if (!$this->verificarSePodeMudarEmpresa()) {
@@ -61,10 +76,7 @@ final class LojaVendaModel extends ORM
         if (!is_array($this->request->empresa)) {
             $ormHelper = new OrmHelper(TABELA_COMERCIAL_EMPRESA);
             $empresaId = $ormHelper->pegarIdPeloUuid($this->request->empresa);
-            return [
-                $whereData,
-                ['id_admin_empresa', $empresaId]
-            ];
+            return ['id_admin_empresa', $empresaId];
         }
 
         $empresaUuid = $this->request->empresa;
@@ -74,10 +86,31 @@ final class LojaVendaModel extends ORM
         foreach ($empresaUuid as $e) {
             $empresaId[] = $ormHelper->pegarIdPeloUuid($e);
         }
-        return [
-            $whereData,
-            ['id_admin_empresa', 'in', $empresaId]
-        ];
+
+        return ['id_admin_empresa', 'in', $empresaId];
+    }
+
+    private function pegarWhereParceiro()
+    {
+        if (empty($this->request->parceiro)) {
+            return;
+        }
+
+        if (!is_array($this->request->parceiro)) {
+            $ormHelper = new OrmHelper(TABELA_PARCEIRO_LOJA);
+            $parceiroId = $ormHelper->pegarIdPeloUuid($this->request->parceiro);
+            return ['id_parceiro_loja', $parceiroId];
+        }
+
+        $parceiroUuid = $this->request->parceiro;
+        $ormHelper = new OrmHelper(TABELA_PARCEIRO_LOJA);
+
+        $parceiroId = [];
+        foreach ($parceiroUuid as $e) {
+            $parceiroId[] = $ormHelper->pegarIdPeloUuid($e);
+        }
+
+        return ['id_parceiro_loja', 'in', $parceiroId];
     }
 
     public function montarDado($r): array

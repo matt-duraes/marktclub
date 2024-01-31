@@ -1,0 +1,44 @@
+{
+    "tituloProcedimento": [
+        {
+            "pt": "Procedimentos",
+            "en": "",
+            "es": ""
+        }
+    ],
+    "textoContinuar": [
+        {
+            "pt": "Antes de continuar, confirme o procedimento de utilização, desconto e possíveis restrições da loja",
+            "en": "",
+            "es": ""
+        }
+    ],
+    "tituloDescontos": [
+        {
+            "pt": "Descontos",
+            "en": "",
+            "es": ""
+        }
+    ],
+    "tituloProcedimento2": [
+        {
+            "pt": "Procedimento",
+            "en": "",
+            "es": ""
+        }
+    ],
+    "botaoGerarVoucher": [
+        {
+            "pt": "Procedimento",
+            "en": "",
+            "es": ""
+        }
+    ],
+    "botaoAbrir": [
+        {
+            "pt": "Abrir Site",
+            "en": "",
+            "es": ""
+        }
+    ]
+}

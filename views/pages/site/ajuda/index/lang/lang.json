@@ -1,0 +1,72 @@
+{
+    "headerPaginaTitulo":[
+        {
+            "pt": "Precisando de alguma ajuda?",
+            "en": "In need of some help?",
+            "es": "¿Necesitas ayuda?"
+        }
+    ],
+    "conteudoPaginaTitulo":[
+        {
+            "pt" : "Abaixo seguem algumas opções. Se você precisa de ajuda, entre em contato pelo nosso atendimento",
+            "en" : "Below are some options. If you need help, contact our customer service",
+            "es" : "A continuación se muestran algunas opciones. Si necesitas ayuda, contacta con nuestro servicio de atención al cliente."
+        }
+    ],
+    "textoEscolhaOpcao":[
+        {
+            "pt": "ou escolha uma opção",
+            "en": "",
+            "es": ""
+        }
+    ],
+    "menuIndicarParceiro":[
+        {
+            "pt": "INDICAR UM PARCEIRO",
+            "en": "",
+            "es": ""
+        }
+    ],
+    "menuIndicarConcessionaria":[
+        {
+            "pt": "INDICAR UMA CONCESSIONÁRIA",
+            "en": "",
+            "es": ""
+        }
+    ],
+    "menuCotacaoPlanoDeSaude":[
+        {
+            "pt": "FAZER COTAÇÃO DE PLANO DE SAÚDE",
+            "en": "",
+            "es": ""
+        }
+    ],
+    "menuCreditoSicoob":[
+        {
+            "pt": "CRÉDITO SICOOB",
+            "en": "",
+            "es": ""
+        }
+    ],
+    "menuIngressoCinema":[
+        {
+            "pt": "COMPRAR INGRESSOS PARA O CINEMA",
+            "en": "",
+            "es": ""
+        }
+    ],
+    "menuTurismoCotacao":[
+        {
+            "pt": "FAZER COTAÇÃO DE VIAGENS",
+            "en": "",
+            "es": ""
+        }
+    ],
+    "textoNaoPrecisaDeAJuda":[
+        {
+            "pt": "NÃO PRECISO DE ATENDIMENTO",
+            "en": "",
+            "es": ""
+        }
+    ]
+}

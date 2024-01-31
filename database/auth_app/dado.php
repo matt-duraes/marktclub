@@ -6,7 +6,7 @@ $scope = [
     'usuario_cliente:salvar', 'usuario_cliente:atualizar', 'usuario_cliente:listar',
     'usuario_cliente:buscar', 'usuario_cliente:deletar', 'usuario_cliente:deletar_cpf',
     'usuario_cliente:download', 'usuario_cliente:apple', 'usuario_cliente:ativar', 'usuario_cliente:senha',
-    'usuario_cliente:validar_senha',
+    'usuario_cliente:validar_senha', 'usuario_cliente:imagem',
 
     'usuario_dependente:listar', 'usuario_dependente:salvar', 'usuario_dependente:atualizar',
     'usuario_dependente:deletar', 'usuario_dependente:email',
@@ -26,7 +26,7 @@ $scope = [
     'usuario_grupo:salvar', 'usuario_grupo:atualizar', 'usuario_grupo:listar', 'usuario_grupo:buscar',
     'usuario_grupo:deletar',
 
-    'tabela_usuario:salvar', 'tabela_usuario:bloquear',
+    'tabela_usuario:salvar', 'tabela_usuario:listar', 'tabela_usuario:atualizar',
 
     'voucher:salvar', 'voucher:verificar', 'voucher:validar',
 

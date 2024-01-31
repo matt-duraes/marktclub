@@ -12,8 +12,8 @@ final class Ordem extends Order
         $this->tabela(TABELA_PUBLICACAO_PAGINA);
         $this->campo('publicacao-nova', 'Publicação mais nova', 'data_inicio', 'DESC');
         $this->campo('publicacao-velha', 'Publicação mais velha', 'data_inicio', 'ASC');
+        $this->status();
         $this->maisNovo();
         $this->maisVelho();
-        $this->status();
     }
 }

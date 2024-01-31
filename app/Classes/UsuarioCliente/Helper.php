@@ -13,7 +13,7 @@ final class Helper
         'telefone_pessoal', 'telefone_trabalho', 'situacao', 'data_nascimento',
         'genero', 'endereco_cidade', 'endereco_estado', 'trabalho_empresa',
         'trabalho_cargo', 'tipo_pagamento', 'trabalho_data_inicio', 'senha',
-        'imagem', 'grupo', 'pesquisa', 'crm_numero', 'crm_estado',
+        'imagem', 'imagem_arquivo', 'grupo', 'pesquisa', 'crm_numero', 'crm_estado',
         'empresa' => EmpresaHelper::CRIPTOGRAFAR
     ];
     public const STATUS_LIBERADO = [1, 2, 3, 5];

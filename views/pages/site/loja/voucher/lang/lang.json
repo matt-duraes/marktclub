@@ -1,0 +1,23 @@
+{
+    "tituloValidacao": [
+        {
+            "pt": "VALIDAÇÃO EXCLUSIVA PELO LOJISTA",
+            "en": "",
+            "es": ""
+        }
+    ],
+    "textoEscaneieVoucher": [
+        {
+            "pt": "Usuário, não escaneie o voucher, a leitura só pode ser realizada uma vez",
+            "en": "",
+            "es": ""
+        }
+    ],
+    "textoCodigo": [
+        {
+            "pt": "Código: ",
+            "en": "",
+            "es": ""
+        }
+    ]
+}

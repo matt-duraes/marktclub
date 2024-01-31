@@ -1,32 +1,46 @@
-.botao_empresa
-    background-color: #00aced
-    font-size: 16px
-    font-weight: 500
-    color: white
-    padding: 10px 20px
-    margin-right: 15px
-    border-radius: 5px
-    cursor: pointer
+#popup_filtros
+    max-width: 1200px
+    max-height: 95%
 
-@media print
-    .botao_empresa
-        display: none
+#bloco_filtros .bloco_empresas
+    position: relative
+    margin-top: 20px
+    border: 1px solid #ddd;
+    padding: 10px;
 
-#popup_empresas
+    .titulo_empresas
+        position: absolute
+        top: -10px
+        left: 10px
+        background: #fff
+        padding: 0 5px
+        color: #169e91
+        font-size: 1.2rem
+        font-weight: normal
+
     .bloco_checkbox
         display: flex
         align-items: center
         flex-wrap: wrap
     .input_checkbox
-        min-height: 40px
-        width: calc(100% / 3)
-@media screen and (max-width: 565px)
-    #popup_empresas .input_checkbox
-        width: calc(100% / 2)
+        min-height: 30px
+        width: calc(100% / 4)
 
-@media screen and (max-width: 425px)
-    #popup_empresas
-        .bloco_checkbox
-            flex-direction: column
-        #popup_empresas .input_checkbox
-            width: 100%
+#lista_parceiro
+    display: flex
+
+    .tag_item
+        display: flex;
+        flex-direction: row;
+        justify-content: center;
+        align-items: center;
+        background: #dddddd;
+        border-radius: 6px;
+        padding: 4px 10px
+        cursor: pointer
+        margin: 2px
+
+        span
+            font-size: 12px
+            color: #333333
+            margin-right: 5px

@@ -23,13 +23,19 @@ final class PainelModel
         $permissaoMontar = $Api->headerJson()->get('/admin/permissao')->array();
         $permissaoMontar = array_key_exists('dado', $permissaoMontar) ? $permissaoMontar['dado'] : [];
         $permissaoLista = [];
-        foreach ($permissaoMontar as $permissoesApp) {
-            if (array_key_exists('permissao', $permissoesApp)) {
+        foreach ($permissaoMontar as $nomeApp => $permissoesApp) {
+            if (array_key_exists('acao', $permissoesApp) && !empty($permissoesApp['acao'])) {
+                foreach ($permissoesApp['acao'] as $permissao) {
+                    $permissaoLista[] = $nomeApp . '_' . $permissao;
+                }
+            } elseif (array_key_exists('permissao', $permissoesApp)) {
                 foreach (array_keys($permissoesApp['permissao']) as $permissao) {
                     $permissaoLista[] = $permissao;
                 }
             }
         }
+
+        $permissaoLista = array_unique($permissaoLista);
 
         sessao('PAINEL.permissao.montar', $permissaoMontar);
         sessao('PAINEL.permissao.lista', $permissaoLista);
