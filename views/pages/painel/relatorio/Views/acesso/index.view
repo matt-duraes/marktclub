@@ -2,7 +2,7 @@
 
 <div class="bloco_pagina_popup display_none" id="popup_filtros">
     <header class="header_pagina_popup">
-        <h1>Empresas</h1>
+        <h1>Filtros</h1>
         <i class="popup_fechar fechar botao_fechar">@iconeFechar</i>
     </header>
 
@@ -13,6 +13,7 @@
 
         @ if ( temPermissaoEmpresa('relatorio_acesso') ):
         <div class="bloco_empresas">
+            <span class="titulo_empresas">Empresas</span>
             @? formCheckbox(name: "marcar_todos", label: "Marcar/Desmarcar todos", value: "");
             <div class="bloco_checkbox">
                 @ifforeach($empresa as $k => $e):
