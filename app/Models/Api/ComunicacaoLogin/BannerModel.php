@@ -38,7 +38,7 @@ class BannerModel extends ORM implements
         private readonly null|string $titulo = null,
     ) {
         parent::__construct();
-        $this->validarEmpresa();
+        $this->validarEmpresa(json: true);
     }
 
     public function listarDados(): stdClass
