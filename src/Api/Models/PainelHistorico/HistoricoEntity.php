@@ -3,6 +3,7 @@
 namespace ApiModel\PainelHistorico;
 
 use ApiModel\PainelNotificacao\NotificacaoEntity;
+use App\Models\Api\Trait\ValidarEmpresaTrait;
 use App\Models\Api\UsuarioEquipe\EquipeEntity;
 use Erro\Erro;
 use Erro\Excecao;
@@ -14,6 +15,8 @@ use Throwable;
 
 final class HistoricoEntity extends Entity
 {
+    use ValidarEmpresaTrait;
+
     public int $id_usuario_equipe;
     public string $mensagem;
     public array $relacionado;
@@ -23,7 +26,6 @@ final class HistoricoEntity extends Entity
     public string $notificar_titulo = '';
     public string $notificar_link = '';
     public array $notificar_equipe = [];
-    public int $idUsuario;
     protected string $ormTabela = TABELA_PAINEL_HISTORICO;
     protected array $ormInsert = [
         'id_relacionado' => '->relacionado',
@@ -54,12 +56,7 @@ final class HistoricoEntity extends Entity
     public function __construct()
     {
         parent::__construct();
-        if (!defined('TOKEN')) {
-            mensagemStatus(401, localhost: 'Token não foi encontrado no Model.');
-        }
-        $this->idUsuario = array_key_exists('usuario', TOKEN) && !vazio(TOKEN['usuario'])
-            ? TOKEN['usuario']->id
-            : null;
+        $this->setarIdUsuario();
     }
 
     protected function regraInsert()

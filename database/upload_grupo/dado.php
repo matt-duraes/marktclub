@@ -59,6 +59,12 @@ return [
         'extensao'  => ['png']
     ],
     [
+        'id'        => 233,
+        'uuid'      => '2b3aa41e-f8cc-4fdc-b955-56fd8d5890d7',
+        'nome'      => 'Sinpefrs',
+        'diretorio' => 'sinpefrs'
+    ],
+    [
         'uuid'      => '915be25b-7742-45b6-8871-1f62ef6870d3',
         'nome'      => 'Usuario tabela',
         'diretorio' => 'usuario_tabela',

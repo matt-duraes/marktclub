@@ -51,10 +51,12 @@ final class SiteConfigController extends Controller implements
             dado: pegarPropriedadeDaEntity(
                 Entity: $Config,
                 lista: [
-                    'titulo', 'titulo_painel', 'descricao', 'template', 'contato_telefone', 'contato_celular',
+                    'titulo', 'titulo_painel', 'descricao', 'contato_telefone', 'contato_celular',
                     'contato_whatsapp', 'contato_email', 'contato_endereco', 'mapa_imagem', 'mapa_link',
-                    'cor_principal', 'rede_youtube', 'rede_facebook', 'rede_instagram', 'rede_x', 'logo_principal',
-                    'favicon', 'link_site', 'status'
+                    'cor_principal', 'rede_youtube', 'rede_facebook', 'rede_instagram', 'rede_twitter_x',
+                    'logo_principal', 'favicon', 'link_site', 'template_header', 'template_footer', 'contato_chat',
+                    'cor_texto', 'cor_header', 'cor_footer', 'rede_header', 'rede_footer', 'rss', 'login_texto',
+                    'home_banner', 'home_noticia_principal', 'home_noticia_lista', 'home_parceiro', 'status'
                 ]
             ),
             status: $status

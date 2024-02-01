@@ -657,6 +657,56 @@ if (!function_exists('formInputSelect')) {
         ';
     }
 }
+if (!function_exists('formUri')) {
+    function formUri(
+        string|array $name,
+        string $label = '',
+        $value = '',
+        string|array $placeholder = '',
+        string $class = '',
+        string $id = '',
+        string $html = '',
+        string $icone = '',
+        string $iconeCor = '',
+        bool|array $obrigatorio = false,
+        bool $focus = false,
+        null|int|array $contador = null,
+        array $attr = [],
+        string $ajuda = '',
+        bool $autocomplete = false,
+        string $action = '',
+        bool $footer = true,
+        array $request = [],
+        string $separador = '',
+        null|int|array $maximo = null,
+        mixed $local = ''
+    ): string {
+        $barraHtml = '<span class="form_uri_barra">/</span>';
+        return formInput(
+            name: $name,
+            label: $label,
+            value: $value,
+            placeholder: $placeholder,
+            class: !empty($class) ? 'form_input_uri ' . $class : 'form_input_uri',
+            id: $id,
+            html: !empty($html) ? $barraHtml . $$html : $barraHtml,
+            icone: $icone,
+            iconeCor: $iconeCor,
+            obrigatorio: $obrigatorio,
+            focus: $focus,
+            contador: $contador,
+            attr: $attr,
+            ajuda: $ajuda,
+            autocomplete: $autocomplete,
+            action: $action,
+            footer: $footer,
+            request: $request,
+            separador: $separador,
+            maximo: $maximo,
+            local: $local,
+        );
+    }
+}
 if (!function_exists('formAutocomplete')) {
     /**
      * @param string|array $name        Name do input, array para 2 inputs
