@@ -280,6 +280,7 @@ abstract class Entity extends ORM
 
             $valor = $this->ormConverterValorSeForUmModule($prop, $valor);
             $valor = $this->ormConverterValorSeForUmStatus($prop, $valor);
+            $valor = $this->ormConverterValorSeForUmaOrdem($prop, $valor);
 
             if ($privado) {
                 $this->ormPropriedadePrivada[$prop] = $valor;

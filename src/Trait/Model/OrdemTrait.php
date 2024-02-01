@@ -29,9 +29,7 @@ trait OrdemTrait
 
         if (property_exists($this, 'request') && $this->request->existe('ordem')) {
             $valor = $this->request->ordem;
-        } elseif (property_exists($this, 'ordem') && $this->ordem instanceof OrderInterface) {
-            $valor = $this->ordem;
-        } elseif (property_exists($this, 'ordem')) {
+        } elseif ($this->propriedadeExiste('ordem')) {
             $valor = $this->ordem;
         }
 
@@ -39,6 +37,10 @@ trait OrdemTrait
             $ordem = $valor;
         } elseif ($ordem instanceof OrderInterface && is_string($valor)) {
             $ordem->valor($valor);
+        }
+
+        if (!($ordem instanceof OrderInterface)) {
+            return 'id';
         }
 
         if ($ordem->vazio() && $obrigatorio) {

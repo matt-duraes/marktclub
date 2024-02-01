@@ -9,6 +9,7 @@ use Modules\Botao;
 use Modules\Senha;
 use Modules\DataHora;
 use ReflectionProperty;
+use Order\OrderInterface;
 use Status\StatusInterface;
 use Modules\ModuleInterface;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
@@ -153,6 +154,7 @@ trait SetGetTrait
         } elseif ($existe) {
             $valor = $this->ormConverterValorSeForUmModule($propriedade, $valor, 1);
             $valor = $this->ormConverterValorSeForUmStatus($propriedade, $valor);
+            $valor = $this->ormConverterValorSeForUmaOrdem($propriedade, $valor);
             $this->ormSetReal[$propriedade] = $valor;
             if ($valor instanceof Senha && $valor->vazio()) {
                 return;
@@ -222,9 +224,23 @@ trait SetGetTrait
             return $valor;
         }
 
-        if ($indice == 'tipo_pagamento') {
+        try {
             $nome = (new ReflectionProperty($this, $indice))->getType()->getName();
             $valorTemp = new $nome($valor);
+        } catch (\Throwable) {
+            $valorTemp = '';
+        }
+
+        if ($valorTemp instanceof StatusInterface) {
+            return $valorTemp;
+        }
+        return $valor;
+    }
+
+    private function ormConverterValorSeForUmaOrdem(string $indice, $valor)
+    {
+        if ($valor instanceof OrderInterface) {
+            return $valor;
         }
 
         try {
@@ -234,7 +250,7 @@ trait SetGetTrait
             $valorTemp = '';
         }
 
-        if ($valorTemp instanceof StatusInterface) {
+        if ($valorTemp instanceof OrderInterface) {
             return $valorTemp;
         }
         return $valor;

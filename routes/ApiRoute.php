@@ -2441,27 +2441,30 @@ Route
             ::nome('listar')
             ::middleware(TokenMiddleware::class, 'scope', ['site_config:listar'])
             ::request([
-                'pagina', '!empresa', '!ordem'
+                'pagina', '!empresa'
             ], 'json')
             ::get('/site-config');
         Route
             ::nome('salvar')
             ::middleware(TokenMiddleware::class, 'scope', ['site_config:salvar'])
             ::request([
-                '!empresa', 'titulo_painel', 'titulo', 'descricao', 'template', 'contato_telefone', 'contato_celular',
-                'contato_whatsapp', 'contato_email', 'contato_endereco', 'mapa_imagem', 'mapa_link',
-                'cor_principal', 'rede_youtube', 'rede_facebook', 'rede_instagram', 'rede_x', 'logo_principal',
-                'favicon', 'link_site', 'status'
+                '!empresa', 'titulo_painel', 'titulo', 'descricao', 'contato_telefone', 'template_header',
+                'template_footer', 'contato_celular', 'contato_whatsapp', 'contato_email', 'contato_endereco',
+                'mapa_imagem', 'mapa_link', 'cor_principal', 'rede_youtube', 'rede_facebook', 'rede_instagram',
+                'rede_twitter_x', 'logo_principal', 'favicon', 'link_site', 'home_banner', 'contato_chat',
+                'home_noticia_principal', 'home_noticia_lista', 'home_parceiro', 'status', 'login_texto',
+                'rede_header', 'rede_footer', 'rss', 'cor_texto', 'cor_header', 'cor_footer'
             ])
             ::post('/site-config');
         Route
             ::nome('atualizar')
             ::middleware(TokenMiddleware::class, 'scope', ['site_config:atualizar'])
             ::request([
-                '!titulo_painel', '!titulo', '!descricao', '!template', '!contato_telefone',
-                '!contato_celular', '!contato_whatsapp', '!contato_email', '!contato_endereco', '!mapa_imagem',
-                '!mapa_link', '!cor_principal', '!rede_youtube', '!rede_facebook', '!rede_instagram', '!rede_x',
-                '!logo_principal', '!favicon', '!link_site', '!status'
+                '!titulo_painel', '!titulo', '!descricao', '!contato_telefone', '!template_header',
+                '!template_footer', '!contato_celular', '!contato_whatsapp', '!contato_email', '!contato_endereco',
+                '!mapa_imagem', '!mapa_link', '!cor_principal', '!rede_youtube', '!rede_facebook', '!rede_instagram',
+                '!rede_twitter_x', '!logo_principal', '!favicon', '!link_site', '!home_banner',
+                '!home_noticia_principal', '!home_noticia_lista', '!home_parceiro', '!status'
             ])
             ::put('/site-config/{id}');
         Route

@@ -58,4 +58,10 @@ return [
         'diretorio' => 'site_config',
         'extensao'  => ['png']
     ],
+    [
+        'id'        => 233,
+        'uuid'      => '2b3aa41e-f8cc-4fdc-b955-56fd8d5890d7',
+        'nome'      => 'Sinpefrs',
+        'diretorio' => 'sinpefrs'
+    ],
 ];
