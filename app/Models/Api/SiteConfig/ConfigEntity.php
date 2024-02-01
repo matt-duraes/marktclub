@@ -80,9 +80,9 @@ final class ConfigEntity extends Entity
     public string $link_site;
     public string $favicon;
     public string $login_texto;
+    public int $home_noticia_principal;
+    public int $home_noticia_lista;
     public Botao $home_banner;
-    public Botao $home_noticia_principal;
-    public Botao $home_noticia_lista;
     public Botao $home_parceiro;
     public Status $status;
 
