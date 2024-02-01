@@ -1,0 +1,80 @@
+     {
+    "avisoIndicado": [
+        {
+            "pt": "Você está utilizando uma versão limitada do clube",
+            "en": "",
+            "es": ""
+        }
+    ],
+    "tituloPlanoSaude": [
+        {
+            "pt": "Que tal um plano de saúde feito para você?",
+            "en": "",
+            "es": ""
+        }
+    ],
+    "textoPlanoSaude": [
+        {
+            "pt": "Venha conhecer o plano de saúde que cabe no seu bolso",
+            "en": "",
+            "es": ""
+        }
+    ],
+    "textoApartir": [
+        {
+            "pt": "Apartir",
+            "en": "",
+            "es": ""
+        }
+    ],
+    "TextoObservacao": [
+        {
+            "pt": "*Para pessoas com idade de até 18 anos",
+            "en": "",
+            "es": ""
+        }
+    ],
+    "textoVejaValores": [
+        {
+            "pt": "Veja valores",
+            "en": "",
+            "es": ""
+        }
+    ],
+    "tituloLojasFavoritas": [
+        {
+            "pt": "LOJAS FAVORITAS",
+            "en": "",
+            "es": ""
+        }
+    ],
+    "linkVejaMais": [
+        {
+            "pt": "Veja mais",
+            "en": "",
+            "es": ""
+        }
+    ],
+    "textoNaoTemLojas" : [
+        {
+            "pt": "Você ainda não tem lojas favoritas, que tal aprender como salvar sua lojas favoritas",
+            "en": "",
+            "es": ""
+        }
+    ],
+    "botaoSalvarLojas": [
+        {
+            "pt": "Salvar lojas favoritas",
+            "en": "",
+            "es": ""
+        }
+    ],
+    "tituloNovasLojas": [
+        {
+            "pt": "MAIS UTILIZADAS",
+            "en": "",
+            "es": ""
+        }
+    ]
+
+}

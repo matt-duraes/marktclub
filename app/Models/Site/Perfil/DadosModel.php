@@ -5,7 +5,6 @@ namespace App\Models\Site\Perfil;
 use Erro\Excecao;
 use Http\Request;
 use Http\Response;
-use Helpers\SocialHelper;
 use App\Helpers\ClubeApiHelper;
 
 final class DadosModel extends ClubeApiHelper
@@ -127,39 +126,36 @@ final class DadosModel extends ClubeApiHelper
      * @return Response
      * @throws Excecao
      */
-    public function postImagemSocial(Request $request): Response
+    public function postImagem(Request $request): Response
     {
-        $imagem = $this->pegarIdRedeSocial($request);
-        if (empty($imagem)) {
-            mensagemErro('Campo obrigatório!', 'Não existe imagem para ser atualizada.');
-        }
-
-        $this
-            ->body([
-                'imagem_google' => $imagem
-            ])
-            ->put('/usuario-cliente/' . $this->idUsuario)
+        $dado = $this
+            ->arquivo(
+                [
+                    'arquivo' => $request->getFiles('imagem'),
+                ]
+            )
+            ->body(
+                [
+                    'id' => sessao('USUARIO.id'),
+                ]
+            )
+            ->post('/usuario-cliente/imagem')
             ->object();
-        sessao('USUARIO.imagem', $imagem);
 
-        return mensagemSucesso([
-            'imagem' => $imagem
-        ], status: 201);
-    }
+        if ($dado->status != 'sucesso') {
+            return mensagemErro(
+                'Imagem inválida!',
+                'Ocorreu um erro ao salvar sua imagem.'
+            );
+        }
+        $urlImagem = $this->Crypt->decode($dado->dado->imagem);
+        sessao('USUARIO.imagem', $urlImagem);
 
-    /**
-     * @param $request
-     *
-     * @return Response|void
-     * @throws Excecao
-     */
-    private function pegarIdRedeSocial($request)
-    {
-        $Social = new SocialHelper(
-            rede: 'google',
-            code: $request->code
+        return mensagemSucesso(
+            [
+                'imagem' => $urlImagem
+            ],
+            status: 201
         );
-
-        return $Social->imagem();
     }
 }

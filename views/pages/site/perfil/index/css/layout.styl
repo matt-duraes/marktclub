@@ -30,7 +30,7 @@
     .conteudo .foto .legenda
         alignItemStart()
         justify-content: center
-        margin-left: 20px
+        margin: 20px 0px 0px 20px
     .conteudo .foto .legenda article
         flexCol()
         h1
@@ -42,28 +42,29 @@
             margin-top: 5px
         p:nth-child(1)
             margin-top: 10px
-    .conteudo .foto .legenda .google
-        display: flex
-        height: 40px
-        texto()
-        blocoShadow()
-        margin-top: 15px
+    #imagem_fundo_perfil
+        position: relative
+    .botao_editar_foto
+        position: absolute
+        top: 10px
+        right: 0
+        border: 1px solid $corBoxShadow
+        background: #fff
+        padding: 10px
+        border-radius: 50%
         cursor: pointer
-        .texto, i
-            height: 100%
-            flexCenter()
-            padding: 0px 14px
-        .texto
-            flexCenter()
-            padding: 0px
-            font-dize: 1em
-            color: #808080
-        .logo_google
-            width: 40px
-            height: 100%
-            flexCenter()
-        .logo_google img
-            width: 25px
+        &:hover
+            border: 1px solid $corClube
+
+    .conteudo .foto .legenda #upload_personalizado
+        margin-top: 20px
+        texto()
+        flexCol()
+        border: 1px solid $corClube
+        padding: 5px
+        border-radius: 5px
+        text-align: center
+        cursor: pointer
     .conteudo form
         width: 100%
         flexCol()
@@ -79,6 +80,7 @@
             flexCol()
             blocoShadow()
             margin-bottom: 20px
+
 #bloco_pagina_perfil .conteudo .foto
     .legenda .google .texto
         color: $corPretoBranco

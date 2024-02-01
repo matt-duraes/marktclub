@@ -1,0 +1,37 @@
+{
+    "titulo": [
+        {
+            "pt": "ENTRAR EM CONTATO",
+            "en": "",
+            "es": ""
+        }
+    ],
+    "botaoCopiarCupom": [
+        {
+            "pt": "COPIAR CUPOM",
+            "en": "",
+            "es": ""
+        }
+    ],
+    "textoBlocoAtencao": [
+        {
+            "pt": "Este parceiro aplica os descontos diretamente no site,sem necessidade de cupom, para ver os desconto,clique no botão abaixo",
+            "en": "",
+            "es": ""
+        }
+    ],
+    "linkIrParaLoja": [
+        {
+            "pt":"Ir para Loja",
+            "en": "",
+            "es": ""
+        }
+    ],
+    "textoAvisoApenasAssociados": [
+        {
+            "pt": "Apenas associados possuem acesso a esse recurso",
+            "en": "",
+            "es": ""
+        }
+    ],
+}

@@ -33,7 +33,7 @@
             <h1>{{$r_e->titulo}}</h1>
             <p>{{$r_e->completo}}</p>
             <a class="botao_geral_cor cor_bg"  target="_blank" href="{{$r_e->mapa->link}}">Como chegar</a>
-            @endifforeach;z
+            @endifforeach;
         </div>
 
     </div>

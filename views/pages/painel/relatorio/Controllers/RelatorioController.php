@@ -33,12 +33,17 @@ final class RelatorioController extends Controller
 
     public function lojaVenda()
     {
+        $usuarioPermissao = sessao('USUARIO.permissao');
+        $parceiroPermissao = in_array('relatorio_loja_venda_parceiro', $usuarioPermissao) && sessao('EMPRESA.id') == '14afa776394ada4be23be6acf7e3259e';
+
         return view(arquivo: 'painel.relatorio.venda', var: [
-            'appTitulo' => 'Relatório de venda',
-            'app'       => 'relatorio-loja-venda',
-            'de'        => '01/' . dataRemover(date('Y-m-') . '01', 6, 'meses', 'm/Y'),
-            'ate'       => '01/' . date('m/Y'),
-            'empresa'   => $this->pegarSelectEmpresa()
+            'appTitulo'         => 'Relatório de venda',
+            'app'               => 'relatorio-loja-venda',
+            'de'                => '01/' . dataRemover(date('Y-m-') . '01', 6, 'meses', 'm/Y'),
+            'ate'               => '01/' . date('m/Y'),
+            'empresa'           => $this->pegarSelectEmpresa(),
+            'parceiro'          => $this->pegarSelectParceiro(),
+            'parceiroPermissao' => $parceiroPermissao
         ]);
     }
 
@@ -46,6 +51,13 @@ final class RelatorioController extends Controller
     {
         return (new ApiHelper(token: true))
             ->get('/comercial-empresa/select')
+            ->array()['dado'] ?? [];
+    }
+
+    private function pegarSelectParceiro()
+    {
+        return (new ApiHelper(token: true))
+            ->get('/parceiro-loja/select')
             ->array()['dado'] ?? [];
     }
 
@@ -219,6 +231,9 @@ final class RelatorioController extends Controller
         ];
         if ($request->empresa) {
             $body['empresa'] = explode(',', $request->empresa);
+        }
+        if ($request->parceiro) {
+            $body['parceiro'] = explode(',', $request->parceiro);
         }
 
         $dado = (new ApiHelper(token: true))

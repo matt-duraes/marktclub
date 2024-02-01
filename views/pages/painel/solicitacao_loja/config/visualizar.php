@@ -2,6 +2,7 @@
 
 use App\Classes\SolicitacaoLoja\Origem;
 use App\Classes\SolicitacaoLoja\Status;
+use App\Classes\UsuarioCliente\Helper;
 
 $Painel = new PainelConfig\Visualizar('solicitacao_loja');
 
@@ -25,7 +26,7 @@ $Painel->coluna(callback: function () use ($Painel) {
                 'usuario_link',
                 'Ver usuário',
                 link: LINK . '/app/visualizar/usuario-cliente/->quem_indicou->id',
-                permissao: \App\Classes\UsuarioCliente\Helper::PERMISSAO_VISUALIZAR
+                permissao: Helper::PERMISSAO_VISUALIZAR
             );
     });
 
@@ -50,7 +51,7 @@ $Painel->coluna(callback: function () use ($Painel) {
         ->status(
             campo: 'status',
             texto: 'Concluir',
-            inArray: ['Em andamento'],
+            inArray: ['Novo', 'Em andamento'],
             status: Status::CONCLUIDO,
             mensagem: 'Tem certeza que deseja alterar o status para Concluído?',
             cor: 'verde'
@@ -60,7 +61,7 @@ $Painel->coluna(callback: function () use ($Painel) {
         ->status(
             campo: 'status',
             texto: 'Cancelar',
-            inArray: ['Em andamento'],
+            inArray: ['Novo', 'Em andamento'],
             status: Status::CANCELADO,
             mensagem: 'Tem certeza que deseja alterar o status para Cancelado?',
             cor: 'vermelho'

@@ -1,39 +1,36 @@
 @template "painel"
 
-<div class="bloco_app_relatorio">
-    <header>
-        @ if ( temPermissaoEmpresa('relatorio_acesso') ):
-            <div class="bloco_pagina_popup display_none" id="bloco_empresas">
-                <header class="header_pagina_popup">
-                    <h1>Empresas</h1>
-                    <i class="popup_fechar fechar botao_fechar">@iconeFechar</i>
-                </header>
-
-                <div class="form_geral conteudo_pagina_popup form_motivo" id="popup_empresas">
-                    @? formCheckbox(name: "marcar_todos", label: "Marcar/Desmarcar todos", value: "");
-                    <div class="bloco_checkbox">
-                        @ifforeach($empresa as $k => $e):
-                        @? formCheckbox(name: "", label: "{$e}", value: "{$k}");
-                        @endifforeach;
-                    </div>
-                </div>
-            </div>
-
-            <form action="/" class="empresas form_geral">
-                <div class="bloco_busca">
-                    <i class="botao" id="botao_buscar_relatorio">@iconeBuscar</i>
-                    <div class="empresas_busca"></div>
-                </div>
-
-                <div class="bloco_filtros">
-                    <button class="botao_empresa" type="button">
-                        Empresas
-                    </button>
-                </div>
-            </form>
-        @ endif;
+<div class="bloco_pagina_popup display_none" id="popup_filtros">
+    <header class="header_pagina_popup">
+        <h1>Filtros</h1>
+        <i class="popup_fechar fechar botao_fechar">@iconeFechar</i>
     </header>
 
+    <div class="form_geral conteudo_pagina_popup" id="bloco_filtros">
+        <div class="bloco_linha">
+            @? formData(name: ['relatorio_data_de', 'relatorio_data_ate'], label: 'Data', value: [$de, $ate], separador: 'até');
+        </div>
+
+        @ if ( temPermissaoEmpresa('relatorio_acesso') ):
+        <div class="bloco_empresas">
+            <span class="titulo_empresas">Empresas</span>
+            @? formCheckbox(name: "marcar_todos", label: "Marcar/Desmarcar todos", value: "");
+            <div class="bloco_checkbox">
+                @ifforeach($empresa as $k => $e):
+                @? formCheckbox(name: "", label: "{$e}", value: "{$k}");
+                @endifforeach;
+            </div>
+        </div>
+        @ endif;
+    </div>
+
+    <div class="footer_pagina_popup">
+        <div class="flex"></div>
+        <div class="button salvar" id="botao_buscar_relatorio">BUSCAR</div>
+    </div>
+</div>
+
+<div class="bloco_app_relatorio">
     <div class="lista">
 
         <div class="bloco_quadro_colorido" id="bloco_status">

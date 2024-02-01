@@ -1,7 +1,5 @@
 <?php
 
-use App\Classes\SolicitacaoVoucher\Helper;
-
 return [
     'titulo'     => 'Vouchers',
     'buscar'     => false,

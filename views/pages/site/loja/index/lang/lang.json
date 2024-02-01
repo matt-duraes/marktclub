@@ -1,0 +1,61 @@
+{
+    "textoVisualizarLista": [
+        {
+            "pt": "Visualizar lista",
+            "en": "",
+            "es": ""
+        }
+    ],
+    "textoVisualizarMapa": [
+        {
+            "pt": "Visualizar mapa",
+            "en": "",
+            "es": ""
+        }
+    ],
+    "textoBuscarLoja": [
+        {
+            "pt": "Buscar loja",
+            "en": "",
+            "es": ""
+        }
+    ],
+    "linkTodasLojas": [
+        {
+            "pt": "Todas as lojas",
+            "en": "",
+            "es": ""
+        }
+    ],
+    "linkLojasProximas": [
+        {
+            "pt": "Lojas próximas",
+            "en": "",
+            "es": ""
+        }
+    ],
+    "linkMeusFavoritos": [
+        {
+            "pt": "Meus favoritos",
+            "en": "",
+            "es": ""
+        }
+    ],
+    "linkMaisAcessados": [
+        {
+            "pt": "Mais acessados",
+            "en": "",
+            "es": ""
+        }
+    ]
+
+
+
+
+
+
+
+
+
+
+}

@@ -120,6 +120,6 @@ final class PerfilController extends Controller
     */
     public function postSocial(Request $request)
     {
-        return (new DadosModel())->postImagemSocial($request);
+        return (new DadosModel())->postImagem($request);
     }
 }

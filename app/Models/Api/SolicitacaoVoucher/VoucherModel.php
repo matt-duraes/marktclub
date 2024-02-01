@@ -36,6 +36,7 @@ final class VoucherModel extends ORM
 
     /**
      * @return stdClass
+     * @throws Excecao
      */
     public function listarDados(): stdClass
     {

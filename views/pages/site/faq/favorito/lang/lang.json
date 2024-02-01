@@ -1,0 +1,30 @@
+{
+    "tituloSalvarFavoritos": [
+        {
+            "pt": "Salvar favoritos",
+            "en": "",
+            "es": ""
+        }
+    ],
+    "textoSalvarLojas": [
+        {
+            "pt": "Salve as lojas que você mais gosta nos seus favoritos, para isso, basta marcar o coração nas lojas que deseja como no exemplo abaixo:",
+            "en": "",
+            "es": ""
+        }
+    ],
+    "textoBuscaLojas": [
+        {
+            "pt": "Que tal fazer uma busca pelas lojas que mais gosta e marcar seus favoritos?",
+            "en": "",
+            "es": ""
+        }
+    ],
+    "linkBuscarLojas": [
+        {
+            "pt": "Buscar Lojas",
+            "en": "",
+            "es": ""
+        }
+    ]
+}

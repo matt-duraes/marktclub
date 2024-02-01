@@ -1,6 +1,6 @@
 <div class="bloco_pagina_popup" id="bloco_cheque_bonus">
     <header class="header_pagina_popup">
-        <h1>Cheque bonus</h1>
+        <h1>Cheque bônus</h1>
         <i class="pagina_fechar">@iconeFechar</i>
     </header>
     <div class="conteudo_pagina_popup">
@@ -13,7 +13,7 @@
 
             <div class="bloco display_none" id="bloco_dependente">
                 <h2>Dados do dependente</h2>
-                <p>Digite os dados do seu depêndente</p>
+                <p>Digite os dados do seu dependente</p>
                 @? formInput(name: 'cheque_dependente_nome', label: 'Nome', placeholder: 'Digite o nome do dependente', local: 'João Rodrigues', obrigatorio: true)
                 @? formEmail(name: 'cheque_dependente_email', label: 'E-mail', placeholder: 'Digite o e-mail do dependente', local: 'dependente@gmail.com', obrigatorio: true)
                 @? formCpf(name: 'cheque_dependente_cpf', label: 'CPF', placeholder: 'Digite o CPF do dependente', local: '95963022134', obrigatorio: true)

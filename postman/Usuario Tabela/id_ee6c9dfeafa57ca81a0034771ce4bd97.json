@@ -1,0 +1,1 @@
+{"id":"id_ee6c9dfeafa57ca81a0034771ce4bd97","token":"token","metodo":"GET","nome":"\/usuario-tabela","uri":"{{LINK}}\/usuario-tabela","parametro":[],"body":[],"header":[],"variavel":[],"json":[],"documentacao":{"status":false,"descricao":"","requisicao":"","resposta":"","scope":"usuario_tabela:listar"}}

@@ -1,0 +1,107 @@
+{
+    "textoBusqueLoja": [
+        {
+            "pt": "Busque uma loja",
+            "en": "",
+            "es": ""
+        }
+    ],
+    "formSelectCategoria": [
+        {
+            "pt": "Categoria",
+            "en": "",
+            "es": ""
+        }
+    ],
+    "formInputBusqueConvenio": [
+        {
+            "pt": "Busque por um convênio",
+            "en": "",
+            "es": ""
+        }
+    ],
+    "botaoBuscar": [
+        {
+            "pt": "Buscar",
+            "en": "",
+            "es": ""
+        }
+    ],
+    "tituloBusquePorLoja": [
+        {
+            "pt": "Busque por uma loja",
+            "en": "",
+            "es": ""
+        }
+    ],
+    "textoLojasProximas": [
+        {
+            "pt": "Gostaria de buscar apenas lojas próximas a você? Para isso, basta marcar o botão abaixo",
+            "en": "",
+            "es": ""
+        }
+    ],
+    "formSwitchBuscarProximas": [
+        {
+            "pt": "Buscar lojas próximas",
+            "en": "",
+            "es": ""
+        }
+    ],
+    "formSelectEstado": [
+        {
+            "pt": "Estado",
+            "en": "",
+            "es": ""
+        }
+    ],
+    "formSelectCidade": [
+        {
+            "pt": "Cidade",
+            "en": "",
+            "es": ""
+        }
+    ],
+    "formSelectCategoria": [
+        {
+            "pt": "Categoria",
+            "en": "",
+            "es": ""
+        }
+    ],
+    "formSelectSubcategoria": [
+        {
+            "pt": "Subcategoria",
+            "en": "",
+            "es": ""
+        }
+    ],
+    "formSelectTipoEstabelecimento": [
+        {
+            "pt": "Tipo de estabelecimento",
+            "en": "",
+            "es": ""
+        }
+    ],
+    "formBusqueConvenio": [
+        {
+            "pt": "Busque por um convênio",
+            "en": "",
+            "es": ""
+        }
+    ],
+    "formSelectOrdem": [
+        {
+            "pt": "Ordenar por ",
+            "en": "",
+            "es": ""
+        }
+    ],
+    "tituloFiltros": [
+        {
+            "pt": "Filtros",
+            "en": "",
+            "es": ""
+        }
+    ]
+}

@@ -64,4 +64,10 @@ return [
         'nome'      => 'Sinpefrs',
         'diretorio' => 'sinpefrs'
     ],
+    [
+        'uuid'      => '915be25b-7742-45b6-8871-1f62ef6870d3',
+        'nome'      => 'Usuario tabela',
+        'diretorio' => 'usuario_tabela',
+        'extensao'  => ['xls', 'xlsx', 'csv']
+    ]
 ];

@@ -12,11 +12,11 @@ final class SolicitacaoVoucherTest extends Tests
     private string $usuario2 = '87cd8f94-601e-4e8e-b800-7f42a75fc0e1';
     private string $usuario3 = 'cdc41730-abc7-4b51-abd7-698e2cb3c0b2';
     private string $usuarioGrupoDiario = '00956a04-3b7e-446b-9a5e-7a425ce1b408';
-    private string $parceiroId = 'f10e05c0-5b02-4bff-8e22-719a8797f0d6';
+    private string $parceiroId = 'a50cb48e0eb0c2e92d6bd98347e09e05';
     private string $parceiroUrl = 'parceiro-normal';
     private string $parceiroIdAntido = '5d20bebb-36d5-47ce-8bc8-178309983a9a';
-    private string $parceiroPrazo = 'adca39ea4a6d6bcc51eba8afcdb54eaa';
-    private string $parceiroLimite = '4502e7e8-9359-470e-9588-0a1501449675';
+    private string $parceiroPrazo = 'b8bec1588ffa1c73f7d7d695cfae1150';
+    private string $parceiroLimite = '08c471c26a700fd66248963a08f18cff';
     private string $parceiroPrazoFixo = 'f9cbb6ae-b847-43cf-b9b8-6f72b67789df';
     private string $parceiroBlueFit = 'ca0bde20602db3ec777acbbcfb5a4c61';
     private string $parceiroUsadoVencido = '7b1476c3-2627-490c-a0cf-dff7b9196b00';

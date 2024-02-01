@@ -27,6 +27,8 @@ window.addEventListener('load', () => {
     const inputCidade = document.querySelector('#bloco_pagina_perfil form input[name=cidade]');
     const fotoPerfil = document.querySelector('#imagem_fundo_perfil');
     const blocoPerfil = document.querySelector('#bloco_perfil figure');
+    const inputBlocoFoto = document.querySelector('#input_foto_perfil');
+    const iconeEditarFoto = document.querySelector('.botao_editar_foto');
 
     buscarEnderecoPeloCep(inputCep, inputLogradouro, inputNumero, inputBairro, inputCidade, inputEstado, true);
     const buscarCidade = () => {
@@ -62,8 +64,8 @@ window.addEventListener('load', () => {
         body.append('endereco_numero', inputNumero.value);
         body.append('endereco_complemento', inputComplemento.value);
         body.append('endereco_cidade', inputCidade.value);
-
         Loading.show();
+
         const resposta = await fetch(LINK + '/perfil/salvar-dados', {
             method: 'POST',
             body,
@@ -78,9 +80,7 @@ window.addEventListener('load', () => {
             const divNome = document.querySelector('#bloco_perfil .nome');
             const divEmail = document.querySelector('#bloco_perfil .email');
 
-            const email = inputEmailPessoal.value != ''
-                ? inputEmailPessoal.value
-                : inputEmailTrabalho.value;
+            const email = inputEmailPessoal.value != '' ? inputEmailPessoal.value : inputEmailTrabalho.value;
 
             h1Nome.innerHTML = inputNome.value;
             pEmail.innerHTML = email;
@@ -107,54 +107,62 @@ window.addEventListener('load', () => {
 
     /*
     |--------------------------------------------------------------------------
-    | GOOGLE
+    | ALTERAR FOTO
     |--------------------------------------------------------------------------
     */
-    document.getElementById('botao_vincular_google').addEventListener('click', async () => {
-        oauth2Google('imagem');
-    });
-
-    const setarNovaImagem = imagem => {
-        fotoPerfil.style.backgroundImage = `url(${imagem})`;
-        blocoPerfil.style.backgroundImage = `url(${imagem})`;
+    const setarNovaFoto = imagem => {
+        // Adicionando um parâmetro de consulta aleatório para evitar o cache
+        let linkImagem = imagem + '?' + 'nocache=' + Math.random();
+        fotoPerfil.setAttribute('style', 'background-image: url("' + linkImagem + '")');
+        blocoPerfil.setAttribute('style', 'background-image: url("' + linkImagem + '")');
+        Alerta.mensagem('Foto alterada!', 'Após relogar suas informações serão salvas', true);
     };
 
-    const oauth2Google = acao => {
-        const client = google.accounts.oauth2.initCodeClient({
-            // eslint-disable-next-line camelcase
-            client_id: googleAppId,
-            scope: 'email profile',
-            // eslint-disable-next-line camelcase
-            ux_mode: 'popup',
-            callback: response => {
-                vincularContaSocial(response.code);
-            },
-        });
-        client.requestCode();
-    };
-
-    /*
-    |--------------------------------------------------------------------------
-    | VINCULAR REDE SOCIAL
-    |--------------------------------------------------------------------------
-    */
-    const vincularContaSocial = async code => {
+    const salvarFoto = async imagem => {
         Loading.show();
-        const resposta = await ajaxPost(
-            LINK + '/perfil/vincular-google',
-            {
-                code,
-            },
-            'Erro ao vincular imagem, por favor, tente novamente.'
-        );
 
+        let body = new FormData();
+        body.append('imagem', imagem);
+        const resposta = await fetch(LINK + '/perfil/vincular-foto', {
+            method: 'POST',
+            body,
+        });
+
+        let json;
         Loading.hide();
 
-        if (false === resposta) {
+        try {
+            json = await resposta.json();
+            if (json.dado && json.dado.imagem) {
+                setarNovaFoto(json.dado.imagem);
+            }
+        } catch (error) {
+            json = {};
+        }
+        if (resposta.status != 201) {
+            const erro = json.erro;
+            Alerta.notificacao(`${erro.titulo} <br> ${erro.mensagem}`, false);
             return;
         }
-        setarNovaImagem(resposta.dado.imagem);
-        Alerta.notificacao('Foto vinculada com sucesso!', true);
-        return;
     };
+    const arquivoInput = document.querySelector('#fileInput');
+
+    arquivoInput.addEventListener('change', e => {
+        const inputTarget = e.target;
+        const arquivo = inputTarget.files[0];
+
+        if (!arquivo) {
+            Alerta.mensagem('Erro', 'Não é possível salvar foto', false);
+            return;
+        }
+        const leitor = new FileReader();
+        leitor.addEventListener('load', e => {
+            salvarFoto(arquivo);
+        });
+        leitor.readAsDataURL(arquivo);
+    });
+
+    iconeEditarFoto.addEventListener('click', () => {
+        arquivoInput.click();
+    });
 });

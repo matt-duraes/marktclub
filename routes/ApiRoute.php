@@ -301,7 +301,12 @@ Route
                 '!trabalho_data_inicio', '!grupo', '!federacao', '!imagem_google', '!subempresa'
             ])
             ::put('/usuario-cliente/{id}');
-
+        Route
+            ::nome('imagem')
+            ::middleware(TokenMiddleware::class, 'scope', ['usuario_cliente:imagem'])
+            ::request(['id'])
+            ::request(['arquivo'], 'files')
+            ::post('/usuario-cliente/imagem');
         Route
             ::nome('deletar')
             ::middleware(TokenMiddleware::class, 'scope', ['usuario_cliente:deletar'])
@@ -615,21 +620,29 @@ Route
     });
 
 Route
-    ::nome('tabela')
+    ::nome('tabelaUsuario')
     ::controller(App\Controllers\Api\TabelaController::class)
     ::middleware(TokenMiddleware::class, 'token')
     ::grupo(function () {
         Route
+            ::nome('listar')
+            ::middleware(TokenMiddleware::class, 'scope', ['tabela_usuario:listar'])
+            ::request([
+                'pagina', '!quantidade', '!ordem', '!pesquisa', '!tipo', '!empresa', '!status',
+                '!data_de', '!data_ate'
+            ], 'json')
+            ::get('/tabela-usuario');
+        Route
             ::nome('salvar')
             ::middleware(TokenMiddleware::class, 'scope', ['tabela_usuario:salvar'])
-            ::request(['hash'])
-            ::post('/tabela/salvar');
-
+            ::request(['!tipo'])
+            ::request(['!arquivo'], 'files')
+            ::post('/tabela-usuario');
         Route
-            ::nome('bloquear')
-            ::middleware(TokenMiddleware::class, 'scope', ['tabela_usuario:bloquear'])
-            ::request(['hash'])
-            ::post('/tabela/bloquear');
+            ::nome('atualizar')
+            ::middleware(TokenMiddleware::class, 'scope', ['tabela_usuario:atualizar'])
+            ::request(['!status'])
+            ::put('/tabela-usuario/{id}');
     });
 
 Route
@@ -684,7 +697,7 @@ Route
         Route
             ::nome('lojaVenda')
             ::middleware(TokenMiddleware::class, 'scope', ['relatorio_loja_venda:listar'])
-            ::request(['de', 'ate', '!empresa'], 'json')
+            ::request(['de', 'ate', '!empresa', '!parceiro'], 'json')
             ::get('/relatorio/loja-venda');
 
         Route
@@ -1674,7 +1687,8 @@ Route
             ::nome('listar')
             ::middleware(TokenMiddleware::class, 'scope', ['demanda_dado:listar'])
             ::request([
-                'status', 'area', 'ordem', '!tarefa_tipo', '!empresa', '!tipo', '!data_inicio', '!data_fim',
+                'status', 'area', 'ordem', '!tarefa_tipo', '!empresa', '!tipo',
+                '!data_inicio', '!data_fim', '!equipe'
             ], 'json')
             ::get('/demanda-dado');
 
@@ -2207,8 +2221,8 @@ Route
             ::nome('listar')
             ::middleware(TokenMiddleware::class, 'scope', ['automovel_modelo:listar'])
             ::request([
-                'pagina', '!quantidade', '!ordem', '!parceiro', '!pesquisa', '!publicado',
-                '!data_inicio', '!data_final', '!status'
+                'pagina', '!quantidade', '!ordem', '!parceiro', '!pesquisa', '!titulo',
+                '!publicado', '!data_inicio', '!data_final', '!status'
             ], 'json')
             ::get('/automovel-modelo');
 
