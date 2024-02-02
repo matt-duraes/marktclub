@@ -7,6 +7,11 @@ use Helpers\ApiHelper;
 
 final class ContatoModel extends ApiHelper
 {
+    public function __construct()
+    {
+        parent::__construct(scope: 'solicitacao_contato:salvar');
+    }
+
     /**
      * @return object|array
      * @throws Excecao
@@ -15,14 +20,16 @@ final class ContatoModel extends ApiHelper
     {
         $this
             ->body([
-                'nome'     => $request->nome,
-                'telefone' => $request->telefone,
-                'email'    => $request->email,
-                'mensagem' => $request->mensagem,
-                'url'      => LINK_SITE
+                'nome'       => $request->nome,
+                'telefone'   => $request->telefone,
+                'email'      => $request->email,
+                'mensagem'   => $request->mensagem,
+                'tipo'       => 'clube contato',
+                'local'      => LINK_SITE
             ])
             ->post('/solicitacao-contato')
             ->object();
+
         return mensagemSucesso([], 201);
     }
 }
