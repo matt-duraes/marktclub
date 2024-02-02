@@ -63,7 +63,7 @@ $Painel->coluna(callback: function () use ($Painel) {
 
 $permissaoUsuario = sessao('USUARIO.permissao');
 if (
-    sessao('USUARIO.cpf') == '014.951.801-31'
+    strCpf(sessao('USUARIO.cpf')) == '014.951.801-31'
     || in_array('usuario_equipe_permissao', $permissaoUsuario)
 ) {
     $Painel->coluna(callback: function () use ($Painel) {
