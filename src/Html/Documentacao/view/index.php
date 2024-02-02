@@ -122,12 +122,12 @@
                     require_once __DIR__ . '/../css/Codigo.system.css';
                     require_once __DIR__ . '/../css/Alerta.system.css';
                     require_once __DIR__ . '/../css/layout.css';
-        ?>
+                    ?>
     </style>
 
     <script>
         <?php
-                    require_once __DIR__ . '/../js/all.js';
+                                require_once __DIR__ . '/../js/all.js';
                     require_once ROOT . '/src/Html/Scripts/js/Codigo.system.js';
                     require_once ROOT . '/src/Html/Scripts/js/ArquivoUpload.system.js';
                     require_once ROOT . '/src/Html/Scripts/js/Ckeditor.system.js';
@@ -141,7 +141,7 @@
                     require_once ROOT . '/src/Html/Scripts/js/Form.cor.js';
                     require_once ROOT . '/src/Html/Scripts/js/Form.tag.js';
                     require_once ROOT . '/src/Html/Scripts/js/Form.system.js';
-        ?>
+                    ?>
     </script>
 </body>
 

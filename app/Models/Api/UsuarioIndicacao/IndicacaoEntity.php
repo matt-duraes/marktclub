@@ -12,8 +12,11 @@ use Modules\Telefone;
 use Helpers\OrmHelper;
 use App\Classes\UsuarioCliente\Helper;
 use App\Classes\UsuarioIndicacao\Status;
+use App\Models\Api\ConstrutorClube\ConstrutorEntity;
 use App\Models\Api\Trait\ValidarEmpresaTrait;
 use App\Models\Api\UsuarioCliente\ClienteEntity;
+use Helpers\EmailHelper;
+use Modules\Nome;
 
 final class IndicacaoEntity extends Entity
 {
@@ -34,7 +37,7 @@ final class IndicacaoEntity extends Entity
     private int $idEmpresa;
     protected int $id_admin_empresa;
     protected int $id_usuario_cliente;
-    public string $nome;
+    public Nome $nome;
     public Email $email;
     public Telefone $telefone;
     public array $quem_indicou = [];
@@ -75,6 +78,39 @@ final class IndicacaoEntity extends Entity
         } catch (Throwable) {
             mensagemErro('Erro!', 'Usuário enviado não foi encontrado');
         }
+    }
+
+    protected function regraPosInsert(): void
+    {
+        $this->enviarEmail();
+    }
+
+    private function enviarEmail(): void
+    {
+        if (eLocalhost()) {
+            return;
+        }
+
+        $Construtor = new ConstrutorEntity();
+        $Construtor->buscar(['id_admin_empresa', $this->idEmpresa]);
+
+        $link = $Construtor->link_clube;
+        $titulo = $Construtor->titulo;
+
+        $Email = new EmailHelper();
+        $Email->mensagem(
+            titulo: 'Cadastro realizado!',
+            mensagem: 'Olá <strong>' . $this->nome->primeiroNome() . '</strong>, você foi cadastrado no ' . $titulo . '. Para ativar seu
+            cadastro, clique no botão abaixo:',
+            assunto: 'Cadastro realizado!',
+            botaoTexto: 'Ativar cadastro',
+            botaoLink: $link . '/login#ativar',
+            posMensagem: 'Caso fique com alguma dúvida, por favor, entre em contato.',
+            acao: 'Cadastro de indicado',
+            logo: $Construtor->logo_principal,
+            cor: $Construtor->cor_principal
+        );
+        $Email->sendGrid('Cadastro Realizado', $this->nome->nome(), $this->email->email(), deNome: $titulo);
     }
 
     /**
