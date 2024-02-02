@@ -75,7 +75,12 @@ class CarteirinhaModel extends ORM implements
      */
     private function pegarWhere(): array
     {
-        $where[] = $this->pegarWhereEmpresa();
+        $where  = [];
+
+        $empresa = $this->pegarWhereEmpresa();
+        if($empresa) {
+            $where[] = $empresa;
+        }
 
         if ($this->status->valido()) {
             $where[] = ['status', $this->status->numero()];
