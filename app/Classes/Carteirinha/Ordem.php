@@ -13,7 +13,7 @@ final class Ordem extends Order
         protected ?string $valor = null
     ) {
         $this->tabela(TABELA_CARTEIRINHA);
-        $this->padrao('status');
+        $this->padrao('id_admin_empresa');
         $this->status();
         $this->maisNovo();
         $this->maisVelho();

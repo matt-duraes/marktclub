@@ -7,12 +7,14 @@ use stdClass;
 use Modules\Pagina;
 use Helpers\OrmHelper;
 use App\Classes\Geral\Status;
+use System\Trait\Model\OrdemTrait;
 use System\Trait\Model\PaginaTrait;
 use System\Interface\ModelListarInterface;
 
 final class ConfigModel extends ORM implements ModelListarInterface
 {
     use PaginaTrait;
+    use OrdemTrait;
 
     protected string $ormTabela = TABELA_SITE_CONFIG;
     protected Pagina $pagina;
@@ -24,7 +26,6 @@ final class ConfigModel extends ORM implements ModelListarInterface
             ->campo(['uuid', 'titulo_painel', 'titulo', 'link_site', 'data_criacao', 'status'])
             ->where($this->pegarWhere(), obrigatorio: false)
             ->pagina($this->pegarPagina())
-            ->order('id', 'DESC')
             ->read();
 
         if (!chaveExiste('lista', $dado)) {

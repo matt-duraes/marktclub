@@ -4,6 +4,7 @@ namespace App\Models\Api\Carteirinha;
 
 use App\Classes\Carteirinha\Ordem;
 use App\Classes\Carteirinha\Status;
+use App\Models\Api\Trait\ValidarEmpresaTrait;
 use Erro\Excecao;
 use Helpers\OrmHelper;
 use Modules\Botao;
@@ -22,6 +23,7 @@ class CarteirinhaModel extends ORM implements
     use PaginaTrait;
     use QuantidadeTrait;
     use OrdemTrait;
+    use ValidarEmpresaTrait;
 
     protected string $ormTabela = TABELA_CARTEIRINHA;
 
@@ -39,6 +41,7 @@ class CarteirinhaModel extends ORM implements
         private readonly ?string $empresa = null,
         private readonly Status $status = new Status()
     ) {
+        $this->validarEmpresa();
         parent::__construct();
     }
 
@@ -55,7 +58,7 @@ class CarteirinhaModel extends ORM implements
             ])
             ->where($this->pegarWhere(), false)
             ->pagina($this->pegarPagina(), $this->pegarQuantidade())
-            ->order($this->pegarOrdem(new Ordem()))
+            ->order($this->pegarOrdem(new Ordem()), 'DESC')
             ->tabela(TABELA_COMERCIAL_EMPRESA)
             ->join('id', 'id_admin_empresa')
             ->campo([
@@ -72,15 +75,32 @@ class CarteirinhaModel extends ORM implements
      */
     private function pegarWhere(): array
     {
-        $where = $this->ormWherePadrao;
+        $where  = [];
+
+        $empresa = $this->pegarWhereEmpresa();
+        if($empresa) {
+            $where[] = $empresa;
+        }
+
         if ($this->status->valido()) {
             $where[] = ['status', $this->status->numero()];
         }
+        return $where;
+    }
+
+    private function pegarWhereEmpresa()
+    {
         if (!empty($this->empresa)) {
             $ormHelper = new OrmHelper(TABELA_COMERCIAL_EMPRESA);
-            $where[] = ['id_admin_empresa', $ormHelper->pegarIdPeloUuid($this->empresa)];
+            return [
+                'OR',
+                ['id_admin_empresa', $ormHelper->pegarIdPeloUuid($this->empresa)],
+                ['id_admin_empresa', 1]
+            ];
         }
-        return $where;
+
+        return $this->ormWherePadrao;
+
     }
 
     /**

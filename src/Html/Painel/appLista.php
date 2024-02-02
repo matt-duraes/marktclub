@@ -1,9 +1,9 @@
 <div id="bloco_app_lista">
     <?php
         $URI = preg_replace(['/\&?pagina\=[0-9]+/', '/^\//'], '', URI);
-        $URI = str_contains($URI, '?') ? $URI . '&' : $URI . '?';
-        $appLink = str_replace('_', '-', $app);
-        $replace = $config->index->replace;
+    $URI = str_contains($URI, '?') ? $URI . '&' : $URI . '?';
+    $appLink = str_replace('_', '-', $app);
+    $replace = $config->index->replace;
     ?>
     <?php if ($filtro || !empty($busca->ordem)) : ?>
         <div id="bloco_app_filtro" class="bloco_filtro">
@@ -34,7 +34,7 @@
                 <div class="bloco ordem">ordem:<span><?= $busca->ordem_titulo ?></span><button type="button" data-indice="ordem" class="botao_filtro_limpar"><?= iconeFechar(8) ?></button></div>
                 <?php
             endif;
-            ?>
+    ?>
         </div>
     <?php endif; ?>
 
@@ -60,9 +60,9 @@
                         <div class="td <?= $primeiro ? 'primeiro' : '' ?> <?= $grade['tipo'] ?>"><?= echoView($grade['nome']) ?></div>
                         <div class="barra"></div>
                         <?php
-                        if ($primeiro) {
-                            $primeiro = false;
-                        }
+                if ($primeiro) {
+                    $primeiro = false;
+                }
                         ?>
                     <?php endif; ?>
                 <?php endforeach; ?>
@@ -100,7 +100,7 @@
             <?php foreach ($dado->lista as $r) : ?>
                 <?php
                     $r = is_array($r) ? (object)$r : $r;
-                    $id = $r->id ?? '';
+                $id = $r->id ?? '';
                 ?>
                 <div class="linha">
                     <div class="lista geral form_geral">
@@ -131,14 +131,14 @@
                                         <div class="td imagem_usuario imagem"><figure data-ajuda="<?= $r->usuario->nome ?>" style="background-image: url(<?= $r->usuario->imagem ?>)"></figure></div>
                                     <?php elseif ($grade['tipo'] == 'status') : ?>
                                             <?php
-                                            $statusValor = painelValor($r, $grade['campo']);
-                                            $texto = '';
-                                            $cor = '';
-                                            if (array_key_exists($statusValor, $grade['valor'])) {
-                                                $texto = $grade['valor'][$statusValor]['nome'];
-                                                $cor = painelCor($grade['valor'][$statusValor]['cor']);
-                                            }
-                                            ?>
+                                                            $statusValor = painelValor($r, $grade['campo']);
+                                        $texto = '';
+                                        $cor = '';
+                                        if (array_key_exists($statusValor, $grade['valor'])) {
+                                            $texto = $grade['valor'][$statusValor]['nome'];
+                                            $cor = painelCor($grade['valor'][$statusValor]['cor']);
+                                        }
+                                        ?>
                                         <?php if (empty($texto)) : ?>
                                         <div class="td status"  data-titulo="">
                                         </div>
@@ -151,24 +151,24 @@
                                     <?php elseif (in_array($grade['tipo'] ?? '', ['grande', 'normal', 'pequeno']) && isset($grade['copiar']) && $grade['copiar']) : ?>
                                         <div class="td <?= $grade['tipo'] ?> bloco_copiar">
                                             <?php
-                                                $valor = painelValor($r, $grade['campo'], formatar: $grade['formatar'] ?? '');
-                                            if (array_key_exists($grade['campo'], $replace)) {
-                                                $valor = $replace[$grade['campo']][$valor] ?? $valor;
-                                            }
-                                                echo $valor;
-                                            ?>
+                                            $valor = painelValor($r, $grade['campo'], formatar: $grade['formatar'] ?? '');
+                                        if (array_key_exists($grade['campo'], $replace)) {
+                                            $valor = $replace[$grade['campo']][$valor] ?? $valor;
+                                        }
+                                        echo $valor;
+                                        ?>
                                             <div class="botao_copiar copiar" data-ajuda="Copiar"><?= iconeCopiar() ?></div>
                                         </div>
                                         <div class="barra"></div>
                                     <?php elseif (in_array($grade['tipo'] ?? '', ['grande', 'normal', 'pequeno'])) : ?>
                                         <div class="td <?= $primeiro == true ? 'primeiro' : ''?> <?= $grade['tipo'] ?>">
                                             <?php
-                                                $valor = painelValor($r, $grade['campo'], formatar: $grade['formatar'] ?? '');
-                                            if (array_key_exists($grade['campo'], $replace)) {
-                                                $valor = $replace[$grade['campo']][$valor] ?? $valor;
-                                            }
-                                                echo $valor;
-                                            ?>
+                                            $valor = painelValor($r, $grade['campo'], formatar: $grade['formatar'] ?? '');
+                                        if (array_key_exists($grade['campo'], $replace)) {
+                                            $valor = $replace[$grade['campo']][$valor] ?? $valor;
+                                        }
+                                        echo $valor;
+                                        ?>
                                         </div>
                                         <div class="barra"></div>
                                         <?php

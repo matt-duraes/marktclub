@@ -201,8 +201,8 @@ final class SocialHelper
         } elseif ($this->rede == 'twitter' && !empty($url) && !empty($texto)) {
             $by = !empty($by) ? '&via=' . $by : '';
             return 'https://twitter.com/intent/tweet?text=' . $texto . '&url=' . $url . $by;
-        } elseif ($this->rede == 'whatsapp' && !empty($texto) && !empty($by)) {
-            return 'whatsapp://send?text=' . urlencode($texto . ' - ' . $by);
+        } elseif ($this->rede == 'whatsapp' && !empty($texto)) {
+            return 'whatsapp://send?text=' . urlencode($url . PHP_EOL . PHP_EOL . $texto);
         } elseif ($this->rede == 'reddit' && !empty($texto) && !empty($url)) {
             return 'http://reddit.com/submit?url=' . $url . '&amp;title=' . $texto;
         } elseif ($this->rede == 'tumblr' && !empty($url)) {

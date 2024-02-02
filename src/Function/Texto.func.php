@@ -428,11 +428,13 @@ if (!function_exists('strDominio')) {
      * @param  null|string $texto String a ser convertida
      * @return string      String convertida
      */
-    function strDominio(?string $texto = null)
+    function strDominio(?string $texto = null, bool $www = true, bool $porta = true)
     {
         if (empty($texto)) {
             return '';
         }
-        return explode('/', preg_replace('/^http(s){0,1}\:\/\//', '', $texto))[0] ?? '';
+        $dominio = explode('/', preg_replace('/^http(s){0,1}\:\/\//', '', $texto))[0] ?? '';
+        $dominio = $porta ? $dominio : explode(':', $dominio)[0];
+        return $www ? $dominio : preg_replace('/^www\./', '', $dominio);
     }
 }

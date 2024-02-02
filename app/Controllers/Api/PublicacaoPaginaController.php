@@ -36,7 +36,7 @@ final class PublicacaoPaginaController extends Controller implements
     public function getBuscar(string $id): Response
     {
         $Pagina = new PaginaEntity();
-        $Pagina->uuid($id);
+        $Pagina->idSlug($id);
 
         return $this->retornoSucesso($Pagina);
     }
