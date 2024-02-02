@@ -39,7 +39,7 @@ final class LogarModel
             ->body([
                 'login'        => $this->Crypt->encode($this->login),
                 'senha'        => $this->Crypt->encode($this->senha),
-                'redirect_uri' => LINK,
+                'redirect_uri' => strDominio(LINK, www: false),
                 'scope'        => '',
                 'state'        => uuid(),
                 'tipo'         => Tipo::TITULAR
