@@ -17,11 +17,16 @@ class ApiHelper extends CurlHelper
      * @param  string|bool $token Passe um token para ser usado ou true para usar o token da sessão
      * @throws Excecao
      */
-    public function __construct(string $scope = null, string|bool $token = false)
-    {
-        $this->clientId = env('API_CLIENT_ID');
-        $this->secretId = env('API_SECRET_ID');
-        $this->audience = env('API_AUDIENCE');
+    public function __construct(
+        string $scope = null,
+        string|bool $token = false,
+        string $clientId = null,
+        string $secretId = null,
+        string $audience = null
+    ) {
+        $this->clientId = !empty($clientId) ? $clientId : env('API_CLIENT_ID');
+        $this->secretId = !empty($secretId) ? $secretId : env('API_SECRET_ID');
+        $this->audience = !empty($audience) ? $audience : env('API_AUDIENCE');
 
         $this->apiHelper = true;
 
