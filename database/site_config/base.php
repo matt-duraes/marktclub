@@ -40,6 +40,8 @@ return (new DataBase())
     ->int('home_video')->tamanho(1)->null()
     ->int('home_galeria')->tamanho(1)->null()
     ->varchar('login_texto')->tamanho(40)->null()
+    ->text('login_link')->null()
+    ->text('clube_link')->null()
     ->dataCriacao()
     ->dataAtualizacao()
     ->status();
