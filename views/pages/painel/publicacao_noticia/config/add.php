@@ -53,14 +53,14 @@ $Painel->coluna(callback: function () use ($Painel) {
     $Painel->fieldset('Fonte', function () use ($Painel) {
         $Painel->div(class: 'bloco_row', callback: function () use ($Painel) {
             $Painel
-                ->input(name: 'autor_noticia', label: 'Autor da notícia', placeholder: 'Digite um autor', contador: 100)
+                ->input(name: 'autor_noticia', label: 'Autor da notícia', placeholder: 'Autor da notícia', contador: 100)
                 ->input(
                     name: 'fonte_noticia',
                     label: 'Fonte da notícia',
                     placeholder: 'Digite uma fonte',
                     contador: 100
                 )
-                ->url(name: 'fonte_link', label: 'Link da fonte', placeholder: 'Digite um link');
+                ->url(name: 'fonte_link', label: 'Link da fonte', placeholder: 'Link da fonte');
         });
     });
 });
@@ -112,10 +112,10 @@ $Painel->coluna(callback: function () use ($Painel) {
 });
 
 $Painel->coluna(callback: function () use ($Painel, $diretorioImagem) {
-    $Painel->fieldset('Imagem principais', function () use ($Painel, $diretorioImagem) {
+    $Painel->fieldset('Imagem grande', function () use ($Painel, $diretorioImagem) {
         $Painel->imagem(name: 'imagem_grande', diretorio: $diretorioImagem);
     });
-    $Painel->fieldset('Imagem secundária', function () use ($Painel, $diretorioImagem) {
+    $Painel->fieldset('Imagem pequena', function () use ($Painel, $diretorioImagem) {
         $Painel->imagem(name: 'imagem_pequena', diretorio: $diretorioImagem);
     });
     $Painel->fieldset('Imagem social', function () use ($Painel, $diretorioImagem) {

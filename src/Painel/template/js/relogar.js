@@ -15,30 +15,36 @@ window.addEventListener('load', () => {
     const cpf = blocoRelogar.querySelector('#input_relogar_cpf').value;
     const hash = blocoRelogar.querySelector('input[name=form_system_hash]').value;
 
-    botaoBloquear.addEventListener('click', () => {
-        fetch(LINK + '/bloquear');
-        blocoConfig.classList.remove('aberto');
-        setTimeout(() => {
-            blocoConfig.classList.add('fechado');
-        }, 320);
+    if (botaoBloquear) {
+        botaoBloquear.addEventListener('click', () => {
+            fetch(LINK + '/bloquear');
+            blocoConfig.classList.remove('aberto');
+            setTimeout(() => {
+                blocoConfig.classList.add('fechado');
+            }, 320);
 
-        blocoRelogar.classList.remove('display_none');
-        textoRelogar.classList.remove('display_none');
-        setTimeout(() => {
-            blocoRelogar.classList.add('ativo');
-        }, 50);
-    });
+            blocoRelogar.classList.remove('display_none');
+            textoRelogar.classList.remove('display_none');
+            setTimeout(() => {
+                blocoRelogar.classList.add('ativo');
+            }, 50);
+        });
+    }
 
-    inputSenha.addEventListener('keydown', e => {
-        if (e.key == 'Enter') {
+    if (inputSenha) {
+        inputSenha.addEventListener('keydown', e => {
+            if (e.key == 'Enter') {
+                e.preventDefault();
+                pegarCaptchaParaLogin();
+            }
+        });
+    }
+    if (botaoRelogar) {
+        botaoRelogar.addEventListener('click', e => {
             e.preventDefault();
             pegarCaptchaParaLogin();
-        }
-    });
-    botaoRelogar.addEventListener('click', e => {
-        e.preventDefault();
-        pegarCaptchaParaLogin();
-    });
+        });
+    }
     const pegarCaptchaParaLogin = () => {
         if (inputSenha.value == '') {
             Alerta.notificacao('Digite sua senha para continuar.', false);
