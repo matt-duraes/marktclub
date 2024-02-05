@@ -161,6 +161,9 @@ final class NoticiaModel extends ORM implements
                 ['status', '!=', (new Status(Status::ATIVO))->numero()]
             ];
         }
+        if(!empty($this->pesquisa)) {
+            $where[] = ['titulo_grande', 'like', '%' . $this->pesquisa . '%'];
+        }
         return $where;
     }
 
