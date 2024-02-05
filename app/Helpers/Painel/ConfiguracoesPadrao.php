@@ -311,7 +311,7 @@ final class ConfiguracoesPadrao
         'relatorio_loja_venda'     => [
             'titulo'    => 'Relatório de vendas',
             'acao'      => [
-                'index', 'empresa'
+                'index', 'empresa', 'parceiro'
             ],
             'permissao' => [
                 'relatorio_loja_venda_index'    => 'Relatório de vendas',

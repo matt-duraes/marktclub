@@ -6,16 +6,11 @@ use App\Helpers\ClubeApiHelper;
 
 final class BuscarModel extends ClubeApiHelper
 {
-    public function __construct()
-    {
-        parent::__construct('usuario_cliente:buscar');
-    }
-
     public function buscar()
     {
         $dado = $this
-            ->get('/usuario-cliente/' . $this->idUsuario)
-            ->object()->dado;
+            ->get('/usuario-cliente/' . sessao('USUARIO.id'))
+            ->object()->dado ?? '';
 
         $emailPessoal = !empty($dado->email_pessoal ?? '') ? $this->Crypt->decode($dado->email_pessoal) : '';
         $emailTrabalho = !empty($dado->email_trabalho ?? '') ? $this->Crypt->decode($dado->email_trabalho) : '';

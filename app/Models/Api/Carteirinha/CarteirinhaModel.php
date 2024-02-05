@@ -75,10 +75,10 @@ class CarteirinhaModel extends ORM implements
      */
     private function pegarWhere(): array
     {
-        $where  = [];
+        $where = [];
 
         $empresa = $this->pegarWhereEmpresa();
-        if($empresa) {
+        if ($empresa) {
             $where[] = $empresa;
         }
 
@@ -100,7 +100,6 @@ class CarteirinhaModel extends ORM implements
         }
 
         return $this->ormWherePadrao;
-
     }
 
     /**
