@@ -17,23 +17,23 @@ final class ConfigEntity extends Entity
 
     protected string $ormTabela = TABELA_SITE_CONFIG;
     protected array $ormBuscar = [
-        'titulo_painel', 'titulo', 'descricao', 'contato_telefone', 'contato_celular',
+        'titulo_painel', 'titulo', 'descricao', 'contato_telefone', 'contato_celular', 'home_galeria', 'home_video',
         'contato_whatsapp', 'contato_email', 'contato_endereco', 'mapa_imagem', 'mapa_link',
         'cor_principal', 'rede_youtube', 'rede_facebook', 'rede_instagram', 'rede_twitter_x', 'logo_principal',
         'favicon', 'link_site', 'home_banner', 'home_noticia_principal', 'home_noticia_lista', 'contato_chat',
-        'cor_texto', 'cor_header', 'cor_footer', 'rede_header', 'rede_footer', 'login_texto',
-        'home_parceiro', 'template_header', 'template_footer', 'rss', 'status'
+        'cor_texto', 'cor_header', 'cor_footer', 'rede_header', 'rede_footer', 'login_texto', 'login_link',
+        'clube_link', 'home_parceiro', 'template_header', 'template_footer', 'rss', 'status'
     ];
     protected array $ormInsert = [
         'id_admin_empresa' => '->idEmpresa'
     ];
     protected array $ormSalvar = [
-        'titulo_painel', 'titulo', 'descricao', 'contato_telefone', 'contato_celular',
+        'titulo_painel', 'titulo', 'descricao', 'contato_telefone', 'contato_celular', 'home_galeria', 'home_video',
         'contato_whatsapp', 'contato_email', 'contato_endereco', 'mapa_imagem', 'mapa_link',
         'cor_principal', 'rede_youtube', 'rede_facebook', 'rede_instagram', 'rede_twitter_x', 'logo_principal',
         'favicon', 'link_site', 'home_banner', 'home_noticia_principal', 'home_noticia_lista', 'contato_chat',
-        'cor_texto', 'cor_header', 'cor_footer', 'rede_header', 'rede_footer', 'login_texto',
-        'home_parceiro', 'template_header', 'template_footer', 'rss', 'status'
+        'cor_texto', 'cor_header', 'cor_footer', 'rede_header', 'rede_footer', 'login_texto', 'login_link',
+        'clube_link', 'home_parceiro', 'template_header', 'template_footer', 'rss', 'status'
     ];
     protected string $ormValidarSalvar = '
         titulo|Título|obrigatorio|vazio
@@ -80,10 +80,14 @@ final class ConfigEntity extends Entity
     public string $link_site;
     public string $favicon;
     public string $login_texto;
+    public string $login_link;
+    public string $clube_link;
     public int $home_noticia_principal;
     public int $home_noticia_lista;
     public Botao $home_banner;
     public Botao $home_parceiro;
+    public Botao $home_galeria;
+    public Botao $home_video;
     public Status $status;
 
     protected function regraPosBuscar()

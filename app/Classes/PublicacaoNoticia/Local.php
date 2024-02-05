@@ -6,15 +6,15 @@ use Status\Status as StatusStatus;
 
 class Local extends StatusStatus
 {
-    public const BANNER_PRINCIPAL = 'banner-principal';
-    public const BANNER_SECUNDARIO = 'banner-secundario';
+    public const PRINCIPAL = 'principal';
+    public const LISTA = 'lista';
 
     public function __construct(
         protected string|int|null $valor = null
     ) {
         parent::__construct([
-            self::BANNER_PRINCIPAL  => 'Banner principal',
-            self::BANNER_SECUNDARIO => 'Banner secundário',
+            self::PRINCIPAL  => 'Notícia principal',
+            self::LISTA => 'Lista de notícia',
         ]);
     }
 }
