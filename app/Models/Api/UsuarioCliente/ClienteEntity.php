@@ -103,6 +103,10 @@ final class ClienteEntity extends Entity
 
         $this->validarEmpresa('empresa');
         $this->validarSubempresa();
+    }
+
+    protected function regraPreSalvar(): void
+    {
         $this->pegarCampoObrigatorio();
     }
 
