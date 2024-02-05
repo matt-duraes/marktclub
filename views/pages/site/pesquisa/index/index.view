@@ -118,7 +118,7 @@
                 </div>
             </fieldset>
             <fieldset id="mensagem_pesquisa">
-                <h2>Escreva alguma mensagem se desejar?</h2>
+                <h2>Escreva alguma mensagem se desejar</h2>
                 @? formTextarea(name: 'comentario', placeholder: 'Digite uma breve mensagem', label: 'Mensagem')
             </fieldset>
             <div class="footer_pagina_popup" id="footer_pesquisa">

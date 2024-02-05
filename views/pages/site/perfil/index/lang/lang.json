@@ -1,0 +1,140 @@
+
+{
+    "tituloDadosPessoais": [
+        {
+            "pt": "Dados Pessoais",
+            "en": "",
+            "es": ""
+        }
+    ],
+    "formNome": [
+        {
+            "pt": "Digite um nome",
+            "en": "",
+            "es": ""
+        }
+    ],
+    "formDataDeNascimento": [
+        {
+            "pt": "Data de nascimento",
+            "en": "",
+            "es": ""
+        }
+    ],
+    "formGenero": [
+        {
+            "pt": "Gênero",
+            "en": "",
+            "es": ""
+        }
+    ],
+    "formEstadoCivil": [
+        {
+            "pt": "Estado Civil",
+            "en": "",
+            "es": ""
+        }
+    ],
+    "formDadosContato": [
+        {
+            "pt": "Dados de Contato",
+            "en": "",
+            "es": ""
+        }
+    ],
+    "formEmailPessoal": [
+        {
+            "pt": "E-mail pessoal",
+            "en": "",
+            "es": ""
+        }
+    ],
+    "formEmailTrabalho": [
+        {
+            "pt": "E-mail trabalho",
+            "en": "",
+            "es": ""
+        }
+    ],
+
+    "formTelefoneTrabalho": [
+        {
+            "pt": "Telefone de trabalho",
+            "en": "",
+            "es": ""
+        }
+    ],
+    "formTelefonePessoal": [
+        {
+            "pt": "Telefone pessoal",
+            "en": "",
+            "es": ""
+        }
+    ],
+
+    "tituloEndereco" : [
+        {
+            "pt": "Endereço",
+            "en": "",
+            "es": ""
+        }
+    ],
+    "formCep": [
+        {
+            "pt": "CEP",
+            "en": "",
+            "es": ""
+        }
+    ],
+    "formBairro": [
+        {
+            "pt": "Bairro",
+            "en": "",
+            "es": ""
+        }
+    ],
+    "formLogradouro": [
+        {
+            "pt": "Logradouro",
+            "en":  "",
+            "es": ""
+        }
+    ],
+    "formNumero": [
+        {
+            "pt": "Número",
+            "en": "",
+            "es": ""
+        }
+    ],
+    "formComplemento": [
+        {
+            "pt": "Complemento",
+            "en": "",
+            "es": ""
+        }
+    ],
+    "formSelectUf": [
+        {
+            "pt": "UF",
+            "en": "",
+            "es": ""
+        }
+    ],
+    "formSelectCidade": [
+        {
+            "pt": "Cidade",
+            "en": "",
+            "es": ""
+        }
+    ],
+    "botaoAtualizar": [
+        {
+            "pt": "Atualizar",
+            "en": "",
+            "es": ""
+        }
+    ]
+}
+
+

@@ -1,0 +1,165 @@
+{
+    "tituloPesquisaSatisfacao":[
+        {
+            "pt": "Pesquisa de satisfação",
+            "en": "",
+            "es": ""
+        }
+    ],
+    "textoSelecioneOsCampos": [
+        {
+            "pt": "Selecione os campos abaixo que gostaria para nos enviar sua opinião",
+            "en": "",
+            "es": ""
+        }
+    ],
+    "tituloFacilNavegar": [
+        {
+            "pt": "É fácil navegar no seu clube de vantagens?",
+            "en": "",
+            "es": ""
+        }
+    ],
+    "inputSim": [
+        {
+            "pt": "Sim",
+            "en": "",
+            "es": ""
+        }
+    ],
+    "inputNao": [
+        {
+            "pt": "Não",
+            "en": "",
+            "es": ""
+        }
+    ],
+    "tituloAchaOqueProcura": [
+        {
+            "pt": "Você geralmente acha o que procura?",
+            "en": "",
+            "es": ""
+        }
+    ],
+    "tituloSuporte": [
+        {
+            "pt": "Você conseguiu ajuda/suporte quando precisou?",
+            "en": "",
+            "es": ""
+        }
+    ],
+    "inputNuncaPrecisei": [
+        {
+            "pt": "Nunca precisei de suporte",
+            "en": "",
+            "es": ""
+        }
+    ],
+    "tituloQualidadeAtendimento": [
+        {
+            "pt": "Qual foi a qualidade no atendimento?",
+            "en": "",
+            "es": ""
+        }
+    ],
+    "inputOtimo": [
+        {
+            "pt": "Ótima",
+            "en": "",
+            "es": ""
+        }
+    ],
+    "inputBoa": [
+        {
+            "pt": "Boa",
+            "en": "",
+            "es": ""
+        }
+    ],
+    "inputRuim": [
+        {
+            "pt": "Ruim",
+            "en": "",
+            "es": ""
+        }
+    ],
+    "inputPessima": [
+        {
+            "pt": "Péssima",
+            "en": "",
+            "es": ""
+        }
+    ],
+    "tituloSistemas": [
+        {
+            "pt": "Quais destes sistemas do Clube você conhece?",
+            "en": "",
+            "es": ""
+        }
+    ],
+    "opcaoCinema": [
+        {
+            "pt": "Cinema",
+            "en": "",
+            "es": ""
+        }
+    ],
+    "opcaoLojasProximas": [
+        {
+            "pt": "Lojas próximas",
+            "en": "",
+            "es": ""
+        }
+    ],
+    "opcaoIndicacaoLojas": [
+        {
+            "pt": "Indicação de Lojas",
+            "en": "",
+            "es": ""
+        }
+    ],
+    "opcaoTurismo": [
+        {
+            "pt": "Turismo",
+            "en": "",
+            "es": ""
+        }
+    ],
+    "opcaoPlanoDeSaude": [
+        {
+            "pt": "Plano de saúde",
+            "en": "",
+            "es": ""
+        }
+    ],
+
+    "opcaoCreditoSicoob": [
+        {
+            "pt": "Crédito do SICOOB",
+            "en": "",
+            "es": ""
+        }
+    ],
+    "opcaoPlanoOdontologico": [
+        {
+            "pt": "Plano Odontológico",
+            "en": "",
+            "es": ""
+        }
+    ],
+    "tituloMensagem": [
+        {
+            "pt": "Escreva alguma mensagem se desejar",
+            "en": "",
+            "es": ""
+        }
+    ],
+    "botaoEnviarPesquisa": [
+        {
+            "pt": "Enviar Pesquisa",
+            "en": "",
+            "es": ""
+        }
+    ]
+
+}

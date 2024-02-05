@@ -1,0 +1,39 @@
+{
+    "textoBlocoConteudo" : [
+        {
+            "pt": "Em parceria com a OdontoPrev oferecemos planos Odontológicos Coletivos por Adesão, sem carências,com atendimento nacional, amplo rol de procedimentos e excelente custo-benefício.",
+            "en": "",
+            "es": ""
+        }
+    ],
+    "tituloVantagens": [
+        {
+            "pt": "Vantagens exclusivas para você",
+            "en": "",
+            "es": ""
+        }
+    ],
+    "textoMonoresPrecos": [
+        {
+            "pt": "Menores preços do mercado",
+            "en": "",
+            "es": ""
+        }
+    ],
+    "textoContrateDependentes": [
+        {
+            "pt": "Contrate para seus dependentes",
+            "en": "",
+            "es": ""
+        }
+    ],
+    "textoAmplaCobertura": [
+        {
+            "pt": "Ampla cobertura em todo o Brasil",
+            "en": "",
+            "es": ""
+        }
+    ]
+
+
+}

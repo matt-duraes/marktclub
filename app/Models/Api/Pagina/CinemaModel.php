@@ -24,7 +24,7 @@ final class CinemaModel extends PaginaPadraoModel
                 )
                 ->observacao(
                     // @codingStandardsIgnoreStart
-                    texto: 'Agora você pode comprar ingressos para o cinema com até 30% de desconto em vários cinemas do país'
+                    texto: 'Agora você pode comprar ingressos para o cinema com até 50% de desconto em vários cinemas do país'
                     // @codingStandardsIgnoreEnd
                 )
                 ->listaLogo(function () {
