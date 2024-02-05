@@ -35,7 +35,6 @@ final class SolicitacaoVoucherController extends Controller implements
             tipo: $request->tipo
         );
         $Voucher->salvar();
-
         return $this->retornoSucesso($Voucher, 201);
     }
 

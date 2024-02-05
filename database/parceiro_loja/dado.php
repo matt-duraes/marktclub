@@ -257,7 +257,7 @@ return [
         'limite_voucher'      => 10,
         'prazo_voucher'       => 5,
         'tipo'                => 1,
-        'status'              => 5
+        'status'              => 4
     ],
     [
         'id'                  => 15539,

@@ -113,6 +113,10 @@ final class ConfiguracaoEntity extends Entity
                 $acao = 'empresa';
                 $tituloPermissao = 'Todas as Empresas';
                 $nomeApp = str_replace('_empresa', '', $permissao);
+            } elseif (str_ends_with($permissao, 'empresa')) {
+                $acao = 'parceiro';
+                $tituloPermissao = 'Todos os Parceiros';
+                $nomeApp = str_replace('_parceiro', '', $permissao);
             } elseif (str_ends_with($permissao, 'analytics')) {
                 $acao = 'analytics';
                 $tituloPermissao = 'Analytics';

@@ -84,6 +84,7 @@ if (
                                 'editar'     => 'Editar',
                                 'deletar'    => 'Deletar',
                                 'status'     => 'Status',
+                                'parceiro'   => 'Todos os Parceiros',
                                 'empresa'    => 'Todas as Empresas',
                                 'visualizar' => 'Visualizar',
                                 'download'   => 'Download',
