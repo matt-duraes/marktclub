@@ -2468,7 +2468,7 @@ Route
                 'rede_twitter_x', 'logo_principal', 'favicon', 'link_site', 'home_banner', 'contato_chat',
                 'home_noticia_principal', 'home_noticia_lista', 'home_parceiro', 'status', 'login_texto',
                 'login_link', 'clube_link', 'rede_header', 'rede_footer', 'rss', 'cor_texto', 'cor_header',
-                'cor_footer'
+                'cor_footer', 'noticia_imagem'
             ])
             ::post('/site-config');
         Route

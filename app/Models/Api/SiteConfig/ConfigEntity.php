@@ -18,7 +18,7 @@ final class ConfigEntity extends Entity
     protected string $ormTabela = TABELA_SITE_CONFIG;
     protected array $ormBuscar = [
         'titulo_painel', 'titulo', 'descricao', 'contato_telefone', 'contato_celular', 'home_galeria', 'home_video',
-        'contato_whatsapp', 'contato_email', 'contato_endereco', 'mapa_imagem', 'mapa_link',
+        'contato_whatsapp', 'contato_email', 'contato_endereco', 'mapa_imagem', 'mapa_link', 'noticia_imagem',
         'cor_principal', 'rede_youtube', 'rede_facebook', 'rede_instagram', 'rede_twitter_x', 'logo_principal',
         'favicon', 'link_site', 'home_banner', 'home_noticia_principal', 'home_noticia_lista', 'contato_chat',
         'cor_texto', 'cor_header', 'cor_footer', 'rede_header', 'rede_footer', 'login_texto', 'login_link',
@@ -29,7 +29,7 @@ final class ConfigEntity extends Entity
     ];
     protected array $ormSalvar = [
         'titulo_painel', 'titulo', 'descricao', 'contato_telefone', 'contato_celular', 'home_galeria', 'home_video',
-        'contato_whatsapp', 'contato_email', 'contato_endereco', 'mapa_imagem', 'mapa_link',
+        'contato_whatsapp', 'contato_email', 'contato_endereco', 'mapa_imagem', 'mapa_link', 'noticia_imagem',
         'cor_principal', 'rede_youtube', 'rede_facebook', 'rede_instagram', 'rede_twitter_x', 'logo_principal',
         'favicon', 'link_site', 'home_banner', 'home_noticia_principal', 'home_noticia_lista', 'contato_chat',
         'cor_texto', 'cor_header', 'cor_footer', 'rede_header', 'rede_footer', 'login_texto', 'login_link',
@@ -76,6 +76,7 @@ final class ConfigEntity extends Entity
     public Botao $rede_header;
     public Botao $rede_footer;
     public Botao $rss;
+    public string $noticia_imagem;
     public string $logo_principal;
     public string $link_site;
     public string $favicon;
@@ -92,6 +93,7 @@ final class ConfigEntity extends Entity
 
     protected function regraPosBuscar()
     {
+        $this->noticia_imagem = arquivoPrivado($this->noticia_imagem);
         $this->mapa_imagem = arquivoPrivado($this->mapa_imagem);
         $this->logo_principal = arquivoPrivado($this->logo_principal);
         $this->favicon = arquivoPrivado($this->favicon);
