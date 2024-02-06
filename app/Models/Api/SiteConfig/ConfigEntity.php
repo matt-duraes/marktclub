@@ -94,6 +94,7 @@ final class ConfigEntity extends Entity
 
     protected function regraPosBuscar()
     {
+        $this->imagem_social = arquivoPrivado($this->imagem_social);
         $this->noticia_imagem = arquivoPrivado($this->noticia_imagem);
         $this->mapa_imagem = arquivoPrivado($this->mapa_imagem);
         $this->logo_principal = arquivoPrivado($this->logo_principal);
