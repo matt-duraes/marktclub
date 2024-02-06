@@ -6,6 +6,7 @@ use ORM\Entity;
 use Modules\Botao;
 use Modules\DataHora;
 use App\Classes\Geral\Status;
+use App\Classes\Geral\Publicado;
 use App\Classes\PublicacaoYoutube\Local;
 use App\Models\Api\Trait\ValidarEmpresaTrait;
 
@@ -39,11 +40,21 @@ final class YoutubeEntity extends Entity
     public Botao $permissao_restrita;
     public Local $local;
     public Status $status;
+    public Publicado $publicado;
 
     public function __construct()
     {
         parent::__construct();
         $this->validarEmpresa();
+    }
+
+    protected function regraPosBuscar()
+    {
+        $this->publicado = new Publicado(
+            $this->data_inicio,
+            $this->data_final,
+            $this->status->indice() == Status::ATIVO
+        );
     }
 
     protected function regraInsert()

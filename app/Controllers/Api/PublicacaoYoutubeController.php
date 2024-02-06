@@ -55,7 +55,7 @@ final class PublicacaoYoutubeController extends Controller implements
                 lista: [
                     'titulo', 'texto', 'header_titulo', 'header_descricao', 'header_tag',
                     'video', 'data_inicio', 'data_final', 'publicado', 'url', 'local',
-                    'permissao_site', 'permissao_restrita', 'status'
+                    'permissao_site', 'permissao_restrita', 'publicado', 'status'
                 ]
             ),
             status: $status

@@ -2533,7 +2533,8 @@ Route
             ::nome('listar')
             ::middleware(TokenMiddleware::class, 'scope', ['publicacao_youtube:listar'])
             ::request([
-                'pagina', '!pesquisa', '!status', '!ordem', '!local', '!site', '!restrita', '!publicado'
+                'pagina', '!quantidade', '!pesquisa', '!status', '!ordem', '!local',
+                '!site', '!restrita', '!publicado'
             ], 'json')
             ::get('/publicacao-youtube');
         Route
