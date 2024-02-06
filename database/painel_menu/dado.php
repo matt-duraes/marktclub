@@ -362,7 +362,7 @@ return [
         'titulo'           => 'PUBLICAÇÕES',
         'ordem'            => '++',
         'status'           => 1,
-        'permissao'        => '["publicacao_noticia_index","publicacao_pagina_index","publicacao_diretoria_index"]'
+        'permissao'        => '["publicacao_noticia_index","publicacao_pagina_index","publicacao_diretoria_index","publicacao_youtube_index"]'
     ],
     [
         'id'               => '++',
@@ -387,6 +387,18 @@ return [
         'menu'             => ['publicacao-pagina'],
         'status'           => 1,
         'permissao'        => '["publicacao_pagina_index"]'
+    ],
+    [
+        'id'               => '++',
+        'id_admin_empresa' => 1,
+        'tipo'             => 3,
+        'titulo'           => 'Youtube',
+        'url'              => '/app/publicacao-youtube',
+        'icone'            => '<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 30 30" style="enable-background:new 0 0 30 30;" xml:space="preserve"><path d="M21.9,10.5c-0.1-0.3-0.3-0.5-0.5-0.5C21,9.8,19.1,9.6,15,9.6c-4.1,0-6,0.3-6.4,0.4c-0.2,0.1-0.4,0.3-0.5,0.5c-0.1,0.4-0.4,2-0.4,4.5c0,2.5,0.3,4.2,0.4,4.5c0.1,0.3,0.3,0.5,0.5,0.5c0.4,0.1,2.3,0.4,6.4,0.4c4.1,0,6-0.3,6.4-0.4c0.2-0.1,0.4-0.3,0.5-0.5c0.1-0.4,0.4-2,0.4-4.5S22,10.8,21.9,10.5z M23.6,10c0.4,1.6,0.4,5,0.4,5s0,3.4-0.4,5c-0.2,0.9-0.9,1.6-1.8,1.8c-1.5,0.4-6.9,0.4-6.9,0.4s-5.3,0-6.9-0.4c-0.9-0.2-1.5-0.9-1.8-1.8c-0.4-1.6-0.4-5-0.4-5s0-3.4,0.4-5c0.2-0.9,0.9-1.6,1.8-1.8C9.7,7.8,15,7.8,15,7.8s5.3,0,6.9,0.4C22.7,8.4,23.4,9.1,23.6,10z M13.2,18.2v-6.3l5.4,3.2L13.2,18.2z"/></svg>',
+        'ordem'            => '++',
+        'menu'             => ['publicacao-youtube'],
+        'status'           => 1,
+        'permissao'        => '["publicacao_youtube_index"]'
     ],
     [
         'id'               => '++',

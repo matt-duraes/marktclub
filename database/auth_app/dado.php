@@ -63,6 +63,9 @@ $scope = [
     'publicacao_noticia:salvar', 'publicacao_noticia:atualizar', 'publicacao_noticia:listar',
     'publicacao_noticia:buscar', 'publicacao_noticia:deletar',
 
+    'publicacao_youtube:salvar', 'publicacao_youtube:atualizar', 'publicacao_youtube:listar',
+    'publicacao_youtube:buscar', 'publicacao_youtube:deletar',
+
     'publicacao_pagina:atualizar', 'publicacao_pagina:listar', 'publicacao_pagina:buscar',
 
     'publicacao_diretoria:salvar', 'publicacao_diretoria:atualizar', 'publicacao_diretoria:listar',

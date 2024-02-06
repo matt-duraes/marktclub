@@ -1,0 +1,1 @@
+{"id":"id_0c0f8a250485e19fdf62921b9b9ed548","token":"painel","metodo":"GET","nome":"\/publicacao-youtube\/:id","uri":"{{LINK}}\/publicacao-youtube\/$PUBLICACAO_YOUTUBE_URL","parametro":[],"body":[],"header":[],"variavel":[],"json":[],"documentacao":{"status":false,"descricao":"","requisicao":"","resposta":"","scope":"publicacao_youtube:buscar"}}
