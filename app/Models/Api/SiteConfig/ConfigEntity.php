@@ -22,7 +22,7 @@ final class ConfigEntity extends Entity
         'cor_principal', 'rede_youtube', 'rede_facebook', 'rede_instagram', 'rede_twitter_x', 'logo_principal',
         'favicon', 'link_site', 'home_banner', 'home_noticia_principal', 'home_noticia_lista', 'contato_chat',
         'cor_texto', 'cor_header', 'cor_footer', 'rede_header', 'rede_footer', 'login_texto', 'login_link',
-        'clube_link', 'home_parceiro', 'template_header', 'template_footer', 'rss', 'status'
+        'clube_link', 'home_parceiro', 'template_header', 'template_footer', 'rss', 'imagem_social', 'status'
     ];
     protected array $ormInsert = [
         'id_admin_empresa' => '->idEmpresa'
@@ -33,7 +33,7 @@ final class ConfigEntity extends Entity
         'cor_principal', 'rede_youtube', 'rede_facebook', 'rede_instagram', 'rede_twitter_x', 'logo_principal',
         'favicon', 'link_site', 'home_banner', 'home_noticia_principal', 'home_noticia_lista', 'contato_chat',
         'cor_texto', 'cor_header', 'cor_footer', 'rede_header', 'rede_footer', 'login_texto', 'login_link',
-        'clube_link', 'home_parceiro', 'template_header', 'template_footer', 'rss', 'status'
+        'clube_link', 'home_parceiro', 'template_header', 'template_footer', 'rss', 'imagem_social', 'status'
     ];
     protected string $ormValidarSalvar = '
         titulo|Título|obrigatorio|vazio
@@ -63,6 +63,7 @@ final class ConfigEntity extends Entity
     public Email $contato_email;
     public Botao $contato_chat;
     public string $contato_endereco;
+    public string $imagem_social;
     public string $mapa_imagem;
     public string $mapa_link;
     public string $cor_principal;
