@@ -1,20 +1,19 @@
 <?php
 
 return [
-    'titulo'     => 'Publicacao Youtube',
+    'titulo'     => 'Publicação Youtube',
     'buscar'     => true,
     'filtrar'    => true,
     'ordem'      => true,
-    'visualizar' => true,
-    'download'   => true,
+    'visualizar' => false,
+    'download'   => false,
     'add'        => true,
     'editar'     => true,
     'deletar'    => true,
-    'historico'  => true,
+    'historico'  => false,
     'api'        => [
         'scope'        => 'publicacao_youtube',
         'uri'          => '/publicacao-youtube',
         'criptografar' => []
     ]
 ];
-

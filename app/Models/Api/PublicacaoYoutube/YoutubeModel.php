@@ -33,6 +33,8 @@ final class YoutubeModel extends ORM implements ModelListarInterface
     public Botao $publicado;
     public Status $status;
     public Local $local;
+    public Botao $restrita;
+    public Botao $site;
 
     public function __construct()
     {
@@ -40,6 +42,8 @@ final class YoutubeModel extends ORM implements ModelListarInterface
         $this->quantidade = new Quantidade(null);
         $this->ordem = new Ordem();
         $this->publicado = new Botao(null);
+        $this->restrita = new Botao(null);
+        $this->site = new Botao(null);
         $this->status = new Status(null);
         $this->local = new Local(null);
     }
@@ -73,13 +77,14 @@ final class YoutubeModel extends ORM implements ModelListarInterface
                 $statusIndice == Status::ATIVO
             );
             $retorno[] = [
-                'id'        => $r->uuid,
-                'titulo'    => $r->titulo,
-                'texto'     => $r->texto,
-                'url'       => $r->url,
-                'video'     => $r->video,
-                'publicado' => $publicado,
-                'status'    => $statusIndice
+                'id'          => $r->uuid,
+                'titulo'      => $r->titulo,
+                'texto'       => $r->texto,
+                'url'         => $r->url,
+                'video'       => $r->video,
+                'data_inicio' => $r->data_inicio,
+                'publicado'   => $publicado,
+                'status'      => $statusIndice
             ];
         }
         return $retorno;
@@ -120,6 +125,12 @@ final class YoutubeModel extends ORM implements ModelListarInterface
                 ['data_final', '<', hoje()],
                 ['status', '!=', (new Status(Status::ATIVO))->numero()]
             ];
+        }
+        if ($this->restrita->valido()) {
+            $where[] = ['permissao_restrita', $this->restrita->numero()];
+        }
+        if ($this->site->valido()) {
+            $where[] = ['permissao_site', $this->site->numero()];
         }
         if (!empty($this->pesquisa)) {
             $where[] = ['titulo', 'like', '%' . $this->pesquisa . '%'];

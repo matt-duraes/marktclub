@@ -40,7 +40,9 @@ final class PublicacaoNoticiaController extends Controller implements
             local: new Local($request->local),
             tipo: new Tipo($request->tipo),
             ordem: new Ordem($request->ordem),
-            status: new Status($request->status)
+            status: new Status($request->status),
+            restrita: new Botao($request->restrita),
+            site: new Botao($request->site),
         );
 
         return mensagemSucesso($Noticia->listarDados());

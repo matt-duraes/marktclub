@@ -54,7 +54,8 @@ final class PublicacaoYoutubeController extends Controller implements
                 Entity: $Youtube,
                 lista: [
                     'titulo', 'texto', 'header_titulo', 'header_descricao', 'header_tag',
-                    'video', 'data_inicio', 'data_final', 'publicado', 'url', 'status'
+                    'video', 'data_inicio', 'data_final', 'publicado', 'url', 'local',
+                    'permissao_site', 'permissao_restrita', 'status'
                 ]
             ),
             status: $status
