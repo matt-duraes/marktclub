@@ -83,7 +83,7 @@ final class YoutubeModel extends ORM implements ModelListarInterface
                 'url'         => $r->url,
                 'video'       => $r->video,
                 'data_inicio' => $r->data_inicio,
-                'publicado'   => $publicado,
+                'publicado'   => $publicado->indice(),
                 'status'      => $statusIndice
             ];
         }
