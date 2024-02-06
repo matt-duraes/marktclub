@@ -20,7 +20,19 @@ final class PublicacaoYoutubeTest extends Tests
 
     protected function pegarBody()
     {
-        return [];
+        return [
+            'titulo'             => nomeCompletoAleatorio(),
+            'texto'              => '<p>Texto aleatório</p>',
+            'header_titulo'      => '',
+            'header_descricao'   => '',
+            'header_tag'         => [],
+            'video'              => 'https://www.youtube.com/watch?v=8SbUC-UaAxE',
+            'permissao_site'     => 'sim',
+            'permissao_restrita' => '',
+            'local'              => '',
+            'data_inicio'        => agora(),
+            'data_final'         => '',
+            'status'             => 'ativo'
+        ];
     }
 }
-

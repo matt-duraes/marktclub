@@ -2527,11 +2527,12 @@ Route
 Route
     ::nome('publicacao_youtube')
     ::controller(App\Controllers\Api\PublicacaoYoutubeController::class)
+    ::middleware(TokenMiddleware::class, 'token')
     ::grupo(function () {
         Route
             ::nome('listar')
             ::middleware(TokenMiddleware::class, 'scope', ['publicacao_youtube:listar'])
-            ::request(['pagina', 'pesquisa', 'status', 'publicado'], 'json')
+            ::request(['pagina', '!pesquisa', '!status', '!ordem', '!local', '!publicado'], 'json')
             ::get('/publicacao-youtube');
         Route
             ::nome('buscar')
@@ -2541,7 +2542,7 @@ Route
             ::nome('salvar')
             ::middleware(TokenMiddleware::class, 'scope', ['publicacao_youtube:salvar'])
             ::request([
-                'empresa', 'titulo', 'texto', 'video', 'data_inicio', 'data_final',
+                '!empresa', 'titulo', 'texto', 'video', 'data_inicio', 'data_final',
                 'header_titulo', 'header_descricao', 'header_tag', 'permissao_restrita',
                 'permissao_site', 'local', 'status'
             ])

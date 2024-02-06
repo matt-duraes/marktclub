@@ -17,8 +17,8 @@ $permissao = [
     'usuario_equipe_index', 'usuario_equipe_add', 'usuario_equipe_editar', 'usuario_equipe_permissao',
     'usuario_equipe_deletar', 'usuario_equipe_empresa',
 
-    'publicacao_noticia_index', 'publicacao_noticia_add', 'publicacao_noticia_editar', 'publicacao_noticia_deletar',
-    'publicacao_youtube_index', 'publicacao_youtube_add', 'publicacao_youtube_editar', 'publicacao_youtube_deletar',
+    'publicacao_noticia_index', 'publicacao_noticia_add', 'publicacao_noticia_editar', 'publicacao_noticia_deletar', 'publicacao_noticia_empresa',
+    'publicacao_youtube_index', 'publicacao_youtube_add', 'publicacao_youtube_editar', 'publicacao_youtube_deletar', 'publicacao_youtube_empresa',
 
     'publicacao_pagina_index', 'publicacao_pagina_editar',
 

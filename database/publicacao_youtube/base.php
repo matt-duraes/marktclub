@@ -17,4 +17,5 @@ return (new DataBase())
     ->int('permissao_restrita')->tamanho(1)->null()
     ->int('permissao_site')->tamanho(1)->null()
     ->int('local')->tamanho(1)->null()
+    ->text('video')
     ->status();
