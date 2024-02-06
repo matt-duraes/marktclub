@@ -2523,3 +2523,38 @@ Route
             ::middleware(TokenMiddleware::class, 'scope', ['site_menu:deletar'])
             ::delete('/site-menu/{id}');
     });
+
+Route
+    ::nome('publicacao_youtube')
+    ::controller(App\Controllers\Api\PublicacaoYoutubeController::class)
+    ::grupo(function () {
+        Route
+            ::nome('listar')
+            ::middleware(TokenMiddleware::class, 'scope', ['publicacao_youtube:listar'])
+            ::request(['pagina', 'pesquisa', 'status', 'publicado'], 'json')
+            ::get('/publicacao-youtube');
+        Route
+            ::nome('buscar')
+            ::middleware(TokenMiddleware::class, 'scope', ['publicacao_youtube:buscar'])
+            ::get('/publicacao-youtube/{id}');
+        Route
+            ::nome('salvar')
+            ::middleware(TokenMiddleware::class, 'scope', ['publicacao_youtube:salvar'])
+            ::request([
+                'empresa', 'titulo', 'texto', 'video', 'data_inicio', 'data_final',
+                'header_titulo', 'header_descricao', 'header_tag', 'permissao_restrita',
+                'permissao_site', 'local', 'status'
+            ])
+            ::post('/publicacao-youtube');
+        Route
+            ::nome('atualizar')
+            ::middleware(TokenMiddleware::class, 'scope', ['publicacao_youtube:atualizar'])
+            ::request([
+                '!titulo', '!texto', '!video', '!data_inicio', '!data_final', '!status'
+            ])
+            ::put('/publicacao-youtube/{id}');
+        Route
+            ::nome('deletar')
+            ::middleware(TokenMiddleware::class, 'scope', ['publicacao_youtube:deletar'])
+            ::delete('/publicacao-youtube/{id}');
+    });

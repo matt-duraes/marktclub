@@ -59,6 +59,7 @@ define("TABELA_PONTO_CVS", "ponto_cvs");
 define("TABELA_PUBLICACAO_DIRETORIA", "publicacao_diretoria");
 define("TABELA_PUBLICACAO_NOTICIA", "publicacao_noticia");
 define("TABELA_PUBLICACAO_PAGINA", "publicacao_pagina");
+define("TABELA_PUBLICACAO_YOUTUBE", "publicacao_youtube");
 define("TABELA_SAUDE_CONTRATACAO", "saude_contratacao");
 define("TABELA_SAUDE_SIMULACAO", "saude_simulacao_novo");
 define("TABELA_SILIUM_COMISSAO", "silium_comissao");

@@ -191,6 +191,18 @@ final class ConfiguracoesPadrao
                 'publicacao_pagina_editar' => 'Editar'
             ]
         ],
+        'publicacao_youtube'        => [
+            'titulo'    => 'Youtube',
+            'acao'      => [
+                'index', 'add', 'editar', 'deletar'
+            ],
+            'permissao' => [
+                'publicacao_youtube_index'   => 'Listar',
+                'publicacao_youtube_add'     => 'Salvar',
+                'publicacao_youtube_editar'  => 'Editar',
+                'publicacao_youtube_deletar' => 'Deletar'
+            ]
+        ],
         'publicacao_diretoria'     => [
             'titulo'    => 'Diretoria',
             'acao'      => [
