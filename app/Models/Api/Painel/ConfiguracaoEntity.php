@@ -38,15 +38,14 @@ final class ConfiguracaoEntity extends Entity
 
     public function pegarConfiguracoes(): stdClass
     {
-        $configs = object([]);
-        try {
-            $configs = (new OrmHelper(TABELA_PAINEL_CONFIG))
-                ->pegarUltimoRegistro(
-                    ['id_admin_empresa', TOKEN['empresa']->id],
-                    ['permissao', 'configuracao', 'campo_obrigatorio', 'campo_permitido', 'upload_grupo'],
-                    'object'
-                );
-        } catch (Throwable) {
+        $configs = (new OrmHelper(TABELA_PAINEL_CONFIG))
+            ->pegarUltimoRegistro(
+                ['id_admin_empresa', TOKEN['empresa']->id],
+                ['permissao', 'configuracao', 'campo_obrigatorio', 'campo_permitido', 'upload_grupo'],
+                'object'
+            );
+
+        if (empty($configs)) {
             $configs = (new OrmHelper(TABELA_PAINEL_CONFIG))
                 ->pegarUltimoRegistro(
                     ['id_admin_empresa', 0],
