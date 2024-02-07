@@ -635,7 +635,7 @@ Route
         Route
             ::nome('salvar')
             ::middleware(TokenMiddleware::class, 'scope', ['tabela_usuario:salvar'])
-            ::request(['!tipo'])
+            ::request(['tipo', '!obrigatorio'])
             ::request(['!arquivo'], 'files')
             ::post('/tabela-usuario');
         Route

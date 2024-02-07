@@ -14,7 +14,7 @@ class Local extends StatusStatus
     ) {
         parent::__construct([
             self::PRINCIPAL  => 'Vídeo principal',
-            self::LISTA => 'Lista de vídeos',
+            self::LISTA      => 'Lista de vídeos',
         ]);
     }
 }

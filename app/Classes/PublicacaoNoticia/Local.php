@@ -14,7 +14,7 @@ class Local extends StatusStatus
     ) {
         parent::__construct([
             self::PRINCIPAL  => 'Notícia principal',
-            self::LISTA => 'Lista de notícia',
+            self::LISTA      => 'Lista de notícia',
         ]);
     }
 }
