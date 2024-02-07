@@ -6,7 +6,8 @@
 @resource "site/tab"
 @resource "site/tabela"
 @resource "site/geral"
-
+@template "painel"
+@system "Variavel"
 
 #bloco_pagina_cashback
     width: 100%
@@ -18,52 +19,48 @@
     figure
         flexCenter()
         espacoBottomPadrao()
-#bloco_pagina_cashback .conteudo .regulamento
-    width: 230px
-    flexCenter()
-    bordaSolida()
-    espacoTopPadrao()
-    color: $corClube
-#bloco_pagina_cashback .conteudo .saldo
+
+#bloco_pagina_cashback .conteudo .bloco_saldo
     width: 100%
-    justifyStart()
-    margin: 20px 0px
-    .botao_resgata
+    gap: 20px
+    .regulamento
+        width: 230px
         flexCenter()
-        width: 200px
-        height: 50px
-        background: $verde4
-        bordaPadrao()
-        button
-            flexCenter()
-            color: #444444
-        button span
-            texto()
+        bordaSolida()
+        color: $corClube
     .saldo_conta
-        flexCenter()
-        width: 100%
-        height: 50px
-        max-width: 250px
-        margin-right: 10px
-        border: 1px solid $corCinzaCinza
-        bordaPadrao()
+        margin: 20px 0px
         p
             texto()
-            color:  $corCinzaCinza
+            font-weight: bold
         span
             texto()
             color: red
             margin-left: 5px
-    .saldo_zero
-        width: 100%
-        max-width: 740px
-        padding: 10px
-        background: #444444
-        flexCenter()
-        color: #fff
-        border-radius: 3px
-        p
-            texto()
+
+.bloco_atencao_geral
+    margin-top: 30px
+    background: $corBrancoCinza
+
+.bloco_extrato
+    padding: 10px 0px 20px
+    espacoTopPadrao()
+    blocoShadow()
+    background: $corBrancoCinza
+    h1
+        font-size: $tituloFontSize
+        color: $corClube
+        margin-bottom: 20px
+
+@media screen and (max-width: 425px)
+    #bloco_pagina_cashback .conteudo .saldo
+        flex-direction: column
+        align-items: flex-start
+        margin: 10px 0px 40px
+        .saldo_conta
+            border: none
+            justify-content: flex-start
+
 
 #bloco_pagina_cashback  .bloco_tabela_geral
     width: 100%
@@ -84,6 +81,9 @@
     .botao.ativo .texto_ativo,
     .botao:hover .texto_ativo
         color: $corPretoBranco
+
+[data-theme="dark"] #conteudo_principal
+    background: $corBrancoPreto
 
 .bloco_geral_banner figure
     background-size: 60% auto
