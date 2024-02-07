@@ -18,11 +18,11 @@ final class TabelaEntity extends Entity
     protected array $ormBuscar = [
         'id_admin_empresa',
         'id_usuario_equipe',
-        'arquivo', 'erro', 'novo',
+        'arquivo', 'erro', 'novo', 'obrigatorio',
         'atualizado', 'tipo', 'status', 'data_criacao', 'data_atualizacao'
     ];
     protected array $ormInsert = [
-        'arquivo', 'tipo', 'status',
+        'arquivo', 'tipo', 'status', 'obrigatorio',
         'id_admin_empresa'   => '->idEmpresa',
         'id_usuario_equipe'  => '->idUsuario'
     ];
@@ -37,6 +37,7 @@ final class TabelaEntity extends Entity
     private ?int $idUsuario = null;
     protected int $id_admin_empresa;
     protected int $id_usuario_equipe;
+    public array $obrigatorio;
     public string $arquivo;
     public int $erro;
     public int $novo;
