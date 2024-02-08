@@ -281,7 +281,7 @@ Route
                 '!primeiro_acesso', '!mudar_senha', '!estado_civil', '!endereco_estado', '!endereco_cidade',
                 '!endereco_cep', '!endereco_logradouro', '!endereco_numero', '!endereco_complemento',
                 '!endereco_bairro', '!situacao', '!trabalho_empresa', '!trabalho_cargo', '!tipo_pagamento',
-                '!trabalho_data_inicio', '!grupo', '!empresa', '!subempresa', '!federacao'
+                '!trabalho_data_inicio', '!grupo', '!empresa', '!subempresa', '!federacao', '!tipo_usuario'
             ])
             ::post('/usuario-cliente');
         Route
@@ -328,7 +328,7 @@ Route
                 'hash', 'nome', 'cpf', 'genero', 'senha', 'termo', 'data_nascimento', 'estado_civil',
                 'email_pessoal', 'email_trabalho', 'telefone_pessoal', 'telefone_trabalho', 'endereco_cep',
                 'endereco_logradouro', 'endereco_numero', 'endereco_complemento', 'endereco_bairro',
-                'endereco_estado', 'endereco_cidade'
+                'endereco_estado', 'endereco_cidade', '!tipo_usuario', '!empresa'
             ])
             ::put('/usuario-cliente/ativar');
         Route
@@ -434,7 +434,6 @@ Route
             ::nome('buscar')
             ::middleware(TokenMiddleware::class, 'scope', ['usuario_indicacao:buscar'])
             ::get('/usuario-indicacao/{id}');
-
         Route
             ::nome('listar')
             ::middleware(TokenMiddleware::class, 'scope', ['usuario_indicacao:listar'])
@@ -443,7 +442,6 @@ Route
                 '!nome', '!email', '!data_inicio', '!data_final', '!status'
             ], 'json')
             ::get('/usuario-indicacao');
-
         Route
             ::nome('salvar')
             ::middleware(TokenMiddleware::class, 'scope', ['usuario_indicacao:salvar'])
@@ -451,7 +449,6 @@ Route
                 'usuario', 'nome', 'email', 'telefone'
             ])
             ::post('/usuario-indicacao');
-
         Route
             ::nome('atualizar')
             ::middleware(TokenMiddleware::class, 'scope', ['usuario_indicacao:atualizar'])
@@ -459,11 +456,17 @@ Route
                 '!status'
             ])
             ::put('/usuario-indicacao/{id}');
-
         Route
             ::nome('deletar')
             ::middleware(TokenMiddleware::class, 'scope', ['usuario_indicacao:deletar'])
             ::delete('/usuario-indicacao/{id}');
+        Route
+            ::nome('ativar')
+            ::middleware(TokenMiddleware::class, 'scope', ['usuario_indicacao:ativar'])
+            ::request([
+                'hash'
+            ])
+            ::post('/usuario-indicacao/ativar');
     });
 
 Route

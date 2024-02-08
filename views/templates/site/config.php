@@ -8,6 +8,7 @@ define('USUARIO_ID', $USUARIO['id']);
 define('USUARIO_NOME', $USUARIO['nome']);
 define('USUARIO_IMAGEM', $USUARIO['imagem']);
 define('USUARIO_EMAIL', $USUARIO['email']);
+define('TIPO_USUARIO', $USUARIO['tipo']);
 
 define('MENU_HOVER', isset($menu) ? $menu : '');
 

@@ -25,7 +25,7 @@ final class IndicacaoEntity extends Entity
     protected string $ormTabela = TABELA_USUARIO_INDICACAO;
     protected array $ormBuscar = [
         'id_usuario_cliente', 'nome', 'email', 'telefone',
-        'status', 'data_criacao', 'data_atualizacao'
+        'status', 'data_criacao', 'data_atualizacao', 'hash'
     ];
     protected array $ormInsert = [
         'id_admin_empresa', 'id_usuario_cliente', 'hash',
@@ -104,7 +104,7 @@ final class IndicacaoEntity extends Entity
             cadastro, clique no botão abaixo:',
             assunto: 'Cadastro realizado!',
             botaoTexto: 'Ativar cadastro',
-            botaoLink: $link . '/login#ativar',
+            botaoLink: $link . `/login?hash={$this->hash}&tipo_usuario={$this->status->indice()}`,
             posMensagem: 'Caso fique com alguma dúvida, por favor, entre em contato.',
             acao: 'Cadastro de indicado',
             logo: $Construtor->logo_principal,

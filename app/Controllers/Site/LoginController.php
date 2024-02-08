@@ -171,8 +171,28 @@ final class LoginController extends Controller
         }
 
         return view('login.ativar.salvar', [
-            'hash'  => $request->hash,
-            'cpf'   => $request->cpf
+            'hash'           => $request->hash,
+            'cpf'            => $request->cpf,
+            'tipo_usuario'   => $request->tipo_usuario
+        ]);
+    }
+
+    public function postAtivarValidar(Request $request): Response
+    {
+        $dado = (new ApiHelper('usuario_indicacao:ativar'))
+            // ->validar('Ocorreu um erro ao validar seu código, por favor, tente novamente.')
+            ->body([
+                'hash'   => $request->hash,
+            ])
+            ->post('/usuario-indicacao/ativar')
+            ->object();
+
+        if ($dado->status == 'erro' && $dado->erro->titulo == 'Indicação já ativada') {
+            return mensagemErro($dado->erro->titulo, $dado->erro->mensagem);
+        }
+
+        return mensagemSucesso([
+            'hash' => $dado->dado->hash
         ]);
     }
 
