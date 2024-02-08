@@ -56,7 +56,8 @@ final class TabelaController extends Controller
                 'arquivo' => $request->getFiles('arquivo')
             ])
             ->body([
-                'tipo' => $request->tipo
+                'tipo'        => $request->tipo,
+                'obrigatorio' => sessao('PAINEL.obrigatorio')['usuario_cliente'] ?? []
             ])
             ->post('/tabela-usuario')
             ->array();

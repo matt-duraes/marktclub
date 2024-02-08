@@ -42,7 +42,9 @@ final class NoticiaModel extends ORM implements
         private Local $local = new Local(null),
         private Tipo $tipo = new Tipo(null),
         private Ordem $ordem = new Ordem(null),
-        private Status $status = new Status(null)
+        private Status $status = new Status(null),
+        private Botao $restrita = new Botao(null),
+        private Botao $site = new Botao(null),
     ) {
         parent::__construct();
         $this->validarDado();
@@ -136,6 +138,12 @@ final class NoticiaModel extends ORM implements
         if ($this->local->valido()) {
             $where[] = ['local', $this->local->numero()];
         }
+        if ($this->restrita->valido()) {
+            $where[] = ['permissao_restrita', $this->restrita->numero()];
+        }
+        if ($this->site->valido()) {
+            $where[] = ['permissao_site', $this->site->numero()];
+        }
 
         if ($publicado && $this->publicado->valor() == Botao::SIM) {
             $where[] = [
@@ -161,7 +169,7 @@ final class NoticiaModel extends ORM implements
                 ['status', '!=', (new Status(Status::ATIVO))->numero()]
             ];
         }
-        if(!empty($this->pesquisa)) {
+        if (!empty($this->pesquisa)) {
             $where[] = ['titulo_grande', 'like', '%' . $this->pesquisa . '%'];
         }
         return $where;

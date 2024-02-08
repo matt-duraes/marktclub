@@ -172,13 +172,14 @@ final class ConfiguracoesPadrao
         'publicacao_noticia'       => [
             'titulo'    => 'Notícias',
             'acao'      => [
-                'index', 'add', 'editar', 'deletar'
+                'index', 'add', 'editar', 'deletar', 'empresa'
             ],
             'permissao' => [
                 'publicacao_noticia_index'   => 'Listar',
                 'publicacao_noticia_add'     => 'Salvar',
                 'publicacao_noticia_editar'  => 'Editar',
-                'publicacao_noticia_deletar' => 'Deletar'
+                'publicacao_noticia_deletar' => 'Deletar',
+                'publicacao_noticia_empresa' => 'Todas as empresas',
             ]
         ],
         'publicacao_pagina'        => [
@@ -189,6 +190,19 @@ final class ConfiguracoesPadrao
             'permissao' => [
                 'publicacao_pagina_index'  => 'Listar',
                 'publicacao_pagina_editar' => 'Editar'
+            ]
+        ],
+        'publicacao_youtube'        => [
+            'titulo'    => 'Youtube',
+            'acao'      => [
+                'index', 'add', 'editar', 'deletar', 'empresa'
+            ],
+            'permissao' => [
+                'publicacao_youtube_index'   => 'Listar',
+                'publicacao_youtube_add'     => 'Salvar',
+                'publicacao_youtube_editar'  => 'Editar',
+                'publicacao_youtube_deletar' => 'Deletar',
+                'publicacao_youtube_empresa' => 'Todas as empresas',
             ]
         ],
         'publicacao_diretoria'     => [

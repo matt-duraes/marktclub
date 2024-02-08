@@ -12,24 +12,24 @@ const inputParceiroTexto = document.querySelector('#input_parceiro_texto');
 const listaParceiro = document.querySelector('#lista_parceiro');
 
 window.addEventListener('load', () => {
-    if(!blocoCheckboxEmpresa) return;
-
     const botaoFiltro = adicionarBotaoFiltro(headerResto);
     const PopupFiltro = new Popup('filtro-popup', 'popup_filtros', true, true);
-
-    inputMarcarTodos.addEventListener('change', lidarMarcarTodos);
 
     botaoFiltro.addEventListener('click', () => {
         PopupFiltro.abrir();
     });
 
-    blocoCheckboxEmpresa.addEventListener('change', (e) => {
-        inputMarcarTodos.checked = false;
-    });
-
     botaoBuscar.addEventListener('click', () => {
         PopupFiltro.fechar();
     });
+
+    if (blocoCheckboxEmpresa) {
+        inputMarcarTodos.addEventListener('change', lidarMarcarTodos);
+
+        blocoCheckboxEmpresa.addEventListener('change', (e) => {
+            inputMarcarTodos.checked = false;
+        });
+    }
 
     if (inputParceiro) {
         inputParceiro.addEventListener('formChange', (e) => {

@@ -1,0 +1,1 @@
+{"id":"id_997f886a052ed732cd6bec7052155f55","token":"painel","metodo":"DELETE","nome":"\/publicacao-youtube\/:id","uri":"{{LINK}}\/publicacao-youtube\/$PUBLICACAO_YOUTUBE_ID","parametro":[],"body":[],"header":[],"variavel":[],"json":[],"documentacao":{"status":false,"descricao":"","requisicao":"","resposta":"","scope":"publicacao_youtube:deletar"}}

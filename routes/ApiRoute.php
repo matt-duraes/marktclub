@@ -127,7 +127,7 @@ Route
             ::middleware(TokenMiddleware::class, 'scope', ['publicacao_noticia:listar'])
             ::request([
                 'pagina', '!quantidade', '!ordem', '!pesquisa', '!local', '!tipo', '!publicado',
-                '!data_inicio_de', '!data_inicio_ate', '!status'
+                '!data_inicio_de', '!data_inicio_ate', '!site', '!restrita', '!status'
             ], 'json')
             ::get('/publicacao-noticia');
 
@@ -635,7 +635,7 @@ Route
         Route
             ::nome('salvar')
             ::middleware(TokenMiddleware::class, 'scope', ['tabela_usuario:salvar'])
-            ::request(['!tipo'])
+            ::request(['tipo', '!obrigatorio'])
             ::request(['!arquivo'], 'files')
             ::post('/tabela-usuario');
         Route
@@ -2468,7 +2468,7 @@ Route
                 'rede_twitter_x', 'logo_principal', 'favicon', 'link_site', 'home_banner', 'contato_chat',
                 'home_noticia_principal', 'home_noticia_lista', 'home_parceiro', 'status', 'login_texto',
                 'login_link', 'clube_link', 'rede_header', 'rede_footer', 'rss', 'cor_texto', 'cor_header',
-                'cor_footer', 'noticia_imagem'
+                'cor_footer', 'noticia_imagem', 'imagem_social'
             ])
             ::post('/site-config');
         Route
@@ -2478,8 +2478,10 @@ Route
                 '!titulo_painel', '!titulo', '!descricao', '!contato_telefone', '!template_header',
                 '!template_footer', '!contato_celular', '!contato_whatsapp', '!contato_email', '!contato_endereco',
                 '!mapa_imagem', '!mapa_link', '!cor_principal', '!rede_youtube', '!rede_facebook', '!rede_instagram',
-                '!rede_twitter_x', '!logo_principal', '!favicon', '!link_site', '!home_banner',
-                '!home_noticia_principal', '!home_noticia_lista', '!home_parceiro', '!status'
+                '!rede_twitter_x', '!logo_principal', '!favicon', '!link_site', '!home_banner', '!contato_chat',
+                '!home_noticia_principal', '!home_noticia_lista', '!home_parceiro', '!status', '!login_texto',
+                '!login_link', '!clube_link', '!rede_header', '!rede_footer', '!rss', '!cor_texto', '!cor_header',
+                '!cor_footer', '!noticia_imagem', '!imagem_social'
             ])
             ::put('/site-config/{id}');
         Route
@@ -2522,4 +2524,45 @@ Route
             ::nome('deletar')
             ::middleware(TokenMiddleware::class, 'scope', ['site_menu:deletar'])
             ::delete('/site-menu/{id}');
+    });
+
+Route
+    ::nome('publicacao_youtube')
+    ::controller(App\Controllers\Api\PublicacaoYoutubeController::class)
+    ::middleware(TokenMiddleware::class, 'token')
+    ::grupo(function () {
+        Route
+            ::nome('listar')
+            ::middleware(TokenMiddleware::class, 'scope', ['publicacao_youtube:listar'])
+            ::request([
+                'pagina', '!quantidade', '!pesquisa', '!status', '!ordem', '!local',
+                '!site', '!restrita', '!publicado'
+            ], 'json')
+            ::get('/publicacao-youtube');
+        Route
+            ::nome('buscar')
+            ::middleware(TokenMiddleware::class, 'scope', ['publicacao_youtube:buscar'])
+            ::get('/publicacao-youtube/{id}');
+        Route
+            ::nome('salvar')
+            ::middleware(TokenMiddleware::class, 'scope', ['publicacao_youtube:salvar'])
+            ::request([
+                '!empresa', 'titulo', 'texto', 'video', 'data_inicio', 'data_final',
+                'header_titulo', 'header_descricao', 'header_tag', 'permissao_restrita',
+                'permissao_site', 'local', 'status'
+            ])
+            ::post('/publicacao-youtube');
+        Route
+            ::nome('atualizar')
+            ::middleware(TokenMiddleware::class, 'scope', ['publicacao_youtube:atualizar'])
+            ::request([
+                '!titulo', '!texto', '!video', '!data_inicio', '!data_final',
+                '!header_titulo', '!header_descricao', '!header_tag', '!permissao_restrita',
+                '!permissao_site', '!local', '!status'
+            ])
+            ::put('/publicacao-youtube/{id}');
+        Route
+            ::nome('deletar')
+            ::middleware(TokenMiddleware::class, 'scope', ['publicacao_youtube:deletar'])
+            ::delete('/publicacao-youtube/{id}');
     });

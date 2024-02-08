@@ -54,11 +54,11 @@ final class ConfiguracaoEntity extends Entity
                 );
         }
         return object([
-            'permissao'         => jsonDecode($configs->permissao, true, true),
+            'permissao'          => jsonDecode($configs->permissao, true, true),
             'configuracao'       => jsonDecode($configs->configuracao, true, true),
-            'campo_obrigatorio' => jsonDecode($configs->campo_obrigatorio, true, true),
-            'campo_permitido'   => jsonDecode($configs->campo_permitido, true, true),
-            'upload_grupo'      => jsonDecode($configs->upload_grupo, true, true)
+            'campo_obrigatorio'  => jsonDecode($configs->campo_obrigatorio, true, true),
+            'campo_permitido'    => jsonDecode($configs->campo_permitido, true, true),
+            'upload_grupo'       => jsonDecode($configs->upload_grupo, true, true)
         ]);
     }
 
