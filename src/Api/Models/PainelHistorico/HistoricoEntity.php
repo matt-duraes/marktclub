@@ -3,7 +3,7 @@
 namespace ApiModel\PainelHistorico;
 
 use ApiModel\PainelNotificacao\NotificacaoEntity;
-use App\Models\Api\Trait\ValidarEmpresaTrait;
+use App\Models\Api\Trait\ValidarUsuarioTrait;
 use App\Models\Api\UsuarioEquipe\EquipeEntity;
 use Erro\Erro;
 use Erro\Excecao;
@@ -15,7 +15,7 @@ use Throwable;
 
 final class HistoricoEntity extends Entity
 {
-    use ValidarEmpresaTrait;
+    use ValidarUsuarioTrait;
 
     public int $id_usuario_equipe;
     public string $mensagem;
