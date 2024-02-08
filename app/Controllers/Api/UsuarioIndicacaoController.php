@@ -8,7 +8,6 @@ use App\Classes\UsuarioIndicacao\Status;
 use App\Models\Api\UsuarioIndicacao\IndicacaoEntity;
 use App\Models\Api\UsuarioIndicacao\IndicacaoModel;
 use Controller\Controller;
-use Erro\Excecao;
 use Http\Request;
 use Http\Response;
 use Modules\Data;
@@ -27,12 +26,6 @@ final class UsuarioIndicacaoController extends Controller implements
     ControllerAtualizarInterface,
     ControllerDeletarInterface
 {
-    /**
-     * @param string $id
-     *
-     * @return Response
-     * @throws Excecao
-     */
     public function getBuscar(string $id): Response
     {
         $Indicacao = new IndicacaoEntity();
@@ -40,18 +33,31 @@ final class UsuarioIndicacaoController extends Controller implements
         return $this->retornoSucesso($Indicacao);
     }
 
-    /**
-     * @param IndicacaoEntity $Indicacao
-     * @param int             $status
-     *
-     * @return Response
-     * @throws Excecao
-     */
+    public function postSalvar(Request $request): Response
+    {
+        $Indicacao = new IndicacaoEntity();
+        $Indicacao->set(lista: $request->dado());
+        $Indicacao->salvar();
+        return $this->retornoSucesso($Indicacao, 201);
+    }
+
+    public function postAtivar(Request $request): Response
+    {
+        $Indicacao = new IndicacaoEntity();
+        $Indicacao->buscar(['hash', $request->hash], mensagem: 'Indicação não encontrada ou inexistente');
+
+        if ($Indicacao->status->numero() == (new Status(Status::INDICADO))->numero()) {
+            return $this->retornoSucesso($Indicacao);
+        }
+
+        return mensagemErro('Indicação já ativada', 'Essa indicação já foi ativada, por favor, tente novamente.');
+    }
+
     private function retornoSucesso(IndicacaoEntity $Indicacao, int $status = 200): Response
     {
         return mensagemSucesso(
             pegarPropriedadeDaEntity($Indicacao, lista: [
-                'id', 'nome', 'email', 'telefone', 'quem_indicou',
+                'id', 'nome', 'email', 'telefone', 'quem_indicou', 'hash',
                 'usuario_ativo', 'data_criacao', 'data_atualizacao', 'status'
             ]),
             $status,
@@ -59,12 +65,6 @@ final class UsuarioIndicacaoController extends Controller implements
         );
     }
 
-    /**
-     * @param Request $request
-     *
-     * @return Response
-     * @throws Excecao
-     */
     public function getListar(Request $request): Response
     {
         $Indicacao = new IndicacaoModel(
@@ -84,27 +84,6 @@ final class UsuarioIndicacaoController extends Controller implements
         return mensagemSucesso($dado);
     }
 
-    /**
-     * @param Request $request
-     *
-     * @return Response
-     * @throws Excecao
-     */
-    public function postSalvar(Request $request): Response
-    {
-        $Indicacao = new IndicacaoEntity();
-        $Indicacao->set(lista: $request->dado());
-        $Indicacao->salvar();
-        return $this->retornoSucesso($Indicacao, 201);
-    }
-
-    /**
-     * @param Request $request
-     * @param string  $id
-     *
-     * @return Response
-     * @throws Excecao
-     */
     public function putAtualizar(Request $request, string $id): Response
     {
         $Indicacao = new IndicacaoEntity();
@@ -114,12 +93,6 @@ final class UsuarioIndicacaoController extends Controller implements
         return new Response(status: 204);
     }
 
-    /**
-     * @param string $id
-     *
-     * @return Response
-     * @throws Excecao
-     */
     public function deleteDeletar(string $id): Response
     {
         $Indicacao = new IndicacaoEntity();

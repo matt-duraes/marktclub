@@ -1,3 +1,20 @@
+window.addEventListener('load', async () => {
+    const queryString = window.location.search;
+    const searchParams = new URLSearchParams(queryString);
+    const hash = searchParams.get("hash");
+    const tipo_usuario = searchParams.get("tipo_usuario");
+
+    const resposta = await ajaxPost(LINK + '/login/ativar-validar', {
+        hash: hash,
+    });
+
+    if (resposta == false) {
+        return;
+    }
+
+    criarPaginaAtivarSalvar({ hash, tipo_usuario: tipo_usuario});
+});
+
 const setarTipoInput = (valorData = '') => {
     const blocoTitular = document.querySelector('.bloco_titular');
     const tipoAtivacao = blocoTitular.getAttribute('data-ativacao');
@@ -63,21 +80,26 @@ const loadingAtivarBuscar = () => {
         if (false == resposta) {
             return;
         }
-        const PaginaAtivar = new Pagina(
-            'ativar-conta',
-            `${LINK}/login/ativar-salvar?hash=${resposta.dado.hash}&cpf=${resposta.dado.cpf}`,
-            undefined,
-            true,
-            false,
-            loadingAtivar
-        );
-        PaginaAtivar.abrir();
+        criarPaginaAtivarSalvar(resposta.dado);
     });
 };
+
+const criarPaginaAtivarSalvar = (dado) => {
+    const PaginaAtivar = new Pagina(
+        'ativar-conta',
+        `${LINK}/login/ativar-salvar?hash=${dado.hash}&cpf=${dado.cpf}&tipo_usuario=${dado.tipo_usuario}`,
+        undefined,
+        true,
+        false,
+        loadingAtivar
+    );
+    PaginaAtivar.abrir();
+}
 
 const loadingAtivar = () => {
     const hash = $('#input_ativar_hash_busca').value;
     const cpf = $('#input_ativar_cpf_busca').value;
+    const tipo_usuario = $('#input_tipo_usuario').value;
 
     const form = $('#bloco_form_ativar');
 
@@ -152,6 +174,7 @@ const loadingAtivar = () => {
                 endereco_bairro: inputEnderecoBairro.value,
                 endereco_estado: inputEnderecoEstado.value,
                 endereco_cidade: inputEnderecoCidade.value,
+                tipo_usuario: tipo_usuario,
                 /* eslint-enable */
             },
             'Erro ao ativar seu usuário, por favor, tente novamente.'

@@ -2,7 +2,11 @@
 
 namespace App\Models\Api\UsuarioCliente\Ativar;
 
-use App\Controllers\Api\Ativar\Trait\AtivarTrait;
+use App\Classes\UsuarioCliente\Status;
+use App\Classes\UsuarioCliente\TipoUsuario;
+use App\Classes\UsuarioIndicacao\Status as IndicacaoStatus;
+use App\Models\Api\UsuarioCliente\Ativar\Trait\AtivarTrait;
+use Helpers\OrmHelper;
 use ORM\ORM;
 use stdClass;
 use Modules\Cpf;
@@ -18,7 +22,7 @@ use Modules\EnderecoCep;
 use Modules\EstadoCivil;
 use Modules\EnderecoEstado;
 
-final class AtivarModel extends ORM
+final class AtivarIndicadoModel extends ORM
 {
     use AtivarTrait;
 
@@ -44,43 +48,23 @@ final class AtivarModel extends ORM
     private string $endereco_bairro;
     private EnderecoEstado $endereco_estado;
     private string $endereco_cidade;
+    private TipoUsuario $tipo_usuario;
+    private string $empresa;
 
     public function __construct(
         private Request $request
     ) {
         parent::__construct();
         $this->setarPropriedade();
+        $this->setarPropriedadeIndicacao();
         $this->validarDado();
-        $this->buscarUsuario();
-        $this->validarCpf();
-        $this->validarCampoUnico();
-        $this->validarHash();
         $this->salvarUsuario();
     }
 
-    private function buscarUsuario()
+    private function setarPropriedadeIndicacao()
     {
-        $usuario = $this
-            ->campo(['id', 'id_admin_empresa', 'cpf', 'hash', 'hash_data', 'hash_tipo'])
-            ->where(['hash', $this->hash])
-            ->primeiro();
-        if (!$usuario) {
-            mensagemErro('Erro!', $this->erroPadrao);
-        }
-        $this->usuario = $usuario;
-    }
-
-    private function whereEmail($id, $empresa, $email)
-    {
-        return [
-            ['id', '!=', $id],
-            ['id_admin_empresa', $empresa],
-            [
-                'OR',
-                ['email_pessoal', $email],
-                ['email_trabalho', $email]
-            ]
-        ];
+        $this->tipo_usuario = new TipoUsuario($this->request->tipo_usuario);
+        $this->empresa = (new OrmHelper(TABELA_COMERCIAL_EMPRESA))->pegarIdPeloUuid($this->request->empresa);
     }
 
     private function salvarUsuario()
@@ -89,9 +73,8 @@ final class AtivarModel extends ORM
         $agora = agora();
         $salvar = $this
             ->dado([
-                'hash'                 => '',
-                'hash_data'            => '',
-                'hash_tipo'            => '',
+                'tipo'                 => $this->tipo_usuario->numero(),
+                'empresa'              => $this->empresa,
                 'nome'                 => $this->nome->nome(),
                 'cpf'                  => $this->cpf->numero(),
                 'genero'               => $this->genero->numero(),
@@ -116,9 +99,16 @@ final class AtivarModel extends ORM
                 'endereco_cidade'      => $this->endereco_cidade,
                 'mensagem'             => 1,
                 'primeiro_acesso'      => 1,
-                'status'               => 1,
+                'status'               => (new Status(Status::INDICACAO))->numero(),
             ])
-            ->where(['id', $this->usuario->id])
+            ->insert();
+
+        (new OrmHelper(TABELA_USUARIO_INDICACAO))
+            ->dado([
+                'vinculo' => $salvar['id'],
+                'status'  => (new IndicacaoStatus(IndicacaoStatus::ATIVADO))->numero()
+            ])
+            ->where(['hash', $this->hash])
             ->update();
 
         if (!$salvar) {

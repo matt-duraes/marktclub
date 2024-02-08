@@ -139,7 +139,7 @@ Route
             ::post('/login/ativar-buscar');
         Route
             ::nome('ativarSalvar')
-            ::request(['hash', 'cpf'])
+            ::request(['hash', 'cpf', '!tipo_usuario'])
             ::view('/login/ativar-salvar');
         Route
             ::nome('ativarSalvar')
@@ -147,9 +147,13 @@ Route
                 'hash', 'nome', 'cpf', 'genero', 'senha', 'termo', 'data_nascimento', 'estado_civil',
                 'email_pessoal', 'email_trabalho', 'telefone_pessoal', 'telefone_trabalho', 'endereco_cep',
                 'endereco_logradouro', 'endereco_numero', 'endereco_complemento', 'endereco_bairro',
-                'endereco_estado', 'endereco_cidade'
+                'endereco_estado', 'endereco_cidade', '!tipo_usuario'
             ])
             ::post('/login/ativar-salvar');
+        Route
+            ::nome('ativarValidar')
+            ::request(['hash'])
+            ::post('/login/ativar-validar');
         // APP
         Route
             ::nome('app')

@@ -2,6 +2,7 @@
 
 namespace App\Controllers\Api;
 
+use App\Models\Api\UsuarioCliente\Ativar\AtivarIndicadoModel;
 use Modules\Cpf;
 use Erro\Excecao;
 use Http\Request;
@@ -22,8 +23,8 @@ use App\Models\Api\UsuarioCliente\ClienteEntity;
 use App\Models\Api\UsuarioCliente\DownloadModel;
 use System\Interface\ControllerDeletarInterface;
 use App\Models\Api\DownloadPrivado\ArquivoEntity;
-use System\Interface\ControllerAtualizarInterface;
 use App\Models\Api\UsuarioCliente\Ativar\AtivarModel;
+use System\Interface\ControllerAtualizarInterface;
 use App\Models\Api\UsuarioCliente\Ativar\BuscarModel;
 use App\Models\Api\UsuarioCliente\Senha\AlterarSenhaModel;
 use App\Models\Api\UsuarioCliente\Senha\EnviarCodigoModel;
@@ -217,7 +218,12 @@ final class UsuarioClienteController extends Controller implements
      */
     public function putAtivar(Request $request): Response
     {
-        new AtivarModel($request);
+        if ($request->tipo_usuario == TipoUsuario::INDICADO) {
+            new AtivarIndicadoModel($request);
+        } else {
+            new AtivarModel($request);
+        }
+
         return new Response(status: 204);
     }
 
