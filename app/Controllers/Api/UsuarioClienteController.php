@@ -218,7 +218,7 @@ final class UsuarioClienteController extends Controller implements
      */
     public function putAtivar(Request $request): Response
     {
-        if ($request->tipo_usuario == 'indicado') {
+        if ($request->tipo_usuario == TipoUsuario::INDICADO) {
             new AtivarIndicadoModel($request);
         } else {
             new AtivarModel($request);

@@ -180,7 +180,7 @@ final class LoginController extends Controller
     public function postAtivarValidar(Request $request): Response
     {
         $dado = (new ApiHelper('usuario_indicacao:ativar'))
-            // ->validar('Ocorreu um erro ao validar seu código, por favor, tente novamente.')
+            ->validar('Ocorreu um erro ao validar seu código, por favor, tente novamente.')
             ->body([
                 'hash'   => $request->hash,
             ])

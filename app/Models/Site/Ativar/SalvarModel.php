@@ -23,7 +23,7 @@ final class SalvarModel extends ApiHelper
         parent::__construct();
 
         $dado = $request->dado();
-        $a = (new ApiHelper('usuario_cliente:ativar'))
+        (new ApiHelper('usuario_cliente:ativar'))
             ->validar('Ocorreu um erro ao ativar seu usuário, por favor, tente novamente.')
             ->body([
                 'hash'                 => $dado['hash'],
