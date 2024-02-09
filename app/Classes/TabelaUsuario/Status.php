@@ -15,15 +15,15 @@ final class Status extends StatusStatus
         protected string|int|null $valor = null
     ) {
         parent::__construct([
-            self::NOVO       => 'Novo',
+            self::NOVO        => 'Novo',
             self::PROCESSANDO => 'Processando',
-            self::ERRO       => 'Erro',
-            self::CONCLUIDO  => 'Concluido'
+            self::ERRO        => 'Erro',
+            self::CONCLUIDO   => 'Concluido'
         ], [
-            self::NOVO       => 'azul',
+            self::NOVO        => 'azul',
             self::PROCESSANDO => 'cinza',
-            self::ERRO       => 'vermelho',
-            self::CONCLUIDO  => 'verde'
+            self::ERRO        => 'vermelho',
+            self::CONCLUIDO   => 'verde'
         ]);
     }
 }

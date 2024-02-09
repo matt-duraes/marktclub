@@ -1,10 +1,10 @@
 <?php
 
 use Modules\Senha;
+use PainelConfig\Add;
 use Helpers\ApiHelper;
 use App\Classes\UsuarioEquipe\Helper;
 use App\Classes\UsuarioEquipe\Status;
-use PainelConfig\Add;
 
 $Painel = new Add('usuario_equipe', acao: $acao);
 
@@ -61,10 +61,9 @@ $Painel->coluna(callback: function () use ($Painel) {
     });
 });
 
-$permissaoUsuario = sessao('USUARIO.permissao');
 if (
-    strCpf(sessao('USUARIO.cpf')) == '014.951.801-31'
-    || in_array('usuario_equipe_permissao', $permissaoUsuario)
+    strCpf(sessao('USUARIO.cpf')) == '014.951.801-31' ||
+    (sessao('USUARIO.empresa')->id != '14afa776394ada4be23be6acf7e3259e' && sessao('USUARIO.marktclub') == 'nao')
 ) {
     $Painel->coluna(callback: function () use ($Painel) {
         $Painel->fieldsetCheckbox(
