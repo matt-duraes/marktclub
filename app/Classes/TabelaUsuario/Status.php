@@ -7,23 +7,23 @@ use Status\Status as StatusStatus;
 final class Status extends StatusStatus
 {
     public const NOVO = 'novo';
-    public const PROCESSADO = 'processado';
+    public const PROCESSANDO = 'processando';
     public const ERRO = 'erro';
-    public const CANCELADO = 'cancelado';
+    public const CONCLUIDO = 'concluido';
 
     public function __construct(
         protected string|int|null $valor = null
     ) {
         parent::__construct([
             self::NOVO       => 'Novo',
-            self::PROCESSADO => 'Processado',
+            self::PROCESSANDO => 'Processando',
             self::ERRO       => 'Erro',
-            self::CANCELADO  => 'Cancelado'
+            self::CONCLUIDO  => 'Concluido'
         ], [
             self::NOVO       => 'azul',
-            self::PROCESSADO => 'verde',
+            self::PROCESSANDO => 'cinza',
             self::ERRO       => 'vermelho',
-            self::CANCELADO  => 'cinza'
+            self::CONCLUIDO  => 'verde'
         ]);
     }
 }
