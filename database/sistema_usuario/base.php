@@ -13,6 +13,7 @@ return (new DataBase())
     ->int('novo')->null()
     ->int('atualizado')->null()
     ->int('tipo')->null()
+    ->json('retorno')->null()
     ->status()
     ->dataCriacao()
     ->dataAtualizacao();
