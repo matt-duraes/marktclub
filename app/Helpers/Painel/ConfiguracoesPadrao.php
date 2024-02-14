@@ -192,7 +192,7 @@ final class ConfiguracoesPadrao
                 'publicacao_pagina_editar' => 'Editar'
             ]
         ],
-        'publicacao_youtube'        => [
+        'publicacao_youtube'       => [
             'titulo'    => 'Youtube',
             'acao'      => [
                 'index', 'add', 'editar', 'deletar', 'empresa'
@@ -554,6 +554,17 @@ final class ConfiguracoesPadrao
                 'log_erro_index'      => 'Listar',
                 'log_erro_visualizar' => 'Visualizar',
                 'log_erro_status'     => 'Status'
+            ]
+        ],
+        'painel_tradutor'          => [
+            'titulo'    => 'Painel Tradutor',
+            'acao'      => ['index', 'visualizar', 'add', 'editar', 'deletar'],
+            'permissao' => [
+                'painel_tradutor_index'      => 'Listar',
+                'painel_tradutor_visualizar' => 'Visualizar',
+                'painel_tradutor_add'        => 'Salvar',
+                'painel_tradutor_editar'     => 'Editar',
+                'painel_tradutor_deletar'    => 'Deletar'
             ]
         ],
         'painel_config'            => [

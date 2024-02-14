@@ -1,0 +1,1 @@
+{"id":"id_e524c43f326be01783b451e32575d41e","token":"token","metodo":"GET","nome":"\/traduzir","uri":"{{LINK}}\/traduzir","parametro":[],"body":[],"header":[],"variavel":[],"json":[["texto",true,"texto","",""]],"documentacao":{"status":false,"descricao":"","requisicao":"","resposta":"","scope":"painel_tradutor:traduzir"}}
