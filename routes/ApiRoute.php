@@ -2569,3 +2569,51 @@ Route
             ::middleware(TokenMiddleware::class, 'scope', ['publicacao_youtube:deletar'])
             ::delete('/publicacao-youtube/{id}');
     });
+
+Route
+    ::nome('painel_tradutor')
+    ::controller(App\Controllers\Api\TradutorController::class)
+    ::middleware(TokenMiddleware::class, 'token')
+    ::grupo(function () {
+        Route
+            ::nome('buscar')
+            ::middleware(TokenMiddleware::class, 'scope', ['painel_tradutor:buscar'])
+            ::get('/painel-tradutor/{id}');
+
+        Route
+            ::nome('listar')
+            ::middleware(TokenMiddleware::class, 'scope', ['painel_tradutor:listar'])
+            ::request([
+                'pagina', '!quantidade', '!ordem', '!status'
+            ], 'json')
+            ::get('/painel-tradutor');
+
+        Route
+            ::nome('salvar')
+            ::middleware(TokenMiddleware::class, 'scope', ['painel_tradutor:salvar'])
+            ::request([
+                'termo', 'traducao', '!status'
+            ])
+            ::post('/painel-tradutor');
+
+        Route
+            ::nome('atualizar')
+            ::middleware(TokenMiddleware::class, 'scope', ['painel_tradutor:atualizar'])
+            ::request([
+                '!termo', '!traducao', '!status'
+            ])
+            ::put('/painel-tradutor/{id}');
+
+        Route
+            ::nome('deletar')
+            ::middleware(TokenMiddleware::class, 'scope', ['painel_tradutor:deletar'])
+            ::delete('/painel-tradutor/{id}');
+
+        Route
+            ::nome('traduzir')
+            ::middleware(TokenMiddleware::class, 'scope', ['painel_tradutor:traduzir'])
+            ::request([
+                'texto'
+            ])
+            ::post('/traduzir');
+    });

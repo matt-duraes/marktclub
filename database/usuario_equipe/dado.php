@@ -17,8 +17,10 @@ $permissao = [
     'usuario_equipe_index', 'usuario_equipe_add', 'usuario_equipe_editar', 'usuario_equipe_permissao',
     'usuario_equipe_deletar', 'usuario_equipe_empresa',
 
-    'publicacao_noticia_index', 'publicacao_noticia_add', 'publicacao_noticia_editar', 'publicacao_noticia_deletar', 'publicacao_noticia_empresa',
-    'publicacao_youtube_index', 'publicacao_youtube_add', 'publicacao_youtube_editar', 'publicacao_youtube_deletar', 'publicacao_youtube_empresa',
+    'publicacao_noticia_index', 'publicacao_noticia_add', 'publicacao_noticia_editar', 'publicacao_noticia_deletar',
+    'publicacao_noticia_empresa',
+    'publicacao_youtube_index', 'publicacao_youtube_add', 'publicacao_youtube_editar', 'publicacao_youtube_deletar',
+    'publicacao_youtube_empresa',
 
     'publicacao_pagina_index', 'publicacao_pagina_editar',
 
@@ -29,7 +31,8 @@ $permissao = [
 
     'parceiro_relatorio_index', 'parceiro_relatorio_add', 'parceiro_relatorio_editar', 'parceiro_relatorio_deletar',
 
-    'parceiro_loja_index', 'parceiro_loja_add', 'parceiro_loja_editar', 'parceiro_loja_deletar', 'parceiro_loja_empresa',
+    'parceiro_loja_index', 'parceiro_loja_add', 'parceiro_loja_editar', 'parceiro_loja_deletar',
+    'parceiro_loja_empresa',
 
     'parceiro_cashback_index', 'parceiro_cashback_add', 'parceiro_cashback_editar', 'parceiro_cashback_deletar',
     'parceiro_cashback_empresa',
@@ -119,6 +122,9 @@ $permissao = [
 
     'painel_config_index', 'painel_config_add', 'painel_config_editar',
     'painel_config_deletar',
+
+    'painel_tradutor_index', 'painel_tradutor_visualizar', 'painel_tradutor_add',
+    'painel_tradutor_editar', 'painel_tradutor_deletar',
 ];
 
 return [

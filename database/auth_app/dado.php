@@ -187,6 +187,9 @@ $scope = [
     'site_menu:listar', 'site_menu:buscar', 'site_menu:salvar', 'site_menu:atualizar',
     'site_menu:deletar', 'site_menu:empresa',
 
+    'painel_tradutor:buscar', 'painel_tradutor:listar', 'painel_tradutor:salvar',
+    'painel_tradutor:atualizar', 'painel_tradutor:deletar', 'painel_tradutor:traduzir',
+
     'painel_config:buscar', 'painel_config:listar', 'painel_config:salvar',
     'painel_config:atualizar', 'painel_config:deletar'
 ];
