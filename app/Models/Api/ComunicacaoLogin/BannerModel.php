@@ -38,7 +38,6 @@ class BannerModel extends ORM implements
         private readonly null|string $titulo = null,
     ) {
         parent::__construct();
-        $this->validarEmpresa(json: true);
     }
 
     public function listarDados(): stdClass
@@ -59,7 +58,7 @@ class BannerModel extends ORM implements
 
     private function pegarWhere()
     {
-        $where = $this->ormWherePadrao;
+        $where = [];
         $wherePublicado = [];
         $publicadoVazio = $this->publicado->vazio();
         if (!$publicadoVazio && $this->publicado->valor() == 'sim') {

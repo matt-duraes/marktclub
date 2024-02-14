@@ -4,6 +4,10 @@ window.addEventListener('load', async () => {
     const hash = searchParams.get("hash");
     const tipo_usuario = searchParams.get("tipo_usuario");
 
+    if (!hash || !tipo_usuario) {
+        return;
+    }
+
     const resposta = await ajaxPost(LINK + '/login/ativar-validar', {
         hash: hash,
     });
