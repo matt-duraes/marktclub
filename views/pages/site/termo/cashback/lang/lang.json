@@ -1,0 +1,714 @@
+
+{
+    "tituloTermo": [
+        {
+
+            "pt": "TERMO DE USO DO CASHBACK SILIUM",
+            "en": "",
+            "es": ""
+        }
+    ],
+    "blocoIntroducao": [
+        {
+            "tituloIntroducao": [
+                {
+                    "pt": "1. Introdução",
+                    "en": "",
+                    "es": ""
+                }
+            ],
+            "itemObrigado": [
+                {
+                    "pt": "1. Obrigado pelo interesse em utilizar o sistema de cashback SILIUM, um Portal virtual ('Portal') desenvolvido e mantido pela Markt Tec Serviços em Tecnologia da Informação Ltda ('Markt Club'), pessoa jurídica de direito privado, inscrita no CNPJ sob o nº 14.150.830/0001-00, sediada no SIG QUADRA 04, LOTE 125/175, Bloco A, Sala 10. CEP 70610-440, Capital Financial Center, Brasília - DF.",
+                    "en": "",
+                    "es": ""
+                }
+            ],
+            "itemPresente": [
+                {
+                    "pt": "O presente Termos de Uso ('Termo' ou 'Termos') estabelece a relação contratual entre os clientes que utilizam o sistema desenvolvido pelo Markt Club ('Usuários'), estabelecendo as regras de utilização e as responsabilidades de cada parte, em conformidade com a legislação brasileira, incluindo as disposições da Lei Nº 12.965/14 ('Marco Civil da Internet') e do Decreto Nº 8.771, de 11/05/16 ('Decreto').",
+                    "en": "",
+                    "es": ""
+                }
+            ],
+            "itemProsseguir": [
+                {
+                    "pt": "Antes de prosseguir, é fundamental que você leia e compreenda todos os Termos que regulam a utilização do Portal e de seus benefícios. Por isso, criamos este contrato virtual, que foi inclusive redigido de forma clara e em linguagem acessível.",
+                    "en": "",
+                    "es": ""
+                }
+            ],
+            "itemConcorde": [
+                {
+                    "pt": "Caso você não concorde com qualquer das regras previstas, você não é obrigado aceitar esse Termo e utilizar o sistema do Markt Club e caso desejar poderá relatar suas observações no e-mail atendimento@temmaisvantagens.com.br. Caso tenha qualquer dúvida sobre o conteúdo desses Termos de Uso, entre em contato com nosso suporte.",
+                    "en": "",
+                    "es": ""
+                }
+            ]
+        }
+    ],
+    "blocoMarktclub": [
+        {
+            "tituloMarktclub": [
+                {
+                    "pt": "2. O Markt Club",
+                    "en": "",
+                    "es": ""
+                }
+            ],
+            "itemPortal" : [
+                {
+                    "pt": "2.1. O Portal do Markt Club disponibiliza uma Plataforma virtual de divulgação e busca de anúncios, ofertas, descontos e promoções de diversas lojas.",
+                    "en": "",
+                    "es": ""
+                }
+            ],
+            "itemNaoVende" : [
+                {
+                    "pt": "2.2. O Markt Club não vende qualquer produto ou serviço no seu Portal, apenas veicula anúncios de produtos e serviços fornecidos pelos Anunciantes. Por essa razão, nós não nos responsabilizamos por nenhuma compra ou transação realizada entre vocês e os Anunciantes/ fornecedores.",
+                    "en": "",
+                    "es": ""
+                }
+            ],
+            "itemEfetuarCompra" : [
+                {
+                    "pt": "2.3. Ao efetuar uma compra de um Anunciante, através do sistema ou de um link disponibilizado no Site, você cria uma nova e distinta relação jurídica diretamente com este Anunciante, da qual o Markt Club não participa e não poderá responder, comercialmente, judicialmente ou de qualquer outra forma. ",
+                    "en": "",
+                    "es": ""
+                }
+            ],
+            "itemAnuncioVinculado" : [
+                {
+                    "pt": "2.4. Os anúncios veiculados no Portal podem conter informações sobre alguns produtos ou serviços, incluindo preço. No entanto, você deve sempre conferir o preço e demais informações dos produtos diretamente no site dos Anunciantes, pois alguns dos anúncios podem estar desatualizados e com informações antigas – nós não nos responsabilizamos por estas informações.",
+                    "en": "",
+                    "es": ""
+                }
+            ],
+            "itemResponsabilidade" : [
+                {
+                    "pt": "2.5. A responsabilidade pelos produtos e serviços e por suas informações, incluindo o preço, é exclusiva e integral dos Anunciantes.",
+                    "en": "",
+                    "es": ""
+                }
+            ],
+            "itemObrigacao" : [
+                {
+                    "pt": "2.6. É sua obrigação confirmar a veracidade das informações dos anúncios constantes no Portal diretamente no próprio site dos Anunciantes. Sempre que houver diferença ou divergência entre os preços e demais informações de produtos no Portal e no site dos Anunciantes, prevalecerá as informações do site do Anunciante.",
+                    "en": "",
+                    "es": ""
+                }
+            ]
+        }
+    ],
+    "blocoCashbackSilium": [
+        {
+            "tituloCashback": [
+                {
+                    "pt": "3. O Cashback - SILIUM",
+                    "en": "",
+                    "es": ""
+                }
+            ],
+            "itemMarktclub": [
+                {
+                    "pt": "3.1. O Markt Club agora passa a oferecer também uma oportunidade para que você possa receber um desconto especial da compra de um produto ou serviço dos nossos Anunciantes. Esse desconto especial é concedido diretamente pelo Markt Club, através do reembolso de parte do valor gasto por você nas compras efetuadas através do Portal, chamado por nós de CASHBACK - SILIUM.",
+                    "en": "",
+                    "es": ""
+                }
+            ],
+            "itemCashback": [
+                {
+                    "pt": "3.2. O Cashback não é cumulativo com outras promoções, descontos, programas de fidelidade ou condições especiais ofertadas pelos Anunciantes ou por terceiros, portanto fique atento à essa restrição! A utilização de qualquer outro benefício invalidará o seu Cashback.",
+                    "en": "",
+                    "es": ""
+                }
+            ],
+            "itemDireitoCashback": [
+                {
+                    "pt": "3.3. Para ter direito ao Cashback é importante que o Usuário observe as Condições de Uso, o presente Termo, além dos requisitos básicos ('Requisitos Essenciais'), definidos neste Termo.",
+                    "en": "",
+                    "es": ""
+                }
+            ],
+            "itemFuncionamentoCashback": [
+                {
+                    "pt": "3.4. O Cashback funciona de maneira bem simples: no nosso Portal, nós realizamos uma promessa de recompensa, que será devida a qualquer pessoa que cumprir os Requisitos Essenciais. Isto é: se você cumprir os Requisitos Essenciais, nós teremos o compromisso de creditá-lo com a recompensa prometida: o Cashback.",
+                    "en": "",
+                    "es": ""
+                }
+            ]
+        }
+    ],
+    "blocoRequisitos": [
+        {
+            "tituloRequisitos": [
+                {
+                    "pt": "4. Os Requisitos Essenciais",
+                    "en": "",
+                    "es": ""
+                }
+            ],
+            "itemAdquiraODireito": [
+                {
+                    "pt": "4.1. Para que você adquira o direito à recompensa prometida pelo Markt Club, na forma do reembolso de parte do valor gasto em determina aquisição pelo Portal (o Cashback), é necessário observar os requisitos abaixo, definidos de acordo com o tipo de Anunciante envolvido na compra, ou seja, se realizada em Lojas Virtuais ou em Lojas Físicas.",
+                    "en": "",
+                    "es": ""
+                }
+            ],
+            "blocoCompras": [
+                {
+                    "tituloCompras": [
+                        {
+                            "pt": "4.2. Nas compras realizadas em Lojas Virtuais, é indispensável o cumprimento todos os requisitos abaixo, cumulativamente: ",
+                            "en": "",
+                            "es": ""
+                        }
+                    ],
+                    "itemEfetuarCadastro": [
+                        {
+                            "pt":"A. Efetuar o cadastro e login no Site ou Aplicativo deste sistema administrado pelo Markt Club;",
+                            "en": "",
+                            "es": ""
+                        }
+                    ],
+                    "itemRedirecionarSite": [
+                        {
+                            "pt": "B. Ser redirecionado ao site do Anunciante através dos links disponibilizados no Site ou Aplicativo Markt Club, seguindo todas as regras e exceções de cada loja que são descritas em suas páginas específicas; e",
+                            "en": "",
+                            "es": ""
+                        }
+                    ],
+                    "itemRedirecionarNaoTitular": [
+                        {
+                            "pt": "C. No momento do redirecionamento não utilizar nenhum outro cupom de desconto, códigos promocionais, outros programas de fidelidade ou vale-compras, sites de buscadores de preço ou qualquer outro desconto ou condição especial; e",
+                            "en": "",
+                            "es": ""
+                        }
+                    ],
+                    "itemFinalizarCompra": [
+                        {
+                            "pt": "D. Finalizar a compra no Anunciante com o mesmo CPF e e-mail cadastrados neste sistema do Markt Club; e",
+                            "en": "",
+                            "es": ""
+                        }
+                    ],
+                    "itemAcumularSaldo": [
+                        {
+                            "pt": "E. Acumular o saldo confirmado mínimo de 10.000 SILIUM (nome da moeda do Markt Club) em sua conta, atentando-se para a hipótese de expiração do saldo prevista no item 4.16; e",
+                            "en": "",
+                            "es": ""
+                        }
+                    ],
+                    "itemProcedimentos": [
+                        {
+                            "pt": "F. Efetuar os procedimentos de solicitação da recompensa, mediante a solicitação.",
+                            "en": "",
+                            "es": ""
+                        }
+                    ]
+                }
+            ],
+            "itemPontos": [
+                {
+                    "pt": "4.3. Cada 100 pontos SILIUM equivalem a UM REAL e poderá ser convertido em dinheiro para saque ou em pontos correspondentes de outros programas de relacionamento conveniados.",
+                    "en": "",
+                    "es": ""
+                }
+            ],
+            "itemEssenciais": [
+                {
+                    "pt": "4.4. Ao dizermos que os Requisitos Essenciais são cumulativos, significa que todos deverão ser cumpridos para que surja o direito ao recebimento do Cashback. Por exemplo, cumpridos os Requisitos, somente após solicitar o resgate, informando alguns dados adicionais, você adquirirá o direito de receber os valores.",
+                    "en": "",
+                    "es": ""
+                }
+            ],
+            "itemSolicitarResgate": [
+                {
+                    "pt": "4.5. Antes da solicitação do resgate, os valores demonstrados na sua conta SILIUM são meramente indicativos, e não representam nenhum direito adquirido, pois os Requisitos Essenciais ainda não foram integralmente cumpridos.",
+                    "en": "",
+                    "es": ""
+                }
+            ],
+            "itemPrimeiramente": [
+                {
+                    "pt": "4.6. Primeiramente, você deve fazer um cadastro em nosso Site, prestando algumas informações. Não se preocupe, suas informações e dados pessoais fornecidos serão armazenados em nossos sistemas, de forma confidencial e segura, conforme nossa Política de Privacidade. Não faremos nenhuma utilização indevida, nem divulgaremos seus dados a qualquer terceiro sem a sua autorização, sob as penas da Lei.",
+                    "en": "",
+                    "es": ""
+                }
+            ],
+            "itemInformacoes": [
+                {
+                    "pt": "4.7. As informações prestadas no cadastro devem ser exatas, precisas e verdadeiras, e você se compromete a atualizar o cadastro sempre que houver alguma alteração nos seus dados. Nós poderemos nos utilizar de todos os meios legais para confirmar a veracidade desses dados, embora não nos responsabilizemos, em hipótese nenhuma, por dados incorretos ou não verdadeiros informados por você. Isto é, você nos garante e assume responsabilidade pela veracidade, exatidão e autenticidade de todos os dados que nos fornece.",
+                    "en": "",
+                    "es": ""
+                }
+            ],
+            "itemConclusao": [
+                {
+                    "pt": "4.8. Após a conclusão do cadastro, você terá um nome de Usuário e uma senha. Este nome de Usuário e esta senha são de uso pessoal e intransferível, e de uso exclusivo por você, não podendo ser repassados a terceiros. Você assume, portanto, total responsabilidade por sua guarda e sigilo, com a obrigação de evitar que sejam utilizados por outras pessoas.",
+                    "en": "",
+                    "es": ""
+                }
+            ],
+            "itemRecomendamos": [
+                {
+                    "pt": "4.9. Recomendamos fortemente que você mude sua senha periodicamente, e que não utilize senhas que facilitem a adivinhação por terceiros, como números de telefone, endereço, datas de nascimento, nomes de parentes etc.",
+                    "en": "",
+                    "es": ""
+                }
+            ],
+            "itemRequisitos": [
+                {
+                    "pt": "4.10. Para que os Requisitos B e C do item '4.2' sejam cumpridos, é essencial que você esteja logado no Portal que possua seu cadastro do SILIUM, e clique em algum anúncio disponibilizado no Portal para ser redirecionado ao site do Anunciante. A compra deve ser concluída na sequência, sem o fechamento dos navegadores. Retornar ao site sem passar pelo clube de vantagens e clicar no link de redirecionamento, não ativa a contabilização do SILIUM, o que impede qualquer tipo de Cashback.",
+                    "en": "",
+                    "es": ""
+                }
+            ],
+            "itemSaldo": [
+                {
+                    "pt": "4.11. O saldo dos valores de reembolso é confirmado ou cancelado na sua área 'Minha Conta' em até 90 (noventa) dias após a data da compra. Os valores correspondentes ao reembolso somente serão confirmados se o Anunciante nos confirmar a conclusão da sua compra, caso contrário serão cancelados.",
+                    "en": "",
+                    "es": ""
+                }
+            ],
+            "itemCompra": [
+                {
+                    "pt": "4.12. A compra não será considerada concluída, pelo Anunciante, caso sejam realizadas quaisquer trocas por produtos diferentes em relação ao adquirido, cancelamentos ou devoluções de produtos. Por isso, para que os valores de reembolso sejam confirmados, é importante que não tenha ocorrido troca por produto e/ou parceiros que não sejam aderentes ao CashBack, cancelamento ou devolução do produto.",
+                    "en": "",
+                    "es": ""
+                }
+            ],
+            "blocoErroConfirmacao": [
+                {
+                    "titulo": [
+                        {
+                            "pt": "4.13 Caso você entenda que ocorreu algum erro com a confirmação de sua compra e com o respectivo crédito do Cashback, poderá abrir uma Reclamação no próprio Portal, ciente de que",
+                            "en": "",
+                            "es": ""
+                        }
+                    ],
+                    "itemInformarDetalhes": [
+                        {
+                            "pt": "a) Você deverá nos informar alguns detalhes da sua compra, para que possamos entrar em contato com o Anunciante e apurar o erro;",
+                            "en": "",
+                            "es": ""
+                        }
+                    ],
+                    "itemPedidoAcompanhado": [
+                        {
+                            "pt": "b) O pedido será periodicamente acompanhado e atualizado por nós, e os canais de atendimento estarão sempre aptos a atendê-lo, mas é importante que você saiba que os Anunciantes podem demorar algumas semanas ou até alguns meses para analisar as reclamações; e",
+                            "en": "",
+                            "es": ""
+                        }
+                    ],
+                    "itemReclamacao": [
+                        {
+                            "pt": "c) Se identificarmos uma reclamação falsa, fraudulenta ou de má-fé, sua conta no SILIUM poderá ser excluída, com a automática expiração de eventual saldo, bem como as medidas legais tomadas para sanar eventuais prejuízos.",
+                            "en": "",
+                            "es": ""
+                        }
+                    ]
+                }
+            ],
+            "itemSaldoSilium": [
+                {
+                    "pt": "4.14. O seu saldo de SILIUM é cumulativo, e vai aumentando a cada compra confirmada. Os valores não estão sujeitos a correção monetária por qualquer forma, e conforme já mencionado nestes Termos de Uso, são meramente indicativos e ainda não representam um direito seu a recebê-los.",
+                    "en": "",
+                    "es": ""
+                }
+            ],
+            "itemAdquirirDireito": [
+                {
+                    "pt": "4.15. Para que você adquira o direito a receber seu saldo de Cashback, é necessário ainda cumprir os requisitos: acumular saldo mínimo de 10.000 SILIUM; e efetuar os procedimentos de solicitação de resgate. Somente após você solicitar o resgate nós teremos o compromisso de pagá-lo e você o direito a receber seu saldo.",
+                    "en": "",
+                    "es": ""
+                }
+            ],
+            "itemAposSolicitacao": [
+                {
+                    "pt": "4.15.1. Após a solicitação do resgate, caso opte por receber a quantia em sua conta corrente, o Markt Club fará a conversão de SILIUM para REAL e efetuará a transferência em até 15 (quinze) dias.",
+                    "en": "",
+                    "es": ""
+                }
+            ],
+            "blocoSituacoesPerda": [
+                {
+                    "titulo": [
+                        {
+                            "pt": "4.16. Importante! Situações que provocam a PERDA DE PONTOS.",
+                            "en": "",
+                            "es": ""
+                        }
+                    ],
+                    "itemCasoOfereca": [
+                        {
+                            "pt": "a) Caso você não efetue login no PORTAL por 12 (doze meses) meses, seu saldo do SILIUM expirará e será zerado, e você não poderá mais adquirir o direito a receber estes valores.",
+                            "en": "",
+                            "es": ""
+                        }
+                    ],
+                    "itemEmpresaAdministra": [
+                        {
+                            "pt": "b) O Markt Club é uma empresa que administra Clube de Vantagens e Convênios para entidades de classe e grandes empresas, não possuindo operações de varejo para contratação direta de Usuários PESSOA FÍSICA. Diante disso, caso o CONTRATANTE do Markt Club cancele ou não renove o contrato do clube de vantagens, os saldos dos Usuários participantes deste clube de vantagens serão automaticamente cancelados, justamente por não existir mais vínculo contratual entre as partes.",
+                            "en": "",
+                            "es": ""
+                        }
+                    ]
+                }
+            ],
+            "itemValorReferente": [
+                {
+                    "pt": "4.17. O valor referente aos resgates solicitados será creditado em dinheiro na sua conta bancária, na área do Usuário, acessando CASHBACK SILIUM, botão: SOLICITAR RESGATE. É necessário que o CPF do titular da conta bancária seja o mesmo CPF cadastrado no SILIUM por você. Além disso, esta conta bancária somente poderá estar vinculada a um único CPF cadastrado na base de dados do Markt Club.",
+                    "en": "",
+                    "es": ""
+                }
+            ],
+            "itemCadastrarSilium": [
+                {
+                    "pt": "4.17.1. Ao se cadastrar no SILIUM o Usuário garante possuir Conta Corrente ou Poupança de sua titularidade, para a qual o resgate será enviado após a confirmação do saldo. É expressamente vedada a utilização de conta-salário para pedidos de resgate.",
+                    "en": "",
+                    "es": ""
+                }
+            ]
+        }
+    ],
+    "blocoResponsabilidade": [
+        {
+            "titulo": [
+                {
+                    "pt": "5. Responsabilidades e outras questões",
+                    "en": "",
+                    "es": ""
+                }
+            ],
+            "itemResponsabilidade": [
+                {
+                    "pt": "5.1. É de sua responsabilidade manter seu sistema protegido contra vírus e outros malwares. Dessa forma, não nos responsabilizamos por danos causados por vírus e malwares em decorrência de acesso, utilização ou navegação no site na internet ou como consequência da transferência de dados, arquivos, imagens, textos ou áudio contidos no mesmo. É de sua responsabilidade a certificação de estar acessando sua conta em redes seguras.",
+                    "en": "",
+                    "es": ""
+                }
+            ],
+            "itemResponsaveis": [
+                {
+                    "pt": "5.2. Não somos responsáveis por qualquer ação ou omissão dos Usuários tomada com base em informações, anúncios ou outros materiais veiculados no Portal.",
+                    "en": "",
+                    "es": ""
+                }
+            ],
+            "itemMarktclub": [
+                {
+                    "pt": "5.3. O Markt Club se esforça para manter o Portal sempre atualizado, mas não temos responsabilidade sobre qualquer informação imprecisa, inexata, errada, fraudulenta ou divergente nos materiais veiculados pelos Anunciantes. Por isso, é sempre importante que você acesse diretamente o site dos Anunciantes para confirmar e obter as informações necessárias sobre os produtos e serviços.",
+                    "en": "",
+                    "es": ""
+                }
+            ],
+            "itemPlataformaVirtual": [
+                {
+                    "pt": "5.4. Por ser uma plataforma virtual de publicidade virtual, que apenas veicula e divulga propagandas e informações de produtos ou serviços dos Anunciantes, não nos responsabilizamos por compras efetuadas entre vocês e os Anunciantes. Da mesma forma, não prestamos garantia, em qualquer hipótese, de produtos ou serviços adquiridos, e estamos isentos de quaisquer reivindicações ou ações judiciais propostas por Usuários ou terceiros.",
+                    "en": "",
+                    "es": ""
+                }
+            ],
+            "blocoItemImportante": [
+                {
+                    "titulo": [
+                        {
+                            "pt": "5.5. É muito importante que você entenda que o Markt Club não possui qualquer responsabilidade sobre as seguintes situações, que deverão ser resolvidas diretamente com os Anunciantes dos quais vocês efetuaram as compras:",
+                            "en": "",
+                            "es": ""
+                        }
+                    ],
+                    "itemConteudo": [
+                        {
+                            "pt": "a) Conteúdo e funcionamento dos sites ou lojas dos Anunciantes;",
+                            "en": "",
+                            "es": ""
+                        }
+                    ],
+                    "itemNegociacoes": [
+                        {
+                            "pt": "b) Negociações e transações comerciais feitas entre os Usuários e os Anunciantes, assim como eventuais danos e prejuízos resultantes;",
+                            "en": "",
+                            "es": ""
+                        }
+                    ],
+                    "itemOrigem": [
+                        {
+                            "pt": "c) Origem, qualidade, quantidade e entrega dos produtos e serviços divulgados pelos Anunciantes;",
+                            "en": "",
+                            "es": ""
+                        }
+                    ],
+                    "itemObrigacoes": [
+                        {
+                            "pt": "d) Obrigações de natureza tributária aplicáveis às transações entre os Usuários e os Anunciantes.",
+                            "en": "",
+                            "es": ""
+                        }
+                    ]
+                }
+            ],
+            "itemOpinioes": [
+                {
+                    "pt": "5.6. Nós também não nos responsabilizamos por opiniões e reclamações de Usuários sobre os Anunciantes, seus produtos ou serviços, sendo a responsabilidade exclusiva de quem as emitiu.",
+                    "en": "",
+                    "es": ""
+                }
+            ]
+        }
+    ],
+    "blocoTratamento": [
+        {
+            "titulo": [
+                {
+                    "pt": "Tratamento de Dados",
+                    "en": "",
+                    "es": ""
+                }
+            ],
+            "itemFacilitar": [
+                {
+                    "pt": "6.1. Para facilitar a compreensão deste item, estabelecemos algumas definições, alinhadas com o que dispõe a legislação brasileira de proteção de dados:",
+                    "en": "",
+                    "es": ""
+                }
+            ],
+            "itemInformacaoRelacionada": [
+                {
+                    "pt": "Dado Pessoal: informação relacionada a pessoa natural identificada ou identificável.",
+                    "en": "",
+                    "es": ""
+                }
+            ],
+            "itemInformacaoSensivel": [
+                {
+                    "pt": "Dado Pessoal Sensível: dado pessoal sobre origem racial ou étnica, convicção religiosa, opinião política, filiação a sindicato ou a organização de caráter religioso, filosófico ou político, dado referente à saúde ou à vida sexual, dado genético ou biométrico, quando vinculado a uma pessoa natural.",
+                    "en": "",
+                    "es": ""
+                }
+            ],
+            "itemTratamento": [
+                {
+                    "pt": "Tratamento: toda operação realizada com dados pessoais, como as que se referem a coleta, produção, recepção, classificação, utilização, acesso, reprodução, transmissão, distribuição, processamento, arquivamento, armazenamento, eliminação, avaliação ou controle da informação, modificação, comunicação, transferência, difusão ou extração.",
+                    "en": "",
+                    "es": ""
+                }
+            ],
+            "itemControlador": [
+                {
+                    "pt": "Controlador: pessoa natural ou jurídica, de direito público ou privado, a quem competem as decisões referentes ao tratamento de dados pessoais.",
+                    "en": "",
+                    "es": ""
+                }
+            ],
+            "blocoCadastra": [
+                {
+                    "titulo": [
+                        {
+                            "pt": "6.2. A partir do momento em que você se cadastra no Portal do Markt Club, você fornece o seu consentimento específico, livre, informado e inequívoco, para que:",
+                            "en": "",
+                            "es": ""
+                        }
+                    ],
+                    "itemTratamento": [
+                        {
+                            "pt": "a. Nós realizemos o Tratamento de seus Dados, para que possamos veicular, de modo mais adequado ao seu perfil, anúncios de produtos e serviços fornecidos pelos Anunciantes; e",
+                            "en": "",
+                            "es": ""
+                        }
+                    ],
+                    "itemCompartilhemos": [
+                        {
+                            "pt": "b. Nós compartilhemos com nossos Anunciantes e empresas do Conglomerado Financeiro Alfa: Banco Alfa de Investimento S.A., Banco Alfa S.A., Financeira Alfa S.A. - C.F.I., Alfa Arrendamento Mercantil S.A., Alfa Corretora de Câmbio e Valores Mobiliários S.A., Alfa Previdência e Vida S.A. e Alfa Seguradora S.A. ('Conglomerado Financeiro Alfa'), os Dados necessários para que esses Anunciantes possam identificar você como um membro do Portal do Markt Club.",
+                            "en": "",
+                            "es": ""
+                        }
+                    ],
+                    "itemManifestarem": [
+                        {
+                            "pt": "b.1. Ao manifestarem sua aceitação com o presente termo, os Titulares consentem e concordam expressamente que os Anunciantes e empresas do Conglomerado Financeiro, realizem o tratamento de seus Dados Pessoais única e exclusivamente para as finalidades acima especificadas no item 'a' acima e item 'i' da cláusula 6.4, ressalvadas demais hipóteses previstas na legislação vigente à época.",
+                            "en": "",
+                            "es": ""
+                        }
+                    ]
+                }
+            ],
+            "blocoDireitosEstabelecidos": [
+                {
+                    "titulo": [
+                        {
+                            "pt": "6.3. Você tem todos os seus direitos estabelecidos na legislação de proteção de dados garantidos:",
+                            "en": "",
+                            "es": ""
+                        }
+                    ],
+                    "itemTratamento": [
+                        {
+                            "pt": "a. Nós realizemos o Tratamento de seus Dados, para que possamos veicular, de modo mais adequado ao seu perfil, anúncios de produtos e serviços fornecidos pelos Anunciantes; e",
+                            "en": "",
+                            "es": ""
+                        }
+                    ],
+                    "itemAnunciantes": [
+                        {
+                            "pt": "b. Nós compartilhemos com nossos Anunciantes e empresas do Conglomerado Financeiro Alfa: Banco Alfa de Investimento S.A., Banco Alfa S.A., Financeira Alfa S.A. - C.F.I., Alfa Arrendamento Mercantil S.A., Alfa Corretora de Câmbio e Valores Mobiliários S.A., Alfa Previdência e Vida S.A. e Alfa Seguradora S.A. ("Conglomerado Financeiro Alfa"), os Dados necessários para que esses Anunciantes possam identificar você como um membro do Portal do Markt Club.",
+                            "en": "",
+                            "es": ""
+                        }
+                    ],
+                    "itemManifestarem": [
+                        {
+                            "pt": "b.1. Ao manifestarem sua aceitação com o presente termo, os Titulares consentem e concordam expressamente que os Anunciantes e empresas do Conglomerado Financeiro, realizem o tratamento de seus Dados Pessoais única e exclusivamente para as finalidades acima especificadas no item “a” acima e item “i” da cláusula 6.4, ressalvadas demais hipóteses previstas na legislação vigente à época.",
+                            "en": "",
+                            "es": ""
+                        }
+                    ]
+                }
+            ],
+            "blocoProtecaoDeDados": [
+                {
+                    "titulo" : [
+                        {
+                            "pt": "6.3. Você tem todos os seus direitos estabelecidos na legislação de proteção de dados garantidos:",
+                            "en": "",
+                            "es": ""
+                        }
+                    ],
+                    "itemConfirmacao": [
+                        {
+                            "pt": "a. Confirmação da existência de Tratamento;",
+                            "en": "",
+                            "es": ""
+                        }
+                    ],
+                    "itemAcessoDados": [
+                        {
+                            "pt": "b. Acesso aos Dados;",
+                            "en": "",
+                            "es": ""
+                        }
+                    ],
+                    "itemCorrecao": [
+                        {
+                            "pt": "c. Correção de Dados incompletos, inexatos ou desatualizados;",
+                            "en": "",
+                            "es": ""
+                        }
+                    ],
+                    "itemAmortizacao": [
+                        {
+                            "pt": "d. Anonimização, bloqueio ou eliminação de Dados desnecessários, excessivos ou tratados em desconformidade com a lei;",
+                            "en": "",
+                            "es": ""
+                        }
+                    ],
+                    "itemPortabilidade": [
+                        {
+                            "pt": "e. Portabilidade dos Dados;",
+                            "en": "",
+                            "es": ""
+                        }
+                    ],
+                    "itemEliminacao": [
+                        {
+                            "pt": "f. Eliminação dos Dados tratados com o consentimento;",
+                            "en": "",
+                            "es": ""
+                        }
+                    ],
+                    "itemInformacaoEntidades": [
+                        {
+                            "pt": "g. Informação sobre entidades públicas e privadas com as quais foi realizado uso compartilhado de Dados;",
+                            "en": "",
+                            "es": ""
+                        }
+                    ],
+                    "itemInformacaoPossibilidade": [
+                        {
+                            "pt": "h. Informação sobre a possibilidade de não fornecimento do consentimento e sobre as consequências da negativa;",
+                            "en": "",
+                            "es": ""
+                        }
+                    ],
+                    "itemRevogacao": [
+                        {
+                            "pt": "i. Revogação do consentimento; e",
+                            "en": "",
+                            "es": ""
+                        }
+                    ],
+                    "itemRevisao": [
+                        {
+                            "pt": "j. Revisão de decisões automatizadas tomadas com base no Tratamento de Dados.",
+                            "en": "",
+                            "es": ""
+                        }
+                    ]
+                }
+            ],
+            "itemExercerDireitos": [
+                {
+                    "pt": "6.3.1. Caso você queira exercer algum desses direitos, basta encaminhar um e-mail especificando o direito a ser exercido para atendimento@marktclub.com.br, com o assunto Exercício de Direitos LGPD.",
+                    "en": "",
+                    "es": ""
+                }
+            ],
+            "blocoCadaAnunciante": [
+                {
+                    "titulo": [
+                        {
+                            "pt": "Cada Anunciante, em especial, em relação aos Dados mencionados no item “b” da cláusula 6.2. é considerado um Controlador independente e responde isoladamente pelos danos eventualmente causados, de modo que não existe, em hipótese alguma, a nossa responsabilidade em relação ao Tratamento de Dados que venha a ser realizado por qualquer um dos Anunciantes. Quando preencher o cadastro complementar:",
+                            "en": "",
+                            "es": ""
+                        }
+                    ],
+                    "textoConsertimento": [
+                        {
+                            "pt": "Forneço meu consentimento específico, livre, informado e inequívoco, para que a Markt Club e as Empresas do Conglomerado Financeiro Alfa:",
+                            "en": "",
+                            "es": ""
+                        }
+                    ],
+                    "itemTratamento": [
+                        {
+                            "pt": "(i) realizem o tratamento de meus dados pessoais e dados pessoais sensíveis, com a finalidade de veicular, de modo mais adequado ao meu perfil, material informativo sobre o mercado financeiro, anúncios de produtos e serviços fornecidos pelos seus anunciantes e empresas do Conglomerado Financeiro Alfa; e",
+                            "en": "",
+                            "es": ""
+                        }
+                    ],
+                    "itemCompartilhe": [
+                        {
+                            "pt": "(ii) compartilhe com seus anunciantes e empresas do Conglomerado Financeiro Alfa os dados necessários para que esses anunciantes e o Conglomerado Financeiro Alfa possam me identificar como um membro do Clube de Vantagens e usuário do sistema de CASHBACK SILIUM.",
+                            "en": "",
+                            "es": ""
+                        }
+                    ],
+                    "itemEstouCiente": [
+                        {
+                            "pt": "Estou ciente que os dados tratados pela Markt Club e as Empresas do Conglomerado Financeiro Alfa incluem aqueles relativos ao preenchimento deste cadastro, bem como os relativos aos meus acessos ao Clube de Serviços.",
+                            "en": "",
+                            "es": ""
+                        }
+                    ]
+                }
+            ]:
+
+
+
+
+
+
+
+
+
+
+
+
+        }
+    ]
+
+
+
+
+
+}

@@ -1,0 +1,30 @@
+{
+    "textoCpfDependente": [
+        {
+            "pt": "CPF DO DEPENDENTE:",
+            "en": "",
+            "es": ""
+        }
+    ],
+    "textoCriadoEm": [
+        {
+            "pt": "CRIADO EM",
+            "en": "",
+            "es": ""
+        }
+    ],
+    "textoValidoAte": [
+        {
+            "pt": "VÁLIDO ATÉ",
+            "en": "",
+            "es": ""
+        }
+    ],
+    "textoAdministradoPor": [
+        {
+            "pt": "Administrado por:",
+            "en": "",
+            "es": ""
+        }
+    ]
+}

@@ -1,0 +1,38 @@
+{
+    "tituloExcluirConta": [
+        {
+            "pt": "Excluir conta",
+            "en": "",
+            "es": ""
+        }
+    ],
+    "textoExcluirConta": [
+        {
+            "pt": "",
+            "en": "",
+            "es": "Para fazer um pedido de exclusão de conta, preenchar o formulário abaixo:"
+        }
+    ],
+    "formNome": [
+        {
+            "pt": "Digite seu nome",
+            "en": "",
+            "es": ""
+        }
+    ],
+    "formCpf": [
+        {
+            "pt": "Digite seu cpf",
+            "en": "",
+            "es": ""
+        }
+    ]
+    ,
+    "botaoFazerSolicitacao": [
+        {
+            "pt": "Fazer solicitação",
+            "en": "",
+            "es": ""
+        }
+    ]
+}
