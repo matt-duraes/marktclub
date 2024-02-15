@@ -28,39 +28,51 @@ const setarTipoInput = (valorData = '') => {
     inputCpf.parentNode.classList.add('display_none');
     input.parentNode.classList.remove('display_none');
 
+    if (tipoAtivacao == 'email' && valorData != 'dependente' || valorData == 'indicado') {
+        inputCpf.parentNode.classList.add('display_none');
+        input.setAttribute('placeholder', 'Digite o seu e-mail');
+        input.setAttribute('type', 'email');
+        return;
+    }
+
     if (tipoAtivacao == 'siape' && valorData != 'dependente') {
+        inputCpf.parentNode.classList.add('display_none');
         input.setAttribute('placeholder', 'Digite o seu SIAPE');
         return;
     }
     if (tipoAtivacao == 'matricula' && valorData != 'dependente') {
+        inputCpf.parentNode.classList.add('display_none');
         input.setAttribute('placeholder', 'Digite a sua matrícula');
-        return;
-    }
-
-    if (tipoAtivacao == 'email' && valorData != 'dependente') {
-        input.setAttribute('placeholder', 'Digite o seu e-mail');
-        input.setAttribute('type', 'email');
         return;
     }
 
     input.parentNode.classList.add('display_none');
     inputCpf.parentNode.classList.remove('display_none');
 };
-
 const loadingAtivarBuscar = () => {
     const botoesTipoUsuario = document.querySelectorAll('.botao_tipo_usuario');
+    console.log(botoesTipoUsuario);
     let valorData = '';
     botoesTipoUsuario.forEach(botao => {
         botao.addEventListener('click', e => {
             valorData = botao.getAttribute('data-tipo');
             setarTipoInput(valorData);
-            if (valorData == 'dependente') {
-                $('.botao_titular').classList.remove('cor_bg');
-                $('.botao_dependente').classList.add('cor_bg');
-                return;
-            }
+
             $('.botao_dependente').classList.remove('cor_bg');
-            $('.botao_titular').classList.add('cor_bg');
+            $('.botao_titular').classList.remove('cor_bg');
+            $('.botao_indicado').classList.remove('cor_bg');
+
+            switch (valorData) {
+                case 'dependente':
+                    $('.botao_dependente').classList.add('cor_bg');
+                    break;
+                case 'titular':
+                    $('.botao_titular').classList.add('cor_bg');
+                    break;
+                case 'indicado':
+                    $('.botao_indicado').classList.add('cor_bg');
+                    break;
+            };
         });
     });
 
@@ -80,8 +92,13 @@ const loadingAtivarBuscar = () => {
             busca: inputBuscar.value ? inputBuscar.value : inputBuscarCpf.value,
             tipo_usuario: valorData,
         });
+
         Loading.hide();
         if (false == resposta) {
+            return;
+        }
+        if (valorData == 'indicado') {
+            criarPaginaAtivarSalvar({ hash: resposta.dado.hash, tipo_usuario: valorData});
             return;
         }
         criarPaginaAtivarSalvar(resposta.dado);

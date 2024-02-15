@@ -49,6 +49,8 @@ final class BuscarModel extends ORM
                 } elseif (!validarCpf($this->valor)) {
                     mensagemErro('Campo inválido!', 'Digite um CPF válido para continuar.');
                 }
+
+                return;
             }
         }
 

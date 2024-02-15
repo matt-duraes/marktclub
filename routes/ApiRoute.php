@@ -464,7 +464,7 @@ Route
             ::nome('ativar')
             ::middleware(TokenMiddleware::class, 'scope', ['usuario_indicacao:ativar'])
             ::request([
-                'hash'
+                '!hash', '!email'
             ])
             ::post('/usuario-indicacao/ativar');
     });

@@ -2,7 +2,7 @@
 
 namespace App\Models\Api\UsuarioCliente\Ativar;
 
-use App\Controllers\Api\Ativar\Trait\AtivarTrait;
+use App\Models\Api\UsuarioCliente\Ativar\Trait\AtivarTrait;
 use ORM\ORM;
 use stdClass;
 use Modules\Cpf;

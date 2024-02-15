@@ -143,24 +143,33 @@ final class LoginController extends Controller
         if (TIPO_ATIVACAO == 'cpf') {
             $valor = str_replace(['.', '-'], '', $valor);
         }
-
-        $buscar = (new ApiHelper('usuario_cliente:ativar'))
-            ->body([
-                'tipo_usuario' => $request->tipo_usuario,
-                'chave'        => TIPO_ATIVACAO,
-                'valor'        => $valor,
-                'empresa'      => CLUBE_EMPRESA
-            ])
-            ->post('/usuario-cliente/ativar')
-            ->object();
+        if ($request->tipo_usuario == 'indicado') {
+            $buscar = (new ApiHelper('usuario_indicacao:ativar'))
+                ->validar('Ocorreu um erro ao validar seu código, por favor, tente novamente.')
+                ->body([
+                    'email'   => $this->crypt()->encode($request->busca),
+                ])
+                ->post('/usuario-indicacao/ativar')
+                ->object();
+        } else {
+            $buscar = (new ApiHelper('usuario_cliente:ativar'))
+                ->body([
+                    'tipo_usuario' => $request->tipo_usuario,
+                    'chave'        => TIPO_ATIVACAO,
+                    'valor'        => $valor,
+                    'empresa'      => CLUBE_EMPRESA
+                ])
+                ->post('/usuario-cliente/ativar')
+                ->object();
+        }
 
         if ($buscar->status == 'erro') {
             return mensagemErro(404, $buscar->erro->mensagem);
         }
 
         return mensagemSucesso([
-            'hash'  => $buscar->dado->hash,
-            'cpf'   => $buscar->dado->cpf
+            'hash'  => $buscar->dado->hash ?? '',
+            'cpf'   => $buscar->dado->cpf ?? ''
         ], status: 201);
     }
 
