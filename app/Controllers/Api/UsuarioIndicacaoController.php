@@ -44,7 +44,11 @@ final class UsuarioIndicacaoController extends Controller implements
     public function postAtivar(Request $request): Response
     {
         $Indicacao = new IndicacaoEntity();
-        $Indicacao->buscar(['hash', $request->hash], mensagem: 'Indicação não encontrada ou inexistente');
+        $Indicacao->buscar([
+            'OR',
+            ['hash', $request->hash],
+            ['email', $request->email]
+        ], mensagem: 'Indicação não encontrada ou inexistente');
 
         if ($Indicacao->status->numero() == (new Status(Status::INDICADO))->numero()) {
             return $this->retornoSucesso($Indicacao);

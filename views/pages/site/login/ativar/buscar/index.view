@@ -6,24 +6,30 @@
             <i class="fechar pagina_fechar">@iconeFechar</i>
         </header>
 
-        @if(TIPO_ATIVACAO != 'cpf'):
+
         <div class="bloco_escolha_usuario">
             <h1>Selecione o tipo de usuário</h1>
             <div class="bloco_tipo_usuario">
                 <div class="botao_tipo_usuario botao_titular" data-tipo="titular">
                     Titular
                 </div>
+                @if(MENU_DEPENDENTE):
                 <div class="botao_tipo_usuario botao_dependente" data-tipo="dependente">
                     Dependente
                 </div>
+                @endif;
+                @if(MENU_INDICAR_USUARIO):
+                <div class="botao_tipo_usuario botao_indicado" data-tipo="indicado">
+                    Indicado
+                </div>
+                @endif;
             </div>
         </div>
-        @endif;
 
-        <div class="bloco_titular {{TIPO_ATIVACAO != 'cpf' ? 'display_none' : ''}}" data-ativacao="{{TIPO_ATIVACAO ? TIPO_ATIVACAO : ''}}">
+        <div class="bloco_titular display_none" data-ativacao="{{TIPO_ATIVACAO ? TIPO_ATIVACAO : ''}}">
             <h1>Insira o dado solicitado</h1>
             @? formCpf(name: 'buscar_cpf', label: 'Buscar', placeholder: 'Digite seu CPF');
-            <div class="{{TIPO_ATIVACAO == 'cpf' ? 'display_none' : ''}}">
+            <div>
             @? formInput(name: 'buscar', label: 'Buscar', placeholder: 'Insira seus dados');
             </div>
         </div>
