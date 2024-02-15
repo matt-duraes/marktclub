@@ -231,11 +231,13 @@ final class UsuarioClienteController extends Controller implements
     {
         $Usuario = new EnviarCodigoModel(
             $request->empresa,
-            new Cpf($request->cpf)
+            new Cpf($request->cpf),
+            $request->usuario
         );
         return mensagemSucesso([
             'id'      => uuid(),
-            'usuario' => $Usuario->id
+            'usuario' => $Usuario->id,
+            'email' => $Usuario->email
         ]);
     }
 
@@ -275,8 +277,7 @@ final class UsuarioClienteController extends Controller implements
 
     public function postValidarSenha(Request $request)
     {
-        $id = TOKEN['usuario']->id;
-
+        $id = $request->existe('usuario') ? $request->usuario : TOKEN['usuario']->id;
         $senha = $request->senha;
         if (!defined('TOKEN')) {
             mensagemStatus(401, localhost: 'Token não foi definido.');
@@ -287,14 +288,11 @@ final class UsuarioClienteController extends Controller implements
         }
 
         $Usuario = new ClienteEntity();
-        $Usuario->buscar([
-            ['id', $id]
+        $where = is_int($id) ? [['id', $id]] : [['uuid', $id]];
+        $Usuario->buscar($where);
+
+        return mensagemSucesso([
+            'senha' => $Usuario->senha->validarSenha($senha) ? 'sim' : 'nao'
         ]);
-
-        if ($Usuario->senha->validarSenha($senha)) {
-            return mensagemSucesso(['senha' => true]);
-        }
-
-        mensagemErro('Senha inválida!', 'A senha informada é inválida.');
     }
 }

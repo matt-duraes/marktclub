@@ -287,7 +287,7 @@ Route
         Route
             ::nome('validarSenha')
             ::middleware(TokenMiddleware::class, 'scope', ['usuario_cliente:validar_senha'])
-            ::request(['senha'])
+            ::request(['senha', '!usuario'])
             ::post('/usuario-cliente/validar-senha');
         Route
             ::nome('atualizar')
@@ -334,7 +334,7 @@ Route
         Route
             ::nome('senha')
             ::middleware(TokenMiddleware::class, 'scope', ['usuario_cliente:senha'])
-            ::request(['empresa', 'cpf'], 'json')
+            ::request(['empresa', '!cpf', '!usuario'], 'json')
             ::get('/usuario-cliente/senha');
         Route
             ::nome('senha')
