@@ -8,8 +8,8 @@ $Painel->coluna(callback: function () use ($Painel) {
     $Painel->bloco('Traduções', callback: function () use ($Painel) {
         $Painel
             ->linha('termo', 'Texto')
-            ->linha('traducao->en', 'Tradução em Inglês')
-            ->linha('traducao->es', 'Tradução em Espanhol');
+            ->linha('traducao_en', 'Tradução em Inglês')
+            ->linha('traducao_es', 'Tradução em Espanhol');
     });
 
     $Painel->bloco('Outras Informações', callback: function () use ($Painel) {

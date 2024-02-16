@@ -2592,7 +2592,7 @@ Route
             ::nome('salvar')
             ::middleware(TokenMiddleware::class, 'scope', ['painel_tradutor:salvar'])
             ::request([
-                'termo', 'traducao', '!status'
+                'termo', 'traducao_en', 'traducao_es', 'traducao', '!status'
             ])
             ::post('/painel-tradutor');
 
@@ -2600,7 +2600,7 @@ Route
             ::nome('atualizar')
             ::middleware(TokenMiddleware::class, 'scope', ['painel_tradutor:atualizar'])
             ::request([
-                '!termo', '!traducao', '!status'
+                '!termo', '!traducao_en', '!traducao_es', '!traducao', '!status'
             ])
             ::put('/painel-tradutor/{id}');
 
