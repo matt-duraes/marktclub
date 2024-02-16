@@ -8,6 +8,8 @@ use ORM\Entity;
 class TradutorEntity extends Entity
 {
     public string $termo;
+    public string $traducao_en;
+    public string $traducao_es;
     public array|string $traducao;
     public Status $status;
     protected string $ormTabela = TABELA_PAINEL_TRADUTOR;
@@ -25,13 +27,15 @@ class TradutorEntity extends Entity
 
     protected function regraPosBuscar(): void
     {
-        $this->traducao = jsonDecode($this->traducao, true, true);
+        $traducao = jsonDecode($this->traducao, true, true);
+        $this->traducao_en = $traducao['en'];
+        $this->traducao_es = $traducao['es'];
     }
 
     protected function regraSalvar(): void
     {
-        $traducoes['en'] = $this->traducao[0];
-        $traducoes['es'] = $this->traducao[1];
+        $traducoes['en'] = $this->traducao_en;
+        $traducoes['es'] = $this->traducao_es;
         $this->traducao = jsonEncode($traducoes);
         $this->status = new Status(Status::ATIVO);
     }

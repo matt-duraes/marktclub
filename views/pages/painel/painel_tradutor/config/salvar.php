@@ -2,6 +2,6 @@
 
 return [
     'salvar' => [
-        'termo', 'traducao'
+        'termo', 'traducao_en', 'traducao_es', 'traducao'
     ]
 ];

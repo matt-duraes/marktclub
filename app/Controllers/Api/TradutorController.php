@@ -50,7 +50,8 @@ class TradutorController extends Controller implements
     private function retornoPadrao(TradutorEntity $tradutorEntity, int $status = 200): Response
     {
         return mensagemSucesso(pegarPropriedadeDaEntity($tradutorEntity, lista: [
-            'termo', 'traducao', 'status', 'data_criacao', 'data_atualizacao'
+            'termo', 'traducao_en', 'traducao_es', 'traducao',
+            'status', 'data_criacao', 'data_atualizacao'
         ]), $status);
     }
 

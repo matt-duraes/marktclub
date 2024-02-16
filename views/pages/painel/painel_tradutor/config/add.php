@@ -10,13 +10,13 @@ $Painel->coluna(callback: function () use ($Painel) {
             placeholder: 'Digite um texto'
         )
         ->input(
-            name: 'traducao[]',
+            name: 'traducao_en',
             label: 'Tradução Inglês',
             placeholder: 'Digite a tradução em inglês',
             id: 'traducao_en'
         )
         ->input(
-            name: 'traducao[]',
+            name: 'traducao_es',
             label: 'Tradução Espanhol',
             placeholder: 'Digite a tradução em espanhol',
             id: 'traducao_es'
