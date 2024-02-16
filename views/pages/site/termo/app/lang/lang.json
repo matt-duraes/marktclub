@@ -22,28 +22,28 @@
                     "es": ""
                 }
             ],
-            "itemColetaInformacoes": [
+            "textoColetaInformacoes": [
                 {
                     "pt": "O aplicativo coleta algumas informações dependendo da área de navegação, são eles:",
                     "en": "",
                     "es": ""
                 }
             ],
-            "itemDadosPessoais": [
+            "textoDadosPessoais": [
                 {
                     "pt": "1 - Dados pessoais como e-mail, telefone, data de nascimento entre outros. Isso acontece quando você atualiza seu perfil ou ativa seu cadastro. Vale ressaltar que todos os dados são guardados em um local seguro, não são repassados à terceiros e possuímos todos os protocolos de segurança, sendo criptografada toda e qualquer transmissão de dados.",
                     "en": "",
                     "es": ""
                 }
             ],
-            "itemGeolocalizacao": [
+            "textoGeolocalizacao": [
                 {
                     "pt": "2 - Sua geolocalização (latitude e longitude) ao acessar o mapa de convênios próximos.",
                     "en": "",
                     "es": ""
                 }
             ],
-            "itemNovasAreas": [
+            "textoNovasAreas": [
                 {
                     "pt": "3 - Novas áreas, que podem ser adicionadas futuramente.",
                     "en": "",
@@ -61,7 +61,7 @@
                     "es": ""
                 }
             ],
-            "itemTextoHyper": [
+            "textoTextoHyper": [
                 {
                     "pt": "O aplicativo não garante o pleno funcionamento de <span>hyperlinks</span> externos que não são de sua responsabilidade e qualquer dado informado pelo usuário diretamente nesses endereços de terceiros.",
                     "en": "",
@@ -79,7 +79,7 @@
                     "es": ""
                 }
             ],
-            "itemTextoRequisicoes": [
+            "textoTextoRequisicoes": [
                 {
                     "pt": "Todas as requisições pelo aplicativo rodam em um ambiente criptografado garantido uma alta taxa de segurança para o usuário.",
                     "en": "",
@@ -97,7 +97,7 @@
                     "es": ""
                 }
             ],
-            "itemAceitacao": [
+            "textoAceitacao": [
                 {
                     "pt": "Ao utilizar esse aplicativo, o usuário aceita esse termo e os demais termos da plataforma, tanto do aplicativo como dos demais termos de uso do site.",
                     "en": "",

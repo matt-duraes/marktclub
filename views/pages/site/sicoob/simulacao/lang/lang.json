@@ -1,0 +1,124 @@
+{
+    "textoSimulacao": [
+        {
+            "pt": "Simulação empréstimo",
+            "en": "",
+            "es": ""
+        }
+    ],
+    "textoValor": [
+        {
+            "pt": "Valor da simulação",
+            "en": "",
+            "es": ""
+        }
+    ],
+    "blocoEmprestimo": [
+        {
+            "tituloDadosEmprestimo": [
+                {
+                    "pt": "DADOS DO EMPRÉSTIMO",
+                    "en": "",
+                    "es": ""
+                }
+            ],
+            "textoPreenchaOsCampos": [
+                {
+                    "pt": "Preencha os campos abaixo para fazer sua simulação",
+                    "en": "",
+                    "es": ""
+                }
+            ],
+            "formValor": [
+                {
+                    "pt": "Qual o valor desejado?",
+                    "en": "",
+                    "es": ""
+                }
+            ],
+            "formPrazo": [
+                {
+                    "pt": "Qual o prazo desejado?",
+                    "en": "",
+                    "es": ""
+                }
+            ],
+            "linkAbrirRegulamento": [
+                {
+                    "pt": "Abrir Regulamento",
+                    "en": "",
+                    "es": ""
+                }
+            ],
+            "botaoCOntinuar": [
+                {
+                    "pt": "Continuar",
+                    "en": "",
+                    "es": ""
+                }
+            ]
+        }
+    ],
+
+    "blocoSimulacao": [
+        {
+            "tituloSimulacao": [
+                {
+                    "pt": "SIMULAÇÃO",
+                    "en": "",
+                    "es": ""
+                }
+            ],
+            "textoValorParcela": [
+                {
+                    "pt": "Valor da parcela com seguro:",
+                    "en": "",
+                    "es": ""
+                }
+            ],
+            "tituloEmprestimo": [
+                {
+                    "pt": "Para um empréstimo de",
+                    "en": "",
+                    "es": ""
+                }
+            ],
+            "subtituloEmprestimo": [
+                {
+                    "pt": "em vezes",
+                    "en": "",
+                    "es": ""
+                }
+            ],
+            "textoTaxasCondicoes": [
+                {
+                    "pt": "*Taxas em condições especiais que poderão ser alteradas sem aviso prévio.",
+                    "en": "",
+                    "es": ""
+                }
+            ],
+            "botaoVoltar": [
+                {
+                    "pt": "Voltar",
+                    "en": "",
+                    "es": ""
+                }
+            ],
+            "botaoContratar": [
+                {
+                    "pt": "Contratar",
+                    "en": "",
+                    "es": ""
+                }
+            ],
+            "avisoTaxas": [
+                {
+                    "pt": "*As taxas utilizadas são para condições especiais e podem ser alteradas sem aviso prévio",
+                    "en": "",
+                    "es": ""
+                }
+            ]
+        }
+    ]
+
+}

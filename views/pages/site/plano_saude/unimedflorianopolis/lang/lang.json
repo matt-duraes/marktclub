@@ -20,21 +20,21 @@
             "es": ""
         }
     ],
-    "conectivoAIntervalo": [
+    "conectivoA": [
         {
             "pt": "a",
             "en": "",
             "es": ""
         }
     ],
-    "conectivoOuMaisIntervalo": [
+    "conectivoOuMais": [
         {
             "pt": "ou mais",
             "en": "",
             "es": ""
         }
     ],
-    "conectivoAcimaIntervalo":[
+    "conectivoAcima":[
         {
             "pt": "acima",
             "en": "",
@@ -55,7 +55,7 @@
             "es": ""
         }
     ],
-    "beneficios": [
+    "blocoBeneficios": [
         {
             "tituloBeneficios": [
                 {
@@ -87,7 +87,7 @@
             ]
         }
     ],
-    "explorarRede": [
+    "blocoExplorarRede": [
         {
             "tituloExplore": [
                 {
@@ -96,35 +96,35 @@
                     "es": ""
                 }
             ],
-            "textoCliqueNoBotao": [
+            "itemCliqueNoBotao": [
                 {
                     "pt": "Clique no botão Consultar rede credenciada",
                     "en": "",
                     "es": ""
                 }
             ],
-            "textoPagina": [
+            "itemPagina": [
                 {
                     "pt": "Na página que abrirá, clique em Busca detalhada",
                     "en": "",
                     "es": ""
                 }
             ],
-            "textoSelecioneEstado": [
+            "itemSelecioneEstado": [
                 {
                     "pt": "Em seguida selecione o estado (UF) que deseja consultar",
                     "en": "",
                     "es": ""
                 }
             ],
-            "textoCamposObrigatorios": [
+            "itemCamposObrigatorios": [
                 {
                     "pt": "Observação: os demais campos não são obrigatórios para realizar a busca da rede credenciada,",
                     "en": "",
                     "es": ""
                 }
             ],
-            "textoSelecionarEstado": [
+            "itemSelecionarEstado": [
                 {
                     "pt": "mas caso queira é possível selecionar a cidade e especialidade que desejar.",
                     "en": "",
@@ -140,8 +140,7 @@
             ]
         }
     ],
-
-    "carencia": [
+    "blocoCarencia": [
         {
             "tituloCarencia": [
                 {
@@ -157,7 +156,6 @@
                     "es": ""
                 }
             ],
-
             "blocoUrgencia": [
                 {
                     "procedimento": [
@@ -321,7 +319,6 @@
                             "es": ""
                         }
                     ]
-
                 }
             ],
             "blocoRadioterapia": [
@@ -403,8 +400,7 @@
             ]
         }
     ],
-
-    "grandeFlorianopolis": [
+    "blocoGrandeFlorianopolis": [
         {
             "tituloPrecosPlano": [
                 {
@@ -457,7 +453,7 @@
             ]
         }
     ],
-    "ressarcimento": [
+    "blocoRessarcimento": [
         {
             "tituloRessarcimento": [
                 {
@@ -482,7 +478,7 @@
             ]
         }
     ],
-    "uniflexRegional": [
+    "blocoUniflexRegional": [
         {
             "segmentacao": [
                 {
@@ -513,7 +509,7 @@
                     ],
                     "textoAbrangencia": [
                         {
-                            "pt": "Grupo de municípios: Água Mornas, Alfredo Wagner, Angelina, Anitápolis, Antônio, Carlos, Biguaçu, Florianópolis, Garopaba, Governador Celso Ramos, Leoberto Leal, Major Gercino, Palhoça, Paulo Lopes, Rancho Queimado, Santo Maro da Imperatriz, São Bonifácio, São José, São Pedro de Alcântara e Tijucas",
+                            "pt": "bloco de municípios: Água Mornas, Alfredo Wagner, Angelina, Anitápolis, Antônio, Carlos, Biguaçu, Florianópolis, Garopaba, Governador Celso Ramos, Leoberto Leal, Major Gercino, Palhoça, Paulo Lopes, Rancho Queimado, Santo Maro da Imperatriz, São Bonifácio, São José, São Pedro de Alcântara e Tijucas",
                             "en": "",
                             "es": ""
                         }
@@ -568,7 +564,7 @@
             ]
         }
     ],
-    "uniflexEstadual": [
+    "blocoUniflexEstadual": [
         {
             "segmentacao": [
                 {
@@ -654,7 +650,7 @@
             ]
         }
     ],
-    "uniflexNacional": [
+    "blocoUniflexNacional": [
         {
             "tituloUniflex": [
                 {
@@ -747,7 +743,7 @@
             ]
         }
     ],
-    "blocoSimulacao": [
+    "blocoBlocoSimulacao": [
         {
             "tituloFazerSimulacao": [
                 {

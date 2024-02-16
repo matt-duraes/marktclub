@@ -62,9 +62,30 @@
             "es": ""
         }
     ],
+    "botaoVoltarSimulacao": [
+        {
+            "pt": "Voltar",
+            "en": "",
+            "es": ""
+        }
+    ],
+    "botaoProsseguir": [
+        {
+            "pt": "Prosseguir",
+            "en": "",
+            "es": ""
+        }
+    ],
     "tituloResultadoSimulacao": [
         {
             "pt": "RESULTADO DA SIMULAÇÃO",
+            "en": "",
+            "es": ""
+        }
+    ],
+    "textoTotal": [
+        {
+            "pt": "Total",
             "en": "",
             "es": ""
         }
@@ -79,20 +100,6 @@
     "textoPreenchaFormularios": [
         {
             "pt": "Preencha nosso formulário e um especialista entrará em contato. Fique tranquilo, porque o preenchimento do formulário não implica na contratação, sendo apenas uma ferramenta para tirar eventuais dúvidas e o atendimento acontecer da melhor forma possível.",
-            "en": "",
-            "es": ""
-        }
-    ],
-    "botaoVoltarSimulacao": [
-        {
-            "pt": "Voltar",
-            "en": "",
-            "es": ""
-        }
-    ],
-    "botaoProsseguir": [
-        {
-            "pt": "Prosseguir",
             "en": "",
             "es": ""
         }

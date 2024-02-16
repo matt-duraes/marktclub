@@ -1,0 +1,23 @@
+{
+    "tituloRegulamento": [
+        {
+            "pt": "Regulamento do sorteio",
+            "en": "",
+            "es": ""
+        }
+    ],
+    "textoSemSorteio": [
+        {
+            "pt": "Sem sorteios no momento",
+            "en": "",
+            "es": ""
+        }
+    ],
+    "linkIrParaSite": [
+        {
+            "pt": "Ir para Site",
+            "en": "",
+            "es": ""
+        }
+    ],
+}
