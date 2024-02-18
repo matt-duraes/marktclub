@@ -122,7 +122,7 @@ final class EnviarCodigoModel extends ORM
         }
         $this->email[] = $email;
         $copia = [];
-        if(
+        if (
             !empty($this->usuario->email_pessoal) &&
             !empty($this->usuario->email_trabalho) &&
             $this->usuario->email_pessoal != $this->usuario->email_trabalho
@@ -142,11 +142,12 @@ final class EnviarCodigoModel extends ORM
         );
         $this->mascararEmail();
     }
+
     private function mascararEmail()
     {
         $lista = $this->email;
         $this->email = [];
-        foreach($lista as $email) {
+        foreach ($lista as $email) {
             $email = explode('@', $email);
             $dominio = explode('.', $email[1])[0];
             $final = explode('.', $email[1]);
@@ -158,7 +159,7 @@ final class EnviarCodigoModel extends ORM
             $quantidadeDominio = intdiv(mb_strlen($dominio), 2);
             $quantidadeDominio = $quantidadeDominio > 5 ? 5 : $quantidadeDominio;
 
-            if(!in_array($dominio, ['gmail', 'uol', 'bol', 'hotmail', 'outlook', 'yahoo', 'protonmail'])) {
+            if (!in_array($dominio, ['gmail', 'uol', 'bol', 'hotmail', 'outlook', 'yahoo', 'protonmail'])) {
                 $dominio = mb_substr($dominio, 0, $quantidadeDominio, 'UTF-8') . '***';
             }
             $this->email[] = mb_substr($email[0], 0, $quantidadeEmail, 'UTF-8')

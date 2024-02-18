@@ -152,7 +152,13 @@ final class UsuarioClienteController extends Controller implements
     public function postImagem(Request $request): Response
     {
         $Usuario = new ClienteEntity();
-        $Usuario->uuid($this->pegarIdUsuario());
+        if (!$request->vazio('usuario')) {
+            $Usuario->uuid($request->usuario);
+        } elseif (!empty($this->pegarIdUsuario())) {
+            $Usuario->id($this->pegarIdUsuario());
+        } else {
+            mensagemStatus(status: 404);
+        }
 
         $Usuario->imagem_arquivo = $request->getFiles('arquivo');
         $Usuario->salvar();
@@ -241,7 +247,7 @@ final class UsuarioClienteController extends Controller implements
         return mensagemSucesso([
             'id'      => uuid(),
             'usuario' => $Usuario->id,
-            'email' => $Usuario->email
+            'email'   => $Usuario->email
         ]);
     }
 

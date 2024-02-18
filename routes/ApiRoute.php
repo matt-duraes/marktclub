@@ -304,6 +304,7 @@ Route
         Route
             ::nome('imagem')
             ::middleware(TokenMiddleware::class, 'scope', ['usuario_cliente:atualizar'])
+            ::request(['!usuario'])
             ::request(['arquivo'], 'files')
             ::post('/usuario-cliente/imagem');
         Route
