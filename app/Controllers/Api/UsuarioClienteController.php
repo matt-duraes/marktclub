@@ -12,6 +12,7 @@ use Controller\Controller;
 use App\Classes\UsuarioCliente\Helper;
 use App\Classes\UsuarioCliente\TipoUsuario;
 use App\Classes\ConstrutorClube\TipoAtivacao;
+use App\Models\Api\Trait\ValidarUsuarioTrait;
 use App\Models\Api\UsuarioCliente\AppleModel;
 use App\Models\Api\UsuarioCliente\ClienteModel;
 use App\Models\Api\UsuarioCliente\DeletarModel;
@@ -36,6 +37,8 @@ final class UsuarioClienteController extends Controller implements
     ControllerAtualizarInterface,
     ControllerDeletarInterface
 {
+    use ValidarUsuarioTrait;
+
     /**
      * @param string $id
      *
@@ -149,7 +152,8 @@ final class UsuarioClienteController extends Controller implements
     public function postImagem(Request $request): Response
     {
         $Usuario = new ClienteEntity();
-        $Usuario->uuid($request->id);
+        $Usuario->uuid($this->pegarIdUsuario());
+
         $Usuario->imagem_arquivo = $request->getFiles('arquivo');
         $Usuario->salvar();
 
