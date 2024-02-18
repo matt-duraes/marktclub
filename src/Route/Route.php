@@ -8,6 +8,12 @@ use Erro\Excecao;
 
 final class Route
 {
+    public const REQUEST_TIPO_GET = 'get';
+    public const REQUEST_TIPO_POST = 'post';
+    public const REQUEST_TIPO_PUT = 'put';
+    public const REQUEST_TIPO_JSON = 'json';
+    public const REQUEST_TIPO_FILES = 'files';
+
     private static array $Route = [
         'rota' => [
             'GET'    => [],

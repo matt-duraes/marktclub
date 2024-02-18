@@ -1066,6 +1066,7 @@ if (!function_exists('formSenha')) {
         string | array $attr = [],
         string $ajuda = '',
         bool $footer = true,
+        string $separador = '',
         mixed $local = ''
     ): string {
         $senha = is_array($name) ? [true, true] : true;
@@ -1094,7 +1095,7 @@ if (!function_exists('formSenha')) {
             '',
             $footer,
             [],
-            '',
+            $separador,
             local: $local
         );
     }
