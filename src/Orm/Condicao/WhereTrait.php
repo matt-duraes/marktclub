@@ -2,16 +2,22 @@
 
 namespace ORM\Condicao;
 
+use Where\WhereInterface;
+
 trait WhereTrait
 {
     /**
-     * @param array      $where       Where em formato array ['campo', '=', 'valor']
-     * @param bool       $obrigatorio Se será obrigatório passar um where
-     * @param string     $separador   Separador dos campos pondendo ser AND ou OR
-     * @param null|array $replace     Array para trocar os valores do campo, caso não seja passado, pega a propriedade _replace, passar [] para não validar
+     * @param array|WhereInterface $where       Where em formato array ['campo', '=', 'valor']
+     * @param bool                 $obrigatorio Se será obrigatório passar um where
+     * @param string               $separador   Separador dos campos pondendo ser AND ou OR
+     * @param null|array           $replace     Array para trocar os valores do campo, caso não seja passado, pega a propriedade _replace, passar [] para não validar
      */
-    protected function where(array $where, bool $obrigatorio = true, string $separador = 'AND', ?array $replace = null)
-    {
+    protected function where(
+        array|WhereInterface $where,
+        bool $obrigatorio = true,
+        string $separador = 'AND',
+        ?array $replace = null
+    ) {
         $this->ormCondicao(
             dado: $where,
             obrigatorio: $obrigatorio,

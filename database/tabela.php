@@ -56,6 +56,7 @@ define('TABELA_PARCEIRO_FAVORITO', 'parceiro_favorito');
 define('TABELA_PARCEIRO_LOJA', 'parceiro_novo');
 define('TABELA_PARCEIRO_SUBCATEGORIA', 'tag_novo');
 define('TABELA_PONTO_CVS', 'ponto_cvs');
+define('TABELA_PUBLICACAO_ARQUIVO', 'publicacao_arquivo');
 define('TABELA_PUBLICACAO_DIRETORIA', 'publicacao_diretoria');
 define('TABELA_PUBLICACAO_NOTICIA', 'publicacao_noticia');
 define('TABELA_PUBLICACAO_PAGINA', 'publicacao_pagina');

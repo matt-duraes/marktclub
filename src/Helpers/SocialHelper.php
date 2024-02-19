@@ -131,20 +131,45 @@ final class SocialHelper
         }
     }
 
-    public function metaTag(string|array $titulo, string|array $descricao, null|string|array $imagem = null)
-    {
-        $titulo = $this->pegarMetaReal($titulo, TITULO);
-        $descricao = $this->pegarMetaReal($titulo, DESCRICAO);
-        $imagem = $this->pegarMetaImagem($imagem);
+    public function metaTag(
+        string $titulo = null,
+        string $descricao = null,
+        string $imagem = null,
+        string|array $tag = []
+    ) {
         $link = LINK . '/' . URI;
+        $tagHtml = '';
+        if (!empty($tag)) {
+            $tag = is_array($tag) ? implode(', ', $tag) : $tag;
+            $tagHtml = '<meta name="keywords" content="' . $tag . '">';
+        }
 
-        $tituloTag = $titulo == TITULO ? TITULO : $titulo . ' | ' . TITULO;
+        $imagem = defined('IMAGEM_SOCIAL') && !empty(IMAGEM_SOCIAL) && empty($imagem) ? IMAGEM_SOCIAL : $imagem;
+        $imagemHtml = '';
+        if (!empty($imagem)) {
+            $imagemHtml = '
+                <meta itemprop="image" content="' . $imagem . '">
+                <meta property="og:image" content="' . $imagem . '">
+                <meta property="twitter:image" content="' . $imagem . '">
+            ';
+        }
+
+        if (defined('TITULO') && !empty(TITULO) && empty($titulo)) {
+            $titulo = TITULO;
+        } elseif (defined('TITULO') && !empty(TITULO) && !empty($titulo)) {
+            $titulo = $titulo . ' - ' . TITULO;
+        }
+
+        if (defined('DESCRICAO') && !empty(DESCRICAO) && empty($descricao)) {
+            $descricao = DESCRICAO;
+        }
 
         return '
+            <meta property="twitter:site" content="' . $link . '">
             <meta property="twitter:description" content="' . $descricao . '">
             <meta property="twitter:card" content="summary_large_image">
             <meta property="twitter:title" content="' . $titulo . '">
-            ' . $imagem . '
+            ' . $imagemHtml . '
             <link rel="canonical" href="' . $link . '">
             <meta property="og:type" content="article">
             <meta property="og:description" content="' . $descricao . '">
@@ -158,32 +183,10 @@ final class SocialHelper
             <meta name="title" content="' . $titulo . '">
             <meta name="description" content="' . $descricao . '">
 
-            <title>' . $tituloTag . '</title>
+            ' . $tagHtml . '
+
+            <title>' . $titulo . '</title>
         ';
-    }
-
-    private function pegarMetaReal(string|array $lista, string $padrao)
-    {
-        $lista = !is_array($lista) ? [$lista] : $lista;
-        foreach ($lista as $valor) {
-            if (!empty($valor)) {
-                return $valor;
-            }
-        }
-        return $padrao;
-    }
-
-    private function pegarMetaImagem($imagem)
-    {
-        $imagem = $this->pegarMetaReal($imagem, env('IMAGEM_SOCIAL', ''));
-        if (!empty($imagem)) {
-            return '
-            <meta itemprop="image" content="' . $imagem . '">
-            <meta property="og:image" content="' . $imagem . '">
-            <meta property="twitter:image" content="' . $imagem . '">
-            ';
-        }
-        return  '';
     }
 
     /*/

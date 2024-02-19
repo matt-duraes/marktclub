@@ -6,6 +6,13 @@ trait ValidarUsuarioTrait
 {
     private ?int $idUsuario = null;
 
+    private function pegarIdUsuario(): string|null
+    {
+        $this->verificarSeExisteToken();
+        $this->setarIdUsuario();
+        return $this->idUsuario;
+    }
+
     private function setarIdUsuario(): void
     {
         $this->verificarSeExisteToken();

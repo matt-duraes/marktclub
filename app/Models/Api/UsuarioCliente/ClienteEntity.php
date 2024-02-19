@@ -37,7 +37,10 @@ final class ClienteEntity extends Entity
         'siape', 'nome', 'email_trabalho', 'email_pessoal', 'email_funcional', 'estado_civil', 'mensagem',
         'status', 'matricula', 'primeiro_acesso', 'mudar_senha', 'endereco_cep', 'endereco_logradouro',
         'endereco_numero', 'endereco_complemento', 'endereco_bairro', 'situacao', 'trabalho_cargo',
-        'tipo_pagamento', 'trabalho_data_inicio', 'grupo', 'federacao', 'data_termo', 'imagem_arquivo'
+        'tipo_pagamento', 'trabalho_data_inicio', 'grupo', 'federacao', 'data_termo'
+    ];
+    protected array $ormUpdate = [
+        'imagem_arquivo'
     ];
     protected array $ormInsert = [
         'empresa' => '->idEmpresa',

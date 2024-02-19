@@ -2,6 +2,8 @@
 
 namespace ORM\Condicao;
 
+use Where\WhereInterface;
+
 trait HavingTrait
 {
     /**
@@ -9,7 +11,7 @@ trait HavingTrait
      * @param bool   $obrigatorio Se será obrigatório passar um having
      * @param string $separador   Separador dos campos pondendo ser AND ou OR
      */
-    protected function having(array $having, bool $obrigatorio = true, string $separador = 'AND')
+    protected function having(array|WhereInterface $having, bool $obrigatorio = true, string $separador = 'AND')
     {
         $this->ormCondicao($having, $obrigatorio, $separador, 'having');
         return $this;

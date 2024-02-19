@@ -24,7 +24,37 @@ Object.defineProperty(Object.prototype, 'displayShow', {
     writable: true,
     configurable: true,
 });
+Object.defineProperty(Object.prototype, 'aparecer', {
+    value() {
+        let elemento = this;
+        if (!(elemento instanceof NodeList)) {
+            elemento = [elemento];
+        }
+
+        for (item of elemento) {
+            item.classList.remove('display_none');
+        }
+        return this;
+    },
+    writable: true,
+    configurable: true,
+});
 Object.defineProperty(Object.prototype, 'displayHide', {
+    value() {
+        let elemento = this;
+        if (!(elemento instanceof NodeList)) {
+            elemento = [elemento];
+        }
+
+        for (item of elemento) {
+            item.classList.add('display_none');
+        }
+        return this;
+    },
+    writable: true,
+    configurable: true,
+});
+Object.defineProperty(Object.prototype, 'sumir', {
     value() {
         let elemento = this;
         if (!(elemento instanceof NodeList)) {
@@ -83,6 +113,31 @@ Object.defineProperty(Object.prototype, 'texto', {
             item.innerText = texto;
         }
         if (texto == undefined) {
+            return retornoLista ? retorno : retorno[0];
+        }
+        return this;
+    },
+    writable: true,
+    configurable: true,
+});
+Object.defineProperty(Object.prototype, 'valor', {
+    value(valor) {
+        let elemento = this;
+        let retornoLista = true;
+        if (!(elemento instanceof NodeList)) {
+            retornoLista = false;
+            elemento = [elemento];
+        }
+
+        let retorno = [];
+        for (item of elemento) {
+            if (valor == undefined) {
+                retorno.push(item.value);
+                continue;
+            }
+            item.value = valor;
+        }
+        if (valor == undefined) {
             return retornoLista ? retorno : retorno[0];
         }
         return this;
@@ -228,6 +283,14 @@ Object.defineProperty(Object.prototype, 'evento', {
             elemento = [elemento];
         }
         for (const item of elemento) {
+            if (evento == 'enter') {
+                item.addEventListener('keydown', e => {
+                    if (e.key == 'Enter') {
+                        callback(e, item);
+                    }
+                });
+                continue;
+            }
             item.addEventListener(evento, e => {
                 callback(e, item);
             });
@@ -252,6 +315,7 @@ Object.defineProperty(Object.prototype, 'clonar', {
 
 const FW_BLOCO_LOGIN = $('#bloco_login_relogar');
 const LINK = $('#LINK') ? $('#LINK').value : undefined;
+const LINK_PADRAO = $('#LINK_PADRAO') ? $('#LINK_PADRAO').value : LINK;
 const BODY = $('body');
 
 const inArray = (element, array) => {
@@ -711,7 +775,7 @@ const buscarEnderecoPeloCep = (
     inputCep.addEventListener('formChange', async () => {
         const cep = inputCep.value;
         Loading.show();
-        const resposta = await ajaxPost(LINK + '/__endereco-cep', { cep }, '');
+        const resposta = await ajaxPost(LINK_PADRAO + '/__endereco-cep', { cep }, '');
         Loading.hide();
 
         formSelectOption(inputCidade, { '': 'Escolha um estado' });
@@ -747,7 +811,7 @@ buscarCidadePeloEstado = async (inputCidade, estado, valor, titulo) => {
         return;
     }
     formSelectLoading(inputCidade);
-    const resposta = await ajaxPost(LINK + '/__endereco-cidade', { estado, titulo }, '');
+    const resposta = await ajaxPost(LINK_PADRAO + '/__endereco-cidade', { estado, titulo }, '');
     if (false === resposta) {
         buscarCidadePeloEstadoViaBrowser(inputCidade, estado, valor, titulo);
         return;

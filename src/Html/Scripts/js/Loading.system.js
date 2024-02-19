@@ -6,6 +6,10 @@ class Loading {
         throw new Error('A class Loading não pode ser instanciada.');
     }
 
+    static ativo() {
+        return this._loadingAtivo;
+    }
+
     static total(bloco) {
         this._totalHtml().then(() => {
             this._totalPosicao(bloco);
@@ -35,7 +39,7 @@ class Loading {
     static show() {
         let tipo = this._tipo;
         this._tipo = undefined;
-
+        this._loadingAtivo = true;
         if (tipo == undefined) {
             this._bolaShow();
         } else if (tipo == 'form') {
@@ -47,7 +51,7 @@ class Loading {
     static hide() {
         let tipo = this._tipo;
         this._tipo = undefined;
-
+        this._loadingAtivo = false;
         if (tipo == undefined) {
             this._bolaHide();
         } else if (tipo == 'form') {
@@ -61,7 +65,7 @@ class Loading {
         document.getElementById('bloco_fw_loading').innerHTML = `
             <div id="fw_loading_bola">
                 <div class="fw_loading_bola_icone"></div>
-                <div class="fw_loading_bola_texto">AGUARDE</div>
+                <div class="fw_loading_bola_texto">Aguarde</div>
             </div>
         `;
         setTimeout(() => {
@@ -136,7 +140,7 @@ class Loading {
             option = {};
         }
 
-        let botaoTexto = 'AGUARDE';
+        let botaoTexto = 'Aguarde';
         if (typeof option.botaoTexto == 'string') {
             botaoTexto = option.botaoTexto;
         }

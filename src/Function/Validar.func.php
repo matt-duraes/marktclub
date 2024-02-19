@@ -49,7 +49,7 @@ if (!function_exists('exiteErro')) {
 | VALIDA CONTATOS
 |--------------------------------------------------------------------------
 */
-if (!function_exists('ValidarTelefone')) {
+if (!function_exists('validarTelefone')) {
     // doc
     // exemplo
     // echo validarTelefone 61912341234
@@ -63,7 +63,7 @@ if (!function_exists('ValidarTelefone')) {
      * @param  null|string $telefone Telefone a ser validado
      * @return bool        Retorna true caso o valor seja válido
      */
-    function ValidarTelefone(?string $telefone): bool
+    function validarTelefone(?string $telefone): bool
     {
         try {
             (new \Helpers\ValidarHelper())->valor($telefone)->vazio()->telefone();

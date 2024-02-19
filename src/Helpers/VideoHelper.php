@@ -4,14 +4,12 @@ namespace Helpers;
 
 final class VideoHelper
 {
-    private $link;
     private $plataforma;
     private $id;
 
-    public function link($link)
-    {
-        $this->link = $link;
-
+    public function __construct(
+        private string $link
+    ) {
         $link = mb_strtolower($this->link, 'UTF-8');
 
         if (strstr($link, 'youtube')) {
@@ -38,8 +36,6 @@ final class VideoHelper
             $this->id = $explode[0] ?? '';
             $this->plataforma = 'vimeo';
         }
-
-        return $this;
     }
 
     public function iframe()

@@ -3,11 +3,13 @@
 namespace ORM\Condicao;
 
 use Erro\Erro;
+use Where\WhereInterface;
 
 trait CondicaoTrait
 {
-    private function ormCondicao(array $dado, bool $obrigatorio = true, string $separador = 'AND', string $tipo = '', ?array $replace = null)
+    private function ormCondicao(array|WhereInterface $dado, bool $obrigatorio = true, string $separador = 'AND', string $tipo = '', ?array $replace = null)
     {
+        $dado = $dado instanceof WhereInterface ? $dado->where() : $dado;
         if (empty($dado) && $obrigatorio) {
             throw new Erro(
                 mensagem: 'Você precisa passar alguma condição para o filtro.'
@@ -44,7 +46,7 @@ trait CondicaoTrait
         for ($i = 0; $i < $quantidade; $i++) {
             if ($i < $quantidade - 1) {
                 $this->ormCondicaoNumero++;
-                $numero = $this->ormCondicaoNumero;
+                $numero = 'db_' . $this->ormCondicaoNumero;
                 $query .= $lista[$i] . ':' . $numero;
                 $this->ormCondicaoValue[$numero] = $valor[$i];
                 continue;
@@ -155,7 +157,7 @@ trait CondicaoTrait
                 $in = [];
                 foreach ($valor as $in_val) {
                     $this->ormCondicaoNumero++;
-                    $numero = $this->ormCondicaoNumero;
+                    $numero = 'db_' . $this->ormCondicaoNumero;
                     $in[] = $numero;
                     $this->ormCondicaoValue[$numero] = $in_val;
                 }
@@ -169,7 +171,7 @@ trait CondicaoTrait
                 $in = [];
                 foreach ($valor as $in_val) {
                     $this->ormCondicaoNumero++;
-                    $numero = $this->ormCondicaoNumero;
+                    $numero = 'db_' . $this->ormCondicaoNumero;
                     $in[] = $numero;
                     $this->ormCondicaoValue[$numero] = $in_val;
                 }
@@ -181,9 +183,9 @@ trait CondicaoTrait
         } elseif ($condicao == 'between') {
             if (is_array($valor) && count($valor) == 2) {
                 $this->ormCondicaoNumero++;
-                $numero1 = $this->ormCondicaoNumero;
+                $numero1 = 'db_' . $this->ormCondicaoNumero;
                 $this->ormCondicaoNumero++;
-                $numero2 = $this->ormCondicaoNumero;
+                $numero2 = 'db_' . $this->ormCondicaoNumero;
 
                 $this->ormCondicaoValue[$numero1] = $valor[0];
                 $this->ormCondicaoValue[$numero2] = $valor[1];
@@ -199,9 +201,9 @@ trait CondicaoTrait
         } elseif ($condicao == 'notbetween') {
             if (is_array($valor) && count($valor) == 2) {
                 $this->ormCondicaoNumero++;
-                $numero1 = $this->ormCondicaoNumero;
+                $numero1 = 'db_' . $this->ormCondicaoNumero;
                 $this->ormCondicaoNumero++;
-                $numero2 = $this->ormCondicaoNumero;
+                $numero2 = 'db_' . $this->ormCondicaoNumero;
 
                 $this->ormCondicaoValue[$numero1] = $valor[0];
                 $this->ormCondicaoValue[$numero2] = $valor[1];
@@ -216,22 +218,22 @@ trait CondicaoTrait
             );
         } elseif ($condicao == 'json') {
             $this->ormCondicaoNumero++;
-            $numero = $this->ormCondicaoNumero;
+            $numero = 'db_' . $this->ormCondicaoNumero;
             $this->ormCondicaoValue[$numero] = $valor;
             return 'JSON_CONTAINS(' . $this->ormMontaNomeCampo($campo) . ', :' . $numero . ')';
         } elseif ($condicao == 'like' and is_string($valor)) {
             $this->ormCondicaoNumero++;
-            $numero = $this->ormCondicaoNumero;
+            $numero = 'db_' . $this->ormCondicaoNumero;
             $this->ormCondicaoValue[$numero] = $valor;
             return $this->ormMontaNomeCampo($campo) . ' LIKE :' . $numero;
         } elseif ($condicao == 'notlike' and is_string($valor)) {
             $this->ormCondicaoNumero++;
-            $numero = $this->ormCondicaoNumero;
+            $numero = 'db_' . $this->ormCondicaoNumero;
             $this->ormCondicaoValue[$numero] = $valor;
             return $this->ormMontaNomeCampo($campo) . ' NOT LIKE :' . $numero;
         } elseif (!is_array($valor)) {
             $this->ormCondicaoNumero++;
-            $numero = $this->ormCondicaoNumero;
+            $numero = 'db_' . $this->ormCondicaoNumero;
             $this->ormCondicaoValue[$numero] = $valor;
             return $this->ormMontaNomeCampo($campo) . ' ' . $condicao . ' :' . $numero;
         }

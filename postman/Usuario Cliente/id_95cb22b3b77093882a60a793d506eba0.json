@@ -1,0 +1,1 @@
+{"id":"id_95cb22b3b77093882a60a793d506eba0","token":"painel","metodo":"POST","nome":"\/usuario-cliente\/imagem","uri":"{{LINK}}\/usuario-cliente\/imagem","parametro":[],"body":[["texto",true,"arquivo","",""]],"header":[],"variavel":[],"json":[],"documentacao":{"status":false,"descricao":"","requisicao":"","resposta":"","scope":""}}
