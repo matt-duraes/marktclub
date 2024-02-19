@@ -10,6 +10,7 @@ final class TipoUsuario extends Status
     public const DEPENDENTE = 'dependente';
     public const SUPER = 'super';
     public const FUNCIONARIO = 'funcionario';
+    public const INDICADO = 'indicado';
 
     public function __construct(
         protected string|int|null $valor = null
@@ -18,7 +19,8 @@ final class TipoUsuario extends Status
             self::TITULAR     => 'Titular',
             self::DEPENDENTE  => 'Dependente',
             self::SUPER       => 'Super Usuário',
-            self::FUNCIONARIO => 'Funcionário'
-        ], numero: [1, 2, 3, 4]);
+            self::FUNCIONARIO => 'Funcionário',
+            self::INDICADO    => 'Indicado'
+        ], numero: [1, 2, 3, 4, 5]);
     }
 }

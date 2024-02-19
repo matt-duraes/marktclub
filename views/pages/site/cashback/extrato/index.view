@@ -14,54 +14,56 @@
             <p>SILIUM, aqui você sempre tem Mais Vantagens!</p>
             <p>* Os pagamentos serão feitos sempre nos dias 10 e 25 de cada mês.
             Para você receber no dia 10 do mesmo mês, faça a sua solicitação até dia 05. Para receber até dia 25 do mesmo mês, faça sua solicitação até dia 20.</p>
+            <div class="bloco_saldo">
+                <a href="@route(termo.termocashback)" target="_blank" class="regulamento botao_pequeno_borda">REGULAMENTO SILIUM</a>
+                <div class="saldo_conta">
+                    <p>SALDO EM CONTA: <span>0</span> </p>
+                </div>
+            </div>
         </section>
-
-        <a href="@route(termo.termocashback)" target="_blank" class="regulamento botao_pequeno_borda">REGULAMENTO SILIUM</a>
-
-        <div class="saldo">
-            <div class="saldo_conta">
-                <p>SALDO EM CONTA:</p><span>0</span>
-            </div>
-            <div class="saldo_zero">
-                <p>VOCÊ PRECISA ACUMULAR 10.000 PONTOS PARA SOLICITAR RESGATE.</p>
-            </div>
+        <div class="bloco_atencao_geral">
+            <p>VOCÊ PRECISA ACUMULAR 10.000 PONTOS PARA SOLICITAR RESGATE.</p>
         </div>
 
-        <div class="bloco_tab_geral bloco_procedimento">
-            <div class="bloco_botao">
-                <button class="botao ativo" data-id="bloco_nome_01">
-                    <span class="texto_inativo">Extrato de compra</span>
-                    <span class="texto_ativo">Extrato de compra</span>
-                </button>
-                <button class="botao" data-id="bloco_nome_02">
-                    <span class="texto_inativo">Extrato de saque</span>
-                    <span class="texto_ativo">Extrato de saque</span>
-                </button>
-            </div>
-
-            <div id="bloco_nome_01" class="conteudo">
-                <div class="bloco_tabela_geral">
-                    <table>
-                        <tbody>
-                            <tr class="vazio">
-                                <td colspan="12">SEM EXTRATO NO MOMENTO</td>
-                            </tr>
-                        </tbody>
-                    </table>
+        <div class="bloco_extrato">
+            <h1>ACOMPANHE SEUS EXTRATOS</h1>
+            <div class="bloco_tab_geral bloco_procedimento">
+                <div class="bloco_botao">
+                    <button class="botao ativo" data-id="bloco_nome_01">
+                        <span class="texto_inativo">Compra</span>
+                        <span class="texto_ativo">Compra</span>
+                    </button>
+                    <button class="botao" data-id="bloco_nome_02">
+                        <span class="texto_inativo">Saque</span>
+                        <span class="texto_ativo">Saque</span>
+                    </button>
                 </div>
-            </div>
-                <div id="bloco_nome_02" class="conteudo display_none">
-                <div class="bloco_tabela_geral">
-                    <table>
-                        <tbody>
-                            <tr class="vazio">
-                                <td colspan="12">SEM EXTRATO NO MOMENTO</td>
-                            </tr>
-                        </tbody>
-                    </table>
+
+                <div id="bloco_nome_01" class="conteudo">
+                    <div class="bloco_tabela_geral">
+                        <table>
+                            <tbody>
+                                <tr class="vazio">
+                                    <td colspan="12">SEM EXTRATO NO MOMENTO</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                    <div id="bloco_nome_02" class="conteudo display_none">
+                    <div class="bloco_tabela_geral">
+                        <table>
+                            <tbody>
+                                <tr class="vazio">
+                                    <td colspan="12">SEM EXTRATO NO MOMENTO</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
                 </div>
             </div>
         </div>
+
     </div>
 
 </div>

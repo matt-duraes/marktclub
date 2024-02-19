@@ -1,3 +1,24 @@
+window.addEventListener('load', async () => {
+    const queryString = window.location.search;
+    const searchParams = new URLSearchParams(queryString);
+    const hash = searchParams.get('hash');
+    const tipo_usuario = searchParams.get('tipo_usuario');
+
+    if (!hash || !tipo_usuario) {
+        return;
+    }
+
+    const resposta = await ajaxPost(LINK + '/login/ativar-validar', {
+        hash: hash,
+    });
+
+    if (resposta == false) {
+        return;
+    }
+
+    criarPaginaAtivarSalvar({ hash, tipo_usuario: tipo_usuario });
+});
+
 const setarTipoInput = (valorData = '') => {
     const blocoTitular = document.querySelector('.bloco_titular');
     const tipoAtivacao = blocoTitular.getAttribute('data-ativacao');
@@ -7,25 +28,27 @@ const setarTipoInput = (valorData = '') => {
     inputCpf.parentNode.classList.add('display_none');
     input.parentNode.classList.remove('display_none');
 
+    if ((tipoAtivacao == 'email' && valorData != 'dependente') || valorData == 'indicado') {
+        inputCpf.parentNode.classList.add('display_none');
+        input.setAttribute('placeholder', 'Digite o seu e-mail');
+        input.setAttribute('type', 'email');
+        return;
+    }
+
     if (tipoAtivacao == 'siape' && valorData != 'dependente') {
+        inputCpf.parentNode.classList.add('display_none');
         input.setAttribute('placeholder', 'Digite o seu SIAPE');
         return;
     }
     if (tipoAtivacao == 'matricula' && valorData != 'dependente') {
+        inputCpf.parentNode.classList.add('display_none');
         input.setAttribute('placeholder', 'Digite a sua matrícula');
-        return;
-    }
-
-    if (tipoAtivacao == 'email' && valorData != 'dependente') {
-        input.setAttribute('placeholder', 'Digite o seu e-mail');
-        input.setAttribute('type', 'email');
         return;
     }
 
     input.parentNode.classList.add('display_none');
     inputCpf.parentNode.classList.remove('display_none');
 };
-
 const loadingAtivarBuscar = () => {
     const botoesTipoUsuario = document.querySelectorAll('.botao_tipo_usuario');
     let valorData = '';
@@ -33,13 +56,22 @@ const loadingAtivarBuscar = () => {
         botao.addEventListener('click', e => {
             valorData = botao.getAttribute('data-tipo');
             setarTipoInput(valorData);
-            if (valorData == 'dependente') {
-                $('.botao_titular').classList.remove('cor_bg');
-                $('.botao_dependente').classList.add('cor_bg');
-                return;
-            }
+
             $('.botao_dependente').classList.remove('cor_bg');
-            $('.botao_titular').classList.add('cor_bg');
+            $('.botao_titular').classList.remove('cor_bg');
+            $('.botao_indicado').classList.remove('cor_bg');
+
+            switch (valorData) {
+                case 'dependente':
+                    $('.botao_dependente').classList.add('cor_bg');
+                    break;
+                case 'titular':
+                    $('.botao_titular').classList.add('cor_bg');
+                    break;
+                case 'indicado':
+                    $('.botao_indicado').classList.add('cor_bg');
+                    break;
+            }
         });
     });
 
@@ -59,25 +91,35 @@ const loadingAtivarBuscar = () => {
             busca: inputBuscar.value ? inputBuscar.value : inputBuscarCpf.value,
             tipo_usuario: valorData,
         });
+
         Loading.hide();
         if (false == resposta) {
             return;
         }
-        const PaginaAtivar = new Pagina(
-            'ativar-conta',
-            `${LINK}/login/ativar-salvar?hash=${resposta.dado.hash}&cpf=${resposta.dado.cpf}`,
-            undefined,
-            true,
-            false,
-            loadingAtivar
-        );
-        PaginaAtivar.abrir();
+        if (valorData == 'indicado') {
+            criarPaginaAtivarSalvar({ hash: resposta.dado.hash, tipo_usuario: valorData });
+            return;
+        }
+        criarPaginaAtivarSalvar(resposta.dado);
     });
+};
+
+const criarPaginaAtivarSalvar = dado => {
+    const PaginaAtivar = new Pagina(
+        'ativar-conta',
+        `${LINK}/login/ativar-salvar?hash=${dado.hash}&cpf=${dado.cpf}&tipo_usuario=${dado.tipo_usuario}`,
+        undefined,
+        true,
+        false,
+        loadingAtivar
+    );
+    PaginaAtivar.abrir();
 };
 
 const loadingAtivar = () => {
     const hash = $('#input_ativar_hash_busca').value;
     const cpf = $('#input_ativar_cpf_busca').value;
+    const tipo_usuario = $('#input_tipo_usuario').value;
 
     const form = $('#bloco_form_ativar');
 
@@ -152,6 +194,7 @@ const loadingAtivar = () => {
                 endereco_bairro: inputEnderecoBairro.value,
                 endereco_estado: inputEnderecoEstado.value,
                 endereco_cidade: inputEnderecoCidade.value,
+                tipo_usuario: tipo_usuario,
                 /* eslint-enable */
             },
             'Erro ao ativar seu usuário, por favor, tente novamente.'

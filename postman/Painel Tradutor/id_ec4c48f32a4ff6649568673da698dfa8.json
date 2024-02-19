@@ -1,0 +1,1 @@
+{"id":"id_ec4c48f32a4ff6649568673da698dfa8","token":"painel","metodo":"DELETE","nome":"\/painel-tradutor\/:id","uri":"{{LINK}}\/painel-tradutor\/$TRADUCAO_ID","parametro":[],"body":[],"header":[],"variavel":[],"json":[],"documentacao":{"status":false,"descricao":"","requisicao":"","resposta":"","scope":"painel_tradutor:deletar"}}

@@ -362,6 +362,13 @@ a
 #menu_principal .conteudo figure
     .tema_escuro
         display: none
+
+@media screen and (max-width: 425px)
+    #menu_principal .conteudo .menu
+        margin-top: 60px
+
+#menu_principal .conteudo .menu
+
 [data-theme="dark"] #menu_principal .conteudo figure
     &.cor_fundo
         width: calc(100% - 20x)
@@ -373,7 +380,8 @@ a
         display: block
     .tema_branco
         display: none
-
+.dados_usuario_menu
+    texto()
 @media screen and (max-width: 1250px)
     #menu_principal
         .bloco_logo_menu
