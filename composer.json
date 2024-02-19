@@ -50,6 +50,7 @@
             "Modules\\": "src/Modules/",
             "ORM\\": "src/Orm/",
             "Order\\": "src/Order",
+            "Where\\": "src/Where",
             "PainelApp\\": "src/Painel/App",
             "PainelConfig\\": "src/Painel/Config",
             "PainelController\\": "src/Painel/Controllers",

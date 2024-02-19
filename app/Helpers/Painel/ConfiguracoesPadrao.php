@@ -202,7 +202,18 @@ final class ConfiguracoesPadrao
                 'publicacao_youtube_add'     => 'Salvar',
                 'publicacao_youtube_editar'  => 'Editar',
                 'publicacao_youtube_deletar' => 'Deletar',
-                'publicacao_youtube_empresa' => 'Todas as empresas',
+            ]
+        ],
+        'publicacao_arquivo'        => [
+            'titulo'    => 'Arquivo',
+            'acao'      => [
+                'index', 'add', 'editar', 'deletar', 'empresa'
+            ],
+            'permissao' => [
+                'publicacao_arquivo_index'   => 'Listar',
+                'publicacao_arquivo_add'     => 'Salvar',
+                'publicacao_arquivo_editar'  => 'Editar',
+                'publicacao_arquivo_deletar' => 'Deletar',
             ]
         ],
         'publicacao_diretoria'     => [

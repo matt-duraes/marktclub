@@ -23,10 +23,6 @@ trait OrdemTrait
         bool $valido = true
     ): string|OrderInterface {
         $valor = '';
-        if (property_exists($this, 'request') && !empty($this->request->ordem)) {
-            $valor = $this->request->ordem;
-        }
-
         if (property_exists($this, 'request') && $this->request->existe('ordem')) {
             $valor = $this->request->ordem;
         } elseif ($this->propriedadeExiste('ordem')) {
