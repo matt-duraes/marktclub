@@ -1,0 +1,257 @@
+{
+    "tituloPontoAcao": [
+        {
+            "pt": "PONTO + AÇÃO",
+            "en": "",
+            "es": ""
+        }
+    ],
+    "textoParabens": [
+        {
+            "pt": "Parabéns",
+            "en": "",
+            "es": ""
+        }
+    ],
+    "textoChegouAqui": [
+        {
+            "pt": "Se você chegou até aqui é porque trouxe mais colegas para fazer parte da família Sindicato dos Bancários. Sejam bem-vindos!",
+            "en": "",
+            "es": ""
+        }
+    ],
+    "textoValemVouchers": [
+        {
+            "pt": "Agora, seus pontos valem vouchers, que podem ser utilizados nas lojas virtuais Casas Bahia, Ponto Frio e Extra.",
+            "en": "",
+            "es": ""
+        }
+    ],
+    "textoNovoAssociado": [
+        {
+            "pt": "Cada indicação de novo associado vale 1 ponto! Indique mais associados, fortaleça o Sindicato e acumule pontos para trocar por produtos da sua preferência.",
+            "en": "",
+            "es": ""
+        }
+    ],
+    "linkRegulamento": [
+        {
+            "pt": "Regulamento Ponto + Ação",
+            "en": "",
+            "es": ""
+        }
+    ],
+    "textoObsVouchers": [
+        {
+
+            "pt": "Obs: Os vouchers só poderão ser usados nas lojas virtuais:",
+            "en": "",
+            "es": ""
+        }
+    ],
+    "textoPonto": [
+        {
+            "pt": "1 PONTO = R$ 50,00 (SÓCIO BANCÁRIO)<br>1 PONTO = R$ 12,00 (SÓCIO PARCEIRO)",
+            "en": "",
+            "es": ""
+        }
+    ],
+    "tituloSaldo": [
+        {
+            "pt": "Saldo em conta:",
+            "en": "",
+            "es": ""
+        }
+    ],
+    "blocoExtrato": [
+        {
+            "botaoSolicitarResgaste": [
+                {
+                    "pt": "Solicitar resgaste",
+                    "en": "",
+                    "es": ""
+                }
+            ],
+            "botaoExtratoPontos": [
+                {
+                    "pt": "Extrato de pontos",
+                    "en": "",
+                    "es": ""
+                }
+            ],
+            "botaoHistorico": [
+                {
+                    "pt": "Histórico",
+                    "en": "",
+                    "es": ""
+                }
+            ],
+            "tituloTabelaNome": [
+                {
+                    "pt": "Nome",
+                    "en": "",
+                    "es": ""
+                }
+            ],
+            "tituloTabelaBonus": [
+                {
+                    "pt": "Bônus",
+                    "en": "",
+                    "es": ""
+                }
+            ],
+            "tituloTabelaPremio": [
+                {
+                    "pt": "Prêmio",
+                    "en": "",
+                    "es": ""
+                }
+            ],
+            "tituloTabelaQuantidade": [
+                {
+                    "pt": "Quantidade",
+                    "en": "",
+                    "es": ""
+                }
+            ],
+            "tituloTabelaCredito": [
+                {
+                    "pt": "Crédito",
+                    "en": "",
+                    "es": ""
+                }
+            ],
+            "tituloTabelaDebito": [
+                {
+                    "pt": "Débito",
+                    "en": "",
+                    "es": ""
+                }
+            ],
+            "tituloTabelaData": [
+                {
+                    "pt": "Data",
+                    "en": "",
+                    "es": ""
+                }
+            ],
+            "tituloTabelaTipo": [
+                {
+                    "pt": "Tipo",
+                    "en": "",
+                    "es": ""
+                }
+            ],
+            "tituloTabelaStatus": [
+                {
+                    "pt": "Status",
+                    "en": "",
+                    "es": ""
+                }
+            ],
+            "textoSemExtrato": [
+                {
+                    "pt": "SEM EXTRATO NO MOMENTO",
+                    "en": "",
+                    "es": ""
+                }
+            ]
+        }
+    ],
+    "blocoHistorico": [
+        {
+            "tituloTabela": [
+                {
+                    "pt": "",
+                    "en": "",
+                    "es": ""
+                }
+            ],
+            "tituloTabelaPontos": [
+                {
+                    "pt": "PONTOS",
+                    "en": "",
+                    "es": ""
+                }
+            ],
+            "tituloTabelaCartaoPresente": [
+                {
+                    "pt": "CARTÃO PRESENTE",
+                    "en": "",
+                    "es": ""
+                }
+            ],
+            "tituloTabelaDataSolicitacao": [
+                {
+                    "pt": "DATA DE SOLICITAÇÃO",
+                    "en": "",
+                    "es": ""
+                }
+            ],
+            "tituloTabelaVencimento": [
+                {
+                    "pt": "DATA DE VENCIMENTO",
+                    "en": "",
+                    "es": ""
+                }
+            ],
+            "tituloTabelaStatus": [
+                {
+                    "pt": "STATUS",
+                    "en": "",
+                    "es": ""
+                }
+            ],
+            "textoSemHistorico": [
+                {
+                    "pt": "SEM HISTÓRICO NO MOMENTO",
+                    "en": "",
+                    "es": ""
+                }
+            ]
+        }
+    ],
+    "tituloResgatarPontos": [
+        {
+            "pt": "Resgatar pontos",
+            "en": "",
+            "es": ""
+        }
+    ],
+    "textoPreenchaFormulario": [
+        {
+            "pt": "Preencha o formulário abaixo para solicitar resgate de pontos",
+            "en": "",
+            "es": ""
+        }
+    ],
+    "formNome": [
+        {
+            "pt": "Digite seu nome",
+            "en": "",
+            "es": ""
+        }
+    ],
+    "formEmail": [
+        {
+            "pt": "Digite seu E-mail",
+            "en": "",
+            "es": ""
+        }
+    ],
+    "formQtdPontos": [
+        {
+            "pt": "Digite a quantidade de pontos",
+            "en": "",
+            "es": ""
+        }
+    ],
+    "botarSolicitarPontos": [
+        {
+            "pt": "Solicitar ponto",
+            "en": "",
+            "es": ""
+        }
+    ]
+}
+
