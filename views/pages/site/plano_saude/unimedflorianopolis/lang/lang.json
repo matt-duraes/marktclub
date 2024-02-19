@@ -1,3 +1,785 @@
 {
-
+    "textoMesesTabela": [
+        {
+            "pt": "meses",
+            "en": "",
+            "es": ""
+        }
+    ],
+    "textoDiasTabela": [
+        {
+            "pt": "dias",
+            "en": "",
+            "es": ""
+        }
+    ],
+    "textoHorasTabela": [
+        {
+            "pt": "horas",
+            "en": "",
+            "es": ""
+        }
+    ],
+    "conectivoA": [
+        {
+            "pt": "a",
+            "en": "",
+            "es": ""
+        }
+    ],
+    "conectivoOuMais": [
+        {
+            "pt": "ou mais",
+            "en": "",
+            "es": ""
+        }
+    ],
+    "conectivoAcima":[
+        {
+            "pt": "acima",
+            "en": "",
+            "es": ""
+        }
+    ],
+    "tituloUnimed": [
+        {
+            "pt": "Unimed Florianópolis",
+            "en": "",
+            "es": ""
+        }
+    ],
+    "textoAdministracaoPlano": [
+        {
+            "pt": "este plano é administrado pela BENEVIX ADMINISTRADORA DE BENEFÍCIOS LTDA, registrada na ANS sob o n° .41771-8, pessoa jurídica de direito privado, com sede na Avenida Nossa Senhora dos Navegantes, n° 495, salas 702 a 704, Ed. Centro Empresarial Enseada do Suá, Vitória -ES, CEP 29050-335, inscrita no CNPJ sob o n° 11.073058/0001-81 em contrato particular assinado diretamente com sua entidade de classe, conforme regulamentações vigentes da ANS. O aniversário desta apólice para reajuste anual é o mês de Julho",
+            "en": "",
+            "es": ""
+        }
+    ],
+    "blocoBeneficios": [
+        {
+            "tituloBeneficios": [
+                {
+                    "pt": "Benefícios exclusivos",
+                    "en": "",
+                    "es": ""
+                }
+            ],
+            "textoPrecos": [
+                {
+                    "pt": "Menores preços do mercado",
+                    "en": "",
+                    "es": ""
+                }
+            ],
+            "textoContrate": [
+                {
+                    "pt": "Contrate para seus dependentes",
+                    "en": "",
+                    "es": ""
+                }
+            ],
+            "textoAmplaCobertura": [
+                {
+                    "pt": "Ampla cobertura em todo o Brasil",
+                    "en": "",
+                    "es": ""
+                }
+            ]
+        }
+    ],
+    "blocoExplorarRede": [
+        {
+            "tituloExplore": [
+                {
+                    "pt": "Explore a rede credenciada",
+                    "en": "",
+                    "es": ""
+                }
+            ],
+            "itemCliqueNoBotao": [
+                {
+                    "pt": "Clique no botão Consultar rede credenciada",
+                    "en": "",
+                    "es": ""
+                }
+            ],
+            "itemPagina": [
+                {
+                    "pt": "Na página que abrirá, clique em Busca detalhada",
+                    "en": "",
+                    "es": ""
+                }
+            ],
+            "itemSelecioneEstado": [
+                {
+                    "pt": "Em seguida selecione o estado (UF) que deseja consultar",
+                    "en": "",
+                    "es": ""
+                }
+            ],
+            "itemCamposObrigatorios": [
+                {
+                    "pt": "Observação: os demais campos não são obrigatórios para realizar a busca da rede credenciada,",
+                    "en": "",
+                    "es": ""
+                }
+            ],
+            "itemSelecionarEstado": [
+                {
+                    "pt": "mas caso queira é possível selecionar a cidade e especialidade que desejar.",
+                    "en": "",
+                    "es": ""
+                }
+            ],
+            "linkConsultarRede": [
+                {
+                    "pt": "Consultar rede credenciada",
+                    "en": "",
+                    "es": ""
+                }
+            ]
+        }
+    ],
+    "blocoCarencia": [
+        {
+            "tituloCarencia": [
+                {
+                    "pt": "Carência",
+                    "en": "",
+                    "es": ""
+                }
+            ],
+            "tabelaTitulo": [
+                {
+                    "pt": "Procedimento",
+                    "en": "",
+                    "es": ""
+                }
+            ],
+            "blocoUrgencia": [
+                {
+                    "procedimento": [
+                        {
+                            "pt": "Urgência e Emergência na Segmentação Ambulatorial",
+                            "en": "",
+                            "es": ""
+                        }
+                    ]
+                }
+            ],
+            "blocoConsultas": [
+                {
+                    "procedimento": [
+                        {
+                            "pt": "Consultas médicas",
+                            "en": "",
+                            "es": ""
+                        }
+                    ]
+                }
+            ],
+            "blocoExames": [
+                {
+                    "procedimento": [
+                        {
+                            "pt": "Exames laboratoriais (exceto genética) anatomopatológicos e citopatológicos, raio x contrastado simples, eletrocardiograma, eletroencefalograma e ultrassonografia (exceto obstétrica)",
+                            "en": "",
+                            "es": ""
+                        }
+                    ]
+                }
+            ],
+            "blocoFisioterapia": [
+                {
+                    "procedimento": [
+                        {
+                            "pt": "Consultas e Sessão de fisioterapia<",
+                            "en": "",
+                            "es": ""
+                        }
+                    ]
+                }
+            ],
+            "blocoAcupuntura": [
+                {
+                    "procedimento": [
+                        {
+                            "pt": "Acupuntura",
+                            "en": "",
+                            "es": ""
+                        }
+                    ]
+                }
+            ],
+            "blocoDensitometria": [
+                {
+                    "procedimento": [
+                        {
+                            "pt": "Densitometria",
+                            "en": "",
+                            "es": ""
+                        }
+                    ]
+                }
+            ],
+            "blocoDialiseHemodialise": [
+                {
+                    "procedimento": [
+                        {
+                            "pt": "Diálise / hemodiálise",
+                            "en": "",
+                            "es": ""
+                        }
+                    ]
+                }
+            ],
+            "blocoEndoscopiaColonoscopia": [
+                {
+                    "procedimento": [
+                        {
+                            "pt": "Endoscopia / colonoscopia",
+                            "en": "",
+                            "es": ""
+                        }
+                    ]
+                }
+            ],
+            "blocoEspirometria": [
+                {
+                    "procedimento": [
+                        {
+                            "pt": "Espirometria / prova de função pulmonar",
+                            "en": "",
+                            "es": ""
+                        }
+                    ]
+                }
+            ],
+            "blocoExamesObstetricos": [
+                {
+                    "procedimento": [
+                        {
+                            "pt": "Exames obstétricos",
+                            "en": "",
+                            "es": ""
+                        }
+                    ]
+                }
+            ],
+            "blocoExamesGenetica": [
+                {
+                    "procedimento": [
+                        {
+                            "pt": "Exames de genética",
+                            "en": "",
+                            "es": ""
+                        }
+                    ]
+                }
+            ],
+            "blocoHolterMapa": [
+                {
+                    "procedimento": [
+                        {
+                            "pt": "Holter / mapa",
+                            "en": "",
+                            "es": ""
+                        }
+                    ]
+                }
+            ],
+            "blocoLaparoscopia": [
+                {
+                    "procedimento": [
+                        {
+                            "pt": "Laparoscopia / litotripsia",
+                            "en": "",
+                            "es": ""
+                        }
+                    ]
+                }
+            ],
+            "blocoMamografia": [
+                {
+                    "procedimento": [
+                        {
+                            "pt": "Mamografia",
+                            "en": "",
+                            "es": ""
+                        }
+                    ]
+                }
+            ],
+            "blocoMedicinaNuclear": [
+                {
+                    "procedimento": [
+                        {
+                            "pt": "Medicina nuclear / medicina transfuncional",
+                            "en": "",
+                            "es": ""
+                        }
+                    ]
+                }
+            ],
+            "blocoRadioterapia": [
+                {
+                    "procedimento": [
+                        {
+                            "pt": "Radioterapia / quimioterapia",
+                            "en": "",
+                            "es": ""
+                        }
+                    ]
+                }
+            ],
+            "blocoRessonancia": [
+                {
+                    "procedimento": [
+                        {
+                            "pt": "Ressonância / tomografia",
+                            "en": "",
+                            "es": ""
+                        }
+                    ]
+                }
+            ],
+            "blocoTesteErgonamico": [
+                {
+                    "procedimento": [
+                        {
+                            "pt": "Teste ergométrico",
+                            "en": "",
+                            "es": ""
+                        }
+                    ]
+                }
+            ],
+            "blocoTransplantes": [
+                {
+                    "procedimento": [
+                        {
+                            "pt": "Transplantes",
+                            "en": "",
+                            "es": ""
+                        }
+                    ]
+                }
+            ],
+            "blocoConsultasESessoes": [
+                {
+                    "procedimento": [
+                        {
+                            "pt": "Consulta e sessão com fonoaudiólogo, terapeuta ocupacional, psicólogo, nutricionista e psicoterapeuta",
+                            "en": "",
+                            "es": ""
+                        }
+                    ]
+                }
+            ],
+            "blocoParto": [
+                {
+                    "procedimento": [
+                        {
+                            "pt": "Parto a termo",
+                            "en": "",
+                            "es": ""
+                        }
+                    ]
+                }
+            ],
+            "blocoTratamento": [
+                {
+                    "procedimento": [
+                        {
+                            "pt": "Tratamento de doenças preexistentes cobertura parcial temporária (CPT)",
+                            "en": "",
+                            "es": ""
+                        }
+                    ]
+                }
+            ]
+        }
+    ],
+    "blocoGrandeFlorianopolis": [
+        {
+            "tituloPrecosPlano": [
+                {
+                    "pt": "Preços do Plano de Saúde",
+                    "en": "",
+                    "es": ""
+                }
+            ],
+            "tituloTabelaFlorianopolis": [
+                {
+                    "pt": "GRANDE FLORIANÓPOLIS",
+                    "en": "",
+                    "es": ""
+                }
+            ],
+            "tabelaFlorianopolisCoparticipacao": [
+                {
+                    "pt": "COPARTICIPAÇÃO",
+                    "en": "",
+                    "es": ""
+                }
+            ],
+            "itemTabelaFlorianopolisAcomodacao": [
+                {
+                    "pt": "ACOMODAÇÃO",
+                    "en": "",
+                    "es": ""
+                }
+            ],
+            "itemTabelaFlorianopolisEnfermaria": [
+                {
+                    "pt": "ENFERMARIA",
+                    "en": "",
+                    "es": ""
+                }
+            ],
+            "itemTabelaFlorianopolisApartamento": [
+                {
+                    "pt": "ENFERMARIA",
+                    "en": "",
+                    "es": ""
+                }
+            ],
+            "textoAvisoTabelaFlorianopolis": [
+                {
+                    "pt": "*Obs. A Administradora de Benefícios efetua cobrança de Taxa de Adesão no primeiro pagamento com valor correspondente aos planos contratados.",
+                    "en": "",
+                    "es": ""
+                }
+            ]
+        }
+    ],
+    "blocoRessarcimento": [
+        {
+            "tituloRessarcimento": [
+                {
+                    "pt": "Você sabia que pode receber um auxílio ressarcimento?",
+                    "en": "",
+                    "es": ""
+                }
+            ],
+            "tabelaRessarcimentoTituloFaixaEtaria": [
+                {
+                    "pt": "Faixa Etária",
+                    "en": "",
+                    "es": ""
+                }
+            ],
+            "textoAvisoTabelaRessarcimento": [
+                {
+                    "pt": "**Tabela governamental de reembolso. Pode ter os valores e condições alterados a qualquer momento",
+                    "en": "",
+                    "es": ""
+                }
+            ]
+        }
+    ],
+    "blocoUniflexRegional": [
+        {
+            "segmentacao": [
+                {
+                    "titulo": [
+                        {
+                            "pt": "Segmentação",
+                            "en": "",
+                            "es": ""
+                        }
+                    ],
+                    "textoSegmentacao": [
+                        {
+                            "pt": "Ambulatorial + Hospitalar com Obstetrícia",
+                            "en": "",
+                            "es": ""
+                        }
+                    ]
+                }
+            ],
+            "abrangencia": [
+                {
+                    "titulo": [
+                        {
+                            "pt": "Abrangência",
+                            "en": "",
+                            "es": ""
+                        }
+                    ],
+                    "textoAbrangencia": [
+                        {
+                            "pt": "bloco de municípios: Água Mornas, Alfredo Wagner, Angelina, Anitápolis, Antônio, Carlos, Biguaçu, Florianópolis, Garopaba, Governador Celso Ramos, Leoberto Leal, Major Gercino, Palhoça, Paulo Lopes, Rancho Queimado, Santo Maro da Imperatriz, São Bonifácio, São José, São Pedro de Alcântara e Tijucas",
+                            "en": "",
+                            "es": ""
+                        }
+                    ]
+                }
+            ],
+            "fatorModerador": [
+                {
+                    "titulo": [
+                        {
+                            "pt": "Fator Moderador:",
+                            "en": "",
+                            "es": ""
+                        }
+                    ],
+                    "textoFatorModerador": [
+                        {
+                            "pt": "Coparticipação",
+                            "en": "",
+                            "es": ""
+                        }
+                    ]
+                }
+            ],
+            "tabelaTituloCoparticipacao": [
+                {
+                    "pt": "COPARTICIPAÇÃO",
+                    "en": "",
+                    "es": ""
+                }
+            ],
+            "tabelaTituloConsultorio": [
+                {
+                    "pt": "Consulta em consultório",
+                    "en": "",
+                    "es": ""
+                }
+            ],
+            "tabelaTituloProntoSocorro": [
+                {
+                    "pt": "Consulta em Pronto Socorro",
+                    "en": "",
+                    "es": ""
+                }
+            ],
+            "textoAvisoTabela": [
+                {
+                    "pt": "Demais procedimentos respeitando o valor máximo de franquia de R$ 190,00 por procedimento",
+                    "en": "",
+                    "es": ""
+                }
+            ]
+        }
+    ],
+    "blocoUniflexEstadual": [
+        {
+            "segmentacao": [
+                {
+                    "titulo": [
+                        {
+                            "pt": "Segmentação",
+                            "en": "",
+                            "es": ""
+                        }
+                    ],
+                    "textoSegmentacao": [
+                        {
+                            "pt": "Ambulatorial + Hospitalar com Obstetrícia",
+                            "en": "",
+                            "es": ""
+                        }
+                    ]
+                }
+            ],
+            "abrangencia": [
+                {
+                    "titulo": [
+                        {
+                            "pt": "Abrangência",
+                            "en": "",
+                            "es": ""
+                        }
+                    ],
+                    "textoAbrangencia": [
+                        {
+                            "pt": "Nacional",
+                            "en": "",
+                            "es": ""
+                        }
+                    ]
+                }
+            ],
+            "fatorModerador": [
+                {
+                    "titulo": [
+                        {
+                            "pt": "Fator Moderador:",
+                            "en": "",
+                            "es": ""
+                        }
+                    ],
+                    "textoFatorModerador": [
+                        {
+                            "pt": "Coparticipação",
+                            "en": "",
+                            "es": ""
+                        }
+                    ]
+                }
+            ],
+            "tabelaTituloCoparticipacao": [
+                {
+                    "pt": "COPARTICIPAÇÃO",
+                    "en": "",
+                    "es": ""
+                }
+            ],
+            "tabelaTituloConsultorio": [
+                {
+                    "pt": "Consulta em consultório",
+                    "en": "",
+                    "es": ""
+                }
+            ],
+            "tabelaTituloProntoSocorro": [
+                {
+                    "pt": "Consulta em Pronto Socorro",
+                    "en": "",
+                    "es": ""
+                }
+            ],
+            "textoAvisoTabela": [
+                {
+                    "pt": "Demais procedimentos respeitando o valor máximo de franquia de R$ 190,00 por procedimento",
+                    "en": "",
+                    "es": ""
+                }
+            ]
+        }
+    ],
+    "blocoUniflexNacional": [
+        {
+            "tituloUniflex": [
+                {
+                    "pt": "UNIFLEX NACIONAL",
+                    "en": "",
+                    "es": ""
+                }
+            ],
+            "segmentacao": [
+                {
+                    "titulo": [
+                        {
+                            "pt": "Segmentação",
+                            "en": "",
+                            "es": ""
+                        }
+                    ],
+                    "textoSegmentacao": [
+                        {
+                            "pt": "Ambulatorial + Hospitalar com Obstetrícia",
+                            "en": "",
+                            "es": ""
+                        }
+                    ]
+                }
+            ],
+            "abrangencia": [
+                {
+                    "titulo": [
+                        {
+                            "pt": "Abrangência",
+                            "en": "",
+                            "es": ""
+                        }
+                    ],
+                    "textoAbrangencia": [
+                        {
+                            "pt": "Nacional",
+                            "en": "",
+                            "es": ""
+                        }
+                    ]
+                }
+            ],
+            "fatorModerador": [
+                {
+                    "titulo": [
+                        {
+                            "pt": "Fator Moderador:",
+                            "en": "",
+                            "es": ""
+                        }
+                    ],
+                    "textoFatorModerador": [
+                        {
+                            "pt": "Coparticipação",
+                            "en": "",
+                            "es": ""
+                        }
+                    ]
+                }
+            ],
+            "tabelaTituloCoparticipacao": [
+                {
+                    "pt": "COPARTICIPAÇÃO",
+                    "en": "",
+                    "es": ""
+                }
+            ],
+            "tabelaTituloConsultorio": [
+                {
+                    "pt": "Consulta em consultório",
+                    "en": "",
+                    "es": ""
+                }
+            ],
+            "tabelaTituloProntoSocorro": [
+                {
+                    "pt": "Consulta em Pronto Socorro",
+                    "en": "",
+                    "es": ""
+                }
+            ],
+            "textoAvisoTabela": [
+                {
+                    "pt": "Demais procedimentos respeitando o valor máximo de franquia de R$ 190,00 por procedimento",
+                    "en": "",
+                    "es": ""
+                }
+            ]
+        }
+    ],
+    "blocoBlocoSimulacao": [
+        {
+            "tituloFazerSimulacao": [
+                {
+                    "pt": "GOSTARIA DE FAZER UMA SIMULAÇÃO",
+                    "en": "",
+                    "es": ""
+                }
+            ],
+            "textoFacaSimulacao": [
+                {
+                    "pt": "Faça uma simulação sua e seus dependentes e veja os valores.",
+                    "en": "",
+                    "es": ""
+                }
+            ],
+            "linkFazerSimulacao": [
+                {
+                    "pt": "Fazer Simulação",
+                    "en": "",
+                    "es": ""
+                }
+            ],
+            "avisoAssociadosSimulacao": [
+                {
+                    "pt": "Apenas associados possuem acesso a este recurso",
+                    "en": "",
+                    "es": ""
+                }
+            ],
+            "linkSimular": [
+                {
+                    "pt": "SIMULAR AGORA",
+                    "en": "",
+                    "es": ""
+                }
+            ]
+        }
+    ]
 }

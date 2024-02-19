@@ -30,10 +30,11 @@
             </div>
         </div>
     </div>
+
     <div class="bloco_plano_saude">
-        <hheader>
+        <header>
             <h1>Explore a rede credenciada</h1>
-        </hheader>
+        </header>
         <div class="lista_passo_a_passo">
             <ul class="bloco_geral_ul">
                 <li>Clique no botão “Veja Aqui”</li>
@@ -115,52 +116,42 @@
                         </td>
                         <td>180 Dias</td>
                     </tr>
-
                     <tr>
                         <td>Quimioterapia e radioterapia (não relacionadas com doenças preexistentes)</td>
                         <td>180 Dias</td>
                     </tr>
-
                     <tr>
                         <td>Procedimentos para litotripsia</td>
                         <td>180 Dias</td>
                     </tr>
-
                     <tr>
                         <td>Videolaparoscopia e procedimentos videoassistidos com finalidade terapêutico-diagnóstica ambulatorial</td>
                         <td>180 Dias</td>
                     </tr>
-
                     <tr>
                         <td>Procedimentos para artroscopia</td>
                         <td>180 Dias</td>
                     </tr>
-
                     <tr>
                         <td>Diálise ou hemodiálise (não relacionada com doenças preexistentes)</td>
                         <td>180 Dias</td>
                     </tr>
-
                     <tr>
                         <td>Hemoterapia</td>
                         <td>180 Dias</td>
                     </tr>
-
                     <tr>
                         <td>Internações em geral (não relacionadas com doenças preexistentes)</td>
                         <td>180 Dias</td>
                     </tr>
-
                     <tr>
                         <td>Internações para obstetrícia e neonatologia</td>
                         <td>300 Dias</td>
                     </tr>
-
                     <tr>
                         <td>Cirurgias em regime de day hospital (não relacionadas com doenças preexistentes)</td>
                         <td>180 Dias</td>
                     </tr>
-
                     <tr>
                         <td>Cobertura Parcial Temporária CPT</td>
                         <td>24 meses</td>
@@ -169,6 +160,7 @@
             </table>
         </div>
     </div>
+
     <div class="bloco_titulo_texto_centralizado">
         <header>
             <h1>Preços do Plano de Saúde</h1>
@@ -414,6 +406,7 @@
             </table>
         </div>
     </div>
+
     <div class="bloco_plano_saude bloco_titulo_texto_centralizado">
         <header>
             <h1>Preços de Coparticipação</h1>
@@ -584,6 +577,7 @@
             <a class="botao_geral_cor cor_bg" href="@route(planosaude.simulacao)/amil">Fazer Simulação</a>
         @endif
     </section>
+
     @if (TIPO_USUARIO == 'indicado'):
         <div class="bloco_atencao_geral">
             <p>Apenas associados possuem acesso a este recurso</p>

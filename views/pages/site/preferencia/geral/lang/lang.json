@@ -1,0 +1,44 @@
+{
+    "tituloPersonalize": [
+        {
+            "pt": "Personalize",
+            "en": "",
+            "es": ""
+        }
+    ],
+    "textoClubeFeito": [
+        {
+            "pt": "O clube é feito para você, personalize-o conforme as suas preferências, selecione entre as categorias abaixo:",
+            "en": "",
+            "es": ""
+        }
+    ],
+    "botaoAvancar": [
+        {
+            "pt": "Avançar",
+            "en": "",
+            "es": ""
+        }
+    ],
+    "tituloListaParceiro": [
+        {
+            "pt": "Selecionamos uma lista de parceiros conforme as suas preferências,<br> deseja favoritar algum deles?",
+            "en": "",
+            "es": ""
+        }
+    ],
+    "textoFavoritarParceiro": [
+        {
+            "pt": "Ao favoritar esses parceiros irão aparecer no topo da sua lista ao entrar no clube, basta clicar no botão nos blocos abaixo",
+            "en": "",
+            "es": ""
+        }
+    ],
+    "botaoRegistrar": [
+        {
+            "pt": "Registrar",
+            "en": "",
+            "es": ""
+        }
+    ]
+}

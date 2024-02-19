@@ -13,21 +13,21 @@
             "es": ""
         }
     ],
-    "inputNomeDependente": [
+    "formNomeDependente": [
         {
             "pt": "Digite o nome do dependente",
             "en": "",
             "es": ""
         }
     ],
-    "inputCpfDependente": [
+    "formCpfDependente": [
         {
             "pt": "Digite o cpf do dependente",
             "en": "",
             "es": ""
         }
     ],
-    "inputEmailDependente": [
+    "formEmailDependente": [
         {
             "pt": "Digite o e-mail do dependente",
             "en": "",
@@ -83,14 +83,6 @@
             "es": ""
         }
     ],
-    "textoStatus": [
-        {
-            "pt": "",
-            "en": "",
-            "es": ""
-        }
-    ]
-    ,
     "textoStatusReenviarConvite": [
         {
             "pt": "Reenviar convite",
@@ -98,10 +90,4 @@
             "es": ""
         }
     ]
-
-
-
-
-
-
 }

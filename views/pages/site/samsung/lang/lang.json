@@ -1,0 +1,101 @@
+{
+    "textoVerifiqueEmail": [
+        {
+            "pt": "Verifique seu e-mail cadastrado",
+            "en": "",
+            "es": ""
+        }
+    ],
+    "textoAcessoSite": [
+        {
+            "pt": "Acesse o site da Samsung pelo botão abaixo.",
+            "en": "",
+            "es": ""
+        }
+    ],
+    "textoMesmoEmail": [
+        {
+            "pt": "Digite o mesmo e-mail que está cadastro aqui no site da Samsung",
+            "en": "",
+            "es": ""
+        }
+    ],
+    "textoCodigo": [
+        {
+            "pt": "Insira o codigo que recebeu por e-mail no campo informado",
+            "en": "",
+            "es": ""
+        }
+    ],
+    "textoDesconto": [
+        {
+            "pt": "Desconto já aplicado no site de parceria. Não perca tempo, aproveite e boas compras!",
+            "en": "",
+            "es": ""
+        }
+    ],
+    "textoEmailInformado": [
+        {
+            "pt": "O e-mail informado no site da Samsung deve ser o mesmo e-mail do seu cadastro.",
+            "en": "",
+            "es": ""
+        }
+    ],
+    "textoNaoTemEmail": [
+        {
+            "pt": "Você não tem e-mail cadastrado, cadastre um e-mail antes de continuar.",
+            "en": "",
+            "es": ""
+        }
+    ],
+    "textoSeusEmail": [
+        {
+            "pt": "Seus e-mails cadastrados são",
+            "en": "",
+            "es": ""
+        }
+    ],
+    "linkAcessarSite": [
+        {
+            "pt": "Acessar site",
+            "en": "",
+            "es": ""
+        }
+    ],
+    "tituloAtualizarEmail": [
+        {
+            "pt": "Atualizar e-mail",
+            "en": "",
+            "es": ""
+        }
+    ],
+    "textoAtualizeEmails": [
+        {
+            "pt": "Atualize seus e-mails para poder usar a parceria",
+            "en": "",
+            "es": ""
+        }
+    ],
+    "inputEmailPessoal": [
+        {
+            "pt": "",
+            "en": "",
+            "es": ""
+        }
+    ],
+    "inputEmailTrabalho": [
+        {
+            "pt": "",
+            "en": "",
+            "es": ""
+        }
+    ],
+    "botaoAtualizar": [
+        {
+            "pt": "Atualizar",
+            "en": "",
+            "es": ""
+        }
+    ]
+
+}

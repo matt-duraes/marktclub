@@ -1,448 +1,460 @@
 {
-    "textoAdministrado": [
+    "blocoPlanoSaude": [
         {
-            "pt": "Este plano é administrado pela BENEVIX ADMINISTRADORA DE BENEFÍCIOS LTDA, registrada na ANS sob o n°. 41771-8, pessoa jurídica de direito privado, com sede na Avenida Nossa Senhora dos Navegantes, n° 495, salas 702 a 704, Ed. Centro Empresarial Enseada - Enseada do Suá, Vitória - ES, CEP 29050-335, inscrita no CNPJ sob n°. 11.073.058/0001-81 em contrato particular assinado diretamente com sua entidade de classe, conforme regulamentações vigentes da ANS. O aniversário desta apólice para reajuste anual é o mês de Julho.",
-            "en": "",
-            "es": ""
-        }
-    ],
-    "tituloBeneficios": [
-        {
-            "pt": "Benefícios exclusivos",
-            "en": "",
-            "es": ""
-        }
-    ],
-    "textoMenoresPrecos": [
-        {
-            "pt": "Menores preços do mercado",
-            "en": "",
-            "es": ""
-        }
-    ],
-    "textoParaDependentes": [
-        {
-            "pt": "Contrate para seus dependentes",
-            "en": "",
-            "es": ""
-        }
-    ],
-    "textoAmplaCobertura": [
-        {
-            "pt": "Ampla cobertura em todo brasil",
-            "en": "",
-            "es": ""
-        }
-    ],
-    "tituloRedeCredenciada": [
-        {
-            "pt": "Explore a rede credenciada",
-            "en": "",
-            "es": ""
-        }
-    ],
-    "avisoVejaAqui": [
-        {
-            "pt": "Clique no botão 'Veja Aqui' ",
-            "en": "",
-            "es": ""
-        }
-    ],
-    "textoSelecioneTipo": [
-        {
-            "pt": "Na página que abrirá, selecione o Tipo do Produto: SAÚDE",
-            "en": "",
-            "es": ""
-        }
-    ],
-    "textoSelecionePlano": [
-        {
-            "pt": "Selecione o plano que deseja consultar entre as opções abaixo e clique em Continuar:",
-            "en": "",
-            "es": ""
-        }
-    ],
-    "textoObservacao": [
-        {
-            "pt": "Observação: os demais campos não são obrigatórios para realizar a busca da rede credenciada",
-            "en": "",
-            "es": ""
-        }
-    ],
-    "textoSelecioneUf": [
-        {
-            "pt": "Em seguida, selecione a UF, Município e Bairro que deseja consultar e clique em Continuar",
-            "en": "",
-            "es": ""
-        }
-    ],
-    "textoSelecioneTipoServico": [
-        {
-            "pt": "Selecione o tipo de Serviço e a Especialidade que deseja e clique em Buscar.",
-            "en": "",
-            "es": ""
-        }
-    ],
-    "linkConsultarRede": [
-        {
-            "pt": "Consultar rede credenciada",
-            "en": "",
-            "es": ""
-        }
-    ],
-    "tituloCarencia": [
-        {
-            "pt": "Carência",
-            "en": "",
-            "es": ""
-        }
-    ],
-    "tituloTabelaCarencia": [
-        {
-            "pt": "Carência",
-            "en": "",
-            "es": ""
-        }
-    ],
-    "tituloTabelaProcedimento": [
-        {
-            "pt": "Procedimento",
-            "en": "",
-            "es": ""
-        }
-    ],
-    "blocoAcidentePessoal": [
-        {
-            "tituloAcidente": [
+            "tituloBeneficios": [
                 {
-                    "pt": "Acidente Pessoal",
+                    "pt": "Benefícios exclusivos",
                     "en": "",
                     "es": ""
                 }
             ],
-            "tempoAcidente": [
+            "textoAdministrado": [
                 {
-                    "pt": "24 horas",
+                    "pt": "Este plano é administrado pela BENEVIX ADMINISTRADORA DE BENEFÍCIOS LTDA, registrada na ANS sob o n°. 41771-8, pessoa jurídica de direito privado, com sede na Avenida Nossa Senhora dos Navegantes, n° 495, salas 702 a 704, Ed. Centro Empresarial Enseada - Enseada do Suá, Vitória - ES, CEP 29050-335, inscrita no CNPJ sob n°. 11.073.058/0001-81 em contrato particular assinado diretamente com sua entidade de classe, conforme regulamentações vigentes da ANS. O aniversário desta apólice para reajuste anual é o mês de Julho.",
+                    "en": "",
+                    "es": ""
+                }
+            ],
+            "textoMenoresPrecos": [
+                {
+                    "pt": "Menores preços do mercado",
+                    "en": "",
+                    "es": ""
+                }
+            ],
+            "textoParaDependentes": [
+                {
+                    "pt": "Contrate para seus dependentes",
+                    "en": "",
+                    "es": ""
+                }
+            ],
+            "textoAmplaCobertura": [
+                {
+                    "pt": "Ampla cobertura em todo brasil",
                     "en": "",
                     "es": ""
                 }
             ]
         }
     ],
-    "blocoConsultaEletiva": [
+    "blocoRedeCredenciada": [
         {
-            "tituloConsulta": [
+            "tituloRedeCredenciada": [
                 {
-                    "pt": "Consultas eletivas em consultórios, clínicas ou centros médicos",
+                    "pt": "Explore a rede credenciada",
                     "en": "",
                     "es": ""
                 }
             ],
-            "tempoConsulta": [
+            "itemVejaAqui": [
                 {
-                    "pt": "30 dias",
+                    "pt": "Clique no botão 'Veja Aqui'",
+                    "en": "",
+                    "es": ""
+                }
+            ],
+            "itemSelecioneTipo": [
+                {
+                    "pt": "Na página que abrirá, selecione o Tipo do Produto: SAÚDE",
+                    "en": "",
+                    "es": ""
+                }
+            ],
+            "itemSelecionePlano": [
+                {
+                    "pt": "Selecione o plano que deseja consultar entre as opções abaixo e clique em Continuar:",
+                    "en": "",
+                    "es": ""
+                }
+            ],
+            "itemObservacao": [
+                {
+                    "pt": "Observação: os demais campos não são obrigatórios para realizar a busca da rede credenciada",
+                    "en": "",
+                    "es": ""
+                }
+            ],
+            "itemSelecioneUf": [
+                {
+                    "pt": "Em seguida, selecione a UF, Município e Bairro que deseja consultar e clique em Continuar",
+                    "en": "",
+                    "es": ""
+                }
+            ],
+            "itemSelecioneTipoServico": [
+                {
+                    "pt": "Selecione o tipo de Serviço e a Especialidade que deseja e clique em Buscar.",
+                    "en": "",
+                    "es": ""
+                }
+            ],
+            "linkConsultarRede": [
+                {
+                    "pt": "Consultar rede credenciada",
                     "en": "",
                     "es": ""
                 }
             ]
         }
     ],
-    "blocoTerapeuticos ": [
+    "blocoCarencia": [
         {
-            "tituloTerapeuticos": [
+            "tituloCarencia": [
                 {
-                    "pt": "Exames e procedimentos terapêuticos ambulatoriais básicos",
+                    "pt": "Carência",
                     "en": "",
                     "es": ""
                 }
             ],
-            "tempoTerapeuticos": [
+            "tituloTabelaCarencia": [
                 {
-                    "pt": "30 dias",
-                    "en": "",
-                    "es": ""
-                }
-            ]
-        }
-    ],
-    "blocoEspeciais": [
-        {
-            "tituloEspeciais": [
-                {
-                    "pt": "Exames e procedimentos especiais realizados em regime ambulatorial, relacionados na cláusula contratual, exceto Endoscopia digestiva,respiratória e urológica",
+                    "pt": "Carência",
                     "en": "",
                     "es": ""
                 }
             ],
-            "tempoEspeciais": [
+            "tituloTabelaProcedimento": [
                 {
-                    "pt": "180 dias",
-                    "en": "",
-                    "es": ""
-                }
-            ]
-        }
-    ],
-    "blocoUltrassonografia": [
-        {
-            "tituloUltrassonografia": [
-                {
-                    "pt": "Ultrassonografia",
+                    "pt": "Procedimento",
                     "en": "",
                     "es": ""
                 }
             ],
-            "tempoUltrassonografia": [
+            "blocoAcidentePessoal": [
                 {
-                    "pt": "180 dias",
-                    "en": "",
-                    "es": ""
-                }
-            ]
-        }
-    ],
-    "blocoTcRnm": [
-        {
-            "tituloTcRnm": [
-                {
-                    "pt": "TC, RNM, neurorradiologia, cardiografia, mielografia, radiologia intervencionista",
-                    "en": "",
-                    "es": ""
-                }
-            ],
-            "tempoTcRnm": [
-                {
-                    "pt": "180 dias",
-                    "en": "",
-                    "es": ""
-                }
-            ]
-        }
-    ],
-    "blocoExames": [
-        {
-            "tituloExames": [
-                {
-                    "pt": "Exames de hemodinâmica, exames cardiovasculares em medicina nuclear diagnóstica e imunocintilografia",
-                    "en": "",
-                    "es": ""
+                    "procedimento": [
+                        {
+                            "pt": "Acidente Pessoal",
+                            "en": "",
+                            "es": ""
+                        }
+                    ],
+                    "tempoCarencia": [
+                        {
+                            "pt": "24 horas",
+                            "en": "",
+                            "es": ""
+                        }
+                    ]
                 }
             ],
-            "tempoExames": [
+            "blocoConsultaEletiva": [
                 {
-                    "pt": "180 dias",
-                    "en": "",
-                    "es": ""
-                }
-            ]
-        }
-    ],
-    "blocoEndoscopicos": [
-        {
-            "tituloEndoscopicos": [
-                {
-                    "pt": "Procedimentos terapêuticos endoscópicos digestivos, respiratórios e urológicos",
-                    "en": "",
-                    "es": ""
-                }
-            ],
-            "tempoEndoscopicos": [
-                {
-                    "pt": "180 dias",
-                    "en": "",
-                    "es": ""
-                }
-            ]
-        }
-    ],
-    "blocoHemodinamica": [
-        {
-            "tituloHemodinamica": [
-                {
-                    "pt": "Hemodinâmica terapêutica e angioplastias (não relacionadas com doenças preexistentes)",
-                    "en": "",
-                    "es": ""
+                    "procedimento": [
+                        {
+                            "pt": "Consultas eletivas em consultórios, clínicas ou centros médicos",
+                            "en": "",
+                            "es": ""
+                        }
+                    ],
+                    "tempoCarencia": [
+                        {
+                            "pt": "30 dias",
+                            "en": "",
+                            "es": ""
+                        }
+                    ]
                 }
             ],
-            "tempoHemodinamica": [
+            "blocoTerapeuticos ": [
                 {
-                    "pt": "180 dias",
-                    "en": "",
-                    "es": ""
-                }
-            ]
-        }
-    ],
-    "blocoQuimioterapia": [
-        {
-            "tituloQuimioterapia":[
-                {
-                    "pt": "Quimioterapia e radioterapia (não relacionadas com doenças preexistentes)",
-                    "en": "",
-                    "es": ""
-                }
-            ],
-            "tempoHemodinamica":[
-                {
-                    "pt": "180 dias",
-                    "en": "",
-                    "es": ""
-                }
-            ]
-        }
-    ],
-    "blocoProcedimentoLitotripsia": [
-        {
-            "tituloLitotripsia": [
-                {
-                    "pt": "Procedimentos para litotripsia",
-                    "en": "",
-                    "es": ""
+                    "procedimento": [
+                        {
+                            "pt": "Exames e procedimentos terapêuticos ambulatoriais básicos",
+                            "en": "",
+                            "es": ""
+                        }
+                    ],
+                    "tempoCarencia": [
+                        {
+                            "pt": "30 dias",
+                            "en": "",
+                            "es": ""
+                        }
+                    ]
                 }
             ],
-            "tempoLitotripsia":[
+            "blocoEspeciais": [
                 {
-                    "pt": "180 dias",
-                    "en": "",
-                    "es": ""
-                }
-            ]
-        }
-    ],
-    "blocoVideolaparoscopia": [
-        {
-            "tituloVideolaparoscopia": [
-                {
-                    "pt": "Videolaparoscopia e procedimentos videoassistidos com finalidade terapêutico-diagnóstica ambulatorial",
-                    "en": "",
-                    "es": ""
-                }
-            ],
-            "tempoVideolaparoscopia":[
-                {
-                    "pt": "180 dias",
-                    "en": "",
-                    "es": ""
-                }
-            ]
-        }
-    ],
-    "blocoArtroscopia": [
-        {
-            "tituloArtroscopia": [
-                {
-                    "pt": "Procedimentos para artroscopia",
-                    "en": "",
-                    "es": ""
+                    "procedimento": [
+                        {
+                            "pt": "Exames e procedimentos especiais realizados em regime ambulatorial, relacionados na cláusula contratual, exceto Endoscopia digestiva,respiratória e urológica",
+                            "en": "",
+                            "es": ""
+                        }
+                    ],
+                    "tempoCarencia": [
+                        {
+                            "pt": "180 dias",
+                            "en": "",
+                            "es": ""
+                        }
+                    ]
                 }
             ],
-            "tempoArtroscopia":[
+            "blocoUltrassonografia": [
                 {
-                    "pt": "180 dias",
-                    "en": "",
-                    "es": ""
-                }
-            ]
-        }
-    ],
-    "blocoHemodialise": [
-        {
-            "tituloHemodialise": [
-                {
-                    "pt": "",
-                    "en": "",
-                    "es": ""
-                }
-            ],
-            "tempoHemodialise": [
-                {
-                    "pt": "180 dias",
-                    "en": "",
-                    "es": ""
-                }
-            ]
-        }
-    ],
-    "blocoHemoterapia": [
-        {
-            "tituloHemoterapia": [
-                {
-                    "pt": "Hemoterapia",
-                    "en": "",
-                    "es": ""
+                    "procedimento": [
+                        {
+                            "pt": "Ultrassonografia",
+                            "en": "",
+                            "es": ""
+                        }
+                    ],
+                    "tempoCarencia": [
+                        {
+                            "pt": "180 dias",
+                            "en": "",
+                            "es": ""
+                        }
+                    ]
                 }
             ],
-            "tempoHemoterapia": [
+            "blocoTcRnm": [
                 {
-                    "pt": "180 dias",
-                    "en": "",
-                    "es": ""
-                }
-            ]
-        }
-    ],
-    "blocoInternacoesGeral": [
-        {
-            "tituloInternacoesGeral": [
-                {
-                    "pt": "Internações em geral (não relacionadas com doenças preexistentes)",
-                    "en": "",
-                    "es": ""
-                }
-            ],
-            "tempoInternacoesGeral": [
-                {
-                    "pt": "180 dias",
-                    "en": "",
-                    "es": ""
-                }
-            ]
-        }
-    ],
-    "blocoInternacoesObstetricia": [
-        {
-            "tituloInternacoesObstetricia": [
-                {
-                    "pt": "Internações para obstetrícia e neonatologia",
-                    "en": "",
-                    "es": ""
+                    "procedimento": [
+                        {
+                            "pt": "TC, RNM, neurorradiologia, cardiografia, mielografia, radiologia intervencionista",
+                            "en": "",
+                            "es": ""
+                        }
+                    ],
+                    "tempoCarencia": [
+                        {
+                            "pt": "180 dias",
+                            "en": "",
+                            "es": ""
+                        }
+                    ]
                 }
             ],
-            "tempoInternacoesObstetricia": [
+            "blocoExames": [
                 {
-                    "pt": "300 dias",
-                    "en": "",
-                    "es": ""
+                    "procedimento": [
+                        {
+                            "pt": "Exames de hemodinâmica, exames cardiovasculares em medicina nuclear diagnóstica e imunocintilografia",
+                            "en": "",
+                            "es": ""
+                        }
+                    ],
+                    "tempoCarencia": [
+                        {
+                            "pt": "180 dias",
+                            "en": "",
+                            "es": ""
+                        }
+                    ]
+                }
+            ],
+            "blocoEndoscopicos": [
+                {
+                    "procedimento": [
+                        {
+                            "pt": "Procedimentos terapêuticos endoscópicos digestivos, respiratórios e urológicos",
+                            "en": "",
+                            "es": ""
+                        }
+                    ],
+                    "tempoCarencia": [
+                        {
+                            "pt": "180 dias",
+                            "en": "",
+                            "es": ""
+                        }
+                    ]
+                }
+            ],
+            "blocoHemodinamica": [
+                {
+                    "procedimento": [
+                        {
+                            "pt": "Hemodinâmica terapêutica e angioplastias (não relacionadas com doenças preexistentes)",
+                            "en": "",
+                            "es": ""
+                        }
+                    ],
+                    "tempoCarencia": [
+                        {
+                            "pt": "180 dias",
+                            "en": "",
+                            "es": ""
+                        }
+                    ]
+                }
+            ],
+            "blocoQuimioterapia": [
+                {
+                    "procedimento":[
+                        {
+                            "pt": "Quimioterapia e radioterapia (não relacionadas com doenças preexistentes)",
+                            "en": "",
+                            "es": ""
+                        }
+                    ],
+                    "tempoCarencia":[
+                        {
+                            "pt": "180 dias",
+                            "en": "",
+                            "es": ""
+                        }
+                    ]
+                }
+            ],
+            "blocoProcedimentoLitotripsia": [
+                {
+                    "procedimento": [
+                        {
+                            "pt": "Procedimentos para litotripsia",
+                            "en": "",
+                            "es": ""
+                        }
+                    ],
+                    "tempoCarencia":[
+                        {
+                            "pt": "180 dias",
+                            "en": "",
+                            "es": ""
+                        }
+                    ]
+                }
+            ],
+            "blocoVideolaparoscopia": [
+                {
+                    "procedimento": [
+                        {
+                            "pt": "Videolaparoscopia e procedimentos videoassistidos com finalidade terapêutico-diagnóstica ambulatorial",
+                            "en": "",
+                            "es": ""
+                        }
+                    ],
+                    "tempoCarencia":[
+                        {
+                            "pt": "180 dias",
+                            "en": "",
+                            "es": ""
+                        }
+                    ]
+                }
+            ],
+            "blocoArtroscopia": [
+                {
+                    "procedimento": [
+                        {
+                            "pt": "Procedimentos para artroscopia",
+                            "en": "",
+                            "es": ""
+                        }
+                    ],
+                    "tempoCarencia":[
+                        {
+                            "pt": "180 dias",
+                            "en": "",
+                            "es": ""
+                        }
+                    ]
+                }
+            ],
+            "blocoHemodialise": [
+                {
+                    "procedimento": [
+                        {
+                            "pt": "",
+                            "en": "",
+                            "es": ""
+                        }
+                    ],
+                    "tempoCarencia": [
+                        {
+                            "pt": "180 dias",
+                            "en": "",
+                            "es": ""
+                        }
+                    ]
+                }
+            ],
+            "blocoHemoterapia": [
+                {
+                    "procedimento": [
+                        {
+                            "pt": "Hemoterapia",
+                            "en": "",
+                            "es": ""
+                        }
+                    ],
+                    "tempoCarencia": [
+                        {
+                            "pt": "180 dias",
+                            "en": "",
+                            "es": ""
+                        }
+                    ]
+                }
+            ],
+            "blocoInternacoesGeral": [
+                {
+                    "procedimento": [
+                        {
+                            "pt": "Internações em geral (não relacionadas com doenças preexistentes)",
+                            "en": "",
+                            "es": ""
+                        }
+                    ],
+                    "tempoCarencia": [
+                        {
+                            "pt": "180 dias",
+                            "en": "",
+                            "es": ""
+                        }
+                    ]
+                }
+            ],
+            "blocoInternacoesObstetricia": [
+                {
+                    "procedimento": [
+                        {
+                            "pt": "Internações para obstetrícia e neonatologia",
+                            "en": "",
+                            "es": ""
+                        }
+                    ],
+                    "tempoCarencia": [
+                        {
+                            "pt": "300 dias",
+                            "en": "",
+                            "es": ""
+                        }
+                    ]
+                }
+            ],
+            "blocoCirurgias": [
+                {
+                    "procedimento": {
+                        "pt": "Cirurgias em regime de day hospital (não relacionadas com doenças preexistentes)",
+                        "en": "",
+                        "es": ""
+                    },
+                    "tempoCarencia": {
+                        "pt": "180 dias",
+                        "en": "",
+                        "es": ""
+                    }
+                }
+            ],
+            "blocoCoberturaParcial": [
+                {
+                    "procedimento": {
+                        "pt": "Cobertura Parcial Temporária CPT",
+                        "en": "",
+                        "es": ""
+                    },
+                    "tempoCarencia": {
+                        "pt": "24 meses",
+                        "en": "",
+                        "es": ""
+                    }
                 }
             ]
-        }
-    ],
-    "blocoCirurgias": [
-        {
-            "tituloCirurgias": {
-                "pt": "Cirurgias em regime de day hospital (não relacionadas com doenças preexistentes)",
-                "en": "",
-                "es": ""
-            },
-            "tempoCirurgias": {
-                "pt": "180 dias",
-                "en": "",
-                "es": ""
-            }
-        }
-    ],
-    "blocoCoberturaParcial": [
-        {
-            "tituloCobertura": {
-                "pt": "Cobertura Parcial Temporária CPT",
-                "en": "",
-                "es": ""
-            },
-            "tempoCobertura": {
-                "pt": "24 meses",
-                "en": "",
-                "es": ""
-            }
         }
     ],
     "tituloPrecoPlano": [
@@ -452,260 +464,276 @@
             "es": ""
         }
     ],
-    "tituloReembolso": [
+    "blocoReembolso": [
         {
-            "pt": "Reembolso",
-            "en": "",
-            "es": ""
-        }
-    ],
-    "tituloTabelaMultiplos": [
-        {
-            "pt": "LINHA AMIL - MULTIPLOS",
-            "en": "",
-            "es": ""
-        }
-    ],
-    "tituloTabelaProcedimentos": [
-        {
-            "pt": "Grupo de procedimentos",
-            "en": "",
-            "es": ""
-        }
-    ],
-    "tituloTabelaValorUra": [
-        {
-            "pt": "Valor da URA",
-            "en": "",
-            "es": ""
-        }
-    ],
-    "subtitulosAtendimento": [
-        {
-            "pt": "Atendimento de Urgência",
-            "en": "",
-            "es": ""
-        }
-    ],
-    "subtitulosConsultas": [
-        {
-            "pt": "Consultas eletivas e clinicas",
-            "en": "",
-            "es": ""
-        }
-    ],
-    "subtitulosExames": [
-        {
-            "pt": "Exames básicos",
-            "en": "",
-            "es": ""
-        }
-    ],
-    "subtituloHonorariosCirurgica": [
-        {
-            "pt": "Honorários médicos de internação cirúrgica",
-            "en": "",
-            "es": ""
-        }
-    ],
-    "subtituloHonorariosClinica": [
-        {
-            "pt": "Honorários médicos de internação clínica",
-            "en": "",
-            "es": ""
-        }
-    ],
-    "subtitulosProcedimentosBasicos": [
-        {
-            "pt": "Procedimentos básicos",
-            "en": "",
-            "es": ""
-        }
-    ],
-    "textoAvisoReembolso": [
-        {
-            "pt": "Obs. Para cálculo do reembolso ora instituído, deverá ser multiplicado o múltiplo de reembolso informado na tabela acima, tomando como base o valor de reembolso descrito na tabela vigente no momento da contratação e suas atualizações. A lista de eventos cobertos pela faculdade de livre escolha, excetuados os produtos que preveem reembolso apenas para consultas, bem como o valor pecuniário ou unidade de referência do reembolso, a qual a tabela acima será aplicada, encontra-se registrada no 4º Registro de Títulos e Documentos – Rio de Janeiro, e no site “amil.com.br”.",
-            "en": "",
-            "es": ""
-        }
-    ],
-    "tituloAuxilioRessarcimento": [
-        {
-            "pt": "Auxílio Ressarcimento",
-            "en": "",
-            "es": ""
-        }
-    ],
-    "textoAuxilioRessarcimento": [
-        {
-            "pt": "Você sabia que pode receber um auxílio ressarcimento de acordo com sua faixa salarial e idade? Veja a tabela abaixo:",
-            "en": "",
-            "es": ""
-        }
-    ],
-    "tabelaTituloFaixaEtaria": [
-        {
-            "pt": "Faixa Etária",
-            "en": "",
-            "es": ""
-        }
-    ],
-    "tabelaValorFaixaEtaria": [
-        {
-            "pt": "7500 acima",
-            "en": "",
-            "es": ""
-        }
-    ],
-    "ReembolsoTabelaRessarcimento": [
-        {
-            "pt": "Tabela governamental de reembolso. Pode ter os valores e condições alterados a qualquer momento.",
-            "en": "",
-            "es": ""
-        }
-    ],
-    "tituloPrecoCoparticipacao": [
-        {
-            "pt": "Preços de Coparticipação",
-            "en": "",
-            "es": ""
-        }
-    ],
-    "trTituloLimite": [
-        {
-            "pt": "Limite de Cooparticipação por item",
-            "en": "",
-            "es": ""
-        }
-    ],
-    "trItemProcedimento": [
-        {
-            "pt": "Procedimentos",
-            "en": "",
-            "es": ""
-        }
-    ],
-    "trItemCoparticipacao": [
-        {
-            "pt": "% de coparticipação",
-            "en": "",
-            "es": ""
-        }
-    ],
-    "trItemConsultasEletivas": [
-        {
-            "pt": "Consultas eletivas e clínicas",
-            "en": "",
-            "es": ""
-        }
-    ],
-    "trItemConsultasHospitalares": [
-        {
-            "pt": "Consultas Hospitalares (PS)",
-            "en": "",
-            "es": ""
-        }
-    ],
-    "trItemExamesBasicos": [
-        {
-            "pt": "Exames básicos",
-            "en": "",
-            "es": ""
-        }
-    ],
-    "trItemExamesEspeciais": [
-        {
-            "pt": "Exames especiais",
-            "en": "",
-            "es": ""
-        }
-    ],
-    "trItemFisioterapia": [
-        {
-            "pt": "Fisioterapia",
-            "en": "",
-            "es": ""
-        }
-    ],
-    "trItemFonoaudiologia": [
-        {
-            "pt": "Fonoaudiologia",
-            "en": "",
-            "es": ""
-        }
-    ],
-    "trItemInternação": [
-        {
-            "titulo": [
+            "tituloReembolso": [
                 {
-                    "pt": "Internação - cobrança por evento",
+                    "pt": "Reembolso",
                     "en": "",
                     "es": ""
                 }
             ],
-            "itemFixo": [
+            "tituloTabelaMultiplos": [
                 {
-                    "pt": "Fixo",
+                    "pt": "LINHA AMIL - MULTIPLOS",
+                    "en": "",
+                    "es": ""
+                }
+            ],
+            "tituloTabelaProcedimentos": [
+                {
+                    "pt": "Grupo de procedimentos",
+                    "en": "",
+                    "es": ""
+                }
+            ],
+            "tituloTabelaValorUra": [
+                {
+                    "pt": "Valor da URA",
+                    "en": "",
+                    "es": ""
+                }
+            ],
+            "itemTabelaAtendimento": [
+                {
+                    "pt": "Atendimento de Urgência",
+                    "en": "",
+                    "es": ""
+                }
+            ],
+            "itemTabelaConsultas": [
+                {
+                    "pt": "Consultas eletivas e clinicas",
+                    "en": "",
+                    "es": ""
+                }
+            ],
+            "itemTabelaExames": [
+                {
+                    "pt": "Exames básicos",
+                    "en": "",
+                    "es": ""
+                }
+            ],
+            "itemTabelaHonorariosCirurgica": [
+                {
+                    "pt": "Honorários médicos de internação cirúrgica",
+                    "en": "",
+                    "es": ""
+                }
+            ],
+            "itemTabelaHonorariosClinica": [
+                {
+                    "pt": "Honorários médicos de internação clínica",
+                    "en": "",
+                    "es": ""
+                }
+            ],
+            "itemTabelaProcedimentosBasicos": [
+                {
+                    "pt": "Procedimentos básicos",
+                    "en": "",
+                    "es": ""
+                }
+            ],
+            "textoAvisoReembolso": [
+                {
+                    "pt": "Obs. Para cálculo do reembolso ora instituído, deverá ser multiplicado o múltiplo de reembolso informado na tabela acima, tomando como base o valor de reembolso descrito na tabela vigente no momento da contratação e suas atualizações. A lista de eventos cobertos pela faculdade de livre escolha, excetuados os produtos que preveem reembolso apenas para consultas, bem como o valor pecuniário ou unidade de referência do reembolso, a qual a tabela acima será aplicada, encontra-se registrada no 4º Registro de Títulos e Documentos – Rio de Janeiro, e no site “amil.com.br”.",
                     "en": "",
                     "es": ""
                 }
             ]
         }
     ],
-    "trItemNutricao": [
+    "blocoRessarcimento": [
         {
-            "pt": "Nutrição",
-            "en": "",
-            "es": ""
+            "tituloAuxilioRessarcimento": [
+                {
+                    "pt": "Auxílio Ressarcimento",
+                    "en": "",
+                    "es": ""
+                }
+            ],
+            "textoAuxilioRessarcimento": [
+                {
+                    "pt": "Você sabia que pode receber um auxílio ressarcimento de acordo com sua faixa salarial e idade? Veja a tabela abaixo:",
+                    "en": "",
+                    "es": ""
+                }
+            ],
+            "tituloTabelaFaixaEtaria": [
+                {
+                    "pt": "Faixa Etária",
+                    "en": "",
+                    "es": ""
+                }
+            ],
+            "tituloTabelaAcima": [
+                {
+                    "pt": "7500 acima",
+                    "en": "",
+                    "es": ""
+                }
+            ],
+            "ReembolsoTabelaRessarcimento": [
+                {
+                    "pt": "Tabela governamental de reembolso. Pode ter os valores e condições alterados a qualquer momento.",
+                    "en": "",
+                    "es": ""
+                }
+            ]
         }
     ],
-    "trItemProcedimentosBasicos": [
+    "blocoCoparticipacao": [
         {
-            "pt": "Procedimentos básicos",
-            "en": "",
-            "es": ""
+            "tituloPrecoCoparticipacao": [
+                {
+                    "pt": "Preços de Coparticipação",
+                    "en": "",
+                    "es": ""
+                }
+            ],
+            "tituloTabelaLimite": [
+                {
+                    "pt": "Limite de Cooparticipação por item",
+                    "en": "",
+                    "es": ""
+                }
+            ],
+            "itemTabelaProcedimento": [
+                {
+                    "pt": "Procedimentos",
+                    "en": "",
+                    "es": ""
+                }
+            ],
+            "itemTabelaCoparticipacao": [
+                {
+                    "pt": "% de coparticipação",
+                    "en": "",
+                    "es": ""
+                }
+            ],
+            "itemTabelaConsultasEletivas": [
+                {
+                    "pt": "Consultas eletivas e clínicas",
+                    "en": "",
+                    "es": ""
+                }
+            ],
+            "itemTabelaConsultasHospitalares": [
+                {
+                    "pt": "Consultas Hospitalares (PS)",
+                    "en": "",
+                    "es": ""
+                }
+            ],
+            "itemTabelaExamesBasicos": [
+                {
+                    "pt": "Exames básicos",
+                    "en": "",
+                    "es": ""
+                }
+            ],
+            "itemTabelaExamesEspeciais": [
+                {
+                    "pt": "Exames especiais",
+                    "en": "",
+                    "es": ""
+                }
+            ],
+            "itemTabelaFisioterapia": [
+                {
+                    "pt": "Fisioterapia",
+                    "en": "",
+                    "es": ""
+                }
+            ],
+            "itemTabelaFonoaudiologia": [
+                {
+                    "pt": "Fonoaudiologia",
+                    "en": "",
+                    "es": ""
+                }
+            ],
+            "itemTabelaInternação": [
+                {
+                    "titulo": [
+                        {
+                            "pt": "Internação - cobrança por evento",
+                            "en": "",
+                            "es": ""
+                        }
+                    ],
+                    "itemFixo": [
+                        {
+                            "pt": "Fixo",
+                            "en": "",
+                            "es": ""
+                        }
+                    ]
+                }
+            ],
+            "itemTabelaNutricao": [
+                {
+                    "pt": "Nutrição",
+                    "en": "",
+                    "es": ""
+                }
+            ],
+            "itemTabelaProcedimentosBasicos": [
+                {
+                    "pt": "Procedimentos básicos",
+                    "en": "",
+                    "es": ""
+                }
+            ],
+            "itemTabelaProcedimentosEspeciais": [
+                {
+                    "pt": "Procedimentos especiais",
+                    "en": "",
+                    "es": ""
+                }
+            ],
+            "itemTabelaPsicoterapia": [
+                {
+                    "pt": "Psicoterapia",
+                    "en": "",
+                    "es": ""
+                }
+            ],
+            "itemTabelaQuimioterapia": [
+                {
+                    "pt": "Quimioterapia",
+                    "en": "",
+                    "es": ""
+                }
+            ],
+            "itemTabelaRadioterapia": [
+                {
+                    "pt": "Radioterapia",
+                    "en": "",
+                    "es": ""
+                }
+            ]
         }
     ],
-    "trItemProcedimentosEspeciais": [
+    "blocoSimulacao": [
         {
-            "pt": "Procedimentos especiais",
-            "en": "",
-            "es": ""
-        }
-    ],
-    "trItemPsicoterapia": [
-        {
-            "pt": "Psicoterapia",
-            "en": "",
-            "es": ""
-        }
-    ],
-    "trItemQuimioterapia": [
-        {
-            "pt": "Quimioterapia",
-            "en": "",
-            "es": ""
-        }
-    ],
-    "trItemRadioterapia": [
-        {
-            "pt": "Radioterapia",
-            "en": "",
-            "es": ""
-        }
-    ],
-    "tituloFazerSimulacao": [
-        {
-            "pt": "GOSTARIA DE FAZER UMA SIMULAÇÃO?",
-            "en": "",
-            "es": ""
-        }
-    ],
-    "textoFacaSimulacao": [
-        {
-            "pt": "Faça uma simulação sua e dos seus dependentes e veja os valores",
-            "en": "",
-            "es": ""
+            "tituloFazerSimulacao": [
+                {
+                    "pt": "GOSTARIA DE FAZER UMA SIMULAÇÃO?",
+                    "en": "",
+                    "es": ""
+                }
+            ],
+            "textoFacaSimulacao": [
+                {
+                    "pt": "Faça uma simulação sua e dos seus dependentes e veja os valores",
+                    "en": "",
+                    "es": ""
+                }
+            ]
         }
     ],
     "linkApenasAssociados": [

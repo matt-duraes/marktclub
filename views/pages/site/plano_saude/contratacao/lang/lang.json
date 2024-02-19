@@ -1,3 +1,312 @@
 {
+    "textoDadosPessoais": [
+        {
+            "pt": "Dados Pessoais",
+            "en": "",
+            "es": ""
+        }
+    ],
+    "textoDadosResponsavel": [
+        {
+            "pt": "Dados Responsável",
+            "en": "",
+            "es": ""
+        }
+    ],
+    "textoContato": [
+        {
+            "pt": "Contato",
+            "en": "",
+            "es": ""
+        }
+    ],
+    "textoEndereco": [
+        {
+            "pt": "",
+            "en": "",
+            "es": ""
+        }
+    ],
+    "tituloDadosPessoais": [
+        {
+            "pt": "DADOS PESSOAIS",
+            "en": "",
+            "es": ""
+        }
+    ],
+    "formNomeCompleto": [
+        {
+            "pt": "Digite seu nome completo",
+            "en": "",
+            "es": ""
+        }
+    ],
+    "formNaturalidade": [
+        {
+            "pt": "Digite um naturalidade",
+            "en": "",
+            "es": ""
+        }
+    ],
+    "formCpf": [
+        {
+            "pt": "CPF",
+            "en": "",
+            "es": ""
+        }
+    ],
+    "formDataDeNascimento": [
+        {
+            "pt": "Data de nascimento",
+            "en": "",
+            "es": ""
+        }
+    ],
+    "formGenero": [
+        {
+            "pt": "Estado Civil",
+            "en": "",
+            "es": ""
+        }
+    ],
+    "formEstadoCivil": [
+        {
+            "pt": "Estado Civil",
+            "en": "",
+            "es": ""
+        }
+    ],
+    "formPeso": [
+        {
+            "pt": "Digite o peso",
+            "en": "",
+            "es": ""
+        }
+    ],
+    "formAltura": [
+        {
+            "pt": "Digite a altura",
+            "en": "",
+            "es": ""
+        }
+    ],
+    "formRg": [
+        {
+            "pt": "Digite o rg",
+            "en": "",
+            "es": ""
+        }
+    ],
+    "formOrgaoExpedidor": [
+        {
+            "pt": "Digite um orgão expedidor",
+            "en": "",
+            "es": ""
+        }
+    ],
+    "formNomeMae": [
+        {
+            "pt": "Nome da mãe",
+            "en": "",
+            "es": ""
+        }
+    ],
+    "botaoContinuar": [
+        {
+            "pt": "Continuar",
+            "en": "",
+            "es": ""
+        }
+    ],
+    "tituloDadosResponsavel": [
+        {
+            "pt": "DADOS DO RESPONSÁVEL",
+            "en": "",
+            "es": ""
+        }
+    ],
+    "subtituloDadosResposavel": [
+        {
+            "pt": "Dados do responsável",
+            "en": "",
+            "es": ""
+        }
+    ],
+    "formSouResponsavel": [
+        {
+            "pt": "Eu sou o responsável",
+            "en": "",
+            "es": ""
+        }
+    ],
+    "formNomeResponsavel": [
+        {
+            "pt": "Digite o nome do responsável",
+            "en": "",
+            "es": ""
+        }
+    ],
+    "formCpfResponsavel": [
+        {
+            "pt": "CPF do responsável",
+            "en": "",
+            "es": ""
+        }
+    ],
+    "formRgResponsavel": [
+        {
+            "pt": "Digite o rg do responsável",
+            "en": "",
+            "es": ""
+        }
+    ],
+    "formOrgaoExpedidorResponsavel": [
+        {
+            "pt": "Digite um orgão expedidor",
+            "es": "",
+            "en": ""
+        }
+    ],
+    "botaoResponsavelVoltar": [
+        {
+            "pt": "Voltar",
+            "en": "",
+            "es": ""
+        }
+    ],
+    "botaoResponsavelContinuar": [
+        {
+            "pt": "Continuar",
+            "en": "",
+            "es": ""
+        }
+    ],
+    "tituloContato": [
+        {
+            "pt": "Contato",
+            "en": "",
+            "es": ""
+        }
+    ],
+    "formEmailPessoal": [
+        {
+            "pt": "E-mail pessoal",
+            "en": "",
+            "es": ""
+        }
+    ],
+    "formCelular": [
+        {
+            "pt": "Telefone Celular",
+            "en": "",
+            "es": ""
+        }
+    ],
+    "formTelefoneResidencial": [
+        {
+            "pt": "Telefone Residencial",
+            "en": "",
+            "es": ""
+        }
+    ],
+    "formTelefoneComercial": [
+        {
+            "pt": "Telefone Comercial",
+            "en": "",
+            "es": ""
+        }
+    ],
+    "formRamal": [
+        {
+            "pt": "Digite o ramal",
+            "en": "",
+            "es": ""
+        }
+    ],
+    "botaoVoltarContato": [
+        {
+            "pt": "Voltar",
+            "en": "",
+            "es": ""
+        }
+    ],
+    "botaoContinuarContato": [
+        {
+            "pt": "Continuar",
+            "en": "",
+            "es": ""
+        }
+    ],
+    "tituloEndereco": [
+        {
+            "pt": "ENDEREÇO",
+            "en": "",
+            "es": ""
+        }
+    ],
+    "formTextoCep": [
+        {
+            "pt": "CEP",
+            "en": "",
+            "es": ""
+        }
+    ],
+    "formTextoLogradouro": [
+        {
+            "pt": "Logradouro",
+            "en": "",
+            "es": ""
+        }
+    ],
+    "formNúmero": [
+        {
+            "pt": "Número",
+            "en": "",
+            "es": ""
+        }
+    ],
+    "formComplemento": [
+        {
+            "pt": "Complemento",
+            "en": "",
+            "es": ""
+        }
+    ],
+    "formBairro": [
+        {
+            "pt": "Bairro",
+            "en": "",
+            "es": ""
+        }
+    ],
+    "formUf": [
+        {
+            "pt": "UF",
+            "en": "",
+            "es": ""
+        }
+    ],
+    "formCidade": [
+        {
+            "pt": "Cidade",
+            "en": "",
+            "es": ""
+        }
+    ],
+    "botaoVoltarEndereco": [
+        {
+            "pt": "Voltar",
+            "en": "",
+            "es": ""
+        }
+    ],
+    "botaoTenhoInteresseEndereco": [
+        {
+            "pt": "Tenho Interesse",
+            "en": "",
+            "es": ""
+        }
+    ]
+
 
 }

@@ -1,3 +1,128 @@
 {
-
+    "tituloRegiao": [
+        {
+            "pt": "ESCOLHA A REGIÃO",
+            "en": "",
+            "es": ""
+        }
+    ],
+    "tituloAcomodacao": [
+        {
+            "pt": "ESCOLHA A ACOMODAÇÃO",
+            "en": "",
+            "es": ""
+        }
+    ],
+    "botaoVoltar": [
+        {
+            "pt": "Voltar",
+            "en": "",
+            "es": ""
+        }
+    ],
+    "tituloPlano": [
+        {
+            "pt": "ESCOLHA SEU PLANO",
+            "en": "",
+            "es": ""
+        }
+    ],
+    "tituloPreenchaInfo": [
+        {
+            "pt": "PREENCHA AS INFORMAÇÕES",
+            "en": "",
+            "es": ""
+        }
+    ],
+    "formDataNascimento": [
+        {
+            "pt": "Data de nascimento do titular",
+            "en": "",
+            "es": ""
+        }
+    ],
+    "tituloDependentes": [
+        {
+            "pt": "Dependentes",
+            "en": "",
+            "es": ""
+        }
+    ],
+    "textoAssociado": [
+        {
+            "pt": "Todo associado (a) pode aderir ao convênio e incluir como dependentes: esposo (a), filhos (as) solteiros (as) com até 28 anos, netos (as) com até 18 anos, filhos (as) maiores de 28 anos comprovadamente inválidos, pai e mãe desde que dependente no Imposto de Renda (IR).",
+            "en": "",
+            "es": ""
+        }
+    ],
+    "botaoAdicionarDependentes": [
+        {
+            "pt": "Adicionar Dependente",
+            "en": "",
+            "es": ""
+        }
+    ],
+    "botaoVoltarSimulacao": [
+        {
+            "pt": "Voltar",
+            "en": "",
+            "es": ""
+        }
+    ],
+    "botaoProsseguir": [
+        {
+            "pt": "Prosseguir",
+            "en": "",
+            "es": ""
+        }
+    ],
+    "tituloResultadoSimulacao": [
+        {
+            "pt": "RESULTADO DA SIMULAÇÃO",
+            "en": "",
+            "es": ""
+        }
+    ],
+    "textoTotal": [
+        {
+            "pt": "Total",
+            "en": "",
+            "es": ""
+        }
+    ],
+    "tituloValores": [
+        {
+            "pt": "Gostou dos valores?",
+            "en": "",
+            "es": ""
+        }
+    ],
+    "textoPreenchaFormularios": [
+        {
+            "pt": "Preencha nosso formulário e um especialista entrará em contato. Fique tranquilo, porque o preenchimento do formulário não implica na contratação, sendo apenas uma ferramenta para tirar eventuais dúvidas e o atendimento acontecer da melhor forma possível.",
+            "en": "",
+            "es": ""
+        }
+    ],
+    "inputDataNascimentoDependente": [
+        {
+            "pt": "Data nascimento do dependente",
+            "en": "",
+            "es": ""
+        }
+    ],
+    "tituloTitular": [
+        {
+            "pt": "Titular",
+            "en": "",
+            "es": ""
+        }
+    ],
+    "tituloDependente": [
+        {
+            "pt": "Dependente",
+            "en": "",
+            "es": ""
+        }
+    ]
 }
