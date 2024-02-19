@@ -26,7 +26,7 @@
                 @endif;
                 @if ($dado->cpf == 'sim'):
                 <div class="bloco_cpf bloco_infos">
-                    <span>Cpf</span>
+                    <span>CPF</span>
                     <p>{{$dados_cliente->cpf}}</p>
                 </div>
                 @endif
