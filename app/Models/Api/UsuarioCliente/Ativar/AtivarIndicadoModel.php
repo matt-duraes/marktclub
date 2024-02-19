@@ -57,8 +57,35 @@ final class AtivarIndicadoModel extends ORM
         parent::__construct();
         $this->setarPropriedade();
         $this->setarPropriedadeIndicacao();
+        $this->validarUsuarioRepetido();
         $this->validarDado();
         $this->salvarUsuario();
+    }
+
+    private function validarUsuarioRepetido()
+    {
+        $usuario = (new OrmHelper(TABELA_USUARIO_CLIENTE))
+            ->pegarPrimeiroRegistro([
+                [
+                    'OR',
+                    ['email_pessoal', $this->email_pessoal->email()],
+                    ['email_trabalho', $this->email_trabalho->email()],
+                    ['documento', $this->cpf->numero()]
+                ],
+                ['empresa', $this->empresa]
+            ], ['documento', 'email_pessoal', 'email_trabalho']);
+
+        if ($usuario && $usuario['documento'] == $this->cpf->numero()) {
+            return mensagemErro('Erro!', 'Já existe um usuário com esse CPF.');
+        }
+
+        if (
+            $usuario &&
+            $usuario['email_pessoal'] == $this->email_pessoal->email() &&
+            $usuario['email_trabalho'] == $this->email_trabalho->email()
+        ) {
+            return mensagemErro('Erro!', 'Já existe um usuário com esse e-mail.');
+        }
     }
 
     private function setarPropriedadeIndicacao()

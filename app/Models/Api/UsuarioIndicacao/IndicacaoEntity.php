@@ -2,7 +2,6 @@
 
 namespace App\Models\Api\UsuarioIndicacao;
 
-use Erro\Erro;
 use Throwable;
 use ORM\Entity;
 use Modules\Cpf;
@@ -25,7 +24,8 @@ final class IndicacaoEntity extends Entity
     protected string $ormTabela = TABELA_USUARIO_INDICACAO;
     protected array $ormBuscar = [
         'id_usuario_cliente', 'nome', 'email', 'telefone',
-        'status', 'data_criacao', 'data_atualizacao', 'hash'
+        'status', 'data_criacao', 'data_atualizacao', 'hash',
+        'vinculo'
     ];
     protected array $ormInsert = [
         'id_admin_empresa', 'id_usuario_cliente', 'hash',
@@ -37,6 +37,7 @@ final class IndicacaoEntity extends Entity
     private int $idEmpresa;
     protected int $id_admin_empresa;
     protected int $id_usuario_cliente;
+    protected int $vinculo;
     public Nome $nome;
     public Email $email;
     public Telefone $telefone;
@@ -55,20 +56,20 @@ final class IndicacaoEntity extends Entity
         parent::__construct();
     }
 
-    /**
-     * @throws Excecao
-     */
     protected function regraInsert(): void
     {
+        $this->validarCampoUnico();
         $this->id_admin_empresa = $this->idEmpresa;
         $this->hash = uuid();
         $this->status = new Status(Status::INDICADO);
         $this->setarUsuarioQueIndicou();
     }
 
-    /**
-     * @throws Excecao
-     */
+    private function validarCampoUnico()
+    {
+        $this->validarCampoDuplicado('email', '!Esse email já foi indicado!');
+    }
+
     private function setarUsuarioQueIndicou(): void
     {
         try {
@@ -113,9 +114,6 @@ final class IndicacaoEntity extends Entity
         $Email->sendGrid('Cadastro Realizado', $this->nome->nome(), $this->email->email(), deNome: $titulo);
     }
 
-    /**
-     * @throws Excecao|Erro
-     */
     protected function regraPosBuscar(): void
     {
         $this->setarQuemIndicou();
@@ -142,9 +140,6 @@ final class IndicacaoEntity extends Entity
         ];
     }
 
-    /**
-     * @throws Excecao|Erro
-     */
     protected function setarUsuarioAtivado(): void
     {
         if ($this->status->indice() !== Status::ATIVADO) {
@@ -153,7 +148,7 @@ final class IndicacaoEntity extends Entity
 
         $Usuario = (new OrmHelper(TABELA_USUARIO_CLIENTE))
             ->pegarPrimeiroRegistro([
-                ['id_usuario_indicacao', $this->prop('id')],
+                ['id', $this->vinculo],
                 ['status', 'in', Helper::STATUS_LIBERADO]
             ], ['cod', 'nome', 'documento', 'email_pessoal'], 'object');
 

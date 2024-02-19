@@ -15,7 +15,7 @@
 </a>
 @ endif;
 
-@ if( MENU_DEPENDENTE  && sessao('USUARIO.tipo') != 'dependente'):
+@ if( MENU_DEPENDENTE  && TIPO_USUARIO != 'dependente' && TIPO_USUARIO != 'indicado' ):
 <a class="botao {!!MENU_HOVER == 'perfil-dependente' ? 'cor_bg pagina_atual' : ''!!}" href="@route(perfil.dependente)">
     <i>@iconeDependenteOutline(22)</i>
     Adicionar dependentes
@@ -35,7 +35,7 @@
 </a>
 @ endif;
 
-@ if( MENU_INDICAR_USUARIO ):
+@ if( MENU_INDICAR_USUARIO && TIPO_USUARIO != 'indicado' ):
 <a class="botao {!!MENU_HOVER == 'perfil-indicacao' ? 'cor_bg pagina_atual' : ''!!}" href="@route(site.indiqueAmigo)">
     <i>@iconeIndiqueAmigoOutline(22)</i>
     Indique um amigo
