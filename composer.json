@@ -61,7 +61,8 @@
             "Tests\\": [
                 "tests/Backend",
                 "src/Tests"
-            ]
+            ],
+            "Where\\": "src/Where"
         }
     },
     "config": {

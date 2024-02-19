@@ -287,7 +287,7 @@ Route
         Route
             ::nome('validarSenha')
             ::middleware(TokenMiddleware::class, 'scope', ['usuario_cliente:validar_senha'])
-            ::request(['senha'])
+            ::request(['senha', '!usuario'])
             ::post('/usuario-cliente/validar-senha');
         Route
             ::nome('atualizar')
@@ -304,7 +304,7 @@ Route
         Route
             ::nome('imagem')
             ::middleware(TokenMiddleware::class, 'scope', ['usuario_cliente:atualizar'])
-            ::request(['id'])
+            ::request(['!usuario'])
             ::request(['arquivo'], 'files')
             ::post('/usuario-cliente/imagem');
         Route
@@ -334,7 +334,7 @@ Route
         Route
             ::nome('senha')
             ::middleware(TokenMiddleware::class, 'scope', ['usuario_cliente:senha'])
-            ::request(['empresa', 'cpf'], 'json')
+            ::request(['empresa', '!cpf', '!usuario'], 'json')
             ::get('/usuario-cliente/senha');
         Route
             ::nome('senha')
@@ -2568,6 +2568,45 @@ Route
             ::nome('deletar')
             ::middleware(TokenMiddleware::class, 'scope', ['publicacao_youtube:deletar'])
             ::delete('/publicacao-youtube/{id}');
+    });
+
+Route
+    ::nome('publicacao_arquivo')
+    ::controller(App\Controllers\Api\PublicacaoArquivoController::class)
+    ::middleware(TokenMiddleware::class, 'token')
+    ::grupo(function () {
+        Route
+            ::nome('listar')
+            ::middleware(TokenMiddleware::class, 'scope', ['publicacao_arquivo:listar'])
+            ::request([
+                'pagina', '!quantidade', '!pesquisa', '!data_inicio_de', '!data_inicio_ate',
+                '!publicado', '!tipo', '!ordem', '!status', '!restrita', '!site',
+            ], 'json')
+            ::get('/publicacao-arquivo');
+        Route
+            ::nome('buscar')
+            ::middleware(TokenMiddleware::class, 'scope', ['publicacao_arquivo:buscar'])
+            ::get('/publicacao-arquivo/{id}');
+        Route
+            ::nome('salvar')
+            ::middleware(TokenMiddleware::class, 'scope', ['publicacao_arquivo:salvar'])
+            ::request([
+                '!empresa', 'titulo', 'texto', 'imagem', 'arquivo', 'data_inicio',
+                'data_final', 'permissao_restrita', 'permissao_site', 'tipo', 'status'
+            ])
+            ::post('/publicacao-arquivo');
+        Route
+            ::nome('atualizar')
+            ::middleware(TokenMiddleware::class, 'scope', ['publicacao_arquivo:atualizar'])
+            ::request([
+                '!empresa', '!titulo', '!texto', '!imagem', '!arquivo', '!data_inicio',
+                '!data_final', '!permissao_restrita', '!permissao_site', '!tipo', '!status'
+            ])
+            ::put('/publicacao-arquivo/{id}');
+        Route
+            ::nome('deletar')
+            ::middleware(TokenMiddleware::class, 'scope', ['publicacao_arquivo:deletar'])
+            ::delete('/publicacao-arquivo/{id}');
     });
 
 Route

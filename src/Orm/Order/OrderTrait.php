@@ -10,10 +10,10 @@ trait OrderTrait
      * Ordena a busca no banco
      *
      * @param  string|array|OrderInterface $campo   Campo para a busca podendo ser uma string, um array nos formatos ["campo_1", "campo_2"] ou [["campo_1", "ASC"], ["campo_2", "DESC"]] ou um OrderInterface
-     * @param  string                      $direcao Direção podendo ser ASC ou DESC, ASC por padrão
+     * @param  string                      $direcao Direção podendo ser ASC ou DESC, DESC por padrão
      * @return self
      */
-    protected function order(string|array|OrderInterface $campo, string $direcao = 'ASC'): self
+    protected function order(string|array|OrderInterface $campo, string $direcao = 'DESC'): self
     {
         if ($campo instanceof OrderInterface) {
             $this->ormOrder = [$campo->ordem()];

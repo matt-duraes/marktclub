@@ -1905,3 +1905,35 @@ if (!function_exists('chaveExiste')) {
         return true;
     }
 }
+
+if (!function_exists('pegarUmDado')) {
+    function pegarUmDado(array $dado = [])
+    {
+        foreach ($dado as $item) {
+            if (!empty($item)) {
+                return $item;
+            }
+        }
+        return '';
+    }
+}
+
+if (!function_exists('implodeE')) {
+    function implodeE(array $dado, string $separador1 = ', ', string $separador2 = ' e ')
+    {
+        $dado = array_values($dado);
+        $quantidade = count($dado) - 1;
+        $retorno = '';
+        for ($i = 0; $i <= $quantidade; ++$i) {
+            if ($i == 0) {
+                $retorno = $dado[$i];
+                continue;
+            } elseif ($i == $quantidade) {
+                $retorno .= $separador2 . $dado[$i];
+                continue;
+            }
+            $retorno .= $separador1 . $dado[$i];
+        }
+        return trim($retorno);
+    }
+}

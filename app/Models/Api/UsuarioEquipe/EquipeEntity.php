@@ -215,9 +215,9 @@ final class EquipeEntity extends Entity
                 'usuario_dependente_add', 'usuario_dependente_deletar', 'usuario_indicacao_index',
                 'usuario_indicacao_visualizar', 'usuario_indicacao_status', 'usuario_lead_index',
                 'usuario_lead_visualizar', 'usuario_lead_status', 'usuario_equipe_index',
-                'usuario_equipe_add', 'usuario_equipe_editar', 'usuario_equipe_deletar',
-                'relatorio_acesso_index', 'relatorio_usuario_index', 'tabela_usuario_salvar',
-                'tabela_usuario_bloquear', 'solicitacao_voucher_index', 'solicitacao_voucher_visualizar'
+                'usuario_equipe_add', 'usuario_equipe_editar', 'usuario_equipe_deletar', 'relatorio_acesso_index',
+                'relatorio_usuario_index', 'tabela_usuario_salvar', 'tabela_usuario_bloquear', 'tabela_historico_index',
+                'solicitacao_voucher_index', 'solicitacao_voucher_visualizar'
             ];
         }
 

@@ -1,8 +1,8 @@
 window.addEventListener('load', async () => {
     const queryString = window.location.search;
     const searchParams = new URLSearchParams(queryString);
-    const hash = searchParams.get("hash");
-    const tipo_usuario = searchParams.get("tipo_usuario");
+    const hash = searchParams.get('hash');
+    const tipo_usuario = searchParams.get('tipo_usuario');
 
     if (!hash || !tipo_usuario) {
         return;
@@ -16,7 +16,7 @@ window.addEventListener('load', async () => {
         return;
     }
 
-    criarPaginaAtivarSalvar({ hash, tipo_usuario: tipo_usuario});
+    criarPaginaAtivarSalvar({ hash, tipo_usuario: tipo_usuario });
 });
 
 const setarTipoInput = (valorData = '') => {
@@ -28,7 +28,7 @@ const setarTipoInput = (valorData = '') => {
     inputCpf.parentNode.classList.add('display_none');
     input.parentNode.classList.remove('display_none');
 
-    if (tipoAtivacao == 'email' && valorData != 'dependente' || valorData == 'indicado') {
+    if ((tipoAtivacao == 'email' && valorData != 'dependente') || valorData == 'indicado') {
         inputCpf.parentNode.classList.add('display_none');
         input.setAttribute('placeholder', 'Digite o seu e-mail');
         input.setAttribute('type', 'email');
@@ -51,7 +51,6 @@ const setarTipoInput = (valorData = '') => {
 };
 const loadingAtivarBuscar = () => {
     const botoesTipoUsuario = document.querySelectorAll('.botao_tipo_usuario');
-    console.log(botoesTipoUsuario);
     let valorData = '';
     botoesTipoUsuario.forEach(botao => {
         botao.addEventListener('click', e => {
@@ -72,7 +71,7 @@ const loadingAtivarBuscar = () => {
                 case 'indicado':
                     $('.botao_indicado').classList.add('cor_bg');
                     break;
-            };
+            }
         });
     });
 
@@ -98,14 +97,14 @@ const loadingAtivarBuscar = () => {
             return;
         }
         if (valorData == 'indicado') {
-            criarPaginaAtivarSalvar({ hash: resposta.dado.hash, tipo_usuario: valorData});
+            criarPaginaAtivarSalvar({ hash: resposta.dado.hash, tipo_usuario: valorData });
             return;
         }
         criarPaginaAtivarSalvar(resposta.dado);
     });
 };
 
-const criarPaginaAtivarSalvar = (dado) => {
+const criarPaginaAtivarSalvar = dado => {
     const PaginaAtivar = new Pagina(
         'ativar-conta',
         `${LINK}/login/ativar-salvar?hash=${dado.hash}&cpf=${dado.cpf}&tipo_usuario=${dado.tipo_usuario}`,
@@ -115,7 +114,7 @@ const criarPaginaAtivarSalvar = (dado) => {
         loadingAtivar
     );
     PaginaAtivar.abrir();
-}
+};
 
 const loadingAtivar = () => {
     const hash = $('#input_ativar_hash_busca').value;

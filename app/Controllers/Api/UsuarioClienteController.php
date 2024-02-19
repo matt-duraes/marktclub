@@ -13,6 +13,7 @@ use Controller\Controller;
 use App\Classes\UsuarioCliente\Helper;
 use App\Classes\UsuarioCliente\TipoUsuario;
 use App\Classes\ConstrutorClube\TipoAtivacao;
+use App\Models\Api\Trait\ValidarUsuarioTrait;
 use App\Models\Api\UsuarioCliente\AppleModel;
 use App\Models\Api\UsuarioCliente\ClienteModel;
 use App\Models\Api\UsuarioCliente\DeletarModel;
@@ -37,6 +38,8 @@ final class UsuarioClienteController extends Controller implements
     ControllerAtualizarInterface,
     ControllerDeletarInterface
 {
+    use ValidarUsuarioTrait;
+
     /**
      * @param string $id
      *
@@ -150,7 +153,14 @@ final class UsuarioClienteController extends Controller implements
     public function postImagem(Request $request): Response
     {
         $Usuario = new ClienteEntity();
-        $Usuario->uuid($request->id);
+        if (!$request->vazio('usuario')) {
+            $Usuario->uuid($request->usuario);
+        } elseif (!empty($this->pegarIdUsuario())) {
+            $Usuario->id($this->pegarIdUsuario());
+        } else {
+            mensagemStatus(status: 404);
+        }
+
         $Usuario->imagem_arquivo = $request->getFiles('arquivo');
         $Usuario->salvar();
 
@@ -237,11 +247,13 @@ final class UsuarioClienteController extends Controller implements
     {
         $Usuario = new EnviarCodigoModel(
             $request->empresa,
-            new Cpf($request->cpf)
+            new Cpf($request->cpf),
+            $request->usuario
         );
         return mensagemSucesso([
             'id'      => uuid(),
-            'usuario' => $Usuario->id
+            'usuario' => $Usuario->id,
+            'email'   => $Usuario->email
         ]);
     }
 
@@ -281,8 +293,7 @@ final class UsuarioClienteController extends Controller implements
 
     public function postValidarSenha(Request $request)
     {
-        $id = TOKEN['usuario']->id;
-
+        $id = $request->existe('usuario') ? $request->usuario : TOKEN['usuario']->id;
         $senha = $request->senha;
         if (!defined('TOKEN')) {
             mensagemStatus(401, localhost: 'Token não foi definido.');
@@ -293,14 +304,11 @@ final class UsuarioClienteController extends Controller implements
         }
 
         $Usuario = new ClienteEntity();
-        $Usuario->buscar([
-            ['id', $id]
+        $where = is_int($id) ? [['id', $id]] : [['uuid', $id]];
+        $Usuario->buscar($where);
+
+        return mensagemSucesso([
+            'senha' => $Usuario->senha->validarSenha($senha) ? 'sim' : 'nao'
         ]);
-
-        if ($Usuario->senha->validarSenha($senha)) {
-            return mensagemSucesso(['senha' => true]);
-        }
-
-        mensagemErro('Senha inválida!', 'A senha informada é inválida.');
     }
 }

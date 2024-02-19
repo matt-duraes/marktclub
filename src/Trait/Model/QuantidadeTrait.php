@@ -20,9 +20,9 @@ trait QuantidadeTrait
         $valor = '';
         if (property_exists($this, 'request') && $this->request->existe('quantidade')) {
             $valor = $this->request->quantidade;
-        } elseif (property_exists($this, 'quantidade') && $this->quantidade instanceof Quantidade) {
+        } elseif ($this->propriedadeExiste('quantidade') && $this->quantidade instanceof Quantidade) {
             $valor = $this->quantidade->numero();
-        } elseif (property_exists($this, 'quantidade')) {
+        } elseif ($this->propriedadeExiste('quantidade')) {
             $valor = $this->quantidade;
         }
 

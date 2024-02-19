@@ -71,6 +71,9 @@ $scope = [
     'publicacao_diretoria:salvar', 'publicacao_diretoria:atualizar', 'publicacao_diretoria:listar',
     'publicacao_diretoria:buscar', 'publicacao_diretoria:deletar',
 
+    'publicacao_arquivo:salvar', 'publicacao_arquivo:atualizar', 'publicacao_arquivo:listar',
+    'publicacao_arquivo:buscar', 'publicacao_arquivo:deletar',
+
     'texto_clube:salvar', 'texto_clube:atualizar', 'texto_clube:listar', 'texto_clube:buscar', 'texto_clube:deletar',
 
     'campanha_sorteio:buscar', 'campanha_sorteio:sortear', 'campanha_sorteio:resultado',

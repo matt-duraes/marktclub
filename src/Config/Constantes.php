@@ -11,8 +11,22 @@ final class Constantes
     {
         define('DIRETORIO_VIEW', env('DIRETORIO_VIEW', 'public'));
         define('ROOT', $this->root());
-        define('TITULO', env('APP_TITULO', ''));
-        define('DESCRICAO', env('APP_DESCRICAO', ''));
+
+        $titulo = env('APP_TITULO', '');
+        if (!empty($titulo)) {
+            define('TITULO', $titulo);
+        }
+
+        $descricao = env('APP_DESCRICAO', '');
+        if (!empty($descricao)) {
+            define('DESCRICAO', $descricao);
+        }
+
+        $imagem = env('IMAGEM_SOCIAL', '');
+        if (!empty($imagem)) {
+            define('IMAGEM_SOCIAL', $imagem);
+        }
+
         define('CACHE', $this->cache());
         define(
             'DIRETORIO_PRIVADO',

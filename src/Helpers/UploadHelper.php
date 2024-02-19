@@ -40,6 +40,7 @@ final class UploadHelper
         private array $mensagem = [],
         private string $path = DIRETORIO_PUBLICO
     ) {
+        $this->criarListaMimeTypeParaExtensao();
         $this->verificarSeArquivoMaiorQueMaximoDoSistema();
         $this->passarArquivoPeloAntiVirus();
         $this->converterExtEmMimeType();
@@ -307,7 +308,8 @@ final class UploadHelper
     private function pegarExtensao()
     {
         $ext = $this->arquivo->getClientOriginalExtension();
-        $ext = (new TextoHelper($ext))->caixa('a')->r();
+        $mimeType = $this->arquivo->getMimeType();
+        $ext = !empty($ext) ? $ext : $this->mimeTypeExt[$mimeType] ?? '';
         $this->extensao = str_replace('jpeg', 'jpg', $ext);
     }
 
@@ -317,7 +319,6 @@ final class UploadHelper
         if (empty($extLista)) {
             return;
         }
-
         if (!in_array($this->extensao, $extLista)) {
             throw new Excecao(
                 titulo: $this->mensagem['ext']['titulo'] ?? 'Arquivo incorreto!',
@@ -454,7 +455,23 @@ final class UploadHelper
         return false;
     }
 
-    private $mimeTypeLista = [
+    private function criarListaMimeTypeParaExtensao()
+    {
+        $retorno = [];
+        foreach ($this->mimeTypeLista as $ext => $mime) {
+            if (is_string($mime)) {
+                $retorno[$mime] = $ext;
+                continue;
+            }
+            foreach ($mime as $val) {
+                $retorno[$val] = $ext;
+            }
+        }
+        $this->mimeTypeExt = $retorno;
+    }
+
+    private array $mimeTypeExt = [];
+    private array $mimeTypeLista = [
         'psd' => 'image/vnd.adobe.photoshop',
         'avi' => 'video/x-msvideo',
         'ai'  => [

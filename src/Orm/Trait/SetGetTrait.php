@@ -256,12 +256,34 @@ trait SetGetTrait
         return $valor;
     }
 
-    public function propriedadeExiste($propriedade)
+    /**
+     * Alias para propriedadeExiste
+     *
+     * @param  string $propriedade Propriedade que deseja validar
+     * @param  bool   $vazio       Se true, ele aceita que a propriedade seja vazia
+     * @return bool
+     */
+    public function pExiste($propriedade, bool $vazio = true): bool
+    {
+        return $this->propriedadeExiste($propriedade, $vazio);
+    }
+
+    /**
+     * Verifica se a propriedade existe
+     *
+     * @param  string $propriedade Propriedade que deseja validar
+     * @param  bool   $vazio       Se true, ele aceita que a propriedade seja vazia
+     * @return bool
+     */
+    public function propriedadeExiste(string $propriedade, bool $vazio = true): bool
     {
         if (!property_exists($this, $propriedade)) {
             return false;
         }
         $propriedade = new \ReflectionProperty($this, $propriedade);
-        return $propriedade->isInitialized($this);
+        if ($vazio) {
+            return $propriedade->isInitialized($this);
+        }
+        return $propriedade->isInitialized($this) && !empty($this->$propriedade);
     }
 }
