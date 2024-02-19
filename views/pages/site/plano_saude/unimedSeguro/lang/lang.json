@@ -1,3 +1,460 @@
 {
-
+    "conectivoA": [
+        {
+            "pt": "a",
+            "en": "",
+            "es": ""
+        }
+    ],
+    "conectivoOuMais": [
+        {
+            "pt": "ou mais",
+            "en": "",
+            "es": ""
+        }
+    ],
+    "tituloUnimed": [
+        {
+            "pt": "Unimed Seguros",
+            "en": "",
+            "es": ""
+        }
+    ],
+    "textoAdministrado": [
+        {
+            "pt": "Este plano é administrado pela BENEVIX ADMINISTRADORA DE BENEFÍCIOS LTDA, registrada na ANS sob o n° .41771-8, pessoa jurídica de direito privado, com sede na Avenida Nossa Senhora dos Navegantes, n° 495, salas 702 a 704, Ed. Centro Empresarial Enseada do Suá, Vitória -ES, CEP 29050-335, inscrita no CNPJ sob o n° 11.073058/0001-81 em contrato particular assinado diretamente com sua entidade de classe, conforme regulamentações vigentes da ANS.",
+            "en": "",
+            "es": ""
+        }
+    ],
+    "textoAniversario": [
+        {
+            "pt": "O aniversário desta apólice para reajuste anual é o mês de Julho",
+            "en": "",
+            "es": ""
+        }
+    ],
+    "tituloBenicios": [
+        {
+            "pt": "Benefícios exclusivos",
+            "en": "",
+            "es": ""
+        }
+    ],
+    "textoMenoresPrecos": [
+        {
+            "pt": "Menores preços do mercado",
+            "en": "",
+            "es": ""
+        }
+    ],
+    "textoContrate": [
+        {
+            "pt": "Contrate para seus dependentes",
+            "en": "",
+            "es": ""
+        }
+    ],
+    "textoAmplaCobertura": [
+        {
+            "pt": "Ampla cobertura em todo o Brasil",
+            "en": "",
+            "es": ""
+        }
+    ],
+    "tituloExploreRede": [
+        {
+            "pt": "Explore a rede credenciada",
+            "en": "",
+            "es": ""
+        }
+    ],
+    "textoIniciativas": [
+        {
+            "pt": "Você conhece as iniciativas do programa Cuidando de Perto da Seguros Unimed para cuidar integralmente da sua saúde?",
+            "en": "",
+            "es": ""
+        }
+    ],
+    "listaTextoTitular": [
+        {
+            "pt": "Titular",
+            "en": "",
+            "es": ""
+        }
+    ],
+    "listaTextoConjuge": [
+        {
+            "pt": "Cônjuge ou Companheiro (a);",
+            "en": "",
+            "es": ""
+        }
+    ],
+    "listaTextoFilhoSolteiro": [
+        {
+            "pt": "Filhos solteiro (menores de 24 anos)",
+            "en": "",
+            "es": ""
+        }
+    ],
+    "listaTextoFilhoInvalido": [
+        {
+            "pt": "Filho inválido (Qualquer idade);",
+            "en": "",
+            "es": ""
+        }
+    ],
+    "listaTextoEnteado": [
+        {
+            "pt": "Enteado ou menor tutelado;",
+            "en": "",
+            "es": ""
+        }
+    ],
+    "listaTextoTutelado": [
+        {
+            "pt": "Tutelado / Menor sob guarda;",
+            "en": "",
+            "es": ""
+        }
+    ],
+    "listaTextoAgregado": [
+        {
+            "pt": "Agregados - Poderão ser aceitos filhos de 24 a 30, desde que solteiros",
+            "en": "",
+            "es": ""
+        }
+    ],
+    "listaTextoDocumentacao": [
+        {
+            "pt": "Obs: Documentação entregues até dia 10 do mês, serão efetivadas no mês subsequente",
+            "en": "",
+            "es": ""
+        }
+    ],
+    "linkConsultarRede": [
+        {
+            "pt": "Consultar rede credenciada",
+            "en": "",
+            "es": ""
+        }
+    ],
+    "tituloConhecaDePerto": [
+        {
+            "pt": "Conheça o Cuidando de Perto",
+            "en": "",
+            "es": ""
+        }
+    ],
+    "listaConsultarRede": [
+        {
+            "pt": "Clique no botão 'Consultar rede credenciada'",
+            "en": "",
+            "es": ""
+        }
+    ],
+    "listaBuscaDetalhada": [
+        {
+            "pt": "Na página que abrirá, clique em 'Busca detalhada'",
+            "en": "",
+            "es": ""
+        }
+    ],
+    "listaSelecioneEstado": [
+        {
+            "pt": "Em seguida selecione o estado (UF) que deseja consultar",
+            "en": "",
+            "es": ""
+        }
+    ],
+    "listaObservacao": [
+        {
+            "pt": "Observação: os demais campos não são obrigatórios para realizar a busca da rede credenciada, <br> mas caso queira é possível selecionar a cidade e especialidade que desejar.",
+            "en": "",
+            "es": ""
+        }
+    ],
+    "linkConhecaOPrograma": [
+        {
+            "pt": "Conheça sobre o Programa",
+            "en": "",
+            "es": ""
+        }
+    ],
+    "tituloPrecoPlanoSaude": [
+        {
+            "pt": "Preços do Plano de Saúde",
+            "en": "",
+            "es": ""
+        }
+    ],
+    "grupoTabelaPrecoPlanoSaude": [
+        {
+            "tituloAfinidadeBasica": [
+                {
+                    "pt": "Afinidade Básica",
+                    "en": "",
+                    "es": ""
+                }
+            ],
+            "tituloAfinidadePratico": [
+                {
+                    "pt": "Afinidade Prático",
+                    "en": "",
+                    "es": ""
+                }
+            ],
+            "tituloAfinidadeVersatil": [
+                {
+                    "pt": "Afinidade Versátil",
+                    "en": "",
+                    "es": ""
+                }
+            ],
+            "tituloEnfermaria": [
+                {
+                    "pt": "Enfermaria",
+                    "en": "",
+                    "es": ""
+                }
+            ],
+            "tituloFaixaEtaria": [
+                {
+                    "pt": "FAIXA ETÁRIA",
+                    "en": "",
+                    "es": ""
+                }
+            ]
+        }
+    ],
+    "tituloAfinidadeBasico": [
+        {
+            "pt": "Afinidade Básico",
+            "en": "",
+            "es": ""
+        }
+    ],
+    "listaTextoSegmento": [
+        {
+            "pt": "Segmento: Ambulatorial Hospitalar com Obstetrícia",
+            "en": "",
+            "es": ""
+        }
+    ],
+    "listaTextoAbrangencia": [
+        {
+            "pt": "Abrangência Geográfica: Nacional",
+            "en": "",
+            "es": ""
+        }
+    ],
+    "listaTextoAcomodacaoColetivo": [
+        {
+            "pt": "Padrão de Acomodação: Coletivo (Enfermaria)",
+            "en": "",
+            "es": ""
+        }
+    ],
+    "listaTextoAcomodacaoIndividual": [
+        {
+            "pt": "Padrão de Acomodação: Individual (apartamento)",
+            "en": "",
+            "es": ""
+        }
+    ],
+    "listaTextoRedeReferenciada": [
+        {
+            "pt": "Abrangência: Rede Referenciada Nacional e Reembolso",
+            "en": "",
+            "es": ""
+        }
+    ],
+    "listaTextoServicos": [
+        {
+            "pt": "Serviços e Coberturas Adicionais: Garantia Funeral, SEA - Seguro de Extensão Assistencial, ASSIST Internacional, AMT - Aconselhamento Médico por telefone, APH - Atendimento Pré-Hospitalar, desconto em farmárcias, Assistência domiciliar.",
+            "en": "",
+            "es": ""
+        }
+    ],
+    "listaSegmento": [
+        {
+            "pt": "Segmento: Ambulatorial Hospitalar com Obstetrícia",
+            "en": "",
+            "es": ""
+        }
+    ],
+    "listaGeografica": [
+        {
+            "pt": "Abrangência Geográfica: Nacional",
+            "en": "",
+            "es": ""
+        }
+    ],
+    "listaAbrangencia": [
+        {
+            "pt": "Abrangência: Rede Referenciada Nacional e Reembolso",
+            "en": "",
+            "es": ""
+        }
+    ],
+    "listaServicos": [
+        {
+            "pt": "Serviços e Coberturas Adicionais: Garantia Funeral, SEA - Seguro de Extensão Assistencial, ASSIST Internacional, AMT - Aconselhamento Médico por Telefone, APH - Atendimento Pré-Hospitalar, Desconto em Farmácias, Assistência Domiciliar.",
+            "en": "",
+            "es": ""
+        }
+    ],
+    "tituloAuxilioRessarcimento": [
+        {
+            "pt": "Auxílio Ressarcimento",
+            "en": "",
+            "es": ""
+        }
+    ],
+    "textoVoceSabia": [
+        {
+            "pt": "Você sabia que pode receber um auxílio ressarcimento* de acordo com sua faixa salarial e idade? Veja a tabela abaixo:",
+            "en": "",
+            "es": ""
+        }
+    ],
+    "avisoTabela": [
+        {
+            "pt": "Tabela governamental de reembolso. Pode ter os valores e condições alterados a qualquer momento.",
+            "en": "",
+            "es": ""
+        }
+    ],
+    "tituloFatorModerador": [
+        {
+            "pt": "Fator Moderador",
+            "en": "",
+            "es": ""
+        }
+    ],
+    "grupoTabelaFatorModerador": [
+        {
+            "tituloProcedimento": [
+                {
+                    "pt": "Procedimentos",
+                    "en": "",
+                    "es": ""
+                }
+            ],
+            "tituloDescricao": [
+                {
+                    "pt": "Descrição",
+                    "en": "",
+                    "es": ""
+                }
+            ],
+            "tituloPercentual": [
+                {
+                    "pt": "Percentual",
+                    "en": "",
+                    "es": ""
+                }
+            ],
+            "blocoFisioterapia": [
+                {
+                    "titulo": [
+                        {
+                            "pt": "Fisioterapia",
+                            "en": "",
+                            "es": ""
+                        }
+                    ],
+                    "textoTempo": [
+                        {
+                            "pt": "Apartir da 61ª (sexagéssima primeira) sessão, <br> por segurado, por ano de vigência da apólice",
+                            "en": "",
+                            "es": ""
+                        }
+                    ]
+                }
+            ],
+            "blocoAcupuntura": [
+                {
+                    "titulo": [
+                        {
+                            "pt": "Acupuntura",
+                            "en": "",
+                            "es": ""
+                        }
+                    ],
+                    "textoTempo": [
+                        {
+                            "pt": "A partir da 61ª (sexagéssima primeira) sessão, <br> por segurado, por ano de vigência da apólice",
+                            "en": "",
+                            "es": ""
+                        }
+                    ]
+                }
+            ],
+            "blocoPisiquiátrica": [
+                {
+                    "titulo": [
+                        {
+                            "pt": "Pisiquiátrica",
+                            "en": "",
+                            "es": ""
+                        }
+                    ],
+                    "textoTempo": [
+                        {
+                            "pt": "Ultrapassando 30 (trinta) dias de internação <br>no transcorrer de 1 (um) ano de contrato",
+                            "en": "",
+                            "es": ""
+                        }
+                    ]
+                }
+            ],
+            "blocoDemaisProcedimentos": [
+                {
+                    "titulo": [
+                        {
+                            "pt": "Demais procedimentos",
+                            "en": "",
+                            "es": ""
+                        }
+                    ]
+                }
+            ],
+            "tituloFazerSimulacao": [
+                {
+                    "pt": "GOSTARIA DE FAZER UMA SIMULAÇÃO?",
+                    "en": "",
+                    "es": ""
+                }
+            ],
+            "textoFacaSimulacao": [
+                {
+                    "pt": "Faça uma simulação sua e seus dependentes e veja os valores.",
+                    "en": "",
+                    "es": ""
+                }
+            ],
+            "linkFazerSimulacao": [
+                {
+                    "pt": "Fazer Simulação",
+                    "en": "",
+                    "es": ""
+                }
+            ],
+            "textoApenasAssociados": [
+                {
+                    "pt": "Apenas associados possuem acesso a este recurso",
+                    "en": "",
+                    "es": ""
+                }
+            ],
+            "linkSimularAgora": [
+                {
+                    "pt": "SIMULAR AGORA",
+                    "en": "",
+                    "es": ""
+                }
+            ]
+        }
+    ]
 }

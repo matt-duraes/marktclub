@@ -1,0 +1,66 @@
+{
+    "tituloPrecisaDeAjuda": [
+        {
+            "pt": "PRECISA DE AJUDA?",
+            "en": "",
+            "es": ""
+        }
+    ],
+    "textoAtencaoPagina": [
+        {
+            "pt": "Atenção! Esta página é voltada ao suporte à mulher. Em caso de emergência, ligue para o 180",
+            "en": "",
+            "es": ""
+        }
+    ],
+    "tituloQuerConversar": [
+        {
+            "pt": "Quer conversar agora?",
+            "en": "",
+            "es": ""
+        }
+    ],
+    "textoUtilizarCanais": [
+        {
+            "pt": "Utilize um dos canais de comunicação disponíveis abaixo para ser redirecionada ao chat do Ministério dos Direitos Humanos ou ligar para a Central de atendimento a mulher, onde você receberá auxílio de profissionais capacitados. Ao entrar em contato por esses campos você encontrará uma forma mais silenciosa e segura para conversar.",
+            "en": "",
+            "es": ""
+        }
+    ],
+    "textoAtencaoCanal": [
+        {
+            "pt": "Atenção: Os canais acima não são do Markt Club. Você será redirecionado para o órgão responsável pelo atendimento e violações de direitos humanos",
+            "en": "",
+            "es": ""
+        }
+    ],
+    "linkContatoDireitosHumanos": [
+        {
+            "pt": "Caso prefira, clique aqui para abrir o WhatsApp dos direitos humanos",
+            "en": "",
+            "es": ""
+        }
+    ],
+    "tituloBusqueOrientacao": [
+        {
+            "pt": "Busque orientação",
+            "en": "",
+            "es": ""
+        }
+    ],
+    "textoUtilizeBotao": [
+        {
+            "pt": "Utilize o botão ENCONTRAR PARCEIROS para visualizar empresas parceiras que disponibilizam serviço de atendimento psicológico on-line com valores mais acessíveis.",
+            "en": "",
+            "es": ""
+        }
+    ],
+    "botaoEncontrarParceiros": [
+        {
+            "pt": "ENCONTRAR PARCEIROS",
+            "en": "",
+            "es": ""
+        }
+    ]
+
+}

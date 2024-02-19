@@ -1,0 +1,90 @@
+{
+    "tituloTema": [
+        {
+            "pt": "Escolha um tema",
+            "en": "",
+            "eS": ""
+        }
+    ],
+    "textoEscolher": [
+        {
+            "pt": "Agora você pode escolher um tema para seu clube",
+            "en": "",
+            "es": ""
+        }
+    ],
+    "blocoTemaClaro": [
+        {
+            "titulo": [
+                {
+                    "pt": "Clara",
+                    "en": "",
+                    "es": ""
+                }
+            ],
+            "textoTema": [
+                {
+                    "pt": "Tema com cores claras",
+                    "en": "",
+                    "es": ""
+                }
+            ]
+
+        }
+    ],
+    "blocoTemaEcuro": [
+        {
+            "titulo": [
+                {
+                    "pt": "Escura",
+                    "en": "",
+                    "es": ""
+                }
+            ],
+            "textoTema": [
+                {
+                    "pt": "Tema com cores escuras",
+                    "en": "",
+                    "es": ""
+                }
+            ]
+
+        }
+    ],
+    "blocoSistema": [
+        {
+            "titulo": [
+                {
+                    "pt": "Sistema",
+                    "en": "",
+                    "es": ""
+                }
+            ],
+            "textoTema": [
+                {
+                    "pt": "Mesmo tema do seu sistema",
+                    "en": "",
+                    "es": ""
+                }
+            ]
+        }
+    ],
+    "blocoAutomatico": [
+        {
+            "titulo": [
+                {
+                    "pt": "Automático",
+                    "en": "",
+                    "es": ""
+                }
+            ],
+            "textoTema": [
+                {
+                    "pt": "Ajusta automaticamente dependendo do horário do dia",
+                    "en": "",
+                    "es": ""
+                }
+            ]
+        }
+    ]
+}

@@ -1,0 +1,109 @@
+{
+    "tituloRegulamento": [
+        {
+            "pt": "REGULAMENTO",
+            "en": "",
+            "es": ""
+        }
+    ],
+    "textoFinanciamento": [
+        {
+            "pt": "Financiamento limitado a 70% do valor do veículo novo (Nota Fiscal).",
+            "en": "",
+            "es": ""
+        }
+    ],
+    "textoRegistro": [
+        {
+            "pt": "Registro Detran, Gravame e Seguro.",
+            "en": "",
+            "es": ""
+        }
+    ],
+    "textoTaxaExclusiva": [
+        {
+            "pt": "Taxa exclusiva para cadastro positivo.",
+            "en": "",
+            "es": ""
+        }
+    ],
+    "textoGarantias": [
+        {
+            "pt": "Garantias: CCB (Cédula de Crédito Bancário).",
+            "en": "",
+            "es": ""
+        }
+    ],
+    "textoExclusivo": [
+        {
+            "pt": "Exclusivo para novos contratos. Parcela limitada até 30% da renda.",
+            "en": "",
+            "es": ""
+        }
+    ],
+    "textoEmprestimo": [
+        {
+            "pt": "Este empréstimo abrange diversas finalidades. Solicite a sua proposta, que entraremos em contato para encontrar a melhor forma de atender a sua necessidade.",
+            "en": "",
+            "es": ""
+        }
+    ],
+    "textoCadastroPositivo": [
+        {
+            "pt": "Taxa exclusiva para cadastro positivo.",
+            "en": "",
+            "es": ""
+        }
+    ],
+    "textoGarantiasCCB": [
+        {
+            "pt": "Garantias: CCB (Cédula de Crédito Bancário) ou Aval.",
+            "en": "",
+            "es": ""
+        }
+    ],
+    "textoEmprestimAbrange": [
+        {
+            "pt": "Este empréstimo abrange diversas finalidades. Solicite a sua proposta, que entraremos em contato para encontrar a melhor forma de atender a sua necessidade.",
+            "en": "",
+            "es": ""
+        }
+    ],
+
+
+    "textoGarantiasAlienacao": [
+        {
+            "pt": "Garantias: Alienação do veículo e seguro.",
+            "en": "",
+            "es": ""
+        }
+    ],
+    "textoVeiculos": [
+        {
+            "pt": "Veículos com até 05 anos de uso.",
+            "en": "",
+            "es": ""
+        }
+    ],
+    "textoFinanciamentoLimitado": [
+        {
+            "pt": "Financiamento limitado a 70% do valor da tabela FIPE.",
+            "en": "",
+            "es": ""
+        }
+    ],
+    "textoRegistroDetran": [
+        {
+            "pt": "Registro Detran, Gravame e Seguro.",
+            "en": "",
+            "es": ""
+        }
+    ],
+    "textoTaxaEsclusiva": [
+        {
+            "pt": "*Taxa exclusiva para cadastro positivo.",
+            "en": "",
+            "es": ""
+        }
+    ]
+}

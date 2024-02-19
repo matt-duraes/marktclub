@@ -1,3 +1,494 @@
 {
-
+    "tituloUnimedVitoria": [
+        {
+            "pt": "Unimed Vitória",
+            "en": "",
+            "es": ""
+        }
+    ],
+    "conectivoA": [
+        {
+            "pt": "a",
+            "en": "",
+            "es": ""
+        }
+    ],
+    "conectivoOuMais": [
+        {
+            "pt": "ou mais",
+            "en": "",
+            "es": ""
+        }
+    ],
+    "textoAcima": [
+        {
+            "pt": "acima",
+            "en": "",
+            "es": ""
+        }
+    ],
+    "textoAvisoPlanoSaude": [
+        {
+            "pt": "*Obs. A Administradora de Benefícios efetua cobrança de Taxa de Adesão no primeiro pagamento com valor correspondente aos planos contratados.",
+            "en": "",
+            "es": ""
+        }
+    ],
+    "textoAdministrado": [
+        {
+            "pt": "Este plano é administrado pela BENEVIX ADMINISTRADORA DE BENEFÍCIOS LTDA, registrada na ANS sob o n° .41771-8, pessoa jurídica de direito privado, com sede na Avenida Nossa Senhora dos Navegantes, n° 495, salas 702 a 704, Ed. Centro Empresarial Enseada do Suá, Vitória -ES, CEP 29050-335, inscrita no CNPJ sob o n° 11.073058/0001-81 em contrato particular assinado diretamente com sua entidade de classe, conforme regulamentações vigentes da ANS. O aniversário desta apólice para reajuste anual é o mês de Julho",
+            "en": "",
+            "es": ""
+        }
+    ],
+    "tituloBeneficios": [
+        {
+            "pt": "Benefícios exclusivos",
+            "en": "",
+            "es": ""
+        }
+    ],
+    "textoMenoresTaxas": [
+        {
+            "pt": "Menores preços do mercado",
+            "en": "",
+            "es": ""
+        }
+    ],
+    "textoContrate": [
+        {
+            "pt": "Contrate para seus dependentes",
+            "en": "",
+            "es": ""
+        }
+    ],
+    "textoAmplaCobertura": [
+        {
+            "pt": "Ampla cobertura em todo o Brasil",
+            "en": "",
+            "es": ""
+        }
+    ],
+    "tituloRedeCredenciada": [
+        {
+            "pt": "Explore a rede credenciada",
+            "en": "",
+            "es": ""
+        }
+    ],
+    "listaCliqueNoBotao": [
+        {
+            "pt": "Clique no botão 'Consultar rede credenciada'",
+            "en": "",
+            "es": ""
+        }
+    ],
+    "listaPagina": [
+        {
+            "pt": "Na página que abrirá, clique em 'Busca detalhada'",
+            "en": "",
+            "es": ""
+        }
+    ],
+    "listaEmSeguida": [
+        {
+            "pt": "Em seguida selecione o estado (UF) que deseja consultar",
+            "en": "",
+            "es": ""
+        }
+    ],
+    "listaObservacao": [
+        {
+            "pt": "Observação: os demais campos não são obrigatórios para realizar a busca da rede credenciada,",
+            "en": "",
+            "es": ""
+        }
+    ],
+    "listaCasoQueira": [
+        {
+            "pt": "mas caso queira é possível selecionar a cidade e especialidade que desejar.",
+            "en": "",
+            "es": ""
+        }
+    ],
+    "linkConsultarRede": [
+        {
+            "pt": "Consultar rede credenciada",
+            "en": "",
+            "es": ""
+        }
+    ],
+    "linkPedirBoleto": [
+        {
+            "pt": "Pedir 2° via do Boleto",
+            "en": "",
+            "es": ""
+        }
+    ],
+    "tituloCoparticipacao": [
+        {
+            "pt": "Co-participações",
+            "en": "",
+            "es": ""
+        }
+    ],
+    "textoObterInformacoes": [
+        {
+            "pt": "Para obter informações detalhadas sobre como a co-participação funciona no nosso plano de saúde, consulte nossa tabela de co-participação. Ela contém uma lista abrangente de serviços e os valores de co-participação correspondentes.",
+            "en": "",
+            "es": ""
+        }
+    ],
+    "linkBaixarTabela": [
+        {
+            "pt": "Baixar tabela",
+            "en": "",
+            "es": ""
+        }
+    ],
+    "tituloCarencia": [
+        {
+            "pt": "Carência",
+            "en": "",
+            "es": ""
+        }
+    ],
+    "grupoTabelaCarencia": [
+        {
+            "tituloProcedimentos": [
+                {
+                    "pt": "Procedimentos",
+                    "en": "",
+                    "es": ""
+                }
+            ],
+            "tituloCarencia": [
+                {
+                    "pt": "Carência",
+                    "en": "",
+                    "es": ""
+                }
+            ],
+            "blocoAcidentePessoal": [
+                {
+                    "titulo": [
+                        {
+                            "pt": "Acidente Pessoal",
+                            "en": "",
+                            "es": ""
+                        }
+                    ],
+                    "textoTempo": [
+                        {
+                            "pt": "24 horas",
+                            "en": "",
+                            "es": ""
+                        }
+                    ]
+                }
+            ],
+            "blocoConsultas": [
+                {
+                    "titulo": [
+                        {
+                            "pt": "Consultas / Exame simples",
+                            "en": "",
+                            "es": ""
+                        }
+                    ],
+                    "textoTempo": [
+                        {
+                            "pt": "30 dias",
+                            "en": "",
+                            "es": ""
+                        }
+                    ]
+                }
+            ],
+            "blocoExamesEspecializados": [
+                {
+                    "titulo": [
+                        {
+                            "pt": "Exames especializados",
+                            "en": "",
+                            "es": ""
+                        }
+                    ],
+                    "textoTempo": [
+                        {
+                            "pt": "180 dias",
+                            "en": "",
+                            "es": ""
+                        }
+                    ]
+                }
+            ],
+            "blocoInternacoesClinicas": [
+                {
+                    "titulo": [
+                        {
+                            "pt": "Internações clínicas e cirúrgicas (exceto acid. pessoal)",
+                            "en": "",
+                            "es": ""
+                        }
+                    ],
+                    "textoTempo": [
+                        {
+                            "pt": "180 dias",
+                            "en": "",
+                            "es": ""
+                        }
+                    ]
+                }
+            ],
+            "blocoParto": [
+                {
+                    "titulo": [
+                        {
+                            "pt": "Parto e termo",
+                            "en": "",
+                            "es": ""
+                        }
+                    ],
+                    "textoTempo": [
+                        {
+                            "pt": "300 dias",
+                            "en": "",
+                            "es": ""
+                        }
+                    ]
+                }
+            ],
+            "blocoDoencas": [
+                {
+                    "titulo": [
+                        {
+                            "pt": "Doenças e Lesões Preexistentes",
+                            "en": "",
+                            "es": ""
+                        }
+                    ],
+                    "textoTempo": [
+                        {
+                            "pt": "720 dias",
+                            "en": "",
+                            "es": ""
+                        }
+                    ]
+                }
+            ]
+        }
+    ],
+    "blocoPlanoDeSaude": [
+        {
+            "tituloPlanoDeSaude": [
+                {
+                    "pt": "Preços do Plano de Saúde",
+                    "en": "",
+                    "es": ""
+                }
+            ],
+            "tituloAcomodacao": [
+                {
+                    "pt": "Acomodação",
+                    "en": "",
+                    "es": ""
+                }
+            ],
+            "tituloEnfermaria": [
+                {
+                    "pt": "Enfermaria",
+                    "en": "",
+                    "es": ""
+                }
+            ],
+            "tituloApartamento": [
+                {
+                    "pt": "Apartamento",
+                    "en": "",
+                    "es": ""
+                }
+            ]
+        }
+    ],
+    "blocoAuxilioRessarcimento": [
+        {
+            "tituloRessarcimento": [
+                {
+                    "pt": "",
+                    "en": "",
+                    "es": ""
+                }
+            ],
+            "textoRessarcimento": [
+                {
+                    "pt": "Clique no botão abaixo e confira na tabela de acordo com sua faixa salarial e idade",
+                    "en": "",
+                    "es": ""
+                }
+            ]
+        }
+    ],
+    "blocoParticipacao": [
+        {
+            "titulo": [
+                {
+                    "pt": "Preços de Participação",
+                    "en": "",
+                    "es": ""
+                }
+            ],
+            "tituloTabelaProcedimentos": [
+                {
+                    "pt": "Procedimentos",
+                    "en": "",
+                    "es": ""
+                }
+            ],
+            "tituloTabelaPercentual": [
+                {
+                    "pt": "Percentual",
+                    "en": "",
+                    "es": ""
+                }
+            ],
+            "tituloTabelaValorEvento": [
+                {
+                    "pt": "Valor Média Por Evento",
+                    "en": "",
+                    "es": ""
+                }
+            ],
+            "itemTabelaConsultasEletivas": [
+                {
+                    "pt": "Consultas Eletivas",
+                    "en": "",
+                    "es": ""
+                }
+            ],
+            "itemTabelaConsultasPS": [
+                {
+                    "pt": "Consulta Pronto-Socorro",
+                    "en": "",
+                    "es": ""
+                }
+            ],
+            "itemTabelaExamesBasicos": [
+                {
+                    "pt": "Exames Básicos",
+                    "en": "",
+                    "es": ""
+                }
+            ],
+            "itemTabelaExamesEspeciais": [
+                {
+                    "pt": "Exames Especiais",
+                    "en": "",
+                    "es": ""
+                }
+            ],
+            "itemTabelaProcedimentosBasicos": [
+                {
+                    "pt": "Procedimentos Básicos",
+                    "en": "",
+                    "es": ""
+                }
+            ],
+            "itemTabelaProcedimentosEspeciais": [
+                {
+                    "pt": "Procedimentos Básicos",
+                    "en": "",
+                    "es": ""
+                }
+            ],
+            "itemTabelaNutricao": [
+                {
+                    "pt": "Nutrição",
+                    "en": "",
+                    "es": ""
+                }
+            ],
+            "itemTabelaFisioterapia": [
+                {
+                    "pt": "Fisioterapia",
+                    "en": "",
+                    "es": ""
+                }
+            ],
+            "itemTabelaPsicoterapia": [
+                {
+                    "pt": "Psicoterapia",
+                    "en": "",
+                    "es": ""
+                }
+            ],
+            "itemTabelaFonoaudiologia": [
+                {
+                    "pt": "Fonoaudiologia",
+                    "en": "",
+                    "es": ""
+                }
+            ],
+            "itemTabelaRadioterapia": [
+                {
+                    "pt": "Radioterapia",
+                    "en": "",
+                    "es": ""
+                }
+            ],
+            "itemTabelaQuimioterapia": [
+                {
+                    "pt": "Quimioterapia",
+                    "en": "",
+                    "es": ""
+                }
+            ],
+            "itemTabelaDialise": [
+                {
+                    "pt": "Diálise",
+                    "en": "",
+                    "es": ""
+                }
+            ],
+            "textoAvisoTeto": [
+                {
+                    "pt": "Teto Limite Beneficiário/Mês: R$200",
+                    "en": "",
+                    "es": ""
+                }
+            ]
+        }
+    ],
+    "blocoSimulacao": [
+        {
+            "titulo": [
+                {
+                    "pt": "GOSTARIA DE FAZER UMA SIMULAÇÃO?",
+                    "en": "",
+                    "es": ""
+                }
+            ],
+            "textoSimulacao": [
+                {
+                    "pt": "Faça uma simulação sua e seus dependentes e veja os valores.",
+                    "en": "",
+                    "es": ""
+                }
+            ],
+            "textoAviso": [
+                {
+                    "pt": "Apenas associados possuem acesso a este recurso",
+                    "en": "",
+                    "es": ""
+                }
+            ],
+            "linkSimularAgora": [
+                {
+                    "pt": "SIMULAR AGORA",
+                    "en": "",
+                    "es": ""
+                }
+            ]
+        }
+    ]
 }
