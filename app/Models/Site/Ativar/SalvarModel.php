@@ -27,6 +27,8 @@ final class SalvarModel extends ApiHelper
             ->validar('Ocorreu um erro ao ativar seu usuário, por favor, tente novamente.')
             ->body([
                 'hash'                 => $dado['hash'],
+                'tipo_usuario'         => $dado['tipo_usuario'],
+                'empresa'              => sessao('CLUBE')->empresa,
                 'nome'                 => $Crypt->encode((new Nome($dado['nome']))->nome()),
                 'cpf'                  => $Crypt->encode((new Cpf($dado['cpf']))->numero()),
                 'genero'               => $Crypt->encode((new Genero($dado['genero']))->valor()),

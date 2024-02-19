@@ -7,13 +7,13 @@
 
         <input type="hidden" id="input_ativar_cpf_busca" value="{{$cpf}}">
         <input type="hidden" id="input_ativar_hash_busca" value="{{$hash}}">
-
+        <input type="hidden" id="input_tipo_usuario" value="{{$tipo_usuario}}">
         <div class="bloco">
             <p>Preencha seus dados para completar o cadastro</p> <br>
             <h2>Dados pessoais</h2>
             @? formInput(name: 'ativar_nome', label: 'Nome', placeholder: 'Nome completo', obrigatorio: true)
             @ if( !validarCpf($cpf) ):
-            @? formInput(name: 'ativar_cpf', label: 'CPF', placeholder: 'Digite seu CPF', obrigatorio: true)
+            @? formCpf(name: 'ativar_cpf', label: 'CPF', placeholder: 'Digite seu CPF', obrigatorio: true)
             @ endif;
             <div class="lista">
                 @? formData(name: 'ativar_data_nascimento', label: 'Data nascimento', placeholder: 'Data nascimento', obrigatorio: true)

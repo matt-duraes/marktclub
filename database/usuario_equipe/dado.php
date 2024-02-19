@@ -30,7 +30,8 @@ $permissao = [
 
     'parceiro_relatorio_index', 'parceiro_relatorio_add', 'parceiro_relatorio_editar', 'parceiro_relatorio_deletar',
 
-    'parceiro_loja_index', 'parceiro_loja_add', 'parceiro_loja_editar', 'parceiro_loja_deletar', 'parceiro_loja_empresa',
+    'parceiro_loja_index', 'parceiro_loja_add', 'parceiro_loja_editar', 'parceiro_loja_deletar',
+    'parceiro_loja_empresa',
 
     'parceiro_cashback_index', 'parceiro_cashback_add', 'parceiro_cashback_editar', 'parceiro_cashback_deletar',
     'parceiro_cashback_empresa',
@@ -120,6 +121,9 @@ $permissao = [
 
     'painel_config_index', 'painel_config_add', 'painel_config_editar',
     'painel_config_deletar',
+
+    'painel_tradutor_index', 'painel_tradutor_visualizar', 'painel_tradutor_add',
+    'painel_tradutor_editar', 'painel_tradutor_deletar',
 ];
 
 return [

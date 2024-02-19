@@ -1,0 +1,107 @@
+{
+    "tituloCadastroDependentes": [
+        {
+            "pt": "Cadastre seus dependentes",
+            "en": "",
+            "es": ""
+        }
+    ],
+    "textoUtilizarFormulario": [
+        {
+            "pt": "Utilize o formulário abaixo para cadastrar até 5 dependentes, totalmente sem custo para você e seus dependentes.",
+            "en": "",
+            "es": ""
+        }
+    ],
+    "inputNomeDependente": [
+        {
+            "pt": "Digite o nome do dependente",
+            "en": "",
+            "es": ""
+        }
+    ],
+    "inputCpfDependente": [
+        {
+            "pt": "Digite o cpf do dependente",
+            "en": "",
+            "es": ""
+        }
+    ],
+    "inputEmailDependente": [
+        {
+            "pt": "Digite o e-mail do dependente",
+            "en": "",
+            "es": ""
+        }
+    ],
+    "botaoCadastrarDependente": [
+        {
+            "pt": "Digite o nome do dependente",
+            "en": "",
+            "es": ""
+        }
+    ],
+    "tituloTabelaNome": [
+        {
+            "pt": "Nome",
+            "en": "",
+            "es": ""
+        }
+    ],
+    "tituloTabelaStatus": [
+        {
+            "pt": "Status",
+            "en": "",
+            "es": ""
+        }
+    ],
+    "tituloTabelaDeletar": [
+        {
+            "pt": "Deletar",
+            "en": "",
+            "es": ""
+        }
+    ],
+    "botaoReenviarConvite": [
+        {
+            "pt": "Reenviar convite",
+            "en": "",
+            "es": ""
+        }
+    ],
+    "avisoTituloSemDependentes": [
+        {
+            "pt": "Sem dependentes no momento",
+            "en": "",
+            "es": ""
+        }
+    ],
+    "avisoTextoCadastrar": [
+        {
+            "pt": "Use o formulário acima para cadastrar até 5 dependentes",
+            "en": "",
+            "es": ""
+        }
+    ],
+    "textoStatus": [
+        {
+            "pt": "",
+            "en": "",
+            "es": ""
+        }
+    ]
+    ,
+    "textoStatusReenviarConvite": [
+        {
+            "pt": "Reenviar convite",
+            "en": "",
+            "es": ""
+        }
+    ]
+
+
+
+
+
+
+}

@@ -1,0 +1,74 @@
+{
+    "tituloDesejaFazer": [
+        {
+            "pt": "O que deseja fazer?",
+            "en": "",
+            "es": ""
+        }
+    ],
+    "textoQueiraSimular": [
+        {
+            "pt": "Caso queira simular o plano da Federal Clube, clique em Contratar o 'Federal Saúde' ouse já possui o plano, clique em 'Solicitar 2° via do Boleto'",
+            "en": "",
+            "es": ""
+        }
+    ],
+    "botaoContratar": [
+        {
+            "pt": "Contratar o Federal Saúde",
+            "en": "",
+            "es": ""
+        }
+    ],
+    "botaoSolicitar": [
+        {
+            "pt": "Solicitar 2° Via do Boleto",
+            "en": "",
+            "es": ""
+        }
+    ],
+    "tituloOperadoras": [
+        {
+            "pt": "Para continuar, escolha entre uma das operadoras abaixo:",
+            "en": "",
+            "es": ""
+        }
+    ],
+    "tituloTeleorientacao": [
+        {
+            "pt": "Teleorientação Médica 24hrs",
+            "en": "",
+            "es": ""
+        }
+    ],
+    "textoServico": [
+        {
+            "pt": "Um serviço da Seguros Unimed para os seus clientes. Assista o vídeo abaixo:",
+            "en": "",
+            "es": ""
+        }
+    ],
+    "linkSeguros": [
+        {
+            "pt": "Clique e veja o cuidado da Seguros Unimed com os beneficiários",
+            "en": "",
+            "es": ""
+        }
+    ],
+    "linkManualAcesso": [
+        {
+            "pt": "Clique e veja o Manual de acesso ao Apps da Seguros Unimed",
+            "en": "",
+            "es": ""
+        }
+    ],
+    "tituloEscolhaOperadora": [
+        {
+            "pt": "Escolha sua operadora para gerar o boleto:",
+            "en": "",
+            "es": ""
+        }
+    ]
+
+
+}

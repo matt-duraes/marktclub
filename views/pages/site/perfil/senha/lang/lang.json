@@ -1,0 +1,83 @@
+{
+    "tituloAlterarSenha": [
+        {
+            "pt": "Alterar senha",
+            "en": "",
+            "es": ""
+        }
+    ],
+    "textoPreenchaCampos": [
+        {
+            "pt": "Preencha os campos abaixo para resetar sua senha.",
+            "en": "",
+            "es": ""
+        }
+    ],
+    "textoSuaSenha": [
+        {
+            "pt": "Sua senha deve ter",
+            "en": "",
+            "es": ""
+        }
+    ],
+    "RegraSenhaCaracteres": [
+        {
+            "pt": "Ter pelo menos 8 caracteres",
+            "en": "",
+            "es": ""
+        }
+    ],
+
+    "RegraSenhaMinuscula": [
+        {
+            "pt": "Ter pelo menos uma letra minúscula",
+            "en": "",
+            "es": ""
+        }
+    ],
+
+    "RegraSenhaMaiuscula": [
+        {
+            "pt": "Ter pelo menos uma letra maiúscula",
+            "en": "",
+            "es": ""
+        }
+    ],
+
+    "RegraSenhaSimbolo": [
+        {
+            "pt": "Ter pelo menos um símbolo (Por exemplo: $*&@#_)",
+            "en": "",
+            "es": ""
+        }
+    ],
+    "RegraSenhaNumero": [
+        {
+            "pt": "Ter pelo menos um número",
+            "en": "",
+            "es": ""
+        }
+    ],
+    "formSenha": [
+        {
+            "pt": "Digite sua senha atual",
+            "en": "",
+            "es": ""
+        }
+    ],
+    "formSenhaNova": [
+        {
+            "pt": "Digite sua nova senha",
+            "en": "",
+            "es": ""
+        }
+    ],
+    "formRepetirSenha": [
+        {
+            "pt": "Repetir senha",
+            "en": "",
+            "es": ""
+        }
+    ]
+
+}
