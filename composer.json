@@ -3,7 +3,7 @@
     "description": "Micro Framework",
     "license": "MIT",
     "require": {
-        "php": "^8.2",
+        "php": "^8.1",
         "ext-calendar": "*",
         "ext-curl": "*",
         "ext-fileinfo": "*",
