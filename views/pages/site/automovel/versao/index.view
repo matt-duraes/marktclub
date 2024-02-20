@@ -30,9 +30,9 @@
 
         <div id="bloco_endereco" class="conteudo display_none">
             @ ifforeach ($endereco->lista ?? [] as $r_e):
-            <h1>{{$r_e->titulo}}</h1>
-            <p>{{$r_e->completo}}</p>
-            <a class="botao_geral_cor cor_bg"  target="_blank" href="{{$r_e->mapa->link}}">Como chegar</a>
+                <h1>{{$r_e->titulo}}</h1>
+                <p>{{$r_e->completo}}</p>
+                <a class="botao_geral_cor cor_bg"  target="_blank" href="{{$r_e->mapa->link}}">Como chegar</a>
             @endifforeach;
         </div>
 
