@@ -179,7 +179,7 @@ final class Where implements WhereInterface
         $valor = $this->Classe->$propriedade;
         if (
             (($valor instanceof StatusInterface || $valor instanceof ModuleInterface) && !$valor->valido()) ||
-            is_null($valor)
+            empty($valor)
         ) {
             return $this;
         }
