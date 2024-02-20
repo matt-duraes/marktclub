@@ -35,9 +35,14 @@ final class ClienteModel extends ORM
      * @throws Excecao
      */
     public function __construct(
-        protected ?Request $request = null
+        protected ?Request $request = null,
+        private readonly bool $validarEmpresa = true
     ) {
         parent::__construct();
+        if (!$this->validarEmpresa) {
+            return;
+        }
+
         $this->validarEmpresa('empresa');
         $this->validarSubempresa();
         $this->validarCampoDoRequest();
