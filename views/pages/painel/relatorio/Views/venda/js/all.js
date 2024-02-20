@@ -71,9 +71,15 @@ window.addEventListener('load', () => {
                 <div class="linha">
                     <div class="item">${item[local]}</div>
                     <div class="porcentagem"><span style="width: ${item.porcentagem}%"></span></div>
-                    <div class="valor"><span>(${item.porcentagem}%)</span>${item.total}</div>
+                    <div class="valor"><span>(${item.porcentagem}%)</span>R$ ${item.total}</div>
+                    ${item.numero_transacao
+                        ? `
+                            <hr class="divisor"/>
+                            <div class="transacao">${item.numero_transacao}</div>
+                        ` : ''
+                    }
                 </div>
-            `;
+            `
         });
         html += `</div>`;
         bloco.innerHTML = html;
