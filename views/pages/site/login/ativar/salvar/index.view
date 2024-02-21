@@ -10,7 +10,7 @@
         <input type="hidden" id="input_ativar_hash_busca" value="{{$hash}}">
         <input type="hidden" id="input_tipo_usuario" value="{{$tipo_usuario}}">
 
-        @if ( array_intersect(['endereco_cep', 'endereco_logradouro', 'endereco_numero', 'endereco_complemento', 'endereco_bairro', 'endereco_estado', 'endereco_cidade'], CAMPOS_PRIMEIRO_ACESSO)):
+        @if ( array_intersect(['nome', 'cpf', 'data_nascimento', 'genero', 'estado_civil', 'grupo'], CAMPOS_PRIMEIRO_ACESSO)):
         <div class="bloco">
             <h2>Dados pessoais</h2>
             @if ( in_array('nome', CAMPOS_PRIMEIRO_ACESSO) ):
