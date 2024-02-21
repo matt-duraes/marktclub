@@ -1,85 +1,87 @@
 </main>
 
 <footer id="rodape_principal">
+    <div class="rodape_conteudo">
     @ if( !empty(CONTATO_TELEFONE) || !empty(CONTATO_WHATSAPP) || !empty(CONTATO_EMAIL) || !empty(CONTATO_HORARIO)):
-    <section class="bloco">
-        <header>
-            <h1>Contato</h1>
-        </header>
-        @ if( !empty(CONTATO_TELEFONE) ):
-        <a class="dado mobile" href="tel:{{soNumero(CONTATO_TELEFONE)}}">
-            <i>@iconeTelefoneLoja</i>
-            <p class="texto_footer">{{CONTATO_TELEFONE}}</p>
-        </a>
-        <div class="dado desktop">
-            <i>@iconeTelefoneLoja</i>
-            <p class="texto_footer">{{CONTATO_TELEFONE}}</p>
-        </div>
+        <section class="bloco bloco_contato">
+            <header>
+                <h1>Contato</h1>
+            </header>
+            @ if( !empty(CONTATO_TELEFONE) ):
+            <a class="dado mobile" href="tel:{{soNumero(CONTATO_TELEFONE)}}">
+                <i>@iconeTelefoneLoja</i>
+                <p class="texto_footer">{{CONTATO_TELEFONE}}</p>
+            </a>
+            <div class="dado desktop">
+                <i>@iconeTelefoneLoja</i>
+                <p class="texto_footer">{{CONTATO_TELEFONE}}</p>
+            </div>
+            @ endif;
+
+            @ if( !empty(CONTATO_WHATSAPP) ):
+            <a class="dado" href="https://wa.me/55{{soNumero(CONTATO_WHATSAPP)}}" target="_blank" rel="noopener noreferer">
+                <i>@iconeWhatsapp(19)</i>
+                <p class="texto_footer">{{CONTATO_WHATSAPP}}</p>
+            </a>
+            @ endif;
+
+            @ if( !empty(CONTATO_EMAIL) ):
+            <a class="dado" href="mailto:{{CONTATO_EMAIL}}">
+                <i>@iconeEmail(15)</i>
+                <p class="texto_footer">{{CONTATO_EMAIL}}</p>
+            </a>
+            @ endif;
+
+            @ if( !empty(CONTATO_HORARIO) ):
+            <div class="dado">
+                <i>@iconeCalendario</i>
+                <p class="texto_footer">{{CONTATO_HORARIO}}</p>
+            </div>
+            @ endif;
+        </section>
         @ endif;
 
-        @ if( !empty(CONTATO_WHATSAPP) ):
-        <a class="dado" href="https://wa.me/55{{soNumero(CONTATO_WHATSAPP)}}" target="_blank" rel="noopener noreferer">
-            <i>@iconeWhatsapp(19)</i>
-            <p class="texto_footer">{{CONTATO_WHATSAPP}}</p>
-        </a>
-        @ endif;
+        <section class="bloco bloco_indicacao">
+            <header>
+                <h1>Indicações</h1>
+            </header>
+            <a class="dado" id="botao_abrir_ajuda">
+                <i>@iconeFaleConosco(20)</i>
+                <p class="texto_footer">Fale Conosco</p>
+            </a>
 
-        @ if( !empty(CONTATO_EMAIL) ):
-        <a class="dado" href="mailto:{{CONTATO_EMAIL}}">
-            <i>@iconeEmail(15)</i>
-            <p class="texto_footer">{{CONTATO_EMAIL}}</p>
-        </a>
-        @ endif;
+            @ if( MENU_INDICAR_USUARIO ):
+            <a class="dado" href="@route(site.indiqueAmigo)">
+                <i>@iconeIndiqueAmigoOutline(20)</i>
+                <p class="texto_footer">Indicar um amigo</p>
+            </a>
+            @ endif;
 
-        @ if( !empty(CONTATO_HORARIO) ):
-        <div class="dado">
-            <i>@iconeCalendario</i>
-            <p class="texto_footer">{{CONTATO_HORARIO}}</p>
-        </div>
-        @ endif;
-    </section>
-    @ endif;
+            @ if( MENU_INDICAR_LOJA ):
+            <a class="dado botao_indicar_loja">
+                <i>@iconeLojaHome(15)</i>
+                <p class="texto_footer">Indicar um parceiro</p>
+            </a>
+            @ endif;
+        </section>
 
-    <section class="bloco">
-        <header>
-            <h1>Indicações</h1>
-        </header>
-        <a class="dado" id="botao_abrir_ajuda">
-            <i>@iconeFaleConosco(20)</i>
-            <p class="texto_footer">Fale Conosco</p>
-        </a>
+        <section class="bloco bloco_termo">
+            <header>
+                <h1>Termo</h1>
+            </header>
+            <a class="dado" href="@route(termo.termosite)" target="_blank" rel="noopener noreferrer">
+                <i>@iconeTermoUso(19)</i>
+                <p class="texto_footer">Termo de uso</p>
+            </a>
+            @ if( MENU_CASHBACK ):
+            <a class="dado" href="@route(termo.termocashback)" target="_blank" rel="noopener noreferrer">
+                <i>@iconeTermoUso(19)</i>
+                <p class="texto_footer">Termo do Silium</p>
+            </a>
+            @ endif;
+        </section>
 
-        @ if( MENU_INDICAR_USUARIO ):
-        <a class="dado" href="@route(site.indiqueAmigo)">
-            <i>@iconeIndiqueAmigoOutline(20)</i>
-            <p class="texto_footer">Indicar um amigo</p>
-        </a>
-        @ endif;
-
-        @ if( MENU_INDICAR_LOJA ):
-        <a class="dado botao_indicar_loja">
-            <i>@iconeLojaHome(15)</i>
-            <p class="texto_footer">Indicar um parceiro</p>
-        </a>
-        @ endif;
-    </section>
-
-    <section class="bloco">
-        <header>
-            <h1>Termo</h1>
-        </header>
-        <a class="dado" href="@route(termo.termosite)" target="_blank" rel="noopener noreferrer">
-            <i>@iconeTermoUso(19)</i>
-            <p class="texto_footer">Termo de uso</p>
-        </a>
-        @ if( MENU_CASHBACK ):
-        <a class="dado" href="@route(termo.termocashback)" target="_blank" rel="noopener noreferrer">
-            <i>@iconeTermoUso(19)</i>
-            <p class="texto_footer">Termo do Silium</p>
-        </a>
-        @ endif;
-    </section>
-
+    </div>
     <div class="linha"></div>
 
     @ if( MENU_BAIXAR_APP ):

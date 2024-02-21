@@ -1,0 +1,67 @@
+{
+    "blocoLogin": [
+        {
+            "tituloRefacaLogin": [
+                {
+                    "pt": "REFAÇA SEU LOGIN",
+                    "en": "",
+                    "es": ""
+                }
+            ],
+            "textoLoginExpirou": [
+                {
+                    "pt": "Seu login expirou, refaça seu login para continuar a navegar",
+                    "en": "",
+                    "es": ""
+                }
+            ],
+            "formLoginRelogar": [
+                {
+                    "pt": "Digite seu login para relogar",
+                    "en": "",
+                    "es": ""
+                }
+            ],
+            "formSenhaRelogar": [
+                {
+                    "pt": "Digite sua senha para relogar",
+                    "en": "",
+                    "es": ""
+                }
+            ],
+            "botaoSair": [
+                {
+                    "pt": "Sair",
+                    "en": "",
+                    "es": ""
+                }
+            ],
+            "botaoRefazerLogin": [
+                {
+                    "pt": "Refazer Login",
+                    "en": "",
+                    "es": ""
+                }
+            ]
+        }
+    ],
+    "blocoRapido": [
+        {
+            "linkVoltarHome": [
+                {
+                    "pt": "Voltar para home",
+                    "en": "",
+                    "es": ""
+                }
+            ],
+            "linkVoltarNavegacao": [
+                {
+                    "pt": "Voltar para navegação normal",
+                    "en": "",
+                    "es": ""
+                }
+            ]
+
+        }
+    ]
+}
