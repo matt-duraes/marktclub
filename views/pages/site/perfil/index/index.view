@@ -1,7 +1,7 @@
 @template "site"
 <div id="bloco_pagina_perfil">
     <div class="conteudo">
-        <section class="foto">
+        <section class="foto desktop">
             <figure id="imagem_fundo_perfil" style="background-image: url({!!USUARIO_IMAGEM!!})">
                 <i class="botao_editar_foto">
                     @iconeEditar()

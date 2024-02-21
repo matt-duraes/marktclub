@@ -5,7 +5,6 @@
         @? formInput(name: 'input_pesquisa_fake', id: 'bloco_input_pesquisa_fake', placeholder: 'Busque por um convênio', label: 'Pesquisa', class: 'botao_buscar_input busca_pesquisa_fake')
         <div class="botao">Buscar</div>
     </form>
-
     <form action="@route(cashback.buscar)" method="get" id="form_buscar" class="form_geral display_none">
         <div class="conteudo">
             <div class="centralizar">
@@ -26,15 +25,16 @@
         </div>
     </form>
 </div>
+
 @ if( isset($Busca) && $Busca->uso ):
-<div class="buscar_convenio_lista">
-    <h2>Filtros:</h2>
-    @ foreach( $Busca->uso as $r ):
-    <div class="item" data-indice="{{$r['indice']}}" data-valor="{{$r['valor']}}">
-        <div class="nome">{{$r['nome']}}</div>
-        <div class="valor">{{$r['valor_real']}}</div>
-        <div class="remover">@iconeFechar(10)</div>
+    <div class="buscar_convenio_lista">
+        <h2>Filtros:</h2>
+        @ foreach( $Busca->uso as $r ):
+            <div class="item" data-indice="{{$r['indice']}}" data-valor="{{$r['valor']}}">
+                <div class="nome">{{$r['nome']}}</div>
+                <div class="valor">{{$r['valor_real']}}</div>
+                <div class="remover">@iconeFechar(10)</div>
+            </div>
+        @ endforeach;
     </div>
-    @ endforeach;
-</div>
 @ endif;

@@ -3,40 +3,39 @@
         <h1>Precisando de alguma ajuda?</h1>
         <i class="pagina_fechar">@iconeFechar</i>
     </header>
+
     <div class="conteudo_pagina_popup">
         <div class="conteudo">
             <header>
                 <p>Abaixo seguem algumas opções. Se você precisa de ajuda, entre em contato pelo nosso atendimento.</p>
             </header>
             @if ( !empty(CONTATO_EMAIL) ):
-            <p class="contato">
-                <i class="icone">@iconeEmail(15)</i>
-                <span>{{CONTATO_EMAIL}}</span>
-                <i class="copiar">@iconeCopiar(12)</i>
-            </p>
+                <p class="contato">
+                    <i class="icone">@iconeEmail(15)</i>
+                    <span>{{CONTATO_EMAIL}}</span>
+                    <i class="copiar">@iconeCopiar(12)</i>
+                </p>
             @endif;
             @if ( !empty(CONTATO_WHATSAPP) ):
-            <p class="contato">
-                <i class="icone">@iconeWhatsapp(19)</i>
-                <a href="https://wa.me/55{{soNumero(CONTATO_WHATSAPP)}}" target="_blank" rel="noopener noreferer">
-                    <span>
-                        {{CONTATO_WHATSAPP}}
-                    </span>
-                </a>
-                <i class="copiar">@iconeCopiar(12)</i>
-            </p>
+                <p class="contato">
+                    <i class="icone">@iconeWhatsapp(19)</i>
+                    <a href="https://wa.me/55{{soNumero(CONTATO_WHATSAPP)}}" target="_blank" rel="noopener noreferer">
+                        <span>
+                            {{CONTATO_WHATSAPP}}
+                        </span>
+                    </a>
+                    <i class="copiar">@iconeCopiar(12)</i>
+                </p>
             @endif;
             @if ( !empty(CONTATO_TELEFONE) ):
-            <p class="contato">
-                <i class="icone">@iconeTelefone(20)</i>
-                <span>{{CONTATO_TELEFONE}}</span>
-                <i class="copiar">@iconeCopiar(12)</i>
-            </p>
+                <p class="contato">
+                    <i class="icone">@iconeTelefone(20)</i>
+                    <span>{{CONTATO_TELEFONE}}</span>
+                    <i class="copiar">@iconeCopiar(12)</i>
+                </p>
             @endif;
-
-
             @if ( !empty(CONTATO_EMAIL) || !empty(CONTATO_WHATSAPP) || !empty(CONTATO_TELEFONE) ):
-            <div class="linha"><span>ou escolha uma opção</span></div>
+                <div class="linha"><span>ou escolha uma opção</span></div>
             @ endif;
             @ if( MENU_INDICAR_LOJA ):
                 <a class="link botao_indicar_loja">
@@ -44,19 +43,19 @@
                 </a>
             @endif;
             @if ( MENU_AUTOMOVEL ):
-            <a class="link" href="@route('automovel.index)?indicar=sim">INDICAR UMA CONCESSIONÁRIA</a>
+                <a class="link" href="@route('automovel.index)?indicar=sim">INDICAR UMA CONCESSIONÁRIA</a>
             @endif;
             @if ( MENU_SAUDE ):
-            <a class="link" href="@route('planosaude.index')">FAZER COTAÇÃO DE PLANO DE SAÚDE</a>
+                <a class="link" href="@route('planosaude.index')">FAZER COTAÇÃO DE PLANO DE SAÚDE</a>
             @endif;
             @if ( MENU_CREDITO_SICOOB ):
-            <a class="link" href="@route('sicoob.index')">CRÉDITO SICOOB</a>
+                <a class="link" href="@route('sicoob.index')">CRÉDITO SICOOB</a>
             @endif;
             @if ( MENU_CINEMA ):
-            <a class="link" href="@route('cinema.index')">COMPRAR INGRESSOS PARA O CINEMA</a>
+                <a class="link" href="@route('cinema.index')">COMPRAR INGRESSOS PARA O CINEMA</a>
             @endif;
-            @if ( MENU_TURISMO):
-            <a class="link" href="@route('turismo.index')">FAZER COTAÇÃO DE VIAGENS</a>
+            @if ( MENU_TURISMO ):
+                <a class="link" href="@route('turismo.index')">FAZER COTAÇÃO DE VIAGENS</a>
             @endif;
             <p class="fechar pagina_fechar">NÃO PRECISO DE ATENDIMENTO</p>
         </div>

@@ -1,0 +1,298 @@
+{
+    "blocoSenha": [
+        {
+            "tituloNovaSenha": [
+                {
+                    "pt": "",
+                    "en": "",
+                    "es": ""
+                }
+            ],
+            "textoSigaOsPassos": [
+                {
+                    "pt": "Siga os passos abaixo para recuperar sua senha, caso não consiga, entre em contato com o atendimento",
+                    "en": "",
+                    "es": ""
+                }
+            ],
+            "textoCpf": [
+                {
+                    "pt": "Digite seu CPF para começar o processo de recuperação de senha",
+                    "en": "",
+                    "es": ""
+                }
+            ],
+            "formCpf": [
+                {
+                    "pt": "Digite seu CPF",
+                    "en": "",
+                    "es": ""
+                }
+            ],
+            "textoConfiraEmail": [
+                {
+                    "pt": "Confira seu e-mail para encontrar o código de autorização. O e-mail pode levar alguns segundos para chegar até você.",
+                    "en": "",
+                    "es": ""
+                }
+            ],
+            "textoProvedorEmail": [
+                {
+                    "pt": "Seu provedor de e-mail pode interpretar nossa mensagem como spam. Portanto, por favor, verifique sua pasta de spam ou lixo eletrônico.",
+                    "en": "",
+                    "es": ""
+                }
+            ],
+            "textoReenviarEm": [
+                {
+                    "pt": "Reenviar código em",
+                    "en": "",
+                    "es": ""
+                }
+            ],
+            "botaoReenviarCodigo": [
+                {
+                    "pt": "Reenviar código",
+                    "en": "",
+                    "es": ""
+                }
+            ],
+            "textoNovaSenha": [
+                {
+                    "pt": "Digite sua nova senha, lembre-se que ela deve ter o seguinte formato",
+                    "en": "",
+                    "es": ""
+                }
+            ],
+            "listaSenhaCaracteres": [
+                {
+                    "pt": "Ter pelo menos 8 caracteres",
+                    "en": "",
+                    "es": ""
+                }
+            ],
+            "listaSenhaLetraMinuscula": [
+                {
+                    "pt": "Ter pelo menos uma letra minúscula",
+                    "en": "",
+                    "es": ""
+                }
+            ],
+            "listaSenhaLetraMaiuscula": [
+                {
+                    "pt": "Ter pelo menos uma letra maiúscula",
+                    "en": "",
+                    "es": ""
+                }
+            ],
+            "listaSenhaSimbolo": [
+                {
+                    "pt": "Ter pelo menos um símbolo (Por exemplo: $*&@#_)",
+                    "en": "",
+                    "es": ""
+                }
+            ],
+            "listaSenhaUmNumero": [
+                {
+                    "pt": "Ter pelo menos um número",
+                    "en": "",
+                    "es": ""
+                }
+            ],
+            "formNovaSenha": [
+                {
+                    "pt": "Digite sua nova senha",
+                    "en": "",
+                    "es": ""
+                }
+            ],
+            "formRepetirSenha": [
+                {
+                    "pt": "Repetir Senha",
+                    "en": "",
+                    "es": ""
+                }
+            ],
+            "botaoBuscar": [
+                {
+                    "pt": "Buscar",
+                    "en": "",
+                    "es": ""
+                }
+            ],
+            "botaoValidar": [
+                {
+                    "pt": "Validar",
+                    "en": "",
+                    "es": ""
+                }
+            ],
+            "botaoAlterar": [
+                {
+                    "pt": "Alterar",
+                    "en": "",
+                    "es": ""
+                }
+            ]
+        }
+    ],
+    "blocoLogin": [
+        {
+            "tituloTipoLogin": [
+                {
+                    "pt": "Escolha um tipo de login",
+                    "en": "",
+                    "es": ""
+                }
+            ],
+            "textoEscolhaOpcoes": [
+                {
+                    "pt": "Escolha entre as opções abaixo para fazer seu login",
+                    "en": "",
+                    "es": ""
+                }
+            ],
+            "linkSouAssociado": [
+                {
+                    "pt": "Sou associado",
+                    "en": "",
+                    "es": ""
+                }
+            ],
+            "botaoSouDependente": [
+                {
+                    "pt": "Sou dependente",
+                    "en": "",
+                    "es": ""
+                }
+            ],
+            "tituloFacalogin": [
+                {
+                    "pt": "FAÇA SEU LOGIN",
+                    "en": "",
+                    "es": ""
+                }
+            ],
+            "textoDigiteCpf": [
+                {
+                    "pt": "Digite seu CPF e sua senha para fazer login, caso não tenha senha, clique em 'Primeiro acesso' para criar sua conta",
+                    "en": "",
+                    "es": ""
+                }
+            ],
+            "formCpf": [
+                {
+                    "pt": "Digite seu CPF",
+                    "en": "",
+                    "es": ""
+                }
+            ],
+            "formSenha": [
+                {
+                    "pt": "Digite sua senha",
+                    "en": "",
+                    "es": ""
+                }
+            ],
+            "botaoFazerLogin": [
+                {
+                    "pt": "Fazer Login",
+                    "en": "",
+                    "es": ""
+                }
+            ],
+            "botaoEsquecerSenha": [
+                {
+                    "pt": "Esqueceu sua senha?",
+                    "en": "",
+                    "es": ""
+                }
+            ],
+            "botaoSemCadastro": [
+                {
+                    "pt": "Não tem cadastro?",
+                    "en": "",
+                    "es": ""
+                }
+            ],
+            "botaoPrimeiroAcesso": [
+                {
+                    "pt": "Primeiro acesso",
+                    "en": "",
+                    "es": ""
+                }
+            ]
+        }
+    ],
+    "blocoLoginHeader": [
+        {
+            "linkEntrar": [
+                {
+                    "pt": "Entrar",
+                    "en": "",
+                    "es": ""
+                }
+            ],
+            "itemMenuPrimeiroAcesso": [
+                {
+                    "pt": "Primeiro Acesso",
+                    "en": "",
+                    "es": ""
+                }
+            ],
+            "itemMenuBaixeApp": [
+                {
+                    "pt": "Baixe o App",
+                    "en": "",
+                    "es": ""
+                }
+            ],
+            "itemMenuFaq": [
+                {
+                    "pt": "FAQ",
+                    "en": "",
+                    "es": ""
+                }
+            ],
+            "itemMenuComoFunciona": [
+                {
+                    "pt": "Como Funciona",
+                    "en": "",
+                    "es": ""
+                }
+            ]
+        }
+    ],
+    "blocoFooter": [
+        {
+            "textoComoFunciona": [
+                {
+                    "pt": "Como Funciona",
+                    "en": "",
+                    "es": ""
+                }
+            ],
+            "textoAdministrado": [
+                {
+                    "pt": "Administrado por",
+                    "en": "",
+                    "es": ""
+                }
+            ],
+            "textoDireitosReservados": [
+                {
+                    "pt": "Todos os direitos reservados é de uso exclusivo",
+                    "en": "",
+                    "es": ""
+                }
+            ],
+            "textoProibidaReproducao": [
+                {
+                    "pt": "Proibida reprodução ou utilização e qualquer titulo sob as penas da lei.",
+                    "en": "",
+                    "es": ""
+                }
+            ]
+        }
+    ]
+}
