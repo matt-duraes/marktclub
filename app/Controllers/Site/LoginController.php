@@ -13,6 +13,7 @@ use App\Models\Site\Ativar\SalvarModel;
 use App\Models\Site\Login\LoginApiModel;
 use App\Models\Site\Login\ComunicacaoModel;
 use App\Classes\ConstrutorClube\TipoAtivacao;
+use App\Models\Site\Ativar\GrupoModel;
 use App\Models\Site\Contato\SalvarModel as SalvarContatoModel;
 
 final class LoginController extends Controller
@@ -148,6 +149,7 @@ final class LoginController extends Controller
                 ->validar('Ocorreu um erro ao validar seu código, por favor, tente novamente.')
                 ->body([
                     'email'   => $this->crypt()->encode($request->busca),
+                    'empresa' => sessao('CLUBE')->empresa,
                 ])
                 ->post('/usuario-indicacao/ativar')
                 ->object();
@@ -182,7 +184,8 @@ final class LoginController extends Controller
         return view('login.ativar.salvar', [
             'hash'           => $request->hash,
             'cpf'            => $request->cpf,
-            'tipo_usuario'   => $request->tipo_usuario
+            'tipo_usuario'   => $request->tipo_usuario,
+            'grupo'          => (new GrupoModel())->buscarGrupos(),
         ]);
     }
 

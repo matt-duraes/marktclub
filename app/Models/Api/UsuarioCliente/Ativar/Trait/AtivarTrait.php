@@ -19,40 +19,24 @@ trait AtivarTrait
 {
     private function validarDado()
     {
-        if ($this->nome->vazio()) {
-            mensagemErro('Campo obrigatório!', 'O campo nome é obrigatório.');
-        } elseif (!$this->nome->valido()) {
+        if (!$this->nome->valido()) {
             mensagemErro('Campo inválido!', 'O campo nome não é um valor válido.');
-        } elseif ($this->cpf->vazio()) {
-            mensagemErro('Campo obrigatório!', 'O campo CPF é obrigatório.');
         } elseif (!$this->cpf->valido()) {
             mensagemErro('Campo inválido!', 'O campo CPF não é um valor válido.');
-        } elseif ($this->data_nascimento->vazio()) {
-            mensagemErro('Campo obrigatório!', 'O campo data de nascimento é obrigatório.');
         } elseif (!$this->data_nascimento->valido()) {
             mensagemErro('Campo inválido!', 'O campo data de nascimento não é um valor válido.');
-        } elseif ($this->genero->vazio()) {
-            mensagemErro('Campo obrigatório!', 'O campo gênero é obrigatório.');
         } elseif (!$this->genero->valido()) {
             mensagemErro('Campo inválido!', 'O campo gênero não é um valor válido.');
-        } elseif (!$this->estado_civil->vazio() && !$this->estado_civil->valido()) {
-            mensagemErro('Campo inválido!', 'O campo estado civil não é um valor válido.');
-        } elseif ($this->email_pessoal->vazio()) {
-            mensagemErro('Campo obrigatório!', 'O campo e-mail pessoal é obrigatório.');
         } elseif (!$this->email_pessoal->valido()) {
             mensagemErro('Campo inválido!', 'O campo e-mail pessoal não é um valor válido.');
-        } elseif (!$this->email_trabalho->vazio() && !$this->email_trabalho->valido()) {
+        } elseif (!$this->email_trabalho->valido() && !$this->email_trabalho->valido()) {
             mensagemErro('Campo inválido!', 'O campo e-mail de trabalho não é um valor válido.');
-        } elseif ($this->telefone_pessoal->vazio()) {
-            mensagemErro('Campo obrigatório!', 'O campo telefone pessoal é obrigatório.');
         } elseif (!$this->telefone_pessoal->valido()) {
             mensagemErro('Campo inválido!', 'O campo telefont pessoal não é um valor válido.');
         } elseif (!$this->telefone_trabalho->vazio() && !$this->telefone_trabalho->valido()) {
             mensagemErro('Campo inválido!', 'O campo telefone de trabalho não é um valor válido.');
         } elseif (!$this->endereco_cep->vazio() && !$this->endereco_cep->valido()) {
             mensagemErro('Campo inválido!', 'O campo CEP do endereço não é um valor válido.');
-        } elseif ($this->endereco_estado->vazio()) {
-            mensagemErro('Campo obrigatório!', 'O campo estado do endereço é obrigatório.');
         } elseif (!$this->endereco_estado->valido()) {
             mensagemErro('Campo inválido!', 'O campo estado do endereço não é um valor válido.');
         } elseif (empty($this->endereco_cidade)) {
@@ -78,6 +62,7 @@ trait AtivarTrait
         $this->termo = new Botao($dado['termo']);
         $this->data_nascimento = new Data($dado['data_nascimento']);
         $this->estado_civil = new EstadoCivil($dado['estado_civil']);
+        $this->grupo = $dado['grupo'];
         $this->email_pessoal = new Email($dado['email_pessoal']);
         $this->email_trabalho = new Email($dado['email_trabalho']);
         $this->telefone_pessoal = new Telefone($dado['telefone_pessoal']);

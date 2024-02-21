@@ -37,6 +37,7 @@ final class AtivarIndicadoModel extends ORM
     private Botao $termo;
     private Data $data_nascimento;
     private EstadoCivil $estado_civil;
+    private string $grupo;
     private Email $email_pessoal;
     private Email $email_trabalho;
     private Telefone $telefone_pessoal;
@@ -57,8 +58,8 @@ final class AtivarIndicadoModel extends ORM
         parent::__construct();
         $this->setarPropriedade();
         $this->setarPropriedadeIndicacao();
-        $this->validarUsuarioRepetido();
         $this->validarDado();
+        $this->validarUsuarioRepetido();
         $this->salvarUsuario();
     }
 
@@ -113,6 +114,7 @@ final class AtivarIndicadoModel extends ORM
                 'data_dado'            => $hoje,
                 'data_nascimento'      => $this->data_nascimento->date(),
                 'estado_civil'         => $this->estado_civil->numero(),
+                'grupo'                => $this->grupo,
                 'email_pessoal'        => $this->email_pessoal->email(),
                 'email_trabalho'       => $this->email_trabalho->email(),
                 'telefone_celular'     => $this->telefone_pessoal->numero(),

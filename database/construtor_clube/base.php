@@ -66,4 +66,7 @@ return (new \DataBase\DataBase())
     ->int('api_status')->tamanho(1)->null()
     ->int('administrado_status')->tamanho(1)->null()
     ->int('tipo_ativacao')->tamanho(1)->null()
+    ->json('campos_primeiro_acesso')->null()
+    ->varchar('grupo_label')->tamanho(100)->null()
+    ->varchar('grupo_placeholder')->tamanho(100)->null()
     ->status();
