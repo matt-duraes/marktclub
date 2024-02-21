@@ -10,6 +10,7 @@ final class Ordem extends Order
         protected ?string $valor = null
     ) {
         $this->tabela(TABELA_PUBLICACAO_NOTICIA);
+        $this->campo('ordem', 'Ordem', 'ordem', 'ASC');
         $this->campo('publicacao-nova', 'Publicação mais nova', 'data_inicio', 'DESC');
         $this->campo('publicacao-velha', 'Publicação mais velha', 'data_inicio', 'ASC');
         $this->maisNovo();

@@ -2656,3 +2656,18 @@ Route
             ])
             ::post('/traduzir');
     });
+
+Route
+    ::nome('publicacao_home')
+    ::controller(App\Controllers\Api\PublicacaoHomeController::class)
+    ::grupo(function () {
+        Route
+            ::nome('buscar')
+            ::middleware(TokenMiddleware::class, 'scope', ['publicacao_home:buscar'])
+            ::get('/publicacao-home/{id}');
+        Route
+            ::nome('atualizar')
+            ::middleware(TokenMiddleware::class, 'scope', ['publicacao_home:atualizar'])
+            ::request([])
+            ::put('/publicacao-home/{id}');
+    });

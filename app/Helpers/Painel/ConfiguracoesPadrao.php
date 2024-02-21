@@ -182,6 +182,15 @@ final class ConfiguracoesPadrao
                 'publicacao_noticia_empresa' => 'Todas as empresas',
             ]
         ],
+        'publicacao_home'       => [
+            'titulo'    => 'Notícia da Home',
+            'acao'      => [
+                'editar'
+            ],
+            'permissao' => [
+                'publicacao_noticia_editar'  => 'Editar',
+            ]
+        ],
         'publicacao_pagina'        => [
             'titulo'    => 'Páginas',
             'acao'      => [
