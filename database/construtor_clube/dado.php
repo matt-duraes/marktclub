@@ -14,7 +14,7 @@ return [
         'cor_secundaria'            => '#FF6F00',
         'contato_telefone'          => '6132023003',
         'contato_whatsapp'          => '61912345678',
-        'contato_email'             => 'atendimento@markt.club',
+        'contato_email'             => 'atendimento@temmaisvantagens.com.br',
         'contato_endereco'          => 'SIG Quadra 4 Lote 125/175 Bloco A Sala 10, Brasília/DF',
         'contato_horario'           => '9h às 18h de Seg. a Sex.',
         'tela_login'                => 1,
