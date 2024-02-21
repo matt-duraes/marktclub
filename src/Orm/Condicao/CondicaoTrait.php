@@ -4,6 +4,8 @@ namespace ORM\Condicao;
 
 use Erro\Erro;
 use Where\WhereInterface;
+use Status\StatusInterface;
+use Modules\ModuleInterface;
 
 trait CondicaoTrait
 {
@@ -48,7 +50,7 @@ trait CondicaoTrait
                 $this->ormCondicaoNumero++;
                 $numero = 'db_' . $this->ormCondicaoNumero;
                 $query .= $lista[$i] . ':' . $numero;
-                $this->ormCondicaoValue[$numero] = $valor[$i];
+                $this->ormCondicaoValue[$numero] = $this->ormPegarValorCondicaoReal($valor[$i]);
                 continue;
             }
             $query .= $lista[$i];
@@ -152,6 +154,8 @@ trait CondicaoTrait
         } elseif (in_array($condicao, ['notnull', 'isnotnull', '!null'])) {
             return $this->ormMontaNomeCampo($campo) . ' IS NOT NULL';
         }
+
+        $valor = $this->ormPegarValorCondicaoReal($valor);
         if ($condicao == 'in') {
             if (is_array($valor) && count($valor) > 0) {
                 $in = [];
@@ -159,7 +163,7 @@ trait CondicaoTrait
                     $this->ormCondicaoNumero++;
                     $numero = 'db_' . $this->ormCondicaoNumero;
                     $in[] = $numero;
-                    $this->ormCondicaoValue[$numero] = $in_val;
+                    $this->ormCondicaoValue[$numero] = $this->ormPegarValorCondicaoReal($in_val);
                 }
                 return $this->ormMontaNomeCampo($campo) . ' IN(:' . implode(', :', $in) . ')';
             }
@@ -173,7 +177,7 @@ trait CondicaoTrait
                     $this->ormCondicaoNumero++;
                     $numero = 'db_' . $this->ormCondicaoNumero;
                     $in[] = $numero;
-                    $this->ormCondicaoValue[$numero] = $in_val;
+                    $this->ormCondicaoValue[$numero] = $this->ormPegarValorCondicaoReal($in_val);
                 }
                 return $this->ormMontaNomeCampo($campo) . ' NOT IN(:' . implode(', :', $in) . ')';
             }
@@ -187,8 +191,8 @@ trait CondicaoTrait
                 $this->ormCondicaoNumero++;
                 $numero2 = 'db_' . $this->ormCondicaoNumero;
 
-                $this->ormCondicaoValue[$numero1] = $valor[0];
-                $this->ormCondicaoValue[$numero2] = $valor[1];
+                $this->ormCondicaoValue[$numero1] = $this->ormPegarValorCondicaoReal($valor[0]);
+                $this->ormCondicaoValue[$numero2] = $this->ormPegarValorCondicaoReal($valor[1]);
                 if ($this->validarData($valor[0]) && $this->validarData($valor[1])) {
                     return $this->ormMontaNomeCampo($campo) . ' BETWEEN DATE(:' . $numero1 . ') AND DATE(:' . $numero2 . ')';
                 } else {
@@ -205,8 +209,8 @@ trait CondicaoTrait
                 $this->ormCondicaoNumero++;
                 $numero2 = 'db_' . $this->ormCondicaoNumero;
 
-                $this->ormCondicaoValue[$numero1] = $valor[0];
-                $this->ormCondicaoValue[$numero2] = $valor[1];
+                $this->ormCondicaoValue[$numero1] = $this->ormPegarValorCondicaoReal($valor[0]);
+                $this->ormCondicaoValue[$numero2] = $this->ormPegarValorCondicaoReal($valor[1]);
                 if ($this->validarData($valor[0]) && $this->validarData($valor[1])) {
                     return $this->ormMontaNomeCampo($campo) . ' NOT BETWEEN DATE(:' . $numero1 . ') AND DATE(:' . $numero2 . ')';
                 } else {
@@ -240,6 +244,16 @@ trait CondicaoTrait
         throw new Erro(
             mensagem: 'Verifique a condição informada. (' . $campo . ')'
         );
+    }
+
+    private function ormPegarValorCondicaoReal($valor)
+    {
+        if ($valor instanceof StatusInterface) {
+            return $valor->numero();
+        } elseif ($valor instanceof ModuleInterface) {
+            return $valor->banco();
+        }
+        return $valor;
     }
 
     private function ormMontaNomeCampo($campo)
