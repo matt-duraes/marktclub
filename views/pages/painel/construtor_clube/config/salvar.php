@@ -13,6 +13,7 @@ return [
         'menu_odontologico', 'menu_premium', 'menu_ponto_mais_acao', 'menu_dependente', 'menu_carteira', 'menu_tema',
         'menu_salavip', 'menu_credito_sicoob', 'menu_primeiro_acesso', 'chat_status',
         'menu_indicar_usuario', 'menu_indicar_loja', 'api_status', 'tipo_ativacao', 'menu_samsung',
-        'administrado_status', 'status', 'menu_corrida', 'menu_show_nacional', 'menu_show_internacional'
+        'administrado_status', 'status', 'menu_corrida', 'menu_show_nacional', 'menu_show_internacional',
+        'campos_primeiro_acesso', 'grupo_label', 'grupo_placeholder'
     ]
 ];

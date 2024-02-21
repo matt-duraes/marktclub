@@ -2,50 +2,101 @@
     <div class="conteudo">
         <header>
             <h1>ATIVAR CONTA</h1>
+            <p>Preencha seus dados para completar o cadastro</p>
             <i class="fechar pagina_fechar">@iconeFechar</i>
         </header>
 
         <input type="hidden" id="input_ativar_cpf_busca" value="{{$cpf}}">
         <input type="hidden" id="input_ativar_hash_busca" value="{{$hash}}">
         <input type="hidden" id="input_tipo_usuario" value="{{$tipo_usuario}}">
+
+        @if ( array_intersect(['nome', 'cpf', 'data_nascimento', 'genero', 'estado_civil', 'grupo'], CAMPOS_PRIMEIRO_ACESSO)):
         <div class="bloco">
-            <p>Preencha seus dados para completar o cadastro</p> <br>
             <h2>Dados pessoais</h2>
+            @if ( in_array('nome', CAMPOS_PRIMEIRO_ACESSO) ):
             @? formInput(name: 'ativar_nome', label: 'Nome', placeholder: 'Nome completo', obrigatorio: true)
-            @ if( !validarCpf($cpf) ):
+            @endif;
+
+            @ if( !validarCpf($cpf) && in_array('cpf', CAMPOS_PRIMEIRO_ACESSO) ):
             @? formCpf(name: 'ativar_cpf', label: 'CPF', placeholder: 'Digite seu CPF', obrigatorio: true)
             @ endif;
             <div class="lista">
+                @if ( in_array('data_nascimento', CAMPOS_PRIMEIRO_ACESSO) ):
                 @? formData(name: 'ativar_data_nascimento', label: 'Data nascimento', placeholder: 'Data nascimento', obrigatorio: true)
+                @endif;
+
+                @if ( in_array('genero', CAMPOS_PRIMEIRO_ACESSO) ):
                 @? formSelect(name: 'ativar_genero', label: 'Gênero', obrigatorio: true, placeholder: 'Gênero', lista: (new \Modules\Genero)->select('Escolha um gênero'))
+                @endif;
             </div>
+            @if ( in_array('estado_civil', CAMPOS_PRIMEIRO_ACESSO) ):
             @? formSelect(name: 'ativar_estado_civil', label: 'Estado civil', placeholder: 'Estado civil', lista: (new \Modules\EstadoCivil())->select('Escolha um estado civil'))
+            @endif;
+
+            @if ( in_array('grupo', CAMPOS_PRIMEIRO_ACESSO) ):
+            @? formSelect(name: 'ativar_grupo', label: !empty(INPUT_GRUPO->label) ? INPUT_GRUPO->label : 'Grupo', placeholder: !empty(INPUT_GRUPO->placeholder) ? INPUT_GRUPO->placeholder : 'Grupo', obrigatorio: true, lista: $grupo)
+            @endif;
         </div>
+        @endif;
+
+        @if (array_intersect(['email_pessoal', 'email_trabalho', 'telefone_pessoal', 'telefone_trabalho'], CAMPOS_PRIMEIRO_ACESSO)):
         <div class="bloco">
             <h2>Dados de contato</h2>
+            @if ( in_array('email_pessoal', CAMPOS_PRIMEIRO_ACESSO) ):
             @? formEmail(name: 'ativar_email_pessoal', label: 'E-mail pessoal', placeholder: 'E-mail pessoal', obrigatorio: true)
+            @endif;
+
+            @if ( in_array('email_trabalho', CAMPOS_PRIMEIRO_ACESSO) ):
             @? formEmail(name: 'ativar_email_trabalho', label: 'E-mail de trabalho', placeholder: 'E-mail de trabalho')
+            @endif;
             <div class="lista">
+                @if ( in_array('telefone_pessoal', CAMPOS_PRIMEIRO_ACESSO) ):
                 @? formTelefone(name: 'ativar_telefone_pessoal', label: 'Telefone pessoal', placeholder: 'Telefone pessoal', obrigatorio: true)
+                @endif;
+
+                @if ( in_array('telefone_trabalho', CAMPOS_PRIMEIRO_ACESSO) ):
                 @? formTelefone(name: 'ativar_telefone_trabalho', label: 'Telefone de trabalho', placeholder: 'Telefone de trabalho')
+                @endif;
             </div>
         </div>
+        @endif;
 
+        @if ( array_intersect(['endereco_cep', 'endereco_logradouro', 'endereco_numero', 'endereco_complemento', 'endereco_bairro', 'endereco_estado', 'endereco_cidade'], CAMPOS_PRIMEIRO_ACESSO)):
         <div class="linha"></div>
-
         <h2>Endereço</h2>
         <div class="lista">
+            @if ( in_array('endereco_cep', CAMPOS_PRIMEIRO_ACESSO) ):
             @? formNumero(name: 'ativar_endereco_cep', label: 'CEP', placeholder: 'CEP', mascara: '00000-000', class: 'bloco_cep', obrigatorio: true)
+            @endif;
+
+            @if ( in_array('endereco_logradouro', CAMPOS_PRIMEIRO_ACESSO) ):
             @? formInput(name: 'ativar_endereco_logradouro', label: 'Logradouro', placeholder: 'Logradouro', class: 'bloco_logradouro')
+            @endif;
+
+            @if ( in_array('endereco_numero', CAMPOS_PRIMEIRO_ACESSO) ):
             @? formNumero(name: 'ativar_endereco_numero', label: 'Número', placeholder: 'Número', class: 'bloco_numero')
+            @endif;
+
+            @if ( in_array('endereco_complemento', CAMPOS_PRIMEIRO_ACESSO) ):
             @? formInput(name: 'ativar_endereco_complemento', label: 'Complemento', placeholder: 'Complemento', class: 'bloco_complemento')
+            @endif;
+
+            @if ( in_array('endereco_bairro', CAMPOS_PRIMEIRO_ACESSO) ):
             @? formInput(name: 'ativar_endereco_bairro', label: 'Bairro', placeholder: 'Bairro', class: 'bloco_bairro')
+            @endif;
+
+            @if ( in_array('endereco_estado', CAMPOS_PRIMEIRO_ACESSO) ):
             @? formSelect(name: 'ativar_endereco_estado', label: 'Estado', obrigatorio: true, placeholder: 'Estado', lista: (new \Modules\EnderecoEstado())->select('Escolha um estado'), class: 'bloco_estado')
+            @endif;
+
+            @if ( in_array('endereco_cidade', CAMPOS_PRIMEIRO_ACESSO) ):
             @? formSelect(name: 'ativar_endereco_cidade', label: 'Cidade', obrigatorio: true, placeholder: 'Cidade', lista: ['' => 'Escolha um estado primeiro'], class: 'bloco_cidade')
+            @endif;
         </div>
+        @endif;
 
+        @if ( in_array('senha', CAMPOS_PRIMEIRO_ACESSO) ):
         <div class="linha"></div>
-
         <h2>Senha</h2>
         <span class="texto_senha texto_pequeno">Sua senha deve ter:</span>
         <ul>
@@ -55,11 +106,11 @@
             <li class="texto_pequeno">Ter pelo menos um símbolo (Por exemplo: $*&@#_)</li>
             <li class="texto_pequeno">Ter pelo menos um número</li>
         </ul>
-
         <div class="lista">
             @? formSenha(name: 'ativar_senha_nova', label: 'Senha', placeholder: 'Senha', obrigatorio: true)
             @? formSenha(name: 'ativar_senha_repetir', label: 'Confirmar Senha', placeholder: 'Confirmar senha', obrigatorio: true)
         </div>
+        @endif;
 
         <div class="bloco_botao bloco_termo">
             <div class="termo">

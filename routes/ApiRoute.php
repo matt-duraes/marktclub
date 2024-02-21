@@ -328,7 +328,7 @@ Route
                 'hash', 'nome', 'cpf', 'genero', 'senha', 'termo', 'data_nascimento', 'estado_civil',
                 'email_pessoal', 'email_trabalho', 'telefone_pessoal', 'telefone_trabalho', 'endereco_cep',
                 'endereco_logradouro', 'endereco_numero', 'endereco_complemento', 'endereco_bairro',
-                'endereco_estado', 'endereco_cidade', '!tipo_usuario', '!empresa'
+                'endereco_estado', 'endereco_cidade', '!tipo_usuario', '!empresa', '!grupo'
             ])
             ::put('/usuario-cliente/ativar');
         Route
@@ -464,7 +464,7 @@ Route
             ::nome('ativar')
             ::middleware(TokenMiddleware::class, 'scope', ['usuario_indicacao:ativar'])
             ::request([
-                '!hash', '!email'
+                '!hash', '!email', '!empresa'
             ])
             ::post('/usuario-indicacao/ativar');
     });
@@ -1218,7 +1218,8 @@ Route
                 'menu_odontologico', 'menu_premium', 'menu_dependente', 'menu_carteira', 'menu_cupom',
                 'menu_salavip', 'menu_ponto_mais_acao', 'menu_credito_sicoob', 'menu_primeiro_acesso', 'chat_status',
                 'menu_meu_parceiro', 'administrado_status', 'api_status', 'tipo_ativacao', 'status',
-                'menu_corrida', 'menu_show_nacional', 'menu_show_internacional', 'link_odontologico'
+                'menu_corrida', 'menu_show_nacional', 'menu_show_internacional', 'link_odontologico',
+                'campos_primeiro_acesso', 'grupo_label', 'grupo_placeholder'
             ])
             ::post('/construtor-clube');
         Route
@@ -1238,7 +1239,8 @@ Route
                 '!menu_cupom',
                 '!menu_salavip', '!menu_credito_sicoob', '!menu_primeiro_acesso', '!chat_status',
                 '!menu_meu_parceiro', '!administrado_status', '!api_status', '!tipo_ativacao', '!status',
-                '!menu_corrida', '!menu_show_nacional', '!menu_show_internacional', '!link_odontologico'
+                '!menu_corrida', '!menu_show_nacional', '!menu_show_internacional', '!link_odontologico',
+                '!campos_primeiro_acesso', '!grupo_label', '!grupo_placeholder'
             ])
             ::put('/construtor-clube/{id}');
         Route

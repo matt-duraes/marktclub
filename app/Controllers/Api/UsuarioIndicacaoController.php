@@ -8,6 +8,7 @@ use App\Classes\UsuarioIndicacao\Status;
 use App\Models\Api\UsuarioIndicacao\IndicacaoEntity;
 use App\Models\Api\UsuarioIndicacao\IndicacaoModel;
 use Controller\Controller;
+use Helpers\OrmHelper;
 use Http\Request;
 use Http\Response;
 use Modules\Data;
@@ -44,10 +45,15 @@ final class UsuarioIndicacaoController extends Controller implements
     public function postAtivar(Request $request): Response
     {
         $Indicacao = new IndicacaoEntity();
+        $empresa = (new OrmHelper(TABELA_COMERCIAL_EMPRESA))
+            ->pegarIdPeloUuid($request->empresa);
         $Indicacao->buscar([
-            'OR',
-            ['hash', $request->hash],
-            ['email', $request->email]
+            [
+                'OR',
+                ['hash', $request->hash],
+                ['email', $request->email]
+            ],
+            ['id_admin_empresa', $empresa]
         ], mensagem: 'Indicação não encontrada ou inexistente');
 
         if ($Indicacao->status->numero() == (new Status(Status::INDICADO))->numero()) {

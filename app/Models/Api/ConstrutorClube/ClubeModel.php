@@ -2,6 +2,7 @@
 
 namespace App\Models\Api\ConstrutorClube;
 
+use App\Helpers\PrimeiroAcessoHelper;
 use Modules\Botao;
 
 final class ClubeModel
@@ -21,6 +22,7 @@ final class ClubeModel
         $linkAndroid = $Construtor->link_app_android;
         $linkIos = $Construtor->link_app_ios;
         $corSecundaria = !empty($Construtor->cor_secundaria) ? $Construtor->cor_secundaria : $Construtor->cor_principal;
+        $camposPrimeiroAcesso = !empty($Construtor->campos_primeiro_acesso) ? $Construtor->campos_primeiro_acesso : PrimeiroAcessoHelper::CAMPOS_PADRAO;
         $this->construtor = [
             'id'                      => $Construtor->id,
             'empresa'                 => $Construtor->empresa,
@@ -80,11 +82,16 @@ final class ClubeModel
                 'ponto_mais_acao'     => $Construtor->menu_ponto_mais_acao->valor(),
                 'sair'                => $Construtor->menu_sair->valor()
             ],
-            'tipo_ativacao' => $Construtor->tipo_ativacao->indice(),
-            'administrado'  => $Construtor->administrado_status->valor(),
-            'tela_login'    => $Construtor->tela_login->valor(),
-            'chat'          => $Construtor->chat_status->valor(),
-            'api'           => $api
+            'campos_primeiro_acesso' => $camposPrimeiroAcesso,
+            'input_grupo'            => [
+                'label'       => $Construtor->grupo_label,
+                'placeholder' => $Construtor->grupo_placeholder
+            ],
+            'tipo_ativacao'          => $Construtor->tipo_ativacao->indice(),
+            'administrado'           => $Construtor->administrado_status->valor(),
+            'tela_login'             => $Construtor->tela_login->valor(),
+            'chat'                   => $Construtor->chat_status->valor(),
+            'api'                    => $api
         ];
     }
 }

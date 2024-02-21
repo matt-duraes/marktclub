@@ -36,6 +36,7 @@ final class SalvarModel extends ApiHelper
                 'termo'                => (new Botao($dado['termo']))->valor(),
                 'data_nascimento'      => $Crypt->encode((new Data($dado['data_nascimento']))->date()),
                 'estado_civil'         => $Crypt->encode((new EstadoCivil($dado['estado_civil']))->valor()),
+                'grupo'                => $Crypt->encode($dado['grupo']),
                 'email_pessoal'        => $Crypt->encode((new Email($dado['email_pessoal']))->email()),
                 'email_trabalho'       => $Crypt->encode((new Email($dado['email_trabalho']))->email()),
                 'telefone_pessoal'     => $Crypt->encode((new Telefone($dado['telefone_pessoal']))->numero()),

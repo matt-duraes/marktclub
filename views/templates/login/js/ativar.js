@@ -128,6 +128,7 @@ const loadingAtivar = () => {
     const inputDataNascimento = $('#input_ativar_data_nascimento');
     const inputGenero = $('#input_ativar_genero');
     const inputEstadoCivil = $('#input_ativar_estado_civil');
+    const inputGrupo = $('#input_ativar_grupo');
     const inputEmailPessoal = $('#input_ativar_email_pessoal');
     const inputEmailTrabalho = $('#input_ativar_email_trabalho');
     const inputTelefonePessoal = $('#input_ativar_telefone_pessoal');
@@ -143,18 +144,28 @@ const loadingAtivar = () => {
     const inputSenhaRepetir = $('#input_ativar_senha_repetir');
     const inputTermo = $('#input_ativar_termo');
 
-    buscarEnderecoPeloCep(
-        inputEnderecoCep,
-        inputEnderecoLogradouro,
-        inputEnderecoNumero,
-        inputEnderecoBairro,
-        inputEnderecoCidade,
-        inputEnderecoEstado,
-        true
-    );
-    inputEnderecoEstado.addEventListener('formChange', () => {
-        buscarCidadePeloEstado(inputEnderecoCidade, inputEnderecoEstado.value, '', 'Escolha uma cidade');
-    });
+    if (inputEnderecoCep
+        && inputEnderecoLogradouro
+        && inputEnderecoNumero
+        && inputEnderecoBairro
+        && inputEnderecoCidade
+        && inputEnderecoEstado
+    ) {
+        buscarEnderecoPeloCep(
+            inputEnderecoCep,
+            inputEnderecoLogradouro,
+            inputEnderecoNumero,
+            inputEnderecoBairro,
+            inputEnderecoCidade,
+            inputEnderecoEstado,
+            true
+        );
+    }
+    if (inputEnderecoEstado && inputEnderecoCidade) {
+        inputEnderecoEstado.addEventListener('formChange', () => {
+            buscarCidadePeloEstado(inputEnderecoCidade, inputEnderecoEstado.value, '', 'Escolha uma cidade');
+        });
+    }
 
     const botaoSalvar = $('#botao_ativar_usuario');
     inputNome.focus();
@@ -175,26 +186,27 @@ const loadingAtivar = () => {
             LINK + '/login/ativar-salvar',
             {
                 hash,
-                nome: inputNome.value,
+                nome: pegarValorInput(inputNome),
                 cpf: inputCpf ? inputCpf.value : cpf,
-                genero: inputGenero.value,
-                senha: inputSenhaNova.value,
+                genero: pegarValorInput(inputGenero),
+                senha: pegarValorInput(inputSenhaNova),
                 termo: inputTermo.checked ? 'sim' : 'nao',
                 /* eslint-disable */
-                data_nascimento: inputDataNascimento.value,
-                estado_civil: inputEstadoCivil.value,
-                email_pessoal: inputEmailPessoal.value,
-                email_trabalho: inputEmailTrabalho.value,
-                telefone_pessoal: inputTelefonePessoal.value,
-                telefone_trabalho: inputTelefoneTrabalho.value,
-                endereco_cep: inputEnderecoCep.value,
-                endereco_logradouro: inputEnderecoLogradouro.value,
-                endereco_numero: inputEnderecoNumero.value,
-                endereco_complemento: inputEnderecoComplemento.value,
-                endereco_bairro: inputEnderecoBairro.value,
-                endereco_estado: inputEnderecoEstado.value,
-                endereco_cidade: inputEnderecoCidade.value,
-                tipo_usuario: tipo_usuario,
+                data_nascimento: pegarValorInput(inputDataNascimento),
+                estado_civil: pegarValorInput(inputEstadoCivil),
+                grupo: pegarValorInput(inputGrupo),
+                email_pessoal: pegarValorInput(inputEmailPessoal),
+                email_trabalho: pegarValorInput(inputEmailTrabalho),
+                telefone_pessoal: pegarValorInput(inputTelefonePessoal),
+                telefone_trabalho: pegarValorInput(inputTelefoneTrabalho),
+                endereco_cep: pegarValorInput(inputEnderecoCep),
+                endereco_logradouro: pegarValorInput(inputEnderecoLogradouro),
+                endereco_numero: pegarValorInput(inputEnderecoNumero),
+                endereco_complemento: pegarValorInput(inputEnderecoComplemento),
+                endereco_bairro: pegarValorInput(inputEnderecoBairro),
+                endereco_estado: pegarValorInput(inputEnderecoEstado),
+                endereco_cidade: pegarValorInput(inputEnderecoCidade),
+                tipo_usuario: tipo_usuario ?? '',
                 /* eslint-enable */
             },
             'Erro ao ativar seu usuário, por favor, tente novamente.'
@@ -208,3 +220,12 @@ const loadingAtivar = () => {
     };
     botaoSalvar.addEventListener('click', salvarUsuario);
 };
+
+
+const pegarValorInput = (input) => {
+    if (!input) {
+        return '';
+    }
+
+    return input.value;
+}

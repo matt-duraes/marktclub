@@ -24,7 +24,8 @@ final class ConstrutorEntity extends Entity
         'menu_premium', 'menu_dependente', 'menu_carteira', 'menu_salavip', 'menu_faq', 'menu_como_funciona',
         'menu_meu_parceiro', 'api_status', 'link_login', 'menu_sair', 'menu_ponto_mais_acao', 'menu_primeiro_acesso', 'menu_tema',
         'menu_corrida', 'menu_show_nacional', 'menu_show_internacional', 'administrado_status', 'chat_status',
-        'menu_samsung', 'cor_principal', 'cor_secundaria', 'tipo_ativacao', 'status'
+        'menu_samsung', 'cor_principal', 'cor_secundaria', 'tipo_ativacao', 'status', 'campos_primeiro_acesso', 'grupo_label',
+        'grupo_placeholder'
     ];
     protected array $ormSalvar = [
         'id_admin_empresa', 'link_clube', 'link_cadastro', 'link_salavip', 'link_odontologico',
@@ -37,7 +38,7 @@ final class ConstrutorEntity extends Entity
         'menu_carteira', 'menu_salavip', 'menu_faq', 'menu_como_funciona', 'api_status', 'link_login',
         'menu_premium', 'menu_dependente', 'menu_sair', 'menu_primeiro_acesso', 'menu_meu_parceiro',
         'cor_principal', 'cor_secundaria', 'menu_tema', 'administrado_status', 'chat_status',
-        'menu_samsung', 'tipo_ativacao', 'status'
+        'menu_samsung', 'tipo_ativacao', 'status', 'campos_primeiro_acesso', 'grupo_label', 'grupo_placeholder'
     ];
     protected array $ormRetornoPadrao = ['id', 'logo_principal', 'logo_marktclub'];
     private OrmHelper $ormEmpresa;
@@ -104,6 +105,9 @@ final class ConstrutorEntity extends Entity
     public TipoAtivacao $tipo_ativacao;
     public Status $status;
     public string $empresa;
+    public array $campos_primeiro_acesso;
+    public string $grupo_label;
+    public string $grupo_placeholder;
 
     public function __construct()
     {
