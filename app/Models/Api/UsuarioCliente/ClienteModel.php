@@ -192,7 +192,7 @@ final class ClienteModel extends ORM
 
         $retorno = [];
         foreach ($dependentes as $dependente) {
-            $retorno[] = [
+            $vida = [
                 'cpf'                    => $dependente->cpf,
                 'matricula'              => $dependente->cpf,
                 'nome'                   => $dependente->nome,
@@ -206,9 +206,13 @@ final class ClienteModel extends ORM
                     'nome'   => $dependente->nome,
                     'numero' => $dependente->cpf
                 ],
-                'dependentes'            => null,
                 'codigoPlano'            => $DrogariaAraujoHelper->getCodigoPlano()
             ];
+
+            if (empty($vida['dataNascimento'])) {
+                unset($vida['dataNascimento']);
+            }
+            $retorno[] = $vida;
         }
         return $retorno;
     }

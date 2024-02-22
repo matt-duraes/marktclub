@@ -9,7 +9,6 @@ final class DrogariaAraujoMiddleware
 {
     use TokenTrait;
 
-    private const TOKEN = 'b887b5ea-6256-4410-a118-7c1d594a97fd';
     private array $headers;
     private string|bool $token;
 
@@ -47,7 +46,7 @@ final class DrogariaAraujoMiddleware
         $mensagem = '';
         if (empty($this->token)) {
             $mensagem = 'Middleware Token - Token vazio.';
-        } elseif (!validarUuid(self::TOKEN)) {
+        } elseif (!validarUuid(env('DROGARIA_ARAUJO_KEY', ''))) {
             $mensagem = 'Middleware Token - Token inválido.';
         }
 
@@ -66,7 +65,7 @@ final class DrogariaAraujoMiddleware
      */
     public function token()
     {
-        if ($this->token !== self::TOKEN) {
+        if ($this->token !== env('DROGARIA_ARAUJO_KEY', '')) {
             mensagemStatus(
                 401,
                 localhost: 'Middleware Token - Não foi possível validar seu token'

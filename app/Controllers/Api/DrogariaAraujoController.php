@@ -27,17 +27,13 @@ class DrogariaAraujoController extends Controller implements
         $DrogariaAraujoHelper = new DrogariaAraujoHelper();
         $Response = new Response();
         $OrmHelper = new OrmHelper(TABELA_USUARIO_CLIENTE);
-        $Cliente = $OrmHelper->pegarUltimoRegistro(
-            [
-                ['documento', $id],
-                ['status', 1]
-            ],
-            [
-                'id', 'cpf', 'matricula', 'nome',
-                'tipo', 'sexo', 'data_nascimento'
-            ],
-            'object'
-        );
+        $Cliente = $OrmHelper->pegarUltimoRegistro([
+            ['documento', $id],
+            ['status', 1]
+        ], [
+            'id', 'cpf', 'matricula', 'nome',
+            'tipo', 'sexo', 'data_nascimento', 'titular'
+        ], 'object');
 
         if (empty($Cliente->id)) {
             return $Response->json([
@@ -47,8 +43,41 @@ class DrogariaAraujoController extends Controller implements
             ]);
         }
 
-        $dependentes = (new ClienteModel(validarEmpresa: false))
-            ->buscarDependentesUsuario($Cliente->id);
+        $titular = [];
+        $dependentes = [];
+        if ($Cliente->tipo == (new TipoUsuario(TipoUsuario::TITULAR))->numero()) {
+            $dependentes = (new ClienteModel(validarEmpresa: false))
+                ->buscarDependentesUsuario($Cliente->id);
+        } elseif ($Cliente->tipo == (new TipoUsuario(TipoUsuario::DEPENDENTE))->numero()) {
+            $titular = $OrmHelper->pegarUltimoRegistro([
+                ['id', $Cliente->titular],
+                ['status', 1]
+            ], [
+                'id', 'cpf', 'matricula', 'nome',
+                'tipo', 'sexo', 'data_nascimento'
+            ], 'object');
+
+            $titular = [
+                'cpf'                    => $titular->cpf,
+                'matricula'              => $titular->cpf,
+                'nome'                   => $titular->nome,
+                'tipo'                   => ucfirst((new TipoUsuario($titular->tipo))->indice()),
+                'sexo'                   => ucfirst((new Genero($titular->sexo))->genero()),
+                'dataNascimento'         => (new Data($titular->data_nascimento))->date(),
+                'saldoFinanciamento'     => ClienteModel::FINANCIAMENTO_SALDO,
+                'limiteFinanciamento'    => ClienteModel::FINANCIAMENTO_LIMITE,
+                'grupoCronicoDependente' => 'Nao',
+                'cartao'                 => [
+                    'nome'   => $titular->nome,
+                    'numero' => $titular->cpf
+                ],
+                'codigoPlano'            => $DrogariaAraujoHelper->getCodigoPlano()
+            ];
+
+            if (empty($titular['dataNascimento'])) {
+                unset($titular['dataNascimento']);
+            }
+        }
 
         $vida = [
             'cpf'                    => $Cliente->cpf,
@@ -64,9 +93,20 @@ class DrogariaAraujoController extends Controller implements
                 'nome'   => $Cliente->nome,
                 'numero' => $Cliente->cpf
             ],
+            'titular'                => $titular,
             'dependentes'            => $dependentes,
             'codigoPlano'            => $DrogariaAraujoHelper->getCodigoPlano()
         ];
+
+        if (empty($vida['dataNascimento'])) {
+            unset($vida['dataNascimento']);
+        }
+        if (empty($vida['titular'])) {
+            unset($vida['titular']);
+        }
+        if (empty($vida['dependentes'])) {
+            unset($vida['dependentes']);
+        }
 
         return $Response->json([
             'existente' => true,
