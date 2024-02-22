@@ -1,5 +1,5 @@
 <?php
 
 return [
-    'salvar' => ['arquivo_1', 'arquivo_2', 'arquivo_3']
+    'salvar' => ['noticia_1', 'noticia_2', 'noticia_3']
 ];

@@ -381,7 +381,7 @@ return [
         'id_admin_empresa' => 1,
         'tipo'             => 3,
         'titulo'           => 'Home',
-        'url'              => '/app/publicacao-home',
+        'url'              => '/app/editar/publicacao-home/350bebbe-6936-421c-9dd4-5edc05101fb8',
         'icone'            => '<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 30 30" style="enable-background:new 0 0 30 30;" xml:space="preserve"><path d="M20.7,23H9.3c-0.5,0-0.8-0.4-0.8-0.8v-7.4H6l8.4-7.7c0.3-0.3,0.8-0.3,1.1,0l8.4,7.7h-2.5v7.4C21.5,22.7,21.2,23,20.7,23zM10.1,21.4h9.8v-8L15,8.9l-4.9,4.5V21.4z M11.7,18.1h6.5v1.6h-6.5V18.1z"/></svg>',
         'ordem'            => '++',
         'menu'             => ['publicacao-home'],

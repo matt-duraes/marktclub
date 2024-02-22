@@ -13,6 +13,7 @@ use App\Classes\Geral\Status;
 use App\Classes\PublicacaoNoticia\Tipo;
 use App\Classes\PublicacaoNoticia\Local;
 use App\Classes\PublicacaoNoticia\Ordem;
+use App\Models\Api\PublicacaoNoticia\HomeModel;
 use System\Interface\ControllerBuscarInterface;
 use System\Interface\ControllerListarInterface;
 use System\Interface\ControllerSalvarInterface;
@@ -46,6 +47,12 @@ final class PublicacaoNoticiaController extends Controller implements
         );
 
         return mensagemSucesso($Noticia->listarDados());
+    }
+
+    public function getHome()
+    {
+        $Noticia = $Noticia = new HomeModel();
+        return mensagemSucesso($Noticia->noticia);
     }
 
     public function getBuscar(string $id): Response

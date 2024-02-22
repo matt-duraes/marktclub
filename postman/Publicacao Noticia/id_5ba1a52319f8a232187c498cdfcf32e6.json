@@ -1,0 +1,1 @@
+{"id":"id_5ba1a52319f8a232187c498cdfcf32e6","token":"token","metodo":"GET","nome":"\/publicacao-noticia\/home","uri":"{{LINK}}\/publicacao-noticia\/home","parametro":[],"body":[],"header":[],"variavel":[],"json":[],"documentacao":{"status":false,"descricao":"","requisicao":"","resposta":"","scope":"publicacao_noticia:listar"}}

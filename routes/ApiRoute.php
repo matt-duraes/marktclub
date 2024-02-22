@@ -130,12 +130,14 @@ Route
                 '!data_inicio_de', '!data_inicio_ate', '!site', '!restrita', '!status'
             ], 'json')
             ::get('/publicacao-noticia');
-
+        Route
+            ::nome('home')
+            ::middleware(TokenMiddleware::class, 'scope', ['publicacao_noticia:listar'])
+            ::get('/publicacao-noticia/home');
         Route
             ::nome('buscar')
             ::middleware(TokenMiddleware::class, 'scope', ['publicacao_noticia:buscar'])
             ::get('/publicacao-noticia/{id}');
-
         Route
             ::nome('salvar')
             ::middleware(TokenMiddleware::class, 'scope', ['publicacao_noticia:salvar'])
@@ -147,7 +149,6 @@ Route
                 'header_descricao', 'header_tag', 'local', 'tipo', 'status'
             ])
             ::post('/publicacao-noticia');
-
         Route
             ::nome('atualizar')
             ::middleware(TokenMiddleware::class, 'scope', ['publicacao_noticia:atualizar'])
@@ -159,7 +160,6 @@ Route
                 '!header_descricao', '!header_tag', '!local', '!tipo', '!status'
             ])
             ::put('/publicacao-noticia/{id}');
-
         Route
             ::nome('deletar')
             ::middleware(TokenMiddleware::class, 'scope', ['publicacao_noticia:deletar'])
@@ -2659,6 +2659,7 @@ Route
 
 Route
     ::nome('publicacao_home')
+    ::middleware(TokenMiddleware::class, 'token')
     ::controller(App\Controllers\Api\PublicacaoHomeController::class)
     ::grupo(function () {
         Route
@@ -2668,6 +2669,6 @@ Route
         Route
             ::nome('atualizar')
             ::middleware(TokenMiddleware::class, 'scope', ['publicacao_home:atualizar'])
-            ::request([])
+            ::request(['noticia_1', 'noticia_2', 'noticia_3'])
             ::put('/publicacao-home/{id}');
     });

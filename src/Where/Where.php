@@ -78,6 +78,37 @@ final class Where implements WhereInterface
         return $this;
     }
 
+    public function publicadoNao()
+    {
+        $this->manual([
+            'OR',
+            ['data_inicio', '>', hoje()],
+            ['data_final', '<', hoje()],
+            ['status', '!=', 1]
+        ]);
+        return $this;
+    }
+
+    public function publicadoSim()
+    {
+        $this->manual([
+            [
+                'OR',
+                ['data_inicio', 'null'],
+                ['data_inicio', ''],
+                ['data_inicio', '<=', hoje() . ' 23:59:59'],
+            ],
+            [
+                'OR',
+                ['data_final', 'null'],
+                ['data_final', ''],
+                ['data_final', '>=', hoje()],
+            ],
+            ['status', 1]
+        ]);
+        return $this;
+    }
+
     /**
      * Executa apenas se o valor da propriedade passada for diferente do valor informado
      *
