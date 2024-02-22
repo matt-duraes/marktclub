@@ -78,6 +78,37 @@ final class Where implements WhereInterface
         return $this;
     }
 
+    public function publicadoNao()
+    {
+        $this->manual([
+            'OR',
+            ['data_inicio', '>', hoje()],
+            ['data_final', '<', hoje()],
+            ['status', '!=', 1]
+        ]);
+        return $this;
+    }
+
+    public function publicadoSim()
+    {
+        $this->manual([
+            [
+                'OR',
+                ['data_inicio', 'null'],
+                ['data_inicio', ''],
+                ['data_inicio', '<=', hoje() . ' 23:59:59'],
+            ],
+            [
+                'OR',
+                ['data_final', 'null'],
+                ['data_final', ''],
+                ['data_final', '>=', hoje()],
+            ],
+            ['status', 1]
+        ]);
+        return $this;
+    }
+
     /**
      * Executa apenas se o valor da propriedade passada for diferente do valor informado
      *
@@ -86,7 +117,7 @@ final class Where implements WhereInterface
      * @param  Closure $callback
      * @return self
      */
-    public function seDiferente(string $propriedade, mixed $valor = null, Closure $callback): self
+    public function seDiferente(string $propriedade, mixed $valor = null, Closure $callback = null): self
     {
         $this->seIgualDiferente(propriedade: $propriedade, valor: $valor, callback: $callback, igual: false);
         return $this;
@@ -260,7 +291,7 @@ final class Where implements WhereInterface
         return $this;
     }
 
-    private function seIgualDiferente(string $propriedade, mixed $valor = null, Closure $callback, bool $igual = true)
+    private function seIgualDiferente(string $propriedade, mixed $valor = null, Closure $callback = null, bool $igual = true)
     {
         if (!$this->iniciado($propriedade)) {
             return;
@@ -268,7 +299,7 @@ final class Where implements WhereInterface
 
         $propValor = $this->pegarValor(propriedade: $propriedade);
 
-        if ($propValor !== $valor) {
+        if (($igual && $propValor !== $valor) || (!$igual && $propValor === $valor)) {
             return $this;
         }
 
