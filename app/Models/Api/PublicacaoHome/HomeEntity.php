@@ -17,7 +17,6 @@ final class HomeEntity extends Entity
     protected array $ormBuscar = [
         'noticia_1', 'noticia_2', 'noticia_3'
     ];
-
     public string $noticia_1;
     public string $noticia_2;
     public string $noticia_3;
@@ -27,7 +26,7 @@ final class HomeEntity extends Entity
     {
         parent::__construct();
         $this->validarEmpresa();
-        if(empty($this->idEmpresa)) {
+        if (empty($this->idEmpresa)) {
             mensagemStatus(404);
         }
 
@@ -43,20 +42,20 @@ final class HomeEntity extends Entity
 
     protected function regraPosBuscar()
     {
-        if(!empty($this->noticia_3)) {
+        if (!empty($this->noticia_3)) {
             $this->listaId[] = $this->noticia_3;
         }
-        if(!empty($this->noticia_2)) {
+        if (!empty($this->noticia_2)) {
             $this->listaId[] = $this->noticia_2;
         }
-        if(!empty($this->noticia_1)) {
+        if (!empty($this->noticia_1)) {
             $this->listaId[] = $this->noticia_1;
         }
     }
 
     private function verificarExisteNoticia(string $id, int $numero): void
     {
-        if(empty($id)) {
+        if (empty($id)) {
             return;
         }
         try {
@@ -67,4 +66,3 @@ final class HomeEntity extends Entity
         }
     }
 }
-

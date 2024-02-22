@@ -1,7 +1,5 @@
 <?php
 
-use App\Classes\PublicacaoHome\Tipo;
-
 $Painel = new PainelConfig\Add(app: 'publicidade_home', acao: $acao);
 
 $Painel->coluna(callback: function () use ($Painel) {

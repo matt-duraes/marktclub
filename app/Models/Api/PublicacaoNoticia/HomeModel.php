@@ -28,7 +28,7 @@ final class HomeModel extends GeralModel
 
     private function buscarNoticia()
     {
-        if (is_null($this->Home)) {
+        if (is_null($this->Home) || !$this->Home->listaId) {
             return;
         }
         $dado = $this->campo(self::CAMPO)->where($this->pegarWhere())->read();
@@ -53,14 +53,14 @@ final class HomeModel extends GeralModel
         }
         $Home = $this->Home;
         $ordem = [];
-        if (array_key_exists($Home->noticia_3, $lista)) {
-            $ordem[] = $lista[$Home->noticia_3];
+        if (array_key_exists($Home->noticia_1, $lista)) {
+            $ordem[] = $lista[$Home->noticia_1];
         }
         if (array_key_exists($Home->noticia_2, $lista)) {
             $ordem[] = $lista[$Home->noticia_2];
         }
-        if (array_key_exists($Home->noticia_1, $lista)) {
-            $ordem[] = $lista[$Home->noticia_1];
+        if (array_key_exists($Home->noticia_3, $lista)) {
+            $ordem[] = $lista[$Home->noticia_3];
         }
         return $ordem;
     }

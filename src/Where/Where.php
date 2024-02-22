@@ -117,7 +117,7 @@ final class Where implements WhereInterface
      * @param  Closure $callback
      * @return self
      */
-    public function seDiferente(string $propriedade, mixed $valor = null, Closure $callback): self
+    public function seDiferente(string $propriedade, mixed $valor = null, Closure $callback = null): self
     {
         $this->seIgualDiferente(propriedade: $propriedade, valor: $valor, callback: $callback, igual: false);
         return $this;
@@ -291,7 +291,7 @@ final class Where implements WhereInterface
         return $this;
     }
 
-    private function seIgualDiferente(string $propriedade, mixed $valor = null, Closure $callback, bool $igual = true)
+    private function seIgualDiferente(string $propriedade, mixed $valor = null, Closure $callback = null, bool $igual = true)
     {
         if (!$this->iniciado($propriedade)) {
             return;
@@ -299,7 +299,7 @@ final class Where implements WhereInterface
 
         $propValor = $this->pegarValor(propriedade: $propriedade);
 
-        if ($propValor !== $valor) {
+        if (($igual && $propValor !== $valor) || (!$igual && $propValor === $valor)) {
             return $this;
         }
 
