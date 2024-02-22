@@ -3,6 +3,7 @@
 use Helpers\ApiHelper;
 use App\Classes\Geral\Status;
 use App\Classes\ConstrutorClube\TipoAtivacao;
+use App\Helpers\PrimeiroAcessoHelper;
 
 $Painel = new PainelConfig\Add(app: 'comercial-empresa', acao: $acao);
 
@@ -166,5 +167,21 @@ $Painel->coluna(callback: function () use ($Painel) {
         }
     );
 });
+$Painel->coluna(callback: function () use ($Painel) {
+    $Painel->fieldsetCheckbox(
+        titulo: 'Primeiro acesso',
+        mais: false,
+        todos: 'Marcar todos',
+        callback: function () use ($Painel) {
+            foreach (PrimeiroAcessoHelper::CAMPOS as $campo => $label) {
+                $Painel->checkbox(name: 'campos_primeiro_acesso[]', value: $campo, label: $label);
+            }
+        }
+    );
+    $Painel->input(name: 'grupo_label', label: 'Label do grupo', placeholder: 'Digite o label do grupo', ajuda: "O padrão é: 'Grupo'");
+    $Painel->input(name: 'grupo_placeholder', label: 'Placeholder do grupo', placeholder: 'Digite o placeholder do grupo', ajuda: "O padrão é: 'Grupo'");
+});
+
+$Painel->js('painel_construtor_clube_add');
 
 return $Painel;

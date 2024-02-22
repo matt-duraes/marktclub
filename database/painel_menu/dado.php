@@ -362,7 +362,7 @@ return [
         'titulo'           => 'PUBLICAÇÕES',
         'ordem'            => '++',
         'status'           => 1,
-        'permissao'        => '["publicacao_noticia_index","publicacao_pagina_index","publicacao_diretoria_index","publicacao_youtube_index","publicacao_arquivo_index"]'
+        'permissao'        => '["publicacao_noticia_index","publicacao_pagina_index","publicacao_diretoria_index","publicacao_youtube_index","publicacao_arquivo_index","publicacao_home_editar"]'
     ],
     [
         'id'               => '++',
@@ -375,6 +375,18 @@ return [
         'menu'             => ['publicacao-noticia'],
         'status'           => 1,
         'permissao'        => '["publicacao_noticia_index"]'
+    ],
+    [
+        'id'               => '++',
+        'id_admin_empresa' => 1,
+        'tipo'             => 3,
+        'titulo'           => 'Home',
+        'url'              => '/app/editar/publicacao-home/350bebbe-6936-421c-9dd4-5edc05101fb8',
+        'icone'            => '<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 30 30" style="enable-background:new 0 0 30 30;" xml:space="preserve"><path d="M20.7,23H9.3c-0.5,0-0.8-0.4-0.8-0.8v-7.4H6l8.4-7.7c0.3-0.3,0.8-0.3,1.1,0l8.4,7.7h-2.5v7.4C21.5,22.7,21.2,23,20.7,23zM10.1,21.4h9.8v-8L15,8.9l-4.9,4.5V21.4z M11.7,18.1h6.5v1.6h-6.5V18.1z"/></svg>',
+        'ordem'            => '++',
+        'menu'             => ['publicacao-home'],
+        'status'           => 1,
+        'permissao'        => '["publicacao_home_editar"]'
     ],
     [
         'id'               => '++',
@@ -394,7 +406,7 @@ return [
         'tipo'             => 3,
         'titulo'           => 'Arquivo',
         'url'              => '/app/publicacao-arquivo',
-        'icone'            => '<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 30 30" style="enable-background:new 0 0 30 30;" xml:space="preserve"><path d="M21.9,10.5c-0.1-0.3-0.3-0.5-0.5-0.5C21,9.8,19.1,9.6,15,9.6c-4.1,0-6,0.3-6.4,0.4c-0.2,0.1-0.4,0.3-0.5,0.5c-0.1,0.4-0.4,2-0.4,4.5c0,2.5,0.3,4.2,0.4,4.5c0.1,0.3,0.3,0.5,0.5,0.5c0.4,0.1,2.3,0.4,6.4,0.4c4.1,0,6-0.3,6.4-0.4c0.2-0.1,0.4-0.3,0.5-0.5c0.1-0.4,0.4-2,0.4-4.5S22,10.8,21.9,10.5z M23.6,10c0.4,1.6,0.4,5,0.4,5s0,3.4-0.4,5c-0.2,0.9-0.9,1.6-1.8,1.8c-1.5,0.4-6.9,0.4-6.9,0.4s-5.3,0-6.9-0.4c-0.9-0.2-1.5-0.9-1.8-1.8c-0.4-1.6-0.4-5-0.4-5s0-3.4,0.4-5c0.2-0.9,0.9-1.6,1.8-1.8C9.7,7.8,15,7.8,15,7.8s5.3,0,6.9,0.4C22.7,8.4,23.4,9.1,23.6,10z M13.2,18.2v-6.3l5.4,3.2L13.2,18.2z"/></svg>',
+        'icone'            => '<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 30 30" style="enable-background:new 0 0 30 30;" xml:space="preserve"><path d="M12.8,7.8L12.8,7.8l7.9,0c0.4,0,0.7,0.3,0.7,0.7v13c0,0.4-0.3,0.7-0.7,0.7H9.2c-0.4,0-0.7-0.3-0.7-0.7v-9.4L12.8,7.8zM10.5,12.1h2.3V9.8L10.5,12.1z M14.3,9.2v3.6c0,0.4-0.3,0.7-0.7,0.7H9.9v7.2h10.1V9.2H14.3z"/></svg>',
         'ordem'            => '++',
         'menu'             => ['publicacao-arquivo'],
         'status'           => 1,

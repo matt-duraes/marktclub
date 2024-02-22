@@ -94,10 +94,10 @@ final class ArquivoModel extends ORM implements ModelListarInterface
                     ->data(data1: 'data_inicio_de', data2: 'data_inicio_ate');
             })
             ->linha('tipo')
-            ->linha('restrita', campo: 'premissao_restrita')
+            ->linha('restrita', campo: 'permissao_restrita')
             ->linha('site', campo: 'permissao_site')
             ->publicado()
-            ->linha(propriedade: 'pesquisa', condicao: 'LIKE%%', campo: 'titulo');
+            ->linha(propriedade: 'pesquisa', condicao: 'like%%', campo: 'titulo');
         return $Where;
     }
 }

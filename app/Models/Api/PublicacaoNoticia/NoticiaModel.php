@@ -2,7 +2,6 @@
 
 namespace App\Models\Api\PublicacaoNoticia;
 
-use ORM\ORM;
 use stdClass;
 use Modules\Data;
 use Modules\Botao;
@@ -12,7 +11,6 @@ use Order\OrderInterface;
 use Status\StatusInterface;
 use Modules\ModuleInterface;
 use App\Classes\Geral\Status;
-use App\Classes\Geral\Publicado;
 use System\Trait\Model\OrdemTrait;
 use System\Trait\Model\PaginaTrait;
 use App\Classes\PublicacaoNoticia\Tipo;
@@ -22,15 +20,13 @@ use App\Classes\PublicacaoNoticia\Ordem;
 use System\Interface\ModelListarInterface;
 use App\Models\Api\Trait\ValidarEmpresaTrait;
 
-final class NoticiaModel extends ORM implements
+final class NoticiaModel extends GeralModel implements
     ModelListarInterface
 {
     use ValidarEmpresaTrait;
     use PaginaTrait;
     use QuantidadeTrait;
     use OrdemTrait;
-
-    protected string $ormTabela = TABELA_PUBLICACAO_NOTICIA;
 
     public function __construct(
         private Pagina $pagina = new Pagina(null),
@@ -54,10 +50,7 @@ final class NoticiaModel extends ORM implements
     public function listarDados(): stdClass
     {
         $dado = $this
-            ->campo([
-                'uuid', 'titulo_grande', 'titulo_pequeno', 'texto_grande', 'texto_pequeno',
-                'data_inicio', 'data_final', 'imagem_grande', 'imagem_pequena', 'url', 'status'
-            ])
+            ->campo(self::CAMPO)
             ->where($this->pegarWhere(), obrigatorio: false)
             ->pagina($this->pegarPagina(), $this->pegarQuantidade())
             ->order($this->pegarOrdem())
@@ -65,52 +58,6 @@ final class NoticiaModel extends ORM implements
 
         $dado->lista = $this->montardado($dado->lista);
         return $dado;
-    }
-
-    private function montardado($lista)
-    {
-        if (!$lista) {
-            return [];
-        }
-
-        $Status = new Status();
-        $retorno = [];
-        foreach ($lista as $r) {
-            $titulo = $r->titulo_pequeno;
-            if (empty($titulo)) {
-                $titulo = strCortar($r->titulo_grande, 80);
-            }
-
-            $texto = $r->texto_pequeno;
-            if (empty($texto)) {
-                $texto = strCortar(strip_tags($r->texto_grande), 120);
-            }
-            $imagem = '';
-            if (!empty($r->imagem_pequena)) {
-                $imagem = $r->imagem_pequena;
-            } elseif (!empty($r->imagem_grande)) {
-                $imagem = $r->imagem_grande;
-            }
-
-            $statusIndice = $Status->indice($r->status);
-            $publicado = new Publicado(
-                new Data($r->data_inicio),
-                new Data($r->data_final),
-                $statusIndice == Status::ATIVO
-            );
-
-            $retorno[] = [
-                'id'          => $r->uuid,
-                'titulo'      => $titulo,
-                'texto'       => $texto,
-                'imagem'      => !empty($imagem) ? arquivoPrivado($imagem) : '',
-                'data_inicio' => $r->data_inicio,
-                'url'         => $r->url,
-                'publicado'   => $publicado->indice(),
-                'status'      => $statusIndice
-            ];
-        }
-        return $retorno;
     }
 
     private function pegarWhere()
