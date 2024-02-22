@@ -8,7 +8,6 @@ use Modules\DataHora;
 use App\Classes\Geral\Status;
 use App\Classes\Geral\Publicado;
 use App\Classes\PublicacaoNoticia\Tipo;
-use App\Classes\PublicacaoNoticia\Local;
 use App\Models\Api\Trait\ValidarEmpresaTrait;
 
 final class NoticiaEntity extends Entity
@@ -25,14 +24,14 @@ final class NoticiaEntity extends Entity
         'imagem_grande', 'imagem_pequena', 'imagem_galeria', 'imagem_social', 'arquivo',
         'fonte_noticia', 'fonte_link', 'autor_noticia', 'data_inicio', 'data_final',
         'data_atualizada', 'permissao_restrita', 'header_titulo', 'header_descricao',
-        'header_tag', 'permissao_site', 'tipo', 'local', 'status'
+        'header_tag', 'permissao_site', 'tipo', 'home', 'status'
     ];
     protected array $ormBuscar = [
         'titulo_grande', 'titulo_pequeno', 'subtitulo', 'texto_grande', 'texto_pequeno',
         'imagem_grande', 'imagem_pequena', 'imagem_galeria', 'imagem_social', 'arquivo',
         'fonte_noticia', 'fonte_link', 'autor_noticia', 'data_inicio', 'data_final',
         'data_atualizada', 'permissao_restrita', 'header_titulo', 'header_descricao',
-        'header_tag', 'permissao_site', 'tipo', 'local', 'status', 'data_criacao',
+        'header_tag', 'permissao_site', 'tipo', 'home', 'status', 'data_criacao',
         'data_atualizacao', 'url'
     ];
     protected string $ormValidarSalvar = '
@@ -41,7 +40,7 @@ final class NoticiaEntity extends Entity
         data_final|Data final da publicação|valido
         data_atualizada|Data de atualização da publicação|valido
         texto_grande|Texto grande|obrigatorio|vazio
-        local|Local|obrigatorio|valido
+        home|Home|valido
         tipo|Tipo|obrigatorio|valido
         status|Status|obrigatorio|vazio|valido
     ';
@@ -69,7 +68,7 @@ final class NoticiaEntity extends Entity
     public string $header_descricao;
     public array $header_tag;
     public Tipo $tipo;
-    public Local $local;
+    public Botao $home;
     private int $idEmpresa;
     private ?int $idUsuario = null;
     public Publicado $publicado;
