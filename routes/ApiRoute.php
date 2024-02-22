@@ -126,7 +126,7 @@ Route
             ::nome('listar')
             ::middleware(TokenMiddleware::class, 'scope', ['publicacao_noticia:listar'])
             ::request([
-                'pagina', '!quantidade', '!ordem', '!pesquisa', '!local', '!tipo', '!publicado',
+                'pagina', '!quantidade', '!ordem', '!pesquisa', '!home', '!tipo', '!publicado',
                 '!data_inicio_de', '!data_inicio_ate', '!site', '!restrita', '!status'
             ], 'json')
             ::get('/publicacao-noticia');
@@ -146,7 +146,7 @@ Route
                 'imagem_grande', 'imagem_pequena', '!imagem_galeria', 'imagem_social', '!arquivo',
                 'fonte_noticia', 'fonte_link', 'autor_noticia', 'data_inicio', 'data_final',
                 'data_atualizada', 'permissao_restrita', 'permissao_site', 'header_titulo',
-                'header_descricao', 'header_tag', 'local', 'tipo', 'status'
+                'header_descricao', 'header_tag', 'home', 'tipo', 'status'
             ])
             ::post('/publicacao-noticia');
         Route
@@ -157,7 +157,7 @@ Route
                 '!imagem_grande', '!imagem_pequena', '!imagem_galeria', '!imagem_social', '!arquivo',
                 '!fonte_noticia', '!fonte_link', '!autor_noticia', '!data_inicio', '!data_final',
                 '!data_atualizada', '!permissao_restrita', '!permissao_site', '!header_titulo',
-                '!header_descricao', '!header_tag', '!local', '!tipo', '!status'
+                '!header_descricao', '!header_tag', '!home', '!tipo', '!status'
             ])
             ::put('/publicacao-noticia/{id}');
         Route

@@ -2,7 +2,6 @@
 
 use App\Classes\Geral\Status;
 use App\Classes\PublicacaoNoticia\Tipo;
-use App\Classes\PublicacaoNoticia\Local;
 
 $Painel = new PainelConfig\Add(app: 'publicidade_noticia', acao: $acao);
 $diretorioImagem = sessao('PAINEL.upload_grupo')['imagem'] ?? '';
@@ -90,12 +89,7 @@ $Painel->coluna(callback: function () use ($Painel) {
         $Painel
             ->switch(name: 'permissao_restrita', label: 'Aparecer na área restrita')
             ->switch(name: 'permissao_site', label: 'Aparecer no site')
-            ->select(
-                name: 'local',
-                label: 'Local',
-                placeholder: 'Escolha um local',
-                lista: (new Local())->select('Escolha uma opção')
-            )
+            ->switch(name: 'home', label: 'Aparecer no home')
             ->select(
                 name: 'tipo',
                 label: 'Tipo',
