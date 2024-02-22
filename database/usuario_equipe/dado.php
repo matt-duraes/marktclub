@@ -125,6 +125,9 @@ $permissao = [
 
     'painel_tradutor_index', 'painel_tradutor_visualizar', 'painel_tradutor_add',
     'painel_tradutor_editar', 'painel_tradutor_deletar',
+
+    'album_dado_index', 'album_dado_visualizar', 'album_dado_add', 'album_dado_editar',
+    'album_dado_deletar', 'album_dado_foto',
 ];
 
 return [

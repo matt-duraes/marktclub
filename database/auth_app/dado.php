@@ -196,7 +196,10 @@ $scope = [
     'painel_tradutor:atualizar', 'painel_tradutor:deletar', 'painel_tradutor:traduzir',
 
     'painel_config:buscar', 'painel_config:listar', 'painel_config:salvar',
-    'painel_config:atualizar', 'painel_config:deletar'
+    'painel_config:atualizar', 'painel_config:deletar',
+
+    'album_dado:buscar', 'album_dado:listar', 'album_dado:salvar', 'album_dado:atualizar',
+    'album_dado:deletar', 'album_dado:foto'
 ];
 
 return [

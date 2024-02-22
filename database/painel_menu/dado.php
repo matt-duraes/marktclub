@@ -362,7 +362,7 @@ return [
         'titulo'           => 'PUBLICAÇÕES',
         'ordem'            => '++',
         'status'           => 1,
-        'permissao'        => '["publicacao_noticia_index","publicacao_pagina_index","publicacao_diretoria_index","publicacao_youtube_index","publicacao_arquivo_index","publicacao_home_editar"]'
+        'permissao'        => '["publicacao_noticia_index","publicacao_pagina_index","publicacao_diretoria_index","publicacao_youtube_index","publicacao_arquivo_index","publicacao_home_editar","album_dado_index"]'
     ],
     [
         'id'               => '++',
@@ -435,6 +435,18 @@ return [
         'menu'             => ['publicacao-diretoria'],
         'status'           => 1,
         'permissao'        => '["publicacao_diretoria_index"]'
+    ],
+    [
+        'id'               => '++',
+        'id_admin_empresa' => 1,
+        'tipo'             => 3,
+        'titulo'           => 'Álbum',
+        'url'              => '/app/album',
+        'icone'            => '<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 30 30" style="enable-background:new 0 0 30 30;" xml:space="preserve"><path d="M13.1,8.9l-1.7,1.7H8.1v10.4h13.9V10.7h-3.3l-1.7-1.7H13.1z M12.4,7.2h5.2l1.7,1.7h3.5c0.5,0,0.9,0.4,0.9,0.9v12.2c0,0.5-0.4,0.9-0.9,0.9H7.2c-0.5,0-0.9-0.4-0.9-0.9V9.8c0-0.5,0.4-0.9,0.9-0.9h3.5L12.4,7.2z M15,20.2c-2.6,0-4.8-2.1-4.8-4.8c0-2.6,2.1-4.8,4.8-4.8c2.6,0,4.8,2.1,4.8,4.8C19.8,18.1,17.6,20.2,15,20.2z M15,18.5c1.7,0,3-1.4,3-3s-1.4-3-3-3s-3,1.4-3,3S13.3,18.5,15,18.5z"/></svg>',
+        'ordem'            => '++',
+        'menu'             => ['album-dado'],
+        'status'           => 1,
+        'permissao'        => '["album_dado_index"]'
     ],
     [
         'id'               => '++',
