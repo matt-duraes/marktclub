@@ -84,7 +84,7 @@ final class ConfigEntity extends Entity
     public string $login_texto;
     public string $login_link;
     public string $clube_link;
-    public int $home_noticia_principal;
+    public Botao $home_noticia_principal;
     public int $home_noticia_lista;
     public Botao $home_banner;
     public Botao $home_parceiro;
