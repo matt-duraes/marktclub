@@ -100,6 +100,7 @@ const loadingAtivarBuscar = () => {
             criarPaginaAtivarSalvar({ hash: resposta.dado.hash, tipo_usuario: valorData });
             return;
         }
+        resposta.dado.tipo_usuario = valorData;
         criarPaginaAtivarSalvar(resposta.dado);
     });
 };
@@ -144,12 +145,13 @@ const loadingAtivar = () => {
     const inputSenhaRepetir = $('#input_ativar_senha_repetir');
     const inputTermo = $('#input_ativar_termo');
 
-    if (inputEnderecoCep
-        && inputEnderecoLogradouro
-        && inputEnderecoNumero
-        && inputEnderecoBairro
-        && inputEnderecoCidade
-        && inputEnderecoEstado
+    if (
+        inputEnderecoCep &&
+        inputEnderecoLogradouro &&
+        inputEnderecoNumero &&
+        inputEnderecoBairro &&
+        inputEnderecoCidade &&
+        inputEnderecoEstado
     ) {
         buscarEnderecoPeloCep(
             inputEnderecoCep,
@@ -206,7 +208,7 @@ const loadingAtivar = () => {
                 endereco_bairro: pegarValorInput(inputEnderecoBairro),
                 endereco_estado: pegarValorInput(inputEnderecoEstado),
                 endereco_cidade: pegarValorInput(inputEnderecoCidade),
-                tipo_usuario: tipo_usuario ?? '',
+                tipo_usuario: tipo_usuario || '',
                 /* eslint-enable */
             },
             'Erro ao ativar seu usuário, por favor, tente novamente.'
@@ -221,11 +223,10 @@ const loadingAtivar = () => {
     botaoSalvar.addEventListener('click', salvarUsuario);
 };
 
-
-const pegarValorInput = (input) => {
+const pegarValorInput = input => {
     if (!input) {
         return '';
     }
 
     return input.value;
-}
+};
