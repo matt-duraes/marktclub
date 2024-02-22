@@ -59,7 +59,7 @@ final class ClubeMiddleware extends ApiHelper
     private function buscarClube()
     {
         if (sessaoExiste('CLUBE_' . $this->id) && sessaoExiste('CLUBE') && !eLocalhost()) {
-            return;
+            // return;
         }
         $host = preg_replace('/^http(s)?\:\/\/(www.)?/', '', LINK);
         if (eLocalhost()) {
