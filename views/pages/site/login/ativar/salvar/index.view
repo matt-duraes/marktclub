@@ -33,7 +33,7 @@
             @? formSelect(name: 'ativar_estado_civil', label: 'Estado civil', placeholder: 'Estado civil', lista: (new \Modules\EstadoCivil())->select('Escolha um estado civil'))
             @endif;
 
-            @if ( in_array('grupo', CAMPOS_PRIMEIRO_ACESSO) ):
+            @if ( in_array('grupo', CAMPOS_PRIMEIRO_ACESSO) && $tipo_usuario != 'indicado' && $tipo_usuario != 'dependente'):
             @? formSelect(name: 'ativar_grupo', label: !empty(INPUT_GRUPO->label) ? INPUT_GRUPO->label : 'Grupo', placeholder: !empty(INPUT_GRUPO->placeholder) ? INPUT_GRUPO->placeholder : 'Grupo', obrigatorio: true, lista: $grupo)
             @endif;
         </div>
