@@ -178,3 +178,17 @@ Route
             ::middleware(TokenMiddleware::class, 'scope', ['endereco:deletar'])
             ::delete('/endereco/{id}');
     });
+
+Route
+    ::nome('contato')
+    ::controller(\ApiController\ContatoController::class)
+    ::middleware(TokenMiddleware::class, 'token')
+    ::grupo(function () {
+        Route
+            ::nome('listar')
+            ::middleware(TokenMiddleware::class, 'scope', ['contato:listar'])
+            ::request([
+                '!local', '!tipo', '!nome', '!vinculo'
+            ], 'json')
+            ::get('/contato');
+    });

@@ -81,7 +81,7 @@ $Painel->coluna(callback: function () use ($Painel) {
             ->input(name: 'contato_horario', label: 'Horário de atendimento', placeholder: 'Digite o horário de atendimento')
             ->input(name: 'contato_endereco', label: 'Endereço', placeholder: 'Digite o endereço de atendimento');
     });
-    $Painel->fieldset('Liks', function () use ($Painel) {
+    $Painel->fieldset('Links', function () use ($Painel) {
         $Painel
             ->url(name: 'link_clube', label: 'Link do clube', placeholder: 'Link do clube')
             ->url(name: 'link_login', label: 'Link de login', placeholder: 'Link de login')
