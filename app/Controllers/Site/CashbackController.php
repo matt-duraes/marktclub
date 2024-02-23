@@ -39,6 +39,18 @@ final class CashbackController extends Controller
         );
     }
 
+    public function postListar(Request $request)
+    {
+        $Lista = new ListarModel(
+            pagina: new Pagina($request->pagina),
+            quantidade: new Quantidade($request->quantidade),
+            pesquisa: $request->pesquisa,
+            categoria: $request->categoria,
+            ordem: new Ordem($request->ordem)
+        );
+        return mensagemSucesso($Lista->listarDados());
+    }
+
     public function buscar(Request $request)
     {
         $pesquisa = $request->pesquisa;
