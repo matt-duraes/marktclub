@@ -1,0 +1,1 @@
+{"id":"id_647d91fc8e60ede1e40b871e88ffae5d","token":"token","metodo":"GET","nome":"\/album-dado\/:id","uri":"{{LINK}}\/album-dado\/$ALBUM_DADO_ID","parametro":[],"body":[],"header":[],"variavel":[["texto",true,"$ALBUM_DADO_ID","dado.id",""]],"json":[],"documentacao":{"status":false,"descricao":"","requisicao":"","resposta":"","scope":"album_dado:buscar"}}

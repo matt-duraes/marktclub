@@ -7,6 +7,7 @@ use Modules\Botao;
 use Modules\DataHora;
 use Helpers\OrmHelper;
 use App\Classes\Geral\Status;
+use App\Classes\Geral\Publicado;
 use App\Models\Api\Trait\ValidarEmpresaTrait;
 
 final class AlbumEntity extends Entity
@@ -36,6 +37,7 @@ final class AlbumEntity extends Entity
     public DataHora $data_final;
     public Botao $permissao_restrita;
     public Botao $permissao_site;
+    public Publicado $publicado;
     public Status $status;
 
     public function __construct()
@@ -50,6 +52,11 @@ final class AlbumEntity extends Entity
             $this->setarImagemCapa();
         }
         $this->imagem = arquivoPublico('album_foto', $this->imagem, padrao: '');
+        $this->publicado = new Publicado(
+            $this->data_inicio,
+            $this->data_final,
+            $this->status->indice() == $this->status::ATIVO
+        );
     }
 
     private function setarImagemCapa()
@@ -63,7 +70,7 @@ final class AlbumEntity extends Entity
         if (empty($imagem)) {
             return;
         }
-        $this->dado(['imagem', $imagem])->where(['id', $this->prop('id')])->update();
+        $this->dado(['imagem' => $imagem])->where(['id', $this->prop('id')])->update();
         $this->imagem = $imagem;
     }
 }

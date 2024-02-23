@@ -4,14 +4,14 @@ namespace App\Controllers\Api;
 
 use Http\Request;
 use Http\Response;
+use Controller\Controller;
 use App\Models\Api\AlbumDado\AlbumModel;
 use App\Models\Api\AlbumDado\AlbumEntity;
-use System\Interface\ControllerListarInterface;
 use System\Interface\ControllerBuscarInterface;
+use System\Interface\ControllerListarInterface;
 use System\Interface\ControllerSalvarInterface;
-use System\Interface\ControllerAtualizarInterface;
 use System\Interface\ControllerDeletarInterface;
-use Controller\Controller;
+use System\Interface\ControllerAtualizarInterface;
 
 final class AlbumDadoController extends Controller implements
     ControllerListarInterface,
@@ -31,7 +31,7 @@ final class AlbumDadoController extends Controller implements
     public function getBuscar(string $id): Response
     {
         $Album = new AlbumEntity();
-        $Album->uuid($id);
+        $Album->idSlug($id);
 
         return $this->retornoPadrao(Album: $Album, status: 200);
     }
@@ -50,7 +50,9 @@ final class AlbumDadoController extends Controller implements
         return mensagemSucesso(
             dado: pegarPropriedadeDaEntity(
                 Entity: $Album,
-                lista: []
+                lista: [
+                    'titulo', 'texto', 'data_inicio', 'data_final', 'imagem', 'publicado', 'status'
+                ]
             ),
             status: $status
         );

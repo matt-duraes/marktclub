@@ -6,6 +6,7 @@ use ORM\ORM;
 use stdClass;
 use Where\Where;
 use Modules\Pagina;
+use Helpers\OrmHelper;
 use App\Classes\Geral\Status;
 use System\Trait\Model\PaginaTrait;
 use System\Trait\Model\QuantidadeTrait;
@@ -16,15 +17,17 @@ final class FotoModel extends ORM implements ModelListarInterface
     use PaginaTrait;
     use QuantidadeTrait;
 
-    protected string $ormTabela = TABELA_ALBUM_DADO;
-    public string $algum;
+    protected string $ormTabela = TABELA_ALBUM_FOTO;
+    public string $album;
     public Pagina $pagina;
+    public int $id_album_dado;
+    public Status $status;
 
     public function listarDados(): stdClass
     {
         $dado = $this
             ->campo(['uuid', 'titulo', 'imagem', 'status'])
-            ->where($this->pegarWhere())
+            ->where($this->pegarWhere(), obrigatorio: false)
             ->pagina($this->pegarPagina(), $this->pegarQuantidade())
             ->order('ordem', 'ASC')
             ->read();
@@ -55,7 +58,11 @@ final class FotoModel extends ORM implements ModelListarInterface
     private function pegarWhere()
     {
         $Where = new Where($this);
-        $Where->linha('album', campo: 'id_album_dado');
+        if ($this->pExiste('album') && !empty($this->album)) {
+            $this->id_album_dado = (new OrmHelper(TABELA_ALBUM_DADO))->pegarIdPeloUuid($this->album);
+            $Where->linha('id_album_dado');
+        }
+        $Where->linha('status');
         return $Where;
     }
 }

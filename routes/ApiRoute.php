@@ -2677,13 +2677,15 @@ Route
 
 Route
     ::nome('album_dado')
+    ::middleware(TokenMiddleware::class, 'token')
     ::controller(App\Controllers\Api\AlbumDadoController::class)
     ::grupo(function () {
         Route
             ::nome('listar')
             ::middleware(TokenMiddleware::class, 'scope', ['album_dado:listar'])
             ::request([
-                'pagina', 'pesquisa', 'restrita', 'site', 'publicado', 'data_inicio', 'data_final', 'status'
+                'pagina', '!pesquisa', '!restrita', '!site', '!publicado', '!data_inicio_de',
+                '!data_inicio_ate', '!ordem', '!status'
             ], 'json')
             ::get('/album-dado');
         Route
@@ -2711,13 +2713,14 @@ Route
     });
 Route
     ::nome('album_dado')
+    ::middleware(TokenMiddleware::class, 'token')
     ::controller(App\Controllers\Api\AlbumFotoController::class)
     ::grupo(function () {
         Route
             ::nome('listar')
             ::middleware(TokenMiddleware::class, 'scope', ['album_dado:foto'])
             ::request([
-                'pagina', 'album'
+                'pagina', '!album', '!status'
             ], 'json')
             ::get('/album-foto');
         Route
