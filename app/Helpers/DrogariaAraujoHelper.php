@@ -37,10 +37,10 @@ class DrogariaAraujoHelper
     }
 
     /**
-     * @return string
+     * @return int
      */
-    public function getCodigoPlano(): string
+    public function getCodigoPlano(): int
     {
-        return $this->codigoPlano;
+        return (int)$this->codigoPlano;
     }
 }
