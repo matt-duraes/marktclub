@@ -51,13 +51,19 @@ final class TabelaController extends Controller
 
     public function postSalvar(Request $request)
     {
+        $obrigatorio = sessao('PAINEL.obrigatorio')['usuario_cliente'];
+
+        if (empty($obrigatorio)) {
+            return mensagemErro('Campo vazio!', 'Campos obrigatórios não preenchidos.');
+        }
+
         $dado = (new ApiHelper(token: true))
             ->arquivo([
                 'arquivo' => $request->getFiles('arquivo')
             ])
             ->body([
                 'tipo'        => $request->tipo,
-                'obrigatorio' => sessao('PAINEL.obrigatorio')['usuario_cliente'] ?? []
+                'obrigatorio' => $obrigatorio
             ])
             ->post('/tabela-usuario')
             ->array();
