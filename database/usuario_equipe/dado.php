@@ -128,6 +128,9 @@ $permissao = [
 
     'album_dado_index', 'album_dado_visualizar', 'album_dado_add', 'album_dado_editar',
     'album_dado_deletar', 'album_dado_foto',
+
+    'votacao_index', 'votacao_add', 'votacao_editar', 'votacao_deletar', 'votacao_visualizar',
+    'enquete_index', 'enquete_add', 'enquete_editar', 'enquete_deletar', 'enquete_visualizar',
 ];
 
 return [

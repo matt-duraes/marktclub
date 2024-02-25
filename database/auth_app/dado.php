@@ -199,7 +199,10 @@ $scope = [
     'painel_config:atualizar', 'painel_config:deletar',
 
     'album_dado:buscar', 'album_dado:listar', 'album_dado:salvar', 'album_dado:atualizar',
-    'album_dado:deletar', 'album_dado:foto'
+    'album_dado:deletar', 'album_dado:foto',
+
+    'votacao:buscar', 'votacao:listar', 'votacao:salvar', 'votacao:atualizar', 'votacao:deletar',
+    'votacao:pergunta', 'votacao:resposta', 'votacao:resultado',
 ];
 
 return [
