@@ -62,10 +62,19 @@ body
 @media screen and (max-width: 560px)
     #carteirinha_clube
         display: flex
-        justify-content: center
+        justify-content: flex-end
         align-items: center
 
 @media screen and (max-width: 425px)
     #carteirinha_clube
+        display: flex
+        justify-content: center
+        align-items: center
         rotate: 90deg
         width: 100vh
+        position: fixed
+
+@media screen and (max-width: 375px)
+    #carteirinha_clube
+        justify-content: flex-end
+
