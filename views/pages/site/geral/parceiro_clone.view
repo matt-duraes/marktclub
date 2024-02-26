@@ -5,14 +5,14 @@
         <header>
             <h1 class="item_titulo"></h1>
         </header>
-        <p class="item_desconto"></p>
-
+        <p class="item_volta"></p>
+        <p class="item_desconto destaque"></p>
+        <p class="item_pontos"></p>
         <div class="bloco_estado display_none">
             <p><i>@iconeMapa(15)</i><span class="item_estado"></span></p>
         </div>
         <div class="bloco_novo display_none item_novo"><i>@iconeNovo(20)</i></div>
-
-        <div class="bloco_favorito botao_favorito">
+        <div class="bloco_favorito botao_favorito display_none">
             <i class="marcado">@iconeFavoritoMarcado</i>
             <i class="desmarcado">@iconeFavorito</i>
         </div>

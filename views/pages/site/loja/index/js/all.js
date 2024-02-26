@@ -238,7 +238,7 @@ window.addEventListener('load', () => {
             center: { lat: MAPA.latitude, lng: MAPA.longitude },
             disableDefaultUI: true,
             panControl: false,
-            zoomControl: true,
+            zoomControl: false,
             mapId: 'mapa_loja_id',
         };
         MAPA.mapa = new Map(blocoMapa, option);

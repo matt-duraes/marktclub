@@ -262,6 +262,10 @@ Route
             ::nome('index')
             ::view('/cashback');
         Route
+            ::nome('listar')
+            ::request(['!pagina'])
+            ::post('/cashback/listar');
+        Route
             ::nome('buscar')
             ::request(['!pesquisa'])
             ::view('/cashback/buscar/{!pesquisa}');

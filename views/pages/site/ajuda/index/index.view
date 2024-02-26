@@ -10,22 +10,20 @@
                 <p>Abaixo seguem algumas opções. Se você precisa de ajuda, entre em contato pelo nosso atendimento.</p>
             </header>
             @if ( !empty(CONTATO_EMAIL) ):
-                <p class="contato">
+                <a href="mailto:{{CONTATO_EMAIL}}" class="contato">
                     <i class="icone">@iconeEmail(15)</i>
                     <span>{{CONTATO_EMAIL}}</span>
                     <i class="copiar">@iconeCopiar(12)</i>
-                </p>
+                </a>
             @endif;
             @if ( !empty(CONTATO_WHATSAPP) ):
-                <p class="contato">
+                <a href="https://wa.me/55{{soNumero(CONTATO_WHATSAPP)}}" target="_blank" rel="noopener noreferer"class="contato">
                     <i class="icone">@iconeWhatsapp(19)</i>
-                    <a href="https://wa.me/55{{soNumero(CONTATO_WHATSAPP)}}" target="_blank" rel="noopener noreferer">
-                        <span>
-                            {{CONTATO_WHATSAPP}}
-                        </span>
-                    </a>
+                    <span>
+                        {{CONTATO_WHATSAPP}}
+                    </span>
                     <i class="copiar">@iconeCopiar(12)</i>
-                </p>
+                </a>
             @endif;
             @if ( !empty(CONTATO_TELEFONE) ):
                 <p class="contato">
