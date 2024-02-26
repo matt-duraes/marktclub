@@ -21,7 +21,7 @@ const adicionarParceiro = (bloco, item, tipo = 'loja') => {
     clone.querySelector('.item_link').setAttribute('href', item.link);
     clone.querySelector('.item_logo').innerHTML = `<img src="${item.imagem}">`;
     clone.querySelector('.item_titulo').innerText = item.titulo;
-    clone.querySelector('.item_desconto').innerText = item.desconto;
+    clone.querySelector('.item_desconto').innerHTML = tipo == 'cashback' ? item.desconto + '%' : item.desconto;
     if (tipo == 'cashback') {
         clone.querySelector('.item_pontos').innerText = 'Revertido em pontos SILIUM';
         clone.querySelector('.item_volta').innerText = 'Receba de volta';
