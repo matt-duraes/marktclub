@@ -47,6 +47,7 @@
 
         <div id="lista_loja_valor" class="fw_grafico fw_grafico_medio">
             <div class="fw_grafico_titulo">Valor por loja</div>
+            <div class="fw_grafico_titulo_fim" title="Quantidade de vendas">Qnt.</div>
             <div class="fw_grafico_bloco_lista">
                 <div class="loading_geral">
                     <p>Carregando grafico</p>

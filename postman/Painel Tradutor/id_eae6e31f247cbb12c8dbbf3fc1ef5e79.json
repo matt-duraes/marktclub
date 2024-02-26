@@ -1,1 +1,0 @@
-{"id":"id_eae6e31f247cbb12c8dbbf3fc1ef5e79","token":"painel","metodo":"GET","nome":"\/painel-tradutor\/:id","uri":"{{LINK}}\/painel-tradutor\/$TRADUCAO_ID","parametro":[],"body":[],"header":[],"variavel":[],"json":[],"documentacao":{"status":false,"descricao":"","requisicao":"","resposta":"","scope":"painel_tradutor:buscar"}}

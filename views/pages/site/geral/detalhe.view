@@ -50,16 +50,11 @@
         </a>
         @ endif
 
-        @ if( $telefone && count($telefone) == 1):
-        <div class="botao_contar_click botao botao_geral_cor" data-botao="Telefone"><i>@iconeTelefoneLoja()</i> {{$telefone[0]}}</div>
-        @ elseif( $telefone ):
-        <div class="botao_contar_click botao botao_geral_cor" data-botao="Telefone"><i>@iconeTelefoneLoja()</i> Ver telefone</div>
+        @ if( $telefone ):
+        <div class="botao_contar_click botao botao_geral_cor" id="botao_telefone" data-botao="telefone">Telefones<i>@iconeTelefoneLoja()</i></div>
         @ endif;
-
-        @ if( $email && count($email) == 1 ):
-        <div class="botao_contar_click botao botao_geral_cor" data-botao="E-mail"><i>@iconeEmail(15)</i> {{$email[0]}}</div>
-        @ elseif( $email ):
-        <div class="botao_contar_click botao botao_geral_cor" data-botao="E-mail"><i>@iconeEmail(15)</i> Ver e-mail</div>
+        @ if( $email ):
+        <div class="botao_contar_click botao botao_geral_cor" id="botao_email" data-botao="email">E-mails <i>@iconeEmail(15)</i></div>
         @ endif;
 
         @ if( $dado->procedimento != $procedimento::WEBSITE && !empty($dado->link) ):
@@ -129,8 +124,36 @@
         <i class="botao popup_fechar">@iconeFechar</i>
     </header>
 
-    <div class="conteudo_pagina_popup" id="conteudo_popup_endereco">
+    <div class="conteudo_pagina_popup" id="conteudo_popup_endereco"></div>
+</div>
 
+<div id="bloco_contato" class="bloco_pagina_popup display_none">
+    <header class="header_pagina_popup">
+        <h1 id="titulo_popup_contato">Contato</h1>
+        <i class="botao popup_fechar">@iconeFechar</i>
+    </header>
+
+    <div class="conteudo_pagina_popup" id="conteudo_popup_contato">
+        <ul class="lista telefone display_none">
+            @ if( $telefone ):
+            @ foreach($telefone as $t)
+            <li>
+                <span>{!!strTelefone($t['valor'])!!}</span>
+                <i class="botao_copiar" data-valor="{!!$t['valor']!!}" data-tipo="Telefone">@iconePrancheta(20)</i>
+            </li>
+            @ endforeach;
+            @ endif;
+        </ul>
+        <ul class="lista email display_none">
+            @ if( $email ):
+            @ foreach($email as $e)
+            <li>
+                <span>{!!strEmail($e['valor'])!!}</span>
+                <i class="botao_copiar" data-valor="{!!$e['valor']!!}" data-tipo="E-mail">@iconePrancheta(20)</i>
+            </li>
+            @ endforeach;
+            @ endif;
+        </ul>
     </div>
 </div>
 

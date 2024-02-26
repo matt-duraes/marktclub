@@ -35,12 +35,28 @@ final class ListaModel extends ClubeApiHelper
         $this->busca = $this
             ->validar(login: true)
             ->json([
-                'local'   => $this->local->indice(),
-                'tipo'    => $this->tipo->indice(),
-                'vinculo' => $this->id
+                'local'    => $this->local->indice(),
+                'tipo'     => $this->tipo->indice(),
+                'vinculo'  => $this->buscarVinculoParceiro()
             ])
             ->get('/endereco')
             ->object()->dado ?? [];
+    }
+
+    private function buscarVinculoParceiro()
+    {
+        $parceiro = $this
+            ->get('/parceiro-loja/' . $this->id)
+            ->object()->dado ?? [];
+
+        if (!empty($parceiro)) {
+            return [
+                $parceiro->vinculo_parceiro,
+                $this->id
+            ];
+        }
+
+        return $this->id;
     }
 
     private function montarEndereco()

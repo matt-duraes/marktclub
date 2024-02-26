@@ -3,6 +3,7 @@
         <h1>ENTRAR EM CONTATO</h1>
         <i class="botao_fechar_popup">@iconeFechar</i>
     </header>
+
     <div class="popup_conteudo centralizado">
         <form id="formulario_contato" class="form_geral bloco_conteudo_geral centralizado" method="post">
             <header class="coluna texto">

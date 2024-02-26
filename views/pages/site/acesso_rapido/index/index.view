@@ -4,6 +4,7 @@
         <h1>Bem-vindo(a), {{USUARIO_NOME}}</h1>
         <p>O que você deseja fazer hoje? Selecione uma das opções abaixo.</p>
     </section>
+
     <nav class="links_acesso_rapido">
         <a class="botao" id="botao_tema">
             <i>@iconeTema</i>
@@ -13,5 +14,4 @@
         @view site/geral/menu/perfil_menu.view
         @view site/geral/menu/submenus.view
     </nav>
-
 </div>

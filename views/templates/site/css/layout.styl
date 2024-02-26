@@ -425,21 +425,29 @@ a
     flex-wrap: wrap
     justify-content: center
     background-color: $corBrancoPreto
-    padding: 60px 20px 40px
     z-index: 3
+    padding: 40px 0px
+    .rodape_conteudo
+        width: 100%
+        max-width: 1130px
+        margin: auto
+        display: flex
+        padding: 20px
+        z-index: 3
     .dado i
         fill: $corPretoBranco
     .dado .texto_footer
         font-size: 1.6rem
-        width: calc( 100% - 40px )
+        width: calc(100% - 40px)
         text-align: justify
         word-wrap: break-word
         padding-left: 1px
     .bloco
-        width: calc((100% / 3) - 40px)
-        max-width: 350px
-        margin: 0 20px
         flexCol()
+    .bloco_contato
+        width: 40%
+    .bloco_indicacao, .bloco_termo
+        width: 30%
     .bloco header h1
         titulo()
     .bloco .dado
@@ -456,7 +464,7 @@ a
         width: 100%
         position: relative
         flexCenter()
-        margin: 40px 0
+        margin: 20px 0
         &::after
             content: ""
             width: 100%
@@ -482,17 +490,24 @@ a
         border: 1px solid #ccc
         img
             margin: auto
+    .texto
+        margin-bottom: 5px
+        padding: 0px 40px
+        text-align: center
+
 @media screen and (max-width:1250px)
     #rodape_principal
         width: 100%
         margin-left: 0
+
 @media screen and (max-width:1000px)
     #rodape_principal
         .bloco
             width: 100%
             max-width: 100%
             margin: 20px 0 0
-@media screen and (max-width:700px)
+
+@media screen and (max-width: 1000px)
     #rodape_principal
         padding-top: 30px
         .app
@@ -504,6 +519,12 @@ a
             max-width: 230px
             margin: 10px 0
             justify-content: center
+        .rodape_conteudo
+            flexCol()
+        .texto
+            margin-bottom: 20px
+            padding: 0px 40px
+            text-align: center
 
 @media screen and (max-width: 425px)
     #rodape_principal .texto

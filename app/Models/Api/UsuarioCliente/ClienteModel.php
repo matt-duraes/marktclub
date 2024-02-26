@@ -35,9 +35,14 @@ final class ClienteModel extends ORM
      * @throws Excecao
      */
     public function __construct(
-        protected ?Request $request = null
+        protected ?Request $request = null,
+        private readonly bool $validarEmpresa = true
     ) {
         parent::__construct();
+        if (!$this->validarEmpresa) {
+            return;
+        }
+
         $this->validarEmpresa('empresa');
         $this->validarSubempresa();
         $this->validarCampoDoRequest();
@@ -187,7 +192,7 @@ final class ClienteModel extends ORM
 
         $retorno = [];
         foreach ($dependentes as $dependente) {
-            $retorno[] = [
+            $vida = [
                 'cpf'                    => $dependente->cpf,
                 'matricula'              => $dependente->cpf,
                 'nome'                   => $dependente->nome,
@@ -201,9 +206,13 @@ final class ClienteModel extends ORM
                     'nome'   => $dependente->nome,
                     'numero' => $dependente->cpf
                 ],
-                'dependentes'            => null,
                 'codigoPlano'            => $DrogariaAraujoHelper->getCodigoPlano()
             ];
+
+            if (empty($vida['dataNascimento'])) {
+                unset($vida['dataNascimento']);
+            }
+            $retorno[] = $vida;
         }
         return $retorno;
     }

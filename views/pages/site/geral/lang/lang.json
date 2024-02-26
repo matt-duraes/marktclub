@@ -1,0 +1,205 @@
+{
+    "blocoDetalhe": [
+        {
+            "tituloDescontos": [
+                {
+                    "pt": "Descontos",
+                    "en": "",
+                    "es": ""
+                }
+            ],
+            "tituloProcedimentos": [
+                {
+                    "pt": "Procedimentos",
+                    "en": "",
+                    "es": ""
+                }
+            ],
+            "itemAbrirSite": [
+                {
+                    "pt": "Abrir Site",
+                    "en": "",
+                    "es": ""
+                }
+            ],
+            "itemDownload": [
+                {
+                    "pt": "Download",
+                    "en": "",
+                    "es": ""
+                }
+            ],
+            "textoApenasAssociados": [
+                {
+                    "pt": "Apenas associados possuem acesso a esse recurso",
+                    "en": "",
+                    "es": ""
+                }
+            ],
+            "tituloEndereco": [
+                {
+                    "pt": "Endereço",
+                    "en": "",
+                    "es": ""
+                }
+            ],
+            "botaoBuscarEndereco": [
+                {
+                    "pt": "Buscar Endereços",
+                    "en": "",
+                    "es": ""
+                }
+            ],
+            "linkComoChegar": [
+                {
+                    "pt": "Como Chegar",
+                    "en": "",
+                    "es": ""
+                }
+            ],
+            "itemDownloads": [
+                {
+                    "pt": "Downloads",
+                    "en": "",
+                    "es": ""
+                }
+            ],
+            "itemEnderecos": [
+                {
+                    "pt": "Endereços",
+                    "en": "",
+                    "es": ""
+                }
+            ]
+        }
+    ],
+    "blocoIndicacao": [
+        {
+            "textoIndicacao": [
+                {
+                    "pt": "Atenção, você é um usuário indicado e tem apenas acesso parcial do clube",
+                    "en": "",
+                    "es": ""
+                }
+            ]
+        }
+    ],
+    "blocoParceiroNovo": [
+        {
+            "tituloSemLoja": [
+                {
+                    "pt": "Sem lojas por sua busca",
+                    "en": "",
+                    "es": ""
+                }
+            ],
+            "textoNaoEncontramos": [
+                {
+                    "pt": "Não encontramos nenhuma loja pela busca, tente fazer uma nova busca ou limpar a busca atual",
+                    "en": "",
+                    "es": ""
+                }
+            ],
+            "linkLimparBusca": [
+                {
+                    "pt": "Limpar busca",
+                    "en": "",
+                    "es": ""
+                }
+            ],
+            "textoNaoAcheLoja": [
+                {
+                    "pt": "Caso não ache a loja que procura, nos indique a loja deseja",
+                    "en": "",
+                    "es": ""
+                }
+            ],
+            "botaoIndicarLoja": [
+                {
+                    "pt": "Indicar uma loja",
+                    "en": "",
+                    "es": ""
+                }
+            ]
+        }
+    ],
+    "blocoParceiro": [
+        {
+            "textoDe": [
+                {
+                    "pt": "de",
+                    "en": "",
+                    "es": ""
+                }
+            ],
+            "textoPor": [
+                {
+                    "pt": "por",
+                    "en": "",
+                    "es": ""
+                }
+            ],
+            "textoRecebaDeVolta": [
+                {
+                    "pt": "Receba de volta",
+                    "en": "",
+                    "es": ""
+                }
+            ],
+            "textoPontosSilium": [
+                {
+                    "pt": "Revertido em pontos SILIUM",
+                    "en": "",
+                    "es": ""
+                }
+            ],
+            "textoValidoAte": [
+                {
+                    "pt": "Válido até:",
+                    "en": "",
+                    "es": ""
+                }
+            ]
+        }
+    ],
+    "blocoRelacionado": [
+        {
+            "tituloOutrasOpcoes": [
+                {
+                    "pt": "Veja outras opções de cashback",
+                    "en": "",
+                    "es": ""
+                }
+            ],
+            "linkVejaMais": [
+                {
+                    "pt": "Veja mais",
+                    "en": "",
+                    "es": ""
+                }
+            ],
+            "tituloOutrasLojas": [
+                {
+                    "pt": "Veja outras lojas",
+                    "en": "",
+                    "es": ""
+                }
+            ],
+            "tituloNossosParceiros": [
+                {
+                    "pt": "Veja nossos parceiros direto de hotéis",
+                    "en": "",
+                    "es": ""
+                }
+            ],
+            "tituloOutrasFarmacias": [
+                {
+                    "pt": "Veja outras farmácias",
+                    "en": "",
+                    "es": ""
+                }
+            ]
+        }
+    ]
+}
+
