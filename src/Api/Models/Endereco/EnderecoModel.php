@@ -18,7 +18,7 @@ final class EnderecoModel extends ORM
     protected string $ormTabela = TABELA_SISTEMA_ENDERECO;
 
     public function __construct(
-        private string $vinculo,
+        private string|array $vinculo,
         private Tipo $tipo,
         private Local $local,
         private ?string $pais = null,
@@ -55,8 +55,11 @@ final class EnderecoModel extends ORM
         if ($this->tipo->valido()) {
             $where[] = ['tabela', $this->tipo->indice()];
         }
-        if (!empty($this->vinculo)) {
-            $where[] = ['id_vinculo', $this->vinculo];
+        if (!empty($this->vinculo) && is_array($this->vinculo)) {
+            return ['id_vinculo', 'IN', $this->vinculo];
+        }
+        if (!empty($this->vinculo) && !is_array($this->vinculo)) {
+            return ['id_vinculo', $this->vinculo];
         }
         if (!empty($this->pais)) {
             $where[] = ['pais', $this->pais];

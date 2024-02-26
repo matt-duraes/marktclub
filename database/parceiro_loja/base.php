@@ -5,6 +5,7 @@ use DataBase\DataBase;
 return (new DataBase())
     ->id()
     ->cod()->replace('uuid')
+    ->text('vinculo_parceiro')->tamanho(100)->null()
     ->json('empresa')->replace('id_admin_empresa')
     ->json('destaque')->null()
     ->int('categoria_principal')->tamanho(2)

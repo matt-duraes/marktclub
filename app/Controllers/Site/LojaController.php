@@ -2,6 +2,7 @@
 
 namespace App\Controllers\Site;
 
+use App\Models\Site\Login\ContatoModel;
 use Erro\Excecao;
 use Http\Request;
 use Http\Response;
@@ -83,11 +84,13 @@ final class LojaController extends Controller
             return new Response(url: route('samsung.index'));
         }
 
+        $Contato = new ContatoModel($dado->id);
+
         return view('loja.detalhe', [
             'menu'         => 'loja',
             'dado'         => $dado,
-            'telefone'     => [],
-            'email'        => [],
+            'telefone'     => $Contato->buscarDados('telefone'),
+            'email'        => $Contato->buscarDados('email'),
             'tipo'         => $dado->tipo,
             'Busca'        => (new FiltroModel([])),
             'procedimento' => new Procedimento()

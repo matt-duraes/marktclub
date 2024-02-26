@@ -213,7 +213,7 @@ final class ConfiguracoesPadrao
                 'publicacao_youtube_deletar' => 'Deletar',
             ]
         ],
-        'publicacao_arquivo'        => [
+        'publicacao_arquivo'       => [
             'titulo'    => 'Arquivo',
             'acao'      => [
                 'index', 'add', 'editar', 'deletar', 'empresa'
@@ -587,7 +587,7 @@ final class ConfiguracoesPadrao
                 'painel_tradutor_deletar'    => 'Deletar'
             ]
         ],
-        'painel_config' => [
+        'painel_config'            => [
             'titulo'    => 'Painel Configurações',
             'acao'      => ['index', 'add', 'editar', 'deletar'],
             'permissao' => [

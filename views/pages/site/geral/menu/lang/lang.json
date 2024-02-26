@@ -1,0 +1,252 @@
+{
+    "blocoMenu": [
+        {
+            "itemMenuInicio": [
+                {
+                    "pt": "Início",
+                    "en": "",
+                    "es": ""
+                }
+            ],
+            "itemMenuAcessoRapido": [
+                {
+                    "pt": "Acesso Rápido",
+                    "en": "",
+                    "es": ""
+                }
+            ],
+            "itemMenuPremium": [
+                {
+                    "pt": "Premium",
+                    "en": "",
+                    "es": ""
+                }
+            ],
+            "itemMenuLojas": [
+                {
+                    "pt": "Lojas",
+                    "en": "",
+                    "es": ""
+                }
+            ],
+            "itemMenuLojasProximas": [
+                {
+                    "pt": "Lojas Próximas",
+                    "en": "",
+                    "es": ""
+                }
+            ],
+            "itemMenuSamsung": [
+                {
+                    "pt": "Samsung",
+                    "en": "",
+                    "es": ""
+                }
+            ],
+            "itemMenuFarmacia": [
+                {
+                    "pt": "Farmácia",
+                    "en": "",
+                    "es": ""
+                }
+            ],
+            "itemMenuDesconto": [
+                {
+                    "pt": "Cupons de Desconto",
+                    "en": "",
+                    "es": ""
+                }
+            ],
+            "itemMenuCashbackSilium": [
+                {
+                    "pt": "Cashback Silium",
+                    "en": "",
+                    "es": ""
+                }
+            ],
+            "itemMenuAutomovel": [
+                {
+                    "pt": "Automóvel",
+                    "en": "",
+                    "es": ""
+                }
+            ],
+            "textoCategoriaDiversao": [
+                {
+                    "pt": "DIVERSÃO",
+                    "en": "",
+                    "es": ""
+                }
+            ],
+            "itemCinema":[
+                {
+                    "pt": "Cinema",
+                    "en": "",
+                    "es": ""
+                }
+            ],
+            "itemCorrida":[
+                {
+                    "pt": "Corrida",
+                    "en": "",
+                    "es": ""
+                }
+            ],
+            "itemShowNacional":[
+                {
+                    "pt": "Show Nacional",
+                    "en": "",
+                    "es": ""
+                }
+            ],
+            "itemShowInternacional":[
+                {
+                    "pt": "Show Internacional",
+                    "en": "",
+                    "es": ""
+                }
+            ],
+            "itemTurismo":[
+                {
+                    "pt": "Turismo",
+                    "en": "",
+                    "es": ""
+                }
+            ],
+            "textoCategoriaCredito": [
+                {
+                    "pt": "Crédito",
+                    "en": "",
+                    "es": ""
+                }
+            ],
+            "textoCategoriaSaude": [
+                {
+                    "pt": "SAÚDE",
+                    "en": "",
+                    "es": ""
+                }
+            ],
+            "itemPlanoOdontologico": [
+                {
+                    "pt": "Plano Odontológico",
+                    "en": "",
+                    "es": ""
+                }
+            ],
+            "itemPlanoSaude": [
+                {
+                    "pt": "Plano de Saúde",
+                    "en": "",
+                    "es": ""
+                }
+            ],
+            "textoCategoriaOutros": [
+                {
+                    "pt": "OUTROS",
+                    "en": "",
+                    "es": ""
+                }
+            ],
+            "itemExtensao": [
+                {
+                    "pt": "Extensão",
+                    "en": "",
+                    "es": ""
+                }
+            ]
+        }
+    ],
+    "blocoSubMenu": [
+        {
+            "itemMenuPesquisa": [
+                {
+                    "pt": "Pesquisa de Satisfação",
+                    "en": "",
+                    "es": ""
+                }
+            ],
+            "itemSalaVIp": [
+                {
+                    "pt": "Sala Vip",
+                    "en": "",
+                    "es": " "
+                }
+            ],
+            "itemSosMulher": [
+                {
+                    "pt": "SOS MULHER",
+                    "en": "",
+                    "es": ""
+                }
+            ],
+            "itemSair": [
+                {
+                    "pt": "Sair do clube",
+                    "en": "",
+                    "es": ""
+                }
+            ]
+        }
+    ],
+    "blocoPerfilMenu": [
+        {
+            "itemPerfilCarteirinha": [
+                {
+                    "pt": "Carteirinha",
+                    "en": "",
+                    "es": ""
+                }
+            ],
+            "itemPerfilAlterarDados": [
+                {
+                    "pt": "Alterar Dados",
+                    "en": "",
+                    "es": ""
+                }
+            ],
+            "itemPerfilAlterarSenha": [
+                {
+                    "pt": "Alterar Senha",
+                    "en": "",
+                    "es": ""
+                }
+            ],
+            "itemPerfilAdicionarDependentes": [
+                {
+                    "pt": "Adicionar Dependentes",
+                    "en": "",
+                    "es": ""
+                }
+            ],
+            "itemPerfilPontoAcao": [
+                {
+                    "pt": "Ponto + Ação",
+                    "en": "",
+                    "es": ""
+                }
+            ],
+            "itemPerfilExtratoSilium": [
+                {
+                    "pt": "Extrato do Silium",
+                    "en": "",
+                    "es": ""
+                }
+            ],
+            "itemPerfilIndiqueAmigo": [
+                {
+                    "pt": "Indique um Amigo",
+                    "en": "",
+                    "es": ""
+                }
+            ],
+            "itemPerfilSair": [
+                {
+                    "pt": "Sair do Clube",
+                    "en": "",
+                    "es": ""
+                }
+            ]
+        }
+    ]
+}

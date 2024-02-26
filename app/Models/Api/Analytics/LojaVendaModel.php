@@ -16,6 +16,8 @@ final class LojaVendaModel extends ORM
     private int $idEmpresa;
     private string $de;
     private string $ate;
+    private array $somado = [];
+    private int|float $total = 0;
 
     public function __construct(
         private Request $request
@@ -115,10 +117,12 @@ final class LojaVendaModel extends ORM
 
     public function montarDado($r): array
     {
+        $this->somarTodos($r);
+
         return [
             'venda_mes'   => $this->montarRelatorioPorMes($r),
-            'venda_loja'  => $this->montarVendaPorLoja($r),
-            'ticket_loja' => $this->montarTicketPorLoja($r)
+            'venda_loja'  => $this->montarVendaPorLoja(),
+            'ticket_loja' => $this->montarTicketPorLoja()
         ];
     }
 
@@ -168,7 +172,44 @@ final class LojaVendaModel extends ORM
         return $retorno;
     }
 
-    private function montarVendaPorLoja($lista)
+    private function montarVendaPorLoja()
+    {
+        $dado = $this->somado;
+
+        $retorno = [];
+        foreach ($dado as $r) {
+            $retorno[] = [
+                'loja'              => $r->parceiro_titulo,
+                'total'             => !empty($r->valor_venda) ? number_format($r->valor_venda, '2', ',', '.') : '0.00',
+                'porcentagem'       => porcentagem($r->valor_venda, $this->total),
+                'numero_transacao'  => !empty($r->numero_transacao) ? $r->numero_transacao : 0
+            ];
+        }
+        return $retorno;
+    }
+
+    private function montarTicketPorLoja()
+    {
+        $dado = [];
+        foreach ($this->somado as $r) {
+            $dado[] = object([
+                'parceiro_titulo' => $r->parceiro_titulo,
+                'ticket'          => !empty($r->valor_venda) && !empty($r->numero_transacao) ? $r->valor_venda / $r->numero_transacao : 0
+            ]);
+        }
+
+        $retorno = [];
+        foreach ($dado as $r) {
+            $retorno[] = [
+                'loja'        => $r->parceiro_titulo,
+                'total'       => !empty($r->ticket) ? number_format($r->ticket, '2', ',', '.') : '0.00',
+                'porcentagem' => porcentagem($r->ticket, $this->total)
+            ];
+        }
+        return $retorno;
+    }
+
+    private function somarTodos($lista)
     {
         $dado = [];
         $total = 0;
@@ -176,11 +217,13 @@ final class LojaVendaModel extends ORM
             $total += $r->valor_venda;
             if (!array_key_exists($r->id_parceiro_loja, $dado)) {
                 $dado[$r->id_parceiro_loja] = object([
-                    'parceiro_titulo' => $r->parceiro_titulo,
-                    'valor_venda'     => 0,
+                    'parceiro_titulo'  => $r->parceiro_titulo,
+                    'numero_transacao' => 0,
+                    'valor_venda'      => 0,
                 ]);
             }
             $dado[$r->id_parceiro_loja]->valor_venda += $r->valor_venda;
+            $dado[$r->id_parceiro_loja]->numero_transacao += $r->numero_transacao;
         }
 
         usort($dado, function ($a, $b) {
@@ -192,52 +235,7 @@ final class LojaVendaModel extends ORM
             return $a < $b ? 1 : -1;
         });
 
-        $retorno = [];
-        foreach ($dado as $r) {
-            $retorno[] = [
-                'loja'        => $r->parceiro_titulo,
-                'total'       => !empty($r->valor_venda) ? number_format($r->valor_venda, '2', ',', '.') : '0.00',
-                'porcentagem' => porcentagem($r->valor_venda, $total)
-            ];
-        }
-        return $retorno;
-    }
-
-    private function montarTicketPorLoja($lista)
-    {
-        $dado = [];
-        $total = 0;
-        foreach ($lista as $r) {
-            $ticket = !empty($r->valor_venda) && !empty($r->numero_transacao) ?
-                $r->valor_venda / $r->numero_transacao : 0;
-            $total += $ticket;
-
-            if (!array_key_exists($r->id_parceiro_loja, $dado)) {
-                $dado[$r->id_parceiro_loja] = object([
-                    'parceiro_titulo' => $r->parceiro_titulo,
-                    'ticket'          => 0,
-                ]);
-            }
-            $dado[$r->id_parceiro_loja]->ticket += $ticket;
-        }
-
-        usort($dado, function ($a, $b) {
-            $a = $a->ticket;
-            $b = $b->ticket;
-            if ($a == $b) {
-                return 0;
-            }
-            return $a < $b ? 1 : -1;
-        });
-
-        $retorno = [];
-        foreach ($dado as $r) {
-            $retorno[] = [
-                'loja'        => $r->parceiro_titulo,
-                'total'       => !empty($r->ticket) ? number_format($r->ticket, '2', ',', '.') : '0.00',
-                'porcentagem' => porcentagem($r->ticket, $total)
-            ];
-        }
-        return $retorno;
+        $this->total = $total;
+        $this->somado = $dado;
     }
 }
