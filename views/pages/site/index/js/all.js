@@ -31,6 +31,7 @@ window.addEventListener('load', () => {
     const botaoAnteriorHistorico = document.querySelector('#botao_anterior_historico');
     const blocoHistorico = document.querySelector('#bloco_historico');
     botaoAnteriorHistorico.style.display = 'none';
+    botaoProximoHistorico.style.display = 'none';
 
     const botaoFavorito = $('#botao_favorito_tutorial');
     if (botaoFavorito) {
@@ -107,7 +108,7 @@ window.addEventListener('load', () => {
         const historico = blocoHistorico.querySelector('div');
         const quantidadeHistorico = blocoHistorico.querySelectorAll('div').length;
 
-        if(historico.clientWidth * quantidadeHistorico < blocoHistorico.clientWidth) {
+        if (historico.clientWidth * quantidadeHistorico < blocoHistorico.clientWidth) {
             botaoProximoHistorico.style.display = 'none';
         }
 
