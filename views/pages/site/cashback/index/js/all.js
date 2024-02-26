@@ -9,7 +9,7 @@ const blocoLoading = $('#bloco_parceiro_loading');
 const tipo = 'cashback';
 const blocoLista = $('#bloco_parceiro_lista');
 
-let pagina = '';
+let pagina = 1;
 
 const loading = $$('.parceiro_esqueleto');
 loading.forEach(item => {
@@ -28,7 +28,7 @@ const adicionarListaLoja = (bloco, parceiro) => {
     });
 
     parceiro.lista.forEach(item => {
-        adicionarParceiro(bloco, item);
+        adicionarParceiro(bloco, item, tipo);
     });
     bloco.insertAdjacentHTML('beforeend', `<div class="article_fake"></div><div class="article_fake"></div>`);
 };
@@ -75,8 +75,6 @@ const buscarCashback = async () => {
     }
 };
 
-buscarCashback();
 botaoCarregarMais.addEventListener('click', () => {
-    console.log(pagina);
     buscarCashback();
 });
