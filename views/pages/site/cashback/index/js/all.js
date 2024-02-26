@@ -64,7 +64,6 @@ const buscarCashback = async () => {
     }
 
     if (tipo == 'cashback') {
-        console.log(resposta.dado);
         adicionarListaLoja(blocoLista, resposta.dado);
     }
 
