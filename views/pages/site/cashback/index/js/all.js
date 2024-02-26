@@ -9,7 +9,7 @@ const blocoLoading = $('#bloco_parceiro_loading');
 const tipo = 'cashback';
 const blocoLista = $('#bloco_parceiro_lista');
 
-let pagina = '';
+let pagina = 1;
 
 const loading = $$('.parceiro_esqueleto');
 loading.forEach(item => {
@@ -64,6 +64,7 @@ const buscarCashback = async () => {
     }
 
     if (tipo == 'cashback') {
+        console.log(resposta.dado);
         adicionarListaLoja(blocoLista, resposta.dado);
     }
 
