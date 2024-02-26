@@ -10,4 +10,5 @@ return (new \DataBase\DataBase())
     ->int('escrever_voto')->tamanho(1)
     ->dataCriacao()
     ->dataAtualizacao()
+    ->int('ordem')->tamanho(4)->padrao(9999)
     ->status();

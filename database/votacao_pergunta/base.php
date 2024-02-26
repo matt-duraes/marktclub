@@ -8,4 +8,5 @@ return (new \DataBase\DataBase())
     ->varchar('titulo')->tamanho(250)
     ->dataCriacao()
     ->dataAtualizacao()
+    ->int('ordem')->tamanho(4)->padrao(9999)
     ->status();

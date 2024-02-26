@@ -2716,10 +2716,14 @@ Route
             ], 'json')
             ::get('/votacao-dado');
         Route
+            ::nome('buscar')
+            ::middleware(TokenMiddleware::class, 'scope', ['votacao:buscar'])
+            ::get('/votacao-dado/{id}');
+        Route
             ::nome('salvar')
             ::middleware(TokenMiddleware::class, 'scope', ['votacao:salvar'])
             ::request([
-                'titulo', 'texto', 'voto_unico', 'identificar_usuario', 'data_inicio', 'data_final', 'status'
+                'titulo', 'texto', 'tipo', 'voto_unico', 'identificar_usuario', 'data_inicio', 'data_final', 'status'
             ])
             ::post('/votacao-dado');
         Route

@@ -46,7 +46,7 @@ final class DadoController extends Controller implements
         $Votacao->set(lista: $dado);
         $Votacao->salvar();
 
-        return $this->retornoPadrao(Votacao: $Votacao, status: 200);
+        return $this->retornoPadrao(Votacao: $Votacao, status: 201);
     }
 
     private function retornoPadrao(DadoEntity $Votacao, int $status): Response
@@ -54,7 +54,9 @@ final class DadoController extends Controller implements
         return mensagemSucesso(
             dado: pegarPropriedadeDaEntity(
                 Entity: $Votacao,
-                lista: []
+                lista: [
+                    'titulo', 'texto', 'tipo', 'data_inicio', 'data_final', 'status'
+                ]
             ),
             status: $status
         );

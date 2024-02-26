@@ -1,0 +1,67 @@
+@template "painel"
+@painel "app_geral_visualizar"
+
+#bloco_pergunta_add
+    width: 100%
+    max-width: 1000px
+    flexCol()
+    form
+        width: 100%
+        flexCol()
+        align-items: flex-start
+    form h2
+        subtitulo()
+        margin-top: 30px
+    .botao_pequeno
+        font-size: 1.4rem
+        background-color: $cor
+        border-radius: 25px
+        color: #FFF
+        padding: 8px 30px
+        margin: 5px 0 15px
+        cursor: pointer
+        &.loading
+            background-color: #CCC
+            cursor: no-drop
+.lista_resposta
+    width: 100%
+    flexCol()
+    .linha
+        width: 100%
+        flexRow()
+        flex-wrap: wrap
+        border: 1px solid #CCC
+        border-bottom: none
+        padding: 0 50px 8px
+        position: relative
+        justify-content: space-between
+        &:last-child
+            border: 1px solid #CCC
+    .linha .bloco_input
+    .linha .bloco_switch
+        width: calc(50% - 10px)
+    .linha .bloco_switch
+        margin-top: 7px
+    i.drag
+        width: 30px
+        height: 30px
+        flexCenter()
+        fill: #888
+        position: absolute
+        background-color: #f6f6f6
+        border-radius: 4px
+        top: 27px
+        left: 10px
+        cursor: pointer
+        z-index: 2
+    i.deletar
+        width: 30px
+        height: 30px
+        flexCenter()
+        position: absolute
+        top: 27px
+        right: 10px
+        fill: #FFF
+        border-radius: 4px
+        cursor: pointer
+        background-color: $corDeletar
