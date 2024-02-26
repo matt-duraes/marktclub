@@ -6,7 +6,6 @@ use Tests\Tests;
 use Modules\Botao;
 use App\Classes\Geral\Status;
 use App\Classes\PublicacaoNoticia\Tipo;
-use App\Classes\PublicacaoNoticia\Local;
 
 class PublicacaoNoticiaTest extends Tests
 {
@@ -134,7 +133,7 @@ class PublicacaoNoticiaTest extends Tests
             'header_descricao'   => nomeCompletoAleatorio(),
             'header_tag'         => ['tag1', 'tag2', 'tag3'],
             'permissao_site'     => valorAleatorio(array_keys((new Botao())->select())),
-            'local'              => valorAleatorio(array_keys((new Local())->select())),
+            'home'               => '',
             'tipo'               => valorAleatorio(array_keys((new Tipo())->select())),
             'status'             => valorAleatorio(array_keys((new Status())->select()))
         ], $array);

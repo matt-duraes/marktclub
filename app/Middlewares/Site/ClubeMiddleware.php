@@ -160,8 +160,8 @@ final class ClubeMiddleware extends ApiHelper
 
         define('TELA_LOGIN', $clube->tela_login);
 
-        define('CAMPOS_PRIMEIRO_ACESSO', $clube->campos_primeiro_acesso);
-        define('INPUT_GRUPO', $clube->input_grupo);
+        define('CAMPOS_PRIMEIRO_ACESSO', $clube->campos_primeiro_acesso ?? []);
+        define('INPUT_GRUPO', $clube->input_grupo ?? []);
 
         define('LINK_APP_ANDROID', $clube->link_app_android);
         define('LINK_APP_IOS', $clube->link_app_ios);

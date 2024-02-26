@@ -1579,13 +1579,13 @@ if (!function_exists('arquivoPublico')) {
     /**
      * Gera um link para um arquivo público
      *
-     * @param  string $diretorio Diret��rio que o arquivo pertence
+     * @param  string $diretorio Diretório que o arquivo pertence
      * @param  string $arquivo   Arquivo que deseja pegar
      * @param  array  $parametro Parametro para inserir como GET na URL
      * @param  string $padrao    Imagem padrão caso não tenha arquivo
      * @return string Url do arquivo
      */
-    function arquivoPublico(string $diretorio, string $arquivo, array $parametro = [], string $padrao = '')
+    function arquivoPublico(string $diretorio, string $arquivo = null, array $parametro = [], string $padrao = '')
     {
         if (empty($arquivo)) {
             return $padrao;

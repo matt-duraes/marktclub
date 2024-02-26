@@ -126,7 +126,7 @@ Route
             ::nome('listar')
             ::middleware(TokenMiddleware::class, 'scope', ['publicacao_noticia:listar'])
             ::request([
-                'pagina', '!quantidade', '!ordem', '!pesquisa', '!local', '!tipo', '!publicado',
+                'pagina', '!quantidade', '!ordem', '!pesquisa', '!home', '!tipo', '!publicado',
                 '!data_inicio_de', '!data_inicio_ate', '!site', '!restrita', '!status'
             ], 'json')
             ::get('/publicacao-noticia');
@@ -146,7 +146,7 @@ Route
                 'imagem_grande', 'imagem_pequena', '!imagem_galeria', 'imagem_social', '!arquivo',
                 'fonte_noticia', 'fonte_link', 'autor_noticia', 'data_inicio', 'data_final',
                 'data_atualizada', 'permissao_restrita', 'permissao_site', 'header_titulo',
-                'header_descricao', 'header_tag', 'local', 'tipo', 'status'
+                'header_descricao', 'header_tag', 'home', 'tipo', 'status'
             ])
             ::post('/publicacao-noticia');
         Route
@@ -157,7 +157,7 @@ Route
                 '!imagem_grande', '!imagem_pequena', '!imagem_galeria', '!imagem_social', '!arquivo',
                 '!fonte_noticia', '!fonte_link', '!autor_noticia', '!data_inicio', '!data_final',
                 '!data_atualizada', '!permissao_restrita', '!permissao_site', '!header_titulo',
-                '!header_descricao', '!header_tag', '!local', '!tipo', '!status'
+                '!header_descricao', '!header_tag', '!home', '!tipo', '!status'
             ])
             ::put('/publicacao-noticia/{id}');
         Route
@@ -2638,4 +2638,68 @@ Route
             ::middleware(TokenMiddleware::class, 'scope', ['publicacao_home:atualizar'])
             ::request(['noticia_1', 'noticia_2', 'noticia_3'])
             ::put('/publicacao-home/{id}');
+    });
+
+Route
+    ::nome('album_dado')
+    ::middleware(TokenMiddleware::class, 'token')
+    ::controller(App\Controllers\Api\AlbumDadoController::class)
+    ::grupo(function () {
+        Route
+            ::nome('listar')
+            ::middleware(TokenMiddleware::class, 'scope', ['album_dado:listar'])
+            ::request([
+                'pagina', '!pesquisa', '!restrita', '!site', '!publicado', '!data_inicio_de',
+                '!data_inicio_ate', '!ordem', '!status'
+            ], 'json')
+            ::get('/album-dado');
+        Route
+            ::nome('buscar')
+            ::middleware(TokenMiddleware::class, 'scope', ['album_dado:buscar'])
+            ::get('/album-dado/{id}');
+        Route
+            ::nome('salvar')
+            ::middleware(TokenMiddleware::class, 'scope', ['album_dado:salvar'])
+            ::request([
+                'titulo', 'texto', 'data_inicio', 'data_final', 'restrita', 'site', 'status'
+            ])
+            ::post('/album-dado');
+        Route
+            ::nome('atualizar')
+            ::middleware(TokenMiddleware::class, 'scope', ['album_dado:atualizar'])
+            ::request([
+                '!titulo', '!texto', '!data_inicio', '!data_final', '!restrita', '!site', '!status'
+            ])
+            ::put('/album-dado/{id}');
+        Route
+            ::nome('deletar')
+            ::middleware(TokenMiddleware::class, 'scope', ['album_dado:deletar'])
+            ::delete('/album-dado/{id}');
+    });
+Route
+    ::nome('album_dado')
+    ::middleware(TokenMiddleware::class, 'token')
+    ::controller(App\Controllers\Api\AlbumFotoController::class)
+    ::grupo(function () {
+        Route
+            ::nome('listar')
+            ::middleware(TokenMiddleware::class, 'scope', ['album_dado:foto'])
+            ::request([
+                'pagina', '!album', '!status'
+            ], 'json')
+            ::get('/album-foto');
+        Route
+            ::nome('salvar')
+            ::middleware(TokenMiddleware::class, 'scope', ['album_dado:foto'])
+            ::request([])
+            ::post('/album-foto');
+        Route
+            ::nome('atualizar')
+            ::middleware(TokenMiddleware::class, 'scope', ['album_dado:foto'])
+            ::request([])
+            ::put('/album-foto/{id}');
+        Route
+            ::nome('deletar')
+            ::middleware(TokenMiddleware::class, 'scope', ['album_dado:foto'])
+            ::delete('/album-foto/{id}');
     });

@@ -15,7 +15,6 @@ use System\Trait\Model\OrdemTrait;
 use System\Trait\Model\PaginaTrait;
 use App\Classes\PublicacaoNoticia\Tipo;
 use System\Trait\Model\QuantidadeTrait;
-use App\Classes\PublicacaoNoticia\Local;
 use App\Classes\PublicacaoNoticia\Ordem;
 use System\Interface\ModelListarInterface;
 use App\Models\Api\Trait\ValidarEmpresaTrait;
@@ -35,7 +34,7 @@ final class NoticiaModel extends GeralModel implements
         private Data $data_inicio_de = new Data(null),
         private Data $data_inicio_ate = new Data(null),
         private Botao $publicado = new Botao(null),
-        private Local $local = new Local(null),
+        private Botao $home = new Botao(null),
         private Tipo $tipo = new Tipo(null),
         private Ordem $ordem = new Ordem(null),
         private Status $status = new Status(null),
@@ -43,7 +42,6 @@ final class NoticiaModel extends GeralModel implements
         private Botao $site = new Botao(null),
     ) {
         parent::__construct();
-        $this->validarDado();
         $this->validarEmpresa();
     }
 
@@ -82,8 +80,8 @@ final class NoticiaModel extends GeralModel implements
         if ($this->tipo->valido()) {
             $where[] = ['tipo', $this->tipo->numero()];
         }
-        if ($this->local->valido()) {
-            $where[] = ['local', $this->local->numero()];
+        if ($this->home->valido()) {
+            $where[] = ['home', $this->home->numero()];
         }
         if ($this->restrita->valido()) {
             $where[] = ['permissao_restrita', $this->restrita->numero()];
@@ -120,11 +118,6 @@ final class NoticiaModel extends GeralModel implements
             $where[] = ['titulo_grande', 'like', '%' . $this->pesquisa . '%'];
         }
         return $where;
-    }
-
-    private function validarDado()
-    {
-        //
     }
 
     private function validarCampoModulo(string $campo, ModuleInterface|OrderInterface|StatusInterface $modulo)

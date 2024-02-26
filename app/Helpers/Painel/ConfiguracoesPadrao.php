@@ -576,6 +576,17 @@ final class ConfiguracoesPadrao
                 'log_erro_status'     => 'Status'
             ]
         ],
+        'painel_tradutor'          => [
+            'titulo'    => 'Painel Tradutor',
+            'acao'      => ['index', 'visualizar', 'add', 'editar', 'deletar'],
+            'permissao' => [
+                'painel_tradutor_index'      => 'Listar',
+                'painel_tradutor_visualizar' => 'Visualizar',
+                'painel_tradutor_add'        => 'Salvar',
+                'painel_tradutor_editar'     => 'Editar',
+                'painel_tradutor_deletar'    => 'Deletar'
+            ]
+        ],
         'painel_config'            => [
             'titulo'    => 'Painel Configurações',
             'acao'      => ['index', 'add', 'editar', 'deletar'],
@@ -585,6 +596,17 @@ final class ConfiguracoesPadrao
                 'painel_config_editar'  => 'Editar',
                 'painel_config_deletar' => 'Deletar'
             ]
-        ]
+        ],
+        'album_dado' => [
+            'titulo'    => 'Album de fotos',
+            'acao'      => ['index', 'add', 'editar', 'deletar', 'foto'],
+            'permissao' => [
+                'album_dado_index'   => 'Listar',
+                'album_dado_add'     => 'Salvar',
+                'album_dado_editar'  => 'Editar',
+                'album_dado_deletar' => 'Deletar',
+                'album_dado_foto'    => 'Gerenciar Foto'
+            ]
+        ],
     ];
 }

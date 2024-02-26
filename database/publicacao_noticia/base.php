@@ -29,6 +29,6 @@ return (new \DataBase\DataBase())
     ->datetime('data_atualizada')->null()
     ->int('permissao_restrita')->tamanho(1)->null()
     ->int('permissao_site')->tamanho(1)->null()
-    ->int('local')->tamanho(1)->null()
+    ->int('home')->tamanho(1)->null()
     ->int('tipo')->tamanho(1)->null()
     ->status();
