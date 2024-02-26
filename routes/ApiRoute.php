@@ -2703,3 +2703,34 @@ Route
             ::middleware(TokenMiddleware::class, 'scope', ['album_dado:foto'])
             ::delete('/album-foto/{id}');
     });
+Route
+    ::nome('votacao_dado')
+    ::middleware(TokenMiddleware::class, 'token')
+    ::controller(App\Controllers\Api\Votacao\DadoController::class)
+    ::grupo(function () {
+        Route
+            ::nome('listar')
+            ::middleware(TokenMiddleware::class, 'scope', ['votacao:listar'])
+            ::request([
+                'pagina', '!album', '!status'
+            ], 'json')
+            ::get('/votacao-dado');
+        Route
+            ::nome('salvar')
+            ::middleware(TokenMiddleware::class, 'scope', ['votacao:salvar'])
+            ::request([
+                'titulo', 'texto', 'voto_unico', 'identificar_usuario', 'data_inicio', 'data_final', 'status'
+            ])
+            ::post('/votacao-dado');
+        Route
+            ::nome('atualizar')
+            ::middleware(TokenMiddleware::class, 'scope', ['votacao:atualizar'])
+            ::request([
+                '!titulo', '!texto', '!voto_unico', '!identificar_usuario', '!data_inicio', '!data_final', '!status'
+            ])
+            ::put('/votacao-dado/{id}');
+        Route
+            ::nome('deletar')
+            ::middleware(TokenMiddleware::class, 'scope', ['votacao:deletar'])
+            ::delete('/votacao-dado/{id}');
+    });

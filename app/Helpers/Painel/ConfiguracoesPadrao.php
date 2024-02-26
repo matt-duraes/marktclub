@@ -608,5 +608,27 @@ final class ConfiguracoesPadrao
                 'album_dado_foto'    => 'Gerenciar Foto'
             ]
         ],
+        'votacao' => [
+            'titulo'    => 'Votação',
+            'acao'      => ['index', 'visualizar', 'add', 'editar', 'deletar'],
+            'permissao' => [
+                'votacao_index'      => 'Listar',
+                'votacao_visualizar' => 'Visualizar',
+                'votacao_add'        => 'Salvar',
+                'votacao_editar'     => 'Editar',
+                'votacao_deletar'    => 'Deletar'
+            ]
+        ],
+        'enquete' => [
+            'titulo'    => 'Enquete',
+            'acao'      => ['index', 'add', 'editar', 'deletar'],
+            'permissao' => [
+                'enquete_index'      => 'Listar',
+                'enquete_visualizar' => 'Visualizar',
+                'enquete_add'        => 'Salvar',
+                'enquete_editar'     => 'Editar',
+                'enquete_deletar'    => 'Deletar'
+            ]
+        ],
     ];
 }

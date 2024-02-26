@@ -10,13 +10,17 @@ if (empty($nome)) {
 }
 
 $path = DIRETORIO_PUBLICO . '/' . preg_replace('/^\//', '', $nome);
-$download = array_key_exists('download', $_GET) && $_GET['download'] == 'sim';
-
 if (!file_exists($path)) {
     mensagemStatus(404, localhost: 'O arquivo não existe.');
 } elseif (!is_file($path)) {
     mensagemStatus(404, localhost: 'O arquivo não é um arquivo comum.');
-} elseif (!$download) {
+}
+
+$download = array_key_exists('download', $_GET) && $_GET['download'] == 'sim';
+
+include 'imagem.php';
+
+if (!$download) {
     $Response = new Response(arquivo: $path);
     $Response->render();
 } elseif ($download) {

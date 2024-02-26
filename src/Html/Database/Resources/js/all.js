@@ -27,11 +27,11 @@ window.addEventListener('load', () => {
         });
     });
 
-    // /*
-    // |--------------------------------------------------------------------------
-    // | FAZER TESTE
-    // |--------------------------------------------------------------------------
-    // */
+    /*
+    |--------------------------------------------------------------------------
+    | FAZER TESTE
+    |--------------------------------------------------------------------------
+    */
     const botaoComecar = $('#botao_comecar');
     const botaoCancelar = $('#botao_cancelar');
     const blocoCancelar = $('#bloco_cancelar');
@@ -86,11 +86,18 @@ window.addEventListener('load', () => {
         botaoGeralPassou.classList.remove('ativo');
         botaoGeralFalhou.classList.remove('ativo');
 
-        const bodyConf = new FormData();
-        bodyConf.append('acao', 'configurar');
+        const bodyDefine = new FormData();
+        bodyDefine.append('acao', 'define');
         await fetch(LINK + '/__base', {
             method: 'POST',
-            body: bodyConf,
+            body: bodyDefine,
+        });
+
+        const bodyReplace = new FormData();
+        bodyReplace.append('acao', 'replace');
+        await fetch(LINK + '/__base', {
+            method: 'POST',
+            body: bodyReplace,
         });
 
         let i = 0;
