@@ -28,7 +28,7 @@ const adicionarListaLoja = (bloco, parceiro) => {
     });
 
     parceiro.lista.forEach(item => {
-        adicionarParceiro(bloco, item);
+        adicionarParceiro(bloco, item, tipo);
     });
     bloco.insertAdjacentHTML('beforeend', `<div class="article_fake"></div><div class="article_fake"></div>`);
 };
@@ -75,8 +75,6 @@ const buscarCashback = async () => {
     }
 };
 
-buscarCashback();
 botaoCarregarMais.addEventListener('click', () => {
-    console.log(pagina);
     buscarCashback();
 });
