@@ -20,6 +20,16 @@ final class Index
     private string $css = '';
     private string $js = '';
 
+    public const FORMATAR_TELEFONE = 'telefone';
+    public const FORMATAR_CEP = 'cep';
+    public const FORMATAR_CPF = 'cpf';
+    public const FORMATAR_CNPJ = 'cnpj';
+    public const FORMATAR_DATA = 'data';
+    public const FORMATAR_DATAHORA = 'datahora';
+    public const TIPO_PEQUENO = 'pequeno';
+    public const TIPO_NORMAL = 'normal';
+    public const TIPO_GRANDE = 'grande';
+
     public function __construct(
         private string $app,
         private ?OrderInterface $ordem = null

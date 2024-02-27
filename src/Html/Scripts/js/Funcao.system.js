@@ -39,6 +39,21 @@ Object.defineProperty(Object.prototype, 'aparecer', {
     writable: true,
     configurable: true,
 });
+Object.defineProperty(Object.prototype, 'remover', {
+    value() {
+        let elemento = this;
+        if (!(elemento instanceof NodeList)) {
+            elemento = [elemento];
+        }
+
+        for (item of elemento) {
+            item.remove();
+        }
+        return this;
+    },
+    writable: true,
+    configurable: true,
+});
 Object.defineProperty(Object.prototype, 'displayHide', {
     value() {
         let elemento = this;
@@ -307,6 +322,10 @@ Object.defineProperty(Object.prototype, 'clonar', {
         }
         const clone = elemento.cloneNode(true);
         clone.removeAttribute('id');
+        const listaId = clone.querySelectorAll('*[id]');
+        for (const item of listaId) {
+            item.removeAttribute('id');
+        }
         return clone;
     },
     writable: true,

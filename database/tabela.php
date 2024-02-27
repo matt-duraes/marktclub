@@ -94,3 +94,8 @@ define('TABELA_USUARIO_INDICACAO', 'usuario_indicacao');
 define('TABELA_USUARIO_LEAD', 'usuario_lead');
 define('TABELA_USUARIO_PAGAMENTO', 'usuario_pagamento');
 define('TABELA_USUARIO_RELATORIO', 'usuario_relatorio');
+define('TABELA_VOTACAO_DADO', 'votacao_dado');
+define('TABELA_VOTACAO_PERGUNTA', 'votacao_pergunta');
+define('TABELA_VOTACAO_RESPOSTA', 'votacao_resposta');
+define('TABELA_VOTACAO_USUARIO', 'votacao_usuario');
+define('TABELA_VOTACAO_VOTO', 'votacao_voto');

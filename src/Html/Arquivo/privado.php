@@ -39,16 +39,18 @@ if (!empty($privado) && !array_key_exists($privado, $_SESSION)) {
     mensagemStatus(401, localhost: 'Esse arquivo é privado.');
 }
 
-$arquivo = DIRETORIO_PRIVADO . '/' . $Grupo->diretorio . '/' . $Arquivo->arquivo;
+$path = DIRETORIO_PRIVADO . '/' . $Grupo->diretorio . '/' . $Arquivo->arquivo;
 
-if (!file_exists($arquivo)) {
+include 'imagem.php';
+
+if (!file_exists($path)) {
     mensagemStatus(404, localhost: 'Esse arquivo não existe.');
 } elseif (!$download) {
-    $Response = new Response(arquivo: $arquivo);
+    $Response = new Response(arquivo: $path);
     $Response->render();
     exit();
 } elseif ($download) {
-    $Response = new Response(download: $arquivo);
+    $Response = new Response(download: $path);
     $Response->render();
     exit();
 }

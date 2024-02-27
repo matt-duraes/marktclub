@@ -7,23 +7,27 @@ window.addEventListener('load', () => {
     const botaoCopiar = $$('.botao_copiar');
     const PopupContato = new Popup('contato', 'bloco_contato', true, true);
 
-    botaoTelefone.addEventListener('click', () => {
-        tituloPopupContato.innerText = 'Telefone';
+    if (botaoTelefone) {
+        botaoTelefone.addEventListener('click', () => {
+            tituloPopupContato.innerText = 'Telefone';
 
-        blocoEmail.classList.add('display_none');
-        blocoTelefone.classList.remove('display_none');
+            blocoEmail.classList.add('display_none');
+            blocoTelefone.classList.remove('display_none');
 
-        PopupContato.abrir();
-    });
+            PopupContato.abrir();
+        });
+    }
 
-    botaoEmail.addEventListener('click', () => {
-        tituloPopupContato.innerText = 'E-mail';
+    if (botaoTelefone) {
+        botaoEmail.addEventListener('click', () => {
+            tituloPopupContato.innerText = 'E-mail';
 
-        blocoTelefone.classList.add('display_none');
-        blocoEmail.classList.remove('display_none');
+            blocoTelefone.classList.add('display_none');
+            blocoEmail.classList.remove('display_none');
 
-        PopupContato.abrir();
-    });
+            PopupContato.abrir();
+        });
+    }
 
     botaoCopiar.forEach(botao => {
         let ultimaCopia = null;
