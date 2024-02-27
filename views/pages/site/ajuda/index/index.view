@@ -55,7 +55,7 @@
             @if ( MENU_TURISMO ):
                 <a class="link" href="@route('turismo.index')">FAZER COTAÇÃO DE VIAGENS</a>
             @endif;
-            <p class="fechar pagina_fechar">NÃO PRECISO DE ATENDIMENTO</p>
+            <p class="fechar_atendimento fechar pagina_fechar">NÃO PRECISO DE ATENDIMENTO</p>
         </div>
     </div>
 </div>
