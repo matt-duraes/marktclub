@@ -1,0 +1,1 @@
+{"id":"id_12f13e74381be3b4099d8da26930d339","token":"token","metodo":"DELETE","nome":"\/votacao-pergunta\/:id","uri":"{{LINK}}\/votacao-pergunta\/$ID_VOTACAO_PERGUNTA","parametro":[],"body":[],"header":[],"variavel":[],"json":[],"documentacao":{"status":false,"descricao":"","requisicao":"","resposta":"","scope":"votacao_pergunta:deletar"}}

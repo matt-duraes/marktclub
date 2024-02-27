@@ -1,0 +1,1 @@
+{"id":"id_203f121d388a7b3134a4620fc02bf6a4","token":"token","metodo":"GET","nome":"\/votacao-pergunta","uri":"{{LINK}}\/votacao-pergunta","parametro":[],"body":[],"header":[],"variavel":[],"json":[["texto",true,"pagina","1",""]],"documentacao":{"status":false,"descricao":"","requisicao":"","resposta":"","scope":"votacao_pergunta:listar"}}

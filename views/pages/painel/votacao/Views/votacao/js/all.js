@@ -36,7 +36,8 @@ window.addEventListener('load', () => {
             removerResposta(target.closest('.linha'));
             return;
         } else if (target.classe('editar', '?') || target.closest('.editar')) {
-            editarPergunta();
+            const bloco = target.closest('.linha');
+            editarPergunta(bloco.attr('data-id'));
         }
     });
     const removerResposta = linha => {
@@ -50,11 +51,14 @@ window.addEventListener('load', () => {
         blocoRespostaZero.aparecer();
     };
 
-    const editarPergunta = async () => {
+    const editarPergunta = async id => {
         botaoAdicionarResposta.classe('loading', true);
         blocoRespostaZero.sumir();
         blocoRespostaLoading.aparecer();
-        const resposta = await fetch(LINK + '/', {});
+        const resposta = await ajaxPost(LINK + '/app/ajax/votacao', {
+            pergunta: id,
+            acao: 'pergunta',
+        });
     };
 
     const resetarPergunta = () => {
