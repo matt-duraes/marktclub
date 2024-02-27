@@ -1,4 +1,5 @@
 @template "painel"
+@system "Popup"
 @painel "app_geral_visualizar"
 
 #bloco_pergunta_add
@@ -23,6 +24,23 @@
         &.loading
             background-color: #CCC
             cursor: no-drop
+    form .zero
+        width: 100%
+        padding: 50px 20px
+        text-align: center
+        texto()
+        color: #999
+    form .botao
+        width: 100px
+        height: 45px
+        line-height: 45px
+        margin-top: 10px
+        bgDegradeVerde()
+        border-radius: 30px
+        color: #fff
+        font-size: $textoFontSize
+        cursor: pointer
+        text-align: center
 .lista_resposta
     width: 100%
     flexCol()
