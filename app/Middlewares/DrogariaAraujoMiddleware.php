@@ -23,7 +23,6 @@ final class DrogariaAraujoMiddleware
     }
 
     /**
-     * @return void
      */
     private function pegarTokenEnviado(): void
     {
@@ -38,7 +37,6 @@ final class DrogariaAraujoMiddleware
     }
 
     /**
-     * @return void
      * @throws Excecao
      */
     private function validarTokenEnviado(): void
