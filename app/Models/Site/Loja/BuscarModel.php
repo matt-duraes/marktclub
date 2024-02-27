@@ -35,6 +35,7 @@ final class BuscarModel extends ClubeApiHelper
         $Texto = new MarkdownHelper();
         return (object)[
             'id'                 => $r->id,
+            'vinculo_parceiro'   => $r->vinculo_parceiro,
             'titulo'             => $r->titulo,
             'logo'               => $r->link_logo,
             'texto_desconto'     => $r->texto_desconto,
