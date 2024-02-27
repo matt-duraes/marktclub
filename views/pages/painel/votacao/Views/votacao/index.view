@@ -1,34 +1,43 @@
 <div class="bloco_fieldset" id="bloco_dependente">
     <h2>Perguntas</h2>
     <div class="lista_dado">
-        <div class="botao_link" id="botao_dependente_abrir">Adicionar pergunta</div>
+        <div class="botao_link" id="botao_adicionar_pergunta">Adicionar pergunta</div>
     </div>
+    <div class="bloco_pergunta" id="bloco_pergunta_lista">
+
+    </div>
+    <div class="zero" id="bloco_pergunta_zero">Sem perguntas no momento</div>
 </div>
 
-<div id="bloco_pergunta_add">
-    <div class="bloco_pagina_popup conteudo">
-        <header class="header_pagina_popup">
-            <h1>Pergunta</h1>
-            <i class="fechar popup_fechar">@iconeFechar</i>
-        </header>
-        <div class="conteudo_pagina_popup">
-            <form action="/" class="form_geral">
-                @? formInput(name: 'pergunta_titulo', label: 'Título', placeholder: 'Digite um título', obrigatorio: true)
-                @? formSelect(name: 'pergunta_tipo', label: 'Tipo', placeholder: 'Escolha o tipo da pergunta', obrigatorio: true, lista: (new \App\Classes\Votacao\Pergunta\Tipo())->select('Escolha uma opção'))
-                @? formSwitch(name: 'pergunta_nulo', label: 'A resposta dessa pergunta não é obrigatória')
+<div class="display_none">
+    <div id="bloco_pergunta_add">
+        <div class="bloco_pagina_popup conteudo">
+            <header class="header_pagina_popup">
+                <h1>Pergunta</h1>
+                <i class="fechar popup_fechar">@iconeFechar</i>
+            </header>
+            <div class="conteudo_pagina_popup">
+                <form action="/" class="form_geral">
+                    @? formInput(name: 'pergunta_titulo', label: 'Título', placeholder: 'Digite um título', obrigatorio: true)
+                    @? formTextarea(name: 'pergunta_texto', label: 'Descrição', placeholder: 'Digite uma descrição')
+                    @? formSelect(name: 'pergunta_tipo', label: 'Tipo', placeholder: 'Escolha o tipo da pergunta', obrigatorio: true, lista: (new \App\Classes\Votacao\Pergunta\Tipo())->select('Escolha uma opção'))
+                    @? formSwitch(name: 'pergunta_nulo', label: 'A resposta dessa pergunta não é obrigatória')
 
-                <h2>Respostas:</h2>
-                <div class="botao_pequeno loading" id="botao_adicionar_resposta">Adicionar resposta</div>
-                <div class="lista_resposta" id="bloco_lista_resposta">
-                </div>
-                <div class="zero" id="bloco_resposta_loading">Carregando respostas</div>
-                <div class="zero display_none" id="bloco_resposta_zero">Sem respostas no momento</div>
-                <div class="botao" id="botao_pergunta_salvar">Salvar</div>
-            </form>
+                    <h2>Respostas:</h2>
+                    <div class="botao_pequeno" id="botao_adicionar_resposta">Adicionar resposta</div>
+                    <div class="lista_resposta" id="bloco_lista_resposta">
+                    </div>
+                    <div class="zero display_none" id="bloco_resposta_loading">Carregando respostas</div>
+                    <div class="zero display_none" id="bloco_resposta_zero">Sem respostas no momento</div>
+                </form>
+            </div>
+            <div class="footer_pagina_popup">
+                <div class="flex"></div>
+                <div class="botao salvar" id="botao_pergunta_salvar">Salvar</div>
+            </div>
         </div>
     </div>
-</div>
-<div class="display_none">
+
     <div class="linha" id="bloco_linha_resposta">
         @? formInput(name: 'resposta_titulo', label: 'Título', placeholder: 'Digite um título', contador: 50, obrigatorio: true)
         @? formInput(name: 'resposta_texto', label: 'Descrição', placeholder: 'Digite uma descricão', contador: 250)
