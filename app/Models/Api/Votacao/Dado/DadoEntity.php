@@ -3,6 +3,10 @@
 namespace App\Models\Api\Votacao\Dado;
 
 use ORM\Entity;
+use Modules\Botao;
+use Modules\DataHora;
+use App\Classes\Geral\Status;
+use App\Classes\Votacao\Dado\Tipo;
 use App\Models\Api\Trait\ValidarEmpresaTrait;
 
 final class DadoEntity extends Entity
@@ -21,14 +25,23 @@ final class DadoEntity extends Entity
         status|Status|obrigatorio|vazio|valido
     ';
     protected array $ormInsert = [
-        'id_admin_empresa' => '->idEmrpesa'
+        'id_admin_empresa' => '->idEmpresa'
     ];
     protected array $ormSalvar = [
-        'titulo', 'texto', 'tipo', 'voto_unico', 'indentificar_usuario', 'data_inicio', 'data_final', 'status'
+        'titulo', 'texto', 'tipo', 'voto_unico', 'identificar_usuario', 'data_inicio', 'data_final', 'status'
     ];
     protected array $ormBuscar = [
-        'titulo', 'texto', 'tipo', 'voto_unico', 'indentificar_usuario', 'data_inicio', 'data_final', 'status'
+        'titulo', 'texto', 'tipo', 'voto_unico', 'identificar_usuario', 'data_inicio', 'data_final', 'status'
     ];
+
+    public string $titulo;
+    public string $texto;
+    public Tipo $tipo;
+    public Botao $voto_unico;
+    public Botao $identificar_usuario;
+    public DataHora $data_inicio;
+    public DataHora $data_final;
+    public Status $status;
 
     public function __construct()
     {

@@ -320,10 +320,16 @@ final class AppController extends PadraoController
         $uri = $config->api->uri;
         if ($acao == 'insert') {
             $Api = new ApiHelper(token: true);
-            $dado = $Api->validar(login: true)->body($lista)->post($uri);
+            $dado = $Api
+                ->validar(login: true)
+                ->body($lista)
+                ->post($uri);
         } else {
             $Api = new ApiHelper(token: true);
-            $dado = $Api->validar(login: true)->body($lista)->put($uri . '/' . $request->id);
+            $dado = $Api
+                ->validar(login: true)
+                ->body($lista)
+                ->put($uri . '/' . $request->id);
         }
 
         $dado = $this->validarRetornoApi($dado);

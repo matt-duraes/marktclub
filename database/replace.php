@@ -23,7 +23,7 @@ return [
         'cod' => 'uuid'
     ],
     'contato' => [
-        'cod' => 'id_vinculo'
+        'cod' => 'uuid'
     ],
     'endereco_novo' => [
         'cod'    => 'id_vinculo',

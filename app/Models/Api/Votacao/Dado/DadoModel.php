@@ -62,6 +62,8 @@ final class DadoModel extends ORM implements ModelListarInterface
                 'texto'     => $r->texto,
                 'url'       => $r->url,
                 'publicado' => $publicado->indice(),
+                'data_inicio' => $r->data_inicio,
+                'data_final' => $r->data_final,
                 'status'    => $statusIndice,
             ];
         }

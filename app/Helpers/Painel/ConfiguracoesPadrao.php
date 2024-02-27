@@ -610,7 +610,7 @@ final class ConfiguracoesPadrao
         ],
         'enquete' => [
             'titulo'    => 'Enquete',
-            'acao'      => ['index', 'add', 'editar', 'deletar'],
+            'acao'      => ['index', 'visualizar', 'add', 'editar', 'deletar'],
             'permissao' => [
                 'enquete_index'      => 'Listar',
                 'enquete_visualizar' => 'Visualizar',
