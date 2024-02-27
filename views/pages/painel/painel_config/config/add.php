@@ -24,7 +24,6 @@ $Painel->coluna(callback: function () use ($Painel) {
     $Painel->fieldsetCheckbox(
         titulo: 'Recursos do Painel',
         callback: function () use ($Painel) {
-            $Painel->checkbox(name: 'configuracao[]', label: 'Nome', value: 'nome');
             $Painel->checkbox(name: 'configuracao[]', label: 'Perfil', value: 'perfil');
             $Painel->checkbox(name: 'configuracao[]', label: 'Bloquear Tela', value: 'bloquear');
             $Painel->checkbox(name: 'configuracao[]', label: 'Agenda Google', value: 'agenda');
@@ -38,6 +37,7 @@ $Painel->coluna(callback: function () use ($Painel) {
     $Painel->fieldsetCheckbox(
         titulo: 'Campos Obrigátorios de Usuário',
         callback: function () use ($Painel) {
+            $Painel->checkbox(name: 'campo_obrigatorio[]', label: 'Nome', value: 'nome');
             $Painel->checkbox(name: 'campo_obrigatorio[]', label: 'CPF', value: 'cpf');
             $Painel->checkbox(name: 'campo_obrigatorio[]', label: 'E-mail', value: 'email');
             $Painel->checkbox(name: 'campo_obrigatorio[]', label: 'Matricula', value: 'matricula');
