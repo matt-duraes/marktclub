@@ -1,4 +1,4 @@
-<div class="bloco_parceiro bloco_geral_article {{isset($Busca->mapa) && $Busca->mapa ? 'display_none' : ''}}">
+<div class="bloco_parceiro bloco_geral_article {{isset($Busca->mapa) && $Busca->mapa ? 'display_none' : ''}}" id="bloco_parceiro_lista">
     @ if(isset($lista) && count($lista->lista) > 0):
         @ foreach( $lista->lista as $r ):
 

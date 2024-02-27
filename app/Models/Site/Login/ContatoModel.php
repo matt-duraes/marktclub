@@ -7,7 +7,7 @@ use Helpers\ApiHelper;
 final class ContatoModel
 {
     public function __construct(
-        private string $parceiro
+        private string|array $parceiro
     ) {
     }
 

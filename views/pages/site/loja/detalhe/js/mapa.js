@@ -52,7 +52,8 @@ window.addEventListener('load', async () => {
                                         </li>`;
 
                     const listaEnderecos = enderecos[pais][estado][cidade];
-                    const enderecoItems = listaEnderecos.map(e => `
+                    const enderecoItems = listaEnderecos.map(
+                        e => `
                         <li class="bloco_endereco_item">
                             <div class="bloco_detalhe_endereco">
                                 <p class="endereco">${e.endereco}</p>
@@ -80,7 +81,7 @@ window.addEventListener('load', async () => {
     function adicionarEventoBotaoEndereco() {
         const listaBotao = $$('.botao_buscar_endereco');
         listaBotao.forEach(botao => {
-            botao.addEventListener('click', (e) => {
+            botao.addEventListener('click', e => {
                 const bloco = e.target.parentNode;
                 const latitude = bloco.querySelector('.latitude').innerText;
                 const longitude = bloco.querySelector('.longitude').innerText;
@@ -88,9 +89,8 @@ window.addEventListener('load', async () => {
                 const telefone = bloco.querySelector('.telefone').innerText;
                 const link = bloco.querySelector('.link').innerText;
 
-
                 adicionarEndereco(latitude, longitude);
-                blocoDetalheTexto.innerText = pegarTextoDetalhe({telefone, endereco});
+                blocoDetalheTexto.innerText = pegarTextoDetalhe({ telefone, endereco });
 
                 botaoLink.setAttribute('href', link);
 
@@ -115,7 +115,7 @@ window.addEventListener('load', async () => {
         }
         blocoMapa.classList.remove('display_none');
         return resposta.dado;
-    };
+    }
 
     async function adicionarEndereco(latitude, longitude) {
         latitude = parseFloat(latitude);
@@ -129,7 +129,7 @@ window.addEventListener('load', async () => {
             center: posicao,
             disableDefaultUI: true,
             panControl: false,
-            zoomControl: true,
+            zoomControl: false,
             clickableIcons: false,
             mapId: 'bloco_endereco_google_map',
         };
@@ -148,27 +148,26 @@ window.addEventListener('load', async () => {
         });
 
         new markerClusterer.MarkerClusterer({ markers, map: mapa });
-    };
-
+    }
 
     function pegarTextoDetalhe(dado) {
-        if (dado.telefone && dado.telefone != "null") {
+        if (dado.telefone && dado.telefone != 'null') {
             return `${dado.endereco} - ${formatarTelefone(dado.telefone)}`;
         }
         return dado.endereco;
     }
 
     function formatarTelefone(telefone) {
-        if(!telefone) return;
+        if (!telefone) return;
 
         const numeros = telefone.toString().replace(/\D/g, '');
 
         if (numeros.length === 10) {
-          return `(${numeros.substr(0, 2)}) ${numeros.substr(2, 4)}-${numeros.substr(6, 4)}`;
+            return `(${numeros.substr(0, 2)}) ${numeros.substr(2, 4)}-${numeros.substr(6, 4)}`;
         } else if (numeros.length === 11) {
-          return `(${numeros.substr(0, 2)}) ${numeros.substr(2, 5)}-${numeros.substr(7, 4)}`;
+            return `(${numeros.substr(0, 2)}) ${numeros.substr(2, 5)}-${numeros.substr(7, 4)}`;
         }
 
         return telefone;
-      }
+    }
 });

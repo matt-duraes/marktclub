@@ -9,7 +9,7 @@ final class ConfiguracoesPadrao
     ];
     public const CAMPOS_OBRIGATORIOS = [
         'usuario_cliente' => [
-            'cpf', 'email', 'status'
+            'nome', 'cpf', 'email', 'status'
         ]
     ];
     public const PERMISSOES = [
@@ -182,13 +182,13 @@ final class ConfiguracoesPadrao
                 'publicacao_noticia_empresa' => 'Todas as empresas',
             ]
         ],
-        'publicacao_home'       => [
+        'publicacao_home'          => [
             'titulo'    => 'Notícia da Home',
             'acao'      => [
                 'editar'
             ],
             'permissao' => [
-                'publicacao_noticia_editar'  => 'Editar',
+                'publicacao_noticia_editar' => 'Editar',
             ]
         ],
         'publicacao_pagina'        => [
@@ -576,17 +576,6 @@ final class ConfiguracoesPadrao
                 'log_erro_status'     => 'Status'
             ]
         ],
-        'painel_tradutor'          => [
-            'titulo'    => 'Painel Tradutor',
-            'acao'      => ['index', 'visualizar', 'add', 'editar', 'deletar'],
-            'permissao' => [
-                'painel_tradutor_index'      => 'Listar',
-                'painel_tradutor_visualizar' => 'Visualizar',
-                'painel_tradutor_add'        => 'Salvar',
-                'painel_tradutor_editar'     => 'Editar',
-                'painel_tradutor_deletar'    => 'Deletar'
-            ]
-        ],
         'painel_config'            => [
             'titulo'    => 'Painel Configurações',
             'acao'      => ['index', 'add', 'editar', 'deletar'],
@@ -597,7 +586,7 @@ final class ConfiguracoesPadrao
                 'painel_config_deletar' => 'Deletar'
             ]
         ],
-        'album_dado' => [
+        'album_dado'               => [
             'titulo'    => 'Album de fotos',
             'acao'      => ['index', 'add', 'editar', 'deletar', 'foto'],
             'permissao' => [
