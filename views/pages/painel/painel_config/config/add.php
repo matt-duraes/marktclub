@@ -24,6 +24,7 @@ $Painel->coluna(callback: function () use ($Painel) {
     $Painel->fieldsetCheckbox(
         titulo: 'Recursos do Painel',
         callback: function () use ($Painel) {
+            $Painel->checkbox(name: 'configuracao[]', label: 'Nome', value: 'nome');
             $Painel->checkbox(name: 'configuracao[]', label: 'Perfil', value: 'perfil');
             $Painel->checkbox(name: 'configuracao[]', label: 'Bloquear Tela', value: 'bloquear');
             $Painel->checkbox(name: 'configuracao[]', label: 'Agenda Google', value: 'agenda');
