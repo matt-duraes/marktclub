@@ -2,6 +2,39 @@
 @system "Popup"
 @painel "app_geral_visualizar"
 
+#bloco_votacao .zero
+    padding: 40px 0
+    text-align: center
+.bloco_pergunta
+    width: 100%
+    padding: 0 20px
+    margin-top: 20px
+.bloco_pergunta .linha
+    width: 100%
+    padding: 10px 20px
+    flexRow()
+    flex-wrap: wrap
+    border: 1px solid #CCC
+    border-bottom: none
+    &:last-child
+        border: 1px solid #CCC
+    h1
+        width: 100%
+        texto()
+        font-weight: bold
+    .botao
+        font-size: 1.3rem
+        margin: 10px 10px 0 0
+        cursor: pointer
+        color: #FFF
+        padding: 3px 15px
+        border-radius: 20px
+        &.editar
+            background-color: $corAzul
+        &.resposta
+            background-color: $corVerde
+        &.deletar
+            background-color: $corVermelho
 #bloco_pergunta_add
     width: 100%
     max-width: 1000px

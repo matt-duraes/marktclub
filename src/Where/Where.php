@@ -110,6 +110,42 @@ final class Where implements WhereInterface
     }
 
     /**
+     * Executa apenas se o valor da propriedade tenha sido iniciada ou não
+     *
+     * @param  string  $propriedade Nome da propriedade
+     * @param  bool    $iniciado    Se deve ser executada quando a propriedade for iniciada ou não
+     * @param  Closure $callback
+     * @return self
+     */
+    public function seIniciado(string $propriedade, bool $iniciado = true, Closure $callback = null): self
+    {
+        if (
+            ($this->iniciado($propriedade) && !$iniciado) ||
+            (!$this->iniciado($propriedade) && $iniciado)
+        ) {
+            return $this;
+        }
+        $this->executarCallback(callback: $callback);
+        return $this;
+    }
+
+    /**
+     * Executa apenas se o valor da propriedade não for vazia
+     *
+     * @param  string  $propriedade Nome da propriedade
+     * @param  Closure $callback
+     * @return self
+     */
+    public function naoVazio(string $propriedade, Closure $callback = null): self
+    {
+        if (!$this->iniciado($propriedade) || empty($this->$propriedade)) {
+            return $this;
+        }
+        $this->executarCallback(callback: $callback);
+        return $this;
+    }
+
+    /**
      * Executa apenas se o valor da propriedade passada for diferente do valor informado
      *
      * @param  string  $propriedade Nome da propriedade

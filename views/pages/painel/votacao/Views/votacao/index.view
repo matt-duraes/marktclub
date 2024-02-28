@@ -1,12 +1,12 @@
-<div class="bloco_fieldset" id="bloco_dependente">
+<div class="bloco_fieldset" id="bloco_votacao">
     <h2>Perguntas</h2>
     <div class="lista_dado">
         <div class="botao_link" id="botao_adicionar_pergunta">Adicionar pergunta</div>
     </div>
     <div class="bloco_pergunta" id="bloco_pergunta_lista">
-
     </div>
-    <div class="zero" id="bloco_pergunta_zero">Sem perguntas no momento</div>
+    <div class="zero display_none" id="bloco_pergunta_zero">Sem perguntas no momento</div>
+    <div class="zero" id="bloco_pergunta_loading">Carregando perguntas</div>
 </div>
 
 <div class="display_none">
@@ -36,6 +36,35 @@
                 <div class="botao salvar" id="botao_pergunta_salvar">Salvar</div>
             </div>
         </div>
+    </div>
+    <div id="bloco_resposta_add">
+        <div class="bloco_pagina_popup conteudo">
+            <header class="header_pagina_popup">
+                <h1>Resposta</h1>
+                <i class="fechar popup_fechar">@iconeFechar</i>
+            </header>
+            <div class="conteudo_pagina_popup">
+                <form action="/" class="form_geral">
+                    <h2>Respostas:</h2>
+                    <div class="botao_pequeno" id="botao_adicionar_resposta">Adicionar resposta</div>
+                    <div class="lista_resposta" id="bloco_lista_resposta">
+                    </div>
+                    <div class="zero display_none" id="bloco_resposta_loading">Carregando respostas</div>
+                    <div class="zero display_none" id="bloco_resposta_zero">Sem respostas no momento</div>
+                </form>
+            </div>
+            <div class="footer_pagina_popup">
+                <div class="flex"></div>
+                <div class="botao salvar" id="botao_pergunta_salvar">Salvar</div>
+            </div>
+        </div>
+    </div>
+
+    <div class="linha" id="bloco_linha_pergunta">
+        <h1>Teste de pergunta</h1>
+        <div class="botao resposta">resposta</div>
+        <div class="botao editar">editar</div>
+        <div class="botao deletar">deletar</div>
     </div>
 
     <div class="linha" id="bloco_linha_resposta">

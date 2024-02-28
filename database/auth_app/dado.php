@@ -202,8 +202,9 @@ $scope = [
     'album_dado:buscar', 'album_dado:listar', 'album_dado:salvar', 'album_dado:atualizar',
     'album_dado:deletar', 'album_dado:foto',
 
-    'votacao:buscar', 'votacao:listar', 'votacao:salvar', 'votacao:atualizar', 'votacao:deletar',
-    'votacao:pergunta', 'votacao:resposta', 'votacao:resultado',
+    'votacao_dado:buscar', 'votacao_dado:listar', 'votacao_dado:salvar', 'votacao_dado:atualizar', 'votacao_dado:deletar',
+    'votacao_pergunta:buscar', 'votacao_pergunta:listar', 'votacao_pergunta:salvar', 'votacao_pergunta:atualizar', 'votacao_pergunta:deletar',
+    'votacao_resposta:buscar', 'votacao_resposta:listar', 'votacao_resposta:salvar', 'votacao_resposta:atualizar', 'votacao_resposta:deletar',
 ];
 
 return [
