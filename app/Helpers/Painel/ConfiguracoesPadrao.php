@@ -188,7 +188,7 @@ final class ConfiguracoesPadrao
                 'editar'
             ],
             'permissao' => [
-                'publicacao_noticia_editar' => 'Editar',
+                'publicacao_home_editar' => 'Editar',
             ]
         ],
         'publicacao_pagina'        => [
@@ -211,6 +211,7 @@ final class ConfiguracoesPadrao
                 'publicacao_youtube_add'     => 'Salvar',
                 'publicacao_youtube_editar'  => 'Editar',
                 'publicacao_youtube_deletar' => 'Deletar',
+                'publicacao_youtube_empresa' => 'Todas as empresas'
             ]
         ],
         'publicacao_arquivo'       => [
@@ -223,6 +224,7 @@ final class ConfiguracoesPadrao
                 'publicacao_arquivo_add'     => 'Salvar',
                 'publicacao_arquivo_editar'  => 'Editar',
                 'publicacao_arquivo_deletar' => 'Deletar',
+                'publicacao_arquivo_empresa' => 'Todas as empresas'
             ]
         ],
         'publicacao_diretoria'     => [
@@ -569,7 +571,9 @@ final class ConfiguracoesPadrao
         ],
         'log_erro'                 => [
             'titulo'    => 'Log de erro',
-            'acao'      => ['index', 'visualizar', 'status'],
+            'acao'      => [
+                'index', 'visualizar', 'status'
+            ],
             'permissao' => [
                 'log_erro_index'      => 'Listar',
                 'log_erro_visualizar' => 'Visualizar',
@@ -578,7 +582,9 @@ final class ConfiguracoesPadrao
         ],
         'painel_config'            => [
             'titulo'    => 'Painel Configurações',
-            'acao'      => ['index', 'add', 'editar', 'deletar'],
+            'acao'      => [
+                'index', 'add', 'editar', 'deletar'
+            ],
             'permissao' => [
                 'painel_config_index'   => 'Listar',
                 'painel_config_add'     => 'Salvar',
@@ -588,7 +594,9 @@ final class ConfiguracoesPadrao
         ],
         'album_dado'               => [
             'titulo'    => 'Album de fotos',
-            'acao'      => ['index', 'add', 'editar', 'deletar', 'foto'],
+            'acao'      => [
+                'index', 'add', 'editar', 'deletar', 'foto'
+            ],
             'permissao' => [
                 'album_dado_index'   => 'Listar',
                 'album_dado_add'     => 'Salvar',
@@ -597,9 +605,11 @@ final class ConfiguracoesPadrao
                 'album_dado_foto'    => 'Gerenciar Foto'
             ]
         ],
-        'votacao' => [
+        'votacao'                  => [
             'titulo'    => 'Votação',
-            'acao'      => ['index', 'visualizar', 'add', 'editar', 'deletar'],
+            'acao'      => [
+                'index', 'visualizar', 'add', 'editar', 'deletar'
+            ],
             'permissao' => [
                 'votacao_index'      => 'Listar',
                 'votacao_visualizar' => 'Visualizar',
@@ -608,9 +618,11 @@ final class ConfiguracoesPadrao
                 'votacao_deletar'    => 'Deletar'
             ]
         ],
-        'enquete' => [
+        'enquete'                  => [
             'titulo'    => 'Enquete',
-            'acao'      => ['index', 'visualizar', 'add', 'editar', 'deletar'],
+            'acao'      => [
+                'index', 'visualizar', 'add', 'editar', 'deletar'
+            ],
             'permissao' => [
                 'enquete_index'      => 'Listar',
                 'enquete_visualizar' => 'Visualizar',
@@ -618,6 +630,6 @@ final class ConfiguracoesPadrao
                 'enquete_editar'     => 'Editar',
                 'enquete_deletar'    => 'Deletar'
             ]
-        ],
+        ]
     ];
 }
