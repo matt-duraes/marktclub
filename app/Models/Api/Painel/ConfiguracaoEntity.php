@@ -54,11 +54,11 @@ final class ConfiguracaoEntity extends Entity
                 );
         }
         return object([
-            'permissao'          => jsonDecode($configs->permissao, true, true),
-            'configuracao'       => jsonDecode($configs->configuracao, true, true),
-            'campo_obrigatorio'  => jsonDecode($configs->campo_obrigatorio, true, true),
-            'campo_permitido'    => jsonDecode($configs->campo_permitido, true, true),
-            'upload_grupo'       => jsonDecode($configs->upload_grupo, true, true)
+            'permissao'         => jsonDecode($configs->permissao, true, true),
+            'configuracao'      => jsonDecode($configs->configuracao, true, true),
+            'campo_obrigatorio' => jsonDecode($configs->campo_obrigatorio, true, true),
+            'campo_permitido'   => jsonDecode($configs->campo_permitido, true, true),
+            'upload_grupo'      => jsonDecode($configs->upload_grupo, true, true)
         ]);
     }
 
@@ -76,7 +76,6 @@ final class ConfiguracaoEntity extends Entity
                 }
             }
         }
-
         $this->permissao = array_unique($permissoes);
         $this->empresa = $this->OrmEmpresa->pegarUuidPeloId($this->id_admin_empresa);
         $this->campo_obrigatorio = $this->campo_obrigatorio['usuario_cliente'];
@@ -162,6 +161,10 @@ final class ConfiguracaoEntity extends Entity
                 $acao = 'convenio';
                 $tituloPermissao = 'Convenio';
                 $nomeApp = str_replace('_convenio', '', $permissao);
+            } elseif (str_ends_with($permissao, '_foto')) {
+                $acao = 'foto';
+                $tituloPermissao = 'Gerenciar Foto';
+                $nomeApp = str_replace('_foto', '', $permissao);
             }
             $apps[] = $nomeApp;
             $acoes[$nomeApp][] = $acao;
