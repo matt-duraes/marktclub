@@ -40,12 +40,13 @@ $Painel->coluna(callback: function () use ($Painel) {
                 ])
                 ->get('/comercial-subempresa/select')
                 ->array()['dado'] ?? [];
+
             if (empty(sessao('USUARIO.subempresa'))) {
                 $Painel
                     ->select(
                         name: 'subempresa',
                         lista: $subempresaLista,
-                        label: 'Subempresa',
+                        label: 'Subempresa'
                     );
             }
         }
@@ -75,6 +76,9 @@ if (
     $comercial = [];
     $demanda = [];
     $painel = [];
+    $enquete = [];
+    $votacao = [];
+
     if (!empty($permissoes['usuario_cliente'])) {
         $usuario['usuario_cliente'] = $permissoes['usuario_cliente'];
     }
@@ -219,6 +223,12 @@ if (
     if (!empty($permissoes['painel_config'])) {
         $painel['painel_config'] = $permissoes['painel_config'];
     }
+    if (!empty($permissoes['votacao'])) {
+        $votacao['votacao'] = $permissoes['votacao'];
+    }
+    if (!empty($permissoes['enquete'])) {
+        $enquete['enquete'] = $permissoes['enquete'];
+    }
 
     $Painel->coluna(callback: function () use ($Painel, $usuario) {
         $Painel->fieldsetCheckbox(
@@ -232,25 +242,25 @@ if (
                     if (array_key_exists('acao', $configuracoes) && !empty($configuracoes['acao'])) {
                         foreach ($configuracoes['acao'] as $permissao) {
                             $label = match ($permissao) {
-                                'index'      => 'Listar',
-                                'add'        => 'Salvar',
-                                'editar'     => 'Editar',
-                                'deletar'    => 'Deletar',
-                                'status'     => 'Status',
-                                'parceiro'   => 'Todos os Parceiros',
-                                'empresa'    => 'Todas as Empresas',
+                                'index' => 'Listar',
+                                'add' => 'Salvar',
+                                'editar' => 'Editar',
+                                'deletar' => 'Deletar',
+                                'status' => 'Status',
+                                'parceiro' => 'Todos os Parceiros',
+                                'empresa' => 'Todas as Empresas',
                                 'visualizar' => 'Visualizar',
-                                'download'   => 'Download',
+                                'download' => 'Download',
                                 'tecnologia' => 'Tecnologia',
-                                'criacao'    => 'Criação',
-                                'convenio'   => 'Convênio',
-                                'permissao'  => 'Todas as permissões',
-                                'analytics'  => 'Analytics',
-                                'apple'      => 'Apple',
-                                'salvar'     => 'Cadastrar usuário',
-                                'bloquear'   => 'Bloquear usuário',
-                                'foto'       => 'Gerenciar Foto',
-                                default      => ''
+                                'criacao' => 'Criação',
+                                'convenio' => 'Convênio',
+                                'permissao' => 'Todas as permissões',
+                                'analytics' => 'Analytics',
+                                'apple' => 'Apple',
+                                'salvar' => 'Cadastrar usuário',
+                                'bloquear' => 'Bloquear usuário',
+                                'foto' => 'Gerenciar Foto',
+                                default => ''
                             };
                             $Painel->checkbox(name: 'permissao[]', label: $label, value: $nomeApp . '_' . $permissao);
                         }
@@ -278,25 +288,25 @@ if (
                     if (array_key_exists('acao', $configuracoes) && !empty($configuracoes['acao'])) {
                         foreach ($configuracoes['acao'] as $permissao) {
                             $label = match ($permissao) {
-                                'index'      => 'Listar',
-                                'add'        => 'Salvar',
-                                'editar'     => 'Editar',
-                                'deletar'    => 'Deletar',
-                                'status'     => 'Status',
-                                'parceiro'   => 'Todos os Parceiros',
-                                'empresa'    => 'Todas as Empresas',
+                                'index' => 'Listar',
+                                'add' => 'Salvar',
+                                'editar' => 'Editar',
+                                'deletar' => 'Deletar',
+                                'status' => 'Status',
+                                'parceiro' => 'Todos os Parceiros',
+                                'empresa' => 'Todas as Empresas',
                                 'visualizar' => 'Visualizar',
-                                'download'   => 'Download',
+                                'download' => 'Download',
                                 'tecnologia' => 'Tecnologia',
-                                'criacao'    => 'Criação',
-                                'convenio'   => 'Convênio',
-                                'permissao'  => 'Todas as permissões',
-                                'analytics'  => 'Analytics',
-                                'apple'      => 'Apple',
-                                'salvar'     => 'Cadastrar usuário',
-                                'bloquear'   => 'Bloquear usuário',
-                                'foto'       => 'Gerenciar Foto',
-                                default      => ''
+                                'criacao' => 'Criação',
+                                'convenio' => 'Convênio',
+                                'permissao' => 'Todas as permissões',
+                                'analytics' => 'Analytics',
+                                'apple' => 'Apple',
+                                'salvar' => 'Cadastrar usuário',
+                                'bloquear' => 'Bloquear usuário',
+                                'foto' => 'Gerenciar Foto',
+                                default => ''
                             };
                             $Painel->checkbox(name: 'permissao[]', label: $label, value: $nomeApp . '_' . $permissao);
                         }
@@ -324,25 +334,25 @@ if (
                     if (array_key_exists('acao', $configuracoes) && !empty($configuracoes['acao'])) {
                         foreach ($configuracoes['acao'] as $permissao) {
                             $label = match ($permissao) {
-                                'index'      => 'Listar',
-                                'add'        => 'Salvar',
-                                'editar'     => 'Editar',
-                                'deletar'    => 'Deletar',
-                                'status'     => 'Status',
-                                'parceiro'   => 'Todos os Parceiros',
-                                'empresa'    => 'Todas as Empresas',
+                                'index' => 'Listar',
+                                'add' => 'Salvar',
+                                'editar' => 'Editar',
+                                'deletar' => 'Deletar',
+                                'status' => 'Status',
+                                'parceiro' => 'Todos os Parceiros',
+                                'empresa' => 'Todas as Empresas',
                                 'visualizar' => 'Visualizar',
-                                'download'   => 'Download',
+                                'download' => 'Download',
                                 'tecnologia' => 'Tecnologia',
-                                'criacao'    => 'Criação',
-                                'convenio'   => 'Convênio',
-                                'permissao'  => 'Todas as permissões',
-                                'analytics'  => 'Analytics',
-                                'apple'      => 'Apple',
-                                'salvar'     => 'Cadastrar usuário',
-                                'bloquear'   => 'Bloquear usuário',
-                                'foto'       => 'Gerenciar Foto',
-                                default      => ''
+                                'criacao' => 'Criação',
+                                'convenio' => 'Convênio',
+                                'permissao' => 'Todas as permissões',
+                                'analytics' => 'Analytics',
+                                'apple' => 'Apple',
+                                'salvar' => 'Cadastrar usuário',
+                                'bloquear' => 'Bloquear usuário',
+                                'foto' => 'Gerenciar Foto',
+                                default => ''
                             };
                             $Painel->checkbox(name: 'permissao[]', label: $label, value: $nomeApp . '_' . $permissao);
                         }
@@ -370,25 +380,25 @@ if (
                     if (array_key_exists('acao', $configuracoes) && !empty($configuracoes['acao'])) {
                         foreach ($configuracoes['acao'] as $permissao) {
                             $label = match ($permissao) {
-                                'index'      => 'Listar',
-                                'add'        => 'Salvar',
-                                'editar'     => 'Editar',
-                                'deletar'    => 'Deletar',
-                                'status'     => 'Status',
-                                'parceiro'   => 'Todos os Parceiros',
-                                'empresa'    => 'Todas as Empresas',
+                                'index' => 'Listar',
+                                'add' => 'Salvar',
+                                'editar' => 'Editar',
+                                'deletar' => 'Deletar',
+                                'status' => 'Status',
+                                'parceiro' => 'Todos os Parceiros',
+                                'empresa' => 'Todas as Empresas',
                                 'visualizar' => 'Visualizar',
-                                'download'   => 'Download',
+                                'download' => 'Download',
                                 'tecnologia' => 'Tecnologia',
-                                'criacao'    => 'Criação',
-                                'convenio'   => 'Convênio',
-                                'permissao'  => 'Todas as permissões',
-                                'analytics'  => 'Analytics',
-                                'apple'      => 'Apple',
-                                'salvar'     => 'Cadastrar usuário',
-                                'bloquear'   => 'Bloquear usuário',
-                                'foto'       => 'Gerenciar Foto',
-                                default      => ''
+                                'criacao' => 'Criação',
+                                'convenio' => 'Convênio',
+                                'permissao' => 'Todas as permissões',
+                                'analytics' => 'Analytics',
+                                'apple' => 'Apple',
+                                'salvar' => 'Cadastrar usuário',
+                                'bloquear' => 'Bloquear usuário',
+                                'foto' => 'Gerenciar Foto',
+                                default => ''
                             };
                             $Painel->checkbox(name: 'permissao[]', label: $label, value: $nomeApp . '_' . $permissao);
                         }
@@ -416,25 +426,25 @@ if (
                     if (array_key_exists('acao', $configuracoes) && !empty($configuracoes['acao'])) {
                         foreach ($configuracoes['acao'] as $permissao) {
                             $label = match ($permissao) {
-                                'index'      => 'Listar',
-                                'add'        => 'Salvar',
-                                'editar'     => 'Editar',
-                                'deletar'    => 'Deletar',
-                                'status'     => 'Status',
-                                'parceiro'   => 'Todos os Parceiros',
-                                'empresa'    => 'Todas as Empresas',
+                                'index' => 'Listar',
+                                'add' => 'Salvar',
+                                'editar' => 'Editar',
+                                'deletar' => 'Deletar',
+                                'status' => 'Status',
+                                'parceiro' => 'Todos os Parceiros',
+                                'empresa' => 'Todas as Empresas',
                                 'visualizar' => 'Visualizar',
-                                'download'   => 'Download',
+                                'download' => 'Download',
                                 'tecnologia' => 'Tecnologia',
-                                'criacao'    => 'Criação',
-                                'convenio'   => 'Convênio',
-                                'permissao'  => 'Todas as permissões',
-                                'analytics'  => 'Analytics',
-                                'apple'      => 'Apple',
-                                'salvar'     => 'Cadastrar usuário',
-                                'bloquear'   => 'Bloquear usuário',
-                                'foto'       => 'Gerenciar Foto',
-                                default      => ''
+                                'criacao' => 'Criação',
+                                'convenio' => 'Convênio',
+                                'permissao' => 'Todas as permissões',
+                                'analytics' => 'Analytics',
+                                'apple' => 'Apple',
+                                'salvar' => 'Cadastrar usuário',
+                                'bloquear' => 'Bloquear usuário',
+                                'foto' => 'Gerenciar Foto',
+                                default => ''
                             };
                             $Painel->checkbox(name: 'permissao[]', label: $label, value: $nomeApp . '_' . $permissao);
                         }
@@ -462,25 +472,25 @@ if (
                     if (array_key_exists('acao', $configuracoes) && !empty($configuracoes['acao'])) {
                         foreach ($configuracoes['acao'] as $permissao) {
                             $label = match ($permissao) {
-                                'index'      => 'Listar',
-                                'add'        => 'Salvar',
-                                'editar'     => 'Editar',
-                                'deletar'    => 'Deletar',
-                                'status'     => 'Status',
-                                'parceiro'   => 'Todos os Parceiros',
-                                'empresa'    => 'Todas as Empresas',
+                                'index' => 'Listar',
+                                'add' => 'Salvar',
+                                'editar' => 'Editar',
+                                'deletar' => 'Deletar',
+                                'status' => 'Status',
+                                'parceiro' => 'Todos os Parceiros',
+                                'empresa' => 'Todas as Empresas',
                                 'visualizar' => 'Visualizar',
-                                'download'   => 'Download',
+                                'download' => 'Download',
                                 'tecnologia' => 'Tecnologia',
-                                'criacao'    => 'Criação',
-                                'convenio'   => 'Convênio',
-                                'permissao'  => 'Todas as permissões',
-                                'analytics'  => 'Analytics',
-                                'apple'      => 'Apple',
-                                'salvar'     => 'Cadastrar usuário',
-                                'bloquear'   => 'Bloquear usuário',
-                                'foto'       => 'Gerenciar Foto',
-                                default      => ''
+                                'criacao' => 'Criação',
+                                'convenio' => 'Convênio',
+                                'permissao' => 'Todas as permissões',
+                                'analytics' => 'Analytics',
+                                'apple' => 'Apple',
+                                'salvar' => 'Cadastrar usuário',
+                                'bloquear' => 'Bloquear usuário',
+                                'foto' => 'Gerenciar Foto',
+                                default => ''
                             };
                             $Painel->checkbox(name: 'permissao[]', label: $label, value: $nomeApp . '_' . $permissao);
                         }
@@ -508,25 +518,25 @@ if (
                     if (array_key_exists('acao', $configuracoes) && !empty($configuracoes['acao'])) {
                         foreach ($configuracoes['acao'] as $permissao) {
                             $label = match ($permissao) {
-                                'index'      => 'Listar',
-                                'add'        => 'Salvar',
-                                'editar'     => 'Editar',
-                                'deletar'    => 'Deletar',
-                                'status'     => 'Status',
-                                'parceiro'   => 'Todos os Parceiros',
-                                'empresa'    => 'Todas as Empresas',
+                                'index' => 'Listar',
+                                'add' => 'Salvar',
+                                'editar' => 'Editar',
+                                'deletar' => 'Deletar',
+                                'status' => 'Status',
+                                'parceiro' => 'Todos os Parceiros',
+                                'empresa' => 'Todas as Empresas',
                                 'visualizar' => 'Visualizar',
-                                'download'   => 'Download',
+                                'download' => 'Download',
                                 'tecnologia' => 'Tecnologia',
-                                'criacao'    => 'Criação',
-                                'convenio'   => 'Convênio',
-                                'permissao'  => 'Todas as permissões',
-                                'analytics'  => 'Analytics',
-                                'apple'      => 'Apple',
-                                'salvar'     => 'Cadastrar usuário',
-                                'bloquear'   => 'Bloquear usuário',
-                                'foto'       => 'Gerenciar Foto',
-                                default      => ''
+                                'criacao' => 'Criação',
+                                'convenio' => 'Convênio',
+                                'permissao' => 'Todas as permissões',
+                                'analytics' => 'Analytics',
+                                'apple' => 'Apple',
+                                'salvar' => 'Cadastrar usuário',
+                                'bloquear' => 'Bloquear usuário',
+                                'foto' => 'Gerenciar Foto',
+                                default => ''
                             };
                             $Painel->checkbox(name: 'permissao[]', label: $label, value: $nomeApp . '_' . $permissao);
                         }
@@ -554,25 +564,117 @@ if (
                     if (array_key_exists('acao', $configuracoes) && !empty($configuracoes['acao'])) {
                         foreach ($configuracoes['acao'] as $permissao) {
                             $label = match ($permissao) {
-                                'index'      => 'Listar',
-                                'add'        => 'Salvar',
-                                'editar'     => 'Editar',
-                                'deletar'    => 'Deletar',
-                                'status'     => 'Status',
-                                'parceiro'   => 'Todos os Parceiros',
-                                'empresa'    => 'Todas as Empresas',
+                                'index' => 'Listar',
+                                'add' => 'Salvar',
+                                'editar' => 'Editar',
+                                'deletar' => 'Deletar',
+                                'status' => 'Status',
+                                'parceiro' => 'Todos os Parceiros',
+                                'empresa' => 'Todas as Empresas',
                                 'visualizar' => 'Visualizar',
-                                'download'   => 'Download',
+                                'download' => 'Download',
                                 'tecnologia' => 'Tecnologia',
-                                'criacao'    => 'Criação',
-                                'convenio'   => 'Convênio',
-                                'permissao'  => 'Todas as permissões',
-                                'analytics'  => 'Analytics',
-                                'apple'      => 'Apple',
-                                'salvar'     => 'Cadastrar usuário',
-                                'bloquear'   => 'Bloquear usuário',
-                                'foto'       => 'Gerenciar Foto',
-                                default      => ''
+                                'criacao' => 'Criação',
+                                'convenio' => 'Convênio',
+                                'permissao' => 'Todas as permissões',
+                                'analytics' => 'Analytics',
+                                'apple' => 'Apple',
+                                'salvar' => 'Cadastrar usuário',
+                                'bloquear' => 'Bloquear usuário',
+                                'foto' => 'Gerenciar Foto',
+                                default => ''
+                            };
+                            $Painel->checkbox(name: 'permissao[]', label: $label, value: $nomeApp . '_' . $permissao);
+                        }
+                    } elseif (array_key_exists('permissao', $configuracoes)) {
+                        foreach ($configuracoes['permissao'] as $permissao => $nomePermissao) {
+                            $Painel->checkbox(name: 'permissao[]', label: $nomePermissao, value: $permissao);
+                        }
+                    }
+                }
+            },
+            todos: 'Marcar todas as permissões',
+            mais: 1
+        );
+    });
+
+    $Painel->coluna(callback: function () use ($Painel, $votacao) {
+        $Painel->fieldsetCheckbox(
+            titulo: 'Votação',
+            callback: function () use ($Painel, $votacao) {
+                foreach ($votacao as $nomeApp => $configuracoes) {
+                    $titulo = $configuracoes['titulo'] ?? '';
+                    if (!empty($titulo)) {
+                        $Painel->html('<h4>' . $titulo . '</h4>');
+                    }
+                    if (array_key_exists('acao', $configuracoes) && !empty($configuracoes['acao'])) {
+                        foreach ($configuracoes['acao'] as $permissao) {
+                            $label = match ($permissao) {
+                                'index' => 'Listar',
+                                'add' => 'Salvar',
+                                'editar' => 'Editar',
+                                'deletar' => 'Deletar',
+                                'status' => 'Status',
+                                'parceiro' => 'Todos os Parceiros',
+                                'empresa' => 'Todas as Empresas',
+                                'visualizar' => 'Visualizar',
+                                'download' => 'Download',
+                                'tecnologia' => 'Tecnologia',
+                                'criacao' => 'Criação',
+                                'convenio' => 'Convênio',
+                                'permissao' => 'Todas as permissões',
+                                'analytics' => 'Analytics',
+                                'apple' => 'Apple',
+                                'salvar' => 'Cadastrar usuário',
+                                'bloquear' => 'Bloquear usuário',
+                                'foto' => 'Gerenciar Foto',
+                                default => ''
+                            };
+                            $Painel->checkbox(name: 'permissao[]', label: $label, value: $nomeApp . '_' . $permissao);
+                        }
+                    } elseif (array_key_exists('permissao', $configuracoes)) {
+                        foreach ($configuracoes['permissao'] as $permissao => $nomePermissao) {
+                            $Painel->checkbox(name: 'permissao[]', label: $nomePermissao, value: $permissao);
+                        }
+                    }
+                }
+            },
+            todos: 'Marcar todas as permissões',
+            mais: 1
+        );
+    });
+
+    $Painel->coluna(callback: function () use ($Painel, $enquete) {
+        $Painel->fieldsetCheckbox(
+            titulo: 'Enquete',
+            callback: function () use ($Painel, $enquete) {
+                foreach ($enquete as $nomeApp => $configuracoes) {
+                    $titulo = $configuracoes['titulo'] ?? '';
+                    if (!empty($titulo)) {
+                        $Painel->html('<h4>' . $titulo . '</h4>');
+                    }
+                    if (array_key_exists('acao', $configuracoes) && !empty($configuracoes['acao'])) {
+                        foreach ($configuracoes['acao'] as $permissao) {
+                            $label = match ($permissao) {
+                                'index' => 'Listar',
+                                'add' => 'Salvar',
+                                'editar' => 'Editar',
+                                'deletar' => 'Deletar',
+                                'status' => 'Status',
+                                'parceiro' => 'Todos os Parceiros',
+                                'empresa' => 'Todas as Empresas',
+                                'visualizar' => 'Visualizar',
+                                'download' => 'Download',
+                                'tecnologia' => 'Tecnologia',
+                                'criacao' => 'Criação',
+                                'convenio' => 'Convênio',
+                                'permissao' => 'Todas as permissões',
+                                'analytics' => 'Analytics',
+                                'apple' => 'Apple',
+                                'salvar' => 'Cadastrar usuário',
+                                'bloquear' => 'Bloquear usuário',
+                                'foto' => 'Gerenciar Foto',
+                                default => ''
                             };
                             $Painel->checkbox(name: 'permissao[]', label: $label, value: $nomeApp . '_' . $permissao);
                         }
@@ -600,25 +702,25 @@ if (
                     if (array_key_exists('acao', $configuracoes) && !empty($configuracoes['acao'])) {
                         foreach ($configuracoes['acao'] as $permissao) {
                             $label = match ($permissao) {
-                                'index'      => 'Listar',
-                                'add'        => 'Salvar',
-                                'editar'     => 'Editar',
-                                'deletar'    => 'Deletar',
-                                'status'     => 'Status',
-                                'parceiro'   => 'Todos os Parceiros',
-                                'empresa'    => 'Todas as Empresas',
+                                'index' => 'Listar',
+                                'add' => 'Salvar',
+                                'editar' => 'Editar',
+                                'deletar' => 'Deletar',
+                                'status' => 'Status',
+                                'parceiro' => 'Todos os Parceiros',
+                                'empresa' => 'Todas as Empresas',
                                 'visualizar' => 'Visualizar',
-                                'download'   => 'Download',
+                                'download' => 'Download',
                                 'tecnologia' => 'Tecnologia',
-                                'criacao'    => 'Criação',
-                                'convenio'   => 'Convênio',
-                                'permissao'  => 'Todas as permissões',
-                                'analytics'  => 'Analytics',
-                                'apple'      => 'Apple',
-                                'salvar'     => 'Cadastrar usuário',
-                                'bloquear'   => 'Bloquear usuário',
-                                'foto'       => 'Gerenciar Foto',
-                                default      => ''
+                                'criacao' => 'Criação',
+                                'convenio' => 'Convênio',
+                                'permissao' => 'Todas as permissões',
+                                'analytics' => 'Analytics',
+                                'apple' => 'Apple',
+                                'salvar' => 'Cadastrar usuário',
+                                'bloquear' => 'Bloquear usuário',
+                                'foto' => 'Gerenciar Foto',
+                                default => ''
                             };
                             $Painel->checkbox(name: 'permissao[]', label: $label, value: $nomeApp . '_' . $permissao);
                         }
