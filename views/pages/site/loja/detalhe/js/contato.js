@@ -18,7 +18,7 @@ window.addEventListener('load', () => {
         });
     }
 
-    if (botaoTelefone) {
+    if (botaoEmail) {
         botaoEmail.addEventListener('click', () => {
             tituloPopupContato.innerText = 'E-mail';
 
