@@ -138,7 +138,7 @@ final class Where implements WhereInterface
      */
     public function naoVazio(string $propriedade, Closure $callback = null): self
     {
-        if (!$this->iniciado($propriedade) || empty($this->$propriedade)) {
+        if (!$this->iniciado($propriedade) || empty($this->Classe->$propriedade)) {
             return $this;
         }
         $this->executarCallback(callback: $callback);

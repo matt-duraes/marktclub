@@ -11,11 +11,11 @@ use Modules\Quantidade;
 use System\Trait\Model\PaginaTrait;
 use System\Trait\Model\QuantidadeTrait;
 use System\Interface\ModelListarInterface;
-use App\Models\Api\Votacao\Trait\idVotacaoTrait;
+use App\Models\Api\Votacao\Trait\idPerguntaTrait;
 
 final class RespostaModel extends ORM implements ModelListarInterface
 {
-    use idVotacaoTrait;
+    use idPerguntaTrait;
     use PaginaTrait;
     use QuantidadeTrait;
 
@@ -27,7 +27,7 @@ final class RespostaModel extends ORM implements ModelListarInterface
     public function listarDados(): stdClass
     {
         $dado = $this
-            ->campo(['uuid', 'titulo', 'texto', 'pode_nulo', 'escrever_voto'])
+            ->campo(['uuid', 'titulo', 'texto', 'escrever_voto', 'voto_nulo'])
             ->where($this->pegarWhere(), obrigatorio: false)
             ->pagina($this->pegarPagina(), $this->pegarQuantidade())
             ->order('ordem', 'ASC')
@@ -49,8 +49,8 @@ final class RespostaModel extends ORM implements ModelListarInterface
                 'id'            => $r->uuid,
                 'titulo'        => $r->titulo,
                 'texto'         => $r->texto,
-                'pode_nulo'     => (new Botao($r->pode_nulo))->valor(),
                 'escrever_voto' => (new Botao($r->escrever_voto))->valor(),
+                'voto_nulo'     => (new Botao($r->voto_nulo))->valor(),
             ];
         }
         return $retorno;
@@ -60,8 +60,9 @@ final class RespostaModel extends ORM implements ModelListarInterface
     {
         $Where = new Where($this, $this->ormWherePadrao);
         $Where->naoVazio('pergunta', function () use ($Where) {
-            $Where->manual(['id_votacao_pergunta', $this->idVotacao($this->pergunta)]);
+            $Where->manual(['id_votacao_pergunta', $this->idPergunta($this->pergunta)]);
         });
+
         return $Where;
     }
 }

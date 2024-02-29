@@ -4,11 +4,15 @@ namespace App\Controllers\Api\Votacao;
 
 use Http\Request;
 use Http\Response;
+use Modules\Pagina;
+use Modules\Quantidade;
 use Controller\Controller;
+use App\Models\Api\OrdenarModel;
 use System\Interface\ControllerBuscarInterface;
 use System\Interface\ControllerListarInterface;
 use System\Interface\ControllerSalvarInterface;
 use System\Interface\ControllerDeletarInterface;
+use System\Interface\ControllerOrdenarInterface;
 use App\Models\Api\Votacao\Pergunta\PerguntaModel;
 use System\Interface\ControllerAtualizarInterface;
 use App\Models\Api\Votacao\Pergunta\PerguntaEntity;
@@ -18,7 +22,8 @@ final class PerguntaController extends Controller implements
     ControllerBuscarInterface,
     ControllerSalvarInterface,
     ControllerAtualizarInterface,
-    ControllerDeletarInterface
+    ControllerDeletarInterface,
+    ControllerOrdenarInterface
 {
     public function getListar(Request $request): Response
     {
@@ -51,7 +56,7 @@ final class PerguntaController extends Controller implements
             dado: pegarPropriedadeDaEntity(
                 Entity: $Pergunta,
                 lista: [
-                    'titulo', 'texto', 'tipo', 'data_inicio', 'data_final', 'status'
+                    'titulo', 'texto', 'tipo', 'pode_nulo'
                 ]
             ),
             status: $status
@@ -73,6 +78,18 @@ final class PerguntaController extends Controller implements
         $Pergunta = new PerguntaEntity();
         $Pergunta->uuid($id);
         $Pergunta->destruir();
+
+        return new Response(status: 204);
+    }
+
+    public function putOrdenar(Request $request): Response
+    {
+        new OrdenarModel(
+            id: jsonDecode($request->id, true, true),
+            pagina: new Pagina($request->pagina),
+            quantidade: new Quantidade($request->quantidade),
+            tabela: TABELA_VOTACAO_PERGUNTA
+        );
 
         return new Response(status: 204);
     }

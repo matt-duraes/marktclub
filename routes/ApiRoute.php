@@ -2758,16 +2758,21 @@ Route
             ::nome('salvar')
             ::middleware(TokenMiddleware::class, 'scope', ['votacao_pergunta:salvar'])
             ::request([
-                'votacao', 'titulo', 'texto', 'tipo', '!ordem'
+                'votacao', 'titulo', 'texto', 'tipo', 'pode_nulo', '!ordem'
             ])
             ::post('/votacao-pergunta');
         Route
             ::nome('atualizar')
             ::middleware(TokenMiddleware::class, 'scope', ['votacao_pergunta:atualizar'])
             ::request([
-                '!titulo', '!texto', '!tipo', '!ordem'
+                '!titulo', '!texto', '!tipo', '!pode_nulo', '!ordem'
             ])
             ::put('/votacao-pergunta/{id}');
+        Route
+            ::nome('ordenar')
+            ::middleware(TokenMiddleware::class, 'scope', ['votacao_pergunta:atualizar'])
+            ::request(['pagina', '!quantidade', 'id'])
+            ::put('/votacao-pergunta/ordenar');
         Route
             ::nome('deletar')
             ::middleware(TokenMiddleware::class, 'scope', ['votacao_pergunta:deletar'])
@@ -2793,16 +2798,21 @@ Route
             ::nome('salvar')
             ::middleware(TokenMiddleware::class, 'scope', ['votacao_resposta:salvar'])
             ::request([
-                'pergunta', 'titulo', 'texto', 'pode_nulo', 'escrever_voto', '!ordem'
+                'pergunta', 'titulo', 'texto', 'escrever_voto', 'voto_nulo', '!ordem'
             ])
             ::post('/votacao-resposta');
         Route
             ::nome('atualizar')
             ::middleware(TokenMiddleware::class, 'scope', ['votacao_resposta:atualizar'])
             ::request([
-                '!titulo', '!texto', '!pode_nulo', '!escrever_voto', '!ordem'
+                '!titulo', '!texto', '!escrever_voto', '!voto_nulo', '!ordem'
             ])
             ::put('/votacao-resposta/{id}');
+        Route
+            ::nome('ordenar')
+            ::middleware(TokenMiddleware::class, 'scope', ['votacao_resposta:atualizar'])
+            ::request(['pagina', '!quantidade', 'id'])
+            ::put('/votacao-resposta/ordenar');
         Route
             ::nome('deletar')
             ::middleware(TokenMiddleware::class, 'scope', ['votacao_resposta:deletar'])

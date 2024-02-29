@@ -5,6 +5,7 @@ namespace App\Models\Api\Votacao\Pergunta;
 use ORM\ORM;
 use stdClass;
 use Where\Where;
+use Modules\Botao;
 use Modules\Pagina;
 use Modules\Quantidade;
 use System\Trait\Model\PaginaTrait;
@@ -27,7 +28,7 @@ final class PerguntaModel extends ORM implements ModelListarInterface
     public function listarDados(): stdClass
     {
         $dado = $this
-            ->campo(['uuid', 'titulo', 'texto', 'tipo'])
+            ->campo(['uuid', 'titulo', 'texto', 'tipo', 'pode_nulo'])
             ->where($this->pegarWhere(), obrigatorio: false)
             ->pagina($this->pegarPagina(), $this->pegarQuantidade())
             ->order('ordem', 'ASC')
@@ -47,10 +48,11 @@ final class PerguntaModel extends ORM implements ModelListarInterface
         $Tipo = new Tipo();
         foreach ($dado as $r) {
             $retorno[] = [
-                'id'     => $r->uuid,
-                'titulo' => $r->titulo,
-                'texto'  => $r->texto,
-                'tipo'   => $Tipo->indice($r->tipo)
+                'id'        => $r->uuid,
+                'titulo'    => $r->titulo,
+                'texto'     => $r->texto,
+                'tipo'      => $Tipo->indice($r->tipo),
+                'pode_nulo' => (new Botao($r->pode_nulo))->valor()
             ];
         }
         return $retorno;

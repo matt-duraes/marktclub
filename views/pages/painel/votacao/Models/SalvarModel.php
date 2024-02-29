@@ -8,7 +8,9 @@ final class SalvarModel implements PainelSalvarAddInterface
 {
     public function body(array $body): array
     {
-        $body['tipo'] = 'votacao';
+        if (!array_key_exists('id', $body)) {
+            $body['tipo'] = 'votacao';
+        }
         return $body;
     }
 }

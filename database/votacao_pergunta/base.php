@@ -11,4 +11,5 @@ return (new DataBase())
     ->text('texto')->null()
     ->dataCriacao()
     ->dataAtualizacao()
+    ->int('pode_nulo')->tamanho(1)->null()
     ->int('ordem')->tamanho(4)->padrao(9999);

@@ -14,22 +14,22 @@ final class RespostaEntity extends Entity
     protected string $ormValidar = '
         titulo|Título|obrigatorio|vazio
         texto|Texto|obrigatorio|vazio
-        pode_nulo|Pode Nulo|valido
         escrever_voto|Escrever voto|valido
+        voto_nulo|Voto nulo|valido
     ';
     protected array $ormInsert = ['id_votacao_pergunta'];
     protected array $ormSalvar = [
-        'titulo', 'texto', 'pode_nulo', 'escrever_voto', 'ordem'
+        'titulo', 'texto', 'escrever_voto', 'voto_nulo', 'ordem'
     ];
     protected array $ormBuscar = [
-        'titulo', 'texto', 'pode_nulo', 'escrever_voto', 'ordem'
+        'titulo', 'texto', 'escrever_voto', 'voto_nulo', 'ordem'
     ];
     protected int $id_votacao_pergunta;
     public string $pergunta;
     public string $titulo;
     public string $texto;
-    public Botao $pode_nulo;
     public Botao $escrever_voto;
+    public Botao $voto_nulo;
     public int $ordem;
 
     protected function regraInsert()
