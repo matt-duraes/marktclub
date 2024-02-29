@@ -2,7 +2,6 @@
 
 namespace Tests\Api;
 
-use App\Classes\SolicitacaoLoja\Origem;
 use App\Classes\SolicitacaoLoja\Status;
 use Erro\Excecao;
 use Tests\Token\Clube;
@@ -49,8 +48,7 @@ class SolicitacaoLojaTest extends Clube
             'nome'     => nomeCompletoAleatorio(),
             'email'    => emailAleatorio(),
             'telefone' => telefoneAleatorio(),
-            'mensagem' => 'Mensagem de teste ' . numeroAleatorio(),
-            'origem'   => Origem::CLUBE
+            'mensagem' => 'Mensagem de teste ' . numeroAleatorio()
         ];
     }
 
