@@ -3,7 +3,6 @@
 namespace App\Models\Site\Loja;
 
 use App\Helpers\ClubeApiHelper;
-use App\Classes\SolicitacaoLoja\Origem;
 
 final class SolicitacaoModel extends ClubeApiHelper
 {

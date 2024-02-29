@@ -1,6 +1,5 @@
 <?php
 
-use App\Classes\SolicitacaoLoja\Origem;
 use App\Classes\SolicitacaoLoja\Status;
 
 $Painel = new PainelConfig\Filtrar('solicitacao_loja');
