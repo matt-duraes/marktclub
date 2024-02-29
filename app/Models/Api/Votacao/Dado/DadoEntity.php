@@ -6,6 +6,7 @@ use ORM\Entity;
 use Modules\Botao;
 use Modules\DataHora;
 use App\Classes\Geral\Status;
+use App\Classes\Geral\Publicado;
 use App\Classes\Votacao\Dado\Tipo;
 use App\Models\Api\Trait\ValidarEmpresaTrait;
 
@@ -33,7 +34,6 @@ final class DadoEntity extends Entity
     protected array $ormBuscar = [
         'titulo', 'texto', 'tipo', 'voto_unico', 'identificar_usuario', 'data_inicio', 'data_final', 'status'
     ];
-
     public string $titulo;
     public string $texto;
     public Tipo $tipo;
@@ -41,11 +41,21 @@ final class DadoEntity extends Entity
     public Botao $identificar_usuario;
     public DataHora $data_inicio;
     public DataHora $data_final;
+    public Publicado $publicado;
     public Status $status;
 
     public function __construct()
     {
         parent::__construct();
         $this->validarEmpresa();
+    }
+
+    protected function regraPosBuscar()
+    {
+        $this->publicado = new Publicado(
+            inicio: $this->data_inicio,
+            final: $this->data_final,
+            ativo: $this->status->indice() == $this->status::ATIVO
+        );
     }
 }

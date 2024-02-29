@@ -5,6 +5,7 @@ namespace App\Models\Api\Votacao\Dado;
 use ORM\ORM;
 use stdClass;
 use Where\Where;
+use Modules\Botao;
 use Modules\Pagina;
 use Modules\DataHora;
 use Modules\Quantidade;
@@ -28,6 +29,7 @@ final class DadoModel extends ORM implements ModelListarInterface
     public Tipo $tipo;
     public Pagina $pagina;
     public Quantidade $quantidade;
+    public Botao $publicado;
 
     public function listarDados(): stdClass
     {
@@ -57,14 +59,14 @@ final class DadoModel extends ORM implements ModelListarInterface
                 $Status::ATIVO == $statusIndice
             );
             $retorno[] = [
-                'id'        => $r->uuid,
-                'titulo'    => $r->titulo,
-                'texto'     => $r->texto,
-                'url'       => $r->url,
-                'publicado' => $publicado->indice(),
+                'id'          => $r->uuid,
+                'titulo'      => $r->titulo,
+                'texto'       => $r->texto,
+                'url'         => $r->url,
+                'publicado'   => $publicado->indice(),
                 'data_inicio' => $r->data_inicio,
-                'data_final' => $r->data_final,
-                'status'    => $statusIndice,
+                'data_final'  => $r->data_final,
+                'status'      => $statusIndice,
             ];
         }
         return $retorno;

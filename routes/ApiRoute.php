@@ -2472,7 +2472,7 @@ Route
                 'rede_twitter_x', 'logo_principal', 'favicon', 'link_site', 'home_banner', 'contato_chat',
                 'home_noticia_principal', 'home_noticia_lista', 'home_parceiro', 'status', 'login_texto',
                 'login_link', 'clube_link', 'rede_header', 'rede_footer', 'rss', 'cor_texto', 'cor_header',
-                'cor_footer', 'noticia_imagem', 'imagem_social'
+                'cor_footer', 'imagem_header', 'altura_header', 'noticia_imagem', 'imagem_social'
             ])
             ::post('/site-config');
         Route
@@ -2485,7 +2485,7 @@ Route
                 '!rede_twitter_x', '!logo_principal', '!favicon', '!link_site', '!home_banner', '!contato_chat',
                 '!home_noticia_principal', '!home_noticia_lista', '!home_parceiro', '!status', '!login_texto',
                 '!login_link', '!clube_link', '!rede_header', '!rede_footer', '!rss', '!cor_texto', '!cor_header',
-                '!cor_footer', '!noticia_imagem', '!imagem_social'
+                '!cor_footer', '!imagem_header', '!altura_header', '!noticia_imagem', '!imagem_social'
             ])
             ::put('/site-config/{id}');
         Route
@@ -2710,31 +2710,137 @@ Route
     ::grupo(function () {
         Route
             ::nome('listar')
-            ::middleware(TokenMiddleware::class, 'scope', ['votacao:listar'])
+            ::middleware(TokenMiddleware::class, 'scope', ['votacao_dado:listar'])
             ::request([
-                'pagina', '!album', '!status'
+                'pagina', '!quantidade', '!tipo', '!publicado', '!data_inicio', '!data_final', '!status'
             ], 'json')
             ::get('/votacao-dado');
         Route
             ::nome('buscar')
-            ::middleware(TokenMiddleware::class, 'scope', ['votacao:buscar'])
+            ::middleware(TokenMiddleware::class, 'scope', ['votacao_dado:buscar'])
             ::get('/votacao-dado/{id}');
         Route
             ::nome('salvar')
-            ::middleware(TokenMiddleware::class, 'scope', ['votacao:salvar'])
+            ::middleware(TokenMiddleware::class, 'scope', ['votacao_dado:salvar'])
             ::request([
                 'titulo', 'texto', 'tipo', 'voto_unico', 'identificar_usuario', 'data_inicio', 'data_final', 'status'
             ])
             ::post('/votacao-dado');
         Route
             ::nome('atualizar')
-            ::middleware(TokenMiddleware::class, 'scope', ['votacao:atualizar'])
+            ::middleware(TokenMiddleware::class, 'scope', ['votacao_dado:atualizar'])
             ::request([
                 '!titulo', '!texto', '!voto_unico', '!identificar_usuario', '!data_inicio', '!data_final', '!status'
             ])
             ::put('/votacao-dado/{id}');
         Route
             ::nome('deletar')
-            ::middleware(TokenMiddleware::class, 'scope', ['votacao:deletar'])
+            ::middleware(TokenMiddleware::class, 'scope', ['votacao_dado:deletar'])
             ::delete('/votacao-dado/{id}');
+    });
+Route
+    ::nome('votacao_pergunta')
+    ::middleware(TokenMiddleware::class, 'token')
+    ::controller(App\Controllers\Api\Votacao\PerguntaController::class)
+    ::grupo(function () {
+        Route
+            ::nome('listar')
+            ::middleware(TokenMiddleware::class, 'scope', ['votacao_pergunta:listar'])
+            ::request([
+                'pagina', '!quantidade', '!votacao'
+            ], 'json')
+            ::get('/votacao-pergunta');
+        Route
+            ::nome('buscar')
+            ::middleware(TokenMiddleware::class, 'scope', ['votacao_pergunta:buscar'])
+            ::get('/votacao-pergunta/{id}');
+        Route
+            ::nome('salvar')
+            ::middleware(TokenMiddleware::class, 'scope', ['votacao_pergunta:salvar'])
+            ::request([
+                'votacao', 'titulo', 'texto', 'tipo', 'pode_nulo', '!ordem'
+            ])
+            ::post('/votacao-pergunta');
+        Route
+            ::nome('atualizar')
+            ::middleware(TokenMiddleware::class, 'scope', ['votacao_pergunta:atualizar'])
+            ::request([
+                '!titulo', '!texto', '!tipo', '!pode_nulo', '!ordem'
+            ])
+            ::put('/votacao-pergunta/{id}');
+        Route
+            ::nome('ordenar')
+            ::middleware(TokenMiddleware::class, 'scope', ['votacao_pergunta:atualizar'])
+            ::request(['pagina', '!quantidade', 'id'])
+            ::put('/votacao-pergunta/ordenar');
+        Route
+            ::nome('deletar')
+            ::middleware(TokenMiddleware::class, 'scope', ['votacao_pergunta:deletar'])
+            ::delete('/votacao-pergunta/{id}');
+    });
+Route
+    ::nome('votacao_resposta')
+    ::middleware(TokenMiddleware::class, 'token')
+    ::controller(App\Controllers\Api\Votacao\RespostaController::class)
+    ::grupo(function () {
+        Route
+            ::nome('listar')
+            ::middleware(TokenMiddleware::class, 'scope', ['votacao_resposta:listar'])
+            ::request([
+                'pagina', '!quantidade', '!pergunta'
+            ], 'json')
+            ::get('/votacao-resposta');
+        Route
+            ::nome('buscar')
+            ::middleware(TokenMiddleware::class, 'scope', ['votacao_resposta:buscar'])
+            ::get('/votacao-resposta/{id}');
+        Route
+            ::nome('salvar')
+            ::middleware(TokenMiddleware::class, 'scope', ['votacao_resposta:salvar'])
+            ::request([
+                'pergunta', 'titulo', 'texto', 'escrever_voto', 'voto_nulo', '!ordem'
+            ])
+            ::post('/votacao-resposta');
+        Route
+            ::nome('atualizar')
+            ::middleware(TokenMiddleware::class, 'scope', ['votacao_resposta:atualizar'])
+            ::request([
+                '!titulo', '!texto', '!escrever_voto', '!voto_nulo', '!ordem'
+            ])
+            ::put('/votacao-resposta/{id}');
+        Route
+            ::nome('ordenar')
+            ::middleware(TokenMiddleware::class, 'scope', ['votacao_resposta:atualizar'])
+            ::request(['pagina', '!quantidade', 'id'])
+            ::put('/votacao-resposta/ordenar');
+        Route
+            ::nome('deletar')
+            ::middleware(TokenMiddleware::class, 'scope', ['votacao_resposta:deletar'])
+            ::delete('/votacao-resposta/{id}');
+    });
+Route
+    ::nome('votacao_usuario')
+    ::middleware(TokenMiddleware::class, 'token')
+    ::controller(App\Controllers\Api\Votacao\UsuarioController::class)
+    ::grupo(function () {
+        Route
+            ::nome('validar')
+            ::middleware(TokenMiddleware::class, 'scope', ['votacao_usuario:validar'])
+            ::request([
+                'votacao', 'usuario'
+            ])
+            ::post('/votacao-usuario/validar');
+    });
+Route
+    ::nome('votacao_voto')
+    ::middleware(TokenMiddleware::class, 'token')
+    ::controller(App\Controllers\Api\Votacao\VotoController::class)
+    ::grupo(function () {
+        Route
+            ::nome('salvar')
+            ::middleware(TokenMiddleware::class, 'scope', ['votacao_voto:salvar'])
+            ::request([
+                'votacao', 'usuario', 'resposta'
+            ])
+            ::post('/votacao-voto');
     });

@@ -1,0 +1,1 @@
+{"id":"id_c2db4a07c1690fdbb8b234f6f9accce1","token":"token","metodo":"GET","nome":"\/votacao-resposta\/:id","uri":"{{LINK}}\/votacao-resposta\/$VOTACAO_RESPOSTA_ID","parametro":[],"body":[],"header":[],"variavel":[],"json":[],"documentacao":{"status":false,"descricao":"","requisicao":"","resposta":"","scope":"votacao_resposta:buscar"}}
