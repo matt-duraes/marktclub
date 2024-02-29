@@ -27,7 +27,6 @@ final class SolicitacaoModel extends ClubeApiHelper
                 'email'    => $this->email,
                 'mensagem' => $this->mensagem,
                 'usuario'  => $this->idUsuario,
-                'origem'   => Origem::CLUBE
             ])->post('/solicitacao-loja');
     }
 }
