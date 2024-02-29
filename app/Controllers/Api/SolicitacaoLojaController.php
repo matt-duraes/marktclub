@@ -4,7 +4,6 @@ namespace App\Controllers\Api;
 
 use App\Classes\SolicitacaoLoja\Helper;
 use App\Classes\SolicitacaoLoja\Ordem;
-use App\Classes\SolicitacaoLoja\Origem;
 use App\Classes\SolicitacaoLoja\Status;
 use App\Models\Api\SolicitacaoLoja\SolicitacaoEntity;
 use App\Models\Api\SolicitacaoLoja\SolicitacaoModel;
@@ -52,8 +51,8 @@ class SolicitacaoLojaController extends Controller implements
     {
         return mensagemSucesso(
             pegarPropriedadeDaEntity($Solicitacao, lista: [
-                'nome', 'email', 'telefone', 'mensagem', 'origem',
-                'status', 'quem_indicou', 'data_criacao', 'data_atualizacao'
+                'nome', 'email', 'telefone', 'mensagem', 'status',
+                'quem_indicou', 'origem_clube', 'data_criacao', 'data_atualizacao'
             ]),
             $status,
             Helper::CRIPTOGRAFAR
@@ -75,7 +74,6 @@ class SolicitacaoLojaController extends Controller implements
             $request->nome,
             new Data($request->data_inicio),
             new Data($request->data_final),
-            new Origem($request->origem),
             new Status($request->status)
         );
         $solicitacoes = $Solicitacao->listarDados();

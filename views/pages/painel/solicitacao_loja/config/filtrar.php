@@ -25,13 +25,6 @@ $Painel
     ->bloco(function () use ($Painel) {
         $Painel
             ->select(
-                name: 'origem',
-                lista: (new Origem())->select('Escolha uma origem'),
-                titulo: 'Origem',
-                label: 'Origem',
-                placeholder: 'Origem'
-            )
-            ->select(
                 name: 'status',
                 lista: (new Status())->select('Escolha um status'),
                 titulo: 'Status',

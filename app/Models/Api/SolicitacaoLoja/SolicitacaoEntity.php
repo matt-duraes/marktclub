@@ -2,18 +2,17 @@
 
 namespace App\Models\Api\SolicitacaoLoja;
 
-use Erro\Erro;
-use ORM\Entity;
-use Modules\Cpf;
-use Erro\Excecao;
-use Modules\Email;
-use Modules\Telefone;
-use Helpers\OrmHelper;
-use App\Classes\UsuarioCliente\Helper;
-use App\Classes\SolicitacaoLoja\Origem;
 use App\Classes\SolicitacaoLoja\Status;
+use App\Classes\UsuarioCliente\Helper;
 use App\Models\Api\Trait\ValidarEmpresaTrait;
 use App\Models\Api\UsuarioCliente\ClienteEntity;
+use Erro\Erro;
+use Erro\Excecao;
+use Helpers\OrmHelper;
+use Modules\Cpf;
+use Modules\Email;
+use Modules\Telefone;
+use ORM\Entity;
 
 final class SolicitacaoEntity extends Entity
 {
@@ -24,18 +23,18 @@ final class SolicitacaoEntity extends Entity
     public Email $email;
     public Telefone $telefone;
     public Status $status;
-    public Origem $origem;
     public string $mensagem;
     public string $usuario;
     public array $quem_indicou;
+    public array $origem_clube;
     protected string $ormTabela = TABELA_SOLICITACAO_LOJA;
     protected array $ormBuscar = [
-        'id_usuario_cliente', 'nome', 'telefone', 'email', 'mensagem',
-        'origem', 'status', 'data_criacao', 'data_atualizacao'
+        'id_admin_empresa', 'id_usuario_cliente', 'nome', 'telefone', 'email', 'mensagem',
+        'status', 'data_criacao', 'data_atualizacao'
     ];
     protected array $ormInsert = [
         'id_admin_empresa' => '->idEmpresa',
-        'id_usuario_cliente', 'nome', 'telefone', 'email', 'mensagem', 'origem'
+        'id_usuario_cliente', 'nome', 'telefone', 'email', 'mensagem'
     ];
     protected array $ormSalvar = [
         'status'
@@ -45,12 +44,12 @@ final class SolicitacaoEntity extends Entity
         email|Email|obrigatorio|vazio|valido
         telefone|Telefone|obrigatorio|vazio|valido
         mensagem|Mensagem|obrigatorio|vazio
-        origem|Origem|obrigatorio|vazio|valido
         status|Status|obrigatorio|vazio|valido
     ';
+    protected string|int|null $id_admin_empresa;
+    protected string|int|null $id_usuario_cliente;
     private int $idEmpresa;
     private ?int $idUsuario = null;
-    protected string|int|null $id_usuario_cliente;
 
     /**
      * @throws Excecao
@@ -78,7 +77,27 @@ final class SolicitacaoEntity extends Entity
      */
     public function regraPosBuscar(): void
     {
+        $this->setarOrigemClube();
         $this->setarQuemIndicou();
+    }
+
+    private function setarOrigemClube(): void
+    {
+        $ormHelper = new OrmHelper(TABELA_CONSTRUTOR_CLUBE);
+        $Clube = $ormHelper
+            ->pegarUltimoRegistro(
+                ['id_admin_empresa', $this->id_admin_empresa],
+                ['id', 'titulo'],
+                'object'
+            );
+
+        if (empty($Clube->id)) {
+            return;
+        }
+
+        $this->origem_clube = [
+            'titulo' => $Clube->titulo
+        ];
     }
 
     /**

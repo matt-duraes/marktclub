@@ -2334,7 +2334,7 @@ Route
             ::nome('listar')
             ::middleware(TokenMiddleware::class, 'scope', ['solicitacao_loja:listar'])
             ::request([
-                'pagina', '!quantidade', '!ordem', '!nome', '!origem',
+                'pagina', '!quantidade', '!ordem', '!nome',
                 '!data_inicio', '!data_final', '!status'
             ], 'json')
             ::get('/solicitacao-loja');
@@ -2343,7 +2343,7 @@ Route
             ::nome('salvar')
             ::middleware(TokenMiddleware::class, 'scope', ['solicitacao_loja:salvar'])
             ::request([
-                'nome', 'email', 'telefone', 'mensagem', '!usuario', '!origem', '!cpf'
+                'nome', 'email', 'telefone', 'mensagem', '!usuario', '!cpf'
             ])
             ::post('/solicitacao-loja');
 
