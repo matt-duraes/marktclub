@@ -57,14 +57,14 @@ final class DadoModel extends ORM implements ModelListarInterface
                 $Status::ATIVO == $statusIndice
             );
             $retorno[] = [
-                'id'        => $r->uuid,
-                'titulo'    => $r->titulo,
-                'texto'     => $r->texto,
-                'url'       => $r->url,
-                'publicado' => $publicado->indice(),
+                'id'          => $r->uuid,
+                'titulo'      => $r->titulo,
+                'texto'       => $r->texto,
+                'url'         => $r->url,
+                'publicado'   => $publicado->indice(),
                 'data_inicio' => $r->data_inicio,
-                'data_final' => $r->data_final,
-                'status'    => $statusIndice,
+                'data_final'  => $r->data_final,
+                'status'      => $statusIndice,
             ];
         }
         return $retorno;

@@ -33,7 +33,6 @@ final class DadoEntity extends Entity
     protected array $ormBuscar = [
         'titulo', 'texto', 'tipo', 'voto_unico', 'identificar_usuario', 'data_inicio', 'data_final', 'status'
     ];
-
     public string $titulo;
     public string $texto;
     public Tipo $tipo;
