@@ -4,9 +4,10 @@ const blocoFwPopup = document.getElementById('bloco_fw_popup');
 class Popup {
     /**
      * @param {string} titulo Título para o histório ao abrir
-     * @param {element} bloco Elemento
+     * @param {string} id id do elemento que deve ser usuado
      * @param {bool} fechar Se a página terá o botao de fechar
      * @param {bool} historico Se o navegador vai monitorar o histórico para abrir e fechar a página
+     * @param {function} callback Callback caso queira executar alguma função após abrir
      */
     constructor(titulo, id, fechar, historico, callback) {
         if (titulo == undefined || titulo == '') {

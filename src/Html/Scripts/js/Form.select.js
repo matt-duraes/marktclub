@@ -8,16 +8,24 @@ const fwFormBlocoGeralSelect = document.getElementById('fw_form_select');
 const formValue = (input, valor, obrigatorio) => {
     obrigatorio = obrigatorio == undefined ? false : true;
     const bloco = input.closest('.bloco_input, .bloco_editor');
-    if (!bloco) {
+    const eInput = typeof input === 'object' && input.tagName === 'INPUT';
+    if (!bloco && !eInput) {
         return;
     }
-    if (bloco.classList.contains('bloco_editor')) {
+
+    if (bloco && bloco.classList.contains('bloco_editor')) {
         input.value = valor;
         input.dispatchEvent(new Event('formChange'));
         return;
     }
-    const mensagemFooter = bloco.querySelector('.input_mensagem');
-    if (obrigatorio && input.classList.contains('input_obrigatorio') && mensagemFooter && valor == '') {
+    const mensagemFooter = bloco ? bloco.querySelector('.input_mensagem') : undefined;
+    if (
+        mensagemFooter &&
+        obrigatorio &&
+        input.classList.contains('input_obrigatorio') &&
+        mensagemFooter &&
+        valor == ''
+    ) {
         mensagemFooter.innerText = 'Campo obrigatório';
         mensagemFooter.classList.add('ativo');
     } else if (mensagemFooter && (!obrigatorio || valor != '')) {
@@ -26,9 +34,15 @@ const formValue = (input, valor, obrigatorio) => {
         input.classList.remove('input_obrigatorio_ativo');
     }
 
-    if (bloco.classList.contains('input_select')) {
+    if (bloco && bloco.classList.contains('input_select')) {
         formSelectValue(input, valor);
         return;
+    } else if (eInput && input.getAttribute('type') == 'checkbox') {
+        if (valor != 'sim' && valor != true && valor != 'nao' && valor != false && valor != '') {
+            return;
+        }
+        const checked = valor == false || valor == '' || valor == 'nao' ? false : true;
+        input.checked = checked;
     } else if (bloco.classList.contains('input_url')) {
         valor = valor.replace(/^(http:\/\/|https:\/\/)/i, '');
     }

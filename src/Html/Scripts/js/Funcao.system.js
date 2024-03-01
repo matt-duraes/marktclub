@@ -150,7 +150,7 @@ Object.defineProperty(Object.prototype, 'valor', {
                 retorno.push(item.value);
                 continue;
             }
-            item.value = valor;
+            formValue(item, valor);
         }
         if (valor == undefined) {
             return retornoLista ? retorno : retorno[0];
