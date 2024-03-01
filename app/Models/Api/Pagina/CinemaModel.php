@@ -9,7 +9,7 @@ final class CinemaModel extends PaginaPadraoModel
 
     public function __construct()
     {
-        $this->link = 'https://afiliados.easylive.com.br/?aid=5';
+        $this->link = 'https://afiliados.easylive.com.br/?aid=5&category_id=86';
         $this->sessao(function () {
             $this
                 ->bannerDesktop(
