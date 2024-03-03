@@ -202,7 +202,7 @@ Route
             ::nome('listar')
             ::middleware(TokenMiddleware::class, 'scope', ['publicacao_diretoria:listar'])
             ::request([
-                'pagina', '!quantidade', '!ordem', '!pesquisa', '!status'
+                'pagina', '!quantidade', '!pesquisa', '!status'
             ], 'json')
             ::get('/publicacao-diretoria');
 
@@ -231,6 +231,11 @@ Route
             ::nome('deletar')
             ::middleware(TokenMiddleware::class, 'scope', ['publicacao_diretoria:deletar'])
             ::delete('/publicacao-diretoria/{id}');
+        Route
+            ::nome('ordenar')
+            ::middleware(TokenMiddleware::class, 'scope', ['publicacao_diretoria:atualizar'])
+            ::request(['pagina', '!quantidade', 'id'])
+            ::put('/publicacao-diretoria/ordenar');
     });
 
 Route

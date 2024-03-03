@@ -7,10 +7,8 @@ use stdClass;
 use Modules\Pagina;
 use Modules\Quantidade;
 use App\Classes\Geral\Status;
-use System\Trait\Model\OrdemTrait;
 use System\Trait\Model\PaginaTrait;
 use System\Trait\Model\QuantidadeTrait;
-use App\Classes\PublicacaoDiretoria\Ordem;
 use System\Interface\ModelListarInterface;
 use App\Models\Api\Trait\ValidarEmpresaTrait;
 
@@ -20,7 +18,6 @@ final class DiretoriaModel extends ORM implements
     use ValidarEmpresaTrait;
     use PaginaTrait;
     use QuantidadeTrait;
-    use OrdemTrait;
 
     protected string $ormTabela = TABELA_PUBLICACAO_DIRETORIA;
 
@@ -28,7 +25,6 @@ final class DiretoriaModel extends ORM implements
         private Pagina $pagina = new Pagina(null),
         private Quantidade $quantidade = new Quantidade(null),
         private ?string $pesquisa = null,
-        private Ordem $ordem = new Ordem(null),
         private Status $status = new Status(null)
     ) {
         parent::__construct();
@@ -44,7 +40,7 @@ final class DiretoriaModel extends ORM implements
             ])
             ->where($this->pegarWhere(), obrigatorio: false)
             ->pagina($this->pegarPagina(), $this->pegarQuantidade())
-            ->order($this->pegarOrdem())
+            ->order('ordem', 'ASC')
             ->read();
 
         $dado->lista = $this->montardado($dado->lista);

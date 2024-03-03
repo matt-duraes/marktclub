@@ -8,11 +8,13 @@ use Modules\Pagina;
 use Modules\Quantidade;
 use Controller\Controller;
 use App\Classes\Geral\Status;
+use App\Models\Api\OrdenarModel;
 use App\Classes\PublicacaoDiretoria\Ordem;
 use System\Interface\ControllerBuscarInterface;
 use System\Interface\ControllerListarInterface;
 use System\Interface\ControllerSalvarInterface;
 use System\Interface\ControllerDeletarInterface;
+use System\Interface\ControllerOrdenarInterface;
 use System\Interface\ControllerAtualizarInterface;
 use App\Models\Api\PublicacaoDiretoria\DiretoriaModel;
 use App\Models\Api\PublicacaoDiretoria\DiretoriaEntity;
@@ -22,7 +24,8 @@ final class PublicacaoDiretoriaController extends Controller implements
     ControllerBuscarInterface,
     ControllerSalvarInterface,
     ControllerAtualizarInterface,
-    ControllerDeletarInterface
+    ControllerDeletarInterface,
+    ControllerOrdenarInterface
 {
     public function getListar(Request $request): Response
     {
@@ -30,7 +33,6 @@ final class PublicacaoDiretoriaController extends Controller implements
             pagina: new Pagina($request->pagina),
             quantidade: new Quantidade($request->quantidade),
             pesquisa: $request->pesquisa,
-            ordem: new Ordem($request->ordem),
             status: new Status($request->status)
         );
 
@@ -80,6 +82,18 @@ final class PublicacaoDiretoriaController extends Controller implements
         $Diretoria->idSlug($id);
         $Diretoria->set(lista: $dado);
         $Diretoria->salvar();
+
+        return new Response(status: 204);
+    }
+
+    public function putOrdenar(Request $request): Response
+    {
+        new OrdenarModel(
+            id: jsonDecode($request->id, true, true),
+            pagina: new Pagina($request->pagina),
+            quantidade: new Quantidade($request->quantidade),
+            tabela: TABELA_PUBLICACAO_DIRETORIA
+        );
 
         return new Response(status: 204);
     }
