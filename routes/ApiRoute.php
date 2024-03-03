@@ -215,7 +215,7 @@ Route
             ::nome('salvar')
             ::middleware(TokenMiddleware::class, 'scope', ['publicacao_diretoria:salvar'])
             ::request([
-                'nome', 'cargo', 'texto', 'imagem', 'status'
+                'nome', 'cargo', 'texto', 'grupo', 'imagem', 'status'
             ])
             ::post('/publicacao-diretoria');
 
@@ -223,7 +223,7 @@ Route
             ::nome('atualizar')
             ::middleware(TokenMiddleware::class, 'scope', ['publicacao_diretoria:atualizar'])
             ::request([
-                '!nome', '!cargo', '!texto', '!imagem', '!status'
+                '!nome', '!cargo', '!texto', '!grupo', '!imagem', '!status'
             ])
             ::put('/publicacao-diretoria/{id}');
 
@@ -2477,7 +2477,7 @@ Route
                 'rede_twitter_x', 'logo_principal', 'favicon', 'link_site', 'home_banner', 'contato_chat',
                 'home_noticia_principal', 'home_noticia_lista', 'home_parceiro', 'status', 'login_texto',
                 'login_link', 'clube_link', 'rede_header', 'rede_footer', 'rss', 'cor_texto', 'cor_header',
-                'cor_footer', 'noticia_imagem', 'imagem_social'
+                'cor_footer', 'noticia_imagem', 'imagem_social', 'diretoria_tipo'
             ])
             ::post('/site-config');
         Route
@@ -2490,7 +2490,7 @@ Route
                 '!rede_twitter_x', '!logo_principal', '!favicon', '!link_site', '!home_banner', '!contato_chat',
                 '!home_noticia_principal', '!home_noticia_lista', '!home_parceiro', '!status', '!login_texto',
                 '!login_link', '!clube_link', '!rede_header', '!rede_footer', '!rss', '!cor_texto', '!cor_header',
-                '!cor_footer', '!noticia_imagem', '!imagem_social'
+                '!cor_footer', '!noticia_imagem', '!imagem_social', '!diretoria_tipo'
             ])
             ::put('/site-config/{id}');
         Route

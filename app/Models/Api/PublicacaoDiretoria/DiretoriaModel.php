@@ -9,6 +9,7 @@ use Modules\Quantidade;
 use App\Classes\Geral\Status;
 use System\Trait\Model\PaginaTrait;
 use System\Trait\Model\QuantidadeTrait;
+use App\Classes\PublicacaoDiretoria\Grupo;
 use System\Interface\ModelListarInterface;
 use App\Models\Api\Trait\ValidarEmpresaTrait;
 
@@ -36,7 +37,7 @@ final class DiretoriaModel extends ORM implements
     {
         $dado = $this
             ->campo([
-                'uuid', 'nome', 'texto', 'cargo', 'imagem', 'data_criacao', 'status'
+                'uuid', 'nome', 'texto', 'grupo', 'cargo', 'imagem', 'data_criacao', 'status'
             ])
             ->where($this->pegarWhere(), obrigatorio: false)
             ->pagina($this->pegarPagina(), $this->pegarQuantidade())
@@ -54,6 +55,7 @@ final class DiretoriaModel extends ORM implements
         }
 
         $Status = new Status();
+        $Grupo = new Grupo();
         $retorno = [];
         foreach ($lista as $r) {
             $retorno[] = [
@@ -61,6 +63,7 @@ final class DiretoriaModel extends ORM implements
                 'nome'         => $r->nome,
                 'texto'        => $r->texto,
                 'cargo'        => $r->cargo,
+                'grupo'        => $Grupo->indice($r->grupo),
                 'data_criacao' => $r->data_criacao,
                 'imagem'       => !empty($r->imagem) ? arquivoPrivado($r->imagem) : '',
                 'status'       => $Status->indice($r->status)

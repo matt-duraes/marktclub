@@ -64,7 +64,7 @@ final class PublicacaoDiretoriaController extends Controller implements
             dado: pegarPropriedadeDaEntity(
                 $Diretoria,
                 lista: [
-                    'nome', 'texto', 'cargo', 'data_criacao', 'data_atualizacao', 'imagem', 'status'
+                    'nome', 'texto', 'cargo', 'grupo', 'data_criacao', 'data_atualizacao', 'imagem', 'status'
                 ]
             ),
             status: $status

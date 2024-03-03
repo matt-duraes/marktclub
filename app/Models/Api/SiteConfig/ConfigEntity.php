@@ -7,6 +7,7 @@ use Modules\Botao;
 use Modules\Email;
 use Modules\Telefone;
 use App\Classes\Geral\Status;
+use App\Classes\SiteConfig\DiretoriaTipo;
 use App\Classes\SiteConfig\TemplateFooter;
 use App\Classes\SiteConfig\TemplateHeader;
 use App\Models\Api\Trait\ValidarEmpresaTrait;
@@ -22,7 +23,8 @@ final class ConfigEntity extends Entity
         'cor_principal', 'rede_youtube', 'rede_facebook', 'rede_instagram', 'rede_twitter_x', 'logo_principal',
         'favicon', 'link_site', 'home_banner', 'home_noticia_principal', 'home_noticia_lista', 'contato_chat',
         'cor_texto', 'cor_header', 'cor_footer', 'rede_header', 'rede_footer', 'login_texto', 'login_link',
-        'clube_link', 'home_parceiro', 'template_header', 'template_footer', 'rss', 'imagem_social', 'status'
+        'clube_link', 'home_parceiro', 'template_header', 'template_footer', 'rss', 'imagem_social',
+        'diretoria_tipo', 'status'
     ];
     protected array $ormInsert = [
         'id_admin_empresa' => '->idEmpresa'
@@ -33,7 +35,8 @@ final class ConfigEntity extends Entity
         'cor_principal', 'rede_youtube', 'rede_facebook', 'rede_instagram', 'rede_twitter_x', 'logo_principal',
         'favicon', 'link_site', 'home_banner', 'home_noticia_principal', 'home_noticia_lista', 'contato_chat',
         'cor_texto', 'cor_header', 'cor_footer', 'rede_header', 'rede_footer', 'login_texto', 'login_link',
-        'clube_link', 'home_parceiro', 'template_header', 'template_footer', 'rss', 'imagem_social', 'status'
+        'clube_link', 'home_parceiro', 'template_header', 'template_footer', 'rss', 'imagem_social',
+        'diretoria_tipo', 'status'
     ];
     protected string $ormValidarSalvar = '
         titulo|Título|obrigatorio|vazio
@@ -48,6 +51,7 @@ final class ConfigEntity extends Entity
         cor_principal|Cor principal|obrigatorio|vazio
         logo_principal|Logo principal|obrigatorio|vazio
         favicon|Favicon|obrigatorio|vazio
+        diretoria_tipo|Tipo da diretoria|valido
         status|Status|obrigatorio|vazio|valido
     ';
     private int $idEmpresa;
@@ -90,6 +94,7 @@ final class ConfigEntity extends Entity
     public Botao $home_parceiro;
     public Botao $home_galeria;
     public Botao $home_video;
+    public DiretoriaTipo $diretoria_tipo;
     public Status $status;
 
     protected function regraPosBuscar()
