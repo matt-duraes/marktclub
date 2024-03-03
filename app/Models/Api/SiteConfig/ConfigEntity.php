@@ -23,8 +23,8 @@ final class ConfigEntity extends Entity
         'cor_principal', 'rede_youtube', 'rede_facebook', 'rede_instagram', 'rede_twitter_x', 'logo_principal',
         'favicon', 'link_site', 'home_banner', 'home_noticia_principal', 'home_noticia_lista', 'contato_chat',
         'cor_texto', 'cor_header', 'cor_footer', 'rede_header', 'rede_footer', 'login_texto', 'login_link',
-        'clube_link', 'home_parceiro', 'template_header', 'template_footer', 'rss', 'imagem_social',
-        'diretoria_tipo', 'status'
+        'clube_link', 'home_parceiro', 'template_header', 'template_footer', 'rss', 'imagem_social', 'status',
+        'imagem_header', 'altura_header', 'diretoria_tipo'
     ];
     protected array $ormInsert = [
         'id_admin_empresa' => '->idEmpresa'
@@ -35,8 +35,8 @@ final class ConfigEntity extends Entity
         'cor_principal', 'rede_youtube', 'rede_facebook', 'rede_instagram', 'rede_twitter_x', 'logo_principal',
         'favicon', 'link_site', 'home_banner', 'home_noticia_principal', 'home_noticia_lista', 'contato_chat',
         'cor_texto', 'cor_header', 'cor_footer', 'rede_header', 'rede_footer', 'login_texto', 'login_link',
-        'clube_link', 'home_parceiro', 'template_header', 'template_footer', 'rss', 'imagem_social',
-        'diretoria_tipo', 'status'
+        'clube_link', 'home_parceiro', 'template_header', 'template_footer', 'rss', 'imagem_social', 'status',
+        'imagem_header', 'altura_header', 'diretoria_tipo'
     ];
     protected string $ormValidarSalvar = '
         titulo|Título|obrigatorio|vazio
@@ -73,6 +73,8 @@ final class ConfigEntity extends Entity
     public string $cor_principal;
     public string $cor_texto;
     public string $cor_header;
+    public string $imagem_header;
+    public int $altura_header;
     public string $cor_footer;
     public string $rede_youtube;
     public string $rede_facebook;
@@ -99,6 +101,7 @@ final class ConfigEntity extends Entity
 
     protected function regraPosBuscar()
     {
+        $this->imagem_header = arquivoPrivado($this->imagem_header);
         $this->imagem_social = arquivoPrivado($this->imagem_social);
         $this->noticia_imagem = arquivoPrivado($this->noticia_imagem);
         $this->mapa_imagem = arquivoPrivado($this->mapa_imagem);
@@ -117,6 +120,7 @@ final class ConfigEntity extends Entity
 
     protected function regraSalvar()
     {
+        $this->imagem_header = arquivoPrivadoId($this->imagem_header);
         $this->mapa_imagem = arquivoPrivadoId($this->mapa_imagem);
         $this->logo_principal = arquivoPrivadoId($this->logo_principal);
         $this->favicon = arquivoPrivadoId($this->favicon);

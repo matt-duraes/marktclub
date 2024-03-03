@@ -2477,7 +2477,8 @@ Route
                 'rede_twitter_x', 'logo_principal', 'favicon', 'link_site', 'home_banner', 'contato_chat',
                 'home_noticia_principal', 'home_noticia_lista', 'home_parceiro', 'status', 'login_texto',
                 'login_link', 'clube_link', 'rede_header', 'rede_footer', 'rss', 'cor_texto', 'cor_header',
-                'cor_footer', 'noticia_imagem', 'imagem_social', 'diretoria_tipo'
+                'cor_footer', 'imagem_header', 'altura_header', 'noticia_imagem', 'imagem_social',
+                'diretoria_tipo'
             ])
             ::post('/site-config');
         Route
@@ -2490,7 +2491,8 @@ Route
                 '!rede_twitter_x', '!logo_principal', '!favicon', '!link_site', '!home_banner', '!contato_chat',
                 '!home_noticia_principal', '!home_noticia_lista', '!home_parceiro', '!status', '!login_texto',
                 '!login_link', '!clube_link', '!rede_header', '!rede_footer', '!rss', '!cor_texto', '!cor_header',
-                '!cor_footer', '!noticia_imagem', '!imagem_social', '!diretoria_tipo'
+                '!cor_footer', '!imagem_header', '!altura_header', '!noticia_imagem', '!imagem_social',
+                '!diretoria_tipo'
             ])
             ::put('/site-config/{id}');
         Route
@@ -2822,4 +2824,30 @@ Route
             ::nome('deletar')
             ::middleware(TokenMiddleware::class, 'scope', ['votacao_resposta:deletar'])
             ::delete('/votacao-resposta/{id}');
+    });
+Route
+    ::nome('votacao_usuario')
+    ::middleware(TokenMiddleware::class, 'token')
+    ::controller(App\Controllers\Api\Votacao\UsuarioController::class)
+    ::grupo(function () {
+        Route
+            ::nome('validar')
+            ::middleware(TokenMiddleware::class, 'scope', ['votacao_usuario:validar'])
+            ::request([
+                'votacao', 'usuario'
+            ])
+            ::post('/votacao-usuario/validar');
+    });
+Route
+    ::nome('votacao_voto')
+    ::middleware(TokenMiddleware::class, 'token')
+    ::controller(App\Controllers\Api\Votacao\VotoController::class)
+    ::grupo(function () {
+        Route
+            ::nome('salvar')
+            ::middleware(TokenMiddleware::class, 'scope', ['votacao_voto:salvar'])
+            ::request([
+                'votacao', 'usuario', 'resposta'
+            ])
+            ::post('/votacao-voto');
     });

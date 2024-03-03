@@ -55,7 +55,7 @@ final class DadoController extends Controller implements
             dado: pegarPropriedadeDaEntity(
                 Entity: $Votacao,
                 lista: [
-                    'titulo', 'texto', 'tipo', 'data_inicio', 'data_final', 'status'
+                    'titulo', 'texto', 'tipo', 'voto_unico', 'data_inicio', 'data_final', 'publicado', 'status'
                 ]
             ),
             status: $status

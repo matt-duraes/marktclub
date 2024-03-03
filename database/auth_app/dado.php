@@ -205,6 +205,8 @@ $scope = [
     'votacao_dado:buscar', 'votacao_dado:listar', 'votacao_dado:salvar', 'votacao_dado:atualizar', 'votacao_dado:deletar',
     'votacao_pergunta:buscar', 'votacao_pergunta:listar', 'votacao_pergunta:salvar', 'votacao_pergunta:atualizar', 'votacao_pergunta:deletar',
     'votacao_resposta:buscar', 'votacao_resposta:listar', 'votacao_resposta:salvar', 'votacao_resposta:atualizar', 'votacao_resposta:deletar',
+    'votacao_usuario:validar',
+    'votacao_voto:salvar',
 ];
 
 return [
