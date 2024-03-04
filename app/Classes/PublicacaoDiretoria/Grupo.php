@@ -9,27 +9,27 @@ final class Grupo extends Status
     public const EMPRESA = [
         'geral'  => [
             'lista'  => [
-                'diretoria' => 'Diretoria Executiva'
+                'diretoria-executiva' => 'Diretoria Executiva'
             ],
             'numero' => [1]
         ],
         'marktclub'  => [
             'lista'  => [
-                'diretoria' => 'Diretoria Executiva',
-                'conselho'  => 'Conselho Fiscal'
+                'diretoria-executiva' => 'Diretoria Executiva',
+                'conselho-fiscal'     => 'Conselho Fiscal'
             ],
             'numero' => [1, 2]
         ],
         'sinpefrs' => [
             'lista'  => [
-                'diretoria'       => 'Diretoria Executiva',
-                'conselho-fiscal' => 'Conselho Fiscal'
+                'diretoria-executiva' => 'Diretoria Executiva',
+                'conselho-fiscal'     => 'Conselho Fiscal'
             ],
             'numero' => [1, 2]
         ],
         'sinpefpr' => [
             'lista'  => [
-                'diretoria'              => 'Diretoria Executiva',
+                'diretoria-executiva'    => 'Diretoria Executiva',
                 'conselho-fiscal'        => 'Conselho Fiscal',
                 'representante-estadual' => 'Representantes Estaduais',
             ],

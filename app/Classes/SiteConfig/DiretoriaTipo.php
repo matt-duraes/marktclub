@@ -13,7 +13,7 @@ final class DiretoriaTipo extends StatusStatus
         protected string|int|null $valor = null
     ) {
         parent::__construct([
-            self::LISTA => 'Lista',
+            self::LISTA  => 'Lista',
             self::COLUNA => 'Coluna',
         ]);
     }

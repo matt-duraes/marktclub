@@ -9,7 +9,6 @@ use Modules\Quantidade;
 use Controller\Controller;
 use App\Classes\Geral\Status;
 use App\Models\Api\OrdenarModel;
-use App\Classes\PublicacaoDiretoria\Ordem;
 use System\Interface\ControllerBuscarInterface;
 use System\Interface\ControllerListarInterface;
 use System\Interface\ControllerSalvarInterface;
