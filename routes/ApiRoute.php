@@ -2656,7 +2656,7 @@ Route
             ::nome('listar')
             ::middleware(TokenMiddleware::class, 'scope', ['album_dado:listar'])
             ::request([
-                'pagina', '!pesquisa', '!restrita', '!site', '!publicado', '!data_inicio_de',
+                'pagina', '!quantidade', '!pesquisa', '!restrita', '!site', '!publicado', '!data_inicio_de',
                 '!data_inicio_ate', '!ordem', '!status'
             ], 'json')
             ::get('/album-dado');
