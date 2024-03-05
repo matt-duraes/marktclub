@@ -213,7 +213,7 @@ final class Request extends Psr7Request
         $dado = [];
 
         for ($i = 0; $i < count($inputExplode);) {
-            if (preg_match('/^-{1,}[a-f0-9]+/', $inputExplode[$i])) {
+            if (preg_match('/^-{1,}[a-fA-Z0-9\-]+/', $inputExplode[$i])) {
                 $numeroInidice = $i + 1;
                 $numeroValor = $i + 3;
                 if (
