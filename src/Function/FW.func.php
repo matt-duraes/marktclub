@@ -1676,7 +1676,7 @@ if (!function_exists('arquivoPrivadoId')) {
      */
     function arquivoPrivadoId(string $link)
     {
-        if (validarUuid($link, false)) {
+        if (empty($link) || validarUuid($link, false)) {
             return $link;
         }
         $cifra = 'AES-256-CBC';

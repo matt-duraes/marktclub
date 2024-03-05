@@ -202,7 +202,7 @@ Route
             ::nome('listar')
             ::middleware(TokenMiddleware::class, 'scope', ['publicacao_diretoria:listar'])
             ::request([
-                'pagina', '!quantidade', '!ordem', '!pesquisa', '!status'
+                'pagina', '!quantidade', '!pesquisa', '!status'
             ], 'json')
             ::get('/publicacao-diretoria');
 
@@ -215,7 +215,7 @@ Route
             ::nome('salvar')
             ::middleware(TokenMiddleware::class, 'scope', ['publicacao_diretoria:salvar'])
             ::request([
-                'nome', 'cargo', 'texto', 'imagem', 'status'
+                'nome', 'cargo', 'texto', 'grupo', 'imagem', 'status'
             ])
             ::post('/publicacao-diretoria');
 
@@ -223,7 +223,7 @@ Route
             ::nome('atualizar')
             ::middleware(TokenMiddleware::class, 'scope', ['publicacao_diretoria:atualizar'])
             ::request([
-                '!nome', '!cargo', '!texto', '!imagem', '!status'
+                '!nome', '!cargo', '!texto', '!grupo', '!imagem', '!status'
             ])
             ::put('/publicacao-diretoria/{id}');
 
@@ -231,6 +231,11 @@ Route
             ::nome('deletar')
             ::middleware(TokenMiddleware::class, 'scope', ['publicacao_diretoria:deletar'])
             ::delete('/publicacao-diretoria/{id}');
+        Route
+            ::nome('ordenar')
+            ::middleware(TokenMiddleware::class, 'scope', ['publicacao_diretoria:atualizar'])
+            ::request(['pagina', '!quantidade', 'id'])
+            ::put('/publicacao-diretoria/ordenar');
     });
 
 Route
@@ -2469,10 +2474,11 @@ Route
                 '!empresa', 'titulo_painel', 'titulo', 'descricao', 'contato_telefone', 'template_header',
                 'template_footer', 'contato_celular', 'contato_whatsapp', 'contato_email', 'contato_endereco',
                 'mapa_imagem', 'mapa_link', 'cor_principal', 'rede_youtube', 'rede_facebook', 'rede_instagram',
-                'rede_twitter_x', 'logo_principal', 'favicon', 'link_site', 'home_banner', 'contato_chat',
-                'home_noticia_principal', 'home_noticia_lista', 'home_parceiro', 'status', 'login_texto',
-                'login_link', 'clube_link', 'rede_header', 'rede_footer', 'rss', 'cor_texto', 'cor_header',
-                'cor_footer', 'imagem_header', 'altura_header', 'noticia_imagem', 'imagem_social'
+                'rede_twitter_x', 'rede_spotify', 'logo_principal', 'favicon', 'link_site', 'home_banner',
+                'contato_chat', 'home_noticia_principal', 'home_noticia_lista', 'home_parceiro', 'status',
+                'login_texto', 'login_link', 'clube_link', 'rede_header', 'rede_footer', 'rss', 'cor_texto',
+                'cor_header', 'cor_footer', 'imagem_header', 'altura_header', 'noticia_imagem', 'imagem_social',
+                'diretoria_tipo'
             ])
             ::post('/site-config');
         Route
@@ -2485,7 +2491,8 @@ Route
                 '!rede_twitter_x', '!logo_principal', '!favicon', '!link_site', '!home_banner', '!contato_chat',
                 '!home_noticia_principal', '!home_noticia_lista', '!home_parceiro', '!status', '!login_texto',
                 '!login_link', '!clube_link', '!rede_header', '!rede_footer', '!rss', '!cor_texto', '!cor_header',
-                '!cor_footer', '!imagem_header', '!altura_header', '!noticia_imagem', '!imagem_social'
+                '!cor_footer', '!imagem_header', '!altura_header', '!noticia_imagem', '!imagem_social',
+                '!diretoria_tipo', '!rede_spotify'
             ])
             ::put('/site-config/{id}');
         Route
@@ -2649,7 +2656,7 @@ Route
             ::nome('listar')
             ::middleware(TokenMiddleware::class, 'scope', ['album_dado:listar'])
             ::request([
-                'pagina', '!pesquisa', '!restrita', '!site', '!publicado', '!data_inicio_de',
+                'pagina', '!quantidade', '!pesquisa', '!restrita', '!site', '!publicado', '!data_inicio_de',
                 '!data_inicio_ate', '!ordem', '!status'
             ], 'json')
             ::get('/album-dado');

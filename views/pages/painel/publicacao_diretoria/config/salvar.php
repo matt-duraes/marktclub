@@ -2,7 +2,7 @@
 
 return [
     'salvar' => [
-        'nome', 'cargo', 'texto', 'imagem', 'status'
+        'nome', 'cargo', 'texto', 'grupo', 'imagem', 'status'
     ],
     'html' => ['texto']
 ];

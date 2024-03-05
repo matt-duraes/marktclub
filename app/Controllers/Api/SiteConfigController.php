@@ -58,7 +58,7 @@ final class SiteConfigController extends Controller implements
                     'cor_texto', 'cor_header', 'cor_footer', 'rede_header', 'rede_footer', 'rss', 'login_texto',
                     'login_link', 'clube_link', 'home_banner', 'home_noticia_principal', 'home_noticia_lista',
                     'home_parceiro', 'home_video', 'home_galeria', 'noticia_imagem', 'imagem_social',
-                    'imagem_header', 'altura_header', 'status'
+                    'imagem_header', 'altura_header', 'diretoria_tipo', 'rede_spotify', 'status'
                 ]
             ),
             status: $status
