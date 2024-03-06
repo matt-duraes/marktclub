@@ -15,8 +15,8 @@ final class ConstrutorEntity extends Entity
     protected string $ormTabela = TABELA_CONSTRUTOR_CLUBE;
     protected array $ormBuscar = [
         'id_admin_empresa', 'link_clube', 'link_cadastro', 'link_salavip', 'link_odontologico',
-        'menu_turismo', 'menu_credito_sicoob', 'logo_principal', 'logo_secundaria', 'favicon', 'titulo',
-        'contato_telefone', 'contato_email', 'contato_whatsapp', 'contato_endereco', 'contato_horario',
+        'menu_turismo', 'menu_credito_sicoob', 'logo_principal', 'logo_secundaria', 'favicon', 'logo_footer',
+        'titulo', 'contato_telefone', 'contato_email', 'contato_whatsapp', 'contato_endereco', 'contato_horario',
         'link_app_android', 'link_app_ios', 'header_tag', 'header_descricao', 'menu_loja', 'menu_saude_cnu',
         'menu_mapa', 'menu_cinema', 'menu_historico', 'menu_acesso_rapido', 'menu_saude_florianopolis', 'tela_login',
         'menu_farmacia', 'menu_automovel', 'menu_saude_vitoria', 'menu_saude_amil', 'menu_saude_seguro',
@@ -29,8 +29,8 @@ final class ConstrutorEntity extends Entity
     ];
     protected array $ormSalvar = [
         'id_admin_empresa', 'link_clube', 'link_cadastro', 'link_salavip', 'link_odontologico',
-        'menu_turismo', 'menu_credito_sicoob', 'logo_principal', 'logo_secundaria', 'favicon', 'titulo',
-        'contato_telefone', 'contato_email', 'contato_whatsapp', 'contato_endereco', 'contato_horario', 'tela_login',
+        'menu_turismo', 'menu_credito_sicoob', 'logo_principal', 'logo_secundaria', 'favicon', 'logo_footer',
+        'titulo', 'contato_telefone', 'contato_email', 'contato_whatsapp', 'contato_endereco', 'contato_horario', 'tela_login',
         'link_app_android', 'link_app_ios', 'header_tag', 'header_descricao', 'menu_loja', 'menu_saude_cnu',
         'menu_mapa', 'menu_cinema', 'menu_historico', 'menu_acesso_rapido', 'menu_ponto_mais_acao', 'menu_saude_florianopolis',
         'menu_farmacia', 'menu_automovel', 'menu_saude_vitoria', 'menu_saude_amil', 'menu_saude_seguro',
@@ -47,6 +47,7 @@ final class ConstrutorEntity extends Entity
     public string $logo_principal;
     public string $logo_secundaria;
     public string $logo_marktclub;
+    public string $logo_footer;
     public string $titulo;
     public string $link_clube;
     public string $link_app_android;
@@ -129,6 +130,9 @@ final class ConstrutorEntity extends Entity
         if ($this->propriedadeExiste('logo_secundaria') && !empty($this->logo_secundaria)) {
             $this->logo_secundaria = arquivoPrivadoId($this->logo_secundaria);
         }
+        if ($this->propriedadeExiste('logo_footer') && !empty($this->logo_footer)) {
+            $this->logo_footer = arquivoPrivadoId($this->logo_footer);
+        }
         if ($this->propriedadeExiste('empresa') && !empty($this->empresa)) {
             $this->id_admin_empresa = $this->ormEmpresa->pegarIdPeloUuid($this->empresa);
         }
@@ -141,6 +145,7 @@ final class ConstrutorEntity extends Entity
         $this->favicon = arquivoPrivado($this->favicon);
         $this->logo_principal = arquivoPrivado($this->logo_principal);
         $this->logo_secundaria = arquivoPrivado($this->logo_secundaria);
+        $this->logo_footer = arquivoPrivado($this->logo_footer);
         $this->logo_marktclub = LINK_ARQUIVO . '/construtor/a2ca966d45780803f2497bd2a77b0e3b.png';
     }
 }

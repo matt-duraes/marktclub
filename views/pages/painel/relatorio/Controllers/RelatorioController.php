@@ -84,11 +84,11 @@ final class RelatorioController extends Controller
         $Api = new ApiHelper(token: true);
         $dado = $Api
             ->json($body)->get('/relatorio/acesso-dia')
-            ->object();
+            ->object()->dado ?? [];
 
         $Montar = new MontarRelatorioModel();
-        $relatorio = $Montar->montarLinha($dado->dado, 'data', ['total' => 'Total', 'unico' => 'Unico']);
-        $relatorio = $Montar->montarHeaderUsuarioAcesso($dado->dado, $relatorio);
+        $relatorio = $Montar->montarLinha($dado, 'data', ['total' => 'Total', 'unico' => 'Unico']);
+        $relatorio = $Montar->montarHeaderUsuarioAcesso($dado, $relatorio);
 
         return mensagemSucesso($relatorio);
     }
@@ -157,10 +157,10 @@ final class RelatorioController extends Controller
         $dado = $Api
             ->json($body)
             ->get('/relatorio/' . $tipo)
-            ->object();
+            ->object()->dado ?? [];
 
         $Montar = new MontarRelatorioModel();
-        $dado = $Montar->montarPizza($dado->dado, $tipo);
+        $dado = $Montar->montarPizza($dado, $tipo);
 
         return mensagemSucesso($dado);
     }
@@ -200,17 +200,17 @@ final class RelatorioController extends Controller
         $dado = $Api
             ->json($body)
             ->get('/relatorio/dado-usuario')
-            ->object();
+            ->object()->dado ?? [];
 
         $Montar = new MontarRelatorioModel();
         return mensagemSucesso([
-            'status'         => $Montar->montarRelatorioStatus($dado->dado->status),
-            'estado'         => $Montar->montarRelatorioEstado($dado->dado->estado),
-            'genero'         => $Montar->montarPizza($dado->dado->genero->lista, 'genero'),
-            'faixa_etaria'   => $Montar->montarPizza($dado->dado->faixa_etaria->lista, 'faixa_etaria'),
-            'atualizar_dado' => $Montar->montarPizza($dado->dado->atualizar_dado->lista, 'tempo'),
-            'estado_civil'   => $Montar->montarPizza($dado->dado->estado_civil->lista, 'estado_civil'),
-            'situacao'       => $Montar->montarPizza($dado->dado->situacao->lista, 'situacao'),
+            'status'         => $Montar->montarRelatorioStatus($dado->status),
+            'estado'         => $Montar->montarRelatorioEstado($dado->estado),
+            'genero'         => $Montar->montarPizza($dado->genero->lista, 'genero'),
+            'faixa_etaria'   => $Montar->montarPizza($dado->faixa_etaria->lista, 'faixa_etaria'),
+            'atualizar_dado' => $Montar->montarPizza($dado->atualizar_dado->lista, 'tempo'),
+            'estado_civil'   => $Montar->montarPizza($dado->estado_civil->lista, 'estado_civil'),
+            'situacao'       => $Montar->montarPizza($dado->situacao->lista, 'situacao'),
         ]);
     }
 

@@ -1212,9 +1212,9 @@ Route
             ::nome('salvar')
             ::middleware(TokenMiddleware::class, 'scope', ['construtor_clube:salvar'])
             ::request([
-                'empresa', 'titulo', 'logo_principal', 'logo_secundaria', 'favicon', 'header_tag', 'header_descricao',
-                '!cor_principal', '!cor_secundaria', 'link_clube', 'link_login', 'link_cadastro', 'link_salavip',
-                'link_app_ios', 'link_app_android', 'contato_telefone', 'contato_whatsapp', 'contato_email',
+                'empresa', 'titulo', 'logo_principal', 'logo_secundaria', 'favicon', '!logo_footer', 'header_tag',
+                'header_descricao', '!cor_principal', '!cor_secundaria', 'link_clube', 'link_login', 'link_cadastro',
+                'link_salavip', 'link_app_ios', 'link_app_android', 'contato_telefone', 'contato_whatsapp', 'contato_email',
                 'contato_horario', 'contato_endereco', 'menu_faq', 'menu_como_funciona', 'menu_samsung',
                 'menu_sair', 'menu_acesso_rapido', 'menu_loja', 'menu_mapa', 'menu_cinema',
                 'menu_turismo', 'menu_historico', 'menu_farmacia', 'menu_automovel', 'menu_tema',
@@ -1231,8 +1231,8 @@ Route
             ::nome('atualizar')
             ::middleware(TokenMiddleware::class, 'scope', ['construtor_clube:atualizar'])
             ::request([
-                '!empresa', '!titulo', '!logo_principal', '!logo_secundaria', '!favicon', '!header_tag',
-                '!header_descricao', '!cor_principal', '!cor_secundaria', '!link_clube',
+                '!empresa', '!titulo', '!logo_principal', '!logo_secundaria', '!favicon', '!logo_footer',
+                '!header_tag', '!header_descricao', '!cor_principal', '!cor_secundaria', '!link_clube',
                 '!link_login', '!link_cadastro', '!link_salavip', '!link_app_ios', '!menu_samsung',
                 '!link_app_android', '!contato_telefone', '!contato_whatsapp', '!contato_email',
                 '!contato_horario', '!contato_endereco', '!menu_faq', '!menu_como_funciona',
@@ -2339,7 +2339,7 @@ Route
             ::nome('listar')
             ::middleware(TokenMiddleware::class, 'scope', ['solicitacao_loja:listar'])
             ::request([
-                'pagina', '!quantidade', '!ordem', '!nome', '!origem',
+                'pagina', '!quantidade', '!ordem', '!nome',
                 '!data_inicio', '!data_final', '!status'
             ], 'json')
             ::get('/solicitacao-loja');
@@ -2348,7 +2348,7 @@ Route
             ::nome('salvar')
             ::middleware(TokenMiddleware::class, 'scope', ['solicitacao_loja:salvar'])
             ::request([
-                'nome', 'email', 'telefone', 'mensagem', '!usuario', '!origem', '!cpf'
+                'nome', 'email', 'telefone', 'mensagem', '!usuario', '!cpf'
             ])
             ::post('/solicitacao-loja');
 

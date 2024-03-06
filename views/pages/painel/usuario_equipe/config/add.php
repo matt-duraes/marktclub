@@ -40,12 +40,13 @@ $Painel->coluna(callback: function () use ($Painel) {
                 ])
                 ->get('/comercial-subempresa/select')
                 ->array()['dado'] ?? [];
+
             if (empty(sessao('USUARIO.subempresa'))) {
                 $Painel
                     ->select(
                         name: 'subempresa',
                         lista: $subempresaLista,
-                        label: 'Subempresa',
+                        label: 'Subempresa'
                     );
             }
         }

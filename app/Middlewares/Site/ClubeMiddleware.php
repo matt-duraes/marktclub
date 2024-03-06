@@ -98,6 +98,7 @@ final class ClubeMiddleware extends ApiHelper
         define('CLUBE_LOGO_SECUNDARIA', !empty($clube->logo_secundaria) ? $clube->logo_secundaria : $clube->logo_principal);
         define('CLUBE_LOGO_CLASSE', empty($clube->logo_secundaria) ? 'cor_fundo' : '');
         define('CLUBE_FAVICON', $clube->favicon);
+        define('CLUBE_LOGO_FOOTER', $clube->logo_footer);
         define('CLUBE_TITULO', $clube->titulo);
         define('CLUBE_ID', $clube->id);
         define('CLUBE_COR_PRINCIPAL', $clube->cor_principal);

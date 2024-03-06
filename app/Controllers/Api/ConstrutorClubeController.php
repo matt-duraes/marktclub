@@ -71,7 +71,7 @@ final class ConstrutorClubeController extends Controller implements
             pegarPropriedadeDaEntity(
                 $Construtor,
                 lista: [
-                    'empresa', 'titulo', 'logo_principal', 'logo_secundaria', 'favicon', 'header_tag',
+                    'empresa', 'titulo', 'logo_principal', 'logo_secundaria', 'favicon', 'logo_footer', 'header_tag',
                     'cor_principal', 'cor_secundaria', 'link_clube', 'link_login', 'link_cadastro',
                     'link_salavip', 'link_app_ios', 'link_app_android', 'contato_telefone', 'contato_whatsapp',
                     'contato_email', 'contato_horario', 'contato_endereco', 'menu_faq', 'menu_como_funciona',
