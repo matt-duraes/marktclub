@@ -90,7 +90,7 @@ trait ReadTrait
     public function existe(array $where): bool
     {
         $this->ormResetarOrm();
-        $this->campo(['id'])->where($where)->limit(0, 1);
+        $this->where($where)->limit(0, 1);
         $query = $this->ormExecute($this->ormMontarQueryString(), $this->ormCondicaoValue);
         if (!$query instanceof PDOStatement) {
             throw new Excecao(titulo: 'Erro na busca!', mensagem: is_string($query) && SISTEMA != 'PRODUCAO' ? $query : 'Ocorreu um erro ao verificar se a busca existe.');

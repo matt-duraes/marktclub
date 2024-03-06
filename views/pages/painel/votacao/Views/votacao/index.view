@@ -1,12 +1,10 @@
-<div class="bloco_fieldset" id="bloco_dependente">
+<div class="bloco_fieldset" id="bloco_votacao">
     <h2>Perguntas</h2>
-    <div class="lista_dado">
-        <div class="botao_link" id="botao_adicionar_pergunta">Adicionar pergunta</div>
-    </div>
+    <div class="botao_pequeno" id="botao_adicionar_pergunta">Adicionar pergunta</div>
     <div class="bloco_pergunta" id="bloco_pergunta_lista">
-
     </div>
-    <div class="zero" id="bloco_pergunta_zero">Sem perguntas no momento</div>
+    <div class="zero display_none" id="bloco_pergunta_zero">Sem perguntas no momento</div>
+    <div class="zero" id="bloco_pergunta_loading">Carregando perguntas</div>
 </div>
 
 <div class="display_none">
@@ -22,13 +20,6 @@
                     @? formTextarea(name: 'pergunta_texto', label: 'Descrição', placeholder: 'Digite uma descrição')
                     @? formSelect(name: 'pergunta_tipo', label: 'Tipo', placeholder: 'Escolha o tipo da pergunta', obrigatorio: true, lista: (new \App\Classes\Votacao\Pergunta\Tipo())->select('Escolha uma opção'))
                     @? formSwitch(name: 'pergunta_nulo', label: 'A resposta dessa pergunta não é obrigatória')
-
-                    <h2>Respostas:</h2>
-                    <div class="botao_pequeno" id="botao_adicionar_resposta">Adicionar resposta</div>
-                    <div class="lista_resposta" id="bloco_lista_resposta">
-                    </div>
-                    <div class="zero display_none" id="bloco_resposta_loading">Carregando respostas</div>
-                    <div class="zero display_none" id="bloco_resposta_zero">Sem respostas no momento</div>
                 </form>
             </div>
             <div class="footer_pagina_popup">
@@ -37,14 +28,49 @@
             </div>
         </div>
     </div>
+    <div id="bloco_resposta_add">
+        <div class="bloco_pagina_popup conteudo">
+            <header class="header_pagina_popup">
+                <h1>Resposta</h1>
+                <i class="fechar popup_fechar">@iconeFechar</i>
+            </header>
+            <div class="conteudo_pagina_popup">
+                <form action="/" class="form_geral">
+                    @? formInput(name: 'resposta_titulo', label: 'Título', placeholder: 'Digite um título', contador: 50, obrigatorio: true)
+                    @? formInput(name: 'resposta_texto', label: 'Descrição', placeholder: 'Digite uma descricão', contador: 250)
+                    <div class="bloco_metade">
+                        @? formSwitch(name: 'resposta_escrever', label: 'Usuário pode escrever a resposta')
+                        @? formSwitch(name: 'resposta_bloqueada', label: 'Usuário não pode escolher essa resposta')
+                    </div>
+
+                    <div class="bloco_botao">
+                        <div class="botao botao_resposta_salvar">Salvar</div>
+                    </div>
+
+                    <h2>Respostas:</h2>
+                    <div class="lista_resposta bloco_resposta_lista">
+                    </div>
+
+                    <div class="zero display_none bloco_resposta_loading">Carregando respostas</div>
+                    <div class="zero display_none bloco_resposta_zero">Sem respostas no momento</div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <div class="linha" id="bloco_linha_pergunta">
+        <i class="drag">@iconeDrag()</i>
+        <h1></h1>
+        <div class="botao resposta">resposta</div>
+        <div class="botao editar">editar</div>
+        <div class="grow"></div>
+        <div class="botao deletar">deletar</div>
+    </div>
 
     <div class="linha" id="bloco_linha_resposta">
-        @? formInput(name: 'resposta_titulo', label: 'Título', placeholder: 'Digite um título', contador: 50, obrigatorio: true)
-        @? formInput(name: 'resposta_texto', label: 'Descrição', placeholder: 'Digite uma descricão', contador: 250)
         <i class="drag">@iconeDrag()</i>
-        <i class="deletar">@iconeFechar()</i>
-        <div class="quebra"></div>
-        @? formSwitch(name: 'resposta_escrever', label: 'Usuário pode escrever a resposta')
-        @? formSwitch(name: 'resposta_bloqueada', label: 'Usuário não pode escolher essa resposta')
+        <h1></h1>
+        <div class="botao editar">editar</div>
+        <div class="botao deletar">deletar</div>
     </div>
 </div>

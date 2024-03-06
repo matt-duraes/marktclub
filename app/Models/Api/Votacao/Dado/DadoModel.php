@@ -5,6 +5,7 @@ namespace App\Models\Api\Votacao\Dado;
 use ORM\ORM;
 use stdClass;
 use Where\Where;
+use Modules\Botao;
 use Modules\Pagina;
 use Modules\DataHora;
 use Modules\Quantidade;
@@ -28,6 +29,7 @@ final class DadoModel extends ORM implements ModelListarInterface
     public Tipo $tipo;
     public Pagina $pagina;
     public Quantidade $quantidade;
+    public Botao $publicado;
 
     public function listarDados(): stdClass
     {

@@ -5,6 +5,7 @@ namespace App\Models\Api\PublicacaoDiretoria;
 use ORM\Entity;
 use Modules\Nome;
 use App\Classes\Geral\Status;
+use App\Classes\PublicacaoDiretoria\Grupo;
 use App\Models\Api\Trait\ValidarEmpresaTrait;
 
 final class DiretoriaEntity extends Entity
@@ -16,19 +17,21 @@ final class DiretoriaEntity extends Entity
         'id_admin_empresa'  => '->idEmpresa'
     ];
     protected array $ormSalvar = [
-        'nome', 'texto', 'cargo', 'imagem', 'ordem', 'status'
+        'nome', 'texto', 'cargo', 'grupo', 'imagem', 'ordem', 'status'
     ];
     protected array $ormBuscar = [
-        'nome', 'texto', 'cargo', 'imagem', 'ordem', 'imagem', 'data_criacao', 'data_atualizacao', 'status'
+        'nome', 'texto', 'cargo', 'grupo', 'imagem', 'ordem', 'imagem', 'data_criacao', 'data_atualizacao', 'status'
     ];
     protected string $ormValidarSalvar = '
         nome|Nome|obrigatorio|vazio|valido
+        grupo|Grupo|obrigatorio|vazio|valido
         status|Status|obrigatorio|vazio|valido
     ';
     public Nome $nome;
     public string $texto;
     public string $imagem;
     public string $cargo;
+    public Grupo $grupo;
     public Status $status;
     private int $idEmpresa;
     public int $ordem;
@@ -43,6 +46,11 @@ final class DiretoriaEntity extends Entity
     protected function regraSalvar()
     {
         $this->imagem = arquivoPrivadoId($this->imagem);
+    }
+
+    protected function regraInsert()
+    {
+        $this->ordem = 999;
     }
 
     protected function regraPosBuscar()

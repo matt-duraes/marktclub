@@ -1,0 +1,1 @@
+{"id":"id_09ba9b95b3020fbd94f160503303fbfc","token":"token","metodo":"POST","nome":"\/usuario-lead","uri":"{{LINK}}\/usuario-lead","parametro":[],"body":[],"header":[],"variavel":[],"json":[],"documentacao":{"status":false,"descricao":"","requisicao":"","resposta":"","scope":"usuario_lead:buscar"}}

@@ -1,6 +1,7 @@
 <?php
 
 use App\Classes\Geral\Status;
+use App\Classes\PublicacaoDiretoria\Grupo;
 
 $Painel = new PainelConfig\Add(app: 'publicidade_diretoria', acao: $acao);
 $diretorioImagem = sessao('PAINEL.upload_grupo')['imagem'] ?? '';
@@ -20,6 +21,12 @@ $Painel->coluna(callback: function () use ($Painel, $diretorioImagem) {
                 obrigatorio: true
             )
             ->input(name: 'cargo', label: 'Cargo', placeholder: 'Digite um cargo', contador: 100)
+            ->select(
+                name: 'grupo',
+                label: 'Grupo',
+                placeholder: 'Escolha um grupo',
+                lista: (new Grupo())->select('Escolha uma opção')
+            )
             ->select(
                 name: 'status',
                 label: 'Status',

@@ -7,6 +7,7 @@ use Modules\Botao;
 use Modules\Email;
 use Modules\Telefone;
 use App\Classes\Geral\Status;
+use App\Classes\SiteConfig\DiretoriaTipo;
 use App\Classes\SiteConfig\TemplateFooter;
 use App\Classes\SiteConfig\TemplateHeader;
 use App\Models\Api\Trait\ValidarEmpresaTrait;
@@ -22,7 +23,8 @@ final class ConfigEntity extends Entity
         'cor_principal', 'rede_youtube', 'rede_facebook', 'rede_instagram', 'rede_twitter_x', 'logo_principal',
         'favicon', 'link_site', 'home_banner', 'home_noticia_principal', 'home_noticia_lista', 'contato_chat',
         'cor_texto', 'cor_header', 'cor_footer', 'rede_header', 'rede_footer', 'login_texto', 'login_link',
-        'clube_link', 'home_parceiro', 'template_header', 'template_footer', 'rss', 'imagem_social', 'status'
+        'clube_link', 'home_parceiro', 'template_header', 'template_footer', 'rss', 'imagem_social', 'status',
+        'imagem_header', 'altura_header', 'rede_spotify', 'diretoria_tipo'
     ];
     protected array $ormInsert = [
         'id_admin_empresa' => '->idEmpresa'
@@ -33,7 +35,8 @@ final class ConfigEntity extends Entity
         'cor_principal', 'rede_youtube', 'rede_facebook', 'rede_instagram', 'rede_twitter_x', 'logo_principal',
         'favicon', 'link_site', 'home_banner', 'home_noticia_principal', 'home_noticia_lista', 'contato_chat',
         'cor_texto', 'cor_header', 'cor_footer', 'rede_header', 'rede_footer', 'login_texto', 'login_link',
-        'clube_link', 'home_parceiro', 'template_header', 'template_footer', 'rss', 'imagem_social', 'status'
+        'clube_link', 'home_parceiro', 'template_header', 'template_footer', 'rss', 'imagem_social', 'status',
+        'imagem_header', 'altura_header', 'rede_spotify', 'diretoria_tipo'
     ];
     protected string $ormValidarSalvar = '
         titulo|Título|obrigatorio|vazio
@@ -48,6 +51,7 @@ final class ConfigEntity extends Entity
         cor_principal|Cor principal|obrigatorio|vazio
         logo_principal|Logo principal|obrigatorio|vazio
         favicon|Favicon|obrigatorio|vazio
+        diretoria_tipo|Tipo da diretoria|valido
         status|Status|obrigatorio|vazio|valido
     ';
     private int $idEmpresa;
@@ -69,11 +73,14 @@ final class ConfigEntity extends Entity
     public string $cor_principal;
     public string $cor_texto;
     public string $cor_header;
+    public string $imagem_header;
+    public int $altura_header;
     public string $cor_footer;
     public string $rede_youtube;
     public string $rede_facebook;
     public string $rede_instagram;
     public string $rede_twitter_x;
+    public string $rede_spotify;
     public Botao $rede_header;
     public Botao $rede_footer;
     public Botao $rss;
@@ -90,10 +97,12 @@ final class ConfigEntity extends Entity
     public Botao $home_parceiro;
     public Botao $home_galeria;
     public Botao $home_video;
+    public DiretoriaTipo $diretoria_tipo;
     public Status $status;
 
     protected function regraPosBuscar()
     {
+        $this->imagem_header = arquivoPrivado($this->imagem_header);
         $this->imagem_social = arquivoPrivado($this->imagem_social);
         $this->noticia_imagem = arquivoPrivado($this->noticia_imagem);
         $this->mapa_imagem = arquivoPrivado($this->mapa_imagem);
@@ -112,6 +121,7 @@ final class ConfigEntity extends Entity
 
     protected function regraSalvar()
     {
+        $this->imagem_header = arquivoPrivadoId($this->imagem_header);
         $this->mapa_imagem = arquivoPrivadoId($this->mapa_imagem);
         $this->logo_principal = arquivoPrivadoId($this->logo_principal);
         $this->favicon = arquivoPrivadoId($this->favicon);

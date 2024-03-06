@@ -1,1 +1,0 @@
-{"id":"id_ccff0266206303ea7fb5a7005b36245a","token":"painel","metodo":"DELETE","nome":"\/votacao-dado\/:id","uri":"{{LINK}}\/votacao-dado\/$ID_VOTACAO_DADO","parametro":[],"body":[],"header":[],"variavel":[],"json":[],"documentacao":{"status":false,"descricao":"","requisicao":"","resposta":"","scope":"votacao:deletar"}}
