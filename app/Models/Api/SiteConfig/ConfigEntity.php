@@ -24,7 +24,7 @@ final class ConfigEntity extends Entity
         'favicon', 'link_site', 'home_banner', 'home_noticia_principal', 'home_noticia_lista', 'contato_chat',
         'cor_texto', 'cor_header', 'cor_footer', 'rede_header', 'rede_footer', 'login_texto', 'login_link',
         'clube_link', 'home_parceiro', 'template_header', 'template_footer', 'rss', 'imagem_social', 'status',
-        'imagem_header', 'altura_header', 'rede_spotify', 'diretoria_tipo'
+        'imagem_header', 'altura_header', 'rede_spotify', 'rede_linkedin', 'diretoria_tipo'
     ];
     protected array $ormInsert = [
         'id_admin_empresa' => '->idEmpresa'
@@ -36,7 +36,7 @@ final class ConfigEntity extends Entity
         'favicon', 'link_site', 'home_banner', 'home_noticia_principal', 'home_noticia_lista', 'contato_chat',
         'cor_texto', 'cor_header', 'cor_footer', 'rede_header', 'rede_footer', 'login_texto', 'login_link',
         'clube_link', 'home_parceiro', 'template_header', 'template_footer', 'rss', 'imagem_social', 'status',
-        'imagem_header', 'altura_header', 'rede_spotify', 'diretoria_tipo'
+        'imagem_header', 'altura_header', 'rede_spotify', 'rede_linkedin', 'diretoria_tipo'
     ];
     protected string $ormValidarSalvar = '
         titulo|Título|obrigatorio|vazio
@@ -78,6 +78,7 @@ final class ConfigEntity extends Entity
     public string $cor_footer;
     public string $rede_youtube;
     public string $rede_facebook;
+    public string $rede_linkedin;
     public string $rede_instagram;
     public string $rede_twitter_x;
     public string $rede_spotify;
