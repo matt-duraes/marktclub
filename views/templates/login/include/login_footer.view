@@ -1,4 +1,10 @@
 <footer id="bloco_footer">
+    @if (!empty(CLUBE_LOGO_FOOTER)) :
+    <div class="logo_footer">
+        <img src="{{CLUBE_LOGO_FOOTER}}">
+    </div>
+    @endif;
+
     <div class="centralizar">
         <ul>
             @ if (!empty(CONTATO_TELEFONE)) :
