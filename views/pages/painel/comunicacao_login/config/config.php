@@ -3,8 +3,8 @@
 return [
     'titulo'     => 'Banners',
     'buscar'     => false,
-    'filtrar'    => false,
-    'ordem'      => false,
+    'filtrar'    => true,
+    'ordem'      => true,
     'visualizar' => false,
     'add'        => true,
     'editar'     => true,

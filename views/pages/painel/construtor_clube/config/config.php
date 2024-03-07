@@ -3,8 +3,8 @@
 return [
     'titulo'     => 'Clube',
     'buscar'     => true,
-    'filtrar'    => false,
-    'ordem'      => false,
+    'filtrar'    => true,
+    'ordem'      => true,
     'visualizar' => false,
     'download'   => false,
     'add'        => true,
@@ -12,7 +12,7 @@ return [
     'deletar'    => true,
     'historico'  => true,
     'api'        => [
-        'scope'        => 'construtor_clube',
-        'uri'          => '/construtor-clube'
+        'scope' => 'construtor_clube',
+        'uri'   => '/construtor-clube'
     ]
 ];
