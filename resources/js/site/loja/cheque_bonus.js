@@ -157,7 +157,6 @@ const salvarChequeBonus = () => {
     };
 };
 const procedimentoChequeBonus = parceiro => {
-    console.log(parceiro);
     const id = parceiro.getAttribute('data-url');
     const PaginaCheque = new Pagina(
         'cheque-bonus-' + id,
