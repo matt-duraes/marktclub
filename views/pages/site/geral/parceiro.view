@@ -34,6 +34,9 @@
         @ elseif( $r->tipo == 'automovel-versao'):
         <p class="valor_destaque">{{$r->valor_por}}</p>
         @ endif;
+        @ if($r->tipo == 'automovel-versao'):
+            <button class="botao_solicitar_declaracao">Solicitar</button>
+        @ endif;
 
         @ if( $r->tipo == 'cashback' ):
         <p>Receba de volta</p>
