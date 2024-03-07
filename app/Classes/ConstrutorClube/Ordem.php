@@ -1,10 +1,10 @@
 <?php
 
-namespace App\Classes\ComunicacaoLogin;
+namespace App\Classes\ConstrutorClube;
 
 use Order\Order;
 
-final class Ordem extends Order
+class Ordem extends Order
 {
     /**
      * @param string|null $valor
@@ -12,7 +12,7 @@ final class Ordem extends Order
     public function __construct(
         protected ?string $valor = null
     ) {
-        $this->tabela(TABELA_COMUNICACAO_LOGIN);
+        $this->tabela(TABELA_CONSTRUTOR_CLUBE);
         $this->padrao('status');
         $this->status();
         $this->maisNovo();
