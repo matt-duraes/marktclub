@@ -156,19 +156,19 @@ const salvarChequeBonus = () => {
         PaginaGeral.fechar();
     };
 };
-const procedimentoChequeBonus = lista => {
-    lista.forEach(botao => {
-        const id = botao.getAttribute('data-url');
-        const PaginaCheque = new Pagina(
-            'cheque-bonus-' + id,
-            LINK + '/convenios/cheque-bonus/' + id,
-            undefined,
-            true,
-            true,
-            salvarChequeBonus
-        );
-        botao.addEventListener('click', () => {
-            PaginaCheque.abrir();
-        });
+const procedimentoChequeBonus = parceiro => {
+    console.log(parceiro);
+    const id = parceiro.getAttribute('data-url');
+    const PaginaCheque = new Pagina(
+        'cheque-bonus-' + id,
+        LINK + '/convenios/cheque-bonus/' + id,
+        undefined,
+        true,
+        true,
+        salvarChequeBonus
+    );
+
+    parceiro.addEventListener('click', () => {
+        PaginaCheque.abrir();
     });
 };
