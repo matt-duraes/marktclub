@@ -1,5 +1,21 @@
 @template "site"
 
+@if (sessao('popupAlerta')) :
+
+@php sessao('popupAlerta', false)
+
+<div class="bloco_pagina_popup display_none" id="popup_medicamento">
+    <header class="header_pagina_popup">
+        <h1>ATENÇÃO AO PROCEDIMENTO DE USO!</h1>
+        <i class="popup_fechar fechar">@iconeFechar</i>
+    </header>
+
+    <div class="conteudo_pagina_popup conteudo_popup">
+        <img src="{{LINK}}/images/site/aviso_procedimento.jpeg"/>
+    </div>
+</div>
+@endif;
+
 <div id="bloco_medicamento">
     @view site/geral/parceiro.view
 </div>
