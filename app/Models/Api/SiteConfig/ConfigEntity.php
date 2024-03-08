@@ -24,7 +24,7 @@ final class ConfigEntity extends Entity
         'favicon', 'link_site', 'home_banner', 'home_noticia_principal', 'home_noticia_lista', 'contato_chat',
         'cor_texto', 'cor_header', 'cor_footer', 'rede_header', 'rede_footer', 'login_texto', 'login_link',
         'clube_link', 'home_parceiro', 'template_header', 'template_footer', 'rss', 'imagem_social', 'status',
-        'imagem_header', 'altura_header', 'rede_spotify', 'rede_linkedin', 'diretoria_tipo'
+        'imagem_header', 'altura_header', 'rede_spotify', 'rede_linkedin', 'diretoria_tipo', 'mensagem_topo'
     ];
     protected array $ormInsert = [
         'id_admin_empresa' => '->idEmpresa'
@@ -36,7 +36,7 @@ final class ConfigEntity extends Entity
         'favicon', 'link_site', 'home_banner', 'home_noticia_principal', 'home_noticia_lista', 'contato_chat',
         'cor_texto', 'cor_header', 'cor_footer', 'rede_header', 'rede_footer', 'login_texto', 'login_link',
         'clube_link', 'home_parceiro', 'template_header', 'template_footer', 'rss', 'imagem_social', 'status',
-        'imagem_header', 'altura_header', 'rede_spotify', 'rede_linkedin', 'diretoria_tipo'
+        'imagem_header', 'altura_header', 'rede_spotify', 'rede_linkedin', 'diretoria_tipo', 'mensagem_topo'
     ];
     protected string $ormValidarSalvar = '
         titulo|Título|obrigatorio|vazio
@@ -99,6 +99,7 @@ final class ConfigEntity extends Entity
     public Botao $home_galeria;
     public Botao $home_video;
     public DiretoriaTipo $diretoria_tipo;
+    public string $mensagem_topo;
     public Status $status;
 
     protected function regraPosBuscar()
