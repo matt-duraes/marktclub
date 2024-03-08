@@ -18,10 +18,14 @@ final class FarmaciaController extends Controller
             tipo: new Tipo(Tipo::FARMACIA)
         );
 
+        if (!sessaoExiste('popupAlerta')) {
+            sessao('popupAlerta', true);
+        }
+
         return view('farmacia.index', [
-            'menu'   => 'farmacia',
-            'banner' => (new BannerModel())->farmacia(),
-            'lista'  => $Farmacia->listarDados()
+            'menu'        => 'farmacia',
+            'banner'      => (new BannerModel())->farmacia(),
+            'lista'       => $Farmacia->listarDados(),
         ]);
     }
 

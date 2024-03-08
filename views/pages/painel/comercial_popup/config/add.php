@@ -84,7 +84,7 @@ $Painel->coluna(callback: function () use ($Painel) {
     $Painel->fieldset('Conteúdo e Mídia', function () use ($Painel) {
         $Painel
             ->imagem('imagem', '00a9c7ca-7dd9-43a1-9dc7-20297a26d49d')
-            ->editor(name: 'texto', label: 'Texto')
+            ->editorBalao(name: 'texto', label: 'Texto')
             ->editor(name: 'regulamento', label: 'Regulamento');
     });
 });
