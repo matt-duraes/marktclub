@@ -53,7 +53,6 @@ final class ConstrutorModel extends ORM implements
     }
 
     /**
-     * @return void
      * @throws Excecao
      */
     private function validarDados(): void
