@@ -4,6 +4,7 @@ namespace App\Models\Api\Carteirinha;
 
 use App\Classes\Carteirinha\Ordem;
 use App\Classes\Carteirinha\Status;
+use App\Helpers\CemeCardHelper;
 use App\Models\Api\Trait\ValidarEmpresaTrait;
 use Erro\Excecao;
 use Helpers\OrmHelper;
@@ -62,7 +63,7 @@ class CarteirinhaModel extends ORM implements
             ->tabela(TABELA_COMERCIAL_EMPRESA)
             ->join('id', 'id_admin_empresa')
             ->campo([
-                'uuid'
+                'uuid', 'id'
             ], 'empresa')
             ->read();
 
@@ -113,9 +114,11 @@ class CarteirinhaModel extends ORM implements
             return $carteirinhas;
         }
 
+        $dado = (new CemeCardHelper())->buscarCarteirinha($carteirinhas);
+
         $Status = new Status();
         $retorno = [];
-        foreach ($carteirinhas as $r) {
+        foreach ($dado as $r) {
             $retorno[] = [
                 'id'               => $r->uuid,
                 'titulo'           => $r->titulo,
@@ -130,6 +133,8 @@ class CarteirinhaModel extends ORM implements
                 'data_criacao'     => $r->data_criacao,
                 'data_atualizacao' => $r->data_atualizacao,
                 'status'           => $Status->indice($r->status),
+                'qr_code'          => $r->qr_code ?? '',
+                'cartao_numero'    => $r->cartao_numero ?? ''
             ];
         }
         return $retorno;
