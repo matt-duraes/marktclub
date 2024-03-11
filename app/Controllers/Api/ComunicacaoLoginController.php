@@ -85,6 +85,7 @@ final class ComunicacaoLoginController extends Controller implements
             new Quantidade($request->quantidade),
             new Ordem($request->ordem),
             new Botao($request->publicado),
+            $request->empresa,
             $request->titulo_banner,
             new Data($request->dataInicio),
             new Data($request->dataFinal),

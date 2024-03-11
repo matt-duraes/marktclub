@@ -2439,7 +2439,8 @@ Route
             ::middleware(TokenMiddleware::class, 'scope', ['comunicacao_login:listar'])
             ::request([
                 'pagina', '!quantidade', '!ordem', '!publicado',
-                '!titulo_banner', '!data_inicio', '!data_final', '!status'
+                '!titulo_banner', '!data_inicio', '!data_final', '!status',
+                '!empresa'
             ], 'json')
             ::get('/comunicacao-login');
 
