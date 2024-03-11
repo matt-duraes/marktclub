@@ -63,6 +63,17 @@ $seeds = [
         'status'        => 1
     ],
     [
+        'id'            => 6,
+        'cod'           => uuid(),
+        'empresa'       => 229,
+        'tipo'          => 1,
+        'nome'          => 'Teste CemeCard',
+        'documento'     => '81969029056',
+        'email_pessoal' => 'teste@cemecard.com',
+        'salt'          => password('Teste@1324'),
+        'status'        => 1
+    ],
+    [
         'id'             => 100,
         'cod'            => '00956a04-3b7e-446b-9a5e-7a425ce1b408',
         'empresa'        => 1967,
