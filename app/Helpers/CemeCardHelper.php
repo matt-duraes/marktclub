@@ -50,7 +50,7 @@ class CemeCardHelper extends CurlHelper
                 'matricula'        => $carterinha->matricula,
                 'data_criacao'     => $carterinha->data_criacao,
                 'data_atualizacao' => $carterinha->data_atualizacao,
-                'status'           => $carterinha->status,
+                'status'           => $dado['status_card'] ?? '',
                 'nome'             => $dado['name'] ?? '',
                 'cpf'              => $dado['document'] ?? '',
                 'data_nascimento'  => $dado['birthdate'] ?? '',
