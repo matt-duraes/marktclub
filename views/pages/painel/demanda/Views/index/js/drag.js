@@ -11,6 +11,8 @@ for (const item of listaDragDrop) {
             const bloco = e.to.closest('.bloco_coluna');
             if (e.from != e.to) {
                 mudarStatusDemanda(bloco, e.item);
+                contarTarefaDemanda(bloco);
+                contarTarefaDemanda(e.from);
             }
             atualizarOrdemDemanda(bloco);
         })
