@@ -34,7 +34,7 @@ final class ListaModel extends ORM implements ModelListarInterface
     {
         $dado = $this
             ->campo(['uuid', 'titulo', 'texto', 'lista', 'grupo', 'data_criacao', 'data_atualizacao', 'status'])
-            ->where($this->pegarWhere())
+            ->where($this->pegarWhere(), obrigatorio: false)
             ->pagina($this->pegarPagina(), $this->pegarQuantidade())
             ->order('ordem', 'ASC')
             ->read();
