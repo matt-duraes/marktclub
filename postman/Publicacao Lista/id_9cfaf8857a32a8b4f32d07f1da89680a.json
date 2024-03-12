@@ -1,0 +1,1 @@
+{"id":"id_9cfaf8857a32a8b4f32d07f1da89680a","token":"painel","metodo":"GET","nome":"\/publicacao-lista\/:id","uri":"{{LINK}}\/publicacao-lista\/$PUBLICACAO_LISTA_ID","parametro":[],"body":[],"header":[],"variavel":[],"json":[],"documentacao":{"status":false,"descricao":"","requisicao":"","resposta":"","scope":"publicacao_lista:buscar"}}

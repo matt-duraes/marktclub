@@ -23,12 +23,11 @@ $permissao = [
     'publicacao_youtube_empresa',
     'publicacao_arquivo_index', 'publicacao_arquivo_add', 'publicacao_arquivo_editar', 'publicacao_arquivo_deletar',
     'publicacao_arquivo_empresa',
-
     'publicacao_pagina_index', 'publicacao_pagina_editar',
     'publicacao_home_editar',
-
     'publicacao_diretoria_index', 'publicacao_diretoria_add', 'publicacao_diretoria_editar',
     'publicacao_diretoria_deletar',
+    'publicacao_lista_index', 'publicacao_lista_add', 'publicacao_lista_editar', 'publicacao_lista_deletar',
 
     'texto_clube_index', 'texto_clube_add', 'texto_clube_editar', 'texto_clube_deletar',
 

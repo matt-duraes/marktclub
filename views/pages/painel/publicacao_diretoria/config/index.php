@@ -1,9 +1,8 @@
 <?php
 
 use App\Classes\Geral\Status;
-use App\Classes\PublicacaoDiretoria\Ordem;
 
-$Painel = new PainelConfig\Index('publicacao_diretoria', new Ordem());
+$Painel = new PainelConfig\Index('publicacao_diretoria');
 return $Painel
     ->drag()
     ->campo('nome', 'Nome', 'grande')

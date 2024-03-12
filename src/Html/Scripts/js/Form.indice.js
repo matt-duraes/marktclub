@@ -1,0 +1,51 @@
+window.addEventListener('load', () => {
+    const listaIndiceValor = document.querySelectorAll('.fw_form_indice_valor_ordenar');
+    listaIndiceValor.forEach(item => {
+        const bloco = item.querySelector('.fw_form_indice_valor_lista');
+        const padrao = item.querySelector('.fw_form_indice_valor_linha_padrao');
+        const blocoLista = item.querySelector('.fw_form_indice_valor_lista');
+        const listaInput = item.querySelectorAll('.input_separador_1, .input_separador_3');
+        const inputIndice = item.querySelector('.input_separador_1');
+        const inputValor = item.querySelector('.input_separador_3');
+        const botao = item.querySelector('.fw_form_indice_valor_botao');
+
+        new DragDrop().bloco(bloco).item('.fw_form_indice_valor_linha').botao('.fw_form_indice_valor_ordem').iniciar();
+        bloco.addEventListener('click', e => {
+            const target = e.target;
+            if (
+                target.classList.contains('fw_form_indice_valor_remover') ||
+                target.closest('.fw_form_indice_valor_remover')
+            ) {
+                target.closest('.fw_form_indice_valor_linha').remove();
+            }
+        });
+        const salvarNovaLinha = () => {
+            const indice = inputIndice.value;
+            const valor = inputValor.value;
+            if (indice == '') {
+                Alerta.notificacao('Você deve escrever um indice para continuar.', false);
+                return;
+            } else if (valor == '') {
+                Alerta.notificacao('Você deve escrever um valor para continuar.', false);
+                return;
+            }
+            inputIndice.value = '';
+            inputValor.value = '';
+            inputIndice.focus();
+            const clone = padrao.clonar();
+            clone.querySelector('.fw_form_indice_valor_indice').innerText = indice;
+            clone.querySelector('.fw_form_indice_valor_valor').innerText = valor;
+            blocoLista.final(clone);
+        };
+        botao.addEventListener('click', () => {
+            salvarNovaLinha();
+        });
+        listaInput.forEach(input => {
+            input.addEventListener('keydown', e => {
+                if (e.key == 'Enter') {
+                    salvarNovaLinha();
+                }
+            });
+        });
+    });
+});

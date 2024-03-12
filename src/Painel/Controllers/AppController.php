@@ -316,7 +316,6 @@ final class AppController extends PadraoController
         }
 
         $lista = $this->criptografarListaDado($lista, $requestCampo, $config->api->criptografar);
-
         $uri = $config->api->uri;
         if ($acao == 'insert') {
             $Api = new ApiHelper(token: true);
@@ -331,7 +330,6 @@ final class AppController extends PadraoController
                 ->body($lista)
                 ->put($uri . '/' . $request->id);
         }
-
         $dado = $this->validarRetornoApi($dado);
         if ($dado instanceof Response) {
             return $dado;

@@ -1,6 +1,5 @@
 window.addEventListener('load', () => {
     const APP = document.getElementById('APP').value;
-    const linkVoltar = document.getElementById('LINK_VOLTAR').value;
 
     const form = document.querySelector('#bloco_app_add');
     const blocoGeral = document.querySelector('#bloco_app_add');
@@ -92,7 +91,7 @@ window.addEventListener('load', () => {
     }
 
     const pegarDadosDosInputs = retorno => {
-        const listaInput = form.querySelectorAll('input[name], textarea[name], .fw_form_tag');
+        const listaInput = form.querySelectorAll('input[name], textarea[name], .fw_form_tag, .fw_form_indice_valor');
         let body;
         if (retorno == 'array') {
             body = [];
@@ -101,6 +100,7 @@ window.addEventListener('load', () => {
         }
         let tipo, isArray, name, mascara, value, lista;
         let ArrayLista = [];
+        listaInput.forEach(input => {});
         listaInput.forEach(input => {
             if (input.classList.contains('fw_form_tag')) {
                 name = input.getAttribute('data-name');
@@ -120,6 +120,30 @@ window.addEventListener('load', () => {
                         body.append(nameArray, value);
                     }
                 });
+                return;
+            }
+            if (input.classList.contains('fw_form_indice_valor')) {
+                name = input.getAttribute('data-name');
+                lista = input.querySelectorAll('.fw_form_indice_valor_lista .fw_form_indice_valor_linha');
+                if (lista.length == 0) {
+                    if (retorno != 'array') {
+                        body.append(name, '');
+                    }
+                    return;
+                }
+                let indiceValor = {};
+                lista.forEach((item, i) => {
+                    indiceValor[i] = [
+                        item.querySelector('.fw_form_indice_valor_indice').innerText,
+                        item.querySelector('.fw_form_indice_valor_valor').innerText,
+                    ];
+                });
+                indiceValor = JSON.stringify(indiceValor);
+                if (retorno == 'array') {
+                    body.push(indiceValor);
+                } else {
+                    body.append(name, indiceValor);
+                }
                 return;
             }
 

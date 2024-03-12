@@ -1261,3 +1261,69 @@ body.fw_body_hidden
         color: #999
     input
         padding-left: 29px
+
+.fw_form_indice_valor
+    width: 100%
+    flexRow()
+    flex-wrap: wrap
+    .bloco_input
+        width: calc(100% - 90px)
+        margin-bottom: 0
+    .fw_form_indice_valor_botao
+        width: 80px
+        height: 45px
+        line-height: 45px
+        border-radius: 25px
+        bgDegradeVerde()
+        textoFontSize()
+        color: #FFF
+        padding: 0 20px
+        margin: 20px 0 0 10px
+        cursor: pointer
+        text-align: center
+    .fw_form_indice_valor_lista
+        width: 100%
+        flexCol()
+        margin-top: 20px
+    .fw_form_indice_valor_lista .fw_form_indice_valor_linha
+        width: 100%
+        flexRow()
+        align-items: center
+        border: 1px solid #DDD
+        border-bottom: none
+        &:last-child
+            border: 1px solid #DDD
+    .fw_form_indice_valor_lista .fw_form_indice_valor_ordem
+        width: 30px
+        height: 30px
+        flex-direction: row
+        display: none
+        align-items: center
+        justify-content: center
+        cursor: pointer
+        margin-left: 5px
+        fill: #999
+    .fw_form_indice_valor_lista .fw_form_indice_valor_linha p
+        width: 150px
+        padding: 5px 10px
+        texto()
+        &.fw_form_indice_valor_valor
+            border-left: 1px solid #DDD
+            flexGrow()
+    .fw_form_indice_valor_lista .fw_form_indice_valor_linha p strong
+        texto()
+        font-weight: bold
+    .fw_form_indice_valor_lista .fw_form_indice_valor_linha .fw_form_indice_valor_remover
+        width: 20px
+        height: 20px
+        flexCenter()
+        fill: #FFF
+        background-color: $corDeletar
+        border-radius: 4px
+        margin-right: 10px
+        cursor: pointer
+.fw_form_indice_valor.fw_form_indice_valor_ordenar
+    .fw_form_indice_valor_ordem
+        display: flex
+    .fw_form_indice_valor_lista .fw_form_indice_valor_linha p
+        width: 180px
