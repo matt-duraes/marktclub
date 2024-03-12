@@ -1,6 +1,5 @@
 <?php
 
-use App\Classes\SolicitacaoLoja\Origem;
 use App\Classes\SolicitacaoLoja\Status;
 use App\Classes\UsuarioCliente\Helper;
 
@@ -9,10 +8,10 @@ $Painel = new PainelConfig\Visualizar('solicitacao_loja');
 $Painel->coluna(callback: function () use ($Painel) {
     $Painel->bloco(titulo: 'Indicação', callback: function () use ($Painel) {
         $Painel
+            ->linha('origem_clube.titulo', 'Clube')
             ->linha('nome', 'Nome')
             ->email('email', 'E-mail')
             ->telefone('telefone', 'Telefone')
-            ->linha('origem', 'Origem')
             ->linha('mensagem', 'Mensagem');
     });
 
@@ -68,7 +67,6 @@ $Painel->coluna(callback: function () use ($Painel) {
         );
 });
 
-$Painel->replace(campo: 'origem', lista: (new Origem())->select());
 $Painel->replace(campo: 'status', lista: (new Status())->select());
 
 return $Painel;

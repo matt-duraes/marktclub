@@ -16,6 +16,10 @@ $Painel->coluna(callback: function () use ($Painel) {
         $Painel
             ->imagem('logo_secundaria', '118e10b2-58cf-4708-9c1f-3e4392d2e675');
     });
+    $Painel->fieldset('Logo footer', function () use ($Painel) {
+        $Painel
+            ->imagem('logo_footer', '118e10b2-58cf-4708-9c1f-3e4392d2e675');
+    });
     $Painel->fieldset('Imagem Favicon', function () use ($Painel) {
         $Painel
             ->imagem('favicon', '118e10b2-58cf-4708-9c1f-3e4392d2e675');

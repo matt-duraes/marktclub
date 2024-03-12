@@ -9,13 +9,6 @@ $Painel->coluna(callback: function () use ($Painel) {
                 name: 'cpf',
                 label: 'CPF',
                 placeholder: 'CPF do Solicitante'
-            )
-            ->select(
-                name: 'origem',
-                lista: ['painel' => 'Painel'],
-                label: 'Origem',
-                placeholder: 'Selecione a origem da solicitação',
-                obrigatorio: true
             );
     });
 });

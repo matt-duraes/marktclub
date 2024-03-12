@@ -1,9 +1,9 @@
 <?php
 
-use Route\Route;
-use App\Middlewares\Api\TokenMiddleware;
 use App\Middlewares\Api\MarktClubMiddleware;
+use App\Middlewares\Api\TokenMiddleware;
 use App\Middlewares\Api\TokenProvMiddleware;
+use Route\Route;
 
 Route
     ::nome('downloadRestrito')
@@ -1196,25 +1196,27 @@ Route
     ::middleware(TokenMiddleware::class, 'token')
     ::grupo(function () {
         Route
-            ::nome('clube')
-            ::middleware(TokenMiddleware::class, 'scope', ['construtor_clube:buscar'])
-            ::get('/construtor-clube/clube/{url}');
-        Route
-            ::nome('listar')
-            ::middleware(TokenMiddleware::class, 'scope', ['construtor_clube:listar'])
-            ::request(['pagina', '!quantidade', '!pesquisa', '!status'], 'json')
-            ::get('/construtor-clube');
-        Route
             ::nome('buscar')
             ::middleware(TokenMiddleware::class, 'scope', ['construtor_clube:buscar'])
             ::get('/construtor-clube/{id}');
+
+        Route
+            ::nome('listar')
+            ::middleware(TokenMiddleware::class, 'scope', ['construtor_clube:listar'])
+            ::request([
+                'pagina', '!quantidade', '!ordem', '!pesquisa', '!titulo_clube', '!empresa',
+                '!status', '!data_inicio', '!data_final'
+            ], 'json')
+            ::get('/construtor-clube');
+
         Route
             ::nome('salvar')
             ::middleware(TokenMiddleware::class, 'scope', ['construtor_clube:salvar'])
             ::request([
-                'empresa', 'titulo', 'logo_principal', 'logo_secundaria', 'favicon', 'header_tag', 'header_descricao',
-                '!cor_principal', '!cor_secundaria', 'link_clube', 'link_login', 'link_cadastro', 'link_salavip',
-                'link_app_ios', 'link_app_android', 'contato_telefone', 'contato_whatsapp', 'contato_email',
+                'empresa', 'titulo', 'logo_principal', 'logo_secundaria', 'favicon', '!logo_footer', 'header_tag',
+                'header_descricao', '!cor_principal', '!cor_secundaria', 'link_clube', 'link_login', 'link_cadastro',
+                'link_salavip', 'link_app_ios', 'link_app_android', 'contato_telefone', 'contato_whatsapp',
+                'contato_email',
                 'contato_horario', 'contato_endereco', 'menu_faq', 'menu_como_funciona', 'menu_samsung',
                 'menu_sair', 'menu_acesso_rapido', 'menu_loja', 'menu_mapa', 'menu_cinema',
                 'menu_turismo', 'menu_historico', 'menu_farmacia', 'menu_automovel', 'menu_tema',
@@ -1227,12 +1229,13 @@ Route
                 'campos_primeiro_acesso', 'grupo_label', 'grupo_placeholder'
             ])
             ::post('/construtor-clube');
+
         Route
             ::nome('atualizar')
             ::middleware(TokenMiddleware::class, 'scope', ['construtor_clube:atualizar'])
             ::request([
-                '!empresa', '!titulo', '!logo_principal', '!logo_secundaria', '!favicon', '!header_tag',
-                '!header_descricao', '!cor_principal', '!cor_secundaria', '!link_clube',
+                '!empresa', '!titulo', '!logo_principal', '!logo_secundaria', '!favicon', '!logo_footer',
+                '!header_tag', '!header_descricao', '!cor_principal', '!cor_secundaria', '!link_clube',
                 '!link_login', '!link_cadastro', '!link_salavip', '!link_app_ios', '!menu_samsung',
                 '!link_app_android', '!contato_telefone', '!contato_whatsapp', '!contato_email',
                 '!contato_horario', '!contato_endereco', '!menu_faq', '!menu_como_funciona',
@@ -1248,10 +1251,16 @@ Route
                 '!campos_primeiro_acesso', '!grupo_label', '!grupo_placeholder'
             ])
             ::put('/construtor-clube/{id}');
+
         Route
             ::nome('deletar')
             ::middleware(TokenMiddleware::class, 'scope', ['construtor_clube:deletar'])
             ::delete('/construtor-clube/{id}');
+
+        Route
+            ::nome('clube')
+            ::middleware(TokenMiddleware::class, 'scope', ['construtor_clube:buscar'])
+            ::get('/construtor-clube/clube/{url}');
     });
 
 Route
@@ -2339,7 +2348,7 @@ Route
             ::nome('listar')
             ::middleware(TokenMiddleware::class, 'scope', ['solicitacao_loja:listar'])
             ::request([
-                'pagina', '!quantidade', '!ordem', '!nome', '!origem',
+                'pagina', '!quantidade', '!ordem', '!nome',
                 '!data_inicio', '!data_final', '!status'
             ], 'json')
             ::get('/solicitacao-loja');
@@ -2348,7 +2357,7 @@ Route
             ::nome('salvar')
             ::middleware(TokenMiddleware::class, 'scope', ['solicitacao_loja:salvar'])
             ::request([
-                'nome', 'email', 'telefone', 'mensagem', '!usuario', '!origem', '!cpf'
+                'nome', 'email', 'telefone', 'mensagem', '!usuario', '!cpf'
             ])
             ::post('/solicitacao-loja');
 
@@ -2424,13 +2433,17 @@ Route
             ::nome('buscar')
             ::middleware(TokenMiddleware::class, 'scope', ['comunicacao_login:buscar'])
             ::get('/comunicacao-login/{id}');
+
         Route
             ::nome('listar')
             ::middleware(TokenMiddleware::class, 'scope', ['comunicacao_login:listar'])
             ::request([
-                'pagina', '!empresa', '!publicado', '!quantidade'
+                'pagina', '!quantidade', '!ordem', '!publicado',
+                '!titulo_banner', '!data_inicio', '!data_final', '!status',
+                '!empresa'
             ], 'json')
             ::get('/comunicacao-login');
+
         Route
             ::nome('salvar')
             ::middleware(TokenMiddleware::class, 'scope', ['comunicacao_login:salvar'])
@@ -2438,6 +2451,7 @@ Route
                 'arquivo_1', 'arquivo_2', 'arquivo_3', 'empresa', 'titulo', 'data_fim', 'data_inicio'
             ])
             ::post('/comunicacao-login');
+
         Route
             ::nome('atualizar')
             ::middleware(TokenMiddleware::class, 'scope', ['comunicacao_login:atualizar'])
@@ -2445,6 +2459,7 @@ Route
                 '!arquivo_1', '!arquivo_2', '!arquivo_3', '!empresa', '!titulo', '!data_fim', '!data_inicio'
             ])
             ::put('/comunicacao-login/{id}');
+
         Route
             ::nome('deletar')
             ::middleware(TokenMiddleware::class, 'scope', ['comunicacao_login:deletar'])

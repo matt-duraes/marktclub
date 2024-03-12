@@ -2,73 +2,175 @@
 
 namespace App\Models\Api\ConstrutorClube;
 
-use ORM\ORM;
-use stdClass;
+use App\Classes\ConstrutorClube\Ordem;
+use App\Classes\Geral\Status;
+use Erro\Excecao;
+use Modules\Data;
 use Modules\Pagina;
 use Modules\Quantidade;
-use App\Classes\Geral\Status;
+use ORM\ORM;
+use stdClass;
+use System\Interface\ModelListarInterface;
+use System\Trait\Model\OrdemTrait;
 use System\Trait\Model\PaginaTrait;
 use System\Trait\Model\QuantidadeTrait;
-use System\Interface\ModelListarInterface;
 
-final class ConstrutorModel extends ORM implements ModelListarInterface
+final class ConstrutorModel extends ORM implements
+    ModelListarInterface
 {
     use PaginaTrait;
     use QuantidadeTrait;
+    use OrdemTrait;
 
     protected string $ormTabela = TABELA_CONSTRUTOR_CLUBE;
 
+    /**
+     * @param Pagina      $pagina
+     * @param Quantidade  $quantidade
+     * @param Ordem       $ordem
+     * @param string|null $empresa
+     * @param string|null $pesquisa
+     * @param string|null $titulo
+     * @param Data        $dataInicio
+     * @param Data        $dataFinal
+     * @param Status      $status
+     *
+     * @throws Excecao
+     */
     public function __construct(
-        private Pagina $pagina = new Pagina(null),
-        private Quantidade $quantidade = new Quantidade(null),
-        private ?string $pesquisa = null,
-        private Status $status = new Status(null)
+        private readonly Pagina $pagina = new Pagina(),
+        private readonly Quantidade $quantidade = new Quantidade(),
+        private readonly Ordem $ordem = new Ordem(),
+        private readonly ?string $empresa = null,
+        private readonly ?string $pesquisa = null,
+        private readonly ?string $titulo = null,
+        private readonly Data $dataInicio = new Data(),
+        private readonly Data $dataFinal = new Data(),
+        private readonly Status $status = new Status()
     ) {
+        $this->validarDados();
         parent::__construct();
     }
 
+    /**
+     * @throws Excecao
+     */
+    private function validarDados(): void
+    {
+        if (!$this->pagina->vazio() && !$this->pagina->valido()) {
+            mensagemErro('Campo inválido!', 'A Página informada não é válida.');
+        }
+        if (!$this->quantidade->vazio() && !$this->quantidade->valido()) {
+            mensagemErro('Campo inválido!', 'A Quantidade informada não é válida.');
+        }
+        if (!$this->ordem->vazio() && !$this->ordem->valido()) {
+            mensagemErro('Campo inválido!', 'A Ordem informada não é válida.');
+        }
+        if (!$this->dataInicio->vazio() && !$this->dataInicio->eDate()) {
+            mensagemErro('Campo inválido!', 'A Data de início informada não é válida.');
+        }
+        if (!$this->dataFinal->vazio() && !$this->dataFinal->eDate()) {
+            mensagemErro('Campo inválido!', 'A Data de final informada não é válida.');
+        }
+        if (!$this->status->vazio() && !$this->status->valido()) {
+            mensagemErro('Campo inválido!', 'O Status informado não é válido.');
+        }
+    }
+
+    /**
+     * @return stdClass
+     * @throws Excecao
+     */
     public function listarDados(): stdClass
     {
-        $dado = $this
-            ->campo(['uuid', 'titulo', 'data_criacao', 'status'])
-            ->where($this->pegarWhere(), obrigatorio: false)
+        $clubes = $this
+            ->campo([
+                'uuid', 'titulo', 'status', 'data_criacao', 'data_atualizacao'
+            ])
+            ->where($this->pegarWhere(), false)
             ->pagina($this->pegarPagina(), $this->pegarQuantidade())
+            ->order($this->pegarOrdem(new Ordem()))
             ->tabela(TABELA_COMERCIAL_EMPRESA)
+            ->where($this->pegarWhereEmpresa(), false)
             ->join('id', 'id_admin_empresa')
-            ->campo(['uuid', 'titulo', 'nome_fantasia'], as: 'empresa')
+            ->campo([
+                'uuid', 'titulo', 'nome_fantasia'
+            ], 'empresa')
             ->read();
-        $dado->lista = $this->montarRetorno($dado->lista);
-        return $dado;
+
+        $clubes->lista = $this->montarRetorno($clubes->lista);
+        return $clubes;
     }
 
-    private function montarRetorno($dado): array
-    {
-        $retorno = [];
-        $Status = new Status();
-        foreach ($dado as $r) {
-            $retorno[] = [
-                'id'           => $r->uuid,
-                'empresa'      => [
-                    'id'     => $r->empresa_uuid,
-                    'titulo' => !empty($r->empresa_titulo) ? $r->empresa_titulo : $r->empresa_nome_fantasia,
-                ],
-                'titulo'       => $r->titulo,
-                'data_criacao' => $r->data_criacao,
-                'status'       => $Status->indice($r->status)
-            ];
-        }
-        return $retorno;
-    }
-
+    /**
+     * @return array
+     */
     private function pegarWhere(): array
     {
         $where = [];
         if (!empty($this->pesquisa)) {
-            $where[] = ['titulo', 'like', '%' . $this->pesquisa . '%'];
+            $where[] = [
+                'OR',
+                ['titulo', 'LIKE', "%$this->pesquisa%"],
+                ['link_clube', 'LIKE', "%$this->pesquisa%"]
+            ];
         }
+
+        if (!empty($this->titulo)) {
+            $where[] = ['titulo', 'LIKE', "%$this->titulo%"];
+        }
+
+        if ($this->dataInicio->valido() && $this->dataFinal->valido()) {
+            $where[] = [
+                'data_inicio', 'between', [$this->dataInicio->date(), $this->dataFinal->date()]
+            ];
+        } elseif ($this->dataInicio->valido()) {
+            $where[] = ['data_inicio', $this->dataInicio->date()];
+        } elseif ($this->dataFinal->valido()) {
+            $where[] = ['data_final', $this->dataFinal->date()];
+        }
+
         if ($this->status->valido()) {
             $where[] = ['status', $this->status->numero()];
         }
         return $where;
+    }
+
+    /**
+     * @return array
+     */
+    private function pegarWhereEmpresa(): array
+    {
+        $where = [];
+        if (!empty($this->empresa)) {
+            $where[] = ['cod', $this->empresa];
+        }
+        return $where;
+    }
+
+    /**
+     * @param array $clubes
+     *
+     * @return array
+     */
+    private function montarRetorno(array $clubes): array
+    {
+        $Status = new Status();
+        $retorno = [];
+        foreach ($clubes as $clube) {
+            $empresaTitulo = !empty($clube->empresa_titulo) ? $clube->empresa_titulo : $clube->empresa_nome_fantasia;
+            $retorno[] = [
+                'id'               => $clube->uuid,
+                'empresa'          => [
+                    'id'     => $clube->empresa_uuid,
+                    'titulo' => $empresaTitulo
+                ],
+                'titulo'           => $clube->titulo,
+                'status'           => $Status->indice($clube->status),
+                'data_criacao'     => $clube->data_criacao,
+                'data_atualizacao' => $clube->data_atualizacao
+            ];
+        }
+        return $retorno;
     }
 }

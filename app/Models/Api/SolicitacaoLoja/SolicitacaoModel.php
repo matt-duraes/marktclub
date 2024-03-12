@@ -3,7 +3,6 @@
 namespace App\Models\Api\SolicitacaoLoja;
 
 use App\Classes\SolicitacaoLoja\Ordem;
-use App\Classes\SolicitacaoLoja\Origem;
 use App\Classes\SolicitacaoLoja\Status;
 use App\Models\Api\Trait\ValidarEmpresaTrait;
 use Erro\Excecao;
@@ -20,10 +19,10 @@ use System\Trait\Model\QuantidadeTrait;
 class SolicitacaoModel extends ORM implements
     ModelListarInterface
 {
+    use ValidarEmpresaTrait;
     use PaginaTrait;
     use QuantidadeTrait;
     use OrdemTrait;
-    use ValidarEmpresaTrait;
 
     protected string $ormTabela = TABELA_SOLICITACAO_LOJA;
 
@@ -34,7 +33,6 @@ class SolicitacaoModel extends ORM implements
      * @param string|null $nome
      * @param Data        $dataInicio
      * @param Data        $dataFinal
-     * @param Origem      $origem
      * @param Status      $status
      *
      * @throws Excecao
@@ -46,7 +44,6 @@ class SolicitacaoModel extends ORM implements
         private readonly ?string $nome = null,
         private readonly Data $dataInicio = new Data(),
         private readonly Data $dataFinal = new Data(),
-        private readonly Origem $origem = new Origem(),
         private readonly Status $status = new Status()
     ) {
         $this->validarDado();
@@ -68,9 +65,6 @@ class SolicitacaoModel extends ORM implements
         if (!$this->ordem->vazio() && !$this->ordem->valido()) {
             mensagemErro('Campo inválido!', 'A Ordem informada não é válida.');
         }
-        if (!$this->origem->vazio() && !$this->origem->valido()) {
-            mensagemErro('Campo inválido!', 'A Origem informada não é válida.');
-        }
         if (!$this->status->vazio() && !$this->status->valido()) {
             mensagemErro('Campo inválido!', 'O Status informado não é válido.');
         }
@@ -84,12 +78,17 @@ class SolicitacaoModel extends ORM implements
     {
         $dado = $this
             ->campo([
-                'uuid', 'nome', 'email', 'telefone',
-                'origem', 'status', 'data_criacao'
+                'uuid', 'id_admin_empresa', 'nome', 'email',
+                'telefone', 'status', 'data_criacao'
             ])
             ->where($this->pegarWhere(), false)
             ->pagina($this->pegarPagina(), $this->pegarQuantidade())
             ->order($this->pegarOrdem(new Ordem()))
+            ->tabela(TABELA_CONSTRUTOR_CLUBE)
+            ->join('id_admin_empresa', 'id_admin_empresa')
+            ->campo([
+                'titulo'
+            ], 'clube')
             ->read();
 
         $dado->lista = $this->montarRetorno($dado->lista);
@@ -105,10 +104,6 @@ class SolicitacaoModel extends ORM implements
 
         if (!empty($this->nome)) {
             $where[] = ['nome', 'LIKE', '%' . $this->nome . '%'];
-        }
-
-        if ($this->origem->valido()) {
-            $where[] = ['origem', $this->origem->numero()];
         }
 
         if ($this->dataInicio->valido() && $this->dataFinal->valido()) {
@@ -139,16 +134,17 @@ class SolicitacaoModel extends ORM implements
             return $solicitacoes;
         }
 
-        $Origem = new Origem();
         $Status = new Status();
         $retorno = [];
         foreach ($solicitacoes as $solicitacao) {
             $retorno[] = [
                 'id'           => $solicitacao->uuid,
+                'clube'        => [
+                    'titulo' => $solicitacao->clube_titulo
+                ],
                 'nome'         => $solicitacao->nome,
                 'email'        => $solicitacao->email,
                 'telefone'     => $solicitacao->telefone,
-                'origem'       => $Origem->indice($solicitacao->origem),
                 'status'       => $Status->indice($solicitacao->status),
                 'data_criacao' => $solicitacao->data_criacao
             ];
