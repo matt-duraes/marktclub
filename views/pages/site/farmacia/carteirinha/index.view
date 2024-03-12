@@ -4,10 +4,8 @@
 </head>
 <div class="bloco_container_carteirinha">
     <div class="bloco_carteirinha">
+        <img src="{{LINK}}/images/site/farmacia_carteirinha.png"/>
         <div class="bloco_info">
-            <figure>
-            </figure>
-            <div class="borda_meio"></div>
             <div class="bloco_cpf">
                 <h1>{{$cpf}}</h1>
             </div>
