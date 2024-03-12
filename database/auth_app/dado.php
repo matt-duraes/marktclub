@@ -76,6 +76,9 @@ $scope = [
     'publicacao_arquivo:salvar', 'publicacao_arquivo:atualizar', 'publicacao_arquivo:listar',
     'publicacao_arquivo:buscar', 'publicacao_arquivo:deletar',
 
+    'publicacao_lista:listar', 'publicacao_lista:buscar', 'publicacao_lista:salvar',
+    'publicacao_lista:atualizar', 'publicacao_lista:deletar',
+
     'publicacao_home:atualizar', 'publicacao_home:buscar',
 
     'texto_clube:salvar', 'texto_clube:atualizar', 'texto_clube:listar', 'texto_clube:buscar', 'texto_clube:deletar',

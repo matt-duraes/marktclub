@@ -182,6 +182,19 @@ final class ConfiguracoesPadrao
                 'publicacao_noticia_empresa' => 'Todas as empresas',
             ]
         ],
+        'publicacao_lista'       => [
+            'titulo'    => 'Lista geral',
+            'acao'      => [
+                'index', 'add', 'editar', 'deletar', 'empresa'
+            ],
+            'permissao' => [
+                'publicacao_lista_index'   => 'Listar',
+                'publicacao_lista_add'     => 'Salvar',
+                'publicacao_lista_editar'  => 'Editar',
+                'publicacao_lista_deletar' => 'Deletar',
+                'publicacao_lista_empresa' => 'Todas as empresas',
+            ]
+        ],
         'publicacao_home'          => [
             'titulo'    => 'Notícia da Home',
             'acao'      => [

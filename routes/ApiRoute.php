@@ -2851,3 +2851,37 @@ Route
             ])
             ::post('/votacao-voto');
     });
+
+Route
+    ::nome('publicacao_lista')
+    ::middleware(TokenMiddleware::class, 'token')
+    ::controller(App\Controllers\Api\PublicacaoListaController::class)
+    ::grupo(function () {
+        Route
+            ::nome('listar')
+            ::middleware(TokenMiddleware::class, 'scope', ['publicacao_lista:listar'])
+            ::request(['pagina', '!quantidade', '!pesquisa', '!grupo', '!status'], 'json')
+            ::get('/publicacao-lista');
+        Route
+            ::nome('buscar')
+            ::middleware(TokenMiddleware::class, 'scope', ['publicacao_lista:buscar'])
+            ::get('/publicacao-lista/{id}');
+        Route
+            ::nome('salvar')
+            ::middleware(TokenMiddleware::class, 'scope', ['publicacao_lista:salvar'])
+            ::request([
+                'titulo', 'texto', '!lista', '!imagem', 'grupo', 'status'
+            ])
+            ::post('/publicacao-lista');
+        Route
+            ::nome('atualizar')
+            ::middleware(TokenMiddleware::class, 'scope', ['publicacao_lista:atualizar'])
+            ::request([
+                '!titulo', '!texto', '!lista', '!imagem', '!grupo', '!ordem', '!status'
+            ])
+            ::put('/publicacao-lista/{id}');
+        Route
+            ::nome('deletar')
+            ::middleware(TokenMiddleware::class, 'scope', ['publicacao_lista:deletar'])
+            ::delete('/publicacao-lista/{id}');
+    });
