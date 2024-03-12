@@ -64,8 +64,8 @@ $Painel->coluna(callback: function () use ($Painel) {
 
 $permissaoUsuario = sessao('USUARIO.permissao');
 if (
-    (sessao('EMPRESA.slug') == 'marktclub' && sessao('USUARIO.cpf') == '014.951.801-31')
-    || in_array('usuario_equipe_permissao', $permissaoUsuario)
+    strCpf(sessao('USUARIO.cpf')) == '014.951.801-31' ||
+    (sessao('USUARIO.empresa')->id != '14afa776394ada4be23be6acf7e3259e' && sessao('USUARIO.marktclub') == 'nao')
 ) {
     $Painel->coluna(callback: function () use ($Painel) {
         $Painel->fieldsetCheckbox(
