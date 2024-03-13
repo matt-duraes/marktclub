@@ -1,9 +1,9 @@
 <?php
 
-use App\Middlewares\Api\MarktClubMiddleware;
-use App\Middlewares\Api\TokenMiddleware;
-use App\Middlewares\Api\TokenProvMiddleware;
 use Route\Route;
+use App\Middlewares\Api\TokenMiddleware;
+use App\Middlewares\Api\MarktClubMiddleware;
+use App\Middlewares\Api\TokenProvMiddleware;
 
 Route
     ::nome('downloadRestrito')
@@ -2439,7 +2439,8 @@ Route
             ::middleware(TokenMiddleware::class, 'scope', ['comunicacao_login:listar'])
             ::request([
                 'pagina', '!quantidade', '!ordem', '!publicado',
-                '!titulo_banner', '!data_inicio', '!data_final', '!status'
+                '!titulo_banner', '!data_inicio', '!data_final', '!status',
+                '!empresa'
             ], 'json')
             ::get('/comunicacao-login');
 
@@ -2492,7 +2493,7 @@ Route
                 'contato_chat', 'home_noticia_principal', 'home_noticia_lista', 'home_parceiro', 'status',
                 'login_texto', 'login_link', 'clube_link', 'rede_header', 'rede_footer', 'rss', 'cor_texto',
                 'cor_header', 'cor_footer', 'imagem_header', 'altura_header', 'noticia_imagem', 'imagem_social',
-                'diretoria_tipo'
+                'diretoria_tipo', 'rede_linkedin', 'mensagem_topo'
             ])
             ::post('/site-config');
         Route
@@ -2506,7 +2507,7 @@ Route
                 '!home_noticia_principal', '!home_noticia_lista', '!home_parceiro', '!status', '!login_texto',
                 '!login_link', '!clube_link', '!rede_header', '!rede_footer', '!rss', '!cor_texto', '!cor_header',
                 '!cor_footer', '!imagem_header', '!altura_header', '!noticia_imagem', '!imagem_social',
-                '!diretoria_tipo', '!rede_spotify'
+                '!diretoria_tipo', '!rede_spotify', '!rede_linkedin', '!mensagem_topo'
             ])
             ::put('/site-config/{id}');
         Route
@@ -2864,4 +2865,38 @@ Route
                 'votacao', 'usuario', 'resposta'
             ])
             ::post('/votacao-voto');
+    });
+
+Route
+    ::nome('publicacao_lista')
+    ::middleware(TokenMiddleware::class, 'token')
+    ::controller(App\Controllers\Api\PublicacaoListaController::class)
+    ::grupo(function () {
+        Route
+            ::nome('listar')
+            ::middleware(TokenMiddleware::class, 'scope', ['publicacao_lista:listar'])
+            ::request(['pagina', '!quantidade', '!pesquisa', '!grupo', '!status'], 'json')
+            ::get('/publicacao-lista');
+        Route
+            ::nome('buscar')
+            ::middleware(TokenMiddleware::class, 'scope', ['publicacao_lista:buscar'])
+            ::get('/publicacao-lista/{id}');
+        Route
+            ::nome('salvar')
+            ::middleware(TokenMiddleware::class, 'scope', ['publicacao_lista:salvar'])
+            ::request([
+                'titulo', 'texto_pequeno', 'texto_grande', '!lista', '!imagem', 'grupo', 'status'
+            ])
+            ::post('/publicacao-lista');
+        Route
+            ::nome('atualizar')
+            ::middleware(TokenMiddleware::class, 'scope', ['publicacao_lista:atualizar'])
+            ::request([
+                '!titulo', '!texto_pequeno', '!texto_grande', '!lista', '!imagem', '!grupo', '!ordem', '!status'
+            ])
+            ::put('/publicacao-lista/{id}');
+        Route
+            ::nome('deletar')
+            ::middleware(TokenMiddleware::class, 'scope', ['publicacao_lista:deletar'])
+            ::delete('/publicacao-lista/{id}');
     });

@@ -1,0 +1,1 @@
+{"id":"id_880b605b2a93bb74108f016a5d45f010","token":"painel","metodo":"DELETE","nome":"\/publicacao-lista\/:id","uri":"{{LINK}}\/publicacao-lista\/$PUBLICACAO_LISTA_ID","parametro":[],"body":[],"header":[],"variavel":[],"json":[],"documentacao":{"status":false,"descricao":"","requisicao":"","resposta":"","scope":"publicacao_lista:deletar"}}

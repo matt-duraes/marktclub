@@ -729,6 +729,8 @@ if (!function_exists('painelInputLista')) {
             } elseif ($funcao == 'checkbox') {
                 $input['check'] = (is_array($valor) && !empty($valor) && !empty($input['value'])
                     && in_array($input['value'], $valor)) || (is_string($valor) && $valor == 'sim');
+            } elseif ($funcao == 'indiceValor') {
+                $input['value'] = jsonDecode($valor, true, true);
             } else {
                 $input['value'] = $valor;
             }

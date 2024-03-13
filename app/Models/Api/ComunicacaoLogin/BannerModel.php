@@ -47,6 +47,7 @@ class BannerModel extends ORM implements
         private readonly Quantidade $quantidade = new Quantidade(),
         private readonly Ordem $ordem = new Ordem(),
         private readonly Botao $publicado = new Botao(),
+        private readonly ?string $empresa = '',
         private readonly ?string $titulo = null,
         private readonly Data $dataInicio = new Data(),
         private readonly Data $dataFinal = new Data(),

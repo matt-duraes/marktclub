@@ -552,6 +552,28 @@ final class Add
         return $this;
     }
 
+    public function indiceValor(
+        string $name,
+        ?string $class = null,
+        ?string $id = null,
+        bool $obrigatorio = false,
+        array $placeholder = [],
+        ?string $acao = null,
+        ?string $permissao = null,
+        bool $ordem = false
+    ) {
+        return $this->adicionarNovoInput([
+            'funcao'      => 'indiceValor',
+            'name'        => $name,
+            'class'       => $class,
+            'id'          => $id,
+            'placeholder' => $placeholder,
+            'obrigatorio' => $obrigatorio,
+            'ordem'       => $ordem,
+            'permissao'   => $permissao
+        ], $acao);
+    }
+
     public function imagem(
         string $name,
         string $diretorio,
@@ -1160,7 +1182,7 @@ final class Add
         $this->setarTitulo();
         $this->setarColuna();
 
-        if (!in_array($dado['funcao'], ['cor', 'checkbox', 'switch', 'tag', 'hidden'])) {
+        if (!in_array($dado['funcao'], ['cor', 'checkbox', 'switch', 'tag', 'indiceValor', 'hidden'])) {
             $dado['obrigatorio'] = $this->setarCampoObrigatorio($dado['name'], $dado['obrigatorio'] ?? false);
         }
 

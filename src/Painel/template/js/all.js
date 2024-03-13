@@ -1,5 +1,6 @@
 // @system "Player"
 // @system "Loading"
+// @system "DragDrop"
 // @system "Ajuda"
 // @system "Alerta"
 // @system "Pagina"

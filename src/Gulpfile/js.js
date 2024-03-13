@@ -256,6 +256,7 @@ function pegarListaImports(conteudo, path) {
                 }
                 retorno.push('src/Html/Scripts/js/Galeria.system.js');
                 retorno.push('src/Html/Scripts/js/Form.init.js');
+                retorno.push('src/Html/Scripts/js/Form.indice.js');
                 retorno.push('src/Html/Scripts/js/Form.tag.js');
                 retorno.push('src/Html/Scripts/js/Form.select.js');
                 retorno.push('src/Html/Scripts/js/Form.cor.js');
