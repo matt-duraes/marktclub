@@ -21,7 +21,7 @@ final class Grupo extends Status
         ],
         'sinpefpr' => [
             'lista'  => [
-                'delegacia-sindial' => 'Delegacias sindicais'
+                'delegacia-sindical' => 'Delegacias sindicais'
             ],
             'numero' => [3]
         ]

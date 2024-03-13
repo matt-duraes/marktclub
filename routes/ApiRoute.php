@@ -1,9 +1,9 @@
 <?php
 
-use App\Middlewares\Api\MarktClubMiddleware;
-use App\Middlewares\Api\TokenMiddleware;
-use App\Middlewares\Api\TokenProvMiddleware;
 use Route\Route;
+use App\Middlewares\Api\TokenMiddleware;
+use App\Middlewares\Api\MarktClubMiddleware;
+use App\Middlewares\Api\TokenProvMiddleware;
 
 Route
     ::nome('downloadRestrito')
@@ -2885,14 +2885,14 @@ Route
             ::nome('salvar')
             ::middleware(TokenMiddleware::class, 'scope', ['publicacao_lista:salvar'])
             ::request([
-                'titulo', 'texto', '!lista', '!imagem', 'grupo', 'status'
+                'titulo', 'texto_pequeno', 'texto_grande', '!lista', '!imagem', 'grupo', 'status'
             ])
             ::post('/publicacao-lista');
         Route
             ::nome('atualizar')
             ::middleware(TokenMiddleware::class, 'scope', ['publicacao_lista:atualizar'])
             ::request([
-                '!titulo', '!texto', '!lista', '!imagem', '!grupo', '!ordem', '!status'
+                '!titulo', '!texto_pequeno', '!texto_grande', '!lista', '!imagem', '!grupo', '!ordem', '!status'
             ])
             ::put('/publicacao-lista/{id}');
         Route

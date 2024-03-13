@@ -26,9 +26,9 @@ trait ProviderTrait
             'clientId'                => env('FENAE_CLIENT_ID'),
             'clientSecret'            => env('FENAE_CLIENT_SECRET'),
             'redirectUri'             => env('FENAE_REDIRECT_URI'),
-            'urlAuthorize'            => $this->configuracao['authorization_endpoint'] ?? '',
-            'urlAccessToken'          => $this->configuracao['token_endpoint'],
-            'urlResourceOwnerDetails' => $this->configuracao['userinfo_endpoint'],
+            'urlAuthorize'            => $this->configuracao['authorization_endpoint'] ?? 'https://login.fenae.org.br/connect/authorize',
+            'urlAccessToken'          => $this->configuracao['token_endpoint'] ?? 'https://login.fenae.org.br/connect/token',
+            'urlResourceOwnerDetails' => $this->configuracao['userinfo_endpoint'] ?? 'https://login.fenae.org.br/connect/userinfo',
             'pkceMethod'              => AbstractProvider::PKCE_METHOD_S256,
             'scopes'                  => env('FENAE_SCOPE')
         ]);
@@ -40,7 +40,7 @@ trait ProviderTrait
         $this->sessionEndUrl = preg_replace(
             '/\/{1,}$/',
             '',
-            $this->configuracao['end_session_endpoint']
+            $this->configuracao['end_session_endpoint'] ?? 'https://login.fenae.org.br/connect/endsession'
         ) . $postLogoutRedirectUri . $state;
     }
 

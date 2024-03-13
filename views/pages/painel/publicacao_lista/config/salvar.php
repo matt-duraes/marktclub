@@ -2,6 +2,6 @@
 
 return [
     'salvar' => [
-        'titulo', 'texto', 'lista', 'imagem', 'grupo', 'status'
+        'titulo', 'texto_pequeno', 'texto_grande', 'lista', 'imagem', 'grupo', 'status'
     ]
 ];
