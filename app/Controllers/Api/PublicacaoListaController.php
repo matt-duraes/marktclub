@@ -51,7 +51,8 @@ final class PublicacaoListaController extends Controller implements
             dado: pegarPropriedadeDaEntity(
                 Entity: $Lista,
                 lista: [
-                    'titulo', 'texto', 'lista', 'grupo', 'data_criacao', 'data_atualizacao', 'status'
+                    'titulo', 'texto_pequeno', 'texto_grande', 'lista', 'grupo', 'imagem',
+                    'data_criacao', 'data_atualizacao', 'status'
                 ]
             ),
             status: $status

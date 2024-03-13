@@ -20,6 +20,12 @@ $Painel->coluna(callback: function () use ($Painel, $diretorioImagem) {
                 contador: 100,
                 obrigatorio: true
             )
+            ->input(
+                name: 'texto_pequeno',
+                label: 'Texto da chamada',
+                placeholder: 'Digite um texto',
+                contador: 100,
+            )
             ->select(
                 name: 'grupo',
                 label: 'Grupo',
@@ -48,7 +54,7 @@ $Painel->coluna(callback: function () use ($Painel) {
 $Painel->coluna(callback: function () use ($Painel, $diretorioImagem, $diretorioArquivo) {
     $Painel->fieldset('Texto', function () use ($Painel, $diretorioImagem, $diretorioArquivo) {
         $Painel->editorBalao(
-            name: 'texto',
+            name: 'texto_grande',
             label: 'Texto',
             placeholder: 'Digite seu texto',
             diretorioImagem: $diretorioImagem,

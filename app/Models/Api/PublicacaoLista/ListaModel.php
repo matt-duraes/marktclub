@@ -33,7 +33,10 @@ final class ListaModel extends ORM implements ModelListarInterface
     public function listarDados(): stdClass
     {
         $dado = $this
-            ->campo(['uuid', 'titulo', 'texto', 'lista', 'grupo', 'data_criacao', 'data_atualizacao', 'status'])
+            ->campo([
+                'uuid', 'titulo', 'texto_pequeno', 'texto_grande', 'url', 'lista',
+                'grupo', 'imagem', 'data_criacao', 'data_atualizacao', 'status'
+            ])
             ->where($this->pegarWhere(), obrigatorio: false)
             ->pagina($this->pegarPagina(), $this->pegarQuantidade())
             ->order('ordem', 'ASC')
@@ -56,11 +59,13 @@ final class ListaModel extends ORM implements ModelListarInterface
             $retorno[] = [
                 'id'               => $r->uuid,
                 'titulo'           => $r->titulo,
-                'texto'            => $r->texto,
+                'texto'            => $r->texto_pequeno,
                 'lista'            => jsonDecode($r->lista, true, true),
                 'grupo'            => $Grupo->indice($r->grupo),
+                'imagem'           => arquivoPrivado($r->imagem),
                 'data_criacao'     => (new DataHora($r->data_criacao))->date(),
                 'data_atualizacao' => (new DataHora($r->data_atualizacao))->date(),
+                'url'              => !empty($r->texto_grande) ? $r->url : '',
                 'status'           => $Status->indice($r->status)
             ];
         }

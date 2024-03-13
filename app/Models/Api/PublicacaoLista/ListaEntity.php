@@ -16,10 +16,10 @@ final class ListaEntity extends Entity
         'id_admin_empresa' => '->idEmpresa'
     ];
     protected array $ormSalvar = [
-        'titulo', 'texto', 'lista', 'imagem', 'grupo', 'ordem', 'status'
+        'titulo', 'texto_pequeno', 'texto_grande', 'lista', 'imagem', 'grupo', 'ordem', 'status'
     ];
     protected array $ormBuscar = [
-        'titulo', 'texto', 'lista', 'imagem', 'grupo', 'ordem', 'status'
+        'titulo', 'texto_pequeno', 'texto_grande', 'lista', 'imagem', 'grupo', 'ordem', 'status'
     ];
     protected string $ormValidarSalvar = '
         titulo|Título|obrigatorio|vazio
@@ -27,7 +27,8 @@ final class ListaEntity extends Entity
         status|Status|obrigatorio|vazio|valido
     ';
     public string $titulo;
-    public string $texto;
+    public string $texto_pequeno;
+    public string $texto_grande;
     public string $imagem;
     public array $lista;
     public int $ordem;
