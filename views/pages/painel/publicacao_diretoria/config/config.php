@@ -4,7 +4,7 @@ return [
     'titulo'     => 'Diretoria',
     'buscar'     => true,
     'filtrar'    => true,
-    'ordem'      => true,
+    'ordem'      => false,
     'visualizar' => false,
     'add'        => true,
     'editar'     => true,
