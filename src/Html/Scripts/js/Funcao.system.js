@@ -789,10 +789,48 @@ const buscarEnderecoPeloCep = (
     inputBairro,
     inputCidade,
     inputEstado,
-    browser
+    browser,
+    botao
 ) => {
-    inputCep.addEventListener('formChange', async () => {
+    if (botao !== undefined) {
+        botao.addEventListener('click', async () => {
+            buscarEnderecoNoBackEnd(
+                inputCep,
+                inputLogradouro,
+                inputNumero,
+                inputBairro,
+                inputCidade,
+                inputEstado,
+                browser
+            );
+        });
+    } else {
+        inputCep.addEventListener('formChange', async () => {
+            buscarEnderecoNoBackEnd(
+                inputCep,
+                inputLogradouro,
+                inputNumero,
+                inputBairro,
+                inputCidade,
+                inputEstado,
+                browser
+            );
+        });
+    }
+
+    const buscarEnderecoNoBackEnd = async (
+        inputCep,
+        inputLogradouro,
+        inputNumero,
+        inputBairro,
+        inputCidade,
+        inputEstado,
+        browser
+    ) => {
         const cep = inputCep.value;
+        if (cep == '') {
+            return;
+        }
         Loading.show();
         const resposta = await ajaxPost(LINK_PADRAO + '/__endereco-cep', { cep }, '');
         Loading.hide();
@@ -821,7 +859,7 @@ const buscarEnderecoPeloCep = (
         } else {
             formValue(inputCidade, '');
         }
-    });
+    };
 };
 
 buscarCidadePeloEstado = async (inputCidade, estado, valor, titulo) => {

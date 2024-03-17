@@ -43,7 +43,7 @@ const formValue = (input, valor, obrigatorio) => {
         }
         const checked = valor == false || valor == '' || valor == 'nao' ? false : true;
         input.checked = checked;
-    } else if (bloco.classList.contains('input_url')) {
+    } else if (bloco && bloco.classList.contains('input_url')) {
         valor = valor.replace(/^(http:\/\/|https:\/\/)/i, '');
     }
     input.value = valor;

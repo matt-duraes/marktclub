@@ -145,13 +145,12 @@ use Helpers\ListaHelper;
                             label: 'Longitude',
                             placeholder: 'Digite a longitude'
                         ) ?>
-                        <div class="botao inativo">Como chegar</div>
-                        <a class="botao ativo display_none" href="" target="_blank" rel="noopener noreferrer">Como chegar</a>
                     </div>
                     <div class="bloco_renderizar">
                         <div class="mapa"></div>
                         <div class="buscar_titulo">
                             <input type="text" class="input_geolocalizacao_titulo" placeholder="Buscar por título...">
+                            <div class="botao botao_colocar_ponto_geo_lat">Buscar</div>
                         </div>
                         <div class="botao_controle">
                             <div class="botao_pequeno_geral botao_buscar_geolocalizacao_endereco botao">Localizar endereço</div>

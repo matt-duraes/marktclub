@@ -279,14 +279,15 @@ final class ConfiguracoesPadrao
         'parceiro_loja'            => [
             'titulo'    => 'Loja',
             'acao'      => [
-                'index', 'add', 'editar', 'deletar', 'empresa'
+                'index', 'add', 'visualizar', 'editar', 'deletar', 'empresa'
             ],
             'permissao' => [
-                'parceiro_loja_index'   => 'Listar',
-                'parceiro_loja_add'     => 'Salvar',
-                'parceiro_loja_editar'  => 'Editar',
-                'parceiro_loja_deletar' => 'Deletar',
-                'parceiro_loja_empresa' => 'Todas as empresas'
+                'parceiro_loja_index'      => 'Listar',
+                'parceiro_loja_add'        => 'Salvar',
+                'parceiro_loja_visualizar' => 'Visualizar',
+                'parceiro_loja_editar'     => 'Editar',
+                'parceiro_loja_deletar'    => 'Deletar',
+                'parceiro_loja_empresa'    => 'Todas as empresas'
             ]
         ],
         'parceiro_cashback'        => [

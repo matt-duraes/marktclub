@@ -169,19 +169,43 @@ Route
     }, true)
 
     // ENDERECO
-    ::controller(EnderecoController::class)::grupo(function () {
-        Route::nome('buscarGeolocalizacao')::rotaNaoUnica()::request(['pais', '!titulo', '!cep', '!logradouro', '!numero', '!bairro', '!cidade', '!estado'])::post('/sistema-endereco/buscar-geolocalizacao');
-        Route::nome('buscarEnderecoPeloCep')::rotaNaoUnica()::request(['cep'])::post('/sistema-endereco/buscar-endereco-pelo-cep');
-        Route::nome('buscarCidade')::rotaNaoUnica()::request(['estado'])::post('/sistema-endereco/buscar-cidade');
-        Route::nome('listarEndereco')::rotaNaoUnica()::request(['tabela', 'local', 'id', 'pagina', '!quantidade', '!pais', '!estado', '!titulo'])::post('/sistema-endereco/buscar-lista');
-        Route::nome('salvarEndereco')::rotaNaoUnica()::request([
+    ::controller(EnderecoController::class)
+    ::grupo(function () {
+        Route
+            ::nome('buscarGeolocalizacao')
+            ::rotaNaoUnica()
+            ::request([
+                'pais', '!titulo', '!cep', '!logradouro', '!numero', '!bairro', '!cidade', '!estado'
+            ])
+            ::post('/sistema-endereco/buscar-geolocalizacao');
+        Route
+            ::nome('buscarEnderecoPeloCep')
+            ::rotaNaoUnica()
+            ::request(['cep'])
+            ::post('/sistema-endereco/buscar-endereco-pelo-cep');
+        Route
+            ::nome('listarEndereco')
+            ::rotaNaoUnica()
+            ::request([
+                'tabela', 'local', 'id', 'pagina', '!quantidade', '!pais', '!estado', '!titulo'
+            ])
+            ::post('/sistema-endereco/buscar-lista');
+        Route
+            ::nome('salvarEndereco')
+            ::rotaNaoUnica()
+            ::request([
                 'tabela', 'local', 'titulo', 'telefone', 'pais', 'cep', 'logradouro', 'numero', 'complemento',
                 'referencia', 'bairro', 'estado', 'cidade', 'latitude', 'longitude'
-            ])::post('/sistema-endereco/salvar-endereco');
-        Route::nome('atualizarEndereco')::rotaNaoUnica()::request([
+            ])
+            ::post('/sistema-endereco/salvar-endereco');
+        Route
+            ::nome('atualizarEndereco')
+            ::rotaNaoUnica()
+            ::request([
                 'titulo', 'telefone', 'pais', 'cep', 'logradouro', 'numero', 'complemento',
                 'referencia', 'bairro', 'estado', 'cidade', 'latitude', 'longitude'
-            ])::post('/sistema-endereco/atualizar-endereco/{id}');
+            ])
+            ::post('/sistema-endereco/atualizar-endereco/{id}');
     }, true)
 
     // DOWNLOAD PRIVADO
