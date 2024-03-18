@@ -49,9 +49,9 @@ final class EnderecoController extends Controller
         $dado = $Api
             ->validar('Ocorreu um erro ao listar endereço, por favor, tente novamente.')
             ->json([
-                'tabela'     => $request->tabela,
+                'tipo'       => $request->tipo,
                 'local'      => $request->local,
-                'vinculo'    => $request->id,
+                'vinculo'    => $request->vinculo,
                 'pagina'     => $request->pagina,
                 'quantidade' => $request->quantidade,
                 'pais'       => $request->pais,
@@ -59,7 +59,7 @@ final class EnderecoController extends Controller
                 'titulo'     => $request->titulo
             ])
             ->get('/endereco')
-            ->object();
+            ->object()->dado;
 
         return mensagemSucesso($dado);
     }

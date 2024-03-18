@@ -3,16 +3,94 @@
 
 .bloco_endereco_geral
     width: 100%
-.bloco_endereco
+.bloco_visualizar_lista_geral
     width: 100%
     flexCol()
     align-items: flex-start
     .botao_pequeno_geral
         margin-left: 20px
-    .lista_endereco
-        width: 100%
-        flexCol()
+    .zero
         margin-top: 20px
+        text-align: center
+    .bloco_visuaizar_listar
+        width: 100%
+        max-height: 200px
+        margin-top: 20px
+        overflow-y: auto
+        border-top: 1px solid #DDD
+        border-bottom: 1px solid #DDD
+.bloco_visualizar_lista_geral .form_visualizar_listar
+    width: 100%
+    flexRow()
+    padding: 20px 20px 0
+    input
+        height: 30px
+        line-height: 30px
+        border: 1px solid #DDD
+        border-radius: 15px
+        textoFontSize()
+        padding: 0 10px
+        margin-right: 10px
+        &:first-child
+            flex-grow: 1
+            flex-basis: 0%
+    .botao
+        height: 30px
+        line-height: 30px
+        padding: 0 10px
+        bgDegradeVerde()
+        color: #FFF
+        cursor: pointer
+        textoFontSize()
+        border-radius: 15px
+.bloco_visualizar_lista_geral .bloco_visuaizar_listar .bloco_visualizar_linha
+    width: 100%
+    padding: 10px 20px
+    border-top: 1px solid #DDD
+    flexRow()
+    align-items: center
+    &:hover
+        background-color: #F6F6F6
+    &:first-child
+        border-top: none
+    h1
+        max-width: 200px
+        texto()
+        font-weight: bold
+        color: #666
+        flexGrow()
+    p
+    p span
+        texto()
+    p
+        flex-grow: 1
+        flex-basis: 0%
+    i
+        width: 30px
+        height: 30px
+        flexCenter()
+        cursor: pointer
+        margin-left: 10px
+        cursor: pointer
+        border-radius: 20px
+        fill: #FFF
+        &.editar
+            background-color: $corAzul
+        &.deletar
+            background-color: $corVermelho
+.bloco_visualizar_lista_geral .bloco_visualizar_carregar_mais
+    width: 100%
+    flexRow()
+    margin-top: 20px
+    align-items: center
+    justify-content: center
+    .botao_mais
+        border: 1px solid #999
+        textoFontSize()
+        padding: 10px 20px
+        border-radius: 20px
+        color: #333
+        cursor: pointer
 
 .bloco_endereco_add
     width: 100VW

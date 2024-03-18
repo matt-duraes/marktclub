@@ -3,9 +3,13 @@
 $Painel = new PainelConfig\Visualizar('parceiro_loja');
 
 $Painel->coluna(callback: function () use ($Painel) {
-    $Painel->bloco(titulo: 'Endereço', callback: function () use ($Painel) {
+    $Painel->bloco(titulo: 'Endereço no clube', callback: function () use ($Painel) {
         $Painel
-            ->endereco('parceiro_loja', 'principal');
+            ->endereco('parceiro_loja', 'clube');
+    });
+    $Painel->bloco(titulo: 'Endereço no painel', callback: function () use ($Painel) {
+        $Painel
+            ->endereco('parceiro_loja', 'painel');
     });
 });
 

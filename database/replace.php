@@ -25,11 +25,6 @@ return [
     'contato' => [
         'cod' => 'id_vinculo'
     ],
-    'endereco_novo' => [
-        'cod'    => 'id_vinculo',
-        'tabela' => 'tipo',
-        'nome'   => 'titulo'
-    ],
     'solicitacao_cheque_bonus' => [
         'cod'                  => 'uuid',
         'dependente_documento' => 'dependente_cpf'

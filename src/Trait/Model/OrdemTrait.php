@@ -22,8 +22,14 @@ trait OrdemTrait
         bool $obrigatorio = false,
         bool $valido = true
     ): string|OrderInterface {
+        $requestExiste = false;
+        if (property_exists($this, 'request')) {
+            $propriedade = new \ReflectionProperty($this, 'request');
+            $requestExiste = $propriedade->isInitialized($this);
+        }
+
         $valor = '';
-        if (property_exists($this, 'request') && $this->request->existe('ordem')) {
+        if ($requestExiste && $this->request->existe('ordem')) {
             $valor = $this->request->ordem;
         } elseif ($this->propriedadeExiste('ordem')) {
             $valor = $this->ordem;

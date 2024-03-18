@@ -17,8 +17,14 @@ trait PaginaTrait
      */
     protected function pegarPagina(bool $obrigatorio = true, bool $valido = true): int
     {
+        $requestExiste = false;
+        if (property_exists($this, 'request')) {
+            $propriedade = new \ReflectionProperty($this, 'request');
+            $requestExiste = $propriedade->isInitialized($this);
+        }
+
         $valor = '';
-        if (property_exists($this, 'request') && $this->request->existe('pagina')) {
+        if ($requestExiste && $this->request->existe('pagina')) {
             $valor = $this->request->pagina;
         } elseif ($this->propriedadeExiste('pagina') && $this->pagina instanceof Pagina) {
             $valor = $this->pagina->numero();

@@ -72,7 +72,7 @@ define('TABELA_SILIUM_COMISSAO', 'silium_comissao');
 define('TABELA_SILIUM_DEPOSITO', 'silium_deposito');
 define('TABELA_SISTEMA_CONTATO', 'contato');
 define('TABELA_SISTEMA_DOWNLOAD', 'sistema_download');
-define('TABELA_SISTEMA_ENDERECO', 'endereco_novo');
+define('TABELA_SISTEMA_ENDERECO', 'sistema_endereco');
 define('TABELA_SISTEMA_MENSAGERIA', 'sistema_mensageria');
 define('TABELA_SISTEMA_USUARIO', 'sistema_usuario');
 define('TABELA_SITE_CONFIG', 'site_config');

@@ -187,14 +187,14 @@ Route
             ::nome('listarEndereco')
             ::rotaNaoUnica()
             ::request([
-                'tabela', 'local', 'id', 'pagina', '!quantidade', '!pais', '!estado', '!titulo'
+                'tipo', 'local', 'vinculo', 'pagina', '!quantidade', '!pais', '!estado', '!titulo'
             ])
             ::post('/sistema-endereco/buscar-lista');
         Route
             ::nome('salvarEndereco')
             ::rotaNaoUnica()
             ::request([
-                'tabela', 'local', 'titulo', 'telefone', 'pais', 'cep', 'logradouro', 'numero', 'complemento',
+                'tipo', 'local', 'titulo', 'telefone', 'pais', 'cep', 'logradouro', 'numero', 'complemento',
                 'referencia', 'bairro', 'estado', 'cidade', 'latitude', 'longitude'
             ])
             ::post('/sistema-endereco/salvar-endereco');

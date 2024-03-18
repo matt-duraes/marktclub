@@ -144,7 +144,7 @@ Route
             ::nome('listar')
             ::middleware(TokenMiddleware::class, 'scope', ['endereco:listar'])
             ::request([
-                '!pais', '!estado', '!cidade', 'tipo', 'local', 'vinculo', '!ordem'
+                '!pais', '!estado', '!cidade', 'tipo', 'local', 'vinculo', '!ordem', '!pagina', '!quantidade', '!titulo'
             ], 'json')
             ::get('/endereco');
 

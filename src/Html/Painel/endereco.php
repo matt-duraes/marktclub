@@ -4,13 +4,33 @@ use Helpers\ListaHelper;
 
 ?>
 <div class="bloco_endereco_geral">
-    <input type="hidden" name="tabela" value="<?= $enderecoTabela ?>">
+    <input type="hidden" name="tipo" value="<?= $enderecoTabela ?>">
     <input type="hidden" name="local" value="<?= $enderecoLocal ?>">
-    <div class="bloco_endereco">
+    <div class="bloco_visualizar_lista_geral">
         <div class="botao_pequeno_geral botao_adicionar_endereco">Adicionar endereço</div>
-        <div class="lista_endereco bloco_lista_endereco_previa">
+        <form action="" class="form_visualizar_listar">
+            <input type="text" class="input_buscar_pesquisa" placeholder="Buscar">
+            <input type="text" class="input_buscar_estado" placeholder="Estado">
+            <input type="text" class="input_buscar_cidade" placeholder="Cidade">
+            <div class="botao">Buscar</div>
+        </form>
+        <div class="bloco_visuaizar_listar bloco_endereco_lista">
+            <div class="zero bloco_visualizar_loading">Carregando endereço</div>
+            <div class="zero bloco_visualizar_erro display_none">Erro ao listar endereço</div>
+            <div class="zero bloco_visualizar_zero display_none">Sem endereço no momento</div>
         </div>
-        <div class="botao_pequeno_geral botao_ver_todos display_none">Ver todos</div>
+        <div class="bloco_visualizar_carregar_mais display_none">
+            <div class="botao_mais botao_visualizar_carregar_mais">carregar mais</div>
+        </div>
+    </div>
+
+    <div class="display_none">
+        <div class="bloco_visualizar_linha bloco_visualizar_linha_padrao">
+            <h1></h1>
+            <p><span class="bairro"></span><span class="traco"></span><span class="cidade"></span><span class="barra"></span><span class="estado"></span></p>
+            <i class="botao_visualizar_editar editar"><?= iconeEditar(12) ?></i>
+            <i class="botao_visualizar_deletar deletar"><?= iconeDeletar(16) ?></i>
+        </div>
     </div>
 
     <div class="bloco_endereco_add display_none">
@@ -19,7 +39,7 @@ use Helpers\ListaHelper;
                 <h1>CADASTRAR ENDEREÇO</h1>
                 <i class="fechar"><?= iconeFechar() ?></i>
             </header>
-            <form action="/" class="form_geral">
+            <form action="/" class="form_geral form_endereco">
                 <div class="bloco">
                     <h2>Dados do endereço</h2>
                     <?= formInput(
@@ -148,13 +168,10 @@ use Helpers\ListaHelper;
                     </div>
                     <div class="bloco_renderizar">
                         <div class="mapa"></div>
-                        <div class="buscar_titulo">
-                            <input type="text" class="input_geolocalizacao_titulo" placeholder="Buscar por título...">
-                            <div class="botao botao_colocar_ponto_geo_lat">Buscar</div>
-                        </div>
                         <div class="botao_controle">
-                            <div class="botao_pequeno_geral botao_buscar_geolocalizacao_endereco botao">Localizar endereço</div>
-                            <div class="botao_pequeno_geral botao_colocar_marcado botao">Colocar ponto aqui</div>
+                            <div class="botao_pequeno_geral botao_buscar_latlong_titulo botao">Buscar por titulo</div>
+                            <div class="botao_pequeno_geral botao_buscar_latlong_endereco botao">Buscar por endereço</div>
+                            <div class="botao_pequeno_geral botao_buscar_latlong_centro botao">Colocar ponto aqui</div>
                         </div>
                     </div>
                 </div>

@@ -115,7 +115,7 @@
 
     <form action="/" method="post">
         <input type="hidden" name="LINK" id="LINK" value="{!!LINK!!}">
-        <input type="hidden" name="LINK_PADRAO" id="LINK" value="{!!LINK_PADRAO!!}">
+        <input type="hidden" name="LINK_PADRAO" id="LINK_PADRAO" value="{!!LINK_PADRAO!!}">
         <input type="hidden" name="LINK_VOLTAR" id="LINK_VOLTAR" value="{!!LINK_VOLTAR!!}">
         <input type="hidden" name="APP" id="APP" value="{!!$app!!}">
         <input type="hidden" name="RECAPTCHA" id="RECAPTCHA" value="{!!env('RECAPTCHA_PUBLIC', '')!!}">
