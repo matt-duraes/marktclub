@@ -187,25 +187,67 @@ Route
             ::nome('listarEndereco')
             ::rotaNaoUnica()
             ::request([
-                'tipo', 'local', 'vinculo', 'pagina', '!quantidade', '!pais', '!estado', '!titulo'
+                'local_principal', 'local_secundario', 'vinculo', 'pagina', '!quantidade', '!cidade', '!estado', '!titulo'
             ])
             ::post('/sistema-endereco/buscar-lista');
+        Route
+            ::nome('buscarUnico')
+            ::rotaNaoUnica()
+            ::post('/sistema-endereco/buscar-unico/{id}');
         Route
             ::nome('salvarEndereco')
             ::rotaNaoUnica()
             ::request([
-                'tipo', 'local', 'titulo', 'telefone', 'pais', 'cep', 'logradouro', 'numero', 'complemento',
-                'referencia', 'bairro', 'estado', 'cidade', 'latitude', 'longitude'
+                'local_principal', 'local_secundario', 'titulo', 'pais', 'cep', 'logradouro', 'numero', 'complemento',
+                'referencia', 'bairro', 'estado', 'cidade', 'latitude', 'longitude', 'vinculo', 'principal'
             ])
             ::post('/sistema-endereco/salvar-endereco');
         Route
             ::nome('atualizarEndereco')
             ::rotaNaoUnica()
             ::request([
-                'titulo', 'telefone', 'pais', 'cep', 'logradouro', 'numero', 'complemento',
-                'referencia', 'bairro', 'estado', 'cidade', 'latitude', 'longitude'
+                'titulo', 'pais', 'cep', 'logradouro', 'numero', 'complemento',
+                'referencia', 'bairro', 'estado', 'cidade', 'latitude', 'longitude', 'principal'
             ])
             ::post('/sistema-endereco/atualizar-endereco/{id}');
+        Route
+            ::nome('deletarEndereco')
+            ::rotaNaoUnica()
+            ::post('/sistema-endereco/deletar-endereco/{id}');
+    }, true)
+
+    // CONTATO
+    ::controller(\PainelController\ContatoController::class)
+    ::grupo(function () {
+        Route
+            ::nome('listarContato')
+            ::rotaNaoUnica()
+            ::request([
+                'local_principal', 'local_secundario', 'vinculo', 'pagina', '!quantidade', '!cidade', '!estado', '!titulo'
+            ])
+            ::post('/sistema-contato/buscar-lista');
+        Route
+            ::nome('buscarContato')
+            ::rotaNaoUnica()
+            ::post('/sistema-contato/buscar-unico/{id}');
+        Route
+            ::nome('salvarContato')
+            ::rotaNaoUnica()
+            ::request([
+                'local_principal', 'local_secundario', 'nome', 'cpf', 'tipo', 'valor', 'principal'
+            ])
+            ::post('/sistema-contato/salvar-contato');
+        Route
+            ::nome('atualizarContato')
+            ::rotaNaoUnica()
+            ::request([
+                'nome', 'cpf', 'tipo', 'valor', 'principal'
+            ])
+            ::post('/sistema-contato/atualizar-contato/{id}');
+        Route
+            ::nome('deletarContato')
+            ::rotaNaoUnica()
+            ::post('/sistema-contato/deletar-contato/{id}');
     }, true)
 
     // DOWNLOAD PRIVADO

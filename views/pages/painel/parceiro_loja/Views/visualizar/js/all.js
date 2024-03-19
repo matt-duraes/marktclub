@@ -9,85 +9,97 @@ window.addEventListener('load', () => {
     });
 });
 const carregarBlocoEndereco = (bloco, parceiro) => {
-    const tipo = bloco.querySelector('input[name="tipo"]').valor();
-    const local = bloco.querySelector('input[name="local"]').valor();
+    const localPrincipal = $('input[name="local_principal"]', bloco).valor();
+    const localSecundario = $('input[name="local_secundario"]', bloco).valor();
+    const listaId = [];
 
     // Endereço
-    const botaoEnderecoAbrir = bloco.querySelector('.botao_adicionar_endereco');
-    const botaoEnderecoFechar = bloco.querySelector('.bloco_endereco_add .fechar');
-    const blocoEndereco = bloco.querySelector('.bloco_endereco_add');
+    const botaoEnderecoAbrir = $('.botao_adicionar_endereco', bloco);
+    const botaoEnderecoFechar = $('.bloco_endereco_add .fechar', bloco);
+    const blocoEndereco = $('.bloco_endereco_add', bloco);
 
     // Input
-    const inputTitulo = bloco.querySelector('.bloco_endereco_titulo input');
-    const inputTelefone = bloco.querySelector('.bloco_endereco_telefone input');
-    const inputPais = bloco.querySelector('.bloco_endereco_pais input');
-    const inputCepBrasil = bloco.querySelector('.bloco_endereco_cep_brasil input');
-    const inputCepEstrangeiro = bloco.querySelector('.bloco_endereco_cep_estrangeiro input');
-    const inputLogradouro = bloco.querySelector('.bloco_endereco_logradouro input');
-    const inputNumero = bloco.querySelector('.bloco_endereco_numero input');
-    const inputComplemento = bloco.querySelector('.bloco_endereco_complemento input');
-    const inputReferencia = bloco.querySelector('.bloco_endereco_referencia input');
-    const inputBairro = bloco.querySelector('.bloco_endereco_bairro input');
-    const inputEstadoBrasil = bloco.querySelector('.bloco_endereco_estado_brasil input.input_select_value');
-    const inputEstadoEstrangeiro = bloco.querySelector('.bloco_endereco_estado_estrangeiro input');
-    const inputCidadeBrasil = bloco.querySelector('.bloco_endereco_cidade_brasil input.input_select_value');
-    const inputCidadeEstrangeiro = bloco.querySelector('.bloco_endereco_cidade_estrangeiro input');
-    const inputLatitude = bloco.querySelector('.bloco_endereco_latitude input');
-    const inputLongitude = bloco.querySelector('.bloco_endereco_longitude input');
-    const inputLatLong = bloco.querySelectorAll('.bloco_endereco_latitude input, .bloco_endereco_longitude input');
-    const inputZerar = bloco.querySelectorAll(`
-        .bloco_endereco_titulo input, .bloco_endereco_telefone input, .bloco_endereco_cep_brasil input,
-        .bloco_endereco_cep_estrangeiro input, .bloco_endereco_logradouro input, .bloco_endereco_numero input,
-        .bloco_endereco_complemento input, .bloco_endereco_referencia input, .bloco_endereco_bairro input,
-        .bloco_endereco_estado_brasil inpu, .input_select_value, .bloco_endereco_estado_estrangeiro input,
-        .bloco_endereco_cidade_brasil inpu, .input_select_value, .bloco_endereco_cidade_estrangeiro input,
-        .input_geolocalizacao_titulo, .bloco_endereco_latitude input, .bloco_endereco_longitude input
-    `);
+    const inputIdEndereco = $('.input_id_endereco', bloco);
+    const inputTitulo = $('.bloco_endereco_titulo input', bloco);
+    const inputPais = $('.bloco_endereco_pais input', bloco);
+    const inputCepBrasil = $('.bloco_endereco_cep_brasil input', bloco);
+    const inputCepEstrangeiro = $('.bloco_endereco_cep_estrangeiro input', bloco);
+    const inputLogradouro = $('.bloco_endereco_logradouro input', bloco);
+    const inputNumero = $('.bloco_endereco_numero input', bloco);
+    const inputComplemento = $('.bloco_endereco_complemento input', bloco);
+    const inputReferencia = $('.bloco_endereco_referencia input', bloco);
+    const inputBairro = $('.bloco_endereco_bairro input', bloco);
+    const inputEstadoBrasil = $('.bloco_endereco_estado_brasil input.input_select_value', bloco);
+    const inputEstadoEstrangeiro = $('.bloco_endereco_estado_estrangeiro input', bloco);
+    const inputCidadeBrasil = $('.bloco_endereco_cidade_brasil input.input_select_value', bloco);
+    const inputCidadeEstrangeiro = $('.bloco_endereco_cidade_estrangeiro input', bloco);
+    const inputPrincipal = $('.bloco_endereco_principal input', bloco);
+    const inputLatitude = $('.bloco_endereco_latitude input', bloco);
+    const inputLongitude = $('.bloco_endereco_longitude input', bloco);
+    const inputLatLong = $$('.bloco_endereco_latitude input, .bloco_endereco_longitude input', bloco);
+    const inputZerar = $$(
+        `
+            .bloco_endereco_titulo input, .bloco_endereco_cep_brasil input,
+            .bloco_endereco_cep_estrangeiro input, .bloco_endereco_logradouro input, .bloco_endereco_numero input,
+            .bloco_endereco_complemento input, .bloco_endereco_referencia input, .bloco_endereco_bairro input,
+            .bloco_endereco_estado_brasil input, .bloco_endereco_estado_estrangeiro input,
+            .bloco_endereco_cidade_brasil input, .bloco_endereco_cidade_estrangeiro input,
+            .bloco_endereco_latitude input, .bloco_endereco_longitude input
+        `,
+        bloco
+    );
 
-    // Bloco input
-    const blocoCepBrasil = bloco.querySelector('.bloco_endereco_cep_brasil');
-    const blocoCepEstrangeiro = bloco.querySelector('.bloco_endereco_cep_estrangeiro');
-    const blocoCidadeBrasil = bloco.querySelector('.bloco_endereco_cidade_brasil');
-    const blocoCidadeEstrangeiro = bloco.querySelector('.bloco_endereco_cidade_estrangeiro');
-    const blocoEstadoBrasil = bloco.querySelector('.bloco_endereco_estado_brasil');
-    const blocoEstadoEstrangeiro = bloco.querySelector('.bloco_endereco_estado_estrangeiro');
-    const botaoBuscarEndereco = bloco.querySelector('.botao_buscar_endereco');
+    // Bloco brasil/estrangeiro
+    const blocoBrasil = $$(
+        `
+            .bloco_endereco_cep_brasil, .bloco_endereco_cidade_brasil,
+            .bloco_endereco_estado_brasil, .botao_buscar_endereco_cep
+        `,
+        bloco
+    );
+    const blocoEstrangeiro = $$(
+        `
+            .bloco_endereco_cep_estrangeiro,
+            .bloco_endereco_cidade_estrangeiro, .bloco_endereco_estado_estrangeiro
+        `,
+        bloco
+    );
 
     // Buscar LatLong
-    const buscarLatLongTitulo = bloco.querySelector('.botao_buscar_latlong_titulo');
-    const buscarLatLongEndereco = bloco.querySelector('.botao_buscar_latlong_endereco');
-    const buscarLatLongCentro = bloco.querySelector('.botao_buscar_latlong_centro');
+    const buscarLatLongTitulo = $('.botao_buscar_latlong_titulo', bloco);
+    const buscarLatLongEndereco = $('.botao_buscar_latlong_endereco', bloco);
+    const buscarLatLongCentro = $('.botao_buscar_latlong_centro', bloco);
 
     // Mapa
-    const blocoMapa = bloco.querySelector('.mapa');
-    const latitudeInicial = inputLatitude.valor();
-    const longitudeInicial = inputLongitude.valor();
+    const blocoMapa = $('.mapa', bloco);
     const MAPA = {
         mapa: null,
         marker: null,
-        latitude: latitudeInicial != '' ? parseFloat(latitudeInicial) : parseFloat('-15.7861882'),
-        longitude: longitudeInicial != '' ? parseFloat(longitudeInicial) : parseFloat('-47.9239443'),
+        latitude: parseFloat('-15.7861882'),
+        longitude: parseFloat('-47.9239443'),
     };
 
+    // Cep
+    const botaoBuscarEnderecoCep = $('.botao_buscar_endereco_cep', bloco);
+
     // Salvar/Listar
-    const blocoEnderecoErro = bloco.querySelector('.bloco_visualizar_erro');
-    const blocoEnderecoZero = bloco.querySelector('.bloco_visualizar_zero');
-    const blocoEnderecoLoading = bloco.querySelector('.bloco_visualizar_loading');
-    const blocoEnderecoLista = bloco.querySelector('.bloco_endereco_lista');
-    const blocoEnderecoPadrao = bloco.querySelector('.bloco_visualizar_linha_padrao');
-    const blocoCarregarMais = bloco.querySelector('.bloco_visualizar_carregar_mais');
-    const botaoCarregarMais = bloco.querySelector('.botao_visualizar_carregar_mais');
-    const botaoSalvar = bloco.querySelector('.botao_salvar_endereco');
+    const blocoEnderecoErro = $('.bloco_visualizar_erro', bloco);
+    const blocoEnderecoZero = $('.bloco_visualizar_zero', bloco);
+    const blocoEnderecoLoading = $('.bloco_visualizar_loading', bloco);
+    const blocoEnderecoLista = $('.bloco_endereco_lista', bloco);
+    const blocoEnderecoPadrao = $('.bloco_visualizar_linha_padrao', bloco);
+    const blocoCarregarMais = $('.bloco_visualizar_carregar_mais', bloco);
+    const botaoCarregarMais = $('.botao_visualizar_carregar_mais', bloco);
+    const botaoSalvar = $('.botao_salvar_endereco', bloco);
+    const blocoSalvarOutro = $('.bloco_salvar_outro', bloco);
+    const inputSalvarOutro = $('.bloco_salvar_outro input', bloco);
 
     const zerarFormulario = () => {
-        blocoCepBrasil.classList.remove('display_none');
-        blocoEstadoBrasil.classList.remove('display_none');
-        blocoCidadeBrasil.classList.remove('display_none');
-        botaoBuscarEndereco.classList.remove('display_none');
-        blocoCepEstrangeiro.classList.add('display_none');
-        blocoCidadeEstrangeiro.classList.add('display_none');
-        blocoEstadoEstrangeiro.classList.add('display_none');
+        blocoBrasil.aparecer();
+        blocoEstrangeiro.sumir();
+        blocoSalvarOutro.aparecer();
         inputZerar.valor('');
+        inputPrincipal.checked = false;
         inputPais.valor('BR');
         iniciarMapa();
     };
@@ -148,6 +160,9 @@ const carregarBlocoEndereco = (bloco, parceiro) => {
     */
     botaoEnderecoAbrir.addEventListener('click', () => {
         zerarFormulario();
+        abrirBlocoEndereco();
+    });
+    const abrirBlocoEndereco = () => {
         blocoEndereco.aparecer();
         setTimeout(() => {
             blocoEndereco.classe('ativo', true);
@@ -155,13 +170,18 @@ const carregarBlocoEndereco = (bloco, parceiro) => {
         setTimeout(() => {
             inputTitulo.focus();
         }, 300);
-    });
+    };
+
     botaoEnderecoFechar.addEventListener('click', () => {
+        fecharBlocoEndereco();
+    });
+    const fecharBlocoEndereco = () => {
         blocoEndereco.classe('ativo', false);
         setTimeout(() => {
             blocoEndereco.sumir();
+            zerarFormulario();
         }, 300);
-    });
+    };
 
     /*
     |--------------------------------------------------------------------------
@@ -169,27 +189,18 @@ const carregarBlocoEndereco = (bloco, parceiro) => {
     |--------------------------------------------------------------------------
     */
     inputPais.evento('formChange', () => {
+        inputTitulo.focus();
         setarDadosPorPais();
     });
     const setarDadosPorPais = () => {
         const pais = inputPais.valor();
         if (pais == 'BR') {
-            blocoCepBrasil.aparecer();
-            blocoCepEstrangeiro.sumir();
-            blocoEstadoBrasil.aparecer();
-            blocoEstadoEstrangeiro.sumir();
-            blocoCidadeBrasil.aparecer();
-            blocoCidadeEstrangeiro.sumir();
-            botaoBuscarEndereco.aparecer();
+            blocoBrasil.aparecer();
+            blocoEstrangeiro.sumir();
             return;
         }
-        blocoCepBrasil.sumir();
-        blocoCepEstrangeiro.aparecer();
-        blocoEstadoBrasil.sumir();
-        blocoEstadoEstrangeiro.aparecer();
-        blocoCidadeBrasil.sumir();
-        blocoCidadeEstrangeiro.aparecer();
-        botaoBuscarEndereco.sumir();
+        blocoBrasil.sumir();
+        blocoEstrangeiro.aparecer();
     };
     buscarEnderecoPeloCep(
         inputCepBrasil,
@@ -199,16 +210,11 @@ const carregarBlocoEndereco = (bloco, parceiro) => {
         inputCidadeBrasil,
         inputEstadoBrasil,
         undefined,
-        botaoBuscarEndereco
+        botaoBuscarEnderecoCep
     );
     inputEstadoBrasil.evento('formChange', () => {
         buscarCidadePeloEstado(inputCidadeBrasil, inputEstadoBrasil.valor(), '', 'Escolha uma cidade');
     });
-    const estadoInicial = inputEstadoBrasil.valor();
-    const paisInicial = inputPais.valor();
-    if (paisInicial == 'BR' && estadoInicial != '') {
-        buscarCidadePeloEstado(inputCidadeBrasil, estadoInicial, inputCidadeBrasil.valor(), 'Escolha uma cidade');
-    }
 
     /*
     |--------------------------------------------------------------------------
@@ -218,7 +224,7 @@ const carregarBlocoEndereco = (bloco, parceiro) => {
     inputLatLong.evento('change', () => {
         const latitude = parseFloat(inputLatitude.valor());
         const longitude = parseFloat(inputLongitude.valor());
-        if (latitude == '' && longitude == '') {
+        if (vazio(latitude) && vazio(longitude)) {
             return;
         }
         adicionarMarker(latitude, longitude);
@@ -227,7 +233,7 @@ const carregarBlocoEndereco = (bloco, parceiro) => {
     buscarLatLongTitulo.evento('click', async () => {
         const titulo = inputTitulo.valor();
         const pais = inputPais.valor();
-        if (titulo == '' || pais == '') {
+        if (vazio(titulo) || vazio(pais)) {
             Alerta.notificacao('Você deve selecionar o país e passar um título para continuar.', false);
             return;
         }
@@ -245,7 +251,7 @@ const carregarBlocoEndereco = (bloco, parceiro) => {
         const bairro = inputBairro.valor();
         const cidade = brasil ? inputCidadeBrasil.valor() : inputCidadeEstrangeiro.valor();
         const estado = brasil ? inputEstadoBrasil.valor() : inputEstadoEstrangeiro.valor();
-        if (pais == '' || cidade == '' || estado == '') {
+        if (vazio(pais) || vazio(cidade) || vazio(estado)) {
             Alerta.notificacao('Você deve selecionar o país, cidade e estado para continuar.', false);
             return;
         }
@@ -304,21 +310,29 @@ const carregarBlocoEndereco = (bloco, parceiro) => {
     |--------------------------------------------------------------------------
     */
     let paginaAtual;
-    const listarEndereco = async (pagina, pais, estado, titulo) => {
+    const listarEndereco = async (pagina, estado, cidade, titulo) => {
         paginaAtual = pagina;
         blocoEnderecoLoading.aparecer();
         blocoEnderecoZero.sumir();
         blocoEnderecoErro.sumir();
+        blocoCarregarMais.sumir();
+
+        if (pagina == 1) {
+            $$('.bloco_visualizar_linha', bloco).remover();
+        }
+
         const resposta = await ajaxPost(
             LINK + '/sistema-endereco/buscar-lista',
             {
                 pagina,
-                tipo,
-                local,
+                /* eslint-disable */
+                local_principal: localPrincipal,
+                local_secundario: localSecundario,
+                /* eslint-enable */
                 vinculo: parceiro,
-                pais: pais == undefined ? '' : pais,
-                estado: estado == undefined ? '' : estado,
                 titulo: titulo == undefined ? '' : titulo,
+                estado: estado == undefined ? '' : estado,
+                cidade: cidade == undefined ? '' : cidade,
             },
             'Erro ao buscar lista de endereço'
         );
@@ -335,11 +349,32 @@ const carregarBlocoEndereco = (bloco, parceiro) => {
         } else {
             blocoCarregarMais.aparecer();
         }
-        for (endereco of resposta.dado.lista) {
+        for (const endereco of resposta.dado.lista) {
             adicionarNovoEndereco(endereco);
         }
+        rolarScroolParaTopo();
     };
     listarEndereco(1);
+
+    const botaoBuscar = $('.botao_buscar_endereco', bloco);
+    const inputBuscarPesquisa = $('.input_buscar_pesquisa', bloco);
+    const inputBuscarEstado = $('.input_buscar_estado', bloco);
+    const inputBuscarCidade = $('.input_buscar_cidade', bloco);
+    const inputBuscarTodos = $$('.input_buscar_pesquisa, .input_buscar_estado, .input_buscar_cidade', bloco);
+    botaoBuscar.evento('click', () => {
+        listarEndereco(1, inputBuscarEstado.valor(), inputBuscarCidade.valor(), inputBuscarPesquisa.valor());
+    });
+    inputBuscarTodos.evento('enter', () => {
+        listarEndereco(1, inputBuscarEstado.valor(), inputBuscarCidade.valor(), inputBuscarPesquisa.valor());
+    });
+    botaoCarregarMais.evento('click', () => {
+        listarEndereco(
+            paginaAtual + 1,
+            inputBuscarEstado.valor(),
+            inputBuscarCidade.valor(),
+            inputBuscarPesquisa.valor()
+        );
+    });
 
     /*
     |--------------------------------------------------------------------------
@@ -347,28 +382,65 @@ const carregarBlocoEndereco = (bloco, parceiro) => {
     |--------------------------------------------------------------------------
     */
     botaoSalvar.evento('click', async () => {
-        const body = montarBodyEndereco();
+        const id = inputIdEndereco.valor();
+        const body = montarBodyEndereco(id);
         if (!(await validarEndereco(body))) {
             return;
         }
+
+        const uri = id != '' ? '/sistema-endereco/atualizar-endereco/' + id : '/sistema-endereco/salvar-endereco';
         Loading.show();
-        const resposta = await ajaxPost(LINK + '/', body, 'Ocorreu um erro ao salvar o endereço.');
+        const resposta = await ajaxPost(LINK + uri, body, 'Ocorreu um erro ao salvar o endereço.');
+        Loading.hide();
         if (false === resposta) {
             return;
         }
-        blocoEnderecoZero.sumir();
-        adicionarNovoEndereco(resposta.dado);
+        if (vazio(id)) {
+            Alerta.notificacao('Endereço salvo com sucesso.', true);
+            acaoSalvarEndereco(resposta.dado);
+            return;
+        }
+        Alerta.notificacao('Endereço atualizado com sucesso.', true);
+        acaoAtualizarEndereco(id);
     });
+    const acaoSalvarEndereco = dado => {
+        blocoEnderecoZero.sumir();
+        adicionarNovoEndereco(dado);
+        rolarScroolParaTopo();
+        if (!inputSalvarOutro.checked) {
+            fecharBlocoEndereco();
+            return;
+        }
+        zerarFormulario();
+    };
+    const acaoAtualizarEndereco = id => {
+        const linha = $('#id_endereco_' + id);
+        const brasil = inputPais.valor() == 'BR';
 
-    const montarBodyEndereco = () => {
+        const cidade = brasil ? inputCidadeBrasil.valor() : inputCidadeEstrangeiro.valor();
+        $('.cidade', linha).texto(cidade);
+
+        $('.barra', linha).texto('');
+        const estado = brasil ? inputEstadoBrasil.valor() : inputEstadoEstrangeiro.valor();
+        if (estado != '') {
+            $('.barra', linha).texto('/');
+            $('.estado', linha).texto(estado);
+        }
+        const bairro = inputBairro.valor();
+        if (bairro != '') {
+            $('.traco', linha).texto(' - ');
+            $('.bairro', linha).texto(bairro);
+        }
+
+        $('h1', linha).texto(inputTitulo.valor());
+    };
+
+    const montarBodyEndereco = id => {
         const pais = inputPais.valor();
         const brasil = pais == 'BR';
-        return {
-            tipo,
-            local,
-            titulo: inputTitulo.valor(),
-            telefone: inputTelefone.valor(),
+        const body = {
             pais,
+            titulo: inputTitulo.valor(),
             cep: brasil ? inputCepBrasil.valor() : inputCepEstrangeiro.valor(),
             logradouro: inputLogradouro.valor(),
             numero: inputNumero.valor(),
@@ -379,52 +451,170 @@ const carregarBlocoEndereco = (bloco, parceiro) => {
             cidade: brasil ? inputCidadeBrasil.valor() : inputCidadeEstrangeiro.valor(),
             latitude: inputLatitude.valor(),
             longitude: inputLongitude.valor(),
+            principal: inputPrincipal.checked ? 'sim' : 'nao',
         };
+        if (vazio(id)) {
+            /* eslint-disable */
+            body.local_principal = localPrincipal;
+            body.local_secundario = localSecundario;
+            /* eslint-enable */
+            body.vinculo = parceiro;
+        }
+        return body;
     };
     const validarEndereco = async body => {
         return new Promise(resolve => {
             let retorno = true;
-            if (body.titulo == '') {
-                Alerta.notificacao('Digite um título para continuar.', false);
-                retorno = false;
-            } else if (body.pais == '') {
+            if (vazio(body.pais)) {
                 Alerta.notificacao('Escolha um país para continuar.', false);
                 retorno = false;
-            } else if (body.cep == '') {
+            } else if (vazio(body.titulo)) {
+                Alerta.notificacao('Digite um título para continuar.', false);
+                retorno = false;
+            } else if (vazio(body.cep)) {
                 Alerta.notificacao('Digite um CEP para continuar.', false);
                 retorno = false;
-            } else if (body.logradouro == '') {
+            } else if (vazio(body.logradouro)) {
                 Alerta.notificacao('Digite um logradouro para continuar.', false);
                 retorno = false;
-            } else if (body.bairro == '') {
+            } else if (vazio(body.bairro)) {
                 Alerta.notificacao('Digite um bairro para continuar.', false);
                 retorno = false;
-            } else if (body.estado == '' && body.pais == 'BR') {
+            } else if (vazio(body.estado) && body.pais == 'BR') {
                 Alerta.notificacao('Escolha um estado para continuar.', false);
                 retorno = false;
-            } else if (body.cidade == '' && body.pais == 'BR') {
+            } else if (vazio(body.cidade) && body.pais == 'BR') {
                 Alerta.notificacao('Escolha uma cidade para continuar.', false);
                 retorno = false;
-            } else if (body.cidade == '') {
+            } else if (vazio(body.cidade)) {
                 Alerta.notificacao('Digite uma cidade para continuar.', false);
                 retorno = false;
-            } else if (body.latitude == '' || body.longitude == '') {
+            } else if (vazio(body.latitude) || vazio(body.longitude)) {
                 Alerta.notificacao('Defina o local do endereço no mapa para continuar.', false);
                 retorno = false;
             }
             resolve(retorno);
         });
     };
+    /*
+    |--------------------------------------------------------------------------
+    | EDITAR
+    |--------------------------------------------------------------------------
+    */
+    const abrirBlocoParaEditar = async id => {
+        if (!inArray(id, listaId)) {
+            Alerta.notificacao('ID do endereço não existe.', false);
+            return;
+        }
 
+        Loading.show();
+        const resposta = await ajaxPost(
+            LINK + '/sistema-endereco/buscar-unico/' + id,
+            undefined,
+            'Erro ao buscar endereço, por favor, tente novamente.'
+        );
+        Loading.hide();
+
+        if (false === resposta) {
+            return;
+        }
+        abrirBlocoEndereco();
+        blocoSalvarOutro.sumir();
+        const brasil = resposta.dado.pais == 'BR';
+        inputIdEndereco.valor(resposta.dado.id);
+        inputTitulo.valor(resposta.dado.titulo);
+        inputPais.valor(resposta.dado.pais);
+
+        if (brasil) {
+            blocoBrasil.aparecer();
+            blocoEstrangeiro.sumir();
+            inputCepBrasil.valor(resposta.dado.cep);
+            inputEstadoBrasil.valor(resposta.dado.estado);
+            buscarCidadePeloEstado(inputCidadeBrasil, resposta.dado.estado, resposta.dado.cidade, 'Escolha uma cidade');
+        } else {
+            blocoBrasil.sumir();
+            blocoEstrangeiro.aparecer();
+            inputCepEstrangeiro.valor(resposta.dado.cep);
+            inputCidadeEstrangeiro.valor(resposta.dado.cidade);
+            inputEstadoEstrangeiro.valor(resposta.dado.estado);
+        }
+        inputLogradouro.valor(resposta.dado.logradouro);
+        inputNumero.valor(resposta.dado.numero);
+        inputComplemento.valor(resposta.dado.complemento);
+        inputReferencia.valor(resposta.dado.referencia);
+        inputBairro.valor(resposta.dado.bairro);
+        inputPrincipal.valor(resposta.dado.principal == 'sim');
+        inputLatitude.valor(resposta.dado.latitude);
+        inputLongitude.valor(resposta.dado.longitude);
+
+        iniciarMapa();
+        adicionarMarker(resposta.dado.latitude, resposta.dado.longitude);
+    };
+    /*
+    |--------------------------------------------------------------------------
+    | DELETAR
+    |--------------------------------------------------------------------------
+    */
+    const deletarEndereco = linha => {
+        const id = linha.attr('data-id');
+        if (!inArray(id, listaId)) {
+            Alerta.notificacao('ID do endereço não existe.', false);
+            return;
+        }
+        linha.sumir();
+        const resposta = ajaxPost(
+            LINK + '/sistema-endereco/deletar-endereco/' + id,
+            undefined,
+            'Erro ao deletar endereço, por favor, tente novamente.'
+        );
+        if (false === resposta) {
+            linha.aparecer();
+        }
+        linha.remover();
+        const quantidade = $$('.bloco_visualizar_linha', blocoEnderecoLista).length;
+        if (quantidade == 0) {
+            blocoEnderecoZero.aparecer();
+        }
+    };
+
+    /*
+    |--------------------------------------------------------------------------
+    | GERAL
+    |--------------------------------------------------------------------------
+    */
+    blocoEnderecoLista.evento('click', async e => {
+        const target = e.target;
+        if (target.classe('botao_visualizar_editar', '?') || target.closest('.botao_visualizar_editar')) {
+            abrirBlocoParaEditar(target.closest('.bloco_visualizar_linha').attr('data-id'));
+        } else if (target.classe('botao_visualizar_deletar', '?') || target.closest('.botao_visualizar_deletar')) {
+            if (
+                !(await Alerta.confirmar(
+                    'Deletar endereço',
+                    'Tem certeza que deseja deletar esse endereço? Essa ação não poderá ser desfeito.',
+                    false
+                ))
+            ) {
+                return;
+            }
+            deletarEndereco(target.closest('.bloco_visualizar_linha'));
+        }
+    });
+
+    const rolarScroolParaTopo = () => {
+        blocoEnderecoLista.scrollTop = 0;
+    };
     const adicionarNovoEndereco = dado => {
         const clone = blocoEnderecoPadrao.clonar();
+        clone.attr('data-id', dado.id);
+        clone.attr('id', 'id_endereco_' + dado.id);
+        listaId.push(dado.id);
         $('h1', clone).texto(dado.titulo);
         $('.cidade', clone).texto(dado.cidade);
-        if (dado.estado != '') {
+        if (!vazio(dado.estado)) {
             $('.barra', clone).texto('/');
             $('.estado', clone).texto(dado.estado);
         }
-        if (dado.bairro != '') {
+        if (!vazio(dado.bairro)) {
             $('.traco', clone).texto(' - ');
             $('.bairro', clone).texto(dado.bairro);
         }

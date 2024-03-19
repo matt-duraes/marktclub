@@ -3,14 +3,13 @@
 return (new \DataBase\DataBase())
     ->id()
     ->uuid()
-    ->char('cod')->tamanho('36')->replace('id_vinculo')
-    ->varchar('tabela')->tamanho(100)
-    ->nome('contato')->null()
-    ->int('local')->tamanho(1)->null()
-    ->int('tipo')->tamanho(1)->null()
-    ->varchar('outro')->tamanho(50)->null()
-    ->varchar('nome')->tamanho(50)->null()
-    ->cpf('documento')->null()
+    ->char('id_vinculo')->tamanho('36')
+    ->varchar('local_principal')->tamanho(100)
+    ->varchar('local_secundario')->tamanho(100)
+    ->nome('titulo')->null()
+    ->nome('nome')->tamanho(50)->null()
+    ->cpf('documento_cpf')->null()
+    ->int('tipo')->tamanho(1)
     ->varchar('valor')->tamanho(100)
-    ->int('operadora')->tamanho(1)->null()
-    ->int('destaque')->tamanho(1)->null();
+    ->int('principal')->tamanho(1)->null();
+;

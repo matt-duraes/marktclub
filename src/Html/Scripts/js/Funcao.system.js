@@ -495,6 +495,20 @@ const limparFormulario = form => {
 | não deixa de ser necessário a validação no backend
 |
 */
+const vazio = item => {
+    if (typeof item === 'undefined' || item === null) {
+        return true;
+    } else if (
+        (typeof item === 'string' && item.length > 0) ||
+        (Array.isArray(item) && item.length > 0) ||
+        (typeof item === 'object' && Object.keys(item).length > 0) ||
+        (typeof item === 'number' && (item > 0 || item < 0)) ||
+        (typeof item === 'boolean' && item === true)
+    ) {
+        return false;
+    }
+    return true;
+};
 const validarInput = bloco => {
     return new Promise(resolve => {
         const lista = bloco.querySelectorAll('.input_obrigatorio');

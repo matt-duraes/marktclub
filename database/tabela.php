@@ -70,7 +70,7 @@ define('TABELA_SAUDE_CONTRATACAO', 'saude_contratacao');
 define('TABELA_SAUDE_SIMULACAO', 'saude_simulacao_novo');
 define('TABELA_SILIUM_COMISSAO', 'silium_comissao');
 define('TABELA_SILIUM_DEPOSITO', 'silium_deposito');
-define('TABELA_SISTEMA_CONTATO', 'contato');
+define('TABELA_SISTEMA_CONTATO', 'sistema_contato');
 define('TABELA_SISTEMA_DOWNLOAD', 'sistema_download');
 define('TABELA_SISTEMA_ENDERECO', 'sistema_endereco');
 define('TABELA_SISTEMA_MENSAGERIA', 'sistema_mensageria');

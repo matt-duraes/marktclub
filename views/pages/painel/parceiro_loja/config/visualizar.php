@@ -7,10 +7,10 @@ $Painel->coluna(callback: function () use ($Painel) {
         $Painel
             ->endereco('parceiro_loja', 'clube');
     });
-    $Painel->bloco(titulo: 'Endereço no painel', callback: function () use ($Painel) {
-        $Painel
-            ->endereco('parceiro_loja', 'painel');
-    });
+    // $Painel->bloco(titulo: 'Contato do clube', callback: function () use ($Painel) {
+    //     $Painel
+    //         ->contato('parceiro_loja', 'clube');
+    // });
 });
 
 $Painel->css('painel_parceiro_loja_visualizar');

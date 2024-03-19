@@ -24,9 +24,9 @@ final class EnderecoModel extends ORM
     use WhereTrait;
 
     protected string $ormTabela = TABELA_SISTEMA_ENDERECO;
-    public string|array $vinculo;
-    public string $tipo;
-    public string $local;
+    public string $vinculo;
+    public string $local_principal;
+    public string $local_secundario;
     public string $pais;
     public string $cidade;
     public EnderecoEstado $estado;
@@ -47,7 +47,7 @@ final class EnderecoModel extends ORM
     {
         $dado = $this
             ->campo([
-                'uuid', 'titulo', 'telefone', 'cep', 'logradouro', 'complemento', 'referencia',
+                'uuid', 'titulo', 'cep', 'logradouro', 'complemento', 'referencia',
                 'numero', 'bairro', 'cidade', 'estado', 'pais', 'latitude', 'longitude', 'principal'
             ])
             ->where($this->pegarWhere(), obrigatorio: false)
@@ -75,9 +75,10 @@ final class EnderecoModel extends ORM
     {
         $Where = new Where($this);
         $Where
-            ->linha('local')
-            ->linha('tipo')
-            ->linha('id_vinculo', campo: 'vinculo')
+            ->linha('local_principal')
+            ->linha('local_secundario')
+            ->linha('vinculo', campo: 'id_vinculo')
+            ->linha('titulo', 'like%%')
             ->linha('pais')
             ->linha('cidade')
             ->linha('estado');
@@ -91,7 +92,6 @@ final class EnderecoModel extends ORM
             $retorno[] = [
                 'id'          => $r->uuid,
                 'titulo'      => $r->titulo,
-                'telefone'    => $r->telefone,
                 'completo'    => $this->formataEnderecoCompleto($r),
                 'cep'         => $r->cep,
                 'logradouro'  => $r->logradouro,

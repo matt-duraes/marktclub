@@ -1,0 +1,1 @@
+{"id":"id_beb1cf98e24366c0b36033dcd79175f8","token":"token","metodo":"GET","nome":"\/contato\/:id","uri":"{{LINK}}\/contato\/$CONTATO_ID","parametro":[],"body":[],"header":[],"variavel":[],"json":[],"documentacao":{"status":false,"descricao":"","requisicao":"","resposta":"","scope":"contato:buscar"}}

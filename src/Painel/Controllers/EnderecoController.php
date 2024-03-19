@@ -7,6 +7,7 @@ use Http\Response;
 use Helpers\ApiHelper;
 use Controller\Controller;
 use Helpers\LocalizacaoHelper;
+use PainelModel\Endereco\MontarUnicoModel;
 
 final class EnderecoController extends Controller
 {
@@ -49,40 +50,58 @@ final class EnderecoController extends Controller
         $dado = $Api
             ->validar('Ocorreu um erro ao listar endereço, por favor, tente novamente.')
             ->json([
-                'tipo'       => $request->tipo,
-                'local'      => $request->local,
-                'vinculo'    => $request->vinculo,
-                'pagina'     => $request->pagina,
-                'quantidade' => $request->quantidade,
-                'pais'       => $request->pais,
-                'estado'     => $request->estado,
-                'titulo'     => $request->titulo
+                'local_principal'  => $request->local_principal,
+                'local_secundario' => $request->local_secundario,
+                'vinculo'          => $request->vinculo,
+                'pagina'           => $request->pagina,
+                'quantidade'       => $request->quantidade,
+                'pais'             => $request->pais,
+                'estado'           => $request->estado,
+                'titulo'           => $request->titulo,
+                'cidade'           => $request->cidade
             ])
             ->get('/endereco')
-            ->object()->dado;
+            ->object();
 
-        return mensagemSucesso($dado);
+        return mensagemSucesso($dado->dado);
+    }
+
+    public function postBuscarUnico(string $id)
+    {
+        $Endereco = new MontarUnicoModel($id);
+        return mensagemSucesso($Endereco->endereco);
     }
 
     public function postSalvarEndereco(Request $request)
     {
         $Api = new ApiHelper(token: true);
-        $Api
+        $dado = $Api
             ->validar('Ocorreu um erro ao salvar endereço, por favor, tente novamente.')
-            ->json($request->dado())
+            ->body($request->dado())
             ->post('/endereco')
-            ->object();
+            ->object()->dado ?? [];
 
-        return new Response(status: 204);
+        return mensagemSucesso($dado, 201);
     }
 
     public function postAtualizarEndereco(Request $request, string $id)
     {
         $Api = new ApiHelper(token: true);
         $Api
-            ->validar('Ocorreu um erro ao salvar endereço, por favor, tente novamente.')
-            ->json($request->dado())
-            ->post('/endereco/' . $id)
+            ->validar('Ocorreu um erro ao atualizar endereço, por favor, tente novamente.')
+            ->body($request->dado())
+            ->put('/endereco/' . $id)
+            ->object();
+
+        return new Response(status: 204);
+    }
+
+    public function postDeletarEndereco(string $id)
+    {
+        $Api = new ApiHelper(token: true);
+        $Api
+            ->validar('Ocorreu um erro ao deletar endereço, por favor, tente novamente.')
+            ->delete('/endereco/' . $id)
             ->object();
 
         return new Response(status: 204);

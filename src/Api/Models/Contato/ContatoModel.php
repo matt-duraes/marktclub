@@ -3,75 +3,112 @@
 namespace ApiModel\Contato;
 
 use ORM\ORM;
-use System\Classes\Contato\Local;
+use stdClass;
+use Where\Where;
+use Erro\Excecao;
+use Modules\Botao;
+use Modules\Pagina;
+use Modules\Quantidade;
 use System\Classes\Contato\Tipo;
-use System\Classes\Contato\Nome;
+use System\Classes\Contato\Ordem;
 use System\Trait\Model\OrdemTrait;
+use System\Trait\Model\WhereTrait;
+use System\Trait\Model\PaginaTrait;
+use System\Trait\Model\QuantidadeTrait;
 
 final class ContatoModel extends ORM
 {
     use OrdemTrait;
+    use PaginaTrait;
+    use QuantidadeTrait;
+    use WhereTrait;
 
     protected string $ormTabela = TABELA_SISTEMA_CONTATO;
+    public string $vinculo;
+    public string $local_principal;
+    public string $local_secundario;
+    public string $pesquisa;
+    public Ordem $ordem;
+    public Tipo $tipo;
+    public Pagina $pagina;
+    public Quantidade $quantidade;
 
-    public function __construct(
-        private string|array|null $vinculo,
-        private Local $local,
-        private Tipo $tipo,
-        private Nome $nome,
-    ) {
+    public function __construct()
+    {
         parent::__construct();
     }
 
-    public function listarDados()
+    /**
+     * @throws Excecao
+     */
+    public function listarDados(): array|stdClass
     {
         $dado = $this
             ->campo([
-                'uuid', 'contato', 'local', 'tipo', 'outro', 'nome', 'documento', 'valor'
+                'uuid', 'nome', 'cpf', 'tipo', 'valor', 'principal'
             ])
             ->where($this->pegarWhere(), obrigatorio: false)
-            ->order($this->pegarOrdem())
-            ->read();
+            ->order($this->pegarOrdem());
 
+        if ($this->pExiste('pagina')) {
+            return $this->pegarListaComPaginacao($dado);
+        }
+
+        $dado = $dado->read();
         return $this->montarRetorno($dado);
     }
 
-    private function pegarWhere()
+    private function pegarListaComPaginacao($dado)
     {
-        $where = [];
-        if ($this->local->valido()) {
-            $where[] = ['local', $this->local->numero()];
+        $dado = $dado->pagina($this->pegarPagina(), $this->pegarQuantidade())->read();
+        if (!chaveExiste('lista', $dado)) {
+            return $this->paginacaoZero();
         }
-        if ($this->tipo->valido()) {
-            $where[] = ['tipo', $this->tipo->numero()];
-        }
-        if (!empty($this->vinculo) && is_array($this->vinculo)) {
-            $where[] = ['id_vinculo', 'IN', $this->vinculo];
-        }
-        if (!empty($this->vinculo) && !is_array($this->vinculo)) {
-            $where[] = ['id_vinculo', $this->vinculo];
-        }
-        return $where;
+        $dado->lista = $this->montarRetorno($dado->lista);
+        return $dado;
     }
 
-    private function montarRetorno($dado)
+    private function pegarWhere(): Where
     {
-        $local = new Local();
-        $tipo = new Tipo();
-        $nome = new Nome();
+        $pesquisa = $this->pesquisa;
+        $Where = new Where($this);
+        $Where
+            ->linha('local_principal')
+            ->linha('local_secundario')
+            ->linha('vinculo', campo: 'id_vinculo')
+            ->linha('tipo')
+            ->naoVazio('pesquisa', function () use ($Where, $pesquisa) {
+                $Where
+                    ->manual([
+                        'OR',
+                        ['nome', 'like', '%' . $pesquisa . '%'],
+                        ['cpf', 'like', '%' . $pesquisa . '%'],
+                        ['valor', 'like', '%' . $pesquisa . '%'],
+                    ]);
+            });
+        return $Where;
+    }
 
+    private function montarRetorno(array $dado): array
+    {
         $retorno = [];
-        foreach ($dado as $item) {
+        $Tipo = new Tipo();
+        foreach ($dado as $r) {
+            $tipo = $Tipo($r->tipo)->indice();
             $retorno[] = [
-                'contato'   => $item->contato,
-                'local'     => $local->indice($item->local),
-                'tipo'      => $tipo->indice($item->tipo),
-                'outro'     => $item->outro,
-                'nome'      => $nome->indice($item->nome),
-                'documento' => $item->documento,
-                'valor'     => $item->valor,
+                'id'        => $r->uuid,
+                'nome'      => $r->nome,
+                'cpf'       => $r->cpf,
+                'tipo'      => $tipo,
+                'valor'     => $tipo == $Tipo::TELEFONE ? $this->montarTelefone($r->valor) : $r->valor,
+                'principal' => (new Botao($r->principal))->valor()
             ];
         }
         return $retorno;
+    }
+
+    private function montarTelefone($telefone)
+    {
+        return $telefone;
     }
 }

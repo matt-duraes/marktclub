@@ -50,7 +50,7 @@ final class EnderecoController extends Controller implements
             dado: pegarPropriedadeDaEntity(
                 Entity: $Endereco,
                 lista: [
-                    'titulo', 'telefone', 'cep', 'logradouro', 'complemento', 'referencia',
+                    'titulo', 'cep', 'logradouro', 'complemento', 'referencia',
                     'numero', 'bairro', 'cidade', 'estado', 'pais', 'latitude', 'longitude', 'principal'
                 ]
             ),

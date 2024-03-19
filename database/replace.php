@@ -22,9 +22,6 @@ return [
     'tag_novo' => [
         'cod' => 'uuid'
     ],
-    'contato' => [
-        'cod' => 'id_vinculo'
-    ],
     'solicitacao_cheque_bonus' => [
         'cod'                  => 'uuid',
         'dependente_documento' => 'dependente_cpf'

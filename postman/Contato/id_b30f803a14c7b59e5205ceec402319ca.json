@@ -1,0 +1,1 @@
+{"id":"id_b30f803a14c7b59e5205ceec402319ca","token":"token","metodo":"DELETE","nome":"\/contato\/:id","uri":"{{LINK}}\/contato\/$CONTATO_ID","parametro":[],"body":[],"header":[],"variavel":[],"json":[],"documentacao":{"status":false,"descricao":"","requisicao":"","resposta":"","scope":"contato:deletar"}}

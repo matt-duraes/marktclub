@@ -249,13 +249,10 @@ if (!function_exists('painelLinhaLista')) {
             if ($acao == 'include') {
                 require_once $item['arquivo'];
                 continue;
-            } elseif ($acao == 'endereco') {
-                $enderecoTabela = $item['tabela'] ?? '';
-                $enderecoLocal = $item['local'] ?? '';
-                include ROOT . '/src/Html/Painel/endereco.php';
-                continue;
-            } elseif ($acao == 'contato') {
-                include ROOT . '/src/Html/Painel/contato.php';
+            } elseif (in_array($acao, ['endereco', 'contato'])) {
+                $localPrincipal = $item['localPrincipal'] ?? '';
+                $localSecundario = $item['localSecundario'] ?? '';
+                include ROOT . '/src/Html/Painel/' . $acao . '.php';
                 continue;
             } elseif ($acao == 'html') {
                 echo $item['html'];

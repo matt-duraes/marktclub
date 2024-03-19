@@ -1,0 +1,1 @@
+{"id":"id_5ca5e71cefdeba53c3503d8e941e607c","token":"token","metodo":"GET","nome":"\/contato","uri":"{{LINK}}\/contato","parametro":[],"body":[],"header":[],"variavel":[["texto",true,"$CONTATO_ID","lista.0.id",""]],"json":[],"documentacao":{"status":false,"descricao":"","requisicao":"","resposta":"","scope":"contato:listar"}}

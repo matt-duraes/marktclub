@@ -4,8 +4,8 @@ use Helpers\ListaHelper;
 
 ?>
 <div class="bloco_endereco_geral">
-    <input type="hidden" name="local_principal" value="<?= $localPrincipal ?>">
-    <input type="hidden" name="local_secundario" value="<?= $localSecundario ?>">
+    <input type="hidden" name="tipo" value="<?= $enderecoTabela ?>">
+    <input type="hidden" name="local" value="<?= $enderecoLocal ?>">
     <div class="bloco_visualizar_lista_geral">
         <div class="botao_pequeno_geral botao_adicionar_endereco">Adicionar endereço</div>
         <form action="" class="form_visualizar_listar">
