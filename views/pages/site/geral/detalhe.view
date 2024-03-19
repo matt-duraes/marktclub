@@ -138,7 +138,12 @@
             @ if( $telefone ):
             @ foreach($telefone as $t)
             <li>
-                <span>{!!strTelefone($t['valor'])!!}</span>
+                <span>
+                     @if (!empty($t['contato'])):
+                        {!!$t['contato']!!} -
+                    @endif
+                    {!!strTelefone($t['valor'])!!}
+                </span>
                 <i class="botao_copiar" data-valor="{!!$t['valor']!!}" data-tipo="Telefone">@iconePrancheta(20)</i>
             </li>
             @ endforeach;
