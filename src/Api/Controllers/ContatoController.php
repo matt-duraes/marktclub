@@ -50,7 +50,7 @@ final class ContatoController extends Controller implements
             dado: pegarPropriedadeDaEntity(
                 Entity: $Contato,
                 lista: [
-                    'titulo', 'nome', 'cpf', 'tipo', 'valor', 'principal'
+                    'titulo', 'nome', 'cpf', 'tipo', 'valor', 'whatsapp', 'principal'
                 ]
             ),
             status: $status

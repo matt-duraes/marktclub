@@ -234,14 +234,15 @@ Route
             ::nome('salvarContato')
             ::rotaNaoUnica()
             ::request([
-                'local_principal', 'local_secundario', 'nome', 'cpf', 'tipo', 'valor', 'principal'
+                'local_principal', 'local_secundario', 'nome', 'cpf', 'tipo', 'valor',
+                'whatsapp', 'principal'
             ])
             ::post('/sistema-contato/salvar-contato');
         Route
             ::nome('atualizarContato')
             ::rotaNaoUnica()
             ::request([
-                'nome', 'cpf', 'tipo', 'valor', 'principal'
+                'nome', 'cpf', 'tipo', 'valor', 'whatsapp', 'principal'
             ])
             ::post('/sistema-contato/atualizar-contato/{id}');
         Route

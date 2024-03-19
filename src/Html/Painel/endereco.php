@@ -3,7 +3,7 @@
 use Helpers\ListaHelper;
 
 ?>
-<div class="bloco_endereco_geral">
+<div class="bloco_visualizar_conteudo_geral bloco_endereco_geral">
     <input type="hidden" name="local_principal" value="<?= $localPrincipal ?>">
     <input type="hidden" name="local_secundario" value="<?= $localSecundario ?>">
     <div class="bloco_visualizar_lista_geral">

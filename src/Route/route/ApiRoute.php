@@ -183,8 +183,8 @@ Route
             ::nome('listar')
             ::middleware(TokenMiddleware::class, 'scope', ['contato:listar'])
             ::request([
-                '!local_principal', '!local_secundario', '!titulo', '!nome', '!cpf',
-                '!vinculo', '!pagina', '!quantidade'
+                '!local_principal', '!local_secundario', '!pesquisa', '!tipo', '!vinculo',
+                '!pagina', '!quantidade'
             ], 'json')
             ::get('/contato');
         Route
@@ -196,14 +196,14 @@ Route
             ::middleware(TokenMiddleware::class, 'scope', ['contato:salvar'])
             ::request([
                 'vinculo', 'local_secundario', 'local_principal', 'titulo', 'nome', 'cpf', 'valor',
-                'tipo', 'principal'
+                'tipo', 'whatsapp', 'principal'
             ])
             ::post('/endereco');
         Route
             ::nome('atualizar')
             ::middleware(TokenMiddleware::class, 'scope', ['contato:atualizar'])
             ::request([
-                '!titulo', '!nome', '!cpf', '!valor', '!tipo', '!principal'
+                '!titulo', '!nome', '!cpf', '!valor', '!tipo', '!whatsapp', '!principal'
             ])
             ::put('/contato/{id}');
         Route

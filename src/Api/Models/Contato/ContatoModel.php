@@ -45,7 +45,7 @@ final class ContatoModel extends ORM
     {
         $dado = $this
             ->campo([
-                'uuid', 'nome', 'cpf', 'tipo', 'valor', 'principal'
+                'uuid', 'nome', 'cpf', 'tipo', 'valor', 'whatsapp', 'principal'
             ])
             ->where($this->pegarWhere(), obrigatorio: false)
             ->order($this->pegarOrdem());
@@ -101,6 +101,7 @@ final class ContatoModel extends ORM
                 'cpf'       => $r->cpf,
                 'tipo'      => $tipo,
                 'valor'     => $tipo == $Tipo::TELEFONE ? $this->montarTelefone($r->valor) : $r->valor,
+                'whatsapp' => (new Botao($r->whatsapp))->valor(),
                 'principal' => (new Botao($r->principal))->valor()
             ];
         }

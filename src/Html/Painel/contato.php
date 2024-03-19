@@ -1,23 +1,22 @@
 <?php
 
 use Helpers\ListaHelper;
+use System\Classes\Contato\Tipo;
 
 ?>
-<div class="bloco_endereco_geral">
-    <input type="hidden" name="tipo" value="<?= $enderecoTabela ?>">
-    <input type="hidden" name="local" value="<?= $enderecoLocal ?>">
+<div class="bloco_visualizar_conteudo_geral bloco_contato_geral">
+    <input type="hidden" name="local_principal" value="<?= $localPrincipal ?>">
+    <input type="hidden" name="local_secundario" value="<?= $localSecundario ?>">
     <div class="bloco_visualizar_lista_geral">
-        <div class="botao_pequeno_geral botao_adicionar_endereco">Adicionar endereço</div>
+        <div class="botao_pequeno_geral botao_adicionar_contato">Adicionar contato</div>
         <form action="" class="form_visualizar_listar">
             <input type="text" class="input_buscar_pesquisa" placeholder="Buscar">
-            <input type="text" class="input_buscar_estado" placeholder="Estado">
-            <input type="text" class="input_buscar_cidade" placeholder="Cidade">
-            <div class="botao botao_buscar_endereco">Buscar</div>
+            <div class="botao botao_buscar_contato">Buscar</div>
         </form>
-        <div class="bloco_visuaizar_listar bloco_endereco_lista">
+        <div class="bloco_visuaizar_listar bloco_contato_lista">
             <div class="loading bloco_visualizar_loading"></div>
-            <div class="zero bloco_visualizar_erro display_none">Erro ao listar endereço</div>
-            <div class="zero bloco_visualizar_zero display_none">Sem endereço no momento</div>
+            <div class="zero bloco_visualizar_erro display_none">Erro ao listar contato</div>
+            <div class="zero bloco_visualizar_zero display_none">Sem contato no momento</div>
         </div>
         <div class="bloco_visualizar_carregar_mais display_none">
             <div class="botao_mais botao_visualizar_carregar_mais">carregar mais</div>
@@ -33,150 +32,77 @@ use Helpers\ListaHelper;
         </div>
     </div>
 
-    <div class="bloco_endereco_add display_none">
+    <div class="bloco_contato_add display_none">
         <div class="bloco_pagina_popup conteudo">
             <header class="header_pagina_popup">
-                <h1>CADASTRAR ENDEREÇO</h1>
+                <h1>CADASTRAR CONTATO</h1>
                 <i class="fechar"><?= iconeFechar() ?></i>
             </header>
-            <form action="/" class="form_geral form_endereco">
-                <input type="hidden" class="input_id_endereco" value="">
+            <form action="/" class="form_geral">
+                <input type="hidden" class="input_id_contato" value="">
                 <div class="bloco">
-                    <h2>Dados principais</h2>
-                    <?= formSelect(
-                        class: 'bloco_endereco_pais',
-                        name: 'endereco_pais_' . uuid(),
-                        label: 'País',
-                        placeholder: 'Escolha um país',
-                        lista: (new ListaHelper())->add('', 'Escolha um país')->pais()->r(),
-                        value: 'BR',
-                        obrigatorio: true
-                    ) ?>
+                    <h2>Dados pessoais</h2>
                     <?= formInput(
-                        class: 'bloco_endereco_titulo',
+                        class: 'bloco_contato_titulo',
                         name: 'titulo_' . uuid(),
                         label: 'Título',
-                        placeholder: 'Título do endereço',
+                        placeholder: 'Título para o contato',
                         obrigatorio: true,
+                    ) ?>
+                    <?= formInput(
+                        class: 'bloco_contato_nome',
+                        name: 'nome_' . uuid(),
+                        label: 'Nome',
+                        placeholder: 'Nome do contato'
+                    ) ?>
+                    <?= formCpf(
+                        class: 'bloco_contato_cpf',
+                        name: 'cpf_' . uuid(),
+                        label: 'CPF',
+                        placeholder: 'CPF do contato'
                     ) ?>
                 </div>
                 <div class="bloco">
-                    <h2>Endereço</h2>
-                    <?= formInput(
-                        class: 'bloco_endereco_cep_brasil',
-                        name: 'endereco_cep_brasil_' . uuid(),
-                        label: 'CEP',
-                        placeholder: 'CEP do endereço',
-                        mascara: '00000-000',
-                    ) ?>
-                    <div class="buscar_endereco_cep botao_buscar_endereco_cep" data-ajuda="Buscar endereço"><?= iconeBuscar() ?></div>
-                    <?= formInput(
-                        class: 'bloco_endereco_cep_estrangeiro display_none',
-                        name: 'endereco_cep_estrangeiro_' . uuid(),
-                        label: 'CEP',
-                        placeholder: 'CEP do endereço',
-                        mascara: 'numero'
-                    ) ?>
-                </div>
-                <div class="bloco">
-                    <?= formInput(
-                        class: 'bloco_endereco_logradouro',
-                        name: 'endereco_logradouro_' . uuid(),
-                        label: 'Logradouro',
-                        placeholder: 'Logradouro do endereço',
-                        obrigatorio: true,
-                    ) ?>
-                    <?= formNumero(
-                        class: 'bloco_endereco_numero',
-                        name: 'endereco_numero_' . uuid(),
-                        label: 'Número',
-                        placeholder: 'Número',
-                    ) ?>
-                    <?= formInput(
-                        class: 'bloco_endereco_complemento',
-                        name: 'endereco_complemento_' . uuid(),
-                        label: 'Complemento',
-                        placeholder: 'Complemento do endereço',
-                    ) ?>
-                    <?= formInput(
-                        class: 'bloco_endereco_referencia',
-                        name: 'endereco_referencia_' . uuid(),
-                        label: 'Referência',
-                        placeholder: 'Referência do endereço',
-                    ) ?>
-                </div>
-                <div class="bloco">
-                    <?= formInput(
-                        class: 'bloco_endereco_bairro',
-                        name: 'endereco_bairro_' . uuid(),
-                        label: 'Bairro',
-                        placeholder: 'Bairro do endereço',
-                        obrigatorio: true,
-                    ) ?>
+                    <h2>Contato</h2>
                     <?= formSelect(
-                        class: 'bloco_endereco_estado_brasil',
-                        name: 'endereco_estado_' . uuid(),
-                        label: 'Estado',
-                        placeholder: 'Escolha um estado',
-                        lista: (new ListaHelper())->add('', 'Escolha um estado')->estado()->r(),
-                        obrigatorio: true,
-                    ) ?>
-                    <?= formInput(
-                        class: 'bloco_endereco_estado_estrangeiro display_none',
-                        name: 'endereco_estado_estrangeiro_' . uuid(),
-                        label: 'Estado',
-                        placeholder: 'Estado do endereço',
-                    ) ?>
-                    <?= formSelect(
-                        class: 'bloco_endereco_cidade_brasil',
-                        name: 'endereco_cidade_brasil_' . uuid(),
-                        label: 'Cidade',
-                        placeholder: 'Escolha uma cidade',
-                        lista: (new ListaHelper())->add('', 'Escolha uma cidade')->r(),
-                        obrigatorio: true,
-                    ) ?>
-                    <?= formInput(
-                        class: 'bloco_endereco_cidade_estrangeiro display_none',
-                        name: 'endereco_cidade_estrangeiro_' . uuid(),
-                        label: 'Cidade',
-                        placeholder: 'Cidade do endereço',
+                        class: 'bloco_contato_tipo',
+                        name: 'contato_tipo_' . uuid(),
+                        label: 'Tipo',
+                        placeholder: 'Escolha um tipo',
+                        lista: (new Tipo())->select('Escolha uma opção'),
                         obrigatorio: true
                     ) ?>
+                    <?= formInput(
+                        class: 'bloco_contato_telefone display_none',
+                        name: ['contato_telefone_ddi_' . uuid(), 'contato_telefone_numero_' . uuid()],
+                        label: 'Telefone',
+                        placeholder: ['DDI', 'Telefone'],
+                        mascara: ['numero', 'telefone'],
+                        html: '<div class="mais">+</div>',
+                        obrigatorio: true,
+                    ) ?>
+                    <?= formEmail(
+                        class: 'bloco_contato_email display_none',
+                        name: 'contato_email_' . uuid(),
+                        label: 'E-mail',
+                        placeholder: 'E-mail',
+                        obrigatorio: true,
+                    ) ?>
                     <?= formSwitch(
-                        class: 'bloco_endereco_principal',
-                        name: 'endereco_principal_' . uuid(),
-                        label: 'Esse é o endereço principal?'
+                        class: 'bloco_contato_whatsapp display_none',
+                        name: 'contato_whatsapp_' . uuid(),
+                        label: 'O número é WhatsApp?'
+                    ) ?>
+                    <?= formSwitch(
+                        class: 'bloco_contato_principal',
+                        name: 'contato_principal_' . uuid(),
+                        label: 'Esse é o contato principal?'
                     ) ?>
                 </div>
-                <div class="bloco_mapa">
-                    <h2>Mapa</h2>
-                    <div class="geolocalizacao">
-                        <?= formInput(
-                            class: 'bloco_endereco_latitude',
-                            name: 'endereco_latitude_' . uuid(),
-                            label: 'Latitude',
-                            placeholder: 'Digite a latitude',
-                        ) ?>
-                        <?= formInput(
-                            class: 'bloco_endereco_longitude',
-                            name: 'endereco_longitude_' . uuid(),
-                            label: 'Longitude',
-                            placeholder: 'Digite a longitude',
-                        ) ?>
-                    </div>
-                    <div class="bloco_renderizar">
-                        <div class="mapa"></div>
-                        <div class="botao_controle">
-                            <div class="botao_pequeno_geral botao_buscar_latlong_titulo botao">Buscar por titulo</div>
-                            <div class="botao_pequeno_geral botao_buscar_latlong_endereco botao">Buscar por endereço</div>
-                            <div class="botao_pequeno_geral botao_buscar_latlong_centro botao">Colocar ponto aqui</div>
-                        </div>
-                    </div>
-                </div>
                 <div class="footer">
-                    <?= formCheckbox(name: 'salvar_outro_' . uuid(), class: 'bloco_salvar_outro', label: 'Salvar outro endereço')?>
+                    <?= formCheckbox(name: 'salvar_outro_' . uuid(), class: 'bloco_salvar_outro', label: 'Salvar outro contato')?>
                     <div class="flex_grow"></div>
-                    <div class="botao botao_verde botao_salvar_endereco">Salvar</div>
+                    <div class="botao botao_verde botao_salvar_contato">Salvar</div>
                 </div>
             </form>
         </div>
