@@ -140,7 +140,7 @@
             <li>
                 <span>
                      @if (!empty($t['contato'])):
-                        {!!$t['contato']!!} -
+                    {!!$t['contato']!!} -
                     @endif
                     {!!strTelefone($t['valor'])!!}
                 </span>
@@ -153,7 +153,12 @@
             @ if( $email ):
             @ foreach($email as $e)
             <li>
-                <span>{!!strEmail($e['valor'])!!}</span>
+                <span>
+                    @if (!empty($e['contato'])):
+                    {!!$e['contato']!!} -
+                    @endif
+                    {!!strEmail($e['valor'])!!}
+                </span>
                 <i class="botao_copiar" data-valor="{!!$e['valor']!!}" data-tipo="E-mail">@iconePrancheta(20)</i>
             </li>
             @ endforeach;
