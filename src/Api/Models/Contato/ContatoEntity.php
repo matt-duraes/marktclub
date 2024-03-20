@@ -11,7 +11,7 @@ final class ContatoEntity extends Entity
 {
     protected string $ormTabela = TABELA_SISTEMA_CONTATO;
     protected array $ormBuscar = [
-        'id_vinculo', 'local_principal', 'local_secundario', 'nome', 'cpf', 'tipo', 'valor',
+        'id_vinculo', 'local_principal', 'local_secundario', 'titulo', 'nome', 'cpf', 'tipo', 'valor',
         'whatsapp', 'principal'
     ];
     protected array $ormInsert = [
@@ -19,7 +19,7 @@ final class ContatoEntity extends Entity
         'local_principal', 'local_secundario'
     ];
     protected array $ormSalvar = [
-        'nome', 'cpf', 'tipo', 'valor', 'whatsapp', 'principal'
+        'titulo', 'nome', 'cpf', 'tipo', 'valor', 'whatsapp', 'principal'
     ];
     protected string $ormValidarSalvar = '
         local_principal|Local principal|obrigatorio|vazio
@@ -34,6 +34,7 @@ final class ContatoEntity extends Entity
     public string $vinculo;
     public string $local_principal;
     public string $local_secundario;
+    public string $titulo;
     public string $nome;
     public Tipo $tipo;
     public Cpf $cpf;

@@ -21,24 +21,25 @@ const carregarBlocoContato = (bloco, parceiro) => {
     const inputNome = $('.bloco_contato_nome input', bloco);
     const inputCpf = $('.bloco_contato_cpf input', bloco);
     const inputTipo = $('.bloco_contato_tipo input.input_select_value', bloco);
-    const inputTelefoneDdi = $('.bloco_contato_telefone_ddi input', bloco);
-    const inputTelefoneNumero = $('.bloco_contato_telefone_numero input', bloco);
+    const inputTelefoneDdi = $('.bloco_contato_telefone input.input_separador_1', bloco);
+    const inputTelefoneNumero = $('.bloco_contato_telefone input.input_separador_3', bloco);
     const inputEmail = $('.bloco_contato_email input', bloco);
     const inputWhatsapp = $('.bloco_contato_whatsapp input', bloco);
     const inputPrincipal = $('.bloco_contato_principal input', bloco);
     const inputZerar = $$(
         `
-            .bloco_contato_titulo input, .bloco_contato_nome input, .bloco_contato_cpf input,
-            .bloco_contato_tipo input.input_select_value, .bloco_contato_telefone_ddi input,
-            .bloco_contato_telefone_numero input, .bloco_contato_email input,
+            .input_id_contato, .bloco_contato_titulo input, .bloco_contato_nome input, .bloco_contato_cpf input,
+            .bloco_contato_tipo input.input_select_value, .bloco_contato_telefone input.input_separador_1,
+            .bloco_contato_telefone input.input_separador_3, .bloco_contato_email input,
             .bloco_contato_whatsapp input, .bloco_contato_principal input
         `,
         bloco
     );
 
     // Bloco telefone/email
-    const blocoTelefone = $$('.bloco_contato_telefone_ddi, bloco_contato_telefone_numero', bloco);
-    const blocoEmail = $$('.bloco_contato_email input', bloco);
+    const blocoTelefone = $$('.bloco_contato_telefone, .bloco_contato_whatsapp', bloco);
+    const blocoEmail = $('.bloco_contato_email', bloco);
+    const blocoTipo = $('.bloco_contato_tipo');
 
     // Salvar/Listar
     const blocoContatoErro = $('.bloco_visualizar_erro', bloco);
@@ -55,6 +56,7 @@ const carregarBlocoContato = (bloco, parceiro) => {
     const zerarFormulario = () => {
         blocoTelefone.sumir();
         blocoEmail.sumir();
+        blocoTipo.aparecer();
         blocoSalvarOutro.aparecer();
         inputZerar.valor('');
     };
@@ -99,10 +101,24 @@ const carregarBlocoContato = (bloco, parceiro) => {
         if (tipo == 'telefone') {
             blocoTelefone.aparecer();
             blocoEmail.sumir();
+            inputTelefoneDdi.valor('55');
+            inputTelefoneNumero.focus();
             return;
         }
         blocoTelefone.sumir();
         blocoEmail.aparecer();
+        inputEmail.focus();
+    });
+    inputTelefoneDdi.evento('focus', () => {
+        inputTelefoneDdi.select();
+    });
+    inputTelefoneDdi.evento('formChange', () => {
+        const valor = inputTelefoneDdi.valor();
+        if (valor == 55 || vazio(valor)) {
+            inputTelefoneNumero.attr('data-mascara', 'telefone');
+            return;
+        }
+        inputTelefoneNumero.attr('data-mascara', '');
     });
 
     /*
@@ -208,6 +224,11 @@ const carregarBlocoContato = (bloco, parceiro) => {
     const acaoAtualizarContato = id => {
         const linha = $('#id_contato_' + id);
         $('h1', linha).texto(inputTitulo.valor());
+        const valor =
+            inputTipo.valor() == 'telefone'
+                ? inputTelefoneDdi.valor() + ' ' + inputTelefoneNumero.valor()
+                : inputEmail.valor();
+        $('.valor', linha).texto(valor);
     };
 
     const montarBodyContato = id => {
@@ -245,10 +266,10 @@ const carregarBlocoContato = (bloco, parceiro) => {
             } else if (vazio(body.tipo)) {
                 Alerta.notificacao('Escolha um tipo para continuar.', false);
                 retorno = false;
-            } else if (tipo == 'telefone' && vazio(body.valor)) {
+            } else if (body.tipo == 'telefone' && vazio(body.valor)) {
                 Alerta.notificacao('Digite um telefone para continuar.', false);
                 retorno = false;
-            } else if (tipo == 'email' && vazio(body.valor)) {
+            } else if (body.tipo == 'email' && vazio(body.valor)) {
                 Alerta.notificacao('Digite um e-mail para continuar.', false);
                 retorno = false;
             }
@@ -278,6 +299,7 @@ const carregarBlocoContato = (bloco, parceiro) => {
             return;
         }
         abrirBlocoContato();
+        blocoTipo.sumir();
         blocoSalvarOutro.sumir();
         const tipo = resposta.dado.tipo;
         inputIdContato.valor(resposta.dado.id);
@@ -286,13 +308,25 @@ const carregarBlocoContato = (bloco, parceiro) => {
         inputCpf.valor(resposta.dado.cpf);
         inputTipo.valor(tipo);
         if (tipo == 'telefone') {
-            inputTelefoneDdi.valor(resposta.dado.valor[0]);
-            inputTelefoneNumero.valor(resposta.dado.valor[1]);
+            const valor = separarDdiNumero(resposta.dado.valor);
+            blocoTelefone.aparecer();
+            blocoEmail.sumir();
+            inputTelefoneDdi.valor(valor[0]);
+            inputTelefoneNumero.valor(valor[1]);
         } else {
+            blocoTelefone.sumir();
+            blocoEmail.aparecer();
             inputEmail.valor(resposta.dado.valor);
         }
         inputWhatsapp.valor(resposta.dado.whatsapp == 'sim');
         inputPrincipal.valor(resposta.dado.principal == 'sim');
+    };
+    const separarDdiNumero = valor => {
+        if (!/^\+[0-9]{1,3}\ /.test(valor)) {
+            return ['55', valor];
+        }
+        const explode = valor.split(' ');
+        return [explode.shift().replace('+', ''), explode.join(' ')];
     };
     /*
     |--------------------------------------------------------------------------
@@ -352,7 +386,15 @@ const carregarBlocoContato = (bloco, parceiro) => {
         clone.attr('data-id', dado.id);
         clone.attr('id', 'id_contato_' + dado.id);
         listaId.push(dado.id);
+        let tipo = 'Sem tipo';
+        if (dado.tipo == 'telefone') {
+            tipo = 'Telefone';
+        } else if (dado.tipo == 'email') {
+            tipo = 'E-mail';
+        }
         $('h1', clone).texto(dado.titulo);
+        $('.tipo', clone).texto(tipo);
+        $('.valor', clone).texto(dado.valor);
         blocoContatoLista.inicio(clone);
     };
 };

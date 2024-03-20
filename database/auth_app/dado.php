@@ -45,7 +45,7 @@ $scope = [
 
     'endereco:salvar', 'endereco:atualizar', 'endereco:listar', 'endereco:buscar', 'endereco:deletar',
 
-    'contato:listar',
+    'contato:buscar', 'contato:listar', 'contato:salvar', 'contato:atualizar', 'contato:deletar',
 
     'parceiro_relatorio:salvar', 'parceiro_relatorio:atualizar', 'parceiro_relatorio:listar',
     'parceiro_relatorio:buscar', 'parceiro_relatorio:deletar',

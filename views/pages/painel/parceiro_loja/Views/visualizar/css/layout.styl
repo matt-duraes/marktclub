@@ -94,6 +94,8 @@
             background-color: $corAzul
         &.deletar
             background-color: $corVermelho
+    .margem
+        margin: 0 10px
 .bloco_visualizar_lista_geral .bloco_visualizar_carregar_mais
     width: 100%
     flexRow()
@@ -108,7 +110,7 @@
         color: #333
         cursor: pointer
 
-.bloco_endereco_add
+.bloco_visualizar_popup_geral
     width: 100VW
     height: 100vh
     position: fixed
@@ -127,7 +129,7 @@
     .conteudo
         max-width: 800px
 
-.bloco_endereco_add .conteudo
+.bloco_visualizar_popup_geral .conteudo
     h2
         width: 100%
     .bloco
@@ -135,63 +137,8 @@
         flexRow()
         flex-wrap: wrap
         padding: 0 20px
-    .buscar_endereco_cep
-        width: 30px
-        height: 30px
-        flexCenter()
-        margin: 27px 0 0 10px
-        cursor: pointer
-        fill: #666
-    .bloco_endereco_titulo
-        flexGrow()
-    .bloco_endereco_telefone_estrangeiro
-        width: calc(50% - 10px)
-        position: relative
-    .bloco_endereco_telefone_estrangeiro .mais
-        height: 45px
-        line-height: 45px
-        position: absolute
-        left: 15px
-        textoFontSize()
-        color: #999
-    .bloco_endereco_telefone_estrangeiro .input_separador_1
-        width: 80px
-        padding-left: 35px
-    .bloco_endereco_telefone_brasil
-    .bloco_endereco_email
-        width: calc(50% - 10px)
-    .bloco_endereco_email
-        margin-left: 20px
-    .bloco_endereco_pais
-        max-width: 200px
-        margin-right: 20px
-    .bloco_endereco_cep_brasil
-    .bloco_endereco_cep_estrangeiro
-        max-width: 160px
-    .bloco_endereco_logradouro
-        max-width: 300px
-        margin-right: 20px
-    .bloco_endereco_numero
-        max-width: 100px
-        margin-right: 20px
-    .bloco_endereco_complemento
-        width: calc(50% - 10px)
-        margin-right: 20px
-    .bloco_endereco_referencia
-        width: calc(50% - 10px)
-    .bloco_endereco_bairro
-        max-width: 200px
-        margin-right: 20px
-    .bloco_endereco_estado_brasil
-    .bloco_endereco_estado_estrangeiro
-        max-width: 180px
-        margin-right: 20px
-    .bloco_endereco_cidade_brasil
-    .bloco_endereco_cidade_estrangeiro
-        flexGrow()
-    .bloco_endereco_principal
+    .linha
         width: 100%
-        margin: 20px 0 10px
     .bloco_mapa
         width: 100%
         max-height: calc(100vh - 100px)
@@ -271,6 +218,94 @@
         .flex_grow
             flex-grow: 1
             flex-basis: 0%
+
+.bloco_contato_add .conteudo
+    .bloco_contato_nome
+        max-width: calc(100% - 170px)
+        margin-left: 20px
+    .bloco_contato_cpf
+        max-width: 150px
+    .bloco_contato_tipo
+        max-width: 200px
+        margin-right: 20px
+    .bloco_contato_email
+        width: calc(100% - 220px)
+    .bloco_contato_telefone
+        max-width: 250px
+    .bloco_contato_telefone
+    .bloco_contato_email
+        position: relative
+    .bloco_contato_telefone .input_separador_1
+        max-width: 75px
+        padding-left: 35px
+    .bloco_contato_telefone .mais
+        height: 45px
+        line-height: 45px
+        color: #999
+        position: absolute
+        top: 0
+        left: 15px
+        z-index: 5
+        font-size: 1.8rem
+
+.bloco_endereco_add .conteudo
+    .buscar_endereco_cep
+        width: 30px
+        height: 30px
+        flexCenter()
+        margin: 27px 0 0 10px
+        cursor: pointer
+        fill: #666
+    .bloco_endereco_titulo
+        flexGrow()
+    .bloco_endereco_telefone_estrangeiro
+        width: calc(50% - 10px)
+        position: relative
+    .bloco_endereco_telefone_estrangeiro .mais
+        height: 45px
+        line-height: 45px
+        position: absolute
+        left: 15px
+        textoFontSize()
+        color: #999
+    .bloco_endereco_telefone_estrangeiro .input_separador_1
+        width: 80px
+        padding-left: 35px
+    .bloco_endereco_telefone_brasil
+    .bloco_endereco_email
+        width: calc(50% - 10px)
+    .bloco_endereco_email
+        margin-left: 20px
+    .bloco_endereco_pais
+        max-width: 200px
+        margin-right: 20px
+    .bloco_endereco_cep_brasil
+    .bloco_endereco_cep_estrangeiro
+        max-width: 160px
+    .bloco_endereco_logradouro
+        max-width: 300px
+        margin-right: 20px
+    .bloco_endereco_numero
+        max-width: 100px
+        margin-right: 20px
+    .bloco_endereco_complemento
+        width: calc(50% - 10px)
+        margin-right: 20px
+    .bloco_endereco_referencia
+        width: calc(50% - 10px)
+    .bloco_endereco_bairro
+        max-width: 200px
+        margin-right: 20px
+    .bloco_endereco_estado_brasil
+    .bloco_endereco_estado_estrangeiro
+        max-width: 180px
+        margin-right: 20px
+    .bloco_endereco_cidade_brasil
+    .bloco_endereco_cidade_estrangeiro
+        flexGrow()
+    .bloco_endereco_principal
+        width: 100%
+        margin: 20px 0 10px
 
 @keyframes visualizar_lista_loading
     0%

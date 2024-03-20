@@ -45,7 +45,7 @@ final class ContatoModel extends ORM
     {
         $dado = $this
             ->campo([
-                'uuid', 'nome', 'cpf', 'tipo', 'valor', 'whatsapp', 'principal'
+                'uuid', 'titulo', 'nome', 'cpf', 'tipo', 'valor', 'whatsapp', 'principal'
             ])
             ->where($this->pegarWhere(), obrigatorio: false)
             ->order($this->pegarOrdem());
@@ -70,17 +70,18 @@ final class ContatoModel extends ORM
 
     private function pegarWhere(): Where
     {
-        $pesquisa = $this->pesquisa;
         $Where = new Where($this);
         $Where
             ->linha('local_principal')
             ->linha('local_secundario')
             ->linha('vinculo', campo: 'id_vinculo')
             ->linha('tipo')
-            ->naoVazio('pesquisa', function () use ($Where, $pesquisa) {
+            ->naoVazio('pesquisa', function () use ($Where) {
+                $pesquisa = $this->pesquisa;
                 $Where
                     ->manual([
                         'OR',
+                        ['titulo', 'like', '%' . $pesquisa . '%'],
                         ['nome', 'like', '%' . $pesquisa . '%'],
                         ['cpf', 'like', '%' . $pesquisa . '%'],
                         ['valor', 'like', '%' . $pesquisa . '%'],
@@ -94,14 +95,15 @@ final class ContatoModel extends ORM
         $retorno = [];
         $Tipo = new Tipo();
         foreach ($dado as $r) {
-            $tipo = $Tipo($r->tipo)->indice();
+            $tipo = $Tipo->indice($r->tipo);
             $retorno[] = [
                 'id'        => $r->uuid,
+                'titulo'    => $r->titulo,
                 'nome'      => $r->nome,
                 'cpf'       => $r->cpf,
                 'tipo'      => $tipo,
                 'valor'     => $tipo == $Tipo::TELEFONE ? $this->montarTelefone($r->valor) : $r->valor,
-                'whatsapp' => (new Botao($r->whatsapp))->valor(),
+                'whatsapp'  => (new Botao($r->whatsapp))->valor(),
                 'principal' => (new Botao($r->principal))->valor()
             ];
         }

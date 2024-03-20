@@ -198,7 +198,7 @@ Route
                 'vinculo', 'local_secundario', 'local_principal', 'titulo', 'nome', 'cpf', 'valor',
                 'tipo', 'whatsapp', 'principal'
             ])
-            ::post('/endereco');
+            ::post('/contato');
         Route
             ::nome('atualizar')
             ::middleware(TokenMiddleware::class, 'scope', ['contato:atualizar'])

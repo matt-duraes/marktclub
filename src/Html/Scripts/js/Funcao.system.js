@@ -271,15 +271,20 @@ Object.defineProperty(Object.prototype, 'attr', {
         }
         let retorno = [];
         for (const item of elemento) {
-            if (typeof propriedade == 'string' && valor == undefined) {
+            if (typeof propriedade == 'string' && valor === undefined) {
                 retorno.push(item.getAttribute(propriedade));
-                continue;
-            }
-            if (typeof propriedade == 'string') {
+            } else if (typeof propriedade == 'string' && valor === null) {
+                item.removeAttribute(propriedade);
+            } else if (typeof propriedade == 'string') {
                 item.setAttribute(propriedade, valor);
             } else if (typeof propriedade == 'object') {
                 Object.entries(propriedade).forEach(val => {
-                    item.setAttribute(val[0], val[1]);
+                    const valorTemp = val[1];
+                    if (valorTemp === null) {
+                        item.removeAttribute(val[0]);
+                    } else {
+                        item.setAttribute(val[0], valorTemp);
+                    }
                 });
             }
         }
@@ -301,6 +306,7 @@ Object.defineProperty(Object.prototype, 'evento', {
             if (evento == 'enter') {
                 item.addEventListener('keydown', e => {
                     if (e.key == 'Enter') {
+                        e.preventDefault();
                         callback(e, item);
                     }
                 });

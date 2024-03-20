@@ -33,7 +33,7 @@ use Helpers\ListaHelper;
         </div>
     </div>
 
-    <div class="bloco_endereco_add display_none">
+    <div class="bloco_endereco_add bloco_visualizar_popup_geral display_none">
         <div class="bloco_pagina_popup conteudo">
             <header class="header_pagina_popup">
                 <h1>CADASTRAR ENDEREÇO</h1>

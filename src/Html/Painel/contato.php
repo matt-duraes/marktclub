@@ -1,6 +1,5 @@
 <?php
 
-use Helpers\ListaHelper;
 use System\Classes\Contato\Tipo;
 
 ?>
@@ -26,13 +25,13 @@ use System\Classes\Contato\Tipo;
     <div class="display_none">
         <div class="bloco_visualizar_linha bloco_visualizar_linha_padrao">
             <h1></h1>
-            <p><span class="bairro"></span><span class="traco"></span><span class="cidade"></span><span class="barra"></span><span class="estado"></span></p>
+            <p><span class="tipo"></span><span class="margem">|</span><span class="valor"></span></p>
             <i class="botao_visualizar_editar editar"><?= iconeEditar(12) ?></i>
             <i class="botao_visualizar_deletar deletar"><?= iconeDeletar(16) ?></i>
         </div>
     </div>
 
-    <div class="bloco_contato_add display_none">
+    <div class="bloco_contato_add bloco_visualizar_popup_geral display_none">
         <div class="bloco_pagina_popup conteudo">
             <header class="header_pagina_popup">
                 <h1>CADASTRAR CONTATO</h1>
@@ -49,17 +48,17 @@ use System\Classes\Contato\Tipo;
                         placeholder: 'Título para o contato',
                         obrigatorio: true,
                     ) ?>
-                    <?= formInput(
-                        class: 'bloco_contato_nome',
-                        name: 'nome_' . uuid(),
-                        label: 'Nome',
-                        placeholder: 'Nome do contato'
-                    ) ?>
                     <?= formCpf(
                         class: 'bloco_contato_cpf',
                         name: 'cpf_' . uuid(),
                         label: 'CPF',
                         placeholder: 'CPF do contato'
+                    ) ?>
+                    <?= formInput(
+                        class: 'bloco_contato_nome',
+                        name: 'nome_' . uuid(),
+                        label: 'Nome',
+                        placeholder: 'Nome do contato'
                     ) ?>
                 </div>
                 <div class="bloco">
@@ -77,8 +76,9 @@ use System\Classes\Contato\Tipo;
                         name: ['contato_telefone_ddi_' . uuid(), 'contato_telefone_numero_' . uuid()],
                         label: 'Telefone',
                         placeholder: ['DDI', 'Telefone'],
-                        mascara: ['numero', 'telefone'],
+                        mascara: ['000', 'telefone'],
                         html: '<div class="mais">+</div>',
+                        separador: '|',
                         obrigatorio: true,
                     ) ?>
                     <?= formEmail(
@@ -88,11 +88,13 @@ use System\Classes\Contato\Tipo;
                         placeholder: 'E-mail',
                         obrigatorio: true,
                     ) ?>
+                    <div class="linha"></div>
                     <?= formSwitch(
-                        class: 'bloco_contato_whatsapp display_none',
+                        class: 'bloco_contato_whatsapp',
                         name: 'contato_whatsapp_' . uuid(),
                         label: 'O número é WhatsApp?'
                     ) ?>
+                    <div class="linha"></div>
                     <?= formSwitch(
                         class: 'bloco_contato_principal',
                         name: 'contato_principal_' . uuid(),

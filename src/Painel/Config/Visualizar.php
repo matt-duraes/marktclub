@@ -324,22 +324,22 @@ final class Visualizar
         return $this;
     }
 
-    public function endereco(string $localPrincipal, string $localSecundario)
+    public function endereco(string $principal, string $secundario)
     {
         $this->adicionarCampo('', [
             'funcao'          => 'endereco',
-            'localPrincipal'  => $localPrincipal,
-            'localSecundario' => $localSecundario
+            'localPrincipal'  => $principal,
+            'localSecundario' => $secundario
         ]);
         return $this;
     }
 
-    public function contato(string $tabela, string $local)
+    public function contato(string $principal, string $secundario)
     {
         $this->adicionarCampo('', [
-            'funcao' => 'contato',
-            'tabela' => $tabela,
-            'local'  => $local
+            'funcao'           => 'contato',
+            'localPrincipal'   => $principal,
+            'localSecundario'  => $secundario
         ]);
         return $this;
     }

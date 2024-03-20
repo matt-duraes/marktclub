@@ -28,7 +28,7 @@ final class ContatoController extends Controller
         return mensagemSucesso($dado->dado);
     }
 
-    public function postBuscarUnico(string $id)
+    public function postBuscarContato(string $id)
     {
         $Contato = new MontarUnicoModel($id);
         return mensagemSucesso($Contato->contato);
@@ -41,9 +41,8 @@ final class ContatoController extends Controller
             ->validar('Ocorreu um erro ao salvar contato, por favor, tente novamente.')
             ->body($request->dado())
             ->post('/contato')
-            ->object()->dado ?? [];
-
-        return mensagemSucesso($dado, 201);
+            ->object();
+        return mensagemSucesso($dado->dado, 201);
     }
 
     public function postAtualizarContato(Request $request, string $id)

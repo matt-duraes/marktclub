@@ -18,9 +18,10 @@ final class MontarUnicoModel
     private function buscarUnico()
     {
         $Api = new ApiHelper(token: true);
-        $this->contato = $Api
+        $dado = $Api
             ->validar('Erro ao buscar o contato, por favor, tente novamente.')
             ->get('/contato/' . $this->id)
-            ->object()->dado;
+            ->object();
+        $this->contato = $dado->dado;
     }
 }
