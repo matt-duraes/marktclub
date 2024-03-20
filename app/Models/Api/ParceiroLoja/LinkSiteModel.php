@@ -14,7 +14,17 @@ final class LinkSiteModel
         $this->link = $Loja->link_site;
         if ($Loja->id == '814b9d1792724316417c96b8fc33aacb') {
             $this->link = 'https://api.marktclub.net.br/integracao/link/' . $this->criarLinkDell();
+        } elseif($Loja->id == '75f36834053439727abd97d4003af9cc') {
+            $this->link = LINK . '/solicitacao-link/redirecionar/' . $this->criarHash();
         }
+    }
+
+    private function criarHash()
+    {
+        return base64Encode([
+            'parceiro' => $this->Loja->id,
+            'usuario' => array_key_exists('usuario', TOKEN) ? TOKEN['usuario']->id : '',
+        ], true);
     }
 
     private function criarLinkDell()

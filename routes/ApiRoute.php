@@ -116,6 +116,14 @@ Route
             ::request(['code'], 'get')
             ::post('/_v/private/user/validate');
     });
+Route
+    ::nome('solicitacao_link_publico')
+    ::controller(App\Controllers\Api\Solicitacao\LinkController::class)
+    ::grupo(function () {
+        Route
+            ::nome('redirecionar')
+            ::view('/solicitacao-link/redirecionar/{hash}');
+    });
 
 Route
     ::nome('publicacao_noticia')
