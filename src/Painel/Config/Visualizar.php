@@ -209,6 +209,14 @@ final class Visualizar
         ], $permissao);
         return $this;
     }
+    public function imagemLogo(array|string $campo, ?string $permissao = null): self
+    {
+        $this->adicionarCampo($campo, [
+            'funcao' => 'imagem_logo',
+            'campo'  => $campo
+        ], $permissao);
+        return $this;
+    }
 
     public function titulo(array|string $campo, ?string $permissao = null): self
     {

@@ -347,6 +347,8 @@ if (!function_exists('painelLinhaLista')) {
 
             if ($acao == 'imagem_redonda') {
                 echo '<figure class="imagem_redonda" style="background-image: url(' . $valor . ')"></figure>';
+            } elseif ($acao == 'imagem_logo') {
+                echo '<figure class="imagem_logo"><div class="imagem" style="background-image: url(' . $valor . ')"></div></figure>';
             } elseif ($acao == 'linha' && ($vazio || !empty($valor))) {
                 $valor = !empty($valor) ? $valor : '<span class="vazio">Dado não informado</span>';
                 $nome = preg_match('/\:|\!|\?$/', $nome) ? $nome : $nome . ':';
