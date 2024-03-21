@@ -1,4 +1,4 @@
-<?php 
+<?php
 
 define('TABELA_ALBUM_DADO', 'album_dado');
 define('TABELA_ALBUM_FOTO', 'album_foto');
@@ -83,6 +83,7 @@ define('TABELA_SOLICITACAO_CODIGO', 'solicitacao_codigo');
 define('TABELA_SOLICITACAO_CONTATO', 'solicitacao_contato');
 define('TABELA_SOLICITACAO_CREDITO', 'solicitacao_credito_novo');
 define('TABELA_SOLICITACAO_DECLARACAO', 'solicitacao_declaracao');
+define('TABELA_SOLICITACAO_LINK', 'solicitacao_link');
 define('TABELA_SOLICITACAO_LOJA', 'solicitacao_loja');
 define('TABELA_SOLICITACAO_VOUCHER', 'solicitacao_voucher');
 define('TABELA_TEXTO_CLUBE', 'texto_clube');

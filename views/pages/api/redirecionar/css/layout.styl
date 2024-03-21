@@ -1,0 +1,68 @@
+@system "Resetar"
+
+$cor = var(--cor)
+textoFontSize()
+    font-size: 1.5rem
+texto()
+    line-height: 1.5em
+    textoFontSize()
+tituloFontSize()
+    font-size: 2.4rem
+titulo()
+    line-height: 1.5em
+    tituloFontSize()
+
+body
+    font-family: 'Inter', sans-serif
+    background-color: #f6f6f6
+
+#site
+    width: 100%
+    min-height: 100vh
+    position: relative
+    display: flex
+    flex-direction: column
+    align-items: center
+    padding-bottom: 80px
+    .linha_topo
+        width: 100%
+        height: 10px
+        margin-bottom: 40px
+        background-color: $cor
+    figure
+        width: 100%
+        text-align: center
+    header
+        width: 100%
+        margin-top: 60px
+        text-align: center
+        display: flex
+        flex-direction: column
+        align-items: center
+    header h1
+        titulo()
+    header p
+        max-width: 400px
+        textoFontSize()
+        line-height: 1.5em
+        margin-top: 10px
+        color: #666
+    .continuar
+        height: 50px
+        line-height: 50px
+        textoFontSize()
+        color: #FFF
+        background-color: $cor
+        border-radius: 30px
+        padding: 0 25px
+        margin: 40px 0
+    .voltar
+        color: $cor
+        border: 1px solid $cor
+        height: 30px
+        line-height: 30px
+        padding: 0 15px
+        border-radius: 15px
+        textoFontSize()
+        position: absolute
+        bottom: 20px
