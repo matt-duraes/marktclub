@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{$parceiro->titulo}}</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+
+    <style>
+        :root {
+            --cor: {{$clube->cor}};
+        }
+    </style>
+    @CSS
+</head>
+<body>
+<div id="site">
+    <div class="linha_topo"></div>
+    <figure><img src="{!!$clube->imagem!!}" alt="{!!$clube->titulo!!}" height="80"></figure>
+
+    <header>
+        <h1>{{$parceiro->titulo}}</h1>
+        <p>Continue apenas quando estiver na loja, ao continuar, esse link não vai mais funcinar</p>
+    </header>
+
+    @ if( $parceiro->limite > 0 ):
+    <div class="limite">
+        <p>Esse parceiro tem limite de utilização, você pode usar <strong>{{$parceiro->limite}}</strong> {{$parceiro->limite > 1 ? 'vouchers' : 'voucher'}} por mês</p>
+    </div>
+    @ endif;
+
+    @ if( $lista ):
+    <div class="bloco_usado">
+        <h2>Vouchers emitidos no mês:</h2>
+        @ foreach( $lista as $r ):
+        <div class="linha">
+            <p>{{$r->data}}</p>
+            <a href="{!!$r->link!!}" target="_blank" rel="noopener noreferrer">Reemitir</a>
+        </div>
+        @ endforeach;
+    </div>
+    @ endif;
+
+    @ if( empty($saldo) ):
+    <div class="alerta">
+        <p>Sem saldo no momento, todos os vouchers foram usado, estamos providenciando mais.</p>
+    </div>
+    @ elseif( $parceiro->limite > 0 && $usado >= $parceiro->limite ):
+        <p>Você usou todos os vouchers do mês, volte no próximo mês para pegar mais.</p>
+    @ else:
+        <a class="continuar" href="{!!LINK!!}/solicitacao-link/redirecionar/{!!$hash!!}">continuar</a>
+    @ endif;
+
+    <a class="voltar" href="{!!$clube->link_clube!!}">Voltar ao site</a>
+</div>
+
+</body>
+</html>

@@ -216,7 +216,7 @@ const adicionarNovaDemanda = (bloco, item, abrir) => {
 // CONTATO NUMERO TAREFA
 const contarTarefaDemanda = coluna => {
     const blocoColuna = coluna.classe('.bloco_coluna', '?') ? coluna : coluna.closest('.bloco_coluna');
-    const numero = blocoColuna.querySelectorAll('.conteudo .bloco_tarefa_item').length;
+    const numero = blocoColuna.querySelectorAll('.conteudo .bloco_kambam_item').length;
     const blocoNumero = blocoColuna.querySelector('header h1 span');
     blocoNumero.innerText = `(${numero})`;
 };
@@ -242,7 +242,7 @@ const tarefaDeletar = async id => {
     bloco.classList.add('display_none');
     const resposta = await ajaxPost(
         LINK + '/demanda/tarefa-deletar/' + id,
-        {tarefa_tipo, demanda},
+        { tarefa_tipo, demanda },
         'Erro ao deletar tarefa, por favor, tente novamente.'
     );
     if (false === resposta) {
@@ -300,7 +300,7 @@ function pegarTiposTarefa(id, tipo) {
         tiposSet.add(item.getAttribute('data-tipo'));
     });
 
-     if (tipo !== '' && tipo !== undefined) {
+    if (tipo !== '' && tipo !== undefined) {
         tiposSet.add(tipo);
     }
 

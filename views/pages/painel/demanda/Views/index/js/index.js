@@ -9,7 +9,7 @@ async function buscarDados(filtros) {
     const conteudos = $$('.bloco_coluna .conteudo article, .bloco_coluna .conteudo div');
 
     conteudos.forEach(conteudo => {
-        if(!conteudo.classList.contains('bloco_loading')) {
+        if (!conteudo.classList.contains('bloco_loading')) {
             conteudo.remove();
         }
     });
@@ -27,7 +27,7 @@ async function buscarDados(filtros) {
             {
                 area,
                 status,
-                ...filtros
+                ...filtros,
             },
             ''
         ).then(resposta => {
@@ -52,7 +52,7 @@ async function buscarDados(filtros) {
             contarTarefaDemanda(coluna);
         });
     }
-};
+}
 
 const cloneErro = $('#clone_item_erro');
 cloneErro.removeAttribute('id');
