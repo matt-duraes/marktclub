@@ -121,6 +121,9 @@ Route
     ::controller(App\Controllers\Api\Solicitacao\LinkController::class)
     ::grupo(function () {
         Route
+            ::nome('confirmar')
+            ::view('/solicitacao-link/confirmar/{hash}');
+        Route
             ::nome('redirecionar')
             ::view('/solicitacao-link/redirecionar/{hash}');
     });
