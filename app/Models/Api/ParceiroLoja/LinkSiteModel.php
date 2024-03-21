@@ -33,7 +33,8 @@ final class LinkSiteModel
             'parceiro' => [
                 'id'     => $this->Loja->get('id'),
                 'titulo' => $this->Loja->titulo,
-                'imagem' => $this->Loja->link_logo
+                'imagem' => $this->Loja->link_logo,
+                'limite' => $this->Loja->limite_voucher
             ],
             'usuario' => TOKEN['usuario']->id,
             'empresa' => TOKEN['empresa']->id,
@@ -42,7 +43,7 @@ final class LinkSiteModel
                 'id'         => $clube->uuid,
                 'titulo'     => $clube->titulo,
                 'cor'        => $clube->cor_principal,
-                'imagem'     => $clube->logo_principal,
+                'imagem'     => arquivoPrivado($clube->logo_principal),
                 'link_clube' => $clube->link_clube
             ]
         ], true);

@@ -468,6 +468,7 @@ return [
         'procedimento_texto'  => 'Texto de procedimento do parceiro',
         'voucher_texto'       => 'Texto para o voucher do parceiro',
         'procedimento'        => 1,
+        'limite_voucher'      => 4,
         'data_publicacao'     => dataPassadaAleatorio(),
         'estado'              => $estados,
         'tipo'                => 3,

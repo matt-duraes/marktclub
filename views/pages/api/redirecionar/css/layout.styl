@@ -47,6 +47,62 @@ body
         line-height: 1.5em
         margin-top: 10px
         color: #666
+    .limite
+        width: 100%
+        max-width: 400px
+        text-align: center
+        margin-top: 40px
+        border: 2px dashed #F00
+        border-radius: 5px
+    .limite p
+        texto()
+        padding: 10px 20px
+    .limite p strong
+        font-weight: bold
+        textoFontSize()
+        color: #F00
+    .bloco_usado
+        width: calc(100% - 40px)
+        max-width: 700px
+        display: flex
+        flex-direction: column
+        margin-top: 40px
+    .bloco_usado h2
+        texto()
+        color: #666
+    .bloco_usado .linha
+        width: 100%
+        border: 1px solid #DDD
+        border-bottom: none
+        display: flex
+        flex-direction: row
+        align-items: center
+        padding: 5px 10px
+        &:last-child
+            border-bottom: 1px solid #DDD
+    .bloco_usado .linha p
+        texto()
+        flex-grow: 1
+        flex-basis: 0%
+    .bloco_usado .linha a
+        border: 1px solid $cor
+        color: $cor
+        height: 30px
+        line-height: 30px
+        padding: 0 15px
+        textoFontSize()
+        border-radius: 20px
+    .alerta
+        margin-top: 2px
+        width: 100%
+        max-width: 400px
+        background-color: rgba(255,0,0,.2)
+        padding: 10px 20px
+        border-radius: 5px
+        margin-top: 20px
+    .alerta p
+        texto()
+        text-align: center
     .continuar
         height: 50px
         line-height: 50px

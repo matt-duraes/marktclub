@@ -26,7 +26,33 @@
         <p>Continue apenas quando estiver na loja, ao continuar, esse link não vai mais funcinar</p>
     </header>
 
-    <a class="continuar" href="{!!LINK!!}/solicitacao-link/redirecionar/{!!$hash!!}">continuar</a>
+    @ if( $parceiro->limite > 0 ):
+    <div class="limite">
+        <p>Esse parceiro tem limite de utilização, você pode usar <strong>{{$parceiro->limite}}</strong> {{$parceiro->limite > 1 ? 'vouchers' : 'voucher'}} por mês</p>
+    </div>
+    @ endif;
+
+    @ if( $lista ):
+    <div class="bloco_usado">
+        <h2>Vouchers emitidos no mês:</h2>
+        @ foreach( $lista as $r ):
+        <div class="linha">
+            <p>{{$r->data}}</p>
+            <a href="{!!$r->link!!}" target="_blank" rel="noopener noreferrer">Reemitir</a>
+        </div>
+        @ endforeach;
+    </div>
+    @ endif;
+
+    @ if( empty($saldo) ):
+    <div class="alerta">
+        <p>Sem saldo no momento, todos os vouchers foram usado, estamos providenciando mais.</p>
+    </div>
+    @ elseif( $parceiro->limite > 0 && $usado >= $parceiro->limite ):
+        <p>Você usou todos os vouchers do mês, volte no próximo mês para pegar mais.</p>
+    @ else:
+        <a class="continuar" href="{!!LINK!!}/solicitacao-link/redirecionar/{!!$hash!!}">continuar</a>
+    @ endif;
 
     <a class="voltar" href="{!!$clube->link_clube!!}">Voltar ao site</a>
 </div>

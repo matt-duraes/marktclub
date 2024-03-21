@@ -22,23 +22,11 @@ final class ResgatarEntity extends Entity
     protected Status $status;
 
     public function __construct(
-        private array $dado
+        private HashModel $Hash
     ) {
         parent::__construct();
-        $this->validarDado();
         $this->buscarLink();
         $this->emitirLink();
-    }
-
-    private function validarDado()
-    {
-        if (!chaveExiste(['parceiro.id', 'usuario', 'empresa', 'data'], $this->dado)) {
-            mensagemErro('Erro!', 'Não foi possível achar o código, por favor, tente novamente.');
-        } elseif ($this->dado['data'] <= agora()) {
-            pp($this->dado['data']);
-            ppe(agora());
-            mensagemErro('Vencido!', 'O link tem validade de 10 minutos, gere um novo link para continuar.');
-        }
     }
 
     private function buscarLink()
@@ -47,14 +35,15 @@ final class ResgatarEntity extends Entity
             ['status', 1],
             ['id_admin_empresa', 'null'],
             ['id_usuario_cliente', 'null'],
-            ['id_parceiro_loja', $this->dado['parceiro']['id']]
+            ['id_parceiro_loja', $this->Hash->parceiro->id],
+            ['data_vencimento', '>=', hoje()]
         ], mensagem: 'Os vouchers desse parceiro estão esgotados, estamos providenciando mais vouchers.');
     }
 
     private function emitirLink()
     {
-        $this->id_admin_empresa = $this->dado['empresa'];
-        $this->id_usuario_cliente = $this->dado['usuario'];
+        $this->id_admin_empresa = $this->Hash->empresa;
+        $this->id_usuario_cliente = $this->Hash->usuario;
         $this->data_emissao = new DataHora(agora());
         $this->status = new Status(Status::EMITIDO);
         $this->salvar();
