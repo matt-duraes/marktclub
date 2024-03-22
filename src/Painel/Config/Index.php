@@ -222,6 +222,26 @@ final class Index
         return $this;
     }
 
+    public function botaoStatus(string $campo, string $nome, StatusInterface $status, ?string $permissao = null)
+    {
+        if (!$this->campoAceito('status', $permissao)) {
+            return $this;
+        }
+
+        if (count($status->listarNumero()) != 2) {
+            mensagemErro('Erro!', 'Você deve passar um status com duas opções.');
+        }
+
+        $this->grade[] = [
+            'nome'  => $nome,
+            'tipo'  => 'botao-status',
+            'campo' => $campo,
+            'valor' => array_keys($status->select('')),
+        ];
+
+        return $this;
+    }
+
     public function linkVisualizar(string $link)
     {
         $this->linkVisualizar = $link;

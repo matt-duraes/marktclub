@@ -56,6 +56,9 @@
                     <?php elseif ($grade['tipo'] == 'status') : ?>
                         <div class="td status" data-titulo="<?= echoView($grade['nome']) ?>"><span class="bola" data-ajuda="<?= echoView($grade['nome']) ?>"></span></div>
                         <div class="barra"></div>
+                    <?php elseif ($grade['tipo'] == 'botao-status') : ?>
+                        <div class="td botao_status"><?= echoView($grade['nome']) ?></span></div>
+                        <div class="barra"></div>
                     <?php elseif (in_array($grade['tipo'] ?? '', ['grande', 'normal', 'pequeno'])) : ?>
                         <div class="td <?= $primeiro ? 'primeiro' : '' ?> <?= $grade['tipo'] ?>"><?= echoView($grade['nome']) ?></div>
                         <div class="barra"></div>
@@ -82,6 +85,9 @@
                         <div class="td imagem_usuario imagem"></div>
                     <?php elseif ($grade['tipo'] == 'status') : ?>
                         <div class="td status" data-titulo="<?= echoView($grade['nome']) ?>"><span class="bola" data-ajuda="<?= echoView($grade['nome']) ?>"></span></div>
+                        <div class="barra"></div>
+                    <?php elseif ($grade['tipo'] == 'botao-status') : ?>
+                        <div class="td botao_status"><?= echoView($grade['nome']) ?></span></div>
                         <div class="barra"></div>
                     <?php elseif (in_array($grade['tipo'] ?? '', ['grande', 'normal', 'pequeno'])) : ?>
                         <div class="td <?= $primeiro ? 'primeiro' : '' ?> <?= $grade['tipo'] ?>"><?= echoView($grade['nome']) ?></div>
@@ -148,6 +154,28 @@
                                         </div>
                                         <?php endif; ?>
                                         <div class="barra"></div>
+                                    <?php elseif ($grade['tipo'] == 'botao-status') : ?>
+                                        <div
+                                            class="td botao_status"
+                                            data-ajuda="<?= $r->status ?>"
+                                            data-sim="<?= $grade['valor'][0] ?>"
+                                            data-nao="<?= $grade['valor'][1] ?>"
+                                            data-id="<?= $r->id ?>"
+                                        >
+                                            <div class="bloco_switch">
+                                                <input
+                                                    type="checkbox"
+                                                    id="input-<?= $r->id ?>"
+                                                    <?= $grade['valor'][0] == $r->status
+                                                        ? 'checked value="sim"'
+                                                        : ''
+                                                    ?>
+                                                >
+                                                <label for="input-<?= $r->id ?>">
+                                                    <span></span>
+                                                </label>
+                                            </div>
+                                        </div>
                                     <?php elseif (in_array($grade['tipo'] ?? '', ['grande', 'normal', 'pequeno']) && isset($grade['copiar']) && $grade['copiar']) : ?>
                                         <div class="td <?= $grade['tipo'] ?> bloco_copiar">
                                             <?php
