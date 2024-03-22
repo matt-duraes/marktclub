@@ -1,15 +1,17 @@
 @template "painel"
 @hash('mudar_empresa', 'input_mudar_empresa')
 
-@? painelAppAdd();
+@ if( USUARIO_MARKTCLUB == 'sim' ):
+<div class="bloco_pagina_popup">
+    <header class="header_pagina_popup">
+        <h1 id="h1_motivo">SELECIONE UMA EMPRESA</h1>
+    </header>
 
-    @? painelColuna('auto');
-        @php painelFieldset('Mudar empresa')
-            <p class="texto_descricao">Escolha uma empresa para mudar seu usuário</p>
-            @? formSelect(name: 'mudar_empresa', placeholder: 'Escolha uma empresa', label: 'Empresa', lista: $empresa)
-            <div class="bloco_botao">
-                <div class="botao_verde" id="botao_mudar_empresa">MUDAR</div>
-            </div>
-        @php painelFieldsetEnd()
-    @? painelColunaEnd();
-@? painelAppAddEnd('', '');
+    <form class="form_geral conteudo_pagina_popup" id="form_mudar_empresa">
+        <p class="texto_descricao">Escolha uma empresa para mudar seu usuário</p>
+        @? formSelect(name: 'mudar_empresa', placeholder: 'Escolha uma empresa', label: 'Empresa', lista: $empresa)
+
+        <input type="submit" value="MUDAR" class="botao_verde" id="botao_mudar_empresa"></input>
+    </form>
+</div>
+@ endif;
