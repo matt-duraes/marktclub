@@ -553,11 +553,20 @@ if (!function_exists('painelColunaEnd')) {
     }
 }
 if (!function_exists('painelFieldset')) {
-    function painelFieldset(?string $titulo = null)
+    function painelFieldset(?string $titulo = null, bool $abrir = false)
     {
-        $tituloHtml = !empty($titulo) ? '<h2>' . $titulo . '</h2>' : '';
+        $classe = '';
+        $botaoAbrir = '';
+        $botaoClasse = '';
+        if ($abrir) {
+            $classe = 'bloco_fieldset_fechado bloco_fieldset_abrir_fechar';
+            $botaoAbrir = '<div class="botao_abrir_fechar"><i class="mais">+</i><i class="menos">-</i></div>';
+            $botaoClasse = 'botao_abrir_fieldset';
+        }
+        $tituloHtml = !empty($titulo) ? '<header class="' . $botaoClasse . '"><h2>' . $titulo . '</h2>' . $botaoAbrir . '</header>' : '';
+
         echo '
-            <div class="bloco_fieldset">
+            <div class="bloco_fieldset ' . $classe . '">
                 ' . $tituloHtml . '
                 <div class="lista_dado">
         ';

@@ -351,7 +351,20 @@ const carregarBlocoEndereco = (bloco, parceiro) => {
         }
         rolarScroolParaTopo();
     };
-    listarEndereco(1);
+    const blocoCarregarAbrir = bloco.closest('.bloco_fieldset_abrir_fechar');
+    if (blocoCarregarAbrir) {
+        const botaoCarregarAbrir = $('.botao_abrir_fieldset', blocoCarregarAbrir);
+        let botaoCarregarExecutado = false;
+        botaoCarregarAbrir.evento('click', () => {
+            if (botaoCarregarExecutado) {
+                return;
+            }
+            botaoCarregarExecutado = true;
+            listarEndereco(1);
+        });
+    } else {
+        listarEndereco(1);
+    }
 
     const botaoBuscar = $('.botao_buscar_endereco', bloco);
     const inputBuscarPesquisa = $('.input_buscar_pesquisa', bloco);

@@ -501,12 +501,13 @@ if (!function_exists('formInput')) {
 
         $bloqueadoHtml = '';
         if (!empty($bloqueado)) {
-            $bloqueadoHtml = '<div class="input_bloqueado" style="display: none" id="input_' . $name . '_bloqueado" data-ajuda="' . $bloqueado . '"></div>';
+            $idInput1 = !empty($name) ? $name : uuid();
+            $bloqueadoHtml = '<div class="input_bloqueado" style="display: none" id="input_' . $idInput1 . '_bloqueado" data-ajuda="' . $bloqueado . '"></div>';
             $classBloco[] = 'bloco_bloqueado';
             if (empty($value)) {
                 $attrInput[] = 'readonly';
                 $attrInputSecundario[] = 'readonly';
-                $bloqueadoHtml = '<div class="input_bloqueado" id="input_' . $name . '_bloqueado" data-ajuda="' . $bloqueado . '"></div>';
+                $bloqueadoHtml = '<div class="input_bloqueado" id="input_' . $idInput1 . '_bloqueado" data-ajuda="' . $bloqueado . '"></div>';
             }
         }
 
@@ -518,7 +519,10 @@ if (!function_exists('formInput')) {
             $nameSecundario = $name[1];
             $name = $name[0];
 
-            $inputSecundario = '<input class="input_separador_3 input_geral ' . implode(' ', $classInputSecundario) . '" type="' . $typeSecundario . '" name="' . $nameSecundario . '" id="input_' . $nameSecundario . '" ' . implode(' ', $attrInputSecundario) . ' >';
+            $nameSecundarioHtml = !empty($nameSecundario) ? 'data="' . $nameSecundario . '"' : '';
+            $nameSecundario = !empty($nameSecundario) ? $nameSecundario : uuid();
+
+            $inputSecundario = '<input class="input_separador_3 input_geral ' . implode(' ', $classInputSecundario) . '" type="' . $typeSecundario . '" ' . $nameSecundarioHtml . ' id="input_' . $nameSecundario . '" ' . implode(' ', $attrInputSecundario) . ' >';
 
             $classInput[] = 'input_separador_1';
 
@@ -528,14 +532,15 @@ if (!function_exists('formInput')) {
         }
 
         $nameHtml = !empty($name) ? 'name="' . $name . '"' : '';
+        $idInput1 = !empty($name) ? $name : uuid();
 
-        $label = !empty($label) ? '<label for="input_' . $name . '">' . $label . '</label>' : '';
+        $label = !empty($label) ? '<label for="input_' . $idInput1 . '">' . $label . '</label>' : '';
         return '
             <div class="bloco_input input_input ' . implode(' ', $classBloco) . '" id="' . $idBloco . '" ' . implode(' ', $attrBloco) . '>
                 ' . $bloqueadoHtml . '
                 ' . $html . '
                 ' . $iconeHtml . '
-                <input class="input_geral ' . implode(' ', $classInput) . '" ' . $focusHtml . ' type="' . $typePrincipal . '" ' . $nameHtml . ' ' . implode(' ', $attrInput) . ' id="input_' . $name . '">
+                <input class="input_geral ' . implode(' ', $classInput) . '" ' . $focusHtml . ' type="' . $typePrincipal . '" ' . $nameHtml . ' ' . implode(' ', $attrInput) . ' id="input_' . $idInput1 . '">
                 ' . $separadorHtml . '
                 ' . $inputSecundario . '
                 <div class="borda"></div>

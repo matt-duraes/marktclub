@@ -2,8 +2,8 @@
 
 use Helpers\ApiHelper;
 use App\Classes\Geral\Status;
-use App\Classes\ConstrutorClube\TipoAtivacao;
 use App\Helpers\PrimeiroAcessoHelper;
+use App\Classes\ConstrutorClube\TipoAtivacao;
 
 $Painel = new PainelConfig\Add(app: 'comercial-empresa', acao: $acao);
 
@@ -60,6 +60,10 @@ $Painel->coluna(callback: function () use ($Painel) {
             ->switch(
                 name: 'chat_status',
                 label: 'Vai ter chat?'
+            )
+            ->switch(
+                name: 'tela_login',
+                label: 'Vai ter tela de login?'
             )
             ->switch(
                 name: 'api_status',
