@@ -1,6 +1,9 @@
 <h3>Cliente</h3>
 @? formSelect(name: 'empresa_criacao', placeholder: 'Escolha um cliente', label: 'Cliente', obrigatorio: 1, lista: $empresa)
 
+<h3>Prazo limite</h3>
+@? formData(name: 'criacao_data_entrega', label: 'Prazo limite', obrigatorio: 1)
+
 <div class="checkbox">
     <h3>Tipo da demanda</h3>
     @? formCheckbox(name: 'criacao_categoria_site', label: 'Site', check: false)
