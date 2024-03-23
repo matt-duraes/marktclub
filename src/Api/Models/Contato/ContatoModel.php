@@ -33,11 +33,6 @@ final class ContatoModel extends ORM
     public Pagina $pagina;
     public Quantidade $quantidade;
 
-    public function __construct()
-    {
-        parent::__construct();
-    }
-
     /**
      * @throws Excecao
      */

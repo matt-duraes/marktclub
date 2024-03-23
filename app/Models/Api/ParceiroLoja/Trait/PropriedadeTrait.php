@@ -1,0 +1,53 @@
+<?php
+
+namespace App\Models\Api\ParceiroLoja\Trait;
+
+trait PropriedadeTrait {
+    protected int $id_usuario_equipe;
+    protected array $id_admin_empresa;
+
+    public OrigemLead $origem_lead;
+    public Botao $convenio_direto;
+    public string $nome_fantasia;
+    public string $razao_social;
+    public TipoJuridico $tipo_juridico;
+    public Cpf $documento_cpf;
+    public Cnpj $documento_cnpj;
+    public string $titulo_interno;
+    public TipoLoja $tipo_loja;
+    public string $equipe;
+    public Nome $responsavel_nome;
+    public Cpf $responsavel_cpf;
+    public Email $responsavel_email;
+    public string $imagem_logo;
+    public string $imagem_capa;
+    public string $titulo;
+    public TipoEstabelecimento $tipo_estabelecimento;
+    public int $pontuacao;
+    public string $url;
+    public Botao $delivery;
+    public Botao $convenio_direto;
+    public Data $data_contrato_inicio;
+    public Data $data_contrato_vencimento;
+    public Botao $precisa_aditivo;
+    public Email $email_contato;
+    public TipoProcedimento $tipo_procedimento;
+    public int $limite_voucher;
+    public int $prazo_voucher;
+    public Data $prazo_voucher_fixo;
+    public Telefone $contato_whatsapp;
+    public string $link_site;
+    public array $link_alias;
+    public array $link_bloqueado;
+    public string $texto_descricao;
+    public string $texto_desconto;
+    public string $texto_procedimento;
+    public string $texto_voucher;
+    public Categoria $categoria_principal;
+    public array $categoria_lista;
+    public array $subcategoria_tag;
+    public array $subcategoria_lista;
+    public array $empresa;
+    public array $destaque;
+    public array $endereco_estado;
+}

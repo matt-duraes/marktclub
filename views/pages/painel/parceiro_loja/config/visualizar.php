@@ -39,6 +39,34 @@ $Painel->coluna(callback: function () use ($Painel) {
     });
 });
 
+$Painel->coluna(callback: function () use ($Painel) {
+    $Painel
+        ->status(
+            campo: 'status',
+            texto: 'Concluir',
+            inArray: ['prospeccao', 'cancelado', 'problema'],
+            status: Status::CONCLUIDO,
+            mensagem: 'Tem certeza que deseja concluir essa loja, ao fazer isso ela irá ser publicada no site?',
+            cor: 'verde'
+        )
+        ->status(
+            campo: 'status',
+            texto: 'Problema',
+            inArray: ['concluido'],
+            status: Status::PROBLEMA,
+            mensagem: 'Tem certeza que deseja colocar essa loja com problema?',
+            cor: 'vermelho'
+        )
+        ->status(
+            campo: 'status',
+            texto: 'Cancelar',
+            inArray: ['concluido', 'problema', 'prospeccao'],
+            status: Status::CANCELAR,
+            mensagem: 'Tem certeza que deseja cancelar essa loja?',
+            cor: 'cinza'
+        );
+});
+
 $Painel->css('painel_parceiro_loja_visualizar');
 $Painel->js('painel_parceiro_loja_visualizar');
 

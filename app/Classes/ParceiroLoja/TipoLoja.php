@@ -10,7 +10,6 @@ final class TipoLoja extends Status
     public const AUTOMOVEL = 'automovel';
     public const FARMACIA = 'farmacia';
     public const PREMIUM = 'premium';
-    public const LABORATORIO = 'laboratorio';
     public const CASHBACK = 'cashback';
 
     /**
@@ -24,7 +23,6 @@ final class TipoLoja extends Status
             self::AUTOMOVEL   => 'Automóvel',
             self::FARMACIA    => 'Farmácia',
             self::PREMIUM     => 'Premium',
-            self::LABORATORIO => 'Laboratório',
             self::CASHBACK    => 'Cashback',
         ]);
     }
