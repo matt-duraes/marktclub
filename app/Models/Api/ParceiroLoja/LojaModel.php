@@ -4,22 +4,24 @@ namespace App\Models\Api\ParceiroLoja;
 
 use ORM\ORM;
 use stdClass;
-use Http\Request;
+use Where\Where;
+use Modules\Botao;
+use Modules\Pagina;
 use Helpers\OrmHelper;
+use Modules\Quantidade;
 use Modules\EnderecoEstado;
 use ApiModel\Endereco\RaioModel;
-use App\Classes\ParceiroLoja\Tipo;
-use System\Classes\Endereco\Local;
 use System\Trait\Model\OrdemTrait;
 use App\Classes\ParceiroLoja\Ordem;
 use System\Trait\Model\PaginaTrait;
 use App\Classes\ParceiroLoja\Status;
+use App\Classes\ParceiroLoja\TipoLoja;
 use App\Classes\ParceiroLoja\Categoria;
 use System\Trait\Model\QuantidadeTrait;
 use System\Interface\ModelListarInterface;
-use App\Classes\ParceiroLoja\Estabelecimento;
 use App\Models\Api\Trait\ValidarEmpresaTrait;
 use App\Models\Api\Demanda\Trait\EmpresaTrait;
+use App\Classes\ParceiroLoja\TipoEstabelecimento;
 use App\Models\Api\ParceiroLoja\Trait\ListarCampoTrait;
 use App\Models\Api\ParceiroLoja\Trait\MontarRetornoTrait;
 
@@ -35,15 +37,22 @@ class LojaModel extends ORM implements ModelListarInterface
 
     protected string $ormTabela = TABELA_PARCEIRO_LOJA;
     private int $idEmpresa;
-    private array $favorito = [];
     private array $idMaisAcessado = [];
-
-    public function __construct(
-        private ?Request $request
-    ) {
-        parent::__construct();
-        $this->validarEmpresa();
-    }
+    public Pagina $pagina;
+    public Quantidade $quantidade;
+    private Botao $favorito;
+    public Categoria $categoria;
+    public string $subcategoria;
+    public TipoEstabelecimento $tipo_estabelecimento;
+    public string $pesquisa;
+    public TipoLoja $tipo_loja;
+    public Status $status;
+    public Ordem $ordem;
+    public Botao $mais_acessado;
+    public float $latitude;
+    public float $longitude;
+    public EnderecoEstado $endereco_estado;
+    public string $empresa;
 
     public function listarDados(): stdClass
     {
@@ -60,18 +69,23 @@ class LojaModel extends ORM implements ModelListarInterface
         }
 
         // FAVORITO
-        $dado
-            ->tabela(TABELA_PARCEIRO_FAVORITO)
-            ->campo([['id_parceiro_loja', '!favorito']]);
-        if ($this->request->favorito == 'sim') {
-            $dado->join('id_parceiro_loja', 'id');
-        } else {
-            $dado->leftJoin('id_parceiro_loja', 'id');
-        }
+        // $dado
+        //     ->tabela(TABELA_PARCEIRO_FAVORITO)
+        //     ->campo([['id_parceiro_loja', '!favorito']]);
+        // if ($this->request->favorito == 'sim') {
+        //     $dado->join('id_parceiro_loja', 'id');
+        // } else {
+        //     $dado->leftJoin('id_parceiro_loja', 'id');
+        // }
 
         // MAPA
-        if (!empty($this->request->latitude) && !empty($this->request->longitude)) {
-            $Raio = new RaioModel($this->request->latitude, $this->request->longitude);
+        if (
+            $this->pExiste('latitude') &&
+            $this->pExiste('longitude') &&
+            !empty($this->latitude) &&
+            !empty($this->longitude)
+        ) {
+            $Raio = new RaioModel($this->latitude, $this->longitude);
             $dado
                 ->tabela(TABELA_SISTEMA_ENDERECO)
                 ->join('uuid', 'id_vinculo')
@@ -103,40 +117,38 @@ class LojaModel extends ORM implements ModelListarInterface
     protected function pegarWhere(): Where
     {
         $where = [
-            ['empresa', 'json', $this->idEmpresa]
+            ['id_admin_empresa', 'json', $this->idEmpresa]
         ];
         $Where = new Where($this, $where);
         $Where
-            ->linha(campo: 'tipo')
-            ->seValido('categoria_principal', function() use($Where) {
+            ->linha(propriedade: 'tipo')
+            ->seValido(propriedade: 'categoria', callback: function () use ($Where) {
                 $Where->manual([
                     'OR',
-                    ['categoria_principal', $categoria->numero()],
-                    ['categoria_lista', 'json', $categoria->numero()]
-                ])
+                    ['categoria_principal', $this->categoria->numero()],
+                    ['categoria_lista', 'json', $this->categoria->numero()]
+                ]);
             })
-            ->seVazio('subcategoria', vazio: false, function() use ($Where) {
+            ->seVazio(propriedade: 'subcategoria', vazio: false, callback: function () use ($Where) {
                 $tag = $this->pegarIdSubCategoria();
-                $Where->linha(campo: 'subcategoria_lista', valor: $tag . '%%');
+                $Where->linha(propriedade: 'subcategoria_lista', condicao: 'like%%', valor: $tag);
             })
-            ->seVazio(campo: 'pesquisa', vazio: false, function() use ($Where) {
+            ->seVazio(propriedade: 'pesquisa', vazio: false, callback: function () use ($Where) {
                 $pesquisa = $this->pesquisa;
-                $Where->manual = [
+                $Where->manual([
                     'OR',
                     ['titulo', 'like', '%' . $pesquisa . '%'],
                     ['subcategoria_tag', 'like', '%' . $pesquisa . '%']
-                ];
+                ]);
             })
             ->linha('tipo_estabelecimento')
-            ->seSim('mais_acessao', function() use ($Where) {
+            ->seBotao('mais_acessao', callback: function () use ($Where) {
                 $this->idMaisAcessado = (new MaisAcessadoModel($this->idEmpresa, $this->pegarQuantidade()))->id;
-                if (!empty($this->idMaisAcessado)) {
-                    $where[] = ['id', 'in', $this->idMaisAcessado];
-                }
+                $Where->linha(propriedade: 'id', condicao: 'in', valor: $this->idMaisAcessado);
             })
             ->linha('endereco_estado', 'json');
 
-        $status = new Status($this->request->status);
+        $status = $this->pExiste('status') ? $this->status : new Status(null);
         if ($this->idEmpresa != 1 || !$status->valido()) {
             $Where->manual(['status', (new Status(Status::CONCLUIDO))->numero()]);
         } elseif ($status->valido()) {
@@ -148,7 +160,7 @@ class LojaModel extends ORM implements ModelListarInterface
 
     private function pegarIdSubCategoria()
     {
-        $tag = $this->request->subcategoria;
+        $tag = $this->subcategoria;
         if (empty($tag)) {
             return '';
         }

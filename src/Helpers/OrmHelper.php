@@ -52,7 +52,7 @@ final class OrmHelper extends ORM
      * Pegar um campo especifico
      *
      * @param string      $campo        Campo que deseja pegar
-     * @param string      $where        Where para fazer a busca
+     * @param array       $where        Where para fazer a busca
      * @param mixed       $padrao       Retorno padrão caso não ache e não queira dar erro
      * @param string      $ordem        Ordem da busca podendo ser DESC ou ASC
      * @param string|null $erroMensagem Mensagem de erro caso queira dar erro se não existir o registro

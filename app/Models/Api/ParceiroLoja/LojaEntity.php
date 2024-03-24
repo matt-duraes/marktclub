@@ -3,17 +3,49 @@
 namespace App\Models\Api\ParceiroLoja;
 
 use ORM\Entity;
-use Modules\Data;
-use Modules\Botao;
-use App\Classes\ParceiroLoja\Status;
-use App\Classes\ParceiroLoja\Procedimento;
+use Helpers\OrmHelper;
+use App\Models\Api\ParceiroLoja\Trait\PropriedadeTrait;
 
 final class LojaEntity extends Entity
 {
+    use PropriedadeTrait;
+
     protected string $ormTabela = TABELA_PARCEIRO_LOJA;
-    protected array $ormSalvar = [];
-    protected array $ormInsert = [];
-    protected array $ormSalvar = [];
+    protected array $ormBuscar = [
+        'nome_fantasia', 'razao_social', 'tipo_juridico', 'documento_cpf', 'documento_cnpj',
+        'titulo_interno', 'tipo_loja', 'id_usuario_equipe', 'responsavel_nome', 'responsavel_cpf', 'responsavel_email',
+        'imagem_logo', 'imagem_capa_desktop', 'imagem_capa_mobile', 'titulo', 'tipo_estabelecimento', 'origem_lead',
+        'url', 'delivery', 'convenio_direto', 'data_contrato_inicio', 'data_contrato_vencimento', 'precisa_aditivo',
+        'email_contato', 'tipo_procedimento', 'limite_voucher', 'prazo_voucher', 'prazo_voucher_fixo',
+        'contato_whatsapp', 'link_site', 'link_alias', 'link_bloqueado', 'texto_descricao', 'texto_desconto',
+        'texto_procedimento', 'texto_voucher', 'categoria_principal', 'categoria_lista', 'subcategoria_tag',
+        'subcategoria_lista', 'id_admin_empresa', 'destaque', 'endereco_estado', 'pontuacao',
+    ];
+    protected array $ormSalvar = [
+        'nome_fantasia', 'razao_social', 'tipo_juridico', 'documento_cpf', 'documento_cnpj',
+        'titulo_interno', 'tipo_loja', 'id_usuario_equipe', 'responsavel_nome', 'responsavel_cpf', 'responsavel_email',
+        'imagem_logo', 'imagem_capa_desktop', 'imagem_capa_mobile', 'titulo', 'tipo_estabelecimento', 'origem_lead',
+        'url', 'delivery', 'convenio_direto', 'data_contrato_inicio', 'data_contrato_vencimento', 'precisa_aditivo',
+        'email_contato', 'tipo_procedimento', 'limite_voucher', 'prazo_voucher', 'prazo_voucher_fixo',
+        'contato_whatsapp', 'link_site', 'link_alias', 'link_bloqueado', 'texto_descricao', 'texto_desconto',
+        'texto_procedimento', 'texto_voucher', 'categoria_principal', 'categoria_lista', 'subcategoria_tag',
+        'subcategoria_lista', 'id_admin_empresa', 'destaque', 'endereco_estado', 'pontuacao',
+    ];
+    private OrmHelper $EmpresaOrm;
+    private OrmHelper $EquipeOrm;
+
+    public function __construct()
+    {
+        parent::__construct();
+        $this->EmpresaOrm = new OrmHelper(TABELA_COMERCIAL_EMPRESA);
+        $this->EquipeOrm = new OrmHelper(TABELA_USUARIO_EQUIPE);
+    }
+
+    protected function regraSalvar()
+    {
+        $this->id_admin_empresa = $this->EmpresaOrm->mudarListaUuidParaId($this->empresa);
+        $this->id_usuario_equipe = $this->EquipeOrm->pegarIdPeloUuid($this->equipe);
+    }
 
     protected function regraPosBuscar()
     {
@@ -24,6 +56,8 @@ final class LojaEntity extends Entity
         $this->imagem_capa_desktop = arquivoPrivado($this->imagem_capa_desktop);
         $this->imagem_capa_mobile = arquivoPrivado($this->imagem_capa_mobile);
         $this->link_site = (new LinkSiteModel($this))->link;
+        $this->empresa = $this->EmpresaOrm->mudarListaIdParaUuid($this->id_admin_empresa);
+        $this->equipe = $this->EquipeOrm->pegarUuidPeloId($this->id_usuario_equipe);
     }
 
     protected function getId()

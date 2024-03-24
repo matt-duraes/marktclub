@@ -2,12 +2,25 @@
 
 namespace App\Models\Api\ParceiroLoja\Trait;
 
-trait PropriedadeTrait {
+use Modules\Cpf;
+use Modules\Cnpj;
+use Modules\Data;
+use Modules\Nome;
+use Modules\Botao;
+use Modules\Email;
+use Modules\Telefone;
+use App\Classes\ParceiroLoja\TipoLoja;
+use App\Classes\ParceiroLoja\Categoria;
+use App\Classes\ParceiroLoja\OrigemLead;
+use App\Classes\ParceiroLoja\TipoJuridico;
+use App\Classes\ParceiroLoja\TipoProcedimento;
+use App\Classes\ParceiroLoja\TipoEstabelecimento;
+
+trait PropriedadeTrait
+{
     protected int $id_usuario_equipe;
     protected array $id_admin_empresa;
-
     public OrigemLead $origem_lead;
-    public Botao $convenio_direto;
     public string $nome_fantasia;
     public string $razao_social;
     public TipoJuridico $tipo_juridico;
@@ -20,7 +33,8 @@ trait PropriedadeTrait {
     public Cpf $responsavel_cpf;
     public Email $responsavel_email;
     public string $imagem_logo;
-    public string $imagem_capa;
+    public string $imagem_capa_desktop;
+    public string $imagem_capa_mobile;
     public string $titulo;
     public TipoEstabelecimento $tipo_estabelecimento;
     public int $pontuacao;

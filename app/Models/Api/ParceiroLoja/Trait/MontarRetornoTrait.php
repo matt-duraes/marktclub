@@ -24,9 +24,9 @@ trait MontarRetornoTrait
                 'desconto'        => $r->texto_desconto,
                 'imagem'          => arquivoPrivado($r->imagem_logo),
                 'url'             => $r->url,
-                'tipo'            => $Tipo->indice($r->tipo_loja),
+                'tipo_loja'       => $Tipo->indice($r->tipo_loja),
                 'data_publicacao' => $r->data_publicacao,
-                'estado'          => $r->estado,
+                'endereco_estado' => $r->endereco_estado,
                 'favorito'        => !empty($r->favorito) ? 'sim' : 'nao',
                 'status'          => $Status->indice($r->status)
             ];

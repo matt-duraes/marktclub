@@ -10,15 +10,6 @@ return [
     'cupom_bloqueio' => [
         'cod' => 'uuid'
     ],
-    'parceiro_novo' => [
-        'cod'                => 'uuid',
-        'empresa'            => 'id_admin_empresa',
-        'site'               => 'link_site',
-        'texto'              => 'texto_descricao',
-        'desconto_texto'     => 'texto_desconto',
-        'procedimento_texto' => 'texto_procedimento',
-        'voucher_texto'      => 'texto_voucher'
-    ],
     'tag_novo' => [
         'cod' => 'uuid'
     ],

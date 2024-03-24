@@ -106,8 +106,11 @@ $Painel->coluna(callback: function () use ($Painel) {
     $Painel->fieldset('Logo', function () use ($Painel) {
         $Painel->imagem(name: 'imagem_logo', diretorio: '0493d060-44ba-470b-a0a2-7211ba138d8c');
     });
-    $Painel->fieldset('Capa', function () use ($Painel) {
-        $Painel->imagem(name: 'imagem_capa', diretorio: '0493d060-44ba-470b-a0a2-7211ba138d8c');
+    $Painel->fieldset('Capa Desktop', function () use ($Painel) {
+        $Painel->imagem(name: 'imagem_capa_desktop', diretorio: '0493d060-44ba-470b-a0a2-7211ba138d8c');
+    });
+    $Painel->fieldset('Capa Mobile', function () use ($Painel) {
+        $Painel->imagem(name: 'imagem_capa_mobile', diretorio: '0493d060-44ba-470b-a0a2-7211ba138d8c');
     });
 });
 
