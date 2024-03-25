@@ -56,7 +56,8 @@ $scope = [
     'parceiro_easylive:salvar', 'parceiro_easylive:atualizar', 'parceiro_easylive:listar',
     'parceiro_easylive:buscar', 'parceiro_easylive:deletar',
 
-    'parceiro_loja:listar', 'parceiro_loja:buscar', 'parceiro_loja:relacionado',
+    'parceiro_loja:listar', 'parceiro_loja:buscar', 'parceiro_loja:salvar', 'parceiro_loja:atualizar',
+    'parceiro_loja:deletar', 'parceiro_loja:relacionado',
 
     'parceiro_subcategoria:listar',
 
@@ -159,7 +160,7 @@ $scope = [
     'enquete_satisfacao:atualizar', 'enquete_satisfacao:deletar',
 
     'parceiro_loja:listar', 'parceiro_loja:buscar', 'parceiro_loja:destaque', 'parceiro_loja:salvar',
-    'parceiro_loja:atualizar', 'parceiro_loja:deletar',
+    'parceiro_loja:atualizar', 'parceiro_loja:deletar', 'parceiro_loja:auditoria',
 
     'parceiro_cupom:buscar', 'parceiro_cupom:listar', 'parceiro_cupom:atualizar',
 

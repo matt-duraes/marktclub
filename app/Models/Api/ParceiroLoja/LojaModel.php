@@ -40,7 +40,7 @@ class LojaModel extends ORM implements ModelListarInterface
     private array $idMaisAcessado = [];
     public Pagina $pagina;
     public Quantidade $quantidade;
-    private Botao $favorito;
+    public Botao $favorito;
     public Categoria $categoria;
     public string $subcategoria;
     public TipoEstabelecimento $tipo_estabelecimento;
@@ -69,14 +69,14 @@ class LojaModel extends ORM implements ModelListarInterface
         }
 
         // FAVORITO
-        // $dado
-        //     ->tabela(TABELA_PARCEIRO_FAVORITO)
-        //     ->campo([['id_parceiro_loja', '!favorito']]);
-        // if ($this->request->favorito == 'sim') {
-        //     $dado->join('id_parceiro_loja', 'id');
-        // } else {
-        //     $dado->leftJoin('id_parceiro_loja', 'id');
-        // }
+        $dado
+            ->tabela(TABELA_PARCEIRO_FAVORITO)
+            ->campo([['id_parceiro_loja', '!favorito']]);
+        if ($this->pExiste('favorito') && $this->favorito->valor() == $this->favorito::SIM) {
+            $dado->join('id_parceiro_loja', 'id');
+        } else {
+            $dado->leftJoin('id_parceiro_loja', 'id');
+        }
 
         // MAPA
         if (
@@ -116,7 +116,7 @@ class LojaModel extends ORM implements ModelListarInterface
 
     protected function pegarWhere(): Where
     {
-        $where = [
+        $where = $this->idEmpresa == 1 ? [] : [
             ['id_admin_empresa', 'json', $this->idEmpresa]
         ];
         $Where = new Where($this, $where);

@@ -1,23 +1,33 @@
 <?php
 
+use App\Classes\ParceiroLoja\Status;
+
 $Painel = new PainelConfig\Visualizar('parceiro_loja');
 
 $Painel
-    ->imagemLogo('link_logo')
+    ->imagemLogo('imagem_logo')
     ->margin(40);
 
 $Painel->coluna(callback: function () use ($Painel) {
-    $Painel->bloco(titulo: 'Contato', abrir: true, callback: function () use ($Painel) {
+    $Painel->bloco(titulo: 'Contato', callback: function () use ($Painel) {
         $Painel
             ->linha('responsavel_nome', 'Nome')
+            ->linha('responsavel_cargo', 'Cargo')
             ->email('responsavel_email', 'E-mail')
             ->telefone('responsavel_telefone', 'Telefone');
     });
-    $Painel->bloco(titulo: 'Contrato', abrir: true, callback: function () use ($Painel) {
+    $Painel->bloco(titulo: 'Contrato', callback: function () use ($Painel) {
         $Painel
             ->data('data_contrato_inicio', 'Data do contrato')
             ->data('data_contrato_vencimento', 'Data de vencimento')
-            ->checked('precisa_aditivo', 'Precisa de aditivo?');
+            ->checked('precisa_aditivo', 'Precisa de aditivo?')
+            ->data('data_auditoria', 'Última auditoria');
+    });
+    $Painel->bloco(titulo: 'Auditoria', callback: function () use ($Painel) {
+        $Painel
+            ->data('data_auditoria', 'Última auditoria')
+            ->checked('data_auditoria_valida', 'Está em dias?')
+            ->botao('data_auditoria', 'Fazer auditoria', 'botao_fazer_auditoria');
     });
 });
 $Painel->coluna(callback: function () use ($Painel) {
@@ -61,12 +71,13 @@ $Painel->coluna(callback: function () use ($Painel) {
             campo: 'status',
             texto: 'Cancelar',
             inArray: ['concluido', 'problema', 'prospeccao'],
-            status: Status::CANCELAR,
+            status: Status::CANCELADO,
             mensagem: 'Tem certeza que deseja cancelar essa loja?',
             cor: 'cinza'
         );
 });
 
+$Painel->include('auditoria', 'data_auditoria');
 $Painel->css('painel_parceiro_loja_visualizar');
 $Painel->js('painel_parceiro_loja_visualizar');
 

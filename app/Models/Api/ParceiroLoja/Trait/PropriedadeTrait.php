@@ -9,6 +9,7 @@ use Modules\Nome;
 use Modules\Botao;
 use Modules\Email;
 use Modules\Telefone;
+use App\Classes\ParceiroLoja\Status;
 use App\Classes\ParceiroLoja\TipoLoja;
 use App\Classes\ParceiroLoja\Categoria;
 use App\Classes\ParceiroLoja\OrigemLead;
@@ -30,7 +31,9 @@ trait PropriedadeTrait
     public TipoLoja $tipo_loja;
     public string $equipe;
     public Nome $responsavel_nome;
+    public string $responsavel_cargo;
     public Cpf $responsavel_cpf;
+    public Telefone $responsavel_telefone;
     public Email $responsavel_email;
     public string $imagem_logo;
     public string $imagem_capa_desktop;
@@ -64,4 +67,6 @@ trait PropriedadeTrait
     public array $empresa;
     public array $destaque;
     public array $endereco_estado;
+    public Data $data_auditoria;
+    public Status $status;
 }

@@ -47,6 +47,10 @@ const formValue = (input, valor, obrigatorio) => {
         valor = valor.replace(/^(http:\/\/|https:\/\/)/i, '');
     }
     input.value = valor;
+    if (input.classList.contains('textarea_resize')) {
+        input.style.height = 0;
+        input.style.height = input.scrollHeight < 45 ? 45 + 'px' : input.scrollHeight + 'px';
+    }
 };
 /**
  * Mudar o valor do select

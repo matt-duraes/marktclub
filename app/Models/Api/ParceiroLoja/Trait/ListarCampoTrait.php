@@ -8,7 +8,7 @@ trait ListarCampoTrait
     {
         return [
             'id', 'uuid', 'titulo', 'url', 'tipo_loja', 'texto_desconto', 'endereco_estado',
-            'data_publicacao', 'imagem_logo', 'status'
+            'data_publicacao', 'imagem_logo', 'data_auditoria', 'status'
         ];
     }
 }

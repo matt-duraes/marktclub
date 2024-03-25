@@ -1,0 +1,15 @@
+<div class="bloco_pagina_popup conteudo" id="bloco_auditoria_geral">
+    <header class="header_pagina_popup">
+        <h1>FAZER AUDITORIA</h1>
+        <i class="fechar">@iconeFechar()</i>
+    </header>
+    <form action="/" class="form_geral conteudo_pagina_popup">
+        @? formSelect(name: 'auditoria_resultado', label: 'Retorno', placeholder: 'Escolha o resultado da auditoria', lista: (new \App\Classes\ParceiroLoja\Auditoria())->select('Escolha uma opção'))
+        @? formSelect(name: 'auditoria_padrao', label: 'Mensagem padrão', placeholder: 'Mensagem padrão', lista: [])
+        @? formTextarea(name: 'auditoria_mensagem', label: 'Mensagem', placeholder: 'Digite uma mensagem')
+    </form>
+    <div class="footer_pagina_popup">
+        <div class="flex_grow"></div>
+        <div class="botao salvar botao_salvar_auditoria">Salvar</div>
+    </div>
+</div>

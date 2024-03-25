@@ -1,0 +1,1 @@
+{"id":"id_dbc2d72151727a4e4472dc971fe3291b","token":"painel","metodo":"POST","nome":"\/parceiro-loja","uri":"{{LINK}}\/parceiro-loja","parametro":[],"body":[],"header":[],"variavel":[],"json":[],"documentacao":{"status":false,"descricao":"","requisicao":"","resposta":"","scope":"parceiro_loja:salvar"}}

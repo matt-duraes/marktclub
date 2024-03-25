@@ -24,6 +24,7 @@ return [
         'id_admin_empresa'    => [66],
         'data_publicacao'     => dataPassadaAleatorio(),
         'endereco_estado'     => $estados,
+        'data_auditoria'      => dataPassadaAleatorio(),
         'tipo_loja'           => 1,
         'status'              => 4
     ],
@@ -48,6 +49,7 @@ return [
         'id_admin_empresa'    => [2],
         'data_publicacao'     => dataPassadaAleatorio(),
         'endereco_estado'     => $estados,
+        'data_auditoria'      => dataPassadaAleatorio(),
         'tipo_loja'           => 1,
         'status'              => 4
     ],
@@ -72,6 +74,7 @@ return [
         'id_admin_empresa'    => [194, 106, 2, 66, 109, 1],
         'data_publicacao'     => dataPassadaAleatorio(),
         'endereco_estado'     => $estados,
+        'data_auditoria'      => dataPassadaAleatorio(),
         'tipo_loja'           => 2,
         'status'              => 4
     ],
@@ -92,6 +95,7 @@ return [
         'texto_procedimento'  => 'Texto de procedimento do parceiro',
         'texto_voucher'       => 'Texto para o voucher do parceiro',
         'data_publicacao'     => dataPassadaAleatorio(),
+        'data_auditoria'      => dataPassadaAleatorio(),
         'endereco_estado'     => $estados,
         'tipo_procedimento'   => 2,
         'destaque'            => [194, 106, 2, 109, 1],
@@ -143,6 +147,7 @@ return [
         'destaque'            => [6, 42, 233, 100, 220, 2003, 1972, 236, 132, 133, 58, 215, 218, 200, 53, 159, 197, 194, 195, 235, 59, 65, 106, 2, 98, 66, 73, 41, 109, 1954, 128, 3, 1975, 4, 56, 45, 147, 112, 35, 156, 163, 68, 145, 96, 1978, 209, 225, 204, 240, 239, 50, 199, 2013, 229, 1981, 175, 2087, 198, 1957, 223, 153, 92, 2007, 95, 2002, 84, 2009, 1967, 2008, 192, 1, 1989, 187, 234, 214, 1971, 217, 118, 216, 154, 1993, 186, 2001, 80, 70, 230, 102, 196, 2004, 60, 52, 1987, 94, 104, 76, 2011, 1994, 1991, 168, 82, 237, 40, 1956, 2006, 1988, 55, 19, 160, 178, 166, 2091],
         'id_admin_empresa'    => [6, 42, 233, 100, 220, 2003, 1972, 236, 132, 133, 58, 215, 218, 200, 53, 159, 197, 194, 195, 235, 59, 65, 106, 2, 98, 66, 73, 41, 109, 1954, 128, 3, 1975, 4, 56, 45, 147, 112, 35, 156, 163, 68, 145, 96, 1978, 209, 225, 204, 240, 239, 50, 199, 2013, 229, 1981, 175, 2087, 198, 1957, 223, 153, 92, 2007, 95, 2002, 84, 2009, 1967, 2008, 192, 1, 1989, 187, 234, 214, 1971, 217, 118, 216, 154, 1993, 186, 2001, 80, 70, 230, 102, 196, 2004, 60, 52, 1987, 94, 104, 76, 2011, 1994, 1991, 168, 82, 237, 40, 1956, 2006, 1988, 55, 19, 160, 178, 166, 2091],
         'data_publicacao'     => dataPassadaAleatorio(),
+        'data_auditoria'      => dataPassadaAleatorio(),
         'endereco_estado'     => $estados,
         'tipo_loja'           => 2,
         'status'              => 4
@@ -168,6 +173,7 @@ return [
         'id_admin_empresa'    => [1, 2, 66],
         'prazo_voucher_fixo'  => dataAdicionar(hoje(), 60, 'dias'),
         'data_publicacao'     => dataPassadaAleatorio(),
+        'data_auditoria'      => dataPassadaAleatorio(),
         'endereco_estado'     => [$estados[rand(0, 26)]],
         'tipo_loja'           => 1,
         'status'              => 4
@@ -190,6 +196,7 @@ return [
         'destaque'            => [1, 2, 66],
         'id_admin_empresa'    => [1, 2, 66],
         'data_publicacao'     => dataPassadaAleatorio(),
+        'data_auditoria'      => dataPassadaAleatorio(),
         'endereco_estado'     => $estados,
         'tipo_loja'           => 1,
         'status'              => 4
@@ -211,6 +218,7 @@ return [
         'texto_procedimento'  => 'Texto de procedimento do parceiro',
         'texto_voucher'       => 'Texto para o voucher do parceiro',
         'data_publicacao'     => dataPassadaAleatorio(),
+        'data_auditoria'      => dataPassadaAleatorio(),
         'endereco_estado'     => $estados,
         'tipo_procedimento'   => 2,
         'destaque'            => [1, 2, 66],
@@ -235,6 +243,7 @@ return [
         'texto_procedimento'  => 'Texto de procedimento do parceiro',
         'texto_voucher'       => 'Texto para o voucher do parceiro',
         'data_publicacao'     => dataPassadaAleatorio(),
+        'data_auditoria'      => dataPassadaAleatorio(),
         'endereco_estado'     => $estados,
         'tipo_procedimento'   => 2,
         'destaque'            => [1, 2, 66],
@@ -259,6 +268,7 @@ return [
         'texto_procedimento'  => 'Texto de procedimento do parceiro',
         'texto_voucher'       => 'Texto para o voucher do parceiro',
         'data_publicacao'     => dataPassadaAleatorio(),
+        'data_auditoria'      => dataPassadaAleatorio(),
         'endereco_estado'     => $estados,
         'tipo_procedimento'   => 2,
         'destaque'            => [1, 2, 66],
@@ -286,6 +296,7 @@ return [
         'destaque'            => [1, 2, 66],
         'id_admin_empresa'    => [1, 2, 66],
         'data_publicacao'     => dataPassadaAleatorio(),
+        'data_auditoria'      => dataPassadaAleatorio(),
         'endereco_estado'     => $estados,
         'limite_voucher'      => 1,
         'tipo_loja'           => 4,
@@ -311,6 +322,7 @@ return [
         'destaque'            => [1, 2, 66],
         'id_admin_empresa'    => [1, 2, 66],
         'data_publicacao'     => dataPassadaAleatorio(),
+        'data_auditoria'      => dataPassadaAleatorio(),
         'endereco_estado'     => [$estados[rand(0, 26)]],
         'limite_voucher'      => 10,
         'prazo_voucher'       => 5,
@@ -338,6 +350,7 @@ return [
         'id_admin_empresa'    => [1, 2, 66],
         'prazo_voucher_fixo'  => dataAdicionar(hoje(), 60, 'dias'),
         'data_publicacao'     => dataPassadaAleatorio(),
+        'data_auditoria'      => dataPassadaAleatorio(),
         'endereco_estado'     => [$estados[rand(0, 26)]],
         'tipo_loja'           => 4,
         'status'              => 5
@@ -363,6 +376,7 @@ return [
         'tipo_procedimento'   => 1,
         'prazo_voucher_fixo'  => dataAdicionar(hoje(), 60, 'dias'),
         'data_publicacao'     => dataPassadaAleatorio(),
+        'data_auditoria'      => dataPassadaAleatorio(),
         'endereco_estado'     => $estados,
         'tipo_loja'           => 3,
         'status'              => 4
@@ -388,6 +402,7 @@ return [
         'tipo_procedimento'   => 1,
         'prazo_voucher_fixo'  => dataAdicionar(hoje(), 60, 'dias'),
         'data_publicacao'     => dataPassadaAleatorio(),
+        'data_auditoria'      => dataPassadaAleatorio(),
         'endereco_estado'     => $estados,
         'tipo_loja'           => 3,
         'status'              => 4
@@ -413,6 +428,7 @@ return [
         'tipo_procedimento'   => 1,
         'prazo_voucher_fixo'  => dataAdicionar(hoje(), 60, 'dias'),
         'data_publicacao'     => dataPassadaAleatorio(),
+        'data_auditoria'      => dataPassadaAleatorio(),
         'endereco_estado'     => $estados,
         'tipo_loja'           => 3,
         'status'              => 4
@@ -438,6 +454,7 @@ return [
         'tipo_procedimento'   => 1,
         'prazo_voucher_fixo'  => dataAdicionar(hoje(), 60, 'dias'),
         'data_publicacao'     => dataPassadaAleatorio(),
+        'data_auditoria'      => dataPassadaAleatorio(),
         'endereco_estado'     => $estados,
         'tipo_loja'           => 3,
         'status'              => 4
@@ -463,6 +480,7 @@ return [
         'tipo_procedimento'   => 1,
         'prazo_voucher_fixo'  => dataAdicionar(hoje(), 60, 'dias'),
         'data_publicacao'     => dataPassadaAleatorio(),
+        'data_auditoria'      => dataPassadaAleatorio(),
         'endereco_estado'     => $estados,
         'tipo_loja'           => 3,
         'status'              => 4
@@ -488,6 +506,7 @@ return [
         'tipo_procedimento'   => 1,
         'limite_voucher'      => 4,
         'data_publicacao'     => dataPassadaAleatorio(),
+        'data_auditoria'      => dataPassadaAleatorio(),
         'endereco_estado'     => $estados,
         'tipo_loja'           => 3,
         'status'              => 4
@@ -508,6 +527,7 @@ return [
         'texto_voucher'       => 'Texto para o voucher do parceiro',
         'destaque'            => [1, 1967],
         'id_admin_empresa'    => [1, 1967],
+        'data_auditoria'      => dataPassadaAleatorio(),
         'tipo_procedimento'   => 1,
         'prazo_voucher'       => 5,
         'limite_voucher'      => 3,
@@ -532,6 +552,7 @@ return [
         'destaque'            => [1, 2, 66],
         'id_admin_empresa'    => [1, 2, 66],
         'data_publicacao'     => dataPassadaAleatorio(),
+        'data_auditoria'      => dataPassadaAleatorio(),
         'endereco_estado'     => null,
         'prazo_voucher_fixo'  => '2040-01-01',
         'tipo_loja'           => 1,

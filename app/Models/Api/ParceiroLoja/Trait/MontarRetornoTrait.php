@@ -26,6 +26,7 @@ trait MontarRetornoTrait
                 'url'             => $r->url,
                 'tipo_loja'       => $Tipo->indice($r->tipo_loja),
                 'data_publicacao' => $r->data_publicacao,
+                'data_auditoria' => $r->data_auditoria,
                 'endereco_estado' => $r->endereco_estado,
                 'favorito'        => !empty($r->favorito) ? 'sim' : 'nao',
                 'status'          => $Status->indice($r->status)
