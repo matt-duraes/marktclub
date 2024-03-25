@@ -109,6 +109,7 @@ final class ConstrutorEntity extends Entity
     public array $campos_primeiro_acesso;
     public string $grupo_label;
     public string $grupo_placeholder;
+    public Botao $copiar_padrao;
 
     public function __construct()
     {
@@ -147,5 +148,12 @@ final class ConstrutorEntity extends Entity
         $this->logo_secundaria = arquivoPrivado($this->logo_secundaria);
         $this->logo_footer = arquivoPrivado($this->logo_footer);
         $this->logo_marktclub = LINK_ARQUIVO . '/construtor/a2ca966d45780803f2497bd2a77b0e3b.png';
+    }
+
+    protected function regraPosInsert()
+    {
+        if ($this->copiar_padrao->valor() == Botao::SIM) {
+            new CopiaClube(TOKEN['empresa']->id);
+        }
     }
 }
