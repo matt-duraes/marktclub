@@ -45,6 +45,9 @@ final class LojaEntity extends Entity
 
     protected function regraSalvar()
     {
+        $this->imagem_logo = arquivoPrivadoId($this->imagem_logo);
+        $this->imagem_capa_desktop = arquivoPrivadoId($this->imagem_capa_desktop);
+        $this->imagem_capa_mobile = arquivoPrivadoId($this->imagem_capa_mobile);
         $this->id_admin_empresa = $this->EmpresaOrm->mudarListaUuidParaId($this->empresa);
         $this->id_usuario_equipe = $this->EquipeOrm->pegarIdPeloUuid($this->equipe);
     }

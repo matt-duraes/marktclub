@@ -160,7 +160,7 @@ $scope = [
     'enquete_satisfacao:atualizar', 'enquete_satisfacao:deletar',
 
     'parceiro_loja:listar', 'parceiro_loja:buscar', 'parceiro_loja:destaque', 'parceiro_loja:salvar',
-    'parceiro_loja:atualizar', 'parceiro_loja:deletar', 'parceiro_loja:auditoria',
+    'parceiro_loja:atualizar', 'parceiro_loja:deletar',
 
     'parceiro_cupom:buscar', 'parceiro_cupom:listar', 'parceiro_cupom:atualizar',
 

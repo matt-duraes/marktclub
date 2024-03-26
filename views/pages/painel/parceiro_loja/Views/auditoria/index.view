@@ -1,4 +1,4 @@
-<div class="bloco_pagina_popup conteudo" id="bloco_auditoria_geral">
+<div class="bloco_pagina_popup conteudo display_none" id="bloco_auditoria_geral">
     <header class="header_pagina_popup">
         <h1>FAZER AUDITORIA</h1>
         <i class="fechar">@iconeFechar()</i>

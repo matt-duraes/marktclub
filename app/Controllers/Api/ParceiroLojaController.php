@@ -16,6 +16,8 @@ use System\Interface\ControllerBuscarInterface;
 use System\Interface\ControllerListarInterface;
 use System\Interface\ControllerSelectInterface;
 use App\Models\Api\ParceiroLoja\RelacionadoModel;
+use App\Models\Api\ParceiroLoja\Auditoria\OptionModel;
+use App\Models\Api\ParceiroLoja\Auditoria\SalvarModel;
 
 final class ParceiroLojaController extends Controller implements
     ControllerListarInterface,
@@ -74,5 +76,22 @@ final class ParceiroLojaController extends Controller implements
     {
         $Parceiro = new RelacionadoModel(id: $id);
         return mensagemSucesso($Parceiro->listarDados());
+    }
+
+    public function postAuditoria(Request $request): Response
+    {
+        $Auditoria = new SalvarModel(
+            new OptionModel(
+                parceiro: $request->parceiro,
+                auditoria: $request->auditoria,
+                mensagem: $request->mensagem
+            )
+        );
+
+        return mensagemSucesso([
+            'id'       => $Auditoria->Historico->id,
+            'mensagem' => $Auditoria->Historico->mensagem,
+            'status'   => $Auditoria->Parceiro->status->indice()
+        ], 201);
     }
 }

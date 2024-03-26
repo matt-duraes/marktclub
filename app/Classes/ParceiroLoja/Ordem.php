@@ -9,7 +9,7 @@ final class Ordem extends Order
     public const NACIONAL = 'nacional';
     public const DELIVERY = 'delivery';
     public const FAVORITO = 'favorito';
-    public const AUDITORIA = 'auditoria';
+    public const PAINEL = 'painel';
     public const TITULO_AZ = 'titulo-a-z';
     public const TITULO_ZA = 'titulo-z-a';
 
@@ -26,7 +26,7 @@ final class Ordem extends Order
         $this->campo('titulo-z-a', 'Título Z-A', 'titulo', 'DESC');
         $this->maisNovo();
         $this->maisVelho();
-        $this->campo('auditoria', 'Auditoria', 'data_auditoria', 'ASC');
+        $this->campoTexto('painel', 'Painel', 'data_auditoria', 'FIELD(`status`, 3, 4, 1, 2), `data_auditoria` ASC', '<');
         $this->campo('delivery', 'Lojas com delivery', 'delivery', 'ASC');
         $this->campo('nacional', 'Lojas nacionais', 'nacional', 'ASC');
     }

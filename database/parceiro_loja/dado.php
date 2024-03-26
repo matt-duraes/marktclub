@@ -300,7 +300,7 @@ return [
         'endereco_estado'     => $estados,
         'limite_voucher'      => 1,
         'tipo_loja'           => 4,
-        'status'              => 5
+        'status'              => 4
     ],
     [
         'id'                  => 15536,
@@ -353,7 +353,7 @@ return [
         'data_auditoria'      => dataPassadaAleatorio(),
         'endereco_estado'     => [$estados[rand(0, 26)]],
         'tipo_loja'           => 4,
-        'status'              => 5
+        'status'              => 4
     ],
     [
         'id'                  => 5524,
@@ -532,7 +532,7 @@ return [
         'prazo_voucher'       => 5,
         'limite_voucher'      => 3,
         'tipo_loja'           => 1,
-        'status'              => 5
+        'status'              => 4
     ],
     [
         'uuid'                => 'ca0bde20602db3ec777acbbcfb5a4c61',

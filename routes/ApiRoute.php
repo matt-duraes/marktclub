@@ -1310,6 +1310,11 @@ Route
             ])
             ::post('/parceiro-loja');
         Route
+            ::nome('auditoria')
+            ::middleware(TokenMiddleware::class, 'scope', ['parceiro_loja:atualizar'])
+            ::request(['parceiro', 'auditoria', 'mensagem'])
+            ::post('/parceiro-loja/auditoria');
+        Route
             ::nome('destaque')
             ::middleware(TokenMiddleware::class, 'scope', ['parceiro_loja:destaque'])
             ::request(['categoria', 'subcategoria', 'quantidade'], 'json')

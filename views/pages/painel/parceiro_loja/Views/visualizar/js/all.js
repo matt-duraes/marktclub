@@ -33,10 +33,11 @@ window.addEventListener('load', () => {
     });
 
     botaoSalvarAuditoria.evento('click', async () => {
-        const resultado = inputResultado.valor();
+        const auditoria = inputResultado.valor();
         const mensagem = inputMensagem.valor();
-        if (vazio(resultado)) {
+        if (vazio(auditoria)) {
             Alerta.notificacao('Escolha um resultado para a auditoria.', false);
+            return;
         } else if (vazio(mensagem)) {
             Alerta.notificacao('Digite uma mensagem para a auditoria.', false);
             return;
@@ -45,7 +46,8 @@ window.addEventListener('load', () => {
         const resposta = await ajaxPost(
             LINK + '/app/ajax/parceiro-loja',
             {
-                resultado,
+                parceiro,
+                auditoria,
                 mensagem,
                 indice: 'auditoria',
             },
@@ -57,7 +59,23 @@ window.addEventListener('load', () => {
         }
         zerarAuditoria();
         PaginaAuditoria.fechar();
+        if (auditoria != 'sem_problema') {
+            removerStatusProblema();
+        }
+        adicionarHistorico(resposta.dado.id, resposta.dado.mensagem);
     });
+    const adicionarHistorico = (id, mensagem) => {
+        const nome = $('#USUARIO_NOME').valor();
+        const imagem = $('#USUARIO_IMAGEM').valor();
+        adicionarNovaMensagem(id, mensagem, imagem, nome, false);
+    };
+    const removerStatusProblema = () => {
+        const statusProblema = $('.botao_status[data-status="problema"]');
+        ppe(statusProblema);
+        if (statusProblema) {
+            statusProblema.remover();
+        }
+    };
     const zerarAuditoria = () => {
         inputResultado.valor('');
         inputPadrao.valor('');

@@ -4,7 +4,6 @@ namespace Painel\ParceiroLoja\Models;
 
 use stdClass;
 use App\Classes\ParceiroLoja\Ordem;
-use App\Classes\ParceiroLoja\Status;
 use App\Classes\ParceiroLoja\TipoLoja;
 use System\Interface\PainelIndexFiltroInterface;
 use System\Interface\PainelIndexRetornoInterface;
@@ -17,10 +16,7 @@ final class IndexModel implements
     {
         $filtro['tipo_loja'] = TipoLoja::LOJA;
         if (!array_key_exists('ordem', $filtro)) {
-            $filtro['ordem'] = Ordem::AUDITORIA;
-        }
-        if (!array_key_exists('status', $filtro)) {
-            $filtro['status'] = Status::CONCLUIDO;
+            $filtro['ordem'] = Ordem::PAINEL;
         }
         return $filtro;
     }
