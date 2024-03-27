@@ -13,7 +13,7 @@ final class ContatoModel
 
     public function buscarDados($tipo)
     {
-        return (new ApiHelper('contato:listar'))
+        $dado = (new ApiHelper('contato:listar'))
             ->json([
                 'vinculo' => $this->parceiro,
                 'local'   => 'clube',
@@ -21,5 +21,6 @@ final class ContatoModel
             ])
             ->get('/contato')
             ->array()['dado'] ?? [];
+        return $dado;
     }
 }

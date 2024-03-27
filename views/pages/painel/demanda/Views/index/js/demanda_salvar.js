@@ -34,6 +34,7 @@ window.addEventListener('load', () => {
     const inputEndereco = $('#input_endereco');
     // Criacao
     const inputEmpresaCriacao = $('#input_empresa_criacao');
+    const inputDataEntrega = $('#input_criacao_data_entrega');
     const inputCriacaoCategoriaSite = $('#input_criacao_categoria_site');
     const inputCriacaoCategoriaSocial = $('#input_criacao_categoria_social');
     const inputCriacaoCategoriaImpresso = $('#input_criacao_categoria_impresso');
@@ -75,6 +76,7 @@ window.addEventListener('load', () => {
     const inputOutroTexto = $('#input_outro_texto');
     // Sorteio
     const inputEmpresaSorteio = $('#input_empresa_sorteio');
+    const inputDataEntregaSorteio = $('#input_sorteio_data_entrega');
     const inputSorteioDataInicio = $('#input_data_inicio');
     const inputSorteioDataFinal = $('#input_data_final');
     const inputSorteioDataSorteio = $('#input_data_sorteio');
@@ -849,6 +851,8 @@ window.addEventListener('load', () => {
                 mensagem = 'Digite um título para a demanda.';
             } else if (inputEmpresaSorteio.value == '') {
                 mensagem = 'Escolha uma empresa para continuar.';
+            } else if (inputDataEntregaSorteio.value == '') {
+                mensagem = 'Digite o prazo máximo.';
             } else if (inputSorteioDataInicio.value == '') {
                 mensagem = 'Digite a data de início da sorteio.';
             } else if (inputSorteioDataFinal.value == '') {
@@ -884,6 +888,7 @@ window.addEventListener('load', () => {
             const body = new FormData();
             body.append('tipo', inputTipo.value);
             body.append('empresa_nome', pegarEmpresaNome(inputEmpresaSorteio));
+            body.append('data_entrega', inputDataEntregaSorteio.value);
             body.append('empresa', inputEmpresaSorteio.value);
             body.append('titulo', inputTitulo.value);
             body.append('sorteio_inicio', inputSorteioDataInicio.value);
@@ -1266,34 +1271,41 @@ window.addEventListener('load', () => {
         const dataInicio = new Date(formatarData(inputData));
         const hoje = new Date();
 
-        const dataInicioMenosPeriodo = new Date(dataInicio.getTime() - (periodo * 24 * 60 * 60 * 1000));
+        const dataInicioMenosPeriodo = new Date(dataInicio.getTime() - periodo * 24 * 60 * 60 * 1000);
 
         if (dataInicio < hoje) {
             Alerta.notificacao(`A data de inicio não pode ser menor que hoje.`, false);
             return false;
         } else if (hoje > dataInicioMenosPeriodo) {
-            return await Alerta.confirmar(
+            return (await Alerta.confirmar(
                 'Atenção!',
                 `A demanda está sendo cadastrada antes do limite recomendado de ${periodo} dias.`,
                 '!'
-            ) ? true : false; // Apesar de estar após o limite não bloqueia o cadastro
+            ))
+                ? true
+                : false; // Apesar de estar após o limite não bloqueia o cadastro
         }
 
         return true;
-    }
+    };
 
-    const formatarData = (dataOriginal) => {
+    const formatarData = dataOriginal => {
         var partes = dataOriginal.split(/[\s\/:]+/);
         var data = new Date(partes[2], partes[1] - 1, partes[0], partes[3], partes[4], partes[5]);
-        var dataFormatada = data.getFullYear() + '-' +
-                            (data.getMonth() + 1).toString().padStart(2, '0') + '-' +
-                            data.getDate().toString().padStart(2, '0') + ' ' +
-                            data.getHours().toString().padStart(2, '0') + ':' +
-                            data.getMinutes().toString().padStart(2, '0') + ':' +
-                            data.getSeconds().toString().padStart(2, '0');
+        var dataFormatada =
+            data.getFullYear() +
+            '-' +
+            (data.getMonth() + 1).toString().padStart(2, '0') +
+            '-' +
+            data.getDate().toString().padStart(2, '0') +
+            ' ' +
+            data.getHours().toString().padStart(2, '0') +
+            ':' +
+            data.getMinutes().toString().padStart(2, '0') +
+            ':' +
+            data.getSeconds().toString().padStart(2, '0');
         return dataFormatada;
-    }
-
+    };
 
     /*
     |--------------------------------------------------------------------------
@@ -1307,6 +1319,8 @@ window.addEventListener('load', () => {
                 mensagem = 'Digite um título para a demanda.';
             } else if (inputEmpresaCriacao.value == '') {
                 mensagem = 'Escolha uma empresa para continuar.';
+            } else if (inputDataEntrega.value == '') {
+                mensagem = 'Digite a data de entrega da demanda.';
             } else if (
                 !inputCriacaoCategoriaImpresso.checked &&
                 !inputCriacaoCategoriaKit.checked &&
@@ -1392,6 +1406,7 @@ window.addEventListener('load', () => {
             const body = new FormData();
             body.append('tipo', inputTipo.value);
             body.append('empresa_nome', pegarEmpresaNome(inputEmpresaCriacao));
+            body.append('data_entrega', inputDataEntrega.value);
             body.append('empresa', inputEmpresaCriacao.value);
             body.append('titulo', inputTitulo.value);
             body.append('criacao_site', inputCriacaoCategoriaSite.checked ? 'sim' : 'nao');

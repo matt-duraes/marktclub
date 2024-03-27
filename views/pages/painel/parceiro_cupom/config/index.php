@@ -9,9 +9,6 @@ $Painel
     ->campo('titulo', 'Título', 'normal')
     ->campo('cupom_link', 'Cupom/Link', 'normal')
     ->campo('data_validade', 'Data de validade', 'normal', formatar: 'data')
-    ->status('status', 'Status', new Status());
-
-$Painel->js('painel_parceiro_cupom_index');
-$Painel->css('painel_parceiro_cupom_index');
+    ->botaoStatus('status', 'Status', new Status());
 
 return $Painel;

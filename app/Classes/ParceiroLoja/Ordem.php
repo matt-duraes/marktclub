@@ -23,7 +23,5 @@ final class Ordem extends Order
         $this->campo('titulo-z-a', 'Título Z-A', 'titulo', 'DESC');
         $this->maisNovo();
         $this->maisVelho();
-        $this->campo('delivery', 'Lojas com delivery', 'delivery', 'ASC');
-        $this->campo('nacional', 'Lojas nacionais', 'nacional', 'ASC');
     }
 }

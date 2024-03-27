@@ -89,8 +89,8 @@ final class ConstrutorClubeController extends Controller implements
             $request->empresa,
             $request->pesquisa,
             $request->titulo_clube,
-            new Data($request->dataInicio),
-            new Data($request->dataFinal),
+            new Data($request->data_inicio),
+            new Data($request->data_final),
             new Status($request->status)
         );
         return mensagemSucesso($Construtor->listarDados());

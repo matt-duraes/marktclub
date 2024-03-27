@@ -444,4 +444,56 @@ window.addEventListener('load', () => {
             })
             .iniciar();
     }
+
+    /*
+    |--------------------------------------------------------------------------
+    | BOTÂO DE STATUS
+    |--------------------------------------------------------------------------
+    */
+    const listaBotaoStatus = document.querySelectorAll('.botao_status');
+    if (listaBotaoStatus.length > 0) {
+        listaBotaoStatus.forEach(botao => {
+            const input = botao.querySelector('input');
+
+            if (!input) {
+                return;
+            }
+
+            input.addEventListener('change', async e => {
+                e.preventDefault();
+                const id = botao.getAttribute('data-id');
+                const sim = botao.getAttribute('data-sim');
+                const nao = botao.getAttribute('data-nao');
+
+                await atualizarBotaoStatus(e, {
+                    id,
+                    sim,
+                    nao,
+                });
+            });
+        });
+    }
+
+    const atualizarBotaoStatus = async (e, { id, sim, nao }) => {
+        const status = e.target.checked ? sim : nao;
+
+        Loading.show();
+
+        const resposta = await ajaxPost(LINK + '/app/ajax/' + APP, {
+            indice: 'status-atualizar',
+            id,
+            status,
+        });
+
+        Loading.hide();
+
+        if (resposta == false) {
+            Alerta.notificacao('Ocorreu um erro ao atualizar o status, por favor, tente novamente.', false);
+            return;
+        }
+
+        Alerta.notificacao('Status atualizado com sucesso.', true);
+        e.target.parentElement.parentElement.setAttribute('data-ajuda', status);
+        e.target.parentElement.parentElement.setAttribute('data-status', status);
+    };
 });

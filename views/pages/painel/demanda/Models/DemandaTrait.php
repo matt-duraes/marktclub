@@ -6,14 +6,16 @@ use Helpers\ApiHelper;
 
 trait DemandaTrait
 {
-    private function criarDemanda($titulo, $tipo, $area)
+    private function criarDemanda($titulo, $tipo, $area, $dataEntrega = null)
     {
         $Api = new ApiHelper(token: true);
         $this->Demanda = $Api->body([
-            'empresa' => $this->empresa,
-            'titulo'  => $titulo,
-            'tipo'    => $tipo,
-            'area'    => $area
+            'empresa'      => $this->empresa,
+            'titulo'       => $titulo,
+            'tipo'         => $tipo,
+            'area'         => $area,
+            'data_entrega' => $dataEntrega,
+            'com_prazo'    => empty($dataEntrega) ? '' : 'sim'
         ])->post('/demanda-dado')->object();
     }
 
