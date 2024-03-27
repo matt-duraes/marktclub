@@ -18,6 +18,9 @@ final class IndexModel implements
         if (!array_key_exists('ordem', $filtro)) {
             $filtro['ordem'] = Ordem::PAINEL;
         }
+        if (!array_key_exists('equipe', $filtro)) {
+            $filtro['equipe'] = sessao('USUARIO.id');
+        }
         return $filtro;
     }
 

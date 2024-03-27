@@ -79,6 +79,8 @@ $Painel->coluna(callback: function () use ($Painel, $gerente) {
                 placeholder: 'Escolha um operador',
                 lista: $equipe
             );
+        } else {
+            $Painel->html('<input name="equipe" id="input_equipe" value="' . sessao('USUARIO.id') . '">', acao: 'add');
         }
     });
     $Painel->fieldset('Responsável', function () use ($Painel) {
@@ -89,10 +91,20 @@ $Painel->coluna(callback: function () use ($Painel, $gerente) {
                 placeholder: 'Digite um nome',
                 contador: 100,
             )
+            ->input(
+                name: 'responsavel_cargo',
+                label: 'Cargo',
+                placeholder: 'Digite um cargo',
+            )
             ->cpf(
                 name: 'responsavel_cpf',
                 label: 'CPF',
                 placeholder: 'Digite um CPF',
+            )
+            ->telefone(
+                name: 'responsavel_telefone',
+                label: 'Telefone',
+                placeholder: 'Digite um telefone',
             )
             ->email(
                 name: 'responsavel_email',
@@ -167,6 +179,7 @@ $Painel->coluna(callback: function () use ($Painel) {
     });
     $Painel->fieldset('Procedimentos', function () use ($Painel) {
         $Painel
+            ->input(name: 'desconto', label: 'Desconto curto', placeholder: 'Digite um desconto curto')
             ->select(
                 name: 'tipo_procedimento',
                 label: 'Tipo de procedimento',

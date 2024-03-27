@@ -573,6 +573,14 @@ final class AppController extends PadraoController
         if ($validar && $indice != 'ordem' && array_key_exists($indice, $filtro)) {
             unset($filtro[$indice]);
         }
+        $filtroFinal = [];
+        foreach ($filtro as $ind => $val) {
+            if (empty($val)) {
+                continue;
+            }
+            $filtroFinal[$ind] = $val;
+        }
+        $filtro = $filtroFinal;
 
         $url = LINK . '/app/' . $app;
         if ($indice == 'ordem' && $validar) {

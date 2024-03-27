@@ -78,6 +78,9 @@ final class OrmHelper extends ORM
      */
     public function mudarListaUuidParaId(array $uuid): array
     {
+        if (empty($uuid)) {
+            return [];
+        }
         $lista = $this->campo(['id'])->where(['uuid', 'in', $uuid])->read();
         $id = [];
         foreach ($lista as $r) {
@@ -94,6 +97,9 @@ final class OrmHelper extends ORM
      */
     public function mudarListaIdParaUuid(array $id): array
     {
+        if (empty($id)) {
+            return [];
+        }
         $lista = $this->campo(['uuid'])->where(['id', 'in', $id])->read();
         $uuid = [];
         foreach ($lista as $r) {

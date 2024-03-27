@@ -3,7 +3,10 @@
 namespace App\Models\Api\ParceiroLoja;
 
 use ORM\Entity;
+use Modules\Data;
 use Helpers\OrmHelper;
+use App\Classes\ParceiroLoja\Status;
+use App\Classes\ParceiroLoja\Categoria;
 use App\Models\Api\ParceiroLoja\Trait\PropriedadeTrait;
 
 final class LojaEntity extends Entity
@@ -43,13 +46,27 @@ final class LojaEntity extends Entity
         $this->EquipeOrm = new OrmHelper(TABELA_USUARIO_EQUIPE);
     }
 
+    protected function regraInsert()
+    {
+        $this->status = new Status(Status::PROSPECCAO);
+    }
+
     protected function regraSalvar()
     {
-        $this->imagem_logo = arquivoPrivadoId($this->imagem_logo);
-        $this->imagem_capa_desktop = arquivoPrivadoId($this->imagem_capa_desktop);
-        $this->imagem_capa_mobile = arquivoPrivadoId($this->imagem_capa_mobile);
+        $this->imagem_logo = $this->pExiste('imagem_logo') ? arquivoPrivadoId($this->imagem_logo) : '';
+        $this->imagem_capa_desktop = $this->pExiste('imagem_capa_desktop') ? arquivoPrivadoId($this->imagem_capa_desktop) : '';
+        $this->imagem_capa_mobile = $this->pExiste('imagem_capa_mobile') ? arquivoPrivadoId($this->imagem_capa_mobile) : '';
         $this->id_admin_empresa = $this->EmpresaOrm->mudarListaUuidParaId($this->empresa);
+        $this->destaque = $this->EmpresaOrm->mudarListaUuidParaId($this->destaque);
         $this->id_usuario_equipe = $this->EquipeOrm->pegarIdPeloUuid($this->equipe);
+        $this->categoria_lista = $this->converterCategoriaEm('numero');
+    }
+
+    protected function regraUpdate()
+    {
+        if ($this->prop('status') != Status::CONCLUIDO && $this->status == Status::CONCLUIDO) {
+            $this->data_auditoria = new Data(hoje());
+        }
     }
 
     protected function regraPosBuscar()
@@ -62,7 +79,22 @@ final class LojaEntity extends Entity
         $this->imagem_capa_mobile = arquivoPrivado($this->imagem_capa_mobile);
         $this->link_site = (new LinkSiteModel($this))->link;
         $this->empresa = $this->EmpresaOrm->mudarListaIdParaUuid($this->id_admin_empresa);
+        $this->destaque = $this->EmpresaOrm->mudarListaIdParaUuid($this->destaque);
         $this->equipe = $this->EquipeOrm->pegarUuidPeloId($this->id_usuario_equipe);
+        $this->categoria_lista = $this->converterCategoriaEm('indice');
+    }
+
+    private function converterCategoriaEm(string $tipo): array
+    {
+        if (!$this->pExiste('categoria_lista') || empty($this->categoria_lista)) {
+            return [];
+        }
+        $Categoria = new Categoria();
+        $lista = [];
+        foreach ($this->categoria_lista as $val) {
+            $lista[] = $Categoria->$tipo($val);
+        }
+        return $lista;
     }
 
     protected function getId()

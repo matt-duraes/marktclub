@@ -38,6 +38,7 @@ class LojaModel extends ORM implements ModelListarInterface
     protected string $ormTabela = TABELA_PARCEIRO_LOJA;
     private int $idEmpresa;
     private array $idMaisAcessado = [];
+    public string $equipe;
     public Pagina $pagina;
     public Quantidade $quantidade;
     public Botao $favorito;
@@ -65,7 +66,7 @@ class LojaModel extends ORM implements ModelListarInterface
         if (!empty($this->idMaisAcessado)) {
             $dado->orderTexto('FIELD(`' . $this->ormTabela . '`.`id`, ' . implode(',', $this->idMaisAcessado) . ')');
         } else {
-            $dado->order($this->pegarOrdem(new Ordem()));
+            $dado->order($this->pegarOrdem());
         }
 
         // FAVORITO
@@ -121,7 +122,7 @@ class LojaModel extends ORM implements ModelListarInterface
         ];
         $Where = new Where($this, $where);
         $Where
-            ->linha(propriedade: 'tipo')
+            ->linha(propriedade: 'tipo_loja')
             ->seValido(propriedade: 'categoria', callback: function () use ($Where) {
                 $Where->manual([
                     'OR',
@@ -141,21 +142,24 @@ class LojaModel extends ORM implements ModelListarInterface
                     ['subcategoria_tag', 'like', '%' . $pesquisa . '%']
                 ]);
             })
+            ->linha('equipe', campo: 'id_usuario_equipe', valor: $this->pegarIdEquipe())
             ->linha('tipo_estabelecimento')
             ->seBotao('mais_acessao', callback: function () use ($Where) {
                 $this->idMaisAcessado = (new MaisAcessadoModel($this->idEmpresa, $this->pegarQuantidade()))->id;
                 $Where->linha(propriedade: 'id', condicao: 'in', valor: $this->idMaisAcessado);
             })
-            ->linha('endereco_estado', 'json');
-
-        $status = $this->pExiste('status') ? $this->status : new Status(null);
-        if ($this->idEmpresa != 1 || !$status->valido()) {
-            $Where->manual(['status', (new Status(Status::CONCLUIDO))->numero()]);
-        } elseif ($status->valido()) {
-            $Where->manual(['status', $status->numero()]);
-        }
+            ->linha('endereco_estado', 'json')
+            ->linha('status');
 
         return $Where;
+    }
+
+    private function pegarIdEquipe()
+    {
+        if (!$this->pExiste('equipe') || empty($this->equipe)) {
+            return null;
+        }
+        return (new OrmHelper(TABELA_USUARIO_EQUIPE))->pegarIdPeloUuid($this->equipe);
     }
 
     private function pegarIdSubCategoria()

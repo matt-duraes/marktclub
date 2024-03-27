@@ -25,6 +25,7 @@ final class Filtrar
     public function replace(string $campo, array $lista)
     {
         $this->replace[$campo] = $lista;
+        return $this;
     }
 
     /*

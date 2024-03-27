@@ -20,15 +20,15 @@ final class Status extends StatusStatus
         parent::__construct(
             lista: [
                 self::PROSPECCAO => 'Prospecção',
-                self::PROBLEMA  => 'Problema',
-                self::CANCELADO => 'Cancelado',
-                self::CONCLUIDO => 'Concluído',
+                self::PROBLEMA   => 'Problema',
+                self::CANCELADO  => 'Cancelado',
+                self::CONCLUIDO  => 'Concluído',
             ],
             cor: [
                 self::PROSPECCAO => 'azul',
-                self::PROBLEMA  => 'vermelho',
-                self::CANCELADO => 'cinza',
-                self::CONCLUIDO => 'verde',
+                self::PROBLEMA   => 'vermelho',
+                self::CANCELADO  => 'cinza',
+                self::CONCLUIDO  => 'verde',
             ],
         );
     }

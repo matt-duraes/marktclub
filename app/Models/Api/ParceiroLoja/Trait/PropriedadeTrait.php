@@ -66,6 +66,7 @@ trait PropriedadeTrait
     public array $subcategoria_lista;
     public array $empresa;
     public array $destaque;
+    public string $desconto;
     public array $endereco_estado;
     public Data $data_auditoria;
     public Status $status;
