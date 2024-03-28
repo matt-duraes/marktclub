@@ -24,6 +24,17 @@ final class Grupo extends Status
                 'delegacia-sindical' => 'Delegacias sindicais'
             ],
             'numero' => [3]
+        ],
+        'sinjutra' => [
+            'lista'  => [
+                'sindicatos' => 'Sindicatos',
+                'comites' => 'Comitês',
+                'carreiras' => 'Carreiras',
+                'processos' => 'Processos',
+                'midias' => 'Mídia',
+                'campanhas' => 'Campanhas'
+            ],
+            'numero' => [4, 5, 6, 7, 8, 9]
         ]
     ];
 
