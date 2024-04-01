@@ -38,7 +38,7 @@ final class DataModel extends ORM
             ->order('id', 'DESC')
             ->read();
 
-        if(!chaveExiste('lista', $dado)) {
+        if (!chaveExiste('lista', $dado)) {
             return $this->paginacaoZero();
         }
 
@@ -62,7 +62,7 @@ final class DataModel extends ORM
             $retorno[] = [
                 'id'        => $r->uuid,
                 'titulo'    => $r->titulo,
-                'data' => $r->data_criacao,
+                'data'      => $r->data_criacao,
             ];
         }
         return $retorno;

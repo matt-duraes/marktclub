@@ -20,12 +20,12 @@ final class OrigemLead extends Status
         protected string|int|null $valor = null
     ) {
         parent::__construct([
-            self::INDICACAO => 'Indicação',
-            self::OPERADOR => 'Operador',
+            self::INDICACAO    => 'Indicação',
+            self::OPERADOR     => 'Operador',
             self::CONCORRENCIA => 'Concorrência',
-            self::ESPONTANEA => 'Espontânea',
-            self::CAMPANHA => 'Campanha',
-            self::OUTRO => 'Outro',
+            self::ESPONTANEA   => 'Espontânea',
+            self::CAMPANHA     => 'Campanha',
+            self::OUTRO        => 'Outro',
         ]);
     }
 }

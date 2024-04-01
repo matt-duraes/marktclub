@@ -15,8 +15,7 @@ final class DataEntity extends Entity
         string $vinculo,
         public string $local_principal,
         public string $titulo
-    )
-    {
+    ) {
         $this->id_vinculo = $vinculo;
         $this->salvar();
     }

@@ -71,7 +71,6 @@ window.addEventListener('load', () => {
     };
     const removerStatusProblema = () => {
         const statusProblema = $('.botao_status[data-status="problema"]');
-        ppe(statusProblema);
         if (statusProblema) {
             statusProblema.remover();
         }

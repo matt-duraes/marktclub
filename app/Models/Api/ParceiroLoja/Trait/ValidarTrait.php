@@ -2,7 +2,8 @@
 
 namespace App\Models\Api\ParceiroLoja;
 
-trait ValidarTrait {
+trait ValidarTrait
+{
     public function validarLoja()
     {
         $this->ormValidar = '

@@ -1,6 +1,9 @@
 <h3>Cliente</h3>
 @? formSelect(name: 'empresa_sorteio', placeholder: 'Escolha um cliente', label: 'Cliente', obrigatorio: 1, lista: $empresa)
 
+<h3>Prazo Entrega</h3>
+@? formData(name: 'sorteio_data_entrega', label: 'Prazo limite', obrigatorio: 1)
+
 <div class="bloco_coluna">
     <h3>Datas do sorteio</h3>
     @? formDataHora(name: ['data_inicio', 'data_final'], placeholder: ['Data de início da campanha', 'Data final da campanha'], label: 'Data da campanha')

@@ -248,20 +248,22 @@ trait CondicaoTrait
 
     private function ormPegarValorJson($valor)
     {
-        if(is_int($valor)) {
+        if (is_int($valor)) {
             return $valor;
         }
-        return '"'.str_replace('"', '', $valor).'"';
+        return '"' . str_replace('"', '', $valor) . '"';
     }
+
     private function ormPegarIndiceJson($indice)
     {
         $explode = explode('.', $indice);
         unset($explode[0]);
-        if(empty($explode)) {
+        if (empty($explode)) {
             return '$';
         }
         return '$.' . implode('.', $explode);
     }
+
     private function ormPegarValorCondicaoReal($valor)
     {
         if ($valor instanceof StatusInterface) {
