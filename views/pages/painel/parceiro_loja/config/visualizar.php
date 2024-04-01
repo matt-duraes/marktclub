@@ -20,8 +20,7 @@ $Painel->coluna(callback: function () use ($Painel) {
         $Painel
             ->data('data_contrato_inicio', 'Data do contrato')
             ->data('data_contrato_vencimento', 'Data de vencimento')
-            ->checked('precisa_aditivo', 'Precisa de aditivo?')
-            ->data('data_auditoria', 'Última auditoria');
+            ->checked('precisa_aditivo', 'Precisa de aditivo?');
     });
     $Painel->bloco(titulo: 'Auditoria', callback: function () use ($Painel) {
         $Painel

@@ -13,6 +13,7 @@ return [
         'email_contato', 'tipo_procedimento', 'limite_voucher', 'prazo_voucher', 'prazo_voucher_fixo',
         'contato_whatsapp', 'link_site', 'link_alias', 'link_bloqueado', 'texto_descricao', 'texto_desconto',
         'texto_procedimento', 'texto_voucher', 'categoria_principal', 'categoria_lista', 'subcategoria_tag',
-        'subcategoria_lista', 'empresa'
+        'subcategoria_lista', 'empresa', 'confirmar_status', 'confirmar_titulo', 'confirmar_texto',
+        'arquivo_painel', 'arquivo_clube'
     ]
 ];

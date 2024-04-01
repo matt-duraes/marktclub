@@ -869,6 +869,26 @@ final class Add
         return $this;
     }
 
+    public function arquivoLista(
+        string $name,
+        string $diretorio,
+        ?string $class = null,
+        ?string $id = null,
+        bool $obrigatorio = false,
+        string $acao = null,
+        string $permissao = null
+    ) {
+        $this->adicionarNovoInput([
+            'funcao'       => 'arquivoLista',
+            'name'         => $name,
+            'diretorio'    => $diretorio,
+            'class'        => $class,
+            'id'           => $id,
+            'obrigatorio'  => $obrigatorio,
+        ], $acao, $permissao);
+        return $this;
+    }
+
     public function cep(
         $name,
         string $label = '',

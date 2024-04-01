@@ -1306,7 +1306,8 @@ Route
                 'email_contato', 'tipo_procedimento', 'limite_voucher', 'prazo_voucher', 'prazo_voucher_fixo',
                 'contato_whatsapp', 'link_site', 'link_alias', 'link_bloqueado', 'texto_descricao', 'texto_desconto',
                 'texto_procedimento', 'texto_voucher', 'categoria_principal', 'categoria_lista', 'subcategoria_tag',
-                'subcategoria_lista', 'empresa', 'destaque', 'endereco_estado', 'pontuacao',
+                'subcategoria_lista', 'empresa', 'destaque', 'endereco_estado', 'pontuacao', 'confirmar_status',
+                'confirmar_titulo', 'confirmar_texto', 'arquivo_painel', 'arquivo_clube'
             ])
             ::post('/parceiro-loja');
         Route
@@ -1320,7 +1321,8 @@ Route
                 '!email_contato', '!tipo_procedimento', '!limite_voucher', '!prazo_voucher', '!prazo_voucher_fixo',
                 '!contato_whatsapp', '!link_site', '!link_alias', '!link_bloqueado', '!texto_descricao', '!texto_desconto',
                 '!texto_procedimento', '!texto_voucher', '!categoria_principal', '!categoria_lista', '!subcategoria_tag',
-                '!subcategoria_lista', '!empresa', '!destaque', '!endereco_estado', '!pontuacao',
+                '!subcategoria_lista', '!empresa', '!destaque', '!endereco_estado', '!pontuacao', '!confirmar_status',
+                '!confirmar_titulo', '!confirmar_texto', '!arquivo_painel', '!arquivo_clube'
             ])
             ::put('/parceiro-loja/{id}');
         Route

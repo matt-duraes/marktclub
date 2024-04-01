@@ -19,6 +19,18 @@ $tag = (new ApiHelper(token: true))
 $Painel = new PainelConfig\Add(app: 'parceiro_loja', acao: $acao);
 $gerente = sessao('USUARIO')['gerente'] ?? '' == 'sim';
 
+$Painel->coluna(callback: function () use ($Painel) {
+    $Painel->fieldset('Logo', function () use ($Painel) {
+        $Painel->imagem(name: 'imagem_logo', diretorio: '0493d060-44ba-470b-a0a2-7211ba138d8c');
+    });
+    $Painel->fieldset('Capa Desktop', function () use ($Painel) {
+        $Painel->imagem(name: 'imagem_capa_desktop', diretorio: '0493d060-44ba-470b-a0a2-7211ba138d8c');
+    });
+    $Painel->fieldset('Capa Mobile', function () use ($Painel) {
+        $Painel->imagem(name: 'imagem_capa_mobile', diretorio: '0493d060-44ba-470b-a0a2-7211ba138d8c');
+    });
+});
+
 $Painel->coluna(callback: function () use ($Painel, $gerente) {
     $Painel->fieldset('Dados da empresa', function () use ($Painel) {
         $Painel
@@ -115,18 +127,6 @@ $Painel->coluna(callback: function () use ($Painel, $gerente) {
 });
 
 $Painel->coluna(callback: function () use ($Painel) {
-    $Painel->fieldset('Logo', function () use ($Painel) {
-        $Painel->imagem(name: 'imagem_logo', diretorio: '0493d060-44ba-470b-a0a2-7211ba138d8c');
-    });
-    $Painel->fieldset('Capa Desktop', function () use ($Painel) {
-        $Painel->imagem(name: 'imagem_capa_desktop', diretorio: '0493d060-44ba-470b-a0a2-7211ba138d8c');
-    });
-    $Painel->fieldset('Capa Mobile', function () use ($Painel) {
-        $Painel->imagem(name: 'imagem_capa_mobile', diretorio: '0493d060-44ba-470b-a0a2-7211ba138d8c');
-    });
-});
-
-$Painel->coluna(callback: function () use ($Painel) {
     $Painel->fieldset('Clube', function () use ($Painel) {
         $Painel
             ->input(
@@ -177,6 +177,8 @@ $Painel->coluna(callback: function () use ($Painel) {
             ->email(name: 'email_contato', label: 'E-mail de contato', placeholder: 'Digite um e-mail de contato')
         ;
     });
+});
+$Painel->coluna(callback: function () use ($Painel) {
     $Painel->fieldset('Procedimentos', function () use ($Painel) {
         $Painel
             ->input(name: 'desconto', label: 'Desconto curto', placeholder: 'Digite um desconto curto')
@@ -207,14 +209,63 @@ $Painel->coluna(callback: function () use ($Painel) {
                 class: 'display_none',
                 id: 'bloco_prazo_voucher_fixo'
             )
-            ->url(name: 'link_site', label: 'Link do site', placeholder: 'Link do site')
+            ->url(name: 'link_site', label: 'Link do site', placeholder: 'Link do site');
+    });
+    $Painel->fieldset('Outros dados', function () use ($Painel) {
+        $Painel
+            ->switch(name: 'confirmar_status', label: 'Precisa confirmar procedimento?')
+            ->select(
+                name: 'confirmar_titulo_tipo',
+                label: 'Título',
+                placeholder: 'Escolha um título',
+                lista: [
+                    'padrao' => 'Título padrão',
+                    'outro'  => 'Pesonalizadao'
+                ],
+                class: 'display_none',
+                id: 'bloco_confirmar_titulo_tipo'
+            )
+            ->input(
+                name: 'confirmar_titulo',
+                label: 'Título',
+                placeholder: 'Título da confirmação',
+                class: 'display_none',
+                id: 'bloco_confirmar_titulo',
+                contador: 100
+            )
+            ->select(
+                name: 'confirmar_texto_tipo',
+                label: 'Texto',
+                placeholder: 'Escolha um texto',
+                lista: [
+                    'padrao' => 'Texto padrão',
+                    'outro'  => 'Pesonalizadao'
+                ],
+                class: 'display_none',
+                id: 'bloco_confirmar_texto_tipo'
+            )
+            ->input(
+                name: 'confirmar_texto',
+                label: 'Mensagem',
+                placeholder: 'Digite uma mensagem',
+                contador: 250,
+                class: 'display_none',
+                id: 'bloco_confirmar_texto'
+            )
             ->titulo('Extensão:')
             ->tag(name: 'link_alias', label: 'Link para extensão ', placeholder: 'Link para extensão', tipo: 'url')
-            ->tag(name: 'link_bloqueado', label: 'Link bloqueado para extensão ', placeholder: 'Link bloqueado para extensão', tipo: 'url')
-        ;
+            ->tag(name: 'link_bloqueado', label: 'Link bloqueado para extensão ', placeholder: 'Link bloqueado para extensão', tipo: 'url');
     });
 });
 
+$Painel->coluna(callback: function () use ($Painel) {
+    // $Painel->fieldset('Arquivos do clube', function () use ($Painel) {
+    //     $Painel->arquivoLista(name: 'arquivo_clube', diretorio: '0493d060-44ba-470b-a0a2-7211ba138d8c');
+    // });
+    // $Painel->fieldset('Arquivos do painel', function () use ($Painel) {
+    //     $Painel->arquivoLista(name: 'arquivo_painel', diretorio: '0493d060-44ba-470b-a0a2-7211ba138d8c');
+    // });
+});
 $Painel->coluna(callback: function () use ($Painel) {
     $Painel->fieldset('Textos', function () use ($Painel) {
         $Painel

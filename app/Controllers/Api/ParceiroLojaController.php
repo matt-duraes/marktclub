@@ -90,7 +90,9 @@ final class ParceiroLojaController extends Controller implements
                     'email_contato', 'tipo_procedimento', 'limite_voucher', 'prazo_voucher', 'prazo_voucher_fixo',
                     'contato_whatsapp', 'link_site', 'link_alias', 'link_bloqueado', 'texto_descricao', 'texto_desconto',
                     'texto_procedimento', 'texto_voucher', 'categoria_principal', 'categoria_lista', 'subcategoria_tag',
-                    'subcategoria_lista', 'empresa', 'destaque', 'endereco_estado', 'pontuacao', 'desconto', 'status'
+                    'subcategoria_lista', 'empresa', 'destaque', 'confirmar_status', 'confirmar_titulo',
+                    'confirmar_texto', 'endereco_estado', 'pontuacao', 'desconto', 'arquivo_clube', 'arquivo_painel',
+                    'status'
                 ]
             ),
             status: $status

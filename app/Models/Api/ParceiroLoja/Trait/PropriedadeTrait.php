@@ -9,6 +9,8 @@ use Modules\Nome;
 use Modules\Botao;
 use Modules\Email;
 use Modules\Telefone;
+use Modules\ArquivoPrivado;
+use Modules\ArquivoPrivadoLista;
 use App\Classes\ParceiroLoja\Status;
 use App\Classes\ParceiroLoja\TipoLoja;
 use App\Classes\ParceiroLoja\Categoria;
@@ -35,9 +37,9 @@ trait PropriedadeTrait
     public Cpf $responsavel_cpf;
     public Telefone $responsavel_telefone;
     public Email $responsavel_email;
-    public string $imagem_logo;
-    public string $imagem_capa_desktop;
-    public string $imagem_capa_mobile;
+    public ArquivoPrivado $imagem_logo;
+    public ArquivoPrivado $imagem_capa_desktop;
+    public ArquivoPrivado $imagem_capa_mobile;
     public string $titulo;
     public TipoEstabelecimento $tipo_estabelecimento;
     public int $pontuacao;
@@ -68,6 +70,11 @@ trait PropriedadeTrait
     public array $destaque;
     public string $desconto;
     public array $endereco_estado;
+    public Botao $confirmar_status;
+    public string $confirmar_titulo;
+    public string $confirmar_texto;
     public Data $data_auditoria;
     public Status $status;
+    public ArquivoPrivadoLista $arquivo_clube;
+    public ArquivoPrivadoLista $arquivo_painel;
 }

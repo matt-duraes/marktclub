@@ -23,7 +23,8 @@ final class LojaEntity extends Entity
         'contato_whatsapp', 'link_site', 'link_alias', 'link_bloqueado', 'texto_descricao', 'texto_desconto',
         'texto_procedimento', 'texto_voucher', 'categoria_principal', 'categoria_lista', 'subcategoria_tag',
         'subcategoria_lista', 'id_admin_empresa', 'destaque', 'endereco_estado', 'pontuacao',
-        'prazo_voucher', 'prazo_voucher_fixo', 'data_auditoria', 'status'
+        'prazo_voucher', 'prazo_voucher_fixo', 'data_auditoria', 'confirmar_status', 'confirmar_titulo',
+        'confirmar_texto', 'arquivo_painel', 'arquivo_clube', 'status'
     ];
     protected array $ormSalvar = [
         'nome_fantasia', 'razao_social', 'tipo_juridico', 'documento_cpf', 'documento_cnpj', 'titulo_interno',
@@ -34,7 +35,8 @@ final class LojaEntity extends Entity
         'contato_whatsapp', 'link_site', 'link_alias', 'link_bloqueado', 'texto_descricao', 'texto_desconto',
         'texto_procedimento', 'texto_voucher', 'categoria_principal', 'categoria_lista', 'subcategoria_tag',
         'subcategoria_lista', 'id_admin_empresa', 'destaque', 'endereco_estado', 'pontuacao',
-        'prazo_voucher', 'prazo_voucher_fixo', 'data_auditoria', 'status'
+        'prazo_voucher', 'prazo_voucher_fixo', 'data_auditoria', 'confirmar_status', 'confirmar_titulo',
+        'confirmar_texto', 'arquivo_painel', 'arquivo_clube', 'status'
     ];
     private OrmHelper $EmpresaOrm;
     private OrmHelper $EquipeOrm;
@@ -53,9 +55,6 @@ final class LojaEntity extends Entity
 
     protected function regraSalvar()
     {
-        $this->imagem_logo = $this->pExiste('imagem_logo') ? arquivoPrivadoId($this->imagem_logo) : '';
-        $this->imagem_capa_desktop = $this->pExiste('imagem_capa_desktop') ? arquivoPrivadoId($this->imagem_capa_desktop) : '';
-        $this->imagem_capa_mobile = $this->pExiste('imagem_capa_mobile') ? arquivoPrivadoId($this->imagem_capa_mobile) : '';
         $this->id_admin_empresa = $this->EmpresaOrm->mudarListaUuidParaId($this->empresa);
         $this->destaque = $this->EmpresaOrm->mudarListaUuidParaId($this->destaque);
         $this->id_usuario_equipe = $this->EquipeOrm->pegarIdPeloUuid($this->equipe);
@@ -74,9 +73,6 @@ final class LojaEntity extends Entity
         if (empty($this->prazo_voucher) || !preg_match('/^[1-9]{1}[0-9]{0,}$/', $this->prazo_voucher)) {
             $this->prazo_voucher = 10;
         }
-        $this->imagem_logo = arquivoPrivado($this->imagem_logo);
-        $this->imagem_capa_desktop = arquivoPrivado($this->imagem_capa_desktop);
-        $this->imagem_capa_mobile = arquivoPrivado($this->imagem_capa_mobile);
         $this->link_site = (new LinkSiteModel($this))->link;
         $this->empresa = $this->EmpresaOrm->mudarListaIdParaUuid($this->id_admin_empresa);
         $this->destaque = $this->EmpresaOrm->mudarListaIdParaUuid($this->destaque);
