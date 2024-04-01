@@ -183,6 +183,11 @@ Route
     ::middleware(TokenMiddleware::class, 'token')
     ::grupo(function () {
         Route
+            ::nome('buscar')
+            ::middleware(TokenMiddleware::class, 'scope', ['publicacao_pagina:buscar'])
+            ::get('/publicacao-pagina/{id}');
+
+        Route
             ::nome('listar')
             ::middleware(TokenMiddleware::class, 'scope', ['publicacao_pagina:listar'])
             ::request([
@@ -191,9 +196,12 @@ Route
             ::get('/publicacao-pagina');
 
         Route
-            ::nome('buscar')
-            ::middleware(TokenMiddleware::class, 'scope', ['publicacao_pagina:buscar'])
-            ::get('/publicacao-pagina/{id}');
+            ::nome('salvar')
+            ::middleware(TokenMiddleware::class, 'scope', ['publicacao_pagina:salvar'])
+            ::request([
+                'titulo', 'texto', '!header_titulo', '!header_descricao', '!header_tag'
+            ])
+            ::post('/publicacao-pagina');
 
         Route
             ::nome('atualizar')
