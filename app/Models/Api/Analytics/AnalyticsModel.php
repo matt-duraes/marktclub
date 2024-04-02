@@ -28,7 +28,7 @@ final class AnalyticsModel extends ORM
         private Request $request
     ) {
         parent::__construct();
-        $this->validarEmpresa();
+        $this->validarEmpresa('empresa');
         $this->validarRequest();
         $this->setarUsuarioSeExistir($request->usuario);
     }

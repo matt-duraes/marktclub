@@ -25,7 +25,7 @@ final class LinkSiteModel
             return '';
         }
         $clube = (new OrmHelper(TABELA_CONSTRUTOR_CLUBE))->pegarPrimeiroRegistro(
-            where: ['id', TOKEN['empresa']->id],
+            where: ['id_admin_empresa', TOKEN['empresa']->id],
             campo: ['uuid', 'logo_principal', 'titulo', 'cor_principal', 'link_clube'],
             retorno: 'object'
         );
