@@ -25,7 +25,7 @@ final class ConstrutorEntity extends Entity
         'menu_meu_parceiro', 'api_status', 'link_login', 'menu_sair', 'menu_ponto_mais_acao', 'menu_primeiro_acesso', 'menu_tema',
         'menu_corrida', 'menu_show_nacional', 'menu_show_internacional', 'administrado_status', 'chat_status',
         'menu_samsung', 'cor_principal', 'cor_secundaria', 'tipo_ativacao', 'status', 'campos_primeiro_acesso', 'grupo_label',
-        'grupo_placeholder'
+        'grupo_placeholder', 'link_facebook', 'link_instagram', 'link_twitter', 'link_linkedin', 'link_youtube', 'link_tiktok',
     ];
     protected array $ormSalvar = [
         'id_admin_empresa', 'link_clube', 'link_cadastro', 'link_salavip', 'link_odontologico',
@@ -38,7 +38,8 @@ final class ConstrutorEntity extends Entity
         'menu_carteira', 'menu_salavip', 'menu_faq', 'menu_como_funciona', 'api_status', 'link_login',
         'menu_premium', 'menu_dependente', 'menu_sair', 'menu_primeiro_acesso', 'menu_meu_parceiro',
         'cor_principal', 'cor_secundaria', 'menu_tema', 'administrado_status', 'chat_status',
-        'menu_samsung', 'tipo_ativacao', 'status', 'campos_primeiro_acesso', 'grupo_label', 'grupo_placeholder'
+        'menu_samsung', 'tipo_ativacao', 'status', 'campos_primeiro_acesso', 'grupo_label', 'grupo_placeholder',
+        'link_facebook', 'link_instagram', 'link_twitter', 'link_linkedin', 'link_youtube', 'link_tiktok'
     ];
     protected array $ormRetornoPadrao = ['id', 'logo_principal', 'logo_marktclub'];
     private OrmHelper $ormEmpresa;
@@ -109,6 +110,12 @@ final class ConstrutorEntity extends Entity
     public array $campos_primeiro_acesso;
     public string $grupo_label;
     public string $grupo_placeholder;
+    public string $link_facebook;
+    public string $link_instagram;
+    public string $link_twitter;
+    public string $link_linkedin;
+    public string $link_youtube;
+    public string $link_tiktok;
 
     public function __construct()
     {

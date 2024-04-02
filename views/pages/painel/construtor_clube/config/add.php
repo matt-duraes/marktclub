@@ -102,6 +102,18 @@ $Painel->coluna(callback: function () use ($Painel) {
     });
 });
 $Painel->coluna(callback: function () use ($Painel) {
+    $Painel->fieldset('Redes Sociais', function () use ($Painel) {
+        $Painel
+            ->url(name: 'link_facebook', label: 'Facebook', placeholder: 'Link do Facebook')
+            ->url(name: 'link_instagram', label: 'Instagram', placeholder: 'Link do Instagram')
+            ->url(name: 'link_twitter', label: 'Twitter', placeholder: 'Link do Twitter')
+            ->url(name: 'link_linkedin', label: 'Linkedin', placeholder: 'Link do Linkedin')
+            ->url(name: 'link_youtube', label: 'Youtube', placeholder: 'Link do Youtube')
+            ->url(name: 'link_tiktok', label: 'Tiktok', placeholder: 'Link do Tiktok');
+    });
+});
+
+$Painel->coluna(callback: function () use ($Painel) {
     $Painel->fieldsetCheckbox(
         titulo: 'Menu Login',
         mais: false,
