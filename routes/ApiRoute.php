@@ -1218,7 +1218,6 @@ Route
             ::nome('buscar')
             ::middleware(TokenMiddleware::class, 'scope', ['construtor_clube:buscar'])
             ::get('/construtor-clube/{id}');
-
         Route
             ::nome('listar')
             ::middleware(TokenMiddleware::class, 'scope', ['construtor_clube:listar'])
@@ -1227,7 +1226,6 @@ Route
                 '!status', '!data_inicio', '!data_final'
             ], 'json')
             ::get('/construtor-clube');
-
         Route
             ::nome('salvar')
             ::middleware(TokenMiddleware::class, 'scope', ['construtor_clube:salvar'])
@@ -1244,10 +1242,10 @@ Route
                 'menu_salavip', 'menu_ponto_mais_acao', 'menu_credito_sicoob', 'menu_primeiro_acesso', 'chat_status',
                 'menu_meu_parceiro', 'administrado_status', 'api_status', 'tipo_ativacao', 'status',
                 'menu_corrida', 'menu_show_nacional', 'menu_show_internacional', 'link_odontologico',
-                'campos_primeiro_acesso', 'grupo_label', 'grupo_placeholder', 'tela_login'
+                'campos_primeiro_acesso', 'grupo_label', 'grupo_placeholder', 'link_facebook', 'link_instagram',
+                'link_twitter', 'link_linkedin', 'link_youtube', 'link_tiktok', 'tela_login'
             ])
             ::post('/construtor-clube');
-
         Route
             ::nome('atualizar')
             ::middleware(TokenMiddleware::class, 'scope', ['construtor_clube:atualizar'])
@@ -1265,15 +1263,14 @@ Route
                 '!menu_cupom', '!menu_salavip', '!menu_credito_sicoob', '!menu_primeiro_acesso', '!chat_status',
                 '!menu_meu_parceiro', '!administrado_status', '!api_status', '!tipo_ativacao', '!status',
                 '!menu_corrida', '!menu_show_nacional', '!menu_show_internacional', '!link_odontologico',
-                '!campos_primeiro_acesso', '!grupo_label', '!grupo_placeholder', '!tela_login'
+                '!campos_primeiro_acesso', '!grupo_label', '!grupo_placeholder', '!link_facebook', '!link_instagram',
+                '!link_twitter', '!link_linkedin', '!link_youtube', '!link_tiktok', '!tela_login'
             ])
             ::put('/construtor-clube/{id}');
-
         Route
             ::nome('deletar')
             ::middleware(TokenMiddleware::class, 'scope', ['construtor_clube:deletar'])
             ::delete('/construtor-clube/{id}');
-
         Route
             ::nome('clube')
             ::middleware(TokenMiddleware::class, 'scope', ['construtor_clube:buscar'])
