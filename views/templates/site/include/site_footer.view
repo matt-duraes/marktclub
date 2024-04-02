@@ -38,6 +38,32 @@
                 <p class="texto_footer">{{CONTATO_HORARIO}}</p>
             </div>
             @ endif;
+
+            <div class="dado redes_sociais">
+                @ if( !empty(LINK_FACEBOOK) ):
+                <a href="{{LINK_FACEBOOK}}" target="_blank" rel="noopener noreferer"><i>@iconeFacebook(15)</i></a>
+                @ endif;
+
+                @ if( !empty(LINK_INSTAGRAM) ):
+                <a href="{{LINK_INSTAGRAM}}" target="_blank" rel="noopener noreferer"><i>@iconeInstagram(15)</i></a>
+                @ endif;
+
+                @ if( !empty(LINK_TWITTER) ):
+                <a href="{{LINK_TWITTER}}" target="_blank" rel="noopener noreferer"><i>@iconeTwitter(15)</i></a>
+                @ endif;
+
+                @ if( !empty(LINK_YOUTUBE) ):
+                <a href="{{LINK_YOUTUBE}}" target="_blank" rel="noopener noreferer"><i>@iconeYoutube(15)</i></a>
+                @ endif;
+
+                @ if( !empty(LINK_LINKEDIN) ):
+                <a href="{{LINK_LINKEDIN}}" target="_blank" rel="noopener noreferer"><i>@iconeLinkedin(20)</i></a>
+                @ endif;
+
+                @ if( !empty(LINK_TIKTOK) ):
+                <a href="{{LINK_TIKTOK}}" target="_blank" rel="noopener noreferer"><i>@iconeTiktok(20)</i></a>
+                @ endif;
+            </div>
         </section>
         @ endif;
 
