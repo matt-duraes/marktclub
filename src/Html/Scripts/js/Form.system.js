@@ -102,7 +102,7 @@ const fwFormImagemRemoverImagem = (figure, input, botaoDeletar, botaoVisualizar,
         fwFormArquivoChange();
     }
 };
-fwFormArquivoLoading = bloco => {
+fwFormArquivoLoading = async bloco => {
     const fwFormImagem = bloco.querySelectorAll('.form_geral .fw_form_imagem');
     if (fwFormImagem.length > 0) {
         if (GaleriaFormImagem == undefined) {
@@ -112,7 +112,8 @@ fwFormArquivoLoading = bloco => {
                 '.fw_imagem_visualizar'
             );
         }
-        fwFormImagem.forEach(bloco => {
+
+        for (const bloco of fwFormImagem) {
             const input = bloco.querySelector('input');
             const blocoIcone = bloco.querySelector('.fw_imagem_conteudo .fw_imagem_icone');
             const blocoFigure = bloco.querySelector('.fw_imagem_conteudo .fw_imagem_figure');
@@ -121,7 +122,8 @@ fwFormArquivoLoading = bloco => {
             const botaoDeletar = bloco.querySelector('.fw_imagem_remover');
             const grupo = bloco.getAttribute('data-diretorio');
 
-            const Upload = new ArquivoUpload(grupo);
+            const Upload = new ArquivoUpload();
+            await Upload.init(grupo);
             fwFormImagemEscolherImagem(Upload, bloco, input, botaoDeletar, botaoVisualizar, blocoIcone, blocoFigure);
             botaoUpload.addEventListener('click', () => {
                 Upload.abrir();
@@ -136,7 +138,7 @@ fwFormArquivoLoading = bloco => {
                     fwFormImagemRemoverImagem(bloco, input, botaoDeletar, botaoVisualizar, blocoIcone, blocoFigure);
                 }
             });
-        });
+        }
         GaleriaFormImagem.recarregar(
             document.querySelector('.form_geral'),
             '.fw_form_imagem_galeria',
@@ -226,7 +228,7 @@ const fwFormArquivoListaMontarRetorno = (hash, link, nome, extensao, blocoZero, 
     }
 };
 
-fwFormArquivoListaLoading = bloco => {
+fwFormArquivoListaLoading = async bloco => {
     const fwFormArquivoLista = bloco.querySelectorAll('.form_geral .fw_form_arquivo_lista');
     if (fwFormArquivoLista.length > 0) {
         if (GaleriaFormImagem == undefined) {
@@ -236,14 +238,16 @@ fwFormArquivoListaLoading = bloco => {
                 '.fw_imagem_visualizar'
             );
         }
-        fwFormArquivoLista.forEach(bloco => {
+
+        for (const bloco of fwFormArquivoLista) {
             const botaoUpload = bloco.querySelector('.fw_form_arquivo_lista_upload');
             const blocoLista = bloco.querySelector('.fw_form_arquivo_lista_lista');
             const grupo = bloco.getAttribute('data-diretorio');
             const name = bloco.getAttribute('data-name');
             const blocoZero = bloco.querySelector('.fw_form_arquivo_lista_zero');
 
-            const Upload = new ArquivoUpload(grupo, null, true);
+            const Upload = new ArquivoUpload();
+            await Upload.init(grupo, null, true);
             fwFormArquivoListaEscolherArquivo(Upload, blocoZero, blocoLista, name);
             botaoUpload.addEventListener('click', () => {
                 Upload.abrir();
@@ -266,7 +270,7 @@ fwFormArquivoListaLoading = bloco => {
                     }
                 }
             });
-        });
+        }
         GaleriaFormImagem.recarregar(
             document.querySelector('.form_geral'),
             '.fw_form_imagem_galeria',

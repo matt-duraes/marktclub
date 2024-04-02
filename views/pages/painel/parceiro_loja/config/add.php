@@ -32,7 +32,7 @@ $Painel->coluna(callback: function () use ($Painel) {
 });
 
 $Painel->coluna(callback: function () use ($Painel, $gerente) {
-    $Painel->fieldset('Dados da empresa', function () use ($Painel) {
+    $Painel->fieldset('Dados da empresa', abrir: true, callback: function () use ($Painel) {
         $Painel
             ->input(
                 name: 'nome_fantasia',
@@ -259,12 +259,12 @@ $Painel->coluna(callback: function () use ($Painel) {
 });
 
 $Painel->coluna(callback: function () use ($Painel) {
-    // $Painel->fieldset('Arquivos do clube', function () use ($Painel) {
-    //     $Painel->arquivoLista(name: 'arquivo_clube', diretorio: '0493d060-44ba-470b-a0a2-7211ba138d8c');
-    // });
-    // $Painel->fieldset('Arquivos do painel', function () use ($Painel) {
-    //     $Painel->arquivoLista(name: 'arquivo_painel', diretorio: '0493d060-44ba-470b-a0a2-7211ba138d8c');
-    // });
+    $Painel->fieldset('Arquivos do clube', function () use ($Painel) {
+        $Painel->arquivoLista(name: 'arquivo_clube', diretorio: '0493d060-44ba-470b-a0a2-7211ba138d8c');
+    });
+    $Painel->fieldset('Arquivos do painel', function () use ($Painel) {
+        $Painel->arquivoLista(name: 'arquivo_painel', diretorio: '0493d060-44ba-470b-a0a2-7211ba138d8c');
+    });
 });
 $Painel->coluna(callback: function () use ($Painel) {
     $Painel->fieldset('Textos', function () use ($Painel) {
