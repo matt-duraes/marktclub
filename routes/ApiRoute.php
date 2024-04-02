@@ -1226,7 +1226,8 @@ Route
                 'menu_salavip', 'menu_ponto_mais_acao', 'menu_credito_sicoob', 'menu_primeiro_acesso', 'chat_status',
                 'menu_meu_parceiro', 'administrado_status', 'api_status', 'tipo_ativacao', 'status',
                 'menu_corrida', 'menu_show_nacional', 'menu_show_internacional', 'link_odontologico',
-                'campos_primeiro_acesso', 'grupo_label', 'grupo_placeholder'
+                'campos_primeiro_acesso', 'grupo_label', 'grupo_placeholder', 'link_facebook', 'link_instagram',
+                'link_twitter', 'link_linkedin', 'link_youtube', 'link_tiktok'
             ])
             ::post('/construtor-clube');
 
@@ -1248,7 +1249,8 @@ Route
                 '!menu_salavip', '!menu_credito_sicoob', '!menu_primeiro_acesso', '!chat_status',
                 '!menu_meu_parceiro', '!administrado_status', '!api_status', '!tipo_ativacao', '!status',
                 '!menu_corrida', '!menu_show_nacional', '!menu_show_internacional', '!link_odontologico',
-                '!campos_primeiro_acesso', '!grupo_label', '!grupo_placeholder'
+                '!campos_primeiro_acesso', '!grupo_label', '!grupo_placeholder', '!link_facebook', '!link_instagram',
+                '!link_twitter', '!link_linkedin', '!link_youtube', '!link_tiktok'
             ])
             ::put('/construtor-clube/{id}');
 
