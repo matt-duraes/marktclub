@@ -53,10 +53,10 @@ $Painel->coluna(callback: function () use ($Painel) {
         ->status(
             campo: 'status',
             texto: 'Concluir',
-            inArray: ['prospeccao', 'cancelado', 'problema'],
+            inArray: ['prospeccao', 'problema'],
             status: Status::CONCLUIDO,
-            mensagem: 'Tem certeza que deseja concluir essa loja, ao fazer isso ela irá ser publicada no site?',
-            cor: 'verde'
+            cor: 'verde',
+            editar: true
         )
         ->status(
             campo: 'status',
@@ -69,9 +69,17 @@ $Painel->coluna(callback: function () use ($Painel) {
         ->status(
             campo: 'status',
             texto: 'Cancelar',
-            inArray: ['concluido', 'problema', 'prospeccao'],
+            inArray: ['concluido', 'problema'],
             status: Status::CANCELADO,
             mensagem: 'Tem certeza que deseja cancelar essa loja?',
+            cor: 'cinza'
+        )
+        ->status(
+            campo: 'status',
+            texto: 'Sem interesse',
+            inArray: ['prospeccao'],
+            status: Status::SEM_INTERESSE,
+            mensagem: 'Tem certeza que deseja colocar essa loja como sem interesse?',
             cor: 'cinza'
         );
 });

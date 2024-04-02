@@ -7,11 +7,13 @@ use Modules\Data;
 use Helpers\OrmHelper;
 use App\Classes\ParceiroLoja\Status;
 use App\Classes\ParceiroLoja\Categoria;
+use App\Models\Api\ParceiroLoja\Trait\ValidarTrait;
 use App\Models\Api\ParceiroLoja\Trait\PropriedadeTrait;
 
 final class LojaEntity extends Entity
 {
     use PropriedadeTrait;
+    use ValidarTrait;
 
     protected string $ormTabela = TABELA_PARCEIRO_LOJA;
     protected array $ormBuscar = [
@@ -51,21 +53,27 @@ final class LojaEntity extends Entity
     protected function regraInsert()
     {
         $this->status = new Status(Status::PROSPECCAO);
-    }
-
-    protected function regraSalvar()
-    {
-        $this->id_admin_empresa = $this->EmpresaOrm->mudarListaUuidParaId($this->empresa);
-        $this->destaque = $this->EmpresaOrm->mudarListaUuidParaId($this->destaque);
-        $this->id_usuario_equipe = $this->EquipeOrm->pegarIdPeloUuid($this->equipe);
-        $this->categoria_lista = $this->converterCategoriaEm('numero');
+        if (!$this->pExiste('equipe') || empty($this->equipe)) {
+            $this->id_usuario_equipe = TOKEN['usuario']->id;
+        } elseif ($this->pExiste('equipe') && !empty($this->equipe)) {
+            $this->id_usuario_equipe = $this->EquipeOrm->pegarIdPeloUuid($this->equipe);
+        }
     }
 
     protected function regraUpdate()
     {
+        $this->id_usuario_equipe = $this->EquipeOrm->pegarIdPeloUuid($this->equipe);
         if ($this->prop('status') != Status::CONCLUIDO && $this->status == Status::CONCLUIDO) {
             $this->data_auditoria = new Data(hoje());
         }
+    }
+
+    protected function regraSalvar()
+    {
+        $this->validarSalvar();
+        $this->id_admin_empresa = $this->EmpresaOrm->mudarListaUuidParaId($this->empresa);
+        $this->destaque = $this->EmpresaOrm->mudarListaUuidParaId($this->destaque);
+        $this->categoria_lista = $this->converterCategoriaEm('numero');
     }
 
     protected function regraPosBuscar()

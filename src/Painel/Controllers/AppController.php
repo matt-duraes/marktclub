@@ -315,6 +315,11 @@ final class AppController extends PadraoController
             $lista = (new $nomeClass())->body($lista);
         }
 
+        if (array_key_exists('status_sistema', $lista)) {
+            $lista['status'] = base64Decode($lista['status_sistema']);
+            unset($lista['status_sistema']);
+        }
+
         $lista = $this->criptografarListaDado($lista, $requestCampo, $config->api->criptografar);
         $uri = $config->api->uri;
         if ($acao == 'insert') {
@@ -387,8 +392,8 @@ final class AppController extends PadraoController
                 'dado'       => $this->tratarListaDeRetorno($dado->dado, $config->api->criptografar),
                 'request'    => $request,
                 'appVoltar'  => !empty($config->add->link) ? [$config->add->link, ''] : '',
-                'linkVoltar' => $config->add->link
-
+                'linkVoltar' => $config->add->link,
+                'status'     => $request->getGet('status-sistema')
             ],
             css: $config->add->css,
             js: $config->add->js,

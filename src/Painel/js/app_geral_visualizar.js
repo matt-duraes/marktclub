@@ -20,9 +20,15 @@ window.addEventListener('load', () => {
     }
 
     botaoLista.forEach(botao => {
-        const status = botao.getAttribute('data-status') || '';
-        const mensagem = botao.getAttribute('data-mensagem') || '';
-        if (status == '' || mensagem == '') {
+        const status = botao.attr('data-status') || '';
+        const mensagem = botao.attr('data-mensagem') || '';
+        const editar = botao.attr('data-editar') || '';
+        if (editar == 'sim') {
+            botao.evento('click', () => {
+                editarStatus(status);
+            });
+            return;
+        } else if (status == '' || mensagem == '') {
             return;
         }
         botao.addEventListener('click', async () => {
@@ -82,6 +88,12 @@ window.addEventListener('load', () => {
             return;
         }
         Alerta.notificacao('Ocorreu um erro ao alterar seu status.', false);
+    };
+    const editarStatus = status => {
+        Loading.show();
+        window.location.assign(
+            LINK + '/app/editar/' + appVisualizar + '/' + idVisualizar + '?status-sistema=' + status
+        );
     };
 });
 

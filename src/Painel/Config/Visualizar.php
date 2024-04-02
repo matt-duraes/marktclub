@@ -413,7 +413,8 @@ final class Visualizar
         ?string $mensagem = null,
         ?string $id = null,
         ?string $cor = null,
-        ?string $permissao = null
+        ?string $permissao = null,
+        ?bool $editar = null
     ) {
         $this->status[] = $status;
         $this->adicionarCampo($campo, [
@@ -424,7 +425,8 @@ final class Visualizar
             'id'       => $id,
             'status'   => $status,
             'mensagem' => $mensagem,
-            'campo'    => $campo
+            'campo'    => $campo,
+            'editar'   => $editar
         ], $permissao);
         return $this;
     }

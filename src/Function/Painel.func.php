@@ -276,6 +276,7 @@ if (!function_exists('painelLinhaLista')) {
             $link = $item['link'] ?? '';
             $target = array_key_exists('target', $item) && in_array($item['target'], ['_blank', '_self'])
                 ? $item['target'] : '_self';
+            $editar = $item['editar'] ?? '';
             $status = $item['status'] ?? '';
             $mensagem = $item['mensagem'] ?? '';
             $inArray = $item['inArray'] ?? '';
@@ -394,8 +395,9 @@ if (!function_exists('painelLinhaLista')) {
                 $id = !empty($id) ? 'id="' . $id . '"' : '';
                 $cor = !empty($cor) ? $cor : '';
                 $mensagem = !empty($mensagem) ? 'data-mensagem="' . $mensagem . '"' : '';
-                $status = !empty($status) ? 'data-status="' . $status . '"' : '';
-                $botaoStatus .= '<div class="botao_status ' . $cor . '" ' . $id . ' ' . $mensagem . ' '
+                $status = !empty($status) ? 'data-status="' . base64Encode($status, true) . '"' : '';
+                $editar = !empty($editar) ? 'data-editar="sim"' : '';
+                $botaoStatus .= '<div class="botao_status ' . $cor . '" ' . $id . ' ' . $editar . ' ' . $mensagem . ' '
                     . $status . '>' . $texto . '</div>';
             } elseif ($acao == 'array' && is_array($valor) && $valor) {
                 $valor = array_key_exists(0, $valor) && count($valor) == 1 ? $valor[0] : $valor;
@@ -455,7 +457,7 @@ if (!function_exists('painelConverterLink')) {
 |--------------------------------------------------------------------------
 */
 if (!function_exists('painelAppAdd')) {
-    function painelAppAdd(?stdClass $config = null, ?stdClass $r = null, ?string $app = null)
+    function painelAppAdd(?stdClass $config = null, ?stdClass $r = null, ?string $app = null, ?string $status = null)
     {
         if (is_object($config) && object_key_exists('add', $config)) {
             $html = $config->add->html;
@@ -563,7 +565,7 @@ if (!function_exists('painelFieldset')) {
             $botaoAbrir = '<div class="botao_abrir_fechar"><i class="mais">+</i><i class="menos">-</i></div>';
             $botaoClasse = 'botao_abrir_fieldset';
         }
-        $tituloHtml = !empty($titulo) ? '<header class="' . $botaoClasse . '"><h2>' . $titulo . '</h2>' . $botaoAbrir . '</header>' : '';
+        $tituloHtml = !empty($titulo) ? '<header class="header_fieldset ' . $botaoClasse . '"><h2>' . $titulo . '</h2>' . $botaoAbrir . '</header>' : '';
 
         echo '
             <div class="bloco_fieldset ' . $classe . '">
