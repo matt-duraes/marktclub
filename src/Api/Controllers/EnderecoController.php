@@ -5,10 +5,6 @@ namespace ApiController;
 use Http\Request;
 use Http\Response;
 use Controller\Controller;
-use Modules\EnderecoEstado;
-use System\Classes\Endereco\Tipo;
-use System\Classes\Endereco\Local;
-use System\Classes\Endereco\Ordem;
 use ApiModel\Endereco\EnderecoModel;
 use ApiModel\Endereco\EnderecoEntity;
 use System\Interface\ControllerBuscarInterface;
@@ -26,15 +22,8 @@ final class EnderecoController extends Controller implements
 {
     public function getListar(Request $request): Response
     {
-        $Endereco = new EnderecoModel(
-            vinculo: $request->vinculo,
-            tipo: new Tipo($request->tipo),
-            local: new Local($request->local),
-            pais: $request->pais,
-            cidade: $request->cidade,
-            estado: new EnderecoEstado($request->estado),
-            ordem: new Ordem($request->ordem),
-        );
+        $Endereco = new EnderecoModel();
+        $Endereco->set(lista: $request->dado());
         return mensagemSucesso($Endereco->listarDados());
     }
 
@@ -61,7 +50,7 @@ final class EnderecoController extends Controller implements
             dado: pegarPropriedadeDaEntity(
                 Entity: $Endereco,
                 lista: [
-                    'titulo', 'telefone', 'cep', 'logradouro', 'complemento', 'referencia',
+                    'titulo', 'cep', 'logradouro', 'complemento', 'referencia',
                     'numero', 'bairro', 'cidade', 'estado', 'pais', 'latitude', 'longitude', 'principal'
                 ]
             ),

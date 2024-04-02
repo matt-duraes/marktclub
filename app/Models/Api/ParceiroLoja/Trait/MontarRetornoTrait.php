@@ -2,8 +2,8 @@
 
 namespace App\Models\Api\ParceiroLoja\Trait;
 
-use App\Classes\ParceiroLoja\Tipo;
 use App\Classes\ParceiroLoja\Status;
+use App\Classes\ParceiroLoja\TipoLoja;
 
 trait MontarRetornoTrait
 {
@@ -15,18 +15,19 @@ trait MontarRetornoTrait
 
         $retorno = [];
         $Status = new Status();
-        $Tipo = new Tipo();
+        $Tipo = new TipoLoja();
 
         foreach ($lista as $r) {
             $retorno[$r->id] = [
-                'id'              => $r->cod,
+                'id'              => $r->uuid,
                 'titulo'          => $r->titulo,
-                'desconto'        => $r->desconto,
-                'imagem'          => LINK_ARQUIVO . '/parceiro/' . $r->imagem,
+                'desconto'        => $r->texto_desconto,
+                'imagem_logo'     => arquivoPrivado($r->imagem_logo),
                 'url'             => $r->url,
-                'tipo'            => $Tipo->indice($r->tipo),
+                'tipo_loja'       => $Tipo->indice($r->tipo_loja),
                 'data_publicacao' => $r->data_publicacao,
-                'estado'          => $r->estado,
+                'data_auditoria'  => $r->data_auditoria,
+                'endereco_estado' => $r->endereco_estado,
                 'favorito'        => !empty($r->favorito) ? 'sim' : 'nao',
                 'status'          => $Status->indice($r->status)
             ];

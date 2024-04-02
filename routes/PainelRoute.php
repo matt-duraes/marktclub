@@ -15,10 +15,11 @@ require_once ROOT . '/views/pages/painel/usuario_apple/Routes/UsuarioAppleRoute.
 |--------------------------------------------------------------------------
 */
 
-Route::middleware(
-    classe: App\Middlewares\Painel\AuthMiddleware::class,
-    action: 'logado',
-)
+Route
+    ::middleware(
+        classe: App\Middlewares\Painel\AuthMiddleware::class,
+        action: 'logado',
+    )
 
     // INDEX
     ::nome('index')::controller(App\Controllers\Painel\IndexController::class)::grupo(function () {
@@ -37,6 +38,5 @@ Route::middleware(
     // SISTEMA DE PAGAMENTO USUARIO
     ::controller(App\Controllers\Painel\UsuarioPagamentoController::class)::grupo(function () {
         Route::nome('salvar')::request(['hash_validacao', 'data', 'valor', 'usuario'])::post('/usuario-pagamento');
-
         Route::nome('deletar')::delete('/usuario-pagamento/{id}');
     });

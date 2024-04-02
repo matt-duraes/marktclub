@@ -1708,6 +1708,7 @@ if (!function_exists('arquivoPrivadoDado')) {
      */
     function arquivoPrivadoDado(string $id)
     {
+        $id = arquivoPrivadoId($id);
         try {
             $Api = new ApiHelper(token: true);
             $arquivo = $Api

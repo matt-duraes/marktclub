@@ -249,13 +249,10 @@ if (!function_exists('painelLinhaLista')) {
             if ($acao == 'include') {
                 require_once $item['arquivo'];
                 continue;
-            } elseif ($acao == 'endereco') {
-                $enderecoTabela = $item['tabela'] ?? '';
-                $enderecoLocal = $item['local'] ?? '';
-                include ROOT . '/src/Html/Painel/endereco.php';
-                continue;
-            } elseif ($acao == 'contato') {
-                include ROOT . '/src/Html/Painel/contato.php';
+            } elseif (in_array($acao, ['endereco', 'contato'])) {
+                $localPrincipal = $item['localPrincipal'] ?? '';
+                $localSecundario = $item['localSecundario'] ?? '';
+                include ROOT . '/src/Html/Painel/' . $acao . '.php';
                 continue;
             } elseif ($acao == 'html') {
                 echo $item['html'];
@@ -350,6 +347,8 @@ if (!function_exists('painelLinhaLista')) {
 
             if ($acao == 'imagem_redonda') {
                 echo '<figure class="imagem_redonda" style="background-image: url(' . $valor . ')"></figure>';
+            } elseif ($acao == 'imagem_logo') {
+                echo '<figure class="imagem_logo"><div class="imagem" style="background-image: url(' . $valor . ')"></div></figure>';
             } elseif ($acao == 'linha' && ($vazio || !empty($valor))) {
                 $valor = !empty($valor) ? $valor : '<span class="vazio">Dado não informado</span>';
                 $nome = preg_match('/\:|\!|\?$/', $nome) ? $nome : $nome . ':';
@@ -554,11 +553,20 @@ if (!function_exists('painelColunaEnd')) {
     }
 }
 if (!function_exists('painelFieldset')) {
-    function painelFieldset(?string $titulo = null)
+    function painelFieldset(?string $titulo = null, bool $abrir = false)
     {
-        $tituloHtml = !empty($titulo) ? '<h2>' . $titulo . '</h2>' : '';
+        $classe = '';
+        $botaoAbrir = '';
+        $botaoClasse = '';
+        if ($abrir) {
+            $classe = 'bloco_fieldset_fechado bloco_fieldset_abrir_fechar';
+            $botaoAbrir = '<div class="botao_abrir_fechar"><i class="mais">+</i><i class="menos">-</i></div>';
+            $botaoClasse = 'botao_abrir_fieldset';
+        }
+        $tituloHtml = !empty($titulo) ? '<header class="' . $botaoClasse . '"><h2>' . $titulo . '</h2>' . $botaoAbrir . '</header>' : '';
+
         echo '
-            <div class="bloco_fieldset">
+            <div class="bloco_fieldset ' . $classe . '">
                 ' . $tituloHtml . '
                 <div class="lista_dado">
         ';
@@ -729,7 +737,7 @@ if (!function_exists('painelInputLista')) {
             } elseif ($funcao == 'checkbox') {
                 $input['check'] = (is_array($valor) && !empty($valor) && !empty($input['value'])
                     && in_array($input['value'], $valor)) || (is_string($valor) && $valor == 'sim');
-            } elseif ($funcao == 'indiceValor') {
+            } elseif (in_array($funcao, ['indiceValor', 'arquivoLista'])) {
                 $input['value'] = jsonDecode($valor, true, true);
             } else {
                 $input['value'] = $valor;

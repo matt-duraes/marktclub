@@ -1,3 +1,5 @@
+const fwArquivoUploadEstrutura = {};
+const fwArquivoUploadExtensao = {};
 class ArquivoUpload {
     /*
     |--------------------------------------------------------------------------
@@ -11,7 +13,13 @@ class ArquivoUpload {
      * @param {bool} multiplo Se poderá escolher multiplos arquivos para usar
      */
     constructor(grupo, body, multiplo) {
+        if (grupo === undefined) {
+            return;
+        }
         this._constructor(grupo, body, multiplo);
+    }
+    async init(grupo, body, multiplo) {
+        return await this._constructor(grupo, body, multiplo);
     }
 
     /*
@@ -981,17 +989,20 @@ class ArquivoUpload {
     |--------------------------------------------------------------------------
     */
     async _constructor(grupo, body, multiplo) {
-        await this._construtorPropriedadeInicial(grupo, body, multiplo);
-        await this._construtorPegarEstruturaDiretorio();
+        return new Promise(async resolve => {
+            await this._construtorPropriedadeInicial(grupo, body, multiplo);
+            await this._construtorPegarEstruturaDiretorio(true);
 
-        const extensao = await this._construtorPegarExtensoes();
-        if (await !extensao) {
-            return;
-        }
+            const extensao = await this._construtorPegarExtensoes(true);
+            if (!extensao) {
+                resolve(false);
+            }
 
-        await this._contrutorMontarHtml();
-        await this._construtorSetaBlocos();
-        this._construtorSetarEventosIniciais();
+            await this._contrutorMontarHtml();
+            await this._construtorSetaBlocos();
+            this._construtorSetarEventosIniciais();
+            resolve(true);
+        });
     }
     _construtorPropriedadeInicial(grupo, body, multiplo) {
         return new Promise(resolve => {
@@ -1008,8 +1019,17 @@ class ArquivoUpload {
             resolve(true);
         });
     }
-    _construtorPegarExtensoes() {
+    _construtorPegarExtensoes(cache) {
         return new Promise(async resolve => {
+            if (
+                true === cache &&
+                this._grupoInicial in fwArquivoUploadExtensao &&
+                fwArquivoUploadExtensao[this._grupoInicial] !== undefined
+            ) {
+                this._extensao = fwArquivoUploadExtensao[this._grupoInicial];
+                resolve(true);
+                return;
+            }
             const body = new FormData();
             body.append('grupo', this._grupoInicial);
             const resposta = await fetch(LINK + '/upload/extensao', {
@@ -1021,11 +1041,22 @@ class ArquivoUpload {
                 resolve(false);
             }
             this._extensao = json.dado.extensao;
+            fwArquivoUploadExtensao[this._grupoInicial] = json.dado.extensao;
             resolve(true);
         });
     }
-    _construtorPegarEstruturaDiretorio() {
+    _construtorPegarEstruturaDiretorio(cache) {
         return new Promise(async resolve => {
+            if (
+                true === cache &&
+                this._grupoInicial in fwArquivoUploadEstrutura &&
+                fwArquivoUploadEstrutura[this._grupoInicial] !== undefined
+            ) {
+                this._estruturaDiretorio = fwArquivoUploadEstrutura[this._grupoInicial];
+                resolve(true);
+                return;
+            }
+
             const body = new FormData();
             body.append('grupo', this._grupoInicial);
 
@@ -1040,6 +1071,7 @@ class ArquivoUpload {
                 return;
             }
             this._estruturaDiretorio = json.dado.diretorio;
+            fwArquivoUploadEstrutura[this._grupoInicial] = json.dado.diretorio;
             resolve(true);
         });
     }

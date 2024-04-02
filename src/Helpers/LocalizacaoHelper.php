@@ -53,7 +53,7 @@ final class LocalizacaoHelper
      */
     public function pegarEnderecoPeloCep(null|string|int $cep): array
     {
-        $ch = curl_init('https://brasilapi.com.br/api/cep/v1/' . preg_replace('/[^0-9]/', '', $cep));
+        $ch = curl_init('https://viacep.com.br/ws/' . preg_replace('/[^0-9]/', '', $cep) . '/json/');
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
         curl_setopt($ch, CURLOPT_HTTPHEADER, ['Content-Type: application/json']);
 
@@ -62,12 +62,12 @@ final class LocalizacaoHelper
             $this->mensagemErroApi();
         }
         return [
-            'logradouro' => $retorno['street'] ?? '',
-            'bairro'     => $retorno['neighborhood'] ?? '',
-            'cidade'     => $retorno['city'] ?? '',
-            'estado'     => $retorno['state'] ?? '',
-            'cep'        => array_key_exists('cep', $retorno) && !empty($retorno['cep']) ? soNumero($retorno['cep']) : '',
-            'pais'       => array_key_exists('state', $retorno) && !empty($retorno['state']) ? 'BR' : '',
+            'logradouro' => $retorno['logradouro'] ?? '',
+            'bairro'     => $retorno['bairro'] ?? '',
+            'cidade'     => $retorno['localidade'] ?? '',
+            'estado'     => $retorno['uf'] ?? '',
+            'cep'        => soNumero($cep),
+            'pais'       => 'BR',
         ];
     }
 

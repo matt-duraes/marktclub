@@ -9,6 +9,7 @@ final class Visualizar
     private string|int $numeroColuna;
     private array $camposAceitos = [];
     private string $titulo = '';
+    private bool $abrir = false;
     private array $html = [];
     private string $css = '';
     private string $js = '';
@@ -119,12 +120,13 @@ final class Visualizar
         return $this;
     }
 
-    public function bloco(string $titulo = '', ?\Closure $callback = null)
+    public function bloco(string $titulo = '', ?\Closure $callback = null, bool $abrir = false)
     {
         if (is_null($callback)) {
             $this->erroCallback();
         }
         $this->titulo = $titulo;
+        $this->abrir = $abrir;
         call_user_func($callback);
         $this->fieldset++;
         return $this;
@@ -205,6 +207,15 @@ final class Visualizar
     {
         $this->adicionarCampo($campo, [
             'funcao' => 'imagem_redonda',
+            'campo'  => $campo
+        ], $permissao);
+        return $this;
+    }
+
+    public function imagemLogo(array|string $campo, ?string $permissao = null): self
+    {
+        $this->adicionarCampo($campo, [
+            'funcao' => 'imagem_logo',
             'campo'  => $campo
         ], $permissao);
         return $this;
@@ -324,12 +335,22 @@ final class Visualizar
         return $this;
     }
 
-    public function endereco(string $tabela, string $local)
+    public function endereco(string $principal, string $secundario)
     {
         $this->adicionarCampo('', [
-            'funcao' => 'endereco',
-            'tabela' => $tabela,
-            'local'  => $local
+            'funcao'          => 'endereco',
+            'localPrincipal'  => $principal,
+            'localSecundario' => $secundario
+        ]);
+        return $this;
+    }
+
+    public function contato(string $principal, string $secundario)
+    {
+        $this->adicionarCampo('', [
+            'funcao'           => 'contato',
+            'localPrincipal'   => $principal,
+            'localSecundario'  => $secundario
         ]);
         return $this;
     }
@@ -462,6 +483,7 @@ final class Visualizar
             return $this;
         }
         $this->setarTitulo();
+        $this->setarAbrir();
         $this->setarColuna();
 
         $this->html[$this->coluna][$this->fieldset]['lista'][] = $dado;
@@ -500,6 +522,14 @@ final class Visualizar
         if (!empty($this->titulo)) {
             $this->html[$this->coluna][$this->fieldset]['titulo'] = $this->titulo;
             $this->titulo = '';
+        }
+    }
+
+    private function setarAbrir()
+    {
+        if ($this->abrir) {
+            $this->html[$this->coluna][$this->fieldset]['abrir'] = true;
+            $this->abrir = false;
         }
     }
 

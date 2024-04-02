@@ -3,74 +3,81 @@
 namespace ApiModel\Endereco;
 
 use ORM\ORM;
+use stdClass;
+use Where\Where;
 use Erro\Excecao;
 use Modules\Botao;
+use Modules\Pagina;
+use Modules\Quantidade;
 use Modules\EnderecoEstado;
-use System\Classes\Endereco\Tipo;
-use System\Classes\Endereco\Local;
 use System\Classes\Endereco\Ordem;
 use System\Trait\Model\OrdemTrait;
+use System\Trait\Model\WhereTrait;
+use System\Trait\Model\PaginaTrait;
+use System\Trait\Model\QuantidadeTrait;
 
 final class EnderecoModel extends ORM
 {
     use OrdemTrait;
+    use PaginaTrait;
+    use QuantidadeTrait;
+    use WhereTrait;
 
     protected string $ormTabela = TABELA_SISTEMA_ENDERECO;
-
-    public function __construct(
-        private string|array $vinculo,
-        private Tipo $tipo,
-        private Local $local,
-        private ?string $pais = null,
-        private ?string $cidade = null,
-        private EnderecoEstado $estado = new EnderecoEstado(null),
-        private Ordem $ordem = new Ordem(null)
-    ) {
-        parent::__construct();
-    }
+    public string $vinculo;
+    public string $local_principal;
+    public string $local_secundario;
+    public string $pais;
+    public string $cidade;
+    public EnderecoEstado $estado;
+    public Ordem $ordem;
+    public string $titulo;
+    public Pagina $pagina;
+    public Quantidade $quantidade;
 
     /**
      * @throws Excecao
      */
-    public function listarDados(): array
+    public function listarDados(): array|stdClass
     {
         $dado = $this
             ->campo([
-                'uuid', 'titulo', 'telefone', 'cep', 'logradouro', 'complemento', 'referencia',
+                'uuid', 'titulo', 'cep', 'logradouro', 'complemento', 'referencia',
                 'numero', 'bairro', 'cidade', 'estado', 'pais', 'latitude', 'longitude', 'principal'
             ])
             ->where($this->pegarWhere(), obrigatorio: false)
-            ->order($this->pegarOrdem())
-            ->read();
+            ->order($this->pegarOrdem());
 
+        if ($this->pExiste('pagina')) {
+            return $this->pegarListaComPaginacao($dado);
+        }
+
+        $dado = $dado->read();
         return $this->montarRetorno($dado);
     }
 
-    private function pegarWhere(): array
+    private function pegarListaComPaginacao($dado)
     {
-        $where = [];
-        if ($this->local->valido()) {
-            $where[] = ['local', $this->local->numero()];
+        $dado = $dado->pagina($this->pegarPagina(), $this->pegarQuantidade())->read();
+        if (!chaveExiste('lista', $dado)) {
+            return $this->paginacaoZero();
         }
-        if ($this->tipo->valido()) {
-            $where[] = ['tabela', $this->tipo->indice()];
-        }
-        if (!empty($this->vinculo) && is_array($this->vinculo)) {
-            return ['id_vinculo', 'IN', $this->vinculo];
-        }
-        if (!empty($this->vinculo) && !is_array($this->vinculo)) {
-            return ['id_vinculo', $this->vinculo];
-        }
-        if (!empty($this->pais)) {
-            $where[] = ['pais', $this->pais];
-        }
-        if (!empty($this->cidade)) {
-            $where[] = ['cidade', $this->cidade];
-        }
-        if ($this->estado->valido()) {
-            $where[] = ['estado', $this->estado->valor()];
-        }
-        return $where;
+        $dado->lista = $this->montarRetorno($dado->lista);
+        return $dado;
+    }
+
+    private function pegarWhere(): Where
+    {
+        $Where = new Where($this);
+        $Where
+            ->linha('local_principal')
+            ->linha('local_secundario')
+            ->linha('vinculo', campo: 'id_vinculo')
+            ->linha('titulo', 'like%%')
+            ->linha('pais')
+            ->linha('cidade')
+            ->linha('estado');
+        return $Where;
     }
 
     private function montarRetorno(array $dado): array
@@ -80,7 +87,6 @@ final class EnderecoModel extends ORM
             $retorno[] = [
                 'id'          => $r->uuid,
                 'titulo'      => $r->titulo,
-                'telefone'    => $r->telefone,
                 'completo'    => $this->formataEnderecoCompleto($r),
                 'cep'         => $r->cep,
                 'logradouro'  => $r->logradouro,

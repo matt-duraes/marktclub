@@ -2,24 +2,24 @@
 
 namespace App\Controllers\Api;
 
-use App\Classes\ConstrutorClube\Ordem;
-use App\Classes\Geral\Status;
-use App\Models\Api\ConstrutorClube\ClubeModel;
-use App\Models\Api\ConstrutorClube\ConstrutorEntity;
-use App\Models\Api\ConstrutorClube\ConstrutorModel;
-use App\Models\Api\ConstrutorClube\LinkClubeModel;
-use Controller\Controller;
 use Erro\Excecao;
 use Http\Request;
-use Http\Response;
 use Modules\Data;
+use Http\Response;
 use Modules\Pagina;
 use Modules\Quantidade;
-use System\Interface\ControllerAtualizarInterface;
+use Controller\Controller;
+use App\Classes\Geral\Status;
+use App\Classes\ConstrutorClube\Ordem;
+use App\Models\Api\ConstrutorClube\ClubeModel;
 use System\Interface\ControllerBuscarInterface;
-use System\Interface\ControllerDeletarInterface;
 use System\Interface\ControllerListarInterface;
 use System\Interface\ControllerSalvarInterface;
+use System\Interface\ControllerDeletarInterface;
+use App\Models\Api\ConstrutorClube\LinkClubeModel;
+use System\Interface\ControllerAtualizarInterface;
+use App\Models\Api\ConstrutorClube\ConstrutorModel;
+use App\Models\Api\ConstrutorClube\ConstrutorEntity;
 
 final class ConstrutorClubeController extends Controller implements
     ControllerListarInterface,
@@ -60,14 +60,13 @@ final class ConstrutorClubeController extends Controller implements
                     'contato_email', 'contato_horario', 'contato_endereco', 'menu_faq', 'menu_como_funciona',
                     'menu_sair', 'menu_acesso_rapido', 'menu_loja', 'menu_mapa', 'menu_cinema', 'menu_tema',
                     'menu_turismo', 'menu_ponto_mais_acao', 'menu_historico', 'menu_farmacia', 'menu_automovel',
-                    'link_odontologico',
                     'menu_saude_vitoria', 'menu_saude_amil', 'menu_saude_seguro', 'menu_saude_cnu',
                     'menu_saude_florianopolis', 'menu_cashback', 'menu_indicar_usuario', 'menu_indicar_loja',
                     'menu_odontologico', 'menu_premium', 'menu_dependente', 'menu_carteira', 'menu_cupom',
                     'menu_salavip', 'menu_credito_sicoob', 'menu_primeiro_acesso', 'chat_status', 'header_descricao',
                     'menu_corrida', 'menu_show_internacional', 'menu_show_nacional', 'menu_samsung',
                     'menu_meu_parceiro', 'administrado_status', 'api_status', 'tipo_ativacao', 'status',
-                    'campos_primeiro_acesso', 'grupo_label', 'grupo_placeholder'
+                    'campos_primeiro_acesso', 'grupo_label', 'grupo_placeholder', 'tela_login', 'link_odontologico'
                 ]
             ),
             $status

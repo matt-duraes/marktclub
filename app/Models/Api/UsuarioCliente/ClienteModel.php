@@ -2,21 +2,21 @@
 
 namespace App\Models\Api\UsuarioCliente;
 
-use App\Classes\UsuarioCliente\Ordem;
-use App\Classes\UsuarioCliente\Status;
-use App\Classes\UsuarioCliente\TipoUsuario;
-use App\Classes\UsuarioCliente\TrabalhoCargo;
-use App\Classes\UsuarioCliente\TrabalhoEmpresa;
-use App\Helpers\DrogariaAraujoHelper;
-use App\Models\Api\Trait\ValidarEmpresaTrait;
-use App\Models\Api\UsuarioCliente\Trait\BuscarUsuarioTrait;
+use ORM\ORM;
+use stdClass;
 use Erro\Excecao;
 use Http\Request;
 use Modules\Data;
 use Modules\Email;
 use Modules\Genero;
-use ORM\ORM;
-use stdClass;
+use App\Classes\UsuarioCliente\Ordem;
+use App\Helpers\DrogariaAraujoHelper;
+use App\Classes\UsuarioCliente\Status;
+use App\Classes\UsuarioCliente\TipoUsuario;
+use App\Classes\UsuarioCliente\TrabalhoCargo;
+use App\Models\Api\Trait\ValidarEmpresaTrait;
+use App\Classes\UsuarioCliente\TrabalhoEmpresa;
+use App\Models\Api\UsuarioCliente\Trait\BuscarUsuarioTrait;
 
 final class ClienteModel extends ORM
 {

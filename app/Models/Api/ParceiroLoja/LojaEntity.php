@@ -4,55 +4,93 @@ namespace App\Models\Api\ParceiroLoja;
 
 use ORM\Entity;
 use Modules\Data;
-use Modules\Botao;
+use Helpers\OrmHelper;
 use App\Classes\ParceiroLoja\Status;
-use App\Classes\ParceiroLoja\Procedimento;
+use App\Classes\ParceiroLoja\Categoria;
+use App\Models\Api\ParceiroLoja\Trait\PropriedadeTrait;
 
 final class LojaEntity extends Entity
 {
+    use PropriedadeTrait;
+
     protected string $ormTabela = TABELA_PARCEIRO_LOJA;
     protected array $ormBuscar = [
-        'texto_desconto'     => 'desconto_texto',
-        'texto_voucher'      => 'voucher_texto',
-        'texto_procedimento' => 'procedimento_texto',
-        'texto_descricao'    => 'texto',
-        'titulo', 'limite_voucher', 'prazo_voucher', 'prazo_voucher_fixo', 'data_contrato_inicio',
-        'imagem', 'capa', 'procedimento', 'url', 'status', 'link_site', 'tipo', 'arquivo', 'vinculo_parceiro'
+        'nome_fantasia', 'razao_social', 'tipo_juridico', 'documento_cpf', 'documento_cnpj', 'titulo_interno',
+        'tipo_loja', 'id_usuario_equipe', 'responsavel_telefone', 'responsavel_cargo', 'responsavel_nome',
+        'responsavel_cpf', 'responsavel_email', 'imagem_logo', 'imagem_capa_desktop', 'imagem_capa_mobile',
+        'titulo', 'tipo_estabelecimento', 'origem_lead', 'url', 'delivery', 'convenio_direto', 'data_contrato_inicio',
+        'data_contrato_vencimento', 'precisa_aditivo', 'email_contato', 'tipo_procedimento', 'limite_voucher',
+        'contato_whatsapp', 'link_site', 'link_alias', 'link_bloqueado', 'texto_descricao', 'texto_desconto',
+        'texto_procedimento', 'texto_voucher', 'categoria_principal', 'categoria_lista', 'subcategoria_tag',
+        'subcategoria_lista', 'id_admin_empresa', 'destaque', 'endereco_estado', 'pontuacao',
+        'prazo_voucher', 'prazo_voucher_fixo', 'data_auditoria', 'confirmar_status', 'confirmar_titulo',
+        'confirmar_texto', 'arquivo_painel', 'arquivo_clube', 'status'
     ];
-    protected array $ormRetornoPadrao = ['id', 'titulo', 'link_logo'];
-    protected string $capa;
-    public string $titulo;
-    public ?int $limite_voucher;
-    public ?int $prazo_voucher;
-    public Data $prazo_voucher_fixo;
-    public Data $data_contrato_inicio;
-    public string $texto_desconto;
-    public string $texto_voucher;
-    public string $texto_procedimento;
-    public string $texto_descricao;
-    public Procedimento $procedimento;
-    public string $imagem;
-    public string $link_capa_desktop;
-    public string $link_capa_mobile;
-    public string $link_logo;
-    public string $link_site;
-    public array $arquivo;
-    public Botao $favorito;
-    public Status $status;
-    public string $tipo;
-    public string $url;
-    public string $vinculo_parceiro;
+    protected array $ormSalvar = [
+        'nome_fantasia', 'razao_social', 'tipo_juridico', 'documento_cpf', 'documento_cnpj', 'titulo_interno',
+        'tipo_loja', 'id_usuario_equipe', 'responsavel_telefone', 'responsavel_cargo', 'responsavel_nome',
+        'responsavel_cpf', 'responsavel_email', 'imagem_logo', 'imagem_capa_desktop', 'imagem_capa_mobile',
+        'titulo', 'tipo_estabelecimento', 'origem_lead', 'url', 'delivery', 'convenio_direto', 'data_contrato_inicio',
+        'data_contrato_vencimento', 'precisa_aditivo', 'email_contato', 'tipo_procedimento', 'limite_voucher',
+        'contato_whatsapp', 'link_site', 'link_alias', 'link_bloqueado', 'texto_descricao', 'texto_desconto',
+        'texto_procedimento', 'texto_voucher', 'categoria_principal', 'categoria_lista', 'subcategoria_tag',
+        'subcategoria_lista', 'id_admin_empresa', 'destaque', 'endereco_estado', 'pontuacao',
+        'prazo_voucher', 'prazo_voucher_fixo', 'data_auditoria', 'confirmar_status', 'confirmar_titulo',
+        'confirmar_texto', 'arquivo_painel', 'arquivo_clube', 'status'
+    ];
+    private OrmHelper $EmpresaOrm;
+    private OrmHelper $EquipeOrm;
+
+    public function __construct()
+    {
+        parent::__construct();
+        $this->EmpresaOrm = new OrmHelper(TABELA_COMERCIAL_EMPRESA);
+        $this->EquipeOrm = new OrmHelper(TABELA_USUARIO_EQUIPE);
+    }
+
+    protected function regraInsert()
+    {
+        $this->status = new Status(Status::PROSPECCAO);
+    }
+
+    protected function regraSalvar()
+    {
+        $this->id_admin_empresa = $this->EmpresaOrm->mudarListaUuidParaId($this->empresa);
+        $this->destaque = $this->EmpresaOrm->mudarListaUuidParaId($this->destaque);
+        $this->id_usuario_equipe = $this->EquipeOrm->pegarIdPeloUuid($this->equipe);
+        $this->categoria_lista = $this->converterCategoriaEm('numero');
+    }
+
+    protected function regraUpdate()
+    {
+        if ($this->prop('status') != Status::CONCLUIDO && $this->status == Status::CONCLUIDO) {
+            $this->data_auditoria = new Data(hoje());
+        }
+    }
 
     protected function regraPosBuscar()
     {
         if (empty($this->prazo_voucher) || !preg_match('/^[1-9]{1}[0-9]{0,}$/', $this->prazo_voucher)) {
             $this->prazo_voucher = 10;
         }
-        $this->link_logo = !empty($this->imagem) ? LINK_ARQUIVO . '/parceiro/' . $this->imagem : '';
-        $this->link_capa_desktop = !empty($this->capa) ? LINK_ARQUIVO . '/parceiro/' . $this->capa : '';
-        $this->link_capa_mobile = !empty($this->capa) ? LINK_ARQUIVO . '/parceiro/' . $this->capa : '';
-        $this->favorito = new Botao('nao');
         $this->link_site = (new LinkSiteModel($this))->link;
+        $this->empresa = $this->EmpresaOrm->mudarListaIdParaUuid($this->id_admin_empresa);
+        $this->destaque = $this->EmpresaOrm->mudarListaIdParaUuid($this->destaque);
+        $this->equipe = $this->EquipeOrm->pegarUuidPeloId($this->id_usuario_equipe);
+        $this->categoria_lista = $this->converterCategoriaEm('indice');
+    }
+
+    private function converterCategoriaEm(string $tipo): array
+    {
+        if (!$this->pExiste('categoria_lista') || empty($this->categoria_lista)) {
+            return [];
+        }
+        $Categoria = new Categoria();
+        $lista = [];
+        foreach ($this->categoria_lista as $val) {
+            $lista[] = $Categoria->$tipo($val);
+        }
+        return $lista;
     }
 
     protected function getId()

@@ -238,12 +238,12 @@ final class Where implements WhereInterface
      * @param  string|null $campo       Campo caso ele seja diferente do nome da propriedade
      * @return self
      */
-    public function linha(string $propriedade, string $condicao = '=', string $campo = null): self
+    public function linha(string $propriedade, string $condicao = '=', ?string $campo = null, mixed $valor = null): self
     {
         if (!$this->iniciado($propriedade)) {
             return $this;
         }
-        $valor = $this->Classe->$propriedade;
+        $valor = is_null($valor) ? $this->Classe->$propriedade : $valor;
         if (
             (($valor instanceof StatusInterface || $valor instanceof ModuleInterface) && !$valor->valido()) ||
             empty($valor)
@@ -327,6 +327,30 @@ final class Where implements WhereInterface
         return $this;
     }
 
+    /**
+     * Executa se a propriedade for vazia ou não
+     *
+     * @param  string       $propriedade
+     * @param  boolean      $vazio
+     * @param  Closure|null $callback
+     * @return self
+     */
+    public function seVazio(string $propriedade, bool $vazio = true, Closure $callback = null): self
+    {
+        if (!$this->iniciado($propriedade)) {
+            return $this;
+        }
+
+        $propValor = $this->pegarValor(propriedade: $propriedade);
+
+        if ((empty($propValor) && !$vazio) || (!empty($propValor) && $vazio)) {
+            return $this;
+        }
+
+        $this->executarCallback(callback: $callback);
+        return $this;
+    }
+
     private function seIgualDiferente(string $propriedade, mixed $valor = null, Closure $callback = null, bool $igual = true)
     {
         if (!$this->iniciado($propriedade)) {
@@ -378,6 +402,7 @@ final class Where implements WhereInterface
 
     private function iniciado(string $propriedade): bool
     {
+        $propriedade = explode('.', $propriedade)[0] ?? null;
         if (is_null($propriedade) || !property_exists($this->Classe, $propriedade)) {
             return false;
         }

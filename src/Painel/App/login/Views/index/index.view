@@ -47,6 +47,7 @@
                     attr: ['autocomplete' => 'current-password']
                 );
                 @end
+                <div id="bloco_recaptcha_v2" class="recaptcha"></div>
                 <div class="footer">
                     <button type="button" id="botao_login">FAZER LOGIN</button>
                 </div>
@@ -71,6 +72,7 @@
 
     <form action="/" method="post">
         <input type="hidden" name="RECAPTCHA" id="RECAPTCHA" value="{!!env('RECAPTCHA_PUBLIC', '')!!}">
+        <input type="hidden" name="RECAPTCHA_V2" id="RECAPTCHA_V2" value="{!!env('RECAPTCHA_V2_PUBLIC', '')!!}">
         <input type="hidden" name="GOOGLE_CLIENT_ID" id="GOOGLE_CLIENT_ID" value="{!!env('GOOGLE_CLIENT_ID')!!}">
         <input type="hidden" name="FACEBOOK_APP_ID" id="FACEBOOK_APP_ID" value="{!!env('FACEBOOK_APP_ID')!!}">
         <input type="hidden" name="LINK" id="LINK" value="{!!LINK!!}">

@@ -271,15 +271,20 @@ Object.defineProperty(Object.prototype, 'attr', {
         }
         let retorno = [];
         for (const item of elemento) {
-            if (typeof propriedade == 'string' && valor == undefined) {
+            if (typeof propriedade == 'string' && valor === undefined) {
                 retorno.push(item.getAttribute(propriedade));
-                continue;
-            }
-            if (typeof propriedade == 'string') {
+            } else if (typeof propriedade == 'string' && valor === null) {
+                item.removeAttribute(propriedade);
+            } else if (typeof propriedade == 'string') {
                 item.setAttribute(propriedade, valor);
             } else if (typeof propriedade == 'object') {
                 Object.entries(propriedade).forEach(val => {
-                    item.setAttribute(val[0], val[1]);
+                    const valorTemp = val[1];
+                    if (valorTemp === null) {
+                        item.removeAttribute(val[0]);
+                    } else {
+                        item.setAttribute(val[0], valorTemp);
+                    }
                 });
             }
         }
@@ -301,6 +306,7 @@ Object.defineProperty(Object.prototype, 'evento', {
             if (evento == 'enter') {
                 item.addEventListener('keydown', e => {
                     if (e.key == 'Enter') {
+                        e.preventDefault();
                         callback(e, item);
                     }
                 });
@@ -495,6 +501,20 @@ const limparFormulario = form => {
 | não deixa de ser necessário a validação no backend
 |
 */
+const vazio = item => {
+    if (typeof item === 'undefined' || item === null) {
+        return true;
+    } else if (
+        (typeof item === 'string' && item.length > 0) ||
+        (Array.isArray(item) && item.length > 0) ||
+        (typeof item === 'object' && Object.keys(item).length > 0) ||
+        (typeof item === 'number' && (item > 0 || item < 0)) ||
+        (typeof item === 'boolean' && item === true)
+    ) {
+        return false;
+    }
+    return true;
+};
 const validarInput = bloco => {
     return new Promise(resolve => {
         const lista = bloco.querySelectorAll('.input_obrigatorio');
@@ -703,6 +723,14 @@ const uuid = function () {
 const numeroAleatorio = function (max) {
     return Math.floor(Math.random() * max + 1);
 };
+function gerarId(prefixo) {
+    const chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+    let id = '';
+    for (let i = 0; i < 10; i++) {
+        id += chars[Math.floor(Math.random() * chars.length)];
+    }
+    return prefixo == undefined ? id : prefixo + '_' + id;
+}
 
 const slug = function (string) {
     return string
@@ -789,10 +817,48 @@ const buscarEnderecoPeloCep = (
     inputBairro,
     inputCidade,
     inputEstado,
-    browser
+    browser,
+    botao
 ) => {
-    inputCep.addEventListener('formChange', async () => {
+    if (botao !== undefined) {
+        botao.addEventListener('click', async () => {
+            buscarEnderecoNoBackEnd(
+                inputCep,
+                inputLogradouro,
+                inputNumero,
+                inputBairro,
+                inputCidade,
+                inputEstado,
+                browser
+            );
+        });
+    } else {
+        inputCep.addEventListener('formChange', async () => {
+            buscarEnderecoNoBackEnd(
+                inputCep,
+                inputLogradouro,
+                inputNumero,
+                inputBairro,
+                inputCidade,
+                inputEstado,
+                browser
+            );
+        });
+    }
+
+    const buscarEnderecoNoBackEnd = async (
+        inputCep,
+        inputLogradouro,
+        inputNumero,
+        inputBairro,
+        inputCidade,
+        inputEstado,
+        browser
+    ) => {
         const cep = inputCep.value;
+        if (cep == '') {
+            return;
+        }
         Loading.show();
         const resposta = await ajaxPost(LINK_PADRAO + '/__endereco-cep', { cep }, '');
         Loading.hide();
@@ -821,7 +887,7 @@ const buscarEnderecoPeloCep = (
         } else {
             formValue(inputCidade, '');
         }
-    });
+    };
 };
 
 buscarCidadePeloEstado = async (inputCidade, estado, valor, titulo) => {

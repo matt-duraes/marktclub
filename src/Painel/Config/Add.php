@@ -13,6 +13,7 @@ final class Add
     private int $fieldset;
     private string|int $numeroColuna;
     private string $titulo = '';
+    private bool $abrir = false;
     private array $html = [];
     private array $camposAceitos = [];
     private array $camposObrigatorio = [];
@@ -106,14 +107,51 @@ final class Add
         return $this;
     }
 
-    public function fieldset(string $titulo = '', ?\Closure $callback = null)
+    public function fieldset(string $titulo = '', ?\Closure $callback = null, bool $abrir = false)
     {
         if (is_null($callback)) {
             $this->erroCallback();
         }
         $this->fieldset++;
         $this->titulo = $titulo;
+        $this->abrir = $abrir;
         call_user_func($callback);
+        return $this;
+    }
+
+    public function blocoCheckbox(
+        string $titulo = null,
+        \Closure $callback,
+        string $todos = null,
+        bool $mais = null,
+        string $class = null,
+        string $id = null
+    ) {
+        $html = '<h3>' . $titulo . '</h3>';
+
+        if ($todos) {
+            $class .= ' bloco_checkbox_marcar_todos';
+            $id = uuid();
+            $html .= '
+                <div class="marcar_todas">
+                    <div class="input_checkbox " id="id_' . $id . '">
+                        <input type="checkbox" id="input_' . $id . '" value="">
+                        <label for="input_' . $id . '">' . $todos . '</label>
+                    </div>
+                </div>
+            ';
+        }
+        if ($mais) {
+            $class .= ' bloco_checkbox_mais';
+            $html .= '<div class="botao_mais"><span>Mostrar todos</span></div>';
+        }
+
+        $this->div(
+            callback: $callback,
+            class: !empty($class) ? 'bloco_checkbox_geral ' . $class : 'bloco_checkbox_geral',
+            id: $id,
+            htmlPre: $html
+        );
         return $this;
     }
 
@@ -157,6 +195,31 @@ final class Add
     }
 
     /**
+     * Adiciona um titulo
+     *
+     * @param string      $titulo
+     * @param string|null $campo
+     * @param string|null $acao
+     * @param string|null $permissao
+     */
+    public function titulo(string $titulo, string $campo = null, string $acao = null, string $permissao = null)
+    {
+        $this->html('<h4>' . $titulo . '</h4>', $campo, $acao, $permissao);
+        return $this;
+    }
+
+    /**
+     * Adiciona uma margem
+     *
+     * @param string $tamanho
+     */
+    public function margem(int $tamanho)
+    {
+        $this->html('<div class="margem" style="margin-top: ' . $tamanho . 'px"></div>');
+        return $this;
+    }
+
+    /**
      * Adiciona HTML
      *
      * @param string      $html
@@ -174,20 +237,6 @@ final class Add
             'html'   => $html
         ];
         return $this;
-    }
-
-    public function blocoCheckbox(
-        string $titulo = null,
-        \Closure $callback,
-        string $class = null,
-        string $id = null
-    ) {
-        $this->div(
-            callback: $callback,
-            class: !empty($class) ? 'bloco_checkbox_interno ' . $class : 'bloco_checkbox_interno',
-            id: $id,
-            htmlPre: '<h3>' . $titulo . '</h3>'
-        );
     }
 
     public function div(
@@ -820,6 +869,26 @@ final class Add
         return $this;
     }
 
+    public function arquivoLista(
+        string $name,
+        string $diretorio,
+        ?string $class = null,
+        ?string $id = null,
+        bool $obrigatorio = false,
+        string $acao = null,
+        string $permissao = null
+    ) {
+        $this->adicionarNovoInput([
+            'funcao'       => 'arquivoLista',
+            'name'         => $name,
+            'diretorio'    => $diretorio,
+            'class'        => $class,
+            'id'           => $id,
+            'obrigatorio'  => $obrigatorio,
+        ], $acao, $permissao);
+        return $this;
+    }
+
     public function cep(
         $name,
         string $label = '',
@@ -1180,6 +1249,7 @@ final class Add
             return $this;
         }
         $this->setarTitulo();
+        $this->setarAbrir();
         $this->setarColuna();
 
         if (!in_array($dado['funcao'], ['cor', 'checkbox', 'switch', 'tag', 'indiceValor', 'hidden'])) {
@@ -1203,6 +1273,14 @@ final class Add
         if (!empty($this->titulo)) {
             $this->html[$this->coluna][$this->fieldset]['titulo'] = $this->titulo;
             $this->titulo = '';
+        }
+    }
+
+    private function setarAbrir()
+    {
+        if ($this->abrir) {
+            $this->html[$this->coluna][$this->fieldset]['abrir'] = $this->abrir;
+            $this->abrir = false;
         }
     }
 

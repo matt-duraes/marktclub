@@ -223,8 +223,8 @@ trait CondicaoTrait
         } elseif ($condicao == 'json') {
             $this->ormCondicaoNumero++;
             $numero = 'db_' . $this->ormCondicaoNumero;
-            $this->ormCondicaoValue[$numero] = $valor;
-            return 'JSON_CONTAINS(' . $this->ormMontaNomeCampo($campo) . ', :' . $numero . ')';
+            $this->ormCondicaoValue[$numero] = $this->ormPegarValorJson($valor);
+            return 'JSON_CONTAINS(' . $this->ormMontaNomeCampo($campo) . ', :' . $numero . ', \'' . $this->ormPegarIndiceJson($campo) . '\')';
         } elseif ($condicao == 'like' and is_string($valor)) {
             $this->ormCondicaoNumero++;
             $numero = 'db_' . $this->ormCondicaoNumero;
@@ -246,6 +246,24 @@ trait CondicaoTrait
         );
     }
 
+    private function ormPegarValorJson($valor)
+    {
+        if (is_int($valor)) {
+            return $valor;
+        }
+        return '"' . str_replace('"', '', $valor) . '"';
+    }
+
+    private function ormPegarIndiceJson($indice)
+    {
+        $explode = explode('.', $indice);
+        unset($explode[0]);
+        if (empty($explode)) {
+            return '$';
+        }
+        return '$.' . implode('.', $explode);
+    }
+
     private function ormPegarValorCondicaoReal($valor)
     {
         if ($valor instanceof StatusInterface) {
@@ -260,14 +278,9 @@ trait CondicaoTrait
     {
         if (str_contains($campo, '`') || str_contains($campo, '(')) {
             return $campo;
-        } elseif (!str_contains($campo, '.')) {
-            return '`' . $this->ormTabelaAtual . '`.`' . $campo . '`';
         }
         $explode = explode('.', $campo);
-        $campo = $explode[0];
-        unset($explode[0]);
-        $path = implode('.', $explode);
-        return 'JSON_EXTRACT(`' . $this->ormTabelaAtual . '`.`' . $campo . '`, \'$.' . $path . '\')';
+        return '`' . $this->ormTabelaAtual . '`.`' . $explode[0] . '`';
     }
 
     private function ormConverterCondicaoParaString($dado, $parente = false)

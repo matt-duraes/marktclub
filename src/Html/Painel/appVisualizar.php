@@ -16,7 +16,7 @@ foreach ($config->visualizar->html as $coluna) {
     } else {
         foreach ($coluna as $fieldset) {
             if (array_key_exists('titulo', $fieldset)) {
-                painelFieldset($fieldset['titulo'] ?? null);
+                painelFieldset($fieldset['titulo'] ?? null, $fieldset['abrir'] ?? false);
             }
             painelLinhaLista($fieldset['lista'], $r, $config->visualizar->replace);
             if (array_key_exists('titulo', $fieldset)) {

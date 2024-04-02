@@ -45,7 +45,7 @@ $scope = [
 
     'endereco:salvar', 'endereco:atualizar', 'endereco:listar', 'endereco:buscar', 'endereco:deletar',
 
-    'contato:listar',
+    'contato:buscar', 'contato:listar', 'contato:salvar', 'contato:atualizar', 'contato:deletar',
 
     'parceiro_relatorio:salvar', 'parceiro_relatorio:atualizar', 'parceiro_relatorio:listar',
     'parceiro_relatorio:buscar', 'parceiro_relatorio:deletar',
@@ -56,7 +56,8 @@ $scope = [
     'parceiro_easylive:salvar', 'parceiro_easylive:atualizar', 'parceiro_easylive:listar',
     'parceiro_easylive:buscar', 'parceiro_easylive:deletar',
 
-    'parceiro_loja:listar', 'parceiro_loja:buscar', 'parceiro_loja:relacionado',
+    'parceiro_loja:listar', 'parceiro_loja:buscar', 'parceiro_loja:salvar', 'parceiro_loja:atualizar',
+    'parceiro_loja:deletar', 'parceiro_loja:relacionado',
 
     'parceiro_subcategoria:listar',
 
