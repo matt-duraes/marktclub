@@ -1327,9 +1327,13 @@ Route
                 '!contato_whatsapp', '!link_site', '!link_alias', '!link_bloqueado', '!texto_descricao', '!texto_desconto',
                 '!texto_procedimento', '!texto_voucher', '!categoria_principal', '!categoria_lista', '!subcategoria_tag',
                 '!subcategoria_lista', '!empresa', '!destaque', '!endereco_estado', '!pontuacao', '!confirmar_status',
-                '!confirmar_titulo', '!confirmar_texto', '!arquivo_painel', '!arquivo_clube'
+                '!confirmar_titulo', '!confirmar_texto', '!arquivo_painel', '!arquivo_clube', '!status'
             ])
             ::put('/parceiro-loja/{id}');
+        Route
+            ::nome('deletar')
+            ::middleware(TokenMiddleware::class, 'scope', ['parceiro_loja:deletar'])
+            ::delete('/parceiro-loja/{id}');
         Route
             ::nome('auditoria')
             ::middleware(TokenMiddleware::class, 'scope', ['parceiro_loja:atualizar'])

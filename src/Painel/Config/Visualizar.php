@@ -345,6 +345,31 @@ final class Visualizar
         return $this;
     }
 
+    /**
+     * Coloca uma bola com a imagem do usuário
+     *
+     * @param string|null $nome      Nome do campo que deve aparecer
+     * @param string|null $permissao Se precisa de uma permissão
+     */
+    public function equipe(?string $nome = null, ?string $permissao = null)
+    {
+        $this->adicionarCampo('equipe', [
+            'funcao' => 'equipe',
+            'campo'  => 'equipe',
+            'nome'   => $nome
+        ], $permissao);
+        return $this;
+    }
+
+    public function linhaTempo(string $principal)
+    {
+        $this->adicionarCampo('', [
+            'funcao'           => 'linha_tempo',
+            'localPrincipal'   => $principal
+        ]);
+        return $this;
+    }
+
     public function contato(string $principal, string $secundario)
     {
         $this->adicionarCampo('', [
@@ -393,14 +418,16 @@ final class Visualizar
         ?string $id = null,
         ?string $link = null,
         ?string $target = null,
-        ?string $permissao = null
+        ?string $permissao = null,
+        array $attr = []
     ) {
         $this->adicionarCampo($campo, [
             'funcao' => 'botao',
             'texto'  => $texto,
             'id'     => $id,
             'link'   => $link,
-            'target' => $target
+            'target' => $target,
+            'attr'   => $attr
         ], $permissao);
         return $this;
     }

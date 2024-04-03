@@ -7,6 +7,7 @@ use stdClass;
 use Where\Where;
 use Erro\Excecao;
 use Modules\Pagina;
+use Helpers\OrmHelper;
 use Modules\Quantidade;
 use System\Trait\Model\WhereTrait;
 use System\Trait\Model\PaginaTrait;
@@ -32,9 +33,10 @@ final class Listar extends ORM
     {
         $dado = $this
             ->campo([
-                'uuid', 'titulo', 'data_criacao'
+                'uuid', 'id_usuario_equipe', 'indice', 'mensagem', 'data_criacao'
             ])
             ->where($this->pegarWhere(), obrigatorio: false)
+            ->pagina($this->pegarPagina(), $this->pegarQuantidade())
             ->order('id', 'DESC')
             ->read();
 
@@ -43,6 +45,7 @@ final class Listar extends ORM
         }
 
         $dado->lista = $this->montarRetorno($dado->lista);
+        return $dado;
     }
 
     private function pegarWhere(): Where
@@ -51,18 +54,26 @@ final class Listar extends ORM
         $Where
             ->linha('local_principal')
             ->linha('vinculo', campo: 'id_vinculo')
-            ->linha('titulo', 'like%%');
+            ->linha('indice')
+            ->linha('mensagem', 'like%%');
         return $Where;
     }
 
     private function montarRetorno(array $dado): array
     {
         $retorno = [];
+        $equipeLista = [];
+        $Equipe = new OrmHelper(TABELA_USUARIO_EQUIPE);
         foreach ($dado as $r) {
+            if (!array_key_exists($r->id_usuario_equipe, $equipeLista)) {
+                $equipeLista[$r->id_usuario_equipe] = $Equipe->pegarUuidPeloId($r->id_usuario_equipe);
+            }
             $retorno[] = [
-                'id'        => $r->uuid,
-                'titulo'    => $r->titulo,
-                'data'      => $r->data_criacao,
+                'id'       => $r->uuid,
+                'equipe'   => $equipeLista[$r->id_usuario_equipe],
+                'indice'   => $r->indice,
+                'mensagem' => $r->mensagem,
+                'data'     => $r->data_criacao,
             ];
         }
         return $retorno;

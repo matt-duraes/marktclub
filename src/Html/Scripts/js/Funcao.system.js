@@ -312,6 +312,14 @@ Object.defineProperty(Object.prototype, 'evento', {
                 });
                 continue;
             }
+            if (evento == 'target') {
+                item.addEventListener('click', e => {
+                    if (e.target == this) {
+                        callback(e, item);
+                    }
+                });
+                continue;
+            }
             item.addEventListener(evento, e => {
                 callback(e, item);
             });

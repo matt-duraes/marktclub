@@ -16,6 +16,7 @@ use System\Interface\ControllerBuscarInterface;
 use System\Interface\ControllerListarInterface;
 use System\Interface\ControllerSalvarInterface;
 use System\Interface\ControllerSelectInterface;
+use System\Interface\ControllerDeletarInterface;
 use App\Models\Api\ParceiroLoja\RelacionadoModel;
 use System\Interface\ControllerAtualizarInterface;
 use App\Models\Api\ParceiroLoja\Auditoria\OptionModel;
@@ -26,7 +27,8 @@ final class ParceiroLojaController extends Controller implements
     ControllerBuscarInterface,
     ControllerSelectInterface,
     ControllerSalvarInterface,
-    ControllerAtualizarInterface
+    ControllerAtualizarInterface,
+    ControllerDeletarInterface
 {
     public function getSelect(Request $request): Response
     {
@@ -105,6 +107,15 @@ final class ParceiroLojaController extends Controller implements
         $Loja->uuid($id);
         $Loja->set(lista: $request->dado());
         $Loja->salvar();
+
+        return new Response(status: 204);
+    }
+
+    public function deleteDeletar(string $id): Response
+    {
+        $Loja = new LojaEntity();
+        $Loja->uuid($id);
+        $Loja->destruir();
 
         return new Response(status: 204);
     }

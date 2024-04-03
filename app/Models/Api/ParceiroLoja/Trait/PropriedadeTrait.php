@@ -74,6 +74,7 @@ trait PropriedadeTrait
     public string $confirmar_titulo;
     public string $confirmar_texto;
     public Data $data_auditoria;
+    public Data $data_publicacao;
     public Status $status;
     public ArquivoPrivadoLista $arquivo_clube;
     public ArquivoPrivadoLista $arquivo_painel;

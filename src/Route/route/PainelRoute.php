@@ -3,6 +3,7 @@
 use Route\Route;
 use App\Middlewares\AuthMiddleware;
 use PainelController\AppController;
+use PainelController\DataController;
 use PainelController\UploadController;
 use PainelController\EnderecoController;
 use PainelController\HistoricoController;
@@ -110,6 +111,15 @@ Route
         Route::action('renomear')::rotaNaoUnica()::request(['grupo_atual', 'grupo_inicial', 'id', 'nome'])::post('/upload/renomear');
         Route::action('editar')::rotaNaoUnica()::request(['id', 'tipo', 'nome', 'largura', 'altura', 'corte_largura', 'corte_altura', 'x', 'y'])::post('/upload/editar');
         Route::action('deletar')::rotaNaoUnica()::request(['grupo_atual', 'grupo_inicial', 'id'])::post('/upload/deletar');
+    }, true)
+
+    // HISTORICO
+    ::controller(DataController::class)::grupo(function () {
+        Route
+            ::nome('listar')
+            ::rotaNaoUnica()
+            ::request(['vinculo', 'local_principal', 'pagina'])
+            ::post('/sistema-data/buscar-lista');
     }, true)
 
     // HISTORICO

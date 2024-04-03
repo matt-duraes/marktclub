@@ -28,7 +28,7 @@ final class LojaEntity extends Entity
         'texto_procedimento', 'texto_voucher', 'categoria_principal', 'categoria_lista', 'subcategoria_tag',
         'subcategoria_lista', 'id_admin_empresa', 'destaque', 'endereco_estado', 'pontuacao',
         'prazo_voucher', 'prazo_voucher_fixo', 'data_auditoria', 'confirmar_status', 'confirmar_titulo',
-        'confirmar_texto', 'arquivo_painel', 'arquivo_clube', 'status'
+        'confirmar_texto', 'arquivo_painel', 'arquivo_clube', 'data_publicacao', 'status'
     ];
     protected array $ormSalvar = [
         'nome_fantasia', 'razao_social', 'tipo_juridico', 'documento_cpf', 'documento_cnpj', 'titulo_interno',
@@ -40,7 +40,7 @@ final class LojaEntity extends Entity
         'texto_procedimento', 'texto_voucher', 'categoria_principal', 'categoria_lista', 'subcategoria_tag',
         'subcategoria_lista', 'id_admin_empresa', 'destaque', 'endereco_estado', 'pontuacao',
         'prazo_voucher', 'prazo_voucher_fixo', 'data_auditoria', 'confirmar_status', 'confirmar_titulo',
-        'confirmar_texto', 'arquivo_painel', 'arquivo_clube', 'status'
+        'confirmar_texto', 'arquivo_painel', 'arquivo_clube', 'data_publicacao', 'status'
     ];
     private OrmHelper $EmpresaOrm;
     private OrmHelper $EquipeOrm;
@@ -65,8 +65,14 @@ final class LojaEntity extends Entity
     protected function regraUpdate()
     {
         $this->id_usuario_equipe = $this->EquipeOrm->pegarIdPeloUuid($this->equipe);
-        if ($this->prop('status') != Status::CONCLUIDO && $this->status == Status::CONCLUIDO) {
+
+        $statusInicial = (new Status($this->prop('status')))->indice();
+        $statusAtual = $this->status->indice();
+        if ($statusInicial != Status::CONCLUIDO && $statusAtual == Status::CONCLUIDO) {
             $this->data_auditoria = new Data(hoje());
+        }
+        if ($statusInicial == Status::PROSPECCAO && $statusAtual == Status::CONCLUIDO) {
+            $this->data_publicacao = new Data(hoje());
         }
     }
 
@@ -82,24 +88,38 @@ final class LojaEntity extends Entity
 
     protected function regraPosInsert()
     {
-        $this->sistemaData('Loja cadastrada');
+        $this->sistemaData('Loja cadastrada', 'novo');
     }
 
     protected function regraPosUpdate()
     {
-        $statusInicial = $this->prop('status');
-        $statusAtual = $this->status->numero();
-        if ($statusInicial == $statusAtual) {
-            return;
+        $statusInicial = (new Status($this->prop('status')))->indice();
+        $statusAtual = $this->status->indice();
+        if ($statusInicial != $statusAtual) {
+            $this->salvarMudancaStatus($statusInicial, $statusAtual);
         }
+    }
+
+    private function salvarMudancaStatus($statusInicial, $statusAtual)
+    {
+        $statusGeral = $statusInicial . '_' . $statusAtual;
         $mensagem = [
-            Status::CANCELADO     => 'A loja cancelada',
-            Status::CONCLUIDO     => 'Prospecção finalizada e publicada',
-            Status::PROBLEMA      => 'Houve um problema com a loja',
-            Status::PROSPECCAO    => 'Foi recolocada em prospecção',
-            Status::SEM_INTERESSE => 'Não teve interessem'
+            Status::PROSPECCAO . '_' . Status::CONCLUIDO     => 'Loja foi publicada',
+            Status::PROBLEMA . '_' . Status::CONCLUIDO       => 'Problema foi corrigido',
+            Status::CONCLUIDO . '_' . Status::PROBLEMA       => 'Loja com problema',
+            Status::CONCLUIDO . '_' . Status::CANCELADO      => 'Loja publicada foi cancelada',
+            Status::PROBLEMA . '_' . Status::CANCELADO       => 'Loja com problema foi cancelada',
+            Status::PROSPECCAO . '_' . Status::SEM_INTERESSE => 'Loja não teve interrese',
+            Status::CANCELADO . '_' . Status::PROSPECCAO     => 'Loja cancelada voltou a prospecção',
+            Status::SEM_INTERESSE . '_' . Status::PROSPECCAO => 'Loja sem interesse voltou a prospecção',
+            Status::CANCELADO                                => 'A loja foi cancelada',
+            Status::CONCLUIDO                                => 'Loja foi publicada',
+            Status::PROBLEMA                                 => 'Houve um problema com a loja',
+            Status::PROSPECCAO                               => 'Foi recolocada em prospecção',
+            Status::SEM_INTERESSE                            => 'Não teve interessem'
         ];
-        $this->sistemaData($mensagem[$this->status->indice()]);
+        $indice = $this->status->indice();
+        $this->sistemaData($mensagem[$statusGeral] ?? $mensagem[$indice], $statusGeral);
     }
 
     protected function regraPosBuscar()

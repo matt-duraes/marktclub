@@ -224,7 +224,6 @@ final class AppController extends PadraoController
         } elseif (!in_array($request->status, $config->visualizar->status)) {
             mensagemErro('Status inválido!', 'O valor do status não é um valor permitido.');
         }
-
         $Api = new ApiHelper(token: true);
         $dado = $Api
             ->validar(login: true)
