@@ -72,6 +72,9 @@ function gerarImagem($path, $largura, $altura, bool $cortar = false)
         }
 
         header('Content-Type: image/png');
+        header('Expires: ' . gmdate('D, d M Y H:i:s', time() + 86400) . ' GMT');
+        header('Cache-Control: max-age=86400');
+        header('Pragma: cache');
         if ($cortar) {
             imagepng($imagemCortada);
         } else {
