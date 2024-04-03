@@ -14,11 +14,13 @@ final class IndexModel implements
 {
     public function filtro(array $filtro): array
     {
-        $filtro['tipo_loja'] = TipoLoja::LOJA;
+        if (!array_key_exists('tipo_loja', $filtro)) {
+            $filtro['tipo_loja'] = TipoLoja::LOJA;
+        }
         if (!array_key_exists('ordem', $filtro)) {
             $filtro['ordem'] = Ordem::PAINEL;
         }
-        if (!array_key_exists('equipe', $filtro)) {
+        if (!array_key_exists('equipe', $filtro) && sessao('USUARIO.gerente') != 'sim') {
             $filtro['equipe'] = sessao('USUARIO.id');
         }
         return $filtro;

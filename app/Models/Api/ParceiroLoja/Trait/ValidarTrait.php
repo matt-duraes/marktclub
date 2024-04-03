@@ -28,18 +28,19 @@ trait ValidarTrait
             tipo_loja|Tipo de loja|obrigatorio|vazio|valido
             url|URL|obrigatorio|vazio
             id_usuario_equipe|Equipe|obrigatorio|vazio
+            empresa|Empresa|obrigatorio|vazio
+            categoria_principal|Categoria Principal|obrigatorio|vazio|valido
         ';
     }
 
     private function validarConcluido()
     {
         $this->ormValidarSalvar .= '
+            titulo|Título para o clube|obrigatorio|vazio
             imagem_logo|Imagem do logo|obrigatorio|vazio|valido
             texto_descricao|Texto da descrição|obrigatorio|vazio
             texto_desconto|Texto do desconto|obrigatorio|vazio
             texto_procedimento|Texto do procedimento|obrigatorio|vazio
-            categoria_principal|Categoria principal|obrigatorio|vazio|valido
-            empresa|Empresa|obrigatorio|vazio
             desconto|Desconto curto|obrigatorio|vazio
         ';
     }

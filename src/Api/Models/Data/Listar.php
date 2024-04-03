@@ -1,6 +1,6 @@
 <?php
 
-namespace ApiModel\Contato;
+namespace ApiModel\Data;
 
 use ORM\ORM;
 use stdClass;
@@ -12,7 +12,7 @@ use System\Trait\Model\WhereTrait;
 use System\Trait\Model\PaginaTrait;
 use System\Trait\Model\QuantidadeTrait;
 
-final class DataModel extends ORM
+final class Listar extends ORM
 {
     use PaginaTrait;
     use QuantidadeTrait;

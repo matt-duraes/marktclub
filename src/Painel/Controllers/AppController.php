@@ -264,7 +264,8 @@ final class AppController extends PadraoController
                 'config'    => $config,
                 'acao'      => 'add',
                 'request'   => $request,
-                'appVoltar' => !empty($config->add->link) ? [$config->add->link, ''] : ''
+                'appVoltar' => !empty($config->add->link) ? [$config->add->link, ''] : '',
+                'status'    => ''
             ],
             css: $config->add->css,
             js: $config->add->js,

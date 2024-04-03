@@ -7,6 +7,7 @@ use Modules\Data;
 use Helpers\OrmHelper;
 use App\Classes\ParceiroLoja\Status;
 use App\Classes\ParceiroLoja\Categoria;
+use App\Models\Api\Trait\SistemaDataTrait;
 use App\Models\Api\ParceiroLoja\Trait\ValidarTrait;
 use App\Models\Api\ParceiroLoja\Trait\PropriedadeTrait;
 
@@ -14,6 +15,7 @@ final class LojaEntity extends Entity
 {
     use PropriedadeTrait;
     use ValidarTrait;
+    use SistemaDataTrait;
 
     protected string $ormTabela = TABELA_PARCEIRO_LOJA;
     protected array $ormBuscar = [
@@ -74,6 +76,30 @@ final class LojaEntity extends Entity
         $this->id_admin_empresa = $this->EmpresaOrm->mudarListaUuidParaId($this->empresa);
         $this->destaque = $this->EmpresaOrm->mudarListaUuidParaId($this->destaque);
         $this->categoria_lista = $this->converterCategoriaEm('numero');
+        $this->validarCampoDuplicado('url', 'url');
+        $this->validarCampoDuplicado('titulo_interno', 'Título do painel');
+    }
+
+    protected function regraPosInsert()
+    {
+        $this->sistemaData('Loja cadastrada');
+    }
+
+    protected function regraPosUpdate()
+    {
+        $statusInicial = $this->prop('status');
+        $statusAtual = $this->status->numero();
+        if ($statusInicial == $statusAtual) {
+            return;
+        }
+        $mensagem = [
+            Status::CANCELADO     => 'A loja cancelada',
+            Status::CONCLUIDO     => 'Prospecção finalizada e publicada',
+            Status::PROBLEMA      => 'Houve um problema com a loja',
+            Status::PROSPECCAO    => 'Foi recolocada em prospecção',
+            Status::SEM_INTERESSE => 'Não teve interessem'
+        ];
+        $this->sistemaData($mensagem[$this->status->indice()]);
     }
 
     protected function regraPosBuscar()
