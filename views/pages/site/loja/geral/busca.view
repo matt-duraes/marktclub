@@ -28,7 +28,7 @@
                     @? formSelect(name: 'cidade', placeholder: 'Cidade', label: 'Cidade', class: 'busca_cidade', lista: ['' => 'Escolha um estado primeiro'], value: $Busca->cidade ?? '')
                     @? formSelect(name: 'categoria', placeholder: 'Categoria', label: 'Categoria', class: 'busca_categoria', lista: (new App\Classes\ParceiroLoja\Categoria)->select('Escolha uma categoria'), change: 'mudarCategoria', value: $Busca->categoria ?? '', id: 'bloco_input_categoria')
                     @? formSelect(name: 'subcategoria', placeholder: 'Subcategoria', label: 'Subcategoria', class: 'busca_tag', lista: ['' => 'Escolha uma categoria'], value: $Busca->subcategoria ?? '')
-                    @? formSelect(name: 'estabelecimento', placeholder: 'Tipo de estabelecimento', class: 'busca_estabelecimento', label: 'Tipo', lista: (new App\Classes\ParceiroLoja\Estabelecimento)->select('Escolha um tipo'), value: $Busca->estabelecimento ?? '')
+                    @? formSelect(name: 'estabelecimento', placeholder: 'Tipo de estabelecimento', class: 'busca_estabelecimento', label: 'Tipo', lista: (new App\Classes\ParceiroLoja\TipoEstabelecimento)->select('Escolha um tipo'), value: $Busca->estabelecimento ?? '')
                 </fieldset>
                 <fieldset>
                     @? formInput(name: 'pesquisa', placeholder: 'Busque por um convênio', label: 'Pesquisa', class: 'busca_pesquisa', value: $Busca->pesquisa ?? '', id: 'bloco_input_pesquisa')

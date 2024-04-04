@@ -6,7 +6,7 @@ use Http\Request;
 use Http\Response;
 use Modules\Quantidade;
 use Controller\Controller;
-use App\Classes\ParceiroLoja\Tipo;
+use App\Classes\ParceiroLoja\TipoLoja;
 use App\Classes\ParceiroLoja\Categoria;
 use App\Models\Api\ParceiroLoja\LojaModel;
 use App\Models\Api\ParceiroLoja\LojaEntity;
@@ -34,7 +34,7 @@ final class ParceiroLojaController extends Controller implements
     {
         $Parceiro = new SelectModel(
             titulo: $request->titulo,
-            tipo: new Tipo($request->tipo)
+            tipo: new TipoLoja($request->tipo)
         );
         return mensagemSucesso($Parceiro->listarDados());
     }

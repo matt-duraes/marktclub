@@ -240,10 +240,11 @@ final class Where implements WhereInterface
      */
     public function linha(string $propriedade, string $condicao = '=', ?string $campo = null, mixed $valor = null): self
     {
-        if (!$this->iniciado($propriedade)) {
+        if (empty($valor) && !$this->iniciado($propriedade)) {
             return $this;
         }
         $valor = is_null($valor) ? $this->Classe->$propriedade : $valor;
+
         if (
             (($valor instanceof StatusInterface || $valor instanceof ModuleInterface) && !$valor->valido()) ||
             empty($valor)

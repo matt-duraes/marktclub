@@ -4,7 +4,6 @@ namespace App\Models\Api\Automovel\Modelo;
 
 use App\Classes\Geral\Publicado;
 use App\Classes\Geral\Status;
-use App\Classes\ParceiroLoja\Procedimento;
 use App\Classes\ParceiroLoja\Status as StatusParceiro;
 use App\Models\Api\Automovel\Versao\VersaoModel;
 use Erro\Erro;

@@ -7,7 +7,6 @@ use Modules\Dinheiro;
 use Helpers\MarkdownHelper;
 use App\Classes\Geral\Status;
 use App\Helpers\ClubeApiHelper;
-use App\Classes\ParceiroLoja\Procedimento;
 
 final class BuscarModel extends ClubeApiHelper
 {
