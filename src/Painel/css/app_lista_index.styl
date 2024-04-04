@@ -364,17 +364,44 @@
 #bloco_app_filtrar
 #bloco_app_filtrar .header_pagina_popup
     max-width: 500px
+    h2
+        texto()
+        margin: 10px 0 5px
+        color: #666
+        font-weight: bold
     .bloco_row
         width: 100%
+        position: relative
         display: flex
         flex-direction: row
         justify-content: space-between
-    .bloco_row .bloco_input
+    .bloco_row.bloco_row_normal > *
         flex-grow: 1
         flex-basis: 0%
         margin-right: 20px
-    .bloco_row .bloco_input:last-child
+    .bloco_row.bloco_row_normal > *:last-child
         margin-right: 0
+    .bloco_row.bloco_row_quebra
+        flex-wrap: wrap
+    .bloco_row.bloco_row_quebra > *
+        margin-top: 10px
+    .bloco_row.bloco_row_1 > *
+        width: 100%
+    .bloco_row.bloco_row_2 > *
+        width: calc(50% - 10px)
+    .bloco_row.bloco_row_3 > *
+        width: calc((100% / 3) - 10px)
+    .bloco_row.bloco_row_mais
+        max-height: 200px
+        overflow: hidden
+    .bloco_botao
+        width: 100% !important
+        position: absolute
+        width: 100%
+        bottom: 0
+        z-index: 2
+        background-color: #f00
+        flexCenter()
 
 #bloco_app_download
     max-width: 700px

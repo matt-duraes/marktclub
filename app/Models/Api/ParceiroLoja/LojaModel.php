@@ -120,6 +120,7 @@ class LojaModel extends ORM implements ModelListarInterface
         $where = $this->idEmpresa == 1 ? [] : [
             ['id_admin_empresa', 'json', $this->idEmpresa]
         ];
+
         $Where = new Where($this, $where);
         $Where
             ->linha(propriedade: 'tipo_loja')
@@ -132,15 +133,16 @@ class LojaModel extends ORM implements ModelListarInterface
             })
             ->seVazio(propriedade: 'subcategoria', vazio: false, callback: function () use ($Where) {
                 $tag = $this->pegarIdSubCategoria();
-                $Where->linha(propriedade: 'subcategoria_lista', condicao: 'like%%', valor: $tag);
+                $Where->linha(propriedade: 'subcategoria_lista', condicao: 'json', valor: $tag);
             })
             ->seVazio(propriedade: 'pesquisa', vazio: false, callback: function () use ($Where) {
                 $pesquisa = $this->pesquisa;
                 $Where->manual([
                     'OR',
-                    ['titulo', 'like', '%' . $pesquisa . '%'],
-                    ['subcategoria_tag', 'like', '%' . $pesquisa . '%']
+                    ['titulo', 'like%%', $pesquisa],
+                    ['subcategoria_tag', 'like%%', $pesquisa]
                 ]);
+                // SELECT * FROM tabela WHERE JSON_EXTRACT(uf, '$.0') LIKE '%Grande%';
             })
             ->linha('equipe', campo: 'id_usuario_equipe', valor: $this->pegarIdEquipe())
             ->linha('tipo_estabelecimento')
@@ -149,6 +151,7 @@ class LojaModel extends ORM implements ModelListarInterface
                 $Where->linha(propriedade: 'id', condicao: 'in', valor: $this->idMaisAcessado);
             })
             ->linha('endereco_estado', 'json')
+            // SELECT * FROM tabela WHERE JSON_CONTAINS(uf, "DF") OR JSON_CONTAINS(uf, "MA");
             ->linha('status');
 
         return $Where;

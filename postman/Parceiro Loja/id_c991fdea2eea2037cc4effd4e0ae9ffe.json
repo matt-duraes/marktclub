@@ -1,0 +1,1 @@
+{"id":"id_c991fdea2eea2037cc4effd4e0ae9ffe","token":"painel","metodo":"DELETE","nome":"\/parceiro-loja\/:id","uri":"{{LINK}}\/parceiro-loja\/$PARCEIRO_ID","parametro":[],"body":[],"header":[],"variavel":[],"json":[],"documentacao":{"status":false,"descricao":"","requisicao":"","resposta":"","scope":"parceiro_loja:deletar"}}

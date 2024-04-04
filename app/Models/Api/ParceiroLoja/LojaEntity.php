@@ -44,6 +44,7 @@ final class LojaEntity extends Entity
     ];
     private OrmHelper $EmpresaOrm;
     private OrmHelper $EquipeOrm;
+    private string $statusInicial;
 
     public function __construct()
     {
@@ -74,6 +75,8 @@ final class LojaEntity extends Entity
         if ($statusInicial == Status::PROSPECCAO && $statusAtual == Status::CONCLUIDO) {
             $this->data_publicacao = new Data(hoje());
         }
+
+        $this->statusInicial = $statusInicial;
     }
 
     protected function regraSalvar()
@@ -93,7 +96,7 @@ final class LojaEntity extends Entity
 
     protected function regraPosUpdate()
     {
-        $statusInicial = (new Status($this->prop('status')))->indice();
+        $statusInicial = $this->statusInicial;
         $statusAtual = $this->status->indice();
         if ($statusInicial != $statusAtual) {
             $this->salvarMudancaStatus($statusInicial, $statusAtual);

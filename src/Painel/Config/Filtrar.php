@@ -48,13 +48,44 @@ final class Filtrar
         return $this->replace;
     }
 
-    public function bloco(?\Closure $callback)
-    {
+    /**
+     * Cria um bloco para agrupar elementos
+     *
+     * @param \Closure|null $callback Callback
+     * @param integer|null  $coluna   Numero de elementos (até 3) por linha, se null, não quebra linha
+     * @param string|null   $titulo   Título para o bloco
+     * @param bool          $mais     Se vai ter botão de abrir
+     * @param string        $todos    Se vai ter campo de marcar todos quando for checkbox
+     */
+    public function bloco(
+        ?\Closure $callback,
+        ?int $coluna = null,
+        ?string $titulo = null,
+        bool $mais = false,
+        string $todos = ''
+    ) {
         if (is_null($callback)) {
             mensagemErro('Erro!', 'Você precisa passar uma função para o bloco.');
         }
-        $this->html['input'][] = ['funcao' => 'html', 'html' => '<div class="bloco_row">'];
+        $classe = is_null($coluna) || $coluna > 3 ? 'bloco_row_normal' : 'bloco_row_quebra bloco_row_' . $coluna;
+        $titulo = !empty($titulo) ? '<h2>' . preg_replace('/\:{1,}$/', '', $titulo) . ':</h2>' : '';
+        if ($mais) {
+            $classe .= ' bloco_row_mais';
+        }
+        $this->html['input'][] = ['funcao' => 'html', 'html' => $titulo . '<div class="bloco_row ' . $classe . '">'];
+        if ($todos) {
+            $todosId = uuid();
+            $this->html['input'][] = ['funcao' => 'html', 'html' => '
+                <div class="input_checkbox botao_filtrar_marcar_todos">
+                    <input type="checkbox" id="input_todos_' . $todosId . '" value="">
+                    <label for="input_todos_' . $todosId . '">' . $todos . '</label>
+                </div>
+            '];
+        }
         call_user_func($callback);
+        if ($mais) {
+            $this->html['input'][] = ['funcao' => 'html', 'html' => '<div class="bloco_botao"><div class="botao_mais">Abrir</div></div>'];
+        }
         $this->html['input'][] = ['funcao' => 'html', 'html' => '</div>'];
         return $this;
     }

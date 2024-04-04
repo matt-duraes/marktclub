@@ -4,6 +4,7 @@ namespace Painel\ParceiroLoja\Models;
 
 use stdClass;
 use App\Classes\ParceiroLoja\Ordem;
+use App\Classes\ParceiroLoja\Status;
 use App\Classes\ParceiroLoja\TipoLoja;
 use System\Interface\PainelIndexFiltroInterface;
 use System\Interface\PainelIndexRetornoInterface;
@@ -30,9 +31,13 @@ final class IndexModel implements
     {
         $retorno = [];
         foreach ($dado->dado->lista as $r) {
-            $r->data_auditoria = !empty($r->data_auditoria)
+            $auditoria = '-';
+            if($r->status == Status::CONCLUIDO) {
+                $auditoria = !empty($r->data_auditoria)
                 ? dataBr($r->data_auditoria) . ' - ' . dataDiferencaDia($r->data_auditoria, hoje()) . ' dias'
                 : 'Sem auditoria';
+            }
+            $r->data_auditoria = $auditoria;
             $retorno[] = $r;
         }
         $dado->dado->lista = $retorno;

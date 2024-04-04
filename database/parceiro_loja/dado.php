@@ -335,7 +335,7 @@ return [
         'uuid'                => '6d471c10c64769234ec6b5c16b61c600',
         'categoria_principal' => '1',
         'categoria_lista'     => [1, 2, 3, 4, 5, 6, 7, 8],
-        'titulo_interno'      => 'Parceiro com prazo fixo',
+        'titulo_interno'      => 'Parceiro com prazo fixo 2',
         'url'                 => 'parceiro-prazo-fixo-2',
         'imagem_logo'         => '07eb7a679d7c2696c82ce7401242450f.png',
         'link_site'           => 'https://google.com',
