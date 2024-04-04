@@ -17,15 +17,21 @@ $equipe = (new ApiHelper(token: true))
 
 $Painel
     ->input(name: 'pesquisa', label: 'Pesquisa', placeholder: 'Digite uma pesquisa')
-    ->select(name: 'empresa', label: 'Empresa', lista: 'empresa', permissao: Helper::PERMISSAO_EMPRESA)
-    ->select(name: 'equipe', label: 'Equipe', lista: $equipe)
+    ->bloco(function () use ($Painel, $equipe) {
+        $Painel
+            ->select(name: 'empresa', label: 'Empresa', lista: 'empresa', permissao: Helper::PERMISSAO_EMPRESA)
+            ->select(name: 'equipe', label: 'Equipe', lista: $equipe);
+    })
     ->bloco(function () use ($Painel) {
         $Painel
             ->select(name: 'categoria', label: 'Categoria', placeholder: 'Escolha uma categoria', lista: (new Categoria())->select('Escolha uma opção'))
             ->select(name: 'subcategoria', label: 'Subcategoria', placeholder: 'Escolha uma subcategoria', lista: (new Categoria())->select('Escolha uma opção'));
     })
-    ->select(name: 'tipo_estabelecimento', label: 'Estabelecimento', lista: (new TipoEstabelecimento())->select('Escolha uma opção'))
-    ->select(name: 'tipo_loja', label: 'Tipo de loja', lista: (new TipoLoja())->select('Escolha uma opção'))
+    ->bloco(function () use ($Painel) {
+        $Painel
+            ->select(name: 'tipo_estabelecimento', label: 'Estabelecimento', lista: (new TipoEstabelecimento())->select('Escolha uma opção'))
+            ->select(name: 'tipo_loja', label: 'Tipo de loja', lista: (new TipoLoja())->select('Escolha uma opção'));
+    })
     ->select(
         name: 'status',
         label: 'Status',

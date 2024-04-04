@@ -364,44 +364,90 @@
 #bloco_app_filtrar
 #bloco_app_filtrar .header_pagina_popup
     max-width: 500px
-    h2
-        texto()
-        margin: 10px 0 5px
-        color: #666
-        font-weight: bold
     .bloco_row
         width: 100%
         position: relative
         display: flex
-        flex-direction: row
+        flex-direction: column
+    .bloco_row h2
+        texto()
+        margin: 20px 0 5px
+        color: #666
+        font-weight: bold
+    .bloco_row > .input_checkbox
+        margin-top: 10px
+    .bloco_row .bloco_row_lista
+        width: 100%
+        flexRow()
         justify-content: space-between
-    .bloco_row.bloco_row_normal > *
+    .bloco_row.bloco_row_normal .bloco_row_lista > *
         flex-grow: 1
         flex-basis: 0%
         margin-right: 20px
-    .bloco_row.bloco_row_normal > *:last-child
+    .bloco_row.bloco_row_normal .bloco_row_lista > *:last-child
         margin-right: 0
-    .bloco_row.bloco_row_quebra
+    .bloco_row.bloco_row_quebra .bloco_row_lista
         flex-wrap: wrap
-    .bloco_row.bloco_row_quebra > *
+    .bloco_row.bloco_row_quebra .bloco_row_lista > *
         margin-top: 10px
-    .bloco_row.bloco_row_1 > *
+    .bloco_row .bloco_row_lista.bloco_row_lista_1 > *
         width: 100%
-    .bloco_row.bloco_row_2 > *
+    .bloco_row .bloco_row_lista.bloco_row_lista_2 > *
         width: calc(50% - 10px)
-    .bloco_row.bloco_row_3 > *
+    .bloco_row .bloco_row_lista.bloco_row_lista_3 > *
         width: calc((100% / 3) - 10px)
-    .bloco_row.bloco_row_mais
-        max-height: 200px
+    .bloco_row.bloco_row_mais .bloco_row_lista
+        max-height: 150px
         overflow: hidden
-    .bloco_botao
+        padding-bottom: 30px
+    .bloco_row.bloco_row_mais.bloco_row_mais_aberto .bloco_row_lista
+        max-height: none
+    .bloco_row.bloco_row_mais .botao_filtrar_marcar_todos
+        width: 100%
+        position: relative
+        margin-bottom: 5px
+        padding-bottom: 15px
+        &:after
+            width: 100%
+            max-width: 70px
+            height: 1px
+            content: ""
+            position: absolute
+            bottom: 0
+            left: 0
+            background-color: #eee
+    .bloco_row .bloco_botao
         width: 100% !important
         position: absolute
-        width: 100%
+        height: 30px
         bottom: 0
         z-index: 2
-        background-color: #f00
         flexCenter()
+        background-image: linear-gradient(0deg, #fff, rgba(255, 255, 255, 0.4), rgba(255, 255, 255, 0.8), rgba(255, 255, 255, 0))
+    .bloco_row .bloco_botao .botao_mais
+        height: 30px
+        line-height: 30px
+        text-align: center
+        background-color: $cor
+        color: #fff
+        padding: 0 20px
+        border-radius: 15px
+        cursor: pointer
+    .bloco_row .bloco_botao .botao_mais span
+        font-size: 1.2rem
+    .bloco_row.bloco_row_mais_aberto .bloco_botao .botao_mais
+        background-color: #ccc
+    .bloco_row.bloco_row_mais_aberto .bloco_botao .botao_mais span
+        color: #666
+    .bloco_row .bloco_botao .botao_mais span.abrir
+        display: block
+    .bloco_row .bloco_botao .botao_mais span.fechar
+        display: none
+    .bloco_row.bloco_row_mais_aberto .bloco_botao .botao_mais span.abrir
+        display: none
+    .bloco_row.bloco_row_mais_aberto .bloco_botao .botao_mais span.fechar
+        display: block
+
 
 #bloco_app_download
     max-width: 700px

@@ -296,6 +296,30 @@ Object.defineProperty(Object.prototype, 'attr', {
     writable: true,
     configurable: true,
 });
+Object.defineProperty(Object.prototype, 'marcar', {
+    value(valor) {
+        let elemento = this;
+        let retornoLista = true;
+        if (!(elemento instanceof NodeList)) {
+            retornoLista = false;
+            elemento = [elemento];
+        }
+        let retorno = [];
+        for (const item of elemento) {
+            if (valor === undefined) {
+                retorno.push(item.checked);
+            } else if (typeof valor === 'boolean') {
+                item.checked = valor;
+            }
+        }
+        if (valor == undefined) {
+            return retornoLista ? retorno : retorno[0];
+        }
+        return this;
+    },
+    writable: true,
+    configurable: true,
+});
 Object.defineProperty(Object.prototype, 'evento', {
     value(evento, callback) {
         let elemento = this;

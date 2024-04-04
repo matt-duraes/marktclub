@@ -534,7 +534,7 @@ final class AppController extends PadraoController
                 $lista[$ind] = '';
                 continue;
             }
-            $lista[$ind] = validarData($val) ? dataBanco($val) : $val;
+            $lista[$ind] = is_string($val) && validarData($val) ? dataBanco($val) : $val;
         }
         return new Response(url: LINK . '/app/' . $app . '?filtro=' . base64Encode($lista, true) . $ordem);
     }

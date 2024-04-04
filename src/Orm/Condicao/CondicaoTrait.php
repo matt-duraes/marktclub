@@ -221,10 +221,15 @@ trait CondicaoTrait
                 mensagem: 'Valor do NOT BETWEEN incorreto. (' . $campo . ')'
             );
         } elseif ($condicao == 'json') {
-            $this->ormCondicaoNumero++;
-            $numero = 'db_' . $this->ormCondicaoNumero;
-            $this->ormCondicaoValue[$numero] = $this->ormPegarValorJson($valor);
-            return 'JSON_CONTAINS(' . $this->ormMontaNomeCampo($campo) . ', :' . $numero . ', \'' . $this->ormPegarIndiceJson($campo) . '\')';
+            $valor = !is_array($valor) ? [$valor] : $valor;
+            $retornoJson = [];
+            foreach ($valor as $val) {
+                $this->ormCondicaoNumero++;
+                $numero = 'db_' . $this->ormCondicaoNumero;
+                $this->ormCondicaoValue[$numero] = $this->ormPegarValorJson($val);
+                $retornoJson[] = 'JSON_CONTAINS(' . $this->ormMontaNomeCampo($campo) . ', :' . $numero . ', \'' . $this->ormPegarIndiceJson($campo) . '\')';
+            }
+            return '(' . implode(' AND ', $retornoJson) . ')';
         } elseif ($condicao == 'like' and is_string($valor)) {
             $this->ormCondicaoNumero++;
             $numero = 'db_' . $this->ormCondicaoNumero;

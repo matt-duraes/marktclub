@@ -9,7 +9,6 @@ use Modules\Botao;
 use Modules\Pagina;
 use Helpers\OrmHelper;
 use Modules\Quantidade;
-use Modules\EnderecoEstado;
 use ApiModel\Endereco\RaioModel;
 use System\Trait\Model\OrdemTrait;
 use App\Classes\ParceiroLoja\Ordem;
@@ -52,7 +51,7 @@ class LojaModel extends ORM implements ModelListarInterface
     public Botao $mais_acessado;
     public float $latitude;
     public float $longitude;
-    public EnderecoEstado $endereco_estado;
+    public array $endereco_estado;
     public string $empresa;
 
     public function listarDados(): stdClass
@@ -69,15 +68,15 @@ class LojaModel extends ORM implements ModelListarInterface
             $dado->order($this->pegarOrdem());
         }
 
-        // FAVORITO
-        $dado
-            ->tabela(TABELA_PARCEIRO_FAVORITO)
-            ->campo([['id_parceiro_loja', '!favorito']]);
-        if ($this->pExiste('favorito') && $this->favorito->valor() == $this->favorito::SIM) {
-            $dado->join('id_parceiro_loja', 'id');
-        } else {
-            $dado->leftJoin('id_parceiro_loja', 'id');
-        }
+        // // FAVORITO
+        // $dado
+        //     ->tabela(TABELA_PARCEIRO_FAVORITO)
+        //     ->campo([['id_parceiro_loja', '!favorito']]);
+        // if ($this->pExiste('favorito') && $this->favorito->valor() == $this->favorito::SIM) {
+        //     $dado->join('id_parceiro_loja', 'id');
+        // } else {
+        //     $dado->leftJoin('id_parceiro_loja', 'id');
+        // }
 
         // MAPA
         if (
@@ -136,13 +135,12 @@ class LojaModel extends ORM implements ModelListarInterface
                 $Where->linha(propriedade: 'subcategoria_lista', condicao: 'json', valor: $tag);
             })
             ->seVazio(propriedade: 'pesquisa', vazio: false, callback: function () use ($Where) {
-                $pesquisa = $this->pesquisa;
+                $pesquisa = '%' . $this->pesquisa . '%';
                 $Where->manual([
                     'OR',
-                    ['titulo', 'like%%', $pesquisa],
-                    ['subcategoria_tag', 'like%%', $pesquisa]
+                    ['titulo', 'like', $pesquisa],
+                    ['subcategoria_tag', 'like', $pesquisa]
                 ]);
-                // SELECT * FROM tabela WHERE JSON_EXTRACT(uf, '$.0') LIKE '%Grande%';
             })
             ->linha('equipe', campo: 'id_usuario_equipe', valor: $this->pegarIdEquipe())
             ->linha('tipo_estabelecimento')
@@ -151,9 +149,7 @@ class LojaModel extends ORM implements ModelListarInterface
                 $Where->linha(propriedade: 'id', condicao: 'in', valor: $this->idMaisAcessado);
             })
             ->linha('endereco_estado', 'json')
-            // SELECT * FROM tabela WHERE JSON_CONTAINS(uf, "DF") OR JSON_CONTAINS(uf, "MA");
             ->linha('status');
-
         return $Where;
     }
 

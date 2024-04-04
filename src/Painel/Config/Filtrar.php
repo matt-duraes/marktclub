@@ -67,12 +67,18 @@ final class Filtrar
         if (is_null($callback)) {
             mensagemErro('Erro!', 'Você precisa passar uma função para o bloco.');
         }
-        $classe = is_null($coluna) || $coluna > 3 ? 'bloco_row_normal' : 'bloco_row_quebra bloco_row_' . $coluna;
-        $titulo = !empty($titulo) ? '<h2>' . preg_replace('/\:{1,}$/', '', $titulo) . ':</h2>' : '';
-        if ($mais) {
-            $classe .= ' bloco_row_mais';
+        $classeBloco = 'bloco_row_normal';
+        if (is_int($coluna) && in_array($coluna, [1, 2, 3])) {
+            $classeBloco = 'bloco_row_quebra';
         }
-        $this->html['input'][] = ['funcao' => 'html', 'html' => $titulo . '<div class="bloco_row ' . $classe . '">'];
+        if ($mais) {
+            $classeBloco .= ' bloco_row_mais';
+        }
+
+        $this->html['input'][] = ['funcao' => 'html', 'html' => '<div class="bloco_row ' . $classeBloco . '">'];
+        if (!empty($titulo)) {
+            $this->html['input'][] = ['funcao' => 'html', 'html' => '<h2>' . preg_replace('/\:{1,}$/', '', $titulo) . ':</h2>'];
+        }
         if ($todos) {
             $todosId = uuid();
             $this->html['input'][] = ['funcao' => 'html', 'html' => '
@@ -82,9 +88,17 @@ final class Filtrar
                 </div>
             '];
         }
+
+        $colunaClasse = is_int($coluna) && in_array($coluna, [1, 2, 3]) ? 'bloco_row_lista_' . $coluna : '';
+        $this->html['input'][] = ['funcao' => 'html', 'html' => '<div class="bloco_row_lista ' . $colunaClasse . '">'];
         call_user_func($callback);
+        $this->html['input'][] = ['funcao' => 'html', 'html' => '</div>'];
+
         if ($mais) {
-            $this->html['input'][] = ['funcao' => 'html', 'html' => '<div class="bloco_botao"><div class="botao_mais">Abrir</div></div>'];
+            $this->html['input'][] = [
+                'funcao' => 'html',
+                'html'   => '<div class="bloco_botao"><div class="botao_mais"><span class="abrir">abrir</span><span class="fechar">fechar</span></div></div>'
+            ];
         }
         $this->html['input'][] = ['funcao' => 'html', 'html' => '</div>'];
         return $this;
