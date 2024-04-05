@@ -1312,7 +1312,7 @@ Route
                 'contato_whatsapp', 'link_site', 'link_alias', 'link_bloqueado', 'texto_descricao', 'texto_desconto',
                 'texto_procedimento', 'texto_voucher', 'categoria_principal', 'categoria_lista', 'subcategoria_tag',
                 'subcategoria_lista', 'empresa', 'destaque', 'endereco_estado', 'pontuacao', 'confirmar_status',
-                'confirmar_titulo', 'confirmar_texto', 'arquivo_painel', 'arquivo_clube'
+                'confirmar_titulo', 'confirmar_texto', 'arquivo_painel', 'arquivo_clube', 'cupom_desconto'
             ])
             ::post('/parceiro-loja');
         Route
@@ -1327,7 +1327,8 @@ Route
                 '!contato_whatsapp', '!link_site', '!link_alias', '!link_bloqueado', '!texto_descricao', '!texto_desconto',
                 '!texto_procedimento', '!texto_voucher', '!categoria_principal', '!categoria_lista', '!subcategoria_tag',
                 '!subcategoria_lista', '!empresa', '!destaque', '!endereco_estado', '!pontuacao', '!confirmar_status',
-                '!confirmar_titulo', '!confirmar_texto', '!arquivo_painel', '!arquivo_clube', '!status'
+                '!confirmar_titulo', '!confirmar_texto', '!arquivo_painel', '!arquivo_clube', '!cupom_desconto',
+                '!status'
             ])
             ::put('/parceiro-loja/{id}');
         Route
