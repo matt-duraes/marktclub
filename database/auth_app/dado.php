@@ -52,9 +52,6 @@ $scope = [
     'parceiro_relatorio:salvar', 'parceiro_relatorio:atualizar', 'parceiro_relatorio:listar',
     'parceiro_relatorio:buscar', 'parceiro_relatorio:deletar',
 
-    'parceiro_cashback:salvar', 'parceiro_cashback:atualizar', 'parceiro_cashback:listar',
-    'parceiro_cashback:buscar', 'parceiro_cashback:deletar',
-
     'parceiro_easylive:salvar', 'parceiro_easylive:atualizar', 'parceiro_easylive:listar',
     'parceiro_easylive:buscar', 'parceiro_easylive:deletar',
 
