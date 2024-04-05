@@ -23,7 +23,7 @@ final class SalvarModel
         $this->Parceiro = $this->Option->parceiro;
         $this->salvarAuditoria();
         $this->salvarHistorico();
-        $this->sistemaData('Auditoria realizada', 'auditoria');
+        $this->sistemaData('Auditoria realizada', 'auditoria', $this->Parceiro->id, TABELA_PARCEIRO_LOJA);
     }
 
     private function salvarAuditoria()
