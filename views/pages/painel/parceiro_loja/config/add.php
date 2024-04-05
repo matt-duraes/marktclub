@@ -266,6 +266,7 @@ $Painel->coluna(callback: function () use ($Painel) {
         $Painel->arquivoLista(name: 'arquivo_painel', diretorio: '0493d060-44ba-470b-a0a2-7211ba138d8c');
     });
 });
+
 $Painel->coluna(callback: function () use ($Painel) {
     $Painel->fieldset('Textos', function () use ($Painel) {
         $Painel

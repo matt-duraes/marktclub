@@ -2002,8 +2002,8 @@ if (!function_exists('formArquivoLista')) {
         $blocoId = empty($id) ? 'id_' . md5(uniqid(time())) : $id;
         $blocoClass = empty($class) ? '' : $class;
         $arquivoListaHtml = '';
-        foreach ($value as $id) {
-            $arquivo = arquivoPrivadoDado($id);
+        foreach ($value as $idArquivo) {
+            $arquivo = arquivoPrivadoDado($idArquivo);
             if (!$arquivo) {
                 continue;
             }
@@ -2034,14 +2034,14 @@ if (!function_exists('formArquivoLista')) {
             }
 
             $arquivoListaHtml .= '
-                <div class="fw_form_arquivo_lista_arquivo fw_arquivo_' . $id . ' ' . $classGaleria . '" ' . $attrGaleria . '>
-                    <input type="hidden" name="' . $name . '[]" value="' . $id . '">
+                <div class="fw_form_arquivo_lista_arquivo fw_arquivo_' . $arquivo->id . ' ' . $classGaleria . '" ' . $attrGaleria . '>
+                    <input type="hidden" name="' . $name . '[]" value="' . $arquivo->id . '">
                     <figure ' . $figureBg . '>' . $figureExtensaoHtml . '</figure>
                     ' . $arquivoDownloadHtml . '
                     <i class="fw_form_arquivo_lista_icone fw_form_arquivo_lista_remover">
                         <svg height="19" xmlns="https://www.w3.org/2000/svg" viewBox="0 0 48 48" x="0px" y="0px"><g data-name="Application, Delete"><path d="M13,37a4,4,0,0,0,4,4H31a4,4,0,0,0,4-4V16H13Zm2-19H33V37a2,2,0,0,1-2,2H17a2,2,0,0,1-2-2Zm7,16H20V23h2Zm6,0H26V23h2Zm3.41-23-4-4H20.59l-4,4H9v2H39V11Zm-10-2h5.18l2,2H19.41Z"/></g></svg>
                     </i>
-                    <p class="fw_form_arquivo_lista_arquivo_nome fw_arquivo_nome_' . $id . '">' . $arquivo->nome . '</p>
+                    <p class="fw_form_arquivo_lista_arquivo_nome fw_arquivo_nome_' . $arquivo->id . '">' . $arquivo->nome . '</p>
                 </div>
             ';
         }

@@ -32,7 +32,7 @@ final class IndexModel implements
         $retorno = [];
         foreach ($dado->dado->lista as $r) {
             $auditoria = '-';
-            if($r->status == Status::CONCLUIDO) {
+            if ($r->status == Status::CONCLUIDO) {
                 $auditoria = !empty($r->data_auditoria)
                 ? dataBr($r->data_auditoria) . ' - ' . dataDiferencaDia($r->data_auditoria, hoje()) . ' dias'
                 : 'Sem auditoria';

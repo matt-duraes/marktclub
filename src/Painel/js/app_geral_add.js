@@ -190,8 +190,8 @@ window.addEventListener('load', () => {
         if (arquivoLista && retorno == undefined) {
             for (const bloco of arquivoLista) {
                 const arquivoName = bloco.attr('data-name');
-                if (!body.has(arquivoName)) {
-                    body.append(arquivoName, []);
+                if (!body.has(arquivoName + '[]')) {
+                    body.append(arquivoName, '');
                 }
             }
         }
