@@ -2,7 +2,7 @@
 
 use App\Classes\Geral\Status;
 use App\Classes\SiteConfig\Helper;
-use App\Classes\SiteConfig\Template;
+use App\Classes\SiteConfig\TemplateHeader;
 
 $Painel = new PainelConfig\Add(app: 'site_config', acao: $acao);
 $imagem = sessao('PAINEL.upload_grupo')['site_config'] ?? '';
@@ -47,7 +47,7 @@ $Painel->coluna(callback: function () use ($Painel, $imagem) {
                 name: 'template',
                 label: 'Template',
                 placeholder: 'Escolha um template',
-                lista: (new Template())->select('Escolha uma opção'),
+                lista: (new TemplateHeader())->select('Escolha uma opção'),
                 obrigatorio: true
             )
             ->url(
