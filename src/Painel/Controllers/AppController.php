@@ -316,11 +316,12 @@ final class AppController extends PadraoController
         }
 
         if (array_key_exists('status_sistema', $lista)) {
-            $lista['status'] = base64Decode($lista['status_sistema']);
+            $lista['status'] = $lista['status_sistema'];
             unset($lista['status_sistema']);
         }
 
         $lista = $this->criptografarListaDado($lista, $requestCampo, $config->api->criptografar);
+
         $uri = $config->api->uri;
         if ($acao == 'insert') {
             $Api = new ApiHelper(token: true);
@@ -335,6 +336,7 @@ final class AppController extends PadraoController
                 ->body($lista)
                 ->put($uri . '/' . $request->id);
         }
+
         $dado = $this->validarRetornoApi($dado);
         if ($dado instanceof Response) {
             return $dado;
