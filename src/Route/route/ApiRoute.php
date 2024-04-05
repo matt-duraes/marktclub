@@ -211,3 +211,17 @@ Route
             ::middleware(TokenMiddleware::class, 'scope', ['contato:deletar'])
             ::delete('/contato/{id}');
     });
+
+Route
+    ::nome('data')
+    ::controller(\ApiController\DataController::class)
+    ::middleware(TokenMiddleware::class, 'token')
+    ::grupo(function () {
+        Route
+            ::nome('listar')
+            ::middleware(TokenMiddleware::class, 'scope', ['data:listar'])
+            ::request([
+                '!local_principal', '!vinculo', '!pagina', '!quantidade'
+            ], 'json')
+            ::get('/data');
+    });

@@ -6,7 +6,7 @@ use Http\Request;
 use Http\Response;
 use Modules\Quantidade;
 use Controller\Controller;
-use App\Classes\ParceiroLoja\Tipo;
+use App\Classes\ParceiroLoja\TipoLoja;
 use App\Classes\ParceiroLoja\Categoria;
 use App\Models\Api\ParceiroLoja\LojaModel;
 use App\Models\Api\ParceiroLoja\LojaEntity;
@@ -16,6 +16,7 @@ use System\Interface\ControllerBuscarInterface;
 use System\Interface\ControllerListarInterface;
 use System\Interface\ControllerSalvarInterface;
 use System\Interface\ControllerSelectInterface;
+use System\Interface\ControllerDeletarInterface;
 use App\Models\Api\ParceiroLoja\RelacionadoModel;
 use System\Interface\ControllerAtualizarInterface;
 use App\Models\Api\ParceiroLoja\Auditoria\OptionModel;
@@ -26,13 +27,14 @@ final class ParceiroLojaController extends Controller implements
     ControllerBuscarInterface,
     ControllerSelectInterface,
     ControllerSalvarInterface,
-    ControllerAtualizarInterface
+    ControllerAtualizarInterface,
+    ControllerDeletarInterface
 {
     public function getSelect(Request $request): Response
     {
         $Parceiro = new SelectModel(
             titulo: $request->titulo,
-            tipo: new Tipo($request->tipo)
+            tipo: new TipoLoja($request->tipo)
         );
         return mensagemSucesso($Parceiro->listarDados());
     }
@@ -105,6 +107,15 @@ final class ParceiroLojaController extends Controller implements
         $Loja->uuid($id);
         $Loja->set(lista: $request->dado());
         $Loja->salvar();
+
+        return new Response(status: 204);
+    }
+
+    public function deleteDeletar(string $id): Response
+    {
+        $Loja = new LojaEntity();
+        $Loja->uuid($id);
+        $Loja->destruir();
 
         return new Response(status: 204);
     }

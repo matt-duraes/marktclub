@@ -6,6 +6,10 @@ if (!vazio($r) && object_key_exists('id', $r)) {
     echo '<input type="hidden" name="id" value="' . $r->id . '">';
 }
 
+if (!vazio($status)) {
+    echo '<input type="hidden" id="input_status_sistema" name="status_sistema" value="' . $status . '">';
+}
+
 echo '
 <div class="login">
     <input type="text" autocomplete="username" value="">

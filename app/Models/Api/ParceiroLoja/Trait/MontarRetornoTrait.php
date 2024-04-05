@@ -21,6 +21,7 @@ trait MontarRetornoTrait
             $retorno[$r->id] = [
                 'id'              => $r->uuid,
                 'titulo'          => $r->titulo,
+                'titulo_interno'  => $r->titulo_interno,
                 'desconto'        => $r->texto_desconto,
                 'imagem_logo'     => arquivoPrivado($r->imagem_logo),
                 'url'             => $r->url,

@@ -15,14 +15,14 @@
 <div class="categoria">DESCONTOS</div>
 
 @ if( MENU_PREMIUM ):
-<a class="botao {!!MENU_HOVER == 'premium' ? 'cor_bg pagina_atual' : ''!!}" href="@route(loja.premium)">
+<a class="botao {!!MENU_HOVER == 'premium' ? 'cor_bg pagina_atual' : ''!!}" href="@route(geral.premium)">
     <i>@iconePremium</i>
     Premium
 </a>
 @ endif;
 
 @ if( MENU_LOJA ):
-<a class="botao {!!MENU_HOVER == 'loja' ? 'cor_bg pagina_atual' : ''!!}" href="@route(loja.index)">
+<a class="botao {!!MENU_HOVER == 'loja' ? 'cor_bg pagina_atual' : ''!!}" href="@route(geral.loja)">
     <i>@iconeLojaHome</i>
     Lojas
 </a>
@@ -44,7 +44,7 @@
 @ endif;
 
 @if(MENU_FARMACIA):
-<a class="botao {!!MENU_HOVER == 'farmacia' ? 'cor_bg pagina_atual' : ''!!}" href="<?= route('farmacia.index') ?>">
+<a class="botao {!!MENU_HOVER == 'farmacia' ? 'cor_bg pagina_atual' : ''!!}" href="<?= route('geral.farmacia') ?>">
     <i>@iconeMedicamento</i>
     Farmácia
 </a>
@@ -58,14 +58,14 @@
 @ endif;
 
 @ if( MENU_CASHBACK ):
-<a class="botao {!!MENU_HOVER == 'cashback' ? 'cor_bg pagina_atual' : ''!!}" href="@route(cashback.index)">
+<a class="botao {!!MENU_HOVER == 'cashback' ? 'cor_bg pagina_atual' : ''!!}" href="@route(geral.cashback)">
     <i>@iconeCashbackHome</i>
     Cashback Silium
 </a>
 @ endif;
 
 @ if( MENU_AUTOMOVEL ):
-<a class="botao {!!MENU_HOVER == 'automovel' ? 'cor_bg pagina_atual' : ''!!}" href="@route(automovel.index)">
+<a class="botao {!!MENU_HOVER == 'automovel' ? 'cor_bg pagina_atual' : ''!!}" href="@route(geral.index)">
     <i>@iconeAutomovelHome</i>
     Automóvel
 </a>

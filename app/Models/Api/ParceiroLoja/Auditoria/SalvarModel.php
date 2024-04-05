@@ -6,11 +6,14 @@ use Modules\Data;
 use App\Classes\ParceiroLoja\Status;
 use App\Classes\ParceiroLoja\Auditoria;
 use System\Classes\PainelHistorico\Acao;
+use App\Models\Api\Trait\SistemaDataTrait;
 use App\Models\Api\ParceiroLoja\LojaEntity;
 use ApiModel\PainelHistorico\HistoricoEntity;
 
 final class SalvarModel
 {
+    use SistemaDataTrait;
+
     public LojaEntity $Parceiro;
     public HistoricoEntity $Historico;
 
@@ -20,6 +23,7 @@ final class SalvarModel
         $this->Parceiro = $this->Option->parceiro;
         $this->salvarAuditoria();
         $this->salvarHistorico();
+        $this->sistemaData('Auditoria realizada', 'auditoria');
     }
 
     private function salvarAuditoria()

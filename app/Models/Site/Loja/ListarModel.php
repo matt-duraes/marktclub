@@ -5,10 +5,10 @@ namespace App\Models\Site\Loja;
 use stdClass;
 use Helpers\ListaHelper;
 use App\Helpers\ClubeApiHelper;
-use App\Classes\ParceiroLoja\Tipo;
 use App\Classes\ParceiroLoja\Ordem;
 use App\Classes\ParceiroLoja\Status;
 use App\Models\Site\ListarInterface;
+use App\Classes\ParceiroLoja\TipoLoja;
 
 final class ListarModel extends ClubeApiHelper implements ListarInterface
 {
@@ -16,7 +16,7 @@ final class ListarModel extends ClubeApiHelper implements ListarInterface
     private array $where = [];
 
     public function __construct(
-        private Tipo $tipo = new Tipo(),
+        private TipoLoja $tipo = new TipoLoja(),
         private ?FiltroModel $Filtro = null,
         private ?string $id = null,
         private int $quantidade = 24
@@ -76,14 +76,18 @@ final class ListarModel extends ClubeApiHelper implements ListarInterface
         $listaEstado = (new ListaHelper())->estado()->r();
         foreach ($dado as $r) {
             $link = route('loja.detalhe');
-            if ($r->tipo == Tipo::FARMACIA) {
+            if ($r->tipo_loja == TipoLoja::FARMACIA) {
                 $link = route('farmacia.detalhe');
-            } elseif ($r->tipo == Tipo::AUTOMOVEL) {
+            } elseif ($r->tipo_loja == TipoLoja::AUTOMOVEL) {
                 $link = route('automovel.modelo');
+            } elseif ($r->tipo_loja == TipoLoja::CASHBACK) {
+                $link = route('cashback.detalhe');
+            } elseif ($r->tipo_loja == TipoLoja::PREMIUM) {
+                $link = route('premium.detalhe');
             }
             $link = $link . '/' . $r->url;
 
-            $estadoArray = jsonDecode($r->estado, true, true);
+            $estadoArray = jsonDecode($r->endereco_estado, true, true);
             $estadoNumero = count($estadoArray);
             $estado = '';
             if (in_array('GR', $estadoArray)) {
@@ -99,12 +103,12 @@ final class ListarModel extends ClubeApiHelper implements ListarInterface
                 'id'       => $r->id,
                 'titulo'   => $r->titulo,
                 'link'     => $link,
-                'imagem'   => $r->imagem,
+                'imagem'   => $r->imagem_logo,
                 'desconto' => $r->desconto,
                 'favorito' => $r->favorito,
                 'novo'     => !empty($r->data_publicacao) && $r->data_publicacao > $dataNovo ? 'sim' : 'nao',
                 'estado'   => $estado,
-                'tipo'     => $r->tipo,
+                'tipo'     => $r->tipo_loja,
             ];
 
             foreach ($r->geolocalizacao ?? [] as $mapa) {
@@ -122,16 +126,27 @@ final class ListarModel extends ClubeApiHelper implements ListarInterface
     {
         $where = [
             'status'     => Status::CONCLUIDO,
-            'tipo'       => $this->tipo->indice(),
+            'tipo_loja'  => $this->tipo->indice(),
             'quantidade' => $this->quantidade
         ];
         $where = array_merge($where, $this->where);
+        $replace = [
+            'acessado'        => 'mais_acessado',
+            'estado'          => 'endereco_estado',
+            'estabelecimento' => 'tipo_estabelecimento'
+        ];
         if (!array_key_exists('pagina', $where)) {
             $where['pagina'] = 1;
         }
-        if (array_key_exists('acessado', $where)) {
-            $where['mais_acessado'] = $where['acessado'];
-            unset($where['acessado']);
+        foreach ($where as $ind => $val) {
+            if (!array_key_exists($ind, $replace)) {
+                continue;
+            }
+            $where[$replace[$ind]] = $val;
+            unset($where[$ind]);
+        }
+        if (array_key_exists('endereco_estado', $where)) {
+            $where['endereco_estado'] = [$where['endereco_estado']];
         }
         if (!array_key_exists('ordem', $where)) {
             $where['ordem'] = (new Ordem(Ordem::FAVORITO))->valor();

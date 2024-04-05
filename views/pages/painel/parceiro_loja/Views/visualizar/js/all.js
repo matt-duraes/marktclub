@@ -127,3 +127,107 @@ const historicoMensagem = {
     auditoriaCupomInativoExpirado: `O status de funcionamento do parceiro, encontra-se com problemas. O Cupom está inativo ou expirado.`,
     auditoriaCupomAtivo: `O status de funcionamento do parceiro, encontra-se ativo. O cupom está sendo aplicado corretamente.`,
 };
+
+window.addEventListener('load', () => {
+    const vinculo = document.querySelector('#input_visualizar_id').value;
+    const linhaTempo = $$('.bloco_linha_tempo_geral');
+    linhaTempo.forEach(bloco => {
+        carregarBlocoLinhaTempo(bloco, vinculo);
+    });
+});
+const carregarBlocoLinhaTempo = (bloco, vinculo) => {
+    const local = $('input[name="local_principal"]', bloco).valor();
+
+    const botaoAbrir = $('.botao_linha_tempo', bloco);
+    const botaoFechar = $('.bloco_visualizar_popup_geral .fechar', bloco);
+    const blocoPopup = $('.bloco_visualizar_popup_geral', bloco);
+
+    const blocoPadrao = $('.bloco_linha_tempo_padrao', bloco);
+    blocoPadrao.classe('bloco_linha_tempo_padrao', false);
+    const blocoLista = $('.bloco_lista_item', bloco);
+    const blocoZero = $('.bloco_zero', bloco);
+    const botaoMais = $('.botao_mais', bloco);
+
+    /*
+    |--------------------------------------------------------------------------
+    | ABRIR/FECHAR POPUP
+    |--------------------------------------------------------------------------
+    */
+    let popupBuscar = true;
+    botaoAbrir.addEventListener('click', async () => {
+        if (popupBuscar && !(await buscarLista(1))) {
+            return;
+        }
+        popupBuscar = false;
+        abrirBlocoPopup();
+    });
+    const abrirBlocoPopup = () => {
+        blocoPopup.aparecer();
+        setTimeout(() => {
+            blocoPopup.classe('ativo', true);
+        }, 40);
+    };
+
+    botaoFechar.addEventListener('click', () => {
+        fecharBlocoPopup();
+    });
+    blocoPopup.evento('target', () => {
+        fecharBlocoPopup();
+    });
+    const fecharBlocoPopup = () => {
+        blocoPopup.classe('ativo', false);
+        setTimeout(() => {
+            blocoPopup.sumir();
+        }, 300);
+    };
+
+    /*
+    |--------------------------------------------------------------------------
+    | BUSCAR LISTA
+    |--------------------------------------------------------------------------
+    */
+    let paginaAtual;
+    const buscarLista = async pagina => {
+        return new Promise(async resolve => {
+            paginaAtual = pagina;
+            Loading.show();
+            const resposta = await ajaxPost(LINK + '/sistema-data/buscar-lista', {
+                pagina,
+                vinculo,
+                /* eslint-disable */
+                local_principal: local,
+                /* eslint-enable */
+            });
+            Loading.hide();
+            if (false === resposta) {
+                resolve(false);
+                return;
+            }
+            resolve(true);
+            if (resposta.dado.lista.length == 0 && pagina == 1) {
+                blocoZero.aparecer();
+            }
+            const paginaTotal = resposta.dado.pagina.total;
+            if (paginaTotal > 1 && pagina < paginaTotal) {
+                botaoMais.aparecer();
+            } else {
+                botaoMais.sumir();
+            }
+            adicionarItem(resposta.dado.lista);
+        });
+    };
+    botaoMais.evento('click', () => {
+        buscarLista(paginaAtual + 1);
+    });
+
+    const adicionarItem = lista => {
+        for (const item of lista) {
+            const clone = blocoPadrao.clonar();
+            $('figure', clone).css('background-image', 'url(' + item.equipe.imagem + ')');
+            $('h3', clone).texto(item.equipe.nome);
+            $('p', clone).texto(item.mensagem);
+            $('time', clone).texto(item.data);
+            blocoLista.final(clone);
+        }
+    };
+};

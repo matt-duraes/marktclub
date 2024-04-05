@@ -47,6 +47,8 @@ $scope = [
 
     'contato:buscar', 'contato:listar', 'contato:salvar', 'contato:atualizar', 'contato:deletar',
 
+    'data:listar',
+
     'parceiro_relatorio:salvar', 'parceiro_relatorio:atualizar', 'parceiro_relatorio:listar',
     'parceiro_relatorio:buscar', 'parceiro_relatorio:deletar',
 

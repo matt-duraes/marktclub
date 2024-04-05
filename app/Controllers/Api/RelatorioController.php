@@ -12,7 +12,6 @@ use App\Models\Api\Analytics\AcessoDiaModel;
 use App\Models\Api\Analytics\AnalyticsModel;
 use App\Models\Api\Analytics\LojaVendaModel;
 use App\Models\Api\Analytics\NavegadorModel;
-use App\Classes\ParceiroLoja\Estabelecimento;
 use App\Models\Api\Analytics\DadoUsuarioModel;
 use App\Models\Api\Analytics\DispositivoModel;
 use App\Models\Api\Analytics\LojaMaisAcessadaModel;

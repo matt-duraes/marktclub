@@ -1,0 +1,1 @@
+{"id":"id_3c058882937a5e27f1380178ac8d0175","token":"painel","metodo":"GET","nome":"\/data","uri":"{{LINK}}\/data","parametro":[],"body":[],"header":[],"variavel":[],"json":[["texto",true,"pagina","1",""]],"documentacao":{"status":false,"descricao":"","requisicao":"","resposta":"","scope":"data:listar"}}

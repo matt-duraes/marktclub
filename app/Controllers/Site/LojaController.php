@@ -2,21 +2,21 @@
 
 namespace App\Controllers\Site;
 
-use App\Models\Site\Login\ContatoModel;
 use Erro\Excecao;
 use Http\Request;
 use Http\Response;
 use Helpers\ApiHelper;
 use Controller\Controller;
 use App\Helpers\ClubeApiHelper;
-use App\Classes\ParceiroLoja\Tipo;
 use App\Models\Site\Loja\BuscarModel;
 use App\Models\Site\Loja\FiltroModel;
 use App\Models\Site\Loja\ListarModel;
+use App\Classes\ParceiroLoja\TipoLoja;
+use App\Models\Site\Login\ContatoModel;
 use App\Models\Site\Loja\DeclaracaoModel;
-use App\Classes\ParceiroLoja\Procedimento;
 use App\Models\Site\Loja\ChequeBonusModel;
 use App\Models\Site\Loja\SolicitacaoModel;
+use App\Classes\ParceiroLoja\TipoProcedimento;
 use App\Classes\SolicitacaoVoucher\Tipo as SolicitacaoVoucherTipo;
 
 final class LojaController extends Controller
@@ -61,7 +61,7 @@ final class LojaController extends Controller
     {
         $Filtro = new FiltroModel($request->dado());
         $Lista = new ListarModel(
-            tipo: new Tipo($request->tipo),
+            tipo: new TipoLoja($request->tipo),
             Filtro: $Filtro
         );
         return mensagemSucesso($Lista->listarDados());
@@ -93,7 +93,7 @@ final class LojaController extends Controller
             'email'        => $Contato->buscarDados('email'),
             'tipo'         => $dado->tipo,
             'Busca'        => (new FiltroModel([])),
-            'procedimento' => new Procedimento()
+            'procedimento' => new TipoProcedimento()
         ]);
     }
 
@@ -118,7 +118,7 @@ final class LojaController extends Controller
     {
         return view('loja.confirmar', [
             'dado'         => (new BuscarModel($url))->buscarDados(),
-            'procedimento' => new Procedimento()
+            'procedimento' => new TipoProcedimento()
         ]);
     }
 
