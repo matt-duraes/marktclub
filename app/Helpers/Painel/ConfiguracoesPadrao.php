@@ -296,19 +296,6 @@ final class ConfiguracoesPadrao
                 'parceiro_loja_empresa'    => 'Todas as empresas'
             ]
         ],
-        'parceiro_cashback'        => [
-            'titulo'    => 'Cashback',
-            'acao'      => [
-                'index', 'add', 'editar', 'deletar', 'empresa'
-            ],
-            'permissao' => [
-                'parceiro_cashback_index'   => 'Listar',
-                'parceiro_cashback_add'     => 'Salvar',
-                'parceiro_cashback_editar'  => 'Editar',
-                'parceiro_cashback_deletar' => 'Deletar',
-                'parceiro_cashback_empresa' => 'Todas as empresas'
-            ]
-        ],
         'parceiro_cupom'           => [
             'titulo'    => 'Cupom',
             'acao'      => [
