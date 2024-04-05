@@ -51,11 +51,12 @@ $Painel->coluna(callback: function () use ($Painel) {
 });
 
 $Painel->coluna(callback: function () use ($Painel) {
+    $Status = new Status();
     $Painel
         ->status(
             campo: 'status',
             texto: 'Concluir',
-            inArray: ['prospeccao', 'problema'],
+            inArray: [$Status->nome(Status::PROSPECCAO), $Status->nome(Status::PROBLEMA)],
             status: Status::CONCLUIDO,
             cor: 'verde',
             editar: true
@@ -63,7 +64,7 @@ $Painel->coluna(callback: function () use ($Painel) {
         ->status(
             campo: 'status',
             texto: 'Problema',
-            inArray: ['concluido'],
+            inArray: [$Status->nome(Status::CONCLUIDO)],
             status: Status::PROBLEMA,
             mensagem: 'Tem certeza que deseja colocar essa loja com problema?',
             cor: 'vermelho'
@@ -71,7 +72,7 @@ $Painel->coluna(callback: function () use ($Painel) {
         ->status(
             campo: 'status',
             texto: 'Cancelar',
-            inArray: ['concluido', 'problema'],
+            inArray: [$Status->nome(Status::CONCLUIDO), $Status->nome(Status::PROBLEMA)],
             status: Status::CANCELADO,
             mensagem: 'Tem certeza que deseja cancelar essa loja?',
             cor: 'cinza'
@@ -79,7 +80,7 @@ $Painel->coluna(callback: function () use ($Painel) {
         ->status(
             campo: 'status',
             texto: 'Sem interesse',
-            inArray: ['prospeccao'],
+            inArray: [$Status->nome(Status::PROSPECCAO)],
             status: Status::SEM_INTERESSE,
             mensagem: 'Tem certeza que deseja colocar essa loja como sem interesse?',
             cor: 'cinza'
@@ -87,7 +88,7 @@ $Painel->coluna(callback: function () use ($Painel) {
         ->status(
             campo: 'status',
             texto: 'Prospecção',
-            inArray: [Status::CANCELADO, Status::SEM_INTERESSE],
+            inArray: [$Status->nome(Status::CANCELADO), $Status->nome(Status::SEM_INTERESSE)],
             status: Status::PROSPECCAO,
             mensagem: 'Tem certeza que deseja recolocar essa loja em prospecção?',
             cor: 'cinza'
