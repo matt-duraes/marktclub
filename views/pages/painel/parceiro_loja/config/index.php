@@ -13,6 +13,4 @@ $Painel
     ->status('status', 'Status', new Status());
 
 $Painel->replace('tipo_loja', (new TipoLoja())->select());
-$Painel->css('painel_parceiro_loja_index');
-$Painel->js('painel_parceiro_loja_index');
 return $Painel;
