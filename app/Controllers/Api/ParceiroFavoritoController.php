@@ -41,11 +41,14 @@ final class ParceiroFavoritoController extends Controller implements
     {
         $Parceiro = $this->parceiro($id);
         $Favorito = new FavoritoEntity();
-        $Favorito->buscar([
-            ['id_parceiro_loja', $Parceiro->get('id')],
-            ['id_usuario_cliente', 1]
-        ]);
-        $Favorito->destruir();
+        try {
+            $Favorito->buscar([
+                ['id_parceiro_loja', $Parceiro->get('id')],
+                ['id_usuario_cliente', TOKEN['usuario']->id]
+            ]);
+            $Favorito->destruir();
+        } catch (\Throwable) {
+        }
 
         return new Response(status: 204);
     }

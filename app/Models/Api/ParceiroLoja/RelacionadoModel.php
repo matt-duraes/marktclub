@@ -4,8 +4,8 @@ namespace App\Models\Api\ParceiroLoja;
 
 use ORM\ORM;
 use stdClass;
-use App\Classes\ParceiroLoja\Tipo;
 use App\Classes\ParceiroLoja\Status;
+use App\Classes\ParceiroLoja\TipoLoja;
 use App\Models\Api\Trait\ValidarEmpresaTrait;
 use App\Models\Api\ParceiroLoja\Trait\ListarCampoTrait;
 use App\Models\Api\ParceiroLoja\Trait\MontarRetornoTrait;
@@ -24,7 +24,7 @@ final class RelacionadoModel extends ORM
     {
         parent::__construct();
         $this->validarEmpresa();
-        $this->parceiro = $this->campo(['categoria_principal', 'tipo'])->where(['uuid', $id])->primeiro();
+        $this->parceiro = $this->campo(['categoria_principal', 'tipo_loja'])->where(['uuid', $id])->primeiro();
     }
 
     public function listarDados(): array
@@ -42,7 +42,7 @@ final class RelacionadoModel extends ORM
     {
         $status = new Status(Status::CONCLUIDO);
         $where = [
-            ['empresa', 'LIKE', '%"' . $this->idEmpresa . '"%'],
+            ['id_admin_empresa', 'json', $this->idEmpresa],
             ['status', $status->numero()]
         ];
 
@@ -51,9 +51,9 @@ final class RelacionadoModel extends ORM
             return $where;
         }
 
-        $tipo = new Tipo($parceiro->tipo);
-        $where[] = ['tipo', $tipo->numero()];
-        if ($tipo->indice() != Tipo::LOJA) {
+        $tipo = new TipoLoja($parceiro->tipo_loja);
+        $where[] = ['tipo_loja', $tipo->numero()];
+        if ($tipo->indice() != TipoLoja::LOJA) {
             return $where;
         }
         $where[] = ['categoria_principal', $parceiro->categoria_principal];

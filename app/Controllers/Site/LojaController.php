@@ -13,12 +13,12 @@ use App\Models\Site\Loja\FiltroModel;
 use App\Models\Site\Loja\ListarModel;
 use App\Classes\ParceiroLoja\TipoLoja;
 use App\Models\Site\Login\ContatoModel;
+use App\Models\Site\Loja\FavoritoModel;
 use App\Models\Site\Loja\DeclaracaoModel;
 use App\Models\Site\Loja\ChequeBonusModel;
 use App\Models\Site\Loja\SolicitacaoModel;
 use App\Classes\ParceiroLoja\TipoProcedimento;
 use App\Classes\SolicitacaoVoucher\Tipo as SolicitacaoVoucherTipo;
-use App\Models\Site\Loja\FavoritoModel;
 
 final class LojaController extends Controller
 {
@@ -51,6 +51,7 @@ final class LojaController extends Controller
         $Filtro = new FiltroModel($request->dado());
         return view('loja.index', [
             'menu'   => 'loja',
+            'tipo'   => 'loja',
             'Busca'  => $Filtro,
             'mapa'   => $Filtro->mapa ?? false,
             'todos'  => empty($request->dado()),

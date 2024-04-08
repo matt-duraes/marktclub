@@ -1,12 +1,35 @@
 @template "site"
 
-@view site/loja/geral/busca.view
+@ if( $tipo == 'loja' ):
+@view site/loja/busca/loja/index.view
+@ elseif( $tipo == 'cashback' ):
+@view site/loja/busca/cashback/index.view
+@ endif;
+
+@ if( isset($Busca) && !empty($Busca->filtro) && !$Busca->mapa ):
+<div class="buscar_convenio_lista">
+    <h2>Filtros:</h2>
+    <div class="scroll">
+        <div class="conteudo">
+            @ foreach( $Busca->filtro as $r ):
+            <div class="item" data-indice="{{$r->indice}}" data-valor="{{$r->valor_real}}">
+                <div class="nome">{!!$r->nome!!}</div>
+                <div class="valor">{!!$r->valor!!}</div>
+                <div class="remover">@iconeFechar(10)</div>
+            </div>
+            @ endforeach;
+        </div>
+    </div>
+</div>
+@ endif;
 
 <div id="bloco_loja_index" class="{{$Busca->mapa ? 'bloco_mapa' : ''}}">
+    <input type="hidden" id="input_tipo_geral" value="{{$tipo}}">
     @ if( $banner ):
         @view site/geral/banner.view
     @ endif;
 
+    @ if( $tipo == 'loja' ):
     <div class="bloco_especial {{$Busca->filtro ? 'separar' : ''}}" id="bloco_especial">
         <div class="scroll">
             <div class="conteudo">
@@ -48,6 +71,7 @@
             </div>
         </div>
     </div>
+    @ endif;
 
     @view site/geral/parceiro_novo.view
     @ if( $Busca->mapa ):

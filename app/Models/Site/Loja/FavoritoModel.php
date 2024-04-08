@@ -27,14 +27,14 @@ final class FavoritoModel extends ClubeApiHelper
 
         $retorno = [];
         foreach ($dado as $r) {
-            $retorno[$r->parceiro] = $r->id;
+            $retorno[$r->parceiro] = true;
         }
         return $retorno;
     }
 
     public function favorito(string $id)
     {
-        return array_key_exists($id, $this->lista) ? $this->lista[$id] : '';
+        return array_key_exists($id, $this->lista) ? 'sim' : 'nao';
     }
 
     public function add(string $id)

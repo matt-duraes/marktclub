@@ -44,7 +44,7 @@
 @ endif;
 
 @if(MENU_FARMACIA):
-<a class="botao {!!MENU_HOVER == 'farmacia' ? 'cor_bg pagina_atual' : ''!!}" href="<?= route('geral.farmacia') ?>">
+<a class="botao {!!MENU_HOVER == 'farmacia' ? 'cor_bg pagina_atual' : ''!!}" href="<?= route('farmacia.index') ?>">
     <i>@iconeMedicamento</i>
     Farmácia
 </a>
@@ -58,14 +58,14 @@
 @ endif;
 
 @ if( MENU_CASHBACK ):
-<a class="botao {!!MENU_HOVER == 'cashback' ? 'cor_bg pagina_atual' : ''!!}" href="@route(geral.cashback)">
+<a class="botao {!!MENU_HOVER == 'cashback' ? 'cor_bg pagina_atual' : ''!!}" href="@route(cashback.index)">
     <i>@iconeCashbackHome</i>
     Cashback Silium
 </a>
 @ endif;
 
 @ if( MENU_AUTOMOVEL ):
-<a class="botao {!!MENU_HOVER == 'automovel' ? 'cor_bg pagina_atual' : ''!!}" href="@route(geral.index)">
+<a class="botao {!!MENU_HOVER == 'automovel' ? 'cor_bg pagina_atual' : ''!!}" href="@route(automovel.index)">
     <i>@iconeAutomovelHome</i>
     Automóvel
 </a>

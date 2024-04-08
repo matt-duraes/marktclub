@@ -3,7 +3,6 @@ $listaOrdem = [
     '' => 'Escolha uma opção',
     'mais-novo' => 'Mais novos',
     'mais-velho' => 'Mais velhos',
-    'favorito' => 'Seus favoritos',
     'titulo-a-z' => 'Título A-Z',
     'titulo-z-a' => 'Título Z-A',
 ];
@@ -49,19 +48,4 @@ $listaOrdem = [
         </div>
     </form>
 </div>
-@ if( isset($Busca) && !empty($Busca->filtro) && !$Busca->mapa ):
-<div class="buscar_convenio_lista">
-    <h2>Filtros:</h2>
-    <div class="scroll">
-        <div class="conteudo">
-            @ foreach( $Busca->filtro as $r ):
-            <div class="item" data-indice="{{$r->indice}}" data-valor="{{$r->valor_real}}">
-                <div class="nome">{!!$r->nome!!}</div>
-                <div class="valor">{!!$r->valor!!}</div>
-                <div class="remover">@iconeFechar(10)</div>
-            </div>
-            @ endforeach;
-        </div>
-    </div>
-</div>
-@ endif;
+
