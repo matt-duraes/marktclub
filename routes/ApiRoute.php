@@ -370,6 +370,11 @@ Route
             ::middleware(TokenMiddleware::class, 'scope', ['usuario_cliente:senha'])
             ::request(['senha', 'usuario', 'hash'])
             ::put('/usuario-cliente/senha');
+        Route
+            ::nome('alterarSenha')
+            ::middleware(TokenMiddleware::class, 'scope', ['usuario_cliente:alterar_senha'])
+            ::request(['senha_atual', 'senha_nova'])
+            ::put('/usuario-cliente/alterar-senha');
     });
 
 Route

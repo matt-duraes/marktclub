@@ -19,28 +19,12 @@ final class SenhaModel extends ClubeApiHelper
             mensagemErro('Campo inválido!', 'O campo nova senha e repetir senha devem ser iguais.');
         }
 
-        $this->validarSenhaAtual($request->senha_atual);
-        $this->salvarNovaSenha($request->senha_nova);
-    }
-
-    private function validarSenhaAtual(string $senhaAtual): void
-    {
-        $dado = $this
-            ->validar('Ocorreu um erro ao validar a senha.')
-            ->body(['senha'   => $this->Crypt->encode($senhaAtual)])
-            ->post('/usuario-cliente/validar-senha')
-            ->array()['dado'] ?? [];
-
-        if ($dado['senha'] == 'nao') {
-            mensagemErro('Campo inválido!', 'A senha atual informada é inválida.');
-        }
-    }
-
-    private function salvarNovaSenha(string $senha): void
-    {
         $this
-            ->validar('Ocorreu um erro ao alterar a senha.')
-            ->body(['senha'   => $this->Crypt->encode($senha)])
-            ->put('/usuario-cliente/' . $this->idUsuario);
+            ->validar('Ocorreu um erro ao validar a senha.')
+            ->body([
+                'senha_atual' => $this->Crypt->encode($request->senha_atual),
+                'senha_nova'  => $this->Crypt->encode($request->senha_nova),
+            ])
+            ->put('/usuario-cliente/alterar-senha');
     }
 }
