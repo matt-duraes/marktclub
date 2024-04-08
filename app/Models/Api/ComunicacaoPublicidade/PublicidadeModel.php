@@ -2,6 +2,7 @@
 
 namespace App\Models\Api\ComunicacaoPublicidade;
 
+use App\Classes\ParceiroLoja\TipoLoja;
 use ORM\ORM;
 use stdClass;
 use Modules\Data;
@@ -18,7 +19,6 @@ use System\Trait\Model\QuantidadeTrait;
 use App\Classes\ComunicacaoPublicidade\Tipo;
 use App\Classes\ComunicacaoPublicidade\Ordem;
 use App\Models\Api\Trait\ValidarEmpresaTrait;
-use App\Classes\ParceiroLoja\Tipo as ParceiroLojaTipo;
 
 final class PublicidadeModel extends ORM implements ListarInterface
 {
@@ -76,7 +76,7 @@ final class PublicidadeModel extends ORM implements ListarInterface
             ->order($this->pegarOrdem())
             ->tabela(TABELA_PARCEIRO_LOJA)
             ->where($this->pegarWhereParceiro(), obrigatorio: false)
-            ->campo(['uuid', 'titulo', 'url', 'tipo', 'imagem'], as: 'parceiro')
+            ->campo(['uuid', 'titulo', 'url', 'tipo_loja', 'imagem_logo'], as: 'parceiro')
             ->join('id', 'id_parceiro_loja')
             ->read();
 
@@ -89,7 +89,7 @@ final class PublicidadeModel extends ORM implements ListarInterface
         $retorno = [];
         $Status = new Status();
         $Tipo = new Tipo();
-        $TipoParceiro = new ParceiroLojaTipo();
+        $TipoParceiro = new TipoLoja();
         foreach ($dado as $r) {
             $statusAtual = $Status->indice($r->status);
             $publicado = (new Publicado(
