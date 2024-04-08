@@ -74,6 +74,7 @@ final class ListarModel extends ClubeApiHelper implements ListarInterface
         $retorno = [];
         $dataNovo = dataRemover(hoje(), 1, 'mes');
         $listaEstado = (new ListaHelper())->estado()->r();
+        $Favorito = new FavoritoModel();
         foreach ($dado as $r) {
             $link = route('loja.detalhe');
             if ($r->tipo_loja == TipoLoja::FARMACIA) {
@@ -105,7 +106,7 @@ final class ListarModel extends ClubeApiHelper implements ListarInterface
                 'link'     => $link,
                 'imagem'   => $r->imagem_logo,
                 'desconto' => $r->desconto,
-                'favorito' => $r->favorito,
+                'favorito' => $Favorito->favorito($r->id),
                 'novo'     => !empty($r->data_publicacao) && $r->data_publicacao > $dataNovo ? 'sim' : 'nao',
                 'estado'   => $estado,
                 'tipo'     => $r->tipo_loja,
@@ -126,9 +127,11 @@ final class ListarModel extends ClubeApiHelper implements ListarInterface
     {
         $where = [
             'status'     => Status::CONCLUIDO,
-            'tipo_loja'  => $this->tipo->indice(),
             'quantidade' => $this->quantidade
         ];
+        if ($this->tipo->valido()) {
+            $where['tipo_loja'] = $this->tipo->indice();
+        }
         $where = array_merge($where, $this->where);
         $replace = [
             'acessado'        => 'mais_acessado',
@@ -149,7 +152,7 @@ final class ListarModel extends ClubeApiHelper implements ListarInterface
             $where['endereco_estado'] = [$where['endereco_estado']];
         }
         if (!array_key_exists('ordem', $where)) {
-            $where['ordem'] = (new Ordem(Ordem::FAVORITO))->valor();
+            $where['ordem'] = (new Ordem(Ordem::MAIS_NOVO))->valor();
         }
         $this->where = $where;
     }

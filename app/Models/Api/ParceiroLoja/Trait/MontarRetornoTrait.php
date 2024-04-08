@@ -29,7 +29,6 @@ trait MontarRetornoTrait
                 'data_publicacao' => $r->data_publicacao,
                 'data_auditoria'  => $r->data_auditoria,
                 'endereco_estado' => $r->endereco_estado,
-                'favorito'        => !empty($r->favorito) ? 'sim' : 'nao',
                 'status'          => $Status->indice($r->status)
             ];
         }

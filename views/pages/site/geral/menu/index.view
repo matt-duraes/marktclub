@@ -22,7 +22,7 @@
 @ endif;
 
 @ if( MENU_LOJA ):
-<a class="botao {!!MENU_HOVER == 'loja' ? 'cor_bg pagina_atual' : ''!!}" href="@route(geral.loja)">
+<a class="botao {!!MENU_HOVER == 'loja' ? 'cor_bg pagina_atual' : ''!!}" href="@route(loja.index)">
     <i>@iconeLojaHome</i>
     Lojas
 </a>

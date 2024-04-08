@@ -1,3 +1,13 @@
+@php
+$listaOrdem = [
+    '' => 'Escolha uma opção',
+    'mais-novo' => 'Mais novos',
+    'mais-velho' => 'Mais velhos',
+    'favorito' => 'Seus favoritos',
+    'titulo-a-z' => 'Título A-Z',
+    'titulo-z-a' => 'Título Z-A',
+];
+@end
 <div class="bloco_buscar_geral bloco_buscar_loja {{$Busca->mapa ?? '' ? 'display_none' : ''}}" id="bloco_buscar">
     <form class="buscar form_geral botao_buscar_abrir">
         <p>Busque uma loja</p>
@@ -32,7 +42,7 @@
                 </fieldset>
                 <fieldset>
                     @? formInput(name: 'pesquisa', placeholder: 'Busque por um convênio', label: 'Pesquisa', class: 'busca_pesquisa', value: $Busca->pesquisa ?? '', id: 'bloco_input_pesquisa')
-                    @? formSelect(name: 'ordem', placeholder: 'Ordenar por', label: 'Ordem', class: 'busca_ordem', lista: (new \App\Classes\ParceiroLoja\Ordem)->select(), value: $Busca->ordem ?? '')
+                    @? formSelect(name: 'ordem', placeholder: 'Ordenar por', label: 'Ordem', class: 'busca_ordem', lista: $listaOrdem, value: $Busca->ordem ?? '')
                     <button class="botao_geral_cor cor_bg">Buscar</button>
                 </fieldset>
             </div>

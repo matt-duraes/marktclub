@@ -60,7 +60,7 @@ $scope = [
 
     'parceiro_subcategoria:listar',
 
-    'parceiro_favorito:salvar', 'parceiro_favorito:deletar',
+    'parceiro_favorito:listar', 'parceiro_favorito:salvar', 'parceiro_favorito:deletar',
 
     'publicacao_noticia:salvar', 'publicacao_noticia:atualizar', 'publicacao_noticia:listar',
     'publicacao_noticia:buscar', 'publicacao_noticia:deletar',

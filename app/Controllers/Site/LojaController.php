@@ -18,6 +18,7 @@ use App\Models\Site\Loja\ChequeBonusModel;
 use App\Models\Site\Loja\SolicitacaoModel;
 use App\Classes\ParceiroLoja\TipoProcedimento;
 use App\Classes\SolicitacaoVoucher\Tipo as SolicitacaoVoucherTipo;
+use App\Models\Site\Loja\FavoritoModel;
 
 final class LojaController extends Controller
 {
@@ -154,20 +155,27 @@ final class LojaController extends Controller
 
     public function postFavorito(Request $request): Response
     {
-        (new ApiHelper(scope: 'parceiro_favorito:salvar'))
+        (new ApiHelper(token: true))
             ->validar(mensagem: 'Erro ao salvar favorito, por favor, tente novamente.', retorno: false)
             ->body(['parceiro' => $request->id])
             ->post('/parceiro-favorito')
             ->object()->dado;
+
+        $Favorito = new FavoritoModel();
+        $Favorito->add($request->id);
 
         return mensagemSucesso([], status: 201);
     }
 
     public function deleteFavorito(string $id)
     {
-        (new ApiHelper(scope: 'parceiro_favorito:deletar'))
+        (new ApiHelper(token: true))
             ->validar('Erro ao remover favorito, por favor, tente novamente.', retorno: false)
             ->delete('/parceiro-favorito/' . $id);
+
+        $Favorito = new FavoritoModel();
+        $Favorito->remover($id);
+
         return new Response(status: 204);
     }
 

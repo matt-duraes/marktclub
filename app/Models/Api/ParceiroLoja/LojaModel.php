@@ -53,6 +53,7 @@ class LojaModel extends ORM implements ModelListarInterface
     public float $longitude;
     public array $endereco_estado;
     public string $empresa;
+    private bool $buscarFavorito = true;
 
     public function listarDados(): stdClass
     {
@@ -61,22 +62,18 @@ class LojaModel extends ORM implements ModelListarInterface
             ->pagina($this->pegarPagina(), $this->pegarQuantidade())
             ->where($this->pegarWhere(), obrigatorio: false);
 
-        // ORDEM
-        if (!empty($this->idMaisAcessado)) {
+        if ($this->pExiste('favorito') && $this->favorito->valor() == $this->favorito::SIM) {
+            $this->buscarFavorito = false;
+            $dado
+                ->tabela(TABELA_PARCEIRO_FAVORITO)
+                ->campo([['id_parceiro_loja', '!favorito']])
+                ->leftJoin('id_parceiro_loja', 'id')
+                ->where(['id_usuario_cliente', $this->idUsuario]);
+        } elseif (!empty($this->idMaisAcessado)) {
             $dado->orderTexto('FIELD(`' . $this->ormTabela . '`.`id`, ' . implode(',', $this->idMaisAcessado) . ')');
         } else {
             $dado->order($this->pegarOrdem());
         }
-
-        // // FAVORITO
-        // $dado
-        //     ->tabela(TABELA_PARCEIRO_FAVORITO)
-        //     ->campo([['id_parceiro_loja', '!favorito']]);
-        // if ($this->pExiste('favorito') && $this->favorito->valor() == $this->favorito::SIM) {
-        //     $dado->join('id_parceiro_loja', 'id');
-        // } else {
-        //     $dado->leftJoin('id_parceiro_loja', 'id');
-        // }
 
         // MAPA
         if (

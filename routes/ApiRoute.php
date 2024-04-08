@@ -1391,11 +1391,14 @@ Route
     ::controller(App\Controllers\Api\ParceiroFavoritoController::class)
     ::grupo(function () {
         Route
+            ::nome('listar')
+            ::middleware(TokenMiddleware::class, 'scope', ['parceiro_favorito:listar'])
+            ::get('/parceiro-favorito');
+        Route
             ::nome('salvar')
             ::middleware(TokenMiddleware::class, 'scope', ['parceiro_favorito:salvar'])
             ::request(['parceiro'])
             ::post('/parceiro-favorito');
-
         Route
             ::nome('deletar')
             ::middleware(TokenMiddleware::class, 'scope', ['parceiro_favorito:deletar'])

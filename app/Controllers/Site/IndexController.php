@@ -30,6 +30,12 @@ final class IndexController extends Controller
 
     public function postBuscar()
     {
+        $LojaFavorita = new ListarModel(
+            Filtro: new FiltroModel([
+                'quantidade' => 3,
+                'favorito'   => 'sim'
+            ])
+        );
         $MaisUtilizada = new ListarModel(
             Filtro: new FiltroModel([
                 'quantidade' => 3,
@@ -42,17 +48,10 @@ final class IndexController extends Controller
                 'ordem'      => (new Ordem(Ordem::MAIS_NOVO))->valor()
             ])
         );
-        $LojaFavorita = new ListarModel(
-            Filtro: new FiltroModel([
-                'quantidade' => 3,
-                'favorito'   => 'sim',
-                'ordem'      => (new Ordem(Ordem::RANDOMICO))->valor()
-            ])
-        );
         return mensagemSucesso([
+            'favorito'   => $LojaFavorita->listarDados()->lista ?? [],
             'acessado'   => $MaisUtilizada->listarDados()->lista ?? [],
             'novo'       => $LojaNova->listarDados()->lista ?? [],
-            'favorito'   => $LojaFavorita->listarDados()->lista ?? [],
         ]);
     }
 }
