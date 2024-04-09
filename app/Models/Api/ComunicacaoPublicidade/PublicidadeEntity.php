@@ -66,12 +66,12 @@ final class PublicidadeEntity extends Entity
     {
         $Parceiro = (new OrmHelper(TABELA_PARCEIRO_LOJA))->pegarPrimeiroRegistro(
             where: ['id', $this->id_parceiro_loja],
-            campo: ['uuid', 'url', 'titulo', 'imagem']
+            campo: ['uuid', 'url', 'titulo', 'imagem_logo']
         );
         $this->parceiro = [
             'id'     => $Parceiro['uuid'],
             'url'    => $Parceiro['url'],
-            'logo'   => LINK_ARQUIVO . '/convenio/' . $Parceiro['imagem'],
+            'logo'   => LINK_ARQUIVO . '/convenio/' . $Parceiro['imagem_logo'],
             'titulo' => $Parceiro['titulo']
         ];
     }
