@@ -2,7 +2,7 @@
 
 namespace App\Models\Site\Comunicacao;
 
-use App\Classes\ParceiroLoja\Tipo;
+use App\Classes\ParceiroLoja\TipoLoja;
 
 trait LinkTrait
 {
@@ -13,10 +13,10 @@ trait LinkTrait
             return preg_match('/^http\:\/\/|https\:\/\//', $link) ? $link : 'https://' . $link;
         }
         $rota = [
-            Tipo::AUTOMOVEL => route('automovel.detalhe'),
-            Tipo::FARMACIA  => route('farmacia.detalhe'),
-            Tipo::LOJA      => route('loja.detalhe'),
-            Tipo::PREMIUM   => route('premium.detalhe'),
+            TipoLoja::AUTOMOVEL => route('automovel.detalhe'),
+            TipoLoja::FARMACIA  => route('farmacia.detalhe'),
+            TipoLoja::LOJA      => route('loja.detalhe'),
+            TipoLoja::PREMIUM   => route('premium.detalhe'),
         ];
         if (!array_key_exists($tipo, $rota)) {
             return '';
