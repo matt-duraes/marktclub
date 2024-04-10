@@ -3,7 +3,7 @@ if (blocoClone) {
     blocoClone.removeAttribute('id');
 }
 
-const adicionarParceiro = (bloco, item, tipo = 'loja') => {
+const adicionarParceiro = (bloco, item, tipo) => {
     if (!blocoClone) {
         return;
     }
@@ -11,13 +11,12 @@ const adicionarParceiro = (bloco, item, tipo = 'loja') => {
     clone.setAttribute('data-url', item.id);
 
     const favorito = clone.querySelector('.botao_favorito');
-    if (tipo != 'cashback') {
-        favorito.classList.remove('display_none');
-    }
+    favorito.classList.remove('display_none');
 
     if (item.favorito == 'sim') {
         favorito.classList.add('favorito_marcado');
     }
+
     clone.querySelector('.item_link').setAttribute('href', item.link);
     clone.querySelector('.item_logo').innerHTML = `<img src="${item.imagem}">`;
     clone.querySelector('.item_titulo').innerText = item.titulo;

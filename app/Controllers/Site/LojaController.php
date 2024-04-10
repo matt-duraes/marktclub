@@ -13,6 +13,7 @@ use App\Models\Site\Loja\FiltroModel;
 use App\Models\Site\Loja\ListarModel;
 use App\Classes\ParceiroLoja\TipoLoja;
 use App\Models\Site\Login\ContatoModel;
+use App\Models\Site\Loja\FavoritoModel;
 use App\Models\Site\Loja\DeclaracaoModel;
 use App\Models\Site\Loja\ChequeBonusModel;
 use App\Models\Site\Loja\SolicitacaoModel;
@@ -50,6 +51,7 @@ final class LojaController extends Controller
         $Filtro = new FiltroModel($request->dado());
         return view('loja.index', [
             'menu'   => 'loja',
+            'tipo'   => 'loja',
             'Busca'  => $Filtro,
             'mapa'   => $Filtro->mapa ?? false,
             'todos'  => empty($request->dado()),
@@ -154,20 +156,27 @@ final class LojaController extends Controller
 
     public function postFavorito(Request $request): Response
     {
-        (new ApiHelper(scope: 'parceiro_favorito:salvar'))
+        (new ApiHelper(token: true))
             ->validar(mensagem: 'Erro ao salvar favorito, por favor, tente novamente.', retorno: false)
             ->body(['parceiro' => $request->id])
             ->post('/parceiro-favorito')
             ->object()->dado;
+
+        $Favorito = new FavoritoModel();
+        $Favorito->add($request->id);
 
         return mensagemSucesso([], status: 201);
     }
 
     public function deleteFavorito(string $id)
     {
-        (new ApiHelper(scope: 'parceiro_favorito:deletar'))
+        (new ApiHelper(token: true))
             ->validar('Erro ao remover favorito, por favor, tente novamente.', retorno: false)
             ->delete('/parceiro-favorito/' . $id);
+
+        $Favorito = new FavoritoModel();
+        $Favorito->remover($id);
+
         return new Response(status: 204);
     }
 

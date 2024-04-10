@@ -148,7 +148,7 @@ $Painel->coluna(callback: function () use ($Painel) {
     });
 });
 
-$Painel->coluna(callback: function() use ($Painel, $imagem) {
+$Painel->coluna(callback: function () use ($Painel, $imagem) {
     $Painel->fieldset('Imagens', function () use ($Painel, $imagem) {
         $Painel->imagem(name: 'logo_principal', diretorio: $imagem, label: 'Logo principal');
         $Painel->imagem(name: 'favicon', diretorio: $imagem, label: 'Favicon');

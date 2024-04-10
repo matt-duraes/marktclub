@@ -8,6 +8,7 @@ use Http\Response;
 use Modules\Pagina;
 use Modules\Quantidade;
 use Controller\Controller;
+use App\Models\Site\Loja\FiltroModel;
 use App\Classes\ParceiroCashback\Ordem;
 use App\Models\Site\Cashback\BuscarModel;
 use App\Models\Site\Cashback\ListarModel;
@@ -15,28 +16,22 @@ use App\Models\Site\Cashback\ListarModel;
 final class CashbackController extends Controller
 {
     /**
-     * @param string|null $pesquisa
+     * @param Request         $request
+     * @param BuscaModel|null $Busca
      *
      * @return Response
      * @throws Excecao
      */
     public function index(Request $request): Response
     {
-        $Lista = new ListarModel(
-            pagina: new Pagina($request->pagina),
-            quantidade: new Quantidade($request->quantidade),
-            pesquisa: $request->pesquisa,
-            categoria: $request->categoria,
-            ordem: new Ordem($request->ordem)
-        );
-
-        return view(
-            'cashback.index',
-            [
-                'menu'  => 'cashback',
-                'lista' => $Lista->listarDados()
-            ]
-        );
+        $Filtro = new FiltroModel($request->dado());
+        return view('loja.index', [
+            'menu'   => 'cashback',
+            'Busca'  => $Filtro,
+            'tipo'   => 'cashback',
+            'banner' => [],
+            'todos'  => empty($request->dado()),
+        ]);
     }
 
     public function postListar(Request $request)

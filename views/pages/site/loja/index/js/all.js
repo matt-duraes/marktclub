@@ -22,8 +22,10 @@ const inputLongitude = $('#input_longitude');
 
 const latitude = inputLatitude ? inputLatitude.value : 0;
 const longitude = inputLongitude ? inputLongitude.value : 0;
+let latitudeValor = latitude;
+let longitudeValor = longitude;
 
-const tipo = 'loja';
+const tipo = $('#input_tipo_geral').valor();
 
 const blocoLoading = $('#bloco_parceiro_loading');
 const blocoLista = $('#bloco_parceiro_lista');
@@ -48,18 +50,15 @@ const inputPesquisa = $('#input_pesquisa');
 const inputOrdem = $('#input_ordem');
 const formBusca = $('#form_buscar');
 
-let latitudeValor = inputLatitude.value;
-let longitudeValor = inputLongitude.value;
-
-const acessadoValor = inputAcessado.value;
-const favoritoValor = inputFavorito.value;
-const estadoValor = inputEstado.value;
-const cidadeValor = inputCidade.value;
-const categoriaValor = inputCategoria.value;
-const subcategoriaValor = inputSubcategoria.value;
-const estabelecimentoValor = inputEstabelecimento.value;
-const pesquisaValor = inputPesquisa.value;
-const ordemValor = inputOrdem.value;
+const acessadoValor = inputAcessado ? inputAcessado.value : '';
+const favoritoValor = inputFavorito ? inputFavorito.value : '';
+const estadoValor = inputEstado ? inputEstado.value : '';
+const cidadeValor = inputCidade ? inputCidade.value : '';
+const categoriaValor = inputCategoria ? inputCategoria.value : '';
+const subcategoriaValor = inputSubcategoria ? inputSubcategoria.value : '';
+const estabelecimentoValor = inputEstabelecimento ? inputEstabelecimento.value : '';
+const pesquisaValor = inputPesquisa ? inputPesquisa.value : '';
+const ordemValor = inputOrdem ? inputOrdem.value : '';
 
 const carregarMapa = inputMapa && inputMapa.checked;
 if (inputMapa) {
@@ -115,10 +114,53 @@ if (inputEstado) {
     }
 }
 
+const montarBody = () => {
+    const body = {
+        pagina: pagina != '' ? pagina : 1,
+        tipo,
+    };
+    if (latitude != '') {
+        body.latitude = latitudeValor;
+    }
+    if (longitude != '') {
+        body.longitude = longitudeValor;
+    }
+    if (acessadoValor != '') {
+        body.acessado = acessadoValor;
+    }
+    if (favoritoValor != '') {
+        body.favorito = favoritoValor;
+    }
+    if (estadoValor != '') {
+        body.estado = estadoValor;
+    }
+    if (cidadeValor != '') {
+        body.cidade = cidadeValor;
+    }
+    if (categoriaValor != '') {
+        body.categoria = categoriaValor;
+    }
+    if (subcategoriaValor != '') {
+        body.subcategoria = subcategoriaValor;
+    }
+    if (estabelecimentoValor != '') {
+        body.estabelecimento = estabelecimentoValor;
+    }
+    if (pesquisaValor != '') {
+        body.pesquisa = pesquisaValor;
+    }
+    if (ordemValor != '') {
+        body.ordem = ordemValor;
+    }
+    return body;
+};
+
 let pagina = '';
 const buscarParceiro = async () => {
-    latitudeValor = inputLatitude.value;
-    longitudeValor = inputLongitude.value;
+    if (inputLatitude && inputLongitude) {
+        latitudeValor = inputLatitude.value;
+        longitudeValor = inputLongitude.value;
+    }
 
     if (botaoCarregarMais.classList.contains('loading')) {
         return;
@@ -129,25 +171,7 @@ const buscarParceiro = async () => {
         pagina++;
     }
 
-    const resposta = await ajaxPost(
-        LINK + '/convenios/listar',
-        {
-            pagina,
-            tipo,
-            latitude: latitudeValor,
-            longitude: longitudeValor,
-            acessado: acessadoValor,
-            favorito: favoritoValor,
-            estado: estadoValor,
-            cidade: cidadeValor,
-            categoria: categoriaValor,
-            subcategoria: subcategoriaValor,
-            estabelecimento: estabelecimentoValor,
-            pesquisa: pesquisaValor,
-            ordem: ordemValor,
-        },
-        ''
-    );
+    const resposta = await ajaxPost(LINK + '/convenios/listar', montarBody(), '');
     blocoLoading.classList.add('display_none');
     botaoCarregarMais.classList.remove('loading');
     if (false === resposta) {
@@ -156,9 +180,7 @@ const buscarParceiro = async () => {
         }
         return;
     }
-    if (tipo == 'loja') {
-        adicionarListaLoja(blocoLista, resposta.dado);
-    }
+    manipularRetornoLoja(blocoLista, resposta.dado);
     pagina = resposta.dado.paginacao.atual;
     if (resposta.dado.paginacao.total > resposta.dado.paginacao.atual) {
         blocoCarregarMais.classList.remove('display_none');
@@ -171,7 +193,7 @@ botaoCarregarMais.addEventListener('click', () => {
     buscarParceiro();
 });
 
-const adicionarListaLoja = (bloco, parceiro) => {
+const manipularRetornoLoja = (bloco, parceiro) => {
     if (parceiro.lista.length == 0 && (pagina == 1 || pagina == '')) {
         blocoZero.classList.remove('display_none');
         return;
@@ -184,7 +206,7 @@ const adicionarListaLoja = (bloco, parceiro) => {
         carregarPontoMapa(parceiro.mapa);
     }
     parceiro.lista.forEach(item => {
-        adicionarParceiro(bloco, item);
+        adicionarParceiro(bloco, item, tipo);
     });
     bloco.insertAdjacentHTML('beforeend', `<div class="article_fake"></div><div class="article_fake"></div>`);
 };

@@ -78,4 +78,5 @@ trait PropriedadeTrait
     public Status $status;
     public ArquivoPrivadoLista $arquivo_clube;
     public ArquivoPrivadoLista $arquivo_painel;
+    public array $cupom_desconto;
 }

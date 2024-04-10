@@ -357,8 +357,8 @@ Route
         Route
             ::nome('listar')
             ::request([
-                '!pagina', 'tipo', '!latitude', '!longitude', '!acessado', '!favorito', 'estado', 'categoria',
-                'subcategoria', 'estabelecimento', 'pesquisa', 'ordem', 'cidade'
+                '!pagina', 'tipo', '!latitude', '!longitude', '!acessado', '!favorito', '!estado', '!categoria',
+                '!subcategoria', '!estabelecimento', '!pesquisa', '!ordem', '!cidade'
             ])
             ::post('/convenios/listar');
         Route

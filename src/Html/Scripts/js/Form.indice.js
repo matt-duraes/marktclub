@@ -1,5 +1,5 @@
 window.addEventListener('load', () => {
-    const listaIndiceValor = document.querySelectorAll('.fw_form_indice_valor_ordenar');
+    const listaIndiceValor = document.querySelectorAll('.fw_form_indice_valor');
     listaIndiceValor.forEach(item => {
         const bloco = item.querySelector('.fw_form_indice_valor_lista');
         const padrao = item.querySelector('.fw_form_indice_valor_linha_padrao');

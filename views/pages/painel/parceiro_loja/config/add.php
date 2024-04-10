@@ -293,6 +293,18 @@ $Painel->coluna(callback: function () use ($Painel) {
         ;
     });
 });
+
+$Painel->coluna(callback: function () use ($Painel) {
+    $Painel->fieldset('Cupom', function () use ($Painel) {
+        $Painel
+            ->indiceValor(
+                name: 'cupom_desconto',
+                placeholder: ['Título', 'Cupom'],
+                ordem: true
+            );
+    });
+});
+
 $Painel->coluna(callback: function () use ($Painel) {
     $Painel->fieldset('Categoria', function () use ($Painel) {
         $Categoria = new Categoria();
