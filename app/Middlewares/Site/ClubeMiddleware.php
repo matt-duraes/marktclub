@@ -23,6 +23,10 @@ final class ClubeMiddleware extends ApiHelper
         $this->montarDefine();
         return true;
     }
+    public function teste(): bool
+    {
+        return true;
+    }
 
     private function buscarDispositivo()
     {
