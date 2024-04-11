@@ -48,9 +48,13 @@ window.addEventListener('load', () => {
         Loading.hide();
 
         try {
-            tratarRespostaAnalisar(resposta, arquivo);
+            await tratarRespostaAnalisar(resposta, arquivo);
         } catch (error) {
-            Alerta.notificacao('Erro ao analisar tabela.', false);
+            if (error.message != undefined) {
+                return Alerta.notificacao(error.message, false);
+            }
+
+            Alerta.notificacao('Ocorreu um erro inesperado ao analisar a tabela.', false);
         }
 
         inputUpload.value = '';
@@ -58,14 +62,25 @@ window.addEventListener('load', () => {
     });
 
     const tratarRespostaAnalisar = async (resposta, arquivo) => {
-        const json = await resposta.json();
+        if (resposta.status == 413) {
+            throw new Error('O arquivo enviado é muito grande, tente enviar um arquivo menor.');
+        }
+
+        let json;
+        try {
+            json = await resposta.json();
+        } catch (err) {
+            throw new Error('Ocorreu um erro interno ao analisar a tabela.');
+        }
 
         if (resposta.status == 200 && json.status == 'sucesso' && json.dado != undefined) {
             const quantidadeUsuario = json.dado.length;
 
             const confirmar = await Alerta.confirmar(
                 'Tabela analisada',
-                `Sua tabela foi analisada com sucesso e tem ${quantidadeUsuario} ${quantidadeUsuario > 1 ? 'usuários' : 'usuario'}. Deseja enviar?`,
+                `Sua tabela foi analisada com sucesso e tem ${quantidadeUsuario} ${
+                    quantidadeUsuario > 1 ? 'usuários' : 'usuario'
+                }. Deseja enviar?`,
                 true
             );
             if (confirmar) {
@@ -82,7 +97,9 @@ window.addEventListener('load', () => {
 
             return Alerta.mensagem(
                 'Tabela analisada',
-                `Sua tabela foi analisada e foi encontrado ${quantidadeErro} ${quantidadeErro > 1 ? 'erros' : 'erro'}. Verifique os erros para poder continuar.`,
+                `Sua tabela foi analisada e foi encontrado ${quantidadeErro} ${
+                    quantidadeErro > 1 ? 'erros' : 'erro'
+                }. Verifique os erros para poder continuar.`,
                 false
             );
         }
@@ -91,7 +108,7 @@ window.addEventListener('load', () => {
             json.status == 'erro' && json.erro.mensagem != undefined ? json.erro.mensagem : 'Erro ao analisar tabela.',
             false
         );
-    }
+    };
 
     /*
     |--------------------------------------------------------------------------
@@ -128,7 +145,8 @@ window.addEventListener('load', () => {
     */
     blocoErro.addEventListener('click', e => {
         const target = e.target;
-        if (target.classList.contains('bloco_botao_remover') ||
+        if (
+            target.classList.contains('bloco_botao_remover') ||
             target.classList.contains('botao_remover') ||
             target.closest('.bloco_botao_remover') ||
             target.closest('.botao_remover')
@@ -162,7 +180,7 @@ window.addEventListener('load', () => {
     | ACAO BOTAO ENVIAR TABELA
     |--------------------------------------------------------------------------
     */
-    const acaoAoClicarBotaoEnviar = async (arquivo) => {
+    const acaoAoClicarBotaoEnviar = async arquivo => {
         Loading.show();
 
         const body = new FormData();
@@ -182,7 +200,7 @@ window.addEventListener('load', () => {
         }
     };
 
-    const tratarRespostaEnviar = async (resposta) => {
+    const tratarRespostaEnviar = async resposta => {
         const json = await resposta.json();
 
         if (resposta.status == 200 && json.status == 'sucesso') {
@@ -198,5 +216,5 @@ window.addEventListener('load', () => {
             json.status == 'erro' && json.erro.mensagem != undefined ? json.erro.mensagem : 'Erro ao enviar tabela.',
             false
         );
-    }
+    };
 });
