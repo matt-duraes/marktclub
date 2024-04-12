@@ -40,9 +40,13 @@ trait ValidarTrait
             imagem_logo|Imagem do logo|obrigatorio|vazio|valido
             texto_descricao|Texto da descrição|obrigatorio|vazio
             texto_desconto|Texto do desconto|obrigatorio|vazio
-            texto_procedimento|Texto do procedimento|obrigatorio|vazio
             desconto|Desconto curto|obrigatorio|vazio
         ';
+        if ($this->tipo_loja->indice() != $this->tipo_loja::CASHBACK) {
+            $this->ormValidarSalvar .= '
+                texto_procedimento|Texto do procedimento|obrigatorio|vazio
+            ';
+        }
     }
 
     private function validarLoja()

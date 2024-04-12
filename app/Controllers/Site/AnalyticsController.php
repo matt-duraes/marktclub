@@ -11,7 +11,9 @@ final class AnalyticsController extends Controller
 {
     public function postPagina(Request $request)
     {
-        new SalvarModel($request->uri, $request->vinculo);
+        if (!eLocalhost()) {
+            new SalvarModel($request->uri, $request->vinculo);
+        }
         return new Response(status: 204);
     }
 

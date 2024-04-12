@@ -7,7 +7,7 @@ $listaOrdem = [
     'titulo-z-a' => 'Título Z-A',
 ];
 @end
-<div class="bloco_buscar_geral bloco_buscar_loja {{$Busca->mapa ?? '' ? 'display_none' : ''}}" id="bloco_buscar">
+<div class="bloco_buscar_geral bloco_buscar_loja {{isset($Busca) && $Busca->mapa ?? '' ? 'display_none' : ''}}" id="bloco_buscar">
     <form class="buscar form_geral botao_buscar_abrir">
         <p>Busque uma loja</p>
         @? formSelect(name: 'input_categoria_fake', id: 'bloco_input_categoria_fake', placeholder: 'Categoria', label: 'Categoria', class: 'botao_buscar_input busca_categoria_fake', lista: [])
@@ -15,7 +15,7 @@ $listaOrdem = [
         <div class="botao">Buscar</div>
     </form>
 
-    <form action="@route(get.loja.buscar)" method="get" id="form_buscar" class="{{$Busca->mapa ? 'busca_mapa' : ''}} form_geral display_none">
+    <form action="@route(get.loja.buscar)" method="get" id="form_buscar" class="{{isset($Busca) && $Busca->mapa ? 'busca_mapa' : ''}} form_geral display_none">
         <div class="conteudo">
             <div class="centralizar">
                 <header>
@@ -25,7 +25,7 @@ $listaOrdem = [
                 </header>
                 <div class="bloco_mapa">
                     <h2>Gostaria de buscar apenas lojas próximas a você? Para isso, basta marcar o botão abaixo:</h2>
-                    @? formSwitch(name: '', id:'input_mapa', label: 'Buscar lojas próximas', check: $Busca->mapa)
+                    @? formSwitch(name: '', id:'input_mapa', label: 'Buscar lojas próximas', check: isset($Busca) && $Busca->mapa)
                 </div>
                 <input type="hidden" id="input_latitude_erro" value="{{$Busca->latitude_erro ?? '' ? 'sim' : 'nao'}}">
                 <input type="hidden" name="latitude" id="input_latitude" value="{{$Busca->latitude ?? ''}}">

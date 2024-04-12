@@ -86,15 +86,13 @@ final class LojaController extends Controller
             return new Response(url: route('samsung.index'));
         }
 
-        $Contato = new ContatoModel([$dado->id, $dado->vinculo_parceiro]);
-
+        $Contato = new ContatoModel([$dado->id]);
         return view('loja.detalhe', [
             'menu'         => 'loja',
             'dado'         => $dado,
             'telefone'     => $Contato->buscarDados('telefone'),
             'email'        => $Contato->buscarDados('email'),
             'tipo'         => $dado->tipo,
-            'Busca'        => (new FiltroModel([])),
             'procedimento' => new TipoProcedimento()
         ]);
     }

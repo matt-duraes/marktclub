@@ -23,14 +23,10 @@ final class ClubeMiddleware extends ApiHelper
         $this->montarDefine();
         return true;
     }
-    public function teste(): bool
-    {
-        return true;
-    }
 
     private function buscarDispositivo()
     {
-        if (sessaoExiste('DISPOSITIVO_' . $this->id) && sessaoExiste('DISPOSITIVO') && !eLocalhost()) {
+        if (sessaoExiste('DISPOSITIVO_' . $this->id) && sessaoExiste('DISPOSITIVO')) {
             return;
         }
 
@@ -62,7 +58,7 @@ final class ClubeMiddleware extends ApiHelper
 
     private function buscarClube()
     {
-        if (sessaoExiste('CLUBE_' . $this->id) && sessaoExiste('CLUBE') && !eLocalhost()) {
+        if (sessaoExiste('CLUBE_' . $this->id) && sessaoExiste('CLUBE')) {
             return;
         }
         $host = preg_replace('/^http(s)?\:\/\/(www.)?/', '', LINK);

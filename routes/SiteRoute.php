@@ -188,7 +188,7 @@ Route
     });
 Route
     ::nome('analytics')
-    ::middleware(ClubeMiddleware::class, 'teste')
+    ::middleware(ClubeMiddleware::class, 'buscar')
     ::middleware(AuthMiddleware::class, 'logado')
     ::controller(App\Controllers\Site\IndexController::class)
     ::controller(App\Controllers\Site\AnalyticsController::class)
