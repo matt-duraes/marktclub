@@ -2,6 +2,7 @@
 
 namespace App\Controllers\Site;
 
+use Http\Response;
 use Controller\Controller;
 use App\Models\Site\BannerModel;
 use App\Models\Site\Loja\BuscarModel;
@@ -12,20 +13,19 @@ use App\Classes\ParceiroLoja\TipoProcedimento;
 
 final class FarmaciaController extends Controller
 {
-    public function index()
+    /**
+     * @return Response
+     * @throws Excecao
+     */
+    public function index(): Response
     {
-        $Farmacia = new ListarModel(
-            tipo: new TipoLoja(TipoLoja::FARMACIA)
-        );
-
         if (!sessaoExiste('popupAlerta')) {
             sessao('popupAlerta', true);
         }
-
-        return view('farmacia.index', [
-            'menu'        => 'farmacia',
-            'banner'      => (new BannerModel())->farmacia(),
-            'lista'       => $Farmacia->listarDados(),
+        return view('loja.index', [
+            'menu'   => 'farmacia',
+            'tipo'   => 'farmacia',
+            'banner' => (new BannerModel())->farmacia(),
         ]);
     }
 

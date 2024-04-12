@@ -5,13 +5,9 @@ namespace App\Controllers\Site;
 use Erro\Excecao;
 use Http\Request;
 use Http\Response;
-use Modules\Pagina;
-use Modules\Quantidade;
 use Controller\Controller;
+use App\Models\Site\Loja\BuscarModel;
 use App\Models\Site\Loja\FiltroModel;
-use App\Classes\ParceiroCashback\Ordem;
-use App\Models\Site\Cashback\BuscarModel;
-use App\Models\Site\Cashback\ListarModel;
 
 final class CashbackController extends Controller
 {
@@ -32,18 +28,6 @@ final class CashbackController extends Controller
             'banner' => [],
             'todos'  => empty($request->dado()),
         ]);
-    }
-
-    public function postListar(Request $request)
-    {
-        $Lista = new ListarModel(
-            pagina: new Pagina($request->pagina),
-            quantidade: new Quantidade($request->quantidade),
-            pesquisa: $request->pesquisa,
-            categoria: $request->categoria,
-            ordem: new Ordem($request->ordem)
-        );
-        return mensagemSucesso($Lista->listarDados());
     }
 
     public function buscar(Request $request)
@@ -75,16 +59,11 @@ final class CashbackController extends Controller
     public function detalhe(string $url): Response
     {
         $Dado = new BuscarModel($url);
-        $Lista = new ListarModel(
-            pagina: new Pagina(1),
-            quantidade: new Quantidade(3)
-        );
         return view(
             'cashback.detalhe',
             [
                 'menu'  => 'cashback',
                 'dado'  => $Dado->buscarDados(),
-                'lista' => $Lista->listarDados(),
                 'tipo'  => 'cashback'
             ]
         );
