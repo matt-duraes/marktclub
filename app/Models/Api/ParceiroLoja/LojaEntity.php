@@ -4,6 +4,7 @@ namespace App\Models\Api\ParceiroLoja;
 
 use ORM\Entity;
 use Modules\Data;
+use Modules\Botao;
 use Helpers\OrmHelper;
 use App\Classes\ParceiroLoja\Status;
 use App\Classes\ParceiroLoja\Categoria;
@@ -135,6 +136,28 @@ final class LojaEntity extends Entity
         $this->destaque = $this->EmpresaOrm->mudarListaIdParaUuid($this->destaque);
         $this->equipe = $this->EquipeOrm->pegarUuidPeloId($this->id_usuario_equipe);
         $this->categoria_lista = $this->converterCategoriaEm('indice');
+        $this->setarRelacionadoExistem();
+    }
+
+    private function setarRelacionadoExistem()
+    {
+        $this->existe_endereco = new Botao((new OrmHelper(TABELA_SISTEMA_ENDERECO))->existe([
+            ['id_vinculo', $this->id],
+            ['local_principal', TABELA_PARCEIRO_LOJA],
+            ['local_secundario', 'clube']
+        ]) ? 'sim' : 'nao');
+        $this->existe_telefone = new Botao((new OrmHelper(TABELA_SISTEMA_CONTATO))->existe([
+            ['id_vinculo', $this->id],
+            ['local_principal', TABELA_PARCEIRO_LOJA],
+            ['local_secundario', 'clube'],
+            ['tipo', 1]
+        ]) ? 'sim' : 'nao');
+        $this->existe_email = new Botao((new OrmHelper(TABELA_SISTEMA_CONTATO))->existe([
+            ['id_vinculo', $this->id],
+            ['local_principal', TABELA_PARCEIRO_LOJA],
+            ['local_secundario', 'clube'],
+            ['tipo', 2]
+        ]) ? 'sim' : 'nao');
     }
 
     private function converterCategoriaEm(string $tipo): array

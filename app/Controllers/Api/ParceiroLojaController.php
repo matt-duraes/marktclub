@@ -94,7 +94,7 @@ final class ParceiroLojaController extends Controller implements
                     'texto_procedimento', 'texto_voucher', 'categoria_principal', 'categoria_lista', 'subcategoria_tag',
                     'subcategoria_lista', 'empresa', 'destaque', 'confirmar_status', 'confirmar_titulo',
                     'confirmar_texto', 'endereco_estado', 'pontuacao', 'desconto', 'arquivo_clube', 'arquivo_painel',
-                    'cupom_desconto', 'status'
+                    'cupom_desconto', 'existe_endereco', 'existe_email', 'existe_telefone', 'status'
                 ]
             ),
             status: $status

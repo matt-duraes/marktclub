@@ -4,8 +4,6 @@ namespace App\Controllers\Site;
 
 use Http\Request;
 use Controller\Controller;
-use System\Classes\Endereco\Tipo;
-use System\Classes\Endereco\Local;
 use App\Models\Site\Endereco\ListaModel;
 
 final class EnderecoController extends Controller
@@ -14,8 +12,7 @@ final class EnderecoController extends Controller
     {
         $Lista = new ListaModel(
             id: $request->id,
-            tipo: new Tipo($request->tipo),
-            local: new Local(Local::CLUBE)
+            local: $request->local
         );
         return mensagemSucesso([
             'existe'     => $Lista->existe,

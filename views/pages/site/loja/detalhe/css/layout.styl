@@ -9,54 +9,119 @@
 @resource "site/parceiro_header"
 @resource "site/texto_destaque"
 
-#bloco_endereco
-    .conteudo_pagina_popup
-        display: flex
-        align-items: center
-        margin: 10px 0
-
-        .bloco_categoria_estado
-            width: calc(100% - 40px)
-            text-align: center
-
-            .divisoria_estado
-                width: 90%
-                border-top: 1px solid #ddd
-                opacity: 0.5
-
-            .bloco_estado_titulo
-                font-size: 1.8rem !important
-
-            .bloco_cidade_titulo
-            .bloco_estado_titulo
-                texto()
-        .bloco_categoria_cidade
-            text-align: left
-            padding: 10px
-        .bloco_endereco_item
-            list-style-type: disc
-            margin-left: 20px
-            font-size: 20px
-
-            .bloco_detalhe_endereco
-                margin: 10px 0
-                display: flex
-                justify-content: center
-                align-items: center
-
-                .botao_buscar_endereco
-                    height: 30px
-                    line-height: 30px
-                    color: white
-                    background: var(--cor-clube);
-
-                .endereco
-                    flex: 1
-        p
-            texto()
-
 #bloco_loja_detalhe
     margin-top: 20px
+
+.conteudo_pagina_popup .texto_titulo
+    font-size: 20px
+    margin: 20px 12px
+
+.conteudo_pagina_popup .arquivo
+    margin: 8px 25px
+    padding: 12px 20px
+    display: flex
+    align-items: center
+    .arquivo_nome
+        flex: 1
+        font-size: 14px
+    .botao_geral_cor
+        color: white
+
+.bloco_loja_detalhe
+    width: 100%
+    max-width: $maxWidth
+    flexCol()
+    align-items: center
+
+.bloco_desconto_procedimento
+    maxWidth()
+    flexRow()
+    justify-content: space-between
+    espacoBottomPadrao()
+    .bloco
+        width: calc(50% - 10px)
+
+.bloco_botao
+    display: flex
+    width: 100%
+    flex-wrap: wrap
+    justify-content: center
+    padding-bottom: 10px
+    .linha
+        width: 1px
+        height: 30px
+        background-color: #CCC
+        margin-left: 20px
+    .borda
+        color: $corClube
+        border-color: $corClube
+        margin-right: 20px
+        margin-top: 20px
+        padding-right: 5px
+        flexRow()
+        align-items: center
+        cursor: pointer
+    .botao
+        background: $corClube
+        color: #FFF
+        margin-right: 20px
+        margin-top: 20px
+        flexRow()
+        align-items: center
+        cursor: pointer
+    .borda i
+    .botao i
+        width: 40px
+        height: 40px
+        flexCenter()
+        fill: #FFF
+    .borda i
+        fill: $corClube
+    .branco
+        background-color: #FFF
+        boxShadow()
+        padding-left: 5px
+    .branco i
+        border-right: 1px solid #DDD
+        margin-right: 15px
+    .destaque
+        padding-right: 10px
+    .destaque i
+        margin-left: 5px
+
+@media screen and (max-width: 940px)
+    .bloco_loja_detalhe .bloco_botao
+        justify-content: center
+        .botao
+            width: 45%
+            margin: 10px
+        .botao &:first-child
+            margin-top: 0px
+        .botao &:last-child
+            margin-bottom: 0px
+
+@media screen and (max-width: 615px)
+    .bloco_loja_detalhe .bloco_botao
+        padding-top: 0px
+        padding-bottom: 0px
+        margin-bottom: 0px
+        .botao
+            width: 100%
+            flexCenter()
+        .botao i
+            display: none
+
+@media screen and ( max-width: 700px)
+    .bloco_botao .branco i
+        border: none
+        margin: none
+@media screen and ( max-width: 600px )
+    .bloco_desconto_procedimento
+        flex-direction: column
+    .bloco_desconto_procedimento .bloco
+        width: 100%
+        &:first-child
+            margin-bottom: 20px
 
 #bloco_loja_confirmar
     max-width: 700px
@@ -141,25 +206,3 @@
         max-height: calc(100vh - 200px)
         position: relative
         z-index: 1
-
-#conteudo_popup_contato
-    ul
-        margin: 10px 0
-    li
-        width: 100%
-        height: 30px
-        display: flex
-        align-items: center
-        padding: 0 40px
-        span
-            font-size: 14px
-            flex: 1
-        i
-            cursor: pointer
-
-@media screen and ( max-width: 400px)
-    .bloco_endereco_item
-        list-style-type: none !important
-        margin-left: 10px !important
-    .bloco_categoria_estado
-        width: 100% !important

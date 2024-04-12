@@ -141,6 +141,20 @@ Route
     ::middleware(TokenMiddleware::class, 'token')
     ::grupo(function () {
         Route
+            ::nome('principal')
+            ::middleware(TokenMiddleware::class, 'scope', ['endereco:listar'])
+            ::request([
+                '!latitude', '!longitude', 'local_principal', 'local_secundario', 'vinculo'
+            ], 'json')
+            ::get('/endereco/principal');
+        Route
+            ::nome('estrutura')
+            ::middleware(TokenMiddleware::class, 'scope', ['endereco:listar'])
+            ::request([
+                '!pais', '!estado', '!cidade', 'local_principal', 'local_secundario', 'vinculo'
+            ], 'json')
+            ::get('/endereco/estrutura');
+        Route
             ::nome('listar')
             ::middleware(TokenMiddleware::class, 'scope', ['endereco:listar'])
             ::request([

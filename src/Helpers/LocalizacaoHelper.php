@@ -72,9 +72,14 @@ final class LocalizacaoHelper
     }
 
     /**
-     * @throws Excecao
+     * Pega o endereço do usuário pelo lat/long
+     *
+     * @param  float   $latitude  Latitude
+     * @param  float   $longitude Longitude
+     * @param  boolean $erro      Se vai disparar erro
+     * @return array   ['bairro', 'cidade', 'estado', 'cep', 'pais']
      */
-    public function pegarEnderecoPelaGeolocalizacao($latitude, $longitude): array
+    public function pegarEnderecoPelaGeolocalizacao(float $latitude, float $longitude, bool $erro = true): array
     {
         $parameters = $latitude . ',' . $longitude . '&key=' . $this->googleKey();
         $url = 'https://maps.google.com/maps/api/geocode/json?latlng=' . $parameters;
@@ -85,10 +90,6 @@ final class LocalizacaoHelper
 
         $retorno = jsonDecode(curl_exec($ch), true);
 
-        if (empty($retorno['results'])) {
-            $this->mensagemErroApi();
-        }
-
         $endereco = [
             'bairro' => '',
             'cidade' => '',
@@ -96,6 +97,12 @@ final class LocalizacaoHelper
             'cep'    => '',
             'pais'   => '',
         ];
+
+        if (empty($retorno['results']) && $erro) {
+            $this->mensagemErroApi();
+        } elseif (empty($retorno['results'])) {
+            return $endereco;
+        }
 
         foreach ($retorno['results'] as $r) {
             if ($r['geometry']['location']['lat'] == $latitude && $r['geometry']['location']['lng'] == $longitude) {
