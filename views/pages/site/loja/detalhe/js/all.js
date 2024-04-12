@@ -1,14 +1,13 @@
 // @template "site"
 // @system "Esqueleto"
+// @system "Popup"
 // @resource "site/busca"
 // @resource "site/loja/favorito"
 // @resource "site/loja/parceiro"
 // @resource "site/loja/declaracao"
 // @resource "site/loja/relacionado"
 // @resource "site/loja/download"
-// @system "Popup"
 // @import "mapa"
-// @import "contato"
 
 window.addEventListener('load', () => {
     const parceiroId = $('#input_loja_id').value;

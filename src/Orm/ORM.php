@@ -42,6 +42,9 @@ abstract class ORM
     use SetGetTrait;
     use ValidarTrait;
 
+    protected const RETORNO_ARRAY = 'array';
+    protected const RETORNO_OBJECT = 'object';
+
     /**
      * @param array $option Option aceitos pelo PDO
      * @param array $conn   Option para a conexao podendo ser:

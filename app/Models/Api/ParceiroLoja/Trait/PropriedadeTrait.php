@@ -79,4 +79,7 @@ trait PropriedadeTrait
     public ArquivoPrivadoLista $arquivo_clube;
     public ArquivoPrivadoLista $arquivo_painel;
     public array $cupom_desconto;
+    public Botao $existe_endereco;
+    public Botao $existe_email;
+    public Botao $existe_telefone;
 }

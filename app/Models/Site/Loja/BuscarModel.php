@@ -51,6 +51,9 @@ final class BuscarModel extends ClubeApiHelper
             'desconto'           => $r->desconto,
             'arquivo'            => $r->arquivo_clube,
             'tipo'               => (new TipoLoja($r->tipo_loja))->indice(),
+            'endereco'           => $r->existe_endereco == 'sim',
+            'email'              => $r->existe_email == 'sim',
+            'telefone'           => $r->existe_telefone == 'sim',
         ];
     }
 }

@@ -6,7 +6,6 @@ use ORM\ORM;
 use stdClass;
 use Where\Where;
 use Erro\Excecao;
-use Modules\Botao;
 use Modules\Pagina;
 use Modules\Quantidade;
 use Modules\EnderecoEstado;
@@ -14,7 +13,9 @@ use System\Classes\Endereco\Ordem;
 use System\Trait\Model\OrdemTrait;
 use System\Trait\Model\WhereTrait;
 use System\Trait\Model\PaginaTrait;
+use ApiModel\Endereco\Trait\CampoTrait;
 use System\Trait\Model\QuantidadeTrait;
+use ApiModel\Endereco\Trait\RetornoTrait;
 
 final class EnderecoModel extends ORM
 {
@@ -22,6 +23,8 @@ final class EnderecoModel extends ORM
     use PaginaTrait;
     use QuantidadeTrait;
     use WhereTrait;
+    use CampoTrait;
+    use RetornoTrait;
 
     protected string $ormTabela = TABELA_SISTEMA_ENDERECO;
     public string $vinculo;
@@ -41,10 +44,7 @@ final class EnderecoModel extends ORM
     public function listarDados(): array|stdClass
     {
         $dado = $this
-            ->campo([
-                'uuid', 'titulo', 'cep', 'logradouro', 'complemento', 'referencia',
-                'numero', 'bairro', 'cidade', 'estado', 'pais', 'latitude', 'longitude', 'principal'
-            ])
+            ->campo($this->pegarCampos())
             ->where($this->pegarWhere(), obrigatorio: false)
             ->order($this->pegarOrdem());
 
@@ -78,60 +78,5 @@ final class EnderecoModel extends ORM
             ->linha('cidade')
             ->linha('estado');
         return $Where;
-    }
-
-    private function montarRetorno(array $dado): array
-    {
-        $retorno = [];
-        foreach ($dado as $r) {
-            $retorno[] = [
-                'id'          => $r->uuid,
-                'titulo'      => $r->titulo,
-                'completo'    => $this->formataEnderecoCompleto($r),
-                'cep'         => $r->cep,
-                'logradouro'  => $r->logradouro,
-                'numero'      => $r->numero,
-                'complemento' => $r->complemento,
-                'referencia'  => $r->referencia,
-                'bairro'      => $r->bairro,
-                'cidade'      => $r->cidade,
-                'estado'      => $r->estado,
-                'pais'        => $r->pais,
-                'latitude'    => $r->latitude,
-                'longitude'   => $r->longitude,
-                'principal'   => (new Botao($r->principal))->valor()
-            ];
-        }
-        return $retorno;
-    }
-
-    private function formataEnderecoCompleto($endereco)
-    {
-        $completo = $endereco->logradouro;
-
-        if (!empty($endereco->numero)) {
-            $completo .= ' ' . $endereco->numero;
-        }
-        if (!empty($endereco->complemento)) {
-            $completo .= ' ' . $endereco->complemento;
-        }
-        if (!empty($endereco->referencia)) {
-            $completo .= ', ' . $endereco->referencia;
-        }
-        if (!empty($endereco->bairro)) {
-            $completo .= ', ' . $endereco->bairro;
-        }
-        if (!empty($endereco->cidade)) {
-            $completo .= ', ' . $endereco->cidade;
-        }
-        if (!empty($endereco->estado)) {
-            $completo .= !empty($endereco->cidade) ? '/' : ' - ';
-            $completo .= $endereco->estado;
-        }
-        if (!empty($endereco->cep)) {
-            $completo .= ' - CEP: ' . strCep($endereco->cep);
-        }
-
-        return $completo;
     }
 }

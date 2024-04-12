@@ -21,6 +21,7 @@ $Grupo = (new OrmHelper(TABELA_UPLOAD_GRUPO, true))->pegarUltimoRegistro(
     campo: ['privado', 'diretorio'],
     retorno: 'object'
 );
+
 if (vazio($Grupo)) {
     mensagemStatus(404, localhost: 'Falhou ao tentar buscar arquivo.');
 }

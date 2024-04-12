@@ -12,7 +12,6 @@ use App\Models\Site\Loja\BuscarModel;
 use App\Models\Site\Loja\FiltroModel;
 use App\Models\Site\Loja\ListarModel;
 use App\Classes\ParceiroLoja\TipoLoja;
-use App\Models\Site\Login\ContatoModel;
 use App\Models\Site\Loja\FavoritoModel;
 use App\Models\Site\Loja\DeclaracaoModel;
 use App\Models\Site\Loja\ChequeBonusModel;
@@ -86,12 +85,9 @@ final class LojaController extends Controller
             return new Response(url: route('samsung.index'));
         }
 
-        $Contato = new ContatoModel([$dado->id]);
         return view('loja.detalhe', [
             'menu'         => 'loja',
             'dado'         => $dado,
-            'telefone'     => $Contato->buscarDados('telefone'),
-            'email'        => $Contato->buscarDados('email'),
             'tipo'         => $dado->tipo,
             'procedimento' => new TipoProcedimento()
         ]);

@@ -4,8 +4,6 @@ namespace App\Models\Site\Endereco;
 
 use Helpers\ListaHelper;
 use App\Helpers\ClubeApiHelper;
-use System\Classes\Endereco\Tipo;
-use System\Classes\Endereco\Local;
 
 final class ListaModel extends ClubeApiHelper
 {
@@ -20,8 +18,7 @@ final class ListaModel extends ClubeApiHelper
 
     public function __construct(
         private string $id,
-        private Tipo $tipo,
-        private Local $local
+        private string $local,
     ) {
         // sleep(3);
         parent::__construct();
@@ -32,31 +29,20 @@ final class ListaModel extends ClubeApiHelper
 
     private function buscarDado()
     {
+        $local = [
+            'loja' => 'parceiro_loja'
+        ];
         $this->busca = $this
             ->validar(login: true)
             ->json([
-                'local'    => $this->local->indice(),
-                'tipo'     => $this->tipo->indice(),
-                'vinculo'  => $this->buscarVinculoParceiro()
+                'local_principal'  => $local[$this->local],
+                'local_secundario' => 'clube',
+                'vinculo'          => $this->id,
+                'pagina'           => 1,
             ])
             ->get('/endereco')
-            ->object()->dado ?? [];
-    }
-
-    private function buscarVinculoParceiro()
-    {
-        $parceiro = $this
-            ->get('/parceiro-loja/' . $this->id)
-            ->object()->dado ?? [];
-
-        if (!empty($parceiro)) {
-            return [
-                $parceiro->vinculo_parceiro,
-                $this->id
-            ];
-        }
-
-        return $this->id;
+            ->object();
+        ppe($this->busca);
     }
 
     private function montarEndereco()
