@@ -23,9 +23,8 @@ final class FavoritoModel extends ClubeApiHelper
         if (!chaveExiste('dado', $dado)) {
             $dado = [];
         }
-
         $retorno = [];
-        foreach ($dado as $r) {
+        foreach ($dado->dado as $r) {
             $retorno[$r->parceiro] = true;
         }
         return $retorno;
