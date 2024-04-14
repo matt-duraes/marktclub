@@ -19,9 +19,8 @@ final class FavoritoModel extends ClubeApiHelper
 
     private function buscarFavorito(): array
     {
-        try {
-            $dado = $this->get('/parceiro-favorito')->object()->dado;
-        } catch (\Throwable) {
+        $dado = $this->get('/parceiro-favorito')->object();
+        if (!chaveExiste('dado', $dado)) {
             $dado = [];
         }
 
