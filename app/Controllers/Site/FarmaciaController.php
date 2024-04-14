@@ -6,9 +6,6 @@ use Http\Response;
 use Controller\Controller;
 use App\Models\Site\BannerModel;
 use App\Models\Site\Loja\BuscarModel;
-use App\Models\Site\Loja\FiltroModel;
-use App\Models\Site\Loja\ListarModel;
-use App\Classes\ParceiroLoja\TipoLoja;
 use App\Classes\ParceiroLoja\TipoProcedimento;
 
 final class FarmaciaController extends Controller
@@ -36,24 +33,15 @@ final class FarmaciaController extends Controller
      */
     public function detalhe(string $url)
     {
-        $Listar = new ListarModel(
-            tipo: new TipoLoja(TipoLoja::FARMACIA),
-            Filtro: new FiltroModel(['quantidade' => 3])
-        );
+        $Dado = new BuscarModel(url: $url);
+        $dado = $Dado->buscarDados();
 
-        return view(
-            'farmacia.detalhe',
-            [
-                'menu'         => 'farmacia',
-                'dado'         => (new BuscarModel($url))->buscarDados(),
-                'tipo'         => 'farmacia',
-                'lista'        => $Listar->listarDados(),
-                'telefone'     => [],
-                'email'        => [],
-                'endereco'     => [],
-                'procedimento' => new TipoProcedimento()
-            ]
-        );
+        return view('loja.detalhe', [
+            'menu'         => 'farmacia',
+            'dado'         => $dado,
+            'tipo'         => 'farmacia',
+            'procedimento' => new TipoProcedimento()
+        ]);
     }
 
     public function carteirinha()
