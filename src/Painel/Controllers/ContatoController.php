@@ -16,6 +16,7 @@ final class ContatoController extends Controller
         $dado = $Api
             ->validar('Ocorreu um erro ao listar contato, por favor, tente novamente.')
             ->json([
+                'vinculo'          => $request->vinculo,
                 'local_principal'  => $request->local_principal,
                 'local_secundario' => $request->local_secundario,
                 'pesquisa'         => $request->pesquisa,

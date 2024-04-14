@@ -19,6 +19,7 @@ final class LojaEntity extends Entity
     use SistemaDataTrait;
 
     protected string $ormTabela = TABELA_PARCEIRO_LOJA;
+    protected array $ormRetornoPadrao = ['id', 'titulo', 'imagem_logo'];
     protected array $ormBuscar = [
         'nome_fantasia', 'razao_social', 'tipo_juridico', 'documento_cpf', 'documento_cnpj', 'titulo_interno',
         'tipo_loja', 'id_usuario_equipe', 'responsavel_telefone', 'responsavel_cargo', 'responsavel_nome',

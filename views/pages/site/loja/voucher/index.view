@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>VOUCHER - {{$dado->parceiro->titulo}}</title>
+    <title>VOUCHER - {{TITULO}}</title>
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -15,7 +15,7 @@
 <div id="site">
     <header>
         <img src="{{CLUBE_LOGO_PRINCIPAL}}" height="50" alt="{{CLUBE_TITULO}}">
-        <img src="{!!$dado->parceiro->link_logo!!}" height="100" alt="{{$dado->parceiro->titulo}}">
+        <img src="{!!$dado->parceiro->imagem_logo!!}" height="100" alt="{{$dado->parceiro->titulo}}">
     </header>
 
     <div class="qr_code">

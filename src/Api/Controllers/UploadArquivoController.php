@@ -6,6 +6,7 @@ use Erro\Excecao;
 use Http\Request;
 use Http\Response;
 use Controller\Controller;
+use ApiModel\Upload\DadoModel;
 use ApiModel\Upload\GrupoEntity;
 use ApiModel\Upload\ArquivoModel;
 use ApiModel\Upload\ArquivoEntity;
@@ -33,6 +34,14 @@ final class UploadArquivoController extends Controller implements
         $lista = $Arquivo->buscarArquivos($request->pagina, $request->pesquisa, $request->grupo);
 
         return mensagemSucesso($lista);
+    }
+
+    public function postDado(Request $request): Response
+    {
+        $Arquivo = new DadoModel(
+            id: $request->arquivo
+        );
+        return mensagemSucesso($Arquivo->arquivo);
     }
 
     /**

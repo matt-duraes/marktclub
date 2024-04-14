@@ -1,0 +1,18 @@
+@ if( !empty($dado->arquivo) && count($dado->arquivo) > 1 ):
+<div class="bloco_pagina_popup display_none" id="bloco_arquivo">
+    <header class="header_pagina_popup">
+        <h1>Arquivos</h1>
+        <i class="popup_fechar fechar">@iconeFechar</i>
+    </header>
+    <div class="conteudo_pagina_popup conteudo_popup">
+        <div class="conteudo bloco_lista_texto_icone">
+            @ foreach( $dado->arquivo as $r ):
+            <a class="linha" href="{{$r->arquivo}}" target="_blank" rel="noopener noreferrer">
+                <p>{{$r->nome}}</p>
+                <i class="borda">@iconeDownload(12)</i>
+            </a>
+            @ endforeach;
+        </div>
+    </div>
+</div>
+@ endif;

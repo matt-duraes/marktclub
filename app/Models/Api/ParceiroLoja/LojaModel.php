@@ -85,7 +85,7 @@ class LojaModel extends ORM implements ModelListarInterface
             $Raio = new RaioModel($this->latitude, $this->longitude);
             $dado
                 ->tabela(TABELA_SISTEMA_ENDERECO)
-                ->join('uuid', 'id_vinculo')
+                ->join('id_vinculo', 'uuid')
                 ->campo(['latitude', 'longitude'])
                 ->where([
                     ['local_principal', TABELA_PARCEIRO_LOJA],
