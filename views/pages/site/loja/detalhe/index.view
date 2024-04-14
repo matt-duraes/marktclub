@@ -1,5 +1,8 @@
 @template "site"
+
+@ if( $tipo == 'loja' ):
 @view site/loja/busca/loja.view
+@ endif;
 
 @ if($dado):
 <div id="bloco_loja_detalhe" class="bloco_loja_detalhe">
