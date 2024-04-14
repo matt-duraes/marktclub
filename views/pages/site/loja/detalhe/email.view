@@ -1,0 +1,19 @@
+@ if( $dado->email ):
+<div class="bloco_pagina_popup display_none" id="bloco_email">
+    <header class="header_pagina_popup">
+        <h1>E-mail</h1>
+        <i class="popup_fechar fechar">@iconeFechar</i>
+    </header>
+    <div class="conteudo_pagina_popup conteudo_popup">
+        <div class="conteudo bloco_lista_texto_icone" id="bloco_email_lista">
+
+        </div>
+    </div>
+</div>
+<div class="linha display_none" id="bloco_email_padrao">
+    <strong></strong>
+    <span></span>
+    <p></p>
+    <i class="borda botao">@iconeCopiar(12)</i>
+</div>
+@ endif;

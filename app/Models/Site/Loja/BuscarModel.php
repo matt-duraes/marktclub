@@ -31,6 +31,7 @@ final class BuscarModel extends ClubeApiHelper
 
     private function montarRetorno($r): stdClass
     {
+        $tipo = (new TipoLoja($r->tipo_loja))->indice();
         $Texto = new MarkdownHelper();
         return (object)[
             'id'                 => $r->id,
@@ -49,11 +50,38 @@ final class BuscarModel extends ClubeApiHelper
             'link'               => $r->link_site,
             'url'                => $r->url,
             'desconto'           => $r->desconto,
-            'arquivo'            => $r->arquivo_clube,
-            'tipo'               => (new TipoLoja($r->tipo_loja))->indice(),
+            'arquivo'            => $this->buscarArquivo($tipo, $r->arquivo_clube),
+            'tipo'               => $tipo,
             'endereco'           => $r->existe_endereco == 'sim',
             'email'              => $r->existe_email == 'sim',
             'telefone'           => $r->existe_telefone == 'sim',
         ];
+    }
+
+    private function buscarArquivo($tipo, $arquivo): array
+    {
+        if ($tipo != TipoLoja::LOJA || empty($arquivo)) {
+            return [];
+        }
+        $dado = $this
+            ->body([
+                'arquivo' => $arquivo
+            ])
+            ->post('/upload-arquivo/dado')
+            ->object();
+        return $this->montarArquivo($dado->dado ?? []);
+    }
+
+    private function montarArquivo($arquivo)
+    {
+        $retorno = [];
+        foreach ($arquivo as $r) {
+            $retorno[] = (object)[
+                'id'      => $r->id,
+                'nome'    => $r->nome,
+                'arquivo' => $r->arquivo
+            ];
+        }
+        return $retorno;
     }
 }

@@ -9,6 +9,19 @@ const $$ = (seletor, pai) => {
 };
 const ppe = console.log.bind(console);
 
+Object.defineProperty(Object.prototype, 'copiar', {
+    value(mensagem) {
+        const texto = this.innerText;
+        navigator.clipboard.writeText(texto);
+        if (mensagem) {
+            Alerta.notificacao(mensagem, true);
+        }
+        return this;
+    },
+    writable: true,
+    configurable: true,
+});
+
 Object.defineProperty(Object.prototype, 'displayShow', {
     value() {
         let elemento = this;
@@ -360,6 +373,7 @@ Object.defineProperty(Object.prototype, 'clonar', {
         }
         const clone = elemento.cloneNode(true);
         clone.removeAttribute('id');
+        clone.classList.remove('display_none');
         const listaId = clone.querySelectorAll('*[id]');
         for (const item of listaId) {
             item.removeAttribute('id');

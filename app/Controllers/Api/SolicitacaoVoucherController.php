@@ -6,7 +6,6 @@ use Http\Request;
 use Http\Response;
 use Controller\Controller;
 use App\Classes\SolicitacaoVoucher\Tipo;
-use App\Classes\SolicitacaoVoucher\Helper;
 use App\Controllers\Api\Trait\ClienteTrait;
 use App\Controllers\Api\Trait\ParceiroTrait;
 use System\Interface\ControllerBuscarInterface;
@@ -44,15 +43,11 @@ final class SolicitacaoVoucherController extends Controller implements
             pegarPropriedadeDaEntity(
                 $Voucher,
                 lista: [
-                    'id',
-                    'Usuario'    => ['id', 'nome', 'cpf'],
-                    'Parceiro'   => ['id', 'titulo', 'link_logo'],
-                    'Construtor' => ['id', 'logo', 'logo_marktclub'],
-                    'codigo', 'data_criacao', 'data_vencimento', 'data_validacao', 'qr_code', 'texto_desconto',
-                    'texto_voucher', 'texto_juridico', 'texto_validar', 'status'
+                    'id', 'Usuario', 'Parceiro', 'Construtor', 'codigo', 'data_criacao', 'data_vencimento',
+                    'data_validacao', 'qr_code', 'texto_desconto', 'texto_voucher', 'texto_juridico',
+                    'texto_validar', 'status'
                 ],
             ),
-            // criptografar: Helper::CRIPTOGRAFAR,
             status: $status
         );
     }

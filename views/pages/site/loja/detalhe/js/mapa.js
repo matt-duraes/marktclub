@@ -4,25 +4,111 @@ window.addEventListener('load', async () => {
         return;
     }
     const idLoja = $('#input_loja_id').value;
+    const blocoGoogleMap = $('#bloco_endereco_google_map');
+    const blocoEnderecoCompleto = $('#bloco_endereco_completo');
+    const botaoEnderecoLink = $('#botao_endereco_link');
+    const botaoEnderecoCopiar = $('#botao_endereco_copiar');
 
-    async function buscarEndereco() {
+    const buscarEnderecoPrincipal = async () => {
+        const MapaEsqueleto = new Esqueleto(blocoMapa, '.esqueleto');
+        MapaEsqueleto.show();
         const resposta = await ajaxPost(
-            LINK + '/endereco',
+            LINK + '/endereco/principal',
             {
                 id: idLoja,
                 local: 'loja',
+                latitude: localStorage.getItem('USUARIO_LATITUDE') || '',
+                longitude: localStorage.getItem('USUARIO_LONGITUDE') || '',
             },
             ''
         );
-        ppe(resposta);
-        // if (false == resposta || false === resposta.dado.existe) {
-        //     blocoMapa.classList.add('display_none');
-        //     return;
-        // }
+        MapaEsqueleto.hide();
+        if (false === resposta) {
+            blocoMapa.sumir();
+            return;
+        }
+        adicionarEndereco(resposta.dado);
+    };
+    buscarEnderecoPrincipal();
+    botaoEnderecoCopiar.evento('click', () => {
+        blocoEnderecoCompleto.copiar('Endereço copiado com sucesso!');
+    });
+
+    const buscarEstruturaEndereco = async tipo => {
+        if (tipo == 'pais') {
+            // blocoEstado.sumir();
+            // blocoCidade.sumir();
+        } else if (tipo == 'estado') {
+            // blocoCidade.sumir();
+        }
+        const resposta = await ajaxPost(
+            LINK + '/endereco/estrutura',
+            {
+                id: idLoja,
+                local: 'loja',
+                pais,
+                estado,
+                cidade,
+            },
+            ''
+        );
+    };
+
+    const buscarEndereco = async (pagina, estado, cidade) => {
+        const resposta = await ajaxPost(
+            LINK + '/endereco/principal',
+            {
+                id: idLoja,
+                local: 'loja',
+                pagina,
+                estado,
+                cidade,
+            },
+            ''
+        );
+        if (false == resposta) {
+            blocoMapa.sumir();
+            return;
+        }
         // blocoMapa.classList.remove('display_none');
         // return resposta.dado;
-    }
-    buscarEndereco();
+    };
+
+    const adicionarEndereco = async dado => {
+        const latitude = parseFloat(dado.latitude);
+        const longitude = parseFloat(dado.longitude);
+        const posicao = { lat: latitude, lng: longitude };
+
+        blocoEnderecoCompleto.texto(dado.endereco);
+        botaoEnderecoLink.attr('href', `https://www.google.com.br/maps/dir//${latitude},%20${longitude}`);
+
+        const { Map } = await google.maps.importLibrary('maps');
+        const option = {
+            scrollwheel: false,
+            zoom: 14,
+            center: posicao,
+            disableDefaultUI: true,
+            panControl: false,
+            zoomControl: false,
+            clickableIcons: false,
+            mapId: 'bloco_endereco_google_map',
+        };
+        const mapa = new Map(blocoGoogleMap, option);
+
+        const { AdvancedMarkerElement } = await google.maps.importLibrary('marker');
+        const markers = [0].map(() => {
+            const icone = document.createElement('img');
+            icone.src = LINK + '/images/mapa_icone.png';
+
+            const marker = new google.maps.marker.AdvancedMarkerElement({
+                position: posicao,
+                content: icone,
+            });
+            return marker;
+        });
+
+        new markerClusterer.MarkerClusterer({ markers, map: mapa });
+    };
 
     // const botaoBuscar = $('#botao_endereco_buscar');
     // const botaoLink = $('#botao_endereco_link');
@@ -116,39 +202,6 @@ window.addEventListener('load', async () => {
     //             PopupEndereco.fechar();
     //         });
     //     });
-    // }
-
-    // async function adicionarEndereco(latitude, longitude) {
-    //     latitude = parseFloat(latitude);
-    //     longitude = parseFloat(longitude);
-    //     const posicao = { lat: latitude, lng: longitude };
-
-    //     const { Map } = await google.maps.importLibrary('maps');
-    //     const option = {
-    //         scrollwheel: false,
-    //         zoom: 14,
-    //         center: posicao,
-    //         disableDefaultUI: true,
-    //         panControl: false,
-    //         zoomControl: false,
-    //         clickableIcons: false,
-    //         mapId: 'bloco_endereco_google_map',
-    //     };
-    //     const mapa = new Map(blocoGoogleMap, option);
-
-    //     const { AdvancedMarkerElement } = await google.maps.importLibrary('marker');
-    //     const markers = [0].map(() => {
-    //         const icone = document.createElement('img');
-    //         icone.src = LINK + '/images/mapa_icone.png';
-
-    //         const marker = new google.maps.marker.AdvancedMarkerElement({
-    //             position: posicao,
-    //             content: icone,
-    //         });
-    //         return marker;
-    //     });
-
-    //     new markerClusterer.MarkerClusterer({ markers, map: mapa });
     // }
 
     // function pegarTextoDetalhe(dado) {

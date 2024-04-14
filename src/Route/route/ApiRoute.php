@@ -73,6 +73,10 @@ Route
             ::request(['pagina', 'pesquisa', 'grupo'], 'json')
             ::get('/upload-arquivo');
         Route
+            ::nome('dado')
+            ::request(['arquivo'])
+            ::post('/upload-arquivo/dado');
+        Route
             ::nome('buscar')
             ::get('/upload-arquivo/{id}');
         Route

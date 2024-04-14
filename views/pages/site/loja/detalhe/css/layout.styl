@@ -5,27 +5,12 @@
 @resource "site/loja/busca"
 @resource "site/loja/parceiro"
 @resource "site/loja/relacionado"
-@resource "site/loja/detalhe"
 @resource "site/parceiro_header"
 @resource "site/texto_destaque"
+@resource "site/pagina_popup"
 
 #bloco_loja_detalhe
     margin-top: 20px
-
-.conteudo_pagina_popup .texto_titulo
-    font-size: 20px
-    margin: 20px 12px
-
-.conteudo_pagina_popup .arquivo
-    margin: 8px 25px
-    padding: 12px 20px
-    display: flex
-    align-items: center
-    .arquivo_nome
-        flex: 1
-        font-size: 14px
-    .botao_geral_cor
-        color: white
 
 .bloco_loja_detalhe
     width: 100%
@@ -40,6 +25,14 @@
     espacoBottomPadrao()
     .bloco
         width: calc(50% - 10px)
+@media screen and (max-width: 600px)
+    .bloco_desconto_procedimento
+        flexCol()
+        .bloco
+            width: 100%
+            margin-top: 20px
+            &:first-child
+                margin-top: 0
 
 .bloco_botao
     display: flex
@@ -47,11 +40,13 @@
     flex-wrap: wrap
     justify-content: center
     padding-bottom: 10px
+    .lista
+        flexRow()
     .linha
         width: 1px
-        height: 30px
+        height: 45px
         background-color: #CCC
-        margin-left: 20px
+        margin: 20px 20px 0 0
     .borda
         color: $corClube
         border-color: $corClube
@@ -64,7 +59,6 @@
     .botao
         background: $corClube
         color: #FFF
-        margin-right: 20px
         margin-top: 20px
         flexRow()
         align-items: center
@@ -88,41 +82,58 @@
         padding-right: 10px
     .destaque i
         margin-left: 5px
-
-@media screen and (max-width: 940px)
-    .bloco_loja_detalhe .bloco_botao
-        justify-content: center
+@media screen and (max-width: 900px)
+    .bloco_botao
+        flex-wrap: wrap
+        .linha
+            width: 100%
+            height: 1px
+            margin-right: 0
+        .lista
+            width: 100%
+            justify-content: center
+        .borda
+            margin: 0 10px
         .botao
-            width: 45%
-            margin: 10px
-        .botao &:first-child
-            margin-top: 0px
-        .botao &:last-child
-            margin-bottom: 0px
-
-@media screen and (max-width: 615px)
-    .bloco_loja_detalhe .bloco_botao
-        padding-top: 0px
-        padding-bottom: 0px
-        margin-bottom: 0px
+            height: 60px
+            line-height: 60px
+@media screen and (max-width: 700px)
+    .bloco_botao
+        .lista
+            justify-content: space-between
+            flex-wrap: wrap
+        .borda
+            height: auto
+            line-height: 1.5em
+            padding: 0 10px
+            justify-content: center
+            margin: 0 0 20px 0
+        .borda_1
+            width: 100%
+        .borda_3
+            width: calc((100% / 3) - 10px)
+        .borda_2
+        .borda_4
+            width: calc(50% - 10px)
+        .linha
+            margin-top: 0
+@media screen and (max-width: 550px)
+    .bloco_botao
+        .borda_3
+            width: calc(50% - 10px)
+            &:nth-child(3)
+                width: 100%
+@media screen and (max-width: 400px)
+    .bloco_botao
+        .borda
+            width: 100%
+            height: auto
+            line-height: 1.5em
+            padding: 0
         .botao
             width: 100%
-            flexCenter()
-        .botao i
-            display: none
-
-@media screen and ( max-width: 700px)
-    .bloco_botao .branco i
-        border: none
-        margin: none
-@media screen and ( max-width: 600px )
-    .bloco_desconto_procedimento
-        flex-direction: column
-    .bloco_desconto_procedimento .bloco
-        width: 100%
-        &:first-child
-            margin-bottom: 20px
-
+            align-items: center
+            justify-content: center
 #bloco_loja_confirmar
     max-width: 700px
     .conteudo
@@ -162,7 +173,7 @@
         z-index: 2
         flexRow()
         align-items: center
-        padding: 20px 20px 10px 20px
+        padding: 10px 15px
         border-bottom: 1px solid #DDD
     header h1
         titulo()
@@ -184,15 +195,42 @@
         height: 30px
         flexCenter()
     .detalhe
-        min-width: 100px
         max-width: calc(100% - 40px)
         min-height: 1.5em
-        margin: 5px 20px
+        margin: 10px 20px
         display: flex
+        align-items: center
+    .detalhe p
         texto()
+    .detalhe i.copiar
+        width: 30px
+        height: 30px
+        flexCenter()
+        border: 1px solid #CCC
+        fill: #666
+        border-radius: 3px
+        margin-left: 10px
+        cursor: pointer
+    .detalhe .botao
+        flexCenter()
+        border: 1px solid $corClube
+        color: $corClube
+        fill: $corClube
+        padding: 3px 3px 3px 8px
+        margin-left: 20px
+        font-size: 1.4rem
+        border-radius: 5px
+        cursor: pointer
+    .detalhe .botao i
+        width: 30px
+        height: 30px
+        flexCenter()
+    .detalhe .resto
+        flex-grow: 1
+        flex-basis: 0%
     .mapa_falso
         width: calc(100% - 40px)
-        height: 580px
+        height: 430px
         min-height: 380px
         max-height: calc(100vh - 240px)
         position: absolute
@@ -201,8 +239,56 @@
         z-index: 2
     .mapa
         width: 100%
-        height: 600px
+        height: 450px
         min-height: 400px
         max-height: calc(100vh - 200px)
         position: relative
         z-index: 1
+@media screen and (max-width: 900px)
+    .bloco_loja_detalhe .bloco_mapa .detalhe
+        flex-wrap: wrap
+        p
+            flexGrow()
+        .resto
+            display: none
+        .botao
+            width: 100%
+            margin-left: 0
+            margin-top: 10px
+
+.bloco_lista_texto_icone
+    width: 100%
+    flexCol()
+    .linha
+        width: 100%
+        flexRow()
+        border-left: 3px solid $corClube
+        padding: 3px 0 3px 10px
+        margin: 3px 0
+        align-items: center
+        &:hover
+            background: #F6F6F6
+    .linha p
+        flexGrow()
+        texto()
+    .linha strong
+        width: 100%
+        max-width: 200px
+        texto()
+        font-weight: bold
+        color: #666
+    .linha span
+        width: 1px
+        height: 10px
+        background-color: #CCC
+        margin: 0 10px
+    .linha i
+        width: 30px
+        height: 30px
+        flexCenter()
+        &.botao
+            cursor: pointer
+        &.borda
+            border: 1px solid #ddd
+            border-radius: 3px
+

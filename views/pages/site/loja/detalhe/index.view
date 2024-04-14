@@ -34,9 +34,38 @@
     </div>
 
     @ if(TIPO_USUARIO != 'indicado'):
-    <div class="bloco_botao">
-        <div class="botao_contar_click borda botao_geral_borda" id="botao_telefone" data-botao="telefone">Telefones<i>@iconeTelefoneLoja()</i></div>
-        <div class="botao_contar_click borda botao_geral_borda" id="botao_email" data-botao="email">E-mails <i>@iconeEmail(15)</i></div>
+    <div class="bloco_botao display_none" id="bloco_botao_lista">
+        <div class="lista">
+            @ if( $dado->telefone ):
+            <div class="botao_contar_click borda botao_geral_borda" id="botao_telefone_abrir" data-botao="telefone">Telefones<i>@iconeTelefoneLoja()</i></div>
+            @ endif;
+            @ if( $dado->email ):
+            <div class="botao_contar_click borda botao_geral_borda" id="botao_email_abrir" data-botao="email">E-mails <i>@iconeEmail(15)</i></div>
+            @endif;
+
+            @ if( $dado->procedimento != $procedimento::WEBSITE && !empty($dado->link) ):
+            <a href="{!!$dado->link!!}" target="_blank" rel="noopener noreferrer" class="botao_contar_click borda botao_geral_borda" data-botao="Abrir site secundario">
+                Abrir Site
+                <i>@iconeExtensaoHome</i>
+            </a>
+            @ endif;
+
+            @ if(!empty($dado->arquivo)):
+                @ if(count($dado->arquivo) > 1)
+                <div id="botao_arquivo_abrir" class="botao_contar_click borda botao_geral_borda">
+                    Download
+                    <i>@iconeDownloadHome</i>
+                </div>
+                @ else
+                <a href="{!!$dado->arquivo[0]->arquivo!!}" download rel="noopener noreferrer" class="botao_contar_click borda botao_geral_borda" data-botao="Abrir Arquivo">
+                    Download
+                    <i>@iconeDownloadHome</i>
+                </a>
+                @ endif
+            @ endif
+        </div>
+
+        <div class="linha"></div>
 
         @ if( $dado->procedimento == $procedimento::MAIS_SAUDE ):
             <a href="@route('farmacia.carteirinha')" target="_blank" rel="nofollow noopener" class="botao_contar_click botao destaque botao_geral_cor cor_bg" >
@@ -56,27 +85,6 @@
         </a>
         @ endif
 
-        @ if( $dado->procedimento != $procedimento::WEBSITE && !empty($dado->link) ):
-        <a href="{!!$dado->link!!}" target="_blank" rel="noopener noreferrer" class="botao_contar_click botao botao_geral_cor" data-botao="Abrir site secundario">
-            Abrir Site
-            <i>@iconeExtensaoHome</i>
-        </a>
-        @ endif;
-
-        @ if(!empty($dado->arquivo)):
-            @ if(count($dado->arquivo) > 1)
-            <div id="botao_arquivo" class="botao_contar_click botao botao_geral_cor">
-                Download
-                <i>@iconeDownloadHome</i>
-            </div>
-            @ else
-            <a href="{!!$dado->arquivo[0]!!}" download rel="noopener noreferrer" class="botao_contar_click botao botao_geral_cor" data-botao="Abrir Arquivo">
-                Download
-                <i>@iconeDownloadHome</i>
-            </a>
-            @ endif
-        @ endif
-
     </div>
     @else
     <div class="bloco_atencao_geral">
@@ -89,10 +97,14 @@
         <header>
             <h1 class="esqueleto">Endereço</h1>
             <div class="grow"></div>
-            <div class="botao esqueleto" id="botao_endereco_buscar">Buscar Endereços <i>@iconeBusca(20)</i></div>
-            <a href="" target="_blank" rel="nofollow noopener" id="botao_endereco_link" class="botao esqueleto">Como Chegar <i>@iconeMapa(20)</i></a>
+            <div class="botao esqueleto" id="botao_endereco_buscar">Buscar Endereço <i>@iconeBusca(20)</i></div>
         </header>
-        <div class="detalhe esqueleto" id="bloco_detalhe_texto"> </div>
+        <div class="detalhe esqueleto">
+            <p id="bloco_endereco_completo"></p>
+            <i class="copiar" id="botao_endereco_copiar">@iconeCopiar</i>
+            <div class="resto"></div>
+            <a href="" target="_blank" rel="nofollow noopener" id="botao_endereco_link" class="botao esqueleto">Como Chegar <i>@iconeMapa(20)</i></a>
+        </div>
         <div class="mapa_falso esqueleto display_none"></div>
         <div class="mapa" id="bloco_endereco_google_map"></div>
     </div>
@@ -102,25 +114,10 @@
 </div>
 @ endif;
 
-@ if(!empty($dado->arquivo) && count($dado->arquivo) > 1):
-<div id="bloco_arquivos" class="bloco_pagina_popup">
-    <header class="header_pagina_popup">
-        <h1>Downloads</h1>
-        <i class="botao popup_fechar">@iconeFechar</i>
-    </header>
-    <div class="conteudo_pagina_popup">
-
-        @ foreach($dado->arquivo as $nome => $arquivo)
-        <div class="arquivo">
-            <div class="arquivo_nome">{!!$nome!!}</div>
-            <a href="{!!$arquivo!!}" download rel="noopener noreferrer" class="botao_geral_cor">
-                Download
-            </a>
-        </div>
-        @ endforeach
-    </div>
-</div>
-@ endif
+@view "site/loja/detalhe/arquivo"
+@view "site/loja/detalhe/telefone"
+@view "site/loja/detalhe/email"
+@view "site/loja/detalhe/confirmar"
 
 <!-- prettier-ignore -->
 <script src="https://unpkg.com/@googlemaps/markerclusterer/dist/index.min.js"></script>
