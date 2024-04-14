@@ -36,7 +36,7 @@ window.addEventListener('load', () => {
             if (true === abrir) {
                 PopupAbrir.abrir();
             }
-
+            lista.html('');
             for (const item of resposta.dado.lista) {
                 adicionarContato(padrao, lista, item);
             }
