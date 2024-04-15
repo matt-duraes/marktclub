@@ -2,12 +2,11 @@
 
 namespace App\Models\Site\Loja;
 
-use Helpers\ApiHelper;
 use stdClass;
 use Helpers\MarkdownHelper;
 use App\Helpers\ClubeApiHelper;
 use App\Classes\ParceiroLoja\Status;
-use App\Classes\ParceiroLoja\Tipo;
+use App\Classes\ParceiroLoja\TipoLoja;
 
 final class BuscarModel extends ClubeApiHelper
 {
@@ -32,40 +31,56 @@ final class BuscarModel extends ClubeApiHelper
 
     private function montarRetorno($r): stdClass
     {
+        $tipo = (new TipoLoja($r->tipo_loja))->indice();
         $Texto = new MarkdownHelper();
         return (object)[
             'id'                 => $r->id,
-            'vinculo_parceiro'   => $r->vinculo_parceiro,
             'titulo'             => $r->titulo,
-            'logo'               => $r->link_logo,
+            'logo'               => $r->imagem_logo,
             'texto_desconto'     => $r->texto_desconto,
             'texto_procedimento' => $r->texto_procedimento,
             'texto_desconto'     => $Texto->texto($r->texto_desconto),
             'texto_procedimento' => $Texto->texto($r->texto_procedimento),
             'texto_descricao'    => nl2br($r->texto_descricao),
-            'procedimento'       => $r->procedimento,
-            'capa_desktop'       => $r->link_capa_desktop,
-            'capa_mobile'        => $r->link_capa_mobile,
+            'texto_restrito'     => '',
+            'texto_outro'        => '',
+            'procedimento'       => $r->tipo_procedimento,
+            'capa_desktop'       => $r->imagem_capa_desktop,
+            'capa_mobile'        => $r->imagem_capa_mobile,
             'link'               => $r->link_site,
             'url'                => $r->url,
-            'arquivo'            => $this->pegarArquivo($r->arquivo),
-            'endereco'           => '',
-            'tipo'               => (new Tipo($r->tipo))->indice(),
+            'desconto'           => $r->desconto,
+            'arquivo'            => $this->buscarArquivo($tipo, $r->arquivo_clube),
+            'tipo'               => $tipo,
+            'endereco'           => $r->existe_endereco == 'sim',
+            'email'              => $r->existe_email == 'sim',
+            'telefone'           => $r->existe_telefone == 'sim',
         ];
     }
 
-    private function pegarArquivo($arquivo)
+    private function buscarArquivo($tipo, $arquivo): array
     {
-        if (empty($arquivo)) {
+        if ($tipo != TipoLoja::LOJA || empty($arquivo)) {
             return [];
         }
-        $Api = new ApiHelper(token: true);
+        $dado = $this
+            ->body([
+                'arquivo' => $arquivo
+            ])
+            ->post('/upload-arquivo/dado')
+            ->object();
+        return $this->montarArquivo($dado->dado ?? []);
+    }
 
+    private function montarArquivo($arquivo)
+    {
         $retorno = [];
-        foreach ($arquivo as $id) {
-            $retorno[] = $Api
-                ->get('/upload-arquivo/' . $id)
-                ->object()->dado ?? [];
+        foreach ($arquivo as $r) {
+            $retorno[] = (object)[
+                'id'      => $r->id,
+                'nome'    => $r->nome,
+                'arquivo' => $r->arquivo
+            ];
         }
         return $retorno;
     }

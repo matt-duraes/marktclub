@@ -5,6 +5,7 @@ window.addEventListener('load', () => {
         linkLocation = LINK;
     }
 
+    let captchaVersao = 'v3.';
     const pegarCaptchaParaLogin = () => {
         const textoBotao = botaoLogin.innerText;
         if (textoBotao == 'AGUARDE') {
@@ -12,21 +13,31 @@ window.addEventListener('load', () => {
         }
         Loading.form(blocoLogin, botaoLogin).show();
 
+        if (captchaVersao == 'v2.') {
+            const captcha = grecaptcha.getResponse(0);
+            if (captcha == '') {
+                Loading.form(blocoLogin, botaoLogin).hide();
+                Alerta.notificacao('Marque o box de "Não sou um Robô" para continuar.', false);
+                return;
+            }
+            fazerLogin(captcha);
+            return;
+        }
+
         grecaptcha.ready(function () {
             grecaptcha
                 .execute(RECAPTCHA, { action: 'create_singup' })
                 .then(function (token) {
                     fazerLogin(token);
                 })
-                .catch(() => {
+                .catch(async () => {
                     Loading.form(blocoLogin, botaoLogin).hide();
-                    Alerta.notificacao(
-                        'Ocorreu um erro ao fazer o login, a página vai ser recarregada em 10 segundos.',
+                    await Alerta.mensagem(
+                        'Erro ao carregar recaptcha',
+                        'Ocorreu um erro ao fazer o login, a página vai ser recarregada, caso continue, entre em contato com o suporte.',
                         false
                     );
-                    setInterval(() => {
-                        window.location.reload();
-                    }, 10000);
+                    window.location.reload();
                 });
         });
     };
@@ -38,7 +49,7 @@ window.addEventListener('load', () => {
         let dado = new FormData();
         dado.append('form_system_hash', hash);
         dado.append('form_system_validacao', '');
-        dado.append('form_system_captcha', token);
+        dado.append('form_system_captcha', captchaVersao + token);
         dado.append('login', login);
         dado.append('senha', senha);
 
@@ -59,12 +70,29 @@ window.addEventListener('load', () => {
             Alerta.notificacao('Login realizado com sucesso, aguarde redirecionamento.', true);
             return;
         }
+        if (captchaVersao == 'v2.') {
+            grecaptcha.reset();
+        }
 
         Loading.form(blocoLogin, botaoLogin).hide();
+        if (json.erro !== undefined && json.erro.captcha === false && captchaVersao == 'v3.') {
+            Alerta.notificacao('Erro ao validar recaptcha, faça o desafio manual para continuar.', false);
+            mostrarCaptchaV2();
+            return;
+        }
         Alerta.notificacao(
             json.erro != undefined ? json.erro.mensagem : 'Erro ao fazer seu login, por favor, tente novamente.',
             false
         );
+    };
+
+    const mostrarCaptchaV2 = () => {
+        captchaVersao = 'v2.';
+
+        grecaptcha.render('bloco_recaptcha_v2', {
+            sitekey: RECAPTCHAV2,
+            theme: 'light',
+        });
     };
 
     inputLogin.addEventListener('keyup', e => {

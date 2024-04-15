@@ -33,7 +33,7 @@ final class LinkSiteModel
             'parceiro' => [
                 'id'     => $this->Loja->get('id'),
                 'titulo' => $this->Loja->titulo,
-                'imagem' => $this->Loja->link_logo,
+                'imagem' => $this->Loja->imagem_logo,
                 'limite' => $this->Loja->limite_voucher
             ],
             'usuario' => TOKEN['usuario']->id,
@@ -54,7 +54,7 @@ final class LinkSiteModel
         $nome = $this->Loja->titulo;
         $url = $this->Loja->url;
         $site = $this->Loja->link_site;
-        $imagem = $this->Loja->link_logo;
+        $imagem = $this->Loja->imagem_logo;
 
         $clube = (new OrmHelper(TABELA_CONSTRUTOR_CLUBE))->pegarPrimeiroRegistro(
             where: ['id', TOKEN['empresa']->id],

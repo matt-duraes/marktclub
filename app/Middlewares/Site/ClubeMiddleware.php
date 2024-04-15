@@ -26,7 +26,7 @@ final class ClubeMiddleware extends ApiHelper
 
     private function buscarDispositivo()
     {
-        if (sessaoExiste('DISPOSITIVO_' . $this->id) && sessaoExiste('DISPOSITIVO') && !eLocalhost()) {
+        if (sessaoExiste('DISPOSITIVO_' . $this->id) && sessaoExiste('DISPOSITIVO')) {
             return;
         }
 
@@ -58,7 +58,7 @@ final class ClubeMiddleware extends ApiHelper
 
     private function buscarClube()
     {
-        if (sessaoExiste('CLUBE_' . $this->id) && sessaoExiste('CLUBE') && !eLocalhost()) {
+        if (sessaoExiste('CLUBE_' . $this->id) && sessaoExiste('CLUBE')) {
             return;
         }
         $host = preg_replace('/^http(s)?\:\/\/(www.)?/', '', LINK);
@@ -115,6 +115,14 @@ final class ClubeMiddleware extends ApiHelper
         define('CONTATO_EMAIL', $clube->contato_email);
         define('CONTATO_HORARIO', $clube->contato_horario);
         define('CONTATO_ENDERECO', $clube->contato_endereco);
+
+        $redesSociais = $clube->redes_sociais;
+        define('LINK_FACEBOOK', $redesSociais->link_facebook);
+        define('LINK_INSTAGRAM', $redesSociais->link_instagram);
+        define('LINK_TWITTER', $redesSociais->link_twitter);
+        define('LINK_LINKEDIN', $redesSociais->link_linkedin);
+        define('LINK_YOUTUBE', $redesSociais->link_youtube);
+        define('LINK_TIKTOK', $redesSociais->link_tiktok);
 
         define('API', $clube->api);
         define('CHAT', $clube->chat);

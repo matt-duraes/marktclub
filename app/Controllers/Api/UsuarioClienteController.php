@@ -311,4 +311,18 @@ final class UsuarioClienteController extends Controller implements
             'senha' => $Usuario->senha->validarSenha($senha) ? 'sim' : 'nao'
         ]);
     }
+
+    public function putAlterarSenha(Request $request)
+    {
+        $Usuario = new ClienteEntity();
+        $Usuario->id(TOKEN['usuario']->id);
+
+        if (!$Usuario->senha->validarSenha($request->senha_atual)) {
+            mensagemErro('Senha inválida!', 'A senha atual informada é inválida.');
+        }
+
+        $Usuario->senha->mudarSenha($request->senha_nova);
+
+        return new Response(status: 204);
+    }
 }

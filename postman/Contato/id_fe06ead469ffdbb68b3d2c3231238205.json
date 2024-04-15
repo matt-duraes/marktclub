@@ -1,0 +1,1 @@
+{"id":"id_fe06ead469ffdbb68b3d2c3231238205","token":"token","metodo":"POST","nome":"\/contato","uri":"{{LINK}}\/contato","parametro":[],"body":[],"header":[],"variavel":[["texto",true,"$CONTATO_ID","dado.id",""]],"json":[],"documentacao":{"status":false,"descricao":"","requisicao":"","resposta":"","scope":"contato:salvar"}}

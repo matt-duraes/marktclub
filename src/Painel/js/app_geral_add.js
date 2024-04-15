@@ -100,7 +100,6 @@ window.addEventListener('load', () => {
         }
         let tipo, isArray, name, mascara, value, lista;
         let ArrayLista = [];
-        listaInput.forEach(input => {});
         listaInput.forEach(input => {
             if (input.classList.contains('fw_form_tag')) {
                 name = input.getAttribute('data-name');
@@ -121,8 +120,7 @@ window.addEventListener('load', () => {
                     }
                 });
                 return;
-            }
-            if (input.classList.contains('fw_form_indice_valor')) {
+            } else if (input.classList.contains('fw_form_indice_valor')) {
                 name = input.getAttribute('data-name');
                 lista = input.querySelectorAll('.fw_form_indice_valor_lista .fw_form_indice_valor_linha');
                 if (lista.length == 0) {
@@ -174,6 +172,7 @@ window.addEventListener('load', () => {
             if (input.classList.contains('input_url') && value != '') {
                 value = 'https://' + value;
             }
+
             if (retorno == 'array') {
                 body.push(value);
             } else {
@@ -187,6 +186,15 @@ window.addEventListener('load', () => {
                 body.append(item.replace(/\[\]$/, ''), []);
             }
         });
+        const arquivoLista = $$('.fw_form_arquivo_lista');
+        if (arquivoLista && retorno == undefined) {
+            for (const bloco of arquivoLista) {
+                const arquivoName = bloco.attr('data-name');
+                if (!body.has(arquivoName + '[]')) {
+                    body.append(arquivoName, '');
+                }
+            }
+        }
         return body;
     };
 });

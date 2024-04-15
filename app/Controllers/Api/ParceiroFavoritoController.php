@@ -7,15 +7,24 @@ use Http\Response;
 use Controller\Controller;
 use App\Models\Api\ParceiroLoja\LojaEntity;
 use App\Controllers\Api\Trait\ParceiroTrait;
+use System\Interface\ControllerListarInterface;
 use System\Interface\ControllerSalvarInterface;
 use System\Interface\ControllerDeletarInterface;
+use App\Models\Api\ParceiroFavorito\FavoritoModel;
 use App\Models\Api\ParceiroFavorito\FavoritoEntity;
 
 final class ParceiroFavoritoController extends Controller implements
     ControllerSalvarInterface,
-    ControllerDeletarInterface
+    ControllerDeletarInterface,
+    ControllerListarInterface
 {
     use ParceiroTrait;
+
+    public function getListar(Request $request): Response
+    {
+        $Parceiro = new FavoritoModel();
+        return mensagemSucesso($Parceiro->listarDado());
+    }
 
     public function postSalvar(Request $request): Response
     {
@@ -32,11 +41,14 @@ final class ParceiroFavoritoController extends Controller implements
     {
         $Parceiro = $this->parceiro($id);
         $Favorito = new FavoritoEntity();
-        $Favorito->buscar([
-            ['id_parceiro_loja', $Parceiro->get('id')],
-            ['id_usuario_cliente', 1]
-        ]);
-        $Favorito->destruir();
+        try {
+            $Favorito->buscar([
+                ['id_parceiro_loja', $Parceiro->get('id')],
+                ['id_usuario_cliente', TOKEN['usuario']->id]
+            ]);
+            $Favorito->destruir();
+        } catch (\Throwable) {
+        }
 
         return new Response(status: 204);
     }

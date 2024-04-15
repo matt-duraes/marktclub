@@ -143,14 +143,15 @@ final class Request
 
     private function validarCaptcha(string $captcha): bool
     {
-        if (SISTEMA == 'LOCALHOST') {
-            return true;
-        }
+        $v2 = str_starts_with($captcha, 'v2.');
+        $secret = $v2 ? env('RECAPTCHA_V2_SECRET') : env('RECAPTCHA_SECRET');
+        $captcha = preg_replace('/^v(2|3)\./i', '', $captcha);
         if (empty($captcha)) {
             return false;
         }
+
         $content = [
-            'secret'   => env('RECAPTCHA_SECRET'),
+            'secret'   => $secret,
             'response' => $captcha,
             'remoteip' => ip(),
         ];
@@ -162,14 +163,22 @@ final class Request
         curl_setopt($curl, CURLOPT_POSTFIELDS, $content);
         $validation = curl_exec($curl);
         curl_close($curl);
-
         $response = jsonDecode($validation);
 
         if (
-            is_object($response) &&
-            isset($response->success, $response->score) &&
-            $response->success &&
-            $response->score >= env('RECAPTCHA_SCORE')
+            (
+                $v2 &&
+                is_object($response) &&
+                isset($response->success) &&
+                $response->success
+            ) ||
+            (
+                !$v2 &&
+                is_object($response) &&
+                isset($response->success, $response->score) &&
+                $response->success &&
+                $response->score >= env('RECAPTCHA_SCORE')
+            )
         ) {
             return true;
         }

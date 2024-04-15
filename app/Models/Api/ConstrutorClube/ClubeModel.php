@@ -46,6 +46,14 @@ final class ClubeModel
             'contato_email'           => $Construtor->contato_email->email(),
             'header_tag'              => $Construtor->header_tag,
             'header_descricao'        => $Construtor->header_descricao,
+            'redes_sociais'           => [
+                'link_facebook'    => $Construtor->link_facebook,
+                'link_instagram'   => $Construtor->link_instagram,
+                'link_twitter'     => $Construtor->link_twitter,
+                'link_linkedin'    => $Construtor->link_linkedin,
+                'link_youtube'     => $Construtor->link_youtube,
+                'link_tiktok'      => $Construtor->link_tiktok,
+            ],
             'menu'                    => [
                 'primeiro_acesso'     => $Construtor->menu_primeiro_acesso->valor(),
                 'baixar_app'          => !empty($linkAndroid) || !empty($linkIos) ? Botao::SIM : Botao::NAO,
@@ -92,7 +100,7 @@ final class ClubeModel
             'administrado'           => $Construtor->administrado_status->valor(),
             'tela_login'             => $Construtor->tela_login->valor(),
             'chat'                   => $Construtor->chat_status->valor(),
-            'api'                    => $api
+            'api'                    => $api,
         ];
     }
 }

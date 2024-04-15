@@ -5,59 +5,132 @@
 @resource "site/loja/busca"
 @resource "site/loja/parceiro"
 @resource "site/loja/relacionado"
-@resource "site/loja/detalhe"
 @resource "site/parceiro_header"
 @resource "site/texto_destaque"
+@resource "site/pagina_popup"
 
-#bloco_endereco
-    .conteudo_pagina_popup
-        display: flex
+.bloco_loja_detalhe
+    width: 100%
+    max-width: $maxWidth
+    flexCol()
+    align-items: center
+
+.bloco_desconto_procedimento
+    maxWidth()
+    flexRow()
+    justify-content: space-between
+    espacoBottomPadrao()
+    .bloco
+        width: calc(50% - 10px)
+@media screen and (max-width: 600px)
+    .bloco_desconto_procedimento
+        flexCol()
+        .bloco
+            width: 100%
+            margin-top: 20px
+            &:first-child
+                margin-top: 0
+
+.bloco_botao
+    display: flex
+    width: 100%
+    flex-wrap: wrap
+    justify-content: center
+    padding-bottom: 10px
+    .lista
+        flexRow()
+    .linha
+        width: 1px
+        height: 45px
+        background-color: #CCC
+        margin: 20px 20px 0 0
+    .borda
+        color: $corClube
+        border-color: $corClube
+        margin-right: 20px
+        margin-top: 20px
+        padding-right: 5px
+        flexRow()
         align-items: center
-        margin: 10px 0
-
-        .bloco_categoria_estado
-            width: calc(100% - 40px)
-            text-align: center
-
-            .divisoria_estado
-                width: 90%
-                border-top: 1px solid #ddd
-                opacity: 0.5
-
-            .bloco_estado_titulo
-                font-size: 1.8rem !important
-
-            .bloco_cidade_titulo
-            .bloco_estado_titulo
-                texto()
-        .bloco_categoria_cidade
-            text-align: left
-            padding: 10px
-        .bloco_endereco_item
-            list-style-type: disc
-            margin-left: 20px
-            font-size: 20px
-
-            .bloco_detalhe_endereco
-                margin: 10px 0
-                display: flex
-                justify-content: center
-                align-items: center
-
-                .botao_buscar_endereco
-                    height: 30px
-                    line-height: 30px
-                    color: white
-                    background: var(--cor-clube);
-
-                .endereco
-                    flex: 1
-        p
-            texto()
-
-#bloco_loja_detalhe
-    margin-top: 20px
-
+        cursor: pointer
+    .botao
+        background: $corClube
+        color: #FFF
+        margin-top: 20px
+        flexRow()
+        align-items: center
+        cursor: pointer
+    .borda i
+    .botao i
+        width: 40px
+        height: 40px
+        flexCenter()
+        fill: #FFF
+    .borda i
+        fill: $corClube
+    .branco
+        background-color: #FFF
+        boxShadow()
+        padding-left: 5px
+    .branco i
+        border-right: 1px solid #DDD
+        margin-right: 15px
+    .destaque
+        padding-right: 10px
+    .destaque i
+        margin-left: 5px
+@media screen and (max-width: 900px)
+    .bloco_botao
+        flex-wrap: wrap
+        .linha
+            width: 100%
+            height: 1px
+            margin-right: 0
+        .lista
+            width: 100%
+            justify-content: center
+        .borda
+            margin: 0 10px
+        .botao
+            height: 60px
+            line-height: 60px
+@media screen and (max-width: 700px)
+    .bloco_botao
+        .lista
+            justify-content: space-between
+            flex-wrap: wrap
+        .borda
+            height: auto
+            line-height: 1.5em
+            padding: 0 10px
+            justify-content: center
+            margin: 0 0 20px 0
+        .borda_1
+            width: 100%
+        .borda_3
+            width: calc((100% / 3) - 10px)
+        .borda_2
+        .borda_4
+            width: calc(50% - 10px)
+        .linha
+            margin-top: 0
+@media screen and (max-width: 550px)
+    .bloco_botao
+        .borda_3
+            width: calc(50% - 10px)
+            &:nth-child(3)
+                width: 100%
+@media screen and (max-width: 400px)
+    .bloco_botao
+        .borda
+            width: 100%
+            height: auto
+            line-height: 1.5em
+            padding: 0
+        .botao
+            width: 100%
+            align-items: center
+            justify-content: center
 #bloco_loja_confirmar
     max-width: 700px
     .conteudo
@@ -97,7 +170,7 @@
         z-index: 2
         flexRow()
         align-items: center
-        padding: 20px 20px 10px 20px
+        padding: 10px 15px
         border-bottom: 1px solid #DDD
     header h1
         titulo()
@@ -119,15 +192,42 @@
         height: 30px
         flexCenter()
     .detalhe
-        min-width: 100px
         max-width: calc(100% - 40px)
         min-height: 1.5em
-        margin: 5px 20px
+        margin: 10px 20px
         display: flex
+        align-items: center
+    .detalhe p
         texto()
+    .detalhe i.copiar
+        width: 30px
+        height: 30px
+        flexCenter()
+        border: 1px solid #CCC
+        fill: #666
+        border-radius: 3px
+        margin-left: 10px
+        cursor: pointer
+    .detalhe .botao
+        flexCenter()
+        border: 1px solid $corClube
+        color: $corClube
+        fill: $corClube
+        padding: 3px 3px 3px 8px
+        margin-left: 20px
+        font-size: 1.4rem
+        border-radius: 5px
+        cursor: pointer
+    .detalhe .botao i
+        width: 30px
+        height: 30px
+        flexCenter()
+    .detalhe .resto
+        flex-grow: 1
+        flex-basis: 0%
     .mapa_falso
         width: calc(100% - 40px)
-        height: 580px
+        height: 430px
         min-height: 380px
         max-height: calc(100vh - 240px)
         position: absolute
@@ -136,30 +236,56 @@
         z-index: 2
     .mapa
         width: 100%
-        height: 600px
+        height: 450px
         min-height: 400px
         max-height: calc(100vh - 200px)
         position: relative
         z-index: 1
+@media screen and (max-width: 900px)
+    .bloco_loja_detalhe .bloco_mapa .detalhe
+        flex-wrap: wrap
+        p
+            flexGrow()
+        .resto
+            display: none
+        .botao
+            width: 100%
+            margin-left: 0
+            margin-top: 10px
 
-#conteudo_popup_contato
-    ul
-        margin: 10px 0
-    li
+.bloco_lista_texto_icone
+    width: 100%
+    flexCol()
+    .linha
         width: 100%
-        height: 30px
-        display: flex
+        flexRow()
+        border-left: 3px solid $corClube
+        padding: 3px 0 3px 10px
+        margin: 3px 0
         align-items: center
-        padding: 0 40px
-        span
-            font-size: 14px
-            flex: 1
-        i
+        &:hover
+            background: #F6F6F6
+    .linha p
+        flexGrow()
+        texto()
+    .linha strong
+        width: 100%
+        max-width: 200px
+        texto()
+        font-weight: bold
+        color: #666
+    .linha span
+        width: 1px
+        height: 10px
+        background-color: #CCC
+        margin: 0 10px
+    .linha i
+        width: 30px
+        height: 30px
+        flexCenter()
+        &.botao
             cursor: pointer
+        &.borda
+            border: 1px solid #ddd
+            border-radius: 3px
 
-@media screen and ( max-width: 400px)
-    .bloco_endereco_item
-        list-style-type: none !important
-        margin-left: 10px !important
-    .bloco_categoria_estado
-        width: 100% !important

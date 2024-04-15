@@ -12,5 +12,6 @@ class Ordem extends Order
         $this->tabela(TABELA_SISTEMA_CONTATO);
         $this->maisNovo();
         $this->maisVelho();
+        $this->campo('principal', 'Principal', 'principal', 'DESC');
     }
 }

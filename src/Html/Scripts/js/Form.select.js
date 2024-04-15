@@ -43,10 +43,14 @@ const formValue = (input, valor, obrigatorio) => {
         }
         const checked = valor == false || valor == '' || valor == 'nao' ? false : true;
         input.checked = checked;
-    } else if (bloco.classList.contains('input_url')) {
+    } else if (bloco && bloco.classList.contains('input_url')) {
         valor = valor.replace(/^(http:\/\/|https:\/\/)/i, '');
     }
     input.value = valor;
+    if (input.classList.contains('textarea_resize')) {
+        input.style.height = 0;
+        input.style.height = input.scrollHeight < 45 ? 45 + 'px' : input.scrollHeight + 'px';
+    }
 };
 /**
  * Mudar o valor do select

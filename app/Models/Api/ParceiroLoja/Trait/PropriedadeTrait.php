@@ -1,0 +1,85 @@
+<?php
+
+namespace App\Models\Api\ParceiroLoja\Trait;
+
+use Modules\Cpf;
+use Modules\Cnpj;
+use Modules\Data;
+use Modules\Nome;
+use Modules\Botao;
+use Modules\Email;
+use Modules\Telefone;
+use Modules\ArquivoPrivado;
+use Modules\ArquivoPrivadoLista;
+use App\Classes\ParceiroLoja\Status;
+use App\Classes\ParceiroLoja\TipoLoja;
+use App\Classes\ParceiroLoja\Categoria;
+use App\Classes\ParceiroLoja\OrigemLead;
+use App\Classes\ParceiroLoja\TipoJuridico;
+use App\Classes\ParceiroLoja\TipoProcedimento;
+use App\Classes\ParceiroLoja\TipoEstabelecimento;
+
+trait PropriedadeTrait
+{
+    protected int $id_usuario_equipe;
+    protected array $id_admin_empresa;
+    public OrigemLead $origem_lead;
+    public string $nome_fantasia;
+    public string $razao_social;
+    public TipoJuridico $tipo_juridico;
+    public Cpf $documento_cpf;
+    public Cnpj $documento_cnpj;
+    public string $titulo_interno;
+    public TipoLoja $tipo_loja;
+    public string $equipe;
+    public Nome $responsavel_nome;
+    public string $responsavel_cargo;
+    public Cpf $responsavel_cpf;
+    public Telefone $responsavel_telefone;
+    public Email $responsavel_email;
+    public ArquivoPrivado $imagem_logo;
+    public ArquivoPrivado $imagem_capa_desktop;
+    public ArquivoPrivado $imagem_capa_mobile;
+    public string $titulo;
+    public TipoEstabelecimento $tipo_estabelecimento;
+    public int $pontuacao;
+    public string $url;
+    public Botao $delivery;
+    public Botao $convenio_direto;
+    public Data $data_contrato_inicio;
+    public Data $data_contrato_vencimento;
+    public Botao $precisa_aditivo;
+    public Email $email_contato;
+    public TipoProcedimento $tipo_procedimento;
+    public int $limite_voucher;
+    public int $prazo_voucher;
+    public Data $prazo_voucher_fixo;
+    public Telefone $contato_whatsapp;
+    public string $link_site;
+    public array $link_alias;
+    public array $link_bloqueado;
+    public string $texto_descricao;
+    public string $texto_desconto;
+    public string $texto_procedimento;
+    public string $texto_voucher;
+    public Categoria $categoria_principal;
+    public array $categoria_lista;
+    public array $subcategoria_tag;
+    public array $subcategoria_lista;
+    public array $empresa;
+    public array $destaque;
+    public string $desconto;
+    public array $endereco_estado;
+    public Botao $confirmar_status;
+    public string $confirmar_titulo;
+    public string $confirmar_texto;
+    public Data $data_auditoria;
+    public Data $data_publicacao;
+    public Status $status;
+    public ArquivoPrivadoLista $arquivo_clube;
+    public ArquivoPrivadoLista $arquivo_painel;
+    public array $cupom_desconto;
+    public Botao $existe_endereco;
+    public Botao $existe_email;
+    public Botao $existe_telefone;
+}

@@ -1,7 +1,10 @@
 window.addEventListener('load', () => {
+    const formBuscar = $('#form_buscar');
+    if (!formBuscar) {
+        return;
+    }
     const botaoBuscarAbrir = $$('.botao_buscar_abrir');
     const botaoBuscarFechar = $$('.botao_buscar_fechar');
-    const formBuscar = $('#form_buscar');
     const blocoBuscarTemplate = $('#bloco_template_buscar');
 
     blocoBuscarTemplate.appendChild(formBuscar);

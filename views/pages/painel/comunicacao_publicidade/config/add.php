@@ -27,7 +27,7 @@ $Painel->coluna(callback: function () use ($Painel, $parceiro) {
 });
 
 $Painel->coluna(callback: function () use ($Painel, $parceiro) {
-    $Painel->fieldset('Dados pricipais', function () use ($Painel, $parceiro) {
+    $Painel->fieldset('Dados pricipais', function () use ($Painel) {
         $Painel
             ->input(name: 'titulo', label: 'Título')
             ->data(name: 'data_inicio', label: 'Publicar em', placeholder: 'Publicar em', separador: 'até')

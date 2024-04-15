@@ -13,8 +13,8 @@ class Tipo extends Status
         protected string|int|null $valor = null
     ) {
         parent::__construct([
-            self::TELEFONE  => 'Telefone',
-            self::EMAIL     => 'E-mail',
+            self::TELEFONE => 'Telefone',
+            self::EMAIL    => 'E-mail',
         ]);
     }
 }

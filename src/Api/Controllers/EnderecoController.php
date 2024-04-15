@@ -5,12 +5,9 @@ namespace ApiController;
 use Http\Request;
 use Http\Response;
 use Controller\Controller;
-use Modules\EnderecoEstado;
-use System\Classes\Endereco\Tipo;
-use System\Classes\Endereco\Local;
-use System\Classes\Endereco\Ordem;
 use ApiModel\Endereco\EnderecoModel;
 use ApiModel\Endereco\EnderecoEntity;
+use ApiModel\Endereco\PrincipalModel;
 use System\Interface\ControllerBuscarInterface;
 use System\Interface\ControllerListarInterface;
 use System\Interface\ControllerSalvarInterface;
@@ -24,17 +21,22 @@ final class EnderecoController extends Controller implements
     ControllerAtualizarInterface,
     ControllerDeletarInterface
 {
+    public function getPrincipal(Request $request): Response
+    {
+        $Endereco = new PrincipalModel(
+            vinculo: $request->vinculo,
+            local_principal: $request->local_principal,
+            local_secundario: $request->local_secundario,
+            latitude: $request->latitude,
+            longitude: $request->longitude,
+        );
+        return mensagemSucesso($Endereco->endereco);
+    }
+
     public function getListar(Request $request): Response
     {
-        $Endereco = new EnderecoModel(
-            vinculo: $request->vinculo,
-            tipo: new Tipo($request->tipo),
-            local: new Local($request->local),
-            pais: $request->pais,
-            cidade: $request->cidade,
-            estado: new EnderecoEstado($request->estado),
-            ordem: new Ordem($request->ordem),
-        );
+        $Endereco = new EnderecoModel();
+        $Endereco->set(lista: $request->dado());
         return mensagemSucesso($Endereco->listarDados());
     }
 
@@ -61,7 +63,7 @@ final class EnderecoController extends Controller implements
             dado: pegarPropriedadeDaEntity(
                 Entity: $Endereco,
                 lista: [
-                    'titulo', 'telefone', 'cep', 'logradouro', 'complemento', 'referencia',
+                    'titulo', 'cep', 'logradouro', 'complemento', 'referencia',
                     'numero', 'bairro', 'cidade', 'estado', 'pais', 'latitude', 'longitude', 'principal'
                 ]
             ),

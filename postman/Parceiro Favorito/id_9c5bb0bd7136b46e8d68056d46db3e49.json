@@ -1,0 +1,1 @@
+{"id":"id_9c5bb0bd7136b46e8d68056d46db3e49","token":"painel","metodo":"GET","nome":"\/parceiro-favorito","uri":"{{LINK}}\/parceiro-favorito","parametro":[],"body":[],"header":[],"variavel":[],"json":[],"documentacao":{"status":false,"descricao":"","requisicao":"","resposta":"","scope":"parceiro_favorito:listar"}}

@@ -6,6 +6,9 @@ trait ListarCampoTrait
 {
     private function pegarCampo(): array
     {
-        return ['id', 'cod', 'titulo', 'url', 'tipo', 'desconto', 'estado', 'data_publicacao', 'imagem', 'status'];
+        return [
+            'id', 'uuid', 'titulo', 'titulo_interno', 'url', 'tipo_loja', 'desconto', 'endereco_estado',
+            'data_publicacao', 'imagem_logo', 'data_auditoria', 'status'
+        ];
     }
 }

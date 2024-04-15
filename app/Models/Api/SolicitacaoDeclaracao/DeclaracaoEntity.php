@@ -91,10 +91,10 @@ class DeclaracaoEntity extends Entity
         $empresa = (new OrmHelper(TABELA_COMERCIAL_EMPRESA))
             ->pegarUltimoRegistro(
                 ['id', $this->id_admin_empresa],
-                ['cod', 'nome_fantasia'],
+                ['uuid', 'nome_fantasia'],
                 'object'
             );
-        if (empty($empresa->cod)) {
+        if (empty($empresa->uuid)) {
             $this->empresa = [
                 'id'   => '',
                 'nome' => 'Sem empresa'
@@ -102,7 +102,7 @@ class DeclaracaoEntity extends Entity
             return;
         }
         $this->empresa = [
-            'id'   => $empresa->cod,
+            'id'   => $empresa->uuid,
             'nome' => $empresa->nome_fantasia
         ];
     }
@@ -135,10 +135,10 @@ class DeclaracaoEntity extends Entity
         $parceiro = (new OrmHelper(TABELA_PARCEIRO_LOJA))
             ->pegarUltimoRegistro(
                 ['id', $this->id_parceiro_loja],
-                ['cod', 'titulo'],
+                ['uuid', 'titulo'],
                 'object'
             );
-        if (empty($parceiro->cod)) {
+        if (empty($parceiro->uuid)) {
             $this->parceiro = [
                 'id'   => '',
                 'nome' => 'Sem parceiro'
@@ -146,7 +146,7 @@ class DeclaracaoEntity extends Entity
             return;
         }
         $this->parceiro = [
-            'id'   => $parceiro->cod,
+            'id'   => $parceiro->uuid,
             'nome' => $parceiro->titulo
         ];
     }

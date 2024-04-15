@@ -18,7 +18,6 @@ const historicoLoad = () => {
     const historicoLink = document.getElementById('input_historico_link').value;
     const historicoNotificar = document.getElementById('input_historico_notificar').value;
 
-    const historicoLista = document.querySelector('#bloco_historico_lista');
     const botaoBuscar = document.querySelector('#botao_buscar_historico');
     const botaoCarregarMais = document.querySelector('#botao_historico_carregar_mais');
 
@@ -100,7 +99,7 @@ const historicoLoad = () => {
             historicoLista.innerHTML = '<div class="zero">Sem mensagens para a busca realizada</div>';
             return;
         } else if (pagina == 1 && Object.keys(lista).length == 0) {
-            adicionarBlocoSemMensagem();
+            adicionarBlocoSemMensagem(historicoLista);
             return;
         } else if (pagina == 1) {
             historicoLista.innerHTML = '';
@@ -188,7 +187,7 @@ const historicoLoad = () => {
         if (resposta.status == 201) {
             inputHistorico.value = '';
             inputHistorico.style.height = 25 + 'px';
-            adicionarNovaMensagem(json.dado.id, json.dado.mensagem);
+            adicionarNovaMensagem(json.dado.id, json.dado.mensagem, usuarioImagem, usuarioNome, true, historicoLista);
             return;
         }
 
@@ -200,95 +199,11 @@ const historicoLoad = () => {
         );
     };
 
-    let contadorNovaMensagem = 0;
-    const adicionarNovaMensagem = (id, mensagem) => {
-        const blocoSemMensagem = historicoLista.querySelector('.sem_mensagem');
-        if (blocoSemMensagem) {
-            blocoSemMensagem.parentNode.removeChild(blocoSemMensagem);
-        }
-
-        contadorNovaMensagem++;
-        const idMensagem = 'bloco_nova_mensagem_' + contadorNovaMensagem;
-        mensagem = mensagem
-            .replace(
-                /((https?:\/\/)[a-zA-Z\.\:0-9\/\-\_\?\=\&]{1,})/gm,
-                `<a href="${LINK}/app/redirecionar?url=$1" target="_blank" rel="noopener noreferrer">$1</a>`
-            )
-            .replace(/\n/g, '<br>');
-        const html = `
-            <div class="item item_geral minha_mensagem" id="${idMensagem}">
-                <figure style="background-image: url(${usuarioImagem});"></figure>
-                <div class="dado">
-                    <h2>${usuarioNome}</h2>
-                    <div class="data">Agora</div>
-                </div>
-                <div class="fixar"><svg height="15" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path fill="none" d="M0 0h24v24H0z"/><path d="M13.828 1.686l8.486 8.486-1.415 1.414-.707-.707-4.242 4.242-.707 3.536-1.415 1.414-4.242-4.243-4.95 4.95-1.414-1.414 4.95-4.95-4.243-4.242 1.414-1.415L8.88 8.05l4.242-4.242-.707-.707 1.414-1.415zm.708 3.536l-4.671 4.67-2.822.565 6.5 6.5.564-2.822 4.671-4.67-4.242-4.243z"/></svg></div>
-                <div class="deletar">
-                    <div class="loading"></div>
-                    ${Icone.deletar()}
-                </div>
-                <p class="mensagem">${mensagem}</p>
-            </div>
-        `;
-
-        let blocoHoje = historicoLista.querySelector('#bloco_historico_hoje');
-        if (!blocoHoje) {
-            historicoLista.insertAdjacentHTML(
-                'afterbegin',
-                '<div class="item_geral bloco_historico_data" id="bloco_historico_hoje">Hoje</div>'
-            );
-            blocoHoje = historicoLista.querySelector('#bloco_historico_hoje');
-        }
-        blocoHoje.insertAdjacentHTML('afterend', html);
-
-        const blocoMensagem = historicoLista.querySelector('#' + idMensagem);
-        const botaoDeletar = blocoMensagem.querySelector('.deletar');
-        botaoDeletar.addEventListener('click', () => {
-            deletarHistoricoEnviado(blocoMensagem, id);
-        });
-        setTimeout(() => {
-            botaoDeletar.parentNode.removeChild(botaoDeletar);
-        }, 20000);
-    };
-
-    /*
-    |--------------------------------------------------------------------------
-    | DELETAR HISTÓRICO
-    |--------------------------------------------------------------------------
-    */
-    const deletarHistoricoEnviado = async (bloco, id) => {
-        bloco.classList.add('display_none');
-        const resposta = await fetch(LINK + '/historico/' + id, {
-            method: 'DELETE',
-        });
-        if (resposta.status != 204) {
-            Alerta.notificacao('Ocorreu um erro ao deletar a mensagem.', false);
-            bloco.classList.remove('display_none');
-            return;
-        }
-
-        bloco.parentNode.removeChild(bloco);
-        if (historicoLista.querySelectorAll('.item').length == 0) {
-            adicionarBlocoSemMensagem();
-            return;
-        }
-        const itemGeral = historicoLista.querySelectorAll('.item_geral');
-        if (
-            itemGeral[0].classList.contains('bloco_historico_data') &&
-            itemGeral[1].classList.contains('bloco_historico_data')
-        ) {
-            itemGeral[0].parentNode.removeChild(itemGeral[0]);
-        }
-    };
-
     /*
     |--------------------------------------------------------------------------
     | GERAL
     |--------------------------------------------------------------------------
     */
-    const adicionarBlocoSemMensagem = () => {
-        historicoLista.innerHTML = '<div class="zero sem_mensagem">Sem mensagens no momento</div>';
-    };
     const adicionarTextoAjuda = (bloco, texto) => {
         bloco.addEventListener('mouseover', () => {
             Ajuda.show(bloco, texto);
@@ -503,4 +418,101 @@ const historicoLoad = () => {
         inputHistorico.focus();
         inputHistorico.setSelectionRange(posicaoFinal, posicaoFinal);
     };
+};
+
+/*
+|--------------------------------------------------------------------------
+| ADICIONAR MENSAGEM
+|--------------------------------------------------------------------------
+*/
+const historicoLista = document.querySelector('#bloco_historico_lista');
+let contadorNovaMensagem = 0;
+const adicionarNovaMensagem = (id, mensagem, usuarioImagem, usuarioNome, podeDeletar) => {
+    const blocoSemMensagem = historicoLista.querySelector('.sem_mensagem');
+    if (blocoSemMensagem) {
+        blocoSemMensagem.parentNode.removeChild(blocoSemMensagem);
+    }
+
+    contadorNovaMensagem++;
+    const idMensagem = 'bloco_nova_mensagem_' + contadorNovaMensagem;
+    mensagem = mensagem
+        .replace(
+            /((https?:\/\/)[a-zA-Z\.\:0-9\/\-\_\?\=\&]{1,})/gm,
+            `<a href="${LINK}/app/redirecionar?url=$1" target="_blank" rel="noopener noreferrer">$1</a>`
+        )
+        .replace(/\n/g, '<br>');
+    let htmlDeletar = '';
+    if (podeDeletar) {
+        htmlDeletar = `
+            <div class="deletar">
+                <div class="loading"></div>
+                ${Icone.deletar()}
+            </div>
+        `;
+    }
+    const html = `
+        <div class="item item_geral minha_mensagem" id="${idMensagem}">
+            <figure style="background-image: url(${usuarioImagem});"></figure>
+            <div class="dado">
+                <h2>${usuarioNome}</h2>
+                <div class="data">Agora</div>
+            </div>
+            <div class="fixar"><svg height="15" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path fill="none" d="M0 0h24v24H0z"/><path d="M13.828 1.686l8.486 8.486-1.415 1.414-.707-.707-4.242 4.242-.707 3.536-1.415 1.414-4.242-4.243-4.95 4.95-1.414-1.414 4.95-4.95-4.243-4.242 1.414-1.415L8.88 8.05l4.242-4.242-.707-.707 1.414-1.415zm.708 3.536l-4.671 4.67-2.822.565 6.5 6.5.564-2.822 4.671-4.67-4.242-4.243z"/></svg></div>
+            ${htmlDeletar}
+            <p class="mensagem">${mensagem}</p>
+        </div>
+    `;
+
+    let blocoHoje = historicoLista.querySelector('#bloco_historico_hoje');
+    if (!blocoHoje) {
+        historicoLista.insertAdjacentHTML(
+            'afterbegin',
+            '<div class="item_geral bloco_historico_data" id="bloco_historico_hoje">Hoje</div>'
+        );
+        blocoHoje = historicoLista.querySelector('#bloco_historico_hoje');
+    }
+    blocoHoje.insertAdjacentHTML('afterend', html);
+
+    const blocoMensagem = historicoLista.querySelector('#' + idMensagem);
+    const botaoDeletar = blocoMensagem.querySelector('.deletar');
+    if (botaoDeletar) {
+        botaoDeletar.addEventListener('click', () => {
+            deletarHistoricoEnviado(blocoMensagem, id, historicoLista);
+        });
+        setTimeout(() => {
+            botaoDeletar.parentNode.removeChild(botaoDeletar);
+        }, 20000);
+    }
+};
+/*
+|--------------------------------------------------------------------------
+| DELETAR MENSAGEM
+|--------------------------------------------------------------------------
+*/
+const deletarHistoricoEnviado = async (bloco, id) => {
+    bloco.classList.add('display_none');
+    const resposta = await fetch(LINK + '/historico/' + id, {
+        method: 'DELETE',
+    });
+    if (resposta.status != 204) {
+        Alerta.notificacao('Ocorreu um erro ao deletar a mensagem.', false);
+        bloco.classList.remove('display_none');
+        return;
+    }
+
+    bloco.parentNode.removeChild(bloco);
+    if (historicoLista.querySelectorAll('.item').length == 0) {
+        adicionarBlocoSemMensagem(historicoLista);
+        return;
+    }
+    const itemGeral = historicoLista.querySelectorAll('.item_geral');
+    if (
+        itemGeral[0].classList.contains('bloco_historico_data') &&
+        itemGeral[1].classList.contains('bloco_historico_data')
+    ) {
+        itemGeral[0].parentNode.removeChild(itemGeral[0]);
+    }
+};
+const adicionarBlocoSemMensagem = () => {
+    historicoLista.innerHTML = '<div class="zero sem_mensagem">Sem mensagens no momento</div>';
 };

@@ -224,7 +224,6 @@ final class AppController extends PadraoController
         } elseif (!in_array($request->status, $config->visualizar->status)) {
             mensagemErro('Status inválido!', 'O valor do status não é um valor permitido.');
         }
-
         $Api = new ApiHelper(token: true);
         $dado = $Api
             ->validar(login: true)
@@ -264,7 +263,8 @@ final class AppController extends PadraoController
                 'config'    => $config,
                 'acao'      => 'add',
                 'request'   => $request,
-                'appVoltar' => !empty($config->add->link) ? [$config->add->link, ''] : ''
+                'appVoltar' => !empty($config->add->link) ? [$config->add->link, ''] : '',
+                'status'    => ''
             ],
             css: $config->add->css,
             js: $config->add->js,
@@ -315,7 +315,13 @@ final class AppController extends PadraoController
             $lista = (new $nomeClass())->body($lista);
         }
 
+        if (array_key_exists('status_sistema', $lista)) {
+            $lista['status'] = $lista['status_sistema'];
+            unset($lista['status_sistema']);
+        }
+
         $lista = $this->criptografarListaDado($lista, $requestCampo, $config->api->criptografar);
+
         $uri = $config->api->uri;
         if ($acao == 'insert') {
             $Api = new ApiHelper(token: true);
@@ -330,6 +336,7 @@ final class AppController extends PadraoController
                 ->body($lista)
                 ->put($uri . '/' . $request->id);
         }
+
         $dado = $this->validarRetornoApi($dado);
         if ($dado instanceof Response) {
             return $dado;
@@ -387,8 +394,8 @@ final class AppController extends PadraoController
                 'dado'       => $this->tratarListaDeRetorno($dado->dado, $config->api->criptografar),
                 'request'    => $request,
                 'appVoltar'  => !empty($config->add->link) ? [$config->add->link, ''] : '',
-                'linkVoltar' => $config->add->link
-
+                'linkVoltar' => $config->add->link,
+                'status'     => $request->getGet('status-sistema')
             ],
             css: $config->add->css,
             js: $config->add->js,
@@ -529,7 +536,7 @@ final class AppController extends PadraoController
                 $lista[$ind] = '';
                 continue;
             }
-            $lista[$ind] = validarData($val) ? dataBanco($val) : $val;
+            $lista[$ind] = is_string($val) && validarData($val) ? dataBanco($val) : $val;
         }
         return new Response(url: LINK . '/app/' . $app . '?filtro=' . base64Encode($lista, true) . $ordem);
     }
@@ -573,6 +580,14 @@ final class AppController extends PadraoController
         if ($validar && $indice != 'ordem' && array_key_exists($indice, $filtro)) {
             unset($filtro[$indice]);
         }
+        $filtroFinal = [];
+        foreach ($filtro as $ind => $val) {
+            if (empty($val)) {
+                continue;
+            }
+            $filtroFinal[$ind] = $val;
+        }
+        $filtro = $filtroFinal;
 
         $url = LINK . '/app/' . $app;
         if ($indice == 'ordem' && $validar) {

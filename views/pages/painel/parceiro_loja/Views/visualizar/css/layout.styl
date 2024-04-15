@@ -1,0 +1,53 @@
+@template "painel"
+@system "Popup"
+@painel "app_geral_visualizar"
+
+#bloco_auditoria_geral
+    max-width: 700px
+
+.bloco_linha_tempo .conteudo
+    max-width: 600px
+    flexCol()
+    align-items: center
+    .bloco_lista_item
+        width: 100%
+        flexCol()
+        margin: 20px 0
+    .bloco_lista_item .zero
+        padding: 40px 20px !important
+        text-align: center
+    .bloco_lista_item .item
+        width: 100%
+        flexCol()
+        position: relative
+        justify-content: center
+        padding: 10px 10px 10px 75px
+        &:hover
+            background-color: #F6F6F6
+    .bloco_lista_item .item figure
+        width: 40px
+        height: 40px
+        left: 15px
+        position: absolute
+        border-radius: 50%
+        background-size: cover
+        background-position: center center
+        background-color: #EEE
+    .bloco_lista_item .item h3
+        width: 100%
+        texto()
+        font-weight: bold
+    .bloco_lista_item .item p
+        texto()
+    .bloco_lista_item .item time
+        font-size: 1.2rem
+        color: #999
+        font-weight: 300
+    .botao_mais
+        border: 1px solid #999
+        textoFontSize()
+        padding: 10px 20px
+        margin-bottom: 20px
+        border-radius: 20px
+        color: #333
+        cursor: pointer

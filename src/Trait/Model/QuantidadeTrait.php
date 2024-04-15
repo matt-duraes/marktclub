@@ -17,8 +17,14 @@ trait QuantidadeTrait
      */
     protected function pegarQuantidade(bool $obrigatorio = false, bool $valido = true): int
     {
+        $requestExiste = false;
+        if (property_exists($this, 'request')) {
+            $propriedade = new \ReflectionProperty($this, 'request');
+            $requestExiste = $propriedade->isInitialized($this);
+        }
+
         $valor = '';
-        if (property_exists($this, 'request') && $this->request->existe('quantidade')) {
+        if ($requestExiste && $this->request->existe('quantidade')) {
             $valor = $this->request->quantidade;
         } elseif ($this->propriedadeExiste('quantidade') && $this->quantidade instanceof Quantidade) {
             $valor = $this->quantidade->numero();

@@ -501,12 +501,13 @@ if (!function_exists('formInput')) {
 
         $bloqueadoHtml = '';
         if (!empty($bloqueado)) {
-            $bloqueadoHtml = '<div class="input_bloqueado" style="display: none" id="input_' . $name . '_bloqueado" data-ajuda="' . $bloqueado . '"></div>';
+            $idInput1 = !empty($name) ? $name : uuid();
+            $bloqueadoHtml = '<div class="input_bloqueado" style="display: none" id="input_' . $idInput1 . '_bloqueado" data-ajuda="' . $bloqueado . '"></div>';
             $classBloco[] = 'bloco_bloqueado';
             if (empty($value)) {
                 $attrInput[] = 'readonly';
                 $attrInputSecundario[] = 'readonly';
-                $bloqueadoHtml = '<div class="input_bloqueado" id="input_' . $name . '_bloqueado" data-ajuda="' . $bloqueado . '"></div>';
+                $bloqueadoHtml = '<div class="input_bloqueado" id="input_' . $idInput1 . '_bloqueado" data-ajuda="' . $bloqueado . '"></div>';
             }
         }
 
@@ -518,7 +519,10 @@ if (!function_exists('formInput')) {
             $nameSecundario = $name[1];
             $name = $name[0];
 
-            $inputSecundario = '<input class="input_separador_3 input_geral ' . implode(' ', $classInputSecundario) . '" type="' . $typeSecundario . '" name="' . $nameSecundario . '" id="input_' . $nameSecundario . '" ' . implode(' ', $attrInputSecundario) . ' >';
+            $nameSecundarioHtml = !empty($nameSecundario) ? 'data="' . $nameSecundario . '"' : '';
+            $nameSecundario = !empty($nameSecundario) ? $nameSecundario : uuid();
+
+            $inputSecundario = '<input class="input_separador_3 input_geral ' . implode(' ', $classInputSecundario) . '" type="' . $typeSecundario . '" ' . $nameSecundarioHtml . ' id="input_' . $nameSecundario . '" ' . implode(' ', $attrInputSecundario) . ' >';
 
             $classInput[] = 'input_separador_1';
 
@@ -528,14 +532,15 @@ if (!function_exists('formInput')) {
         }
 
         $nameHtml = !empty($name) ? 'name="' . $name . '"' : '';
+        $idInput1 = !empty($name) ? $name : uuid();
 
-        $label = !empty($label) ? '<label for="input_' . $name . '">' . $label . '</label>' : '';
+        $label = !empty($label) ? '<label for="input_' . $idInput1 . '">' . $label . '</label>' : '';
         return '
             <div class="bloco_input input_input ' . implode(' ', $classBloco) . '" id="' . $idBloco . '" ' . implode(' ', $attrBloco) . '>
                 ' . $bloqueadoHtml . '
                 ' . $html . '
                 ' . $iconeHtml . '
-                <input class="input_geral ' . implode(' ', $classInput) . '" ' . $focusHtml . ' type="' . $typePrincipal . '" ' . $nameHtml . ' ' . implode(' ', $attrInput) . ' id="input_' . $name . '">
+                <input class="input_geral ' . implode(' ', $classInput) . '" ' . $focusHtml . ' type="' . $typePrincipal . '" ' . $nameHtml . ' ' . implode(' ', $attrInput) . ' id="input_' . $idInput1 . '">
                 ' . $separadorHtml . '
                 ' . $inputSecundario . '
                 <div class="borda"></div>
@@ -1997,8 +2002,8 @@ if (!function_exists('formArquivoLista')) {
         $blocoId = empty($id) ? 'id_' . md5(uniqid(time())) : $id;
         $blocoClass = empty($class) ? '' : $class;
         $arquivoListaHtml = '';
-        foreach ($value as $id) {
-            $arquivo = arquivoPrivadoDado($id);
+        foreach ($value as $idArquivo) {
+            $arquivo = arquivoPrivadoDado($idArquivo);
             if (!$arquivo) {
                 continue;
             }
@@ -2029,14 +2034,14 @@ if (!function_exists('formArquivoLista')) {
             }
 
             $arquivoListaHtml .= '
-                <div class="fw_form_arquivo_lista_arquivo fw_arquivo_' . $id . ' ' . $classGaleria . '" ' . $attrGaleria . '>
-                    <input type="hidden" name="' . $name . '[]" value="' . $id . '">
+                <div class="fw_form_arquivo_lista_arquivo fw_arquivo_' . $arquivo->id . ' ' . $classGaleria . '" ' . $attrGaleria . '>
+                    <input type="hidden" name="' . $name . '[]" value="' . $arquivo->id . '">
                     <figure ' . $figureBg . '>' . $figureExtensaoHtml . '</figure>
                     ' . $arquivoDownloadHtml . '
                     <i class="fw_form_arquivo_lista_icone fw_form_arquivo_lista_remover">
                         <svg height="19" xmlns="https://www.w3.org/2000/svg" viewBox="0 0 48 48" x="0px" y="0px"><g data-name="Application, Delete"><path d="M13,37a4,4,0,0,0,4,4H31a4,4,0,0,0,4-4V16H13Zm2-19H33V37a2,2,0,0,1-2,2H17a2,2,0,0,1-2-2Zm7,16H20V23h2Zm6,0H26V23h2Zm3.41-23-4-4H20.59l-4,4H9v2H39V11Zm-10-2h5.18l2,2H19.41Z"/></g></svg>
                     </i>
-                    <p class="fw_form_arquivo_lista_arquivo_nome fw_arquivo_nome_' . $id . '">' . $arquivo->nome . '</p>
+                    <p class="fw_form_arquivo_lista_arquivo_nome fw_arquivo_nome_' . $arquivo->id . '">' . $arquivo->nome . '</p>
                 </div>
             ';
         }

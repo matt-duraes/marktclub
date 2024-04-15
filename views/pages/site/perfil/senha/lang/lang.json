@@ -46,7 +46,7 @@
 
     "RegraSenhaSimbolo": [
         {
-            "pt": "Ter pelo menos um símbolo (Por exemplo: $*&@#_)",
+            "pt": "Ter pelo menos um símbolo ($*@#_)",
             "en": "",
             "es": ""
         }

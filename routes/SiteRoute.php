@@ -190,6 +190,7 @@ Route
     ::nome('analytics')
     ::middleware(ClubeMiddleware::class, 'buscar')
     ::middleware(AuthMiddleware::class, 'logado')
+    ::controller(App\Controllers\Site\IndexController::class)
     ::controller(App\Controllers\Site\AnalyticsController::class)
     ::grupo(function () {
         Route
@@ -357,8 +358,8 @@ Route
         Route
             ::nome('listar')
             ::request([
-                '!pagina', 'tipo', '!latitude', '!longitude', '!acessado', '!favorito', 'estado', 'categoria',
-                'subcategoria', 'estabelecimento', 'pesquisa', 'ordem', 'cidade'
+                '!pagina', 'tipo', '!latitude', '!longitude', '!acessado', '!favorito', '!estado', '!categoria',
+                '!subcategoria', '!estabelecimento', '!pesquisa', '!ordem', '!cidade'
             ])
             ::post('/convenios/listar');
         Route
@@ -412,6 +413,19 @@ Route
     });
 
 Route
+    ::nome('telefone_email')
+    ::middleware(AuthMiddleware::class, 'logado')
+    ::controller(App\Controllers\Site\TelefoneEmailController::class)
+    ::grupo(function () {
+        Route
+            ::nome('listar')
+            ::request([
+                'id', 'local', 'tipo', 'pagina'
+            ])
+            ::post('/contato/lista');
+    });
+
+Route
     ::nome('salavip')
     ::middleware(ClubeMiddleware::class, 'buscar')
     ::middleware(AuthMiddleware::class, 'logado')
@@ -421,6 +435,7 @@ Route
             ::nome('index')
             ::view('/salavip');
     });
+
 Route
     ::nome('odontologico')
     ::middleware(ClubeMiddleware::class, 'buscar')
@@ -431,6 +446,7 @@ Route
             ::nome('index')
             ::view('/plano-odontologico');
     });
+
 Route
     ::nome('planosaude')
     ::middleware(ClubeMiddleware::class, 'buscar')
@@ -612,9 +628,17 @@ Route
     ::controller(App\Controllers\Site\EnderecoController::class)
     ::grupo(function () {
         Route
-            ::nome('index')
-            ::request(['id', 'tipo'])
-            ::post('/endereco');
+            ::nome('principal')
+            ::request(['id', 'local', 'latitude', 'longitude'])
+            ::post('/endereco/principal');
+        Route
+            ::nome('estrutura')
+            ::request(['id', 'local', 'pais', 'estado', 'cidade'])
+            ::post('/endereco/estrutura');
+        Route
+            ::nome('lista')
+            ::request(['id', 'local', 'estado', 'cidade', 'pagina'])
+            ::post('/endereco/lista');
     });
 
 Route

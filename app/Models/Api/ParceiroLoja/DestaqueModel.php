@@ -4,6 +4,8 @@ namespace App\Models\Api\ParceiroLoja;
 
 use ORM\ORM;
 use Modules\Quantidade;
+use App\Classes\ParceiroLoja\Status;
+use App\Classes\ParceiroLoja\TipoLoja;
 use App\Classes\ParceiroLoja\Categoria;
 use System\Trait\Model\QuantidadeTrait;
 use App\Models\Api\Trait\ValidarEmpresaTrait;
@@ -28,7 +30,7 @@ final class DestaqueModel extends ORM
     public function listarDados(): array
     {
         $dado = $this
-            ->campo(['uuid', 'titulo', 'imagem', 'desconto'])
+            ->campo(['uuid', 'titulo', 'imagem_logo', 'desconto'])
             ->where($this->pegarWhere())
             ->limit(0, $this->pegarQuantidade())
             ->order('rand')
@@ -43,7 +45,7 @@ final class DestaqueModel extends ORM
             $retorno[] = [
                 'id'       => $r->uuid,
                 'titulo'   => $r->titulo,
-                'imagem'   => LINK_ARQUIVO . '/parceiro/' . $r->imagem,
+                'imagem'   => arquivoPrivado($r->imagem_logo),
                 'desconto' => $r->desconto
             ];
         }
@@ -54,9 +56,10 @@ final class DestaqueModel extends ORM
     {
         $idEmpresa = $this->idEmpresa;
         $where = [
-            ['id_admin_empresa', 'like', '%"' . $idEmpresa . '"%'],
-            ['destaque', 'like', '%"' . $idEmpresa . '"%'],
-            ['status', 4]
+            ['id_admin_empresa', 'json', $idEmpresa],
+            ['destaque', 'json', $idEmpresa],
+            ['tipo_loja', new TipoLoja(TipoLoja::LOJA)],
+            ['status', new Status(Status::CONCLUIDO)]
         ];
         return $where;
     }

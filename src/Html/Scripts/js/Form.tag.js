@@ -2,11 +2,10 @@ const fwFormTagLista = document.querySelectorAll('.form_geral .fw_form_tag');
 const fwFormTagAjuda = document.querySelector('#bloco_fw_ajuda');
 
 if (fwFormTagLista.length > 0) {
-    let fwFormTagInput, fwFormTagEspaco;
     fwFormTagLista.forEach(bloco => {
-        fwFormTagInput = bloco.querySelector('input');
-        fwFormTagEspaco = bloco.getAttribute('data-espaco');
-        fwDormTagTipo = bloco.getAttribute('data-tipo');
+        const fwFormTagInput = bloco.querySelector('input');
+        const fwFormTagEspaco = bloco.getAttribute('data-espaco');
+        const fwDormTagTipo = bloco.getAttribute('data-tipo');
 
         // key up
         fwFormTagInput.addEventListener('keyup', e => {

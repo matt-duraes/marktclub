@@ -1,9 +1,7 @@
 @template "site"
 
 @if (sessao('popupAlerta')) :
-
 @php sessao('popupAlerta', false)
-
 <div class="bloco_pagina_popup display_none" id="popup_medicamento">
     <header>
         <i class="popup_fechar fechar">@iconeFechar(14)</i>

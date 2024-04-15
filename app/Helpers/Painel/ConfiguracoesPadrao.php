@@ -284,27 +284,16 @@ final class ConfiguracoesPadrao
         'parceiro_loja'            => [
             'titulo'    => 'Loja',
             'acao'      => [
-                'index', 'add', 'editar', 'deletar', 'empresa'
+                'index', 'add', 'visualizar', 'editar', 'deletar', 'status', 'empresa'
             ],
             'permissao' => [
-                'parceiro_loja_index'   => 'Listar',
-                'parceiro_loja_add'     => 'Salvar',
-                'parceiro_loja_editar'  => 'Editar',
-                'parceiro_loja_deletar' => 'Deletar',
-                'parceiro_loja_empresa' => 'Todas as empresas'
-            ]
-        ],
-        'parceiro_cashback'        => [
-            'titulo'    => 'Cashback',
-            'acao'      => [
-                'index', 'add', 'editar', 'deletar', 'empresa'
-            ],
-            'permissao' => [
-                'parceiro_cashback_index'   => 'Listar',
-                'parceiro_cashback_add'     => 'Salvar',
-                'parceiro_cashback_editar'  => 'Editar',
-                'parceiro_cashback_deletar' => 'Deletar',
-                'parceiro_cashback_empresa' => 'Todas as empresas'
+                'parceiro_loja_index'      => 'Listar',
+                'parceiro_loja_add'        => 'Salvar',
+                'parceiro_loja_visualizar' => 'Visualizar',
+                'parceiro_loja_editar'     => 'Editar',
+                'parceiro_loja_deletar'    => 'Deletar',
+                'parceiro_loja_status'     => 'Status',
+                'parceiro_loja_empresa'    => 'Todas as empresas'
             ]
         ],
         'parceiro_cupom'           => [

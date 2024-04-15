@@ -2,8 +2,8 @@
 
 use Helpers\ApiHelper;
 use App\Classes\Geral\Status;
-use App\Classes\ConstrutorClube\TipoAtivacao;
 use App\Helpers\PrimeiroAcessoHelper;
+use App\Classes\ConstrutorClube\TipoAtivacao;
 
 $Painel = new PainelConfig\Add(app: 'comercial-empresa', acao: $acao);
 
@@ -62,6 +62,10 @@ $Painel->coluna(callback: function () use ($Painel) {
                 label: 'Vai ter chat?'
             )
             ->switch(
+                name: 'tela_login',
+                label: 'Vai ter tela de login?'
+            )
+            ->switch(
                 name: 'api_status',
                 label: 'O login é via API?'
             )
@@ -97,6 +101,18 @@ $Painel->coluna(callback: function () use ($Painel) {
             ->url(name: 'link_app_android', label: 'Link do APP Android', placeholder: 'Link do APP Android');
     });
 });
+$Painel->coluna(callback: function () use ($Painel) {
+    $Painel->fieldset('Redes Sociais', function () use ($Painel) {
+        $Painel
+            ->url(name: 'link_facebook', label: 'Facebook', placeholder: 'Link do Facebook')
+            ->url(name: 'link_instagram', label: 'Instagram', placeholder: 'Link do Instagram')
+            ->url(name: 'link_twitter', label: 'Twitter', placeholder: 'Link do Twitter')
+            ->url(name: 'link_linkedin', label: 'Linkedin', placeholder: 'Link do Linkedin')
+            ->url(name: 'link_youtube', label: 'Youtube', placeholder: 'Link do Youtube')
+            ->url(name: 'link_tiktok', label: 'Tiktok', placeholder: 'Link do Tiktok');
+    });
+});
+
 $Painel->coluna(callback: function () use ($Painel) {
     $Painel->fieldsetCheckbox(
         titulo: 'Menu Login',

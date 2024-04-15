@@ -16,16 +16,62 @@
         flex-direction: column
         background: #FFF
         padding-bottom: 20px
-    .bloco_fieldset h2
-        margin: 20px 0 10px 0
+    .bloco_fieldset.bloco_fieldset_fechado
+        padding-bottom: 0
+    .bloco_fieldset:last-child
+        padding-bottom: 10px
+    .bloco_fieldset header.header_fieldset
+        width: 100%
+        display: flex
+        flex-direction: row
+        align-items: center
+        margin-top: 10px
+        padding: 10px 0
+    .bloco_fieldset.bloco_fieldset_abrir_fechar
+        cursor: pointer
+    .bloco_fieldset.bloco_fieldset_abrir_fechar header.header_fieldset
+        margin-bottom: 10px
+    .bloco_fieldset.bloco_fieldset_abrir_fechar.bloco_fieldset_fechado header.header_fieldset
+        margin-bottom: 0
+    .bloco_fieldset.bloco_fieldset_abrir_fechar header.header_fieldset:hover
+        background-color: #F6F6F6
+    .bloco_fieldset header.header_fieldset h2
         padding-left: 20px
-        font-size: $tituloFontSize
+        font-size: 1.8rem
         border-left: 5px solid $cor
+        flex-grow: 1
+        flex-basis: 0%
+    .bloco_fieldset header.header_fieldset .botao_abrir_fechar
+        width: 20px
+        height: 20px
+        position: relative
+        margin-right: 10px
+    .bloco_fieldset header.header_fieldset .botao_abrir_fechar i
+        width: 100%
+        height: 100%
+        position: absolute
+        font-size: 1.4rem
+        color: #CCC
+        top: 0
+        left: 0
+        display: flex
+        align-items: center
+        justify-content: center
+    .bloco_fieldset .botao_abrir_fechar i.mais
+        display: none
+    .bloco_fieldset .botao_abrir_fechar i.menos
+        display: flex
+    .bloco_fieldset.bloco_fieldset_fechado .botao_abrir_fechar i.mais
+        display: flex
+    .bloco_fieldset.bloco_fieldset_fechado .botao_abrir_fechar i.menos
+        display: none
     .bloco_fieldset .lista_dado
         width: 100%
         display: flex
         flex-direction: column
         align-items: flex-start
+    .bloco_fieldset.bloco_fieldset_abrir_fechar.bloco_fieldset_fechado .lista_dado
+        display: none
 
 #bloco_app_visualizar
     .imagem_redonda
@@ -37,6 +83,21 @@
         background-size: cover
         background-color: #FFF
         margin-top: 20px
+    .imagem_logo
+        width: 250px
+        height: 140px
+        border-radius: 10px
+        overflow: hidden
+        margin-top: 20px
+        padding: 20px 30px
+        background-color: #FFF
+        box-shadow: 0 5px 5px rgba(0,0,0,.1)
+    .imagem_logo .imagem
+        width: 100%
+        height: 100%
+        background-position: center center
+        background-size: contain
+        background-repeat: no-repeat
     .texto_nome
         width: 150px
         margin-right: 10px
@@ -114,6 +175,15 @@
         flex-direction: row
         word-wrap: break-word
         word-break: break-word
+        &.linha_equipe
+            align-items: center
+    .linha figure
+        width: 40px
+        height: 40px
+        border-radius: 50%
+        background-size: cover
+        background-position: center center
+        background-color: #EEE
     .linha strong
         font-size: inherit
         font-weight: 300
@@ -274,3 +344,322 @@
         &:hover
             background: #EEE
             fill: #666
+
+.bloco_visualizar_conteudo_geral
+    width: 100%
+.bloco_visualizar_lista_geral
+    width: 100%
+    flexCol()
+    align-items: flex-start
+    .botao_pequeno_geral
+        margin-left: 20px
+    .zero
+        margin-top: 20px
+        text-align: center
+    .loading
+        width: 100%
+        height: 50px
+        position: absolute
+        top: 0
+        left: 0
+        z-index: 2
+    .loading::after
+        width: 30%
+        content: ""
+        height: 1px
+        position: absolute
+        background-color: $corAzul
+        animation: visualizar_lista_loading 2s cubic-bezier(0, 0.5, 0.5, 1) infinite
+    .bloco_visuaizar_listar
+        width: 100%
+        max-height: 200px
+        min-height: 50px
+        margin-top: 20px
+        overflow-y: auto
+        border-top: 1px solid #DDD
+        border-bottom: 1px solid #DDD
+        position: relative
+.bloco_visualizar_lista_geral .form_visualizar_listar
+    width: 100%
+    flexRow()
+    padding: 20px 20px 0
+    input
+        height: 30px
+        line-height: 30px
+        border: 1px solid #DDD
+        border-radius: 15px
+        textoFontSize()
+        padding: 0 10px
+        margin-right: 10px
+        &:first-child
+            flex-grow: 1
+            flex-basis: 0%
+    .botao
+        height: 30px
+        line-height: 30px
+        padding: 0 10px
+        bgDegradeVerde()
+        color: #FFF
+        cursor: pointer
+        textoFontSize()
+        border-radius: 15px
+.bloco_visualizar_lista_geral .bloco_visuaizar_listar .bloco_visualizar_linha
+    width: 100%
+    padding: 10px 20px
+    border-top: 1px solid #DDD
+    flexRow()
+    align-items: center
+    &:hover
+        background-color: #F6F6F6
+    &:first-child
+        border-top: none
+    h1
+        max-width: 200px
+        texto()
+        font-weight: bold
+        color: #666
+        flexGrow()
+    p
+    p span
+        texto()
+    p
+        flex-grow: 1
+        flex-basis: 0%
+    i
+        width: 30px
+        height: 30px
+        flexCenter()
+        cursor: pointer
+        margin-left: 10px
+        cursor: pointer
+        border-radius: 20px
+        fill: #FFF
+        &.editar
+            background-color: $corAzul
+        &.deletar
+            background-color: $corVermelho
+    .margem
+        margin: 0 10px
+.bloco_visualizar_lista_geral .bloco_visualizar_carregar_mais
+    width: 100%
+    flexRow()
+    margin-top: 20px
+    align-items: center
+    justify-content: center
+    .botao_mais
+        border: 1px solid #999
+        textoFontSize()
+        padding: 10px 20px
+        border-radius: 20px
+        color: #333
+        cursor: pointer
+
+.bloco_visualizar_popup_geral
+    width: 100VW
+    height: 100vh
+    position: fixed
+    top: 0
+    left: 0
+    z-index: 100
+    background: rgba(0,0,0,.7)
+    flexRow()
+    justify-content: center
+    align-items: flex-start
+    overflow-y: auto
+    opacity: 0
+    transition: opacity .3s ease-out
+    &.ativo
+        opacity: 1
+    .conteudo
+        max-width: 800px
+
+.bloco_visualizar_popup_geral .conteudo
+    h2
+        width: 100%
+        font-size: 2rem
+        margin-top: 20px
+    .bloco
+        width: 100%
+        flexRow()
+        flex-wrap: wrap
+        padding: 0 20px
+    .linha
+        width: 100%
+    .bloco_mapa
+        width: 100%
+        max-height: calc(100vh - 100px)
+        margin-top: 20px
+        border-top: 2px solid $cor
+    .bloco_mapa h2
+        width: calc(100% - 40px)
+        margin-left: 20px
+    .bloco_mapa .geolocalizacao
+        width: 100%
+        flexRow()
+        padding: 0 0 10px 20px
+        justify-content: space-between
+    .bloco_mapa .geolocalizacao .bloco_input
+        flexGrow()
+        margin-right: 20px
+    .bloco_mapa .geolocalizacao .botao
+        height: 45px
+        line-height: 45px
+        padding: 0 15px
+        bgDegradeCinza()
+        textoFontSize()
+        border-radius: 4px
+        margin-top: 20px
+        cursor: no-drop
+        color: #666
+    .bloco_mapa .geolocalizacao .botao.ativo
+        bgDegradeVerde()
+        color: #FFF
+        cursor: pointer
+    .bloco_mapa .bloco_renderizar
+        width: 100%
+        position: relative
+        flexCol()
+        align-items: center
+    .bloco_mapa .bloco_renderizar .mapa
+        width: 100%
+        height: 500px
+        background-color: #EEE
+    .bloco_mapa .bloco_renderizar .buscar_titulo
+        width: calc(100% - 40px)
+        position: absolute
+        top: 10px
+        right: 20px
+        flexRow()
+    .bloco_mapa .bloco_renderizar .buscar_titulo input
+        width: 100%
+        height: 42px
+        background: #FFF
+        box-shadow: 0 2px 2px rgba(0,0,0,.1)
+        border: 1px solid #EEE
+        border-radius: 4px
+        textoFontSize()
+        padding: 0 10px
+    .bloco_mapa .bloco_renderizar .buscar_titulo .botao
+        height: 42px
+        line-height: 42px
+        padding: 0 15px
+        bgDegradeVerde()
+        textoFontSize()
+        margin-left: 10px
+        border-radius: 4px
+        color: #FFF
+        cursor: pointer
+    .bloco_mapa .bloco_renderizar .botao_controle
+        position: absolute
+        bottom: 10px
+        flexRow()
+    .bloco_mapa .bloco_renderizar .botao_controle .botao
+        font-size: 1.2rem
+        margin: 0 10px
+    .footer
+        width: 100%
+        flexRow()
+        justify-content: flex-end
+        padding: 10px 20px
+        .flex_grow
+            flex-grow: 1
+            flex-basis: 0%
+
+.bloco_contato_add .conteudo
+    .bloco_contato_nome
+        max-width: calc(100% - 170px)
+        margin-left: 20px
+    .bloco_contato_cpf
+        max-width: 150px
+    .bloco_contato_tipo
+        max-width: 200px
+        margin-right: 20px
+    .bloco_contato_email
+        width: calc(100% - 220px)
+    .bloco_contato_telefone
+        max-width: 250px
+    .bloco_contato_telefone
+    .bloco_contato_email
+        position: relative
+    .bloco_contato_telefone .input_separador_1
+        max-width: 75px
+        padding-left: 35px
+    .bloco_contato_telefone .mais
+        height: 45px
+        line-height: 45px
+        color: #999
+        position: absolute
+        top: 0
+        left: 15px
+        z-index: 5
+        font-size: 1.8rem
+
+.bloco_endereco_add .conteudo
+    .buscar_endereco_cep
+        width: 30px
+        height: 30px
+        flexCenter()
+        margin: 27px 0 0 10px
+        cursor: pointer
+        fill: #666
+    .bloco_endereco_titulo
+        flexGrow()
+    .bloco_endereco_telefone_estrangeiro
+        width: calc(50% - 10px)
+        position: relative
+    .bloco_endereco_telefone_estrangeiro .mais
+        height: 45px
+        line-height: 45px
+        position: absolute
+        left: 15px
+        textoFontSize()
+        color: #999
+    .bloco_endereco_telefone_estrangeiro .input_separador_1
+        width: 80px
+        padding-left: 35px
+    .bloco_endereco_telefone_brasil
+    .bloco_endereco_email
+        width: calc(50% - 10px)
+    .bloco_endereco_email
+        margin-left: 20px
+    .bloco_endereco_pais
+        max-width: 200px
+        margin-right: 20px
+    .bloco_endereco_cep_brasil
+    .bloco_endereco_cep_estrangeiro
+        max-width: 160px
+    .bloco_endereco_logradouro
+        max-width: 300px
+        margin-right: 20px
+    .bloco_endereco_numero
+        max-width: 100px
+        margin-right: 20px
+    .bloco_endereco_complemento
+        width: calc(50% - 10px)
+        margin-right: 20px
+    .bloco_endereco_referencia
+        width: calc(50% - 10px)
+    .bloco_endereco_bairro
+        max-width: 200px
+        margin-right: 20px
+    .bloco_endereco_estado_brasil
+    .bloco_endereco_estado_estrangeiro
+        max-width: 180px
+        margin-right: 20px
+    .bloco_endereco_cidade_brasil
+    .bloco_endereco_cidade_estrangeiro
+        flexGrow()
+    .bloco_endereco_principal
+        width: 100%
+        margin: 20px 0 10px
+
+@keyframes visualizar_lista_loading
+    0%
+        width: 0
+        left: 0
+    50%
+        width: 100%
+        left: 0
+    100%
+        width: 0%
+        left: calc(100% + 50px)

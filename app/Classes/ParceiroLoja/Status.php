@@ -6,8 +6,11 @@ use Status\Status as StatusStatus;
 
 final class Status extends StatusStatus
 {
+    public const PROSPECCAO = 'prospeccao';
+    public const PROBLEMA = 'problema';
+    public const CANCELADO = 'cancelado';
     public const CONCLUIDO = 'concluido';
-    public const PREMIUM = 'premium';
+    public const SEM_INTERESSE = 'sem-interesse';
 
     /**
      * @param string|int|null $valor
@@ -17,14 +20,19 @@ final class Status extends StatusStatus
     ) {
         parent::__construct(
             lista: [
-                self::CONCLUIDO => 'Concluído',
-                self::PREMIUM   => 'Premium'
+                self::PROSPECCAO     => 'Prospecção',
+                self::PROBLEMA       => 'Problema',
+                self::CANCELADO      => 'Cancelado',
+                self::CONCLUIDO      => 'Concluído',
+                self::SEM_INTERESSE  => 'Sem interesse',
             ],
             cor: [
-                self::CONCLUIDO => 'verde',
-                self::PREMIUM   => 'azul',
+                self::PROSPECCAO     => 'azul',
+                self::PROBLEMA       => 'vermelho',
+                self::CANCELADO      => 'cinza',
+                self::CONCLUIDO      => 'verde',
+                self::SEM_INTERESSE  => 'cinza',
             ],
-            numero: [4, 5]
         );
     }
 }
