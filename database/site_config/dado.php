@@ -11,7 +11,7 @@ return [
         'titulo_painel'    => 'Site associação',
         'titulo'           => 'Site associação',
         'descricao'        => 'Descrição do site da associação',
-        'link_site'        => 'localhost',
+        'link_site'        => ['localhost'],
         'template_header'  => 4,
         'template_footer'  => 1,
         'contato_telefone' => '6132730512',

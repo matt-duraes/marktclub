@@ -53,7 +53,7 @@ final class ContatoModel extends ClubeApiHelper
         $retorno = [];
         foreach ($this->contato->lista as $r) {
             $titulo = !empty($r->titulo) ? $r->titulo : $r->nome;
-            if(empty($titulo)) {
+            if (empty($titulo)) {
                 $titulo = $r->tipo == 'telefone' ? 'Telefone' : 'E-mail';
             }
             $retorno[] = (object)[
