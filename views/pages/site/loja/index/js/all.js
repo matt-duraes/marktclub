@@ -3,6 +3,7 @@
 // @resource "site/loja/favorito"
 // @resource "site/loja/parceiro"
 // @resource "site/busca"
+// @resource "site/automovel/solicitacao"
 // @system "Esqueleto"
 
 const blocoMapa = $('#bloco_loja_mapa');
