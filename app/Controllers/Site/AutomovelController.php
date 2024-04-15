@@ -23,14 +23,9 @@ final class AutomovelController extends Controller
      */
     public function index(): Response
     {
-        $Listar = new LojaModel(
-            tipo: new TipoLoja(TipoLoja::AUTOMOVEL),
-            Filtro: new FiltroModel(['ordem' => Ordem::TITULO_AZ])
-        );
-
-        return view('automovel.index', [
+        return view('loja.index', [
             'menu'   => 'automovel',
-            'lista'  => $Listar->listarDados(),
+            'tipo'   => 'automovel',
             'banner' => (new BannerModel())->automovel()
         ]);
     }
