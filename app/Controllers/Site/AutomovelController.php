@@ -7,13 +7,9 @@ use Http\Request;
 use Http\Response;
 use Controller\Controller;
 use App\Models\Site\BannerModel;
-use App\Classes\ParceiroLoja\Ordem;
-use App\Models\Site\Loja\FiltroModel;
-use App\Classes\ParceiroLoja\TipoLoja;
 use App\Models\Site\Automovel\BuscarModel;
 use App\Models\Site\Automovel\ListarModel;
 use App\Models\Site\Automovel\SolicitacaoModel;
-use App\Models\Site\Loja\ListarModel as LojaModel;
 
 final class AutomovelController extends Controller
 {
