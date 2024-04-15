@@ -14,7 +14,7 @@
     <div id="bloco_regulamento">
         <section class="regulamento_conteudo">
             <div class="bloco_geral_sem_resultado">
-                <h1>Política de privacidade</h1>
+                <h1>Política de privacidade {{CLUBE_TITULO}} </h1>
                 <p>Para reafirmar nosso compromisso com a transparência, segue a nossa Política de Privacidade.</p>
             </div>
             <article class="texto">
@@ -41,6 +41,9 @@
                 </div>
 				<p>Ao utilizar esse aplicativo, o usuário aceita esse termo e os demais termos da plataforma, tanto do aplicativo como dos demais termos de uso do site.</p>
             </article>
+            <br>
+            <span> Youhuul Servicos em Tecnologia da Informacao e Clube de Descontos LTDA, CNPJ. 14.150.830/0001-00</span>
+
         </section>
 
     </div>
