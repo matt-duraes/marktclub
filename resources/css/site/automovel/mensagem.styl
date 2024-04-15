@@ -1,8 +1,18 @@
 .busca_automovel
     width: 100%
+    maxWidth()
     flexCol()
     blocoShadow()
-    margin-top: 40px
+    margin-top: 50px
+    position: relative
+    &::after
+        content: ""
+        width: 100%
+        height: 1px
+        background-color: #CCC
+        position: absolute
+        top: -30px
+        left: 0
     h1
         titulo()
     p

@@ -74,7 +74,12 @@
     @ endif;
 
     @view site/geral/parceiro_novo.view
+
     @ if( isset($Busca) && $Busca->mapa ):
     @view site/loja/mapa/index.view
+    @ endif;
+
+    @ if( $tipo == 'automovel' ):
+    @view site/automovel/geral/mensagem.view
     @ endif;
 </div>
