@@ -1,5 +1,5 @@
 window.addEventListener('load', () => {
-    const tipo = $('#input_tipo_geral').valor();
+    const tipo = $('#input_tipo_geral') ? $('#input_tipo_geral').valor() : '';
     const inputCategoria = $('#input_categoria');
     const inputSubcategoria = $('#input_subcategoria');
     const inputLatitude = $('#input_latitude');
