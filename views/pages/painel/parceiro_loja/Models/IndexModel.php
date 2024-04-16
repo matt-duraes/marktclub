@@ -13,16 +13,16 @@ final class IndexModel implements
     PainelIndexFiltroInterface,
     PainelIndexRetornoInterface
 {
-    public function filtro(array $filtro): array
+    public function filtro(array $filtro, bool $pesquisa): array
     {
+        if (empty($filtro) && !$pesquisa && !array_key_exists('equipe', $filtro) && sessao('USUARIO.gerente') != 'sim') {
+            $filtro['equipe'] = sessao('USUARIO.id');
+        }
         if (!array_key_exists('tipo_loja', $filtro)) {
             $filtro['tipo_loja'] = TipoLoja::LOJA;
         }
         if (!array_key_exists('ordem', $filtro)) {
             $filtro['ordem'] = Ordem::PAINEL;
-        }
-        if (!array_key_exists('equipe', $filtro) && sessao('USUARIO.gerente') != 'sim') {
-            $filtro['equipe'] = sessao('USUARIO.id');
         }
         return $filtro;
     }
