@@ -7,6 +7,7 @@ use Modules\Dinheiro;
 use Helpers\MarkdownHelper;
 use App\Classes\Geral\Status;
 use App\Helpers\ClubeApiHelper;
+use App\Classes\ParceiroLoja\TipoProcedimento;
 
 final class BuscarModel extends ClubeApiHelper
 {
@@ -41,9 +42,9 @@ final class BuscarModel extends ClubeApiHelper
             'versao'                    => $this->montarVersao($r->versao, $r->imagem),
             'texto_procedimento'        => $Texto->texto($r->texto_procedimento),
             'procedimento'              => $r->procedimento,
-            'procedimento_cheque_bonus' => $r->procedimento == Procedimento::CHEQUE_BONUS,
-            'procedimento_declaracao'   => $r->procedimento == Procedimento::DECLARACAO,
-            'procedimento_voucher'      => $r->procedimento == Procedimento::VOUCHER,
+            'procedimento_cheque_bonus' => $r->procedimento == TipoProcedimento::CHEQUE_BONUS,
+            'procedimento_declaracao'   => $r->procedimento == TipoProcedimento::DECLARACAO,
+            'procedimento_voucher'      => $r->procedimento == TipoProcedimento::VOUCHER,
             'endereco'                  => '',
         ];
     }
