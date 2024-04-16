@@ -259,6 +259,14 @@ $Painel->coluna(callback: function () use ($Painel) {
 });
 
 $Painel->coluna(callback: function () use ($Painel) {
+    $Painel->fieldset('Cashback', function () use ($Painel) {
+        $Painel
+            ->input(name: ['comissao_minima', 'comissao_maxima'], label: 'Comissão', placeholder: ['Digite a comissão mínima', 'Digite a comissão máxima'])
+            ->textarea('texto_restricao', label: 'Restrições', placeholder: 'Digite as restrições se houver')
+            ->textarea('texto_outro', label: 'Outro', placeholder: 'Digite um texto com dados opicionais');
+    });
+});
+$Painel->coluna(callback: function () use ($Painel) {
     $Painel->fieldset('Arquivos do clube', function () use ($Painel) {
         $Painel->arquivoLista(name: 'arquivo_clube', diretorio: '0493d060-44ba-470b-a0a2-7211ba138d8c');
     });

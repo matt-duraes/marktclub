@@ -62,10 +62,14 @@ trait ValidarTrait
 
     private function validarCashback()
     {
-        if (empty($this->desconto)) {
-            mensagemErro('Campo obrigatorio!', 'O campo desconto é obrigatório.');
-        } elseif (is_float($this->desconto)) {
-            mensagemErro('Campo inválido!', 'O desconto deve ser a porcentagem do cashback no formato: 1.00');
+        if (empty($this->comissao_minima)) {
+            mensagemErro('Campo obrigatorio!', 'A comissão é obrigatória.');
+        } elseif (is_float($this->comissao_minima)) {
+            mensagemErro('Campo inválido!', 'A comissão deve ser a porcentagem do cashback no formato: 1.00');
+        } elseif (empty($this->comissao_maxima)) {
+            mensagemErro('Campo obrigatorio!', 'A comissão máxima é obrigatório.');
+        } elseif (is_float($this->comissao_maxima)) {
+            mensagemErro('Campo inválido!', 'A comissão máxima deve ser a porcentagem do cashback no formato: 1.00');
         }
         $this->ormValidarSalvar .= '
             link_site|link do site|obrigatorio|vazio

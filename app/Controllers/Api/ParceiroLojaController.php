@@ -91,8 +91,9 @@ final class ParceiroLojaController extends Controller implements
                     'data_contrato_inicio', 'data_contrato_vencimento', 'precisa_aditivo', 'data_auditoria',
                     'email_contato', 'tipo_procedimento', 'limite_voucher', 'prazo_voucher', 'prazo_voucher_fixo',
                     'contato_whatsapp', 'link_site', 'link_alias', 'link_bloqueado', 'texto_descricao', 'texto_desconto',
-                    'texto_procedimento', 'texto_voucher', 'categoria_principal', 'categoria_lista', 'subcategoria_tag',
-                    'subcategoria_lista', 'empresa', 'destaque', 'confirmar_status', 'confirmar_titulo',
+                    'texto_procedimento', 'texto_voucher', 'texto_restricao', 'texto_outro', 'categoria_principal',
+                    'categoria_lista', 'subcategoria_tag', 'comissao_minima', 'subcategoria_lista', 'comissao_maxima',
+                    'empresa', 'destaque', 'confirmar_status', 'confirmar_titulo',
                     'confirmar_texto', 'endereco_estado', 'pontuacao', 'desconto', 'arquivo_clube', 'arquivo_painel',
                     'cupom_desconto', 'existe_endereco', 'existe_email', 'existe_telefone', 'status'
                 ]

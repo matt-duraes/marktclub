@@ -30,7 +30,8 @@ final class LojaEntity extends Entity
         'texto_procedimento', 'texto_voucher', 'categoria_principal', 'categoria_lista', 'subcategoria_tag',
         'subcategoria_lista', 'id_admin_empresa', 'destaque', 'endereco_estado', 'pontuacao', 'desconto',
         'prazo_voucher', 'prazo_voucher_fixo', 'data_auditoria', 'confirmar_status', 'confirmar_titulo',
-        'confirmar_texto', 'arquivo_painel', 'arquivo_clube', 'data_publicacao', 'status'
+        'confirmar_texto', 'arquivo_painel', 'arquivo_clube', 'data_publicacao', 'status',
+        'comissao_minima', 'comissao_maxima', 'texto_restrito', 'texto_outro'
     ];
     protected array $ormSalvar = [
         'nome_fantasia', 'razao_social', 'tipo_juridico', 'documento_cpf', 'documento_cnpj', 'titulo_interno',
@@ -42,7 +43,8 @@ final class LojaEntity extends Entity
         'texto_procedimento', 'texto_voucher', 'categoria_principal', 'categoria_lista', 'subcategoria_tag',
         'subcategoria_lista', 'id_admin_empresa', 'destaque', 'endereco_estado', 'pontuacao', 'desconto',
         'prazo_voucher', 'prazo_voucher_fixo', 'data_auditoria', 'confirmar_status', 'confirmar_titulo',
-        'confirmar_texto', 'arquivo_painel', 'arquivo_clube', 'data_publicacao', 'status'
+        'confirmar_texto', 'arquivo_painel', 'arquivo_clube', 'data_publicacao', 'status',
+        'comissao_minima', 'comissao_maxima', 'texto_restrito', 'texto_outro'
     ];
     private OrmHelper $EmpresaOrm;
     private OrmHelper $EquipeOrm;
