@@ -574,10 +574,9 @@ final class AppController extends PadraoController
         $indice = $request->indice;
         $ordem = $request->existe('ordem') && !empty($request->ordem)
             && $indice != 'ordem' ? 'ordem=' . $request->ordem : '';
-        $filtro = $request->existe('filtro') && !empty($request->filtro) ? base64Decode($request->filtro) : '';
-
-        $validar = is_array($filtro) && $filtro;
-        if ($validar && $indice != 'ordem' && array_key_exists($indice, $filtro)) {
+        $filtro = $request->existe('filtro') && !empty($request->filtro) ? base64Decode($request->filtro) : [];
+        $filtro = is_array($filtro) ? $filtro : [];
+        if ($filtro && $indice != 'ordem' && array_key_exists($indice, $filtro)) {
             unset($filtro[$indice]);
         }
         $filtroFinal = [];
@@ -590,7 +589,7 @@ final class AppController extends PadraoController
         $filtro = $filtroFinal;
 
         $url = LINK . '/app/' . $app;
-        if ($indice == 'ordem' && $validar) {
+        if ($indice == 'ordem' && $filtro) {
             $url = LINK . '/app/' . $app . '?filtro=' . $request->filtro;
         } elseif (empty($filtro) && !empty($ordem)) {
             $url = LINK . '/app/' . $app . '?' . $ordem;
