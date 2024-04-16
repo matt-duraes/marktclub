@@ -22,6 +22,6 @@ final class Ordem extends Order
         $this->campo('titulo-z-a', 'Título Z-A', 'titulo', 'DESC');
         $this->maisNovo();
         $this->maisVelho();
-        $this->campoTexto('painel', 'Painel', 'data_auditoria', 'FIELD(`status`, 2, 1, 4, 3, 5), `data_auditoria` ASC', '<');
+        $this->campoTexto('painel', 'Painel', 'data_auditoria', 'FIELD(`status`, 2, 1, 4, 3, 5, 6), `data_auditoria` ASC', '<');
     }
 }
