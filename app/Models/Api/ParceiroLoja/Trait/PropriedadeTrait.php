@@ -62,10 +62,10 @@ trait PropriedadeTrait
     public string $texto_desconto;
     public string $texto_procedimento;
     public string $texto_voucher;
-    public string $texto_restrito;
+    public string $texto_restricao;
     public string $texto_outro;
-    public string $comissao_minima;
-    public string $comissao_maxima;
+    public string|float $comissao_minima;
+    public string|float $comissao_maxima;
     public Categoria $categoria_principal;
     public array $categoria_lista;
     public array $subcategoria_tag;

@@ -261,7 +261,8 @@ $Painel->coluna(callback: function () use ($Painel) {
 $Painel->coluna(callback: function () use ($Painel) {
     $Painel->fieldset('Cashback', function () use ($Painel) {
         $Painel
-            ->input(name: ['comissao_minima', 'comissao_maxima'], label: 'Comissão', placeholder: ['Digite a comissão mínima', 'Digite a comissão máxima'])
+            ->input(name: 'comissao_minima', label: 'Comissão mínima', placeholder: 'Digite a comissão mínima')
+            ->input(name: 'comissao_maxima', label: 'Comissão máxima', placeholder: 'Digite a comissão máxima')
             ->textarea('texto_restricao', label: 'Restrições', placeholder: 'Digite as restrições se houver')
             ->textarea('texto_outro', label: 'Outro', placeholder: 'Digite um texto com dados opicionais');
     });

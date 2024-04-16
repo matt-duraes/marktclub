@@ -40,11 +40,11 @@ trait ValidarTrait
             imagem_logo|Imagem do logo|obrigatorio|vazio|valido
             texto_descricao|Texto da descrição|obrigatorio|vazio
             texto_desconto|Texto do desconto|obrigatorio|vazio
-            desconto|Desconto curto|obrigatorio|vazio
         ';
         if ($this->tipo_loja->indice() != $this->tipo_loja::CASHBACK) {
             $this->ormValidarSalvar .= '
                 texto_procedimento|Texto do procedimento|obrigatorio|vazio
+                desconto|Desconto curto|obrigatorio|vazio
             ';
         }
     }
@@ -64,11 +64,11 @@ trait ValidarTrait
     {
         if (empty($this->comissao_minima)) {
             mensagemErro('Campo obrigatorio!', 'A comissão é obrigatória.');
-        } elseif (is_float($this->comissao_minima)) {
+        } elseif (!preg_match('/^[1-9]{1}[0-9]{0,}\.[0-9]{2}$/', $this->comissao_minima)) {
             mensagemErro('Campo inválido!', 'A comissão deve ser a porcentagem do cashback no formato: 1.00');
         } elseif (empty($this->comissao_maxima)) {
             mensagemErro('Campo obrigatorio!', 'A comissão máxima é obrigatório.');
-        } elseif (is_float($this->comissao_maxima)) {
+        } elseif (!preg_match('/^[1-9]{1}[0-9]{0,}\.[0-9]{2}$/', $this->comissao_maxima)) {
             mensagemErro('Campo inválido!', 'A comissão máxima deve ser a porcentagem do cashback no formato: 1.00');
         }
         $this->ormValidarSalvar .= '

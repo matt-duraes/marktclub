@@ -18,14 +18,19 @@ trait MontarRetornoTrait
         $Tipo = new TipoLoja();
 
         foreach ($lista as $r) {
+            $tipo = $Tipo->indice($r->tipo_loja);
+            $desconto = $r->desconto;
+            if ($tipo == TipoLoja::CASHBACK) {
+                $desconto = !empty($r->comissao_minima) ? number_format($r->comissao_minima, 2, '.') : '';
+            }
             $retorno[$r->id] = [
                 'id'              => $r->uuid,
                 'titulo'          => $r->titulo,
                 'titulo_interno'  => $r->titulo_interno,
-                'desconto'        => $r->desconto,
+                'desconto'        => $desconto,
                 'imagem_logo'     => arquivoPrivado($r->imagem_logo),
                 'url'             => $r->url,
-                'tipo_loja'       => $Tipo->indice($r->tipo_loja),
+                'tipo_loja'       => $tipo,
                 'data_publicacao' => $r->data_publicacao,
                 'data_auditoria'  => $r->data_auditoria,
                 'endereco_estado' => $r->endereco_estado,

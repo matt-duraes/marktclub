@@ -1252,11 +1252,8 @@ final class Add
         $this->setarAbrir();
         $this->setarColuna();
 
-        if (!in_array($dado['funcao'], ['cor', 'checkbox', 'switch', 'tag', 'indiceValor', 'hidden'])) {
-            $nameLista = !is_array($dado['name']) ? [$dado['name']] : $dado['name'];
-            foreach($nameLista as $name){
-                $dado['obrigatorio'] = $this->setarCampoObrigatorio($name, $dado['obrigatorio'] ?? false);
-            }
+        if (!in_array($dado['funcao'], ['cor', 'checkbox', 'switch', 'tag', 'indiceValor', 'hidden']) && !is_array($dado['name'])) {
+            $dado['obrigatorio'] = $this->setarCampoObrigatorio($dado['name'], $dado['obrigatorio'] ?? false);
         }
 
         $this->html[$this->coluna][$this->fieldset]['lista'][] = $dado;
