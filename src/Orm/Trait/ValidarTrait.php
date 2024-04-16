@@ -263,7 +263,7 @@ trait ValidarTrait
             } elseif (
                 !empty($valor) &&
                 $coluna[$ind]->tipo == 'float' &&
-                filter_var($valor, FILTER_VALIDATE_FLOAT)
+                !filter_var($valor, FILTER_VALIDATE_FLOAT)
             ) {
                 throw new Excecao(
                     titulo: 'Campo incorreto!',

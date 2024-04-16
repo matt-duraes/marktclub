@@ -44,6 +44,7 @@ class LojaModel extends ORM implements ModelListarInterface
     public Categoria $categoria;
     public string $subcategoria;
     public TipoEstabelecimento $tipo_estabelecimento;
+    public string $titulo;
     public string $pesquisa;
     public TipoLoja $tipo_loja;
     public Status $status;
@@ -119,7 +120,6 @@ class LojaModel extends ORM implements ModelListarInterface
 
         $Where = new Where($this, $where);
         $Where
-            ->linha(propriedade: 'tipo_loja')
             ->seValido(propriedade: 'categoria', callback: function () use ($Where) {
                 $Where->manual([
                     'OR',
@@ -139,6 +139,14 @@ class LojaModel extends ORM implements ModelListarInterface
                     ['subcategoria_tag', 'like', $pesquisa]
                 ]);
             })
+            ->seVazio(propriedade: 'titulo', vazio: false, callback: function () use ($Where) {
+                $titulo = '%' . $this->titulo . '%';
+                $Where->manual([
+                    'OR',
+                    ['titulo', 'like', $titulo],
+                    ['titulo_interno', 'like', $titulo]
+                ]);
+            })
             ->linha('equipe', campo: 'id_usuario_equipe', valor: $this->pegarIdEquipe())
             ->linha('tipo_estabelecimento')
             ->seBotao('mais_acessao', callback: function () use ($Where) {
@@ -147,6 +155,12 @@ class LojaModel extends ORM implements ModelListarInterface
             })
             ->linha('endereco_estado', 'json')
             ->linha('status');
+
+        if($this->pExiste('tipo_loja') && $this->tipo_loja->indice() == 'desconto') {
+            $Where->manual(['tipo_loja', '!=', new TipoLoja(TipoLoja::CASHBACK)]);
+        } else {
+            $Where->linha(propriedade: 'tipo_loja');
+        }
         return $Where;
     }
 

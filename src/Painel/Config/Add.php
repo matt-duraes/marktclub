@@ -1239,7 +1239,7 @@ final class Add
     private function adicionarNovoInput($dado, ?string $acao = null, ?string $permissao = null)
     {
         $dado['indice'] = preg_replace('/\[\]$/', '', $dado['name']);
-        $dado['name'] = explode('->', $dado['name'])[0];
+        $dado['name'] = is_string($dado['name']) ? explode('->', $dado['name'])[0] : $dado['name'];
         $permissao = null;
         if (array_key_exists('permissao', $dado)) {
             $permissao = $dado['permissao'];
@@ -1252,7 +1252,7 @@ final class Add
         $this->setarAbrir();
         $this->setarColuna();
 
-        if (!in_array($dado['funcao'], ['cor', 'checkbox', 'switch', 'tag', 'indiceValor', 'hidden'])) {
+        if (!in_array($dado['funcao'], ['cor', 'checkbox', 'switch', 'tag', 'indiceValor', 'hidden']) && !is_array($dado['name'])) {
             $dado['obrigatorio'] = $this->setarCampoObrigatorio($dado['name'], $dado['obrigatorio'] ?? false);
         }
 
