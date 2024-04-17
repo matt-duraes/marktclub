@@ -9,6 +9,7 @@ use App\Classes\ParceiroLoja\Ordem;
 use App\Models\Site\Saude\HomeModel;
 use App\Models\Site\Loja\FiltroModel;
 use App\Models\Site\Loja\ListarModel;
+use App\Classes\ParceiroLoja\TipoLoja;
 use App\Models\Site\Comunicacao\BannerModel;
 
 final class IndexController extends Controller
@@ -37,12 +38,14 @@ final class IndexController extends Controller
             ])
         );
         $MaisUtilizada = new ListarModel(
+            tipo: (new TipoLoja(TipoLoja::LOJA)),
             Filtro: new FiltroModel([
                 'quantidade' => 3,
                 'acessado'   => 'sim'
             ])
         );
         $LojaNova = new ListarModel(
+            tipo: (new TipoLoja(TipoLoja::LOJA)),
             Filtro: new FiltroModel([
                 'quantidade' => 3,
                 'ordem'      => (new Ordem(Ordem::MAIS_NOVO))->valor()
