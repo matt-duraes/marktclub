@@ -16,7 +16,7 @@ $equipe = (new ApiHelper(token: true))
     ->array()['dado'] ?? [];
 
 $Painel
-    ->input(name: 'pesquisa', label: 'Pesquisa', placeholder: 'Digite uma pesquisa')
+    ->input(name: 'titulo', label: 'Título', placeholder: 'Digite um título')
     ->bloco(function () use ($Painel, $equipe) {
         $Painel
             ->select(name: 'empresa', label: 'Empresa', lista: 'empresa', permissao: Helper::PERMISSAO_EMPRESA)
@@ -30,7 +30,7 @@ $Painel
     ->bloco(function () use ($Painel) {
         $Painel
             ->select(name: 'tipo_estabelecimento', label: 'Estabelecimento', lista: (new TipoEstabelecimento())->select('Escolha uma opção'))
-            ->select(name: 'tipo_loja', label: 'Tipo de loja', lista: (new TipoLoja())->select('Escolha uma opção'));
+            ->select(name: 'tipo_loja', label: 'Tipo de loja', lista: array_merge((new TipoLoja())->select('Escolha uma opção'), ['desconto' => 'Desconto']));
     })
     ->select(
         name: 'status',

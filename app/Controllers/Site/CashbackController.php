@@ -30,25 +30,6 @@ final class CashbackController extends Controller
         ]);
     }
 
-    public function buscar(Request $request)
-    {
-        $pesquisa = $request->pesquisa;
-        $categoria = $request->categoria;
-        $ordem = $request->ordem;
-        $uri = [];
-        if (!empty($pesquisa)) {
-            $uri[] = 'pesquisa=' . $pesquisa;
-        }
-        if (!empty($categoria)) {
-            $uri[] = 'categoria=' . $categoria;
-        }
-        if (!empty($ordem)) {
-            $uri[] = 'ordem=' . $ordem;
-        }
-        $uri = !empty($uri) ? '?' . implode('&', $uri) : '';
-        return new Response(url: route('cashback.index') . $uri);
-    }
-
     /**
      *
      * @param string $url
@@ -58,7 +39,8 @@ final class CashbackController extends Controller
      */
     public function detalhe(string $url): Response
     {
-        $Dado = new BuscarModel($url);
+        $Dado = new BuscarModel(url: $url);
+
         return view(
             'cashback.detalhe',
             [

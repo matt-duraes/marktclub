@@ -1297,7 +1297,7 @@ Route
             ::middleware(TokenMiddleware::class, 'scope', ['parceiro_loja:listar'])
             ::request([
                 'pagina', '!quantidade', '!categoria', '!subcategoria', '!tipo_estabelecimento',
-                '!pesquisa', '!tipo_loja', '!status', '!ordem', '!favorito', '!mais_acessado',
+                '!pesquisa', '!titulo', '!tipo_loja', '!status', '!ordem', '!favorito', '!mais_acessado',
                 '!latitude', '!longitude', '!endereco_estado', '!empresa', '!equipe'
             ], 'json')
             ::get('/parceiro-loja');
@@ -1317,7 +1317,8 @@ Route
                 'contato_whatsapp', 'link_site', 'link_alias', 'link_bloqueado', 'texto_descricao', 'texto_desconto',
                 'texto_procedimento', 'texto_voucher', 'categoria_principal', 'categoria_lista', 'subcategoria_tag',
                 'subcategoria_lista', 'empresa', 'destaque', 'endereco_estado', 'pontuacao', 'confirmar_status',
-                'confirmar_titulo', 'confirmar_texto', 'arquivo_painel', 'arquivo_clube', 'cupom_desconto'
+                'confirmar_titulo', 'confirmar_texto', 'arquivo_painel', 'arquivo_clube', 'cupom_desconto',
+                'comissao_minima', 'comissao_maxima', 'texto_restricao', 'texto_outro'
             ])
             ::post('/parceiro-loja');
         Route
@@ -1333,7 +1334,7 @@ Route
                 '!texto_procedimento', '!texto_voucher', '!categoria_principal', '!categoria_lista', '!subcategoria_tag',
                 '!subcategoria_lista', '!empresa', '!destaque', '!endereco_estado', '!pontuacao', '!confirmar_status',
                 '!confirmar_titulo', '!confirmar_texto', '!arquivo_painel', '!arquivo_clube', '!cupom_desconto',
-                '!status'
+                '!status', '!comissao_minima', '!comissao_maxima', '!texto_restricao', '!texto_outro'
             ])
             ::put('/parceiro-loja/{id}');
         Route
