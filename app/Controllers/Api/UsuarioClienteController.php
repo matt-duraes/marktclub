@@ -314,14 +314,15 @@ final class UsuarioClienteController extends Controller implements
 
     public function putAlterarSenha(Request $request)
     {
-        $Usuario = new ClienteEntity();
-        $Usuario->id(TOKEN['usuario']->id);
+        $Usuario = new ClienteEntity($request);
+        $Usuario->id($this->pegarIdUsuario());
 
         if (!$Usuario->senha->validarSenha($request->senha_atual)) {
             mensagemErro('Senha inválida!', 'A senha atual informada é inválida.');
         }
 
         $Usuario->senha->mudarSenha($request->senha_nova);
+        $Usuario->salvar();
 
         return new Response(status: 204);
     }
