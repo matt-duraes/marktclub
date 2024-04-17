@@ -91,7 +91,7 @@ final class BuscarModel extends ORM
         $campo = ['id', 'cpf', 'status'];
         $empresa = (new OrmHelper(TABELA_COMERCIAL_EMPRESA))->pegarIdPeloUuid($this->empresa);
 
-        if(in_array($empresa, [1, 198])) {
+        if($empresa == 198) {
             new CvsHelper(cpf: new Cpf($this->valor));
         }
 
