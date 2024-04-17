@@ -9,7 +9,6 @@ use Modules\Email;
 use Status\StatusInterface;
 use Modules\ModuleInterface;
 use App\Classes\UsuarioCliente\Status;
-use App\Classes\UsuarioCliente\SalvarAtualizar;
 
 final class SalvarAtualizarModel extends ORM
 {
@@ -17,12 +16,16 @@ final class SalvarAtualizarModel extends ORM
     private array $usuario = [];
     private array $campoBusca = [];
     private array $dadoSalvar = [];
-    public SalvarAtualizar $acao;
+    public string $acao;
     public Nome $nome;
     public Email $email_pessoal;
     public Email $email_trabalho;
     public Cpf $cpf;
     public Status $status;
+
+    public const CADASTRAR_USUARIO = 'cadastrar-usuario';
+    public const USUARIO_NOVO = 'usuario-novo';
+    public const USUARIO_EXISTENTE = 'usuario-existente';
 
     /**
      * Salvar ou atualiza um usuário
@@ -72,7 +75,7 @@ final class SalvarAtualizarModel extends ORM
         $this->usuario = $this
             ->campo(array_merge($this->campoBusca, ['id']))
             ->where([
-                ['id_admin_empresa' => $this->empresa],
+                ['id_admin_empresa', $this->empresa],
                 ['cpf', $this->cpf->numero()]
             ])
             ->primeiro(retorno: 'array');
@@ -81,14 +84,14 @@ final class SalvarAtualizarModel extends ORM
     private function verificarAcaoTomar()
     {
         if (empty($this->usuario) && !$this->salvar) {
-            $this->acao = SalvarAtualizar::CADASTRAR_USUARIO;
+            $this->acao = self::CADASTRAR_USUARIO;
             return;
         } elseif (empty($this->usuario)) {
-            $this->acao = SalvarAtualizar::USUARIO_NOVO;
+            $this->acao = self::USUARIO_NOVO;
             $this->salvarUsuario();
             return;
         }
-        $this->acao = SalvarAtualizar::USUARIO_EXISTENTE;
+        $this->acao = self::USUARIO_EXISTENTE;
         $this->atualizarUsuario();
     }
 
@@ -108,7 +111,6 @@ final class SalvarAtualizarModel extends ORM
             $dado['status'] = 2;
         }
         $dado['id_admin_empresa'] = $this->empresa;
-        ppe($dado);
         $salvar = $this
             ->dado($dado)
             ->insert();

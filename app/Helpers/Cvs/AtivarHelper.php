@@ -13,10 +13,9 @@ final class AtivarHelper
     private string $link;
 
     public function __construct(
-        private Cpf $cpf,
-        private array $campo
+        private Cpf $cpf
     ) {
-        $this->link = 'https://api-spbancarios.bsys.digital/api/v1/return_clube_vantagem';
+        $this->link = env('CVS_API_LINK_USUARIO', '');
 
         $this->validarCpf();
         $this->buscarUsuario();
@@ -35,6 +34,12 @@ final class AtivarHelper
 
     private function buscarUsuario()
     {
+        if(eLocalhost()) {
+            $this->busca = (object)[
+                'd' => '["retorno:1"]'
+            ];
+            return;
+        }
         $ch = curl_init();
         curl_setopt($ch, CURLOPT_URL, $this->link);
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
@@ -50,11 +55,6 @@ final class AtivarHelper
         ]);
 
         $retorno = curl_exec($ch);
-        $status_html = curl_getinfo($ch, CURLINFO_HTTP_CODE);
-        $erro = curl_error($ch);
-        pp($status_html);
-        pp($erro);
-        ppe($retorno);
 
         curl_close($ch);
 
@@ -78,9 +78,5 @@ final class AtivarHelper
         $Usuario->cpf = $this->cpf;
         $Usuario->status = new Status(Status::INATIVO);
         $Usuario->buscar();
-    }
-
-    public function usuario()
-    {
     }
 }
