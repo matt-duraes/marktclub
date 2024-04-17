@@ -47,7 +47,7 @@ final class AtivarHelper
         curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, 0);
         curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, 0);
         curl_setopt($ch, CURLOPT_POSTFIELDS, json_encode([
-            'xcpf' => $this->cpf->numero(),
+            'xcpf' => (string)str_pad($this->cpf->numero(), 11, '0', STR_PAD_LEFT),
         ]));
 
         curl_setopt($ch, CURLOPT_HTTPHEADER, [
