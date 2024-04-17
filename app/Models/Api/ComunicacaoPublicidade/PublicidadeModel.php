@@ -2,7 +2,6 @@
 
 namespace App\Models\Api\ComunicacaoPublicidade;
 
-use App\Classes\ParceiroLoja\TipoLoja;
 use ORM\ORM;
 use stdClass;
 use Modules\Data;
@@ -15,6 +14,7 @@ use App\Classes\Geral\Publicado;
 use System\Trait\Model\OrdemTrait;
 use System\Trait\Model\PaginaTrait;
 use App\Models\Site\ListarInterface;
+use App\Classes\ParceiroLoja\TipoLoja;
 use System\Trait\Model\QuantidadeTrait;
 use App\Classes\ComunicacaoPublicidade\Tipo;
 use App\Classes\ComunicacaoPublicidade\Ordem;
@@ -106,7 +106,7 @@ final class PublicidadeModel extends ORM implements ListarInterface
                     'titulo' => $r->parceiro_titulo,
                     'url'    => $r->parceiro_url,
                     'tipo'   => $TipoParceiro->indice($r->parceiro_tipo_loja),
-                    'logo'   => LINK_ARQUIVO . '/parceiro/' . $r->parceiro_imagem_logo
+                    'logo'   => arquivoPrivado($r->parceiro_imagem_logo)
                 ],
                 'data_inicio'    => $r->data_inicio,
                 'data_final'     => $r->data_final,
