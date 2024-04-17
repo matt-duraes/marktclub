@@ -16,19 +16,12 @@ final class ListaModel extends ClubeApiHelper
     public function __construct(
         private string $id,
         private string $local,
+        private string $pais,
         private string $estado,
         private string $cidade,
-        private int $pagina
     ) {
         parent::__construct();
         $this->buscarDado();
-        if (vazio($this->busca)) {
-            $this->endereco = (object)[
-                'pagina' => null,
-                'lista'  => []
-            ];
-            return;
-        }
         $this->endereco = (object)[
             'pagina' => $this->busca->pagina,
             'lista'  => $this->montarRetorno($this->busca->lista)
@@ -37,17 +30,31 @@ final class ListaModel extends ClubeApiHelper
 
     private function buscarDado()
     {
-        $this->busca = $this
+        $busca = $this
             ->validar(login: true)
             ->json([
                 'local_principal'  => $this->pegarLocal($this->local),
                 'local_secundario' => 'clube',
                 'vinculo'          => $this->id,
-                'pagina'           => $this->pagina,
+                'pagina'           => 1,
+                'pais'             => $this->pais,
                 'estado'           => $this->estado,
                 'cidade'           => $this->cidade
             ])
             ->get('/endereco')
             ->object();
+
+        if (!chaveExiste('dado', $busca)) {
+            $this->busca = (object)[
+                'pagina' => [],
+                'lista'  => []
+            ];
+            return;
+        }
+
+        $this->busca = (object)[
+            'pagina' => $busca->dado->pagina,
+            'lista'  => $busca->dado->lista
+        ];
     }
 }

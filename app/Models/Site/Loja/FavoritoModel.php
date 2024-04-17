@@ -20,8 +20,8 @@ final class FavoritoModel extends ClubeApiHelper
     private function buscarFavorito(): array
     {
         $dado = $this->get('/parceiro-favorito')->object();
-        if (!chaveExiste('dado', $dado)) {
-            $dado = [];
+        if (!chaveExiste('dado', $dado) || !$dado->dado) {
+            return [];
         }
         $retorno = [];
         foreach ($dado->dado as $r) {

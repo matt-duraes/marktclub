@@ -1,5 +1,9 @@
 window.addEventListener('load', () => {
     const form = $('#form_solicitacao_automovel');
+    if (!form) {
+        return;
+    }
+
     const botao = $('#botao_enviar_automovel');
     const inputEnderecoEstado = $('#input_solicitacao_endereco_estado');
     const inputEnderecoCidade = $('#input_solicitacao_endereco_cidade');

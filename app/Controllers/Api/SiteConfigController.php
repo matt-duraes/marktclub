@@ -31,7 +31,14 @@ final class SiteConfigController extends Controller implements
     public function getBuscar(string $id): Response
     {
         $Config = new ConfigEntity();
-        $Config->idSlug($id, 'link_site');
+
+        if (validarUuid($id, false)) {
+            $Config->uuid($id);
+        } else {
+            $Config->buscar([
+                ['link_site', 'json', $id]
+            ]);
+        }
 
         return $this->retornoPadrao($Config);
     }

@@ -3,25 +3,38 @@
 // @system "Loading"
 // @system "Popup"
 
-const adicionarNovoEmail = (pessoal, trabalho) => {
-    blocoEmailLista.classList.remove('display_none');
-    blocoEmailZero.classList.add('display_none');
-    botaoAbrirPopupAtualizar.innerText = 'Atualizar e-mail';
-    const email = [];
-    if (pessoal != '') {
-        email.push(pessoal);
-    }
-    if (trabalho != '') {
-        email.push(trabalho);
-    }
+const PopupAtualizar = new Popup('atualizar-dado', 'bloco_atualizar_email', true, true);
+const botaoAbrirPopupAtualizar = $('#botao_samsung_atualizar');
+const blocoEmailLista = $('#bloco_email_lista');
+const blocoEmailZero = $('#bloco_email_zero');
+const blocoEmaiNovo = $('#bloco_email_novo');
+const inputEmailPessoal = $('#input_email_pessoal');
+const inputEmailTrabalho = $('#input_email_trabalho');
 
-    inputEmailPessoal.value = pessoal;
-    inputEmailTrabalho.value = trabalho;
+window.addEventListener('load', () => {
+    botaoAbrirPopupAtualizar.addEventListener('click', () => {
+        PopupAtualizar.abrir();
+    });
 
-    blocoEmaiNovo.innerHTML = '<strong>' + email.join('</strong> ou <strong>', email) + '</strong>';
-    Popup.staticFechar();
-};
-const atualizarEmail = () => {
+    const adicionarNovoEmail = (pessoal, trabalho) => {
+        blocoEmailLista.classList.remove('display_none');
+        blocoEmailZero.classList.add('display_none');
+        botaoAbrirPopupAtualizar.innerText = 'Atualizar e-mail';
+        const email = [];
+        if (pessoal != '') {
+            email.push(pessoal);
+        }
+        if (trabalho != '') {
+            email.push(trabalho);
+        }
+
+        inputEmailPessoal.value = pessoal;
+        inputEmailTrabalho.value = trabalho;
+
+        blocoEmaiNovo.innerHTML = '<strong>' + email.join('</strong> ou <strong>', email) + '</strong>';
+        Popup.staticFechar();
+    };
+
     const botao = document.querySelector('.botao_atualizar_email');
     const inputPessoal = document.querySelector('input[name="email_pessoal"]');
     const inputTrabalho = document.querySelector('input[name="email_trabalho"]');
@@ -54,18 +67,4 @@ const atualizarEmail = () => {
         salvarEmail();
     });
     adicionarEventoEnter([inputPessoal, inputTrabalho], salvarEmail);
-};
-
-const PopupAtualizar = new Popup('atualizar-dado', 'bloco_atualizar_email', true, true, atualizarEmail);
-const botaoAbrirPopupAtualizar = $('#botao_samsung_atualizar');
-const blocoEmailLista = $('#bloco_email_lista');
-const blocoEmailZero = $('#bloco_email_zero');
-const blocoEmaiNovo = $('#bloco_email_novo');
-const inputEmailPessoal = $('#input_email_pessoal');
-const inputEmailTrabalho = $('#input_email_trabalho');
-
-window.addEventListener('load', () => {
-    botaoAbrirPopupAtualizar.addEventListener('click', () => {
-        PopupAtualizar.abrir();
-    });
 });

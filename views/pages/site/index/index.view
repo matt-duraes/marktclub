@@ -1,6 +1,6 @@
 @template "site"
 
-@view site/loja/geral/busca.view
+@view site/loja/busca/loja/index.view
 
 <div id="bloco_index">
     @if(TIPO_USUARIO == 'indicado'):

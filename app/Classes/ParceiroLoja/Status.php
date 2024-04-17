@@ -11,6 +11,7 @@ final class Status extends StatusStatus
     public const CANCELADO = 'cancelado';
     public const CONCLUIDO = 'concluido';
     public const SEM_INTERESSE = 'sem-interesse';
+    public const CLONADO = 'clonado';
 
     /**
      * @param string|int|null $valor
@@ -25,6 +26,7 @@ final class Status extends StatusStatus
                 self::CANCELADO      => 'Cancelado',
                 self::CONCLUIDO      => 'Concluído',
                 self::SEM_INTERESSE  => 'Sem interesse',
+                self::CLONADO        => 'Clonado',
             ],
             cor: [
                 self::PROSPECCAO     => 'azul',
@@ -32,6 +34,7 @@ final class Status extends StatusStatus
                 self::CANCELADO      => 'cinza',
                 self::CONCLUIDO      => 'verde',
                 self::SEM_INTERESSE  => 'cinza',
+                self::CLONADO        => 'cinza',
             ],
         );
     }

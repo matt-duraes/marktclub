@@ -7,13 +7,9 @@ use Http\Request;
 use Http\Response;
 use Controller\Controller;
 use App\Models\Site\BannerModel;
-use App\Classes\ParceiroLoja\Ordem;
-use App\Models\Site\Loja\FiltroModel;
-use App\Classes\ParceiroLoja\TipoLoja;
 use App\Models\Site\Automovel\BuscarModel;
 use App\Models\Site\Automovel\ListarModel;
 use App\Models\Site\Automovel\SolicitacaoModel;
-use App\Models\Site\Loja\ListarModel as LojaModel;
 
 final class AutomovelController extends Controller
 {
@@ -23,14 +19,9 @@ final class AutomovelController extends Controller
      */
     public function index(): Response
     {
-        $Listar = new LojaModel(
-            tipo: new TipoLoja(TipoLoja::AUTOMOVEL),
-            Filtro: new FiltroModel(['ordem' => Ordem::TITULO_AZ])
-        );
-
-        return view('automovel.index', [
+        return view('loja.index', [
             'menu'   => 'automovel',
-            'lista'  => $Listar->listarDados(),
+            'tipo'   => 'automovel',
             'banner' => (new BannerModel())->automovel()
         ]);
     }

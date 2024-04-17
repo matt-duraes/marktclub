@@ -47,15 +47,24 @@ final class BuscarModel extends ClubeApiHelper
             'procedimento'       => $r->tipo_procedimento,
             'capa_desktop'       => $r->imagem_capa_desktop,
             'capa_mobile'        => $r->imagem_capa_mobile,
-            'link'               => $r->link_site,
+            'link'               => $this->gerarLink($tipo, $r->link_site),
             'url'                => $r->url,
             'desconto'           => $r->desconto,
+            'comissao'           => $r->comissao_minima,
             'arquivo'            => $this->buscarArquivo($tipo, $r->arquivo_clube),
             'tipo'               => $tipo,
             'endereco'           => $r->existe_endereco == 'sim',
             'email'              => $r->existe_email == 'sim',
             'telefone'           => $r->existe_telefone == 'sim',
         ];
+    }
+
+    private function gerarLink(string $tipo, string $link = null)
+    {
+        if ($tipo != TipoLoja::CASHBACK || empty($link)) {
+            return $link;
+        }
+        return $link . '&clickref=' . sessao('USUARIO.id');
     }
 
     private function buscarArquivo($tipo, $arquivo): array

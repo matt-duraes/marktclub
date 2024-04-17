@@ -30,7 +30,8 @@ final class LojaEntity extends Entity
         'texto_procedimento', 'texto_voucher', 'categoria_principal', 'categoria_lista', 'subcategoria_tag',
         'subcategoria_lista', 'id_admin_empresa', 'destaque', 'endereco_estado', 'pontuacao', 'desconto',
         'prazo_voucher', 'prazo_voucher_fixo', 'data_auditoria', 'confirmar_status', 'confirmar_titulo',
-        'confirmar_texto', 'arquivo_painel', 'arquivo_clube', 'data_publicacao', 'status'
+        'confirmar_texto', 'arquivo_painel', 'arquivo_clube', 'data_publicacao', 'status',
+        'comissao_minima', 'comissao_maxima', 'texto_restricao', 'texto_outro'
     ];
     protected array $ormSalvar = [
         'nome_fantasia', 'razao_social', 'tipo_juridico', 'documento_cpf', 'documento_cnpj', 'titulo_interno',
@@ -42,7 +43,8 @@ final class LojaEntity extends Entity
         'texto_procedimento', 'texto_voucher', 'categoria_principal', 'categoria_lista', 'subcategoria_tag',
         'subcategoria_lista', 'id_admin_empresa', 'destaque', 'endereco_estado', 'pontuacao', 'desconto',
         'prazo_voucher', 'prazo_voucher_fixo', 'data_auditoria', 'confirmar_status', 'confirmar_titulo',
-        'confirmar_texto', 'arquivo_painel', 'arquivo_clube', 'data_publicacao', 'status'
+        'confirmar_texto', 'arquivo_painel', 'arquivo_clube', 'data_publicacao', 'status',
+        'comissao_minima', 'comissao_maxima', 'texto_restricao', 'texto_outro'
     ];
     private OrmHelper $EmpresaOrm;
     private OrmHelper $EquipeOrm;
@@ -89,6 +91,19 @@ final class LojaEntity extends Entity
         $this->categoria_lista = $this->converterCategoriaEm('numero');
         $this->validarCampoDuplicado('url', 'url');
         $this->validarCampoDuplicado('titulo_interno', 'Título do painel');
+        $this->converterComissao();
+    }
+
+    private function converterComissao($float = true)
+    {
+        if ($this->pExiste('comissao_minima') && !empty($this->comissao_minima)) {
+            $this->comissao_minima = $float
+                ? (float)$this->comissao_minima : number_format($this->comissao_minima, 2, '.');
+        }
+        if ($this->pExiste('comissao_maxima') && !empty($this->comissao_maxima)) {
+            $this->comissao_maxima = $float
+                ? (float)$this->comissao_maxima : number_format($this->comissao_maxima, 2, '.');
+        }
     }
 
     protected function regraPosInsert()
@@ -138,6 +153,7 @@ final class LojaEntity extends Entity
         $this->equipe = $this->EquipeOrm->pegarUuidPeloId($this->id_usuario_equipe);
         $this->categoria_lista = $this->converterCategoriaEm('indice');
         $this->setarRelacionadoExistem();
+        $this->converterComissao(false);
     }
 
     private function setarRelacionadoExistem()
