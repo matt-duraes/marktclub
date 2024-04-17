@@ -160,12 +160,12 @@ final class PublicidadeModel extends ORM implements ListarInterface
     private function pegarWhereParceiro()
     {
         if ($this->idEmpresa != 1) {
-            return ['empresa', 'like', '%"' . $this->idEmpresa . '"%'];
+            return ['id_admin_empresa', 'json', $this->idEmpresa];
         } elseif (empty($this->empresa)) {
             return [];
         }
 
         $id = (new OrmHelper(TABELA_PARCEIRO_LOJA))->pegarIdPeloUuid($this->empresa);
-        return ['empresa', 'like', '%"' . $id . '"%'];
+        return ['id_admin_empresa', 'json', $id];
     }
 }
