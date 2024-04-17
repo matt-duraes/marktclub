@@ -8,6 +8,7 @@ use Modules\Nome;
 use Modules\Email;
 use Status\StatusInterface;
 use Modules\ModuleInterface;
+use App\Classes\UsuarioCliente\Status;
 use App\Classes\UsuarioCliente\SalvarAtualizar;
 
 final class SalvarAtualizarModel extends ORM
@@ -21,13 +22,15 @@ final class SalvarAtualizarModel extends ORM
     public Email $email_pessoal;
     public Email $email_trabalho;
     public Cpf $cpf;
+    public Status $status;
 
     /**
      * Salvar ou atualiza um usuário
      *
-     * @param int  $empresa   ID da empresa
-     * @param bool $salvar    Se true, vai salvar o usuário, se false, retorna para salvar
-     * @param bool $atualizar Se true, vai atualizar todos os dados do usuário, se false, só atualiza os dados vazio
+     * @param int   $empresa   ID da empresa
+     * @param bool  $salvar    Se true, vai salvar o usuário, se false, retorna para salvar
+     * @param bool  $atualizar Se true, vai atualizar todos os dados do usuário, se false, só atualiza os dados vazio
+     * @param array $campo     Campos para atualizar/salvar
      */
     public function __construct(
         private int $empresa,
@@ -46,7 +49,7 @@ final class SalvarAtualizarModel extends ORM
 
     private function montarDadoCampoSalvar()
     {
-        foreach (['nome', 'email_pessoal', 'email_trabalho', 'cpf'] as $campo) {
+        foreach (['nome', 'email_pessoal', 'email_trabalho', 'cpf', 'status'] as $campo) {
             if (!$this->propriedadeExiste($campo)) {
                 continue;
             }
@@ -91,8 +94,23 @@ final class SalvarAtualizarModel extends ORM
 
     private function salvarUsuario()
     {
+        $dado = $this->dadoSalvar;
+        if (!array_key_exists('uuid', $dado)) {
+            $dado['uuid'] = uuid();
+        }
+        if (!array_key_exists('data_criacao', $dado)) {
+            $dado['data_criacao'] = agora();
+        }
+        if (!array_key_exists('tipo', $dado)) {
+            $dado['tipo'] = 1;
+        }
+        if (!array_key_exists('status', $dado)) {
+            $dado['status'] = 2;
+        }
+        $dado['id_admin_empresa'] = $this->empresa;
+        ppe($dado);
         $salvar = $this
-            ->dado($this->dadoSalvar)
+            ->dado($dado)
             ->insert();
         if (!empty($salvar)) {
             return;
@@ -103,6 +121,14 @@ final class SalvarAtualizarModel extends ORM
     private function atualizarUsuario()
     {
         $dado = $this->tratarDadoParaAtualizar();
+        if (empty($dado)) {
+            return;
+        }
+
+        if (!array_key_exists('data_atualizacao', $dado)) {
+            $dado['data_atualizacao'] = agora();
+        }
+
         $salvar = $this
             ->dado($dado)
             ->where(['id', $this->usuario['id']])
@@ -110,6 +136,7 @@ final class SalvarAtualizarModel extends ORM
         if (!empty($salvar)) {
             return;
         }
+
         mensagemErro('Erro!', 'Ocorreu um erro ao atualizar o usuário, por favor, tente novamente.');
     }
 
