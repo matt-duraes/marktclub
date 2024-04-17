@@ -156,7 +156,7 @@ class LojaModel extends ORM implements ModelListarInterface
             ->linha('endereco_estado', 'json')
             ->linha('status');
 
-        if($this->pExiste('tipo_loja') && $this->tipo_loja->indice() == 'desconto') {
+        if ($this->pExiste('tipo_loja') && $this->tipo_loja->indice() == 'desconto') {
             $Where->manual(['tipo_loja', '!=', new TipoLoja(TipoLoja::CASHBACK)]);
         } else {
             $Where->linha(propriedade: 'tipo_loja');

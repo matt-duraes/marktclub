@@ -21,7 +21,7 @@ final class FavoritoModel extends ClubeApiHelper
     {
         $dado = $this->get('/parceiro-favorito')->object();
         if (!chaveExiste('dado', $dado) || !$dado->dado) {
-            $dado = [];
+            $dado->dado = [];
         }
         $retorno = [];
         foreach ($dado->dado as $r) {
