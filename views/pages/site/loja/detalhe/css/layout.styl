@@ -1,5 +1,6 @@
 @template "site"
 @system "Esqueleto"
+@system "Ajuda"
 @resource "site/variavel"
 @resource "site/busca"
 @resource "site/loja/busca"
@@ -289,3 +290,38 @@
             border: 1px solid #ddd
             border-radius: 3px
 
+#bloco_endereco
+    max-width: 900px
+    .mensagem
+        width: 100%
+    .mensagem .zero
+        texto()
+        padding: 100px 0
+        text-align: center
+    form
+        width: 100%
+        flexRow()
+        align-items: flex-start
+        margin-bottom: 10px
+        padding-bottom: 10px
+        border-bottom: 1px solid #CCC
+    form .bloco_input
+        flexGrow()
+        margin-right: 20px
+        margin-top: 10px
+        &:last-child
+            margin-right: 0
+    .conteudo
+        margin-top: 20px
+    .conteudo a
+        padding: 8px 10px
+        background-color: $corClube
+        color: #FFF
+        margin-left: 10px
+        font-size: 1.3rem
+        border-radius: 5px
+@media screen and (max-width: 700px)
+    #bloco_endereco form
+        flexCol()
+        .bloco_input
+            width: 100%

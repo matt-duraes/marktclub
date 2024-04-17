@@ -49,6 +49,8 @@
         <input type="hidden" name="CLUBE_COR" id="CLUBE_COR" value="{!!CLUBE_COR_PRINCIPAL!!}">
     </form>
 
+    <div id="bloco_fw_ajuda"></div>
+
     <script src="https://apis.google.com/js/platform.js" async defer></script>
     <script src="https://apis.google.com/js/api.js"></script>
     <script src="https://accounts.google.com/gsi/client" async defer></script>

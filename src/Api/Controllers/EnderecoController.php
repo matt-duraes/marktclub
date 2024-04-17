@@ -7,6 +7,7 @@ use Http\Response;
 use Controller\Controller;
 use ApiModel\Endereco\EnderecoModel;
 use ApiModel\Endereco\EnderecoEntity;
+use ApiModel\Endereco\EstruturaModel;
 use ApiModel\Endereco\PrincipalModel;
 use System\Interface\ControllerBuscarInterface;
 use System\Interface\ControllerListarInterface;
@@ -31,6 +32,19 @@ final class EnderecoController extends Controller implements
             longitude: $request->longitude,
         );
         return mensagemSucesso($Endereco->endereco);
+    }
+
+    public function getEstrutura(Request $request)
+    {
+        $Endereco = new EstruturaModel(
+            vinculo: $request->vinculo,
+            local_principal: $request->local_principal,
+            local_secundario: $request->local_secundario,
+            pais: $request->pais,
+            estado: $request->estado
+        );
+
+        return mensagemSucesso($Endereco->estrutura);
     }
 
     public function getListar(Request $request): Response
