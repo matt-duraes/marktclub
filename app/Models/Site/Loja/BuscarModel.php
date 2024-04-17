@@ -50,6 +50,7 @@ final class BuscarModel extends ClubeApiHelper
             'link'               => $this->gerarLink($tipo, $r->link_site),
             'url'                => $r->url,
             'desconto'           => $r->desconto,
+            'comissao'           => $r->comissao_minima,
             'arquivo'            => $this->buscarArquivo($tipo, $r->arquivo_clube),
             'tipo'               => $tipo,
             'endereco'           => $r->existe_endereco == 'sim',
