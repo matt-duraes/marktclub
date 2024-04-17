@@ -155,7 +155,7 @@ Route
             ::nome('estrutura')
             ::middleware(TokenMiddleware::class, 'scope', ['endereco:listar'])
             ::request([
-                '!pais', '!estado', '!cidade', 'local_principal', 'local_secundario', 'vinculo'
+                '!pais', '!estado', 'local_principal', 'local_secundario', 'vinculo'
             ], 'json')
             ::get('/endereco/estrutura');
         Route
