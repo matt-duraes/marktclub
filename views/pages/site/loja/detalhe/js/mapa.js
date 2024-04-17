@@ -101,10 +101,6 @@ window.addEventListener('load', async () => {
         buscarEstruturaEndereco('geral');
     };
 
-    setTimeout(() => {
-        abrirPopupEndereco();
-    });
-
     inputPais.evento('formChange', () => {
         buscarEstruturaEndereco('pais');
     });
