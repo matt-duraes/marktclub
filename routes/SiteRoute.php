@@ -633,11 +633,11 @@ Route
             ::post('/endereco/principal');
         Route
             ::nome('estrutura')
-            ::request(['id', 'local', 'pais', 'estado', 'cidade'])
+            ::request(['id', 'local', 'pais', 'estado'])
             ::post('/endereco/estrutura');
         Route
             ::nome('lista')
-            ::request(['id', 'local', 'estado', 'cidade', 'pagina'])
+            ::request(['id', 'local', 'pais', 'estado', 'cidade'])
             ::post('/endereco/lista');
     });
 

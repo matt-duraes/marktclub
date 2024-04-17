@@ -1,6 +1,7 @@
 // @template "site"
 // @system "Esqueleto"
 // @system "Popup"
+// @system "Ajuda"
 // @resource "site/busca"
 // @resource "site/loja/favorito"
 // @resource "site/loja/parceiro"

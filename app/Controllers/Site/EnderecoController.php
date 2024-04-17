@@ -26,9 +26,9 @@ final class EnderecoController extends Controller
         $Lista = new ListaModel(
             id: $request->id,
             local: $request->local,
+            pais: $request->pais,
             estado: $request->estado,
             cidade: $request->cidade,
-            pagina: $request->pagina
         );
         return mensagemSucesso($Lista->endereco);
     }
@@ -39,9 +39,8 @@ final class EnderecoController extends Controller
             id: $request->id,
             local: $request->local,
             pais: $request->pais,
-            estado: $request->estado,
-            cidade: $request->cidade,
+            estado: $request->estado
         );
-        return mensagemSucesso($Lista->lista);
+        return mensagemSucesso($Lista->estrutura);
     }
 }

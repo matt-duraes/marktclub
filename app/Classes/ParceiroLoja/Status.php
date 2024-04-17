@@ -26,7 +26,7 @@ final class Status extends StatusStatus
                 self::CANCELADO      => 'Cancelado',
                 self::CONCLUIDO      => 'Concluído',
                 self::SEM_INTERESSE  => 'Sem interesse',
-                self::CLONADO  => 'Clonado',
+                self::CLONADO        => 'Clonado',
             ],
             cor: [
                 self::PROSPECCAO     => 'azul',
@@ -34,7 +34,7 @@ final class Status extends StatusStatus
                 self::CANCELADO      => 'cinza',
                 self::CONCLUIDO      => 'verde',
                 self::SEM_INTERESSE  => 'cinza',
-                self::CLONADO  => 'cinza',
+                self::CLONADO        => 'cinza',
             ],
         );
     }

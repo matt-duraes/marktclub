@@ -100,7 +100,7 @@
         <header>
             <h1 class="esqueleto">Endereço</h1>
             <div class="grow"></div>
-            <div class="botao esqueleto" id="botao_endereco_buscar">Buscar Endereço <i>@iconeBusca(20)</i></div>
+            <div class="botao esqueleto" id="botao_endereco_abrir_popup">Buscar Endereço <i>@iconeBusca(20)</i></div>
         </header>
         <div class="detalhe esqueleto">
             <p id="bloco_endereco_completo"></p>
@@ -121,6 +121,7 @@
 @view "site/loja/detalhe/telefone"
 @view "site/loja/detalhe/email"
 @view "site/loja/detalhe/confirmar"
+@view "site/loja/detalhe/endereco"
 
 <!-- prettier-ignore -->
 <script src="https://unpkg.com/@googlemaps/markerclusterer/dist/index.min.js"></script>
