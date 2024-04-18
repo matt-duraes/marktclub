@@ -12,12 +12,27 @@ Route
     ::grupo(function () {
         Route
             ::nome('tecnologia')
+            ::middleware(
+                classe: App\Middlewares\Painel\PermissaoMiddleware::class,
+                action: 'validar',
+                parametro: ['demanda_tecnologia']
+            )
             ::view('/demanda/tecnologia');
         Route
             ::nome('criacao')
+            ::middleware(
+                classe: App\Middlewares\Painel\PermissaoMiddleware::class,
+                action: 'validar',
+                parametro: ['demanda_criacao']
+            )
             ::view('/demanda/criacao');
         Route
             ::nome('convenio')
+            ::middleware(
+                classe: App\Middlewares\Painel\PermissaoMiddleware::class,
+                action: 'validar',
+                parametro: ['demanda_convenio']
+            )
             ::view('/demanda/convenio');
         Route
             ::nome('listar')
