@@ -34,12 +34,6 @@ final class AtivarHelper
 
     private function buscarUsuario()
     {
-        if(eLocalhost()) {
-            $this->busca = (object)[
-                'd' => '["retorno:1"]'
-            ];
-            return;
-        }
         $ch = curl_init();
         curl_setopt($ch, CURLOPT_URL, $this->link);
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
@@ -47,7 +41,7 @@ final class AtivarHelper
         curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, 0);
         curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, 0);
         curl_setopt($ch, CURLOPT_POSTFIELDS, json_encode([
-            'xcpf' => $this->cpf->numero(),
+            'xcpf' => (string)str_pad($this->cpf->numero(), 11, '0', STR_PAD_LEFT),
         ]));
 
         curl_setopt($ch, CURLOPT_HTTPHEADER, [
@@ -55,7 +49,6 @@ final class AtivarHelper
         ]);
 
         $retorno = curl_exec($ch);
-
         curl_close($ch);
 
         $this->busca = jsonDecode($retorno, false);

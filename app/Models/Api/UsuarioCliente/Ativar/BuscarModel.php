@@ -29,7 +29,7 @@ final class BuscarModel extends ORM
         private readonly TipoAtivacao $tipoAtivacao = new TipoAtivacao(),
         private readonly TipoUsuario $tipoUsuario = new TipoUsuario(),
     ) {
-        parent::__construct();
+        parent::__construct(leitura: false);
         $this->validarDados();
         $this->buscarUsuario();
     }
@@ -90,8 +90,8 @@ final class BuscarModel extends ORM
     {
         $campo = ['id', 'cpf', 'status'];
         $empresa = (new OrmHelper(TABELA_COMERCIAL_EMPRESA))->pegarIdPeloUuid($this->empresa);
-
-        if($empresa == 198) {
+        $titular = $this->tipoUsuario->indice() === TipoUsuario::TITULAR;
+        if ($empresa == 198 && $titular) {
             new CvsHelper(cpf: new Cpf($this->valor));
         }
 

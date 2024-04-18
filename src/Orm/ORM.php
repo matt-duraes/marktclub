@@ -46,12 +46,13 @@ abstract class ORM
     protected const RETORNO_OBJECT = 'object';
 
     /**
-     * @param array $option Option aceitos pelo PDO
-     * @param array $conn   Option para a conexao podendo ser:
-     *                      host, banco, usuario e senha.
-     *                      Caso não informa, será usado o ENV
+     * @param array $option  Option aceitos pelo PDO
+     * @param array $conn    Option para a conexao podendo ser:
+     *                       host, banco, usuario e senha.
+     *                       Caso não informa, será usado o ENV
+     * @param bool  $leitura Se pode usar a host de leitura
      */
-    public function __construct(array $option = [], array $conn = [])
+    public function __construct(array $option = [], array $conn = [], bool $leitura = true)
     {
         $this->ormTabelaAtual = $this->ormTabela;
 
@@ -65,23 +66,23 @@ abstract class ORM
         $porta = $conn['porta'] ?? env('DB_PORTA', '');
         $porta = !empty($porta) && preg_match('/^[0-9]+$/', $porta) ? ';port=' . $porta : '';
 
-        $escrita = $conn['escrita'] ?? env('DB_ESCRITA', '');
-        $escrita = $this->pegarIpSeDominio($escrita);
+        $hostEscrita = $conn['escrita'] ?? env('DB_ESCRITA', '');
+        $hostEscrita = $this->pegarIpSeDominio($hostEscrita);
 
-        $leitura = $conn['leitura'] ?? env('DB_LEITURA', '');
-        $leitura = $this->pegarIpSeDominio($leitura);
+        $hostLeitura = $conn['leitura'] ?? env('DB_LEITURA', '');
+        $hostLeitura = $this->pegarIpSeDominio($hostLeitura);
 
         $this->ormDBEscrita = new PDO(
-            'mysql:host=' . $escrita . ';dbname=' . $banco . $porta,
+            'mysql:host=' . $hostEscrita . ';dbname=' . $banco . $porta,
             $usuario,
             $senha,
             $option
         );
 
-        if (!empty($leitura)) {
+        if (!empty($hostLeitura) && $leitura) {
             $this->ormLeitura = true;
             $this->ormDBLeitura = new PDO(
-                'mysql:host=' . $leitura . ';dbname=' . $banco . $porta,
+                'mysql:host=' . $hostLeitura . ';dbname=' . $banco . $porta,
                 $usuario,
                 $senha,
                 $option

@@ -72,8 +72,15 @@ final class SalvarAtualizarModel extends ORM
 
     private function buscarUsuarioNaBase()
     {
+        $campo = $this->campoBusca;
+        if (!array_key_exists('id', $campo)) {
+            $campo[] = 'id';
+        }
+        if (!array_key_exists('status', $campo)) {
+            $campo[] = 'status';
+        }
         $this->usuario = $this
-            ->campo(array_merge($this->campoBusca, ['id']))
+            ->campo($campo)
             ->where([
                 ['id_admin_empresa', $this->empresa],
                 ['cpf', $this->cpf->numero()]
@@ -107,7 +114,7 @@ final class SalvarAtualizarModel extends ORM
         if (!array_key_exists('tipo', $dado)) {
             $dado['tipo'] = 1;
         }
-        if (!array_key_exists('status', $dado)) {
+        if (!array_key_exists('status', $dado) || !in_array($dado['status'], [1, 2])) {
             $dado['status'] = 2;
         }
         $dado['id_admin_empresa'] = $this->empresa;
@@ -144,12 +151,16 @@ final class SalvarAtualizarModel extends ORM
 
     private function tratarDadoParaAtualizar()
     {
+        $usuario = $this->usuario;
         $dado = $this->dadoSalvar;
+        if (!array_key_exists('status', $usuario) || !in_array($usuario['status'], [1, 2])) {
+            $dado['status'] = 2;
+        } elseif (array_key_exists('status', $usuario) && in_array($usuario['status'], [1, 2])) {
+            unset($dado['status']);
+        }
         if (true === $this->atualizar) {
             return $dado;
         }
-
-        $usuario = $this->usuario;
         foreach ($dado as $campo) {
             if (empty($usuario[$campo])) {
                 continue;
