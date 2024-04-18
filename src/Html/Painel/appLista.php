@@ -137,7 +137,7 @@
                                         <div class="td imagem_usuario imagem"><figure data-ajuda="<?= $r->usuario->nome ?>" style="background-image: url(<?= $r->usuario->imagem ?>)"></figure></div>
                                     <?php elseif ($grade['tipo'] == 'status') : ?>
                                             <?php
-                                                            $statusValor = painelValor($r, $grade['campo']);
+                                                                            $statusValor = painelValor($r, $grade['campo']);
                                         $texto = '';
                                         $cor = '';
                                         if (array_key_exists($statusValor, $grade['valor'])) {

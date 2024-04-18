@@ -1248,8 +1248,8 @@ Route
                 'menu_meu_parceiro', 'administrado_status', 'api_status', 'tipo_ativacao', 'status',
                 'menu_corrida', 'menu_show_nacional', 'menu_show_internacional', 'link_odontologico',
                 'campos_primeiro_acesso', 'grupo_label', 'grupo_placeholder', 'link_facebook', 'link_instagram',
-                'link_twitter', 'link_linkedin', 'link_youtube', 'link_tiktok', 'tela_login'
-            ])
+                'link_twitter', 'link_linkedin', 'link_youtube', 'link_tiktok', 'tela_login', '!copiar_padrao'
+           ])
             ::post('/construtor-clube');
         Route
             ::nome('atualizar')
@@ -1269,7 +1269,7 @@ Route
                 '!menu_meu_parceiro', '!administrado_status', '!api_status', '!tipo_ativacao', '!status',
                 '!menu_corrida', '!menu_show_nacional', '!menu_show_internacional', '!link_odontologico',
                 '!campos_primeiro_acesso', '!grupo_label', '!grupo_placeholder', '!link_facebook', '!link_instagram',
-                '!link_twitter', '!link_linkedin', '!link_youtube', '!link_tiktok', '!tela_login'
+                '!link_twitter', '!link_linkedin', '!link_youtube', '!link_tiktok', '!tela_login', '!copiar_padrao'
             ])
             ::put('/construtor-clube/{id}');
         Route
