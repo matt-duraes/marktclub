@@ -34,7 +34,7 @@ final class AtivarHelper
 
     private function buscarUsuario()
     {
-        if(eLocalhost()) {
+        if (eLocalhost()) {
             $this->busca = (object)[
                 'd' => '["retorno:1"]'
             ];
