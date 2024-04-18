@@ -14,11 +14,11 @@ use App\Classes\Geral\Publicado;
 use System\Trait\Model\OrdemTrait;
 use System\Trait\Model\PaginaTrait;
 use App\Models\Site\ListarInterface;
+use App\Classes\ParceiroLoja\TipoLoja;
 use System\Trait\Model\QuantidadeTrait;
 use App\Classes\ComunicacaoPublicidade\Tipo;
 use App\Classes\ComunicacaoPublicidade\Ordem;
 use App\Models\Api\Trait\ValidarEmpresaTrait;
-use App\Classes\ParceiroLoja\Tipo as ParceiroLojaTipo;
 
 final class PublicidadeModel extends ORM implements ListarInterface
 {
@@ -76,7 +76,7 @@ final class PublicidadeModel extends ORM implements ListarInterface
             ->order($this->pegarOrdem())
             ->tabela(TABELA_PARCEIRO_LOJA)
             ->where($this->pegarWhereParceiro(), obrigatorio: false)
-            ->campo(['uuid', 'titulo', 'url', 'tipo', 'imagem'], as: 'parceiro')
+            ->campo(['uuid', 'titulo', 'url', 'tipo_loja', 'imagem_logo'], as: 'parceiro')
             ->join('id', 'id_parceiro_loja')
             ->read();
 
@@ -89,7 +89,7 @@ final class PublicidadeModel extends ORM implements ListarInterface
         $retorno = [];
         $Status = new Status();
         $Tipo = new Tipo();
-        $TipoParceiro = new ParceiroLojaTipo();
+        $TipoParceiro = new TipoLoja();
         foreach ($dado as $r) {
             $statusAtual = $Status->indice($r->status);
             $publicado = (new Publicado(
@@ -105,8 +105,8 @@ final class PublicidadeModel extends ORM implements ListarInterface
                     'id'     => $r->parceiro_uuid,
                     'titulo' => $r->parceiro_titulo,
                     'url'    => $r->parceiro_url,
-                    'tipo'   => $TipoParceiro->indice($r->parceiro_tipo),
-                    'logo'   => LINK_ARQUIVO . '/parceiro/' . $r->parceiro_imagem
+                    'tipo'   => $TipoParceiro->indice($r->parceiro_tipo_loja),
+                    'logo'   => arquivoPrivado($r->parceiro_imagem_logo)
                 ],
                 'data_inicio'    => $r->data_inicio,
                 'data_final'     => $r->data_final,
@@ -160,12 +160,12 @@ final class PublicidadeModel extends ORM implements ListarInterface
     private function pegarWhereParceiro()
     {
         if ($this->idEmpresa != 1) {
-            return ['empresa', 'like', '%"' . $this->idEmpresa . '"%'];
+            return ['id_admin_empresa', 'json', $this->idEmpresa];
         } elseif (empty($this->empresa)) {
             return [];
         }
 
         $id = (new OrmHelper(TABELA_PARCEIRO_LOJA))->pegarIdPeloUuid($this->empresa);
-        return ['empresa', 'like', '%"' . $id . '"%'];
+        return ['id_admin_empresa', 'json', $id];
     }
 }

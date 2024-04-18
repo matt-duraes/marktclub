@@ -1,7 +1,7 @@
 <?php
 
 return [
-    'titulo'     => 'Site - Config',
+    'titulo'     => 'Configurações do Site',
     'buscar'     => false,
     'filtrar'    => true,
     'ordem'      => false,

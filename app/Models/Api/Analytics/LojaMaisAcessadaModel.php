@@ -4,7 +4,6 @@ namespace App\Models\Api\Analytics;
 
 use ORM\ORM;
 use Modules\Data;
-use App\Classes\ParceiroLoja\Estabelecimento;
 use App\Models\Api\Analytics\Trait\WhereTrait;
 
 final class LojaMaisAcessadaModel extends ORM

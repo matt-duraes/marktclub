@@ -53,7 +53,7 @@ final class LocalizacaoHelper
      */
     public function pegarEnderecoPeloCep(null|string|int $cep): array
     {
-        $ch = curl_init('https://brasilapi.com.br/api/cep/v1/' . preg_replace('/[^0-9]/', '', $cep));
+        $ch = curl_init('https://viacep.com.br/ws/' . preg_replace('/[^0-9]/', '', $cep) . '/json/');
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
         curl_setopt($ch, CURLOPT_HTTPHEADER, ['Content-Type: application/json']);
 
@@ -62,19 +62,24 @@ final class LocalizacaoHelper
             $this->mensagemErroApi();
         }
         return [
-            'logradouro' => $retorno['street'] ?? '',
-            'bairro'     => $retorno['neighborhood'] ?? '',
-            'cidade'     => $retorno['city'] ?? '',
-            'estado'     => $retorno['state'] ?? '',
-            'cep'        => array_key_exists('cep', $retorno) && !empty($retorno['cep']) ? soNumero($retorno['cep']) : '',
-            'pais'       => array_key_exists('state', $retorno) && !empty($retorno['state']) ? 'BR' : '',
+            'logradouro' => $retorno['logradouro'] ?? '',
+            'bairro'     => $retorno['bairro'] ?? '',
+            'cidade'     => $retorno['localidade'] ?? '',
+            'estado'     => $retorno['uf'] ?? '',
+            'cep'        => soNumero($cep),
+            'pais'       => 'BR',
         ];
     }
 
     /**
-     * @throws Excecao
+     * Pega o endereço do usuário pelo lat/long
+     *
+     * @param  float   $latitude  Latitude
+     * @param  float   $longitude Longitude
+     * @param  boolean $erro      Se vai disparar erro
+     * @return array   ['bairro', 'cidade', 'estado', 'cep', 'pais']
      */
-    public function pegarEnderecoPelaGeolocalizacao($latitude, $longitude): array
+    public function pegarEnderecoPelaGeolocalizacao(float $latitude, float $longitude, bool $erro = true): array
     {
         $parameters = $latitude . ',' . $longitude . '&key=' . $this->googleKey();
         $url = 'https://maps.google.com/maps/api/geocode/json?latlng=' . $parameters;
@@ -85,10 +90,6 @@ final class LocalizacaoHelper
 
         $retorno = jsonDecode(curl_exec($ch), true);
 
-        if (empty($retorno['results'])) {
-            $this->mensagemErroApi();
-        }
-
         $endereco = [
             'bairro' => '',
             'cidade' => '',
@@ -96,6 +97,12 @@ final class LocalizacaoHelper
             'cep'    => '',
             'pais'   => '',
         ];
+
+        if (empty($retorno['results']) && $erro) {
+            $this->mensagemErroApi();
+        } elseif (empty($retorno['results'])) {
+            return $endereco;
+        }
 
         foreach ($retorno['results'] as $r) {
             if ($r['geometry']['location']['lat'] == $latitude && $r['geometry']['location']['lng'] == $longitude) {

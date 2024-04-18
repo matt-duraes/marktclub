@@ -2,30 +2,27 @@
 
 namespace App\Controllers\Site;
 
+use Http\Response;
 use Controller\Controller;
 use App\Models\Site\BannerModel;
-use App\Classes\ParceiroLoja\Tipo;
 use App\Models\Site\Loja\BuscarModel;
-use App\Models\Site\Loja\FiltroModel;
-use App\Models\Site\Loja\ListarModel;
-use App\Classes\ParceiroLoja\Procedimento;
+use App\Classes\ParceiroLoja\TipoProcedimento;
 
 final class FarmaciaController extends Controller
 {
-    public function index()
+    /**
+     * @return Response
+     * @throws Excecao
+     */
+    public function index(): Response
     {
-        $Farmacia = new ListarModel(
-            tipo: new Tipo(Tipo::FARMACIA)
-        );
-
         if (!sessaoExiste('popupAlerta')) {
             sessao('popupAlerta', true);
         }
-
-        return view('farmacia.index', [
-            'menu'        => 'farmacia',
-            'banner'      => (new BannerModel())->farmacia(),
-            'lista'       => $Farmacia->listarDados(),
+        return view('loja.index', [
+            'menu'   => 'farmacia',
+            'tipo'   => 'farmacia',
+            'banner' => (new BannerModel())->farmacia(),
         ]);
     }
 
@@ -36,24 +33,15 @@ final class FarmaciaController extends Controller
      */
     public function detalhe(string $url)
     {
-        $Listar = new ListarModel(
-            tipo: new Tipo(Tipo::FARMACIA),
-            Filtro: new FiltroModel(['quantidade' => 3])
-        );
+        $Dado = new BuscarModel(url: $url);
+        $dado = $Dado->buscarDados();
 
-        return view(
-            'farmacia.detalhe',
-            [
-                'menu'         => 'farmacia',
-                'dado'         => (new BuscarModel($url))->buscarDados(),
-                'tipo'         => 'farmacia',
-                'lista'        => $Listar->listarDados(),
-                'telefone'     => [],
-                'email'        => [],
-                'endereco'     => [],
-                'procedimento' => new Procedimento()
-            ]
-        );
+        return view('loja.detalhe', [
+            'menu'         => 'farmacia',
+            'dado'         => $dado,
+            'tipo'         => 'farmacia',
+            'procedimento' => new TipoProcedimento()
+        ]);
     }
 
     public function carteirinha()

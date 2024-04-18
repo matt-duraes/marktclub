@@ -2,8 +2,8 @@
 
 namespace App\Models\Api\ParceiroLoja\Trait;
 
-use App\Classes\ParceiroLoja\Tipo;
 use App\Classes\ParceiroLoja\Status;
+use App\Classes\ParceiroLoja\TipoLoja;
 
 trait MontarRetornoTrait
 {
@@ -15,19 +15,25 @@ trait MontarRetornoTrait
 
         $retorno = [];
         $Status = new Status();
-        $Tipo = new Tipo();
+        $Tipo = new TipoLoja();
 
         foreach ($lista as $r) {
+            $tipo = $Tipo->indice($r->tipo_loja);
+            $desconto = $r->desconto;
+            if ($tipo == TipoLoja::CASHBACK) {
+                $desconto = !empty($r->comissao_minima) ? number_format($r->comissao_minima, 2, '.') : '';
+            }
             $retorno[$r->id] = [
-                'id'              => $r->cod,
+                'id'              => $r->uuid,
                 'titulo'          => $r->titulo,
-                'desconto'        => $r->desconto,
-                'imagem'          => LINK_ARQUIVO . '/parceiro/' . $r->imagem,
+                'titulo_interno'  => $r->titulo_interno,
+                'desconto'        => $desconto,
+                'imagem_logo'     => arquivoPrivado($r->imagem_logo),
                 'url'             => $r->url,
-                'tipo'            => $Tipo->indice($r->tipo),
+                'tipo_loja'       => $tipo,
                 'data_publicacao' => $r->data_publicacao,
-                'estado'          => $r->estado,
-                'favorito'        => !empty($r->favorito) ? 'sim' : 'nao',
+                'data_auditoria'  => $r->data_auditoria,
+                'endereco_estado' => $r->endereco_estado,
                 'status'          => $Status->indice($r->status)
             ];
         }

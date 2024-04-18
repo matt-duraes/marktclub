@@ -10,10 +10,12 @@ return [
         'menu_turismo', 'menu_historico', 'menu_farmacia', 'menu_automovel', 'link_odontologico',
         'menu_saude_vitoria', 'menu_saude_amil', 'menu_saude_seguro', 'menu_saude_cnu',
         'menu_saude_florianopolis', 'menu_cashback', 'menu_meu_parceiro', 'menu_cupom',
-        'menu_odontologico', 'menu_premium', 'menu_ponto_mais_acao', 'menu_dependente', 'menu_carteira', 'menu_tema',
+        'menu_odontologico', 'menu_premium', 'menu_ponto_mais_acao', 'menu_dependente',
         'menu_salavip', 'menu_credito_sicoob', 'menu_primeiro_acesso', 'chat_status',
         'menu_indicar_usuario', 'menu_indicar_loja', 'api_status', 'tipo_ativacao', 'menu_samsung',
         'administrado_status', 'status', 'menu_corrida', 'menu_show_nacional', 'menu_show_internacional',
-        'campos_primeiro_acesso', 'grupo_label', 'grupo_placeholder', 'copiar_padrao'
+        'campos_primeiro_acesso', 'grupo_label', 'grupo_placeholder', 'link_facebook', 'link_instagram',
+        'link_twitter', 'link_linkedin', 'link_youtube', 'link_tiktok', 'tela_login',
+        'menu_carteira', 'menu_tema', 'copiar_padrao'
     ]
 ];

@@ -1,0 +1,27 @@
+@if ($dado->procedimento == $procedimento::VOUCHER || $dado->procedimento == $procedimento::WEBSITE):
+<div class="bloco_pagina_popup display_none" id="bloco_loja_confirmar">
+    <div class="conteudo_pagina_popup conteudo_popup">
+        <header>
+            <h1>Procedimento</h1>
+            <p>Antes de continuar, confirme o procedimento de utilização, desconto e possíveis restrições da loja</p>
+            <i class="popup_fechar fechar">@iconeFechar</i>
+        </header>
+        <div class="bloco">
+            <h3>Descontos</h3>
+            <div class="texto_destaque">{!!$dado->texto_desconto!!}</div>
+        </div>
+        <div class="bloco">
+            <h3>Procedimento</h3>
+            <div class="texto_destaque">{!!$dado->texto_procedimento!!}</div>
+        </div>
+        <div class="footer_pagina_popup">
+            <div></div>
+            @ if( $dado->procedimento == $procedimento::VOUCHER ):
+            <a href="@route('loja.voucher')/{{$dado->url}}" target="_blank" rel="nofollow noopener" class="botao botao_contar_click" data-botao="Confirmar Voucher">GERAR VOUCHER</a>
+            @ elseif ($dado->procedimento == $procedimento::WEBSITE):
+            <a href="{!!$dado->link!!}" target="_blank" rel="noopener noreferrer" class="botao botao_contar_click" data-botao="Confirmar abrir Site">Abrir Site</a>
+            @ endif
+        </div>
+    </div>
+</div>
+@endif;

@@ -178,7 +178,14 @@ window.addEventListener('load', () => {
         if (buscaGeralOrdem && buscaGeralOrdem.value != '') {
             filtroOrdem = '?ordem=' + buscaGeralOrdem.value;
         }
-        const paginaFiltro = new Pagina('Filtrar dados', LINK + '/app/filtrar/' + APP + filtroOrdem, filtroOption);
+        const paginaFiltro = new Pagina(
+            'Filtrar dados',
+            LINK + '/app/filtrar/' + APP + filtroOrdem,
+            filtroOption,
+            true,
+            true,
+            loadingPaginaFiltrar
+        );
         botaoFiltrar.addEventListener('click', () => {
             paginaFiltro.abrir();
         });
@@ -444,4 +451,101 @@ window.addEventListener('load', () => {
             })
             .iniciar();
     }
+
+    /*
+    |--------------------------------------------------------------------------
+    | BOTÂO DE STATUS
+    |--------------------------------------------------------------------------
+    */
+    const listaBotaoStatus = document.querySelectorAll('.botao_status');
+    if (listaBotaoStatus.length > 0) {
+        listaBotaoStatus.forEach(botao => {
+            const input = botao.querySelector('input');
+
+            if (!input) {
+                return;
+            }
+
+            input.addEventListener('change', async e => {
+                e.preventDefault();
+                const id = botao.getAttribute('data-id');
+                const sim = botao.getAttribute('data-sim');
+                const nao = botao.getAttribute('data-nao');
+
+                await atualizarBotaoStatus(e, {
+                    id,
+                    sim,
+                    nao,
+                });
+            });
+        });
+    }
+
+    const atualizarBotaoStatus = async (e, { id, sim, nao }) => {
+        const status = e.target.checked ? sim : nao;
+
+        Loading.show();
+
+        const resposta = await ajaxPost(LINK + '/app/ajax/' + APP, {
+            indice: 'status-atualizar',
+            id,
+            status,
+        });
+
+        Loading.hide();
+
+        if (resposta == false) {
+            Alerta.notificacao('Ocorreu um erro ao atualizar o status, por favor, tente novamente.', false);
+            return;
+        }
+
+        Alerta.notificacao('Status atualizado com sucesso.', true);
+        e.target.parentElement.parentElement.setAttribute('data-ajuda', status);
+        e.target.parentElement.parentElement.setAttribute('data-status', status);
+    };
 });
+
+const loadingPaginaFiltrar = () => {
+    // Abrir/fechar bloco
+    const blocoListaMais = $$('.bloco_row_mais');
+    const adicionarAcaoBlocoMais = bloco => {
+        const botao = $('.botao_mais', bloco);
+        botao.evento('click', () => {
+            bloco.classe('bloco_row_mais_aberto');
+        });
+    };
+
+    if (blocoListaMais.length > 0) {
+        for (const bloco of blocoListaMais) {
+            adicionarAcaoBlocoMais(bloco);
+        }
+    }
+
+    // Marcar todos
+    const blocoListaMarcarTodos = $$('.botao_filtrar_marcar_todos input');
+    const adicionarAcaoBlocoTodos = input => {
+        const bloco = input.closest('.bloco_row');
+        if (!bloco) {
+            return;
+        }
+
+        const lista = $$('.bloco_row_lista .input_checkbox input', bloco);
+        const quantidade = lista.length;
+        input.evento('change', () => {
+            lista.marcar(input.marcar());
+        });
+        lista.evento('change', () => {
+            if ($$('.bloco_row_lista .input_checkbox input:checked', bloco).length == quantidade) {
+                input.marcar(true);
+                return;
+            }
+            input.marcar(false);
+        });
+    };
+
+    if (blocoListaMarcarTodos.length > 0) {
+        for (const input of blocoListaMarcarTodos) {
+            adicionarAcaoBlocoTodos(input);
+        }
+    }
+};

@@ -58,9 +58,9 @@
                         </div>
                         <div class="form_input_dupla">
                             @? formInput(local: '334', name: 'rg', placeholder: 'Digite o rg',obrigatorio: true, mascara: 'numero',label: 'Digite o rg',  value: '')
-                            @? formInput(local: 'SSP-DF', name: 'orgao_expedidor', placeholder: 'Digite um orgão expedidor',obrigatorio: true, label: 'Digite o orgão expedidor',  value: '')
+                            @? formInput(local: 'SSP-DF', name: 'orgao_expedidor', placeholder: 'Digite um orgão expedidor', obrigatorio: true, label: 'Digite o orgão expedidor',  value: '')
                         </div>
-                        @? formInput(local: 'Ana Pereira', name: 'nome_mae', label: 'Filiação (Nome da mãe)', placeholder: 'Nome da mãe', class: 'tirar_tab')
+                        @? formInput(local: 'Ana Pereira', name: 'nome_mae', label: 'Filiação (Nome da mãe)', placeholder: 'Nome da mãe', obrigatorio: true, class: 'tirar_tab')
                         <div class="bloco_botao">
                             <div></div>
                             <div class="botao_geral_cor cor_bg" id="botao_dado_pessoal_proximo">Continuar</div>

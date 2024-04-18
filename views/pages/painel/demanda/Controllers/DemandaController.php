@@ -350,7 +350,7 @@ final class DemandaController extends Controller
             ],
             'tipo'         => $request->tipo,
             'data_criacao' => agora(true),
-            'data_entrega' => '',
+            'data_entrega' => $request->data_entrega ?? '',
             'status'       => 'nova'
         ], 201);
     }

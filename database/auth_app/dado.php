@@ -6,7 +6,7 @@ $scope = [
     'usuario_cliente:salvar', 'usuario_cliente:atualizar', 'usuario_cliente:listar',
     'usuario_cliente:buscar', 'usuario_cliente:deletar', 'usuario_cliente:deletar_cpf',
     'usuario_cliente:download', 'usuario_cliente:apple', 'usuario_cliente:ativar', 'usuario_cliente:senha',
-    'usuario_cliente:validar_senha',
+    'usuario_cliente:validar_senha', 'usuario_cliente:alterar_senha',
 
     'usuario_dependente:listar', 'usuario_dependente:salvar', 'usuario_dependente:atualizar',
     'usuario_dependente:deletar', 'usuario_dependente:email',
@@ -45,22 +45,22 @@ $scope = [
 
     'endereco:salvar', 'endereco:atualizar', 'endereco:listar', 'endereco:buscar', 'endereco:deletar',
 
-    'contato:listar',
+    'contato:buscar', 'contato:listar', 'contato:salvar', 'contato:atualizar', 'contato:deletar',
+
+    'data:listar',
 
     'parceiro_relatorio:salvar', 'parceiro_relatorio:atualizar', 'parceiro_relatorio:listar',
     'parceiro_relatorio:buscar', 'parceiro_relatorio:deletar',
 
-    'parceiro_cashback:salvar', 'parceiro_cashback:atualizar', 'parceiro_cashback:listar',
-    'parceiro_cashback:buscar', 'parceiro_cashback:deletar',
-
     'parceiro_easylive:salvar', 'parceiro_easylive:atualizar', 'parceiro_easylive:listar',
     'parceiro_easylive:buscar', 'parceiro_easylive:deletar',
 
-    'parceiro_loja:listar', 'parceiro_loja:buscar', 'parceiro_loja:relacionado',
+    'parceiro_loja:listar', 'parceiro_loja:buscar', 'parceiro_loja:salvar', 'parceiro_loja:atualizar',
+    'parceiro_loja:deletar', 'parceiro_loja:relacionado',
 
     'parceiro_subcategoria:listar',
 
-    'parceiro_favorito:salvar', 'parceiro_favorito:deletar',
+    'parceiro_favorito:listar', 'parceiro_favorito:salvar', 'parceiro_favorito:deletar',
 
     'publicacao_noticia:salvar', 'publicacao_noticia:atualizar', 'publicacao_noticia:listar',
     'publicacao_noticia:buscar', 'publicacao_noticia:deletar',

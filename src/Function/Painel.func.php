@@ -249,13 +249,10 @@ if (!function_exists('painelLinhaLista')) {
             if ($acao == 'include') {
                 require_once $item['arquivo'];
                 continue;
-            } elseif ($acao == 'endereco') {
-                $enderecoTabela = $item['tabela'] ?? '';
-                $enderecoLocal = $item['local'] ?? '';
-                include ROOT . '/src/Html/Painel/endereco.php';
-                continue;
-            } elseif ($acao == 'contato') {
-                include ROOT . '/src/Html/Painel/contato.php';
+            } elseif (in_array($acao, ['endereco', 'contato', 'linha_tempo'])) {
+                $localPrincipal = $item['localPrincipal'] ?? '';
+                $localSecundario = $item['localSecundario'] ?? '';
+                include ROOT . '/src/Html/Painel/' . $acao . '.php';
                 continue;
             } elseif ($acao == 'html') {
                 echo $item['html'];
@@ -279,12 +276,18 @@ if (!function_exists('painelLinhaLista')) {
             $link = $item['link'] ?? '';
             $target = array_key_exists('target', $item) && in_array($item['target'], ['_blank', '_self'])
                 ? $item['target'] : '_self';
+            $editar = $item['editar'] ?? '';
             $status = $item['status'] ?? '';
             $mensagem = $item['mensagem'] ?? '';
             $inArray = $item['inArray'] ?? '';
             $cor = $item['cor'] ?? '';
             $formatar = $item['formatar'] ?? '';
             $vazio = $item['vazio'] ?? true;
+            $attr = $item['attr'] ?? [];
+            $attrHtml = '';
+            foreach ($attr as $ind => $val) {
+                $attrHtml .= ' ' . $ind . '="' . $val . '" ';
+            }
 
             $valor = [];
             if (is_array($campo) && $campo) {
@@ -349,20 +352,30 @@ if (!function_exists('painelLinhaLista')) {
             }
 
             if ($acao == 'imagem_redonda') {
-                echo '<figure class="imagem_redonda" style="background-image: url(' . $valor . ')"></figure>';
+                echo '<figure ' . $attrHtml . ' class="imagem_redonda" style="background-image: url(' . $valor . ')"></figure>';
+            } elseif ($acao == 'equipe') {
+                $Perfil = new \PainelModel\Perfil\Equipe();
+                $equipe = $Perfil->unico($valor);
+                $equipeNome = object_key_exists('nome', $equipe) && !empty($equipe->nome)
+                    ? 'data-ajuda="' . $equipe->nome . '"' : '';
+                $nome = preg_match('/\:|\!|\?$/', $nome) ? $nome : $nome . ':';
+                echo '<div ' . $attrHtml . ' class="linha linha_equipe bg_hover"><strong class="texto_nome">'
+                    . $nome . '</strong> <figure ' . $equipeNome . ' class="imagem_perfil" style="background-image: url(' . $equipe->imagem . ')"></figure></div>';
+            } elseif ($acao == 'imagem_logo') {
+                echo '<figure ' . $attrHtml . ' class="imagem_logo"><div class="imagem" style="background-image: url(' . $valor . ')"></div></figure>';
             } elseif ($acao == 'linha' && ($vazio || !empty($valor))) {
                 $valor = !empty($valor) ? $valor : '<span class="vazio">Dado não informado</span>';
                 $nome = preg_match('/\:|\!|\?$/', $nome) ? $nome : $nome . ':';
-                echo '<div class="linha bg_hover"><strong class="texto_nome">'
+                echo '<div ' . $attrHtml . ' class="linha bg_hover"><strong class="texto_nome">'
                     . $nome . '</strong> <p>' . $valor . '</p></div>';
             } elseif ($acao == 'titulo') {
-                echo '<h2 class="titulo">' . $valor . '</h2>';
+                echo '<h2 ' . $attrHtml . ' class="titulo">' . $valor . '</h2>';
             } elseif ($acao == 'texto') {
-                echo '<div class="bloco_texto bloco_noticia_texto">' . $valor . '</div>';
+                echo '<div ' . $attrHtml . ' class="bloco_texto bloco_noticia_texto">' . $valor . '</div>';
             } elseif ($acao == 'sub_titulo') {
-                echo '<p class="sub_titulo">' . $valor . '</p>';
+                echo '<p ' . $attrHtml . ' class="sub_titulo">' . $valor . '</p>';
             } elseif ($acao == 'checked' && is_array($valor)) {
-                echo '<div class="bloco_checked">';
+                echo '<div ' . $attrHtml . ' class="bloco_checked">';
                 foreach ($valor as $ind) {
                     echo '<div class="item"><span class="texto_nome">' . $ind . '</span> <i>'
                         . iconeCheck() . '</i></div>';
@@ -371,19 +384,19 @@ if (!function_exists('painelLinhaLista')) {
             } elseif ($acao == 'checked' && is_bool($valor)) {
                 $icone = $valor ? iconeCheck(10) : iconeFechar(8);
                 $classe = $valor ? 'checked_sim' : 'checked_nao';
-                echo '<div class="checked bg_hover"><span class="texto_nome">' . $nome . '</span> <i class="'
+                echo '<div ' . $attrHtml . ' class="checked bg_hover"><span class="texto_nome">' . $nome . '</span> <i class="'
                     . $classe . '">' . $icone . '</i></div>';
             } elseif ($acao == 'hidden') {
                 $id = !empty($id) ? 'id="' . $id . '"' : '';
-                echo '<input type="hidden" ' . $id . ' value="' . $valor . '">';
+                echo '<input ' . $attrHtml . ' type="hidden" ' . $id . ' value="' . $valor . '">';
             } elseif ($acao == 'botao' && !empty($link)) {
                 $id = !empty($id) ? 'id="' . $id . '"' : '';
                 $rel = $target == '_blank' ? 'rel="noopener noreferrer"' : '';
-                echo '<a class="botao_link" ' . $id . ' target="' . $target . '" ' . $rel . ' href="'
+                echo '<a ' . $attrHtml . ' class="botao_link" ' . $id . ' target="' . $target . '" ' . $rel . ' href="'
                     . painelConverterLink($link, $dado) . '">' . $texto . '</a>';
             } elseif ($acao == 'botao') {
                 $id = !empty($id) ? 'id="' . $id . '"' : '';
-                echo '<div class="botao_link" ' . $id . '>' . $texto . '</div>';
+                echo '<div ' . $attrHtml . ' class="botao_link" ' . $id . '>' . $texto . '</div>';
             } elseif (
                 $acao == 'status' &&
                 is_string($valor) &&
@@ -396,7 +409,8 @@ if (!function_exists('painelLinhaLista')) {
                 $cor = !empty($cor) ? $cor : '';
                 $mensagem = !empty($mensagem) ? 'data-mensagem="' . $mensagem . '"' : '';
                 $status = !empty($status) ? 'data-status="' . $status . '"' : '';
-                $botaoStatus .= '<div class="botao_status ' . $cor . '" ' . $id . ' ' . $mensagem . ' '
+                $editar = !empty($editar) ? 'data-editar="sim"' : '';
+                $botaoStatus .= '<div ' . $attrHtml . ' class="botao_status ' . $cor . '" ' . $id . ' ' . $editar . ' ' . $mensagem . ' '
                     . $status . '>' . $texto . '</div>';
             } elseif ($acao == 'array' && is_array($valor) && $valor) {
                 $valor = array_key_exists(0, $valor) && count($valor) == 1 ? $valor[0] : $valor;
@@ -406,7 +420,7 @@ if (!function_exists('painelLinhaLista')) {
                 echo '<div class="array_nome">' . $nome . '</div>';
                 echo '<div class="botao_ver_lista">Ver lista</div>';
                 echo '</div>';
-                echo '<div class="lista_item display_none">';
+                echo '<div ' . $attrHtml . ' class="lista_item display_none">';
                 foreach ($valor as $ind => $val) {
                     if (!is_array($val) && !is_object($val)) {
                         $ind = !is_int($ind) ? '<span class="texto_nome">' . preg_replace('/\:$/', '', $ind)
@@ -428,7 +442,7 @@ if (!function_exists('painelLinhaLista')) {
             }
         }
         if ($botaoStatus) {
-            echo '<div class="bloco_botao_status"><div class="bloco_status_lista">' . $botaoStatus . '</div></div>';
+            echo '<div ' . $attrHtml . ' class="bloco_botao_status"><div class="bloco_status_lista">' . $botaoStatus . '</div></div>';
         }
     }
 }
@@ -456,7 +470,7 @@ if (!function_exists('painelConverterLink')) {
 |--------------------------------------------------------------------------
 */
 if (!function_exists('painelAppAdd')) {
-    function painelAppAdd(?stdClass $config = null, ?stdClass $r = null, ?string $app = null)
+    function painelAppAdd(?stdClass $config = null, ?stdClass $r = null, ?string $app = null, ?string $status = null)
     {
         if (is_object($config) && object_key_exists('add', $config)) {
             $html = $config->add->html;
@@ -554,11 +568,20 @@ if (!function_exists('painelColunaEnd')) {
     }
 }
 if (!function_exists('painelFieldset')) {
-    function painelFieldset(?string $titulo = null)
+    function painelFieldset(?string $titulo = null, bool $abrir = false)
     {
-        $tituloHtml = !empty($titulo) ? '<h2>' . $titulo . '</h2>' : '';
+        $classe = '';
+        $botaoAbrir = '';
+        $botaoClasse = '';
+        if ($abrir) {
+            $classe = 'bloco_fieldset_fechado bloco_fieldset_abrir_fechar';
+            $botaoAbrir = '<div class="botao_abrir_fechar"><i class="mais">+</i><i class="menos">-</i></div>';
+            $botaoClasse = 'botao_abrir_fieldset';
+        }
+        $tituloHtml = !empty($titulo) ? '<header class="header_fieldset ' . $botaoClasse . '"><h2>' . $titulo . '</h2>' . $botaoAbrir . '</header>' : '';
+
         echo '
-            <div class="bloco_fieldset">
+            <div class="bloco_fieldset ' . $classe . '">
                 ' . $tituloHtml . '
                 <div class="lista_dado">
         ';
@@ -729,7 +752,7 @@ if (!function_exists('painelInputLista')) {
             } elseif ($funcao == 'checkbox') {
                 $input['check'] = (is_array($valor) && !empty($valor) && !empty($input['value'])
                     && in_array($input['value'], $valor)) || (is_string($valor) && $valor == 'sim');
-            } elseif ($funcao == 'indiceValor') {
+            } elseif (in_array($funcao, ['indiceValor', 'arquivoLista'])) {
                 $input['value'] = jsonDecode($valor, true, true);
             } else {
                 $input['value'] = $valor;

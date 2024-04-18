@@ -2,21 +2,21 @@
 
 namespace App\Controllers\Site;
 
-use App\Models\Site\Login\ContatoModel;
 use Erro\Excecao;
 use Http\Request;
 use Http\Response;
 use Helpers\ApiHelper;
 use Controller\Controller;
 use App\Helpers\ClubeApiHelper;
-use App\Classes\ParceiroLoja\Tipo;
 use App\Models\Site\Loja\BuscarModel;
 use App\Models\Site\Loja\FiltroModel;
 use App\Models\Site\Loja\ListarModel;
+use App\Classes\ParceiroLoja\TipoLoja;
+use App\Models\Site\Loja\FavoritoModel;
 use App\Models\Site\Loja\DeclaracaoModel;
-use App\Classes\ParceiroLoja\Procedimento;
 use App\Models\Site\Loja\ChequeBonusModel;
 use App\Models\Site\Loja\SolicitacaoModel;
+use App\Classes\ParceiroLoja\TipoProcedimento;
 use App\Classes\SolicitacaoVoucher\Tipo as SolicitacaoVoucherTipo;
 
 final class LojaController extends Controller
@@ -50,6 +50,7 @@ final class LojaController extends Controller
         $Filtro = new FiltroModel($request->dado());
         return view('loja.index', [
             'menu'   => 'loja',
+            'tipo'   => 'loja',
             'Busca'  => $Filtro,
             'mapa'   => $Filtro->mapa ?? false,
             'todos'  => empty($request->dado()),
@@ -61,7 +62,7 @@ final class LojaController extends Controller
     {
         $Filtro = new FiltroModel($request->dado());
         $Lista = new ListarModel(
-            tipo: new Tipo($request->tipo),
+            tipo: new TipoLoja($request->tipo),
             Filtro: $Filtro
         );
         return mensagemSucesso($Lista->listarDados());
@@ -84,16 +85,11 @@ final class LojaController extends Controller
             return new Response(url: route('samsung.index'));
         }
 
-        $Contato = new ContatoModel([$dado->id, $dado->vinculo_parceiro]);
-
         return view('loja.detalhe', [
             'menu'         => 'loja',
             'dado'         => $dado,
-            'telefone'     => $Contato->buscarDados('telefone'),
-            'email'        => $Contato->buscarDados('email'),
             'tipo'         => $dado->tipo,
-            'Busca'        => (new FiltroModel([])),
-            'procedimento' => new Procedimento()
+            'procedimento' => new TipoProcedimento()
         ]);
     }
 
@@ -118,7 +114,7 @@ final class LojaController extends Controller
     {
         return view('loja.confirmar', [
             'dado'         => (new BuscarModel($url))->buscarDados(),
-            'procedimento' => new Procedimento()
+            'procedimento' => new TipoProcedimento()
         ]);
     }
 
@@ -132,10 +128,10 @@ final class LojaController extends Controller
                 'usuario' => sessao('USUARIO.id')
             ])
             ->post('/solicitacao-voucher')
-            ->object()->dado;
+            ->object();
 
         return view('loja.voucher', [
-            'dado' => $dado
+            'dado' => $dado->dado
         ]);
     }
 
@@ -154,20 +150,27 @@ final class LojaController extends Controller
 
     public function postFavorito(Request $request): Response
     {
-        (new ApiHelper(scope: 'parceiro_favorito:salvar'))
+        (new ApiHelper(token: true))
             ->validar(mensagem: 'Erro ao salvar favorito, por favor, tente novamente.', retorno: false)
             ->body(['parceiro' => $request->id])
             ->post('/parceiro-favorito')
             ->object()->dado;
+
+        $Favorito = new FavoritoModel();
+        $Favorito->add($request->id);
 
         return mensagemSucesso([], status: 201);
     }
 
     public function deleteFavorito(string $id)
     {
-        (new ApiHelper(scope: 'parceiro_favorito:deletar'))
+        (new ApiHelper(token: true))
             ->validar('Erro ao remover favorito, por favor, tente novamente.', retorno: false)
             ->delete('/parceiro-favorito/' . $id);
+
+        $Favorito = new FavoritoModel();
+        $Favorito->remover($id);
+
         return new Response(status: 204);
     }
 

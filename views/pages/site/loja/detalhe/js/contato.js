@@ -1,49 +1,59 @@
 window.addEventListener('load', () => {
-    const tituloPopupContato = $('#titulo_popup_contato');
-    const botaoTelefone = $('#botao_telefone');
-    const botaoEmail = $('#botao_email');
-    const blocoEmail = $('#conteudo_popup_contato .email');
-    const blocoTelefone = $('#conteudo_popup_contato .telefone');
-    const botaoCopiar = $$('.botao_copiar');
-    const PopupContato = new Popup('contato', 'bloco_contato', true, true);
+    const idLoja = $('#input_loja_id').value;
+    const popupBusca = (id, mensagem, tipo) => {
+        const bloco = $('#' + id);
+        if (!bloco) {
+            return;
+        }
+        const PopupAbrir = new Popup(tipo + '-parceiro', id, true, false);
+        const botao = $('#botao_' + tipo + '_abrir');
+        const padrao = $('#bloco_' + tipo + '_padrao');
+        const lista = $('#bloco_' + tipo + '_lista');
 
-    if (botaoTelefone) {
-        botaoTelefone.addEventListener('click', () => {
-            tituloPopupContato.innerText = 'Telefone';
-
-            blocoEmail.classList.add('display_none');
-            blocoTelefone.classList.remove('display_none');
-
-            PopupContato.abrir();
+        let pagina = 0;
+        botao.evento('click', () => {
+            pagina = 0;
+            buscarContato(true);
         });
-    }
-
-    if (botaoEmail) {
-        botaoEmail.addEventListener('click', () => {
-            tituloPopupContato.innerText = 'E-mail';
-
-            blocoTelefone.classList.add('display_none');
-            blocoEmail.classList.remove('display_none');
-
-            PopupContato.abrir();
-        });
-    }
-
-    botaoCopiar.forEach(botao => {
-        let ultimaCopia = null;
-
-        botao.addEventListener('click', () => {
-            if (new Date() - ultimaCopia < 1000) {
+        const buscarContato = async abrir => {
+            pagina++;
+            Loading.show();
+            const resposta = await ajaxPost(
+                LINK + '/contato/lista',
+                {
+                    local: 'loja',
+                    id: idLoja,
+                    tipo,
+                    pagina,
+                },
+                mensagem
+            );
+            Loading.hide();
+            if (false === resposta) {
                 return;
             }
 
-            const valor = botao.getAttribute('data-valor');
-            const tipo = botao.getAttribute('data-tipo');
+            if (true === abrir) {
+                PopupAbrir.abrir();
+            }
+            lista.html('');
+            for (const item of resposta.dado.lista) {
+                adicionarContato(padrao, lista, item);
+            }
+        };
+    };
+    popupBusca('bloco_telefone', 'Erro ao buscar lista de telefone, por favor, tente novamente.', 'telefone');
+    popupBusca('bloco_email', 'Erro ao buscar lista de e-mail, por favor, tente novamente.', 'email');
 
-            navigator.clipboard.writeText(valor);
-            Alerta.notificacao(tipo + ' copiado com sucesso!', true);
-
-            ultimaCopia = new Date();
+    const adicionarContato = (padrao, lista, item) => {
+        const clone = padrao.clonar();
+        const blocoValor = $('p', clone);
+        blocoValor.texto(item.valor);
+        $('strong', clone).texto(item.titulo);
+        lista.final(clone);
+        const copiar = $('i', clone);
+        copiar.evento('click', () => {
+            blocoValor.copiar('Contato copiado com sucesso!');
         });
-    });
+    };
 });

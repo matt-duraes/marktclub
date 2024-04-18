@@ -1,11 +1,13 @@
 // @template "painel"
 
 window.addEventListener('load', () => {
-    const botao = document.getElementById('botao_mudar_empresa');
+    const form = document.querySelector('#form_mudar_empresa');
     const inputEmpresa = document.getElementById('input_mudar_empresa');
     const hash = document.querySelector('#input_mudar_empresa_hash').value;
 
-    botao.addEventListener('click', async () => {
+    form.addEventListener('submit', async e => {
+        e.preventDefault();
+
         if (inputEmpresa.value == '') {
             Alerta.notificacao('Escolha uma empresa para continuar.', false);
             return;

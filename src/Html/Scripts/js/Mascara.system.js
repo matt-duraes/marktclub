@@ -56,6 +56,9 @@ fwMascaraInArray = function (needle, haystack) {
 fwMascaraKeyUpEvento = function (e) {
     const input = this;
     const mascara = input.getAttribute('data-mascara');
+    if (!mascara) {
+        return;
+    }
     const tecla = e.key;
     if (
         (mascara == 'numero' &&
@@ -76,6 +79,9 @@ fwMascaraKeyUpEvento = function (e) {
 fwMascaraKeyDownEvento = function (e) {
     let input = this;
     let mascara = input.getAttribute('data-mascara');
+    if (!mascara) {
+        return;
+    }
     let valor = input.value;
     let valorLimpo = valor.replace(/[^0-9]/g, '');
     let mascaraTamanho = mascara.length;
@@ -190,6 +196,9 @@ fwMascaraAcaoNormal = function (input, tecla) {
     }
 
     let mascara = input.getAttribute('data-mascara');
+    if (!mascara) {
+        return;
+    }
     if (mascara == 'fixo') {
         mascara = '(00) 0000-0000';
     } else if (mascara == 'celular') {
@@ -311,6 +320,9 @@ fwMascaraMascaraEvento = function (input, tipo) {
 
 async function fwMascaraMontar(input, tipo) {
     let mascara = input.getAttribute('data-mascara');
+    if (!mascara) {
+        return;
+    }
 
     if (mascara == 'dinheiro') {
         return fwMascaraMontarDinheiro(input, tipo);
@@ -371,6 +383,9 @@ fwMascaraMontarNormal = function (input, tipo) {
     let valorLimpoTamanho = valorLimpo.length;
 
     let mascara = input.getAttribute('data-mascara');
+    if (!mascara) {
+        return;
+    }
     if (mascara == 'fixo') {
         mascara = '(00) 0000-0000';
     } else if (mascara == 'celular') {

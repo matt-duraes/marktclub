@@ -4,27 +4,43 @@ namespace App\Controllers\Site;
 
 use Http\Request;
 use Controller\Controller;
-use System\Classes\Endereco\Tipo;
-use System\Classes\Endereco\Local;
 use App\Models\Site\Endereco\ListaModel;
+use App\Models\Site\Endereco\EstruturaModel;
+use App\Models\Site\Endereco\PrincipalModel;
 
 final class EnderecoController extends Controller
 {
-    public function postIndex(Request $request)
+    public function postPrincipal(Request $request)
+    {
+        $Endereco = new PrincipalModel(
+            id: $request->id,
+            local: $request->local,
+            latitude: $request->latitude,
+            longitude: $request->longitude,
+        );
+        return mensagemSucesso($Endereco->endereco);
+    }
+
+    public function postLista(Request $request)
     {
         $Lista = new ListaModel(
             id: $request->id,
-            tipo: new Tipo($request->tipo),
-            local: new Local(Local::CLUBE)
+            local: $request->local,
+            pais: $request->pais,
+            estado: $request->estado,
+            cidade: $request->cidade,
         );
-        return mensagemSucesso([
-            'existe'     => $Lista->existe,
-            'quantidade' => $Lista->quantidade,
-            'cidade'     => $Lista->cidade,
-            'estado'     => $Lista->estado,
-            'pais'       => $Lista->pais,
-            'principal'  => $Lista->principal,
-            'endereco'   => $Lista->endereco
-        ]);
+        return mensagemSucesso($Lista->endereco);
+    }
+
+    public function postEstrutura(Request $request)
+    {
+        $Lista = new EstruturaModel(
+            id: $request->id,
+            local: $request->local,
+            pais: $request->pais,
+            estado: $request->estado
+        );
+        return mensagemSucesso($Lista->estrutura);
     }
 }

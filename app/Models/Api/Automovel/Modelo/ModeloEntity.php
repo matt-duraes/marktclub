@@ -2,18 +2,18 @@
 
 namespace App\Models\Api\Automovel\Modelo;
 
-use App\Classes\Geral\Publicado;
-use App\Classes\Geral\Status;
-use App\Classes\ParceiroLoja\Procedimento;
-use App\Classes\ParceiroLoja\Status as StatusParceiro;
-use App\Models\Api\Automovel\Versao\VersaoModel;
 use Erro\Erro;
+use ORM\Entity;
 use Erro\Excecao;
-use Helpers\OrmHelper;
 use Modules\Data;
 use Modules\Pagina;
+use Helpers\OrmHelper;
 use Modules\Quantidade;
-use ORM\Entity;
+use App\Classes\Geral\Status;
+use App\Classes\Geral\Publicado;
+use App\Classes\ParceiroLoja\TipoProcedimento;
+use App\Models\Api\Automovel\Versao\VersaoModel;
+use App\Classes\ParceiroLoja\Status as StatusParceiro;
 
 final class ModeloEntity extends Entity
 {
@@ -23,7 +23,7 @@ final class ModeloEntity extends Entity
     public string $texto;
     public Status $status;
     public string $url;
-    public Procedimento $procedimento;
+    public TipoProcedimento $procedimento;
     public string $texto_procedimento;
     public array $versao;
     public string|array $parceiro;
@@ -131,7 +131,7 @@ final class ModeloEntity extends Entity
     {
         $Parceiro = $this->ormParceiro->pegarUltimoRegistro(
             ['id', $this->id_parceiro_loja],
-            ['uuid', 'titulo', 'procedimento', 'texto_procedimento', 'status']
+            ['uuid', 'titulo', 'tipo_procedimento', 'texto_procedimento', 'status']
         );
         $ativo = (new StatusParceiro($Parceiro['status'] ?? ''))->indice() === StatusParceiro::CONCLUIDO;
         $this->publicado = new Publicado(
@@ -139,7 +139,7 @@ final class ModeloEntity extends Entity
             $this->data_final,
             $ativo
         );
-        $this->procedimento = new Procedimento($Parceiro['procedimento'] ?? '');
+        $this->procedimento = new TipoProcedimento($Parceiro['tipo_procedimento'] ?? '');
         $this->texto_procedimento = $Parceiro['texto_procedimento'] ?? '';
         $this->parceiro = [
             'id'     => $Parceiro['uuid'],

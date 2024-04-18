@@ -116,6 +116,17 @@ Route
             ::request(['code'], 'get')
             ::post('/_v/private/user/validate');
     });
+Route
+    ::nome('solicitacao_link_publico')
+    ::controller(App\Controllers\Api\Solicitacao\LinkController::class)
+    ::grupo(function () {
+        Route
+            ::nome('confirmar')
+            ::view('/solicitacao-link/confirmar/{hash}');
+        Route
+            ::nome('redirecionar')
+            ::view('/solicitacao-link/redirecionar/{hash}');
+    });
 
 Route
     ::nome('publicacao_noticia')
@@ -172,6 +183,11 @@ Route
     ::middleware(TokenMiddleware::class, 'token')
     ::grupo(function () {
         Route
+            ::nome('buscar')
+            ::middleware(TokenMiddleware::class, 'scope', ['publicacao_pagina:buscar'])
+            ::get('/publicacao-pagina/{id}');
+
+        Route
             ::nome('listar')
             ::middleware(TokenMiddleware::class, 'scope', ['publicacao_pagina:listar'])
             ::request([
@@ -180,9 +196,12 @@ Route
             ::get('/publicacao-pagina');
 
         Route
-            ::nome('buscar')
-            ::middleware(TokenMiddleware::class, 'scope', ['publicacao_pagina:buscar'])
-            ::get('/publicacao-pagina/{id}');
+            ::nome('salvar')
+            ::middleware(TokenMiddleware::class, 'scope', ['publicacao_pagina:salvar'])
+            ::request([
+                'titulo', 'texto', '!header_titulo', '!header_descricao', '!header_tag'
+            ])
+            ::post('/publicacao-pagina');
 
         Route
             ::nome('atualizar')
@@ -351,6 +370,11 @@ Route
             ::middleware(TokenMiddleware::class, 'scope', ['usuario_cliente:senha'])
             ::request(['senha', 'usuario', 'hash'])
             ::put('/usuario-cliente/senha');
+        Route
+            ::nome('alterarSenha')
+            ::middleware(TokenMiddleware::class, 'scope', ['usuario_cliente:alterar_senha'])
+            ::request(['senha_atual', 'senha_nova'])
+            ::put('/usuario-cliente/alterar-senha');
     });
 
 Route
@@ -1199,7 +1223,6 @@ Route
             ::nome('buscar')
             ::middleware(TokenMiddleware::class, 'scope', ['construtor_clube:buscar'])
             ::get('/construtor-clube/{id}');
-
         Route
             ::nome('listar')
             ::middleware(TokenMiddleware::class, 'scope', ['construtor_clube:listar'])
@@ -1208,7 +1231,6 @@ Route
                 '!status', '!data_inicio', '!data_final'
             ], 'json')
             ::get('/construtor-clube');
-
         Route
             ::nome('salvar')
             ::middleware(TokenMiddleware::class, 'scope', ['construtor_clube:salvar'])
@@ -1216,9 +1238,8 @@ Route
                 'empresa', 'titulo', 'logo_principal', 'logo_secundaria', 'favicon', '!logo_footer', 'header_tag',
                 'header_descricao', '!cor_principal', '!cor_secundaria', 'link_clube', 'link_login', 'link_cadastro',
                 'link_salavip', 'link_app_ios', 'link_app_android', 'contato_telefone', 'contato_whatsapp',
-                'contato_email',
-                'contato_horario', 'contato_endereco', 'menu_faq', 'menu_como_funciona', 'menu_samsung',
-                'menu_sair', 'menu_acesso_rapido', 'menu_loja', 'menu_mapa', 'menu_cinema',
+                'contato_email', 'contato_horario', 'contato_endereco', 'menu_faq', 'menu_como_funciona',
+                'menu_samsung', 'menu_sair', 'menu_acesso_rapido', 'menu_loja', 'menu_mapa', 'menu_cinema',
                 'menu_turismo', 'menu_historico', 'menu_farmacia', 'menu_automovel', 'menu_tema',
                 'menu_saude_vitoria', 'menu_saude_amil', 'menu_saude_seguro', 'menu_saude_cnu',
                 'menu_saude_florianopolis', 'menu_cashback', 'menu_indicar_usuario', 'menu_indicar_loja',
@@ -1226,10 +1247,10 @@ Route
                 'menu_salavip', 'menu_ponto_mais_acao', 'menu_credito_sicoob', 'menu_primeiro_acesso', 'chat_status',
                 'menu_meu_parceiro', 'administrado_status', 'api_status', 'tipo_ativacao', 'status',
                 'menu_corrida', 'menu_show_nacional', 'menu_show_internacional', 'link_odontologico',
-                'campos_primeiro_acesso', 'grupo_label', 'grupo_placeholder', '!copiar_padrao'
-            ])
+                'campos_primeiro_acesso', 'grupo_label', 'grupo_placeholder', 'link_facebook', 'link_instagram',
+                'link_twitter', 'link_linkedin', 'link_youtube', 'link_tiktok', 'tela_login', '!copiar_padrao'
+           ])
             ::post('/construtor-clube');
-
         Route
             ::nome('atualizar')
             ::middleware(TokenMiddleware::class, 'scope', ['construtor_clube:atualizar'])
@@ -1244,19 +1265,17 @@ Route
                 '!menu_saude_vitoria', '!menu_saude_amil', '!menu_saude_seguro', '!menu_saude_cnu',
                 '!menu_saude_florianopolis', '!menu_cashback', '!menu_indicar_usuario', '!menu_indicar_loja',
                 '!menu_odontologico', '!menu_ponto_mais_acao', '!menu_premium', '!menu_dependente', '!menu_carteira',
-                '!menu_cupom',
-                '!menu_salavip', '!menu_credito_sicoob', '!menu_primeiro_acesso', '!chat_status',
+                '!menu_cupom', '!menu_salavip', '!menu_credito_sicoob', '!menu_primeiro_acesso', '!chat_status',
                 '!menu_meu_parceiro', '!administrado_status', '!api_status', '!tipo_ativacao', '!status',
                 '!menu_corrida', '!menu_show_nacional', '!menu_show_internacional', '!link_odontologico',
-                '!campos_primeiro_acesso', '!grupo_label', '!grupo_placeholder', '!copiar_padrao'
+                '!campos_primeiro_acesso', '!grupo_label', '!grupo_placeholder', '!link_facebook', '!link_instagram',
+                '!link_twitter', '!link_linkedin', '!link_youtube', '!link_tiktok', '!tela_login', '!copiar_padrao'
             ])
             ::put('/construtor-clube/{id}');
-
         Route
             ::nome('deletar')
             ::middleware(TokenMiddleware::class, 'scope', ['construtor_clube:deletar'])
             ::delete('/construtor-clube/{id}');
-
         Route
             ::nome('clube')
             ::middleware(TokenMiddleware::class, 'scope', ['construtor_clube:buscar'])
@@ -1277,15 +1296,56 @@ Route
             ::nome('listar')
             ::middleware(TokenMiddleware::class, 'scope', ['parceiro_loja:listar'])
             ::request([
-                'pagina', '!quantidade', '!categoria', '!subcategoria', '!estabelecimento',
-                '!pesquisa', '!tipo', '!status', '!ordem', '!favorito', '!mais_acessado',
-                '!latitude', '!longitude', '!estado', '!empresa'
+                'pagina', '!quantidade', '!categoria', '!subcategoria', '!tipo_estabelecimento',
+                '!pesquisa', '!titulo', '!tipo_loja', '!status', '!ordem', '!favorito', '!mais_acessado',
+                '!latitude', '!longitude', '!endereco_estado', '!empresa', '!equipe'
             ], 'json')
             ::get('/parceiro-loja');
         Route
             ::nome('buscar')
             ::middleware(TokenMiddleware::class, 'scope', ['parceiro_loja:buscar'])
             ::get('/parceiro-loja/{id}');
+        Route
+            ::nome('salvar')
+            ::request([
+                'nome_fantasia', 'razao_social', 'tipo_juridico', 'documento_cpf', 'documento_cnpj',
+                'titulo_interno', 'tipo_loja', 'equipe', 'responsavel_nome', 'responsavel_cpf', 'responsavel_email',
+                'responsavel_telefone', 'responsavel_cargo', 'imagem_logo', 'imagem_capa_desktop',
+                'imagem_capa_mobile', 'titulo', 'tipo_estabelecimento', 'origem_lead', 'url', 'desconto',
+                'delivery', 'convenio_direto', 'data_contrato_inicio', 'data_contrato_vencimento', 'precisa_aditivo',
+                'email_contato', 'tipo_procedimento', 'limite_voucher', 'prazo_voucher', 'prazo_voucher_fixo',
+                'contato_whatsapp', 'link_site', 'link_alias', 'link_bloqueado', 'texto_descricao', 'texto_desconto',
+                'texto_procedimento', 'texto_voucher', 'categoria_principal', 'categoria_lista', 'subcategoria_tag',
+                'subcategoria_lista', 'empresa', 'destaque', 'endereco_estado', 'pontuacao', 'confirmar_status',
+                'confirmar_titulo', 'confirmar_texto', 'arquivo_painel', 'arquivo_clube', 'cupom_desconto',
+                'comissao_minima', 'comissao_maxima', 'texto_restricao', 'texto_outro'
+            ])
+            ::post('/parceiro-loja');
+        Route
+            ::nome('atualizar')
+            ::request([
+                '!nome_fantasia', '!razao_social', '!tipo_juridico', '!documento_cpf', '!documento_cnpj',
+                '!titulo_interno', '!tipo_loja', '!equipe', '!responsavel_nome', '!responsavel_cpf', '!responsavel_email',
+                '!responsavel_telefone', '!responsavel_cargo', '!imagem_logo', '!imagem_capa_desktop',
+                '!imagem_capa_mobile', '!titulo', '!tipo_estabelecimento', '!origem_lead', '!url', '!desconto',
+                '!delivery', '!convenio_direto', '!data_contrato_inicio', '!data_contrato_vencimento', '!precisa_aditivo',
+                '!email_contato', '!tipo_procedimento', '!limite_voucher', '!prazo_voucher', '!prazo_voucher_fixo',
+                '!contato_whatsapp', '!link_site', '!link_alias', '!link_bloqueado', '!texto_descricao', '!texto_desconto',
+                '!texto_procedimento', '!texto_voucher', '!categoria_principal', '!categoria_lista', '!subcategoria_tag',
+                '!subcategoria_lista', '!empresa', '!destaque', '!endereco_estado', '!pontuacao', '!confirmar_status',
+                '!confirmar_titulo', '!confirmar_texto', '!arquivo_painel', '!arquivo_clube', '!cupom_desconto',
+                '!status', '!comissao_minima', '!comissao_maxima', '!texto_restricao', '!texto_outro'
+            ])
+            ::put('/parceiro-loja/{id}');
+        Route
+            ::nome('deletar')
+            ::middleware(TokenMiddleware::class, 'scope', ['parceiro_loja:deletar'])
+            ::delete('/parceiro-loja/{id}');
+        Route
+            ::nome('auditoria')
+            ::middleware(TokenMiddleware::class, 'scope', ['parceiro_loja:atualizar'])
+            ::request(['parceiro', 'auditoria', 'mensagem'])
+            ::post('/parceiro-loja/auditoria');
         Route
             ::nome('destaque')
             ::middleware(TokenMiddleware::class, 'scope', ['parceiro_loja:destaque'])
@@ -1337,11 +1397,14 @@ Route
     ::controller(App\Controllers\Api\ParceiroFavoritoController::class)
     ::grupo(function () {
         Route
+            ::nome('listar')
+            ::middleware(TokenMiddleware::class, 'scope', ['parceiro_favorito:listar'])
+            ::get('/parceiro-favorito');
+        Route
             ::nome('salvar')
             ::middleware(TokenMiddleware::class, 'scope', ['parceiro_favorito:salvar'])
             ::request(['parceiro'])
             ::post('/parceiro-favorito');
-
         Route
             ::nome('deletar')
             ::middleware(TokenMiddleware::class, 'scope', ['parceiro_favorito:deletar'])
@@ -1720,7 +1783,7 @@ Route
             ::nome('salvar')
             ::middleware(TokenMiddleware::class, 'scope', ['demanda_dado:salvar'])
             ::request([
-                'empresa', 'titulo', 'tipo', 'area'
+                'empresa', 'titulo', 'tipo', 'area', '!data_entrega', '!com_prazo'
             ])
             ::post('/demanda-dado');
 
@@ -1729,7 +1792,7 @@ Route
             ::middleware(TokenMiddleware::class, 'scope', ['demanda_dado:atualizar'])
             ::request([
                 '!titulo', '!arquivo', '!id_admin_empresa', '!id_usuario_equipe',
-                '!data_entrega', '!com_prazo', '!status', '!ordem', '!tarefa_tipo'
+                '!data_entrega', '!com_prazo', '!status', '!ordem', '!tarefa_tipo',
             ])
             ::put('/demanda-dado/{id}');
 

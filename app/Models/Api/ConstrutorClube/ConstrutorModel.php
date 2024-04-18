@@ -120,16 +120,12 @@ final class ConstrutorModel extends ORM implements
             $where[] = ['titulo', 'LIKE', "%$this->titulo%"];
         }
 
-        if ($this->dataInicio->valido() && $this->dataFinal->valido()) {
-            $where[] = [
-                'data_inicio', 'between', [$this->dataInicio->date(), $this->dataFinal->date()]
-            ];
-        } elseif ($this->dataInicio->valido()) {
-            $where[] = ['data_inicio', $this->dataInicio->date()];
-        } elseif ($this->dataFinal->valido()) {
-            $where[] = ['data_final', $this->dataFinal->date()];
+        if ($this->dataInicio->valido()) {
+            $where[] = ['data_criacao', '>=', $this->dataInicio->date()];
         }
-
+        if ($this->dataFinal->valido()) {
+            $where[] = ['data_criacao', '<=', $this->dataFinal->date() . ' 23:59:59'];
+        }
         if ($this->status->valido()) {
             $where[] = ['status', $this->status->numero()];
         }

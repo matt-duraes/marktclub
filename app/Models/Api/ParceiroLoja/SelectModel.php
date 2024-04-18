@@ -3,7 +3,7 @@
 namespace App\Models\Api\ParceiroLoja;
 
 use ORM\ORM;
-use App\Classes\ParceiroLoja\Tipo;
+use App\Classes\ParceiroLoja\TipoLoja;
 
 class SelectModel extends ORM
 {
@@ -11,7 +11,7 @@ class SelectModel extends ORM
 
     public function __construct(
         private ?string $titulo = null,
-        private Tipo $tipo = new Tipo(null)
+        private TipoLoja $tipo = new TipoLoja(null)
     ) {
         parent::__construct();
     }

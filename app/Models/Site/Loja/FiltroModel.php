@@ -7,7 +7,7 @@ use Helpers\LocalizacaoHelper;
 use App\Helpers\ClubeApiHelper;
 use App\Classes\ParceiroLoja\Ordem;
 use App\Classes\ParceiroLoja\Categoria;
-use App\Classes\ParceiroLoja\Estabelecimento;
+use App\Classes\ParceiroLoja\TipoEstabelecimento;
 
 final class FiltroModel extends ClubeApiHelper
 {
@@ -137,7 +137,7 @@ final class FiltroModel extends ClubeApiHelper
             } elseif ($ind == 'categoria') {
                 $valor = (new Categoria($val))->nome();
             } elseif ($ind == 'estabelecimento') {
-                $valor = (new Estabelecimento($val))->nome();
+                $valor = (new TipoEstabelecimento($val))->nome();
             } elseif ($ind == 'ordem') {
                 $valor = (new Ordem($val))->nome();
             } elseif ($ind == 'estado') {

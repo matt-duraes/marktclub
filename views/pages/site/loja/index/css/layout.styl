@@ -3,6 +3,7 @@
 @resource "site/busca"
 @resource "site/loja/busca"
 @resource "site/loja/parceiro"
+@resource "site/automovel/mensagem"
 @system "Esqueleto"
 
 .bloco_carregar_mais
@@ -40,7 +41,6 @@
     min-height: 100vh
     flexCol()
     align-items: center
-    margin-top: 40px
     .banner
         margin-bottom: 40px
         z-index: 2
@@ -50,7 +50,7 @@
 #bloco_loja_index .bloco_especial
     maxWidth()
     flexRow()
-    margin: -20px 0 20px
+    margin: 20px 0
     z-index: 6
     &.separar
         border-top: 1px solid #DDD

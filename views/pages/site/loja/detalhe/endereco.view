@@ -1,0 +1,28 @@
+@ if( $dado->endereco ):
+<div class="bloco_pagina_popup display_none" id="bloco_endereco">
+    <header class="header_pagina_popup">
+        <h1>Endereço</h1>
+        <i class="popup_fechar fechar">@iconeFechar</i>
+    </header>
+    <div class="conteudo_pagina_popup conteudo_popup">
+        <form class="form_geral">
+            @? formSelect(name: 'endereco_pais', label: 'Pais', placeholder: 'Escolha um pais', id: 'bloco_endereco_pais', lista: []);
+            @? formSelect(name: 'endereco_estado', label: 'Estado', placeholder: 'Escolha um estado', id: 'bloco_endereco_estado', lista: []);
+            @? formSelect(name: 'endereco_cidade', label: 'Cidade', placeholder: 'Escolha uma cidade', id: 'bloco_endereco_cidade', lista: []);
+        </form>
+        <div class="mensagem">
+            <div class="zero display_none" id="bloco_pais">Escolha um pais para continuar</div>
+            <div class="zero display_none" id="bloco_estado">Escolha um estado para continuar</div>
+            <div class="zero display_none" id="bloco_cidade">Escolha uma cidade para continuar</div>
+        </div>
+        <div class="conteudo bloco_lista_texto_icone" id="bloco_endereco_lista">
+
+        </div>
+    </div>
+</div>
+<div class="linha display_none" id="bloco_endereco_padrao">
+    <p></p>
+    <i class="borda botao">@iconeCopiar(12)</i>
+    <a href="" target="_blank" rel="noopener noreferrer">Abrir mapa</a>
+</div>
+@ endif;

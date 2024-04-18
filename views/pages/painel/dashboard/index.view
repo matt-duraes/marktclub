@@ -1,1 +1,4 @@
 @template "painel"
+<div class="container_titulo">
+    <h1>Boas-vindas ao Painel!</h1>
+</div>

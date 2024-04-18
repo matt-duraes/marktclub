@@ -60,6 +60,7 @@ final class ListaModel extends ORM implements ModelListarInterface
                 'id'               => $r->uuid,
                 'titulo'           => $r->titulo,
                 'texto'            => $r->texto_pequeno,
+                'texto_grande'     => $r->texto_grande,
                 'lista'            => jsonDecode($r->lista, true, true),
                 'grupo'            => $Grupo->indice($r->grupo),
                 'imagem'           => arquivoPrivado($r->imagem),

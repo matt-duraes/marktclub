@@ -34,10 +34,7 @@ $permissao = [
     'parceiro_relatorio_index', 'parceiro_relatorio_add', 'parceiro_relatorio_editar', 'parceiro_relatorio_deletar',
 
     'parceiro_loja_index', 'parceiro_loja_add', 'parceiro_loja_editar', 'parceiro_loja_deletar',
-    'parceiro_loja_empresa',
-
-    'parceiro_cashback_index', 'parceiro_cashback_add', 'parceiro_cashback_editar', 'parceiro_cashback_deletar',
-    'parceiro_cashback_empresa',
+    'parceiro_loja_visualizar', 'parceiro_loja_status', 'parceiro_loja_empresa',
 
     'parceiro_easylive_index', 'parceiro_easylive_add', 'parceiro_easylive_editar', 'parceiro_easylive_deletar',
 
@@ -136,7 +133,7 @@ $permissao = [
 
 return [
     [
-        'id'                => '1',
+        'id'                => 1,
         'uuid'              => '8fd85f9f7cc21d6e33399681d6e5fca7',
         'id_admin_empresa'  => '1',
         'tipo'              => '1',
@@ -160,6 +157,7 @@ return [
         'status'            => '1'
     ],
     [
+        'id'                => 2,
         'uuid'              => 'f9cff03397e1be63c18772fccd298cdc',
         'id_admin_empresa'  => '1',
         'tipo'              => '1',
@@ -179,6 +177,26 @@ return [
         'gerente'           => null,
         'admin'             => null,
         'status'            => '1'
+    ],
+    [
+        'id'               => 3,
+        'uuid'             => '5d608f97-1e64-4aba-9b94-2ba1c6376db5',
+        'id_admin_empresa' => 1,
+        'tipo'             => 3,
+        'nome_perfil'      => 'markt.club',
+        'nome_real'        => 'Markt Club',
+        'email_trabalho'   => 'app@marktclub.com.br',
+        'telefone_pessoal' => '61900001234',
+        'documento_cpf'    => '01234567890',
+        'salt'             => password('Teste@1324'),
+        'permissao'        => $permissao,
+        'primeiro_acesso'  => null,
+        'mudar_senha'      => null,
+        'desenvolvedor'    => 1,
+        'marktclub'        => 1,
+        'admin'            => 1,
+        'gerente'          => 1,
+        'status'           => 1,
     ],
     [
         'uuid'              => '3df1a38ec0919bd14162beabb73e12b4',
@@ -285,25 +303,6 @@ return [
         'gerente'           => '1',
         'admin'             => '1',
         'status'            => '1'
-    ],
-    [
-        'uuid'             => '5d608f97-1e64-4aba-9b94-2ba1c6376db5',
-        'id_admin_empresa' => 1,
-        'tipo'             => 3,
-        'nome_perfil'      => 'markt.club',
-        'nome_real'        => 'Markt Club',
-        'email_trabalho'   => 'app@marktclub.com.br',
-        'telefone_pessoal' => '61900001234',
-        'documento_cpf'    => '01234567890',
-        'salt'             => password('Teste@1324'),
-        'permissao'        => $permissao,
-        'primeiro_acesso'  => null,
-        'mudar_senha'      => null,
-        'desenvolvedor'    => 1,
-        'marktclub'        => 1,
-        'admin'            => 1,
-        'gerente'          => 1,
-        'status'           => 1,
     ],
     [
         'uuid'             => '96f5027d-c516-4674-9556-e28f9e542cd6',

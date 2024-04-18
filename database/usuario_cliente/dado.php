@@ -137,5 +137,15 @@ $seeds = [
         'salt'          => password('Teste@1324'),
         'status'        => 1
     ],
+    [
+        'cod'           => uuid(),
+        'empresa'       => 1,
+        'tipo'          => 1,
+        'nome'          => 'André Rodrigues',
+        'documento'     => 1495180131,
+        'email_pessoal' => 'andrerodrigues@andrerodrigues.com',
+        'salt'          => password('Teste@1324'),
+        'status'        => 1
+    ],
 ];
 return $seeds;

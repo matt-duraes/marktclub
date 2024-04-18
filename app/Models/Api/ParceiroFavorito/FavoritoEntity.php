@@ -16,7 +16,7 @@ final class FavoritoEntity extends Entity
     public function __construct(
         private ?LojaEntity $Parceiro = null
     ) {
-        $this->idUsuario = 1;
+        $this->idUsuario = TOKEN['usuario']->id;
         parent::__construct();
     }
 

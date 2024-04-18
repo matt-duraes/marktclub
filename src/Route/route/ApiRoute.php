@@ -73,6 +73,10 @@ Route
             ::request(['pagina', 'pesquisa', 'grupo'], 'json')
             ::get('/upload-arquivo');
         Route
+            ::nome('dado')
+            ::request(['arquivo'])
+            ::post('/upload-arquivo/dado');
+        Route
             ::nome('buscar')
             ::get('/upload-arquivo/{id}');
         Route
@@ -141,38 +145,47 @@ Route
     ::middleware(TokenMiddleware::class, 'token')
     ::grupo(function () {
         Route
+            ::nome('principal')
+            ::middleware(TokenMiddleware::class, 'scope', ['endereco:listar'])
+            ::request([
+                '!latitude', '!longitude', 'local_principal', 'local_secundario', 'vinculo'
+            ], 'json')
+            ::get('/endereco/principal');
+        Route
+            ::nome('estrutura')
+            ::middleware(TokenMiddleware::class, 'scope', ['endereco:listar'])
+            ::request([
+                '!pais', '!estado', 'local_principal', 'local_secundario', 'vinculo'
+            ], 'json')
+            ::get('/endereco/estrutura');
+        Route
             ::nome('listar')
             ::middleware(TokenMiddleware::class, 'scope', ['endereco:listar'])
             ::request([
-                '!pais', '!estado', '!cidade', 'tipo', 'local', 'vinculo', '!ordem'
+                '!pais', '!estado', '!cidade', 'local_principal', 'local_secundario', 'vinculo', '!ordem', '!pagina', '!quantidade', '!titulo'
             ], 'json')
             ::get('/endereco');
-
         Route
             ::nome('buscar')
             ::middleware(TokenMiddleware::class, 'scope', ['endereco:buscar'])
             ::get('/endereco/{id}');
-
         Route
             ::nome('salvar')
             ::middleware(TokenMiddleware::class, 'scope', ['endereco:salvar'])
             ::request([
-                'vinculo', 'tipo', 'local', 'titulo', 'telefone', 'cep', 'logradouro', 'complemento',
+                'vinculo', 'local_secundario', 'local_principal', 'titulo', 'cep', 'logradouro', 'complemento',
                 'referencia', 'numero', 'bairro', 'cidade', 'estado', 'pais', 'latitude',
                 'longitude', 'principal'
             ])
             ::post('/endereco');
-
         Route
             ::nome('atualizar')
             ::middleware(TokenMiddleware::class, 'scope', ['endereco:atualizar'])
             ::request([
-                '!vinculo', '!tipo', '!local', '!titulo', '!telefone', '!cep', '!logradouro', '!complemento',
-                '!referencia', '!numero', '!bairro', '!cidade', '!estado', '!pais', '!latitude',
-                '!longitude', '!principal'
+                '!titulo', '!cep', '!logradouro', '!complemento', '!referencia', '!numero',
+                '!bairro', '!cidade', '!estado', '!pais', '!latitude', '!longitude', '!principal'
             ])
             ::put('/endereco/{id}');
-
         Route
             ::nome('deletar')
             ::middleware(TokenMiddleware::class, 'scope', ['endereco:deletar'])
@@ -188,7 +201,45 @@ Route
             ::nome('listar')
             ::middleware(TokenMiddleware::class, 'scope', ['contato:listar'])
             ::request([
-                '!local', '!tipo', '!nome', '!vinculo'
+                '!local_principal', '!local_secundario', '!pesquisa', '!tipo', '!vinculo',
+                '!pagina', '!quantidade'
             ], 'json')
             ::get('/contato');
+        Route
+            ::nome('buscar')
+            ::middleware(TokenMiddleware::class, 'scope', ['contato:buscar'])
+            ::get('/contato/{id}');
+        Route
+            ::nome('salvar')
+            ::middleware(TokenMiddleware::class, 'scope', ['contato:salvar'])
+            ::request([
+                'vinculo', 'local_secundario', 'local_principal', 'titulo', 'nome', 'cpf', 'valor',
+                'tipo', 'whatsapp', 'principal'
+            ])
+            ::post('/contato');
+        Route
+            ::nome('atualizar')
+            ::middleware(TokenMiddleware::class, 'scope', ['contato:atualizar'])
+            ::request([
+                '!titulo', '!nome', '!cpf', '!valor', '!tipo', '!whatsapp', '!principal'
+            ])
+            ::put('/contato/{id}');
+        Route
+            ::nome('deletar')
+            ::middleware(TokenMiddleware::class, 'scope', ['contato:deletar'])
+            ::delete('/contato/{id}');
+    });
+
+Route
+    ::nome('data')
+    ::controller(\ApiController\DataController::class)
+    ::middleware(TokenMiddleware::class, 'token')
+    ::grupo(function () {
+        Route
+            ::nome('listar')
+            ::middleware(TokenMiddleware::class, 'scope', ['data:listar'])
+            ::request([
+                '!local_principal', '!vinculo', '!pagina', '!quantidade'
+            ], 'json')
+            ::get('/data');
     });

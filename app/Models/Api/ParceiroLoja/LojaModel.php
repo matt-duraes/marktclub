@@ -4,23 +4,23 @@ namespace App\Models\Api\ParceiroLoja;
 
 use ORM\ORM;
 use stdClass;
-use Http\Request;
+use Where\Where;
+use Modules\Botao;
+use Modules\Pagina;
 use Helpers\OrmHelper;
-use Modules\EnderecoEstado;
+use Modules\Quantidade;
 use ApiModel\Endereco\RaioModel;
-use App\Classes\ParceiroLoja\Tipo;
-use System\Classes\Endereco\Local;
 use System\Trait\Model\OrdemTrait;
 use App\Classes\ParceiroLoja\Ordem;
 use System\Trait\Model\PaginaTrait;
 use App\Classes\ParceiroLoja\Status;
+use App\Classes\ParceiroLoja\TipoLoja;
 use App\Classes\ParceiroLoja\Categoria;
 use System\Trait\Model\QuantidadeTrait;
 use System\Interface\ModelListarInterface;
-use App\Classes\ParceiroLoja\Estabelecimento;
 use App\Models\Api\Trait\ValidarEmpresaTrait;
 use App\Models\Api\Demanda\Trait\EmpresaTrait;
-use System\Classes\Endereco\Tipo as EnderecoTipo;
+use App\Classes\ParceiroLoja\TipoEstabelecimento;
 use App\Models\Api\ParceiroLoja\Trait\ListarCampoTrait;
 use App\Models\Api\ParceiroLoja\Trait\MontarRetornoTrait;
 
@@ -36,16 +36,25 @@ class LojaModel extends ORM implements ModelListarInterface
 
     protected string $ormTabela = TABELA_PARCEIRO_LOJA;
     private int $idEmpresa;
-    private array $favorito = [];
     private array $idMaisAcessado = [];
-
-    public function __construct(
-        private ?Request $request
-    ) {
-        parent::__construct();
-        $this->validarEmpresa('empresa');
-        $this->validarRequest();
-    }
+    public string $equipe;
+    public Pagina $pagina;
+    public Quantidade $quantidade;
+    public Botao $favorito;
+    public Categoria $categoria;
+    public string $subcategoria;
+    public TipoEstabelecimento $tipo_estabelecimento;
+    public string $titulo;
+    public string $pesquisa;
+    public TipoLoja $tipo_loja;
+    public Status $status;
+    public Ordem $ordem;
+    public Botao $mais_acessado;
+    public float $latitude;
+    public float $longitude;
+    public array $endereco_estado;
+    public string $empresa;
+    private bool $buscarFavorito = true;
 
     public function listarDados(): stdClass
     {
@@ -53,32 +62,35 @@ class LojaModel extends ORM implements ModelListarInterface
             ->campo($this->pegarCampo())
             ->pagina($this->pegarPagina(), $this->pegarQuantidade())
             ->where($this->pegarWhere(), obrigatorio: false);
-        //Ordem
-        if (!empty($this->idMaisAcessado)) {
+
+        if ($this->pExiste('favorito') && $this->favorito->valor() == $this->favorito::SIM) {
+            $this->buscarFavorito = false;
+            $dado
+                ->tabela(TABELA_PARCEIRO_FAVORITO)
+                ->campo([['id_parceiro_loja', '!favorito']])
+                ->leftJoin('id_parceiro_loja', 'id')
+                ->where(['id_usuario_cliente', $this->idUsuario]);
+        } elseif (!empty($this->idMaisAcessado)) {
             $dado->orderTexto('FIELD(`' . $this->ormTabela . '`.`id`, ' . implode(',', $this->idMaisAcessado) . ')');
         } else {
-            $dado->order($this->pegarOrdem(new Ordem()));
+            $dado->order($this->pegarOrdem());
         }
 
-        // Favorito
-        $dado
-            ->tabela(TABELA_PARCEIRO_FAVORITO)
-            ->campo([['id_parceiro_loja', '!favorito']]);
-        if ($this->request->favorito == 'sim') {
-            $dado->join('id_parceiro_loja', 'id');
-        } else {
-            $dado->leftJoin('id_parceiro_loja', 'id');
-        }
         // MAPA
-        if (!empty($this->request->latitude) && !empty($this->request->longitude)) {
-            $Raio = new RaioModel($this->request->latitude, $this->request->longitude);
+        if (
+            $this->pExiste('latitude') &&
+            $this->pExiste('longitude') &&
+            !empty($this->latitude) &&
+            !empty($this->longitude)
+        ) {
+            $Raio = new RaioModel($this->latitude, $this->longitude);
             $dado
                 ->tabela(TABELA_SISTEMA_ENDERECO)
-                ->join('cod', 'cod')
+                ->join('id_vinculo', 'uuid')
                 ->campo(['latitude', 'longitude'])
                 ->where([
-                    ['tabela', EnderecoTipo::LOJA],
-                    ['local', (new Local(Local::CLUBE))->numero()],
+                    ['local_principal', TABELA_PARCEIRO_LOJA],
+                    ['local_secundario', 'clube'],
                     ['latitude', 'between', $Raio->latitude],
                     ['longitude', 'between', $Raio->longitude],
                 ]);
@@ -100,103 +112,69 @@ class LojaModel extends ORM implements ModelListarInterface
         return $retorno;
     }
 
-    protected function validarRequest(): void
+    protected function pegarWhere(): Where
     {
-        $tipo = new Tipo($this->request->tipo);
-        if (!$tipo->vazio() && !$tipo->valido()) {
-            mensagemErro('Erro!', 'O campo tipo não é um valor válido.');
-        }
-        $estabelecimento = new Estabelecimento($this->request->estabelecimento);
-        if (!$estabelecimento->vazio() && !$estabelecimento->valido()) {
-            mensagemErro('Erro!', 'O campo estabelecimento não é um valor válido.');
-        }
-        $categoria = new Categoria($this->request->categoria);
-        if (!$categoria->vazio() && !$categoria->valido()) {
-            mensagemErro('Erro!', 'O campo categoria não é um valor válido.');
-        }
-        $status = new Status($this->request->status);
-        if (!$status->vazio() && !$status->valido()) {
-            mensagemErro('Erro!', 'O campo status não é um valor válido.');
-        }
-    }
-
-    protected function pegarWhere(): array
-    {
-        $where = [
-            ['empresa', 'LIKE', '%"' . $this->idEmpresa . '"%']
+        $where = $this->idEmpresa == 1 ? [] : [
+            ['id_admin_empresa', 'json', $this->idEmpresa]
         ];
 
-        $tipo = $this->pegarWhereTipo();
-        if (!empty($tipo)) {
-            $where[] = $tipo;
-        }
+        $Where = new Where($this, $where);
+        $Where
+            ->seValido(propriedade: 'categoria', callback: function () use ($Where) {
+                $Where->manual([
+                    'OR',
+                    ['categoria_principal', $this->categoria->numero()],
+                    ['categoria_lista', 'json', $this->categoria->numero()]
+                ]);
+            })
+            ->seVazio(propriedade: 'subcategoria', vazio: false, callback: function () use ($Where) {
+                $tag = $this->pegarIdSubCategoria();
+                $Where->linha(propriedade: 'subcategoria_lista', condicao: 'json', valor: $tag);
+            })
+            ->seVazio(propriedade: 'pesquisa', vazio: false, callback: function () use ($Where) {
+                $pesquisa = '%' . $this->pesquisa . '%';
+                $Where->manual([
+                    'OR',
+                    ['titulo', 'like', $pesquisa],
+                    ['subcategoria_tag', 'like', $pesquisa]
+                ]);
+            })
+            ->seVazio(propriedade: 'titulo', vazio: false, callback: function () use ($Where) {
+                $titulo = '%' . $this->titulo . '%';
+                $Where->manual([
+                    'OR',
+                    ['titulo', 'like', $titulo],
+                    ['titulo_interno', 'like', $titulo]
+                ]);
+            })
+            ->linha('equipe', campo: 'id_usuario_equipe', valor: $this->pegarIdEquipe())
+            ->linha('tipo_estabelecimento')
+            ->seBotao('mais_acessao', callback: function () use ($Where) {
+                $this->idMaisAcessado = (new MaisAcessadoModel($this->idEmpresa, $this->pegarQuantidade()))->id;
+                $Where->linha(propriedade: 'id', condicao: 'in', valor: $this->idMaisAcessado);
+            })
+            ->linha('endereco_estado', 'json')
+            ->linha('status');
 
-        $categoria = new Categoria($this->request->categoria);
-        if ($categoria->valido()) {
-            $where[] = [
-                'OR',
-                ['categoria_principal', $categoria->numero()],
-                ['categoria_todas', 'like', '%"' . $categoria->numero() . '"%']
-            ];
+        if ($this->pExiste('tipo_loja') && $this->tipo_loja->indice() == 'desconto') {
+            $Where->manual(['tipo_loja', '!=', new TipoLoja(TipoLoja::CASHBACK)]);
+        } else {
+            $Where->linha(propriedade: 'tipo_loja');
         }
-
-        $tag = $this->pegarIdSubCategoria();
-        if (!empty($tag)) {
-            $where[] = ['tag_lista', 'like', '%"' . $tag . '"%'];
-        }
-
-        $pesquisa = $this->request->pesquisa;
-        if (!empty($pesquisa)) {
-            $where[] = [
-                'OR',
-                ['titulo', 'like', '%' . $pesquisa . '%'],
-                ['tag', 'like', '%' . $pesquisa . '%']
-            ];
-        }
-
-        $estabelecimento = new Estabelecimento($this->request->estabelecimento);
-        if ($estabelecimento->valido()) {
-            $where[] = ['estabelecimento', $estabelecimento->numero()];
-        }
-
-        if (!empty($this->request->mais_acessado)) {
-            $this->idMaisAcessado = (new MaisAcessadoModel($this->idEmpresa, $this->pegarQuantidade()))->id;
-        }
-        if (!empty($this->idMaisAcessado)) {
-            $where[] = ['id', 'in', $this->idMaisAcessado];
-        }
-
-        $estado = new EnderecoEstado($this->request->estado);
-        if ($estado->valido()) {
-            $where[] = ['estado', 'LIKE', '%"' . $estado->valor() . '"%'];
-        }
-
-        $status = new Status($this->request->status);
-        if ($this->idEmpresa != 1 || !$status->valido()) {
-            $where[] = ['status', (new Status(Status::CONCLUIDO))->numero()];
-        } elseif ($status->valido()) {
-            $where[] = ['status', $status->numero()];
-        }
-
-        return $where;
+        return $Where;
     }
 
-    private function pegarWhereTipo()
+    private function pegarIdEquipe()
     {
-        $tipo = new Tipo($this->request->tipo);
-        if ($tipo->vazio()) {
-            return;
+        if (!$this->pExiste('equipe') || empty($this->equipe)) {
+            return null;
         }
-
-        if ($tipo->indice() == 'loja') {
-            return ['tipo', 'in', [$tipo->numero(Tipo::LOJA), $tipo->numero(Tipo::LABORATORIO)]];
-        }
-        return ['tipo', $tipo->numero()];
+        return (new OrmHelper(TABELA_USUARIO_EQUIPE))->pegarIdPeloUuid($this->equipe);
     }
 
     private function pegarIdSubCategoria()
     {
-        $tag = $this->request->subcategoria;
+        $tag = $this->subcategoria;
         if (empty($tag)) {
             return '';
         }

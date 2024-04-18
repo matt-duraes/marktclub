@@ -179,7 +179,7 @@ final class ConfiguracoesPadrao
                 'publicacao_noticia_add'     => 'Salvar',
                 'publicacao_noticia_editar'  => 'Editar',
                 'publicacao_noticia_deletar' => 'Deletar',
-                'publicacao_noticia_empresa' => 'Todas as empresas',
+                'publicacao_noticia_empresa' => 'Todas as empresas'
             ]
         ],
         'publicacao_lista'       => [
@@ -201,17 +201,20 @@ final class ConfiguracoesPadrao
                 'editar'
             ],
             'permissao' => [
-                'publicacao_home_editar' => 'Editar',
+                'publicacao_home_editar' => 'Editar'
             ]
         ],
         'publicacao_pagina'        => [
             'titulo'    => 'Páginas',
             'acao'      => [
-                'index', 'editar'
+                'index', 'add', 'editar', 'deletar', 'empresa'
             ],
             'permissao' => [
-                'publicacao_pagina_index'  => 'Listar',
-                'publicacao_pagina_editar' => 'Editar'
+                'publicacao_pagina_index'   => 'Listar',
+                'publicacao_pagina_add'     => 'Salvar',
+                'publicacao_pagina_editar'  => 'Editar',
+                'publicacao_pagina_deletar' => 'Deletar',
+                'publicacao_pagina_empresa' => 'Todas as empresas'
             ]
         ],
         'publicacao_youtube'       => [
@@ -243,25 +246,27 @@ final class ConfiguracoesPadrao
         'publicacao_diretoria'     => [
             'titulo'    => 'Diretoria',
             'acao'      => [
-                'index', 'add', 'editar', 'deletar'
+                'index', 'add', 'editar', 'deletar', 'empresa'
             ],
             'permissao' => [
                 'publicacao_diretoria_index'   => 'Listar',
                 'publicacao_diretoria_add'     => 'Salvar',
                 'publicacao_diretoria_editar'  => 'Editar',
-                'publicacao_diretoria_deletar' => 'Deletar'
+                'publicacao_diretoria_deletar' => 'Deletar',
+                'publicacao_diretoria_empresa' => 'Todas as empresas'
             ]
         ],
         'texto_clube'              => [
             'titulo'    => 'Texto do clube',
             'acao'      => [
-                'index', 'add', 'editar', 'deletar'
+                'index', 'add', 'editar', 'deletar', 'empresa'
             ],
             'permissao' => [
                 'texto_clube_index'   => 'Listar',
                 'texto_clube_add'     => 'Salvar',
                 'texto_clube_editar'  => 'Editar',
-                'texto_clube_deletar' => 'Deletar'
+                'texto_clube_deletar' => 'Deletar',
+                'texto_clube_empresa' => 'Todas as empresas'
             ]
         ],
         'parceiro_relatorio'       => [
@@ -279,27 +284,16 @@ final class ConfiguracoesPadrao
         'parceiro_loja'            => [
             'titulo'    => 'Loja',
             'acao'      => [
-                'index', 'add', 'editar', 'deletar', 'empresa'
+                'index', 'add', 'visualizar', 'editar', 'deletar', 'status', 'empresa'
             ],
             'permissao' => [
-                'parceiro_loja_index'   => 'Listar',
-                'parceiro_loja_add'     => 'Salvar',
-                'parceiro_loja_editar'  => 'Editar',
-                'parceiro_loja_deletar' => 'Deletar',
-                'parceiro_loja_empresa' => 'Todas as empresas'
-            ]
-        ],
-        'parceiro_cashback'        => [
-            'titulo'    => 'Cashback',
-            'acao'      => [
-                'index', 'add', 'editar', 'deletar', 'empresa'
-            ],
-            'permissao' => [
-                'parceiro_cashback_index'   => 'Listar',
-                'parceiro_cashback_add'     => 'Salvar',
-                'parceiro_cashback_editar'  => 'Editar',
-                'parceiro_cashback_deletar' => 'Deletar',
-                'parceiro_cashback_empresa' => 'Todas as empresas'
+                'parceiro_loja_index'      => 'Listar',
+                'parceiro_loja_add'        => 'Salvar',
+                'parceiro_loja_visualizar' => 'Visualizar',
+                'parceiro_loja_editar'     => 'Editar',
+                'parceiro_loja_deletar'    => 'Deletar',
+                'parceiro_loja_status'     => 'Status',
+                'parceiro_loja_empresa'    => 'Todas as empresas'
             ]
         ],
         'parceiro_cupom'           => [
@@ -642,6 +636,34 @@ final class ConfiguracoesPadrao
                 'enquete_add'        => 'Salvar',
                 'enquete_editar'     => 'Editar',
                 'enquete_deletar'    => 'Deletar'
+            ]
+        ],
+        'site_config'                  => [
+            'titulo'    => 'Configurações do Site',
+            'acao'      => [
+                'index', 'visualizar', 'add', 'editar', 'deletar', 'empresa'
+            ],
+            'permissao' => [
+                'site_config_index'      => 'Listar',
+                'site_config_visualizar' => 'Visualizar',
+                'site_config_add'        => 'Salvar',
+                'site_config_editar'     => 'Editar',
+                'site_config_deletar'    => 'Deletar',
+                'site_config_empresa'    => 'Todas as Empresas'
+            ]
+        ],
+        'site_menu'                  => [
+            'titulo'    => 'Configurações do Menu (Site)',
+            'acao'      => [
+                'index', 'visualizar', 'add', 'editar', 'deletar', 'empresa'
+            ],
+            'permissao' => [
+                'site_menu_index'      => 'Listar',
+                'site_menu_visualizar' => 'Visualizar',
+                'site_menu_add'        => 'Salvar',
+                'site_menu_editar'     => 'Editar',
+                'site_menu_deletar'    => 'Deletar',
+                'site_menu_empresa'    => 'Todas as Empresas'
             ]
         ]
     ];

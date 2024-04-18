@@ -2,15 +2,16 @@
 
 namespace App\Models\Api\UsuarioCliente\Ativar;
 
-use App\Classes\ConstrutorClube\TipoAtivacao;
+use ORM\ORM;
+use Throwable;
+use Modules\Cpf;
+use Erro\Excecao;
+use Helpers\OrmHelper;
 use App\Classes\UsuarioCliente\Hash;
 use App\Classes\UsuarioCliente\Status;
 use App\Classes\UsuarioCliente\TipoUsuario;
-use Erro\Excecao;
-use Helpers\OrmHelper;
-use Modules\Cpf;
-use ORM\ORM;
-use Throwable;
+use App\Classes\ConstrutorClube\TipoAtivacao;
+use App\Helpers\Cvs\AtivarHelper as CvsHelper;
 
 final class BuscarModel extends ORM
 {
@@ -78,26 +79,33 @@ final class BuscarModel extends ORM
      */
     private function buscarUsuario(): void
     {
-        $usuario = $this
-            ->campo([
-                'id', 'cpf', 'status'
-            ])
-            ->where($this->pegarWhere())
-            ->primeiro();
+        $usuario = $this->pegarUsuarioBase();
 
         $this->validarUsuario($usuario);
         $this->criarHash($usuario->id);
         $this->setarCpf($usuario->cpf);
     }
 
+    private function pegarUsuarioBase()
+    {
+        $campo = ['id', 'cpf', 'status'];
+        $empresa = (new OrmHelper(TABELA_COMERCIAL_EMPRESA))->pegarIdPeloUuid($this->empresa);
+
+        if($empresa == 198) {
+            new CvsHelper(cpf: new Cpf($this->valor));
+        }
+
+        return $this
+            ->campo($campo)
+            ->where($this->pegarWhere($empresa))
+            ->primeiro();
+    }
+
     /**
      * @return array[]
      */
-    private function pegarWhere(): array
+    private function pegarWhere($empresa): array
     {
-        $empresa = (new OrmHelper(TABELA_COMERCIAL_EMPRESA))
-            ->pegarIdPeloUuid($this->empresa);
-
         if (
             ($this->tipoUsuario !== null)
             && ($this->tipoUsuario->indice() === TipoUsuario::DEPENDENTE)

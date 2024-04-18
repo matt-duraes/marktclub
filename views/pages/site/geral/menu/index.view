@@ -15,7 +15,7 @@
 <div class="categoria">DESCONTOS</div>
 
 @ if( MENU_PREMIUM ):
-<a class="botao {!!MENU_HOVER == 'premium' ? 'cor_bg pagina_atual' : ''!!}" href="@route(loja.premium)">
+<a class="botao {!!MENU_HOVER == 'premium' ? 'cor_bg pagina_atual' : ''!!}" href="@route(geral.premium)">
     <i>@iconePremium</i>
     Premium
 </a>

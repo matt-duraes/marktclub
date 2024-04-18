@@ -5,7 +5,10 @@
     align-items: center
     .bloco_coluna_geral
         max-width: 1200px
-
+    .margem
+        width: 100%
+        display: flex
+        position: relative
 .bloco_app_estrutura .bloco_coluna_1
     width: 100%
     display: flex
@@ -26,7 +29,9 @@
     box-shadow: 0 4px 5px rgba(0,0,0,.05)
     border-radius: 4px
     margin-top: 20px
-    > h2
+    header
+        width: 100%
+    header h2
         height: 40px
         line-height: 40px
         border-bottom: 1px solid #EEE
@@ -40,6 +45,12 @@
         flex-direction: column
         justify-content: flex-start
         align-items: flex-start
+    .lista_dado h4
+        width: 100%
+        margin-top: 20px
+        texto()
+        color: #666
+        font-weight: 300
     .bloco_row
         width: 100%
         display: flex
