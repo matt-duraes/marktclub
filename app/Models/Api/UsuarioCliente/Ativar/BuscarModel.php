@@ -29,7 +29,7 @@ final class BuscarModel extends ORM
         private readonly TipoAtivacao $tipoAtivacao = new TipoAtivacao(),
         private readonly TipoUsuario $tipoUsuario = new TipoUsuario(),
     ) {
-        parent::__construct();
+        parent::__construct(leitura: false);
         $this->validarDados();
         $this->buscarUsuario();
     }

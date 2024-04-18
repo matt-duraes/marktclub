@@ -51,7 +51,7 @@ abstract class ORM
      *                      host, banco, usuario e senha.
      *                      Caso não informa, será usado o ENV
      */
-    public function __construct(array $option = [], array $conn = [])
+    public function __construct(array $option = [], array $conn = [], bool $leitura = true)
     {
         $this->ormTabelaAtual = $this->ormTabela;
 
@@ -78,7 +78,7 @@ abstract class ORM
             $option
         );
 
-        if (!empty($leitura)) {
+        if (!empty($leitura) && $leitura) {
             $this->ormLeitura = true;
             $this->ormDBLeitura = new PDO(
                 'mysql:host=' . $leitura . ';dbname=' . $banco . $porta,
