@@ -51,10 +51,6 @@ $Painel->coluna(callback: function () use ($Painel) {
                 label: 'Tipo de ativação',
                 placeholder: 'Qual o tipo de ativação?',
                 lista: (new TipoAtivacao())->select('Escolha um tipo')
-            )
-            ->switch(
-                name: 'copiar_padrao',
-                label: 'Copiar clube padrão?'
             );
     });
     $Painel->fieldset('SEO e status', function () use ($Painel) {
