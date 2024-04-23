@@ -14,7 +14,7 @@ $listaOrdem = [
         @? formInput(name: 'input_pesquisa_fake', id: 'bloco_input_pesquisa_fake', placeholder: 'Busque por um convênio', label: 'Pesquisa', class: 'botao_buscar_input busca_pesquisa_fake', value: '')
         <div class="botao">Buscar</div>
     </form>
-    <form action="@route(cashback.buscar)" method="get" id="form_buscar" class="form_geral display_none">
+    <form action="@route(cashback.index)" method="get" id="form_buscar" class="form_geral display_none">
         <div class="conteudo">
             <div class="centralizar">
                 <header>
