@@ -2,6 +2,7 @@
 
 namespace App\Models\Api\SolicitacaoPremium;
 
+use App\Classes\ParceiroLoja\TipoLoja;
 use ORM\ORM;
 use Erro\Excecao;
 use Http\Request;
@@ -52,7 +53,7 @@ final class PremiumModel extends ORM
             ->campo([
                 'id', 'titulo', 'limite_voucher'
             ])
-            ->where(['tipo_loja', 4])
+            ->where(['tipo_loja', (new TipoLoja(TipoLoja::PREMIUM))->numero()])
             ->read();
         return $this->montarRetorno($dado);
     }
