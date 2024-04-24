@@ -52,7 +52,7 @@ final class PremiumModel extends ORM
             ->campo([
                 'id', 'titulo', 'limite_voucher'
             ])
-            ->where(['status', 5])
+            ->where(['tipo_loja', 4])
             ->read();
         return $this->montarRetorno($dado);
     }
