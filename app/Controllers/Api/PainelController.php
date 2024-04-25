@@ -2,21 +2,21 @@
 
 namespace App\Controllers\Api;
 
-use App\Classes\PainelConfiguracoes\Ordem;
-use App\Models\Api\Painel\ConfiguracaoEntity;
-use App\Models\Api\Painel\ConfiguracaoModel;
-use App\Models\Api\Painel\MenuModel;
-use Controller\Controller;
 use Erro\Excecao;
 use Http\Request;
 use Http\Response;
 use Modules\Pagina;
 use Modules\Quantidade;
-use System\Interface\ControllerAtualizarInterface;
+use Controller\Controller;
+use App\Models\Api\Painel\MenuModel;
+use App\Classes\PainelConfiguracoes\Ordem;
+use App\Models\Api\Painel\ConfiguracaoModel;
+use App\Models\Api\Painel\ConfiguracaoEntity;
 use System\Interface\ControllerBuscarInterface;
-use System\Interface\ControllerDeletarInterface;
 use System\Interface\ControllerListarInterface;
 use System\Interface\ControllerSalvarInterface;
+use System\Interface\ControllerDeletarInterface;
+use System\Interface\ControllerAtualizarInterface;
 
 final class PainelController extends Controller implements
     ControllerBuscarInterface,
@@ -49,7 +49,7 @@ final class PainelController extends Controller implements
     {
         return mensagemSucesso(
             pegarPropriedadeDaEntity($configuracaoEntity, lista: [
-                'empresa', 'permissao', 'configuracao', 'campo_obrigatorio',
+                'empresa', 'titulo', 'permissao', 'configuracao', 'campo_obrigatorio',
                 'campo_permitido', 'upload_grupo'
             ]),
             $status

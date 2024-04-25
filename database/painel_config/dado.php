@@ -7,42 +7,9 @@ return [
         'id_admin_empresa'  => 1,
         'permissao'         => ConfiguracoesPadrao::PERMISSOES,
         'configuracao'      => ConfiguracoesPadrao::RECURSOS,
-        'campo_permitido'   => [
-            'usuario_cliente' => [
-                'geral'    => [
-                    'nome', 'cpf', 'matricula', 'siape', 'genero', 'estado_civil', 'data_nascimento', 'email_trabalho',
-                    'email_pessoal', 'telefone_pessoal', 'telefone_trabalho', 'endereco_cidade', 'endereco_bairro',
-                    'endereco_complemento', 'endereco_numero', 'tipo_pagamento', 'analytics', 'salavip',
-                    'endereco_logradouro', 'endereco_cep', 'endereco_estado', 'senha',
-                    'status', 'primeiro_acesso', 'mudar_senha', 'imagem', 'dependente', 'pagamento', 'data_criacao_de',
-                    'data_criacao_ate', 'data_criacao', 'data_upload', 'grupo', 'trabalho_cargo', 'trabalho_empresa',
-                    'trabalho_data_inicio', 'grupo', 'lead', 'origem', 'tipo', 'empresa', 'subempresa', 'federacao'
-                ],
-                'download' => [
-                    'status', 'rg', 'email_funcional', 'data_acesso', 'data_atualizacao', 'data_criacao',
-                    'endereco_cidade', 'endereco_bairro', 'endereco_complemento', 'endereco_numero',
-                    'endereco_logradouro', 'endereco_cep', 'endereco_estado', 'federacao', 'grupo',
-                    'matricula', 'data_nascimento', 'genero', 'estado_civil', 'cpf', 'telefone_pessoal',
-                    'telefone_trabalho', 'email_pessoal', 'email_trabalho', 'nome', 'siape', 'data_upload',
-                    'lead', 'origem', 'empresa', 'subempresa', 'federacao', 'trabalho_empresa', 'trabalho_cargo',
-                    'tipo_pagamento'
-                ]
-            ],
-            'usuario_equipe'  => [
-                'geral' => [
-                    'nome', 'cpf', 'genero', 'data_nascimento', 'email_trabalho', 'senha', 'status', 'primeiro_acesso',
-                    'email_trabalho', 'email_pessoal', 'telefone_trabalho', 'telefone_pessoal', 'mudar_senha',
-                    'permissao',
-                    'empresa', 'subempresa'
-                ]
-            ]
-        ],
+        'campo_permitido'   => ConfiguracoesPadrao::CAMPOS_PERMITIDOS,
         'campo_obrigatorio' => ConfiguracoesPadrao::CAMPOS_OBRIGATORIOS,
-        'upload_grupo'      => [
-            'imagem'      => 'e53ae4e0-7b33-4988-99ad-50433a29b544',
-            'arquivo'     => '2d978fba-4bd2-4af7-80bf-ebb94d9ac991',
-            'site_config' => '93bb55cb-56fb-4d42-af81-c8100b229348'
-        ]
+        'upload_grupo'      => ConfiguracoesPadrao::UPLOAD_GRUPO
     ],
     [
         'id_admin_empresa'  => 2,

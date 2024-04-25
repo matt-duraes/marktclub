@@ -946,7 +946,7 @@ Route
             ::nome('listar')
             ::middleware(TokenMiddleware::class, 'scope', ['painel_config:listar'])
             ::request([
-                'pagina', '!quantidade', '!ordem', '!empresa'
+                'pagina', '!quantidade', '!ordem', '!empresa', '!titulo'
             ], 'json')
             ::get('/painel-configuracao');
 
@@ -954,7 +954,8 @@ Route
             ::nome('salvar')
             ::middleware(TokenMiddleware::class, 'scope', ['painel_config:salvar'])
             ::request([
-                'empresa', 'configuracao', 'campo_obrigatorio', 'permissao', 'titulo'
+                'empresa', 'configuracao', 'campo_obrigatorio', 'campo_permitido',
+                'permissao', 'titulo'
             ])
             ::post('/painel-configuracao');
 
@@ -962,7 +963,8 @@ Route
             ::nome('atualizar')
             ::middleware(TokenMiddleware::class, 'scope', ['painel_config:atualizar'])
             ::request([
-                '!empresa', '!configuracao', '!campo_obrigatorio', '!permissao', '!titulo'
+                '!empresa', '!configuracao', '!campo_obrigatorio', '!campo_permitido',
+                '!permissao', '!titulo'
             ])
             ::put('/painel-configuracao/{id}');
 
