@@ -38,7 +38,11 @@ window.addEventListener('load', () => {
                 return;
             }
 
-            Alerta.notificacao('Convite reenviado com sucesso.', true);
+            Alerta.mensagem(
+                'Convite enviado com sucesso',
+                'O convite foi reenviado para o e-mail do dependente.',
+                true
+            );
         });
     });
 
@@ -61,7 +65,11 @@ window.addEventListener('load', () => {
             return;
         }
 
-        Alerta.notificacao('Dependente cadastrado com sucesso.', true);
+        Alerta.mensagem(
+            'Convite enviado com sucesso',
+            'Para ativar a conta do dependente: verifique o e-mail cadastrado ou clique em "Primeiro Acesso" na página inicial',
+            true
+        );
         adicionarHtmlDependente(resposta.dado);
 
         monitorarLista();

@@ -34,6 +34,11 @@ final class IndicacaoEntity extends Entity
     protected array $ormUpdate = [
         'status'
     ];
+    protected string $ormValidarSalvar = '
+        nome|Nome|obrigatorio|vazio|valido
+        email|E-mail|obrigatorio|vazio|valido
+        telefone|Telefone|obrigatorio|vazio|valido
+    ';
     private int $idEmpresa;
     protected int $id_admin_empresa;
     protected int $id_usuario_cliente;
@@ -67,7 +72,16 @@ final class IndicacaoEntity extends Entity
 
     private function validarCampoUnico()
     {
-        $this->validarCampoDuplicado('email', '!Esse email já foi indicado!');
+        $usuarioAtivado = (new OrmHelper(TABELA_USUARIO_INDICACAO))
+            ->pegarPrimeiroRegistro([
+                ['email', $this->email->email()],
+                ['status', (new Status(Status::ATIVADO))->numero()],
+                ['id_admin_empresa', $this->idEmpresa]
+            ], ['id'], 'object');
+
+        if (!empty($usuarioAtivado)) {
+            mensagemErro('Erro!', 'Usuário já cadastrado');
+        }
     }
 
     private function setarUsuarioQueIndicou(): void
