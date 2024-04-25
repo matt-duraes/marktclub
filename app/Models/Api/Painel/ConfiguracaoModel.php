@@ -2,16 +2,16 @@
 
 namespace App\Models\Api\Painel;
 
-use App\Classes\PainelConfiguracoes\Ordem;
+use ORM\ORM;
+use stdClass;
 use Erro\Excecao;
 use Modules\Pagina;
 use Modules\Quantidade;
-use ORM\ORM;
-use stdClass;
-use System\Interface\ModelListarInterface;
 use System\Trait\Model\OrdemTrait;
 use System\Trait\Model\PaginaTrait;
 use System\Trait\Model\QuantidadeTrait;
+use App\Classes\PainelConfiguracoes\Ordem;
+use System\Interface\ModelListarInterface;
 
 class ConfiguracaoModel extends ORM implements
     ModelListarInterface
@@ -33,7 +33,8 @@ class ConfiguracaoModel extends ORM implements
         private readonly Pagina $pagina = new Pagina(),
         private readonly Quantidade $quantidade = new Quantidade(),
         private readonly Ordem $ordem = new Ordem(),
-        private readonly ?string $empresa = null
+        private readonly ?string $empresa = null,
+        private readonly ?string $titulo = null
     ) {
         $this->validarRequest();
         parent::__construct();
@@ -57,10 +58,11 @@ class ConfiguracaoModel extends ORM implements
     {
         $configuracoes = $this
             ->campo([
-                'uuid', 'permissao', 'configuracao', 'campo_obrigatorio',
+                'uuid', 'titulo', 'permissao', 'configuracao', 'campo_obrigatorio',
                 'campo_permitido', 'upload_grupo', 'data_criacao',
                 'data_atualizacao'
             ])
+            ->where($this->pegarWhere(), false)
             ->pagina($this->pegarPagina(), $this->pegarQuantidade())
             ->order($this->pegarOrdem(new Ordem()))
             ->tabela(TABELA_COMERCIAL_EMPRESA)
@@ -73,6 +75,18 @@ class ConfiguracaoModel extends ORM implements
 
         $configuracoes->lista = $this->montarRetorno($configuracoes->lista);
         return $configuracoes;
+    }
+
+    /**
+     * @return array
+     */
+    protected function pegarWhere(): array
+    {
+        $where = [];
+        if (!empty($this->titulo)) {
+            $where[] = ['titulo', 'LIKE', "%$this->titulo%"];
+        }
+        return $where;
     }
 
     /**
@@ -102,6 +116,7 @@ class ConfiguracaoModel extends ORM implements
                     'id'   => $configuracao->empresa_cod,
                     'nome' => $configuracao->empresa_titulo,
                 ],
+                'titulo'            => $configuracao->titulo,
                 'permissao'         => jsonDecode($configuracao->permissao, true, true),
                 'configuracao'      => jsonDecode($configuracao->configuracao, true, true),
                 'campo_obrigatorio' => jsonDecode($configuracao->campo_obrigatorio, true, true),
