@@ -6,7 +6,7 @@ $Painel->coluna(coluna: 2, callback: function () use ($Painel) {
     $Painel->fieldset('Dados da Subempresa', function () use ($Painel) {
         $Painel
             ->select(
-                name: 'empresa',
+                name: 'empresa->id',
                 lista: 'empresa',
                 label: 'Empresa Matriz'
             )

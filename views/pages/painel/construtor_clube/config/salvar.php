@@ -16,6 +16,6 @@ return [
         'administrado_status', 'status', 'menu_corrida', 'menu_show_nacional', 'menu_show_internacional',
         'campos_primeiro_acesso', 'grupo_label', 'grupo_placeholder', 'link_facebook', 'link_instagram',
         'link_twitter', 'link_linkedin', 'link_youtube', 'link_tiktok', 'tela_login',
-        'menu_carteira', 'menu_tema',
+        'menu_carteira', 'menu_tema', 'copiar_padrao'
     ]
 ];
