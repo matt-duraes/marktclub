@@ -48,7 +48,7 @@ final class PremiumModel extends ORM
             ->campo(['status'])
             ->where($this->pegarWhere(), false)
             ->tabela(TABELA_PARCEIRO_LOJA)
-            ->join('cod', 'vinculo')
+            ->join('uuid', 'vinculo')
             ->campo([
                 'id', 'titulo', 'limite_voucher'
             ])
