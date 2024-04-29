@@ -136,7 +136,6 @@ class LojaModel extends ORM implements ModelListarInterface
                 $Where->manual([
                     'OR',
                     ['titulo', 'like', $pesquisa],
-                    ['titulo_interno', 'like', $pesquisa],
                     ['subcategoria_tag', 'like', $pesquisa]
                 ]);
             })
