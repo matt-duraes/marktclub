@@ -2,15 +2,16 @@
 
 namespace App\Models\Api\Painel;
 
+use stdClass;
+use ORM\Entity;
 use Erro\Excecao;
 use Helpers\OrmHelper;
-use ORM\Entity;
-use stdClass;
 
 final class ConfiguracaoEntity extends Entity
 {
     public string $empresa;
-    public array $titulo;
+    public array $titulos;
+    public string $titulo;
     public array $permissao;
     public array $configuracao;
     public array $campo_obrigatorio;
@@ -18,12 +19,12 @@ final class ConfiguracaoEntity extends Entity
     public array $upload_grupo;
     protected string $ormTabela = TABELA_PAINEL_CONFIG;
     protected array $ormBuscar = [
-        'id_admin_empresa', 'permissao', 'configuracao',
+        'id_admin_empresa', 'titulo', 'permissao', 'configuracao',
         'campo_obrigatorio', 'campo_permitido', 'upload_grupo'
     ];
     protected array $ormSalvar = [
         'id_admin_empresa' => '->idEmpresa',
-        'permissao', 'configuracao', 'campo_obrigatorio',
+        'titulo', 'permissao', 'configuracao', 'campo_obrigatorio',
         'campo_permitido', 'upload_grupo'
     ];
     protected int $idEmpresa;
@@ -41,7 +42,7 @@ final class ConfiguracaoEntity extends Entity
         $configs = (new OrmHelper(TABELA_PAINEL_CONFIG))
             ->pegarUltimoRegistro(
                 ['id_admin_empresa', TOKEN['empresa']->id],
-                ['permissao', 'configuracao', 'campo_obrigatorio', 'campo_permitido', 'upload_grupo'],
+                ['titulo', 'permissao', 'configuracao', 'campo_obrigatorio', 'campo_permitido', 'upload_grupo'],
                 'object'
             );
 
@@ -49,11 +50,12 @@ final class ConfiguracaoEntity extends Entity
             $configs = (new OrmHelper(TABELA_PAINEL_CONFIG))
                 ->pegarUltimoRegistro(
                     ['id_admin_empresa', 0],
-                    ['permissao', 'configuracao', 'campo_obrigatorio', 'campo_permitido', 'upload_grupo'],
+                    ['titulo', 'permissao', 'configuracao', 'campo_obrigatorio', 'campo_permitido', 'upload_grupo'],
                     'object'
                 );
         }
         return object([
+            'titulo'            => $configs->titulo,
             'permissao'         => jsonDecode($configs->permissao, true, true),
             'configuracao'      => jsonDecode($configs->configuracao, true, true),
             'campo_obrigatorio' => jsonDecode($configs->campo_obrigatorio, true, true),
@@ -65,6 +67,7 @@ final class ConfiguracaoEntity extends Entity
     protected function regraPosBuscar(): void
     {
         $permissoes = [];
+        $campoPermitido = [];
         foreach ($this->permissao as $nomeApp => $permissoesApp) {
             if (array_key_exists('acao', $permissoesApp) && !empty($permissoesApp['acao'])) {
                 foreach ($permissoesApp['acao'] as $permissao) {
@@ -76,9 +79,22 @@ final class ConfiguracaoEntity extends Entity
                 }
             }
         }
+        foreach ($this->campo_permitido as $nomeApp => $recurso) {
+            if (array_key_exists('geral', $recurso) && !empty($recurso['geral'])) {
+                foreach ($recurso['geral'] as $campo) {
+                    $campoPermitido[] = $nomeApp . '-geral-' . $campo;
+                }
+            }
+            if (array_key_exists('download', $recurso) && !empty($recurso['download'])) {
+                foreach ($recurso['download'] as $campo) {
+                    $campoPermitido[] = $nomeApp . '-download-' . $campo;
+                }
+            }
+        }
         $this->permissao = array_unique($permissoes);
         $this->empresa = $this->OrmEmpresa->pegarUuidPeloId($this->id_admin_empresa);
         $this->campo_obrigatorio = $this->campo_obrigatorio['usuario_cliente'];
+        $this->campo_permitido = $campoPermitido;
     }
 
     /**
@@ -174,13 +190,20 @@ final class ConfiguracaoEntity extends Entity
         $painelPermissao = [];
         foreach ($apps as $nomeApp) {
             $painelPermissao[$nomeApp] = [
-                'titulo'    => $this->titulo[$nomeApp] ?? '',
+                'titulo'    => $this->titulos[$nomeApp] ?? '',
                 'acao'      => $acoes[$nomeApp],
                 'permissao' => $permissoes[$nomeApp]
             ];
         }
 
+        $campoPermitido = [];
+        foreach ($this->campo_permitido as $campo) {
+            $appFuncaoCampo = explode('-', $campo);
+            $campoPermitido[$appFuncaoCampo[0]][$appFuncaoCampo[1]][] = $appFuncaoCampo[2];
+        }
+
         $this->permissao = $painelPermissao;
+        $this->campo_permitido = $campoPermitido;
         $this->idEmpresa = $this->OrmEmpresa->pegarIdPeloUuid($this->empresa);
         $this->campo_obrigatorio = [
             'usuario_cliente' => $this->campo_obrigatorio
