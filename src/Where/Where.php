@@ -352,6 +352,30 @@ final class Where implements WhereInterface
         return $this;
     }
 
+    /**
+     * Executa se a propriedade estiver no "inArray
+     *
+     * @param  string       $propriedade
+     * @param  array      $lista
+     * @param  Closure|null $callback
+     * @return self
+     */
+    public function seInArray(string $propriedade, array $lista, Closure $callback = null): self
+    {
+        if (!$this->iniciado($propriedade)) {
+            return $this;
+        }
+
+        $propValor = $this->pegarValor(propriedade: $propriedade);
+
+        if (empty($propValor) || !in_array($propValor, $lista)) {
+            return $this;
+        }
+
+        $this->executarCallback(callback: $callback);
+        return $this;
+    }
+
     private function seIgualDiferente(string $propriedade, mixed $valor = null, Closure $callback = null, bool $igual = true)
     {
         if (!$this->iniciado($propriedade)) {

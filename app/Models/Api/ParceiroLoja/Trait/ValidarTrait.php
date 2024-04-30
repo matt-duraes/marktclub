@@ -26,7 +26,6 @@ trait ValidarTrait
         $this->ormValidarSalvar = '
             titulo_interno|Título para o painel|obrigatorio|vazio
             tipo_loja|Tipo de loja|obrigatorio|vazio|valido
-            url|URL|obrigatorio|vazio
             id_usuario_equipe|Equipe|obrigatorio|vazio
             empresa|Empresa|obrigatorio|vazio
             categoria_principal|Categoria Principal|obrigatorio|vazio|valido
@@ -40,6 +39,7 @@ trait ValidarTrait
             imagem_logo|Imagem do logo|obrigatorio|vazio|valido
             texto_descricao|Texto da descrição|obrigatorio|vazio
             texto_desconto|Texto do desconto|obrigatorio|vazio
+            url|URL|obrigatorio|vazio
         ';
         if ($this->tipo_loja->indice() != $this->tipo_loja::CASHBACK) {
             $this->ormValidarSalvar .= '
@@ -51,13 +51,14 @@ trait ValidarTrait
 
     private function validarLoja()
     {
+        if ($this->status->indice() != Status::CONCLUIDO) {
+            return;
+        }
         $this->ormValidarSalvar .= '
             tipo_estabelecimento|Tipo de estabelecimento|obrigatorio|vazio|valido
         ';
-        if ($this->status->indice() == Status::CONCLUIDO) {
-            $this->validarDataVencimentoContrato();
-            $this->validarTipoProcedimento();
-        }
+        $this->validarDataVencimentoContrato();
+        $this->validarTipoProcedimento();
     }
 
     private function validarCashback()

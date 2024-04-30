@@ -50,6 +50,7 @@ class LojaModel extends ORM implements ModelListarInterface
     public Status $status;
     public Ordem $ordem;
     public Botao $mais_acessado;
+    public string $convenio_direto;
     public float $latitude;
     public float $longitude;
     public array $endereco_estado;
@@ -126,6 +127,14 @@ class LojaModel extends ORM implements ModelListarInterface
                     ['categoria_principal', $this->categoria->numero()],
                     ['categoria_lista', 'json', $this->categoria->numero()]
                 ]);
+            })
+            ->seInArray('convenio_direto', lista: ['sim', 'nao'], callback: function() use ($Where) {
+                $direto = $this->convenio_direto;
+                if($direto == 'sim') {
+                    $Where->manual(['convenio_direto', 1]);
+                } elseif($direto == 'nao') {
+                    $Where->manual(['convenio_direto', 'null']);
+                }
             })
             ->seVazio(propriedade: 'subcategoria', vazio: false, callback: function () use ($Where) {
                 $tag = $this->pegarIdSubCategoria();

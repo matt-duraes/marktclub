@@ -166,7 +166,7 @@ $Painel->coluna(callback: function () use ($Painel) {
             ->telefone(name: 'contato_whatsapp', label: 'WhatsApp', placeholder: 'Número do WhatsApp')
             ->uri(name: 'url', label: 'URL do clube', placeholder: 'Url do clube')
             ->switch(name: 'delivery', label: 'Parceiro faz delivery?')
-            ->switch(name: 'convenio_direto', label: 'É um convênio direto?', acao: 'add')
+            ->switch(name: 'convenio_direto', label: 'É um convênio direto?')
         ;
     });
     $Painel->fieldset('Contrato', function () use ($Painel) {
@@ -338,7 +338,7 @@ $Painel->coluna(callback: function () use ($Painel) {
 $Painel->coluna(callback: function () use ($Painel, $tag) {
     $Painel->fieldset('Subcategoria', function () use ($Painel, $tag) {
         $Painel
-            ->tag(name: 'subcategoria_tag', label: 'Tag', placeholder: 'Digite suas tags')
+            ->tag(name: 'subcategoria_tag', label: 'Tag', placeholder: 'Digite suas tags', espaco: true)
             ->margem(10)
             ->blocoCheckbox(
                 titulo: 'Subcategoria',

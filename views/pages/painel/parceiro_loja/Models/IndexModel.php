@@ -31,13 +31,17 @@ final class IndexModel implements
     {
         $retorno = [];
         foreach ($dado->dado->lista as $r) {
-            $auditoria = '-';
+            $dataAtencao = '-';
             if ($r->status == Status::CONCLUIDO) {
-                $auditoria = !empty($r->data_auditoria)
+                $dataAtencao = !empty($r->data_auditoria)
                 ? dataBr($r->data_auditoria) . ' - ' . dataDiferencaDia($r->data_auditoria, hoje()) . ' dias'
                 : 'Sem auditoria';
+            } elseif($r->status == Status::PROSPECCAO) {
+                $dataAtencao = !empty($r->data_criacao)
+                ? dataBr($r->data_criacao) . ' - ' . dataDiferencaDia($r->data_criacao, hoje()) . ' dias'
+                : 'Sem data';
             }
-            $r->data_auditoria = $auditoria;
+            $r->data_atencao = $dataAtencao;
             $retorno[] = $r;
         }
         $dado->dado->lista = $retorno;
