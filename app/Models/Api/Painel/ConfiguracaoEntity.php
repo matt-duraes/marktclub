@@ -94,7 +94,7 @@ final class ConfiguracaoEntity extends Entity
         $this->permissao = array_unique($permissoes);
         $this->empresa = $this->OrmEmpresa->pegarUuidPeloId($this->id_admin_empresa);
         $this->campo_obrigatorio = $this->campo_obrigatorio['usuario_cliente'];
-        $this->campo_permitido = array_unique($campoPermitido);
+        $this->campo_permitido = $campoPermitido;
     }
 
     /**
