@@ -683,37 +683,42 @@ Route
     ::middleware(TokenMiddleware::class, 'token')
     ::grupo(function () {
         Route
+            ::nome('buscar')
+            ::middleware(TokenMiddleware::class, 'scope', ['comunicacao_publicidade:buscar'])
+            ::get('/comunicacao-publicidade/{id}');
+
+        Route
             ::nome('listar')
             ::middleware(TokenMiddleware::class, 'scope', ['comunicacao_publicidade:listar'])
             ::request([
                 'pagina', '!quantidade', '!titulo', '!data_inicio', '!data_final',
-                '!tipo', '!publicado', '!status', '!ordem'
+                '!tipo', '!publicado', '!status', '!ordem', '!local'
             ], 'json')
             ::get('/comunicacao-publicidade');
-        Route
-            ::nome('buscar')
-            ::middleware(TokenMiddleware::class, 'scope', ['comunicacao_publicidade:buscar'])
-            ::get('/comunicacao-publicidade/{id}');
+
         Route
             ::nome('salvar')
             ::middleware(TokenMiddleware::class, 'scope', ['comunicacao_publicidade:salvar'])
             ::request([
                 'titulo', 'link', 'data_inicio', 'data_final', 'parceiro', 'status',
-                'imagem_desktop', 'imagem_mobile', 'tipo', '!ordem'
+                'imagem_desktop', 'imagem_mobile', 'tipo', '!ordem', '!local'
             ])
             ::post('/comunicacao-publicidade');
+
         Route
             ::nome('atualizar')
             ::middleware(TokenMiddleware::class, 'scope', ['comunicacao_publicidade:atualizar'])
             ::request([
                 '!titulo', '!link', '!data_inicio', '!data_final', '!parceiro', '!status',
-                '!imagem_desktop', '!imagem_mobile', '!tipo', '!ordem'
+                '!imagem_desktop', '!imagem_mobile', '!tipo', '!ordem', '!local'
             ])
             ::put('/comunicacao-publicidade/{id}');
+
         Route
             ::nome('deletar')
             ::middleware(TokenMiddleware::class, 'scope', ['comunicacao_publicidade:deletar'])
             ::delete('/comunicacao-publicidade/{id}');
+
         Route
             ::nome('ordenar')
             ::middleware(TokenMiddleware::class, 'scope', ['comunicacao_publicidade:atualizar'])
@@ -955,7 +960,7 @@ Route
             ::middleware(TokenMiddleware::class, 'scope', ['painel_config:salvar'])
             ::request([
                 'empresa', 'configuracao', 'campo_obrigatorio', 'campo_permitido',
-                'permissao', 'titulo'
+                'permissao', 'titulo', 'titulos'
             ])
             ::post('/painel-configuracao');
 
@@ -964,7 +969,7 @@ Route
             ::middleware(TokenMiddleware::class, 'scope', ['painel_config:atualizar'])
             ::request([
                 '!empresa', '!configuracao', '!campo_obrigatorio', '!campo_permitido',
-                '!permissao', '!titulo'
+                '!permissao', '!titulo', '!titulos'
             ])
             ::put('/painel-configuracao/{id}');
 
