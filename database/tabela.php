@@ -7,7 +7,7 @@ define('TABELA_ANALYTICS_ACESSO_DIA', 'analytics_acesso_dia');
 define('TABELA_ANALYTICS_DADO_USUARIO', 'analytics_dado_usuario');
 define('TABELA_ANALYTICS_DISPOSITIVO', 'analytics_dispositivo');
 define('TABELA_ANALYTICS_LOJA', 'analytics_loja');
-define('TABELA_ANALYTICS_LOJA_VENDA', 'analytics_loja_venda');
+define('TABELA_ANALYTICS_LOJA_EQUIPE', 'analytics_loja_equipe');
 define('TABELA_ANALYTICS_NAVEGADOR', 'analytics_navegador');
 define('TABELA_ANALYTICS_OS', 'analytics_os');
 define('TABELA_ANALYTICS_PAGINA', 'analytics_pagina');

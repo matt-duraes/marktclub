@@ -1,15 +1,15 @@
 <?php
 
-use App\Classes\Geral\Status;
-use App\Classes\ParceiroLoja\Tipo;
 use Helpers\ApiHelper;
+use App\Classes\Geral\Status;
+use App\Classes\ParceiroLoja\TipoLoja;
 
 $Painel = new PainelConfig\Filtrar('parceiro_automovel');
 
 $Loja = (new ApiHelper(token: true))
     ->json([
         'titulo' => 'Escolha um parceiro',
-        'tipo'   => Tipo::AUTOMOVEL
+        'tipo'   => TipoLoja::AUTOMOVEL
     ])
     ->get('/parceiro-loja/select')
     ->array()['dado'] ?? [];

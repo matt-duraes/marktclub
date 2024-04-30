@@ -12,6 +12,26 @@
         &:hover
             color: #333
             border-color: #999
+    .titulo
+        width: 100%
+        subtitulo()
+        padding: 0 20px
+        margin-top: 20px
+    .linha
+        width: calc(100% - 40px)
+        margin: 20px 0 0 20px
+        height: 1px
+        background-color: #CCC
+    .bloco_link
+        width: 100%
+        flexRow()
+        padding-right: 20px
+        justify-content: flex-end
+    .bloco_link a
+        font-size: 1.3rem
+        &:hover
+            text-decoration: underline
+
 
 .bloco_dashboard .bloco_perfil
     width: 100%
@@ -44,3 +64,51 @@
         color: #999
     .botao
         margin: 0 5px
+
+.bloco_dashboard .bloco_geral
+    width: 100%
+    justify-content: space-between
+    flexRow()
+    padding: 0 10px
+    .bloco
+        flexCol()
+        flexGrow()
+        background-color: #fff
+        padding: 10px
+        border-radius: 5px
+        margin: 10px
+    .bloco h1
+        subtitulo()
+        color: #666
+    .bloco .numero
+        width: 100%
+        height: 60px
+        line-height: 60px
+        font-size: 3.5rem
+        font-weight: bold
+        margin-top: 10px
+        flexCenter()
+    .bloco .porcentagem
+        font-size: 2rem
+        margin-bottom: 5px
+        flexRow()
+        align-items: center
+        font-weight: bold
+    .bloco.cima .porcentagem
+        color: $corVerde
+        fill: $corVerde
+    .bloco.baixo .porcentagem
+        color: $corVermelho
+        fill: $corVermelho
+    .bloco .porcentagem i
+        height: 30px
+        flexCenter()
+        display: none
+        margin-right: 5px
+    .bloco.cima .porcentagem i.cima
+        display: flex
+    .bloco.baixo .porcentagem i.baixo
+        display: flex
+    .bloco p
+        texto()
+        color: #999

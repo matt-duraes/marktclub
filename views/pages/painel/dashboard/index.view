@@ -12,4 +12,53 @@
         <a href="{!!route('perfil.dado')!!}" class="botao botao_pequeno_borda">editar perfil</a>
         @ endif;
     </div>
+
+    <!-- <div class="linha"></div>
+
+    <div class="titulo">Convênios</div>
+    <div class="bloco_geral">
+        <div class="bloco cima">
+            <h1>Prospecção</h1>
+            <div class="numero">40</div>
+            <div class="porcentagem">
+                <i class="cima">@iconeFlechaCima(12)</i>
+                <i class="baixo">@iconeFlechaBaixo(12)</i>
+                5%
+            </div>
+            <p>Relação ao mesmo período do mês anterior</p>
+        </div>
+        <div class="bloco baixo">
+            <h1>Problema</h1>
+            <div class="numero">55</div>
+            <div class="porcentagem">
+                <i class="cima">@iconeFlechaCima(12)</i>
+                <i class="baixo">@iconeFlechaBaixo(12)</i>
+                -20%
+            </div>
+            <p>Relação ao mesmo período do mês anterior</p>
+        </div>
+        <div class="bloco baixo">
+            <h1>Cancelado no mês</h1>
+            <div class="numero">33</div>
+            <div class="porcentagem">
+                <i class="cima">@iconeFlechaCima(12)</i>
+                <i class="baixo">@iconeFlechaBaixo(12)</i>
+                -20%
+            </div>
+            <p>Relação ao mesmo período do mês anterior</p>
+        </div>
+        <div class="bloco baixo">
+            <h1>Concluído no mês</h1>
+            <div class="numero">12</div>
+            <div class="porcentagem">
+                <i class="cima">@iconeFlechaCima(12)</i>
+                <i class="baixo">@iconeFlechaBaixo(12)</i>
+                -20%
+            </div>
+            <p>Relação ao mesmo período do mês anterior</p>
+        </div>
+    </div>
+    <div class="bloco_link">
+        <a href="<?= LINK ?>/app/parceiro-loja" class="botao_link">ver lojas</a>
+    </div> -->
 </div>
