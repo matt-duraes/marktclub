@@ -33,7 +33,7 @@ final class ComunicacaoPublicidadeController extends Controller implements
         $Publicidade = new PublicidadeModel(
             pagina: new Pagina($request->pagina),
             quantidade: new Quantidade($request->quantidade),
-            titulo: $request->titulo,
+            pesquisa: $request->pesquisa,
             dataInicio: new Data($request->data_inicio),
             dataFinal: new Data($request->data_final),
             status: new Status($request->status),
