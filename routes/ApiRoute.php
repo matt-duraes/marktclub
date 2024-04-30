@@ -691,7 +691,7 @@ Route
             ::nome('listar')
             ::middleware(TokenMiddleware::class, 'scope', ['comunicacao_publicidade:listar'])
             ::request([
-                'pagina', '!quantidade', '!titulo', '!data_inicio', '!data_final',
+                'pagina', '!quantidade', '!pesquisa', '!data_inicio', '!data_final',
                 '!tipo', '!publicado', '!status', '!ordem', '!local'
             ], 'json')
             ::get('/comunicacao-publicidade');

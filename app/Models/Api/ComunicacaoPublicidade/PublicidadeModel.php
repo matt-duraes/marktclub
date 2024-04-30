@@ -33,7 +33,7 @@ final class PublicidadeModel extends ORM implements ListarInterface
     public function __construct(
         private Pagina $pagina,
         private Quantidade $quantidade,
-        protected ?string $titulo = null,
+        protected ?string $pesquisa = null,
         protected Tipo $tipo = new Tipo(null),
         protected Data $dataInicio = new Data(null),
         protected Data $dataFinal = new Data(null),
@@ -139,8 +139,8 @@ final class PublicidadeModel extends ORM implements ListarInterface
                 ['status', '!=', 1]
             ];
         }
-        if (!empty($this->titulo)) {
-            $where[] = ['titulo', 'like', $this->titulo . '%'];
+        if (!empty($this->pesquisa)) {
+            $where[] = ['titulo', 'like', $this->pesquisa . '%'];
         }
         if ($this->dataInicio->valido() && $publicadoVazio) {
             $where[] = ['data_inicio', '<=', $this->dataInicio->date()];
