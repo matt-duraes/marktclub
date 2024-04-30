@@ -1,4 +1,15 @@
 @template "painel"
-<div class="container_titulo">
-    <h1>Boas-vindas ao Painel!</h1>
+
+<div class="bloco_dashboard">
+    <div class="bloco_perfil">
+        <figure style="background-image: URL({{USUARIO_IMAGEM}});"></figure>
+        <header>
+            <h1>Olá <strong>{{USUARIO_NOME}}</strong>,</h1>
+            <p>bem-vindo(a) ao painel administrativo</p>
+        </header>
+        @ if( in_array('perfil', PAINEL_CONFIGURACAO) ):
+        <a href="{!!route('perfil.index')!!}#mudar-imagem" class="botao botao_pequeno_borda">mudar imagem</a>
+        <a href="{!!route('perfil.dado')!!}" class="botao botao_pequeno_borda">editar perfil</a>
+        @ endif;
+    </div>
 </div>

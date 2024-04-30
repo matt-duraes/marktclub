@@ -1,11 +1,46 @@
 @template "painel"
 
-.container_titulo
-    height: 100vh
-    display: flex
+.bloco_dashboard
+    width: 100%
+    flexCol()
+    .botao_pequeno_borda
+        padding: 3px 5px
+        font-size: 1.2rem
+        border: 1px solid #CCC
+        border-radius: 3px
+        color: #777
+        &:hover
+            color: #333
+            border-color: #999
+
+.bloco_dashboard .bloco_perfil
+    width: 100%
+    flexRow()
+    flex-wrap: wrap
     justify-content: center
-    align-items: center
-    h1
-        font-size: 2rem
-        font-weight: 700
+    padding: 20px
+    figure
+        width: 120px
+        height: 120px
+        border-radius: 50%
+        background-position: center center
+        background-size: cover
+    header
+        width: 100%
+        flexCol()
+        margin: 20px 0 10px
+    header h1
+        width: 100%
         text-align: center
+        subtitulo()
+        color: #666
+    header h1 strong
+        font-weight: bold
+        subtitulo()
+    header p
+        texto()
+        width: 100%
+        text-align: center
+        color: #999
+    .botao
+        margin: 0 5px
