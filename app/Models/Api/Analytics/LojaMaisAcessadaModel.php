@@ -5,6 +5,7 @@ namespace App\Models\Api\Analytics;
 use ORM\ORM;
 use Modules\Data;
 use App\Models\Api\Analytics\Trait\WhereTrait;
+use App\Classes\ParceiroLoja\TipoEstabelecimento;
 
 final class LojaMaisAcessadaModel extends ORM
 {
@@ -15,7 +16,7 @@ final class LojaMaisAcessadaModel extends ORM
     public function __construct(
         protected Data $de,
         protected Data $ate,
-        protected Estabelecimento $estabelecimento,
+        protected TipoEstabelecimento $estabelecimento,
         private array|string|null $Empresa = null
     ) {
         parent::__construct();

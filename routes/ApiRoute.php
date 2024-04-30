@@ -727,6 +727,18 @@ Route
     ::middleware(TokenMiddleware::class, 'token')
     ::grupo(function () {
         Route
+            ::nome('lojaEquipeDia')
+            ::middleware(TokenMiddleware::class, 'scope', ['relatorio_acesso:listar'])
+            ::request(['!de', '!ate', '!equipe'], 'json')
+            ::get('/relatorio/loja-equipe-dia');
+
+        Route
+            ::nome('lojaEquipeMes')
+            ::middleware(TokenMiddleware::class, 'scope', ['relatorio_acesso:listar'])
+            ::request(['!de', '!ate', '!equipe'], 'json')
+            ::get('/relatorio/loja-equipe-mes');
+
+        Route
             ::nome('lojaVenda')
             ::middleware(TokenMiddleware::class, 'scope', ['relatorio_loja_venda:listar'])
             ::request(['de', 'ate', '!empresa', '!parceiro'], 'json')

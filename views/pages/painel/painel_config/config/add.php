@@ -16,7 +16,7 @@ $empresas = (new ApiHelper(token: true))
     ->get('/upload-grupo/select')
     ->array()['dado'] ?? [];*/
 
-$Painel->coluna(callback: function() use ($Painel, $empresas) {
+$Painel->coluna(callback: function () use ($Painel, $empresas) {
     $Painel->fieldset('Informações do Painel', function () use ($Painel, $empresas) {
         $Painel
             ->input(
@@ -99,7 +99,7 @@ $Painel->coluna(callback: function () use ($Painel) {
                         $Painel->margem('10');
                         $Painel->html('<h4>Geral</h4>');
                         foreach ($dado['recursos']['geral'] as $campo => $nomeCampo) {
-                            $Painel->checkbox(name: "campo_permitido[]", label: $nomeCampo, value: $app . '-geral-' . $campo);
+                            $Painel->checkbox(name: 'campo_permitido[]', label: $nomeCampo, value: $app . '-geral-' . $campo);
                         }
                     }
 
@@ -107,7 +107,7 @@ $Painel->coluna(callback: function () use ($Painel) {
                         $Painel->margem('10');
                         $Painel->html('<h4>Download</h4>');
                         foreach ($dado['recursos']['download'] as $campo => $nomeCampo) {
-                            $Painel->checkbox(name: "campo_permitido[]", label: $nomeCampo, value: $app . '-download-' . $campo);
+                            $Painel->checkbox(name: 'campo_permitido[]', label: $nomeCampo, value: $app . '-download-' . $campo);
                         }
                     }
                 }
