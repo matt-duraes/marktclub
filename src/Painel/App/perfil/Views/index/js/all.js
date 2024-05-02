@@ -32,11 +32,21 @@ window.addEventListener('load', () => {
     */
     const botaoAbrirMudarImagem = document.getElementById('botao_abrir_mudar_imagem');
     const blocoMudarImagem = document.getElementById('bloco_perfil_imagem');
-    botaoAbrirMudarImagem.addEventListener('click', () => {
+
+    const abrirBlocoMudarPerfil = () => {
         blocoMudarImagem.classList.add('display_flex');
         setTimeout(() => {
             blocoMudarImagem.classList.add('abrir');
         }, 20);
+    };
+
+    if (location.hash && location.hash === '#mudar-imagem') {
+        history.replaceState({}, '', location.href.replace('#mudar-imagem', ''));
+        abrirBlocoMudarPerfil();
+    }
+
+    botaoAbrirMudarImagem.addEventListener('click', () => {
+        abrirBlocoMudarPerfil();
     });
     const fecharPopupMudarImagem = () => {
         blocoMudarImagem.classList.remove('abrir');

@@ -14,6 +14,8 @@ use App\Models\Api\Analytics\LojaVendaModel;
 use App\Models\Api\Analytics\NavegadorModel;
 use App\Models\Api\Analytics\DadoUsuarioModel;
 use App\Models\Api\Analytics\DispositivoModel;
+use App\Classes\ParceiroLoja\TipoEstabelecimento;
+use App\Models\Api\Analytics\LojaEquipe\DiaModel;
 use App\Models\Api\Analytics\LojaMaisAcessadaModel;
 use App\Models\Api\Analytics\UsuarioMaisAcessoModel;
 use App\Models\Api\Analytics\PaginaMaisAcessadaModel;
@@ -78,7 +80,7 @@ final class RelatorioController extends Controller
         $Relatorio = new LojaMaisAcessadaModel(
             new Data($request->de),
             new Data($request->ate),
-            new Estabelecimento($request->estabelecimento),
+            new TipoEstabelecimento($request->estabelecimento),
             Empresa: $request->empresa
         );
         return mensagemSucesso($Relatorio->listarDado());
@@ -129,6 +131,18 @@ final class RelatorioController extends Controller
         );
 
         return mensagemSucesso($Relatorio->listarDado());
+    }
+
+    public function getLojaEquipeDia(Request $request)
+    {
+        $this->validarData($request);
+        $Relatorio = new DiaModel(
+            new Data($request->de),
+            new Data($request->ate),
+            equipe: $request->equipe
+        );
+
+        return mensagemSucesso($Relatorio->retorno);
     }
 
     /*

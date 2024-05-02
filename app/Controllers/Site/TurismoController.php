@@ -6,8 +6,8 @@ use Erro\Excecao;
 use Http\Response;
 use Controller\Controller;
 use App\Models\Site\BannerModel;
-use App\Classes\ParceiroLoja\Tipo;
 use App\Models\Site\Loja\ListarModel;
+use App\Classes\ParceiroLoja\TipoLoja;
 
 final class TurismoController extends Controller
 {
@@ -19,7 +19,7 @@ final class TurismoController extends Controller
     {
         $Listar = new ListarModel(
             quantidade: 3,
-            tipo: new Tipo(Tipo::LOJA)
+            tipo: new TipoLoja(TipoLoja::LOJA)
         );
         return view('turismo.index', [
             'menu'         => 'turismo',

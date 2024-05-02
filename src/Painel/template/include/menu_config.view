@@ -7,7 +7,8 @@
         <figure id="menu_config_imagem_perfil" style="background-image: url({!!USUARIO_IMAGEM!!})"></figure>
         <h1>{{USUARIO_NOME}}</h1>
         @ if( in_array('perfil', PAINEL_CONFIGURACAO) ):
-        <a href="{!!route('perfil.index')!!}">Perfil</a>
+        <a href="{!!route('perfil.index')!!}">trocar foto</a>
+        <a href="{!!route('perfil.dado')!!}">editar perfil</a>
         @ endif;
     </header>
 

@@ -2,12 +2,12 @@
 
 use Helpers\ApiHelper;
 use App\Classes\Geral\Status;
-use App\Classes\ParceiroLoja\Tipo;
+use App\Classes\ParceiroLoja\TipoLoja;
 
 $Loja = (new ApiHelper(token: true))
     ->json([
         'titulo' => 'Escolha um parceiro',
-        'tipo'   => Tipo::AUTOMOVEL
+        'tipo'   => TipoLoja::AUTOMOVEL
     ])
     ->get('/parceiro-loja/select')
     ->array()['dado'] ?? [];
