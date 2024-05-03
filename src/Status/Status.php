@@ -66,9 +66,6 @@ abstract class Status implements StatusInterface
         $nome = $this->criarArray(array_values($this->lista));
         $numero = empty($numero) ? array_keys($indice) : $numero;
         if (count($indice) != count($nome) || count($indice) != count($numero)) {
-            pp($indice);
-            pp($nome);
-            pp($numero);
             mensagemErro('Erro!', 'O número de valores das listas não batem.');
         }
 
