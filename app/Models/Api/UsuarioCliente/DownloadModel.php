@@ -90,7 +90,7 @@ final class DownloadModel extends ORM
                     $val = $val == 1 ? 'sim' : 'nao';
                 } elseif ($ind == 'lead_origem') {
                     $ind = 'origem';
-                    $val = (new Origem($val))->indice();
+                    $val = (new Origem($val, true))->indice();
                 } elseif ($ind == 'aniversario') {
                     $ind = 'data_nascimento';
                     $val = dataBr($val);
@@ -126,11 +126,11 @@ final class DownloadModel extends ORM
                     $val = (new Status($val))->indice();
                 } elseif ($ind == 'trabalho_orgao') {
                     $ind = 'trabalho_empresa';
-                    $val = (new TrabalhoEmpresa($val))->indice();
+                    $val = (new TrabalhoEmpresa($val, true))->indice();
                 } elseif ($ind == 'trabalho_cargo') {
-                    $val = (new TrabalhoCargo($val))->indice();
+                    $val = (new TrabalhoCargo($val, true))->indice();
                 } elseif ($ind == 'tipo_pagamento') {
-                    $val = (new TipoPagamento($val))->indice();
+                    $val = (new TipoPagamento($val, true))->indice();
                 } else {
                     $val = strNull($val);
                 }
@@ -138,6 +138,7 @@ final class DownloadModel extends ORM
             }
             $i++;
         }
+        ppe($retorno);
         return $retorno;
     }
 
