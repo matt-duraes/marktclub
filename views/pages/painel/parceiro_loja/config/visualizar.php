@@ -9,6 +9,12 @@ $Painel
     ->margin(40);
 
 $Painel->coluna(callback: function () use ($Painel) {
+    $Painel->bloco(titulo: 'Parceiro', callback: function () use ($Painel) {
+        $Painel
+            ->linha('titulo_interno', 'Título')
+            ->checked('convenio_direto', 'Convênio direto')
+            ;
+    });
     $Painel->bloco(titulo: 'Contato', callback: function () use ($Painel) {
         $Painel
             ->linha('responsavel_nome', 'Nome')

@@ -189,7 +189,6 @@ abstract class PadraoController extends Controller
         if (!($Add instanceof \PainelConfig\Add)) {
             mensagemStatus(500, localhost: 'Não foi encontrado um PainelConfig/Add para esse app.');
         }
-
         return (object)[
             'titulo'    => $config['titulo'] ?? '',
             'model'     => $config['entity'] ?? '',
@@ -351,11 +350,18 @@ abstract class PadraoController extends Controller
 
     private function includeConfig($acao, $app)
     {
-        $arquivo = $acao == 'editar' ? 'add' : $acao;
-        if (!file_exists(ROOT . '/views/pages/painel/' . $app . '/config/' . $arquivo . '.php')) {
+        if ($acao == 'add' && file_exists(ROOT . '/views/pages/painel/' . $app . '/config/insert.php')) {
+            $path = ROOT . '/views/pages/painel/' . $app . '/config/insert.php';
+        } elseif ($acao == 'editar' && file_exists(ROOT . '/views/pages/painel/' . $app . '/config/update.php')) {
+            $path = ROOT . '/views/pages/painel/' . $app . '/config/update.php';
+        } elseif (in_array($acao, ['add', 'editar']) && file_exists(ROOT . '/views/pages/painel/' . $app . '/config/add.php')) {
+            $path = ROOT . '/views/pages/painel/' . $app . '/config/add.php';
+        } elseif (file_exists(ROOT . '/views/pages/painel/' . $app . '/config/' . $acao . '.php')) {
+            $path = ROOT . '/views/pages/painel/' . $app . '/config/' . $acao . '.php';
+        } else {
             return false;
         }
-        return require ROOT . '/views/pages/painel/' . $app . '/config/' . $arquivo . '.php';
+        return require $path;
     }
 
     private function pegarPermissaoUsuario($acao, $app, $config)

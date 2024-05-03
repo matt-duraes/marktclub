@@ -87,8 +87,12 @@ final class LojaEntity extends Entity
     {
         $this->validarSalvar();
         $this->id_admin_empresa = $this->EmpresaOrm->mudarListaUuidParaId($this->empresa);
-        $this->destaque = $this->EmpresaOrm->mudarListaUuidParaId($this->destaque);
-        $this->categoria_lista = $this->converterCategoriaEm('numero');
+        if ($this->pExiste('destaque')) {
+            $this->destaque = $this->EmpresaOrm->mudarListaUuidParaId($this->destaque);
+        }
+        if ($this->pExiste('categoria_lista')) {
+            $this->categoria_lista = $this->converterCategoriaEm('numero');
+        }
         $this->validarCampoDuplicado('url', 'url');
         $this->validarCampoDuplicado('titulo_interno', 'Título do painel');
         $this->converterComissao();

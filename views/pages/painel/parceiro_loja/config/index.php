@@ -9,7 +9,7 @@ $Painel = new PainelConfig\Index('parceiro_loja', new Ordem());
 $Painel
     ->campo('titulo_interno', 'Parceiro', 'grande')
     ->campo('tipo_loja', 'Tipo', 'pequeno')
-    ->campo('data_auditoria', 'Auditado em', 'pequeno')
+    ->campo('data_atencao', 'Data', 'pequeno')
     ->status('status', 'Status', new Status());
 
 $Painel->replace('tipo_loja', (new TipoLoja())->select());

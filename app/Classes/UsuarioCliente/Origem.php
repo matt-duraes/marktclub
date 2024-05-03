@@ -31,8 +31,9 @@ final class Origem extends Status
     ];
 
     public function __construct(
-        protected string|int|null $valor = null
+        protected string|int|null $valor = null,
+        bool $geral = false
     ) {
-        parent::__construct(empresa: self::EMPRESA);
+        parent::__construct(empresa: self::EMPRESA, geral: $geral);
     }
 }

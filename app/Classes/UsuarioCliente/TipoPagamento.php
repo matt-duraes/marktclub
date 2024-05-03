@@ -14,7 +14,7 @@ final class TipoPagamento extends Status
                 'boleto'         => 'Boleto',
                 'debito-conta'   => 'Debito em Conta'
             ],
-            'numero' => [6, 7, 8, 9]
+            'numero' => [6, 7, 3, 4]
         ],
         'unareg' => [
             'lista'  => [
@@ -30,8 +30,9 @@ final class TipoPagamento extends Status
     ];
 
     public function __construct(
-        protected string|int|null $valor = null
+        protected string|int|null $valor = null,
+        bool $geral = false
     ) {
-        parent::__construct(empresa: self::EMPRESA);
+        parent::__construct(empresa: self::EMPRESA, geral: $geral);
     }
 }

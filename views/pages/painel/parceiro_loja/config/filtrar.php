@@ -33,6 +33,11 @@ $Painel
             ->select(name: 'tipo_loja', label: 'Tipo de loja', lista: array_merge((new TipoLoja())->select('Escolha uma opção'), ['desconto' => 'Desconto']));
     })
     ->select(
+        name: 'convenio_direto',
+        label: 'Convênio direto',
+        lista: ['' => 'Buscar todos', 'sim' => 'Apenas convênio direto', 'nao' => 'Sem ser convênio direto']
+    )
+    ->select(
         name: 'status',
         label: 'Status',
         lista: (new Status())->select('Escolha uma opção')
