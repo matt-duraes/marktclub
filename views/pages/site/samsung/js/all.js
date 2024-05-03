@@ -11,16 +11,18 @@ const blocoEmailZero = $('#bloco_email_zero');
 const blocoEmaiNovo = $('#bloco_email_novo');
 const inputEmailPessoal = $('#input_email_pessoal');
 const inputEmailTrabalho = $('#input_email_trabalho');
-
 const bannerDesktop = $('#bloco_banner_desktop');
 const bannerMobile = $('#bloco_banner_desktop');
-if (bannerDesktop) {
-    new Banner(bannerDesktop, 'figure', $('#botao_banner_proximo'), $('#botao_banner_anterior'));
-}
-if (bannerMobile) {
-    new Banner(bannerMobile, 'figure');
-}
+
 window.addEventListener('load', () => {
+    if (bannerDesktop) {
+        new Banner(bannerDesktop, 'figure', $('#botao_banner_proximo'), $('#botao_banner_anterior'));
+    }
+
+    if (bannerMobile) {
+        new Banner(bannerMobile, 'figure');
+    }
+
     botaoAbrirPopupAtualizar.addEventListener('click', () => {
         PopupAtualizar.abrir();
     });
