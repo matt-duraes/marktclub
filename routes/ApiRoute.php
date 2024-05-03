@@ -692,7 +692,7 @@ Route
             ::middleware(TokenMiddleware::class, 'scope', ['comunicacao_publicidade:listar'])
             ::request([
                 'pagina', '!quantidade', '!pesquisa', '!data_inicio', '!data_final',
-                '!tipo', '!publicado', '!status', '!ordem', '!local'
+                '!tipo', '!publicado', '!status', '!ordem'
             ], 'json')
             ::get('/comunicacao-publicidade');
 
@@ -701,7 +701,7 @@ Route
             ::middleware(TokenMiddleware::class, 'scope', ['comunicacao_publicidade:salvar'])
             ::request([
                 'titulo', 'link', 'data_inicio', 'data_final', 'parceiro', 'status',
-                'imagem_desktop', 'imagem_mobile', 'tipo', '!ordem', '!local'
+                'imagem_desktop', 'imagem_mobile', 'tipo', '!ordem'
             ])
             ::post('/comunicacao-publicidade');
 
@@ -710,7 +710,7 @@ Route
             ::middleware(TokenMiddleware::class, 'scope', ['comunicacao_publicidade:atualizar'])
             ::request([
                 '!titulo', '!link', '!data_inicio', '!data_final', '!parceiro', '!status',
-                '!imagem_desktop', '!imagem_mobile', '!tipo', '!ordem', '!local'
+                '!imagem_desktop', '!imagem_mobile', '!tipo', '!ordem'
             ])
             ::put('/comunicacao-publicidade/{id}');
 
