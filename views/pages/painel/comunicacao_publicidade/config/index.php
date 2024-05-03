@@ -9,8 +9,8 @@ $Painel
     ->drag()
     ->campo('titulo', 'Título', 'grande')
     ->campo('parceiro.titulo', 'Parceiro', 'normal')
-    ->campo('data_inicio', 'Data de início', 'pequeno')
-    ->campo('data_final', 'Data final', 'pequeno')
+    ->campo('data_inicio', 'Data de início', 'pequeno', 'data')
+    ->campo('data_final', 'Data final', 'pequeno', 'data')
     ->campo('tipo', 'Tipo', 'pequeno')
     ->campo('publicado', 'Publicado', 'pequeno')
     ->status('status', 'Status', new Status());

@@ -10,14 +10,16 @@ class Tipo extends Status
     public const AUTOMOVEL = 'automovel';
     public const LOGIN = 'login';
     public const HOME = 'home';
+    public const SAMSUNG = 'samsung';
 
     public function __construct(
         protected string|int|null $valor = null
     ) {
         parent::__construct([
-            self::HISTORICO => 'Historico',
-            self::AUTOMOVEL => 'Automóvel',
-            self::HOME      => 'Home',
+            self::HISTORICO    => 'Historico',
+            self::AUTOMOVEL    => 'Automóvel',
+            self::HOME         => 'Home',
+            self::SAMSUNG      => 'Samsung'
         ]);
     }
 }
