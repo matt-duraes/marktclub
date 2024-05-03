@@ -138,7 +138,6 @@ final class DownloadModel extends ORM
             }
             $i++;
         }
-        ppe($retorno);
         return $retorno;
     }
 
