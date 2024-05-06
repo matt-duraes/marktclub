@@ -13,7 +13,7 @@ abstract class Order implements OrderInterface
 
     private string $tabela;
     private array $lista;
-    protected ?string $valor;
+    protected ?string $valor = null;
     private string $padrao = '';
 
     // doc
@@ -30,6 +30,18 @@ abstract class Order implements OrderInterface
         }
         $this->valor = $valor;
         return $this;
+    }
+
+    // doc
+    /**
+     * Pega ou seta o valor manualmente da ordem
+     *
+     * @param  string $valor Valor da ordem
+     * @return self
+     */
+    public function indice(): string|null
+    {
+        return $this->valor;
     }
 
     /**

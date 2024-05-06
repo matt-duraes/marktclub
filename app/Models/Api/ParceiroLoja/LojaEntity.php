@@ -30,8 +30,8 @@ final class LojaEntity extends Entity
         'texto_procedimento', 'texto_voucher', 'categoria_principal', 'categoria_lista', 'subcategoria_tag',
         'subcategoria_lista', 'id_admin_empresa', 'destaque', 'endereco_estado', 'pontuacao', 'desconto',
         'prazo_voucher', 'prazo_voucher_fixo', 'data_auditoria', 'confirmar_status', 'confirmar_titulo',
-        'confirmar_texto', 'arquivo_painel', 'arquivo_clube', 'data_publicacao', 'status',
-        'comissao_minima', 'comissao_maxima', 'texto_restricao', 'texto_outro'
+        'confirmar_texto', 'arquivo_painel', 'arquivo_clube', 'data_publicacao', 'status', 'data_prospeccao',
+        'comissao_minima', 'comissao_maxima', 'texto_restricao', 'texto_outro', 'data_cancelado', 'data_problema'
     ];
     protected array $ormSalvar = [
         'nome_fantasia', 'razao_social', 'tipo_juridico', 'documento_cpf', 'documento_cnpj', 'titulo_interno',
@@ -43,8 +43,8 @@ final class LojaEntity extends Entity
         'texto_procedimento', 'texto_voucher', 'categoria_principal', 'categoria_lista', 'subcategoria_tag',
         'subcategoria_lista', 'id_admin_empresa', 'destaque', 'endereco_estado', 'pontuacao', 'desconto',
         'prazo_voucher', 'prazo_voucher_fixo', 'data_auditoria', 'confirmar_status', 'confirmar_titulo',
-        'confirmar_texto', 'arquivo_painel', 'arquivo_clube', 'data_publicacao', 'status',
-        'comissao_minima', 'comissao_maxima', 'texto_restricao', 'texto_outro'
+        'confirmar_texto', 'arquivo_painel', 'arquivo_clube', 'data_publicacao', 'status', 'data_prospeccao',
+        'comissao_minima', 'comissao_maxima', 'texto_restricao', 'texto_outro', 'data_cancelado', 'data_problema'
     ];
     private OrmHelper $EmpresaOrm;
     private OrmHelper $EquipeOrm;
@@ -73,11 +73,23 @@ final class LojaEntity extends Entity
 
         $statusInicial = (new Status($this->prop('status')))->indice();
         $statusAtual = $this->status->indice();
-        if ($statusInicial != Status::CONCLUIDO && $statusAtual == Status::CONCLUIDO) {
-            $this->data_auditoria = new Data(hoje());
-        }
+
+        $statusMudou = $statusInicial != $statusAtual;
+
         if ($statusInicial == Status::PROSPECCAO && $statusAtual == Status::CONCLUIDO) {
             $this->data_publicacao = new Data(hoje());
+        }
+        if ($statusMudou && $statusAtual == Status::CONCLUIDO) {
+            $this->data_auditoria = new Data(hoje());
+        }
+        if($statusMudou && $statusAtual == Status::CANCELADO) {
+            $this->data_cancelado = new Data(hoje());
+        }
+        if($statusMudou && $statusAtual == Status::PROBLEMA) {
+            $this->data_problema = new Data(hoje());
+        }
+        if($statusMudou && $statusAtual == Status::PROSPECCAO) {
+            $this->data_prospeccao = new Data(hoje());
         }
 
         $this->statusInicial = $statusInicial;

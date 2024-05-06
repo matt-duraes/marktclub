@@ -6,6 +6,7 @@ use Closure;
 use ORM\ORM;
 use ORM\Entity;
 use Modules\Botao;
+use Order\OrderInterface;
 use Status\StatusInterface;
 use Modules\ModuleInterface;
 
@@ -408,6 +409,8 @@ final class Where implements WhereInterface
             $valor = $valor->valido() ? $valor->banco() : null;
         } elseif ($valor instanceof StatusInterface) {
             $valor = $valor->valido() ? $valor->numero() : null;
+        } elseif ($valor instanceof OrderInterface) {
+            $valor = $valor->valido() ? $valor->indice() : null;
         }
         return $valor;
     }

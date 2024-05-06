@@ -33,7 +33,9 @@ trait MontarRetornoTrait
                 'tipo_loja'       => $tipo,
                 'data_criacao'    => $r->data_criacao,
                 'data_publicacao' => $r->data_publicacao,
+                'data_prospeccao' => $r->data_prospeccao,
                 'data_auditoria'  => $r->data_auditoria,
+                'data_problema'  => $r->data_problema,
                 'endereco_estado' => $r->endereco_estado,
                 'status'          => $Status->indice($r->status)
             ];

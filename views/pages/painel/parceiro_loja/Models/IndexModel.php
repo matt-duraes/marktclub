@@ -5,7 +5,6 @@ namespace Painel\ParceiroLoja\Models;
 use stdClass;
 use App\Classes\ParceiroLoja\Ordem;
 use App\Classes\ParceiroLoja\Status;
-use App\Classes\ParceiroLoja\TipoLoja;
 use System\Interface\PainelIndexFiltroInterface;
 use System\Interface\PainelIndexRetornoInterface;
 
@@ -13,16 +12,13 @@ final class IndexModel implements
     PainelIndexFiltroInterface,
     PainelIndexRetornoInterface
 {
-    public function filtro(array $filtro, bool $pesquisa): array
+    public function filtro(array $filtro, string $pesquisa, string $ordem, int $pagina): array
     {
         if (empty($filtro) && !$pesquisa && !array_key_exists('equipe', $filtro) && sessao('USUARIO.gerente') != 'sim') {
             $filtro['equipe'] = sessao('USUARIO.id');
         }
-        if (!array_key_exists('tipo_loja', $filtro)) {
-            $filtro['tipo_loja'] = TipoLoja::LOJA;
-        }
-        if (!array_key_exists('ordem', $filtro)) {
-            $filtro['ordem'] = Ordem::PAINEL;
+        if (empty($ordem)) {
+            $filtro['ordem'] = Ordem::PAINEL_ASC;
         }
         return $filtro;
     }
@@ -37,8 +33,12 @@ final class IndexModel implements
                 ? dataBr($r->data_auditoria) . ' - ' . dataDiferencaDia($r->data_auditoria, hoje()) . ' dias'
                 : 'Sem auditoria';
             } elseif($r->status == Status::PROSPECCAO) {
-                $dataAtencao = !empty($r->data_criacao)
-                ? dataBr($r->data_criacao) . ' - ' . dataDiferencaDia($r->data_criacao, hoje()) . ' dias'
+                $dataAtencao = !empty($r->data_prospeccao)
+                ? dataBr($r->data_prospeccao) . ' - ' . dataDiferencaDia($r->data_prospeccao, hoje()) . ' dias'
+                : 'Sem data';
+            } elseif($r->status == Status::PROBLEMA) {
+                $dataAtencao = !empty($r->data_problema)
+                ? dataBr($r->data_problema) . ' - ' . dataDiferencaDia($r->data_problema, hoje()) . ' dias'
                 : 'Sem data';
             }
             $r->data_atencao = $dataAtencao;

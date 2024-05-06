@@ -56,6 +56,8 @@ class LojaModel extends ORM implements ModelListarInterface
     public array $endereco_estado;
     public string $empresa;
     private bool $buscarFavorito = true;
+    public string $convenio;
+    public string $painel;
 
     public function listarDados(): stdClass
     {
@@ -97,7 +99,6 @@ class LojaModel extends ORM implements ModelListarInterface
                 ]);
         }
         $dado = $dado->read();
-
         $dado->lista = $this->montarRetorno($dado->lista);
         return $dado;
     }
@@ -162,14 +163,20 @@ class LojaModel extends ORM implements ModelListarInterface
                 $this->idMaisAcessado = (new MaisAcessadoModel($this->idEmpresa, $this->pegarQuantidade()))->id;
                 $Where->linha(propriedade: 'id', condicao: 'in', valor: $this->idMaisAcessado);
             })
+            ->seIgual('convenio', 'sim', function() use ($Where) {
+                if(!$this->pExiste('tipo_loja') || !$this->tipo_loja->valido()) {
+                    $Where->manual(['tipo_loja', '!=', new TipoLoja(TipoLoja::CASHBACK)]);
+                }
+            })
+            ->linha(propriedade: 'tipo_loja')
             ->linha('endereco_estado', 'json')
+            ->seInArray('ordem', ['painel-asc', 'painel-desc'], function() use ($Where) {
+                if(!$this->pExiste('status') || !$this->status->valido()) {
+                    $Where->manual(['status', 'in', [1,2]]);
+                }
+            })
             ->linha('status');
 
-        if ($this->pExiste('tipo_loja') && $this->tipo_loja->indice() == 'desconto') {
-            $Where->manual(['tipo_loja', '!=', new TipoLoja(TipoLoja::CASHBACK)]);
-        } else {
-            $Where->linha(propriedade: 'tipo_loja');
-        }
         return $Where;
     }
 
