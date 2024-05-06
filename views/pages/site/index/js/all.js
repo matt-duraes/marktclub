@@ -9,12 +9,12 @@
 // @system "Popup"
 
 const bannerDesktop = $('#bloco_banner_desktop');
-const bannerMobile = $('#bloco_banner_desktop');
+const bannerMobile = $('#bloco_banner_mobile');
 if (bannerDesktop) {
     new Banner(bannerDesktop, 'figure', $('#botao_banner_proximo'), $('#botao_banner_anterior'));
 }
 if (bannerMobile) {
-    new Banner(bannerMobile, 'figure');
+    new Banner(bannerMobile, 'figure', $('#botao_banner_proximo_mobile'), $('#botao_banner_anterior_mobile'));
 }
 
 const loadingFavoritoFaq = () => {
