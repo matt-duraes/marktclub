@@ -7,6 +7,7 @@
 @resource "site/pagina_popup"
 @resource "site/banner"
 
+
 #bloco_samsung
     width: 100%
     max-width: $maxWidth
@@ -36,3 +37,32 @@
         botaoPadraoDestaque()
         background-color: $corClube
         color: #FFF
+
+
+@media screen and (max-width: 600px)
+    .bloco_geral_banner .imagem.banner_desktop
+        display: none
+    #botao_banner_proximo_mobile
+        width: 40px
+        height: 40px
+        position: absolute
+        fill: #FFF
+        border-radius: 50%
+        flexCenter()
+        background-color: rgba(0,0,0,.7)
+        cursor: pointer
+        z-index: 2
+        opacity: 1
+        transition: opacity .3s ease-out
+    #botao_banner_anterior_mobile
+        width: 40px
+        height: 40px
+        position: absolute
+        fill: #FFF
+        border-radius: 50%
+        flexCenter()
+        background-color: rgba(0,0,0,.7)
+        cursor: pointer
+        z-index: 2
+        opacity: 1
+        transition: opacity .3s ease-out
