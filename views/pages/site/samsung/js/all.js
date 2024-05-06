@@ -20,7 +20,7 @@ window.addEventListener('load', () => {
     }
 
     if (bannerMobile) {
-        new Banner(bannerMobile, 'figure');
+        new Banner(bannerMobile, 'figure', $('#botao_banner_proximo'), $('#botao_banner_anterior'));
     }
 
     botaoAbrirPopupAtualizar.addEventListener('click', () => {
