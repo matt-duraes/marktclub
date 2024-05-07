@@ -6,7 +6,7 @@ use System\Interface\PainelIndexFiltroInterface;
 
 final class IndexModel implements PainelIndexFiltroInterface
 {
-    public function filtro(array $filtro, bool $pesquisa): array
+    public function filtro(array $filtro, string $pesquisa, string $ordem, int $pagina): array
     {
         if (!array_key_exists('publicado', $filtro)) {
             $filtro['publicado'] = 'sim';

@@ -13,7 +13,7 @@ $Painel->coluna(callback: function () use ($Painel) {
         $Painel
             ->linha('titulo_interno', 'Título')
             ->checked('convenio_direto', 'Convênio direto')
-            ;
+        ;
     });
     $Painel->bloco(titulo: 'Contato', callback: function () use ($Painel) {
         $Painel

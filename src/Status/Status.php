@@ -36,7 +36,7 @@ abstract class Status implements StatusInterface
     ) {
         $slugEmpresa = $this->pegarSlugEmpresa();
 
-        if($empresa && $geral) {
+        if ($empresa && $geral) {
             $empresa = $this->agruparEmpresa($empresa);
             $this->lista = $empresa['lista'] ?? [];
             $this->cor = $empresa['cor'] ?? null;
@@ -77,25 +77,25 @@ abstract class Status implements StatusInterface
     private function agruparEmpresa(array $empresa)
     {
         $retorno = [];
-        foreach($empresa as $r) {
-            if(array_key_exists('lista', $r)) {
-                if(array_key_exists('lista', $retorno)) {
+        foreach ($empresa as $r) {
+            if (array_key_exists('lista', $r)) {
+                if (array_key_exists('lista', $retorno)) {
                     $retorno['lista'] = array_merge($retorno['lista'], $r['lista']);
-                }else {
+                } else {
                     $retorno['lista'] = $r['lista'];
                 }
             }
-            if(array_key_exists('numero', $r)) {
-                if(array_key_exists('numero', $retorno)) {
+            if (array_key_exists('numero', $r)) {
+                if (array_key_exists('numero', $retorno)) {
                     $retorno['numero'] = array_unique(array_merge($retorno['numero'], $r['numero']));
-                }else {
+                } else {
                     $retorno['numero'] = $r['numero'];
                 }
             }
-            if(array_key_exists('cor', $r)) {
-                if(array_key_exists('cor', $retorno)) {
+            if (array_key_exists('cor', $r)) {
+                if (array_key_exists('cor', $retorno)) {
                     $retorno['cor'] = array_merge($retorno['cor'], $r['cor']);
-                }else {
+                } else {
                     $retorno['cor'] = $r['cor'];
                 }
             }

@@ -33,7 +33,7 @@ final class AppController extends PadraoController
         $indexClass = '\\Painel\\' . str_replace(' ', '', strCaixaAltaAlta(str_replace('_', ' ', $appReal)))
             . '\\Models\IndexModel';
         if (class_exists($indexClass) && method_exists($indexClass, 'filtro')) {
-            $filtro = (new $indexClass())->filtro($filtro, !empty($pesquisa));
+            $filtro = (new $indexClass())->filtro($filtro, $pesquisa, $ordem, $pagina);
         }
 
         if (class_exists($indexClass) && method_exists($indexClass, 'buscar')) {
@@ -46,7 +46,7 @@ final class AppController extends PadraoController
             if (!empty($pesquisa)) {
                 $parametro['pesquisa'] = $pesquisa;
             }
-            if (!empty($ordem)) {
+            if (!empty($ordem) && !array_key_exists('ordem', $filtro)) {
                 $parametro['ordem'] = $ordem;
             }
             if (!empty($filtro) && is_array($filtro)) {

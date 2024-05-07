@@ -9,7 +9,7 @@
 // @resource "site/loja/parceiro"
 
 const bannerDesktop = $('#bloco_banner_desktop');
-const bannerMobile = $('#bloco_banner_desktop');
+const bannerMobile = $('#bloco_banner_mobile');
 if (bannerDesktop) {
     new Banner(bannerDesktop, 'figure', $('#botao_banner_proximo'), $('#botao_banner_anterior'));
 }
