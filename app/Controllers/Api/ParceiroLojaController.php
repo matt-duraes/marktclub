@@ -34,7 +34,7 @@ final class ParceiroLojaController extends Controller implements
     {
         $Parceiro = new SelectModel(
             titulo: $request->titulo,
-            tipo: new TipoLoja($request->tipo)
+            tipo_loja: new TipoLoja($request->tipo)
         );
         return mensagemSucesso($Parceiro->listarDados());
     }

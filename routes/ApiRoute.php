@@ -1309,7 +1309,7 @@ Route
         Route
             ::nome('select')
             ::middleware(TokenMiddleware::class, 'scope', ['parceiro_loja:listar'])
-            ::request(['!tipo', '!titulo'], 'json')
+            ::request(['!tipo_loja', '!titulo'], 'json')
             ::get('/parceiro-loja/select');
         Route
             ::nome('listar')
