@@ -129,11 +129,11 @@ class LojaModel extends ORM implements ModelListarInterface
                     ['categoria_lista', 'json', $this->categoria->numero()]
                 ]);
             })
-            ->seInArray('convenio_direto', lista: ['sim', 'nao'], callback: function() use ($Where) {
+            ->seInArray('convenio_direto', lista: ['sim', 'nao'], callback: function () use ($Where) {
                 $direto = $this->convenio_direto;
-                if($direto == 'sim') {
+                if ($direto == 'sim') {
                     $Where->manual(['convenio_direto', 1]);
-                } elseif($direto == 'nao') {
+                } elseif ($direto == 'nao') {
                     $Where->manual(['convenio_direto', 'null']);
                 }
             })
@@ -163,16 +163,16 @@ class LojaModel extends ORM implements ModelListarInterface
                 $this->idMaisAcessado = (new MaisAcessadoModel($this->idEmpresa, $this->pegarQuantidade()))->id;
                 $Where->linha(propriedade: 'id', condicao: 'in', valor: $this->idMaisAcessado);
             })
-            ->seIgual('convenio', 'sim', function() use ($Where) {
-                if(!$this->pExiste('tipo_loja') || !$this->tipo_loja->valido()) {
+            ->seIgual('convenio', 'sim', function () use ($Where) {
+                if (!$this->pExiste('tipo_loja') || !$this->tipo_loja->valido()) {
                     $Where->manual(['tipo_loja', '!=', new TipoLoja(TipoLoja::CASHBACK)]);
                 }
             })
             ->linha(propriedade: 'tipo_loja')
             ->linha('endereco_estado', 'json')
-            ->seInArray('ordem', ['painel-asc', 'painel-desc'], function() use ($Where) {
-                if(!$this->pExiste('status') || !$this->status->valido()) {
-                    $Where->manual(['status', 'in', [1,2]]);
+            ->seInArray('ordem', ['painel-asc', 'painel-desc'], function () use ($Where) {
+                if (!$this->pExiste('status') || !$this->status->valido()) {
+                    $Where->manual(['status', 'in', [1, 2]]);
                 }
             })
             ->linha('status');

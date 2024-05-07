@@ -60,7 +60,6 @@ final class DiaModel extends ORM
             if (!array_key_exists($r->data_acesso, $retorno)) {
                 $retorno[$r->data_acesso] = $this->retornoPadrao();
             }
-            ppe($retorno);
             // $retorno = []
         }
     }

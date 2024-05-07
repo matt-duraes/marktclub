@@ -82,13 +82,13 @@ final class LojaEntity extends Entity
         if ($statusMudou && $statusAtual == Status::CONCLUIDO) {
             $this->data_auditoria = new Data(hoje());
         }
-        if($statusMudou && $statusAtual == Status::CANCELADO) {
+        if ($statusMudou && $statusAtual == Status::CANCELADO) {
             $this->data_cancelado = new Data(hoje());
         }
-        if($statusMudou && $statusAtual == Status::PROBLEMA) {
+        if ($statusMudou && $statusAtual == Status::PROBLEMA) {
             $this->data_problema = new Data(hoje());
         }
-        if($statusMudou && $statusAtual == Status::PROSPECCAO) {
+        if ($statusMudou && $statusAtual == Status::PROSPECCAO) {
             $this->data_prospeccao = new Data(hoje());
         }
 

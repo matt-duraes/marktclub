@@ -32,11 +32,11 @@ final class IndexModel implements
                 $dataAtencao = !empty($r->data_auditoria)
                 ? dataBr($r->data_auditoria) . ' - ' . dataDiferencaDia($r->data_auditoria, hoje()) . ' dias'
                 : 'Sem auditoria';
-            } elseif($r->status == Status::PROSPECCAO) {
+            } elseif ($r->status == Status::PROSPECCAO) {
                 $dataAtencao = !empty($r->data_prospeccao)
                 ? dataBr($r->data_prospeccao) . ' - ' . dataDiferencaDia($r->data_prospeccao, hoje()) . ' dias'
                 : 'Sem data';
-            } elseif($r->status == Status::PROBLEMA) {
+            } elseif ($r->status == Status::PROBLEMA) {
                 $dataAtencao = !empty($r->data_problema)
                 ? dataBr($r->data_problema) . ' - ' . dataDiferencaDia($r->data_problema, hoje()) . ' dias'
                 : 'Sem data';

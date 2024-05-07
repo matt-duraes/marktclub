@@ -357,7 +357,7 @@ final class Where implements WhereInterface
      * Executa se a propriedade estiver no "inArray
      *
      * @param  string       $propriedade
-     * @param  array      $lista
+     * @param  array        $lista
      * @param  Closure|null $callback
      * @return self
      */
