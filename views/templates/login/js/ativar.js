@@ -1,3 +1,5 @@
+// @system "Alerta"
+
 window.addEventListener('load', async () => {
     const queryString = window.location.search;
     const searchParams = new URLSearchParams(queryString);
@@ -51,6 +53,7 @@ const setarTipoInput = (valorData = '') => {
 };
 const loadingAtivarBuscar = () => {
     const botoesTipoUsuario = document.querySelectorAll('.botao_tipo_usuario');
+    const blocoAviso = document.querySelector('.aviso_cadastro');
     let valorData = '';
     botoesTipoUsuario.forEach(botao => {
         botao.addEventListener('click', e => {
@@ -64,12 +67,15 @@ const loadingAtivarBuscar = () => {
             switch (valorData) {
                 case 'dependente':
                     $('.botao_dependente').classList.add('cor_bg');
+                    blocoAviso.classList.remove('display_none');
                     break;
                 case 'titular':
                     $('.botao_titular').classList.add('cor_bg');
+                    blocoAviso.classList.add('display_none');
                     break;
                 case 'indicado':
                     $('.botao_indicado').classList.add('cor_bg');
+                    blocoAviso.classList.add('display_none');
                     break;
             }
         });

@@ -22,7 +22,6 @@ final class BannerModel extends ClubeApiHelper
             ])
             ->get('/comunicacao-publicidade')
             ->object()->dado->lista ?? [];
-
         return $this->montarRetorno($dado);
     }
 
@@ -37,7 +36,11 @@ final class BannerModel extends ClubeApiHelper
         $desktop = [];
         $mobile = [];
         foreach ($dado as $r) {
-            $link = $this->pegarLink($r->link, $r->parceiro->url, $r->parceiro->tipo);
+            if ((new Tipo($r->tipo))->indice() === Tipo::SAMSUNG && empty($r->link)) {
+                $link = '/samsung';
+            } else {
+                $link = $this->pegarLink($r->link, $r->parceiro->url, $r->parceiro->tipo);
+            }
             $target = $this->pegarTarget($link);
             if (!empty($r->imagem_desktop)) {
                 $desktop[] = (object)[
