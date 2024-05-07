@@ -1,20 +1,20 @@
 // @template "site"
-// @system "Historico"
-// @system "Banner"
-// @system "Esqueleto"
-// @system "Popup"
 // @resource "site/loja/busca"
 // @resource "site/busca"
 // @resource "site/loja/favorito"
 // @resource "site/loja/parceiro"
+// @system "Historico"
+// @system "Banner"
+// @system "Esqueleto"
+// @system "Popup"
 
 const bannerDesktop = $('#bloco_banner_desktop');
-const bannerMobile = $('#bloco_banner_desktop');
+const bannerMobile = $('#bloco_banner_mobile');
 if (bannerDesktop) {
     new Banner(bannerDesktop, 'figure', $('#botao_banner_proximo'), $('#botao_banner_anterior'));
 }
 if (bannerMobile) {
-    new Banner(bannerMobile, 'figure');
+    new Banner(bannerMobile, 'figure', $('#botao_banner_proximo_mobile'), $('#botao_banner_anterior_mobile'));
 }
 
 const loadingFavoritoFaq = () => {

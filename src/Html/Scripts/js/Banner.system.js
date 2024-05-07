@@ -1,4 +1,3 @@
-/* eslint-disable */
 class Banner {
     constructor(banner, item, botaoProximo, botaoAnterior) {
         if (!banner) {
@@ -8,7 +7,6 @@ class Banner {
         this.banner.classList.add('fw_banner');
         this.botaoProximo = botaoProximo;
         this.botaoAnterior = botaoAnterior;
-
         this.lista = banner.querySelectorAll(item);
         this.quantidade = this.lista.length - 1;
         this.eventoBotaoProximoAnterior();
@@ -30,10 +28,9 @@ class Banner {
     bannerProximo() {
         const itemAtual = this.banner.querySelector('.fw_banner_atual');
         const quantidade = this.quantidade;
-        if (quantidade < 2) {
-            return;
-        }
+
         let lista = this.lista;
+
         let proximo;
         let i = 0;
         for (; i <= quantidade; i++) {
@@ -47,9 +44,7 @@ class Banner {
     bannerAnterior() {
         const itemAtual = this.banner.querySelector('.fw_banner_atual');
         const quantidade = this.quantidade;
-        if (quantidade < 2) {
-            return;
-        }
+
         let lista = this.lista;
         let proximo;
         let i = 0;
@@ -98,4 +93,3 @@ class Banner {
         });
     }
 }
-/* eslint-enable */

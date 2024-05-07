@@ -1,7 +1,7 @@
 @template "site"
 
 <div id="bloco_samsung">
-    @view site/geral/banner.view
+    @view site/samsung/geral/banner.view
 
     <div class="bloco_item_lista">
         <div class="scroll">
