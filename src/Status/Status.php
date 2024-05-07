@@ -31,10 +31,17 @@ abstract class Status implements StatusInterface
         protected ?array $lista = null,
         protected ?array $cor = null,
         ?array $numero = null,
-        protected ?array $empresa = null
+        protected ?array $empresa = null,
+        protected bool $geral = false
     ) {
         $slugEmpresa = $this->pegarSlugEmpresa();
-        if ($empresa && array_key_exists($slugEmpresa, $empresa)) {
+
+        if($empresa && $geral) {
+            $empresa = $this->agruparEmpresa($empresa);
+            $this->lista = $empresa['lista'] ?? [];
+            $this->cor = $empresa['cor'] ?? null;
+            $numero = $empresa['numero'] ?? null;
+        } elseif ($empresa && array_key_exists($slugEmpresa, $empresa)) {
             $this->lista = $empresa[$slugEmpresa]['lista'] ?? [];
             $this->cor = $empresa[$slugEmpresa]['cor'] ?? null;
             $numero = $empresa[$slugEmpresa]['numero'] ?? null;
@@ -55,6 +62,7 @@ abstract class Status implements StatusInterface
         $indice = array_key_exists(0, $this->lista) ?
             $this->criarSlug($this->lista) :
             $this->criarArray(array_keys($this->lista));
+
         $nome = $this->criarArray(array_values($this->lista));
         $numero = empty($numero) ? array_keys($indice) : $numero;
         if (count($indice) != count($nome) || count($indice) != count($numero)) {
@@ -64,6 +72,35 @@ abstract class Status implements StatusInterface
         $this->indiceNumero = array_combine($indice, $numero);
         $this->indiceNome = array_combine($indice, $nome);
         $this->numeroNome = array_combine($numero, $nome);
+    }
+
+    private function agruparEmpresa(array $empresa)
+    {
+        $retorno = [];
+        foreach($empresa as $r) {
+            if(array_key_exists('lista', $r)) {
+                if(array_key_exists('lista', $retorno)) {
+                    $retorno['lista'] = array_merge($retorno['lista'], $r['lista']);
+                }else {
+                    $retorno['lista'] = $r['lista'];
+                }
+            }
+            if(array_key_exists('numero', $r)) {
+                if(array_key_exists('numero', $retorno)) {
+                    $retorno['numero'] = array_unique(array_merge($retorno['numero'], $r['numero']));
+                }else {
+                    $retorno['numero'] = $r['numero'];
+                }
+            }
+            if(array_key_exists('cor', $r)) {
+                if(array_key_exists('cor', $retorno)) {
+                    $retorno['cor'] = array_merge($retorno['cor'], $r['cor']);
+                }else {
+                    $retorno['cor'] = $r['cor'];
+                }
+            }
+        }
+        return $retorno;
     }
 
     private function pegarSlugEmpresa()
