@@ -19,7 +19,7 @@
         </div>
         @ endif;
         @ if( $banner->mobile ?? []):
-        <div class="imagem banner_mobile">
+        <div class="imagem banner_mobile" id="bloco_banner_mobile">
             @ foreach( $banner->mobile as $r )
             <figure>
                 <img src="{!!$r->imagem!!}">
