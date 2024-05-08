@@ -28,30 +28,44 @@ final class ComunicacaoPublicidadeController extends Controller implements
     ControllerAtualizarInterface,
     ControllerDeletarInterface
 {
-    public function getListar(Request $request): Response
-    {
-        $Publicidade = new PublicidadeModel(
-            pagina: new Pagina($request->pagina),
-            quantidade: new Quantidade($request->quantidade),
-            pesquisa: $request->pesquisa,
-            dataInicio: new Data($request->data_inicio),
-            dataFinal: new Data($request->data_final),
-            status: new Status($request->status),
-            publicado: new Botao($request->publicado),
-            tipo: new Tipo($request->tipo),
-            ordem: new Ordem($request->ordem)
-        );
-        return mensagemSucesso(
-            $Publicidade->listarDados()
-        );
-    }
-
     public function getBuscar(string $id): Response
     {
         $Publicidade = new PublicidadeEntity();
         $Publicidade->uuid($id);
-
         return $this->retornoPadrao($Publicidade);
+    }
+
+    private function retornoPadrao(PublicidadeEntity $Publicidade, int $status = 200)
+    {
+        return mensagemSucesso(
+            pegarPropriedadeDaEntity(
+                $Publicidade,
+                lista: [
+                    'id', 'parceiro', 'titulo', 'imagem_desktop', 'imagem_mobile',
+                    'data_inicio', 'data_final', 'data_criacao', 'link', 'tipo',
+                    'publicado', 'status'
+                ]
+            ),
+            $status
+        );
+    }
+
+    public function getListar(Request $request): Response
+    {
+        $Publicidade = new PublicidadeModel(
+            new Pagina($request->pagina),
+            new Quantidade($request->quantidade),
+            new Ordem($request->ordem),
+            $request->pesquisa,
+            $request->empresa,
+            $request->titulo,
+            new Tipo($request->tipo),
+            new Data($request->data_inicio),
+            new Data($request->data_final),
+            new Botao($request->publicado),
+            new Status($request->status)
+        );
+        return mensagemSucesso($Publicidade->listarDados());
     }
 
     public function postSalvar(Request $request): Response
@@ -59,22 +73,7 @@ final class ComunicacaoPublicidadeController extends Controller implements
         $Publicidade = new PublicidadeEntity();
         $Publicidade->set(lista: $request->dado());
         $Publicidade->salvar();
-
         return $this->retornoPadrao($Publicidade, 201);
-    }
-
-    private function retornoPadrao(PublicidadeEntity $Publicidade, int $status = 200)
-    {
-        return mensagemSucesso(
-            dado: pegarPropriedadeDaEntity(
-                $Publicidade,
-                lista: [
-                    'id', 'parceiro', 'titulo', 'imagem_desktop', 'imagem_mobile', 'data_inicio', 'data_final',
-                    'data_criacao', 'link', 'tipo', 'publicado', 'status'
-                ]
-            ),
-            status: $status
-        );
     }
 
     public function putAtualizar(Request $request, string $id): Response
@@ -83,7 +82,6 @@ final class ComunicacaoPublicidadeController extends Controller implements
         $Publicidade->uuid($id);
         $Publicidade->set(lista: $request->dado());
         $Publicidade->salvar();
-
         return new Response(status: 204);
     }
 
@@ -92,7 +90,6 @@ final class ComunicacaoPublicidadeController extends Controller implements
         $Publicidade = new PublicidadeEntity();
         $Publicidade->uuid($id);
         $Publicidade->destruir();
-
         return new Response(status: 204);
     }
 
@@ -104,7 +101,6 @@ final class ComunicacaoPublicidadeController extends Controller implements
             quantidade: new Quantidade($request->quantidade),
             tabela: TABELA_COMUNICACAO_PUBLICIDADE
         );
-
         return new Response(status: 204);
     }
 }
