@@ -77,8 +77,11 @@ trait PropriedadeTrait
     public Botao $confirmar_status;
     public string $confirmar_titulo;
     public string $confirmar_texto;
+    public Data $data_problema;
+    public Data $data_cancelado;
     public Data $data_auditoria;
     public Data $data_publicacao;
+    public Data $data_prospeccao;
     public Status $status;
     public ArquivoPrivadoLista $arquivo_clube;
     public ArquivoPrivadoLista $arquivo_painel;

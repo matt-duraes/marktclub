@@ -1317,7 +1317,8 @@ Route
             ::request([
                 'pagina', '!quantidade', '!categoria', '!subcategoria', '!tipo_estabelecimento',
                 '!pesquisa', '!titulo', '!tipo_loja', '!status', '!ordem', '!favorito', '!mais_acessado',
-                '!latitude', '!longitude', '!endereco_estado', '!empresa', '!equipe', '!convenio_direto'
+                '!latitude', '!longitude', '!endereco_estado', '!empresa', '!equipe', '!convenio_direto',
+                '!convenio'
             ], 'json')
             ::get('/parceiro-loja');
         Route

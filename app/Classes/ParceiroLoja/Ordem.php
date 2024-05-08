@@ -6,7 +6,8 @@ use Order\Order;
 
 final class Ordem extends Order
 {
-    public const PAINEL = 'painel';
+    public const PAINEL_ASC = 'painel-asc';
+    public const PAINEL_DESC = 'painel-desc';
     public const TITULO_AZ = 'titulo-a-z';
     public const TITULO_ZA = 'titulo-z-a';
 
@@ -22,6 +23,7 @@ final class Ordem extends Order
         $this->campo('titulo-z-a', 'Título Z-A', 'titulo', 'DESC');
         $this->maisNovo();
         $this->maisVelho();
-        $this->campoTexto('painel', 'Painel', 'data_auditoria', 'FIELD(`status`, 2, 1, 4, 3, 5, 6), `data_auditoria` ASC', '<');
+        $this->campoTexto('painel-asc', 'Painel ASC', 'data_auditoria', '`status` DESC, `data_auditoria` ASC, `data_criacao` ASC', '<');
+        $this->campoTexto('painel-desc', 'Painel DESC', 'data_auditoria', '`status` ASC,`data_criacao` DESC, `data_auditoria` DESC', '>');
     }
 }
