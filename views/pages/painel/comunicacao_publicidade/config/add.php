@@ -27,16 +27,16 @@ $Painel->coluna(callback: function () use ($Painel, $parceiro) {
 });
 
 $Painel->coluna(callback: function () use ($Painel, $parceiro) {
-    $Painel->fieldset('Dados pricipais', function () use ($Painel) {
+    $Painel->fieldset('Dados principais', function () use ($Painel) {
         $Painel
-            ->input(name: 'titulo', label: 'Título')
+            ->input(name: 'titulo', label: 'Título', placeholder: 'Digite um título para identificação')
             ->data(name: 'data_inicio', label: 'Publicar em', placeholder: 'Publicar em', separador: 'até')
             ->data(name: 'data_final', label: 'Remover em', placeholder: 'Remover em', separador: 'até')
-            ->url(name: 'link', label: 'Link', placeholder: 'Link externo');
+            ->url(name: 'link', label: 'Link', placeholder: 'Caso haja link externo, informe aqui');
     });
     $Painel->fieldset('Dados secundários', function () use ($Painel, $parceiro) {
         $Painel
-            ->select(name: 'tipo', lista: (new Tipo())->select('Escolha um tipo'), label: 'Tipo')
+            ->select(name: 'tipo', lista: (new Tipo())->select('Escolha um tipo'), label: 'Tipo', placeholder: 'Escolha o local do banner')
             ->select(name: 'parceiro->id', lista: $parceiro, label: 'Parceiro')
             ->select(
                 name: 'status',

@@ -4,7 +4,8 @@ use App\Classes\Geral\Status;
 use App\Classes\ComunicacaoPublicidade\Tipo;
 use App\Classes\ComunicacaoPublicidade\Ordem;
 
-$Painel = new PainelConfig\Index('comunicacao-publicidade', new Ordem());
+$Painel = new PainelConfig\Index('comunicacao_publicidade', new Ordem());
+
 $Painel
     ->drag()
     ->campo('titulo', 'Título', 'grande')

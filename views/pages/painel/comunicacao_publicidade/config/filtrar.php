@@ -1,9 +1,9 @@
 <?php
 
-use App\Classes\ComunicacaoPublicidade\Tipo;
 use App\Classes\Geral\Status;
+use App\Classes\ComunicacaoPublicidade\Tipo;
 
-$Painel = new PainelConfig\Filtrar('comunicacao-publicidade');
+$Painel = new PainelConfig\Filtrar('comunicacao_publicidade');
 
 $Painel
     ->input(name: 'titulo', titulo: 'Título', label: 'Título', placeholder: 'Digite um título')
