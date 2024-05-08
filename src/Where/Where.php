@@ -397,7 +397,9 @@ final class Where implements WhereInterface
         $this->whereTemp = [];
         $this->temp = true;
         call_user_func($callback);
-        $this->where[] = $this->whereTemp;
+        if ($this->whereTemp) {
+            $this->where[] = $this->whereTemp;
+        }
         $this->whereTemp = [];
         $this->temp = false;
     }
