@@ -148,7 +148,7 @@ final class BuscarModel extends ORM
         if (is_array($usuario) || empty($usuario)) {
             mensagemErro(
                 'Usuário não encontrado!',
-                'Não foi possível achar seu usuário pelos dados informados. Por favor, verifique os dados informados e tente novamente. Caso os dados estejam corretos, entre em contato com o atendimento.',
+                'Não foi possível encontrar o seu usuário com os dados fornecidos. Por favor, verifique as informações inseridas e tente novamente.',
                 codigo: 4040
             );
         }

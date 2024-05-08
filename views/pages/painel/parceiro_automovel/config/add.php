@@ -5,9 +5,10 @@ use App\Classes\Geral\Status;
 use App\Classes\ParceiroLoja\TipoLoja;
 
 $Loja = (new ApiHelper(token: true))
+    ->validar('Erro ao buscar parceiros')
     ->json([
         'titulo' => 'Escolha um parceiro',
-        'tipo'   => TipoLoja::AUTOMOVEL
+        'tipo_loja'   => TipoLoja::AUTOMOVEL
     ])
     ->get('/parceiro-loja/select')
     ->array()['dado'] ?? [];

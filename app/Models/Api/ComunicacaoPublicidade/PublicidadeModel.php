@@ -31,107 +31,84 @@ final class PublicidadeModel extends ORM implements ListarInterface
     private int $idEmpresa;
 
     public function __construct(
-        private Pagina $pagina,
-        private Quantidade $quantidade,
-        protected ?string $titulo = null,
-        protected Tipo $tipo = new Tipo(null),
-        protected Data $dataInicio = new Data(null),
-        protected Data $dataFinal = new Data(null),
-        protected Status $status = new Status(null),
-        private Botao $publicado = new Botao(null),
-        private ?string $empresa = null,
-        private Ordem $ordem = new Ordem(null),
+        private readonly Pagina $pagina = new Pagina(),
+        private readonly Quantidade $quantidade = new Quantidade(),
+        private readonly Ordem $ordem = new Ordem(),
+        private readonly ?string $pesquisa = null,
+        private readonly ?string $empresa = null,
+        private readonly ?string $titulo = null,
+        private readonly Tipo $tipo = new Tipo(),
+        private readonly Data $dataInicio = new Data(),
+        private readonly Data $dataFinal = new Data(),
+        private readonly Botao $publicado = new Botao(),
+        private readonly Status $status = new Status()
     ) {
-        parent::__construct();
+        $this->validarDados();
         $this->validarEmpresa();
-        $this->validarDado();
+        parent::__construct();
     }
 
-    private function validarDado()
+    private function validarDados(): void
     {
+        if (!$this->pagina->vazio() && !$this->pagina->valido()) {
+            mensagemErro('Campo inválido!', 'A Página informada não é válida.');
+        }
+        if (!$this->quantidade->vazio() && !$this->quantidade->valido()) {
+            mensagemErro('Campo inválido!', 'A Quantidade informada não é válida.');
+        }
+        if (!$this->ordem->vazio() && !$this->ordem->valido()) {
+            mensagemErro('Campo inválido!', 'A Ordem informada não é válida.');
+        }
         if (!$this->tipo->vazio() && !$this->tipo->valido()) {
-            mensagemErro('Dado inválido', 'O tipo não é válido.');
-        } elseif (!$this->dataInicio->vazio() && !$this->dataInicio->valido()) {
-            mensagemErro('Dado inválido', 'A data de inicio não é válida.');
-        } elseif (!$this->dataFinal->vazio() && !$this->dataFinal->valido()) {
-            mensagemErro('Dado inválido', 'A data final não é válida.');
-        } elseif (!$this->status->vazio() && !$this->status->valido()) {
-            mensagemErro('Dado inválido', 'O status não é válido.');
-        } elseif (!$this->publicado->vazio() && !$this->publicado->valido()) {
-            mensagemErro('Dado inválido', 'O valor publicado não é válido.');
-        } elseif (!$this->ordem->vazio() && !$this->ordem->valido()) {
-            mensagemErro('Dado inválido', 'A ordem não é válida.');
+            mensagemErro('Campo inválido!', 'O Tipo informado não é válido.');
+        }
+        if (!$this->dataInicio->vazio() && !$this->dataInicio->eDate()) {
+            mensagemErro('Campo inválido!', 'A Data de início informada não é válida.');
+        }
+        if (!$this->dataFinal->vazio() && !$this->dataFinal->eDate()) {
+            mensagemErro('Campo inválido!', 'A Data de final informada não é válida.');
+        }
+        if (!$this->publicado->vazio() && !$this->publicado->valido()) {
+            mensagemErro('Campo inválido!', 'O valor publicado não é válido.');
+        }
+        if (!$this->status->vazio() && !$this->status->valido()) {
+            mensagemErro('Campo inválido!', 'O Status informado não é válido.');
         }
     }
 
     public function listarDados(): stdClass
     {
-        $dado = $this
+        $publicidades = $this
             ->campo([
-                'uuid', 'titulo', 'link', 'imagem_desktop', 'imagem_mobile', 'tipo',
-                'data_inicio', 'data_final', 'status'
+                'uuid', 'titulo', 'link', 'imagem_desktop', 'imagem_mobile',
+                'tipo', 'data_inicio', 'data_final', 'status'
             ])
             ->pagina($this->pegarPagina(), $this->pegarQuantidade())
-            ->where($this->pegarWhere(), obrigatorio: false)
+            ->where($this->pegarWhere(), false)
             ->order($this->pegarOrdem())
             ->tabela(TABELA_PARCEIRO_LOJA)
-            ->where($this->pegarWhereParceiro(), obrigatorio: false)
-            ->campo(['uuid', 'titulo', 'url', 'tipo_loja', 'imagem_logo'], as: 'parceiro')
+            ->where($this->pegarWhereParceiro(), false)
+            ->campo([
+                'uuid', 'titulo', 'url', 'tipo_loja', 'imagem_logo'
+            ], 'parceiro')
             ->join('id', 'id_parceiro_loja')
             ->read();
 
-        $dado->lista = $this->montarDado($dado->lista);
-        return $dado;
-    }
-
-    private function montarDado(array $dado): array
-    {
-        $retorno = [];
-        $Status = new Status();
-        $Tipo = new Tipo();
-        $TipoParceiro = new TipoLoja();
-        foreach ($dado as $r) {
-            $statusAtual = $Status->indice($r->status);
-            $publicado = (new Publicado(
-                new Data($r->data_inicio),
-                new Data($r->data_final),
-                $statusAtual == Status::ATIVO
-            ))->indice();
-
-            $retorno[] = [
-                'id'          => $r->uuid,
-                'titulo'      => $r->titulo,
-                'parceiro'    => [
-                    'id'     => $r->parceiro_uuid,
-                    'titulo' => $r->parceiro_titulo,
-                    'url'    => $r->parceiro_url,
-                    'tipo'   => $TipoParceiro->indice($r->parceiro_tipo_loja),
-                    'logo'   => arquivoPrivado($r->parceiro_imagem_logo)
-                ],
-                'data_inicio'    => $r->data_inicio,
-                'data_final'     => $r->data_final,
-                'imagem_desktop' => arquivoPrivado($r->imagem_desktop),
-                'imagem_mobile'  => arquivoPrivado($r->imagem_mobile),
-                'link'           => $r->link,
-                'tipo'           => $Tipo->indice($r->tipo),
-                'publicado'      => $publicado,
-                'status'         => $statusAtual
-            ];
-        }
-        return $retorno;
+        $publicidades->lista = $this->montarRetorno($publicidades->lista);
+        return $publicidades;
     }
 
     private function pegarWhere(): array
     {
         $where = [];
         $publicadoVazio = $this->publicado->vazio();
-        if (!$publicadoVazio && $this->publicado->valor() == 'sim') {
+        if (!$publicadoVazio && $this->publicado->valor() == Publicado::SIM) {
             $where[] = [
                 ['data_inicio', '<=', hoje()],
                 ['data_final', '>=', hoje()],
                 ['status', 1]
             ];
-        } elseif (!$publicadoVazio && $this->publicado->valor() == 'nao') {
+        } elseif (!$publicadoVazio && $this->publicado->valor() == Publicado::NAO) {
             $where[] = [
                 'OR',
                 ['data_inicio', '>', hoje()],
@@ -139,8 +116,11 @@ final class PublicidadeModel extends ORM implements ListarInterface
                 ['status', '!=', 1]
             ];
         }
+        if (!empty($this->pesquisa)) {
+            $where[] = ['titulo', 'LIKE', "%{$this->pesquisa}%"];
+        }
         if (!empty($this->titulo)) {
-            $where[] = ['titulo', 'like', $this->titulo . '%'];
+            $where[] = ['titulo', 'LIKE', "%{$this->titulo}%"];
         }
         if ($this->dataInicio->valido() && $publicadoVazio) {
             $where[] = ['data_inicio', '<=', $this->dataInicio->date()];
@@ -167,5 +147,42 @@ final class PublicidadeModel extends ORM implements ListarInterface
 
         $id = (new OrmHelper(TABELA_PARCEIRO_LOJA))->pegarIdPeloUuid($this->empresa);
         return ['id_admin_empresa', 'json', $id];
+    }
+
+    private function montarRetorno(array $publicidades): array
+    {
+        $retorno = [];
+        $Status = new Status();
+        $Tipo = new Tipo();
+        $TipoParceiro = new TipoLoja();
+        foreach ($publicidades as $banner) {
+            $statusAtual = $Status->indice($banner->status);
+            $publicado = (new Publicado(
+                new Data($banner->data_inicio),
+                new Data($banner->data_final),
+                $statusAtual == Status::ATIVO
+            ))->indice();
+
+            $retorno[] = [
+                'id'          => $banner->uuid,
+                'titulo'      => $banner->titulo,
+                'parceiro'    => [
+                    'id'     => $banner->parceiro_uuid,
+                    'titulo' => $banner->parceiro_titulo,
+                    'url'    => $banner->parceiro_url,
+                    'tipo'   => $TipoParceiro->indice($banner->parceiro_tipo_loja),
+                    'logo'   => arquivoPrivado($banner->parceiro_imagem_logo)
+                ],
+                'data_inicio'    => $banner->data_inicio,
+                'data_final'     => $banner->data_final,
+                'imagem_desktop' => arquivoPrivado($banner->imagem_desktop),
+                'imagem_mobile'  => arquivoPrivado($banner->imagem_mobile),
+                'link'           => $banner->link,
+                'tipo'           => $Tipo->indice($banner->tipo),
+                'publicado'      => $publicado,
+                'status'         => $statusAtual
+            ];
+        }
+        return $retorno;
     }
 }

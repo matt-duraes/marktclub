@@ -691,8 +691,8 @@ Route
             ::nome('listar')
             ::middleware(TokenMiddleware::class, 'scope', ['comunicacao_publicidade:listar'])
             ::request([
-                'pagina', '!quantidade', '!titulo', '!data_inicio', '!data_final',
-                '!tipo', '!publicado', '!status', '!ordem', '!local'
+                'pagina', '!quantidade', '!ordem', '!pesquisa', '!titulo', '!tipo',
+                '!data_inicio', '!data_final', '!publicado', '!status'
             ], 'json')
             ::get('/comunicacao-publicidade');
 
@@ -701,7 +701,7 @@ Route
             ::middleware(TokenMiddleware::class, 'scope', ['comunicacao_publicidade:salvar'])
             ::request([
                 'titulo', 'link', 'data_inicio', 'data_final', 'parceiro', 'status',
-                'imagem_desktop', 'imagem_mobile', 'tipo', '!ordem', '!local'
+                'imagem_desktop', 'imagem_mobile', 'tipo', '!ordem'
             ])
             ::post('/comunicacao-publicidade');
 
@@ -710,7 +710,7 @@ Route
             ::middleware(TokenMiddleware::class, 'scope', ['comunicacao_publicidade:atualizar'])
             ::request([
                 '!titulo', '!link', '!data_inicio', '!data_final', '!parceiro', '!status',
-                '!imagem_desktop', '!imagem_mobile', '!tipo', '!ordem', '!local'
+                '!imagem_desktop', '!imagem_mobile', '!tipo', '!ordem'
             ])
             ::put('/comunicacao-publicidade/{id}');
 
@@ -1309,7 +1309,7 @@ Route
         Route
             ::nome('select')
             ::middleware(TokenMiddleware::class, 'scope', ['parceiro_loja:listar'])
-            ::request(['!tipo', '!titulo'], 'json')
+            ::request(['!tipo_loja', '!titulo'], 'json')
             ::get('/parceiro-loja/select');
         Route
             ::nome('listar')
