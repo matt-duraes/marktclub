@@ -176,7 +176,6 @@ class LojaModel extends ORM implements ModelListarInterface
                 }
             })
             ->linha('status');
-
         return $Where;
     }
 
