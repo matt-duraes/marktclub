@@ -11,7 +11,7 @@ class SelectModel extends ORM
 
     public function __construct(
         private ?string $titulo = null,
-        private TipoLoja $tipo = new TipoLoja(null)
+        private TipoLoja $tipo_loja = new TipoLoja(null)
     ) {
         parent::__construct();
     }
@@ -38,8 +38,8 @@ class SelectModel extends ORM
     protected function pegarWhere(): array
     {
         $where = [];
-        if ($this->tipo->valido()) {
-            $where[] = ['tipo', $this->tipo->numero()];
+        if ($this->tipo_loja->valido()) {
+            $where[] = ['tipo_loja', $this->tipo_loja->numero()];
         }
         $where[] = ['status', 'in', [4, 5]];
         return $where;

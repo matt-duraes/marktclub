@@ -1,7 +1,7 @@
 <?php
 
 return [
-    'titulo'     => 'Histórico',
+    'titulo'     => 'Publicidade',
     'buscar'     => true,
     'filtrar'    => true,
     'ordem'      => true,

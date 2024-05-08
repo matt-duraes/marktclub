@@ -5,8 +5,6 @@
             <p>Preencha os campos abaixo para buscar sua conta</p>
             <i class="fechar pagina_fechar">@iconeFechar</i>
         </header>
-
-
         <div class="bloco_escolha_usuario">
             <h1>Selecione o tipo de usuário</h1>
             <div class="bloco_tipo_usuario">
@@ -24,8 +22,14 @@
                 </div>
                 @endif;
             </div>
+
         </div>
 
+        <div class="atencao bloco_atencao_geral display_none aviso_cadastro">
+            <p>
+                Por favor, verifique se o titular já realizou o seu cadastro no clube de vantagens.
+            </p>
+        </div>
         <div class="bloco_titular display_none" data-ativacao="{{TIPO_ATIVACAO ? TIPO_ATIVACAO : ''}}">
             <h1>Insira o dado solicitado</h1>
             @? formCpf(name: 'buscar_cpf', label: 'Buscar', placeholder: 'Digite seu CPF');

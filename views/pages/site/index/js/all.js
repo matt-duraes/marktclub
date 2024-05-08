@@ -1,12 +1,12 @@
 // @template "site"
-// @system "Historico"
-// @system "Banner"
-// @system "Esqueleto"
-// @system "Popup"
 // @resource "site/loja/busca"
 // @resource "site/busca"
 // @resource "site/loja/favorito"
 // @resource "site/loja/parceiro"
+// @system "Historico"
+// @system "Banner"
+// @system "Esqueleto"
+// @system "Popup"
 
 const bannerDesktop = $('#bloco_banner_desktop');
 const bannerMobile = $('#bloco_banner_mobile');

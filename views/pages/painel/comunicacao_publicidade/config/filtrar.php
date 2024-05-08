@@ -1,9 +1,10 @@
 <?php
 
-use App\Classes\ComunicacaoPublicidade\Tipo;
 use App\Classes\Geral\Status;
+use App\Classes\Geral\Publicado;
+use App\Classes\ComunicacaoPublicidade\Tipo;
 
-$Painel = new PainelConfig\Filtrar('comunicacao-publicidade');
+$Painel = new PainelConfig\Filtrar('comunicacao_publicidade');
 
 $Painel
     ->input(name: 'titulo', titulo: 'Título', label: 'Título', placeholder: 'Digite um título')
@@ -15,9 +16,9 @@ $Painel
     ->select(name: 'status', titulo: 'Status', label: 'Status', lista: (new Status())->select('Escolha um status'))
     ->select(name: 'tipo', titulo: 'Tipo', label: 'Tipo', lista: (new Tipo())->select('Escolha um tipo'))
     ->select(name: 'publicado', label: 'Publicado', lista: [
-        ''    => 'Escolha uma opção',
-        'sim' => 'Publicado',
-        'nao' => 'Não publicado'
+        ''             => 'Escolha uma opção',
+        Publicado::SIM => 'Publicado',
+        Publicado::NAO => 'Não publicado'
     ]);
 
 $Painel->replace('status', (new Status())->select());
