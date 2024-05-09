@@ -46,7 +46,6 @@ class Banner {
             }
         }
         this.animarProximoBanner(itemAtual, proximo);
-        this.disableBotaoProximo();
     }
     bannerAnterior() {
         const itemAtual = this.banner.querySelector('.fw_banner_atual');
@@ -67,13 +66,12 @@ class Banner {
             }
         }
         this.animarProximoBanner(itemAtual, proximo);
-        this.disableBotaoAnterior();
     }
     animarProximoBanner(atual, proximo) {
         atual.classList.remove('fw_banner_atual');
         setTimeout(() => {
             atual.classList.add('fw_banner_hide');
-        }, 300);
+        }, 100);
 
         proximo.classList.remove('fw_banner_hide');
         setTimeout(() => {
@@ -104,20 +102,6 @@ class Banner {
         banner.addEventListener('swiped-right', function () {
             self.bannerProximo();
         });
-    }
-
-    disableBotaoProximo() {
-        this.botaoProximoDisabled = true;
-        setTimeout(() => {
-            this.botaoProximoDisabled = false;
-        }, 500); // Tempo de espera para reativar o botão após a animação
-    }
-
-    disableBotaoAnterior() {
-        this.botaoAnteriorDisabled = true;
-        setTimeout(() => {
-            this.botaoAnteriorDisabled = false;
-        }, 500); // Tempo de espera para reativar o botão após a animação
     }
 }
 /* eslint-enable */
