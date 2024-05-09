@@ -594,6 +594,20 @@ final class DataBase
         return $this;
     }
 
+    /**
+     * Cria um campo padrão de botão
+     *
+     * @param  string   $nome Nome do campo
+     * @return DataBase
+     */
+    public function botao(string $nome): DataBase
+    {
+        $this->setarTipo($nome, 'TINYINT');
+        $this->dado['tamanho'] = 1;
+        $this->dado['null'] = true;
+        return $this;
+    }
+
     /*
     |--------------------------------------------------------------------------
     | SETANDO OS TIPOS ACEITOS

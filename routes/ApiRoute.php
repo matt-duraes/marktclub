@@ -2746,6 +2746,25 @@ Route
     });
 
 Route
+    ::nome('publicacao_live')
+    ::middleware(TokenMiddleware::class, 'token')
+    ::controller(App\Controllers\Api\Publicacao\LiveController::class)
+    ::grupo(function () {
+        Route
+            ::nome('buscar')
+            ::middleware(TokenMiddleware::class, 'scope', ['publicacao_live:buscar'])
+            ::get('/publicacao-live/{id}');
+        Route
+            ::nome('atualizar')
+            ::middleware(TokenMiddleware::class, 'scope', ['publicacao_live:atualizar'])
+            ::request([
+                'titulo', 'titulo_interno', 'texto', 'imagem_site', 'imagem_restrito', 'link',
+                'permissao_restrita', 'permissao_site', 'link_restrito', 'data_inicio', 'data_final', 'status'
+            ])
+            ::put('/publicacao-live/{id}');
+    });
+
+Route
     ::nome('album_dado')
     ::middleware(TokenMiddleware::class, 'token')
     ::controller(App\Controllers\Api\AlbumDadoController::class)

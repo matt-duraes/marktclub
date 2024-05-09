@@ -344,6 +344,15 @@ final class ConfiguracoesPadrao
                 'publicacao_home_editar' => 'Editar'
             ]
         ],
+        'publicacao_live'          => [
+            'titulo'    => 'Sistema de live',
+            'acao'      => [
+                'editar'
+            ],
+            'permissao' => [
+                'publicacao_live_editar' => 'Editar'
+            ]
+        ],
         'publicacao_pagina'        => [
             'titulo'    => 'Páginas',
             'acao'      => [

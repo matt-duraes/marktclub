@@ -25,6 +25,7 @@ $permissao = [
     'publicacao_arquivo_empresa',
     'publicacao_pagina_index', 'publicacao_pagina_editar',
     'publicacao_home_editar',
+    'publicacao_live_editar',
     'publicacao_diretoria_index', 'publicacao_diretoria_add', 'publicacao_diretoria_editar',
     'publicacao_diretoria_deletar',
     'publicacao_lista_index', 'publicacao_lista_add', 'publicacao_lista_editar', 'publicacao_lista_deletar',
