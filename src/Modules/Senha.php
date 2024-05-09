@@ -3,10 +3,12 @@
 namespace Modules;
 
 use Modules\Trait\ValidarTrait;
+use Modules\Trait\ValorRealTrait;
 
 final class Senha implements ModuleInterface
 {
     use ValidarTrait;
+    use ValorRealTrait;
 
     // @codingStandardsIgnoreStart
     /**
@@ -75,6 +77,7 @@ final class Senha implements ModuleInterface
         ?string $senha,
         private int $forca = 4
     ) {
+        $this->valor_real = $senha;
         $algoritimo = is_string($senha) ? password_get_info($senha) : [];
         if (empty($senha)) {
             $this->senha = '';

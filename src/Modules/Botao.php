@@ -4,11 +4,13 @@ namespace Modules;
 
 use Modules\Trait\SelectTrait;
 use Modules\Trait\ValidarTrait;
+use Modules\Trait\ValorRealTrait;
 
 final class Botao implements ModuleInterface
 {
     use ValidarTrait;
     use SelectTrait;
+    use ValorRealTrait;
 
     public const SIM = 'sim';
     public const NAO = 'nao';
@@ -42,6 +44,7 @@ final class Botao implements ModuleInterface
     public function __construct(
         private null|int|string $valor = null,
     ) {
+        $this->valor_real = $valor;
         if (empty($this->valor)) {
             $this->vazio = true;
             $this->valido = false;

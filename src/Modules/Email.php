@@ -3,10 +3,12 @@
 namespace Modules;
 
 use Modules\Trait\ValidarTrait;
+use Modules\Trait\ValorRealTrait;
 
 final class Email implements ModuleInterface
 {
     use ValidarTrait;
+    use ValorRealTrait;
 
     public function __toString()
     {
@@ -41,6 +43,7 @@ final class Email implements ModuleInterface
     public function __construct(
         private ?string $email = null,
     ) {
+        $this->valor_real = $email;
         if (empty($this->email)) {
             $this->vazio = true;
             $this->valido = false;

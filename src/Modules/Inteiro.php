@@ -3,10 +3,12 @@
 namespace Modules;
 
 use Modules\Trait\ValidarTrait;
+use Modules\Trait\ValorRealTrait;
 
 final class Inteiro implements ModuleInterface
 {
     use ValidarTrait;
+    use ValorRealTrait;
 
     private string $valor = '';
 
@@ -43,6 +45,7 @@ final class Inteiro implements ModuleInterface
     public function __construct(
         private null|int|string $numero = null,
     ) {
+        $this->valor_real = $numero;
         if (empty($numero)) {
             $this->vazio = true;
             $this->valido = false;

@@ -3,10 +3,12 @@
 namespace Modules;
 
 use Modules\Trait\ValidarTrait;
+use Modules\Trait\ValorRealTrait;
 
 final class EnderecoEstado implements ModuleInterface
 {
     use ValidarTrait;
+    use ValorRealTrait;
 
     private array $listaIndiceNome = [
         'AC' => 'Acre',
@@ -71,6 +73,7 @@ final class EnderecoEstado implements ModuleInterface
     public function __construct(
         private ?string $estado = null
     ) {
+        $this->valor_real = $estado;
         if (empty($this->estado)) {
             $this->vazio = true;
             $this->valido = false;

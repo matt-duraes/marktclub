@@ -3,10 +3,12 @@
 namespace Modules;
 
 use Modules\Trait\ValidarTrait;
+use Modules\Trait\ValorRealTrait;
 
 final class DataHora implements ModuleInterface
 {
     use ValidarTrait;
+    use ValorRealTrait;
 
     private ?string $tipo = null;
     private ?string $date = null;
@@ -44,6 +46,7 @@ final class DataHora implements ModuleInterface
     public function __construct(
         private ?string $data = null
     ) {
+        $this->valor_real = $data;
         $eData = is_string($this->data) && preg_match(
             // @codingStandardsIgnoreStart
             "/^(0[1-9]|[1-2][0-9]|3[0-1])\/(0[1-9]|1[0-2])\/[0-9]{4}\ ([0-1][0-9]|2[0-3]):(0[0-9]|[1-5][0-9]):(0[0-9]|[1-5][0-9])$/",

@@ -11,6 +11,7 @@ abstract class Status implements StatusInterface
     private array $indiceNome = [];
     private array $numeroNome = [];
     protected bool $test = false;
+    protected string|int|null $valor_real = '';
 
     public function __toString()
     {
@@ -34,6 +35,7 @@ abstract class Status implements StatusInterface
         protected ?array $empresa = null,
         protected bool $geral = false
     ) {
+        $this->valor_real = $this->valor;
         $slugEmpresa = $this->pegarSlugEmpresa();
 
         if ($empresa && $geral) {
@@ -134,6 +136,17 @@ abstract class Status implements StatusInterface
             $i++;
         }
         return $array;
+    }
+
+    // doc
+    /**
+     * Retorna o valor real setado na classe
+     *
+     * @return mixed
+     */
+    public function real(): mixed
+    {
+        return $this->valor_real;
     }
 
     // doc
