@@ -3,10 +3,12 @@
 namespace Modules;
 
 use Modules\Trait\ValidarTrait;
+use Modules\Trait\ValorRealTrait;
 
 final class EnderecoCep implements ModuleInterface
 {
     use ValidarTrait;
+    use ValorRealTrait;
 
     public function __toString()
     {
@@ -41,6 +43,7 @@ final class EnderecoCep implements ModuleInterface
     public function __construct(
         private ?string $cep = null
     ) {
+        $this->valor_real = $cep;
         if (empty($this->cep)) {
             $this->vazio = true;
             $this->valido = false;

@@ -3,10 +3,12 @@
 namespace Modules;
 
 use Modules\Trait\ValidarTrait;
+use Modules\Trait\ValorRealTrait;
 
 class Link implements ModuleInterface
 {
     use ValidarTrait;
+    use ValorRealTrait;
 
     /**
      * Modúlo de Links
@@ -16,6 +18,7 @@ class Link implements ModuleInterface
     public function __construct(
         private ?string $link = null
     ) {
+        $this->valor_real = $link;
         if (empty($this->link)) {
             $this->vazio = true;
             $this->valido = false;

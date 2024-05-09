@@ -3,10 +3,12 @@
 namespace Modules;
 
 use Modules\Trait\ValidarTrait;
+use Modules\Trait\ValorRealTrait;
 
 final class ArquivoPrivadoLista implements ModuleInterface
 {
     use ValidarTrait;
+    use ValorRealTrait;
 
     private array $id = [];
     private array $link = [];
@@ -32,6 +34,7 @@ final class ArquivoPrivadoLista implements ModuleInterface
     public function __construct(
         private null|string|array $valor = null,
     ) {
+        $this->valor_real = $valor;
         $valorInicial = $valor;
         $this->valor = jsonDecode($this->valor, true, true);
         if (empty($this->valor)) {

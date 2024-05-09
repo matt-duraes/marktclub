@@ -3,10 +3,12 @@
 namespace Modules;
 
 use Modules\Trait\ValidarTrait;
+use Modules\Trait\ValorRealTrait;
 
 final class Contar implements ModuleInterface
 {
     use ValidarTrait;
+    use ValorRealTrait;
 
     private int $numero = 0;
 
@@ -36,6 +38,7 @@ final class Contar implements ModuleInterface
     public function __construct(
         private null|int|string $valor = null,
     ) {
+        $this->valor_real = $valor;
         if (!is_numeric($valor) && empty($valor)) {
             $this->valido = false;
             $this->vazio = true;

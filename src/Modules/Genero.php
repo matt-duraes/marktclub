@@ -4,11 +4,13 @@ namespace Modules;
 
 use Modules\Trait\SelectTrait;
 use Modules\Trait\ValidarTrait;
+use Modules\Trait\ValorRealTrait;
 
 final class Genero implements ModuleInterface
 {
     use ValidarTrait;
     use SelectTrait;
+    use ValorRealTrait;
 
     private array $listaValores = [1 => 'masculino', 2 => 'feminino', 3 => 'outro', 4 => 'nao-informar'];
     private array $listaIndiceNome = ['masculino' => 'Masculino', 'feminino' => 'Feminino', 'outro' => 'Outro', 'nao-informar' => 'Não informado'];
@@ -48,6 +50,7 @@ final class Genero implements ModuleInterface
     public function __construct(
         private null|int|string $genero = null,
     ) {
+        $this->valor_real = $genero;
         if (empty($this->genero)) {
             $this->vazio = true;
             $this->valido = false;

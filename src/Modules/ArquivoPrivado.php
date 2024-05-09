@@ -3,10 +3,12 @@
 namespace Modules;
 
 use Modules\Trait\ValidarTrait;
+use Modules\Trait\ValorRealTrait;
 
 final class ArquivoPrivado implements ModuleInterface
 {
     use ValidarTrait;
+    use ValorRealTrait;
 
     private string $id = '';
     private string $link = '';
@@ -32,6 +34,7 @@ final class ArquivoPrivado implements ModuleInterface
     public function __construct(
         private null|string $valor = null,
     ) {
+        $this->valor_real = $valor;
         if (empty($valor)) {
             $this->vazio = true;
             $this->valido = false;

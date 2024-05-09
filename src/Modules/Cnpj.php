@@ -3,10 +3,12 @@
 namespace Modules;
 
 use Modules\Trait\ValidarTrait;
+use Modules\Trait\ValorRealTrait;
 
 final class Cnpj implements ModuleInterface
 {
     use ValidarTrait;
+    use ValorRealTrait;
 
     public function __toString()
     {
@@ -41,6 +43,7 @@ final class Cnpj implements ModuleInterface
     public function __construct(
         private ?string $cnpj = null,
     ) {
+        $this->valor_real = $cnpj;
         $this->colocarZero();
         if (empty($this->cnpj)) {
             $this->vazio = true;

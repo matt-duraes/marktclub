@@ -3,10 +3,12 @@
 namespace Modules;
 
 use Modules\Trait\ValidarTrait;
+use Modules\Trait\ValorRealTrait;
 
 final class Telefone implements ModuleInterface
 {
     use ValidarTrait;
+    use ValorRealTrait;
 
     public function __toString()
     {
@@ -41,6 +43,7 @@ final class Telefone implements ModuleInterface
     public function __construct(
         private ?string $telefone = null
     ) {
+        $this->valor_real = $telefone;
         if (empty($this->telefone)) {
             $this->telefone = '';
             $this->vazio = true;
