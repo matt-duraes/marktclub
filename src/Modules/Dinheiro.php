@@ -3,10 +3,12 @@
 namespace Modules;
 
 use Modules\Trait\ValidarTrait;
+use Modules\Trait\ValorRealTrait;
 
 final class Dinheiro implements ModuleInterface
 {
     use ValidarTrait;
+    use ValorRealTrait;
 
     /**
      * Modulo para Dinheiro
@@ -16,6 +18,7 @@ final class Dinheiro implements ModuleInterface
     public function __construct(
         private ?string $dinheiro = null
     ) {
+        $this->valor_real = $dinheiro;
         if (empty($this->dinheiro)) {
             $this->vazio = true;
             $this->valido = false;

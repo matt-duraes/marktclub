@@ -3,10 +3,12 @@
 namespace Modules;
 
 use Modules\Trait\ValidarTrait;
+use Modules\Trait\ValorRealTrait;
 
 final class Cpf implements ModuleInterface
 {
     use ValidarTrait;
+    use ValorRealTrait;
 
     public function __toString()
     {
@@ -41,6 +43,7 @@ final class Cpf implements ModuleInterface
     public function __construct(
         private ?string $cpf = null
     ) {
+        $this->valor_real = $cpf;
         $this->colocarZero();
         if (empty($this->cpf)) {
             $this->vazio = true;

@@ -3,10 +3,12 @@
 namespace Modules;
 
 use Modules\Trait\ValidarTrait;
+use Modules\Trait\ValorRealTrait;
 
 final class Nome implements ModuleInterface
 {
     use ValidarTrait;
+    use ValorRealTrait;
 
     private string $primeiro_nome;
     private string $ultimo_sobrenome;
@@ -45,6 +47,7 @@ final class Nome implements ModuleInterface
     public function __construct(
         private ?string $nome = null
     ) {
+        $this->valor_real = $nome;
         if (empty($this->nome)) {
             $this->nome = '';
             $this->primeiro_nome = '';

@@ -3,10 +3,12 @@
 namespace Modules;
 
 use Modules\Trait\ValidarTrait;
+use Modules\Trait\ValorRealTrait;
 
 final class EstadoCivil implements ModuleInterface
 {
     use ValidarTrait;
+    use ValorRealTrait;
 
     private array $listaValores = [1 => 'solteiro', 2 => 'casado', 3 => 'divorciado', 4 => 'viuvo', 5 => 'separado'];
     private array $listaIndiceNome = ['solteiro' => 'Solteiro', 'casado' => 'Casado', 'divorciado' => 'Divorciado', 'viuvo' => 'Viuvo', 'separado' => 'Separado'];
@@ -45,6 +47,7 @@ final class EstadoCivil implements ModuleInterface
     public function __construct(
         private null|int|string $estadoCivil = null
     ) {
+        $this->valor_real = $estadoCivil;
         if (empty($this->estadoCivil())) {
             $this->vazio = true;
             $this->valido = false;

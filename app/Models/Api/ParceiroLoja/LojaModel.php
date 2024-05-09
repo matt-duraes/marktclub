@@ -171,7 +171,7 @@ class LojaModel extends ORM implements ModelListarInterface
             ->linha(propriedade: 'tipo_loja')
             ->linha('endereco_estado', 'json')
             ->seInArray('ordem', ['painel-asc', 'painel-desc'], function () use ($Where) {
-                if (!$this->pExiste('status') || !$this->status->valido()) {
+                if (!$this->pExiste('status') || (!$this->status->valido() && $this->status->real() != 'todos')) {
                     $Where->manual(['status', 'in', [1, 2]]);
                 }
             })

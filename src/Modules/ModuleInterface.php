@@ -4,6 +4,8 @@ namespace Modules;
 
 interface ModuleInterface
 {
+    public function real(): mixed;
+
     public function valor();
 
     public function banco(): mixed;

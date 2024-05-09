@@ -3,10 +3,12 @@
 namespace Modules;
 
 use Modules\Trait\ValidarTrait;
+use Modules\Trait\ValorRealTrait;
 
 final class Vazio implements ModuleInterface
 {
     use ValidarTrait;
+    use ValorRealTrait;
 
     public function __toString()
     {
