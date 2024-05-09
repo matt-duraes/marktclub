@@ -80,6 +80,7 @@ $scope = [
     'publicacao_lista:atualizar', 'publicacao_lista:deletar',
 
     'publicacao_home:atualizar', 'publicacao_home:buscar',
+    'publicacao_live:atualizar', 'publicacao_live:buscar',
 
     'texto_clube:salvar', 'texto_clube:atualizar', 'texto_clube:listar', 'texto_clube:buscar', 'texto_clube:deletar',
 
