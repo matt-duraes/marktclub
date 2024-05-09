@@ -43,9 +43,9 @@ final class PublicidadeModel extends ORM implements ListarInterface
         private readonly Botao $publicado = new Botao(),
         private readonly Status $status = new Status()
     ) {
+        parent::__construct();
         $this->validarDados();
         $this->validarEmpresa();
-        parent::__construct();
     }
 
     private function validarDados(): void
