@@ -6,8 +6,6 @@ return [
         'titulo'             => 'Live de teste',
         'titulo_interno'     => 'Live de teste',
         'texto'              => '<p>Descrição da live de teste</p>',
-        'imagem_site'        => '',
-        'imagem_restrito'    => '',
         'link'               => 'https://meet.google.com',
         'permissao_restrita' => 1,
         'permissao_site'     => 1,

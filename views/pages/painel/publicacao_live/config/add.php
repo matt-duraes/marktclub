@@ -43,11 +43,13 @@ $Painel->coluna(callback: function () use ($Painel, $diretorioImagem, $diretorio
 
 $Painel->coluna(callback: function () use ($Painel, $diretorioImagem, $diretorioArquivo) {
     $Painel->coluna(callback: function () use ($Painel, $diretorioImagem) {
-        $Painel->fieldset('Imagem grande', function () use ($Painel, $diretorioImagem) {
-            $Painel->imagem(name: 'imagem_site', diretorio: $diretorioImagem);
+        $Painel->fieldset('Imagem Site', function () use ($Painel, $diretorioImagem) {
+            $Painel->imagem(name: 'imagem_site_desktop', diretorio: $diretorioImagem, label: 'Desktop');
+            $Painel->imagem(name: 'imagem_site_mobile', diretorio: $diretorioImagem, label: 'Mobile');
         });
-        $Painel->fieldset('Imagem pequena', function () use ($Painel, $diretorioImagem) {
-            $Painel->imagem(name: 'imagem_restrito', diretorio: $diretorioImagem);
+        $Painel->fieldset('Imagem área restrita', function () use ($Painel, $diretorioImagem) {
+            $Painel->imagem(name: 'imagem_restrito_desktop', diretorio: $diretorioImagem, label: 'Desktop');
+            $Painel->imagem(name: 'imagem_restrito_mobile', diretorio: $diretorioImagem, label: 'Mobile');
         });
     });
 });
