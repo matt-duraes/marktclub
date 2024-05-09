@@ -47,7 +47,6 @@ const setarTipoInput = (valorData = '') => {
         input.setAttribute('placeholder', 'Digite a sua matrícula');
         return;
     }
-
     input.parentNode.classList.add('display_none');
     inputCpf.parentNode.classList.remove('display_none');
 };
@@ -57,27 +56,24 @@ const loadingAtivarBuscar = () => {
     let valorData = '';
     botoesTipoUsuario.forEach(botao => {
         botao.addEventListener('click', e => {
+            const botaoDependente = $('.botao_dependente');
+            const botaoTitular = $('.botao_titular');
+            const botaoIndicado = $('.botao_indicado');
+
             valorData = botao.getAttribute('data-tipo');
             setarTipoInput(valorData);
 
-            $('.botao_dependente').classList.remove('cor_bg');
-            $('.botao_titular').classList.remove('cor_bg');
-            $('.botao_indicado').classList.remove('cor_bg');
-
-            switch (valorData) {
-                case 'dependente':
-                    $('.botao_dependente').classList.add('cor_bg');
-                    blocoAviso.classList.remove('display_none');
-                    break;
-                case 'titular':
-                    $('.botao_titular').classList.add('cor_bg');
-                    blocoAviso.classList.add('display_none');
-                    break;
-                case 'indicado':
-                    $('.botao_indicado').classList.add('cor_bg');
-                    blocoAviso.classList.add('display_none');
-                    break;
+            if (botaoDependente) {
+                botaoDependente.classList.remove('cor_bg');
             }
+            if (botaoTitular) {
+                botaoTitular.classList.remove('cor_bg');
+            }
+            if (botaoIndicado) {
+                botaoIndicado.classList.remove('cor_bg');
+            }
+            botao.classList.add('cor_bg');
+            blocoAviso.classList.toggle('display_none', valorData != 'dependente');
         });
     });
 
