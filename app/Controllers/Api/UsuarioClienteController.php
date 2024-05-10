@@ -2,7 +2,6 @@
 
 namespace App\Controllers\Api;
 
-use App\Models\Api\UsuarioCliente\Ativar\AtivarIndicadoModel;
 use Modules\Cpf;
 use Erro\Excecao;
 use Http\Request;
@@ -24,12 +23,14 @@ use App\Models\Api\UsuarioCliente\ClienteEntity;
 use App\Models\Api\UsuarioCliente\DownloadModel;
 use System\Interface\ControllerDeletarInterface;
 use App\Models\Api\DownloadPrivado\ArquivoEntity;
-use App\Models\Api\UsuarioCliente\Ativar\AtivarModel;
 use System\Interface\ControllerAtualizarInterface;
+use App\Models\Api\UsuarioCliente\Ativar\AtivarModel;
 use App\Models\Api\UsuarioCliente\Ativar\BuscarModel;
+use App\Models\Api\UsuarioCliente\Validar\ValidarModel;
 use App\Models\Api\UsuarioCliente\Senha\AlterarSenhaModel;
 use App\Models\Api\UsuarioCliente\Senha\EnviarCodigoModel;
 use App\Models\Api\UsuarioCliente\Senha\ValidarCodigoModel;
+use App\Models\Api\UsuarioCliente\Ativar\AtivarIndicadoModel;
 
 final class UsuarioClienteController extends Controller implements
     ControllerBuscarInterface,
@@ -39,6 +40,12 @@ final class UsuarioClienteController extends Controller implements
     ControllerDeletarInterface
 {
     use ValidarUsuarioTrait;
+
+    public function postValidar(Request $request)
+    {
+        $Usuario = new ValidarModel(new Cpf($request->cpf));
+        return new Response(json: $Usuario->retorno, status: $Usuario->status);
+    }
 
     /**
      * @param string $id
