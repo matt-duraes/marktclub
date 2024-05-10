@@ -11,7 +11,7 @@ final class ValidarModel extends ORM
     public int $status = 404;
     public array $retorno = [
         'status' => 'erro',
-        'dado'   => [
+        'erro'   => [
             'nome'   => '',
             'cpf'    => '',
             'status' => 'RECUSADO'
@@ -53,7 +53,7 @@ final class ValidarModel extends ORM
     {
         $usuario = $this->usuario;
         if (empty($usuario) || !array_key_exists('id', $usuario)) {
-            $this->retorno['dado']['cpf'] = $this->cpf->cpf();
+            $this->retorno['erro']['cpf'] = $this->cpf->cpf();
             return;
         }
         $this->setarRetornoSucesso();
