@@ -71,7 +71,7 @@ class Banner {
         atual.classList.remove('fw_banner_atual');
         setTimeout(() => {
             atual.classList.add('fw_banner_hide');
-        }, 300);
+        }, 100);
 
         proximo.classList.remove('fw_banner_hide');
         setTimeout(() => {
