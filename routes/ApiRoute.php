@@ -2576,7 +2576,7 @@ Route
                 'contato_chat', 'home_noticia_principal', 'home_noticia_lista', 'home_parceiro', 'status',
                 'login_texto', 'login_link', 'clube_link', 'rede_header', 'rede_footer', 'rss', 'cor_texto',
                 'cor_header', 'cor_footer', 'imagem_header', 'altura_header', 'noticia_imagem', 'imagem_social',
-                'diretoria_tipo', 'rede_linkedin', 'mensagem_topo'
+                'diretoria_tipo', 'rede_linkedin', 'mensagem_topo', 'home_video', 'home_galeria'
             ])
             ::post('/site-config');
         Route
@@ -2590,7 +2590,7 @@ Route
                 '!home_noticia_principal', '!home_noticia_lista', '!home_parceiro', '!status', '!login_texto',
                 '!login_link', '!clube_link', '!rede_header', '!rede_footer', '!rss', '!cor_texto', '!cor_header',
                 '!cor_footer', '!imagem_header', '!altura_header', '!noticia_imagem', '!imagem_social',
-                '!diretoria_tipo', '!rede_spotify', '!rede_linkedin', '!mensagem_topo'
+                '!diretoria_tipo', '!rede_spotify', '!rede_linkedin', '!mensagem_topo', '!home_video', '!home_galeria'
             ])
             ::put('/site-config/{id}');
         Route
