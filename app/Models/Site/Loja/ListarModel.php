@@ -129,9 +129,12 @@ final class ListarModel extends ClubeApiHelper implements ListarInterface
             'status'     => Status::CONCLUIDO,
             'quantidade' => $this->quantidade
         ];
-        if ($this->tipo->valido()) {
+        if ($this->tipo->valido() && $this->tipo->indice() != 'loja') {
             $where['tipo_loja'] = $this->tipo->indice();
+        } elseif($this->tipo->indice() == 'loja') {
+            $where['convenio'] = 'sim';
         }
+
         $where = array_merge($where, $this->where);
         $replace = [
             'acessado'        => 'mais_acessado',

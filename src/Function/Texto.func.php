@@ -438,3 +438,50 @@ if (!function_exists('strDominio')) {
         return $www ? $dominio : preg_replace('/^www\./', '', $dominio);
     }
 }
+if (!function_exists('strRemoverHttpsDominio')) {
+    // doc
+    /**
+     * Converter um URL para seu domínio
+     *
+     * @param  null|string $dominio String a ser convertida
+     * @return string      String convertida
+     */
+    function strRemoverHttpsDominio(string|array $dominio = [], bool $www = true, bool $porta = true)
+    {
+        if (empty($dominio)) {
+            return is_string($dominio) ? '' : [];
+        }
+        if(is_string($dominio)) {
+            return strDominio($dominio, $www, $porta);
+        }
+        $retorno = [];
+        foreach($dominio as $link) {
+            $retorno[] = strDominio($link, $www, $porta);
+        }
+        return $retorno;
+    }
+}
+if (!function_exists('strColocarHttpsDominio')) {
+    // doc
+    /**
+     * Converter um URL para seu domínio
+     *
+     * @param  null|string $dominio String a ser convertida
+     * @return string      String convertida
+     */
+    function strColocarHttpsDominio(string|array $dominio)
+    {
+        $eString = is_string($dominio);
+        if (empty($dominio)) {
+            return $eString ? '' : [];
+        }
+        if($eString) {
+            $dominio = [$dominio];
+        }
+        $retorno = [];
+        foreach($dominio as $link) {
+            $retorno[] = 'https://' . preg_replace('/^http(s){0,1}\:\/\//', '', $link);
+        }
+        return $eString ? $retorno[0] : $retorno;
+    }
+}

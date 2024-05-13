@@ -1,0 +1,1 @@
+{"id":"id_9d4b42f3b824434caf09dc586bbb5ce5","token":"token","metodo":"GET","nome":"\/publicacao-live\/:id","uri":"{{LINK}}\/publicacao-live\/350bebbe-6936-421c-9dd4-5edc05101fb8","parametro":[],"body":[],"header":[],"variavel":[],"json":[],"documentacao":{"status":false,"descricao":"","requisicao":"","resposta":"","scope":"publicacao_live:buscar"}}

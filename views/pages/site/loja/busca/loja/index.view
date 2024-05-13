@@ -42,7 +42,7 @@ $listaOrdem = [
                 <fieldset>
                     @? formInput(name: 'pesquisa', placeholder: 'Busque por um convênio', label: 'Pesquisa', class: 'busca_pesquisa', value: $Busca->pesquisa ?? '', id: 'bloco_input_pesquisa')
                     @? formSelect(name: 'ordem', placeholder: 'Ordenar por', label: 'Ordem', class: 'busca_ordem', lista: $listaOrdem, value: $Busca->ordem ?? '')
-                    <button class="botao_geral_cor cor_bg">Buscar</button>
+                    <button class="botao_geral_cor cor_bg" id="botao_buscar_loja">Buscar</button>
                 </fieldset>
             </div>
         </div>

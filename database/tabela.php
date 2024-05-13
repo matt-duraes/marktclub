@@ -1,4 +1,4 @@
-<?php
+<?php 
 
 define('TABELA_ALBUM_DADO', 'album_dado');
 define('TABELA_ALBUM_FOTO', 'album_foto');
@@ -64,6 +64,7 @@ define('TABELA_PUBLICACAO_ARQUIVO', 'publicacao_arquivo');
 define('TABELA_PUBLICACAO_DIRETORIA', 'publicacao_diretoria');
 define('TABELA_PUBLICACAO_HOME', 'publicacao_home');
 define('TABELA_PUBLICACAO_LISTA', 'publicacao_lista');
+define('TABELA_PUBLICACAO_LIVE', 'publicacao_live');
 define('TABELA_PUBLICACAO_NOTICIA', 'publicacao_noticia');
 define('TABELA_PUBLICACAO_PAGINA', 'publicacao_pagina');
 define('TABELA_PUBLICACAO_YOUTUBE', 'publicacao_youtube');

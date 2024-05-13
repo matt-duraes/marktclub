@@ -450,7 +450,7 @@ return [
         'id_admin_empresa' => 1,
         'tipo'             => 3,
         'titulo'           => 'Live',
-        'url'              => '/app/publicacao-live',
+        'url'              => '/app/editar/publicacao-live/350bebbe-6936-421c-9dd4-5edc05101fb8',
         'icone'            => '<svg xmlns="http://www.w3.org/2000/svg" version="1.1" viewBox="0 0 30 30"><path d="M18.7,12.9l3.9-2.7c.2-.1.4,0,.5,0,0,0,0,.1,0,.2v8.9c0,.2-.2.4-.4.4s-.1,0-.2,0l-3.9-2.7v3.1c0,.4-.3.7-.7.7H7.6c-.4,0-.7-.3-.7-.7v-10.4c0-.4.3-.7.7-.7h10.4c.4,0,.7.3.7.7v3.1ZM18.7,15.3l3,2.1v-4.7l-3,2.1v.5ZM8.3,10.6v8.9h8.9v-8.9h-8.9Z"/></svg>',
         'ordem'            => '++',
         'menu'             => ['publicacao-live'],
