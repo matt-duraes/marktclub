@@ -12,6 +12,7 @@ $Painel->coluna(callback: function () use ($Painel, $diretorioImagem, $diretorio
             ->input(name: 'titulo_interno', label: 'Título para o painel', placeholder: 'Título para o painel', obrigatorio: true)
             ->input(name: 'titulo', label: 'Título do site', placeholder: 'Título para o site', obrigatorio: true)
             ->url(name: 'link', label: 'Link da live', placeholder: 'Link da live', obrigatorio: true)
+            ->switch(name: 'incorporar', label: 'Incorporar vídeo na área restrita?', ajuda: 'Irá mostrar a live na própria área restrita se for transmitida pelo YouTube')
             ->switch(name: 'link_restrito', label: 'Link disponível apenas na área restrita?');
     });
     $Painel->fieldset('Permissões', function () use ($Painel) {
@@ -43,11 +44,13 @@ $Painel->coluna(callback: function () use ($Painel, $diretorioImagem, $diretorio
 
 $Painel->coluna(callback: function () use ($Painel, $diretorioImagem, $diretorioArquivo) {
     $Painel->coluna(callback: function () use ($Painel, $diretorioImagem) {
-        $Painel->fieldset('Imagem grande', function () use ($Painel, $diretorioImagem) {
-            $Painel->imagem(name: 'imagem_site', diretorio: $diretorioImagem);
+        $Painel->fieldset('Imagem Site', function () use ($Painel, $diretorioImagem) {
+            $Painel->imagem(name: 'imagem_site_desktop', diretorio: $diretorioImagem, label: 'Desktop');
+            $Painel->imagem(name: 'imagem_site_mobile', diretorio: $diretorioImagem, label: 'Mobile');
         });
-        $Painel->fieldset('Imagem pequena', function () use ($Painel, $diretorioImagem) {
-            $Painel->imagem(name: 'imagem_restrito', diretorio: $diretorioImagem);
+        $Painel->fieldset('Imagem área restrita', function () use ($Painel, $diretorioImagem) {
+            $Painel->imagem(name: 'imagem_restrito_desktop', diretorio: $diretorioImagem, label: 'Desktop');
+            $Painel->imagem(name: 'imagem_restrito_mobile', diretorio: $diretorioImagem, label: 'Mobile');
         });
     });
 });

@@ -20,8 +20,9 @@ final class LiveController extends Controller implements
             dado: pegarPropriedadeDaEntity(
                 Entity: $Live,
                 lista: [
-                    'titulo', 'titulo_interno', 'texto', 'imagem_site', 'imagem_restrito', 'link',
-                    'permissao_restrita', 'permissao_site', 'link_restrito', 'data_inicio', 'data_final', 'status'
+                    'titulo', 'titulo_interno', 'texto', 'imagem_site_desktop', 'imagem_site_mobile',
+                    'imagem_restrito_desktop', 'imagem_restrito_mobile', 'link', 'incorporar', 'permissao_restrita',
+                    'permissao_site', 'link_restrito', 'data_inicio', 'data_final', 'botao_texto', 'status'
                 ]
             )
         );
@@ -29,9 +30,14 @@ final class LiveController extends Controller implements
 
     public function putAtualizar(Request $request, string $id): Response
     {
+        $dado = $request->dado();
+        if($request->existe('texto')) {
+            $dado['texto'] = $request->getPut('texto', html: false);
+        }
+
         $Live = new LiveEntity();
         $Live->uuid($id);
-        $Live->set(lista: $request->dado());
+        $Live->set(lista: $dado);
         $Live->salvar();
 
         return new Response(status: 204);

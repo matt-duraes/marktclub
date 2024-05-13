@@ -2,10 +2,10 @@
 
 return [
     'insert' => [
-        'origem_lead', 'convenio_direto'
+        'origem_lead'
     ],
     'salvar' => [
-        'nome_fantasia', 'razao_social', 'tipo_juridico', 'documento_cpf', 'documento_cnpj',
+        'nome_fantasia', 'razao_social', 'tipo_juridico', 'documento_cpf', 'documento_cnpj', 'convenio_direto',
         'titulo_interno', 'tipo_loja', 'equipe', 'responsavel_nome', 'responsavel_cpf', 'responsavel_email',
         'responsavel_telefone', 'responsavel_cargo', 'destaque', 'endereco_estado', 'pontuacao',
         'imagem_logo', 'imagem_capa_desktop', 'imagem_capa_mobile', 'titulo', 'tipo_estabelecimento', 'origem_lead',

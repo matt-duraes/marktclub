@@ -49,7 +49,6 @@ const inputSubcategoria = $('#input_subcategoria');
 const inputEstabelecimento = $('#input_estabelecimento');
 const inputPesquisa = $('#input_pesquisa');
 const inputOrdem = $('#input_ordem');
-const formBusca = $('#form_buscar');
 
 const acessadoValor = inputAcessado ? inputAcessado.value : '';
 const favoritoValor = inputFavorito ? inputFavorito.value : '';
@@ -62,58 +61,6 @@ const pesquisaValor = inputPesquisa ? inputPesquisa.value : '';
 const ordemValor = inputOrdem ? inputOrdem.value : '';
 
 const carregarMapa = inputMapa && inputMapa.checked;
-if (inputMapa) {
-    inputMapa.addEventListener('change', () => {
-        formSelectOption(inputCidade, { '': 'Escolha um estado primeiro' });
-        formValue(inputEstabelecimento, '');
-        formValue(inputOrdem, '');
-        formBusca.classList.toggle('busca_mapa');
-        if (inputMapa.checked && (inputLatitude.value == '' || inputLongitude.value == '')) {
-            buscarGeolocalizacao();
-        }
-        if (inputMapa.checked && inputEstado.value != '') {
-            buscarCidadePeloEstado(inputCidade, inputEstado.value, inputCidade.value, 'Escolha uma cidade');
-        }
-        if (!inputMapa.checked) {
-            inputLatitude.value = '';
-            inputLongitude.value = '';
-        }
-    });
-}
-const buscarGeolocalizacao = () => {
-    Loading.show();
-    navigator.geolocation.getCurrentPosition(
-        position => {
-            Loading.hide();
-            inputLatitude.value = position.coords.latitude;
-            inputLongitude.value = position.coords.longitude;
-        },
-        e => {
-            Loading.hide();
-            if (e.message == 'User denied Geolocation') {
-                Alerta.mensagem(
-                    'Localização bloqueada',
-                    'Você bloqueou a geolocalização, para poder mostrar as lojas próximas a você, precisamos que desbloquei sua localização e tente novamente.',
-                    '!'
-                );
-                return;
-            }
-            Alerta.mensagem(
-                'Erro na localização',
-                'Ocorreu um erro ao pegar sua localização, verifique suas permissões no navegador e tente novamente.',
-                '!'
-            );
-        }
-    );
-};
-if (inputEstado) {
-    inputEstado.addEventListener('formChange', () => {
-        buscarCidadePeloEstado(inputCidade, inputEstado.value, '', 'Escolha uma cidade');
-    });
-    if (inputEstado.value != '') {
-        buscarCidadePeloEstado(inputCidade, inputEstado.value, inputCidade.value, 'Escolha uma cidade');
-    }
-}
 
 const montarBody = () => {
     const body = {
