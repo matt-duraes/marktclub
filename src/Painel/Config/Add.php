@@ -21,6 +21,10 @@ final class Add
     private string|array $js = '';
     private string $link = '';
 
+    const TAG_TIPO_TAG = 'tag';
+    const TAG_TIPO_TEXTO = 'texto';
+    const TAG_TIPO_URL = 'url';
+
     public function __construct(
         private string $app,
         private ?string $acao = null

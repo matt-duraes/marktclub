@@ -6,11 +6,13 @@ use ORM\Entity;
 use Modules\Botao;
 use Modules\Email;
 use Modules\Telefone;
+use Modules\ArquivoPrivado;
 use App\Classes\Geral\Status;
 use App\Classes\SiteConfig\DiretoriaTipo;
 use App\Classes\SiteConfig\TemplateFooter;
 use App\Classes\SiteConfig\TemplateHeader;
 use App\Models\Api\Trait\ValidarEmpresaTrait;
+use CaptainHook\App\Runner\Action\Cli\Command\Placeholder\Arg;
 
 final class ConfigEntity extends Entity
 {
@@ -67,13 +69,13 @@ final class ConfigEntity extends Entity
     public Email $contato_email;
     public Botao $contato_chat;
     public string $contato_endereco;
-    public string $imagem_social;
-    public string $mapa_imagem;
+    public ArquivoPrivado $imagem_social;
+    public ArquivoPrivado $mapa_imagem;
     public string $mapa_link;
     public string $cor_principal;
     public string $cor_texto;
     public string $cor_header;
-    public string $imagem_header;
+    public ArquivoPrivado $imagem_header;
     public int $altura_header;
     public string $cor_footer;
     public string $rede_youtube;
@@ -85,10 +87,10 @@ final class ConfigEntity extends Entity
     public Botao $rede_header;
     public Botao $rede_footer;
     public Botao $rss;
-    public string $noticia_imagem;
-    public string $logo_principal;
-    public string $link_site;
-    public string $favicon;
+    public ArquivoPrivado $noticia_imagem;
+    public ArquivoPrivado $logo_principal;
+    public array $link_site;
+    public ArquivoPrivado $favicon;
     public string $login_texto;
     public string $login_link;
     public string $clube_link;
@@ -104,13 +106,7 @@ final class ConfigEntity extends Entity
 
     protected function regraPosBuscar()
     {
-        $this->imagem_header = arquivoPrivado($this->imagem_header);
-        $this->imagem_social = arquivoPrivado($this->imagem_social);
-        $this->noticia_imagem = arquivoPrivado($this->noticia_imagem);
-        $this->mapa_imagem = arquivoPrivado($this->mapa_imagem);
-        $this->logo_principal = arquivoPrivado($this->logo_principal);
-        $this->favicon = arquivoPrivado($this->favicon);
-        $this->link_site = 'https://' . strDominio($this->link_site);
+        $this->link_site = strColocarHttpsDominio($this->link_site);
     }
 
     protected function regraInsert()
@@ -123,12 +119,7 @@ final class ConfigEntity extends Entity
 
     protected function regraSalvar()
     {
-        $this->imagem_header = arquivoPrivadoId($this->imagem_header);
-        $this->mapa_imagem = arquivoPrivadoId($this->mapa_imagem);
-        $this->logo_principal = arquivoPrivadoId($this->logo_principal);
-        $this->favicon = arquivoPrivadoId($this->favicon);
-        $this->link_site = strDominio($this->link_site);
-
+        $this->link_site = strRemoverHttpsDominio($this->link_site);
         $this->validarCampoDuplicado('link_site', 'Link do site');
     }
 }

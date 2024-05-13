@@ -49,7 +49,7 @@ $Painel->coluna(callback: function () use ($Painel) {
                 lista: $Categoria->select('Escolha uma opção')
             )
             ->uri(name: 'url', label: 'URL do clube', placeholder: 'Url do clube')
-            ->switch(name: 'convenio_direto', label: 'É um convênio direto?', acao: 'add');
+            ->switch(name: 'convenio_direto', label: 'É um convênio direto?');
     });
 
     $Painel->fieldset('Responsável', function () use ($Painel) {

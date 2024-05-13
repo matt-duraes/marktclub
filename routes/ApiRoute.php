@@ -2582,7 +2582,7 @@ Route
                 'contato_chat', 'home_noticia_principal', 'home_noticia_lista', 'home_parceiro', 'status',
                 'login_texto', 'login_link', 'clube_link', 'rede_header', 'rede_footer', 'rss', 'cor_texto',
                 'cor_header', 'cor_footer', 'imagem_header', 'altura_header', 'noticia_imagem', 'imagem_social',
-                'diretoria_tipo', 'rede_linkedin', 'mensagem_topo'
+                'diretoria_tipo', 'rede_linkedin', 'mensagem_topo', 'home_video', 'home_galeria'
             ])
             ::post('/site-config');
         Route
@@ -2596,7 +2596,7 @@ Route
                 '!home_noticia_principal', '!home_noticia_lista', '!home_parceiro', '!status', '!login_texto',
                 '!login_link', '!clube_link', '!rede_header', '!rede_footer', '!rss', '!cor_texto', '!cor_header',
                 '!cor_footer', '!imagem_header', '!altura_header', '!noticia_imagem', '!imagem_social',
-                '!diretoria_tipo', '!rede_spotify', '!rede_linkedin', '!mensagem_topo'
+                '!diretoria_tipo', '!rede_spotify', '!rede_linkedin', '!mensagem_topo', '!home_video', '!home_galeria'
             ])
             ::put('/site-config/{id}');
         Route
@@ -2765,8 +2765,8 @@ Route
             ::middleware(TokenMiddleware::class, 'scope', ['publicacao_live:atualizar'])
             ::request([
                 'titulo', 'titulo_interno', 'texto', 'imagem_site_desktop', 'imagem_site_mobile',
-                'imagem_restrito_desktop', 'imagem_restrito_mobile', 'link', 'permissao_restrita',
-                'permissao_site', 'link_restrito', 'data_inicio', 'data_final', 'status'
+                'imagem_restrito_desktop', 'imagem_restrito_mobile', 'link', 'incorporar', 'permissao_restrita',
+                'permissao_site', 'link_restrito', 'data_inicio', 'data_final', 'botao_texto', 'status'
             ])
             ::put('/publicacao-live/{id}');
     });
