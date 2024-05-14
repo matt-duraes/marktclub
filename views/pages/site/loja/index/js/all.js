@@ -5,6 +5,16 @@
 // @resource "site/busca"
 // @resource "site/automovel/solicitacao"
 // @system "Esqueleto"
+// @system "Popup"
+
+window.addEventListener('load', () => {
+    const blocoPopup = $('#popup_medicamento');
+    if (!blocoPopup) {
+        return;
+    }
+    const PopupAlerta = new Popup('alerta', 'popup_medicamento', true, false);
+    PopupAlerta.abrir();
+});
 
 const blocoMapa = $('#bloco_loja_mapa');
 const blocoCarregarMais = $('#bloco_carregar_mais');
