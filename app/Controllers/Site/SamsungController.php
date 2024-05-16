@@ -12,12 +12,13 @@ final class SamsungController extends Controller
     {
         $dado = (new BuscarModel())->buscar();
         return view('samsung', [
-            'menu'     => 'samsung',
-            'banner'   => (new BannerModel())->home(),
-            'link'     => $dado->link,
-            'email'    => $dado->email,
-            'pessoal'  => $dado->pessoal,
-            'trabalho' => $dado->trabalho,
+            'menu'         => 'samsung',
+            'banner'       => (new BannerModel())->home(),
+            'bannerFixo'   => (new BannerModel())->samsungFixo(),
+            'link'         => $dado->link,
+            'email'        => $dado->email,
+            'pessoal'      => $dado->pessoal,
+            'trabalho'     => $dado->trabalho,
         ]);
     }
 }
