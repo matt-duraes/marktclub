@@ -285,9 +285,11 @@ final class Filtrar
         $name,
         ?string $titulo = null,
         string $label = '',
-        string $placeholder = '',
-        bool $obrigatorio = false
+        string|array $placeholder = '',
+        bool $obrigatorio = false,
+        string $separador = ''
     ) {
+        $mascara = is_array($name) ? ['00/00/0000', '00/00/0000'] : '00/00/0000';
         $this->input(
             name: $name,
             titulo: $titulo,
@@ -295,8 +297,9 @@ final class Filtrar
             obrigatorio: $obrigatorio,
             placeholder: $placeholder,
             attr: ['data-calendario' => 'data'],
-            mascara: '00/00/0000',
+            mascara: $mascara,
             numero: 1,
+            separador: $separador,
             data: 1
         );
         return $this;
@@ -413,7 +416,7 @@ final class Filtrar
     private function adicionarNovoInput($dado, $permissao)
     {
         $dado['indice'] = preg_replace('/\[\]$/', '', $dado['name']);
-        $dado['name'] = explode('->', $dado['name'])[0];
+        $dado['name'] = is_string($dado['name']) ? explode('->', $dado['name'])[0] : $dado['name'];
         if (!$this->campoAceito($dado['name'], $permissao)) {
             return $this;
         }
