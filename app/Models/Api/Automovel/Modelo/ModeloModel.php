@@ -107,8 +107,8 @@ final class ModeloModel extends ORM implements
     {
         $modelos = $this
             ->campo([
-                'uuid', 'titulo', 'imagem', 'url', 'data_inicio', 'data_final',
-                'status', 'data_criacao', 'data_atualizacao'
+                'uuid', 'titulo', 'imagem', 'url', 'data_inicio',
+                'data_final', 'status', 'data_criacao', 'data_atualizacao'
             ])
             ->where($this->pegarWhere(), false)
             ->pagina($this->pegarPagina(), $this->pegarQuantidade())
@@ -116,7 +116,7 @@ final class ModeloModel extends ORM implements
             ->tabela(TABELA_PARCEIRO_LOJA)
             ->where($this->pegarWhereLoja(), false)
             ->campo([
-                'uuid', 'titulo', 'status'
+                'uuid', 'titulo', 'titulo_interno', 'status'
             ], 'parceiro')
             ->join('id', 'id_parceiro_loja')
             ->read();
