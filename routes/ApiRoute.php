@@ -258,10 +258,16 @@ Route
     });
 
 Route
-    ::nome('usuario_cliente_download')
+    ::nome('usuario_cliente_direto')
     ::controller(App\Controllers\Api\UsuarioClienteController::class)
     ::middleware(TokenMiddleware::class, 'token')
     ::grupo(function () {
+        Route
+            ::nome('validar')
+            ::middleware(TokenMiddleware::class, 'scope', ['usuario_cliente:validar'])
+            ::request(['cpf'])
+            ::post('/usuario-cliente/validar');
+
         Route
             ::nome('download')
             ::middleware(TokenMiddleware::class, 'scope', ['usuario_cliente:download'])

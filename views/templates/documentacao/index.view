@@ -37,7 +37,7 @@
             <a href="@route('documentacao.rota')/login-api"><stron class="post">Login via API</a>
             @ endif;
 
-            @ if( in_array('usuario-cliente-salvar', SCOPE) || in_array('usuario-cliente-atualizar', SCOPE) || in_array('usuario-cliente-deletar', SCOPE) || in_array('usuario-cliente-listar', SCOPE) ):
+            @ if( in_array('usuario-cliente-salvar', SCOPE) || in_array('usuario-cliente-atualizar', SCOPE) || in_array('usuario-cliente-deletar', SCOPE) || in_array('usuario-cliente-listar', SCOPE) || in_array('usuario-cliente-validar', SCOPE) ):
             <h2><i>@iconeSetaDireita(10)</i> Usuário</h2>
                 @ if( in_array('usuario-cliente-listar', SCOPE) ):
                 <a href="@route('documentacao.rota')/usuario-cliente-listar">Listar clientes</a>
@@ -50,6 +50,9 @@
                 @ endif;
                 @ if( in_array('usuario-cliente-deletar', SCOPE) ):
                 <a href="@route('documentacao.rota')/usuario-cliente-deletar">Deletar cliente</a>
+                @ endif;
+                @ if( in_array('usuario-cliente-validar', SCOPE) ):
+                <a href="@route('documentacao.rota')/usuario-cliente-validar">Validar cliente</a>
                 @ endif;
             @ endif;
 

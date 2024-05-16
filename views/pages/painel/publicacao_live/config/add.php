@@ -11,6 +11,7 @@ $Painel->coluna(callback: function () use ($Painel, $diretorioImagem, $diretorio
         $Painel
             ->input(name: 'titulo_interno', label: 'Título para o painel', placeholder: 'Título para o painel', obrigatorio: true)
             ->input(name: 'titulo', label: 'Título do site', placeholder: 'Título para o site', obrigatorio: true)
+            ->input(name: 'botao_texto', label: 'Texto do botão', placeholder: 'Digite o texto do botão na área restrita', contador: 15)
             ->url(name: 'link', label: 'Link da live', placeholder: 'Link da live', obrigatorio: true)
             ->switch(name: 'incorporar', label: 'Incorporar vídeo na área restrita?', ajuda: 'Irá mostrar a live na própria área restrita se for transmitida pelo YouTube')
             ->switch(name: 'link_restrito', label: 'Link disponível apenas na área restrita?');

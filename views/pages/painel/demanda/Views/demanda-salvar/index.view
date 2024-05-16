@@ -26,8 +26,6 @@
             <div class="botao" data-tipo="evento">Evento</div>
             <div class="botao" data-tipo="campanha">Campanha desconto</div>
             <div class="botao" data-tipo="brinde">Brindes</div>
-            <div class="botao" data-tipo="indicacao">Indicação</div>
-            <div class="botao" data-tipo="autoindicacao">Auto Indicação</div>
             <div class="botao" data-tipo="cotacao_automovel">Cotação - Automóvel</div>
             <div class="botao" data-tipo="cotacao_produto">Cotação - Produto</div>
             <div class="botao" data-tipo="auditoria">Auditoria</div>
