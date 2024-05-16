@@ -5,7 +5,23 @@
 @ elseif( $tipo == 'cashback' ):
 @view site/loja/busca/cashback/index.view
 @ endif;
-
+@if ($tipo == 'farmacia'):
+    @if (sessao('popupAlerta')) :
+    @php sessao('popupAlerta', false)
+    <div class="bloco_pagina_popup display_none" id="popup_medicamento">
+        <header>
+            <i class="popup_fechar fechar">@iconeFechar(14)</i>
+        </header>
+        <div class="conteudo_pagina_popup conteudo_popup">
+            <div class="atencao">
+                @iconeAlerta(160)
+                <h1>ATENÇÃO!</h1>
+                <p>Para usar seu desconto em drogarias, leia o procedimento com atenção!</p>
+            </div>
+        </div>
+    </div>
+    @endif;
+@endif;
 @ if( isset($Busca) && !empty($Busca->filtro) && !$Busca->mapa ):
 <div class="buscar_convenio_lista">
     <h2>Filtros:</h2>

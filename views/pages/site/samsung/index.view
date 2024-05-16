@@ -1,6 +1,39 @@
 @template "site"
 
 <div id="bloco_samsung">
+
+    @ if( $bannerFixo->desktop ?? [] || $bannerFixo->mobile ?? []):
+    <div class="bloco_geral_banner banner" id="banner_fixo">
+        <div class="conteudo">
+            @ if( $bannerFixo->desktop ?? [] ):
+            <div class="imagem banner_desktop">
+                @ foreach( $bannerFixo->desktop as $r )
+                <figure>
+                    <img src="{!!$r->imagem!!}">
+                    @ if( !empty($r->link) ):
+                    <a href="{!!$r->link!!}" target="_blank"></a>
+                    @ endif;
+                </figure>
+                @ endforeach;
+            </div>
+            @ endif;
+            @ if( $bannerFixo->mobile ?? []):
+            <div class="imagem banner_mobile">
+                @ foreach( $bannerFixo->mobile as $r )
+                <figure>
+                    <img src="{!!$r->imagem!!}">
+                    @ if( !empty($r->link) ):
+                    <a href="{!!$r->link!!}" target="_blank"></a>
+                    @ endif;
+                </figure>
+                @ endforeach;
+            </div>
+            @ endif;
+        </div>
+    </div>
+    @ endif;
+
+
     @view site/geral/banner.view
 
     <div class="bloco_item_lista">

@@ -269,6 +269,7 @@
     .linha p
         flexGrow()
         texto()
+        color: $corPretoBranco
     .linha strong
         width: 100%
         max-width: 200px
@@ -289,6 +290,18 @@
         &.borda
             border: 1px solid #ddd
             border-radius: 3px
+
+@media screen and (max-width: 600px)
+    .bloco_lista_texto_icone .linha
+        gap: 20px
+        flex-direction: column
+        strong
+            width: auto
+            color: $corClube
+        span
+            display: none
+        i.borda
+            fill: $corBody
 
 #bloco_endereco
     max-width: 900px
