@@ -5,6 +5,7 @@ namespace App\Models\Api\ParceiroLoja;
 use ORM\ORM;
 use stdClass;
 use Where\Where;
+use Modules\Data;
 use Modules\Botao;
 use Modules\Pagina;
 use Helpers\OrmHelper;
@@ -58,6 +59,18 @@ class LojaModel extends ORM implements ModelListarInterface
     private bool $buscarFavorito = true;
     public string $convenio;
     public string $painel;
+    public Data $data_criacao_de;
+    public Data $data_criacao_ate;
+    public Data $data_publicacao_de;
+    public Data $data_publicacao_ate;
+    public Data $data_prospeccao_de;
+    public Data $data_prospeccao_ate;
+    public Data $data_problema_de;
+    public Data $data_problema_ate;
+    public Data $data_cancelado_de;
+    public Data $data_cancelado_ate;
+    public Data $data_auditoria_de;
+    public Data $data_auditoria_ate;
 
     public function listarDados(): stdClass
     {
@@ -98,6 +111,7 @@ class LojaModel extends ORM implements ModelListarInterface
                     ['longitude', 'between', $Raio->longitude],
                 ]);
         }
+
         $dado = $dado->read();
         $dado->lista = $this->montarRetorno($dado->lista);
         return $dado;
@@ -175,6 +189,12 @@ class LojaModel extends ORM implements ModelListarInterface
                     $Where->manual(['status', 'in', [1, 2]]);
                 }
             })
+            ->dataDeAte('data_criacao')
+            ->dataDeAte('data_publicacao')
+            ->dataDeAte('data_prospeccao')
+            ->dataDeAte('data_problema')
+            ->dataDeAte('data_cancelado')
+            ->dataDeAte('data_auditoria')
             ->linha('status');
 
         return $Where;

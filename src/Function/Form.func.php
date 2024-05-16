@@ -478,7 +478,7 @@ if (!function_exists('formInput')) {
             if (!empty($action)) {
                 $attrBloco[] = 'data-action="' . $action . '"';
             }
-            if (!is_array($name)) {
+            if (is_array($name)) {
                 $name = $name[0];
             }
         }
@@ -519,7 +519,7 @@ if (!function_exists('formInput')) {
             $nameSecundario = $name[1];
             $name = $name[0];
 
-            $nameSecundarioHtml = !empty($nameSecundario) ? 'data="' . $nameSecundario . '"' : '';
+            $nameSecundarioHtml = !empty($nameSecundario) ? 'name="' . $nameSecundario . '"' : '';
             $nameSecundario = !empty($nameSecundario) ? $nameSecundario : uuid();
 
             $inputSecundario = '<input class="input_separador_3 input_geral ' . implode(' ', $classInputSecundario) . '" type="' . $typeSecundario . '" ' . $nameSecundarioHtml . ' id="input_' . $nameSecundario . '" ' . implode(' ', $attrInputSecundario) . ' >';

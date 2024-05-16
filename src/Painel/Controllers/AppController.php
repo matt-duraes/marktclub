@@ -7,7 +7,6 @@ use Erro\Excecao;
 use Http\Request;
 use Http\Response;
 use Helpers\ApiHelper;
-use App\Classes\Geral\Publicado;
 
 final class AppController extends PadraoController
 {
