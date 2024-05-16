@@ -32,7 +32,7 @@ final class LiveEntity extends Entity
     public ArquivoPrivado $imagem_restrito_desktop;
     public ArquivoPrivado $imagem_restrito_mobile;
     public string $link;
-    public Botao $botao_texto;
+    public string $botao_texto;
     public Botao $permissao_restrita;
     public Botao $permissao_site;
     public Botao $link_restrito;
