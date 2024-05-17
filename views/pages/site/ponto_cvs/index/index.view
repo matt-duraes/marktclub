@@ -16,7 +16,7 @@
             #CategoriaUnidaSindicatoForte<br>
             #Sindicato100Anos
         </strong>
-        <a href="{!!LINK_ARQUIVO!!}/regulamento-ponto-acao.pdf" target="_blank" rel="noopener noreferrer" class="link_regulamento ">Regulamento Ponto + Ação</a>
+        <a href="{!!LINK_PADRAO!!}/images/regulamento-ponto-acao.docx" target="_blank" rel="noopener noreferrer" class="link_regulamento ">Regulamento Ponto + Ação</a>
     </div>
     <div class="bloco_atencao_geral atencao">
         <p>Obs: Os vouchers só poderão ser usados nas lojas virtuais:</p>
