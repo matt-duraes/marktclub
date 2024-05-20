@@ -11,53 +11,16 @@ use App\Models\Api\ComercialEmpresa\EmpresaEntity;
 trait ValidarEmpresaDownloadTrait
 {
     private string $nomeCampoEmpresa;
-    private string $idEmpresa;
-    private string $idUsuario;
+    private int $idEmpresa;
+    private int $idUsuario;
     private $whereEmpresa;
 
     /**
-     * Mudar o ID da empresa se tiver pemissão
+     * Monta o Where para a empresa padrão
      *
-     * @param int $id ID da empresa
-     */
-    public function setarIdEmpresaManual(int $id): void
-    {
-        if (!$this->verificarSePodeMudarEmpresa()) {
-            return;
-        }
-        $this->whereEmpresa = $id;
-        $this->idEmpresa = $id;
-        $this->ormWherePadrao = [$this->nomeCampoEmpresa, $id];
-    }
-
-    /**
-     * @return bool
-     */
-    private function verificarSePodeMudarEmpresa(): bool
-    {
-        $scope = defined('TOKEN_SCOPE') ? explode(':', TOKEN_SCOPE)[0] ?? '' : '';
-        $usuarioPermissao = (new OrmHelper(TABELA_USUARIO_EQUIPE))
-            ->pegarCampoPor(
-                campo: 'permissao',
-                where: ['id', $this->idUsuario],
-                padrao: []
-            );
-        if (!empty($usuarioPermissao) && is_string($usuarioPermissao)) {
-            $usuarioPermissao = jsonDecode($usuarioPermissao);
-        }
-        return
-            !empty($this->idUsuario)
-            && !empty($scope)
-            && !empty($usuarioPermissao)
-            && in_array($scope . '_empresa', $usuarioPermissao);
-    }
-
-    /**
-     * Faz a validação para pegar apenas registros da empresa ou todas se for Markt Club e o usuário tenha permissão
-     *
-     * @param string $campoEmpresa Se o campo da empresa é o id_admin_empresa ou empresa
-     *
-     * @throws Excecao Retorna uma Excecao caso não exista token
+     * @param string $usuario Uuid do usuário que solicitou o download
+     * @param string $campoEmpresa
+     * @return void
      */
     private function validarEmpresa(string $usuario, string $campoEmpresa = 'id_admin_empresa'): void
     {
@@ -65,7 +28,6 @@ trait ValidarEmpresaDownloadTrait
         $this->setarIdUsuario($usuario);
         $this->setaPropriedadeInicial($campoEmpresa);
         $this->setarValoresReais();
-        $this->setarWherePadrao();
     }
 
     /**
@@ -114,24 +76,24 @@ trait ValidarEmpresaDownloadTrait
         if ($this->idEmpresa != 1 || empty($this->idUsuario)) {
             return;
         }
-        if (!$this->verificarSePodeMudarEmpresa()) {
-            return;
-        }
 
+        $empresaNova = '';
         if (
-            !property_exists($this, 'request')
-            || !($this->request instanceof Request)
-            || !$this->request->existe('empresa')
-            || $this->request->vazio('empresa')
+            $this->pExiste('request') &&
+            ($this->request instanceof Request) &&
+            $this->request->existe('empresa') &&
+            $this->request->vazio('empresa')
         ) {
-            $this->whereEmpresa = null;
-            $this->ormWherePadrao = [];
-            return;
+            $empresaNova = $this->request->empresa;
+        } elseif(
+            $this->pExiste('empresa') && !empty($this->empresa)
+        ) {
+            $empresaNova = $this->empresa;
         }
 
         try {
             $Empresa = new EmpresaEntity();
-            $Empresa->uuid($this->request->empresa);
+            $Empresa->uuid($empresaNova);
             $this->whereEmpresa = $Empresa->get('id');
         } catch (Throwable $e) {
             mensagemErro(
@@ -140,6 +102,7 @@ trait ValidarEmpresaDownloadTrait
                 error: $e
             );
         }
+        $this->ormWherePadrao = [[$this->nomeCampoEmpresa, $this->whereEmpresa]];
     }
 
     /**
@@ -149,12 +112,6 @@ trait ValidarEmpresaDownloadTrait
      */
     private function setarWherePadrao(array $where = []): void
     {
-        if (!empty($where) && !empty($this->ormWherePadrao)) {
-            $this->ormWherePadrao = array_merge([$where], [[$this->nomeCampoEmpresa, $this->whereEmpresa]]);
-        } elseif (!empty($where)) {
-            $this->ormWherePadrao = $where;
-        } elseif (!empty($this->whereEmpresa)) {
-            $this->ormWherePadrao = [[$this->nomeCampoEmpresa, $this->whereEmpresa]];
-        }
+        $this->ormWherePadrao = $where;
     }
 }
