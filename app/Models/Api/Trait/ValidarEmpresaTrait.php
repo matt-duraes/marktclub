@@ -71,6 +71,10 @@ trait ValidarEmpresaTrait
         $this->setarValoresReais();
         $this->setarWherePadrao();
     }
+    private function validarEmpresaAuto(): void
+    {
+        return;
+    }
 
     private function validarSubempresa(bool $json = false)
     {

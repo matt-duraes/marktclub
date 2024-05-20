@@ -114,7 +114,6 @@ trait ValidarEmpresaDownloadTrait
         if ($this->idEmpresa != 1 || empty($this->idUsuario)) {
             return;
         }
-
         if (!$this->verificarSePodeMudarEmpresa()) {
             return;
         }
