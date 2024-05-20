@@ -35,6 +35,17 @@ $Painel->coluna(callback: function () use ($Painel, $empresas) {
 
     $Painel->fieldset('Diretórios de Upload Padrões', function () use ($Painel) {
         $Painel
+            ->input(
+                name: 'upload_imagem',
+                label: 'Imagens',
+                placeholder: 'Insira o UUID do diretório padrão de imagens'
+            )
+            ->input(
+                name: 'upload_arquivo',
+                label: 'Arquivos',
+                placeholder: 'Insira o UUID do diretório padrão de arquivos'
+            );
+        /*$Painel
             ->select(
                 name: 'upload_imagem',
                 lista: [
@@ -52,7 +63,7 @@ $Painel->coluna(callback: function () use ($Painel, $empresas) {
                 ],
                 label: 'Arquivos',
                 placeholder: 'Escolha o diretório padrão de arquivos'
-            );
+            );*/
     });
 });
 
