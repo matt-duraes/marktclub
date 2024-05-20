@@ -12,6 +12,8 @@ final class ConfiguracaoEntity extends Entity
     public string $empresa;
     public array $titulos;
     public string $titulo;
+    public string $upload_imagem;
+    public string $upload_arquivo;
     public array $permissao;
     public array $configuracao;
     public array $campo_obrigatorio;
@@ -95,6 +97,8 @@ final class ConfiguracaoEntity extends Entity
         $this->empresa = $this->OrmEmpresa->pegarUuidPeloId($this->id_admin_empresa);
         $this->campo_obrigatorio = $this->campo_obrigatorio['usuario_cliente'];
         $this->campo_permitido = $campoPermitido;
+        $this->upload_imagem = $this->upload_grupo['geral_imagem'] ?? '';
+        $this->upload_arquivo = $this->upload_grupo['geral_arquivo'] ?? '';
     }
 
     /**
@@ -102,6 +106,8 @@ final class ConfiguracaoEntity extends Entity
      */
     protected function regraSalvar(): void
     {
+        $this->validarRequest();
+
         $apps = [];
         $acoes = [];
         $permissoes = [];
@@ -208,6 +214,11 @@ final class ConfiguracaoEntity extends Entity
         $this->campo_obrigatorio = [
             'usuario_cliente' => $this->campo_obrigatorio
         ];
+        $this->upload_grupo = [
+            'geral_imagem'  => $this->upload_imagem,
+            'geral_arquivo' => $this->upload_arquivo,
+            'site_config'   => ''
+        ];
 
         if (empty($this->idEmpresa)) {
             mensagemErro(
@@ -215,10 +226,18 @@ final class ConfiguracaoEntity extends Entity
                 'Não foi possível salvar por falta de Empresa'
             );
         }
+
         $this->validarCampoDuplicado(
             campo: 'id_admin_empresa',
             mensagem: 'Painel já cadastrado',
-            valor: $this->idEmpresa
+            valor: (string)$this->idEmpresa
         );
+    }
+
+    private function validarRequest() : void
+    {
+        if (empty($this->permissao)) {
+            mensagemErro('Campo inválido!', 'As Permissões não podem ser vazias.');
+        }
     }
 }
