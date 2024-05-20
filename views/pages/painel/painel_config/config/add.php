@@ -33,13 +33,13 @@ $Painel->coluna(callback: function () use ($Painel, $empresas) {
             );
     });
 
-    /*$Painel->fieldset('Diretórios de Upload Padrões', function () use ($Painel) {
+    $Painel->fieldset('Diretórios de Upload Padrões', function () use ($Painel) {
         $Painel
             ->select(
                 name: 'upload_imagem',
                 lista: [
                     ''             => 'Escolha uma opção',
-                    'geral_imagem' => 'Geral Imagens'
+                    'e53ae4e0-7b33-4988-99ad-50433a29b544' => 'Geral Imagens'
                 ],
                 label: 'Imagens',
                 placeholder: 'Escolha o diretório padrão de imagens'
@@ -48,12 +48,12 @@ $Painel->coluna(callback: function () use ($Painel, $empresas) {
                 name: 'upload_arquivo',
                 lista: [
                     ''              => 'Escolha uma opção',
-                    'geral_arquivo' => 'Geral Arquivos'
+                    '2d978fba-4bd2-4af7-80bf-ebb94d9ac991' => 'Geral Arquivos'
                 ],
                 label: 'Arquivos',
                 placeholder: 'Escolha o diretório padrão de arquivos'
             );
-    });*/
+    });
 });
 
 $Painel->coluna(callback: function () use ($Painel) {
