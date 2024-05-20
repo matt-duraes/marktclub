@@ -3,6 +3,7 @@
 return [
     'salvar' => [
         'empresa', 'configuracao', 'campo_obrigatorio',
-        'campo_permitido', 'permissao', 'titulo', 'titulos'
+        'campo_permitido', 'permissao', 'upload_imagem',
+        'upload_arquivo', 'titulo', 'titulos'
     ]
 ];
