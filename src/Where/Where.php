@@ -280,6 +280,18 @@ final class Where implements WhereInterface
     }
 
     /**
+     * Cria um between padrão do sistema usando _de/_ate
+     *
+     * @param  string|null $campo
+     * @return self
+     */
+    public function dataDeAte(string $campo = null): self
+    {
+        $this->data($campo . '_de', $campo . '_ate', $campo);
+        return $this;
+    }
+
+    /**
      * Cria um between padrão do sistema de data
      *
      * @param  string      $data1 Primeira data
@@ -295,7 +307,6 @@ final class Where implements WhereInterface
 
         $dataDe = $this->iniciado($data1) ? $this->pegarValor($data1) : '';
         $dataAte = $this->iniciado($data2) ? $this->pegarValor($data2) : '';
-
         if ($dataDe && $dataAte) {
             $this->adicionarWhere([
                 $campo,

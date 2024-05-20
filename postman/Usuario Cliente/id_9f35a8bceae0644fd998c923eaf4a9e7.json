@@ -1,0 +1,1 @@
+{"id":"id_9f35a8bceae0644fd998c923eaf4a9e7","token":"token","metodo":"POST","nome":"\/usuario-clinete\/validar","uri":"{{LINK}}\/usuario-cliente\/validar","parametro":[],"body":[["texto",true,"cpf","01234567890",""]],"header":[],"variavel":[],"json":[],"documentacao":{"status":false,"descricao":"","requisicao":"","resposta":"","scope":"usuario_cliente:validar"}}

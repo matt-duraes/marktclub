@@ -32,6 +32,12 @@ $Painel
             ->select(name: 'tipo_estabelecimento', label: 'Estabelecimento', lista: (new TipoEstabelecimento())->select('Escolha uma opção'))
             ->select(name: 'tipo_loja', label: 'Tipo de loja', lista: array_merge((new TipoLoja())->select('Escolha uma opção'), ['desconto' => 'Desconto']));
     })
+    ->data(name: ['data_criacao_de', 'data_criacao_ate'], label: 'Data de criação', placeholder: ['Data de criação', 'Data de criação'], separador: 'até')
+    ->data(name: ['data_publicacao_de', 'data_publicacao_ate'], label: 'Data de publicação', placeholder: ['Data de publicação', 'Data de publicação'], separador: 'até')
+    ->data(name: ['data_prospeccao_de', 'data_prospeccao_ate'], label: 'Data de prospecção', placeholder: ['Data de prospecção', 'Data de prospecção'], separador: 'até')
+    ->data(name: ['data_problema_de', 'data_problema_ate'], label: 'Data do problema', placeholder: ['Data do problema', 'Data do problema'], separador: 'até')
+    ->data(name: ['data_cancelado_de', 'data_cancelado_ate'], label: 'Data de cancelamento', placeholder: ['Data de cancelamento', 'Data de cancelamento'], separador: 'até')
+    ->data(name: ['data_auditoria_de', 'data_auditoria_ate'], label: 'Data de auditoria', placeholder: ['Data de auditoria', 'Data de auditoria'], separador: 'até')
     ->select(
         name: 'convenio_direto',
         label: 'Convênio direto',

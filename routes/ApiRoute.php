@@ -258,10 +258,16 @@ Route
     });
 
 Route
-    ::nome('usuario_cliente_download')
+    ::nome('usuario_cliente_direto')
     ::controller(App\Controllers\Api\UsuarioClienteController::class)
     ::middleware(TokenMiddleware::class, 'token')
     ::grupo(function () {
+        Route
+            ::nome('validar')
+            ::middleware(TokenMiddleware::class, 'scope', ['usuario_cliente:validar'])
+            ::request(['cpf'])
+            ::post('/usuario-cliente/validar');
+
         Route
             ::nome('download')
             ::middleware(TokenMiddleware::class, 'scope', ['usuario_cliente:download'])
@@ -1318,7 +1324,10 @@ Route
                 'pagina', '!quantidade', '!categoria', '!subcategoria', '!tipo_estabelecimento',
                 '!pesquisa', '!titulo', '!tipo_loja', '!status', '!ordem', '!favorito', '!mais_acessado',
                 '!latitude', '!longitude', '!endereco_estado', '!empresa', '!equipe', '!convenio_direto',
-                '!convenio'
+                '!convenio', '!data_criacao_de', '!data_criacao_ate', '!data_publicacao_de',
+                '!data_publicacao_ate', '!data_prospeccao_de', '!data_prospeccao_ate', '!data_problema_de',
+                '!data_problema_ate', '!data_cancelado_de', '!data_cancelado_ate', '!data_auditoria_de',
+                '!data_auditoria_ate',
             ], 'json')
             ::get('/parceiro-loja');
         Route

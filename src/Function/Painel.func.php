@@ -733,7 +733,7 @@ if (!function_exists('painelInputLista')) {
                 continue;
             }
 
-            $name = preg_replace('/\[\]$/', '', $input['name']);
+            $name = is_string($input['name']) ? preg_replace('/\[\]$/', '', $input['name']) : $input['name'];
             $indice = $input['indice'];
             unset($input['indice']);
 
@@ -742,8 +742,19 @@ if (!function_exists('painelInputLista')) {
                 $formatar = $input['formatar'];
                 unset($input['formatar']);
             }
-            $valor = is_object($dado) && !vazio($dado) && object_key_exists($name, $dado)
+            if (is_array($indice)) {
+                $valor = [];
+                $name1 = preg_replace('/\[\]$/', '', $indice[0]);
+                $name2 = preg_replace('/\[\]$/', '', $indice[1]);
+                if (is_object($dado) && !vazio($dado) && object_key_exists($name1, $dado)) {
+                    $valor[] = painelValor($dado, $name1, formatar: $formatar);
+                } elseif (is_object($dado) && !vazio($dado) && object_key_exists($name2, $dado)) {
+                    $valor[] = painelValor($dado, $name2, formatar: $formatar);
+                }
+            } else {
+                $valor = is_object($dado) && !vazio($dado) && object_key_exists($name, $dado)
                 ? painelValor($dado, $indice, formatar: $formatar) : '';
+            }
 
             if ($funcao == 'imagem' && validarUuid($valor, false)) {
                 $input['value'] = arquivoPrivado($valor);
@@ -761,7 +772,6 @@ if (!function_exists('painelInputLista')) {
             if (array_key_exists('placeholder', $input) && empty($input['placeholder'])) {
                 $input['placeholder'] = $input['label'];
             }
-
             echo call_user_func_array('form' . ucfirst($funcao), $input);
         }
     }

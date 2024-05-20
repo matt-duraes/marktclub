@@ -70,14 +70,14 @@ final class BannerModel extends ClubeApiHelper
         return (object)[
             'desktop' => [
                 (object) [
-                    'imagem' => LINK . '/images/site/banner_samsung_fixo_desktop.png',
+                    'imagem' => LINK . '/images/site/banner_samsung_fixo_desktop.jpeg',
                     'target' => '',
                     'link'   => 'https://samsung.com.br/services/cartao-samsung/'
                 ]
             ],
             'mobile' => [
                 (object) [
-                    'imagem' => LINK . '/images/site/banner_samsung_fixo_mobile.png',
+                    'imagem' => LINK . '/images/site/banner_samsung_fixo_mobile.jpeg',
                     'target' => '',
                     'link'   => 'https://samsung.com.br/services/cartao-samsung/'
                 ]
