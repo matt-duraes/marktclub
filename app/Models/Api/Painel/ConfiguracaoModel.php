@@ -11,6 +11,7 @@ use System\Trait\Model\OrdemTrait;
 use System\Trait\Model\PaginaTrait;
 use System\Trait\Model\QuantidadeTrait;
 use App\Classes\PainelConfiguracoes\Ordem;
+use Modules\Data;
 use System\Interface\ModelListarInterface;
 
 class ConfiguracaoModel extends ORM implements
@@ -33,8 +34,11 @@ class ConfiguracaoModel extends ORM implements
         private readonly Pagina $pagina = new Pagina(),
         private readonly Quantidade $quantidade = new Quantidade(),
         private readonly Ordem $ordem = new Ordem(),
+        private readonly ?string $pesquisa = null,
         private readonly ?string $empresa = null,
-        private readonly ?string $titulo = null
+        private readonly ?string $titulo = null,
+        private readonly Data $dataInicio = new Data(),
+        private readonly Data $dataFinal = new Data()
     ) {
         $this->validarRequest();
         parent::__construct();
@@ -48,6 +52,12 @@ class ConfiguracaoModel extends ORM implements
         if (!$this->ordem->vazio() && !$this->ordem->valido()) {
             mensagemErro('Campo inválido!', 'A Ordem informada não é válida.');
         }
+        if (!$this->dataInicio->vazio() && !$this->dataInicio->valido()) {
+            mensagemErro('Campo inválido!', 'A Data de Início informada não é válida.');
+        }
+        if (!$this->dataFinal->vazio() && !$this->dataFinal->valido()) {
+            mensagemErro('Campo inválido!', 'A Data Final informada não é válida.');
+        }
     }
 
     /**
@@ -59,8 +69,7 @@ class ConfiguracaoModel extends ORM implements
         $configuracoes = $this
             ->campo([
                 'uuid', 'titulo', 'permissao', 'configuracao', 'campo_obrigatorio',
-                'campo_permitido', 'upload_grupo', 'data_criacao',
-                'data_atualizacao'
+                'campo_permitido', 'upload_grupo', 'data_criacao', 'data_atualizacao'
             ])
             ->where($this->pegarWhere(), false)
             ->pagina($this->pegarPagina(), $this->pegarQuantidade())
@@ -83,6 +92,12 @@ class ConfiguracaoModel extends ORM implements
     protected function pegarWhere(): array
     {
         $where = [];
+        if (!empty($this->pesquisa)) {
+            $where[] = [
+                'OR',
+                ['titulo', 'LIKE', "%$this->pesquisa%"]
+            ];
+        }
         if (!empty($this->titulo)) {
             $where[] = ['titulo', 'LIKE', "%$this->titulo%"];
         }

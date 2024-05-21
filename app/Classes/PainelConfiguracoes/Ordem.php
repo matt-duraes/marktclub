@@ -16,5 +16,7 @@ final class Ordem extends Order
         $this->padrao('data_criacao');
         $this->maisNovo();
         $this->maisVelho();
+        $this->campo('nome-a-z', 'Título A-Z', 'titulo', 'ASC');
+        $this->campo('nome-z-a', 'Título Z-A', 'titulo', 'DESC');
     }
 }
