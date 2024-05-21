@@ -1529,7 +1529,7 @@ Route
             ::controller(App\Controllers\Api\SolicitacaoVoucherController::class)
             ::middleware(TokenMiddleware::class, 'scope', ['solicitacao_salavip:salvar'])
             ::request(['cpf', 'nome', 'email_pessoal'])
-            ::criptografia(['nome', 'cpf', 'email_pessoal'])
+            ::criptografia(App\Classes\SolicitacaoSalavip\Helper::CRIPTOGRAFAR)
             ::post('/solicitacao-salavip');
 
         Route
