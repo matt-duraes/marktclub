@@ -98,8 +98,8 @@ final class ConfiguracaoEntity extends Entity
         $this->empresa = $this->OrmEmpresa->pegarUuidPeloId($this->id_admin_empresa);
         $this->campo_obrigatorio = $this->campo_obrigatorio['usuario_cliente'];
         $this->campo_permitido = $campoPermitido;
-        $this->upload_imagem = $this->upload_grupo['geral_imagem'] ?? '';
-        $this->upload_arquivo = $this->upload_grupo['geral_arquivo'] ?? '';
+        $this->upload_imagem = $this->upload_grupo['imagem'] ?? '';
+        $this->upload_arquivo = $this->upload_grupo['arquivo'] ?? '';
         $this->site_config = $this->upload_grupo['site_config'] ?? '';
     }
 
@@ -217,8 +217,8 @@ final class ConfiguracaoEntity extends Entity
             'usuario_cliente' => $this->campo_obrigatorio
         ];
         $this->upload_grupo = [
-            'geral_imagem'  => $this->upload_imagem,
-            'geral_arquivo' => $this->upload_arquivo,
+            'imagem'  => $this->upload_imagem,
+            'arquivo' => $this->upload_arquivo,
             'site_config'   => $this->site_config
         ];
 

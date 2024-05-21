@@ -12,6 +12,7 @@ use App\Models\Api\Painel\MenuModel;
 use App\Classes\PainelConfiguracoes\Ordem;
 use App\Models\Api\Painel\ConfiguracaoModel;
 use App\Models\Api\Painel\ConfiguracaoEntity;
+use Modules\Data;
 use System\Interface\ControllerBuscarInterface;
 use System\Interface\ControllerListarInterface;
 use System\Interface\ControllerSalvarInterface;
@@ -69,7 +70,11 @@ final class PainelController extends Controller implements
             new Pagina($request->pagina),
             new Quantidade($request->quantidade),
             new Ordem($request->ordem),
-            $request->empresa
+            $request->pesquisa,
+            $request->empresa,
+            $request->titulo,
+            new Data($request->data_inicio),
+            new Data($request->data_final)
         );
         return mensagemSucesso($ConfiguracaoModel->listarDados());
     }
