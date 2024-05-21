@@ -144,7 +144,7 @@ $scope = [
     'solicitacao_voucher:listar', 'solicitacao_voucher:buscar', 'solicitacao_voucher:download',
     'solicitacao_voucher:salvar',
 
-    'solicitacao_salavip:listar', 'solicitacao_salavip:download',
+    'solicitacao_salavip:listar', 'solicitacao_salavip:download', 'solicitacao_salavip:salvar',
 
     'solicitacao_automovel:listar', 'solicitacao_automovel:buscar', 'solicitacao_automovel:salvar',
     'solicitacao_automovel:atualizar',

@@ -2,8 +2,11 @@
 
 namespace App\Controllers\Api;
 
+use Modules\Cpf;
 use Http\Request;
+use Modules\Nome;
 use Http\Response;
+use Modules\Email;
 use Controller\Controller;
 use App\Classes\SolicitacaoVoucher\Tipo;
 use App\Controllers\Api\Trait\ClienteTrait;
@@ -12,6 +15,7 @@ use System\Interface\ControllerBuscarInterface;
 use System\Interface\ControllerListarInterface;
 use System\Interface\ControllerSalvarInterface;
 use App\Models\Api\DownloadPrivado\ArquivoEntity;
+use App\Models\Api\SolicitacaoSalavip\SalvarModel;
 use App\Models\Api\SolicitacaoVoucher\CodigoEntity;
 use App\Models\Api\SolicitacaoVoucher\VoucherModel;
 use App\Models\Api\SolicitacaoVoucher\DownloadModel;
@@ -35,6 +39,17 @@ final class SolicitacaoVoucherController extends Controller implements
         );
         $Voucher->salvar();
         return $this->retornoSucesso($Voucher, 201);
+    }
+
+    public function postSalavip(Request $request)
+    {
+        $SalaVip = new SalvarModel(
+            nome: new Nome($request->nome),
+            cpf: new Cpf($request->cpf),
+            email_pessoal: new Email($request->email_pessoal)
+        );
+
+        return $this->retornoSucesso($SalaVip->Voucher, 201);
     }
 
     private function retornoSucesso(VoucherInterface $Voucher, int $status = 200)

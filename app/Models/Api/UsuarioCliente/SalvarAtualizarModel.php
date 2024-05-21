@@ -16,6 +16,7 @@ final class SalvarAtualizarModel extends ORM
     private array $usuario = [];
     private array $campoBusca = [];
     private array $dadoSalvar = [];
+    public string $id;
     public string $acao;
     public Nome $nome;
     public Email $email_pessoal;
@@ -99,6 +100,7 @@ final class SalvarAtualizarModel extends ORM
             return;
         }
         $this->acao = self::USUARIO_EXISTENTE;
+        $this->id = $this->usuario['id'];
         $this->atualizarUsuario();
     }
 
@@ -124,6 +126,7 @@ final class SalvarAtualizarModel extends ORM
         if (!empty($salvar)) {
             return;
         }
+        $this->id = $salvar['id'];
         mensagemErro('Erro!', 'Ocorreu um erro ao atualizar o usuário, por favor, tente novamente.');
     }
 
