@@ -969,7 +969,8 @@ Route
             ::nome('listar')
             ::middleware(TokenMiddleware::class, 'scope', ['painel_config:listar'])
             ::request([
-                'pagina', '!quantidade', '!ordem', '!empresa', '!titulo'
+                'pagina', '!quantidade', '!ordem', '!pesquisa', '!empresa', '!titulo',
+                '!data_inicio', '!data_final'
             ], 'json')
             ::get('/painel-configuracao');
 

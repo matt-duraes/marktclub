@@ -2,7 +2,7 @@
 
 return [
     'titulo'     => 'Configurações',
-    'buscar'     => false,
+    'buscar'     => true,
     'filtrar'    => true,
     'ordem'      => true,
     'visualizar' => false,
