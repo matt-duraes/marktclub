@@ -44,6 +44,11 @@ $Painel->coluna(callback: function () use ($Painel, $empresas) {
                 name: 'upload_arquivo',
                 label: 'Arquivos',
                 placeholder: 'Insira o UUID do diretório padrão de arquivos'
+            )
+            ->input(
+                name: 'site_config',
+                label: 'Arquivos do Site (Institucional)',
+                placeholder: 'Insira o UUID do diretório padrão de arquivos do site'
             );
         /*$Painel
             ->select(

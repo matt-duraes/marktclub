@@ -14,6 +14,7 @@ final class ConfiguracaoEntity extends Entity
     public string $titulo;
     public string $upload_imagem;
     public string $upload_arquivo;
+    public string $site_config;
     public array $permissao;
     public array $configuracao;
     public array $campo_obrigatorio;
@@ -99,6 +100,7 @@ final class ConfiguracaoEntity extends Entity
         $this->campo_permitido = $campoPermitido;
         $this->upload_imagem = $this->upload_grupo['geral_imagem'] ?? '';
         $this->upload_arquivo = $this->upload_grupo['geral_arquivo'] ?? '';
+        $this->site_config = $this->upload_grupo['site_config'] ?? '';
     }
 
     /**
@@ -217,7 +219,7 @@ final class ConfiguracaoEntity extends Entity
         $this->upload_grupo = [
             'geral_imagem'  => $this->upload_imagem,
             'geral_arquivo' => $this->upload_arquivo,
-            'site_config'   => ''
+            'site_config'   => $this->site_config
         ];
 
         if (empty($this->idEmpresa)) {
