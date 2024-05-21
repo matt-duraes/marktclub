@@ -20,6 +20,7 @@
         flexCenter()
         espacoBottomPadrao()
 
+
 #bloco_pagina_cashback .conteudo .bloco_saldo
     width: 100%
     gap: 20px
@@ -29,7 +30,7 @@
         bordaSolida()
         color: $corClube
     .saldo_conta
-        margin: 20px 0px
+        margin: 20px 0px 10px
         p
             texto()
             font-weight: bold
@@ -37,6 +38,17 @@
             texto()
             color: red
             margin-left: 5px
+
+div#botao_popup_resgate
+    width: 190px
+    height: 40px
+    border-radius: 8px
+    background-color: $corClube
+    flexCenter()
+    font-size: $texto
+    color: #fff
+    cursor: pointer
+    texto()
 
 .bloco_atencao_geral
     margin-top: 30px
@@ -60,7 +72,6 @@
         .saldo_conta
             border: none
             justify-content: flex-start
-
 
 #bloco_pagina_cashback  .bloco_tabela_geral
     width: 100%
@@ -98,3 +109,13 @@
         alignSelfEnd()
         width: 180px
         espacoTopPadrao()
+
+#bloco_resgatar_ponto
+    div#botao_solicitar_ponto
+        height: 30px
+        width: 200px
+        border-radius: 5px
+        flexCenter()
+        font-size: 1.3rem
+        margin-top: 10px
+        cursor: pointer
