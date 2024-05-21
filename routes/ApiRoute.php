@@ -1528,6 +1528,14 @@ Route
             ::get('/solicitacao-salavip');
 
         Route
+            ::nome('salavip')
+            ::controller(App\Controllers\Api\SolicitacaoVoucherController::class)
+            ::middleware(TokenMiddleware::class, 'scope', ['solicitacao_salavip:salvar'])
+            ::request(['cpf', 'nome', 'email_pessoal'])
+            ::criptografia(App\Classes\SolicitacaoSalavip\Helper::CRIPTOGRAFAR)
+            ::post('/solicitacao-salavip');
+
+        Route
             ::nome('download')
             ::middleware(TokenMiddleware::class, 'scope', ['solicitacao_salavip:download'])
             ::request([

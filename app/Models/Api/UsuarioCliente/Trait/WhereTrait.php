@@ -2,14 +2,14 @@
 
 namespace App\Models\Api\UsuarioCliente\Trait;
 
+use Helpers\OrmHelper;
+use Helpers\ListaHelper;
 use App\Classes\UsuarioCliente\Helper;
 use App\Classes\UsuarioCliente\Origem;
 use App\Classes\UsuarioCliente\Status;
 use App\Classes\UsuarioCliente\TipoUsuario;
 use App\Classes\UsuarioCliente\TrabalhoCargo;
 use App\Classes\UsuarioCliente\TrabalhoEmpresa;
-use Helpers\ListaHelper;
-use Helpers\OrmHelper;
 
 trait WhereTrait
 {
@@ -19,9 +19,8 @@ trait WhereTrait
         $where = [];
         $listaEstado = (new ListaHelper())->uf()->r();
 
-        $whereEmpresa = $this->pegarWhereEmpresa();
-        if ($whereEmpresa) {
-            $where[] = $whereEmpresa;
+        if ($this->ormWherePadrao) {
+            $where[] = $this->ormWherePadrao;
         }
 
         $whereTipo = $this->pegarWhereTipo();
@@ -145,17 +144,6 @@ trait WhereTrait
             $where[] = ['trabalho_cargo', $TrabalhoCargo->numero()];
         }
         return $where;
-    }
-
-    private function pegarWhereEmpresa()
-    {
-        if (!$this->verificarSePodeMudarEmpresa()) {
-            return $this->ormWherePadrao;
-        }
-
-        if (!empty($this->request->empresa)) {
-            return ['empresa', (new OrmHelper(TABELA_COMERCIAL_EMPRESA))->pegarIdPeloUuid($this->request->empresa)];
-        }
     }
 
     private function pegarWhereTipo()
