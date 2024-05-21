@@ -81,7 +81,11 @@ trait SetGetTrait
 
     private function ormValidarEmpresa()
     {
-        if (method_exists($this, 'validarEmpresa') && !$this->empresaValidada) {
+        if (
+            method_exists($this, 'validarEmpresaAuto') &&
+            $this->pExiste('empresaValidada') &&
+            !$this->empresaValidada
+        ) {
             $this->validarEmpresa();
         }
     }

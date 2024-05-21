@@ -66,6 +66,13 @@
                 @ endif;
             @ endif;
 
+            @ if( in_array('solicitacao-salavip-salvar', SCOPE) ):
+            <h2><i>@iconeSetaDireita(10)</i> Voucher</h2>
+                @ if( in_array('solicitacao-salavip-salvar', SCOPE) ):
+                <a href="@route('documentacao.rota')/solicitacao-salavip-salvar">Sala Vip</a>
+                @ endif;
+            @ endif;
+
             @ if( in_array('convenio-parceiro-destaque', SCOPE) ):
             <h2><i>@iconeSetaDireita(10)</i> Parceiros</h2>
                 @ if( in_array('convenio-parceiro-destaque', SCOPE) ):
