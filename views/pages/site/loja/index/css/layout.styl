@@ -187,6 +187,10 @@
         display: flex
     .borda
         background: $corCinzaCinza
+
+#conteudo_acesso_rapido #bloco_loja_index .bloco_especial .conteudo
+    margin-top: 20px
+
 @media screen and (max-width: 1250px)
     #bloco_loja_index.bloco_mapa .bloco_especial
         max-width: 100%
@@ -256,21 +260,37 @@
         top: 0
         right: 0
         z-index: 1
-@media screen and (max-width: 1200px)
-    #bloco_loja_mapa .atualizar
-        top: 169px
+
 
 #header_acesso_rapido
-    z-index: 77777
+    position: fixed
+    z-index: 100
+    .botao_geral_cor.cor_bg.botao_home
+        align-items: center
+        display: flex
+#header_acesso_rapido .botao_geral_cor.cor_bg.botao_home
+    flexCenter()
+
+
+
+#conteudo_acesso_rapido
+    position: relative
+    .bloco_buscar_geral
+        z-index: 5
+
 #conteudo_acesso_rapido
     #bloco_loja_mapa
         width: 100vw
+        .atualizar
+            top: 240px
     .bloco_mapa  #bloco_especial
-        z-index: 99999
         max-width: 100%
-        top: 106px
-        position: fixed
 
+#bloco_loja_index.bloco_mapa .bloco_especial
+    top: 20px
+#conteudo_acesso_rapido
+    #bloco_loja_index.bloco_mapa .bloco_especial
+        top: 110px
 body.body_scroll_hidden #bloco_loja_mapa .mapa
     right: 10px
 @media screen and (max-width: 1250px)

@@ -1,14 +1,16 @@
 <header id="header_acesso_rapido">
-    <figure>
+    <figure class="desktop">
         <a href="@route(acessoRapido.index)"><img src="{{CLUBE_LOGO_PRINCIPAL}}"></a>
     </figure>
     <div class="bloco_botao">
         @ if( !isset($sem_home) ):
-        <a class="botao_geral_cor cor_bg" href="@route(acessoRapido.index)">Voltar para home</a>
+        <a class="botao_geral_cor cor_bg botao_home" href="@route(acessoRapido.index)">
+            @iconeSiteHome(15)
+        </a>
         @else:
         <div></div>
         @ endif;
-        <a class="botao_geral_borda cor_border" href="@route(acessoRapido.sair)">Voltar para navegação normal</a>
+        <a class="botao_geral_borda cor_border botao_navegacao_normal" href="@route(acessoRapido.sair)">Voltar para navegação normal</a>
     </div>
 </header>
 

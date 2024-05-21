@@ -122,12 +122,21 @@ a
         a
             width: 100%
             max-width: 320px
+
 @media screen and (max-width:800px)
     #header_acesso_rapido .bloco_botao
-        margin-top: 70px
-        flexCol()
+        margin-top: 0px
+        display: flex
+        align-items: center
+        width: 100%
+        flex-direction: row
+        justify-content: space-between
         a
-            margin-top: 20px
+            display: flex
+            align-items: center
+            width: auto
+            max-width: none
+            margin: auto
 
 #bloco_template_buscar
     z-index: 100
@@ -413,7 +422,7 @@ a
 
 #conteudo_acesso_rapido
     width: 100%
-    padding: 40px 20px 60px
+    padding: 130px 20px 60px
     align-items: center
     flexCol()
     background: $corBody
