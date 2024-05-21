@@ -50,7 +50,8 @@ final class PainelController extends Controller implements
         return mensagemSucesso(
             pegarPropriedadeDaEntity($configuracaoEntity, lista: [
                 'empresa', 'titulo', 'permissao', 'configuracao', 'campo_obrigatorio',
-                'campo_permitido', 'upload_grupo', 'upload_imagem', 'upload_arquivo'
+                'campo_permitido', 'upload_grupo', 'upload_imagem', 'upload_arquivo',
+                'site_config'
             ]),
             $status
         );
