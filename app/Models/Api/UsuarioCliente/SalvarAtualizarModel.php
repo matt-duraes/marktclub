@@ -16,7 +16,7 @@ final class SalvarAtualizarModel extends ORM
     private array $usuario = [];
     private array $campoBusca = [];
     private array $dadoSalvar = [];
-    public string $id;
+    public ?int $id = null;
     public string $acao;
     public Nome $nome;
     public Email $email_pessoal;
