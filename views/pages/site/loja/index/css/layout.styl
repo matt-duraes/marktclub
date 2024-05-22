@@ -216,6 +216,7 @@
             margin-top: 20px
             flexCenter()
 
+
 .bloco_parceiro_loading
     z-index: 4
 #bloco_loja_mapa
@@ -261,22 +262,15 @@
         right: 0
         z-index: 1
 
-
 #header_acesso_rapido
     position: fixed
     z-index: 100
-    .botao_geral_cor.cor_bg.botao_home
-        align-items: center
-        display: flex
-#header_acesso_rapido .botao_geral_cor.cor_bg.botao_home
-    flexCenter()
-
-
 
 #conteudo_acesso_rapido
     position: relative
     .bloco_buscar_geral
         z-index: 5
+        margin-top: 100px
 
 #conteudo_acesso_rapido
     #bloco_loja_mapa
@@ -361,3 +355,10 @@ body.body_scroll_hidden #bloco_loja_mapa .parceiro_previa
     body.body_scroll_hidden #bloco_loja_mapa .parceiro_previa
         width: calc(100% - 10px)
         right: 10px
+
+
+@media screen and (max-width: 1250px)
+    #bloco_loja_index.bloco_mapa .bloco_especial
+        top: 80px
+    #bloco_loja_mapa .atualizar
+        top: 220px

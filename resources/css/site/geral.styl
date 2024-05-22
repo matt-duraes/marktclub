@@ -295,7 +295,7 @@
     color: #FFF !important
     fill: #FFF !important
 
-#container_mais_acao
+#bloco_menu_perfil #container_mais_acao
     display: flex
     padding: 15px
     margin: 0px
@@ -304,10 +304,9 @@
         padding: 0px
     .texto_menu_mais_acao
         texto()
-@media screen and (min-width: 1001px)
-    #container_mais_acao #icone_mais_acao
-        margin-right: 6px
-
+@media screen and (max-width: 1000px)
+    #bloco_menu_perfil #container_mais_acao
+        margin-left: 16px
 
 .pagina_atual
     &:hover
