@@ -131,7 +131,7 @@ final class ListarModel extends ClubeApiHelper implements ListarInterface
         ];
         if ($this->tipo->valido() && $this->tipo->indice() != 'loja') {
             $where['tipo_loja'] = $this->tipo->indice();
-        } elseif($this->tipo->indice() == 'loja') {
+        } elseif ($this->tipo->indice() == 'loja') {
             $where['convenio'] = 'sim';
         }
 

@@ -5,7 +5,7 @@ use App\Helpers\Painel\ConfiguracoesPadrao;
 return [
     [
         'id_admin_empresa'  => 1,
-        'titulo' => 'Markt Club',
+        'titulo'            => 'Markt Club',
         'permissao'         => ConfiguracoesPadrao::PERMISSOES,
         'configuracao'      => array_keys(ConfiguracoesPadrao::RECURSOS),
         'campo_permitido'   => [
@@ -43,7 +43,7 @@ return [
     ],
     [
         'id_admin_empresa'  => 2,
-        'titulo' => 'Anafe Card',
+        'titulo'            => 'Anafe Card',
         'permissao'         => json_encode([
             'usuario_cliente'     => [
                 'titulo' => 'Cliente', 'acao' => ['index', 'add', 'editar', 'visualizar', 'download']
@@ -93,7 +93,7 @@ return [
     ],
     [
         'id_admin_empresa'  => 3,
-        'titulo' => 'APCF Card',
+        'titulo'            => 'APCF Card',
         'permissao'         => json_encode([
             'usuario_cliente'     => [
                 'titulo' => 'Cliente', 'acao' => ['index', 'add', 'editar', 'visualizar', 'download']

@@ -34,24 +34,24 @@ trait ValidarTrait
                 $valor->banco() : $valor;
         }
 
-        if(is_string($valor)) {
+        if (is_string($valor)) {
             $valor = [$valor];
         }
         $whereCampo = [];
         $i = 0;
-        foreach($valor as $ind) {
+        foreach ($valor as $ind) {
             $whereCampo[':' . $i . '_' . $campo] = $ind;
             $i++;
         }
 
-        $where = "`{$campo}` IN(" . implode(', ', array_keys($whereCampo)) . ")";
+        $where = "`{$campo}` IN(" . implode(', ', array_keys($whereCampo)) . ')';
         if ($this->ormEntityExiste) {
             $where .= ' AND `id` != :id';
         }
 
         $DB = $this->ormLeitura ? $this->ormDBLeitura : $this->ormDBEscrita;
         $sql = $DB->prepare("SELECT `id` FROM `{$this->ormTabela}` WHERE {$where}");
-        foreach($whereCampo as $ind => $val) {
+        foreach ($whereCampo as $ind => $val) {
             $sql->bindValue($ind, $val);
         }
         if ($this->ormEntityExiste) {

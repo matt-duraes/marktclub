@@ -217,8 +217,8 @@ final class ConfiguracaoEntity extends Entity
             'usuario_cliente' => $this->campo_obrigatorio
         ];
         $this->upload_grupo = [
-            'imagem'  => $this->upload_imagem,
-            'arquivo' => $this->upload_arquivo,
+            'imagem'        => $this->upload_imagem,
+            'arquivo'       => $this->upload_arquivo,
             'site_config'   => $this->site_config
         ];
 
@@ -236,7 +236,7 @@ final class ConfiguracaoEntity extends Entity
         );
     }
 
-    private function validarRequest() : void
+    private function validarRequest(): void
     {
         if (empty($this->permissao)) {
             mensagemErro('Campo inválido!', 'As Permissões não podem ser vazias.');

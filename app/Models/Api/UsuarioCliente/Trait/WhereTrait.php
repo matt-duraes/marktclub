@@ -2,7 +2,6 @@
 
 namespace App\Models\Api\UsuarioCliente\Trait;
 
-use Helpers\OrmHelper;
 use Helpers\ListaHelper;
 use App\Classes\UsuarioCliente\Helper;
 use App\Classes\UsuarioCliente\Origem;
