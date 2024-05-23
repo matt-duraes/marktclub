@@ -12,7 +12,6 @@ use App\Classes\SiteConfig\DiretoriaTipo;
 use App\Classes\SiteConfig\TemplateFooter;
 use App\Classes\SiteConfig\TemplateHeader;
 use App\Models\Api\Trait\ValidarEmpresaTrait;
-use CaptainHook\App\Runner\Action\Cli\Command\Placeholder\Arg;
 
 final class ConfigEntity extends Entity
 {

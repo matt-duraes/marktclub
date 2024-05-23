@@ -18,9 +18,8 @@ trait ValidarEmpresaDownloadTrait
     /**
      * Monta o Where para a empresa padrão
      *
-     * @param string $usuario Uuid do usuário que solicitou o download
+     * @param string $usuario      Uuid do usuário que solicitou o download
      * @param string $campoEmpresa
-     * @return void
      */
     private function validarEmpresa(string $usuario, string $campoEmpresa = 'id_admin_empresa'): void
     {
@@ -85,10 +84,14 @@ trait ValidarEmpresaDownloadTrait
             $this->request->vazio('empresa')
         ) {
             $empresaNova = $this->request->empresa;
-        } elseif(
+        } elseif (
             $this->pExiste('empresa') && !empty($this->empresa)
         ) {
             $empresaNova = $this->empresa;
+        }
+
+        if (empty($empresaNova)) {
+            return;
         }
 
         try {

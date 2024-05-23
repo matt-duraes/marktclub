@@ -31,7 +31,7 @@ final class LiveController extends Controller implements
     public function putAtualizar(Request $request, string $id): Response
     {
         $dado = $request->dado();
-        if($request->existe('texto')) {
+        if ($request->existe('texto')) {
             $dado['texto'] = $request->getPut('texto', html: false);
         }
 
