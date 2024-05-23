@@ -21,6 +21,14 @@
         <div class="linha"></div>
         @ endif;
 
+        @ if( in_array('assinatura', PAINEL_CONFIGURACAO) ):
+        <a href="{!!route('assinatura.index')!!}">
+            <i>@iconeEditar(12)</i>
+            <p>Assinatura</p>
+        </a>
+        <div class="linha"></div>
+        @ endif;
+
         @ if( USUARIO_MARKTCLUB == 'sim' ):
         <a href="{!!route('perfil.empresa')!!}">
             <i>@iconeUsuario(12)</i>

@@ -490,9 +490,11 @@ if (!function_exists('painelAppAddEnd')) {
      * @param null|string $id    ID do botão para salvar
      * @param null|string $botao Nome do botão para salvar
      */
-    function painelAppAddEnd(?string $id = null, ?string $botao = null)
+    function painelAppAddEnd(?string $id = null, ?string $botao = null, bool $semBotao = false)
     {
-        painelAppAddBotao($id, $botao);
+        if (false === $semBotao) {
+            painelAppAddBotao($id, $botao);
+        }
         echo '</form>';
     }
 }

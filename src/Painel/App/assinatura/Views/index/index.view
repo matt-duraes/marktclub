@@ -1,0 +1,37 @@
+@template "painel"
+
+@? painelAppAdd();
+
+    <div class="login">
+        <input type="text" autocomplete="username" value="">
+        <input type="password" autocomplete="current-password" value="">
+    </div>
+
+    @? painelColuna('auto');
+        @php painelFieldset('Dados pessoais')
+            @? formInput(name:'assinatura_nome', label: 'Nome', placeholder: 'Digite seu nome')
+            @? formInput(name:['assinatura_cargo_sigla', 'assinatura_cargo_nome'], label: 'Cargo', placeholder: ['Digite seu cargo', 'Descrição (opcional)'], separador: '|')
+            @? formInput(name:['assinatura_celular', 'assinatura_telefone'], label: 'Telefone', placeholder: ['Digite seu celular', 'Digite o telefone (opcional)'], separador: '|')
+            @? formInput(name:'assinatura_email', label: 'E-mail', placeholder: 'Digite seu e-mail')
+        @php painelFieldsetEnd()
+    @? painelColunaEnd();
+
+    @? painelColuna('auto');
+        @php painelFieldset()
+        <div class="bloco_assinatura">
+            <figure></figure>
+            <div class="dado">
+                <div class="nome texto_nome">André Rodrigues</div>
+                <div class="separador texto_nome">|</div>
+                <div class="cargo texto_nome"><strong>CTO</strong> | Chief Technology Officer</div>
+                <div class="linha">
+                    <div class="telefone texto_nome">+55 (61) <strong>98177-7773</strong> | 3202-3003</div>
+                    <div class="email texto_nome">andre@youhuul.com.br</div>
+                    <div class="site texto_nome"><a href="https://youhuul.com.br">youhuul.com.br</a></div>
+                </div>
+            </div>
+        </div>
+        @php painelFieldsetEnd()
+    @? painelColunaEnd();
+
+@? painelAppAddEnd(semBotao: true);
