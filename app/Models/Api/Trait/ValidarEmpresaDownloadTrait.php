@@ -81,7 +81,7 @@ trait ValidarEmpresaDownloadTrait
             $this->pExiste('request') &&
             ($this->request instanceof Request) &&
             $this->request->existe('empresa') &&
-            $this->request->vazio('empresa')
+            !$this->request->vazio('empresa')
         ) {
             $empresaNova = $this->request->empresa;
         } elseif (
