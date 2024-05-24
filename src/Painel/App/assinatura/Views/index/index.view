@@ -1,37 +1,27 @@
 @template "painel"
 
-@? painelAppAdd();
+<div id="bloco_assinatura">
+    <form action="" method="post" class="bg form_geral">
+        @? formInput(name:'assinatura_nome', label: 'Nome', placeholder: 'Digite seu nome')
+        @? formInput(name:['assinatura_cargo_sigla', 'assinatura_cargo_nome'], label: 'Cargo', placeholder: ['Digite seu cargo', 'Descrição (opcional)'], separador: '|')
+        @? formInput(name:['assinatura_celular', 'assinatura_telefone'], label: 'Telefone', placeholder: ['Digite seu celular', 'Digite o telefone (opcional)'], separador: '|', mascara: ['00000-0000', '0000-0000'])
+        @? formInput(name:'assinatura_email', label: 'E-mail', placeholder: 'Digite seu e-mail')
+    </form>
 
-    <div class="login">
-        <input type="text" autocomplete="username" value="">
-        <input type="password" autocomplete="current-password" value="">
-    </div>
-
-    @? painelColuna('auto');
-        @php painelFieldset('Dados pessoais')
-            @? formInput(name:'assinatura_nome', label: 'Nome', placeholder: 'Digite seu nome')
-            @? formInput(name:['assinatura_cargo_sigla', 'assinatura_cargo_nome'], label: 'Cargo', placeholder: ['Digite seu cargo', 'Descrição (opcional)'], separador: '|')
-            @? formInput(name:['assinatura_celular', 'assinatura_telefone'], label: 'Telefone', placeholder: ['Digite seu celular', 'Digite o telefone (opcional)'], separador: '|')
-            @? formInput(name:'assinatura_email', label: 'E-mail', placeholder: 'Digite seu e-mail')
-        @php painelFieldsetEnd()
-    @? painelColunaEnd();
-
-    @? painelColuna('auto');
-        @php painelFieldset()
-        <div class="bloco_assinatura">
-            <figure></figure>
-            <div class="dado">
-                <div class="nome texto_nome">André Rodrigues</div>
-                <div class="separador texto_nome">|</div>
-                <div class="cargo texto_nome"><strong>CTO</strong> | Chief Technology Officer</div>
-                <div class="linha">
-                    <div class="telefone texto_nome">+55 (61) <strong>98177-7773</strong> | 3202-3003</div>
-                    <div class="email texto_nome">andre@youhuul.com.br</div>
-                    <div class="site texto_nome"><a href="https://youhuul.com.br">youhuul.com.br</a></div>
-                </div>
+    <div class="assinatura bg">
+        <figure><img src="https://youhuul.com.br/images/assinatura/youhuul.png" width="80" alt="You Huul"></figure>
+        <div class="dado">
+            <div class="nome texto"></div>
+            <div class="separador texto display_none"> | </div>
+            <div class="cargo texto"><strong></strong> <span></span></div>
+            <div class="linha">
+                <div class="texto"><span class="ddi display_none">+55 (61)</span> <strong class="celular"></strong> <span class="telefone"></span></div>
+                <div class="email texto"></div>
+                <div class="texto">youhuul.com.br</div>
             </div>
         </div>
-        @php painelFieldsetEnd()
-    @? painelColunaEnd();
-
-@? painelAppAddEnd(semBotao: true);
+    </div>
+    <div class="bloco_botao">
+        <div class="botao" id="botao_copiar_assinatura">Copiar</div>
+    </div>
+</div>

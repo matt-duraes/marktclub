@@ -1,3 +1,5 @@
+const assinaturaHtml = () => {
+    return `
 <!DOCTYPE html>
 <html lang="pt-br">
 
@@ -8,7 +10,6 @@
 </head>
 
 <body>
-    --
     <table border="0" cellpadding="0" cellspacing="0" width="100%">
         <tr>
             <td style="border-width:2px 1px 1px 1px;border-style:solid solid solid solid;border-color:#FF6F00 #FF6F00 #FF6F00 #FF6F00;"></td>
@@ -19,11 +20,13 @@
     </table>
     <table border="0" cellpadding="0" cellspacing="0" width="100%">
         <tr>
-            <td width="160" style="width: 160px;">
-                <img src="https://youhuul.com/images/assinatura/youhuul.png" width="160"></td>
+            <td width="30" style="width: 30px;"></td>
+            <td width="80" style="width: 80px;">
+                <img src="https://youhuul.com.br/images/assinatura/youhuul.png" width="80"></td>
             </td>
-            <td width="60" style="width: 60px;"></td>
-            <td style="width: calc(100% - 220px);">
+            <td width="40" style="width: 40px;"></td>
+
+            <td style="width: calc(100% - 150px);">
                 <table border="0" cellpadding="0" cellspacing="0" width="100%">
                     <tr>
                         <td style="font-family: Arial, Helvetica, sans-serif; color: #666; font-size: 14px">{{NOME}}</td>
@@ -81,7 +84,7 @@
         </tr>
         <tr>
             <td style="padding: 3px 0; font-family: Arial, Helvetica, sans-serif; color: #333; font-size: 11px">
-                <a href="https://www.google.com.br/maps/place/Markt+Club/@-15.7873053,-47.9154213,17z/data=!3m1!4b1!4m5!3m4!1s0x935a3afcad18a7af:0xe00941a34d1204a6!8m2!3d-15.7873053!4d-47.9132326" target="_blank"><img src="https://markt.club/arquivos/email/mapa.png?v=2" height="25"></a>
+                <a href="https://www.google.com.br/maps/place/Markt+Club/@-15.7873053,-47.9154213,17z/data=!3m1!4b1!4m5!3m4!1s0x935a3afcad18a7af:0xe00941a34d1204a6!8m2!3d-15.7873053!4d-47.9132326" target="_blank"><img src="https://youhuul.com.br/images/assinatura/mapa.png" height="25"></a>
             </td>
         </tr>
     </table>
@@ -98,15 +101,15 @@
                 <table border="0" cellpadding="0" cellspacing="0" width="100%">
                     <tr>
                         <td width="25">
-                            <a href="https://www.instagram.com/marktclub" target="_blank"><img src="https://youhuul.com/images/assinatura/instagram.png" width="25" alt=""></a>
+                            <a href="https://www.instagram.com/marktclub" target="_blank"><img src="https://youhuul.com.br/images/assinatura/instagram.png" width="25" alt=""></a>
                         </td>
                         <td width="5"></td>
                         <td width="25">
-                            <a href="https://www.facebook.com/portalmarktclub" target="_blank"><img src="https://youhuul.com/images/assinatura/facebook.png" width="25" alt=""></a>
+                            <a href="https://www.facebook.com/portalmarktclub" target="_blank"><img src="https://youhuul.com.br/images/assinatura/facebook.png" width="25" alt=""></a>
                         </td>
                         <td width="5"></td>
                         <td width="25">
-                            <a href="https://www.linkedin.com/company/marktclub/mycompany" target="_blank"><img src="https://youhuul.com/images/assinatura/linkedin.png" width="25" alt=""></a>
+                            <a href="https://www.linkedin.com/company/marktclub/mycompany" target="_blank"><img src="https://youhuul.com.br/images/assinatura/linkedin.png" width="25" alt=""></a>
                         </td>
                         <td></td>
                     </tr>
@@ -136,3 +139,5 @@
 </body>
 
 </html>
+`;
+};
