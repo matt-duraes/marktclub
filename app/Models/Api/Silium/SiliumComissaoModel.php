@@ -2,249 +2,164 @@
 
 namespace App\Models\Api\Silium;
 
-use App\Helpers\Silium\Cashback;
-use App\Models\Api\ParceiroCashback\CashbackEntity;
-use App\Models\Api\Trait\ValidarEmpresaTrait;
-use App\Models\Api\UsuarioCliente\ClienteEntity;
-use App\Models\Api\UsuarioCliente\ClienteModel;
-use Erro\Excecao;
-use Http\Request;
+use App\Classes\Silium\OrdemComissao;
+use App\Classes\Silium\StatusComissao;
 use Modules\Data;
 use Modules\Dinheiro;
+use Modules\Pagina;
+use Modules\Quantidade;
 use ORM\ORM;
-use Status\StatusInterface;
+use stdClass;
+use System\Interface\ModelListarInterface;
 use System\Trait\Model\OrdemTrait;
 use System\Trait\Model\PaginaTrait;
 use System\Trait\Model\QuantidadeTrait;
 
-class SiliumComissaoModel extends ORM
+class SiliumComissaoModel extends ORM implements
+    ModelListarInterface
 {
-    use ValidarEmpresaTrait;
     use PaginaTrait;
     use QuantidadeTrait;
     use OrdemTrait;
 
     protected string $ormTabela = TABELA_SILIUM_COMISSAO;
-    protected ?int $idEmpresa;
-    protected ?int $idUsuario;
 
-    /**
-     * @param Request|null $request
-     *
-     * @throws Excecao
-     */
     public function __construct(
-        protected readonly ?Request $request = null
+        private readonly Pagina $pagina = new Pagina(),
+        private readonly Quantidade $quantidade = new Quantidade(),
+        private readonly OrdemComissao $ordem = new OrdemComissao(),
+        private readonly ?string $empresa = null,
+        private readonly ?string $usuario = null,
+        private readonly ?string $parceiro = null,
+        private readonly Data $dataInicio = new Data(),
+        private readonly Data $dataFinal = new Data(),
+        private readonly StatusComissao $status = new StatusComissao()
     ) {
-        $this->validarEmpresa();
+        $this->validarRequest();
         parent::__construct();
     }
 
-    /**
-     * @param array|int|string|null $id Lista de Id's
-     *
-     * @return int|float Saldo Total
-     * @throws Excecao
-     */
-    public function pegarSaldo(array|int|string $id = null): int|float
+    private function validarRequest(): void
     {
-        $wherePadrao = $this->pegarWherePadrao();
-
-        if (is_array($id)) {
-            $wherePadrao[] = ['id', 'in', $id];
-        } elseif (is_int($id) || is_string($id)) {
-            $wherePadrao[] = ['id', $id];
+        if (!$this->pagina->vazio() && !$this->pagina->valido()) {
+            mensagemErro('Campo inválido!', 'A Página informada não é válida.');
         }
+        if (!$this->quantidade->vazio() && !$this->quantidade->valido()) {
+            mensagemErro('Campo inválido!', 'A Quantidade informada não é válida.');
+        }
+        if (!$this->ordem->vazio() && !$this->ordem->valido()) {
+            mensagemErro('Campo inválido!', 'A Ordem informada não é válida.');
+        }
+        if (!$this->dataInicio->vazio() && !$this->dataInicio->eDate()) {
+            mensagemErro('Campo inválido!', 'A Data de início não está no formato válido.');
+        }
+        if (!$this->dataFinal->vazio() && !$this->dataFinal->eDate()) {
+            mensagemErro('Campo inválido!', 'A Data final não está no formato válido.');
+        }
+        if (!$this->status->vazio() && !$this->status->valido()) {
+            mensagemErro('Campo inválido!', 'O Status informado não é válido.');
+        }
+    }
 
+    public function listarDados(): stdClass
+    {
         $comissoes = $this
-            ->campo(['comissao_usuario'])
-            ->where($wherePadrao)
+            ->campo([
+                'uuid', 'parceiro', 'valor_compra', 'comissao_usuario',
+                'pontuacao', 'data_compra', 'status', 'data_criacao',
+                'data_atualizacao'
+            ])
+            ->where($this->pegarWhere(), false)
+            ->pagina($this->pegarPagina(), $this->pegarQuantidade())
+            ->order($this->pegarOrdem(new OrdemComissao()))
+            ->tabela(TABELA_COMERCIAL_EMPRESA)
+            ->join('id', 'id_admin_empresa')
+            ->where($this->pegarWhereEmpresa(), false)
+            ->campo([
+                'uuid', 'titulo'
+            ], 'empresa')
+            ->tabela(TABELA_USUARIO_CLIENTE)
+            ->where($this->pegarWhereUsuario(), false)
+            ->join('id', 'id_usuario_cliente')
+            ->campo([
+                'uuid', 'nome'
+            ], 'usuario')
             ->read();
 
-        $saldo = 0;
-        foreach ($comissoes as $comissao) {
-            $saldo += $comissao->comissao_usuario;
-        }
-
-        $saldo *= 100;
-        return $saldo;
-    }
-
-    /**
-     * @return array[] [['id_admin_empresa', $this->idEmpresa],['id_usuario', $this->idUsuario],['status', 1]]
-     */
-    private function pegarWherePadrao(): array
-    {
-        return [
-            ['id_admin_empresa', $this->idEmpresa],
-            ['id_usuario', $this->idUsuario],
-            ['status', 1]
-        ];
-    }
-
-    /**
-     * @return array
-     * @throws Excecao
-     */
-    public function comissaoDisponivel(): array
-    {
-        $wherePadrao = $this->pegarWherePadrao();
-
-        $comissoesDisponiveis = $this
-            ->campo(['id'])
-            ->where($wherePadrao)
-            ->read();
-
-        $comissoes = [];
-        foreach ($comissoesDisponiveis as $comissao) {
-            $comissoes[] = $comissao->id;
-        }
-
+        $comissoes->lista = $this->montarRetorno($comissoes->lista);
         return $comissoes;
     }
 
-    /**
-     * @return array
-     * @throws Excecao
-     */
-    public function retirarExtrato(): array
+    private function pegarWhere(): array
     {
-        $extrato = $this
-            ->campo([
-                'uuid', 'comissao_usuario', 'data_compra', 'moeda', 'status'
-            ])
-            ->where([
-                ['id_admin_empresa', $this->idEmpresa],
-                ['id_usuario', $this->idUsuario]
-            ])
-            ->order([
-                ['status', 'ASC'],
-                ['id', 'ASC']
-            ])
-            ->tabela(TABELA_PARCEIRO_CASHBACK)
-            ->campo(['titulo'])
-            ->join('programa', 'programa')
-            ->read();
-
-        return $this->montarRetornoExtrato($extrato);
+        $where = $this->ormWherePadrao;
+        if (!empty($this->parceiro)) {
+            $where[] = ['parceiro', 'LIKE', "%$this->parceiro%"];
+        }
+        if ($this->dataInicio->valido() && $this->dataFinal->valido()) {
+            $where[] = [
+                'data_compra', 'between', [
+                    $this->dataInicio->date(), $this->dataFinal->date()
+                ]
+            ];
+        } elseif ($this->dataInicio->valido()) {
+            $where[] = ['data_compra', '>=', $this->dataInicio->date()];
+        } elseif ($this->dataFinal->valido()) {
+            $where[] = ['data_compra', '<=', $this->dataFinal->date()];
+        }
+        if ($this->status->valido()) {
+            $where[] = ['status', $this->status->numero()];
+        }
+        return $where;
     }
 
-    /**
-     * @param array $extrato
-     *
-     * @return array
-     */
-    private function montarRetornoExtrato(array $extrato): array
+    private function pegarWhereEmpresa(): array
     {
-        if (empty($extrato)) {
-            return $extrato;
+        $where = [];
+        if (!empty($this->empresa)) {
+            $where[] = ['cod', $this->empresa];
+        }
+        return $where;
+    }
+
+    private function pegarWhereUsuario(): array
+    {
+        $where = [];
+        if (!empty($this->usuario)) {
+            $where[] = ['nome', 'LIKE', "%$this->usuario%"];
+        }
+        return $where;
+    }
+
+    private function montarRetorno(array $comissoes): array
+    {
+        if (empty($comissoes)) {
+            return $comissoes;
         }
 
+        $Status = new StatusComissao();
         $retorno = [];
-        foreach ($extrato as $item) {
+        foreach ($comissoes as $comissao) {
             $retorno[] = [
-                'uuid'     => $item->uuid,
-                'programa' => $item->titulo,
-                'data'     => (object)[
-                    'compra' => (new Data($item->data_compra))->data()
+                'id'               => $comissao->uuid,
+                'empresa' => [
+                    'id'     => $comissao->empresa_uuid,
+                    'titulo' => $comissao->empresa_titulo
                 ],
-                'ponto'    => round($item->comissao_usuario * 100),
-                'comissao' => (object)[
-                    'valor' => (new Dinheiro($item->comissao_usuario))->decimal(),
-                    'moeda' => $item->moeda,
+                'usuario' => [
+                    'id'     => $comissao->usuario_uuid,
+                    'nome'   => $comissao->usuario_nome
                 ],
-                'status'   => $item->status
+                'parceiro'         => $comissao->parceiro,
+                'valor_compra'     => (new Dinheiro($comissao->valor_compra))->banco(),
+                'comissao_usuario' => (new Dinheiro($comissao->comissao_usuario))->banco(),
+                'pontuacao'        => $comissao->pontuacao,
+                'data_compra'      => $comissao->data_compra,
+                'status'           => $Status->indice($comissao->status),
+                'data_criacao'     => $comissao->data_criacao,
+                'data_atualizacao' => $comissao->data_atualizacao
             ];
         }
         return $retorno;
-    }
-
-    /**
-     * @param string $datas
-     *
-     * @return array
-     * @throws Excecao
-     */
-    public function buscarPorData(string $datas): array
-    {
-        $datas = explode(',', $datas);
-        if (empty($datas)) {
-            mensagemErro('Sem data', 'Envie pelo menos 1 data');
-        }
-
-        $retorno = [];
-        foreach ($datas as $data) {
-            $comissao = (new Cashback())->comissao($data);
-            if (empty($comissao)) {
-                continue;
-            }
-
-            $retorno[] = $this->montarRetornoComissao($comissao);
-        }
-        return $retorno;
-    }
-
-    /**
-     * @param array $comissao
-     *
-     * @return array
-     * @throws Excecao
-     */
-    private function montarRetornoComissao(array $comissao): array
-    {
-        $retorno = [];
-        $ClienteEntity = new ClienteEntity();
-        $CashbackEntity = new CashbackEntity();
-
-        foreach ($comissao as $item) {
-            $ClienteEntity->uuid($item->usuario);
-
-            $empresa = (new ClienteModel())->buscarEmpresaPeloId($ClienteEntity->getId());
-            $porcentagem = $CashbackEntity->uuid($item->programa);
-            $valorComparacao = ($item->valor_compra * $porcentagem) / 100;
-            $comissao = ($valorComparacao > $item->comissao_usuario)
-                ? $item->comissao_usuario
-                : $valorComparacao;
-
-            $arr = [
-                'uuid'             => uuid(),
-                'id_venda'         => $item->id_venda,
-                'usuario'          => $ClienteEntity->id,
-                'empresa'          => $empresa,
-                'programa'         => $item->programa,
-                'comissao_usuario' => (new Dinheiro($comissao))->decimal(),
-                'comissao_total'   => (new Dinheiro($item->comissao_usuario))->decimal(),
-                'valor_compra'     => (new Dinheiro($item->valor_compra))->decimal(),
-                'moeda'            => $item->moeda,
-                'data_compra'      => (new Data($item->data_compra))->date(),
-                'status'           => 1
-            ];
-
-            $dados = $this
-                ->dado($arr)
-                ->insert();
-
-            $retorno[] = [
-                $arr, $dados
-            ];
-        }
-        return $retorno;
-    }
-
-    /**
-     * @param array|int|string           $id
-     * @param StatusInterface|int|string $status
-     *
-     * @return array
-     * @throws Excecao
-     */
-    public function atualizarStatus(array|int|string $id, StatusInterface|int|string $status): array
-    {
-        return $this
-            ->dado([
-                'status' => ($status instanceof StatusInterface) ? $status->numero() : $status
-            ])
-            ->where((is_array($id) && !empty($id)) ? ['id', 'in', $id] : ['id', $id])
-            ->update();
     }
 }
