@@ -2437,6 +2437,90 @@ Route
     });
 
 Route
+    ::nome('silium_comissao')
+    ::controller(App\Controllers\Api\SiliumComissaoController::class)
+    ::middleware(TokenMiddleware::class, 'token')
+    ::grupo(function () {
+        Route
+            ::nome('buscar')
+            ::middleware(TokenMiddleware::class, 'scope', ['silium_comissao:buscar'])
+            ::get('/silium-comissao/{id}');
+
+        Route
+            ::nome('listar')
+            ::middleware(TokenMiddleware::class, 'scope', ['silium_comissao:listar'])
+            ::request([
+                'pagina', '!quantidade', '!ordem', '!empresa', '!usuario',
+                '!data_inicio', '!data_final', '!status'
+            ], 'json')
+            ::get('/silium-comissao');
+
+        Route
+            ::nome('salvar')
+            ::middleware(TokenMiddleware::class, 'scope', ['silium_comissao:salvar'])
+            ::request([
+                'usuario', 'parceiro', 'valor_compra', 'comissao_usuario',
+                'pontuacao', 'data_compra', 'status'
+            ])
+            ::post('/silium-comissao');
+
+        Route
+            ::nome('atualizar')
+            ::middleware(TokenMiddleware::class, 'scope', ['silium_comissao:atualizar'])
+            ::request([
+                '!usuario', '!parceiro', '!valor_compra', '!comissao_usuario',
+                '!pontuacao', '!data_compra', '!status'
+            ])
+            ::put('/silium-comissao/{id}');
+
+        Route
+            ::nome('deletar')
+            ::middleware(TokenMiddleware::class, 'scope', ['silium_comissao:deletar'])
+            ::delete('/silium-comissao/{id}');
+    });
+
+Route
+    ::nome('silium_deposito')
+    ::controller(App\Controllers\Api\SiliumDepositoController::class)
+    ::middleware(TokenMiddleware::class, 'token')
+    ::grupo(function () {
+        Route
+            ::nome('buscar')
+            ::middleware(TokenMiddleware::class, 'scope', ['silium_deposito:buscar'])
+            ::get('/silium-deposito/{id}');
+
+        Route
+            ::nome('listar')
+            ::middleware(TokenMiddleware::class, 'scope', ['silium_deposito:listar'])
+            ::request([
+                'pagina', '!quantidade', '!ordem', '!empresa', '!usuario',
+                '!data_inicio', '!data_final', '!status'
+            ], 'json')
+            ::get('/silium-deposito');
+
+        Route
+            ::nome('salvar')
+            ::middleware(TokenMiddleware::class, 'scope', ['silium_deposito:salvar'])
+            ::request([
+                'nome', 'email', 'telefone', 'mensagem', '!usuario', '!cpf'
+            ])
+            ::post('/silium-deposito');
+
+        Route
+            ::nome('atualizar')
+            ::middleware(TokenMiddleware::class, 'scope', ['silium_deposito:atualizar'])
+            ::request([
+                '!status'
+            ])
+            ::put('/silium-deposito/{id}');
+
+        Route
+            ::nome('deletar')
+            ::middleware(TokenMiddleware::class, 'scope', ['silium_deposito:deletar'])
+            ::delete('/silium-deposito/{id}');
+    });
+
+Route
     ::nome('solicitacao_loja')
     ::controller(App\Controllers\Api\SolicitacaoLojaController::class)
     ::middleware(TokenMiddleware::class, 'token')

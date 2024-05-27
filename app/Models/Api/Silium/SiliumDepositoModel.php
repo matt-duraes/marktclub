@@ -2,181 +2,170 @@
 
 namespace App\Models\Api\Silium;
 
+use App\Classes\Silium\OrdemDeposito;
+use App\Classes\Silium\StatusDeposito;
 use App\Classes\Silium\TipoConta;
-use App\Models\Api\Trait\ValidarEmpresaTrait;
-use Erro\Excecao;
-use Helpers\ValidarHelper;
-use Http\Request;
-use Modules\Cpf;
 use Modules\Data;
-use Modules\DataHora;
 use Modules\Dinheiro;
-use Modules\Nome;
+use Modules\Pagina;
+use Modules\Quantidade;
 use ORM\ORM;
-use Status\StatusInterface;
+use stdClass;
+use System\Interface\ModelListarInterface;
+use System\Trait\Model\OrdemTrait;
+use System\Trait\Model\PaginaTrait;
+use System\Trait\Model\QuantidadeTrait;
 
-class SiliumDepositoModel extends ORM
+class SiliumDepositoModel extends ORM implements
+    ModelListarInterface
 {
-    use ValidarEmpresaTrait;
+    use PaginaTrait;
+    use QuantidadeTrait;
+    use OrdemTrait;
 
     private const SALDO_MINIMO = 10000;
 
     protected string $ormTabela = TABELA_SILIUM_DEPOSITO;
-    protected ?int $idEmpresa;
-    protected ?int $idUsuario;
 
-    /**
-     * @param Request|null $request
-     *
-     * @throws Excecao
-     */
     public function __construct(
-        protected readonly ?Request $request = null
+        private readonly Pagina $pagina = new Pagina(),
+        private readonly Quantidade $quantidade = new Quantidade(),
+        private readonly OrdemDeposito $ordem = new OrdemDeposito(),
+        private readonly ?string $empresa = null,
+        private readonly ?string $usuario = null,
+        private readonly Data $dataInicio = new Data(),
+        private readonly Data $dataFinal = new Data(),
+        private readonly StatusDeposito $status = new StatusDeposito()
     ) {
-        $this->validarEmpresa();
-        parent::__construct();
-    }
-
-    /**
-     * @return array
-     * @throws Excecao
-     */
-    public function gerarExtrato(): array
-    {
-        $extrato = $this
-            ->campo([
-                'uuid', 'banco', 'agencia', 'conta', 'tipo_conta', 'documento_cpf',
-                'nome', 'valor', 'data_deposito', 'status', 'data_criacao'
-            ])
-            ->where([
-                ['id_admin_empresa', $this->idEmpresa],
-                ['id_usuario', $this->idUsuario]
-            ])
-            ->read();
-
-        $retornoExtrato = [];
-        foreach ($extrato as $transacao) {
-            $retornoExtrato[] = [
-                'uuid'   => $transacao->uuid,
-                'conta'  => [
-                    'banco'         => $transacao->banco,
-                    'agencia'       => $transacao->agencia,
-                    'conta'         => $transacao->conta,
-                    'tipo_conta'    => (new TipoConta($transacao->tipo_conta))->indice(),
-                    'titular'       => $transacao->nome,
-                    'documento_cpf' => (new Cpf($transacao->documento_cpf))->cpf()
-                ],
-                'data'   => [
-                    'solicitado' => (new Data($transacao->data_criacao))->data(),
-                    'deposito'   => empty($transacao->data_deposito) ?: (new Data($transacao->data_deposito))->data()
-                ],
-                'valor'  => (new Dinheiro($transacao->valor))->dinheiro(),
-                'status' => $transacao->status
-            ];
-        }
-
-        return $retornoExtrato;
-    }
-
-    /**
-     * @return array
-     * @throws Excecao
-     */
-    public function realizarSaque(): array
-    {
         $this->validarRequest();
-
-        $SiliumComissaoModel = new SiliumComissaoModel();
-        $saldo = $SiliumComissaoModel->pegarSaldo();
-
-        if ($saldo <= self::SALDO_MINIMO) {
-            mensagemErro('Saldo insuficiente', 'Seu saldo está abaixo de ' . self::SALDO_MINIMO);
-        }
-
-        $comissao = $SiliumComissaoModel->comissaoDisponivel();
-        $valor = $SiliumComissaoModel->pegarSaldo($comissao);
-        $transacao = [
-            'uuid'             => uuid(),
-            'id_admin_empresa' => $this->idEmpresa,
-            'id_usuario'       => $this->idUsuario,
-            'nome'             => (new Nome($this->request->getPost('titular')))->valor(),
-            'documento_cpf'    => (new Cpf($this->request->getPost('documento_cpf')))->valor(),
-            'banco'            => $this->request->getPost('banco'),
-            'agencia'          => $this->request->getPost('agencia'),
-            'conta'            => $this->request->getPost('conta'),
-            'tipo_conta'       => (new TipoConta($this->request->getPost('tipo_conta')))->numero(),
-            'comissao'         => $comissao,
-            'valor'            => (new Dinheiro($valor))->decimal(),
-            'status'           => 1
-        ];
-
-        $dados = $this
-            ->dado($transacao)
-            ->insert();
-
-        $this->atualizarStatus($dados['id'], 2);
-        return $this->montarRetorno($dados);
+        parent::__construct();
     }
 
     private function validarRequest(): void
     {
-        $tipoConta = new TipoConta($this->request->getPost('tipo_conta'));
-        $nomeTitular = new Nome($this->request->getPost('titular'));
-        $cpf = new Cpf($this->request->getPost('documento_cpf'));
-
-        (new ValidarHelper())
-            ->valor($nomeTitular, 'Nome do Titular')
-            ->obrigatorio()
-            ->vazio()
-            ->valido()
-            ->valor($cpf, 'CPF do Titular')
-            ->obrigatorio()
-            ->vazio()
-            ->valido()
-            ->valor($this->request->getPost('banco'), 'Nome/Número do banco')
-            ->obrigatorio()
-            ->vazio()
-            ->valor($this->request->getPost('agencia'), 'Número da agência')
-            ->obrigatorio()
-            ->vazio()
-            ->valor($this->request->getPost('conta'), 'Número da Conta')
-            ->obrigatorio()
-            ->vazio()
-            ->valor($tipoConta, 'Tipo de conta')
-            ->obrigatorio()
-            ->vazio()
-            ->valido();
+        if (!$this->pagina->vazio() && !$this->pagina->valido()) {
+            mensagemErro('Campo inválido!', 'A Página informada não é válida.');
+        }
+        if (!$this->quantidade->vazio() && !$this->quantidade->valido()) {
+            mensagemErro('Campo inválido!', 'A Quantidade informada não é válida.');
+        }
+        if (!$this->ordem->vazio() && !$this->ordem->valido()) {
+            mensagemErro('Campo inválido!', 'A Ordem informada não é válida.');
+        }
+        if (!$this->dataInicio->vazio() && !$this->dataInicio->eDate()) {
+            mensagemErro('Campo inválido!', 'A Data de início não está no formato válido.');
+        }
+        if (!$this->dataFinal->vazio() && !$this->dataFinal->eDate()) {
+            mensagemErro('Campo inválido!', 'A Data final não está no formato válido.');
+        }
+        if (!$this->status->vazio() && !$this->status->valido()) {
+            mensagemErro('Campo inválido!', 'O Status informado não é válido.');
+        }
     }
 
-    /**
-     * @param array|int|string           $id
-     * @param StatusInterface|int|string $status
-     *
-     * @return array
-     * @throws Excecao
-     */
-    public function atualizarStatus(array|int|string $id, StatusInterface|int|string $status): array
+    public function listarDados(): stdClass
     {
-        return $this
-            ->dado([
-                'status' => ($status instanceof StatusInterface) ? $status->numero() : $status
+        $depositos = $this
+            ->campo([
+                'uuid', 'nome_titular', 'documento_cpf', 'banco', 'agencia',
+                'conta', 'tipo_conta', 'valor', 'pontuacao', 'data_deposito',
+                'status', 'data_criacao', 'data_atualizacao'
             ])
-            ->where((is_array($id) && !empty($id)) ? ['id', 'in', $id] : ['id', $id])
-            ->update();
+            ->where($this->pegarWhere(), false)
+            ->pagina($this->pegarPagina(), $this->pegarQuantidade())
+            ->order($this->pegarOrdem(new OrdemDeposito()))
+            ->tabela(TABELA_COMERCIAL_EMPRESA)
+            ->join('id', 'id_admin_empresa')
+            ->where($this->pegarWhereEmpresa(), false)
+            ->campo([
+                'uuid', 'titulo'
+            ], 'empresa')
+            ->tabela(TABELA_USUARIO_CLIENTE)
+            ->where($this->pegarWhereUsuario(), false)
+            ->join('id', 'id_usuario_cliente')
+            ->campo([
+                'uuid', 'nome'
+            ], 'usuario')
+            ->read();
+
+        $depositos->lista = $this->montarRetorno($depositos->lista);
+        return $depositos;
     }
 
-    /**
-     * @param array $dados
-     *
-     * @return array
-     */
-    private function montarRetorno(array $dados): array
+    private function pegarWhere(): array
     {
-        $dados['documento_cpf'] = (new Cpf($dados['documento_cpf']))->cpf();
-        $dados['tipo_conta'] = (new TipoConta($dados['tipo_conta']))->indice();
-        $dados['valor'] = (new Dinheiro($dados['valor']))->dinheiro();
-        $dados['data_criacao'] = (new DataHora($dados['data_criacao']))->data();
-        $dados['data_atualizacao'] = (new DataHora($dados['data_atualizacao']))->data();
-        return $dados;
+        $where = $this->ormWherePadrao;
+        if ($this->dataInicio->valido() && $this->dataFinal->valido()) {
+            $where[] = [
+                'data_deposito', 'between', [
+                    $this->dataInicio->date(), $this->dataFinal->date()
+                ]
+            ];
+        } elseif ($this->dataInicio->valido()) {
+            $where[] = ['data_deposito', '>=', $this->dataInicio->date()];
+        } elseif ($this->dataFinal->valido()) {
+            $where[] = ['data_deposito', '<=', $this->dataFinal->date()];
+        }
+        if ($this->status->valido()) {
+            $where[] = ['status', $this->status->numero()];
+        }
+        return $where;
+    }
+
+    private function pegarWhereEmpresa(): array
+    {
+        $where = [];
+        if (!empty($this->empresa)) {
+            $where[] = ['cod', $this->empresa];
+        }
+        return $where;
+    }
+
+    private function pegarWhereUsuario(): array
+    {
+        $where = [];
+        if (!empty($this->usuario)) {
+            $where[] = ['nome', 'LIKE', "%$this->usuario%"];
+        }
+        return $where;
+    }
+
+    private function montarRetorno(array $depositos): array
+    {
+        if (empty($depositos)) {
+            return $depositos;
+        }
+
+        $TipoConta = new TipoConta();
+        $Status = new StatusDeposito();
+        $retorno = [];
+        foreach ($depositos as $deposito) {
+            $retorno[] = [
+                'id'               => $deposito->uuid,
+                'empresa'          => [
+                    'id'     => $deposito->empresa_uuid,
+                    'titulo' => $deposito->empresa_titulo
+                ],
+                'usuario'          => [
+                    'id'    => $deposito->usuario_uuid,
+                    'nome'  => $deposito->usuario_nome
+                ],
+                'dados_bancarios' => [
+                    'nome_titular'     => $deposito->nome_titular,
+                    'documento_cpf'    => $deposito->documento_cpf,
+                    'tipo_conta'       => $TipoConta->indice($deposito->tipo_conta),
+                    'banco'            => $deposito->banco,
+                    'agencia'          => $deposito->agencia,
+                    'conta'            => $deposito->conta,
+                ],
+                'pontuacao'        => $deposito->pontuacao,
+                'valor'            => (new Dinheiro($deposito->valor))->banco(),
+                'data_deposito'    => $deposito->data_deposito,
+                'status'           => $Status->indice($deposito->status),
+                'data_criacao'     => $deposito->data_criacao,
+                'data_atualizacao' => $deposito->data_atualizacao
+            ];
+        }
+        return $retorno;
     }
 }

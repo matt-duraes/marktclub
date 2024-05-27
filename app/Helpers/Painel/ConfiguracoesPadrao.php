@@ -814,6 +814,32 @@ final class ConfiguracoesPadrao
                 'site_menu_deletar'    => 'Deletar',
                 'site_menu_empresa'    => 'Todas as Empresas'
             ]
+        ],
+        'silium_comissao' => [
+            'titulo'    => 'Comissões do Silium (Cashback)',
+            'acao'      => [
+                'index', 'visualizar', 'add', 'editar', 'deletar'
+            ],
+            'permissao' => [
+                'silium_comissao_index'      => 'Listar',
+                'silium_comissao_visualizar' => 'Visualizar',
+                'silium_comissao_add'        => 'Salvar',
+                'silium_comissao_editar'     => 'Editar',
+                'silium_comissao_deletar'    => 'Deletar'
+            ]
+        ],
+        'silium_deposito' => [
+            'titulo'    => 'Depósitos do Silium (Cashback)',
+            'acao'      => [
+                'index', 'visualizar', 'add', 'editar', 'deletar'
+            ],
+            'permissao' => [
+                'silium_deposito_index'      => 'Listar',
+                'silium_deposito_visualizar' => 'Visualizar',
+                'silium_deposito_add'        => 'Salvar',
+                'silium_deposito_editar'     => 'Editar',
+                'silium_deposito_deletar'    => 'Deletar'
+            ]
         ]
     ];
 }

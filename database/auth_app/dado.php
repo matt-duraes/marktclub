@@ -177,7 +177,11 @@ $scope = [
     'automovel_versao:listar', 'automovel_versao:salvar', 'automovel_versao:buscar',
     'automovel_versao:atualizar', 'automovel_versao:deletar', 'automovel:listar',
 
-    'silium:saldo', 'silium:extrato', 'silium:saque',
+    'silium_comissao:buscar', 'silium_comissao:listar', 'silium_comissao:salvar',
+    'silium_comissao:atualizar', 'silium_comissao:deletar',
+
+    'silium_deposito:buscar', 'silium_deposito:listar', 'silium_deposito:salvar',
+    'silium_deposito:atualizar', 'silium_deposito:deletar',
 
     'solicitacao_loja:listar', 'solicitacao_loja:buscar', 'solicitacao_loja:salvar',
     'solicitacao_loja:atualizar', 'solicitacao_loja:deletar',
