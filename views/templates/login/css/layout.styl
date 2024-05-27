@@ -222,49 +222,55 @@ body
     background-color: #FFF
     padding: 50px 20px
     z-index: 3
+    gap: 20px
     .logo_footer
         width: 100%
         max-width: 1000px
         margin-bottom: 20px
         img
             height: 40px
-    .centralizar
-        width: 100%
+    .footer_home
         max-width: 1000px
-        flexRow()
-    ul
-        max-width: calc(50% - 30px)
+        width: 100%
         display: flex
-        flex-direction: column
-        margin-right: 60px
-        &:last-child
-            margin-right: 0
-    ul li
-        margin-top: 15px
-        flexRow()
-        align-items: center
-    ul li a
-        flexRow()
-        align-items: center
-    ul li i
-        width: 30px
-        height: 30px
-        fill: $corClube
-        flexCenter()
-        margin-right: 10px
-    ul li p
-        max-width: 300px
-        texto()
+        .bloco_contato,
+        .bloco_ajuda
+            flexCol()
+            display: flex
+            width: 50%
+            gap: 20px
+    .footer_home .bloco_contato,
+    .footer_home .bloco_ajuda
+        .dado_footer
+            display: flex
+            gap: 10px
+            align-items: center
+            p
+                texto()
+            i.icone_footer
+                display: flex
+                justify-content: center
+                align-items: center
+                height: 25px
+                width: 25px
+
 @media screen and (max-width: 800px)
     #bloco_footer
         padding-bottom: 120px
         .centralizar
             flexCol()
-        ul
-            max-width: 100%
-            margin-right: 0
-        ul li p
-            max-width: 100%
+        .bloco_contato
+            margin-bottom: 20px
+    #bloco_footer .footer_home
+        .bloco_contato,
+        .bloco_ajuda
+            width: 100%
+
+
+@media screen and (max-width: 390px)
+    p.texto_email
+        max-width: 70%
+
 #bloco_footer .bloco_copyright
     width: 100%
     max-width: 1000px
@@ -280,3 +286,5 @@ body
     .copy
         line-height: 1.5em
         margin-top: 30px
+
+
