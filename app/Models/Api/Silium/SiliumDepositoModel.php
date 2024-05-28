@@ -23,8 +23,6 @@ class SiliumDepositoModel extends ORM implements
     use QuantidadeTrait;
     use OrdemTrait;
 
-    private const SALDO_MINIMO = 10000;
-
     protected string $ormTabela = TABELA_SILIUM_DEPOSITO;
 
     public function __construct(
@@ -124,8 +122,10 @@ class SiliumDepositoModel extends ORM implements
     private function pegarWhereUsuario(): array
     {
         $where = [];
-        if (!empty($this->usuario)) {
+        if (!empty($this->usuario) && !validarUuid($this->usuario)) {
             $where[] = ['nome', 'LIKE', "%$this->usuario%"];
+        } else if (!empty($this->usuario) && validarUuid($this->usuario)) {
+            $where[] = ['uuid', $this->usuario];
         }
         return $where;
     }
