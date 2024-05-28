@@ -10,7 +10,7 @@
         @else:
         <div></div>
         @ endif;
-        <a class="botao_geral_borda cor_border botao_navegacao_normal" href="@route(acessoRapido.sair)">Voltar para navegação normal</a>
+        <a class="botao_geral_borda cor_border botao_navegacao_normal" href="@route(acessoRapido.sair)">Navegação normal</a>
     </div>
 </header>
 
