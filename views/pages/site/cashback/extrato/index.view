@@ -18,7 +18,7 @@
                 <div class="saldo_conta">
                     <p>SALDO EM CONTA: <span>{{$saldo}}</span> </p>
                 </div>
-                @if ($saldo >= 10000):
+                @if ($saldo <= 10000):
                 <div class="botao" id="botao_popup_resgate">Solicitar resgate</div>
                 @else:
                 <div class="bloco_atencao_geral">
@@ -56,11 +56,11 @@
                             <tbody>
                                 @foreach ($extrato_compra as $r) :
                                 <tr>
-                                    <td>{{$r['parceiro_loja']}}</td>
-                                    <td>R$ {{$r['valor_compra']}}</td>
-                                    <td>{{$r['pontos_ganhos']}}</td>
+                                    <td>{{$r->empresa->titulo}}</td>
+                                    <td>R$ {{$r->valor_compra}}</td>
+                                    <td>{{$r->pontuacao}}</td>
                                     <td>
-                                        <div class="bloco_status {{$r['status_compra']}}"></div>
+                                        <div class="bloco_status {{$r->status}}"></div>
                                     </td>
                                 </tr>
                                 @endforeach
