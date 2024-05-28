@@ -3,7 +3,6 @@
 <div id="bloco_pagina_cashback">
     <input type="hidden" id="input_ponto_saldo" value="{$saldo}">
     <div class="conteudo">
-
         <figure>
             <img src="{!!LINK!!}/images/site/logo_silium.png" height="80" alt="Logo Silium">
         </figure>
@@ -17,13 +16,17 @@
             <div class="bloco_saldo">
                 <a href="@route(termo.termocashback)" target="_blank" class="regulamento botao_pequeno_borda">REGULAMENTO SILIUM</a>
                 <div class="saldo_conta">
-                    <p>SALDO EM CONTA: <span>0</span> </p>
+                    <p>SALDO EM CONTA: <span>{{$saldo}}</span> </p>
                 </div>
+                @if ($saldo >= 10000):
+                <div class="botao" id="botao_popup_resgate">Solicitar resgate</div>
+                @else:
+                <div class="bloco_atencao_geral">
+                    <p>VOCÊ PRECISA ACUMULAR 10.000 PONTOS PARA SOLICITAR RESGATE.</p>
+                </div>
+                @endif;
             </div>
         </section>
-        <div class="bloco_atencao_geral">
-            <p>VOCÊ PRECISA ACUMULAR 10.000 PONTOS PARA SOLICITAR RESGATE.</p>
-        </div>
 
         <div class="bloco_extrato">
             <h1>ACOMPANHE SEUS EXTRATOS</h1>
@@ -42,25 +45,61 @@
                 <div id="bloco_nome_01" class="conteudo">
                     <div class="bloco_tabela_geral">
                         <table>
-                            <tbody>
-                                <tr class="vazio">
-                                    <td colspan="12">SEM EXTRATO NO MOMENTO</td>
+                            <thead>
+                                <tr>
+                                    <th>Empresa Parceira</th>
+                                    <th>Valor da Compra</th>
+                                    <th>Pontos Adquiridos</th>
+                                    <th>Status</th>
                                 </tr>
+                            </thead>
+                            <tbody>
+                                @foreach ($extrato_compra as $r) :
+                                <tr>
+                                    <td>{{$r['parceiro_loja']}}</td>
+                                    <td>R$ {{$r['valor_compra']}}</td>
+                                    <td>{{$r['pontos_ganhos']}}</td>
+                                    <td>
+                                        <div class="bloco_status {{$r['status_compra']}}"></div>
+                                    </td>
+                                </tr>
+                                @endforeach
                             </tbody>
                         </table>
                     </div>
                 </div>
-                    <div id="bloco_nome_02" class="conteudo display_none">
+                <div id="bloco_nome_02" class="conteudo display_none">
                     <div class="bloco_tabela_geral">
                         <table>
-                            <tbody>
-                                <tr class="vazio">
-                                    <td colspan="12">SEM EXTRATO NO MOMENTO</td>
+                            <thead>
+                                <tr>
+                                    <th>Pontos Trocados</th>
+                                    <th>Valor em R$</th>
+                                    <th>Status</th>
                                 </tr>
+                            </thead>
+                            <tbody>
+                                @if($extrato_saque):
+                                    @foreach ($extrato_saque as $r) :
+                                        <tr>
+                                            <td>{{$r['pontos_solicitados']}}</td>
+                                            <td>{{$r['valor_dinheiro']}}</td>
+                                            <td>
+                                                <div class="bloco_status {{$r['status_resgate']}}"></div>
+                                            </td>
+                                        </tr>
+                                    @endforeach
+                                @else:
+                                    <tr class="vazio">
+                                        <td colspan="12">SEM EXTRATO NO MOMENTO</td>
+                                    </tr>
+                                @endif;
                             </tbody>
                         </table>
                     </div>
                 </div>
+
+
             </div>
         </div>
 
@@ -76,11 +115,24 @@
             <p>Preencha o formulário abaixo para solicitar resgate de pontos</p>
             <i class="popup_fechar fechar">@iconeFechar</i>
         </header>
-        <form action="" class="form_geral">
+        <form class="form_geral">
             <div class="bloco">
-                @? formInput(name: 'ponto_nome', label: 'Nome', placeholder:'Digite seu nome', obrigatorio: true, value: '', local: 'André Rodrigues')
-                @? formInput(name: 'ponto_email', label: 'E-mail', placeholder:'Digite seu E-mail',  obrigatorio: true, value: '', local: 'andre@markt.club')
-                @? formNumero(name: 'ponto_quantidade', label: 'Pontos', placeholder: 'Digite a quantidade de pontos', obrigatorio: true, value: '', local: 1)
+                <h1 class="titulo_dados_bancarios">Dados Pessoais</h1>
+                <fieldset>
+                    @? formInput(name: 'ponto_nome', label: 'Nome', placeholder:'Digite seu nome', obrigatorio: true, value: '', local: 'André Rodrigues')
+                    @? formInput(name: 'ponto_email', label: 'E-mail', placeholder:'Digite seu E-mail',  obrigatorio: true, value: '', local: 'andre@markt.club')
+                    @? formNumero(name: 'ponto_quantidade', label: 'Pontos', placeholder: 'Digite a quantidade de pontos', obrigatorio: true, value: '', local: 1)
+                </fieldset>
+                <h1 class="titulo_dados_bancarios">Dados Bancários</h1>
+                <fieldset>
+                    @? formInput(name: 'titular', label: 'Nome', placeholder:'Digite o nome do titular', obrigatorio: true, value: '', local: 'André Rodrigues')
+                    @? formCpf(name: 'cpf_conta', label: 'CPF', placeholder: 'CPF')
+                    @? formInput(name: 'banco', label: 'Banco', placeholder:'Digite o nome do banco', obrigatorio: true, value: '', local: 'InterSA')
+                    @? formNumero(name: 'conta', label: 'Conta Bancária', placeholder:'Digite a sua conta bancária ', maximo: 35, obrigatorio: true, value: '', local: '21321321312312-9')
+                    @? formNumero(name: 'agencia', label: 'Agência', placeholder:'Digite a sua agência bancária ', obrigatorio: true, value: '', local: '14320')
+                    @? formSelect(name: 'tipo', label: 'Tipo de Conta', placeholder: 'Escolha o tipo de conta', obrigatorio: true, lista: ['Corrente', 'Poupança']);
+                </fieldset>
+
             </div>
         </form>
         <div class="bloco_botao">
@@ -88,3 +140,4 @@
         </div>
     </div>
 </div>
+
