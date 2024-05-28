@@ -73,10 +73,10 @@
                 @ endif;
             @ endif;
 
-            @ if( in_array('convenio-parceiro-destaque', SCOPE) ):
+            @ if( in_array('parceiro-loja-destaque', SCOPE) ):
             <h2><i>@iconeSetaDireita(10)</i> Parceiros</h2>
-                @ if( in_array('convenio-parceiro-destaque', SCOPE) ):
-                <a href="@route('documentacao.rota')/convenio-parceiro-destaque">Parceiros em destaque</a>
+                @ if( in_array('parceiro-loja-destaque', SCOPE) ):
+                <a href="@route('documentacao.rota')/parceiro-loja-destaque">Parceiros em destaque</a>
                 @ endif;
             @ endif;
 
