@@ -1,6 +1,8 @@
 @ if( painelPermissao('usuario_cliente_analytics', erro: false) ):
 <div class="bloco_fieldset" id="bloco_analytics">
-    <h2>Analytics</h2>
+    <header class="header_fieldset">
+        <h2>Analytics</h2>
+    </header>
     <div class="lista_dado lista_dado_analytics" id="bloco_analytics_lista_index">
     </div>
     <div class="botao_link botao_analytics_abrir">Abrir Analytics</div>
