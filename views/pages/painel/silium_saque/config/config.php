@@ -1,12 +1,12 @@
 <?php
 
 return [
-    'titulo'     => 'Depósitos do Silium',
+    'titulo'     => 'Solicitações de Saque',
     'buscar'     => false,
     'filtrar'    => true,
     'ordem'      => true,
     'visualizar' => true,
-    'add'        => true,
+    'add'        => false,
     'editar'     => true,
     'deletar'    => false,
     'download'   => false,

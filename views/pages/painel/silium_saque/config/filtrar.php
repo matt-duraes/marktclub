@@ -3,7 +3,7 @@
 use App\Classes\Silium\StatusDeposito;
 use App\Classes\Silium\TipoConta;
 
-$Painel = new PainelConfig\Filtrar('silium_deposito');
+$Painel = new PainelConfig\Filtrar('silium_saque');
 
 $Painel
     ->input(
