@@ -486,16 +486,18 @@ final class Visualizar
      * @param string            $view      Qual view será incluida
      * @param null|array|string $campo     Caso queira mostrar apenas se tiver permissão para um campo
      * @param null|string       $permissao Caso o usuário tenha que ter uma permissão específica
+     * @param null|string       $app       Quando o APP do include não é o mesmo do principal
      */
-    public function include($view, null|array|string $campo = null, ?string $permissao = null): self
+    public function include($view, null|array|string $campo = null, ?string $permissao = null, ?string $app = null): self
     {
         if (!empty($campo) && empty($this->pegarCampoAceito($campo, $permissao))) {
             return $this;
         }
 
+        $app = !empty($app) ? $app : $this->app;
         $this->html[]['lista'][] = [
             'funcao'  => 'include',
-            'arquivo' => ROOT . '/files/build/views/painel_' . $this->app . '_' . $view . '.php'
+            'arquivo' => ROOT . '/files/build/views/painel_' . $app . '_' . $view . '.php'
         ];
         return $this;
     }

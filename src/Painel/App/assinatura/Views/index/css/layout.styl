@@ -1,0 +1,64 @@
+@template "painel"
+
+#bloco_assinatura
+    width: 100%
+    padding: 20px
+    flexCol()
+    align-items: center
+    .bg
+        width: 100%
+        max-width: 800px
+        background-color: #fff
+        border-radius: 5px
+        boxShadow()
+        padding: 20px
+
+#bloco_assinatura form
+    flexCol()
+    margin-bottom: 40px
+
+#bloco_assinatura .assinatura
+    width: 100%
+    flexRow()
+    align-items: center
+    figure
+        width: 150px
+        flexCenter()
+    figure img
+        width: 80px
+    .dado
+        flexGrow()
+        flexRow()
+        flex-wrap: wrap
+    .dado .separador
+        padding: 0 6px
+    .dado .cargo.texto strong
+        color: #FF6F00
+    .dado .texto
+        margin: 4px 0
+    .dado .texto
+    .dado .texto strong
+    .dado .texto span
+        font-size: 1.4rem
+        color: #666
+    .dado .linha
+        width: 100%
+        min-height: 60px
+        flexCol()
+        margin-top: 10px
+        border-left: 3px solid rgb(47,108,180)
+        padding-left: 8px
+
+#bloco_assinatura .bloco_botao
+    width: 100%
+    max-width: 800px
+    flexRow()
+    justify-content: flex-end
+    margin-top: 20px
+    .botao
+        textoFontSize()
+        border: 1px solid $cor
+        border-radius: 5px
+        padding: 5px 10px
+        color: $cor
+        cursor: pointer

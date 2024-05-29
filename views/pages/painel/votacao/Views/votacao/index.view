@@ -1,5 +1,7 @@
 <div class="bloco_fieldset" id="bloco_votacao">
-    <h2>Perguntas</h2>
+    <header class="header_fieldset">
+        <h2>Perguntas</h2>
+    </header>
     <div class="botao_pequeno" id="botao_adicionar_pergunta">Adicionar pergunta</div>
     <div class="bloco_pergunta" id="bloco_pergunta_lista">
     </div>
