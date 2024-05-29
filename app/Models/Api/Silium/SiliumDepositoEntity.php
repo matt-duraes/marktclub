@@ -3,40 +3,39 @@
 namespace App\Models\Api\Silium;
 
 use App\Classes\Silium\StatusDeposito;
+use App\Classes\Silium\Tipo;
 use App\Classes\Silium\TipoConta;
-use App\Models\Api\Trait\ValidarEmpresaTrait;
 use Helpers\OrmHelper;
 use Modules\Cpf;
 use Modules\Data;
 use Modules\Dinheiro;
+use Modules\Email;
 use ORM\Entity;
 
 class SiliumDepositoEntity extends Entity
 {
-    use ValidarEmpresaTrait;
+    private const PONTUACAO_MINIMA = 10000;
 
     protected string $ormTabela = TABELA_SILIUM_DEPOSITO;
     protected array $ormBuscar = [
-        'id_admin_empresa', 'id_usuario_cliente', 'nome_titular', 'documento_cpf',
-        'tipo_conta', 'banco', 'agencia', 'conta', 'valor', 'pontuacao',
-        'data_deposito', 'documento_anexo', 'status', 'data_criacao',
-        'data_atualizacao'
-    ];
-    protected array $ormInsert = [
-        'id_admin_empresa'   => '->idEmpresa',
-        'id_usuario_cliente' => '->idUsuario'
+        'id_admin_empresa', 'id_usuario_cliente', 'nome_titular',
+        'documento_cpf', 'email', 'tipo_conta', 'banco', 'agencia', 'conta',
+        'valor', 'pontuacao', 'data_deposito', 'documento_anexo', 'tipo',
+        'status', 'data_criacao', 'data_atualizacao'
     ];
     protected array $ormSalvar = [
-        'nome_titular', 'documento_cpf', 'tipo_conta', 'banco', 'agencia',
-        'conta', 'valor', 'pontuacao', 'data_deposito', 'documento_anexo',
-        'status'
+        'id_admin_empresa', 'id_usuario_cliente', 'nome_titular', 'documento_cpf',
+        'email', 'tipo_conta', 'banco', 'agencia', 'conta', 'valor', 'pontuacao',
+        'data_deposito', 'documento_anexo', 'tipo', 'status'
     ];
     protected int $id_admin_empresa;
     protected int $id_usuario_cliente;
+
     public array $empresa;
-    public array $usuario;
+    public string|array $usuario;
     public string $nome_titular;
     public Cpf $documento_cpf;
+    public Email $email;
     public TipoConta $tipo_conta;
     public string $banco;
     public string $agencia;
@@ -45,10 +44,10 @@ class SiliumDepositoEntity extends Entity
     public int $pontuacao;
     public Data $data_deposito;
     public string $documento_anexo;
+    public Tipo $tipo;
     public StatusDeposito $status;
 
     public function __construct() {
-        $this->validarEmpresa();
         parent::__construct();
     }
 
@@ -58,9 +57,31 @@ class SiliumDepositoEntity extends Entity
         $this->pegarUsuario();
     }
 
-    /*protected function regraSalvar(): void
+    protected function regraSalvar(): void
     {
-    }*/
+        $this->setarUsuario();
+        if ($this->tipo->indice() === Tipo::SAQUE){
+            $this->validarResgate();
+            $this->validarSaldoSuficiente();
+        }
+    }
+
+    private function setarUsuario(): void
+    {
+        $OrmHelper = new OrmHelper(TABELA_USUARIO_CLIENTE);
+        $usuario = $OrmHelper->pegarUltimoRegistro(
+            ['uuid', $this->usuario],
+            ['id', 'id_admin_empresa'],
+            'object'
+        );
+
+        if (empty($usuario->id)) {
+            mensagemErro('Campo obrigatório!', 'Não foi possível achar um usuário.');
+        }
+
+        $this->id_admin_empresa = $usuario->id_admin_empresa;
+        $this->id_usuario_cliente = $usuario->id;
+    }
 
     private function pegarEmpresa(): void
     {
@@ -112,5 +133,27 @@ class SiliumDepositoEntity extends Entity
             'nome'  => $usuario->nome,
             'email' => $email
         ];
+    }
+
+    private function validarSaldoSuficiente(): void
+    {
+        $SiliumSaldoEntity = new SiliumSaldoEntity();
+        $SiliumSaldoEntity->id($this->id_usuario_cliente);
+        if ($SiliumSaldoEntity->saldo < $this->pontuacao) {
+            mensagemErro(
+                'Resgate não autorizado',
+                'Sua pontuação é insuficiente para o resgate!'
+            );
+        }
+    }
+
+    private function validarResgate(): void
+    {
+        if ($this->pontuacao < self::PONTUACAO_MINIMA) {
+            mensagemErro(
+                'Resgate não autorizado',
+                'Solicitações devem ser acima de ' . self::PONTUACAO_MINIMA
+            );
+        }
     }
 }

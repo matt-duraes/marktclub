@@ -22,6 +22,7 @@ class SiliumComissaoEntity extends Entity
     ];
     protected int $id_admin_empresa;
     protected int $id_usuario_cliente;
+
     public array $empresa;
     public string $parceiro;
     public string|array $usuario;
@@ -44,6 +45,12 @@ class SiliumComissaoEntity extends Entity
     protected function regraSalvar(): void
     {
         $this->setarUsuario();
+        $this->pontuacao = $this->comissao_usuario->decimal() * 100;
+    }
+
+    protected function regraPosSalvar(): void
+    {
+        $this->setarPontuacao();
     }
 
     private function setarUsuario(): void
@@ -103,5 +110,15 @@ class SiliumComissaoEntity extends Entity
             'id'   => $usuario->uuid,
             'nome' => $usuario->nome
         ];
+    }
+
+    private function setarPontuacao(): void
+    {
+        $SiliumSaldoEntity = new SiliumSaldoEntity();
+        $SiliumSaldoEntity->id($this->id_usuario_cliente);
+        $SiliumSaldoEntity->set(lista: [
+            'saldo' => $SiliumSaldoEntity->saldo + $this->pontuacao
+        ]);
+        $SiliumSaldoEntity->salvar();
     }
 }

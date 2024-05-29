@@ -4,6 +4,8 @@ namespace App\Controllers\Api;
 
 use App\Classes\Silium\OrdemDeposito;
 use App\Classes\Silium\StatusDeposito;
+use App\Classes\Silium\Tipo;
+use App\Classes\Silium\TipoConta;
 use App\Models\Api\Silium\SiliumDepositoEntity;
 use App\Models\Api\Silium\SiliumDepositoModel;
 use Controller\Controller;
@@ -38,10 +40,10 @@ final class SiliumDepositoController extends Controller implements
             pegarPropriedadeDaEntity(
                 Entity: $SiliumDepositoEntity,
                 lista: [
-                    'empresa','usuario', 'nome_titular', 'documento_cpf',
-                    'tipo_conta', 'banco', 'agencia', 'conta', 'valor',
-                    'pontuacao', 'data_deposito', 'documento_anexo',
-                    'status', 'data_criacao', 'data_atualizacao'
+                    'empresa', 'usuario', 'nome_titular', 'documento_cpf',
+                    'email', 'tipo_conta', 'banco', 'agencia', 'conta',
+                    'valor', 'pontuacao', 'data_deposito', 'documento_anexo',
+                    'tipo', 'status', 'data_criacao', 'data_atualizacao'
                 ]
             ),
             $status
@@ -56,6 +58,8 @@ final class SiliumDepositoController extends Controller implements
             new OrdemDeposito($request->ordem),
             $request->empresa,
             $request->usuario,
+            new TipoConta($request->tipo_conta),
+            new Tipo($request->tipo),
             new Data($request->data_inicio),
             new Data($request->data_final),
             new StatusDeposito($request->status)

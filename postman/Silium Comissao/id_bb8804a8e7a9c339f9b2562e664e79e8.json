@@ -1,0 +1,1 @@
+{"id":"id_bb8804a8e7a9c339f9b2562e664e79e8","token":"painel","metodo":"PUT","nome":"\/silium-comissao\/:id","uri":"{{LINK}}\/silium-comissao\/$SILIUM_COMISSAO_ID","parametro":[],"body":[["texto",true,"status","negado",""]],"header":[],"variavel":[],"json":[],"documentacao":{"status":false,"descricao":"","requisicao":"","resposta":"","scope":"silium_comissao:atualizar"}}

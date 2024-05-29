@@ -2460,7 +2460,7 @@ Route
             ::middleware(TokenMiddleware::class, 'scope', ['silium_comissao:salvar'])
             ::request([
                 'usuario', 'parceiro', 'valor_compra', 'comissao_usuario',
-                'pontuacao', 'data_compra', 'status'
+                '!pontuacao', 'data_compra', 'status'
             ])
             ::post('/silium-comissao');
 
@@ -2494,7 +2494,7 @@ Route
             ::middleware(TokenMiddleware::class, 'scope', ['silium_deposito:listar'])
             ::request([
                 'pagina', '!quantidade', '!ordem', '!empresa', '!usuario',
-                '!data_inicio', '!data_final', '!status'
+                '!tipo_conta', '!tipo', '!data_inicio', '!data_final', '!status'
             ], 'json')
             ::get('/silium-deposito');
 
@@ -2502,7 +2502,8 @@ Route
             ::nome('salvar')
             ::middleware(TokenMiddleware::class, 'scope', ['silium_deposito:salvar'])
             ::request([
-                'nome', 'email', 'telefone', 'mensagem', '!usuario', '!cpf'
+                'usuario', 'nome_titular', 'documento_cpf', 'email', 'tipo_conta',
+                'banco', 'agencia', 'conta', 'pontuacao', 'tipo', '!status'
             ])
             ::post('/silium-deposito');
 
@@ -2510,7 +2511,8 @@ Route
             ::nome('atualizar')
             ::middleware(TokenMiddleware::class, 'scope', ['silium_deposito:atualizar'])
             ::request([
-                '!status'
+                '!usuario', '!nome_titular', '!documento_cpf', '!email', '!tipo_conta',
+                '!banco', '!agencia', '!conta', '!pontuacao', '!tipo', '!status'
             ])
             ::put('/silium-deposito/{id}');
 
