@@ -451,11 +451,11 @@ if (!function_exists('strRemoverHttpsDominio')) {
         if (empty($dominio)) {
             return is_string($dominio) ? '' : [];
         }
-        if(is_string($dominio)) {
+        if (is_string($dominio)) {
             return strDominio($dominio, $www, $porta);
         }
         $retorno = [];
-        foreach($dominio as $link) {
+        foreach ($dominio as $link) {
             $retorno[] = strDominio($link, $www, $porta);
         }
         return $retorno;
@@ -475,11 +475,11 @@ if (!function_exists('strColocarHttpsDominio')) {
         if (empty($dominio)) {
             return $eString ? '' : [];
         }
-        if($eString) {
+        if ($eString) {
             $dominio = [$dominio];
         }
         $retorno = [];
-        foreach($dominio as $link) {
+        foreach ($dominio as $link) {
             $retorno[] = 'https://' . preg_replace('/^http(s){0,1}\:\/\//', '', $link);
         }
         return $eString ? $retorno[0] : $retorno;

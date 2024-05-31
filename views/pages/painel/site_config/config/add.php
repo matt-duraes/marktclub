@@ -119,7 +119,7 @@ $Painel->coluna(callback: function () use ($Painel) {
                 name: 'cor_texto',
                 label: 'Cor do texto'
             );
-        });
+    });
     $Painel->fieldset('Home', function () use ($Painel) {
         $Painel
             ->switch(

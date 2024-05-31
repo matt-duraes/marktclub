@@ -1,0 +1,143 @@
+const assinaturaHtml = () => {
+    return `
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>You Huul</title>
+</head>
+
+<body>
+    <table border="0" cellpadding="0" cellspacing="0" width="100%">
+        <tr>
+            <td style="border-width:2px 1px 1px 1px;border-style:solid solid solid solid;border-color:#FF6F00 #FF6F00 #FF6F00 #FF6F00;"></td>
+        </tr>
+        <tr>
+            <td height="30"></td>
+        </tr>
+    </table>
+    <table border="0" cellpadding="0" cellspacing="0" width="100%">
+        <tr>
+            <td width="30" style="width: 30px;"></td>
+            <td width="80" style="width: 80px;">
+                <img src="https://youhuul.com.br/images/assinatura/youhuul.png" width="80"></td>
+            </td>
+            <td width="40" style="width: 40px;"></td>
+
+            <td style="width: calc(100% - 150px);">
+                <table border="0" cellpadding="0" cellspacing="0" width="100%">
+                    <tr>
+                        <td style="font-family: Arial, Helvetica, sans-serif; color: #666; font-size: 14px">{{NOME}}</td>
+                    </tr>
+                    <tr>
+                        <td height="20"></td>
+                    </tr>
+                    <tr>
+                        <td style="padding: 3px 0 3px 8px; border-width:0px 0px 0px 3px;border-style:none none none solid;border-color:rgb(187,187,187) rgb(187,187,187) rgb(187,187,187) rgb(47,108,180); font-family: Arial, Helvetica, sans-serif; color: #666; font-size: 14px">
+                            {{TELEFONE}}
+                        </td>
+                    </tr>
+                    <tr>
+                        <td style="padding: 3px 0 3px 8px; border-width:0px 0px 0px 3px;border-style:none none none solid;border-color:rgb(187,187,187) rgb(187,187,187) rgb(187,187,187) rgb(47,108,180); font-family: Arial, Helvetica, sans-serif; color: #666; font-size: 14px">
+                            {{EMAIL}}
+                        </td>
+                    </tr>
+                    <tr>
+                        <td style="padding: 3px 0 3px 8px; border-width:0px 0px 0px 3px;border-style:none none none solid;border-color:rgb(187,187,187) rgb(187,187,187) rgb(187,187,187) rgb(47,108,180); font-family: Arial, Helvetica, sans-serif; color: #666; font-size: 14px">
+                            <a href="https://youhuul.com.br">youhuul.com.br</a>
+                        </td>
+                    </tr>
+                </table>
+            </td>
+        </tr>
+    </table>
+
+    <table border="0" cellpadding="0" cellspacing="0" width="100%">
+        <tr>
+            <td height="40"></td>
+        </tr>
+        <tr>
+            <td style="border-width:1px 0 0 0;border-style:solid solid solid solid;border-color:#DDDDDD #DDDDDD #DDDDDD #DDDDDD;"></td>
+        </tr>
+        <tr>
+            <td height="20"></td>
+        </tr>
+    </table>
+
+    <table border="0" cellpadding="0" cellspacing="0" width="100%">
+        <tr>
+            <td style="padding: 3px 0; font-family: Arial, Helvetica, sans-serif; color: #333; font-size: 12px">
+                SIG QUADRA 04, LOTE 125/175, Bloco A, Sala 10
+            </td>
+        </tr>
+        <tr>
+            <td style="padding: 3px 0; font-family: Arial, Helvetica, sans-serif; color: #333; font-size: 12px">
+                Capital Financial Center - Asa Sul
+            </td>
+        </tr>
+        <tr>
+            <td style="padding: 3px 0; font-family: Arial, Helvetica, sans-serif; color: #333; font-size: 12px">
+                Brasília/DF - CEP 70610-440
+            </td>
+        </tr>
+        <tr>
+            <td style="padding: 3px 0; font-family: Arial, Helvetica, sans-serif; color: #333; font-size: 11px">
+                <a href="https://www.google.com.br/maps/place/Markt+Club/@-15.7873053,-47.9154213,17z/data=!3m1!4b1!4m5!3m4!1s0x935a3afcad18a7af:0xe00941a34d1204a6!8m2!3d-15.7873053!4d-47.9132326" target="_blank"><img src="https://youhuul.com.br/images/assinatura/mapa.png" height="25"></a>
+            </td>
+        </tr>
+    </table>
+
+    <table border="0" cellpadding="0" cellspacing="0" width="100%">
+        <td height="10"></td>
+        <tr>
+            <td style="font-family: Arial, Helvetica, sans-serif; color: #999; font-size: 12px; padding-bottom: 5px">
+                Siga o Markt Club:
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <table border="0" cellpadding="0" cellspacing="0" width="100%">
+                    <tr>
+                        <td width="25">
+                            <a href="https://www.instagram.com/marktclub" target="_blank"><img src="https://youhuul.com.br/images/assinatura/instagram.png" width="25" alt=""></a>
+                        </td>
+                        <td width="5"></td>
+                        <td width="25">
+                            <a href="https://www.facebook.com/portalmarktclub" target="_blank"><img src="https://youhuul.com.br/images/assinatura/facebook.png" width="25" alt=""></a>
+                        </td>
+                        <td width="5"></td>
+                        <td width="25">
+                            <a href="https://www.linkedin.com/company/marktclub/mycompany" target="_blank"><img src="https://youhuul.com.br/images/assinatura/linkedin.png" width="25" alt=""></a>
+                        </td>
+                        <td></td>
+                    </tr>
+                </table>
+            </td>
+        </tr>
+    </table>
+
+
+    <table border="0" cellpadding="0" cellspacing="0" width="100%">
+        <tr>
+            <td height="40"></td>
+        </tr>
+        <tr>
+            <td style="padding: 3px 0; font-family: Arial, Helvetica, sans-serif; color: #999; font-size: 12px">Esta mensagem pode conter informação confidencial ou privilegiada, sendo seu sigilo protegido por lei. Se você não for o destinatário ou a pessoa autorizada a receber esta mensagem, não pode usar, copiar ou divulgar as informações nela contidas
+                ou tomar qualquer ação baseada nessas informações. Se você recebeu esta mensagem por engano, por favor, avise imediatamente ao remetente, respondendo o e-mail e em seguida apague-a. Agradecemos sua cooperação.</td>
+        </tr>
+        <tr>
+            <td height="10"></td>
+        </tr>
+        <tr>
+            <td style="padding: 3px 0; font-family: Arial, Helvetica, sans-serif; color: #999; font-size: 12px">This message may contain confidential or privileged information and its confidentiality is protected by law. If you are not the addressed or authorized person to receive this message, you must not use, copy, disclose or take any action based
+                on it or any information herein. If you have received this message by mistake, please advise the sender immediately by replying to the email and then deleting it. Thank you for your cooperation.</td>
+        </tr>
+    </table>
+
+</body>
+
+</html>
+`;
+};

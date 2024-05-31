@@ -8,7 +8,8 @@ final class ConfiguracoesPadrao
         'perfil'   => 'Perfil',
         'agenda'   => 'Agenda',
         'google'   => 'Google',
-        'darkMode' => 'Dark Mode (ALPHA)'
+        'darkMode' => 'Dark Mode (ALPHA)',
+        'assinatura' => 'Assinatura'
     ];
     public const CAMPOS_OBRIGATORIOS = [
         'usuario_cliente' => [

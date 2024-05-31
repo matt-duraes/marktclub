@@ -49,7 +49,7 @@ final class DownloadModel extends ORM
     {
         $camposAceito = [
             'empresa', 'codigo', 'data_criacao', 'data_validacao', 'data_vencimento', 'status',
-            'usuario_nome', 'usuario_cpf', 'parceiro', 'tipo_usuario', 'tipo'
+            'usuario_nome', 'usuario_cpf', 'parceiro', 'tipo_usuario', 'tipo', 'empresa'
         ];
 
         $listaCampos = jsonDecode($this->request->campo, true, true);

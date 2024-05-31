@@ -3,7 +3,7 @@
 use PainelConfig\Index;
 use App\Classes\Geral\Status;
 
-$Painel = new Index('votacao');
+$Painel = new Index(isset($enqueteApp) ? $enqueteApp : 'votacao');
 return $Painel
     ->campo('titulo', 'Título', 'grande')
     ->campo('data_inicio', 'Começa em', 'pequeno', formatar: Index::FORMATAR_DATAHORA)
