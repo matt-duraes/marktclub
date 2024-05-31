@@ -2413,30 +2413,6 @@ Route
     });
 
 Route
-    ::nome('silium')
-    ::controller(App\Controllers\Api\SiliumController::class)
-    ::middleware(TokenMiddleware::class, 'token')
-    ::grupo(function () {
-        Route
-            ::nome('saldo')
-            ::middleware(TokenMiddleware::class, 'scope', ['silium:saldo'])
-            ::get('/silium/saldo');
-
-        Route
-            ::nome('extrato')
-            ::middleware(TokenMiddleware::class, 'scope', ['silium:extrato'])
-            ::get('/silium/extrato');
-
-        Route
-            ::nome('saque')
-            ::middleware(TokenMiddleware::class, 'scope', ['silium:saque'])
-            ::request([
-                'titular', 'documento_cpf', 'banco', 'agencia', 'conta', 'tipo_conta'
-            ])
-            ::post('/silium/saque');
-    });
-
-Route
     ::nome('silium_comissao')
     ::controller(App\Controllers\Api\SiliumComissaoController::class)
     ::middleware(TokenMiddleware::class, 'token')
