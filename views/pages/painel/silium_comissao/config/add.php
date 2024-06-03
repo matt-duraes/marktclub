@@ -36,12 +36,12 @@ $Painel->coluna(callback: function () use ($Painel) {
                 name: 'usuario',
                 label: 'Usuário',
                 placeholder: 'Insira a referência do usuário na compra'
-            )
+            )/*
             ->numero(
                 name: 'pontuacao',
                 label: 'Pontuação Adquirida',
                 placeholder: 'Insira a pontuação adquirida'
-            )
+            )*/
             ->select(
                 name: 'status',
                 lista: (new StatusComissao())->select('Selecione um status'),

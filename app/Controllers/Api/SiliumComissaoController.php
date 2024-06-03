@@ -34,7 +34,7 @@ final class SiliumComissaoController extends Controller implements
 
     public function getListar(Request $request): Response
     {
-        $SiliumComissaoEntity = new SiliumComissaoModel(
+        $SiliumComissaoModel = new SiliumComissaoModel(
             new Pagina($request->pagina),
             new Quantidade($request->quantidade),
             new OrdemComissao($request->ordem),
@@ -45,7 +45,7 @@ final class SiliumComissaoController extends Controller implements
             new Data($request->data_final),
             new StatusComissao($request->status)
         );
-        return mensagemSucesso($SiliumComissaoEntity->listarDados());
+        return mensagemSucesso($SiliumComissaoModel->listarDados());
     }
 
     public function postSalvar(Request $request): Response

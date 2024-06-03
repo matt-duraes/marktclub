@@ -1,6 +1,8 @@
 @ if( painelPermissao('usuario_dependente_index', erro: false) ):
 <div class="bloco_fieldset" id="bloco_dependente">
-    <h2>Dependentes</h2>
+    <header class="header_fieldset">
+        <h2>Dependentes</h2>
+    </header>
     @ if( painelPermissao('usuario_dependente_add', erro: false) ):
     <div class="lista_dado">
         <div class="botao_link" id="botao_dependente_abrir">Adicionar Dependente</div>

@@ -1,0 +1,1 @@
+{"id":"id_832fab10d7f922da9db04dd745b6d38c","token":"painel","metodo":"GET","nome":"\/silium-deposito\/:id","uri":"{{LINK}}\/silium-deposito\/$SILIUM_DEPOSITO_ID","parametro":[],"body":[],"header":[],"variavel":[],"json":[],"documentacao":{"status":false,"descricao":"","requisicao":"","resposta":"","scope":"silium_deposito:buscar"}}

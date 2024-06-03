@@ -1,6 +1,7 @@
 <?php
 
 use App\Classes\Silium\StatusDeposito;
+use App\Classes\Silium\TipoConta;
 
 $Painel = new PainelConfig\Filtrar('silium_deposito');
 
@@ -17,6 +18,13 @@ $Painel
         titulo: 'Empresa',
         label: 'Empresa',
         placeholder: 'Empresa'
+    )
+    ->select(
+        name: 'tipo_conta',
+        lista: (new TipoConta())->select('Escolha um tipo de conta'),
+        titulo: 'Tipo de Conta',
+        label: 'Tipo de Conta',
+        placeholder: 'Tipo de Conta'
     )
     ->bloco(function () use ($Painel) {
         $Painel

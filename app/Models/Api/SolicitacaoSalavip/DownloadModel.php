@@ -2,17 +2,17 @@
 
 namespace App\Models\Api\SolicitacaoSalavip;
 
-use App\Classes\SolicitacaoSalavip\Empresa;
-use App\Classes\SolicitacaoVoucher\Ordem;
-use App\Models\Api\Painel\LogDownloadEntity;
-use App\Models\Api\SolicitacaoSalavip\Trait\ValidarRequestTrait;
-use App\Models\Api\SolicitacaoSalavip\Trait\WhereTrait;
+use ORM\ORM;
+use Throwable;
 use Erro\Excecao;
 use Http\Request;
-use ORM\ORM;
 use System\Trait\Model\OrdemTrait;
 use System\Trait\Model\PaginaTrait;
-use Throwable;
+use App\Classes\SolicitacaoVoucher\Ordem;
+use App\Classes\SolicitacaoSalavip\Empresa;
+use App\Models\Api\Painel\LogDownloadEntity;
+use App\Models\Api\SolicitacaoSalavip\Trait\WhereTrait;
+use App\Models\Api\SolicitacaoSalavip\Trait\ValidarRequestTrait;
 
 final class DownloadModel extends ORM
 {
@@ -39,7 +39,7 @@ final class DownloadModel extends ORM
      */
     private function validarCamposAceito(): void
     {
-        $camposAceito = ['empresa', 'codigo', 'data'];
+        $camposAceito = ['empresa', 'data_de', 'data_ate'];
 
         $listaCampos = jsonDecode($this->request->campo, true, true);
         if (!$listaCampos) {

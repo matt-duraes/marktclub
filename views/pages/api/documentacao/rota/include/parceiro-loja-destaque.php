@@ -5,9 +5,9 @@ $Doc
     ->titulo('LISTAR PARCEIROS EM DESTAQUE')
     ->descricao('Requisição para fazer a busca das informações básicas dos parceiros em destaque')
     ->status(200)
-    ->scope('convenio-parceiro:destaque')
+    ->scope('parceiro-loja:destaque')
     ->metodo('get')
-    ->uri('/convenio-parceiro/destaque')
+    ->uri('/parceiro-loja/destaque')
 
     ->headerToken()
 
@@ -19,7 +19,7 @@ $Doc
     ->erro401()
     ->erro403()
 
-    ->preExemplo("curl --location --request GET '{{LINK}}/convenio-parceiro/destaque?categoria=alimentacao&quantidade=20&ordem=titulo-z-a' \
+    ->preExemplo("curl --location --request GET '{{LINK}}/parceiro-loja/destaque?categoria=alimentacao&quantidade=20&ordem=titulo-z-a' \
 --header 'Content-Type: application/json' \
 --header 'Authorization: Bearer {{TOKEN}}'")
     ->preSucesso('{

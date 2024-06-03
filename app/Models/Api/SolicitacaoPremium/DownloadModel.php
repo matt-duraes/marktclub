@@ -2,16 +2,17 @@
 
 namespace App\Models\Api\SolicitacaoPremium;
 
-use App\Classes\SolicitacaoVoucher\Status;
-use App\Models\Api\Painel\LogDownloadEntity;
-use App\Models\Api\SolicitacaoPremium\Trait\SetarDataTrait;
-use App\Models\Api\SolicitacaoPremium\Trait\ValidarRequestTrait;
-use App\Models\Api\SolicitacaoPremium\Trait\WhereTrait;
-use App\Models\Api\Trait\ValidarEmpresaDownloadTrait;
-use Erro\Excecao;
-use Http\Request;
 use ORM\ORM;
 use Throwable;
+use Erro\Excecao;
+use Http\Request;
+use App\Classes\ParceiroLoja\TipoLoja;
+use App\Classes\SolicitacaoVoucher\Status;
+use App\Models\Api\Painel\LogDownloadEntity;
+use App\Models\Api\Trait\ValidarEmpresaDownloadTrait;
+use App\Models\Api\SolicitacaoPremium\Trait\WhereTrait;
+use App\Models\Api\SolicitacaoPremium\Trait\SetarDataTrait;
+use App\Models\Api\SolicitacaoPremium\Trait\ValidarRequestTrait;
 
 final class DownloadModel extends ORM
 {
@@ -78,8 +79,11 @@ final class DownloadModel extends ORM
             ->campo($campo)
             ->where($this->pegarWhere())
             ->tabela(TABELA_PARCEIRO_LOJA)
-            ->join('cod', 'vinculo')
-            ->where(['status', 5])
+            ->join('uuid', 'vinculo')
+            ->where([
+                ['tipo_loja', new TipoLoja(TipoLoja::PREMIUM)],
+                ['status', 4]
+            ])
             ->read();
 
         $this->salvarLogDownload($dado);

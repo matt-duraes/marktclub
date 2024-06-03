@@ -7,14 +7,16 @@ return [
         'id_usuario_cliente' => 1,
         'nome_titular'       => nomeAleatorio(),
         'documento_cpf'      => cpfAleatorio(),
+        'email'              => emailAleatorio(),
         'banco'              => 'Bradesco',
         'agencia'            => '1646',
         'conta'              => '1316-5',
         'tipo_conta'         => 1,
-        'valor'              => numeroAleatorio(),
+        'valor'              => null,
         'pontuacao'          => 10000,
         'data_deposito'      => hoje(),
         'documento_anexo'    => null,
+        'tipo'               => 1,
         'status'             => 1
     ],
     [
@@ -23,14 +25,16 @@ return [
         'id_usuario_cliente' => 1,
         'nome_titular'       => nomeAleatorio(),
         'documento_cpf'      => cpfAleatorio(),
+        'email'              => emailAleatorio(),
         'banco'              => 'Itáu',
         'agencia'            => '6431',
         'conta'              => '9781-5',
         'tipo_conta'         => 2,
-        'valor'              => numeroAleatorio(),
+        'valor'              => null,
         'pontuacao'          => 20000,
         'data_deposito'      => hoje(),
         'documento_anexo'    => null,
+        'tipo'               => 1,
         'status'             => 2
     ],
     [
@@ -39,14 +43,16 @@ return [
         'id_usuario_cliente' => 1,
         'nome_titular'       => nomeAleatorio(),
         'documento_cpf'      => cpfAleatorio(),
+        'email'              => emailAleatorio(),
         'banco'              => 'Nubank',
         'agencia'            => '971200',
         'conta'              => '65554-8',
         'tipo_conta'         => 2,
-        'valor'              => numeroAleatorio(),
+        'valor'              => null,
         'pontuacao'          => 10000,
         'data_deposito'      => hoje(),
         'documento_anexo'    => null,
+        'tipo'               => 1,
         'status'             => 3
     ],
     [
@@ -55,6 +61,7 @@ return [
         'id_usuario_cliente' => 1,
         'nome_titular'       => nomeAleatorio(),
         'documento_cpf'      => cpfAleatorio(),
+        'email'              => emailAleatorio(),
         'banco'              => 'Inter',
         'agencia'            => '00001',
         'conta'              => '99216-5',
@@ -63,6 +70,7 @@ return [
         'pontuacao'          => 20000,
         'data_deposito'      => hoje(),
         'documento_anexo'    => null,
+        'tipo'               => 2,
         'status'             => 4
     ]
 ];

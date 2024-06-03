@@ -8,7 +8,8 @@ final class ConfiguracoesPadrao
         'perfil'   => 'Perfil',
         'agenda'   => 'Agenda',
         'google'   => 'Google',
-        'darkMode' => 'Dark Mode (ALPHA)'
+        'darkMode' => 'Dark Mode (ALPHA)',
+        'assinatura' => 'Assinatura'
     ];
     public const CAMPOS_OBRIGATORIOS = [
         'usuario_cliente' => [
@@ -839,6 +840,19 @@ final class ConfiguracoesPadrao
                 'silium_deposito_add'        => 'Salvar',
                 'silium_deposito_editar'     => 'Editar',
                 'silium_deposito_deletar'    => 'Deletar'
+            ]
+        ],
+        'silium_saque' => [
+            'titulo'    => 'Solicitações de Saque (Cashback)',
+            'acao'      => [
+                'index', 'visualizar', 'add', 'editar', 'deletar'
+            ],
+            'permissao' => [
+                'silium_saque_index'      => 'Listar',
+                'silium_saque_visualizar' => 'Visualizar',
+                'silium_saque_add'        => 'Salvar',
+                'silium_saque_editar'     => 'Editar',
+                'silium_saque_deletar'    => 'Deletar'
             ]
         ]
     ];

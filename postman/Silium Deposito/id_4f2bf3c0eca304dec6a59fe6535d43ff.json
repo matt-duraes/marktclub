@@ -1,0 +1,1 @@
+{"id":"id_4f2bf3c0eca304dec6a59fe6535d43ff","token":"painel","metodo":"DELETE","nome":"\/silium-deposito\/:id","uri":"{{LINK}}\/silium-deposito\/$SILIUM_DEPOSITO_ID","parametro":[],"body":[],"header":[],"variavel":[],"json":[],"documentacao":{"status":false,"descricao":"","requisicao":"","resposta":"","scope":"silium_deposito:deletar"}}

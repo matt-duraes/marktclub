@@ -4,6 +4,7 @@ namespace App\Models\Api\Silium;
 
 use App\Classes\Silium\OrdemDeposito;
 use App\Classes\Silium\StatusDeposito;
+use App\Classes\Silium\Tipo;
 use App\Classes\Silium\TipoConta;
 use Modules\Data;
 use Modules\Dinheiro;
@@ -31,6 +32,8 @@ class SiliumDepositoModel extends ORM implements
         private readonly OrdemDeposito $ordem = new OrdemDeposito(),
         private readonly ?string $empresa = null,
         private readonly ?string $usuario = null,
+        private readonly TipoConta $tipoConta = new TipoConta(),
+        private readonly Tipo $tipo = new Tipo(),
         private readonly Data $dataInicio = new Data(),
         private readonly Data $dataFinal = new Data(),
         private readonly StatusDeposito $status = new StatusDeposito()
@@ -49,6 +52,12 @@ class SiliumDepositoModel extends ORM implements
         }
         if (!$this->ordem->vazio() && !$this->ordem->valido()) {
             mensagemErro('Campo inválido!', 'A Ordem informada não é válida.');
+        }
+        if (!$this->tipoConta->vazio() && !$this->tipoConta->valido()) {
+            mensagemErro('Campo inválido!', 'O Tipo de Conta informado não é válido.');
+        }
+        if (!$this->tipo->vazio() && !$this->tipo->valido()) {
+            mensagemErro('Campo inválido!', 'O Tipo informado não é válido.');
         }
         if (!$this->dataInicio->vazio() && !$this->dataInicio->eDate()) {
             mensagemErro('Campo inválido!', 'A Data de início não está no formato válido.');
@@ -93,6 +102,12 @@ class SiliumDepositoModel extends ORM implements
     private function pegarWhere(): array
     {
         $where = $this->ormWherePadrao;
+        if ($this->tipoConta->valido()) {
+            $where[] = ['tipo_conta', $this->tipoConta->numero()];
+        }
+        if ($this->tipo->valido()) {
+            $where[] = ['tipo', $this->tipo->numero()];
+        }
         if ($this->dataInicio->valido() && $this->dataFinal->valido()) {
             $where[] = [
                 'data_deposito', 'between', [
