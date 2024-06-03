@@ -75,7 +75,9 @@ final class DadoModel extends ORM implements ModelListarInterface
     private function pegarWhere(): Where
     {
         $Where = new Where($this, $this->ormWherePadrao);
-        $Where->linha('tipo');
+        $Where
+            ->linha('tipo')
+            ->publicado();
         return $Where;
     }
 }
