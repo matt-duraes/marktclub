@@ -1,4 +1,5 @@
 <div class="bloco_fieldset" id="bloco_votacao">
+    @ if( $dado->bloqueado != 'sim'):
     <header class="header_fieldset">
         <h2>Perguntas</h2>
     </header>
@@ -7,6 +8,24 @@
     </div>
     <div class="zero display_none" id="bloco_pergunta_zero">Sem perguntas no momento</div>
     <div class="zero" id="bloco_pergunta_loading">Carregando perguntas</div>
+
+    <header class="header_fieldset">
+        <h2>Bloquear</h2>
+    </header>
+    <p class="subtitulo">Cuidado! Ao bloquear a votação, ela não vai poder ser editada.</p>
+    <div class="botao_pequeno vermelho" id="botao_bloquear_votacao">Bloquear</div>
+    @ elseif( $dado->status_votacao == 'andamento' ):
+    <header class="header_fieldset">
+        <h2>Cancelar</h2>
+    </header>
+    <p class="subtitulo">Cuidado! Após o cancelamento essa votação não poderá ser colocada no ar novamente.</p>
+    <div class="botao_pequeno vermelho" id="botao_cancelar_votacao">Cancelar</div>
+    @ elseif( $dado->status_votacao == 'finalizado' ):
+    <header class="header_fieldset">
+        <h2>Resultado</h2>
+    </header>
+    <div class="botao_pequeno azul" id="botao_resultado_votacao">Pegar resultado</div>
+    @ endif;
 </div>
 
 <div class="display_none">

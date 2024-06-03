@@ -29,16 +29,20 @@ final class DadoEntity extends Entity
         'id_admin_empresa' => '->idEmpresa'
     ];
     protected array $ormSalvar = [
-        'titulo', 'texto', 'tipo', 'voto_unico', 'identificar_usuario', 'data_inicio', 'data_final', 'status'
+        'titulo', 'texto', 'tipo', 'voto_unico', 'identificar_usuario', 'data_inicio',
+        'data_final', 'bloqueado', 'status'
     ];
     protected array $ormBuscar = [
-        'titulo', 'texto', 'tipo', 'voto_unico', 'identificar_usuario', 'data_inicio', 'data_final', 'status'
+        'titulo', 'texto', 'tipo', 'voto_unico', 'identificar_usuario', 'data_inicio',
+        'data_final', 'bloqueado', 'status'
     ];
     public string $titulo;
     public string $texto;
     public Tipo $tipo;
     public Botao $voto_unico;
     public Botao $identificar_usuario;
+    public Botao $bloqueado;
+    public string $status_votacao;
     public DataHora $data_inicio;
     public DataHora $data_final;
     public Publicado $publicado;
@@ -57,5 +61,21 @@ final class DadoEntity extends Entity
             final: $this->data_final,
             ativo: $this->status->indice() == $this->status::ATIVO
         );
+
+        $this->validarStatusVotacao();
+    }
+
+    private function validarStatusVotacao()
+    {
+        $votacao = 'aguardando';
+        $agora = agora();
+        if ($this->data_inicio->date() <= $agora && $this->data_final->date() >= $agora) {
+            $votacao = 'andamento';
+            $this->bloqueado = new Botao(Botao::SIM);
+        } elseif ($this->data_inicio->date() < agora()) {
+            $this->bloqueado = new Botao(Botao::SIM);
+            $votacao = 'finalizado';
+        }
+        $this->status_votacao = $votacao;
     }
 }
