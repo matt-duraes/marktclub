@@ -1,5 +1,6 @@
 @template "site"
 
+
 <div id="bloco_pagina_cashback">
     <input type="hidden" id="input_ponto_saldo" value="{$saldo}">
     <div class="conteudo">
@@ -16,9 +17,9 @@
             <div class="bloco_saldo">
                 <a href="@route(termo.termocashback)" target="_blank" class="regulamento botao_pequeno_borda">REGULAMENTO SILIUM</a>
                 <div class="saldo_conta">
-                    <p>SALDO EM CONTA: <span>{{$saldo}}</span> </p>
+                    <p>SALDO EM CONTA: <span>0</span> </p>
                 </div>
-                @if ($saldo <= 10000):
+                @if ($saldo >= 10000):
                 <div class="botao" id="botao_popup_resgate">Solicitar resgate</div>
                 @else:
                 <div class="bloco_atencao_geral">
@@ -45,6 +46,7 @@
                 <div id="bloco_nome_01" class="conteudo">
                     <div class="bloco_tabela_geral">
                         <table>
+                            @if(isset($extrato_compra) && $extrato_compra != ''):
                             <thead>
                                 <tr>
                                     <th>Empresa Parceira</th>
@@ -56,14 +58,19 @@
                             <tbody>
                                 @foreach ($extrato_compra as $r) :
                                 <tr>
-                                    <td>{{$r->empresa->titulo}}</td>
+                                    <td>{{$r->parceiro}}</td>
                                     <td>R$ {{$r->valor_compra}}</td>
-                                    <td>{{$r->pontuacao}}</td>
+                                    <td>{{$r->comissao_usuario}}</td>
                                     <td>
                                         <div class="bloco_status {{$r->status}}"></div>
                                     </td>
                                 </tr>
                                 @endforeach
+                            @else:
+                                <tr class="vazio">
+                                    <td colspan="12">SEM EXTRATO NO MOMENTO</td>
+                                </tr>
+                            @endif;
                             </tbody>
                         </table>
                     </div>
@@ -71,42 +78,37 @@
                 <div id="bloco_nome_02" class="conteudo display_none">
                     <div class="bloco_tabela_geral">
                         <table>
+                            @if(isset($extrato_saque) && $extrato_saque != ''):
                             <thead>
                                 <tr>
                                     <th>Pontos Trocados</th>
-                                    <th>Valor em R$</th>
+                                    <th>Valor</th>
                                     <th>Status</th>
                                 </tr>
                             </thead>
                             <tbody>
-                                @if($extrato_saque):
-                                    @foreach ($extrato_saque as $r) :
-                                        <tr>
-                                            <td>{{$r['pontos_solicitados']}}</td>
-                                            <td>{{$r['valor_dinheiro']}}</td>
-                                            <td>
-                                                <div class="bloco_status {{$r['status_resgate']}}"></div>
-                                            </td>
-                                        </tr>
-                                    @endforeach
-                                @else:
-                                    <tr class="vazio">
-                                        <td colspan="12">SEM EXTRATO NO MOMENTO</td>
+                                @foreach ($extrato_saque as $r) :
+                                    <tr>
+                                        <td>{{$r->pontuacao}}</td>
+                                        <td>R${{$r->valor}}</td>
+                                        <td>
+                                            <div class="bloco_status {{$r->status}}"></div>
+                                        </td>
                                     </tr>
-                                @endif;
+                                @endforeach
+                            @else
+                            <tr class="vazio">
+                                <td colspan="12">SEM EXTRATO NO MOMENTO</td>
+                            </tr>
+                            @endif
                             </tbody>
                         </table>
                     </div>
                 </div>
-
-
             </div>
         </div>
-
     </div>
-
 </div>
-
 
 <div class="bloco_pagina_popup display_none" id="bloco_resgatar_ponto">
     <div class="conteudo_pagina_popup conteudo_popup">
