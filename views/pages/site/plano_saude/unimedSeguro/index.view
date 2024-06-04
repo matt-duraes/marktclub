@@ -54,7 +54,6 @@
             <a class="botao_geral_cor cor_bg" target="_blank" href="http://www.segurosunimed.com.br/institucional/servicos/guiamedico">Consultar rede credenciada</a>
         </div>
     </div>
-
     <div class="bloco_plano_saude">
         <header class="titulo_rede">
             <h1>Conheça o Cuidando de Perto</h1>
@@ -73,7 +72,6 @@
             <a class="botao_geral_cor cor_bg" href="{{LINK_ARQUIVO}}/download/manual_cuidando_de_perto.pdf">Conheça Sobre o Programa</a>
         </div>
     </div>
-
     <div class="bloco_plano_saude">
         <header>
             <h1>Preços do Plano de Saúde</h1>
@@ -164,7 +162,6 @@
                 </tbody>
             </table>
         </div>
-
         <div class="bloco_lista">
             <header>
                 <h1>Afinidade Básica</h1>
@@ -345,8 +342,6 @@
             <p>* Tabela governamental de reembolso. Pode ter os valores e condições alterados a qualquer momento.</p>
         </div>
     </section>
-
-
     <section class="bloco_plano_saude">
         <header>
             <h1>Fator Moderador</h1>
@@ -386,7 +381,6 @@
             </table>
         </div>
     </section>
-
     <section class="bloco_simulacao container_scroll">
         <h1>GOSTARIA DE FAZER UMA SIMULAÇÃO?</h1>
         <p>Faça uma simulação sua e seus dependentes e veja os valores.</p>
