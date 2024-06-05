@@ -9,10 +9,12 @@ use App\Classes\Geral\Publicado;
 use App\Classes\Votacao\Dado\Tipo;
 use App\Classes\Votacao\Dado\Status;
 use App\Models\Api\Trait\ValidarEmpresaTrait;
+use App\Models\Api\Votacao\Trait\MensagemTrait;
 
 final class DadoEntity extends Entity
 {
     use ValidarEmpresaTrait;
+    use MensagemTrait;
 
     protected string $ormTabela = TABELA_VOTACAO_DADO;
     protected string $ormValidar = '
@@ -52,6 +54,13 @@ final class DadoEntity extends Entity
     {
         parent::__construct();
         $this->validarEmpresa();
+    }
+
+    protected function regraUpdate()
+    {
+        if ($this->bloqueado->valor() == Botao::SIM) {
+            $this->mensagemBloqueado();
+        }
     }
 
     protected function regraPosBuscar()
