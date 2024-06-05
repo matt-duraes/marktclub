@@ -4,6 +4,7 @@ namespace Helpers;
 
 use ORM\ORM;
 use stdClass;
+use Order\OrderInterface;
 
 final class OrmHelper extends ORM
 {
@@ -197,6 +198,11 @@ final class OrmHelper extends ORM
             $retorno[] = $r->$campo;
         }
         return $retorno;
+    }
+
+    public function listar(array $campo, array $where = [], string|OrderInterface|array $ordem = [])
+    {
+        return $this->campo($campo)->where($where, obrigatorio: false)->order($ordem)->read();
     }
 
     public function atualizar(array $dado, int $id)

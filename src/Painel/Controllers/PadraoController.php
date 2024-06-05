@@ -193,8 +193,9 @@ abstract class PadraoController extends Controller
             'titulo'    => $config['titulo'] ?? '',
             'model'     => $config['entity'] ?? '',
             'permissao' => (object)[
-                'add'    => $this->pegarPermissaoUsuario('add', $app, $config['add'] ?? false),
-                'editar' => $this->pegarPermissaoUsuario('editar', $app, $config['editar'] ?? false),
+                'add'        => $this->pegarPermissaoUsuario('add', $app, $config['add'] ?? false),
+                'editar'     => $this->pegarPermissaoUsuario('editar', $app, $config['editar'] ?? false),
+                'visualizar' => $this->pegarPermissaoUsuario('visualizar', $app, $config['visualizar'] ?? false),
             ],
             'add' => (object) [
                 'app'  => $this->pegarAppUsado($app, 'add'),

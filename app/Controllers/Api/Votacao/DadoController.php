@@ -4,7 +4,9 @@ namespace App\Controllers\Api\Votacao;
 
 use Http\Request;
 use Http\Response;
+use Modules\Botao;
 use Controller\Controller;
+use App\Classes\Votacao\Dado\Status;
 use App\Models\Api\Votacao\Dado\DadoModel;
 use App\Models\Api\Votacao\Dado\DadoEntity;
 use System\Interface\ControllerBuscarInterface;
@@ -12,6 +14,7 @@ use System\Interface\ControllerListarInterface;
 use System\Interface\ControllerSalvarInterface;
 use System\Interface\ControllerDeletarInterface;
 use System\Interface\ControllerAtualizarInterface;
+use App\Models\Api\Votacao\Resultado\ResultadoModel;
 
 final class DadoController extends Controller implements
     ControllerListarInterface,
@@ -56,7 +59,7 @@ final class DadoController extends Controller implements
                 Entity: $Votacao,
                 lista: [
                     'titulo', 'texto', 'tipo', 'voto_unico', 'data_inicio', 'data_final',
-                    'publicado', 'bloqueado', 'status_votacao', 'status'
+                    'publicado', 'bloqueado', 'status_votacao', 'identificar_usuario', 'status'
                 ]
             ),
             status: $status
@@ -84,5 +87,35 @@ final class DadoController extends Controller implements
         $Votacao->destruir();
 
         return new Response(status: 204);
+    }
+
+    public function postCancelar(Request $request)
+    {
+        $Votacao = new DadoEntity();
+        $Votacao->id($request->id);
+        $Votacao->status = new Status(Status::CANCELADO);
+        $Votacao->salvar();
+
+        return mensagemSucesso([
+            'id' => $Votacao->id
+        ]);
+    }
+
+    public function postBloquear(Request $request)
+    {
+        $Votacao = new DadoEntity();
+        $Votacao->id($request->id);
+        $Votacao->bloqueado = new Botao(Botao::SIM);
+        $Votacao->salvar();
+
+        return mensagemSucesso([
+            'id' => $Votacao->id
+        ]);
+    }
+
+    public function postResultado(Request $request)
+    {
+        $Resultado = new ResultadoModel(id: $request->id);
+        return mensagemSucesso($Resultado->retorno);
     }
 }

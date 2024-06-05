@@ -5,9 +5,9 @@ namespace App\Models\Api\Votacao\Dado;
 use ORM\Entity;
 use Modules\Botao;
 use Modules\DataHora;
-use App\Classes\Geral\Status;
 use App\Classes\Geral\Publicado;
 use App\Classes\Votacao\Dado\Tipo;
+use App\Classes\Votacao\Dado\Status;
 use App\Models\Api\Trait\ValidarEmpresaTrait;
 
 final class DadoEntity extends Entity

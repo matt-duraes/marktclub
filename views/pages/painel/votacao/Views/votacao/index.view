@@ -1,3 +1,4 @@
+<input type="hidden" id="inputinterno_bloqueado" value="{{$dado->bloqueado}}">
 <div class="bloco_fieldset" id="bloco_votacao">
     @ if( $dado->bloqueado != 'sim'):
     <header class="header_fieldset">
@@ -28,6 +29,7 @@
     @ endif;
 </div>
 
+@ if( $dado->bloqueado != 'sim'):
 <div class="display_none">
     <div id="bloco_pergunta_add">
         <div class="bloco_pagina_popup conteudo">
@@ -95,3 +97,4 @@
         <div class="botao deletar">deletar</div>
     </div>
 </div>
+@ endif;

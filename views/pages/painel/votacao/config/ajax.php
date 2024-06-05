@@ -3,6 +3,27 @@
 $Painel = new PainelConfig\Ajax();
 
 return $Painel
+    ->grupo('votacao-cancelar', function () use ($Painel) {
+        $Painel
+            ->request(['id'])
+            ->permissao('votacao_editar')
+            ->metodo('post')
+            ->rota('/votacao-dado/cancelar');
+    })
+    ->grupo('votacao-bloquear', function () use ($Painel) {
+        $Painel
+            ->request(['id'])
+            ->permissao('votacao_editar')
+            ->metodo('post')
+            ->rota('/votacao-dado/bloquear');
+    })
+    ->grupo('votacao-resultado', function () use ($Painel) {
+        $Painel
+            ->request(['id'])
+            ->permissao('votacao_resultado')
+            ->metodo('post')
+            ->rota('/votacao-dado/resultado');
+    })
     ->grupo('pergunta-listar', function () use ($Painel) {
         $Painel
             ->request(['votacao', 'pagina', 'quantidade'])
