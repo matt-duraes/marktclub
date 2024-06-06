@@ -1453,6 +1453,10 @@ Route
             ::middleware(TokenMiddleware::class, 'scope', ['parceiro_subcategoria:listar'])
             ::request(['!titulo', '!categoria'], 'json')
             ::get('/parceiro-subcategoria/select');
+        Route
+            ::nome('listar')
+            ::middleware(TokenMiddleware::class, 'scope', ['parceiro_subcategoria:listar'])
+            ::get('/parceiro-subcategoria');
     });
 
 Route
