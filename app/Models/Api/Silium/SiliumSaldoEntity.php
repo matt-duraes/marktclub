@@ -13,7 +13,6 @@ class SiliumSaldoEntity extends Entity
     protected array $ormSalvar = [
         'saldo'
     ];
-
     public int $saldo;
 
     public function __construct()

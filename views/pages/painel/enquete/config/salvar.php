@@ -1,3 +1,3 @@
 <?php
 
-    return require __DIR__ . '/../../votacao/config/salvar.php';
+return require __DIR__ . '/../../votacao/config/salvar.php';

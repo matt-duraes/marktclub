@@ -139,7 +139,7 @@ class SiliumDepositoModel extends ORM implements
         $where = [];
         if (!empty($this->usuario) && !validarUuid($this->usuario)) {
             $where[] = ['nome', 'LIKE', "%$this->usuario%"];
-        } else if (!empty($this->usuario) && validarUuid($this->usuario)) {
+        } elseif (!empty($this->usuario) && validarUuid($this->usuario)) {
             $where[] = ['uuid', $this->usuario];
         }
         return $where;

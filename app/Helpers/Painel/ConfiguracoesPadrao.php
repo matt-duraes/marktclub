@@ -5,10 +5,10 @@ namespace App\Helpers\Painel;
 final class ConfiguracoesPadrao
 {
     public const RECURSOS = [
-        'perfil'   => 'Perfil',
-        'agenda'   => 'Agenda',
-        'google'   => 'Google',
-        'darkMode' => 'Dark Mode (ALPHA)',
+        'perfil'     => 'Perfil',
+        'agenda'     => 'Agenda',
+        'google'     => 'Google',
+        'darkMode'   => 'Dark Mode (ALPHA)',
         'assinatura' => 'Assinatura'
     ];
     public const CAMPOS_OBRIGATORIOS = [

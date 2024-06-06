@@ -22,7 +22,6 @@ class SiliumComissaoEntity extends Entity
     ];
     protected int $id_admin_empresa;
     protected int $id_usuario_cliente;
-
     public array $empresa;
     public string $parceiro;
     public string|array $usuario;
@@ -32,7 +31,8 @@ class SiliumComissaoEntity extends Entity
     public Data $data_compra;
     public StatusComissao $status;
 
-    public function __construct() {
+    public function __construct()
+    {
         parent::__construct();
     }
 

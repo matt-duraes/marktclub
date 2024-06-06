@@ -127,7 +127,7 @@ class SiliumComissaoModel extends ORM implements
         $where = [];
         if (!empty($this->usuario) && !validarUuid($this->usuario)) {
             $where[] = ['nome', 'LIKE', "%$this->usuario%"];
-        } else if (!empty($this->usuario) && validarUuid($this->usuario)) {
+        } elseif (!empty($this->usuario) && validarUuid($this->usuario)) {
             $where[] = ['uuid', $this->usuario];
         }
         return $where;
@@ -144,7 +144,7 @@ class SiliumComissaoModel extends ORM implements
         foreach ($comissoes as $comissao) {
             $retorno[] = [
                 'id'               => $comissao->uuid,
-                'empresa' => [
+                'empresa'          => [
                     'id'     => $comissao->empresa_uuid,
                     'titulo' => $comissao->empresa_titulo
                 ],
