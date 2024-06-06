@@ -1,5 +1,5 @@
 window.addEventListener('load', () => {
-    const bloquearEditar = $('#botao_bloquear_votacao');
+    const bloquearEditar = $('#inputinterno_bloqueado');
     if (!bloquearEditar) {
         return;
     }

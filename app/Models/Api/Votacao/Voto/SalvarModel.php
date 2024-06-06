@@ -13,7 +13,8 @@ final class SalvarModel extends ORM
     protected string $ormTabela = TABELA_VOTACAO_VOTO;
     private int $idVotacao;
     private int $idUsuario;
-    private array $votacaoDado;
+    private array $votacaoDado = [];
+    private array $usuarioDado = [];
 
     public function __construct(
         private string $votacao,
@@ -22,6 +23,7 @@ final class SalvarModel extends ORM
     ) {
         parent::__construct();
         $this->buscarVotacao();
+        $this->validarVotacaoExiste();
         $this->verificarVotacaoPublicada();
         $this->buscarUsuario();
         $this->validarDados();
@@ -36,13 +38,16 @@ final class SalvarModel extends ORM
         );
     }
 
-    private function verificarVotacaoPublicada()
+    private function validarVotacaoExiste()
     {
-        if (empty($this->votacaoDado)) {
+        if (empty($this->votacaoDado) || !array_key_exists('id', $this->votacaoDado)) {
             mensagemErro('Erro!', 'Não foi possível encontrar a votação.');
         }
-        $dado = $this->votacaoDado;
+    }
 
+    private function verificarVotacaoPublicada()
+    {
+        $dado = $this->votacaoDado;
         $publicado = new Publicado(
             inicio: new DataHora($dado['data_inicio']),
             final: new DataHora($dado['data_final']),
@@ -56,13 +61,21 @@ final class SalvarModel extends ORM
 
     private function buscarUsuario()
     {
-        $this->idUsuario = (new OrmHelper(TABELA_USUARIO_CLIENTE))->pegarIdPeloUuid($this->usuario);
+        $usuario = (new OrmHelper(TABELA_USUARIO_CLIENTE))->pegarPrimeiroRegistro(
+            campo: ['id', 'nome', 'cpf'],
+            where: ['uuid', $this->usuario]
+        );
+        $this->idUsuario = $usuario['id'];
+        $this->usuarioDado = $usuario;
     }
 
     private function validarDados()
     {
-        if (empty($this->usuario)) {
+        $usuario = $this->usuarioDado;
+        if (empty($usuario) || !array_key_exists('id', $usuario)) {
             mensagemErro('Erro!', 'Não foi possível achar o usuário do voto.');
+        } elseif (!array_key_exists('nome', $usuario) || !array_key_exists('cpf', $usuario) || !validarCpf($usuario['cpf'])) {
+            mensagemErro('Erro!', 'Seu nome e/ou CPF estão inválidos, atualize seus dados para votar.');
         } elseif (empty($this->votacao)) {
             mensagemErro('Erro!', 'Não foi possível achar a votação.');
         } elseif (!is_array($this->resposta) || !$this->resposta) {
@@ -92,6 +105,6 @@ final class SalvarModel extends ORM
                     ->insert();
             }
         }
-        (new VotouModel($this->idUsuario, $this->idVotacao));
+        (new VotouModel($this->usuarioDado, $this->idVotacao));
     }
 }

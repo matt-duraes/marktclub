@@ -70,7 +70,9 @@ final class DadoEntity extends Entity
             final: $this->data_final,
             ativo: $this->status->indice() == $this->status::ATIVO
         );
-
+        if ($this->status->se(Status::CANCELADO)) {
+            $this->bloqueado = new Botao(Botao::SIM);
+        }
         $this->validarStatusVotacao();
     }
 

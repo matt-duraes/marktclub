@@ -26,7 +26,7 @@ final class RespostaModel extends ORM
     {
         $this->banco = (new OrmHelper(TABELA_VOTACAO_RESPOSTA))->listar(
             campo: ['id', 'id_votacao_pergunta', 'titulo'],
-            where: ['id_admin_pergunta', 'in', $this->Pergunta->idPergunta]
+            where: ['id_votacao_pergunta', 'in', $this->Pergunta->idPergunta]
         );
     }
 

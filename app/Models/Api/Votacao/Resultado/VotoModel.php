@@ -22,12 +22,12 @@ final class VotoModel extends ORM
 
     private function pegarVoto()
     {
-        $this->voto = (new OrmHelper(TABELA_VOTACAO_RESPOSTA))->listar(
+        $this->voto = (new OrmHelper(TABELA_VOTACAO_VOTO))->listar(
             campo: [
                 'id_usuario_cliente', 'id_votacao_pergunta', 'id_votacao_resposta',
                 'resposta_outro', 'voto_livre', 'data_criacao'
             ],
-            where: ['id_votacao_dado', 'in', $this->id]
+            where: ['id_votacao_dado', $this->id]
         );
     }
 }

@@ -27,7 +27,12 @@ window.addEventListener('load', () => {
                 indice: 'votacao-cancelar',
                 id,
             },
-            'Ocorreu um erro ao ordenar perguntas.'
+            'Ocorreu um erro ao cancelar item.'
         );
+        if (false === resposta) {
+            Loading.hide();
+            return;
+        }
+        window.location.reload();
     };
 });

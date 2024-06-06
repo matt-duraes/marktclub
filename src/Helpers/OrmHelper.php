@@ -202,7 +202,14 @@ final class OrmHelper extends ORM
 
     public function listar(array $campo, array $where = [], string|OrderInterface|array $ordem = [])
     {
-        return $this->campo($campo)->where($where, obrigatorio: false)->order($ordem)->read();
+        $query = $this->campo($campo);
+        if($where) {
+            $query->where($where);
+        }
+        if($ordem) {
+            $query->order($ordem);
+        }
+        return $query->read();
     }
 
     public function atualizar(array $dado, int $id)

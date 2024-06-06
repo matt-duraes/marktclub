@@ -1,6 +1,11 @@
 <input type="hidden" id="inputinterno_bloqueado" value="{{$dado->bloqueado}}">
 <div class="bloco_fieldset" id="bloco_votacao">
-    @ if( $dado->bloqueado != 'sim'):
+    @ if( $dado->status == 'cancelado'):
+    <header class="header_fieldset">
+        <h2>Cancelado</h2>
+    </header>
+    <p class="subtitulo">Essa votação foi cancelada e não pode ser editada ou ver seu resultado.</p>
+    @ elseif( $dado->bloqueado != 'sim'):
     <header class="header_fieldset">
         <h2>Perguntas</h2>
     </header>

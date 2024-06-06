@@ -6,7 +6,7 @@ use ORM\ORM;
 
 final class ResultadoModel extends ORM
 {
-    public array $resultado = [];
+    private array $resultado = [];
 
     /**
      * Pega a lista de perguntas
@@ -41,13 +41,24 @@ final class ResultadoModel extends ORM
         $this->resultado = $retorno;
     }
 
+    public function pegarResultado()
+    {
+        $retorno = [];
+        foreach ($this->resultado as $pergunta) {
+            $dado = $pergunta;
+            $dado['resposta'] = array_values($dado['resposta']);
+            $retorno[] = $dado;
+        }
+        return $retorno;
+    }
+
     /**
      * Adicionar um voto no resultado
      *
      * @param int $pergunta
      * @param int $resposta
      */
-    public function voto(int $pergunta, int $resposta)
+    public function adicionarVoto(int $pergunta, int $resposta)
     {
         $this->resultado[$pergunta]['resposta'][$resposta]['voto']++;
     }

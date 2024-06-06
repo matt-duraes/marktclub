@@ -3,7 +3,6 @@
 namespace App\Models\Api\Votacao\Resultado;
 
 use ORM\ORM;
-use Helpers\OrmHelper;
 use App\Models\Api\Votacao\Resultado\Trait\PropriedadeTrait;
 
 final class RetornoModel extends ORM
@@ -11,31 +10,21 @@ final class RetornoModel extends ORM
     use PropriedadeTrait;
 
     public function __construct(
-        string $id
+        private string $id
     ) {
-        $this->setarDadoVotacao($id);
         $this->setarObjecto();
         $this->montarResultado();
         $this->montarListaUsuario();
     }
 
-    private function setarDadoVotacao(string $id)
-    {
-        $votacao = (new OrmHelper(TABELA_VOTACAO_DADO))->listar(
-            campo: ['id', 'identificar_usuario'],
-            where: ['uuid', $id]
-        );
-        $this->idVotacao = $votacao->id;
-        $this->identificarUsuario = $votacao->identificar_usuario == 1;
-    }
-
     private function setarObjecto()
     {
-        $this->Pergunta = new PerguntaModel($this->idVotacao);
+        $this->Votacao = new VotacaoModel($this->id);
+        $this->Pergunta = new PerguntaModel($this->Votacao->id);
         $this->Resposta = new RespostaModel($this->Pergunta);
         $this->Resultado = new ResultadoModel($this->Pergunta, $this->Resposta);
-        $this->Voto = new VotoModel($this->idVotacao);
-        $this->Usuario = new UsuarioModel($this->idVotacao);
+        $this->Voto = new VotoModel($this->Votacao->id);
+        $this->Usuario = new UsuarioModel($this->Votacao->id);
     }
 
     private function montarResultado()
@@ -56,16 +45,16 @@ final class RetornoModel extends ORM
                 ),
                 'data'     => $r->data_criacao
             ];
-            if ($this->identificarUsuario) {
+            if ($this->Votacao->identificarUsuario) {
                 $dado['Nome'] = $usuario[$r->id_usuario_cliente]->nome ?? 'Usuário deletado';
                 $dado['CPF'] = $usuario[$r->id_usuario_cliente]->cpf ?? '-';
             }
             $votoLista[] = $dado;
-            $this->Resultado->voto($r->id_votacao_pergunta, $r->id_votacao_resposta);
+            $this->Resultado->adicionarVoto($r->id_votacao_pergunta, $r->id_votacao_resposta);
         }
 
         $this->retorno['lista'] = $votoLista;
-        $this->retorno['resultado'] = $this->Resultado->resultado;
+        $this->retorno['resultado'] = $this->Resultado->pegarResultado();
     }
 
     private function montarResposta($resposta, $outro, $livre)
@@ -80,13 +69,6 @@ final class RetornoModel extends ORM
 
     private function montarListaUsuario()
     {
-        $retorno = [];
-        foreach ($this->Usuario->lista as $r) {
-            $retorno[] = [
-                'nome' => $r->nome,
-                'cpf'  => $r->cpf
-            ];
-        }
-        $this->retorno['usuario'] = $retorno;
+        $this->retorno['usuario'] = $this->Usuario->todos;
     }
 }

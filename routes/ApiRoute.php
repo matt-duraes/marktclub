@@ -2884,12 +2884,12 @@ Route
             ::delete('/votacao-dado/{id}');
         Route
             ::nome('cancelar')
-            ::middleware(TokenMiddleware::class, 'scope', ['votacao_dado:editar'])
+            ::middleware(TokenMiddleware::class, 'scope', ['votacao_dado:atualizar'])
             ::request(['id'])
             ::post('/votacao-dado/cancelar');
         Route
             ::nome('bloquear')
-            ::middleware(TokenMiddleware::class, 'scope', ['votacao_dado:editar'])
+            ::middleware(TokenMiddleware::class, 'scope', ['votacao_dado:atualizar'])
             ::request(['id'])
             ::post('/votacao-dado/bloquear');
         Route

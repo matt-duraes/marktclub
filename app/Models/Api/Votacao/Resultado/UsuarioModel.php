@@ -8,6 +8,7 @@ use Helpers\OrmHelper;
 final class UsuarioModel extends ORM
 {
     public array $lista = [];
+    public array $todos = [];
 
     /**
      * Pega os dados do usuário
@@ -26,7 +27,7 @@ final class UsuarioModel extends ORM
         return (new OrmHelper(TABELA_VOTACAO_USUARIO))->listar(
             campo: ['id_usuario_cliente', 'nome', 'cpf'],
             where: ['id_votacao_dado', $this->id],
-            ordem: ['ORDER BY RAND()']
+            ordem: 'RAND()'
         );
     }
 
@@ -34,6 +35,10 @@ final class UsuarioModel extends ORM
     {
         foreach ($lista as $r) {
             $this->lista[$r->id_usuario_cliente] = (object)[
+                'nome' => $r->nome,
+                'cpf'  => strCpf($r->cpf)
+            ];
+            $this->todos[] = [
                 'nome' => $r->nome,
                 'cpf'  => strCpf($r->cpf)
             ];
