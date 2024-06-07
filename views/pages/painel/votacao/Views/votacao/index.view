@@ -34,6 +34,58 @@
     @ endif;
 </div>
 
+<div id="bloco_resultado" class="display_none">
+    <div class="bloco_pagina_popup conteudo">
+        <header class="header_pagina_popup">
+            <h1>Resultado</h1>
+            <i class="fechar popup_fechar">@iconeFechar</i>
+        </header>
+        <div class="conteudo_pagina_popup">
+            <div class="menu">
+                <div class="scroll">
+                    <div class="conteudo">
+                        <div class="item hover" data-bloco="bloco_resultado_resultado">Resultado</div>
+                        <div class="item">Votos</div>
+                        <div class="item">Usuários</div>
+                    </div>
+                </div>
+            </div>
+            <div class="bloco_tabela_geral">
+                <div class="table display_none" id="bloco_resultado_resultado">
+                    <div class="scroll">
+                        <div class="conteudo">
+                            <div class="tr header">
+                                <div class="td titulo">Resposta</div>
+                                <div class="td quantidade">Quantidade</div>
+                            </div>
+                            <div class="subtitulo">Pergunta 01</div>
+                            <div class="tr">
+                                <div class="td titulo">Resposta 01</div>
+                                <div class="td quantidade">100</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="table" id="bloco_resultado_resultado">
+                    <div class="scroll">
+                        <div class="conteudo">
+                            <div class="tr header">
+                                <div class="td titulo">Resposta</div>
+                                <div class="td quantidade">Quantidade</div>
+                            </div>
+                            <div class="subtitulo">Pergunta 01</div>
+                            <div class="tr">
+                                <div class="td titulo">Resposta 01</div>
+                                <div class="td quantidade">100</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
 @ if( $dado->bloqueado != 'sim'):
 <div class="display_none">
     <div id="bloco_pergunta_add">
