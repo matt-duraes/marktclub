@@ -2,6 +2,7 @@
 
 namespace App\Models\Api\ParceiroLoja\Trait;
 
+use App\Classes\ParceiroLoja\CancelarMotivo;
 use Modules\Cpf;
 use Modules\Cnpj;
 use Modules\Data;
@@ -89,4 +90,5 @@ trait PropriedadeTrait
     public Botao $existe_endereco;
     public Botao $existe_email;
     public Botao $existe_telefone;
+    public CancelarMotivo $cancelar_motivo;
 }

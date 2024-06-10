@@ -1,5 +1,6 @@
 <?php
 
+use App\Classes\ParceiroLoja\CancelarMotivo;
 use App\Classes\ParceiroLoja\Status;
 
 $Painel = new PainelConfig\Visualizar('parceiro_loja');
@@ -38,6 +39,7 @@ $Painel->coluna(callback: function () use ($Painel) {
         $Painel
             ->equipe('Captador')
             ->linha('status', 'Status')
+            ->linha('cancelar_motivo', 'Motivo de cancelamento')
             ->linhaTempo('parceiro_loja');
     });
 });
@@ -80,8 +82,8 @@ $Painel->coluna(callback: function () use ($Painel) {
             texto: 'Cancelar',
             inArray: [$Status->nome(Status::CONCLUIDO), $Status->nome(Status::PROBLEMA)],
             status: Status::CANCELADO,
-            mensagem: 'Tem certeza que deseja cancelar essa loja?',
-            cor: 'cinza'
+            cor: 'cinza',
+            id: 'botao_cancelar_loja',
         )
         ->status(
             campo: 'status',
@@ -101,8 +103,11 @@ $Painel->coluna(callback: function () use ($Painel) {
         );
 });
 
-$Painel->replace('status', (new Status())->select());
+$Painel
+    ->replace('status', (new Status())->select())
+    ->replace('cancelar_motivo', (new CancelarMotivo())->select());
 $Painel->include('auditoria', 'data_auditoria');
+$Painel->include('cancelar', 'botao_cancelar_loja');
 $Painel->css('painel_parceiro_loja_visualizar');
 $Painel->js('painel_parceiro_loja_visualizar');
 

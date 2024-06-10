@@ -1366,7 +1366,7 @@ Route
                 '!texto_procedimento', '!texto_voucher', '!categoria_principal', '!categoria_lista', '!subcategoria_tag',
                 '!subcategoria_lista', '!empresa', '!destaque', '!endereco_estado', '!pontuacao', '!confirmar_status',
                 '!confirmar_titulo', '!confirmar_texto', '!arquivo_painel', '!arquivo_clube', '!cupom_desconto',
-                '!status', '!comissao_minima', '!comissao_maxima', '!texto_restricao', '!texto_outro'
+                '!status', '!comissao_minima', '!comissao_maxima', '!texto_restricao', '!texto_outro', '!cancelar_motivo'
             ])
             ::put('/parceiro-loja/{id}');
         Route
