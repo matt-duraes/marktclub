@@ -20,7 +20,7 @@ return $Painel
     ->grupo('votacao-resultado', function () use ($Painel) {
         $Painel
             ->request(['id'])
-            ->permissao('votacao_resultado')
+            ->permissao('votacao_visualizar')
             ->metodo('post')
             ->rota('/votacao-dado/resultado');
     })

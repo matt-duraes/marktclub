@@ -31,6 +31,11 @@
         <h2>Resultado</h2>
     </header>
     <div class="botao_pequeno azul" id="botao_resultado_votacao">Pegar resultado</div>
+    @ elseif( $dado->bloqueado == 'sim'):
+    <header class="header_fieldset">
+        <h2>Bloqueado</h2>
+    </header>
+    <p class="subtitulo">Essa votação está bloqueada.</p>
     @ endif;
 </div>
 
@@ -43,45 +48,69 @@
         <div class="conteudo_pagina_popup">
             <div class="menu">
                 <div class="scroll">
-                    <div class="conteudo">
+                    <div class="conteudo" id="bloco_resultado_menu">
                         <div class="item hover" data-bloco="bloco_resultado_resultado">Resultado</div>
-                        <div class="item">Votos</div>
-                        <div class="item">Usuários</div>
+                        <div class="item" data-bloco="bloco_resultado_voto">Votos</div>
+                        <div class="item" data-bloco="bloco_resultado_usuario">Usuários</div>
                     </div>
                 </div>
             </div>
             <div class="bloco_tabela_geral">
-                <div class="table display_none" id="bloco_resultado_resultado">
-                    <div class="scroll">
-                        <div class="conteudo">
-                            <div class="tr header">
-                                <div class="td titulo">Resposta</div>
-                                <div class="td quantidade">Quantidade</div>
-                            </div>
-                            <div class="subtitulo">Pergunta 01</div>
-                            <div class="tr">
-                                <div class="td titulo">Resposta 01</div>
-                                <div class="td quantidade">100</div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
                 <div class="table" id="bloco_resultado_resultado">
                     <div class="scroll">
                         <div class="conteudo">
                             <div class="tr header">
-                                <div class="td titulo">Resposta</div>
-                                <div class="td quantidade">Quantidade</div>
-                            </div>
-                            <div class="subtitulo">Pergunta 01</div>
-                            <div class="tr">
-                                <div class="td titulo">Resposta 01</div>
-                                <div class="td quantidade">100</div>
+                                <div class="td resultado_titulo">Resposta</div>
+                                <div class="td resulstado_quantidade">Quantidade</div>
                             </div>
                         </div>
                     </div>
                 </div>
+                <div class="table display_none" id="bloco_resultado_voto">
+                    <div class="scroll">
+                        <div class="conteudo">
+                            <div class="tr header">
+                                <div class="td voto_nome">Nome</div>
+                                <div class="td voto_cpf">CPF</div>
+                                <div class="td voto_pergunta">Pergunta</div>
+                                <div class="td voto_resposta">Resposta</div>
+                                <div class="td voto_data">Data</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="table display_none" id="bloco_resultado_usuario">
+                    <div class="scroll">
+                        <div class="conteudo">
+                            <div class="tr header">
+                                <div class="td usuario_nome">Nome</div>
+                                <div class="td usuario_cpf">CPF</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="bloco_copiar">
+                    <div class="copiar">Copiar</div>
+                </div>
             </div>
+        </div>
+    </div>
+    <div class="display_none">
+        <div class="subtitulo" id="tr_subtitulo">Pergunta 01</div>
+        <div class="tr" id="tr_resposta">
+            <div class="td resultado_titulo">Resposta 01</div>
+            <div class="td resultado_quantidade">100</div>
+        </div>
+        <div class="tr" id="tr_voto">
+            <div class="td voto_nome display_none"></div>
+            <div class="td voto_cpf display_none"></div>
+            <div class="td voto_pergunta"></div>
+            <div class="td voto_resposta"></div>
+            <div class="td voto_data"></div>
+        </div>
+        <div class="tr" id="tr_usuario">
+            <div class="td usuario_nome"></div>
+            <div class="td usuario_cpf"></div>
         </div>
     </div>
 </div>

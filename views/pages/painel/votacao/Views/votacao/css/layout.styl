@@ -225,11 +225,27 @@
         margin-top: 20px
     .table .subtitulo
         min-width: 420px
-    .table .titulo
+    .table .resultado_titulo
         flexGrow()
         min-width: 300px
-    .table .quantidade
+    .table .resultado_quantidade
         min-width: 120px
+    .table .voto_nome
+        min-width: 160px
+    .table .voto_cpf
+        min-width: 140px
+    .table .voto_pergunta
+        min-width: 200px
+    .table .voto_resposta
+        flexGrow()
+        min-width: 200px
+    .table .voto_data
+        min-width: 200px
+    .table .usuario_nome
+        flexGrow()
+        min-width: 200px
+    .table .usuario_cpf
+        min-width: 140px
 
 .bloco_tabela_geral
     width: 100%
@@ -237,6 +253,18 @@
     .scroll
         width: 100%
         overflow-x: auto
+    .bloco_copiar
+        width: 100%
+        margin-top: 20px
+        flexRow()
+        justify-content: flex-end
+    .bloco_copiar .copiar
+        background-color: $corAzul
+        color: #FFF
+        padding: 10px 20px
+        textoFontSize()
+        border-radius: 5px
+        cursor: pointer
 .bloco_tabela_geral .table
     width: 100%
     border: 1px solid #DDD

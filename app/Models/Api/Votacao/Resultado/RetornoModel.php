@@ -37,8 +37,8 @@ final class RetornoModel extends ORM
         $votoLista = [];
         foreach ($voto as $r) {
             $dado = [
-                'Pergunta' => $pergunta[$r->id_votacao_pergunta],
-                'Resposta' => $this->montarResposta(
+                'pergunta' => $pergunta[$r->id_votacao_pergunta],
+                'resposta' => $this->montarResposta(
                     $resposta[$r->id_votacao_resposta],
                     $r->resposta_outro,
                     $r->voto_livre
@@ -46,14 +46,14 @@ final class RetornoModel extends ORM
                 'data'     => $r->data_criacao
             ];
             if ($this->Votacao->identificarUsuario) {
-                $dado['Nome'] = $usuario[$r->id_usuario_cliente]->nome ?? 'Usuário deletado';
-                $dado['CPF'] = $usuario[$r->id_usuario_cliente]->cpf ?? '-';
+                $dado['nome'] = $usuario[$r->id_usuario_cliente]->nome ?? 'Usuário deletado';
+                $dado['cpf'] = $usuario[$r->id_usuario_cliente]->cpf ?? '-';
             }
             $votoLista[] = $dado;
             $this->Resultado->adicionarVoto($r->id_votacao_pergunta, $r->id_votacao_resposta);
         }
 
-        $this->retorno['lista'] = $votoLista;
+        $this->retorno['voto'] = $votoLista;
         $this->retorno['resultado'] = $this->Resultado->pegarResultado();
     }
 

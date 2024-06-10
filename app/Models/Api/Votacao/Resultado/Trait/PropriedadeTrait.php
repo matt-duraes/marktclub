@@ -19,7 +19,7 @@ trait PropriedadeTrait
     private UsuarioModel $Usuario;
     public array $retorno = [
         'resultado' => [],
-        'lista'     => [],
+        'voto'      => [],
         'usuario'   => []
     ];
 }

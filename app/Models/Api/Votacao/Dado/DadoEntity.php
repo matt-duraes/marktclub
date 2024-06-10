@@ -49,6 +49,7 @@ final class DadoEntity extends Entity
     public DataHora $data_final;
     public Publicado $publicado;
     public Status $status;
+    public bool $estaBloqueado = false;
 
     public function __construct()
     {
@@ -58,7 +59,7 @@ final class DadoEntity extends Entity
 
     protected function regraUpdate()
     {
-        if ($this->bloqueado->valor() == Botao::SIM) {
+        if ($this->estaBloqueado) {
             $this->mensagemBloqueado();
         }
     }
@@ -71,7 +72,7 @@ final class DadoEntity extends Entity
             ativo: $this->status->indice() == $this->status::ATIVO
         );
         if ($this->status->se(Status::CANCELADO)) {
-            $this->bloqueado = new Botao(Botao::SIM);
+            $this->bloquear();
         }
         $this->validarStatusVotacao();
     }
@@ -81,12 +82,18 @@ final class DadoEntity extends Entity
         $votacao = 'aguardando';
         $agora = agora();
         if ($this->data_inicio->date() <= $agora && $this->data_final->date() >= $agora) {
+            $this->bloquear();
             $votacao = 'andamento';
-            $this->bloqueado = new Botao(Botao::SIM);
         } elseif ($this->data_inicio->date() < agora()) {
-            $this->bloqueado = new Botao(Botao::SIM);
+            $this->bloquear();
             $votacao = 'finalizado';
         }
         $this->status_votacao = $votacao;
+    }
+
+    private function bloquear()
+    {
+        $this->bloqueado = new Botao(Botao::SIM);
+        $this->estaBloqueado = true;
     }
 }
