@@ -30,7 +30,6 @@ class SiliumDepositoEntity extends Entity
     ];
     protected int $id_admin_empresa;
     protected int $id_usuario_cliente;
-
     public array $empresa;
     public string|array $usuario;
     public string $nome_titular;
@@ -47,7 +46,8 @@ class SiliumDepositoEntity extends Entity
     public Tipo $tipo;
     public StatusDeposito $status;
 
-    public function __construct() {
+    public function __construct()
+    {
         parent::__construct();
     }
 
@@ -60,7 +60,7 @@ class SiliumDepositoEntity extends Entity
     protected function regraSalvar(): void
     {
         $this->setarUsuario();
-        if ($this->tipo->indice() === Tipo::SAQUE){
+        if ($this->tipo->indice() === Tipo::SAQUE) {
             $this->validarResgate();
             $this->validarSaldoSuficiente();
         }
@@ -90,7 +90,7 @@ class SiliumDepositoEntity extends Entity
             ['id', $this->id_admin_empresa],
             ['uuid', 'titulo'],
             'object'
-            );
+        );
 
         if (empty($empresa->uuid)) {
             $this->empresa = [
@@ -111,7 +111,7 @@ class SiliumDepositoEntity extends Entity
             ['id', $this->id_usuario_cliente],
             ['uuid', 'nome', 'email_pessoal', 'email_trabalho'],
             'object'
-            );
+        );
 
         if (empty($usuario->uuid)) {
             $this->usuario = [

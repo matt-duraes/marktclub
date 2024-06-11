@@ -56,7 +56,7 @@ $scope = [
     'parceiro_easylive:buscar', 'parceiro_easylive:deletar',
 
     'parceiro_loja:listar', 'parceiro_loja:buscar', 'parceiro_loja:salvar', 'parceiro_loja:atualizar',
-    'parceiro_loja:deletar', 'parceiro_loja:relacionado',
+    'parceiro_loja:deletar', 'parceiro_loja:relacionado', 'parceiro_loja:download',
 
     'parceiro_subcategoria:listar',
 

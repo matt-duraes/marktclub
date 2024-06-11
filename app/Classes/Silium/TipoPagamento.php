@@ -15,8 +15,8 @@ class TipoPagamento extends Status
     ) {
         parent::__construct([
             self::DADOS_BANCARIOS => 'Dados Bancários',
-            self::PIX => 'Pix',
-            self::TED => 'Ted'
+            self::PIX             => 'Pix',
+            self::TED             => 'Ted'
         ]);
     }
 }

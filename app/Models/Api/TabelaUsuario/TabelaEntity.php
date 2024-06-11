@@ -23,8 +23,9 @@ final class TabelaEntity extends Entity
     ];
     protected array $ormInsert = [
         'arquivo', 'tipo', 'status', 'obrigatorio',
-        'id_admin_empresa'   => '->idEmpresa',
-        'id_usuario_equipe'  => '->idUsuario'
+        'id_admin_empresa'    => '->idEmpresa',
+        'id_admin_subempresa' => '->idSubempresa',
+        'id_usuario_equipe'   => '->idUsuario'
     ];
     protected string $ormValidarInsert = '
         arquivo|Arquivo|obrigatorio|vazio
@@ -35,6 +36,7 @@ final class TabelaEntity extends Entity
     ';
     private int $idEmpresa;
     private ?int $idUsuario = null;
+    private int $idSubempresa;
     protected int $id_admin_empresa;
     protected int $id_usuario_equipe;
     public array $obrigatorio;
@@ -51,7 +53,7 @@ final class TabelaEntity extends Entity
         protected UploadedFile|UploadHelper|null $arquivoUpload = null
     ) {
         $this->validarEmpresa();
-        $this->setarIdUsuario();
+        $this->validarSubempresa();
         parent::__construct();
     }
 
