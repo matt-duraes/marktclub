@@ -1387,6 +1387,17 @@ Route
             ::nome('relacionado')
             ::middleware(TokenMiddleware::class, 'scope', ['parceiro_loja:relacionado'])
             ::get('/parceiro-loja/relacionado/{id}');
+        Route
+            ::nome('download')
+            ::middleware(TokenMiddleware::class, 'scope', ['parceiro_loja:download'])
+            ::request([
+                'campo', 'usuario', "!equipe", "!status", "!titulo", "!empresa", "!usuario", "!categoria", "!tipo_loja",
+                "!subcategoria","!convenio_direto","!data_criacao_de","!data_criacao_ate","!data_problema_de",
+                "!data_auditoria_de","!data_cancelado_de","!data_problema_ate",
+                "!data_auditoria_ate","!data_cancelado_ate","!data_prospeccao_de","!data_publicacao_de",
+                "!data_prospeccao_ate","!data_publicacao_ate","!tipo_estabelecimento",
+            ])
+            ::post('/parceiro-loja/download');
     });
 
 Route

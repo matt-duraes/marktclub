@@ -434,7 +434,7 @@ final class ConfiguracoesPadrao
         'parceiro_loja'            => [
             'titulo'    => 'Loja',
             'acao'      => [
-                'index', 'add', 'visualizar', 'editar', 'deletar', 'status', 'empresa'
+                'index', 'add', 'visualizar', 'editar', 'deletar', 'download', 'status', 'empresa'
             ],
             'permissao' => [
                 'parceiro_loja_index'      => 'Listar',
@@ -442,6 +442,7 @@ final class ConfiguracoesPadrao
                 'parceiro_loja_visualizar' => 'Visualizar',
                 'parceiro_loja_editar'     => 'Editar',
                 'parceiro_loja_deletar'    => 'Deletar',
+                'parceiro_loja_download'   => 'Download',
                 'parceiro_loja_status'     => 'Status',
                 'parceiro_loja_empresa'    => 'Todas as empresas'
             ]

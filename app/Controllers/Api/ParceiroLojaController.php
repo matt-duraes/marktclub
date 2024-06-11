@@ -8,6 +8,7 @@ use Modules\Quantidade;
 use Controller\Controller;
 use App\Classes\ParceiroLoja\TipoLoja;
 use App\Classes\ParceiroLoja\Categoria;
+use App\Models\Api\DownloadPrivado\ArquivoEntity;
 use App\Models\Api\ParceiroLoja\LojaModel;
 use App\Models\Api\ParceiroLoja\LojaEntity;
 use App\Models\Api\ParceiroLoja\SelectModel;
@@ -21,6 +22,7 @@ use App\Models\Api\ParceiroLoja\RelacionadoModel;
 use System\Interface\ControllerAtualizarInterface;
 use App\Models\Api\ParceiroLoja\Auditoria\OptionModel;
 use App\Models\Api\ParceiroLoja\Auditoria\SalvarModel;
+use App\Models\Api\ParceiroLoja\DownloadModel;
 
 final class ParceiroLojaController extends Controller implements
     ControllerListarInterface,
@@ -135,6 +137,18 @@ final class ParceiroLojaController extends Controller implements
             'id'       => $Auditoria->Historico->id,
             'mensagem' => $Auditoria->Historico->mensagem,
             'status'   => $Auditoria->Parceiro->status->indice()
+        ], 201);
+    }
+
+    public function postDownload(Request $request): Response
+    {
+        $Usuario = new DownloadModel($request);
+        $Usuario->set(lista: $request->dado());
+
+        $Download = new ArquivoEntity($Usuario->download(), $request->usuario);
+        $Download->salvar();
+        return mensagemSucesso([
+            'id' => $Download->id
         ], 201);
     }
 }
