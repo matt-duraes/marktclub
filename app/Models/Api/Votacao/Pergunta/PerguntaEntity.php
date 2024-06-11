@@ -5,11 +5,15 @@ namespace App\Models\Api\Votacao\Pergunta;
 use ORM\Entity;
 use Modules\Botao;
 use App\Classes\Votacao\Pergunta\Tipo;
+use App\Models\Api\Votacao\Trait\MensagemTrait;
 use App\Models\Api\Votacao\Trait\idVotacaoTrait;
+use App\Models\Api\Votacao\Trait\VotacaoBloqueadaTrait;
 
 final class PerguntaEntity extends Entity
 {
     use idVotacaoTrait;
+    use VotacaoBloqueadaTrait;
+    use MensagemTrait;
 
     protected string $ormTabela = TABELA_VOTACAO_PERGUNTA;
     protected string $ormValidar = '
@@ -32,6 +36,13 @@ final class PerguntaEntity extends Entity
     public Tipo $tipo;
     public Botao $pode_nulo;
     public int $ordem;
+
+    protected function regraSalvar()
+    {
+        if ($this->votacaoBloqueada($this->id_votacao_dado)) {
+            $this->mensagemBloqueado();
+        }
+    }
 
     protected function regraInsert()
     {

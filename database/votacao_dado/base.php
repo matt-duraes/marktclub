@@ -15,4 +15,5 @@ return (new \DataBase\DataBase())
     ->slug('url', 'titulo')
     ->datetime('data_inicio')
     ->datetime('data_final')
+    ->botao('bloqueado')->null()
     ->status();

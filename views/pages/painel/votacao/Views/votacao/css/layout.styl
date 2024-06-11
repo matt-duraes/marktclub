@@ -18,6 +18,10 @@
         &.loading
             background-color: #CCC
             cursor: no-drop
+        &.vermelho
+            background-color: $botaoDeletar
+        &.azul
+            background-color: $botaoEditar
     > .botao_pequeno
         margin-left: 20px
 .bloco_pergunta
@@ -181,3 +185,114 @@
             background-color: $corAzul
         &.deletar
             background-color: $corVermelho
+
+#bloco_resultado
+    width: 100%
+    max-width: 1000px
+    flexRow()
+    justify-content: center
+    .conteudo_pagina_popup
+        margin-top: 10px
+    .menu
+        width: 100%
+        height: 50px
+        position: relative
+        z-index: 2
+    .menu .scroll .conteudo
+        width: 100%
+        flexRow()
+    .menu .scroll .conteudo .item
+        height: 50px
+        line-height: 50px
+        padding: 0 20px
+        background-color: #FFF
+        border-top: 1px solid #DDD
+        border-bottom: 1px solid #DDD
+        border-right: 1px solid #DDD
+        textoFontSize()
+        position: relative
+        cursor: pointer
+        overflow: hidden
+        &:first-child
+            border-radius: 5px 0 0 5px
+            border-left: 1px solid #DDD
+        &:last-child
+            border-radius: 0 5px 5px 0
+        &:hover
+        &.hover
+            background-color: #F6F6F6
+    .table
+        margin-top: 20px
+    .table .subtitulo
+        min-width: 420px
+    .table .resultado_titulo
+        flexGrow()
+        min-width: 300px
+    .table .resultado_quantidade
+        min-width: 120px
+    .table .voto_nome
+        min-width: 160px
+    .table .voto_cpf
+        min-width: 140px
+    .table .voto_pergunta
+        min-width: 200px
+    .table .voto_resposta
+        flexGrow()
+        min-width: 200px
+    .table .voto_data
+        min-width: 200px
+    .table .usuario_nome
+        flexGrow()
+        min-width: 200px
+    .table .usuario_cpf
+        min-width: 140px
+
+.bloco_tabela_geral
+    width: 100%
+    flexCol()
+    .scroll
+        width: 100%
+        overflow-x: auto
+    .bloco_copiar
+        width: 100%
+        margin-top: 20px
+        flexRow()
+        justify-content: flex-end
+    .bloco_copiar .copiar
+        background-color: $corAzul
+        color: #FFF
+        padding: 10px 20px
+        textoFontSize()
+        border-radius: 5px
+        cursor: pointer
+.bloco_tabela_geral .table
+    width: 100%
+    border: 1px solid #DDD
+    border-radius: 5px
+    position: relative
+    z-index: 1
+    overflow: hidden
+    .conteudo
+        width: 100%
+        flexCol()
+    .conteudo .tr
+        width: 100%
+        flexRow()
+        &.header .td
+            font-weight: bold
+            background-color: #F6F6F6
+        &:last-child .td
+            border-bottom: none
+    .conteudo .td
+        padding: 5px 10px
+        texto()
+        border-right: 1px solid #DDD
+        border-bottom: 1px solid #DDD
+        &:last-child
+            border-right: none
+    .conteudo .subtitulo
+        width: 100%
+        subtitulo()
+        padding: 0 10px
+        border-left: 4px solid $cor
+        border-bottom: 1px solid #DDD

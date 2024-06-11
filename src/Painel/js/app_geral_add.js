@@ -5,6 +5,11 @@ window.addEventListener('load', () => {
     const blocoGeral = document.querySelector('#bloco_app_add');
     const botaoSalvar = blocoGeral.querySelector('#botao_salvar_geral');
 
+    const blocoPermissaoEditar = $('#inputinterno_permissao_editar');
+    const blocoPermissaoVisualizar = $('#inputinterno_permissao_visualizar');
+    const permissaoEditar = blocoPermissaoEditar && blocoPermissaoEditar.valor() == 'sim';
+    const permissaoVisualizar = blocoPermissaoVisualizar && blocoPermissaoVisualizar.valor() == 'sim';
+
     /*
     |--------------------------------------------------------------------------
     | SALVAR DADO
@@ -66,9 +71,37 @@ window.addEventListener('load', () => {
 
             resetarCampoPassword();
 
-            if (!editar) {
+            if (
+                !editar &&
+                typeof json === 'object' &&
+                typeof json.dado === 'object' &&
+                json.dado.id !== undefined &&
+                json.dado.id.length == 36 &&
+                (permissaoEditar || permissaoVisualizar)
+            ) {
+                const resposta = await Alerta.confirmar(
+                    'Dados salvos!',
+                    'Seus dados foram salvos com sucesso, escolha o que deseja fazer para continuar.',
+                    true,
+                    false,
+                    {
+                        botaoConfirmarTexto: 'Ir para registro',
+                        botaoCancelarTexto: 'Cadastrar outro',
+                        botaoCancelarBg: '#00aced',
+                    }
+                );
+                Loading.show();
+                if (!resposta) {
+                    window.location.reload();
+                    return;
+                }
+                const acaoLocation = permissaoVisualizar ? 'visualizar' : 'editar';
+                window.location.assign(LINK + '/app/' + acaoLocation + '/' + APP + '/' + json.dado.id);
+                return;
+            } else if (!editar) {
                 const resposta = await Alerta.mensagem('Dados salvos!', 'Seus dados foram salvos com sucesso!', 'ok');
                 if (resposta) {
+                    Loading.show();
                     window.location.reload();
                 }
                 return;

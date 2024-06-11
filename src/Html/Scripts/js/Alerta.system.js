@@ -4,7 +4,7 @@ class Alerta {
     | CONFIRMAR
     |--------------------------------------------------------------------------
     */
-    static async confirmar(titulo, mensagem, icone, fechar) {
+    static async confirmar(titulo, mensagem, icone, fechar, option) {
         const body = document.querySelector('body');
         const existe = await this._verificarSeMensagemJaExiste();
         if (existe) {
@@ -13,6 +13,7 @@ class Alerta {
 
         this._resolveReject = '';
         this._resolveRejectInterval = undefined;
+        this.option = typeof option === 'object' ? option : {};
 
         fechar = fechar == undefined ? true : fechar;
 
@@ -28,7 +29,7 @@ class Alerta {
     | MENSAGEM
     |--------------------------------------------------------------------------
     */
-    static async mensagem(titulo, mensagem, icone, fechar) {
+    static async mensagem(titulo, mensagem, icone, fechar, option) {
         const body = document.querySelector('body');
         const existe = await this._verificarSeMensagemJaExiste();
         if (existe) {
@@ -37,6 +38,7 @@ class Alerta {
 
         this._resolveReject = '';
         this._resolveRejectInterval = undefined;
+        this.option = typeof option === 'object' ? option : {};
 
         fechar = fechar == undefined ? true : fechar;
 
@@ -133,6 +135,27 @@ class Alerta {
                 classeBotaoFlex = '';
             }
 
+            const botaoCancelarTexto = this.option.botaoCancelarTexto || 'Cancelar';
+            let botaoCancelarStyle = [];
+            if (this.option.botaoCancelarBg) {
+                botaoCancelarStyle.push('background-color: ' + this.option.botaoCancelarBg) + '!important';
+            }
+            if (this.option.botaoCancelarColor) {
+                botaoCancelarStyle.push('color: ' + this.option.botaoCancelarColor) + '!important';
+            }
+            botaoCancelarStyle = botaoCancelarStyle.length > 0 ? 'style="' + botaoCancelarStyle.join(', ') + '"' : '';
+
+            const botaoConfirmarTexto = this.option.botaoConfirmarTexto || 'Confirmar';
+            let botaoConfirmarStyle = [];
+            if (this.option.botaoConfirmarBg) {
+                botaoConfirmarStyle.push('background-color: ' + this.option.botaoConfirmarBg) + '!important';
+            }
+            if (this.option.botaoConfirmarColor) {
+                botaoConfirmarStyle.push('color: ' + this.option.botaoConfirmarColor) + '!important';
+            }
+            botaoConfirmarStyle =
+                botaoConfirmarStyle.length > 0 ? 'style="' + botaoConfirmarStyle.join(', ') + '"' : '';
+
             body.insertAdjacentHTML(
                 'beforeend',
                 `
@@ -157,9 +180,9 @@ class Alerta {
                             <div class="fw_alerta_mensagem_texto">${mensagem}</div>
                             <div class="fw_alerta_mensagem_footer">
                                 <div class="fw_alerta_mensagem_botao fw_alerta_mensagem_botao_ok ${classeBotaoOk}">OK</div>
-                                <div class="fw_alerta_mensagem_botao fw_alerta_mensagem_botao_cancelar ${classeBotaoCancelar}">Cancelar</div>
-                                <div class="fw_alerta_mensagem_botao_flex ${classeBotaoFlex}"></div>
-                                <div class="fw_alerta_mensagem_botao fw_alerta_mensagem_botao_confirmar ${classeBotaoConfirmar}">Confirmar</div>
+                                <div ${botaoCancelarStyle} class="fw_alerta_mensagem_botao fw_alerta_mensagem_botao_cancelar ${classeBotaoCancelar}">${botaoCancelarTexto}</div>
+                                <div ${botaoConfirmarStyle} class="fw_alerta_mensagem_botao_flex ${classeBotaoFlex}"></div>
+                                <div class="fw_alerta_mensagem_botao fw_alerta_mensagem_botao_confirmar ${classeBotaoConfirmar}">${botaoConfirmarTexto}</div>
                             </div>
                         </div>
                     </div>

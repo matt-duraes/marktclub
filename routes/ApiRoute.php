@@ -2882,6 +2882,21 @@ Route
             ::nome('deletar')
             ::middleware(TokenMiddleware::class, 'scope', ['votacao_dado:deletar'])
             ::delete('/votacao-dado/{id}');
+        Route
+            ::nome('cancelar')
+            ::middleware(TokenMiddleware::class, 'scope', ['votacao_dado:atualizar'])
+            ::request(['id'])
+            ::post('/votacao-dado/cancelar');
+        Route
+            ::nome('bloquear')
+            ::middleware(TokenMiddleware::class, 'scope', ['votacao_dado:atualizar'])
+            ::request(['id'])
+            ::post('/votacao-dado/bloquear');
+        Route
+            ::nome('resultado')
+            ::middleware(TokenMiddleware::class, 'scope', ['votacao_dado:resultado'])
+            ::request(['id'])
+            ::post('/votacao-dado/resultado');
     });
 Route
     ::nome('votacao_pergunta')

@@ -1,12 +1,11 @@
 window.addEventListener('load', () => {
-    const votacao = $('#input_visualizar_id').valor();
-    let pergunta = '';
-
     const botaoPopupPergunta = $('#botao_adicionar_pergunta');
+    if (!botaoPopupPergunta) {
+        return;
+    }
+
     const botaoSalvarPergunta = $('#botao_pergunta_salvar');
-
     const blocoPerguntaPadrao = $('#bloco_linha_pergunta');
-
     const blocoPerguntaZero = $('#bloco_pergunta_zero');
     const blocoPerguntaLoading = $('#bloco_pergunta_loading');
     const blocoPerguntaLista = $('#bloco_pergunta_lista');
@@ -14,6 +13,8 @@ window.addEventListener('load', () => {
     const inputPerguntaTexto = $('textarea[name="pergunta_texto"]');
     const inputPerguntaTipo = $('input[name="pergunta_tipo"]');
     const inputPerguntaNulo = $('input[name="pergunta_nulo"]');
+    const votacao = $('#input_visualizar_id').valor();
+    let pergunta = '';
 
     /*
     |--------------------------------------------------------------------------

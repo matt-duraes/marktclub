@@ -1,7 +1,7 @@
 <?php
 
 use PainelConfig\Index;
-use App\Classes\Geral\Status;
+use App\Classes\Votacao\Dado\Status;
 
 $Painel = new Index(isset($enqueteApp) ? $enqueteApp : 'votacao');
 return $Painel

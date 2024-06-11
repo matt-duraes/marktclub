@@ -1,0 +1,1 @@
+{"id":"id_95a39b6aa88bb851825c6493ac8daf34","token":"painel","metodo":"POST","nome":"\/votacao-dado\/bloquear","uri":"{{LINK}}\/votacao-dado\/bloquear","parametro":[],"body":[["texto",true,"id","$VOTACAO_DADO_ID",""]],"header":[],"variavel":[],"json":[],"documentacao":{"status":false,"descricao":"","requisicao":"","resposta":"","scope":"votacao_dado:atualizar"}}

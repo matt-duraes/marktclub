@@ -1,4 +1,15 @@
 <div class="bloco_fieldset" id="bloco_votacao">
+    @ if( $dado->status == 'cancelado'):
+    <header class="header_fieldset">
+        <h2>Cancelado</h2>
+    </header>
+    <p class="subtitulo">Essa votação foi cancelada e não pode ser editada ou ver seu resultado.</p>
+    @ elseif( $dado->status_votacao == 'finalizado' ):
+    <header class="header_fieldset">
+        <h2>Resultado</h2>
+    </header>
+    <div class="botao_pequeno azul" id="botao_resultado_votacao">Pegar resultado</div>
+    @ elseif( $dado->bloqueado != 'sim'):
     <header class="header_fieldset">
         <h2>Perguntas</h2>
     </header>
@@ -7,8 +18,108 @@
     </div>
     <div class="zero display_none" id="bloco_pergunta_zero">Sem perguntas no momento</div>
     <div class="zero" id="bloco_pergunta_loading">Carregando perguntas</div>
+
+    <header class="header_fieldset">
+        <h2>Bloquear</h2>
+    </header>
+    <p class="subtitulo">Cuidado! Ao bloquear a votação, ela não vai poder ser editada.</p>
+    <div class="botao_pequeno vermelho" id="botao_bloquear_votacao">Bloquear</div>
+    @ elseif( $dado->status_votacao == 'andamento' ):
+    <header class="header_fieldset">
+        <h2>Cancelar</h2>
+    </header>
+    <p class="subtitulo">Cuidado! Após o cancelamento essa votação não poderá ser colocada no ar novamente.</p>
+    <div class="botao_pequeno vermelho" id="botao_cancelar_votacao">Cancelar</div>
+    @ elseif( $dado->bloqueado == 'sim'):
+    <header class="header_fieldset">
+        <h2>Bloqueado</h2>
+    </header>
+    <p class="subtitulo">Essa votação está bloqueada.</p>
+    <div class="botao_pequeno vermelho" id="botao_cancelar_votacao">Cancelar</div>
+    @ endif;
 </div>
 
+@ if( $dado->status_votacao == 'finalizado' ):
+<div id="bloco_resultado" class="display_none">
+    <div class="bloco_pagina_popup conteudo">
+        <header class="header_pagina_popup">
+            <h1>Resultado</h1>
+            <i class="fechar popup_fechar">@iconeFechar</i>
+        </header>
+        <div class="conteudo_pagina_popup">
+            <div class="menu">
+                <div class="scroll">
+                    <div class="conteudo" id="bloco_resultado_menu">
+                        <div class="item hover" data-tipo="resultado">Resultado</div>
+                        <div class="item" data-tipo="voto">Votos</div>
+                        <div class="item" data-tipo="usuario">Usuários</div>
+                    </div>
+                </div>
+            </div>
+            <div class="bloco_tabela_geral">
+                <div class="table" id="bloco_resultado_resultado">
+                    <div class="scroll">
+                        <div class="conteudo">
+                            <div class="tr header">
+                                <div class="td resultado_titulo">Resposta</div>
+                                <div class="td resultado_quantidade">Quantidade</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="table display_none" id="bloco_resultado_voto">
+                    <div class="scroll">
+                        <div class="conteudo">
+                            <div class="tr header">
+                                <div class="td voto_nome">Nome</div>
+                                <div class="td voto_cpf">CPF</div>
+                                <div class="td voto_pergunta">Pergunta</div>
+                                <div class="td voto_resposta">Resposta</div>
+                                <div class="td voto_data">Data</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="table display_none" id="bloco_resultado_usuario">
+                    <div class="scroll">
+                        <div class="conteudo">
+                            <div class="tr header">
+                                <div class="td usuario_nome">Nome</div>
+                                <div class="td usuario_cpf">CPF</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="bloco_copiar">
+                    <div class="copiar" id="botao_copiar_resultado">Copiar</div>
+                    <div class="copiar display_none" id="botao_copiar_voto">Copiar</div>
+                    <div class="copiar display_none" id="botao_copiar_usuario">Copiar</div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="display_none">
+        <div class="subtitulo" id="tr_subtitulo">Pergunta 01</div>
+        <div class="tr" id="tr_resposta">
+            <div class="td resultado_titulo">Resposta 01</div>
+            <div class="td resultado_quantidade">100</div>
+        </div>
+        <div class="tr" id="tr_voto">
+            <div class="td voto_nome display_none"></div>
+            <div class="td voto_cpf display_none"></div>
+            <div class="td voto_pergunta"></div>
+            <div class="td voto_resposta"></div>
+            <div class="td voto_data"></div>
+        </div>
+        <div class="tr" id="tr_usuario">
+            <div class="td usuario_nome"></div>
+            <div class="td usuario_cpf"></div>
+        </div>
+    </div>
+</div>
+@ endif;
+
+@ if( $dado->bloqueado != 'sim'):
 <div class="display_none">
     <div id="bloco_pergunta_add">
         <div class="bloco_pagina_popup conteudo">
@@ -76,3 +187,4 @@
         <div class="botao deletar">deletar</div>
     </div>
 </div>
+@ endif;
