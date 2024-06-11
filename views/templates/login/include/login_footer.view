@@ -5,60 +5,60 @@
     </div>
     @endif;
 
-    <div class="centralizar">
-        <ul>
+    <div class="centralizar footer_home">
+        <div class="bloco_contato">
             @ if (!empty(CONTATO_TELEFONE)) :
-            <li>
+            <div class="dado_footer">
                 <i class="icone_footer telefone">@iconeTelefoneLoja</i>
                 <p>{{CONTATO_TELEFONE}}</p>
-            </li>
+            </div>
             @ elseif (!empty(CONTATO_TELEFONE)) :
-            <li>
+            <div class="dado_footer">
                 <i class="icone_footer telefone">@iconeTelefoneLoja</i>
                 <p>{{str_replace('(apenas WhatsApp)', '', CONTATO_WHATSAPP)}}</p>
-            </li>
+            </div class="dado_footer">
             @ endif;
 
             @ if (!empty(CONTATO_WHATSAPP)) :
-            <li>
-                <a href="https://wa.me/55{{str_replace('(apenas WhatsApp)', '', soNumero(CONTATO_WHATSAPP))}} ">
-                    <i class="icone_footer whatsapp">@iconeWhatsapp</i>
-                    <p>{{CONTATO_WHATSAPP}}</p>
-                </a>
-            </li>
+            <a class="dado_footer" href="https://wa.me/55{{str_replace('(apenas WhatsApp)', '', soNumero(CONTATO_WHATSAPP))}} ">
+                <i class="icone_footer whatsapp">@iconeWhatsapp</i>
+                <p>{{CONTATO_WHATSAPP}}</p>
+            </a>
             @endif;
 
             @if (!empty(CONTATO_EMAIL)) :
-            <li>
+            <div class="dado_footer">
                 <i class="icone_footer email">@iconeEmail(15)</i>
-                <p> {{CONTATO_EMAIL}}</p>
-            </li>
+                <p class="texto_email"> {{CONTATO_EMAIL}}</p>
+            </div>
             @endif;
 
             @if (!empty(CONTATO_HORARIO)) :
-            <li>
+            <div class="dado_footer">
                 <i class="icone_footer horario">@iconeFaq(20)</i>
                 <p>{{CONTATO_HORARIO}}</p>
-            </li>
+            </div>
             @endif;
-        </ul>
-        <ul>
+        </div>
+        <div class="bloco_ajuda">
             @ if( MENU_COMO_FUNCIONA ):
-            <li class="como_funciona">
-                <a class="link_container" href="{!!route('comoFunciona.index')!!}">
-                    <i class="icone_footer interrogacao">@iconeComoFunciona</i>
-                    <p>Como Funciona</p>
-                </a>
-            </li>
+            <a class="dado_footer" href="{!!route('comoFunciona.index')!!}">
+                <i class="icone_footer interrogacao">@iconeComoFunciona</i>
+                <p>Como Funciona</p>
+            </a>
             @ endif;
             @if (!empty(CONTATO_ENDERECO)) :
-            <li>
+            <div class="dado_footer">
                 <i class="icone_footer localizacao"> @iconeMapa</i>
                 <p>{{CONTATO_ENDERECO}} </p>
-            </li>
+            </div>
             @endif;
-        </ul>
+        </div>
     </div>
+
+
+
+
     <div class="bloco_copyright">
         @ if( ADMINISTRADO ):
         <p>Administrado por:</p>

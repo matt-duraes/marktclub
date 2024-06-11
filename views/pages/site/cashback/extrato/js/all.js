@@ -24,6 +24,25 @@ window.addEventListener('load', () => {
     const inputNome = $('#input_ponto_nome');
     const inputEmail = $('#input_ponto_email');
     const inputQuantidade = $('#input_ponto_quantidade');
+    const inputConta = $('#input_conta');
+    const inputTitular = $('#input_titular');
+    const inputCpf = $('#input_cpf_conta');
+    const inputBanco = $('#input_banco');
+    const inputAgencia = $('#input_agencia');
+    const inputContaBancaria = $('#input_conta');
+    const inputTipoConta = $('#input_tipo_texto');
+
+    inputConta.addEventListener('input', event => {
+        let value = event.target.value;
+        // Remove todos os espaços existentes
+        value = value.replace(/\s+/g, '');
+
+        // Adiciona um espaço a cada 4 dígitos
+        let formattedValue = value.match(/.{1,4}/g).join(' ');
+
+        // Atualiza o valor do input com o formato correto
+        event.target.value = formattedValue;
+    });
 
     const solicitarResgate = async () => {
         if (!(await validarInput(form))) {
@@ -36,7 +55,13 @@ window.addEventListener('load', () => {
         const resposta = await ajaxPost(LINK + '/cashback/resgatar', {
             nome: inputNome.value,
             email: inputEmail.value,
-            ponto: inputQuantidade.value,
+            pontos: inputQuantidade.value,
+            titular: inputTitular.value,
+            cpf: inputCpf.value,
+            banco: inputBanco.value,
+            agencia: inputAgencia.value,
+            contaBancaria: inputContaBancaria.value,
+            tipoConta: inputTipoConta.value,
         });
         Loading.hide();
         if (false === resposta) {

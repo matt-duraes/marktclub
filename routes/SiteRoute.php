@@ -279,6 +279,10 @@ Route
         Route
             ::nome('abrirResgateCashback')
             ::view('/cashback/resgatar');
+        Route
+            ::nome('resgatarCashback')
+            ::request(['nome','email','pontos','titular','cpf','banco','agencia','contaBancaria','tipoConta'])
+            ::post('/cashback/resgatar');
     });
 
 Route

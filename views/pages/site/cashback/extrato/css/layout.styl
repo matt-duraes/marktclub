@@ -20,7 +20,6 @@
         flexCenter()
         espacoBottomPadrao()
 
-
 #bloco_pagina_cashback .conteudo .bloco_saldo
     width: 100%
     gap: 20px
@@ -51,7 +50,7 @@ div#botao_popup_resgate
     texto()
 
 .bloco_atencao_geral
-    margin-top: 30px
+    margin: 20px 0px
     background: $corBrancoCinza
 
 .bloco_extrato
@@ -74,12 +73,31 @@ div#botao_popup_resgate
             justify-content: flex-start
 
 #bloco_pagina_cashback  .bloco_tabela_geral
-    width: 100%
-    overflow-x: hidden
     table
         box-shadow: none
+        text-align: center
+        min-width: auto
     table thead tr th
         background: $corBoxShadow
+        font-weight: bold
+        text-align: center
+        vertical-align: middle
+        border: 1px solid #eaeef1
+        width: 200px
+    table .bloco_status
+        text-align: center
+        width: 20px
+        height: 20px
+        border-radius: 50%
+        margin: auto
+    table .creditado
+        background: green
+    table .negado
+        background: red
+    table .aguardando
+        background: #ff6f00
+
+
 
 .bloco_tab_geral .bloco_botao
     .botao.ativo, .botao:hover
@@ -116,6 +134,22 @@ div#botao_popup_resgate
         width: 200px
         border-radius: 5px
         flexCenter()
-        font-size: 1.3rem
+        font-size: 1.5rem
         margin-top: 10px
         cursor: pointer
+
+.titulo_dados_bancarios
+    font-size: 2rem
+    margin-top: 20px
+    color: $corClube
+    bold()
+
+fieldset
+    padding: 0px 10px
+
+.conteudo_pagina_popup .bloco_botao
+    padding-left: 10px
+
+@media screen and (max-width: 1024px)
+    #bloco_pagina_cashback .bloco_tabela_geral
+        overflow-x: auto
