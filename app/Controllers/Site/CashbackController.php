@@ -8,6 +8,7 @@ use Http\Response;
 use Controller\Controller;
 use App\Models\Site\Loja\BuscarModel;
 use App\Models\Site\Loja\FiltroModel;
+use App\Models\Site\Cashback\SiliumModel;
 
 final class CashbackController extends Controller
 {
@@ -40,7 +41,6 @@ final class CashbackController extends Controller
     public function detalhe(string $url): Response
     {
         $Dado = new BuscarModel(url: $url);
-
         return view(
             'cashback.detalhe',
             [
@@ -51,15 +51,30 @@ final class CashbackController extends Controller
         );
     }
 
+    /**CASHBACK SILIUM*/
+
     /**
      * @return Response
      * @throws Excecao
      */
     public function extrato(): Response
     {
+
+        $dados = (new SiliumModel())->buscarDados();
         return view('cashback.extrato', [
-            'menu'    => 'extrato_silium',
-            'saldo'   => 0,
+            'menu'           => 'extrato_silium',
+            'saldo'          => 0
         ]);
+    }
+
+    /**
+     *
+     *
+     * @param  Request  $request
+     * @return Response
+     */
+    public function postResgatarCashback(Request $request): Response
+    {
+        $SolicitacaoResgate = (new SiliumModel())->solicitarDeposito($request->dado());
     }
 }

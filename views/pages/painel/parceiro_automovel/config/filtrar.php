@@ -8,8 +8,8 @@ $Painel = new PainelConfig\Filtrar('parceiro_automovel');
 
 $Loja = (new ApiHelper(token: true))
     ->json([
-        'titulo' => 'Escolha um parceiro',
-        'tipo'   => TipoLoja::AUTOMOVEL
+        'titulo'      => 'Escolha um parceiro',
+        'tipo_loja'   => TipoLoja::AUTOMOVEL
     ])
     ->get('/parceiro-loja/select')
     ->array()['dado'] ?? [];
@@ -43,6 +43,16 @@ $Painel
                 placeholder: 'Data Final'
             );
     })
+    ->select(
+        name: 'publicado',
+        lista: [
+            'sim' => 'Sim',
+            'nao' => 'Não'
+        ],
+        titulo: 'Publicado',
+        label: 'Publicado',
+        placeholder: 'Publicado'
+    )
     ->select(
         name: 'status',
         lista: (new Status())->select('Escolha um status'),

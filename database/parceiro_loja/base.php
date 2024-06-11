@@ -70,4 +70,5 @@ return (new DataBase())
     ->date('data_cancelado')->null()
     ->date('data_auditoria')->null()
     ->int('pontuacao')->tamanho(2)->null()
+    ->int('cancelar_motivo')->tamanho(2)->null()
     ->status();

@@ -1,0 +1,1 @@
+{"id":"id_8ab1fa52945f52a5d1c0c6625e763f9e","token":"painel","metodo":"DELETE","nome":"\/silium-comissao\/:id","uri":"{{LINK}}\/silium-comissao\/$SILIUM_COMISSAO_ID","parametro":[],"body":[],"header":[],"variavel":[],"json":[],"documentacao":{"status":false,"descricao":"","requisicao":"","resposta":"","scope":"silium_comissao:deletar"}}

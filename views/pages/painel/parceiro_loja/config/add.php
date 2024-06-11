@@ -13,7 +13,7 @@ $empresa = (new ApiHelper(token: true))
     ->get('/comercial-empresa/select')
     ->array()['dado'] ?? [];
 $tag = (new ApiHelper(token: true))
-    ->get('/parceiro-subcategoria/select')
+    ->get('/parceiro-subcategoria')
     ->array()['dado'] ?? [];
 
 $Painel = new PainelConfig\Add(app: 'parceiro_loja', acao: $acao);
@@ -166,16 +166,14 @@ $Painel->coluna(callback: function () use ($Painel) {
             ->telefone(name: 'contato_whatsapp', label: 'WhatsApp', placeholder: 'Número do WhatsApp')
             ->uri(name: 'url', label: 'URL do clube', placeholder: 'Url do clube')
             ->switch(name: 'delivery', label: 'Parceiro faz delivery?')
-            ->switch(name: 'convenio_direto', label: 'É um convênio direto?')
-        ;
+            ->switch(name: 'convenio_direto', label: 'É um convênio direto?');
     });
     $Painel->fieldset('Contrato', function () use ($Painel) {
         $Painel
             ->data(name: 'data_contrato_inicio', label: 'Data do contrato', placeholder: 'Data do contrato')
             ->data(name: 'data_contrato_vencimento', label: 'Data do vencimento', placeholder: 'Data do vencimento')
             ->switch(name: 'precisa_aditivo', label: 'Precisa de aditivo?')
-            ->email(name: 'email_contato', label: 'E-mail de contato', placeholder: 'Digite um e-mail de contato')
-        ;
+            ->email(name: 'email_contato', label: 'E-mail de contato', placeholder: 'Digite um e-mail de contato');
     });
 });
 $Painel->coluna(callback: function () use ($Painel) {
@@ -298,8 +296,7 @@ $Painel->coluna(callback: function () use ($Painel) {
                 name: 'texto_voucher',
                 label: 'Voucher',
                 placeholder: 'Digite um texto para o voucher'
-            )
-        ;
+            );
     });
 });
 
@@ -341,11 +338,14 @@ $Painel->coluna(callback: function () use ($Painel, $tag) {
             ->tag(name: 'subcategoria_tag', label: 'Tag', placeholder: 'Digite suas tags', espaco: true)
             ->margem(10)
             ->blocoCheckbox(
-                titulo: 'Subcategoria',
+                titulo: 'Subcategorias',
                 mais: true,
                 callback: function () use ($Painel, $tag) {
-                    foreach ($tag as $id => $nome) {
-                        $Painel->checkbox(name: 'subcategoria_lista[]', label: $nome, value: $id);
+                    foreach ($tag as $titulo => $values) {
+                        $Painel->titulo($titulo);
+                        foreach ($values as $id => $nome) {
+                            $Painel->checkbox(name: 'subcategoria_lista[]', label: $nome, value: $id);
+                        }
                     }
                 }
             );

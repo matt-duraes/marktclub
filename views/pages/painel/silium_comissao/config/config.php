@@ -1,0 +1,18 @@
+<?php
+
+return [
+    'titulo'     => 'Comissões do Silium',
+    'buscar'     => false,
+    'filtrar'    => true,
+    'ordem'      => true,
+    'visualizar' => true,
+    'add'        => true,
+    'editar'     => true,
+    'deletar'    => true,
+    'download'   => false,
+    'historico'  => true,
+    'api'        => [
+        'scope' => 'silium_comissao',
+        'uri'   => '/silium-comissao'
+    ]
+];

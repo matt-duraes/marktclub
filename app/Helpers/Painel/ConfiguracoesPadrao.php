@@ -434,7 +434,7 @@ final class ConfiguracoesPadrao
         'parceiro_loja'            => [
             'titulo'    => 'Loja',
             'acao'      => [
-                'index', 'add', 'visualizar', 'editar', 'deletar', 'status', 'empresa'
+                'index', 'add', 'visualizar', 'editar', 'deletar', 'download', 'status', 'empresa'
             ],
             'permissao' => [
                 'parceiro_loja_index'      => 'Listar',
@@ -442,6 +442,7 @@ final class ConfiguracoesPadrao
                 'parceiro_loja_visualizar' => 'Visualizar',
                 'parceiro_loja_editar'     => 'Editar',
                 'parceiro_loja_deletar'    => 'Deletar',
+                'parceiro_loja_download'   => 'Download',
                 'parceiro_loja_status'     => 'Status',
                 'parceiro_loja_empresa'    => 'Todas as empresas'
             ]
@@ -814,6 +815,45 @@ final class ConfiguracoesPadrao
                 'site_menu_editar'     => 'Editar',
                 'site_menu_deletar'    => 'Deletar',
                 'site_menu_empresa'    => 'Todas as Empresas'
+            ]
+        ],
+        'silium_comissao' => [
+            'titulo'    => 'Comissões do Silium (Cashback)',
+            'acao'      => [
+                'index', 'visualizar', 'add', 'editar', 'deletar'
+            ],
+            'permissao' => [
+                'silium_comissao_index'      => 'Listar',
+                'silium_comissao_visualizar' => 'Visualizar',
+                'silium_comissao_add'        => 'Salvar',
+                'silium_comissao_editar'     => 'Editar',
+                'silium_comissao_deletar'    => 'Deletar'
+            ]
+        ],
+        'silium_deposito' => [
+            'titulo'    => 'Depósitos do Silium (Cashback)',
+            'acao'      => [
+                'index', 'visualizar', 'add', 'editar', 'deletar'
+            ],
+            'permissao' => [
+                'silium_deposito_index'      => 'Listar',
+                'silium_deposito_visualizar' => 'Visualizar',
+                'silium_deposito_add'        => 'Salvar',
+                'silium_deposito_editar'     => 'Editar',
+                'silium_deposito_deletar'    => 'Deletar'
+            ]
+        ],
+        'silium_saque' => [
+            'titulo'    => 'Solicitações de Saque (Cashback)',
+            'acao'      => [
+                'index', 'visualizar', 'add', 'editar', 'deletar'
+            ],
+            'permissao' => [
+                'silium_saque_index'      => 'Listar',
+                'silium_saque_visualizar' => 'Visualizar',
+                'silium_saque_add'        => 'Salvar',
+                'silium_saque_editar'     => 'Editar',
+                'silium_saque_deletar'    => 'Deletar'
             ]
         ]
     ];

@@ -1366,7 +1366,7 @@ Route
                 '!texto_procedimento', '!texto_voucher', '!categoria_principal', '!categoria_lista', '!subcategoria_tag',
                 '!subcategoria_lista', '!empresa', '!destaque', '!endereco_estado', '!pontuacao', '!confirmar_status',
                 '!confirmar_titulo', '!confirmar_texto', '!arquivo_painel', '!arquivo_clube', '!cupom_desconto',
-                '!status', '!comissao_minima', '!comissao_maxima', '!texto_restricao', '!texto_outro'
+                '!status', '!comissao_minima', '!comissao_maxima', '!texto_restricao', '!texto_outro', '!cancelar_motivo'
             ])
             ::put('/parceiro-loja/{id}');
         Route
@@ -1387,6 +1387,17 @@ Route
             ::nome('relacionado')
             ::middleware(TokenMiddleware::class, 'scope', ['parceiro_loja:relacionado'])
             ::get('/parceiro-loja/relacionado/{id}');
+        Route
+            ::nome('download')
+            ::middleware(TokenMiddleware::class, 'scope', ['parceiro_loja:download'])
+            ::request([
+                'campo', 'usuario', "!equipe", "!status", "!titulo", "!empresa", "!usuario", "!categoria", "!tipo_loja",
+                "!subcategoria","!convenio_direto","!data_criacao_de","!data_criacao_ate","!data_problema_de",
+                "!data_auditoria_de","!data_cancelado_de","!data_problema_ate",
+                "!data_auditoria_ate","!data_cancelado_ate","!data_prospeccao_de","!data_publicacao_de",
+                "!data_prospeccao_ate","!data_publicacao_ate","!tipo_estabelecimento",
+            ])
+            ::post('/parceiro-loja/download');
     });
 
 Route
@@ -1453,6 +1464,10 @@ Route
             ::middleware(TokenMiddleware::class, 'scope', ['parceiro_subcategoria:listar'])
             ::request(['!titulo', '!categoria'], 'json')
             ::get('/parceiro-subcategoria/select');
+        Route
+            ::nome('listar')
+            ::middleware(TokenMiddleware::class, 'scope', ['parceiro_subcategoria:listar'])
+            ::get('/parceiro-subcategoria');
     });
 
 Route
@@ -2413,27 +2428,89 @@ Route
     });
 
 Route
-    ::nome('silium')
-    ::controller(App\Controllers\Api\SiliumController::class)
+    ::nome('silium_comissao')
+    ::controller(App\Controllers\Api\SiliumComissaoController::class)
     ::middleware(TokenMiddleware::class, 'token')
     ::grupo(function () {
         Route
-            ::nome('saldo')
-            ::middleware(TokenMiddleware::class, 'scope', ['silium:saldo'])
-            ::get('/silium/saldo');
+            ::nome('buscar')
+            ::middleware(TokenMiddleware::class, 'scope', ['silium_comissao:buscar'])
+            ::get('/silium-comissao/{id}');
 
         Route
-            ::nome('extrato')
-            ::middleware(TokenMiddleware::class, 'scope', ['silium:extrato'])
-            ::get('/silium/extrato');
-
-        Route
-            ::nome('saque')
-            ::middleware(TokenMiddleware::class, 'scope', ['silium:saque'])
+            ::nome('listar')
+            ::middleware(TokenMiddleware::class, 'scope', ['silium_comissao:listar'])
             ::request([
-                'titular', 'documento_cpf', 'banco', 'agencia', 'conta', 'tipo_conta'
+                'pagina', '!quantidade', '!ordem', '!empresa', '!usuario',
+                '!data_inicio', '!data_final', '!status'
+            ], 'json')
+            ::get('/silium-comissao');
+
+        Route
+            ::nome('salvar')
+            ::middleware(TokenMiddleware::class, 'scope', ['silium_comissao:salvar'])
+            ::request([
+                'usuario', 'parceiro', 'valor_compra', 'comissao_usuario',
+                '!pontuacao', 'data_compra', 'status'
             ])
-            ::post('/silium/saque');
+            ::post('/silium-comissao');
+
+        Route
+            ::nome('atualizar')
+            ::middleware(TokenMiddleware::class, 'scope', ['silium_comissao:atualizar'])
+            ::request([
+                '!usuario', '!parceiro', '!valor_compra', '!comissao_usuario',
+                '!pontuacao', '!data_compra', '!status'
+            ])
+            ::put('/silium-comissao/{id}');
+
+        Route
+            ::nome('deletar')
+            ::middleware(TokenMiddleware::class, 'scope', ['silium_comissao:deletar'])
+            ::delete('/silium-comissao/{id}');
+    });
+
+Route
+    ::nome('silium_deposito')
+    ::controller(App\Controllers\Api\SiliumDepositoController::class)
+    ::middleware(TokenMiddleware::class, 'token')
+    ::grupo(function () {
+        Route
+            ::nome('buscar')
+            ::middleware(TokenMiddleware::class, 'scope', ['silium_deposito:buscar'])
+            ::get('/silium-deposito/{id}');
+
+        Route
+            ::nome('listar')
+            ::middleware(TokenMiddleware::class, 'scope', ['silium_deposito:listar'])
+            ::request([
+                'pagina', '!quantidade', '!ordem', '!empresa', '!usuario',
+                '!tipo_conta', '!tipo', '!data_inicio', '!data_final', '!status'
+            ], 'json')
+            ::get('/silium-deposito');
+
+        Route
+            ::nome('salvar')
+            ::middleware(TokenMiddleware::class, 'scope', ['silium_deposito:salvar'])
+            ::request([
+                'usuario', 'nome_titular', 'documento_cpf', 'email', 'tipo_conta',
+                'banco', 'agencia', 'conta', 'pontuacao', 'tipo', '!status'
+            ])
+            ::post('/silium-deposito');
+
+        Route
+            ::nome('atualizar')
+            ::middleware(TokenMiddleware::class, 'scope', ['silium_deposito:atualizar'])
+            ::request([
+                '!usuario', '!nome_titular', '!documento_cpf', '!email', '!tipo_conta',
+                '!banco', '!agencia', '!conta', '!pontuacao', '!tipo', '!status'
+            ])
+            ::put('/silium-deposito/{id}');
+
+        Route
+            ::nome('deletar')
+            ::middleware(TokenMiddleware::class, 'scope', ['silium_deposito:deletar'])
+            ::delete('/silium-deposito/{id}');
     });
 
 Route

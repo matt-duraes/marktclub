@@ -13,6 +13,11 @@ final class DownloadPrivadoHelper implements MensageriaInterface
             'scope'  => 'usuario_cliente:download',
             'metodo' => 'POST'
         ],
+        'parceiro_loja' => [
+            'uri'    => '/parceiro-loja/download',
+            'scope'  => 'parceiro_loja:download',
+            'metodo' => 'POST'
+        ],
         'solicitacao_premium' => [
             'uri'    => '/solicitacao-premium/download',
             'scope'  => 'solicitacao_premium:download',

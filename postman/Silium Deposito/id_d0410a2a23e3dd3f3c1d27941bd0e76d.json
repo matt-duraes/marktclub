@@ -1,0 +1,1 @@
+{"id":"id_d0410a2a23e3dd3f3c1d27941bd0e76d","token":"painel","metodo":"PUT","nome":"\/silium-deposito\/:id","uri":"{{LINK}}\/silium-deposito\/$SILIUM_DEPOSITO_ID","parametro":[],"body":[["texto",true,"status","novo",""]],"header":[],"variavel":[],"json":[],"documentacao":{"status":false,"descricao":"","requisicao":"","resposta":"","scope":"silium_deposito:atualizar"}}
