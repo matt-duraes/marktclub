@@ -1,10 +1,14 @@
-<input type="hidden" id="inputinterno_bloqueado" value="{{$dado->bloqueado}}">
 <div class="bloco_fieldset" id="bloco_votacao">
     @ if( $dado->status == 'cancelado'):
     <header class="header_fieldset">
         <h2>Cancelado</h2>
     </header>
     <p class="subtitulo">Essa votação foi cancelada e não pode ser editada ou ver seu resultado.</p>
+    @ elseif( $dado->status_votacao == 'finalizado' ):
+    <header class="header_fieldset">
+        <h2>Resultado</h2>
+    </header>
+    <div class="botao_pequeno azul" id="botao_resultado_votacao">Pegar resultado</div>
     @ elseif( $dado->bloqueado != 'sim'):
     <header class="header_fieldset">
         <h2>Perguntas</h2>
@@ -26,19 +30,16 @@
     </header>
     <p class="subtitulo">Cuidado! Após o cancelamento essa votação não poderá ser colocada no ar novamente.</p>
     <div class="botao_pequeno vermelho" id="botao_cancelar_votacao">Cancelar</div>
-    @ elseif( $dado->status_votacao == 'finalizado' ):
-    <header class="header_fieldset">
-        <h2>Resultado</h2>
-    </header>
-    <div class="botao_pequeno azul" id="botao_resultado_votacao">Pegar resultado</div>
     @ elseif( $dado->bloqueado == 'sim'):
     <header class="header_fieldset">
         <h2>Bloqueado</h2>
     </header>
     <p class="subtitulo">Essa votação está bloqueada.</p>
+    <div class="botao_pequeno vermelho" id="botao_cancelar_votacao">Cancelar</div>
     @ endif;
 </div>
 
+@ if( $dado->status_votacao == 'finalizado' ):
 <div id="bloco_resultado" class="display_none">
     <div class="bloco_pagina_popup conteudo">
         <header class="header_pagina_popup">
@@ -49,9 +50,9 @@
             <div class="menu">
                 <div class="scroll">
                     <div class="conteudo" id="bloco_resultado_menu">
-                        <div class="item hover" data-bloco="bloco_resultado_resultado">Resultado</div>
-                        <div class="item" data-bloco="bloco_resultado_voto">Votos</div>
-                        <div class="item" data-bloco="bloco_resultado_usuario">Usuários</div>
+                        <div class="item hover" data-tipo="resultado">Resultado</div>
+                        <div class="item" data-tipo="voto">Votos</div>
+                        <div class="item" data-tipo="usuario">Usuários</div>
                     </div>
                 </div>
             </div>
@@ -61,7 +62,7 @@
                         <div class="conteudo">
                             <div class="tr header">
                                 <div class="td resultado_titulo">Resposta</div>
-                                <div class="td resulstado_quantidade">Quantidade</div>
+                                <div class="td resultado_quantidade">Quantidade</div>
                             </div>
                         </div>
                     </div>
@@ -90,7 +91,9 @@
                     </div>
                 </div>
                 <div class="bloco_copiar">
-                    <div class="copiar">Copiar</div>
+                    <div class="copiar" id="botao_copiar_resultado">Copiar</div>
+                    <div class="copiar display_none" id="botao_copiar_voto">Copiar</div>
+                    <div class="copiar display_none" id="botao_copiar_usuario">Copiar</div>
                 </div>
             </div>
         </div>
@@ -114,6 +117,7 @@
         </div>
     </div>
 </div>
+@ endif;
 
 @ if( $dado->bloqueado != 'sim'):
 <div class="display_none">

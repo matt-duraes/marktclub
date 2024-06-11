@@ -81,10 +81,14 @@ final class DadoEntity extends Entity
     {
         $votacao = 'aguardando';
         $agora = agora();
-        if ($this->data_inicio->date() <= $agora && $this->data_final->date() >= $agora) {
+        if (
+            $this->data_inicio->date() <= $agora &&
+            $this->data_final->date() >= $agora &&
+            $this->publicado == Publicado::SIM
+        ) {
             $this->bloquear();
             $votacao = 'andamento';
-        } elseif ($this->data_inicio->date() < agora()) {
+        } elseif ($this->data_final->date() < agora()) {
             $this->bloquear();
             $votacao = 'finalizado';
         }

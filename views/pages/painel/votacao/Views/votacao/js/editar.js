@@ -1,13 +1,11 @@
 window.addEventListener('load', () => {
-    const bloquearEditar = $('#inputinterno_bloqueado');
-    if (!bloquearEditar) {
+    const botaoPopupPergunta = $('#botao_adicionar_pergunta');
+    if (botaoPopupPergunta) {
         return;
     }
 
-    if (bloquearEditar.valor() == 'sim') {
-        const botao = $('#bloco_botao_salvar');
-        if (botao) {
-            botao.remove();
-        }
+    const botao = $('#bloco_botao_salvar');
+    if (botao) {
+        botao.remove();
     }
 });
