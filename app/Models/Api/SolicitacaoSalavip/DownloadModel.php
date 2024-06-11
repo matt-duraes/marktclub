@@ -39,7 +39,7 @@ final class DownloadModel extends ORM
      */
     private function validarCamposAceito(): void
     {
-        $camposAceito = ['empresa', 'data_de', 'data_ate'];
+        $camposAceito = ['empresa', 'codigo', 'data'];
 
         $listaCampos = jsonDecode($this->request->campo, true, true);
         if (!$listaCampos) {
