@@ -59,8 +59,7 @@ final class CashbackController extends Controller
      */
     public function extrato(): Response
     {
-
-        $dados = (new SiliumModel())->buscarDados();
+        // $dados = (new SiliumModel())->buscarDados();
         return view('cashback.extrato', [
             'menu'           => 'extrato_silium',
             'saldo'          => 0
@@ -75,6 +74,6 @@ final class CashbackController extends Controller
      */
     public function postResgatarCashback(Request $request): Response
     {
-        $SolicitacaoResgate = (new SiliumModel())->solicitarDeposito($request->dado());
+        // $SolicitacaoResgate = (new SiliumModel())->solicitarDeposito($request->dado());
     }
 }
