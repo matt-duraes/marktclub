@@ -6,7 +6,7 @@ $Painel
     ->bloco('Dados do usuario', function () use ($Painel) {
         $Painel
             ->campo('usuario_nome', 'Nome')
-            ->campo('usuadio_cpf', 'CPF');
+            ->campo('usuario_cpf', 'CPF');
     })
     ->bloco('Dados do clube', function () use ($Painel) {
         $Painel

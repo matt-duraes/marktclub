@@ -2580,6 +2580,13 @@ Route
             ::nome('deletar')
             ::middleware(TokenMiddleware::class, 'scope', ['solicitacao_loja:deletar'])
             ::delete('/solicitacao-loja/{id}');
+        Route
+            ::nome('download')
+            ::middleware(TokenMiddleware::class, 'scope', ['solicitacao_loja:download'])
+            ::request([
+                'campo', 'usuario', '!nome', '!data_inicio', '!data_final', '!status'
+            ])
+            ::post('/solicitacao-loja/download');
     });
 
 Route

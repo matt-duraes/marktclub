@@ -5,6 +5,8 @@ namespace App\Controllers\Api;
 use App\Classes\SolicitacaoLoja\Helper;
 use App\Classes\SolicitacaoLoja\Ordem;
 use App\Classes\SolicitacaoLoja\Status;
+use App\Models\Api\DownloadPrivado\ArquivoEntity;
+use App\Models\Api\SolicitacaoLoja\DownloadModel;
 use App\Models\Api\SolicitacaoLoja\SolicitacaoEntity;
 use App\Models\Api\SolicitacaoLoja\SolicitacaoModel;
 use Controller\Controller;
@@ -123,5 +125,17 @@ class SolicitacaoLojaController extends Controller implements
         $Solicitacao->uuid($id);
         $Solicitacao->destruir();
         return new Response(status: 204);
+    }
+
+    public function postDownload(Request $request)
+    {
+        $Usuario = new DownloadModel($request);
+        $Usuario->set(lista: $request->dado());
+
+        $Download = new ArquivoEntity($Usuario->download(), $request->usuario);
+        $Download->salvar();
+        return mensagemSucesso([
+            'id' => $Download->id
+        ], 201);
     }
 }
