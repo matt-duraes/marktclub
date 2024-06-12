@@ -5,14 +5,16 @@ namespace App\Models\Api\Votacao\Dado;
 use ORM\Entity;
 use Modules\Botao;
 use Modules\DataHora;
-use App\Classes\Geral\Status;
 use App\Classes\Geral\Publicado;
 use App\Classes\Votacao\Dado\Tipo;
+use App\Classes\Votacao\Dado\Status;
 use App\Models\Api\Trait\ValidarEmpresaTrait;
+use App\Models\Api\Votacao\Trait\MensagemTrait;
 
 final class DadoEntity extends Entity
 {
     use ValidarEmpresaTrait;
+    use MensagemTrait;
 
     protected string $ormTabela = TABELA_VOTACAO_DADO;
     protected string $ormValidar = '
@@ -29,25 +31,37 @@ final class DadoEntity extends Entity
         'id_admin_empresa' => '->idEmpresa'
     ];
     protected array $ormSalvar = [
-        'titulo', 'texto', 'tipo', 'voto_unico', 'identificar_usuario', 'data_inicio', 'data_final', 'status'
+        'titulo', 'texto', 'tipo', 'voto_unico', 'identificar_usuario', 'data_inicio',
+        'data_final', 'bloqueado', 'status'
     ];
     protected array $ormBuscar = [
-        'titulo', 'texto', 'tipo', 'voto_unico', 'identificar_usuario', 'data_inicio', 'data_final', 'status'
+        'titulo', 'texto', 'tipo', 'voto_unico', 'identificar_usuario', 'data_inicio',
+        'data_final', 'bloqueado', 'status'
     ];
     public string $titulo;
     public string $texto;
     public Tipo $tipo;
     public Botao $voto_unico;
     public Botao $identificar_usuario;
+    public Botao $bloqueado;
+    public string $status_votacao;
     public DataHora $data_inicio;
     public DataHora $data_final;
     public Publicado $publicado;
     public Status $status;
+    public bool $estaBloqueado = false;
 
     public function __construct()
     {
         parent::__construct();
         $this->validarEmpresa();
+    }
+
+    protected function regraUpdate()
+    {
+        if ($this->estaBloqueado) {
+            $this->mensagemBloqueado();
+        }
     }
 
     protected function regraPosBuscar()
@@ -57,5 +71,33 @@ final class DadoEntity extends Entity
             final: $this->data_final,
             ativo: $this->status->indice() == $this->status::ATIVO
         );
+        if ($this->status->se(Status::CANCELADO)) {
+            $this->bloquear();
+        }
+        $this->validarStatusVotacao();
+    }
+
+    private function validarStatusVotacao()
+    {
+        $votacao = 'aguardando';
+        $agora = agora();
+        if (
+            $this->data_inicio->date() <= $agora &&
+            $this->data_final->date() >= $agora &&
+            $this->publicado == Publicado::SIM
+        ) {
+            $this->bloquear();
+            $votacao = 'andamento';
+        } elseif ($this->data_final->date() < agora()) {
+            $this->bloquear();
+            $votacao = 'finalizado';
+        }
+        $this->status_votacao = $votacao;
+    }
+
+    private function bloquear()
+    {
+        $this->bloqueado = new Botao(Botao::SIM);
+        $this->estaBloqueado = true;
     }
 }

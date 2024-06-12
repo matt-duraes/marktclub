@@ -4,13 +4,16 @@ namespace App\Controllers\Api\Votacao;
 
 use Http\Request;
 use Http\Response;
+use Modules\Botao;
 use Controller\Controller;
 use App\Models\Api\Votacao\Dado\DadoModel;
 use App\Models\Api\Votacao\Dado\DadoEntity;
+use App\Models\Api\Votacao\Dado\CancelarModel;
 use System\Interface\ControllerBuscarInterface;
 use System\Interface\ControllerListarInterface;
 use System\Interface\ControllerSalvarInterface;
 use System\Interface\ControllerDeletarInterface;
+use App\Models\Api\Votacao\Resultado\RetornoModel;
 use System\Interface\ControllerAtualizarInterface;
 
 final class DadoController extends Controller implements
@@ -55,7 +58,8 @@ final class DadoController extends Controller implements
             dado: pegarPropriedadeDaEntity(
                 Entity: $Votacao,
                 lista: [
-                    'titulo', 'texto', 'tipo', 'voto_unico', 'data_inicio', 'data_final', 'publicado', 'status'
+                    'titulo', 'texto', 'tipo', 'voto_unico', 'data_inicio', 'data_final',
+                    'publicado', 'bloqueado', 'status_votacao', 'identificar_usuario', 'status'
                 ]
             ),
             status: $status
@@ -83,5 +87,31 @@ final class DadoController extends Controller implements
         $Votacao->destruir();
 
         return new Response(status: 204);
+    }
+
+    public function postCancelar(Request $request)
+    {
+        new CancelarModel($request->id);
+        return mensagemSucesso([
+            'id' => $request->id
+        ]);
+    }
+
+    public function postBloquear(Request $request)
+    {
+        $Votacao = new DadoEntity();
+        $Votacao->uuid($request->id);
+        $Votacao->bloqueado = new Botao(Botao::SIM);
+        $Votacao->salvar();
+
+        return mensagemSucesso([
+            'id' => $Votacao->id
+        ]);
+    }
+
+    public function postResultado(Request $request)
+    {
+        $Resultado = new RetornoModel($request->id);
+        return mensagemSucesso($Resultado->retorno);
     }
 }

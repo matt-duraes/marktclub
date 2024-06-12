@@ -1,8 +1,9 @@
 window.addEventListener('load', () => {
-    let pergunta = '';
-    let resposta = '';
-
     const botaoSalvarResposta = $('.botao_resposta_salvar');
+    if (!botaoSalvarResposta) {
+        return;
+    }
+
     const blocoRespostaPadrao = $('#bloco_linha_resposta');
     const blocoRespostaZero = $('.bloco_resposta_zero');
     const blocoRespostaLoading = $('.bloco_resposta_loading');
@@ -13,6 +14,9 @@ window.addEventListener('load', () => {
     const inputRespostaTexto = $('input[name="resposta_texto"]');
     const inputRespostaEscrever = $('input[name="resposta_escrever"]');
     const inputRespostaNulo = $('input[name="resposta_bloqueada"]');
+
+    let pergunta = '';
+    let resposta = '';
 
     /*
     |--------------------------------------------------------------------------

@@ -76,6 +76,20 @@ abstract class Status implements StatusInterface
         $this->numeroNome = array_combine($numero, $nome);
     }
 
+    /**
+     * Verifica se o valor é o informado
+     *
+     * @param  string|array $valor se string usa == ou array para usar inArray
+     * @return bool
+     */
+    public function se(string|array $indice): bool
+    {
+        if (is_array($indice)) {
+            return in_array($this->indice(), $indice);
+        }
+        return $indice == $this->indice();
+    }
+
     private function agruparEmpresa(array $empresa)
     {
         $retorno = [];

@@ -4,11 +4,15 @@ namespace App\Models\Api\Votacao\Resposta;
 
 use ORM\Entity;
 use Modules\Botao;
+use App\Models\Api\Votacao\Trait\MensagemTrait;
 use App\Models\Api\Votacao\Trait\idPerguntaTrait;
+use App\Models\Api\Votacao\Trait\VotacaoBloqueadaTrait;
 
 final class RespostaEntity extends Entity
 {
     use idPerguntaTrait;
+    use VotacaoBloqueadaTrait;
+    use MensagemTrait;
 
     protected string $ormTabela = TABELA_VOTACAO_RESPOSTA;
     protected string $ormValidar = '
