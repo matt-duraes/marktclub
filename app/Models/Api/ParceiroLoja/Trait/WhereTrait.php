@@ -9,10 +9,10 @@ use Where\Where;
 
 trait WhereTrait
 {
-    protected function pegarWhere(): Where
+    protected function pegarWhere(int|null $empresa = null): Where
     {
-        $where = $this->idEmpresa == 1 ? [] : [
-            ['id_admin_empresa', 'json', $this->idEmpresa]
+        $where = $this->idEmpresa == 1 && empty($empresa) ? [] : [
+            ['id_admin_empresa', 'json', !empty($empresa) ? $empresa : $this->idEmpresa]
         ];
 
         $Where = new Where($this, $where);
