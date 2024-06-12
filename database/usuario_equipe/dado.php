@@ -71,7 +71,7 @@ $permissao = [
 
     'tabela_usuario_salvar', 'tabela_usuario_bloquear', 'tabela_historico_index', 'tabela_usuario_empresa',
 
-    'solicitacao_loja_index', 'solicitacao_loja_add', 'solicitacao_loja_deletar', 'solicitacao_loja_visualizar',
+    'solicitacao_loja_index', 'solicitacao_loja_add', 'solicitacao_loja_download', 'solicitacao_loja_deletar', 'solicitacao_loja_visualizar',
     'solicitacao_loja_status', 'solicitacao_loja_empresa',
 
     'solicitacao_voucher_index', 'solicitacao_voucher_visualizar', 'solicitacao_voucher_download',

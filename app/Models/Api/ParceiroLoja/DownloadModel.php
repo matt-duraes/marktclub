@@ -83,7 +83,9 @@ final class DownloadModel extends ORM
 
     private function pegarEmpresa(): null|int
     {
-        if (!$this->propriedadeExiste('empresa') || empty($this->empresa)) return null;
+        if (!$this->propriedadeExiste('empresa') || empty($this->empresa)) {
+            return null;
+        }
 
         return (new OrmHelper(TABELA_COMERCIAL_EMPRESA))
             ->pegarIdPeloUuid($this->empresa);
