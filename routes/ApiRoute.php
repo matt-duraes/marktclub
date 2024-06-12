@@ -1541,15 +1541,6 @@ Route
                 'pagina', '!ordem', '!empresa', '!data_de', '!data_ate'
             ], 'json')
             ::get('/solicitacao-salavip');
-
-        Route
-            ::nome('salavip')
-            ::controller(App\Controllers\Api\SolicitacaoVoucherController::class)
-            ::middleware(TokenMiddleware::class, 'scope', ['solicitacao_salavip:salvar'])
-            ::request(['cpf', 'nome', 'email_pessoal'])
-            ::criptografia(App\Classes\SolicitacaoSalavip\Helper::CRIPTOGRAFAR)
-            ::post('/solicitacao-salavip');
-
         Route
             ::nome('download')
             ::middleware(TokenMiddleware::class, 'scope', ['solicitacao_salavip:download'])
@@ -1557,6 +1548,13 @@ Route
                 'campo', 'usuario', '!ordem', '!empresa', '!data_de', '!data_ate'
             ])
             ::post('/solicitacao-salavip/download');
+        Route
+            ::nome('salavip')
+            ::controller(App\Controllers\Api\SolicitacaoVoucherController::class)
+            ::middleware(TokenMiddleware::class, 'scope', ['solicitacao_salavip:salvar'])
+            ::request(['cpf', 'nome', 'email_pessoal'])
+            ::criptografia(App\Classes\SolicitacaoSalavip\Helper::CRIPTOGRAFAR)
+            ::post('/solicitacao-salavip');
     });
 
 Route
