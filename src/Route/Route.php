@@ -48,6 +48,19 @@ final class Route
     private static bool $semGrupo = false;
     private static bool $rotaUnica = true;
 
+    public static function parametroDownload($parametro)
+    {
+        foreach(['!pagina', 'pagina', '!quantidade', 'quantidade'] as $key) {
+            if(!array_key_exists($key, $parametro)) {
+                continue;
+            }
+            unset($parametro[$key]);
+        }
+        return array_merge($parametro, [
+            'campo', 'usuario',
+        ]);
+    }
+
     /**
      * Cria um grupo para as rotas
      *
