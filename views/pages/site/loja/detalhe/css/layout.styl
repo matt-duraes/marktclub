@@ -205,7 +205,7 @@
         height: 30px
         flexCenter()
         border: 1px solid #CCC
-        fill: #666
+        fill: $corClube
         border-radius: 3px
         margin-left: 10px
         cursor: pointer
@@ -265,11 +265,14 @@
         margin: 3px 0
         align-items: center
         &:hover
-            background: #F6F6F6
+            background: $corBody
+            padding-right: 20px
+    .linha:hover p
+        color: $corBrancoPreto
     .linha p
         flexGrow()
         texto()
-        color: $corPretoBranco
+        color: #666
     .linha strong
         width: 100%
         max-width: 200px
