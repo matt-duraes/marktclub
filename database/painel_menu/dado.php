@@ -281,7 +281,7 @@ return [
         'titulo'           => 'PARCEIROS',
         'ordem'            => '++',
         'status'           => 1,
-        'permissao'        => '["parceiro_relatorio_index","parceiro_loja_index","parceiro_easylive_index","parceiro_automovel_index"]'
+        'permissao'        => '["parceiro_relatorio_index","parceiro_loja_index","parceiro_externo_index","parceiro_easylive_index","parceiro_automovel_index"]'
     ],
     [
         'id'               => '++',
@@ -306,6 +306,18 @@ return [
         'menu'             => ['parceiro-loja'],
         'status'           => 1,
         'permissao'        => '["parceiro_loja_index"]'
+    ],
+    [
+        'id'               => '++',
+        'id_admin_empresa' => 1,
+        'tipo'             => 3,
+        'titulo'           => 'Loja',
+        'url'              => '/app/parceiro-externo',
+        'icone'            => '<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 30 30" style="enable-background:new 0 0 30 30;" xml:space="preserve"><path d="M7.8,18V7.8H6.1V6.1h2.6c0.5,0,0.9,0.4,0.9,0.9v10.2h10.7l1.7-6.8H11.2V8.6h11.8c0.5,0,0.9,0.4,0.9,0.9c0,0.1,0,0.1,0,0.2l-2.2,8.5c-0.1,0.4-0.4,0.6-0.8,0.6H8.6C8.2,18.8,7.8,18.4,7.8,18z M9.5,23.9c-1,0-1.7-0.8-1.7-1.7s0.8-1.7,1.7-1.7s1.7,0.8,1.7,1.7S10.5,23.9,9.5,23.9z M19.9,23.9c-1,0-1.7-0.8-1.7-1.7s0.8-1.7,1.7-1.7s1.7,0.8,1.7,1.7S20.8,23.9,19.9,23.9z"/></svg>',
+        'ordem'            => '++',
+        'menu'             => ['parceiro-externo'],
+        'status'           => 1,
+        'permissao'        => '["parceiro_externo_index"]'
     ],
     [
         'id'               => '++',

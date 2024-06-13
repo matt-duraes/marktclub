@@ -58,6 +58,8 @@ $scope = [
     'parceiro_loja:listar', 'parceiro_loja:buscar', 'parceiro_loja:salvar', 'parceiro_loja:atualizar',
     'parceiro_loja:deletar', 'parceiro_loja:relacionado', 'parceiro_loja:download',
 
+    'parceiro_externo:listar', 'parceiro_externo:buscar', 'parceiro_externo:salvar', 'parceiro_externo:download',
+
     'parceiro_subcategoria:listar',
 
     'parceiro_favorito:listar', 'parceiro_favorito:salvar', 'parceiro_favorito:deletar',

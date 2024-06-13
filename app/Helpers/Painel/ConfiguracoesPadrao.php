@@ -447,6 +447,19 @@ final class ConfiguracoesPadrao
                 'parceiro_loja_empresa'    => 'Todas as empresas'
             ]
         ],
+        'parceiro_externo'            => [
+            'titulo'    => 'Loja externo',
+            'acao'      => [
+                'index', 'add', 'visualizar', 'equipe', 'download'
+            ],
+            'permissao' => [
+                'parceiro_externo_index'      => 'Listar',
+                'parceiro_externo_add'        => 'Salvar',
+                'parceiro_externo_visualizar' => 'Visualizar',
+                'parceiro_externo_equipe'     => 'Equipe',
+                'parceiro_externo_download'   => 'Download',
+            ]
+        ],
         'parceiro_cupom'           => [
             'titulo'    => 'Cupom',
             'acao'      => [

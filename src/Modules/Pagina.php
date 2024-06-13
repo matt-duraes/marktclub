@@ -66,7 +66,7 @@ final class Pagina implements ModuleInterface
             $this->valido = false;
             $this->numero = '';
             return;
-        } elseif (!preg_match('/^[0-9\-]{1,}$/', $numero)) {
+        } elseif (!preg_match('/^[1-9]{1,}[0-9]{0,}$/', $numero)) {
             $this->valido = false;
             $this->numero = '';
             return;
