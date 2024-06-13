@@ -2,60 +2,46 @@
 
 namespace App\Models\Api\Parceiro\Externo;
 
-use ORM\ORM;
 use Http\Request;
 use App\Classes\ParceiroLoja\Status;
-use App\Models\Api\Trait\DownloadModelTrait;
-use App\Models\Api\Parceiro\Externo\Trait\Where;
-use App\Models\Api\Parceiro\Externo\Trait\Propriedade;
+use App\Models\Api\Download\DownloadGeralModel;
+use App\Models\Api\Parceiro\Externo\Trait\WhereTrait;
+use App\Models\Api\Parceiro\Externo\Trait\ValidarTrait;
+use App\Models\Api\Parceiro\Externo\Trait\PropriedadeTrait;
 
-final class DownloadModel extends ORM
+final class DownloadModel extends DownloadGeralModel
 {
-    use Propriedade;
-    use DownloadModelTrait;
-    use Where;
+    use PropriedadeTrait;
+    use WhereTrait;
+    use ValidarTrait;
 
-    protected string $ormTabela = TABELA_PARCEIRO_LOJA;
-    public array $campo;
-    public string $usuario;
-    private array $campoAceito = [
+    protected array $campoAceito = [
         'titulo_interno', 'equipe', 'data_criacao', 'data_publicacao', 'status'
     ];
 
     public function __construct(
-        private Request $request
+        Request $request
     ) {
-        parent::__construct();
+        parent::__construct($request, TABELA_PARCEIRO_LOJA, 'parceiro-externo');
+        $this->validarRequest();
+        $this->buscarRegistro();
+        $this->validarBusca();
+        $this->salvarLogDownload();
+        $this->montarRetornoDownload();
+        $this->salvarArquivo();
     }
 
-    public function listarDados(): array
-    {
-        $this->validarCampoAceito($this->pExiste('campo') ? $this->campo : [], $this->campoAceito);
-        $dado = $this->buscarBanco();
-        $this->validarBusca($dado);
-        $this->salvarLogDownload($dado, 'parceiro_externo');
-        return $this->montarRetornoDownload($dado);
-    }
-
-    private function buscarBanco()
+    protected function buscarRegistro(): void
     {
         $where = $this->pegarWhere();
-        return $this->campo($this->campo)->where($where)->read();
+        $this->busca = $this->campo($this->campo)->where($where)->read();
     }
 
-    private function validarBusca(array $dado): void
-    {
-        if (existeErro($dado, '0')) {
-            return;
-        }
-        $this->erroDownloadPadrao();
-    }
-
-    private function montarRetornoDownload(array $dado): array
+    protected function montarRetornoDownload(): void
     {
         $i = 0;
         $retorno = [];
-        foreach ($dado as $linha) {
+        foreach ($this->busca as $linha) {
             foreach ($linha as $ind => $val) {
                 if ($ind === 'status') {
                     $val = (new Status($val))->indice();
@@ -64,6 +50,6 @@ final class DownloadModel extends ORM
             }
             $i++;
         }
-        return $retorno;
+        $this->busca = $retorno;
     }
 }

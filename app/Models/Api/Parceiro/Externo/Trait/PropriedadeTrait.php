@@ -5,7 +5,7 @@ namespace App\Models\Api\Parceiro\Externo\Trait;
 use Modules\Data;
 use App\Classes\ParceiroLoja\Status;
 
-trait Propriedade
+trait PropriedadeTrait
 {
     public string $equipe;
     public Data $data_criacao_de;

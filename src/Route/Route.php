@@ -48,17 +48,17 @@ final class Route
     private static bool $semGrupo = false;
     private static bool $rotaUnica = true;
 
-    public static function parametroDownload($parametro)
+    public static function parametroDownload(array $parametro)
     {
-        foreach(['!pagina', 'pagina', '!quantidade', 'quantidade'] as $key) {
-            if(!array_key_exists($key, $parametro)) {
+        $retorno = ['campo', 'usuario'];
+        $remover = ['!pagina', 'pagina', '!quantidade', 'quantidade'];
+        foreach($parametro as $key) {
+            if(in_array($key, $remover)) {
                 continue;
             }
-            unset($parametro[$key]);
+            $retorno[] = $key;
         }
-        return array_merge($parametro, [
-            'campo', 'usuario',
-        ]);
+        return $retorno;
     }
 
     /**

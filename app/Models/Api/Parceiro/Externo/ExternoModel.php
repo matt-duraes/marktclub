@@ -11,16 +11,18 @@ use System\Trait\Model\PaginaTrait;
 use App\Classes\ParceiroLoja\Status;
 use System\Trait\Model\QuantidadeTrait;
 use System\Interface\ModelListarInterface;
-use App\Models\Api\Parceiro\Externo\Trait\Where;
-use App\Models\Api\Parceiro\Externo\Trait\Propriedade;
+use App\Models\Api\Parceiro\Externo\Trait\WhereTrait;
+use App\Models\Api\Parceiro\Externo\Trait\ValidarTrait;
+use App\Models\Api\Parceiro\Externo\Trait\PropriedadeTrait;
 
 final class ExternoModel extends ORM implements ModelListarInterface
 {
-    use Propriedade;
-    use Where;
+    use PropriedadeTrait;
+    use WhereTrait;
     use PaginaTrait;
     use QuantidadeTrait;
     use OrdemTrait;
+    use ValidarTrait;
 
     protected string $ormTabela = TABELA_PARCEIRO_LOJA;
     public Pagina $pagina;
@@ -28,15 +30,15 @@ final class ExternoModel extends ORM implements ModelListarInterface
 
     public function listarDados(): stdClass
     {
-        $where = $this->pegarWhere();
+        $this->validarRequest();
         $dado = $this
             ->campo(['uuid', 'titulo_interno', 'data_criacao', 'status'])
-            ->where($where)
+            ->where($this->pegarWhere())
             ->pagina($this->pegarPagina(), $this->pegarQuantidade())
             ->order($this->pegarOrdem())
             ->read();
 
-        if (!existeErro($dado, 'lista')) {
+        if (!existeErro($dado, 'dado')) {
             return $this->paginacaoZero();
         }
 
