@@ -460,6 +460,16 @@ final class ConfiguracoesPadrao
                 'parceiro_externo_download'   => 'Download',
             ]
         ],
+        'parceiro_equipe'            => [
+            'titulo'    => 'Sem captador',
+            'acao'      => [
+                'index', 'visualizar'
+            ],
+            'permissao' => [
+                'parceiro_externo_index'      => 'Listar',
+                'parceiro_externo_visualizar' => 'Visualizar',
+            ]
+        ],
         'parceiro_cupom'           => [
             'titulo'    => 'Cupom',
             'acao'      => [

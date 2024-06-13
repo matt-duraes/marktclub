@@ -1418,8 +1418,9 @@ Route
         Route
             ::nome('salvar')
             ::request([
-                'titulo', 'email', 'telefone', 'endereco_cep', 'endereco_logradouro', 'endereco_numero',
-                'endereco_complemento', 'endereco_bairro', 'endereco_cidade', 'endereco_estado', 'mensagem'
+                'titulo_interno', 'nome', 'email', 'telefone', 'endereco_cep', 'endereco_logradouro',
+                'categoria_principal', 'endereco_numero', 'endereco_complemento', 'endereco_bairro', 'endereco_cidade',
+                'endereco_estado', 'mensagem'
             ])
             ::post('/parceiro-externo');
         Route

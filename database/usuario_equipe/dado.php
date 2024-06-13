@@ -40,6 +40,8 @@ $permissao = [
     'parceiro_externo_index', 'parceiro_externo_add', 'parceiro_externo_visualizar', 'parceiro_externo_download',
     'parceiro_externo_equipe',
 
+    'parceiro_equipe_index', 'parceiro_equipe_visualizar',
+
     'parceiro_easylive_index', 'parceiro_easylive_add', 'parceiro_easylive_editar', 'parceiro_easylive_deletar',
 
     'parceiro_cupom_index', 'parceiro_cupom_status',

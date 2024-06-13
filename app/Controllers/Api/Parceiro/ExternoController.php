@@ -11,6 +11,7 @@ use System\Interface\ControllerSalvarInterface;
 use App\Models\Api\Parceiro\Externo\ExternoModel;
 use System\Interface\ControllerDownloadInterface;
 use App\Models\Api\Parceiro\Externo\DownloadModel;
+use App\Models\Api\Parceiro\Externo\ExternoEntity;
 
 final class ExternoController extends Controller implements
     ControllerListarInterface,
@@ -36,16 +37,30 @@ final class ExternoController extends Controller implements
 
     public function getBuscar(string $id): Response
     {
-        return $this->retornoPadrao();
+        $Externo = new ExternoEntity();
+        $Externo->uuid($id);
+        return $this->retornoPadrao(Externo: $Externo);
     }
 
     public function postSalvar(Request $request): Response
     {
-        return $this->retornoPadrao();
+        $Externo = new ExternoEntity();
+        $Externo->set(lista: $request->dado());
+        $Externo->salvar();
+
+        return $this->retornoPadrao(Externo: $Externo, status: 201);
     }
 
-    private function retornoPadrao()
+    private function retornoPadrao(ExternoEntity $Externo, int $status = 200)
     {
-        return mensagemSucesso([]);
+        return mensagemSucesso(
+            dado: pegarPropriedadeDaEntity(
+                Entity: $Externo,
+                lista: [
+                    'titulo_interno', 'dono', 'categoria_principal', 'data_criacao', 'status'
+                ]
+            ),
+            status: $status
+        );
     }
 }
