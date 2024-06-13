@@ -2,6 +2,7 @@
 
 use Route\Route;
 use App\Middlewares\Api\TokenMiddleware;
+use System\Classes\PainelHistorico\Helper;
 
 Route
     ::nome('painel_historico')
@@ -14,23 +15,23 @@ Route
                 'relacionado', 'app', 'acao', '!dado', '!mensagem', '!notificar_link',
                 '!notificar_equipe', '!notificar_titulo'
             ])
-                ::post('/painel-historico');
-
+            ::post('/painel-historico');
         Route
             ::nome('listar')
-            ::request([
-                'pagina', 'app', 'relacionado', '!data_de', '!data_ate', '!pesquisa'
-            ], 'json')
-                ::get('/painel-historico');
-
+            ::request(Helper::GET_PARAMETRO, 'json')
+            ::get('/painel-historico');
         Route
             ::nome('atualizar')
             ::request(['mensagem'])
             ::put('/painel-historico/{id}');
-
         Route
             ::nome('deletar')
             ::delete('/painel-historico/{id}');
+        Route
+            ::nome('download')
+            ::middleware(TokenMiddleware::class, 'scope', ['painel_historico:download'])
+            ::request(Route::parametroDownload(Helper::GET_PARAMETRO))
+            ::post('/painel-historico/download');
     });
 
 Route

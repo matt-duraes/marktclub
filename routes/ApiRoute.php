@@ -1278,7 +1278,7 @@ Route
                 'menu_corrida', 'menu_show_nacional', 'menu_show_internacional', 'link_odontologico',
                 'campos_primeiro_acesso', 'grupo_label', 'grupo_placeholder', 'link_facebook', 'link_instagram',
                 'link_twitter', 'link_linkedin', 'link_youtube', 'link_tiktok', 'tela_login', '!copiar_padrao'
-           ])
+            ])
             ::post('/construtor-clube');
         Route
             ::nome('atualizar')
@@ -1393,10 +1393,10 @@ Route
             ::middleware(TokenMiddleware::class, 'scope', ['parceiro_loja:download'])
             ::request([
                 'campo', 'usuario', "!equipe", "!status", "!titulo", "!empresa", "!usuario", "!categoria", "!tipo_loja",
-                "!subcategoria","!convenio_direto","!data_criacao_de","!data_criacao_ate","!data_problema_de",
-                "!data_auditoria_de","!data_cancelado_de","!data_problema_ate",
-                "!data_auditoria_ate","!data_cancelado_ate","!data_prospeccao_de","!data_publicacao_de",
-                "!data_prospeccao_ate","!data_publicacao_ate","!tipo_estabelecimento",
+                "!subcategoria", "!convenio_direto", "!data_criacao_de", "!data_criacao_ate", "!data_problema_de",
+                "!data_auditoria_de", "!data_cancelado_de", "!data_problema_ate",
+                "!data_auditoria_ate", "!data_cancelado_ate", "!data_prospeccao_de", "!data_publicacao_de",
+                "!data_prospeccao_ate", "!data_publicacao_ate", "!tipo_estabelecimento",
             ])
             ::post('/parceiro-loja/download');
     });
@@ -2580,6 +2580,13 @@ Route
             ::nome('deletar')
             ::middleware(TokenMiddleware::class, 'scope', ['solicitacao_loja:deletar'])
             ::delete('/solicitacao-loja/{id}');
+        Route
+            ::nome('download')
+            ::middleware(TokenMiddleware::class, 'scope', ['solicitacao_loja:download'])
+            ::request([
+                'campo', 'usuario', '!nome', '!data_inicio', '!data_final', '!status'
+            ])
+            ::post('/solicitacao-loja/download');
     });
 
 Route

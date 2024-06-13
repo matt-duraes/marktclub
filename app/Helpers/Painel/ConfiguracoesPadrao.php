@@ -538,13 +538,14 @@ final class ConfiguracoesPadrao
         'solicitacao_loja'         => [
             'titulo'    => 'Solicitação Loja',
             'acao'      => [
-                'index', 'visualizar', 'add', 'deletar', 'status', 'empresa'
+                'index', 'visualizar', 'add', 'download', 'deletar', 'status', 'empresa'
             ],
             'permissao' => [
                 'solicitacao_loja_index'      => 'Listar',
                 'solicitacao_loja_visualizar' => 'Visualizar',
                 'solicitacao_loja_add'        => 'Salvar',
                 'solicitacao_loja_deletar'    => 'Deletar',
+                'parceiro_loja_download'      => 'Download',
                 'solicitacao_loja_status'     => 'Status',
                 'solicitacao_loja_empresa'    => 'Todas as empresas'
             ]
@@ -867,6 +868,15 @@ final class ConfiguracoesPadrao
                 'silium_saque_add'        => 'Salvar',
                 'silium_saque_editar'     => 'Editar',
                 'silium_saque_deletar'    => 'Deletar'
+            ]
+        ],
+        'painel_historico' => [
+            'titulo'    => 'Painel histórico',
+            'acao'      => [
+                'download'
+            ],
+            'permissao' => [
+                'painel_historico_download'    => 'Download'
             ]
         ]
     ];

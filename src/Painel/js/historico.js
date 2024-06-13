@@ -22,6 +22,11 @@ const historicoLoad = () => {
     const botaoBuscar = document.querySelector('#botao_buscar_historico');
     const botaoCarregarMais = document.querySelector('#botao_historico_carregar_mais');
 
+    const botaoDownload = document.querySelector('#botao_download_historico');
+    const botaoEnviarDownload = document.querySelector('#botao_enviar_download');
+    const downloadDataDe = document.querySelector('#input_data_de');
+    const downloadDataAte = document.querySelector('#input_data_ate');
+
     Calendario.init({
         de: 'input_historico_data_de',
         ate: 'input_historico_data_ate',
@@ -516,4 +521,55 @@ const historicoLoad = () => {
     const adicionarBlocoSemMensagem = () => {
         historicoLista.innerHTML = '<div class="zero sem_mensagem">Sem mensagens no momento</div>';
     };
+
+    /*
+    |--------------------------------------------------------------------------
+    | DOWNLOAD HISTORICO
+    |--------------------------------------------------------------------------
+    */
+    if (botaoDownload) {
+        const PopupDownload = new Popup('Popup Download', 'bloco_download', true, true);
+
+        botaoDownload.addEventListener('click', () => {
+            PopupDownload.abrir();
+
+            downloadDataDe.value = inputDataDe.value;
+            downloadDataAte.value = inputDataAte.value;
+        });
+
+        botaoEnviarDownload.addEventListener('click', () => {
+            if (!downloadDataDe.value || !downloadDataDe.value) {
+                Alerta.notificacao(
+                    'Você deve preencher as datas de início e fim para fazer o download do histórico.',
+                    false
+                );
+                return;
+            }
+            enviarDownload();
+        });
+
+        async function enviarDownload() {
+            Loading.show();
+            const resposta = await ajaxPost(
+                LINK + '/historico/download',
+                {
+                    /* eslint-disable */
+                    data_de: downloadDataDe.value,
+                    data_ate: downloadDataAte.value,
+                    /* eslint-enable */
+                    app: app,
+                    relacionado: relacionado,
+                    pesquisa: inputPesquisa.value,
+                },
+                'Ocorreu um erro ao iniciar o download do histórico'
+            );
+            Loading.hide();
+
+            if (resposta.status == 'sucesso') {
+                PopupDownload.fechar();
+                Alerta.notificacao('Download do histórico iniciado', true);
+                return;
+            }
+        }
+    }
 };

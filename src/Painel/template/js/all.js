@@ -11,6 +11,7 @@
 // @system "ArquivoUpload"
 // @system "Form"
 // @system "Icone"
+// @system "Popup"
 
 // @painel "pagina_popup"
 // @painel "form_geral"
