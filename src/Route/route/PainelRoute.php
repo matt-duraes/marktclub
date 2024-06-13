@@ -146,6 +146,11 @@ Route
             ::nome('deletar')
             ::rotaNaoUnica()
             ::delete('/historico/{id}');
+        Route
+            ::nome('download')
+            ::rotaNaoUnica()
+            ::request(['data_de', 'data_ate', 'app', 'relacionado', 'pesquisa'])
+            ::post('/historico/download');
     }, true)
 
     // ENDERECO

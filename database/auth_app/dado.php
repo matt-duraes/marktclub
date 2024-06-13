@@ -218,6 +218,8 @@ $scope = [
     'votacao_resposta:buscar', 'votacao_resposta:listar', 'votacao_resposta:salvar', 'votacao_resposta:atualizar', 'votacao_resposta:deletar',
     'votacao_usuario:validar',
     'votacao_voto:salvar',
+
+    'painel_historico:download'
 ];
 
 return [

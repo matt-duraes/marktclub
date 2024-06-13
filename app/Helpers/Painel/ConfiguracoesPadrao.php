@@ -869,6 +869,15 @@ final class ConfiguracoesPadrao
                 'silium_saque_editar'     => 'Editar',
                 'silium_saque_deletar'    => 'Deletar'
             ]
+        ],
+        'painel_historico' => [
+            'titulo'    => 'Painel histórico',
+            'acao'      => [
+                'download'
+            ],
+            'permissao' => [
+                'painel_historico_download'    => 'Download'
+            ]
         ]
     ];
 }

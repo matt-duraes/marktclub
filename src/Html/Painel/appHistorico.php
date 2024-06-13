@@ -1,7 +1,7 @@
 <div id="bloco_historico_view" class="<?= $classe ?>">
     <header>
-        <?php if($fechar): ?>
-        <div class="fechar pagina_fechar mobile"><?= iconeVoltar(12) ?></div>
+        <?php if ($fechar) : ?>
+            <div class="fechar pagina_fechar mobile"><?= iconeVoltar(12) ?></div>
         <?php endif; ?>
         <h1>HISTÓRICO</h1>
         <form action="">
@@ -10,9 +10,12 @@
             <p>até</p>
             <input type="text" data-mascara="00/00/0000" class="input_data input_data_ate" id="input_historico_data_ate" placeholder="00/00/000">
             <div class="botao" id="botao_buscar_historico">BUSCAR</div>
+            <?php if (in_array('painel_historico_download', sessao('USUARIO.permissao'))): ?>
+            <div class="botao_download" id="botao_download_historico"><?= iconeDownload(14) ?></div>
+            <?php endif; ?>
         </form>
-        <?php if($fechar): ?>
-        <div class="fechar pagina_fechar desktop"><?= iconeFechar(12) ?></div>
+        <?php if ($fechar) : ?>
+            <div class="fechar pagina_fechar desktop"><?= iconeFechar(12) ?></div>
         <?php endif; ?>
     </header>
     <div class="add_fake" id="bloco_historico_add_fake"></div>
@@ -46,3 +49,26 @@
     </div>
     <div class="mais" id="botao_historico_carregar_mais">CARREGAR MAIS</div>
 </div>
+
+<?php if (in_array('painel_historico_download', sessao('USUARIO.permissao'))): ?>
+
+<div id="bloco_download" class="bloco_pagina_popup">
+    <header class="header_pagina_popup">
+        <h1>Download</h1>
+        <i class="botao pagina_fechar"><?= iconeFechar() ?></i>
+    </header>
+    <form class="conteudo_pagina_popup form_geral">
+        <?= formDataHora(
+            name: ['data_de', 'data_ate'],
+            placeholder: ['Data de início', 'Data final'],
+            label: 'Data da campanha',
+            separador: 'até'
+        ) ?>
+    </form>
+    <div class="footer_pagina_popup">
+        <div class="flex"></div>
+        <div class="button salvar" id="botao_enviar_download">DOWNLOAD</div>
+    </div>
+</div>
+
+<?php endif; ?>
