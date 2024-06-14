@@ -90,8 +90,8 @@ $Painel->coluna(callback: function () use ($Painel) {
             texto: 'Sem interesse',
             inArray: [$Status->nome(Status::PROSPECCAO)],
             status: Status::SEM_INTERESSE,
-            mensagem: 'Tem certeza que deseja colocar essa loja como sem interesse?',
-            cor: 'cinza'
+            cor: 'cinza',
+            id: 'botao_sem_interesse'
         )
         ->status(
             campo: 'status',
