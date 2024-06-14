@@ -25,4 +25,4 @@ composer.phar
 /captainhook.json
 /postman/temp
 /php-cs-fixer.phar
-/cypress
+/tests/Frontend/fixtures/*/env.json
