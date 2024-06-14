@@ -551,13 +551,13 @@ final class ConfiguracoesPadrao
                 'index', 'visualizar', 'add', 'download', 'deletar', 'status', 'empresa'
             ],
             'permissao' => [
-                'solicitacao_loja_index'      => 'Listar',
-                'solicitacao_loja_visualizar' => 'Visualizar',
-                'solicitacao_loja_add'        => 'Salvar',
-                'solicitacao_loja_deletar'    => 'Deletar',
-                'parceiro_loja_download'      => 'Download',
-                'solicitacao_loja_status'     => 'Status',
-                'solicitacao_loja_empresa'    => 'Todas as empresas'
+                'solicitacao_loja_index'       => 'Listar',
+                'solicitacao_loja_visualizar'  => 'Visualizar',
+                'solicitacao_loja_add'         => 'Salvar',
+                'solicitacao_loja_deletar'     => 'Deletar',
+                'solicitacao_loja_download'    => 'Download',
+                'solicitacao_loja_status'      => 'Status',
+                'solicitacao_loja_empresa'     => 'Todas as empresas'
             ]
         ],
         'solicitacao_voucher'      => [
