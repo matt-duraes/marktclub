@@ -1,5 +1,11 @@
+const { marktclub } = require('../config/fixtures/usuarios/painel.json');
+
 describe('template spec', () => {
-    it('passes', () => {
-        cy.visit('https://example.cypress.io');
+    beforeEach(() => {
+        cy.visit('/painel');
+    });
+
+    it('super usuário', () => {
+        cy.loginPainel(marktclub.login, marktclub.senha);
     });
 });
