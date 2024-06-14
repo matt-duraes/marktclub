@@ -147,5 +147,28 @@ $seeds = [
         'salt'          => password('Teste@1324'),
         'status'        => 1
     ],
+    [
+        'id'            => 1001,
+        'cod'           => 'c8a3e833-7d3b-43ab-966a-104ff189dfee',
+        'empresa'       => 1,
+        'tipo'          => 1,
+        'nome'          => 'Titular Cypress',
+        'documento'     => 19938649033,
+        'email_pessoal' => 'titularCypress@email.com',
+        'salt'          => password('Teste@1324'),
+        'status'        => 1
+    ],
+    [
+        'id'            => 1002,
+        'cod'           => 'e68a91be-1c26-41e6-b598-4bc478df2011',
+        'titular'       => 1001,
+        'empresa'       => 1,
+        'tipo'          => 1,
+        'nome'          => 'Dependente Cypress',
+        'documento'     => 28290895020,
+        'email_pessoal' => 'dependenteCypress@email.com',
+        'salt'          => password('Teste@1324'),
+        'status'        => 1
+    ]
 ];
 return $seeds;
