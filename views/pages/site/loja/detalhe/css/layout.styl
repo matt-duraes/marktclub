@@ -264,11 +264,6 @@
         padding: 3px 0 3px 10px
         margin: 3px 0
         align-items: center
-        &:hover
-            background: $corBody
-            padding-right: 20px
-    .linha:hover p
-        color: $corBrancoPreto
     .linha p
         flexGrow()
         texto()
@@ -293,6 +288,8 @@
         &.borda
             border: 1px solid #ddd
             border-radius: 3px
+        svg
+            fill: $corPretoBranco
 
 @media screen and (max-width: 600px)
     .bloco_lista_texto_icone .linha
