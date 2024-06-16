@@ -12,16 +12,9 @@ final class IndexModel implements
 {
     public function filtro(array $filtro, string $pesquisa, string $ordem, int $pagina): array
     {
-        // $vazio = empty($filtro) && empty($pesquisa);
-        // if (!$vazio && (!array_key_exists('status', $filtro) || empty($filtro['status']))) {
-        //     $filtro['status'] = 'todos';
-        // }
-        // if ($vazio && sessao('USUARIO.gerente') != 'sim') {
-        //     $filtro['equipe'] = sessao('USUARIO.id');
-        // }
-        // if (empty($ordem)) {
-        //     $filtro['ordem'] = Ordem::PAINEL_ASC;
-        // }
+        if (!temPermissao('parceiro_externo_equipe')) {
+            $filtro['equipe'] = USUARIO_ID;
+        }
         return $filtro;
     }
 
