@@ -22,6 +22,7 @@ final class ExternoEntity extends Entity
 {
     protected string $ormTabela = TABELA_PARCEIRO_LOJA;
     protected array $ormInsert = [
+        'endereco_estado' => '->estado_parceiro',
         'id_admin_empresa', 'id_dono_empresa', 'id_dono_equipe', 'categoria_principal',
         'tipo_loja', 'titulo_interno', 'url', 'status'
     ];
@@ -45,6 +46,7 @@ final class ExternoEntity extends Entity
     public string $endereco_bairro;
     public string $endereco_cidade;
     public EnderecoEstado $endereco_estado;
+    public array $estado_parceiro;
     public string $mensagem;
     public string $url;
     protected TipoLoja $tipo_loja;
@@ -59,15 +61,15 @@ final class ExternoEntity extends Entity
     {
         $idEmpresa = TOKEN['empresa']->id;
         $idEquipe = TOKEN['usuario']->id;
+        $this->estado_parceiro = [$this->endereco_estado->uf()];
         $this->id_admin_empresa = [$idEmpresa];
         $this->id_dono_empresa = $idEmpresa;
         $this->id_dono_equipe = $idEquipe;
         $this->status = new Status(Status::PROSPECCAO);
         $this->tipo_loja = new TipoLoja(TipoLoja::LOJA);
 
-        $titulo = $this->titulo_interno . ' - ' . rand(1, 99999);
-        $this->titulo_interno = $titulo;
-        $this->url = strSlug($titulo);
+        $this->validarCampoDuplicado('titulo_interno', 'O parceiro já existe no sistema.');
+        $this->url = strSlug($this->titulo_interno);
     }
 
     protected function regraPosInsert()
@@ -133,7 +135,7 @@ final class ExternoEntity extends Entity
         $Historico->set(lista: [
             'relacionado' => [$this->id],
             'mensagem'    => $this->mensagem,
-            'app'         => ['parceiro_loja'],
+            'app'         => ['parceiro_externo', 'parceiro_loja'],
             'acao'        => new Acao(Acao::SALVAR)
         ]);
         $Historico->salvar();

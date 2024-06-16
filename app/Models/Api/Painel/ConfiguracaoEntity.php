@@ -230,8 +230,8 @@ final class ConfiguracaoEntity extends Entity
         }
 
         $this->validarCampoDuplicado(
-            campo: 'id_admin_empresa',
-            mensagem: 'Painel já cadastrado',
+            propriedade: 'id_admin_empresa',
+            campo: 'Painel já cadastrado',
             valor: (string)$this->idEmpresa
         );
     }

@@ -6,6 +6,6 @@ final class Helper
 {
     public const GET_PARAMETRO = [
         'pagina', '!quantidade', '!equipe', '!data_criacao_de', '!data_criacao_ate',
-        '!status'
+        '!categoria', '!pesquisa', '!endereco_estado', '!status', '!ordem'
     ];
 }
