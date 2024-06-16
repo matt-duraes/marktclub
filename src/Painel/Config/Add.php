@@ -14,6 +14,7 @@ final class Add
     private string|int $numeroColuna;
     private string $titulo = '';
     private bool $abrir = false;
+    private bool $row = false;
     private array $html = [];
     private array $camposAceitos = [];
     private array $camposObrigatorio = [];
@@ -111,7 +112,7 @@ final class Add
         return $this;
     }
 
-    public function fieldset(string $titulo = '', ?\Closure $callback = null, bool $abrir = false)
+    public function fieldset(string $titulo = '', ?\Closure $callback = null, bool $abrir = false, $row = false)
     {
         if (is_null($callback)) {
             $this->erroCallback();
@@ -119,8 +120,23 @@ final class Add
         $this->fieldset++;
         $this->titulo = $titulo;
         $this->abrir = $abrir;
+        $this->row = $row;
         call_user_func($callback);
         return $this;
+    }
+
+    public function endereco(string $titulo = '')
+    {
+        $this->fieldset(titulo: $titulo, callback: function () {
+            $this
+                ->cep(name: 'endereco_cep', label: 'CEP', placeholder: 'CEP', obrigatorio: true)
+                ->input(name: 'endereco_logradouro', label: 'Logradouro', placeholder: 'Digite o logradouro', contador: 100, obrigatorio: true)
+                ->input(name: 'endereco_numero', label: 'Número', placeholder: 'Digite o número')
+                ->input(name: 'endereco_complemento', label: 'Complemento', placeholder: 'Digite um complemento')
+                ->input(name: 'endereco_bairro', label: 'Bairro', placeholder: 'Digite um bairro', obrigatorio: true)
+                ->select(name: 'endereco_estado', label: 'Estado', placeholder: 'Escolha um estado', lista: (new ListaHelper())->add('', 'Escolha um estado')->estado()->r(), obrigatorio: true)
+                ->select(name: 'endereco_cidade', label: 'Cidade', placeholder: 'Escolha uma cidade', lista: ['' => 'Escolha um estado primeiro'], obrigatorio: true);
+        }, row: true);
     }
 
     public function blocoCheckbox(
@@ -1254,6 +1270,7 @@ final class Add
         }
         $this->setarTitulo();
         $this->setarAbrir();
+        $this->setarRow();
         $this->setarColuna();
 
         if (!in_array($dado['funcao'], ['cor', 'checkbox', 'switch', 'tag', 'indiceValor', 'hidden']) && !is_array($dado['name'])) {
@@ -1282,9 +1299,17 @@ final class Add
 
     private function setarAbrir()
     {
-        if ($this->abrir) {
+        if (!empty($this->abrir)) {
             $this->html[$this->coluna][$this->fieldset]['abrir'] = $this->abrir;
             $this->abrir = false;
+        }
+    }
+
+    private function setarRow()
+    {
+        if (!empty($this->row)) {
+            $this->html[$this->coluna][$this->fieldset]['row'] = $this->row;
+            $this->row = false;
         }
     }
 

@@ -570,7 +570,7 @@ if (!function_exists('painelColunaEnd')) {
     }
 }
 if (!function_exists('painelFieldset')) {
-    function painelFieldset(?string $titulo = null, bool $abrir = false)
+    function painelFieldset(?string $titulo = null, bool $abrir = false, bool $row = false)
     {
         $classe = '';
         $botaoAbrir = '';
@@ -581,11 +581,11 @@ if (!function_exists('painelFieldset')) {
             $botaoClasse = 'botao_abrir_fieldset';
         }
         $tituloHtml = !empty($titulo) ? '<header class="header_fieldset ' . $botaoClasse . '"><h2>' . $titulo . '</h2>' . $botaoAbrir . '</header>' : '';
-
+        $row = $row ? 'lista_row' : '';
         echo '
             <div class="bloco_fieldset ' . $classe . '">
                 ' . $tituloHtml . '
-                <div class="lista_dado">
+                <div class="lista_dado ' . $row . '">
         ';
     }
 }
@@ -773,6 +773,10 @@ if (!function_exists('painelInputLista')) {
 
             if (array_key_exists('placeholder', $input) && empty($input['placeholder'])) {
                 $input['placeholder'] = $input['label'];
+            }
+            if (!array_key_exists('classe', $input)) {
+                $nameString = is_array($input['name']) ? $input['name'][0] : $input['name'];
+                $input['class'] = 'painel_' . $nameString;
             }
             echo call_user_func_array('form' . ucfirst($funcao), $input);
         }

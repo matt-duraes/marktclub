@@ -42,5 +42,8 @@ $Painel->coluna(callback: function () use ($Painel) {
         ;
     });
 });
+$Painel->coluna(callback: function () use ($Painel) {
+    $Painel->endereco('Endereço');
+});
 
 return $Painel;
