@@ -466,8 +466,8 @@ final class ConfiguracoesPadrao
                 'index', 'visualizar'
             ],
             'permissao' => [
-                'parceiro_externo_index'      => 'Listar',
-                'parceiro_externo_visualizar' => 'Visualizar',
+                'parceiro_equipe_index'      => 'Listar',
+                'parceiro_equipe_visualizar' => 'Visualizar',
             ]
         ],
         'parceiro_cupom'           => [
