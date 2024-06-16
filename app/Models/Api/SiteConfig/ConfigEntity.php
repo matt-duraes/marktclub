@@ -113,7 +113,7 @@ final class ConfigEntity extends Entity
         if (!$this->propriedadeExiste('empresa') || empty($this->empresa)) {
             return;
         }
-        $this->validarCampoDuplicado(campo: 'id_admin_empresa', valor: $this->idEmpresa, mensagem: 'Empresa');
+        $this->validarCampoDuplicado(propriedade: 'id_admin_empresa', valor: $this->idEmpresa, campo: 'Empresa');
     }
 
     protected function regraSalvar()

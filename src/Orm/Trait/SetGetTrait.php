@@ -17,15 +17,46 @@ use Symfony\Component\HttpFoundation\File\UploadedFile;
 trait SetGetTrait
 {
     /**
+     * Pegar o valor de uma propriedade ou um array com a lista
+     *
+     * @param  string|array $propriedade Propriedade que deseja pegar ou a lista de propriedades
+     * @param  bool         $erro        Se a propriedade não existir, vai gerar um erro
+     * @return mixed
+     */
+    protected function valor(string|array $propriedade, bool $erro = true): mixed
+    {
+        if (!is_array($propriedade)) {
+            return $this->pegarValorPropriedade($propriedade, $erro);
+        }
+        $retorno = [];
+        foreach ($propriedade as $ind) {
+            $retorno[$ind] = $this->pegarValorPropriedade($ind, $erro);
+        }
+        return $retorno;
+    }
+
+    private function pegarValorPropriedade(string $propriedade, bool $erro): mixed
+    {
+        $existe = $this->pExiste($propriedade);
+        if (!$existe && $erro) {
+            mensagemErro(
+                'Erro!',
+                'O campo ' . $propriedade . 'não existe.',
+                localhost: 'A propriedade ' . $propriedade . ' não existe ao tentar pegar seu valor via $this->valor() do ORM.'
+            );
+        } elseif (!$existe) {
+            return '';
+        }
+        return $this->$propriedade;
+    }
+
+    /**
      * @param  null|string $propriedade Propriedade que será buscada
      * @param  null|array  $lista       Lista com as propriedades que deseja listar
      * @return mixed
      */
     public function get(?string $propriedade = null, ?array $lista = null)
     {
-        if ($this->ormEntityDeletada) {
-            throw new Excecao(titulo: 'Erro!', mensagem: 'Esse Entity foi destruido.');
-        }
         $this->ormVerificarSeEntityExiste();
         if (is_null($lista)) {
             return $this->ormPegarGet($propriedade);

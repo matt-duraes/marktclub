@@ -65,9 +65,8 @@ final class ExternoEntity extends Entity
         $this->status = new Status(Status::PROSPECCAO);
         $this->tipo_loja = new TipoLoja(TipoLoja::LOJA);
 
-        $titulo = $this->titulo_interno . ' - ' . rand(1, 99999);
-        $this->titulo_interno = $titulo;
-        $this->url = strSlug($titulo);
+        $this->validarCampoDuplicado('titulo_interno', 'O parceiro já existe no sistema.');
+        $this->url = strSlug($this->titulo_interno);
     }
 
     protected function regraPosInsert()

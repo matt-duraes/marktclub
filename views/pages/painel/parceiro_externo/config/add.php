@@ -11,13 +11,15 @@ $Painel->coluna(callback: function () use ($Painel) {
                 name: 'titulo_interno',
                 label: 'Título',
                 placeholder: 'Digite o nome para a parceria',
-                contador: 80,
+                contador: 50,
+                obrigatorio: true
             )
             ->select(
                 name: 'categoria_principal',
                 label: 'Categoria',
                 placeholder: 'Categoria',
-                lista: $Categoria->select('Escolha uma opção')
+                lista: $Categoria->select('Escolha uma opção'),
+                obrigatorio: true
             );
     });
 
@@ -28,22 +30,37 @@ $Painel->coluna(callback: function () use ($Painel) {
                 label: 'Nome para contato',
                 placeholder: 'Digite um nome',
                 contador: 100,
+                obrigatorio: true
             )
             ->telefone(
                 name: 'telefone',
                 label: 'Telefone',
                 placeholder: 'Digite um telefone',
+                obrigatorio: true
             )
             ->email(
                 name: 'email',
                 label: 'E-mail',
                 placeholder: 'Digite um e-mail',
-            )
-        ;
+                obrigatorio: true
+            );
     });
 });
 $Painel->coluna(callback: function () use ($Painel) {
     $Painel->endereco('Endereço');
 });
+$Painel->coluna(callback: function () use ($Painel) {
+    $Painel->fieldset('Mensagem', function () use ($Painel) {
+        $Painel
+            ->textarea(
+                name: 'mensagem',
+                label: 'Mensagem',
+                placeholder: 'Digite sua mensagem',
+                obrigatorio: true
+            );
+    });
+});
 
+$Painel->css('painel_parceiro_externo_add');
+$Painel->js('painel_parceiro_externo_add');
 return $Painel;

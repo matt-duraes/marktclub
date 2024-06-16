@@ -3,6 +3,7 @@
 namespace App\Models\Api\Parceiro\Externo;
 
 use Http\Request;
+use System\Trait\Model\OrdemTrait;
 use App\Classes\ParceiroLoja\Status;
 use App\Models\Api\Download\DownloadGeralModel;
 use App\Models\Api\Parceiro\Externo\Trait\WhereTrait;
@@ -14,6 +15,7 @@ final class DownloadModel extends DownloadGeralModel
     use PropriedadeTrait;
     use WhereTrait;
     use ValidarTrait;
+    use OrdemTrait;
 
     protected array $campoAceito = [
         'titulo_interno', 'equipe', 'data_criacao', 'data_publicacao', 'status'
@@ -34,7 +36,11 @@ final class DownloadModel extends DownloadGeralModel
     protected function buscarRegistro(): void
     {
         $where = $this->pegarWhere();
-        $this->busca = $this->campo($this->campo)->where($where)->read();
+        $this->busca = $this
+            ->campo($this->campo)
+            ->where($where)
+            ->order($this->pegarOrdem())
+            ->read();
     }
 
     protected function montarRetornoDownload(): void
