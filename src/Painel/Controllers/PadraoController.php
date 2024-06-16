@@ -35,7 +35,7 @@ abstract class PadraoController extends Controller
 
     protected function config(string $app, string $local, ?string $indice = null): stdClass
     {
-        if (!file_exists(ROOT . '/views/pages/painel/' . $app)) {
+        if (!file_exists(ROOT . '/views/pages/painel/' . $app) && $app != 'painel_historico') {
             throw new Excecao(status: 404);
         }
 

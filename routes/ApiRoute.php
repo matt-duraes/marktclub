@@ -1,6 +1,7 @@
 <?php
 
 use Route\Route;
+use App\Classes\Parceiro\Externo\Helper;
 use App\Middlewares\Api\TokenMiddleware;
 use App\Middlewares\Api\MarktClubMiddleware;
 use App\Middlewares\Api\TokenProvMiddleware;
@@ -1277,7 +1278,7 @@ Route
                 'menu_corrida', 'menu_show_nacional', 'menu_show_internacional', 'link_odontologico',
                 'campos_primeiro_acesso', 'grupo_label', 'grupo_placeholder', 'link_facebook', 'link_instagram',
                 'link_twitter', 'link_linkedin', 'link_youtube', 'link_tiktok', 'tela_login', '!copiar_padrao'
-           ])
+            ])
             ::post('/construtor-clube');
         Route
             ::nome('atualizar')
@@ -1392,12 +1393,41 @@ Route
             ::middleware(TokenMiddleware::class, 'scope', ['parceiro_loja:download'])
             ::request([
                 'campo', 'usuario', "!equipe", "!status", "!titulo", "!empresa", "!usuario", "!categoria", "!tipo_loja",
-                "!subcategoria","!convenio_direto","!data_criacao_de","!data_criacao_ate","!data_problema_de",
-                "!data_auditoria_de","!data_cancelado_de","!data_problema_ate",
-                "!data_auditoria_ate","!data_cancelado_ate","!data_prospeccao_de","!data_publicacao_de",
-                "!data_prospeccao_ate","!data_publicacao_ate","!tipo_estabelecimento",
+                "!subcategoria", "!convenio_direto", "!data_criacao_de", "!data_criacao_ate", "!data_problema_de",
+                "!data_auditoria_de", "!data_cancelado_de", "!data_problema_ate",
+                "!data_auditoria_ate", "!data_cancelado_ate", "!data_prospeccao_de", "!data_publicacao_de",
+                "!data_prospeccao_ate", "!data_publicacao_ate", "!tipo_estabelecimento",
             ])
             ::post('/parceiro-loja/download');
+    });
+
+    Route
+    ::nome('parceiro_externo')
+    ::middleware(TokenMiddleware::class, 'token')
+    ::controller(App\Controllers\Api\Parceiro\ExternoController::class)
+    ::grupo(function () {
+        Route
+            ::nome('listar')
+            ::middleware(TokenMiddleware::class, 'scope', ['parceiro_externo:listar'])
+            ::request(Helper::GET_PARAMETRO, 'json')
+            ::get('/parceiro-externo');
+        Route
+            ::nome('buscar')
+            ::middleware(TokenMiddleware::class, 'scope', ['parceiro_externo:buscar'])
+            ::get('/parceiro-externo/{id}');
+        Route
+            ::nome('salvar')
+            ::request([
+                'titulo_interno', 'nome', 'email', 'telefone', 'categoria_principal', 'endereco_cep',
+                'endereco_logradouro', 'endereco_numero', 'endereco_complemento', 'endereco_bairro', 'endereco_cidade',
+                'endereco_estado', 'mensagem'
+            ])
+            ::post('/parceiro-externo');
+        Route
+            ::nome('download')
+            ::middleware(TokenMiddleware::class, 'scope', ['parceiro_externo:download'])
+            ::request(Route::parametroDownload(Helper::GET_PARAMETRO))
+            ::post('/parceiro-externo/download');
     });
 
 Route
@@ -2551,6 +2581,13 @@ Route
             ::nome('deletar')
             ::middleware(TokenMiddleware::class, 'scope', ['solicitacao_loja:deletar'])
             ::delete('/solicitacao-loja/{id}');
+        Route
+            ::nome('download')
+            ::middleware(TokenMiddleware::class, 'scope', ['solicitacao_loja:download'])
+            ::request([
+                'campo', 'usuario', '!nome', '!data_inicio', '!data_final', '!status'
+            ])
+            ::post('/solicitacao-loja/download');
     });
 
 Route

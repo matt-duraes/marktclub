@@ -37,6 +37,11 @@ $permissao = [
     'parceiro_loja_index', 'parceiro_loja_add', 'parceiro_loja_editar', 'parceiro_loja_deletar',
     'parceiro_loja_visualizar', 'parceiro_loja_status', 'parceiro_loja_download', 'parceiro_loja_empresa',
 
+    'parceiro_externo_index', 'parceiro_externo_add', 'parceiro_externo_visualizar', 'parceiro_externo_download',
+    'parceiro_externo_equipe',
+
+    'parceiro_equipe_index', 'parceiro_equipe_visualizar',
+
     'parceiro_easylive_index', 'parceiro_easylive_add', 'parceiro_easylive_editar', 'parceiro_easylive_deletar',
 
     'parceiro_cupom_index', 'parceiro_cupom_status',
@@ -68,7 +73,7 @@ $permissao = [
 
     'tabela_usuario_salvar', 'tabela_usuario_bloquear', 'tabela_historico_index', 'tabela_usuario_empresa',
 
-    'solicitacao_loja_index', 'solicitacao_loja_add', 'solicitacao_loja_deletar', 'solicitacao_loja_visualizar',
+    'solicitacao_loja_index', 'solicitacao_loja_add', 'solicitacao_loja_download', 'solicitacao_loja_deletar', 'solicitacao_loja_visualizar',
     'solicitacao_loja_status', 'solicitacao_loja_empresa',
 
     'solicitacao_voucher_index', 'solicitacao_voucher_visualizar', 'solicitacao_voucher_download',

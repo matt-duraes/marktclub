@@ -2,6 +2,7 @@
 
 namespace ApiController;
 
+use ApiModel\PainelHistorico\DownloadModel;
 use ApiModel\PainelHistorico\HistoricoEntity;
 use ApiModel\PainelHistorico\HistoricoModel;
 use Controller\Controller;
@@ -47,8 +48,11 @@ final class PainelHistoricoController extends Controller implements
      */
     public function getListar(Request $request): Response
     {
-        $Historico = new HistoricoModel($request);
+        $Historico = new HistoricoModel();
+        $Historico->set(lista: $request->dado());
+
         $dado = $Historico->listarDados();
+
         return mensagemSucesso($dado);
     }
 
@@ -80,5 +84,13 @@ final class PainelHistoricoController extends Controller implements
         $Historico->destruir();
 
         return new Response(status: 204);
+    }
+
+    public function postDownload(Request $request): Response
+    {
+        $Download = new DownloadModel($request);
+        return mensagemSucesso([
+            'id' => $Download->id
+        ], 201);
     }
 }

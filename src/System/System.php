@@ -23,11 +23,20 @@ final class System
         if (!$this->route->rotaUso()) {
             throw new Excecao(status: 404);
         }
-
+        $this->adicionarIncludePadraoRota();
         $this->middleware = new Middleware($this->route);
         $this->executarMiddlewarePre();
         $this->request = new Request($this->route);
         $this->controller = new Controller($this->route, $this->request->request());
+    }
+
+    private function adicionarIncludePadraoRota()
+    {
+        $rota = mb_strtolower(ROTA_USO, 'UTF-8');
+        if (!file_exists(ROOT . '/resources/php/' . $rota . '/autoload.php')) {
+            return;
+        }
+        include ROOT . '/resources/php/' . $rota . '/autoload.php';
     }
 
     public function init(): Response

@@ -57,9 +57,3 @@ try {
     $notificacaoNumeroNova = 0;
     $notificacaoNumeroNovaVisualizada = 0;
 }
-
-function temPermissaoEmpresa(string $app): bool
-{
-    $usuarioPermissao = sessao('USUARIO.permissao');
-    return in_array($app . '_empresa', $usuarioPermissao) && EMPRESA_ID == '14afa776394ada4be23be6acf7e3259e';
-}

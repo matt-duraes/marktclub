@@ -18,11 +18,6 @@ final class HistoricoController extends Controller
         ]);
     }
 
-    /*
-    |--------------------------------------------------------------------------
-    | SALVAR
-    |--------------------------------------------------------------------------
-    */
     public function postSalvar(Request $request)
     {
         if (empty($request->mensagem)) {
@@ -50,11 +45,6 @@ final class HistoricoController extends Controller
         ], status: 201);
     }
 
-    /*
-    |--------------------------------------------------------------------------
-    | DELETAR
-    |--------------------------------------------------------------------------
-    */
     public function deleteDeletar(string $id)
     {
         $Api = new ApiHelper(token: true);
@@ -62,11 +52,6 @@ final class HistoricoController extends Controller
         return new Response(status: $dado->status());
     }
 
-    /*
-    |--------------------------------------------------------------------------
-    | LISTAR
-    |--------------------------------------------------------------------------
-    */
     public function getListar(Request $request)
     {
         $Api = new ApiHelper(token: true);
@@ -87,6 +72,39 @@ final class HistoricoController extends Controller
             'lista'  => $this->montarDado($dado->dado->lista),
             'pagina' => $dado->dado->pagina->total
         ]);
+    }
+
+    public function postDownload(Request $request)
+    {
+        $Api = new ApiHelper(token: true);
+
+        $payload = [
+            'campo' => [
+                'usuario_nome',
+                'mensagem',
+                'data_criacao',
+                'parceiro_nome'
+            ],
+            'app'           => 'painel_historico',
+            'usuario'       => sessao('USUARIO.id'),
+            'data_de'       => $request->data_de,
+            'data_ate'      => $request->data_ate,
+            'relacionado'   => $request->relacionado,
+            'historico_app' => $request->app,
+            'pesquisa'      => $request->pesquisa
+        ];
+        $dado = $Api
+            ->validar('Ocorreu um erro ao salvar o seu pedido, por favor, tente novamente.')
+            ->body([
+                'payload' => base64Encode($payload),
+                'tipo'    => 'download.privado'
+            ])
+            ->post('/mensageria')
+            ->array();
+
+        return mensagemSucesso([
+            'id' => $dado['dado']['id']
+        ], 201);
     }
 
     private function montarDado(array $dado): array

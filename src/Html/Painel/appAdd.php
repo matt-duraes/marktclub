@@ -30,7 +30,7 @@ foreach ($html as $coluna) {
     }
     painelColuna($colunaQuantidade);
     foreach ($coluna as $fieldset) {
-        painelFieldset($fieldset['titulo'] ?? null);
+        painelFieldset($fieldset['titulo'] ?? null, $fieldset['abrir'] ?? false, $fieldset['row'] ?? false);
         painelInputLista($fieldset['lista'], $r);
         painelFieldsetEnd();
     }

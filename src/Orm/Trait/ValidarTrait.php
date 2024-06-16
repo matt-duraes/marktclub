@@ -15,21 +15,44 @@ use Modules\ModuleInterface;
 trait ValidarTrait
 {
     /**
+     * Valida uma ORM
+     *
+     * @param string $validar
+     */
+    protected function validarPropriedade(string $validar): void
+    {
+        $explode = explode(PHP_EOL, $validar);
+        $propriedade = [];
+        foreach ($explode as $linha) {
+            if (empty(trim($linha))) {
+                continue;
+            }
+            $valor = trim(explode('|', $linha)[0]);
+            if (empty($valor)) {
+                continue;
+            }
+            $propriedade[] = $valor;
+        }
+        $dado = $this->valor($propriedade, erro: false);
+        (new ValidarHelper(dado: $dado))->validar($validar);
+    }
+
+    /**
      * Valida se o valor já existe no banco de dados
      *
-     * @param  string      $campo
-     * @param  string      $mensagem
+     * @param  string      $propriedade A propriedade que deseja pegar
+     * @param  string      $campo       O nome que deseja colocar no campo em caso de erro, ou colocar "!" para passar uma mensagem
      * @param  string|null $titulo
      * @return bool
      */
-    public function validarCampoDuplicado(string $campo, string $mensagem, ?string $titulo = null, mixed $valor = null): void
+    protected function validarCampoDuplicado(string $propriedade, string $campo, ?string $titulo = null, mixed $valor = null): void
     {
-        if (empty($valor) && !$this->propriedadeExiste($campo)) {
+        if (empty($valor) && !$this->propriedadeExiste($propriedade)) {
             return;
         }
 
         if (empty($valor)) {
-            $valor = $this->$campo;
+            $valor = $this->$propriedade;
             $valor = $valor instanceof ModuleInterface || $valor instanceof StatusInterface ?
                 $valor->banco() : $valor;
         }
@@ -40,11 +63,11 @@ trait ValidarTrait
         $whereCampo = [];
         $i = 0;
         foreach ($valor as $ind) {
-            $whereCampo[':' . $i . '_' . $campo] = $ind;
+            $whereCampo[':' . $i . '_' . $propriedade] = $ind;
             $i++;
         }
 
-        $where = "`{$campo}` IN(" . implode(', ', array_keys($whereCampo)) . ')';
+        $where = "`{$propriedade}` IN(" . implode(', ', array_keys($whereCampo)) . ')';
         if ($this->ormEntityExiste) {
             $where .= ' AND `id` != :id';
         }
@@ -61,12 +84,12 @@ trait ValidarTrait
         try {
             $run = $sql->execute();
         } catch (\Throwable $e) {
-            $this->mensagemCampoDuplicado($titulo, $mensagem);
+            $this->mensagemCampoDuplicado($titulo, $campo);
             return;
         }
 
         if (!$run || $sql->fetch()) {
-            $this->mensagemCampoDuplicado($titulo, $mensagem);
+            $this->mensagemCampoDuplicado($titulo, $campo);
             return ;
         }
     }

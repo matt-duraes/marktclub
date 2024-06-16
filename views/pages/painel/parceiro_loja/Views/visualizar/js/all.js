@@ -8,40 +8,8 @@ window.addEventListener('load', () => {
     const botaoSalvarAuditoria = $('.botao_salvar_auditoria');
     const botaoFechar = $('#bloco_auditoria_geral .fechar');
     const botaoCancelarLoja = $('#botao_cancelar_loja');
+    const botaoSemInteresse = $('#botao_sem_interesse');
     const botaoSalvarCancelarLoja = $('#botao_salvar_cancelar_loja');
-
-    if (botaoCancelarLoja) {
-        const PopupCancelarLoja = new Popup('Cancelar ' + parceiro, 'bloco_cancelar_loja', true, true);
-
-        botaoCancelarLoja.evento('click', () => {
-            PopupCancelarLoja.abrir();
-        });
-
-        botaoSalvarCancelarLoja.evento('click', async () => {
-            const motivo = $('#input_cancelar_motivo').valor();
-            if (vazio(motivo)) {
-                Alerta.notificacao('Digite um motivo para cancelar a loja.', false);
-                return;
-            }
-            Loading.show();
-            const resposta = await ajaxPost(LINK + `/app/ajax/parceiro-loja`, {
-                indice: 'cancelar-loja',
-                id: parceiro,
-                // eslint-disable-next-line camelcase
-                cancelar_motivo: motivo,
-                status: 'cancelado',
-            });
-            Loading.hide();
-            if (false === resposta) {
-                return;
-            }
-
-            const confirmacao = await Alerta.mensagem('Status alterado', 'O status foi alterado com sucesso!', true);
-            if (confirmacao) {
-                window.location.reload();
-            }
-        });
-    }
 
     const PaginaAuditoria = new Popup('Auditoria ' + parceiro, 'bloco_auditoria_geral', false, true);
     botaoAbrirAuditoria.evento('click', () => {
@@ -115,6 +83,53 @@ window.addEventListener('load', () => {
         inputPadrao.valor('');
         inputMensagem.valor('');
     };
+
+    /*
+    |--------------------------------------------------------------------------
+    | POPUP CANCELAR
+    |--------------------------------------------------------------------------
+    */
+    const PopupCancelarLoja = new Popup('Cancelar ' + parceiro, 'bloco_cancelar_loja', true, true);
+    let status;
+
+    if (botaoCancelarLoja) {
+        botaoCancelarLoja.evento('click', () => {
+            PopupCancelarLoja.abrir();
+            status = 'cancelado';
+        });
+    }
+
+    if (botaoSemInteresse) {
+        botaoSemInteresse.evento('click', async () => {
+            PopupCancelarLoja.abrir();
+            status = 'sem-interesse';
+        });
+    }
+
+    botaoSalvarCancelarLoja.evento('click', async () => {
+        const motivo = $('#input_cancelar_motivo').valor();
+        if (vazio(motivo)) {
+            Alerta.notificacao('Digite um motivo para cancelar a loja.', false);
+            return;
+        }
+        Loading.show();
+        const resposta = await ajaxPost(LINK + `/app/ajax/parceiro-loja`, {
+            indice: 'cancelar-loja',
+            id: parceiro,
+            // eslint-disable-next-line camelcase
+            cancelar_motivo: motivo,
+            status: status,
+        });
+        Loading.hide();
+        if (false === resposta) {
+            return;
+        }
+
+        const confirmacao = await Alerta.mensagem('Status alterado', 'O status foi alterado com sucesso!', true);
+        if (confirmacao) {
+            window.location.reload();
+        }
+    });
 });
 
 const historicoSelect = {

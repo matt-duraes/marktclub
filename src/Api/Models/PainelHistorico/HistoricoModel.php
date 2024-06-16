@@ -2,8 +2,10 @@
 
 namespace ApiModel\PainelHistorico;
 
+use ApiModel\PainelHistorico\Trait\PropriedadeTrait;
+use ApiModel\PainelHistorico\Trait\WhereTrait;
 use Erro\Excecao;
-use Http\Request;
+use Modules\Pagina;
 use ORM\ORM;
 use stdClass;
 use System\Classes\PainelHistorico\Acao;
@@ -12,13 +14,15 @@ use System\Trait\Model\PaginaTrait;
 final class HistoricoModel extends ORM
 {
     use PaginaTrait;
+    use WhereTrait;
+    use PropriedadeTrait;
 
     protected string $ormTabela = TABELA_PAINEL_HISTORICO;
     private int $idUsuario;
+    protected Pagina $pagina;
 
-    public function __construct(
-        protected Request $request
-    ) {
+    public function __construct()
+    {
         parent::__construct();
         $this->idUsuario = TOKEN['usuario']->id;
     }
@@ -39,30 +43,6 @@ final class HistoricoModel extends ORM
 
         $dado->lista = $this->montarRetorno($dado->lista);
         return $dado;
-    }
-
-    protected function pegarWhere(): array
-    {
-        $request = $this->request;
-
-        $where = [
-            ['status', 1],
-            ['id_relacionado', 'like', '%"' . $request->relacionado . '"%'],
-            ['app', 'like', '%"' . str_replace('-', '_', $request->app) . '"%']
-        ];
-        $dataDe = $request->data_de;
-        if (!empty($dataDe) && validarData($dataDe)) {
-            $where[] = ['data_criacao', '>=', dataBanco($dataDe)];
-        }
-        $dataAte = $request->data_ate;
-        if (!empty($dataAte) && validarData($dataAte)) {
-            $where[] = ['data_criacao', '<=', dataBanco($dataAte) . ' 23:59:59'];
-        }
-        $pesquisa = $request->pesquisa;
-        if (!empty($pesquisa)) {
-            $where[] = ['mensagem', 'like', '%' . $pesquisa . '%'];
-        }
-        return $where;
     }
 
     protected function montarRetorno(array $dado): array

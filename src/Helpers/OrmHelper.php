@@ -203,10 +203,10 @@ final class OrmHelper extends ORM
     public function listar(array $campo, array $where = [], string|OrderInterface|array $ordem = [])
     {
         $query = $this->campo($campo);
-        if($where) {
+        if ($where) {
             $query->where($where);
         }
-        if($ordem) {
+        if ($ordem) {
             $query->order($ordem);
         }
         return $query->read();

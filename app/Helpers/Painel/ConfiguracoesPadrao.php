@@ -447,6 +447,29 @@ final class ConfiguracoesPadrao
                 'parceiro_loja_empresa'    => 'Todas as empresas'
             ]
         ],
+        'parceiro_externo'            => [
+            'titulo'    => 'Loja externo',
+            'acao'      => [
+                'index', 'add', 'visualizar', 'equipe', 'download'
+            ],
+            'permissao' => [
+                'parceiro_externo_index'      => 'Listar',
+                'parceiro_externo_add'        => 'Salvar',
+                'parceiro_externo_visualizar' => 'Visualizar',
+                'parceiro_externo_equipe'     => 'Equipe',
+                'parceiro_externo_download'   => 'Download',
+            ]
+        ],
+        'parceiro_equipe'            => [
+            'titulo'    => 'Sem captador',
+            'acao'      => [
+                'index', 'visualizar'
+            ],
+            'permissao' => [
+                'parceiro_externo_index'      => 'Listar',
+                'parceiro_externo_visualizar' => 'Visualizar',
+            ]
+        ],
         'parceiro_cupom'           => [
             'titulo'    => 'Cupom',
             'acao'      => [
@@ -525,15 +548,16 @@ final class ConfiguracoesPadrao
         'solicitacao_loja'         => [
             'titulo'    => 'Solicitação Loja',
             'acao'      => [
-                'index', 'visualizar', 'add', 'deletar', 'status', 'empresa'
+                'index', 'visualizar', 'add', 'download', 'deletar', 'status', 'empresa'
             ],
             'permissao' => [
-                'solicitacao_loja_index'      => 'Listar',
-                'solicitacao_loja_visualizar' => 'Visualizar',
-                'solicitacao_loja_add'        => 'Salvar',
-                'solicitacao_loja_deletar'    => 'Deletar',
-                'solicitacao_loja_status'     => 'Status',
-                'solicitacao_loja_empresa'    => 'Todas as empresas'
+                'solicitacao_loja_index'       => 'Listar',
+                'solicitacao_loja_visualizar'  => 'Visualizar',
+                'solicitacao_loja_add'         => 'Salvar',
+                'solicitacao_loja_deletar'     => 'Deletar',
+                'solicitacao_loja_download'    => 'Download',
+                'solicitacao_loja_status'      => 'Status',
+                'solicitacao_loja_empresa'     => 'Todas as empresas'
             ]
         ],
         'solicitacao_voucher'      => [
@@ -854,6 +878,15 @@ final class ConfiguracoesPadrao
                 'silium_saque_add'        => 'Salvar',
                 'silium_saque_editar'     => 'Editar',
                 'silium_saque_deletar'    => 'Deletar'
+            ]
+        ],
+        'painel_historico' => [
+            'titulo'    => 'Painel histórico',
+            'acao'      => [
+                'download'
+            ],
+            'permissao' => [
+                'painel_historico_download'    => 'Download'
             ]
         ]
     ];

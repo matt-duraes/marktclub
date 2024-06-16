@@ -28,7 +28,7 @@ final class SiliumModel extends ClubeApiHelper
         // }
         $dados = [
             'extrato_compra' => $extratoCompra->dado->lista ?? '',
-            'extrato_saque' => $extratoSaque->dado->lista ?? '',
+            'extrato_saque'  => $extratoSaque->dado->lista ?? '',
         ];
 
         return $dados;

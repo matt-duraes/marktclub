@@ -2,20 +2,20 @@
 
 namespace App\Models\Api\ParceiroLoja;
 
-use App\Classes\ParceiroLoja\Categoria;
-use App\Classes\ParceiroLoja\Status;
-use App\Classes\ParceiroLoja\TipoEstabelecimento;
-use App\Classes\ParceiroLoja\TipoLoja;
-use App\Models\Api\ParceiroLoja\Trait\MontarRetornoTrait;
-use Modules\DataHora;
 use ORM\ORM;
 use Http\Request;
-use App\Models\Api\Painel\LogDownloadEntity;
-use App\Models\Api\ParceiroLoja\Trait\WhereTrait;
-use App\Models\Api\Trait\ValidarEmpresaTrait;
-use Helpers\OrmHelper;
 use Modules\Data;
+use Modules\DataHora;
 use Modules\Telefone;
+use Helpers\OrmHelper;
+use App\Classes\ParceiroLoja\Status;
+use App\Classes\ParceiroLoja\TipoLoja;
+use App\Classes\ParceiroLoja\Categoria;
+use App\Models\Api\Painel\LogDownloadEntity;
+use App\Models\Api\Trait\ValidarEmpresaTrait;
+use App\Classes\ParceiroLoja\TipoEstabelecimento;
+use App\Models\Api\ParceiroLoja\Trait\WhereTrait;
+use App\Models\Api\ParceiroLoja\Trait\MontarRetornoTrait;
 
 final class DownloadModel extends ORM
 {
@@ -83,7 +83,9 @@ final class DownloadModel extends ORM
 
     private function pegarEmpresa(): null|int
     {
-        if (!$this->propriedadeExiste('empresa') || empty($this->empresa)) return null;
+        if (!$this->propriedadeExiste('empresa') || empty($this->empresa)) {
+            return null;
+        }
 
         return (new OrmHelper(TABELA_COMERCIAL_EMPRESA))
             ->pegarIdPeloUuid($this->empresa);
