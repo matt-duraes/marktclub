@@ -1,75 +1,58 @@
 const { uuid } = require('../../config/utils/geral');
+const { Teste } = require('../../config/utils/teste');
 
-describe('Parceiro Loja', () => {
+Teste('Parceiro Loja', (viewport, type) => {
     beforeEach(() => {
+        cy.viewport(viewport);
+
         cy.session('login', () => {
             cy.painelLogin();
-            cy.url().should('include', '/dashboard');
+            cy.checkUrl('/dashboard');
         });
     });
 
-    ['iphone-x', 'macbook-16'].map(device => {
-        it(`Clicar menu - ${device}`, () => {
-            cy.viewport(device);
-            cy.visit('/dashboard');
+    it(`Clicar menu`, () => {
+        cy.visit('/dashboard');
 
-            cy.painelMenu('#menu_parceiro_loja', device);
-            cy.url().should('include', '/app/parceiro-loja');
-            cy.get('#main_template').should('be.visible');
-        });
+        cy.painelMenu('#menu_parceiro_loja', type);
 
-        it(`Adicionar novo parceiro - ${device}`, () => {
-            cy.viewport(device);
-            cy.visit('/app/parceiro-loja');
+        cy.checkUrl('/app/parceiro-loja');
+        cy.checkVisivel('#main_template');
+    });
 
-            cy.painelAdicionar();
+    it(`Adicionar novo parceiro`, () => {
+        cy.visit('/app/parceiro-loja');
 
-            const uuidGerado = uuid();
-            const dados = {
-                equipe: 'Andre Rodrigues',
-                tituloInterno: `Titulo Interno Cypress ${uuidGerado}`,
-                lojaTexto: 'Loja',
-                categoria: 'Alimentação',
-                url: `url-cypress-${uuidGerado}`,
-                responsavel: {
-                    nome: 'Responsavel Cypress',
-                    cargo: 'Cargo Cypress',
-                    cpf: '12345678900',
-                    telefone: '11999999999',
-                    email: 'testeCypress@teste.com',
-                },
-            };
+        cy.painelPaginaAdicionar();
 
-            cy.painelSelect('#input_equipe_texto', dados.equipe);
-            cy.get('#input_titulo_interno').type(dados.tituloInterno);
-            cy.painelSelect('#input_tipo_loja_texto', dados.lojaTexto);
-            cy.painelSelect('#input_categoria_principal_texto', dados.categoria);
-            cy.get('#input_url').type(dados.url);
-            cy.get('#input_responsavel_nome').type(dados.responsavel.nome);
-            cy.get('#input_responsavel_cargo').type(dados.responsavel.cargo);
-            cy.get('#input_responsavel_cpf').type(dados.responsavel.cpf);
-            cy.get('#input_responsavel_telefone').type(dados.responsavel.telefone);
-            cy.get('#input_responsavel_email').type(dados.responsavel.email);
-            cy.get('#checkbox_empresa .marcar_todas .input_checkbox label').click();
-            cy.get('#checkbox_empresa .botao_mais').click();
+        const uuidGerado = uuid();
+        const dados = {
+            equipe: 'Andre Rodrigues',
+            tituloInterno: `Titulo Interno Cypress ${uuidGerado}`,
+            lojaTexto: 'Loja',
+            categoria: 'Alimentação',
+            url: `url-cypress-${uuidGerado}`,
+            responsavel: {
+                nome: 'Responsavel Cypress',
+                cargo: 'Cargo Cypress',
+                cpf: '12345678900',
+                telefone: '11999999999',
+                email: 'testeCypress@teste.com',
+            },
+        };
 
-            cy.painelAdicionarSalvar();
-        });
+        cy.painelSelect('#input_equipe_texto', dados.equipe);
+        cy.digitar('#input_titulo_interno', dados.tituloInterno);
+        cy.painelSelect('#input_tipo_loja_texto', dados.lojaTexto);
+        cy.painelSelect('#input_categoria_principal_texto', dados.categoria);
+        cy.digitar('#input_url', dados.url);
+        cy.digitar('#input_responsavel_nome', dados.responsavel.nome);
+        cy.digitar('#input_responsavel_cargo', dados.responsavel.cargo);
+        cy.digitar('#input_responsavel_cpf', dados.responsavel.cpf);
+        cy.digitar('#input_responsavel_telefone', dados.responsavel.telefone);
+        cy.digitar('#input_responsavel_email', dados.responsavel.email);
+        cy.clicar('#checkbox_empresa .marcar_todas .input_checkbox label');
+
+        cy.painelBotaoSalvarAdicionar();
     });
 });
-const salvarNovoRegisto = () => {
-    setarFormulario('André Rodrigues');
-    cy.painelBotaoSalvar(true);
-};
-const setarFormulario = titulo => {
-    cy.get('#input_titulo_interno').type(titulo);
-};
-const validarValorSalvo = () => {
-    //
-};
-const editarRegistro = () => {
-    //
-};
-const validarValorAtualizado = () => {
-    //
-};
