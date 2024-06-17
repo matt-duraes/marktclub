@@ -83,7 +83,7 @@ final class SolicitacaoVoucherController extends Controller implements
             mensagemVazio: 'O campo usuário é obrigatório.',
             mensagemErro: 'Não foi encontrado o usuário pelo código enviado.'
         );
-        if (in_array($Parceiro->get('id'), ['4207', '15612'])) {
+        if (in_array($Parceiro->get('id'), ['4207', '15612', '20166'])) {
             return new CodigoEntity(
                 Parceiro: $Parceiro,
                 Usuario: $Usuario
