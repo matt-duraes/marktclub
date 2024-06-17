@@ -18,6 +18,9 @@ final class Visualizar
     private array $replace = [];
     private array $status = [];
 
+    public const TARGET_SELF = '_self';
+    public const TARGET_BLANK = '_blank';
+
     public function __construct(
         private string $app,
         private string $tipo = 'html'

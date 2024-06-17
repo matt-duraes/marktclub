@@ -2,7 +2,7 @@
 
 namespace PainelConfig;
 
-final class Visualizar
+final class Historico
 {
     public array $appFinal;
 

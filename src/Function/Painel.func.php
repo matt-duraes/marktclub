@@ -285,6 +285,9 @@ if (!function_exists('painelLinhaLista')) {
             $vazio = $item['vazio'] ?? true;
             $attr = $item['attr'] ?? [];
             $attrHtml = '';
+            if (!empty($link) && str_contains($link, '{id}')) {
+                $link = str_replace('{id}', $dado->id, $link);
+            }
             foreach ($attr as $ind => $val) {
                 $attrHtml .= ' ' . $ind . '="' . $val . '" ';
             }
