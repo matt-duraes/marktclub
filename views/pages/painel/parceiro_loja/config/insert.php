@@ -87,6 +87,7 @@ $Painel->coluna(callback: function () use ($Painel, $empresa) {
         titulo: 'Empresas',
         todos: 'Marcar todas as empresas',
         mais: true,
+        id: 'checkbox_empresa',
         callback: function () use ($Painel, $empresa) {
             foreach ($empresa as $id => $nome) {
                 $Painel->checkbox(name: 'empresa[]', label: $nome, value: $id);

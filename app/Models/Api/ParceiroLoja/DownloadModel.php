@@ -68,17 +68,22 @@ final class DownloadModel extends ORM
         }
 
         $this->salvarLogDownload($dado);
-        return $this->montarRetornoDownload($dado, $campo);
+        return $this->montarRetornoDownload($dado);
     }
 
     private function buscarLojas(array $campo)
     {
         $empresaId = $this->pegarEmpresa();
+        $novosCampos = $this->converterCampoParaDownload();
 
-        return $this
-            ->campo($campo)
-            ->where($this->pegarWhere($empresaId), false)
-            ->read();
+        $query = $this
+            ->campo($novosCampos)
+            ->where($this->pegarWhere($empresaId), false);
+
+        $query = $this->pegarQueryEmpresa($query);
+        $query = $this->pegarQueryEquipe($query);
+
+        return $query->read();
     }
 
     private function pegarEmpresa(): null|int
@@ -89,6 +94,36 @@ final class DownloadModel extends ORM
 
         return (new OrmHelper(TABELA_COMERCIAL_EMPRESA))
             ->pegarIdPeloUuid($this->empresa);
+    }
+
+    private function pegarQueryEmpresa($query)
+    {
+        $campoEmpresa = [];
+        if (in_array('empresa', $this->campo)) {
+            $campoEmpresa[] = 'titulo';
+        }
+        if ($campoEmpresa) {
+            $query
+                ->tabela(TABELA_COMERCIAL_EMPRESA)
+                ->campo($campoEmpresa, 'empresa')
+                ->leftJoin('id', 'id_admin_empresa');
+        }
+        return $query;
+    }
+
+    private function pegarQueryEquipe($query)
+    {
+        $campoEquipe = [];
+        if (in_array('equipe', $this->campo)) {
+            $campoEquipe[] = 'nome_real';
+        }
+        if ($campoEquipe) {
+            $query
+                ->tabela(TABELA_USUARIO_EQUIPE)
+                ->campo($campoEquipe, 'gestor')
+                ->leftJoin('id', 'id_usuario_equipe');
+        }
+        return $query;
     }
 
     private function salvarLogDownload(array $dado)
@@ -111,7 +146,7 @@ final class DownloadModel extends ORM
         mensagemErro('Erro!', 'Ocorreu um erro ao fazer o download, por favor, tente novamente.');
     }
 
-    private function montarRetornoDownload(array $dado, array $campo): array
+    private function montarRetornoDownload(array $dado): array
     {
         $i = 0;
         $retorno = [];
@@ -135,6 +170,8 @@ final class DownloadModel extends ORM
                     $val = (new Telefone($val))->numero();
                 } elseif ($ind === 'categoria_principal') {
                     $val = (new Categoria($val))->indice();
+                } elseif ($ind === 'endereco_estado' && !empty($val)) {
+                    $val = implode(', ', json_decode($val));
                 }
                 $retorno[$i][$ind] = $val;
             }
@@ -150,7 +187,8 @@ final class DownloadModel extends ORM
             'responsavel_cargo', 'responsavel_cpf', 'responsavel_telefone', 'responsavel_email', 'desconto',
             'texto_descricao', 'texto_desconto', 'texto_procedimento', 'texto_restricao', 'texto_outro',
             'texto_voucher', 'comissao_minima', 'comissao_maxima', 'data_contrato_inicio', 'data_contrato_vencimento',
-            'tipo_loja', 'status', 'categoria_principal'
+            'tipo_loja', 'status', 'categoria_principal', 'equipe', 'empresa', 'endereco_estado', 'link_site', 'url',
+            'pontuacao', 'data_auditoria', 'data_cancelado', 'cancelar_motivo', 'data_publicacao'
         ];
 
         $listaCampos = jsonDecode($this->request->campo, true, true);
@@ -169,5 +207,19 @@ final class DownloadModel extends ORM
             }
         }
         return;
+    }
+
+    private function converterCampoParaDownload(): array
+    {
+        $campo = array_flip($this->campo);
+
+        if (array_key_exists('empresa', $campo)) {
+            unset($campo['empresa']);
+        }
+        if (array_key_exists('equipe', $campo)) {
+            unset($campo['equipe']);
+        }
+
+        return array_keys($campo);
     }
 }

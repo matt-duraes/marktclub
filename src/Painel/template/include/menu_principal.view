@@ -11,7 +11,7 @@
 
         @ elseif( $rMenu->tipo == 'menu' ):
 
-        <a class="menu_hover {!!$rMenu->pagina ? 'pagina_atual' : ''!!}" href="{!!$rMenu->url!!}">
+        <a class="menu_hover {!!$rMenu->pagina ? 'pagina_atual' : ''!!}" href="{!!$rMenu->url!!}" id="{!!$rMenu->classe!!}">
             <div class="botao">
                 <i>{!!$rMenu->icone!!}</i>
                 <p>{{$rMenu->titulo}}</p>
