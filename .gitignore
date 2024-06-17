@@ -26,3 +26,4 @@ composer.phar
 /postman/temp
 /php-cs-fixer.phar
 /cypress.local.json
+/tests/Frontend/config/screenshots

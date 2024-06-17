@@ -1,11 +1,12 @@
 const { defineConfig } = require('cypress');
-const { LINK } = require('./cypress.local.json');
+require('dotenv').config({ path: `.env.local` });
 
 module.exports = defineConfig({
     downloadsFolder: 'tests/Frontend/config/downloads',
     fixturesFolder: 'tests/Frontend/config/fixtures',
+    screenshotsFolder: 'tests/Frontend/config/screenshots',
     e2e: {
-        baseUrl: LINK,
+        baseUrl: process.env.CYPRESS_BASE_URL,
         specPattern: 'tests/Frontend/**/*.cy.{js,jsx,ts,tsx}',
         supportFile: 'tests/Frontend/config/support/e2e.js',
         experimentalRunAllSpecs: true,
