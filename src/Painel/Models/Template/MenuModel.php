@@ -51,17 +51,18 @@ final class MenuModel
                     'permissao' => $permissao,
                     'lista'     => []
                 ];
-            } elseif ($dropDown && $r['tipo'] == 'menu') {
-                $dropDownLista->lista[] = (object)[
+            } elseif ($r['tipo'] == 'menu') {
+                $link[] = (object)[
+                    'tipo'      => 'menu',
                     'titulo'    => $r['titulo'],
                     'url'       => LINK . $r['url'],
+                    'classe'    => 'menu_' . str_replace('-', '_', $r['menu'][0]),
                     'icone'     => $r['icone'],
                     'pagina'    => in_array($menu, $r['menu']),
                     'permissao' => $permissao
                 ];
-            } elseif ($r['tipo'] == 'menu') {
-                $link[] = (object)[
-                    'tipo'      => 'menu',
+            } elseif ($dropDown && $r['tipo'] == 'menu') {
+                $dropDownLista->lista[] = (object)[
                     'titulo'    => $r['titulo'],
                     'url'       => LINK . $r['url'],
                     'icone'     => $r['icone'],
