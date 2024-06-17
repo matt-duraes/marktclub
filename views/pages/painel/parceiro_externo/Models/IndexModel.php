@@ -14,7 +14,7 @@ final class IndexModel implements
     public function filtro(array $filtro, string $pesquisa, string $ordem, int $pagina): array
     {
         if (!temPermissao('parceiro_externo_equipe')) {
-            $filtro['equipe'] = USUARIO_ID;
+            $filtro['equipe'] = sessao('USUARIO')['id'];
         }
         if (!array_key_exists('status', $filtro)) {
             $filtro['status'] = (new Status(Status::PROSPECCAO))->indice();

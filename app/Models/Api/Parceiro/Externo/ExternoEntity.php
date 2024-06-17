@@ -23,7 +23,7 @@ final class ExternoEntity extends Entity
     protected string $ormTabela = TABELA_PARCEIRO_LOJA;
     protected array $ormInsert = [
         'endereco_estado' => '->estado_parceiro',
-        'id_admin_empresa', 'id_dono_empresa', 'id_dono_equipe', 'categoria_principal',
+        'id_admin_empresa', 'id_dono_subempresa', 'id_dono_empresa', 'id_dono_equipe', 'categoria_principal',
         'tipo_loja', 'titulo_interno', 'url', 'status'
     ];
     protected array $ormBuscar = [
@@ -33,6 +33,7 @@ final class ExternoEntity extends Entity
     public string $titulo_interno;
     protected array $id_admin_empresa;
     protected int $id_dono_empresa;
+    protected int $id_dono_subempresa;
     protected int $id_dono_equipe;
     public string $dono_equipe;
     public Categoria $categoria_principal;
@@ -61,6 +62,10 @@ final class ExternoEntity extends Entity
     {
         $idEmpresa = TOKEN['empresa']->id;
         $idEquipe = TOKEN['usuario']->id;
+        $idSubempresa = TOKEN['usuario']->id_admin_subempresa;
+        if (!empty($idSubempresa)) {
+            $this->id_dono_subempresa = $idSubempresa;
+        }
         $this->estado_parceiro = [$this->endereco_estado->uf()];
         $this->id_admin_empresa = [$idEmpresa];
         $this->id_dono_empresa = $idEmpresa;
