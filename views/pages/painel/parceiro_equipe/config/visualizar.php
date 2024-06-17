@@ -25,6 +25,12 @@ $Painel->coluna(callback: function () use ($Painel) {
 });
 
 $Painel
+        ->botaoDestaque(
+            texto: 'Adicionar captador',
+            cor: 'verde'
+        );
+
+$Painel
     ->replace('categoria_principal', (new Categoria())->select())
     ->replace('status', (new Status())->select());
 

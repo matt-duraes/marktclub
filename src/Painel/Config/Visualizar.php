@@ -455,6 +455,27 @@ final class Visualizar
         return $this;
     }
 
+    public function botaoDestaque(
+        string $texto = '',
+        array|string $campo = null,
+        ?array $inArray = null,
+        ?string $id = null,
+        ?string $cor = null,
+        ?string $permissao = null,
+        ?bool $editar = null
+    ) {
+        $this->adicionarCampo($campo, [
+            'funcao'   => 'botaoDestaque',
+            'texto'    => $texto,
+            'inArray'  => $inArray,
+            'cor'      => $cor,
+            'id'       => $id,
+            'campo'    => $campo,
+            'editar'   => $editar
+        ], $permissao);
+        return $this;
+    }
+
     public function status(
         array|string $campo,
         string $texto,
