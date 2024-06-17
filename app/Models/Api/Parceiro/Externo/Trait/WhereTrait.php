@@ -26,6 +26,10 @@ trait WhereTrait
                 ]);
             });
 
+        $idSubempresa = TOKEN['usuario']->id_admin_subempresa;
+        if (!empty($idSubempresa)) {
+            $Where->manual(['id_dono_subempresa', $idSubempresa]);
+        }
         return $Where;
     }
 

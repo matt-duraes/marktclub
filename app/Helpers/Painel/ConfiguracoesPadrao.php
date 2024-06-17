@@ -456,7 +456,7 @@ final class ConfiguracoesPadrao
                 'parceiro_externo_index'      => 'Listar',
                 'parceiro_externo_add'        => 'Salvar',
                 'parceiro_externo_visualizar' => 'Visualizar',
-                'parceiro_externo_equipe'     => 'Equipe',
+                'parceiro_externo_equipe'     => 'Todos da equipe',
                 'parceiro_externo_download'   => 'Download',
             ]
         ],
