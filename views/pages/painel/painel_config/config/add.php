@@ -11,11 +11,6 @@ $empresas = (new ApiHelper(token: true))
     ->get('/comercial-empresa/select')
     ->array()['dado'] ?? [];
 
-/*$diretorios = (new ApiHelper(token: true))
-    ->json(['titulo' => 'Escolha um diretório'])
-    ->get('/upload-grupo/select')
-    ->array()['dado'] ?? [];*/
-
 $Painel->coluna(callback: function () use ($Painel, $empresas) {
     $Painel->fieldset('Informações do Painel', function () use ($Painel, $empresas) {
         $Painel
@@ -50,25 +45,6 @@ $Painel->coluna(callback: function () use ($Painel, $empresas) {
                 label: 'Arquivos do Site (Institucional)',
                 placeholder: 'Insira o UUID do diretório padrão de arquivos do site'
             );
-        /*$Painel
-            ->select(
-                name: 'upload_imagem',
-                lista: [
-                    ''             => 'Escolha uma opção',
-                    'e53ae4e0-7b33-4988-99ad-50433a29b544' => 'Geral Imagens'
-                ],
-                label: 'Imagens',
-                placeholder: 'Escolha o diretório padrão de imagens'
-            )
-            ->select(
-                name: 'upload_arquivo',
-                lista: [
-                    ''              => 'Escolha uma opção',
-                    '2d978fba-4bd2-4af7-80bf-ebb94d9ac991' => 'Geral Arquivos'
-                ],
-                label: 'Arquivos',
-                placeholder: 'Escolha o diretório padrão de arquivos'
-            );*/
     });
 });
 
@@ -140,7 +116,6 @@ $Painel->coluna(callback: function () use ($Painel) {
             callback: function () use ($Painel) {
                 foreach (ConfiguracoesPadrao::PERMISSOES as $ind => $dado) {
                     $titulo = $dado['titulo'] ?? '';
-                    $Painel->html(html: '<input type="hidden" name="titulos[' . $ind . ']" value="' . $titulo . '">');
                     if (!empty($titulo)) {
                         $Painel->html('<h3>' . $titulo . '</h3>');
                     }

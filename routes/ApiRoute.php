@@ -980,7 +980,7 @@ Route
             ::middleware(TokenMiddleware::class, 'scope', ['painel_config:salvar'])
             ::request([
                 'empresa', 'configuracao', 'campo_obrigatorio', 'campo_permitido',
-                'permissao', 'titulo', 'titulos', '!upload_imagem', '!upload_arquivo',
+                'permissao', 'titulo', '!upload_imagem', '!upload_arquivo',
                 '!site_config'
             ])
             ::post('/painel-configuracao');
@@ -990,7 +990,7 @@ Route
             ::middleware(TokenMiddleware::class, 'scope', ['painel_config:atualizar'])
             ::request([
                 '!empresa', '!configuracao', '!campo_obrigatorio', '!campo_permitido',
-                '!permissao', '!titulo', '!titulos', '!upload_imagem', '!upload_arquivo',
+                '!permissao', '!titulo', '!upload_imagem', '!upload_arquivo',
                 '!site_config'
             ])
             ::put('/painel-configuracao/{id}');

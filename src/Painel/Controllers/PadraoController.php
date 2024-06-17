@@ -374,7 +374,7 @@ abstract class PadraoController extends Controller
         }
 
         $permissaoUsuario = sessao('USUARIO.permissao', padrao: []);
-        $permissaoPainel = sessao('PAINEL.permissao.lista', padrao: []);
+        $permissaoPainel = sessao('PAINEL.permissao', padrao: []);
         return in_array($app . '_' . $acao, $permissaoUsuario) && in_array($app . '_' . $acao, $permissaoPainel);
     }
 

@@ -9,7 +9,7 @@ final class MenuModel
         $lista = sessao('PAINEL.menu');
 
         $permissaoUsuario = sessao('USUARIO.permissao');
-        $permissaoPainel = sessao('PAINEL.permissao.lista');
+        $permissaoPainel = sessao('PAINEL.permissao');
 
         $link = [];
         $dropDown = false;
