@@ -1,27 +1,26 @@
 const { uuid } = require('../../config/utils/geral');
 
-describe('Parceiro Externo', () => {
+describe('Parceiro Loja', () => {
     beforeEach(() => {
         cy.session('login', () => {
             cy.painelLogin();
-            cy.url().should('include', '/painel/dashboard');
+            cy.url().should('include', '/dashboard');
         });
     });
 
     ['iphone-x', 'macbook-16'].map(device => {
         it(`Clicar menu - ${device}`, () => {
             cy.viewport(device);
-            cy.visit('/painel/dashboard');
+            cy.visit('/dashboard');
 
             cy.painelMenu('#menu_parceiro_loja', device);
-
-            cy.url().should('include', '/painel/app/parceiro-loja');
+            cy.url().should('include', '/app/parceiro-loja');
             cy.get('#main_template').should('be.visible');
         });
 
         it(`Adicionar novo parceiro - ${device}`, () => {
             cy.viewport(device);
-            cy.visit('/painel/app/parceiro-loja');
+            cy.visit('/app/parceiro-loja');
 
             cy.painelAdicionar();
 

@@ -3,7 +3,7 @@ const { marktclub } = require('../fixtures/usuarios/painel.json');
 Cypress.Commands.add('painelLogin', (login, senha) => {
     login = login === undefined ? marktclub.login : login;
     senha = senha === undefined ? marktclub.senha : senha;
-    cy.visit('/painel');
+    cy.visit('');
     cy.get('#input_cpf').type(login);
     cy.get('#input_passe').type(senha);
     cy.get('#botao_login').click();
