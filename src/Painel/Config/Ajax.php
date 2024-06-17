@@ -61,7 +61,7 @@ final class Ajax
         }
 
         $permissaoUsuario = sessao('USUARIO.permissao', padrao: []);
-        $permissaoPainel = sessao('PAINEL.permissao.lista', padrao: []);
+        $permissaoPainel = sessao('PAINEL.permissao', padrao: []);
         $permissao = $this->permissao[$this->indice] ?? '';
 
         return !empty($permissao) && in_array($permissao, $permissaoUsuario) && in_array($permissao, $permissaoPainel);

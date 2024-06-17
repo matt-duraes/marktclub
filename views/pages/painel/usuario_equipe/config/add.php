@@ -5,6 +5,7 @@ use PainelConfig\Add;
 use Helpers\ApiHelper;
 use App\Classes\UsuarioEquipe\Helper;
 use App\Classes\UsuarioEquipe\Status;
+use App\Helpers\Painel\ConfiguracoesPadrao;
 
 $Painel = new Add('usuario_equipe', acao: $acao);
 
@@ -63,47 +64,24 @@ $Painel->coluna(callback: function () use ($Painel) {
 });
 
 $permissaoUsuario = sessao('USUARIO.permissao');
-if (
-    strCpf(sessao('USUARIO.cpf')) == '014.951.801-31' ||
-    (sessao('USUARIO.empresa')->id != '14afa776394ada4be23be6acf7e3259e' && sessao('USUARIO.marktclub') == 'nao')
-) {
+if (in_array('usuario_equipe_permissao', $permissaoUsuario)) {
     $Painel->coluna(callback: function () use ($Painel) {
         $Painel->fieldsetCheckbox(
             titulo: 'Permissões',
             callback: function () use ($Painel) {
-                $permissoes = sessao('PAINEL.permissao.montar');
-                foreach ($permissoes as $nomeApp => $configuracoes) {
+                $permissaoPainel = sessao('PAINEL.permissao');
+                foreach (ConfiguracoesPadrao::PERMISSOES as $configuracoes) {
                     $titulo = $configuracoes['titulo'] ?? '';
-                    if (!empty($titulo)) {
-                        $Painel->html('<h4>' . $titulo . '</h4>');
-                    }
-                    if (array_key_exists('acao', $configuracoes) && !empty($configuracoes['acao'])) {
-                        foreach ($configuracoes['acao'] as $permissao) {
-                            $label = match ($permissao) {
-                                'index'      => 'Listar',
-                                'add'        => 'Salvar',
-                                'editar'     => 'Editar',
-                                'deletar'    => 'Deletar',
-                                'status'     => 'Status',
-                                'empresa'    => 'Todas as Empresas',
-                                'visualizar' => 'Visualizar',
-                                'download'   => 'Download',
-                                'tecnologia' => 'Tecnologia',
-                                'criacao'    => 'Criação',
-                                'convenio'   => 'Convênio',
-                                'permissao'  => 'Todas as permissões',
-                                'analytics'  => 'Analytics',
-                                'apple'      => 'Apple',
-                                'salvar'     => 'Cadastrar usuário',
-                                'bloquear'   => 'Bloquear usuário',
-                                default      => ''
-                            };
-                            $Painel->checkbox(name: 'permissao[]', label: $label, value: $nomeApp . '_' . $permissao);
+                    $temTitulo = false;
+                    foreach ($configuracoes['permissao'] as $permissao => $nomePermissao) {
+                        if (!in_array($permissao, $permissaoPainel)) {
+                            continue;
                         }
-                    } elseif (array_key_exists('permissao', $configuracoes)) {
-                        foreach ($configuracoes['permissao'] as $permissao => $nomePermissao) {
-                            $Painel->checkbox(name: 'permissao[]', label: $nomePermissao, value: $permissao);
+                        if (!empty($titulo) && !$temTitulo) {
+                            $Painel->html('<h4>' . $titulo . '</h4>');
                         }
+                        $temTitulo = true;
+                        $Painel->checkbox(name: 'permissao[]', label: $nomePermissao, value: $permissao);
                     }
                 }
             },

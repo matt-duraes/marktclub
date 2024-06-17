@@ -2,11 +2,22 @@
 
 use App\Helpers\Painel\ConfiguracoesPadrao;
 
+function pegarPermissao($lista)
+{
+    $retorno = [];
+    foreach ($lista as $r) {
+        $retorno = array_merge($retorno, array_keys($r['permissao']));
+    }
+    return $retorno;
+}
+
+$permissaoPadrao = pegarPermissao(ConfiguracoesPadrao::PERMISSOES);
+
 return [
     [
         'id_admin_empresa'  => 1,
         'titulo'            => 'Markt Club',
-        'permissao'         => ConfiguracoesPadrao::PERMISSOES,
+        'permissao'         => $permissaoPadrao,
         'configuracao'      => array_keys(ConfiguracoesPadrao::RECURSOS),
         'campo_permitido'   => [
             'usuario_cliente' => [
@@ -44,28 +55,35 @@ return [
     [
         'id_admin_empresa'  => 2,
         'titulo'            => 'Anafe Card',
-        'permissao'         => json_encode([
-            'usuario_cliente'     => [
-                'titulo' => 'Cliente', 'acao' => ['index', 'add', 'editar', 'visualizar', 'download']
-            ],
-            'usuario_indicacao'   => ['titulo' => 'Indicação', 'acao' => ['index', 'visualizar', 'status']],
-            'usuario_lead'        => ['titulo' => 'Lead', 'acao' => ['index', 'visualizar', 'status']],
-            'usuario_equipe'      => ['titulo' => 'Equipe', 'acao' => ['index', 'add', 'editar', 'deletar']],
-            'relatorio'           => [
-                'titulo' => 'Relatório', 'permissao' => [
-                    'relatorio_acesso_index'  => 'Relatório de acesso',
-                    'relatorio_usuario_index' => 'Relatório de usuário'
-                ]
-            ],
-            'tabela'              => [
-                'titulo' => 'Tabela', 'permissao' => [
-                    'tabela_usuario_salvar'   => 'Relatório de acesso',
-                    'tabela_usuario_bloquear' => 'Relatório de usuário'
-                ]
-            ],
-            'solicitacao_voucher' => ['titulo' => 'Voucher', 'acao' => ['index', 'visualizar']],
-            'solicitacao_salavip' => ['titulo' => 'Salavip', 'acao' => ['index', 'download']]
-        ]),
+        'permissao'         => [
+            'usuario_equipe_index',
+            'usuario_equipe_add',
+            'usuario_equipe_editar',
+            'usuario_equipe_deletar',
+            'usuario_equipe_permissao',
+            'usuario_cliente_index',
+            'usuario_cliente_visualizar',
+            'usuario_cliente_add',
+            'usuario_cliente_editar',
+            'usuario_cliente_deletar',
+            'usuario_cliente_download',
+            'usuario_indicacao_index',
+            'usuario_indicacao_visualizar',
+            'usuario_indicacao_status',
+            'usuario_lead_index',
+            'usuario_lead_visualizar',
+            'usuario_lead_status',
+            'relatorio_acesso_index',
+            'relatorio_acesso_empresa',
+            'relatorio_usuario_index',
+            'relatorio_usuario_empresa',
+            'tabela_usuario_salvar',
+            'tabela_usuario_bloquear',
+            'solicitacao_voucher_index',
+            'solicitacao_voucher_visualizar',
+            'solicitacao_salavip_index',
+            'solicitacao_salavip_download',
+        ],
         'configuracao'      => ['perfil', 'bloquear'],
         'campo_permitido'   => [
             'usuario_cliente' => [
@@ -94,27 +112,33 @@ return [
     [
         'id_admin_empresa'  => 3,
         'titulo'            => 'APCF Card',
-        'permissao'         => json_encode([
-            'usuario_cliente'     => [
-                'titulo' => 'Cliente', 'acao' => ['index', 'add', 'editar', 'visualizar', 'download']
-            ],
-            'usuario_indicacao'   => ['titulo' => 'Indicação', 'acao' => ['index', 'visualizar', 'status']],
-            'usuario_lead'        => ['titulo' => 'Lead', 'acao' => ['index', 'visualizar', 'status']],
-            'usuario_equipe'      => ['titulo' => 'Equipe', 'acao' => ['index', 'add', 'editar', 'deletar']],
-            'relatorio'           => [
-                'titulo' => 'Relatório', 'permissao' => [
-                    'relatorio_acesso_index'  => 'Relatório de acesso',
-                    'relatorio_usuario_index' => 'Relatório de usuário'
-                ]
-            ],
-            'tabela'              => [
-                'titulo' => 'Tabela', 'permissao' => [
-                    'tabela_usuario_salvar'   => 'Relatório de acesso',
-                    'tabela_usuario_bloquear' => 'Relatório de usuário'
-                ]
-            ],
-            'solicitacao_voucher' => ['titulo' => 'Voucher', 'acao' => ['index', 'visualizar']],
-        ]),
+        'permissao'         => [
+            'usuario_equipe_index',
+            'usuario_equipe_add',
+            'usuario_equipe_editar',
+            'usuario_equipe_deletar',
+            'usuario_equipe_permissao',
+            'usuario_cliente_index',
+            'usuario_cliente_visualizar',
+            'usuario_cliente_add',
+            'usuario_cliente_editar',
+            'usuario_cliente_deletar',
+            'usuario_cliente_download',
+            'usuario_indicacao_index',
+            'usuario_indicacao_visualizar',
+            'usuario_indicacao_status',
+            'usuario_lead_index',
+            'usuario_lead_visualizar',
+            'usuario_lead_status',
+            'relatorio_acesso_index',
+            'relatorio_acesso_empresa',
+            'relatorio_usuario_index',
+            'relatorio_usuario_empresa',
+            'tabela_usuario_salvar',
+            'tabela_usuario_bloquear',
+            'solicitacao_voucher_index',
+            'solicitacao_voucher_visualizar',
+        ],
         'configuracao'      => ['perfil', 'bloquear'],
         'campo_permitido'   => [
             'usuario_cliente' => [
