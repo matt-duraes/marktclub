@@ -10,7 +10,8 @@ $Painel
             ->campo('razao_social', 'Razão social')
             ->campo('nome_fantasia', 'Nome fantasia')
             ->campo('documento_cnpj', 'CNPJ')
-            ->campo('documento_cpf', 'CPF');
+            ->campo('documento_cpf', 'CPF')
+            ->campo('equipe', 'Gestor responsável');
     })
     ->bloco('Dados do responsável', function () use ($Painel) {
         $Painel
@@ -22,6 +23,10 @@ $Painel
     })
     ->bloco('Dados da parceria', function () use ($Painel) {
         $Painel
+            ->campo('empresa', 'Empresas')
+            ->campo('endereco_estado', 'Estados')
+            ->campo('link_site', 'Site')
+            ->campo('url', 'URL')
             ->campo('desconto', 'Desconto')
             ->campo('texto_descricao', 'Descrição')
             ->campo('texto_desconto', 'Texto de desconto')
@@ -30,12 +35,17 @@ $Painel
             ->campo('texto_outro', 'Outro')
             ->campo('texto_voucher', 'Voucher')
             ->campo('comissao_minima', 'Comissão mínima')
-            ->campo('comissao_maxima', 'Comissão máxima');
+            ->campo('comissao_maxima', 'Comissão máxima')
+            ->campo('data_publicacao', 'Data de publicação')
+            ->campo('pontuacao', 'Pontuação');
     })
     ->bloco('Dados do contrato', function () use ($Painel) {
         $Painel
             ->campo('data_contrato_inicio', 'Data de início')
-            ->campo('data_contrato_vencimento', 'Data de vencimento');
+            ->campo('data_contrato_vencimento', 'Data de vencimento')
+            ->campo('data_auditoria', 'Data de auditoria')
+            ->campo('data_cancelado', 'Data de cancelamento')
+            ->campo('cancelar_motivo', 'Motivo de cancelamento');
     })
     ->bloco('Outros', function () use ($Painel) {
         $Painel
