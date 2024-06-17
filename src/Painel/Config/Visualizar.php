@@ -283,6 +283,26 @@ final class Visualizar
         return $this;
     }
 
+    public function ou(array|string $campo, string $nome, ?string $permissao = null)
+    {
+        $this->adicionarCampo($campo, [
+            'funcao' => 'ou',
+            'campo'  => $campo,
+            'nome'   => $nome
+        ], $permissao);
+        return $this;
+    }
+
+    public function e(array|string $campo, string $nome, ?string $permissao = null)
+    {
+        $this->adicionarCampo($campo, [
+            'funcao' => 'e',
+            'campo'  => $campo,
+            'nome'   => $nome
+        ], $permissao);
+        return $this;
+    }
+
     public function array(array|string $campo, string $nome, ?string $permissao = null)
     {
         $this->adicionarCampo($campo, [

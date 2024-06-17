@@ -333,8 +333,7 @@ if (!function_exists('painelLinhaLista')) {
                 }
             }
 
-            $valor = !in_array($acao, ['checked', 'botao', 'contar', 'array']) && is_array($valor)
-                ? implode(' ou ', $valor) : $valor;
+            $valor = !in_array($acao, ['checked', 'botao', 'contar', 'array', 'ou', 'e']) && is_array($valor) ? implode(' ou ', $valor) : $valor;
             if ($acao == 'contar' && is_array($valor)) {
                 $acao = 'linha';
                 $valor = count($valor);
@@ -347,7 +346,7 @@ if (!function_exists('painelLinhaLista')) {
                 $valor = painelValorFormatar($valor, '', $formatar);
             }
 
-            if ($acao == 'array' && is_string($valor)) {
+            if (in_array($acao, ['array', 'ou', 'e']) && is_string($valor)) {
                 $valor = jsonDecode($valor, true, true);
             }
 
@@ -412,6 +411,22 @@ if (!function_exists('painelLinhaLista')) {
                 $editar = !empty($editar) ? 'data-editar="sim"' : '';
                 $botaoStatus .= '<div ' . $attrHtml . ' class="botao_status ' . $cor . '" ' . $id . ' ' . $editar . ' ' . $mensagem . ' '
                     . $status . '>' . $texto . '</div>';
+            } elseif (in_array($acao, ['ou', 'e']) && is_array($valor) && $valor) {
+                if (array_key_exists(0, $valor) && is_array($valor[0])) {
+                    $valor = $valor[0];
+                }
+                if (count($valor) <= 1) {
+                    $valor = implode('', $valor);
+                } elseif ($acao == 'ou') {
+                    $valor = implode(' ou ', $valor);
+                } elseif ($acao == 'e') {
+                    $ultimo = array_pop($valor);
+                    $valor = implode(', ', $valor) . ' e ' . $ultimo;
+                }
+                $valor = !empty($valor) ? $valor : '<span class="vazio">Dado não informado</span>';
+                $nome = preg_match('/\:|\!|\?$/', $nome) ? $nome : $nome . ':';
+                echo '<div ' . $attrHtml . ' class="linha bg_hover"><strong class="texto_nome">'
+                    . $nome . '</strong> <p>' . $valor . '</p></div>';
             } elseif ($acao == 'array' && is_array($valor) && $valor) {
                 $valor = array_key_exists(0, $valor) && count($valor) == 1 ? $valor[0] : $valor;
                 $nome = preg_match('/\:|\!|\?$/', $nome) ? $nome : $nome . ':';
