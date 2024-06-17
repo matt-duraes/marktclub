@@ -156,9 +156,6 @@ final class ConfiguracoesPadrao
     public const PERMISSOES = [
         'usuario_cliente'          => [
             'titulo'    => 'Usuário Cliente',
-            'acao'      => [
-                'index', 'visualizar', 'add', 'editar', 'deletar', 'download', 'analytics', 'apple', 'empresa'
-            ],
             'permissao' => [
                 'usuario_cliente_index'      => 'Listar',
                 'usuario_cliente_visualizar' => 'Visualizar',
@@ -173,9 +170,6 @@ final class ConfiguracoesPadrao
         ],
         'usuario_grupo'            => [
             'titulo'    => 'Usuário Grupo',
-            'acao'      => [
-                'index', 'add', 'editar', 'deletar'
-            ],
             'permissao' => [
                 'usuario_grupo_index'   => 'Listar',
                 'usuario_grupo_add'     => 'Salvar',
@@ -185,9 +179,6 @@ final class ConfiguracoesPadrao
         ],
         'usuario_dependente'       => [
             'titulo'    => 'Usuário Dependente',
-            'acao'      => [
-                'index', 'add', 'editar', 'deletar'
-            ],
             'permissao' => [
                 'usuario_dependente_index'   => 'Listar',
                 'usuario_dependente_add'     => 'Salvar',
@@ -197,9 +188,6 @@ final class ConfiguracoesPadrao
         ],
         'usuario_indicacao'        => [
             'titulo'    => 'Usuário Indicação',
-            'acao'      => [
-                'index', 'visualizar', 'status', 'empresa'
-            ],
             'permissao' => [
                 'usuario_indicacao_index'      => 'Listar',
                 'usuario_indicacao_visualizar' => 'Visualizar',
@@ -209,9 +197,6 @@ final class ConfiguracoesPadrao
         ],
         'usuario_lead'             => [
             'titulo'    => 'Usuário Lead',
-            'acao'      => [
-                'index', 'visualizar', 'status', 'empresa'
-            ],
             'permissao' => [
                 'usuario_lead_index'      => 'Listar',
                 'usuario_lead_visualizar' => 'Visualizar',
@@ -221,9 +206,6 @@ final class ConfiguracoesPadrao
         ],
         'usuario_equipe'           => [
             'titulo'    => 'Usuário Equipe',
-            'acao'      => [
-                'index', 'add', 'editar', 'deletar', 'permissao', 'empresa'
-            ],
             'permissao' => [
                 'usuario_equipe_index'     => 'Listar',
                 'usuario_equipe_add'       => 'Salvar',
@@ -235,9 +217,6 @@ final class ConfiguracoesPadrao
         ],
         'comunicacao_login'        => [
             'titulo'    => 'Banners de Login',
-            'acao'      => [
-                'index', 'add', 'editar', 'deletar', 'empresa'
-            ],
             'permissao' => [
                 'comunicacao_login_index'   => 'Listar',
                 'comunicacao_login_add'     => 'Salvar',
@@ -248,9 +227,6 @@ final class ConfiguracoesPadrao
         ],
         'comunicacao_publicidade'  => [
             'titulo'    => 'Publicidade',
-            'acao'      => [
-                'index', 'add', 'editar', 'deletar', 'empresa'
-            ],
             'permissao' => [
                 'comunicacao_publicidade_index'   => 'Listar',
                 'comunicacao_publicidade_add'     => 'Salvar',
@@ -261,9 +237,6 @@ final class ConfiguracoesPadrao
         ],
         'solicitacao_contato'      => [
             'titulo'    => 'Solicitação Contato',
-            'acao'      => [
-                'index', 'visualizar', 'status', 'empresa'
-            ],
             'permissao' => [
                 'solicitacao_contato_index'      => 'Listar',
                 'solicitacao_contato_visualizar' => 'Visualizar',
@@ -273,9 +246,6 @@ final class ConfiguracoesPadrao
         ],
         'comercial_popup'          => [
             'titulo'    => 'Popup',
-            'acao'      => [
-                'index', 'add', 'editar', 'deletar', 'empresa'
-            ],
             'permissao' => [
                 'comercial_popup_index'   => 'Listar',
                 'comercial_popup_add'     => 'Salvar',
@@ -286,9 +256,6 @@ final class ConfiguracoesPadrao
         ],
         'enquete_satisfacao'       => [
             'titulo'    => 'Pesquisa Satisfação',
-            'acao'      => [
-                'index', 'visualizar', 'deletar', 'status', 'empresa'
-            ],
             'permissao' => [
                 'enquete_satisfacao_index'      => 'Listar',
                 'enquete_satisfacao_visualizar' => 'Visualizar',
@@ -299,9 +266,6 @@ final class ConfiguracoesPadrao
         ],
         'construtor_clube'         => [
             'titulo'    => 'Construtor Clube',
-            'acao'      => [
-                'index', 'add', 'editar', 'deletar', 'status', 'empresa'
-            ],
             'permissao' => [
                 'construtor_clube_index'   => 'Listar',
                 'construtor_clube_add'     => 'Salvar',
@@ -312,9 +276,6 @@ final class ConfiguracoesPadrao
         ],
         'publicacao_noticia'       => [
             'titulo'    => 'Notícias',
-            'acao'      => [
-                'index', 'add', 'editar', 'deletar', 'empresa'
-            ],
             'permissao' => [
                 'publicacao_noticia_index'   => 'Listar',
                 'publicacao_noticia_add'     => 'Salvar',
@@ -325,9 +286,6 @@ final class ConfiguracoesPadrao
         ],
         'publicacao_lista'       => [
             'titulo'    => 'Lista geral',
-            'acao'      => [
-                'index', 'add', 'editar', 'deletar', 'empresa'
-            ],
             'permissao' => [
                 'publicacao_lista_index'   => 'Listar',
                 'publicacao_lista_add'     => 'Salvar',
@@ -338,27 +296,18 @@ final class ConfiguracoesPadrao
         ],
         'publicacao_home'          => [
             'titulo'    => 'Notícia da Home',
-            'acao'      => [
-                'editar'
-            ],
             'permissao' => [
                 'publicacao_home_editar' => 'Editar'
             ]
         ],
         'publicacao_live'          => [
             'titulo'    => 'Sistema de live',
-            'acao'      => [
-                'editar'
-            ],
             'permissao' => [
                 'publicacao_live_editar' => 'Editar'
             ]
         ],
         'publicacao_pagina'        => [
             'titulo'    => 'Páginas',
-            'acao'      => [
-                'index', 'add', 'editar', 'deletar', 'empresa'
-            ],
             'permissao' => [
                 'publicacao_pagina_index'   => 'Listar',
                 'publicacao_pagina_add'     => 'Salvar',
@@ -369,9 +318,6 @@ final class ConfiguracoesPadrao
         ],
         'publicacao_youtube'       => [
             'titulo'    => 'Youtube',
-            'acao'      => [
-                'index', 'add', 'editar', 'deletar', 'empresa'
-            ],
             'permissao' => [
                 'publicacao_youtube_index'   => 'Listar',
                 'publicacao_youtube_add'     => 'Salvar',
@@ -382,9 +328,6 @@ final class ConfiguracoesPadrao
         ],
         'publicacao_arquivo'       => [
             'titulo'    => 'Arquivo',
-            'acao'      => [
-                'index', 'add', 'editar', 'deletar', 'empresa'
-            ],
             'permissao' => [
                 'publicacao_arquivo_index'   => 'Listar',
                 'publicacao_arquivo_add'     => 'Salvar',
@@ -395,9 +338,6 @@ final class ConfiguracoesPadrao
         ],
         'publicacao_diretoria'     => [
             'titulo'    => 'Diretoria',
-            'acao'      => [
-                'index', 'add', 'editar', 'deletar', 'empresa'
-            ],
             'permissao' => [
                 'publicacao_diretoria_index'   => 'Listar',
                 'publicacao_diretoria_add'     => 'Salvar',
@@ -408,9 +348,6 @@ final class ConfiguracoesPadrao
         ],
         'texto_clube'              => [
             'titulo'    => 'Texto do clube',
-            'acao'      => [
-                'index', 'add', 'editar', 'deletar', 'empresa'
-            ],
             'permissao' => [
                 'texto_clube_index'   => 'Listar',
                 'texto_clube_add'     => 'Salvar',
@@ -421,9 +358,6 @@ final class ConfiguracoesPadrao
         ],
         'parceiro_relatorio'       => [
             'titulo'    => 'Relatório do parceiro',
-            'acao'      => [
-                'index', 'add', 'editar', 'deletar'
-            ],
             'permissao' => [
                 'parceiro_relatorio_index'   => 'Listar',
                 'parceiro_relatorio_add'     => 'Salvar',
@@ -433,9 +367,6 @@ final class ConfiguracoesPadrao
         ],
         'parceiro_loja'            => [
             'titulo'    => 'Loja',
-            'acao'      => [
-                'index', 'add', 'visualizar', 'editar', 'deletar', 'download', 'status', 'empresa'
-            ],
             'permissao' => [
                 'parceiro_loja_index'      => 'Listar',
                 'parceiro_loja_add'        => 'Salvar',
@@ -449,9 +380,6 @@ final class ConfiguracoesPadrao
         ],
         'parceiro_externo'            => [
             'titulo'    => 'Loja externo',
-            'acao'      => [
-                'index', 'add', 'visualizar', 'equipe', 'download'
-            ],
             'permissao' => [
                 'parceiro_externo_index'      => 'Listar',
                 'parceiro_externo_add'        => 'Salvar',
@@ -462,9 +390,6 @@ final class ConfiguracoesPadrao
         ],
         'parceiro_equipe'            => [
             'titulo'    => 'Sem captador',
-            'acao'      => [
-                'index', 'visualizar'
-            ],
             'permissao' => [
                 'parceiro_equipe_index'      => 'Listar',
                 'parceiro_equipe_visualizar' => 'Visualizar',
@@ -472,9 +397,6 @@ final class ConfiguracoesPadrao
         ],
         'parceiro_cupom'           => [
             'titulo'    => 'Cupom',
-            'acao'      => [
-                'index', 'status'
-            ],
             'permissao' => [
                 'parceiro_cupom_index'  => 'Listar',
                 'parceiro_cupom_status' => 'Status'
@@ -482,9 +404,6 @@ final class ConfiguracoesPadrao
         ],
         'parceiro_easylive'        => [
             'titulo'    => 'Easylive',
-            'acao'      => [
-                'index', 'add', 'editar', 'deletar'
-            ],
             'permissao' => [
                 'parceiro_easylive_index'   => 'Listar',
                 'parceiro_easylive_add'     => 'Salvar',
@@ -494,9 +413,6 @@ final class ConfiguracoesPadrao
         ],
         'parceiro_automovel'       => [
             'titulo'    => 'Automóvel',
-            'acao'      => [
-                'index', 'visualizar', 'add', 'editar', 'deletar'
-            ],
             'permissao' => [
                 'parceiro_automovel_index'      => 'Listar',
                 'parceiro_automovel_visualizar' => 'Visualizar',
@@ -507,9 +423,6 @@ final class ConfiguracoesPadrao
         ],
         'relatorio_acesso'         => [
             'titulo'    => 'Relatório Acesso',
-            'acao'      => [
-                'index', 'empresa'
-            ],
             'permissao' => [
                 'relatorio_acesso_index'   => 'Relatório de acesso',
                 'relatorio_acesso_empresa' => 'Todas as empresas'
@@ -517,9 +430,6 @@ final class ConfiguracoesPadrao
         ],
         'relatorio_usuario'        => [
             'titulo'    => 'Relatório de usuário',
-            'acao'      => [
-                'index', 'empresa'
-            ],
             'permissao' => [
                 'relatorio_usuario_index'   => 'Relatório de usuário',
                 'relatorio_usuario_empresa' => 'Todas as empresas'
@@ -527,9 +437,6 @@ final class ConfiguracoesPadrao
         ],
         'relatorio_loja_venda'     => [
             'titulo'    => 'Relatório de vendas',
-            'acao'      => [
-                'index', 'empresa', 'parceiro'
-            ],
             'permissao' => [
                 'relatorio_loja_venda_index'    => 'Relatório de vendas',
                 'relatorio_loja_venda_empresa'  => 'Todas as empresas',
@@ -547,9 +454,6 @@ final class ConfiguracoesPadrao
         ],
         'solicitacao_loja'         => [
             'titulo'    => 'Solicitação Loja',
-            'acao'      => [
-                'index', 'visualizar', 'add', 'download', 'deletar', 'status', 'empresa'
-            ],
             'permissao' => [
                 'solicitacao_loja_index'       => 'Listar',
                 'solicitacao_loja_visualizar'  => 'Visualizar',
@@ -562,9 +466,6 @@ final class ConfiguracoesPadrao
         ],
         'solicitacao_voucher'      => [
             'titulo'    => 'Solicitação Voucher',
-            'acao'      => [
-                'index', 'visualizar', 'download', 'empresa'
-            ],
             'permissao' => [
                 'solicitacao_voucher_index'      => 'Listar',
                 'solicitacao_voucher_visualizar' => 'Visualizar',
@@ -574,9 +475,6 @@ final class ConfiguracoesPadrao
         ],
         'solicitacao_premium'      => [
             'titulo'    => 'Solicitacação Voucher Premium',
-            'acao'      => [
-                'index', 'visualizar', 'download', 'empresa'
-            ],
             'permissao' => [
                 'solicitacao_premium_index'      => 'Listar',
                 'solicitacao_premium_visualizar' => 'Visualizar',
@@ -586,9 +484,6 @@ final class ConfiguracoesPadrao
         ],
         'solicitacao_salavip'      => [
             'titulo'    => 'Solicitação Salavip',
-            'acao'      => [
-                'index', 'download', 'empresa'
-            ],
             'permissao' => [
                 'solicitacao_salavip_index'    => 'Listar',
                 'solicitacao_salavip_download' => 'Download',
@@ -597,9 +492,6 @@ final class ConfiguracoesPadrao
         ],
         'solicitacao_declaracao'   => [
             'titulo'    => 'Solicitação Declaração',
-            'acao'      => [
-                'index', 'visualizar', 'status', 'empresa'
-            ],
             'permissao' => [
                 'solicitacao_declaracao_index'      => 'Listar',
                 'solicitacao_declaracao_visualizar' => 'Visualizar',
@@ -609,9 +501,6 @@ final class ConfiguracoesPadrao
         ],
         'solicitacao_automovel'    => [
             'titulo'    => 'Solicitação Automóvel',
-            'acao'      => [
-                'index', 'visualizar', 'status', 'empresa'
-            ],
             'permissao' => [
                 'solicitacao_automovel_index'      => 'Listar',
                 'solicitacao_automovel_visualizar' => 'Visualizar',
@@ -621,9 +510,6 @@ final class ConfiguracoesPadrao
         ],
         'solicitacao_cheque_bonus' => [
             'titulo'    => 'Solicitação Cheque Bônus',
-            'acao'      => [
-                'index', 'visualizar', 'status', 'empresa'
-            ],
             'permissao' => [
                 'solicitacao_cheque_bonus_index'      => 'Listar',
                 'solicitacao_cheque_bonus_visualizar' => 'Visualizar',
@@ -633,9 +519,6 @@ final class ConfiguracoesPadrao
         ],
         'solicitacao_credito'      => [
             'titulo'    => 'Solicitação Crédito',
-            'acao'      => [
-                'index', 'visualizar', 'status', 'empresa'
-            ],
             'permissao' => [
                 'solicitacao_credito_index'      => 'Listar',
                 'solicitacao_credito_visualizar' => 'Visualizar',
@@ -645,9 +528,6 @@ final class ConfiguracoesPadrao
         ],
         'saude_contratacao'        => [
             'titulo'    => 'Saúde Contratação',
-            'acao'      => [
-                'index', 'visualizar', 'status', 'empresa'
-            ],
             'permissao' => [
                 'saude_contratacao_index'      => 'Listar',
                 'saude_contratacao_visualizar' => 'Visualizar',
@@ -657,9 +537,6 @@ final class ConfiguracoesPadrao
         ],
         'comercial_empresa'        => [
             'titulo'    => 'Comercial Empresa',
-            'acao'      => [
-                'index', 'visualizar', 'editar'
-            ],
             'permissao' => [
                 'comercial_empresa_index'      => 'Listar',
                 'comercial_empresa_visualizar' => 'Visualizar',
@@ -668,9 +545,6 @@ final class ConfiguracoesPadrao
         ],
         'comercial_subempresa'     => [
             'titulo'    => 'Comercial Subempresa',
-            'acao'      => [
-                'index', 'visualizar', 'add', 'editar', 'deletar', 'status', 'empresa'
-            ],
             'permissao' => [
                 'comercial_subempresa_index'      => 'Listar',
                 'comercial_subempresa_visualizar' => 'Visualizar',
@@ -682,9 +556,6 @@ final class ConfiguracoesPadrao
         ],
         'comercial_prospeccao'     => [
             'titulo'    => 'Comercial Prospecção',
-            'acao'      => [
-                'index', 'visualizar', 'add', 'editar'
-            ],
             'permissao' => [
                 'comercial_prospeccao_index'      => 'Listar',
                 'comercial_prospeccao_visualizar' => 'Visualizar',
@@ -694,9 +565,6 @@ final class ConfiguracoesPadrao
         ],
         'comercial_perdido'        => [
             'titulo'    => 'Comercial Perdidos',
-            'acao'      => [
-                'index', 'visualizar', 'editar', 'status'
-            ],
             'permissao' => [
                 'comercial_perdido_index'      => 'Listar',
                 'comercial_perdido_visualizar' => 'Visualizar',
@@ -706,18 +574,12 @@ final class ConfiguracoesPadrao
         ],
         'comercial_atendimento'    => [
             'titulo'    => 'Comercial Atendimento',
-            'acao'      => [
-                'index'
-            ],
             'permissao' => [
                 'comercial_atendimento_index' => 'Comercial Atendimento'
             ]
         ],
         'comercial_regra'          => [
             'titulo'    => 'Comercial Regra de Negócio',
-            'acao'      => [
-                'index', 'visualizar', 'add', 'editar', 'deletar'
-            ],
             'permissao' => [
                 'comercial_regra_index'      => 'Listar',
                 'comercial_regra_visualizar' => 'Visualizar',
@@ -728,9 +590,6 @@ final class ConfiguracoesPadrao
         ],
         'carteirinha'              => [
             'titulo'    => 'Carteirinha',
-            'acao'      => [
-                'index', 'add', 'editar', 'deletar', 'status', 'empresa'
-            ],
             'permissao' => [
                 'carteirinha_index'   => 'Listar',
                 'carteirinha_add'     => 'Salvar',
@@ -742,9 +601,6 @@ final class ConfiguracoesPadrao
         ],
         'demanda'                  => [
             'titulo'    => 'Demanda',
-            'acao'      => [
-                'tecnologia', 'criacao', 'convenio'
-            ],
             'permissao' => [
                 'demanda_tecnologia' => 'Tecnologia',
                 'demanda_criacao'    => 'Criação',
@@ -753,9 +609,6 @@ final class ConfiguracoesPadrao
         ],
         'log_erro'                 => [
             'titulo'    => 'Log de erro',
-            'acao'      => [
-                'index', 'visualizar', 'status'
-            ],
             'permissao' => [
                 'log_erro_index'      => 'Listar',
                 'log_erro_visualizar' => 'Visualizar',
@@ -764,9 +617,6 @@ final class ConfiguracoesPadrao
         ],
         'painel_config'            => [
             'titulo'    => 'Painel Configurações',
-            'acao'      => [
-                'index', 'add', 'editar', 'deletar'
-            ],
             'permissao' => [
                 'painel_config_index'   => 'Listar',
                 'painel_config_add'     => 'Salvar',
@@ -776,9 +626,6 @@ final class ConfiguracoesPadrao
         ],
         'album_dado'               => [
             'titulo'    => 'Album de fotos',
-            'acao'      => [
-                'index', 'add', 'editar', 'deletar', 'foto'
-            ],
             'permissao' => [
                 'album_dado_index'   => 'Listar',
                 'album_dado_add'     => 'Salvar',
@@ -789,9 +636,6 @@ final class ConfiguracoesPadrao
         ],
         'votacao'                  => [
             'titulo'    => 'Votação',
-            'acao'      => [
-                'index', 'visualizar', 'add', 'editar', 'deletar'
-            ],
             'permissao' => [
                 'votacao_index'      => 'Listar',
                 'votacao_visualizar' => 'Visualizar',
@@ -802,9 +646,6 @@ final class ConfiguracoesPadrao
         ],
         'enquete'                  => [
             'titulo'    => 'Enquete',
-            'acao'      => [
-                'index', 'visualizar', 'add', 'editar', 'deletar'
-            ],
             'permissao' => [
                 'enquete_index'      => 'Listar',
                 'enquete_visualizar' => 'Visualizar',
@@ -815,9 +656,6 @@ final class ConfiguracoesPadrao
         ],
         'site_config'                  => [
             'titulo'    => 'Configurações do Site',
-            'acao'      => [
-                'index', 'visualizar', 'add', 'editar', 'deletar', 'empresa'
-            ],
             'permissao' => [
                 'site_config_index'      => 'Listar',
                 'site_config_visualizar' => 'Visualizar',
@@ -829,9 +667,6 @@ final class ConfiguracoesPadrao
         ],
         'site_menu'                  => [
             'titulo'    => 'Configurações do Menu (Site)',
-            'acao'      => [
-                'index', 'visualizar', 'add', 'editar', 'deletar', 'empresa'
-            ],
             'permissao' => [
                 'site_menu_index'      => 'Listar',
                 'site_menu_visualizar' => 'Visualizar',
@@ -843,9 +678,6 @@ final class ConfiguracoesPadrao
         ],
         'silium_comissao' => [
             'titulo'    => 'Comissões do Silium (Cashback)',
-            'acao'      => [
-                'index', 'visualizar', 'add', 'editar', 'deletar'
-            ],
             'permissao' => [
                 'silium_comissao_index'      => 'Listar',
                 'silium_comissao_visualizar' => 'Visualizar',
@@ -856,9 +688,6 @@ final class ConfiguracoesPadrao
         ],
         'silium_deposito' => [
             'titulo'    => 'Depósitos do Silium (Cashback)',
-            'acao'      => [
-                'index', 'visualizar', 'add', 'editar', 'deletar'
-            ],
             'permissao' => [
                 'silium_deposito_index'      => 'Listar',
                 'silium_deposito_visualizar' => 'Visualizar',
@@ -869,9 +698,6 @@ final class ConfiguracoesPadrao
         ],
         'silium_saque' => [
             'titulo'    => 'Solicitações de Saque (Cashback)',
-            'acao'      => [
-                'index', 'visualizar', 'add', 'editar', 'deletar'
-            ],
             'permissao' => [
                 'silium_saque_index'      => 'Listar',
                 'silium_saque_visualizar' => 'Visualizar',
@@ -882,9 +708,6 @@ final class ConfiguracoesPadrao
         ],
         'painel_historico' => [
             'titulo'    => 'Painel histórico',
-            'acao'      => [
-                'download'
-            ],
             'permissao' => [
                 'painel_historico_download'    => 'Download'
             ]

@@ -14,11 +14,11 @@ return [
         'cod' => 'uuid'
     ],
     'solicitacao_cheque_bonus' => [
-        'cod' => 'uuid',
+        'cod'                  => 'uuid',
         'dependente_documento' => 'dependente_cpf'
     ],
     'solicitacao_declaracao' => [
-        'cod' => 'uuid',
+        'cod'     => 'uuid',
         'empresa' => 'id_admin_empresa',
         'usuario' => 'id_usuario_cliente',
         'vinculo' => 'id_parceiro_loja'
@@ -27,15 +27,15 @@ return [
         'cod' => 'uuid'
     ],
     'usuario_novo' => [
-        'cod' => 'uuid',
-        'empresa' => 'id_admin_empresa',
-        'titular' => 'id_usuario_cliente',
-        'documento' => 'cpf',
-        'sexo' => 'genero',
+        'cod'         => 'uuid',
+        'empresa'     => 'id_admin_empresa',
+        'titular'     => 'id_usuario_cliente',
+        'documento'   => 'cpf',
+        'sexo'        => 'genero',
         'aniversario' => 'data_nascimento',
-        'cidade' => 'endereco_cidade',
-        'uf' => 'endereco_estado',
-        'hash' => 'hash_valor'
+        'cidade'      => 'endereco_cidade',
+        'uf'          => 'endereco_estado',
+        'hash'        => 'hash_valor'
     ],
     'usuario_indicacao' => [
         'cod' => 'uuid'

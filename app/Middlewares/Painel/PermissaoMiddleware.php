@@ -6,7 +6,7 @@ final class PermissaoMiddleware
 {
     public function validar($permissao)
     {
-        $permissaoPainel = sessao('PAINEL.permissao.lista', padrao: []);
+        $permissaoPainel = sessao('PAINEL.permissao', padrao: []);
         $permissaoUsuario = sessao('USUARIO.permissao', padrao: []);
 
         if (in_array($permissao, $permissaoUsuario) && in_array($permissao, $permissaoPainel)) {
