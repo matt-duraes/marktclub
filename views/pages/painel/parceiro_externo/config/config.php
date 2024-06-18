@@ -1,5 +1,9 @@
 <?php
 
+$Historico = new PainelConfig\Historico('parceiro_externo', leitura: false);
+$Historico->app('parceiro_loja', 'Loja');
+$Historico->app('parceiro_externo', 'Indicação');
+
 return [
     'titulo'     => 'Indicações',
     'buscar'     => true,
@@ -10,7 +14,7 @@ return [
     'add'        => true,
     'editar'     => false,
     'deletar'    => false,
-    'historico'  => true,
+    'historico'  => $Historico,
     'api'        => [
         'scope' => 'parceiro_externo',
         'uri'   => '/parceiro-externo'

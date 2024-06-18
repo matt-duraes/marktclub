@@ -1,22 +1,18 @@
 const historicoLoad = () => {
-    const inputHistorico = document.querySelector('#input_historico_mensagem textarea');
-    if (!inputHistorico) {
-        return;
-    }
-
     const app = document.querySelector('#input_historico_app').value;
     const relacionado = document.querySelector('#input_historico_relacionado').value;
 
+    const inputHistorico = document.querySelector('#input_historico_mensagem textarea');
     const inputPesquisa = document.querySelector('#input_historico_pesquisa');
     const inputDataDe = document.querySelector('#input_historico_data_de');
     const inputDataAte = document.querySelector('#input_historico_data_ate');
 
-    const usuarioNome = document.querySelector('#USUARIO_NOME').value;
-    const usuarioImagem = document.querySelector('#USUARIO_IMAGEM').value;
+    const usuarioNome = $('#USUARIO_NOME') ? $('#USUARIO_NOME').value : '';
+    const usuarioImagem = $('#USUARIO_IMAGEM') ? $('#USUARIO_IMAGEM').value : '';
 
-    const historicoTitulo = document.getElementById('input_historico_titulo').value;
-    const historicoLink = document.getElementById('input_historico_link').value;
-    const historicoNotificar = document.getElementById('input_historico_notificar').value;
+    const historicoTitulo = $('#input_historico_titulo') ? $('#input_historico_titulo').value : '';
+    const historicoLink = $('#input_historico_link') ? $('#input_historico_link').value : '';
+    const historicoNotificar = $('#input_historico_notificar') ? $('#input_historico_notificar').value : '';
     const historicoLista = document.querySelector('#bloco_historico_lista');
 
     const botaoBuscar = document.querySelector('#botao_buscar_historico');
@@ -27,34 +23,44 @@ const historicoLoad = () => {
     const downloadDataDe = document.querySelector('#input_data_de');
     const downloadDataAte = document.querySelector('#input_data_ate');
 
-    Calendario.init({
-        de: 'input_historico_data_de',
-        ate: 'input_historico_data_ate',
-    });
+    if (inputDataDe) {
+        Calendario.init({
+            de: 'input_historico_data_de',
+            ate: 'input_historico_data_ate',
+        });
+    }
 
     /*
     |--------------------------------------------------------------------------
     | BUSCAR MENSAGEM
     |--------------------------------------------------------------------------
     */
-    inputPesquisa.addEventListener('keyup', e => {
-        if (e.key == 'Enter') {
+    if (inputPesquisa) {
+        inputPesquisa.addEventListener('keyup', e => {
+            if (e.key == 'Enter') {
+                buscarMensagem(1);
+            }
+        });
+    }
+    if (inputDataDe) {
+        inputDataDe.addEventListener('keyup', e => {
+            if (e.key == 'Enter') {
+                buscarMensagem(1);
+            }
+        });
+    }
+    if (inputDataAte) {
+        inputDataAte.addEventListener('keyup', e => {
+            if (e.key == 'Enter') {
+                buscarMensagem(1);
+            }
+        });
+    }
+    if (botaoBuscar) {
+        botaoBuscar.addEventListener('click', () => {
             buscarMensagem(1);
-        }
-    });
-    inputDataDe.addEventListener('keyup', e => {
-        if (e.key == 'Enter') {
-            buscarMensagem(1);
-        }
-    });
-    inputDataAte.addEventListener('keyup', e => {
-        if (e.key == 'Enter') {
-            buscarMensagem(1);
-        }
-    });
-    botaoBuscar.addEventListener('click', () => {
-        buscarMensagem(1);
-    });
+        });
+    }
 
     let paginaAtual;
     let existeBusca;
@@ -98,7 +104,9 @@ const historicoLoad = () => {
             return;
         }
     };
-    buscarMensagem(1);
+    if (inputPesquisa) {
+        buscarMensagem(1);
+    }
 
     const carregarListaMensagem = (pagina, lista) => {
         if (pagina == 1 && Object.keys(lista).length == 0 && existeBusca) {
@@ -150,10 +158,12 @@ const historicoLoad = () => {
     | CARREGAR MAIS
     |--------------------------------------------------------------------------
     */
-    botaoCarregarMais.addEventListener('click', () => {
-        botaoCarregarMais.classList.remove('display_flex');
-        buscarMensagem(paginaAtual + 1);
-    });
+    if (botaoCarregarMais) {
+        botaoCarregarMais.addEventListener('click', () => {
+            botaoCarregarMais.classList.remove('display_flex');
+            buscarMensagem(paginaAtual + 1);
+        });
+    }
 
     /*
     |--------------------------------------------------------------------------
@@ -193,7 +203,18 @@ const historicoLoad = () => {
         if (resposta.status == 201) {
             inputHistorico.value = '';
             inputHistorico.style.height = 25 + 'px';
-            adicionarNovaMensagem(json.dado.id, json.dado.mensagem, usuarioImagem, usuarioNome, true, historicoLista);
+            if (historicoLista) {
+                adicionarNovaMensagem(
+                    json.dado.id,
+                    json.dado.mensagem,
+                    usuarioImagem,
+                    usuarioNome,
+                    true,
+                    historicoLista
+                );
+                return;
+            }
+            Alerta.notificacao('Histórico salvo com sucesso.', true);
             return;
         }
 
@@ -227,16 +248,18 @@ const historicoLoad = () => {
     const blocoMarcar = document.querySelector('#bloco_historico_marcacao_equipe');
 
     const marcacaoEquipe = [];
-    const listaUsuarioParaMarcar = blocoMarcar.querySelectorAll('li');
-    listaUsuarioParaMarcar.forEach(usuario => {
-        marcacaoEquipe.push(usuario.getAttribute('data-usuario'));
-        usuario.addEventListener('click', () => {
-            executarMarcacaoEquipe(usuario);
+    const listaUsuarioParaMarcar = blocoMarcar ? blocoMarcar.querySelectorAll('li') : null;
+    if (listaUsuarioParaMarcar) {
+        listaUsuarioParaMarcar.forEach(usuario => {
+            marcacaoEquipe.push(usuario.getAttribute('data-usuario'));
+            usuario.addEventListener('click', () => {
+                executarMarcacaoEquipe(usuario);
+            });
+            usuario.addEventListener('mouseover', () => {
+                colocarHoverUsuario(usuario);
+            });
         });
-        usuario.addEventListener('mouseover', () => {
-            colocarHoverUsuario(usuario);
-        });
-    });
+    }
     const colocarHoverUsuario = usuario => {
         const hover = blocoMarcar.querySelector('li.hover');
         if (hover) {
@@ -249,58 +272,60 @@ const historicoLoad = () => {
     let marcacaoNome = '';
     let marcacaoPosicaoInicial;
     let marcacaoPosicaoFinal;
-    inputHistorico.addEventListener('focus', () => {
-        fecharBlocoMarcar();
-    });
-    inputHistorico.addEventListener('blur', () => {
-        setTimeout(() => {
+    if (inputHistorico) {
+        inputHistorico.addEventListener('focus', () => {
             fecharBlocoMarcar();
-        }, 200);
-    });
-    inputHistorico.addEventListener('click', () => {
-        fecharBlocoMarcar();
-    });
-    inputHistorico.addEventListener('keydown', e => {
-        const tecla = e.key;
-        if (marcacaoAtiva && !e.shiftKey && e.key == 'Enter' && blocoMarcar.classList.contains('ativo')) {
-            e.preventDefault();
-            executarMarcacaoEquipe(blocoMarcar.querySelector('li.hover'));
+        });
+        inputHistorico.addEventListener('blur', () => {
+            setTimeout(() => {
+                fecharBlocoMarcar();
+            }, 200);
+        });
+        inputHistorico.addEventListener('click', () => {
             fecharBlocoMarcar();
-        } else if (!e.shiftKey && e.key == 'Enter') {
-            e.preventDefault();
-            salvarNovoHistorico();
-        } else if (tecla == '@') {
-            marcacaoAtiva = true;
-            marcacaoNome = '';
-            blocoMarcar.classList.remove('ativo');
-        } else if (!marcacaoAtiva) {
-            return;
-        } else if (tecla == 'ArrowDown' && blocoMarcar.classList.contains('ativo')) {
-            e.preventDefault();
-            selecionarProximoUsuario();
-        } else if (tecla == 'ArrowUp' && blocoMarcar.classList.contains('ativo')) {
-            e.preventDefault();
-            selecionarUsuarioAnterior();
-        } else if (
-            (tecla == 'Backspace' && marcacaoNome.length == 0) ||
-            (e.shiftKey && tecla == 'Enter') ||
-            tecla == ' ' ||
-            tecla == 'ArrowLeft' ||
-            tecla == 'ArrowRight' ||
-            tecla == 'ArrowDown' ||
-            tecla == 'ArrowUp'
-        ) {
-            fecharBlocoMarcar();
-        } else if (tecla == 'Enter') {
-            e.preventDefault();
-        } else if (/^[a-z0-9\.]{1}$/.test(tecla)) {
-            marcacaoNome += tecla;
-            buscarListaUsuario();
-        } else if (tecla == 'Backspace') {
-            marcacaoNome = marcacaoNome.slice(0, -1);
-            buscarListaUsuario();
-        }
-    });
+        });
+        inputHistorico.addEventListener('keydown', e => {
+            const tecla = e.key;
+            if (marcacaoAtiva && !e.shiftKey && e.key == 'Enter' && blocoMarcar.classList.contains('ativo')) {
+                e.preventDefault();
+                executarMarcacaoEquipe(blocoMarcar.querySelector('li.hover'));
+                fecharBlocoMarcar();
+            } else if (!e.shiftKey && e.key == 'Enter') {
+                e.preventDefault();
+                salvarNovoHistorico();
+            } else if (tecla == '@') {
+                marcacaoAtiva = true;
+                marcacaoNome = '';
+                blocoMarcar.classList.remove('ativo');
+            } else if (!marcacaoAtiva) {
+                return;
+            } else if (tecla == 'ArrowDown' && blocoMarcar.classList.contains('ativo')) {
+                e.preventDefault();
+                selecionarProximoUsuario();
+            } else if (tecla == 'ArrowUp' && blocoMarcar.classList.contains('ativo')) {
+                e.preventDefault();
+                selecionarUsuarioAnterior();
+            } else if (
+                (tecla == 'Backspace' && marcacaoNome.length == 0) ||
+                (e.shiftKey && tecla == 'Enter') ||
+                tecla == ' ' ||
+                tecla == 'ArrowLeft' ||
+                tecla == 'ArrowRight' ||
+                tecla == 'ArrowDown' ||
+                tecla == 'ArrowUp'
+            ) {
+                fecharBlocoMarcar();
+            } else if (tecla == 'Enter') {
+                e.preventDefault();
+            } else if (/^[a-z0-9\.]{1}$/.test(tecla)) {
+                marcacaoNome += tecla;
+                buscarListaUsuario();
+            } else if (tecla == 'Backspace') {
+                marcacaoNome = marcacaoNome.slice(0, -1);
+                buscarListaUsuario();
+            }
+        });
+    }
 
     const buscarListaUsuario = () => {
         const nomeExistente = [];
@@ -455,17 +480,17 @@ const historicoLoad = () => {
         `;
         }
         const html = `
-        <div class="item item_geral minha_mensagem" id="${idMensagem}">
-            <figure style="background-image: url(${usuarioImagem});"></figure>
-            <div class="dado">
-                <h2>${usuarioNome}</h2>
-                <div class="data">Agora</div>
+            <div class="item item_geral minha_mensagem" id="${idMensagem}">
+                <figure style="background-image: url(${usuarioImagem});"></figure>
+                <div class="dado">
+                    <h2>${usuarioNome}</h2>
+                    <div class="data">Agora</div>
+                </div>
+                <div class="fixar"><svg height="15" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path fill="none" d="M0 0h24v24H0z"/><path d="M13.828 1.686l8.486 8.486-1.415 1.414-.707-.707-4.242 4.242-.707 3.536-1.415 1.414-4.242-4.243-4.95 4.95-1.414-1.414 4.95-4.95-4.243-4.242 1.414-1.415L8.88 8.05l4.242-4.242-.707-.707 1.414-1.415zm.708 3.536l-4.671 4.67-2.822.565 6.5 6.5.564-2.822 4.671-4.67-4.242-4.243z"/></svg></div>
+                ${htmlDeletar}
+                <p class="mensagem">${mensagem}</p>
             </div>
-            <div class="fixar"><svg height="15" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path fill="none" d="M0 0h24v24H0z"/><path d="M13.828 1.686l8.486 8.486-1.415 1.414-.707-.707-4.242 4.242-.707 3.536-1.415 1.414-4.242-4.243-4.95 4.95-1.414-1.414 4.95-4.95-4.243-4.242 1.414-1.415L8.88 8.05l4.242-4.242-.707-.707 1.414-1.415zm.708 3.536l-4.671 4.67-2.822.565 6.5 6.5.564-2.822 4.671-4.67-4.242-4.243z"/></svg></div>
-            ${htmlDeletar}
-            <p class="mensagem">${mensagem}</p>
-        </div>
-    `;
+        `;
 
         let blocoHoje = historicoLista.querySelector('#bloco_historico_hoje');
         if (!blocoHoje) {

@@ -4,18 +4,18 @@ namespace PainelConfig;
 
 final class Historico
 {
-    public array $appFinal;
+    public array $appExtra = [];
 
     public function __construct(
-        private string $app,
+        public string $app,
         public bool $leitura = true,
         public bool $escrita = true,
+        public bool $download = false
     ) {
-        $this->app($app);
     }
 
-    public function app(string $app)
+    public function app(string $app, string $titulo)
     {
-        $this->appFinal[] = $app;
+        $this->appExtra[$app] = $titulo;
     }
 }

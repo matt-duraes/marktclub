@@ -127,6 +127,9 @@
     .add .bloco_input textarea
         max-height: calc(50vh) !important
         overflow-y: auto
+    .add .bloco_input.form_extra .borda
+        border-radius: 3px 3px 0 0
+        border-bottom: none
     .add .textarea .usuario_editando
         color: #999
     .add .textarea .usuario_marcado
@@ -160,6 +163,25 @@
         font-size: 1.2rem
         color: #666
         margin-top: 10px
+    .add .bloco_app_extra
+        width: 100%
+        border: 1px solid #DDD
+        border-top: none
+        border-radius: 0 0 3px 3px
+        flexRow()
+        flex-wrap: wrap
+        margin-top: -2px
+        padding: 10px 0 10px 10px
+        &::after
+            width: calc(100% - 20px)
+            height: 1px
+            background-color: #DDD
+            content: ""
+    .add .bloco_app_extra h2
+        width: 100%
+        font-size: 1.2rem
+    .add .bloco_app_extra .input_checkbox
+        margin: 10px 10px 0 0
     .lista
         width: 100%
         margin-top: 20px
