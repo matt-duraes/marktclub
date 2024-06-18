@@ -13,7 +13,7 @@ trait LinkTrait
             return preg_match('/^http\:\/\/|https\:\/\//', $link) ? $link : 'https://' . $link;
         }
         $rota = [
-            TipoLoja::AUTOMOVEL => route('automovel.detalhe'),
+            TipoLoja::AUTOMOVEL => route('automovel.modelo'),
             TipoLoja::FARMACIA  => route('farmacia.detalhe'),
             TipoLoja::LOJA      => route('loja.detalhe'),
             TipoLoja::PREMIUM   => route('premium.detalhe'),
