@@ -317,6 +317,30 @@
             bgDegradeVermelho()
             border: none
             color: #FFF
+#bloco_app_visualizar .botao_destaque
+    height: 50px
+    line-height: 50px
+    margin-top: 20px
+    padding: 0 20px
+    border-radius: 25px
+    color: #999
+    border: 1px solid #DDD
+    font-size: $textoFontSize
+    cursor: pointer
+    background: #FFF
+    box-shadow: 0 4px 5px rgba(0,0,0,.05)
+    transition: border-color .3s ease-out, color .3s ease-out
+    &:hover
+        border-color: #999
+        color: #333
+    &.verde
+        bgDegradeVerde()
+        border: none
+        color: #FFF
+    &.vermelho
+        bgDegradeVermelho()
+        border: none
+        color: #FFF
 
 #bloco_app_visualizar .bloco_fieldset .bloco_linha_unica
     width: 100%

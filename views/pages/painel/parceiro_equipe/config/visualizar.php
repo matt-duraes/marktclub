@@ -25,13 +25,17 @@ $Painel->coluna(callback: function () use ($Painel) {
 });
 
 $Painel
-        ->botaoDestaque(
-            texto: 'Adicionar captador',
-            cor: 'verde'
-        );
-
+    ->botaoDestaque(
+        texto: 'Adicionar captador',
+        cor: 'verde',
+        id: 'botao_adicionar_captador'
+    );
 $Painel
     ->replace('categoria_principal', (new Categoria())->select())
     ->replace('status', (new Status())->select());
+
+$Painel->include('equipe');
+$Painel->js('painel_parceiro_equipe_visualizar');
+$Painel->css('painel_parceiro_equipe_visualizar');
 
 return $Painel;

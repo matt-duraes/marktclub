@@ -89,7 +89,7 @@ window.addEventListener('load', () => {
     | POPUP CANCELAR
     |--------------------------------------------------------------------------
     */
-    const PopupCancelarLoja = new Popup('Cancelar ' + parceiro, 'bloco_cancelar_loja', true, true);
+    const PopupCancelarLoja = new Popup('Cancelar ' + parceiro, 'bloco_cancelar_loja', true, false);
     let status;
 
     if (botaoCancelarLoja) {
@@ -116,8 +116,7 @@ window.addEventListener('load', () => {
         const resposta = await ajaxPost(LINK + `/app/ajax/parceiro-loja`, {
             indice: 'cancelar-loja',
             id: parceiro,
-            // eslint-disable-next-line camelcase
-            cancelar_motivo: motivo,
+            // eslint-disable-next-line
             status: status,
         });
         Loading.hide();
@@ -125,6 +124,7 @@ window.addEventListener('load', () => {
             return;
         }
 
+        PopupCancelarLoja.fechar();
         const confirmacao = await Alerta.mensagem('Status alterado', 'O status foi alterado com sucesso!', true);
         if (confirmacao) {
             window.location.reload();

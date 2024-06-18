@@ -254,6 +254,10 @@ if (!function_exists('painelLinhaLista')) {
                 $localSecundario = $item['localSecundario'] ?? '';
                 include ROOT . '/src/Html/Painel/' . $acao . '.php';
                 continue;
+            } elseif ($acao == 'botaoDestaque') {
+                $id = !empty($item['id'] ?? '') ? 'id="' . $item['id'] . '"' : '';
+                echo '<div class="botao_destaque ' . $item['cor'] . '" ' . $id . '>' . $item['texto'] . '</div>';
+                continue;
             } elseif ($acao == 'html') {
                 echo $item['html'];
                 continue;

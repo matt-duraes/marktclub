@@ -2,6 +2,7 @@
 
 namespace Painel\ParceiroEquipe\Models;
 
+use App\Classes\ParceiroLoja\Status;
 use System\Interface\PainelIndexFiltroInterface;
 
 final class IndexModel implements
@@ -10,7 +11,8 @@ final class IndexModel implements
     public function filtro(array $filtro, string $pesquisa, string $ordem, int $pagina): array
     {
         return [
-            'equipe' => 'sem-equipe'
+            'equipe' => 'sem-equipe',
+            'status' => Status::PROSPECCAO
         ];
     }
 }

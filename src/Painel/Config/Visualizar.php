@@ -457,21 +457,17 @@ final class Visualizar
 
     public function botaoDestaque(
         string $texto = '',
-        array|string $campo = null,
         ?array $inArray = null,
         ?string $id = null,
         ?string $cor = null,
-        ?string $permissao = null,
-        ?bool $editar = null
+        ?string $permissao = null
     ) {
-        $this->adicionarCampo($campo, [
+        $this->adicionarCampo('', [
             'funcao'   => 'botaoDestaque',
             'texto'    => $texto,
             'inArray'  => $inArray,
             'cor'      => $cor,
-            'id'       => $id,
-            'campo'    => $campo,
-            'editar'   => $editar
+            'id'       => $id
         ], $permissao);
         return $this;
     }
