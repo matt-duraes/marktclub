@@ -19,7 +19,7 @@
                 <div class="saldo_conta">
                     <p>SALDO EM CONTA: <span>0</span> </p>
                 </div>
-                @if ($saldo >= 10000):
+                @if ($saldo <= 10000):
                 <div class="botao" id="botao_popup_resgate">Solicitar resgate</div>
                 @else:
                 <div class="bloco_atencao_geral">
@@ -46,7 +46,7 @@
                 <div id="bloco_nome_01" class="conteudo">
                     <div class="bloco_tabela_geral">
                         <table>
-                            @if(isset($extrato_compra) && $extrato_compra != ''):
+                            @if(!empty($extratoCompra)):
                             <thead>
                                 <tr>
                                     <th>Empresa Parceira</th>
@@ -56,13 +56,13 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                @foreach ($extrato_compra as $r) :
+                                @foreach ($extratoCompra as $r) :
                                 <tr>
                                     <td>{{$r->parceiro}}</td>
                                     <td>R$ {{$r->valor_compra}}</td>
                                     <td>{{$r->comissao_usuario}}</td>
                                     <td>
-                                        <div class="bloco_status {{$r->status}}"></div>
+                                        {{$r->status}}
                                     </td>
                                 </tr>
                                 @endforeach
@@ -78,7 +78,7 @@
                 <div id="bloco_nome_02" class="conteudo display_none">
                     <div class="bloco_tabela_geral">
                         <table>
-                            @if(isset($extrato_saque) && $extrato_saque != ''):
+                            @if(!empty($extratoSaque)):
                             <thead>
                                 <tr>
                                     <th>Pontos Trocados</th>
@@ -87,13 +87,11 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                @foreach ($extrato_saque as $r) :
+                                @foreach ($extratoSaque as $r->lista):
                                     <tr>
-                                        <td>{{$r->pontuacao}}</td>
-                                        <td>R${{$r->valor}}</td>
-                                        <td>
-                                            <div class="bloco_status {{$r->status}}"></div>
-                                        </td>
+                                        <td>{{$r->pontos_trocados}}</td>
+                                        <td>{{$r->valor}}</td>
+                                        <td>{{$r->status}}</td>
                                     </tr>
                                 @endforeach
                             @else
@@ -130,9 +128,9 @@
                     @? formInput(name: 'titular', label: 'Nome', placeholder:'Digite o nome do titular', obrigatorio: true, value: '', local: 'André Rodrigues')
                     @? formCpf(name: 'cpf_conta', label: 'CPF', placeholder: 'CPF')
                     @? formInput(name: 'banco', label: 'Banco', placeholder:'Digite o nome do banco', obrigatorio: true, value: '', local: 'InterSA')
-                    @? formNumero(name: 'conta', label: 'Conta Bancária', placeholder:'Digite a sua conta bancária ', maximo: 35, obrigatorio: true, value: '', local: '21321321312312-9')
+                    @? formNumero(name: 'conta', label: 'Conta Bancária', placeholder:'Digite a sua conta bancária ', maximo: 15, obrigatorio: true, value: '', local: '123456789')
                     @? formNumero(name: 'agencia', label: 'Agência', placeholder:'Digite a sua agência bancária ', obrigatorio: true, value: '', local: '14320')
-                    @? formSelect(name: 'tipo', label: 'Tipo de Conta', placeholder: 'Escolha o tipo de conta', obrigatorio: true, lista: ['Corrente', 'Poupança']);
+                    @? formSelect(name: 'tipo', label: 'Tipo de Conta', placeholder: 'Escolha o tipo de conta', obrigatorio: true, lista: (new \App\Classes\Silium\TipoConta())->select('Selecione um tipo de conta'));
                 </fieldset>
 
             </div>
