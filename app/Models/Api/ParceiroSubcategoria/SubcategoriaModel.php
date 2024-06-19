@@ -19,7 +19,7 @@ final class SubcategoriaModel extends ORM
     public function listarDado(): array
     {
         $dado = $this
-            ->campo(['id', 'categoria', 'titulo'])
+            ->campo(['id', 'categoria', 'titulo', 'url'])
             ->read();
 
         if (!empty($dado)) {
@@ -38,7 +38,7 @@ final class SubcategoriaModel extends ORM
         $retorno = [];
         foreach ($dado as $r) {
             $categoria = new Categoria($r->categoria);
-            $retorno[$categoria->nome()][] = $r->titulo;
+            $retorno[$categoria->nome()][$r->url] = $r->titulo;
         }
         return $retorno;
     }
