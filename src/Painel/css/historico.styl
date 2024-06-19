@@ -124,6 +124,8 @@
     .add .bloco_input
         margin-top: 0
         margin-bottom: 0
+    .add .bloco_input.textarea_arquivo textarea
+        padding-right: 45px
     .add .bloco_input textarea
         max-height: calc(50vh) !important
         overflow-y: auto
@@ -132,6 +134,37 @@
     .add .textarea .usuario_marcado
         color: #00aced
         text-decoration: underline
+    .add .bloco_input.textarea_upload .arquivo_previa
+        display: flex
+    .add .arquivo_previa
+        width: calc(100% - 6px)
+        flexRow()
+        flex-wrap: wrap
+        display: none
+        margin: 3px 0 0 3px
+        position: relative
+        background-color: #F0F0F0
+        padding: 0 50px 10px 10px
+        z-index: 6
+    .add .arquivo_previa .arquivo_previa_item
+        flexRow()
+        padding: 5px 5px 5px 10px
+        align-items: center
+        border: 1px solid #CCC
+        border-radius: 5px
+        margin: 10px 10px 0 0
+    .add .arquivo_previa .arquivo_previa_item .arquivo_previa_titulo
+        line-height: 1.5em
+        font-size: 1.2rem
+        flexGrow()
+        overflow: hidden
+    .add .arquivo_previa .arquivo_previa_item i
+        width: 20px
+        height: 20px
+        cursor: pointer
+        flexCenter()
+        margin-left: 5px
+        fill: #999
     .add .botao_upload
         position: absolute
         width: 50px
@@ -139,9 +172,16 @@
         flexCenter()
         top: 0
         right: 0
-        z-index: 5
+        z-index: 7
         overflow: hidden
-        display: none
+    .add .botao_upload input
+        width: 50px
+        height: 50px
+        position: absolute
+        top: 0
+        left: 0
+        z-index: 2
+        opacity: 0
     .add .botao_upload i
         width: 50px
         height: 50px
@@ -152,8 +192,7 @@
         transition: left .3s ease-out
         cursor: pointer
         fill: #999
-    .add .bloco_input textarea:not(:placeholder-shown) ~ .botao_upload i
-        left: 50px
+        z-index: 1
     .add p
         width: 100%
         text-align: right

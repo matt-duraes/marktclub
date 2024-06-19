@@ -6,12 +6,18 @@ $historicoLeitura = true;
 $historicoEscrita = true;
 $historicoDownload = false;
 $historicoTextareaHtml = '<input class="display_none input_app_salvar" type="checkbox" name="app_salvar[]" checked value="' . $app . '">';
+$historicoArquivo = false;
+$historicoArquivoHtml = '';
 if($historico instanceof \PainelConfig\Historico) {
     $historicoApp = $historico->app;
     $historicoLeitura = $historico->leitura;
     $historicoEscrita = $historico->escrita;
     $historicoDownload = $historico->download;
     $historicoAppExtra = $historico->appExtra;
+    $historicoArquivo = $historico->arquivo;
+    if($historicoArquivo) {
+        $historicoArquivoHtml = '<div class="arquivo_previa"></div> <div class="botao_upload"><input type="file" multiple id="botao_historico_upload"><i>' . iconeAnexo(18) . '</i></div>';
+    }
 
     if($historicoAppExtra):
         $historicoTextareaHtml .= '<div class="bloco_app_extra"><h2>Salvar em outro APP?</h2>';
@@ -69,7 +75,9 @@ if($historico instanceof \PainelConfig\Historico) {
             numeroLinha: 4,
             placeholder: 'Digite sua mensagem',
             id: 'input_historico_mensagem',
-            html: '<div class="botao_upload"><i id="botao_historico_upload">' . iconeAnexo(18) . '</i></div>' . $historicoTextareaHtml
+            class: $historicoArquivo ? 'textarea_arquivo' : '',
+            html: $historicoTextareaHtml,
+            htmlPre: $historicoArquivoHtml
         ) ?>
         <p>Aperte Shift+Enter para quebrar linha ou apenas Enter para salvar</p>
         <ul class="bloco_marcar_equipe" id="bloco_historico_marcacao_equipe">
@@ -90,7 +98,9 @@ if($historico instanceof \PainelConfig\Historico) {
     <div class="mais" id="botao_historico_carregar_mais">CARREGAR MAIS</div>
     <?php endif; ?>
 </div>
-
+<div class="display_none">
+    <div class="arquivo_previa_item" id="bloco_previa_item_padrao"><div class="arquivo_previa_titulo"></div><i data-ajuda="Remover arquivo"><?= iconeFechar(10) ?></i></div>
+</div>
 <?php if ($historicoDownload && in_array($app . '_download', sessao('USUARIO.permissao'))): ?>
 <div id="bloco_download" class="bloco_pagina_popup">
     <header class="header_pagina_popup">

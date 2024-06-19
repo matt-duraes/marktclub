@@ -1,5 +1,9 @@
 const historicoLoad = () => {
-    const app = document.querySelector('#input_historico_app').value;
+    const inputApp = $('#input_historico_app');
+    if (!inputApp) {
+        return;
+    }
+    const app = inputApp.valor();
     const relacionado = document.querySelector('#input_historico_relacionado').value;
 
     const inputHistorico = document.querySelector('#input_historico_mensagem textarea');
@@ -558,6 +562,29 @@ const historicoLoad = () => {
         historicoLista.innerHTML = '<div class="zero sem_mensagem">Sem mensagens no momento</div>';
     };
 
+    /*
+    |--------------------------------------------------------------------------
+    | UPLOAD DE IMAGEM
+    |--------------------------------------------------------------------------
+    */
+    const botaoUpload = $('#botao_historico_upload');
+    if (botaoUpload) {
+        botaoUpload.evento('change', () => {
+            const quantidade = botaoUpload.files.length;
+            if (quantidade == 0) {
+                botaoUpload.value = '';
+                return;
+            }
+
+            let i = 0;
+            for (; i < quantidade; ++i) {
+                adicionarArquivoPrevio(botaoUpload.files[i]);
+            }
+        });
+    }
+    const adicionarArquivoPrevio = arquivo => {
+        ppe(arquivo);
+    };
     /*
     |--------------------------------------------------------------------------
     | DOWNLOAD HISTORICO
