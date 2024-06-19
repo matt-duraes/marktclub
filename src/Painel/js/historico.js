@@ -170,17 +170,27 @@ const historicoLoad = () => {
     | SALVAR HISTÓRICO
     |--------------------------------------------------------------------------
     */
+    const listaAppSalvar = $$('.input_app_salvar_visivel');
     const salvarNovoHistorico = async () => {
         const mensagem = inputHistorico.value.trim();
         if (mensagem == '') {
             Alerta.notificacao('Você deve enviar uma mensagem para salvar o histórico.', false);
+            return;
+        } else if (
+            listaAppSalvar.length > 0 &&
+            !(await Alerta.confirmar(
+                'Salvar histórico',
+                'Tem certeza que marcous todos os locais que o comentário deve aparecer?',
+                '!'
+            ))
+        ) {
             return;
         }
 
         Loading.show();
 
         const body = new FormData();
-        body.append('app', app);
+        body.append('app', JSON.stringify($$('.input_app_salvar:checked').valor()));
         body.append('relacionado', relacionado);
         body.append('mensagem', mensagem);
         body.append('titulo', historicoTitulo);
@@ -201,6 +211,7 @@ const historicoLoad = () => {
 
         Loading.hide();
         if (resposta.status == 201) {
+            listaAppSalvar.marcar(false);
             inputHistorico.value = '';
             inputHistorico.style.height = 25 + 'px';
             if (historicoLista) {

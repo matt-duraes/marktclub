@@ -10,7 +10,8 @@ final class Historico
         public string $app,
         public bool $leitura = true,
         public bool $escrita = true,
-        public bool $download = false
+        public bool $download = false,
+        public bool $arquivo = false
     ) {
     }
 

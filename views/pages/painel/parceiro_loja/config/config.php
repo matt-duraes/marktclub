@@ -1,7 +1,6 @@
 <?php
 
 $Historico = new \PainelConfig\Historico(app: 'parceiro_loja', download: true);
-$Historico->app('parceiro_loja', 'Loja');
 $Historico->app('parceiro_externo', 'Indicação');
 
 return [

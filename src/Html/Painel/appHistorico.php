@@ -5,14 +5,29 @@ $historicoAppExtra = '';
 $historicoLeitura = true;
 $historicoEscrita = true;
 $historicoDownload = false;
+$historicoTextareaHtml = '<input class="display_none input_app_salvar" type="checkbox" name="app_salvar[]" checked value="' . $app . '">';
 if($historico instanceof \PainelConfig\Historico) {
     $historicoApp = $historico->app;
     $historicoLeitura = $historico->leitura;
     $historicoEscrita = $historico->escrita;
     $historicoDownload = $historico->download;
     $historicoAppExtra = $historico->appExtra;
+
+    if($historicoAppExtra):
+        $historicoTextareaHtml .= '<div class="bloco_app_extra"><h2>Salvar em outro APP?</h2>';
+        foreach($historicoAppExtra as $ind => $val):
+            $historicoTextareaHtml .= '
+                <div class="checkbox_interno">
+                    <input type="checkbox" class="input_app_salvar input_app_salvar_visivel" name="app_salvar[]" value="' . $ind . '">
+                    <div class="checkbox_interno_titulo">' . $val . '</div>
+                </div>
+            ';
+        endforeach;
+        $historicoTextareaHtml .= '</div>';
+    endif;
 }
 ?>
+
 <div id="bloco_historico_view" class="<?= $classe ?>">
     <header>
         <?php if ($fechar) : ?>
@@ -54,17 +69,8 @@ if($historico instanceof \PainelConfig\Historico) {
             numeroLinha: 4,
             placeholder: 'Digite sua mensagem',
             id: 'input_historico_mensagem',
-            html: '<div class="botao_upload"><i id="botao_historico_upload">' . iconeAnexo(18) . '</i></div>',
-            class: !empty($historicoAppExtra) ? 'form_extra' : ''
+            html: '<div class="botao_upload"><i id="botao_historico_upload">' . iconeAnexo(18) . '</i></div>' . $historicoTextareaHtml
         ) ?>
-        <div class="bloco_app_extra">
-            <?php if($historicoAppExtra): ?>
-                <h2>Onde salvar?</h2>
-            <?php foreach($historicoAppExtra as $ind => $val): ?>
-                <?= formCheckbox(name: 'app_salvar[]', label: $val, value: $ind) ?>
-            <?php endforeach; ?>
-            <?php endif; ?>
-        </div>
         <p>Aperte Shift+Enter para quebrar linha ou apenas Enter para salvar</p>
         <ul class="bloco_marcar_equipe" id="bloco_historico_marcacao_equipe">
             <?php foreach ((new \PainelModel\Perfil\Equipe())->todos() as $hE) : ?>

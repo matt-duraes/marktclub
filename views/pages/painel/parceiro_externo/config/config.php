@@ -1,8 +1,6 @@
 <?php
 
-$Historico = new PainelConfig\Historico('parceiro_externo', leitura: false);
-$Historico->app('parceiro_loja', 'Loja');
-$Historico->app('parceiro_externo', 'Indicação');
+$Historico = new PainelConfig\Historico('parceiro_externo', escrita: false);
 
 return [
     'titulo'     => 'Indicações',
