@@ -2,10 +2,10 @@
 
 namespace App\Models\Api\ParceiroLoja\Trait;
 
+use Where\Where;
+use Helpers\OrmHelper;
 use App\Classes\ParceiroLoja\TipoLoja;
 use App\Models\Api\ParceiroLoja\MaisAcessadoModel;
-use Helpers\OrmHelper;
-use Where\Where;
 
 trait WhereTrait
 {
@@ -52,7 +52,6 @@ trait WhereTrait
                     ['titulo_interno', 'like', $titulo]
                 ]);
             })
-            ->linha('equipe', campo: 'id_usuario_equipe', valor: $this->pegarIdEquipe())
             ->linha('tipo_estabelecimento')
             ->seBotao('mais_acessao', callback: function () use ($Where) {
                 $this->idMaisAcessado = (new MaisAcessadoModel($this->idEmpresa, $this->pegarQuantidade()))->id;
@@ -77,6 +76,13 @@ trait WhereTrait
             ->dataDeAte('data_cancelado')
             ->dataDeAte('data_auditoria')
             ->linha('status');
+
+        if ($this->pExiste('equipe') && $this->equipe == 'sem-equipe') {
+            $Where->manual(['id_usuario_equipe', 'null']);
+        } elseif ($this->pExiste('equipe')) {
+            $Where->linha('equipe', campo: 'id_usuario_equipe', valor: $this->pegarIdEquipe());
+        }
+
         return $Where;
     }
 

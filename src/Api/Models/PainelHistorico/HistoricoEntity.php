@@ -2,16 +2,16 @@
 
 namespace ApiModel\PainelHistorico;
 
-use ApiModel\PainelNotificacao\NotificacaoEntity;
-use App\Models\Api\Trait\ValidarUsuarioTrait;
-use App\Models\Api\UsuarioEquipe\EquipeEntity;
 use Erro\Erro;
+use Throwable;
+use ORM\Entity;
 use Erro\Excecao;
 use Helpers\DataHelper;
-use ORM\Entity;
 use System\Classes\PainelHistorico\Acao;
 use System\Classes\PainelHistorico\Status;
-use Throwable;
+use App\Models\Api\Trait\ValidarUsuarioTrait;
+use App\Models\Api\UsuarioEquipe\EquipeEntity;
+use ApiModel\PainelNotificacao\NotificacaoEntity;
 
 final class HistoricoEntity extends Entity
 {

@@ -67,6 +67,7 @@ final class LojaEntity extends Entity
         } elseif ($this->pExiste('equipe') && !empty($this->equipe)) {
             $this->id_usuario_equipe = $this->EquipeOrm->pegarIdPeloUuid($this->equipe);
         }
+        $this->data_prospeccao = new Data(hoje());
     }
 
     protected function regraUpdate()

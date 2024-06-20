@@ -42,6 +42,11 @@ final class DownloadPrivadoHelper implements MensageriaInterface
             'uri'    => '/solicitacao-voucher/download',
             'scope'  => 'solicitacao_voucher:download',
             'metodo' => 'POST'
+        ],
+        'parceiro_externo' => [
+            'uri'    => '/parceiro-externo/download',
+            'scope'  => 'parceiro_externo:download',
+            'metodo' => 'POST'
         ]
     ];
 
