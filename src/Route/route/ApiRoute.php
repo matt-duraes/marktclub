@@ -15,6 +15,7 @@ Route
                 'relacionado', 'app', 'acao', '!dado', '!mensagem', '!notificar_link',
                 '!notificar_equipe', '!notificar_titulo'
             ])
+            ::request(['!arquivo_1', '!arquivo_2', '!arquivo_3', '!arquivo_4'], ROUTE::REQUEST_TIPO_FILES)
             ::post('/painel-historico');
         Route
             ::nome('listar')

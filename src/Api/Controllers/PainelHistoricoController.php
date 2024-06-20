@@ -2,17 +2,17 @@
 
 namespace ApiController;
 
-use ApiModel\PainelHistorico\DownloadModel;
-use ApiModel\PainelHistorico\HistoricoEntity;
-use ApiModel\PainelHistorico\HistoricoModel;
-use Controller\Controller;
 use Erro\Excecao;
 use Http\Request;
 use Http\Response;
-use System\Interface\ControllerAtualizarInterface;
-use System\Interface\ControllerDeletarInterface;
+use Controller\Controller;
+use ApiModel\PainelHistorico\DownloadModel;
+use ApiModel\PainelHistorico\HistoricoModel;
+use ApiModel\PainelHistorico\HistoricoEntity;
 use System\Interface\ControllerListarInterface;
 use System\Interface\ControllerSalvarInterface;
+use System\Interface\ControllerDeletarInterface;
+use System\Interface\ControllerAtualizarInterface;
 
 final class PainelHistoricoController extends Controller implements
     ControllerListarInterface,
@@ -28,14 +28,21 @@ final class PainelHistoricoController extends Controller implements
     public function postSalvar(Request $request): Response
     {
         $Historico = new HistoricoEntity();
-        $Historico->set(lista: $request->dado());
+        $Historico->set(
+            lista: $request->lista([
+                'relacionado', 'app', 'acao', 'mensagem', 'notificar_titulo', 'notificar_link', 'notificar_equipe'
+            ])
+        );
+        foreach ($request->getFiles() as $arquivo) {
+            $Historico->arquivo($arquivo);
+        }
         $Historico->salvar();
 
         return mensagemSucesso(
             pegarPropriedadeDaEntity(
                 $Historico,
                 $request,
-                ['id', 'relacionado', 'app', 'acao', 'dado', 'mensagem']
+                ['id', 'relacionado', 'app', 'acao', 'dado', 'mensagem', 'arquivo']
             ),
             201
         );

@@ -206,11 +206,18 @@ class CurlHelper
         $lista = [];
         foreach ($arquivos as $index => $arquivo) {
             if ($arquivo instanceof UploadedFile) {
-                $lista[$index] = curl_file_create(
-                    $arquivo->getPathname(),
-                    $arquivo->getMimeType(),
-                    $arquivo->getClientOriginalName()
-                );
+                try {
+                    $lista[$index] = curl_file_create(
+                        $arquivo->getPathname(),
+                        $arquivo->getMimeType(),
+                        $arquivo->getClientOriginalName()
+                    );
+                } catch (\Throwable) {
+                    mensagemErro(
+                        'Erro!',
+                        'Não foi possível validar o arquivo ' . $arquivo->getClientOriginalName() . ', ele pode está corrompido ou com seus dados alterados.'
+                    );
+                }
             } elseif (is_array($arquivo) && isset($arquivo['tmp_name']) && file_exists($arquivo['tmp_name'])) {
                 $lista[$index] = curl_file_create(
                     $arquivo['tmp_name'],

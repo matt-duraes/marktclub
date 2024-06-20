@@ -7,11 +7,13 @@ use Throwable;
 use ORM\Entity;
 use Erro\Excecao;
 use Helpers\DataHelper;
+use Helpers\UploadHelper;
 use System\Classes\PainelHistorico\Acao;
 use System\Classes\PainelHistorico\Status;
 use App\Models\Api\Trait\ValidarUsuarioTrait;
 use App\Models\Api\UsuarioEquipe\EquipeEntity;
 use ApiModel\PainelNotificacao\NotificacaoEntity;
+use Symfony\Component\HttpFoundation\File\UploadedFile;
 
 final class HistoricoEntity extends Entity
 {
@@ -26,20 +28,15 @@ final class HistoricoEntity extends Entity
     public string $notificar_titulo = '';
     public string $notificar_link = '';
     public array $notificar_equipe = [];
+    public array $arquivo = [];
+    private array $arquivoNome = [];
     protected string $ormTabela = TABELA_PAINEL_HISTORICO;
     protected array $ormInsert = [
         'id_relacionado' => '->relacionado',
-        'id_usuario_equipe',
-        'app',
-        'acao',
-        'dado'
+        'id_usuario_equipe', 'app', 'acao', 'dado', 'arquivo'
     ];
     protected array $ormSalvar = ['mensagem', 'status'];
-    protected array $ormBuscar = [
-        'mensagem',
-        'status',
-        'data_criacao'
-    ];
+    protected array $ormBuscar = ['arquivo', 'mensagem', 'status', 'data_criacao'];
     protected string $ormValidarInsert = '
         relacionado|Relacionado|obrigatorio|vazio|isArray
         app|App|obrigatorio|vazio|isArray
@@ -79,6 +76,35 @@ final class HistoricoEntity extends Entity
         if (array_key_exists(0, $usuario) && $usuario[0]) {
             $this->enviarNotificacaoParaUsuario('Marcou você em um comentário', $usuario[0], 'nome_perfil');
         }
+    }
+
+    /**
+     * Adicionar arquivo
+     *
+     * @param UploadedFile $arquivo
+     */
+    public function arquivo(UploadedFile $arquivo): void
+    {
+        $nome = md5(uniqid(time()));
+        $Imagem = new UploadHelper(
+            arquivo: $arquivo,
+            diretorio: 'historico',
+            nome: $nome,
+            ext: ['jpg', 'jpeg', 'jpg', 'fig'],
+            path: DIRETORIO_PRIVADO
+        );
+        $Imagem->redimencionar(1000, 1000)->salvar();
+        $this->arquivo[] = $nome . '.' . $Imagem->extensao();
+    }
+
+    protected function regraPosBuscar()
+    {
+        $this->arquivoNome = $this->arquivo;
+        $arquivo = [];
+        foreach ($this->arquivo as $nome) {
+            $arquivo[] = arquivoPublico('historico', $nome, privado: true);
+        }
+        $this->arquivo = $arquivo;
     }
 
     /**
@@ -149,6 +175,12 @@ final class HistoricoEntity extends Entity
         $data = (new DataHelper(agora()))->remover(1, 'minuto')->formato('Y-m-d H:i:s');
         if ($data > $this->data_criacao->date()) {
             mensagemErro('Erro!', 'Essa mensagem não pode mais ser deletada.');
+        }
+        foreach ($this->arquivoNome as $nome) {
+            $path = DIRETORIO_PRIVADO . '/historico/' . $nome;
+            if (file_exists($path)) {
+                unlink($path);
+            }
         }
     }
 }

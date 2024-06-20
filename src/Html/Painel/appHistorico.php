@@ -1,5 +1,6 @@
 <?php
-$historico = $config->historico;
+
+$historico = isset($config) && object_key_exists('historico', $config) ? $config->historico : null;
 $historicoApp = $app;
 $historicoAppExtra = '';
 $historicoLeitura = true;
@@ -12,14 +13,14 @@ $historicoArquivoHtml = '';
 $temPermissaoHistoricoDownload = in_array(str_replace('-', '_', $app) . '_historico_download', sessao('USUARIO.permissao'));
 
 if($historico instanceof \PainelConfig\Historico) {
-    $historicoApp = $historico->app;
+    $historicoApp = !empty($historico->app) ? $historico->app : $app;
     $historicoLeitura = $historico->leitura;
     $historicoEscrita = $historico->escrita;
     $historicoDownload = $historico->download;
     $historicoAppExtra = $historico->appExtra;
     $historicoArquivo = $historico->arquivo;
     if($historicoArquivo) {
-        $historicoArquivoHtml = '<div class="arquivo_previa display_none" id="bloco_previa_lista"></div> <div class="botao_upload"><input type="file" multiple id="botao_historico_upload"><i>' . iconeAnexo(18) . '</i></div>';
+        $historicoArquivoHtml = '<div class="arquivo_previa display_none" id="bloco_previa_lista"></div> <div class="botao_upload"><input type="file" accept="image/jpeg, image/png, image/gif, image/jpg" multiple id="botao_historico_upload"><i>' . iconeAnexo(18) . '</i></div>';
     }
 
     if($historicoAppExtra):
@@ -71,7 +72,7 @@ if($historico instanceof \PainelConfig\Historico) {
         <input type="hidden" id="input_historico_titulo" value="<?= base64Encode($titulo) ?>">
         <input type="hidden" id="input_historico_link" value="<?= base64Encode(!empty($link) ? $link : LINK . URI) ?>">
         <input type="hidden" id="input_historico_notificar" value="<?= base64Encode($notificar) ?>">
-        <figure style="background-image: url(<?= sessao('USUARIO.imagem', padrao: '') ?>);"></figure>
+        <figure class="imagem_usuario" style="background-image: url(<?= sessao('USUARIO.imagem', padrao: '') ?>);"></figure>
         <?= formTextarea(
             name: 'historico_novo',
             label: '',
@@ -102,7 +103,7 @@ if($historico instanceof \PainelConfig\Historico) {
     <?php endif; ?>
 </div>
 <div class="display_none">
-    <div class="arquivo_previa_item" id="bloco_previa_item_padrao"><div class="arquivo_previa_titulo"></div><i data-ajuda="Remover arquivo"><?= iconeFechar(10) ?></i></div>
+    <div class="arquivo_previa_item" id="bloco_previa_item_padrao"><div class="arquivo_previa_titulo"></div><i class="arquivo_pervia_remover" data-ajuda="Remover arquivo"><?= iconeFechar(10) ?></i></div>
 </div>
 
 <?php if ($historicoDownload && $temPermissaoHistoricoDownload): ?>

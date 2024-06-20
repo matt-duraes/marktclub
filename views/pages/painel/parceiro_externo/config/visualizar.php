@@ -16,7 +16,6 @@ $Painel->coluna(callback: function () use ($Painel) {
 });
 
 $Painel
-    ->js('painel_parceiro_externo_visualizar')
     ->replace('categoria_principal', (new Categoria())->select())
     ->replace('status', (new Status())->select());
 
