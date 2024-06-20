@@ -36,6 +36,7 @@ $permissao = [
 
     'parceiro_loja_index', 'parceiro_loja_add', 'parceiro_loja_editar', 'parceiro_loja_deletar',
     'parceiro_loja_visualizar', 'parceiro_loja_status', 'parceiro_loja_download', 'parceiro_loja_empresa',
+    'parceiro_loja_historico_download',
 
     'parceiro_externo_index', 'parceiro_externo_add', 'parceiro_externo_visualizar', 'parceiro_externo_download',
     'parceiro_externo_equipe',
