@@ -11,7 +11,7 @@ $listaOrdem = [
     <form class="buscar form_geral botao_buscar_abrir">
         <p>Busque uma loja</p>
         @? formSelect(name: 'input_categoria_fake', id: 'bloco_input_categoria_fake', placeholder: 'Categoria', label: 'Categoria', class: 'botao_buscar_input busca_categoria_fake', lista: [])
-        @? formInput(name: 'input_pesquisa_fake', id: 'bloco_input_pesquisa_fake', placeholder: 'Busque por um convênio', label: 'Pesquisa', class: 'botao_buscar_input busca_pesquisa_fake')
+        @? formInput(name: 'input_pesquisa_fake', id: 'bloco_input_pesquisa_fake', placeholder: 'Busque uma loja', label: 'Pesquisa', class: 'botao_buscar_input busca_pesquisa_fake')
         <div class="botao">Buscar</div>
     </form>
 

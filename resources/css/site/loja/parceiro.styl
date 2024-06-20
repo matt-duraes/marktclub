@@ -6,6 +6,7 @@
 
 .bloco_parceiro .article_fake
     width: calc((100% / 3) - 15px)
+    opacity: 0
 .bloco_parceiro article
     width: calc((100% / 3) - 15px)
     flexCol()
@@ -15,7 +16,6 @@
     borderRadiusPadrao()
     position: relative
     overflow: hidden
-    justify-content: space-between
     .linha
         width: 100%
         height: 8px
@@ -43,14 +43,15 @@
         height: 140px
         padding: 20px
     figure.completo
-        height: 180px
         padding: 20px
+        height: 100%
+        flexCenter()
     figure.logo img
         max-width: 100%
         max-height: 100px
     figure.completo img
         max-width: 100%
-        max-height: 200px
+        max-height: 100px
     header
         width: 100%
         margin-top: 20px
@@ -61,8 +62,7 @@
     .margem
         margin-top: 10px
     p
-        font-size: 1.5rem
-        line-height: 1.5em
+        texto()
         color: $corCinzaCinza
         margin-bottom: 10px
     p.destaque
@@ -153,11 +153,12 @@
     .bloco_geral_article
         .article_fake
         article
-            width: calc(50% - 10px)
-
-@media screen and (max-width:600px)
-    .bloco_geral_article
-        justify-content: center
-        .article_fake
-        article
-            width: 100%
+            width: calc(50% - 5px)
+            margin-bottom: 10px
+    .bloco_geral_article article
+        figure.logo
+            height: 100px
+            padding: 10px
+        .bloco_favorito
+            top: 8px
+            right: 8px

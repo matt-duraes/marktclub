@@ -12,8 +12,7 @@ window.addEventListener('load', () => {
     if (!blocoPopup) {
         return;
     }
-    const PopupAlerta = new Popup('alerta', 'popup_medicamento', true, false);
-    PopupAlerta.abrir();
+    Alerta.mensagem('Atenção', 'Para usar seu desconto em drogarias, leia o procedimento com atenção!', '!');
 });
 
 const blocoMapa = $('#bloco_loja_mapa');
