@@ -12,7 +12,8 @@ final class SiliumModel extends ClubeApiHelper
     {
         $extratoCompra = $this->extratoCompra();
         $extratoSaque = $this->extratoSaque();
-        $saldo = $this->saldo();
+        $saldo = 1000000;
+        //$this->saldo();
         $dados = [
             'extrato_compra' => $extratoCompra,
             'extrato_saque'  => $extratoSaque,
@@ -59,12 +60,9 @@ final class SiliumModel extends ClubeApiHelper
 
     public function solicitarDeposito($dados)
     {
-        $dataAtual = new DateTime();
         $dado = $this
             ->validar('Ocorreu um erro ao fazer a solicitação')
             ->body([
-                'usuario'       => sessao('USUARIO.id'),
-                'tipo'          => 'deposito',
                 'email'         => $dados['email'],
                 'pontuacao'     => $dados['pontos'],
                 'nome_titular'  => $dados['titular'],
@@ -74,9 +72,9 @@ final class SiliumModel extends ClubeApiHelper
                 'conta'         => $dados['contaBancaria'],
                 'tipo_conta'    => $dados['tipoConta'],
             ])
-            ->post('/silium-deposito')
+            ->post('/silium-saque')
             ->object();
+        ppe($dado);
         return $dado;
     }
 }
-
