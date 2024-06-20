@@ -1,5 +1,7 @@
 <?php
 
+$Historico = new PainelConfig\Historico('parceiro_externo', escrita: true, arquivo: true);
+
 return [
     'titulo'     => 'Indicações',
     'buscar'     => true,
@@ -10,7 +12,7 @@ return [
     'add'        => true,
     'editar'     => false,
     'deletar'    => false,
-    'historico'  => true,
+    'historico'  => $Historico,
     'api'        => [
         'scope' => 'parceiro_externo',
         'uri'   => '/parceiro-externo'

@@ -20,9 +20,9 @@ use System\Interface\ModelListarInterface;
 use App\Models\Api\Trait\ValidarEmpresaTrait;
 use App\Models\Api\Demanda\Trait\EmpresaTrait;
 use App\Classes\ParceiroLoja\TipoEstabelecimento;
+use App\Models\Api\ParceiroLoja\Trait\WhereTrait;
 use App\Models\Api\ParceiroLoja\Trait\ListarCampoTrait;
 use App\Models\Api\ParceiroLoja\Trait\MontarRetornoTrait;
-use App\Models\Api\ParceiroLoja\Trait\WhereTrait;
 
 class LojaModel extends ORM implements ModelListarInterface
 {
