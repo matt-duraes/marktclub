@@ -2512,8 +2512,8 @@ Route
             ::nome('listar')
             ::middleware(TokenMiddleware::class, 'scope', ['silium_deposito:listar'])
             ::request([
-                'pagina', '!quantidade', '!ordem', '!empresa', '!usuario',
-                '!tipo_conta', '!tipo', '!data_inicio', '!data_final', '!status'
+                'pagina', '!quantidade', '!ordem', '!usuario', '!tipo_conta',
+                '!tipo', '!data_inicio', '!data_final', '!status'
             ], 'json')
             ::get('/silium-deposito');
 
@@ -2539,6 +2539,49 @@ Route
             ::nome('deletar')
             ::middleware(TokenMiddleware::class, 'scope', ['silium_deposito:deletar'])
             ::delete('/silium-deposito/{id}');
+    });
+
+Route
+    ::nome('silium_saque')
+    ::controller(App\Controllers\Api\SiliumSaqueController::class)
+    ::middleware(TokenMiddleware::class, 'token')
+    ::grupo(function () {
+        Route
+            ::nome('buscar')
+            ::middleware(TokenMiddleware::class, 'scope', ['silium_saque:buscar'])
+            ::get('/silium-saque/{id}');
+
+        Route
+            ::nome('listar')
+            ::middleware(TokenMiddleware::class, 'scope', ['silium_saque:listar'])
+            ::request([
+                'pagina', '!quantidade', '!ordem', '!usuario', '!tipo_conta',
+                '!data_inicio', '!data_final', '!status'
+            ], 'json')
+            ::get('/silium-saque');
+
+        Route
+            ::nome('salvar')
+            ::middleware(TokenMiddleware::class, 'scope', ['silium_saque:salvar'])
+            ::request([
+                'nome_titular', 'documento_cpf', 'email', 'tipo_conta',
+                'banco', 'agencia', 'conta', 'pontuacao'
+            ])
+            ::post('/silium-saque');
+
+        Route
+            ::nome('atualizar')
+            ::middleware(TokenMiddleware::class, 'scope', ['silium_saque:atualizar'])
+            ::request([
+                '!nome_titular', '!documento_cpf', '!email', '!tipo_conta',
+                '!banco', '!agencia', '!conta', '!pontuacao', '!status'
+            ])
+            ::put('/silium-saque/{id}');
+
+        Route
+            ::nome('deletar')
+            ::middleware(TokenMiddleware::class, 'scope', ['silium_saque:deletar'])
+            ::delete('/silium-saque/{id}');
     });
 
 Route

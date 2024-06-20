@@ -1,8 +1,9 @@
 <?php
 
+use PainelConfig\Filtrar;
 use App\Classes\Silium\StatusComissao;
 
-$Painel = new PainelConfig\Filtrar('silium_comissao');
+$Painel = new Filtrar('silium_comissao');
 
 $Painel
     ->input(

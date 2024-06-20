@@ -12,17 +12,15 @@ class SiliumComissaoEntity extends Entity
 {
     protected string $ormTabela = TABELA_SILIUM_COMISSAO;
     protected array $ormBuscar = [
-        'id_admin_empresa', 'id_usuario_cliente', 'parceiro', 'valor_compra',
+        'id_usuario_cliente', 'parceiro', 'valor_compra',
         'comissao_usuario', 'pontuacao', 'data_compra', 'status',
         'data_criacao', 'data_atualizacao'
     ];
     protected array $ormSalvar = [
-        'id_admin_empresa', 'id_usuario_cliente', 'parceiro', 'valor_compra',
+        'id_usuario_cliente', 'parceiro', 'valor_compra',
         'comissao_usuario', 'pontuacao', 'data_compra', 'status'
     ];
-    protected int $id_admin_empresa;
     protected int $id_usuario_cliente;
-    public array $empresa;
     public string $parceiro;
     public string|array $usuario;
     public Dinheiro $valor_compra;
@@ -38,7 +36,6 @@ class SiliumComissaoEntity extends Entity
 
     protected function regraPosBuscar(): void
     {
-        $this->pegarEmpresa();
         $this->pegarUsuario();
     }
 
@@ -50,45 +47,20 @@ class SiliumComissaoEntity extends Entity
 
     protected function regraPosSalvar(): void
     {
-        $this->setarPontuacao();
+        if ($this->status->indice() === StatusComissao::LIBERADO) {
+            $this->setarPontuacao();
+        }
     }
 
     private function setarUsuario(): void
     {
         $OrmHelper = new OrmHelper(TABELA_USUARIO_CLIENTE);
-        $usuario = $OrmHelper->pegarUltimoRegistro(
-            ['uuid', $this->usuario],
-            ['id', 'id_admin_empresa'],
-            'object'
-        );
+        $id = $OrmHelper->pegarIdPeloUuid($this->usuario);
 
-        if (empty($usuario->id)) {
+        if (empty($id)) {
             mensagemErro('Campo obrigatório!', 'Não foi possível achar um usuário.');
         }
-
-        $this->id_admin_empresa = $usuario->id_admin_empresa;
-        $this->id_usuario_cliente = $usuario->id;
-    }
-
-    private function pegarEmpresa(): void
-    {
-        $OrmHelper = new OrmHelper(TABELA_COMERCIAL_EMPRESA);
-        $empresa = $OrmHelper->pegarUltimoRegistro(
-            ['id', $this->id_admin_empresa],
-            ['uuid', 'titulo'],
-            'object'
-        );
-
-        if (empty($empresa->uuid)) {
-            $this->empresa = [
-                'id'     => '',
-                'titulo' => 'Não foi encontrado',
-            ];
-        }
-        $this->empresa = [
-            'id'     => $empresa->uuid,
-            'titulo' => $empresa->titulo,
-        ];
+        $this->id_usuario_cliente = $id;
     }
 
     private function pegarUsuario(): void
@@ -115,10 +87,16 @@ class SiliumComissaoEntity extends Entity
     private function setarPontuacao(): void
     {
         $SiliumSaldoEntity = new SiliumSaldoEntity();
-        $SiliumSaldoEntity->id($this->id_usuario_cliente);
-        $SiliumSaldoEntity->set(lista: [
-            'saldo' => $SiliumSaldoEntity->saldo + $this->pontuacao
-        ]);
+        $SiliumSaldoEntity->buscar(['id_usuario_cliente' => $this->id_usuario_cliente], false);
+
+        $dados = ['saldo_silium' => 0];
+        if (!empty($SiliumSaldoEntity->id)) {
+            $dados = [
+                'saldo_silium'  => $SiliumSaldoEntity->saldo_silium + $this->pontuacao,
+                'data_validade' => dataAdicionar(hoje(), 1, 'ano')
+            ];
+        }
+        $SiliumSaldoEntity->set(lista: $dados);
         $SiliumSaldoEntity->salvar();
     }
 }

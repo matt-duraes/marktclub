@@ -1,0 +1,1 @@
+{"id":"id_0d27c1f1b0259908a7eae79747e452fe","token":"token","metodo":"DELETE","nome":"\/silium-saque\/:id","uri":"{{LINK}}\/silium-saque\/$SILIUM_SAQUE_ID","parametro":[],"body":[],"header":[],"variavel":[],"json":[],"documentacao":{"status":false,"descricao":"","requisicao":"","resposta":"","scope":"silium_saque:deletar"}}
