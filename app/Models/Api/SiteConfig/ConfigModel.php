@@ -23,8 +23,11 @@ final class ConfigModel extends ORM implements ModelListarInterface
     public function listarDados(): stdClass
     {
         $dado = $this
-            ->campo(['uuid', 'titulo_painel', 'titulo', 'link_site', 'data_criacao', 'status'])
-            ->where($this->pegarWhere(), obrigatorio: false)
+            ->campo([
+                'uuid', 'titulo_painel', 'titulo',
+                'link_site', 'data_criacao', 'status'
+            ])
+            ->where($this->pegarWhere(), false)
             ->pagina($this->pegarPagina())
             ->read();
 
@@ -40,7 +43,8 @@ final class ConfigModel extends ORM implements ModelListarInterface
         $where = [];
         if (!empty($this->empresa)) {
             $where[] = [
-                'id_admin_empresa', (new OrmHelper(TABELA_COMERCIAL_EMPRESA))->pegarIdPeloUuid($this->empresa)
+                'id_admin_empresa', (new OrmHelper(TABELA_COMERCIAL_EMPRESA))
+                    ->pegarIdPeloUuid($this->empresa)
             ];
         }
         return $where;

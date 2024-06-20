@@ -14,26 +14,24 @@ use System\Interface\ControllerAtualizarInterface;
 use App\Models\Api\PublicacaoYoutube\YoutubeEntity;
 
 final class PublicacaoYoutubeController extends Controller implements
-    ControllerListarInterface,
     ControllerBuscarInterface,
+    ControllerListarInterface,
     ControllerSalvarInterface,
     ControllerAtualizarInterface,
     ControllerDeletarInterface
 {
-    public function getListar(Request $request): Response
-    {
-        $Youtube = new YoutubeModel();
-        $Youtube->set(lista: $request->dado());
-
-        return mensagemSucesso($Youtube->listarDados());
-    }
-
     public function getBuscar(string $id): Response
     {
         $Youtube = new YoutubeEntity();
         $Youtube->idSlug($id);
-
         return $this->retornoPadrao(Youtube: $Youtube, status: 200);
+    }
+
+    public function getListar(Request $request): Response
+    {
+        $Youtube = new YoutubeModel();
+        $Youtube->set(lista: $request->dado());
+        return mensagemSucesso($Youtube->listarDados());
     }
 
     public function postSalvar(Request $request): Response
