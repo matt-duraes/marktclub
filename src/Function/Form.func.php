@@ -1537,7 +1537,8 @@ if (!function_exists('formTextarea')) {
         bool $obrigatorio = false,
         array $attr = [],
         ?int $numeroLinha = null,
-        mixed $local = ''
+        mixed $local = '',
+        string $htmlPre = ''
     ): string {
         if (eLocalhost() && empty($value)) {
             $value = $local;
@@ -1560,6 +1561,7 @@ if (!function_exists('formTextarea')) {
 
         return '
             <div class="bloco_input input_textarea ' . $class . '" id="' . $id . '">
+                ' . $htmlPre . '
                 <textarea data-numero-linha="' . $numeroLinha . '" speelcheck="true" ' . implode(' ', $attrInput) . ' class="input_geral resize textarea_resize ' . $obrigatorio . '" name="' . $name . '" placeholder="' . $placeholder . '" id="input_' . $name . '">' . $value . '</textarea>
                 ' . $html . '
                 <div class="borda"></div>

@@ -18,6 +18,9 @@ final class Visualizar
     private array $replace = [];
     private array $status = [];
 
+    public const TARGET_SELF = '_self';
+    public const TARGET_BLANK = '_blank';
+
     public function __construct(
         private string $app,
         private string $tipo = 'html'
@@ -283,6 +286,26 @@ final class Visualizar
         return $this;
     }
 
+    public function ou(array|string $campo, string $nome, ?string $permissao = null)
+    {
+        $this->adicionarCampo($campo, [
+            'funcao' => 'ou',
+            'campo'  => $campo,
+            'nome'   => $nome
+        ], $permissao);
+        return $this;
+    }
+
+    public function e(array|string $campo, string $nome, ?string $permissao = null)
+    {
+        $this->adicionarCampo($campo, [
+            'funcao' => 'e',
+            'campo'  => $campo,
+            'nome'   => $nome
+        ], $permissao);
+        return $this;
+    }
+
     public function array(array|string $campo, string $nome, ?string $permissao = null)
     {
         $this->adicionarCampo($campo, [
@@ -428,6 +451,23 @@ final class Visualizar
             'link'   => $link,
             'target' => $target,
             'attr'   => $attr
+        ], $permissao);
+        return $this;
+    }
+
+    public function botaoDestaque(
+        string $texto = '',
+        ?array $inArray = null,
+        ?string $id = null,
+        ?string $cor = null,
+        ?string $permissao = null
+    ) {
+        $this->adicionarCampo('', [
+            'funcao'   => 'botaoDestaque',
+            'texto'    => $texto,
+            'inArray'  => $inArray,
+            'cor'      => $cor,
+            'id'       => $id
         ], $permissao);
         return $this;
     }

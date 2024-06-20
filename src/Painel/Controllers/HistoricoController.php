@@ -29,7 +29,7 @@ final class HistoricoController extends Controller
             ->validar('Ocorreu um erro ao salvar seu histórico.')
             ->body([
                 'relacionado'      => [$request->relacionado],
-                'app'              => [$request->app],
+                'app'              => $request->app,
                 'acao'             => 'mensagem',
                 'mensagem'         => $request->mensagem,
                 'notificar_titulo' => base64Decode($request->titulo),

@@ -8,6 +8,7 @@ use Http\Response;
 use Helpers\ApiHelper;
 use Helpers\CryptHelper;
 use Controller\Controller;
+use PainelConfig\Historico;
 
 abstract class PadraoController extends Controller
 {
@@ -154,15 +155,20 @@ abstract class PadraoController extends Controller
         }
 
         $permissaoEditar = $this->pegarPermissaoUsuario('editar', $app, $config['editar'] ?? false);
-
+        $existeHistorico = array_key_exists('historico', $config);
+        $historico = false;
+        if ($existeHistorico && (is_bool($config['historico']) || $config['historico'] instanceof Historico)) {
+            $historico = is_bool($config['historico']) ? $config['historico'] : true;
+        }
         return (object)[
             'titulo'    => $config['titulo'] ?? '',
             'permissao' => (object)[
-                'historico'  => $config['historico'] ?? false,
+                'historico'  => $historico,
                 'visualizar' => $this->pegarPermissaoUsuario('visualizar', $app, $config['visualizar'] ?? false),
                 'status'     => $this->pegarPermissaoUsuario('status', $app, $config['visualizar'] ?? false),
                 'editar'     => $permissaoEditar,
             ],
+            'historico'  => array_key_exists('historico', $config) && $config['historico'] instanceof Historico ? $config['historico'] : null,
             'visualizar' => (object)[
                 'app'     => $appUso,
                 'replace' => $padrao ? $Visualizar->pegarReplace() : [],

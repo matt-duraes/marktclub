@@ -1,7 +1,7 @@
 <div class="bloco_pagina_popup conteudo display_none" id="bloco_cancelar_loja">
     <header class="header_pagina_popup">
         <h1>CANCELAR</h1>
-        <i class="fechar">@iconeFechar()</i>
+        <i class="fechar popup_fechar">@iconeFechar()</i>
     </header>
     <form action="/" class="form_geral conteudo_pagina_popup">
         @? formSelect(name: 'cancelar_motivo', label: 'Motivo cancelamento', placeholder: 'Escolha o motivo do cancelamento', lista: (new \App\Classes\ParceiroLoja\CancelarMotivo())->select('Escolha uma opção'))
