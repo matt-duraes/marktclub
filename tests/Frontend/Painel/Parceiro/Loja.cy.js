@@ -1,16 +1,7 @@
-const { uuid } = require('../../config/utils/geral');
+const { uuid, cpf } = require('../../config/utils/geral');
 const { Teste } = require('../../config/utils/teste');
 
-Teste('Parceiro Loja', (viewport, type) => {
-    beforeEach(() => {
-        cy.viewport(viewport);
-
-        cy.session('login', () => {
-            cy.painelLogin();
-            cy.checkUrl('/dashboard');
-        });
-    });
-
+Teste('Parceiro Loja', 'painel', type => {
     it(`Clicar menu`, () => {
         cy.visit('/dashboard');
 
@@ -35,7 +26,7 @@ Teste('Parceiro Loja', (viewport, type) => {
             responsavel: {
                 nome: 'Responsavel Cypress',
                 cargo: 'Cargo Cypress',
-                cpf: '12345678900',
+                cpf: cpf(),
                 telefone: '11999999999',
                 email: 'testeCypress@teste.com',
             },
