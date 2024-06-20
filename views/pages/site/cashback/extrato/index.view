@@ -46,7 +46,6 @@
                 <div id="bloco_nome_01" class="conteudo">
                     <div class="bloco_tabela_geral">
                         <table>
-                            @if(!empty($extratoCompra)):
                             <thead>
                                 <tr>
                                     <th>Empresa Parceira</th>
@@ -56,6 +55,7 @@
                                 </tr>
                             </thead>
                             <tbody>
+                            @if(!empty($extratoCompra)):
                                 @foreach ($extratoCompra as $r) :
                                 <tr>
                                     <td>{{$r->parceiro}}</td>
@@ -78,7 +78,6 @@
                 <div id="bloco_nome_02" class="conteudo display_none">
                     <div class="bloco_tabela_geral">
                         <table>
-                            @if(!empty($extratoSaque)):
                             <thead>
                                 <tr>
                                     <th>Pontos Trocados</th>
@@ -87,6 +86,7 @@
                                 </tr>
                             </thead>
                             <tbody>
+                            @if(!empty($extratoSaque)):
                                 @foreach ($extratoSaque as $r->lista):
                                     <tr>
                                         <td>{{$r->pontos_trocados}}</td>
@@ -120,19 +120,18 @@
                 <h1 class="titulo_dados_bancarios">Dados Pessoais</h1>
                 <fieldset>
                     @? formInput(name: 'ponto_nome', label: 'Nome', placeholder:'Digite seu nome', obrigatorio: true, value: '', local: 'André Rodrigues')
-                    @? formInput(name: 'ponto_email', label: 'E-mail', placeholder:'Digite seu E-mail',  obrigatorio: true, value: '', local: 'andre@markt.club')
+                    @? formInput(name: 'ponto_email', label: 'E-mail', placeholder:'Digite seu E-mail', obrigatorio: true, value: '', local: 'andre@markt.club')
                     @? formNumero(name: 'ponto_quantidade', label: 'Pontos', placeholder: 'Digite a quantidade de pontos', obrigatorio: true, value: '', local: 1)
                 </fieldset>
                 <h1 class="titulo_dados_bancarios">Dados Bancários</h1>
                 <fieldset>
                     @? formInput(name: 'titular', label: 'Nome', placeholder:'Digite o nome do titular', obrigatorio: true, value: '', local: 'André Rodrigues')
-                    @? formCpf(name: 'cpf_conta', label: 'CPF', placeholder: 'CPF')
+                    @? formCpf(name: 'cpf_conta', label: 'CPF', placeholder: 'CPF', obrigatorio: true, value: '', local: '123.456.789-00')
                     @? formInput(name: 'banco', label: 'Banco', placeholder:'Digite o nome do banco', obrigatorio: true, value: '', local: 'InterSA')
                     @? formNumero(name: 'conta', label: 'Conta Bancária', placeholder:'Digite a sua conta bancária ', maximo: 15, obrigatorio: true, value: '', local: '123456789')
                     @? formNumero(name: 'agencia', label: 'Agência', placeholder:'Digite a sua agência bancária ', obrigatorio: true, value: '', local: '14320')
                     @? formSelect(name: 'tipo', label: 'Tipo de Conta', placeholder: 'Escolha o tipo de conta', obrigatorio: true, lista: (new \App\Classes\Silium\TipoConta())->select('Selecione um tipo de conta'));
                 </fieldset>
-
             </div>
         </form>
         <div class="bloco_botao">
