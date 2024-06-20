@@ -28,7 +28,6 @@ class SiliumComissaoModel extends ORM implements
         private readonly Pagina $pagina = new Pagina(),
         private readonly Quantidade $quantidade = new Quantidade(),
         private readonly OrdemComissao $ordem = new OrdemComissao(),
-        private readonly ?string $empresa = null,
         private readonly ?string $usuario = null,
         private readonly ?string $parceiro = null,
         private readonly Data $dataInicio = new Data(),
@@ -72,12 +71,6 @@ class SiliumComissaoModel extends ORM implements
             ->where($this->pegarWhere(), false)
             ->pagina($this->pegarPagina(), $this->pegarQuantidade())
             ->order($this->pegarOrdem(new OrdemComissao()))
-            ->tabela(TABELA_COMERCIAL_EMPRESA)
-            ->join('id', 'id_admin_empresa')
-            ->where($this->pegarWhereEmpresa(), false)
-            ->campo([
-                'uuid', 'titulo'
-            ], 'empresa')
             ->tabela(TABELA_USUARIO_CLIENTE)
             ->where($this->pegarWhereUsuario(), false)
             ->join('id', 'id_usuario_cliente')
@@ -113,15 +106,6 @@ class SiliumComissaoModel extends ORM implements
         return $where;
     }
 
-    private function pegarWhereEmpresa(): array
-    {
-        $where = [];
-        if (!empty($this->empresa)) {
-            $where[] = ['cod', $this->empresa];
-        }
-        return $where;
-    }
-
     private function pegarWhereUsuario(): array
     {
         $where = [];
@@ -144,10 +128,6 @@ class SiliumComissaoModel extends ORM implements
         foreach ($comissoes as $comissao) {
             $retorno[] = [
                 'id'               => $comissao->uuid,
-                'empresa'          => [
-                    'id'     => $comissao->empresa_uuid,
-                    'titulo' => $comissao->empresa_titulo
-                ],
                 'usuario' => [
                     'id'     => $comissao->usuario_uuid,
                     'nome'   => $comissao->usuario_nome
