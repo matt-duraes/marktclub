@@ -6,7 +6,6 @@ use App\Classes\Silium\OrdemComissao;
 use App\Classes\Silium\StatusComissao;
 use App\Models\Api\Silium\SiliumComissaoEntity;
 use App\Models\Api\Silium\SiliumComissaoModel;
-use App\Models\Api\Silium\SiliumSaldoEntity;
 use Controller\Controller;
 use Http\Request;
 use Http\Response;
@@ -39,7 +38,6 @@ final class SiliumComissaoController extends Controller implements
             new Pagina($request->pagina),
             new Quantidade($request->quantidade),
             new OrdemComissao($request->ordem),
-            $request->empresa,
             $request->usuario,
             $request->parceiro,
             new Data($request->data_inicio),
@@ -63,7 +61,7 @@ final class SiliumComissaoController extends Controller implements
             pegarPropriedadeDaEntity(
                 $siliumComissaoEntity,
                 lista: [
-                    'empresa', 'usuario', 'parceiro', 'valor_compra',
+                    'usuario', 'parceiro', 'valor_compra',
                     'comissao_usuario', 'pontuacao', 'data_compra', 'status',
                     'data_criacao', 'data_atualizacao'
                 ]
