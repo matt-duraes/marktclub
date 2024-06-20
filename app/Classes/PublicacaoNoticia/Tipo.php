@@ -8,6 +8,7 @@ class Tipo extends StatusStatus
 {
     public const NOTICIA = 'noticia';
     public const ARTIGO = 'artigo';
+    public const CARTILHAS = 'cartilhas';
 
     public function __construct(
         protected string|int|null $valor = null
@@ -15,6 +16,7 @@ class Tipo extends StatusStatus
         parent::__construct([
             self::NOTICIA => 'Notícia',
             self::ARTIGO  => 'Artigo',
+            self::CARTILHAS  => 'Cartilhas'
         ]);
     }
 }

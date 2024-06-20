@@ -6,6 +6,7 @@ use App\Classes\Silium\OrdemComissao;
 use App\Classes\Silium\StatusComissao;
 use App\Models\Api\Silium\SiliumComissaoEntity;
 use App\Models\Api\Silium\SiliumComissaoModel;
+use App\Models\Api\Silium\SiliumSaldoEntity;
 use Controller\Controller;
 use Http\Request;
 use Http\Response;

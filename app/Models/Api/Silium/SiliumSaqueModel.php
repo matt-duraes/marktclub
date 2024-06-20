@@ -2,11 +2,10 @@
 
 namespace App\Models\Api\Silium;
 
-use App\Classes\Silium\OrdemDeposito;
-use App\Classes\Silium\StatusDeposito;
+use App\Classes\Silium\OrdemSaque;
+use App\Classes\Silium\StatusSaque;
 use App\Classes\Silium\TipoConta;
 use Modules\Data;
-use Modules\Dinheiro;
 use Modules\Pagina;
 use Modules\Quantidade;
 use ORM\ORM;
@@ -16,24 +15,24 @@ use System\Trait\Model\OrdemTrait;
 use System\Trait\Model\PaginaTrait;
 use System\Trait\Model\QuantidadeTrait;
 
-class SiliumDepositoModel extends ORM implements
+class SiliumSaqueModel extends ORM implements
     ModelListarInterface
 {
     use PaginaTrait;
     use QuantidadeTrait;
     use OrdemTrait;
 
-    protected string $ormTabela = TABELA_SILIUM_DEPOSITO;
+    protected string $ormTabela = TABELA_SILIUM_SAQUE;
 
     public function __construct(
         private readonly Pagina $pagina = new Pagina(),
         private readonly Quantidade $quantidade = new Quantidade(),
-        private readonly OrdemDeposito $ordem = new OrdemDeposito(),
+        private readonly OrdemSaque $ordem = new OrdemSaque(),
         private readonly ?string $usuario = null,
         private readonly TipoConta $tipoConta = new TipoConta(),
         private readonly Data $dataInicio = new Data(),
         private readonly Data $dataFinal = new Data(),
-        private readonly StatusDeposito $status = new StatusDeposito()
+        private readonly StatusSaque $status = new StatusSaque()
     ) {
         $this->validarRequest();
         parent::__construct();
@@ -66,48 +65,41 @@ class SiliumDepositoModel extends ORM implements
 
     public function listarDados(): stdClass
     {
-        $depositos = $this
-            ->campo([
-                'uuid', 'valor', 'data_deposito', 'status',
+        $saques = $this->campo([
+                'uuid', 'nome_titular', 'documento_cpf', 'banco', 'agencia',
+                'conta', 'tipo_conta', 'pontuacao', 'status',
                 'data_criacao', 'data_atualizacao'
             ])
             ->where($this->pegarWhere(), false)
             ->pagina($this->pegarPagina(), $this->pegarQuantidade())
-            ->order($this->pegarOrdem(new OrdemDeposito()))
+            ->order($this->pegarOrdem(new OrdemSaque()))
             ->tabela(TABELA_USUARIO_CLIENTE)
             ->where($this->pegarWhereUsuario(), false)
             ->join('id', 'id_usuario_cliente')
             ->campo([
                 'uuid', 'nome'
             ], 'usuario')
-            ->tabela(TABELA_SILIUM_SAQUE)
-            ->join('id', 'id_silium_saque')
-            ->campo([
-                'uuid', 'nome_titular', 'documento_cpf', 'tipo_conta',
-                'banco', 'agencia', 'conta', 'pontuacao'
-            ], 'saque')
             ->read();
-
-        $depositos->lista = $this->montarRetorno($depositos->lista);
-        return $depositos;
+        $saques->lista = $this->montarRetorno($saques->lista);
+        return $saques;
     }
 
     private function pegarWhere(): array
     {
         $where = $this->ormWherePadrao;
-        /*if ($this->tipoConta->valido()) {
+        if ($this->tipoConta->valido()) {
             $where[] = ['tipo_conta', $this->tipoConta->numero()];
-        }*/
+        }
         if ($this->dataInicio->valido() && $this->dataFinal->valido()) {
             $where[] = [
-                'data_deposito', 'between', [
+                'data_criacao', 'between', [
                     $this->dataInicio->date(), $this->dataFinal->date()
                 ]
             ];
         } elseif ($this->dataInicio->valido()) {
-            $where[] = ['data_deposito', '>=', $this->dataInicio->date()];
+            $where[] = ['data_criacao', '>=', $this->dataInicio->date()];
         } elseif ($this->dataFinal->valido()) {
-            $where[] = ['data_deposito', '<=', $this->dataFinal->date()];
+            $where[] = ['data_criacao', '<=', $this->dataFinal->date()];
         }
         if ($this->status->valido()) {
             $where[] = ['status', $this->status->numero()];
@@ -126,37 +118,34 @@ class SiliumDepositoModel extends ORM implements
         return $where;
     }
 
-    private function montarRetorno(array $depositos): array
+    private function montarRetorno(array $saques): array
     {
-        if (empty($depositos)) {
-            return $depositos;
+        if (empty($saques)) {
+            return $saques;
         }
 
         $TipoConta = new TipoConta();
-        $Status = new StatusDeposito();
+        $Status = new StatusSaque();
         $retorno = [];
-        foreach ($depositos as $deposito) {
+        foreach ($saques as $saque) {
             $retorno[] = [
-                'id'               => $deposito->uuid,
+                'id'               => $saque->uuid,
                 'usuario'          => [
-                    'id'    => $deposito->usuario_uuid,
-                    'nome'  => $deposito->usuario_nome
+                    'id'    => $saque->usuario_uuid,
+                    'nome'  => $saque->usuario_nome
                 ],
-                'saque'          => [
-                    'id'            => $deposito->saque_uuid,
-                    'nome_titular'  => $deposito->saque_nome_titular,
-                    'documento_cpf' => $deposito->saque_documento_cpf,
-                    'tipo_conta'    => $TipoConta->indice($deposito->saque_tipo_conta),
-                    'banco'         => $deposito->saque_banco,
-                    'agencia'       => $deposito->saque_agencia,
-                    'conta'         => $deposito->saque_conta,
-                    'pontuacao'     => $deposito->saque_pontuacao
+                'pagamento' => [
+                    'nome_titular'     => $saque->nome_titular,
+                    'documento_cpf'    => $saque->documento_cpf,
+                    'tipo_conta'       => $TipoConta->indice($saque->tipo_conta),
+                    'banco'            => $saque->banco,
+                    'agencia'          => $saque->agencia,
+                    'conta'            => $saque->conta,
                 ],
-                'valor'            => (new Dinheiro($deposito->valor))->banco(),
-                'data_deposito'    => $deposito->data_deposito,
-                'status'           => $Status->indice($deposito->status),
-                'data_criacao'     => $deposito->data_criacao,
-                'data_atualizacao' => $deposito->data_atualizacao
+                'pontuacao'        => $saque->pontuacao,
+                'status'           => $Status->indice($saque->status),
+                'data_criacao'     => $saque->data_criacao,
+                'data_atualizacao' => $saque->data_atualizacao
             ];
         }
         return $retorno;

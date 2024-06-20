@@ -827,7 +827,7 @@ return [
         'id'               => '++',
         'id_admin_empresa' => 1,
         'tipo'             => 3,
-        'titulo'           => 'Configurações do Menu (ALPHA)',
+        'titulo'           => 'Configurações do Menu',
         'url'              => '/app/site-menu',
         'icone'            => '<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 30 30" style="enable-background:new 0 0 30 30;" xml:space="preserve"><path d="M20.2,20.2V22H9.8v-1.8H20.2z M22.9,14.1v1.8H7.1v-1.8H22.9z M20.2,8v1.8H9.8V8H20.2z"/></svg>',
         'ordem'            => '++',
