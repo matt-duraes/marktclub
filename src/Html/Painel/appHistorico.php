@@ -16,7 +16,7 @@ if($historico instanceof \PainelConfig\Historico) {
     $historicoAppExtra = $historico->appExtra;
     $historicoArquivo = $historico->arquivo;
     if($historicoArquivo) {
-        $historicoArquivoHtml = '<div class="arquivo_previa"></div> <div class="botao_upload"><input type="file" multiple id="botao_historico_upload"><i>' . iconeAnexo(18) . '</i></div>';
+        $historicoArquivoHtml = '<div class="arquivo_previa display_none" id="bloco_previa_lista"></div> <div class="botao_upload"><input type="file" multiple id="botao_historico_upload"><i>' . iconeAnexo(18) . '</i></div>';
     }
 
     if($historicoAppExtra):

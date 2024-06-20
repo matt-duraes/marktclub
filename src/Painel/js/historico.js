@@ -564,29 +564,6 @@ const historicoLoad = () => {
 
     /*
     |--------------------------------------------------------------------------
-    | UPLOAD DE IMAGEM
-    |--------------------------------------------------------------------------
-    */
-    const botaoUpload = $('#botao_historico_upload');
-    if (botaoUpload) {
-        botaoUpload.evento('change', () => {
-            const quantidade = botaoUpload.files.length;
-            if (quantidade == 0) {
-                botaoUpload.value = '';
-                return;
-            }
-
-            let i = 0;
-            for (; i < quantidade; ++i) {
-                adicionarArquivoPrevio(botaoUpload.files[i]);
-            }
-        });
-    }
-    const adicionarArquivoPrevio = arquivo => {
-        ppe(arquivo);
-    };
-    /*
-    |--------------------------------------------------------------------------
     | DOWNLOAD HISTORICO
     |--------------------------------------------------------------------------
     */
