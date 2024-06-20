@@ -2564,8 +2564,8 @@ Route
             ::nome('salvar')
             ::middleware(TokenMiddleware::class, 'scope', ['silium_saque:salvar'])
             ::request([
-                'nome_titular', 'documento_cpf', 'email', 'tipo_conta',
-                'banco', 'agencia', 'conta', 'pontuacao'
+                '!usuario', 'nome_titular', 'documento_cpf', 'email',
+                'tipo_conta', 'banco', 'agencia', 'conta', 'pontuacao'
             ])
             ::post('/silium-saque');
 
@@ -2573,8 +2573,9 @@ Route
             ::nome('atualizar')
             ::middleware(TokenMiddleware::class, 'scope', ['silium_saque:atualizar'])
             ::request([
-                '!nome_titular', '!documento_cpf', '!email', '!tipo_conta',
-                '!banco', '!agencia', '!conta', '!pontuacao', '!status'
+                '!usuario', '!nome_titular', '!documento_cpf', '!email',
+                '!tipo_conta', '!banco', '!agencia', '!conta', '!pontuacao',
+                '!status'
             ])
             ::put('/silium-saque/{id}');
 

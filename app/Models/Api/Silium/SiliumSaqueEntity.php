@@ -4,7 +4,6 @@ namespace App\Models\Api\Silium;
 
 use App\Classes\Silium\StatusSaque;
 use App\Classes\Silium\TipoConta;
-use App\Models\Api\Trait\ValidarEmpresaTrait;
 use Helpers\OrmHelper;
 use Modules\Cpf;
 use Modules\Email;
@@ -13,8 +12,6 @@ use ORM\Entity;
 
 class SiliumSaqueEntity extends Entity
 {
-    use ValidarEmpresaTrait;
-
     private const PONTUACAO_MINIMA = 10000;
 
     protected string $ormTabela = TABELA_SILIUM_SAQUE;
@@ -42,6 +39,7 @@ class SiliumSaqueEntity extends Entity
         pontuacao|Pontuação|obrigatorio|vazio
     ';
     protected int $id_usuario_cliente;
+    protected int $idUsuario;
 
     public string|array $usuario;
     public Nome $nome_titular;
@@ -56,7 +54,6 @@ class SiliumSaqueEntity extends Entity
 
     public function __construct()
     {
-        $this->setarIdUsuario();
         parent::__construct();
     }
 
@@ -67,8 +64,20 @@ class SiliumSaqueEntity extends Entity
 
     protected function regraSalvar(): void
     {
+        $this->setarUsuario();
         $this->validarResgate();
         $this->validarSaldoSuficiente();
+    }
+
+    private function setarUsuario(): void
+    {
+        $OrmHelper = new OrmHelper(TABELA_USUARIO_CLIENTE);
+        $id = $OrmHelper->pegarIdPeloUuid($this->usuario);
+
+        if (empty($id)) {
+            mensagemErro('Campo obrigatório!', 'Não foi possível achar um usuário.');
+        }
+        $this->idUsuario = $id;
     }
 
     private function pegarUsuario(): void
