@@ -197,7 +197,8 @@ if (!function_exists('painelHistorico')) {
         string $titulo = '',
         string $link = '',
         array $notificar = [],
-        bool $fechar = false
+        bool $fechar = false,
+        null|PainelConfig\Historico $historico = null
     ) {
         $r = (object)[
             'id' => $id
@@ -205,6 +206,11 @@ if (!function_exists('painelHistorico')) {
         $classe = 'grande';
         if (!$boxShadow) {
             $classe .= ' sem_box_shadow';
+        }
+        if ($historico instanceof \PainelConfig\Historico) {
+            $config = (object)[
+                'historico' => $historico
+            ];
         }
         require ROOT . '/src/Html/Painel/appHistorico.php';
     }

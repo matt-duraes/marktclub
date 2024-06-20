@@ -102,6 +102,9 @@ if ($requestUri == '__endereco-cep' && $_SERVER['REQUEST_METHOD'] ?? '' == 'POST
 } elseif (str_starts_with($requestUri, 'aqiorvd.') && METODO == 'GET') {
     require_once __DIR__ . '/../src/Html/Arquivo/privado.php';
     exit();
+} elseif (str_starts_with($requestUri, 'aqiornm.') && METODO == 'GET') {
+    require_once __DIR__ . '/../src/Html/Arquivo/nome.php';
+    exit();
 }
 unset($requestUri);
 

@@ -2,14 +2,14 @@
 
 namespace ApiModel\PainelHistorico;
 
-use ApiModel\PainelHistorico\Trait\PropriedadeTrait;
-use ApiModel\PainelHistorico\Trait\WhereTrait;
-use Erro\Excecao;
-use Modules\Pagina;
 use ORM\ORM;
 use stdClass;
-use System\Classes\PainelHistorico\Acao;
+use Erro\Excecao;
+use Modules\Pagina;
 use System\Trait\Model\PaginaTrait;
+use System\Classes\PainelHistorico\Acao;
+use ApiModel\PainelHistorico\Trait\WhereTrait;
+use ApiModel\PainelHistorico\Trait\PropriedadeTrait;
 
 final class HistoricoModel extends ORM
 {
@@ -33,7 +33,7 @@ final class HistoricoModel extends ORM
     public function listarDados(): stdClass
     {
         $dado = $this
-            ->campo(['uuid', 'acao', 'mensagem', 'data_criacao'])
+            ->campo(['uuid', 'acao', 'mensagem', 'arquivo', 'data_criacao'])
             ->pagina($this->pegarPagina(), 10)
             ->where($this->pegarWhere())
             ->order('id', 'DESC')
@@ -60,9 +60,22 @@ final class HistoricoModel extends ORM
                 'minha_mensagem' => $this->idUsuario == $r->id,
                 'acao'           => (new Acao($r->acao))->indice(),
                 'mensagem'       => $r->mensagem,
+                'arquivo'        => $this->montarArquivo(jsonDecode($r->arquivo, true, true)),
                 'data_criacao'   => $r->data_criacao
             ];
         }
         return $returno;
+    }
+
+    private function montarArquivo(array $arquivo)
+    {
+        $retorno = [];
+        foreach ($arquivo as $val) {
+            $link = arquivoPublico(diretorio: 'historico', arquivo: $val, privado: true);
+            if (!empty($link)) {
+                $retorno[] = $link;
+            }
+        }
+        return $retorno;
     }
 }

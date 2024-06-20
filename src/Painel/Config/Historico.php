@@ -7,7 +7,7 @@ final class Historico
     public array $appExtra = [];
 
     public function __construct(
-        public string $app,
+        public ?string $app = null,
         public bool $leitura = true,
         public bool $escrita = true,
         public bool $download = false,

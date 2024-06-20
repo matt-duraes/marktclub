@@ -9,6 +9,7 @@ return (new \DataBase\DataBase())
     ->varchar('acao')->tamanho(30)
     ->text('dado')->null()
     ->text('mensagem')->null()
+    ->json('arquivo')->null()
     ->dataCriacao()
     ->dataAtualizacao()
     ->status('status');

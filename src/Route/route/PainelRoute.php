@@ -117,7 +117,7 @@ Route
         Route::action('deletar')::rotaNaoUnica()::request(['grupo_atual', 'grupo_inicial', 'id'])::post('/upload/deletar');
     }, true)
 
-    // HISTORICO
+    // DATA
     ::controller(DataController::class)::grupo(function () {
         Route
             ::nome('listar')
@@ -136,6 +136,7 @@ Route
             ::nome('salvar')
             ::rotaNaoUnica()
             ::request(['app', 'relacionado', 'mensagem', '!titulo', '!link', '!notificar'])
+            ::request(['!arquivo_1', '!arquivo_2', '!arquivo_3', '!arquivo_4'], Route::REQUEST_TIPO_FILES)
             ::post('/historico');
         Route
             ::nome('listar')
