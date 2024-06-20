@@ -15,4 +15,29 @@ function uuid() {
     return uuid;
 }
 
-module.exports = { uuid };
+function cpf() {
+    function randomDigit() {
+        return Math.floor(Math.random() * 10);
+    }
+
+    function calculateDigit(numbers) {
+        let sum = 0;
+        for (let i = 0; i < numbers.length; i++) {
+            sum += numbers[i] * (numbers.length + 1 - i);
+        }
+        let remainder = sum % 11;
+        return remainder < 2 ? 0 : 11 - remainder;
+    }
+
+    let cpf = [];
+    for (let i = 0; i < 9; i++) {
+        cpf.push(randomDigit());
+    }
+
+    cpf.push(calculateDigit(cpf));
+    cpf.push(calculateDigit(cpf));
+
+    return cpf.join('');
+}
+
+module.exports = { uuid, cpf };

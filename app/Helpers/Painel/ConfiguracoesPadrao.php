@@ -368,14 +368,15 @@ final class ConfiguracoesPadrao
         'parceiro_loja'            => [
             'titulo'    => 'Loja',
             'permissao' => [
-                'parceiro_loja_index'      => 'Listar',
-                'parceiro_loja_add'        => 'Salvar',
-                'parceiro_loja_visualizar' => 'Visualizar',
-                'parceiro_loja_editar'     => 'Editar',
-                'parceiro_loja_deletar'    => 'Deletar',
-                'parceiro_loja_download'   => 'Download',
-                'parceiro_loja_status'     => 'Status',
-                'parceiro_loja_empresa'    => 'Todas as empresas'
+                'parceiro_loja_index'              => 'Listar',
+                'parceiro_loja_add'                => 'Salvar',
+                'parceiro_loja_visualizar'         => 'Visualizar',
+                'parceiro_loja_editar'             => 'Editar',
+                'parceiro_loja_deletar'            => 'Deletar',
+                'parceiro_loja_download'           => 'Download',
+                'parceiro_loja_status'             => 'Status',
+                'parceiro_loja_empresa'            => 'Todas as empresas',
+                'parceiro_loja_historico_download' => 'Download do histórico'
             ]
         ],
         'parceiro_externo'            => [

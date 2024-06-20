@@ -8,6 +8,9 @@ $historicoDownload = false;
 $historicoTextareaHtml = '<input class="display_none input_app_salvar" type="checkbox" name="app_salvar[]" checked value="' . $app . '">';
 $historicoArquivo = false;
 $historicoArquivoHtml = '';
+
+$temPermissaoHistoricoDownload = in_array(str_replace('-', '_', $app) . '_historico_download', sessao('USUARIO.permissao'));
+
 if($historico instanceof \PainelConfig\Historico) {
     $historicoApp = $historico->app;
     $historicoLeitura = $historico->leitura;
@@ -47,7 +50,7 @@ if($historico instanceof \PainelConfig\Historico) {
             <p>até</p>
             <input type="text" data-mascara="00/00/0000" class="input_data input_data_ate" id="input_historico_data_ate" placeholder="00/00/000">
             <div class="botao" id="botao_buscar_historico">BUSCAR</div>
-            <?php if ($historicoDownload && in_array($app . '_download', sessao('USUARIO.permissao'))): ?>
+            <?php if ($historicoDownload && $temPermissaoHistoricoDownload): ?>
             <div class="botao_download" id="botao_download_historico"><?= iconeDownload(14) ?></div>
             <?php endif; ?>
         </form>
@@ -101,7 +104,8 @@ if($historico instanceof \PainelConfig\Historico) {
 <div class="display_none">
     <div class="arquivo_previa_item" id="bloco_previa_item_padrao"><div class="arquivo_previa_titulo"></div><i data-ajuda="Remover arquivo"><?= iconeFechar(10) ?></i></div>
 </div>
-<?php if ($historicoDownload && in_array($app . '_download', sessao('USUARIO.permissao'))): ?>
+
+<?php if ($historicoDownload && $temPermissaoHistoricoDownload): ?>
 <div id="bloco_download" class="bloco_pagina_popup">
     <header class="header_pagina_popup">
         <h1>Download</h1>
