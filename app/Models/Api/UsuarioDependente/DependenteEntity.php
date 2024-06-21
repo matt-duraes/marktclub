@@ -2,19 +2,19 @@
 
 namespace App\Models\Api\UsuarioDependente;
 
+use ORM\Entity;
+use Modules\Cpf;
+use Erro\Excecao;
+use Modules\Data;
+use Modules\Nome;
+use Modules\Email;
+use Helpers\EmailHelper;
+use SendGrid\Mail\TypeException;
 use App\Classes\UsuarioCliente\Helper;
 use App\Classes\UsuarioCliente\Status;
 use App\Classes\UsuarioCliente\TipoUsuario;
-use App\Models\Api\ConstrutorClube\ConstrutorEntity;
 use App\Models\Api\Trait\ValidarEmpresaTrait;
-use Erro\Excecao;
-use Helpers\EmailHelper;
-use Modules\Cpf;
-use Modules\Data;
-use Modules\Email;
-use Modules\Nome;
-use ORM\Entity;
-use SendGrid\Mail\TypeException;
+use App\Models\Api\ConstrutorClube\ConstrutorEntity;
 
 final class DependenteEntity extends Entity
 {
@@ -230,7 +230,7 @@ final class DependenteEntity extends Entity
             assunto: 'Cadastro realizado!',
             botaoTexto: 'Ativar cadastro',
             botaoLink: $link . '/login#ativar',
-            posMensagem: 'Caso fique com alguma dúvida, por favor, entre em contato.',
+            posMensagem: '',
             acao: 'Cadastro de dependente',
             logo: $Construtor->logo_principal,
             cor: $Construtor->cor_principal
