@@ -20,7 +20,15 @@ class SiliumComissaoEntity extends Entity
         'id_usuario_cliente', 'parceiro', 'valor_compra',
         'comissao_usuario', 'pontuacao', 'data_compra', 'status'
     ];
+    protected string $ormValidarSalvar = '
+        parceiro|Nome do Parceiro/Loja|obrigatorio|vazio
+        valor_compra|Valor da Compra|obrigatorio|vazio|valido
+        comissao_usuario|Comissão do Usuário|obrigatorio|vazio|valido
+        data_compra|Data da Compra|obrigatorio|vazio|valido
+        status|Status|obrigatorio|vazio|valido
+    ';
     protected int $id_usuario_cliente;
+
     public string $parceiro;
     public string|array $usuario;
     public Dinheiro $valor_compra;
@@ -55,7 +63,7 @@ class SiliumComissaoEntity extends Entity
     private function setarUsuario(): void
     {
         $OrmHelper = new OrmHelper(TABELA_USUARIO_CLIENTE);
-        $id = $OrmHelper->pegarIdPeloUuid($this->usuario);
+        $id = $OrmHelper->pegarIdPeloUuid(is_string($this->usuario) ? $this->usuario : $this->usuario['id']);
 
         if (empty($id)) {
             mensagemErro('Campo obrigatório!', 'Não foi possível achar um usuário.');
@@ -87,9 +95,10 @@ class SiliumComissaoEntity extends Entity
     private function setarPontuacao(): void
     {
         $SiliumSaldoEntity = new SiliumSaldoEntity();
-        $SiliumSaldoEntity->buscar(['id_usuario_cliente' => $this->id_usuario_cliente], false);
-
-        $dados = ['saldo_silium' => 0];
+        $SiliumSaldoEntity->buscar([
+            'id_usuario_cliente', $this->id_usuario_cliente
+        ], false);
+        $dados = ['saldo_silium' => 0, 'data_validade' => null];
         if (!empty($SiliumSaldoEntity->id)) {
             $dados = [
                 'saldo_silium'  => $SiliumSaldoEntity->saldo_silium + $this->pontuacao,

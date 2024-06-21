@@ -2496,6 +2496,11 @@ Route
             ::nome('deletar')
             ::middleware(TokenMiddleware::class, 'scope', ['silium_comissao:deletar'])
             ::delete('/silium-comissao/{id}');
+
+        Route
+            ::nome('saldo')
+            ::middleware(TokenMiddleware::class, 'scope', ['silium_comissao:saldo'])
+            ::get('/silium-saldo/{id}');
     });
 
 Route

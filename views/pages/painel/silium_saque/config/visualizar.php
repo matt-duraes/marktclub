@@ -7,7 +7,8 @@ use App\Classes\UsuarioCliente\Helper;
 
 $Painel = new Visualizar('silium_saque');
 
-$Painel->coluna(callback: function () use ($Painel) {
+$StatusSaque = new StatusSaque();
+$Painel->coluna(callback: function () use ($Painel, $StatusSaque) {
     $Painel->bloco('Usuario', function () use ($Painel) {
         $Painel
             ->linha('usuario->nome', 'Nome')
@@ -37,18 +38,25 @@ $Painel->coluna(callback: function () use ($Painel) {
             ->linha('status', 'Status');
     });
 
-    /*$Painel
+    $Painel
         ->status(
             campo: 'status',
-            texto: 'Finalizar solicitação',
-            inArray: ['Novo', 'Enviado p/ Empresa', 'Enviado p/ Usuário', 'Problema'],
-            status: Status::FINALIZADO,
-            mensagem: 'Tem certeza que deseja fechar essa solicitação?',
+            texto: 'Deposito realizado',
+            inArray: [$StatusSaque->nome(StatusSaque::AGUARDANDO)],
+            status: StatusSaque::DEPOSITADO,
+            mensagem: 'Tem certeza que deseja alterar o status para depositado?',
             cor: 'verde'
-        );*/
+        )->status(
+            campo: 'status',
+            texto: 'Deposito negado',
+            inArray: [$StatusSaque->nome(StatusSaque::AGUARDANDO)],
+            status: StatusSaque::NEGADO,
+            mensagem: 'Tem certeza que deseja alterar o status para negado?',
+            cor: 'vermelho'
+        );
 });
 
 $Painel->replace('tipo_conta', (new TipoConta())->select());
-$Painel->replace('status', (new StatusSaque())->select());
+$Painel->replace('status', $StatusSaque->select());
 
 return $Painel;

@@ -180,7 +180,7 @@ $scope = [
     'automovel_versao:atualizar', 'automovel_versao:deletar', 'automovel:listar',
 
     'silium_comissao:buscar', 'silium_comissao:listar', 'silium_comissao:salvar',
-    'silium_comissao:atualizar', 'silium_comissao:deletar',
+    'silium_comissao:atualizar', 'silium_comissao:deletar', 'silium_comissao:saldo',
 
     'silium_deposito:buscar', 'silium_deposito:listar', 'silium_deposito:salvar',
     'silium_deposito:atualizar', 'silium_deposito:deletar',

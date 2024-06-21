@@ -6,18 +6,8 @@ use App\Classes\UsuarioCliente\Helper;
 
 $Painel = new Visualizar('silium_comissao');
 
-$Painel->coluna(callback: function () use ($Painel) {
-    $Painel->bloco('Empresa', function () use ($Painel) {
-        $Painel
-            ->linha('empresa->titulo', 'Título')
-            ->botao(
-                'empresa_link',
-                'Ver empresa',
-                link: LINK . '/app/visualizar/comercial-empresa/empresa->id',
-                permissao: Helper::PERMISSAO_EMPRESA
-            );
-    });
-
+$StatusComissao = new StatusComissao();
+$Painel->coluna(callback: function () use ($Painel, $StatusComissao) {
     $Painel->bloco('Usuario', function () use ($Painel) {
         $Painel
             ->linha('usuario->nome', 'Nome')
@@ -45,17 +35,24 @@ $Painel->coluna(callback: function () use ($Painel) {
             ->linha('status', 'Status');
     });
 
-    /*$Painel
+    $Painel
         ->status(
             campo: 'status',
-            texto: 'Finalizar solicitação',
-            inArray: ['Novo', 'Enviado p/ Empresa', 'Enviado p/ Usuário', 'Problema'],
-            status: Status::FINALIZADO,
-            mensagem: 'Tem certeza que deseja fechar essa solicitação?',
+            texto: 'Liberar pontuação',
+            inArray: [$StatusComissao->nome(StatusComissao::AGUARDANDO)],
+            status: StatusComissao::LIBERADO,
+            mensagem: 'Tem certeza que deseja creditar a pontuação na conta correspondente?',
             cor: 'verde'
-        );*/
+        )->status(
+            campo: 'status',
+            texto: 'Negar pontuação',
+            inArray: [$StatusComissao->nome(StatusComissao::AGUARDANDO)],
+            status: StatusComissao::NEGADO,
+            mensagem: 'Tem certeza que deseja negar a pontuação?',
+            cor: 'vermelho'
+        );
 });
 
-$Painel->replace('status', (new StatusComissao())->select());
+$Painel->replace('status', $StatusComissao->select());
 
 return $Painel;
