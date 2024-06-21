@@ -709,12 +709,6 @@ final class ConfiguracoesPadrao
                 'silium_saque_status'     => 'Status',
                 'silium_saque_deletar'    => 'Deletar'
             ]
-        ],
-        'painel_historico' => [
-            'titulo'    => 'Painel histórico',
-            'permissao' => [
-                'painel_historico_download'    => 'Download'
-            ]
         ]
     ];
 }
