@@ -12,7 +12,7 @@ final class SiliumModel extends ClubeApiHelper
     {
         $extratoCompra = $this->extratoCompra();
         $extratoSaque = $this->extratoSaque();
-        $saldo = 15000;
+        $saldo = $this->saldo();
         $dados = [
             'extrato_compra' => $extratoCompra,
             'extrato_saque'  => $extratoSaque,
@@ -25,9 +25,9 @@ final class SiliumModel extends ClubeApiHelper
     {
         $dado = $this
             ->validar('Não foi possível resgatar saldo!', status: 404)
-            ->get('/silium-saldo')
+            ->get('/silium-saldo/' . sessao('USUARIO.id'))
             ->object();
-        return $dado;
+        return $dado->dado->saldo_silium;
     }
 
     public function extratoCompra()
