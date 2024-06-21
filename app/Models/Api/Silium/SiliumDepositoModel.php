@@ -4,7 +4,6 @@ namespace App\Models\Api\Silium;
 
 use App\Classes\Silium\OrdemDeposito;
 use App\Classes\Silium\StatusDeposito;
-use App\Classes\Silium\Tipo;
 use App\Classes\Silium\TipoConta;
 use Modules\Data;
 use Modules\Dinheiro;
@@ -30,10 +29,8 @@ class SiliumDepositoModel extends ORM implements
         private readonly Pagina $pagina = new Pagina(),
         private readonly Quantidade $quantidade = new Quantidade(),
         private readonly OrdemDeposito $ordem = new OrdemDeposito(),
-        private readonly ?string $empresa = null,
         private readonly ?string $usuario = null,
         private readonly TipoConta $tipoConta = new TipoConta(),
-        private readonly Tipo $tipo = new Tipo(),
         private readonly Data $dataInicio = new Data(),
         private readonly Data $dataFinal = new Data(),
         private readonly StatusDeposito $status = new StatusDeposito()
@@ -56,9 +53,6 @@ class SiliumDepositoModel extends ORM implements
         if (!$this->tipoConta->vazio() && !$this->tipoConta->valido()) {
             mensagemErro('Campo inválido!', 'O Tipo de Conta informado não é válido.');
         }
-        if (!$this->tipo->vazio() && !$this->tipo->valido()) {
-            mensagemErro('Campo inválido!', 'O Tipo informado não é válido.');
-        }
         if (!$this->dataInicio->vazio() && !$this->dataInicio->eDate()) {
             mensagemErro('Campo inválido!', 'A Data de início não está no formato válido.');
         }
@@ -74,25 +68,24 @@ class SiliumDepositoModel extends ORM implements
     {
         $depositos = $this
             ->campo([
-                'uuid', 'nome_titular', 'documento_cpf', 'banco', 'agencia',
-                'conta', 'tipo_conta', 'valor', 'pontuacao', 'data_deposito',
-                'status', 'data_criacao', 'data_atualizacao'
+                'uuid', 'valor', 'data_deposito', 'status',
+                'data_criacao', 'data_atualizacao'
             ])
             ->where($this->pegarWhere(), false)
             ->pagina($this->pegarPagina(), $this->pegarQuantidade())
             ->order($this->pegarOrdem(new OrdemDeposito()))
-            ->tabela(TABELA_COMERCIAL_EMPRESA)
-            ->join('id', 'id_admin_empresa')
-            ->where($this->pegarWhereEmpresa(), false)
-            ->campo([
-                'uuid', 'titulo'
-            ], 'empresa')
             ->tabela(TABELA_USUARIO_CLIENTE)
             ->where($this->pegarWhereUsuario(), false)
             ->join('id', 'id_usuario_cliente')
             ->campo([
                 'uuid', 'nome'
             ], 'usuario')
+            ->tabela(TABELA_SILIUM_SAQUE)
+            ->join('id', 'id_silium_saque')
+            ->campo([
+                'uuid', 'nome_titular', 'documento_cpf', 'tipo_conta',
+                'banco', 'agencia', 'conta', 'pontuacao'
+            ], 'saque')
             ->read();
 
         $depositos->lista = $this->montarRetorno($depositos->lista);
@@ -102,12 +95,9 @@ class SiliumDepositoModel extends ORM implements
     private function pegarWhere(): array
     {
         $where = $this->ormWherePadrao;
-        if ($this->tipoConta->valido()) {
+        /*if ($this->tipoConta->valido()) {
             $where[] = ['tipo_conta', $this->tipoConta->numero()];
-        }
-        if ($this->tipo->valido()) {
-            $where[] = ['tipo', $this->tipo->numero()];
-        }
+        }*/
         if ($this->dataInicio->valido() && $this->dataFinal->valido()) {
             $where[] = [
                 'data_deposito', 'between', [
@@ -121,15 +111,6 @@ class SiliumDepositoModel extends ORM implements
         }
         if ($this->status->valido()) {
             $where[] = ['status', $this->status->numero()];
-        }
-        return $where;
-    }
-
-    private function pegarWhereEmpresa(): array
-    {
-        $where = [];
-        if (!empty($this->empresa)) {
-            $where[] = ['cod', $this->empresa];
         }
         return $where;
     }
@@ -157,23 +138,20 @@ class SiliumDepositoModel extends ORM implements
         foreach ($depositos as $deposito) {
             $retorno[] = [
                 'id'               => $deposito->uuid,
-                'empresa'          => [
-                    'id'     => $deposito->empresa_uuid,
-                    'titulo' => $deposito->empresa_titulo
-                ],
                 'usuario'          => [
                     'id'    => $deposito->usuario_uuid,
                     'nome'  => $deposito->usuario_nome
                 ],
-                'dados_bancarios' => [
-                    'nome_titular'     => $deposito->nome_titular,
-                    'documento_cpf'    => $deposito->documento_cpf,
-                    'tipo_conta'       => $TipoConta->indice($deposito->tipo_conta),
-                    'banco'            => $deposito->banco,
-                    'agencia'          => $deposito->agencia,
-                    'conta'            => $deposito->conta,
+                'saque'          => [
+                    'id'            => $deposito->saque_uuid,
+                    'nome_titular'  => $deposito->saque_nome_titular,
+                    'documento_cpf' => $deposito->saque_documento_cpf,
+                    'tipo_conta'    => $TipoConta->indice($deposito->saque_tipo_conta),
+                    'banco'         => $deposito->saque_banco,
+                    'agencia'       => $deposito->saque_agencia,
+                    'conta'         => $deposito->saque_conta,
+                    'pontuacao'     => $deposito->saque_pontuacao
                 ],
-                'pontuacao'        => $deposito->pontuacao,
                 'valor'            => (new Dinheiro($deposito->valor))->banco(),
                 'data_deposito'    => $deposito->data_deposito,
                 'status'           => $Status->indice($deposito->status),

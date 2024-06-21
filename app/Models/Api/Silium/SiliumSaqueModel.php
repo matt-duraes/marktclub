@@ -2,10 +2,10 @@
 
 namespace App\Models\Api\Silium;
 
-use App\Classes\Silium\OrdemComissao;
-use App\Classes\Silium\StatusComissao;
+use App\Classes\Silium\OrdemSaque;
+use App\Classes\Silium\StatusSaque;
+use App\Classes\Silium\TipoConta;
 use Modules\Data;
-use Modules\Dinheiro;
 use Modules\Pagina;
 use Modules\Quantidade;
 use ORM\ORM;
@@ -15,24 +15,24 @@ use System\Trait\Model\OrdemTrait;
 use System\Trait\Model\PaginaTrait;
 use System\Trait\Model\QuantidadeTrait;
 
-class SiliumComissaoModel extends ORM implements
+class SiliumSaqueModel extends ORM implements
     ModelListarInterface
 {
     use PaginaTrait;
     use QuantidadeTrait;
     use OrdemTrait;
 
-    protected string $ormTabela = TABELA_SILIUM_COMISSAO;
+    protected string $ormTabela = TABELA_SILIUM_SAQUE;
 
     public function __construct(
         private readonly Pagina $pagina = new Pagina(),
         private readonly Quantidade $quantidade = new Quantidade(),
-        private readonly OrdemComissao $ordem = new OrdemComissao(),
+        private readonly OrdemSaque $ordem = new OrdemSaque(),
         private readonly ?string $usuario = null,
-        private readonly ?string $parceiro = null,
+        private readonly TipoConta $tipoConta = new TipoConta(),
         private readonly Data $dataInicio = new Data(),
         private readonly Data $dataFinal = new Data(),
-        private readonly StatusComissao $status = new StatusComissao()
+        private readonly StatusSaque $status = new StatusSaque()
     ) {
         $this->validarRequest();
         parent::__construct();
@@ -49,6 +49,9 @@ class SiliumComissaoModel extends ORM implements
         if (!$this->ordem->vazio() && !$this->ordem->valido()) {
             mensagemErro('Campo inválido!', 'A Ordem informada não é válida.');
         }
+        if (!$this->tipoConta->vazio() && !$this->tipoConta->valido()) {
+            mensagemErro('Campo inválido!', 'O Tipo de Conta informado não é válido.');
+        }
         if (!$this->dataInicio->vazio() && !$this->dataInicio->eDate()) {
             mensagemErro('Campo inválido!', 'A Data de início não está no formato válido.');
         }
@@ -62,15 +65,14 @@ class SiliumComissaoModel extends ORM implements
 
     public function listarDados(): stdClass
     {
-        $comissoes = $this
-            ->campo([
-                'uuid', 'parceiro', 'valor_compra', 'comissao_usuario',
-                'pontuacao', 'data_compra', 'status', 'data_criacao',
-                'data_atualizacao'
+        $saques = $this->campo([
+                'uuid', 'nome_titular', 'documento_cpf', 'banco', 'agencia',
+                'conta', 'tipo_conta', 'pontuacao', 'status',
+                'data_criacao', 'data_atualizacao'
             ])
             ->where($this->pegarWhere(), false)
             ->pagina($this->pegarPagina(), $this->pegarQuantidade())
-            ->order($this->pegarOrdem(new OrdemComissao()))
+            ->order($this->pegarOrdem(new OrdemSaque()))
             ->tabela(TABELA_USUARIO_CLIENTE)
             ->where($this->pegarWhereUsuario(), false)
             ->join('id', 'id_usuario_cliente')
@@ -78,27 +80,26 @@ class SiliumComissaoModel extends ORM implements
                 'uuid', 'nome'
             ], 'usuario')
             ->read();
-
-        $comissoes->lista = $this->montarRetorno($comissoes->lista);
-        return $comissoes;
+        $saques->lista = $this->montarRetorno($saques->lista);
+        return $saques;
     }
 
     private function pegarWhere(): array
     {
         $where = $this->ormWherePadrao;
-        if (!empty($this->parceiro)) {
-            $where[] = ['parceiro', 'LIKE', "%$this->parceiro%"];
+        if ($this->tipoConta->valido()) {
+            $where[] = ['tipo_conta', $this->tipoConta->numero()];
         }
         if ($this->dataInicio->valido() && $this->dataFinal->valido()) {
             $where[] = [
-                'data_compra', 'between', [
+                'data_criacao', 'between', [
                     $this->dataInicio->date(), $this->dataFinal->date()
                 ]
             ];
         } elseif ($this->dataInicio->valido()) {
-            $where[] = ['data_compra', '>=', $this->dataInicio->date()];
+            $where[] = ['data_criacao', '>=', $this->dataInicio->date()];
         } elseif ($this->dataFinal->valido()) {
-            $where[] = ['data_compra', '<=', $this->dataFinal->date()];
+            $where[] = ['data_criacao', '<=', $this->dataFinal->date()];
         }
         if ($this->status->valido()) {
             $where[] = ['status', $this->status->numero()];
@@ -117,29 +118,34 @@ class SiliumComissaoModel extends ORM implements
         return $where;
     }
 
-    private function montarRetorno(array $comissoes): array
+    private function montarRetorno(array $saques): array
     {
-        if (empty($comissoes)) {
-            return $comissoes;
+        if (empty($saques)) {
+            return $saques;
         }
 
-        $Status = new StatusComissao();
+        $TipoConta = new TipoConta();
+        $Status = new StatusSaque();
         $retorno = [];
-        foreach ($comissoes as $comissao) {
+        foreach ($saques as $saque) {
             $retorno[] = [
-                'id'               => $comissao->uuid,
-                'usuario' => [
-                    'id'     => $comissao->usuario_uuid,
-                    'nome'   => $comissao->usuario_nome
+                'id'               => $saque->uuid,
+                'usuario'          => [
+                    'id'    => $saque->usuario_uuid,
+                    'nome'  => $saque->usuario_nome
                 ],
-                'parceiro'         => $comissao->parceiro,
-                'valor_compra'     => (new Dinheiro($comissao->valor_compra))->banco(),
-                'comissao_usuario' => (new Dinheiro($comissao->comissao_usuario))->banco(),
-                'pontuacao'        => $comissao->pontuacao,
-                'data_compra'      => $comissao->data_compra,
-                'status'           => $Status->indice($comissao->status),
-                'data_criacao'     => $comissao->data_criacao,
-                'data_atualizacao' => $comissao->data_atualizacao
+                'pagamento' => [
+                    'nome_titular'     => $saque->nome_titular,
+                    'documento_cpf'    => $saque->documento_cpf,
+                    'tipo_conta'       => $TipoConta->indice($saque->tipo_conta),
+                    'banco'            => $saque->banco,
+                    'agencia'          => $saque->agencia,
+                    'conta'            => $saque->conta,
+                ],
+                'pontuacao'        => $saque->pontuacao,
+                'status'           => $Status->indice($saque->status),
+                'data_criacao'     => $saque->data_criacao,
+                'data_atualizacao' => $saque->data_atualizacao
             ];
         }
         return $retorno;

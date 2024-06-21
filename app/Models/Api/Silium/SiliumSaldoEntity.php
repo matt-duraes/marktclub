@@ -2,18 +2,23 @@
 
 namespace App\Models\Api\Silium;
 
+use Modules\Data;
 use ORM\Entity;
 
 class SiliumSaldoEntity extends Entity
 {
     protected string $ormTabela = TABELA_SILIUM_SALDO;
     protected array $ormBuscar = [
-        'saldo'
+        'id_usuario_cliente', 'saldo_silium', 'data_validade',
+        'data_criacao', 'data_atualizacao'
     ];
     protected array $ormSalvar = [
-        'saldo'
+        'id_usuario_cliente', 'saldo_silium', 'data_validade'
     ];
-    public int $saldo;
+    protected int $id_usuario_cliente;
+
+    public int $saldo_silium;
+    public Data|null $data_validade;
 
     public function __construct()
     {

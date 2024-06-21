@@ -1,0 +1,1 @@
+{"id":"id_5ab133227f4fe1b378c8177e87b4b8c6","token":"token","metodo":"PUT","nome":"\/silium-saque\/:id","uri":"{{LINK}}\/silium-saque\/$SILIUM_SAQUE_ID","parametro":[],"body":[["texto",true,"status","negado",""]],"header":[],"variavel":[],"json":[],"documentacao":{"status":false,"descricao":"","requisicao":"","resposta":"","scope":"silium_saque:atualizar"}}

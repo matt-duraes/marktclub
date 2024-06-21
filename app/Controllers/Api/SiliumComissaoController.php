@@ -6,7 +6,9 @@ use App\Classes\Silium\OrdemComissao;
 use App\Classes\Silium\StatusComissao;
 use App\Models\Api\Silium\SiliumComissaoEntity;
 use App\Models\Api\Silium\SiliumComissaoModel;
+use App\Models\Api\Silium\SiliumSaldoEntity;
 use Controller\Controller;
+use Helpers\OrmHelper;
 use Http\Request;
 use Http\Response;
 use Modules\Data;
@@ -38,7 +40,6 @@ final class SiliumComissaoController extends Controller implements
             new Pagina($request->pagina),
             new Quantidade($request->quantidade),
             new OrdemComissao($request->ordem),
-            $request->empresa,
             $request->usuario,
             $request->parceiro,
             new Data($request->data_inicio),
@@ -62,7 +63,7 @@ final class SiliumComissaoController extends Controller implements
             pegarPropriedadeDaEntity(
                 $siliumComissaoEntity,
                 lista: [
-                    'empresa', 'usuario', 'parceiro', 'valor_compra',
+                    'usuario', 'parceiro', 'valor_compra',
                     'comissao_usuario', 'pontuacao', 'data_compra', 'status',
                     'data_criacao', 'data_atualizacao'
                 ]
@@ -86,5 +87,23 @@ final class SiliumComissaoController extends Controller implements
         $SiliumComissaoEntity->uuid($id);
         $SiliumComissaoEntity->destruir();
         return new Response(status: 204);
+    }
+
+    public function getSaldo(string $id): Response
+    {
+        $OrmHelper = new OrmHelper(TABELA_USUARIO_CLIENTE);
+        $idUsuario = $OrmHelper->pegarIdPeloUuid($id);
+
+        $SiliumSaldoEntity = new SiliumSaldoEntity();
+        $SiliumSaldoEntity->buscar(['id_usuario_cliente', $idUsuario], false);
+
+        return mensagemSucesso(
+            pegarPropriedadeDaEntity(
+                $SiliumSaldoEntity,
+                lista: [
+                    'saldo_silium', 'data_validade'
+                ]
+            )
+        );
     }
 }

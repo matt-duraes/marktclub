@@ -1,16 +1,15 @@
 <?php
 
-use App\Classes\Silium\StatusDeposito;
-use App\Classes\Silium\OrdemDeposito;
+use PainelConfig\Index;
+use App\Classes\Silium\OrdemSaque;
+use App\Classes\Silium\StatusSaque;
 
-$Painel = new PainelConfig\Index('silium_saque', new OrdemDeposito());
+$Painel = new Index('silium_saque', new OrdemSaque());
 
 $Painel
-    ->campo('usuario->nome', 'Usuário', 'normal')
-    ->campo('empresa->titulo', 'Empresa', 'normal')
-    ->campo('pontuacao', 'Pontuação', 'pequeno')
+    ->campo('usuario->nome', 'Usuário', Index::TIPO_NORMAL)
     ->dataCriacao()
     ->dataAtualizacao()
-    ->status('status', 'Status', new StatusDeposito());
+    ->status('status', 'Status', new StatusSaque());
 
 return $Painel;

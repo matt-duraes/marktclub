@@ -4,11 +4,13 @@ return [
     [
         'uuid'               => uuid(),
         'id_usuario_cliente' => 1,
-        'saldo'              => 10000
+        'saldo_silium'       => 10000,
+        'data_validade'      => dataFuturaAleatorio()
     ],
     [
         'uuid'               => uuid(),
         'id_usuario_cliente' => 2,
-        'saldo'              => 20000
+        'saldo_silium'       => 20000,
+        'data_validade'      => dataFuturaAleatorio()
     ]
 ];

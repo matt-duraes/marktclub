@@ -1,33 +1,25 @@
 <?php
 
+use PainelConfig\Visualizar;
 use App\Classes\Silium\StatusComissao;
+use App\Classes\UsuarioCliente\Helper;
 
-$Painel = new PainelConfig\Visualizar('silium_comissao');
+$Painel = new Visualizar('silium_comissao');
 
-$Painel->coluna(callback: function () use ($Painel) {
-    $Painel->bloco('Empresa', callback: function () use ($Painel) {
-        $Painel
-            ->linha('empresa->titulo', 'Título')
-            ->botao(
-                'empresa_link',
-                'Ver empresa',
-                link: LINK . '/app/visualizar/comercial-empresa/empresa->id',
-                permissao: \App\Classes\UsuarioCliente\Helper::PERMISSAO_EMPRESA
-            );
-    });
-
-    $Painel->bloco('Usuario', callback: function () use ($Painel) {
+$StatusComissao = new StatusComissao();
+$Painel->coluna(callback: function () use ($Painel, $StatusComissao) {
+    $Painel->bloco('Usuario', function () use ($Painel) {
         $Painel
             ->linha('usuario->nome', 'Nome')
             ->botao(
                 'usuario_link',
                 'Ver usuário',
                 link: LINK . '/app/visualizar/usuario-cliente/usuario->id',
-                permissao: \App\Classes\UsuarioCliente\Helper::PERMISSAO_VISUALIZAR
+                permissao: Helper::PERMISSAO_VISUALIZAR
             );
     });
 
-    $Painel->bloco('Dados da comissão', callback: function () use ($Painel) {
+    $Painel->bloco('Dados da comissão', function () use ($Painel) {
         $Painel
             ->linha('parceiro', 'Parceiro/Loja')
             ->dinheiro('valor_compra', 'Valor de Compra')
@@ -36,24 +28,31 @@ $Painel->coluna(callback: function () use ($Painel) {
             ->data('data_compra', 'Data de Compra');
     });
 
-    $Painel->bloco('Outras Informações', callback: function () use ($Painel) {
+    $Painel->bloco('Outras Informações', function () use ($Painel) {
         $Painel
             ->dataHora('data_criacao', 'Data de criação')
             ->dataHora('data_atualizacao', 'Data da última atualização')
             ->linha('status', 'Status');
     });
 
-    /*$Painel
+    $Painel
         ->status(
             campo: 'status',
-            texto: 'Finalizar solicitação',
-            inArray: ['Novo', 'Enviado p/ Empresa', 'Enviado p/ Usuário', 'Problema'],
-            status: Status::FINALIZADO,
-            mensagem: 'Tem certeza que deseja fechar essa solicitação?',
+            texto: 'Liberar pontuação',
+            inArray: [$StatusComissao->nome(StatusComissao::AGUARDANDO)],
+            status: StatusComissao::LIBERADO,
+            mensagem: 'Tem certeza que deseja creditar a pontuação na conta correspondente?',
             cor: 'verde'
-        );*/
+        )->status(
+            campo: 'status',
+            texto: 'Negar pontuação',
+            inArray: [$StatusComissao->nome(StatusComissao::AGUARDANDO)],
+            status: StatusComissao::NEGADO,
+            mensagem: 'Tem certeza que deseja negar a pontuação?',
+            cor: 'vermelho'
+        );
 });
 
-$Painel->replace('status', (new StatusComissao())->select());
+$Painel->replace('status', $StatusComissao->select());
 
 return $Painel;

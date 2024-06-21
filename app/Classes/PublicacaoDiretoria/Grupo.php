@@ -34,6 +34,13 @@ final class Grupo extends Status
                 'representante-estadual' => 'Representantes Estaduais',
             ],
             'numero' => [1, 2, 3]
+        ],
+        'sinjutra'  => [
+            'lista'  => [
+                'diretoria-executiva' => 'Diretoria Executiva',
+                'conselho-fiscal'     => 'Conselho Fiscal'
+            ],
+            'numero' => [1, 2]
         ]
     ];
 
