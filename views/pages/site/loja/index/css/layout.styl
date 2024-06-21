@@ -104,6 +104,17 @@
     &.separar
         border-top: 1px solid #DDD
         padding-top: 20px
+    .menu
+        width: 60px
+        display: none
+        align-items: center
+    .menu i
+        width: 40px
+        height: 40px
+        flexCenter()
+        margin-left: 10px
+        fill: $corPretoBranco
+        cursor: pointer
     .scroll
         min-width: 100%
         overflow-x: auto
@@ -160,11 +171,6 @@
         fill: $corClube
     .busca
         display: none
-    .final
-        width: 1px
-        min-width: 1px
-        height: 20px
-        display: none
 
 #bloco_loja_index.bloco_mapa .bloco_especial
     width: 100%
@@ -187,17 +193,36 @@
         display: flex
     .borda
         background: $corCinzaCinza
-
+    .conteudo .item:last-child
+        margin-right: 20px
 #conteudo_acesso_rapido #bloco_loja_index .bloco_especial .conteudo
     margin-top: 20px
 
+#bloco_loja_index.bloco_mapa .bloco_especial
+    top: 20px
+#conteudo_acesso_rapido #bloco_loja_index.bloco_mapa .bloco_especial
+    top: 110px
+
 @media screen and (max-width: 1250px)
     #bloco_loja_index.bloco_mapa .bloco_especial
-        max-width: 100%
-        top: 60px
-        right: 0
+        width: 100vw
+        max-width: 100vw
+        top: 0
+        left: 0
+        background-color: $corBrancoPreto
+        .menu
+            display: flex
+        .scroll
+            width: calc(100% - 60px)
+            min-width: calc(100% - 60px)
         .conteudo .bg
             border-radius: 0
+            padding: 10px 20px 10px 0
+            box-shadow: none
+        .conteudo .bg .item
+            padding: 0 10px
+        .atualizar
+            top: 85px
 
 @media screen and (max-width: 900px)
     #bloco_loja_index .bloco_especial
@@ -281,6 +306,9 @@
             border-bottom: 1px solid #CCC
         &:last-child
             border-radius: 0 0 5px 5px
+@media screen and (max-width: 900px)
+    #bloco_loja_mapa .bloco_zoom .botao:hover
+        background-color: #FFF
 
 #header_acesso_rapido
     position: fixed
@@ -300,11 +328,6 @@
     .bloco_mapa  #bloco_especial
         max-width: 100%
 
-#bloco_loja_index.bloco_mapa .bloco_especial
-    top: 20px
-#conteudo_acesso_rapido
-    #bloco_loja_index.bloco_mapa .bloco_especial
-        top: 110px
 body.body_scroll_hidden #bloco_loja_mapa .mapa
     right: 10px
 @media screen and (max-width: 1250px)
@@ -375,10 +398,3 @@ body.body_scroll_hidden #bloco_loja_mapa .parceiro_previa
     body.body_scroll_hidden #bloco_loja_mapa .parceiro_previa
         width: calc(100% - 10px)
         right: 10px
-
-
-@media screen and (max-width: 1250px)
-    #bloco_loja_index.bloco_mapa .bloco_especial
-        top: 60px
-    #bloco_loja_mapa .atualizar
-        top: 175px

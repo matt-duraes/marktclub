@@ -37,6 +37,7 @@
 
     @ if( $tipo == 'loja' ):
     <div class="bloco_especial {{isset($Busca) && $Busca->filtro ? 'separar' : ''}}" id="bloco_especial">
+        <div class="menu"><i class="botao_menu_mobile">@iconeMenuMobile</i></div>
         <div class="scroll">
             <div class="conteudo">
                 <div class="bg">
@@ -68,11 +69,10 @@
                         <i>@iconeFavorito(22)</i>
                         <p>Meus favoritos</p>
                     </a>
-                    <a href="@route('loja.index')?acessado=sim" class="{{isset($Busca) && $Busca->acessado ? 'hover' : ''}} cartao item">
+                    <a href="@route('loja.index')?acessado=sim" class="{{isset($Busca) && $Busca->acessado ? 'hover' : ''}} ultimo cartao item">
                         <i>@iconePromocao(20)</i>
                         <p>Mais acessados</p>
                     </a>
-                    <div class="final"></div>
                 </div>
             </div>
         </div>

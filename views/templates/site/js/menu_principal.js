@@ -1,6 +1,6 @@
 window.addEventListener('load', () => {
-    const botaoMenu = document.getElementById('botao_menu_mobile');
-    if (!botaoMenu) {
+    const botaoMenu = $$('.botao_menu_mobile');
+    if (botaoMenu.length == 0) {
         return;
     }
     const botaoSwiped = document.getElementById('botao_swiped_esquerdo');
@@ -11,11 +11,7 @@ window.addEventListener('load', () => {
     botaoSwiped.addEventListener('swiped-right', () => {
         abrirMenu();
     });
-    botaoMenu.addEventListener('click', () => {
-        if (blocoMenu.classList.contains('ativo')) {
-            fecharMenu();
-            return;
-        }
+    botaoMenu.evento('click', () => {
         abrirMenu();
     });
     blocoMenu.addEventListener('swiped-left', () => {
