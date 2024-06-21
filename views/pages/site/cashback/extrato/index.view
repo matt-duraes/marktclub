@@ -81,16 +81,14 @@
                             <thead>
                                 <tr>
                                     <th>Pontos Trocados</th>
-                                    <th>Valor</th>
                                     <th>Status</th>
                                 </tr>
                             </thead>
                             <tbody>
                             @if(!empty($extratoSaque)):
-                                @foreach ($extratoSaque as $r->lista):
+                                @foreach ($extratoSaque as $r):
                                     <tr>
-                                        <td>{{$r->pontos_trocados}}</td>
-                                        <td>{{$r->valor}}</td>
+                                        <td>{{$r->pontuacao}}</td>
                                         <td>{{$r->status}}</td>
                                     </tr>
                                 @endforeach

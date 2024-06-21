@@ -69,7 +69,6 @@ window.addEventListener('load', () => {
         }
         PopupResgate.fechar();
         await Alerta.mensagem('Dados Enviados!', 'Sua solicitação foi enviada. Aguarde nosso retorno!', true);
-        Loading.show();
     };
 
     adicionarEventoEnter([inputNome, inputEmail, inputQuantidade], solicitarResgate);

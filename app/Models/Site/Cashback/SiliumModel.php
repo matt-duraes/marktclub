@@ -12,8 +12,7 @@ final class SiliumModel extends ClubeApiHelper
     {
         $extratoCompra = $this->extratoCompra();
         $extratoSaque = $this->extratoSaque();
-        $saldo = 1000000;
-        //$this->saldo();
+        $saldo = 15000;
         $dados = [
             'extrato_compra' => $extratoCompra,
             'extrato_saque'  => $extratoSaque,
@@ -46,14 +45,13 @@ final class SiliumModel extends ClubeApiHelper
 
     public function extratoSaque()
     {
+
         $dado = $this
-            ->validar('Não foi possível pegar extrato!', status: 404)
             ->json([
                 'pagina'  => 1,
-                'tipo' => 'saque',
                 'usuario' => sessao('USUARIO.id')
             ])
-            ->get('/silium-deposito')
+            ->get('/silium-saque')
             ->object();
         return $dado->dado->lista;
     }
@@ -63,6 +61,7 @@ final class SiliumModel extends ClubeApiHelper
         $dado = $this
             ->validar('Ocorreu um erro ao fazer a solicitação')
             ->body([
+                'usuario' => sessao('USUARIO.id'),
                 'email'         => $dados['email'],
                 'pontuacao'     => $dados['pontos'],
                 'nome_titular'  => $dados['titular'],
@@ -74,7 +73,6 @@ final class SiliumModel extends ClubeApiHelper
             ])
             ->post('/silium-saque')
             ->object();
-        ppe($dado);
         return $dado;
     }
 }
