@@ -16,6 +16,10 @@
         ></article>
         @ endforeach;
     </div>
+    <div class="bloco_zoom">
+        <div class="botao" id="botao_zoom_mais">@iconeMais()</div>
+        <div class="botao" id="botao_zoom_menos">@iconeMenos()</div>
+    </div>
 </div>
 <div class="parceiro_previa display_none" id="bloco_parceiro_previa">
     <div class="conteudo">

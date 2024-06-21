@@ -262,6 +262,26 @@
         right: 0
         z-index: 1
 
+#bloco_loja_mapa .bloco_zoom
+    position: absolute
+    z-index: 10
+    bottom: 20px
+    right: 20px
+    box-shadow: 0 0 5px rgba(0,0,0,.2)
+    .botao
+        width: 45px
+        height: 45px
+        flexCenter()
+        background-color: #FFF
+        cursor: pointer
+        &:hover
+            background-color: #EEE
+        &:first-child
+            border-radius: 5px 5px 0 0
+            border-bottom: 1px solid #CCC
+        &:last-child
+            border-radius: 0 0 5px 5px
+
 #header_acesso_rapido
     position: fixed
     z-index: 100
@@ -361,4 +381,4 @@ body.body_scroll_hidden #bloco_loja_mapa .parceiro_previa
     #bloco_loja_index.bloco_mapa .bloco_especial
         top: 60px
     #bloco_loja_mapa .atualizar
-        top: 220px
+        top: 175px
