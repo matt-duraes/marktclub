@@ -27,6 +27,11 @@ const historicoLoad = () => {
     const downloadDataDe = document.querySelector('#input_data_de');
     const downloadDataAte = document.querySelector('#input_data_ate');
 
+    const botaoUpload = $('#botao_historico_upload');
+    const previaPadrao = $('#bloco_previa_item_padrao');
+    const blocoPreviaLista = $('#bloco_previa_lista');
+    const arquivoSalvar = {};
+
     if (inputDataDe) {
         Calendario.init({
             de: 'input_historico_data_de',
@@ -139,17 +144,27 @@ const historicoLoad = () => {
                 adicionarTextoAjuda(historicoLista.querySelector(`.bloco_historico_data_${item.hash}`), item.data);
             } else if (item.tipo == 'mensagem') {
                 classe = item.minha_mensagem ? 'minha_mensagem' : 'outra_mensagem';
+                let arquivoHtml = '';
+                let arquivoQuantidade = item.arquivo.length;
+                let arquivoI = 1;
+                for (const linkArquivo of item.arquivo) {
+                    arquivoHtml += `<figure class="imagem_total_${arquivoQuantidade} imagem_${arquivoI}" style="background-image: url(${linkArquivo})"></figure>`;
+                    arquivoI++;
+                }
+                if (arquivoQuantidade > 0) {
+                    arquivoHtml += '<div class="linha"></div>';
+                }
                 historicoLista.insertAdjacentHTML(
                     'beforeend',
                     `
                     <div class="item item_geral ${classe}">
-                        <figure style="background-image: url(${item.imagem});"></figure>
+                        <figure class="perfil" style="background-image: url(${item.imagem});"></figure>
                         <div class="dado">
                             <h2>${item.nome}</h2>
                             <div class="data">${item.hora}</div>
                         </div>
                         <div class="fixar"><svg height="15" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path fill="none" d="M0 0h24v24H0z"/><path d="M13.828 1.686l8.486 8.486-1.415 1.414-.707-.707-4.242 4.242-.707 3.536-1.415 1.414-4.242-4.243-4.95 4.95-1.414-1.414 4.95-4.95-4.243-4.242 1.414-1.415L8.88 8.05l4.242-4.242-.707-.707 1.414-1.415zm.708 3.536l-4.671 4.67-2.822.565 6.5 6.5.564-2.822 4.671-4.67-4.242-4.243z"/></svg></div>
-                        <p class="mensagem">${item.mensagem}</p>
+                        <div class="mensagem">${arquivoHtml}<p>${item.mensagem}</p></div>
                     </div>
                     `
                 );
@@ -200,6 +215,12 @@ const historicoLoad = () => {
         body.append('titulo', historicoTitulo);
         body.append('link', historicoLink);
         body.append('notificar', historicoNotificar);
+        const indiceArquivo = Object.keys(arquivoSalvar);
+        let i = 1;
+        for (const item of indiceArquivo) {
+            body.append('arquivo_' + i, arquivoSalvar[item]);
+            i++;
+        }
 
         const resposta = await fetch(LINK + '/historico', {
             method: 'POST',
@@ -214,31 +235,41 @@ const historicoLoad = () => {
         }
 
         Loading.hide();
-        if (resposta.status == 201) {
-            listaAppSalvar.marcar(false);
-            inputHistorico.value = '';
-            inputHistorico.style.height = 25 + 'px';
-            if (historicoLista) {
-                adicionarNovaMensagem(
-                    json.dado.id,
-                    json.dado.mensagem,
-                    usuarioImagem,
-                    usuarioNome,
-                    true,
-                    historicoLista
-                );
-                return;
-            }
-            Alerta.notificacao('Histórico salvo com sucesso.', true);
+        if (resposta.status != 201) {
+            Alerta.notificacao(
+                json.erro != undefined && json.erro.mensagem != undefined
+                    ? json.erro.mensagem
+                    : 'Ocorreu um erro ao enviar seu histórico.',
+                false
+            );
             return;
         }
 
-        Alerta.notificacao(
-            json.erro != undefined && json.erro.mensagem != undefined
-                ? json.erro.mensagem
-                : 'Ocorreu um erro ao enviar seu histórico.',
-            false
-        );
+        listaAppSalvar.marcar(false);
+        inputHistorico.value = '';
+        inputHistorico.style.height = 25 + 'px';
+
+        Alerta.notificacao('Histórico salvo com sucesso.', true);
+
+        if (historicoLista) {
+            adicionarNovaMensagem(
+                json.dado.id,
+                json.dado.mensagem,
+                json.dado.arquivo,
+                usuarioImagem,
+                usuarioNome,
+                true,
+                historicoLista
+            );
+        }
+
+        blocoPreviaLista.html('');
+        blocoPreviaLista.sumir();
+        for (const item of indiceArquivo) {
+            if (item in arquivoSalvar) {
+                delete arquivoSalvar[item];
+            }
+        }
     };
 
     /*
@@ -471,7 +502,7 @@ const historicoLoad = () => {
     |--------------------------------------------------------------------------
     */
     let contadorNovaMensagem = 0;
-    const adicionarNovaMensagem = (id, mensagem, usuarioImagem, usuarioNome, podeDeletar) => {
+    const adicionarNovaMensagem = (id, mensagem, arquivo, usuarioImagem, usuarioNome, podeDeletar) => {
         const blocoSemMensagem = historicoLista.querySelector('.sem_mensagem');
         if (blocoSemMensagem) {
             blocoSemMensagem.parentNode.removeChild(blocoSemMensagem);
@@ -494,16 +525,26 @@ const historicoLoad = () => {
             </div>
         `;
         }
+        let arquivoHtml = '';
+        let arquivoQuantidade = arquivo.length;
+        let arquivoI = 1;
+        for (const item of arquivo) {
+            arquivoHtml += `<figure class="imagem_total_${arquivoQuantidade} imagem_${arquivoI}" style="background-image: url(${item})"></figure>`;
+            arquivoI++;
+        }
+        if (arquivoQuantidade > 0) {
+            arquivoHtml += '<div class="linha"></div>';
+        }
         const html = `
             <div class="item item_geral minha_mensagem" id="${idMensagem}">
-                <figure style="background-image: url(${usuarioImagem});"></figure>
+                <figure class="perfil" style="background-image: url(${usuarioImagem});"></figure>
                 <div class="dado">
                     <h2>${usuarioNome}</h2>
                     <div class="data">Agora</div>
                 </div>
                 <div class="fixar"><svg height="15" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path fill="none" d="M0 0h24v24H0z"/><path d="M13.828 1.686l8.486 8.486-1.415 1.414-.707-.707-4.242 4.242-.707 3.536-1.415 1.414-4.242-4.243-4.95 4.95-1.414-1.414 4.95-4.95-4.243-4.242 1.414-1.415L8.88 8.05l4.242-4.242-.707-.707 1.414-1.415zm.708 3.536l-4.671 4.67-2.822.565 6.5 6.5.564-2.822 4.671-4.67-4.242-4.243z"/></svg></div>
                 ${htmlDeletar}
-                <p class="mensagem">${mensagem}</p>
+                <div class="mensagem">${arquivoHtml}<p>${mensagem}</p></div>
             </div>
         `;
 
@@ -612,4 +653,54 @@ const historicoLoad = () => {
             }
         }
     }
+
+    /*
+    |--------------------------------------------------------------------------
+    | UPLOAD DE IMAGEM
+    |--------------------------------------------------------------------------
+    */
+    if (botaoUpload) {
+        botaoUpload.evento('change', () => {
+            const quantidade = botaoUpload.files.length;
+            if (quantidade == 0) {
+                botaoUpload.value = '';
+                return;
+            }
+
+            blocoPreviaLista.aparecer();
+            let i = 0;
+            for (; i < quantidade; ++i) {
+                if (Object.keys(arquivoSalvar).length >= 4) {
+                    Alerta.notificacao('Você só pode subir 4 imagens por comentário.', false);
+                    return;
+                }
+                adicionarArquivoPrevio(botaoUpload.files[i]);
+            }
+            inputHistorico.focus();
+            botaoUpload.value = '';
+        });
+        blocoPreviaLista.evento('click', e => {
+            if (!e.target.classe('arquivo_pervia_remover', '?') && !e.target.closest('.arquivo_pervia_remover')) {
+                return;
+            }
+            const bloco = e.target.closest('.arquivo_previa_item');
+            const indice = bloco.attr('data-id');
+            if (indice in arquivoSalvar) {
+                delete arquivoSalvar[indice];
+            }
+            bloco.remove();
+            console.log(arquivoSalvar);
+        });
+    }
+    const adicionarArquivoPrevio = arquivo => {
+        const indice = `${arquivo.name}-${arquivo.lastModified}`;
+        if (indice in arquivoSalvar) {
+            return;
+        }
+        const clone = previaPadrao.clonar();
+        $('.arquivo_previa_titulo', clone).texto(arquivo.name);
+        clone.attr('data-id', indice);
+        arquivoSalvar[indice] = arquivo;
+        blocoPreviaLista.final(clone);
+    };
 };

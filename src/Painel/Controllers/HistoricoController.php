@@ -36,12 +36,14 @@ final class HistoricoController extends Controller
                 'notificar_link'   => base64Decode($request->link),
                 'notificar_equipe' => base64Decode($request->notificar)
             ])
+            ->arquivo($request->getFiles())
             ->post('/painel-historico')
             ->object();
 
         return mensagemSucesso([
             'id'       => $dado->dado->id,
-            'mensagem' => $dado->dado->mensagem
+            'mensagem' => $dado->dado->mensagem,
+            'arquivo'  => $dado->dado->arquivo
         ], status: 201);
     }
 
@@ -137,6 +139,7 @@ final class HistoricoController extends Controller
                 'imagem'         => $r->imagem,
                 'minha_mensagem' => $r->minha_mensagem,
                 'mensagem'       => nl2br($mensagem),
+                'arquivo'        => $r->arquivo,
                 'hora'           => $DataHelper->valor($r->data_criacao)->formato('H:i')
             ];
         }

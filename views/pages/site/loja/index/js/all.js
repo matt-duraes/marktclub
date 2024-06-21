@@ -12,8 +12,7 @@ window.addEventListener('load', () => {
     if (!blocoPopup) {
         return;
     }
-    const PopupAlerta = new Popup('alerta', 'popup_medicamento', true, false);
-    PopupAlerta.abrir();
+    Alerta.mensagem('Atenção', 'Para usar seu desconto em drogarias, leia o procedimento com atenção!', '!');
 });
 
 const blocoMapa = $('#bloco_loja_mapa');
@@ -203,6 +202,21 @@ const MAPA = {
     latitude: parseFloat(latitude),
     longitude: parseFloat(longitude),
 };
+
+const botaoZoomMais = $('#botao_zoom_mais');
+const botaoZoomMenos = $('#botao_zoom_menos');
+if (botaoZoomMais) {
+    botaoZoomMais.evento('click', () => {
+        const zoom = MAPA.mapa.getZoom();
+        MAPA.mapa.setZoom(zoom + 1);
+    });
+}
+if (botaoZoomMenos) {
+    botaoZoomMenos.evento('click', () => {
+        const zoom = MAPA.mapa.getZoom();
+        MAPA.mapa.setZoom(zoom - 1);
+    });
+}
 
 window.addEventListener('load', () => {
     const blocoMapa = $('#bloco_google_maps');

@@ -12,6 +12,8 @@ const painelLogin = (login, senha) => {
     cy.digitar('#input_cpf', login);
     cy.digitar('#input_passe', senha);
     cy.clicar('#botao_login');
+
+    cy.checkUrl('/dashboard');
 };
 
 const painelMenu = (menu, type) => {

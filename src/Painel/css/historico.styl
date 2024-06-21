@@ -111,14 +111,14 @@
         &.fixo
             position: fixed
             top: 60px
-    .add figure
+    .add figure.imagem_usuario
         width: 40px
         height: 40px
         border-radius: 50%
         position: absolute
         top: 20px
         left: 20px
-        border: 1px solid #DDD
+        background-color: #DDD
         background-position: center center
         background-size: cover
     .add .bloco_input
@@ -138,7 +138,6 @@
         width: calc(100% - 6px)
         flexRow()
         flex-wrap: wrap
-        display: none
         margin: 3px 0 0 3px
         position: relative
         background-color: #F0F0F0
@@ -278,7 +277,7 @@
             display: none
         .add
             padding-left: 20px
-        .add figure
+        .add figure.imagem_usuario
             display: none
         .add p
             display: none
@@ -290,13 +289,13 @@
     padding: 20px
     &.minha_mensagem
         flex-direction: row-reverse
-    figure
+    figure.perfil
         width: 30px
         height: 30px
         border-radius: 50%
-        border: 1px solid #DDD
         background-position: center center
         background-size: cover
+        background-color: #DDD
     .fixar
         width: 25px
         height: 25px
@@ -367,27 +366,79 @@
         text-align: right
     &.outra_mensagem .dado .data
         text-align: left
-    p.mensagem
+    .mensagem figure
+        width: 150px
+        min-width: calc(50% - 4px)
+        height: 140px
+        margin: 2px
+        background-size: cover
+        background-position: center center
+        &.imagem_total_1
+            width: calc(100% - 4px)
+            min-width: 250px
+            height: 200px
+    &.minha_mensagem .mensagem figure
+        &.imagem_total_1.imagem_1
+            border-radius: 8px 0 8px 8px
+        &.imagem_total_2.imagem_1
+            border-radius: 8px 0 0 8px
+        &.imagem_total_2.imagem_2
+            border-radius: 0 0 8px 0
+        &.imagem_total_3.imagem_1
+            border-radius: 8px 0 0 0
+        &.imagem_total_3.imagem_2
+            border-radius: 0 0 8px 0
+        &.imagem_total_3.imagem_3
+            border-radius: 0 0 8px 8px
+        &.imagem_total_4.imagem_1
+            border-radius: 8px 0 0 0
+        &.imagem_total_4.imagem_3
+            border-radius: 0 0 0 8px
+        &.imagem_total_4.imagem_4
+            border-radius: 0 0 8px 0
+    &.outra_mensagem .mensagem figure
+        &.imagem_total_1.imagem_1
+            border-radius: 0 8px 8px 8px
+        &.imagem_total_2.imagem_1
+            border-radius: 0 0 0 8px
+        &.imagem_total_2.imagem_2
+            border-radius: 0 8px 8px 0
+        &.imagem_total_3.imagem_2
+            border-radius: 0 8px 8px 0
+        &.imagem_total_3.imagem_3
+            border-radius: 0 0 8px 8px
+        &.imagem_total_4.imagem_2
+            border-radius: 0 8px 0 0
+        &.imagem_total_4.imagem_3
+            border-radius: 0 0 0 8px
+        &.imagem_total_4.imagem_4
+            border-radius: 0 0 8px 0
+    .mensagem .linha
+        width: 100%
+    .mensagem
         max-width: 500px
+        flexRow()
+        flex-wrap: wrap
         margin-left: 20px
-        line-height: 1.5em
         position: relative
-        font-size: $textoFontSize
-        border: 1px solid #DDD
-        padding: 20px 30px
+        padding: 2px
         z-index: 2
         &:hover
             z-index: 4
-    &.outra_mensagem p.mensagem
+    &.outra_mensagem .mensagem
         margin-left: 10px
-        border-radius: 0 40px 40px 40px
-        background-color: #DDD
-    &.minha_mensagem p.mensagem
+        border-radius: 0 10px 10px 10px
+        background-color: #ddd
+    &.minha_mensagem .mensagem
         margin-right: 10px
-        border-radius: 40px 0 40px 40px
+        border-radius: 10px 0 10px 10px
         background-color: $cor
         color: #FFF
-    p.mensagem a
+    .mensagem p
+        line-height: 1.5em
+        font-size: $textoFontSize
+        padding: 10px
+    .mensagem p a
         font-size: $textoFontSize
         font-weight: bold
 @keyframes botao_deletar_loading
@@ -408,7 +459,7 @@
         padding: 20px 0
     .add
         padding: 20px 0 20px 50px
-    .add figure
+    .add figure.imagem_usuario
         left: 0
 
 #bloco_historico_view .bloco_marcar_equipe

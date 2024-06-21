@@ -1585,8 +1585,13 @@ if (!function_exists('arquivoPublico')) {
      * @param  string $padrao    Imagem padrão caso não tenha arquivo
      * @return string Url do arquivo
      */
-    function arquivoPublico(string $diretorio, string $arquivo = null, array $parametro = [], string $padrao = '')
-    {
+    function arquivoPublico(
+        string $diretorio,
+        string $arquivo = null,
+        array $parametro = [],
+        string $padrao = '',
+        bool $privado = false
+    ) {
         if (empty($arquivo)) {
             return $padrao;
         }
@@ -1596,8 +1601,9 @@ if (!function_exists('arquivoPublico')) {
         }
         $query = !empty($query) ? '?' . implode('&', $query) : '';
         $diretorio = preg_replace('/\/$/', '', $diretorio);
+        $path = $privado ? DIRETORIO_PRIVADO : DIRETORIO_PUBLICO;
 
-        if (!file_exists(DIRETORIO_PUBLICO . '/' . $diretorio . '/' . $arquivo)) {
+        if (!file_exists($path . '/' . $diretorio . '/' . $arquivo)) {
             return $padrao;
         }
 
@@ -1606,7 +1612,8 @@ if (!function_exists('arquivoPublico')) {
         $chave = '3876b388a5d5a2417af13bc7d6335925c5e82695bf84873a3c1a2b34fb918a5a';
         $hash = openssl_encrypt($diretorio . '/' . $arquivo, $cifra, $chave, 0, $iv);
 
-        return LINK_ARQUIVO_PUBLICO . '/aqioulc.' . str_replace(['+', '/', '='], ['-', '_', ':'], $hash) . $query;
+        $uri = $privado ? 'aqiornm' : 'aqioulc';
+        return LINK_ARQUIVO_PUBLICO . '/' . $uri . '.' . str_replace(['+', '/', '='], ['-', '_', ':'], $hash) . $query;
     }
 }
 if (!function_exists('arquivoPublicoNome')) {
@@ -1621,7 +1628,7 @@ if (!function_exists('arquivoPublicoNome')) {
         $cifra = 'AES-256-CBC';
         $chave = '3876b388a5d5a2417af13bc7d6335925c5e82695bf84873a3c1a2b34fb918a5a';
 
-        $hash = explode('aqioulc.', $link)[1] ?? '';
+        $hash = preg_replace('/^(aqioulc|aqiornm)\./', '', $link);
         $hash = str_replace(['-', '_', ':'], ['+', '/', '='], $hash);
         $iv = strCortar('d750d28036f7447ffe8e0d2ac2d2069b', openssl_cipher_iv_length($cifra), '', true);
 

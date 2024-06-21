@@ -17,8 +17,10 @@ tituloGrande()
     line-height: 1.5em
     font-size: 3rem
 titulo()
-    line-height: 1.7em
+    line-height: 1.5em
     tituloFontSize()
+    @media screen and (max-width:600px)
+        line-height: 1.2em
 tituloTelaPequena()
     line-height: 1.7em
     text-transform: uppercase
@@ -34,9 +36,6 @@ subTituloMaiusculo()
 texto()
     line-height: 1.5em
     textoFontSize()
-textoMobile()
-    line-height: 1.5em
-    font-size: 1.5rem
 textoTelaPequena()
     line-height: 1.5rem
     textoSizeTelaPequena()
@@ -46,10 +45,16 @@ textoCorClara()
     color: #BBB
 textoFontSize()
     font-size: 1.6rem
+    @media screen and (max-width:600px)
+        font-size: 1.3rem
 tituloFontSize()
     font-size: 2.4rem
+    @media screen and (max-width:600px)
+        font-size: 2rem
 subTituloFontSize()
     font-size: 2rem
+    @media screen and (max-width:600px)
+        font-size: 1.8rem
 disclaimerFontSize()
     font-size: 1.2rem
 bold()
@@ -129,6 +134,10 @@ blocoCorPadrao()
     padding: 20px
 boxShadow()
     box-shadow: 0 2px 10px $corBoxShadow
+    @media screen and (max-width:900px)
+        box-shadow: none
+        border: 1px solid #CCC
+
 bordaPadrao()
     border-radius: 5px
 imagemRedonda()
@@ -281,4 +290,3 @@ backgroundCoverCenterNotRepeat()
     background-size: cover
     background-position: center center
     background-repeat: no-repeat
-
