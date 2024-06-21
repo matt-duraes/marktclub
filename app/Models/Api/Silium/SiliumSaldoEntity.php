@@ -12,16 +12,13 @@ class SiliumSaldoEntity extends Entity
         'id_usuario_cliente', 'saldo_silium', 'data_validade',
         'data_criacao', 'data_atualizacao'
     ];
-    protected array $ormInsert = [
-        'id_usuario_cliente'
-    ];
     protected array $ormSalvar = [
-        'saldo_silium', 'data_validade'
+        'id_usuario_cliente', 'saldo_silium', 'data_validade'
     ];
     protected int $id_usuario_cliente;
 
     public int $saldo_silium;
-    public Data $data_validade;
+    public Data|null $data_validade;
 
     public function __construct()
     {

@@ -65,6 +65,7 @@ class SiliumSaqueEntity extends Entity
     protected function regraSalvar(): void
     {
         $this->setarUsuario();
+        $this->verificarSolicitacaoPendente();
         $this->validarResgate();
         $this->validarSaldoSuficiente();
     }
@@ -75,7 +76,10 @@ class SiliumSaqueEntity extends Entity
         $id = $OrmHelper->pegarIdPeloUuid($this->usuario);
 
         if (empty($id)) {
-            mensagemErro('Campo obrigatório!', 'Não foi possível achar um usuário.');
+            mensagemErro(
+                'Campo obrigatório!!!',
+                'Não foi possível achar um usuário.'
+            );
         }
         $this->idUsuario = $id;
     }
@@ -105,8 +109,8 @@ class SiliumSaqueEntity extends Entity
     {
         if(empty($this->idUsuario)) {
             mensagemErro(
-                'Falha na identificação',
-                'Houve uma falha e não foi possível identificar o usuário!'
+                'Falha na identificação!!!',
+                'Houve uma falha e não foi possível identificar o usuário.'
             );
         }
 
@@ -118,8 +122,8 @@ class SiliumSaqueEntity extends Entity
         );
         if (empty($usuario) || ($usuario->saldo_silium < $this->pontuacao)) {
             mensagemErro(
-                'Resgate não autorizado',
-                'Sua pontuação é insuficiente para o resgate!'
+                'Resgate não autorizado!!!',
+                'Sua pontuação é insuficiente para o resgate.'
             );
         }
     }
@@ -128,8 +132,25 @@ class SiliumSaqueEntity extends Entity
     {
         if ($this->pontuacao < self::PONTUACAO_MINIMA) {
             mensagemErro(
-                'Resgate não autorizado',
+                'Resgate não autorizado!!!',
                 'Solicitações de resgate devem ser acima de ' . self::PONTUACAO_MINIMA
+            );
+        }
+    }
+
+    private function verificarSolicitacaoPendente(): void
+    {
+        $OrmHelper = new OrmHelper($this->ormTabela);
+        $saque = $OrmHelper->pegarUltimoRegistro(
+            ['id_usuario_cliente', $this->idUsuario],
+            ['uuid', 'status'],
+            'object'
+        );
+        $status = (new StatusSaque($saque->status))->indice() === StatusSaque::AGUARDANDO;
+        if (!empty($saque->uuid) && $status) {
+            mensagemErro(
+                'Resgate não autorizado!!!',
+                'Você já possui uma solicitação de saque pendente.'
             );
         }
     }
