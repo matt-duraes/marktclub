@@ -18,7 +18,7 @@
     @view site/geral/banner.view
 
     @ if( !empty($plano_saude) ):
-    <div class="bloco_geral_imagem_esquerda" class="bloco_plano_saude">
+    <div class="bloco_geral_imagem_esquerda bloco_plano_saude">
         <div class="bloco_plano">
             <figure>
                 <img src="{{LINK_PADRAO}}/images/site/home_saude.jpg" alt="">
