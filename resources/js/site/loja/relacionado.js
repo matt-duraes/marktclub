@@ -16,5 +16,4 @@ window.addEventListener('load', async () => {
     resposta.dado.forEach(item => {
         adicionarParceiro(bloco, item);
     });
-    bloco.insertAdjacentHTML('beforeend', `<div class="article_fake"></div><div class="article_fake"></div>`);
 });

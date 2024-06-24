@@ -27,9 +27,9 @@ const loadingFavoritoFaq = () => {
 const PaginaFavorito = new Pagina('faq-favorito', LINK + '/faq/favorito', {}, true, true, loadingFavoritoFaq);
 
 window.addEventListener('load', () => {
-    const botaoProximoHistorico = document.querySelector('#botao_proximo_historico');
-    const botaoAnteriorHistorico = document.querySelector('#botao_anterior_historico');
-    const blocoHistorico = document.querySelector('#bloco_historico');
+    const botaoProximoHistorico = $('#botao_proximo_historico');
+    const botaoAnteriorHistorico = $('#botao_anterior_historico');
+    const blocoHistorico = $('#bloco_historico');
     botaoAnteriorHistorico.style.display = 'none';
     botaoProximoHistorico.style.display = 'none';
 
@@ -40,7 +40,7 @@ window.addEventListener('load', () => {
         });
     }
 
-    new Historico($('#bloco_historico'), LINK + '/historico', verificarBotoes);
+    new Historico(blocoHistorico, LINK + '/historico', verificarBotoes);
 
     const loading = $$('.parceiro_esqueleto');
     loading.forEach(item => {
@@ -79,10 +79,11 @@ window.addEventListener('load', () => {
 
     const adicionarListaParceiro = (bloco, lista) => {
         bloco.innerHTML = '';
+        bloco.classe('parceiro_numero_3', false);
+        bloco.classe('parceiro_numero_' + lista.length, true);
         lista.forEach(item => {
             adicionarParceiro(bloco, item);
         });
-        bloco.insertAdjacentHTML('beforeend', `<div class="article_fake"></div><div class="article_fake"></div>`);
     };
 
     botaoProximoHistorico.addEventListener('click', () => {

@@ -8,6 +8,7 @@
         <p>Você está utilizando uma versão limitada do clube</p>
     </div>
     @endif
+
     <div class="bloco_historico">
         <i class="seta anterior" id="botao_anterior_historico">@iconeSetaEsquerda(18)</i>
         <div class="conteudo scrollbar_hidden bloco_scrollbar_item" id="bloco_historico"></div>
@@ -51,10 +52,12 @@
             <h1>LOJAS FAVORITAS</h1>
             <a class="cor_color" href="@route(loja.index)?favorito=sim">Ver mais</a>
         </header>
-        <div class="bloco_parceiro bloco_geral_article" id="bloco_parceiro_favorito">
-            @ laco(3)
-            @view site/geral/parceiro_loading.view
-            @ endlaco;
+        <div class="bloco_parceiro_scroll">
+            <div class="bloco_parceiro bloco_geral_article parceiro_numero_3" id="bloco_parceiro_favorito">
+                @ laco(3)
+                @view site/geral/parceiro_loading.view
+                @ endlaco;
+            </div>
         </div>
     </div>
     <div class="bloco_geral_sem_resultado bloco_favorito_zero display_none" id="bloco_favorito_faq">
@@ -68,10 +71,12 @@
             <h1>MAIS UTILIZADAS</h1>
             <a class="cor_color" href="@route('loja.index')?acessado=sim">Veja mais</a>
         </header>
-        <div class="bloco_parceiro bloco_geral_article" id="bloco_parceiro_acessado">
-            @ laco(3)
-            @view site/geral/parceiro_loading.view
-            @ endlaco;
+        <div class="bloco_parceiro_scroll">
+            <div class="bloco_parceiro bloco_geral_article parceiro_numero_3" id="bloco_parceiro_acessado">
+                @ laco(3)
+                @view site/geral/parceiro_loading.view
+                @ endlaco;
+            </div>
         </div>
     </div>
     <div class="bloco">
@@ -79,10 +84,12 @@
             <h1>NOVAS LOJAS</h1>
             <a class="cor_color" href="@route('loja.index')?ordem=mais-novo">Veja mais</a>
         </header>
-        <div class="bloco_parceiro bloco_geral_article" id="bloco_parceiro_novo">
-            @ laco(3)
-            @view site/geral/parceiro_loading.view
-            @ endlaco;
+        <div class="bloco_parceiro_scroll">
+            <div class="bloco_parceiro bloco_geral_article parceiro_numero_3" id="bloco_parceiro_novo">
+                @ laco(3)
+                @view site/geral/parceiro_loading.view
+                @ endlaco;
+            </div>
         </div>
     </div>
 </div>
