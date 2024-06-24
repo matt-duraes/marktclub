@@ -7,6 +7,27 @@
 // @system "Esqueleto"
 // @system "Popup"
 
+let scrollAtual = window.scrollY;
+let scrollUltimaAcao = window.scrollY;
+const headerPrincipalFixo = $('#header_principal_fixo');
+const scrollMenuPrincipal = () => {
+    const topo = window.scrollY;
+    const aparecido = headerPrincipalFixo.classe('aparecer', '?');
+    const diferenca = topo > scrollUltimaAcao ? topo - scrollUltimaAcao : scrollUltimaAcao - topo;
+    const podeMudar = diferenca > 30;
+    if ((scrollAtual < topo || topo < 80) && aparecido && podeMudar) {
+        headerPrincipalFixo.classe('aparecer', false);
+        scrollUltimaAcao = topo;
+    } else if (scrollAtual >= topo && topo > 80 && !aparecido && podeMudar) {
+        headerPrincipalFixo.classe('aparecer', true);
+        scrollUltimaAcao = topo;
+    }
+    scrollAtual = topo;
+};
+window.addEventListener('scroll', function () {
+    scrollMenuPrincipal();
+});
+
 window.addEventListener('load', () => {
     const blocoPopup = $('#popup_medicamento');
     if (!blocoPopup) {
@@ -172,12 +193,14 @@ window.addEventListener('load', () => {
     if (!blocoMapa) {
         return false;
     }
+    const blocoRodape = $('#rodape_principal');
     const blocoLoja = $('#bloco_loja_index');
     const blocoBusca = $('#bloco_buscar');
     const blocoParceiro = $('#bloco_loja_index .bloco_parceiro');
     const botaoMapa = $('#botao_visualizar_mapa');
     const botaoLista = $('#botao_visualizar_lista');
-    botaoMapa.addEventListener('click', () => {
+
+    const visualizarComoMapa = () => {
         botaoMapa.classList.add('display_none');
         botaoLista.classList.remove('display_none');
         blocoMapa.classList.remove('display_none');
@@ -185,8 +208,11 @@ window.addEventListener('load', () => {
         blocoCarregarMais.classList.add('bloco_carregar_mais_mapa');
         blocoLoja.classList.add('bloco_mapa');
         blocoBusca.classList.add('display_none');
-    });
-    botaoLista.addEventListener('click', () => {
+        blocoRodape.sumir();
+        BODY.classe('body_scroll_hidden', true);
+    };
+    visualizarComoMapa();
+    const visualizarComoLista = () => {
         botaoMapa.classList.remove('display_none');
         botaoLista.classList.add('display_none');
         blocoMapa.classList.add('display_none');
@@ -194,6 +220,14 @@ window.addEventListener('load', () => {
         blocoCarregarMais.classList.remove('bloco_carregar_mais_mapa');
         blocoLoja.classList.remove('bloco_mapa');
         blocoBusca.classList.remove('display_none');
+        blocoRodape.aparecer();
+        BODY.classe('body_scroll_hidden', false);
+    };
+    botaoMapa.addEventListener('click', () => {
+        visualizarComoMapa();
+    });
+    botaoLista.addEventListener('click', () => {
+        visualizarComoLista();
     });
 });
 

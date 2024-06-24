@@ -3,10 +3,16 @@
     flexRow()
     spaceBetween()
     flex-wrap: wrap
+.bloco_geral_article.bloco_geral_article_linha
+    flex-wrap: nowrap
+    justify-content: flex-start
 
 .bloco_parceiro .article_fake
     width: calc((100% / 3) - 15px)
     opacity: 0
+.bloco_geral_article.bloco_geral_article_linha .article_fake
+    display: none
+
 .bloco_parceiro article
     width: calc((100% / 3) - 15px)
     flexCol()
@@ -136,19 +142,6 @@
         display: none
     .bloco_favorito.favorito_marcado .marcado
         display: flex
-
-.parceiro_esqueleto
-    position: relative
-    figure .esqueleto
-        width: 120px
-        height: 120px
-    p
-        max-width: 100px
-        height: 20px
-    .bloco_estado
-        max-width: 150px
-        height: 30px
-
 @media screen and (max-width:900px)
     .bloco_geral_article
         .article_fake
@@ -162,3 +155,74 @@
         .bloco_favorito
             top: 8px
             right: 8px
+@media screen and (max-width:370px)
+    .bloco_geral_article
+        .article_fake
+        article
+            width: 100%
+
+.bloco_parceiro_scroll
+    overflow-x: auto
+.bloco_parceiro_scroll .bloco_geral_article
+    flex-wrap: nowrap
+    justify-content: flex-start
+    .article_fake
+        display: none
+    article
+        width: calc((100% / 3) - (40px / 3))
+        margin-right: 20px
+        &:last-child
+            margin-right: 0
+@media screen and (max-width:900px)
+    .bloco_parceiro_scroll .bloco_geral_article
+        &.parceiro_numero_3
+            min-width: 940px
+        &.parceiro_numero_2
+            min-width: 620px
+        &.parceiro_numero_1
+            min-width: 300px
+        .article_fake
+        article
+            width: 300px
+@media screen and (max-width:600px)
+    .bloco_parceiro_scroll .bloco_geral_article
+        &.parceiro_numero_3
+            min-width: 940px
+        &.parceiro_numero_2
+            min-width: 620px
+        &.parceiro_numero_1
+            min-width: 300px
+        .article_fake
+        article
+            width: 300px
+@media screen and (max-width:710px)
+    .bloco_parceiro_scroll .bloco_geral_article
+        &.parceiro_numero_3
+            min-width: 790px
+        &.parceiro_numero_2
+            min-width: 520px
+        &.parceiro_numero_1
+            min-width: 250px
+        article
+            width: 250px
+@media screen and (max-width:400px)
+    .bloco_parceiro_scroll .bloco_geral_article
+        &.parceiro_numero_3
+            min-width: calc(((100vw - 80px) * 3) + 40px)
+        &.parceiro_numero_2
+            min-width: calc(((100vw - 80px) * 2) + 20px)
+        &.parceiro_numero_1
+            min-width: calc(100vw - 80px)
+        article
+            width: calc(100vw - 80px)
+.parceiro_esqueleto
+    position: relative
+    figure .esqueleto
+        width: 120px
+        height: 120px
+    p
+        max-width: 100px
+        height: 20px
+    .bloco_estado
+        max-width: 150px
+        height: 30px

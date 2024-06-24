@@ -10,6 +10,7 @@
         --hover-branco-preto: #F8F9FA !important;
         --cor-box-shadow: rgba(0,0,0,.1) !important;
         --cor-alerta: #F00 !important;
+        --cor-borda: #CCC
     }
     [data-theme="dark"] {
         --cor-clube: {{CLUBE_COR_SECUNDARIA}} !important;
@@ -21,6 +22,7 @@
         --hover-branco-preto: #222222 !important;
         --cor-box-shadow: rgba(0,0,0,.5) !important;
         --cor-alerta: #FF0 !important;
+        --cor-borda: #666
     }
     @ if( tema() == 'sistema' ):
     @media (prefers-color-scheme: dark) {
@@ -34,6 +36,7 @@
             --hover-branco-preto: #222222 !important;
             --cor-box-shadow: rgba(0,0,0,.5) !important;
             --cor-alerta: #FF0 !important;
+            --cor-borda: #666
         }
     }
     @ endif;
