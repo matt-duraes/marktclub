@@ -97,6 +97,10 @@ final class SiliumComissaoController extends Controller implements
         $SiliumSaldoEntity = new SiliumSaldoEntity();
         $SiliumSaldoEntity->buscar(['id_usuario_cliente', $idUsuario], false);
 
+        if (!$SiliumSaldoEntity->pExiste('saldo_silium')) {
+            $SiliumSaldoEntity->saldo_silium = 0;
+        }
+
         return mensagemSucesso(
             pegarPropriedadeDaEntity(
                 $SiliumSaldoEntity,
