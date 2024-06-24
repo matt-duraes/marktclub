@@ -16,6 +16,17 @@
 #bloco_assinatura form
     flexCol()
     margin-bottom: 40px
+    .bloco_row
+        flexRow()
+        align-items: center
+    .bloco_row .bloco_input
+        max-width: 200px
+    .bloco_row .dominio
+        flexGrow()
+        margin-top: 10px
+        textoFontSize()
+        padding-left: 10px
+        color: #999
 
 #bloco_assinatura .assinatura
     width: 100%
@@ -62,3 +73,7 @@
         padding: 5px 10px
         color: $cor
         cursor: pointer
+        &.destaque
+            background-color: $cor
+            color: #fff
+            margin-left: 20px

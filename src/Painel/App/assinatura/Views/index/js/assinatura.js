@@ -1,4 +1,4 @@
-const assinaturaHtml = () => {
+assinaturaHtml = () => {
     return `
 <!DOCTYPE html>
 <html lang="pt-br">
