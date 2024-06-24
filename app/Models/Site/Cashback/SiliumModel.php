@@ -40,7 +40,6 @@ final class SiliumModel extends ClubeApiHelper
             ])
             ->get('/silium-comissao')
             ->object();
-        ppe($dado);
         return $dado->dado->lista;
     }
 
