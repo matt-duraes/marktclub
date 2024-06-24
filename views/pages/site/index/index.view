@@ -18,31 +18,29 @@
     @view site/geral/banner.view
 
     @ if( !empty($plano_saude) ):
-    <div class="bloco">
-        <div class="bloco_geral_imagem_esquerda">
-            <div class="bloco_plano">
-                <figure>
-                    <img src="{{LINK_PADRAO}}/images/site/home_saude.jpg" alt="">
-                </figure>
-                <header>
-                    <h1>Que tal um plano de saúde feito para você?</h1>
-                    <p>Venha conhecer o plano de saúde que cabe no seu bolso</p>
-                </header>
-            </div>
-            <div class="final">
-                <div class="valor">
-                    <p class="apartir">Apartir</p>
-                    <div class="preco">
-                        <div class="sifrao">R$</div>
-                        <div class="real">{{$plano_saude}}</div>
-                        <div class="asterisco">*</div>
-                    </div>
-                    <div class="observacao">*Para pessoas com idade de até 18 anos</div>
+    <div class="bloco_geral_imagem_esquerda bloco_plano_saude">
+        <div class="bloco_plano">
+            <figure>
+                <img src="{{LINK_PADRAO}}/images/site/home_saude.jpg" alt="">
+            </figure>
+            <header>
+                <h1>Que tal um plano de saúde feito para você?</h1>
+                <p>Venha conhecer o plano de saúde que cabe no seu bolso</p>
+            </header>
+        </div>
+        <div class="final">
+            <div class="valor">
+                <p class="apartir">Apartir</p>
+                <div class="preco">
+                    <div class="sifrao">R$</div>
+                    <div class="real">{{$plano_saude}}</div>
+                    <div class="asterisco">*</div>
                 </div>
-                @if(TIPO_USUARIO != 'indicado'):
-                    <a href="@route('planosaude.index')" class="botao_geral_cor cor_bg">Veja valores</a>
-                @endif
+                <div class="observacao">*Para pessoas com idade de até 18 anos</div>
             </div>
+            @if(TIPO_USUARIO != 'indicado'):
+                <a href="@route('planosaude.index')" class="botao_geral_cor cor_bg">Veja valores</a>
+            @endif
         </div>
     </div>
     @ endif;
