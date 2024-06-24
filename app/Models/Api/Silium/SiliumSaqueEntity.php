@@ -146,8 +146,7 @@ class SiliumSaqueEntity extends Entity
             ['uuid', 'status'],
             'object'
         );
-        $status = (new StatusSaque($saque->status))->indice() === StatusSaque::AGUARDANDO;
-        if (!empty($saque->uuid) && $status) {
+        if (!empty($saque->uuid) && (new StatusSaque($saque->status))->indice() === StatusSaque::AGUARDANDO) {
             mensagemErro(
                 'Resgate não autorizado!!!',
                 'Você já possui uma solicitação de saque pendente.'
