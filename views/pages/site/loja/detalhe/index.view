@@ -1,7 +1,7 @@
 @template "site"
 
 @ if( $tipo == 'loja' ):
-@view site/loja/busca/loja.view
+@view site/loja/busca/loja/index.view
 @ endif;
 
 @ if($dado):

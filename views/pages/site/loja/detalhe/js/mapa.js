@@ -98,7 +98,7 @@ window.addEventListener('load', async () => {
     });
     const abrirPopupEndereco = async () => {
         PopupAbrir.abrir();
-        buscarEstruturaEndereco('geral');
+        // buscarEstruturaEndereco('geral');
     };
 
     inputPais.evento('formChange', () => {
