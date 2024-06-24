@@ -17,7 +17,7 @@
             <div class="bloco_saldo">
                 <a href="@route(termo.termocashback)" target="_blank" class="regulamento botao_pequeno_borda">REGULAMENTO SILIUM</a>
                 <div class="saldo_conta">
-                    <p>SALDO EM CONTA: <span>{{$saldo}}</span> </p>
+                    <p>SALDO EM CONTA: <span>{$saldo}</span> </p>
                 </div>
                 @if ($saldo >= 10000):
                 <div class="botao" id="botao_popup_resgate">Solicitar resgate</div>
