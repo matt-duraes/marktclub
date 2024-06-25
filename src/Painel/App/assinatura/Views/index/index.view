@@ -26,6 +26,6 @@
     </div>
     <div class="bloco_botao">
         <div class="botao" id="botao_copiar_assinatura">Copiar</div>
-        <a href="" class="botao destaque">Abrir assinatura</a>
+        <a href="#" target="_blank" rel="noopener noreferrer" class="botao destaque" id="botao_abrir_assinatura">Abrir assinatura</a>
     </div>
 </div>
