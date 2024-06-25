@@ -30,7 +30,7 @@ window.addEventListener('load', () => {
     const inputBanco = $('#input_banco');
     const inputAgencia = $('#input_agencia');
     const inputContaBancaria = $('#input_conta');
-    const inputTipoConta = $('#input_tipo_texto');
+    const inputTipoConta = $('#input_tipo');
 
     inputConta.addEventListener('input', event => {
         let value = event.target.value;
@@ -60,7 +60,7 @@ window.addEventListener('load', () => {
             cpf: inputCpf.value,
             banco: inputBanco.value,
             agencia: inputAgencia.value,
-            contaBancaria: inputContaBancaria.value,
+            contaBancaria: inputContaBancaria.value.replace(/\s+/g, ''),
             tipoConta: inputTipoConta.value,
         });
         Loading.hide();
@@ -69,7 +69,6 @@ window.addEventListener('load', () => {
         }
         PopupResgate.fechar();
         await Alerta.mensagem('Dados Enviados!', 'Sua solicitação foi enviada. Aguarde nosso retorno!', true);
-        Loading.show();
     };
 
     adicionarEventoEnter([inputNome, inputEmail, inputQuantidade], solicitarResgate);

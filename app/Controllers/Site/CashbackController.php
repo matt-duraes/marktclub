@@ -52,17 +52,18 @@ final class CashbackController extends Controller
     }
 
     /**CASHBACK SILIUM*/
-
     /**
      * @return Response
      * @throws Excecao
      */
     public function extrato(): Response
     {
-        // $dados = (new SiliumModel())->buscarDados();
+        $dados = (new SiliumModel())->buscarDados();
         return view('cashback.extrato', [
             'menu'           => 'extrato_silium',
-            'saldo'          => 0
+            'saldo'          => $dados['saldo'] ?? 0,
+            'extratoCompra' => $dados['extrato_compra'],
+            'extratoSaque' => $dados['extrato_saque']
         ]);
     }
 
@@ -74,6 +75,8 @@ final class CashbackController extends Controller
      */
     public function postResgatarCashback(Request $request): Response
     {
-        // $SolicitacaoResgate = (new SiliumModel())->solicitarDeposito($request->dado());
+        $dado = (new SiliumModel())->solicitarDeposito($request->dado());
+        return mensagemSucesso($dado, 201);
+
     }
 }
