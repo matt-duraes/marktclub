@@ -84,6 +84,27 @@ class SiliumSaqueModel extends ORM implements
         return $saques;
     }
 
+    public function listarSelect(): array
+    {
+        $saques = $this->campo([
+                'uuid', 'pontuacao'
+            ])
+            ->where(['status', $this->status->numero(StatusSaque::AGUARDANDO)])
+            ->order('data_criacao')
+            ->tabela(TABELA_USUARIO_CLIENTE)
+            ->where([
+                'OR',
+                ['uuid', $this->usuario],
+                ['nome', 'LIKE', '%' . $this->usuario . '%']
+            ])
+            ->join('id', 'id_usuario_cliente')
+            ->campo([
+                'uuid', 'nome'
+            ], 'usuario')
+            ->read();
+        return $this->montarSelect($saques);
+    }
+
     private function pegarWhere(): array
     {
         $where = $this->ormWherePadrao;
@@ -116,6 +137,20 @@ class SiliumSaqueModel extends ORM implements
             $where[] = ['uuid', $this->usuario];
         }
         return $where;
+    }
+
+    private function montarSelect(array $saques): array
+    {
+        if (empty($saques)) {
+            return $saques;
+        }
+
+        $retorno = [];
+        foreach ($saques as $saque) {
+            $mensagem = $saque->usuario_nome . ' - ' . $saque->pontuacao . ' Pontos';
+            $retorno[$saque->uuid] = $mensagem;
+        }
+        return $retorno;
     }
 
     private function montarRetorno(array $saques): array
