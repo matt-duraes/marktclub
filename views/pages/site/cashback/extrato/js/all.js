@@ -69,6 +69,7 @@ window.addEventListener('load', () => {
         }
         PopupResgate.fechar();
         await Alerta.mensagem('Dados Enviados!', 'Sua solicitação foi enviada. Aguarde nosso retorno!', true);
+        location.href = LINK + '/cashback/extrato';
     };
 
     adicionarEventoEnter([inputNome, inputEmail, inputQuantidade], solicitarResgate);
