@@ -1,63 +1,62 @@
 <?php
 
-use App\Classes\Silium\StatusDeposito;
+use PainelConfig\Visualizar;
+use App\Classes\Silium\StatusSaque;
 use App\Classes\Silium\TipoConta;
+use App\Classes\UsuarioCliente\Helper;
 
-$Painel = new PainelConfig\Visualizar('silium_saque');
+$Painel = new Visualizar('silium_saque');
 
-$Painel->coluna(callback: function () use ($Painel) {
-    $Painel->bloco('Empresa', callback: function () use ($Painel) {
-        $Painel
-            ->linha('empresa->titulo', 'Título')
-            ->botao(
-                'empresa_link',
-                'Ver empresa',
-                link: LINK . '/app/visualizar/comercial-empresa/empresa->id',
-                permissao: \App\Classes\UsuarioCliente\Helper::PERMISSAO_EMPRESA
-            );
-    });
-
-    $Painel->bloco('Usuario', callback: function () use ($Painel) {
+$StatusSaque = new StatusSaque();
+$Painel->coluna(callback: function () use ($Painel, $StatusSaque) {
+    $Painel->bloco('Usuario', function () use ($Painel) {
         $Painel
             ->linha('usuario->nome', 'Nome')
-            ->linha('usuario->email', 'E-mail')
             ->botao(
                 'usuario_link',
                 'Ver usuário',
                 link: LINK . '/app/visualizar/usuario-cliente/usuario->id',
-                permissao: \App\Classes\UsuarioCliente\Helper::PERMISSAO_VISUALIZAR
+                permissao: Helper::PERMISSAO_VISUALIZAR
             );
     });
 
-    $Painel->bloco('Dados Bancários', callback: function () use ($Painel) {
+    $Painel->bloco('Dados da Solicitação', function () use ($Painel) {
         $Painel
             ->linha('nome_titular', 'Nome do Titular')
             ->cpf('documento_cpf', 'CPF do Titular')
             ->linha('tipo_conta', 'Tipo de Conta')
             ->linha('banco', 'Instituição Financeira')
             ->linha('agencia', 'Agência')
-            ->linha('conta', 'Conta');
+            ->linha('conta', 'Conta')
+            ->linha('pontuacao', 'Pontuação');
     });
 
-    $Painel->bloco('Outras Informações', callback: function () use ($Painel) {
+    $Painel->bloco('Outras Informações', function () use ($Painel) {
         $Painel
             ->dataHora('data_criacao', 'Data de criação')
             ->dataHora('data_atualizacao', 'Data da última atualização')
             ->linha('status', 'Status');
     });
 
-    /*$Painel
+    $Painel
         ->status(
             campo: 'status',
-            texto: 'Finalizar solicitação',
-            inArray: ['Novo', 'Enviado p/ Empresa', 'Enviado p/ Usuário', 'Problema'],
-            status: Status::FINALIZADO,
-            mensagem: 'Tem certeza que deseja fechar essa solicitação?',
+            texto: 'Deposito realizado',
+            inArray: [$StatusSaque->nome(StatusSaque::AGUARDANDO)],
+            status: StatusSaque::DEPOSITADO,
+            mensagem: 'Tem certeza que deseja alterar o status para depositado?',
             cor: 'verde'
-        );*/
+        )->status(
+            campo: 'status',
+            texto: 'Deposito negado',
+            inArray: [$StatusSaque->nome(StatusSaque::AGUARDANDO)],
+            status: StatusSaque::NEGADO,
+            mensagem: 'Tem certeza que deseja alterar o status para negado?',
+            cor: 'vermelho'
+        );
 });
 
 $Painel->replace('tipo_conta', (new TipoConta())->select());
-$Painel->replace('status', (new StatusDeposito())->select());
+$Painel->replace('status', $StatusSaque->select());
 
 return $Painel;

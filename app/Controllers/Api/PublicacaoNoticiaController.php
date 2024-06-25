@@ -7,6 +7,7 @@ use Modules\Data;
 use Http\Response;
 use Modules\Botao;
 use Modules\Pagina;
+use Helpers\OrmHelper;
 use Modules\Quantidade;
 use Controller\Controller;
 use App\Classes\Geral\Status;
@@ -22,8 +23,8 @@ use System\Interface\ControllerAtualizarInterface;
 use App\Models\Api\PublicacaoNoticia\NoticiaEntity;
 
 final class PublicacaoNoticiaController extends Controller implements
-    ControllerListarInterface,
     ControllerBuscarInterface,
+    ControllerListarInterface,
     ControllerSalvarInterface,
     ControllerAtualizarInterface,
     ControllerDeletarInterface
@@ -44,7 +45,6 @@ final class PublicacaoNoticiaController extends Controller implements
             restrita: new Botao($request->restrita),
             site: new Botao($request->site),
         );
-
         return mensagemSucesso($Noticia->listarDados());
     }
 
@@ -58,7 +58,6 @@ final class PublicacaoNoticiaController extends Controller implements
     {
         $Noticia = new NoticiaEntity();
         $Noticia->idSlug($id);
-
         return $this->retornoSucesso($Noticia);
     }
 

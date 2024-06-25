@@ -32,25 +32,25 @@ $Painel->coluna(callback: function () use ($Painel) {
             ->dataHora('data_atualizacao', 'Data da última atualização')
             ->linha('status', 'Status');
     });
-
-    $Painel
-        ->status(
-            campo: 'status',
-            texto: 'Aguardando',
-            inArray: ['Novo'],
-            status: Status::AGUARDANDO,
-            mensagem: 'Tem certeza que deseja alterar para aguardando?',
-            cor: 'verde'
-        )
-        ->status(
-            campo: 'status',
-            texto: 'Respondido',
-            inArray: ['Aguardando'],
-            status: Status::RESPONDIDO,
-            mensagem: 'Tem certeza que deseja alterar para respondido?',
-            cor: 'verde'
-        );
 });
+
+$Painel
+    ->status(
+        campo: 'status',
+        texto: 'Aguardando',
+        inArray: ['Novo'],
+        status: Status::AGUARDANDO,
+        mensagem: 'Tem certeza que deseja alterar para aguardando?',
+        cor: 'verde'
+    )
+    ->status(
+        campo: 'status',
+        texto: 'Respondido',
+        inArray: ['Aguardando'],
+        status: Status::RESPONDIDO,
+        mensagem: 'Tem certeza que deseja alterar para respondido?',
+        cor: 'verde'
+    );
 
 $Painel
     ->replace('status', (new Status())->select());

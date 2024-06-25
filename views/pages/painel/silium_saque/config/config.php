@@ -7,12 +7,12 @@ return [
     'ordem'      => true,
     'visualizar' => true,
     'add'        => false,
-    'editar'     => true,
+    'editar'     => false,
     'deletar'    => false,
     'download'   => false,
     'historico'  => true,
     'api'        => [
-        'scope' => 'silium_deposito',
-        'uri'   => '/silium-deposito'
+        'scope' => 'silium_saque',
+        'uri'   => '/silium-saque'
     ]
 ];

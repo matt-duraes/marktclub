@@ -49,7 +49,7 @@ class SolicitacaoContatoEntity extends Entity
 
     public function __construct()
     {
-        $this->setarIdEmpresa();
+        $this->validarEmpresa();
         parent::__construct();
     }
 
@@ -60,6 +60,11 @@ class SolicitacaoContatoEntity extends Entity
     }
 
     public function regraPosBuscar(): void
+    {
+        $this->buscarEmpresa();
+    }
+
+    private function buscarEmpresa(): void
     {
         $empresa = (new OrmHelper(TABELA_COMERCIAL_EMPRESA))
             ->pegarPrimeiroRegistro(['id', $this->id_admin_empresa], [

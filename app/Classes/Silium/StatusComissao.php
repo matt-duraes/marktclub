@@ -8,7 +8,7 @@ class StatusComissao extends StatusStatus
 {
     public const NOVO = 'novo';
     public const AGUARDANDO = 'aguardando';
-    public const CREDITADO = 'creditado';
+    public const LIBERADO = 'liberado';
     public const NEGADO = 'negado';
 
     public function __construct(
@@ -17,12 +17,12 @@ class StatusComissao extends StatusStatus
         parent::__construct([
             self::NOVO       => 'Novo',
             self::AGUARDANDO => 'Aguardando Análise',
-            self::CREDITADO  => 'Creditado',
+            self::LIBERADO   => 'Liberado',
             self::NEGADO     => 'Negado'
         ], [
             self::NOVO       => 'azul',
             self::AGUARDANDO => 'amarelo',
-            self::CREDITADO  => 'verde',
+            self::LIBERADO   => 'verde',
             self::NEGADO     => 'vermelho'
         ]);
     }

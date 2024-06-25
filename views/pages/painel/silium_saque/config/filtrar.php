@@ -1,24 +1,18 @@
 <?php
 
-use App\Classes\Silium\StatusDeposito;
+use PainelConfig\Filtrar;
+use App\Classes\Silium\StatusSaque;
 use App\Classes\Silium\TipoConta;
 
-$Painel = new PainelConfig\Filtrar('silium_saque');
+$Painel = new Filtrar('silium_saque');
 
 $Painel
-    ->input(
+    /*->input(
         name: 'usuario',
         titulo: 'Nome do Usuário',
         label: 'Nome do Usuário',
         placeholder: 'Nome do Usuário'
-    )
-    ->select(
-        name: 'empresa',
-        lista: 'empresa',
-        titulo: 'Empresa',
-        label: 'Empresa',
-        placeholder: 'Empresa'
-    )
+    )*/
     ->select(
         name: 'tipo_conta',
         lista: (new TipoConta())->select('Escolha um tipo de conta'),
@@ -30,20 +24,20 @@ $Painel
         $Painel
             ->data(
                 name: 'data_inicio',
-                titulo: 'Depositado de',
-                label: 'Depositado de',
-                placeholder: 'Depositado de'
+                titulo: 'Solicitado de',
+                label: 'Solicitado de',
+                placeholder: 'Solicitado de'
             )
             ->data(
                 name: 'data_final',
-                titulo: 'Depositado até',
-                label: 'Depositado até',
-                placeholder: 'Depositado até'
+                titulo: 'Solicitado até',
+                label: 'Solicitado até',
+                placeholder: 'Solicitado até'
             );
     })
     ->select(
         name: 'status',
-        lista: (new StatusDeposito())->select('Escolha um status'),
+        lista: (new StatusSaque())->select('Escolha um status'),
         titulo: 'Status',
         label: 'Status',
         placeholder: 'Status'

@@ -684,6 +684,7 @@ final class ConfiguracoesPadrao
                 'silium_comissao_visualizar' => 'Visualizar',
                 'silium_comissao_add'        => 'Salvar',
                 'silium_comissao_editar'     => 'Editar',
+                'silium_comissao_status'     => 'Status',
                 'silium_comissao_deletar'    => 'Deletar'
             ]
         ],
@@ -694,6 +695,7 @@ final class ConfiguracoesPadrao
                 'silium_deposito_visualizar' => 'Visualizar',
                 'silium_deposito_add'        => 'Salvar',
                 'silium_deposito_editar'     => 'Editar',
+                'silium_deposito_status'     => 'Status',
                 'silium_deposito_deletar'    => 'Deletar'
             ]
         ],
@@ -704,13 +706,8 @@ final class ConfiguracoesPadrao
                 'silium_saque_visualizar' => 'Visualizar',
                 'silium_saque_add'        => 'Salvar',
                 'silium_saque_editar'     => 'Editar',
+                'silium_saque_status'     => 'Status',
                 'silium_saque_deletar'    => 'Deletar'
-            ]
-        ],
-        'painel_historico' => [
-            'titulo'    => 'Painel histórico',
-            'permissao' => [
-                'painel_historico_download'    => 'Download'
             ]
         ]
     ];

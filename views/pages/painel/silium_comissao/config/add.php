@@ -1,8 +1,9 @@
 <?php
 
+use PainelConfig\Add;
 use App\Classes\Silium\StatusComissao;
 
-$Painel = new PainelConfig\Add('silium_comissao', $acao);
+$Painel = new Add('silium_comissao', $acao);
 
 $Painel->coluna(callback: function () use ($Painel) {
     $Painel->fieldset('Informações da Compra', function () use ($Painel) {
