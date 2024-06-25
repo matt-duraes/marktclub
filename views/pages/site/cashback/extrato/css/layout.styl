@@ -6,7 +6,6 @@
 @resource "site/tab"
 @resource "site/tabela"
 @resource "site/geral"
-@template "painel"
 @system "Variavel"
 
 #bloco_pagina_cashback
@@ -31,10 +30,10 @@
     .saldo_conta
         margin: 20px 0px 10px
         p
-            subtitulo()
+            texto()
             font-weight: bold
         span
-            subtitulo()
+            texto()
             font-weight: bold
             margin-left: 5px
 
@@ -44,7 +43,6 @@ div#botao_popup_resgate
     border-radius: 5px
     background-color: $corClube
     flexCenter()
-    font-size: $texto
     color: #fff
     cursor: pointer
     texto()
@@ -60,7 +58,7 @@ div#botao_popup_resgate
     blocoShadow()
     background: $corBrancoCinza
     h1
-        font-size: $tituloFontSize
+        titulo()
         color: $corClube
         margin-bottom: 20px
 
@@ -136,18 +134,18 @@ div#botao_popup_resgate
         width: 200px
         border-radius: 5px
         flexCenter()
-        font-size: 1.5rem
+        texto()
         margin-top: 10px
         cursor: pointer
 #bloco_resgatar_ponto .form_geral .bloco_input label
     background-color: $corBrancoCinza
 
 .titulo_dados_bancarios
-    font-size: 2rem
+    titulo()
     margin-top: 20px
     color: $corClube
-    bold()
-
+    &:first-child
+        margin-top: 0px
 fieldset
     padding: 0px 10px
 
