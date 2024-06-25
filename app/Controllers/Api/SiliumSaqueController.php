@@ -18,14 +18,24 @@ use System\Interface\ControllerListarInterface;
 use System\Interface\ControllerAtualizarInterface;
 use System\Interface\ControllerSalvarInterface;
 use System\Interface\ControllerDeletarInterface;
+use System\Interface\ControllerSelectInterface;
 
 final class SiliumSaqueController extends Controller implements
+    ControllerSelectInterface,
     ControllerBuscarInterface,
     ControllerListarInterface,
     ControllerSalvarInterface,
     ControllerAtualizarInterface,
     ControllerDeletarInterface
 {
+    public function getSelect(Request $request): Response
+    {
+        $SiliumSaqueModel = new SiliumSaqueModel(
+            usuario: $request->saque
+        );
+        return mensagemSucesso($SiliumSaqueModel->listarSelect());
+    }
+
     public function getBuscar(string $id): Response
     {
         $SiliumSaqueEntity = new SiliumSaqueEntity();

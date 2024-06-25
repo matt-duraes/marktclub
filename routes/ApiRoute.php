@@ -2526,8 +2526,7 @@ Route
             ::nome('salvar')
             ::middleware(TokenMiddleware::class, 'scope', ['silium_deposito:salvar'])
             ::request([
-                'usuario', 'nome_titular', 'documento_cpf', 'email', 'tipo_conta',
-                'banco', 'agencia', 'conta', 'pontuacao', 'tipo', '!status'
+                'saque', 'valor', 'data_deposito', 'documento_anexo'
             ])
             ::post('/silium-deposito');
 
@@ -2535,8 +2534,7 @@ Route
             ::nome('atualizar')
             ::middleware(TokenMiddleware::class, 'scope', ['silium_deposito:atualizar'])
             ::request([
-                '!usuario', '!nome_titular', '!documento_cpf', '!email', '!tipo_conta',
-                '!banco', '!agencia', '!conta', '!pontuacao', '!tipo', '!status'
+                '!saque', '!valor', '!data_deposito', '!documento_anexo'
             ])
             ::put('/silium-deposito/{id}');
 
@@ -2551,6 +2549,12 @@ Route
     ::controller(App\Controllers\Api\SiliumSaqueController::class)
     ::middleware(TokenMiddleware::class, 'token')
     ::grupo(function () {
+        Route
+            ::nome('select')
+            ::middleware(TokenMiddleware::class, 'scope', ['silium_saque:select'])
+            ::request(['saque'], 'json')
+            ::get('/silium-saque/select');
+
         Route
             ::nome('buscar')
             ::middleware(TokenMiddleware::class, 'scope', ['silium_saque:buscar'])

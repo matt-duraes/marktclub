@@ -34,7 +34,7 @@ $Painel->coluna(callback: function () use ($Painel) {
             ->linha('saque->pontuacao', 'Pontuação Resgatada')
             ->dinheiro('valor', 'Valor de Resgate')
             ->data('data_deposito', 'Data de Depósito')
-            ->linha('documento_anexo', 'Comprovante de Depósito');
+            ->imagemLogo('documento_anexo');
     });
 
     $Painel->bloco('Outras Informações', function () use ($Painel) {

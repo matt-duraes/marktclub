@@ -3,6 +3,7 @@
 namespace App\Models\Api\Silium;
 
 use App\Classes\Silium\StatusDeposito;
+use App\Classes\Silium\StatusSaque;
 use Helpers\OrmHelper;
 use Modules\Data;
 use Modules\Dinheiro;
@@ -37,35 +38,38 @@ class SiliumDepositoEntity extends Entity
     protected function regraPosBuscar(): void
     {
         $this->pegarUsuario();
+        $this->pegarComprovante();
         $this->pegarSolicitacaoSaque();
     }
 
     protected function regraSalvar(): void
     {
-        $this->setarUsuario();
         $this->setarSolicitacaoSaque();
+        $this->status = new StatusDeposito(StatusDeposito::DEPOSITADO);
     }
 
-    private function setarUsuario(): void
+    protected function regraPosSalvar(): void
     {
-        $OrmHelper = new OrmHelper(TABELA_USUARIO_CLIENTE);
-        $id = $OrmHelper->pegarIdPeloUuid($this->usuario);
-
-        if (empty($id)) {
-            mensagemErro('Campo obrigatório!', 'Não foi possível achar um usuário.');
+        if ($this->status->indice() === StatusDeposito::DEPOSITADO) {
+            $this->atualizarNovoSaldo();
+            $this->atualizarNovoStatus();
         }
-        $this->id_usuario_cliente = $id;
     }
 
     private function setarSolicitacaoSaque(): void
     {
         $OrmHelper = new OrmHelper(TABELA_SILIUM_SAQUE);
-        $id = $OrmHelper->pegarIdPeloUuid($this->saque);
+        $saque = $OrmHelper->pegarUltimoRegistro(
+            ['uuid', $this->saque],
+            ['id', 'id_usuario_cliente'],
+            'object'
+        );
 
-        if (empty($id)) {
+        if (empty($saque->id_usuario_cliente)) {
             mensagemErro('Campo obrigatório!', 'Não foi possível achar a solicitação.');
         }
-        $this->id_silium_saque = $id;
+        $this->id_usuario_cliente = $saque->id_usuario_cliente;
+        $this->id_silium_saque = $saque->id;
     }
 
     private function pegarUsuario(): void
@@ -83,7 +87,6 @@ class SiliumDepositoEntity extends Entity
                 'nome'  => 'Não foi encontrado'
             ];
         }
-
         $this->usuario = [
             'id'    => $usuario->uuid,
             'nome'  => $usuario->nome
@@ -124,5 +127,37 @@ class SiliumDepositoEntity extends Entity
             'conta'         => $saque->conta,
             'pontuacao'     => $saque->pontuacao
         ];
+    }
+
+    private function pegarComprovante(): void
+    {
+        $this->documento_anexo = arquivoPrivado($this->documento_anexo);
+    }
+
+    private function atualizarNovoSaldo(): void
+    {
+        $OrmHelper = new OrmHelper(TABELA_SILIUM_SAQUE);
+        $saque = $OrmHelper->pegarUltimoRegistro(
+            ['id', $this->id_silium_saque],
+            ['pontuacao'],
+            'object'
+        );
+        $SiliumSaldoEntity = new SiliumSaldoEntity();
+        $SiliumSaldoEntity->buscar([
+            'id_usuario_cliente', $this->id_usuario_cliente
+        ], false);
+        $pontos = $SiliumSaldoEntity->saldo_silium - $saque->pontuacao;
+        $SiliumSaldoEntity->saldo_silium = $pontos;
+        $SiliumSaldoEntity->salvar();
+    }
+
+    private function atualizarNovoStatus(): void
+    {
+        $SiliumSaqueEntity = new SiliumSaqueEntity();
+        $SiliumSaqueEntity->buscar([
+            'id', $this->id_silium_saque
+        ], false);
+        $SiliumSaqueEntity->status = new StatusSaque(StatusSaque::DEPOSITADO);
+        $SiliumSaqueEntity->salvar();
     }
 }
