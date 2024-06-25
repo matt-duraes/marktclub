@@ -102,6 +102,8 @@ a
     boxShadow()
     background-color: $corBrancoPreto
     padding: 20px
+    position: fixed
+    z-index: 9999
     #menu_principal
         display: none
     figure
@@ -453,14 +455,19 @@ a
 
 #conteudo_acesso_rapido
     width: 100%
-    padding: 40px 20px 60px
+    padding: 120px 20px 60px
     align-items: center
     flexCol()
     background: $corBody
-
+.conteudo_principal_acesso_rapido
+    padding-top: 100px
+#conteudo_acesso_rapido #bloco_loja_index .bloco_especial .menu i
+    display: none
+@media screen and (max-width: 425px)
+    #conteudo_acesso_rapido
+        padding-top: 40px
 #header_acesso_rapido .botao_home
     flexCenter()
-
 #rodape_principal
     width: calc(100% - 300px)
     margin-left: $menuWidth
