@@ -14,10 +14,12 @@
             <a class="cor_color botao_contar_click" data-botao="Ver mais" href="@route('farmacia.index')">Veja mais</a>
         @ endif;
     </header>
-    <div class="bloco_parceiro bloco_geral_article" id="bloco_parceiro_relacionado">
-        @ laco(3)
-            @view site/geral/parceiro_loading.view
-        @ endlaco;
+    <div class="bloco_parceiro_scroll">
+        <div class="bloco_parceiro bloco_geral_article parceiro_numero_3" id="bloco_parceiro_relacionado">
+            @ laco(3)
+                @view site/geral/parceiro_loading.view
+            @ endlaco;
+        </div>
     </div>
 </aside>
 @view site/geral/parceiro_clone.view

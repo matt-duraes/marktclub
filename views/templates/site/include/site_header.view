@@ -1,13 +1,17 @@
 <div id="botao_swiped_esquerdo"></div>
 
-<header id="header_principal">
-    <i class="botao" id="botao_menu_mobile">@iconeMenuMobile</i>
-    <figure class="bloco_logo_clube">
+<div id="header_principal">
+    <i class="botao botao_menu_mobile">@iconeMenuMobile</i>
+    <figure>
         <a href="@route(index.index)">
-            <img src="{{CLUBE_LOGO_PRINCIPAL}}" alt="{{CLUBE_TITULO}}">
+            <img class="tema_branco" src="{{CLUBE_LOGO_PRINCIPAL}}" alt="{{CLUBE_TITULO}}">
+            <img class="tema_escuro" src="{{CLUBE_LOGO_SECUNDARIA}}" alt="{{CLUBE_TITULO}}">
         </a>
     </figure>
-</header>
+</div>
+<div id="header_principal_fixo">
+    <i class="botao botao_menu_mobile">@iconeMenuMobile</i>
+</div>
 
 @ if(!$melhorIdade) :
 <nav id="menu_principal" class="menu_fechado">
@@ -22,7 +26,7 @@
         <div class="perfil desktop" id="bloco_perfil">
             <figure style="background-image: url({{USUARIO_IMAGEM}})"></figure>
             <div class="nome">
-                <p class="dados_usuario_menu">{{USUARIO_NOME}}</p>
+                <p class="dados_usuario_menu">Olá {{USUARIO_NOME}}</p>
             </div>
             <div class="email">
                 <p class="dados_usuario_menu">{{USUARIO_EMAIL}}</p>
