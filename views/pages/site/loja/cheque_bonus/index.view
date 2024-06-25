@@ -52,8 +52,8 @@
                 </div>
                 <div class="grupo">
                     @? formInput(name: 'cheque_endereco_bairro', label: 'Bairro', placeholder: 'Digite o bairro', local: 'Park Way', obrigatorio: true)
-                    @? formSelect(name: 'cheque_endereco_estado', label: 'Estado', placeholder: 'Estado', lista: (new \Helpers\ListaHelper())->add('', 'Escolha um estado')->estado()->r(), local: 'DF', obrigatorio: true)
-                    @? formSelect(name: 'cheque_endereco_cidade', label: 'Cidade', placeholder: 'Cidade', lista: ['' => 'Escolha um estado'], obrigatorio: true)
+                    @? formSelect(name: 'cheque_endereco_estado', label: 'Estado', placeholder: 'Estado*', lista: (new \Helpers\ListaHelper())->add('', 'Escolha um estado')->estado()->r(), local: 'DF', obrigatorio: true)
+                    @? formSelect(name: 'cheque_endereco_cidade', label: 'Cidade', placeholder: 'Cidade*', lista: ['' => 'Escolha um estado'], obrigatorio: true)
                 </div>
             </div>
             <div class="bloco display_none" id="bloco_termo">
