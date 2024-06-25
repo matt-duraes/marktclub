@@ -2,10 +2,13 @@
 
 <div id="bloco_assinatura">
     <form action="" method="post" class="bg form_geral">
-        @? formInput(name:'assinatura_nome', label: 'Nome', placeholder: 'Digite seu nome')
-        @? formInput(name:['assinatura_cargo_sigla', 'assinatura_cargo_nome'], label: 'Cargo', placeholder: ['Digite seu cargo', 'Descrição (opcional)'], separador: '|')
-        @? formInput(name:['assinatura_celular', 'assinatura_telefone'], label: 'Telefone', placeholder: ['Digite seu celular', 'Digite o telefone (opcional)'], separador: '|', mascara: ['00000-0000', '0000-0000'])
-        @? formInput(name:'assinatura_email', label: 'E-mail', placeholder: 'Digite seu e-mail')
+        @? formInput(name:'assinatura_nome', label: 'Nome', placeholder: 'Digite seu nome', local: 'André Rodrigues')
+        @? formInput(name:['assinatura_cargo_sigla', 'assinatura_cargo_nome'], label: 'Cargo', placeholder: ['Digite seu cargo', 'Descrição (opcional)'], separador: '|', local: ['CTO', 'Chief Technology Officer'])
+        @? formInput(name:['assinatura_celular', 'assinatura_telefone'], label: 'Telefone', placeholder: ['Digite seu celular', 'Digite o telefone (opcional)'], separador: '|', mascara: ['00000-0000', '0000-0000'], local: ['98177-7773'])
+        <div class="bloco_row">
+            @? formInput(name:'assinatura_email', label: 'E-mail', placeholder: 'Digite seu e-mail', local: 'andre')
+            <div class="dominio">@youhuul.com.br</div>
+        </div>
     </form>
 
     <div class="assinatura bg">
@@ -23,5 +26,6 @@
     </div>
     <div class="bloco_botao">
         <div class="botao" id="botao_copiar_assinatura">Copiar</div>
+        <a href="#" target="_blank" rel="noopener noreferrer" class="botao destaque" id="botao_abrir_assinatura">Abrir assinatura</a>
     </div>
 </div>

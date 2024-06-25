@@ -426,11 +426,11 @@ const url = () => {
 const uri = () => {
     return window.location.href.replace(/http(s)\:\/\/[a-zà-úA-ZÀ-Ú0-9\-\_\.\:]+\//, '');
 };
-const base64Encode = string => {
-    return window.btoa(string);
+const base64Encode = dado => {
+    return window.btoa(dado);
 };
-const base64Decode = string => {
-    return window.atob(string);
+const base64Decode = hash => {
+    return window.atob(hash);
 };
 
 ajaxGet = async (link, body, erro, opcao) => {
