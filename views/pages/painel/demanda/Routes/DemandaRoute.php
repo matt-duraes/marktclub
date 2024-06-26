@@ -11,6 +11,22 @@ Route
     ::controller(Painel\Demanda\Controllers\DemandaController::class)
     ::grupo(function () {
         Route
+            ::nome('sprint')
+            ::middleware(
+                classe: App\Middlewares\Painel\PermissaoMiddleware::class,
+                action: 'validar',
+                parametro: ['demanda_tecnologia']
+            )
+            ::view('/demanda/sprint');
+        Route
+            ::nome('tecnologiaNovo')
+            ::middleware(
+                classe: App\Middlewares\Painel\PermissaoMiddleware::class,
+                action: 'validar',
+                parametro: ['demanda_tecnologia']
+            )
+            ::view('/demanda/tecnologia-novo');
+        Route
             ::nome('tecnologia')
             ::middleware(
                 classe: App\Middlewares\Painel\PermissaoMiddleware::class,

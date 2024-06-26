@@ -88,6 +88,25 @@ final class ListaModel
         ];
     }
 
+    public function sprint()
+    {
+        $gerente = sessao('USUARIO.gerente') != 'nao' || sessao('USUARIO.admin') != 'nao' ? 'drag' : '';
+
+        return [
+            [
+                'titulo' => 'Backlog',
+                'classe' => $gerente,
+                'add'    => true,
+                'status' => Status::NOVA
+            ],
+            [
+                'titulo' => 'Sprint',
+                'classe' => $gerente,
+                'status' => Status::BLOQUEADA
+            ]
+        ];
+    }
+
     public function quadroConvenio()
     {
         $gerente = sessao('USUARIO.gerente', padrao: false) || sessao('USUARIO.admin', padrao: false) ? 'drag' : '';

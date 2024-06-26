@@ -600,6 +600,20 @@ final class ConfiguracoesPadrao
                 'carteirinha_empresa' => 'Todas as empresas'
             ]
         ],
+        'demanda_sprint'  => [
+            'titulo'    => 'Sprint',
+            'permissao' => [
+                'demanda_sprint_index'  => 'Listar',
+                'demanda_sprint_add'    => 'Salvar',
+                'demanda_sprint_editar' => 'Editar',
+            ]
+        ],
+        'demanda_kanban'  => [
+            'titulo'    => 'KanBan',
+            'permissao' => [
+                'demanda_kanban' => 'KanBan',
+            ]
+        ],
         'demanda'                  => [
             'titulo'    => 'Demanda',
             'permissao' => [

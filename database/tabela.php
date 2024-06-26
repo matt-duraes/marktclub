@@ -36,6 +36,7 @@ define('TABELA_COMUNICACAO_LOGIN', 'comunicacao_login');
 define('TABELA_COMUNICACAO_PUBLICIDADE', 'comunicacao_publicidade');
 define('TABELA_CONSTRUTOR_CLUBE', 'construtor_clube');
 define('TABELA_DEMANDA_DADO', 'demanda_dado');
+define('TABELA_DEMANDA_SPRINT', 'demanda_sprint');
 define('TABELA_DEMANDA_TAREFA', 'demanda_tarefa');
 define('TABELA_DEMANDA_TRABALHO', 'demanda_trabalho');
 define('TABELA_DOWNLOAD_PRIVADO', 'download_privado');

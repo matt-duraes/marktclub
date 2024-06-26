@@ -39,10 +39,31 @@ final class DemandaController extends Controller
         $this->Api = new ApiHelper(token: true);
     }
 
+    public function tecnologiaNovo()
+    {
+        return view('painel.demanda.backlog', [
+            'app'       => 'demanda-dado',
+            'appTitulo' => 'Backlog',
+            'acao'      => 'index',
+            'config'    => (object)[
+                'permissao' => (object)[
+                    'buscar'  => true,
+                    'filtrar' => true
+                ]
+            ]
+        ]);
+    }
+
+    public function sprint()
+    {
+        $quadro = (new ListaModel())->sprint();
+        return $this->listar('Sprint', Area::TECNOLOGIA, $quadro);
+    }
+
     public function tecnologia()
     {
         $quadro = (new ListaModel())->quadroTi();
-        return $this->listar('Demanda da Tecnologia', Area::TECNOLOGIA, $quadro);
+        return $this->listar('Sprint', Area::TECNOLOGIA, $quadro);
     }
 
     public function criacao()

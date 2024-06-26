@@ -471,7 +471,7 @@ abstract class PadraoController extends Controller
 
         $dado = $dado->object();
         $erro = !object_key_exists('status', $dado) || 'sucesso' != $dado->status;
-        if ($erro && $view) {
+        if ($erro && $view && eProducao()) {
             mensagemStatus(500);
         } elseif ($erro && object_key_exists('erro', $dado)) {
             mensagemErro(

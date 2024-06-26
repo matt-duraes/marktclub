@@ -1844,6 +1844,41 @@ Route
     });
 
 Route
+    ::nome('demandaSprint')
+    ::controller(App\Controllers\Api\Demanda\SprintController::class)
+    ::middleware(TokenMiddleware::class, 'token')
+    ::grupo(function () {
+        Route
+            ::nome('listar')
+            ::middleware(TokenMiddleware::class, 'scope', ['demanda_sprint:listar'])
+            ::request([
+                'pagina', '!quantidade', '!titulo', '!data_inicio', '!data_final', '!status'
+            ], 'json')
+            ::get('/demanda-sprint');
+
+        Route
+            ::nome('buscar')
+            ::middleware(TokenMiddleware::class, 'scope', ['demanda_sprint:buscar'])
+            ::get('/demanda-sprint/{id}');
+
+        Route
+            ::nome('salvar')
+            ::middleware(TokenMiddleware::class, 'scope', ['demanda_sprint:salvar'])
+            ::request([
+                'titulo', 'data_inicio', 'data_final', 'status', 'texto_inicio'
+            ])
+            ::post('/demanda-sprint');
+
+        Route
+            ::nome('atualizar')
+            ::middleware(TokenMiddleware::class, 'scope', ['demanda_sprint:atualizar'])
+            ::request([
+                '!titulo', '!data_inicio', '!data_final', '!status', '!texto_final'
+            ])
+            ::put('/demanda-sprint/{id}');
+    });
+
+Route
     ::nome('demandaDado')
     ::controller(App\Controllers\Api\DemandaDadoController::class)
     ::middleware(TokenMiddleware::class, 'token')
