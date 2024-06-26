@@ -43,7 +43,7 @@ return [
             'usuario_equipe'  => [
                 'geral' => [
                     'nome', 'cpf', 'genero', 'data_nascimento', 'email_trabalho',
-                    'senha', 'status', 'primeiro_acesso', 'email_trabalho',
+                    'senha', 'status', 'primeiro_acesso', 'email_trabalho', 'tipo',
                     'email_pessoal', 'telefone_trabalho', 'telefone_pessoal',
                     'mudar_senha', 'permissao', 'empresa', 'subempresa'
                 ]

@@ -1,6 +1,7 @@
 @php
 $equipe = (new \Helpers\ApiHelper(token: true))
     ->json(['titulo' => 'Escolha um captador'])
+    ->json(['tipo' => 'convenio'])
     ->get('/usuario-equipe/select')
     ->array()['dado'] ?? [];
 @end

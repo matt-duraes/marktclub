@@ -13,6 +13,7 @@ use Modules\Genero;
 use Modules\Telefone;
 use Helpers\OrmHelper;
 use Helpers\UploadHelper;
+use App\Classes\UsuarioEquipe\Tipo;
 use App\Classes\UsuarioEquipe\Status;
 use App\Models\Api\Trait\ValidarEmpresaTrait;
 use App\Models\Api\ComercialEmpresa\EmpresaEntity;
@@ -32,7 +33,7 @@ final class EquipeEntity extends Entity
         'email'  => ['email_trabalho', 'email_pessoal'],
         'senha'  => 'salt',
         'email_trabalho', 'email_pessoal', 'telefone_pessoal', 'telefone_trabalho', 'status', 'genero',
-        'data_nascimento', 'primeiro_acesso', 'mudar_senha', 'data_criacao', 'data_atualizacao',
+        'data_nascimento', 'primeiro_acesso', 'mudar_senha', 'data_criacao', 'data_atualizacao', 'tipo',
         'id_admin_empresa', 'permissao', 'imagem_tipo', 'imagem_arquivo', 'imagem_facebook', 'imagem_google',
         'id_facebook', 'id_google', 'marktclub', 'gerente', 'admin', 'id_admin_subempresa'
     ];
@@ -41,12 +42,11 @@ final class EquipeEntity extends Entity
         'documento_cpf' => '->cpf',
         'salt'          => '->senha',
         'nome_perfil'   => '->perfil',
-        'email_trabalho', 'email_pessoal', 'genero', 'telefone_pessoal', 'telefone_trabalho', 'status',
+        'email_trabalho', 'email_pessoal', 'genero', 'telefone_pessoal', 'telefone_trabalho', 'status', 'tipo',
         'data_nascimento', 'primeiro_acesso', 'mudar_senha', 'marktclub', 'permissao', 'admin', 'id_admin_subempresa'
     ];
     protected array $ormInsert = [
         'id_admin_empresa' => '->idEmpresa',
-        'tipo'             => 1
     ];
     protected array $ormUpdate = [
         'imagem_tipo', 'imagem_arquivo', 'imagem_facebook', 'imagem_google', 'id_facebook', 'id_google'
@@ -61,6 +61,7 @@ final class EquipeEntity extends Entity
         telefone_pessoal|Telefone pessoal|telefone
         telefone_trabalho|Telefone de trabalho|telefone
         status|Status|vazio|valido
+        tipo|Tipo de usuário|vazio|valido
     ';
     public Nome $nome;
     public string $perfil;
@@ -92,6 +93,7 @@ final class EquipeEntity extends Entity
     public EmpresaEntity $Empresa;
     public string $subempresa;
     private int $idEmpresa;
+    public Tipo $tipo;
 
     public function __construct(
         private bool $validarToken = true

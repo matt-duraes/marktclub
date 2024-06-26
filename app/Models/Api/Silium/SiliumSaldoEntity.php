@@ -16,7 +16,6 @@ class SiliumSaldoEntity extends Entity
         'id_usuario_cliente', 'saldo_silium', 'data_validade'
     ];
     protected int $id_usuario_cliente;
-
     public int $saldo_silium;
     public Data|null $data_validade;
 

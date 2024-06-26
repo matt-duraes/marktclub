@@ -1142,9 +1142,10 @@ if (!function_exists('stringArray')) {
 if (!function_exists('inKey')) {
     /**
      * @param string|array   $lista String ou array com a lista de item a validar. Ex.: data->br
-     * @param array|StdClass $item  Item que deseja validar
+     * @param array|stdClass $item  Item que deseja validar
+     * @param bool           $vazio Se o valor existe mas for fazio, retorna false
      */
-    function inKey(string|array $lista, $item)
+    function chaveExiste(string|array $lista, array|stdClass $item, bool $vazio = false)
     {
         if ((!is_array($item) && !is_object($item)) || vazio($item)) {
             return false;
@@ -1153,6 +1154,7 @@ if (!function_exists('inKey')) {
             $lista = [$lista];
         }
         foreach ($lista as $linha) {
+            $linha = str_replace('->', '.', $linha);
             if (
                 !str_contains($linha, '.') &&
                 (
@@ -1169,14 +1171,14 @@ if (!function_exists('inKey')) {
                 $valorTemp = $explode[$i];
                 if (
                     (is_array($itemTemp) && !array_key_exists($valorTemp, $itemTemp)) ||
-                    (is_object($itemTemp) && !isset($itemTemp->$valorTemp))
+                    (is_object($itemTemp) && !object_key_exists($valorTemp, $itemTemp))
                 ) {
                     return false;
                 }
                 $itemTemp = is_array($itemTemp) ? $itemTemp[$valorTemp] : $itemTemp->$valorTemp;
             }
         }
-        return true;
+        return !$vazio ? true : !vazio($itemTemp);
     }
 }
 
@@ -1888,29 +1890,6 @@ if (!function_exists('retornarPaginacao')) {
                 ]
             ]
         ];
-    }
-}
-if (!function_exists('chaveExiste')) {
-    function chaveExiste(string|array $indice, array|object $array)
-    {
-        if (is_string($indice)) {
-            $indice = [$indice];
-        }
-
-        foreach ($indice as $chave) {
-            $chave = explode('.', str_replace('->', '.', $chave));
-            $atual = $array;
-            foreach ($chave as $item) {
-                if (
-                    (is_object($atual) && !object_key_exists($item, $atual)) ||
-                    (is_array($atual) && !array_key_exists($item, $atual))
-                ) {
-                    return false;
-                }
-                $atual = is_array($atual) ? $atual[$item] : $atual->$item;
-            }
-        }
-        return true;
     }
 }
 

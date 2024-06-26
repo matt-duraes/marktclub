@@ -7,7 +7,6 @@ use Modules\Data;
 use Http\Response;
 use Modules\Botao;
 use Modules\Pagina;
-use Helpers\OrmHelper;
 use Modules\Quantidade;
 use Controller\Controller;
 use App\Classes\Geral\Status;

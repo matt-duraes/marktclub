@@ -59,7 +59,7 @@ final class UsuarioEquipeController extends Controller implements
                 $Usuario,
                 lista: [
                     'Empresa' => ['id', 'nome_fantasia'],
-                    'subempresa', 'perfil', 'nome', 'cpf', 'imagem', 'email_trabalho', 'email_pessoal',
+                    'subempresa', 'perfil', 'nome', 'cpf', 'imagem', 'email_trabalho', 'email_pessoal', 'tipo',
                     'telefone_pessoal', 'genero', 'data_nascimento', 'primeiro_acesso', 'mudar_senha', 'id_google',
                     'id_facebook', 'marktclub', 'gerente', 'admin', 'telefone_trabalho', 'status', 'permissao'
                 ],
