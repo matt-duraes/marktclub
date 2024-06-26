@@ -63,6 +63,11 @@ Route
     }, true)
     ::nome('assinatura')::controller(AssinaturaController::class)::grupo(function () {
         Route::nome('index')::rotaNaoUnica()::view('/assinatura');
+        Route
+            ::nome('html')
+            ::rotaNaoUnica()
+            ::request(['hash'])
+            ::view('/assinatura/html');
     }, true)
 
     // AGENDA

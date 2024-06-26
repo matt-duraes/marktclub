@@ -2,9 +2,7 @@
 
 namespace App\Models\Site\Cashback;
 
-use DateTime;
 use App\Helpers\ClubeApiHelper;
-use App\Classes\Silium\TipoConta;
 
 final class SiliumModel extends ClubeApiHelper
 {
@@ -16,7 +14,7 @@ final class SiliumModel extends ClubeApiHelper
         $dados = [
             'extrato_compra' => $extratoCompra,
             'extrato_saque'  => $extratoSaque,
-            'saldo' => $saldo
+            'saldo'          => $saldo
         ];
         return $dados;
     }
@@ -45,7 +43,6 @@ final class SiliumModel extends ClubeApiHelper
 
     public function extratoSaque()
     {
-
         $dado = $this
             ->json([
                 'pagina'  => 1,
@@ -61,7 +58,7 @@ final class SiliumModel extends ClubeApiHelper
         $dado = $this
             ->validar('Ocorreu um erro ao fazer a solicitação')
             ->body([
-                'usuario' => sessao('USUARIO.id'),
+                'usuario'       => sessao('USUARIO.id'),
                 'email'         => $dados['email'],
                 'pontuacao'     => $dados['pontos'],
                 'nome_titular'  => $dados['titular'],

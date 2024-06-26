@@ -593,14 +593,14 @@ Route
             ::middleware(TokenMiddleware::class, 'scope', ['usuario_equipe:listar'])
             ::request([
                 'pagina', '!quantidade', '!pesquisa', '!nome', '!email', '!cpf',
-                '!status', '!ordem', '!empresa', '!subempresa'
+                '!status', '!ordem', '!empresa', '!subempresa', '!tipo'
             ], 'json')
             ::get('/usuario-equipe');
 
         Route
             ::nome('select')
             ::middleware(TokenMiddleware::class, 'scope', ['usuario_equipe:listar'])
-            ::request(['!titulo'], 'json')
+            ::request(['!titulo', '!tipo'], 'json')
             ::get('/usuario-equipe/select');
 
         Route
@@ -617,7 +617,7 @@ Route
             ::nome('salvar')
             ::middleware(TokenMiddleware::class, 'scope', ['usuario_equipe:salvar'])
             ::request([
-                '!nome', '!cpf', '!genero', '!data_nascimento', '!email_trabalho',
+                '!nome', '!cpf', '!genero', '!data_nascimento', '!email_trabalho', '!tipo',
                 '!email_pessoal', '!telefone_trabalho', '!telefone_pessoal', '!permissao',
                 '!senha', '!status', '!primeiro_acesso', '!mudar_senha', '!empresa', '!subempresa'
             ])
@@ -627,7 +627,7 @@ Route
             ::nome('atualizar')
             ::middleware(TokenMiddleware::class, 'scope', ['usuario_equipe:atualizar'])
             ::request([
-                '!nome', '!cpf', '!genero', '!data_nascimento', '!email_trabalho',
+                '!nome', '!cpf', '!genero', '!data_nascimento', '!email_trabalho', '!tipo',
                 '!email_pessoal', '!telefone_trabalho', '!telefone_pessoal', '!permissao',
                 '!senha', '!status', '!primeiro_acesso', '!mudar_senha', '!imagem_facebook',
                 '!imagem_google', '!id_facebook', '!id_google', '!perfil', '!subempresa'

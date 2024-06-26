@@ -18,6 +18,7 @@ $Painel->coluna(callback: function () use ($Painel) {
         $gerente = sessao('USUARIO')['gerente'] ?? '' == 'sim';
         if ($gerente) {
             $equipe = (new ApiHelper(token: true))
+                ->json(['tipo' => 'convenio', 'titulo' => 'Escolha um operador'])
                 ->get('/usuario-equipe/select')
                 ->array()['dado'] ?? [];
             $Painel->select(

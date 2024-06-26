@@ -3,6 +3,7 @@
 use Modules\Senha;
 use PainelConfig\Add;
 use Helpers\ApiHelper;
+use App\Classes\UsuarioEquipe\Tipo;
 use App\Classes\UsuarioEquipe\Helper;
 use App\Classes\UsuarioEquipe\Status;
 use App\Helpers\Painel\ConfiguracoesPadrao;
@@ -11,9 +12,19 @@ $Painel = new Add('usuario_equipe', acao: $acao);
 
 $Painel->coluna(callback: function () use ($Painel) {
     $Painel->fieldset('Dados pessoais', callback: function () use ($Painel) {
-        $Painel->input(name: 'nome', label: 'Nome completo', obrigatorio: 1);
-        $Painel->cpf(name: 'cpf', label: 'CPF', obrigatorio: 1);
-        $Painel->select(name: 'genero', lista: 'genero', label: 'Gênero');
+        $Painel
+            ->input(name: 'nome', label: 'Nome completo', obrigatorio: 1)
+            ->cpf(name: 'cpf', label: 'CPF', obrigatorio: 1)
+            ->select(name: 'genero', lista: 'genero', label: 'Gênero');
+        if (sessao('EMPRESA.slug') != 'marktclub') {
+            $Painel->html('<input name="tipo" value="outro">', acao: 'add');
+        } else {
+            $Painel->select(
+                name: 'tipo',
+                label: 'Local de trabalho',
+                lista: (new Tipo())->select('Escolha uma opção')
+            );
+        }
     });
     $Painel->fieldset('Contato', callback: function () use ($Painel) {
         $Painel->email(name: 'email_trabalho', label: 'E-mail de trabalho', obrigatorio: 1);
@@ -22,7 +33,6 @@ $Painel->coluna(callback: function () use ($Painel) {
         $Painel->telefone(name: 'telefone_pessoal', label: 'Telefone pessoal');
     });
     $Painel->fieldset('Dados de acesso', callback: function () use ($Painel) {
-        $subempresaLista = ['' => 'Escolha uma empresa'];
         if (sessao('EMPRESA.slug') == 'marktclub') {
             $Painel
                 ->select(
@@ -33,7 +43,7 @@ $Painel->coluna(callback: function () use ($Painel) {
                     permissao: Helper::PERMISSAO_EMPRESA
                 )
                 ->hidden(name: 'empresa->id', acao: 'editar', permissao: Helper::PERMISSAO_EMPRESA);
-        } else {
+        } elseif (empty(sessao('USUARIO.subempresa'))) {
             $subempresaLista = (new ApiHelper(token: true))
                 ->json([
                     'titulo'  => 'Escolha uma subempresa',
@@ -42,15 +52,14 @@ $Painel->coluna(callback: function () use ($Painel) {
                 ->get('/comercial-subempresa/select')
                 ->array()['dado'] ?? [];
 
-            if (empty(sessao('USUARIO.subempresa'))) {
-                $Painel
-                    ->select(
-                        name: 'subempresa',
-                        lista: $subempresaLista,
-                        label: 'Subempresa'
-                    );
-            }
+            $Painel
+                ->select(
+                    name: 'subempresa',
+                    lista: $subempresaLista,
+                    label: 'Subempresa'
+                );
         }
+
         $Painel
             ->senha(
                 name: 'senha',
