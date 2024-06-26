@@ -62,8 +62,8 @@ final class CashbackController extends Controller
         return view('cashback.extrato', [
             'menu'           => 'extrato_silium',
             'saldo'          => $dados['saldo'] ?? 0,
-            'extratoCompra' => $dados['extrato_compra'],
-            'extratoSaque' => $dados['extrato_saque']
+            'extratoCompra'  => $dados['extrato_compra'],
+            'extratoSaque'   => $dados['extrato_saque']
         ]);
     }
 
@@ -77,6 +77,5 @@ final class CashbackController extends Controller
     {
         $dado = (new SiliumModel())->solicitarDeposito($request->dado());
         return mensagemSucesso($dado, 201);
-
     }
 }

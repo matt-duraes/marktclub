@@ -12,7 +12,7 @@ assinaturaHtml = () => {
 <body>
     <table border="0" cellpadding="0" cellspacing="0" width="100%">
         <tr>
-            <td style="border-width:2px 1px 1px 1px;border-style:solid solid solid solid;border-color:#ffd700 #ffd700 #ffd700 #ffd700;"></td>
+            <td style="border-width:2px 1px 1px 1px;border-style:solid solid solid solid;border-color:#caaa00 #caaa00 #caaa00 #caaa00;"></td>
         </tr>
         <tr>
             <td height="30"></td>

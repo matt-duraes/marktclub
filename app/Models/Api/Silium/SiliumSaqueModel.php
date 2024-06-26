@@ -66,10 +66,10 @@ class SiliumSaqueModel extends ORM implements
     public function listarDados(): stdClass
     {
         $saques = $this->campo([
-                'uuid', 'nome_titular', 'documento_cpf', 'banco', 'agencia',
-                'conta', 'tipo_conta', 'pontuacao', 'status',
-                'data_criacao', 'data_atualizacao'
-            ])
+            'uuid', 'nome_titular', 'documento_cpf', 'banco', 'agencia',
+            'conta', 'tipo_conta', 'pontuacao', 'status',
+            'data_criacao', 'data_atualizacao'
+        ])
             ->where($this->pegarWhere(), false)
             ->pagina($this->pegarPagina(), $this->pegarQuantidade())
             ->order($this->pegarOrdem(new OrdemSaque()))
@@ -87,8 +87,8 @@ class SiliumSaqueModel extends ORM implements
     public function listarSelect(): array
     {
         $saques = $this->campo([
-                'uuid', 'pontuacao'
-            ])
+            'uuid', 'pontuacao'
+        ])
             ->where(['status', $this->status->numero(StatusSaque::AGUARDANDO)])
             ->order('data_criacao')
             ->tabela(TABELA_USUARIO_CLIENTE)

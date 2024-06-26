@@ -295,7 +295,7 @@ final class SocialHelper
         $retorno = jsonDecode(curl_exec($ch), true);
         curl_close($ch);
 
-        return inKey('data.url', $retorno) ? $retorno['data']['url'] : '';
+        return chaveExiste('data.url', $retorno) ? $retorno['data']['url'] : '';
     }
 
     private function imagemGoogle()
@@ -350,7 +350,7 @@ final class SocialHelper
         $retorno = jsonDecode(curl_exec($ch), true);
         curl_close($ch);
         if (
-            !inKey(['data.is_valid', 'data.app_id'], $retorno) &&
+            !chaveExiste(['data.is_valid', 'data.app_id'], $retorno) &&
             $retorno['data']['is_valid'] &&
             $retorno['data']['app_id'] == $appId
         ) {

@@ -4,6 +4,7 @@ namespace App\Models\Api\UsuarioEquipe;
 
 use ORM\ORM;
 use Http\Request;
+use App\Classes\UsuarioEquipe\Tipo;
 use App\Models\Api\Trait\ValidarEmpresaTrait;
 
 final class SelectModel extends ORM
@@ -79,11 +80,18 @@ final class SelectModel extends ORM
             ['id_admin_empresa', $this->idEmpresa]
         ];
         if (defined('TOKEN') && TOKEN['empresa']->id == 1) {
-            $where = [
+            $where = [[
                 'OR',
                 ['id_admin_empresa', $this->idEmpresa],
                 ['marktclub', 1]
-            ];
+            ]];
+        }
+        if (chaveExiste('usuario->id_admin_subempresa', TOKEN, true)) {
+            $where[] = ['id_admin_subempresa', TOKEN['usuario']->id_admin_subempresa];
+        }
+        $Tipo = new Tipo($this->request->tipo);
+        if ($Tipo->valido()) {
+            $where[] = ['tipo', $Tipo->numero()];
         }
         return $where;
     }

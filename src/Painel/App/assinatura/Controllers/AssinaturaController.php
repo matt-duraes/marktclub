@@ -16,10 +16,10 @@ final class AssinaturaController extends Controller
     {
         $nome = $request->nome;
         if (!$request->vazio('cargoSigla') && !$request->vazio('cargoNome')) {
-            $nome .= ' | <b style="color: #ffd700;">' . $request->cargoSigla . '</b>' . $request->cargoNome;
+            $nome .= ' | <b style="color: #caaa00;">' . $request->cargoSigla . '</b>' . $request->cargoNome;
         } elseif (!$request->vazio('cargoSigla') || !$request->vazio('cargoNome')) {
             $cargo = !$request->vazio('cargoSigla') ? $request->cargoSigla : $request->cargoNome;
-            $nome .= ' | <b style="color: #ffd700;">' . $cargo . '</b>';
+            $nome .= ' | <b style="color: #caaa00;">' . $cargo . '</b>';
         }
         $telefone = '+55 (61) ';
         if (!$request->vazio('telefone') && !$request->vazio('celular')) {

@@ -22,7 +22,7 @@ class SiliumSaqueEntity extends Entity
     ];
     protected array $ormInsert = [
         'id_usuario_cliente' => '->idUsuario',
-        'status' => 1
+        'status'             => 1
     ];
     protected array $ormSalvar = [
         'nome_titular', 'documento_cpf', 'email', 'tipo_conta', 'banco',
@@ -40,7 +40,6 @@ class SiliumSaqueEntity extends Entity
     ';
     protected int $id_usuario_cliente;
     protected int $idUsuario;
-
     public string|array $usuario;
     public Nome $nome_titular;
     public Cpf $documento_cpf;
@@ -107,7 +106,7 @@ class SiliumSaqueEntity extends Entity
 
     private function validarSaldoSuficiente(): void
     {
-        if(empty($this->idUsuario)) {
+        if (empty($this->idUsuario)) {
             mensagemErro(
                 'Falha na identificação!!!',
                 'Houve uma falha e não foi possível identificar o usuário.'

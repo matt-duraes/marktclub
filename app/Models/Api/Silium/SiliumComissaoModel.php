@@ -128,7 +128,7 @@ class SiliumComissaoModel extends ORM implements
         foreach ($comissoes as $comissao) {
             $retorno[] = [
                 'id'               => $comissao->uuid,
-                'usuario' => [
+                'usuario'          => [
                     'id'     => $comissao->usuario_uuid,
                     'nome'   => $comissao->usuario_nome
                 ],

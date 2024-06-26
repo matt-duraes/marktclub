@@ -14,8 +14,8 @@ class Tipo extends StatusStatus
         protected string|int|null $valor = null
     ) {
         parent::__construct([
-            self::NOTICIA => 'Notícia',
-            self::ARTIGO  => 'Artigo',
+            self::NOTICIA    => 'Notícia',
+            self::ARTIGO     => 'Artigo',
             self::CARTILHAS  => 'Cartilhas'
         ]);
     }

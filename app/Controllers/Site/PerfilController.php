@@ -24,7 +24,7 @@ final class PerfilController extends Controller
 
     public function senha()
     {
-        return view('perfil.senha',[
+        return view('perfil.senha', [
             'menu' => 'alterar_senha',
         ]);
     }

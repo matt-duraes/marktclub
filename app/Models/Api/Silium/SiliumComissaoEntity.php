@@ -28,7 +28,6 @@ class SiliumComissaoEntity extends Entity
         status|Status|obrigatorio|vazio|valido
     ';
     protected int $id_usuario_cliente;
-
     public string $parceiro;
     public string|array $usuario;
     public Dinheiro $valor_compra;

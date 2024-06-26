@@ -22,7 +22,6 @@ class SiliumDepositoEntity extends Entity
     ];
     protected int $id_usuario_cliente;
     protected int $id_silium_saque;
-
     public string|array $usuario;
     public string|array $saque;
     public Dinheiro $valor;
@@ -99,7 +98,7 @@ class SiliumDepositoEntity extends Entity
         $saque = $OrmHelper->pegarUltimoRegistro(
             ['id', $this->id_silium_saque],
             [
-                'uuid','nome_titular', 'documento_cpf', 'tipo_conta',
+                'uuid', 'nome_titular', 'documento_cpf', 'tipo_conta',
                 'banco', 'agencia', 'conta', 'pontuacao'
             ],
             'object'
