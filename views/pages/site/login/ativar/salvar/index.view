@@ -36,9 +36,9 @@
             @if ( in_array('grupo', CAMPOS_PRIMEIRO_ACESSO) && $tipo_usuario != 'indicado' && $tipo_usuario != 'dependente'):
             @? formSelect(name: 'ativar_grupo', label: !empty(INPUT_GRUPO->label) ? INPUT_GRUPO->label : 'Grupo', placeholder: !empty(INPUT_GRUPO->placeholder) ? INPUT_GRUPO->placeholder : 'Grupo', obrigatorio: true, lista: $grupo)
             @endif;
+
         </div>
         @endif;
-
         @if (array_intersect(['email_pessoal', 'email_trabalho', 'telefone_pessoal', 'telefone_trabalho'], CAMPOS_PRIMEIRO_ACESSO)):
         <div class="bloco">
             <h2>Dados de contato</h2>
@@ -60,7 +60,14 @@
             </div>
         </div>
         @endif;
-
+        <div class="lista">
+            @if ( in_array('lotacao', CAMPOS_PRIMEIRO_ACESSO) )
+                @? formInput(name: 'ativar_lotacao', label: 'Lotação', placeholder: 'Lotação', obrigatorio: true)
+            @endif;
+            @if ( in_array('cargo', CAMPOS_PRIMEIRO_ACESSO) ):
+                @? formInput(name: 'ativar_cargo', label: 'Cargo', placeholder: 'Cargo', obrigatorio: true)
+            @endif
+        </div>
         @if ( array_intersect(['endereco_cep', 'endereco_logradouro', 'endereco_numero', 'endereco_complemento', 'endereco_bairro', 'endereco_estado', 'endereco_cidade'], CAMPOS_PRIMEIRO_ACESSO)):
         <div class="linha"></div>
         <h2>Endereço</h2>

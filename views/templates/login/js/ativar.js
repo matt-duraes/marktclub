@@ -147,6 +147,9 @@ const loadingAtivar = () => {
     const inputSenhaRepetir = $('#input_ativar_senha_repetir');
     const inputTermo = $('#input_ativar_termo');
 
+    const inputCargo = $('#input_ativar_cargo');
+    const inputLotacao = $('#input_ativar_lotacao');
+
     if (
         inputEnderecoCep &&
         inputEnderecoLogradouro &&
@@ -170,10 +173,8 @@ const loadingAtivar = () => {
             buscarCidadePeloEstado(inputEnderecoCidade, inputEnderecoEstado.value, '', 'Escolha uma cidade');
         });
     }
-
     const botaoSalvar = $('#botao_ativar_usuario');
     inputNome.focus();
-
     const salvarUsuario = async () => {
         if (!(await validarInput(form))) {
             return;
@@ -184,7 +185,6 @@ const loadingAtivar = () => {
             Alerta.notificacao('Você precisa aceitar os termos para continuar.', false);
             return;
         }
-
         Loading.show();
         const resposta = await ajaxPost(
             LINK + '/login/ativar-salvar',
@@ -210,6 +210,8 @@ const loadingAtivar = () => {
                 endereco_bairro: pegarValorInput(inputEnderecoBairro),
                 endereco_estado: pegarValorInput(inputEnderecoEstado),
                 endereco_cidade: pegarValorInput(inputEnderecoCidade),
+                cargo: pegarValorInput(inputCargo),
+                lotacao: pegarValorInput(inputLotacao),
                 tipo_usuario: tipo_usuario || '',
                 /* eslint-enable */
             },
