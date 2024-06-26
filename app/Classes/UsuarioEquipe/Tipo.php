@@ -11,6 +11,7 @@ final class Tipo extends StatusStatus
     public const CONVENIO = 'convenio';
     public const COMUNICACAO = 'comunicacao';
     public const FINANCEIRO = 'financeiro';
+    public const ATENDIMENTO = 'atendimento';
     public const OUTRO = 'outro';
 
     public function __construct(
@@ -22,6 +23,7 @@ final class Tipo extends StatusStatus
             self::CONVENIO    => 'Convênio',
             self::COMUNICACAO => 'Comunicação',
             self::FINANCEIRO  => 'Financeiro',
+            self::ATENDIMENTO => 'Atendimento',
             self::OUTRO       => 'Outro',
         ]);
     }
