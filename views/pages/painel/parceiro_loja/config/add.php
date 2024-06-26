@@ -84,6 +84,7 @@ $Painel->coluna(callback: function () use ($Painel, $gerente) {
         if ($gerente) {
             $equipe = (new ApiHelper(token: true))
                 ->get('/usuario-equipe/select')
+                ->json(['tipo' => 'convenio'])
                 ->array()['dado'] ?? [];
             $Painel->select(
                 name: 'equipe',
