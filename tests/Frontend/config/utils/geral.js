@@ -40,4 +40,22 @@ function cpf() {
     return cpf.join('');
 }
 
-module.exports = { uuid, cpf };
+function gerarEmailAleatorio() {
+    const chars = 'abcdefghijklmnopqrstuvwxyz0123456789';
+    const domains = ['gmail.com', 'yahoo.com', 'outlook.com', 'hotmail.com'];
+
+    function randomString(length) {
+        let result = '';
+        for (let i = 0; i < length; i++) {
+            result += chars.charAt(Math.floor(Math.random() * chars.length));
+        }
+        return result;
+    }
+
+    const username = randomString(8);
+    const domain = domains[Math.floor(Math.random() * domains.length)];
+
+    return `${username}@${domain}`;
+}
+
+module.exports = { uuid, cpf, gerarEmailAleatorio };

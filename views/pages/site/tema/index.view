@@ -7,22 +7,22 @@
         </header>
         <div class="scroll">
             <div class="bloco_escolha">
-                <article class="{!!$tema == 'light' ? 'hover' : ''!!}" data-tema="light">
+                <article class="{!!$tema == 'light' ? 'hover' : ''!!}" data-tema="light" data-test="botao_tema_clara">
                     <figure><img src="@LINK/images/site/tema_claro.png" alt=""></figure>
                     <h1>Clara</h1>
                     <p>Tema com cores claras</p>
                 </article>
-                <article class="{!!$tema == 'dark' ? 'hover' : ''!!}" data-tema="dark">
+                <article class="{!!$tema == 'dark' ? 'hover' : ''!!}" data-tema="dark" data-test="botao_tema_escura">
                     <figure><img src="@LINK/images/site/tema_escuro.png" alt=""></figure>
                     <h1>Escura</h1>
                     <p>Tema com cores escuras</p>
                 </article>
-                <article class="{!!$tema == 'sistema' ? 'hover' : ''!!}" data-tema="sistema">
+                <article class="{!!$tema == 'sistema' ? 'hover' : ''!!}" data-tema="sistema" data-test="botao_tema_sistema">
                     <figure><img src="@LINK/images/site/tema_auto.png" alt=""></figure>
                     <h1>Sistema</h1>
                     <p>Mesmo tema do seu sistema</p>
                 </article>
-                <article class="{!!$tema == 'automatico' ? 'hover' : ''!!}" data-tema="automatico">
+                <article class="{!!$tema == 'automatico' ? 'hover' : ''!!}" data-tema="automatico" data-test="botao_tema_automatico">
                     <figure><img src="@LINK/images/site/tema_auto.png" alt=""></figure>
                     <h1>Automático</h1>
                     <p>Ajusta automaticamente dependendo do horário do dia</p>

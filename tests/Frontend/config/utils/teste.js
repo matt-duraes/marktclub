@@ -1,15 +1,11 @@
 const { dispositivos } = require('./dispositivos');
 
 const Teste = (descricao, local, testesCallback) => {
-    let funcaoLogin = () => {};
-
     if (local == 'clube') {
         Cypress.config('baseUrl', Cypress.env('urlClube'));
-        funcaoLogin = cy.siteLogin;
     }
     if (local == 'painel') {
         Cypress.config('baseUrl', Cypress.env('urlPainel'));
-        funcaoLogin = cy.painelLogin;
     }
 
     dispositivos.forEach(({ viewport, type }) => {
@@ -18,7 +14,12 @@ const Teste = (descricao, local, testesCallback) => {
                 cy.viewport(viewport);
 
                 cy.session(`login-${local}`, () => {
-                    cy.painelLogin();
+                    if (local === 'painel') {
+                        cy.painelLogin();
+                    }
+                    if (local === 'clube') {
+                        cy.siteLogin();
+                    }
                 });
             });
 
