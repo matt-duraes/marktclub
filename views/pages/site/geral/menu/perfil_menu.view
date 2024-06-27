@@ -1,5 +1,5 @@
 @if (MENU_CARTEIRA):
-<a href="@route(perfil.carteirinha)" class="botao" target="_blank">
+<a href="@route(perfil.carteirinha)" class="botao" target="_blank" data-test="test_botao_carteirinha">
     <i>@iconeCarteirinha</i>
     Carteirinha
 </a>
@@ -16,7 +16,7 @@
 @ endif;
 
 @ if( MENU_DEPENDENTE  && TIPO_USUARIO != 'dependente' && TIPO_USUARIO != 'indicado' ):
-<a class="botao {!!MENU_HOVER == 'perfil-dependente' ? 'cor_bg pagina_atual' : ''!!}" href="@route(perfil.dependente)">
+<a class="botao {!!MENU_HOVER == 'perfil-dependente' ? 'cor_bg pagina_atual' : ''!!}" href="@route(perfil.dependente)" data-test="adicionar_dependente_botao">
     <i>@iconeDependenteOutline(22)</i>
     Adicionar dependentes
 </a>
