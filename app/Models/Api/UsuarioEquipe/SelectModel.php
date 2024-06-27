@@ -37,7 +37,7 @@ final class SelectModel extends ORM
     private function montarRetornoSelect($dado): array
     {
         $retorno = [];
-        if (!empty($this->request->titulo)) {
+        if ($this->request instanceof Request && !empty($this->request->titulo)) {
             $retorno[''] = $this->request->titulo;
         }
 
