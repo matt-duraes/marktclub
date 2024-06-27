@@ -89,7 +89,7 @@ final class SelectModel extends ORM
         if (chaveExiste('usuario->id_admin_subempresa', TOKEN, true)) {
             $where[] = ['id_admin_subempresa', TOKEN['usuario']->id_admin_subempresa];
         }
-        $Tipo = new Tipo($this->request->tipo);
+        $Tipo = new Tipo($this->request instanceof Request ? $this->request->tipo : null);
         if ($Tipo->valido()) {
             $where[] = ['tipo', $Tipo->numero()];
         }
