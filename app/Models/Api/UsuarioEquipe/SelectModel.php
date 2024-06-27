@@ -37,7 +37,7 @@ final class SelectModel extends ORM
     private function montarRetornoSelect($dado): array
     {
         $retorno = [];
-        if (!empty($this->request->titulo)) {
+        if ($this->request instanceof Request && !empty($this->request->titulo)) {
             $retorno[''] = $this->request->titulo;
         }
 
@@ -89,7 +89,7 @@ final class SelectModel extends ORM
         if (chaveExiste('usuario->id_admin_subempresa', TOKEN, true)) {
             $where[] = ['id_admin_subempresa', TOKEN['usuario']->id_admin_subempresa];
         }
-        $Tipo = new Tipo($this->request->tipo);
+        $Tipo = new Tipo($this->request instanceof Request ? $this->request->tipo : null);
         if ($Tipo->valido()) {
             $where[] = ['tipo', $Tipo->numero()];
         }

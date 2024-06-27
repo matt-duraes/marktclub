@@ -1,0 +1,37 @@
+@template "painel"
+@system "Documento"
+
+#bloco_noticia_detalhe
+    width: 100%
+    max-width: 600px
+    header
+        width: 100%
+        margin-top: 20px
+    header h1
+        font-size: 3rem
+        line-height: 1.3em
+        margin-bottom: 10px
+    header p
+        font-size: 1.7rem
+    .bloco_lista
+        width: 100%
+        flexRow()
+        margin-top: 30px
+        flex-wrap: wrap
+    .bloco_lista .bloco
+        flexRow()
+        margin-left: 20px
+        &:first-child
+            margin-left: 0
+    .bloco_lista .bloco span
+        color: #666
+        font-size: 1.4rem
+    .bloco_lista .bloco p
+        color: #333
+        font-size: 1.4rem
+        margin-left: 5px
+        font-weight: bold
+    .texto
+        border-top: 1px solid #CCC
+        padding: 20px 0 60px
+        margin-top: 30px

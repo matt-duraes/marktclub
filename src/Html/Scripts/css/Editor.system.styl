@@ -56,9 +56,7 @@
         color: #666
     figure.image
         width: 100%
-        display: flex
-        align-items: center
-        flex-direction: column
+        text-align: center
     figure.bloco_imagem_destaque
         width: 1000px
         max-width: calc(100vw - 300px)
@@ -72,8 +70,9 @@
         float: right
         margin: 10px 0 10px 30px
     figure.image img
-        width: 100%
         max-width: 100%
+        min-width: 0 !important
+        max-height: 100%
     figure.image figcaption
         width: 100%
         font-size: 1.4rem

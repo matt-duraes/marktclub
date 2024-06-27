@@ -3,14 +3,11 @@
 $Painel = new PainelConfig\Visualizar('demanda_spring');
 
 $Painel->coluna(callback: function () use ($Painel) {
-    $Painel->bloco(titulo: 'Dados pessoais', callback: function () use ($Painel) {
+    $Painel->bloco(titulo: 'Dados da sprint', callback: function () use ($Painel) {
         $Painel
             ->linha('nome', 'Nome')
-            ->cpf('cpf', 'CPF')
-            ->linha('rg', 'RG')
-            ->linha('estado_civil', 'Estado Civil')
-            ->linha('genero', 'Gênero')
-            ->data('data_nascimento', 'Data de nascimento');
+            ->data('data_inicio', 'Início da sprint')
+            ->data('data_final', 'Final da sprint');
     });
 });
 
