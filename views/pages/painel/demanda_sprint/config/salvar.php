@@ -1,5 +1,7 @@
 <?php
 
 return [
-    'salvar' => []
+    'salvar' => [
+        'titulo', 'data_inicio', 'data_final'
+    ]
 ];

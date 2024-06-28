@@ -1865,7 +1865,7 @@ Route
             ::nome('salvar')
             ::middleware(TokenMiddleware::class, 'scope', ['demanda_sprint:salvar'])
             ::request([
-                'titulo', 'data_inicio', 'data_final', 'status', 'texto_inicio'
+                'titulo', 'data_inicio', 'data_final'
             ])
             ::post('/demanda-sprint');
 
@@ -1873,7 +1873,7 @@ Route
             ::nome('atualizar')
             ::middleware(TokenMiddleware::class, 'scope', ['demanda_sprint:atualizar'])
             ::request([
-                '!titulo', '!data_inicio', '!data_final', '!status', '!texto_final'
+                '!titulo', '!data_inicio', '!data_final', 'texto_inicio', '!texto_final', '!status'
             ])
             ::put('/demanda-sprint/{id}');
     });

@@ -3,7 +3,7 @@
 use PainelConfig\Index;
 use App\Classes\Demanda\Sprint\Status;
 
-$Painel = new Index('demanda_spring');
+$Painel = new Index('demanda_sprint');
 $Painel
     ->campo('titulo', 'Título', 'grande')
     ->campo('data_inicio', 'Início', 'pequeno', formatar: Index::FORMATAR_DATA)

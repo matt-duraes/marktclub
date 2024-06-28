@@ -164,10 +164,10 @@ final class AppController extends PadraoController
     {
         $appReal = $this->converterNomeApp($app);
         $path = ROOT . '/views/pages/painel/' . $appReal;
+
         if (is_dir($path . '/routes') && !file_exists($path . '/config/visualizar.php')) {
             throw new Excecao(status: 404);
         }
-
         $config = $this->config($appReal, 'visualizar');
         if (!$config->permissao->visualizar) {
             throw new Excecao(status: 403);

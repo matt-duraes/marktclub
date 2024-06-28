@@ -261,6 +261,10 @@ if (!function_exists('painelLinhaLista')) {
                 include ROOT . '/src/Html/Painel/' . $acao . '.php';
                 continue;
             } elseif ($acao == 'botaoDestaque') {
+                $inArray = $item['inArray'] ?? '';
+                $campo = $item['campo'] ?? '';
+                $valor = $dado->$campo ?? '';
+                ppe($valor, true);
                 $id = !empty($item['id'] ?? '') ? 'id="' . $item['id'] . '"' : '';
                 echo '<div class="botao_destaque ' . $item['cor'] . '" ' . $id . '>' . $item['texto'] . '</div>';
                 continue;
@@ -289,7 +293,6 @@ if (!function_exists('painelLinhaLista')) {
             $editar = $item['editar'] ?? '';
             $status = $item['status'] ?? '';
             $mensagem = $item['mensagem'] ?? '';
-            $inArray = $item['inArray'] ?? '';
             $cor = $item['cor'] ?? '';
             $formatar = $item['formatar'] ?? '';
             $vazio = $item['vazio'] ?? true;

@@ -49,7 +49,7 @@ class SprintController extends Controller implements
     {
         return mensagemSucesso(
             pegarPropriedadeDaEntity($Sprint, lista: [
-                'titulo', 'data_inicio', 'data_final', 'status'
+                'titulo', 'texto_inicio', 'texto_final', 'data_inicio', 'data_final', 'status'
             ]),
             $status
         );

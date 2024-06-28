@@ -1,6 +1,6 @@
 <?php
 
-$Painel = new PainelConfig\Add(app: 'demanda_spring', acao: $acao);
+$Painel = new PainelConfig\Add(app: 'demanda_sprint', acao: $acao);
 
 $Painel->coluna(callback: function () use ($Painel) {
     $Painel->fieldset('Dados da sprint', function () use ($Painel) {
