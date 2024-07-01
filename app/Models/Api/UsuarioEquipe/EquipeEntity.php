@@ -61,7 +61,7 @@ final class EquipeEntity extends Entity
         telefone_pessoal|Telefone pessoal|telefone
         telefone_trabalho|Telefone de trabalho|telefone
         status|Status|vazio|valido
-        tipo|Tipo de usuário|vazio|valido
+        tipo|Tipo de usuário|valido
     ';
     public Nome $nome;
     public string $perfil;
