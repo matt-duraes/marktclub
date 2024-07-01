@@ -1,37 +1,3 @@
 @template "painel"
 
-<div id="bloco_app_lista_detalhe">
-    <div class="bloco_botao">
 
-    </div>
-    @laco(3)
-    <div class="linha">
-        <div class="lista geral {{$i1==0 ? 'aberto' : ''}}">
-            <div class="header">
-                <div class="drag">@iconeDrag(10)</div>
-                <figure style="background-image: url({!!USUARIO_IMAGEM!!});"></figure>
-                <h1>Titulo de teste</h1>
-                <div class="botao_acao abrir">@iconeSetaBaixo(6)</div>
-                <div class="botao_acao fechar">@iconeSetaCima(6)</div>
-            </div>
-            <div class="conteudo">
-                <div class="bloco_noticia_texto texto">
-                    <p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Velit impedit illum minima possimus, corrupti quod? Ab commodi culpa amet temporibus.</p>
-                    <p>Lorem, ipsum dolor sit amet consectetur adipisicing elit.</p>
-                </div>
-                <div class="bloco_botao">
-                    <div class="botao">Ver demanda</div>
-                    <div class="botao sprint">Add sprint</div>
-                </div>
-            </div>
-        </div>
-    </div>
-    @endlaco
-
-    <div id="bloco_botao_salvar">
-        <button class="botao add" id="botao_add_tarefa">
-            <i>@iconeAdd(13)</i>
-            <p>ADD</p>
-        </button>
-    </div>
-</div>

@@ -264,7 +264,9 @@ if (!function_exists('painelLinhaLista')) {
                 $inArray = $item['inArray'] ?? '';
                 $campo = $item['campo'] ?? '';
                 $valor = $dado->$campo ?? '';
-                ppe($valor, true);
+                if (is_array($inArray) && $inArray && !empty($valor) && !in_array($valor, $inArray)) {
+                    continue;
+                }
                 $id = !empty($item['id'] ?? '') ? 'id="' . $item['id'] . '"' : '';
                 echo '<div class="botao_destaque ' . $item['cor'] . '" ' . $id . '>' . $item['texto'] . '</div>';
                 continue;

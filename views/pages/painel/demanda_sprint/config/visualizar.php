@@ -13,13 +13,15 @@ $Painel->coluna(callback: function () use ($Painel) {
     });
 });
 
+$Painel->include('demanda');
+
 $Painel
     ->botaoDestaque(
         campo: 'status',
         texto: 'Iniciar sprint',
         cor: 'verde',
         id: 'botao_sprint_iniciar',
-        inArray: ['novo']
+        inArray: ['nova']
     )
     ->botaoDestaque(
         campo: 'status',
