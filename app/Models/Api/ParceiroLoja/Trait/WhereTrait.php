@@ -38,11 +38,16 @@ trait WhereTrait
             })
             ->seVazio(propriedade: 'pesquisa', vazio: false, callback: function () use ($Where) {
                 $pesquisa = '%' . $this->pesquisa . '%';
-                $Where->manual([
+                $whereTitulo = [
                     'OR',
                     ['titulo', 'like', $pesquisa],
                     ['subcategoria_tag', 'like', $pesquisa]
-                ]);
+                ];
+                $idSubcategoria = $this->pegarListaSubCategoria();
+                if($idSubcategoria) {
+                    $whereTitulo[] = ['subcategoria_lista', 'json', $idSubcategoria];
+                }
+                $Where->manual($whereTitulo);
             })
             ->seVazio(propriedade: 'titulo', vazio: false, callback: function () use ($Where) {
                 $titulo = '%' . $this->titulo . '%';
@@ -101,5 +106,14 @@ trait WhereTrait
             return '';
         }
         return (new OrmHelper(TABELA_PARCEIRO_SUBCATEGORIA))->pegarCampoPor('id', ['url', $tag]);
+    }
+
+    private function pegarListaSubCategoria()
+    {
+        $titulo = $this->pesquisa;
+        return (new OrmHelper(TABELA_PARCEIRO_SUBCATEGORIA))->pegarListaCampo(
+            where: ['tag', 'LIKE', '%\"' . $titulo . '%'],
+            campo: 'id'
+        );
     }
 }
