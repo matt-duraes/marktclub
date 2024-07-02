@@ -31,7 +31,7 @@ final class CriarClienteModel
         private string $texto,
         private Botao $cdn
     ) {
-        $this->criarDemanda($empresaNome . 'Novo clube de vantagens', 'novo-cliente', Area::TECNOLOGIA);
+        $this->criarDemanda($empresaNome . 'Novo clube de vantagens', $texto, 'novo-cliente', Area::TECNOLOGIA);
         $this->verificarSeSalvouDemanda();
         $this->montarDominioLink();
         $this->configurarDnsCdn();
@@ -123,7 +123,6 @@ final class CriarClienteModel
                 </strong></p>
             ';
         }
-        $texto .= $this->texto;
         $this->salvarTarefa(
             'criacao',
             'Configurar Construtor',

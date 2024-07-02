@@ -7,9 +7,9 @@ use Http\Response;
 use Helpers\OrmHelper;
 use Controller\Controller;
 use App\Classes\DemandaDado\Area;
+use App\Classes\DemandaDado\Tipo;
 use App\Classes\DemandaDado\Ordem;
 use App\Classes\DemandaDado\Status;
-use App\Classes\DemandaDado\Tipo;
 use App\Models\Api\Demanda\DemandaModel;
 use App\Models\Api\Demanda\DemandaEntity;
 use System\Interface\ControllerBuscarInterface;
@@ -51,8 +51,10 @@ final class DemandaDadoController extends Controller implements
 
     public function postSalvar(Request $request): Response
     {
+        $dado = $request->dado();
+        $dado['texto'] = $request->getPost('texto', html: false);
         $Demanda = new DemandaEntity();
-        $Demanda->set(lista: $request->dado());
+        $Demanda->set(lista: $dado);
         $Demanda->salvar();
 
         return $this->retornoPadrao($Demanda, 201);
@@ -82,6 +84,9 @@ final class DemandaDadoController extends Controller implements
         }
         if ($request->existe('id_usuario_equipe')) {
             $dado['id_usuario_equipe'] = (new OrmHelper(TABELA_USUARIO_EQUIPE))->pegarIdPeloUuid($request->id_usuario_equipe);
+        }
+        if ($request->existe('texto')) {
+            $dado['texto'] = $request->getPut('texto', html: false);
         }
 
         $Demanda = new DemandaEntity();

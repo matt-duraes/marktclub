@@ -18,13 +18,14 @@ final class CriarBugModel
         private string $titulo,
         private string $empresa,
         private string $critico,
-        private string $local
+        private string $local,
+        string $texto
     ) {
         if (empty($empresa)) {
             $this->empresa = '14afa776394ada4be23be6acf7e3259e';
         }
 
-        $this->criarDemanda($empresaNome . $titulo, 'bug-' . $local, Area::TECNOLOGIA);
+        $this->criarDemanda($empresaNome . $titulo, $texto, 'bug-' . $local, Area::TECNOLOGIA);
         $this->verificarSeSalvouDemanda();
         $this->notificarUsuario();
     }

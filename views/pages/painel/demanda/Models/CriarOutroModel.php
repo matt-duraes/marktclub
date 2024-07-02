@@ -16,9 +16,10 @@ final class CriarOutroModel
         private string $empresaNome,
         private string $titulo,
         private string $empresa,
-        private string $tipo
+        private string $tipo,
+        string $texto
     ) {
-        $this->criarDemanda($empresaNome . $titulo, $tipo, Area::TECNOLOGIA);
+        $this->criarDemanda($empresaNome . $titulo, $texto, $tipo, Area::TECNOLOGIA);
         $this->verificarSeSalvouDemanda();
     }
 

@@ -21,7 +21,7 @@ final class SorteioModel
         private Request $request
     ) {
         $this->empresa = $request->empresa;
-        $this->criarDemanda($request->empresaNome . $request->titulo, Tipo::SORTEIO, Area::CRIACAO);
+        $this->criarDemanda($request->empresaNome . $request->titulo, $request->texto, Tipo::SORTEIO, Area::CRIACAO);
         $this->verificarSeSalvouDemanda();
         $this->salvarSorteio();
         $this->notificarUsuario();

@@ -1901,7 +1901,7 @@ Route
             ::nome('salvar')
             ::middleware(TokenMiddleware::class, 'scope', ['demanda_dado:salvar'])
             ::request([
-                'empresa', 'titulo', 'tipo', 'area', '!data_entrega', '!com_prazo'
+                'empresa', 'titulo', 'texto', 'tipo', 'area', '!data_entrega', '!com_prazo'
             ])
             ::post('/demanda-dado');
 
@@ -1909,7 +1909,7 @@ Route
             ::nome('atualizar')
             ::middleware(TokenMiddleware::class, 'scope', ['demanda_dado:atualizar'])
             ::request([
-                '!titulo', '!arquivo', '!id_admin_empresa', '!id_usuario_equipe',
+                '!titulo', '!texto', '!arquivo', '!id_admin_empresa', '!id_usuario_equipe',
                 '!data_entrega', '!com_prazo', '!status', '!ordem', '!tarefa_tipo',
             ])
             ::put('/demanda-dado/{id}');

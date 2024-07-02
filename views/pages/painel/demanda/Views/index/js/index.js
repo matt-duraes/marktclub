@@ -1,8 +1,13 @@
-const primeiraColuna = listaColuna[0];
-
 window.addEventListener('load', () => {
     buscarDados();
 });
+
+if (loadingLista.length > 0) {
+    for (const item of loadingLista) {
+        const EsqueletoLista = new Esqueleto(item, '.esqueleto');
+        EsqueletoLista.show();
+    }
+}
 
 async function buscarDados(filtros) {
     const loading = $$('.bloco_loading');
@@ -31,27 +36,51 @@ async function buscarDados(filtros) {
             },
             ''
         ).then(resposta => {
-            const conteudo = coluna.querySelector('.conteudo');
-            const loading = coluna.querySelector('.bloco_loading');
-            loading.classList.add('display_none');
-
-            if (false === resposta) {
-                adicionarBlocoErro(conteudo);
+            if (coluna.classe('bloco_visualizar_quadro', '?')) {
+                carregarBuscarQuadro(coluna, resposta);
                 return;
             }
-
-            if (resposta.dado.length == 0) {
-                coluna.querySelector('header h1 span').innerText = `(0)`;
-                adicionarBlocoZero(conteudo);
-                return;
-            }
-            adicionarBlocoZero(conteudo, 'display_none');
-            for (const item of resposta.dado) {
-                adicionarNovaDemanda(conteudo, item);
-            }
-            contarTarefaDemanda(coluna);
+            carregarBuscarListar(coluna, resposta);
         });
     }
+
+    const carregarBuscarListar = (coluna, resposta) => {
+        loadingLista.sumir();
+        if (false === resposta) {
+            adicionarBlocoErro(coluna);
+            return;
+        }
+        if (resposta.dado.length == 0) {
+            adicionarBlocoZero(coluna);
+            return;
+        }
+        adicionarBlocoZero(coluna, 'display_none');
+        for (const item of resposta.dado) {
+            adicionarNovaDemanda(coluna, item);
+        }
+    };
+
+    const carregarBuscarQuadro = (coluna, resposta) => {
+        const conteudo = coluna.querySelector('.conteudo');
+        const loading = coluna.querySelector('.bloco_loading');
+        loading.classList.add('display_none');
+
+        if (false === resposta) {
+            adicionarBlocoErro(conteudo);
+            return;
+        }
+
+        if (resposta.dado.length == 0) {
+            coluna.querySelector('header h1 span').innerText = `(0)`;
+            adicionarBlocoZero(conteudo);
+            return;
+        }
+        adicionarBlocoZero(conteudo, 'display_none');
+        for (const item of resposta.dado) {
+            adicionarNovaDemanda(conteudo, item);
+        }
+        contarTarefaDemanda(coluna);
+    };
 }
 
 const cloneErro = $('#clone_item_erro');

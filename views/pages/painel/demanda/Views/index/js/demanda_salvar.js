@@ -186,6 +186,7 @@ window.addEventListener('load', () => {
         botaoSalvar.classList.remove('display_none');
         botaoFechar.classList.add('display_none');
         botaoVoltar.classList.remove('display_none');
+        blocoFooter.classList.remove('display_none');
 
         switch (tipo) {
             case 'associacao':
@@ -202,17 +203,14 @@ window.addEventListener('load', () => {
             case 'outro':
                 blocoHeader.classList.remove('display_none');
                 blocoTipoOutro.classList.remove('display_none');
-                blocoFooter.classList.add('display_none');
                 break;
             case 'criacao':
                 blocoTipoCriacao.classList.remove('display_none');
                 botaoSalvar.classList.add('display_none');
-                blocoFooter.classList.add('display_none');
                 blocoHeader.classList.remove('display_none');
                 break;
             case 'sorteio':
                 blocoTipoSorteio.classList.remove('display_none');
-                blocoFooter.classList.add('display_none');
                 blocoHeader.classList.remove('display_none');
                 break;
             case 'evento':
@@ -640,8 +638,9 @@ window.addEventListener('load', () => {
             resetarDemanda();
         }, 300);
 
-        await adicionarNovaDemanda(primeiraColuna.querySelector('.conteudo'), json.dado, abrir);
-        contarTarefaDemanda(primeiraColuna);
+        const coluna = primeiraColuna ? primeiraColuna.querySelector('.conteudo') : '';
+        await adicionarNovaDemanda(coluna.querySelector('.conteudo'), json.dado, abrir);
+        contarTarefaDemanda(coluna);
     });
 
     /*
@@ -797,6 +796,7 @@ window.addEventListener('load', () => {
             body.append('titulo', inputTitulo.value);
             body.append('empresa_nome', pegarEmpresaNome(inputEmpresaOutro));
             body.append('empresa', inputEmpresaOutro.value);
+            body.append('texto', inputTexto.value);
 
             resolve(body);
         });
@@ -902,6 +902,7 @@ window.addEventListener('load', () => {
             body.append('sorteio_premio_entrega', inputSorteioPremioEntrega.value);
             body.append('sorteio_premio_entrega_outro', inputSorteioPremioEntregaOutro.value);
             body.append('sorteio_texto', inputSorteioTexto.value);
+            body.append('texto', inputTexto.value);
 
             resolve(body);
         });
@@ -1252,6 +1253,7 @@ window.addEventListener('load', () => {
         body.append('tipo', inputTipo.value);
         body.append('empresa_nome', pegarEmpresaNome(inputEmpresa));
         body.append('empresa', inputEmpresa.value);
+        body.append('texto', inputTexto.value);
 
         for (const key in campos) {
             const campo = campos[key];

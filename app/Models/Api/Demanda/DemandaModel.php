@@ -2,16 +2,16 @@
 
 namespace App\Models\Api\Demanda;
 
-use Helpers\OrmHelper;
 use ORM\ORM;
+use Helpers\OrmHelper;
 use App\Classes\DemandaDado\Area;
 use App\Classes\DemandaDado\Tipo;
 use App\Classes\DemandaDado\Ordem;
 use System\Trait\Model\OrdemTrait;
 use App\Classes\DemandaDado\Status;
-use App\Classes\DemandaTarefa\Tipo as DemandaTarefaTipo;
 use App\Models\Api\Demanda\Trait\EquipeTrait;
 use App\Models\Api\Demanda\Trait\EmpresaTrait;
+use App\Classes\DemandaTarefa\Tipo as DemandaTarefaTipo;
 
 final class DemandaModel extends ORM
 {
@@ -41,7 +41,7 @@ final class DemandaModel extends ORM
         $this->validarRequest();
         $lista = $this
             ->campo([
-                'uuid', 'id', 'id_usuario_equipe', 'id_admin_empresa', 'titulo', 'tipo',
+                'uuid', 'id', 'id_usuario_equipe', 'id_admin_empresa', 'titulo', 'texto', 'tipo',
                 'tarefa_tipo', 'data_criacao', 'data_atualizacao', 'com_prazo', 'data_entrega', 'status'
             ])
             ->where($this->montarWhere())
@@ -129,13 +129,14 @@ final class DemandaModel extends ORM
         $retorno = [];
         foreach ($lista as $r) {
             $retorno[$r->id] = [
-                'id'               => $r->uuid,
-                'equipe'           => $r->usuario_uuid,
-                'titulo'           => $r->titulo,
-                'tipo'             => (new Tipo($r->tipo))->indice(),
-                'data_criacao'     => $r->data_criacao,
-                'data_entrega'     => $r->com_prazo == 1 ? $r->data_entrega : '',
-                'status'           => (new Status($r->status))->indice()
+                'id'           => $r->uuid,
+                'equipe'       => $r->usuario_uuid,
+                'titulo'       => $r->titulo,
+                'texto'        => $r->texto,
+                'tipo'         => (new Tipo($r->tipo))->indice(),
+                'data_criacao' => $r->data_criacao,
+                'data_entrega' => $r->com_prazo == 1 ? $r->data_entrega : '',
+                'status'       => (new Status($r->status))->indice()
             ];
         }
 

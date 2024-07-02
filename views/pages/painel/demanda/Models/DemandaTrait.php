@@ -6,12 +6,13 @@ use Helpers\ApiHelper;
 
 trait DemandaTrait
 {
-    private function criarDemanda($titulo, $tipo, $area, $dataEntrega = null)
+    private function criarDemanda($titulo, $texto, $tipo, $area, $dataEntrega = null)
     {
         $Api = new ApiHelper(token: true);
         $this->Demanda = $Api->body([
             'empresa'      => $this->empresa,
             'titulo'       => $titulo,
+            'texto'        => $texto,
             'tipo'         => $tipo,
             'area'         => $area,
             'data_entrega' => $dataEntrega,
@@ -24,8 +25,8 @@ trait DemandaTrait
         $Demanda = $this->Demanda;
         if (!is_object($Demanda) || !object_key_exists('status', $Demanda)) {
             mensagemErro('Erro!', 'Ocorreu um erro ao salvar sua demanda, por favor, tente novamente.');
-        } elseif ($this->Demanda->status != 'sucesso') {
-            mensagemErro($Demanda->erro->titulo, $Demanda->erro->mensagem);
+        } elseif ($Demanda->status != 'sucesso') {
+            mensagemErro($Demanda->erro->titulo ?? 'Erro', $Demanda->erro->mensagem);
         }
     }
 }

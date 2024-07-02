@@ -21,7 +21,7 @@ final class CriacaoModel
         private Request $request
     ) {
         $this->empresa = $request->empresa;
-        $this->criarDemanda($request->empresaNome . $request->titulo, Tipo::CRIACAO, Area::CRIACAO, $request->data_entrega);
+        $this->criarDemanda($request->empresaNome . $request->titulo, $request->texto, Tipo::CRIACAO, Area::CRIACAO, $request->data_entrega);
         $this->verificarSeSalvouDemanda();
         $this->criarDemandaSite();
         $this->criarDemandaRedeSocial();

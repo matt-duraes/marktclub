@@ -83,7 +83,6 @@
         </div>
 
         <div class="geral display_none" id="bloco_geral_footer">
-            <h3>Outros dados</h3>
             @? formEditor(name: 'texto', label: 'Descrição da demanda', placeholder: 'Digite outras informacões', bar: 'bold,italic,underline,Strikethrough,|,fontColor,|,alignment,|,link,removeFormat,|,insertTable,codeBlock,|,horizontalLine,FwObservacao,|,numberedList,bulletedList', barBalao: 'bold,italic,underline,Strikethrough,|,fontColor,|,link,removeFormat')
         </div>
     </form>

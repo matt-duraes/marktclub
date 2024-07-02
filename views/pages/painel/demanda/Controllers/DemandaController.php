@@ -39,25 +39,15 @@ final class DemandaController extends Controller
         $this->Api = new ApiHelper(token: true);
     }
 
-    public function tecnologiaNovo()
-    {
-        return view('painel.demanda.backlog', [
-            'app'       => 'demanda-dado',
-            'appTitulo' => 'Backlog',
-            'acao'      => 'index',
-            'config'    => (object)[
-                'permissao' => (object)[
-                    'buscar'  => true,
-                    'filtrar' => true
-                ]
-            ]
-        ]);
-    }
-
     public function sprint()
     {
         $quadro = (new ListaModel())->sprint();
         return $this->listar('Sprint', Area::TECNOLOGIA, $quadro);
+    }
+
+    public function tecnologiaNovo()
+    {
+        return $this->listar('Tecnologia', Area::TECNOLOGIA, [], 'lista');
     }
 
     public function tecnologia()
@@ -85,7 +75,7 @@ final class DemandaController extends Controller
         );
     }
 
-    private function listar($titulo, $area, $quadro)
+    private function listar($titulo, $area, $quadro, $visualizacao = 'quadro')
     {
         $empresa = $this->Api
             ->json(['titulo' => 'Escolha um cliente'])
@@ -97,15 +87,16 @@ final class DemandaController extends Controller
             ->array()['dado'] ?? [];
 
         return view('painel.demanda.index', [
-            'app'       => 'demanda-' . $area,
-            'appTitulo' => $titulo,
-            'area'      => $area,
-            'quadro'    => $quadro,
-            'empresa'   => $empresa,
-            'equipe'    => $equipe,
-            'tipoLista' => (new DemandaTarefaTipo())->select('Escolha uma opção'),
-            'Tipo'      => new Tipo(),
-            'Area'      => new DemandaTarefaTipo(),
+            'app'          => 'demanda-' . $area,
+            'appTitulo'    => $titulo,
+            'area'         => $area,
+            'quadro'       => $quadro,
+            'visualizacao' => $visualizacao,
+            'empresa'      => $empresa,
+            'equipe'       => $equipe,
+            'tipoLista'    => (new DemandaTarefaTipo())->select('Escolha uma opção'),
+            'Tipo'         => new Tipo(),
+            'Area'         => new DemandaTarefaTipo(),
         ]);
     }
 
@@ -324,7 +315,8 @@ final class DemandaController extends Controller
                 empresaNome: $request->empresa_nome,
                 titulo: $request->titulo,
                 empresa: $request->empresa,
-                tipo: $request->tipo
+                tipo: $request->tipo,
+                texto: $request->getPost('texto', html: false),
             );
         } elseif ($request->tipo == 'bug') {
             $Demanda = new CriarBugModel(
@@ -333,6 +325,7 @@ final class DemandaController extends Controller
                 empresa: $request->empresa,
                 critico: $request->critico,
                 local: $request->local,
+                texto: $request->getPost('texto', html: false),
             );
         } elseif ($request->tipo == 'associacao') {
             $Demanda = new CriarAssociacaoModel(
@@ -365,6 +358,7 @@ final class DemandaController extends Controller
         return mensagemSucesso([
             'id'           => $Demanda->id(),
             'titulo'       => $request->empresa_nome . $request->titulo,
+            'texto'        => $request->texto,
             'equipe'       => [
                 'nome'   => sessao('USUARIO.nome'),
                 'imagem' => sessao('USUARIO.imagem')

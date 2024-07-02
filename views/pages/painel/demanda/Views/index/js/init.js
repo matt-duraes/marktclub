@@ -17,11 +17,18 @@ const PopupDemandaCancelar = new Popup('Cancelar Demanda', 'bloco_demanda_cancel
 const PopupDemandaEditar = new Popup('Editar Demanda', 'bloco_demanda_editar', false, false, demandaEditar);
 const PopupTarefa = new Popup('Nova Tarefa', 'bloco_tarefa_nova', false, false);
 const PopupTemp = new Popup();
-const listaColuna = $$('#bloco_demanda_index .bloco_coluna');
+const listaColuna = $$('.bloco_coluna_geral');
+
+const primeiraColuna = listaColuna[0];
+const loadingLista = $$('#bloco_app_lista_detalhe .loading');
+
+const conteudoLista = $('#bloco_app_lista_detalhe');
 
 const cloneDemandaTarefa = $('#clone_demanda_tarefa_item');
 cloneDemandaTarefa.removeAttribute('id');
 
+const cloneTarefaQuadro = $('#clone_tarefa_quadro');
+cloneTarefaQuadro.removeAttribute('id');
 const cloneTarefaLista = $('#clone_tarefa_lista');
 cloneTarefaLista.removeAttribute('id');
 
@@ -162,7 +169,8 @@ const abrirPopupTarefaEditar = id => {
 const adicionarNovaDemanda = (bloco, item, abrir) => {
     return new Promise(resolve => {
         const id = item.id;
-        const clone = cloneTarefaLista.clonar();
+        const clone = conteudoLista ? cloneTarefaLista.clonar() : cloneTarefaQuadro.clonar();
+        const botaoAbrir = conteudoLista ? $('.botao_ver_demanda', clone) : clone;
         clone.attr({
             id: 'id_demanda_' + item.id,
             'data-id': item.id,
@@ -170,21 +178,31 @@ const adicionarNovaDemanda = (bloco, item, abrir) => {
         });
 
         const perfil = clone.querySelector('.tarefa_perfil');
-        perfil.setAttribute('data-ajuda', item.equipe.nome);
-        perfil.style.backgroundImage = `url(${item.equipe.imagem})`;
+        if (perfil) {
+            perfil.setAttribute('data-ajuda', item.equipe.nome);
+            perfil.style.backgroundImage = `url(${item.equipe.imagem})`;
 
-        perfil.addEventListener('mouseover', () => {
-            const texto = perfil.getAttribute('data-ajuda');
-            Ajuda.show(perfil, texto);
-        });
-        perfil.addEventListener('mouseout', () => {
-            Ajuda.hide();
-        });
+            perfil.addEventListener('mouseover', () => {
+                const texto = perfil.getAttribute('data-ajuda');
+                Ajuda.show(perfil, texto);
+            });
+            perfil.addEventListener('mouseout', () => {
+                Ajuda.hide();
+            });
+        }
 
-        adicionarTexto(clone, '.tarefa_titulo', item.titulo);
-        adicionarTexto(clone, '.tarefa_data_criacao', item.data_criacao);
-        adicionarTexto(clone, '.tarefa_data_entrega', item.data_entrega);
-        removerDisplayNone(clone, '.bloco_entrega', item.data_entrega);
+        $('.tarefa_titulo', clone).texto(item.titulo);
+        $('.tarefa_data_criacao', clone).texto(item.data_criacao);
+        if (!vazio(item.data_entrega)) {
+            $('.tarefa_data_entrega', clone).texto(item.data_entrega);
+            const blocoDataEntrega = $('.bloco_data_entrega', clone);
+            blocoDataEntrega.aparecer();
+        }
+        if (conteudoLista) {
+            $('.tarefa_texto', clone).html(item.texto);
+        } else {
+            removerDisplayNone(clone, '.bloco_entrega', item.data_entrega);
+        }
         bloco.appendChild(clone);
 
         const blocoZero = bloco.querySelector('.tarefa_zero');
@@ -203,12 +221,23 @@ const adicionarNovaDemanda = (bloco, item, abrir) => {
         if (abrir === true) {
             PaginaDemanda.abrir();
         }
-        clone.addEventListener('click', e => {
+        botaoAbrir.addEventListener('click', e => {
             if (e.target.classList.contains('botao_drag') || e.target.closest('.botao_drag')) {
                 return;
             }
             PaginaDemanda.abrir();
         });
+
+        if (conteudoLista) {
+            const botaoAcao = $$('.botao_acao', clone);
+            botaoAcao.evento('click', (e, item) => {
+                const linha = item.closest('.lista');
+                if (!linha) {
+                    return;
+                }
+                linha.classe('aberto');
+            });
+        }
         resolve(true);
     });
 };
@@ -216,6 +245,9 @@ const adicionarNovaDemanda = (bloco, item, abrir) => {
 // CONTATO NUMERO TAREFA
 const contarTarefaDemanda = coluna => {
     const blocoColuna = coluna.classe('.bloco_coluna', '?') ? coluna : coluna.closest('.bloco_coluna');
+    if (!blocoColuna) {
+        return;
+    }
     const numero = blocoColuna.querySelectorAll('.conteudo .bloco_kambam_item').length;
     const blocoNumero = blocoColuna.querySelector('header h1 span');
     blocoNumero.innerText = `(${numero})`;
@@ -232,6 +264,7 @@ const tarefaDeletar = async id => {
     ) {
         return;
     }
+    // eslint-disable-next-line camelcase
     const tarefa_tipo = pegarTiposTarefa(id);
     const demanda = $('#input_demanda_id').value;
 
@@ -242,6 +275,7 @@ const tarefaDeletar = async id => {
     bloco.classList.add('display_none');
     const resposta = await ajaxPost(
         LINK + '/demanda/tarefa-deletar/' + id,
+        // eslint-disable-next-line camelcase
         { tarefa_tipo, demanda },
         'Erro ao deletar tarefa, por favor, tente novamente.'
     );

@@ -168,6 +168,7 @@ final class ListaModel
                 'id'           => $r->id,
                 'equipe'       => $Perfil->unico($r->equipe),
                 'titulo'       => $r->titulo,
+                'texto'        => $r->texto,
                 'data_criacao' => dataBr($r->data_criacao),
                 'data_entrega' => dataBr($r->data_entrega),
                 'status'       => $r->status

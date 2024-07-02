@@ -2,10 +2,10 @@
 
 namespace Painel\Demanda\Models;
 
-use App\Classes\DemandaTarefa\Tipo;
-use Http\Request;
 use stdClass;
+use Http\Request;
 use App\Classes\DemandaDado\Area;
+use App\Classes\DemandaTarefa\Tipo;
 
 final class CriarCampanhaModel
 {
@@ -13,13 +13,13 @@ final class CriarCampanhaModel
     use TarefaTrait;
 
     private stdClass $Demanda;
+    private string $empresa;
 
     public function __construct(
         private Request $request
     ) {
         $this->empresa = $request->empresa;
-
-        $this->criarDemanda($this->montarTitulo(), $request->tipo, Area::CONVENIO);
+        $this->criarDemanda($this->montarTitulo(), $request->texto, $request->tipo, Area::CONVENIO);
         $this->verificarSeSalvouDemanda();
         $this->adicionarTarefa();
     }
