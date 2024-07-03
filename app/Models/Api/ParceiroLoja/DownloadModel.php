@@ -49,6 +49,7 @@ final class DownloadModel extends ORM
     public Data $data_cancelado_ate;
     public Data $data_auditoria_de;
     public Data $data_auditoria_ate;
+    public array $endereco_estado;
     protected string $ormTabela = TABELA_PARCEIRO_LOJA;
 
     public function __construct(
