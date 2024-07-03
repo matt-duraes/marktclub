@@ -1,7 +1,7 @@
 <?php
 
 use PainelConfig\Filtrar;
-use App\Classes\Silium\StatusComissao;
+use App\Classes\SiliumComissao\Status;
 
 $Painel = new Filtrar('silium_comissao');
 
@@ -11,13 +11,6 @@ $Painel
         titulo: 'Nome do Usuário',
         label: 'Nome do Usuário',
         placeholder: 'Nome do Usuário'
-    )
-    ->select(
-        name: 'empresa',
-        lista: 'empresa',
-        titulo: 'Empresa',
-        label: 'Empresa',
-        placeholder: 'Empresa'
     )
     ->bloco(function () use ($Painel) {
         $Painel
@@ -34,9 +27,15 @@ $Painel
                 placeholder: 'Comissão até'
             );
     })
+    ->numero(
+        name: 'quantidade',
+        titulo: 'Quantidade',
+        label: 'Quantidade',
+        placeholder: 'Quantidade de Registros'
+    )
     ->select(
         name: 'status',
-        lista: (new StatusComissao())->select('Escolha um status'),
+        lista: (new Status())->select('Escolha um status'),
         titulo: 'Status',
         label: 'Status',
         placeholder: 'Status'

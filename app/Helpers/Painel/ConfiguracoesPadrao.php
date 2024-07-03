@@ -8,7 +8,7 @@ final class ConfiguracoesPadrao
         'perfil'     => 'Perfil',
         'agenda'     => 'Agenda',
         'google'     => 'Google',
-        'darkMode'   => 'Dark Mode (ALPHA)',
+        'darkMode'   => 'Dark Mode (Alpha)',
         'assinatura' => 'Assinatura'
     ];
     public const CAMPOS_OBRIGATORIOS = [
@@ -708,6 +708,13 @@ final class ConfiguracoesPadrao
                 'silium_saque_editar'     => 'Editar',
                 'silium_saque_status'     => 'Status',
                 'silium_saque_deletar'    => 'Deletar'
+            ]
+        ],
+        'silium_config' => [
+            'titulo'    => 'Configurações do Silium (Cashback)',
+            'permissao' => [
+                'silium_config_index'  => 'Listar',
+                'silium_config_editar' => 'Editar'
             ]
         ]
     ];

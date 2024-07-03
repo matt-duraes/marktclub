@@ -1,1 +1,0 @@
-{"id":"id_e4c227d7fa352024eee95c3cd670c5d2","token":"token","metodo":"GET","nome":"\/silium-saque\/:id","uri":"{{LINK}}\/silium-saque\/$SILIUM_SAQUE_ID","parametro":[],"body":[],"header":[],"variavel":[],"json":[],"documentacao":{"status":false,"descricao":"","requisicao":"","resposta":"","scope":"silium_saque:buscar"}}

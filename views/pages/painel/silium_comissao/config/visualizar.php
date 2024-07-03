@@ -1,13 +1,13 @@
 <?php
 
 use PainelConfig\Visualizar;
-use App\Classes\Silium\StatusComissao;
+use App\Classes\SiliumComissao\Status;
 use App\Classes\UsuarioCliente\Helper;
 
 $Painel = new Visualizar('silium_comissao');
 
-$StatusComissao = new StatusComissao();
-$Painel->coluna(callback: function () use ($Painel, $StatusComissao) {
+$Status = new Status();
+$Painel->coluna(callback: function () use ($Painel, $Status) {
     $Painel->bloco('Usuario', function () use ($Painel) {
         $Painel
             ->linha('usuario->nome', 'Nome')
@@ -35,24 +35,25 @@ $Painel->coluna(callback: function () use ($Painel, $StatusComissao) {
             ->linha('status', 'Status');
     });
 
+    /*
     $Painel
         ->status(
             campo: 'status',
             texto: 'Liberar pontuação',
-            inArray: [$StatusComissao->nome(StatusComissao::AGUARDANDO)],
-            status: StatusComissao::LIBERADO,
+            inArray: [$Status->nome(Status::NEGADO)],
+            status: Status::LIBERADO,
             mensagem: 'Tem certeza que deseja creditar a pontuação na conta correspondente?',
             cor: 'verde'
         )->status(
             campo: 'status',
             texto: 'Negar pontuação',
-            inArray: [$StatusComissao->nome(StatusComissao::AGUARDANDO)],
-            status: StatusComissao::NEGADO,
+            inArray: [$Status->nome(Status::LIBERADO)],
+            status: Status::NEGADO,
             mensagem: 'Tem certeza que deseja negar a pontuação?',
             cor: 'vermelho'
-        );
+        );*/
 });
 
-$Painel->replace('status', $StatusComissao->select());
+$Painel->replace('status', $Status->select());
 
 return $Painel;
