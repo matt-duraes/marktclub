@@ -3,30 +3,38 @@
 namespace App\Models\Api\SiliumConfig;
 
 use App\Classes\SiliumDeposito\TipoResgate;
+use App\Models\Api\Trait\ValidarEmpresaTrait;
+use Modules\Botao;
 use ORM\Entity;
 
 class SiliumConfigEntity extends Entity
 {
+    use ValidarEmpresaTrait;
+
     protected string $ormTabela = TABELA_SILIUM_CONFIG;
     protected array $ormBuscar = [
-        'regra_conversao', 'pontuacao_minima_resgate', 'validade_pontuacao',
-        'data_criacao', 'data_atualizacao'
+        'desconto', 'regra_conversao', 'pontuacao_minima_resgate',
+        'validade_pontuacao', 'data_criacao', 'data_atualizacao'
     ];
-    protected array $ormUpdate = [
-        'regra_conversao', 'pontuacao_minima_resgate', 'validade_pontuacao'
+    protected array $ormSalvar = [
+        'id_admin_empresa' => '->idEmpresa',
+        'desconto', 'regra_conversao', 'pontuacao_minima_resgate',
+        'validade_pontuacao'
     ];
-    protected string $ormValidarUpdate = '
+    protected string $ormValidarSalvar = '
         validade_pontuacao|Prazo de Validade|int|obrigatorio|vazio
     ';
 
-    public string|array $regra_conversao;
-    public string|array $pontuacao_minima_resgate;
+    public Botao $desconto;
+    public array $regra_conversao;
+    public array $pontuacao_minima_resgate;
     public string|int $validade_pontuacao;
     public string|int $pontuacao_dinheiro;
     public string|int $pontuacao_mensalidade;
 
     public function __construct()
     {
+        $this->validarEmpresa();
         parent::__construct();
     }
 

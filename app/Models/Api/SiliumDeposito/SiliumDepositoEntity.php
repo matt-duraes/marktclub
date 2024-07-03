@@ -11,6 +11,7 @@ use App\Models\Api\SiliumSaldo\SiliumSaldoEntity;
 use App\Models\Api\Trait\ValidarEmpresaTrait;
 use Helpers\EmailHelper;
 use Helpers\OrmHelper;
+use Modules\Botao;
 use Modules\Cpf;
 use Modules\Data;
 use Modules\Dinheiro;
@@ -22,17 +23,14 @@ class SiliumDepositoEntity extends Entity
 {
     use ValidarEmpresaTrait;
 
-    public const PONTUACAO_MINIMA = 10000;
-
     protected string $ormTabela = TABELA_SILIUM_DEPOSITO;
     protected array $ormBuscar = [
-        'id_admin_empresa', 'id_usuario_cliente', 'nome_titular', 'documento_cpf',
+        'id_usuario_cliente', 'nome_titular', 'documento_cpf',
         'email', 'tipo_conta', 'banco', 'agencia', 'conta', 'pontuacao', 'valor',
         'data_deposito', 'documento_anexo', 'status', 'tipo_operacao',
         'tipo_resgate', 'data_criacao', 'data_atualizacao'
     ];
     protected array $ormInsert = [
-        'id_admin_empresa'   => '->idEmpresa',
         'id_usuario_cliente' => '->idUsuario'
     ];
     protected array $ormSalvar = [
@@ -40,9 +38,9 @@ class SiliumDepositoEntity extends Entity
         'agencia', 'conta', 'pontuacao', 'valor', 'data_deposito',
         'documento_anexo', 'status', 'tipo_operacao', 'tipo_resgate'
     ];
-    protected int $id_admin_empresa;
     protected int $id_usuario_cliente;
 
+    private array $configs = [];
     public string|array $usuario;
     public string $saque;
     public Nome $nome_titular;
@@ -62,7 +60,8 @@ class SiliumDepositoEntity extends Entity
 
     public function __construct()
     {
-        $this->validarEmpresa();
+        $this->setarIdUsuario();
+        $this->pegarConfiguracoes();
         parent::__construct();
     }
 
@@ -232,11 +231,22 @@ class SiliumDepositoEntity extends Entity
 
     private function validarResgate(): void
     {
-        if ($this->pontuacao < self::PONTUACAO_MINIMA) {
-            mensagemErro(
-                'Resgate não autorizado!!!',
-                'Solicitações de resgate devem ser acima de ' . self::PONTUACAO_MINIMA
-            );
+        if ($this->tipo_resgate->indice() === TipoResgate::DINHEIRO) {
+            $ponto = $this->configs['pontuacao_minima'][TipoResgate::DINHEIRO];
+            if ($this->pontuacao < $ponto) {
+                mensagemErro(
+                    'Resgate não autorizado!!!',
+                    'Solicitações de resgate devem ser acima de ' . $ponto
+                );
+            }
+        } elseif ($this->tipo_resgate->indice() === TipoResgate::MENSALIDADE) {
+            $ponto = $this->configs['pontuacao_minima'][TipoResgate::MENSALIDADE];
+            if ($this->pontuacao < $ponto) {
+                mensagemErro(
+                    'Resgate não autorizado!!!',
+                    'Solicitações de desconto devem ser acima de ' . $ponto
+                );
+            }
         }
     }
 
@@ -294,18 +304,59 @@ class SiliumDepositoEntity extends Entity
         $Construtor = new ConstrutorEntity();
         $Construtor->buscar(['id_admin_empresa', $this->idEmpresa]);
 
+        $titulo = '';
+        $assunto = '';
+        $acao = '';
+        $mensagem = '';
+
+        if ($this->tipo_resgate->indice() === TipoResgate::DINHEIRO) {
+            $titulo = 'Saque de Cashback';
+            $assunto = 'Saque de Cashback';
+            $acao = 'Silium Cashback';
+            $mensagem = 'Caro(a) <strong>' . $this->nome_titular->nome() . '</strong>, Confirmamos o recebimento do seu pedido de saque de cashback
+            no valor de R$ ' . $this->valor->dinheiro() . ' (' . $this->pontuacao . ' Pontos), registrado em ' . $this->data_deposito->data() . '. O processamento
+            será concluído em até 3-5 dias úteis.';
+        } elseif ($this->tipo_resgate->indice() === TipoResgate::MENSALIDADE) {
+            $titulo = 'Desconto de Mensalidade';
+            $assunto = 'Desconto de Mensalidade via Silium';
+            $acao = 'Silium Cashback';
+            $mensagem = 'Caro(a) <strong>' . $this->nome_titular->nome() . '</strong>, Confirmamos o recebimento do seu pedido de desconto na mensalidade
+            no valor de R$ ' . $this->valor->dinheiro() . ' (' . $this->pontuacao . ' Pontos), registrado em ' . $this->data_deposito->data() . '. O processamento
+            será concluído em até 3-5 dias úteis.';
+        }
+
         $Email = new EmailHelper();
         $Email->mensagem(
-            titulo: 'Saque de Cashback!',
-            mensagem: 'Caro(a) <strong>' . $this->nome_titular->nome() . '</strong>, Confirmamos o recebimento do seu pedido de saque de cashback
-            no valor de R$ ' . $this->valor->dinheiro() . ' (' . $this->pontuacao . ' Pontos), registrado em ' . $this->data_deposito->data() . '. O processamento
-            será concluído em até 3-5 dias úteis.',
-            assunto: 'Saque de Cashback!',
+            titulo: $titulo,
+            mensagem: $mensagem,
+            assunto: $assunto,
             posMensagem: 'Caso fique com alguma dúvida, por favor, entre em contato.',
-            acao: 'Saque do Silium',
+            acao: $acao,
             logo: $Construtor->logo_principal,
             cor: $Construtor->cor_principal
         );
-        $Email->sendGrid('Saque de Cashback', $this->nome_titular->nome(), $this->email->email(), deNome: 'Cashback Silium');
+        $Email->sendGrid($titulo, $this->nome_titular->nome(), $this->email->email(), deNome: 'Cashback Silium');
+    }
+
+    private function pegarConfiguracoes(): void
+    {
+        $OrmHelper = new OrmHelper(TABELA_SILIUM_CONFIG);
+        $configs = $OrmHelper->pegarUltimoRegistro(
+            ['id_admin_empresa', $this->idEmpresa],
+            ['desconto', 'pontuacao_minima_resgate'],
+            'object'
+        );
+
+        if (empty($configs->desconto)) {
+            $configs = $OrmHelper->pegarUltimoRegistro(
+                ['id_admin_empresa', 1],
+                ['desconto', 'pontuacao_minima_resgate'],
+                'object'
+            );
+        }
+        $this->configs = [
+            'desconto'         => (new Botao($configs->desconto))->valor(),
+            'pontuacao_minima' => jsonDecode($configs->pontuacao_minima_resgate, true, true)
+        ];
     }
 }

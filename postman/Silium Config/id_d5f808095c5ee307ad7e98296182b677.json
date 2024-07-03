@@ -1,0 +1,1 @@
+{"id":"id_d5f808095c5ee307ad7e98296182b677","token":"token","metodo":"POST","nome":"\/silium-config","uri":"{{LINK}}\/silium-config","parametro":[],"body":[],"header":[],"variavel":[],"json":[],"documentacao":{"status":false,"descricao":"","requisicao":"","resposta":"","scope":"silium_config:buscar"}}

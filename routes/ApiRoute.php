@@ -2559,11 +2559,6 @@ Route
     ::middleware(TokenMiddleware::class, 'token')
     ::grupo(function () {
         Route
-            ::nome('buscar')
-            ::middleware(TokenMiddleware::class, 'scope', ['silium_config:buscar'])
-            ::get('/silium-config/{id}');
-
-        Route
             ::nome('listar')
             ::middleware(TokenMiddleware::class, 'scope', ['silium_config:listar'])
             ::request([
@@ -2579,6 +2574,11 @@ Route
                 '!validade_pontuacao'
             ])
             ::put('/silium-config/{id}');
+
+        Route
+            ::nome('configuracoes')
+            ::middleware(TokenMiddleware::class, 'scope', ['silium_config:buscar'])
+            ::post('/silium-config');
     });
 
 Route

@@ -185,7 +185,7 @@ $scope = [
     'silium_deposito:buscar', 'silium_deposito:listar', 'silium_deposito:salvar',
     'silium_deposito:atualizar', 'silium_deposito:deletar',
 
-    'silium_config:listar', 'silium_config:atualizar',
+    'silium_config:buscar', 'silium_config:listar', 'silium_config:atualizar',
 
     'solicitacao_loja:listar', 'solicitacao_loja:buscar', 'solicitacao_loja:salvar',
     'solicitacao_loja:atualizar', 'solicitacao_loja:deletar', 'solicitacao_loja:download',
