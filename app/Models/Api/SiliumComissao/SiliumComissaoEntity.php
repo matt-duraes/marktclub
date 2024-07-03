@@ -11,18 +11,19 @@ use ORM\Entity;
 
 class SiliumComissaoEntity extends Entity
 {
-    private const ACADA = 100;
-    private const EQUIVALE = 1;
-
     protected string $ormTabela = TABELA_SILIUM_COMISSAO;
     protected array $ormBuscar = [
-        'id_usuario_cliente', 'parceiro', 'valor_compra',
+        'id_admin_empresa', 'id_usuario_cliente', 'parceiro', 'valor_compra',
         'comissao_usuario', 'pontuacao', 'data_compra', 'status',
         'data_criacao', 'data_atualizacao'
     ];
+    protected array $ormInsert = [
+        'id_admin_empresa'   => '->idEmpresa',
+        'id_usuario_cliente' => '->idUsuario'
+    ];
     protected array $ormSalvar = [
-        'id_usuario_cliente', 'parceiro', 'valor_compra',
-        'comissao_usuario', 'pontuacao', 'data_compra', 'status'
+        'parceiro', 'valor_compra', 'comissao_usuario', 'pontuacao',
+        'data_compra', 'status'
     ];
     protected string $ormValidarSalvar = '
         parceiro|Nome do Parceiro/Loja|obrigatorio|vazio
@@ -31,9 +32,13 @@ class SiliumComissaoEntity extends Entity
         data_compra|Data da Compra|obrigatorio|vazio|valido
         status|Status|obrigatorio|vazio|valido
     ';
+    protected int $id_admin_empresa;
     protected int $id_usuario_cliente;
+    protected int $idEmpresa;
+    protected int $idUsuario;
 
     public string $parceiro;
+    public string|array $empresa;
     public string|array $usuario;
     public Dinheiro $valor_compra;
     public Dinheiro $comissao_usuario;
@@ -54,7 +59,7 @@ class SiliumComissaoEntity extends Entity
     protected function regraSalvar(): void
     {
         $this->validarDataFutura();
-        $this->setarUsuario();
+        $this->setarUsuarioEmpresa();
         $this->calcularPontuacao();
     }
 
@@ -65,7 +70,7 @@ class SiliumComissaoEntity extends Entity
         }
     }
 
-    private function setarUsuario(): void
+    private function setarUsuarioEmpresa(): void
     {
         $usuario = is_string($this->usuario) ? $this->usuario : $this->usuario['id'];
         if (!validarUuid($usuario)){
@@ -77,16 +82,42 @@ class SiliumComissaoEntity extends Entity
         }
 
         $OrmHelper = new OrmHelper(TABELA_USUARIO_CLIENTE);
-        $id = $OrmHelper->pegarIdPeloUuid($usuario);
+        $usuario = $OrmHelper->pegarUltimoRegistro(
+            ['uuid', $usuario],
+            ['id', 'id_admin_empresa'],
+            'object'
+        );
 
-        if (empty($id)) {
+        if (empty($usuario->id)) {
             mensagemErro(
                 'Usuário inválido!',
                 'Não foi possível achar um usuário.',
                 localhost: 'Não existe um usuário na base com esse UUID'
             );
         }
-        $this->id_usuario_cliente = $id;
+        $this->idEmpresa = $usuario->id_admin_empresa;
+        $this->idUsuario = $usuario->id;
+    }
+
+    private function pegarEmpresa(): void
+    {
+        $OrmHelper = new OrmHelper(TABELA_COMERCIAL_EMPRESA);
+        $empresa = $OrmHelper->pegarUltimoRegistro(
+            ['id', $this->id_admin_empresa],
+            ['uuid', 'nome_fantasia'],
+            'object'
+        );
+
+        if (empty($empresa->uuid)) {
+            $this->empresa = [
+                'id'   => '',
+                'nome' => 'Não foi encontrado'
+            ];
+        }
+        $this->empresa = [
+            'id'   => $empresa->uuid,
+            'nome' => $empresa->nome_fantasia
+        ];
     }
 
     private function pegarUsuario(): void
@@ -123,7 +154,7 @@ class SiliumComissaoEntity extends Entity
 
     private function calcularPontuacao(): void
     {
-        $this->pontuacao = $this->comissao_usuario->decimal() * self::ACADA;
+        $this->pontuacao = $this->comissao_usuario->decimal() * 100;
     }
 
     private function setarPontuacao(): void

@@ -71,6 +71,11 @@ class SiliumComissaoModel extends ORM implements
             ->where($this->pegarWhere(), false)
             ->pagina($this->pegarPagina(), $this->pegarQuantidade())
             ->order($this->pegarOrdem(new Ordem()))
+            ->tabela(TABELA_COMERCIAL_EMPRESA)
+            ->join('id', 'id_admin_empresa')
+            ->campo([
+                'uuid', 'nome_fantasia'
+            ], 'empresa')
             ->tabela(TABELA_USUARIO_CLIENTE)
             ->where($this->pegarWhereUsuario(), false)
             ->join('id', 'id_usuario_cliente')
@@ -127,13 +132,17 @@ class SiliumComissaoModel extends ORM implements
         foreach ($comissoes as $comissao) {
             $retorno[] = [
                 'id'               => $comissao->uuid,
+                'empresa' => [
+                    'id'   => $comissao->empresa_uuid,
+                    'nome' => $comissao->empresa_nome_fantasia
+                ],
                 'usuario' => [
-                    'id'     => $comissao->usuario_uuid,
-                    'nome'   => $comissao->usuario_nome
+                    'id'   => $comissao->usuario_uuid,
+                    'nome' => $comissao->usuario_nome
                 ],
                 'parceiro'         => $comissao->parceiro,
-                'valor_compra'     => (new Dinheiro($comissao->valor_compra))->banco(),
-                'comissao_usuario' => (new Dinheiro($comissao->comissao_usuario))->banco(),
+                'valor_compra'     => (new Dinheiro($comissao->valor_compra))->decimal(),
+                'comissao_usuario' => (new Dinheiro($comissao->comissao_usuario))->decimal(),
                 'pontuacao'        => $comissao->pontuacao,
                 'data_compra'      => $comissao->data_compra,
                 'status'           => $Status->indice($comissao->status),

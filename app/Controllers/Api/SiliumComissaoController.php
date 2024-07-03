@@ -63,7 +63,7 @@ final class SiliumComissaoController extends Controller implements
             pegarPropriedadeDaEntity(
                 $siliumComissaoEntity,
                 lista: [
-                    'usuario', 'parceiro', 'valor_compra',
+                    'empresa', 'usuario', 'parceiro', 'valor_compra',
                     'comissao_usuario', 'pontuacao', 'data_compra', 'status',
                     'data_criacao', 'data_atualizacao'
                 ]
