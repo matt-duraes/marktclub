@@ -132,7 +132,7 @@
                     @? formInput(name: 'banco', label: 'Banco', placeholder:'Digite o nome do banco', obrigatorio: true, value: '', local: 'InterSA')
                     @? formNumero(name: 'conta', label: 'Conta Bancária', placeholder:'Digite a sua conta bancária ', maximo: 15, obrigatorio: true, value: '', local: '123456789')
                     @? formNumero(name: 'agencia', label: 'Agência', placeholder:'Digite a sua agência bancária ', obrigatorio: true, value: '', local: '14320')
-                    @? formSelect(name: 'tipo', label: 'Tipo de Conta', placeholder: 'Escolha o tipo de conta', obrigatorio: true, lista: (new \App\Classes\Silium\TipoConta())->select('Selecione um tipo de conta'));
+                    @? formSelect(name: 'tipo', label: 'Tipo de Conta', placeholder: 'Escolha o tipo de conta', obrigatorio: true, lista: (new \App\Classes\SiliumDeposito\TipoConta())->select('Selecione um tipo de conta'));
                 </fieldset>
             </div>
         </form>

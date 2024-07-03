@@ -3,6 +3,8 @@
 namespace App\Models\Site\Cashback;
 
 use App\Helpers\ClubeApiHelper;
+use App\Classes\SiliumDeposito\TipoResgate;
+use App\Classes\SiliumDeposito\TipoOperacao;
 
 final class SiliumModel extends ClubeApiHelper
 {
@@ -45,10 +47,11 @@ final class SiliumModel extends ClubeApiHelper
     {
         $dado = $this
             ->json([
-                'pagina'  => 1,
-                'usuario' => sessao('USUARIO.id')
+                'pagina'        => 1,
+                'usuario'       => sessao('USUARIO.id'),
+                'tipo_operacao' => TipoOperacao::SAQUE
             ])
-            ->get('/silium-saque')
+            ->get('/silium-deposito')
             ->object();
         return $dado->dado->lista;
     }
@@ -58,6 +61,7 @@ final class SiliumModel extends ClubeApiHelper
         $dado = $this
             ->validar('Ocorreu um erro ao fazer a solicitação')
             ->body([
+                'tipo_operacao' => TipoOperacao::SAQUE,
                 'usuario'       => sessao('USUARIO.id'),
                 'email'         => $dados['email'],
                 'pontuacao'     => $dados['pontos'],
@@ -67,8 +71,9 @@ final class SiliumModel extends ClubeApiHelper
                 'agencia'       => $dados['agencia'],
                 'conta'         => $dados['contaBancaria'],
                 'tipo_conta'    => $dados['tipoConta'],
+                'tipo_resgate'  => TipoResgate::DINHEIRO
             ])
-            ->post('/silium-saque')
+            ->post('/silium-deposito')
             ->object();
         return $dado;
     }
