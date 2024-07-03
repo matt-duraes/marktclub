@@ -162,6 +162,7 @@ final class DemandaController extends Controller
             ->validar('Ocorre um erro ao editar sua demanda, por favor, tente novamente.')
             ->body([
                 'titulo'            => $request->titulo,
+                'texto'             => $request->getPost('texto', html: false),
                 'id_admin_empresa'  => $request->empresa,
                 'id_usuario_equipe' => $request->dono,
                 'com_prazo'         => $request->com_prazo,
@@ -358,7 +359,7 @@ final class DemandaController extends Controller
         return mensagemSucesso([
             'id'           => $Demanda->id(),
             'titulo'       => $request->empresa_nome . $request->titulo,
-            'texto'        => $request->texto,
+            'texto'        => $request->getPost('texto', html: false),
             'equipe'       => [
                 'nome'   => sessao('USUARIO.nome'),
                 'imagem' => sessao('USUARIO.imagem')

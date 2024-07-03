@@ -1,19 +1,48 @@
 #bloco_app_lista_detalhe
     width: 100%
     flexCol()
-    padding-top: 20px
+    padding: 20px 0 90px
     .tarefa_zero
         width: 100%
         text-align: center
         padding: 100px 20px
         texto()
-#bloco_app_lista_detalhe .linha
-    width: 100%
-    padding: 5px 20px
+#bloco_app_lista_detalhe .bloco_botao
+    width: calc(100% - 40px)
+    margin: 0 0 10px 20px
+    flexRow()
+    overflow-x: auto
+    .barra
+        width: 1px
+        height: 30px
+        background-color: #CCC
+        margin-right: 10px
+    .botao
+        height: 30px
+        line-height: 30px
+        border: 1px solid #CCC
+        border-radius: 4px
+        color: #333
+        margin-right: 10px
+        padding: 0 10px
+        font-size: 1.2rem
+        &:last-child
+            margin-right: none
+        &.add
+            background-color: $cor
+            border-color: $cor
+            color: #FFF
+#bloco_app_lista_detalhe
+    .linha
+        width: 100%
+        padding: 5px 20px
     .lista
         width: 100%
         display: flex
         flex-direction: column
+        &.loading
+            width: calc(100% - 40px)
+            margin: 5px 20px
     .lista.geral
         width: 100%
         background: #fff
@@ -23,9 +52,9 @@
         border: 1px solid #fff
         opacity: 1
         transition: opacity 0.3s ease-out
-    &:hover .lista.geral
+    .linha:hover .lista.geral
         border: 1px solid $cor
-    &:hover .lista.geral.loading
+    .linha:hover .lista.geral.loading
         border: 1px solid #FFF
     .lista .header
         width: 100%
@@ -117,6 +146,22 @@
             background-color: $cor
             border-color: $cor
             color: #FFF
+            display: none
+        &.remover
+            background-color: $corDeletar
+            border-color: $corDeletar
+            color: #FFF
+            display: none
+#bloco_app_lista_detalhe.sprint_ativa .linha .lista .conteudo .bloco_botao .botao
+    &.sprint
+        display: flex
+    &.remover
+        display: none
+#bloco_app_lista_detalhe.sprint_ativa .linha.na_sprint .lista .conteudo .bloco_botao .botao
+    &.sprint
+        display: none
+    &.remover
+        display: flex
 
 #bloco_botao_salvar .botao.sprint
     background-color: $corAzul

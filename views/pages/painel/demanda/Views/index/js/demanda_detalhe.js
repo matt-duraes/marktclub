@@ -91,11 +91,6 @@ const demandaDetalhe = () => {
         if (false === resposta) {
             return;
         }
-        if (resposta.dado.length == 0) {
-            blocoZero.classList.remove('display_none');
-            abrirPopupNovaTarefa();
-            return;
-        }
 
         for (const item of resposta.dado) {
             adicionarNovaTarefa(item);

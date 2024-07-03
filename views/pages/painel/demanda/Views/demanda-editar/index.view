@@ -12,9 +12,10 @@
             @? formSwitch(name: 'demanda_editar_com_prazo', label: 'A demanda tem prazo?', check: false)
             @? formData(name: 'demanda_editar_data_entrega', label: 'Data da entrega', placeholder: 'Prazo de entrega', class: 'bloco_input_data_entrega')
         </div>
+        @? formEditor(name: 'demanda_editar_texto', label: 'Descrição da demanda', placeholder: 'Digite outras informacões', bar: 'bold,italic,underline,Strikethrough,|,fontColor,|,alignment,|,link,removeFormat,|,insertTable,codeBlock,|,horizontalLine,FwObservacao,|,numberedList,bulletedList', barBalao: 'bold,italic,underline,Strikethrough,|,fontColor,|,link,removeFormat')
     </form>
     <div class="footer_pagina_popup">
-        <div class="button voltar" id="botao_cancelar_edicao">CANCELAR</div>
+        <div class="button voltar popup_fechar" id="botao_cancelar_edicao">CANCELAR</div>
         <div class="button salvar" id="botao_editar_tarefa">SALVAR</div>
     </div>
 </div>

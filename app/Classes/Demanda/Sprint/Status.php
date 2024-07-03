@@ -6,6 +6,7 @@ use Status\Status as StatusStatus;
 
 final class Status extends StatusStatus
 {
+    public const PUBLICADO = [1, 2];
     public const NOVA = 'nova';
     public const ANDAMENTO = 'andamento';
     public const CONCLUIDA_PRAZO = 'concluida-prazo';

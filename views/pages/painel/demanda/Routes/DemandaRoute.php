@@ -113,7 +113,7 @@ Route
             ::view('/demanda/demanda-editar/{id}');
         Route
             ::nome('demandaEditar')
-            ::request(['titulo', 'dono', 'empresa', 'com_prazo', 'data_entrega'])
+            ::request(['titulo', 'texto', 'dono', 'empresa', 'com_prazo', 'data_entrega'])
             ::post('/demanda/demanda-editar/{id}');
         Route
             ::nome('demandaCancelar')
@@ -169,4 +169,10 @@ Route
         Route
             ::nome('trabalhoConcluir')
             ::put('/demanda/trabalho-concluir/{tarefa}');
+    }, true)
+    ::controller(Painel\Demanda\Controllers\SprintController::class)
+    ::grupo(function () {
+        Route
+            ::nome('sprintAtiva')
+            ::post('/demanda-sprint/ativa');
     });

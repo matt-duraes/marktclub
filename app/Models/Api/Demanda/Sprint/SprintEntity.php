@@ -10,7 +10,7 @@ final class SprintEntity extends Entity
 {
     protected string $ormTabela = TABELA_DEMANDA_SPRINT;
     protected array $ormBuscar = [
-        'titulo', 'data_inicio', 'data_final', 'texto_inicio', 'texto_final', 'status'
+        'id_demanda', 'titulo', 'data_inicio', 'data_final', 'texto_inicio', 'texto_final', 'status'
     ];
     protected array $ormInsert = [
         'status' => 1
@@ -33,11 +33,18 @@ final class SprintEntity extends Entity
     public string $texto_inicio;
     public string $texto_final;
     public Status $status;
+    protected array $id_demanda;
+    public array $demanda = [];
 
     public function regraInsert()
     {
         if ($this->existe(['status', new Status(Status::ANDAMENTO)])) {
             mensagemErro('Erro!', 'Já existe uma sprint em andamento no momento.');
         }
+    }
+
+    public function regraPosBuscar()
+    {
+        $this->demanda = $this->id_demanda;
     }
 }

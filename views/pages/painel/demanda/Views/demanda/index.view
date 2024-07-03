@@ -4,6 +4,7 @@
     <input type="hidden" id="input_demanda_empresa" value="{{$r->empresa->id}}">
     <input type="hidden" id="input_demanda_equipe" value="{{$r->equipe->id}}">
     <input type="hidden" id="input_demanda_entrega" value="{{$r->data_entrega}}">
+    <input type="hidden" id="input_demanda_texto" value="{{$r->texto}}">
     <input type="hidden" id="input_demanda_status" value="{{$r->status}}">
     <input type="hidden" id="input_demanda_liberado" value="{{$r->liberado}}">
     <header>
@@ -52,6 +53,10 @@
             <i>@iconeRelogio(15)</i>
             <p id="bloco_demanda_entrega_valor">{{$r->data_entrega}}</p>
         </div>
+    </div>
+
+    <div class="bloco_descricao bloco_noticia_texto" id="bloco_demanda_texto">
+        {!!$r->texto!!}
     </div>
 
     <div class="bloco_tarefa">

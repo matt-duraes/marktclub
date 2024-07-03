@@ -58,6 +58,7 @@ async function buscarDados(filtros) {
         for (const item of resposta.dado) {
             adicionarNovaDemanda(coluna, item);
         }
+        buscarSprintAtiva();
     };
 
     const carregarBuscarQuadro = (coluna, resposta) => {

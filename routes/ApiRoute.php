@@ -1852,7 +1852,7 @@ Route
             ::nome('listar')
             ::middleware(TokenMiddleware::class, 'scope', ['demanda_sprint:listar'])
             ::request([
-                'pagina', '!quantidade', '!titulo', '!data_inicio', '!data_final', '!status'
+                'pagina', '!quantidade', '!titulo', '!data_inicio', '!data_final', '!publicado', '!status'
             ], 'json')
             ::get('/demanda-sprint');
 

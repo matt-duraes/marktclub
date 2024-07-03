@@ -1,4 +1,13 @@
 <div id="bloco_app_lista_detalhe" class="bloco_coluna_geral bloco_visualizar_lista" data-status="nova">
+    <div class="bloco_botao display_none" id="bloco_botao_sprint">
+        <div class="botao add esqueleto" id="botao_criar_sprint">Criar sprint</div>
+        <div class="barra"></div>
+        <button class="botao esqueleto" id="botao_abrir_todo">Abrir todos</button>
+        <button class="botao esqueleto" id="botao_fechar_todo">Fechar todos</button>
+        <div class="barra"></div>
+        <button class="botao esqueleto" id="botao_na_sprint">Na sprint</button>
+        <button class="botao esqueleto" id="botao_fora_sprint">Fora da print</button>
+    </div>
     @ laco(3)
     <div class="lista geral loading display_none">
         <div class="header">

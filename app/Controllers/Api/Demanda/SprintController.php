@@ -5,6 +5,7 @@ namespace App\Controllers\Api\Demanda;
 use Http\Request;
 use Http\Response;
 use Controller\Controller;
+use App\Classes\Demanda\Sprint\Status;
 use App\Models\Api\Demanda\Sprint\SprintModel;
 use App\Models\Api\Demanda\Sprint\SprintEntity;
 use System\Interface\ControllerBuscarInterface;
@@ -28,7 +29,25 @@ class SprintController extends Controller implements
     public function getBuscar(string $id): Response
     {
         $Sprint = new SprintEntity();
-        $Sprint->uuid($id);
+        if ($id == 'ativa') {
+            $Sprint->buscar([
+                [
+                    'OR',
+                    ['data_inicio', 'null'],
+                    ['data_inicio', ''],
+                    ['data_inicio', '<=', hoje() . ' 23:59:59'],
+                ],
+                [
+                    'OR',
+                    ['data_final', 'null'],
+                    ['data_final', ''],
+                    ['data_final', '>=', hoje()],
+                ],
+                ['status', 'in', Status::PUBLICADO]
+            ]);
+        } else {
+            $Sprint->uuid($id);
+        }
         return $this->retornoSucesso($Sprint);
     }
 
@@ -49,7 +68,7 @@ class SprintController extends Controller implements
     {
         return mensagemSucesso(
             pegarPropriedadeDaEntity($Sprint, lista: [
-                'titulo', 'texto_inicio', 'texto_final', 'data_inicio', 'data_final', 'status'
+                'demanda', 'titulo', 'texto_inicio', 'texto_final', 'data_inicio', 'data_final', 'status'
             ]),
             $status
         );

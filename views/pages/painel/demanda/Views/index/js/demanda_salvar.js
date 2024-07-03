@@ -638,8 +638,8 @@ window.addEventListener('load', () => {
             resetarDemanda();
         }, 300);
 
-        const coluna = primeiraColuna ? primeiraColuna.querySelector('.conteudo') : '';
-        await adicionarNovaDemanda(coluna.querySelector('.conteudo'), json.dado, abrir);
+        const coluna = conteudoLista ? conteudoLista : primeiraColuna.querySelector('.conteudo');
+        await adicionarNovaDemanda(coluna, json.dado, abrir);
         contarTarefaDemanda(coluna);
     });
 

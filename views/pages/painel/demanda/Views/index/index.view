@@ -65,7 +65,7 @@
                 <div class="bloco_botao">
                     <div class="botao botao_ver_demanda">Ver demanda</div>
                     <div class="botao sprint">Add sprint</div>
-                    <div class="botao remover display_none">Remover sprint</div>
+                    <div class="botao remover">Remover sprint</div>
                 </div>
             </div>
         </div>
