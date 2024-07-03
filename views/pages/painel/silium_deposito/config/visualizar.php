@@ -55,7 +55,7 @@ $Painel->coluna(callback: function () use ($Painel) {
         );*/
 });
 
-$Painel->replace('tipo_conta', (new TipoConta())->select());
-$Painel->replace('status', (new StatusDeposito())->select());
+/*$Painel->replace('tipo_conta', (new TipoConta())->select());
+$Painel->replace('status', (new StatusDeposito())->select());*/
 
 return $Painel;

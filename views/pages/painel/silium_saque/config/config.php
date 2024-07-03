@@ -6,13 +6,13 @@ return [
     'filtrar'    => true,
     'ordem'      => true,
     'visualizar' => true,
-    'add'        => false,
-    'editar'     => false,
-    'deletar'    => false,
+    'add'        => true,
+    'editar'     => true,
+    'deletar'    => true,
     'download'   => false,
     'historico'  => true,
     'api'        => [
-        'scope' => 'silium_saque',
-        'uri'   => '/silium-saque'
+        'scope' => 'silium_deposito',
+        'uri'   => '/silium-deposito'
     ]
 ];

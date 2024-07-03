@@ -2471,8 +2471,8 @@ Route
             ::nome('listar')
             ::middleware(TokenMiddleware::class, 'scope', ['silium_comissao:listar'])
             ::request([
-                'pagina', '!quantidade', '!ordem', '!empresa', '!usuario',
-                '!data_inicio', '!data_final', '!status'
+                'pagina', '!quantidade', '!ordem', '!usuario', '!data_inicio',
+                '!data_final', '!status'
             ], 'json')
             ::get('/silium-comissao');
 
@@ -2520,7 +2520,8 @@ Route
             ::middleware(TokenMiddleware::class, 'scope', ['silium_deposito:listar'])
             ::request([
                 'pagina', '!quantidade', '!ordem', '!usuario', '!tipo_conta',
-                '!tipo', '!data_inicio', '!data_final', '!status'
+                '!tipo_operacao', '!tipo_resgate', '!tipo', '!data_inicio',
+                '!data_final', '!status'
             ], 'json')
             ::get('/silium-deposito');
 
@@ -2528,7 +2529,10 @@ Route
             ::nome('salvar')
             ::middleware(TokenMiddleware::class, 'scope', ['silium_deposito:salvar'])
             ::request([
-                'saque', 'valor', 'data_deposito', 'documento_anexo'
+                '!usuario', '!saque', '!nome_titular', '!documento_cpf', '!email',
+                '!tipo_conta', '!tipo_operacao', '!tipo_resgate', '!banco',
+                '!agencia', '!conta', '!pontuacao', '!valor', '!data_deposito',
+                '!documento_anexo', '!status'
             ])
             ::post('/silium-deposito');
 
@@ -2536,7 +2540,10 @@ Route
             ::nome('atualizar')
             ::middleware(TokenMiddleware::class, 'scope', ['silium_deposito:atualizar'])
             ::request([
-                '!saque', '!valor', '!data_deposito', '!documento_anexo'
+                '!saque', '!nome_titular', '!documento_cpf', '!email', '!tipo_conta',
+                '!tipo_operacao', '!tipo_resgate', '!banco', '!agencia', '!conta',
+                '!pontuacao', '!valor', '!data_deposito', '!documento_anexo',
+                '!status'
             ])
             ::put('/silium-deposito/{id}');
 
@@ -2547,53 +2554,31 @@ Route
     });
 
 Route
-    ::nome('silium_saque')
-    ::controller(App\Controllers\Api\SiliumSaqueController::class)
+    ::nome('silium_config')
+    ::controller(App\Controllers\Api\SiliumConfigController::class)
     ::middleware(TokenMiddleware::class, 'token')
     ::grupo(function () {
         Route
-            ::nome('select')
-            ::middleware(TokenMiddleware::class, 'scope', ['silium_saque:select'])
-            ::request(['saque'], 'json')
-            ::get('/silium-saque/select');
-
-        Route
             ::nome('buscar')
-            ::middleware(TokenMiddleware::class, 'scope', ['silium_saque:buscar'])
-            ::get('/silium-saque/{id}');
+            ::middleware(TokenMiddleware::class, 'scope', ['silium_config:buscar'])
+            ::get('/silium-config/{id}');
 
         Route
             ::nome('listar')
-            ::middleware(TokenMiddleware::class, 'scope', ['silium_saque:listar'])
+            ::middleware(TokenMiddleware::class, 'scope', ['silium_config:listar'])
             ::request([
-                'pagina', '!quantidade', '!ordem', '!usuario', '!tipo_conta',
-                '!data_inicio', '!data_final', '!status'
+                'pagina'
             ], 'json')
-            ::get('/silium-saque');
-
-        Route
-            ::nome('salvar')
-            ::middleware(TokenMiddleware::class, 'scope', ['silium_saque:salvar'])
-            ::request([
-                '!usuario', 'nome_titular', 'documento_cpf', 'email',
-                'tipo_conta', 'banco', 'agencia', 'conta', 'pontuacao'
-            ])
-            ::post('/silium-saque');
+            ::get('/silium-config');
 
         Route
             ::nome('atualizar')
-            ::middleware(TokenMiddleware::class, 'scope', ['silium_saque:atualizar'])
+            ::middleware(TokenMiddleware::class, 'scope', ['silium_config:atualizar'])
             ::request([
-                '!usuario', '!nome_titular', '!documento_cpf', '!email',
-                '!tipo_conta', '!banco', '!agencia', '!conta', '!pontuacao',
-                '!status'
+                '!regra_conversao', '!pontuacao_dinheiro', '!pontuacao_mensalidade',
+                '!validade_pontuacao'
             ])
-            ::put('/silium-saque/{id}');
-
-        Route
-            ::nome('deletar')
-            ::middleware(TokenMiddleware::class, 'scope', ['silium_saque:deletar'])
-            ::delete('/silium-saque/{id}');
+            ::put('/silium-config/{id}');
     });
 
 Route

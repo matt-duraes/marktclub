@@ -2,11 +2,13 @@
 
 namespace App\Controllers\Api;
 
-use App\Classes\Silium\OrdemDeposito;
-use App\Classes\Silium\StatusDeposito;
-use App\Classes\Silium\TipoConta;
-use App\Models\Api\Silium\SiliumDepositoEntity;
-use App\Models\Api\Silium\SiliumDepositoModel;
+use App\Classes\SiliumDeposito\Ordem;
+use App\Classes\SiliumDeposito\Status;
+use App\Classes\SiliumDeposito\TipoConta;
+use App\Classes\SiliumDeposito\TipoOperacao;
+use App\Classes\SiliumDeposito\TipoResgate;
+use App\Models\Api\SiliumDeposito\SiliumDepositoEntity;
+use App\Models\Api\SiliumDeposito\SiliumDepositoModel;
 use Controller\Controller;
 use Http\Request;
 use Http\Response;
@@ -39,8 +41,10 @@ final class SiliumDepositoController extends Controller implements
             pegarPropriedadeDaEntity(
                 Entity: $SiliumDepositoEntity,
                 lista: [
-                    'usuario', 'saque', 'valor', 'data_deposito',
-                    'documento_anexo', 'status', 'data_criacao',
+                    'usuario', 'nome_titular', 'documento_cpf', 'email',
+                    'tipo_conta', 'banco', 'agencia', 'conta', 'pontuacao',
+                    'valor', 'data_deposito', 'documento_anexo', 'status',
+                    'tipo_operacao', 'tipo_resgate', 'data_criacao',
                     'data_atualizacao'
                 ]
             ),
@@ -50,17 +54,19 @@ final class SiliumDepositoController extends Controller implements
 
     public function getListar(Request $request): Response
     {
-        $SiliumDeposito = new SiliumDepositoModel(
+        $SiliumDepositoModel = new SiliumDepositoModel(
             new Pagina($request->pagina),
             new Quantidade($request->quantidade),
-            new OrdemDeposito($request->ordem),
+            new Ordem($request->ordem),
             $request->usuario,
             new TipoConta($request->tipo_conta),
+            new TipoOperacao($request->tipo_operacao),
+            new TipoResgate($request->tipo_resgate),
             new Data($request->data_inicio),
             new Data($request->data_final),
-            new StatusDeposito($request->status)
+            new Status($request->status)
         );
-        return mensagemSucesso($SiliumDeposito->listarDados());
+        return mensagemSucesso($SiliumDepositoModel->listarDados());
     }
 
     public function postSalvar(Request $request): Response

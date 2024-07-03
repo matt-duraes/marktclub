@@ -2,11 +2,11 @@
 
 namespace App\Controllers\Api;
 
-use App\Classes\Silium\OrdemComissao;
-use App\Classes\Silium\StatusComissao;
-use App\Models\Api\Silium\SiliumComissaoEntity;
-use App\Models\Api\Silium\SiliumComissaoModel;
-use App\Models\Api\Silium\SiliumSaldoEntity;
+use App\Classes\SiliumComissao\Ordem;
+use App\Classes\SiliumComissao\Status;
+use App\Models\Api\SiliumComissao\SiliumComissaoEntity;
+use App\Models\Api\SiliumComissao\SiliumComissaoModel;
+use App\Models\Api\SiliumSaldo\SiliumSaldoEntity;
 use Controller\Controller;
 use Helpers\OrmHelper;
 use Http\Request;
@@ -39,12 +39,12 @@ final class SiliumComissaoController extends Controller implements
         $SiliumComissaoModel = new SiliumComissaoModel(
             new Pagina($request->pagina),
             new Quantidade($request->quantidade),
-            new OrdemComissao($request->ordem),
+            new Ordem($request->ordem),
             $request->usuario,
             $request->parceiro,
             new Data($request->data_inicio),
             new Data($request->data_final),
-            new StatusComissao($request->status)
+            new Status($request->status)
         );
         return mensagemSucesso($SiliumComissaoModel->listarDados());
     }
@@ -95,9 +95,11 @@ final class SiliumComissaoController extends Controller implements
         $idUsuario = $OrmHelper->pegarIdPeloUuid($id);
 
         $SiliumSaldoEntity = new SiliumSaldoEntity();
-        $SiliumSaldoEntity->buscar(['id_usuario_cliente', $idUsuario], false);
+        $SiliumSaldoEntity->buscar([
+            'id_usuario_cliente', $idUsuario
+        ], false);
 
-        if (!$SiliumSaldoEntity->pExiste('saldo_silium')) {
+        if (empty($SiliumSaldoEntity->id)) {
             $SiliumSaldoEntity->saldo_silium = 0;
         }
 

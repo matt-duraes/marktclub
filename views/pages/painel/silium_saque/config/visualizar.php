@@ -1,14 +1,23 @@
 <?php
 
 use PainelConfig\Visualizar;
-use App\Classes\Silium\StatusSaque;
-use App\Classes\Silium\TipoConta;
+use App\Classes\SiliumDeposito\Status;
+use App\Classes\SiliumDeposito\TipoConta;
+use App\Classes\SiliumDeposito\TipoResgate;
 use App\Classes\UsuarioCliente\Helper;
 
 $Painel = new Visualizar('silium_saque');
 
-$StatusSaque = new StatusSaque();
-$Painel->coluna(callback: function () use ($Painel, $StatusSaque) {
+$TipoConta = new TipoConta();
+$Status = new Status();
+$TipoResgate = new TipoResgate();
+
+$Painel->coluna(callback: function () use ($Painel, $Status) {
+    $Painel->bloco('Identificação da Solicitação', function () use ($Painel) {
+        $Painel
+            ->linha('id', 'UUID');
+    });
+
     $Painel->bloco('Usuario', function () use ($Painel) {
         $Painel
             ->linha('usuario->nome', 'Nome')
@@ -22,13 +31,19 @@ $Painel->coluna(callback: function () use ($Painel, $StatusSaque) {
 
     $Painel->bloco('Dados da Solicitação', function () use ($Painel) {
         $Painel
+            ->linha('tipo_resgate', 'Tipo de Resgate')
+            ->linha('pontuacao', 'Pontuação')
+            ->dinheiro('valor', 'Valor');
+    });
+
+    $Painel->bloco('Dados Bancários', function () use ($Painel) {
+        $Painel
             ->linha('nome_titular', 'Nome do Titular')
             ->cpf('documento_cpf', 'CPF do Titular')
             ->linha('tipo_conta', 'Tipo de Conta')
             ->linha('banco', 'Instituição Financeira')
             ->linha('agencia', 'Agência')
-            ->linha('conta', 'Conta')
-            ->linha('pontuacao', 'Pontuação');
+            ->linha('conta', 'Conta');
     });
 
     $Painel->bloco('Outras Informações', function () use ($Painel) {
@@ -42,21 +57,22 @@ $Painel->coluna(callback: function () use ($Painel, $StatusSaque) {
         ->status(
             campo: 'status',
             texto: 'Deposito realizado',
-            inArray: [$StatusSaque->nome(StatusSaque::AGUARDANDO)],
-            status: StatusSaque::DEPOSITADO,
+            inArray: [$Status->nome(Status::AGUARDANDO)],
+            status: Status::DEPOSITADO,
             mensagem: 'Tem certeza que deseja alterar o status para depositado?',
             cor: 'verde'
         )->status(
             campo: 'status',
             texto: 'Deposito negado',
-            inArray: [$StatusSaque->nome(StatusSaque::AGUARDANDO)],
-            status: StatusSaque::NEGADO,
+            inArray: [$Status->nome(Status::AGUARDANDO)],
+            status: Status::NEGADO,
             mensagem: 'Tem certeza que deseja alterar o status para negado?',
             cor: 'vermelho'
         );
 });
 
-$Painel->replace('tipo_conta', (new TipoConta())->select());
-$Painel->replace('status', $StatusSaque->select());
+$Painel->replace('tipo_conta', $TipoConta->select());
+$Painel->replace('status', $Status->select());
+$Painel->replace('tipo_resgate', $TipoResgate->select());
 
 return $Painel;
