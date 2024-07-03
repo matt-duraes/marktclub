@@ -210,8 +210,8 @@ const loadingAtivar = () => {
                 endereco_bairro: pegarValorInput(inputEnderecoBairro),
                 endereco_estado: pegarValorInput(inputEnderecoEstado),
                 endereco_cidade: pegarValorInput(inputEnderecoCidade),
-                cargo: pegarValorInput(inputCargo),
-                lotacao: pegarValorInput(inputLotacao),
+                trabalho_cargo: pegarValorInput(inputCargo),
+                trabalho_empresa: pegarValorInput(inputLotacao),
                 tipo_usuario: tipo_usuario || '',
                 /* eslint-enable */
             },

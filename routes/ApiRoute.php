@@ -358,7 +358,7 @@ Route
             ::request([
                 'hash', 'nome', 'cpf', 'genero', 'senha', 'termo', 'data_nascimento', 'estado_civil',
                 'email_pessoal', 'email_trabalho', 'telefone_pessoal', 'telefone_trabalho', 'endereco_cep',
-                'endereco_logradouro', 'endereco_numero','!cargo', '!lotacao' ,'endereco_complemento', 'endereco_bairro',
+                'endereco_logradouro', 'endereco_numero','!trabalho_empresa','!trabalho_cargo','endereco_complemento', 'endereco_bairro',
                 'endereco_estado', 'endereco_cidade', '!tipo_usuario', '!empresa', '!grupo'
             ])
             ::put('/usuario-cliente/ativar');
@@ -1698,7 +1698,10 @@ Route
                 '!prospeccao_status', '!status', '!quantidade', '!ordem'
             ], 'json')
             ::get('/comercial-empresa');
-
+        Route
+            ::nome('slug')
+            ::middleware(TokenMiddleware::class, 'scope', ['comercial_empresa:buscar'])
+            ::get('/empresa-slug/{id}');
         Route
             ::nome('perfil')
             ::middleware(TokenMiddleware::class, 'scope', ['comercial_empresa:listar'])

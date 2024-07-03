@@ -30,6 +30,6 @@ final class PrimeiroAcessoHelper
         'senha'                => 'Senha',
         'grupo'                => 'Grupo',
         'lotacao'              => 'Lotação',
-        'cargo'                => 'Cargo'
+        'trabalho_cargo'       => 'Cargo'
     ];
 }

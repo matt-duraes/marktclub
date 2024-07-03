@@ -9,11 +9,11 @@ use Helpers\CryptHelper;
 use Controller\Controller;
 use App\Classes\TextoClube\Tipo;
 use App\Models\Site\Login\LogarModel;
+use App\Models\Site\Ativar\GrupoModel;
 use App\Models\Site\Ativar\SalvarModel;
 use App\Models\Site\Login\LoginApiModel;
 use App\Models\Site\Login\ComunicacaoModel;
 use App\Classes\ConstrutorClube\TipoAtivacao;
-use App\Models\Site\Ativar\GrupoModel;
 use App\Models\Site\Contato\SalvarModel as SalvarContatoModel;
 
 final class LoginController extends Controller
@@ -131,6 +131,7 @@ final class LoginController extends Controller
     */
     public function ativarBuscar()
     {
+        (new GrupoModel())->buscarSlug();
         $TipoAtivacao = new TipoAtivacao();
         return view('login.ativar.buscar', [
             'tipoSiape'      => $TipoAtivacao::SIAPE == TIPO_ATIVACAO,
@@ -171,7 +172,7 @@ final class LoginController extends Controller
 
         return mensagemSucesso([
             'hash'  => $buscar->dado->hash ?? '',
-            'cpf'   => $buscar->dado->cpf ?? ''
+            'cpf'   => $buscar->dado->cpf ?? '',
         ], status: 201);
     }
 
@@ -180,7 +181,6 @@ final class LoginController extends Controller
         if ($request->vazio('hash')) {
             mensagemStatus(404);
         }
-
         return view('login.ativar.salvar', [
             'hash'           => $request->hash,
             'cpf'            => $request->cpf,
