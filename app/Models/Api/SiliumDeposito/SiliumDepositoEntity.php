@@ -297,9 +297,9 @@ class SiliumDepositoEntity extends Entity
 
     private function enviarEmail(): void
     {
-        /*if (eLocalhost()) {
+        if (eLocalhost()) {
             return;
-        }*/
+        }
 
         $Construtor = new ConstrutorEntity();
         $Construtor->buscar(['id_admin_empresa', $this->idEmpresa]);
