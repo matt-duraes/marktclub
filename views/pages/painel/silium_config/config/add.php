@@ -1,5 +1,6 @@
 <?php
 
+use Modules\Botao;
 use PainelConfig\Add;
 
 $Painel = new Add('silium_config', $acao);
@@ -7,6 +8,18 @@ $Painel = new Add('silium_config', $acao);
 $Painel->coluna(callback: function () use ($Painel) {
     $Painel->fieldset('Regras Resgate', function () use ($Painel) {
         $Painel
+            ->select(
+                name: 'empresa',
+                lista: 'empresa',
+                label: 'Selecione a Empresa',
+                obrigatorio: true
+            )
+            ->select(
+                name: 'desconto',
+                lista: (new Botao())->select(),
+                label: 'Tem resgate via Desconto na Mensalidade?',
+                obrigatorio: true
+            )
             ->numero(
                 name: 'pontuacao_dinheiro',
                 label: 'Pontuação Miníma Resgate (Dinheiro)',
@@ -16,8 +29,7 @@ $Painel->coluna(callback: function () use ($Painel) {
             ->numero(
                 name: 'pontuacao_mensalidade',
                 label: 'Pontuação Miníma Resgate (Desconto Mensalidade)',
-                placeholder: 'Insira a pontuação miníma para desconto na mensalidade',
-                obrigatorio: true
+                placeholder: 'Insira a pontuação miníma para desconto na mensalidade'
             )
             ->numero(
                 name: 'validade_pontuacao',

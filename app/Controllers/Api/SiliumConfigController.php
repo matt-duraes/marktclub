@@ -12,11 +12,25 @@ use Modules\Pagina;
 use Modules\Quantidade;
 use System\Interface\ControllerListarInterface;
 use System\Interface\ControllerAtualizarInterface;
+use System\Interface\ControllerBuscarInterface;
 
 final class SiliumConfigController extends Controller implements
+    ControllerBuscarInterface,
     ControllerListarInterface,
     ControllerAtualizarInterface
 {
+    public function getBuscar(string $id): Response
+    {
+        $SiliumConfigEntity = new SiliumConfigEntity();
+        $SiliumConfigEntity->uuid($id);
+        return mensagemSucesso(
+            pegarPropriedadeDaEntity($SiliumConfigEntity, lista: [
+                'empresa', 'desconto', 'pontuacao_dinheiro',
+                'pontuacao_mensalidade', 'validade_pontuacao'
+            ])
+        );
+    }
+
     public function getListar(Request $request): Response
     {
         $SiliumConfigModel = new SiliumConfigModel(
@@ -36,7 +50,7 @@ final class SiliumConfigController extends Controller implements
         return new Response(status: 204);
     }
 
-    public function postConfiguracoes(): Response
+    public function getConfiguracoes(): Response
     {
         $SiliumConfigEntity = new SiliumConfigEntity();
         $SiliumConfigEntity->buscar(['id_admin_empresa', TOKEN['empresa']->id]);

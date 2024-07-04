@@ -3,28 +3,27 @@
 namespace App\Models\Api\SiliumConfig;
 
 use App\Classes\SiliumDeposito\TipoResgate;
-use App\Models\Api\Trait\ValidarEmpresaTrait;
+use Helpers\OrmHelper;
 use Modules\Botao;
 use ORM\Entity;
 
 class SiliumConfigEntity extends Entity
 {
-    use ValidarEmpresaTrait;
-
     protected string $ormTabela = TABELA_SILIUM_CONFIG;
     protected array $ormBuscar = [
-        'desconto', 'regra_conversao', 'pontuacao_minima_resgate',
-        'validade_pontuacao', 'data_criacao', 'data_atualizacao'
+        'id_admin_empresa', 'desconto', 'regra_conversao',
+        'pontuacao_minima_resgate', 'validade_pontuacao', 'data_criacao',
+        'data_atualizacao'
     ];
     protected array $ormSalvar = [
         'id_admin_empresa' => '->idEmpresa',
         'desconto', 'regra_conversao', 'pontuacao_minima_resgate',
         'validade_pontuacao'
     ];
-    protected string $ormValidarSalvar = '
-        validade_pontuacao|Prazo de Validade|int|obrigatorio|vazio
-    ';
+    protected int $id_admin_empresa;
+    protected int $idEmpresa;
 
+    public string $empresa;
     public Botao $desconto;
     public array $regra_conversao;
     public array $pontuacao_minima_resgate;
@@ -34,13 +33,20 @@ class SiliumConfigEntity extends Entity
 
     public function __construct()
     {
-        $this->validarEmpresa();
         parent::__construct();
+    }
+
+    protected function regraPosBuscar(): void
+    {
+        $this->pegarEmpresa();
+        $this->pontuacao_dinheiro = $this->pontuacao_minima_resgate[TipoResgate::DINHEIRO];
+        $this->pontuacao_mensalidade = $this->pontuacao_minima_resgate[TipoResgate::MENSALIDADE];
     }
 
     protected function regraSalvar(): void
     {
         $this->validarDados();
+        $this->setarEmpresa();
         $this->pontuacao_minima_resgate = [
             TipoResgate::DINHEIRO    => $this->pontuacao_dinheiro,
             TipoResgate::MENSALIDADE => $this->pontuacao_mensalidade
@@ -77,5 +83,35 @@ class SiliumConfigEntity extends Entity
                 localhost: 'Número menor que 0'
             );
         }
+    }
+
+    private function setarEmpresa(): void
+    {
+        $OrmHelper = new OrmHelper(TABELA_COMERCIAL_EMPRESA);
+        $idEmpresa = $OrmHelper->pegarIdPeloUuid($this->empresa);
+
+        if (empty($idEmpresa)) {
+            mensagemErro(
+                'Campo inválido!',
+                'Não foi possível vincular a empresa selecionada.',
+                localhost: 'Não achou há empresa no banco'
+            );
+        }
+        $this->idEmpresa = $idEmpresa;
+    }
+
+    private function pegarEmpresa(): void
+    {
+        $OrmHelper = new OrmHelper(TABELA_COMERCIAL_EMPRESA);
+        $uuidEmpresa = $OrmHelper->pegarUuidPeloId($this->id_admin_empresa);
+
+        if (empty($uuidEmpresa)) {
+            mensagemErro(
+                'Campo inválido!',
+                'Não foi possível vincular a empresa selecionada.',
+                localhost: 'Não achou há empresa no banco'
+            );
+        }
+        $this->empresa = $uuidEmpresa;
     }
 }
