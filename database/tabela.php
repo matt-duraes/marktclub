@@ -1,4 +1,4 @@
-<?php
+<?php 
 
 define('TABELA_ALBUM_DADO', 'album_dado');
 define('TABELA_ALBUM_FOTO', 'album_foto');
@@ -71,9 +71,9 @@ define('TABELA_PUBLICACAO_YOUTUBE', 'publicacao_youtube');
 define('TABELA_SAUDE_CONTRATACAO', 'saude_contratacao');
 define('TABELA_SAUDE_SIMULACAO', 'saude_simulacao_novo');
 define('TABELA_SILIUM_COMISSAO', 'silium_comissao');
+define('TABELA_SILIUM_CONFIG', 'silium_config');
 define('TABELA_SILIUM_DEPOSITO', 'silium_deposito');
 define('TABELA_SILIUM_SALDO', 'silium_saldo');
-define('TABELA_SILIUM_SAQUE', 'silium_saque');
 define('TABELA_SISTEMA_CONTATO', 'sistema_contato');
 define('TABELA_SISTEMA_DATA', 'sistema_data');
 define('TABELA_SISTEMA_DOWNLOAD', 'sistema_download');
