@@ -43,6 +43,16 @@ final class SiliumModel extends ClubeApiHelper
         return $dado->dado->lista;
     }
 
+    public function pontosResgate()
+    {
+        $dado = $this
+            ->validar('Não foi possível pegar os pontos necessários!', status: 404)
+            ->post('/silium-config')
+            ->object();
+        return $dado->dado;
+
+    }
+
     public function extratoSaque()
     {
         $dado = $this
@@ -71,7 +81,7 @@ final class SiliumModel extends ClubeApiHelper
                 'agencia'       => $dados['agencia'],
                 'conta'         => $dados['contaBancaria'],
                 'tipo_conta'    => $dados['tipoConta'],
-                'tipo_resgate'  => TipoResgate::DINHEIRO
+                'tipo_resgate'  => $dados['tipoResgate']
             ])
             ->post('/silium-deposito')
             ->object();

@@ -23,11 +23,11 @@
                         </span>
                     </p>
                 </div>
-                @if ($saldo >= 10000):
+                @if ($saldo >= $pontosMinimos):
                 <div class="botao" id="botao_popup_resgate">Solicitar resgate</div>
                 @else:
                 <div class="bloco_atencao_geral">
-                    <p>VOCÊ PRECISA ACUMULAR 10.000 PONTOS PARA SOLICITAR RESGATE.</p>
+                    <p>VOCÊ PRECISA ACUMULAR {{$pontosMinimos}} PONTOS PARA SOLICITAR RESGATE.</p>
                 </div>
                 @endif;
             </div>
@@ -110,6 +110,22 @@
     </div>
 </div>
 
+<div class="bloco_pagina_popup display_none" id="bloco_escolher_metodo">
+    <div class="conteudo_pagina_popup conteudo_popup">
+        <header>
+            <h1>Escolha o tipo de resgate</h1>
+            <i class="popup_fechar fechar">@iconeFechar</i>
+        </header>
+        <form class="form_geral">
+            <div class="bloco">
+                @? formSelect(name: 'tipo_resgate', label: 'Tipo de Resgate', placeholder: 'Escolha o tipo de resgate', obrigatorio: true, lista: (new \App\Classes\SiliumDeposito\TipoResgate())->select('Selecione um tipo de resgate'));
+            </div>
+        </form>
+        <div class="botao" id="botao_popup_metodo">Escolher método</div>
+    </div>
+</div>
+
+
 <div class="bloco_pagina_popup display_none" id="bloco_resgatar_ponto">
     <div class="conteudo_pagina_popup conteudo_popup">
         <header>
@@ -120,25 +136,24 @@
         <form class="form_geral">
             <div class="bloco">
                 <h1 class="titulo_dados_bancarios">Dados Pessoais</h1>
-                <fieldset>
                     @? formInput(name: 'ponto_nome', label: 'Nome', placeholder:'Digite seu nome', obrigatorio: true, value: '', local: 'André Rodrigues')
                     @? formInput(name: 'ponto_email', label: 'E-mail', placeholder:'Digite seu E-mail', obrigatorio: true, value: '', local: 'andre@markt.club')
                     @? formNumero(name: 'ponto_quantidade', label: 'Pontos', placeholder: 'Digite a quantidade de pontos', obrigatorio: true, value: '', local: 1)
-                </fieldset>
-                <h1 class="titulo_dados_bancarios">Dados Bancários</h1>
-                <fieldset>
-                    @? formInput(name: 'titular', label: 'Nome', placeholder:'Digite o nome do titular', obrigatorio: true, value: '', local: 'André Rodrigues')
-                    @? formCpf(name: 'cpf_conta', label: 'CPF', placeholder: 'CPF', obrigatorio: true, value: '', local: '123.456.789-00')
-                    @? formInput(name: 'banco', label: 'Banco', placeholder:'Digite o nome do banco', obrigatorio: true, value: '', local: 'InterSA')
-                    @? formNumero(name: 'conta', label: 'Conta Bancária', placeholder:'Digite a sua conta bancária ', maximo: 15, obrigatorio: true, value: '', local: '123456789')
-                    @? formNumero(name: 'agencia', label: 'Agência', placeholder:'Digite a sua agência bancária ', obrigatorio: true, value: '', local: '14320')
-                    @? formSelect(name: 'tipo', label: 'Tipo de Conta', placeholder: 'Escolha o tipo de conta', obrigatorio: true, lista: (new \App\Classes\SiliumDeposito\TipoConta())->select('Selecione um tipo de conta'));
-                </fieldset>
+                    <div class="resgate_dinheiro display_none">
+                        <h1 class="titulo_dados_bancarios">Dados Bancários</h1>
+                        @? formInput(name: 'titular', label: 'Nome', placeholder:'Digite o nome do titular', obrigatorio: true, value: '', local: 'André Rodrigues')
+                        @? formCpf(name: 'cpf_conta', label: 'CPF', placeholder: 'CPF', obrigatorio: true, value: '', local: '123.456.789-00')
+                        @? formInput(name: 'banco', label: 'Banco', placeholder:'Digite o nome do banco', obrigatorio: true, value: '', local: 'InterSA')
+                        @? formNumero(name: 'conta', label: 'Conta Bancária', placeholder:'Digite a sua conta bancária ', maximo: 15, obrigatorio: true, value: '', local: '123456789')
+                        @? formNumero(name: 'agencia', label: 'Agência', placeholder:'Digite a sua agência bancária ', obrigatorio: true, value: '', local: '14320')
+                        @? formSelect(name: 'tipo', label: 'Tipo de Conta', placeholder: 'Escolha o tipo de conta', obrigatorio: true, lista: (new \App\Classes\SiliumDeposito\TipoConta())->select('Selecione um tipo de conta'));
+                    </div>
             </div>
         </form>
+
         <div class="bloco_botao">
-            <div class="botao cor_bg botao" id="botao_solicitar_ponto">Solicitar ponto</div>
+            <a href="/cashback/extrato#escolher-metodo">Voltar</a>
+            <div class="botao cor_bg botao" id="botao_solicitar_ponto">Solicitar resgate</div>
         </div>
     </div>
 </div>
-
