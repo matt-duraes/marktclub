@@ -2559,6 +2559,11 @@ Route
     ::middleware(TokenMiddleware::class, 'token')
     ::grupo(function () {
         Route
+            ::nome('buscar')
+            ::middleware(TokenMiddleware::class, 'scope', ['silium_config:buscar'])
+            ::get('/silium-config/{id}');
+
+        Route
             ::nome('listar')
             ::middleware(TokenMiddleware::class, 'scope', ['silium_config:listar'])
             ::request([
@@ -2570,15 +2575,15 @@ Route
             ::nome('atualizar')
             ::middleware(TokenMiddleware::class, 'scope', ['silium_config:atualizar'])
             ::request([
-                '!regra_conversao', '!pontuacao_dinheiro', '!pontuacao_mensalidade',
-                '!validade_pontuacao'
+                '!empresa', '!regra_conversao', '!pontuacao_dinheiro',
+                '!pontuacao_mensalidade', '!validade_pontuacao'
             ])
             ::put('/silium-config/{id}');
 
         Route
             ::nome('configuracoes')
-            ::middleware(TokenMiddleware::class, 'scope', ['silium_config:buscar'])
-            ::post('/silium-config');
+            ::middleware(TokenMiddleware::class, 'scope', ['silium_config:configuracoes'])
+            ::get('/silium-admin');
     });
 
 Route

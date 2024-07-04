@@ -104,12 +104,9 @@ final class SiliumComissaoController extends Controller implements
         }
 
         return mensagemSucesso(
-            pegarPropriedadeDaEntity(
-                $SiliumSaldoEntity,
-                lista: [
-                    'saldo_silium', 'data_validade'
-                ]
-            )
+            pegarPropriedadeDaEntity($SiliumSaldoEntity, lista: [
+                'saldo_silium'
+            ])
         );
     }
 }

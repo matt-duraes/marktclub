@@ -6,7 +6,7 @@ return [
     [
         'uuid'                     => uuid(),
         'id_admin_empresa'         => 1,
-        'desconto'                 => 0,
+        'desconto'                 => 'nao',
         'regra_conversao'          => ['acada' => 100, 'equivale' => 1],
         'pontuacao_minima_resgate' => [
             TipoResgate::DINHEIRO    => 10000,
@@ -17,7 +17,7 @@ return [
     [
         'uuid'                     => uuid(),
         'id_admin_empresa'         => 2,
-        'desconto'                 => 1,
+        'desconto'                 => 'sim',
         'regra_conversao'          => ['acada' => 100, 'equivale' => 1],
         'pontuacao_minima_resgate' => [
             TipoResgate::DINHEIRO    => 10000,

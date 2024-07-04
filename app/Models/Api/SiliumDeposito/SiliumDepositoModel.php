@@ -151,8 +151,8 @@ class SiliumDepositoModel extends ORM implements
             $retorno[] = [
                 'id'               => $deposito->uuid,
                 'usuario'          => [
-                    'id'    => $deposito->usuario_uuid,
-                    'nome'  => $deposito->usuario_nome
+                    'id'   => $deposito->usuario_uuid,
+                    'nome' => $deposito->usuario_nome
                 ],
                 'saque'          => [
                     'nome_titular'  => $deposito->nome_titular,

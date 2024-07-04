@@ -99,27 +99,6 @@ class SiliumComissaoEntity extends Entity
         $this->idUsuario = $usuario->id;
     }
 
-    private function pegarEmpresa(): void
-    {
-        $OrmHelper = new OrmHelper(TABELA_COMERCIAL_EMPRESA);
-        $empresa = $OrmHelper->pegarUltimoRegistro(
-            ['id', $this->id_admin_empresa],
-            ['uuid', 'nome_fantasia'],
-            'object'
-        );
-
-        if (empty($empresa->uuid)) {
-            $this->empresa = [
-                'id'   => '',
-                'nome' => 'Não foi encontrado'
-            ];
-        }
-        $this->empresa = [
-            'id'   => $empresa->uuid,
-            'nome' => $empresa->nome_fantasia
-        ];
-    }
-
     private function pegarUsuario(): void
     {
         $OrmHelper = new OrmHelper(TABELA_USUARIO_CLIENTE);
@@ -175,7 +154,6 @@ class SiliumComissaoEntity extends Entity
                 'saldo_silium' => $SiliumSaldoEntity->saldo_silium + $this->pontuacao,
             ];
         }
-        $saldo['data_validade'] = dataAdicionar(hoje(), 1, 'year');
         $SiliumSaldoEntity->set(lista: $saldo);
         $SiliumSaldoEntity->salvar();
     }
