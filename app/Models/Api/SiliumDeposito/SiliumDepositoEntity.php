@@ -58,6 +58,7 @@ class SiliumDepositoEntity extends Entity
 
     public function __construct()
     {
+        $this->ormInsert['status'] = (new Status(Status::AGUARDANDO))->numero();
         $this->pegarConfiguracoes();
         parent::__construct();
     }
