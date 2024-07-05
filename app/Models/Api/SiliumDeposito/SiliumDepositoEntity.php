@@ -342,7 +342,7 @@ class SiliumDepositoEntity extends Entity
     {
         $OrmHelper = new OrmHelper(TABELA_SILIUM_CONFIG);
         $configs = $OrmHelper->pegarUltimoRegistro(
-            ['id_admin_empresa', $this->idEmpresa],
+            ['id_admin_empresa', TOKEN['empresa']->id],
             ['desconto', 'pontuacao_minima_resgate'],
             'object'
         );

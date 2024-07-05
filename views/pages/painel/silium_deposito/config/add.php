@@ -39,7 +39,7 @@ $Painel->coluna(callback: function () use ($Painel, $Status) {
             ->imagem(
                 name: 'documento_anexo',
                 label: 'Imagem/Foto (exceto em mensalidade)',
-                diretorio: '2d978fba-4bd2-4af7-80bf-ebb94d9ac991'
+                diretorio: '2a957957-05be-4024-a5fb-7f69a4a0d07f'
             );
     });
 });
