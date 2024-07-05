@@ -1,4 +1,4 @@
-<?php 
+<?php
 
 define('TABELA_ALBUM_DADO', 'album_dado');
 define('TABELA_ALBUM_FOTO', 'album_foto');
@@ -106,4 +106,3 @@ define('TABELA_VOTACAO_PERGUNTA', 'votacao_pergunta');
 define('TABELA_VOTACAO_RESPOSTA', 'votacao_resposta');
 define('TABELA_VOTACAO_USUARIO', 'votacao_usuario');
 define('TABELA_VOTACAO_VOTO', 'votacao_voto');
-define('TABELA_SILIUM_CONFIG', 'silium_config');

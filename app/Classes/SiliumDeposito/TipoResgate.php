@@ -7,14 +7,14 @@ use Status\Status;
 class TipoResgate extends Status
 {
     public const DINHEIRO = 'dinheiro';
-    public const ANUIDADE = 'anuidade';
+    public const MENSALIDADE = 'anuidade';
 
     public function __construct(
         protected string|int|null $valor = null
     ) {
         parent::__construct([
             self::DINHEIRO    => 'Dinheiro',
-            self::ANUIDADE => 'Desconto na Anuidade'
+            self::MENSALIDADE => 'Desconto na Anuidade'
         ]);
     }
 }

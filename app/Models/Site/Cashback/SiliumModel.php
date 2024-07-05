@@ -47,7 +47,7 @@ final class SiliumModel extends ClubeApiHelper
     {
         $dado = $this
             ->validar('Não foi possível pegar os pontos necessários!', status: 404)
-            ->post('/silium-config')
+            ->get('/silium-admin')
             ->object();
         return $dado->dado;
 
