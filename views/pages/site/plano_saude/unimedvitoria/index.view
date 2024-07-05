@@ -69,7 +69,7 @@
 		<header>
             <h1>Carência</h1>
         </header>
-        <div class="bloco_tabela_geral">
+        <div class="bloco_tabela_geral tabela_carencia">
             <table>
                 <thead>
                     <tr>
@@ -79,28 +79,40 @@
                 </thead>
                 <tbody>
                     <tr>
-                        <td>Acidente Pessoal</td>
+                        <td>Urgência e Emergência / Acidente Pessoal</td>
                         <td>24 Horas</td>
                     </tr>
                     <tr>
-                        <td>Consultas / Exame simples</td>
+                        <td>Consultas</td>
                         <td>30 Dias</td>
                     </tr>
                     <tr>
-                        <td>Exames especializados</td>
+                        <td>Exames Simples(análises clínicas, RX simples)</td>
+                        <td>30 Dias</td>
+                    </tr>
+                    <tr>
+                        <td>Exames Especializados(ultrassonografia, exames obstétricos)</td>
                         <td>180 Dias</td>
                     </tr>
                     <tr>
-                        <td>Internações clínicas e cirúrgicas (exceto acid. pessoal)</td>
+                        <td>Procedimentos (PAC, ressonâncias magnéticas, tomográficas, terapia)</td>
                         <td>180 Dias</td>
                     </tr>
                     <tr>
-                        <td>Parto e termo</td>
+                        <td>Internação clínica e cirúrgica</td>
+                        <td>180 Dias</td>
+                    </tr>
+                    <tr>
+                        <td>Acomodação quarto privativo</td>
+                        <td>180 Dias</td>
+                    </tr>
+                    <tr>
+                        <td>Procedimento Obstétrico e Parto</td>
                         <td>300 Dias</td>
                     </tr>
                     <tr>
-                        <td>Doenças e Lesões Preexistentes</td>
-                        <td>720 Dias</td>
+                        <td>Cobertura Parcial Temporária</td>
+                        <td>24 meses</td>
                     </tr>
                 </tbody>
             </table>
@@ -113,11 +125,10 @@
         </header>
         <div class="bloco_tabela_geral">
             <table>
+
                 <thead>
                     <tr>
-                        <th>Produto</th>
-                        <th>Premium Nacional</th>
-                        <th>Carência</th>
+                        <th colspan="3">Premium Nacional</th>
                     </tr>
                     <tr>
                         <th>Registro ANS</th>
@@ -125,61 +136,61 @@
                         <th>466.267/12-9</th>
                     </tr>
                     <tr>
-                        <th>Acomodação</th>
+                        <th>Faixa Etária</th>
                         <th>Enfermaria</th>
                         <th>Apartamento</th>
                     </tr>
                 </thead>
-                <tbody>
+                <tbody class="bloco_preco">
                     <tr>
                         <td>0 a 18</td>
-                        <td>273,36</td>
-                        <td>329,28</td>
+                        <td>299,72</td>
+                        <td>361,03</td>
                     </tr>
                     <tr>
                         <td>19 a 23</td>
-                        <td>294,72</td>
-                        <td>354,70</td>
+                        <td>323,13</td>
+                        <td>388,90</td>
                     </tr>
                     <tr>
                         <td>24 a 28</td>
-                        <td>318,28</td>
-                        <td>383,07</td>
+                        <td>348,96</td>
+                        <td>420,00</td>
                     </tr>
                     <tr>
                         <td>29 a 33</td>
-                        <td>367,02</td>
-                        <td>436,32</td>
+                        <td>402,41</td>
+                        <td>478,39</td>
                     </tr>
                     <tr>
                         <td>34 a 38</td>
-                        <td>396,38</td>
-                        <td>471,20</td>
+                        <td>434,58</td>
+                        <td>516,61</td>
                     </tr>
                     <tr>
                         <td>39 a 43</td>
-                        <td>420,35</td>
-                        <td>504,85</td>
+                        <td>460,88</td>
+                        <td>553,53</td>
                     </tr>
                     <tr>
                         <td>44 a 48</td>
-                        <td>669,61</td>
-                        <td>807,00</td>
+                        <td>734,38</td>
+                        <td>884,80</td>
                     </tr>
                     <tr>
                         <td>49 a 53</td>
-                        <td>698,59</td>
-                        <td>841,66</td>
+                        <td>765,94</td>
+                        <td>922,79</td>
                     </tr>
                     <tr>
                         <td>54 a 58</td>
-                        <td>727,30</td>
-                        <td>876,32</td>
+                        <td>797,42</td>
+                        <td>960,81</td>
                     </tr>
                     <tr>
                         <td>59 ou mais</td>
-                        <td>1.514,75</td>
-                        <td>1.734,31</td>
+                        <td>1.660,77</td>
+                        <td>1.901,49</td>
                     </tr>
                 </tbody>
             </table>
