@@ -144,7 +144,7 @@ class SiliumComissaoEntity extends Entity
         ], false);
 
         $saldo = [];
-        if (!empty($SiliumSaldoEntity->id)) {
+        if (empty($SiliumSaldoEntity->id)) {
             $saldo = [
                 'id_usuario_cliente' => $this->id_usuario_cliente,
                 'saldo_silium'       => $this->pontuacao
