@@ -95,7 +95,7 @@
                             @if(!empty($extratoSaque)):
                                 @foreach ($extratoSaque as $r):
                                     <tr>
-                                        <td>{{$r->pontuacao}}</td>
+                                        <td>{{$r->saque->pontuacao}}</td>
                                         <td>{{$r->status}}</td>
                                     </tr>
                                 @endforeach
