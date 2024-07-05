@@ -1876,6 +1876,22 @@ Route
                 '!titulo', '!data_inicio', '!data_final', 'texto_inicio', '!texto_final', '!status'
             ])
             ::put('/demanda-sprint/{id}');
+
+        Route
+            ::nome('demandaAdicionar')
+            ::middleware(TokenMiddleware::class, 'scope', ['demanda_sprint:demanda'])
+            ::request([
+                'demanda', 'sprint', '!texto'
+            ])
+            ::post('/demanda-sprint/demanda-adicionar');
+
+        Route
+            ::nome('demandaRemover')
+            ::middleware(TokenMiddleware::class, 'scope', ['demanda_sprint:demanda'])
+            ::request([
+                'demanda', 'sprint', '!texto'
+            ])
+            ::post('/demanda-sprint/demanda-remover');
     });
 
 Route

@@ -12,6 +12,8 @@ use System\Interface\ControllerBuscarInterface;
 use System\Interface\ControllerListarInterface;
 use System\Interface\ControllerSalvarInterface;
 use System\Interface\ControllerAtualizarInterface;
+use App\Models\Api\Demanda\Sprint\Demanda\RemoverModel;
+use App\Models\Api\Demanda\Sprint\Demanda\AdicionarModel;
 
 class SprintController extends Controller implements
     ControllerBuscarInterface,
@@ -87,5 +89,27 @@ class SprintController extends Controller implements
         $Sprint->salvar();
 
         return new Response(status: 204);
+    }
+
+    public function postDemandaAdicionar(Request $request)
+    {
+        new AdicionarModel(
+            sprint: $request->sprint,
+            demanda: $request->demanda,
+            texto: $request->texto
+        );
+
+        return mensagemSucesso(['id' => uuid()], status: 201);
+    }
+
+    public function postDemandaRemover(Request $request)
+    {
+        new RemoverModel(
+            sprint: $request->sprint,
+            demanda: $request->demanda,
+            texto: $request->texto
+        );
+
+        return mensagemSucesso(['id' => uuid()], status: 201);
     }
 }

@@ -7,7 +7,7 @@
         text-align: center
         padding: 100px 20px
         texto()
-#bloco_app_lista_detalhe .bloco_botao
+#bloco_app_lista_detalhe .bloco_botao_topo
     width: calc(100% - 40px)
     margin: 0 0 10px 20px
     flexRow()
@@ -26,12 +26,22 @@
         margin-right: 10px
         padding: 0 10px
         font-size: 1.2rem
+        cursor: pointer
         &:last-child
             margin-right: none
         &.add
             background-color: $cor
             border-color: $cor
             color: #FFF
+        &.acao:hover
+            border-color: $cor
+            color: $cor
+        &.acao.hover
+        &.acao.hover:hover
+            border-color: $cor
+            background-color: $cor
+            color: #FFF
+
 #bloco_app_lista_detalhe
     .linha
         width: 100%
@@ -167,3 +177,6 @@
     background-color: $corAzul
     &:hover
         width: 120px
+
+#bloco_sprint_nova
+    max-width: 700px

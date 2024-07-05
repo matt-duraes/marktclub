@@ -2,6 +2,8 @@
 
 namespace Painel\Demanda\Controllers;
 
+use Http\Request;
+use Http\Response;
 use Helpers\ApiHelper;
 use Controller\Controller;
 
@@ -26,5 +28,49 @@ final class SprintController extends Controller
             return mensagemStatus(404);
         }
         return mensagemSucesso($dado->dado);
+    }
+
+    public function postSprintSalvar(Request $request)
+    {
+        $dado = $this->Api
+            ->validar(mensagem: 'Erro ao salvar sprint, por favor, tente novamente.')
+            ->body([
+                'titulo'      => $request->titulo,
+                'data_inicio' => dataBanco($request->data_inicio),
+                'data_final'  => dataBanco($request->data_final)
+            ])
+            ->post('/demanda-sprint')
+            ->object();
+
+        return mensagemSucesso($dado->dado, status: 201);
+    }
+
+    public function postDemandaAdd(Request $request)
+    {
+        $dado = $this->Api
+            ->validar(mensagem: 'Erro ao adicionar demanda, por favor, tente novamente.')
+            ->body([
+                'demanda' => $request->demanda,
+                'sprint'  => $request->sprint,
+                'texto'   => $request->texto
+            ])
+            ->post('/demanda-sprint/demanda-adicionar')
+            ->object();
+        return new Response(status: 201);
+    }
+
+    public function postDemandaRemover(Request $request)
+    {
+        $this->Api
+            ->validar(mensagem: 'Erro ao remover demanda, por favor, tente novamente.')
+            ->body([
+                'demanda' => $request->demanda,
+                'sprint'  => $request->sprint,
+                'texto'   => $request->texto
+            ])
+            ->post('/demanda-sprint/demanda-remover')
+            ->object();
+
+        return new Response(status: 204);
     }
 }

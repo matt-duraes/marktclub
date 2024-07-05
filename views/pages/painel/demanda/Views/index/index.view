@@ -36,6 +36,7 @@
 @ endif;
 
 <div class="display_none">
+    @view painel/demanda/sprint-salvar/index.view
     @view painel/demanda/demanda-salvar/index.view
     @view painel/demanda/demanda-editar/index.view
     @view painel/demanda/demanda-cancelar/index.view
@@ -64,8 +65,8 @@
                 </div>
                 <div class="bloco_botao">
                     <div class="botao botao_ver_demanda">Ver demanda</div>
-                    <div class="botao sprint">Add sprint</div>
-                    <div class="botao remover">Remover sprint</div>
+                    <div class="botao sprint botao_sprint_add">Add sprint</div>
+                    <div class="botao remover botao_sprint_remover">Remover sprint</div>
                 </div>
             </div>
         </div>

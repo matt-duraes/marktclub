@@ -175,4 +175,16 @@ Route
         Route
             ::nome('sprintAtiva')
             ::post('/demanda-sprint/ativa');
+        Route
+            ::nome('sprintSalvar')
+            ::request(['titulo', 'data_inicio', 'data_final'])
+            ::post('/demanda-sprint/salvar');
+        Route
+            ::nome('demandaAdd')
+            ::request(['demanda', 'sprint', '!texto'])
+            ::post('/demanda-sprint/demanda-add');
+        Route
+            ::nome('demandaRemover')
+            ::request(['demanda', 'sprint', '!texto'])
+            ::post('/demanda-sprint/demanda-remover');
     });
