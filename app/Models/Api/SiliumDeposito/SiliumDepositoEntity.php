@@ -8,7 +8,6 @@ use App\Classes\SiliumDeposito\TipoOperacao;
 use App\Classes\SiliumDeposito\TipoResgate;
 use App\Models\Api\ConstrutorClube\ConstrutorEntity;
 use App\Models\Api\SiliumSaldo\SiliumSaldoEntity;
-use App\Models\Api\Trait\ValidarEmpresaTrait;
 use Helpers\EmailHelper;
 use Helpers\OrmHelper;
 use Modules\Botao;
@@ -21,8 +20,6 @@ use ORM\Entity;
 
 class SiliumDepositoEntity extends Entity
 {
-    use ValidarEmpresaTrait;
-
     protected string $ormTabela = TABELA_SILIUM_DEPOSITO;
     protected array $ormBuscar = [
         'id_usuario_cliente', 'nome_titular', 'documento_cpf',
@@ -39,6 +36,7 @@ class SiliumDepositoEntity extends Entity
         'documento_anexo', 'status', 'tipo_operacao', 'tipo_resgate'
     ];
     protected int $id_usuario_cliente;
+    protected int $idUsuario;
 
     private array $configs = [];
     public string|array $usuario;
@@ -60,7 +58,6 @@ class SiliumDepositoEntity extends Entity
 
     public function __construct()
     {
-        $this->setarIdUsuario();
         $this->pegarConfiguracoes();
         parent::__construct();
     }
@@ -80,7 +77,7 @@ class SiliumDepositoEntity extends Entity
         }
         if ($this->tipo_operacao->indice() === TipoOperacao::SAQUE) {
             $this->validarRequestSaque();
-            //$this->setarUsuario();
+            $this->setarUsuario();
             $this->verificarSolicitacaoPendente();
             $this->validarResgate();
             $this->validarSaldoSuficiente();
@@ -302,7 +299,7 @@ class SiliumDepositoEntity extends Entity
         }
 
         $Construtor = new ConstrutorEntity();
-        $Construtor->buscar(['id_admin_empresa', $this->idEmpresa]);
+        $Construtor->buscar(['id_admin_empresa', TOKEN['empresa']->id]);
 
         $titulo = '';
         $assunto = '';
