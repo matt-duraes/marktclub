@@ -58,7 +58,6 @@ class SiliumDepositoEntity extends Entity
 
     public function __construct()
     {
-        $this->ormInsert['status'] = (new Status(Status::AGUARDANDO))->numero();
         $this->pegarConfiguracoes();
         parent::__construct();
     }
@@ -77,6 +76,7 @@ class SiliumDepositoEntity extends Entity
             mensagemErro('Campo inválido!', 'O Tipo de Operação informado não é válido.');
         }
         if ($this->tipo_operacao->indice() === TipoOperacao::SAQUE) {
+            $this->status = new Status(Status::AGUARDANDO);
             $this->validarRequestSaque();
             $this->setarUsuario();
             $this->verificarSolicitacaoPendente();
