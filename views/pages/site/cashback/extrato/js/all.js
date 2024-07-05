@@ -6,31 +6,40 @@
 // @resource "site/tab"
 
 window.addEventListener('load', () => {
-    const saldo = $('#input_ponto_saldo').value;
-    const botaoPopupResgate = $('#botao_popup_resgate');
-    const botaoEscolherMetodo = $('#botao_popup_metodo');
-    const blocoResgateDinheiro = $('.resgate_dinheiro');
+    const botaoPopupResgate = document.querySelector('#botao_popup_resgate');
+    const botaoPopupEscolherMetodo = document.querySelector('#botao_popup_metodo');
+    const botaoPopupResgateDinheiro = document.querySelector('#botao_popup_resgate_dinheiro');
+    const blocoResgateDinheiro = document.querySelector('.resgate_dinheiro');
     let tipo = '';
-    const PopupResgate = new Popup('Resgatar pontos', 'bloco_resgatar_ponto', true);
-    const PopupResgateMetodo = new Popup('Escolher método', 'bloco_escolher_metodo', true);
+
+    const PopupResgate = new Popup('Resgatar pontos', 'bloco_resgatar_ponto', false);
+    const PopupResgateMetodo = new Popup('Escolher método', 'bloco_escolher_metodo', false);
+
+    function abrirPopupResgate() {
+        tipo = document.querySelector('#input_tipo_resgate').value;
+        if (tipo !== 'dinheiro' && tipo !== 'anuidade') {
+            Alerta.notificacao('Selecione um tipo de resgate.', false);
+            return;
+        }
+        if (blocoResgateDinheiro) {
+            blocoResgateDinheiro.classList.toggle('display_none', tipo !== 'dinheiro');
+        }
+        PopupResgate.abrir();
+    }
+
     if (botaoPopupResgate) {
-        botaoPopupResgate.addEventListener('click', () => {
-            PopupResgateMetodo.abrir();
+        botaoPopupResgate.addEventListener('click', () => PopupResgateMetodo.abrir());
+    }
+
+    if (botaoPopupResgateDinheiro) {
+        botaoPopupResgateDinheiro.addEventListener('click', () => {
+            document.querySelector('#input_tipo_resgate').value = 'dinheiro';
+            abrirPopupResgate();
         });
     }
 
-    if (botaoEscolherMetodo) {
-        botaoEscolherMetodo.addEventListener('click', () => {
-            tipo = document.querySelector('#input_tipo_resgate').value;
-            if (tipo !== 'dinheiro' && tipo !== 'mensalidade') {
-                Alerta.notificacao('Selecione um tipo de resgate.', false);
-                return;
-            }
-            if (blocoResgateDinheiro) {
-                blocoResgateDinheiro.classList.toggle('display_none', tipo !== 'dinheiro');
-            }
-            PopupResgate.abrir();
-        });
+    if (botaoPopupEscolherMetodo) {
+        botaoPopupEscolherMetodo.addEventListener('click', abrirPopupResgate);
     }
 
     const botaoSolicitarPonto = $('#botao_solicitar_ponto');
@@ -58,7 +67,7 @@ window.addEventListener('load', () => {
 
     const solicitarResgate = async () => {
         Loading.show();
-        if (tipo === 'mensalidade') {
+        if (tipo === 'anuidade') {
             inputTitular.value = '';
             inputCpf.value = '';
             inputBanco.value = '';
