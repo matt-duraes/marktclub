@@ -69,7 +69,7 @@
         <header>
             <h1>Carência</h1>
         </header>
-        <div class="bloco_tabela_geral">
+        <div class="bloco_tabela_geral tabela_carencia">
             <table>
                 <thead>
                     <tr>
@@ -191,7 +191,7 @@
                         <th>AMIL S750R2</th>
                     </tr>
                 </thead>
-                <tbody>
+                <tbody class="bloco_preco">
                     <tr>
                         <td>Atendimento de <br>urgência (PS)</td>
                         <td>1,60</td>

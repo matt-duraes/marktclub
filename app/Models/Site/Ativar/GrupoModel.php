@@ -20,4 +20,16 @@ final class GrupoModel
 
         return [];
     }
+
+    public function buscarSlug()
+    {
+        if (in_array('trabalho_cargo', CAMPOS_PRIMEIRO_ACESSO)) {
+            $dados = (new ApiHelper('comercial_empresa:buscar'))
+                ->get('/empresa-slug/' .  sessao('CLUBE')->empresa)
+                ->object();
+            if($dados->dado->id != "") {
+                sessao('EMPRESA.slug', $dados->dado->slug);
+            }
+        }
+    }
 }

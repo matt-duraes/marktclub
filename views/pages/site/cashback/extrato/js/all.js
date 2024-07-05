@@ -6,15 +6,42 @@
 // @resource "site/tab"
 
 window.addEventListener('load', () => {
-    const saldo = $('#input_ponto_saldo').value;
-    const botaoPopupResgate = $('#botao_popup_resgate');
+    const botaoPopupResgate = document.querySelector('#botao_popup_resgate');
+    const botaoPopupEscolherMetodo = document.querySelector('#botao_popup_metodo');
+    const botaoPopupResgateDinheiro = document.querySelector('#botao_popup_resgate_dinheiro');
+    const blocoResgateDinheiro = document.querySelector('.resgate_dinheiro');
+    let tipo = '';
 
-    const PopupResgate = new Popup('Resgatar pontos', 'bloco_resgatar_ponto');
+    const PopupResgate = new Popup('Resgatar pontos', 'bloco_resgatar_ponto', false);
+    const PopupResgateMetodo = new Popup('Escolher método', 'bloco_escolher_metodo', false);
+
+    function abrirPopupResgate() {
+        tipo = document.querySelector('#input_tipo_resgate').value;
+        if (tipo !== 'dinheiro' && tipo !== 'anuidade') {
+            Alerta.notificacao('Selecione um tipo de resgate.', false);
+            return;
+        }
+        if (blocoResgateDinheiro) {
+            blocoResgateDinheiro.classList.toggle('display_none', tipo !== 'dinheiro');
+        }
+        PopupResgate.abrir();
+    }
+
     if (botaoPopupResgate) {
-        botaoPopupResgate.addEventListener('click', () => {
-            PopupResgate.abrir();
+        botaoPopupResgate.addEventListener('click', () => PopupResgateMetodo.abrir());
+    }
+
+    if (botaoPopupResgateDinheiro) {
+        botaoPopupResgateDinheiro.addEventListener('click', () => {
+            document.querySelector('#input_tipo_resgate').value = 'dinheiro';
+            abrirPopupResgate();
         });
     }
+
+    if (botaoPopupEscolherMetodo) {
+        botaoPopupEscolherMetodo.addEventListener('click', abrirPopupResgate);
+    }
+
     const botaoSolicitarPonto = $('#botao_solicitar_ponto');
     const form = $('#bloco_resgatar_ponto form');
     const inputNome = $('#input_ponto_nome');
@@ -32,23 +59,24 @@ window.addEventListener('load', () => {
         let value = event.target.value;
         // Remove todos os espaços existentes
         value = value.replace(/\s+/g, '');
-
         // Adiciona um espaço a cada 4 dígitos
         let formattedValue = value.match(/.{1,4}/g).join(' ');
-
         // Atualiza o valor do input com o formato correto
         event.target.value = formattedValue;
     });
 
     const solicitarResgate = async () => {
-        if (!(await validarInput(form))) {
-            return;
-        } else if (inputQuantidade.value > saldo) {
-            Alerta.notificacao('Você não pode solicitar mais pontos que seu saldo atual.', false);
-            return;
-        }
         Loading.show();
+        if (tipo === 'anuidade') {
+            inputTitular.value = '';
+            inputCpf.value = '';
+            inputBanco.value = '';
+            inputAgencia.value = '';
+            inputContaBancaria.value = '';
+            inputTipoConta.value = '';
+        }
         const resposta = await ajaxPost(LINK + '/cashback/resgatar', {
+            tipoResgate: tipo,
             nome: inputNome.value,
             email: inputEmail.value,
             pontos: inputQuantidade.value,

@@ -2,7 +2,6 @@
 
 namespace App\Models\Api\UsuarioCliente\Ativar;
 
-use App\Models\Api\UsuarioCliente\Ativar\Trait\AtivarTrait;
 use ORM\ORM;
 use stdClass;
 use Modules\Cpf;
@@ -17,6 +16,9 @@ use Modules\Telefone;
 use Modules\EnderecoCep;
 use Modules\EstadoCivil;
 use Modules\EnderecoEstado;
+use App\Classes\UsuarioCliente\TrabalhoCargo;
+use App\Classes\UsuarioCliente\TrabalhoEmpresa;
+use App\Models\Api\UsuarioCliente\Ativar\Trait\AtivarTrait;
 
 final class AtivarModel extends ORM
 {
@@ -45,6 +47,8 @@ final class AtivarModel extends ORM
     private string $endereco_bairro;
     private EnderecoEstado $endereco_estado;
     private string $endereco_cidade;
+    private TrabalhoCargo $trabalho_cargo;
+    private TrabalhoEmpresa $trabalho_empresa;
 
     public function __construct(
         private Request $request
@@ -109,6 +113,8 @@ final class AtivarModel extends ORM
                 'email_trabalho'       => $this->email_trabalho->email(),
                 'telefone_celular'     => $this->telefone_pessoal->numero(),
                 'telefone_fixo'        => $this->telefone_trabalho->numero(),
+                'trabalho_cargo'       => $this->trabalho_cargo->numero(),
+                'trabalho_orgao'       => $this->trabalho_empresa->numero(),
                 'endereco_cep'         => $this->endereco_cep->numero(),
                 'endereco_logradouro'  => $this->endereco_logradouro,
                 'endereco_numero'      => $this->endereco_numero,
@@ -122,7 +128,6 @@ final class AtivarModel extends ORM
             ])
             ->where(['id', $this->usuario->id])
             ->update();
-
         if (!$salvar) {
             mensagemErro('Erro!', $this->erroPadrao);
         }

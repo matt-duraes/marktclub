@@ -37,7 +37,8 @@
             font-weight: bold
             margin-left: 5px
 
-div#botao_popup_resgate
+div#botao_popup_resgate,
+div#botao_popup_resgate_dinheiro
     width: 190px
     height: 40px
     border-radius: 5px
@@ -46,12 +47,12 @@ div#botao_popup_resgate
     color: #fff
     cursor: pointer
     texto()
+    margin-bottom: 10px
 
 .bloco_atencao_geral
     margin: 20px 0px
     background: $corBrancoCinza
-#botao_popup_resgate
-    margin-bottom: 10px
+
 .bloco_extrato
     padding: 10px 0px 20px
     espacoTopPadrao()
@@ -130,18 +131,25 @@ div#botao_popup_resgate
 #bloco_resgatar_ponto
     background: $corBrancoPreto
     div#botao_solicitar_ponto
-        height: 30px
         width: 200px
+        height: 40px
         border-radius: 5px
+        background-color: $corClube
         flexCenter()
-        texto()
-        margin-top: 10px
+        color: #fff
         cursor: pointer
+        texto()
 #bloco_resgatar_ponto .form_geral .bloco_input label
     background-color: $corBrancoCinza
 
+#select_resgaste
+    border: 1px solid #ccc
+    height: 40px
+    #select_resgaste
+        width: 100%
+
 .titulo_dados_bancarios
-    titulo()
+    subTituloFontSize()
     margin-top: 20px
     color: $corClube
     &:first-child
@@ -150,7 +158,26 @@ fieldset
     padding: 0px 10px
 
 .conteudo_pagina_popup .bloco_botao
-    padding-left: 10px
+    display: flex
+    align-items: center
+    justify-content: space-between
+    margin-top: 20px
+    a
+        texto()
+@media screen and ( max-width: 425px )
+    .conteudo_pagina_popup .bloco_botao
+        flex-direction: column
+
+#botao_popup_metodo
+    width: 200px
+    height: 40px
+    border-radius: 5px
+    background-color: $corClube
+    flexCenter()
+    color: #fff
+    cursor: pointer
+    texto()
+    margin-top: 20px
 
 @media screen and (max-width: 1024px)
     #bloco_pagina_cashback .bloco_tabela_geral
