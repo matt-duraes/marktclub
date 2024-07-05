@@ -17,7 +17,7 @@ window.addEventListener('load', () => {
 
     function abrirPopupResgate() {
         tipo = document.querySelector('#input_tipo_resgate').value;
-        if (tipo !== 'dinheiro' && tipo !== 'anuidade') {
+        if (tipo !== 'dinheiro' && tipo !== 'mensalidade') {
             Alerta.notificacao('Selecione um tipo de resgate.', false);
             return;
         }
@@ -67,7 +67,7 @@ window.addEventListener('load', () => {
 
     const solicitarResgate = async () => {
         Loading.show();
-        if (tipo === 'anuidade') {
+        if (tipo === 'mensalidade') {
             inputTitular.value = '';
             inputCpf.value = '';
             inputBanco.value = '';
