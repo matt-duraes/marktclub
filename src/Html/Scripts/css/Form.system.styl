@@ -551,7 +551,7 @@ body.fw_body_hidden
         align-items: center
         cursor: pointer
         z-index: 2
-    label p
+    label .bloco_switch_texto
         font-size: 1.4rem
     label .input_ajuda
         width: 25px
@@ -565,7 +565,7 @@ body.fw_body_hidden
         margin-left: 10px
         border-radius: 50%
         cursor: default
-    label span
+    label .bloco_switch_bola
         width: 40px
         height: 24px
         position: relative
@@ -574,7 +574,7 @@ body.fw_body_hidden
         border-radius: 12px
         display: flex
         transition: background-color .3s ease-out
-    label span::after
+    label .bloco_switch_bola::after
         width: 20px
         height: 20px
         content: ""
@@ -585,11 +585,11 @@ body.fw_body_hidden
         top: 2px
         left: 2px
         transition: left .3s ease-out
-    input:focus ~ label span
+    input:focus ~ label .bloco_switch_bola
         background-color: #BBB
-    input:checked ~ label span
+    input:checked ~ label .bloco_switch_bola
         background-color: #169e91
-    input:checked ~ label span::after
+    input:checked ~ label .bloco_switch_bola::after
         left: 18px
 
 .form_geral .input_cor

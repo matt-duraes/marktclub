@@ -24,6 +24,7 @@
     <div class="container_scroll bloco_botao">
         <a class="botao_geral_cor cor_bg" target="_blank" rel="noopener noreferrer" href="https://afiliados.easylive.com.br/?aid=5">COMPRAR INGRESSO</a>
     </div>
+    @? $Botao->botao(texto: 'COMPRAR INGRESSO', link: 'https://afiliados.easylive.com.br/?aid=5')->fixo()
 
     <a href="https://afiliados.easylive.com.br/?aid=5" target="_blank" rel="noopener noreferrer" class="botao_geral_cor botao_fixo_bottom cor_bg botao_scroll">COMPRAR INGRESSO</a>
 </div>

@@ -59,6 +59,7 @@
             "Route\\": "src/Route/",
             "Status\\": "src/Status",
             "System\\": "src/",
+            "ResourcesSite\\": "resources\\php\\site",
             "Tests\\": [
                 "tests/Backend",
                 "src/Tests"
