@@ -32,7 +32,9 @@ window.addEventListener('load', () => {
     const blocoResultadoTitular = $('#bloco_resultado_titular_padrao');
     const blocoResultadoDependente = $('#bloco_resultado_dependente_padrao');
     const blocoResultadoLista = $('#bloco_valor_lista');
-    const blocoEscolherPlano = $('.bloco_escolher_plano');
+    const blocoEscolherPlano = $$('.bloco_escolher_plano');
+    const botaoCnuFlorianopolisRegional = $$('.botao_acomodacao_enfermaria-50, .botao_acomodacao_enfermaria-30');
+    const botaoCnuFlorianopolisNacional = $$('.botao_acomodacao_enfermaria, .botao_acomodacao_apartamento');
 
     let regiao = '';
     let plano = '';
@@ -56,7 +58,19 @@ window.addEventListener('load', () => {
         botaoPlano.classe('ativo', false);
         plano = item.attr('data-plano');
         PassoSimular.proximo(item);
+
+        if (operadora == 'cnu_florianopolis') {
+            setarTipoAcomodacaoCnuFlorianopolis();
+        }
     });
+    const setarTipoAcomodacaoCnuFlorianopolis = () => {
+        botaoAcomodacao.sumir();
+        if (plano == 'regional') {
+            botaoCnuFlorianopolisRegional.aparecer();
+            return;
+        }
+        botaoCnuFlorianopolisNacional.aparecer();
+    };
     botaoVoltar.evento('click', (e, item) => {
         PassoSimular.anterior(item);
     });
@@ -97,6 +111,7 @@ window.addEventListener('load', () => {
             return;
         }
 
+        Loading.show();
         const resposta = await ajaxPost(
             LINK + '/saude/realizar-simulacao',
             {
@@ -109,6 +124,7 @@ window.addEventListener('load', () => {
             },
             'Ocorreu um erro ao fazer sua simulação, por favor, tente novamente.'
         );
+        Loading.hide();
 
         if (false === resposta) {
             return;
@@ -119,7 +135,7 @@ window.addEventListener('load', () => {
 
     const adicionarValorSimulacao = dado => {
         botaoContratar.attr('href', LINK + '/saude/simulacao/' + dado.id);
-        blocoValorTotal.texto(dado.valor_total);
+        blocoValorTotal.texto('R$ ' + dado.valor_total);
         const titular = blocoResultadoTitular.clonar();
         adicionarValor(titular, dado.titular.data, dado.titular.valor);
         for (const item of dado.dependente) {

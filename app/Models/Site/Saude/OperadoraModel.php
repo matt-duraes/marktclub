@@ -40,14 +40,6 @@ final class OperadoraModel extends ClubeApiHelper implements ListarInterface
             ],
             (object)[
                 'id'     => uuid(),
-                'titulo' => 'Central Nacional Unimed',
-                'link'   => route('planosaude.centralnacional'),
-                'imagem' => LINK . '/images/site/cnu_logo.png',
-                'tipo'   => 'operadora',
-                'status' => MENU_SAUDE_CNU
-            ],
-            (object)[
-                'id'     => uuid(),
                 'titulo' => 'Unimed - Florianópolis',
                 'link'   => route('planosaude.unimedflorianopolis'),
                 'imagem' => LINK . '/images/site/logo_unimed_florianopolis.jpg',
@@ -63,6 +55,7 @@ final class OperadoraModel extends ClubeApiHelper implements ListarInterface
                 'status' => MENU_SAUDE_SEGURO
             ]
         ];
+
         $retorno = [];
         foreach ($lista as $r) {
             if ($r->status != 1) {

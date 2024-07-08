@@ -26,12 +26,15 @@
             </header>
             <div class="botao_selecao">
                 @ foreach( $Simulacao->acomodacao() as $val ):
-                    @? $Botao->botao(class: 'botao_escolher_acomodacao', texto: $val, attr:['data-acomodacao' => $val])->borda()
+                    @php $classe = $operadora == 'cnu_florianopolis' ? 'botao_acomodacao_' . $val : '';
+                    @? $Botao->botao(class: 'botao_escolher_acomodacao ' . $classe, texto: $val, attr:['data-acomodacao' => $val])->borda()
                 @ endforeach;
             </div>
+            @if (in_array($operadora, ['amil', 'cnu_florianopolis'])):
             <div class="bloco_botao">
                 @? $Botao->botao(class: 'botao_voltar')->voltar()
             </div>
+            @ endif;
         </div>
             @ elseif( $passo->tipo == 'plano' ):
         <div class="conteudo display_none" id="bloco_plano" data-titulo="Plano">
@@ -39,20 +42,28 @@
                 <h1>ESCOLHA SEU PLANO</h1>
             </header>
             <div class="bloco_escolhas">
-                @ foreach( $Simulacao->plano() as $regiao => $lista ):
-                    @if ($operadora == 'amil'):
-                <div class="bloco_escolher_plano {{$regiao}} botao_selecao display_none">
-                        @ foreach( $lista as $ind => $val ):
-                            @? $Botao->botao(class: 'botao_escolher_plano', texto: $val, attr:['data-plano' => $ind])->borda()
-                        @ endforeach;
+                @if ($operadora == 'amil'):
+                    @ foreach( $Simulacao->plano() as $regiao => $lista ):
+                    <div class="bloco_escolher_plano {{$regiao}} botao_selecao display_none">
+                            @ foreach( $lista as $ind => $val ):
+                                @? $Botao->botao(class: 'botao_escolher_plano', texto: $val, attr:['data-plano' => $ind])->borda()
+                            @ endforeach;
+                    </div>
+                    @ endforeach;
+                @else
+                <div class="bloco_escolher_plano botao_selecao">
+                    @ foreach( $Simulacao->plano() as $regiao => $lista ):
+                        @? $Botao->botao(class: 'botao_escolher_plano', texto: $lista, attr:['data-plano' => $regiao])->borda()
+                    @ endforeach;
                 </div>
-                    @else
-                <div class="bloco_escolher_plano {{$regiao}} botao_selecao">
-                    @? $Botao->botao(class: 'botao_escolher_plano', texto: $lista, attr:['data-plano' => $regiao])->borda()
-                </div>
-                    @endif
-                @ endforeach;
+                @endif
+
             </div>
+            @ if( $operadora == 'amil' ):
+            <div class="bloco_botao">
+                @? $Botao->botao(class: 'botao_voltar')->voltar()
+            </div>
+            @ endif;
         </div>
             @ elseif( $passo->tipo == 'simulacao' ):
         <form class="form_geral bloco_simulacao conteudo display_none" id="bloco_simulacao" data-titulo="simulacao">
