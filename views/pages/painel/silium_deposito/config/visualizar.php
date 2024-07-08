@@ -1,9 +1,9 @@
 <?php
 
-use PainelConfig\Visualizar;
-use App\Classes\Silium\StatusDeposito;
-use App\Classes\Silium\TipoConta;
+use App\Classes\SiliumDeposito\Status;
+use App\Classes\SiliumDeposito\TipoConta;
 use App\Classes\UsuarioCliente\Helper;
+use PainelConfig\Visualizar;
 
 $Painel = new Visualizar('silium_deposito');
 
@@ -21,17 +21,17 @@ $Painel->coluna(callback: function () use ($Painel) {
 
     $Painel->bloco('Dados Bancários', function () use ($Painel) {
         $Painel
-            ->linha('saque->nome_titular', 'Nome do Titular')
-            ->cpf('saque->documento_cpf', 'CPF do Titular')
-            ->linha('saque->tipo_conta', 'Tipo de Conta')
-            ->linha('saque->banco', 'Instituição Financeira')
-            ->linha('saque->agencia', 'Agência')
-            ->linha('saque->conta', 'Conta');
+            ->linha('nome_titular', 'Nome do Titular')
+            ->cpf('documento_cpf', 'CPF do Titular')
+            ->linha('tipo_conta', 'Tipo de Conta')
+            ->linha('banco', 'Instituição Financeira')
+            ->linha('agencia', 'Agência')
+            ->linha('conta', 'Conta');
     });
 
     $Painel->bloco('Dados do depósito', function () use ($Painel) {
         $Painel
-            ->linha('saque->pontuacao', 'Pontuação Resgatada')
+            ->linha('pontuacao', 'Pontuação Resgatada')
             ->dinheiro('valor', 'Valor de Resgate')
             ->data('data_deposito', 'Data de Depósito')
             ->imagemLogo('documento_anexo');
@@ -43,19 +43,9 @@ $Painel->coluna(callback: function () use ($Painel) {
             ->dataHora('data_atualizacao', 'Data da última atualização')
             ->linha('status', 'Status');
     });
-
-    /*$Painel
-        ->status(
-            campo: 'status',
-            texto: 'Finalizar solicitação',
-            inArray: ['Novo', 'Enviado p/ Empresa', 'Enviado p/ Usuário', 'Problema'],
-            status: Status::FINALIZADO,
-            mensagem: 'Tem certeza que deseja fechar essa solicitação?',
-            cor: 'verde'
-        );*/
 });
 
-/*$Painel->replace('tipo_conta', (new TipoConta())->select());
-$Painel->replace('status', (new StatusDeposito())->select());*/
+$Painel->replace('tipo_conta', (new TipoConta())->select());
+$Painel->replace('status', (new Status())->select());
 
 return $Painel;
