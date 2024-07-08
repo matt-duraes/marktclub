@@ -37,54 +37,12 @@ final class SiteController extends Controller
      */
     public function indiqueAmigo(): Response
     {
-        $texto = <<<HTML
-            <p>O que você acha de liberar um acesso por 48h para um amigo?</p>
-            <p>
-                Isso mesmo, ele poderá acessar e usufruir de grande parte dos
-                benefícios durante este período, conhecer melhor os benefícios de ser nosso associado.
-            </p>
-            <p>
-                Basta colocar os dados do seu amigo, que a liberação do seu acesso será automática!
-                Quando você indica, você também demonstra sua amizade!
-            </p>
-            <p>
-                Lembre-se que para a liberação do acesso ocorrer, ele precisa ser da sua carreira
-                e ainda não ser filiado à nossa entidade.
-            </p>
-        HTML;
-
-        if (defined('CLUBE_ID') == '2dbd9e375eeabfbe859365dae0798f49') :
-            $texto = <<<HTML
-                <p>O que você acha de liberar um acesso por 30 dias para um amigo?</p>
-                <p>
-                    Isso mesmo, ele poderá acessar e usufruir de grande parte dos benefícios durante este período,
-                    conhecer melhor os benefícios de ser nosso cliente.
-                </p>
-                <p>
-                    Basta colocar os dados do seu amigo, que a liberação do seu acesso será automática!
-                    Quando você indica, você também demonstra sua amizade!
-                </p>
-            HTML;
-        elseif (defined('CLUBE_FINALIDADE') == 2) :
-            $texto = <<<HTML
-                <p>O que você acha de liberar um acesso por 48h para um amigo?</p>
-                <p>
-                    Isso mesmo, ele poderá acessar e usufruir de grande parte dos benefícios durante este período,
-                    conhecer melhor os benefícios de ser nosso cliente.
-                </p>
-                <p>
-                    Basta colocar os dados do seu amigo, que a liberação do seu acesso será automática!
-                    Quando você indica, você também demonstra sua amizade!
-                </p>'
-            HTML;
-        endif;
-
         return view('indicar_amigo.index', [
             'tituloPagina' => 'Indique para um amigo',
-            'texto'        => $texto,
             'menu'         => 'indicar_amigo'
         ]);
     }
+
 
     /**
      * @return Response
