@@ -52,23 +52,6 @@ $Painel->coluna(callback: function () use ($Painel, $Status) {
             ->dataHora('data_atualizacao', 'Data da última atualização')
             ->linha('status', 'Status');
     });
-
-    $Painel
-        ->status(
-            campo: 'status',
-            texto: 'Deposito realizado',
-            inArray: [$Status->nome(Status::AGUARDANDO)],
-            status: Status::DEPOSITADO,
-            mensagem: 'Tem certeza que deseja alterar o status para depositado?',
-            cor: 'verde'
-        )->status(
-            campo: 'status',
-            texto: 'Deposito negado',
-            inArray: [$Status->nome(Status::AGUARDANDO)],
-            status: Status::NEGADO,
-            mensagem: 'Tem certeza que deseja alterar o status para negado?',
-            cor: 'vermelho'
-        );
 });
 
 $Painel->replace('tipo_conta', $TipoConta->select());

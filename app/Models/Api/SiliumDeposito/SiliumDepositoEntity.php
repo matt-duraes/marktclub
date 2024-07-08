@@ -345,7 +345,7 @@ class SiliumDepositoEntity extends Entity
         ], false);
 
         $pontos = $SiliumSaldoEntity->saldo_silium - $this->pontuacao;
-        $SiliumSaldoEntity->saldo_silium = ($pontos != 0) ? $pontos : null;
+        $SiliumSaldoEntity->saldo_silium = $pontos;
         $SiliumSaldoEntity->salvar();
     }
 
