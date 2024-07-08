@@ -920,7 +920,7 @@ const buscarEnderecoPeloCep = (
         formValue(inputEstado, dado.estado);
 
         if (dado.logradouro != '') {
-            inputNumero.focus();
+            //inputNumero.focus();
         }
         if (dado.estado != '' && inputCidade.classList.contains('input_select_value')) {
             if (browser == undefined) {
