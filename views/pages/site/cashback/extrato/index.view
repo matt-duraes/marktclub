@@ -23,7 +23,7 @@
                     </p>
                 </div>
                 @if ($saldo >= $pontosMinimos):
-                    @if($disponibilidadeDesconto == 'sim'):
+                    @if($disponibilidadeDesconto == 'nao'):
                         <div class="botao" id="botao_popup_resgate">Solicitar resgate</div>
                     @else:
                         <div class="botao" id="botao_popup_resgate_dinheiro">Solicitar resgate</div>
