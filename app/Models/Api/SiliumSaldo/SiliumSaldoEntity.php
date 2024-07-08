@@ -6,6 +6,7 @@ use ORM\Entity;
 
 class SiliumSaldoEntity extends Entity
 {
+    public int|null $saldo_silium;
     protected string $ormTabela = TABELA_SILIUM_SALDO;
     protected array $ormBuscar = [
         'id_usuario_cliente', 'saldo_silium',
@@ -15,8 +16,6 @@ class SiliumSaldoEntity extends Entity
         'id_usuario_cliente', 'saldo_silium'
     ];
     protected int $id_usuario_cliente;
-
-    public int $saldo_silium;
 
     public function __construct()
     {
