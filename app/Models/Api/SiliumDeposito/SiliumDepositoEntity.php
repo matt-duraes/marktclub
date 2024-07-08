@@ -344,11 +344,9 @@ class SiliumDepositoEntity extends Entity
             'id_usuario_cliente', $this->id_usuario_cliente
         ], false);
 
-        if (!empty($SiliumSaldoEntity->id)) {
-            $pontos = $SiliumSaldoEntity->saldo_silium - $this->pontuacao;
-            $SiliumSaldoEntity->saldo_silium = ($pontos != 0) ? $pontos : null;
-            $SiliumSaldoEntity->salvar();
-        }
+        $pontos = $SiliumSaldoEntity->saldo_silium - $this->pontuacao;
+        $SiliumSaldoEntity->saldo_silium = ($pontos != 0) ? $pontos : null;
+        $SiliumSaldoEntity->salvar();
     }
 
     /**
