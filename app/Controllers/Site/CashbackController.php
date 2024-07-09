@@ -66,7 +66,8 @@ final class CashbackController extends Controller
             'extratoCompra'  => $dados['extrato_compra'],
             'extratoSaque'   => $dados['extrato_saque'],
             'siliumConfig'   => $siliumConfig,
-            'pontosMinimos'  => $siliumConfig->pontuacao_minima_resgate->dinheiro,
+            'minPontosDinheiro'  => $siliumConfig->pontuacao_minima_resgate->dinheiro,
+            'minPontosMensalidade'  => $siliumConfig->pontuacao_minima_resgate->mensalidade,
             'disponibilidadeDesconto' => $siliumConfig->desconto,
         ]);
     }
