@@ -9,6 +9,8 @@ window.addEventListener('load', () => {
     const botaoPopupResgate = document.querySelector('#botao_popup_resgate');
     const botaoPopupEscolherMetodo = document.querySelector('#botao_popup_metodo');
     const botaoPopupResgateDinheiro = document.querySelector('#botao_popup_resgate_dinheiro');
+    const botaoPopupResgateMensalidade = document.querySelector('#botao_popup_resgate_mensalidade');
+
     const blocoResgateDinheiro = document.querySelector('.resgate_dinheiro');
     let tipo = '';
 
@@ -37,7 +39,12 @@ window.addEventListener('load', () => {
             abrirPopupResgate();
         });
     }
-
+    if (botaoPopupResgateMensalidade) {
+        botaoPopupResgateMensalidade.addEventListener('click', () => {
+            document.querySelector('#input_tipo_resgate').value = 'mensalidade';
+            abrirPopupResgate();
+        });
+    }
     if (botaoPopupEscolherMetodo) {
         botaoPopupEscolherMetodo.addEventListener('click', abrirPopupResgate);
     }

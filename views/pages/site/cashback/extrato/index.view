@@ -9,7 +9,7 @@
 
         <section class="bloco_titulo_texto">
             <p>Você tem acesso a dezenas de parceiros que oferecem % do valor da sua compra em pontos SILIUM, que poderão ser resgatados em dinheiro!</p>
-            <p>Para efetuar o resgate, basta acumular {{$pontosMinimos}} pontos e solicitar a transferência. Sendo que cada 100 pontos SILIUM equivalem a 1 Real".</p>
+            <p>Para efetuar o resgate, basta acumular {{$minPontosDinheiro}} pontos e solicitar a transferência. Sendo que cada 100 pontos SILIUM equivalem a 1 Real".</p>
             <p>SILIUM, aqui você sempre tem Mais Vantagens!</p>
             <p>* Os pagamentos serão feitos sempre nos dias 10 e 25 de cada mês.
             Para você receber no dia 10 do mesmo mês, faça a sua solicitação até dia 05. Para receber até dia 25 do mesmo mês, faça sua solicitação até dia 20.</p>
@@ -22,16 +22,22 @@
                         </span>
                     </p>
                 </div>
-                @if ($saldo >= $pontosMinimos):
-                    @if($disponibilidadeDesconto == 'nao'):
-                        <div class="botao" id="botao_popup_resgate">Solicitar resgate</div>
-                    @else:
-                        <div class="botao" id="botao_popup_resgate_dinheiro">Solicitar resgate</div>
+                @if($disponibilidadeDesconto == 'sim'):
+                    @if($saldo >= $minPontosDinheiro)
+                        <div class="botao botao_resgate_cashback" id="botao_popup_resgate">Escolher resgate</div>
+                    @elseif($saldo >= $minPontosMensalidade):
+                        <div class="bloco_atencao_geral">
+                            <p>
+                                Você precisa acumular {{$minPontosDinheiro}} pontos para solicitar resgate em dinheiro.
+                                No entanto, já pode realizar o resgate com desconto na sua OAB.
+                            </p>
+                        </div>
+                        <div class="botao botao_resgate_cashback" id="botao_popup_resgate_mensalidade">Solicitar desconto</div>
+                    @endif
+                @else
+                    @if($saldo >= $minPontosDinheiro):
+                        <div class="botao botao_resgate_cashback" id="botao_popup_resgate_dinheiro">Solicitar resgate</div>
                     @endif;
-                @ else:
-                <div class="bloco_atencao_geral">
-                    <p>VOCÊ PRECISA ACUMULAR {{$pontosMinimos}} PONTOS PARA SOLICITAR RESGATE.</p>
-                </div>
                 @endif;
             </div>
         </section>
@@ -139,18 +145,18 @@
         <form class="form_geral">
             <div class="bloco">
                 <h1 class="titulo_dados_bancarios">Dados Pessoais</h1>
-                    @? formInput(name: 'ponto_nome', label: 'Nome', placeholder:'Digite seu nome', obrigatorio: true, value: '', local: 'André Rodrigues')
-                    @? formInput(name: 'ponto_email', label: 'E-mail', placeholder:'Digite seu E-mail', obrigatorio: true, value: '', local: 'andre@markt.club')
-                    @? formNumero(name: 'ponto_quantidade', label: 'Pontos', placeholder: 'Digite a quantidade de pontos', obrigatorio: true, value: '', local: 1)
-                    <div class="resgate_dinheiro display_none">
-                        <h1 class="titulo_dados_bancarios">Dados Bancários</h1>
-                        @? formInput(name: 'titular', label: 'Nome', placeholder:'Digite o nome do titular', obrigatorio: true, value: '', local: 'André Rodrigues')
-                        @? formCpf(name: 'cpf_conta', label: 'CPF', placeholder: 'CPF', obrigatorio: true, value: '', local: '123.456.789-00')
-                        @? formInput(name: 'banco', label: 'Banco', placeholder:'Digite o nome do banco', obrigatorio: true, value: '', local: 'InterSA')
-                        @? formNumero(name: 'conta', label: 'Conta Bancária', placeholder:'Digite a sua conta bancária ', maximo: 15, obrigatorio: true, value: '', local: '123456789')
-                        @? formNumero(name: 'agencia', label: 'Agência', placeholder:'Digite a sua agência bancária ', obrigatorio: true, value: '', local: '14320')
-                        @? formSelect(name: 'tipo', label: 'Tipo de Conta', placeholder: 'Escolha o tipo de conta', obrigatorio: true, lista: (new \App\Classes\SiliumDeposito\TipoConta())->select('Selecione um tipo de conta'));
-                    </div>
+                @? formInput(name: 'ponto_nome', label: 'Nome', placeholder:'Digite seu nome', obrigatorio: true, value: '', local: 'André Rodrigues')
+                @? formInput(name: 'ponto_email', label: 'E-mail', placeholder:'Digite seu E-mail', obrigatorio: true, value: '', local: 'andre@markt.club')
+                @? formNumero(name: 'ponto_quantidade', label: 'Pontos', placeholder: 'Digite a quantidade de pontos', obrigatorio: true, value: '', local: 1)
+                <div class="resgate_dinheiro display_none">
+                    <h1 class="titulo_dados_bancarios">Dados Bancários</h1>
+                    @? formInput(name: 'titular', label: 'Nome', placeholder:'Digite o nome do titular', obrigatorio: true, value: '', local: 'André Rodrigues')
+                    @? formCpf(name: 'cpf_conta', label: 'CPF', placeholder: 'CPF', obrigatorio: true, value: '', local: '123.456.789-00')
+                    @? formInput(name: 'banco', label: 'Banco', placeholder:'Digite o nome do banco', obrigatorio: true, value: '', local: 'InterSA')
+                    @? formNumero(name: 'conta', label: 'Conta Bancária', placeholder:'Digite a sua conta bancária ', maximo: 15, obrigatorio: true, value: '', local: '123456789')
+                    @? formNumero(name: 'agencia', label: 'Agência', placeholder:'Digite a sua agência bancária ', obrigatorio: true, value: '', local: '14320')
+                    @? formSelect(name: 'tipo', label: 'Tipo de Conta', placeholder: 'Escolha o tipo de conta', obrigatorio: true, lista: (new \App\Classes\SiliumDeposito\TipoConta())->select('Selecione um tipo de conta'));
+                </div>
             </div>
         </form>
 
