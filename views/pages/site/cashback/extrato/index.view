@@ -162,7 +162,7 @@
 
         <div class="bloco_botao">
             @if($disponibilidadeDesconto == '1'):
-                <a href="/cashback/extrato#escolher-metodo">Voltar</a>
+                <a class="botao_voltar_cashback" href="/cashback/extrato#escolher-metodo">Voltar</a>
             @endif;
             <div class="botao cor_bg botao" id="botao_solicitar_ponto">Solicitar resgate</div>
         </div>
