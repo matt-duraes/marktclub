@@ -43,7 +43,6 @@ final class SiteController extends Controller
         ]);
     }
 
-
     /**
      * @return Response
      * @throws Excecao

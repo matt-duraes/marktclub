@@ -22,13 +22,12 @@ final class ComercialEmpresaController extends Controller implements
     ControllerSalvarInterface,
     ControllerAtualizarInterface
 {
-    public function getSlug(string $id) : Response
+    public function getSlug(string $id): Response
     {
         $Empresa = new EmpresaEntity();
         $Empresa->uuid($id);
         return mensagemSucesso(pegarPropriedadeDaEntity($Empresa, lista: ['slug']));
     }
-
 
     public function getListar(Request $request): Response
     {

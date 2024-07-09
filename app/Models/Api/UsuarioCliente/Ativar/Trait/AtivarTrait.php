@@ -99,7 +99,6 @@ trait AtivarTrait
         $this->endereco_cidade = $dado['endereco_cidade'];
         $this->trabalho_cargo = new TrabalhoCargo($dado['trabalho_cargo']);
         $this->trabalho_empresa = new TrabalhoEmpresa($dado['trabalho_empresa']);
-
     }
 
     private function validarHash()

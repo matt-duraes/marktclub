@@ -3,7 +3,6 @@
 namespace App\Models\Site\Cashback;
 
 use App\Helpers\ClubeApiHelper;
-use App\Classes\SiliumDeposito\TipoResgate;
 use App\Classes\SiliumDeposito\TipoOperacao;
 
 final class SiliumModel extends ClubeApiHelper
@@ -50,7 +49,6 @@ final class SiliumModel extends ClubeApiHelper
             ->get('/silium-admin')
             ->object();
         return $dado->dado;
-
     }
 
     public function extratoSaque()
