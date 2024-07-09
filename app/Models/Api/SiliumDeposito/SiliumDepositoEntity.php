@@ -273,7 +273,7 @@ class SiliumDepositoEntity extends Entity
         if (!empty($this->saque) && !validarUuid($this->saque)) {
             mensagemErro('Campo inválido!', 'A Identificação do Saque não é válido.');
         }
-        if (!empty($this->valor) && !$this->valor->valido()) {
+        if (!$this->valor->vazio() && !$this->valor->valido()) {
             mensagemErro('Campo inválido!', 'O Valor informado não é válido.');
         }
         if (!$this->data_deposito->vazio() && !$this->data_deposito->valido()) {
