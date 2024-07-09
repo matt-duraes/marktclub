@@ -605,6 +605,7 @@ final class ConfiguracoesPadrao
                 'demanda_sprint_add'        => 'Salvar',
                 'demanda_sprint_visualizar' => 'Visualizar',
                 'demanda_sprint_editar'     => 'Editar',
+                'demanda_sprint_status'     => 'Status',
             ]
         ],
         'demanda_kanban'  => [

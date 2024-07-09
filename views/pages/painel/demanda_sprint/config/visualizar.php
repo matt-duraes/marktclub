@@ -20,15 +20,15 @@ $Painel
         campo: 'status',
         texto: 'Iniciar sprint',
         cor: 'verde',
-        id: 'botao_sprint_iniciar',
-        inArray: ['nova']
+        inArray: ['nova'],
+        id: 'botao_sprint_iniciar'
     )
     ->botaoDestaque(
         campo: 'status',
         texto: 'Concluir sprint',
         cor: 'verde',
-        id: 'botao_sprint_concluir',
-        inArray: ['andamento']
+        inArray: ['andamento'],
+        id: 'botao_sprint_concluir'
     )
     ->botaoDestaque(
         campo: 'status',

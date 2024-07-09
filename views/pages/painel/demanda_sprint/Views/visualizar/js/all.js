@@ -4,6 +4,8 @@ window.addEventListener('load', () => {
     const botaoCancelar = $('#botao_sprint_cancelar');
 
     const PopupInicar = new Popup('bloco_popup_iniciar');
+    const PopupConcluir = new Popup('bloco_popup_concluir');
+    const PopupCancelar = new Popup('bloco_popup_cancelar');
     botaoIniciar.evento('click', () => {
         //
     });

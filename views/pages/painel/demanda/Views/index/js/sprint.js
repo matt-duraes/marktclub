@@ -154,7 +154,7 @@ const acaoDemandaSprint = async (bloco, botao, acao) => {
 
     botao.classe('aguarde', true);
     Loading.botao(botao).show();
-    const resposta = await fazerRequestRequest(acao, id, '');
+    const resposta = await fazerRequestAdicionarRemoverDemandaSprint(acao, id, '');
     botao.classe('aguarde', false);
     Loading.botao(botao).hide();
 
@@ -163,7 +163,7 @@ const acaoDemandaSprint = async (bloco, botao, acao) => {
     }
     bloco.classe('na_sprint', acao == 'add');
 };
-const fazerRequestRequest = (acao, demanda, texto) => {
+const fazerRequestAdicionarRemoverDemandaSprint = (acao, demanda, texto) => {
     return ajaxPost(
         LINK + '/demanda-sprint/demanda-' + acao,
         {

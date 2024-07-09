@@ -17,7 +17,7 @@ final class SprintEntity extends Entity
     ];
     protected array $ormUpdate = [
         'texto_inicio', 'texto_final', 'id_demanda', 'id_demanda_inicio', 'id_demanda_retirada',
-        'id_demanda_adicionada'
+        'id_demanda_adicionada', 'status'
     ];
     protected array $ormSalvar = [
         'titulo', 'data_inicio', 'data_final'
@@ -41,6 +41,30 @@ final class SprintEntity extends Entity
         if ($this->existe(['status', new Status(Status::ANDAMENTO)])) {
             mensagemErro('Erro!', 'Já existe uma sprint em andamento no momento.');
         }
+    }
+
+    public function regraUpdate()
+    {
+        $mudouStatus = $this->prop('status') != $this->status->numero();
+        if ($mudouStatus && $this->status->se(Status::ANDAMENTO)) {
+            $this->mudarStatusParaAndamento();
+        } elseif ($mudouStatus && $this->status->se([Status::CONCLUIDA_ATRASADA, Status::CONCLUIDA_PRAZO])) {
+            $this->mudarStatusParaConcluido();
+        }
+    }
+
+    private function mudarStatusParaAndamento()
+    {
+        if (empty($this->id_demanda)) {
+            mensagemErro('Erro!', 'Você deve colocar pelo menos uma demanda na sprint para continuar.');
+        }
+    }
+
+    private function mudarStatusParaConcluido()
+    {
+        $this->status = new Status(
+            $this->data_final->date() >= hoje() ? Status::CONCLUIDA_PRAZO : Status::CONCLUIDA_ATRASADA
+        );
     }
 
     public function regraPosBuscar()

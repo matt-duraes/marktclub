@@ -1873,7 +1873,7 @@ Route
             ::nome('atualizar')
             ::middleware(TokenMiddleware::class, 'scope', ['demanda_sprint:atualizar'])
             ::request([
-                '!titulo', '!data_inicio', '!data_final', 'texto_inicio', '!texto_final', '!status'
+                '!titulo', '!data_inicio', '!data_final', '!texto_inicio', '!texto_final', '!status'
             ])
             ::put('/demanda-sprint/{id}');
 
