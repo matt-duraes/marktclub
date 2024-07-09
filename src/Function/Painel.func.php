@@ -252,6 +252,7 @@ if (!function_exists('painelLinhaLista')) {
         $botaoStatus = '';
         foreach ($lista as $item) {
             $acao = $item['funcao'];
+            $inArray = $item['inArray'] ?? '';
             if ($acao == 'include') {
                 require_once $item['arquivo'];
                 continue;
@@ -261,7 +262,6 @@ if (!function_exists('painelLinhaLista')) {
                 include ROOT . '/src/Html/Painel/' . $acao . '.php';
                 continue;
             } elseif ($acao == 'botaoDestaque') {
-                $inArray = $item['inArray'] ?? '';
                 $campo = $item['campo'] ?? '';
                 $valor = $dado->$campo ?? '';
                 if (is_array($inArray) && $inArray && !empty($valor) && !in_array($valor, $inArray)) {

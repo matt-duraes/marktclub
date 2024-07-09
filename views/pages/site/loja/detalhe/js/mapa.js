@@ -98,7 +98,7 @@ window.addEventListener('load', async () => {
     });
     const abrirPopupEndereco = async () => {
         PopupAbrir.abrir();
-        // buscarEstruturaEndereco('geral');
+        buscarEstruturaEndereco('geral');
     };
 
     inputPais.evento('formChange', () => {
@@ -112,6 +112,7 @@ window.addEventListener('load', async () => {
     });
 
     const buscarEstruturaEndereco = async tipo => {
+        blocoLista.html('');
         if (tipo == 'geral') {
             formSelectLoading(inputPais);
             formSelectLoading(inputEstado);
@@ -177,6 +178,7 @@ window.addEventListener('load', async () => {
     };
 
     const buscarEndereco = async loading => {
+        blocoLista.html('');
         blocoCidade.sumir();
 
         if (loading === undefined) {
