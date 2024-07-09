@@ -7,7 +7,10 @@ $Painel = new Add('silium_deposito', $acao);
 
 $Status = new Status();
 $Painel->coluna(callback: function () use ($Painel, $Status) {
-    $Painel->fieldset('Informações do Depósito', function () use ($Painel, $Status) {
+    $listaStatus = $Status->select('Selecione um status');
+    unset($listaStatus[Status::AGUARDANDO]);
+
+    $Painel->fieldset('Informações do Depósito', function () use ($Painel, $listaStatus) {
         $Painel
             ->input(
                 name: 'saque',
@@ -27,7 +30,7 @@ $Painel->coluna(callback: function () use ($Painel, $Status) {
             )
             ->select(
                 name: 'status',
-                lista: $Status->select('Selecione um status'),
+                lista: $listaStatus,
                 label: 'Status',
                 placeholder: 'Status',
                 obrigatorio: true
@@ -38,8 +41,8 @@ $Painel->coluna(callback: function () use ($Painel, $Status) {
         $Painel
             ->imagem(
                 name: 'documento_anexo',
-                label: 'Imagem/Foto (exceto em mensalidade)',
-                diretorio: '2a957957-05be-4024-a5fb-7f69a4a0d07f'
+                diretorio: '2a957957-05be-4024-a5fb-7f69a4a0d07f',
+                label: 'Imagem/Foto (exceto em mensalidade)'
             );
     });
 });
