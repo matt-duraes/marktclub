@@ -3,7 +3,6 @@ let idSprint;
 let demandaSprintId;
 let demandaSprintAcao;
 
-const blocoBotaoSprint = $('#bloco_botao_sprint');
 const EsqueletoBotaoSprint = new Esqueleto(blocoBotaoSprint, '.esqueleto', false);
 
 const blocoCriarSprint = $$('.bloco_criar_sprint');
@@ -54,32 +53,36 @@ botaoForaSprint.evento('click', () => {
     $$('#bloco_app_lista_detalhe .linha').classe('display_none', false);
 });
 
-const buscarSprintAtiva = async () => {
+const buscarSprintAtiva = async existe => {
     if (USUARIO_GERENTE != 'sim') {
-        blocoSprintExiste.sumir();
         blocoSprintExiste.sumir();
         return;
     }
 
-    EsqueletoBotaoSprint.show();
+    if (existe) {
+        EsqueletoBotaoSprint.show();
+    }
 
-    const blocoLista = $('#bloco_app_lista_detalhe');
     const resposta = await ajaxPost(LINK + '/demanda-sprint/ativa', {}, '');
-    EsqueletoBotaoSprint.hide();
+    if (existe) {
+        EsqueletoBotaoSprint.hide();
+    }
     if (false === resposta) {
         blocoSprintExiste.sumir();
         return;
     }
     idSprint = resposta.dado.id;
     sprintStatus = resposta.dado.status;
+    conteudoLista.classe('sprint_ativa', true);
     blocoCriarSprint.sumir();
-    blocoLista.classe('sprint_ativa', true);
-    for (const id of resposta.dado.demanda) {
-        const linha = $('#id_demanda_' + id);
-        if (!linha) {
-            continue;
+    if (existe) {
+        for (const id of resposta.dado.demanda) {
+            const linha = $('#id_demanda_' + id);
+            if (!linha) {
+                continue;
+            }
+            linha.classe('na_sprint');
         }
-        linha.classe('na_sprint');
     }
 };
 

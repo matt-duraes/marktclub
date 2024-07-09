@@ -6,15 +6,22 @@ const demandaCancelar = () => {
     formValue(inputMotivo, '');
 
     botaoSalvar.addEventListener('click', async () => {
-        if (inputMotivo.value == '') {
+        const motivo = inputMotivo.valor();
+        if (vazio(motivo)) {
             Alerta.notificacao('Preencha o motivo do cancelamento para continuar.', false);
             return;
         }
+
+        const blocoDemanda = $('#id_demanda_' + idDemanda);
+        if (blocoDemanda && blocoDemanda.classe('na_sprint')) {
+            fazerRequestAdicionarRemoverDemandaSprint('remover', idDemanda, motivo);
+        }
+
         Loading.show();
         const resposta = await ajaxPost(
             LINK + '/demanda/demanda-cancelar/' + idDemanda,
             {
-                motivo: inputMotivo.value,
+                motivo,
             },
             'Ocorreu um erro ao cancelar demanda, por favor, tente novamente.'
         );
@@ -24,12 +31,36 @@ const demandaCancelar = () => {
         }
         PopupDemandaCancelar.fechar();
         PaginaFechar.fechar();
-        const blocoItem = $('.bloco_tarefa_item[data-id="' + idDemanda + '"]');
-        if (!blocoItem) {
+
+        if (!blocoDemanda) {
             return;
         }
-        const coluna = blocoItem.closest('.bloco_coluna');
-        blocoItem.remove();
+
+        if (conteudoLista) {
+            acaoAposCancelarDemandaLista(blocoDemanda);
+            return;
+        }
+        acaoAposCancelarDemandaQuadro(blocoDemanda);
+    });
+
+    const acaoAposCancelarDemandaLista = bloco => {
+        bloco.remove();
+        const quantidade = $$('.linha', conteudoLista).length;
+        if (quantidade.length > 0) {
+            return;
+        }
+        const zero = $('.tarefa_zero', conteudoLista);
+        if (zero) {
+            zero.aparecer();
+        }
+        if (blocoBotaoSprint) {
+            blocoBotaoSprint.sumir();
+        }
+    };
+
+    const acaoAposCancelarDemandaQuadro = bloco => {
+        const coluna = bloco.closest('.bloco_coluna');
+        bloco.remove();
         contarTarefaDemanda(coluna);
         const lista = coluna.querySelectorAll('.bloco_tarefa_item');
         if (lista.length > 0) {
@@ -37,7 +68,7 @@ const demandaCancelar = () => {
         }
         const zero = coluna.querySelector('.tarefa_zero');
         if (zero) {
-            zero.classList.remove('display_none');
+            zero.aparecer();
         }
-    });
+    };
 };

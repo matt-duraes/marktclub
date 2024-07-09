@@ -5,6 +5,8 @@ const USUARIO_NOME = $('#USUARIO_NOME').value;
 const USUARIO_IMAGEM = $('#USUARIO_IMAGEM').value;
 const USUARIO_GERENTE = $('#USUARIO_GERENTE').value;
 
+const blocoBotaoSprint = $('#bloco_botao_sprint');
+
 const area = $('#input_area').value;
 
 const inputTarefaId = $('#input_tarefa_id');
@@ -237,6 +239,14 @@ const adicionarNovaDemanda = (bloco, item, abrir) => {
                 }
                 linha.classe('aberto');
             });
+            blocoBotaoSprint.aparecer();
+            if (conteudoLista.classe('sprint_ativa', '?')) {
+                blocoCriarSprint.sumir();
+                blocoSprintExiste.aparecer();
+            } else {
+                blocoCriarSprint.aparecer();
+                blocoSprintExiste.sumir();
+            }
         }
         resolve(true);
     });

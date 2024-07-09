@@ -38,7 +38,7 @@ final class RemoverModel extends DemandaModel
                 'id_demanda'            => $this->demandaId,
                 'id_demanda_retirada'   => $this->demandaRetirada
             ])
-            ->where(['id', $this->demandaId])
+            ->where(['id', $this->id])
             ->update();
     }
 }

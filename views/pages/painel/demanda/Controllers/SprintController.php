@@ -56,12 +56,12 @@ final class SprintController extends Controller
             ])
             ->post('/demanda-sprint/demanda-adicionar')
             ->object();
-        return new Response(status: 201);
+        return mensagemSucesso(dado: ['id' => uuid()], status: 201);
     }
 
     public function postDemandaRemover(Request $request)
     {
-        $this->Api
+        $dado = $this->Api
             ->validar(mensagem: 'Erro ao remover demanda, por favor, tente novamente.')
             ->body([
                 'demanda' => $request->demanda,
@@ -70,7 +70,6 @@ final class SprintController extends Controller
             ])
             ->post('/demanda-sprint/demanda-remover')
             ->object();
-
         return new Response(status: 204);
     }
 }

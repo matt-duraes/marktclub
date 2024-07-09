@@ -51,14 +51,15 @@ async function buscarDados(filtros) {
             return;
         }
         if (resposta.dado.length == 0) {
+            buscarSprintAtiva(false);
             adicionarBlocoZero(coluna);
             return;
         }
+        buscarSprintAtiva(true);
         adicionarBlocoZero(coluna, 'display_none');
         for (const item of resposta.dado) {
             adicionarNovaDemanda(coluna, item);
         }
-        buscarSprintAtiva();
     };
 
     const carregarBuscarQuadro = (coluna, resposta) => {
@@ -107,5 +108,5 @@ const adicionarBlocoZero = (conteudo, classe) => {
     if (classe !== undefined && classe != '') {
         clone.classList.add(classe);
     }
-    conteudo.prepend(clone);
+    conteudo.final(clone);
 };
