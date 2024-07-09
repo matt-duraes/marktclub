@@ -4,6 +4,7 @@ namespace App\Models\Api\SiliumComissao;
 
 use App\Classes\SiliumComissao\Status;
 use App\Models\Api\SiliumSaldo\SiliumSaldoEntity;
+use Erro\Excecao;
 use Helpers\OrmHelper;
 use Modules\Data;
 use Modules\Dinheiro;
@@ -11,6 +12,14 @@ use ORM\Entity;
 
 class SiliumComissaoEntity extends Entity
 {
+    public string $parceiro;
+    public string|array $empresa;
+    public string|array $usuario;
+    public Dinheiro $valor_compra;
+    public Dinheiro $comissao_usuario;
+    public int $pontuacao;
+    public Data $data_compra;
+    public Status $status;
     protected string $ormTabela = TABELA_SILIUM_COMISSAO;
     protected array $ormBuscar = [
         'id_admin_empresa', 'id_usuario_cliente', 'parceiro', 'valor_compra',
@@ -37,15 +46,6 @@ class SiliumComissaoEntity extends Entity
     protected int $idEmpresa;
     protected int $idUsuario;
 
-    public string $parceiro;
-    public string|array $empresa;
-    public string|array $usuario;
-    public Dinheiro $valor_compra;
-    public Dinheiro $comissao_usuario;
-    public int $pontuacao;
-    public Data $data_compra;
-    public Status $status;
-
     public function __construct()
     {
         parent::__construct();
@@ -56,6 +56,35 @@ class SiliumComissaoEntity extends Entity
         $this->pegarUsuario();
     }
 
+    /**
+     * @return void
+     */
+    private function pegarUsuario(): void
+    {
+        $OrmHelper = new OrmHelper(TABELA_USUARIO_CLIENTE);
+        $usuario = $OrmHelper->pegarUltimoRegistro(
+            ['id', $this->id_usuario_cliente],
+            ['uuid', 'nome'],
+            'object'
+        );
+
+        if (empty($usuario->uuid)) {
+            $this->usuario = [
+                'id'   => '',
+                'nome' => 'Não foi encontrado'
+            ];
+            return;
+        }
+        $this->usuario = [
+            'id'   => $usuario->uuid,
+            'nome' => $usuario->nome
+        ];
+    }
+
+    /**
+     * @return void
+     * @throws Excecao
+     */
     protected function regraSalvar(): void
     {
         $this->validarDataFutura();
@@ -63,17 +92,29 @@ class SiliumComissaoEntity extends Entity
         $this->calcularPontuacao();
     }
 
-    protected function regraPosSalvar(): void
+    /**
+     * @return void
+     * @throws Excecao
+     */
+    private function validarDataFutura(): void
     {
-        if ($this->status->indice() === Status::LIBERADO) {
-            $this->setarPontuacao();
+        if ($this->data_compra->date() > hoje()) {
+            mensagemErro(
+                'Data da compra inválida!',
+                'Sua data de compra não pode ser maior que ' . hoje(true),
+                localhost: 'Sua data está no futuro.'
+            );
         }
     }
 
+    /**
+     * @return void
+     * @throws Excecao
+     */
     private function setarUsuarioEmpresa(): void
     {
         $usuario = is_string($this->usuario) ? $this->usuario : $this->usuario['id'];
-        if (!validarUuid($usuario)){
+        if (!validarUuid($usuario)) {
             mensagemErro(
                 'Usuário inválido!',
                 'A identificação de usuário informada não é válida.',
@@ -99,43 +140,26 @@ class SiliumComissaoEntity extends Entity
         $this->idUsuario = $usuario->id;
     }
 
-    private function pegarUsuario(): void
-    {
-        $OrmHelper = new OrmHelper(TABELA_USUARIO_CLIENTE);
-        $usuario = $OrmHelper->pegarUltimoRegistro(
-            ['id', $this->id_usuario_cliente],
-            ['uuid', 'nome'],
-            'object'
-        );
-
-        if (empty($usuario->uuid)) {
-            $this->usuario = [
-                'id'   => '',
-                'nome' => 'Não foi encontrado'
-            ];
-        }
-        $this->usuario = [
-            'id'   => $usuario->uuid,
-            'nome' => $usuario->nome
-        ];
-    }
-
-    private function validarDataFutura(): void
-    {
-        if ($this->data_compra->date() > hoje()) {
-            mensagemErro(
-                'Data da compra inválida!',
-                'Sua data de compra não pode ser maior que ' . hoje(true),
-                localhost: 'Sua data está no futuro.'
-            );
-        }
-    }
-
     private function calcularPontuacao(): void
     {
-        $this->pontuacao = $this->comissao_usuario->decimal() * 100;
+        $this->pontuacao = (int)($this->comissao_usuario->decimal() * 100);
     }
 
+    /**
+     * @return void
+     * @throws Excecao
+     */
+    protected function regraPosSalvar(): void
+    {
+        if ($this->status->indice() === Status::LIBERADO) {
+            $this->setarPontuacao();
+        }
+    }
+
+    /**
+     * @return void
+     * @throws Excecao
+     */
     private function setarPontuacao(): void
     {
         $SiliumSaldoEntity = new SiliumSaldoEntity();
