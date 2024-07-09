@@ -59,12 +59,12 @@ final class CashbackController extends Controller
     public function extrato(): Response
     {
         $siliumConfig = (new SiliumModel())->pontosResgate();
-        $dados = (new SiliumModel())->buscarDados();
+        $dado = (new SiliumModel())->buscarDados();
         return view('cashback.extrato', [
             'menu'                    => 'extrato_silium',
-            'saldo'                   => $dados['saldo'] ?? 0,
-            'extratoCompra'           => $dados['extrato_compra'],
-            'extratoSaque'            => $dados['extrato_saque'],
+            'saldo'                   => $dado['saldo'] ?? 0,
+            'extratoCompra'           => $dado['extrato_compra'],
+            'extratoSaque'            => $dado['extrato_saque'],
             'siliumConfig'            => $siliumConfig,
             'pontosMinimos'           => $siliumConfig->pontuacao_minima_resgate->dinheiro,
             'disponibilidadeDesconto' => $siliumConfig->desconto,
