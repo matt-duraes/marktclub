@@ -4,6 +4,7 @@ namespace App\Models\Api\SiliumComissao;
 
 use App\Classes\SiliumComissao\Ordem;
 use App\Classes\SiliumComissao\Status;
+use Erro\Excecao;
 use Modules\Data;
 use Modules\Dinheiro;
 use Modules\Pagina;
@@ -24,6 +25,18 @@ class SiliumComissaoModel extends ORM implements
 
     protected string $ormTabela = TABELA_SILIUM_COMISSAO;
 
+    /**
+     * @param Pagina      $pagina
+     * @param Quantidade  $quantidade
+     * @param Ordem       $ordem
+     * @param string|null $usuario
+     * @param string|null $parceiro
+     * @param Data        $dataInicio
+     * @param Data        $dataFinal
+     * @param Status      $status
+     *
+     * @throws Excecao
+     */
     public function __construct(
         private readonly Pagina $pagina = new Pagina(),
         private readonly Quantidade $quantidade = new Quantidade(),
@@ -38,6 +51,10 @@ class SiliumComissaoModel extends ORM implements
         parent::__construct();
     }
 
+    /**
+     * @return void
+     * @throws Excecao
+     */
     private function validarRequest(): void
     {
         if (!$this->pagina->vazio() && !$this->pagina->valido()) {
@@ -60,6 +77,10 @@ class SiliumComissaoModel extends ORM implements
         }
     }
 
+    /**
+     * @return stdClass
+     * @throws Excecao
+     */
     public function listarDados(): stdClass
     {
         $comissoes = $this
@@ -87,6 +108,9 @@ class SiliumComissaoModel extends ORM implements
         return $comissoes;
     }
 
+    /**
+     * @return array
+     */
     private function pegarWhere(): array
     {
         $where = $this->ormWherePadrao;
@@ -110,6 +134,10 @@ class SiliumComissaoModel extends ORM implements
         return $where;
     }
 
+    /**
+     * @return array
+     * @throws Excecao
+     */
     private function pegarWhereUsuario(): array
     {
         $where = [];
@@ -121,6 +149,11 @@ class SiliumComissaoModel extends ORM implements
         return $where;
     }
 
+    /**
+     * @param array $comissoes
+     *
+     * @return array
+     */
     private function montarRetorno(array $comissoes): array
     {
         if (empty($comissoes)) {
@@ -136,7 +169,7 @@ class SiliumComissaoModel extends ORM implements
                     'id'   => $comissao->empresa_uuid,
                     'nome' => $comissao->empresa_nome_fantasia
                 ],
-                'usuario' => [
+                'usuario'          => [
                     'id'   => $comissao->usuario_uuid,
                     'nome' => $comissao->usuario_nome
                 ],

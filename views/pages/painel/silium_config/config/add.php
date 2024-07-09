@@ -16,7 +16,7 @@ $Painel->coluna(callback: function () use ($Painel) {
             )
             ->select(
                 name: 'desconto',
-                lista: (new Botao())->select(),
+                lista: ['1' => 'Sim', '2' => 'Não'],
                 label: 'Tem resgate via Desconto na Mensalidade?',
                 obrigatorio: true
             )

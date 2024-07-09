@@ -3,12 +3,19 @@
 namespace App\Models\Api\SiliumConfig;
 
 use App\Classes\SiliumDeposito\TipoResgate;
+use Erro\Excecao;
 use Helpers\OrmHelper;
-use Modules\Botao;
 use ORM\Entity;
 
 class SiliumConfigEntity extends Entity
 {
+    public string $empresa;
+    public string $desconto;
+    public array $regra_conversao;
+    public array $pontuacao_minima_resgate;
+    public string|int $validade_pontuacao;
+    public string|int $pontuacao_dinheiro;
+    public string|int $pontuacao_mensalidade;
     protected string $ormTabela = TABELA_SILIUM_CONFIG;
     protected array $ormBuscar = [
         'id_admin_empresa', 'desconto', 'regra_conversao',
@@ -22,6 +29,7 @@ class SiliumConfigEntity extends Entity
     ];
     protected int $id_admin_empresa;
     protected int $idEmpresa;
+
     public string $empresa;
     public Botao $desconto;
     public array $regra_conversao;
@@ -35,6 +43,10 @@ class SiliumConfigEntity extends Entity
         parent::__construct();
     }
 
+    /**
+     * @return void
+     * @throws Excecao
+     */
     protected function regraPosBuscar(): void
     {
         $this->pegarEmpresa();
@@ -42,6 +54,29 @@ class SiliumConfigEntity extends Entity
         $this->pontuacao_mensalidade = $this->pontuacao_minima_resgate[TipoResgate::MENSALIDADE];
     }
 
+    /**
+     * @return void
+     * @throws Excecao
+     */
+    private function pegarEmpresa(): void
+    {
+        $OrmHelper = new OrmHelper(TABELA_COMERCIAL_EMPRESA);
+        $uuidEmpresa = $OrmHelper->pegarUuidPeloId($this->id_admin_empresa);
+
+        if (empty($uuidEmpresa)) {
+            mensagemErro(
+                'Campo inválido!',
+                'Não foi possível vincular a empresa selecionada.',
+                localhost: 'Não achou há empresa no banco'
+            );
+        }
+        $this->empresa = $uuidEmpresa;
+    }
+
+    /**
+     * @return void
+     * @throws Excecao
+     */
     protected function regraSalvar(): void
     {
         $this->validarDados();
@@ -52,6 +87,10 @@ class SiliumConfigEntity extends Entity
         ];
     }
 
+    /**
+     * @return void
+     * @throws Excecao
+     */
     private function validarDados(): void
     {
         if (!filter_var($this->pontuacao_dinheiro, FILTER_VALIDATE_INT)) {
@@ -84,6 +123,10 @@ class SiliumConfigEntity extends Entity
         }
     }
 
+    /**
+     * @return void
+     * @throws Excecao
+     */
     private function setarEmpresa(): void
     {
         $OrmHelper = new OrmHelper(TABELA_COMERCIAL_EMPRESA);
@@ -97,20 +140,5 @@ class SiliumConfigEntity extends Entity
             );
         }
         $this->idEmpresa = $idEmpresa;
-    }
-
-    private function pegarEmpresa(): void
-    {
-        $OrmHelper = new OrmHelper(TABELA_COMERCIAL_EMPRESA);
-        $uuidEmpresa = $OrmHelper->pegarUuidPeloId($this->id_admin_empresa);
-
-        if (empty($uuidEmpresa)) {
-            mensagemErro(
-                'Campo inválido!',
-                'Não foi possível vincular a empresa selecionada.',
-                localhost: 'Não achou há empresa no banco'
-            );
-        }
-        $this->empresa = $uuidEmpresa;
     }
 }

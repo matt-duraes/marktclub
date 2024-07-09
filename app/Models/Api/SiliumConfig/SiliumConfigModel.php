@@ -4,7 +4,7 @@ namespace App\Models\Api\SiliumConfig;
 
 use App\Classes\SiliumConfig\Ordem;
 use App\Models\Api\Trait\ValidarEmpresaTrait;
-use Modules\Botao;
+use Erro\Excecao;
 use Modules\Pagina;
 use Modules\Quantidade;
 use ORM\ORM;
@@ -24,6 +24,13 @@ class SiliumConfigModel extends ORM implements
 
     protected string $ormTabela = TABELA_SILIUM_CONFIG;
 
+    /**
+     * @param Pagina     $pagina
+     * @param Quantidade $quantidade
+     * @param Ordem      $ordem
+     *
+     * @throws Excecao
+     */
     public function __construct(
         private readonly Pagina $pagina = new Pagina(),
         private readonly Quantidade $quantidade = new Quantidade(),
@@ -34,6 +41,10 @@ class SiliumConfigModel extends ORM implements
         parent::__construct();
     }
 
+    /**
+     * @return void
+     * @throws Excecao
+     */
     private function validarRequest(): void
     {
         if (!$this->pagina->vazio() && !$this->pagina->valido()) {
@@ -47,24 +58,34 @@ class SiliumConfigModel extends ORM implements
         }
     }
 
+    /**
+     * @return stdClass
+     * @throws Excecao
+     */
     public function listarDados(): stdClass
     {
-        $configuracoes = $this->campo([
-            'uuid', 'desconto', 'regra_conversao', 'pontuacao_minima_resgate',
-            'validade_pontuacao', 'data_criacao', 'data_atualizacao'
-        ])
-        ->pagina($this->pegarPagina(), $this->pegarQuantidade())
-        ->order($this->pegarOrdem(new Ordem()))
-        ->tabela(TABELA_COMERCIAL_EMPRESA)
-        ->join('id', 'id_admin_empresa')
-        ->campo([
-            'uuid', 'nome_fantasia'
-        ], 'empresa')
-        ->read();
+        $configuracoes = $this
+            ->campo([
+                'uuid', 'desconto', 'regra_conversao', 'pontuacao_minima_resgate',
+                'validade_pontuacao', 'data_criacao', 'data_atualizacao'
+            ])
+            ->pagina($this->pegarPagina(), $this->pegarQuantidade())
+            ->order($this->pegarOrdem(new Ordem()))
+            ->tabela(TABELA_COMERCIAL_EMPRESA)
+            ->join('id', 'id_admin_empresa')
+            ->campo([
+                'uuid', 'nome_fantasia'
+            ], 'empresa')
+            ->read();
         $configuracoes->lista = $this->montarRetorno($configuracoes->lista);
         return $configuracoes;
     }
 
+    /**
+     * @param array $configuracoes
+     *
+     * @return array
+     */
     private function montarRetorno(array $configuracoes): array
     {
         if (empty($configuracoes)) {
@@ -79,7 +100,7 @@ class SiliumConfigModel extends ORM implements
                     'id'   => $config->empresa_uuid,
                     'nome' => $config->empresa_nome_fantasia
                 ],
-                'desconto'                 => (new Botao($config->desconto))->valor(),
+                'desconto'                 => $config->desconto,
                 'regra_conversao'          => jsonDecode($config->regra_conversao, true, true),
                 'pontuacao_minima_resgate' => jsonDecode($config->pontuacao_minima_resgate, true, true),
                 'validade_pontuacao'       => $config->validade_pontuacao,

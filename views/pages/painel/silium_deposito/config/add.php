@@ -15,7 +15,8 @@ $Painel->coluna(callback: function () use ($Painel, $Status) {
             ->input(
                 name: 'saque',
                 label: 'Identificação da Solicitação',
-                placeholder: 'Insira a identificação da solicitação (UUID)'
+                placeholder: 'Insira a identificação da solicitação (UUID)',
+                acao: 'add'
             )
             ->dinheiro(
                 name: 'valor',
