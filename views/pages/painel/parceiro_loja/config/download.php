@@ -23,7 +23,6 @@ $Painel
     })
     ->bloco('Dados da parceria', function () use ($Painel) {
         $Painel
-            ->campo('empresa', 'Empresas')
             ->campo('endereco_estado', 'Estados')
             ->campo('link_site', 'Site')
             ->campo('url', 'URL')

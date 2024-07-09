@@ -22,7 +22,6 @@ class SiliumConfigEntity extends Entity
     ];
     protected int $id_admin_empresa;
     protected int $idEmpresa;
-
     public string $empresa;
     public Botao $desconto;
     public array $regra_conversao;
