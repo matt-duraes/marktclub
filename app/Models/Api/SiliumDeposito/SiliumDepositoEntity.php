@@ -94,7 +94,6 @@ class SiliumDepositoEntity extends Entity
     }
 
     /**
-     * @return void
      */
     private function pegarUsuario(): void
     {
@@ -124,7 +123,6 @@ class SiliumDepositoEntity extends Entity
     }
 
     /**
-     * @return void
      * @throws Excecao
      */
     protected function regraInsert(): void
@@ -146,7 +144,6 @@ class SiliumDepositoEntity extends Entity
     }
 
     /**
-     * @return void
      * @throws Excecao
      */
     private function validarRequestSaque(): void
@@ -175,7 +172,6 @@ class SiliumDepositoEntity extends Entity
     }
 
     /**
-     * @return void
      * @throws Excecao
      */
     private function setarUsuario(): void
@@ -193,7 +189,6 @@ class SiliumDepositoEntity extends Entity
     }
 
     /**
-     * @return void
      * @throws Excecao
      */
     private function verificarSolicitacaoPendente(): void
@@ -213,7 +208,6 @@ class SiliumDepositoEntity extends Entity
     }
 
     /**
-     * @return void
      * @throws Excecao
      */
     private function validarResgate(): void
@@ -238,7 +232,6 @@ class SiliumDepositoEntity extends Entity
     }
 
     /**
-     * @return void
      * @throws Excecao
      */
     private function validarSaldoSuficiente(): void
@@ -265,7 +258,6 @@ class SiliumDepositoEntity extends Entity
     }
 
     /**
-     * @return void
      * @throws Excecao
      */
     private function validarRequestDeposito(): void
@@ -282,7 +274,6 @@ class SiliumDepositoEntity extends Entity
     }
 
     /**
-     * @return void
      * @throws Excecao
      */
     private function pegarSolicitacao(): void
@@ -318,7 +309,6 @@ class SiliumDepositoEntity extends Entity
     }
 
     /**
-     * @return void
      * @throws Excecao
      * @throws TypeException
      */
@@ -334,7 +324,6 @@ class SiliumDepositoEntity extends Entity
     }
 
     /**
-     * @return void
      * @throws Excecao
      */
     private function debitarSaldo(): void
@@ -350,7 +339,6 @@ class SiliumDepositoEntity extends Entity
     }
 
     /**
-     * @return void
      * @throws Excecao
      */
     private function atualizarStatusSolicitacao(): void
@@ -364,7 +352,6 @@ class SiliumDepositoEntity extends Entity
     }
 
     /**
-     * @return void
      * @throws Excecao
      * @throws TypeException
      */
@@ -388,7 +375,7 @@ class SiliumDepositoEntity extends Entity
             $acao = 'Silium Cashback';
             $mensagem = 'Caro(a) <strong>' . $this->nome_titular->nome() . '</strong>, Confirmamos o recebimento do seu pedido de saque de cashback
             no valor de R$ ' . $this->valor->dinheiro(
-                ) . ' (' . $this->pontuacao . ' Pontos), registrado em ' . $this->data_deposito->data() . '. O processamento
+            ) . ' (' . $this->pontuacao . ' Pontos), registrado em ' . $this->data_deposito->data() . '. O processamento
             será concluído em até 3-5 dias úteis.';
         } elseif ($this->tipo_resgate->indice() === TipoResgate::MENSALIDADE) {
             $titulo = 'Desconto de Mensalidade';
@@ -396,7 +383,7 @@ class SiliumDepositoEntity extends Entity
             $acao = 'Silium Cashback';
             $mensagem = 'Caro(a) <strong>' . $this->nome_titular->nome() . '</strong>, Confirmamos o recebimento do seu pedido de desconto na mensalidade
             no valor de R$ ' . $this->valor->dinheiro(
-                ) . ' (' . $this->pontuacao . ' Pontos), registrado em ' . $this->data_deposito->data() . '. O processamento
+            ) . ' (' . $this->pontuacao . ' Pontos), registrado em ' . $this->data_deposito->data() . '. O processamento
             será concluído em até 3-5 dias úteis.';
         }
 

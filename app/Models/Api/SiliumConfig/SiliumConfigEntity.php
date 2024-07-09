@@ -30,6 +30,14 @@ class SiliumConfigEntity extends Entity
     protected int $id_admin_empresa;
     protected int $idEmpresa;
 
+    public string $empresa;
+    public Botao $desconto;
+    public array $regra_conversao;
+    public array $pontuacao_minima_resgate;
+    public string|int $validade_pontuacao;
+    public string|int $pontuacao_dinheiro;
+    public string|int $pontuacao_mensalidade;
+
     public function __construct()
     {
         parent::__construct();

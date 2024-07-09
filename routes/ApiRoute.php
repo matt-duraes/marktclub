@@ -1324,15 +1324,7 @@ Route
         Route
             ::nome('listar')
             ::middleware(TokenMiddleware::class, 'scope', ['parceiro_loja:listar'])
-            ::request([
-                'pagina', '!quantidade', '!categoria', '!subcategoria', '!tipo_estabelecimento',
-                '!pesquisa', '!titulo', '!tipo_loja', '!status', '!ordem', '!favorito', '!mais_acessado',
-                '!latitude', '!longitude', '!endereco_estado', '!empresa', '!equipe', '!convenio_direto',
-                '!convenio', '!data_criacao_de', '!data_criacao_ate', '!data_publicacao_de',
-                '!data_publicacao_ate', '!data_prospeccao_de', '!data_prospeccao_ate', '!data_problema_de',
-                '!data_problema_ate', '!data_cancelado_de', '!data_cancelado_ate', '!data_auditoria_de',
-                '!data_auditoria_ate',
-            ], 'json')
+            ::request(App\Classes\ParceiroLoja\Helper::PARAMETROS_LISTAR, 'json')
             ::get('/parceiro-loja');
         Route
             ::nome('buscar')
@@ -1391,15 +1383,7 @@ Route
         Route
             ::nome('download')
             ::middleware(TokenMiddleware::class, 'scope', ['parceiro_loja:download'])
-            ::request([
-                'campo', 'usuario', '!categoria', '!subcategoria', '!tipo_estabelecimento',
-                '!pesquisa', '!titulo', '!tipo_loja', '!status', '!ordem', '!favorito', '!mais_acessado',
-                '!latitude', '!longitude', '!endereco_estado', '!empresa', '!equipe', '!convenio_direto',
-                '!convenio', '!data_criacao_de', '!data_criacao_ate', '!data_publicacao_de',
-                '!data_publicacao_ate', '!data_prospeccao_de', '!data_prospeccao_ate', '!data_problema_de',
-                '!data_problema_ate', '!data_cancelado_de', '!data_cancelado_ate', '!data_auditoria_de',
-                '!data_auditoria_ate',
-            ])
+            ::request(Route::parametroDownload(App\Classes\ParceiroLoja\Helper::PARAMETROS_LISTAR))
             ::post('/parceiro-loja/download');
     });
 

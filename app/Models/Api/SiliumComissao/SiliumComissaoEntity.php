@@ -57,7 +57,6 @@ class SiliumComissaoEntity extends Entity
     }
 
     /**
-     * @return void
      */
     private function pegarUsuario(): void
     {
@@ -82,7 +81,6 @@ class SiliumComissaoEntity extends Entity
     }
 
     /**
-     * @return void
      * @throws Excecao
      */
     protected function regraSalvar(): void
@@ -93,7 +91,6 @@ class SiliumComissaoEntity extends Entity
     }
 
     /**
-     * @return void
      * @throws Excecao
      */
     private function validarDataFutura(): void
@@ -108,7 +105,6 @@ class SiliumComissaoEntity extends Entity
     }
 
     /**
-     * @return void
      * @throws Excecao
      */
     private function setarUsuarioEmpresa(): void
@@ -146,7 +142,6 @@ class SiliumComissaoEntity extends Entity
     }
 
     /**
-     * @return void
      * @throws Excecao
      */
     protected function regraPosSalvar(): void
@@ -157,7 +152,6 @@ class SiliumComissaoEntity extends Entity
     }
 
     /**
-     * @return void
      * @throws Excecao
      */
     private function setarPontuacao(): void
