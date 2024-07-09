@@ -22,7 +22,7 @@
                         </span>
                     </p>
                 </div>
-                @if($disponibilidadeDesconto != 'nao'):
+                @if($disponibilidadeDesconto == 'sim'):
                     @if($saldo >= $minPontosDinheiro)
                         <div class="botao botao_resgate_cashback" id="botao_popup_resgate">Escolher resgate</div>
                     @elseif($saldo >= $minPontosMensalidade):
@@ -33,8 +33,8 @@
                             </p>
                         </div>
                         <div class="botao botao_resgate_cashback" id="botao_popup_resgate_mensalidade">Solicitar desconto</div>
-                    @endif
-                @else
+                    @endif;
+                @else:
                     @if($saldo >= $minPontosDinheiro):
                         <div class="botao botao_resgate_cashback" id="botao_popup_resgate_dinheiro">Solicitar resgate</div>
                     @endif;
