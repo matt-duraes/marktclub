@@ -3,6 +3,6 @@
 return [
     'salvar' => [
         'empresa', 'pontuacao_dinheiro', 'pontuacao_mensalidade',
-        'validade_pontuacao'
+        'validade_pontuacao', 'desconto'
     ]
 ];

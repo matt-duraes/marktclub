@@ -2579,7 +2579,7 @@ Route
             ::middleware(TokenMiddleware::class, 'scope', ['silium_config:atualizar'])
             ::request([
                 '!empresa', '!regra_conversao', '!pontuacao_dinheiro',
-                '!pontuacao_mensalidade', '!validade_pontuacao'
+                '!pontuacao_mensalidade', '!validade_pontuacao', '!desconto'
             ])
             ::put('/silium-config/{id}');
 

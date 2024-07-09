@@ -6,19 +6,26 @@ use App\Classes\SiliumConfig\Ordem;
 use App\Models\Api\SiliumConfig\SiliumConfigEntity;
 use App\Models\Api\SiliumConfig\SiliumConfigModel;
 use Controller\Controller;
+use Erro\Excecao;
 use Http\Request;
 use Http\Response;
 use Modules\Pagina;
 use Modules\Quantidade;
-use System\Interface\ControllerListarInterface;
 use System\Interface\ControllerAtualizarInterface;
 use System\Interface\ControllerBuscarInterface;
+use System\Interface\ControllerListarInterface;
 
 final class SiliumConfigController extends Controller implements
     ControllerBuscarInterface,
     ControllerListarInterface,
     ControllerAtualizarInterface
 {
+    /**
+     * @param string $id
+     *
+     * @return Response
+     * @throws Excecao
+     */
     public function getBuscar(string $id): Response
     {
         $SiliumConfigEntity = new SiliumConfigEntity();
@@ -31,6 +38,12 @@ final class SiliumConfigController extends Controller implements
         );
     }
 
+    /**
+     * @param Request $request
+     *
+     * @return Response
+     * @throws Excecao
+     */
     public function getListar(Request $request): Response
     {
         $SiliumConfigModel = new SiliumConfigModel(
@@ -41,6 +54,13 @@ final class SiliumConfigController extends Controller implements
         return mensagemSucesso($SiliumConfigModel->listarDados());
     }
 
+    /**
+     * @param Request $request
+     * @param string  $id
+     *
+     * @return Response
+     * @throws Excecao
+     */
     public function putAtualizar(Request $request, string $id): Response
     {
         $SiliumConfigEntity = new SiliumConfigEntity();
@@ -50,6 +70,10 @@ final class SiliumConfigController extends Controller implements
         return new Response(status: 204);
     }
 
+    /**
+     * @return Response
+     * @throws Excecao
+     */
     public function getConfiguracoes(): Response
     {
         $SiliumConfigEntity = new SiliumConfigEntity();

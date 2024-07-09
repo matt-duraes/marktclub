@@ -14,6 +14,6 @@ $Painel
     ->dataCriacao()
     ->dataAtualizacao();
 
-$Painel->replace('desconto', new Botao());
+$Painel->replace('desconto', ['1' => 'Sim', '2' => 'Não']);
 
 return $Painel;

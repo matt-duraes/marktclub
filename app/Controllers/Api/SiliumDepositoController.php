@@ -10,16 +10,17 @@ use App\Classes\SiliumDeposito\TipoResgate;
 use App\Models\Api\SiliumDeposito\SiliumDepositoEntity;
 use App\Models\Api\SiliumDeposito\SiliumDepositoModel;
 use Controller\Controller;
+use Erro\Excecao;
 use Http\Request;
 use Http\Response;
 use Modules\Data;
 use Modules\Pagina;
 use Modules\Quantidade;
-use System\Interface\ControllerBuscarInterface;
-use System\Interface\ControllerListarInterface;
 use System\Interface\ControllerAtualizarInterface;
-use System\Interface\ControllerSalvarInterface;
+use System\Interface\ControllerBuscarInterface;
 use System\Interface\ControllerDeletarInterface;
+use System\Interface\ControllerListarInterface;
+use System\Interface\ControllerSalvarInterface;
 
 final class SiliumDepositoController extends Controller implements
     ControllerBuscarInterface,
@@ -28,6 +29,12 @@ final class SiliumDepositoController extends Controller implements
     ControllerAtualizarInterface,
     ControllerDeletarInterface
 {
+    /**
+     * @param string $id
+     *
+     * @return Response
+     * @throws Excecao
+     */
     public function getBuscar(string $id): Response
     {
         $SiliumDepositoEntity = new SiliumDepositoEntity();
@@ -35,11 +42,18 @@ final class SiliumDepositoController extends Controller implements
         return $this->retornoSucesso($SiliumDepositoEntity);
     }
 
+    /**
+     * @param SiliumDepositoEntity $SiliumDepositoEntity
+     * @param int                  $status
+     *
+     * @return Response
+     * @throws Excecao
+     */
     public function retornoSucesso(SiliumDepositoEntity $SiliumDepositoEntity, int $status = 200): Response
     {
         return mensagemSucesso(
             pegarPropriedadeDaEntity(
-                Entity: $SiliumDepositoEntity,
+                $SiliumDepositoEntity,
                 lista: [
                     'usuario', 'nome_titular', 'documento_cpf', 'email',
                     'tipo_conta', 'banco', 'agencia', 'conta', 'pontuacao',
@@ -52,6 +66,12 @@ final class SiliumDepositoController extends Controller implements
         );
     }
 
+    /**
+     * @param Request $request
+     *
+     * @return Response
+     * @throws Excecao
+     */
     public function getListar(Request $request): Response
     {
         $SiliumDepositoModel = new SiliumDepositoModel(
@@ -69,6 +89,12 @@ final class SiliumDepositoController extends Controller implements
         return mensagemSucesso($SiliumDepositoModel->listarDados());
     }
 
+    /**
+     * @param Request $request
+     *
+     * @return Response
+     * @throws Excecao
+     */
     public function postSalvar(Request $request): Response
     {
         $SiliumDepositoEntity = new SiliumDepositoEntity();
@@ -77,6 +103,13 @@ final class SiliumDepositoController extends Controller implements
         return $this->retornoSucesso($SiliumDepositoEntity, 201);
     }
 
+    /**
+     * @param Request $request
+     * @param string  $id
+     *
+     * @return Response
+     * @throws Excecao
+     */
     public function putAtualizar(Request $request, string $id): Response
     {
         $SiliumDepositoEntity = new SiliumDepositoEntity();
@@ -86,6 +119,12 @@ final class SiliumDepositoController extends Controller implements
         return new Response(status: 204);
     }
 
+    /**
+     * @param string $id
+     *
+     * @return Response
+     * @throws Excecao
+     */
     public function deleteDeletar(string $id): Response
     {
         $SiliumDepositoEntity = new SiliumDepositoEntity();

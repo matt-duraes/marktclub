@@ -7,6 +7,7 @@ use App\Classes\SiliumDeposito\Status;
 use App\Classes\SiliumDeposito\TipoConta;
 use App\Classes\SiliumDeposito\TipoOperacao;
 use App\Classes\SiliumDeposito\TipoResgate;
+use Erro\Excecao;
 use Modules\Data;
 use Modules\Dinheiro;
 use Modules\Pagina;
@@ -27,6 +28,20 @@ class SiliumDepositoModel extends ORM implements
 
     protected string $ormTabela = TABELA_SILIUM_DEPOSITO;
 
+    /**
+     * @param Pagina       $pagina
+     * @param Quantidade   $quantidade
+     * @param Ordem        $ordem
+     * @param string|null  $usuario
+     * @param TipoConta    $tipoConta
+     * @param TipoOperacao $tipoOperacao
+     * @param TipoResgate  $tipoResgate
+     * @param Data         $dataInicio
+     * @param Data         $dataFinal
+     * @param Status       $status
+     *
+     * @throws Excecao
+     */
     public function __construct(
         private readonly Pagina $pagina = new Pagina(),
         private readonly Quantidade $quantidade = new Quantidade(),
@@ -43,6 +58,10 @@ class SiliumDepositoModel extends ORM implements
         parent::__construct();
     }
 
+    /**
+     * @return void
+     * @throws Excecao
+     */
     private function validarRequest(): void
     {
         if (!$this->pagina->vazio() && !$this->pagina->valido()) {
@@ -74,28 +93,36 @@ class SiliumDepositoModel extends ORM implements
         }
     }
 
+    /**
+     * @return stdClass
+     * @throws Excecao
+     */
     public function listarDados(): stdClass
     {
-        $depositos = $this->campo([
-            'uuid', 'nome_titular', 'documento_cpf', 'email', 'tipo_conta',
-            'banco', 'agencia', 'conta', 'pontuacao', 'valor', 'data_deposito',
-            'documento_anexo', 'status', 'tipo_operacao', 'tipo_resgate',
-            'data_criacao', 'data_atualizacao'
-        ])
-        ->where($this->pegarWhere(), false)
-        ->pagina($this->pegarPagina(), $this->pegarQuantidade())
-        ->order($this->pegarOrdem(new Ordem()))
-        ->tabela(TABELA_USUARIO_CLIENTE)
-        ->where($this->pegarWhereUsuario(), false)
-        ->join('id', 'id_usuario_cliente')
-        ->campo([
-            'uuid', 'nome'
-        ], 'usuario')
-        ->read();
+        $depositos = $this
+            ->campo([
+                'uuid', 'nome_titular', 'documento_cpf', 'email', 'tipo_conta',
+                'banco', 'agencia', 'conta', 'pontuacao', 'valor', 'data_deposito',
+                'documento_anexo', 'status', 'tipo_operacao', 'tipo_resgate',
+                'data_criacao', 'data_atualizacao'
+            ])
+            ->where($this->pegarWhere(), false)
+            ->pagina($this->pegarPagina(), $this->pegarQuantidade())
+            ->order($this->pegarOrdem(new Ordem()))
+            ->tabela(TABELA_USUARIO_CLIENTE)
+            ->where($this->pegarWhereUsuario(), false)
+            ->join('id', 'id_usuario_cliente')
+            ->campo([
+                'uuid', 'nome'
+            ], 'usuario')
+            ->read();
         $depositos->lista = $this->montarRetorno($depositos->lista);
         return $depositos;
     }
 
+    /**
+     * @return array
+     */
     private function pegarWhere(): array
     {
         $where = $this->ormWherePadrao;
@@ -125,6 +152,10 @@ class SiliumDepositoModel extends ORM implements
         return $where;
     }
 
+    /**
+     * @return array
+     * @throws Excecao
+     */
     private function pegarWhereUsuario(): array
     {
         $where = [];
@@ -136,6 +167,11 @@ class SiliumDepositoModel extends ORM implements
         return $where;
     }
 
+    /**
+     * @param array $depositos
+     *
+     * @return array
+     */
     private function montarRetorno(array $depositos): array
     {
         if (empty($depositos)) {
@@ -154,7 +190,7 @@ class SiliumDepositoModel extends ORM implements
                     'id'   => $deposito->usuario_uuid,
                     'nome' => $deposito->usuario_nome
                 ],
-                'saque'          => [
+                'saque'            => [
                     'nome_titular'  => $deposito->nome_titular,
                     'documento_cpf' => $deposito->documento_cpf,
                     'tipo_conta'    => $TipoConta->indice($deposito->tipo_conta),
