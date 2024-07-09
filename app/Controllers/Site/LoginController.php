@@ -9,11 +9,11 @@ use Helpers\CryptHelper;
 use Controller\Controller;
 use App\Classes\TextoClube\Tipo;
 use App\Models\Site\Login\LogarModel;
+use App\Models\Site\Ativar\GrupoModel;
 use App\Models\Site\Ativar\SalvarModel;
 use App\Models\Site\Login\LoginApiModel;
 use App\Models\Site\Login\ComunicacaoModel;
 use App\Classes\ConstrutorClube\TipoAtivacao;
-use App\Models\Site\Ativar\GrupoModel;
 use App\Models\Site\Contato\SalvarModel as SalvarContatoModel;
 
 final class LoginController extends Controller
@@ -24,10 +24,10 @@ final class LoginController extends Controller
             return new Response(url: LINK_LOGIN);
         }
 
-        $dado = (new ComunicacaoModel())->buscarBanners() ?? '';
+        $dado = (new ComunicacaoModel())->buscarBanner() ?? '';
         return view('login.index', [
             'banner'             => $dado->lista,
-            'quantidade_banners' => $dado->quantidade_banners,
+            'quantidade_banners' => $dado->quantidade,
             'location'           => base64Decode($request->chave('location', ''), true)
         ]);
     }

@@ -2752,6 +2752,11 @@ Route
             ::nome('buscar')
             ::middleware(TokenMiddleware::class, 'scope', ['comunicacao_login:buscar'])
             ::get('/comunicacao-login/{id}');
+        Route
+            ::nome('clube')
+            ::middleware(TokenMiddleware::class, 'scope', ['comunicacao_login:buscar'])
+            ::request(['empresa'], 'json')
+            ::get('/comunicacao-login/clube');
 
         Route
             ::nome('listar')
