@@ -22,7 +22,7 @@
                         </span>
                     </p>
                 </div>
-                @if($disponibilidadeDesconto == 'sim'):
+                @if($disponibilidadeDesconto != 'nao'):
                     @if($saldo >= $minPontosDinheiro)
                         <div class="botao botao_resgate_cashback" id="botao_popup_resgate">Escolher resgate</div>
                     @elseif($saldo >= $minPontosMensalidade):
@@ -73,7 +73,7 @@
                                 <tr>
                                     <td>{{$r->parceiro}}</td>
                                     <td>R$ {{$r->valor_compra}}</td>
-                                    <td>{{$r->comissao_usuario}}</td>
+                                    <td>{{$r->pontuacao}}</td>
                                     <td>
                                         {{$r->status}}
                                     </td>
