@@ -2,23 +2,23 @@
 
 namespace App\Models\Api\SiliumDeposito;
 
+use ORM\Entity;
+use Modules\Cpf;
+use Erro\Excecao;
+use Modules\Data;
+use Modules\Nome;
+use Modules\Botao;
+use Modules\Email;
+use Modules\Dinheiro;
+use Helpers\OrmHelper;
+use Helpers\EmailHelper;
+use SendGrid\Mail\TypeException;
 use App\Classes\SiliumDeposito\Status;
 use App\Classes\SiliumDeposito\TipoConta;
-use App\Classes\SiliumDeposito\TipoOperacao;
 use App\Classes\SiliumDeposito\TipoResgate;
-use App\Models\Api\ConstrutorClube\ConstrutorEntity;
+use App\Classes\SiliumDeposito\TipoOperacao;
 use App\Models\Api\SiliumSaldo\SiliumSaldoEntity;
-use Erro\Excecao;
-use Helpers\EmailHelper;
-use Helpers\OrmHelper;
-use Modules\Botao;
-use Modules\Cpf;
-use Modules\Data;
-use Modules\Dinheiro;
-use Modules\Email;
-use Modules\Nome;
-use ORM\Entity;
-use SendGrid\Mail\TypeException;
+use App\Models\Api\ConstrutorClube\ConstrutorEntity;
 
 class SiliumDepositoEntity extends Entity
 {
@@ -375,16 +375,14 @@ class SiliumDepositoEntity extends Entity
             $acao = 'Silium Cashback';
             $mensagem = 'Caro(a) <strong>' . $this->nome_titular->nome() . '</strong>, Confirmamos o recebimento do seu pedido de saque de cashback
             no valor de R$ ' . $this->valor->dinheiro(
-            ) . ' (' . $this->pontuacao . ' Pontos), registrado em ' . $this->data_deposito->data() . '. O processamento
-            será concluído em até 3-5 dias úteis.';
+            ) . ' (' . $this->pontuacao . ' Pontos), registrado em ' . $this->data_deposito->data() . '.';
         } elseif ($this->tipo_resgate->indice() === TipoResgate::MENSALIDADE) {
             $titulo = 'Desconto de Mensalidade';
             $assunto = 'Desconto de Mensalidade via Silium';
             $acao = 'Silium Cashback';
             $mensagem = 'Caro(a) <strong>' . $this->nome_titular->nome() . '</strong>, Confirmamos o recebimento do seu pedido de desconto na mensalidade
             no valor de R$ ' . $this->valor->dinheiro(
-            ) . ' (' . $this->pontuacao . ' Pontos), registrado em ' . $this->data_deposito->data() . '. O processamento
-            será concluído em até 3-5 dias úteis.';
+            ) . ' (' . $this->pontuacao . ' Pontos), registrado em ' . $this->data_deposito->data() . '.';
         }
 
         $Email = new EmailHelper();
