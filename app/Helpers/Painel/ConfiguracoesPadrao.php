@@ -284,7 +284,7 @@ final class ConfiguracoesPadrao
                 'publicacao_noticia_empresa' => 'Todas as empresas'
             ]
         ],
-        'publicacao_lista'       => [
+        'publicacao_lista'         => [
             'titulo'    => 'Lista geral',
             'permissao' => [
                 'publicacao_lista_index'   => 'Listar',
@@ -379,7 +379,7 @@ final class ConfiguracoesPadrao
                 'parceiro_loja_historico_download' => 'Download do histórico'
             ]
         ],
-        'parceiro_externo'            => [
+        'parceiro_externo'         => [
             'titulo'    => 'Loja externo',
             'permissao' => [
                 'parceiro_externo_index'      => 'Listar',
@@ -389,7 +389,7 @@ final class ConfiguracoesPadrao
                 'parceiro_externo_download'   => 'Download',
             ]
         ],
-        'parceiro_equipe'            => [
+        'parceiro_equipe'          => [
             'titulo'    => 'Sem captador',
             'permissao' => [
                 'parceiro_equipe_index'      => 'Listar',
@@ -456,13 +456,13 @@ final class ConfiguracoesPadrao
         'solicitacao_loja'         => [
             'titulo'    => 'Solicitação Loja',
             'permissao' => [
-                'solicitacao_loja_index'       => 'Listar',
-                'solicitacao_loja_visualizar'  => 'Visualizar',
-                'solicitacao_loja_add'         => 'Salvar',
-                'solicitacao_loja_deletar'     => 'Deletar',
-                'solicitacao_loja_download'    => 'Download',
-                'solicitacao_loja_status'      => 'Status',
-                'solicitacao_loja_empresa'     => 'Todas as empresas'
+                'solicitacao_loja_index'      => 'Listar',
+                'solicitacao_loja_visualizar' => 'Visualizar',
+                'solicitacao_loja_add'        => 'Salvar',
+                'solicitacao_loja_deletar'    => 'Deletar',
+                'solicitacao_loja_download'   => 'Download',
+                'solicitacao_loja_status'     => 'Status',
+                'solicitacao_loja_empresa'    => 'Todas as empresas'
             ]
         ],
         'solicitacao_voucher'      => [
@@ -655,7 +655,7 @@ final class ConfiguracoesPadrao
                 'enquete_deletar'    => 'Deletar'
             ]
         ],
-        'site_config'                  => [
+        'site_config'              => [
             'titulo'    => 'Configurações do Site',
             'permissao' => [
                 'site_config_index'      => 'Listar',
@@ -666,7 +666,7 @@ final class ConfiguracoesPadrao
                 'site_config_empresa'    => 'Todas as Empresas'
             ]
         ],
-        'site_menu'                  => [
+        'site_menu'                => [
             'titulo'    => 'Configurações do Menu (Site)',
             'permissao' => [
                 'site_menu_index'      => 'Listar',
@@ -677,7 +677,7 @@ final class ConfiguracoesPadrao
                 'site_menu_empresa'    => 'Todas as Empresas'
             ]
         ],
-        'silium_comissao' => [
+        'silium_comissao'          => [
             'titulo'    => 'Comissões do Silium (Cashback)',
             'permissao' => [
                 'silium_comissao_index'      => 'Listar',
@@ -688,7 +688,7 @@ final class ConfiguracoesPadrao
                 'silium_comissao_deletar'    => 'Deletar'
             ]
         ],
-        'silium_deposito' => [
+        'silium_deposito'          => [
             'titulo'    => 'Depósitos do Silium (Cashback)',
             'permissao' => [
                 'silium_deposito_index'      => 'Listar',
@@ -699,7 +699,7 @@ final class ConfiguracoesPadrao
                 'silium_deposito_deletar'    => 'Deletar'
             ]
         ],
-        'silium_saque' => [
+        'silium_saque'             => [
             'titulo'    => 'Solicitações de Saque (Cashback)',
             'permissao' => [
                 'silium_saque_index'      => 'Listar',
@@ -710,7 +710,13 @@ final class ConfiguracoesPadrao
                 'silium_saque_deletar'    => 'Deletar'
             ]
         ],
-        'silium_config' => [
+        'silium_saldo'             => [
+            'titulo'    => 'Ranking de Silium (Cashback)',
+            'permissao' => [
+                'silium_saldo_index' => 'Listar'
+            ]
+        ],
+        'silium_config'            => [
             'titulo'    => 'Configurações do Silium (Cashback)',
             'permissao' => [
                 'silium_config_index'  => 'Listar',

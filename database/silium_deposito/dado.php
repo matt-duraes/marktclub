@@ -11,7 +11,7 @@ return [
         'agencia'            => null,
         'conta'              => null,
         'tipo_conta'         => null,
-        'pontuacao'          => null,
+        'pontuacao'          => 10000,
         'valor'              => null,
         'data_deposito'      => null,
         'documento_anexo'    => null,
