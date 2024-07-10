@@ -13,6 +13,8 @@ $Painel->coluna(callback: function () use ($Painel) {
     });
 });
 
+$Painel->js('painel_demanda_sprint_visualizar');
+$Painel->css('painel_demanda_sprint_visualizar');
 $Painel->include('demanda');
 
 $Painel

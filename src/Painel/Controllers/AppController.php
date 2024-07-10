@@ -130,7 +130,6 @@ final class AppController extends PadraoController
             $rotaApi = preg_replace('/\/\{id\}$/', '/' . $dado['id'], $rotaApi);
             unset($dado['id']);
         }
-
         if ($dado) {
             foreach (array_keys($dado) as $ind) {
                 if (!in_array($ind, $config->request)) {
@@ -146,7 +145,6 @@ final class AppController extends PadraoController
             $Api->body($dado);
         }
         $dado = $Api->$metodo($rotaApi);
-
         $dado = $this->validarRetornoApi($dado);
         if ($dado instanceof Response) {
             return $dado;
