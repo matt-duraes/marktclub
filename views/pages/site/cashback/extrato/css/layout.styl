@@ -36,17 +36,24 @@
             texto()
             font-weight: bold
             margin-left: 5px
-
-.botao_resgate_cashback
-    width: 190px
-    height: 40px
-    border-radius: 5px
-    background-color: $corClube
-    flexCenter()
-    color: #fff
-    cursor: pointer
-    texto()
-    margin-bottom: 10px
+    .botao_resgate_cashback
+        max-width: 200px
+        height: 40px
+        border-radius: 5px
+        background-color: $corClube
+        flexCenter()
+        color: #fff
+        cursor: pointer
+        texto()
+        margin-bottom: 10px
+@media screen and (max-width: 425px)
+    #bloco_pagina_cashback .conteudo .saldo
+        flex-direction: column
+        align-items: flex-start
+        margin: 10px 0px 40px
+        .saldo_conta
+            border: none
+            justify-content: flex-start
 
 .bloco_atencao_geral
     margin: 20px 0px
@@ -61,15 +68,6 @@
         titulo()
         color: $corClube
         margin-bottom: 20px
-
-@media screen and (max-width: 425px)
-    #bloco_pagina_cashback .conteudo .saldo
-        flex-direction: column
-        align-items: flex-start
-        margin: 10px 0px 40px
-        .saldo_conta
-            border: none
-            justify-content: flex-start
 
 #bloco_pagina_cashback  .bloco_tabela_geral
     table
@@ -97,7 +95,6 @@
         background: #ff6f00
 
 
-
 .bloco_tab_geral .bloco_botao
     .botao.ativo, .botao:hover
         background: $corBrancoCinza
@@ -110,22 +107,9 @@
     .botao:hover .texto_ativo
         color: $corPretoBranco
 
-[data-theme="dark"] #conteudo_principal
-    background: $corBrancoPreto
 
-.bloco_geral_banner figure
-    background-size: 60% auto
-    background-repeat: no-repeat
-
-.bloco_popup_geral .popup_conteudo
-    padding: 20px
-    form
-        flexCenter()
-        directionColumn()
-    form button
-        alignSelfEnd()
-        width: 180px
-        espacoTopPadrao()
+.form_geral .bloco_input label
+    background-color: $corBrancoCinza
 
 #bloco_resgatar_ponto
     background: $corBrancoPreto
@@ -138,23 +122,12 @@
         color: #fff
         cursor: pointer
         texto()
-#bloco_resgatar_ponto .form_geral .bloco_input label
-    background-color: $corBrancoCinza
-
-#select_resgaste
-    border: 1px solid #ccc
-    height: 40px
-    #select_resgaste
-        width: 100%
-
-.titulo_dados_bancarios
-    subTituloFontSize()
-    margin-top: 20px
-    color: $corClube
-    &:first-child
-        margin-top: 0px
-fieldset
-    padding: 0px 10px
+    .titulo_dados_bancarios
+        subTituloFontSize()
+        margin-top: 20px
+        color: $corClube
+        &:first-child
+            margin-top: 0px
 
 .conteudo_pagina_popup .bloco_botao
     display: flex
@@ -163,9 +136,15 @@ fieldset
     margin-top: 20px
     a
         texto()
-@media screen and ( max-width: 425px )
+        padding-left: 10px
+@media screen and (max-width: 375px)
     .conteudo_pagina_popup .bloco_botao
-        flex-direction: column
+        flex-direction: column-reverse
+        gap: 20px
+        a
+            padding-left: 0px
+    div#botao_solicitar_ponto
+        width: 100%
 
 #botao_popup_metodo
     width: 200px
