@@ -1,6 +1,8 @@
 <?php
 
-$Painel = new PainelConfig\Filtrar('painel_config');
+use PainelConfig\Filtrar;
+
+$Painel = new Filtrar('painel_config');
 
 $Painel
     ->select(
@@ -30,6 +32,12 @@ $Painel
                 label: 'Criado até',
                 placeholder: 'Criado até'
             );
-    });
+    })
+    ->numero(
+        name: 'quantidade',
+        titulo: 'Quantidade',
+        label: 'Quantidade',
+        placeholder: 'Quantidade de Registros'
+    );
 
 return $Painel;
