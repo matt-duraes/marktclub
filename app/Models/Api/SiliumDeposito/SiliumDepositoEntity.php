@@ -312,7 +312,7 @@ class SiliumDepositoEntity extends Entity
      * @throws Excecao
      * @throws TypeException
      */
-    protected function regraPosSalvar(): void
+    protected function regraPosInsert(): void
     {
         $operacao = $this->tipo_operacao->indice() === TipoOperacao::DEPOSITO;
         $status = $this->status->indice() === Status::DEPOSITADO;
