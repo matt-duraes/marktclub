@@ -1,6 +1,5 @@
 <?php
 
-use Modules\Botao;
 use PainelConfig\Index;
 
 $Painel = new Index('silium_config');
