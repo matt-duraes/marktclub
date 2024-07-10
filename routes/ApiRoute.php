@@ -2541,6 +2541,21 @@ Route
     });
 
 Route
+    ::nome('silium_saldo')
+    ::controller(App\Controllers\Api\SiliumSaldoController::class)
+    ::middleware(TokenMiddleware::class, 'token')
+    ::grupo(function () {
+        Route
+            ::nome('listar')
+            ::middleware(TokenMiddleware::class, 'scope', ['silium_saldo:listar'])
+            ::request([
+                'pagina', '!quantidade', '!ordem', '!usuario', '!data_inicio',
+                '!data_final'
+            ], 'json')
+            ::get('/silium-saldo');
+    });
+
+Route
     ::nome('silium_config')
     ::controller(App\Controllers\Api\SiliumConfigController::class)
     ::middleware(TokenMiddleware::class, 'token')

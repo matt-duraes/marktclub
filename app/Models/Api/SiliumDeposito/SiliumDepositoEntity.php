@@ -265,10 +265,10 @@ class SiliumDepositoEntity extends Entity
         if (!empty($this->saque) && !validarUuid($this->saque)) {
             mensagemErro('Campo inválido!', 'A Identificação do Saque não é válido.');
         }
-        if (!$this->valor->vazio() && !$this->valor->valido()) {
+        if (!empty($this->valor) && !$this->valor->vazio() && !$this->valor->valido()) {
             mensagemErro('Campo inválido!', 'O Valor informado não é válido.');
         }
-        if (!$this->data_deposito->vazio() && !$this->data_deposito->valido()) {
+        if (!empty($this->data_deposito) && !$this->data_deposito->vazio() && !$this->data_deposito->valido()) {
             mensagemErro('Campo inválido!', 'A Data de Depósito informada não é válida.');
         }
     }
@@ -316,11 +316,28 @@ class SiliumDepositoEntity extends Entity
     {
         $operacao = $this->tipo_operacao->indice() === TipoOperacao::DEPOSITO;
         $status = $this->status->indice() === Status::DEPOSITADO;
-        if ($operacao && $status) {
-            $this->debitarSaldo();
-            $this->atualizarStatusSolicitacao();
-            $this->enviarEmail();
+        if ($operacao) {
+            $this->atualizarStatusSolicitacao($this->status->indice());
+            if ($status) {
+                $this->debitarSaldo();
+                $this->enviarEmail();
+            }
         }
+    }
+
+    /**
+     * @param string $status
+     *
+     * @throws Excecao
+     */
+    private function atualizarStatusSolicitacao(string $status): void
+    {
+        $SiliumDepositoEntity = new SiliumDepositoEntity();
+        $SiliumDepositoEntity->buscar([
+            'uuid', $this->saque
+        ], false);
+        $SiliumDepositoEntity->status = new Status($status);
+        $SiliumDepositoEntity->salvar();
     }
 
     /**
@@ -336,19 +353,6 @@ class SiliumDepositoEntity extends Entity
         $pontos = $SiliumSaldoEntity->saldo_silium - $this->pontuacao;
         $SiliumSaldoEntity->saldo_silium = $pontos;
         $SiliumSaldoEntity->salvar();
-    }
-
-    /**
-     * @throws Excecao
-     */
-    private function atualizarStatusSolicitacao(): void
-    {
-        $SiliumDepositoEntity = new SiliumDepositoEntity();
-        $SiliumDepositoEntity->buscar([
-            'uuid', $this->saque
-        ], false);
-        $SiliumDepositoEntity->status = new Status(Status::DEPOSITADO);
-        $SiliumDepositoEntity->salvar();
     }
 
     /**
