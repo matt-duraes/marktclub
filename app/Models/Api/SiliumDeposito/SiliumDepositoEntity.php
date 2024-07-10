@@ -375,7 +375,7 @@ class SiliumDepositoEntity extends Entity
             $acao = 'Silium Cashback';
             $mensagem = 'Caro(a) <strong>' . $this->nome_titular->nome() . '</strong>, Confirmamos o recebimento do seu pedido de saque de cashback
             no valor de R$ ' . $this->valor->dinheiro(
-            ) . ' (' . $this->pontuacao . ' Pontos), registrado em ' . $this->data_deposito->data() . '. O processamento
+                ) . ' (' . $this->pontuacao . ' Pontos), registrado em ' . $this->data_deposito->data() . '. O processamento
             será concluído em até 3-5 dias úteis.';
         } elseif ($this->tipo_resgate->indice() === TipoResgate::MENSALIDADE) {
             $titulo = 'Desconto de Mensalidade';
@@ -383,7 +383,7 @@ class SiliumDepositoEntity extends Entity
             $acao = 'Silium Cashback';
             $mensagem = 'Caro(a) <strong>' . $this->nome_titular->nome() . '</strong>, Confirmamos o recebimento do seu pedido de desconto na mensalidade
             no valor de R$ ' . $this->valor->dinheiro(
-            ) . ' (' . $this->pontuacao . ' Pontos), registrado em ' . $this->data_deposito->data() . '. O processamento
+                ) . ' (' . $this->pontuacao . ' Pontos), registrado em ' . $this->data_deposito->data() . '. O processamento
             será concluído em até 3-5 dias úteis.';
         }
 

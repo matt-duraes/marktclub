@@ -51,19 +51,13 @@ final class SiliumDepositoController extends Controller implements
      */
     public function retornoSucesso(SiliumDepositoEntity $SiliumDepositoEntity, int $status = 200): Response
     {
-        return mensagemSucesso(
-            pegarPropriedadeDaEntity(
-                $SiliumDepositoEntity,
-                lista: [
-                    'usuario', 'nome_titular', 'documento_cpf', 'email',
-                    'tipo_conta', 'banco', 'agencia', 'conta', 'pontuacao',
-                    'valor', 'data_deposito', 'documento_anexo', 'status',
-                    'tipo_operacao', 'tipo_resgate', 'data_criacao',
-                    'data_atualizacao'
-                ]
-            ),
-            $status
-        );
+        return mensagemSucesso(pegarPropriedadeDaEntity($SiliumDepositoEntity, lista: [
+            'usuario', 'nome_titular', 'documento_cpf', 'email',
+            'tipo_conta', 'banco', 'agencia', 'conta', 'pontuacao',
+            'valor', 'data_deposito', 'documento_anexo', 'status',
+            'tipo_operacao', 'tipo_resgate', 'data_criacao',
+            'data_atualizacao'
+        ]), $status);
     }
 
     /**
