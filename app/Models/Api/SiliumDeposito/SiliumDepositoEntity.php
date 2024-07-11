@@ -217,7 +217,7 @@ class SiliumDepositoEntity extends Entity
             if ($this->pontuacao < $ponto) {
                 mensagemErro(
                     'Resgate não autorizado!!!',
-                    'Solicitações de resgate devem ser acima de ' . $ponto
+                    'A solicitação não pode ser abaixo do valor mínimo de pontos'
                 );
             }
         } elseif ($this->tipo_resgate->indice() === TipoResgate::MENSALIDADE) {
@@ -225,7 +225,7 @@ class SiliumDepositoEntity extends Entity
             if ($this->pontuacao < $ponto) {
                 mensagemErro(
                     'Resgate não autorizado!!!',
-                    'Solicitações de desconto devem ser acima de ' . $ponto
+                    'A solicitação não pode ser abaixo do valor mínimo de pontos'
                 );
             }
         }
