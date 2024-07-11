@@ -10,12 +10,12 @@ window.addEventListener('load', () => {
     const botaoPopupEscolherMetodo = document.querySelector('#botao_popup_metodo');
     const botaoPopupResgateDinheiro = document.querySelector('#botao_popup_resgate_dinheiro');
     const botaoPopupResgateMensalidade = document.querySelector('#botao_popup_resgate_mensalidade');
-
+    const botaoVoltarPopup = document.querySelector('.botao_voltar_cashback');
     const blocoResgateDinheiro = document.querySelector('.resgate_dinheiro');
     let tipo = '';
 
-    const PopupResgate = new Popup('Resgatar pontos', 'bloco_resgatar_ponto', false);
-    const PopupResgateMetodo = new Popup('Escolher método', 'bloco_escolher_metodo', false);
+    const PopupResgate = new Popup('Resgatar pontos', 'bloco_resgatar_ponto', false, false);
+    const PopupResgateMetodo = new Popup('Escolher método', 'bloco_escolher_metodo', false, false);
 
     function abrirPopupResgate() {
         tipo = document.querySelector('#input_tipo_resgate').value;
@@ -47,6 +47,10 @@ window.addEventListener('load', () => {
     }
     if (botaoPopupEscolherMetodo) {
         botaoPopupEscolherMetodo.addEventListener('click', abrirPopupResgate);
+    }
+
+    if (botaoVoltarPopup) {
+        botaoVoltarPopup.addEventListener('click', () => PopupResgateMetodo.abrir());
     }
 
     const botaoSolicitarPonto = $('#botao_solicitar_ponto');
