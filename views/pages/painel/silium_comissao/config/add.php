@@ -12,8 +12,8 @@ $Painel->coluna(callback: function () use ($Painel) {
                 name: 'parceiro',
                 label: 'Parceiro',
                 placeholder: 'Insira o nome do parceiro/loja',
-                contador: 100,
-                obrigatorio: true
+                obrigatorio: true,
+                contador: 100
             )
             ->dinheiro(
                 name: 'valor_compra',
