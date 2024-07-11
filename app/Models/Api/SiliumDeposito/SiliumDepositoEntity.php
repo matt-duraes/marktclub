@@ -148,7 +148,7 @@ class SiliumDepositoEntity extends Entity
      */
     private function validarRequestSaque(): void
     {
-        if (!empty($this->usuario) && !validarUuid($this->usuario)) {
+        if (empty($this->usuario) || !validarUuid($this->usuario)) {
             mensagemErro('Campo inválido!', 'Você deve informar o usuário.');
         }
         if (!$this->nome_titular->vazio() && !$this->nome_titular->valido()) {
@@ -268,7 +268,7 @@ class SiliumDepositoEntity extends Entity
         if (!empty($this->valor) && !$this->valor->vazio() && !$this->valor->valido()) {
             mensagemErro('Campo inválido!', 'O Valor informado não é válido.');
         }
-        if (!empty($this->data_deposito) && !$this->data_deposito->vazio() && !$this->data_deposito->valido()) {
+        if (empty($this->data_deposito) || (!$this->data_deposito->vazio() && !$this->data_deposito->valido())) {
             mensagemErro('Campo inválido!', 'A Data de Depósito informada não é válida.');
         }
     }
