@@ -53,11 +53,7 @@
                 @endif;
             </div>
         </section>
-        @if($disponibilidadeDesconto != '1' && $saldo < $minPontosDinheiro):
-            <div class="bloco_atencao_geral">
-                <p>Você precisa acumular {{$minPontosDinheiro}} pontos para solicitar o resgate em dinheiro.</p>
-            </div>
-        @else:
+        @if($disponibilidadeDesconto == '1'):
             @if($saldo < $minPontosDinheiro && $saldo >= $minPontosMensalidade):
                 <div class="bloco_atencao_geral">
                     <p>
@@ -79,6 +75,12 @@
                     <p>Você precisa acumular {{$minPontosDinheiro}} pontos para solicitar o resgate em dinheiro e
                         {{$minPontosMensalidade}} pontos para solicitar o desconto na sua anuidade.
                     </p>
+                </div>
+            @endif;
+        @else:
+            @if($saldo < $minPontosDinheiro):
+                <div class="bloco_atencao_geral">
+                    <p>Você precisa acumular {{$minPontosDinheiro}} pontos para solicitar o resgate em dinheiro.</p>
                 </div>
             @endif;
         @endif;
