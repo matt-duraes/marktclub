@@ -166,7 +166,10 @@ abstract class PadraoController extends Controller
                 'historico'  => $historico,
                 'visualizar' => $this->pegarPermissaoUsuario('visualizar', $app, $config['visualizar'] ?? false),
                 'status'     => $this->pegarPermissaoUsuario('status', $app, $config['visualizar'] ?? false),
-                'editar'     => $permissaoEditar,
+                'editar'     => (object)[
+                    'permissao' => $permissaoEditar,
+                    'campo' => $Visualizar->pegarEditar()
+                ]
             ],
             'historico'  => array_key_exists('historico', $config) && $config['historico'] instanceof Historico ? $config['historico'] : null,
             'visualizar' => (object)[

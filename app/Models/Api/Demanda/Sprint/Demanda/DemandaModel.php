@@ -64,17 +64,12 @@ abstract class DemandaModel extends ORM
 
     protected function adicionarMensagem(array $lista)
     {
-        if (!array_key_exists($this->demanda, $lista)) {
-            $lista[$this->demanda] = [
-                'id'       => $this->demanda,
-                'titulo'   => $this->demandaTitulo,
-                'mensagem' => []
-            ];
-        }
-        $lista[$this->demanda]['titulo'] = $this->demandaTitulo;
-        if (!empty($this->texto)) {
-            $lista[$this->demanda]['mensagem'][] = $this->texto;
-        }
+        $lista[] = [
+            'id'       => $this->demanda,
+            'titulo'   => $this->demandaTitulo,
+            'mensagem' => $this->texto,
+            'data'     => agora()
+        ];
         return $lista;
     }
 }

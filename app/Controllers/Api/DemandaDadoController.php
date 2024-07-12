@@ -3,11 +3,12 @@
 namespace App\Controllers\Api;
 
 use Http\Request;
+use Modules\Data;
 use Http\Response;
+use Modules\Botao;
 use Helpers\OrmHelper;
 use Controller\Controller;
 use App\Classes\DemandaDado\Area;
-use App\Classes\DemandaDado\Tipo;
 use App\Classes\DemandaDado\Ordem;
 use App\Classes\DemandaDado\Status;
 use App\Models\Api\Demanda\DemandaModel;
@@ -27,15 +28,12 @@ final class DemandaDadoController extends Controller implements
     public function getListar(Request $request): Response
     {
         $Demanda = new DemandaModel(
-            new Status($request->status),
-            new Ordem($request->ordem),
-            new Area($request->area),
-            new Tipo($request->tipo),
-            $request->tarefa_tipo,
-            $request->empresa,
-            $request->equipe,
-            $request->data_inicio,
-            $request->data_fim,
+            status: new Status($request->status),
+            ordem: new Ordem($request->ordem),
+            area: new Area($request->area),
+            data_entrega_de: new Data($request->data_entrega_de),
+            data_entrega_ate: new Data($request->data_entrega_ate),
+            sprint: new Botao($request->sprint)
         );
 
         return mensagemSucesso($Demanda->listarDados());

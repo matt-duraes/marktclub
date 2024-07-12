@@ -842,19 +842,19 @@ return [
         'titulo'           => 'TECNOLOGIA',
         'ordem'            => '++',
         'status'           => 1,
-        'permissao'        => '["demanda_kanban", "demanda_sprint_index", "log_erro_index"]'
+        'permissao'        => '["demanda_quadro", "demanda_sprint_index", "log_erro_index"]'
     ],
     [
         'id'               => '++',
         'id_admin_empresa' => 1,
         'tipo'             => 3,
         'titulo'           => 'Quadro',
-        'url'              => '/demanda/kanban',
+        'url'              => '/demanda/quadro',
         'icone'            => '<svg xmlns="http://www.w3.org/2000/svg" version="1.1" viewBox="0 0 30 30"></defs><path class="cls-1" d="M6.9,6.9c-.5,0-.9.4-.9.9v14.3c0,.5.4.9.9.9h16.1c.5,0,.9-.4.9-.9V7.8c0-.5-.4-.9-.9-.9H6.9ZM7.8,21.3v-12.5h14.3v12.5H7.8ZM12.3,10.5h-1.8v7.2h1.8v-7.2ZM17.7,10.5h1.8v5.4h-1.8v-5.4ZM15.9,10.5h-1.8v8.9h1.8v-8.9Z"/></svg>',
         'ordem'            => '++',
-        'menu'             => ['kanban'],
+        'menu'             => ['demanda-quadro'],
         'status'           => 1,
-        'permissao'        => '["demanda_kanban"]'
+        'permissao'        => '["demanda_quadro"]'
     ],
     [
         'id'               => '++',

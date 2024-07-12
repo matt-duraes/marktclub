@@ -1,0 +1,1 @@
+{"id":"id_f17ea4312baffe1689487a50355a7649","token":"token","metodo":"GET","nome":"\/demanda-sprint\/aberta","uri":"{{LINK}}\/demanda-sprint\/aberta","parametro":[],"body":[],"header":[],"variavel":[],"json":[],"documentacao":{"status":false,"descricao":"","requisicao":"","resposta":"","scope":"demanda_sprint:listar"}}

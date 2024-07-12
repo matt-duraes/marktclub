@@ -2,7 +2,7 @@
 
 use Route\Route;
 
-require_once ROOT . '/views/pages/painel/demanda/Routes/DemandaRoute.php';
+require_once ROOT . '/views/pages/painel/demanda_geral/Routes/DemandaRoute.php';
 require_once ROOT . '/views/pages/painel/album_galeria/Routes/AlbumRoute.php';
 require_once ROOT . '/views/pages/painel/relatorio/Routes/RelatorioRoute.php';
 require_once ROOT . '/views/pages/painel/tabela_usuario/Routes/TabelaRoute.php';

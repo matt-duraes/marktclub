@@ -599,7 +599,7 @@ final class ConfiguracoesPadrao
             ]
         ],
         'demanda_sprint'  => [
-            'titulo'    => 'Sprint',
+            'titulo'    => 'Sprint Backlog',
             'permissao' => [
                 'demanda_sprint_index'      => 'Listar',
                 'demanda_sprint_add'        => 'Salvar',
@@ -608,10 +608,10 @@ final class ConfiguracoesPadrao
                 'demanda_sprint_status'     => 'Status',
             ]
         ],
-        'demanda_kanban'  => [
-            'titulo'    => 'KanBan',
+        'demanda_quadro'  => [
+            'titulo'    => 'Srpint Quadro',
             'permissao' => [
-                'demanda_kanban' => 'KanBan',
+                'demanda_quadro' => 'Quadro',
             ]
         ],
         'demanda'                  => [

@@ -6,6 +6,7 @@ use Http\Request;
 use Http\Response;
 use Controller\Controller;
 use App\Classes\Demanda\Sprint\Status;
+use App\Models\Api\Demanda\Dado\NaSprintModel;
 use App\Models\Api\Demanda\Sprint\SprintModel;
 use App\Models\Api\Demanda\Sprint\SprintEntity;
 use System\Interface\ControllerBuscarInterface;
@@ -21,6 +22,12 @@ class SprintController extends Controller implements
     ControllerSalvarInterface,
     ControllerAtualizarInterface
 {
+    public function getAberta(): Response
+    {
+        $Demanda = new NaSprintModel();
+        return mensagemSucesso($Demanda->naoFinalizada());
+    }
+
     public function getListar(Request $request): Response
     {
         $Sprint = new SprintModel();

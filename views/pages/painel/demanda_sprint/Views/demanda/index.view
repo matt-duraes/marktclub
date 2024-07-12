@@ -6,9 +6,20 @@
         <p id="bloco_mudar_status_texto"></p>
         <input type="hidden" id="input_mudar_status_status">
         @? formTextarea(name: 'mudar_status_texto', label: 'Descrição', obrigatorio: true, placeholder: 'Descrição')
+        <div class="bloco_demanda">
+        </div>
     </form>
     <div class="footer_pagina_popup">
         <div class="button voltar popup_fechar">CANCELAR</div>
         <div class="button salvar" id="botao_mudar_status">CONTINUAR</div>
+    </div>
+</div>
+
+<div class="display_none">
+    <div class="bloco" id="bloco_demanda_padrao">
+        <input type="text">
+        <h2></h2>
+        <p>Digite o motivo dessa demanda não ter sido entregue.</p>
+        @? formTextarea(name: 'motivo', label: 'Motivo', obrigatorio: true, placeholder: 'Motivo')
     </div>
 </div>

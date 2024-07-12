@@ -1849,6 +1849,11 @@ Route
     ::middleware(TokenMiddleware::class, 'token')
     ::grupo(function () {
         Route
+            ::nome('aberta')
+            ::middleware(TokenMiddleware::class, 'scope', ['demanda_sprint:listar'])
+            ::get('/demanda-sprint/aberta');
+
+        Route
             ::nome('listar')
             ::middleware(TokenMiddleware::class, 'scope', ['demanda_sprint:listar'])
             ::request([
@@ -1903,8 +1908,7 @@ Route
             ::nome('listar')
             ::middleware(TokenMiddleware::class, 'scope', ['demanda_dado:listar'])
             ::request([
-                'status', 'area', 'ordem', '!tarefa_tipo', '!empresa', '!tipo',
-                '!data_inicio', '!data_fim', '!equipe'
+                'status', 'area', 'ordem', '!data_entrega_de', '!data_entrega_ate', '!sprint'
             ], 'json')
             ::get('/demanda-dado');
 

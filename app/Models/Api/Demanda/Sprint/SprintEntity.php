@@ -4,7 +4,9 @@ namespace App\Models\Api\Demanda\Sprint;
 
 use ORM\Entity;
 use Modules\Data;
+use Helpers\OrmHelper;
 use App\Classes\Demanda\Sprint\Status;
+use App\Classes\DemandaDado\Status as StatusDemanda;
 
 final class SprintEntity extends Entity
 {
@@ -34,6 +36,7 @@ final class SprintEntity extends Entity
     public string $texto_final;
     public Status $status;
     protected array $id_demanda;
+    protected array $id_demanda_inicio;
     public array $demanda = [];
 
     public function regraInsert()
@@ -58,6 +61,16 @@ final class SprintEntity extends Entity
         if (empty($this->id_demanda)) {
             mensagemErro('Erro!', 'Você deve colocar pelo menos uma demanda na sprint para continuar.');
         }
+        $this->id_demanda_inicio = $this->id_demanda;
+        $Demanda = new OrmHelper(TABELA_DEMANDA_DADO);
+        $Demanda
+            ->dado([
+                'status' => new StatusDemanda(StatusDemanda::LIBERADA)
+            ])
+            ->where([
+                ['uuid', 'in', $this->id_demanda]
+            ])
+            ->update();
     }
 
     private function mudarStatusParaConcluido()
