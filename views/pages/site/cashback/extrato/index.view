@@ -116,7 +116,7 @@
                                     <td>{{$r->parceiro}}</td>
                                     <td>R$ {{$r->valor_compra}}</td>
                                     <td>{{$r->pontuacao}}</td>
-                                    <td>
+                                    <td class="cashback_status">
                                         {{$r->status}}
                                     </td>
                                 </tr>
@@ -144,7 +144,7 @@
                                 @foreach ($extratoSaque as $r):
                                     <tr>
                                         <td>{{$r->saque->pontuacao}}</td>
-                                        <td>{{$r->status}}</td>
+                                        <td class="cashback_status">{{$r->status}}</td>
                                     </tr>
                                 @endforeach
                             @else
