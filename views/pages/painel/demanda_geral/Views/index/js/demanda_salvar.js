@@ -158,9 +158,9 @@ window.addEventListener('load', () => {
 
     const escolherTipoDemanda = () => {
         if (area == 'tecnologia') {
-            blocoEscolherTecnologia.classList.remove('display_none');
+            blocoEscolherTecnologia.aparecer();
         } else if (area == 'criacao') {
-            blocoEscolherCriacao.classList.remove('display_none');
+            blocoEscolherCriacao.aparecer();
         }
     };
     escolherTipoDemanda();
@@ -180,71 +180,71 @@ window.addEventListener('load', () => {
     const mudarTipoDemanda = tipo => {
         inputTipo.value = tipo;
 
-        blocoEscolherTecnologia.classList.add('display_none');
-        blocoEscolherCriacao.classList.add('display_none');
-        blocoConvenio.classList.add('display_none');
+        blocoEscolherTecnologia.sumir();
+        blocoEscolherCriacao.sumir();
+        blocoConvenio.sumir();
 
-        botaoSalvar.classList.remove('display_none');
-        botaoFechar.classList.add('display_none');
-        botaoVoltar.classList.remove('display_none');
-        blocoFooter.classList.remove('display_none');
+        botaoSalvar.aparecer();
+        botaoFechar.sumir();
+        botaoVoltar.aparecer();
+        blocoFooter.aparecer();
 
         switch (tipo) {
             case 'associacao':
-                blocoTipoAssociacao.classList.remove('display_none');
+                blocoTipoAssociacao.aparecer();
                 break;
             case 'cliente':
-                blocoTipoCliente.classList.remove('display_none');
+                blocoTipoCliente.aparecer();
                 break;
             case 'bug':
-                blocoHeader.classList.remove('display_none');
-                blocoTipoBug.classList.remove('display_none');
+                blocoHeader.aparecer();
+                blocoTipoBug.aparecer();
                 break;
             case 'feature':
             case 'outro':
-                blocoHeader.classList.remove('display_none');
-                blocoTipoOutro.classList.remove('display_none');
+                blocoHeader.aparecer();
+                blocoTipoOutro.aparecer();
                 break;
             case 'criacao':
-                blocoTipoCriacao.classList.remove('display_none');
-                botaoSalvar.classList.add('display_none');
-                blocoHeader.classList.remove('display_none');
+                blocoTipoCriacao.aparecer();
+                botaoSalvar.sumir();
+                blocoHeader.aparecer();
                 break;
             case 'sorteio':
-                blocoTipoSorteio.classList.remove('display_none');
-                blocoHeader.classList.remove('display_none');
+                blocoTipoSorteio.aparecer();
+                blocoHeader.aparecer();
                 break;
             case 'evento':
-                blocoTipoEvento.classList.remove('display_none');
-                blocoHeader.classList.remove('display_none');
+                blocoTipoEvento.aparecer();
+                blocoHeader.aparecer();
                 break;
             case 'campanha':
-                blocoTipoCampanha.classList.remove('display_none');
-                blocoHeader.classList.remove('display_none');
+                blocoTipoCampanha.aparecer();
+                blocoHeader.aparecer();
                 break;
             case 'brinde':
-                blocoTipoBrinde.classList.remove('display_none');
-                blocoHeader.classList.remove('display_none');
+                blocoTipoBrinde.aparecer();
+                blocoHeader.aparecer();
                 break;
             case 'indicacao':
-                blocoTipoIndicacao.classList.remove('display_none');
-                blocoHeader.classList.remove('display_none');
+                blocoTipoIndicacao.aparecer();
+                blocoHeader.aparecer();
                 break;
             case 'autoindicacao':
-                blocoTipoAutoindicacao.classList.remove('display_none');
-                blocoHeader.classList.remove('display_none');
+                blocoTipoAutoindicacao.aparecer();
+                blocoHeader.aparecer();
                 break;
             case 'cotacao_automovel':
-                blocoTipoCotacaoAutomovel.classList.remove('display_none');
-                blocoHeader.classList.remove('display_none');
+                blocoTipoCotacaoAutomovel.aparecer();
+                blocoHeader.aparecer();
                 break;
             case 'cotacao_produto':
-                blocoTipoCotacaoProduto.classList.remove('display_none');
-                blocoHeader.classList.remove('display_none');
+                blocoTipoCotacaoProduto.aparecer();
+                blocoHeader.aparecer();
                 break;
             case 'auditoria':
-                blocoTipoAuditoria.classList.remove('display_none');
-                blocoHeader.classList.remove('display_none');
+                blocoTipoAuditoria.aparecer();
+                blocoHeader.aparecer();
                 break;
         }
     };
@@ -274,19 +274,19 @@ window.addEventListener('load', () => {
     */
     const motivacaoOutro = () => {
         if (inputSorteioMotivacao.value == 'outro') {
-            blocoSorteioMotivacaoOutro.classList.remove('display_none');
+            blocoSorteioMotivacaoOutro.aparecer();
             inputSorteioMotivacaoOutro.focus();
             return;
         }
-        blocoSorteioMotivacaoOutro.classList.add('display_none');
+        blocoSorteioMotivacaoOutro.sumir();
     };
     const entregaOutro = () => {
         if (inputSorteioPremioEntrega.value == 'outro') {
-            blocoSorteioEntregaOutro.classList.remove('display_none');
+            blocoSorteioEntregaOutro.aparecer();
             inputSorteioPremioEntregaOutro.focus();
             return;
         }
-        blocoSorteioEntregaOutro.classList.add('display_none');
+        blocoSorteioEntregaOutro.sumir();
     };
 
     /*
@@ -296,10 +296,10 @@ window.addEventListener('load', () => {
     */
     inputDigitalFeed.addEventListener('change', () => {
         if (inputDigitalFeed.checked) {
-            blocoCriacaoFeed.classList.remove('display_none');
+            blocoCriacaoFeed.aparecer();
             return;
         }
-        blocoCriacaoFeed.classList.add('display_none');
+        blocoCriacaoFeed.sumir();
     });
 
     inputCriacaoCategoriaSite.addEventListener('change', () => {
@@ -307,10 +307,10 @@ window.addEventListener('load', () => {
         inputSiteLargura.value = '';
         inputSiteAltura.value = '';
         if (inputCriacaoCategoriaSite.checked) {
-            blocoCriacaoSite.classList.remove('display_none');
+            blocoCriacaoSite.aparecer();
             return;
         }
-        blocoCriacaoSite.classList.add('display_none');
+        blocoCriacaoSite.sumir();
     });
     inputCriacaoCategoriaSocial.addEventListener('change', () => {
         adicionarBotaoSalvarCriacao();
@@ -325,11 +325,11 @@ window.addEventListener('load', () => {
         inputFeedYoutube.checked = false;
         inputFeedTiktok.checked = false;
         if (inputCriacaoCategoriaSocial.checked) {
-            blocoCriacaoSocial.classList.remove('display_none');
+            blocoCriacaoSocial.aparecer();
             return;
         }
-        blocoCriacaoSocial.classList.add('display_none');
-        blocoCriacaoFeed.classList.add('display_none');
+        blocoCriacaoSocial.sumir();
+        blocoCriacaoFeed.sumir();
     });
     inputCriacaoCategoriaImpresso.addEventListener('change', () => {
         adicionarBotaoSalvarCriacao();
@@ -340,10 +340,10 @@ window.addEventListener('load', () => {
         inputImpressoOutro.checked = false;
         formValue(inputImpressoTexto, '');
         if (inputCriacaoCategoriaImpresso.checked) {
-            blocoCriacaoImpresso.classList.remove('display_none');
+            blocoCriacaoImpresso.aparecer();
             return;
         }
-        blocoCriacaoImpresso.classList.add('display_none');
+        blocoCriacaoImpresso.sumir();
     });
 
     inputCriacaoCategoriaKit.addEventListener('change', () => {
@@ -356,10 +356,10 @@ window.addEventListener('load', () => {
         inputKitBaixarApp.checked = false;
         inputKitPrevia.checked = false;
         if (inputCriacaoCategoriaKit.checked) {
-            blocoCriacaoKit.classList.remove('display_none');
+            blocoCriacaoKit.aparecer();
             return;
         }
-        blocoCriacaoKit.classList.add('display_none');
+        blocoCriacaoKit.sumir();
     });
     inputCriacaoCategoriaVideo.addEventListener('change', () => {
         adicionarBotaoSalvarCriacao();
@@ -367,20 +367,20 @@ window.addEventListener('load', () => {
         inputVideoLargura.value = '';
         inputVideoAltura.value = '';
         if (inputCriacaoCategoriaVideo.checked) {
-            blocoCriacaoVideo.classList.remove('display_none');
+            blocoCriacaoVideo.aparecer();
             return;
         }
-        blocoCriacaoVideo.classList.add('display_none');
-        blocoCriacaoVideoDimensao.classList.add('display_none');
+        blocoCriacaoVideo.sumir();
+        blocoCriacaoVideoDimensao.sumir();
     });
     inputCriacaoCategoriaOutro.addEventListener('change', () => {
         adicionarBotaoSalvarCriacao();
         inputOutroTexto.value = '';
         if (inputCriacaoCategoriaOutro.checked) {
-            blocoCriacaoOutro.classList.remove('display_none');
+            blocoCriacaoOutro.aparecer();
             return;
         }
-        blocoCriacaoOutro.classList.add('display_none');
+        blocoCriacaoOutro.sumir();
     });
 
     const adicionarBotaoSalvarCriacao = () => {
@@ -392,10 +392,10 @@ window.addEventListener('load', () => {
             inputCriacaoCategoriaVideo.checked ||
             inputCriacaoCategoriaOutro.checked
         ) {
-            botaoSalvar.classList.remove('display_none');
+            botaoSalvar.aparecer();
             return;
         }
-        botaoSalvar.classList.add('display_none');
+        botaoSalvar.sumir();
     };
 
     const monitorarFormatoVideo = () => {
@@ -404,10 +404,10 @@ window.addEventListener('load', () => {
         inputVideoAltura.value = '';
         if (tipo == 'outro') {
             inputVideoLargura.focus();
-            blocoCriacaoVideoDimensao.classList.remove('display_none');
+            blocoCriacaoVideoDimensao.aparecer();
             return;
         }
-        blocoCriacaoVideoDimensao.classList.add('display_none');
+        blocoCriacaoVideoDimensao.sumir();
     };
 
     /*
@@ -423,11 +423,11 @@ window.addEventListener('load', () => {
     const blocoConfigurarCdn = $('#bloco_configurar_cdn');
 
     const mudarTipoDominio = () => {
-        blocoDominioSub.classList.add('display_none');
-        blocoDominioProprio.classList.add('display_none');
-        blocoObservacaoDominioProprio.classList.add('display_none');
-        blocoObservacaoSubDominioProprio.classList.add('display_none');
-        blocoConfigurarCdn.classList.add('display_none');
+        blocoDominioSub.sumir();
+        blocoDominioProprio.sumir();
+        blocoObservacaoDominioProprio.sumir();
+        blocoObservacaoSubDominioProprio.sumir();
+        blocoConfigurarCdn.sumir();
         inputDominioProprio.value = '';
         inputDominioSub.value = '';
         inputConfigurarCdn.checked = false;
@@ -436,18 +436,18 @@ window.addEventListener('load', () => {
         if (valor == '') {
             return;
         } else if (valor == 'dominio') {
-            blocoDominioProprio.classList.remove('display_none');
-            blocoObservacaoDominioProprio.classList.remove('display_none');
-            blocoConfigurarCdn.classList.remove('display_none');
+            blocoDominioProprio.aparecer();
+            blocoObservacaoDominioProprio.aparecer();
+            blocoConfigurarCdn.aparecer();
             inputDominioProprio.focus();
             return;
         } else if (valor == 'subdominio') {
-            blocoDominioProprio.classList.remove('display_none');
-            blocoObservacaoSubDominioProprio.classList.remove('display_none');
+            blocoDominioProprio.aparecer();
+            blocoObservacaoSubDominioProprio.aparecer();
             inputDominioProprio.focus();
             return;
         }
-        blocoDominioSub.classList.remove('display_none');
+        blocoDominioSub.aparecer();
         blocoDominioSubTexto.innerText = '.' + valor + '.com.br';
         inputDominioSub.focus();
     };
@@ -461,10 +461,10 @@ window.addEventListener('load', () => {
     inputLoginApi.addEventListener('change', () => {
         mostrarObservacaoApp();
         if (inputLoginApi.checked) {
-            blocoDominioLogin.classList.remove('display_none');
+            blocoDominioLogin.aparecer();
             return;
         }
-        blocoDominioLogin.classList.add('display_none');
+        blocoDominioLogin.sumir();
         inputDominioLogin.value = '';
     });
 
@@ -480,10 +480,10 @@ window.addEventListener('load', () => {
     });
     const mostrarObservacaoApp = () => {
         if (inputApp.checked && inputLoginApi.checked) {
-            blocoApp.classList.remove('display_none');
+            blocoApp.aparecer();
             return;
         }
-        blocoApp.classList.add('display_none');
+        blocoApp.sumir();
     };
 
     /*
@@ -494,10 +494,10 @@ window.addEventListener('load', () => {
     const blocoEmpresaEspecifica = $('#bloco_empresa_especifica');
     inputEmpresaEspecifica.addEventListener('change', () => {
         if (inputEmpresaEspecifica.checked) {
-            blocoEmpresaEspecifica.classList.remove('display_none');
+            blocoEmpresaEspecifica.aparecer();
             return;
         }
-        blocoEmpresaEspecifica.classList.add('display_none');
+        blocoEmpresaEspecifica.sumir();
         formSelectValue(inputEmpresaBug, '');
     });
     /*
@@ -509,10 +509,10 @@ window.addEventListener('load', () => {
     const botaoEmpresaLojaFisica = $('#input_indicacao_empresa_loja_fisica');
     botaoEmpresaLojaFisica.addEventListener('change', () => {
         if (botaoEmpresaLojaFisica.checked) {
-            blocoIndicacaoEndereco.classList.remove('display_none');
+            blocoIndicacaoEndereco.aparecer();
             return;
         }
-        blocoIndicacaoEndereco.classList.add('display_none');
+        blocoIndicacaoEndereco.sumir();
     });
     /*
     |--------------------------------------------------------------------------
@@ -523,10 +523,10 @@ window.addEventListener('load', () => {
     const botaoLojaFisica = $('#input_autoindicacao_loja_fisica');
     botaoLojaFisica.addEventListener('change', () => {
         if (botaoLojaFisica.checked) {
-            blocoAutoIndicacaoEndereco.classList.remove('display_none');
+            blocoAutoIndicacaoEndereco.aparecer();
             return;
         }
-        blocoAutoIndicacaoEndereco.classList.add('display_none');
+        blocoAutoIndicacaoEndereco.sumir();
     });
     /*
     |--------------------------------------------------------------------------
@@ -537,10 +537,10 @@ window.addEventListener('load', () => {
     const botaoLojaFisicaAuditoria = $('#input_auditoria_loja_fisica');
     botaoLojaFisicaAuditoria.addEventListener('change', () => {
         if (botaoLojaFisicaAuditoria.checked) {
-            blocoAuditoriaEndereco.classList.remove('display_none');
+            blocoAuditoriaEndereco.aparecer();
             return;
         }
-        blocoAuditoriaEndereco.classList.add('display_none');
+        blocoAuditoriaEndereco.sumir();
     });
     /*
     |--------------------------------------------------------------------------
@@ -553,7 +553,6 @@ window.addEventListener('load', () => {
         const tipo = inputTipo.value;
         let valido = false;
         let body;
-        let abrir = false;
 
         switch (tipo) {
             case 'cliente':
@@ -567,13 +566,11 @@ window.addEventListener('load', () => {
             case 'bug':
                 valido = await validarDadoBug();
                 body = await montarDadoBug();
-                abrir = true;
                 break;
             case 'outro':
             case 'feature':
                 valido = await validarDadoOutro();
                 body = await montarDadoOutro();
-                abrir = true;
                 break;
             case 'criacao':
                 valido = await validarDadoCriacao();
@@ -639,7 +636,7 @@ window.addEventListener('load', () => {
         }, 300);
 
         const coluna = blocoSprintLista ? blocoSprintLista : primeiraColuna.querySelector('.conteudo');
-        await adicionarNovaDemanda(coluna, json.dado, abrir);
+        await adicionarNovaDemanda(coluna, json.dado, false);
         contarTarefaDemanda(coluna);
     });
 
@@ -953,7 +950,6 @@ window.addEventListener('load', () => {
                 alimentacao: 'evento_alimentacao',
                 mesaCadeira: 'evento_mesa_cadeira',
                 outros: 'evento_outros',
-                observacao: 'evento_observacao',
             };
 
             const body = montarBody(campos, inputEmpresaEvento);
@@ -992,7 +988,6 @@ window.addEventListener('load', () => {
                 email: 'brinde_email',
                 flyer: 'brinde_flyer',
                 outros: 'brinde_divulgacao',
-                observacao: 'brinde_observacao',
             };
 
             const body = montarBody(campos, inputEmpresaBrinde);
@@ -1024,7 +1019,6 @@ window.addEventListener('load', () => {
                 fim_divulgacao: 'campanha_fim_divulgacao',
                 tema: 'campanha_tema',
                 segmento: 'campanha_segmento',
-                observacao: 'campanha_observacao',
             };
 
             const body = montarBody(campos, inputEmpresaCampanha);
@@ -1068,7 +1062,6 @@ window.addEventListener('load', () => {
                 empresa_bairro: 'indicacao_empresa_bairro',
                 empresa_cidade: 'indicacao_empresa_cidade',
                 empresa_estado: 'indicacao_empresa_estado',
-                observacao: 'indicacao_observacao',
             };
 
             const body = montarBody(campos, inputEmpresaIndicacao);
@@ -1108,7 +1101,6 @@ window.addEventListener('load', () => {
                 bairro: 'autoindicacao_bairro',
                 cidade: 'autoindicacao_cidade',
                 estado: 'autoindicacao_estado',
-                observacao: 'autoindicacao_observacao',
             };
 
             const body = montarBody(campos, inputEmpresaAutoindicacao);
@@ -1149,7 +1141,6 @@ window.addEventListener('load', () => {
                 ano: 'cotacao_automovel_ano',
                 cor: 'cotacao_automovel_cor',
                 extra: 'cotacao_automovel_extra',
-                observacao: 'cotacao_automovel_observacao',
             };
 
             const body = montarBody(campos, inputEmpresaCotacaoAutomovel);
@@ -1187,7 +1178,6 @@ window.addEventListener('load', () => {
                 marca: 'cotacao_produto_marca',
                 modelo: 'cotacao_produto_modelo',
                 extra: 'cotacao_produto_extra',
-                observacao: 'cotacao_produto_observacao',
             };
 
             const body = montarBody(campos, inputEmpresaCotacaoProduto);
@@ -1218,7 +1208,6 @@ window.addEventListener('load', () => {
                 gerente: 'auditoria_empresa_gerente',
                 email: 'auditoria_email',
                 telefone: 'auditoria_telefone',
-                observacao: 'auditoria_observacao',
             };
             const body = montarBody(campos, inputEmpresaAuditoria);
             resolve(body);
@@ -1492,16 +1481,16 @@ window.addEventListener('load', () => {
         resetarDemanda();
     });
     const limparTecnologia = () => {
-        blocoTipoAssociacao.classList.add('display_none');
-        blocoTipoCliente.classList.add('display_none');
-        blocoTipoBug.classList.add('display_none');
-        blocoTipoOutro.classList.add('display_none');
-        blocoHeader.classList.add('display_none');
-        blocoFooter.classList.add('display_none');
+        blocoTipoAssociacao.sumir();
+        blocoTipoCliente.sumir();
+        blocoTipoBug.sumir();
+        blocoTipoOutro.sumir();
+        blocoHeader.sumir();
+        blocoFooter.sumir();
 
-        botaoSalvar.classList.add('display_none');
-        botaoVoltar.classList.add('display_none');
-        botaoFechar.classList.remove('display_none');
+        botaoSalvar.sumir();
+        botaoVoltar.sumir();
+        botaoFechar.aparecer();
 
         inputTipo.value = '';
         inputTitulo.value = '';
@@ -1522,18 +1511,18 @@ window.addEventListener('load', () => {
             input.checked = false;
         }
 
-        blocoDominioLogin.classList.add('display_none');
-        blocoApp.classList.add('display_none');
-        blocoDominioProprio.classList.add('display_none');
-        blocoObservacaoDominioProprio.classList.add('display_none');
-        blocoObservacaoSubDominioProprio.classList.add('display_none');
+        blocoDominioLogin.sumir();
+        blocoApp.sumir();
+        blocoDominioProprio.sumir();
+        blocoObservacaoDominioProprio.sumir();
+        blocoObservacaoSubDominioProprio.sumir();
 
         // Bub
         formValue(inputBugLocal, '');
         formValue(inputEmpresaBug, '');
         inputEmpresaEspecifica.checked = false;
         inputBugCritico.checked = false;
-        blocoEmpresaEspecifica.classList.add('display_none');
+        blocoEmpresaEspecifica.sumir();
         // Outro
         formValue(inputEmpresaOutro, '');
         // Associacao
@@ -1547,14 +1536,14 @@ window.addEventListener('load', () => {
         inputEndereco.value = '';
     };
     const limparCriacao = () => {
-        blocoTipoCriacao.classList.add('display_none');
-        blocoTipoSorteio.classList.add('display_none');
-        blocoHeader.classList.add('display_none');
-        blocoFooter.classList.add('display_none');
+        blocoTipoCriacao.sumir();
+        blocoTipoSorteio.sumir();
+        blocoHeader.sumir();
+        blocoFooter.sumir();
 
-        botaoSalvar.classList.add('display_none');
-        botaoVoltar.classList.add('display_none');
-        botaoFechar.classList.remove('display_none');
+        botaoSalvar.sumir();
+        botaoVoltar.sumir();
+        botaoFechar.aparecer();
 
         inputTipo.value = '';
         inputTitulo.value = '';
@@ -1600,14 +1589,14 @@ window.addEventListener('load', () => {
         formValue(inputKitTexto, '');
         formValue(inputVideoTexto, '');
         formValue(inputOutroTexto, '');
-        blocoCriacaoSite.classList.add('display_none');
-        blocoCriacaoFeed.classList.add('display_none');
-        blocoCriacaoImpresso.classList.add('display_none');
-        blocoCriacaoKit.classList.add('display_none');
-        blocoCriacaoOutro.classList.add('display_none');
-        blocoCriacaoSocial.classList.add('display_none');
-        blocoCriacaoVideo.classList.add('display_none');
-        blocoCriacaoVideoDimensao.classList.add('display_none');
+        blocoCriacaoSite.sumir();
+        blocoCriacaoFeed.sumir();
+        blocoCriacaoImpresso.sumir();
+        blocoCriacaoKit.sumir();
+        blocoCriacaoOutro.sumir();
+        blocoCriacaoSocial.sumir();
+        blocoCriacaoVideo.sumir();
+        blocoCriacaoVideoDimensao.sumir();
 
         // Sorteio
         formValue(inputEmpresaSorteio, '');
@@ -1622,8 +1611,8 @@ window.addEventListener('load', () => {
         formValue(inputSorteioPremioEntrega, '');
         inputSorteioPremioEntregaOutro.value = '';
         formValue(inputSorteioTexto, '');
-        blocoSorteioMotivacaoOutro.classList.add('display_none');
-        blocoSorteioEntregaOutro.classList.add('display_none');
+        blocoSorteioMotivacaoOutro.sumir();
+        blocoSorteioEntregaOutro.sumir();
     };
 
     const limparConvenio = () => {
@@ -1645,17 +1634,17 @@ window.addEventListener('load', () => {
         inputTipo.value = '';
         inputTitulo.value = '';
 
-        blocoConvenio.classList.remove('display_none');
-        blocoHeader.classList.add('display_none');
-        blocoFooter.classList.add('display_none');
+        blocoConvenio.aparecer();
+        blocoHeader.sumir();
+        blocoFooter.sumir();
 
-        botaoSalvar.classList.add('display_none');
-        botaoVoltar.classList.add('display_none');
-        botaoFechar.classList.remove('display_none');
+        botaoSalvar.sumir();
+        botaoVoltar.sumir();
+        botaoFechar.aparecer();
     };
 
     const resetarInputs = bloco => {
-        bloco.classList.add('display_none');
+        bloco.sumir();
 
         bloco.querySelectorAll('input').forEach(item => {
             if (item.type == 'checkbox') {

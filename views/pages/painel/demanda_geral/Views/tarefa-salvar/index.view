@@ -5,8 +5,11 @@
     <form class="form_geral conteudo_pagina_popup">
         <input type="hidden" id="input_tarefa_id">
         @? formInput(name: 'tarefa_titulo', placeholder: 'Título curto e específico do que deseja criar', label: 'Título', obrigatorio: true)
+        <div class="bloco_row display_none" id="bloco_tarefa_tecnologia">
+            @? formSelect(name: 'tarefa_dificuldade', label: 'Dificuldade', obrigatorio: true, placeholder: 'Escolha uma dificuldade', lista: $dificuldadeLista)
+            @? formSelect(name: 'tarefa_tipo', label: 'Tipo de tarefa', obrigatorio: true, placeholder: 'Escolha um tipo de tarefa', lista: $tipoLista)
+        </div>
         @? formEditor(name: 'tarefa_texto', label: 'Texto', obrigatorio: true, placeholder: 'Digite outras informacões', bar: 'bold,italic,underline,Strikethrough,|,fontColor,|,alignment,|,link,removeFormat,|,insertTable,codeBlock,|,horizontalLine,FwObservacao,|,numberedList,bulletedList', barBalao: 'bold,italic,underline,Strikethrough,|,fontColor,|,link,removeFormat')
-        @? formSelect(name: 'tarefa_tipo', label: 'Tipo de tarefa', obrigatorio: true, placeholder: 'Escolha uma opção', lista: $tipoLista)
     </form>
     <div class="footer_pagina_popup">
         <div class="button voltar popup_fechar">CANCELAR</div>

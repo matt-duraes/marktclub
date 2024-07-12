@@ -1849,17 +1849,22 @@ Route
     ::middleware(TokenMiddleware::class, 'token')
     ::grupo(function () {
         Route
-            ::nome('aberta')
-            ::middleware(TokenMiddleware::class, 'scope', ['demanda_sprint:listar'])
-            ::get('/demanda-sprint/aberta');
-
-        Route
             ::nome('listar')
             ::middleware(TokenMiddleware::class, 'scope', ['demanda_sprint:listar'])
             ::request([
                 'pagina', '!quantidade', '!titulo', '!data_inicio', '!data_final', '!publicado', '!status'
             ], 'json')
             ::get('/demanda-sprint');
+
+        Route
+            ::nome('aberta')
+            ::middleware(TokenMiddleware::class, 'scope', ['demanda_sprint:listar'])
+            ::get('/demanda-sprint/aberta');
+
+        Route
+            ::nome('ativa')
+            ::middleware(TokenMiddleware::class, 'scope', ['demanda_sprint:buscar'])
+            ::get('/demanda-sprint/ativa');
 
         Route
             ::nome('buscar')
@@ -1959,7 +1964,7 @@ Route
             ::nome('salvar')
             ::middleware(TokenMiddleware::class, 'scope', ['demanda_tarefa:salvar'])
             ::request([
-                'demanda', 'titulo', 'texto', 'tipo', '!minuto_producao_estimada', '!equipe'
+                'demanda', 'titulo', 'texto', 'tipo', '!minuto_producao_estimada', '!dificuldade', '!equipe'
             ])
             ::post('/demanda-tarefa');
 
@@ -1978,7 +1983,7 @@ Route
             ::nome('atualizar')
             ::middleware(TokenMiddleware::class, 'scope', ['demanda_tarefa:atualizar'])
             ::request([
-                '!titulo', '!texto', '!tipo', '!minuto_producao_estimada', '!equipe', '!status'
+                '!titulo', '!texto', '!tipo', '!minuto_producao_estimada', '!equipe', '!dificuldade', '!status'
             ])
             ::put('/demanda-tarefa/{id}');
 

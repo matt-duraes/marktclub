@@ -74,9 +74,6 @@ final class DemandaModel extends ORM
     {
         $Where = new Where($this);
         $Where
-            ->seIgual(propriedade: 'status', valor: 'geral', callback: function () use ($Where) {
-                $Where->manual(['status', 'in', Status::GERAL]);
-            })
             ->linha('status')
             ->linha('area')
             ->linha('tipo')
@@ -88,6 +85,9 @@ final class DemandaModel extends ORM
                 }
                 $Where->manual(['uuid', 'in', $id]);
             });
+        if ($this->status->real() == 'geral') {
+            $Where->manual(['status', 'in', Status::GERAL]);
+        }
         return $Where;
     }
 

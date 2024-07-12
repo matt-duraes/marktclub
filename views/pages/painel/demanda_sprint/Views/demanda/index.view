@@ -6,7 +6,8 @@
         <p id="bloco_mudar_status_texto"></p>
         <input type="hidden" id="input_mudar_status_status">
         @? formTextarea(name: 'mudar_status_texto', label: 'Descrição', obrigatorio: true, placeholder: 'Descrição')
-        <div class="bloco_demanda">
+        <div class="bloco_demanda display_none" id="bloco_demanda_lista">
+            <h2>Demandas não entregues:</h2>
         </div>
     </form>
     <div class="footer_pagina_popup">
@@ -17,9 +18,9 @@
 
 <div class="display_none">
     <div class="bloco" id="bloco_demanda_padrao">
-        <input type="text">
-        <h2></h2>
+        <input class="input_id" type="hidden">
+        <h3></h3>
         <p>Digite o motivo dessa demanda não ter sido entregue.</p>
-        @? formTextarea(name: 'motivo', label: 'Motivo', obrigatorio: true, placeholder: 'Motivo')
+        @? formTextarea(name: 'motivo', label: 'Motivo', obrigatorio: true, placeholder: 'Motivo', class: 'bloco_motivo_texto')
     </div>
 </div>

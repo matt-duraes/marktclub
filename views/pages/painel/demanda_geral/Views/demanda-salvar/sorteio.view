@@ -20,6 +20,3 @@
 @? formSelect(name: 'premio_compra', label: 'Quem dará o prémio?', placeholder: 'Quem dará o prémio?', lista: ['' => 'Escolha uma opção', 'Markt Club', 'Cliente'])
 @? formSelect(name: 'premio_entrega', label: 'Onde será a entrega?', placeholder: 'Onde será a entrega?', lista: ['' => 'Escolha uma opção', 'Residência do usuário', 'Sede do cliente', 'outro' => 'Outro'])
 @? formInput(name: 'premio_entrega_outro', label: 'Local de entrega', placeholder: 'Local de entrega do prémio', class: 'display_none', id: 'bloco_premio_entrega_outro')
-
-<h3>Outro dados para o sorteio</h3>
-@? formEditor(name: 'sorteio_texto', label: 'Descrição', placeholder: 'Descreva a demanda', bar: 'bold,italic,underline,Strikethrough,|,fontColor,|,alignment,|,link,removeFormat,|,insertTable,codeBlock,|,horizontalLine,FwObservacao,|,numberedList,bulletedList', barBalao: 'bold,italic,underline,Strikethrough,|,fontColor,|,link,removeFormat')

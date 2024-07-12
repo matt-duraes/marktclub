@@ -21,7 +21,7 @@ final class CriacaoModel
         private Request $request
     ) {
         $this->empresa = $request->empresa;
-        $this->criarDemanda($request->empresaNome . $request->titulo, $request->texto, Tipo::CRIACAO, Area::CRIACAO, $request->data_entrega);
+        $this->criarDemanda($request->empresaNome . $request->titulo, $request->getPost('texto', html: false), Tipo::CRIACAO, Area::CRIACAO, $request->data_entrega);
         $this->verificarSeSalvouDemanda();
         $this->criarDemandaSite();
         $this->criarDemandaRedeSocial();
@@ -37,15 +37,18 @@ final class CriacaoModel
         if ($this->request->criacao_site != 'sim') {
             return;
         }
+        $texto = $this->request->getPost('texto', html: false);
         $this->criarTarefaPadrao(
             titulo: 'Criar peça para site',
-            texto: '
-                <p>Criar peça para site no tamanho <strong>'
-                    . $this->request->site_largura . '</strong>x<strong>'
-                    . $this->request->site_altura . '</strong></p>
+            texto: <<<HTML
+                <p>Criar peça para site no tamanho <strong>
+                    $this->request->site_largura</strong>x<strong>
+                    $this->request->site_altura</strong></p>
                 <hr>
-                ' . $this->request->getPost('site_texto', html: false) . '
-            '
+                $this->request->getPost('site_texto', html: false)
+                <p><strong>Outros dados:</strong></p>
+                $texto
+            HTML
         );
     }
 

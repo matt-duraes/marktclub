@@ -20,7 +20,7 @@ final class CriarCotacaoProdutoModel
     ) {
         $this->empresa = $request->empresa;
 
-        $this->criarDemanda($this->montarTitulo(), $request->texto, $request->tipo, Area::CONVENIO);
+        $this->criarDemanda($this->montarTitulo(), '', $request->tipo, Area::CONVENIO);
         $this->verificarSeSalvouDemanda();
         $this->adicionarTarefa();
     }
@@ -33,29 +33,27 @@ final class CriarCotacaoProdutoModel
     private function adicionarTarefa()
     {
         $dado = $this->request;
+        $texto = $this->request->getPost('texto', html: false);
         $this->salvarTarefa(
             Tipo::CONVENIO,
             $dado->titulo,
             texto: <<<HTML
-                <h1>Dados do solicitante</h1>
+                <p><strong>Dados do solicitante</strong></p>
                 <ul>
                     <li>CPF: $dado->cpf</li>
                     <li>E-mail: $dado->email</li>
                     <li>Telefone: $dado->telefone</li>
                 </ul>
 
-                <h1>Dados do produto</h1>
+                <p><strong>Dados do produto</strong></p>
                 <ul>
                     <li>Tipo: $dado->tipo</li>
                     <li>Marca: $dado->marca</li>
                     <li>Modelo: $dado->modelo</li>
                     <li>Extra: $dado->extra</li>
                 </ul>
-
-                <h1>Observações</h1>
-                <ul>
-                    <li>$dado->observacao</li>
-                </ul>
+                <p><strong>Outros dados:</strong></p>
+                $texto
             HTML,
             equipe: '',
             tempo: 20

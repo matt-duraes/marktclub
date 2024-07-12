@@ -21,7 +21,7 @@ final class SorteioModel
         private Request $request
     ) {
         $this->empresa = $request->empresa;
-        $this->criarDemanda($request->empresaNome . $request->titulo, $request->texto, Tipo::SORTEIO, Area::CRIACAO);
+        $this->criarDemanda($request->empresaNome . $request->titulo, '', Tipo::SORTEIO, Area::CRIACAO);
         $this->verificarSeSalvouDemanda();
         $this->salvarSorteio();
         $this->notificarUsuario();
@@ -34,26 +34,27 @@ final class SorteioModel
             ? $request->sorteio_motivacao_outro : $request->sorteio_motivacao;
         $entrega = $request->sorteio_premio_entrega == 'outro'
             ? $request->sorteio_premio_entrega_outro : $request->sorteio_premio_entrega;
-        $texto = '
-            <p><strong>DATAS DO SORTEIO</strong></p>
-            <p>Data de início do sorteio: <strong>' . $request->sorteio_inicio . '</strong></p>
-            <p>Data final do sorteio: <strong>' . $request->sorteio_final . '</strong></p>
-            <p>Data do sorteio: <strong>' . $request->sorteio_data . '</strong></p>
-            <p><strong>COMO O SORTEIO IRÁ FUNCIONAR</strong></p>
-            <p>Como participar do sorteio: <strong>' . $request->sorteio_como_participar . '</strong></p>
-            <p>Motivação do sorteio: <strong>' . $motivacao . '</strong></p>
-            <p><strong>DADOS DO PRÉMIO</strong></p>
-            <p>Qual será o prémio: <strong>' . $request->sorteio_premio . '</strong></p>
-            <p>Quem irá comprar o prémio: <strong>' . $request->sorteio_premio_compra . '</strong></p>
-            <p>Motivação do sorteio: <strong>' . $entrega . '</strong></p>
-            <hr>
-            ' . $request->getPost('sorteio_texto', html: false) . '
-        ';
-
+        $texto = $this->request->getPost('texto', html: false);
         $this->salvarTarefa(
             tipo: Tipo::CRIACAO,
             titulo: 'Criar peça para sorteio',
-            texto: $texto,
+            texto: <<<HTML
+                <p><strong>DATAS DO SORTEIO</strong></p>
+                <p>Data de início do sorteio: <strong>$request->sorteio_inicio</strong></p>
+                <p>Data final do sorteio: <strong>$request->sorteio_final</strong></p>
+                <p>Data do sorteio: <strong>$request->sorteio_data</strong></p>
+                <p><strong>COMO O SORTEIO IRÁ FUNCIONAR</strong></p>
+                <p>Como participar do sorteio: <strong>$request->sorteio_como_participar</strong></p>
+                <p>Motivação do sorteio: <strong>$motivacao</strong></p>
+                <p><strong>DADOS DO PRÉMIO</strong></p>
+                <p>Qual será o prémio: <strong>$request->sorteio_premio</strong></p>
+                <p>Quem irá comprar o prémio: <strong>$request->sorteio_premio_compra</strong></p>
+                <p>Motivação do sorteio: <strong>$entrega</strong></p>
+                <hr>
+                $request->getPost('sorteio_texto', html: false)
+                <p><strong>Outros dados:</strong></p>
+                $texto
+            HTML,
             tempo: 120
         );
     }

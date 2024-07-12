@@ -66,7 +66,9 @@ final class SprintModel extends ORM implements ModelListarInterface
             ->data('data_inicio', 'data_final')
             ->linha(propriedade: 'titulo', condicao: 'like%%')
             ->linha(propriedade:'status')
-            ->publicado(status: Status::PUBLICADO);
+            ->seIgual(propriedade: 'publicado', valor: 'sim', callback: function () use ($Where) {
+                $Where->manual(['status', 'in', Status::PUBLICADO]);
+            });
         return $Where;
     }
 

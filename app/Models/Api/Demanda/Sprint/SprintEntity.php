@@ -6,6 +6,8 @@ use ORM\Entity;
 use Modules\Data;
 use Helpers\OrmHelper;
 use App\Classes\Demanda\Sprint\Status;
+use App\Models\Api\Demanda\Dado\NaSprintModel;
+use App\Models\Api\Demanda\Dado\MudarStatusModel;
 use App\Classes\DemandaDado\Status as StatusDemanda;
 
 final class SprintEntity extends Entity
@@ -19,7 +21,7 @@ final class SprintEntity extends Entity
     ];
     protected array $ormUpdate = [
         'texto_inicio', 'texto_final', 'id_demanda', 'id_demanda_inicio', 'id_demanda_retirada',
-        'id_demanda_adicionada', 'status'
+        'id_demanda_adicionada', 'data_entrega', 'status'
     ];
     protected array $ormSalvar = [
         'titulo', 'data_inicio', 'data_final'
@@ -32,6 +34,7 @@ final class SprintEntity extends Entity
     public string $titulo;
     public Data $data_inicio;
     public Data $data_final;
+    public Data $data_entrega;
     public string $texto_inicio;
     public string $texto_final;
     public Status $status;
@@ -41,7 +44,7 @@ final class SprintEntity extends Entity
 
     public function regraInsert()
     {
-        if ($this->existe(['status', new Status(Status::ANDAMENTO)])) {
+        if ($this->existe(['status', 'in', Status::PUBLICADO])) {
             mensagemErro('Erro!', 'Já existe uma sprint em andamento no momento.');
         }
     }
@@ -52,7 +55,9 @@ final class SprintEntity extends Entity
         if ($mudouStatus && $this->status->se(Status::ANDAMENTO)) {
             $this->mudarStatusParaAndamento();
         } elseif ($mudouStatus && $this->status->se([Status::CONCLUIDA_ATRASADA, Status::CONCLUIDA_PRAZO])) {
-            $this->mudarStatusParaConcluido();
+            $this->mudarStatusParaConcluida();
+        } elseif ($mudouStatus && $this->status->se(Status::CANCELADA)) {
+            $this->mudarStatusParaCancelada();
         }
     }
 
@@ -73,14 +78,24 @@ final class SprintEntity extends Entity
             ->update();
     }
 
-    private function mudarStatusParaConcluido()
+    private function mudarStatusParaConcluida()
     {
         $this->status = new Status(
             $this->data_final->date() >= hoje() ? Status::CONCLUIDA_PRAZO : Status::CONCLUIDA_ATRASADA
         );
+        $this->data_entrega = new Data(hoje());
     }
 
-    public function regraPosBuscar()
+    private function mudarStatusParaCancelada()
+    {
+        $id = (new NaSprintModel())->idNaoFinalizada();
+        if (empty($id)) {
+            return;
+        }
+        (new MudarStatusModel($id, new StatusDemanda(StatusDemanda::NOVA)));
+    }
+
+    protected function regraPosBuscar()
     {
         $this->demanda = $this->id_demanda;
     }

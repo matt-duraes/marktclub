@@ -123,8 +123,7 @@ final class ListaModel
         if ($request->area != 'tecnologia' && $request->status == 'concluida') {
             $data_entrega_de = dataRemover(hoje(), 15, 'dias');
             $data_entrega_ate = hoje();
-        }
-        if ($request->area == 'tecnologia') {
+        } elseif ($request->area == 'tecnologia' && $request->status != 'geral') {
             $sprint = 'sim';
         }
         $dado = $this->Api

@@ -19,7 +19,7 @@ final class CriarCampanhaModel
         private Request $request
     ) {
         $this->empresa = $request->empresa;
-        $this->criarDemanda($this->montarTitulo(), $request->texto, $request->tipo, Area::CONVENIO);
+        $this->criarDemanda($this->montarTitulo(), '', $request->tipo, Area::CONVENIO);
         $this->verificarSeSalvouDemanda();
         $this->adicionarTarefa();
     }
@@ -32,22 +32,20 @@ final class CriarCampanhaModel
     private function adicionarTarefa()
     {
         $dado = $this->request;
+        $texto = $this->request->getPost('texto', html: false);
         $this->salvarTarefa(
             Tipo::CONVENIO,
             $dado->titulo,
             texto: <<<HTML
-                <h1>Dados da divulgação</h1>
+                <p><strong>Dados da divulgação</strong></p>
                 <ul>
                     <li>Data de início: $dado->inicio_divulgacao</li>
                     <li>Data final: $dado->fim_divulgacao</li>
                     <li>Tema: $dado->tema</li>
                     <li>Segmento: $dado->segmento</li>
                 </ul>
-
-                <h1>Observações</h1>
-                <ul>
-                    <li>$dado->observacao</li>
-                </ul>
+                <p><strong>Outros dados:</strong></p>
+                $texto
             HTML,
             equipe: '',
             tempo: 20

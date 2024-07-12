@@ -15,6 +15,3 @@
     @? formInput(name: 'cotacao_produto_modelo', label: 'Modelo', placeholder: 'Modelo')
     @? formInput(name: 'cotacao_produto_extra', label: 'Extra', placeholder: 'Extra')
 </div>
-
-<h3>Observações</h3>
-@? formTextarea(name: 'cotacao_produto_observacao', label: 'Observações', placeholder: 'Observações')

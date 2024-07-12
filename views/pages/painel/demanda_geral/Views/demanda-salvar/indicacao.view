@@ -27,6 +27,3 @@
     @? formInput(name: 'indicacao_empresa_cidade', label: 'Cidade', placeholder: 'Cidade')
     @? formInput(name: 'indicacao_empresa_estado', label: 'Estado', placeholder: 'Estado')
 </div>
-
-<h3>Observações</h3>
-@? formTextarea(name: 'indicacao_observacao', label: 'Observações', placeholder: 'Observações')

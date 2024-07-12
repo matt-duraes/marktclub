@@ -37,7 +37,8 @@ final class DemandaTarefaController extends Controller implements
             titulo: $request->titulo,
             texto: $request->getPost('texto', html: false),
             tipo: new Tipo($request->tipo),
-            equipe: $request->equipe
+            equipe: $request->equipe,
+            dificuldade: $request->dificuldade
         );
         $Tarefa->salvar();
 

@@ -24,6 +24,3 @@
     @? formInput(name: 'autoindicacao_cidade', label: 'Cidade', placeholder: 'Cidade')
     @? formInput(name: 'autoindicacao_estado', label: 'Estado', placeholder: 'Estado')
 </div>
-
-<h3>Observações</h3>
-@? formTextarea(name: 'autoindicacao_observacao', label: 'Observações', placeholder: 'Observações')

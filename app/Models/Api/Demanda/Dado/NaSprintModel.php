@@ -12,12 +12,33 @@ final class NaSprintModel extends ORM
 
     public function naoFinalizada()
     {
+        $retorno = [];
+        foreach ($this->buscarDemanda() as $r) {
+            $retorno[] = [
+                'id'     => $r->uuid,
+                'titulo' => $r->titulo
+            ];
+        }
+        return $retorno;
+    }
+
+    public function idNaoFinalizada()
+    {
+        $id = [];
+        foreach ($this->buscarDemanda(['id']) as $r) {
+            $id[] = $r->id;
+        }
+        return $id;
+    }
+
+    private function buscarDemanda(array $campo = ['uuid', 'titulo'])
+    {
         $id = (new AtivaModel())->pegarId();
         if (empty($id)) {
             return [];
         }
         return $this
-            ->campo(['uuid', 'titulo'])
+            ->campo($campo)
             ->where([
                 ['uuid', 'in', $id],
                 ['status', 'in', Status::GERAL]

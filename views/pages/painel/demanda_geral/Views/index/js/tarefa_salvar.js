@@ -2,6 +2,7 @@ const botaoSalvarTarefa = $('#botao_tarefa_salvar_salvar');
 const limparPopupTarefa = () => {
     inputTarefaId.value = '';
     inputTarefaTitulo.value = '';
+    inputTarefaDificuldade.valor('');
     formValue(inputTarefaTexto, '');
     formValue(inputTarefaTipo, '');
 };
@@ -13,6 +14,7 @@ botaoSalvarTarefa.addEventListener('click', async () => {
     const titulo = inputTarefaTitulo.value;
     const texto = inputTarefaTexto.value;
     const tipo = inputTarefaTipo.value;
+    const dificuldade = inputTarefaDificuldade.value;
     const tarefaTipo = pegarTiposTarefa(id ? id : '', tipo);
 
     if (titulo == '') {
@@ -31,6 +33,7 @@ botaoSalvarTarefa.addEventListener('click', async () => {
         titulo,
         texto,
         tipo,
+        dificuldade,
         // eslint-disable-next-line camelcase
         tarefa_tipo: tarefaTipo,
     };

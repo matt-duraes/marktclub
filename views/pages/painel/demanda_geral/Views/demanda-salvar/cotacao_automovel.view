@@ -18,6 +18,3 @@
     @? formInput(name: 'cotacao_automovel_cor', label: 'Cor', placeholder: 'Cor')
     @? formInput(name: 'cotacao_automovel_extra', label: 'Extra', placeholder: 'Extra')
 </div>
-
-<h3>Observações</h3>
-@? formTextarea(name: 'cotacao_automovel_observacao', label: 'Observações', placeholder: 'Observações')

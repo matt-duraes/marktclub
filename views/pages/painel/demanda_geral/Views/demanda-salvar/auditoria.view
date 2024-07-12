@@ -17,6 +17,3 @@
     @? formEmail(name: 'auditoria_email', label: 'E-mail', placeholder: 'E-mail')
     @? formTelefone(name: 'auditoria_telefone', label: 'Telefone', placeholder: 'Telefone')
 </div>
-
-<h3>Observações</h3>
-@? formTextarea(name: 'auditoria_observacao', label: 'Observações', placeholder: 'Observações')

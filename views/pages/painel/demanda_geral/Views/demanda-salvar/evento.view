@@ -36,6 +36,3 @@
     </div>
     @? formInput(name: 'evento_outros', label: 'Outros', placeholder: 'Outros')
 </div>
-
-<h3>Observações</h3>
-@? formTextarea(name: 'evento_observacao', label: 'Observações', placeholder: 'Observações')

@@ -12,6 +12,8 @@ return (new \DataBase\DataBase())
     ->text('texto_final')->null()
     ->date('data_inicio')->null()
     ->date('data_final')->null()
+    ->date('data_entrega')->null()
+    ->int('nao_entregue')->null()
     ->dataCriacao()
     ->dataAtualizacao()
     ->status();

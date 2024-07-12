@@ -10,6 +10,7 @@ use Controller\Controller;
 use App\Classes\DemandaDado\Area;
 use App\Classes\DemandaDado\Tipo;
 use App\Classes\DemandaTarefa\Status;
+use App\Classes\DemandaTarefa\Dificuldade;
 use Painel\DemandaGeral\Models\ListaModel;
 use Painel\DemandaGeral\Models\CriacaoModel;
 use Painel\DemandaGeral\Models\DetalheModel;
@@ -81,16 +82,17 @@ final class DemandaController extends Controller
             ->array()['dado'] ?? [];
         $menu = empty($menu) ? $area : $menu;
         return view('painel.demanda_geral.index', [
-            'app'          => 'demanda-' . $menu,
-            'appTitulo'    => $titulo,
-            'area'         => $area,
-            'quadro'       => $quadro,
-            'visualizacao' => $visualizacao,
-            'empresa'      => $empresa,
-            'equipe'       => $equipe,
-            'tipoLista'    => (new DemandaTarefaTipo())->select('Escolha uma opção'),
-            'Tipo'         => new Tipo(),
-            'Area'         => new DemandaTarefaTipo(),
+            'app'              => 'demanda-' . $menu,
+            'appTitulo'        => $titulo,
+            'area'             => $area,
+            'quadro'           => $quadro,
+            'visualizacao'     => $visualizacao,
+            'empresa'          => $empresa,
+            'equipe'           => $equipe,
+            'tipoLista'        => (new DemandaTarefaTipo())->select('Escolha um tipo de tarefa'),
+            'dificuldadeLista' => (new Dificuldade())->select('Escolha uma dificuldade'),
+            'Tipo'             => new Tipo(),
+            'Area'             => new DemandaTarefaTipo(),
         ]);
     }
 
@@ -223,10 +225,10 @@ final class DemandaController extends Controller
 
     public function tarefaSalvar(string $demanda)
     {
-        $Tipo = new DemandaTarefaTipo();
         return view('painel.demanda_geral.tarefa-salvar', [
-            'tipoLista' => $Tipo->select('Escolha uma opção'),
-            'demanda'   => $demanda
+            'tipoLista'        => (new DemandaTarefaTipo())->select('Escolha um tipo de tarefa'),
+            'dificuldadeLista' => (new Dificuldade())->select('Escolha uma dificuldade'),
+            'demanda'          => $demanda
         ]);
     }
 
@@ -238,12 +240,11 @@ final class DemandaController extends Controller
             mensagemStatus(404);
         }
 
-        $Tipo = new DemandaTarefaTipo();
-
         return view('painel.demanda_geral.tarefa-editar', [
-            'demanda'   => $demanda,
-            'tipoLista' => $Tipo->select('Escolha uma opção'),
-            'r'         => $tarefa->dado
+            'demanda'          => $demanda,
+            'tipoLista'        => (new DemandaTarefaTipo())->select('Escolha um tipo de tarefa'),
+            'dificuldadeLista' => (new Dificuldade())->select('Escolha uma dificuldade'),
+            'r'                => $tarefa->dado
         ]);
     }
 
@@ -254,6 +255,7 @@ final class DemandaController extends Controller
             texto: $request->getPost('texto', html: false),
             tarefa_tipo: $request->tarefa_tipo,
             tipo: $request->tipo,
+            dificuldade: $request->dificuldade,
             demanda: $request->demanda
         );
 
@@ -268,6 +270,7 @@ final class DemandaController extends Controller
             tarefa_tipo: $request->tarefa_tipo,
             demanda: $request->demanda,
             tipo: $request->tipo,
+            dificuldade: $request->dificuldade,
             id: $id
         );
 

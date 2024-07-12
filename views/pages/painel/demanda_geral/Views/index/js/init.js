@@ -13,6 +13,7 @@ const inputTarefaId = $('#input_tarefa_id');
 const inputTarefaTitulo = $('#input_tarefa_titulo');
 const inputTarefaTexto = $('#input_tarefa_texto');
 const inputTarefaTipo = $('#input_tarefa_tipo');
+const inputTarefaDificuldade = $('#input_tarefa_dificuldade');
 
 const PaginaFechar = new Pagina();
 const PopupDemandaCancelar = new Popup('Cancelar Demanda', 'bloco_demanda_cancelar', false, false, demandaCancelar);
@@ -20,6 +21,8 @@ const PopupDemandaEditar = new Popup('Editar Demanda', 'bloco_demanda_editar', f
 const PopupTarefa = new Popup('Nova Tarefa', 'bloco_tarefa_nova', false, false);
 const PopupTemp = new Popup();
 const listaColuna = $$('.bloco_coluna_geral');
+
+const blocoTarefaTecnologia = $('#bloco_tarefa_tecnologia');
 
 const primeiraColuna = listaColuna[0];
 
@@ -160,6 +163,9 @@ const atualizarTarefaExistente = (id, titulo, texto, tipo) => {
 
 const abrirPopupTarefaEditar = id => {
     PopupTarefa.abrir();
+    if (area == 'tecnologia') {
+        blocoTarefaTecnologia.aparecer();
+    }
     const bloco = $('#id_tarefa_' + id);
     inputTarefaId.value = id;
     inputTarefaTitulo.value = bloco.querySelector('.item_titulo').innerText;

@@ -8,6 +8,3 @@
     @? formInput(name: 'campanha_tema', label: 'Tema da campanha', placeholder: 'Tema da camapanha')
     @? formInput(name: 'campanha_segmento', label: 'Segmento desejável', placeholder: 'Segmento desejável')
 </div>
-
-<h3>Observações</h3>
-@? formTextarea(name: 'campanha_observacao', label: 'Observações', placeholder: 'Observações')

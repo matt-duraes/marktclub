@@ -3,6 +3,8 @@
 namespace App\Models\Api\Demanda\Sprint\Demanda;
 
 use App\Classes\Demanda\Sprint\Status;
+use App\Models\Api\Demanda\Dado\MudarStatusModel;
+use App\Classes\DemandaDado\Status as DemandaStatus;
 
 final class AdicionarModel extends DemandaModel
 {
@@ -28,6 +30,7 @@ final class AdicionarModel extends DemandaModel
         $this->demandaId[] = $this->demanda;
         if ($this->demandaStatus == Status::ANDAMENTO) {
             $this->demandaAdicionada = $this->adicionarMensagem($this->demandaAdicionada);
+            new MudarStatusModel($this->demanda, new DemandaStatus(DemandaStatus::LIBERADA));
         }
         $this
             ->dado([

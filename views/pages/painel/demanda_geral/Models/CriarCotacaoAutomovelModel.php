@@ -20,7 +20,7 @@ final class CriarCotacaoAutomovelModel
     ) {
         $this->empresa = $request->empresa;
 
-        $this->criarDemanda($this->montarTitulo(), $request->texto, $request->tipo, Area::CONVENIO);
+        $this->criarDemanda($this->montarTitulo(), '', $request->tipo, Area::CONVENIO);
         $this->verificarSeSalvouDemanda();
         $this->adicionarTarefa();
     }
@@ -33,11 +33,12 @@ final class CriarCotacaoAutomovelModel
     private function adicionarTarefa()
     {
         $dado = $this->request;
+        $texto = $this->request->getPost('texto', html: false);
         $this->salvarTarefa(
             Tipo::CONVENIO,
             $dado->titulo,
             texto: <<<HTML
-                <h1>Dados do solicitante</h1>
+                <p><strong>Dados do solicitante</strong></p>
                 <ul>
                     <li>Nome: $dado->nome</li>
                     <li>CPF: $dado->cpf</li>
@@ -45,7 +46,7 @@ final class CriarCotacaoAutomovelModel
                     <li>Telefone: $dado->telefone</li>
                 </ul>
 
-                <h1>Dados do carro</h1>
+                <p><strong>Dados do carro</strong></p>
                 <ul>
                     <li>Marca: $dado->marca</li>
                     <li>Modelo: $dado->modelo</li>
@@ -53,11 +54,8 @@ final class CriarCotacaoAutomovelModel
                     <li>Cor: $dado->cor</li>
                     <li>Extra: $dado->extra</li>
                 </ul>
-
-                <h1>Observações</h1>
-                <ul>
-                    <li>$dado->observacao</li>
-                </ul>
+                <p><strong>Outros dados:</strong></p>
+                $texto
             HTML,
             equipe: '',
             tempo: 20

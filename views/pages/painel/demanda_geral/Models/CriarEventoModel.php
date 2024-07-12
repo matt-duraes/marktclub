@@ -19,7 +19,7 @@ final class CriarEventoModel
         private Request $request
     ) {
         $this->empresa = $request->empresa;
-        $this->criarDemanda($this->montarTitulo(), $request->texto, $request->tipo, Area::CONVENIO);
+        $this->criarDemanda($this->montarTitulo(), '', $request->tipo, Area::CONVENIO);
         $this->verificarSeSalvouDemanda();
         $this->adicionarTarefa();
     }
@@ -33,17 +33,18 @@ final class CriarEventoModel
     {
         $dado = $this->request;
         $estutura = $this->pegarEstruturaOferecida();
+        $texto = $this->request->getPost('texto', html: false);
         $this->salvarTarefa(
             Tipo::CONVENIO,
             $dado->titulo,
             texto: <<<HTML
-                <h1>Data do evento</h1>
+                <p><strong>Data do evento</strong></p>
                 <ul>
                     <li>Data de início: $dado->data_inicio</li>
                     <li>Data de fim: $dado->data_fim</li>
                 </ul>
 
-                <h1>Dados do evento</h1>
+                <p><strong>Dados do evento</strong></p>
                 <ul>
                     <li>Metragem: $dado->metragem</li>
                     <li>Quantidade de participantes: $dado->participantes_quantidade</li>
@@ -53,7 +54,7 @@ final class CriarEventoModel
                     <li>Quais materiais levar: $dado->materiais</li>
                 </ul>
 
-                <h1>Dados do responsável</h1>
+                <p><strong>Dados do responsável</strong></p>
                 <ul>
                     <li>Nome: $dado->resposavel_nome</li>
                     <li>Email: $dado->responsavel_email</li>
@@ -62,10 +63,8 @@ final class CriarEventoModel
 
                 $estutura
 
-                <h1>Observações</h1>
-                <ul>
-                    <li>$dado->observacao</li>
-                </ul>
+                <p><strong>Outros dados:</strong></p>
+                $texto
             HTML,
             equipe: '',
             tempo: 20
@@ -99,7 +98,7 @@ final class CriarEventoModel
         }
 
         if (!empty($itens)) {
-            $estrutura = '<h1>Estrutura oferecida</h1><ul><li>' . implode('</li><li>', $itens) . '</li></ul>';
+            $estrutura = '<p><strong>Estrutura oferecida</strong></p><ul><li>' . implode('</li><li>', $itens) . '</li></ul>';
             return $estrutura;
         }
 

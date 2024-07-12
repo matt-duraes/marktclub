@@ -20,7 +20,7 @@ final class CriarIndicacaoModel
     ) {
         $this->empresa = $request->empresa;
 
-        $this->criarDemanda($this->montarTitulo(), $request->texto, $request->tipo, Area::CONVENIO);
+        $this->criarDemanda($this->montarTitulo(), '', $request->tipo, Area::CONVENIO);
         $this->verificarSeSalvouDemanda();
         $this->adicionarTarefa();
     }
@@ -34,11 +34,12 @@ final class CriarIndicacaoModel
     {
         $dado = $this->request;
         $endereco = $this->pegarEndereco();
+        $texto = $this->request->getPost('texto', html: false);
         $this->salvarTarefa(
             Tipo::CONVENIO,
             $dado->titulo,
             texto: <<<HTML
-                <h1>Dados de quem indicou</h1>
+                <p><strong>Dados de quem indicou</strong></p>
                 <ul>
                     <li>Nome: $dado->usuario_nome</li>
                     <li>Email: $dado->usuario_email</li>
@@ -46,7 +47,7 @@ final class CriarIndicacaoModel
                     <li>Telefone: $dado->usuario_telefone</li>
                 </ul>
 
-                <h1>Dados da empresa indicada</h1>
+                <p><strong>Dados da empresa indicada</strong></p>
                 <ul>
                     <li>Nome: $dado->empresa_indicada_nome</li>
                     <li>Email: $dado->empresa_email</li>
@@ -54,11 +55,8 @@ final class CriarIndicacaoModel
                 </ul>
 
                 $endereco
-
-                <h1>Observações</h1>
-                <ul>
-                    <li>$dado->observacao</li>
-                </ul>
+                <p><strong>Outros dados:</strong></p>
+                $texto
             HTML,
             equipe: '',
             tempo: 20
@@ -70,7 +68,7 @@ final class CriarIndicacaoModel
         $dado = $this->request;
         if ($dado->empresa_loja_fisica) {
             return <<<HTML
-                <h1>Endereço da empresa</h1>
+                <p><strong>Endereço da empresa</strong></p>
                 <ul>
                     <li>CEP: $dado->empresa_cep</li>
                     <li>Logradouro: $dado->empresa_logradouro</li>

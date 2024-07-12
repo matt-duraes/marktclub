@@ -35,25 +35,16 @@ class SprintController extends Controller implements
         return mensagemSucesso($Sprint->listarDados());
     }
 
+    public function getAtiva(): Response
+    {
+        return $this->getBuscar('ativa');
+    }
+
     public function getBuscar(string $id): Response
     {
         $Sprint = new SprintEntity();
         if ($id == 'ativa') {
-            $Sprint->buscar([
-                [
-                    'OR',
-                    ['data_inicio', 'null'],
-                    ['data_inicio', ''],
-                    ['data_inicio', '<=', hoje() . ' 23:59:59'],
-                ],
-                [
-                    'OR',
-                    ['data_final', 'null'],
-                    ['data_final', ''],
-                    ['data_final', '>=', hoje()],
-                ],
-                ['status', 'in', Status::PUBLICADO]
-            ]);
+            $Sprint->buscar(['status', 'in', Status::PUBLICADO]);
         } else {
             $Sprint->uuid($id);
         }

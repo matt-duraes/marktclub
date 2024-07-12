@@ -19,7 +19,7 @@ final class CriarAuditoriaModel
         private Request $request
     ) {
         $this->empresa = $request->empresa;
-        $this->criarDemanda($this->montarTitulo(), $request->texto, $request->tipo, Area::CONVENIO);
+        $this->criarDemanda($this->montarTitulo(), '', $request->tipo, Area::CONVENIO);
         $this->verificarSeSalvouDemanda();
         $this->adicionarTarefa();
     }
@@ -33,27 +33,24 @@ final class CriarAuditoriaModel
     {
         $dado = $this->request;
         $dadosLoja = $this->pegarDadosLoja();
+        $texto = $this->request->getPost('texto', html: false);
         $this->salvarTarefa(
             Tipo::CONVENIO,
             $dado->titulo,
             texto: <<<HTML
-                <h1>Relatório do problema</h1>
+                <p><strong>Relatório do problema</strong></p>
                 <p>
                     $dado->relatorio
                 </p>
 
-                <h1>Formas de contato</h1>
+                <p><strong>Formas de contato</strong></p>
                 <ul>
                     <li>Email: $dado->email</li>
                     <li>Telefone: $dado->telefone</li>
                 </ul>
-
                 $dadosLoja
-
-                <h1>Observações</h1>
-                <ul>
-                    <li>$dado->observacao</li>
-                </ul>
+                <p><strong>Outros dados:</strong></p>
+                $texto
             HTML,
             equipe: '',
             tempo: 20
@@ -65,7 +62,7 @@ final class CriarAuditoriaModel
         $dado = $this->request;
         if ($dado->loja_fisica) {
             return <<<HTML
-                <h1>Dados da loja</h1>
+                <p><strong>Dados da loja</strong></p>
                 <ul>
                     <li>Unidade: $dado->unidade</li>
                     <li>Atendente: $dado->atendente</li>

@@ -3,6 +3,8 @@
 namespace App\Models\Api\Demanda\Sprint\Demanda;
 
 use App\Classes\Demanda\Sprint\Status;
+use App\Models\Api\Demanda\Dado\MudarStatusModel;
+use App\Classes\DemandaDado\Status as DemandaStatus;
 
 final class RemoverModel extends DemandaModel
 {
@@ -40,5 +42,6 @@ final class RemoverModel extends DemandaModel
             ])
             ->where(['id', $this->id])
             ->update();
+        (new MudarStatusModel($this->demanda, new DemandaStatus(DemandaStatus::NOVA)));
     }
 }

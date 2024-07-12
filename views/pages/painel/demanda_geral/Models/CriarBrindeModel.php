@@ -19,7 +19,7 @@ final class CriarBrindeModel
         private Request $request
     ) {
         $this->empresa = $request->empresa;
-        $this->criarDemanda($this->montarTitulo(), $request->texto, $request->tipo, Area::CONVENIO);
+        $this->criarDemanda($this->montarTitulo(), '', $request->tipo, Area::CONVENIO);
         $this->verificarSeSalvouDemanda();
         $this->adicionarTarefa();
     }
@@ -33,11 +33,12 @@ final class CriarBrindeModel
     {
         $dado = $this->request;
         $canaisDivulgacao = $this->pegarCanaisDivulgacao();
+        $texto = $this->request->getPost('texto', html: false);
         $this->salvarTarefa(
             Tipo::CONVENIO,
             $dado->titulo,
             texto: <<<HTML
-                <h1>Dados da divulgação</h1>
+                <p><strong>Dados da divulgação</strong></p>
                 <ul>
                     <li>Data de início: $dado->inicio_divulgacao</li>
                     <li>Data final: $dado->fim_divulgacao</li>
@@ -47,11 +48,8 @@ final class CriarBrindeModel
                 </ul>
 
                 $canaisDivulgacao
-
-                <h1>Observações</h1>
-                <ul>
-                    <li>$dado->observacao</li>
-                </ul>
+                <p><strong>Outros dados:</strong></p>
+                $texto
             HTML,
             equipe: '',
             tempo: 20
@@ -79,7 +77,7 @@ final class CriarBrindeModel
         }
 
         if (!empty($itens)) {
-            $estrutura = '<h1>Canais de divulgação</h1><ul><li>' . implode('</li><li>', $itens) . '</li></ul>';
+            $estrutura = '<p><strong>Canais de divulgação</strong></p><ul><li>' . implode('</li><li>', $itens) . '</li></ul>';
             return $estrutura;
         }
 

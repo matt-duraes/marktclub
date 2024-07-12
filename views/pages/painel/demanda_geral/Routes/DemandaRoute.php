@@ -134,11 +134,11 @@ Route
 
         Route
             ::nome('tarefaEditar')
-            ::request(['titulo', 'texto', 'tipo', 'tarefa_tipo', 'demanda'])
+            ::request(['titulo', 'texto', 'tipo', 'tarefa_tipo', 'dificuldade', 'demanda'])
             ::post('/demanda/tarefa-editar/{id}');
         Route
             ::nome('tarefaSalvar')
-            ::request(['demanda', 'titulo', 'texto', 'tipo', 'tarefa_tipo'])
+            ::request(['demanda', 'titulo', 'texto', 'tipo', 'dificuldade', 'tarefa_tipo'])
             ::post('/demanda/tarefa-salvar');
         Route
             ::nome('tarefaArquivo')

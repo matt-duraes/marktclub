@@ -17,6 +17,7 @@ final class TarefaSalvarModel
         private string $texto,
         private string $tipo,
         private array $tarefa_tipo,
+        private ?int $dificuldade = null,
         private ?string $demanda = null,
         private ?string $equipe = null,
         private ?string $id = null,
@@ -46,10 +47,11 @@ final class TarefaSalvarModel
         $dado = $this->Api
             ->validar('Erro ao salvar nova tarefa, por favor, tente novamente.', login: true)
             ->body([
-                'demanda' => $this->demanda,
-                'titulo'  => $this->titulo,
-                'texto'   => $this->texto,
-                'tipo'    => $this->tipo,
+                'demanda'     => $this->demanda,
+                'titulo'      => $this->titulo,
+                'texto'       => $this->texto,
+                'tipo'        => $this->tipo,
+                'dificuldade' => $this->dificuldade
             ])
             ->post('/demanda-tarefa')
             ->object()->dado ?? [];
@@ -64,9 +66,10 @@ final class TarefaSalvarModel
         $this->Api
             ->validar('Erro ao atualizar tarefa, por favor, tente novamente.', login: true)
             ->body([
-                'titulo'  => $this->titulo,
-                'texto'   => $this->texto,
-                'tipo'    => $this->tipo
+                'titulo'      => $this->titulo,
+                'texto'       => $this->texto,
+                'tipo'        => $this->tipo,
+                'dificuldade' => $this->dificuldade
             ])
             ->put('/demanda-tarefa/' . $this->id);
         $this->atualizarTarefaDemanda();
