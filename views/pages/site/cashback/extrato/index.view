@@ -1,6 +1,5 @@
 @template "site"
 
-
 <div id="bloco_pagina_cashback">
     <div class="conteudo">
         <figure>
@@ -43,20 +42,8 @@
                     @if($saldo >= $minPontosDinheiro && $saldo >= $minPontosMensalidade)
                         <div class="botao botao_resgate_cashback" id="botao_popup_resgate">Escolher resgate</div>
                     @elseif($saldo >= $minPontosMensalidade):
-                        <div class="bloco_atencao_geral">
-                            <p>
-                                Você precisa acumular {{$minPontosDinheiro}} pontos para solicitar resgate em dinheiro.
-                                No entanto, já pode realizar o resgate de desconto na sua anuidade.
-                            </p>
-                        </div>
                         <div class="botao botao_resgate_cashback" id="botao_popup_resgate_mensalidade">Solicitar desconto</div>
                     @elseif($saldo >= $minPontosDinheiro):
-                        <div class="bloco_atencao_geral">
-                            <p>
-                                Você precisa acumular {{$minPontosMensalidade}} pontos para solicitar desconto na anuidade.
-                                No entanto, já pode realizar o resgate em dinheiro.
-                            </p>
-                        </div>
                         <div class="botao botao_resgate_cashback" id="botao_popup_resgate_dinheiro">Solicitar resgate</div>
                     @endif;
                 @else:
@@ -66,17 +53,34 @@
                 @endif;
             </div>
         </section>
-        @if($saldo <= $minPontosDinheiro && $saldo <= $minPontosMensalidade)
+        @if($disponibilidadeDesconto != '1' && $saldo < $minPontosDinheiro):
             <div class="bloco_atencao_geral">
-                @if($disponibilidadeDesconto == '1'):
-                <p>
-                    Você precisa acumular {{$minPontosDinheiro}} pontos para solicitar o resgate em dinheiro ou {{$minPontosMensalidade}}
-                    para solicitar desconto na anuidade.
-                </p>
-                @else:
-                    <p>Você precisa acumular {{$minPontosDinheiro}} pontos para solicitar o resgate em dinheiro.</p>
-                @endif;
+                <p>Você precisa acumular {{$minPontosDinheiro}} pontos para solicitar o resgate em dinheiro.</p>
             </div>
+        @else:
+            @if($saldo < $minPontosDinheiro && $saldo >= $minPontosMensalidade):
+                <div class="bloco_atencao_geral">
+                    <p>
+                        Você precisa acumular {{$minPontosDinheiro}} pontos para solicitar o resgate em dinheiro.
+                        No entanto, você já pode solicitar o desconto na sua anuidade.
+                    </p>
+                </div>
+            @endif;
+            @if($saldo < $minPontosMensalidade && $saldo >= $minPontosDinheiro):
+                <div class="bloco_atencao_geral">
+                    <p>
+                        Você precisa acumular {{$minPontosMensalidade}} pontos para solicitar o desconto na sua anuidade.
+                        No entanto, você já pode solicitar o resgate em dinheiro.
+                    </p>
+                </div>
+            @endif;
+            @if($saldo < $minPontosMensalidade && $saldo < $minPontosDinheiro):
+                <div class="bloco_atencao_geral">
+                    <p>Você precisa acumular {{$minPontosDinheiro}} pontos para solicitar o resgate em dinheiro e
+                        {{$minPontosMensalidade}} pontos para solicitar o desconto na sua anuidade.
+                    </p>
+                </div>
+            @endif;
         @endif;
         <div class="bloco_extrato">
             <h1>ACOMPANHE SEUS EXTRATOS</h1>
