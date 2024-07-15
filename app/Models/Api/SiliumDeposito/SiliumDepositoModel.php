@@ -154,11 +154,14 @@ class SiliumDepositoModel extends ORM implements
 
     /**
      * @return array
+     * @throws Excecao
      */
     private function pegarWhereUsuario(): array
     {
         $where = [];
-        if (!empty($this->usuario)) {
+        if (!empty($this->usuario) && validarUuid($this->usuario, false)) {
+            $where[] = ['uuid', $this->usuario];
+        } else {
             $where[] = ['nome', 'LIKE', "%$this->usuario%"];
         }
         return $where;
