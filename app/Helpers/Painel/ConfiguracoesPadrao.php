@@ -425,8 +425,9 @@ final class ConfiguracoesPadrao
         'relatorio_acesso'         => [
             'titulo'    => 'Relatório Acesso',
             'permissao' => [
-                'relatorio_acesso_index'   => 'Relatório de acesso',
-                'relatorio_acesso_empresa' => 'Todas as empresas'
+                'relatorio_acesso_index'    => 'Relatório de acesso',
+                'relatorio_acesso_empresa'  => 'Todas as empresas',
+                'relatorio_acesso_parceiro' => 'Todos os parceiros'
             ]
         ],
         'relatorio_usuario'        => [

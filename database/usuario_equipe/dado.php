@@ -66,7 +66,7 @@ $permissao = [
 
     'construtor_clube_index', 'construtor_clube_add', 'construtor_clube_editar', 'construtor_clube_deletar',
 
-    'relatorio_acesso_index', 'relatorio_acesso_empresa',
+    'relatorio_acesso_index', 'relatorio_acesso_empresa', 'relatorio_acesso_parceiro',
 
     'relatorio_usuario_index', 'relatorio_usuario_empresa',
 

@@ -12,11 +12,13 @@ final class RelatorioController extends Controller
     public function acesso()
     {
         return view(arquivo: 'painel.relatorio.acesso', var: [
-            'appTitulo' => 'Relatório de acesso',
-            'app'       => 'relatorio-acesso',
-            'de'        => dataRemover(date('Y-m-d'), 8, 'dias', 'd/m/Y'),
-            'ate'       => dataRemover(date('d/m/Y'), 1, 'dia', 'd/m/Y'),
-            'empresa'   => $this->pegarSelectEmpresa()
+            'appTitulo'         => 'Relatório de acesso',
+            'app'               => 'relatorio-acesso',
+            'de'                => dataRemover(date('Y-m-d'), 8, 'dias', 'd/m/Y'),
+            'ate'               => dataRemover(date('d/m/Y'), 1, 'dia', 'd/m/Y'),
+            'empresa'           => $this->pegarSelectEmpresa(),
+            'parceiro'          => $this->pegarSelectParceiro(),
+            'parceiroPermissao' => $this->pegarPermissaoParceiro('relatorio_acesso')
         ]);
     }
 
@@ -33,9 +35,6 @@ final class RelatorioController extends Controller
 
     public function lojaVenda()
     {
-        $usuarioPermissao = sessao('USUARIO.permissao');
-        $parceiroPermissao = in_array('relatorio_loja_venda_parceiro', $usuarioPermissao) && sessao('EMPRESA.id') == '14afa776394ada4be23be6acf7e3259e';
-
         return view(arquivo: 'painel.relatorio.venda', var: [
             'appTitulo'         => 'Relatório de venda',
             'app'               => 'relatorio-loja-venda',
@@ -43,7 +42,7 @@ final class RelatorioController extends Controller
             'ate'               => '01/' . date('m/Y'),
             'empresa'           => $this->pegarSelectEmpresa(),
             'parceiro'          => $this->pegarSelectParceiro(),
-            'parceiroPermissao' => $parceiroPermissao
+            'parceiroPermissao' => $this->pegarPermissaoParceiro('relatorio_loja_venda')
         ]);
     }
 
@@ -59,6 +58,12 @@ final class RelatorioController extends Controller
         return (new ApiHelper(token: true))
             ->get('/parceiro-loja/select')
             ->array()['dado'] ?? [];
+    }
+
+    private function pegarPermissaoParceiro(string $app): bool
+    {
+        $usuarioPermissao = sessao('USUARIO.permissao');
+        return in_array($app . '_parceiro', $usuarioPermissao) && sessao('EMPRESA.id') == '14afa776394ada4be23be6acf7e3259e';
     }
 
     /*
@@ -119,6 +124,9 @@ final class RelatorioController extends Controller
         }
         if ($local == 'loja' && !empty($request->estabelecimento)) {
             $body['estabelecimento'] = $request->estabelecimento;
+        }
+        if ($local == 'loja' && !empty($request->parceiro)) {
+            $body['parceiro'] = explode(',', $request->parceiro);
         }
 
         $Api = new ApiHelper(token: true);

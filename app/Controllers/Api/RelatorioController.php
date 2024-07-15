@@ -81,7 +81,8 @@ final class RelatorioController extends Controller
             new Data($request->de),
             new Data($request->ate),
             new TipoEstabelecimento($request->estabelecimento),
-            Empresa: $request->empresa
+            Empresa: $request->empresa,
+            parceiro: $request->parceiro
         );
         return mensagemSucesso($Relatorio->listarDado());
     }
