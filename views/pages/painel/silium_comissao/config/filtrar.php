@@ -12,6 +12,12 @@ $Painel
         label: 'Nome do Usuário',
         placeholder: 'Nome do Usuário'
     )
+    ->input(
+        name: 'parceiro',
+        titulo: 'Nome da Loja',
+        label: 'Nome da Loja',
+        placeholder: 'Nome da Loja'
+    )
     ->bloco(function () use ($Painel) {
         $Painel
             ->data(

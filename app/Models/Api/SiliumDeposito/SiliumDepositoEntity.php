@@ -11,7 +11,6 @@ use App\Models\Api\SiliumSaldo\SiliumSaldoEntity;
 use Erro\Excecao;
 use Helpers\EmailHelper;
 use Helpers\OrmHelper;
-use Modules\Botao;
 use Modules\Cpf;
 use Modules\Data;
 use Modules\Dinheiro;
@@ -80,7 +79,7 @@ class SiliumDepositoEntity extends Entity
             );
         }
         $this->configs = [
-            'desconto'         => (new Botao($configs->desconto))->valor(),
+            'desconto'         => $configs->desconto,
             'pontuacao_minima' => jsonDecode($configs->pontuacao_minima_resgate, true, true)
         ];
     }

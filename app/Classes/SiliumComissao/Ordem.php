@@ -4,7 +4,7 @@ namespace App\Classes\SiliumComissao;
 
 use Order\Order;
 
-final class Ordem extends Order
+class Ordem extends Order
 {
     /**
      * @param string|null $valor

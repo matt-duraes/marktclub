@@ -136,15 +136,12 @@ class SiliumComissaoModel extends ORM implements
 
     /**
      * @return array
-     * @throws Excecao
      */
     private function pegarWhereUsuario(): array
     {
         $where = [];
-        if (!empty($this->usuario) && !validarUuid($this->usuario)) {
+        if (!empty($this->usuario)) {
             $where[] = ['nome', 'LIKE', "%$this->usuario%"];
-        } elseif (!empty($this->usuario) && validarUuid($this->usuario)) {
-            $where[] = ['uuid', $this->usuario];
         }
         return $where;
     }
