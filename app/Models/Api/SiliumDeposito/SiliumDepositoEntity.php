@@ -150,23 +150,34 @@ class SiliumDepositoEntity extends Entity
         if (empty($this->usuario) || !validarUuid($this->usuario)) {
             mensagemErro('Campo inválido!', 'Você deve informar o usuário.');
         }
+        if ($this->tipo_resgate->vazio() || !$this->tipo_resgate->valido()) {
+            mensagemErro('Campo inválido!', 'O Tipo de Resgate informado não é válido.');
+        }
         if ($this->nome_titular->vazio() || !$this->nome_titular->valido()) {
             mensagemErro('Campo inválido!', 'O Nome informado não é válido.');
-        }
-        if ($this->documento_cpf->vazio() || !$this->documento_cpf->valido()) {
-            mensagemErro('Campo inválido!', 'A CPF informado não é válido.');
         }
         if ($this->email->vazio() || !$this->email->valido()) {
             mensagemErro('Campo inválido!', 'O E-mail informado não é válido.');
         }
-        if ($this->tipo_conta->vazio() || !$this->tipo_conta->valido()) {
-            mensagemErro('Campo inválido!', 'O Tipo de Conta informado não é válido.');
-        }
         if (empty($this->pontuacao) || !filter_var($this->pontuacao, FILTER_VALIDATE_INT)) {
             mensagemErro('Campo inválido!', 'A Pontuação não é válida.');
         }
-        if ($this->tipo_resgate->vazio() || !$this->tipo_resgate->valido()) {
-            mensagemErro('Campo inválido!', 'O Tipo de Resgate informado não é válido.');
+        if ($this->tipo_resgate->indice() === TipoResgate::DINHEIRO) {
+            if ($this->documento_cpf->vazio() || !$this->documento_cpf->valido()) {
+                mensagemErro('Campo inválido!', 'A CPF informado não é válido.');
+            }
+            if ($this->tipo_conta->vazio() || !$this->tipo_conta->valido()) {
+                mensagemErro('Campo inválido!', 'O Tipo de Conta informado não é válido.');
+            }
+            if (empty($this->banco)) {
+                mensagemErro('Campo inválido!', 'O Banco não é válido.');
+            }
+            if (empty($this->agencia)) {
+                mensagemErro('Campo inválido!', 'A Agência não é válida.');
+            }
+            if (empty($this->conta)) {
+                mensagemErro('Campo inválido!', 'A Conta não é válida.');
+            }
         }
     }
 

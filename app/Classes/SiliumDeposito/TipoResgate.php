@@ -8,8 +8,6 @@ class TipoResgate extends Status
 {
     public const DINHEIRO = 'dinheiro';
     public const MENSALIDADE = 'mensalidade';
-    public const DESCONTO = 'desconto';
-    public const CUPOM = 'cupom';
 
     /**
      * @param string|int|null $valor
@@ -19,9 +17,7 @@ class TipoResgate extends Status
     ) {
         parent::__construct([
             self::DINHEIRO    => 'Dinheiro',
-            self::MENSALIDADE => 'Desconto na Anuidade',
-            self::DESCONTO    => 'Desconto',
-            self::CUPOM       => 'Cupom'
+            self::MENSALIDADE => 'Desconto na Anuidade'
         ]);
     }
 }
