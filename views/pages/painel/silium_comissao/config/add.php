@@ -12,19 +12,18 @@ $Painel->coluna(callback: function () use ($Painel) {
                 name: 'parceiro',
                 label: 'Parceiro',
                 placeholder: 'Insira o nome do parceiro/loja',
-                obrigatorio: true,
-                contador: 100
+                obrigatorio: true
             )
             ->dinheiro(
                 name: 'valor_compra',
-                label: 'Valor da Compra',
-                placeholder: 'Insira o valor da compra',
+                label: 'Valor da Compra (Reais)',
+                placeholder: 'Insira o valor da compra (Reais)',
                 obrigatorio: true
             )
             ->dinheiro(
                 name: 'comissao_usuario',
-                label: 'Comissão',
-                placeholder: 'Insira o valor da comissão',
+                label: 'Comissão (Reais)',
+                placeholder: 'Insira o valor da comissão (Reais)',
                 obrigatorio: true
             )
             ->data(
@@ -42,12 +41,7 @@ $Painel->coluna(callback: function () use ($Painel) {
                 label: 'Usuário',
                 placeholder: 'Insira a referência do usuário na compra',
                 obrigatorio: true
-            )/*
-            ->numero(
-                name: 'pontuacao',
-                label: 'Pontuação Adquirida',
-                placeholder: 'Insira a pontuação adquirida'
-            )*/
+            )
             ->select(
                 name: 'status',
                 lista: (new Status())->select('Selecione um status'),

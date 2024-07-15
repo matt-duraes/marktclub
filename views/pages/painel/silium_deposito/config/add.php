@@ -20,8 +20,8 @@ $Painel->coluna(callback: function () use ($Painel, $Status) {
             )
             ->dinheiro(
                 name: 'valor',
-                label: 'Valor do Depósito',
-                placeholder: 'Insira o valor que foi depositado (exceto em mensalidade)'
+                label: 'Valor do Depósito (Reais)',
+                placeholder: 'Insira o valor que foi depositado (Reais)'
             )
             ->data(
                 name: 'data_deposito',
@@ -43,7 +43,7 @@ $Painel->coluna(callback: function () use ($Painel, $Status) {
             ->imagem(
                 name: 'documento_anexo',
                 diretorio: '2a957957-05be-4024-a5fb-7f69a4a0d07f',
-                label: 'Imagem/Foto (exceto em mensalidade)'
+                label: 'Imagem/Foto'
             );
     });
 });

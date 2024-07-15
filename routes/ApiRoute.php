@@ -2458,7 +2458,7 @@ Route
             ::nome('listar')
             ::middleware(TokenMiddleware::class, 'scope', ['silium_comissao:listar'])
             ::request([
-                'pagina', '!quantidade', '!ordem', '!usuario', '!data_inicio',
+                'pagina', '!quantidade', '!ordem', '!usuario', '!parceiro', '!data_inicio',
                 '!data_final', '!status'
             ], 'json')
             ::get('/silium-comissao');
@@ -2507,8 +2507,8 @@ Route
             ::middleware(TokenMiddleware::class, 'scope', ['silium_deposito:listar'])
             ::request([
                 'pagina', '!quantidade', '!ordem', '!usuario', '!tipo_conta',
-                '!tipo_operacao', '!tipo_resgate', '!tipo', '!data_inicio',
-                '!data_final', '!status'
+                '!tipo_operacao', '!tipo_resgate', '!data_inicio', '!data_final',
+                '!status'
             ], 'json')
             ::get('/silium-deposito');
 

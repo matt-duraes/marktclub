@@ -4,7 +4,7 @@ namespace App\Classes\SiliumDeposito;
 
 use Order\Order;
 
-final class Ordem extends Order
+class Ordem extends Order
 {
     /**
      * @param string|null $valor
@@ -13,7 +13,7 @@ final class Ordem extends Order
         protected ?string $valor = null
     ) {
         $this->tabela(TABELA_SILIUM_DEPOSITO);
-        $this->padrao('status');
+        $this->padrao('data_criacao');
         $this->status();
         $this->maisNovo();
         $this->maisVelho();
