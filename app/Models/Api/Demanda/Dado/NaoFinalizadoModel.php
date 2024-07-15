@@ -6,7 +6,7 @@ use ORM\ORM;
 use App\Classes\DemandaDado\Status;
 use App\Models\Api\Demanda\Sprint\Demanda\AtivaModel;
 
-final class NaSprintModel extends ORM
+final class NaoFinalizadoModel extends ORM
 {
     protected string $ormTabela = TABELA_DEMANDA_DADO;
 
@@ -25,20 +25,20 @@ final class NaSprintModel extends ORM
     public function idNaoFinalizada()
     {
         $id = [];
-        foreach ($this->buscarDemanda(['id']) as $r) {
-            $id[] = $r->id;
+        foreach ($this->buscarDemanda() as $r) {
+            $id[] = $r->uuid;
         }
         return $id;
     }
 
-    private function buscarDemanda(array $campo = ['uuid', 'titulo'])
+    private function buscarDemanda()
     {
         $id = (new AtivaModel())->pegarId();
         if (empty($id)) {
             return [];
         }
         return $this
-            ->campo($campo)
+            ->campo(['uuid', 'titulo'])
             ->where([
                 ['uuid', 'in', $id],
                 ['status', 'in', Status::GERAL]

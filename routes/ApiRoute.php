@@ -1961,24 +1961,21 @@ Route
     ::middleware(TokenMiddleware::class, 'token')
     ::grupo(function () {
         Route
+            ::nome('listar')
+            ::middleware(TokenMiddleware::class, 'scope', ['demanda_tarefa:listar'])
+            ::request(['demanda'], 'json')
+            ::get('/demanda-tarefa');
+        Route
+            ::nome('buscar')
+            ::middleware(TokenMiddleware::class, 'scope', ['demanda_tarefa:buscar'])
+            ::get('/demanda-tarefa/{id}');
+        Route
             ::nome('salvar')
             ::middleware(TokenMiddleware::class, 'scope', ['demanda_tarefa:salvar'])
             ::request([
                 'demanda', 'titulo', 'texto', 'tipo', '!minuto_producao_estimada', '!dificuldade', '!equipe'
             ])
             ::post('/demanda-tarefa');
-
-        Route
-            ::nome('listar')
-            ::middleware(TokenMiddleware::class, 'scope', ['demanda_tarefa:listar'])
-            ::request(['demanda'], 'json')
-            ::get('/demanda-tarefa');
-
-        Route
-            ::nome('buscar')
-            ::middleware(TokenMiddleware::class, 'scope', ['demanda_tarefa:buscar'])
-            ::get('/demanda-tarefa/{id}');
-
         Route
             ::nome('atualizar')
             ::middleware(TokenMiddleware::class, 'scope', ['demanda_tarefa:atualizar'])
@@ -1986,17 +1983,14 @@ Route
                 '!titulo', '!texto', '!tipo', '!minuto_producao_estimada', '!equipe', '!dificuldade', '!status'
             ])
             ::put('/demanda-tarefa/{id}');
-
         Route
             ::nome('deletar')
             ::middleware(TokenMiddleware::class, 'scope', ['demanda_tarefa:deletar'])
             ::delete('/demanda-tarefa/{id}');
-
         Route
             ::nome('like')
             ::middleware(TokenMiddleware::class, 'scope', ['demanda_tarefa:like'])
             ::post('/demanda-tarefa/like/{id}');
-
         Route
             ::nome('deslike')
             ::middleware(TokenMiddleware::class, 'scope', ['demanda_tarefa:like'])

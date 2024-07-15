@@ -10,7 +10,6 @@ const demandaDetalhe = () => {
     const botaoCancelar = $('#botao_cancelar_demanda');
 
     const blocoEsqueleto = $('#bloco_tarefa_loading');
-    const blocoZero = $('#bloco_tarefa_zero');
 
     const EsqueletoItem = new Esqueleto(blocoEsqueleto, '.esqueleto');
     EsqueletoItem.show();
@@ -78,6 +77,9 @@ const demandaDetalhe = () => {
     }
     const abrirPopupNovaTarefa = () => {
         PopupTarefa.abrir();
+        if (area == 'tecnologia') {
+            blocoTarefaTecnologia.aparecer();
+        }
         inputTarefaTitulo.focus();
     };
 

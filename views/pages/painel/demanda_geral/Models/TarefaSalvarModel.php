@@ -17,7 +17,7 @@ final class TarefaSalvarModel
         private string $texto,
         private string $tipo,
         private array $tarefa_tipo,
-        private ?int $dificuldade = null,
+        private ?string $dificuldade = null,
         private ?string $demanda = null,
         private ?string $equipe = null,
         private ?string $id = null,

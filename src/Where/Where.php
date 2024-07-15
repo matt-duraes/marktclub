@@ -395,7 +395,6 @@ final class Where implements WhereInterface
         }
 
         $propValor = $this->pegarValor(propriedade: $propriedade);
-
         if (($igual && $propValor !== $valor) || (!$igual && $propValor === $valor)) {
             return $this;
         }

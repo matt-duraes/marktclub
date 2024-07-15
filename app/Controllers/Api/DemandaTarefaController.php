@@ -9,6 +9,7 @@ use App\Classes\DemandaTarefa\Tipo;
 use App\Models\Api\Demanda\TarefaModel;
 use App\Models\Api\Demanda\TarefaEntity;
 use App\Models\Api\Demanda\DemandaEntity;
+use App\Classes\DemandaTarefa\Dificuldade;
 use System\Interface\ControllerBuscarInterface;
 use System\Interface\ControllerListarInterface;
 use System\Interface\ControllerSalvarInterface;
@@ -38,7 +39,7 @@ final class DemandaTarefaController extends Controller implements
             texto: $request->getPost('texto', html: false),
             tipo: new Tipo($request->tipo),
             equipe: $request->equipe,
-            dificuldade: $request->dificuldade
+            dificuldade: new Dificuldade($request->dificuldade)
         );
         $Tarefa->salvar();
 

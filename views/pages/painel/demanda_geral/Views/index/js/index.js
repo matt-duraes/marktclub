@@ -24,6 +24,14 @@ async function buscarDados() {
         EsqueletoItem.show();
     });
 
+    const eQuadro = listaColuna[0].classe('bloco_visualizar_quadro', '?');
+    if (eQuadro && area == 'tecnologia') {
+        const resposta = await ajaxPost(LINK + '/demanda-sprint/ativa', {}, '');
+        if (false !== resposta) {
+            idSprint = resposta.dado.id;
+        }
+    }
+
     for (const coluna of listaColuna) {
         const status = coluna.getAttribute('data-status');
 
@@ -35,7 +43,7 @@ async function buscarDados() {
             },
             ''
         ).then(resposta => {
-            if (coluna.classe('bloco_visualizar_quadro', '?')) {
+            if (eQuadro) {
                 carregarBuscarQuadro(coluna, resposta);
                 return;
             }

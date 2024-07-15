@@ -97,7 +97,7 @@ final class LoginController extends Controller
     */
     public function login()
     {
-        return view('login.login', [
+        return view('login.youhuul', [
             'api'        => API,
             'link_login' => LINK_LOGIN
         ]);

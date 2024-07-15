@@ -3,7 +3,7 @@
 return [
     'titulo'     => 'Sprint',
     'buscar'     => false,
-    'filtrar'    => false,
+    'filtrar'    => true,
     'ordem'      => false,
     'visualizar' => true,
     'download'   => false,

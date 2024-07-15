@@ -13,8 +13,8 @@ const demandaCancelar = () => {
         }
 
         const blocoDemanda = $('#id_demanda_' + idDemanda);
-        if (blocoDemanda && blocoDemanda.classe('na_sprint')) {
-            fazerRequestAdicionarRemoverDemandaSprint('remover', idDemanda, motivo);
+        if (blocoDemanda && blocoDemanda.classe('na_sprint', '?')) {
+            fazerRequestAdicionarRemoverDemandaSprint('remover', idDemanda, idSprint, motivo);
         }
 
         Loading.show();
@@ -26,7 +26,7 @@ const demandaCancelar = () => {
             'Ocorreu um erro ao cancelar demanda, por favor, tente novamente.'
         );
         Loading.hide();
-        if (false == resposta) {
+        if (false === resposta) {
             return;
         }
         PopupDemandaCancelar.fechar();
@@ -46,7 +46,7 @@ const demandaCancelar = () => {
     const acaoAposCancelarDemandaLista = bloco => {
         bloco.remove();
         const quantidade = $$('.linha', blocoSprintLista).length;
-        if (quantidade.length > 0) {
+        if (quantidade > 0) {
             return;
         }
         const zero = $('.tarefa_zero', blocoSprintLista);
@@ -62,11 +62,11 @@ const demandaCancelar = () => {
         const coluna = bloco.closest('.bloco_coluna');
         bloco.remove();
         contarTarefaDemanda(coluna);
-        const lista = coluna.querySelectorAll('.bloco_tarefa_item');
+        const lista = $$('.bloco_kambam_item', coluna);
         if (lista.length > 0) {
             return;
         }
-        const zero = coluna.querySelector('.tarefa_zero');
+        const zero = $('.tarefa_zero', coluna);
         if (zero) {
             zero.aparecer();
         }

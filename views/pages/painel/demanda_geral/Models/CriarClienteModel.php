@@ -14,11 +14,6 @@ final class CriarClienteModel
 
     private stdClass $Demanda;
     private array $listaNotificacao = [];
-    private string $usuarioInfra = '8fd85f9f7cc21d6e33399681d6e5fca7';
-    private string $usuarioDns = '8fd85f9f7cc21d6e33399681d6e5fca7';
-    private string $usuarioBancoDados = '8fd85f9f7cc21d6e33399681d6e5fca7';
-    private string $usuarioCriacao = '3df1a38ec0919bd14162beabb73e12b4';
-    private string $usuarioApp = '0f3a5572ba1343afca4c0b538354c59c';
 
     public function __construct(
         private string $empresaNome,
@@ -37,8 +32,6 @@ final class CriarClienteModel
         $this->configurarDnsCdn();
         $this->criarDocumentacaoParaApi();
         $this->configurarConstrutor();
-        $this->criarAppParaApp();
-        $this->criarAppParaClube();
         $this->rodarScriptSubirConvenio();
         $this->criarApp();
         $this->notificarUsuario();
@@ -60,43 +53,20 @@ final class CriarClienteModel
 
     private function configurarDnsCdn()
     {
-        if ($this->cdn->valor() == 'nao' || $this->dominioTipo != 'dominio') {
-            return;
-        }
-        $this->salvarTarefa(
-            'back-end',
-            'Configurar CDN',
-            '<p>Criar o domínio <strong>
-            ' . $this->dominioLink . '
-            </strong> na CDN</p><p>DNS: <strong>' . DNS_CNAME . '</strong></p>',
-            $this->usuarioDns,
-            tempo: 20
-        );
-    }
+        $link = $this->dominioLink;
+        $dns = DNS_CNAME;
+        $texto = "<p>Criar o domínio <strong>{$link}</strong> na CDN</p><p>DNS: <strong>{$dns}</strong></p>";
 
-    private function criarAppParaClube()
-    {
-        $this->salvarTarefa(
-            'banco',
-            'Criar app para o clube',
-            '<p>Criar o APP para o clube no banco de dados</p>',
-            $this->usuarioBancoDados,
-            tempo: 60
-        );
-    }
-
-    private function criarAppParaApp()
-    {
-        if ($this->app->valor() == 'nao') {
+        if (
+            $this->cdn->valor() == 'nao' ||
+            !in_array($this->dominioTipo, ['dominio', 'temvantagens', 'temmaisvantagens'])
+        ) {
             return;
+        } elseif (in_array($this->dominioTipo, ['temvantagens', 'temmaisvantagens'])) {
+            $texto = "<p>Criar o subdomínio <strong>{$link}</strong> na CDN</p>";
         }
-        $this->salvarTarefa(
-            'banco',
-            'Criar app para o aplicativo',
-            '<p>Criar o APP para o aplicativo no banco de dados</p>',
-            $this->usuarioBancoDados,
-            tempo: 60
-        );
+
+        $this->salvarTarefa('infra', 'Configurar CDN', $texto, dificuldade: 1);
     }
 
     private function criarDocumentacaoParaApi()
@@ -108,8 +78,7 @@ final class CriarClienteModel
             'banco',
             'Criar documentação da API',
             '<p>Criar documentação para login via API do Cliente</p>',
-            $this->usuarioBancoDados,
-            tempo: 120
+            dificuldade: 2
         );
     }
 
@@ -127,8 +96,7 @@ final class CriarClienteModel
             'criacao',
             'Configurar Construtor',
             $texto,
-            $this->usuarioCriacao,
-            tempo: 60
+            dificuldade: 1
         );
     }
 
@@ -143,8 +111,7 @@ final class CriarClienteModel
                 <strong>' . env('DNS_IP_API', '') . '</strong>
                 </p>
             ',
-            $this->usuarioInfra,
-            tempo: 10
+            dificuldade: 1
         );
     }
 
@@ -154,25 +121,16 @@ final class CriarClienteModel
             return;
         }
         $this->salvarTarefa(
-            'criacao',
-            'Criar peças para o APP',
-            '<p>Criar as peças para a criação dos APP no IOS e Android</p>',
-            $this->usuarioCriacao,
-            tempo: 60
-        );
-        $this->salvarTarefa(
             'app',
             'Criar APP para Android',
             '<p>Criar APP para Andriod</p>',
-            $this->usuarioApp,
-            tempo: 60
+            dificuldade: 2
         );
         $this->salvarTarefa(
             'app',
             'Criar APP para IOS',
             '<p>Criar APP para IOS</p>',
-            $this->usuarioApp,
-            tempo: 60
+            dificuldade: 2
         );
     }
 

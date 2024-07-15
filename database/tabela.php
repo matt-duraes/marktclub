@@ -1,10 +1,15 @@
-<?php 
+<?php
 
 define('TABELA_ALBUM_DADO', 'album_dado');
 define('TABELA_ALBUM_FOTO', 'album_foto');
 define('TABELA_ANALYTICS', 'analytics');
 define('TABELA_ANALYTICS_ACESSO_DIA', 'analytics_acesso_dia');
 define('TABELA_ANALYTICS_DADO_USUARIO', 'analytics_dado_usuario');
+define('TABELA_ANALYTICS_DEMANDA_AREA', 'analytics_demanda_area');
+define('TABELA_ANALYTICS_DEMANDA_DEV', 'analytics_demanda_dev');
+define('TABELA_ANALYTICS_DEMANDA_EMPRESA', 'analytics_demanda_empresa');
+define('TABELA_ANALYTICS_DEMANDA_EQUIPE', 'analytics_demanda_equipe');
+define('TABELA_ANALYTICS_DEMANDA_TIPO', 'analytics_demanda_tipo');
 define('TABELA_ANALYTICS_DISPOSITIVO', 'analytics_dispositivo');
 define('TABELA_ANALYTICS_LOJA', 'analytics_loja');
 define('TABELA_ANALYTICS_LOJA_EQUIPE', 'analytics_loja_equipe');

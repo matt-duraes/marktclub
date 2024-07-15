@@ -37,7 +37,7 @@ window.addEventListener('load', () => {
             if (false === resposta) {
                 return;
             }
-            if ('dado' in resposta) {
+            if ('dado' in resposta && resposta.dado.length > 0) {
                 blocoDemandaRemoverLista.aparecer();
                 for (const item of resposta.dado) {
                     const clone = blocoDemandaRemoverPadrao.clonar();

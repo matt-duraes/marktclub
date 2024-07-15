@@ -208,6 +208,8 @@ const adicionarNovaDemanda = (bloco, item, abrir) => {
         }
         if (blocoSprintLista) {
             $('.tarefa_texto', clone).html(item.texto);
+        } else if (!blocoSprintLista && area == 'tecnologia') {
+            clone.classe('na_sprint', true);
         } else {
             removerDisplayNone(clone, '.bloco_entrega', item.data_entrega);
         }

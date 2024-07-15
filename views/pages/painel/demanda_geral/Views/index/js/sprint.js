@@ -61,6 +61,19 @@ const buscarSprintAtiva = async existe => {
         }
     }
 };
+
+const fazerRequestAdicionarRemoverDemandaSprint = (acao, demanda, sprint, texto) => {
+    return ajaxPost(
+        LINK + '/demanda-sprint/demanda-' + acao,
+        {
+            demanda,
+            sprint,
+            texto,
+        },
+        'Erro na demanda, por favor, tente novamente.'
+    );
+};
+
 const carregarSprintLista = () => {
     botaoCriarSprint.evento('click', () => {
         popupSprintSalvar.abrir();
@@ -169,7 +182,7 @@ const carregarSprintLista = () => {
 
         botao.classe('aguarde', true);
         Loading.botao(botao).show();
-        const resposta = await fazerRequestAdicionarRemoverDemandaSprint(acao, id, '');
+        const resposta = await fazerRequestAdicionarRemoverDemandaSprint(acao, id, idSprint, '');
         botao.classe('aguarde', false);
         Loading.botao(botao).hide();
 
@@ -178,17 +191,6 @@ const carregarSprintLista = () => {
         }
         bloco.classe('na_sprint', acao == 'add');
     };
-    const fazerRequestAdicionarRemoverDemandaSprint = (acao, demanda, texto) => {
-        return ajaxPost(
-            LINK + '/demanda-sprint/demanda-' + acao,
-            {
-                demanda,
-                sprint: idSprint,
-                texto,
-            },
-            'Erro na demanda, por favor, tente novamente.'
-        );
-    };
 
     botaoSprintAtivaAcao.evento('click', async () => {
         const texto = inputSprintAtivaMotivo.valor();
@@ -196,7 +198,12 @@ const carregarSprintLista = () => {
             Alerta.notificacao('Preencha o motivo para continuar.', false);
             return;
         }
-        const resposta = await fazerRequestAdicionarRemoverDemandaSprint(demandaSprintAcao, demandaSprintId, texto);
+        const resposta = await fazerRequestAdicionarRemoverDemandaSprint(
+            demandaSprintAcao,
+            demandaSprintId,
+            idSprint,
+            texto
+        );
         if (false === resposta) {
             return;
         }

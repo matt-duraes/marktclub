@@ -4,9 +4,7 @@ namespace App\Models\Api\Demanda\Sprint;
 
 use ORM\Entity;
 use Modules\Data;
-use Helpers\OrmHelper;
 use App\Classes\Demanda\Sprint\Status;
-use App\Models\Api\Demanda\Dado\NaSprintModel;
 use App\Models\Api\Demanda\Dado\MudarStatusModel;
 use App\Classes\DemandaDado\Status as StatusDemanda;
 
@@ -46,6 +44,10 @@ final class SprintEntity extends Entity
     {
         if ($this->existe(['status', 'in', Status::PUBLICADO])) {
             mensagemErro('Erro!', 'Já existe uma sprint em andamento no momento.');
+        } elseif ($this->data_inicio->date() < hoje()) {
+            mensagemErro('Erro!', 'A data de início da sprint não pode ser menor que hoje.');
+        } elseif ($this->data_inicio->date() > dataRemover($this->data_final->date(), 7, 'dias')) {
+            mensagemErro('Erro!', 'A data final da sprint deve ter pelo menos 7 dias a mais que a data inicial.');
         }
     }
 
@@ -67,15 +69,7 @@ final class SprintEntity extends Entity
             mensagemErro('Erro!', 'Você deve colocar pelo menos uma demanda na sprint para continuar.');
         }
         $this->id_demanda_inicio = $this->id_demanda;
-        $Demanda = new OrmHelper(TABELA_DEMANDA_DADO);
-        $Demanda
-            ->dado([
-                'status' => new StatusDemanda(StatusDemanda::LIBERADA)
-            ])
-            ->where([
-                ['uuid', 'in', $this->id_demanda]
-            ])
-            ->update();
+        new MudarStatusModel($this->id_demanda, new StatusDemanda(StatusDemanda::LIBERADA));
     }
 
     private function mudarStatusParaConcluida()
@@ -88,11 +82,7 @@ final class SprintEntity extends Entity
 
     private function mudarStatusParaCancelada()
     {
-        $id = (new NaSprintModel())->idNaoFinalizada();
-        if (empty($id)) {
-            return;
-        }
-        (new MudarStatusModel($id, new StatusDemanda(StatusDemanda::NOVA)));
+        new MudarStatusModel($this->id_demanda, new StatusDemanda(StatusDemanda::NOVA));
     }
 
     protected function regraPosBuscar()

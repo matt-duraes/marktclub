@@ -37,6 +37,7 @@ final class SprintModel extends ORM implements ModelListarInterface
             quantidade|Quantidade|valido
             data_inicio|Data de início|valido
             data_final|Data final|valido
+            publicado|Publicado|valido
             status|Status|valido
         ');
     }
@@ -63,10 +64,11 @@ final class SprintModel extends ORM implements ModelListarInterface
     {
         $Where = new Where($this);
         $Where
-            ->data('data_inicio', 'data_final')
+            ->linha(propriedade: 'data_inicio', condicao: '>=')
+            ->linha(propriedade: 'data_final', condicao: '<=')
             ->linha(propriedade: 'titulo', condicao: 'like%%')
             ->linha(propriedade:'status')
-            ->seIgual(propriedade: 'publicado', valor: 'sim', callback: function () use ($Where) {
+            ->seBotao(propriedade: 'publicado', callback: function () use ($Where) {
                 $Where->manual(['status', 'in', Status::PUBLICADO]);
             });
         return $Where;
