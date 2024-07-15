@@ -133,6 +133,9 @@ final class Request extends Psr7Request
         $def = $config->getHTMLDefinition(1);
         $def->addAttribute('a', 'target', new HTMLPurifier_AttrDef_Enum(['_blank']));
         $def->addAttribute('a', 'download', new HTMLPurifier_AttrDef_Enum(['download', '']));
+        $def->addElement('oembed', 'Inline', 'Empty', 'Common', [
+            'url' => 'URI',
+        ]);
         $def->addElement('section', 'Block', 'Flow', 'Common');
         $def->addElement('figcaption', 'Block', 'Flow', 'Common');
         $def->addElement('figure', 'Block', 'Flow', 'Common');
