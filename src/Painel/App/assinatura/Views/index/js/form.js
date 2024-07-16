@@ -25,7 +25,7 @@ window.addEventListener('load', () => {
     const pegarNomeFinal = (nome, cargoSigla, cargoNome) => {
         let nomeFinal = nome;
         if (!vazio(cargoSigla) && !vazio(cargoNome)) {
-            nomeFinal += ` | <b style="color: #FF6F00;">${cargoSigla}</b>${cargoNome}`;
+            nomeFinal += ` | <b style="color: #caaa00;">${cargoSigla}</b>${cargoNome}`;
         } else if (!vazio(cargoSigla)) {
             nomeFinal += ` | <span style="color: #999">${cargoSigla}</span>`;
         } else if (!vazio(cargoNome)) {

@@ -1,0 +1,1 @@
+{"id":"id_3fd9a5a93ba2b9c592492dddcd1e4a2b","token":"painel","metodo":"GET","nome":"\/demanda-sprint\/ativa","uri":"{{LINK}}\/demanda-sprint\/ativa","parametro":[],"body":[],"header":[],"variavel":[],"json":[],"documentacao":{"status":false,"descricao":"","requisicao":"","resposta":"","scope":"demanda_sprint:buscar"}}

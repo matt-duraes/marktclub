@@ -6,29 +6,35 @@ use Helpers\ApiHelper;
 
 final class ComunicacaoModel
 {
-    public function buscarBanners()
+    public function buscarBanner()
     {
-        $dado = (new ApiHelper('comunicacao_login:listar'))
+        $dado = (new ApiHelper('comunicacao_login:buscar'))
             ->json([
-                'empresa'   => sessao('CLUBE')->empresa,
-                'pagina'    => 1,
-                'publicado' => 'sim'
+                'empresa' => sessao('CLUBE')->empresa,
             ])
-            ->get('/comunicacao-login')
-            ->array()['dado'] ?? [];
+            ->get('/comunicacao-login/clube')
+            ->object();
+        if (!chaveExiste('dado', $dado)) {
+            return (object)[
+                'lista'      => [],
+                'quantidade' => 0,
+            ];
+        }
 
-        $lista = $dado['lista'] ?? [];
         $banner = [];
-
-        foreach ($lista[0]['url'] ?? [] as $b) {
-            if (!empty($b)) {
-                $banner[] = $b;
-            }
+        if (!empty($dado->dado->arquivo_1)) {
+            $banner[] = arquivoPrivado($dado->dado->arquivo_1);
+        }
+        if (!empty($dado->dado->arquivo_2)) {
+            $banner[] = arquivoPrivado($dado->dado->arquivo_2);
+        }
+        if (!empty($dado->dado->arquivo_3)) {
+            $banner[] = arquivoPrivado($dado->dado->arquivo_3);
         }
 
         return (object)[
-            'lista'               => $banner ?? [],
-            'quantidade_banners'  => count($banner),
+            'lista'      => $banner,
+            'quantidade' => count($banner),
         ];
     }
 }

@@ -21,6 +21,14 @@
         <div class="linha"></div>
         @ endif;
 
+        @ if( in_array('atualizacao', PAINEL_CONFIGURACAO) ):
+        <a href="{!!route('atualizacao.index')!!}">
+            <i>@iconeRelogio(12)</i>
+            <p>Atualizações</p>
+        </a>
+        <div class="linha"></div>
+        @ endif;
+
         @ if( in_array('assinatura', PAINEL_CONFIGURACAO) ):
         <a href="{!!route('assinatura.index')!!}">
             <i>@iconeEditar(12)</i>

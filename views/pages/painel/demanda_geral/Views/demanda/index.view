@@ -1,0 +1,114 @@
+<div id="bloco_demanda_tarefa" class="form_geral">
+    <input type="hidden" id="input_demanda_id" value="{{$r->id}}">
+    <input type="hidden" id="input_demanda_titulo" value="{{$r->titulo}}">
+    <input type="hidden" id="input_demanda_empresa" value="{{$r->empresa->id}}">
+    <input type="hidden" id="input_demanda_equipe" value="{{$r->equipe->id}}">
+    <input type="hidden" id="input_demanda_entrega" value="{{$r->data_entrega}}">
+    <input type="hidden" id="input_demanda_texto" value="{{$r->texto}}">
+    <input type="hidden" id="input_demanda_status" value="{{$r->status}}">
+    <input type="hidden" id="input_demanda_liberado" value="{{$r->liberado}}">
+    <header>
+        <i class="fechar mobile pagina_fechar">@iconeVoltar</i>
+        <h1 id="bloco_demanda_titulo">{{$r->titulo}}</h1>
+        @ if( (sessao('USUARIO.gerente', padrao: 'nao') == 'sim' || $r->dono == 'sim') && !in_array($r->status, ['teste', 'concluido'])):
+        <div class="botao_topo">
+            <i id="botao_editar_demanda" data-ajuda="Editar demanda">@iconeEditar(15)</i>
+        </div>
+        @ endif;
+        @ if( sessao('USUARIO.gerente', padrao: 'nao') == 'sim' && !in_array($r->status, ['teste', 'concluido'])):
+        <div class="botao_topo">
+            <i id="botao_cancelar_demanda" data-ajuda="Cancelar demanda">@iconeBloquear(19)</i>
+        </div>
+        @ endif;
+        @ if( (sessao('USUARIO.gerente', padrao: 'nao') == 'sim' || $r->dono == 'sim') && !in_array($r->status, ['teste', 'concluido'])):
+        <div class="linha"></div>
+        @ endif;
+        <i class="fechar desktop pagina_fechar">@iconeFechar</i>
+    </header>
+
+    <div class="bloco_equipe">
+        <figure id="bloco_demanda_empresa" style="background-image: url({!!$r->empresa->imagem!!});" data-ajuda="{{$r->empresa->nome}}"></figure>
+        <div class="linha"></div>
+        <figure id="bloco_demanda_equipe" style="background-image: url({!!$r->equipe->imagem!!});" data-ajuda="{{$r->equipe->nome}}"></figure>
+        @ if( $r->seguindo ):
+        <div class="linha"></div>
+        <div class="bloco_grupo">
+            @ foreach( $r->seguindo as $equipe ):
+            <figure style="background-image: url({!!$equipe->imagem!!});" data-ajuda="{{$equipe->nome}}"></figure>
+            @ endforeach;
+        </div>
+        @ endif;
+
+        <div class="resto"></div>
+
+        <div class="botao {!!$r->dono ? 'display_none' : ''!!}" id="botao_seguir_demanda">{{$r->estouSeguindo ? 'seguindo' : 'seguir'}}</div>
+    </div>
+
+    <div class="bloco_data">
+        <div class="data {!! !empty($r->data_entrega) ? 'borda' : '' !!}" data-ajuda="Criado em">
+            <i>@iconeCalendario(15)</i>
+            <p>{{$r->data_criacao}}</p>
+        </div>
+        <div id="bloco_demanda_entrega_bloco" class="data {!! !empty($r->data_entrega) ? '' : 'display_none' !!}" data-ajuda="Previsto para">
+            <i>@iconeRelogio(15)</i>
+            <p id="bloco_demanda_entrega_valor">{{$r->data_entrega}}</p>
+        </div>
+    </div>
+
+    <div class="bloco_descricao bloco_noticia_texto" id="bloco_demanda_texto">
+        {!!$r->texto!!}
+    </div>
+
+    <div class="bloco_tarefa">
+        <h2>Tarefas</h2>
+        <div class="botao_add" id="botao_salvar_tarefa">Nova tarefa</div>
+        <div class="bloco_tarefa_lista display_none" id="bloco_tarefa_lista">
+        </div>
+        <div class="bloco_tarefa_loading" id="bloco_tarefa_loading">
+            <h1 class="esqueleto"></h1>
+            <p class="esqueleto"></p>
+            <p class="esqueleto"></p>
+        </div>
+        <div class="bloco_tarefa_zero display_none" id="bloco_tarefa_zero">
+            <p>Sem tarefa cadastrada</p>
+        </div>
+    </div>
+
+    <div class="bloco_arquivo fw_bloco_galeria">
+        @? formArquivoLista(name: 'arquivo', diretorio: '2d978fba-4bd2-4af7-80bf-ebb94d9ac991', id: 'bloco_tarefa_arquivo', value: $r->arquivo)
+    </div>
+
+    <div class="bloco_historico">
+        @php painelHistorico($r->id, 'demanda_dado', boxShadow: false, titulo: 'Fez um comentário em uma demanda que você está seguindo', link: LINK . '/demanda/' . $r->area . '#demanda-' . $r->id, notificar: $r->notificar, historico: new \PainelConfig\Historico(arquivo: true))
+    </div>
+
+    <div id="bloco_recusar_tarefa" class="bloco_adicionar_motivo display_none">
+        <div class="conteudo">
+            <header>
+                <h1>Recusar tarefa</h1>
+            </header>
+            <div class="bloco_texto">
+                <input type="hidden" id="input_id_deslike" value="">
+                @? formTextarea(name: 'texto_deslike', placeholder: 'Digite o motivo da recusa', label: 'Motivo')
+            </div>
+            <div class="bloco_botao">
+                <button class="cancelar" id="botao_recusar_cancelar">CANCELAR</button>
+                <button class="salvar" id="botao_recusar_salvar">SALVAR</button>
+            </div>
+        </div>
+    </div>
+    <div id="bloco_cancelar_demanda" class="bloco_adicionar_motivo display_none">
+        <div class="conteudo">
+            <header>
+                <h1>Cancelar demanda</h1>
+            </header>
+            <div class="bloco_texto">
+                @? formTextarea(name: 'texto_cancelar', placeholder: 'Digite o motivo do cancelamento', label: 'Motivo')
+            </div>
+            <div class="bloco_botao">
+                <button class="cancelar" id="botao_cancelar_cancelar">CANCELAR</button>
+                <button class="salvar" id="botao_cancelar_salvar">SALVAR</button>
+            </div>
+        </div>
+    </div>
+</div>

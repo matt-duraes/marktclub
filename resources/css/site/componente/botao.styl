@@ -1,0 +1,41 @@
+.com_botao_padrao
+    line-height: 45px
+    border-radius: 5px
+    text-align: center
+    cursor: pointer
+    background-color: $corClube
+    flexRow()
+    .com_texto
+        textoFontSize()
+        padding: 0 20px
+        color: #FFF
+    .com_icone
+        fill: #FFF
+        height: 45px
+        flexCenter()
+        padding: 0 15px
+    &.com_botao_icone_esquerda .com_texto
+        padding-left: 0
+    &.com_botao_icone_direita .com_texto
+        padding-right: 0
+    &.com_botao_borda
+        background-color: rgba(255,255,255,0)
+        border: 1px solid $corClube
+    &.com_botao_borda .com_texto
+        color: $corClube
+    &.com_botao_borda .com_icone
+        fill: $corClube
+    &.com_botao_cinza
+        background-color: #DDD
+        border: none
+    &.com_botao_cinza .com_texto
+        color: #333
+    &.com_botao_cinza .com_icone
+        fill: #333
+    &.com_botao_borda.com_botao_cinza
+        background-color: rgba(255,255,255,0)
+        border: 1px solid #CCC
+    &.com_botao_borda.com_botao_cinza .com_texto
+        color: $corCinzaCinza
+    &.com_botao_borda.com_botao_cinza .com_icone
+        fill: $corCinzaCinza

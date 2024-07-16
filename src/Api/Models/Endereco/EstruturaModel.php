@@ -84,7 +84,7 @@ final class EstruturaModel extends ORM
         }
         $quantidade = count($estado);
         if ($quantidade <= 1) {
-            $this->buscarListaCidade($pais, $quantidade == 1 ? $estado[0] : '');
+            $this->buscarListaCidade($pais, $quantidade == 1 ? array_key_first($estado) : '');
         }
         $this->listaEstado = $estado;
     }

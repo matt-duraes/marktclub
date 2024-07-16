@@ -1,6 +1,7 @@
 @system "Form"
 @system "Alerta"
 @system "Loading"
+@system "Calendario"
 @template "site"
 @resource "site/mixim"
 @resource "site/variavel"
@@ -30,16 +31,9 @@
         justify-content: center
         flexRow()
         flex-wrap: wrap
-    .botao_selecao .botao
-        border-color: $corClube
-        margin: 0 10px 20px 10px
-        line-height: 1.5em
-        height: auto
-        padding: 10px 20px
-        text-transform: capitalize
-        &.ativo
-            background-color: $corClube
-            color: #FFF
+        padding: 30px 0
+    .botao_selecao .com_botao_padrao
+        margin: 10px
     .conteudo_menor
         width: 100%
         max-width: 500px
@@ -62,6 +56,9 @@
         margin-top: 20px
     p
         texto()
+        &.pequeno
+            font-size: 1.2rem
+            line-height: 1.5em
     .botao
         textoFontSize()
         border: 2px dashed $corClube

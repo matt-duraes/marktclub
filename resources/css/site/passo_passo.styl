@@ -1,11 +1,16 @@
 .bloco_passo_passo_geral
     width: 100%
     flexCol()
+    .scroll
+        max-width: 100%
+        margin: 0 auto
+        overflow-x: auto
+        overflow-y: hidden
+
 .bloco_passo_passo_geral .bloco_progresso
-    width: 100%
+    max-width: 100%
     flexRow()
-    justify-content: center
-    espacoBottomPadrao()
+    margin-top: 20px
     .item
         flexCol()
         align-items: center
@@ -42,100 +47,31 @@
     .item.concluido .bola .check
         display: block
         fill: $corClube
-.atual .cor_border , .concluido .cor_border
-    border: 2px solid $corClube !important
+    .item.concluido .linha_direita
+        background-color: $corClube
+    .item.atual
+    .item.concluido
+        color: $corClube
+    .item.atual .bola
+    .item.concluido .bola
+        border-color: $corClube
+    .item.atual .linha_esquerda
+    .item.concluido .linha_esquerda
+        background-color: $corClube
 .bloco_passo_passo_geral .bloco_conteudo
     width: 100%
     overflow: hidden
     boxShadow()
     borderRadius()
     background: $corBrancoCinza
+    espacoTopPadrao()
     &.sem_background
         box-shadow: none
-    .bloco_scroll
-        width: 100%
-        flexRow()
-        transition: margin-left .3s ease-out
-        margin-left: 0
-        &.passo_1
-            min-height: 440px
-            margin-left: 0
-        &.passo_2
-            margin-left: -100%
-        &.passo_3
-            margin-left: -200%
-        &.passo_4
-            margin-left: -300%
-        &.passo_5
-            margin-left: -400%
-        &.passo_6
-            margin-left: -500%
-        &.passo_7
-            margin-left: -600%
-        &.passo_8
-            margin-left: -700%
-        &.passo_9
-            margin-left: -800%
-        &.passo_10
-            margin-left: -900%
     .conteudo
-        display: none
+        width: 100%
+        flexCol()
         align-items: center
-        &:first-child
-            flexCol()
-.bloco_passo_passo_geral.carregado .bloco_conteudo .bloco_scroll .conteudo
-    flexCol()
-
-.bloco_passo_passo_geral .bloco_conteudo.bloco_conteudo_item_1
-    .bloco_scroll
-        width: 100%
-    .conteudo
-        width: 100%
-.bloco_passo_passo_geral .bloco_conteudo.bloco_conteudo_item_2
-    .bloco_scroll
-        width: 200%
-    .conteudo
-        width: calc(100% / 2)
-.bloco_passo_passo_geral .bloco_conteudo.bloco_conteudo_item_3
-    .bloco_scroll
-        width: 300%
-    .conteudo
-        width: calc(100% / 3)
-.bloco_passo_passo_geral .bloco_conteudo.bloco_conteudo_item_4
-    .bloco_scroll
-        width: 400%
-    .conteudo
-        width: calc(100% / 4)
-.bloco_passo_passo_geral .bloco_conteudo.bloco_conteudo_item_5
-    .bloco_scroll
-        width: 500%
-    .conteudo
-        width: calc(100% / 5)
-.bloco_passo_passo_geral .bloco_conteudo.bloco_conteudo_item_6
-    .bloco_scroll
-        width: 600%
-    .conteudo
-        width: calc(100% / 6)
-.bloco_passo_passo_geral .bloco_conteudo.bloco_conteudo_item_7
-    .bloco_scroll
-        width: 700%
-    .conteudo
-        width: calc(100% / 7)
-.bloco_passo_passo_geral .bloco_conteudo.bloco_conteudo_item_8
-    .bloco_scroll
-        width: 800%
-    .conteudo
-        width: calc(100% / 8)
-.bloco_passo_passo_geral .bloco_conteudo.bloco_conteudo_item_9
-    .bloco_scroll
-        width: 900%
-    .conteudo
-        width: calc(100% / 9)
-.bloco_passo_passo_geral .bloco_conteudo.bloco_conteudo_item_10
-    .bloco_scroll
-        width: 1000%
-    .conteudo
-        width: calc(100% / 10)
-
-.passo_1 .bloco_escolhas
-    display: flex
+        opacity: 1
+        transition: opacity .3s ease-out
+        &.sumir
+            opacity: 0

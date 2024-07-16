@@ -36,7 +36,7 @@ final class SiliumModel extends ClubeApiHelper
             ->json([
                 'pagina'  => 1,
                 'usuario' => sessao('USUARIO.id'),
-                'ordem' => 'mais-novo'
+                'ordem'   => 'mais-novo'
             ])
             ->get('/silium-comissao')
             ->object();
@@ -59,7 +59,7 @@ final class SiliumModel extends ClubeApiHelper
                 'pagina'        => 1,
                 'usuario'       => sessao('USUARIO.id'),
                 'tipo_operacao' => TipoOperacao::SAQUE,
-                'ordem' => 'mais-novo'
+                'ordem'         => 'mais-novo'
             ])
             ->get('/silium-deposito')
             ->object();

@@ -1673,7 +1673,7 @@ if (!function_exists('formSwitch')) {
             $classBloco[] = 'bloco_ajuda';
         }
 
-        $label = '<label for="input_' . $name . '"><p>' . $label . '</p>' . $ajudaHtml . '<span></span></label>';
+        $label = '<label for="input_' . $name . '"><div class="bloco_switch_texto">' . $label . '</div>' . $ajudaHtml . '<div class="bloco_switch_bola"></div></label>';
 
         $attrInput = [];
         if ($attr) {

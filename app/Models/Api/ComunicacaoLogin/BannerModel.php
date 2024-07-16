@@ -2,24 +2,24 @@
 
 namespace App\Models\Api\ComunicacaoLogin;
 
-use App\Classes\ComunicacaoLogin\Ordem;
-use App\Classes\Geral\Publicado;
-use App\Classes\Geral\Status;
-use App\Models\Api\Trait\ValidarEmpresaTrait;
-use Erro\Excecao;
-use Helpers\OrmHelper;
-use Modules\Botao;
-use Modules\Data;
-use Modules\Pagina;
-use Modules\Quantidade;
 use ORM\ORM;
 use stdClass;
-use System\Interface\ModelListarInterface;
+use Erro\Excecao;
+use Modules\Data;
+use Modules\Botao;
+use Modules\Pagina;
+use Helpers\OrmHelper;
+use Modules\Quantidade;
+use App\Classes\Geral\Status;
+use App\Classes\Geral\Publicado;
 use System\Trait\Model\OrdemTrait;
 use System\Trait\Model\PaginaTrait;
+use App\Classes\ComunicacaoLogin\Ordem;
 use System\Trait\Model\QuantidadeTrait;
+use System\Interface\ModelListarInterface;
+use App\Models\Api\Trait\ValidarEmpresaTrait;
 
-class BannerModel extends ORM implements
+final class BannerModel extends ORM implements
     ModelListarInterface
 {
     use ValidarEmpresaTrait;

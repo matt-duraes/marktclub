@@ -386,7 +386,7 @@ class SiliumDepositoEntity extends Entity
         $acao = 'Silium Cashback';
         $mensagem = 'Caro(a) <strong>' . $this->nome_titular->nome() . '</strong>, Confirmamos o recebimento do seu pedido de saque de cashback
             no valor de R$ ' . $this->valor->dinheiro(
-            ) . ' (' . $this->pontuacao . ' Pontos), registrado em ' . $this->data_deposito->data() . '.';
+        ) . ' (' . $this->pontuacao . ' Pontos), registrado em ' . $this->data_deposito->data() . '.';
 
         $Email = new EmailHelper();
         $Email->mensagem(

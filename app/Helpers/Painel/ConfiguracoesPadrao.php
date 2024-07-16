@@ -5,11 +5,12 @@ namespace App\Helpers\Painel;
 final class ConfiguracoesPadrao
 {
     public const RECURSOS = [
-        'perfil'     => 'Perfil',
-        'agenda'     => 'Agenda',
-        'google'     => 'Google',
-        'darkMode'   => 'Dark Mode (Alpha)',
-        'assinatura' => 'Assinatura'
+        'perfil'      => 'Perfil',
+        'agenda'      => 'Agenda',
+        'google'      => 'Google',
+        'darkMode'    => 'Dark Mode (ALPHA)',
+        'assinatura'  => 'Assinatura',
+        'atualizacao' => 'Atualizações'
     ];
     public const CAMPOS_OBRIGATORIOS = [
         'usuario_cliente' => [
@@ -182,7 +183,6 @@ final class ConfiguracoesPadrao
             'permissao' => [
                 'usuario_dependente_index'   => 'Listar',
                 'usuario_dependente_add'     => 'Salvar',
-                'usuario_dependente_editar'  => 'Editar',
                 'usuario_dependente_deletar' => 'Deletar'
             ]
         ],
@@ -310,9 +310,7 @@ final class ConfiguracoesPadrao
             'titulo'    => 'Páginas',
             'permissao' => [
                 'publicacao_pagina_index'   => 'Listar',
-                'publicacao_pagina_add'     => 'Salvar',
                 'publicacao_pagina_editar'  => 'Editar',
-                'publicacao_pagina_deletar' => 'Deletar',
                 'publicacao_pagina_empresa' => 'Todas as empresas'
             ]
         ],
@@ -599,6 +597,22 @@ final class ConfiguracoesPadrao
                 'carteirinha_deletar' => 'Deletar',
                 'carteirinha_status'  => 'Status',
                 'carteirinha_empresa' => 'Todas as empresas'
+            ]
+        ],
+        'demanda_sprint'  => [
+            'titulo'    => 'Sprint Backlog',
+            'permissao' => [
+                'demanda_sprint_index'      => 'Listar',
+                'demanda_sprint_add'        => 'Salvar',
+                'demanda_sprint_visualizar' => 'Visualizar',
+                'demanda_sprint_editar'     => 'Editar',
+                'demanda_sprint_status'     => 'Status',
+            ]
+        ],
+        'demanda_quadro'  => [
+            'titulo'    => 'Srpint Quadro',
+            'permissao' => [
+                'demanda_quadro' => 'Quadro',
             ]
         ],
         'demanda'                  => [

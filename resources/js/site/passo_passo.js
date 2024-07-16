@@ -1,5 +1,9 @@
+window.addEventListener('load', () => {
+    const listaGeral = $$('.bloco_passo_passo_geral');
+});
+
 const executarPassoPasso = () => {
-    const listaGeral = document.querySelectorAll('.bloco_passo_passo_geral');
+    const listaGeral = $$('.bloco_passo_passo_geral');
 
     if (listaGeral.length == 0) {
         return;
@@ -7,7 +11,7 @@ const executarPassoPasso = () => {
 
     listaGeral.forEach((bloco, i) => {
         const blocoConteudo = bloco.querySelector('.bloco_conteudo');
-        const conteudoLista = bloco.querySelectorAll('.bloco_conteudo .conteudo');
+        const conteudoLista = $$('.bloco_conteudo .conteudo', bloco);
         const quantidadeConteudo = conteudoLista.length - 1;
         const itemLista = bloco.querySelectorAll('.bloco_progresso .item');
         blocoConteudo.classList.add('bloco_conteudo_item_' + conteudoLista.length);

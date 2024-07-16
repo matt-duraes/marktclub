@@ -329,24 +329,24 @@ const fwFormSelecionarAnteriorOption = (select, option) => {
  */
 const fwFormSelectPosicionarScroll = acao => {
     const liHover = fwFormBlocoGeralSelect.querySelector('li.hover');
-    liHover.scrollIntoView();
-    // const posicaoLiHover = liHover.getBoundingClientRect();
-    // const liHeight = posicaoLiHover.height;
-    // const liTop = liHover.offsetTop;
-    // const blocoUl = fwFormBlocoGeralSelect.querySelector('ul.option');
-    // const posicaoBlocoUl = blocoUl.getBoundingClientRect();
-    // const blocoUlHeight = posicaoBlocoUl.height;
-    // const scrollTop = blocoUl.scrollTop;
-    // const scrollFim = scrollTop + blocoUlHeight;
-    // let posicaoComparacao = liTop;
-    // if (acao == 'proximo') {
-    //     posicaoComparacao = liTop + liHeight;
-    // }
-    // if (acao == 'anterior' && (posicaoComparacao < scrollTop || posicaoComparacao > scrollFim)) {
-    //     blocoUl.scrollTop = liTop;
-    // } else if (acao == 'proximo' && (posicaoComparacao < scrollTop || posicaoComparacao > scrollFim)) {
-    //     blocoUl.scrollTop = liTop - (blocoUlHeight - liHeight);
-    // }
+    // liHover.scrollIntoView();
+    const posicaoLiHover = liHover.getBoundingClientRect();
+    const liHeight = posicaoLiHover.height;
+    const liTop = liHover.offsetTop;
+    const blocoUl = fwFormBlocoGeralSelect.querySelector('ul.option');
+    const posicaoBlocoUl = blocoUl.getBoundingClientRect();
+    const blocoUlHeight = posicaoBlocoUl.height;
+    const scrollTop = blocoUl.scrollTop;
+    const scrollFim = scrollTop + blocoUlHeight;
+    let posicaoComparacao = liTop;
+    if (acao == 'proximo') {
+        posicaoComparacao = liTop + liHeight;
+    }
+    if (acao == 'anterior' && (posicaoComparacao < scrollTop || posicaoComparacao > scrollFim)) {
+        blocoUl.scrollTop = liTop;
+    } else if (acao == 'proximo' && (posicaoComparacao < scrollTop || posicaoComparacao > scrollFim)) {
+        blocoUl.scrollTop = liTop - (blocoUlHeight - liHeight);
+    }
 };
 
 /**

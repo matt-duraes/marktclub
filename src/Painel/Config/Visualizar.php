@@ -17,6 +17,7 @@ final class Visualizar
     private string $link;
     private array $replace = [];
     private array $status = [];
+    private array $editar = [];
 
     public const TARGET_SELF = '_self';
     public const TARGET_BLANK = '_blank';
@@ -46,6 +47,11 @@ final class Visualizar
     public function pegarHtml()
     {
         return $this->html;
+    }
+
+    public function pegarEditar()
+    {
+        return $this->editar;
     }
 
     public function pegarCss()
@@ -455,19 +461,26 @@ final class Visualizar
         return $this;
     }
 
+    public function editar(string $campo, string $valor)
+    {
+        $this->editar[$campo] = $valor;
+    }
+
     public function botaoDestaque(
+        string $campo = '',
         string $texto = '',
         ?array $inArray = null,
         ?string $id = null,
         ?string $cor = null,
         ?string $permissao = null
     ) {
-        $this->adicionarCampo('', [
-            'funcao'   => 'botaoDestaque',
-            'texto'    => $texto,
-            'inArray'  => $inArray,
-            'cor'      => $cor,
-            'id'       => $id
+        $this->adicionarCampo($campo, [
+            'funcao'  => 'botaoDestaque',
+            'texto'   => $texto,
+            'inArray' => $inArray,
+            'cor'     => $cor,
+            'id'      => $id,
+            'campo'   => $campo
         ], $permissao);
         return $this;
     }

@@ -1,6 +1,5 @@
 <?php
 
-use Modules\Botao;
 use PainelConfig\Add;
 
 $Painel = new Add('silium_config', $acao);
