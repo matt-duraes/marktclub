@@ -9,6 +9,9 @@ class TipoConta extends Status
     public const CONTA_CORRENTE = 'conta_corrente';
     public const CONTA_POUPANCA = 'conta_poupanca';
 
+    /**
+     * @param string|int|null $valor
+     */
     public function __construct(
         protected string|int|null $valor = null
     ) {

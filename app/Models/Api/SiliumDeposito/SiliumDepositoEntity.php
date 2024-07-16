@@ -147,7 +147,7 @@ class SiliumDepositoEntity extends Entity
      */
     private function validarRequestSaque(): void
     {
-        if (empty($this->usuario) || !validarUuid($this->usuario)) {
+        if (empty($this->usuario) || !validarUuid($this->usuario, false)) {
             mensagemErro('Campo inválido!', 'Você deve informar o usuário.');
         }
         if ($this->tipo_resgate->vazio() || !$this->tipo_resgate->valido()) {
@@ -272,7 +272,7 @@ class SiliumDepositoEntity extends Entity
      */
     private function validarRequestDeposito(): void
     {
-        if (!empty($this->saque) && !validarUuid($this->saque)) {
+        if (!empty($this->saque) && !validarUuid($this->saque, false)) {
             mensagemErro('Campo inválido!', 'A Identificação do Saque não é válido.');
         }
         if (!empty($this->valor) && !$this->valor->vazio() && !$this->valor->valido()) {

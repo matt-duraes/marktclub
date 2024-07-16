@@ -110,7 +110,7 @@ class SiliumComissaoEntity extends Entity
     private function setarUsuarioEmpresa(): void
     {
         $usuario = is_string($this->usuario) ? $this->usuario : $this->usuario['id'];
-        if (!validarUuid($usuario)) {
+        if (!validarUuid($usuario, false)) {
             mensagemErro(
                 'Usuário inválido!',
                 'A identificação de usuário informada não é válida.',
