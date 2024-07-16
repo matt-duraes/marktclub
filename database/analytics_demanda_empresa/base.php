@@ -9,4 +9,5 @@ return (new \DataBase\DataBase())
     ->int('quantidade_demanda')
     ->int('quantidade_tarefa')
     ->int('quantidade_ponto')
-    ->float('dificuldade');
+    ->float('dificuldade')
+    ->dataCriacao();

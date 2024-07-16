@@ -3,6 +3,7 @@
 namespace App\Models\Api\Demanda\Dado;
 
 use ORM\ORM;
+use stdClass;
 use Helpers\OrmHelper;
 use App\Classes\DemandaDado\Tipo as DemandaTipo;
 use App\CLasses\DemandaTarefa\Tipo as TarefaTipo;
@@ -71,11 +72,11 @@ final class RelatorioSprintModel extends ORM
         foreach ($lista as $r) {
             $demanda = $this->demanda[$r->id_demanda_dado];
             $retorno[] = [
-                'empresa_valor' => $demanda->id_admin_empresa,
+                'id_admin_empresa' => $demanda->id_admin_empresa,
                 'empresa_nome'  => $this->empresa[$demanda->id_admin_empresa] ?? '',
-                'dono_valor'    => $demanda->id_usuario_equipe,
+                'id_dono'    => $demanda->id_usuario_equipe,
                 'dono_nome'     => $this->equipe[$demanda->id_usuario_equipe] ?? '',
-                'dev_valor'     => $r->id_usuario_equipe,
+                'id_dev'     => $r->id_usuario_equipe,
                 'dev_nome'      => $this->equipe[$r->id_usuario_equipe] ?? '',
                 'area_valor'    => $r->tipo,
                 'area_nome'     => (new TarefaTipo($r->tipo))->nome(),
@@ -86,4 +87,31 @@ final class RelatorioSprintModel extends ORM
         }
         $this->tarefa = $retorno;
     }
+
+    public function pegarQuantidadeDemanda(array $lista, string $campo)
+    {
+        foreach ($this->demanda as $r) {
+            if (!array_key_exists($r->$campo, $lista)) {
+                continue;
+            }
+            $lista[$r->$campo]['quantidade_demanda']++;
+        }
+        return $lista;
+    }
+
+    public function somarDificuldade($lista)
+    {
+        $retorno = [];
+        foreach($lista as $r) {
+            if(empty($r['quantidade_tarefa']) || empty($r['quantidade_ponto'])) {
+                $r['dificuldade'] = 0;
+                $retorno[] = $r;
+                continue;
+            }
+            $r['dificuldade'] = number_format($r['quantidade_ponto'] / $r['quantidade_tarefa'], 2, '.', '');
+            $retorno[] = $r;
+        }
+        return $retorno;
+    }
+
 }

@@ -7,6 +7,7 @@ use Modules\Data;
 use App\Classes\Demanda\Sprint\Status;
 use App\Models\Api\Demanda\Dado\MudarStatusModel;
 use App\Classes\DemandaDado\Status as StatusDemanda;
+use App\Models\Api\Demanda\Relatorio\GerarTodosModel;
 
 final class SprintEntity extends Entity
 {
@@ -78,6 +79,7 @@ final class SprintEntity extends Entity
             $this->data_final->date() >= hoje() ? Status::CONCLUIDA_PRAZO : Status::CONCLUIDA_ATRASADA
         );
         $this->data_entrega = new Data(hoje());
+        new GerarTodosModel((int)$this->prop('id'), $this->id_demanda);
     }
 
     private function mudarStatusParaCancelada()

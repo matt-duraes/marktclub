@@ -8,17 +8,13 @@
 window.addEventListener('load', () => {
     const saldo = $('#input_ponto_saldo').value;
     const botaoPopupResgate = $('#botao_popup_resgate');
-    if (saldo <= 0) {
-        botaoSolicitarResgate.addEventListener('click', () => {
-            Alerta.mensagem('Salvo inválido!', 'Você precisa de pelo menos 1 ponto para solictar resgate.', '!');
-        });
-        return;
-    }
-    const PopupResgate = new Popup('Resgatar pontos', 'bloco_resgatar_ponto');
-    botaoPopupResgate.addEventListener('click', () => {
-        PopupResgate.abrir();
-    });
 
+    const PopupResgate = new Popup('Resgatar pontos', 'bloco_resgatar_ponto');
+    if (botaoPopupResgate) {
+        botaoPopupResgate.addEventListener('click', () => {
+            PopupResgate.abrir();
+        });
+    }
     const botaoSolicitarPonto = $('#botao_solicitar_ponto');
     const form = $('#bloco_resgatar_ponto form');
     const inputNome = $('#input_ponto_nome');
