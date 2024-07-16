@@ -55,7 +55,6 @@ window.addEventListener('load', () => {
 
     const botaoSolicitarPonto = $('#botao_solicitar_ponto');
     const form = $('#bloco_resgatar_ponto form');
-    const inputNome = $('#input_ponto_nome');
     const inputEmail = $('#input_ponto_email');
     const inputQuantidade = $('#input_ponto_quantidade');
     const inputConta = $('#input_conta');
@@ -88,7 +87,6 @@ window.addEventListener('load', () => {
         }
         const resposta = await ajaxPost(LINK + '/cashback/resgatar', {
             tipoResgate: tipo,
-            nome: inputNome.value,
             email: inputEmail.value,
             pontos: inputQuantidade.value,
             titular: inputTitular.value,
@@ -107,7 +105,7 @@ window.addEventListener('load', () => {
         location.href = LINK + '/cashback/extrato';
     };
 
-    adicionarEventoEnter([inputNome, inputEmail, inputQuantidade], solicitarResgate);
+    adicionarEventoEnter([inputEmail, inputQuantidade], solicitarResgate);
     botaoSolicitarPonto.addEventListener('click', () => {
         solicitarResgate();
     });
