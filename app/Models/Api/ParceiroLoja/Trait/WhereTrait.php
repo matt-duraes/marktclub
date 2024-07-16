@@ -44,7 +44,7 @@ trait WhereTrait
                     ['subcategoria_tag', 'like', $pesquisa]
                 ];
                 $idSubcategoria = $this->pegarListaSubCategoria();
-                if($idSubcategoria) {
+                if ($idSubcategoria) {
                     $whereTitulo[] = ['subcategoria_lista', 'json', $idSubcategoria];
                 }
                 $Where->manual($whereTitulo);

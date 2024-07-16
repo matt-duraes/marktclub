@@ -48,6 +48,7 @@ final class Visualizar
     {
         return $this->html;
     }
+
     public function pegarEditar()
     {
         return $this->editar;

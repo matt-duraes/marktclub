@@ -15,13 +15,14 @@ abstract class GeralModel extends ORM
     protected string $campoNome;
     protected bool $temDemanda;
 
-    public function __construct() {
+    public function __construct()
+    {
         parent::__construct();
-        if($this->existe(['id_demanda_sprint', $this->id])) {
+        if ($this->existe(['id_demanda_sprint', $this->id])) {
             return;
         }
         $this->montarRelatorio();
-        if($this->temDemanda) {
+        if ($this->temDemanda) {
             $this->pegarQuantidadeDemanda();
         }
         $this->somarDificuldade();
@@ -50,12 +51,12 @@ abstract class GeralModel extends ORM
     {
         $dado = [
             'id_demanda_sprint'  => $this->id,
-            $this->campoBanco => $r[$this->campoBanco],
-            $this->campoNome  => $r[$this->campoNome],
+            $this->campoBanco    => $r[$this->campoBanco],
+            $this->campoNome     => $r[$this->campoNome],
             'quantidade_tarefa'  => 0,
             'quantidade_ponto'   => 0
         ];
-        if($this->temDemanda) {
+        if ($this->temDemanda) {
             $dado['quantidade_demanda'] = 0;
         }
         return $dado;
@@ -68,9 +69,8 @@ abstract class GeralModel extends ORM
 
     private function salvar()
     {
-        foreach($this->relatorio as $dado) {
+        foreach ($this->relatorio as $dado) {
             $this->dado($dado)->insert();
         }
     }
-
 }

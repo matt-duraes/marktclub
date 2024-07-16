@@ -4,7 +4,8 @@ namespace App\Models\Api\Demanda\Relatorio;
 
 use App\Models\Api\Demanda\Dado\RelatorioSprintModel;
 
-final class GerarTodosModel {
+final class GerarTodosModel
+{
     public function __construct(int $id, array $demanda)
     {
         $Demanda = new RelatorioSprintModel($demanda);

@@ -3,7 +3,6 @@
 namespace App\Models\Api\Demanda\Dado;
 
 use ORM\ORM;
-use stdClass;
 use Helpers\OrmHelper;
 use App\Classes\DemandaDado\Tipo as DemandaTipo;
 use App\CLasses\DemandaTarefa\Tipo as TarefaTipo;
@@ -73,16 +72,16 @@ final class RelatorioSprintModel extends ORM
             $demanda = $this->demanda[$r->id_demanda_dado];
             $retorno[] = [
                 'id_admin_empresa' => $demanda->id_admin_empresa,
-                'empresa_nome'  => $this->empresa[$demanda->id_admin_empresa] ?? '',
-                'id_dono'    => $demanda->id_usuario_equipe,
-                'dono_nome'     => $this->equipe[$demanda->id_usuario_equipe] ?? '',
-                'id_dev'     => $r->id_usuario_equipe,
-                'dev_nome'      => $this->equipe[$r->id_usuario_equipe] ?? '',
-                'area_valor'    => $r->tipo,
-                'area_nome'     => (new TarefaTipo($r->tipo))->nome(),
-                'tipo_valor'    => $demanda->tipo,
-                'tipo_nome'     => (new DemandaTipo($r->tipo))->nome(),
-                'dificuldade'   => $r->dificuldade,
+                'empresa_nome'     => $this->empresa[$demanda->id_admin_empresa] ?? '',
+                'id_dono'          => $demanda->id_usuario_equipe,
+                'dono_nome'        => $this->equipe[$demanda->id_usuario_equipe] ?? '',
+                'id_dev'           => $r->id_usuario_equipe,
+                'dev_nome'         => $this->equipe[$r->id_usuario_equipe] ?? '',
+                'area_valor'       => $r->tipo,
+                'area_nome'        => (new TarefaTipo($r->tipo))->nome(),
+                'tipo_valor'       => $demanda->tipo,
+                'tipo_nome'        => (new DemandaTipo($r->tipo))->nome(),
+                'dificuldade'      => $r->dificuldade,
             ];
         }
         $this->tarefa = $retorno;
@@ -102,8 +101,8 @@ final class RelatorioSprintModel extends ORM
     public function somarDificuldade($lista)
     {
         $retorno = [];
-        foreach($lista as $r) {
-            if(empty($r['quantidade_tarefa']) || empty($r['quantidade_ponto'])) {
+        foreach ($lista as $r) {
+            if (empty($r['quantidade_tarefa']) || empty($r['quantidade_ponto'])) {
                 $r['dificuldade'] = 0;
                 $retorno[] = $r;
                 continue;
@@ -113,5 +112,4 @@ final class RelatorioSprintModel extends ORM
         }
         return $retorno;
     }
-
 }

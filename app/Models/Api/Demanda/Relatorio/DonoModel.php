@@ -15,8 +15,7 @@ final class DonoModel extends GeralModel
     public function __construct(
         protected int $id,
         protected RelatorioSprintModel $Relatorio
-    )
-    {
+    ) {
         parent::__construct();
     }
 }

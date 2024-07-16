@@ -30,13 +30,13 @@ painelAppVisualizarEnd();
 
 if ($config->permissao->editar->permissao) {
     $editar = true;
-    foreach($config->permissao->editar->campo as $ind => $val) {
-        if(!object_key_exists($ind, $r) || $r->$ind != $val) {
+    foreach ($config->permissao->editar->campo as $ind => $val) {
+        if (!object_key_exists($ind, $r) || $r->$ind != $val) {
             $editar = false;
             break;
         }
     }
-    if($editar) {
+    if ($editar) {
         echo botaoControle($app, editar: 'botao_editar_visualizar', editarTexto: 'Editar', editarLink: str_replace('{id}', $r->id, $config->link->editar));
     }
 }

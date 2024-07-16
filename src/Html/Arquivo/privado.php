@@ -3,7 +3,7 @@
 use Http\Response;
 use Helpers\OrmHelper;
 
-if(!defined('TABELA_UPLOAD_ARQUIVO') || !defined('TABELA_UPLOAD_GRUPO')) {
+if (!defined('TABELA_UPLOAD_ARQUIVO') || !defined('TABELA_UPLOAD_GRUPO')) {
     exit();
 }
 

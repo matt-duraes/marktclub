@@ -56,10 +56,10 @@
             "PainelController\\": "src/Painel/Controllers",
             "PainelModel\\": "src/Painel/Models",
             "Random\\": "src/Random",
+            "ResourcesSite\\": "resources\\php\\site",
             "Route\\": "src/Route/",
             "Status\\": "src/Status",
             "System\\": "src/",
-            "ResourcesSite\\": "resources\\php\\site",
             "Tests\\": [
                 "tests/Backend",
                 "src/Tests"
