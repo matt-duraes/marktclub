@@ -187,7 +187,6 @@
         <form class="form_geral">
             <div class="bloco">
                 <h1 class="titulo_dados_bancarios">Dados Pessoais</h1>
-                @? formInput(name: 'ponto_nome', label: 'Nome', placeholder:'Digite seu nome', value: '', local: 'André Rodrigues')
                 @? formInput(name: 'ponto_email', label: 'E-mail', placeholder:'Digite seu E-mail', obrigatorio: true, value: '', local: 'andre@markt.club')
                 @? formNumero(name: 'ponto_quantidade', label: 'Pontos', placeholder: 'Digite a quantidade de pontos', obrigatorio: true, value: '', local: 1)
                 <div class="resgate_dinheiro display_none">
