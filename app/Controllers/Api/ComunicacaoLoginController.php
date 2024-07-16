@@ -2,23 +2,24 @@
 
 namespace App\Controllers\Api;
 
-use App\Classes\ComunicacaoLogin\Ordem;
-use App\Classes\Geral\Status;
-use App\Models\Api\ComunicacaoLogin\BannerEntity;
-use App\Models\Api\ComunicacaoLogin\BannerModel;
-use Controller\Controller;
 use Erro\Excecao;
 use Http\Request;
+use Modules\Data;
 use Http\Response;
 use Modules\Botao;
-use Modules\Data;
 use Modules\Pagina;
 use Modules\Quantidade;
-use System\Interface\ControllerAtualizarInterface;
+use Controller\Controller;
+use App\Classes\Geral\Status;
+use App\Classes\ComunicacaoLogin\Ordem;
 use System\Interface\ControllerBuscarInterface;
-use System\Interface\ControllerDeletarInterface;
 use System\Interface\ControllerListarInterface;
 use System\Interface\ControllerSalvarInterface;
+use App\Models\Api\ComunicacaoLogin\BannerModel;
+use System\Interface\ControllerDeletarInterface;
+use App\Models\Api\ComunicacaoLogin\BannerEntity;
+use System\Interface\ControllerAtualizarInterface;
+use App\Models\Api\ComunicacaoLogin\BannerClubeEntity;
 
 final class ComunicacaoLoginController extends Controller implements
     ControllerBuscarInterface,
@@ -38,6 +39,12 @@ final class ComunicacaoLoginController extends Controller implements
         $BannerEntity = new BannerEntity();
         $BannerEntity->uuid($id);
         return $this->retornoSucesso($BannerEntity);
+    }
+
+    public function getClube(Request $request): Response
+    {
+        $Banner = new BannerClubeEntity($request->empresa);
+        return $this->retornoSucesso($Banner);
     }
 
     /**

@@ -40,7 +40,7 @@ final class Where implements WhereInterface
      * @param  string $propriedade Propriedade com o botão para validar
      * @return self
      */
-    public function publicado(string $propriedade = 'publicado'): self
+    public function publicado(string $propriedade = 'publicado', array $status = [1]): self
     {
         if (!$this->iniciado($propriedade)) {
             return $this;
@@ -56,7 +56,7 @@ final class Where implements WhereInterface
                 'OR',
                 ['data_inicio', '>', hoje()],
                 ['data_final', '<', hoje()],
-                ['status', '!=', 1]
+                ['status', 'notin', $status]
             ]);
             return $this;
         }
@@ -74,23 +74,23 @@ final class Where implements WhereInterface
                 ['data_final', ''],
                 ['data_final', '>=', hoje()],
             ],
-            ['status', 1]
+            ['status', 'in', $status]
         ]);
         return $this;
     }
 
-    public function publicadoNao()
+    public function publicadoNao(array $status = [1])
     {
         $this->manual([
             'OR',
             ['data_inicio', '>', hoje()],
             ['data_final', '<', hoje()],
-            ['status', '!=', 1]
+            ['status', 'notin', $status]
         ]);
         return $this;
     }
 
-    public function publicadoSim()
+    public function publicadoSim(array $status = [1])
     {
         $this->manual([
             [
@@ -105,7 +105,7 @@ final class Where implements WhereInterface
                 ['data_final', ''],
                 ['data_final', '>=', hoje()],
             ],
-            ['status', 1]
+            ['status', 'in', $status]
         ]);
         return $this;
     }
@@ -395,7 +395,6 @@ final class Where implements WhereInterface
         }
 
         $propValor = $this->pegarValor(propriedade: $propriedade);
-
         if (($igual && $propValor !== $valor) || (!$igual && $propValor === $valor)) {
             return $this;
         }

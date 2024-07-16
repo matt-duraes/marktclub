@@ -1833,6 +1833,67 @@ Route
     });
 
 Route
+    ::nome('demandaSprint')
+    ::controller(App\Controllers\Api\Demanda\SprintController::class)
+    ::middleware(TokenMiddleware::class, 'token')
+    ::grupo(function () {
+        Route
+            ::nome('listar')
+            ::middleware(TokenMiddleware::class, 'scope', ['demanda_sprint:listar'])
+            ::request([
+                'pagina', '!quantidade', '!titulo', '!data_inicio', '!data_final', '!publicado', '!status'
+            ], 'json')
+            ::get('/demanda-sprint');
+
+        Route
+            ::nome('aberta')
+            ::middleware(TokenMiddleware::class, 'scope', ['demanda_sprint:listar'])
+            ::get('/demanda-sprint/aberta');
+
+        Route
+            ::nome('ativa')
+            ::middleware(TokenMiddleware::class, 'scope', ['demanda_sprint:buscar'])
+            ::get('/demanda-sprint/ativa');
+
+        Route
+            ::nome('buscar')
+            ::middleware(TokenMiddleware::class, 'scope', ['demanda_sprint:buscar'])
+            ::get('/demanda-sprint/{id}');
+
+        Route
+            ::nome('salvar')
+            ::middleware(TokenMiddleware::class, 'scope', ['demanda_sprint:salvar'])
+            ::request([
+                'titulo', 'data_inicio', 'data_final'
+            ])
+            ::post('/demanda-sprint');
+
+        Route
+            ::nome('atualizar')
+            ::middleware(TokenMiddleware::class, 'scope', ['demanda_sprint:atualizar'])
+            ::request([
+                '!titulo', '!data_inicio', '!data_final', '!texto_inicio', '!texto_final', '!status'
+            ])
+            ::put('/demanda-sprint/{id}');
+
+        Route
+            ::nome('demandaAdicionar')
+            ::middleware(TokenMiddleware::class, 'scope', ['demanda_sprint:demanda'])
+            ::request([
+                'demanda', 'sprint', '!texto'
+            ])
+            ::post('/demanda-sprint/demanda-adicionar');
+
+        Route
+            ::nome('demandaRemover')
+            ::middleware(TokenMiddleware::class, 'scope', ['demanda_sprint:demanda'])
+            ::request([
+                'demanda', 'sprint', '!texto'
+            ])
+            ::post('/demanda-sprint/demanda-remover');
+    });
+
+Route
     ::nome('demandaDado')
     ::controller(App\Controllers\Api\DemandaDadoController::class)
     ::middleware(TokenMiddleware::class, 'token')
@@ -1841,8 +1902,7 @@ Route
             ::nome('listar')
             ::middleware(TokenMiddleware::class, 'scope', ['demanda_dado:listar'])
             ::request([
-                'status', 'area', 'ordem', '!tarefa_tipo', '!empresa', '!tipo',
-                '!data_inicio', '!data_fim', '!equipe'
+                'status', 'area', 'ordem', '!data_entrega_de', '!data_entrega_ate', '!sprint'
             ], 'json')
             ::get('/demanda-dado');
 
@@ -1855,7 +1915,7 @@ Route
             ::nome('salvar')
             ::middleware(TokenMiddleware::class, 'scope', ['demanda_dado:salvar'])
             ::request([
-                'empresa', 'titulo', 'tipo', 'area', '!data_entrega', '!com_prazo'
+                'empresa', 'titulo', 'texto', 'tipo', 'area', '!data_entrega', '!com_prazo'
             ])
             ::post('/demanda-dado');
 
@@ -1863,7 +1923,7 @@ Route
             ::nome('atualizar')
             ::middleware(TokenMiddleware::class, 'scope', ['demanda_dado:atualizar'])
             ::request([
-                '!titulo', '!arquivo', '!id_admin_empresa', '!id_usuario_equipe',
+                '!titulo', '!texto', '!arquivo', '!id_admin_empresa', '!id_usuario_equipe',
                 '!data_entrega', '!com_prazo', '!status', '!ordem', '!tarefa_tipo',
             ])
             ::put('/demanda-dado/{id}');
@@ -1890,42 +1950,36 @@ Route
     ::middleware(TokenMiddleware::class, 'token')
     ::grupo(function () {
         Route
-            ::nome('salvar')
-            ::middleware(TokenMiddleware::class, 'scope', ['demanda_tarefa:salvar'])
-            ::request([
-                'demanda', 'titulo', 'texto', 'tipo', '!minuto_producao_estimada', '!equipe'
-            ])
-            ::post('/demanda-tarefa');
-
-        Route
             ::nome('listar')
             ::middleware(TokenMiddleware::class, 'scope', ['demanda_tarefa:listar'])
             ::request(['demanda'], 'json')
             ::get('/demanda-tarefa');
-
         Route
             ::nome('buscar')
             ::middleware(TokenMiddleware::class, 'scope', ['demanda_tarefa:buscar'])
             ::get('/demanda-tarefa/{id}');
-
+        Route
+            ::nome('salvar')
+            ::middleware(TokenMiddleware::class, 'scope', ['demanda_tarefa:salvar'])
+            ::request([
+                'demanda', 'titulo', 'texto', 'tipo', '!minuto_producao_estimada', '!dificuldade', '!equipe'
+            ])
+            ::post('/demanda-tarefa');
         Route
             ::nome('atualizar')
             ::middleware(TokenMiddleware::class, 'scope', ['demanda_tarefa:atualizar'])
             ::request([
-                '!titulo', '!texto', '!tipo', '!minuto_producao_estimada', '!equipe', '!status'
+                '!titulo', '!texto', '!tipo', '!minuto_producao_estimada', '!equipe', '!dificuldade', '!status'
             ])
             ::put('/demanda-tarefa/{id}');
-
         Route
             ::nome('deletar')
             ::middleware(TokenMiddleware::class, 'scope', ['demanda_tarefa:deletar'])
             ::delete('/demanda-tarefa/{id}');
-
         Route
             ::nome('like')
             ::middleware(TokenMiddleware::class, 'scope', ['demanda_tarefa:like'])
             ::post('/demanda-tarefa/like/{id}');
-
         Route
             ::nome('deslike')
             ::middleware(TokenMiddleware::class, 'scope', ['demanda_tarefa:like'])
@@ -2695,6 +2749,11 @@ Route
             ::nome('buscar')
             ::middleware(TokenMiddleware::class, 'scope', ['comunicacao_login:buscar'])
             ::get('/comunicacao-login/{id}');
+        Route
+            ::nome('clube')
+            ::middleware(TokenMiddleware::class, 'scope', ['comunicacao_login:buscar'])
+            ::request(['empresa'], 'json')
+            ::get('/comunicacao-login/clube');
 
         Route
             ::nome('listar')

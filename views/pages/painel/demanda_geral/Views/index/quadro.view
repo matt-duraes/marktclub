@@ -1,0 +1,23 @@
+<div class="bloco_kambam_index" id="bloco_demanda_index">
+    <div class="conteudo_geral">
+        @ foreach($quadro as $item):
+        <section class="bloco_coluna bloco_coluna_{{count($quadro)}} {{$item['classe'] ?? ''}} bloco_coluna_geral bloco_visualizar_quadro" data-status="{{$item['status']}}">
+            <header>
+                <h1>{{$item['titulo']}} <span></span></h1>
+                <div class="flex"></div>
+                @if ( $item['add'] ?? false ):
+                <button id="botao_add_tarefa" class="botao">Add</button>
+                @ endif;
+            </header>
+            <div class="conteudo">
+                <article class="bloco_tarefa_item bloco_loading">
+                    <h1 class="esqueleto"></h1>
+                    <p class="esqueleto"></p>
+                    <p class="esqueleto"></p>
+                    <p class="esqueleto"></p>
+                </article>
+            </div>
+        </section>
+        @endforeach;
+    </div>
+</div>

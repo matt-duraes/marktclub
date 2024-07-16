@@ -130,7 +130,6 @@ final class AppController extends PadraoController
             $rotaApi = preg_replace('/\/\{id\}$/', '/' . $dado['id'], $rotaApi);
             unset($dado['id']);
         }
-
         if ($dado) {
             foreach (array_keys($dado) as $ind) {
                 if (!in_array($ind, $config->request)) {
@@ -146,7 +145,6 @@ final class AppController extends PadraoController
             $Api->body($dado);
         }
         $dado = $Api->$metodo($rotaApi);
-
         $dado = $this->validarRetornoApi($dado);
         if ($dado instanceof Response) {
             return $dado;
@@ -164,10 +162,10 @@ final class AppController extends PadraoController
     {
         $appReal = $this->converterNomeApp($app);
         $path = ROOT . '/views/pages/painel/' . $appReal;
+
         if (is_dir($path . '/routes') && !file_exists($path . '/config/visualizar.php')) {
             throw new Excecao(status: 404);
         }
-
         $config = $this->config($appReal, 'visualizar');
         if (!$config->permissao->visualizar) {
             throw new Excecao(status: 403);

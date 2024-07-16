@@ -3,13 +3,14 @@
 namespace App\Controllers\Api;
 
 use Http\Request;
+use Modules\Data;
 use Http\Response;
+use Modules\Botao;
 use Helpers\OrmHelper;
 use Controller\Controller;
 use App\Classes\DemandaDado\Area;
 use App\Classes\DemandaDado\Ordem;
 use App\Classes\DemandaDado\Status;
-use App\Classes\DemandaDado\Tipo;
 use App\Models\Api\Demanda\DemandaModel;
 use App\Models\Api\Demanda\DemandaEntity;
 use System\Interface\ControllerBuscarInterface;
@@ -27,15 +28,12 @@ final class DemandaDadoController extends Controller implements
     public function getListar(Request $request): Response
     {
         $Demanda = new DemandaModel(
-            new Status($request->status),
-            new Ordem($request->ordem),
-            new Area($request->area),
-            new Tipo($request->tipo),
-            $request->tarefa_tipo,
-            $request->empresa,
-            $request->equipe,
-            $request->data_inicio,
-            $request->data_fim,
+            status: new Status($request->status),
+            ordem: new Ordem($request->ordem),
+            area: new Area($request->area),
+            data_entrega_de: new Data($request->data_entrega_de),
+            data_entrega_ate: new Data($request->data_entrega_ate),
+            sprint: new Botao($request->sprint)
         );
 
         return mensagemSucesso($Demanda->listarDados());
@@ -51,8 +49,10 @@ final class DemandaDadoController extends Controller implements
 
     public function postSalvar(Request $request): Response
     {
+        $dado = $request->dado();
+        $dado['texto'] = $request->getPost('texto', html: false);
         $Demanda = new DemandaEntity();
-        $Demanda->set(lista: $request->dado());
+        $Demanda->set(lista: $dado);
         $Demanda->salvar();
 
         return $this->retornoPadrao($Demanda, 201);
@@ -64,7 +64,7 @@ final class DemandaDadoController extends Controller implements
             pegarPropriedadeDaEntity(
                 $Demanda,
                 lista: [
-                    'area', 'titulo', 'empresa', 'dono', 'equipe', 'seguindo', 'estou_seguindo',
+                    'area', 'titulo', 'texto', 'empresa', 'dono', 'equipe', 'seguindo', 'estou_seguindo',
                     'com_prazo', 'data_entrega', 'sou_dono', 'sou_dev', 'tarefa', 'data_criacao', 'arquivo', 'status'
                 ]
             ),
@@ -82,6 +82,9 @@ final class DemandaDadoController extends Controller implements
         }
         if ($request->existe('id_usuario_equipe')) {
             $dado['id_usuario_equipe'] = (new OrmHelper(TABELA_USUARIO_EQUIPE))->pegarIdPeloUuid($request->id_usuario_equipe);
+        }
+        if ($request->existe('texto')) {
+            $dado['texto'] = $request->getPut('texto', html: false);
         }
 
         $Demanda = new DemandaEntity();

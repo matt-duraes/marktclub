@@ -13,6 +13,7 @@ final class Status extends StatusStatus
     public const CONCLUIDA = 'concluida';
     public const CANCELADA = 'cancelada';
     public const BLOQUEADA = 'bloqueada';
+    public const GERAL = [1, 2, 3, 4, 7];
 
     public function __construct(
         protected string|int|null $valor = null
@@ -24,7 +25,7 @@ final class Status extends StatusStatus
             self::TESTE     => 'Em teste',
             self::CONCLUIDA => 'Concluida',
             self::CANCELADA => 'Cancelada',
-            self::BLOQUEADA => 'Bloqueada',
+            self::BLOQUEADA => 'Bloqueada'
         ]);
     }
 }

@@ -114,6 +114,9 @@ $scope = [
     'construtor_clube:buscar', 'construtor_clube:listar', 'construtor_clube:salvar', 'construtor_clube:atualizar',
     'construtor_clube:deletar',
 
+    'demanda_sprint:listar', 'demanda_sprint:buscar', 'demanda_sprint:salvar', 'demanda_sprint:atualizar',
+    'demanda_sprint:demanda',
+
     'demanda_dado:listar', 'demanda_dado:buscar', 'demanda_dado:salvar', 'demanda_dado:atualizar',
     'demanda_dado:cancelar',
 

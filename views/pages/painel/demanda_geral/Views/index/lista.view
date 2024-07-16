@@ -1,0 +1,27 @@
+<div id="bloco_app_lista_detalhe" class="bloco_coluna_geral bloco_visualizar_lista" data-status="geral">
+    <div class="bloco_botao_topo display_none" id="bloco_botao_sprint">
+        <div class="botao add esqueleto bloco_criar_sprint" id="botao_criar_sprint">Criar sprint</div>
+        <div class="barra bloco_criar_sprint"></div>
+        <button class="botao acao esqueleto" id="botao_abrir_todo">Abrir todos</button>
+        <button class="botao acao esqueleto" id="botao_fechar_todo">Fechar todos</button>
+        <div class="barra bloco_sprint_existe"></div>
+        <button class="botao acao bloco_sprint_existe esqueleto" id="botao_na_sprint">Na sprint</button>
+        <button class="botao acao bloco_sprint_existe esqueleto" id="botao_fora_sprint">Fora da print</button>
+    </div>
+    @ laco(3)
+    <div class="lista geral loading display_none">
+        <div class="header">
+            <div class="drag esqueleto">@iconeDrag</div>
+            <figure class="esqueleto"></figure>
+            <h1><p class="esqueleto">{{nomeCompletoAleatorio()}}</p></h1>
+            <div class="botao_acao abrir esqueleto"></div>
+        </div>
+    </div>
+    @ endlaco;
+</div>
+<div id="bloco_botao_salvar">
+    <button class="botao add" id="botao_add_tarefa">
+        <i>@iconeAdd(13)</i>
+        <p>ADD</p>
+    </button>
+</div>

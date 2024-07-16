@@ -1,0 +1,13 @@
+<div class="bloco_pagina_popup conteudo display_none" id="bloco_popup_equipe">
+    <header class="header_pagina_popup">
+        <h1>ADICIONAR CAPTADOR</h1>
+        <i class="fechar popup_fechar">@iconeFechar()</i>
+    </header>
+    <form action="/" class="form_geral conteudo_pagina_popup">
+        @? formSelect(name: 'captador_equipe', label: 'Captador', placeholder: 'Escolha um captador', lista: $equipe)
+    </form>
+    <div class="footer_pagina_popup">
+        <div class="flex_grow"></div>
+        <div class="botao salvar" id="botao_salvar_equipe">Salvar</div>
+    </div>
+</div>

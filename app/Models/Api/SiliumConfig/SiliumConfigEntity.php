@@ -36,7 +36,6 @@ class SiliumConfigEntity extends Entity
     }
 
     /**
-     * @return void
      * @throws Excecao
      */
     protected function regraPosBuscar(): void
@@ -47,7 +46,6 @@ class SiliumConfigEntity extends Entity
     }
 
     /**
-     * @return void
      * @throws Excecao
      */
     private function pegarEmpresa(): void
@@ -66,7 +64,6 @@ class SiliumConfigEntity extends Entity
     }
 
     /**
-     * @return void
      * @throws Excecao
      */
     protected function regraSalvar(): void
@@ -80,7 +77,6 @@ class SiliumConfigEntity extends Entity
     }
 
     /**
-     * @return void
      * @throws Excecao
      */
     private function validarDados(): void
@@ -116,7 +112,6 @@ class SiliumConfigEntity extends Entity
     }
 
     /**
-     * @return void
      * @throws Excecao
      */
     private function setarEmpresa(): void

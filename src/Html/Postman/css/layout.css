@@ -553,6 +553,17 @@ body {
 #site .bloco_conteudo .parametro ol li:first-child {
     border-top: 1px solid #bc96f7;
 }
+#site .bloco_conteudo .parametro ol li .drag {
+    width: 20px;
+    height: 20px;
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    fill: #999;
+    margin-right: 10px;
+}
 #site .bloco_conteudo .parametro ol li .bloco_checkbox {
     width: 20px;
     height: 20px;

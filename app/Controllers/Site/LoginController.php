@@ -24,10 +24,10 @@ final class LoginController extends Controller
             return new Response(url: LINK_LOGIN);
         }
 
-        $dado = (new ComunicacaoModel())->buscarBanners() ?? '';
+        $dado = (new ComunicacaoModel())->buscarBanner() ?? '';
         return view('login.index', [
             'banner'             => $dado->lista,
-            'quantidade_banners' => $dado->quantidade_banners,
+            'quantidade_banners' => $dado->quantidade,
             'location'           => base64Decode($request->chave('location', ''), true)
         ]);
     }
@@ -97,7 +97,7 @@ final class LoginController extends Controller
     */
     public function login()
     {
-        return view('login.login', [
+        return view('login.youhuul', [
             'api'        => API,
             'link_login' => LINK_LOGIN
         ]);

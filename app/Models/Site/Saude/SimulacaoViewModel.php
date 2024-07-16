@@ -4,9 +4,9 @@ namespace App\Models\Site\Saude;
 
 use App\Classes\Saude\Operadora;
 use App\Classes\Saude\Operadoras\Amil\Amil;
-use App\Classes\Saude\Operadoras\CNUFlorianopolis\CNUFlorianopolis;
 use App\Classes\Saude\Operadoras\Unimed\Unimed;
 use App\Classes\Saude\Operadoras\UnimedSeguro\UnimedSeguro;
+use App\Classes\Saude\Operadoras\CNUFlorianopolis\CNUFlorianopolis;
 
 final class SimulacaoViewModel
 {
@@ -16,39 +16,6 @@ final class SimulacaoViewModel
     public function __construct(
         private readonly string $operadora
     ) {
-    }
-
-    /**
-     * @return array
-     */
-    public function opcao(): array
-    {
-        $passos = match ($this->operadora) {
-            Operadora::AMIL            => ['Região', 'Plano', 'Simulação', 'Resultado'],
-            Operadora::CNU_FLORIANOPIS => ['Plano', 'Acomodação', 'Simulação', 'Resultado'],
-            Operadora::UNIMED_SEGURO, Operadora::UNIMED => ['Acomodação', 'Simulação', 'Resultado'],
-            default => []
-        };
-        return $this->montarOpcao($passos);
-    }
-
-    /**
-     * @param $lista
-     *
-     * @return array
-     */
-    private function montarOpcao($lista): array
-    {
-        $i = 1;
-        $retorno = [];
-        foreach ($lista as $titulo) {
-            $retorno[] = (object)[
-                'numero' => $i,
-                'titulo' => $titulo
-            ];
-            $i++;
-        }
-        return $retorno;
     }
 
     /**

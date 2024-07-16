@@ -1533,3 +1533,18 @@ if (!function_exists('iconeRelogio')) {
         return '<svg height="' . $tamanho . '" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 30 30" style="enable-background:new 0 0 30 30;" xml:space="preserve"><path d="M15,30C6.7,30,0,23.3,0,15C0,6.7,6.7,0,15,0c8.3,0,15,6.7,15,15C30,23.3,23.3,30,15,30z M15,27c6.6,0,12-5.4,12-12c0-6.6-5.4-12-12-12C8.4,3,3,8.4,3,15C3,21.6,8.4,27,15,27z M16.5,15h6v3h-9V7.5h3V15z"/></svg>';
     }
 }
+if (!function_exists('iconeKanBan')) {
+    // doc
+    // exemplo
+    // echo iconeRelogio
+    /**
+     * Gera um icone de relógio
+     *
+     * @param  int    $tamanho Altura do atributo height do svg
+     * @return string SVG do icone
+     */
+    function iconeKanBan(int $tamanho = 20)
+    {
+        return '<svg height="' . $tamanho . '" xmlns="http://www.w3.org/2000/svg" version="1.1" viewBox="0 0 20 18"><path class="cls-1" d="M1,0C.4,0,0,.4,0,1v16c0,.6.4,1,1,1h18c.6,0,1-.4,1-1V1c0-.6-.4-1-1-1H1ZM2,16V2h16v14H2ZM7,4h-2v8h2V4ZM13,4h2v6h-2v-6ZM11,4h-2v10h2V4Z"/></svg>';
+    }
+}

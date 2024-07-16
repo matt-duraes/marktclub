@@ -1,0 +1,26 @@
+<div id="bloco_popup_status" class="bloco_pagina_popup display_none">
+    <header class="header_pagina_popup">
+        <h1 id="bloco_mudar_status_titulo">INICIAR</h1>
+    </header>
+    <form class="form_geral conteudo_pagina_popup">
+        <p id="bloco_mudar_status_texto"></p>
+        <input type="hidden" id="input_mudar_status_status">
+        @? formTextarea(name: 'mudar_status_texto', label: 'Descrição', obrigatorio: true, placeholder: 'Descrição')
+        <div class="bloco_demanda display_none" id="bloco_demanda_lista">
+            <h2>Demandas não entregues:</h2>
+        </div>
+    </form>
+    <div class="footer_pagina_popup">
+        <div class="button voltar popup_fechar">CANCELAR</div>
+        <div class="button salvar" id="botao_mudar_status">CONTINUAR</div>
+    </div>
+</div>
+
+<div class="display_none">
+    <div class="bloco" id="bloco_demanda_padrao">
+        <input class="input_id" type="hidden">
+        <h3></h3>
+        <p>Digite o motivo dessa demanda não ter sido entregue.</p>
+        @? formTextarea(name: 'motivo', label: 'Motivo', obrigatorio: true, placeholder: 'Motivo', class: 'bloco_motivo_texto')
+    </div>
+</div>

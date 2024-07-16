@@ -839,10 +839,55 @@ return [
         'id'               => '++',
         'id_admin_empresa' => 1,
         'tipo'             => 1,
+        'titulo'           => 'TECNOLOGIA',
+        'ordem'            => '++',
+        'status'           => 1,
+        'permissao'        => '["demanda_quadro", "demanda_sprint_index", "log_erro_index"]'
+    ],
+    [
+        'id'               => '++',
+        'id_admin_empresa' => 1,
+        'tipo'             => 3,
+        'titulo'           => 'Quadro',
+        'url'              => '/demanda/quadro',
+        'icone'            => '<svg xmlns="http://www.w3.org/2000/svg" version="1.1" viewBox="0 0 30 30"></defs><path class="cls-1" d="M6.9,6.9c-.5,0-.9.4-.9.9v14.3c0,.5.4.9.9.9h16.1c.5,0,.9-.4.9-.9V7.8c0-.5-.4-.9-.9-.9H6.9ZM7.8,21.3v-12.5h14.3v12.5H7.8ZM12.3,10.5h-1.8v7.2h1.8v-7.2ZM17.7,10.5h1.8v5.4h-1.8v-5.4ZM15.9,10.5h-1.8v8.9h1.8v-8.9Z"/></svg>',
+        'ordem'            => '++',
+        'menu'             => ['demanda-quadro'],
+        'status'           => 1,
+        'permissao'        => '["demanda_quadro"]'
+    ],
+    [
+        'id'               => '++',
+        'id_admin_empresa' => 1,
+        'tipo'             => 3,
+        'titulo'           => 'Sprint',
+        'url'              => '/app/demanda-sprint',
+        'icone'            => '<svg xmlns="http://www.w3.org/2000/svg" version="1.1" viewBox="0 0 30 30"><path class="cls-1" d="M8.8,9.6h12.4v-1.6h-12.4v1.6ZM21.2,12.7h-12.4v-1.6h12.4v1.6ZM8,14.2h5.4v1.6h3.1v-1.6h5.4v7c0,.4-.3.8-.8.8h-12.4c-.4,0-.8-.3-.8-.8v-7ZM18.1,15.8v1.6h-6.2v-1.6h-2.3v4.7h10.9v-4.7h-2.3Z"/></svg>',
+        'ordem'            => '++',
+        'menu'             => ['demanda-sprint'],
+        'status'           => 1,
+        'permissao'        => '["demanda_sprint_index"]'
+    ],
+    [
+        'id'               => '++',
+        'id_admin_empresa' => 1,
+        'tipo'             => 3,
+        'titulo'           => 'Log de erro',
+        'url'              => '/app/log-erro',
+        'icone'            => '<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 40 40" style="enable-background:new 0 0 40 40;" xml:space="preserve"><path d="M21.2,29.8c2.9-0.6,5-3.1,5-6.1V20c0-0.8-0.1-1.7-0.5-2.5H14.4c-0.4,0.8-0.5,1.7-0.5,2.5v3.7c0,3,2,5.5,5,6.1v-7.3h2.3V29.8z M12,27.1c-0.5-1.1-0.7-2.2-0.7-3.4H7.6v-2.5h3.7V20c0-0.8,0.1-1.6,0.4-2.3l-2.8-1.6l1.2-2.2l2.5,1.4c0.1-0.1,0.1-0.2,0.2-0.4h14.4c0.1,0.1,0.1,0.2,0.2,0.4l2.5-1.4l1.2,2.2l-2.8,1.6c0.2,0.7,0.4,1.6,0.4,2.3v1.2h3.7v2.5h-3.7c0,1.2-0.2,2.3-0.7,3.4l3.1,1.8L29.9,31l-3.1-1.8c-1.7,2-4.2,3.2-6.7,3.2c-2.6,0-5.1-1.2-6.7-3.2L10.3,31l-1.2-2.2L12,27.1L12,27.1z M15,12.6c0-2.8,2.3-5,5-5s5,2.3,5,5H15z"/></svg>',
+        'ordem'            => '++',
+        'menu'             => ['log-erro'],
+        'status'           => 1,
+        'permissao'        => '["log_erro_index"]'
+    ],
+    [
+        'id'               => '++',
+        'id_admin_empresa' => 1,
+        'tipo'             => 1,
         'titulo'           => 'DEMANDA',
         'ordem'            => '++',
         'status'           => 1,
-        'permissao'        => '["demanda_tecnologia", "demanda_criacao","log_erro_index"]'
+        'permissao'        => '["demanda_tecnologia", "demanda_criacao", "demanda_convenio", "log_erro_index"]'
     ],
     [
         'id'               => '++',
@@ -879,18 +924,6 @@ return [
         'menu'             => ['demanda-convenio'],
         'status'           => 1,
         'permissao'        => '["demanda_convenio"]'
-    ],
-    [
-        'id'               => '++',
-        'id_admin_empresa' => 1,
-        'tipo'             => 3,
-        'titulo'           => 'Log de erro',
-        'url'              => '/app/log-erro',
-        'icone'            => '<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 40 40" style="enable-background:new 0 0 40 40;" xml:space="preserve"><path d="M21.2,29.8c2.9-0.6,5-3.1,5-6.1V20c0-0.8-0.1-1.7-0.5-2.5H14.4c-0.4,0.8-0.5,1.7-0.5,2.5v3.7c0,3,2,5.5,5,6.1v-7.3h2.3V29.8z M12,27.1c-0.5-1.1-0.7-2.2-0.7-3.4H7.6v-2.5h3.7V20c0-0.8,0.1-1.6,0.4-2.3l-2.8-1.6l1.2-2.2l2.5,1.4c0.1-0.1,0.1-0.2,0.2-0.4h14.4c0.1,0.1,0.1,0.2,0.2,0.4l2.5-1.4l1.2,2.2l-2.8,1.6c0.2,0.7,0.4,1.6,0.4,2.3v1.2h3.7v2.5h-3.7c0,1.2-0.2,2.3-0.7,3.4l3.1,1.8L29.9,31l-3.1-1.8c-1.7,2-4.2,3.2-6.7,3.2c-2.6,0-5.1-1.2-6.7-3.2L10.3,31l-1.2-2.2L12,27.1L12,27.1z M15,12.6c0-2.8,2.3-5,5-5s5,2.3,5,5H15z"/></svg>',
-        'ordem'            => '++',
-        'menu'             => ['log-erro'],
-        'status'           => 1,
-        'permissao'        => '["log_erro_index"]'
     ],
     [
         'id'               => '++',

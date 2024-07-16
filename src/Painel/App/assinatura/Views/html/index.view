@@ -8,21 +8,15 @@
 </head>
 
 <body>
+    <br>
+    <hr style="height: 2px; background-color: #caaa00; border: none">
+    <br>
     <table border="0" cellpadding="0" cellspacing="0" width="100%">
         <tr>
-            <td style="border-width:2px 1px 1px 1px;border-style:solid solid solid solid;border-color:#caaa00 #caaa00 #caaa00 #caaa00;"></td>
-        </tr>
-        <tr>
-            <td height="30"></td>
-        </tr>
-    </table>
-    <table border="0" cellpadding="0" cellspacing="0" width="100%">
-        <tr>
-            <td width="30" style="width: 30px;"></td>
-            <td width="80" style="width: 80px;">
-                <img src="https://youhuul.com.br/images/assinatura/youhuul.png" width="80"></td>
+            <td width="120" style="width: 120px;">
+                <img src="https://youhuul.com.br/images/assinatura/youhuul.png?cache=123" width="120"></td>
             </td>
-            <td width="40" style="width: 40px;"></td>
+            <td width="20" style="width: 20px;"></td>
 
             <td style="width: calc(100% - 150px);">
                 <table border="0" cellpadding="0" cellspacing="0" width="100%">
@@ -33,17 +27,17 @@
                         <td height="5"></td>
                     </tr>
                     <tr>
-                        <td style="padding: 3px 0 3px 8px; border-width:0px 0px 0px 3px;border-style:none none none solid;border-color:rgb(187,187,187) rgb(187,187,187) rgb(187,187,187) rgb(47,108,180); font-family: Arial, Helvetica, sans-serif; color: #666; font-size: 14px">
+                        <td style="padding: 3px 0 3px 8px; border-width:0px 0px 0px 3px;border-style:none none none solid;border-color:rgb(187,187,187) rgb(187,187,187) rgb(187,187,187) #caaa00; font-family: Arial, Helvetica, sans-serif; color: #666; font-size: 14px">
                             {!!$telefone!!}
                         </td>
                     </tr>
                     <tr>
-                        <td style="padding: 3px 0 3px 8px; border-width:0px 0px 0px 3px;border-style:none none none solid;border-color:rgb(187,187,187) rgb(187,187,187) rgb(187,187,187) rgb(47,108,180); font-family: Arial, Helvetica, sans-serif; color: #666; font-size: 14px">
+                        <td style="padding: 3px 0 3px 8px; border-width:0px 0px 0px 3px;border-style:none none none solid;border-color:rgb(187,187,187) rgb(187,187,187) rgb(187,187,187) #caaa00; font-family: Arial, Helvetica, sans-serif; color: #666; font-size: 14px">
                             {!!$email!!}
                         </td>
                     </tr>
                     <tr>
-                        <td style="padding: 3px 0 3px 8px; border-width:0px 0px 0px 3px;border-style:none none none solid;border-color:rgb(187,187,187) rgb(187,187,187) rgb(187,187,187) rgb(47,108,180); font-family: Arial, Helvetica, sans-serif; color: #666; font-size: 14px">
+                        <td style="padding: 3px 0 3px 8px; border-width:0px 0px 0px 3px;border-style:none none none solid;border-color:rgb(187,187,187) rgb(187,187,187) rgb(187,187,187) #caaa00; font-family: Arial, Helvetica, sans-serif; color: #666; font-size: 14px">
                             <a href="https://youhuul.com.br">youhuul.com.br</a>
                         </td>
                     </tr>
@@ -57,7 +51,9 @@
             <td height="40"></td>
         </tr>
         <tr>
-            <td style="border-width:1px 0 0 0;border-style:solid solid solid solid;border-color:#DDDDDD #DDDDDD #DDDDDD #DDDDDD;"></td>
+            <td>
+                <hr style="height: 1px; background-color: #dddddd; border: none">
+            </td>
         </tr>
         <tr>
             <td height="20"></td>
@@ -100,10 +96,6 @@
                     <tr>
                         <td width="25">
                             <a href="https://www.instagram.com/youhuul" target="_blank"><img src="https://youhuul.com.br/images/assinatura/instagram.png" width="25" alt=""></a>
-                        </td>
-                        <td width="5"></td>
-                        <td width="25">
-                            <a href="https://www.facebook.com/portalmarktclub" target="_blank"><img src="https://youhuul.com.br/images/assinatura/facebook.png" width="25" alt=""></a>
                         </td>
                         <td width="5"></td>
                         <td width="25">

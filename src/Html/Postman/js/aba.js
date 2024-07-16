@@ -223,6 +223,15 @@ const adicionarDadoAoRequest = (bloco, resposta, vazio) => {
         botaoParametro.classList.add('ativo');
         blocoParametro.classList.add('ativo');
     }
+
+    new Sortable(blocoParametro, {
+        animation: 150,
+        draggable: '.linha_principal_body',
+        handle: '.drag',
+        onChange: () => {
+            mostrarBotaoSalvar(blocoParametro.closest('.bloco_requisicao'));
+        },
+    });
 };
 const mudarTipoMetodo = e => {
     const metodo = e.target.value;
@@ -291,6 +300,7 @@ const adicionarNovaLinha = (bloco, tipo, check, chave, valor, descricao) => {
     const inputValor = clone.querySelector('.valor');
     const inputCheck = clone.querySelector('.check');
     const blocoCheck = clone.querySelector('.bloco_checkbox span');
+    const iconeDrag = clone.querySelector('.drag svg');
     inputCheck.checked = check;
     inputTipo.value = tipo;
     inputChave.value = chave;
@@ -301,6 +311,7 @@ const adicionarNovaLinha = (bloco, tipo, check, chave, valor, descricao) => {
     botaoDeletar.addEventListener('click', deletarLinha);
     if (chave == '') {
         blocoCheck.classList.add('display_none');
+        iconeDrag.classList.add('display_none');
         botaoDeletar.classList.add('display_none');
         inputCheck.disabled = true;
         inputChave.addEventListener('keyup', monitorarUltimaLinha);
@@ -318,7 +329,9 @@ const monitorarUltimaLinha = e => {
     const inputValor = linha.querySelector('.valor');
     const inputCheck = linha.querySelector('.bloco_checkbox input');
     const blocoCheck = linha.querySelector('.bloco_checkbox span');
+    const iconeDrag = linha.querySelector('.drag svg');
     const botaoDeletar = linha.querySelector('.deletar');
+    iconeDrag.classList.remove('display_none');
     blocoCheck.classList.remove('display_none');
     inputCheck.disabled = false;
     inputCheck.checked = true;
@@ -335,7 +348,15 @@ const deletarLinha = e => {
 };
 
 const mostrarBotaoSalvar = e => {
-    const bloco = e.target.closest('.bloco_requisicao');
+    let bloco;
+    if (e && 'classList' in e && e.classList.contains('bloco_requisicao')) {
+        bloco = e;
+    } else if (e && 'target' in e && 'closest' in e.target) {
+        bloco = e.target.closest('.bloco_requisicao');
+    }
+    if (bloco) {
+        return;
+    }
     const salvar = bloco.querySelector('.botao_salvar');
     salvar.classList.remove('display_none');
 };

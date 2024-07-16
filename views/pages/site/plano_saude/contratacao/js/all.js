@@ -6,7 +6,12 @@
 // @system "Galeria"
 // @system "Calendario"
 // @system "Mascara"
-// @resource "site/passo_passo"
+// @system "PassoPasso"
+
+const PassoContratar = new PassoPasso(
+    '#bloco_contratacao .bloco_conteudo .conteudo',
+    '#bloco_contratacao .bloco_progresso'
+);
 
 const idSimulacao = $('#input_id_simulacao').value;
 const botaoDadoPessoalProximo = $('#botao_dado_pessoal_proximo');
@@ -57,8 +62,6 @@ const inputComplemento = $('#input_complemento');
 const inputCidade = $('#input_cidade');
 const inputEstado = $('#input_estado');
 
-executarPassoPasso();
-
 // DADO PESSOAL
 botaoDadoPessoalProximo.addEventListener('click', async () => {
     if (!(await validarInput(blocoDadoPessoal))) {
@@ -68,22 +71,22 @@ botaoDadoPessoalProximo.addEventListener('click', async () => {
         Alerta.notificacao('Digite seu nome completo para continuar.', false);
         return;
     }
-    irParaProximoPasso(botaoDadoPessoalProximo);
+    PassoContratar.proximo(botaoDadoPessoalProximo);
 });
 
 // RESPONSAVEL
 botaoResponsavelAnterior.addEventListener('click', () => {
-    irParaPassoAnterior(botaoResponsavelAnterior);
+    PassoContratar.anterior(botaoResponsavelAnterior);
 });
 botaoResponsavelProximo.addEventListener('click', async () => {
     if (!(await validarInput(blocoResponsavel))) {
         return;
     }
-    irParaProximoPasso(botaoResponsavelProximo);
+    PassoContratar.proximo(botaoResponsavelProximo);
 });
 inputResponsavel.addEventListener('change', () => {
     if (inputResponsavel.checked) {
-        irParaProximoPasso(botaoResponsavelProximo);
+        PassoContratar.proximo(botaoResponsavelProximo);
         setarResponsavelComoUsuario();
         return;
     }
@@ -101,13 +104,13 @@ const setarResponsavelComoUsuario = () => {
 
 // CONTATO
 botaoContatoAnterior.addEventListener('click', () => {
-    irParaPassoAnterior(botaoContatoAnterior);
+    PassoContratar.anterior(botaoContatoAnterior);
 });
 botaoContatoProximo.addEventListener('click', async () => {
     if (!(await validarInput(blocoContato))) {
         return;
     }
-    irParaProximoPasso(botaoContatoProximo);
+    PassoContratar.proximo(botaoContatoProximo);
 });
 
 // ENDERECO
@@ -116,12 +119,12 @@ inputEstado.addEventListener('formChange', () => {
     buscarCidadePeloEstadoViaBrowser(inputCidade, inputEstado.value, '', 'Escolha uma cidade');
 });
 botaoEnderecoAnterior.addEventListener('click', () => {
-    irParaPassoAnterior(botaoEnderecoAnterior);
+    PassoContratar.anterior(botaoEnderecoAnterior);
 });
 
 // ENVIAR
 botaoContratarEnviar.addEventListener('click', async () => {
-    if (!validarInput(blocoEndereco)) {
+    if (!(await validarInput(blocoEndereco))) {
         return;
     }
     Loading.show();
@@ -173,8 +176,13 @@ botaoContratarEnviar.addEventListener('click', async () => {
     window.location.assign(LINK + '/saude');
 });
 
-$$('.tirar_tab input').evento('keydown', e => {
+$$('.tirar_tab input').evento('keydown', (e, item) => {
     if (!e.shiftKey && e.key == 'Tab') {
+        e.preventDefault();
+    }
+});
+$$('.tirar_tab_voltar input').evento('keydown', (e, item) => {
+    if (e.shiftKey && e.key == 'Tab') {
         e.preventDefault();
     }
 });
