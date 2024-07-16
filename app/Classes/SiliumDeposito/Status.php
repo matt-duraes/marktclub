@@ -10,6 +10,9 @@ class Status extends StatusStatus
     public const DEPOSITADO = 'depositado';
     public const NEGADO = 'negado';
 
+    /**
+     * @param string|int|null $valor
+     */
     public function __construct(
         protected string|int|null $valor = null
     ) {

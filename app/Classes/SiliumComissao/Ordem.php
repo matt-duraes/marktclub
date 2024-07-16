@@ -13,7 +13,7 @@ class Ordem extends Order
         protected ?string $valor = null
     ) {
         $this->tabela(TABELA_SILIUM_COMISSAO);
-        $this->padrao('status');
+        $this->padrao('data_criacao');
         $this->status();
         $this->maisNovo();
         $this->maisVelho();
