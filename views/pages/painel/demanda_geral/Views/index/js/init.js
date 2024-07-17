@@ -252,7 +252,9 @@ const adicionarNovaDemanda = (bloco, item, abrir) => {
                 blocoCriarSprint.sumir();
                 blocoSprintExiste.aparecer();
             } else {
-                blocoCriarSprint.aparecer();
+                if (USUARIO_GERENTE == 'sim') {
+                    blocoCriarSprint.aparecer();
+                }
                 blocoSprintExiste.sumir();
             }
         }
