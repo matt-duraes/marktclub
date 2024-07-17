@@ -137,8 +137,8 @@ class SiliumDepositoEntity extends Entity
             $this->validarResgate();
             $this->validarSaldoSuficiente();
         } else {
-            $this->validarRequestDeposito();
             $this->pegarSolicitacao();
+            $this->validarRequestDeposito();
         }
     }
 
@@ -270,27 +270,6 @@ class SiliumDepositoEntity extends Entity
     /**
      * @throws Excecao
      */
-    private function validarRequestDeposito(): void
-    {
-        if (!empty($this->saque) && !validarUuid($this->saque, false)) {
-            mensagemErro('Campo inválido!', 'A Identificação do Saque não é válido.');
-        }
-        if (empty($this->data_deposito) || (!$this->data_deposito->vazio() && !$this->data_deposito->valido())) {
-            mensagemErro('Campo inválido!', 'A Data de Depósito informada não é válida.');
-        }
-        if (empty($this->status) || (!$this->status->vazio() && !$this->status->valido())) {
-            mensagemErro('Campo inválido!', 'O Status informado não é válido.');
-        }
-        if ($this->tipo_resgate->indice() === TipoResgate::DINHEIRO) {
-            if (!empty($this->valor) && !$this->valor->vazio() && !$this->valor->valido()) {
-                mensagemErro('Campo inválido!', 'O Valor informado não é válido.');
-            }
-        }
-    }
-
-    /**
-     * @throws Excecao
-     */
     private function pegarSolicitacao(): void
     {
         $OrmHelper = new OrmHelper($this->ormTabela);
@@ -321,6 +300,27 @@ class SiliumDepositoEntity extends Entity
             'pontuacao'     => $solicitacao->pontuacao,
             'tipo_resgate'  => $solicitacao->tipo_resgate
         ]);
+    }
+
+    /**
+     * @throws Excecao
+     */
+    private function validarRequestDeposito(): void
+    {
+        if (!empty($this->saque) && !validarUuid($this->saque, false)) {
+            mensagemErro('Campo inválido!', 'A Identificação do Saque não é válido.');
+        }
+        if (empty($this->data_deposito) || (!$this->data_deposito->vazio() && !$this->data_deposito->valido())) {
+            mensagemErro('Campo inválido!', 'A Data de Depósito informada não é válida.');
+        }
+        if (empty($this->status) || (!$this->status->vazio() && !$this->status->valido())) {
+            mensagemErro('Campo inválido!', 'O Status informado não é válido.');
+        }
+        if ($this->tipo_resgate->indice() === TipoResgate::DINHEIRO) {
+            if (!empty($this->valor) && !$this->valor->vazio() && !$this->valor->valido()) {
+                mensagemErro('Campo inválido!', 'O Valor informado não é válido.');
+            }
+        }
     }
 
     /**
