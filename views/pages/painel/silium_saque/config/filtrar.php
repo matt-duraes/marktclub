@@ -12,12 +12,12 @@ $Status = new Status();
 $TipoResgate = new TipoResgate();
 
 $Painel
-    ->input(
+    /*->input(
         name: 'usuario',
         titulo: 'Nome do Usuário',
         label: 'Nome do Usuário',
         placeholder: 'Nome do Usuário'
-    )
+    )*/
     ->bloco(function () use ($Painel) {
         $Painel
             ->data(
