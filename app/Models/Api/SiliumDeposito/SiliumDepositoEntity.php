@@ -317,7 +317,7 @@ class SiliumDepositoEntity extends Entity
             mensagemErro('Campo inválido!', 'O Status informado não é válido.');
         }
         if ($this->tipo_resgate->indice() === TipoResgate::DINHEIRO) {
-            if (!empty($this->valor) && !$this->valor->vazio() && !$this->valor->valido()) {
+            if ($this->valor->vazio() || !$this->valor->valido()) {
                 mensagemErro('Campo inválido!', 'O Valor informado não é válido.');
             }
         }
