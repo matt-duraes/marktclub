@@ -334,6 +334,7 @@ class SiliumDepositoEntity extends Entity
         if ($operacao) {
             $this->atualizarStatusSolicitacao($this->status->indice());
             if ($status) {
+                $this->pegarUsuario();
                 $this->debitarSaldo();
                 $this->enviarEmail();
             }
@@ -400,6 +401,6 @@ class SiliumDepositoEntity extends Entity
             logo: $Construtor->logo_principal,
             cor: $Construtor->cor_principal
         );
-        $Email->sendGrid($titulo, $this->nome_titular->nome(), $this->email->email(), deNome: 'Cashback Silium');
+        $Email->sendGrid($titulo, $this->usuario['nome'], $this->email->email(), deNome: 'Cashback Silium');
     }
 }
