@@ -30,6 +30,7 @@ const popupSprintSalvar = new Popup('Salvar sprint', 'bloco_sprint_nova', false,
 
 const buscarSprintAtiva = async existe => {
     if (USUARIO_GERENTE != 'sim') {
+        blocoCriarSprint.sumir();
         blocoSprintExiste.sumir();
         return;
     }
