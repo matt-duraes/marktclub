@@ -83,6 +83,10 @@ final class LojaController extends Controller
 
         if ($this->verificaSeSamsung($dado->id)) {
             return new Response(url: route('samsung.index'));
+        } elseif ($dado->id == '48381d99-672c-4f49-be01-4114e9876ffb' && MENU_SAUDE) {
+            return new Response(url: route('planosaude.index'));
+        } elseif ($dado->id == '48381d99-672c-4f49-be01-4114e9876ffb') {
+            mensagemStatus(404);
         }
 
         return view('loja.detalhe', [
