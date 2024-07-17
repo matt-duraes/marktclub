@@ -5,7 +5,7 @@ namespace App\Models\Api\Demanda\Dado;
 use ORM\ORM;
 use Helpers\OrmHelper;
 use App\Classes\DemandaDado\Tipo as DemandaTipo;
-use App\CLasses\DemandaTarefa\Tipo as TarefaTipo;
+use App\Classes\DemandaTarefa\Tipo as TarefaTipo;
 
 final class RelatorioSprintModel extends ORM
 {
