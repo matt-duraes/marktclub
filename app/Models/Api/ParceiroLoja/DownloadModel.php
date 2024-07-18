@@ -2,6 +2,7 @@
 
 namespace App\Models\Api\ParceiroLoja;
 
+use App\Classes\ParceiroLoja\CancelarMotivo;
 use Http\Request;
 use Modules\Telefone;
 use Helpers\OrmHelper;
@@ -127,6 +128,8 @@ final class DownloadModel extends DownloadGeralModel
                     $val = (new Categoria($val))->indice();
                 } elseif ($ind === 'endereco_estado' && !empty($val)) {
                     $val = implode(', ', json_decode($val));
+                } elseif ($ind === 'cancelar_motivo') {
+                    $val = (new CancelarMotivo($val))->indice();
                 }
                 $retorno[$i][$ind] = $val;
             }
