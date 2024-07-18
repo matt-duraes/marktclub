@@ -137,8 +137,8 @@ class SiliumDepositoEntity extends Entity
             $this->validarResgate();
             $this->validarSaldoSuficiente();
         } else {
-            $this->validarRequestDeposito();
             $this->pegarSolicitacao();
+            $this->validarRequestDeposito();
         }
     }
 
@@ -270,25 +270,6 @@ class SiliumDepositoEntity extends Entity
     /**
      * @throws Excecao
      */
-    private function validarRequestDeposito(): void
-    {
-        if (!empty($this->saque) && !validarUuid($this->saque, false)) {
-            mensagemErro('Campo inválido!', 'A Identificação do Saque não é válido.');
-        }
-        if (!empty($this->valor) && !$this->valor->vazio() && !$this->valor->valido()) {
-            mensagemErro('Campo inválido!', 'O Valor informado não é válido.');
-        }
-        if (empty($this->data_deposito) || (!$this->data_deposito->vazio() && !$this->data_deposito->valido())) {
-            mensagemErro('Campo inválido!', 'A Data de Depósito informada não é válida.');
-        }
-        if (empty($this->status) || (!$this->status->vazio() && !$this->status->valido())) {
-            mensagemErro('Campo inválido!', 'O Status informado não é válido.');
-        }
-    }
-
-    /**
-     * @throws Excecao
-     */
     private function pegarSolicitacao(): void
     {
         $OrmHelper = new OrmHelper($this->ormTabela);
@@ -323,6 +304,27 @@ class SiliumDepositoEntity extends Entity
 
     /**
      * @throws Excecao
+     */
+    private function validarRequestDeposito(): void
+    {
+        if (!empty($this->saque) && !validarUuid($this->saque, false)) {
+            mensagemErro('Campo inválido!', 'A Identificação do Saque não é válido.');
+        }
+        if (empty($this->data_deposito) || (!$this->data_deposito->vazio() && !$this->data_deposito->valido())) {
+            mensagemErro('Campo inválido!', 'A Data de Depósito informada não é válida.');
+        }
+        if (empty($this->status) || (!$this->status->vazio() && !$this->status->valido())) {
+            mensagemErro('Campo inválido!', 'O Status informado não é válido.');
+        }
+        if ($this->tipo_resgate->indice() === TipoResgate::DINHEIRO) {
+            if ($this->valor->vazio() || !$this->valor->valido()) {
+                mensagemErro('Campo inválido!', 'O Valor informado não é válido.');
+            }
+        }
+    }
+
+    /**
+     * @throws Excecao
      * @throws TypeException
      */
     protected function regraPosInsert(): void
@@ -332,6 +334,7 @@ class SiliumDepositoEntity extends Entity
         if ($operacao) {
             $this->atualizarStatusSolicitacao($this->status->indice());
             if ($status) {
+                $this->pegarUsuario();
                 $this->debitarSaldo();
                 $this->enviarEmail();
             }
@@ -386,7 +389,7 @@ class SiliumDepositoEntity extends Entity
         $acao = 'Silium Cashback';
         $mensagem = 'Caro(a) <strong>' . $this->nome_titular->nome() . '</strong>, Confirmamos o recebimento do seu pedido de saque de cashback
             no valor de R$ ' . $this->valor->dinheiro(
-        ) . ' (' . $this->pontuacao . ' Pontos), registrado em ' . $this->data_deposito->data() . '.';
+            ) . ' (' . $this->pontuacao . ' Pontos), registrado em ' . $this->data_deposito->data() . '.';
 
         $Email = new EmailHelper();
         $Email->mensagem(
@@ -398,6 +401,6 @@ class SiliumDepositoEntity extends Entity
             logo: $Construtor->logo_principal,
             cor: $Construtor->cor_principal
         );
-        $Email->sendGrid($titulo, $this->nome_titular->nome(), $this->email->email(), deNome: 'Cashback Silium');
+        $Email->sendGrid($titulo, $this->usuario['nome'], $this->email->email(), deNome: 'Cashback Silium');
     }
 }

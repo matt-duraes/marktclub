@@ -3,7 +3,6 @@
 namespace App\Models\Api\ParceiroLoja;
 
 use Http\Request;
-use Modules\DataHora;
 use Modules\Telefone;
 use Helpers\OrmHelper;
 use App\Classes\ParceiroLoja\Status;
@@ -14,6 +13,7 @@ use App\Models\Api\Trait\ValidarEmpresaTrait;
 use App\Models\Api\ParceiroLoja\Trait\WhereTrait;
 use App\Models\Api\ParceiroLoja\Trait\MontarRetornoTrait;
 use App\Models\Api\ParceiroLoja\Trait\PropriedadeModelTrait;
+use Modules\Data;
 
 final class DownloadModel extends DownloadGeralModel
 {
@@ -113,8 +113,14 @@ final class DownloadModel extends DownloadGeralModel
                     $val = strCnpj($val);
                 } elseif ($ind === 'responsavel_cpf') {
                     $val = strCpf($val);
-                } elseif ($ind === 'data_contrato_inicio' || $ind === 'data_contrato_vencimento') {
-                    $val = (new DataHora($val))->date();
+                } elseif (
+                    $ind === 'data_contrato_inicio' ||
+                    $ind === 'data_contrato_vencimento' ||
+                    $ind === 'data_auditoria' ||
+                    $ind === 'data_cancelado' ||
+                    $ind === 'data_publicacao'
+                ) {
+                    $val = (new Data($val))->date();
                 } elseif ($ind === 'responsavel_telefone') {
                     $val = (new Telefone($val))->numero();
                 } elseif ($ind === 'categoria_principal') {
