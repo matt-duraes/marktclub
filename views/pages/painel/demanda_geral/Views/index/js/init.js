@@ -7,7 +7,7 @@ const USUARIO_GERENTE = $('#USUARIO_GERENTE').value;
 
 const blocoBotaoSprint = $('#bloco_botao_sprint');
 
-const area = $('#input_area').value;
+const area = $('#input_area').valor();
 
 const inputTarefaId = $('#input_tarefa_id');
 const inputTarefaTitulo = $('#input_tarefa_titulo');
