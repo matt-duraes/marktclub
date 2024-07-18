@@ -24,7 +24,10 @@ botaoSalvarTarefa.addEventListener('click', async () => {
     } else if (texto == '') {
         Alerta.notificacao('Digite o texto da demanda para continuar.', false);
         return;
-    } else if (tipo == '') {
+    } else if (area == 'tecnologia' && dificuldade == '') {
+        Alerta.notificacao('Escolha um tipo para a tarefa para continuar.', false);
+        return;
+    } else if (area == 'tecnologia' && tipo == '') {
         Alerta.notificacao('Escolha um tipo para a tarefa para continuar.', false);
         return;
     }

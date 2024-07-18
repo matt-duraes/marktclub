@@ -37,8 +37,6 @@ final class TarefaSalvarModel
             mensagemErro('Campo obrigatório!', 'Digite o texto da tarefa para continuar.');
         } elseif (empty($this->texto)) {
             mensagemErro('Campo obrigatório!', 'Digite o texto da tarefa para continuar.');
-        } elseif (empty($this->tipo)) {
-            mensagemErro('Campo obrigatório!', 'Escolha o tipo da tarefa para continuar.');
         }
     }
 

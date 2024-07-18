@@ -39,8 +39,6 @@ final class TarefaEntity extends Entity
     protected string $ormValidarInsert = '
         titulo|Titulo|obrigatorio|vazio
         texto|Texto|obrigatorio|vazio
-        tipo|Tipo|valido
-        minuto_producao_estimada|Tempo de produção|int
     ';
     protected array $like;
     private OrmHelper $OrmEquipe;
