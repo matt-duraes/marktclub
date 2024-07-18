@@ -66,13 +66,13 @@
             @ endif;
         </div>
             @ elseif( $passo->tipo == 'simulacao' ):
-        <form class="form_geral bloco_simulacao conteudo display_none" id="bloco_simulacao" data-titulo="simulacao">
+        <form class="form_geral cinza bloco_simulacao conteudo display_none" id="bloco_simulacao" data-titulo="simulacao">
             <header>
                 <h1>PREENCHA AS INFORMAÇÕES</h1>
             </header>
             <div class="conteudo_menor">
                 <h2>Titular</h2>
-                @? formData(name: 'data_titular', placeholder: 'Data de nascimento do titular', label: 'Data de nascimento do titular', obrigatorio: true)
+                @? formData(name: 'data_titular', placeholder: 'Data de nascimento do titular', label: 'Nascido em', obrigatorio: true)
                 <h2>Dependentes</h2>
                 <p class="pequeno">
                     Todo associado (a) pode aderir ao convênio e incluir como dependentes: esposo (a), filhos (as) solteiros (as) com até 28 anos, netos (as) com até 18 anos, filhos (as) maiores de 28 anos comprovadamente inválidos, pai e mãe desde que dependente no Imposto de Renda (IR).
@@ -121,7 +121,7 @@
 
 <div class="display_none">
     <div class="linha_dependente" id="bloco_dependente_padrao">
-        @? formData(name: 'dependente', placeholder: 'Data de nascimento do dependente', label: 'Data de nascimento do dependente', class: 'data_nascimento data_dependente', obrigatorio: true, value: '')
+        @? formData(name: 'dependente', placeholder: 'Data de nascimento do dependente', label: 'Nascido em', class: 'data_nascimento data_dependente', obrigatorio: true, value: '')
         <div class="remover">@iconeFechar()</div>
     </div>
 

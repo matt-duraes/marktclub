@@ -82,6 +82,7 @@ window.addEventListener('load', () => {
             input: '#bloco_lista_dependente .data_dependente input',
         });
         $('input', dependente).focus();
+        fwMascaraLoading(dependente);
     });
     blocoDependenteLista.evento('click', e => {
         if (!e.target.classe('remover', '?') && !e.target.closest('.remover')) {

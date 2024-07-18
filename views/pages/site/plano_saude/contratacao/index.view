@@ -59,7 +59,7 @@
                         </div>
                     </div>
                     <div class="bloco_botao">
-                        <div class="botao_geral_cor cinza" id="botao_responsavel_anterior">Voltar</div>
+                        @? $Botao->botao(id: 'botao_responsavel_anterior')->voltar()
                         <div class="botao_geral_cor cor_bg" id="botao_responsavel_proximo">Continuar</div>
                     </div>
                 </div>
@@ -80,7 +80,7 @@
                         @? formInput(name: 'ramal', placeholder: 'Digite o ramal', label: 'Digite o ramal',  value: '', class: 'tirar_tab_old')
                     </div>
                     <div class="bloco_botao">
-                        <div class="botao_geral_cor cinza" id="botao_contato_anterior">Voltar</div>
+                        @? $Botao->botao(id: 'botao_contato_anterior')->voltar()
                         <div class="botao_geral_cor cor_bg" id="botao_contato_proximo">Continuar</div>
                     </div>
                 </div>
@@ -105,7 +105,7 @@
                         @? formSelect(name: 'cidade', placeholder: 'Cidade', obrigatorio: true, label: 'Cidade', lista: ['' => 'Escolha um estado'], class: 'tirar_tab_old')
                     </div>
                     <div class="bloco_botao">
-                        <div class="botao_geral_cor cinza" id="botao_endereco_anterior">Voltar</div>
+                        @? $Botao->botao(id: 'botao_endereco_anterior')->voltar()
                         <div class="botao_geral_cor cor_bg" id="botao_contratar_enviar">Tenho Interesse</div>
                     </div>
                 </div>
