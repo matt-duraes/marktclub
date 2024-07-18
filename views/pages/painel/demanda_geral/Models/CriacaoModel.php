@@ -37,16 +37,16 @@ final class CriacaoModel
         if ($this->request->criacao_site != 'sim') {
             return;
         }
-        $texto = $this->request->getPost('texto', html: false);
+        $texto = $this->request->getPost('site_texto', html: false);
+        $largura = $this->request->site_largura;
+        $altura = $this->request->site_altura;
         $this->criarTarefaPadrao(
             titulo: 'Criar peça para site',
             texto: <<<HTML
                 <p>Criar peça para site no tamanho <strong>
-                    $this->request->site_largura</strong>x<strong>
-                    $this->request->site_altura</strong></p>
+                    $largura</strong>x<strong>
+                    $altura</strong></p>
                 <hr>
-                $this->request->getPost('site_texto', html: false)
-                <p><strong>Outros dados:</strong></p>
                 $texto
             HTML
         );

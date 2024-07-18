@@ -40,6 +40,7 @@ final class CriarCotacaoProdutoModel
             texto: <<<HTML
                 <p><strong>Dados do solicitante</strong></p>
                 <ul>
+                    <li>Nome: $dado->nome</li>
                     <li>CPF: $dado->cpf</li>
                     <li>E-mail: $dado->email</li>
                     <li>Telefone: $dado->telefone</li>
@@ -47,16 +48,14 @@ final class CriarCotacaoProdutoModel
 
                 <p><strong>Dados do produto</strong></p>
                 <ul>
-                    <li>Tipo: $dado->tipo</li>
+                    <li>Tipo: $dado->produto_tipo</li>
                     <li>Marca: $dado->marca</li>
                     <li>Modelo: $dado->modelo</li>
                     <li>Extra: $dado->extra</li>
                 </ul>
                 <p><strong>Outros dados:</strong></p>
                 $texto
-            HTML,
-            equipe: '',
-            tempo: 20
+            HTML
         );
     }
 
