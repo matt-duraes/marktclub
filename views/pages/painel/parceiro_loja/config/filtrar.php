@@ -15,6 +15,11 @@ $equipe = (new ApiHelper(token: true))
     ->get('/usuario-equipe/select')
     ->array()['dado'] ?? [];
 
+$subcategoria = (new ApiHelper(token: true))
+    ->json(['titulo' => 'Escolha uma opção'])
+    ->get('/parceiro-subcategoria/select')
+    ->array()['dado'] ?? [];
+
 $Painel
     ->input(name: 'titulo', label: 'Título', placeholder: 'Digite um título')
     ->bloco(function () use ($Painel, $equipe) {
@@ -22,10 +27,10 @@ $Painel
             ->select(name: 'empresa', label: 'Empresa', lista: 'empresa', permissao: Helper::PERMISSAO_EMPRESA)
             ->select(name: 'equipe', label: 'Equipe', lista: $equipe);
     })
-    ->bloco(function () use ($Painel) {
+    ->bloco(function () use ($Painel, $subcategoria) {
         $Painel
             ->select(name: 'categoria', label: 'Categoria', placeholder: 'Escolha uma categoria', lista: (new Categoria())->select('Escolha uma opção'))
-            ->select(name: 'subcategoria', label: 'Subcategoria', placeholder: 'Escolha uma subcategoria', lista: (new Categoria())->select('Escolha uma opção'));
+            ->select(name: 'subcategoria', label: 'Subcategoria', placeholder: 'Escolha uma subcategoria', lista: $subcategoria);
     })
     ->bloco(function () use ($Painel) {
         $Painel
