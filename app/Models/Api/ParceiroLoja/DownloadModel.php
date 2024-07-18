@@ -2,77 +2,47 @@
 
 namespace App\Models\Api\ParceiroLoja;
 
-use ORM\ORM;
 use Http\Request;
-use Modules\Data;
 use Modules\DataHora;
 use Modules\Telefone;
 use Helpers\OrmHelper;
 use App\Classes\ParceiroLoja\Status;
 use App\Classes\ParceiroLoja\TipoLoja;
 use App\Classes\ParceiroLoja\Categoria;
-use App\Models\Api\Painel\LogDownloadEntity;
+use App\Models\Api\Download\DownloadGeralModel;
 use App\Models\Api\Trait\ValidarEmpresaTrait;
-use App\Classes\ParceiroLoja\TipoEstabelecimento;
 use App\Models\Api\ParceiroLoja\Trait\WhereTrait;
 use App\Models\Api\ParceiroLoja\Trait\MontarRetornoTrait;
+use App\Models\Api\ParceiroLoja\Trait\PropriedadeModelTrait;
 
-final class DownloadModel extends ORM
+final class DownloadModel extends DownloadGeralModel
 {
     use ValidarEmpresaTrait;
     use MontarRetornoTrait;
     use WhereTrait;
+    use PropriedadeModelTrait;
 
-    public array $campo;
-    public string $equipe;
-    public string $usuario;
-    public string $empresa;
-    private int $idEmpresa;
-    public Categoria $categoria;
-    public string $subcategoria;
-    public TipoEstabelecimento $tipo_estabelecimento;
-    public string $titulo;
-    public string $pesquisa;
-    public TipoLoja $tipo_loja;
-    public Status $status;
-    public string $convenio_direto;
-    public string $painel;
-    public Data $data_criacao_de;
-    public Data $data_criacao_ate;
-    public Data $data_publicacao_de;
-    public Data $data_publicacao_ate;
-    public Data $data_prospeccao_de;
-    public Data $data_prospeccao_ate;
-    public Data $data_problema_de;
-    public Data $data_problema_ate;
-    public Data $data_cancelado_de;
-    public Data $data_cancelado_ate;
-    public Data $data_auditoria_de;
-    public Data $data_auditoria_ate;
-    public array $endereco_estado;
-    protected string $ormTabela = TABELA_PARCEIRO_LOJA;
+    protected array $campoAceito = [
+        'titulo', 'titulo_interno', 'razao_social', 'nome_fantasia', 'documento_cnpj', 'documento_cpf', 'responsavel_nome',
+        'responsavel_cargo', 'responsavel_cpf', 'responsavel_telefone', 'responsavel_email', 'desconto',
+        'texto_descricao', 'texto_desconto', 'texto_procedimento', 'texto_restricao', 'texto_outro',
+        'texto_voucher', 'comissao_minima', 'comissao_maxima', 'data_contrato_inicio', 'data_contrato_vencimento',
+        'tipo_loja', 'status', 'categoria_principal', 'equipe', 'endereco_estado', 'link_site', 'url',
+        'pontuacao', 'data_auditoria', 'data_cancelado', 'cancelar_motivo', 'data_publicacao'
+    ];
 
     public function __construct(
-        private ?Request $request = null
+        protected Request $request
     ) {
-        parent::__construct();
-        $this->validarCamposAceito();
+        parent::__construct($request, TABELA_PARCEIRO_LOJA, 'parceiro-loja');
+        $this->buscarRegistro();
+        $this->validarBusca();
+        $this->salvarLogDownload();
+        $this->montarRetornoDownload();
+        $this->salvarArquivo();
     }
 
-    public function download()
-    {
-        $campo = $this->campo;
-        $dado = $this->buscarLojas($campo);
-
-        if (!array_key_exists('0', $dado)) {
-            $this->erroDownloadPadrao();
-        }
-
-        $this->salvarLogDownload($dado);
-        return $this->montarRetornoDownload($dado);
-    }
-
-    private function buscarLojas(array $campo)
+    protected function buscarRegistro(): void
     {
         $empresaId = $this->pegarEmpresa();
         $novosCampos = $this->converterCampoParaDownload();
@@ -81,10 +51,23 @@ final class DownloadModel extends ORM
             ->campo($novosCampos)
             ->where($this->pegarWhere($empresaId), false);
 
-        $query = $this->pegarQueryEmpresa($query);
         $query = $this->pegarQueryEquipe($query);
 
-        return $query->read();
+        $this->busca = $query->read();
+    }
+
+    private function converterCampoParaDownload(): array
+    {
+        $campo = array_flip($this->campo);
+
+        if (array_key_exists('empresa', $campo)) {
+            unset($campo['empresa']);
+        }
+        if (array_key_exists('equipe', $campo)) {
+            unset($campo['equipe']);
+        }
+
+        return array_keys($campo);
     }
 
     private function pegarEmpresa(): null|int
@@ -95,21 +78,6 @@ final class DownloadModel extends ORM
 
         return (new OrmHelper(TABELA_COMERCIAL_EMPRESA))
             ->pegarIdPeloUuid($this->empresa);
-    }
-
-    private function pegarQueryEmpresa($query)
-    {
-        $campoEmpresa = [];
-        if (in_array('empresa', $this->campo)) {
-            $campoEmpresa[] = 'titulo';
-        }
-        if ($campoEmpresa) {
-            $query
-                ->tabela(TABELA_COMERCIAL_EMPRESA)
-                ->campo($campoEmpresa, 'empresa')
-                ->leftJoin('id', 'id_admin_empresa');
-        }
-        return $query;
     }
 
     private function pegarQueryEquipe($query)
@@ -127,31 +95,11 @@ final class DownloadModel extends ORM
         return $query;
     }
 
-    private function salvarLogDownload(array $dado)
-    {
-        $Log = new LogDownloadEntity(
-            app: 'parceiro_loja',
-            request: $this->request->dado(),
-            quantidade: count($dado),
-            usuario: $this->usuario
-        );
-        try {
-            $Log->salvar();
-        } catch (\Throwable) {
-            $this->erroDownloadPadrao();
-        }
-    }
-
-    private function erroDownloadPadrao()
-    {
-        mensagemErro('Erro!', 'Ocorreu um erro ao fazer o download, por favor, tente novamente.');
-    }
-
-    private function montarRetornoDownload(array $dado): array
+    protected function montarRetornoDownload(): void
     {
         $i = 0;
         $retorno = [];
-        foreach ($dado as $linha) {
+        foreach ($this->busca as $linha) {
             foreach ($linha as $ind => $val) {
                 if ($ind === 'status') {
                     $val = (new Status($val))->indice();
@@ -178,49 +126,6 @@ final class DownloadModel extends ORM
             }
             $i++;
         }
-        return $retorno;
-    }
-
-    private function validarCamposAceito(): void
-    {
-        $camposAceito = [
-            'titulo', 'titulo_interno', 'razao_social', 'nome_fantasia', 'documento_cnpj', 'documento_cpf', 'responsavel_nome',
-            'responsavel_cargo', 'responsavel_cpf', 'responsavel_telefone', 'responsavel_email', 'desconto',
-            'texto_descricao', 'texto_desconto', 'texto_procedimento', 'texto_restricao', 'texto_outro',
-            'texto_voucher', 'comissao_minima', 'comissao_maxima', 'data_contrato_inicio', 'data_contrato_vencimento',
-            'tipo_loja', 'status', 'categoria_principal', 'equipe', 'empresa', 'endereco_estado', 'link_site', 'url',
-            'pontuacao', 'data_auditoria', 'data_cancelado', 'cancelar_motivo', 'data_publicacao'
-        ];
-
-        $listaCampos = jsonDecode($this->request->campo, true, true);
-        if (!$listaCampos) {
-            mensagemErro('Erro!', 'Você deve enviar pelo menos um campo.');
-        }
-
-        foreach ($listaCampos as $campo) {
-            if (!in_array($campo, $camposAceito)) {
-                mensagemErro(
-                    'Erro!',
-                    'Um ou mais campos não tem permissão para serem buscados.',
-                    status: 403,
-                    localhost: 'O campo ' . $campo . ' não está na lista de campos permitidos'
-                );
-            }
-        }
-        return;
-    }
-
-    private function converterCampoParaDownload(): array
-    {
-        $campo = array_flip($this->campo);
-
-        if (array_key_exists('empresa', $campo)) {
-            unset($campo['empresa']);
-        }
-        if (array_key_exists('equipe', $campo)) {
-            unset($campo['equipe']);
-        }
-
-        return array_keys($campo);
+        $this->busca = $retorno;
     }
 }

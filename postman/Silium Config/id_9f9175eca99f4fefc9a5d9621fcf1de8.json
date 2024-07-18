@@ -1,0 +1,1 @@
+{"id":"id_9f9175eca99f4fefc9a5d9621fcf1de8","token":"painel","metodo":"GET","nome":"\/silium-config\/:id","uri":"{{LINK}}\/silium-config\/$SILIUM_CONFIG_ID","parametro":[],"body":[],"header":[],"variavel":[],"json":[],"documentacao":{"status":false,"descricao":"","requisicao":"","resposta":"","scope":"silium_config:buscar"}}

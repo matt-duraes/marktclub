@@ -3,10 +3,12 @@ class Esqueleto {
      *
      * @param {*} bloco Elemento principal do esqueleto
      * @param {*} loading Marcador CSS dos elementos filhos que precisam animar
+     * @param {bool} bg false para não colocar background branco
      */
-    constructor(bloco, loading) {
+    constructor(bloco, loading, bg) {
         this.bloco = bloco;
         this.loading = loading;
+        this.bg = bg == undefined ? true : bg;
     }
 
     show() {
@@ -22,6 +24,9 @@ class Esqueleto {
         }
         item.classList.add('fw_esqueleto_overflow');
         item.classList.add('fw_esqueleto_bloco');
+        if (this.bg) {
+            item.classList.add('fw_esqueleto_bg');
+        }
         item.classList.remove('display_none');
         if (loading === undefined || loading == '') {
             return;

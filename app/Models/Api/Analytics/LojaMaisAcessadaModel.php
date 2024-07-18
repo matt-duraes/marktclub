@@ -2,6 +2,7 @@
 
 namespace App\Models\Api\Analytics;
 
+use Helpers\OrmHelper;
 use ORM\ORM;
 use Modules\Data;
 use App\Models\Api\Analytics\Trait\WhereTrait;
@@ -17,7 +18,8 @@ final class LojaMaisAcessadaModel extends ORM
         protected Data $de,
         protected Data $ate,
         protected TipoEstabelecimento $estabelecimento,
-        private array|string|null $Empresa = null
+        private array|string|null $Empresa = null,
+        private array|string|null $parceiro = null
     ) {
         parent::__construct();
     }
@@ -40,7 +42,36 @@ final class LojaMaisAcessadaModel extends ORM
         if ($this->estabelecimento->valido()) {
             $where[] = ['parceiro_estabelecimento', $this->estabelecimento->numero()];
         }
+
+        $whereParceiro = $this->pegarWhereParceiro();
+        if (!empty($whereParceiro)) {
+            $where[] = $whereParceiro;
+        }
+
         return $where;
+    }
+
+    private function pegarWhereParceiro()
+    {
+        if (empty($this->parceiro)) {
+            return;
+        }
+
+        if (!is_array($this->parceiro)) {
+            $ormHelper = new OrmHelper(TABELA_PARCEIRO_LOJA);
+            $parceiroId = $ormHelper->pegarIdPeloUuid($this->parceiro);
+            return ['id_parceiro_loja', $parceiroId];
+        }
+
+        $parceiroUuid = $this->parceiro;
+        $ormHelper = new OrmHelper(TABELA_PARCEIRO_LOJA);
+
+        $parceiroId = [];
+        foreach ($parceiroUuid as $e) {
+            $parceiroId[] = $ormHelper->pegarIdPeloUuid($e);
+        }
+
+        return ['id_parceiro_loja', 'in', $parceiroId];
     }
 
     private function montarDado($lista)

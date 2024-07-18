@@ -23,6 +23,12 @@ window.addEventListener('load', () => {
         const de = inputDe.value;
         const ate = inputAte.value;
         const empresa = pegarValoresMarcadosEmpresa();
+        const parceiro = pegarValoresMarcadosParceiro();
+
+        if (parceiro.length > 0) {
+            carregarAcessoPorPagina({});
+            return;
+        }
 
         graficoAcesso.classList.add('loading');
         const resposta = await ajaxGet(LINK + `/relatorio/acesso-dia`, { de, ate, empresa }, undefined, {
@@ -30,12 +36,10 @@ window.addEventListener('load', () => {
                 'Content-Type': 'application/json',
             },
         });
-
         graficoAcesso.classList.remove('loading');
         if (resposta.dado == undefined) {
             return;
         }
-
         carregarAcessoPorPagina(resposta.dado);
     };
     buscarAcessoPorPagina();
@@ -64,39 +68,49 @@ window.addEventListener('load', () => {
         const de = inputDe.value;
         const ate = inputAte.value;
         const empresa = pegarValoresMarcadosEmpresa();
+        const parceiro = pegarValoresMarcadosParceiro();
 
-        let bloco, loading;
+        let bloco, loading, newLocal;
         let estabelecimento = '';
         if (local == 'usuario') {
             bloco = listaAcessoUsuario;
             loading = document.querySelector('#lista_acesso_usuario');
+            newLocal = 'usuario';
         } else if (local == 'loja') {
             bloco = listaAcessoParceiro;
             loading = document.querySelector('#lista_acesso_parceiro');
+            newLocal = 'loja';
         } else if (local == 'loja-online') {
             bloco = listaAcessoParceiroOnline;
             loading = document.querySelector('#lista_acesso_parceiro_online');
             estabelecimento = 'online';
-            local = 'loja';
+            newLocal = 'loja';
         } else if (local == 'loja-fisico') {
             bloco = listaAcessoParceiroFisico;
             loading = document.querySelector('#lista_acesso_parceiro_fisico');
             estabelecimento = 'fisico';
-            local = 'loja';
+            newLocal = 'loja';
         } else if (local == 'pagina') {
             bloco = listaAcessoPagina;
             loading = document.querySelector('#lista_acesso_pagina');
+            newLocal = 'pagina';
+        }
+
+        if (parceiro.length > 0 && local != 'loja') {
+            carregarListaMaisAcesso([], bloco, local);
+            return;
         }
 
         loading.classList.add('loading');
         const resposta = await ajaxGet(
             LINK + `/relatorio/mais-acessado`,
             {
-                local,
+                local: newLocal,
                 de,
                 ate,
                 empresa,
                 estabelecimento,
+                parceiro,
             },
             undefined,
             {
@@ -105,13 +119,10 @@ window.addEventListener('load', () => {
                 },
             }
         );
-
         loading.classList.remove('loading');
-
         if (resposta.dado == undefined) {
             return;
         }
-
         carregarListaMaisAcesso(resposta.dado, bloco, local);
     };
     buscarMaisAcessado('usuario');
@@ -148,6 +159,12 @@ window.addEventListener('load', () => {
         const de = inputDe.value;
         const ate = inputAte.value;
         const empresa = pegarValoresMarcadosEmpresa();
+        const parceiro = pegarValoresMarcadosParceiro();
+
+        if (parceiro.length > 0) {
+            carregarAcessoPorPagina({});
+            return;
+        }
 
         let bloco;
         if (tipo == 'dispositivo') {
@@ -158,7 +175,6 @@ window.addEventListener('load', () => {
             bloco = graficoOs;
         }
         bloco.classList.add('loading');
-
         const resposta = await ajaxGet(
             LINK + `/relatorio/dispositivo`,
             {
@@ -174,13 +190,10 @@ window.addEventListener('load', () => {
                 },
             }
         );
-
         bloco.classList.remove('loading');
-
         if (resposta.dado == undefined) {
             return;
         }
-
         carregarGraficoDispositivo(resposta.dado, tipo);
     };
     buscarPorDispositivo('dispositivo');

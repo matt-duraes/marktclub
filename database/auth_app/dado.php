@@ -114,6 +114,9 @@ $scope = [
     'construtor_clube:buscar', 'construtor_clube:listar', 'construtor_clube:salvar', 'construtor_clube:atualizar',
     'construtor_clube:deletar',
 
+    'demanda_sprint:listar', 'demanda_sprint:buscar', 'demanda_sprint:salvar', 'demanda_sprint:atualizar',
+    'demanda_sprint:demanda',
+
     'demanda_dado:listar', 'demanda_dado:buscar', 'demanda_dado:salvar', 'demanda_dado:atualizar',
     'demanda_dado:cancelar',
 
@@ -185,8 +188,10 @@ $scope = [
     'silium_deposito:buscar', 'silium_deposito:listar', 'silium_deposito:salvar',
     'silium_deposito:atualizar', 'silium_deposito:deletar',
 
-    'silium_saque:select', 'silium_saque:buscar', 'silium_saque:listar',
-    'silium_saque:salvar', 'silium_saque:atualizar', 'silium_saque:deletar',
+    'silium_config:buscar', 'silium_config:listar', 'silium_config:atualizar',
+    'silium_config:configuracoes',
+
+    'silium_saldo:listar',
 
     'solicitacao_loja:listar', 'solicitacao_loja:buscar', 'solicitacao_loja:salvar',
     'solicitacao_loja:atualizar', 'solicitacao_loja:deletar', 'solicitacao_loja:download',
@@ -217,8 +222,10 @@ $scope = [
 
     'votacao_dado:buscar', 'votacao_dado:listar', 'votacao_dado:salvar', 'votacao_dado:atualizar',
     'votacao_dado:deletar', 'votacao_dado:resultado',
-    'votacao_pergunta:buscar', 'votacao_pergunta:listar', 'votacao_pergunta:salvar', 'votacao_pergunta:atualizar', 'votacao_pergunta:deletar',
-    'votacao_resposta:buscar', 'votacao_resposta:listar', 'votacao_resposta:salvar', 'votacao_resposta:atualizar', 'votacao_resposta:deletar',
+    'votacao_pergunta:buscar', 'votacao_pergunta:listar', 'votacao_pergunta:salvar', 'votacao_pergunta:atualizar',
+    'votacao_pergunta:deletar',
+    'votacao_resposta:buscar', 'votacao_resposta:listar', 'votacao_resposta:salvar', 'votacao_resposta:atualizar',
+    'votacao_resposta:deletar',
     'votacao_usuario:validar',
     'votacao_voto:salvar',
 

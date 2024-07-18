@@ -1,32 +1,27 @@
 <?php
 
-use App\Classes\Silium\StatusDeposito;
+use App\Classes\SiliumDeposito\Status;
 use PainelConfig\Add;
 
 $Painel = new Add('silium_deposito', $acao);
 
-$Painel->coluna(callback: function () use ($Painel) {
-    $Painel->fieldset('Informações do Depósito', function () use ($Painel) {
+$Status = new Status();
+$Painel->coluna(callback: function () use ($Painel, $Status) {
+    $listaStatus = $Status->select('Selecione um status');
+    unset($listaStatus[Status::AGUARDANDO]);
+
+    $Painel->fieldset('Informações do Depósito', function () use ($Painel, $listaStatus) {
         $Painel
-            ->select(
+            ->input(
                 name: 'saque',
-                lista: ['' => 'Selecione a solicitação de saque'],
-                label: 'Solicitação de Saque',
-                placeholder: 'Digite o nome do usuário ou sua identificação (ID)',
-                acao: 'add',
-                obrigatorio: true
-            )
-            /*->input(
-                name: 'saque',
-                label: 'Solicitação de Saque',
-                placeholder: 'Digite a identificação (ID)',
+                label: 'Identificação da Solicitação',
+                placeholder: 'Insira a identificação da solicitação (UUID)',
                 acao: 'add'
-            )*/
+            )
             ->dinheiro(
                 name: 'valor',
-                label: 'Valor do Depósito',
-                placeholder: 'Insira o valor que foi depositado',
-                obrigatorio: true
+                label: 'Valor do Depósito (Reais)',
+                placeholder: 'Insira o valor que foi depositado (Reais)'
             )
             ->data(
                 name: 'data_deposito',
@@ -34,19 +29,23 @@ $Painel->coluna(callback: function () use ($Painel) {
                 placeholder: 'Insira a data do depósito',
                 obrigatorio: true
             )
-            /*->select(
+            ->select(
                 name: 'status',
-                lista: (new StatusDeposito())->select('Selecione um status'),
+                lista: $listaStatus,
                 label: 'Status',
                 placeholder: 'Status',
                 obrigatorio: true
-            )*/
+            );
+    });
+
+    $Painel->fieldset('Comprovante do Depósito', function () use ($Painel) {
+        $Painel
             ->imagem(
                 name: 'documento_anexo',
-                diretorio: '2d978fba-4bd2-4af7-80bf-ebb94d9ac991'
+                diretorio: '2a957957-05be-4024-a5fb-7f69a4a0d07f',
+                label: 'Imagem/Foto'
             );
     });
 });
-$Painel->js('painel_silium_deposito_add');
 
 return $Painel;

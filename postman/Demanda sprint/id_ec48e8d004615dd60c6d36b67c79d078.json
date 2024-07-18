@@ -1,0 +1,1 @@
+{"id":"id_ec48e8d004615dd60c6d36b67c79d078","token":"token","metodo":"GET","nome":"\/demanda-sprint\/:id","uri":"{{LINK}}\/demanda-sprint\/$DEMANDA_SPRINT_ID","parametro":[],"body":[],"header":[],"variavel":[],"json":[],"documentacao":{"status":false,"descricao":"","requisicao":"","resposta":"","scope":"demanda_sprint:buscar"}}

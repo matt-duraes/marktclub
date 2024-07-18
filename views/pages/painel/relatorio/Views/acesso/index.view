@@ -11,6 +11,13 @@
             @? formData(name: ['relatorio_data_de', 'relatorio_data_ate'], label: 'Data', value: [$de, $ate], separador: 'até');
         </div>
 
+        @ if ($parceiroPermissao):
+        <form id="form_parceiro">
+            @? formSelect(name: 'parceiro', label: 'Selecione um parceiro', placeholder: 'Selecione um parceiro', lista: array_merge(['' => 'Selecione um parceiro'], $parceiro));
+        </form>
+        <div class="tag_lista" id="lista_parceiro"></div>
+        @ endif;
+
         @ if ( temPermissaoEmpresa('relatorio_acesso') ):
         <div class="bloco_empresas">
             <span class="titulo_empresas">Empresas</span>

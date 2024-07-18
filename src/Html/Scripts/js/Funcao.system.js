@@ -919,9 +919,6 @@ const buscarEnderecoPeloCep = (
         formValue(inputCidade, dado.cidade);
         formValue(inputEstado, dado.estado);
 
-        if (dado.logradouro != '') {
-            //inputNumero.focus();
-        }
         if (dado.estado != '' && inputCidade.classList.contains('input_select_value')) {
             if (browser == undefined) {
                 buscarCidadePeloEstado(inputCidade, dado.estado, dado.cidade, 'Escolha uma cidade');

@@ -1,7 +1,7 @@
 <div id="botao_swiped_esquerdo"></div>
 
 <div id="header_principal">
-    <i class="botao botao_menu_mobile">@iconeMenuMobile</i>
+    <i class="botao botao_menu_mobile" data-test="botao_menu_mobile">@iconeMenuMobile</i>
     <figure>
         <a href="@route(index.index)">
             <img class="tema_branco" src="{{CLUBE_LOGO_PRINCIPAL}}" alt="{{CLUBE_TITULO}}">
@@ -37,7 +37,7 @@
         </div>
 
         @ if( MENU_PERFIL ):
-            <div class="bloco_geral_sub_menu desktop display_none" id="bloco_menu_perfil">
+            <div class="bloco_geral_sub_menu desktop display_none" id="bloco_menu_perfil" data-test="bloco_menu_perfil_desktop">
                 <a class="botao" id="botao_tema">
                     <i>@iconeTema</i>
                     Mudar Tema
@@ -53,8 +53,8 @@
             <!-- PERFIL MENU QUANDO FOR MOBILE-->
             <div class="mobile" id="bloco_perfil_mobile">
                 <div class="categoria">PERFIL</div>
-                <div id="bloco_menu_perfil">
-                    <a class="botao" id="botao_tema_mobile">
+                <div id="bloco_menu_perfil" data-test="bloco_menu_perfil_mobile">
+                    <a class="botao" id="botao_tema_mobile" data-test="botao_menu_perfil_tema">
                         <i>@iconeTema</i>
                         Mudar Tema
                     </a>

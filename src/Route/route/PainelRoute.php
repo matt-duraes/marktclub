@@ -12,6 +12,7 @@ use PainelApp\agenda\Controllers\AgendaController;
 use PainelApp\perfil\Controllers\PerfilController;
 use PainelApp\download\Controllers\DownloadController;
 use PainelApp\assinatura\Controllers\AssinaturaController;
+use PainelApp\atualizacao\Controllers\AtualizacaoController;
 
 Route
     ::middleware(
@@ -61,8 +62,27 @@ Route
         Route::nome('empresa')::rotaNaoUnica()::request(['hash_validacao', 'empresa'])::post('/perfil/empresa');
         Route::nome('imagem')::rotaNaoUnica()::request(['hash_validacao'])::request(['arquivo'], 'files')::post('/perfil/imagem');
     }, true)
+
+    // ATUALIZACAO
+    ::nome('atualizacao')
+    ::controller(AtualizacaoController::class)::grupo(function () {
+        Route
+            ::nome('index')
+            ::rotaNaoUnica()
+            ::request(['pagina'])
+            ::view('/atualizacao');
+        Route
+            ::nome('detalhe')
+            ::rotaNaoUnica()
+            ::view('/atualizacao/{url}');
+    }, true)
+
+    // ASSINATURA
     ::nome('assinatura')::controller(AssinaturaController::class)::grupo(function () {
-        Route::nome('index')::rotaNaoUnica()::view('/assinatura');
+        Route
+            ::nome('index')
+            ::rotaNaoUnica()
+            ::view('/assinatura');
         Route
             ::nome('html')
             ::rotaNaoUnica()

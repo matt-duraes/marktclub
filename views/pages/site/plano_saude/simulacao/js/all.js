@@ -3,418 +3,164 @@
 // @system "Form"
 // @system "Loading"
 // @system "Mascara"
-// @resource "site/passo_passo"
+// @system "PassoPasso"
+// @system "Calendario"
 
-const blocoRegiao = $('#bloco_regiao');
-const blocoPlano = $('#bloco_plano');
-const blocoSimulacao = $('#bloco_simulacao');
-const blocoResultado = $('#bloco_resultado');
-const blocoAcomodacao = $('#bloco_acomodacao');
-const blocoOperadora = $('#operadora');
-const blocoListaDependente = $('#bloco_lista_dependente');
-const botaoAdicionarDependente = $('#botao_adicionar_dependente');
-const inputDataTitular = $('#input_data_titular');
-const blocoBotaoVoltarAcomodacao = $('#bloco_botao_acomodacao');
-const botaoSimulacaoContinuar = $('#botao_simulacao_continuar');
-const botaoContratar = $('#botao_contratar');
-
-const blocoValorLista = $('#bloco_valor_lista');
-const blocoValorTotal = $('#bloco_valor_total');
-const blocoValorTitular = $('#bloco_valor_titular');
-
-const blocoDependentePadrao = $('#bloco_dependente_padrao');
-blocoDependentePadrao.removeAttribute('id');
-const blocoResultadoTitularPadrao = $('#bloco_resultado_titular_padrao');
-blocoResultadoTitularPadrao.removeAttribute('id');
-const blocoResultadoDependentePadrao = $('#bloco_resultado_dependente_padrao');
-blocoResultadoDependentePadrao.removeAttribute('id');
-
-const botaoVoltar = $$('.botao_geral_voltar');
 window.addEventListener('load', () => {
-    if (blocoRegiao) {
-        carregarRegiao();
-    }
-    if (blocoPlano) {
-        carregarPlano();
-    }
-    if (blocoAcomodacao) {
-        carregarAcomodacao();
-    }
-});
-BODY.addEventListener('keydown', e => {
-    if (e.key == 'Tab') {
-        e.preventDefault();
-        if (e.target.tagName.toUpperCase() == 'INPUT') {
-            e.target.blur();
-        }
-    }
-});
-
-/*
-|--------------------------------------------------------------------------
-| BOTAO VOLTAR
-|--------------------------------------------------------------------------
-*/
-botaoVoltar.forEach(botao => {
-    botao.addEventListener('click', () => {
-        const blocoAtual = pegarBlocoPassoAtual();
-        const blocoAnterior = pegarBlocoPassoAnterior();
-        if (blocoAtual == blocoResultado) {
-            $('#bloco_valor_lista').innerHTML = '';
-        }
-        if (blocoAtual == blocoRegiao) {
-            limparRegiao();
-            limparBotaoRegiao();
-        }
-        if (blocoAnterior == blocoRegiao) {
-            limparRegiao();
-        }
-        if (blocoAtual == blocoPlano) {
-            limparBlocoPlano();
-            limparBotaoPlano();
-        }
-        if (blocoAnterior == blocoPlano) {
-            limparBotaoPlano();
-        }
-        if (blocoAtual == blocoAcomodacao) {
-            limparBlocoAcomodacao();
-            limparBotaoAcomodacao();
-        }
-        if (blocoAnterior == blocoAcomodacao) {
-            limparBotaoAcomodacao();
-            limparBlocoAcomodacao();
-        }
-        if (blocoAtual == blocoSimulacao) {
-            limparSimulacao();
-        }
-        irParaPassoAnterior();
-    });
-});
-
-/*
-|--------------------------------------------------------------------------
-| ACOMODAÇÃO
-|--------------------------------------------------------------------------
-*/
-
-const blocoAtual = pegarBlocoPassoAtual();
-const abrirBlocoAcomodacao = planoSelecionado => {
-    limparSimulacao();
-    irParaProximoPasso();
-    let plano = planoSelecionado.getAttribute('data-plano');
-    const acomodacoes = $$('#bloco_acomodacao .botao_escolher_acomodacao');
-    if (plano == 'regional') {
-        acomodacoes.forEach(acomodacao => {
-            let dataAcomodacao = acomodacao.getAttribute('data-acomodacao');
-            if (dataAcomodacao == 'enfermaria' || dataAcomodacao == 'apartamento') {
-                acomodacao.classList.add('display_none');
-            }
-            if (dataAcomodacao == 'enfermaria-30' || dataAcomodacao == 'enfermaria-50') {
-                acomodacao.classList.remove('display_none');
-            }
-        });
-    }
-    if (plano == 'nacional' || plano == 'estadual') {
-        acomodacoes.forEach(acomodacao => {
-            let dataAcomodacao = acomodacao.getAttribute('data-acomodacao');
-            if (dataAcomodacao == 'enfermaria' || dataAcomodacao == 'apartamento') {
-                acomodacao.classList.remove('display_none');
-            }
-            if (dataAcomodacao == 'enfermaria-30' || dataAcomodacao == 'enfermaria-50') {
-                acomodacao.classList.add('display_none');
-            }
-        });
-    }
-};
-
-const operadora = blocoOperadora.getAttribute('data-operadora');
-if (operadora == 'unimed' || operadora == 'unimed_seguros') {
-    $('.bloco_botao_acomodacao').classList.add('display_none');
-}
-
-const limparBlocoAcomodacao = () => {
-    adicionarClassLista($$('.bloco_escolher_acomodacao'), 'display_none');
-};
-const limparBotaoAcomodacao = () => {
-    removerClassLista($$('.botao_escolher_acomodacao'), 'ativo');
-};
-
-const mostrarBotaoVoltar = () => {
-    removerClassLista($('#blocoBotaoVoltarAcomodacao'), 'display_none');
-};
-
-const carregarAcomodacao = () => {
-    const lista = $$('.botao_escolher_acomodacao');
-    lista.forEach(botao => {
-        botao.addEventListener('click', () => {
-            escolherAcomodacao(botao, botao.getAttribute('data-acomodacao'));
-        });
-    });
-};
-const escolherAcomodacao = (botao, acomodacao) => {
-    const blocoProximo = pegarBlocoProximoPasso();
-    if (blocoProximo) {
-        botao.classList.add('ativo');
-        abrirBlocoSimulacao(acomodacao);
-    }
-};
-
-/*
-|--------------------------------------------------------------------------
-| REGIAO
-|--------------------------------------------------------------------------
-*/
-
-const limparRegiao = () => {
-    removerClassLista($$('.botao_escolher_regiao'), 'ativo');
-};
-const carregarRegiao = () => {
-    const lista = $$('.botao_escolher_regiao');
-    lista.forEach(botao => {
-        botao.addEventListener('click', () => {
-            escolherRegiao(botao, botao.getAttribute('data-regiao'));
-        });
-    });
-};
-const escolherRegiao = (botao, regiao) => {
-    const blocoProximo = pegarBlocoProximoPasso();
-    if (blocoProximo == blocoPlano) {
-        botao.classList.add('ativo');
-        abrirBlocoPlano(regiao);
-    }
-};
-
-const abrirBlocoRegiao = acomodacao => {
-    const blocoEscolhido = blocoAcomodacao.querySelector('.' + acomodacao);
-    if (!blocoEscolhido) {
-        Alerta.notificacao('Erro ao escolher acomodação, por favor, tente novamente.');
-        return;
-    }
-    blocoEscolhido.classList.remove('display_none');
-    irParaProximoPasso();
-};
-
-/*
-|--------------------------------------------------------------------------
-| PLANO
-|--------------------------------------------------------------------------
-*/
-
-if (operadora == 'cnu_florianopolis') {
-    $('.botao_voltar_plano').classList.add('display_none');
-}
-const limparBlocoPlano = () => {
-    adicionarClassLista($$('.bloco_escolher_plano'), 'display_none');
-};
-const limparBotaoPlano = () => {
-    removerClassLista($$('.botao_escolher_plano'), 'ativo');
-};
-const carregarPlano = () => {
-    const lista = $$('.botao_escolher_plano');
-    lista.forEach(botao => {
-        botao.addEventListener('click', () => {
-            escolherPlano(botao);
-        });
-    });
-};
-const escolherPlano = botao => {
-    botao.classList.add('ativo');
-
-    if (pegarBlocoProximoPasso() == blocoSimulacao) {
-        abrirBlocoSimulacao();
-    }
-    if (pegarBlocoProximoPasso() == blocoAcomodacao) {
-        abrirBlocoAcomodacao(botao);
-    }
-};
-const abrirBlocoPlano = regiao => {
-    const blocoEscolhido = blocoPlano.querySelector('.' + regiao);
-    if (!blocoEscolhido) {
-        Alerta.notificacao('Erro ao escolher região, por favor, tente novamente.');
-        return;
-    }
-    blocoEscolhido.classList.remove('display_none');
-    irParaProximoPasso();
-};
-
-/*
-|--------------------------------------------------------------------------
-| SIMULAÇÃO
-|--------------------------------------------------------------------------
-*/
-
-const limparSimulacao = () => {
-    blocoListaDependente.innerHTML = '';
-    formValue(inputDataTitular, '');
-};
-
-const abrirBlocoSimulacao = () => {
-    limparSimulacao();
-    irParaProximoPasso();
-};
-
-const validarSimulacao = async () => {
-    if (inputDataTitular.value == '') {
-        Alerta.notificacao('Digite a sua data de nascimento para continuar.', false);
-        return;
-    }
-    const listaDependete = $$('#bloco_lista_dependente .bloco_input input');
-    let alertaDependente = false;
-    listaDependete.forEach(input => {
-        if (input.value == '') {
-            alertaDependente = true;
-        }
-    });
-    if (
-        alertaDependente &&
-        !(await Alerta.confirmar(
-            'Campo vazio',
-            'Um ou mais dependentes estão sem data de nascimento, gostaria de continuar sem fazer a cotação pra esses dependentes?',
-            '!'
-        ))
-    ) {
-        return;
-    }
-    buscarValorSimulacao();
-};
-
-if (botaoSimulacaoContinuar) {
-    botaoSimulacaoContinuar.addEventListener('click', validarSimulacao);
-}
-
-const buscarValorSimulacao = async () => {
-    const operadora = blocoOperadora.getAttribute('data-operadora');
-    const body = {
-        titular: inputDataTitular.value,
-        regiao: pegarRegiao(),
-        plano: pegarPlano(),
-        acomodacao: pegarAcomodacao(),
-        dependentes: [],
-        operadora: operadora,
-    };
-    const dependente = [];
-    $$('#bloco_lista_dependente .bloco_input input').forEach(input => {
-        if (input.value != '') {
-            dependente.push(input.value);
-        }
-    });
-    if (dependente.length > 0) {
-        body.dependentes = dependente;
-    }
-    // const resposta = { dado: '' };
-    Loading.show();
-    const resposta = await ajaxPost(
-        LINK + '/saude/realizar-simulacao',
-        body,
-        'Erro ao fazer a simulação, por favor, tente novamente.'
+    const PassoSimular = new PassoPasso(
+        '#bloco_simulacao_saude .bloco_conteudo .conteudo',
+        '#bloco_simulacao_saude .bloco_progresso'
     );
-    Loading.hide();
-    if (!resposta) {
-        return;
-    }
-    if (pegarBlocoProximoPasso() == blocoResultado) {
-        abrirBlocoResultado(resposta.dado);
-    }
-};
 
-const pegarRegiao = () => {
-    if (!blocoRegiao) {
-        return '';
-    }
-    const bloco = blocoRegiao.querySelector('.botao_escolher_regiao.ativo');
-    if (!bloco) {
-        return '';
-    }
-    return bloco.getAttribute('data-regiao');
-};
-
-const pegarPlano = () => {
-    if (!blocoPlano) {
-        return '';
-    }
-    const bloco = blocoPlano.querySelector('.botao_escolher_plano.ativo');
-    if (!bloco) {
-        return '';
-    }
-    return bloco.getAttribute('data-plano');
-};
-
-const pegarAcomodacao = () => {
-    if (!blocoAcomodacao) {
-        return '';
-    }
-    const bloco = blocoAcomodacao.querySelector('.botao_escolher_acomodacao.ativo');
-    if (!bloco) {
-        return '';
-    }
-    return bloco.getAttribute('data-acomodacao');
-};
-
-/*
-|--------------------------------------------------------------------------
-| RESULTADO
-|--------------------------------------------------------------------------
-*/
-
-const limparResultado = () => {
-    //
-};
-
-const abrirBlocoResultado = dado => {
-    limparResultado();
-    irParaProximoPasso();
-    const listaDependente = Object.values(dado.dependente);
-    listaDependente.forEach(dependente => {
-        adicionarLinhaValor(blocoResultadoDependentePadrao, dependente.data, dependente.valor);
+    Calendario.init({
+        input: '.bloco_input_data .input_data[data-mascara="00/00/0000"]',
     });
-    adicionarLinhaValor(blocoResultadoTitularPadrao, dado.titular.data, dado.titular.valor);
-    blocoValorTotal.innerText = `R$ ${dado.valor_total}`;
-    botaoContratar.setAttribute('href', `/saude/simulacao/${dado.id}`);
-};
 
-const adicionarLinhaValor = (bloco, data, valor) => {
-    const clone = bloco.cloneNode(true);
-    clone.querySelector('.data').innerText = data;
-    clone.querySelector('.valor').innerText = 'R$ ' + valor;
-    blocoValorLista.prepend(clone);
-};
+    const botaoRegiao = $$('.botao_escolher_regiao');
+    const botaoAcomodacao = $$('.botao_escolher_acomodacao');
+    const botaoPlano = $$('.botao_escolher_plano');
+    const botaoVoltar = $$('.botao_voltar');
+    const operadora = $('#input_operadora').valor();
 
-/*
-|--------------------------------------------------------------------------
-| DEPENDENTE
-|--------------------------------------------------------------------------
-*/
+    const botaoSimular = $('#botao_simulacao_continuar');
+    const botaoContratar = $('#botao_contratar');
+    const blocoDependenteLista = $('#bloco_lista_dependente');
+    const dependentePadrao = $('#bloco_dependente_padrao');
+    const inputTitular = $('#input_data_titular');
+    const botaoDependente = $('#botao_adicionar_dependente');
+    const blocoValorTotal = $('#bloco_valor_total');
+    const blocoResultadoTitular = $('#bloco_resultado_titular_padrao');
+    const blocoResultadoDependente = $('#bloco_resultado_dependente_padrao');
+    const blocoResultadoLista = $('#bloco_valor_lista');
+    const blocoEscolherPlano = $$('.bloco_escolher_plano');
+    const botaoCnuFlorianopolisRegional = $$('.botao_acomodacao_enfermaria-50, .botao_acomodacao_enfermaria-30');
+    const botaoCnuFlorianopolisNacional = $$('.botao_acomodacao_enfermaria, .botao_acomodacao_apartamento');
 
-botaoAdicionarDependente.addEventListener('click', () => {
-    const clone = blocoDependentePadrao.cloneNode(true);
-    blocoListaDependente.prepend(clone);
-    clone.querySelector('input').focus();
-    fwMascaraLoading(blocoListaDependente);
-});
+    let regiao = '';
+    let plano = '';
+    let acomodacao = '';
 
-if (blocoListaDependente) {
-    blocoListaDependente.addEventListener('click', e => {
-        if (e.target.classList.contains('.remover') || e.target.closest('.remover')) {
-            const item = e.target.closest('.linha_dependente');
-            item.parentNode.removeChild(item);
+    botaoRegiao.evento('click', (e, item) => {
+        botaoRegiao.classe('ativo', false);
+        regiao = item.attr('data-regiao');
+        PassoSimular.proximo(item);
+        blocoEscolherPlano.sumir();
+        $('.bloco_escolher_plano.' + regiao).aparecer();
+    });
+
+    botaoAcomodacao.evento('click', (e, item) => {
+        botaoAcomodacao.classe('ativo', false);
+        acomodacao = item.attr('data-acomodacao');
+        PassoSimular.proximo(item);
+    });
+
+    botaoPlano.evento('click', (e, item) => {
+        botaoPlano.classe('ativo', false);
+        plano = item.attr('data-plano');
+        PassoSimular.proximo(item);
+
+        if (operadora == 'cnu_florianopolis') {
+            setarTipoAcomodacaoCnuFlorianopolis();
         }
     });
-}
-
-/*
-|--------------------------------------------------------------------------
-| GERAL
-|--------------------------------------------------------------------------
-*/
-
-const removerClassLista = (lista, classe) => {
-    lista.forEach(item => {
-        item.classList.remove(classe);
+    const setarTipoAcomodacaoCnuFlorianopolis = () => {
+        botaoAcomodacao.sumir();
+        if (plano == 'regional') {
+            botaoCnuFlorianopolisRegional.aparecer();
+            return;
+        }
+        botaoCnuFlorianopolisNacional.aparecer();
+    };
+    botaoVoltar.evento('click', (e, item) => {
+        PassoSimular.anterior(item);
     });
-};
 
-const adicionarClassLista = (lista, classe) => {
-    lista.forEach(item => {
-        item.classList.add(classe);
+    botaoDependente.evento('click', () => {
+        const dependente = dependentePadrao.clonar();
+        blocoDependenteLista.inicio(dependente);
+        Calendario.init({
+            input: '#bloco_lista_dependente .data_dependente input',
+        });
+        $('input', dependente).focus();
+        fwMascaraLoading(dependente);
     });
-};
+    blocoDependenteLista.evento('click', e => {
+        if (!e.target.classe('remover', '?') && !e.target.closest('.remover')) {
+            return;
+        }
+        e.target.closest('.linha_dependente').remove();
+    });
+
+    botaoSimular.evento('click', async () => {
+        blocoResultadoLista.html('');
+        const dependente = $$('.linha_dependente', blocoDependenteLista);
+        const titular = inputTitular.valor();
+
+        if (vazio(titular) || !validarData(titular)) {
+            Alerta.notificacao('Digite a data de nascimento do titular para continuar.', false);
+            return;
+        } else if (!(await validarDataDependente())) {
+            Alerta.notificacao(
+                'Digite a data de nascimento de todos os dependentes, caso não queira mais algum dependente, basta remover da simulação.',
+                false
+            );
+            return;
+        } else if (
+            dependente.length == 0 &&
+            !(await Alerta.confirmar('Continuar', 'Você vai fazer a simulação sem dependentes, deseja confirmar?', '!'))
+        ) {
+            return;
+        }
+
+        Loading.show();
+        const resposta = await ajaxPost(
+            LINK + '/saude/realizar-simulacao',
+            {
+                operadora,
+                titular,
+                regiao,
+                plano,
+                acomodacao,
+                dependentes: JSON.stringify($$('.linha_dependente input', blocoDependenteLista).valor()),
+            },
+            'Ocorreu um erro ao fazer sua simulação, por favor, tente novamente.'
+        );
+        Loading.hide();
+
+        if (false === resposta) {
+            return;
+        }
+        adicionarValorSimulacao(resposta.dado);
+        PassoSimular.proximo(botaoSimular);
+    });
+
+    const adicionarValorSimulacao = dado => {
+        botaoContratar.attr('href', LINK + '/saude/simulacao/' + dado.id);
+        blocoValorTotal.texto('R$ ' + dado.valor_total);
+        const titular = blocoResultadoTitular.clonar();
+        adicionarValor(titular, dado.titular.data, dado.titular.valor);
+        for (const item of dado.dependente) {
+            const dependente = blocoResultadoDependente.clonar();
+            adicionarValor(dependente, item.data, item.valor);
+        }
+    };
+    const adicionarValor = (bloco, data, valor) => {
+        $('.data', bloco).texto(data);
+        $('.valor', bloco).texto('R$ ' + valor);
+        blocoResultadoLista.final(bloco);
+    };
+
+    const validarDataDependente = () => {
+        const lista = $$('.linha_dependente input', blocoDependenteLista);
+        if (lista.length == 0) {
+            return true;
+        }
+        for (const input of lista) {
+            const data = input.valor();
+            if (vazio(data) || !validarData(data)) {
+                return false;
+            }
+        }
+        return true;
+    };
+});

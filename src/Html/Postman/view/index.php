@@ -68,7 +68,8 @@
             <div class="fechar"><?= iconeFechar(8) ?></div>
         </div>
         <!-- LINHA PADRAO -->
-        <li id="bloco_linha_modelo">
+        <li id="bloco_linha_modelo" class="linha_principal_body">
+            <i class="drag"><?= iconeDrag(8) ?></i>
             <div class="bloco_checkbox">
                 <input type="checkbox" class="check monitorar_salvar" ${checked}>
                 <span><?= iconeCheck(10) ?></span>
@@ -174,6 +175,7 @@
 </div>
 
 <script>
+    <?php require_once __DIR__ . '/../js/drag.js'; ?>
     <?php require_once __DIR__ . '/../js/all.js'; ?>
     <?php require_once __DIR__ . '/../js/enviar.js'; ?>
     <?php require_once __DIR__ . '/../js/menu.js'; ?>

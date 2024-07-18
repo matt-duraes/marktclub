@@ -2,19 +2,19 @@
 
 namespace App\Models\Api\Demanda;
 
-use ApiModel\PainelHistorico\HistoricoEntity;
-use App\Classes\DemandaDado\Area;
-use App\Classes\DemandaDado\Status;
-use App\Classes\DemandaDado\Tipo;
-use App\Models\Api\Demanda\Trait\EmpresaTrait;
 use Erro\Erro;
-use Erro\Excecao;
-use Helpers\OrmHelper;
-use Modules\Botao;
-use Modules\Data;
-use Modules\DataHora;
 use ORM\Entity;
+use Erro\Excecao;
+use Modules\Data;
+use Modules\Botao;
+use Modules\DataHora;
+use Helpers\OrmHelper;
+use App\Classes\DemandaDado\Area;
+use App\Classes\DemandaDado\Tipo;
+use App\Classes\DemandaDado\Status;
 use System\Classes\PainelHistorico\Acao;
+use ApiModel\PainelHistorico\HistoricoEntity;
+use App\Models\Api\Demanda\Trait\EmpresaTrait;
 
 final class DemandaEntity extends Entity
 {
@@ -31,6 +31,7 @@ final class DemandaEntity extends Entity
     public Status $status;
     public int $id_usuario_equipe;
     public string $titulo;
+    public string $texto;
     public string|array $empresa;
     public Tipo $tipo;
     public Area $area;
@@ -38,14 +39,14 @@ final class DemandaEntity extends Entity
     public array $tarefa;
     protected string $ormTabela = TABELA_DEMANDA_DADO;
     protected array $ormBuscar = [
-        'id_admin_empresa', 'id_usuario_equipe', 'titulo', 'tipo', 'status', 'seguindo',
+        'id_admin_empresa', 'id_usuario_equipe', 'titulo', 'texto', 'tipo', 'status', 'seguindo',
         'arquivo', 'com_prazo', 'data_entrega', 'area', 'data_criacao', 'tarefa_tipo'
     ];
     protected array $ormInsert = [
         'tipo', 'area'
     ];
     protected array $ormSalvar = [
-        'arquivo', 'id_admin_empresa', 'id_usuario_equipe', 'titulo', 'status', 'com_prazo', 'data_entrega',
+        'arquivo', 'id_admin_empresa', 'id_usuario_equipe', 'titulo', 'texto', 'status', 'com_prazo', 'data_entrega',
         'ordem', 'data_entrega_real', 'seguindo', 'tarefa_tipo'
     ];
     protected string $ormValidarSalvar = '
@@ -126,7 +127,7 @@ final class DemandaEntity extends Entity
      */
     protected function regraSalvar(): void
     {
-        if ($this->com_prazo->valor() == 'sim' && $this->data_entrega->vazio()) {
+        if ($this->pExiste('com_prazo') && $this->com_prazo->valor() == 'sim' && $this->data_entrega->vazio()) {
             mensagemErro('Campo obrigatório!', 'A data de entrega é obrigatória.');
         }
     }

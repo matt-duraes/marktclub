@@ -5,9 +5,9 @@ const painelSelect = (id, texto) => {
     cy.get('#fw_form_select .option li').contains(texto).click();
 };
 
-const painelLogin = (login, senha) => {
-    login = login === undefined ? marktclub.login : login;
-    senha = senha === undefined ? marktclub.senha : senha;
+const painelLogin = () => {
+    const login = marktclub.login;
+    const senha = marktclub.senha;
     cy.visit('');
     cy.digitar('#input_cpf', login);
     cy.digitar('#input_passe', senha);

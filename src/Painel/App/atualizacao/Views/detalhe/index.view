@@ -1,0 +1,27 @@
+@template "painel"
+
+<div id="bloco_noticia_detalhe">
+    <header>
+        <h1>{{$noticia->titulo_grande}}</h1>
+        @ if( !empty($noticia->subtitulo) ):
+        <p>{{$noticia->subtitulo}}</p>
+        @ endif;
+    </header>
+    <div class="bloco_lista">
+        <div class="bloco">
+            <span>Autor:</span>
+            <p>{{$noticia->autor_noticia}}</p>
+        </div>
+        <div class="bloco">
+            <span>Fonte:</span>
+            <p>{{$noticia->fonte_noticia}}</p>
+        </div>
+        <div class="bloco">
+            <span>Publicado em:</span>
+            <p>{{dataSocial($noticia->data_inicio)}}</p>
+        </div>
+    </div>
+    <div class="texto fw_documento">
+        {!!$noticia->texto_grande!!}
+    </div>
+</div>

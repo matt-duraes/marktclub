@@ -1,0 +1,57 @@
+// @template "painel"
+
+#bloco_noticia_lista
+    width: 100%
+    max-width: 600px
+    flexCol()
+    align-items: center
+    .titulo
+        width: 100%
+        titulo()
+        border-bottom: 1px solid #CCC
+        margin: 10px 0 5px
+    .noticia
+        width: 100%
+        position: relative
+        flexCol()
+        box-shadow: 0 0 5px rgba(0,0,0,.1)
+        background-color: #FFF
+        padding: 10px 10px 15px
+        margin-top: 10px
+        border-radius: 5px
+        overflow: hidden
+        &::after
+            content: ""
+            width: 100%
+            height: 5px
+            position: absolute
+            bottom: -5px
+            left: 0
+            background-color: $cor
+            transition: bottom .3s ease-out
+        &:hover::after
+            bottom: 0
+    .noticia h1
+        width: 100%
+        texto()
+        font-weight: bold
+        margin-bottom: 5px
+    .noticia p
+        width: 100%
+        texto()
+        color: #333
+    .noticia time
+        font-size: 1.2rem
+        color: #999
+        font-weight: normal
+    .paginacao
+        margin-top: 40px
+        flexRow()
+        align-items: center
+        border: 1px solid #CCC
+        border-right: none
+    .paginacao a
+        width: 40px
+        height: 40px
+        border-right: 1px solid #CCC
+        flexCenter()

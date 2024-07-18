@@ -1,0 +1,1 @@
+{"id":"id_0aec4b01b433c6acea402a1c14fac701","token":"painel","metodo":"PUT","nome":"\/silium-config\/:id","uri":"{{LINK}}\/silium-config","parametro":[],"body":[],"header":[],"variavel":[],"json":[],"documentacao":{"status":false,"descricao":"","requisicao":"","resposta":"","scope":"silium_config:atualizar"}}

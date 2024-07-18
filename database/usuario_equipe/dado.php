@@ -66,7 +66,7 @@ $permissao = [
 
     'construtor_clube_index', 'construtor_clube_add', 'construtor_clube_editar', 'construtor_clube_deletar',
 
-    'relatorio_acesso_index', 'relatorio_acesso_empresa',
+    'relatorio_acesso_index', 'relatorio_acesso_empresa', 'relatorio_acesso_parceiro',
 
     'relatorio_usuario_index', 'relatorio_usuario_empresa',
 
@@ -116,7 +116,9 @@ $permissao = [
     'carteirinha_index', 'carteirinha_add', 'carteirinha_editar', 'carteirinha_deletar',
     'carteirinha_status', 'carteirinha_empresa',
 
-    'demanda_tecnologia', 'demanda_criacao', 'demanda_convenio',
+    'demanda_sprint_index', 'demanda_sprint_add', 'demanda_sprint_visualizar', 'demanda_sprint_editar',
+    'demanda_sprint_status',
+    'demanda_quadro', 'demanda_tecnologia', 'demanda_criacao', 'demanda_convenio',
 
     'log_erro_index', 'log_erro_visualizar', 'log_erro_status',
 

@@ -2,6 +2,6 @@
 
 return [
     'salvar' => [
-        'saque', 'valor', 'data_deposito', 'documento_anexo'
+        'saque', 'tipo_operacao', 'valor', 'status', 'data_deposito', 'documento_anexo'
     ]
 ];

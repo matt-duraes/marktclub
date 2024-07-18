@@ -2,142 +2,115 @@
 
 <div id="bloco_contratacao">
     <div class="bloco_geral bloco_passo_passo_geral">
-        <div class="bloco_progresso">
-            <div class="item">
-                <div class="bola">
-                    <span>0</span>
-                    <div class="cor_fill check">@iconeCheck()</div>
-                </div>
-                <p>Dados Pessoais</p>
-            </div>
-            <div class="item">
-                <div class="bola">
-                    <span>1</span>
-                    <div class="cor_fill check">@iconeCheck()</div>
-                </div>
-                <p>Dados Responsável</p>
-            </div>
-            <div class="item">
-                <div class="bola">
-                    <span>2</span>
-                    <div class="cor_fill check">@iconeCheck()</div>
-                </div>
-                <p>Contato</p>
-            </div>
-            <div class="item">
-                <div class="bola">
-                    <span>3</span>
-                    <div class="cor_fill check">@iconeCheck()</div>
-                </div>
-                <p>Endereço</p>
+        <div class="scroll">
+            <div class="bloco_progresso">
             </div>
         </div>
-        <div class="bloco_conteudo">
-            <form method="post" id="formulario_contratacao"  class="bloco_scroll">
-                <input type="hidden" name="id_saude_simulacao" id="input_id_simulacao" value="{{$simulacao}}">
-                <fieldset class="conteudo" id="dados">
-                    <div class="contratacao form_geral" id="bloco_dado_pessoal">
-                        <header>
-                            <h1>DADOS PESSOAIS</h1>
-                        </header>
-                        <div class="form_input_dupla">
-                            @? formInput(local: 'André Rodrigues', name: 'nome', placeholder: 'Digite seu nome completo', obrigatorio: true ,label: 'Digite seu nome', class: 'nome', value: '')
-                            @? formInput(local: 'Brasil', name: 'naturalidade', placeholder: 'Digite um naturalidade', obrigatorio: true, label: 'Digite a naturalidade', class: 'naturalidade', value: '')
-                        </div>
-                        <div class="form_input_dupla">
-                            @? formCpf(local: '01495180131', name: 'cpf', placeholder: 'CPF', label: 'CPF', obrigatorio: true,class: 'cpf', value: '')
-                            @? formData(local: '27/07/1987', name: 'data_nascimento', placeholder: 'Data de nascimento', obrigatorio: true,label: 'Data de nascimento',  value: '', class: 'data_nascimento')
-                        </div>
-                        <div class="form_input_dupla">
-                            @? formSelect(local: 'masculino', name: 'genero', placeholder: 'Gênero', label: 'Gênero', obrigatorio: true, class: 'busca_genero', lista: (new \Helpers\ListaHelper)->add('', 'Escolha um gênero')->genero()->r(), value: '')
-                            @? formSelect(local: 'casado', name: 'estado_civil', placeholder: 'Estado Civil', obrigatorio: true, label: 'Estado Civil', class: 'busca_estado_civil', lista: (new \Helpers\ListaHelper)->add('', 'Escolha um estado civil')->estadoCivil()->r(), value: '')
-                        </div>
-                        <div class="form_input_dupla">
-                            @? formInput(local: '80', name: 'peso', obrigatorio: true, placeholder: 'Digite o peso', label: 'Digite o peso', value: '')
-                            @? formInput(local: '1.89', name: 'altura', obrigatorio: true, placeholder: 'Digite a altura', label: 'Digite a altura', mascara: '0.00', value: '', class: 'altura_contratacao')
-                        </div>
-                        <div class="form_input_dupla">
-                            @? formInput(local: '334', name: 'rg', placeholder: 'Digite o rg',obrigatorio: true, mascara: 'numero',label: 'Digite o rg',  value: '')
-                            @? formInput(local: 'SSP-DF', name: 'orgao_expedidor', placeholder: 'Digite um orgão expedidor', obrigatorio: true, label: 'Digite o orgão expedidor',  value: '')
-                        </div>
-                        @? formInput(local: 'Ana Pereira', name: 'nome_mae', label: 'Filiação (Nome da mãe)', placeholder: 'Nome da mãe', obrigatorio: true, class: 'tirar_tab')
-                        <div class="bloco_botao">
-                            <div></div>
-                            <div class="botao_geral_cor cor_bg" id="botao_dado_pessoal_proximo">Continuar</div>
-                        </div>
-                    </div>
-                </fieldset>
-                <fieldset class="conteudo" id="bloco_responsavel">
-                    <div class="contratacao form_geral">
-                        <header>
-                            <h1>DADOS DO RESPONSÁVEL</h1>
-                        </header>
-                        <div class="responsavel">
-                            <h2>Dados do responsável</h2>
-                            @? formSwitch(name: 'responsavel', label: 'Eu sou o responsável', check: false)
-                            <div class="form_input_dupla">
-                                @? formInput(name: 'responsavel_nome', placeholder: 'Digite o nome do responsável', obrigatorio: true,label: 'Digite um nome', class: 'nome_responsavel', value: '')
-                                @? formCpf(name: 'responsavel_cpf', placeholder: 'CPF', label: 'CPF do responsável', class: 'cpf', obrigatorio: true,value: '')
-                            </div>
-                            <div class="form_input_dupla">
-                                @? formInput(name: 'responsavel_rg', placeholder: 'Digite o rg', label: 'Digite o rg do responsável',obrigatorio: true,  value: '')
-                                @? formInput(name: 'responsavel_orgao_expedidor', placeholder: 'Digite um orgão expedidor', obrigatorio: true, label: 'Digite o orgão expedidor do responsável',  value: '', class: 'tirar_tab')
-                            </div>
-                        </div>
-                        <div class="bloco_botao">
-                            <div class="botao_geral_cor cinza" id="botao_responsavel_anterior">Voltar</div>
-                            <div class="botao_geral_cor cor_bg" id="botao_responsavel_proximo">Continuar</div>
-                        </div>
-                    </div>
-                </fieldset>
+        <form action="#" class="form_geral cinza bloco_conteudo" id="formulario_contratacao">
+            <input type="hidden" name="id_saude_simulacao" id="input_id_simulacao" value="{{$simulacao}}">
 
-                <fieldset class="conteudo" id="bloco_contato">
-                    <div class="contratacao form_geral">
-                        <header>
-                            <h1>CONTATO</h1>
-                        </header>
-                        @? formEmail(local: 'andre@andre.com', name: 'email_pessoal', label: 'E-mail pessoal', obrigatorio: true, class: 'email', placeholder: 'Digite seu e-mail pessoal', value: '')
+            <fieldset class="conteudo display_none" id="dados" data-titulo="Dados Pessoais">
+                <div class="contratacao" id="bloco_dado_pessoal">
+                    <header>
+                        <h1>DADOS PESSOAIS</h1>
+                    </header>
+                    <div class="form_input_dupla">
+                        @? formInput(local: 'André Rodrigues', name: 'nome', placeholder: 'Digite seu nome completo', obrigatorio: true ,label: 'Digite seu nome', class: 'nome tirar_tab_voltar', value: '')
+                        @? formInput(local: 'Brasil', name: 'naturalidade', placeholder: 'Digite um naturalidade', obrigatorio: true, label: 'Digite a naturalidade', class: 'naturalidade', value: '')
+                    </div>
+                    <div class="form_input_dupla">
+                        @? formCpf(local: '01495180131', name: 'cpf', placeholder: 'CPF', label: 'CPF', obrigatorio: true,class: 'cpf', value: '')
+                        @? formData(local: '27/07/1987', name: 'data_nascimento', placeholder: 'Data de nascimento', obrigatorio: true,label: 'Data de nascimento',  value: '', class: 'data_nascimento')
+                    </div>
+                    <div class="form_input_dupla">
+                        @? formSelect(local: 'masculino', name: 'genero', placeholder: 'Gênero', label: 'Gênero', obrigatorio: true, class: 'busca_genero', lista: (new \Helpers\ListaHelper)->add('', 'Escolha um gênero')->genero()->r(), value: '')
+                        @? formSelect(local: 'casado', name: 'estado_civil', placeholder: 'Estado Civil', obrigatorio: true, label: 'Estado Civil', class: 'busca_estado_civil', lista: (new \Helpers\ListaHelper)->add('', 'Escolha um estado civil')->estadoCivil()->r(), value: '')
+                    </div>
+                    <div class="form_input_dupla">
+                        @? formInput(local: '80', name: 'peso', obrigatorio: true, placeholder: 'Digite o peso', label: 'Digite o peso', value: '')
+                        @? formInput(local: '1.89', name: 'altura', obrigatorio: true, placeholder: 'Digite a altura', label: 'Digite a altura', mascara: '0.00', value: '', class: 'altura_contratacao')
+                    </div>
+                    <div class="form_input_dupla">
+                        @? formInput(local: '334', name: 'rg', placeholder: 'Digite o rg',obrigatorio: true, mascara: 'numero',label: 'Digite o rg',  value: '')
+                        @? formInput(local: 'SSP-DF', name: 'orgao_expedidor', placeholder: 'Digite um orgão expedidor', obrigatorio: true, label: 'Digite o orgão expedidor',  value: '')
+                    </div>
+                    @? formInput(local: 'Ana Pereira', name: 'nome_mae', label: 'Filiação (Nome da mãe)', placeholder: 'Nome da mãe', obrigatorio: true, class: 'tirar_tab_old')
+                    <div class="bloco_botao">
+                        <div></div>
+                        <div class="botao_geral_cor cor_bg" id="botao_dado_pessoal_proximo">Continuar</div>
+                    </div>
+                </div>
+            </fieldset>
+            <fieldset class="conteudo display_none" id="bloco_responsavel" data-titulo="Dados Responsável">
+                <div class="contratacao form_geral">
+                    <header>
+                        <h1>DADOS DO RESPONSÁVEL</h1>
+                    </header>
+                    <div class="responsavel">
+                        <h2>Dados do responsável</h2>
+                        @? formSwitch(name: 'responsavel', label: 'Eu sou o responsável', check: false, class: 'tirar_tab_voltar')
                         <div class="form_input_dupla">
-                            @? formTelefone(local: '(61) 98177-7773', name: 'telefone_celular', label: 'Telefone celular', obrigatorio: true,class: 'celular', placeholder: 'Digite seu telefone celular', value: '')
-                            @? formTelefone(local: '(61) 3202-3003', name: 'telefone_residencial', label: 'Telefone residencial', class: 'residencial', placeholder: 'Digite seu telefone residencial', value: '')
+                            @? formInput(name: 'responsavel_nome', placeholder: 'Digite o nome do responsável', obrigatorio: true,label: 'Digite um nome', class: 'nome_responsavel', value: '')
+                            @? formCpf(name: 'responsavel_cpf', placeholder: 'CPF', label: 'CPF do responsável', class: 'cpf', obrigatorio: true,value: '')
                         </div>
                         <div class="form_input_dupla">
-                            @? formTelefone(local: '(61) 3202-3003', name: 'telefone_comercial', label: 'Telefone comercial', obrigatorio: true,class: 'comercial', placeholder: 'Digite seu telefone comercial', value: '')
-                            @? formInput(name: 'ramal', placeholder: 'Digite o ramal', label: 'Digite o ramal',  value: '', class: 'tirar_tab')
-                        </div>
-                        <div class="bloco_botao">
-                            <div class="botao_geral_cor cinza" id="botao_contato_anterior">Voltar</div>
-                            <div class="botao_geral_cor cor_bg" id="botao_contato_proximo">Continuar</div>
+                            @? formInput(name: 'responsavel_rg', placeholder: 'Digite o rg', label: 'Digite o rg do responsável',obrigatorio: true,  value: '')
+                            @? formInput(name: 'responsavel_orgao_expedidor', placeholder: 'Digite um orgão expedidor', obrigatorio: true, label: 'Digite o orgão expedidor do responsável',  value: '', class: 'tirar_tab_old')
                         </div>
                     </div>
-                </fieldset>
+                    <div class="bloco_botao">
+                        @? $Botao->botao(id: 'botao_responsavel_anterior')->voltar()
+                        <div class="botao_geral_cor cor_bg" id="botao_responsavel_proximo">Continuar</div>
+                    </div>
+                </div>
+            </fieldset>
 
-                <fieldset class="conteudo" id="bloco_endereco">
-                    <div class="contratacao form_geral">
-                        <header>
-                            <h1>ENDEREÇO</h1>
-                        </header>
-                        <div class="form_input_dupla">
-                            @? formInput(name: 'cep', placeholder: 'CEP', label: 'CEP',mascara: '00000-000', obrigatorio: true, value: '')
-                            @? formInput(name: 'logradouro', placeholder: 'Logradouro', obrigatorio: true, label: 'Logradouro', value: '')
-                        </div>
-                        <div class="form_input_dupla">
-                            @? formInput(name: 'numero', placeholder: 'Número', obrigatorio: true,label: 'Número', value: '')
-                            @? formInput(name: 'complemento', placeholder: 'Complemento', label: 'Complemento', value: '')
-                        </div>
-                        <div class="form_input_dupla">
-                            @? formInput(name: 'bairro', placeholder: 'Bairro', obrigatorio: true, label: 'Bairro', value: '')
-                            @? formSelect(name: 'estado', placeholder: 'UF', label: 'UF', class: 'busca_estado',obrigatorio: true, lista: (new \Helpers\ListaHelper)->add('', 'Escolha um estado')->estado()->r(), value: '')
-                            @? formSelect(name: 'cidade', placeholder: 'Cidade', obrigatorio: true, label: 'Cidade', lista: ['' => 'Escolha um estado'])
-                        </div>
-                        <div class="bloco_botao">
-                            <div class="botao_geral_cor cinza" id="botao_endereco_anterior">Voltar</div>
-                            <div class="botao_geral_cor cor_bg" id="botao_contratar_enviar">Tenho Interesse</div>
-                        </div>
+            <fieldset class="conteudo display_none" id="bloco_contato" data-titulo="Contato responsável">
+                <div class="contratacao form_geral">
+                    <header>
+                        <h1>CONTATO</h1>
+                    </header>
+                    @? formEmail(local: 'andre@andre.com', name: 'email_pessoal', label: 'E-mail pessoal', obrigatorio: true, class: 'email tirar_tab_voltar', placeholder: 'Digite seu e-mail pessoal', value: '')
+                    <div class="form_input_dupla">
+                        @? formTelefone(local: '(61) 98177-7773', name: 'telefone_celular', label: 'Telefone celular', obrigatorio: true,class: 'celular', placeholder: 'Digite seu telefone celular', value: '')
+                        @? formTelefone(local: '(61) 3202-3003', name: 'telefone_residencial', label: 'Telefone residencial', class: 'residencial', placeholder: 'Digite seu telefone residencial', value: '')
                     </div>
-                </fieldset>
-            </form>
-        </div>
+                    <div class="form_input_dupla">
+                        @? formTelefone(local: '(61) 3202-3003', name: 'telefone_comercial', label: 'Telefone comercial', obrigatorio: true,class: 'comercial', placeholder: 'Digite seu telefone comercial', value: '')
+                        @? formInput(name: 'ramal', placeholder: 'Digite o ramal', label: 'Digite o ramal',  value: '', class: 'tirar_tab_old')
+                    </div>
+                    <div class="bloco_botao">
+                        @? $Botao->botao(id: 'botao_contato_anterior')->voltar()
+                        <div class="botao_geral_cor cor_bg" id="botao_contato_proximo">Continuar</div>
+                    </div>
+                </div>
+            </fieldset>
+
+            <fieldset class="conteudo display_none" id="bloco_endereco" data-titulo="Endereço responsável">
+                <div class="contratacao form_geral">
+                    <header>
+                        <h1>ENDEREÇO</h1>
+                    </header>
+                    <div class="form_input_dupla">
+                        @? formInput(name: 'cep', placeholder: 'CEP', label: 'CEP',mascara: '00000-000', obrigatorio: true, value: '', class: 'tirar_tab_voltar')
+                        @? formInput(name: 'logradouro', placeholder: 'Logradouro', obrigatorio: true, label: 'Logradouro', value: '')
+                    </div>
+                    <div class="form_input_dupla">
+                        @? formInput(name: 'numero', placeholder: 'Número', obrigatorio: true,label: 'Número', value: '')
+                        @? formInput(name: 'complemento', placeholder: 'Complemento', label: 'Complemento', value: '')
+                    </div>
+                    <div class="form_input_dupla">
+                        @? formInput(name: 'bairro', placeholder: 'Bairro', obrigatorio: true, label: 'Bairro', value: '')
+                        @? formSelect(name: 'estado', placeholder: 'UF', label: 'UF', class: 'busca_estado',obrigatorio: true, lista: (new \Helpers\ListaHelper)->add('', 'Escolha um estado')->estado()->r(), value: '')
+                        @? formSelect(name: 'cidade', placeholder: 'Cidade', obrigatorio: true, label: 'Cidade', lista: ['' => 'Escolha um estado'], class: 'tirar_tab_old')
+                    </div>
+                    <div class="bloco_botao">
+                        @? $Botao->botao(id: 'botao_endereco_anterior')->voltar()
+                        <div class="botao_geral_cor cor_bg" id="botao_contratar_enviar">Tenho Interesse</div>
+                    </div>
+                </div>
+            </fieldset>
+        </form>
     </div>
 
 </div>

@@ -1,0 +1,22 @@
+@template "painel"
+
+<div id="bloco_noticia_lista">
+    <div class="titulo">Atualizações</div>
+    @ foreach( $lista as $r ):
+    <a class="noticia" href="@route('atualizacao.detalhe')/{!!$r->url!!}">
+        <header>
+            <h1>{{$r->titulo}}</h1>
+        </header>
+        <p>{{$r->texto}}</p>
+        <time datetime="{{dataBanco($r->data_inicio)}}" class="data">{{dataSocial($r->data_inicio)}}</time>
+    </a>
+    @ endforeach;
+
+    @ if( $pagina->total > 1 ):
+    <div class="bloco_paginacao">
+        @ foreach( $pagina->paginacao as $numero ):
+        <a href="@route('atualizacao.index')?pagina={{$numero}}" class="pagina">{{$numero}}</a>
+        @ endforeach;
+    </div>
+    @ endif;
+</div>

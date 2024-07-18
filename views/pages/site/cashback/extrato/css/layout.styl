@@ -1,12 +1,8 @@
 @system "Form"
 @template "site"
-@system "Pagina"
-@resource "site/banner"
-@resource "site/variavel"
 @resource "site/tab"
 @resource "site/tabela"
 @resource "site/geral"
-@system "Variavel"
 
 #bloco_pagina_cashback
     width: 100%
@@ -36,22 +32,28 @@
             texto()
             font-weight: bold
             margin-left: 5px
-
-div#botao_popup_resgate
-    width: 190px
-    height: 40px
-    border-radius: 5px
-    background-color: $corClube
-    flexCenter()
-    color: #fff
-    cursor: pointer
-    texto()
+    .botao_resgate_cashback
+        max-width: 200px
+        height: 40px
+        border-radius: 5px
+        background-color: $corClube
+        flexCenter()
+        color: #fff
+        cursor: pointer
+        texto()
+        margin-bottom: 10px
+@media screen and (max-width: 425px)
+    #bloco_pagina_cashback .conteudo .saldo
+        flex-direction: column
+        align-items: flex-start
+        margin: 10px 0px 40px
+        .saldo_conta
+            border: none
+            justify-content: flex-start
 
 .bloco_atencao_geral
     margin: 20px 0px
-    background: $corBrancoCinza
-#botao_popup_resgate
-    margin-bottom: 10px
+
 .bloco_extrato
     padding: 10px 0px 20px
     espacoTopPadrao()
@@ -61,15 +63,6 @@ div#botao_popup_resgate
         titulo()
         color: $corClube
         margin-bottom: 20px
-
-@media screen and (max-width: 425px)
-    #bloco_pagina_cashback .conteudo .saldo
-        flex-direction: column
-        align-items: flex-start
-        margin: 10px 0px 40px
-        .saldo_conta
-            border: none
-            justify-content: flex-start
 
 #bloco_pagina_cashback  .bloco_tabela_geral
     table
@@ -89,14 +82,8 @@ div#botao_popup_resgate
         height: 20px
         border-radius: 50%
         margin: auto
-    table .creditado
-        background: green
-    table .negado
-        background: red
-    table .aguardando
-        background: #ff6f00
-
-
+    table .cashback_status
+        text-transform: capitalize
 
 .bloco_tab_geral .bloco_botao
     .botao.ativo, .botao:hover
@@ -110,47 +97,57 @@ div#botao_popup_resgate
     .botao:hover .texto_ativo
         color: $corPretoBranco
 
-[data-theme="dark"] #conteudo_principal
-    background: $corBrancoPreto
 
-.bloco_geral_banner figure
-    background-size: 60% auto
-    background-repeat: no-repeat
-
-.bloco_popup_geral .popup_conteudo
-    padding: 20px
-    form
-        flexCenter()
-        directionColumn()
-    form button
-        alignSelfEnd()
-        width: 180px
-        espacoTopPadrao()
+.form_geral .bloco_input label
+    background-color: $corBrancoCinza
 
 #bloco_resgatar_ponto
     background: $corBrancoPreto
     div#botao_solicitar_ponto
-        height: 30px
         width: 200px
+        height: 40px
         border-radius: 5px
+        background-color: $corClube
         flexCenter()
-        texto()
-        margin-top: 10px
+        color: #fff
         cursor: pointer
-#bloco_resgatar_ponto .form_geral .bloco_input label
-    background-color: $corBrancoCinza
-
-.titulo_dados_bancarios
-    titulo()
-    margin-top: 20px
-    color: $corClube
-    &:first-child
-        margin-top: 0px
-fieldset
-    padding: 0px 10px
+        texto()
+    .titulo_dados_bancarios
+        subTituloFontSize()
+        margin-top: 20px
+        color: $corClube
+        &:first-child
+            margin-top: 0px
 
 .conteudo_pagina_popup .bloco_botao
-    padding-left: 10px
+    display: flex
+    align-items: center
+    justify-content: space-between
+    margin-top: 20px
+    a
+        texto()
+        padding-left: 10px
+.conteudo_popup header p
+    margin-top: 10px
+@media screen and (max-width: 375px)
+    .conteudo_pagina_popup .bloco_botao
+        flex-direction: column-reverse
+        gap: 20px
+        a
+            padding-left: 0px
+    div#botao_solicitar_ponto
+        width: 100%
+
+#botao_popup_metodo
+    width: 150px
+    height: 40px
+    border-radius: 5px
+    background-color: $corClube
+    flexCenter()
+    color: #fff
+    cursor: pointer
+    texto()
+    margin-top: 20px
 
 @media screen and (max-width: 1024px)
     #bloco_pagina_cashback .bloco_tabela_geral

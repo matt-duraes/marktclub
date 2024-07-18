@@ -5,7 +5,7 @@
 // @system "Form"
 // @system "Loading"
 // @system "Mascara"
-// @resource "site/passo_passo"
+// @system "PassoPasso"
 
 const botaoFazerSimulacao = $('#botao_fazer_simulacao');
 const botaoEnviarSimulacao = $('#botao_enviar_simulacao');
@@ -23,6 +23,11 @@ const respostaParcela = $('#resposta_parcela');
 const tipo = $('#input_tipo').value;
 let valorTotal = 0;
 let numeroParcela = 0;
+
+const PassoSimulacao = new PassoPasso(
+    '#bloco_credito_sicoob .bloco_conteudo .conteudo',
+    '#bloco_credito_sicoob .bloco_progresso'
+);
 /*
 |--------------------------------------------------------------------------
 | REGULAMENTO
@@ -68,10 +73,10 @@ botaoFazerSimulacao.addEventListener('click', async () => {
     respostaValorParcela.innerText = 'R$ ' + resposta.dado.valor_parcela;
     respostaParcela.innerText = resposta.dado.parcela + 'X';
 
-    irParaProximoPasso(botaoFazerSimulacao);
+    PassoSimulacao.proximo(botaoFazerSimulacao);
 });
 botaoRefazerSimulacao.addEventListener('click', () => {
-    irParaPassoAnterior(botaoRefazerSimulacao);
+    PassoSimulacao.anterior(botaoRefazerSimulacao);
 });
 
 /*

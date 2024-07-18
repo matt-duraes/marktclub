@@ -24,7 +24,7 @@ Route
 
         Route
             ::nome('maisAcessado')
-            ::request(['de', 'ate', 'local', '!estabelecimento', '!empresa'])
+            ::request(['de', 'ate', 'local', '!estabelecimento', '!empresa', '!parceiro'])
             ::get('/relatorio/mais-acessado');
 
         Route

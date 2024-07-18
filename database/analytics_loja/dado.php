@@ -16,11 +16,12 @@ $parceiros = [
 for ($e = 1; $e <= 10; $e++) {
     for ($i = 1; $i <= 2; $i++) {
         $id = numeroAleatorio(1, 3);
+        $idLojas = [0, 431, 777];
 
         $dado[] = [
             'id_admin_empresa'         => $e,
             'parceiro_estabelecimento' => rand(1, 2),
-            'id_parceiro_loja'         => $id,
+            'id_parceiro_loja'         => $idLojas[$i],
             'parceiro_nome'            => $parceiros[$id],
             'quantidade'               => rand(1, 100),
             'data_acesso'              => dataRemover($data, $i, 'dia')

@@ -12,7 +12,7 @@ return [
     'download'   => false,
     'historico'  => true,
     'api'        => [
-        'scope' => 'silium_saque',
-        'uri'   => '/silium-saque'
+        'scope' => 'silium_deposito',
+        'uri'   => '/silium-deposito'
     ]
 ];

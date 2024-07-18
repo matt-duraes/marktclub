@@ -2,11 +2,6 @@
 
 namespace App\Models\Api\UsuarioCliente\Ativar;
 
-use App\Classes\UsuarioCliente\Status;
-use App\Classes\UsuarioCliente\TipoUsuario;
-use App\Classes\UsuarioIndicacao\Status as IndicacaoStatus;
-use App\Models\Api\UsuarioCliente\Ativar\Trait\AtivarTrait;
-use Helpers\OrmHelper;
 use ORM\ORM;
 use stdClass;
 use Modules\Cpf;
@@ -18,9 +13,14 @@ use Modules\Email;
 use Modules\Senha;
 use Modules\Genero;
 use Modules\Telefone;
+use Helpers\OrmHelper;
 use Modules\EnderecoCep;
 use Modules\EstadoCivil;
 use Modules\EnderecoEstado;
+use App\Classes\UsuarioCliente\Status;
+use App\Classes\UsuarioCliente\TipoUsuario;
+use App\Classes\UsuarioIndicacao\Status as IndicacaoStatus;
+use App\Models\Api\UsuarioCliente\Ativar\Trait\AtivarTrait;
 
 final class AtivarIndicadoModel extends ORM
 {

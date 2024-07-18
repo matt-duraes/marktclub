@@ -30,7 +30,7 @@ final class HashModel
         } elseif (!chaveExiste(['parceiro.id', 'parceiro.limite', 'usuario', 'empresa', 'data'], $this->dado)) {
             mensagemErro('Erro!', 'Não foi possível achar o código, por favor, tente novamente.');
         } elseif ($this->dado['data'] <= agora()) {
-            // mensagemErro('Vencido!', 'O link tem validade de 10 minutos, gere um novo link para continuar.');
+            mensagemErro('Vencido!', 'O link tem validade de 10 minutos, gere um novo link para continuar.');
         }
     }
 }

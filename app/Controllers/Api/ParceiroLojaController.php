@@ -8,7 +8,6 @@ use Modules\Quantidade;
 use Controller\Controller;
 use App\Classes\ParceiroLoja\TipoLoja;
 use App\Classes\ParceiroLoja\Categoria;
-use App\Models\Api\DownloadPrivado\ArquivoEntity;
 use App\Models\Api\ParceiroLoja\LojaModel;
 use App\Models\Api\ParceiroLoja\LojaEntity;
 use App\Models\Api\ParceiroLoja\SelectModel;
@@ -142,11 +141,7 @@ final class ParceiroLojaController extends Controller implements
 
     public function postDownload(Request $request): Response
     {
-        $Usuario = new DownloadModel($request);
-        $Usuario->set(lista: $request->dado());
-
-        $Download = new ArquivoEntity($Usuario->download(), $request->usuario);
-        $Download->salvar();
+        $Download = new DownloadModel($request);
         return mensagemSucesso([
             'id' => $Download->id
         ], 201);

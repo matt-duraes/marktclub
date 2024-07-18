@@ -3,6 +3,10 @@
 use Http\Response;
 use Helpers\OrmHelper;
 
+if (!defined('TABELA_UPLOAD_ARQUIVO') || !defined('TABELA_UPLOAD_GRUPO')) {
+    exit();
+}
+
 $id = arquivoPrivadoId($requestUri);
 
 $Arquivo = (new OrmHelper(TABELA_UPLOAD_ARQUIVO, true))->pegarUltimoRegistro(

@@ -2,16 +2,18 @@
 
 namespace App\Models\Api\Demanda;
 
-use Helpers\OrmHelper;
 use ORM\ORM;
+use Where\Where;
+use Modules\Data;
+use Modules\Botao;
 use App\Classes\DemandaDado\Area;
 use App\Classes\DemandaDado\Tipo;
 use App\Classes\DemandaDado\Ordem;
 use System\Trait\Model\OrdemTrait;
 use App\Classes\DemandaDado\Status;
-use App\Classes\DemandaTarefa\Tipo as DemandaTarefaTipo;
 use App\Models\Api\Demanda\Trait\EquipeTrait;
 use App\Models\Api\Demanda\Trait\EmpresaTrait;
+use App\Models\Api\Demanda\Sprint\Demanda\AtivaModel;
 
 final class DemandaModel extends ORM
 {
@@ -22,15 +24,12 @@ final class DemandaModel extends ORM
     protected string $ormTabela = TABELA_DEMANDA_DADO;
 
     public function __construct(
-        protected Status $status,
-        protected Ordem $ordem,
-        protected Area $area,
-        protected Tipo $tipo,
-        protected ?string $tarefa_tipo,
-        protected ?string $empresa,
-        protected ?string $equipe,
-        protected ?string $data_inicio,
-        protected ?string $data_fim
+        public Status $status,
+        public Ordem $ordem,
+        public Area $area,
+        public Data $data_entrega_de,
+        public Data $data_entrega_ate,
+        public Botao $sprint
     ) {
         parent::__construct();
         $this->validarRequest();
@@ -41,7 +40,7 @@ final class DemandaModel extends ORM
         $this->validarRequest();
         $lista = $this
             ->campo([
-                'uuid', 'id', 'id_usuario_equipe', 'id_admin_empresa', 'titulo', 'tipo',
+                'uuid', 'id', 'id_usuario_equipe', 'id_admin_empresa', 'titulo', 'texto', 'tipo',
                 'tarefa_tipo', 'data_criacao', 'data_atualizacao', 'com_prazo', 'data_entrega', 'status'
             ])
             ->where($this->montarWhere())
@@ -58,7 +57,7 @@ final class DemandaModel extends ORM
     {
         if ($this->status->vazio()) {
             mensagemErro('Campo obrigatório!', 'Você deve passar um status para busca.');
-        } elseif (!$this->status->valido()) {
+        } elseif ($this->status->real() != 'geral' && !$this->status->valido()) {
             mensagemErro('Campo inválido!', 'Você deve passar um status válido para a busca.');
         } elseif ($this->area->vazio()) {
             mensagemErro('Campo obrigatório!', 'Você deve passar a área para busca.');
@@ -71,57 +70,25 @@ final class DemandaModel extends ORM
         }
     }
 
-    private function montarWhere()
+    private function montarWhere(): Where
     {
-        $where = [];
-
-        $where[] = $this->pegarWhereStatus();
-
-        if (!empty($this->tarefa_tipo)) {
-            $tarefa_tipo = (new DemandaTarefaTipo($this->tarefa_tipo))->numero();
-            $where[] = ['tarefa_tipo', 'json', $tarefa_tipo];
+        $Where = new Where($this);
+        $Where
+            ->linha('status')
+            ->linha('area')
+            ->linha('tipo')
+            ->dataDeAte('data_entrega')
+            ->seBotao(propriedade: 'sprint', callback: function () use ($Where) {
+                $id = (new AtivaModel())->pegarId();
+                if (empty($id)) {
+                    $id = [1];
+                }
+                $Where->manual(['uuid', 'in', $id]);
+            });
+        if ($this->status->real() == 'geral') {
+            $Where->manual(['status', 'in', Status::GERAL]);
         }
-
-        if (!empty($this->empresa)) {
-            $empresa = (new OrmHelper(TABELA_COMERCIAL_EMPRESA))->pegarIdPeloUuid($this->empresa);
-            $where[] = ['id_admin_empresa', $empresa];
-        }
-
-        if (!empty($this->equipe)) {
-            $equipe = (new OrmHelper(TABELA_USUARIO_EQUIPE))->pegarIdPeloUuid($this->equipe);
-            $where[] = ['id_usuario_equipe', $equipe];
-        }
-
-        if ($this->tipo->valido()) {
-            $where[] = ['tipo', $this->tipo->numero()];
-        }
-
-        if (!empty($this->data_inicio)) {
-            $where[] = ['data_criacao', '>=', dataBanco($this->data_inicio) . ' 00:00:00'];
-        }
-
-        if (!empty($this->data_fim)) {
-            $where[] = ['data_criacao', '<=', dataBanco($this->data_fim) . ' 23:59:59'];
-        }
-
-        return $where;
-    }
-
-    private function pegarWhereStatus()
-    {
-        $status = $this->status;
-        if ($status->indice() == Status::CONCLUIDA) {
-            return [
-                ['status', $status->numero()],
-                ['area', $this->area->numero()],
-                ['data_atualizacao', '>=', dataRemover(agora(), 10, 'dias')]
-            ];
-        }
-
-        return [
-            ['status', $status->numero()],
-            ['area', $this->area->numero()]
-        ];
+        return $Where;
     }
 
     private function montarRetorno(array $lista): array
@@ -129,13 +96,14 @@ final class DemandaModel extends ORM
         $retorno = [];
         foreach ($lista as $r) {
             $retorno[$r->id] = [
-                'id'               => $r->uuid,
-                'equipe'           => $r->usuario_uuid,
-                'titulo'           => $r->titulo,
-                'tipo'             => (new Tipo($r->tipo))->indice(),
-                'data_criacao'     => $r->data_criacao,
-                'data_entrega'     => $r->com_prazo == 1 ? $r->data_entrega : '',
-                'status'           => (new Status($r->status))->indice()
+                'id'           => $r->uuid,
+                'equipe'       => $r->usuario_uuid,
+                'titulo'       => $r->titulo,
+                'texto'        => $r->texto,
+                'tipo'         => (new Tipo($r->tipo))->indice(),
+                'data_criacao' => $r->data_criacao,
+                'data_entrega' => $r->com_prazo == 1 ? $r->data_entrega : '',
+                'status'       => (new Status($r->status))->indice()
             ];
         }
 

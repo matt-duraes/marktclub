@@ -2,11 +2,10 @@
 
 namespace App\Models\Api\UsuarioCliente\Ativar\Trait;
 
-use App\Classes\UsuarioCliente\Hash;
-use Modules\Botao;
 use Modules\Cpf;
 use Modules\Data;
 use Modules\Nome;
+use Modules\Botao;
 use Modules\Email;
 use Modules\Senha;
 use Modules\Genero;
@@ -14,6 +13,9 @@ use Modules\Telefone;
 use Modules\EnderecoCep;
 use Modules\EstadoCivil;
 use Modules\EnderecoEstado;
+use App\Classes\UsuarioCliente\Hash;
+use App\Classes\UsuarioCliente\TrabalhoCargo;
+use App\Classes\UsuarioCliente\TrabalhoEmpresa;
 
 trait AtivarTrait
 {
@@ -95,6 +97,8 @@ trait AtivarTrait
         $this->endereco_bairro = $dado['endereco_bairro'];
         $this->endereco_estado = new EnderecoEstado($dado['endereco_estado']);
         $this->endereco_cidade = $dado['endereco_cidade'];
+        $this->trabalho_cargo = new TrabalhoCargo($dado['trabalho_cargo']);
+        $this->trabalho_empresa = new TrabalhoEmpresa($dado['trabalho_empresa']);
     }
 
     private function validarHash()

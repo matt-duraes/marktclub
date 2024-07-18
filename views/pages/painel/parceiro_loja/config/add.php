@@ -32,7 +32,7 @@ $Painel->coluna(callback: function () use ($Painel) {
 });
 
 $Painel->coluna(callback: function () use ($Painel, $gerente) {
-    $Painel->fieldset('Dados da empresa', abrir: true, callback: function () use ($Painel) {
+    $Painel->fieldset('Dados da empresa', callback: function () use ($Painel) {
         $Painel
             ->input(
                 name: 'nome_fantasia',

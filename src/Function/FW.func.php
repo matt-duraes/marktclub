@@ -734,14 +734,21 @@ if (!function_exists('agora')) {
 }
 if (!function_exists('hoje')) {
     /**
-     * @param bool $br Se a data vai ser no formato BR
+     * @param  bool   $br    Se a data vai ser no formato BR
+     * @param  int    $mais  Adicionar X dias a data de hoje
+     * @param  int    $menos Remove X dias a data de hoje
+     * @return string Data de retorno
      */
-    function hoje(bool $br = false): string
+    function hoje(bool $br = false, int $mais = null, int $menos = null): string
     {
-        if ($br) {
-            return date('d/m/Y');
+        $data = $br ? date('d/m/Y') : date('Y-m-d');
+        $formato = $br ? 'd/m/Y' : 'Y-m-d';
+        if (!empty($mais)) {
+            $data = dataAdicionar(date('Y-m-d'), numero: $mais, tempo: 'dias', formato: $formato);
+        } elseif (!empty($menos)) {
+            $data = dataRemover(date('Y-m-d'), numero: $menos, tempo: 'dias', formato: $formato);
         }
-        return date('Y-m-d');
+        return $data;
     }
 }
 

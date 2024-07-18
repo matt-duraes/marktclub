@@ -2,16 +2,17 @@
 
 namespace App\Models\Api\Demanda;
 
-use ApiModel\PainelHistorico\HistoricoEntity;
-use App\Classes\DemandaTarefa\Status;
-use App\Classes\DemandaTarefa\Tipo;
-use App\Models\Api\UsuarioEquipe\PerfilModel;
 use Erro\Erro;
-use Erro\Excecao;
-use Helpers\OrmHelper;
-use Modules\DataHora;
 use ORM\Entity;
+use Erro\Excecao;
+use Modules\DataHora;
+use Helpers\OrmHelper;
+use App\Classes\DemandaTarefa\Tipo;
+use App\Classes\DemandaTarefa\Status;
 use System\Classes\PainelHistorico\Acao;
+use App\Classes\DemandaTarefa\Dificuldade;
+use ApiModel\PainelHistorico\HistoricoEntity;
+use App\Models\Api\UsuarioEquipe\PerfilModel;
 
 final class TarefaEntity extends Entity
 {
@@ -26,20 +27,18 @@ final class TarefaEntity extends Entity
     protected string $ormTabela = TABELA_DEMANDA_TAREFA;
     protected array $ormBuscar = [
         'minuto_producao_estimada', 'titulo', 'texto', 'status', 'tipo', 'id_usuario_equipe', 'minuto_producao_real',
-        'data_producao_inicio', 'data_producao_final', 'id_demanda_dado', 'like', 'data_criacao'
+        'data_producao_inicio', 'data_producao_final', 'id_demanda_dado', 'like', 'dificuldade', 'data_criacao'
     ];
     protected array $ormInsert = [
         'id_demanda_dado'
     ];
     protected array $ormSalvar = [
         'minuto_producao_estimada', 'id_usuario_equipe', 'status', 'titulo', 'texto', 'tipo',
-        'data_producao_inicio', 'data_producao_final', 'minuto_producao_real', 'like'
+        'data_producao_inicio', 'data_producao_final', 'minuto_producao_real', 'dificuldade', 'like'
     ];
     protected string $ormValidarInsert = '
         titulo|Titulo|obrigatorio|vazio
         texto|Texto|obrigatorio|vazio
-        tipo|Tipo|valido
-        minuto_producao_estimada|Tempo de produção|int
     ';
     protected array $like;
     private OrmHelper $OrmEquipe;
@@ -49,7 +48,8 @@ final class TarefaEntity extends Entity
         public ?string $titulo = null,
         public ?string $texto = null,
         public ?Tipo $tipo = null,
-        public ?string $equipe = null
+        public ?string $equipe = null,
+        public ?Dificuldade $dificuldade = null
     ) {
         parent::__construct();
         $this->OrmEquipe = new OrmHelper(TABELA_USUARIO_EQUIPE);

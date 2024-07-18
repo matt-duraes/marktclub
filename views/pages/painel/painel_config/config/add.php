@@ -3,8 +3,9 @@
 use Helpers\ApiHelper;
 use App\Classes\UsuarioCliente\Helper;
 use App\Helpers\Painel\ConfiguracoesPadrao;
+use PainelConfig\Add;
 
-$Painel = new PainelConfig\Add('painel_config', $acao);
+$Painel = new Add('painel_config', $acao);
 
 $empresas = (new ApiHelper(token: true))
     ->json(['titulo' => 'Escolha uma empresa'])
