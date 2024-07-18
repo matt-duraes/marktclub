@@ -87,7 +87,6 @@ window.addEventListener('load', () => {
     const inputSorteioPremioCompra = $('#input_premio_compra');
     const inputSorteioPremioEntrega = $('#input_premio_entrega');
     const inputSorteioPremioEntregaOutro = $('#input_premio_entrega_outro');
-    const inputSorteioTexto = $('#input_sorteio_texto');
     // Evento
     const inputEmpresaEvento = $('#input_empresa_evento');
     // Brinde
@@ -178,7 +177,7 @@ window.addEventListener('load', () => {
     });
 
     const mudarTipoDemanda = tipo => {
-        inputTipo.value = tipo;
+        inputTipo.valor(tipo);
 
         blocoEscolherTecnologia.sumir();
         blocoEscolherCriacao.sumir();
@@ -273,7 +272,7 @@ window.addEventListener('load', () => {
     |--------------------------------------------------------------------------
     */
     const motivacaoOutro = () => {
-        if (inputSorteioMotivacao.value == 'outro') {
+        if (inputSorteioMotivacao.valor() == 'outro') {
             blocoSorteioMotivacaoOutro.aparecer();
             inputSorteioMotivacaoOutro.focus();
             return;
@@ -281,7 +280,7 @@ window.addEventListener('load', () => {
         blocoSorteioMotivacaoOutro.sumir();
     };
     const entregaOutro = () => {
-        if (inputSorteioPremioEntrega.value == 'outro') {
+        if (inputSorteioPremioEntrega.valor() == 'outro') {
             blocoSorteioEntregaOutro.aparecer();
             inputSorteioPremioEntregaOutro.focus();
             return;
@@ -304,8 +303,8 @@ window.addEventListener('load', () => {
 
     inputCriacaoCategoriaSite.addEventListener('change', () => {
         adicionarBotaoSalvarCriacao();
-        inputSiteLargura.value = '';
-        inputSiteAltura.value = '';
+        inputSiteLargura.valor('');
+        inputSiteAltura.valor('');
         if (inputCriacaoCategoriaSite.checked) {
             blocoCriacaoSite.aparecer();
             return;
@@ -338,7 +337,7 @@ window.addEventListener('load', () => {
         inputImpressoBanner.checked = false;
         inputImpressoRevista.checked = false;
         inputImpressoOutro.checked = false;
-        formValue(inputImpressoTexto, '');
+        inputImpressoTexto.valor('');
         if (inputCriacaoCategoriaImpresso.checked) {
             blocoCriacaoImpresso.aparecer();
             return;
@@ -363,9 +362,9 @@ window.addEventListener('load', () => {
     });
     inputCriacaoCategoriaVideo.addEventListener('change', () => {
         adicionarBotaoSalvarCriacao();
-        formValue(inputVideoFormato, '');
-        inputVideoLargura.value = '';
-        inputVideoAltura.value = '';
+        inputVideoFormato.valor('');
+        inputVideoLargura.valor('');
+        inputVideoAltura.valor('');
         if (inputCriacaoCategoriaVideo.checked) {
             blocoCriacaoVideo.aparecer();
             return;
@@ -375,7 +374,7 @@ window.addEventListener('load', () => {
     });
     inputCriacaoCategoriaOutro.addEventListener('change', () => {
         adicionarBotaoSalvarCriacao();
-        inputOutroTexto.value = '';
+        inputOutroTexto.valor('');
         if (inputCriacaoCategoriaOutro.checked) {
             blocoCriacaoOutro.aparecer();
             return;
@@ -399,9 +398,9 @@ window.addEventListener('load', () => {
     };
 
     const monitorarFormatoVideo = () => {
-        const tipo = inputVideoFormato.value;
-        inputVideoLargura.value = '';
-        inputVideoAltura.value = '';
+        const tipo = inputVideoFormato.valor();
+        inputVideoLargura.valor('');
+        inputVideoAltura.valor('');
         if (tipo == 'outro') {
             inputVideoLargura.focus();
             blocoCriacaoVideoDimensao.aparecer();
@@ -428,11 +427,11 @@ window.addEventListener('load', () => {
         blocoObservacaoDominioProprio.sumir();
         blocoObservacaoSubDominioProprio.sumir();
         blocoConfigurarCdn.sumir();
-        inputDominioProprio.value = '';
-        inputDominioSub.value = '';
+        inputDominioProprio.valor('');
+        inputDominioSub.valor('');
         inputConfigurarCdn.checked = false;
 
-        const valor = inputDominioTipo.value;
+        const valor = inputDominioTipo.valor();
         if (valor == '') {
             return;
         } else if (valor == 'dominio') {
@@ -465,7 +464,7 @@ window.addEventListener('load', () => {
             return;
         }
         blocoDominioLogin.sumir();
-        inputDominioLogin.value = '';
+        inputDominioLogin.valor('');
     });
 
     /*
@@ -498,7 +497,7 @@ window.addEventListener('load', () => {
             return;
         }
         blocoEmpresaEspecifica.sumir();
-        formSelectValue(inputEmpresaBug, '');
+        inputEmpresaBug.valor('');
     });
     /*
     |--------------------------------------------------------------------------
@@ -550,7 +549,7 @@ window.addEventListener('load', () => {
     botaoSalvar.addEventListener('click', async () => {
         Loading.show();
 
-        const tipo = inputTipo.value;
+        const tipo = inputTipo.valor();
         let valido = false;
         let body;
 
@@ -648,18 +647,18 @@ window.addEventListener('load', () => {
     const validarDadoCliente = () => {
         return new Promise(resolve => {
             let mensagem = '';
-            if (inputEmpresaCliente.value == '') {
+            if (inputEmpresaCliente.valor() == '') {
                 mensagem = 'Escolha uma empresa para continuar.';
-            } else if (inputDominioTipo.value == '') {
+            } else if (inputDominioTipo.valor() == '') {
                 mensagem = 'Escolha um tipo de domínio para continuar.';
             } else if (
-                ((inputDominioTipo.value == 'dominio' || inputDominioTipo.value == 'subdominio') &&
-                    inputDominioProprio.value == '') ||
-                ((inputDominioTipo.value == 'temvantagens' || inputDominioTipo.value == 'temmaisvantagens') &&
-                    inputDominioSub.value == '')
+                ((inputDominioTipo.valor() == 'dominio' || inputDominioTipo.valor() == 'subdominio') &&
+                    inputDominioProprio.valor() == '') ||
+                ((inputDominioTipo.valor() == 'temvantagens' || inputDominioTipo.valor() == 'temmaisvantagens') &&
+                    inputDominioSub.valor() == '')
             ) {
                 mensagem = 'Digite um domínio/subdomínio para o clube.';
-            } else if (inputLoginApi.checked && inputDominioLogin.value == '') {
+            } else if (inputLoginApi.checked && inputDominioLogin.valor() == '') {
                 mensagem = 'Digite o domínio de login do sistema do cliente.';
             } else if ($$('#bloco_menu_clube input:checked').length == 0) {
                 mensagem = 'Você deve escolher pelo menos um menu para o clube.';
@@ -675,10 +674,10 @@ window.addEventListener('load', () => {
     const montarDadoCliente = () => {
         return new Promise(resolve => {
             let dominioLink = '';
-            if (inputDominioTipo.value == 'dominio' || inputDominioTipo.value == 'subdominio') {
-                dominioLink = inputDominioProprio.value;
-            } else if (inputDominioTipo.value == 'temvantagens' || inputDominioTipo.value == 'temmaisvantagens') {
-                dominioLink = inputDominioSub.value;
+            if (inputDominioTipo.valor() == 'dominio' || inputDominioTipo.valor() == 'subdominio') {
+                dominioLink = inputDominioProprio.valor();
+            } else if (inputDominioTipo.valor() == 'temvantagens' || inputDominioTipo.valor() == 'temmaisvantagens') {
+                dominioLink = inputDominioSub.valor();
             }
 
             let texto = `
@@ -686,25 +685,25 @@ window.addEventListener('load', () => {
                     <ul>
             `;
             $$('#bloco_menu_clube input:checked').forEach(item => {
-                texto += `<li>${item.value}</li>`;
+                texto += `<li>${item.valor()}</li>`;
             });
             texto += `</ul>`;
             if (inputWebView.checked) {
                 texto += `<p>Deve tirar o botão de sair do Clube porque ele será usado apenas com WebView</p>`;
             }
-            texto += inputTexto.value;
+            texto += inputTexto.valor();
 
             const body = new FormData();
-            body.append('tipo', inputTipo.value);
+            body.append('tipo', inputTipo.valor());
             body.append('titulo', 'Novo clube de vantagens');
             body.append('empresa_nome', pegarEmpresaNome(inputEmpresaCliente));
-            body.append('empresa', inputEmpresaCliente.value);
-            body.append('dominio_tipo', inputDominioTipo.value);
+            body.append('empresa', inputEmpresaCliente.valor());
+            body.append('dominio_tipo', inputDominioTipo.valor());
             body.append('dominio_link', dominioLink);
-            body.append('login_api', inputLoginApi.value);
-            body.append('login_link', inputDominioLogin.value);
-            body.append('app', inputApp.value);
-            body.append('cdn', inputConfigurarCdn.value);
+            body.append('login_api', inputLoginApi.valor());
+            body.append('login_link', inputDominioLogin.valor());
+            body.append('app', inputApp.valor());
+            body.append('cdn', inputConfigurarCdn.valor());
             body.append('texto', texto);
 
             resolve(body);
@@ -719,9 +718,9 @@ window.addEventListener('load', () => {
     const validarDadoAssociacao = () => {
         return new Promise(resolve => {
             let mensagem = '';
-            if (inputEmpresaAssociacao.value == '') {
+            if (inputEmpresaAssociacao.valor() == '') {
                 mensagem = 'Escolha uma empresa para continuar.';
-            } else if (inputDominioSite.value == '') {
+            } else if (inputDominioSite.valor() == '') {
                 mensagem = 'Digite o domínio do site para continuar.';
             }
             if (mensagem != '') {
@@ -734,32 +733,32 @@ window.addEventListener('load', () => {
 
     const montarDadoAssociacao = () => {
         return new Promise(resolve => {
-            let texto = `<p><strong>Domínio:</strong> ${inputDominioSite.value}</p>`;
-            if (inputSocialFacebook.value != '') {
-                texto += `<p><strong>Facebook:</strong> ${inputSocialFacebook.value}</p>`;
+            let texto = `<p><strong>Domínio:</strong> ${inputDominioSite.valor()}</p>`;
+            if (inputSocialFacebook.valor() != '') {
+                texto += `<p><strong>Facebook:</strong> ${inputSocialFacebook.valor()}</p>`;
             }
-            if (inputSocialInstagram.value != '') {
-                texto += `<p><strong>Instagram:</strong> ${inputSocialInstagram.value}</p>`;
+            if (inputSocialInstagram.valor() != '') {
+                texto += `<p><strong>Instagram:</strong> ${inputSocialInstagram.valor()}</p>`;
             }
-            if (inputSocialTwitter.value != '') {
-                texto += `<p><strong>Twitter:</strong> ${inputSocialTwitter.value}</p>`;
+            if (inputSocialTwitter.valor() != '') {
+                texto += `<p><strong>Twitter:</strong> ${inputSocialTwitter.valor()}</p>`;
             }
-            if (inputEmail.value != '') {
-                texto += `<p><strong>E-mail:</strong> ${inputEmail.value}</p>`;
+            if (inputEmail.valor() != '') {
+                texto += `<p><strong>E-mail:</strong> ${inputEmail.valor()}</p>`;
             }
-            if (inputTelefone.value != '') {
-                texto += `<p><strong>Telefone:</strong> ${inputTelefone.value}</p>`;
+            if (inputTelefone.valor() != '') {
+                texto += `<p><strong>Telefone:</strong> ${inputTelefone.valor()}</p>`;
             }
-            if (inputEndereco.value != '') {
-                texto += `<p><strong>Endereço:</strong> ${inputEndereco.value}</p>`;
+            if (inputEndereco.valor() != '') {
+                texto += `<p><strong>Endereço:</strong> ${inputEndereco.valor()}</p>`;
             }
-            texto += inputTexto.value;
+            texto += inputTexto.valor();
 
             const body = new FormData();
             body.append('empresa_nome', pegarEmpresaNome(inputEmpresaAssociacao));
             body.append('titulo', 'Novo site para associação');
-            body.append('tipo', inputTipo.value);
-            body.append('empresa', inputEmpresaAssociacao.value);
+            body.append('tipo', inputTipo.valor());
+            body.append('empresa', inputEmpresaAssociacao.valor());
             body.append('texto', texto);
 
             resolve(body);
@@ -773,9 +772,9 @@ window.addEventListener('load', () => {
     const validarDadoOutro = () => {
         return new Promise(resolve => {
             let mensagem = '';
-            if (inputTitulo.value == '') {
+            if (inputTitulo.valor() == '') {
                 mensagem = 'Digite um título para a demanda.';
-            } else if (inputEmpresaOutro.value == '') {
+            } else if (inputEmpresaOutro.valor() == '') {
                 mensagem = 'Escolha uma empresa para continuar.';
             }
             if (mensagem != '') {
@@ -789,11 +788,11 @@ window.addEventListener('load', () => {
     const montarDadoOutro = () => {
         return new Promise(resolve => {
             const body = new FormData();
-            body.append('tipo', inputTipo.value);
-            body.append('titulo', inputTitulo.value);
+            body.append('tipo', inputTipo.valor());
+            body.append('titulo', inputTitulo.valor());
             body.append('empresa_nome', pegarEmpresaNome(inputEmpresaOutro));
-            body.append('empresa', inputEmpresaOutro.value);
-            body.append('texto', inputTexto.value);
+            body.append('empresa', inputEmpresaOutro.valor());
+            body.append('texto', inputTexto.valor());
 
             resolve(body);
         });
@@ -806,11 +805,11 @@ window.addEventListener('load', () => {
     const validarDadoBug = () => {
         return new Promise(resolve => {
             let mensagem = '';
-            if (inputTitulo.value == '') {
+            if (inputTitulo.valor() == '') {
                 mensagem = 'Digite um título para a demanda.';
-            } else if (inputBugLocal.value == '') {
+            } else if (inputBugLocal.valor() == '') {
                 mensagem = 'Escolha o local que o BUG está acontecedo continuar.';
-            } else if (inputEmpresaEspecifica.checked && inputEmpresaBug.value == '') {
+            } else if (inputEmpresaEspecifica.checked && inputEmpresaBug.valor() == '') {
                 mensagem = 'Escolha uma empresa para continuar.';
             }
             if (mensagem != '') {
@@ -824,13 +823,13 @@ window.addEventListener('load', () => {
     const montarDadoBug = () => {
         return new Promise(resolve => {
             const body = new FormData();
-            body.append('tipo', inputTipo.value);
-            body.append('titulo', inputTitulo.value);
-            body.append('local', inputBugLocal.value);
+            body.append('tipo', inputTipo.valor());
+            body.append('titulo', inputTitulo.valor());
+            body.append('local', inputBugLocal.valor());
             body.append('empresa_nome', pegarEmpresaNome(inputEmpresaBug));
-            body.append('empresa', inputEmpresaBug.value);
-            body.append('critico', inputBugCritico.value);
-            body.append('texto', inputTexto.value);
+            body.append('empresa', inputEmpresaBug.valor());
+            body.append('critico', inputBugCritico.valor());
+            body.append('texto', inputTexto.valor());
 
             resolve(body);
         });
@@ -844,34 +843,32 @@ window.addEventListener('load', () => {
     const validarDadoSorteio = () => {
         return new Promise(resolve => {
             let mensagem = '';
-            if (inputTitulo.value == '') {
+            if (inputTitulo.valor() == '') {
                 mensagem = 'Digite um título para a demanda.';
-            } else if (inputEmpresaSorteio.value == '') {
+            } else if (inputEmpresaSorteio.valor() == '') {
                 mensagem = 'Escolha uma empresa para continuar.';
-            } else if (inputDataEntregaSorteio.value == '') {
+            } else if (inputDataEntregaSorteio.valor() == '') {
                 mensagem = 'Digite o prazo máximo.';
-            } else if (inputSorteioDataInicio.value == '') {
+            } else if (inputSorteioDataInicio.valor() == '') {
                 mensagem = 'Digite a data de início da sorteio.';
-            } else if (inputSorteioDataFinal.value == '') {
+            } else if (inputSorteioDataFinal.valor() == '') {
                 mensagem = 'Digite a data final do sorteio.';
-            } else if (inputSorteioDataSorteio.value == '') {
+            } else if (inputSorteioDataSorteio.valor() == '') {
                 mensagem = 'Digite a data que será o sorteio.';
-            } else if (inputSorteioComoParticipar.value == '') {
+            } else if (inputSorteioComoParticipar.valor() == '') {
                 mensagem = 'Digite as normas para o usuário participar do sorteio.';
-            } else if (inputSorteioMotivacao.value == '') {
+            } else if (inputSorteioMotivacao.valor() == '') {
                 mensagem = 'Escolha a motivação do sorteio.';
-            } else if (inputSorteioMotivacao.value == 'outro' && inputSorteioMotivacaoOutro.value == '') {
+            } else if (inputSorteioMotivacao.valor() == 'outro' && inputSorteioMotivacaoOutro.valor() == '') {
                 mensagem = 'Digite a motivação do sorteio.';
-            } else if (inputSorteioPremioItem.value == '') {
+            } else if (inputSorteioPremioItem.valor() == '') {
                 mensagem = 'Digite qual item vai ser sorteado.';
-            } else if (inputSorteioPremioCompra.value == '') {
+            } else if (inputSorteioPremioCompra.valor() == '') {
                 mensagem = 'Escolha quem vai comprar o prémio.';
-            } else if (inputSorteioPremioEntrega.value == '') {
+            } else if (inputSorteioPremioEntrega.valor() == '') {
                 mensagem = 'Escolha a forma de entrega do prémio.';
-            } else if (inputSorteioPremioEntrega.value == 'outro' && inputSorteioPremioEntregaOutro.value == '') {
+            } else if (inputSorteioPremioEntrega.valor() == 'outro' && inputSorteioPremioEntregaOutro.valor() == '') {
                 mensagem = 'Digite a forma de entrega do prémio.';
-            } else if (inputSorteioTexto.value == '') {
-                mensagem = 'Digite a descrição do sorteio';
             }
             if (mensagem != '') {
                 Alerta.notificacao(mensagem, false);
@@ -883,23 +880,22 @@ window.addEventListener('load', () => {
     const montarDadoSorteio = () => {
         return new Promise(resolve => {
             const body = new FormData();
-            body.append('tipo', inputTipo.value);
+            body.append('tipo', inputTipo.valor());
             body.append('empresa_nome', pegarEmpresaNome(inputEmpresaSorteio));
-            body.append('data_entrega', inputDataEntregaSorteio.value);
-            body.append('empresa', inputEmpresaSorteio.value);
-            body.append('titulo', inputTitulo.value);
-            body.append('sorteio_inicio', inputSorteioDataInicio.value);
-            body.append('sorteio_final', inputSorteioDataFinal.value);
-            body.append('sorteio_data', inputSorteioDataSorteio.value);
-            body.append('sorteio_como_participar', inputSorteioComoParticipar.value);
-            body.append('sorteio_motivacao', inputSorteioMotivacao.value);
-            body.append('sorteio_motivacao_outro', inputSorteioMotivacaoOutro.value);
-            body.append('sorteio_premio', inputSorteioPremioItem.value);
-            body.append('sorteio_premio_compra', inputSorteioPremioCompra.value);
-            body.append('sorteio_premio_entrega', inputSorteioPremioEntrega.value);
-            body.append('sorteio_premio_entrega_outro', inputSorteioPremioEntregaOutro.value);
-            body.append('sorteio_texto', inputSorteioTexto.value);
-            body.append('texto', inputTexto.value);
+            body.append('data_entrega', inputDataEntregaSorteio.valor());
+            body.append('empresa', inputEmpresaSorteio.valor());
+            body.append('titulo', inputTitulo.valor());
+            body.append('sorteio_inicio', inputSorteioDataInicio.valor());
+            body.append('sorteio_final', inputSorteioDataFinal.valor());
+            body.append('sorteio_data', inputSorteioDataSorteio.valor());
+            body.append('sorteio_como_participar', inputSorteioComoParticipar.valor());
+            body.append('sorteio_motivacao', inputSorteioMotivacao.valor());
+            body.append('sorteio_motivacao_outro', inputSorteioMotivacaoOutro.valor());
+            body.append('sorteio_premio', inputSorteioPremioItem.valor());
+            body.append('sorteio_premio_compra', inputSorteioPremioCompra.valor());
+            body.append('sorteio_premio_entrega', inputSorteioPremioEntrega.valor());
+            body.append('sorteio_premio_entrega_outro', inputSorteioPremioEntregaOutro.valor());
+            body.append('texto', inputTexto.valor());
 
             resolve(body);
         });
@@ -1155,6 +1151,7 @@ window.addEventListener('load', () => {
     const validarDadoCotacaoProduto = () => {
         return new Promise(resolve => {
             const mensagemErro = {
+                cotacao_produto_nome: 'Digita o nome do usuário solicitante.',
                 cotacao_produto_cpf: 'Digita o CPF do usuário solicitante.',
                 cotacao_produto_email: 'Digite o E-mail do usuário solicitante.',
                 cotacao_produto_telefone: 'Digite o telefone do usuário solicitante.',
@@ -1171,6 +1168,7 @@ window.addEventListener('load', () => {
     const montarDadoCotacaoProduto = () => {
         return new Promise(resolve => {
             const campos = {
+                nome: 'cotacao_produto_nome',
                 cpf: 'cotacao_produto_cpf',
                 email: 'cotacao_produto_email',
                 telefone: 'cotacao_produto_telefone',
@@ -1227,7 +1225,7 @@ window.addEventListener('load', () => {
         for (const campo in campos) {
             const elemento = document.getElementById('input_' + campo);
 
-            if (elemento.value === '') {
+            if (elemento.valor() === '') {
                 Alerta.notificacao(campos[campo], false);
                 return false;
             }
@@ -1238,11 +1236,11 @@ window.addEventListener('load', () => {
     const montarBody = (campos, inputEmpresa) => {
         const body = new FormData();
 
-        body.append('titulo', inputTitulo.value);
-        body.append('tipo', inputTipo.value);
+        body.append('titulo', inputTitulo.valor());
+        body.append('tipo', inputTipo.valor());
         body.append('empresa_nome', pegarEmpresaNome(inputEmpresa));
-        body.append('empresa', inputEmpresa.value);
-        body.append('texto', inputTexto.value);
+        body.append('empresa', inputEmpresa.valor());
+        body.append('texto', inputTexto.valor());
 
         for (const key in campos) {
             const campo = campos[key];
@@ -1251,14 +1249,14 @@ window.addEventListener('load', () => {
                 body.append(key, elemento.checked ? 1 : 0);
                 continue;
             }
-            body.append(key, elemento.value);
+            body.append(key, elemento.valor());
         }
 
         return body;
     };
 
     const testarDataInicio = async (input, periodo) => {
-        const inputData = document.getElementById(input).value;
+        const inputData = document.getElementById(input).valor();
         const dataInicio = new Date(formatarData(inputData));
         const hoje = new Date();
 
@@ -1306,11 +1304,11 @@ window.addEventListener('load', () => {
     const validarDadoCriacao = () => {
         return new Promise(resolve => {
             let mensagem = '';
-            if (inputTitulo.value == '') {
+            if (inputTitulo.valor() == '') {
                 mensagem = 'Digite um título para a demanda.';
-            } else if (inputEmpresaCriacao.value == '') {
+            } else if (inputEmpresaCriacao.valor() == '') {
                 mensagem = 'Escolha uma empresa para continuar.';
-            } else if (inputDataEntrega.value == '') {
+            } else if (inputDataEntrega.valor() == '') {
                 mensagem = 'Digite a data de entrega da demanda.';
             } else if (
                 !inputCriacaoCategoriaImpresso.checked &&
@@ -1323,10 +1321,10 @@ window.addEventListener('load', () => {
                 mensagem = 'Você tem que escolher pelo menos um tipo de tarefa para a demanda.';
             } else if (
                 inputCriacaoCategoriaSite.checked &&
-                (inputSiteLargura.value == '' || inputSiteAltura.value == '')
+                (inputSiteLargura.valor() == '' || inputSiteAltura.valor() == '')
             ) {
                 mensagem = 'Você deve passar a largura e altura da peça do site.';
-            } else if (inputCriacaoCategoriaSite.checked && inputSiteTexto.value == '') {
+            } else if (inputCriacaoCategoriaSite.checked && inputSiteTexto.valor() == '') {
                 mensagem = 'Você deve passar a descrição da tarefa do site.';
             } else if (
                 inputCriacaoCategoriaSocial.checked &&
@@ -1346,7 +1344,7 @@ window.addEventListener('load', () => {
                 !inputFeedTiktok.checked
             ) {
                 mensagem = 'Você deve marcar em quais redes sociais irão aparecer as artes do feed.';
-            } else if (inputCriacaoCategoriaSocial.checked && inputRedeSocialTexto.value == '') {
+            } else if (inputCriacaoCategoriaSocial.checked && inputRedeSocialTexto.valor() == '') {
                 mensagem = 'Você deve passar a descrição da tarefa da rede social.';
             } else if (
                 inputCriacaoCategoriaImpresso.checked &&
@@ -1357,7 +1355,7 @@ window.addEventListener('load', () => {
                 !inputImpressoOutro.checked
             ) {
                 mensagem = 'Você deve marcar quais peças impressas devem ser criadas.';
-            } else if (inputCriacaoCategoriaImpresso.checked && inputImpressoTexto.value == '') {
+            } else if (inputCriacaoCategoriaImpresso.checked && inputImpressoTexto.valor() == '') {
                 mensagem = 'Você deve passar a descrição da tarefa de imprenso.';
             } else if (
                 inputCriacaoCategoriaKit.checked &&
@@ -1370,18 +1368,18 @@ window.addEventListener('load', () => {
                 !inputKitVideo.checked
             ) {
                 mensagem = 'Você deve marcar quais peças do kit de boas-vindas devem ser criadas.';
-            } else if (inputCriacaoCategoriaKit.checked && inputKitTexto.value == '') {
+            } else if (inputCriacaoCategoriaKit.checked && inputKitTexto.valor() == '') {
                 mensagem = 'Você deve passar a descrição da tarefa do kit de boa-vindas.';
             } else if (
-                inputVideoFormato.value == 'outro' &&
-                (inputVideoLargura.value == '' || inputVideoAltura == '')
+                inputVideoFormato.valor() == 'outro' &&
+                (inputVideoLargura.valor() == '' || inputVideoAltura == '')
             ) {
                 mensagem = 'Você deve passar a largura e altura do vídeo.';
-            } else if (inputCriacaoCategoriaVideo.checked && inputVideoTexto.value == '') {
+            } else if (inputCriacaoCategoriaVideo.checked && inputVideoTexto.valor() == '') {
                 mensagem = 'Você deve passar a descrição da tarefa do vídeo.';
-            } else if (inputCriacaoCategoriaOutro.checked && inputOutroTexto.value == '') {
+            } else if (inputCriacaoCategoriaOutro.checked && inputOutroTexto.valor() == '') {
                 mensagem = 'É obrigado digitar uma descrição para o tipo de demanda outro.';
-            } else if (inputCriacaoCategoriaOutro.checked && inputOutroTexto.value == '') {
+            } else if (inputCriacaoCategoriaOutro.checked && inputOutroTexto.valor() == '') {
                 mensagem = 'Você deve passar a descrição da tarefa de outro.';
             }
             if (mensagem != '') {
@@ -1395,20 +1393,20 @@ window.addEventListener('load', () => {
     const montarDadoCriacao = () => {
         return new Promise(resolve => {
             const body = new FormData();
-            body.append('tipo', inputTipo.value);
+            body.append('tipo', inputTipo.valor());
             body.append('empresa_nome', pegarEmpresaNome(inputEmpresaCriacao));
-            body.append('data_entrega', inputDataEntrega.value);
-            body.append('empresa', inputEmpresaCriacao.value);
-            body.append('titulo', inputTitulo.value);
+            body.append('data_entrega', inputDataEntrega.valor());
+            body.append('empresa', inputEmpresaCriacao.valor());
+            body.append('titulo', inputTitulo.valor());
             body.append('criacao_site', inputCriacaoCategoriaSite.checked ? 'sim' : 'nao');
             body.append('criacao_social', inputCriacaoCategoriaSocial.checked ? 'sim' : 'nao');
             body.append('criacao_impresso', inputCriacaoCategoriaImpresso.checked ? 'sim' : 'nao');
             body.append('criacao_kit', inputCriacaoCategoriaKit.checked ? 'sim' : 'nao');
             body.append('criacao_video', inputCriacaoCategoriaVideo.checked ? 'sim' : 'nao');
             body.append('criacao_outro', inputCriacaoCategoriaOutro.checked ? 'sim' : 'nao');
-            body.append('site_largura', inputSiteLargura.value);
-            body.append('site_altura', inputSiteAltura.value);
-            body.append('site_texto', inputSiteTexto.value);
+            body.append('site_largura', inputSiteLargura.valor());
+            body.append('site_altura', inputSiteAltura.valor());
+            body.append('site_texto', inputSiteTexto.valor());
             body.append('digital_stories', inputDigitalStories.checked ? 'sim' : 'nao');
             body.append('digital_feed', inputDigitalFeed.checked ? 'sim' : 'nao');
             body.append('digital_banner', inputDigitalBanner.checked ? 'sim' : 'nao');
@@ -1419,13 +1417,13 @@ window.addEventListener('load', () => {
             body.append('feed_twitter', inputFeedTwitter.checked ? 'sim' : 'nao');
             body.append('feed_youtube', inputFeedYoutube.checked ? 'sim' : 'nao');
             body.append('feed_tiktop', inputFeedTiktok.checked ? 'sim' : 'nao');
-            body.append('digital_texto', inputRedeSocialTexto.value);
+            body.append('digital_texto', inputRedeSocialTexto.valor());
             body.append('impresso_voucher', inputImpressoVoucher.checked ? 'sim' : 'nao');
             body.append('impresso_folder', inputImpressoFolder.checked ? 'sim' : 'nao');
             body.append('impresso_banner', inputImpressoBanner.checked ? 'sim' : 'nao');
             body.append('impresso_revista', inputImpressoRevista.checked ? 'sim' : 'nao');
             body.append('impresso_outro', inputImpressoOutro.checked ? 'sim' : 'nao');
-            body.append('impresso_texto', inputImpressoTexto.value);
+            body.append('impresso_texto', inputImpressoTexto.valor());
             body.append('kit_email', inputKitEmail.checked ? 'sim' : 'nao');
             body.append('kit_stories', inputKitStories.checked ? 'sim' : 'nao');
             body.append('kit_video', inputKitVideo.checked ? 'sim' : 'nao');
@@ -1433,19 +1431,20 @@ window.addEventListener('load', () => {
             body.append('kit_como_acessar', inputKitComoAcessar.checked ? 'sim' : 'nao');
             body.append('kit_baixar_app', inputKitBaixarApp.checked ? 'sim' : 'nao');
             body.append('kit_previa', inputKitPrevia.checked ? 'sim' : 'nao');
-            body.append('kit_texto', inputKitTexto.value);
-            body.append('video_formato', inputVideoFormato.value);
-            body.append('video_largura', inputVideoLargura.value);
-            body.append('video_altura', inputVideoAltura.value);
-            body.append('video_texto', inputVideoTexto.value);
-            body.append('outro_texto', inputOutroTexto.value);
+            body.append('kit_texto', inputKitTexto.valor());
+            body.append('video_formato', inputVideoFormato.valor());
+            body.append('video_largura', inputVideoLargura.valor());
+            body.append('video_altura', inputVideoAltura.valor());
+            body.append('video_texto', inputVideoTexto.valor());
+            body.append('outro_texto', inputOutroTexto.valor());
+            body.append('texto', inputTexto.valor());
 
             resolve(body);
         });
     };
 
     const pegarEmpresaNome = empresa => {
-        if (empresa.value == '') {
+        if (empresa.valor() == '') {
             return '';
         }
         const bloco = empresa.closest('.bloco_input');
@@ -1453,7 +1452,7 @@ window.addEventListener('load', () => {
         if (!input) {
             return '';
         }
-        return input.value + ' - ';
+        return input.valor() + ' - ';
     };
 
     /*
@@ -1492,18 +1491,18 @@ window.addEventListener('load', () => {
         botaoVoltar.sumir();
         botaoFechar.aparecer();
 
-        inputTipo.value = '';
-        inputTitulo.value = '';
-        formValue(inputTexto, '');
+        inputTipo.valor('');
+        inputTitulo.valor('');
+        inputTexto.valor('');
 
         // Cliente
-        formValue(inputEmpresaCliente, '');
-        formValue(inputDominioTipo, '');
-        inputDominioSub.value = '';
-        inputDominioProprio.value = '';
+        inputEmpresaCliente.valor('');
+        inputDominioTipo.valor('');
+        inputDominioSub.valor('');
+        inputDominioProprio.valor('');
         inputConfigurarCdn.checked = false;
         inputLoginApi.checked = false;
-        inputDominioLogin.value = '';
+        inputDominioLogin.valor('');
         inputApp.checked = false;
         inputWebView.checked = false;
 
@@ -1518,22 +1517,22 @@ window.addEventListener('load', () => {
         blocoObservacaoSubDominioProprio.sumir();
 
         // Bub
-        formValue(inputBugLocal, '');
-        formValue(inputEmpresaBug, '');
+        inputBugLocal.valor('');
+        inputEmpresaBug.valor('');
         inputEmpresaEspecifica.checked = false;
         inputBugCritico.checked = false;
         blocoEmpresaEspecifica.sumir();
         // Outro
-        formValue(inputEmpresaOutro, '');
+        inputEmpresaOutro.valor('');
         // Associacao
-        formValue(inputEmpresaAssociacao, '');
-        inputDominioSite.value = '';
-        inputSocialFacebook.value = '';
-        inputSocialInstagram.value = '';
-        inputSocialTwitter.value = '';
-        inputEmail.value = '';
-        inputTelefone.value = '';
-        inputEndereco.value = '';
+        inputEmpresaAssociacao.valor('');
+        inputDominioSite.valor('');
+        inputSocialFacebook.valor('');
+        inputSocialInstagram.valor('');
+        inputSocialTwitter.valor('');
+        inputEmail.valor('');
+        inputTelefone.valor('');
+        inputEndereco.valor('');
     };
     const limparCriacao = () => {
         blocoTipoCriacao.sumir();
@@ -1545,19 +1544,22 @@ window.addEventListener('load', () => {
         botaoVoltar.sumir();
         botaoFechar.aparecer();
 
-        inputTipo.value = '';
-        inputTitulo.value = '';
+        inputTipo.valor('');
+        inputTitulo.valor('');
 
         // Criacao
-        formValue(inputEmpresaCriacao, '');
+        inputEmpresaCriacao.valor('');
+        inputTexto.valor('');
+        inputDataEntregaSorteio.valor('');
+        inputDataEntrega.valor('');
         inputCriacaoCategoriaSite.checked = false;
         inputCriacaoCategoriaSocial.checked = false;
         inputCriacaoCategoriaImpresso.checked = false;
         inputCriacaoCategoriaKit.checked = false;
         inputCriacaoCategoriaVideo.checked = false;
         inputCriacaoCategoriaOutro.checked = false;
-        inputSiteLargura.value = '';
-        inputSiteAltura.value = '';
+        inputSiteLargura.valor('');
+        inputSiteAltura.valor('');
         inputDigitalStories.checked = false;
         inputDigitalFeed.checked = false;
         inputDigitalBanner.checked = false;
@@ -1580,15 +1582,15 @@ window.addEventListener('load', () => {
         inputKitComoAcessar.checked = false;
         inputKitBaixarApp.checked = false;
         inputKitPrevia.checked = false;
-        formValue(inputVideoFormato, '');
-        inputVideoLargura.value = '';
-        inputVideoAltura.value = '';
-        formValue(inputSiteTexto, '');
-        formValue(inputRedeSocialTexto, '');
-        formValue(inputImpressoTexto, '');
-        formValue(inputKitTexto, '');
-        formValue(inputVideoTexto, '');
-        formValue(inputOutroTexto, '');
+        inputVideoFormato.valor('');
+        inputVideoLargura.valor('');
+        inputVideoAltura.valor('');
+        inputSiteTexto.valor('');
+        inputRedeSocialTexto.valor('');
+        inputImpressoTexto.valor('');
+        inputKitTexto.valor('');
+        inputVideoTexto.valor('');
+        inputOutroTexto.valor('');
         blocoCriacaoSite.sumir();
         blocoCriacaoFeed.sumir();
         blocoCriacaoImpresso.sumir();
@@ -1599,18 +1601,17 @@ window.addEventListener('load', () => {
         blocoCriacaoVideoDimensao.sumir();
 
         // Sorteio
-        formValue(inputEmpresaSorteio, '');
-        inputSorteioDataInicio.value = '';
-        inputSorteioDataFinal.value = '';
-        inputSorteioDataSorteio.value = '';
-        inputSorteioComoParticipar.value = '';
-        formValue(inputSorteioMotivacao, '');
-        inputSorteioMotivacaoOutro.value = '';
-        inputSorteioPremioItem.value = '';
-        formValue(inputSorteioPremioCompra, '');
-        formValue(inputSorteioPremioEntrega, '');
-        inputSorteioPremioEntregaOutro.value = '';
-        formValue(inputSorteioTexto, '');
+        inputEmpresaSorteio.valor('');
+        inputSorteioDataInicio.valor('');
+        inputSorteioDataFinal.valor('');
+        inputSorteioDataSorteio.valor('');
+        inputSorteioComoParticipar.valor('');
+        inputSorteioMotivacao.valor('');
+        inputSorteioMotivacaoOutro.valor('');
+        inputSorteioPremioItem.valor('');
+        inputSorteioPremioCompra.valor('');
+        inputSorteioPremioEntrega.valor('');
+        inputSorteioPremioEntregaOutro.valor('');
         blocoSorteioMotivacaoOutro.sumir();
         blocoSorteioEntregaOutro.sumir();
     };
@@ -1631,8 +1632,9 @@ window.addEventListener('load', () => {
             resetarInputs(bloco);
         });
 
-        inputTipo.value = '';
-        inputTitulo.value = '';
+        inputTipo.valor('');
+        inputTitulo.valor('');
+        inputTexto.valor('');
 
         blocoConvenio.aparecer();
         blocoHeader.sumir();
@@ -1650,9 +1652,8 @@ window.addEventListener('load', () => {
             if (item.type == 'checkbox') {
                 item.checked = false;
             }
-
-            if (item.type == 'text') {
-                item.value = '';
+            if (item.type == 'text' || item.type == 'email') {
+                item.valor('');
             }
         });
     };

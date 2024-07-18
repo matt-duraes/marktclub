@@ -49,9 +49,8 @@ final class SorteioModel
                 <p><strong>DADOS DO PRÉMIO</strong></p>
                 <p>Qual será o prémio: <strong>$request->sorteio_premio</strong></p>
                 <p>Quem irá comprar o prémio: <strong>$request->sorteio_premio_compra</strong></p>
-                <p>Motivação do sorteio: <strong>$entrega</strong></p>
+                <p>Onde será entregue: <strong>$entrega</strong></p>
                 <hr>
-                $request->getPost('sorteio_texto', html: false)
                 <p><strong>Outros dados:</strong></p>
                 $texto
             HTML,
