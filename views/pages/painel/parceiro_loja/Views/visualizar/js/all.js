@@ -109,7 +109,7 @@ window.addEventListener('load', () => {
     botaoSalvarCancelarLoja.evento('click', async () => {
         const motivo = $('#input_cancelar_motivo').valor();
         if (vazio(motivo)) {
-            Alerta.notificacao('Digite um motivo para cancelar a loja.', false);
+            Alerta.notificacao('Selecione um motivo para cancelar a loja.', false);
             return;
         }
         Loading.show();
@@ -118,6 +118,7 @@ window.addEventListener('load', () => {
             id: parceiro,
             // eslint-disable-next-line
             status: status,
+            cancelar_motivo: motivo,
         });
         Loading.hide();
         if (false === resposta) {
