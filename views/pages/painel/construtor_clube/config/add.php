@@ -93,7 +93,6 @@ $Painel->coluna(callback: function () use ($Painel) {
     $Painel->fieldset('Links', function () use ($Painel) {
         $Painel
             ->url(name: 'link_clube', label: 'Link do clube', placeholder: 'Link do clube')
-            ->url(name: 'link_login', label: 'Link de login', placeholder: 'Link de login')
             ->url(name: 'link_cadastro', label: 'Link de cadastro', placeholder: 'Link de cadastro')
             ->url(name: 'link_salavip', label: 'Link da salavip', placeholder: 'Link da salavip')
             ->url(name: 'link_odontologico', label: 'Link do plano odontológico', placeholder: 'Link do plano odontológico')
@@ -110,6 +109,14 @@ $Painel->coluna(callback: function () use ($Painel) {
             ->url(name: 'link_linkedin', label: 'Linkedin', placeholder: 'Link do Linkedin')
             ->url(name: 'link_youtube', label: 'Youtube', placeholder: 'Link do Youtube')
             ->url(name: 'link_tiktok', label: 'Tiktok', placeholder: 'Link do Tiktok');
+    });
+    $Painel->fieldset('Login', function () use ($Painel) {
+        $Painel
+            ->input(name: 'texto_login_usuario', label: 'Botão usuário', placeholder: 'Digite o nome do botão do usuário')
+            ->input(name: 'texto_login_dependente', label: 'Botão dependente', placeholder: 'Digite o nome do botão do dependente')
+            ->input(name: 'texto_login_funcionario', label: 'Botão funcionário', placeholder: 'Digite o nome do botão do funcionário')
+            ->url(name: 'link_login', label: 'Link de login', placeholder: 'Link de login do usuário')
+            ->url(name: 'link_funcionario', label: 'Link de funcionário', placeholder: 'Link de login do funcionário');
     });
 });
 
