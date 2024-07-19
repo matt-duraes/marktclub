@@ -58,7 +58,7 @@ final class ComunicacaoLoginController extends Controller implements
     {
         return mensagemSucesso(
             pegarPropriedadeDaEntity($BannerEntity, lista: [
-                'titulo', 'arquivo_1', 'arquivo_2', 'arquivo_3', 'empresa', 'padrao',
+                'titulo', 'arquivo_1', 'arquivo_2', 'arquivo_3', 'lista', 'empresa', 'padrao',
                 'data_inicio', 'data_fim', 'status'
             ]),
             $status
