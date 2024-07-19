@@ -35,13 +35,13 @@ class BannerEntity extends Entity
     {
         $ormHelper = new OrmHelper(TABELA_COMERCIAL_EMPRESA);
         $this->empresa = $ormHelper->mudarListaIdParaUuid($this->id_admin_empresa);
-        if(!empty($this->arquivo_1)) {
+        if (!empty($this->arquivo_1)) {
             $this->lista[] = arquivoPrivado($this->arquivo_1);
         }
-        if(!empty($this->arquivo_2)) {
+        if (!empty($this->arquivo_2)) {
             $this->lista[] = arquivoPrivado($this->arquivo_2);
         }
-        if(!empty($this->arquivo_3)) {
+        if (!empty($this->arquivo_3)) {
             $this->lista[] = arquivoPrivado($this->arquivo_3);
         }
     }
