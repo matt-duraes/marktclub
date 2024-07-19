@@ -2628,6 +2628,15 @@ Route
             ::get('/silium-config');
 
         Route
+            ::nome('salvar')
+            ::middleware(TokenMiddleware::class, 'scope', ['silium_config:salvar'])
+            ::request([
+                'empresa', '!regra_conversao', 'pontuacao_dinheiro',
+                'pontuacao_mensalidade', 'validade_pontuacao', 'desconto'
+            ])
+            ::post('/silium-config');
+
+        Route
             ::nome('atualizar')
             ::middleware(TokenMiddleware::class, 'scope', ['silium_config:atualizar'])
             ::request([
@@ -2635,6 +2644,11 @@ Route
                 '!pontuacao_mensalidade', '!validade_pontuacao', '!desconto'
             ])
             ::put('/silium-config/{id}');
+
+        Route
+            ::nome('deletar')
+            ::middleware(TokenMiddleware::class, 'scope', ['silium_config:deletar'])
+            ::delete('/silium-config/{id}');
 
         Route
             ::nome('configuracoes')

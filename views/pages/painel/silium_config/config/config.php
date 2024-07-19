@@ -6,9 +6,9 @@ return [
     'filtrar'    => false,
     'ordem'      => false,
     'visualizar' => false,
-    'add'        => false,
+    'add'        => true,
     'editar'     => true,
-    'deletar'    => false,
+    'deletar'    => true,
     'download'   => false,
     'historico'  => false,
     'api'        => [
