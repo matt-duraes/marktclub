@@ -97,7 +97,7 @@ window.addEventListener('load', () => {
         }
 
         if (parceiro.length > 0 && local != 'loja') {
-            carregarListaMaisAcesso([], bloco, local);
+            carregarListaMaisAcesso([], bloco, newLocal);
             return;
         }
 
@@ -123,7 +123,7 @@ window.addEventListener('load', () => {
         if (resposta.dado == undefined) {
             return;
         }
-        carregarListaMaisAcesso(resposta.dado, bloco, local);
+        carregarListaMaisAcesso(resposta.dado, bloco, newLocal);
     };
     buscarMaisAcessado('usuario');
     buscarMaisAcessado('pagina');
