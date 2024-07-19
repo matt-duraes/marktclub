@@ -70,7 +70,6 @@ class SiliumDepositoEntity extends Entity
             ['desconto', 'pontuacao_minima_resgate'],
             'object'
         );
-
         if (empty($configs->desconto)) {
             $configs = $OrmHelper->pegarUltimoRegistro(
                 ['id_admin_empresa', 1],

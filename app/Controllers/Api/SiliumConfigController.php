@@ -77,9 +77,9 @@ final class SiliumConfigController extends Controller implements
     public function getConfiguracoes(): Response
     {
         $SiliumConfigEntity = new SiliumConfigEntity();
-        $SiliumConfigEntity->buscar(['id_admin_empresa', TOKEN['empresa']->id]);
-
-        if (empty($SiliumConfigEntity->id)) {
+        try {
+            $SiliumConfigEntity->buscar(['id_admin_empresa', TOKEN['empresa']->id]);
+        } catch (Excecao) {
             $SiliumConfigEntity->buscar(['id_admin_empresa', 1]);
         }
         return mensagemSucesso(
