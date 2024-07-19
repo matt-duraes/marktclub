@@ -13,12 +13,16 @@ use Modules\Pagina;
 use Modules\Quantidade;
 use System\Interface\ControllerAtualizarInterface;
 use System\Interface\ControllerBuscarInterface;
+use System\Interface\ControllerDeletarInterface;
 use System\Interface\ControllerListarInterface;
+use System\Interface\ControllerSalvarInterface;
 
 final class SiliumConfigController extends Controller implements
     ControllerBuscarInterface,
     ControllerListarInterface,
-    ControllerAtualizarInterface
+    ControllerSalvarInterface,
+    ControllerAtualizarInterface,
+    ControllerDeletarInterface
 {
     /**
      * @param string $id
@@ -56,6 +60,26 @@ final class SiliumConfigController extends Controller implements
 
     /**
      * @param Request $request
+     *
+     * @return Response
+     * @throws Excecao
+     */
+    public function postSalvar(Request $request): Response
+    {
+        $SiliumConfigEntity = new SiliumConfigEntity();
+        $SiliumConfigEntity->set(lista: $request->dado());
+        $SiliumConfigEntity->salvar();
+        return mensagemSucesso(
+            pegarPropriedadeDaEntity($SiliumConfigEntity, lista: [
+                'empresa', 'desconto', 'pontuacao_dinheiro',
+                'pontuacao_mensalidade', 'validade_pontuacao'
+            ]),
+            201
+        );
+    }
+
+    /**
+     * @param Request $request
      * @param string  $id
      *
      * @return Response
@@ -67,6 +91,21 @@ final class SiliumConfigController extends Controller implements
         $SiliumConfigEntity->uuid($id);
         $SiliumConfigEntity->set(lista: $request->dado());
         $SiliumConfigEntity->salvar();
+        return new Response(status: 204);
+    }
+
+
+    /**
+     * @param string $id
+     *
+     * @return Response
+     * @throws Excecao
+     */
+    public function deleteDeletar(string $id): Response
+    {
+        $SiliumConfigEntity = new SiliumConfigEntity();
+        $SiliumConfigEntity->uuid($id);
+        $SiliumConfigEntity->destruir();
         return new Response(status: 204);
     }
 
