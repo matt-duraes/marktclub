@@ -35,7 +35,7 @@
         <p class="valor_destaque">{{$r->valor_por}}</p>
         @ endif;
         @ if($r->tipo == 'automovel-versao'):
-            <button class="botao_solicitar_declaracao">Solicitar</button>
+            <div class="botao_solicitar_declaracao">Solicitar</div>
         @ endif;
 
         @ if( $r->tipo == 'cashback' ):
