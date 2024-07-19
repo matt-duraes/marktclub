@@ -8,7 +8,6 @@ use App\Classes\SiliumDeposito\TipoOperacao;
 use App\Classes\SiliumDeposito\TipoResgate;
 use App\Models\Api\ConstrutorClube\ConstrutorEntity;
 use App\Models\Api\SiliumSaldo\SiliumSaldoEntity;
-use Erro\Erro;
 use Erro\Excecao;
 use Helpers\EmailHelper;
 use Helpers\OrmHelper;
@@ -66,13 +65,12 @@ class SiliumDepositoEntity extends Entity
     private function pegarConfiguracoes(): void
     {
         $OrmHelper = new OrmHelper(TABELA_SILIUM_CONFIG);
-        try {
-            $configs = $OrmHelper->pegarUltimoRegistro(
-                ['id_admin_empresa', TOKEN['empresa']->id],
-                ['desconto', 'pontuacao_minima_resgate'],
-                'object'
-            );
-        } catch (Excecao) {
+        $configs = $OrmHelper->pegarUltimoRegistro(
+            ['id_admin_empresa', TOKEN['empresa']->id],
+            ['desconto', 'pontuacao_minima_resgate'],
+            'object'
+        );
+        if (empty($configs->desconto)) {
             $configs = $OrmHelper->pegarUltimoRegistro(
                 ['id_admin_empresa', 1],
                 ['desconto', 'pontuacao_minima_resgate'],
