@@ -94,7 +94,6 @@ final class SiliumConfigController extends Controller implements
         return new Response(status: 204);
     }
 
-
     /**
      * @param string $id
      *

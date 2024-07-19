@@ -15,11 +15,25 @@ final class LinkSiteModel
         if ($Loja->id == '814b9d1792724316417c96b8fc33aacb') {
             $this->link = 'https://api.marktclub.net.br/integracao/link/' . $this->criarHash();
         } elseif ($Loja->id == '75f36834053439727abd97d4003af9cc') {
-            $this->link = LINK . '/solicitacao-link/confirmar/' . $this->criarHash();
+            $this->link = LINK . '/solicitacao-link/confirmar/' . $this->criarHashOld();
         }
     }
 
     private function criarHash()
+    {
+        if (!array_key_exists('usuario', TOKEN) || !array_key_exists('empresa', TOKEN)) {
+            return '';
+        }
+
+        return base64Encode([
+            'parceiro' => $this->Loja->get('id'),
+            'usuario'  => TOKEN['usuario']->id,
+            'empresa'  => TOKEN['empresa']->id,
+            'data'     => dataAdicionar(agora(), 5, 'minutos', 'Y-m-d H:i:s')
+        ], true);
+    }
+
+    private function criarHashOld()
     {
         if (!array_key_exists('usuario', TOKEN)) {
             return '';
