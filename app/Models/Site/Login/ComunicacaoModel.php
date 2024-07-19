@@ -21,20 +21,9 @@ final class ComunicacaoModel
             ];
         }
 
-        $banner = [];
-        if (!empty($dado->dado->arquivo_1)) {
-            $banner[] = arquivoPrivado($dado->dado->arquivo_1);
-        }
-        if (!empty($dado->dado->arquivo_2)) {
-            $banner[] = arquivoPrivado($dado->dado->arquivo_2);
-        }
-        if (!empty($dado->dado->arquivo_3)) {
-            $banner[] = arquivoPrivado($dado->dado->arquivo_3);
-        }
-
         return (object)[
-            'lista'      => $banner,
-            'quantidade' => count($banner),
+            'lista'      => $dado->dado->lista,
+            'quantidade' => count($dado->dado->lista),
         ];
     }
 }

@@ -14,7 +14,6 @@ use App\Models\Site\Ativar\SalvarModel;
 use App\Models\Site\Login\LoginApiModel;
 use App\Models\Site\Login\ComunicacaoModel;
 use App\Classes\ConstrutorClube\TipoAtivacao;
-use App\Models\Site\Contato\SalvarModel as SalvarContatoModel;
 
 final class LoginController extends Controller
 {
@@ -321,16 +320,6 @@ final class LoginController extends Controller
     public function contato()
     {
         return view('login.contato');
-    }
-
-    public function postContato(Request $request): Response
-    {
-        $contato = new SalvarContatoModel($request);
-        $contato = $contato->postSalvar();
-
-        return new Response(json: [
-            'status' => 'sucesso'
-        ], status: 201);
     }
 
     private function crypt()
