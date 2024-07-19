@@ -2,10 +2,10 @@
 
 namespace App\Models\Api\ComunicacaoLogin;
 
-use App\Classes\Geral\Status;
-use Modules\Data;
 use ORM\Entity;
+use Modules\Data;
 use Helpers\OrmHelper;
+use App\Classes\Geral\Status;
 
 class BannerEntity extends Entity
 {
@@ -16,6 +16,7 @@ class BannerEntity extends Entity
     public string $arquivo_1;
     public string $arquivo_2;
     public string $arquivo_3;
+    public array $lista = [];
     public int $padrao;
     public array $empresa;
     public Data $data_inicio;
@@ -34,6 +35,15 @@ class BannerEntity extends Entity
     {
         $ormHelper = new OrmHelper(TABELA_COMERCIAL_EMPRESA);
         $this->empresa = $ormHelper->mudarListaIdParaUuid($this->id_admin_empresa);
+        if(!empty($this->arquivo_1)) {
+            $this->lista[] = arquivoPrivado($this->arquivo_1);
+        }
+        if(!empty($this->arquivo_2)) {
+            $this->lista[] = arquivoPrivado($this->arquivo_2);
+        }
+        if(!empty($this->arquivo_3)) {
+            $this->lista[] = arquivoPrivado($this->arquivo_3);
+        }
     }
 
     public function regraSalvar()
