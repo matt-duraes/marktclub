@@ -2,17 +2,15 @@
 
 namespace App\Models\Api\ParceiroLoja;
 
-use App\Classes\ParceiroLoja\Categoria;
-use App\Classes\ParceiroLoja\Status;
-use App\Models\Api\ParceiroLoja\Trait\PropriedadeTrait;
-use App\Models\Api\ParceiroLoja\Trait\ValidarTrait;
-use App\Models\Api\Trait\SistemaDataTrait;
-use Erro\Erro;
-use Erro\Excecao;
-use Helpers\OrmHelper;
-use Modules\Botao;
-use Modules\Data;
 use ORM\Entity;
+use Modules\Data;
+use Modules\Botao;
+use Helpers\OrmHelper;
+use App\Classes\ParceiroLoja\Status;
+use App\Classes\ParceiroLoja\Categoria;
+use App\Models\Api\Trait\SistemaDataTrait;
+use App\Models\Api\ParceiroLoja\Trait\ValidarTrait;
+use App\Models\Api\ParceiroLoja\Trait\PropriedadeTrait;
 
 final class LojaEntity extends Entity
 {
@@ -61,7 +59,7 @@ final class LojaEntity extends Entity
         $this->EquipeOrm = new OrmHelper(TABELA_USUARIO_EQUIPE);
     }
 
-    protected function regraInsert(): void
+    protected function regraInsert()
     {
         $this->status = new Status(Status::PROSPECCAO);
         if (!$this->pExiste('equipe') || empty($this->equipe)) {
@@ -72,9 +70,10 @@ final class LojaEntity extends Entity
         $this->data_prospeccao = new Data(hoje());
     }
 
-    protected function regraUpdate(): void
+    protected function regraUpdate()
     {
         $this->id_usuario_equipe = $this->EquipeOrm->pegarIdPeloUuid($this->equipe);
+
         $statusInicial = (new Status($this->prop('status')))->indice();
         $statusAtual = $this->status->indice();
 
@@ -99,7 +98,7 @@ final class LojaEntity extends Entity
         $this->statusInicial = $statusInicial;
     }
 
-    protected function regraSalvar(): void
+    protected function regraSalvar()
     {
         $this->validarSalvar();
         $this->id_admin_empresa = $this->EmpresaOrm->mudarListaUuidParaId($this->empresa);
@@ -109,42 +108,12 @@ final class LojaEntity extends Entity
         if ($this->pExiste('categoria_lista')) {
             $this->categoria_lista = $this->converterCategoriaEm('numero');
         }
-        $this->subcategoria_lista = $this->pegarIdSubcategorias($this->subcategoria_lista);
         $this->validarCampoDuplicado('url', 'url');
         $this->validarCampoDuplicado('titulo_interno', 'Título do painel');
         $this->converterComissao();
     }
 
-    private function converterCategoriaEm(string $tipo): array
-    {
-        if (!$this->pExiste('categoria_lista') || empty($this->categoria_lista)) {
-            return [];
-        }
-        $Categoria = new Categoria();
-        $lista = [];
-        foreach ($this->categoria_lista as $val) {
-            $lista[] = $Categoria->$tipo($val);
-        }
-        return $lista;
-    }
-
-    /**
-     * @param array $subcategorias
-     *
-     * @return array
-     */
-    private function pegarIdSubcategorias(array $subcategorias): array
-    {
-        $ormHelper = new OrmHelper(TABELA_PARCEIRO_SUBCATEGORIA);
-        $listaSubcategorias = [];
-        foreach ($subcategorias as $subcategoria) {
-            $id = $ormHelper->pegarCampoPor('id', ['url', $subcategoria]);
-            $listaSubcategorias[] = is_null($id) ?: $id;
-        }
-        return $listaSubcategorias;
-    }
-
-    private function converterComissao($float = true): void
+    private function converterComissao($float = true)
     {
         if ($this->pExiste('comissao_minima') && !empty($this->comissao_minima)) {
             $this->comissao_minima = $float
@@ -156,12 +125,12 @@ final class LojaEntity extends Entity
         }
     }
 
-    protected function regraPosInsert(): void
+    protected function regraPosInsert()
     {
         $this->sistemaData('Loja cadastrada', 'novo');
     }
 
-    protected function regraPosUpdate(): void
+    protected function regraPosUpdate()
     {
         $statusInicial = $this->statusInicial;
         $statusAtual = $this->status->indice();
@@ -170,7 +139,7 @@ final class LojaEntity extends Entity
         }
     }
 
-    private function salvarMudancaStatus($statusInicial, $statusAtual): void
+    private function salvarMudancaStatus($statusInicial, $statusAtual)
     {
         $statusGeral = $statusInicial . '_' . $statusAtual;
         $mensagem = [
@@ -192,7 +161,7 @@ final class LojaEntity extends Entity
         $this->sistemaData($mensagem[$statusGeral] ?? $mensagem[$indice], $statusGeral);
     }
 
-    protected function regraPosBuscar(): void
+    protected function regraPosBuscar()
     {
         if (empty($this->prazo_voucher) || !preg_match('/^[1-9]{1}[0-9]{0,}$/', $this->prazo_voucher)) {
             $this->prazo_voucher = 10;
@@ -202,60 +171,45 @@ final class LojaEntity extends Entity
         $this->destaque = $this->EmpresaOrm->mudarListaIdParaUuid($this->destaque);
         $this->equipe = $this->EquipeOrm->pegarUuidPeloId($this->id_usuario_equipe);
         $this->categoria_lista = $this->converterCategoriaEm('indice');
-        $this->subcategoria_lista = $this->converterIdSubcategorias($this->subcategoria_lista);
         $this->setarRelacionadoExistem();
         $this->converterComissao(false);
     }
 
-    /**
-     * @param array $idSubcategorias
-     *
-     * @return array
-     */
-    private function converterIdSubcategorias(array $idSubcategorias): array
+    private function setarRelacionadoExistem()
     {
-        $ormHelper = new OrmHelper(TABELA_PARCEIRO_SUBCATEGORIA);
-        $listaSubcategorias = [];
-        foreach ($idSubcategorias as $idsubcategoria) {
-            $subcategoria = $ormHelper->pegarCampoPor('url', ['id', $idsubcategoria]);
-            $listaSubcategorias[] = is_null($subcategoria) ?: $subcategoria;
+        $this->existe_endereco = new Botao((new OrmHelper(TABELA_SISTEMA_ENDERECO))->existe([
+            ['id_vinculo', $this->id],
+            ['local_principal', TABELA_PARCEIRO_LOJA],
+            ['local_secundario', 'clube']
+        ]) ? 'sim' : 'nao');
+        $this->existe_telefone = new Botao((new OrmHelper(TABELA_SISTEMA_CONTATO))->existe([
+            ['id_vinculo', $this->id],
+            ['local_principal', TABELA_PARCEIRO_LOJA],
+            ['local_secundario', 'clube'],
+            ['tipo', 1]
+        ]) ? 'sim' : 'nao');
+        $this->existe_email = new Botao((new OrmHelper(TABELA_SISTEMA_CONTATO))->existe([
+            ['id_vinculo', $this->id],
+            ['local_principal', TABELA_PARCEIRO_LOJA],
+            ['local_secundario', 'clube'],
+            ['tipo', 2]
+        ]) ? 'sim' : 'nao');
+    }
+
+    private function converterCategoriaEm(string $tipo): array
+    {
+        if (!$this->pExiste('categoria_lista') || empty($this->categoria_lista)) {
+            return [];
         }
-        return $listaSubcategorias;
+        $Categoria = new Categoria();
+        $lista = [];
+        foreach ($this->categoria_lista as $val) {
+            $lista[] = $Categoria->$tipo($val);
+        }
+        return $lista;
     }
 
-    private function setarRelacionadoExistem(): void
-    {
-        $this->existe_endereco = new Botao(
-            (new OrmHelper(TABELA_SISTEMA_ENDERECO))->existe([
-                ['id_vinculo', $this->id],
-                ['local_principal', TABELA_PARCEIRO_LOJA],
-                ['local_secundario', 'clube']
-            ]) ? 'sim' : 'nao'
-        );
-        $this->existe_telefone = new Botao(
-            (new OrmHelper(TABELA_SISTEMA_CONTATO))->existe([
-                ['id_vinculo', $this->id],
-                ['local_principal', TABELA_PARCEIRO_LOJA],
-                ['local_secundario', 'clube'],
-                ['tipo', 1]
-            ]) ? 'sim' : 'nao'
-        );
-        $this->existe_email = new Botao(
-            (new OrmHelper(TABELA_SISTEMA_CONTATO))->existe([
-                ['id_vinculo', $this->id],
-                ['local_principal', TABELA_PARCEIRO_LOJA],
-                ['local_secundario', 'clube'],
-                ['tipo', 2]
-            ]) ? 'sim' : 'nao'
-        );
-    }
-
-    /**
-     * @return mixed
-     * @throws Erro
-     * @throws Excecao
-     */
-    protected function getId(): mixed
+    protected function getId()
     {
         return $this->prop('id');
     }
