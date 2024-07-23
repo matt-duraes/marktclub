@@ -29,6 +29,10 @@
         </header>
         <div class="conteudo_pagina_popup">
             <form action="/" class="form_geral">
+                <figure id="bloco_imagem" class="display_none">
+                    <img src="" alt="" id="imagem_automovel_editar">
+                </figure>
+                @? formImagem(name: 'imagem', diretorio: '0493d060-44ba-470b-a0a2-7211ba138d8c',label: 'Imagem', obrigatorio: true)
                 @? formInput(name: 'versao_titulo', label: 'Título', placeholder: 'Título para a versão', obrigatorio: true)
                 @? formInput(name: 'versao_cor', label: 'Cor', placeholder: 'Cor da versão')
                 @? formDinheiro(name: ['versao_valor_de', 'versao_valor_por'], separador: '/', label: 'Valor de/por', placeholder: ['Valor de', 'Valor por'])

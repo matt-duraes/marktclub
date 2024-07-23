@@ -23,7 +23,6 @@ final class BuscarModel extends ClubeApiHelper
             ->validar(mensagem: 'Página não encontrada', status: 404)
             ->get('/automovel-modelo/' . $this->url)
             ->object();
-
         if ($dado->dado->status != Status::ATIVO) {
             mensagemStatus(404);
         }
@@ -63,6 +62,7 @@ final class BuscarModel extends ClubeApiHelper
                 'valor_por'   => (new Dinheiro($r->valor_por))->dinheiro(),
                 'cor'         => $r->cor,
                 'imagem'      => $imagem,
+                'imagem_url'  =>  arquivoPrivado($r->imagem) ?? $imagem,
                 'tipo'        => 'automovel-versao'
             ];
         }

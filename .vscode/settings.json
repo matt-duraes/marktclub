@@ -54,7 +54,7 @@
     "extensions.ignoreRecommendations": true,
 
     "files.trimTrailingWhitespace": true,
-    "diffEditor.ignoreTrimWhitespace": false,
+    "diffEditor.ignoreTrimWhitespace": true,
     "editor.renderWhitespace": "boundary",
     "editor.useTabStops": false,
     "editor.detectIndentation": false,

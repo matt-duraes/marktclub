@@ -2,18 +2,18 @@
 
 namespace App\Models\Api\Automovel\Versao;
 
-use App\Classes\Automovel\Versao\Ordem;
-use App\Classes\Geral\Status;
-use Erro\Excecao;
-use Helpers\OrmHelper;
-use Modules\Pagina;
-use Modules\Quantidade;
 use ORM\ORM;
 use stdClass;
-use System\Interface\ModelListarInterface;
+use Erro\Excecao;
+use Modules\Pagina;
+use Helpers\OrmHelper;
+use Modules\Quantidade;
+use App\Classes\Geral\Status;
 use System\Trait\Model\OrdemTrait;
 use System\Trait\Model\PaginaTrait;
+use App\Classes\Automovel\Versao\Ordem;
 use System\Trait\Model\QuantidadeTrait;
+use System\Interface\ModelListarInterface;
 
 final class VersaoModel extends ORM implements
     ModelListarInterface
@@ -75,7 +75,7 @@ final class VersaoModel extends ORM implements
     {
         $versoes = $this
             ->campo([
-                'uuid', 'titulo', 'cor', 'valor_de', 'valor_por', 'status'
+                'uuid', 'titulo','imagem','cor', 'valor_de', 'valor_por', 'status'
             ])
             ->where($this->pegarWhere(), false)
             ->pagina($this->pegarPagina(), $this->pegarQuantidade())
@@ -113,6 +113,7 @@ final class VersaoModel extends ORM implements
             $retorno[] = [
                 'id'        => $versao->uuid,
                 'titulo'    => $versao->titulo,
+                'imagem'    => $versao->imagem,
                 'valor_de'  => $versao->valor_de,
                 'valor_por' => $versao->valor_por,
                 'cor'       => $versao->cor,
@@ -132,7 +133,7 @@ final class VersaoModel extends ORM implements
     {
         $versoes = $this
             ->campo([
-                'uuid', 'vinculo', 'titulo', 'detalhe', 'cor', 'valor',
+                'uuid', 'vinculo', 'titulo', 'imagem', 'detalhe', 'cor', 'valor',
                 'valor_off', 'tipo', 'status', 'data_criacao'
             ])
             ->where([

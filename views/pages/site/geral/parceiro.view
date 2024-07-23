@@ -9,7 +9,11 @@
             <a href="{!!$r->link!!}"></a>
         @ endif;
         @ if( in_array($r->tipo, ['automovel-versao', 'automovel-modelo', 'operadora', 'sosmulher']) ):
-            <figure class="completo"><img src="{!!$r->imagem!!}" alt=""></figure>
+            @if(!empty($r->imagem_url)):
+                <figure class="completo"><img src="{!!$r->imagem_url!!}" alt=""></figure>
+            @else:
+                <figure class="completo"><img src="{!!$r->imagem!!}" alt=""></figure>
+            @endif;
         @ else:
             <figure class="logo"><img src="{!!$r->imagem!!}" alt=""></figure>
         @ endif;

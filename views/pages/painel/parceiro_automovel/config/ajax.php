@@ -5,7 +5,7 @@ $Painel = new PainelConfig\Ajax();
 return $Painel
     ->grupo('versao-salvar', function () use ($Painel) {
         $Painel
-            ->request(['titulo', 'modelo', 'cor', 'valor_de', 'valor_por', 'status'])
+            ->request(['titulo', 'imagem','modelo', 'cor', 'valor_de', 'valor_por', 'status'])
             ->permissao('parceiro_automovel_add')
             ->metodo('post')
             ->rota('/automovel-versao');
@@ -26,7 +26,7 @@ return $Painel
     })
     ->grupo('versao-atualizar', function () use ($Painel) {
         $Painel
-            ->request(['id', 'titulo', 'cor', 'valor_de', 'valor_por', 'status'])
+            ->request(['id', 'titulo', 'imagem', 'cor', 'valor_de', 'valor_por', 'status'])
             ->permissao('parceiro_automovel_editar')
             ->metodo('put')
             ->rota('/automovel-versao/{id}');
