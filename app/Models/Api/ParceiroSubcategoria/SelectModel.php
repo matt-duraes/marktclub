@@ -25,7 +25,7 @@ final class SelectModel extends ORM
 
     public function listarDados()
     {
-        return $this->pegarSelect('url', 'titulo', $this->pegarWhere(), titulo: $this->titulo);
+        return $this->pegarSelect('uuid', 'titulo', $this->pegarWhere(), titulo: $this->titulo);
     }
 
     private function pegarWhere(): array

@@ -96,7 +96,7 @@ trait WhereTrait
         if (empty($tag)) {
             return '';
         }
-        return (new OrmHelper(TABELA_PARCEIRO_SUBCATEGORIA))->pegarCampoPor('id', ['url', $tag]);
+        return (new OrmHelper(TABELA_PARCEIRO_SUBCATEGORIA))->pegarCampoPor('id', ['uuid', $tag]);
     }
 
     private function pegarListaSubCategoria()
