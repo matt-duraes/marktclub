@@ -135,11 +135,7 @@ final class LojaEntity extends Entity
     private function converterUuidParaId(array $uuidSubcategorias): array
     {
         $ormHelper = new OrmHelper(TABELA_PARCEIRO_SUBCATEGORIA);
-        $listaSubcategorias = [];
-        foreach ($uuidSubcategorias as $uuid) {
-            $listaSubcategorias = $ormHelper->pegarIdPeloUuid($uuid);
-        }
-        return $listaSubcategorias;
+        return $ormHelper->mudarListaUuidParaId($uuidSubcategorias);
     }
 
     private function converterComissao($float = true)
@@ -213,11 +209,7 @@ final class LojaEntity extends Entity
     private function converterIdParaUuid(array $idSubcategorias): array
     {
         $ormHelper = new OrmHelper(TABELA_PARCEIRO_SUBCATEGORIA);
-        $listaSubcategorias = [];
-        foreach ($idSubcategorias as $id) {
-            $listaSubcategorias = $ormHelper->pegarUuidPeloId($id);
-        }
-        return $listaSubcategorias;
+        return $ormHelper->mudarListaIdParaUuid($idSubcategorias);
     }
 
     private function setarRelacionadoExistem()
