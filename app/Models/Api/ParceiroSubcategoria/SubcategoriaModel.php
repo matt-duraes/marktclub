@@ -38,7 +38,7 @@ final class SubcategoriaModel extends ORM
         $retorno = [];
         foreach ($dado as $r) {
             $categoria = new Categoria($r->categoria);
-            $retorno[$categoria->nome()][$r->id] = $r->titulo;
+            $retorno[$categoria->nome()][$r->uuid] = $r->titulo;
         }
         return $retorno;
     }
