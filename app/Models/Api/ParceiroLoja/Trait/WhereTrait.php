@@ -33,8 +33,8 @@ trait WhereTrait
                 }
             })
             ->seVazio(propriedade: 'subcategoria', vazio: false, callback: function () use ($Where) {
-                //$tag = $this->pegarIdSubCategoria();
-                $Where->linha(propriedade: 'subcategoria_lista', condicao: 'json', valor: $this->subcategoria);
+                $tag = $this->pegarIdSubCategoria();
+                $Where->linha(propriedade: 'subcategoria_lista', condicao: 'json', valor: $tag);
             })
             ->seVazio(propriedade: 'pesquisa', vazio: false, callback: function () use ($Where) {
                 $pesquisa = '%' . $this->pesquisa . '%';
@@ -90,6 +90,15 @@ trait WhereTrait
         return $Where;
     }
 
+    private function pegarIdSubCategoria()
+    {
+        $tag = $this->subcategoria;
+        if (empty($tag)) {
+            return '';
+        }
+        return (new OrmHelper(TABELA_PARCEIRO_SUBCATEGORIA))->pegarCampoPor('id', ['url', $tag]);
+    }
+
     private function pegarListaSubCategoria()
     {
         $titulo = $this->pesquisa;
@@ -105,14 +114,5 @@ trait WhereTrait
             return null;
         }
         return (new OrmHelper(TABELA_USUARIO_EQUIPE))->pegarIdPeloUuid($this->equipe);
-    }
-
-    private function pegarIdSubCategoria()
-    {
-        $tag = $this->subcategoria;
-        if (empty($tag)) {
-            return '';
-        }
-        return (new OrmHelper(TABELA_PARCEIRO_SUBCATEGORIA))->pegarCampoPor('id', ['url', $tag]);
     }
 }
