@@ -3,8 +3,8 @@
 namespace App\Models\Api\ParceiroSubcategoria;
 
 use App\Classes\ParceiroLoja\Categoria;
-use ORM\ORM;
 use Http\Request;
+use ORM\ORM;
 
 final class SubcategoriaModel extends ORM
 {
@@ -38,7 +38,7 @@ final class SubcategoriaModel extends ORM
         $retorno = [];
         foreach ($dado as $r) {
             $categoria = new Categoria($r->categoria);
-            $retorno[$categoria->nome()][$r->url] = $r->titulo;
+            $retorno[$categoria->nome()][$r->id] = $r->titulo;
         }
         return $retorno;
     }
