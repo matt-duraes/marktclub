@@ -196,7 +196,7 @@ final class LojaEntity extends Entity
         $this->destaque = $this->EmpresaOrm->mudarListaIdParaUuid($this->destaque);
         $this->equipe = $this->EquipeOrm->pegarUuidPeloId($this->id_usuario_equipe);
         $this->categoria_lista = $this->converterCategoriaEm('indice');
-        $this->subcategoria_lista = $this->converterIdParaUuid($this->categoria_lista);
+        $this->subcategoria_lista = $this->converterIdParaUuid($this->subcategoria_lista);
         $this->setarRelacionadoExistem();
         $this->converterComissao(false);
     }
