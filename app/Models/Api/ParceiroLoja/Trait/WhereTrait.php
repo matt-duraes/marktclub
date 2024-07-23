@@ -2,16 +2,16 @@
 
 namespace App\Models\Api\ParceiroLoja\Trait;
 
-use Where\Where;
-use Helpers\OrmHelper;
 use App\Classes\ParceiroLoja\TipoLoja;
 use App\Models\Api\ParceiroLoja\MaisAcessadoModel;
+use Helpers\OrmHelper;
+use Where\Where;
 
 trait WhereTrait
 {
     protected function pegarWhere(int|null $empresa = null): Where
     {
-        $where = $this->idEmpresa == 1 && empty($empresa) ? [] : [
+        $where = ($this->idEmpresa == 1) && empty($empresa) ? [] : [
             ['id_admin_empresa', 'json', !empty($empresa) ? $empresa : $this->idEmpresa]
         ];
 
@@ -33,8 +33,8 @@ trait WhereTrait
                 }
             })
             ->seVazio(propriedade: 'subcategoria', vazio: false, callback: function () use ($Where) {
-                $tag = $this->pegarIdSubCategoria();
-                $Where->linha(propriedade: 'subcategoria_lista', condicao: 'json', valor: $tag);
+                //$tag = $this->pegarIdSubCategoria();
+                $Where->linha(propriedade: 'subcategoria_lista', condicao: 'json', valor: $this->subcategoria);
             })
             ->seVazio(propriedade: 'pesquisa', vazio: false, callback: function () use ($Where) {
                 $pesquisa = '%' . $this->pesquisa . '%';
@@ -87,8 +87,16 @@ trait WhereTrait
         } elseif ($this->pExiste('equipe')) {
             $Where->linha('equipe', campo: 'id_usuario_equipe', valor: $this->pegarIdEquipe());
         }
-
         return $Where;
+    }
+
+    private function pegarListaSubCategoria()
+    {
+        $titulo = $this->pesquisa;
+        return (new OrmHelper(TABELA_PARCEIRO_SUBCATEGORIA))->pegarListaCampo(
+            where: ['tag', 'LIKE', '%\"' . $titulo . '%'],
+            campo: 'id'
+        );
     }
 
     private function pegarIdEquipe()
@@ -106,14 +114,5 @@ trait WhereTrait
             return '';
         }
         return (new OrmHelper(TABELA_PARCEIRO_SUBCATEGORIA))->pegarCampoPor('id', ['url', $tag]);
-    }
-
-    private function pegarListaSubCategoria()
-    {
-        $titulo = $this->pesquisa;
-        return (new OrmHelper(TABELA_PARCEIRO_SUBCATEGORIA))->pegarListaCampo(
-            where: ['tag', 'LIKE', '%\"' . $titulo . '%'],
-            campo: 'id'
-        );
     }
 }
