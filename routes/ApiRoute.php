@@ -1478,7 +1478,7 @@ Route
         Route
             ::nome('select')
             ::middleware(TokenMiddleware::class, 'scope', ['parceiro_subcategoria:listar'])
-            ::request(['!titulo', '!categoria'], 'json')
+            ::request(['!titulo', '!categoria', '!clube'], 'json')
             ::get('/parceiro-subcategoria/select');
         Route
             ::nome('listar')

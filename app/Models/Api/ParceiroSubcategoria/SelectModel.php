@@ -2,9 +2,10 @@
 
 namespace App\Models\Api\ParceiroSubcategoria;
 
-use ORM\ORM;
 use App\Classes\ParceiroLoja\Categoria;
 use App\Models\Api\Trait\ValidarEmpresaTrait;
+use Modules\Botao;
+use ORM\ORM;
 
 final class SelectModel extends ORM
 {
@@ -15,7 +16,8 @@ final class SelectModel extends ORM
 
     public function __construct(
         private Categoria $categoria,
-        private ?string $titulo
+        private ?string $titulo,
+        private Botao $clube
     ) {
         $this->validarEmpresa('empresa');
         parent::__construct();
@@ -33,6 +35,9 @@ final class SelectModel extends ORM
         ];
         if ($this->categoria->valido()) {
             $where[] = ['categoria', $this->categoria->numero()];
+        }
+        if ($this->pExiste('clube') && $this->clube->valor() == 'sim') {
+            $where[] = ['menu', 1];
         }
         return $where;
     }
