@@ -19,7 +19,7 @@ final class SubcategoriaModel extends ORM
     public function listarDado(): array
     {
         $dado = $this
-            ->campo(['id', 'categoria', 'titulo', 'url'])
+            ->campo(['id', 'uuid', 'categoria', 'titulo', 'url'])
             ->read();
 
         if (!empty($dado)) {
