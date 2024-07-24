@@ -1,0 +1,72 @@
+@system "Resetar"
+
+body
+    font-family: 'Inter', sans-serif
+
+#site
+    width: 100%
+    display: flex
+    align-items: center
+    justify-content: center
+    flex-direction: column
+    figure.loja
+        width: 100%
+        display: flex
+        align-items: center
+        justify-content: center
+        margin-bottom: 20px
+    figure.loja img
+        height: 150px
+    h1
+        font-size: 1.8em
+        line-height: 1.8em
+        font-weight: bold
+        margin-bottom: 10px
+    section
+        width: 100%
+        max-width: 1000px
+        height: 50vh
+        display: flex
+        align-items: center
+        justify-content: center
+        flex-direction: column
+        position: relative
+        margin-top: 40px
+        margin-bottom: 100px
+        background-color: #FFF
+        box-shadow__padrao--suave()
+    article
+        width: calc(100% - 40px)
+        max-width: 450px
+        display: flex
+        align-items: center
+        justify-content: center
+        flex-direction: column
+        margin-top: 20px
+    article p
+        font-size: 1.5em
+        line-height: 1.5em
+        text-align: center
+        color: #666
+    article p.expirado
+        color: $alerta
+    article a
+        height: 40px
+        line-height: 40px
+        color: #FFF
+        padding: 0 20px
+        border-radius: 3px
+        font-size: 1.2em
+        margin-top: 30px
+        cursor: pointer
+    article i
+        width: 100px
+        height: 100px
+        display: flex
+        align-items: center
+        justify-content: center
+        margin-bottom: 20px
+        background-color: #FFFFFF
+        border: 1px solid #FF6C60
+        fill: #FF6C60
+        border-radius: 50%
