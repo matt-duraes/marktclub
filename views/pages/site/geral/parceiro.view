@@ -1,7 +1,6 @@
 <div class="bloco_parceiro bloco_geral_article {{isset($Busca->mapa) && $Busca->mapa ? 'display_none' : ''}}" id="bloco_parceiro_lista">
     @ if(isset($lista) && count($lista->lista) > 0):
         @ foreach( $lista->lista as $r ):
-
     <article class="parceiro botao_abrir_parceiro" data-url="{{$r->id}}">
         @ if( $lista->tipo == 'automovel-versao' && $dado->procedimento_voucher ):
             <a href="@route('loja.voucher')/{{$loja}}" target="_blank" rel="noopener noreferrer"></a>
@@ -23,20 +22,22 @@
                 <p>{!!$r->texto!!}</p>
             @ endif;
         </header>
-
         @ if( $r->tipo == 'automovel-versao'):
         <div class="margem"></div>
         @ endif;
         @ if( $r->tipo == 'automovel-versao' && $dado->procedimento_cheque_bonus):
-        <span>Cheque bônus de:</span>
-        <p class="valor_destaque">{{$r->valor_por}}</p>
+            <span>Cheque bônus de:</span>
+            <p class="valor_destaque">R${{$r->valor_por}}</p>
         @ elseif( $r->tipo == 'automovel-versao' && !empty($r->valor_de)):
-        <span>de:</span>
-        <p class="valor">{{$r->valor_de}}</p>
-        <span>por:</span>
-        <p class="valor_destaque">{{$r->valor_por}}</p>
+            <span>de:</span>
+            <p class="valor">R${{$r->valor_de}}</p>
+            <span>por:</span>
+            <p class="valor_destaque">R${{$r->valor_por}}</p>
+        @ elseif(($r->tipo == 'automovel-versao' && $dado->procedimento == 'voucher') && empty($r->valor_de)):
+            <span>desconto de até</span>
+            <p class="valor_destaque">R${{$r->valor_por}}</p>
         @ elseif( $r->tipo == 'automovel-versao'):
-        <p class="valor_destaque">{{$r->valor_por}}</p>
+            <p class="valor_destaque">R${{$r->valor_por}}</p>
         @ endif;
         @ if($r->tipo == 'automovel-versao'):
             <div class="botao_solicitar_declaracao">Solicitar</div>
@@ -44,7 +45,7 @@
 
         @ if( $r->tipo == 'cashback' ):
         <p>Receba de volta</p>
-        <p class="destaque cor_color">{{$r->desconto}}%</p>
+        <p class="destaque cor_color">R${{$r->desconto}}%</p>
         <p>Revertido em pontos SILIUM</p>
 
         @ elseif( $r->tipo == 'cupom' ):
