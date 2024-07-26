@@ -2480,7 +2480,7 @@ Route
             ::nome('salvar')
             ::middleware(TokenMiddleware::class, 'scope', ['automovel_versao:salvar'])
             ::request([
-                'modelo', 'titulo', 'cor', 'valor_de', 'valor_por', 'status'
+                'modelo', 'titulo', 'imagem','cor', 'valor_de', 'valor_por', 'status'
             ])
             ::post('/automovel-versao');
 
@@ -2488,7 +2488,7 @@ Route
             ::nome('atualizar')
             ::middleware(TokenMiddleware::class, 'scope', ['automovel_versao:atualizar'])
             ::request([
-                '!titulo', '!cor', '!valor_de', '!valor_por', '!status'
+                '!titulo', '!imagem', '!cor', '!valor_de', '!valor_por', '!status'
             ])
             ::put('/automovel-versao/{id}');
 
