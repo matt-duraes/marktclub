@@ -599,7 +599,7 @@ final class ConfiguracoesPadrao
                 'carteirinha_empresa' => 'Todas as empresas'
             ]
         ],
-        'demanda_sprint'  => [
+        'demanda_sprint'           => [
             'titulo'    => 'Sprint Backlog',
             'permissao' => [
                 'demanda_sprint_index'      => 'Listar',
@@ -609,7 +609,7 @@ final class ConfiguracoesPadrao
                 'demanda_sprint_status'     => 'Status',
             ]
         ],
-        'demanda_quadro'  => [
+        'demanda_quadro'           => [
             'titulo'    => 'Srpint Quadro',
             'permissao' => [
                 'demanda_quadro' => 'Quadro',
@@ -734,8 +734,11 @@ final class ConfiguracoesPadrao
         'silium_config'            => [
             'titulo'    => 'Configurações do Silium (Cashback)',
             'permissao' => [
-                'silium_config_index'  => 'Listar',
-                'silium_config_editar' => 'Editar'
+                'silium_config_index'      => 'Listar',
+                'silium_config_visualizar' => 'Visualizar',
+                'silium_config_add'        => 'Salvar',
+                'silium_config_editar'     => 'Editar',
+                'silium_config_deletar'    => 'Deletar'
             ]
         ]
     ];

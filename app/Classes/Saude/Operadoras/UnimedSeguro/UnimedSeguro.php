@@ -2,9 +2,9 @@
 
 namespace App\Classes\Saude\Operadoras\UnimedSeguro;
 
-use App\Classes\Saude\Operadoras\AbstractOperadora;
 use Exception;
 use Modules\Data;
+use App\Classes\Saude\Operadoras\AbstractOperadora;
 
 class UnimedSeguro extends AbstractOperadora
 {
@@ -46,63 +46,63 @@ class UnimedSeguro extends AbstractOperadora
 
         if ($this->idade <= 18) {
             $this->valores = [
-                self::ACOMODACAO_BASICO   => 332.14,
-                self::ACOMODACAO_PRATICO  => 441.34,
-                self::ACOMODACAO_VERSATIL => 531.06
+                self::ACOMODACAO_BASICO   => 375.32,
+                self::ACOMODACAO_PRATICO  => 498.71,
+                self::ACOMODACAO_VERSATIL => 600.10
             ];
         } elseif ($this->idade >= 19 && $this->idade <= 23) {
             $this->valores = [
-                self::ACOMODACAO_BASICO   => 400.45,
-                self::ACOMODACAO_PRATICO  => 535.20,
-                self::ACOMODACAO_VERSATIL => 682.84
+                self::ACOMODACAO_BASICO   => 452.51,
+                self::ACOMODACAO_PRATICO  => 604.78,
+                self::ACOMODACAO_VERSATIL => 715.11
             ];
         } elseif ($this->idade >= 24 && $this->idade <= 28) {
             $this->valores = [
-                self::ACOMODACAO_BASICO   => 461.86,
-                self::ACOMODACAO_PRATICO  => 619.52,
-                self::ACOMODACAO_VERSATIL => 731.82
+                self::ACOMODACAO_BASICO   => 521.90,
+                self::ACOMODACAO_PRATICO  => 700.06,
+                self::ACOMODACAO_VERSATIL => 826.96
             ];
         } elseif ($this->idade >= 29 && $this->idade <= 33) {
             $this->valores = [
-                self::ACOMODACAO_BASICO   => 526.15,
-                self::ACOMODACAO_PRATICO  => 707.79,
-                self::ACOMODACAO_VERSATIL => 841.21
+                self::ACOMODACAO_BASICO   => 594.55,
+                self::ACOMODACAO_PRATICO  => 799.80,
+                self::ACOMODACAO_VERSATIL => 950.57
             ];
         } elseif ($this->idade >= 34 && $this->idade <= 38) {
             $this->valores = [
-                self::ACOMODACAO_BASICO   => 605.45,
-                self::ACOMODACAO_PRATICO  => 814.06,
-                self::ACOMODACAO_VERSATIL => 967.97
+                self::ACOMODACAO_BASICO   => 684.16,
+                self::ACOMODACAO_PRATICO  => 919.89,
+                self::ACOMODACAO_VERSATIL => 1093.81
             ];
         } elseif ($this->idade >= 39 && $this->idade <= 43) {
             $this->valores = [
-                self::ACOMODACAO_BASICO   => 713.08,
-                self::ACOMODACAO_PRATICO  => 949.37,
-                self::ACOMODACAO_VERSATIL => 1140.43
+                self::ACOMODACAO_BASICO   => 805.78,
+                self::ACOMODACAO_PRATICO  => 1072.79,
+                self::ACOMODACAO_VERSATIL => 1288.23
             ];
         } elseif ($this->idade >= 44 && $this->idade <= 48) {
             $this->valores = [
-                self::ACOMODACAO_BASICO   => 831.31,
-                self::ACOMODACAO_PRATICO  => 1100.21,
-                self::ACOMODACAO_VERSATIL => 1329.07
+                self::ACOMODACAO_BASICO   => 939.38,
+                self::ACOMODACAO_PRATICO  => 1243.24,
+                self::ACOMODACAO_VERSATIL => 1501.85
             ];
         } elseif ($this->idade >= 49 && $this->idade <= 53) {
             $this->valores = [
-                self::ACOMODACAO_BASICO   => 1114.48,
-                self::ACOMODACAO_PRATICO  => 1485.08,
-                self::ACOMODACAO_VERSATIL => 1798.56
+                self::ACOMODACAO_BASICO   => 1259.36,
+                self::ACOMODACAO_PRATICO  => 1678.14,
+                self::ACOMODACAO_VERSATIL => 2032.37
             ];
         } elseif ($this->idade >= 54 && $this->idade <= 58) {
             $this->valores = [
-                self::ACOMODACAO_BASICO   => 1504.45,
-                self::ACOMODACAO_PRATICO  => 2004.23,
-                self::ACOMODACAO_VERSATIL => 2431.90
+                self::ACOMODACAO_BASICO   => 1700.03,
+                self::ACOMODACAO_PRATICO  => 2264.78,
+                self::ACOMODACAO_VERSATIL => 2748.05
             ];
         } elseif ($this->idade >= 59) {
             $this->valores = [
-                self::ACOMODACAO_BASICO   => 1979.60,
-                self::ACOMODACAO_PRATICO  => 2648.10,
-                self::ACOMODACAO_VERSATIL => 3180.75
+                self::ACOMODACAO_BASICO   => 2236.95,
+                self::ACOMODACAO_PRATICO  => 2992.35,
+                self::ACOMODACAO_VERSATIL => 3594.25
             ];
         }
 
