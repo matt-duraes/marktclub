@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login - Funcionário</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    @CSS
+</head>
+<body>
+<div id="site">
+    <div id="bloco_login">
+        <figure><img src="{{LINK_PADRAO}}/images/cfm/logo.png" alt="CFM Mais" height="60"></figure>
+        <header>
+            <h1>FAÇA SEU LOGIN</h1>
+            <p>Digite seus dados nos campos abaixo para fazer seu login</p>
+        </header>
+
+        <form action="/" class="form_geral">
+            @? formCpf(name: 'cpf', label: 'CPF', placeholder: 'Digite seu CPF')
+            @? formNumero(name: 'inscricao', label: 'Matrícula', placeholder: 'Digite sua matrícula')
+            @? formSelect(name: 'estado', label: 'Conselho', placeholder: 'Conselho de medicina', lista: $conselho)
+            @? formData(name: 'data_nascimento', label: 'Data de nascimento', placeholder: 'Data de nascimento')
+            @? formInput(name: 'nome_mae', label: 'Primeiro nome da mãe', placeholder: 'Primeiro nome da mãe')
+            @? formCheckbox(name: 'cookie', class: 'bloco_cookie', label: 'Gostaria de salvar seus dados em cookie para não precisar preenche-los novamente? Só faça isso em um computador pessoal.', check: false)
+            <div class="botao" id="botao_logar">Logar</div>
+        </form>
+        <p>Para o acesso do funcionário ao clube é necessário que o mesmo esteja devidamente cadastrado no sistema de identificação funcional (SIF) do CFM. Verifique com setor de recursos humanos do seu CRM se seus dados já foram cadastrados e estão atualizados.</p>
+    </div>
+</div>
+
+<div id="bloco_cadastro" class="bloco_popup display_none">
+    <div class="conteudo">
+        <header>
+            <h1>Compartilhar dados</h1>
+        </header>
+        <p>Olá, para continuar com seu login, iremos compartilhar alguns dados com seu clube, você autoriza o compartilhamento do seu <strong>nome</strong>, <strong>data de nascimento</strong>, <strong>CPF</strong> e <strong>e-mails</strong>?</p>
+        <form action="" class="form_geral">
+            @? formCheckbox(name: 'termo', label: 'Aceito os Termos de acordo com a Lei 13.709/2018', check: false)
+            <div class="botao_termo" id="botao_abrir_termo">Ler termos de uso</div>
+            <div class="bloco">
+                <div class="botao" id="botao_cadastro">Continuar</div>
+                <div class="cancelar" id="botao_cancelar">Cancelar</div>
+            </div>
+        </form>
+    </div>
+</div>
+
+<div id="bloco_termo" class="bloco_popup display_none">
+    <i class="fechar_fixo" id="botao_termo_fechar">@iconeFechar</i>
+    <div class="conteudo">
+        <header>
+            <h1>TERMO DE USO E CONSENTIMENTO DO CFM+ BENEFÍCIOS</h1>
+        </header>
+        <div class="texto">
+            <h2>CLUBE DE VANTAGENS DO CONSELHO FEDERAL DE MEDICINA</h2>
+            <h2>1. INTRODUÇÃO</h2>
+            <p>1.1. Este Termo dispõe das regras de utilização do serviço “CFM+ Benefícios” e do tratamento e do compartilhamento de dados pessoais de profissionais (doravante denominados USUÁRIOS) com a empresa MARKT TEC SERVIÇOS EM TECNOLOGIA DA INFORMAÇÃO LTDA. (doravante denominada CREDENCIADA), pessoa jurídica de direito privado, inscrita no CNPJ sob o n.º 14.150.830/0001-00, sediada no SIG QUADRA 04, LOTE 125/175, Bloco A, Sala 10. CEP 70610-440, Capital Financial Center, Brasília – DF, devidamente AUTORIZADA por meio do Termo de Credenciamento 01/2022 pelo Conselho Federal de Medicina a prestar o serviço aqui descrito.</p>
+            <p>1.2. O cadastro ao Clube de Vantagens, depende da prévia aquiescência expressa quanto ao presente “Termo de Uso e Consentimento”, incluso prévio consentimento ao tratamento e ao compartilhamento de dados pessoais. Por este, o USUÁRIO estará legalmente vinculado a todos os termos e condições aqui previstos, com as quais expressamente declara a concordância ao se firmar eletronicamente o presente instrumento.</p>
+            <p>1.3. Caso posteriormente se deseje a revogação do consentimento conferido por este instrumento, o USUÁRIO poderá solicitar o cancelamento de seu acesso por e-mail: atendimento@marktclub.com.br. Isto, nos termos do Art. 8º, § 5º, da LGPD.</p>
+            <p>1.4. Caso tenha qualquer dúvida sobre o conteúdo desses Termos de Uso e Consentimento, o USUÁRIO poderá entrar em contato com nosso suporte.</p>
+            <h2>2. O CLUBE DE VANTAGENS (CFM+ BENEFÍCIOS)</h2>
+            <p>2.1. O Clube de Vantagens disponibiliza plataforma virtual de divulgação e busca de anúncios, ofertas, descontos e promoções de diversas lojas on-line e físicas (doravante denominadas CONVENIADAS).</p>
+            <p>2.2. O Clube de Vantagens não vende qualquer produto ou serviço no seu Portal. Apenas veicula anúncios de produtos e serviços fornecidos pelas CONVENIADAS. Por essa razão, a CREDENCIADA não terá responsabilidade por nenhuma compra ou transação realizada entre o USUÁRIO e as CONVENIADAS, resguardadas hipóteses legalmente previstas.</p>
+            <p>2.3. Ao efetuar compra de CONVENIADAS, através de link disponibilizado no Portal, o USUÁRIO cria nova e distinta relação jurídica diretamente com as CONVENIADAS, da qual a CREDENCIADA não participa e não poderá responder, comercialmente, judicialmente ou de qualquer outra forma, respeitadas hipóteses legalmente previstas.</p>
+            <p>2.4. A atuação da CREDENCIADA junto aos USUÁRIOS se dá de forma totalmente alheia à atuação do Conselho Federal de Medicina e dos Conselhos Regionais de Medicina, cabendo à CREDENCIADA agir dentro dos parâmetros legais vigentes e atuar nos estritos limites permitidos pelo Direito brasileiro. Isto, sob pena de eventual responsabilização da CREDENCIADA, nos termos e nas instâncias pertinentes que vierem a se configurar, eventualmente, no caso concreto, não havendo qualquer relação jurídica entre o CFM e os CRMs com a CREDENCIADA que englobe hipótese de responsabilização do CFM e dos CRMs por atos e fatos ocasionados pela CREDENCIADA.</p>
+            <p>2.5. Os anúncios veiculados no Portal podem conter informações sobre produtos ou serviços, incluindo preço. Deste modo, caberá ao USUÁRIO conferir o preço e demais informações dos produtos diretamente no site dos conveniados, com o que desde já se compromete, compreendendo a possibilidade de que alguns dos anúncios possam estar desatualizados, assim como a possibilidade de que as CONVENIADAS possam cometer erros. Portanto, ressalvadas hipóteses legais, não cabendo à CREDENCIADA responsabilidade por essas informações, tendo em vista que enviadas pelas próprias CONVENIADAS, havendo apenas a publicação da informação pela CREDENCIADA.</p>
+            <p>2.6. A responsabilidade pelos produtos e serviços e por suas informações, incluindo o preço, é exclusiva e integral das CONVENIADAS.</p>
+            <p>2.7. É obrigação do USUÁRIO confirmar a veracidade das informações dos anúncios constantes no Portal diretamente nos próprios sites das CONVENIADAS. Sempre que houver diferença ou divergência entre os preços e demais informações de produtos no Portal e nos sites das CONVENIADAS, prevalecerão as informações constantes desses últimos.</p>
+            <p>2.8. Prezando pelo bom atendimento e minimização dos erros, sugerimos que os USUÁRIOS sempre enviem feedback sobre as suas experiências de compra. Caso algum parceiro apresente problemas de forma recorrente, poderemos tirá-lo do ar, evitando problemas futuros.</p>
+            <h2>3.O CASH BACK</h2>
+            <p>3.1.O Clube de Vantagens oferece também oportunidade para receber desconto adicional da compra de produto ou serviço das CONVENIADAS, desde que cumpridos os requisitos do item 4 deste instrumento (“Requisitos Essenciais”).</p>
+            <p>3.2.O desconto adicional é concedido diretamente pela CREDENCIADA, através do reembolso de parte do valor gasto pelo USUÁRIO nas compras efetuadas através da área chamada de Cashback (dinheiro de volta).</p>
+            <p>3.3.O Cashback funciona da seguinte forma: no Clube de Vantagens, a CREDENCIADA realiza promessa de recompensa, que será devida ao USUÁRIO que cumprir os Requisitos Essenciais. Isto é, uma vez o USUÁRIO tendo cumprido os Requisitos Essenciais, a CREDENCIADA terá o compromisso de creditá-lo com a recompensa prometida, o Cashback, que corresponderá a um percentual do valor total da compra, o qual o USUÁRIO receberá em pontos. Para maiores esclarecimentos, acesse o “Termo de Uso do Silium” no menu.</p>
+            <h2>4. OS REQUISITOS ESSENCIAIS</h2>
+            <p>4.1. Para que o USUÁRIO adquira o direito à recompensa prometida pelo Clube de Vantagens, na forma do reembolso de parte do valor gasto em determinada aquisição pelo Portal (o Cashback), é indispensável que o USUÁRIO cumpra todos os requisitos abaixo, cumulativamente:</p>
+            <p>A. Efetuar a compra nas CONVENIADAS relacionadas na área do menu chamado CASHBACK; e</p>
+            <p>B. Finalizar a compra com o mesmo CPF e e-mail cadastrados no Clube de Vantagens; e</p>
+            <p>C. Aguardar o prazo de até 90 (noventa) dias para que o saldo seja atualizado com o crédito da compra efetuada.</p>
+            <p>4.2. Os Requisitos Essenciais são cumulativos, significando que todos deverão ser cumpridos para que surja o direito ao recebimento do Cashback. Por exemplo, cumpridos os Requisitos do item “4. Os Requisitos Essenciais”, somente após solicitar o resgate, informando alguns dados adicionais, o USUÁRIO adquirirá o direito de receber os valores.</p>
+            <p>4.3. Antes da solicitação do resgate dos pontos para conversão em dinheiro, os valores demonstrados na conta do USUÁRIO, do Clube de Vantagens, são meramente indicativos, não representando nenhum direito adquirido, pois os Requisitos Essenciais ainda não foram integralmente cumpridos.</p>
+            <p>4.4. As informações prestadas no cadastro devem ser exatas, precisas e verdadeiras, e o USUÁRIO se compromete a atualizar o cadastro sempre que houver alguma alteração nos seus dados.</p>
+            <p>4.5. A CREDENCIADA poderá se utilizar de todos os meios legais para confirmar a veracidade dos dados, não se responsabilizando, em hipótese nenhuma, por dados incorretos ou não verdadeiros informados pelo USUÁRIO. Isto é, o USUÁRIO declara, garante e assume responsabilidade pela veracidade, exatidão e autenticidade de todos os dados que fornecer.</p>
+            <p>4.6. O USUÁRIO deverá zelar por sempre alterar sua senha periodicamente, não utilizando senhas que facilitem a adivinhação por terceiros, como números de telefone, endereço, datas de nascimento, nomes de parentes etc.</p>
+            <p>4.7. Para que os Requisitos Essenciais (item 4) sejam cumpridos, é essencial que o USUÁRIO esteja logado no Clube de Vantagens.</p>
+            <p>4.8. O programa de Cashback conta com regulamento próprio e o USUÁRIO poderá consultá-lo no link do seu perfil chamado TERMO DE USO SILLIUM.</p>
+            <h2>5. TRATAMENTO DE DADOS</h2>
+            <p>5.1. Para facilitar a compreensão deste item, estabelece-se algumas definições, alinhadas com o que dispõe a legislação brasileira de proteção de dados:</p>
+            <p>Dado Pessoal: informação relacionada a pessoa natural identificada ou identificável Dado Pessoal Sensível: dado pessoal sobre origem racial ou étnica, convicção religiosa, opinião política, filiação a sindicato ou a organização de caráter religioso, filosófico ou político, dado referente à saúde ou à vida sexual, dado genético ou biométrico, quando vinculado a uma pessoa natural.</p>
+            <p>Dados: Dado Pessoal e Dado Pessoal Sensível, abrangendo inclusive os Dados relativos ao cadastro efetuado e os Dados oriundos dos hábitos de utilização da plataforma Clube de Vantagens.</p>
+            <p>Tratamento: toda operação realizada com dados pessoais e dados pessoais sensíveis, como as que se referem a coleta, produção, recepção, classificação, utilização, acesso, reprodução, transmissão, distribuição, processamento, arquivamento, armazenamento, eliminação, avaliação ou controle da informação, modificação, comunicação, transferência, difusão ou extração.</p>
+            <p>Controlador: pessoa natural ou jurídica, de direito público ou privado, a quem competem as decisões referentes ao tratamento de dados pessoais.</p>
+            <p>5.2. A partir do momento em que o USUÁRIO se cadastra no Clube de Vantagens, fornece o seu consentimento específico, livre, informado e inequívoco, para que a CREDENCIADA:</p>
+            <p>A. Realize o Tratamento de seus Dados, para que possa veicular, de modo mais adequado ao seu perfil, anúncios de produtos e serviços fornecidos pelas CONVENIADAS;</p>
+            <p>B. Compartilhe com as CONVENIADAS os dados ESTRITAMENTE necessários para que essas últimas possam identificar o USUÁRIO como um membro do Clube de Vantagens. No caso de uso presencial, o USUÁRIO apresentará, de livre e espontânea vontade, o documento. No caso de uso on-line, os dados não serão encaminhados para as CONVENIADAS. Em casos de projetos especiais, antes de qualquer encaminhamento de dados, o USUÁRIO será avisado e deverá consentir quanto ao compartilhamento destes dados que serão claramente especificados. Nenhum dado será encaminhado sem o prévio consentimento do USUÁRIO.</p>
+            <p>5.3.O USUÁRIO terá todos os seus direitos estabelecidos na legislação de proteção de dados, garantidos em especial:</p>
+            <p>A. Confirmação da existência de Tratamento;</p>
+            <p>B. Acesso aos Dados;</p>
+            <p>C. Correção de Dados incompletos, inexatos ou desatualizados;</p>
+            <p>D. Anonimização, bloqueio ou eliminação de Dados desnecessários, excessivos ou tratados em desconformidade com a lei;</p>
+            <p>E. Portabilidade dos Dados;</p>
+            <p>F. Eliminação dos Dados tratados com o consentimento;</p>
+            <p>G. Informação sobre entidades públicas e privadas com as quais foi realizado uso compartilhado de Dados;</p>
+            <p>H. Informação sobre a possibilidade de não fornecimento do consentimento e sobre as consequências da negativa;</p>
+            <p>I. Revogação do consentimento; e</p>
+            <p>J. Revisão de decisões automatizadas tomadas com base no Tratamento de Dados.</p>
+            <p><strong>OBSERVAÇÃO:</strong> No caso dos itens “i” e “j”, a CREDENCIADA conta com Encarregado, em conformidade com a legislação vigente, o Sr. André Pereira Rodrigues, o qual pode ser contatado através do e-mail: andrerodrigues@andrerodrigues.com.</p>
+            <p>5.3.1. Caso o USUÁRIO pretenda exercer algum dos direitos acima delineados, deverá encaminhar mensagem, especificando a questão a ser suscitada, direcionando e-mail para: atendimento@marktclub.com.br; com o assunto “Exercício de Direitos LGPD”.</p>
+            <p>5.4. Cada uma das CONVENIADAS, em relação aos Dados mencionados no item 5.2. “b”, será considerada um Controlador independente, respondendo isoladamente pelos danos eventualmente causados, de modo que não existe, em hipótese alguma, a responsabilidade da CREDENCIADA em relação a eventual irregularidade no Tratamento de Dados por parte das CONVENIADAS, ressalvadas hipóteses legais.</p>
+            <h2>DO CONSENTIMENTO</h2>
+            <p>Através deste, forneço meu consentimento específico, livre, informado e inequívoco, para que a Markt Tec Serviços em Tecnologia da Informação Ltda:</p>
+            <p>(i)realize o tratamento de meus dados pessoais e dados pessoais sensíveis, incluso, localização, com a finalidade de veicular, de modo mais adequado ao meu perfil, anúncios de produtos e serviços fornecidos pelos seus conveniados; e</p>
+            <p>(ii)compartilhe com suas conveniadas os dados necessários para possam me identificar (nome completo e CPF), como membro do Clube de Vantagens.</p>
+            <p>Estou ciente e desde já autorizo que os dados tratados pela Markt Tec Serviços em Tecnologia da Informação Ltda. incluam, para médico (número do CRM e UF, nome completo, CPF e e-mails) e demais usuários, aqueles relativos ao preenchimento deste cadastro, bem como os dados de acessos ao Clube de Serviços.</p>
+            <h2>6. CONSIDERAÇÕES FINAIS</h2>
+            <p>Em caso da necessidade de maiores esclarecimentos, o usuário deverá procurar o Encarregado da Markt Tec Serviços em Tecnologia da Informação Ltda, Sr. André Pereira Rodrigues, através do e-mail andrerodrigues@andrerodrigues.com.</p>
+        </div>
+    </div>
+</div>
+
+<form action="">
+    <input type="hidden" id="RECAPTCHA" name="RECAPTCHA">
+    <input type="hidden" id="LINK" name="LINK" value="{!!LINK!!}">
+</form>
+
+@JS
+</body>
+</html>

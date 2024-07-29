@@ -22,3 +22,11 @@ Route
             ::nome('usuarioDeslogou')
             ::view('/login/fenae-sair');
 });
+Route
+    ::nome('loginCfm')
+    ::controller(App\Controllers\Oauth\CfmController::class)
+    ::grupo(function () {
+        Route
+            ::nome('paginaLogin')
+            ::view('/login/cfm');
+    });

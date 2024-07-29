@@ -1,22 +1,37 @@
 <div id="popup_login">
-    @ if( API ):
+    @ if( LOGIN_ESCOLHA ):
     <div id="bloco_escolha_login" class="bloco_form_login">
         <i class="fechar esquerda mobile popup_fechar">@iconeVoltar</i>
         <i class="fechar direita desktop popup_fechar">@iconeFechar</i>
         <i class="icone">@iconeUsuario(30)</i>
         <h1>Escolha um tipo de login</h1>
         <p>Escolha entre as opções abaixo para fazer seu login</p>
-        <a href="{{LINK_LOGIN}}" class="botao">Sou associado</a>
-        <div class="botao" id="botao_abrir_dependente">Sou dependente</div>
+        @ if( API ):
+        <a href="{{LINK_LOGIN}}" class="botao">{{BOTAO_LOGIN_USUARIO}}</a>
+        @ else:
+        <div class="botao botao_abrir_menu_normal">{{BOTAO_LOGIN_USUARIO}}</div>
+        @ endif;
+        @ if( MENU_DEPENDENTE ):
+        <div class="botao botao_abrir_menu_normal">{{BOTAO_LOGIN_DEPENDENTE}}</div>
+        @ endif;
+        @ if( MENU_FUNCIONARIO && !empty(LINK_FUNCIONARIO) ):
+        <div class="linha_funcionario"></div>
+        <a href="{{LINK_FUNCIONARIO}}" class="botao">{{BOTAO_LOGIN_FUNCIONARIO}}</a>
+        @ elseif( MENU_FUNCIONARIO ):
+        <div class="botao botao_abrir_menu_normal">{{BOTAO_LOGIN_FUNCIONARIO}}</div>
+        @ endif;
     </div>
     @ endif;
-    <form id="bloco_form_login" class="bloco_form_login form_geral {!!API ? 'display_none' : ''!!}" action="/" method="post">
+    <form id="bloco_form_login" class="bloco_form_login form_geral {!!LOGIN_ESCOLHA ? 'display_none' : ''!!}" action="/" method="post">
         <div class="conteudo">
             <header>
-                <h1>FAÇA SEU LOGIN</h1>
+                <div class="bloco">
+                    <i class="voltar display_none">@iconeVoltar</i>
+                    <h1>FAÇA SEU LOGIN</h1>
+                </div>
                 <p>Digite seu CPF e sua senha para fazer login, caso não tenha senha, clique em "Primeiro acesso" para criar sua conta</p>
-                <i class="fechar popup_fechar">@iconeFechar</i>
             </header>
+            <i class="fechar popup_fechar">@iconeFechar</i>
 
             <input type="text" autocomplete="username" value="" class="input_hidden">
             <input type="password" autocomplete="current-password" value="" class="input_hidden">

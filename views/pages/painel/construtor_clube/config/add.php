@@ -188,6 +188,7 @@ $Painel->coluna(callback: function () use ($Painel) {
             $Painel->checkbox(name: 'menu_indicar_usuario', label: 'Indicar amigo');
             $Painel->checkbox(name: 'menu_odontologico', label: 'Odontologico');
             $Painel->checkbox(name: 'menu_dependente', label: 'Dependente');
+            $Painel->checkbox(name: 'menu_funcionario', label: 'Funcionário');
             $Painel->checkbox(name: 'menu_carteira', label: 'Carteirinha');
             $Painel->checkbox(name: 'menu_salavip', label: 'Salavip');
             $Painel->checkbox(name: 'menu_tema', label: 'Tema');

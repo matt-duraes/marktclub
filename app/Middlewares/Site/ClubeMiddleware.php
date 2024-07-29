@@ -58,7 +58,7 @@ final class ClubeMiddleware extends ApiHelper
 
     private function buscarClube()
     {
-        if (sessaoExiste('CLUBE_' . $this->id) && sessaoExiste('CLUBE')) {
+        if (sessaoExiste('CLUBE_' . $this->id) && sessaoExiste('CLUBE') && eProducao()) {
             return;
         }
         $host = preg_replace('/^http(s)?\:\/\/(www.)?/', '', LINK);
@@ -153,6 +153,7 @@ final class ClubeMiddleware extends ApiHelper
         define('MENU_INDICAR_USUARIO', $pagina->indicar_usuario);
         define('MENU_HISTORICO', $pagina->historico);
         define('MENU_DEPENDENTE', $pagina->dependente);
+        define('MENU_FUNCIONARIO', $pagina->funcionario);
         define('MENU_CARTEIRA', $pagina->carteira);
         define('MENU_SAMSUNG', $pagina->samsung);
         define('MENU_CORRIDA', $pagina->corrida);
@@ -172,11 +173,27 @@ final class ClubeMiddleware extends ApiHelper
         define('CAMPOS_PRIMEIRO_ACESSO', $clube->campos_primeiro_acesso ?? []);
         define('INPUT_GRUPO', $clube->input_grupo ?? []);
 
+        define(
+            'BOTAO_LOGIN_USUARIO',
+            !empty($clube->texto_login_usuario) ? $clube->texto_login_usuario : 'Sou associado'
+        );
+        define(
+            'BOTAO_LOGIN_DEPENDENTE',
+            !empty($clube->texto_login_dependente) ? $clube->texto_login_dependente : 'Sou dependente'
+        );
+        define(
+            'BOTAO_LOGIN_FUNCIONARIO',
+            !empty($clube->texto_login_funcionario) ? $clube->texto_login_funcionario : 'Sou funcionário'
+        );
+
         define('LINK_APP_ANDROID', $clube->link_app_android);
         define('LINK_APP_IOS', $clube->link_app_ios);
         define('LINK_LOGIN', preg_replace('/\/$/', '', $clube->link_login));
+        define('LINK_FUNCIONARIO', preg_replace('/\/$/', '', $clube->link_funcionario));
         define('LINK_CADASTRO', $clube->link_cadastro);
         define('LINK_ODONTOLOGICO', $clube->link_odontologico);
         define('MENU_BAIXAR_APP', !empty(LINK_APP_ANDROID) || !empty(LINK_APP_IOS));
+
+        define('LOGIN_ESCOLHA', API || MENU_FUNCIONARIO);
     }
 }

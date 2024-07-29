@@ -1,7 +1,10 @@
 #bloco_form_buscar
 #bloco_form_login
 #bloco_escolha_login
+#popup_login
     max-width: 500px
+#popup_login
+    width: 100%
 #bloco_form_ativar
     max-width: 800px
 #bloco_escolha_login
@@ -32,8 +35,10 @@
         titulo()
         color: $corClube
     p
+        max-width: 250px
         texto()
         margin-bottom: 30px
+        text-align: center
     .botao
         width: 100%
         max-width: 250px
@@ -41,6 +46,12 @@
         background-color: $corClube
         color: #FFF
         margin-bottom: 15px
+    .linha_funcionario
+        width: 100%
+        max-width: 250px
+        margin: 5px 0 20px
+        height: 1px
+        background-color: #CCC
 
 .bloco_form_login
     width: calc(100% - 40px)
@@ -49,6 +60,7 @@
     overflow-y: auto
     overflow-x: hidden
     background: white
+    position: relative
     blocoShadow()
     .conteudo
         flexRow()
@@ -59,19 +71,32 @@
         margin-bottom: 30px
         position: relative
         padding-right: 30px
-    header h1
+    header .bloco
+        width: 100%
+        flexRow()
+    header .bloco h1
         titulo()
         color: $corClube
+        flexGrow()
+    header .bloco .voltar
+        width: 30px
+        height: 30px
+        flexCenter()
+        cursor: pointer
+        margin-right: 10px
+        fill: #666
     header p
         texto()
-    header .fechar
+    .fechar
         width: 30px
         height: 30px
         flexCenter()
         cursor: pointer
         position: absolute
-        top: 0
-        right: 0
+        top: 10px
+        right: 15px
+        z-index: 10
+        fill: #666
     .aviso_cadastro
         width: 100%
         padding: 10px
