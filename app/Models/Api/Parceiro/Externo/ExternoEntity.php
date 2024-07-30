@@ -2,40 +2,28 @@
 
 namespace App\Models\Api\Parceiro\Externo;
 
-use ORM\Entity;
-use Modules\Nome;
-use Modules\Email;
-use Modules\Telefone;
+use ApiModel\Contato\ContatoEntity;
+use ApiModel\Endereco\EnderecoEntity;
+use ApiModel\PainelHistorico\HistoricoEntity;
+use App\Classes\ParceiroLoja\Categoria;
+use App\Classes\ParceiroLoja\Status;
+use App\Classes\ParceiroLoja\TipoLoja;
 use Helpers\OrmHelper;
+use Modules\Email;
 use Modules\EnderecoCep;
 use Modules\EnderecoEstado;
+use Modules\Nome;
+use Modules\Telefone;
+use ORM\Entity;
 use System\Classes\Contato\Tipo;
-use ApiModel\Contato\ContatoEntity;
-use App\Classes\ParceiroLoja\Status;
-use ApiModel\Endereco\EnderecoEntity;
-use App\Classes\ParceiroLoja\TipoLoja;
-use App\Classes\ParceiroLoja\Categoria;
 use System\Classes\PainelHistorico\Acao;
-use ApiModel\PainelHistorico\HistoricoEntity;
+use Throwable;
 
 final class ExternoEntity extends Entity
 {
-    protected string $ormTabela = TABELA_PARCEIRO_LOJA;
-    protected array $ormInsert = [
-        'endereco_estado' => '->estado_parceiro',
-        'id_admin_empresa', 'id_dono_subempresa', 'id_dono_empresa', 'id_dono_equipe', 'categoria_principal',
-        'tipo_loja', 'titulo_interno', 'url', 'status', 'tipo_indicador'
-    ];
-    protected array $ormBuscar = [
-        'titulo_interno', 'id_dono_equipe', 'categoria_principal', 'data_criacao', 'status',
-        'tipo_indicador',
-    ];
     public string $dono;
+    public array $contato;
     public string $titulo_interno;
-    protected array $id_admin_empresa;
-    protected int $id_dono_empresa;
-    protected int $id_dono_subempresa;
-    protected int $id_dono_equipe;
     public string $dono_equipe;
     public Categoria $categoria_principal;
     public Nome $nome;
@@ -51,16 +39,45 @@ final class ExternoEntity extends Entity
     public array $estado_parceiro;
     public string $mensagem;
     public string $url;
-    protected TipoLoja $tipo_loja;
     public Status $status;
     public string $tipo_indicador;
+    protected string $ormTabela = TABELA_PARCEIRO_LOJA;
+    protected array $ormBuscar = [
+        'titulo_interno', 'id_dono_equipe', 'categoria_principal', 'data_criacao',
+        'status', 'tipo_indicador'
+    ];
+    protected array $ormInsert = [
+        'endereco_estado' => '->estado_parceiro',
+        'id_admin_empresa', 'id_dono_subempresa', 'id_dono_empresa', 'id_dono_equipe',
+        'categoria_principal', 'tipo_loja', 'titulo_interno', 'url', 'status',
+        'tipo_indicador'
+    ];
+    protected array $id_admin_empresa;
+    protected int $id_dono_empresa;
+    protected int $id_dono_subempresa;
+    protected int $id_dono_equipe;
+    protected TipoLoja $tipo_loja;
 
-    protected function regraPosBuscar()
+    protected function regraPosBuscar(): void
     {
         $this->dono = (new OrmHelper(TABELA_USUARIO_EQUIPE))->pegarUuidPeloId($this->id_dono_equipe);
+        $contatos = (new OrmHelper(TABELA_SISTEMA_CONTATO))->listar([
+            'nome', 'cpf', 'tipo', 'valor'
+        ], ['id_vinculo', $this->id]);
+
+        foreach ($contatos as $contato) {
+            if ((new Tipo($contato->tipo))->indice() === Tipo::EMAIL) {
+                $this->contato['email'] = $contato->valor;
+            }
+            if ((new Tipo($contato->tipo))->indice() === Tipo::TELEFONE) {
+                $this->contato['telefone'] = $contato->valor;
+            }
+            $this->contato['nome'] = $contato->nome;
+            $this->contato['cpf'] = $contato->cpf;
+        }
     }
 
-    protected function regraInsert()
+    protected function regraInsert(): void
     {
         $idEmpresa = TOKEN['empresa']->id;
         $idEquipe = TOKEN['usuario']->id;
@@ -79,7 +96,7 @@ final class ExternoEntity extends Entity
         $this->url = strSlug($this->titulo_interno);
     }
 
-    protected function regraPosInsert()
+    protected function regraPosInsert(): void
     {
         $this->adicionarContato('Telefone', new Tipo(Tipo::TELEFONE), $this->telefone);
         $this->adicionarContato('E-mail', new Tipo(Tipo::EMAIL), $this->email);
@@ -87,7 +104,7 @@ final class ExternoEntity extends Entity
         $this->adicionarHistorico();
     }
 
-    private function adicionarContato($titulo, $tipo, $valor)
+    private function adicionarContato($titulo, $tipo, $valor): void
     {
         if (empty($valor)) {
             return;
@@ -106,11 +123,11 @@ final class ExternoEntity extends Entity
                 'principal'        => 'nao'
             ]);
             $Contato->salvar();
-        } catch (\Throwable) {
+        } catch (Throwable) {
         }
     }
 
-    private function adicionarEndereco()
+    private function adicionarEndereco(): void
     {
         try {
             $Endereco = new EnderecoEntity();
@@ -132,11 +149,11 @@ final class ExternoEntity extends Entity
                 'principal'        => 'nao'
             ]);
             $Endereco->salvar();
-        } catch (\Throwable) {
+        } catch (Throwable) {
         }
     }
 
-    private function adicionarHistorico()
+    private function adicionarHistorico(): void
     {
         $Historico = new HistoricoEntity();
         $Historico->set(lista: [

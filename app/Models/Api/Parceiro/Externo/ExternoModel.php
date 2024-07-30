@@ -2,18 +2,19 @@
 
 namespace App\Models\Api\Parceiro\Externo;
 
-use ORM\ORM;
-use stdClass;
+use App\Classes\ParceiroLoja\Status;
+use App\Models\Api\Parceiro\Externo\Trait\PropriedadeTrait;
+use App\Models\Api\Parceiro\Externo\Trait\ValidarTrait;
+use App\Models\Api\Parceiro\Externo\Trait\WhereTrait;
+use Erro\Excecao;
 use Modules\Pagina;
 use Modules\Quantidade;
+use ORM\ORM;
+use stdClass;
+use System\Interface\ModelListarInterface;
 use System\Trait\Model\OrdemTrait;
 use System\Trait\Model\PaginaTrait;
-use App\Classes\ParceiroLoja\Status;
 use System\Trait\Model\QuantidadeTrait;
-use System\Interface\ModelListarInterface;
-use App\Models\Api\Parceiro\Externo\Trait\WhereTrait;
-use App\Models\Api\Parceiro\Externo\Trait\ValidarTrait;
-use App\Models\Api\Parceiro\Externo\Trait\PropriedadeTrait;
 
 final class ExternoModel extends ORM implements ModelListarInterface
 {
@@ -24,15 +25,21 @@ final class ExternoModel extends ORM implements ModelListarInterface
     use OrdemTrait;
     use ValidarTrait;
 
-    protected string $ormTabela = TABELA_PARCEIRO_LOJA;
     public Pagina $pagina;
     public Quantidade $quantidade;
+    protected string $ormTabela = TABELA_PARCEIRO_LOJA;
 
+    /**
+     * @return stdClass
+     * @throws Excecao
+     */
     public function listarDados(): stdClass
     {
         $this->validarRequest();
         $dado = $this
-            ->campo(['uuid', 'titulo_interno', 'data_criacao', 'status', 'tipo_indicador'])
+            ->campo([
+                'uuid', 'titulo_interno', 'data_criacao', 'status', 'tipo_indicador'
+            ])
             ->where($this->pegarWhere())
             ->pagina($this->pegarPagina(), $this->pegarQuantidade())
             ->order($this->pegarOrdem())
@@ -45,7 +52,7 @@ final class ExternoModel extends ORM implements ModelListarInterface
         return $dado;
     }
 
-    private function montarRetorno($dado)
+    private function montarRetorno($dado): array
     {
         $retorno = [];
         $Status = new Status();
