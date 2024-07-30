@@ -1,11 +1,14 @@
 <?php
 
 use App\Classes\ParceiroLoja\Categoria;
+use App\Classes\ParceiroLoja\Indicador;
 
 $Painel = new PainelConfig\Add(app: 'parceiro_externo', acao: $acao);
 $Painel->coluna(callback: function () use ($Painel) {
     $Painel->fieldset('Dados básicos', function () use ($Painel) {
         $Categoria = new Categoria();
+        $TipoIndicador = new Indicador();
+
         $Painel
             ->input(
                 name: 'titulo_interno',
@@ -19,6 +22,13 @@ $Painel->coluna(callback: function () use ($Painel) {
                 label: 'Categoria',
                 placeholder: 'Categoria',
                 lista: $Categoria->select('Escolha uma opção'),
+                obrigatorio: true
+            )
+            ->select(
+                name: 'tipo_indicador',
+                label: 'Indicador',
+                placeholder: 'Indicador',
+                lista: $TipoIndicador->select('Escolha uma opção'),
                 obrigatorio: true
             );
     });

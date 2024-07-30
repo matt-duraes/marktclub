@@ -57,7 +57,8 @@ final class ExternoController extends Controller implements
             dado: pegarPropriedadeDaEntity(
                 Entity: $Externo,
                 lista: [
-                    'titulo_interno', 'dono', 'categoria_principal', 'data_criacao', 'status'
+                    'titulo_interno', 'dono', 'categoria_principal', 'data_criacao', 'status',
+                    'tipo_indicador'
                 ]
             ),
             status: $status
