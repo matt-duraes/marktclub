@@ -24,10 +24,11 @@ final class ExternoEntity extends Entity
     protected array $ormInsert = [
         'endereco_estado' => '->estado_parceiro',
         'id_admin_empresa', 'id_dono_subempresa', 'id_dono_empresa', 'id_dono_equipe', 'categoria_principal',
-        'tipo_loja', 'titulo_interno', 'url', 'status'
+        'tipo_loja', 'titulo_interno', 'url', 'status', 'tipo_indicador'
     ];
     protected array $ormBuscar = [
-        'titulo_interno', 'id_dono_equipe', 'categoria_principal', 'data_criacao', 'status'
+        'titulo_interno', 'id_dono_equipe', 'categoria_principal', 'data_criacao', 'status',
+        'tipo_indicador',
     ];
     public string $dono;
     public string $titulo_interno;
@@ -52,6 +53,7 @@ final class ExternoEntity extends Entity
     public string $url;
     protected TipoLoja $tipo_loja;
     public Status $status;
+    public string $tipo_indicador;
 
     protected function regraPosBuscar()
     {

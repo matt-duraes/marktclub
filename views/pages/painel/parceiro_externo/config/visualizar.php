@@ -11,6 +11,7 @@ $Painel->coluna(callback: function () use ($Painel) {
             ->linha('titulo_interno', 'Título')
             ->linha('categoria_principal', 'Categoria')
             ->dataHora('data_criacao', 'Criado em')
+            ->linha('tipo_indicador', 'Tipo indicador')
             ->linha('status', 'Status');
     });
 });

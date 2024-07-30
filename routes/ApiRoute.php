@@ -1387,7 +1387,7 @@ Route
             ::post('/parceiro-loja/download');
     });
 
-    Route
+Route
     ::nome('parceiro_externo')
     ::middleware(TokenMiddleware::class, 'token')
     ::controller(App\Controllers\Api\Parceiro\ExternoController::class)
@@ -1404,7 +1404,7 @@ Route
         Route
             ::nome('salvar')
             ::request([
-                'titulo_interno', 'nome', 'email', 'telefone', 'categoria_principal', 'endereco_cep',
+                'titulo_interno', 'nome', 'email', 'telefone','tipo_indicador' ,'categoria_principal', 'endereco_cep',
                 'endereco_logradouro', 'endereco_numero', 'endereco_complemento', 'endereco_bairro', 'endereco_cidade',
                 'endereco_estado', 'mensagem'
             ])

@@ -32,7 +32,7 @@ final class ExternoModel extends ORM implements ModelListarInterface
     {
         $this->validarRequest();
         $dado = $this
-            ->campo(['uuid', 'titulo_interno', 'data_criacao', 'status'])
+            ->campo(['uuid', 'titulo_interno', 'data_criacao', 'status', 'tipo_indicador'])
             ->where($this->pegarWhere())
             ->pagina($this->pegarPagina(), $this->pegarQuantidade())
             ->order($this->pegarOrdem())
@@ -41,7 +41,6 @@ final class ExternoModel extends ORM implements ModelListarInterface
         if (!existeErro($dado, 'dado')) {
             return $this->paginacaoZero();
         }
-
         $dado->lista = $this->montarRetorno($dado->lista);
         return $dado;
     }
@@ -54,8 +53,9 @@ final class ExternoModel extends ORM implements ModelListarInterface
             $retorno[] = [
                 'id'             => $r->uuid,
                 'titulo_interno' => $r->titulo_interno,
+                'tipo_indicador' => $r->tipo_indicador,
                 'data_criacao'   => $r->data_criacao,
-                'status'         => $Status->indice($r->status)
+                'status'         => $Status->indice($r->status),
             ];
         }
         return $retorno;
