@@ -38,10 +38,14 @@ Object.defineProperty(Object.prototype, 'displayShow', {
     configurable: true,
 });
 Object.defineProperty(Object.prototype, 'aparecer', {
-    value() {
+    async value(delay) {
         let elemento = this;
         if (!(elemento instanceof NodeList)) {
             elemento = [elemento];
+        }
+
+        if (delay !== undefined && /^[0-9]{1,}$/.test(delay)) {
+            await new Promise(resolve => setTimeout(resolve, delay));
         }
 
         for (item of elemento) {
@@ -73,7 +77,6 @@ Object.defineProperty(Object.prototype, 'displayHide', {
         if (!(elemento instanceof NodeList)) {
             elemento = [elemento];
         }
-
         for (item of elemento) {
             item.classList.add('display_none');
         }
@@ -83,10 +86,14 @@ Object.defineProperty(Object.prototype, 'displayHide', {
     configurable: true,
 });
 Object.defineProperty(Object.prototype, 'sumir', {
-    value() {
+    async value(delay) {
         let elemento = this;
         if (!(elemento instanceof NodeList)) {
             elemento = [elemento];
+        }
+
+        if (delay !== undefined && /^[0-9]{1,}$/.test(delay)) {
+            await new Promise(resolve => setTimeout(resolve, delay));
         }
 
         for (item of elemento) {
@@ -239,11 +246,16 @@ Object.defineProperty(Object.prototype, 'css', {
     configurable: true,
 });
 Object.defineProperty(Object.prototype, 'classe', {
-    value(classe, acao) {
+    async value(classe, acao, delay) {
         let elemento = this;
         if (!(elemento instanceof NodeList)) {
             elemento = [elemento];
         }
+
+        if (delay !== undefined && /^[0-9]{1,}$/.test(delay)) {
+            await new Promise(resolve => setTimeout(resolve, delay));
+        }
+
         let existe = true;
         for (const item of elemento) {
             let retorno;
@@ -263,12 +275,63 @@ Object.defineProperty(Object.prototype, 'classe', {
     writable: true,
     configurable: true,
 });
+
+Object.defineProperty(Object.prototype, 'focar', {
+    value() {
+        let elemento = this;
+        if (!(elemento instanceof NodeList)) {
+            if (elemento.closest('.input_select')) {
+                elemento = elemento.querySelector('.input_select_texto');
+            }
+            elemento.focus();
+            return;
+        }
+
+        let i = 0;
+        let quantidade = elemento.length;
+        for (; i < quantidade; ++i) {
+            if (i == quantidade - 1) {
+                return;
+            }
+            let itemAtual = elemento[i];
+            let itemProximo = elemento[i + 1];
+
+            const selectAtual = itemAtual.closest('.input_select');
+            const selectProximo = itemProximo.closest('.input_select');
+            if (selectAtual) {
+                itemAtual = selectAtual.querySelector('.input_select_texto');
+            }
+            if (selectProximo) {
+                itemProximo = selectProximo.querySelector('.input_select_texto');
+            }
+
+            const eObrigatorio = itemAtual.classList.contains('input_obrigatorio');
+            const eData = itemAtual.getAttribute('data-mascara') === '00/00/0000';
+            const eDataHora = itemAtual.getAttribute('data-mascara') === '00/00/0000 00:00:00';
+            itemAtual.addEventListener('keydown', e => {
+                const valor = itemAtual.valor();
+                if (e.key !== 'Enter' || (eObrigatorio && vazio(valor))) {
+                    return;
+                }
+                if (eData || eDataHora) {
+                    Calendario.staticFechar();
+                }
+                itemProximo.focus();
+            });
+        }
+        return this;
+    },
+    writable: true,
+    configurable: true,
+});
+
 Object.defineProperty(Object.prototype, 'desfocar', {
     value() {
         const elemento = this;
         const blocoSelect = elemento.closest('.input_select');
         if (blocoSelect) {
             $('.input_select_texto', blocoSelect).blur();
+            return;
         }
         elemento.blur();
     },
@@ -395,6 +458,81 @@ Object.defineProperty(Object.prototype, 'clonar', {
             item.removeAttribute('id');
         }
         return clone;
+    },
+    writable: true,
+    configurable: true,
+});
+
+Object.defineProperty(Object.prototype, 'validar', {
+    value() {
+        let elemento = this;
+        if (!(elemento instanceof NodeList)) {
+            elemento = [elemento];
+        }
+        for (let item of elemento) {
+            const bloco = item.closest('.bloco_input');
+            const valor = item.valor();
+            const eObrigatorio = item.classList.contains('input_obrigatorio');
+            const eContador = item.classList.contains('input_contador');
+            const eVazio = vazio(valor);
+            const mascara = item.getAttribute('data-mascara') || '';
+            const maximo = item.attr('data-contador');
+            const label = bloco.querySelector('label');
+            let campo = '';
+            if (label) {
+                campo = label.innerText;
+            }
+            if (vazio(campo)) {
+                campo = '"' + item.attr('placeholder') + '"';
+            }
+            if (vazio(campo)) {
+                campo = item.attr('name');
+            }
+
+            const eData = item.closest('.bloco_input_data') && mascara == '00/00/0000';
+            const eDataHora = item.closest('.bloco_input_data') && mascara == '00/00/0000 00:00:00';
+            const eCpf = mascara == '000.000.000-00';
+            const eNumero = mascara == 'numero';
+            const eMascara = !eData && !eDataHora && !eCpf && !eNumero && !vazio(mascara);
+
+            if (eObrigatorio && eVazio) {
+                return {
+                    titulo: 'Campo obrigatório!',
+                    mensagem: `O campo ${campo} é obrigatório.`,
+                };
+            } else if (!eVazio && eContador && parseInt(maximo) < parseInt(valor.length)) {
+                return {
+                    titulo: 'Campo inválido!',
+                    mensagem: `O campo ${campo} tem mais caracteres que o permitido.`,
+                };
+            } else if (!eVazio && eData && !validarData(valor)) {
+                return {
+                    titulo: 'Campo inválido!',
+                    mensagem: `O campo ${campo} não é uma data (00/00/0000) no formato correto.`,
+                };
+            } else if (!eVazio && eDataHora && !validarDataHora(valor)) {
+                return {
+                    titulo: 'Campo inválido!',
+                    mensagem: `O campo ${campo} não é uma data e hora (00/00/0000 00:00) no formato correto.`,
+                };
+            } else if (!eVazio && eCpf && !validarCpf(valor)) {
+                return {
+                    titulo: 'Campo inválido!',
+                    mensagem: `O campo ${campo} não é um número válido.`,
+                };
+            } else if (!eVazio && eNumero && !/^[0-9]{1,}$/.test(valor)) {
+                return {
+                    titulo: 'Campo inválido!',
+                    mensagem: `O campo ${campo} não é um número válido.`,
+                };
+            } else if (!eVazio && eMascara && !validarMascara(valor, mascara)) {
+                return {
+                    titulo: 'Campo inválido!',
+                    mensagem: `O campo ${campo} não está no formato ${mascara} válido.`,
+                };
+            }
+        }
+        return true;
     },
     writable: true,
     configurable: true,
@@ -574,6 +712,17 @@ const vazio = item => {
         (typeof item === 'boolean' && item === true)
     ) {
         return false;
+    }
+    return true;
+};
+const validarMascara = (string, mascara) => {
+    if (string.length !== mascara.length) {
+        return false;
+    }
+    for (let i = 0; i < string.length; i++) {
+        if ((mascara[i] == '0' && !/\d/.test(string[i])) || (mascara[i] != '0' && string[i] !== mascara[i])) {
+            return false;
+        }
     }
     return true;
 };
@@ -1031,4 +1180,17 @@ buscarCidadePeloEstadoViaBrowser = async (inputCidade, estado, valor, titulo) =>
         });
     } catch (error) {}
     formSelectOption(inputCidade, cidade, valor);
+};
+
+const dataBanco = data => {
+    if (!validarData(data) && !validarDataHora(data)) {
+        return data;
+    }
+    const explodeHora = data.split(' ');
+    let hora = '';
+    if (validarDataHora(data)) {
+        hora = ' ' + explodeHora[1];
+    }
+    const explodeData = explodeHora[0].split('/');
+    return explodeData[2] + '-' + explodeData[1] + '-' + explodeData[0] + hora;
 };

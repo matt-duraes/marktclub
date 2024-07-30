@@ -7,8 +7,8 @@
 const RECAPTCHA = $('#RECAPTCHA').value;
 
 window.addEventListener('load', () => {
-    const popupCadastro = $('#bloco_cadastro');
-    const popupTermo = $('#bloco_termo');
+    const blocoPopupCadastro = $('#bloco_cadastro');
+    const blocoPopupTermo = $('#bloco_termo');
 
     const inputTermo = $('#input_termo');
     const inputCookie = $('#input_cookie');
@@ -17,36 +17,31 @@ window.addEventListener('load', () => {
     const inputEstado = $('#input_estado');
     const inputDataNascimento = $('#input_data_nascimento');
     const inputMae = $('#input_nome_mae');
-    const inputProximo = $$('#input_cpf, #input_inscricao, #input_estado, #input_data_nascimento');
+    const inputLista = $$('#input_cpf, #input_inscricao, #input_estado, #input_data_nascimento, #input_nome_mae');
 
     const botaoLogar = $('#botao_logar');
     const botaoCadastro = $('#botao_cadastro');
     const botaoCancelar = $('#botao_cancelar');
     const botaoTermoFechar = $('#botao_termo_fechar');
+    const botaoTermoAbrir = $('#botao_abrir_termo');
 
     Calendario.init({
         input: '#input_data_nascimento',
     });
 
-    inputProximo.focar();
-
-    Object.defineProperty(Object.prototype, 'focar', {
-        value() {
-            let elemento = this;
-            let retornoLista = true;
-            if (!(elemento instanceof NodeList)) {
-                retornoLista = false;
-                elemento = [elemento];
+    fwFormValidarMascara = (string, mascara) => {
+        if (string.length !== mascara.length) {
+            return false;
+        }
+        for (let i = 0; i < string.length; i++) {
+            if ((mascara[i] == '0' && !/\d/.test(string[i])) || (mascara[i] != '0' && string[i] !== mascara[i])) {
+                return false;
             }
+        }
+        return true;
+    };
 
-            for (const item of elemento) {
-                //
-            }
-            return this;
-        },
-        writable: true,
-        configurable: true,
-    });
+    inputLista.focar();
 
     inputMae.evento('keydown', e => {
         if (e.key == ' ') {
@@ -64,8 +59,50 @@ window.addEventListener('load', () => {
         fazerLogin(true);
     });
 
-    const fazerLogin = cadastro => {
-        //
+    const fazerLogin = async cadastro => {
+        const validar = inputLista.validar();
+        if (!cadastro && validar !== true) {
+            Alerta.notificacao(validar.mensagem, false);
+            return;
+        } else if (cadastro && !inputTermo.checked) {
+            Alerta.notificacao('Aceite os termos para continuar.');
+        }
+        const resposta = await ajaxPost(
+            LINK + '/',
+            {
+                tipo: 'funcionario',
+                cpf: inputCpf.valor(),
+                inscricao: inputInscricao.valor(),
+                estado: inputEstado.valor(),
+                /* eslint-disable */
+                data_nascimento: dataBanco(inputDataNascimento.valor()),
+                nome_mae: inputMae.valor(),
+                /* eslint-enable */
+                cadastro: cadastro ? 'sim' : 'nao',
+                captcha: '',
+            },
+            'Ocorreu um erro ao fazer seu login, por favor, tente novamente.'
+        );
+        // popupAbrir(blocoPopupCadastro);
+    };
+
+    botaoCancelar.evento('click', () => {
+        popupFechar(blocoPopupCadastro);
+    });
+    botaoTermoAbrir.evento('click', () => {
+        popupAbrir(blocoPopupTermo);
+    });
+    botaoTermoFechar.evento('click', () => {
+        popupFechar(blocoPopupTermo);
+    });
+
+    const popupAbrir = bloco => {
+        bloco.aparecer();
+        bloco.classe('aberto', true, 10);
+    };
+    const popupFechar = bloco => {
+        bloco.classe('aberto', false);
+        bloco.sumir(300);
     };
 
     // const blocoMensagemLogin = document.querySelector('#bloco_mensagem_login');

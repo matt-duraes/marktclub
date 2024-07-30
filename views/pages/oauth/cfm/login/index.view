@@ -20,11 +20,11 @@
         </header>
 
         <form action="/" class="form_geral">
-            @? formCpf(name: 'cpf', label: 'CPF', placeholder: 'Digite seu CPF')
-            @? formNumero(name: 'inscricao', label: 'Matrícula', placeholder: 'Digite sua matrícula')
-            @? formSelect(name: 'estado', label: 'Conselho', placeholder: 'Conselho de medicina', lista: $conselho)
-            @? formData(name: 'data_nascimento', label: 'Data de nascimento', placeholder: 'Data de nascimento')
-            @? formInput(name: 'nome_mae', label: 'Primeiro nome da mãe', placeholder: 'Primeiro nome da mãe')
+            @? formCpf(name: 'cpf', label: 'CPF', placeholder: 'Digite seu CPF', obrigatorio: true, local: '014.951.801-31')
+            @? formNumero(name: 'inscricao', label: 'Matrícula', placeholder: 'Digite sua matrícula', obrigatorio: true, local: '123')
+            @? formSelect(name: 'estado', label: 'Conselho', placeholder: 'Conselho de medicina', lista: $conselho, obrigatorio: true, local: 'BR')
+            @? formData(name: 'data_nascimento', label: 'Data de nascimento', placeholder: 'Data de nascimento', obrigatorio: true, local: '27/07/1987')
+            @? formInput(name: 'nome_mae', label: 'Primeiro nome da mãe', placeholder: 'Primeiro nome da mãe', obrigatorio: true, local: 'Ana')
             @? formCheckbox(name: 'cookie', class: 'bloco_cookie', label: 'Gostaria de salvar seus dados em cookie para não precisar preenche-los novamente? Só faça isso em um computador pessoal.', check: false)
             <div class="botao" id="botao_logar">Logar</div>
         </form>

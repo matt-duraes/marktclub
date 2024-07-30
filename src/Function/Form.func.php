@@ -629,6 +629,7 @@ if (!function_exists('formSelect')) {
                 <ul class="option">
                     ' . implode(' ', $option) . '
                 </ul>
+                <i class="input_icone_erro"></i>
                 <i class="input_icone"></i>
                 ' . $footerHtml . '
             </div>
