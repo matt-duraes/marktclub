@@ -16,17 +16,27 @@
         <figure><img src="{{LINK_PADRAO}}/images/cfm/logo.png" alt="CFM Mais" height="60"></figure>
         <header>
             <h1>FAÇA SEU LOGIN</h1>
-            <p>Digite seus dados nos campos abaixo para fazer seu login</p>
+            <p class="display_none bloco_normal">Digite seus dados nos campos abaixo para fazer seu login</p>
+            <p class="bloco_cookie display_none">Ola <strong id="bloco_nome">André</strong>, para refazer seu login, basta clicar no botão abaixo:</p>
         </header>
 
         <form action="/" class="form_geral">
-            @? formCpf(name: 'cpf', label: 'CPF', placeholder: 'Digite seu CPF', obrigatorio: true, local: '014.951.801-31')
-            @? formNumero(name: 'inscricao', label: 'Matrícula', placeholder: 'Digite sua matrícula', obrigatorio: true, local: '123')
-            @? formSelect(name: 'estado', label: 'Conselho', placeholder: 'Conselho de medicina', lista: $conselho, obrigatorio: true, local: 'BR')
-            @? formData(name: 'data_nascimento', label: 'Data de nascimento', placeholder: 'Data de nascimento', obrigatorio: true, local: '27/07/1987')
-            @? formInput(name: 'nome_mae', label: 'Primeiro nome da mãe', placeholder: 'Primeiro nome da mãe', obrigatorio: true, local: 'Ana')
-            @? formCheckbox(name: 'cookie', class: 'bloco_cookie', label: 'Gostaria de salvar seus dados em cookie para não precisar preenche-los novamente? Só faça isso em um computador pessoal.', check: false)
-            <div class="botao" id="botao_logar">Logar</div>
+            @hash('FORM_LOGIN', 'input_login')
+
+            @? formCpf(name: 'cpf', label: 'CPF', placeholder: 'Digite seu CPF', obrigatorio: true, local: '014.951.801-31', class: 'bloco_normal display_none')
+            @? formNumero(name: 'inscricao', label: 'Matrícula', placeholder: 'Digite sua matrícula', obrigatorio: true, local: '123', class: 'bloco_normal display_none')
+            @? formSelect(name: 'estado', label: 'Conselho', placeholder: 'Conselho de medicina', lista: $conselho, obrigatorio: true, local: 'BR', class: 'bloco_normal display_none')
+            @? formData(name: 'data_nascimento', label: 'Data de nascimento', placeholder: 'Data de nascimento', obrigatorio: true, local: '27/07/1987', class: 'bloco_normal display_none')
+            @? formInput(name: 'nome_mae', label: 'Primeiro nome da mãe', placeholder: 'Primeiro nome da mãe', obrigatorio: true, local: 'Ana', class: 'bloco_normal display_none')
+            @? formCheckbox(name: 'cookie', label: 'Gostaria de salvar seus dados em cookie para não precisar preenche-los novamente? Só faça isso em um computador pessoal.', check: false, class: 'bloco_cookie bloco_normal display_none')
+
+            <div id="bloco_recaptcha_v2_login" class="recaptcha display_none"></div>
+            <div class="botao bloco_normal display_none" id="botao_logar">Logar</div>
+
+            <div class="bloco_outro bloco_cookie display_none">
+                <div class="botao" id="botao_cookie">Relogar</div>
+                <div class="outro" id="botao_outro">Logar com outro usuário</div>
+            </div>
         </form>
         <p>Para o acesso do funcionário ao clube é necessário que o mesmo esteja devidamente cadastrado no sistema de identificação funcional (SIF) do CFM. Verifique com setor de recursos humanos do seu CRM se seus dados já foram cadastrados e estão atualizados.</p>
     </div>
@@ -39,8 +49,11 @@
         </header>
         <p>Olá, para continuar com seu login, iremos compartilhar alguns dados com seu clube, você autoriza o compartilhamento do seu <strong>nome</strong>, <strong>data de nascimento</strong>, <strong>CPF</strong> e <strong>e-mails</strong>?</p>
         <form action="" class="form_geral">
-            @? formCheckbox(name: 'termo', label: 'Aceito os Termos de acordo com a Lei 13.709/2018', check: false)
-            <div class="botao_termo" id="botao_abrir_termo">Ler termos de uso</div>
+            <div class="bloco_termo">
+                @? formCheckbox(name: 'termo', label: 'Aceito os Termos de acordo com a Lei 13.709/2018', check: false)
+                <div class="termo" id="botao_abrir_termo">Ler termos de uso</div>
+            </div>
+            <div id="bloco_recaptcha_v2_cadastro" class="recaptcha display_none"></div>
             <div class="bloco">
                 <div class="botao" id="botao_cadastro">Continuar</div>
                 <div class="cancelar" id="botao_cancelar">Cancelar</div>
@@ -121,11 +134,16 @@
     </div>
 </div>
 
-<form action="">
-    <input type="hidden" id="RECAPTCHA" name="RECAPTCHA">
-    <input type="hidden" id="LINK" name="LINK" value="{!!LINK!!}">
+<form action="/" method="get">
+    <input type="hidden" name="RECAPTCHA" id="RECAPTCHA" value="{!!env('RECAPTCHA_PUBLIC', '')!!}">
+    <input type="hidden" name="RECAPTCHA_V2" id="RECAPTCHA_V2" value="{!!env('RECAPTCHA_V2_PUBLIC', '')!!}">
+    <input type="hidden" name="LINK" id="LINK" value="{!!LINK!!}">
 </form>
 
+<script src="https://apis.google.com/js/platform.js" async defer></script>
+<script src="https://apis.google.com/js/api.js"></script>
+<script src="https://accounts.google.com/gsi/client" async defer></script>
+<script src="https://www.google.com/recaptcha/api.js?render={!!env('RECAPTCHA_PUBLIC')!!}"></script>
 @JS
 </body>
 </html>

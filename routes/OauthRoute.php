@@ -27,6 +27,12 @@ Route
     ::controller(App\Controllers\Oauth\CfmController::class)
     ::grupo(function () {
         Route
-            ::nome('paginaLogin')
+            ::nome('login')
             ::view('/login/cfm');
+        Route
+            ::nome('login')
+            ::request([
+                'cpf', 'inscricao', 'estado', 'data_nascimento', 'nome_mae', 'cadastro', 'hash_validacao_captcha'
+            ])
+            ::post('/login/cfm');
     });

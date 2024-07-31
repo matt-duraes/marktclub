@@ -29,8 +29,12 @@ final class SalvarModel extends ORM
         private readonly int $empresa,
         private readonly string $nome,
         private readonly int $cpf,
-        private readonly string $email,
-        private readonly string $grupo
+        private readonly string $email = '',
+        private readonly string $grupo = '',
+        private readonly string $dataNascimento = '',
+        private readonly string $crmNumero = '',
+        private readonly string $crmEstado = '',
+        public string $cadastro = ''
     ) {
         parent::__construct();
 
@@ -40,7 +44,10 @@ final class SalvarModel extends ORM
         if (!empty($this->idUsuario)) {
             $this->atualizarUsuario();
             return;
+        } elseif ($cadastro == 'sim') {
+            return;
         }
+        $this->cadastro = '';
         $this->salvarUsuario();
     }
 
@@ -85,7 +92,6 @@ final class SalvarModel extends ORM
         $hoje = hoje();
         $dado = [
             'nome'             => $this->nome,
-            'grupo'            => $this->grupo,
             'hash'             => $this->hash,
             'hash_data'        => agora(),
             'hash_tipo'        => Hash::LOGIN,
@@ -98,8 +104,24 @@ final class SalvarModel extends ORM
             $dado['email_pessoal'] = $email;
             $dado['data_email'] = $hoje;
         }
+        if (!empty($this->grupo)) {
+            $dado['grupo'] = $this->grupo;
+        }
+        if (!empty($this->crmNumero)) {
+            $dado['crm_numero'] = $this->crmNumero;
+        }
+        if (!empty($this->crmEstado)) {
+            $dado['crm_estado'] = $this->crmEstado;
+        }
+        if (!empty($this->dataNascimento)) {
+            $dado['data_nascimento'] = $this->dataNascimento;
+        }
 
-        $dado = $this->dado($dado)->where(['id', $this->idUsuario])->update();
+        $dado = $this
+            ->dado($dado)
+            ->where(['id', $this->idUsuario])
+            ->update();
+
         if (!$dado) {
             mensagemStatus(401, localhost: 'Não foi possível atualizar usuário.');
         }
@@ -119,7 +141,10 @@ final class SalvarModel extends ORM
             'nome'             => $this->nome,
             'documento'        => (int)soNumero($this->cpf),
             'email_pessoal'    => strCaixaBaixa($this->email),
-            'grupo'            => strCaixaBaixa($this->grupo),
+            'grupo'            => !empty($this->grupo) ? strCaixaBaixa($this->grupo) : '',
+            'crm_numero'       => !empty($this->crmNumero) ? (int)$this->crmNumero : '',
+            'crm_estado'       => !empty($this->crmEstado) ? $this->crmEstado : '',
+            'data_nascimento'  => !empty($this->dataNascimento) ? $this->dataNascimento : '',
             'data_criacao'     => $agora,
             'data_atualizacao' => $agora,
             'data_email'       => $hoje,

@@ -21,6 +21,10 @@ botao()
 body
     background: #F6F6F6
     font-family: 'Inter', sans-serif
+
+.grecaptcha-badge
+    display: none !important
+
 .form_geral .input_checkbox label
     texto()
 
@@ -61,6 +65,9 @@ body
         texto()
         color: #666
         text-align: center
+    header p strong
+        texto()
+        font-weight: bold
     form
         width: 100%
         display: flex
@@ -70,11 +77,26 @@ body
         margin-top: 20px
     form .bloco_input
         margin-top: 10px
+    form .recaptcha
+        margin-top: 20px
     form .botao
         botao()
         background-color: $cor
         color: #FFF
         margin: 20px 0
+    form .bloco_outro
+        width: 100%
+        display: flex
+        flex-direction: column
+        align-items: center
+        margin: -20px 0 40px
+    form .bloco_outro .botao
+        margin: 0
+    form .bloco_outro .outro
+        botao()
+        border: 1px solid #CCC
+        margin-top: 20px
+        color: #777
     > p
         width: 100%
         line-height: 1.5em
@@ -149,8 +171,11 @@ body
         margin-top: 20px
         display: flex
         flex-direction: column
-        align-items: flex-start
-    form .botao_termo
+        align-items: center
+    form .bloco_termo
+        width: 100%
+        margin-bottom: 20px
+    form .bloco_termo .termo
         cursor: pointer
         texto()
         margin: 10px 0 0 25px
@@ -161,7 +186,7 @@ body
         display: flex
         flex-direction: column
         align-items: center
-        margin-top: 40px
+        margin-top: 20px
     form .bloco .botao
         botao()
         background-color: $cor

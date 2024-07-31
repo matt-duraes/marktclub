@@ -65,7 +65,6 @@ final class Request
         if (empty($request) && empty($lista)) {
             return;
         }
-
         if (
             array_key_exists('form_system_captcha', $request) &&
             !$this->validarCaptcha($request['form_system_captcha'])
@@ -143,7 +142,6 @@ final class Request
 
     private function validarCaptcha(string $captcha): bool
     {
-        return true;
         $v2 = str_starts_with($captcha, 'v2.');
         $secret = $v2 ? env('RECAPTCHA_V2_SECRET') : env('RECAPTCHA_SECRET');
         $captcha = preg_replace('/^v(2|3)\./i', '', $captcha);
