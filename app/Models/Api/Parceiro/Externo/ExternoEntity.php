@@ -6,6 +6,7 @@ use ApiModel\Contato\ContatoEntity;
 use ApiModel\Endereco\EnderecoEntity;
 use ApiModel\PainelHistorico\HistoricoEntity;
 use App\Classes\ParceiroLoja\Categoria;
+use App\Classes\ParceiroLoja\Indicador;
 use App\Classes\ParceiroLoja\Status;
 use App\Classes\ParceiroLoja\TipoLoja;
 use Helpers\OrmHelper;
@@ -40,7 +41,7 @@ final class ExternoEntity extends Entity
     public string $mensagem;
     public string $url;
     public Status $status;
-    public string $tipo_indicador;
+    public Indicador $tipo_indicador;
     protected string $ormTabela = TABELA_PARCEIRO_LOJA;
     protected array $ormBuscar = [
         'titulo_interno', 'id_dono_equipe', 'categoria_principal', 'data_criacao',
