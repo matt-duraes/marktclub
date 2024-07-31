@@ -30,6 +30,11 @@ $Painel
             Status::SEM_INTERESSE => 'Sem interesse'
         ]
     )
+    ->select(
+        name: 'tipo_indicador',
+        label: 'Indicador',
+        lista: (new \App\Classes\ParceiroLoja\Indicador())->select('Escolha uma opção')
+    )
     ->bloco(
         coluna: 2,
         titulo: 'Endereço',
