@@ -47,7 +47,7 @@
         <header>
             <h1>Compartilhar dados</h1>
         </header>
-        <p>Olá, para continuar com seu login, iremos compartilhar alguns dados com seu clube, você autoriza o compartilhamento do seu <strong>nome</strong>, <strong>data de nascimento</strong>, <strong>CPF</strong> e <strong>e-mails</strong>?</p>
+        <p>Olá, para continuar com seu login, iremos compartilhar alguns dados com seu clube, você autoriza o compartilhamento do seu <strong>nome</strong>, <strong>data de nascimento</strong>, <strong>CPF</strong>, <strong>matrícula</strong>, <strong>estado</strong> e <strong>e-mails</strong>?</p>
         <form action="" class="form_geral">
             <div class="bloco_termo">
                 @? formCheckbox(name: 'termo', label: 'Aceito os Termos de acordo com a Lei 13.709/2018', check: false)

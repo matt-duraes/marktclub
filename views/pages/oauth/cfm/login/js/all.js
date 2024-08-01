@@ -157,13 +157,18 @@ window.addEventListener('load', () => {
             );
             return;
         }
-        Loading.hide();
 
+        Loading.hide();
         if (json.status == 'erro' && json.erro.captcha === false && captchaVersao == 'v3.') {
             Alerta.notificacao('Erro ao validar recaptcha, faça o desafio manual para continuar.', false);
             mostrarCaptchaV2();
             return;
-        } else if (json.status == 'sucesso' && json.dado.cadastro === false) {
+        } else if (
+            json.status == 'sucesso' &&
+            json.dado !== undefined &&
+            json.dado.cadastro !== undefined &&
+            json.dado.cadastro === 'sim'
+        ) {
             inputTermo.check = false;
             popupAbrir(blocoPopupCadastro);
             return;
@@ -174,7 +179,9 @@ window.addEventListener('load', () => {
         }
 
         Alerta.notificacao(
-            json.erro != undefined ? json.erro.mensagem : 'Erro ao fazer seu login, por favor, tente novamente.',
+            json.erro !== undefined && json.erro.mensagem !== undefined
+                ? json.erro.mensagem
+                : 'Erro ao fazer seu login, por favor, tente novamente.',
             false
         );
     };
@@ -191,7 +198,7 @@ window.addEventListener('load', () => {
             });
             salvarCookie(window.btoa(cookie));
         }
-        window.location.replace(link);
+        window.location.assing(link);
     };
 
     const mostrarCaptchaV2 = () => {

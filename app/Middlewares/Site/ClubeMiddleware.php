@@ -63,7 +63,7 @@ final class ClubeMiddleware extends ApiHelper
         }
         $host = preg_replace('/^http(s)?\:\/\/(www.)?/', '', LINK);
         if (eLocalhost()) {
-            $host = urlencode($host);
+            $host = explode(':', $host)[0];
         }
 
         $dado = $this
