@@ -15,7 +15,7 @@ trait PropriedadeTrait
     public Data $data_criacao_ate;
     public Status $status;
     public Ordem $ordem;
-    public Categoria $categoria;
+    public Categoria $categoria_principal;
     public string $pesquisa;
     public Indicador $tipo_indicador;
     public array $endereco_estado;
