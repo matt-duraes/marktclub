@@ -19,7 +19,7 @@ final class DownloadModel extends DownloadGeralModel
 
     protected array $campoAceito = [
         'titulo_interno', 'data_criacao', 'data_publicacao', 'status', 'equipe',
-        'categoria_principal', 'data_cancelamento', 'cancelar_motivo'
+        'categoria_principal', 'data_cancelado', 'cancelar_motivo'
     ];
 
     public function __construct(

@@ -8,7 +8,6 @@ trait ValidarTrait
     {
         $this->validarPropriedade(
             '
-            pagina|Página|obrigatorio|vazio|valido
             quantidade|Quantidade|valido
             data_criacao_de|Data de criação de|valido
             data_criacao_ate|Data de criação ate|valido
