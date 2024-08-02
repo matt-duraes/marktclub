@@ -108,7 +108,9 @@ final class LojaEntity extends Entity
         if ($this->pExiste('categoria_lista')) {
             $this->categoria_lista = $this->converterCategoriaEm('numero');
         }
-        $this->subcategoria_lista = $this->converterUuidParaId($this->subcategoria_lista);
+        if ($this->pExiste('subcategoria_lista')) {
+            $this->subcategoria_lista = $this->converterUuidParaId($this->subcategoria_lista);
+        }
         $this->validarCampoDuplicado('url', 'url');
         $this->validarCampoDuplicado('titulo_interno', 'Título do painel');
         $this->converterComissao();
