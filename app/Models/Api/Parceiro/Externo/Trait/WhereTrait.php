@@ -38,6 +38,10 @@ trait WhereTrait
 
     private function whereEquipe()
     {
+        if (!defined('TOKEN') || !is_array(TOKEN) || !array_key_exists('usuario', TOKEN)) {
+            return [];
+        }
+        
         $idEquipe = TOKEN['usuario']->id;
         $permissao = TOKEN['usuario']->permissao;
 
@@ -46,7 +50,7 @@ trait WhereTrait
         }
 
         $idEquipe = (new OrmHelper(TABELA_USUARIO_EQUIPE))->pegarIdPeloUuid(
-            $this->equipe,
+            $this->id_usuario_equipe,
             erroMensagem: 'Não foi encontrado o usuário pela busca.'
         );
         return [['id_dono_equipe', $idEquipe]];
