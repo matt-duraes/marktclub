@@ -8,7 +8,7 @@ $Painel
     ->bloco('Dados gerais', function () use ($Painel) {
         $Painel
             ->campo('titulo_interno', 'Título')
-            ->campo('equipe', 'Quem cadastrou')
+            ->campo('id_usuario_equipe', 'Quem cadastrou')
             ->campo('categoria_principal', 'Categoria')
             ->campo('status', 'Status');
     })

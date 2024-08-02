@@ -18,7 +18,7 @@ final class DownloadModel extends DownloadGeralModel
     use OrdemTrait;
 
     protected array $campoAceito = [
-        'titulo_interno', 'data_criacao', 'data_publicacao', 'status', 'equipe',
+        'titulo_interno', 'data_criacao', 'data_publicacao', 'status', 'id_usuario_equipe',
         'categoria_principal', 'data_cancelado', 'cancelar_motivo'
     ];
 
