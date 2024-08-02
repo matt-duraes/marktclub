@@ -2,15 +2,15 @@
 
 namespace App\Models\Api\ParceiroLoja;
 
-use ORM\Entity;
-use Modules\Data;
-use Modules\Botao;
-use Helpers\OrmHelper;
-use App\Classes\ParceiroLoja\Status;
 use App\Classes\ParceiroLoja\Categoria;
-use App\Models\Api\Trait\SistemaDataTrait;
-use App\Models\Api\ParceiroLoja\Trait\ValidarTrait;
+use App\Classes\ParceiroLoja\Status;
 use App\Models\Api\ParceiroLoja\Trait\PropriedadeTrait;
+use App\Models\Api\ParceiroLoja\Trait\ValidarTrait;
+use App\Models\Api\Trait\SistemaDataTrait;
+use Helpers\OrmHelper;
+use Modules\Botao;
+use Modules\Data;
+use ORM\Entity;
 
 final class LojaEntity extends Entity
 {
@@ -108,9 +108,34 @@ final class LojaEntity extends Entity
         if ($this->pExiste('categoria_lista')) {
             $this->categoria_lista = $this->converterCategoriaEm('numero');
         }
+        $this->subcategoria_lista = $this->converterUuidParaId($this->subcategoria_lista);
         $this->validarCampoDuplicado('url', 'url');
         $this->validarCampoDuplicado('titulo_interno', 'Título do painel');
         $this->converterComissao();
+    }
+
+    private function converterCategoriaEm(string $tipo): array
+    {
+        if (!$this->pExiste('categoria_lista') || empty($this->categoria_lista)) {
+            return [];
+        }
+        $Categoria = new Categoria();
+        $lista = [];
+        foreach ($this->categoria_lista as $val) {
+            $lista[] = $Categoria->$tipo($val);
+        }
+        return $lista;
+    }
+
+    /**
+     * @param array $uuidSubcategorias
+     *
+     * @return array
+     */
+    private function converterUuidParaId(array $uuidSubcategorias): array
+    {
+        $ormHelper = new OrmHelper(TABELA_PARCEIRO_SUBCATEGORIA);
+        return $ormHelper->mudarListaUuidParaId($uuidSubcategorias);
     }
 
     private function converterComissao($float = true)
@@ -171,42 +196,47 @@ final class LojaEntity extends Entity
         $this->destaque = $this->EmpresaOrm->mudarListaIdParaUuid($this->destaque);
         $this->equipe = $this->EquipeOrm->pegarUuidPeloId($this->id_usuario_equipe);
         $this->categoria_lista = $this->converterCategoriaEm('indice');
+        $this->subcategoria_lista = $this->converterIdParaUuid($this->subcategoria_lista);
         $this->setarRelacionadoExistem();
         $this->converterComissao(false);
     }
 
-    private function setarRelacionadoExistem()
+    /**
+     * @param array $idSubcategorias
+     *
+     * @return array
+     */
+    private function converterIdParaUuid(array $idSubcategorias): array
     {
-        $this->existe_endereco = new Botao((new OrmHelper(TABELA_SISTEMA_ENDERECO))->existe([
-            ['id_vinculo', $this->id],
-            ['local_principal', TABELA_PARCEIRO_LOJA],
-            ['local_secundario', 'clube']
-        ]) ? 'sim' : 'nao');
-        $this->existe_telefone = new Botao((new OrmHelper(TABELA_SISTEMA_CONTATO))->existe([
-            ['id_vinculo', $this->id],
-            ['local_principal', TABELA_PARCEIRO_LOJA],
-            ['local_secundario', 'clube'],
-            ['tipo', 1]
-        ]) ? 'sim' : 'nao');
-        $this->existe_email = new Botao((new OrmHelper(TABELA_SISTEMA_CONTATO))->existe([
-            ['id_vinculo', $this->id],
-            ['local_principal', TABELA_PARCEIRO_LOJA],
-            ['local_secundario', 'clube'],
-            ['tipo', 2]
-        ]) ? 'sim' : 'nao');
+        $ormHelper = new OrmHelper(TABELA_PARCEIRO_SUBCATEGORIA);
+        return $ormHelper->mudarListaIdParaUuid($idSubcategorias);
     }
 
-    private function converterCategoriaEm(string $tipo): array
+    private function setarRelacionadoExistem()
     {
-        if (!$this->pExiste('categoria_lista') || empty($this->categoria_lista)) {
-            return [];
-        }
-        $Categoria = new Categoria();
-        $lista = [];
-        foreach ($this->categoria_lista as $val) {
-            $lista[] = $Categoria->$tipo($val);
-        }
-        return $lista;
+        $this->existe_endereco = new Botao(
+            (new OrmHelper(TABELA_SISTEMA_ENDERECO))->existe([
+                ['id_vinculo', $this->id],
+                ['local_principal', TABELA_PARCEIRO_LOJA],
+                ['local_secundario', 'clube']
+            ]) ? 'sim' : 'nao'
+        );
+        $this->existe_telefone = new Botao(
+            (new OrmHelper(TABELA_SISTEMA_CONTATO))->existe([
+                ['id_vinculo', $this->id],
+                ['local_principal', TABELA_PARCEIRO_LOJA],
+                ['local_secundario', 'clube'],
+                ['tipo', 1]
+            ]) ? 'sim' : 'nao'
+        );
+        $this->existe_email = new Botao(
+            (new OrmHelper(TABELA_SISTEMA_CONTATO))->existe([
+                ['id_vinculo', $this->id],
+                ['local_principal', TABELA_PARCEIRO_LOJA],
+                ['local_secundario', 'clube'],
+                ['tipo', 2]
+            ]) ? 'sim' : 'nao'
+        );
     }
 
     protected function getId()

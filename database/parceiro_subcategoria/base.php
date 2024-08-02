@@ -11,5 +11,5 @@ return (new \DataBase\DataBase())
     ->dataCriacao()
     ->dataAtualizacao()
     ->int('preferencia')->tamanho(1)->null()
-    ->int('menu')->tamanho(1)->null()
+    ->int('menu')->tamanho(1)->null()->replace('clube')
     ->slug('url', 'titulo');
