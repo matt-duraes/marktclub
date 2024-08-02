@@ -16,6 +16,7 @@ final class SalvarModel extends ORM
     private string $emailTrabalhoUsuario;
     private string $linkClube;
     private string $hash;
+    public bool $existe = false;
 
     /**
      * @param int    $empresa
@@ -41,15 +42,14 @@ final class SalvarModel extends ORM
         parent::__construct();
 
         $this->hash = uuid();
-        $this->pegarLinkClube();
         $this->pegarIdUsuario();
+        $this->pegarLinkClube();
         if (!empty($this->idUsuario)) {
             $this->atualizarUsuario();
             return;
         } elseif ($cadastro == 'sim') {
             return;
         }
-        $this->cadastro = '';
         $this->salvarUsuario();
     }
 
@@ -133,6 +133,7 @@ final class SalvarModel extends ORM
         if (!$dado) {
             mensagemStatus(401, localhost: 'Não foi possível atualizar usuário.');
         }
+        $this->existe = true;
     }
 
     /**
@@ -167,6 +168,7 @@ final class SalvarModel extends ORM
         if (!$dado) {
             mensagemStatus(401, localhost: 'Não foi possível salvar usuário.');
         }
+        $this->existe = true;
     }
 
     /**

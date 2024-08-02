@@ -146,15 +146,7 @@ window.addEventListener('load', () => {
         }
 
         if (resposta.status == 201) {
-            loginRealizadoComSucesso(
-                resposta.dado.nome,
-                cpf,
-                inscricao,
-                estado,
-                dataNascimento,
-                nomeMae,
-                resposta.dado.link
-            );
+            loginRealizadoComSucesso(json.dado.nome, cpf, inscricao, estado, dataNascimento, nomeMae, json.dado.link);
             return;
         }
 
@@ -198,7 +190,8 @@ window.addEventListener('load', () => {
             });
             salvarCookie(window.btoa(cookie));
         }
-        window.location.assing(link);
+        Loading.hide();
+        // window.location.replace(link);
     };
 
     const mostrarCaptchaV2 = () => {

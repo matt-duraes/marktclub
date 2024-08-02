@@ -23,7 +23,7 @@
         <form action="/" class="form_geral">
             @hash('FORM_LOGIN', 'input_login')
 
-            @? formCpf(name: 'cpf', label: 'CPF', placeholder: 'Digite seu CPF', obrigatorio: true, local: '014.951.801-31', class: 'bloco_normal display_none')
+            @? formCpf(name: 'cpf', label: 'CPF', placeholder: 'Digite seu CPF', obrigatorio: true, local: cpfAleatorio(), class: 'bloco_normal display_none')
             @? formNumero(name: 'inscricao', label: 'Matrícula', placeholder: 'Digite sua matrícula', obrigatorio: true, local: '123', class: 'bloco_normal display_none')
             @? formSelect(name: 'estado', label: 'Conselho', placeholder: 'Conselho de medicina', lista: $conselho, obrigatorio: true, local: 'BR', class: 'bloco_normal display_none')
             @? formData(name: 'data_nascimento', label: 'Data de nascimento', placeholder: 'Data de nascimento', obrigatorio: true, local: '27/07/1987', class: 'bloco_normal display_none')

@@ -43,11 +43,15 @@ final class CfmController extends Controller
             cadastro: $request->cadastro
         );
 
-        if ($Login->cadastro == 'sim') {
+        if (!$Login->existe) {
             return mensagemSucesso([
                 'cadastro' => 'sim'
             ]);
         }
-        return new Response(url: $Login->pegarLink());
+
+        return mensagemSucesso([
+            'nome' => $Cfm->nome,
+            'link' => $Login->pegarLink()
+        ], status: 201);
     }
 }

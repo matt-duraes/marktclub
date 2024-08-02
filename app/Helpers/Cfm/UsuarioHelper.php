@@ -56,9 +56,12 @@ final class UsuarioHelper
     private function buscarUsuario()
     {
         // $usuario = $this->requisicaoUsuario();
-        $usuario[] = [
-            'emails' => [emailAleatorio(), emailAleatorio()],
-            'nome'   => nomeAleatorio(),
+        $usuario = [
+            'emails' => [
+                ['email' => emailAleatorio()],
+                ['email' => emailAleatorio()]
+            ],
+            'nome'   => nomeCompletoAleatorio(),
         ];
         $this->email_pessoal = $this->pegarEmail($usuario['emails'] ?? []);
         $this->email_trabalho = $this->pegarEmail($usuario['emails'] ?? [], $this->email_pessoal);
