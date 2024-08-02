@@ -23,7 +23,7 @@ final class DownloadModel extends DownloadGeralModel
     ];
 
     public function __construct(
-        Request $request
+        protected Request $request
     ) {
         parent::__construct($request, TABELA_PARCEIRO_LOJA, 'parceiro-externo');
         $this->validarRequest();
