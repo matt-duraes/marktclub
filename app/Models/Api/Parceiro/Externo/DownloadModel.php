@@ -36,10 +36,10 @@ final class DownloadModel extends DownloadGeralModel
 
     protected function buscarRegistro(): void
     {
-        $where = $this->pegarWhere();
+        //$where = $this->pegarWhere();
         $this->busca = $this
             ->campo($this->campo)
-            ->where($where, false)
+            //->where($where, false)
             ->order($this->pegarOrdem())
             ->read();
     }
