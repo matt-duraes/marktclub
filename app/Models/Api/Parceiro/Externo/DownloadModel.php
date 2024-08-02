@@ -39,7 +39,7 @@ final class DownloadModel extends DownloadGeralModel
         $where = $this->pegarWhere();
         $this->busca = $this
             ->campo($this->campo)
-            ->where($where)
+            ->where($where, false)
             ->order($this->pegarOrdem())
             ->read();
     }
