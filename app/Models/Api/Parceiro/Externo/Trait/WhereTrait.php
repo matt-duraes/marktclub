@@ -15,6 +15,10 @@ trait WhereTrait
             if (!in_array('parceiro_externo_empresa', TOKEN['usuario']->permissao)) {
                 $Where->manual(['id_dono_empresa', TOKEN['empresa']->id]);
             }
+            $idSubempresa = TOKEN['usuario']->id_admin_subempresa;
+            if (!empty($idSubempresa)) {
+                $Where->manual(['id_dono_subempresa', $idSubempresa]);
+            }
         }
 
         $Where
@@ -33,10 +37,6 @@ trait WhereTrait
                 ]);
             });
 
-        $idSubempresa = TOKEN['usuario']->id_admin_subempresa;
-        if (!empty($idSubempresa)) {
-            $Where->manual(['id_dono_subempresa', $idSubempresa]);
-        }
         return $Where;
     }
 
