@@ -1391,7 +1391,7 @@ Route
             ::post('/parceiro-loja/download');
     });
 
-    Route
+Route
     ::nome('parceiro_externo')
     ::middleware(TokenMiddleware::class, 'token')
     ::controller(App\Controllers\Api\Parceiro\ExternoController::class)
@@ -1408,7 +1408,7 @@ Route
         Route
             ::nome('salvar')
             ::request([
-                'titulo_interno', 'nome', 'email', 'telefone', 'categoria_principal', 'endereco_cep',
+                'titulo_interno', 'nome', 'email', 'telefone','tipo_indicador' ,'categoria_principal', 'endereco_cep',
                 'endereco_logradouro', 'endereco_numero', 'endereco_complemento', 'endereco_bairro', 'endereco_cidade',
                 'endereco_estado', 'mensagem'
             ])
@@ -1482,7 +1482,7 @@ Route
         Route
             ::nome('select')
             ::middleware(TokenMiddleware::class, 'scope', ['parceiro_subcategoria:listar'])
-            ::request(['!titulo', '!categoria'], 'json')
+            ::request(['!titulo', '!categoria', '!clube'], 'json')
             ::get('/parceiro-subcategoria/select');
         Route
             ::nome('listar')
@@ -2484,7 +2484,7 @@ Route
             ::nome('salvar')
             ::middleware(TokenMiddleware::class, 'scope', ['automovel_versao:salvar'])
             ::request([
-                'modelo', 'titulo', 'cor', 'valor_de', 'valor_por', 'status'
+                'modelo', 'titulo', 'imagem','cor', 'valor_de', 'valor_por', 'status'
             ])
             ::post('/automovel-versao');
 
@@ -2492,7 +2492,7 @@ Route
             ::nome('atualizar')
             ::middleware(TokenMiddleware::class, 'scope', ['automovel_versao:atualizar'])
             ::request([
-                '!titulo', '!cor', '!valor_de', '!valor_por', '!status'
+                '!titulo', '!imagem', '!cor', '!valor_de', '!valor_por', '!status'
             ])
             ::put('/automovel-versao/{id}');
 

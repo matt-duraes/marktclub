@@ -15,9 +15,9 @@ final class TrabalhoEmpresa extends Status
         ],
         'marktclub' => [
             'lista'  => [
-                'marktclub' => 'Youhuul'
+                'marktclub' => 'Markt Club'
             ],
-            'numero' => [10000]
+            'numero' => [1000]
         ],
         'unareg'    => [
             'lista'  => [

@@ -144,7 +144,8 @@ final class LojaController extends Controller
         $dado = (new ApiHelper(scope: 'parceiro_subcategoria:listar'))
             ->json([
                 'categoria' => $request->categoria,
-                'titulo'    => 'Escolha uma categoria'
+                'titulo'    => 'Escolha uma categoria',
+                'clube'     => 'sim'
             ])
             ->get('/parceiro-subcategoria/select')
             ->array();

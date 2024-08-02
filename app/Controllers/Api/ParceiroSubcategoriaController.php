@@ -4,6 +4,7 @@ namespace App\Controllers\Api;
 
 use Http\Request;
 use Http\Response;
+use Modules\Botao;
 use Controller\Controller;
 use App\Classes\ParceiroLoja\Categoria;
 use App\Models\Api\ParceiroSubcategoria\SelectModel;
@@ -15,7 +16,8 @@ final class ParceiroSubcategoriaController extends Controller
     {
         $Subcategoria = new SelectModel(
             categoria: new Categoria($request->categoria),
-            titulo: $request->titulo
+            titulo: $request->titulo,
+            clube: new Botao($request->clube)
         );
         return mensagemSucesso($Subcategoria->listarDados());
     }

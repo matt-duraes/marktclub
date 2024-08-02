@@ -166,8 +166,8 @@ final class ConstrutorEntity extends Entity
 
     protected function regraPosInsert()
     {
-        if ($this->copiar_padrao->valor() == Botao::SIM) {
+        /*if ($this->copiar_padrao->valor() == Botao::SIM) {
             new CopiaClube(TOKEN['empresa']->id);
-        }
+        }*/
     }
 }

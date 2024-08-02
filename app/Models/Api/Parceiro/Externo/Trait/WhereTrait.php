@@ -13,8 +13,9 @@ trait WhereTrait
         $Where
             ->manual(['id_dono_empresa', TOKEN['empresa']->id])
             ->dataDeAte('data_criacao')
-            ->linha(propriedade: 'categoria')
-            ->linha(propriedade:'endereco_estado', condicao: 'json')
+            ->linha(propriedade: 'categoria_principal')
+            ->linha(propriedade: 'tipo_indicador')
+            ->linha(propriedade: 'endereco_estado', condicao: 'json')
             ->linha(propriedade: 'status')
             ->seVazio(propriedade: 'pesquisa', vazio: false, callback: function () use ($Where) {
                 $pesquisa = '%' . $this->pesquisa . '%';

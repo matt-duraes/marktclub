@@ -3,8 +3,8 @@
 namespace App\Models\Api\ParceiroSubcategoria;
 
 use App\Classes\ParceiroLoja\Categoria;
-use ORM\ORM;
 use Http\Request;
+use ORM\ORM;
 
 final class SubcategoriaModel extends ORM
 {
@@ -19,7 +19,7 @@ final class SubcategoriaModel extends ORM
     public function listarDado(): array
     {
         $dado = $this
-            ->campo(['id', 'categoria', 'titulo', 'url'])
+            ->campo(['id', 'uuid', 'categoria', 'titulo', 'url'])
             ->read();
 
         if (!empty($dado)) {
@@ -38,7 +38,7 @@ final class SubcategoriaModel extends ORM
         $retorno = [];
         foreach ($dado as $r) {
             $categoria = new Categoria($r->categoria);
-            $retorno[$categoria->nome()][$r->url] = $r->titulo;
+            $retorno[$categoria->nome()][$r->uuid] = $r->titulo;
         }
         return $retorno;
     }

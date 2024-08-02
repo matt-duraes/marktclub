@@ -2,21 +2,21 @@
 
 namespace App\Controllers\Api;
 
-use App\Classes\Automovel\Versao\Ordem;
-use App\Classes\Geral\Status;
-use App\Models\Api\Automovel\Versao\VersaoEntity;
-use App\Models\Api\Automovel\Versao\VersaoModel;
-use Controller\Controller;
 use Erro\Excecao;
 use Http\Request;
 use Http\Response;
 use Modules\Pagina;
 use Modules\Quantidade;
-use System\Interface\ControllerAtualizarInterface;
+use Controller\Controller;
+use App\Classes\Geral\Status;
+use App\Classes\Automovel\Versao\Ordem;
 use System\Interface\ControllerBuscarInterface;
-use System\Interface\ControllerDeletarInterface;
 use System\Interface\ControllerListarInterface;
 use System\Interface\ControllerSalvarInterface;
+use App\Models\Api\Automovel\Versao\VersaoModel;
+use System\Interface\ControllerDeletarInterface;
+use App\Models\Api\Automovel\Versao\VersaoEntity;
+use System\Interface\ControllerAtualizarInterface;
 
 final class AutomovelVersaoController extends Controller implements
     ControllerBuscarInterface,
@@ -49,7 +49,7 @@ final class AutomovelVersaoController extends Controller implements
     {
         return mensagemSucesso(
             pegarPropriedadeDaEntity($Versao, lista: [
-                'titulo', 'cor', 'valor_de', 'valor_por', 'status',
+                'titulo', 'imagem', 'imagemUrl','cor', 'valor_de', 'valor_por', 'status',
                 'data_criacao', 'data_atualizacao'
             ]),
             $status

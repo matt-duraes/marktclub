@@ -13,6 +13,3 @@
 // @import "mapa"
 // @import "contato"
 // @import "arquivo"
-
-// @resource "site/loja/busca"
-// @resource "site/busca"

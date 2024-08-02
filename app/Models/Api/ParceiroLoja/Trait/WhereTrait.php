@@ -2,16 +2,16 @@
 
 namespace App\Models\Api\ParceiroLoja\Trait;
 
-use Where\Where;
-use Helpers\OrmHelper;
 use App\Classes\ParceiroLoja\TipoLoja;
 use App\Models\Api\ParceiroLoja\MaisAcessadoModel;
+use Helpers\OrmHelper;
+use Where\Where;
 
 trait WhereTrait
 {
     protected function pegarWhere(int|null $empresa = null): Where
     {
-        $where = $this->idEmpresa == 1 && empty($empresa) ? [] : [
+        $where = ($this->idEmpresa == 1) && empty($empresa) ? [] : [
             ['id_admin_empresa', 'json', !empty($empresa) ? $empresa : $this->idEmpresa]
         ];
 
@@ -87,16 +87,7 @@ trait WhereTrait
         } elseif ($this->pExiste('equipe')) {
             $Where->linha('equipe', campo: 'id_usuario_equipe', valor: $this->pegarIdEquipe());
         }
-
         return $Where;
-    }
-
-    private function pegarIdEquipe()
-    {
-        if (!$this->pExiste('equipe') || empty($this->equipe)) {
-            return null;
-        }
-        return (new OrmHelper(TABELA_USUARIO_EQUIPE))->pegarIdPeloUuid($this->equipe);
     }
 
     private function pegarIdSubCategoria()
@@ -105,7 +96,7 @@ trait WhereTrait
         if (empty($tag)) {
             return '';
         }
-        return (new OrmHelper(TABELA_PARCEIRO_SUBCATEGORIA))->pegarCampoPor('id', ['url', $tag]);
+        return (new OrmHelper(TABELA_PARCEIRO_SUBCATEGORIA))->pegarCampoPor('id', ['uuid', $tag]);
     }
 
     private function pegarListaSubCategoria()
@@ -115,5 +106,13 @@ trait WhereTrait
             where: ['tag', 'LIKE', '%\"' . $titulo . '%'],
             campo: 'id'
         );
+    }
+
+    private function pegarIdEquipe()
+    {
+        if (!$this->pExiste('equipe') || empty($this->equipe)) {
+            return null;
+        }
+        return (new OrmHelper(TABELA_USUARIO_EQUIPE))->pegarIdPeloUuid($this->equipe);
     }
 }

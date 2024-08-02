@@ -7,31 +7,31 @@ use Status\Status;
 final class Grupo extends Status
 {
     public const EMPRESA = [
-        'geral'  => [
+        'geral'     => [
             'lista'  => [
                 'diretoria-executiva' => 'Diretoria Executiva'
             ],
             'numero' => [1]
         ],
-        'marktclub'  => [
+        'marktclub' => [
             'lista'  => [
                 'diretoria-executiva' => 'Diretoria Executiva',
                 'conselho-fiscal'     => 'Conselho Fiscal'
             ],
             'numero' => [1, 2]
         ],
-        'sinpefrs' => [
+        'sinpefrs'  => [
             'lista'  => [
                 'diretoria-executiva' => 'Diretoria Executiva',
                 'conselho-fiscal'     => 'Conselho Fiscal'
             ],
             'numero' => [1, 2]
         ],
-        'sinpefpr' => [
+        'sinpefpr'  => [
             'lista'  => [
                 'diretoria-executiva'    => 'Diretoria Executiva',
                 'conselho-fiscal'        => 'Conselho Fiscal',
-                'representante-estadual' => 'Representantes Estaduais',
+                'representante-estadual' => 'Representantes Estaduais'
             ],
             'numero' => [1, 2, 3]
         ],
@@ -41,9 +41,18 @@ final class Grupo extends Status
                 'conselho-fiscal'     => 'Conselho Fiscal'
             ],
             'numero' => [1, 2]
+        ],
+        'intelis'   => [
+            'lista'  => [
+                'presidencia' => 'Presidência'
+            ],
+            'numero' => [1]
         ]
     ];
 
+    /**
+     * @param string|int|null $valor
+     */
     public function __construct(
         protected string|int|null $valor = null
     ) {
