@@ -330,4 +330,24 @@ return [
         'cobrar_aposentado'       => 1,
         'status'                  => 1
     ],
+    [
+        'id'                      => 1981,
+        'cod'                     => '86957758faf9eedd4f1448f2b3fe087e',
+        'id_usuario_equipe'       => 1,
+        'titulo'                  => 'CFM',
+        'razao_social'            => 'CFM',
+        'nome_fantasia'           => 'CFM',
+        'cnpj'                    => 33583550000130,
+        'responsavel_nome'        => nomeCompletoAleatorio(),
+        'responsavel_cpf'         => cpfAleatorio(),
+        'responsavel_email'       => emailAleatorio(),
+        'responsavel_telefone'    => telefoneCelularAleatorio(),
+        'slug'                    => 'cfm',
+        'tipo_pagamento'          => 1,
+        'contrato_valor'          => 1.2,
+        'contrato_dia_fechamento' => 1,
+        'contrato_dia_pagamento'  => 10,
+        'cobrar_aposentado'       => 1,
+        'status'                  => 1
+    ],
 ];

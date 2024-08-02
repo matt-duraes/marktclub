@@ -1,0 +1,218 @@
+@system "Resetar"
+@system "Form"
+@system "Loading"
+@system "Alerta"
+@system "Calendario"
+
+$cor = #00815a
+
+texto()
+    font-size: 1.6rem
+titulo()
+    font-size: 2.4rem
+botao()
+    height: 45px
+    line-height: 45px
+    padding: 0 20px
+    border-radius: 5px
+    texto()
+    cursor: pointer
+
+body
+    background: #F6F6F6
+    font-family: 'Inter', sans-serif
+
+.grecaptcha-badge
+    display: none !important
+
+.form_geral .input_checkbox label
+    texto()
+
+.display_none
+    display: none !important
+
+#site
+    width: 100%
+    min-height: 100vh
+    display: flex
+    justify-content: center
+    align-items: center
+
+#bloco_login
+    width: calc(100% - 40px)
+    max-width: 500px
+    background-color: #FFF
+    border-radius: 5px
+    margin: 20px
+    box-shadow: 0 5px 5px rgba(0,0,0,.1)
+    padding: 40px
+    figure
+        text-align: center
+    header
+        width: 100%
+        margin: 40px 0
+        display: flex
+        flex-direction: column
+        justify-content: center
+    header h1
+        width: 100%
+        titulo()
+        color: $cor
+        margin-bottom: 5px
+        text-align: center
+    header p
+        line-height: 1.5em
+        texto()
+        color: #666
+        text-align: center
+    header p strong
+        texto()
+        font-weight: bold
+    form
+        width: 100%
+        display: flex
+        flex-direction: column
+        align-items: center
+    form .bloco_cookie
+        margin-top: 20px
+    form .bloco_input
+        margin-top: 10px
+    form .recaptcha
+        margin-top: 20px
+    form .botao
+        botao()
+        background-color: $cor
+        color: #FFF
+        margin: 20px 0
+    form .bloco_outro
+        width: 100%
+        display: flex
+        flex-direction: column
+        align-items: center
+        margin: -20px 0 40px
+    form .bloco_outro .botao
+        margin: 0
+    form .bloco_outro .outro
+        botao()
+        border: 1px solid #CCC
+        margin-top: 20px
+        color: #777
+    > p
+        width: 100%
+        line-height: 1.5em
+        font-size: 1.3rem
+        color: #666
+
+.bloco_popup
+    width: 100%
+    height: 100%
+    position: fixed
+    top: 0
+    left: 0
+    opacity: 0
+    transition: opacity .3s ease-out
+    z-index: 200
+    background-color: rgba(0,0,0,.7)
+    display: flex
+    justify-content: center
+    align-items: flex-start
+    overflow-x: hidden
+    overflow-y: auto
+    .fechar_fixo
+        width: 40px
+        height: 40px
+        display: flex
+        align-items: center
+        justify-content: center
+        cursor: pointer
+        position: fixed
+        z-index: 10
+        top: 10px
+        right: 10px
+        background-color: #FFF
+        fill: #666
+        border-radius: 50%
+        box-shadow: 0 0 5px rgba(0,0,0,.5)
+.bloco_popup .conteudo
+    width: calc(100% - 40px)
+    max-width: 600px
+    background-color: #fff
+    margin: -80px 20px 20px
+    transition: margin-top .3s ease-out
+    box-shadow: 0 0 10px rgba(0,0,0,.3)
+    border-radius: 5px
+    padding: 20px
+    header
+        width: 100%
+        display: flex
+        flex-direction: row
+        margin-bottom: 20px
+    header h1
+        titulo()
+        line-height: 1.5em
+        flex-grow: 1
+        flex-basis: 0%
+    header i
+        width: 30px
+        height: 30px
+        display: flex
+        align-items: center
+        justify-content: center
+        cursor: pointer
+    p
+        width: 100%
+        line-height: 1.5em
+        texto()
+        color: #666
+    p strong
+        font-weight: bold
+        texto()
+    form
+        margin-top: 20px
+        display: flex
+        flex-direction: column
+        align-items: center
+    form .bloco_termo
+        width: 100%
+        margin-bottom: 20px
+    form .bloco_termo .termo
+        cursor: pointer
+        texto()
+        margin: 10px 0 0 25px
+        &:hover
+            text-decoration: underline
+    form .bloco
+        width: 100%
+        display: flex
+        flex-direction: column
+        align-items: center
+        margin-top: 20px
+    form .bloco .botao
+        botao()
+        background-color: $cor
+        color: #FFF
+    form .bloco .cancelar
+        texto()
+        cursor: pointer
+        margin: 40px 0 20px
+        color: #666
+    .texto
+        width: 100%
+        display: flex
+        flex-direction: column
+    .texto h2
+        line-height: 1.5em
+        texto()
+        font-weight: bold
+        color: #333
+        margin-top: 20px
+    .texto p
+        line-height: 1.5em
+        margin: 10px 0
+#bloco_termo
+    background-color: rgba(255,255,255,.3)
+    box-shadow: none
+.bloco_popup.aberto
+    opacity: 1
+    .conteudo
+        margin-top: 20px

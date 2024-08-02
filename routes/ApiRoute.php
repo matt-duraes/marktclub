@@ -1277,7 +1277,9 @@ Route
                 'menu_meu_parceiro', 'administrado_status', 'api_status', 'tipo_ativacao', 'status',
                 'menu_corrida', 'menu_show_nacional', 'menu_show_internacional', 'link_odontologico',
                 'campos_primeiro_acesso', 'grupo_label', 'grupo_placeholder', 'link_facebook', 'link_instagram',
-                'link_twitter', 'link_linkedin', 'link_youtube', 'link_tiktok', 'tela_login', '!copiar_padrao'
+                'link_twitter', 'link_linkedin', 'link_youtube', 'link_tiktok', 'tela_login', '!copiar_padrao',
+                'texto_login_usuario', 'texto_login_dependente', 'texto_login_funcionario', 'link_funcionario',
+                'menu_funcionario'
             ])
             ::post('/construtor-clube');
         Route
@@ -1298,7 +1300,9 @@ Route
                 '!menu_meu_parceiro', '!administrado_status', '!api_status', '!tipo_ativacao', '!status',
                 '!menu_corrida', '!menu_show_nacional', '!menu_show_internacional', '!link_odontologico',
                 '!campos_primeiro_acesso', '!grupo_label', '!grupo_placeholder', '!link_facebook', '!link_instagram',
-                '!link_twitter', '!link_linkedin', '!link_youtube', '!link_tiktok', '!tela_login', '!copiar_padrao'
+                '!link_twitter', '!link_linkedin', '!link_youtube', '!link_tiktok', '!tela_login', '!copiar_padrao',
+                '!texto_login_usuario', '!texto_login_dependente', '!texto_login_funcionario', '!link_funcionario',
+                '!menu_funcionario'
             ])
             ::put('/construtor-clube/{id}');
         Route
