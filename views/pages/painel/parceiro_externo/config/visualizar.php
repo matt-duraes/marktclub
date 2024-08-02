@@ -1,8 +1,8 @@
 <?php
 
-use App\Classes\ParceiroLoja\Categoria;
-use App\Classes\ParceiroLoja\Status;
 use PainelConfig\Visualizar;
+use App\Classes\ParceiroLoja\Status;
+use App\Classes\ParceiroLoja\Categoria;
 
 $Painel = new Visualizar('parceiro_externo');
 

@@ -113,7 +113,7 @@ final class VersaoModel extends ORM implements
             $retorno[] = [
                 'id'        => $versao->uuid,
                 'titulo'    => $versao->titulo,
-                'imagem'    => $versao->imagem,
+                'imagem'    => arquivoPrivado($versao->imagem),
                 'valor_de'  => $versao->valor_de,
                 'valor_por' => $versao->valor_por,
                 'cor'       => $versao->cor,
