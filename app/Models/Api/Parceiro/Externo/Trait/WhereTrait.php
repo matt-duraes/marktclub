@@ -10,9 +10,13 @@ trait WhereTrait
     public function pegarWhere(): WhereWhere
     {
         $Where = new WhereWhere($this, $this->whereEquipe());
-        if (!in_array('parceiro_externo_empresa', TOKEN['usuario']->permissao)) {
-            $Where->manual(['id_dono_empresa', TOKEN['empresa']->id]);
+
+        if (defined('TOKEN') && !is_array(TOKEN) && array_key_exists('usuario', TOKEN)) {
+            if (!in_array('parceiro_externo_empresa', TOKEN['usuario']->permissao)) {
+                $Where->manual(['id_dono_empresa', TOKEN['empresa']->id]);
+            }
         }
+
         $Where
             ->dataDeAte('data_criacao')
             ->linha(propriedade: 'categoria_principal')
@@ -41,7 +45,7 @@ trait WhereTrait
         if (!defined('TOKEN') || !is_array(TOKEN) || !array_key_exists('usuario', TOKEN)) {
             return [];
         }
-        
+
         $idEquipe = TOKEN['usuario']->id;
         $permissao = TOKEN['usuario']->permissao;
 
