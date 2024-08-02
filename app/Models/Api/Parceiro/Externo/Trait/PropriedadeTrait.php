@@ -10,7 +10,7 @@ use Modules\Data;
 
 trait PropriedadeTrait
 {
-    public string $equipe;
+    public string $id_usuario_equipe;
     public Data $data_criacao_de;
     public Data $data_criacao_ate;
     public Status $status;
