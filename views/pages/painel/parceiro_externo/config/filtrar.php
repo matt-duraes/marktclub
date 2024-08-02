@@ -22,7 +22,7 @@ $Painel
     ->bloco(function () use ($Painel, $equipe) {
         $Painel
             ->select(
-                name: 'equipe',
+                name: 'id_usuario_equipe',
                 lista: $equipe,
                 label: 'Equipe',
                 placeholder: 'Equipe',
