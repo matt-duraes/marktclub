@@ -62,8 +62,8 @@ final class BuscarModel extends ClubeApiHelper
                 'valor_por'   => (new Dinheiro($r->valor_por))->dinheiro(),
                 'cor'         => $r->cor,
                 'imagem'      => $imagem,
-                'imagem_url'  =>  arquivoPrivado($r->imagem) ?? $imagem,
-                'tipo'        => 'automovel-versao'
+                'imagem_url'  => $r->imagem ?? $imagem,
+                'tipo'        => 'automovel-versao',
             ];
         }
         return $retorno;
