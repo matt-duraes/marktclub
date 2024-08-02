@@ -11,7 +11,7 @@ trait WhereTrait
     {
         $Where = new WhereWhere($this, $this->whereEquipe());
 
-        if (defined('TOKEN') && !is_array(TOKEN) && array_key_exists('usuario', TOKEN)) {
+        if (defined('TOKEN') && is_array(TOKEN) && array_key_exists('usuario', TOKEN)) {
             if (!in_array('parceiro_externo_empresa', TOKEN['usuario']->permissao)) {
                 $Where->manual(['id_dono_empresa', TOKEN['empresa']->id]);
             }
