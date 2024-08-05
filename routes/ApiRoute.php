@@ -1277,7 +1277,9 @@ Route
                 'menu_meu_parceiro', 'administrado_status', 'api_status', 'tipo_ativacao', 'status',
                 'menu_corrida', 'menu_show_nacional', 'menu_show_internacional', 'link_odontologico',
                 'campos_primeiro_acesso', 'grupo_label', 'grupo_placeholder', 'link_facebook', 'link_instagram',
-                'link_twitter', 'link_linkedin', 'link_youtube', 'link_tiktok', 'tela_login', '!copiar_padrao'
+                'link_twitter', 'link_linkedin', 'link_youtube', 'link_tiktok', 'tela_login', '!copiar_padrao',
+                'texto_login_usuario', 'texto_login_dependente', 'texto_login_funcionario', 'link_funcionario',
+                'menu_funcionario'
             ])
             ::post('/construtor-clube');
         Route
@@ -1298,7 +1300,9 @@ Route
                 '!menu_meu_parceiro', '!administrado_status', '!api_status', '!tipo_ativacao', '!status',
                 '!menu_corrida', '!menu_show_nacional', '!menu_show_internacional', '!link_odontologico',
                 '!campos_primeiro_acesso', '!grupo_label', '!grupo_placeholder', '!link_facebook', '!link_instagram',
-                '!link_twitter', '!link_linkedin', '!link_youtube', '!link_tiktok', '!tela_login', '!copiar_padrao'
+                '!link_twitter', '!link_linkedin', '!link_youtube', '!link_tiktok', '!tela_login', '!copiar_padrao',
+                '!texto_login_usuario', '!texto_login_dependente', '!texto_login_funcionario', '!link_funcionario',
+                '!menu_funcionario'
             ])
             ::put('/construtor-clube/{id}');
         Route
@@ -1387,7 +1391,7 @@ Route
             ::post('/parceiro-loja/download');
     });
 
-    Route
+Route
     ::nome('parceiro_externo')
     ::middleware(TokenMiddleware::class, 'token')
     ::controller(App\Controllers\Api\Parceiro\ExternoController::class)
@@ -1404,7 +1408,7 @@ Route
         Route
             ::nome('salvar')
             ::request([
-                'titulo_interno', 'nome', 'email', 'telefone', 'categoria_principal', 'endereco_cep',
+                'titulo_interno', 'nome', 'email', 'telefone','tipo_indicador' ,'categoria_principal', 'endereco_cep',
                 'endereco_logradouro', 'endereco_numero', 'endereco_complemento', 'endereco_bairro', 'endereco_cidade',
                 'endereco_estado', 'mensagem'
             ])
@@ -2480,7 +2484,7 @@ Route
             ::nome('salvar')
             ::middleware(TokenMiddleware::class, 'scope', ['automovel_versao:salvar'])
             ::request([
-                'modelo', 'titulo', 'cor', 'valor_de', 'valor_por', 'status'
+                'modelo', 'titulo', 'imagem','cor', 'valor_de', 'valor_por', 'status'
             ])
             ::post('/automovel-versao');
 
@@ -2488,7 +2492,7 @@ Route
             ::nome('atualizar')
             ::middleware(TokenMiddleware::class, 'scope', ['automovel_versao:atualizar'])
             ::request([
-                '!titulo', '!cor', '!valor_de', '!valor_por', '!status'
+                '!titulo', '!imagem', '!cor', '!valor_de', '!valor_por', '!status'
             ])
             ::put('/automovel-versao/{id}');
 

@@ -1,17 +1,27 @@
 <?php
 
+use PainelConfig\Visualizar;
 use App\Classes\ParceiroLoja\Status;
 use App\Classes\ParceiroLoja\Categoria;
 
-$Painel = new PainelConfig\Visualizar('parceiro_externo');
+$Painel = new Visualizar('parceiro_externo');
 
 $Painel->coluna(callback: function () use ($Painel) {
-    $Painel->bloco(titulo: 'Parceiro', callback: function () use ($Painel) {
+    $Painel->bloco('Parceiro', function () use ($Painel) {
         $Painel
             ->linha('titulo_interno', 'Título')
             ->linha('categoria_principal', 'Categoria')
+            ->linha('tipo_indicador', 'Tipo indicador')
             ->dataHora('data_criacao', 'Criado em')
             ->linha('status', 'Status');
+    });
+
+    $Painel->bloco('Contato', function () use ($Painel) {
+        $Painel
+            ->linha('contato->nome', 'Nome')
+            ->linha('contato->cpf', 'CPF')
+            ->linha('contato->email', 'E-mail')
+            ->linha('contato->telefone', 'Telefone');
     });
 });
 

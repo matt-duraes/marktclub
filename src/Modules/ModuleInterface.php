@@ -13,4 +13,6 @@ interface ModuleInterface
     public function vazio(): bool;
 
     public function valido(): bool;
+
+    public function validar(string $campo, bool $vazio = true): void;
 }

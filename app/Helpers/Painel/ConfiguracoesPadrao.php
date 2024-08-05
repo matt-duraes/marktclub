@@ -385,6 +385,7 @@ final class ConfiguracoesPadrao
                 'parceiro_externo_visualizar' => 'Visualizar',
                 'parceiro_externo_equipe'     => 'Todos da equipe',
                 'parceiro_externo_download'   => 'Download',
+                'parceiro_externo_empresa'    => 'Todas as empresas'
             ]
         ],
         'parceiro_equipe'          => [

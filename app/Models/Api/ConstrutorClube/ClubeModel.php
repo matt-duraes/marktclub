@@ -2,8 +2,8 @@
 
 namespace App\Models\Api\ConstrutorClube;
 
-use App\Helpers\PrimeiroAcessoHelper;
 use Modules\Botao;
+use App\Helpers\PrimeiroAcessoHelper;
 
 final class ClubeModel
 {
@@ -34,6 +34,7 @@ final class ClubeModel
             'favicon'                 => $Construtor->favicon,
             'logo_footer'             => $Construtor->logo_footer,
             'link_login'              => $Construtor->link_login,
+            'link_funcionario'        => $Construtor->link_funcionario,
             'link_cadastro'           => $Construtor->link_cadastro,
             'link_odontologico'       => $Construtor->link_odontologico,
             'link_salavip'            => $Construtor->link_salavip,
@@ -86,6 +87,7 @@ final class ClubeModel
                 'show_internacional'  => $Construtor->menu_show_internacional->valor(),
                 'tema'                => $Construtor->menu_tema->valor(),
                 'dependente'          => $dependente,
+                'funcionario'         => $Construtor->menu_funcionario->valor(),
                 'carteira'            => $Construtor->menu_carteira->valor(),
                 'salavip'             => $Construtor->menu_salavip->valor(),
                 'ponto_mais_acao'     => $Construtor->menu_ponto_mais_acao->valor(),
@@ -96,11 +98,14 @@ final class ClubeModel
                 'label'       => $Construtor->grupo_label,
                 'placeholder' => $Construtor->grupo_placeholder
             ],
-            'tipo_ativacao'          => $Construtor->tipo_ativacao->indice(),
-            'administrado'           => $Construtor->administrado_status->valor(),
-            'tela_login'             => $Construtor->tela_login->valor(),
-            'chat'                   => $Construtor->chat_status->valor(),
-            'api'                    => $api,
+            'texto_login_usuario'     => $Construtor->texto_login_usuario,
+            'texto_login_dependente'  => $Construtor->texto_login_dependente,
+            'texto_login_funcionario' => $Construtor->texto_login_funcionario,
+            'tipo_ativacao'           => $Construtor->tipo_ativacao->indice(),
+            'administrado'            => $Construtor->administrado_status->valor(),
+            'tela_login'              => $Construtor->tela_login->valor(),
+            'chat'                    => $Construtor->chat_status->valor(),
+            'api'                     => $api,
         ];
     }
 }

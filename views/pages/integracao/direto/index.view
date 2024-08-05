@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>AGUARDE</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+
+    @CSS
+</head>
+<body>
+
+<div id="site">
+    @ if( $dado ):
+    <section id="bloco_contador">
+        <figure class="convenio">
+            <img src="<?= $dado['loja_logo'] ?>" alt="<?= $dado['loja_titulo'] ?>">
+        </figure>
+        <h1><?= $dado['loja_titulo'] ?></h1>
+        <article>
+            <p>Redirecionamento em <span id="time">10 segundos</span>.</p>
+            <p>Ou clique no botão abaixo:</p>
+            <a href="<?= $dado['link'] ?>">ACESSAR</a>
+        </article>
+    </section>
+    <form action="">
+        <input type="hidden" name="LINK" id="LINK" value="{{$dado['link']}}">
+    </form>
+    @ else:
+    <section>
+        <article>
+            <i>@iconeBloquear(30)</i>
+            <h1>LINK EXPIRADO</h1>
+            <p>O link que você está tentando acessar foi expirado, acesse o parceiro para gerar um link novo.</p>
+        </article>
+    </section>
+    @ endif;
+
+</div>
+
+</body>
+</html>

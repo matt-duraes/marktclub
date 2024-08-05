@@ -11,6 +11,10 @@ window.addEventListener('load', () => {
     const blocoAdd = $('#bloco_versao_add');
 
     const inputTitulo = $('#input_versao_titulo');
+    const inputImagem = $('#input_imagem');
+    const icone = $('.fw_imagem_icone ');
+    const figure = $('.fw_imagem_figure');
+    const blocoImagem = $('#bloco_imagem');
     const inputCor = $('#input_versao_cor');
     const inputValorDe = $('#input_versao_valor_de');
     const inputValorPor = $('#input_versao_valor_por');
@@ -70,7 +74,12 @@ window.addEventListener('load', () => {
             Alerta.notificacao('Erro ao buscar dados da versão, por favor, tente novamente.', false);
             return;
         }
+        if (resposta.dado.imagemUrl != '') {
+            icone.classList.add('display_none');
+            figure.style.backgroundImage = 'url(' + resposta.dado.imagemUrl + ')';
+        }
         formValue(inputTitulo, resposta.dado.titulo);
+        formValue(inputImagem, resposta.dado.imagem);
         formValue(inputCor, resposta.dado.cor);
         formValue(inputValorDe, valorBr(resposta.dado.valor_de));
         formValue(inputValorPor, valorBr(resposta.dado.valor_por));
@@ -101,6 +110,8 @@ window.addEventListener('load', () => {
             formValue(inputCor, '');
             formValue(inputValorDe, '');
             formValue(inputValorPor, '');
+            figure.style.backgroundImage = '';
+            icone.classList.remove('display_none');
             inputStatus.checked = false;
         }, 300);
     };
@@ -119,6 +130,7 @@ window.addEventListener('load', () => {
         const valorDe = inputValorDe.value.replace(/\./g, '').replace(',', '.');
         const valorPor = inputValorPor.value.replace(/\./g, '').replace(',', '.');
         const status = inputStatus.checked ? 'ativo' : 'inativo';
+        const imagem = inputImagem.value;
 
         if (titulo == '') {
             Alerta.notificacao('O campo título é obrigatório.', false);
@@ -132,6 +144,7 @@ window.addEventListener('load', () => {
         const request = {
             indice: acao,
             titulo,
+            imagem,
             cor,
             /* eslint-disable */
             valor_de: valorDe,

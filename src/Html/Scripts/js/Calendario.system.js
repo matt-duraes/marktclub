@@ -954,6 +954,9 @@ class Calendario {
             this._callback();
         }
     }
+    static staticFechar() {
+        this._fechar();
+    }
 
     static _carregarHtml() {
         if (document.getElementById('fw_calendario') == null) {

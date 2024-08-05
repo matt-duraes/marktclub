@@ -44,11 +44,7 @@ abstract class DownloadGeralModel extends ORM
             quantidade: count($this->busca),
             usuario: $this->usuario
         );
-        try {
-            $Log->salvar();
-        } catch (\Throwable) {
-            $this->erroDownloadPadrao();
-        }
+        $Log->salvar();
     }
 
     /**

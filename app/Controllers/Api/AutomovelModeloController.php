@@ -2,23 +2,23 @@
 
 namespace App\Controllers\Api;
 
-use App\Classes\Automovel\Modelo\Ordem;
-use App\Classes\Geral\Status;
-use App\Models\Api\Automovel\Modelo\ModeloEntity;
-use App\Models\Api\Automovel\Modelo\ModeloModel;
-use Controller\Controller;
 use Erro\Excecao;
 use Http\Request;
+use Modules\Data;
 use Http\Response;
 use Modules\Botao;
-use Modules\Data;
 use Modules\Pagina;
 use Modules\Quantidade;
-use System\Interface\ControllerAtualizarInterface;
+use Controller\Controller;
+use App\Classes\Geral\Status;
+use App\Classes\Automovel\Modelo\Ordem;
 use System\Interface\ControllerBuscarInterface;
-use System\Interface\ControllerDeletarInterface;
 use System\Interface\ControllerListarInterface;
 use System\Interface\ControllerSalvarInterface;
+use App\Models\Api\Automovel\Modelo\ModeloModel;
+use System\Interface\ControllerDeletarInterface;
+use App\Models\Api\Automovel\Modelo\ModeloEntity;
+use System\Interface\ControllerAtualizarInterface;
 
 final class AutomovelModeloController extends Controller implements
     ControllerBuscarInterface,
@@ -53,7 +53,7 @@ final class AutomovelModeloController extends Controller implements
             pegarPropriedadeDaEntity($Modelo, lista: [
                 'parceiro', 'titulo', 'procedimento', 'texto_procedimento',
                 'imagem', 'versao', 'data_inicio', 'data_final', 'url',
-                'status', 'data_criacao', 'data_atualizacao'
+                'status', 'data_criacao', 'data_atualizacao',
             ]),
             $status
         );

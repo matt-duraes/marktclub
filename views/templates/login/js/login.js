@@ -10,8 +10,10 @@ window.addEventListener('load', () => {
 
     const botaoAtivar = $('#botao_ativar_conta');
     const botaoFazerLogin = $('#botao_fazer_login');
-    const botaoDependente = $('#botao_abrir_dependente');
+    const botaoEscolhaLogin = $$('.botao_abrir_menu_normal');
     const botaoRecuperarSenha = $('#botao_esqueceu_senha');
+
+    const botaoEscolhaVoltar = $('#bloco_form_login header .voltar');
 
     if (botaoRecuperarSenha) {
         botaoRecuperarSenha.addEventListener('click', () => {
@@ -22,13 +24,18 @@ window.addEventListener('load', () => {
 
     const blocoLogin = $('#bloco_form_login');
     const blocoEscolha = $('#bloco_escolha_login');
-    if (botaoDependente) {
-        botaoDependente.addEventListener('click', () => {
-            blocoLogin.classList.remove('display_none');
-            blocoEscolha.classList.add('display_none');
+    if (botaoEscolhaLogin.length > 0) {
+        botaoEscolhaLogin.evento('click', () => {
+            blocoLogin.aparecer();
+            blocoEscolha.sumir();
+            botaoEscolhaVoltar.aparecer();
             inputLogin.focus();
         });
     }
+    botaoEscolhaVoltar.evento('click', () => {
+        blocoLogin.sumir();
+        blocoEscolha.aparecer();
+    });
 
     botaoAtivar.addEventListener('click', () => {
         PopupLogin.fechar();

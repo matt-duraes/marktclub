@@ -2,13 +2,13 @@
 
 namespace App\Models\Api\Parceiro\Externo;
 
-use Http\Request;
-use System\Trait\Model\OrdemTrait;
 use App\Classes\ParceiroLoja\Status;
 use App\Models\Api\Download\DownloadGeralModel;
-use App\Models\Api\Parceiro\Externo\Trait\WhereTrait;
-use App\Models\Api\Parceiro\Externo\Trait\ValidarTrait;
 use App\Models\Api\Parceiro\Externo\Trait\PropriedadeTrait;
+use App\Models\Api\Parceiro\Externo\Trait\ValidarTrait;
+use App\Models\Api\Parceiro\Externo\Trait\WhereTrait;
+use Http\Request;
+use System\Trait\Model\OrdemTrait;
 
 final class DownloadModel extends DownloadGeralModel
 {
@@ -18,11 +18,12 @@ final class DownloadModel extends DownloadGeralModel
     use OrdemTrait;
 
     protected array $campoAceito = [
-        'titulo_interno', 'equipe', 'data_criacao', 'data_publicacao', 'status'
+        'titulo_interno', 'data_criacao', 'data_publicacao', 'status', 'id_usuario_equipe',
+        'categoria_principal', 'data_cancelado', 'cancelar_motivo'
     ];
 
     public function __construct(
-        Request $request
+        protected Request $request
     ) {
         parent::__construct($request, TABELA_PARCEIRO_LOJA, 'parceiro-externo');
         $this->validarRequest();
@@ -35,10 +36,10 @@ final class DownloadModel extends DownloadGeralModel
 
     protected function buscarRegistro(): void
     {
-        $where = $this->pegarWhere();
+        //$where = $this->pegarWhere();
         $this->busca = $this
             ->campo($this->campo)
-            ->where($where)
+            //->where($where, false)
             ->order($this->pegarOrdem())
             ->read();
     }
