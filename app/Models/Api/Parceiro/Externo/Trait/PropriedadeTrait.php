@@ -11,6 +11,7 @@ use Modules\Data;
 trait PropriedadeTrait
 {
     public string $id_usuario_equipe;
+    public ?string $empresa;
     public Data $data_criacao_de;
     public Data $data_criacao_ate;
     public Status $status;
