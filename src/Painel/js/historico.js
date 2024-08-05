@@ -199,7 +199,7 @@ const historicoLoad = () => {
             listaAppSalvar.length > 0 &&
             !(await Alerta.confirmar(
                 'Salvar histórico',
-                'Tem certeza que marcous todos os locais que o comentário deve aparecer?',
+                'Tem certeza que marcou todos os locais que o comentário deve aparecer?',
                 '!'
             ))
         ) {
