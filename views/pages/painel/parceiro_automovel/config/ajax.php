@@ -5,7 +5,7 @@ $Painel = new PainelConfig\Ajax();
 return $Painel
     ->grupo('versao-salvar', function () use ($Painel) {
         $Painel
-            ->request(['titulo', 'imagem','modelo', 'cor', 'valor_de', 'valor_por', 'status'])
+            ->request(['titulo', 'imagem', 'modelo', 'cor', 'valor_de', 'valor_por', 'status'])
             ->permissao('parceiro_automovel_add')
             ->metodo('post')
             ->rota('/automovel-versao');

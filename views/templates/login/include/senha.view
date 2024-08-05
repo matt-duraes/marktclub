@@ -2,10 +2,12 @@
     <form id="bloco_form_recuperar_senha" class="bloco_form_login form_geral" action="/" method="post">
         <div class="conteudo">
             <header>
-                <h1>NOVA SENHA</h1>
+                <div class="bloco">
+                    <h1>NOVA SENHA</h1>
+                </div>
                 <p>Siga os passos abaixo para recuperar sua senha, caso não consiga, entre em contato com o atendimento</p>
-                <i class="fechar popup_fechar">@iconeFechar</i>
             </header>
+            <i class="fechar popup_fechar">@iconeFechar</i>
 
             <div class="bloco_geral bloco_buscar_usuario" id="bloco_cpf">
                 <p>Digite seu CPF para começar o processo de recuperação de senha</p>

@@ -55,14 +55,7 @@ final class UsuarioHelper
 
     private function buscarUsuario()
     {
-        // $usuario = $this->requisicaoUsuario();
-        $usuario = [
-            'emails' => [
-                ['email' => emailAleatorio()],
-                ['email' => emailAleatorio()]
-            ],
-            'nome'   => nomeCompletoAleatorio(),
-        ];
+        $usuario = $this->requisicaoUsuario();
         $this->email_pessoal = $this->pegarEmail($usuario['emails'] ?? []);
         $this->email_trabalho = $this->pegarEmail($usuario['emails'] ?? [], $this->email_pessoal);
         $this->nome = $usuario['nome'] ?? '';
@@ -102,7 +95,6 @@ final class UsuarioHelper
             'Content-Type: application/x-www-form-urlencoded',
             'Authorization: Basic ' . base64_encode($this->clientId . ':' . $this->secretId)
         ]);
-        ppe(curl_exec($ch));
         $retorno = jsonDecode(curl_exec($ch), true);
         curl_close($ch);
 
