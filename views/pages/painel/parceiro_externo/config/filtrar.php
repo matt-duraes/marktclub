@@ -24,7 +24,7 @@ $Painel
         lista: 'empresa',
         label: 'Empresa',
         placeholder: 'Empresa',
-        permissao: 'parceiro_externo_equipe'
+        permissao: 'parceiro_externo_empresa'
     )
     ->bloco(function () use ($Painel, $equipe) {
         $Painel
