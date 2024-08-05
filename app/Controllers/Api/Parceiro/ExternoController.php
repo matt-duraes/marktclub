@@ -59,7 +59,7 @@ final class ExternoController extends Controller implements
      */
     public function getListar(Request $request): Response
     {
-        $ExternoModel = new ExternoModel();
+        $ExternoModel = new ExternoModel($request->empresa ?? '');
         $ExternoModel->set(lista: $request->dado());
         return mensagemSucesso($ExternoModel->listarDados());
     }

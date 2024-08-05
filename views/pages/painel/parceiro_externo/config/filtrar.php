@@ -19,6 +19,13 @@ $Painel
         label: 'Pesquisa',
         placeholder: 'Faça uma pesquisa'
     )
+    ->select(
+        name: 'empresa',
+        lista: 'empresa',
+        label: 'Empresa',
+        placeholder: 'Empresa',
+        permissao: 'parceiro_externo_equipe'
+    )
     ->bloco(function () use ($Painel, $equipe) {
         $Painel
             ->select(

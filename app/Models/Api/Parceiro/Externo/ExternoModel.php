@@ -31,6 +31,12 @@ final class ExternoModel extends ORM implements
     public Quantidade $quantidade;
     protected string $ormTabela = TABELA_PARCEIRO_LOJA;
 
+    public function __construct(string $empresa)
+    {
+        $this->empresa = $empresa;
+        parent::__construct();
+    }
+
     /**
      * @return stdClass
      * @throws Excecao
@@ -46,6 +52,12 @@ final class ExternoModel extends ORM implements
             ->where($this->pegarWhere(), false)
             ->pagina($this->pegarPagina(), $this->pegarQuantidade())
             ->order($this->pegarOrdem())
+            ->tabela(TABELA_COMERCIAL_EMPRESA)
+            ->where($this->pegarWhereEmpresa(), false)
+            ->join('id', 'id_dono_empresa')
+            ->campo([
+                'nome_fantasia'
+            ], 'empresa')
             ->read();
 
         if (!existeErro($dado, 'dado')) {
@@ -53,6 +65,18 @@ final class ExternoModel extends ORM implements
         }
         $dado->lista = $this->montarRetorno($dado->lista);
         return $dado;
+    }
+
+    /**
+     * @return array
+     */
+    protected function pegarWhereEmpresa(): array
+    {
+        $where = [];
+        if (!empty($this->empresa)) {
+            $where[] = ['cod', $this->empresa];
+        }
+        return $where;
     }
 
     private function montarRetorno($dado): array
@@ -63,6 +87,7 @@ final class ExternoModel extends ORM implements
         foreach ($dado as $r) {
             $retorno[] = [
                 'id'               => $r->uuid,
+                'empresa_nome'     => $r->empresa_nome_fantasia,
                 'titulo_interno'   => $r->titulo_interno,
                 'tipo_indicador'   => $Indicador->indice($r->tipo_indicador),
                 'status'           => $Status->indice($r->status),
