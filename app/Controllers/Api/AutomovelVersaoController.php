@@ -49,7 +49,7 @@ final class AutomovelVersaoController extends Controller implements
     {
         return mensagemSucesso(
             pegarPropriedadeDaEntity($Versao, lista: [
-                'titulo', 'imagem', 'imagemUrl','cor', 'valor_de', 'valor_por', 'status',
+                'titulo', 'imagem', 'imagemUrl', 'cor', 'valor_de', 'valor_por', 'status',
                 'data_criacao', 'data_atualizacao'
             ]),
             $status
