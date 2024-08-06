@@ -71,8 +71,8 @@ abstract class GeralModel extends ORM
     {
         foreach ($this->relatorio as $dado) {
             if(
-                (array_key_exists('quantidade_demanda', $dado) && $dado['quantidade_demanda'] == 0) ||
-                (array_key_exists('quantidade_tarefa', $dado) && $dado['quantidade_tarefa'] == 0)
+                (array_key_exists('quantidade_demanda', $dado) && empty($dado['quantidade_demanda'])) ||
+                (array_key_exists('quantidade_tarefa', $dado) && empty($dado['quantidade_tarefa']))
             ) {
                 continue;
             }
