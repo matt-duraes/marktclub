@@ -70,7 +70,7 @@ abstract class GeralModel extends ORM
     private function salvar()
     {
         foreach ($this->relatorio as $dado) {
-            if(array_key_exists('quantidade_demanda', $dado) && empty($dado['quantidade_demanda'])) {
+            if (array_key_exists('quantidade_demanda', $dado) && empty($dado['quantidade_demanda'])) {
                 continue;
             }
             $this->dado($dado)->insert();
