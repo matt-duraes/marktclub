@@ -22,7 +22,7 @@ final class ConstrutorEntity extends Entity
         'menu_farmacia', 'menu_automovel', 'menu_saude_vitoria', 'menu_saude_amil', 'menu_saude_seguro',
         'menu_cashback', 'menu_indicar_usuario', 'menu_indicar_loja', 'menu_ponto_mais_acao', 'menu_cupom', 'menu_odontologico',
         'menu_premium', 'menu_dependente', 'menu_carteira', 'menu_salavip', 'menu_faq', 'menu_como_funciona',
-        'menu_meu_parceiro', 'api_status', 'link_login', 'menu_sair', 'menu_ponto_mais_acao', 'menu_primeiro_acesso', 'menu_tema',
+        'menu_meu_parceiro', 'api_status','link_botao_sair','link_login', 'menu_sair', 'menu_ponto_mais_acao', 'menu_primeiro_acesso', 'menu_tema',
         'menu_corrida', 'menu_show_nacional', 'menu_show_internacional', 'administrado_status', 'chat_status',
         'menu_samsung', 'cor_principal', 'cor_secundaria', 'tipo_ativacao', 'status', 'campos_primeiro_acesso', 'grupo_label',
         'grupo_placeholder', 'link_facebook', 'link_instagram', 'link_twitter', 'link_linkedin', 'link_youtube', 'link_tiktok',
@@ -35,7 +35,7 @@ final class ConstrutorEntity extends Entity
         'menu_mapa', 'menu_cinema', 'menu_historico', 'menu_acesso_rapido', 'menu_ponto_mais_acao', 'menu_saude_florianopolis',
         'menu_farmacia', 'menu_automovel', 'menu_saude_vitoria', 'menu_saude_amil', 'menu_saude_seguro',
         'menu_cashback', 'menu_indicar_usuario', 'menu_indicar_loja', 'menu_ponto_mais_acao', 'menu_cupom', 'menu_odontologico',
-        'menu_carteira', 'menu_salavip', 'menu_faq', 'menu_como_funciona', 'api_status', 'link_login',
+        'menu_carteira', 'menu_salavip', 'menu_faq', 'menu_como_funciona', 'api_status','link_botao_sair','link_login',
         'menu_premium', 'menu_dependente', 'menu_sair', 'menu_primeiro_acesso', 'menu_meu_parceiro',
         'cor_principal', 'cor_secundaria', 'menu_tema', 'administrado_status', 'chat_status',
         'menu_samsung', 'tipo_ativacao', 'status', 'campos_primeiro_acesso', 'grupo_label', 'grupo_placeholder',
@@ -53,6 +53,7 @@ final class ConstrutorEntity extends Entity
     public string $link_clube;
     public string $link_app_android;
     public string $link_app_ios;
+    public string $link_botao_sair;
     public string $link_login;
     public string $link_cadastro;
     public string $link_salavip;

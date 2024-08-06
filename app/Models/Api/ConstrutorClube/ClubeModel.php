@@ -2,8 +2,8 @@
 
 namespace App\Models\Api\ConstrutorClube;
 
-use App\Helpers\PrimeiroAcessoHelper;
 use Modules\Botao;
+use App\Helpers\PrimeiroAcessoHelper;
 
 final class ClubeModel
 {
@@ -33,6 +33,7 @@ final class ClubeModel
             'logo_secundaria'         => $Construtor->logo_secundaria,
             'favicon'                 => $Construtor->favicon,
             'logo_footer'             => $Construtor->logo_footer,
+            'link_botao_sair'         => $Construtor->link_botao_sair,
             'link_login'              => $Construtor->link_login,
             'link_cadastro'           => $Construtor->link_cadastro,
             'link_odontologico'       => $Construtor->link_odontologico,

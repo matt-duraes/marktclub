@@ -93,6 +93,7 @@ $Painel->coluna(callback: function () use ($Painel) {
     $Painel->fieldset('Links', function () use ($Painel) {
         $Painel
             ->url(name: 'link_clube', label: 'Link do clube', placeholder: 'Link do clube')
+            ->url(name: 'link_botao_sair', label: 'Link do botão de sair', placeholder: 'Link do botão de sair')
             ->url(name: 'link_login', label: 'Link de login', placeholder: 'Link de login')
             ->url(name: 'link_cadastro', label: 'Link de cadastro', placeholder: 'Link de cadastro')
             ->url(name: 'link_salavip', label: 'Link da salavip', placeholder: 'Link da salavip')
