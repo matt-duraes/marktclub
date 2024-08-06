@@ -221,11 +221,15 @@ window.addEventListener('load', () => {
 
     const popupAbrir = bloco => {
         bloco.aparecer();
-        bloco.classe('aberto', true, 10);
+        setTimeout(() => {
+            bloco.classe('aberto', true);
+        }, 10);
     };
     const popupFechar = bloco => {
         bloco.classe('aberto', false);
-        bloco.sumir(300);
+        setTimeout(() => {
+            bloco.sumir();
+        }, 300);
     };
 
     function pegarCookie() {
