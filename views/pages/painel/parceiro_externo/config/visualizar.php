@@ -1,8 +1,8 @@
 <?php
 
-use PainelConfig\Visualizar;
-use App\Classes\ParceiroLoja\Status;
 use App\Classes\ParceiroLoja\Categoria;
+use App\Classes\ParceiroLoja\Status;
+use PainelConfig\Visualizar;
 
 $Painel = new Visualizar('parceiro_externo');
 
@@ -18,15 +18,14 @@ $Painel->coluna(callback: function () use ($Painel) {
 
     $Painel->bloco('Contato', function () use ($Painel) {
         $Painel
+            ->vazioBreak('contato', 'Contato não encontrado')
             ->linha('contato->nome', 'Nome')
-            ->linha('contato->cpf', 'CPF')
             ->linha('contato->email', 'E-mail')
             ->linha('contato->telefone', 'Telefone');
     });
 });
 
-$Painel
-    ->replace('categoria_principal', (new Categoria())->select())
-    ->replace('status', (new Status())->select());
+$Painel->replace('categoria_principal', (new Categoria())->select());
+$Painel->replace('status', (new Status())->select());
 
 return $Painel;

@@ -80,6 +80,7 @@ final class ExternoEntity extends Entity
             'nome', 'cpf', 'tipo', 'valor'
         ], ['id_vinculo', $this->id]);
 
+        $this->contato = [];
         foreach ($contatos as $contato) {
             if ((new Tipo($contato->tipo))->indice() === Tipo::EMAIL) {
                 $this->contato['email'] = $contato->valor;
@@ -88,7 +89,6 @@ final class ExternoEntity extends Entity
                 $this->contato['telefone'] = $contato->valor;
             }
             $this->contato['nome'] = $contato->nome;
-            $this->contato['cpf'] = $contato->cpf;
         }
     }
 
