@@ -101,29 +101,7 @@ final class DownloadModel extends DownloadGeralModel
     public function pegarWhere(): array
     {
         $where = [];
-        $isToken = defined('TOKEN');
-        $isArray = false;
-        $isUsuario = false;
-        $isEmpresa = false;
-        if ($isToken) {
-            $isArray = is_array(TOKEN);
-            $isUsuario = array_key_exists('usuario', TOKEN);
-            $isEmpresa = array_key_exists('empresa', TOKEN);
-        }
-
         $where[] = ['status', (new Status(Status::PROSPECCAO))->numero()];
-        if ($isToken && $isArray && $isUsuario && $isEmpresa) {
-            $permissao = !empty(TOKEN['usuario']->permissao) ?
-                TOKEN['usuario']->permissao
-                : $this->pegarUsuarioEquipe();
-            if (!in_array('parceiro_externo_empresa', $permissao)) {
-                $where[] = ['id_dono_empresa', TOKEN['empresa']->id];
-            }
-            $idSubempresa = TOKEN['usuario']->id_admin_subempresa ?? '';
-            if (!empty($idSubempresa)) {
-                $where[] = ['id_dono_subempresa', $idSubempresa];
-            }
-        }
         if (!empty($this->pesquisa)) {
             $where[] = [
                 'OR',
@@ -131,6 +109,11 @@ final class DownloadModel extends DownloadGeralModel
                 ['subcategoria_tag', 'like', '%' . $this->pesquisa . '%'],
                 ['titulo_interno', 'like', '%' . $this->pesquisa . '%']
             ];
+        }
+        if (!empty($this->equipe)) {
+            $where[] = ['id_dono_equipe', (new OrmHelper(TABELA_USUARIO_EQUIPE))->pegarIdPeloUuid($this->equipe)];
+        } else {
+            $where[] = ['id_dono_equipe', '!=', 'null'];
         }
         if (!empty($this->categoria) && $this->categoria->valido()) {
             $where[] = ['categoria_principal', $this->categoria->numero()];
@@ -163,19 +146,6 @@ final class DownloadModel extends DownloadGeralModel
         return $where;
     }
 
-    private function pegarUsuarioEquipe(): array
-    {
-        $OrmHelper = new OrmHelper(TABELA_USUARIO_EQUIPE);
-        $usuario = $OrmHelper->pegarUltimoRegistro(
-            ['uuid', $this->usuario],
-            ['permissao'],
-            'object',
-            'UUID não encontrado na base',
-            'Usuário não encontrado'
-        );
-        return jsonDecode($usuario->permissao, true, true);
-    }
-
     protected function validarBusca(): void
     {
         if (!empty($this->busca)) {
@@ -204,5 +174,18 @@ final class DownloadModel extends DownloadGeralModel
             $i++;
         }
         $this->busca = $retorno;
+    }
+
+    private function pegarUsuarioEquipe(): array
+    {
+        $OrmHelper = new OrmHelper(TABELA_USUARIO_EQUIPE);
+        $usuario = $OrmHelper->pegarUltimoRegistro(
+            ['uuid', $this->usuario],
+            ['id', 'permissao'],
+            'object',
+            'UUID não encontrado na base',
+            'Usuário não encontrado'
+        );
+        return jsonDecode($usuario->permissao, true, true);
     }
 }
