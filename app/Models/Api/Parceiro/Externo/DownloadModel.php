@@ -173,7 +173,7 @@ final class DownloadModel extends DownloadGeralModel
             'UUID não encontrado na base',
             'Usuário não encontrado'
         );
-        return $usuario->permissao;
+        return jsonDecode($usuario->permissao, true, true);
     }
 
     protected function validarBusca(): void
