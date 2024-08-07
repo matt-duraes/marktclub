@@ -8,6 +8,7 @@ use App\Classes\ParceiroLoja\Indicador;
 use App\Classes\ParceiroLoja\Status;
 use App\Models\Api\Download\DownloadGeralModel;
 use Erro\Excecao;
+use Helpers\OrmHelper;
 use Http\Request;
 use Modules\Data;
 use System\Trait\Model\OrdemTrait;
@@ -112,7 +113,10 @@ final class DownloadModel extends DownloadGeralModel
 
         $where[] = ['status', (new Status(Status::PROSPECCAO))->numero()];
         if ($isToken && $isArray && $isUsuario && $isEmpresa) {
-            if (!in_array('parceiro_externo_empresa', TOKEN['usuario']->permissao ?? [])) {
+            $permissao = !empty(TOKEN['usuario']->permissao) ?
+                TOKEN['usuario']->permissao
+                : $this->pegarUsuarioEquipe();
+            if (!in_array('parceiro_externo_empresa', $permissao)) {
                 $where[] = ['id_dono_empresa', TOKEN['empresa']->id];
             }
             $idSubempresa = TOKEN['usuario']->id_admin_subempresa ?? '';
@@ -157,6 +161,27 @@ final class DownloadModel extends DownloadGeralModel
             $where[] = ['status', $this->status->numero()];
         }
         return $where;
+    }
+
+    private function pegarUsuarioEquipe(): array
+    {
+        $OrmHelper = new OrmHelper(TABELA_USUARIO_EQUIPE);
+        $usuario = $OrmHelper->pegarUltimoRegistro(
+            ['uuid', $this->usuario],
+            ['permissao'],
+            'object',
+            'UUID não encontrado na base',
+            'Usuário não encontrado'
+        );
+        return $usuario->permissao;
+    }
+
+    protected function validarBusca(): void
+    {
+        if (!empty($this->busca)) {
+            return;
+        }
+        $this->erroDownloadPadrao();
     }
 
     protected function montarRetornoDownload(): void
