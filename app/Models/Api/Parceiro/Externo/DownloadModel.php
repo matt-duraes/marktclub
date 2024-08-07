@@ -28,16 +28,16 @@ final class DownloadModel extends DownloadGeralModel
         'titulo_interno', 'data_criacao', 'data_publicacao', 'status', 'id_dono_equipe',
         'categoria_principal', 'data_cancelado', 'cancelar_motivo', 'tipo_indicador'
     ];
-    protected ?Ordem $ordem;
+    protected ?Ordem $ordem = null;
     protected ?string $pesquisa = null;
     protected ?string $empresa = null;
     protected ?string $equipe = null;
-    protected ?Indicador $indicador;
-    protected ?Categoria $categoria;
+    protected ?Indicador $indicador = null;
+    protected ?Categoria $categoria = null;
     protected ?array $estado = null;
-    protected ?Data $dataInicio;
-    protected ?Data $dataFinal;
-    protected ?Status $status;
+    protected ?Data $dataInicio = null;
+    protected ?Data $dataFinal = null;
+    protected ?Status $status = null;
 
     /**
      * @param Request $request
@@ -101,10 +101,16 @@ final class DownloadModel extends DownloadGeralModel
     {
         $where = [];
         $isToken = defined('TOKEN');
-        $isArray = is_array(TOKEN);
-        $isUsuario = array_key_exists('usuario', TOKEN);
-        $isEmpresa = array_key_exists('empresa', TOKEN);
+        $isArray = false;
+        $isUsuario = false;
+        $isEmpresa = false;
+        if ($isToken) {
+            $isArray = is_array(TOKEN);
+            $isUsuario = array_key_exists('usuario', TOKEN);
+            $isEmpresa = array_key_exists('empresa', TOKEN);
+        }
 
+        $where[] = ['status', (new Status(Status::PROSPECCAO))->numero()];
         if ($isToken && $isArray && $isUsuario && $isEmpresa) {
             if (!in_array('parceiro_externo_empresa', TOKEN['usuario']->permissao ?? [])) {
                 $where[] = ['id_dono_empresa', TOKEN['empresa']->id];
