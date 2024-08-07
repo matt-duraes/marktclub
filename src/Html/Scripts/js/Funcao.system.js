@@ -38,14 +38,10 @@ Object.defineProperty(Object.prototype, 'displayShow', {
     configurable: true,
 });
 Object.defineProperty(Object.prototype, 'aparecer', {
-    async value(delay) {
+    value() {
         let elemento = this;
         if (!(elemento instanceof NodeList)) {
             elemento = [elemento];
-        }
-
-        if (delay !== undefined && /^[0-9]{1,}$/.test(delay)) {
-            await new Promise(resolve => setTimeout(resolve, delay));
         }
 
         for (item of elemento) {
@@ -86,16 +82,11 @@ Object.defineProperty(Object.prototype, 'displayHide', {
     configurable: true,
 });
 Object.defineProperty(Object.prototype, 'sumir', {
-    async value(delay) {
+    value() {
         let elemento = this;
         if (!(elemento instanceof NodeList)) {
             elemento = [elemento];
         }
-
-        if (delay !== undefined && /^[0-9]{1,}$/.test(delay)) {
-            await new Promise(resolve => setTimeout(resolve, delay));
-        }
-
         for (item of elemento) {
             item.classList.add('display_none');
         }
@@ -246,14 +237,10 @@ Object.defineProperty(Object.prototype, 'css', {
     configurable: true,
 });
 Object.defineProperty(Object.prototype, 'classe', {
-    async value(classe, acao, delay) {
+    value(classe, acao) {
         let elemento = this;
         if (!(elemento instanceof NodeList)) {
             elemento = [elemento];
-        }
-
-        if (delay !== undefined && /^[0-9]{1,}$/.test(delay)) {
-            await new Promise(resolve => setTimeout(resolve, delay));
         }
 
         let existe = true;
