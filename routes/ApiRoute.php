@@ -1,10 +1,10 @@
 <?php
 
-use Route\Route;
 use App\Classes\Parceiro\Externo\Helper;
-use App\Middlewares\Api\TokenMiddleware;
 use App\Middlewares\Api\MarktClubMiddleware;
+use App\Middlewares\Api\TokenMiddleware;
 use App\Middlewares\Api\TokenProvMiddleware;
+use Route\Route;
 
 Route
     ::nome('downloadRestrito')
@@ -358,7 +358,8 @@ Route
             ::request([
                 'hash', 'nome', 'cpf', 'genero', 'senha', 'termo', 'data_nascimento', 'estado_civil',
                 'email_pessoal', 'email_trabalho', 'telefone_pessoal', 'telefone_trabalho', 'endereco_cep',
-                'endereco_logradouro', 'endereco_numero','!trabalho_empresa','!trabalho_cargo','endereco_complemento', 'endereco_bairro',
+                'endereco_logradouro', 'endereco_numero', '!trabalho_empresa', '!trabalho_cargo',
+                'endereco_complemento', 'endereco_bairro',
                 'endereco_estado', 'endereco_cidade', '!tipo_usuario', '!empresa', '!grupo'
             ])
             ::put('/usuario-cliente/ativar');
@@ -1339,11 +1340,13 @@ Route
             ::request([
                 'equipe', 'titulo_interno', 'tipo_loja', 'categoria_principal', 'convenio_direto', 'responsavel_nome',
                 'responsavel_cpf', 'responsavel_email', 'responsavel_telefone', 'responsavel_cargo', 'url',
-                '!nome_fantasia', '!razao_social', '!tipo_juridico', '!documento_cpf', '!documento_cnpj', '!imagem_logo',
+                '!nome_fantasia', '!razao_social', '!tipo_juridico', '!documento_cpf', '!documento_cnpj',
+                '!imagem_logo',
                 '!imagem_capa_desktop', '!imagem_capa_mobile', '!titulo', '!tipo_estabelecimento', '!origem_lead',
                 '!desconto', '!delivery', '!', '!data_contrato_inicio', '!data_contrato_vencimento', '!precisa_aditivo',
                 '!email_contato', '!tipo_procedimento', '!limite_voucher', '!prazo_voucher', '!prazo_voucher_fixo',
-                '!contato_whatsapp', '!link_site', '!link_alias', '!link_bloqueado', '!texto_descricao', '!texto_desconto',
+                '!contato_whatsapp', '!link_site', '!link_alias', '!link_bloqueado', '!texto_descricao',
+                '!texto_desconto',
                 '!texto_procedimento', '!texto_voucher', '!categoria_lista', '!subcategoria_tag',
                 '!subcategoria_lista', '!empresa', '!destaque', '!endereco_estado', '!pontuacao', '!confirmar_status',
                 '!confirmar_titulo', '!confirmar_texto', '!arquivo_painel', '!arquivo_clube', '!cupom_desconto',
@@ -1354,16 +1357,21 @@ Route
             ::nome('atualizar')
             ::request([
                 '!nome_fantasia', '!razao_social', '!tipo_juridico', '!documento_cpf', '!documento_cnpj',
-                '!titulo_interno', '!tipo_loja', '!equipe', '!responsavel_nome', '!responsavel_cpf', '!responsavel_email',
+                '!titulo_interno', '!tipo_loja', '!equipe', '!responsavel_nome', '!responsavel_cpf',
+                '!responsavel_email',
                 '!responsavel_telefone', '!responsavel_cargo', '!imagem_logo', '!imagem_capa_desktop',
                 '!imagem_capa_mobile', '!titulo', '!tipo_estabelecimento', '!origem_lead', '!url', '!desconto',
-                '!delivery', '!convenio_direto', '!data_contrato_inicio', '!data_contrato_vencimento', '!precisa_aditivo',
+                '!delivery', '!convenio_direto', '!data_contrato_inicio', '!data_contrato_vencimento',
+                '!precisa_aditivo',
                 '!email_contato', '!tipo_procedimento', '!limite_voucher', '!prazo_voucher', '!prazo_voucher_fixo',
-                '!contato_whatsapp', '!link_site', '!link_alias', '!link_bloqueado', '!texto_descricao', '!texto_desconto',
-                '!texto_procedimento', '!texto_voucher', '!categoria_principal', '!categoria_lista', '!subcategoria_tag',
+                '!contato_whatsapp', '!link_site', '!link_alias', '!link_bloqueado', '!texto_descricao',
+                '!texto_desconto',
+                '!texto_procedimento', '!texto_voucher', '!categoria_principal', '!categoria_lista',
+                '!subcategoria_tag',
                 '!subcategoria_lista', '!empresa', '!destaque', '!endereco_estado', '!pontuacao', '!confirmar_status',
                 '!confirmar_titulo', '!confirmar_texto', '!arquivo_painel', '!arquivo_clube', '!cupom_desconto',
-                '!status', '!comissao_minima', '!comissao_maxima', '!texto_restricao', '!texto_outro', '!cancelar_motivo'
+                '!status', '!comissao_minima', '!comissao_maxima', '!texto_restricao', '!texto_outro',
+                '!cancelar_motivo'
             ])
             ::put('/parceiro-loja/{id}');
         Route
@@ -1397,22 +1405,26 @@ Route
     ::controller(App\Controllers\Api\Parceiro\ExternoController::class)
     ::grupo(function () {
         Route
+            ::nome('buscar')
+            ::middleware(TokenMiddleware::class, 'scope', ['parceiro_externo:buscar'])
+            ::get('/parceiro-externo/{id}');
+
+        Route
             ::nome('listar')
             ::middleware(TokenMiddleware::class, 'scope', ['parceiro_externo:listar'])
             ::request(Helper::GET_PARAMETRO, 'json')
             ::get('/parceiro-externo');
-        Route
-            ::nome('buscar')
-            ::middleware(TokenMiddleware::class, 'scope', ['parceiro_externo:buscar'])
-            ::get('/parceiro-externo/{id}');
+
         Route
             ::nome('salvar')
             ::request([
-                'titulo_interno', 'nome', 'email', 'telefone','tipo_indicador' ,'categoria_principal', 'endereco_cep',
-                'endereco_logradouro', 'endereco_numero', 'endereco_complemento', 'endereco_bairro', 'endereco_cidade',
-                'endereco_estado', 'mensagem'
+                'titulo_interno', 'nome', 'email', 'telefone', 'tipo_indicador',
+                'categoria_principal', 'endereco_cep', 'endereco_logradouro',
+                'endereco_numero', 'endereco_complemento', 'endereco_bairro',
+                'endereco_cidade', 'endereco_estado', 'mensagem'
             ])
             ::post('/parceiro-externo');
+
         Route
             ::nome('download')
             ::middleware(TokenMiddleware::class, 'scope', ['parceiro_externo:download'])
@@ -2484,7 +2496,7 @@ Route
             ::nome('salvar')
             ::middleware(TokenMiddleware::class, 'scope', ['automovel_versao:salvar'])
             ::request([
-                'modelo', 'titulo', 'imagem','cor', 'valor_de', 'valor_por', 'status'
+                'modelo', 'titulo', 'imagem', 'cor', 'valor_de', 'valor_por', 'status'
             ])
             ::post('/automovel-versao');
 
