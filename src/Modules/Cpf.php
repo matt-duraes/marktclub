@@ -87,9 +87,9 @@ final class Cpf implements ModuleInterface
      *
      * @return int|string CPF sem os pontos
      */
-    public function numero(): int|string
+    public function numero(): string
     {
-        return !empty($this->cpf) ? (int)$this->cpf : '';
+        return !empty($this->cpf) ? $this->cpf : '';
     }
 
     private function validarCpf(): bool

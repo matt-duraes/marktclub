@@ -4,6 +4,7 @@ namespace App\Models\Api\UsuarioCliente\Validar;
 
 use ORM\ORM;
 use Modules\Cpf;
+use App\Models\Api\ComercialEmpresa\HelperModel;
 
 final class ValidarModel extends ORM
 {
@@ -12,9 +13,9 @@ final class ValidarModel extends ORM
     public array $retorno = [
         'status' => 'erro',
         'erro'   => [
-            'nome'   => '',
-            'cpf'    => '',
-            'status' => 'RECUSADO'
+            'empresa'   => '',
+            'cpf'       => '',
+            'status'    => 'RECUSADO'
         ]
     ];
     private array $usuario = [];
@@ -41,11 +42,12 @@ final class ValidarModel extends ORM
     private function buscarUsuario()
     {
         $this->usuario = $this
-            ->campo(['id', 'nome'])
+            ->campo(['id', 'id_admin_empresa', 'nome'])
             ->where([
                 ['cpf', $this->cpf->numero()],
                 ['status', 'in', [1, 2]]
             ])
+            ->order('data_acesso', 'DESC')
             ->primeiro(retorno: self::RETORNO_ARRAY);
     }
 
@@ -53,7 +55,7 @@ final class ValidarModel extends ORM
     {
         $usuario = $this->usuario;
         if (empty($usuario) || !array_key_exists('id', $usuario)) {
-            $this->retorno['erro']['cpf'] = $this->cpf->cpf();
+            $this->retorno['erro']['cpf'] = $this->cpf->numero();
             return;
         }
         $this->setarRetornoSucesso();
@@ -65,9 +67,12 @@ final class ValidarModel extends ORM
         $this->retorno = [
             'status' => 'sucesso',
             'dado'   => [
-                'nome'   => $this->usuario['nome'],
-                'cpf'    => $this->cpf->cpf(),
-                'status' => 'LIBERADO'
+                'empresa' => (new HelperModel(true))->pegarCampoPor(
+                    where: ['id', $this->usuario['id_admin_empresa']],
+                    campo: 'uuid'
+                ),
+                'cpf'     => $this->cpf->numero(),
+                'status'  => 'LIBERADO'
             ]
         ];
     }

@@ -6,7 +6,7 @@ use ORM\ORM;
 use stdClass;
 use Order\OrderInterface;
 
-final class OrmHelper extends ORM
+class OrmHelper extends ORM
 {
     /**
      * Orm para buscar registros
@@ -218,5 +218,38 @@ final class OrmHelper extends ORM
             return false;
         }
         return $this->dado($dado)->where(['id', $id])->update();
+    }
+
+    /**
+     * Monta o retorno dos dados
+     *
+     * @param  array|stdClass $dado  Dado que deseja montar
+     * @param  array          $campo Campos que deseja montar, usar ind => val para replace
+     * @param  boolean        $vazio Se o indice não existir não monta campo
+     * @return array|stdClass
+     */
+    public function montarDado(array|stdClass $dado, array $campo, bool $vazio = false): array|stdClass
+    {
+        $eVazio = vazio($dado);
+        if ($eVazio && !$vazio) {
+            return [];
+        }
+
+        $eArray = is_array($dado);
+
+        $retorno = [];
+        foreach ($campo as $ind => $val) {
+            $indReal = is_int($ind) ? $val : $ind;
+            $campoExiste = ($eArray && array_key_exists($indReal, $dado)) ||
+                (!$eArray && object_key_exists($indReal, $dado));
+            if (!$campoExiste && !$vazio) {
+                continue;
+            } elseif (!$campoExiste) {
+                $retorno[$val] = '';
+                continue;
+            }
+            $retorno[$val] = $dado[$indReal];
+        }
+        return $eArray ? $retorno : (object)$retorno;
     }
 }
