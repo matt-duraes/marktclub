@@ -52,7 +52,8 @@ final class ExternoController extends Controller implements
         return mensagemSucesso(
             pegarPropriedadeDaEntity($externoEntity, lista: [
                 'titulo_interno', 'dono', 'categoria_principal',
-                'data_criacao', 'status', 'tipo_indicador', 'contato'
+                'data_criacao', 'status', 'tipo_indicador', 'contato',
+                'captador', 'data_atualizacao'
             ]),
             $status
         );

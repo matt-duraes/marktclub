@@ -11,6 +11,7 @@ use Erro\Excecao;
 use Helpers\OrmHelper;
 use Http\Request;
 use Modules\Data;
+use System\Classes\Contato\Tipo;
 use System\Trait\Model\OrdemTrait;
 
 final class DownloadModel extends DownloadGeralModel
@@ -92,6 +93,11 @@ final class DownloadModel extends DownloadGeralModel
             ->campo($this->campo)
             ->where($this->pegarWhere(), false)
             ->order($this->pegarOrdem(new Ordem()))
+            ->tabela(TABELA_SISTEMA_CONTATO)
+            ->join('id_vinculo', 'uuid')
+            ->campo([
+                'nome', 'tipo', 'valor'
+            ], 'contato')
             ->read();
     }
 
@@ -148,10 +154,9 @@ final class DownloadModel extends DownloadGeralModel
 
     protected function validarBusca(): void
     {
-        if (!empty($this->busca)) {
-            return;
+        if (empty($this->busca)) {
+            $this->erroDownloadPadrao();
         }
-        $this->erroDownloadPadrao();
     }
 
     protected function montarRetornoDownload(): void
@@ -160,6 +165,9 @@ final class DownloadModel extends DownloadGeralModel
         $retorno = [];
         foreach ($this->busca as $linha) {
             foreach ($linha as $ind => $val) {
+                if ($ind === 'contato_tipo') {
+                    $val = (new Tipo($val))->indice();
+                }
                 if ($ind === 'categoria_principal') {
                     $val = (new Categoria($val))->indice();
                 }
