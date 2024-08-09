@@ -11,8 +11,6 @@ use Modules\Data;
 
 trait PropriedadeModelTrait
 {
-    private int $idEmpresa;
-    private array $idMaisAcessado = [];
     public string $equipe;
     public Botao $favorito;
     public Categoria $categoria;
@@ -28,7 +26,7 @@ trait PropriedadeModelTrait
     public float $longitude;
     public array $endereco_estado;
     public string $empresa;
-    private bool $buscarFavorito = true;
+    public array $empresas;
     public string $convenio;
     public string $painel;
     public Data $data_criacao_de;
@@ -43,4 +41,7 @@ trait PropriedadeModelTrait
     public Data $data_cancelado_ate;
     public Data $data_auditoria_de;
     public Data $data_auditoria_ate;
+    private int $idEmpresa;
+    private array $idMaisAcessado = [];
+    private bool $buscarFavorito = true;
 }
