@@ -49,7 +49,7 @@ final class FenaeController extends Controller
                 empresa: $this->idEmpresa,
                 nome: $usuario['nome'],
                 cpf: $usuario['cpf'],
-                email: $usuario['email'],
+                email_pessoal: $usuario['email'],
                 grupo: $usuario['grupo']
             );
             $this->limparTemporario();

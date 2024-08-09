@@ -7,14 +7,28 @@ use Where\Where as WhereWhere;
 
 trait WhereTrait
 {
+    /**
+     * @return WhereWhere
+     */
     public function pegarWhere(): WhereWhere
     {
         $Where = new WhereWhere($this, $this->whereEquipe());
+
+        if (defined('TOKEN') && is_array(TOKEN) && array_key_exists('usuario', TOKEN)) {
+            if (!in_array('parceiro_externo_empresa', TOKEN['usuario']->permissao)) {
+                $Where->manual(['id_dono_empresa', TOKEN['empresa']->id]);
+            }
+            $idSubempresa = TOKEN['usuario']->id_admin_subempresa;
+            if (!empty($idSubempresa)) {
+                $Where->manual(['id_dono_subempresa', $idSubempresa]);
+            }
+        }
+
         $Where
-            ->manual(['id_dono_empresa', TOKEN['empresa']->id])
             ->dataDeAte('data_criacao')
-            ->linha(propriedade: 'categoria')
-            ->linha(propriedade:'endereco_estado', condicao: 'json')
+            ->linha(propriedade: 'categoria_principal')
+            ->linha(propriedade: 'tipo_indicador')
+            ->linha(propriedade: 'endereco_estado', condicao: 'json')
             ->linha(propriedade: 'status')
             ->seVazio(propriedade: 'pesquisa', vazio: false, callback: function () use ($Where) {
                 $pesquisa = '%' . $this->pesquisa . '%';
@@ -26,24 +40,27 @@ trait WhereTrait
                 ]);
             });
 
-        $idSubempresa = TOKEN['usuario']->id_admin_subempresa;
-        if (!empty($idSubempresa)) {
-            $Where->manual(['id_dono_subempresa', $idSubempresa]);
-        }
         return $Where;
     }
 
-    private function whereEquipe()
+    /**
+     * @return array|array[]
+     */
+    private function whereEquipe(): array
     {
+        if (!defined('TOKEN') || !is_array(TOKEN) || !array_key_exists('usuario', TOKEN)) {
+            return [];
+        }
+
         $idEquipe = TOKEN['usuario']->id;
         $permissao = TOKEN['usuario']->permissao;
 
-        if (!$this->pExiste('equipe') || empty($this->equipe)) {
+        if (!$this->pExiste('id_usuario_equipe') || empty($this->id_usuario_equipe)) {
             return in_array('parceiro_externo_equipe', $permissao) ? [] : [['id_dono_equipe', $idEquipe]];
         }
 
         $idEquipe = (new OrmHelper(TABELA_USUARIO_EQUIPE))->pegarIdPeloUuid(
-            $this->equipe,
+            $this->id_usuario_equipe,
             erroMensagem: 'Não foi encontrado o usuário pela busca.'
         );
         return [['id_dono_equipe', $idEquipe]];

@@ -2,6 +2,10 @@
 
 namespace App\Controllers\Api\Parceiro;
 
+use App\Classes\Parceiro\Externo\Ordem;
+use App\Classes\ParceiroLoja\Categoria;
+use App\Classes\ParceiroLoja\Indicador;
+use App\Classes\ParceiroLoja\Status;
 use App\Models\Api\Parceiro\Externo\DownloadModel;
 use App\Models\Api\Parceiro\Externo\ExternoEntity;
 use App\Models\Api\Parceiro\Externo\ExternoModel;
@@ -9,6 +13,9 @@ use Controller\Controller;
 use Erro\Excecao;
 use Http\Request;
 use Http\Response;
+use Modules\Data;
+use Modules\Pagina;
+use Modules\Quantidade;
 use System\Interface\ControllerBuscarInterface;
 use System\Interface\ControllerDownloadInterface;
 use System\Interface\ControllerListarInterface;
@@ -59,8 +66,20 @@ final class ExternoController extends Controller implements
      */
     public function getListar(Request $request): Response
     {
-        $ExternoModel = new ExternoModel();
-        $ExternoModel->set(lista: $request->dado());
+        $ExternoModel = new ExternoModel(
+            new Pagina($request->pagina),
+            new Quantidade($request->quantidade),
+            new Ordem($request->ordem),
+            $request->pesquisa,
+            $request->empresa,
+            $request->equipe,
+            new Indicador($request->indicador),
+            new Categoria($request->categoria),
+            $request->estado,
+            new Data($request->data_inicio),
+            new Data($request->data_final),
+            new Status($request->status)
+        );
         return mensagemSucesso($ExternoModel->listarDados());
     }
 

@@ -75,7 +75,7 @@ final class VersaoModel extends ORM implements
     {
         $versoes = $this
             ->campo([
-                'uuid', 'titulo','imagem','cor', 'valor_de', 'valor_por', 'status'
+                'uuid', 'titulo', 'imagem', 'cor', 'valor_de', 'valor_por', 'status'
             ])
             ->where($this->pegarWhere(), false)
             ->pagina($this->pegarPagina(), $this->pegarQuantidade())

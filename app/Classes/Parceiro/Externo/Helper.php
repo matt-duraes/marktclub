@@ -5,7 +5,8 @@ namespace App\Classes\Parceiro\Externo;
 final class Helper
 {
     public const GET_PARAMETRO = [
-        'pagina', '!quantidade', '!equipe', '!data_criacao_de', '!data_criacao_ate',
-        '!categoria', '!pesquisa', '!endereco_estado', '!status', '!ordem'
+        'pagina', '!quantidade', '!ordem', '!pesquisa', '!empresa', '!equipe',
+        '!categoria', '!indicador', '!estado', '!data_inicio', '!data_final',
+        '!status', '!id_dono_equipe', '!categoria_principal', '!tipo_indicador'
     ];
 }

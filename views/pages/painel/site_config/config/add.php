@@ -14,32 +14,32 @@ $Painel->coluna(callback: function () use ($Painel) {
         $Painel
             ->select(
                 name: 'empresa',
-                label: 'Empresa',
                 lista: 'empresa',
+                label: 'Empresa',
+                obrigatorio: true,
                 acao: 'add',
-                permissao: Helper::PERMISSAO_EMPRESA,
-                obrigatorio: true
+                permissao: Helper::PERMISSAO_EMPRESA
             )
             ->input(
                 name: 'titulo',
                 label: 'Título',
                 placeholder: 'Digite um título para o site',
-                contador: 60,
-                obrigatorio: true
+                obrigatorio: true,
+                contador: 60
             )
             ->input(
                 name: 'titulo_painel',
                 label: 'Título interno',
                 placeholder: 'Digite um título interno',
-                contador: 60,
-                obrigatorio: true
+                obrigatorio: true,
+                contador: 60
             )
             ->input(
                 name: 'descricao',
                 label: 'Descrição',
                 placeholder: 'Digite uma descrição geral',
-                contador: 160,
-                obrigatorio: true
+                obrigatorio: true,
+                contador: 160
             )
             ->url(
                 name: 'login_link',
@@ -64,9 +64,9 @@ $Painel->coluna(callback: function () use ($Painel) {
             )
             ->select(
                 name: 'status',
+                lista: (new Status())->select('Escolha uma opção'),
                 label: 'Status',
                 placeholder: 'Escolha um status',
-                lista: (new Status())->select('Escolha uma opção'),
                 obrigatorio: true
             );
     });
@@ -79,9 +79,9 @@ $Painel->coluna(callback: function () use ($Painel) {
             )
             ->select(
                 name: 'template_header',
+                lista: (new TemplateHeader())->select('Escolha uma opção'),
                 label: 'Template Cabeçalho',
                 placeholder: 'Template do cabeçalho',
-                lista: (new TemplateHeader())->select('Escolha uma opção'),
                 obrigatorio: true
             )
             ->numero(
@@ -91,16 +91,16 @@ $Painel->coluna(callback: function () use ($Painel) {
             )
             ->select(
                 name: 'template_footer',
+                lista: (new TemplateFooter())->select('Escolha uma opção'),
                 label: 'Template Footer',
                 placeholder: 'Template do footer',
-                lista: (new TemplateFooter())->select('Escolha uma opção'),
                 obrigatorio: true
             )
             ->select(
                 name: 'diretoria_tipo',
+                lista: (new DiretoriaTipo())->select('Escolha uma opção'),
                 label: 'Template Diretoria',
                 placeholder: 'Template da diretoria',
-                lista: (new DiretoriaTipo())->select('Escolha uma opção'),
                 obrigatorio: true
             )
             ->cor(
@@ -122,6 +122,10 @@ $Painel->coluna(callback: function () use ($Painel) {
     });
     $Painel->fieldset('Home', function () use ($Painel) {
         $Painel
+            ->switch(
+                name: 'home_banner',
+                label: 'Banner na home?'
+            )
             ->switch(
                 name: 'home_noticia_principal',
                 label: 'Banner de noticia?'
@@ -150,6 +154,10 @@ $Painel->coluna(callback: function () use ($Painel) {
             ->switch(
                 name: 'rede_footer',
                 label: 'Rede Sociais no footer?'
+            )
+            ->switch(
+                name: 'rss',
+                label: 'RSS?'
             );
     });
 });

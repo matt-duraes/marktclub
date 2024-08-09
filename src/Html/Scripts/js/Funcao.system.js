@@ -73,7 +73,6 @@ Object.defineProperty(Object.prototype, 'displayHide', {
         if (!(elemento instanceof NodeList)) {
             elemento = [elemento];
         }
-
         for (item of elemento) {
             item.classList.add('display_none');
         }
@@ -88,7 +87,6 @@ Object.defineProperty(Object.prototype, 'sumir', {
         if (!(elemento instanceof NodeList)) {
             elemento = [elemento];
         }
-
         for (item of elemento) {
             item.classList.add('display_none');
         }
@@ -244,6 +242,7 @@ Object.defineProperty(Object.prototype, 'classe', {
         if (!(elemento instanceof NodeList)) {
             elemento = [elemento];
         }
+
         let existe = true;
         for (const item of elemento) {
             let retorno;
@@ -259,6 +258,69 @@ Object.defineProperty(Object.prototype, 'classe', {
             }
         }
         return acao == '?' ? existe : this;
+    },
+    writable: true,
+    configurable: true,
+});
+
+Object.defineProperty(Object.prototype, 'focar', {
+    value() {
+        let elemento = this;
+        if (!(elemento instanceof NodeList)) {
+            if (elemento.closest('.input_select')) {
+                elemento = elemento.querySelector('.input_select_texto');
+            }
+            elemento.focus();
+            return;
+        }
+
+        let i = 0;
+        let quantidade = elemento.length;
+        for (; i < quantidade; ++i) {
+            if (i == quantidade - 1) {
+                return;
+            }
+            let itemAtual = elemento[i];
+            let itemProximo = elemento[i + 1];
+
+            const selectAtual = itemAtual.closest('.input_select');
+            const selectProximo = itemProximo.closest('.input_select');
+            if (selectAtual) {
+                itemAtual = selectAtual.querySelector('.input_select_texto');
+            }
+            if (selectProximo) {
+                itemProximo = selectProximo.querySelector('.input_select_texto');
+            }
+
+            const eObrigatorio = itemAtual.classList.contains('input_obrigatorio');
+            const eData = itemAtual.getAttribute('data-mascara') === '00/00/0000';
+            const eDataHora = itemAtual.getAttribute('data-mascara') === '00/00/0000 00:00:00';
+            itemAtual.addEventListener('keydown', e => {
+                const valor = itemAtual.valor();
+                if (e.key !== 'Enter' || (eObrigatorio && vazio(valor))) {
+                    return;
+                }
+                if (eData || eDataHora) {
+                    Calendario.staticFechar();
+                }
+                itemProximo.focus();
+            });
+        }
+        return this;
+    },
+    writable: true,
+    configurable: true,
+});
+
+Object.defineProperty(Object.prototype, 'desfocar', {
+    value() {
+        const elemento = this;
+        const blocoSelect = elemento.closest('.input_select');
+        if (blocoSelect) {
+            $('.input_select_texto', blocoSelect).blur();
+            return;
+        }
+        elemento.blur();
     },
     writable: true,
     configurable: true,
@@ -339,7 +401,11 @@ Object.defineProperty(Object.prototype, 'evento', {
         if (!(elemento instanceof NodeList)) {
             elemento = [elemento];
         }
-        for (const item of elemento) {
+        for (let item of elemento) {
+            const select = item.closest('.input_select');
+            if (select) {
+                item = select.querySelector('.input_select_texto');
+            }
             if (evento == 'enter') {
                 item.addEventListener('keydown', e => {
                     if (e.key == 'Enter') {
@@ -379,6 +445,81 @@ Object.defineProperty(Object.prototype, 'clonar', {
             item.removeAttribute('id');
         }
         return clone;
+    },
+    writable: true,
+    configurable: true,
+});
+
+Object.defineProperty(Object.prototype, 'validar', {
+    value() {
+        let elemento = this;
+        if (!(elemento instanceof NodeList)) {
+            elemento = [elemento];
+        }
+        for (let item of elemento) {
+            const bloco = item.closest('.bloco_input');
+            const valor = item.valor();
+            const eObrigatorio = item.classList.contains('input_obrigatorio');
+            const eContador = item.classList.contains('input_contador');
+            const eVazio = vazio(valor);
+            const mascara = item.getAttribute('data-mascara') || '';
+            const maximo = item.attr('data-contador');
+            const label = bloco.querySelector('label');
+            let campo = '';
+            if (label) {
+                campo = label.innerText;
+            }
+            if (vazio(campo)) {
+                campo = '"' + item.attr('placeholder') + '"';
+            }
+            if (vazio(campo)) {
+                campo = item.attr('name');
+            }
+
+            const eData = item.closest('.bloco_input_data') && mascara == '00/00/0000';
+            const eDataHora = item.closest('.bloco_input_data') && mascara == '00/00/0000 00:00:00';
+            const eCpf = mascara == '000.000.000-00';
+            const eNumero = mascara == 'numero';
+            const eMascara = !eData && !eDataHora && !eCpf && !eNumero && !vazio(mascara);
+
+            if (eObrigatorio && eVazio) {
+                return {
+                    titulo: 'Campo obrigatório!',
+                    mensagem: `O campo ${campo} é obrigatório.`,
+                };
+            } else if (!eVazio && eContador && parseInt(maximo) < parseInt(valor.length)) {
+                return {
+                    titulo: 'Campo inválido!',
+                    mensagem: `O campo ${campo} tem mais caracteres que o permitido.`,
+                };
+            } else if (!eVazio && eData && !validarData(valor)) {
+                return {
+                    titulo: 'Campo inválido!',
+                    mensagem: `O campo ${campo} não é uma data (00/00/0000) no formato correto.`,
+                };
+            } else if (!eVazio && eDataHora && !validarDataHora(valor)) {
+                return {
+                    titulo: 'Campo inválido!',
+                    mensagem: `O campo ${campo} não é uma data e hora (00/00/0000 00:00) no formato correto.`,
+                };
+            } else if (!eVazio && eCpf && !validarCpf(valor)) {
+                return {
+                    titulo: 'Campo inválido!',
+                    mensagem: `O campo ${campo} não é um número válido.`,
+                };
+            } else if (!eVazio && eNumero && !/^[0-9]{1,}$/.test(valor)) {
+                return {
+                    titulo: 'Campo inválido!',
+                    mensagem: `O campo ${campo} não é um número válido.`,
+                };
+            } else if (!eVazio && eMascara && !validarMascara(valor, mascara)) {
+                return {
+                    titulo: 'Campo inválido!',
+                    mensagem: `O campo ${campo} não está no formato ${mascara} válido.`,
+                };
+            }
+        }
+        return true;
     },
     writable: true,
     configurable: true,
@@ -561,6 +702,17 @@ const vazio = item => {
     }
     return true;
 };
+const validarMascara = (string, mascara) => {
+    if (string.length !== mascara.length) {
+        return false;
+    }
+    for (let i = 0; i < string.length; i++) {
+        if ((mascara[i] == '0' && !/\d/.test(string[i])) || (mascara[i] != '0' && string[i] !== mascara[i])) {
+            return false;
+        }
+    }
+    return true;
+};
 const validarInput = bloco => {
     return new Promise(resolve => {
         const lista = bloco.querySelectorAll('.input_obrigatorio');
@@ -641,7 +793,51 @@ const validarTelefone = function (telefone, formato, retorno) {
     return false;
 };
 
-const validarCpf = function (cpf) {};
+const validarCpf = function (cpf) {
+    cpf = cpf.replace(/\D/g, '');
+
+    if (
+        cpf.length !== 11 ||
+        cpf == '00000000000' ||
+        cpf == '11111111111' ||
+        cpf == '22222222222' ||
+        cpf == '33333333333' ||
+        cpf == '44444444444' ||
+        cpf == '55555555555' ||
+        cpf == '66666666666' ||
+        cpf == '77777777777' ||
+        cpf == '88888888888' ||
+        cpf == '99999999999'
+    ) {
+        return false;
+    }
+
+    let soma = 0;
+    let resto;
+    for (let i = 1; i <= 9; i++) {
+        soma += parseInt(cpf.substring(i - 1, i)) * (11 - i);
+    }
+    resto = (soma * 10) % 11;
+    if (resto == 10 || resto == 11) {
+        resto = 0;
+    }
+    if (resto !== parseInt(cpf.substring(9, 10))) {
+        return false;
+    }
+
+    soma = 0;
+    for (let i = 1; i <= 10; i++) {
+        soma += parseInt(cpf.substring(i - 1, i)) * (12 - i);
+    }
+    resto = (soma * 10) % 11;
+    if (resto == 10 || resto == 11) {
+        resto = 0;
+    }
+    if (resto !== parseInt(cpf.substring(10, 11))) {
+        return false;
+    }
+    return true;
+};
 
 const validarCnpj = function (cnpj) {};
 
@@ -971,4 +1167,17 @@ buscarCidadePeloEstadoViaBrowser = async (inputCidade, estado, valor, titulo) =>
         });
     } catch (error) {}
     formSelectOption(inputCidade, cidade, valor);
+};
+
+const dataBanco = data => {
+    if (!validarData(data) && !validarDataHora(data)) {
+        return data;
+    }
+    const explodeHora = data.split(' ');
+    let hora = '';
+    if (validarDataHora(data)) {
+        hora = ' ' + explodeHora[1];
+    }
+    const explodeData = explodeHora[0].split('/');
+    return explodeData[2] + '-' + explodeData[1] + '-' + explodeData[0] + hora;
 };

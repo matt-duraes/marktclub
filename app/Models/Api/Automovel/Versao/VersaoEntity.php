@@ -47,7 +47,8 @@ final class VersaoEntity extends Entity
             'Não encontrado!'
         );
     }
-    protected function regraPosBuscar():void
+
+    protected function regraPosBuscar(): void
     {
         $this->imagemUrl = arquivoPrivado($this->imagem);
     }

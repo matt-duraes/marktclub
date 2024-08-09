@@ -27,7 +27,6 @@ final class ModeloEntity extends Entity
     public string $texto_procedimento;
     public array $versao;
     public string|array $parceiro;
-
     public Data $data_inicio;
     public Data $data_final;
     public Publicado $publicado;

@@ -1,9 +1,10 @@
 <?php
 
+use App\Classes\ParceiroLoja\Categoria;
+use App\Classes\ParceiroLoja\Indicador;
+use App\Classes\ParceiroLoja\Status;
 use Helpers\ApiHelper;
 use Modules\EnderecoEstado;
-use App\Classes\ParceiroLoja\Status;
-use App\Classes\ParceiroLoja\Categoria;
 
 $Painel = new PainelConfig\Filtrar('parceiro_loja');
 
@@ -13,33 +14,66 @@ $equipe = (new ApiHelper(token: true))
     ->array()['dado'] ?? [];
 
 $Painel
-    ->input(name: 'pesquisa', label: 'Pesquisa', placeholder: 'Faça uma pesquisa')
+    ->input(
+        name: 'pesquisa',
+        label: 'Pesquisa',
+        placeholder: 'Faça uma pesquisa'
+    )
+    ->select(
+        name: 'empresa',
+        lista: 'empresa',
+        label: 'Empresa',
+        placeholder: 'Empresa',
+        permissao: 'parceiro_externo_empresa'
+    )
     ->bloco(function () use ($Painel, $equipe) {
-        if (temPermissao('parceiro_externo_equipe')) {
-            $Painel->select(name: 'equipe', label: 'Equipe', lista: $equipe);
-        }
-        $Painel->select(name: 'categoria', label: 'Categoria', placeholder: 'Escolha uma categoria', lista: (new Categoria())->select('Escolha uma opção'));
+        $Painel
+            ->select(
+                name: 'equipe',
+                lista: $equipe,
+                label: 'Equipe',
+                placeholder: 'Equipe',
+                permissao: 'parceiro_externo_equipe'
+            )
+            ->select(
+                name: 'categoria',
+                lista: (new Categoria())->select('Escolha uma opção'),
+                label: 'Categoria',
+                placeholder: 'Escolha uma categoria'
+            );
     })
-    ->data(name: ['data_criacao_de', 'data_criacao_ate'], label: 'Data de criação', placeholder: ['Data de criação', 'Data de criação'], separador: 'até')
+    ->data(
+        name: ['data_inicio', 'data_final'],
+        label: 'Data de criação',
+        placeholder: ['Data de criação', 'Data de criação'],
+        separador: 'até'
+    )
     ->select(
         name: 'status',
-        label: 'Status',
         lista: [
             Status::PROSPECCAO    => 'Prospecção',
             Status::CONCLUIDO     => 'Concluido',
             Status::SEM_INTERESSE => 'Sem interesse'
-        ]
+        ],
+        label: 'Status',
+        placeholder: 'Status'
+    )
+    ->select(
+        name: 'indicador',
+        lista: (new Indicador())->select('Escolha uma opção'),
+        label: 'Indicador',
+        placeholder: 'Indicador'
     )
     ->bloco(
+        callback: function () use ($Painel) {
+            foreach ((new EnderecoEstado())->select() as $ind => $val) {
+                $Painel->checkbox(name: 'estado[]', label: $val, value: $ind);
+            }
+        },
         coluna: 2,
         titulo: 'Endereço',
         mais: true,
-        todos: 'Marcar todos',
-        callback: function () use ($Painel) {
-            foreach ((new EnderecoEstado())->select() as $ind => $val) {
-                $Painel->checkbox(name: 'endereco_estado[]', label: $val, value: $ind);
-            }
-        }
+        todos: 'Marcar todos'
     );
 
 $Painel

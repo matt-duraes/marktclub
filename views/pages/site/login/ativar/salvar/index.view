@@ -1,10 +1,12 @@
 <form id="bloco_form_ativar" class="bloco_form_login form_geral" action="/" method="post">
     <div class="conteudo">
         <header>
-            <h1>ATIVAR CONTA</h1>
+            <div class="bloco">
+                <h1>ATIVAR CONTA</h1>
+            </div>
             <p>Preencha seus dados para completar o cadastro</p>
-            <i class="fechar pagina_fechar">@iconeFechar</i>
         </header>
+        <i class="fechar pagina_fechar">@iconeFechar</i>
 
         <input type="hidden" id="input_ativar_cpf_busca" value="{{$cpf}}">
         <input type="hidden" id="input_ativar_hash_busca" value="{{$hash}}">

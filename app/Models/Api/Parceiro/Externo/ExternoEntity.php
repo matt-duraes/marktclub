@@ -6,6 +6,7 @@ use ApiModel\Contato\ContatoEntity;
 use ApiModel\Endereco\EnderecoEntity;
 use ApiModel\PainelHistorico\HistoricoEntity;
 use App\Classes\ParceiroLoja\Categoria;
+use App\Classes\ParceiroLoja\Indicador;
 use App\Classes\ParceiroLoja\Status;
 use App\Classes\ParceiroLoja\TipoLoja;
 use Helpers\OrmHelper;
@@ -40,7 +41,7 @@ final class ExternoEntity extends Entity
     public string $mensagem;
     public string $url;
     public Status $status;
-    public string $tipo_indicador;
+    public Indicador $tipo_indicador;
     protected string $ormTabela = TABELA_PARCEIRO_LOJA;
     protected array $ormBuscar = [
         'titulo_interno', 'id_dono_equipe', 'categoria_principal', 'data_criacao',
@@ -52,6 +53,20 @@ final class ExternoEntity extends Entity
         'categoria_principal', 'tipo_loja', 'titulo_interno', 'url', 'status',
         'tipo_indicador'
     ];
+    protected string $ormValidarSalvar = '
+        titulo_interno|Nome da parceria|vazio|obrigatorio
+        categoria_principal|Categoria|vazio|obrigatorio|valido
+        tipo_indicador|Indicador|vazio|obrigatorio|valido
+        nome|Nome|vazio|obrigatorio|valido
+        telefone|Telefone|vazio|obrigatorio|valido
+        email|E-mail|vazio|obrigatorio|valido
+        endereco_cep|CEP|vazio|obrigatorio|valido
+        endereco_logradouro|Logradouro|vazio|obrigatorio
+        endereco_bairro|Bairro|vazio|obrigatorio
+        endereco_cidade|Cidade|vazio|obrigatorio
+        endereco_estado|Estado|vazio|obrigatorio|valido
+        mensagem|Mensagem|vazio|obrigatorio
+    ';
     protected array $id_admin_empresa;
     protected int $id_dono_empresa;
     protected int $id_dono_subempresa;
@@ -65,6 +80,7 @@ final class ExternoEntity extends Entity
             'nome', 'cpf', 'tipo', 'valor'
         ], ['id_vinculo', $this->id]);
 
+        $this->contato = [];
         foreach ($contatos as $contato) {
             if ((new Tipo($contato->tipo))->indice() === Tipo::EMAIL) {
                 $this->contato['email'] = $contato->valor;
@@ -73,7 +89,6 @@ final class ExternoEntity extends Entity
                 $this->contato['telefone'] = $contato->valor;
             }
             $this->contato['nome'] = $contato->nome;
-            $this->contato['cpf'] = $contato->cpf;
         }
     }
 
