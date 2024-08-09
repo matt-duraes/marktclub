@@ -74,11 +74,11 @@ final class EnderecoCep implements ModuleInterface
     /**
      * Pega o CEP com apenas números
      *
-     * @return string|int CEP com apenas números ou string vazio
+     * @return string CEP com apenas números ou string vazio
      */
-    public function numero(): string|int
+    public function numero(): string
     {
-        return !empty($this->cep) ? (int)$this->cep : '';
+        return !empty($this->cep) ? $this->cep : '';
     }
 
     private function validarCep(): bool

@@ -93,10 +93,10 @@ final class Telefone implements ModuleInterface
     /**
      * Pega o telefone com apenas números
      *
-     * @return string|int Número inteiro do telefone ou string vazia
+     * @return string Número do telefone ou string vazia
      */
-    public function numero(): string|int
+    public function numero(): string
     {
-        return !empty($this->telefone) ? (int)$this->telefone : '';
+        return !empty($this->telefone) ? $this->telefone : '';
     }
 }
