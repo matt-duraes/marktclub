@@ -85,11 +85,11 @@ final class Cnpj implements ModuleInterface
     /**
      * Pega o CNPJ no formato de apenas números
      *
-     * @return int|string CNPJ sem os pontos
+     * @return string CNPJ sem os pontos
      */
-    public function numero(): int|string
+    public function numero(): string
     {
-        return !empty($this->cnpj) ? (int)$this->cnpj : '';
+        return !empty($this->cnpj) ? $this->cnpj : '';
     }
 
     private function validarCnpj(): bool

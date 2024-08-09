@@ -23,16 +23,16 @@ $Doc
     ->pre('Usuário existe', '{
     "status": "sucesso",
     "dado": {
-        "nome": "Nome do usuário",
-        "cpf": "012.345.678-90",
+        "empresa": "e75ad922-649c-4263-a643-35755ede1ee0",
+        "cpf": "01234567890",
         "status": "LIBERADO"
     }
 }')
     ->pre('Usuário não existe:', '{
     "status": "erro",
     "erro": {
-        "nome": "",
-        "cpf": "012.345.678-90",
+        "empresa": "",
+        "cpf": "01234567890",
         "status": "RECUSADO"
     }
 }')

@@ -30,7 +30,7 @@ final class Contar implements ModuleInterface
 
     // doc
     /**
-     * Gera um modulo de botão
+     * Gera um modulo para contar um numero
      *
      * @param null|int|string $valor Valor podendo ser string sendo sim ou nao ou um int com
      *                               valor 1 para sim ou vazio para nao
