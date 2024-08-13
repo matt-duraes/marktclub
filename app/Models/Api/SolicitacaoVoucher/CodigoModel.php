@@ -139,7 +139,8 @@ final class CodigoModel extends ORM implements
     private function pegarEmpresa(string|int|null $id): array
     {
         $OrmHelper = new OrmHelper(TABELA_COMERCIAL_EMPRESA);
-        $where = validarUuid($id ?? '', false) ? ['uuid', $id] : ['id', $id];
+        $id = $id ?? '';
+        $where = validarUuid($id, false) ? ['uuid', $id] : ['id', $id];
         $empresa = $OrmHelper->pegarUltimoRegistro($where, ['id', 'nome_fantasia']);
         if (empty($empresa)) {
             return [
@@ -159,7 +160,8 @@ final class CodigoModel extends ORM implements
     private function pegarParceiro(string|int|null $id): array
     {
         $OrmHelper = new OrmHelper(TABELA_PARCEIRO_LOJA);
-        $where = validarUuid($id ?? '', false) ? ['uuid', $id] : ['id', $id];
+        $id = $id ?? '';
+        $where = validarUuid($id, false) ? ['uuid', $id] : ['id', $id];
         $parceiro = $OrmHelper->pegarUltimoRegistro($where, ['uuid', 'titulo']);
         if (empty($parceiro)) {
             return [
@@ -216,7 +218,8 @@ final class CodigoModel extends ORM implements
     private function pegarUsuario(string|int|null $id): array
     {
         $OrmHelper = new OrmHelper(TABELA_USUARIO_CLIENTE);
-        $where = validarUuid($id ?? '', false) ? ['uuid', $id] : ['id', $id];
+        $id = $id ?? '';
+        $where = validarUuid($id, false) ? ['uuid', $id] : ['id', $id];
         $usuario = $OrmHelper->pegarUltimoRegistro($where, ['id', 'nome']);
         if (empty($usuario)) {
             return [
