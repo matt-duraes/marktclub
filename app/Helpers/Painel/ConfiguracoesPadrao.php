@@ -527,6 +527,13 @@ final class ConfiguracoesPadrao
                 'solicitacao_credito_empresa'    => 'Todas as empresas'
             ]
         ],
+        'solicitacao_codigo'       => [
+            'titulo'    => 'Solicitação Código',
+            'permissao' => [
+                'solicitacao_codigo_index'   => 'Listar',
+                'solicitacao_codigo_empresa' => 'Todas as empresas'
+            ]
+        ],
         'saude_contratacao'        => [
             'titulo'    => 'Saúde Contratação',
             'permissao' => [
