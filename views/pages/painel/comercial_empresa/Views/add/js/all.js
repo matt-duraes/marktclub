@@ -37,7 +37,7 @@ window.addEventListener('load', () => {
     };
 
     if (inputTipoPagamento) {
-        inputTipoPagamento.addEventListener('formChange', () => {
+        inputTipoPagamento.evento('formChange', () => {
             tipoPagamentoMudou();
         });
     }
@@ -57,7 +57,7 @@ window.addEventListener('load', () => {
         tipoPagamentoMudou();
     }
 
-    inputFinalidadePrincipal.addEventListener('formChange', () => {
+    inputFinalidadePrincipal.evento('formChange', () => {
         finalidadeMudou();
     });
     const finalidadeMudou = () => {
@@ -88,7 +88,7 @@ window.addEventListener('load', () => {
     if (inputFinalidadePrincipal.value != '') {
         buscarListaFinalidadeSecundaria(inputFinalidadePrincipal.value, inputFinalidadeSecundaria.value);
         if (inputFinalidadePrincipal.value == 'publica') {
-            if(blocoDataEleicao) {
+            if (blocoDataEleicao) {
                 blocoDataEleicao.classList.remove('display_none');
             }
         }

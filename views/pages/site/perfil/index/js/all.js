@@ -34,7 +34,7 @@ window.addEventListener('load', () => {
     const buscarCidade = () => {
         buscarCidadePeloEstado(inputCidade, inputEstado.value, inputCidade.value, 'Escolha uma cidade');
     };
-    inputEstado.addEventListener('formChange', () => {
+    inputEstado.evento('formChange', () => {
         buscarCidade();
     });
     if (inputEstado.value != '') {

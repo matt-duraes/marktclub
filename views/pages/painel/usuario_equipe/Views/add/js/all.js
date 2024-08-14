@@ -23,7 +23,7 @@ window.addEventListener('load', () => {
     };
 
     if (inputEmpresa && inputSubempresa) {
-        inputEmpresa.addEventListener('formChange', () => {
+        inputEmpresa.evento('formChange', () => {
             buscarSubempresa(inputEmpresa.value);
         });
         buscarSubempresa(inputEmpresa.value, inputSubempresa.value);

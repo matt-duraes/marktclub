@@ -169,7 +169,7 @@ const loadingAtivar = () => {
         );
     }
     if (inputEnderecoEstado && inputEnderecoCidade) {
-        inputEnderecoEstado.addEventListener('formChange', () => {
+        inputEnderecoEstado.evento('formChange', () => {
             buscarCidadePeloEstado(inputEnderecoCidade, inputEnderecoEstado.value, '', 'Escolha uma cidade');
         });
     }

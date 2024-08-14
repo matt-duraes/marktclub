@@ -13,7 +13,7 @@ window.addEventListener('load', () => {
     const inputCor = $('#input_solicitacao_cor');
     const inputMensagem = $('#input_solicitacao_mensagem');
 
-    inputEnderecoEstado.addEventListener('formChange', () => {
+    inputEnderecoEstado.evento('formChange', () => {
         buscarCidadePeloEstado(inputEnderecoCidade, inputEnderecoEstado.value, '', 'Escolha uma cidade');
     });
     const salvarSolicitacao = async () => {

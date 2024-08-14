@@ -32,7 +32,7 @@ window.addEventListener('load', () => {
     }
 
     if (inputParceiro) {
-        inputParceiro.addEventListener('formChange', (e) => {
+        inputParceiro.evento('formChange', (e) => {
             adicionarTagItem(e.target.value, inputParceiroTexto.value);
         })
     }

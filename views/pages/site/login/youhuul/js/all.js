@@ -21,7 +21,7 @@ window.addEventListener('load', () => {
     });
 
     const fazerLogin = async () => {
-        if (botao.classe('aguarde', '?')) {
+        if (await botao.classe('aguarde', '?')) {
             return;
         }
 
