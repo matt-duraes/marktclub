@@ -8,7 +8,7 @@ window.addEventListener('load', () => {
     const inputFavorito = $('#input_favorito');
 
     if (inputSubcategoria) {
-        inputCategoria.addEventListener('formChange', () => {
+        inputCategoria.evento('formChange', () => {
             buscarSubCategoria(inputCategoria.value);
         });
 

@@ -31,7 +31,7 @@ const salvarChequeBonus = () => {
     const inputTermo = $('#input_termo');
     const inputAtualizar = $('#input_atualizar');
 
-    inputTipoUsuario.addEventListener('formChange', () => {
+    inputTipoUsuario.evento('formChange', () => {
         blocoDependente.classList.add('display_none');
         blocoTitular.classList.add('display_none');
         blocoEndereco.classList.add('display_none');
@@ -68,7 +68,7 @@ const salvarChequeBonus = () => {
         inputEnderecoEstado,
         true
     );
-    inputEnderecoEstado.addEventListener('formChange', () => {
+    inputEnderecoEstado.evento('formChange', () => {
         buscarCidadePeloEstado(inputEnderecoCidade, inputEnderecoEstado.value, '', 'Escolha uma cidade');
     });
 

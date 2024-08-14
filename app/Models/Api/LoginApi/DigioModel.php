@@ -53,7 +53,7 @@ final class DigioModel extends Entity
 
     private function buscarUsuarioNaApiDigio()
     {
-        if(eLocalhost()) {
+        if (eLocalhost()) {
             $this->dadoUsuario = [
                 'nome'          => 'André Rodrigues',
                 'email_pessoal' => 'andre@youhuul.com',
