@@ -1075,7 +1075,7 @@ const buscarEnderecoPeloCep = (
             );
         });
     } else {
-        inputCep.addEventListener('formChange', async () => {
+        inputCep.evento('formChange', async () => {
             buscarEnderecoNoBackEnd(
                 inputCep,
                 inputLogradouro,

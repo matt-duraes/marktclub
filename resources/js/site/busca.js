@@ -126,7 +126,7 @@ window.addEventListener('load', () => {
 
     // Buscar cidade
     if (inputEstado) {
-        inputEstado.addEventListener('formChange', () => {
+        inputEstado.evento('formChange', () => {
             buscarCidadePeloEstado(inputCidade, inputEstado.value, '', 'Escolha uma cidade');
         });
         if (inputEstado.value != '') {

@@ -253,16 +253,16 @@ window.addEventListener('load', () => {
     | ACAO DE SELECT
     |--------------------------------------------------------------------------
     */
-    inputDominioTipo.addEventListener('formChange', () => {
+    inputDominioTipo.evento('formChange', () => {
         mudarTipoDominio();
     });
-    inputVideoFormato.addEventListener('formChange', () => {
+    inputVideoFormato.evento('formChange', () => {
         monitorarFormatoVideo();
     });
-    inputSorteioMotivacao.addEventListener('formChange', () => {
+    inputSorteioMotivacao.evento('formChange', () => {
         motivacaoOutro();
     });
-    inputSorteioPremioEntrega.addEventListener('formChange', () => {
+    inputSorteioPremioEntrega.evento('formChange', () => {
         entregaOutro();
     });
 
