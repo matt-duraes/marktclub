@@ -32,8 +32,9 @@ final class LoginApiModel
                 'scope'        => '',
                 'state'        => uuid(),
             ])
-            ->post('/login/hash')->array()['dado'];
+            ->post('/login/hash')
+            ->array();
 
-        $this->token = $dado['token'];
+        $this->token = $dado['dado']['token'];
     }
 }

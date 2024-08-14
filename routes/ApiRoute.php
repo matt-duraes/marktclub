@@ -1,10 +1,10 @@
 <?php
 
-use App\Classes\Parceiro\Externo\Helper;
-use App\Middlewares\Api\MarktClubMiddleware;
-use App\Middlewares\Api\TokenMiddleware;
-use App\Middlewares\Api\TokenProvMiddleware;
 use Route\Route;
+use App\Classes\Parceiro\Externo\Helper;
+use App\Middlewares\Api\TokenMiddleware;
+use App\Middlewares\Api\MarktClubMiddleware;
+use App\Middlewares\Api\TokenProvMiddleware;
 
 Route
     ::nome('downloadRestrito')
@@ -1340,9 +1340,8 @@ Route
             ::nome('salvar')
             ::request([
                 'equipe', 'titulo_interno', 'tipo_loja', 'categoria_principal', 'convenio_direto', 'responsavel_nome',
-                'responsavel_cpf', 'responsavel_email', 'responsavel_telefone', 'responsavel_cargo', 'url',
-                '!nome_fantasia', '!razao_social', '!tipo_juridico', '!documento_cpf', '!documento_cnpj',
-                '!imagem_logo',
+                'responsavel_cpf', 'responsavel_email', 'responsavel_telefone', 'responsavel_cargo', 'url', 'app',
+                '!nome_fantasia', '!razao_social', '!tipo_juridico', '!documento_cpf', '!documento_cnpj', '!imagem_logo',
                 '!imagem_capa_desktop', '!imagem_capa_mobile', '!titulo', '!tipo_estabelecimento', '!origem_lead',
                 '!desconto', '!delivery', '!', '!data_contrato_inicio', '!data_contrato_vencimento', '!precisa_aditivo',
                 '!email_contato', '!tipo_procedimento', '!limite_voucher', '!prazo_voucher', '!prazo_voucher_fixo',
@@ -1361,9 +1360,8 @@ Route
                 '!titulo_interno', '!tipo_loja', '!equipe', '!responsavel_nome', '!responsavel_cpf',
                 '!responsavel_email',
                 '!responsavel_telefone', '!responsavel_cargo', '!imagem_logo', '!imagem_capa_desktop',
-                '!imagem_capa_mobile', '!titulo', '!tipo_estabelecimento', '!origem_lead', '!url', '!desconto',
-                '!delivery', '!convenio_direto', '!data_contrato_inicio', '!data_contrato_vencimento',
-                '!precisa_aditivo',
+                '!imagem_capa_mobile', '!titulo', '!tipo_estabelecimento', '!origem_lead', '!url', '!app', '!desconto',
+                '!delivery', '!convenio_direto', '!data_contrato_inicio', '!data_contrato_vencimento', '!precisa_aditivo',
                 '!email_contato', '!tipo_procedimento', '!limite_voucher', '!prazo_voucher', '!prazo_voucher_fixo',
                 '!contato_whatsapp', '!link_site', '!link_alias', '!link_bloqueado', '!texto_descricao',
                 '!texto_desconto',

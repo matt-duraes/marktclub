@@ -115,7 +115,7 @@ botaoContatoProximo.addEventListener('click', async () => {
 
 // ENDERECO
 buscarEnderecoPeloCep(inputCep, inputLogradouro, inputNumero, inputBairro, inputCidade, inputEstado, true);
-inputEstado.addEventListener('formChange', () => {
+inputEstado.evento('formChange', () => {
     buscarCidadePeloEstadoViaBrowser(inputCidade, inputEstado.value, '', 'Escolha uma cidade');
 });
 botaoEnderecoAnterior.addEventListener('click', () => {

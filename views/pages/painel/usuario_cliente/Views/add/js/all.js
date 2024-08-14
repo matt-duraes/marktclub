@@ -43,7 +43,7 @@ window.addEventListener('load', () => {
     };
 
     if (inputEmpresa) {
-        inputEmpresa.addEventListener('formChange', () => {
+        inputEmpresa.evento('formChange', () => {
             if (inputGrupo) {
                 buscarGrupo(inputEmpresa.value);
             }

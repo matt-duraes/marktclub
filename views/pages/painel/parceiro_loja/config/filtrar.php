@@ -80,10 +80,12 @@ $Painel
         placeholder: ['Data de publicação', 'Data de publicação'],
         separador: 'até'
     )
-    ->data(name: ['data_prospeccao_de', 'data_prospeccao_ate'],
+    ->data(
+        name: ['data_prospeccao_de', 'data_prospeccao_ate'],
         label: 'Data de prospecção',
         placeholder: ['Data de prospecção', 'Data de prospecção'],
-        separador: 'até')
+        separador: 'até'
+    )
     ->data(
         name: ['data_problema_de', 'data_problema_ate'],
         label: 'Data do problema',

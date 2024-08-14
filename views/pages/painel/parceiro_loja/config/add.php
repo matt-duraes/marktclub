@@ -165,7 +165,8 @@ $Painel->coluna(callback: function () use ($Painel) {
                 ],
             )
             ->telefone(name: 'contato_whatsapp', label: 'WhatsApp', placeholder: 'Número do WhatsApp')
-            ->uri(name: 'url', label: 'URL do clube', placeholder: 'Url do clube')
+            ->uri(name: 'url', label: 'URI do clube', placeholder: 'URI do clube', class: 'bloco_uri_normal display_none')
+            ->uri(name: 'app', label: 'Página no APP', placeholder: 'Página do APP', class: 'bloco_uri_pagina display_none')
             ->switch(name: 'delivery', label: 'Parceiro faz delivery?')
             ->switch(name: 'convenio_direto', label: 'É um convênio direto?');
     });

@@ -460,7 +460,7 @@ const fwFormBlocoSelectFechar = async () => {
     }
 
     if (fwFormSelectValorAtual != inputTexto.value) {
-        inputValue.dispatchEvent(new Event('formChange'));
+        inputTexto.dispatchEvent(new Event('formChange'));
     }
 
     await fwFormSelectObrigatorio(fwFormSelectAbertoAtual);

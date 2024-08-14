@@ -2,7 +2,6 @@
 
 namespace App\Models\Api\ParceiroLoja\Trait;
 
-use App\Classes\ParceiroLoja\CancelarMotivo;
 use Modules\Cpf;
 use Modules\Cnpj;
 use Modules\Data;
@@ -17,6 +16,7 @@ use App\Classes\ParceiroLoja\TipoLoja;
 use App\Classes\ParceiroLoja\Categoria;
 use App\Classes\ParceiroLoja\OrigemLead;
 use App\Classes\ParceiroLoja\TipoJuridico;
+use App\Classes\ParceiroLoja\CancelarMotivo;
 use App\Classes\ParceiroLoja\TipoProcedimento;
 use App\Classes\ParceiroLoja\TipoEstabelecimento;
 
@@ -45,6 +45,7 @@ trait PropriedadeTrait
     public TipoEstabelecimento $tipo_estabelecimento;
     public int $pontuacao;
     public string $url;
+    public string $app;
     public Botao $delivery;
     public Botao $convenio_direto;
     public Data $data_contrato_inicio;

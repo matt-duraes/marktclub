@@ -41,7 +41,12 @@ trait ValidarTrait
             texto_desconto|Texto do desconto|obrigatorio|vazio
             url|URL|obrigatorio|vazio
         ';
-        if ($this->tipo_loja->indice() != $this->tipo_loja::CASHBACK) {
+        if ($this->tipo_loja->indice() == TipoLoja::PAGINA) {
+            $this->ormValidarSalvar .= '
+                app|Página do APP|obrigatorio|vazio
+            ';
+        }
+        if ($this->tipo_loja->indice() != TipoLoja::CASHBACK) {
             $this->ormValidarSalvar .= '
                 texto_procedimento|Texto do procedimento|obrigatorio|vazio
                 desconto|Desconto curto|obrigatorio|vazio
