@@ -33,6 +33,7 @@ final class ClubeModel
             'logo_secundaria'         => $Construtor->logo_secundaria,
             'favicon'                 => $Construtor->favicon,
             'logo_footer'             => $Construtor->logo_footer,
+            'link_botao_sair'         => $Construtor->link_botao_sair,
             'link_login'              => $Construtor->link_login,
             'link_funcionario'        => $Construtor->link_funcionario,
             'link_cadastro'           => $Construtor->link_cadastro,

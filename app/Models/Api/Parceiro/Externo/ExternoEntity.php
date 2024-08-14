@@ -23,6 +23,7 @@ use Throwable;
 final class ExternoEntity extends Entity
 {
     public string $dono;
+    public array $captador = [];
     public array $contato;
     public string $titulo_interno;
     public string $dono_equipe;
@@ -45,7 +46,7 @@ final class ExternoEntity extends Entity
     protected string $ormTabela = TABELA_PARCEIRO_LOJA;
     protected array $ormBuscar = [
         'titulo_interno', 'id_dono_equipe', 'categoria_principal', 'data_criacao',
-        'status', 'tipo_indicador'
+        'status', 'tipo_indicador', 'id_usuario_equipe', 'data_atualizacao'
     ];
     protected array $ormInsert = [
         'endereco_estado' => '->estado_parceiro',
@@ -70,16 +71,29 @@ final class ExternoEntity extends Entity
     protected array $id_admin_empresa;
     protected int $id_dono_empresa;
     protected int $id_dono_subempresa;
+    protected int $id_usuario_equipe;
     protected int $id_dono_equipe;
     protected TipoLoja $tipo_loja;
 
     protected function regraPosBuscar(): void
     {
-        $this->dono = (new OrmHelper(TABELA_USUARIO_EQUIPE))->pegarUuidPeloId($this->id_dono_equipe);
-        $contatos = (new OrmHelper(TABELA_SISTEMA_CONTATO))->listar([
-            'nome', 'cpf', 'tipo', 'valor'
-        ], ['id_vinculo', $this->id]);
+        $OrmHelperEquipe = new OrmHelper(TABELA_USUARIO_EQUIPE);
+        $OrmHelperContato = new OrmHelper(TABELA_SISTEMA_CONTATO);
 
+        $this->dono = $OrmHelperEquipe->pegarUuidPeloId($this->id_dono_equipe);
+        $contatos = $OrmHelperContato->listar(['nome', 'cpf', 'tipo', 'valor'], ['id_vinculo', $this->id]);
+
+        if (!empty($this->id_usuario_equipe)) {
+            $captador = $OrmHelperEquipe->pegarUltimoRegistro([
+                'uuid', $this->id_usuario_equipe
+            ], ['nome_real'], 'object');
+            $this->captador = [
+                'id'   => $this->id_usuario_equipe,
+                'nome' => $captador->nome_real
+            ];
+        }
+
+        $this->contato = [];
         foreach ($contatos as $contato) {
             if ((new Tipo($contato->tipo))->indice() === Tipo::EMAIL) {
                 $this->contato['email'] = $contato->valor;
@@ -88,7 +102,6 @@ final class ExternoEntity extends Entity
                 $this->contato['telefone'] = $contato->valor;
             }
             $this->contato['nome'] = $contato->nome;
-            $this->contato['cpf'] = $contato->cpf;
         }
     }
 

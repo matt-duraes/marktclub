@@ -3,7 +3,7 @@
 return [
     'salvar' => [
         'empresa', 'titulo', 'logo_principal', 'logo_secundaria', 'favicon', 'logo_footer', 'header_tag',
-        'header_descricao', 'cor_principal', 'cor_secundaria', 'link_clube', 'link_login', 'link_cadastro',
+        'header_descricao', 'cor_principal', 'cor_secundaria', 'link_clube', 'link_botao_sair', 'link_login', 'link_cadastro',
         'link_salavip', 'link_app_ios', 'link_app_android', 'contato_telefone', 'contato_whatsapp',
         'contato_email', 'contato_horario', 'contato_endereco', 'menu_faq', 'menu_como_funciona',
         'menu_sair', 'menu_acesso_rapido', 'menu_loja', 'menu_mapa', 'menu_cinema',
