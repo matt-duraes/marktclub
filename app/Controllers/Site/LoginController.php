@@ -44,20 +44,31 @@ final class LoginController extends Controller
     public function getDigioApi(Request $request)
     {
         $clube = 'digio';
-        $link = (new ApiHelper(scope: 'login:' . $clube))
+        if (
+            is_array($_SERVER) &&
+            array_key_exists('HTTP_HOST', $_SERVER) &&
+            $_SERVER['HTTP_HOST'] == 'uberconta.temmaisvantagens.com.br'
+        ) {
+            $clube = 'uber';
+        }
+        $retorno = (new ApiHelper(scope: 'login:digio'))
             ->body([
                 'usuario' => $request->chave('client-id', ''),
                 'clube'   => $clube
             ])
             ->post('/login/digio')
-            ->object()->dado->link ?? LINK;
+            ->array() ?? LINK;
 
-        return new Response(url: $link);
+        if (!is_array($retorno) || !array_key_exists('dado', $retorno) || !array_key_exists('link', $retorno['dado'])) {
+            return mensagemErro('Erro!', 'Ocorreu um erro ao fazer seu login.', status: 403);
+        }
+
+        return new Response(url: $retorno['dado']['link']);
     }
 
     public function digio()
     {
-        return $this->loginBasico(
+        return $this->loginBaixarApp(
             titulo: 'Bem vindo ao Descontinho',
             texto: 'Para acessar seu clube, você deve ser correntista. Baixe o APP para seu celular'
         );
@@ -65,13 +76,13 @@ final class LoginController extends Controller
 
     public function uber()
     {
-        return $this->loginBasico(
+        return $this->loginBaixarApp(
             titulo: 'Bem vindo ao Uber Conta by Digio',
             texto: 'Para acessar seu clube, você deve ser correntista. Baixe o APP para seu celular'
         );
     }
 
-    private function loginBasico(
+    private function loginBaixarApp(
         string $titulo = '',
         string $texto = ''
     ) {
