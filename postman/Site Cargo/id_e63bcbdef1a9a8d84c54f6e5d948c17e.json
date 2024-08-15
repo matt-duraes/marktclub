@@ -1,0 +1,1 @@
+{"id":"id_e63bcbdef1a9a8d84c54f6e5d948c17e","token":"painel","metodo":"DELETE","nome":"\/site-cargo\/:id","uri":"{{LINK}}\/site-cargo\/$SITE_CARGO_ID","parametro":[],"body":[],"header":[],"variavel":[],"json":[],"documentacao":{"status":false,"descricao":"","requisicao":"","resposta":"","scope":"site_cargo:deletar"}}

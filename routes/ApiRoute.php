@@ -2920,6 +2920,51 @@ Route
     });
 
 Route
+    ::nome('site_cargo')
+    ::controller(App\Controllers\Api\SiteCargoController::class)
+    ::middleware(TokenMiddleware::class, 'token')
+    ::grupo(function () {
+        Route
+            ::nome('select')
+            ::middleware(TokenMiddleware::class, 'scope', ['site_cargo:select'])
+            ::get('/site-cargo/select');
+
+        Route
+            ::nome('buscar')
+            ::middleware(TokenMiddleware::class, 'scope', ['site_cargo:buscar'])
+            ::get('/site-cargo/{id}');
+
+        Route
+            ::nome('listar')
+            ::middleware(TokenMiddleware::class, 'scope', ['site_cargo:listar'])
+            ::request([
+                'pagina', '!quantidade', '!empresa', '!status'
+            ], 'json')
+            ::get('/site-cargo');
+
+        Route
+            ::nome('salvar')
+            ::middleware(TokenMiddleware::class, 'scope', ['site_cargo:salvar'])
+            ::request([
+                'titulo', 'status'
+            ])
+            ::post('/site-cargo');
+
+        Route
+            ::nome('atualizar')
+            ::middleware(TokenMiddleware::class, 'scope', ['site_cargo:atualizar'])
+            ::request([
+                '!titulo', '!status'
+            ])
+            ::put('/site-cargo/{id}');
+
+        Route
+            ::nome('deletar')
+            ::middleware(TokenMiddleware::class, 'scope', ['site_cargo:deletar'])
+            ::delete('/site-cargo/{id}');
+    });
+
+Route
     ::nome('publicacao_youtube')
     ::controller(App\Controllers\Api\PublicacaoYoutubeController::class)
     ::middleware(TokenMiddleware::class, 'token')
