@@ -17,8 +17,9 @@ $Painel
     ->select(
         name: 'parceiro',
         lista: [
-            'a' => 'a',
-            'b' => 'b'
+            'ca0bde20602db3ec777acbbcfb5a4c61'     => 'Bluefit',
+            'c3606826474815fcaf031e889025ce36'     => 'MADRUGA APP DE MOBILIDADE',
+            '7ee3ef80-ef1b-423b-8bcf-fc442fd7d6b4' => 'Baratão'
         ],
         titulo: 'Parceiro',
         label: 'Parceiro',
