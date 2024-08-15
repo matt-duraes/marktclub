@@ -238,7 +238,7 @@ final class CodigoModel extends ORM implements
         $OrmHelper = new OrmHelper(TABELA_USUARIO_CLIENTE);
         $where = validarUuid($id, false) ? ['uuid', $id] : ['id', $id];
         $usuario = $OrmHelper->pegarUltimoRegistro($where, ['id', 'nome']);
-        
+
         if (empty($usuario)) {
             return $empty;
         }

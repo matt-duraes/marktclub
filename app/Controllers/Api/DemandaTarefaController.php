@@ -47,7 +47,7 @@ final class DemandaTarefaController extends Controller implements
             pegarPropriedadeDaEntity(
                 $Tarefa,
                 lista: [
-                    'id', 'equipe', 'titulo', 'texto', 'tipo', 'data_producao_inicio',
+                    'id', 'equipe', 'titulo', 'texto', 'tipo', 'dificuldade', 'data_producao_inicio',
                     'data_producao_final', 'data_criacao', 'status'
                 ]
             ),
