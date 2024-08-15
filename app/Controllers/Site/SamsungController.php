@@ -12,8 +12,9 @@ final class SamsungController extends Controller
 {
     public function index(Request $request)
     {
+        $uriAtual = $_SERVER['REQUEST_URI'];
         $dadosUsuario = (new BuscarModel())->buscar();
-        $dadosParceiro = (new BuscarModelLoja(url: 'samsung'))->buscarDados();
+        $dadosParceiro = (new BuscarModelLoja(url: $uriAtual))->buscarDados();
 
         return view('samsung', [
             'menu'            => 'samsung',
