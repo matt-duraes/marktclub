@@ -138,15 +138,20 @@ final class CodigoModel extends ORM implements
      */
     private function pegarEmpresa(string|int|null $id): array
     {
+        $empty = [
+            'id'            => '',
+            'nome_fantasia' => ''
+        ];
+        if (empty($id)) {
+            return $empty;
+        }
+
         $OrmHelper = new OrmHelper(TABELA_COMERCIAL_EMPRESA);
-        $id = $id ?? '';
         $where = validarUuid($id, false) ? ['uuid', $id] : ['id', $id];
         $empresa = $OrmHelper->pegarUltimoRegistro($where, ['id', 'nome_fantasia']);
+
         if (empty($empresa)) {
-            return [
-                'id'            => '',
-                'nome_fantasia' => ''
-            ];
+            return $empty;
         }
         return $empresa;
     }
@@ -159,15 +164,20 @@ final class CodigoModel extends ORM implements
      */
     private function pegarParceiro(string|int|null $id): array
     {
+        $empty = [
+            'id'     => '',
+            'titulo' => ''
+        ];
+        if (empty($id)) {
+            return $empty;
+        }
+
         $OrmHelper = new OrmHelper(TABELA_PARCEIRO_LOJA);
-        $id = $id ?? '';
         $where = validarUuid($id, false) ? ['uuid', $id] : ['id', $id];
         $parceiro = $OrmHelper->pegarUltimoRegistro($where, ['uuid', 'titulo']);
+
         if (empty($parceiro)) {
-            return [
-                'id'     => '',
-                'titulo' => ''
-            ];
+            return $empty;
         }
         return $parceiro;
     }
@@ -217,15 +227,20 @@ final class CodigoModel extends ORM implements
      */
     private function pegarUsuario(string|int|null $id): array
     {
+        $empty = [
+            'id'   => '',
+            'nome' => ''
+        ];
+        if (empty($id)) {
+            return $empty;
+        }
+
         $OrmHelper = new OrmHelper(TABELA_USUARIO_CLIENTE);
-        $id = $id ?? '';
         $where = validarUuid($id, false) ? ['uuid', $id] : ['id', $id];
         $usuario = $OrmHelper->pegarUltimoRegistro($where, ['id', 'nome']);
+        
         if (empty($usuario)) {
-            return [
-                'id'   => '',
-                'nome' => ''
-            ];
+            return $empty;
         }
         return $usuario;
     }

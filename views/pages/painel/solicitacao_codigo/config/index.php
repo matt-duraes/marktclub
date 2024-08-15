@@ -12,7 +12,7 @@ $Painel
     ->campo('usuario->nome', 'Usuário', Index::TIPO_NORMAL)
     ->campo('codigo', 'Código', Index::TIPO_PEQUENO)
     ->campo('data_emissao', 'Data Emissão', Index::TIPO_PEQUENO, Index::FORMATAR_DATAHORA)
-    ->campo('data_vencimento', 'Data Vencimento', Index::TIPO_PEQUENO, Index::FORMATAR_DATAHORA)
+    ->campo('data_vencimento', 'Data Vencimento', Index::TIPO_PEQUENO, Index::FORMATAR_DATA)
     ->status('status', 'Status', new Status());
 
 return $Painel;

@@ -1,0 +1,1 @@
+{"id":"id_732341617dfd1219109ed09c74c0696b","token":"painel","metodo":"POST","nome":"\/site-cargo","uri":"{{LINK}}\/site-cargo","parametro":[],"body":[["texto",true,"titulo","Teste",""],["texto",true,"status","ativo",""]],"header":[],"variavel":[],"json":[],"documentacao":{"status":false,"descricao":"","requisicao":"","resposta":"","scope":"site_cargo:salvar"}}

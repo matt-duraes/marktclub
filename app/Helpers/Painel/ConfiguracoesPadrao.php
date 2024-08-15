@@ -700,6 +700,16 @@ final class ConfiguracoesPadrao
                 'site_menu_empresa'    => 'Todas as Empresas'
             ]
         ],
+        'site_cargo'               => [
+            'titulo'    => 'Cargos',
+            'permissao' => [
+                'site_cargo_index'   => 'Listar',
+                'site_cargo_add'     => 'Salvar',
+                'site_cargo_editar'  => 'Editar',
+                'site_cargo_deletar' => 'Deletar',
+                'site_cargo_empresa' => 'Todas as Empresas'
+            ]
+        ],
         'silium_comissao'          => [
             'titulo'    => 'Comissões do Silium (Cashback)',
             'permissao' => [

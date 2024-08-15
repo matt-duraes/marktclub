@@ -1,0 +1,1 @@
+{"id":"id_59fbfe21e01fb777567dae48c070c5fb","token":"painel","metodo":"PUT","nome":"\/site-cargo\/:id","uri":"{{LINK}}\/site-cargo\/$SITE_CARGO_ID","parametro":[],"body":[["texto",true,"titulo","",""],["texto",true,"status","",""]],"header":[],"variavel":[],"json":[],"documentacao":{"status":false,"descricao":"","requisicao":"","resposta":"","scope":"site_cargo:atualizar"}}
