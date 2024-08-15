@@ -807,7 +807,7 @@ if (!function_exists('painelInputLista')) {
             if (array_key_exists('placeholder', $input) && empty($input['placeholder'])) {
                 $input['placeholder'] = $input['label'];
             }
-            if (!array_key_exists('classe', $input)) {
+            if (!array_key_exists('class', $input)) {
                 $nameString = is_array($input['name']) ? $input['name'][0] : $input['name'];
                 $input['class'] = 'painel_' . $nameString;
             }

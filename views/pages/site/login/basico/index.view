@@ -23,13 +23,13 @@
             <p>{{$texto}}</p>
         </header>
 
-        @ if( !empty($android) || !empty($ios) ):
+        @ if( !empty(LINK_APP_ANDROID) || !empty(LINK_APP_IOS) ):
         <div class="bloco_app">
-            @ if( !empty($android) ):
-            <a href="{{$android}}"><img src="{{LINK_PADRAO}}/images/site/app_google.png" alt="[Download App Android]"></a>
+            @ if( !empty(LINK_APP_ANDROID) ):
+            <a href="{{LINK_APP_ANDROID}}"><img src="{{LINK_PADRAO}}/images/site/app_google.png" alt="[Download App Android]"></a>
             @ endif;
-            @ if( !empty($ios) ):
-            <a href="{{$ios}}"><img src="{{LINK_PADRAO}}/images/site/app_apple.png" alt="[Download App IOS]"></a>
+            @ if( !empty(LINK_APP_IOS) ):
+            <a href="{{LINK_APP_IOS}}"><img src="{{LINK_PADRAO}}/images/site/app_apple.png" alt="[Download App IOS]"></a>
             @ endif;
         </div>
         @ endif;

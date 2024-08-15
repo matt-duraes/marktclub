@@ -84,7 +84,6 @@ final class DownloadModel extends DownloadGeralModel
     }
 
     /**
-     * @return void
      * @throws Excecao
      */
     protected function buscarRegistro(): void

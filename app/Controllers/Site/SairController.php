@@ -9,7 +9,7 @@ final class SairController extends Controller
 {
     public function index()
     {
-        return $this->destruirSessao(LINK.'/login');
+        return $this->destruirSessao(LINK . '/login');
     }
 
     public function sairPersonalizado()
@@ -20,7 +20,7 @@ final class SairController extends Controller
     /**
      * Destruir sessão e redirecionar para página de login ou link personalizado
      *
-     * @param string $link_sair
+     * @param  string   $link_sair
      * @return Response
      */
     private function destruirSessao(string $link_sair): Response

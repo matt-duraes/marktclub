@@ -11,7 +11,8 @@ return [
         'cod' => 'uuid'
     ],
     'tag_novo' => [
-        'cod' => 'uuid'
+        'cod'  => 'uuid',
+        'menu' => 'clube'
     ],
     'solicitacao_cheque_bonus' => [
         'cod'                  => 'uuid',

@@ -16,13 +16,13 @@ final class SamsungController extends Controller
         $dadosParceiro = (new BuscarModelLoja(url: 'samsung'))->buscarDados();
 
         return view('samsung', [
-            'menu'         => 'samsung',
-            'banner'       => (new BannerModel())->home(),
-            'bannerFixo'   => (new BannerModel())->samsungFixo(),
-            'link'         => $dadosUsuario->link,
-            'email'        => $dadosUsuario->email,
-            'pessoal'      => $dadosUsuario->pessoal,
-            'trabalho'     => $dadosUsuario->trabalho,
+            'menu'            => 'samsung',
+            'banner'          => (new BannerModel())->home(),
+            'bannerFixo'      => (new BannerModel())->samsungFixo(),
+            'link'            => $dadosUsuario->link,
+            'email'           => $dadosUsuario->email,
+            'pessoal'         => $dadosUsuario->pessoal,
+            'trabalho'        => $dadosUsuario->trabalho,
             'linkArquivoSite' => $dadosParceiro->arquivo[0]->arquivo ?? '',
         ]);
     }

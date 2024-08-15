@@ -350,4 +350,24 @@ return [
         'cobrar_aposentado'       => 1,
         'status'                  => 1
     ],
+    [
+        'id'                      => 1982,
+        'cod'                     => '89293cbf6b7375554590367784933803',
+        'id_usuario_equipe'       => 1,
+        'titulo'                  => 'Uber',
+        'razao_social'            => 'Uber',
+        'nome_fantasia'           => 'Uber',
+        'cnpj'                    => 17895646000187,
+        'responsavel_nome'        => nomeCompletoAleatorio(),
+        'responsavel_cpf'         => cpfAleatorio(),
+        'responsavel_email'       => emailAleatorio(),
+        'responsavel_telefone'    => telefoneCelularAleatorio(),
+        'slug'                    => 'uber',
+        'tipo_pagamento'          => 1,
+        'contrato_valor'          => 1.2,
+        'contrato_dia_fechamento' => 1,
+        'contrato_dia_pagamento'  => 10,
+        'cobrar_aposentado'       => 1,
+        'status'                  => 1
+    ],
 ];

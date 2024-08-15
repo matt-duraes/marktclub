@@ -2,15 +2,15 @@
 
 namespace App\Models\Api\ParceiroLoja;
 
-use App\Classes\ParceiroLoja\Categoria;
-use App\Classes\ParceiroLoja\Status;
-use App\Models\Api\ParceiroLoja\Trait\PropriedadeTrait;
-use App\Models\Api\ParceiroLoja\Trait\ValidarTrait;
-use App\Models\Api\Trait\SistemaDataTrait;
-use Helpers\OrmHelper;
-use Modules\Botao;
-use Modules\Data;
 use ORM\Entity;
+use Modules\Data;
+use Modules\Botao;
+use Helpers\OrmHelper;
+use App\Classes\ParceiroLoja\Status;
+use App\Classes\ParceiroLoja\Categoria;
+use App\Models\Api\Trait\SistemaDataTrait;
+use App\Models\Api\ParceiroLoja\Trait\ValidarTrait;
+use App\Models\Api\ParceiroLoja\Trait\PropriedadeTrait;
 
 final class LojaEntity extends Entity
 {
@@ -24,29 +24,29 @@ final class LojaEntity extends Entity
         'nome_fantasia', 'razao_social', 'tipo_juridico', 'documento_cpf', 'documento_cnpj', 'titulo_interno',
         'tipo_loja', 'id_usuario_equipe', 'responsavel_telefone', 'responsavel_cargo', 'responsavel_nome',
         'responsavel_cpf', 'responsavel_email', 'imagem_logo', 'imagem_capa_desktop', 'imagem_capa_mobile',
-        'titulo', 'tipo_estabelecimento', 'origem_lead', 'url', 'delivery', 'convenio_direto', 'data_contrato_inicio',
-        'data_contrato_vencimento', 'precisa_aditivo', 'email_contato', 'tipo_procedimento', 'limite_voucher',
+        'titulo', 'tipo_estabelecimento', 'origem_lead', 'url', 'app', 'delivery', 'convenio_direto',
+        'data_contrato_inicio', 'data_contrato_vencimento', 'precisa_aditivo', 'email_contato', 'tipo_procedimento',
         'contato_whatsapp', 'link_site', 'link_alias', 'link_bloqueado', 'texto_descricao', 'texto_desconto',
         'texto_procedimento', 'texto_voucher', 'categoria_principal', 'categoria_lista', 'subcategoria_tag',
         'subcategoria_lista', 'id_admin_empresa', 'destaque', 'endereco_estado', 'pontuacao', 'desconto',
         'prazo_voucher', 'prazo_voucher_fixo', 'data_auditoria', 'confirmar_status', 'confirmar_titulo',
         'confirmar_texto', 'arquivo_painel', 'arquivo_clube', 'data_publicacao', 'status', 'data_prospeccao',
         'comissao_minima', 'comissao_maxima', 'texto_restricao', 'texto_outro', 'data_cancelado', 'data_problema',
-        'cancelar_motivo'
+        'cancelar_motivo', 'limite_voucher',
     ];
     protected array $ormSalvar = [
         'nome_fantasia', 'razao_social', 'tipo_juridico', 'documento_cpf', 'documento_cnpj', 'titulo_interno',
         'tipo_loja', 'id_usuario_equipe', 'responsavel_telefone', 'responsavel_cargo', 'responsavel_nome',
         'responsavel_cpf', 'responsavel_email', 'imagem_logo', 'imagem_capa_desktop', 'imagem_capa_mobile',
-        'titulo', 'tipo_estabelecimento', 'origem_lead', 'url', 'delivery', 'convenio_direto', 'data_contrato_inicio',
-        'data_contrato_vencimento', 'precisa_aditivo', 'email_contato', 'tipo_procedimento', 'limite_voucher',
+        'titulo', 'tipo_estabelecimento', 'origem_lead', 'url', 'app', 'delivery', 'convenio_direto',
+        'data_contrato_inicio', 'data_contrato_vencimento', 'precisa_aditivo', 'email_contato', 'tipo_procedimento',
         'contato_whatsapp', 'link_site', 'link_alias', 'link_bloqueado', 'texto_descricao', 'texto_desconto',
         'texto_procedimento', 'texto_voucher', 'categoria_principal', 'categoria_lista', 'subcategoria_tag',
         'subcategoria_lista', 'id_admin_empresa', 'destaque', 'endereco_estado', 'pontuacao', 'desconto',
         'prazo_voucher', 'prazo_voucher_fixo', 'data_auditoria', 'confirmar_status', 'confirmar_titulo',
         'confirmar_texto', 'arquivo_painel', 'arquivo_clube', 'data_publicacao', 'status', 'data_prospeccao',
         'comissao_minima', 'comissao_maxima', 'texto_restricao', 'texto_outro', 'data_cancelado', 'data_problema',
-        'cancelar_motivo'
+        'cancelar_motivo', 'limite_voucher',
     ];
     private OrmHelper $EmpresaOrm;
     private OrmHelper $EquipeOrm;

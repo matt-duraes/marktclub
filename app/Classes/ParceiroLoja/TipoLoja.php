@@ -11,6 +11,7 @@ final class TipoLoja extends Status
     public const FARMACIA = 'farmacia';
     public const PREMIUM = 'premium';
     public const CASHBACK = 'cashback';
+    public const PAGINA = 'pagina';
 
     /**
      * @param string|int|null $valor
@@ -24,6 +25,7 @@ final class TipoLoja extends Status
             self::FARMACIA    => 'Farmácia',
             self::PREMIUM     => 'Premium',
             self::CASHBACK    => 'Cashback',
+            self::PAGINA      => 'Página'
         ]);
     }
 }
