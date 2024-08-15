@@ -62,6 +62,7 @@ const adicionarNovaTarefa = item => {
     clone.attr({
         id: 'id_tarefa_' + item.id,
         'data-tipo': item.tipo_valor,
+        'data-dificuldade': item.dificuldade,
         'data-status': item.status_valor,
     });
 
@@ -73,8 +74,13 @@ const adicionarNovaTarefa = item => {
     blocoEquipe.css('backgroundImage', `url(${item.equipe.imagem})`);
     const editarDeletar = item.dono || usuarioGerente != 'nao' ? 'sim' : '';
 
+    const blocoTipoTexto = $('.item_tipo', clone);
+    const blocoTipo = $('.bloco_item_tipo', clone);
+    if (!vazio(item.tipo)) {
+        blocoTipo.aparecer();
+        blocoTipoTexto.texto(item.tipo);
+    }
     adicionarTexto(clone, '.item_titulo', item.titulo);
-    adicionarTexto(clone, '.item_tipo', item.tipo);
     adicionarTexto(clone, '.item_status', item.status);
     adicionarHtml(clone, '.item_texto', item.texto);
     adicionarTexto(clone, '.item_data_inicio', item.data_inicio);
@@ -154,9 +160,10 @@ const adicionarImagemEquipe = (bloco, id, nome, imagem) => {
     bloco.inicio(figure);
     ajudaLoading(figure);
 };
-const atualizarTarefaExistente = (id, titulo, texto, tipo) => {
+const atualizarTarefaExistente = (id, titulo, texto, tipo, dificuldade) => {
     const bloco = $('#id_tarefa_' + id);
     bloco.setAttribute('data-tipo', tipo);
+    bloco.setAttribute('data-dificuldade', dificuldade);
     adicionarTexto(bloco, '.item_titulo', titulo);
     adicionarHtml(bloco, '.item_texto', texto);
 };
@@ -169,8 +176,9 @@ const abrirPopupTarefaEditar = id => {
     const bloco = $('#id_tarefa_' + id);
     inputTarefaId.value = id;
     inputTarefaTitulo.value = bloco.querySelector('.item_titulo').innerText;
-    formValue(inputTarefaTipo, bloco.getAttribute('data-tipo'));
-    formValue(inputTarefaTexto, bloco.querySelector('.item_texto').innerHTML);
+    inputTarefaDificuldade.valor(bloco.attr('data-dificuldade'));
+    inputTarefaTipo.valor(bloco.attr('data-tipo'));
+    inputTarefaTexto.valor(bloco.querySelector('.item_texto').innerHTML);
 };
 
 // ADICIONAR/EDITAR DEMANDA

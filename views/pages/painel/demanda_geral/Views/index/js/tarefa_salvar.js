@@ -11,10 +11,10 @@ botaoSalvarTarefa.addEventListener('click', async () => {
     const id = inputTarefaId.value;
     const uri = id == '' ? '/demanda/tarefa-salvar' : '/demanda/tarefa-editar/' + id;
 
-    const titulo = inputTarefaTitulo.value;
-    const texto = inputTarefaTexto.value;
-    const tipo = inputTarefaTipo.value;
-    const dificuldade = inputTarefaDificuldade.value;
+    const titulo = inputTarefaTitulo.valor();
+    const texto = inputTarefaTexto.valor();
+    const tipo = inputTarefaTipo.valor();
+    const dificuldade = inputTarefaDificuldade.valor();
     const tarefaTipo = pegarTiposTarefa(id ? id : '', tipo);
 
     if (titulo == '') {
@@ -62,5 +62,5 @@ botaoSalvarTarefa.addEventListener('click', async () => {
         adicionarNovaTarefa(resposta.dado);
         return;
     }
-    atualizarTarefaExistente(id, titulo, texto, tipo);
+    atualizarTarefaExistente(id, titulo, texto, tipo, dificuldade);
 });

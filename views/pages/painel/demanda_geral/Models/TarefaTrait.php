@@ -57,6 +57,7 @@ trait TarefaTrait
                 'dono'         => $r->equipe == sessao('USUARIO.id'),
                 'titulo'       => $r->titulo,
                 'texto'        => $r->texto,
+                'dificuldade'  => $r->dificuldade,
                 'tipo'         => $Tipo->nome($r->tipo),
                 'tipo_valor'   => $r->tipo,
                 'data_inicio'  => dataBr($r->data_producao_inicio),
