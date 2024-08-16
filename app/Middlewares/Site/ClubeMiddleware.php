@@ -128,7 +128,7 @@ final class ClubeMiddleware extends ApiHelper
         define('CHAT', $clube->chat);
         define('ADMINISTRADO', $clube->administrado);
         define('TIPO_ATIVACAO', $clube->tipo_ativacao);
-
+        define('TIPO_CARGO', $clube->tipo_cargo);
         $pagina = $clube->menu;
         define('MENU_ACESSO_RAPIDO', $pagina->acesso_rapido);
         define('MENU_PREMIUM', $pagina->premium);

@@ -3,6 +3,7 @@
 use Helpers\ApiHelper;
 use App\Classes\Geral\Status;
 use App\Helpers\PrimeiroAcessoHelper;
+use App\Classes\ConstrutorClube\TipoCargo;
 use App\Classes\ConstrutorClube\TipoAtivacao;
 
 $Painel = new PainelConfig\Add(app: 'comercial-empresa', acao: $acao);
@@ -51,6 +52,12 @@ $Painel->coluna(callback: function () use ($Painel) {
                 label: 'Tipo de ativação',
                 placeholder: 'Qual o tipo de ativação?',
                 lista: (new TipoAtivacao())->select('Escolha um tipo')
+            )
+            ->select(
+                name: 'tipo_cargo',
+                label: 'Tipo Cargo',
+                placeholder: 'Qual sistema dos cargos?',
+                lista: (new TipoCargo())->select('Escolha um tipo  de cargo')
             );
     });
     $Painel->fieldset('SEO e status', function () use ($Painel) {

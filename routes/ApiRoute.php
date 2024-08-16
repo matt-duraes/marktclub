@@ -359,7 +359,7 @@ Route
                 'hash', 'nome', 'cpf', 'genero', 'senha', 'termo', 'data_nascimento', 'estado_civil',
                 'email_pessoal', 'email_trabalho', 'telefone_pessoal', 'telefone_trabalho', 'endereco_cep',
                 'endereco_logradouro', 'endereco_numero', '!trabalho_empresa', '!trabalho_cargo',
-                'endereco_complemento', 'endereco_bairro',
+                '!trabalho_cargo_personalizado', 'endereco_complemento', 'endereco_bairro',
                 'endereco_estado', 'endereco_cidade', '!tipo_usuario', '!empresa', '!grupo'
             ])
             ::put('/usuario-cliente/ativar');
@@ -1276,7 +1276,7 @@ Route
                 'menu_saude_florianopolis', 'menu_cashback', 'menu_indicar_usuario', 'menu_indicar_loja',
                 'menu_odontologico', 'menu_premium', 'menu_dependente', 'menu_carteira', 'menu_cupom',
                 'menu_salavip', 'menu_ponto_mais_acao', 'menu_credito_sicoob', 'menu_primeiro_acesso', 'chat_status',
-                'menu_meu_parceiro', 'administrado_status', 'api_status', 'tipo_ativacao', 'status',
+                'menu_meu_parceiro', 'administrado_status', 'api_status', 'tipo_ativacao','tipo_cargo' ,'status',
                 'menu_corrida', 'menu_show_nacional', 'menu_show_internacional', 'link_odontologico',
                 'campos_primeiro_acesso', 'grupo_label', 'grupo_placeholder', 'link_facebook', 'link_instagram',
                 'link_twitter', 'link_linkedin', 'link_youtube', 'link_tiktok', 'tela_login', '!copiar_padrao',
@@ -1299,7 +1299,7 @@ Route
                 '!menu_saude_florianopolis', '!menu_cashback', '!menu_indicar_usuario', '!menu_indicar_loja',
                 '!menu_odontologico', '!menu_ponto_mais_acao', '!menu_premium', '!menu_dependente', '!menu_carteira',
                 '!menu_cupom', '!menu_salavip', '!menu_credito_sicoob', '!menu_primeiro_acesso', '!chat_status',
-                '!menu_meu_parceiro', '!administrado_status', '!api_status', '!tipo_ativacao', '!status',
+                '!menu_meu_parceiro', '!administrado_status', '!api_status', '!tipo_ativacao','!tipo_cargo', '!status',
                 '!menu_corrida', '!menu_show_nacional', '!menu_show_internacional', '!link_odontologico',
                 '!campos_primeiro_acesso', '!grupo_label', '!grupo_placeholder', '!link_facebook', '!link_instagram',
                 '!link_twitter', '!link_linkedin', '!link_youtube', '!link_tiktok', '!tela_login', '!copiar_padrao',
