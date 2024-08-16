@@ -12,12 +12,9 @@ use Helpers\OrmHelper;
 use Http\Request;
 use Modules\Data;
 use System\Classes\Contato\Tipo;
-use System\Trait\Model\OrdemTrait;
 
 final class DownloadModel extends DownloadGeralModel
 {
-    use OrdemTrait;
-
     public string $id_dono_equipe;
     public string $categoria_principal;
     public string $titulo_interno;
@@ -26,20 +23,20 @@ final class DownloadModel extends DownloadGeralModel
     public string $data_cancelado;
     public string $data_criacao;
     public string $data_publicacao;
+    public ?Ordem $ordem = null;
+    public ?string $pesquisa = null;
+    public ?string $empresa = null;
+    public ?string $equipe = null;
+    public ?Indicador $indicador = null;
+    public ?Categoria $categoria = null;
+    public ?array $estado = null;
+    public ?Data $dataInicio = null;
+    public ?Data $dataFinal = null;
+    public ?Status $status = null;
     protected array $campoAceito = [
         'titulo_interno', 'data_criacao', 'data_publicacao', 'status', 'id_dono_equipe',
         'categoria_principal', 'data_cancelado', 'cancelar_motivo', 'tipo_indicador'
     ];
-    protected ?Ordem $ordem = null;
-    protected ?string $pesquisa = null;
-    protected ?string $empresa = null;
-    protected ?string $equipe = null;
-    protected ?Indicador $indicador = null;
-    protected ?Categoria $categoria = null;
-    protected ?array $estado = null;
-    protected ?Data $dataInicio = null;
-    protected ?Data $dataFinal = null;
-    protected ?Status $status = null;
 
     /**
      * @param Request $request
@@ -52,7 +49,7 @@ final class DownloadModel extends DownloadGeralModel
         parent::__construct($request, TABELA_PARCEIRO_LOJA, 'parceiro-externo');
         $this->validarRequest();
         $this->buscarRegistro();
-        $this->validarBusca();
+        $this->validarDados();
         $this->salvarLogDownload();
         $this->montarRetornoDownload();
         $this->salvarArquivo();
@@ -63,9 +60,6 @@ final class DownloadModel extends DownloadGeralModel
      */
     private function validarRequest(): void
     {
-        if (!empty($this->ordem) && !$this->ordem->vazio() && !$this->ordem->valido()) {
-            mensagemErro('Campo inválido!', 'A Ordem informada não é válida.');
-        }
         if (!empty($this->indicador) && !$this->indicador->vazio() && !$this->indicador->valido()) {
             mensagemErro('Campo inválido!', 'O Indicador informado não é válido.');
         }
@@ -91,7 +85,6 @@ final class DownloadModel extends DownloadGeralModel
         $this->busca = $this
             ->campo($this->campo)
             ->where($this->pegarWhere(), false)
-            ->order($this->pegarOrdem(new Ordem()))
             ->tabela(TABELA_SISTEMA_CONTATO)
             ->join('id_vinculo', 'uuid')
             ->campo([
@@ -106,7 +99,6 @@ final class DownloadModel extends DownloadGeralModel
     public function pegarWhere(): array
     {
         $where = [];
-        $where[] = ['status', (new Status(Status::PROSPECCAO))->numero()];
         if (!empty($this->pesquisa)) {
             $where[] = [
                 'OR',
@@ -116,7 +108,8 @@ final class DownloadModel extends DownloadGeralModel
             ];
         }
         if (!empty($this->equipe)) {
-            $where[] = ['id_dono_equipe', (new OrmHelper(TABELA_USUARIO_EQUIPE))->pegarIdPeloUuid($this->equipe)];
+            $id_dono_equipe = (new OrmHelper(TABELA_USUARIO_EQUIPE))->pegarIdPeloUuid($this->equipe);
+            $where[] = ['id_dono_equipe', $id_dono_equipe];
         } else {
             $where[] = ['id_dono_equipe', '!=', 'null'];
         }
@@ -151,10 +144,16 @@ final class DownloadModel extends DownloadGeralModel
         return $where;
     }
 
-    protected function validarBusca(): void
+    /**
+     * @throws Excecao
+     */
+    private function validarDados(): void
     {
         if (empty($this->busca)) {
-            $this->erroDownloadPadrao();
+            mensagemErro(
+                'Não encontrado registros',
+                'Não há registros com essa filtragem'
+            );
         }
     }
 
@@ -181,18 +180,5 @@ final class DownloadModel extends DownloadGeralModel
             $i++;
         }
         $this->busca = $retorno;
-    }
-
-    private function pegarUsuarioEquipe(): array
-    {
-        $OrmHelper = new OrmHelper(TABELA_USUARIO_EQUIPE);
-        $usuario = $OrmHelper->pegarUltimoRegistro(
-            ['uuid', $this->usuario],
-            ['id', 'permissao'],
-            'object',
-            'UUID não encontrado na base',
-            'Usuário não encontrado'
-        );
-        return jsonDecode($usuario->permissao, true, true);
     }
 }
