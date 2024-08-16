@@ -174,7 +174,7 @@ final class CodigoModel extends ORM implements
 
         $OrmHelper = new OrmHelper(TABELA_PARCEIRO_LOJA);
         $where = validarUuid($id, false) ? ['uuid', $id] : ['id', $id];
-        $parceiro = $OrmHelper->pegarUltimoRegistro($where, ['uuid', 'titulo']);
+        $parceiro = $OrmHelper->pegarUltimoRegistro($where, ['id', 'titulo']);
 
         if (empty($parceiro)) {
             return $empty;
