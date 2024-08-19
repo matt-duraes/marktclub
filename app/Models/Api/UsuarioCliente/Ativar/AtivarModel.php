@@ -2,23 +2,22 @@
 
 namespace App\Models\Api\UsuarioCliente\Ativar;
 
-use ORM\ORM;
-use stdClass;
-use Modules\Cpf;
-use Http\Request;
-use Modules\Data;
-use Modules\Nome;
-use Modules\Botao;
-use Modules\Email;
-use Modules\Senha;
-use Modules\Genero;
-use Modules\Telefone;
-use Modules\EnderecoCep;
-use Modules\EstadoCivil;
-use Modules\EnderecoEstado;
-use App\Classes\UsuarioCliente\TrabalhoCargo;
 use App\Classes\UsuarioCliente\TrabalhoEmpresa;
 use App\Models\Api\UsuarioCliente\Ativar\Trait\AtivarTrait;
+use Http\Request;
+use Modules\Botao;
+use Modules\Cpf;
+use Modules\Data;
+use Modules\Email;
+use Modules\EnderecoCep;
+use Modules\EnderecoEstado;
+use Modules\EstadoCivil;
+use Modules\Genero;
+use Modules\Nome;
+use Modules\Senha;
+use Modules\Telefone;
+use ORM\ORM;
+use stdClass;
 
 final class AtivarModel extends ORM
 {
@@ -47,7 +46,7 @@ final class AtivarModel extends ORM
     private string $endereco_bairro;
     private EnderecoEstado $endereco_estado;
     private string $endereco_cidade;
-    private TrabalhoCargo $trabalho_cargo;
+    private string|int|null $trabalho_cargo;
     private TrabalhoEmpresa $trabalho_empresa;
 
     public function __construct(
@@ -75,19 +74,6 @@ final class AtivarModel extends ORM
         $this->usuario = $usuario;
     }
 
-    private function whereEmail($id, $empresa, $email)
-    {
-        return [
-            ['id', '!=', $id],
-            ['id_admin_empresa', $empresa],
-            [
-                'OR',
-                ['email_pessoal', $email],
-                ['email_trabalho', $email]
-            ]
-        ];
-    }
-
     private function salvarUsuario()
     {
         $hoje = hoje();
@@ -113,7 +99,7 @@ final class AtivarModel extends ORM
                 'email_trabalho'       => $this->email_trabalho->email(),
                 'telefone_celular'     => $this->telefone_pessoal->numero(),
                 'telefone_fixo'        => $this->telefone_trabalho->numero(),
-                'trabalho_cargo'       => $this->trabalho_cargo->numero(),
+                'trabalho_cargo'       => $this->trabalho_cargo,
                 'trabalho_orgao'       => $this->trabalho_empresa->numero(),
                 'endereco_cep'         => $this->endereco_cep->numero(),
                 'endereco_logradouro'  => $this->endereco_logradouro,
@@ -131,5 +117,18 @@ final class AtivarModel extends ORM
         if (!$salvar) {
             mensagemErro('Erro!', $this->erroPadrao);
         }
+    }
+
+    private function whereEmail($id, $empresa, $email)
+    {
+        return [
+            ['id', '!=', $id],
+            ['id_admin_empresa', $empresa],
+            [
+                'OR',
+                ['email_pessoal', $email],
+                ['email_trabalho', $email]
+            ]
+        ];
     }
 }

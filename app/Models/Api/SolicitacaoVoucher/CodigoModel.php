@@ -7,7 +7,6 @@ use App\Classes\SolicitacaoCodigo\Status;
 use Erro\Excecao;
 use Helpers\OrmHelper;
 use Modules\Data;
-use Modules\DataHora;
 use Modules\Pagina;
 use Modules\Quantidade;
 use ORM\ORM;
@@ -33,7 +32,7 @@ final class CodigoModel extends ORM implements
      * @param string|null $empresa
      * @param string|null $usuario
      * @param string|null $parceiro
-     * @param DataHora    $dataEmissao
+     * @param Data        $dataEmissao
      * @param Data        $dataVencimento
      * @param Status      $status
      *
@@ -46,7 +45,7 @@ final class CodigoModel extends ORM implements
         private readonly ?string $empresa = null,
         private readonly ?string $usuario = null,
         private readonly ?string $parceiro = null,
-        private readonly DataHora $dataEmissao = new DataHora(),
+        private readonly Data $dataEmissao = new Data(),
         private readonly Data $dataVencimento = new Data(),
         private readonly Status $status = new Status()
     ) {
