@@ -103,6 +103,7 @@ final class ClubeModel
             'texto_login_dependente'  => $Construtor->texto_login_dependente,
             'texto_login_funcionario' => $Construtor->texto_login_funcionario,
             'tipo_ativacao'           => $Construtor->tipo_ativacao->indice(),
+            'tipo_cargo'           => $Construtor->tipo_cargo->indice(),
             'administrado'            => $Construtor->administrado_status->valor(),
             'tela_login'              => $Construtor->tela_login->valor(),
             'chat'                    => $Construtor->chat_status->valor(),

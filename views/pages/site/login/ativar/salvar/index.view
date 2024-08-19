@@ -69,6 +69,10 @@
             @if ( in_array('lotacao', CAMPOS_PRIMEIRO_ACESSO) ):
                 @? formSelect(name: 'ativar_lotacao', label: 'Lotação', placeholder: 'Lotação',  obrigatorio: true, lista: (new \App\Classes\UsuarioCliente\TrabalhoEmpresa)->select('Escolha uma empresa'), class: 'bloco_lotacao')
             @endif;
+            @if ((new \App\Classes\ConstrutorClube\TipoCargo(TIPO_CARGO))->indice() == \App\Classes\ConstrutorClube\TipoCargo::PERSONALIZADO):
+                @php $cargos = (new \App\Models\Site\Login\CargoModel())->buscarCargos();
+                @? formSelect(name: 'ativar_cargo_personalizado', label: 'Cargo', placeholder: 'Cargo',  obrigatorio: true, lista: $cargos['dado'], class: 'bloco_cargo')
+            @endif;
 
         </div>
         @if ( array_intersect(['endereco_cep', 'endereco_logradouro', 'endereco_numero', 'endereco_complemento', 'endereco_bairro', 'endereco_estado', 'endereco_cidade'], CAMPOS_PRIMEIRO_ACESSO)):

@@ -148,8 +148,8 @@ const loadingAtivar = () => {
     const inputTermo = $('#input_ativar_termo');
 
     const inputCargo = $('#input_ativar_cargo');
+    const inputCargoPersonalizado = $('#input_ativar_cargo_personalizado');
     const inputLotacao = $('#input_ativar_lotacao');
-
     if (
         inputEnderecoCep &&
         inputEnderecoLogradouro &&
@@ -211,6 +211,7 @@ const loadingAtivar = () => {
                 endereco_estado: pegarValorInput(inputEnderecoEstado),
                 endereco_cidade: pegarValorInput(inputEnderecoCidade),
                 trabalho_cargo: pegarValorInput(inputCargo),
+                trabalho_cargo_personalizado: pegarValorInput(inputCargoPersonalizado),
                 trabalho_empresa: pegarValorInput(inputLotacao),
                 tipo_usuario: tipo_usuario || '',
                 /* eslint-enable */

@@ -49,6 +49,7 @@ final class SalvarModel extends ApiHelper
                 'endereco_estado'      => $Crypt->encode((new EnderecoEstado($dado['endereco_estado']))->uf()),
                 'endereco_cidade'      => $Crypt->encode($dado['endereco_cidade']),
                 'trabalho_cargo'       => $Crypt->encode($dado['trabalho_cargo']),
+                'tipo_cargo' => $Crypt->encode($dado['trabalho_cargo_personalizado']),
                 'trabalho_empresa'     => $Crypt->encode($dado['trabalho_empresa']),
             ])
             ->put('/usuario-cliente/ativar');
