@@ -11,7 +11,6 @@ use Erro\Excecao;
 use Http\Request;
 use Http\Response;
 use Modules\Data;
-use Modules\DataHora;
 use Modules\Pagina;
 use Modules\Quantidade;
 use System\Interface\ControllerBuscarInterface;
@@ -68,7 +67,7 @@ class SolicitacaoCodigoController extends Controller implements
             $request->empresa,
             $request->usuario,
             $request->parceiro,
-            new DataHora($request->data_emissao),
+            new Data($request->data_emissao),
             new Data($request->data_vencimento),
             new Status($request->status)
         );
