@@ -63,15 +63,15 @@
         </div>
         @endif;
         <div class="lista">
+            @if ((new \App\Classes\ConstrutorClube\TipoCargo(TIPO_CARGO))->indice() == \App\Classes\ConstrutorClube\TipoCargo::PERSONALIZADO):
+                @php $cargos = (new \App\Models\Site\Login\CargoModel())->buscarCargos();
+                @? formSelect(name: 'ativar_cargo_personalizado', label: 'Cargo', placeholder: 'Cargo',  obrigatorio: true, lista: $cargos['dado'], class: 'bloco_cargo')
+            @endif;
             @if ( in_array('trabalho_cargo', CAMPOS_PRIMEIRO_ACESSO) ):
                 @? formSelect(name: 'ativar_cargo', label: 'Cargo', placeholder: 'Cargo',  obrigatorio: true, lista: (new \App\Classes\UsuarioCliente\TrabalhoCargo)->select('Escolha um cargo'), class: 'bloco_cargo')
             @endif;
             @if ( in_array('lotacao', CAMPOS_PRIMEIRO_ACESSO) ):
                 @? formSelect(name: 'ativar_lotacao', label: 'Lotação', placeholder: 'Lotação',  obrigatorio: true, lista: (new \App\Classes\UsuarioCliente\TrabalhoEmpresa)->select('Escolha uma empresa'), class: 'bloco_lotacao')
-            @endif;
-            @if ((new \App\Classes\ConstrutorClube\TipoCargo(TIPO_CARGO))->indice() == \App\Classes\ConstrutorClube\TipoCargo::PERSONALIZADO):
-                @php $cargos = (new \App\Models\Site\Login\CargoModel())->buscarCargos();
-                @? formSelect(name: 'ativar_cargo_personalizado', label: 'Cargo', placeholder: 'Cargo',  obrigatorio: true, lista: $cargos['dado'], class: 'bloco_cargo')
             @endif;
 
         </div>
