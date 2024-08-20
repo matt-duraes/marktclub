@@ -1,5 +1,6 @@
 <?php
 
+use Helpers\ApiHelper;
 use Modules\Genero;
 use Helpers\ListaHelper;
 use App\Classes\UsuarioLead\Status;
@@ -86,9 +87,10 @@ $Painel->coluna(callback: function () use ($Painel) {
 });
 
 $Lista = new ListaHelper();
+$trabalhoCargo = (new ApiHelper(token: true))->get('/site-cargo/select')->array()['dado'] ?? [];
 
 $Painel->replace(campo: 'trabalho_empresa', lista: (new TrabalhoEmpresa())->select());
-$Painel->replace(campo: 'trabalho_cargo', lista: (new TrabalhoCargo())->select());
+$Painel->replace(campo: 'trabalho_cargo', lista: !empty($trabalhoCargo) ? $trabalhoCargo : (new TrabalhoCargo())->select());
 $Painel->replace(campo: 'status', lista: (new Status())->select());
 $Painel->replace(campo: 'endereco_estado', lista: $Lista->estado()->r());
 $Painel->replace(campo: 'genero', lista: (new Genero())->select());

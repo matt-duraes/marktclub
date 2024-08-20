@@ -43,7 +43,7 @@ trait PropriedadeEntityTrait
     public Data $data_termo;
     public Botao $termo;
     public TrabalhoEmpresa $trabalho_empresa;
-    public TrabalhoCargo $trabalho_cargo;
+    public string|int $trabalho_cargo;
     public TipoPagamento $tipo_pagamento;
     public Genero $genero;
     public EstadoCivil $estado_civil;
