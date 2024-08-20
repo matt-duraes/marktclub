@@ -2,7 +2,6 @@
 
 namespace App\Models\Api\Parceiro\Externo;
 
-use App\Classes\Parceiro\Externo\Ordem;
 use App\Classes\ParceiroLoja\Categoria;
 use App\Classes\ParceiroLoja\Indicador;
 use App\Classes\ParceiroLoja\Status;
@@ -23,7 +22,6 @@ final class DownloadModel extends DownloadGeralModel
     public string $data_cancelado;
     public string $data_criacao;
     public string $data_publicacao;
-    public ?Ordem $ordem = null;
     public ?string $pesquisa = null;
     public ?string $empresa = null;
     public ?string $equipe = null;
@@ -47,12 +45,26 @@ final class DownloadModel extends DownloadGeralModel
         protected Request $request
     ) {
         parent::__construct($request, TABELA_PARCEIRO_LOJA, 'parceiro-externo');
+        $this->setarPropriedades();
         $this->validarRequest();
         $this->buscarRegistro();
         $this->validarDados();
         $this->salvarLogDownload();
         $this->montarRetornoDownload();
         $this->salvarArquivo();
+    }
+
+    private function setarPropriedades(): void
+    {
+        $this->pesquisa = $this->request->pesquisa ?? '';
+        $this->empresa = $this->request->empresa ?? '';
+        $this->equipe = $this->request->equipe ?? '';
+        $this->categoria = new Categoria($this->request->categoria);
+        $this->indicador = new Indicador($this->request->indicador);
+        $this->estado = $this->request->estado ?? [];
+        $this->dataInicio = new Data($this->request->data_inicio);
+        $this->dataFinal = new Data($this->request->data_final);
+        $this->status = new Status($this->request->status);
     }
 
     /**
@@ -152,7 +164,8 @@ final class DownloadModel extends DownloadGeralModel
         if (empty($this->busca)) {
             mensagemErro(
                 'Não encontrado registros',
-                'Não há registros com essa filtragem'
+                'Não há registros com essa filtragem',
+                400
             );
         }
     }
