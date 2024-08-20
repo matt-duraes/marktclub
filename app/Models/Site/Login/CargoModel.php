@@ -6,7 +6,7 @@ use Helpers\ApiHelper;
 
 final class CargoModel
 {
-    public function buscarCargos(): array
+    public function buscarLotacao(): array
     {
         $cargos = (new ApiHelper('site_cargo:select'))
                     ->get('/site-cargo/select')
