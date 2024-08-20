@@ -36,8 +36,8 @@
     @ endif;
 
     @ if( $tipo == 'loja' ):
-    <div class="bloco_especial {{isset($Busca) && $Busca->filtro ? 'separar' : ''}}" id="bloco_especial">
-        <div class="menu"><i class="botao_menu_mobile">@iconeMenuMobile</i></div>
+    <div class="bloco_especial {!!$webview ? 'conteudo_webview' : ''!!} {{isset($Busca) && $Busca->filtro ? 'separar' : ''}}" id="bloco_especial">
+        <div class="menu {{$webview ? 'display_none_webview' : ''}}"><i class="botao_menu_mobile">@iconeMenuMobile</i></div>
         <div class="scroll">
             <div class="conteudo">
                 <div class="bg">

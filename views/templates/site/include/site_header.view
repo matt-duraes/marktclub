@@ -1,6 +1,6 @@
 <div id="botao_swiped_esquerdo"></div>
 
-<div id="header_principal">
+<div id="header_principal" class="{!!$webview ? 'display_none_webview' : ''!!}">
     <i class="botao botao_menu_mobile" data-test="botao_menu_mobile">@iconeMenuMobile</i>
     <figure>
         <a href="@route(index.index)">
@@ -9,12 +9,12 @@
         </a>
     </figure>
 </div>
-<div id="header_principal_fixo">
+<div id="header_principal_fixo" class="{!!$webview ? 'display_none_webview' : ''!!}">
     <i class="botao botao_menu_mobile">@iconeMenuMobile</i>
 </div>
 
 @ if(!$melhorIdade) :
-<nav id="menu_principal" class="menu_fechado">
+<nav id="menu_principal" class="menu_fechado {!!$webview ? 'display_none_webview' : ''!!}">
     <div class="bg"></div>
     <div class="conteudo">
         <figure class="{{CLUBE_LOGO_CLASSE}} bloco_logo_menu">
@@ -70,5 +70,5 @@
     </div>
 </nav>
 
-<main id="conteudo_principal">
+<main id="conteudo_principal" class="{!!$webview ? 'conteudo_webview' : ''!!}">
 @endif

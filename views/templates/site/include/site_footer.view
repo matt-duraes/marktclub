@@ -1,6 +1,6 @@
 </main>
 
-<footer id="rodape_principal">
+<footer id="rodape_principal" class="{!!$webview ? 'display_none_webview' : ''!!}">
     <div class="rodape_conteudo">
     @ if( !empty(CONTATO_TELEFONE) || !empty(CONTATO_WHATSAPP) || !empty(CONTATO_EMAIL) || !empty(CONTATO_HORARIO)):
         <section class="bloco bloco_contato">
