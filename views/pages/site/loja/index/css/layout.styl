@@ -181,6 +181,8 @@
     margin-top: 0
     padding-top: 0
     right: 20px
+    &.conteudo_webview
+        max-width: calc(100% - 40px)
     .conteudo
         justify-content: flex-start
     .conteudo .bg
@@ -208,15 +210,22 @@
         top: 0
         left: 0
         background-color: $corBrancoPreto
+        &.conteudo_webview
+            max-width: 100%
         .menu
             display: flex
         .scroll
             width: calc(100% - 60px)
             min-width: calc(100% - 60px)
+        &.conteudo_webview .scroll
+            width: 100%
+            min-width: 100%
         .conteudo .bg
             border-radius: 0
             padding: 10px 20px 10px 0
             box-shadow: none
+        &.conteudo_webview .bg
+            padding-left: 20px
         .conteudo .bg .item
             padding: 0 10px
         .atualizar
@@ -250,6 +259,8 @@
     right: 0
     z-index: 5
     background: #FFF
+    &.conteudo_webview
+        width: 100%
     .atualizar
         height: 30px
         line-height: 30px

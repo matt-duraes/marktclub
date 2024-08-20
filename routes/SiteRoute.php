@@ -357,7 +357,7 @@ Route
             ::nome('buscar')
             ::request([
                 '!estado', '!categoria', '!subcategoria', '!estabelecimento', '!pesquisa', '!ordem',
-                '!latitude', '!longitude', '!acessado', '!favorito', '!cidade'
+                '!latitude', '!longitude', '!acessado', '!favorito', '!cidade', '!webview'
             ])
             ::get('/convenios/buscar');
         Route
