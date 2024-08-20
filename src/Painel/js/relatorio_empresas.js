@@ -2,7 +2,7 @@
 
 const blocoCheckboxEmpresa = document.querySelector('.bloco_checkbox');
 const botaoFiltro = document.querySelector('.botao_empresa');
-const inputMarcarTodos = document.querySelector("#input_marcar_todos");
+const inputMarcarTodos = document.querySelector('#input_marcar_todos');
 const headerResto = document.querySelector('#header_template .bloco_app .resto');
 const botaoBuscar = document.getElementById('botao_buscar_relatorio');
 
@@ -26,15 +26,15 @@ window.addEventListener('load', () => {
     if (blocoCheckboxEmpresa) {
         inputMarcarTodos.addEventListener('change', lidarMarcarTodos);
 
-        blocoCheckboxEmpresa.addEventListener('change', (e) => {
+        blocoCheckboxEmpresa.addEventListener('change', e => {
             inputMarcarTodos.checked = false;
         });
     }
 
     if (inputParceiro) {
-        inputParceiro.evento('formChange', (e) => {
+        inputParceiro.evento('formChange', e => {
             adicionarTagItem(e.target.value, inputParceiroTexto.value);
-        })
+        });
     }
 });
 
@@ -44,10 +44,10 @@ window.addEventListener('load', () => {
 |---------------------------------------------- ----------------------------
 */
 
-const lidarMarcarTodos = (e) => {
+const lidarMarcarTodos = e => {
     const checkboxes = blocoCheckboxEmpresa.querySelectorAll('input[type=checkbox]');
 
-    checkboxes.forEach((checkbox) => {
+    checkboxes.forEach(checkbox => {
         checkbox.checked = e.target.checked;
         const div = checkbox.parentNode;
         const label = div.querySelector('label');
@@ -60,7 +60,7 @@ const lidarMarcarTodos = (e) => {
             label.classList.remove('checked');
         }
     });
-}
+};
 
 /*
 |--------------------------------------------------------------------------
@@ -89,7 +89,7 @@ const adicionarTagItem = (id, value) => {
     });
 
     listaParceiro.appendChild(item);
-}
+};
 
 /*
 |--------------------------------------------------------------------------
@@ -116,7 +116,7 @@ function adicionarBotaoFiltro(bloco) {
 */
 
 const pegarValoresMarcadosParceiro = () => {
-    if(!listaParceiro) return '';
+    if (!listaParceiro) return '';
 
     let valoresMarcados = [];
     let tags = listaParceiro.querySelectorAll('.tag_item');
@@ -125,10 +125,10 @@ const pegarValoresMarcadosParceiro = () => {
     }
 
     return valoresMarcados;
-}
+};
 
 const pegarValoresMarcadosEmpresa = () => {
-    if(!blocoCheckboxEmpresa) return '';
+    if (!blocoCheckboxEmpresa) return '';
 
     let valoresMarcados = [];
     let checkboxes = blocoCheckboxEmpresa.getElementsByTagName('input');
@@ -139,5 +139,3 @@ const pegarValoresMarcadosEmpresa = () => {
     }
     return valoresMarcados;
 };
-
-

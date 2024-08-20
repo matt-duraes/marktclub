@@ -1338,7 +1338,7 @@ Route
             ::nome('salvar')
             ::request([
                 'equipe', 'titulo_interno', 'tipo_loja', 'categoria_principal', 'convenio_direto', 'responsavel_nome',
-                'responsavel_cpf', 'responsavel_email', 'responsavel_telefone', 'responsavel_cargo', 'url',
+                'responsavel_cpf', 'responsavel_email', 'responsavel_telefone', 'responsavel_cargo', 'url', 'app',
                 '!nome_fantasia', '!razao_social', '!tipo_juridico', '!documento_cpf', '!documento_cnpj', '!imagem_logo',
                 '!imagem_capa_desktop', '!imagem_capa_mobile', '!titulo', '!tipo_estabelecimento', '!origem_lead',
                 '!desconto', '!delivery', '!', '!data_contrato_inicio', '!data_contrato_vencimento', '!precisa_aditivo',
@@ -1356,14 +1356,15 @@ Route
                 '!nome_fantasia', '!razao_social', '!tipo_juridico', '!documento_cpf', '!documento_cnpj',
                 '!titulo_interno', '!tipo_loja', '!equipe', '!responsavel_nome', '!responsavel_cpf', '!responsavel_email',
                 '!responsavel_telefone', '!responsavel_cargo', '!imagem_logo', '!imagem_capa_desktop',
-                '!imagem_capa_mobile', '!titulo', '!tipo_estabelecimento', '!origem_lead', '!url', '!desconto',
+                '!imagem_capa_mobile', '!titulo', '!tipo_estabelecimento', '!origem_lead', '!url', '!app', '!desconto',
                 '!delivery', '!convenio_direto', '!data_contrato_inicio', '!data_contrato_vencimento', '!precisa_aditivo',
                 '!email_contato', '!tipo_procedimento', '!limite_voucher', '!prazo_voucher', '!prazo_voucher_fixo',
                 '!contato_whatsapp', '!link_site', '!link_alias', '!link_bloqueado', '!texto_descricao', '!texto_desconto',
                 '!texto_procedimento', '!texto_voucher', '!categoria_principal', '!categoria_lista', '!subcategoria_tag',
                 '!subcategoria_lista', '!empresa', '!destaque', '!endereco_estado', '!pontuacao', '!confirmar_status',
                 '!confirmar_titulo', '!confirmar_texto', '!arquivo_painel', '!arquivo_clube', '!cupom_desconto',
-                '!status', '!comissao_minima', '!comissao_maxima', '!texto_restricao', '!texto_outro', '!cancelar_motivo'
+                '!status', '!comissao_minima', '!comissao_maxima', '!texto_restricao', '!texto_outro',
+                '!cancelar_motivo'
             ])
             ::put('/parceiro-loja/{id}');
         Route

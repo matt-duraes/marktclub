@@ -38,18 +38,19 @@ $Painel->coluna(callback: function () use ($Painel) {
                 contador: 100,
             )
             ->select(
-                name: 'tipo_loja',
-                label: 'Tipo de loja',
-                placeholder: 'Escolha um tipo de loja',
-                lista: (new TipoLoja())->select('Escolha uma opção')
-            )
-            ->select(
                 name: 'categoria_principal',
                 label: 'Categoria',
                 placeholder: 'Categoria',
                 lista: $Categoria->select('Escolha uma opção')
             )
-            ->uri(name: 'url', label: 'URL do clube', placeholder: 'Url do clube')
+            ->select(
+                name: 'tipo_loja',
+                label: 'Tipo de loja',
+                placeholder: 'Escolha um tipo de loja',
+                lista: (new TipoLoja())->select('Escolha uma opção')
+            )
+            ->uri(name: 'url', label: 'URI do clube', placeholder: 'URI do clube', class: 'bloco_uri_normal')
+            ->uri(name: 'app', label: 'Página no APP', placeholder: 'Página do APP', class: 'bloco_uri_pagina display_none')
             ->switch(name: 'convenio_direto', label: 'É um convênio direto?');
     });
 

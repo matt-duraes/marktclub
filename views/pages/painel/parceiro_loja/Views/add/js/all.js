@@ -2,6 +2,7 @@
 // @painel "app_geral_add"
 
 window.addEventListener('load', () => {
+    const inputTipoLoja = $('#input_tipo_loja');
     const inputTipoProcedimento = $('#input_tipo_procedimento');
     const inputTipoJuridico = $('#input_tipo_juridico');
     const inputDocumentoCpf = $('#input_documento_cpf');
@@ -105,4 +106,19 @@ window.addEventListener('load', () => {
         blocoConfirmarTexto.sumir();
     };
     mudarConfirmarTexto();
+
+    if (inputTipoLoja) {
+        const blocoUriNormal = $('.bloco_uri_normal');
+        const blocoUriPagina = $('.bloco_uri_pagina');
+        inputTipoLoja.evento('formChange', () => {
+            const valor = inputTipoLoja.valor();
+            if (valor == 'pagina') {
+                blocoUriNormal.sumir();
+                blocoUriPagina.aparecer();
+                return;
+            }
+            blocoUriNormal.aparecer();
+            blocoUriPagina.sumir();
+        });
+    }
 });

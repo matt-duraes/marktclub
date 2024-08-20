@@ -1,4 +1,4 @@
-<div id="bloco_loja_mapa">
+<div id="bloco_loja_mapa" class="{!!$webview ? 'conteudo_webview' : ''!!}">
     <div id="botao_atualizar_mapa" class="atualizar display_none">Buscar nessa região</div>
     <div id="bloco_google_maps" class="mapa"></div>
     <input type="hidden" id="input_loja_latitude" value="{{$Busca->latitude}}">
@@ -16,7 +16,7 @@
         ></article>
         @ endforeach;
     </div>
-    <div class="bloco_zoom">
+    <div class="bloco_zoom {!!$webview ? 'display_none_webview' : ''!!}">
         <div class="botao" id="botao_zoom_mais">@iconeMais()</div>
         <div class="botao" id="botao_zoom_menos">@iconeMenos()</div>
     </div>

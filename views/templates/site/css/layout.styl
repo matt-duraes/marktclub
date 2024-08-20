@@ -82,7 +82,8 @@ a
     padding-right: 10px
 .display_none
     display: none
-
+.display_none_webview
+    display: none !important
 .mobile
     display: none !important
 @media screen and (max-width: 1000px)
@@ -445,6 +446,10 @@ a
     align-items: center
     padding: 20px 20px 60px
     z-index: 1
+    &.conteudo_webview
+        width: 100%
+        margin-left: 0
+        padding-top: 20px
 @media screen and (max-width:1250px)
     #conteudo_principal
         width: 100%
