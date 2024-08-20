@@ -81,7 +81,6 @@ final class ClienteEntity extends Entity
         telefone_pessoal|Telefone pessoal|telefone
         telefone_trabalho|Telefone de trabalho|telefone
         trabalho_empresa|Empresa que trabalha|valido
-        trabalho_cargo|Cargo na empresa|valido
         tipo_pagamento|Tipo de pagamento|valido
         senha|Senha|senha
         status|Status|valido

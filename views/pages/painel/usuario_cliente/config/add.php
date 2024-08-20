@@ -31,13 +31,17 @@ $Painel->coluna(callback: function () use ($Painel) {
 
     $Painel->fieldset('Dados do trabalho', callback: function () use ($Painel) {
         $trabalhoEmpresa = (new TrabalhoEmpresa())->select('Escolha um local de trabalho');
-        $trabalhoCargo = (new TrabalhoCargo())->select('Escolha um cargo');
+        $trabalhoCargo = (new ApiHelper(token: true))->get('/site-cargo/select')->array()['dado'] ?? [];
 
         $Painel
             ->numero(name: 'matricula', label: 'Matrícula')
             ->numero(name: 'siape', label: 'SIAPE')
             ->select(name: 'trabalho_empresa', label: 'Local onde trabalha', lista: $trabalhoEmpresa)
-            ->select(name: 'trabalho_cargo', label: 'Cargo', lista: $trabalhoCargo)
+            ->select(
+                name: 'trabalho_cargo',
+                lista: !empty($trabalhoCargo) ? $trabalhoCargo : (new TrabalhoCargo())->select('Escolha um cargo'),
+                label: 'Cargo'
+            )
             ->data(
                 name: 'trabalho_data_inicio',
                 label: 'Data do início do trabalho',

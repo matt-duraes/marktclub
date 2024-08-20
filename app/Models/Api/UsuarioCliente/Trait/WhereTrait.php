@@ -138,10 +138,10 @@ trait WhereTrait
             $where[] = ['trabalho_orgao', $TrabalhoEmpresa->numero()];
         }
         // Trabalho Cargo
-        $TrabalhoCargo = new TrabalhoCargo($request->trabalho_cargo);
+        /*$TrabalhoCargo = new TrabalhoCargo($request->trabalho_cargo);
         if (!$TrabalhoCargo->vazio() && $TrabalhoCargo->valido()) {
             $where[] = ['trabalho_cargo', $TrabalhoCargo->numero()];
-        }
+        }*/
         return $where;
     }
 
