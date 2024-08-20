@@ -17,3 +17,5 @@ include ROOT . '/resources/php/site/tema.php';
 $popupPromocao = (new PopupModel())->listar();
 
 $Botao = new \ResourcesSite\Componente\Botao();
+
+$webview = isset($webview) && $webview;

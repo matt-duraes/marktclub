@@ -13,7 +13,9 @@ final class FiltroModel extends ClubeApiHelper
 {
     private array $lista = [
         'loja' => [
-            'lista'    => ['estado', 'cidade', 'categoria', 'subcategoria', 'estabelecimento', 'pesquisa', 'ordem'],
+            'lista'    => [
+                'estado', 'cidade', 'categoria', 'subcategoria', 'estabelecimento', 'pesquisa', 'ordem', 'webview'
+            ],
             'especial' => ['favorito', 'latitude', 'longitude', 'acessado', 'mapa', 'pagina', 'quantidade'],
             'filtro'   => [
                 'estado'          => 'Estado',
@@ -42,6 +44,7 @@ final class FiltroModel extends ClubeApiHelper
     public string $ordem = '';
     public string $latitude = '';
     public string $longitude = '';
+    public string $webview = '';
     public string $link = '';
 
     public function __construct(
@@ -96,6 +99,7 @@ final class FiltroModel extends ClubeApiHelper
                 $link[] = $ind . '=' . urlencode($val);
             }
         }
+
         if (!empty($link)) {
             $this->link .= '?' . implode('&', $link);
         }

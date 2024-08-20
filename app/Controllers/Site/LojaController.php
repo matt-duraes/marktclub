@@ -49,12 +49,13 @@ final class LojaController extends Controller
     {
         $Filtro = new FiltroModel($request->dado());
         return view('loja.index', [
-            'menu'   => 'loja',
-            'tipo'   => 'loja',
-            'Busca'  => $Filtro,
-            'mapa'   => $Filtro->mapa ?? false,
-            'todos'  => empty($request->dado()),
-            'banner' => []
+            'menu'    => 'loja',
+            'tipo'    => 'loja',
+            'Busca'   => $Filtro,
+            'mapa'    => $Filtro->mapa ?? false,
+            'todos'   => empty($request->dado()),
+            'banner'  => [],
+            'webview' => $Filtro->webview == 'sim'
         ]);
     }
 

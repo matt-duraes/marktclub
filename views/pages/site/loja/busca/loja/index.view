@@ -32,6 +32,7 @@ $listaOrdem = [
                 <input type="hidden" name="longitude" id="input_longitude" value="{{$Busca->longitude ?? ''}}">
                 <input type="hidden" id="input_acessado" value="{{$Busca->acessado ?? '' ? 'sim' : 'nao'}}">
                 <input type="hidden" id="input_favorito" value="{{$Busca->favorito ?? '' ? 'sim' : 'nao'}}">
+                <input type="hidden" name="webview" value="{{$webview ? 'sim' : ''}}">
                 <fieldset>
                     @? formSelect(name: 'estado', placeholder: 'Estado', label: 'Estado', class: 'busca_estado', lista: (new \Helpers\ListaHelper)->add('', 'Escolha um estados')->estado()->r(), value: $Busca->estado ?? '')
                     @? formSelect(name: 'cidade', placeholder: 'Cidade', label: 'Cidade', class: 'busca_cidade', lista: ['' => 'Escolha um estado primeiro'], value: $Busca->cidade ?? '')
