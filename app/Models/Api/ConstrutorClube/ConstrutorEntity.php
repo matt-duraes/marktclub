@@ -27,7 +27,7 @@ final class ConstrutorEntity extends Entity
         'menu_corrida', 'menu_show_nacional', 'menu_show_internacional', 'administrado_status', 'chat_status',
         'menu_samsung', 'cor_principal', 'cor_secundaria', 'tipo_ativacao', 'status', 'campos_primeiro_acesso', 'grupo_label',
         'grupo_placeholder', 'link_facebook', 'link_instagram', 'link_twitter', 'link_linkedin', 'link_youtube', 'link_tiktok',
-        'link_funcionario', 'texto_login_usuario', 'texto_login_dependente', 'texto_login_funcionario'
+        'link_funcionario', 'texto_login_usuario', 'texto_login_dependente', 'texto_login_funcionario', 'tipo_cargo'
     ];
     protected array $ormSalvar = [
         'id_admin_empresa', 'link_clube', 'link_cadastro', 'link_salavip', 'link_odontologico',
@@ -42,7 +42,7 @@ final class ConstrutorEntity extends Entity
         'cor_principal', 'cor_secundaria', 'menu_tema', 'administrado_status', 'chat_status',
         'menu_samsung', 'tipo_ativacao', 'status', 'campos_primeiro_acesso', 'grupo_label', 'grupo_placeholder',
         'link_facebook', 'link_instagram', 'link_twitter', 'link_linkedin', 'link_youtube', 'link_tiktok',
-        'link_funcionario', 'texto_login_usuario', 'texto_login_dependente', 'texto_login_funcionario'
+        'link_funcionario', 'texto_login_usuario', 'texto_login_dependente', 'texto_login_funcionario', 'tipo_cargo'
     ];
     protected array $ormRetornoPadrao = ['id', 'logo_principal', 'logo_marktclub'];
     private OrmHelper $ormEmpresa;
@@ -126,6 +126,7 @@ final class ConstrutorEntity extends Entity
     public string $texto_login_usuario;
     public string $texto_login_dependente;
     public string $texto_login_funcionario;
+    public TipoCargo $tipo_cargo;
 
     public function __construct()
     {
