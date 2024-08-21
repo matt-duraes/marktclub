@@ -113,3 +113,4 @@ define('TABELA_VOTACAO_RESPOSTA', 'votacao_resposta');
 define('TABELA_VOTACAO_USUARIO', 'votacao_usuario');
 define('TABELA_VOTACAO_VOTO', 'votacao_voto');
 define('TABELA_SITE_CARGO', 'site_cargo');
+define('TABELA_SITE_LOTACAO', 'site_lotacao');

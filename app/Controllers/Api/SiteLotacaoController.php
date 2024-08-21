@@ -9,9 +9,9 @@ use Modules\Pagina;
 use Modules\Quantidade;
 use Controller\Controller;
 use App\Classes\Geral\Status;
-use App\Models\Api\SiteCargo\CargoModel;
-use App\Models\Api\SiteCargo\CargoEntity;
-use App\Models\Api\SiteCargo\SelectModel;
+use App\Models\Api\SiteLotacao\SelectModel;
+use App\Models\Api\SiteLotacao\LotacaoModel;
+use App\Models\Api\SiteLotacao\LotacaoEntity;
 use System\Interface\ControllerBuscarInterface;
 use System\Interface\ControllerListarInterface;
 use System\Interface\ControllerSalvarInterface;
@@ -19,7 +19,7 @@ use System\Interface\ControllerSelectInterface;
 use System\Interface\ControllerDeletarInterface;
 use System\Interface\ControllerAtualizarInterface;
 
-final class SiteCargoController extends Controller implements
+final class SiteLotacaoController extends Controller implements
     ControllerSelectInterface,
     ControllerBuscarInterface,
     ControllerListarInterface,
@@ -47,22 +47,22 @@ final class SiteCargoController extends Controller implements
      */
     public function getBuscar(string $id): Response
     {
-        $CargoEntity = new CargoEntity();
-        $CargoEntity->uuid($id);
-        return $this->retornoPadrao($CargoEntity);
+        $LotacaoEntity = new LotacaoEntity();
+        $LotacaoEntity->uuid($id);
+        return $this->retornoPadrao($LotacaoEntity);
     }
 
     /**
-     * @param CargoEntity $cargoEntity
+     * @param LotacaoEntity $lotacaoEntity
      * @param int         $status
      *
      * @return Response
      * @throws Excecao
      */
-    private function retornoPadrao(CargoEntity $cargoEntity, int $status = 200): Response
+    private function retornoPadrao(LotacaoEntity $lotacaoEntity, int $status = 200): Response
     {
         return mensagemSucesso(
-            pegarPropriedadeDaEntity($cargoEntity, lista: [
+            pegarPropriedadeDaEntity($lotacaoEntity, lista: [
                 'slug', 'titulo', 'status', 'data_criacao', 'data_atualizacao'
             ]),
             $status
@@ -77,13 +77,13 @@ final class SiteCargoController extends Controller implements
      */
     public function getListar(Request $request): Response
     {
-        $CargoModel = new CargoModel(
+        $LotacaoModel = new LotacaoModel(
             new Pagina($request->pagina),
             new Quantidade($request->quantidade),
             $request->empresa,
             new Status($request->status)
         );
-        return mensagemSucesso($CargoModel->listarDados());
+        return mensagemSucesso($LotacaoModel->listarDados());
     }
 
     /**
@@ -94,10 +94,10 @@ final class SiteCargoController extends Controller implements
      */
     public function postSalvar(Request $request): Response
     {
-        $CargoEntity = new CargoEntity();
-        $CargoEntity->set(lista: $request->dado());
-        $CargoEntity->salvar();
-        return $this->retornoPadrao($CargoEntity, 201);
+        $LotacaoEntity = new LotacaoEntity();
+        $LotacaoEntity->set(lista: $request->dado());
+        $LotacaoEntity->salvar();
+        return $this->retornoPadrao($LotacaoEntity, 201);
     }
 
     /**
@@ -109,10 +109,10 @@ final class SiteCargoController extends Controller implements
      */
     public function putAtualizar(Request $request, string $id): Response
     {
-        $CargoEntity = new CargoEntity();
-        $CargoEntity->uuid($id);
-        $CargoEntity->set(lista: $request->dado());
-        $CargoEntity->salvar();
+        $LotacaoEntity = new LotacaoEntity();
+        $LotacaoEntity->uuid($id);
+        $LotacaoEntity->set(lista: $request->dado());
+        $LotacaoEntity->salvar();
         return new Response(status: 204);
     }
 
@@ -124,9 +124,9 @@ final class SiteCargoController extends Controller implements
      */
     public function deleteDeletar(string $id): Response
     {
-        $CargoEntity = new CargoEntity();
-        $CargoEntity->uuid($id);
-        $CargoEntity->destruir();
+        $LotacaoEntity = new LotacaoEntity();
+        $LotacaoEntity->uuid($id);
+        $LotacaoEntity->destruir();
         return new Response(status: 204);
     }
 }

@@ -65,7 +65,7 @@ final class ConstrutorClubeController extends Controller implements
                     'menu_odontologico', 'menu_premium', 'menu_dependente', 'menu_funcionario', 'menu_carteira',
                     'menu_cupom', 'menu_salavip', 'menu_credito_sicoob', 'menu_primeiro_acesso', 'chat_status',
                     'header_descricao', 'menu_corrida', 'menu_show_internacional', 'menu_show_nacional', 'menu_samsung',
-                    'menu_meu_parceiro', 'administrado_status', 'api_status', 'tipo_ativacao', 'tipo_cargo' ,'status',
+                    'menu_meu_parceiro', 'administrado_status', 'api_status', 'tipo_ativacao','status',
                     'campos_primeiro_acesso', 'grupo_label', 'grupo_placeholder', 'tela_login', 'link_odontologico',
                     'link_funcionario', 'texto_login_usuario', 'texto_login_dependente', 'texto_login_funcionario'
                 ]
