@@ -710,6 +710,16 @@ final class ConfiguracoesPadrao
                 'site_cargo_empresa' => 'Todas as Empresas'
             ]
         ],
+        'site_lotacao'               => [
+            'titulo'    => 'Lotação',
+            'permissao' => [
+                'site_lotacao_index'   => 'Listar',
+                'site_lotacao_add'     => 'Salvar',
+                'site_lotacao_editar'  => 'Editar',
+                'site_lotacao_deletar' => 'Deletar',
+                'site_lotacao_empresa' => 'Todas as Empresas'
+            ]
+        ],
         'silium_comissao'          => [
             'titulo'    => 'Comissões do Silium (Cashback)',
             'permissao' => [
