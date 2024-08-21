@@ -2,7 +2,7 @@
 
 namespace App\Models\Api\UsuarioCliente\Ativar;
 
-use App\Classes\UsuarioCliente\TrabalhoEmpresa;
+use App\Classes\UsuarioCliente\TrabalhoCargo;
 use App\Models\Api\UsuarioCliente\Ativar\Trait\AtivarTrait;
 use Http\Request;
 use Modules\Botao;
@@ -46,8 +46,8 @@ final class AtivarModel extends ORM
     private string $endereco_bairro;
     private EnderecoEstado $endereco_estado;
     private string $endereco_cidade;
-    private string|int|null $trabalho_cargo;
-    private TrabalhoEmpresa $trabalho_empresa;
+    private TrabalhoCargo $trabalho_cargo;
+    private string|int|null $trabalho_empresa;
 
     public function __construct(
         private Request $request
@@ -99,8 +99,8 @@ final class AtivarModel extends ORM
                 'email_trabalho'       => $this->email_trabalho->email(),
                 'telefone_celular'     => $this->telefone_pessoal->numero(),
                 'telefone_fixo'        => $this->telefone_trabalho->numero(),
-                'trabalho_cargo'       => $this->trabalho_cargo,
-                'trabalho_orgao'       => $this->trabalho_empresa->numero(),
+                'trabalho_cargo'       => $this->trabalho_cargo->numero(),
+                'trabalho_orgao'       => $this->trabalho_empresa,
                 'endereco_cep'         => $this->endereco_cep->numero(),
                 'endereco_logradouro'  => $this->endereco_logradouro,
                 'endereco_numero'      => $this->endereco_numero,
