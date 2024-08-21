@@ -2,24 +2,24 @@
 
 namespace App\Controllers\Api;
 
+use App\Classes\ConstrutorClube\Ordem;
+use App\Classes\Geral\Status;
+use App\Models\Api\ConstrutorClube\ClubeModel;
+use App\Models\Api\ConstrutorClube\ConstrutorEntity;
+use App\Models\Api\ConstrutorClube\ConstrutorModel;
+use App\Models\Api\ConstrutorClube\LinkClubeModel;
+use Controller\Controller;
 use Erro\Excecao;
 use Http\Request;
-use Modules\Data;
 use Http\Response;
+use Modules\Data;
 use Modules\Pagina;
 use Modules\Quantidade;
-use Controller\Controller;
-use App\Classes\Geral\Status;
-use App\Classes\ConstrutorClube\Ordem;
-use App\Models\Api\ConstrutorClube\ClubeModel;
+use System\Interface\ControllerAtualizarInterface;
 use System\Interface\ControllerBuscarInterface;
+use System\Interface\ControllerDeletarInterface;
 use System\Interface\ControllerListarInterface;
 use System\Interface\ControllerSalvarInterface;
-use System\Interface\ControllerDeletarInterface;
-use App\Models\Api\ConstrutorClube\LinkClubeModel;
-use System\Interface\ControllerAtualizarInterface;
-use App\Models\Api\ConstrutorClube\ConstrutorModel;
-use App\Models\Api\ConstrutorClube\ConstrutorEntity;
 
 final class ConstrutorClubeController extends Controller implements
     ControllerListarInterface,
@@ -65,9 +65,10 @@ final class ConstrutorClubeController extends Controller implements
                     'menu_odontologico', 'menu_premium', 'menu_dependente', 'menu_funcionario', 'menu_carteira',
                     'menu_cupom', 'menu_salavip', 'menu_credito_sicoob', 'menu_primeiro_acesso', 'chat_status',
                     'header_descricao', 'menu_corrida', 'menu_show_internacional', 'menu_show_nacional', 'menu_samsung',
-                    'menu_meu_parceiro', 'administrado_status', 'api_status', 'tipo_ativacao','status',
+                    'menu_meu_parceiro', 'administrado_status', 'api_status', 'tipo_ativacao', 'status',
                     'campos_primeiro_acesso', 'grupo_label', 'grupo_placeholder', 'tela_login', 'link_odontologico',
-                    'link_funcionario', 'texto_login_usuario', 'texto_login_dependente', 'texto_login_funcionario'
+                    'link_funcionario', 'texto_login_usuario', 'texto_login_dependente', 'texto_login_funcionario',
+                    'tipo_cargo'
                 ]
             ),
             $status

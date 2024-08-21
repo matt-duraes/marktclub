@@ -2,13 +2,13 @@
 
 namespace App\Models\Api\UsuarioCliente\Trait;
 
-use Helpers\ListaHelper;
 use App\Classes\UsuarioCliente\Helper;
 use App\Classes\UsuarioCliente\Origem;
 use App\Classes\UsuarioCliente\Status;
 use App\Classes\UsuarioCliente\TipoUsuario;
 use App\Classes\UsuarioCliente\TrabalhoCargo;
 use App\Classes\UsuarioCliente\TrabalhoEmpresa;
+use Helpers\ListaHelper;
 
 trait WhereTrait
 {
@@ -133,15 +133,20 @@ trait WhereTrait
         }
 
         // Trabalho Empresa
-        $TrabalhoEmpresa = new TrabalhoEmpresa($request->trabalho_empresa);
-        if (!$TrabalhoEmpresa->vazio() && $TrabalhoEmpresa->valido()) {
+        $TrabalhoEmpresa = is_numeric($request->trabalho_empresa)
+            ? $request->trabalho_empresa
+            : new TrabalhoEmpresa($request->trabalho_empresa);
+        if (!is_numeric($request->trabalho_empresa) && !$TrabalhoEmpresa->vazio() && $TrabalhoEmpresa->valido()) {
             $where[] = ['trabalho_orgao', $TrabalhoEmpresa->numero()];
         }
+        if (is_numeric($request->trabalho_empresa)) {
+            $where[] = ['trabalho_orgao', $request->trabalho_empresa];
+        }
         // Trabalho Cargo
-        /*$TrabalhoCargo = new TrabalhoCargo($request->trabalho_cargo);
+        $TrabalhoCargo = new TrabalhoCargo($request->trabalho_cargo);
         if (!$TrabalhoCargo->vazio() && $TrabalhoCargo->valido()) {
             $where[] = ['trabalho_cargo', $TrabalhoCargo->numero()];
-        }*/
+        }
         return $where;
     }
 
