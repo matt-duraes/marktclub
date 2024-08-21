@@ -100,19 +100,15 @@ trait AtivarTrait
         $this->endereco_bairro = $dado['endereco_bairro'];
         $this->endereco_estado = new EnderecoEstado($dado['endereco_estado']);
         $this->endereco_cidade = $dado['endereco_cidade'];
-        $this->trabalho_empresa = new TrabalhoEmpresa($dado['trabalho_empresa']);
+        $this->trabalho_cargo = new TrabalhoCargo($dado['trabalho_cargo']);
 
         $tipoCargo = $this->validarTipoCargo();
         if ($tipoCargo->indice() === TipoCargo::NORMAL) {
-            $trabalhoCargo = new TrabalhoCargo($dado['trabalho_cargo']);
-            $this->trabalho_cargo = $trabalhoCargo->numero();
+            $trabalhoCargo = new TrabalhoEmpresa($dado['trabalho_empresa']);
+            $this->trabalho_empresa = $trabalhoCargo->numero();
+            return;
         }
-        if ($tipoCargo->indice() === TipoCargo::PERSONALIZADO) {
-            if ($this->validarCargoPersonalizado($dado['trabalho_cargo'])) {
-                mensagemErro('Cargo inválido', 'Cargo não encontrado ou desativado');
-            }
-            $this->trabalho_cargo = $dado['trabalho_cargo'];
-        }
+        $this->trabalho_empresa = $dado['trabalho_empresa'];
     }
 
     /**
