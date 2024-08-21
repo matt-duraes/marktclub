@@ -2,6 +2,7 @@
 
 namespace App\Models\Site\Webview;
 
-interface LocalInterface {
+interface LocalInterface
+{
     public function link(): string;
 }

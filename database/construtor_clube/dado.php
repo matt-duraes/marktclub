@@ -59,7 +59,7 @@ return [
         'chat_status'               => 1,
         'menu_meu_parceiro'         => 1,
         'tipo_ativacao'             => 1,
-        'tipo_cargo'               => 1,
+        'tipo_cargo'                => 1,
         'status'                    => 1
     ],
     [
@@ -102,7 +102,7 @@ return [
         'menu_salavip'              => 1,
         'menu_sair'                 => 1,
         'status'                    => 1,
-        'tipo_cargo'               => 1,
+        'tipo_cargo'                => 1,
 
     ],
     [
@@ -145,7 +145,7 @@ return [
         'menu_salavip'              => 1,
         'menu_sair'                 => 1,
         'status'                    => 1,
-        'tipo_cargo'               => 1,
+        'tipo_cargo'                => 1,
     ],
     [
         'id'               => 134,

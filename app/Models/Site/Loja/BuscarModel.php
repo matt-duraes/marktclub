@@ -33,7 +33,6 @@ final class BuscarModel extends ClubeApiHelper
      * Busca o parceiro samsung do clube especifico e retorna apenas o link
      * do arquivo
      *
-     * @return void
      */
     public function buscarSamsung()
     {
