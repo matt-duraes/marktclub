@@ -2963,6 +2963,51 @@ Route
     });
 
 Route
+    ::nome('site_lotacao')
+    ::controller(App\Controllers\Api\SiteLotacaoController::class)
+    ::middleware(TokenMiddleware::class, 'token')
+    ::grupo(function () {
+        Route
+            ::nome('select')
+            ::middleware(TokenMiddleware::class, 'scope', ['site_lotacao:select'])
+            ::get('/site-lotacao/select');
+
+        Route
+            ::nome('buscar')
+            ::middleware(TokenMiddleware::class, 'scope', ['site_lotacao:buscar'])
+            ::get('/site-lotacao/{id}');
+
+        Route
+            ::nome('listar')
+            ::middleware(TokenMiddleware::class, 'scope', ['site_lotacao:listar'])
+            ::request([
+                'pagina', '!quantidade', '!empresa', '!status'
+            ], 'json')
+            ::get('/site-lotacao');
+
+        Route
+            ::nome('salvar')
+            ::middleware(TokenMiddleware::class, 'scope', ['site_lotacao:salvar'])
+            ::request([
+                'titulo', 'status'
+            ])
+            ::post('/site-lotacao');
+
+        Route
+            ::nome('atualizar')
+            ::middleware(TokenMiddleware::class, 'scope', ['site_lotacao:atualizar'])
+            ::request([
+                '!titulo', '!status'
+            ])
+            ::put('/site-lotacao/{id}');
+
+        Route
+            ::nome('deletar')
+            ::middleware(TokenMiddleware::class, 'scope', ['site_lotacao:deletar'])
+            ::delete('/site-lotacao/{id}');
+    });
+
+Route
     ::nome('publicacao_youtube')
     ::controller(App\Controllers\Api\PublicacaoYoutubeController::class)
     ::middleware(TokenMiddleware::class, 'token')
