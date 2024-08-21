@@ -212,7 +212,6 @@ const loadingAtivar = () => {
                 trabalho_cargo: pegarValorInput(inputCargo),
                 trabalho_empresa: pegarValorInput(inputLotacao),
                 tipo_usuario: tipo_usuario || '',
-                lotacao: pegarValorInput(inputLotacao),
                 /* eslint-enable */
             },
             'Erro ao ativar seu usuário, por favor, tente novamente.'
