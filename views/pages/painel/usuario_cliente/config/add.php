@@ -1,13 +1,13 @@
 <?php
 
-use Modules\Senha;
-use Helpers\ApiHelper;
+use App\Classes\UsuarioCliente\Federacao;
 use App\Classes\UsuarioCliente\Helper;
 use App\Classes\UsuarioCliente\Situacao;
-use App\Classes\UsuarioCliente\Federacao;
 use App\Classes\UsuarioCliente\TipoPagamento;
 use App\Classes\UsuarioCliente\TrabalhoCargo;
 use App\Classes\UsuarioCliente\TrabalhoEmpresa;
+use Helpers\ApiHelper;
+use Modules\Senha;
 
 $Painel = new PainelConfig\Add(app: 'usuario_cliente', acao: $acao);
 
@@ -30,16 +30,22 @@ $Painel->coluna(callback: function () use ($Painel) {
     });
 
     $Painel->fieldset('Dados do trabalho', callback: function () use ($Painel) {
-        $trabalhoEmpresa = (new TrabalhoEmpresa())->select('Escolha um local de trabalho');
-        $trabalhoCargo = (new ApiHelper(token: true))->get('/site-cargo/select')->array()['dado'] ?? [];
+        $trabalhoCargo = (new TrabalhoCargo())->select('Escolha um cargo');
+        $trabalhoEmpresa = (new ApiHelper(token: true))->get('/site-lotacao/select')->array()['dado'] ?? [];
 
         $Painel
             ->numero(name: 'matricula', label: 'Matrícula')
             ->numero(name: 'siape', label: 'SIAPE')
-            ->select(name: 'trabalho_empresa', label: 'Local onde trabalha', lista: $trabalhoEmpresa)
+            ->select(
+                name: 'trabalho_empresa',
+                lista: !empty($trabalhoEmpresa)
+                    ? $trabalhoEmpresa
+                    : (new TrabalhoEmpresa())->select('Escolha um local de trabalho'),
+                label: 'Local onde trabalha'
+            )
             ->select(
                 name: 'trabalho_cargo',
-                lista: !empty($trabalhoCargo) ? $trabalhoCargo : (new TrabalhoCargo())->select('Escolha um cargo'),
+                lista: $trabalhoCargo,
                 label: 'Cargo'
             )
             ->data(

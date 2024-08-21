@@ -2,8 +2,8 @@
 
 namespace App\Models\Api\ConstrutorClube;
 
-use Modules\Botao;
 use App\Helpers\PrimeiroAcessoHelper;
+use Modules\Botao;
 
 final class ClubeModel
 {
@@ -49,12 +49,12 @@ final class ClubeModel
             'header_tag'              => $Construtor->header_tag,
             'header_descricao'        => $Construtor->header_descricao,
             'redes_sociais'           => [
-                'link_facebook'    => $Construtor->link_facebook,
-                'link_instagram'   => $Construtor->link_instagram,
-                'link_twitter'     => $Construtor->link_twitter,
-                'link_linkedin'    => $Construtor->link_linkedin,
-                'link_youtube'     => $Construtor->link_youtube,
-                'link_tiktok'      => $Construtor->link_tiktok,
+                'link_facebook'  => $Construtor->link_facebook,
+                'link_instagram' => $Construtor->link_instagram,
+                'link_twitter'   => $Construtor->link_twitter,
+                'link_linkedin'  => $Construtor->link_linkedin,
+                'link_youtube'   => $Construtor->link_youtube,
+                'link_tiktok'    => $Construtor->link_tiktok,
             ],
             'menu'                    => [
                 'primeiro_acesso'     => $Construtor->menu_primeiro_acesso->valor(),
@@ -94,8 +94,8 @@ final class ClubeModel
                 'ponto_mais_acao'     => $Construtor->menu_ponto_mais_acao->valor(),
                 'sair'                => $Construtor->menu_sair->valor()
             ],
-            'campos_primeiro_acesso' => $camposPrimeiroAcesso,
-            'input_grupo'            => [
+            'campos_primeiro_acesso'  => $camposPrimeiroAcesso,
+            'input_grupo'             => [
                 'label'       => $Construtor->grupo_label,
                 'placeholder' => $Construtor->grupo_placeholder
             ],
@@ -103,6 +103,7 @@ final class ClubeModel
             'texto_login_dependente'  => $Construtor->texto_login_dependente,
             'texto_login_funcionario' => $Construtor->texto_login_funcionario,
             'tipo_ativacao'           => $Construtor->tipo_ativacao->indice(),
+            'tipo_cargo'              => $Construtor->tipo_cargo->indice(),
             'administrado'            => $Construtor->administrado_status->valor(),
             'tela_login'              => $Construtor->tela_login->valor(),
             'chat'                    => $Construtor->chat_status->valor(),
