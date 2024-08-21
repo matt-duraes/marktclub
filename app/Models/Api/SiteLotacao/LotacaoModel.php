@@ -2,16 +2,16 @@
 
 namespace App\Models\Api\SiteLotacao;
 
-use ORM\ORM;
-use stdClass;
+use App\Classes\Geral\Status;
+use App\Models\Api\Trait\ValidarEmpresaTrait;
 use Erro\Excecao;
 use Modules\Pagina;
 use Modules\Quantidade;
-use App\Classes\Geral\Status;
+use ORM\ORM;
+use stdClass;
+use System\Interface\ModelListarInterface;
 use System\Trait\Model\PaginaTrait;
 use System\Trait\Model\QuantidadeTrait;
-use System\Interface\ModelListarInterface;
-use App\Models\Api\Trait\ValidarEmpresaTrait;
 
 class LotacaoModel extends ORM implements
     ModelListarInterface
@@ -106,19 +106,19 @@ class LotacaoModel extends ORM implements
     }
 
     /**
-     * @param array $lotacao
+     * @param array $lotacoes
      *
      * @return array
      */
-    private function montarRetorno(array $lotacao): array
+    private function montarRetorno(array $lotacoes): array
     {
-        if (empty($lotacao)) {
-            return $lotacao;
+        if (empty($lotacoes)) {
+            return $lotacoes;
         }
 
         $Status = new Status();
         $retorno = [];
-        foreach ($lotacao as $lotacao) {
+        foreach ($lotacoes as $lotacao) {
             $retorno[] = [
                 'id'               => $lotacao->uuid,
                 'empresa'          => [
