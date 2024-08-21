@@ -358,7 +358,7 @@ Route
             ::request([
                 'hash', 'nome', 'cpf', 'genero', 'senha', 'termo', 'data_nascimento', 'estado_civil',
                 'email_pessoal', 'email_trabalho', 'telefone_pessoal', 'telefone_trabalho', 'endereco_cep',
-                'endereco_logradouro', 'endereco_numero', '!trabalho_empresa', '!trabalho_cargo', '!lotacao',
+                'endereco_logradouro', 'endereco_numero', '!trabalho_empresa', '!trabalho_cargo',
                 '!trabalho_cargo_personalizado', 'endereco_complemento', 'endereco_bairro',
                 'endereco_estado', 'endereco_cidade', '!tipo_usuario', '!empresa', '!grupo'
             ])
