@@ -356,7 +356,7 @@ Route
     ::grupo(function() {
         Route
             ::nome('mapa')
-            ::get('/webview/login-mapa');
+            ::view('/webview/login-mapa');
     });
 
 Route

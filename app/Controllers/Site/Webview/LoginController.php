@@ -3,6 +3,7 @@
 namespace App\Controllers\Site\Webview;
 
 use Http\Request;
+use Http\Response;
 use Controller\Controller;
 use App\Models\Site\Webview\MapaModel;
 use App\Models\Site\Webview\LoginModel;
@@ -21,6 +22,6 @@ final class LoginController extends Controller
     private function login(LocalInterface $Local)
     {
         $Login = new LoginModel($Local);
-        return $Login->link;
+        return new Response(url: $Login->link);
     }
 }
