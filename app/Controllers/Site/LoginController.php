@@ -5,6 +5,7 @@ namespace App\Controllers\Site;
 use Http\Request;
 use Http\Response;
 use Helpers\ApiHelper;
+use Helpers\CurlHelper;
 use Helpers\CryptHelper;
 use Controller\Controller;
 use App\Classes\TextoClube\Tipo;
@@ -22,12 +23,20 @@ final class LoginController extends Controller
         if (!TELA_LOGIN) {
             return new Response(url: LINK_LOGIN);
         }
-
+        $quantidadeParceiros = (new CurlHelper())->headerjson()->get('https://arquivo.youhuul.com/construtor/loja.json')->object();
         $dado = (new ComunicacaoModel())->buscarBanner() ?? '';
+
+        if ($quantidadeParceiros) {
+            $numLojas = (int)str_replace('.', '', $quantidadeParceiros->loja);
+            $numParcerias = (int)str_replace('.', '', $quantidadeParceiros->endereco);
+        }
+
         return view('login.index', [
             'banner'             => $dado->lista,
             'quantidade_banners' => $dado->quantidade,
-            'location'           => base64Decode($request->chave('location', ''), true)
+            'location'           => base64Decode($request->chave('location', ''), true),
+            'num_lojas'          => $numLojas ?? 2000,
+            'num_parcerias'      => $numParcerias ?? 23.000,
         ]);
     }
 

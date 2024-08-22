@@ -9,11 +9,11 @@
     <div class="bloco" id="bloco_contador_numero">
         <div class="item">
             <span>Mais de</span>
-            <p class="loja contar" data_target=20000>0</p>
+            <p class="loja contar" data_target="{{$num_lojas}}">0</p>
             <span>lojas</span>
         </div>
         <div class="item">
-            <p class="parceria contar " data_target=1400>0</p>
+            <p class="parceria contar" data_target="{{$num_parcerias}}">0</p>
             <span>parcerias</span>
         </div>
     </div>
