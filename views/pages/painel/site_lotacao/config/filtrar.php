@@ -2,7 +2,7 @@
 
 use App\Classes\Geral\Status;
 
-$Painel = new PainelConfig\Filtrar('site_cargo');
+$Painel = new PainelConfig\Filtrar('site_lotacao');
 
 $Painel
     ->select(
@@ -11,7 +11,7 @@ $Painel
         titulo: 'Empresa',
         label: 'Empresa',
         placeholder: 'Empresa',
-        permissao: 'site_cargo_empresa'
+        permissao: 'site_lotacao_empresa'
     )
     ->select(
         name: 'status',

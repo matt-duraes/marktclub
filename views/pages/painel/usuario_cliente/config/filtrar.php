@@ -1,5 +1,6 @@
 <?php
 
+use Helpers\ApiHelper;
 use Helpers\ListaHelper;
 use App\Classes\UsuarioCliente\Helper;
 use App\Classes\UsuarioCliente\Origem;
@@ -9,12 +10,14 @@ use App\Classes\UsuarioCliente\TrabalhoEmpresa;
 
 $Painel = new PainelConfig\Filtrar('usuario_cliente');
 
+$trabalhoEmpresa = (new ApiHelper(token: true))->get('/site-lotacao/select')->array()['dado'] ?? [];
+
 $Painel
     ->select(name: 'empresa', label: 'Empresa', lista: 'empresa', permissao: Helper::PERMISSAO_EMPRESA)
     ->input(name: 'nome', titulo: 'Nome', label: 'Nome', placeholder: 'Digite o nome')
     ->email(name: 'email', titulo: 'E-mail', label: 'E-mail', placeholder: 'Digite um e-mail')
     ->cpf(name: 'cpf', titulo: 'CPF', label: 'CPF', placeholder: 'Digite um CPF')
-    ->bloco(function () use ($Painel) {
+    ->bloco(function () use ($Painel, $trabalhoEmpresa) {
         $Painel
             ->select(
                 name: 'tipo',
@@ -48,13 +51,13 @@ $Painel
                 placeholder: 'Data de upload'
             );
     })
-    ->bloco(function () use ($Painel) {
+    ->bloco(function () use ($Painel, $trabalhoEmpresa) {
         $Painel
             ->select(
                 name: 'trabalho_empresa',
                 titulo: 'Local onde trabalha',
                 label: 'Trabalho',
-                lista: (new TrabalhoEmpresa())->select('Escolha uma opção')
+                lista: !empty($trabalhoEmpresa) ? $trabalhoEmpresa : (new TrabalhoEmpresa())->select('Escolha uma opção')
             )
             ->select(
                 name: 'trabalho_cargo',

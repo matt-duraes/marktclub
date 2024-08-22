@@ -23,11 +23,6 @@ final class SalvarModel extends ApiHelper
         parent::__construct();
 
         $dado = $request->dado();
-
-        if ($dado['trabalho_cargo'] == '' && $dado['trabalho_cargo_personalizado'] != '') {
-            $dado['trabalho_cargo'] = $dado['trabalho_cargo_personalizado'];
-        }
-
         (new ApiHelper('usuario_cliente:ativar'))
             ->validar('Ocorreu um erro ao ativar seu usuário, por favor, tente novamente.')
             ->body([

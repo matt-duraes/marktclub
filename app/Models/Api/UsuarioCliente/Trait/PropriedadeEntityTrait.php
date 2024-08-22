@@ -2,25 +2,24 @@
 
 namespace App\Models\Api\UsuarioCliente\Trait;
 
+use App\Classes\UsuarioCliente\Origem;
+use App\Classes\UsuarioCliente\Situacao;
+use App\Classes\UsuarioCliente\Status;
+use App\Classes\UsuarioCliente\TipoPagamento;
+use App\Classes\UsuarioCliente\TipoUsuario;
+use App\Classes\UsuarioCliente\TrabalhoCargo;
+use App\Models\Api\ComercialEmpresa\EmpresaEntity;
+use Modules\Botao;
 use Modules\Cpf;
 use Modules\Data;
-use Modules\Nome;
-use Modules\Botao;
 use Modules\Email;
-use Modules\Senha;
-use Modules\Genero;
-use Modules\Telefone;
 use Modules\EnderecoCep;
-use Modules\EstadoCivil;
 use Modules\EnderecoEstado;
-use App\Classes\UsuarioCliente\Origem;
-use App\Classes\UsuarioCliente\Status;
-use App\Classes\UsuarioCliente\Situacao;
-use App\Classes\UsuarioCliente\TipoUsuario;
-use App\Classes\UsuarioCliente\TipoPagamento;
-use App\Classes\UsuarioCliente\TrabalhoCargo;
-use App\Classes\UsuarioCliente\TrabalhoEmpresa;
-use App\Models\Api\ComercialEmpresa\EmpresaEntity;
+use Modules\EstadoCivil;
+use Modules\Genero;
+use Modules\Nome;
+use Modules\Senha;
+use Modules\Telefone;
 
 trait PropriedadeEntityTrait
 {
@@ -42,7 +41,7 @@ trait PropriedadeEntityTrait
     public Data $trabalho_data_inicio;
     public Data $data_termo;
     public Botao $termo;
-    public TrabalhoEmpresa $trabalho_empresa;
+    public string|int $trabalho_empresa;
     public TrabalhoCargo $trabalho_cargo;
     public TipoPagamento $tipo_pagamento;
     public Genero $genero;

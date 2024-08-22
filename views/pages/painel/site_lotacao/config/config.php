@@ -1,7 +1,7 @@
 <?php
 
 return [
-    'titulo'     => 'Cargos',
+    'titulo'     => 'Lotação',
     'buscar'     => false,
     'filtrar'    => true,
     'ordem'      => false,
@@ -12,7 +12,7 @@ return [
     'download'   => false,
     'historico'  => false,
     'api'        => [
-        'scope' => 'site_cargo',
-        'uri'   => '/site-cargo'
+        'scope' => 'site_lotacao',
+        'uri'   => '/site-lotacao'
     ]
 ];

@@ -2,18 +2,16 @@
 
 namespace App\Models\Api\Parceiro\Externo;
 
-use App\Classes\Parceiro\Externo\Ordem;
 use App\Classes\ParceiroLoja\Categoria;
 use App\Classes\ParceiroLoja\Indicador;
 use App\Classes\ParceiroLoja\Status;
 use App\Models\Api\Download\DownloadGeralModel;
 use Erro\Excecao;
-use Helpers\OrmHelper;
 use Http\Request;
 use Modules\Data;
 use System\Classes\Contato\Tipo;
 
-final class DownloadModel extends DownloadGeralModel
+class DownloadModel extends DownloadGeralModel
 {
     public string $id_dono_equipe;
     public string $categoria_principal;
@@ -23,7 +21,6 @@ final class DownloadModel extends DownloadGeralModel
     public string $data_cancelado;
     public string $data_criacao;
     public string $data_publicacao;
-    public ?Ordem $ordem = null;
     public ?string $pesquisa = null;
     public ?string $empresa = null;
     public ?string $equipe = null;
@@ -47,6 +44,7 @@ final class DownloadModel extends DownloadGeralModel
         protected Request $request
     ) {
         parent::__construct($request, TABELA_PARCEIRO_LOJA, 'parceiro-externo');
+        $this->setarPropriedades();
         $this->validarRequest();
         $this->buscarRegistro();
         $this->validarDados();
@@ -55,24 +53,38 @@ final class DownloadModel extends DownloadGeralModel
         $this->salvarArquivo();
     }
 
+    private function setarPropriedades(): void
+    {
+        $this->campo = $this->request->campo ?? [];
+        $this->pesquisa = $this->request->pesquisa ?? '';
+        $this->empresa = $this->request->empresa ?? '';
+        $this->equipe = $this->request->equipe ?? '';
+        $this->categoria = new Categoria($this->request->categoria);
+        $this->indicador = new Indicador($this->request->indicador);
+        $this->estado = $this->request->estado ?? [];
+        $this->dataInicio = new Data($this->request->data_inicio);
+        $this->dataFinal = new Data($this->request->data_final);
+        $this->status = new Status($this->request->status);
+    }
+
     /**
      * @throws Excecao
      */
     private function validarRequest(): void
     {
-        if (!empty($this->indicador) && !$this->indicador->vazio() && !$this->indicador->valido()) {
+        if (!$this->indicador->vazio() && !$this->indicador->valido()) {
             mensagemErro('Campo inválido!', 'O Indicador informado não é válido.');
         }
-        if (!empty($this->categoria) && !$this->categoria->vazio() && !$this->categoria->valido()) {
+        if (!$this->categoria->vazio() && !$this->categoria->valido()) {
             mensagemErro('Campo inválido!', 'A Categoria informada não é válida.');
         }
-        if (!empty($this->dataInicio) && !$this->dataInicio->vazio() && !$this->dataInicio->eDate()) {
+        if (!$this->dataInicio->vazio() && !$this->dataInicio->eDate()) {
             mensagemErro('Campo inválido!', 'A Data de início não está no formato válido.');
         }
-        if (!empty($this->dataFinal) && !$this->dataFinal->vazio() && !$this->dataFinal->eDate()) {
+        if (!$this->dataFinal->vazio() && !$this->dataFinal->eDate()) {
             mensagemErro('Campo inválido!', 'A Data final não está no formato válido.');
         }
-        if (!empty($this->status) && !$this->status->vazio() && !$this->status->valido()) {
+        if (!$this->status->vazio() && !$this->status->valido()) {
             mensagemErro('Campo inválido!', 'O Status informado não é válido.');
         }
     }
@@ -83,6 +95,7 @@ final class DownloadModel extends DownloadGeralModel
     protected function buscarRegistro(): void
     {
         $this->busca = $this
+            ->tabela($this->ormTabela)
             ->campo($this->campo)
             ->where($this->pegarWhere(), false)
             ->tabela(TABELA_SISTEMA_CONTATO)
@@ -107,38 +120,33 @@ final class DownloadModel extends DownloadGeralModel
                 ['titulo_interno', 'like', '%' . $this->pesquisa . '%']
             ];
         }
-        if (!empty($this->equipe)) {
+        /*if (!empty($this->equipe)) {
             $id_dono_equipe = (new OrmHelper(TABELA_USUARIO_EQUIPE))->pegarIdPeloUuid($this->equipe);
             $where[] = ['id_dono_equipe', $id_dono_equipe];
         } else {
             $where[] = ['id_dono_equipe', '!=', 'null'];
-        }
-        if (!empty($this->categoria) && $this->categoria->valido()) {
+        }*/
+        if ($this->categoria->valido()) {
             $where[] = ['categoria_principal', $this->categoria->numero()];
         }
-        if (!empty($this->indicador) && $this->indicador->valido()) {
+        if ($this->indicador->valido()) {
             $where[] = ['tipo_indicador', $this->indicador->numero()];
         }
         if (!empty($this->estado)) {
             $where[] = ['endereco_estado', 'json', $this->estado];
         }
-        if (
-            !empty($this->dataInicio)
-            && !empty($this->dataFinal)
-            && $this->dataInicio->valido()
-            && $this->dataFinal->valido()
-        ) {
+        if ($this->dataInicio->valido() && $this->dataFinal->valido()) {
             $where[] = [
                 'data_criacao', 'between', [
                     $this->dataInicio->date(), $this->dataFinal->date()
                 ]
             ];
-        } elseif (!empty($this->dataInicio) && $this->dataInicio->valido()) {
+        } elseif ($this->dataInicio->valido()) {
             $where[] = ['data_criacao', '>=', $this->dataInicio->date()];
-        } elseif (!empty($this->dataFinal) && $this->dataFinal->valido()) {
+        } elseif ($this->dataFinal->valido()) {
             $where[] = ['data_criacao', '<=', $this->dataFinal->date()];
         }
-        if (!empty($this->status) && $this->status->valido()) {
+        if ($this->status->valido()) {
             $where[] = ['status', $this->status->numero()];
         }
         return $where;
@@ -152,7 +160,8 @@ final class DownloadModel extends DownloadGeralModel
         if (empty($this->busca)) {
             mensagemErro(
                 'Não encontrado registros',
-                'Não há registros com essa filtragem'
+                'Não há registros com essa filtragem',
+                400
             );
         }
     }

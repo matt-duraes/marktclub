@@ -155,7 +155,6 @@ return [
         'link_clube'       => 'fenae.local',
         'tela_login'       => 1,
         'cor_principal'    => '#20409a',
-        'tipo_cargo'       => 1,
         'status'           => 1
     ],
     [

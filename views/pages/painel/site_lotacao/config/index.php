@@ -1,12 +1,12 @@
 <?php
 
-use App\Classes\Geral\Status;
 use PainelConfig\Index;
+use App\Classes\Geral\Status;
 
-$Painel = new Index('site_cargo');
+$Painel = new Index('site_lotacao');
 
 $Painel
-    ->campo('empresa->nome', 'Empresa', Index::TIPO_NORMAL, permissao: 'site_cargo_empresa')
+    ->campo('empresa->nome', 'Empresa', Index::TIPO_NORMAL, permissao: 'site_lotacao_empresa')
     ->campo('titulo', 'Titulo', Index::TIPO_NORMAL)
     ->dataCriacao()
     ->dataAtualizacao()

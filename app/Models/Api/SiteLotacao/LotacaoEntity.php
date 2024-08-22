@@ -1,20 +1,20 @@
 <?php
 
-namespace App\Models\Api\SiteCargo;
+namespace App\Models\Api\SiteLotacao;
 
 use App\Classes\Geral\Status;
 use App\Models\Api\Trait\ValidarEmpresaTrait;
 use Erro\Excecao;
 use ORM\Entity;
 
-class CargoEntity extends Entity
+class LotacaoEntity extends Entity
 {
     use ValidarEmpresaTrait;
 
     public string $slug;
     public string $titulo;
     public Status $status;
-    protected string $ormTabela = TABELA_SITE_CARGO;
+    protected string $ormTabela = TABELA_SITE_LOTACAO;
     protected array $ormBuscar = [
         'id_admin_empresa', 'slug', 'titulo', 'status',
         'data_criacao', 'data_atualizacao'

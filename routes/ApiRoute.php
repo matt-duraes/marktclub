@@ -1276,7 +1276,7 @@ Route
                 'menu_saude_florianopolis', 'menu_cashback', 'menu_indicar_usuario', 'menu_indicar_loja',
                 'menu_odontologico', 'menu_premium', 'menu_dependente', 'menu_carteira', 'menu_cupom',
                 'menu_salavip', 'menu_ponto_mais_acao', 'menu_credito_sicoob', 'menu_primeiro_acesso', 'chat_status',
-                'menu_meu_parceiro', 'administrado_status', 'api_status', 'tipo_ativacao','tipo_cargo' ,'status',
+                'menu_meu_parceiro', 'administrado_status', 'api_status', 'tipo_ativacao', 'tipo_cargo' ,'status',
                 'menu_corrida', 'menu_show_nacional', 'menu_show_internacional', 'link_odontologico',
                 'campos_primeiro_acesso', 'grupo_label', 'grupo_placeholder', 'link_facebook', 'link_instagram',
                 'link_twitter', 'link_linkedin', 'link_youtube', 'link_tiktok', 'tela_login', '!copiar_padrao',
@@ -2918,48 +2918,48 @@ Route
     });
 
 Route
-    ::nome('site_cargo')
-    ::controller(App\Controllers\Api\SiteCargoController::class)
+    ::nome('site_lotacao')
+    ::controller(App\Controllers\Api\SiteLotacaoController::class)
     ::middleware(TokenMiddleware::class, 'token')
     ::grupo(function () {
         Route
             ::nome('select')
-            ::middleware(TokenMiddleware::class, 'scope', ['site_cargo:select'])
-            ::get('/site-cargo/select');
+            ::middleware(TokenMiddleware::class, 'scope', ['site_lotacao:select'])
+            ::get('/site-lotacao/select');
 
         Route
             ::nome('buscar')
-            ::middleware(TokenMiddleware::class, 'scope', ['site_cargo:buscar'])
-            ::get('/site-cargo/{id}');
+            ::middleware(TokenMiddleware::class, 'scope', ['site_lotacao:buscar'])
+            ::get('/site-lotacao/{id}');
 
         Route
             ::nome('listar')
-            ::middleware(TokenMiddleware::class, 'scope', ['site_cargo:listar'])
+            ::middleware(TokenMiddleware::class, 'scope', ['site_lotacao:listar'])
             ::request([
                 'pagina', '!quantidade', '!empresa', '!status'
             ], 'json')
-            ::get('/site-cargo');
+            ::get('/site-lotacao');
 
         Route
             ::nome('salvar')
-            ::middleware(TokenMiddleware::class, 'scope', ['site_cargo:salvar'])
+            ::middleware(TokenMiddleware::class, 'scope', ['site_lotacao:salvar'])
             ::request([
                 'titulo', 'status'
             ])
-            ::post('/site-cargo');
+            ::post('/site-lotacao');
 
         Route
             ::nome('atualizar')
-            ::middleware(TokenMiddleware::class, 'scope', ['site_cargo:atualizar'])
+            ::middleware(TokenMiddleware::class, 'scope', ['site_lotacao:atualizar'])
             ::request([
                 '!titulo', '!status'
             ])
-            ::put('/site-cargo/{id}');
+            ::put('/site-lotacao/{id}');
 
         Route
             ::nome('deletar')
-            ::middleware(TokenMiddleware::class, 'scope', ['site_cargo:deletar'])
-            ::delete('/site-cargo/{id}');
+            ::middleware(TokenMiddleware::class, 'scope', ['site_lotacao:deletar'])
+            ::delete('/site-lotacao/{id}');
     });
 
 Route

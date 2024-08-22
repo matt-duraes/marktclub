@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Models\Api\SiteCargo;
+namespace App\Models\Api\SiteLotacao;
 
 use App\Classes\Geral\Status;
 use App\Models\Api\Trait\ValidarEmpresaTrait;
@@ -13,14 +13,14 @@ use System\Interface\ModelListarInterface;
 use System\Trait\Model\PaginaTrait;
 use System\Trait\Model\QuantidadeTrait;
 
-class CargoModel extends ORM implements
+class LotacaoModel extends ORM implements
     ModelListarInterface
 {
     use ValidarEmpresaTrait;
     use PaginaTrait;
     use QuantidadeTrait;
 
-    protected string $ormTabela = TABELA_SITE_CARGO;
+    protected string $ormTabela = TABELA_SITE_LOTACAO;
 
     /**
      * @param Pagina      $pagina
@@ -63,7 +63,7 @@ class CargoModel extends ORM implements
      */
     public function listarDados(): stdClass
     {
-        $cargos = $this
+        $lotacao = $this
             ->campo([
                 'uuid', 'slug', 'titulo', 'status',
                 'data_criacao', 'data_atualizacao'
@@ -77,8 +77,8 @@ class CargoModel extends ORM implements
                 'uuid', 'nome_fantasia'
             ], 'empresa')
             ->read();
-        $cargos->lista = $this->montarRetorno($cargos->lista);
-        return $cargos;
+        $lotacao->lista = $this->montarRetorno($lotacao->lista);
+        return $lotacao;
     }
 
     /**
@@ -106,30 +106,30 @@ class CargoModel extends ORM implements
     }
 
     /**
-     * @param array $cargos
+     * @param array $lotacoes
      *
      * @return array
      */
-    private function montarRetorno(array $cargos): array
+    private function montarRetorno(array $lotacoes): array
     {
-        if (empty($cargos)) {
-            return $cargos;
+        if (empty($lotacoes)) {
+            return $lotacoes;
         }
 
         $Status = new Status();
         $retorno = [];
-        foreach ($cargos as $cargo) {
+        foreach ($lotacoes as $lotacao) {
             $retorno[] = [
-                'id'               => $cargo->uuid,
+                'id'               => $lotacao->uuid,
                 'empresa'          => [
-                    'id'   => $cargo->empresa_uuid,
-                    'nome' => $cargo->empresa_nome_fantasia
+                    'id'   => $lotacao->empresa_uuid,
+                    'nome' => $lotacao->empresa_nome_fantasia
                 ],
-                'slug'             => $cargo->slug,
-                'titulo'           => $cargo->titulo,
-                'status'           => $Status->indice($cargo->status),
-                'data_criacao'     => $cargo->data_criacao,
-                'data_atualizacao' => $cargo->data_atualizacao
+                'slug'             => $lotacao->slug,
+                'titulo'           => $lotacao->titulo,
+                'status'           => $Status->indice($lotacao->status),
+                'data_criacao'     => $lotacao->data_criacao,
+                'data_atualizacao' => $lotacao->data_atualizacao
             ];
         }
         return $retorno;

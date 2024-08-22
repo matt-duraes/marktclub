@@ -1,14 +1,14 @@
 <?php
 
-use Helpers\ApiHelper;
-use Helpers\ListaHelper;
+use App\Classes\UsuarioCliente\Federacao;
 use App\Classes\UsuarioCliente\Helper;
 use App\Classes\UsuarioCliente\Origem;
 use App\Classes\UsuarioCliente\Status;
-use App\Classes\UsuarioCliente\Federacao;
 use App\Classes\UsuarioCliente\TipoPagamento;
 use App\Classes\UsuarioCliente\TrabalhoCargo;
 use App\Classes\UsuarioCliente\TrabalhoEmpresa;
+use Helpers\ApiHelper;
+use Helpers\ListaHelper;
 
 $Painel = new PainelConfig\Visualizar('usuario_cliente');
 
@@ -107,6 +107,8 @@ $Painel->js('painel_usuario_cliente_visualizar');
 $Api = new ApiHelper(token: true);
 $Lista = new ListaHelper();
 
+$trabalhoCargo = $Api->get('/site-lotacao/select')->array()['dado'] ?? [];
+
 // Lista de federação
 $Painel->replace(campo: 'federacao', lista: (new Federacao())->select());
 
@@ -114,7 +116,10 @@ $Painel->replace(campo: 'federacao', lista: (new Federacao())->select());
 $Painel->replace(campo: 'tipo_pagamento', lista: (new TipoPagamento())->select());
 
 // Lista de orgão de trabalho
-$Painel->replace(campo: 'trabalho_empresa', lista: (new TrabalhoEmpresa())->select());
+$Painel->replace(
+    campo: 'trabalho_empresa',
+    lista: !empty($trabalhoCargo) ? $trabalhoCargo : (new TrabalhoEmpresa())->select()
+);
 
 // Lista de tipo de cargos
 $Painel->replace(campo: 'trabalho_cargo', lista: (new TrabalhoCargo())->select());

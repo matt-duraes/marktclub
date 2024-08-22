@@ -110,7 +110,6 @@ final class ConstrutorEntity extends Entity
     public Botao $chat_status;
     public Botao $administrado_status;
     public TipoAtivacao $tipo_ativacao;
-    public TipoCargo $tipo_cargo;
     public Status $status;
     public string $empresa;
     public array $campos_primeiro_acesso;
@@ -127,6 +126,7 @@ final class ConstrutorEntity extends Entity
     public string $texto_login_usuario;
     public string $texto_login_dependente;
     public string $texto_login_funcionario;
+    public TipoCargo $tipo_cargo;
 
     public function __construct()
     {

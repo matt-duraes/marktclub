@@ -2,18 +2,18 @@
 
 namespace App\Models\Api\UsuarioCliente\Trait;
 
-use Modules\Botao;
-use Helpers\OrmHelper;
 use App\Models\Api\ComercialEmpresa\EmpresaEntity;
 use App\Models\Api\UsuarioPagamento\PagamentoModel;
+use Helpers\OrmHelper;
+use Modules\Botao;
 
 trait EntityBuscarTrait
 {
     protected function regraPosBuscar()
     {
         $this->contratoSiape = '';
-        if (!$this->trabalho_empresa->vazio() && !empty($this->siape) && $this->id_admin_empresa == 19) {
-            $this->contratoSiape = $this->trabalho_empresa->numero() . $this->siape . '341201';
+        if (!empty($this->trabalho_empresa) && !empty($this->siape) && $this->id_admin_empresa == 19) {
+            $this->contratoSiape = $this->trabalho_empresa . $this->siape . '341201';
         }
 
         if ($this->imagem_arquivo) {
