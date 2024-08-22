@@ -1276,7 +1276,7 @@ Route
                 'menu_saude_florianopolis', 'menu_cashback', 'menu_indicar_usuario', 'menu_indicar_loja',
                 'menu_odontologico', 'menu_premium', 'menu_dependente', 'menu_carteira', 'menu_cupom',
                 'menu_salavip', 'menu_ponto_mais_acao', 'menu_credito_sicoob', 'menu_primeiro_acesso', 'chat_status',
-                'menu_meu_parceiro', 'administrado_status', 'api_status', 'tipo_ativacao','tipo_cargo' ,'status',
+                'menu_meu_parceiro', 'administrado_status', 'api_status', 'tipo_ativacao', 'tipo_cargo' ,'status',
                 'menu_corrida', 'menu_show_nacional', 'menu_show_internacional', 'link_odontologico',
                 'campos_primeiro_acesso', 'grupo_label', 'grupo_placeholder', 'link_facebook', 'link_instagram',
                 'link_twitter', 'link_linkedin', 'link_youtube', 'link_tiktok', 'tela_login', '!copiar_padrao',
@@ -2915,51 +2915,6 @@ Route
             ::nome('deletar')
             ::middleware(TokenMiddleware::class, 'scope', ['site_menu:deletar'])
             ::delete('/site-menu/{id}');
-    });
-
-Route
-    ::nome('site_cargo')
-    ::controller(App\Controllers\Api\SiteCargoController::class)
-    ::middleware(TokenMiddleware::class, 'token')
-    ::grupo(function () {
-        Route
-            ::nome('select')
-            ::middleware(TokenMiddleware::class, 'scope', ['site_cargo:select'])
-            ::get('/site-cargo/select');
-
-        Route
-            ::nome('buscar')
-            ::middleware(TokenMiddleware::class, 'scope', ['site_cargo:buscar'])
-            ::get('/site-cargo/{id}');
-
-        Route
-            ::nome('listar')
-            ::middleware(TokenMiddleware::class, 'scope', ['site_cargo:listar'])
-            ::request([
-                'pagina', '!quantidade', '!empresa', '!status'
-            ], 'json')
-            ::get('/site-cargo');
-
-        Route
-            ::nome('salvar')
-            ::middleware(TokenMiddleware::class, 'scope', ['site_cargo:salvar'])
-            ::request([
-                'titulo', 'status'
-            ])
-            ::post('/site-cargo');
-
-        Route
-            ::nome('atualizar')
-            ::middleware(TokenMiddleware::class, 'scope', ['site_cargo:atualizar'])
-            ::request([
-                '!titulo', '!status'
-            ])
-            ::put('/site-cargo/{id}');
-
-        Route
-            ::nome('deletar')
-            ::middleware(TokenMiddleware::class, 'scope', ['site_cargo:deletar'])
-            ::delete('/site-cargo/{id}');
     });
 
 Route
