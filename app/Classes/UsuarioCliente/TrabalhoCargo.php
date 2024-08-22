@@ -69,6 +69,16 @@ final class TrabalhoCargo extends Status
                 'colaborador'                   => 'Colaborador UNAREG'
             ],
             'numero' => [1, 2, 3, 4, 5, 6, 7, 8, 9]
+        ],
+        'intelis'   => [
+            'lista'  => [
+                'teste1' => 'Teste 1',
+                'teste2' => 'Teste 2',
+                'teste3' => 'Teste 3'
+            ],
+            'numero' => [
+                9000, 9001, 9002
+            ]
         ]
     ];
 
