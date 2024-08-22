@@ -10,6 +10,7 @@ use App\Classes\UsuarioCliente\TrabalhoEmpresa;
 use App\Models\Api\Painel\LogDownloadEntity;
 use App\Models\Api\Trait\ValidarEmpresaDownloadTrait;
 use App\Models\Api\UsuarioCliente\Trait\BuscarUsuarioTrait;
+use Helpers\OrmHelper;
 use Http\Request;
 use Modules\DataHora;
 use Modules\EnderecoCep;
@@ -213,7 +214,11 @@ final class DownloadModel extends ORM
                     if ((new TrabalhoEmpresa($val, true))->valido()) {
                         $val = (new TrabalhoEmpresa($val, true))->indice();
                     }
-                    $val = $this->pegarSelect('id', 'titulo', ['id_admin_empresa', $this->idEmpresa])[$val];
+                    $val = (new OrmHelper(TABELA_SITE_LOTACAO))->pegarSelect(
+                        'id',
+                        'titulo',
+                        ['id_admin_empresa', $this->idEmpresa]
+                    )[$val];
                 } elseif ($ind == 'trabalho_cargo') {
                     $val = (new TrabalhoCargo($val, true))->indice();
                 } elseif ($ind == 'tipo_pagamento') {
