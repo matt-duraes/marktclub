@@ -2,10 +2,10 @@
 
 namespace App\Models\Api\SiteLotacao;
 
-use ORM\Entity;
-use Erro\Excecao;
 use App\Classes\Geral\Status;
 use App\Models\Api\Trait\ValidarEmpresaTrait;
+use Erro\Excecao;
+use ORM\Entity;
 
 class LotacaoEntity extends Entity
 {

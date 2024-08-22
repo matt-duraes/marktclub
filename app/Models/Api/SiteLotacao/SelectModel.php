@@ -2,10 +2,10 @@
 
 namespace App\Models\Api\SiteLotacao;
 
-use ORM\ORM;
+use App\Models\Api\Trait\ValidarEmpresaTrait;
 use Erro\Excecao;
 use Http\Request;
-use App\Models\Api\Trait\ValidarEmpresaTrait;
+use ORM\ORM;
 
 class SelectModel extends ORM
 {
@@ -27,6 +27,6 @@ class SelectModel extends ORM
 
     public function listarDados(): array
     {
-        return $this->pegarSelect('id', 'titulo', $this->ormWherePadrao);
+        return $this->pegarSelect('id', 'titulo', array_merge($this->ormWherePadrao, [['status', 1]]));
     }
 }

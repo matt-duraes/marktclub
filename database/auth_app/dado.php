@@ -214,10 +214,6 @@ $scope = [
     'site_menu:listar', 'site_menu:buscar', 'site_menu:salvar', 'site_menu:atualizar',
     'site_menu:deletar', 'site_menu:empresa',
 
-    'site_cargo:select', 'site_cargo:listar', 'site_cargo:buscar', 'site_cargo:salvar',
-    'site_cargo:atualizar', 'site_cargo:deletar', 'site_cargo:empresa',
-
-
     'site_lotacao:select', 'site_lotacao:listar', 'site_lotacao:buscar', 'site_lotacao:salvar',
     'site_lotacao:atualizar', 'site_lotacao:deletar', 'site_lotacao:empresa',
 
