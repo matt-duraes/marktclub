@@ -3,6 +3,7 @@
 use Helpers\ApiHelper;
 use App\Classes\Geral\Status;
 use App\Helpers\PrimeiroAcessoHelper;
+use App\Classes\ConstrutorClube\TipoCargo;
 use App\Classes\ConstrutorClube\TipoAtivacao;
 
 $Painel = new PainelConfig\Add(app: 'comercial-empresa', acao: $acao);
@@ -51,6 +52,12 @@ $Painel->coluna(callback: function () use ($Painel) {
                 label: 'Tipo de ativação',
                 placeholder: 'Qual o tipo de ativação?',
                 lista: (new TipoAtivacao())->select('Escolha um tipo')
+            )
+            ->select(
+                name: 'tipo_cargo',
+                label: 'Tipo Cargo',
+                placeholder: 'Qual sistema dos cargos?',
+                lista: (new TipoCargo())->select('Escolha um tipo  de cargo')
             );
     });
     $Painel->fieldset('SEO e status', function () use ($Painel) {
@@ -93,6 +100,8 @@ $Painel->coluna(callback: function () use ($Painel) {
     $Painel->fieldset('Links', function () use ($Painel) {
         $Painel
             ->url(name: 'link_clube', label: 'Link do clube', placeholder: 'Link do clube')
+            ->url(name: 'link_botao_sair', label: 'Link do botão de sair', placeholder: 'Link do botão de sair')
+            ->url(name: 'link_login', label: 'Link de login', placeholder: 'Link de login')
             ->url(name: 'link_cadastro', label: 'Link de cadastro', placeholder: 'Link de cadastro')
             ->url(name: 'link_salavip', label: 'Link da salavip', placeholder: 'Link da salavip')
             ->url(name: 'link_odontologico', label: 'Link do plano odontológico', placeholder: 'Link do plano odontológico')

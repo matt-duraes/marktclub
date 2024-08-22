@@ -15,9 +15,9 @@ final class IndexModel implements
     public function filtro(array $filtro, string $pesquisa, string $ordem, int $pagina): array
     {
         $vazio = empty($filtro) && empty($pesquisa);
-        if (!$vazio && (!array_key_exists('status', $filtro) || empty($filtro['status']))) {
+        /*if (!$vazio && (!array_key_exists('status', $filtro) || empty($filtro['status']))) {
             $filtro['status'] = 'todos';
-        }
+        }*/
         if ($vazio && sessao('USUARIO.gerente') != 'sim') {
             $filtro['equipe'] = sessao('USUARIO.id');
         }

@@ -22,11 +22,22 @@ final class BuscarModel extends ClubeApiHelper
             ->validar(mensagem: 'Página não encontrada', status: 404, login: true)
             ->get('/parceiro-loja/' . $this->url)
             ->object();
-
         if ($dado->dado->status != Status::CONCLUIDO) {
             mensagemStatus(404);
         }
+
         return $this->montarRetorno($dado->dado);
+    }
+
+    /**
+     * Busca o parceiro samsung do clube especifico e retorna apenas o link
+     * do arquivo
+     *
+     */
+    public function buscarSamsung()
+    {
+        $dado = $this->get('/parceiro-loja/' . $this->url)->object();
+        return $dado->dado->arquivo_clube ?? '';
     }
 
     private function montarRetorno($r): stdClass

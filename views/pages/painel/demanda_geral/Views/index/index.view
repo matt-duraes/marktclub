@@ -68,7 +68,7 @@
         <div class="conteudo">
             <h1 class="item_titulo"></h1>
             <div class="dado">
-                <div class="item">
+                <div class="item bloco_item_tipo display_none">
                     <span>Tipo:</span>
                     <p class="item_tipo"></p>
                 </div>

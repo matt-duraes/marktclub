@@ -1,0 +1,1 @@
+{"id":"id_a2d2426f47b7eb2a02394a35364c35f6","token":"painel","metodo":"GET","nome":"\/site-cargo\/:id","uri":"{{LINK}}\/site-cargo\/$SITE_CARGO_ID","parametro":[],"body":[],"header":[],"variavel":[],"json":[],"documentacao":{"status":false,"descricao":"","requisicao":"","resposta":"","scope":"site_cargo:buscar"}}

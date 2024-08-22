@@ -63,12 +63,14 @@
         </div>
         @endif;
         <div class="lista">
-            @if ( in_array('trabalho_cargo', CAMPOS_PRIMEIRO_ACESSO) ):
-                @? formSelect(name: 'ativar_cargo', label: 'Cargo', placeholder: 'Cargo',  obrigatorio: true, lista: (new \App\Classes\UsuarioCliente\TrabalhoCargo)->select('Escolha um cargo'), class: 'bloco_cargo')
-            @endif;
-            @if ( in_array('lotacao', CAMPOS_PRIMEIRO_ACESSO) ):
-                @? formSelect(name: 'ativar_lotacao', label: 'Lotação', placeholder: 'Lotação',  obrigatorio: true, lista: (new \App\Classes\UsuarioCliente\TrabalhoEmpresa)->select('Escolha uma empresa'), class: 'bloco_lotacao')
-            @endif;
+        @if (in_array('lotacao', CAMPOS_PRIMEIRO_ACESSO) ):
+            @php $lotacao = (new \App\Models\Site\Login\LotacaoModel())->buscarLotacao();
+            @? formSelect(name: 'ativar_lotacao', label: 'Lotação', placeholder: 'Lotação',  obrigatorio: true, lista: $lotacao['dado'], class: 'bloco_lotacao')
+        @endif;
+        @if ( in_array('trabalho_cargo', CAMPOS_PRIMEIRO_ACESSO)):
+            @? formSelect(name: 'ativar_cargo', label: 'Cargo', placeholder: 'Cargo',  obrigatorio: true, lista: (new \App\Classes\UsuarioCliente\TrabalhoCargo)->select('Escolha um cargo'), class: 'bloco_cargo')
+        @endif;
+
 
         </div>
         @if ( array_intersect(['endereco_cep', 'endereco_logradouro', 'endereco_numero', 'endereco_complemento', 'endereco_bairro', 'endereco_estado', 'endereco_cidade'], CAMPOS_PRIMEIRO_ACESSO)):

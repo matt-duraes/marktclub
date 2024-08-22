@@ -7,6 +7,9 @@ use Where\Where as WhereWhere;
 
 trait WhereTrait
 {
+    /**
+     * @return WhereWhere
+     */
     public function pegarWhere(): WhereWhere
     {
         $Where = new WhereWhere($this, $this->whereEquipe());
@@ -40,7 +43,10 @@ trait WhereTrait
         return $Where;
     }
 
-    private function whereEquipe()
+    /**
+     * @return array|array[]
+     */
+    private function whereEquipe(): array
     {
         if (!defined('TOKEN') || !is_array(TOKEN) || !array_key_exists('usuario', TOKEN)) {
             return [];

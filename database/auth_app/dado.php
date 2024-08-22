@@ -154,6 +154,8 @@ $scope = [
     'solicitacao_automovel:listar', 'solicitacao_automovel:buscar', 'solicitacao_automovel:salvar',
     'solicitacao_automovel:atualizar',
 
+    'solicitacao_codigo:listar',
+
     'carteirinha:buscar', 'carteirinha:listar', 'carteirinha:salvar',
     'carteirinha:atualizar', 'carteirinha:deletar', 'carteirinha:clube',
 
@@ -211,6 +213,9 @@ $scope = [
 
     'site_menu:listar', 'site_menu:buscar', 'site_menu:salvar', 'site_menu:atualizar',
     'site_menu:deletar', 'site_menu:empresa',
+
+    'site_lotacao:select', 'site_lotacao:listar', 'site_lotacao:buscar', 'site_lotacao:salvar',
+    'site_lotacao:atualizar', 'site_lotacao:deletar', 'site_lotacao:empresa',
 
     'painel_tradutor:traduzir',
 

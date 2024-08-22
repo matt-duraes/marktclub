@@ -55,7 +55,7 @@ final class ConstrutorClubeController extends Controller implements
                 $Construtor,
                 lista: [
                     'empresa', 'titulo', 'logo_principal', 'logo_secundaria', 'favicon', 'logo_footer', 'header_tag',
-                    'cor_principal', 'cor_secundaria', 'link_clube', 'link_login', 'link_cadastro',
+                    'cor_principal', 'cor_secundaria', 'link_clube', 'link_botao_sair', 'link_login', 'link_cadastro',
                     'link_salavip', 'link_app_ios', 'link_app_android', 'contato_telefone', 'contato_whatsapp',
                     'contato_email', 'contato_horario', 'contato_endereco', 'menu_faq', 'menu_como_funciona',
                     'menu_sair', 'menu_acesso_rapido', 'menu_loja', 'menu_mapa', 'menu_cinema', 'menu_tema',
@@ -65,9 +65,10 @@ final class ConstrutorClubeController extends Controller implements
                     'menu_odontologico', 'menu_premium', 'menu_dependente', 'menu_funcionario', 'menu_carteira',
                     'menu_cupom', 'menu_salavip', 'menu_credito_sicoob', 'menu_primeiro_acesso', 'chat_status',
                     'header_descricao', 'menu_corrida', 'menu_show_internacional', 'menu_show_nacional', 'menu_samsung',
-                    'menu_meu_parceiro', 'administrado_status', 'api_status', 'tipo_ativacao', 'status',
+                    'menu_meu_parceiro', 'administrado_status', 'api_status', 'tipo_ativacao', 'tipo_cargo', 'status',
                     'campos_primeiro_acesso', 'grupo_label', 'grupo_placeholder', 'tela_login', 'link_odontologico',
-                    'link_funcionario', 'texto_login_usuario', 'texto_login_dependente', 'texto_login_funcionario'
+                    'link_funcionario', 'texto_login_usuario', 'texto_login_dependente', 'texto_login_funcionario',
+                    'tipo_cargo'
                 ]
             ),
             $status

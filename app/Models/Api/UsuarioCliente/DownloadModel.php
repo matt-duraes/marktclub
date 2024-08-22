@@ -2,21 +2,23 @@
 
 namespace App\Models\Api\UsuarioCliente;
 
-use ORM\ORM;
-use Http\Request;
-use Modules\Genero;
-use Modules\DataHora;
-use Modules\Telefone;
-use Modules\EnderecoCep;
-use Modules\EstadoCivil;
 use App\Classes\UsuarioCliente\Origem;
 use App\Classes\UsuarioCliente\Status;
-use App\Models\Api\Painel\LogDownloadEntity;
 use App\Classes\UsuarioCliente\TipoPagamento;
 use App\Classes\UsuarioCliente\TrabalhoCargo;
 use App\Classes\UsuarioCliente\TrabalhoEmpresa;
+use App\Models\Api\Painel\LogDownloadEntity;
 use App\Models\Api\Trait\ValidarEmpresaDownloadTrait;
 use App\Models\Api\UsuarioCliente\Trait\BuscarUsuarioTrait;
+use Helpers\OrmHelper;
+use Http\Request;
+use Modules\DataHora;
+use Modules\EnderecoCep;
+use Modules\EstadoCivil;
+use Modules\Genero;
+use Modules\Telefone;
+use ORM\ORM;
+use Throwable;
 
 final class DownloadModel extends ORM
 {
@@ -33,6 +35,35 @@ final class DownloadModel extends ORM
         $this->validarCamposAceito();
     }
 
+    private function validarCamposAceito(): void
+    {
+        $camposAceito = [
+            'nome', 'cpf', 'rg', 'siape', 'matricula', 'data_nascimento', 'genero', 'estado_civil',
+            'email_pessoal', 'email_trabalho', 'email_funcional', 'telefone_pessoal', 'telefone_trabalho',
+            'endereco_cep', 'endereco_logradouro', 'endereco_numero', 'endereco_complemento',
+            'endereco_bairro', 'endereco_cidade', 'endereco_estado', 'data_criacao', 'data_atualizacao',
+            'data_acesso', 'tipo', 'federacao', 'grupo', 'status', 'data_upload', 'lead', 'origem',
+            'trabalho_empresa', 'trabalho_cargo', 'tipo_pagamento'
+        ];
+
+        $listaCampos = jsonDecode($this->request->campo, true, true);
+        if (!$listaCampos) {
+            mensagemErro('Erro!', 'Você deve enviar pelo menos um campo.');
+        }
+
+        foreach ($listaCampos as $campo) {
+            if (!in_array($campo, $camposAceito)) {
+                mensagemErro(
+                    'Erro!',
+                    'Um ou mais campos não tem permissão para serem buscados.',
+                    status: 403,
+                    localhost: 'O campo ' . $campo . ' não está na lista de campos permitidos'
+                );
+            }
+        }
+        return;
+    }
+
     public function download()
     {
         $campo = $this->converterCampoParaDownload();
@@ -47,6 +78,65 @@ final class DownloadModel extends ORM
         return $this->montarRetornoDownload($dado, $campo);
     }
 
+    private function converterCampoParaDownload()
+    {
+        $campo = array_flip(jsonDecode($this->request->campo, true, true));
+        if (array_key_exists('cpf', $campo)) {
+            unset($campo['cpf']);
+            $campo['documento'] = true;
+        }
+        if (array_key_exists('rg', $campo)) {
+            unset($campo['rg']);
+            $campo['documento_rg'] = true;
+        }
+        if (array_key_exists('telefone_pessoal', $campo)) {
+            unset($campo['telefone_pessoal']);
+            $campo['telefone_celular'] = true;
+        }
+        if (array_key_exists('telefone_trabalho', $campo)) {
+            unset($campo['telefone_trabalho']);
+            $campo['telefone_fixo'] = true;
+        }
+        if (array_key_exists('data_nascimento', $campo)) {
+            unset($campo['data_nascimento']);
+            $campo['aniversario'] = true;
+        }
+        if (array_key_exists('genero', $campo)) {
+            unset($campo['genero']);
+            $campo['sexo'] = true;
+        }
+        if (array_key_exists('endereco_cidade', $campo)) {
+            unset($campo['endereco_cidade']);
+            $campo['cidade'] = true;
+        }
+        if (array_key_exists('endereco_estado', $campo)) {
+            unset($campo['endereco_estado']);
+            $campo['uf'] = true;
+        }
+        if (array_key_exists('data_upload', $campo)) {
+            unset($campo['data_upload']);
+            $campo['data_upload_tabela'] = true;
+        }
+        if (array_key_exists('lead', $campo)) {
+            unset($campo['lead']);
+            $campo['usuario_lead'] = true;
+        }
+        if (array_key_exists('origem', $campo)) {
+            unset($campo['origem']);
+            $campo['lead_origem'] = true;
+        }
+        if (array_key_exists('trabalho_empresa', $campo)) {
+            unset($campo['trabalho_empresa']);
+            $campo['trabalho_orgao'] = true;
+        }
+        return array_keys($campo);
+    }
+
+    private function erroDownloadPadrao()
+    {
+        mensagemErro('Erro!', 'Ocorreu um erro ao fazer o download, por favor, tente novamente.');
+    }
+
     private function salvarLogDownload(array $dado)
     {
         $Log = new LogDownloadEntity(
@@ -57,14 +147,9 @@ final class DownloadModel extends ORM
         );
         try {
             $Log->salvar();
-        } catch (\Throwable) {
+        } catch (Throwable) {
             $this->erroDownloadPadrao();
         }
-    }
-
-    private function erroDownloadPadrao()
-    {
-        mensagemErro('Erro!', 'Ocorreu um erro ao fazer o download, por favor, tente novamente.');
     }
 
     private function montarRetornoDownload(array $dado, array $campo): array
@@ -126,7 +211,14 @@ final class DownloadModel extends ORM
                     $val = (new Status($val))->indice();
                 } elseif ($ind == 'trabalho_orgao') {
                     $ind = 'trabalho_empresa';
-                    $val = (new TrabalhoEmpresa($val, true))->indice();
+                    if ((new TrabalhoEmpresa($val, true))->valido()) {
+                        $val = (new TrabalhoEmpresa($val, true))->indice();
+                    }
+                    $val = (new OrmHelper(TABELA_SITE_LOTACAO))->pegarSelect(
+                        'id',
+                        'titulo',
+                        ['id_admin_empresa', $this->idEmpresa]
+                    )[$val];
                 } elseif ($ind == 'trabalho_cargo') {
                     $val = (new TrabalhoCargo($val, true))->indice();
                 } elseif ($ind == 'tipo_pagamento') {
@@ -139,88 +231,5 @@ final class DownloadModel extends ORM
             $i++;
         }
         return $retorno;
-    }
-
-    private function validarCamposAceito(): void
-    {
-        $camposAceito = [
-            'nome', 'cpf', 'rg', 'siape', 'matricula', 'data_nascimento', 'genero', 'estado_civil',
-            'email_pessoal', 'email_trabalho', 'email_funcional', 'telefone_pessoal', 'telefone_trabalho',
-            'endereco_cep', 'endereco_logradouro', 'endereco_numero', 'endereco_complemento',
-            'endereco_bairro', 'endereco_cidade', 'endereco_estado', 'data_criacao', 'data_atualizacao',
-            'data_acesso', 'tipo', 'federacao', 'grupo', 'status', 'data_upload', 'lead', 'origem',
-            'trabalho_empresa', 'trabalho_cargo', 'tipo_pagamento'
-        ];
-
-        $listaCampos = jsonDecode($this->request->campo, true, true);
-        if (!$listaCampos) {
-            mensagemErro('Erro!', 'Você deve enviar pelo menos um campo.');
-        }
-
-        foreach ($listaCampos as $campo) {
-            if (!in_array($campo, $camposAceito)) {
-                mensagemErro(
-                    'Erro!',
-                    'Um ou mais campos não tem permissão para serem buscados.',
-                    status: 403,
-                    localhost: 'O campo ' . $campo . ' não está na lista de campos permitidos'
-                );
-            }
-        }
-        return;
-    }
-
-    private function converterCampoParaDownload()
-    {
-        $campo = array_flip(jsonDecode($this->request->campo, true, true));
-        if (array_key_exists('cpf', $campo)) {
-            unset($campo['cpf']);
-            $campo['documento'] = true;
-        }
-        if (array_key_exists('rg', $campo)) {
-            unset($campo['rg']);
-            $campo['documento_rg'] = true;
-        }
-        if (array_key_exists('telefone_pessoal', $campo)) {
-            unset($campo['telefone_pessoal']);
-            $campo['telefone_celular'] = true;
-        }
-        if (array_key_exists('telefone_trabalho', $campo)) {
-            unset($campo['telefone_trabalho']);
-            $campo['telefone_fixo'] = true;
-        }
-        if (array_key_exists('data_nascimento', $campo)) {
-            unset($campo['data_nascimento']);
-            $campo['aniversario'] = true;
-        }
-        if (array_key_exists('genero', $campo)) {
-            unset($campo['genero']);
-            $campo['sexo'] = true;
-        }
-        if (array_key_exists('endereco_cidade', $campo)) {
-            unset($campo['endereco_cidade']);
-            $campo['cidade'] = true;
-        }
-        if (array_key_exists('endereco_estado', $campo)) {
-            unset($campo['endereco_estado']);
-            $campo['uf'] = true;
-        }
-        if (array_key_exists('data_upload', $campo)) {
-            unset($campo['data_upload']);
-            $campo['data_upload_tabela'] = true;
-        }
-        if (array_key_exists('lead', $campo)) {
-            unset($campo['lead']);
-            $campo['usuario_lead'] = true;
-        }
-        if (array_key_exists('origem', $campo)) {
-            unset($campo['origem']);
-            $campo['lead_origem'] = true;
-        }
-        if (array_key_exists('trabalho_empresa', $campo)) {
-            unset($campo['trabalho_empresa']);
-            $campo['trabalho_orgao'] = true;
-        }
-        return array_keys($campo);
     }
 }

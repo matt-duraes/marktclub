@@ -527,6 +527,13 @@ final class ConfiguracoesPadrao
                 'solicitacao_credito_empresa'    => 'Todas as empresas'
             ]
         ],
+        'solicitacao_codigo'       => [
+            'titulo'    => 'Solicitação Código',
+            'permissao' => [
+                'solicitacao_codigo_index'   => 'Listar',
+                'solicitacao_codigo_empresa' => 'Todas as empresas'
+            ]
+        ],
         'saude_contratacao'        => [
             'titulo'    => 'Saúde Contratação',
             'permissao' => [
@@ -691,6 +698,16 @@ final class ConfiguracoesPadrao
                 'site_menu_editar'     => 'Editar',
                 'site_menu_deletar'    => 'Deletar',
                 'site_menu_empresa'    => 'Todas as Empresas'
+            ]
+        ],
+        'site_lotacao'             => [
+            'titulo'    => 'Lotação',
+            'permissao' => [
+                'site_lotacao_index'   => 'Listar',
+                'site_lotacao_add'     => 'Salvar',
+                'site_lotacao_editar'  => 'Editar',
+                'site_lotacao_deletar' => 'Deletar',
+                'site_lotacao_empresa' => 'Todas as Empresas'
             ]
         ],
         'silium_comissao'          => [

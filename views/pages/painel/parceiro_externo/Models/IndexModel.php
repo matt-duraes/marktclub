@@ -2,8 +2,8 @@
 
 namespace Painel\ParceiroExterno\Models;
 
-use stdClass;
 use App\Classes\ParceiroLoja\Status;
+use stdClass;
 use System\Interface\PainelIndexFiltroInterface;
 use System\Interface\PainelIndexRetornoInterface;
 
@@ -13,7 +13,7 @@ final class IndexModel implements
 {
     public function filtro(array $filtro, string $pesquisa, string $ordem, int $pagina): array
     {
-        if (!temPermissao('parceiro_externo_equipe')) {
+        if (!in_array('parceiro_externo_equipe', sessao('USUARIO')['permissao'])) {
             $filtro['equipe'] = sessao('USUARIO')['id'];
         }
         if (!array_key_exists('status', $filtro)) {

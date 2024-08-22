@@ -149,7 +149,6 @@ const loadingAtivar = () => {
 
     const inputCargo = $('#input_ativar_cargo');
     const inputLotacao = $('#input_ativar_lotacao');
-
     if (
         inputEnderecoCep &&
         inputEnderecoLogradouro &&
