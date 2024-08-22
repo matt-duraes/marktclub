@@ -114,23 +114,45 @@ final class Response extends Psr7Response
      * @return self
      * @throws Excecao
      */
-    public function download(string $arquivo, int $status = 200, array $header = []): self
+    public function download(string $arquivo, int $status = 200, array $header = [], string $nome = null): self
     {
-        if (!file_exists($arquivo)) {
+        $eUrl = preg_match('/^http(s){0,1}\:\/\//', $arquivo);
+        if (!$eUrl && !file_exists($arquivo)) {
             mensagemStatus(
                 404,
                 localhost: 'Arquivo não encontrado ou inválido. Verifique se o caminho.'
             );
         }
 
-        $this->tipo = 'responseFile';
-        $nome = pathinfo($arquivo, PATHINFO_BASENAME);
+        if ($eUrl) {
+            $this->downloadUrl($arquivo, $nome);
+            return $this;
+        }
+        $nome = empty($nome) ? pathinfo($arquivo, PATHINFO_BASENAME) : $nome;
         $mimeType = mime_content_type($arquivo);
 
+        $this->tipo = 'responseFile';
         $this->responseFile = new BinaryFileResponse($arquivo, $status, $header);
         $this->responseFile->headers->set('Content-Type', $mimeType);
         $this->responseFile->setContentDisposition(ResponseHeaderBag::DISPOSITION_ATTACHMENT, $nome);
         return $this;
+    }
+
+    private function downloadUrl(string $arquivo, string $nome)
+    {
+        $conteudo = file_get_contents($arquivo);
+        $finfo = finfo_open(FILEINFO_MIME_TYPE);
+        $mimeType = finfo_buffer($finfo, $conteudo);
+        finfo_close($finfo);
+        $nome = empty($nome) ? 'download-' . date('Y-m-d') : $nome;
+
+        $this->tipo = 'responseBody';
+        $this->responseBody = new Psr7Response($conteudo, 200);
+        $this->header([
+            'Content-Disposition' => 'attachment; filename="' . $nome . '"',
+            'Content-Type'        => $mimeType,
+            'Content-Length'      => strlen($conteudo)
+        ]);
     }
 
     // doc

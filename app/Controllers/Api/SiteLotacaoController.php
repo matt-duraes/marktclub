@@ -54,7 +54,7 @@ final class SiteLotacaoController extends Controller implements
 
     /**
      * @param LotacaoEntity $lotacaoEntity
-     * @param int         $status
+     * @param int           $status
      *
      * @return Response
      * @throws Excecao

@@ -13,4 +13,3 @@ $Painel
     ->status('status', 'Status', new Status());
 
 return $Painel;
-

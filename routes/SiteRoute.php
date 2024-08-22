@@ -351,6 +351,15 @@ Route
     });
 
 Route
+    ::nome('webview')
+    ::controller(App\Controllers\Site\Webview\LoginController::class)
+    ::grupo(function() {
+        Route
+            ::nome('mapa')
+            ::view('/webview/login-mapa');
+    });
+
+Route
     ::nome('loja')
     ::middleware(ClubeMiddleware::class, 'buscar')
     ::middleware(AuthMiddleware::class, 'logado')
