@@ -11,7 +11,6 @@ use Erro\Excecao;
 use Http\Request;
 use Modules\Data;
 use ORM\ORM;
-use System\Classes\Contato\Tipo;
 
 class DownloadModel extends ORM
 {
@@ -34,7 +33,7 @@ class DownloadModel extends ORM
         $this->validarCampoAceito();
         parent::__construct();
         $this->buscarRegistro();
-        $this->validarDados();
+        //$this->validarDados();
         $this->salvarLogDownload();
         $this->montarRetornoDownload();
         $this->salvarArquivo();
@@ -125,27 +124,13 @@ class DownloadModel extends ORM
     }
 
     /**
-     * @throws Excecao
-     */
-    private function validarDados(): void
-    {
-        if (empty($this->dados)) {
-            mensagemErro(
-                'Não encontrado registros',
-                'Não há registros com essa filtragem',
-                400
-            );
-        }
-    }
-
-    /**
      * @return void
      * @throws Excecao
      */
     private function salvarLogDownload(): void
     {
         $Log = new LogDownloadEntity(
-            app: $this->request->app,
+            app: 'parceiro_externo',
             request: $this->request->dado(),
             quantidade: count($this->dados),
             usuario: $this->request->usuario
@@ -162,16 +147,16 @@ class DownloadModel extends ORM
         $retorno = [];
         foreach ($this->dados as $linha) {
             foreach ($linha as $ind => $val) {
-                if ($ind === 'contato_tipo') {
+                /*if ($ind == 'contato_tipo') {
                     $val = (new Tipo($val))->indice();
-                }
-                if ($ind === 'categoria_principal') {
+                }*/
+                if ($ind == 'categoria_principal') {
                     $val = (new Categoria($val))->indice();
                 }
-                if ($ind === 'tipo_indicador') {
+                if ($ind == 'tipo_indicador') {
                     $val = (new Indicador($val))->indice();
                 }
-                if ($ind === 'status') {
+                if ($ind == 'status') {
                     $val = (new Status($val))->indice();
                 }
                 $retorno[$i][$ind] = $val;
@@ -190,5 +175,19 @@ class DownloadModel extends ORM
         $Download = new ArquivoEntity($this->dados, $this->request->usuario);
         $Download->salvar();
         $this->id = $Download->id;
+    }
+
+    /**
+     * @throws Excecao
+     */
+    private function validarDados(): void
+    {
+        if (empty($this->dados)) {
+            mensagemErro(
+                'Não encontrado registros',
+                'Não há registros com essa filtragem',
+                400
+            );
+        }
     }
 }
