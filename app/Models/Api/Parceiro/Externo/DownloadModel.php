@@ -5,35 +5,23 @@ namespace App\Models\Api\Parceiro\Externo;
 use App\Classes\ParceiroLoja\Categoria;
 use App\Classes\ParceiroLoja\Indicador;
 use App\Classes\ParceiroLoja\Status;
-use App\Models\Api\Download\DownloadGeralModel;
+use App\Models\Api\DownloadPrivado\ArquivoEntity;
+use App\Models\Api\Painel\LogDownloadEntity;
 use Erro\Excecao;
 use Http\Request;
 use Modules\Data;
+use ORM\ORM;
 use System\Classes\Contato\Tipo;
 
-class DownloadModel extends DownloadGeralModel
+class DownloadModel extends ORM
 {
-    public string $id_dono_equipe;
-    public string $categoria_principal;
-    public string $titulo_interno;
-    public string $cancelar_motivo;
-    public string $tipo_indicador;
-    public string $data_cancelado;
-    public string $data_criacao;
-    public string $data_publicacao;
-    public ?string $pesquisa = null;
-    public ?string $empresa = null;
-    public ?string $equipe = null;
-    public ?Indicador $indicador = null;
-    public ?Categoria $categoria = null;
-    public ?array $estado = null;
-    public ?Data $dataInicio = null;
-    public ?Data $dataFinal = null;
-    public ?Status $status = null;
+    public string|int $id;
+    protected string $ormTabela = TABELA_PARCEIRO_LOJA;
     protected array $campoAceito = [
         'titulo_interno', 'data_criacao', 'data_publicacao', 'status', 'id_dono_equipe',
         'categoria_principal', 'data_cancelado', 'cancelar_motivo', 'tipo_indicador'
     ];
+    private mixed $dados;
 
     /**
      * @param Request $request
@@ -43,9 +31,8 @@ class DownloadModel extends DownloadGeralModel
     public function __construct(
         protected Request $request
     ) {
-        parent::__construct($request, TABELA_PARCEIRO_LOJA, 'parceiro-externo');
-        $this->setarPropriedades();
-        $this->validarRequest();
+        $this->validarCampoAceito();
+        parent::__construct();
         $this->buscarRegistro();
         $this->validarDados();
         $this->salvarLogDownload();
@@ -53,39 +40,25 @@ class DownloadModel extends DownloadGeralModel
         $this->salvarArquivo();
     }
 
-    private function setarPropriedades(): void
-    {
-        $this->campo = $this->request->campo ?? [];
-        $this->pesquisa = $this->request->pesquisa ?? '';
-        $this->empresa = $this->request->empresa ?? '';
-        $this->equipe = $this->request->equipe ?? '';
-        $this->categoria = new Categoria($this->request->categoria);
-        $this->indicador = new Indicador($this->request->indicador);
-        $this->estado = $this->request->estado ?? [];
-        $this->dataInicio = new Data($this->request->data_inicio);
-        $this->dataFinal = new Data($this->request->data_final);
-        $this->status = new Status($this->request->status);
-    }
-
     /**
+     * @return void
      * @throws Excecao
      */
-    private function validarRequest(): void
+    private function validarCampoAceito(): void
     {
-        if (!$this->indicador->vazio() && !$this->indicador->valido()) {
-            mensagemErro('Campo inválido!', 'O Indicador informado não é válido.');
+        if (!$this->request->campo) {
+            mensagemErro('Erro!', 'Você deve enviar pelo menos um campo.');
         }
-        if (!$this->categoria->vazio() && !$this->categoria->valido()) {
-            mensagemErro('Campo inválido!', 'A Categoria informada não é válida.');
-        }
-        if (!$this->dataInicio->vazio() && !$this->dataInicio->eDate()) {
-            mensagemErro('Campo inválido!', 'A Data de início não está no formato válido.');
-        }
-        if (!$this->dataFinal->vazio() && !$this->dataFinal->eDate()) {
-            mensagemErro('Campo inválido!', 'A Data final não está no formato válido.');
-        }
-        if (!$this->status->vazio() && !$this->status->valido()) {
-            mensagemErro('Campo inválido!', 'O Status informado não é válido.');
+
+        foreach ($this->request->campo as $item) {
+            if (!in_array($item, $this->campoAceito)) {
+                mensagemErro(
+                    'Erro!',
+                    'Um ou mais campos não tem permissão para serem buscados.',
+                    status: 403,
+                    localhost: 'O campo ' . $item . ' não está na lista de campos permitidos'
+                );
+            }
         }
     }
 
@@ -94,15 +67,14 @@ class DownloadModel extends DownloadGeralModel
      */
     protected function buscarRegistro(): void
     {
-        $this->busca = $this
-            ->tabela($this->ormTabela)
-            ->campo($this->campo)
+        $this->dados = $this
+            ->campo($this->request->campo)
             ->where($this->pegarWhere(), false)
-            /*->tabela(TABELA_SISTEMA_CONTATO)
+            ->tabela(TABELA_SISTEMA_CONTATO)
             ->join('id_vinculo', 'uuid')
             ->campo([
                 'nome', 'tipo', 'valor'
-            ], 'contato')*/
+            ], 'contato')
             ->read();
     }
 
@@ -112,12 +84,12 @@ class DownloadModel extends DownloadGeralModel
     public function pegarWhere(): array
     {
         $where = [];
-        if (!empty($this->pesquisa)) {
+        if (!empty($this->request->pesquisa)) {
             $where[] = [
                 'OR',
-                ['titulo', 'like', '%' . $this->pesquisa . '%'],
-                ['subcategoria_tag', 'like', '%' . $this->pesquisa . '%'],
-                ['titulo_interno', 'like', '%' . $this->pesquisa . '%']
+                ['titulo', 'like', '%' . $this->request->pesquisa . '%'],
+                ['subcategoria_tag', 'like', '%' . $this->request->pesquisa . '%'],
+                ['titulo_interno', 'like', '%' . $this->request->pesquisa . '%']
             ];
         }
         /*if (!empty($this->equipe)) {
@@ -126,28 +98,28 @@ class DownloadModel extends DownloadGeralModel
         } else {
             $where[] = ['id_dono_equipe', '!=', 'null'];
         }*/
-        if ($this->categoria->valido()) {
-            $where[] = ['categoria_principal', $this->categoria->numero()];
+        if ((new Categoria($this->request->categoria))->valido()) {
+            $where[] = ['categoria_principal', (new Categoria($this->request->categoria))->numero()];
         }
-        if ($this->indicador->valido()) {
-            $where[] = ['tipo_indicador', $this->indicador->numero()];
+        if ((new Indicador($this->request->indicador))->valido()) {
+            $where[] = ['tipo_indicador', (new Indicador($this->request->indicador))->numero()];
         }
-        if (!empty($this->estado)) {
-            $where[] = ['endereco_estado', 'json', $this->estado];
+        if (!empty($this->request->estado)) {
+            $where[] = ['endereco_estado', 'json', $this->request->estado];
         }
-        if ($this->dataInicio->valido() && $this->dataFinal->valido()) {
+        if ((new Data($this->request->data_inicio))->valido() && (new Data($this->request->data_final))->valido()) {
             $where[] = [
                 'data_criacao', 'between', [
-                    $this->dataInicio->date(), $this->dataFinal->date()
+                    (new Data($this->request->data_inicio))->date(), (new Data($this->request->data_final))->date()
                 ]
             ];
-        } elseif ($this->dataInicio->valido()) {
-            $where[] = ['data_criacao', '>=', $this->dataInicio->date()];
-        } elseif ($this->dataFinal->valido()) {
-            $where[] = ['data_criacao', '<=', $this->dataFinal->date()];
+        } elseif ((new Data($this->request->data_inicio))->valido()) {
+            $where[] = ['data_criacao', '>=', (new Data($this->request->data_inicio))->date()];
+        } elseif ((new Data($this->request->data_final))->valido()) {
+            $where[] = ['data_criacao', '<=', (new Data($this->request->data_final))->date()];
         }
-        if ($this->status->valido()) {
-            $where[] = ['status', $this->status->numero()];
+        if ((new Status($this->request->status))->valido()) {
+            $where[] = ['status', (new Status($this->request->status))->numero()];
         }
         return $where;
     }
@@ -157,7 +129,7 @@ class DownloadModel extends DownloadGeralModel
      */
     private function validarDados(): void
     {
-        if (empty($this->busca)) {
+        if (empty($this->dados)) {
             mensagemErro(
                 'Não encontrado registros',
                 'Não há registros com essa filtragem',
@@ -166,11 +138,29 @@ class DownloadModel extends DownloadGeralModel
         }
     }
 
+    /**
+     * @return void
+     * @throws Excecao
+     */
+    private function salvarLogDownload(): void
+    {
+        $Log = new LogDownloadEntity(
+            app: $this->request->app,
+            request: $this->request->dado(),
+            quantidade: count($this->dados),
+            usuario: $this->request->usuario
+        );
+        $Log->salvar();
+    }
+
+    /**
+     * @return void
+     */
     protected function montarRetornoDownload(): void
     {
         $i = 0;
         $retorno = [];
-        foreach ($this->busca as $linha) {
+        foreach ($this->dados as $linha) {
             foreach ($linha as $ind => $val) {
                 if ($ind === 'contato_tipo') {
                     $val = (new Tipo($val))->indice();
@@ -188,6 +178,17 @@ class DownloadModel extends DownloadGeralModel
             }
             $i++;
         }
-        $this->busca = $retorno;
+        $this->dados = $retorno;
+    }
+
+    /**
+     * @return void
+     * @throws Excecao
+     */
+    private function salvarArquivo(): void
+    {
+        $Download = new ArquivoEntity($this->dados, $this->request->usuario);
+        $Download->salvar();
+        $this->id = $Download->id;
     }
 }
