@@ -70,11 +70,11 @@ class DownloadModel extends ORM
         $this->dados = $this
             ->campo($this->request->campo)
             ->where($this->pegarWhere(), false)
-            ->tabela(TABELA_SISTEMA_CONTATO)
+            /*->tabela(TABELA_SISTEMA_CONTATO)
             ->join('id_vinculo', 'uuid')
             ->campo([
                 'nome', 'tipo', 'valor'
-            ], 'contato')
+            ], 'contato')*/
             ->read();
     }
 
