@@ -1,10 +1,10 @@
 <?php
 
-use Route\Route;
 use App\Classes\Parceiro\Externo\Helper;
-use App\Middlewares\Api\TokenMiddleware;
 use App\Middlewares\Api\MarktClubMiddleware;
+use App\Middlewares\Api\TokenMiddleware;
 use App\Middlewares\Api\TokenProvMiddleware;
+use Route\Route;
 
 Route
     ::nome('downloadRestrito')
@@ -1276,7 +1276,7 @@ Route
                 'menu_saude_florianopolis', 'menu_cashback', 'menu_indicar_usuario', 'menu_indicar_loja',
                 'menu_odontologico', 'menu_premium', 'menu_dependente', 'menu_carteira', 'menu_cupom',
                 'menu_salavip', 'menu_ponto_mais_acao', 'menu_credito_sicoob', 'menu_primeiro_acesso', 'chat_status',
-                'menu_meu_parceiro', 'administrado_status', 'api_status', 'tipo_ativacao', 'tipo_cargo' ,'status',
+                'menu_meu_parceiro', 'administrado_status', 'api_status', 'tipo_ativacao', 'tipo_cargo', 'status',
                 'menu_corrida', 'menu_show_nacional', 'menu_show_internacional', 'link_odontologico',
                 'campos_primeiro_acesso', 'grupo_label', 'grupo_placeholder', 'link_facebook', 'link_instagram',
                 'link_twitter', 'link_linkedin', 'link_youtube', 'link_tiktok', 'tela_login', '!copiar_padrao',
@@ -1299,7 +1299,7 @@ Route
                 '!menu_saude_florianopolis', '!menu_cashback', '!menu_indicar_usuario', '!menu_indicar_loja',
                 '!menu_odontologico', '!menu_ponto_mais_acao', '!menu_premium', '!menu_dependente', '!menu_carteira',
                 '!menu_cupom', '!menu_salavip', '!menu_credito_sicoob', '!menu_primeiro_acesso', '!chat_status',
-                '!menu_meu_parceiro', '!administrado_status', '!api_status', '!tipo_ativacao','!tipo_cargo', '!status',
+                '!menu_meu_parceiro', '!administrado_status', '!api_status', '!tipo_ativacao', '!tipo_cargo', '!status',
                 '!menu_corrida', '!menu_show_nacional', '!menu_show_internacional', '!link_odontologico',
                 '!campos_primeiro_acesso', '!grupo_label', '!grupo_placeholder', '!link_facebook', '!link_instagram',
                 '!link_twitter', '!link_linkedin', '!link_youtube', '!link_tiktok', '!tela_login', '!copiar_padrao',
@@ -1341,7 +1341,8 @@ Route
             ::request([
                 'equipe', 'titulo_interno', 'tipo_loja', 'categoria_principal', 'convenio_direto', 'responsavel_nome',
                 'responsavel_cpf', 'responsavel_email', 'responsavel_telefone', 'responsavel_cargo', 'url', 'app',
-                '!nome_fantasia', '!razao_social', '!tipo_juridico', '!documento_cpf', '!documento_cnpj', '!imagem_logo',
+                '!nome_fantasia', '!razao_social', '!tipo_juridico', '!documento_cpf', '!documento_cnpj',
+                '!imagem_logo',
                 '!imagem_capa_desktop', '!imagem_capa_mobile', '!titulo', '!tipo_estabelecimento', '!origem_lead',
                 '!desconto', '!delivery', '!', '!data_contrato_inicio', '!data_contrato_vencimento', '!precisa_aditivo',
                 '!email_contato', '!tipo_procedimento', '!limite_voucher', '!prazo_voucher', '!prazo_voucher_fixo',
@@ -1361,7 +1362,8 @@ Route
                 '!responsavel_email',
                 '!responsavel_telefone', '!responsavel_cargo', '!imagem_logo', '!imagem_capa_desktop',
                 '!imagem_capa_mobile', '!titulo', '!tipo_estabelecimento', '!origem_lead', '!url', '!app', '!desconto',
-                '!delivery', '!convenio_direto', '!data_contrato_inicio', '!data_contrato_vencimento', '!precisa_aditivo',
+                '!delivery', '!convenio_direto', '!data_contrato_inicio', '!data_contrato_vencimento',
+                '!precisa_aditivo',
                 '!email_contato', '!tipo_procedimento', '!limite_voucher', '!prazo_voucher', '!prazo_voucher_fixo',
                 '!contato_whatsapp', '!link_site', '!link_alias', '!link_bloqueado', '!texto_descricao',
                 '!texto_desconto',
@@ -1427,7 +1429,11 @@ Route
         Route
             ::nome('download')
             ::middleware(TokenMiddleware::class, 'scope', ['parceiro_externo:download'])
-            ::request(Route::parametroDownload(Helper::GET_PARAMETRO))
+            ::request([
+                'campo', 'usuario', '!pesquisa', '!empresa', '!equipe',
+                '!categoria', '!indicador', '!estado', '!data_inicio',
+                '!data_final', '!status'
+            ])
             ::post('/parceiro-externo/download');
     });
 

@@ -98,11 +98,11 @@ class DownloadModel extends DownloadGeralModel
             ->tabela($this->ormTabela)
             ->campo($this->campo)
             ->where($this->pegarWhere(), false)
-            ->tabela(TABELA_SISTEMA_CONTATO)
+            /*->tabela(TABELA_SISTEMA_CONTATO)
             ->join('id_vinculo', 'uuid')
             ->campo([
                 'nome', 'tipo', 'valor'
-            ], 'contato')
+            ], 'contato')*/
             ->read();
     }
 
