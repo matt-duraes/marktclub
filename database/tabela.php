@@ -86,7 +86,7 @@ define('TABELA_SISTEMA_DOWNLOAD', 'sistema_download');
 define('TABELA_SISTEMA_ENDERECO', 'sistema_endereco');
 define('TABELA_SISTEMA_MENSAGERIA', 'sistema_mensageria');
 define('TABELA_SISTEMA_USUARIO', 'sistema_usuario');
-define('TABELA_SITE_CARGO', 'site_cargo');
+define('TABELA_SITE_LOTACAO', 'site_lotacao');
 define('TABELA_SITE_CONFIG', 'site_config');
 define('TABELA_SITE_MENU', 'site_menu');
 define('TABELA_SOLICITACAO_AUTOMOVEL', 'solicitacao_automovel');
