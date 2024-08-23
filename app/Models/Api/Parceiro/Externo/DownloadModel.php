@@ -8,6 +8,7 @@ use App\Classes\ParceiroLoja\Status;
 use App\Models\Api\DownloadPrivado\ArquivoEntity;
 use App\Models\Api\Painel\LogDownloadEntity;
 use Erro\Excecao;
+use Helpers\OrmHelper;
 use Http\Request;
 use Modules\Data;
 use ORM\ORM;
@@ -91,12 +92,12 @@ class DownloadModel extends ORM
                 ['titulo_interno', 'like', '%' . $this->request->pesquisa . '%']
             ];
         }
-        /*if (!empty($this->equipe)) {
-            $id_dono_equipe = (new OrmHelper(TABELA_USUARIO_EQUIPE))->pegarIdPeloUuid($this->equipe);
+        if (!empty($this->request->equipe)) {
+            $id_dono_equipe = (new OrmHelper(TABELA_USUARIO_EQUIPE))->pegarIdPeloUuid($this->request->equipe);
             $where[] = ['id_dono_equipe', $id_dono_equipe];
         } else {
             $where[] = ['id_dono_equipe', '!=', 'null'];
-        }*/
+        }
         if ((new Categoria($this->request->categoria))->valido()) {
             $where[] = ['categoria_principal', (new Categoria($this->request->categoria))->numero()];
         }
