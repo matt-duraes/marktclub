@@ -43,7 +43,7 @@
 @ endif;
 
 @ if( MENU_SAIR ):
-    <a href="{{LINK_BOTAO_SAIR ? route('sair.sairPersonalizado') : route('sair.index')}}"class="botao sair desktop sair_perfil">
+    <a href="{{route('sair.index')}}"class="botao sair desktop sair_perfil">
         <i>@iconeSair</i>
         Sair do clube
     </a>
