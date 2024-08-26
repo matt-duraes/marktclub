@@ -12,7 +12,7 @@ final class SairController extends Controller
         sessaoDestruir();
         cookieDeletar('CLT');
 
-        if(LINK_BOTAO_SAIR) {
+        if(!empty(LINK_BOTAO_SAIR)) {
             return new Response(url: LINK_BOTAO_SAIR);
         }
 
