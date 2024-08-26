@@ -176,9 +176,6 @@ Route
         Route
             ::nome('index')
             ::view('/sair');
-        Route
-            ::nome('sairPersonalizado')
-            ::view('/sairPersonalizado');
     });
 Route
     ::nome('index')
