@@ -46,7 +46,7 @@ final class AuthMiddleware
             !sessaoExiste('TOKEN_EXPIRE') ||
             agora() >= sessao('TOKEN_EXPIRE') ||
             empty($this->token) ||
-            dataBanco($this->token['data']) != hoje()
+            !in_array(dataBanco($this->token['data']), [hoje(), dataRemover(hoje(), 1, 'dia')])
         ) {
             return false;
         }

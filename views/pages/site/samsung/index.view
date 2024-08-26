@@ -74,6 +74,7 @@
         <p>O e-mail informado no site da Samsung deve ser o mesmo e-mail do seu cadastro.</p>
     </div>
     <div class="atualizar bloco_titulo_texto">
+
         <div class="bloco_atencao_geral atencao {!! empty($email) ? '' : 'display_none' !!} zero" id="bloco_email_zero">
             <p>Você não tem e-mail cadastrado, cadastre um e-mail antes de continuar.</p>
         </div>
@@ -84,11 +85,19 @@
                 <strong>{!!implode('</strong> ou <strong>', $email)!!}</strong>
             </span>
         </p>
-        <div class="botao" id="botao_samsung_atualizar">{!! !empty($email) ? 'Atualizar e-mail' : 'Cadastrar e-mail' !!}</div>
+        <div id="bloco_botao_samsung">
+            <div class="botao" id="botao_samsung_atualizar">{!! !empty($email) ? 'Atualizar e-mail' : 'Cadastrar e-mail' !!}</div>
+            @if($linkArquivoSite != ''):
+                <a href="{!!$linkArquivoSite!!}" target="_blank">Ver Lista de Produtos</a>
+            @endif;
+        </div>
     </div>
 
     <div class="bloco_botao {!! empty($email) ? 'display_none' : '' !!}" id="bloco_botao">
-        <a href="{!!$link!!}" target="_blank" rel="noopener noreferrer" class="botao_acessar">Acessar site</a>
+        <a href="{!!$link!!}" target="_blank" rel="noopener noreferrer" class="botao_acessar cor_bg">
+            @iconeExtensaoHome
+            Acessar Site
+        </a>
     </div>
 </div>
 

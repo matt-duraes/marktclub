@@ -2,21 +2,20 @@
 
 namespace App\Models\Api\UsuarioCliente;
 
-use ORM\ORM;
-use stdClass;
+use App\Classes\UsuarioCliente\Ordem;
+use App\Classes\UsuarioCliente\Status;
+use App\Classes\UsuarioCliente\TipoUsuario;
+use App\Classes\UsuarioCliente\TrabalhoCargo;
+use App\Helpers\DrogariaAraujoHelper;
+use App\Models\Api\Trait\ValidarEmpresaTrait;
+use App\Models\Api\UsuarioCliente\Trait\BuscarUsuarioTrait;
 use Erro\Excecao;
 use Http\Request;
 use Modules\Data;
 use Modules\Email;
 use Modules\Genero;
-use App\Classes\UsuarioCliente\Ordem;
-use App\Helpers\DrogariaAraujoHelper;
-use App\Classes\UsuarioCliente\Status;
-use App\Classes\UsuarioCliente\TipoUsuario;
-use App\Classes\UsuarioCliente\TrabalhoCargo;
-use App\Models\Api\Trait\ValidarEmpresaTrait;
-use App\Classes\UsuarioCliente\TrabalhoEmpresa;
-use App\Models\Api\UsuarioCliente\Trait\BuscarUsuarioTrait;
+use ORM\ORM;
+use stdClass;
 
 final class ClienteModel extends ORM
 {
@@ -63,7 +62,6 @@ final class ClienteModel extends ORM
         $dataCriacaoAte = new Data($this->request->data_criacao_ate);
         $status = new Status($this->request->status);
         $email = new Email($this->request->email);
-        $TrabalhoEmpresa = new TrabalhoEmpresa($this->request->trabalho_empresa);
         $TrabalhoCargo = new TrabalhoCargo($this->request->trabalho_cargo);
 
         if (!empty($this->request->pagina) && !preg_match('/^[1-9]{1}[0-9]*$/', $this->request->pagina)) {
@@ -80,8 +78,6 @@ final class ClienteModel extends ORM
             mensagemErro('Campo inválido!', 'A data de criação final informado não é um valor válido.');
         } elseif (!$status->vazio() && (!$status->valido() || $status->indice() == 'deletado')) {
             mensagemErro('Campo inválido!', 'O Status não é um valor válido.');
-        } elseif (!$TrabalhoEmpresa->vazio() && !$TrabalhoEmpresa->valido()) {
-            mensagemErro('Campo inválido!', 'O local de trabalho não é um valor válido.');
         } elseif (!$TrabalhoCargo->vazio() && !$TrabalhoCargo->valido()) {
             mensagemErro('Campo inválido!', 'O cargo não é um valor válido.');
         } elseif (!$email->vazio() && !$email->valido()) {

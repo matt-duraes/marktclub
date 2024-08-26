@@ -6,5 +6,5 @@
 
 @ if( MENU_SAIR ):
     <div class="linha"></div>
-    <a href="@route('sair.index')" class="botao sair">Sair do clube</a>
+    <a href="{{LINK_BOTAO_SAIR ? route('sair.sairPersonalizado') : route('sair.index')}}" class="botao sair">Sair do clube</a>
 @ endif;

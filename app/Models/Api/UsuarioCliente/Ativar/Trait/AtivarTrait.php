@@ -2,20 +2,23 @@
 
 namespace App\Models\Api\UsuarioCliente\Ativar\Trait;
 
-use Modules\Cpf;
-use Modules\Data;
-use Modules\Nome;
-use Modules\Botao;
-use Modules\Email;
-use Modules\Senha;
-use Modules\Genero;
-use Modules\Telefone;
-use Modules\EnderecoCep;
-use Modules\EstadoCivil;
-use Modules\EnderecoEstado;
+use App\Classes\ConstrutorClube\TipoCargo;
 use App\Classes\UsuarioCliente\Hash;
 use App\Classes\UsuarioCliente\TrabalhoCargo;
 use App\Classes\UsuarioCliente\TrabalhoEmpresa;
+use Erro\Excecao;
+use Helpers\OrmHelper;
+use Modules\Botao;
+use Modules\Cpf;
+use Modules\Data;
+use Modules\Email;
+use Modules\EnderecoCep;
+use Modules\EnderecoEstado;
+use Modules\EstadoCivil;
+use Modules\Genero;
+use Modules\Nome;
+use Modules\Senha;
+use Modules\Telefone;
 
 trait AtivarTrait
 {
@@ -98,7 +101,58 @@ trait AtivarTrait
         $this->endereco_estado = new EnderecoEstado($dado['endereco_estado']);
         $this->endereco_cidade = $dado['endereco_cidade'];
         $this->trabalho_cargo = new TrabalhoCargo($dado['trabalho_cargo']);
-        $this->trabalho_empresa = new TrabalhoEmpresa($dado['trabalho_empresa']);
+
+        $tipoCargo = $this->validarTipoCargo();
+        if ($tipoCargo->indice() === TipoCargo::NORMAL) {
+            $trabalhoCargo = new TrabalhoEmpresa($dado['trabalho_empresa']);
+            $this->trabalho_empresa = $trabalhoCargo->numero();
+            return;
+        }
+        $this->trabalho_empresa = $dado['trabalho_empresa'];
+    }
+
+    /**
+     * @return TipoCargo
+     * @throws Excecao
+     */
+    private function validarTipoCargo(): TipoCargo
+    {
+        $isNull = empty($this->pegarClube()['tipo_cargo']);
+        $TipoCargo = new TipoCargo($isNull ? TipoCargo::NORMAL : $this->pegarClube()['tipo_cargo']);
+        if (!$TipoCargo->valido()) {
+            mensagemErro(
+                'Tipo Cargo inválido!',
+                'O Tipo de Cargo do clube não é válido'
+            );
+        }
+        return $TipoCargo;
+    }
+
+    /**
+     * @return array
+     */
+    private function pegarClube(): array
+    {
+        if (empty(TOKEN) || empty(TOKEN['empresa']) || empty(TOKEN['empresa']->id)) {
+            return [];
+        }
+        $ormHelper = new OrmHelper(TABELA_CONSTRUTOR_CLUBE);
+        return $ormHelper->pegarUltimoRegistro(['id_admin_empresa', TOKEN['empresa']->id], ['tipo_cargo']);
+    }
+
+    /**
+     * @param string|int $id
+     *
+     * @return bool
+     */
+    private function validarCargoPersonalizado(string|int $id): bool
+    {
+        $ormHelper = new OrmHelper(TABELA_SITE_CARGO);
+        $cargos = $ormHelper->pegarUltimoRegistro([
+            ['id', $id],
+            ['status', 1]
+        ], ['titulo']);
+        return empty($cargos);
     }
 
     private function validarHash()

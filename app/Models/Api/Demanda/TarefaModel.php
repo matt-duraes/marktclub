@@ -6,6 +6,7 @@ use ORM\ORM;
 use App\Classes\DemandaTarefa\Tipo;
 use App\Classes\DemandaTarefa\Helper;
 use App\Classes\DemandaTarefa\Status;
+use App\Classes\DemandaTarefa\Dificuldade;
 
 final class TarefaModel extends ORM
 {
@@ -22,7 +23,7 @@ final class TarefaModel extends ORM
         $lista = $this
             ->campo([
                 'uuid', 'titulo', 'texto', 'tipo', 'data_criacao', 'data_atualizacao', 'data_producao_inicio',
-                'data_producao_final', 'like', 'status'
+                'data_producao_final', 'dificuldade', 'like', 'status'
             ])
             ->where([
                 ['id_demanda_dado', $this->Demanda->get('id')],
@@ -41,6 +42,7 @@ final class TarefaModel extends ORM
     {
         $retorno = [];
         $Tipo = new Tipo();
+        $Dificuldade = new Dificuldade();
         $Status = new Status();
         foreach ($lista as $r) {
             $retorno[] = object([
@@ -50,6 +52,7 @@ final class TarefaModel extends ORM
                 'equipe'               => $r->usuario_uuid,
                 'like'                 => jsonDecode($r->like, true, true),
                 'tipo'                 => $Tipo->indice($r->tipo),
+                'dificuldade'          => $Dificuldade->indice($r->dificuldade),
                 'data_criacao'         => $r->data_criacao,
                 'data_atualizacao'     => $r->data_atualizacao,
                 'data_producao_inicio' => $r->data_producao_inicio,

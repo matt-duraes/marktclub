@@ -17,7 +17,7 @@ const {
     buildGit,
     buildArquivosRaiz,
     buildArquivoConfigVsCode,
-    buildArquivoConfigGithub,
+    //buildArquivoConfigGithub,
     buildArquivosTeste,
     buildArquivosPublico,
     buildDiretorios,
@@ -48,7 +48,7 @@ exports.upgrade = series(
         corrigindoBugDoComposer,
         copiandoArquivosDaRaiz,
         copiandoArquivoConfigDoVsCode,
-        copiandoArquivoConfigDoGithub,
+        //copiandoArquivoConfigDoGithub,
         copiandoArquivoDeErro,
         copiandoArquivosDeteste
     )
@@ -78,7 +78,7 @@ exports.install = series(
     copiandoArquivoParaGit,
     copiandoArquivosDaRaiz,
     copiandoArquivoConfigDoVsCode,
-    copiandoArquivoConfigDoGithub,
+    //copiandoArquivoConfigDoGithub,
     copiandoArquivosDeteste,
     copiandoArquivosPublicos,
     parallel(
@@ -246,9 +246,9 @@ function copiandoArquivosDaRaiz() {
 function copiandoArquivoConfigDoVsCode() {
     return buildArquivoConfigVsCode();
 }
-function copiandoArquivoConfigDoGithub() {
-    return buildArquivoConfigGithub();
-}
+//function copiandoArquivoConfigDoGithub() {
+//    return buildArquivoConfigGithub();
+//}
 function copiandoArquivosDeteste() {
     return buildArquivosTeste();
 }

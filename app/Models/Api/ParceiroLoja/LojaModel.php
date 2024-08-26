@@ -2,22 +2,22 @@
 
 namespace App\Models\Api\ParceiroLoja;
 
-use ORM\ORM;
-use stdClass;
-use Modules\Pagina;
-use Modules\Quantidade;
 use ApiModel\Endereco\RaioModel;
 use App\Classes\ParceiroLoja\Ordem;
-use System\Trait\Model\OrdemTrait;
-use System\Trait\Model\PaginaTrait;
-use System\Trait\Model\QuantidadeTrait;
-use System\Interface\ModelListarInterface;
-use App\Models\Api\Trait\ValidarEmpresaTrait;
 use App\Models\Api\Demanda\Trait\EmpresaTrait;
-use App\Models\Api\ParceiroLoja\Trait\WhereTrait;
 use App\Models\Api\ParceiroLoja\Trait\ListarCampoTrait;
 use App\Models\Api\ParceiroLoja\Trait\MontarRetornoTrait;
 use App\Models\Api\ParceiroLoja\Trait\PropriedadeModelTrait;
+use App\Models\Api\ParceiroLoja\Trait\WhereTrait;
+use App\Models\Api\Trait\ValidarEmpresaTrait;
+use Modules\Pagina;
+use Modules\Quantidade;
+use ORM\ORM;
+use stdClass;
+use System\Interface\ModelListarInterface;
+use System\Trait\Model\OrdemTrait;
+use System\Trait\Model\PaginaTrait;
+use System\Trait\Model\QuantidadeTrait;
 
 class LojaModel extends ORM implements ModelListarInterface
 {
@@ -31,10 +31,10 @@ class LojaModel extends ORM implements ModelListarInterface
     use WhereTrait;
     use PropriedadeModelTrait;
 
-    protected string $ormTabela = TABELA_PARCEIRO_LOJA;
     public Pagina $pagina;
     public Quantidade $quantidade;
     public Ordem $ordem;
+    protected string $ormTabela = TABELA_PARCEIRO_LOJA;
 
     public function listarDados(): stdClass
     {
@@ -42,7 +42,6 @@ class LojaModel extends ORM implements ModelListarInterface
             ->campo($this->pegarCampo())
             ->pagina($this->pegarPagina(), $this->pegarQuantidade())
             ->where($this->pegarWhere(), obrigatorio: false);
-
         if ($this->pExiste('favorito') && $this->favorito->valor() == $this->favorito::SIM) {
             $this->buscarFavorito = false;
             $dado

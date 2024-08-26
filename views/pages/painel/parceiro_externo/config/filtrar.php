@@ -19,24 +19,31 @@ $Painel
         label: 'Pesquisa',
         placeholder: 'Faça uma pesquisa'
     )
+    ->select(
+        name: 'empresa',
+        lista: 'empresa',
+        label: 'Empresa',
+        placeholder: 'Empresa',
+        permissao: 'parceiro_externo_empresa'
+    )
     ->bloco(function () use ($Painel, $equipe) {
         $Painel
             ->select(
-                name: 'id_usuario_equipe',
+                name: 'equipe',
                 lista: $equipe,
                 label: 'Equipe',
                 placeholder: 'Equipe',
                 permissao: 'parceiro_externo_equipe'
             )
             ->select(
-                name: 'categoria_principal',
+                name: 'categoria',
                 lista: (new Categoria())->select('Escolha uma opção'),
                 label: 'Categoria',
                 placeholder: 'Escolha uma categoria'
             );
     })
     ->data(
-        name: ['data_criacao_de', 'data_criacao_ate'],
+        name: ['data_inicio', 'data_final'],
         label: 'Data de criação',
         placeholder: ['Data de criação', 'Data de criação'],
         separador: 'até'
@@ -52,7 +59,7 @@ $Painel
         placeholder: 'Status'
     )
     ->select(
-        name: 'tipo_indicador',
+        name: 'indicador',
         lista: (new Indicador())->select('Escolha uma opção'),
         label: 'Indicador',
         placeholder: 'Indicador'
@@ -60,7 +67,7 @@ $Painel
     ->bloco(
         callback: function () use ($Painel) {
             foreach ((new EnderecoEstado())->select() as $ind => $val) {
-                $Painel->checkbox(name: 'endereco_estado[]', label: $val, value: $ind);
+                $Painel->checkbox(name: 'estado[]', label: $val, value: $ind);
             }
         },
         coluna: 2,

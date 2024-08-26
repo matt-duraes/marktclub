@@ -76,6 +76,7 @@ final class DemandaController extends Controller
             ->json(['titulo' => 'Escolha um cliente'])
             ->get('/comercial-empresa/select')
             ->array()['dado'] ?? [];
+
         $equipe = $this->Api
             ->json(['titulo' => 'Escolha um usuário'])
             ->get('/usuario-equipe/select')

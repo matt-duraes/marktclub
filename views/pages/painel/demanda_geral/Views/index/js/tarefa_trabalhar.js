@@ -6,8 +6,11 @@ const comecarTrabalhar = async (botaoTrabalhar, botaoFinalizar, tarefa) => {
 
     const blocoEquipe = $('.item_equipe', bloco);
     const equipe = blocoEquipe.attr('data-equipe');
-
-    if (
+    const dificuldade = parseInt(bloco.attr('data-dificuldade'));
+    if (area == 'tecnologia' && vazio(dificuldade)) {
+        Alerta.notificacao('Você precisa colocar uma dificuldade para essa tarefa.', false);
+        return;
+    } else if (
         equipe != '' &&
         equipe != USUARIO_ID &&
         !(await Alerta.confirmar('Mudar dono', 'Essa tarefa já tem um dono, gostaria de pegar ela mesmo assim?', '!'))

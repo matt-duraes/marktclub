@@ -2,18 +2,18 @@
 
 namespace App\Models\Api\Download;
 
-use ORM\ORM;
-use Http\Request;
-use App\Models\Api\Painel\LogDownloadEntity;
 use App\Models\Api\DownloadPrivado\ArquivoEntity;
+use App\Models\Api\Painel\LogDownloadEntity;
+use Http\Request;
+use ORM\ORM;
 
 abstract class DownloadGeralModel extends ORM
 {
+    public string $id = '';
     protected array $campoAceito = [];
     protected array $campo = [];
     protected string $usuario = '';
     protected array $busca = [];
-    public string $id = '';
 
     public function __construct(
         protected Request $request,
@@ -23,7 +23,33 @@ abstract class DownloadGeralModel extends ORM
         $this->ormTabela = $tabela;
         parent::__construct();
         $this->set(lista: $request->dado());
-        $this->validarCampoAceito($this->campo, $this->campoAceito);
+        $this->validarCampoAceito();
+    }
+
+    /**
+     * Valida se os campos foram passados e são validos
+     *
+     * @param array $campo  Campos que o usuário enviou
+     * @param array $aceito Campos aceitos
+     *
+     * @return
+     */
+    private function validarCampoAceito(): void
+    {
+        if (!$this->campo) {
+            mensagemErro('Erro!', 'Você deve enviar pelo menos um campo.');
+        }
+
+        foreach ($this->campo as $item) {
+            if (!in_array($item, $this->campoAceito)) {
+                mensagemErro(
+                    'Erro!',
+                    'Um ou mais campos não tem permissão para serem buscados.',
+                    status: 403,
+                    localhost: 'O campo ' . $item . ' não está na lista de campos permitidos'
+                );
+            }
+        }
     }
 
     abstract protected function buscarRegistro(): void;
@@ -68,31 +94,6 @@ abstract class DownloadGeralModel extends ORM
     protected function erroDownloadPadrao(): void
     {
         mensagemErro('Erro!', 'Ocorreu um erro ao fazer o download, por favor, tente novamente.');
-    }
-
-    /**
-     * Valida se os campos foram passados e são validos
-     *
-     * @param array $campo  Campos que o usuário enviou
-     * @param array $aceito Campos aceitos
-     * @return
-     */
-    private function validarCampoAceito(): void
-    {
-        if (!$this->campo) {
-            mensagemErro('Erro!', 'Você deve enviar pelo menos um campo.');
-        }
-
-        foreach ($this->campo as $item) {
-            if (!in_array($item, $this->campoAceito)) {
-                mensagemErro(
-                    'Erro!',
-                    'Um ou mais campos não tem permissão para serem buscados.',
-                    status: 403,
-                    localhost: 'O campo ' . $item . ' não está na lista de campos permitidos'
-                );
-            }
-        }
     }
 
     /**
