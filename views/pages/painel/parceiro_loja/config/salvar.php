@@ -15,6 +15,6 @@ return [
         'texto_procedimento', 'texto_voucher', 'texto_restricao', 'texto_outro', 'categoria_principal',
         'categoria_lista', 'subcategoria_tag', 'comissao_minima', 'comissao_maxima',
         'subcategoria_lista', 'empresa', 'confirmar_status', 'confirmar_titulo', 'confirmar_texto',
-        'arquivo_painel', 'arquivo_clube', 'cupom_desconto', 'pagina_app'
+        'arquivo_painel', 'arquivo_clube', 'cupom_desconto', 'pagina_app', 'status'
     ]
 ];
