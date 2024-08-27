@@ -6,8 +6,14 @@
     <div class="bloco_botao">
         <a class="botao_geral_cor cor_bg display_none" id="bloco_botao_mais" target="_blank" rel="noopener noreferrer" href="">VEJA MAIS</a>
     </div>
+    <div class="display_none" id="container_sem_shows">
+        <h1>Nenhum evento disponível</h1>
+        <p>No momento, não há promoções disponíveis. No entanto, oferecemos diversos descontos através de nossos parceiros. Que tal conferir essas ofertas?</p>
+        <a href="@route(loja.index)" class="botao_geral_cor  cor_bg">Ver parceiros</a>
+    </div>
 </div>
 
 <form action="" class="display_none">
     <input type="hidden" name="tipo" id="bloco_easylive_tipo" value="{{$tipo}}">
 </form>
+
