@@ -63,11 +63,11 @@
         </div>
         @endif;
         <div class="lista">
-        @if (in_array('lotacao', CAMPOS_PRIMEIRO_ACESSO) ):
+        @if (in_array('lotacao', CAMPOS_PRIMEIRO_ACESSO) && $tipo_usuario != 'dependente' && $tipo_usuario != 'indicado'):
             @php $lotacao = (new \App\Models\Site\Login\LotacaoModel())->buscarLotacao();
             @? formSelect(name: 'ativar_lotacao', label: 'Lotação', placeholder: 'Lotação',  obrigatorio: true, lista: $lotacao['dado'], class: 'bloco_lotacao')
         @endif;
-        @if ( in_array('trabalho_cargo', CAMPOS_PRIMEIRO_ACESSO)):
+        @if ( in_array('trabalho_cargo', CAMPOS_PRIMEIRO_ACESSO) && $tipo_usuario != 'dependente' && $tipo_usuario != 'indicado'):
             @? formSelect(name: 'ativar_cargo', label: 'Cargo', placeholder: 'Cargo',  obrigatorio: true, lista: (new \App\Classes\UsuarioCliente\TrabalhoCargo)->select('Escolha um cargo'), class: 'bloco_cargo')
         @endif;
 

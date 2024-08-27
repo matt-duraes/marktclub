@@ -1,4 +1,4 @@
-<form class="display_none">
+<form class="display_none" id="container_parceiros_encontrados">
     <article class="parceiro" id="parceiro_padrao_loja">
         <a href="" class="item_link"></a>
         <figure class="logo item_logo"></figure>
@@ -20,3 +20,5 @@
         <div class="linha cor_bg"></div>
     </article>
 </form>
+
+
