@@ -27,6 +27,9 @@ class SelectModel extends ORM
 
     public function listarDados(): array
     {
-        return $this->pegarSelect('id', 'titulo', array_merge($this->ormWherePadrao, [['status', 1]]));
+        return $this->pegarSelect('id', 'titulo', [
+            ['id_admin_empresa', $this->idEmpresa],
+            ['status', 1]
+        ]);
     }
 }
