@@ -12,20 +12,28 @@
         justify-content: center
 
 #container_sem_shows
-    display: flex
-    justify-content: center
-    flex-direction: column
-    blocoShadow()
+    flexCol()
     padding: 20px
     gap: 15px
     border-radius: 5px
+    align-items: center
+    blocoShadow()
+    background: $corBrancoPreto
     h1
         titulo()
-    p, a
-        texto()
-        text-align: justify
+    p
+        max-width: 70%
     a
         flexCenter()
         max-width: 200px
+    p, a
+        texto()
+        text-align: center
 
 
+@media screen and (max-width: 600px)
+    #container_sem_shows
+        align-items: flex-start
+    #container_sem_shows p
+        max-width: 100%
+        text-align: left

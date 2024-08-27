@@ -8,7 +8,7 @@
     </div>
     <div class="display_none" id="container_sem_shows">
         <h1>Nenhum evento disponível</h1>
-        <p>No momento, não há promoções disponíveis. No entanto, oferecemos diversos descontos através de nossos parceiros. Que tal conferir essas ofertas?</p>
+        <p>No momento, não há eventos disponíveis. No entanto, oferecemos diversos descontos através de nossos parceiros. Que tal conferir essas ofertas?</p>
         <a href="@route(loja.index)" class="botao_geral_cor  cor_bg">Ver parceiros</a>
     </div>
 </div>
