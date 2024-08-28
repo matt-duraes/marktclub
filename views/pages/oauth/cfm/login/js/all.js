@@ -191,7 +191,7 @@ window.addEventListener('load', () => {
             salvarCookie(window.btoa(cookie));
         }
         Loading.hide();
-        // window.location.replace(link);
+        window.location.replace(link);
     };
 
     const mostrarCaptchaV2 = () => {
