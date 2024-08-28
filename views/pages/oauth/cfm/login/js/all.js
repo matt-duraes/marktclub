@@ -190,7 +190,6 @@ window.addEventListener('load', () => {
             });
             salvarCookie(window.btoa(cookie));
         }
-        Loading.hide();
         window.location.replace(link);
     };
 
