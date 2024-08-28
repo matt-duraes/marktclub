@@ -1,8 +1,28 @@
 // @template "site"
 // @system "Esqueleto"
-// @system "Data"
 
 window.addEventListener('load', () => {
+    const inserirBlocoSemEvento = () => {
+        const containerParceiros = $('#container_parceiros_encontrados');
+        const containerSemShows = $('#container_sem_shows');
+        const containerBotaoEasylive = $('#bloco_easylive .bloco_botao');
+
+        if (containerParceiros.classList.contains('display_none') == true) {
+            containerSemShows.classList.remove('display_none');
+            containerBotaoEasylive.classList.add('display_none');
+        }
+    };
+    const dataBr = data => {
+        const explode = data.split(' ');
+        const hora = explode.length == 2 ? ' ' + explode[1] : '';
+        data = explode[0];
+        if (/^[0-9]{4}\-[0-9]{2}\-[0-9]{2}/.test(data)) {
+            const dataExplode = data.split('-');
+            data = dataExplode[2] + '/' + dataExplode[1] + '/' + dataExplode[0];
+        }
+        return data + hora;
+    };
+
     const blocoMais = $('#bloco_botao_mais');
     const blocoClone = $('#parceiro_padrao_loja');
     if (blocoClone) {
@@ -40,6 +60,11 @@ window.addEventListener('load', () => {
             blocoMais.classList.remove('display_none');
             blocoMais.setAttribute('href', resposta.dado[0].link);
         }
+
+        if (resposta.dado.length == 0) {
+            inserirBlocoSemEvento();
+        }
+
         resposta.dado.forEach(item => {
             adicionarParceiro(blocoLista, item);
         });
