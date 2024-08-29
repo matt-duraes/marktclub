@@ -187,7 +187,7 @@ final class ClubeMiddleware extends ApiHelper
 
         define('LINK_APP_ANDROID', $clube->link_app_android);
         define('LINK_APP_IOS', $clube->link_app_ios);
-        define('LINK_BOTAO_SAIR',  !empty($clube->link_botao_sair) ? $clube->link_botao_sair : '');
+        define('LINK_BOTAO_SAIR', !empty($clube->link_botao_sair) ? $clube->link_botao_sair : '');
         define('LINK_LOGIN', preg_replace('/\/$/', '', $clube->link_login));
         define('LINK_FUNCIONARIO', preg_replace('/\/$/', '', $clube->link_funcionario));
         define('LINK_CADASTRO', $clube->link_cadastro);
