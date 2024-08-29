@@ -24,11 +24,15 @@ final class LoginApiModel
 
     private function fazerLogin()
     {
+        $link = LINK;
+        if (eLocalhost()) {
+            $link = preg_replace('/\:[0-9]{4}/', '', $link);
+        }
         $dado = (new ApiHelper(scope: 'login:clube'))
             ->validar(status: 401)
             ->body([
                 'hash'         => $this->hash,
-                'redirect_uri' => LINK,
+                'redirect_uri' => $link,
                 'scope'        => '',
                 'state'        => uuid(),
             ])
