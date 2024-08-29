@@ -219,7 +219,7 @@ final class DownloadModel extends ORM
                         'titulo',
                         ['id_admin_empresa', $this->idEmpresa]
                     );
-                    $val = !empty($locacao) && !empty($val) ? $locacao[$val] : '';
+                    $val = !empty($locacao) && !empty($val) ? $locacao[$val] : $val;
                 } elseif ($ind == 'trabalho_cargo') {
                     $val = (new TrabalhoCargo($val, true))->indice();
                 } elseif ($ind == 'tipo_pagamento') {
