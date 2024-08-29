@@ -148,6 +148,9 @@ class DownloadModel extends ORM
                 /*if ($ind == 'contato_tipo') {
                     $val = (new Tipo($val))->indice();
                 }*/
+                if ($ind == 'id_dono_equipe') {
+                    $val = (new OrmHelper(TABELA_USUARIO_EQUIPE))->pegarCampoPor('nome_real', ['id', $val]);
+                }
                 if ($ind == 'categoria_principal') {
                     $val = (new Categoria($val))->indice();
                 }
