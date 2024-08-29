@@ -88,7 +88,7 @@ final class ExternoEntity extends Entity
             ], ['nome_real'], 'object');
             $this->captador = [
                 'id'   => $this->id_usuario_equipe,
-                'nome' => $captador->nome_real
+                'nome' => is_array($captador->nome_real) ? '' : $captador->nome_real
             ];
         }
 
