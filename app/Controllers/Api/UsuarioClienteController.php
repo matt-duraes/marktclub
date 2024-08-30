@@ -24,6 +24,7 @@ use App\Models\Api\UsuarioCliente\DownloadModel;
 use System\Interface\ControllerDeletarInterface;
 use App\Models\Api\DownloadPrivado\ArquivoEntity;
 use System\Interface\ControllerAtualizarInterface;
+use App\Models\Api\UsuarioCliente\Validar\HashModel;
 use App\Models\Api\UsuarioCliente\Ativar\AtivarModel;
 use App\Models\Api\UsuarioCliente\Ativar\BuscarModel;
 use App\Models\Api\UsuarioCliente\Validar\ValidarModel;
@@ -332,5 +333,15 @@ final class UsuarioClienteController extends Controller implements
         $Usuario->salvar();
 
         return new Response(status: 204);
+    }
+
+    public function postHash(Request $request)
+    {
+        $Usuario = new HashModel(
+            usuario: $request->usuario,
+            hash: $request->hash,
+            tipo: $request->tipo
+        );
+        return mensagemSucesso($Usuario->retorno);
     }
 }
