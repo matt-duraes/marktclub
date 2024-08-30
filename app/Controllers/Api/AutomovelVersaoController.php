@@ -2,23 +2,23 @@
 
 namespace App\Controllers\Api;
 
+use App\Classes\Automovel\Versao\Ordem;
+use App\Classes\Geral\Status;
+use App\Models\Api\Automovel\Versao\VersaoEntity;
+use App\Models\Api\Automovel\Versao\VersaoModel;
+use Controller\Controller;
 use Erro\Excecao;
 use Http\Request;
 use Http\Response;
 use Modules\Pagina;
 use Modules\Quantidade;
-use Controller\Controller;
-use App\Classes\Geral\Status;
-use App\Classes\Automovel\Versao\Ordem;
+use System\Interface\ControllerAtualizarInterface;
 use System\Interface\ControllerBuscarInterface;
+use System\Interface\ControllerDeletarInterface;
 use System\Interface\ControllerListarInterface;
 use System\Interface\ControllerSalvarInterface;
-use App\Models\Api\Automovel\Versao\VersaoModel;
-use System\Interface\ControllerDeletarInterface;
-use App\Models\Api\Automovel\Versao\VersaoEntity;
-use System\Interface\ControllerAtualizarInterface;
 
-final class AutomovelVersaoController extends Controller implements
+class AutomovelVersaoController extends Controller implements
     ControllerBuscarInterface,
     ControllerListarInterface,
     ControllerSalvarInterface,
@@ -68,6 +68,7 @@ final class AutomovelVersaoController extends Controller implements
             new Pagina($request->pagina),
             new Quantidade($request->quantidade),
             new Ordem($request->ordem),
+            $request->parceiro,
             $request->modelo,
             new Status($request->status)
         );
