@@ -594,12 +594,15 @@ Route
         Route
             ::nome('index')
             ::view('/automoveis');
+
         Route
             ::nome('modelo')
             ::view('/automoveis/{url}');
+
         Route
             ::nome('versao')
-            ::view('/automovel/{loja}/{url}');
+            ::view('/automovel/{loja}/{modelo}');
+
         Route
             ::nome('solicitacao')
             ::request([

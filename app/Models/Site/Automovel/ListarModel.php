@@ -2,12 +2,14 @@
 
 namespace App\Models\Site\Automovel;
 
-use stdClass;
-use Modules\Botao;
 use App\Helpers\ClubeApiHelper;
 use App\Models\Site\ListarInterface;
+use Erro\Excecao;
+use Modules\Botao;
+use stdClass;
 
-final class ListarModel extends ClubeApiHelper implements ListarInterface
+final class ListarModel extends ClubeApiHelper implements
+    ListarInterface
 {
     public string $tipo = 'modelo';
 
@@ -17,35 +19,53 @@ final class ListarModel extends ClubeApiHelper implements ListarInterface
         parent::__construct();
     }
 
+    /**
+     * @return stdClass
+     * @throws Excecao
+     */
     public function listarDados(): stdClass
     {
-        $dado = $this
+        $modelos = $this
+            ->validar(
+                'Ops! Não conseguimos encontrar os modelos',
+                'Página não encontrada',
+                404
+            )
             ->json([
                 'pagina'    => 1,
                 'parceiro'  => $this->url,
                 'publicado' => Botao::SIM
             ])
             ->get('/automovel-modelo')
-            ->array()['dado'] ?? [];
+            ->object()->dado;
 
         return (object)[
             'tipo'      => 'automovel-modelo',
-            'lista'     => $this->montarDado($dado['lista'] ?? []),
-            'paginacao' => $dado['pagina'] ?? 0,
+            'lista'     => $this->montarModelo($modelos->lista),
+            'paginacao' => $modelos->pagina ?? 1
         ];
     }
 
-    private function montarDado($dado)
+    /**
+     * @param array $modelos Array de Modelos
+     *
+     * @return array
+     */
+    private function montarModelo(array $modelos): array
     {
+        if (empty($modelos)) {
+            return $modelos;
+        }
+
         $retorno = [];
-        foreach ($dado as $r) {
+        foreach ($modelos as $modelo) {
             $retorno[] = (object)[
-                'id'       => $r['id'],
-                'titulo'   => $r['titulo'],
-                'texto'    => '',
-                'link'     => route('automovel.versao') . '/' . $this->url . '/' . $r['url'],
-                'imagem'   => $r['imagem'],
-                'tipo'     => 'automovel-modelo'
+                'id'     => $modelo->id,
+                'titulo' => $modelo->titulo,
+                'texto'  => '',
+                'link'   => route('automovel.versao') . '/' . $this->url . '/' . $modelo->url,
+                'imagem' => $modelo->imagem,
+                'tipo'   => 'automovel-modelo'
             ];
         }
         return $retorno;

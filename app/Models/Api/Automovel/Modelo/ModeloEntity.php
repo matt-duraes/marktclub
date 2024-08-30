@@ -2,18 +2,17 @@
 
 namespace App\Models\Api\Automovel\Modelo;
 
-use Erro\Erro;
-use ORM\Entity;
-use Erro\Excecao;
-use Modules\Data;
-use Modules\Pagina;
-use Helpers\OrmHelper;
-use Modules\Quantidade;
-use App\Classes\Geral\Status;
 use App\Classes\Geral\Publicado;
+use App\Classes\Geral\Status;
+use App\Classes\ParceiroLoja\Status as StatusParceiro;
 use App\Classes\ParceiroLoja\TipoProcedimento;
 use App\Models\Api\Automovel\Versao\VersaoModel;
-use App\Classes\ParceiroLoja\Status as StatusParceiro;
+use Erro\Excecao;
+use Helpers\OrmHelper;
+use Modules\Data;
+use Modules\Pagina;
+use Modules\Quantidade;
+use ORM\Entity;
 
 final class ModeloEntity extends Entity
 {
@@ -93,11 +92,12 @@ final class ModeloEntity extends Entity
     protected function regraSalvar(): void
     {
         if (is_string($this->parceiro) && !empty($this->parceiro)) {
-            $this->id_parceiro_loja = $this->ormParceiro->pegarIdPeloUuid(
-                $this->parceiro,
-                'Parceiro não encontrado.',
-                'Não encontrado'
-            );
+            $where = array_keys([$this->ormWherePadrao], ['uuid', $this->parceiro]);
+            $id = $this->ormParceiro->pegarCampoPor('id', $where);
+            if (empty($id)) {
+                mensagemErro('Não encontrado!', 'Parceiro não encontrado.');
+            }
+            $this->id_parceiro_loja = $id;
         }
         $this->imagem = arquivoPrivadoId($this->imagem);
         $this->validarDataInicioMenorQueFinal();
@@ -118,7 +118,6 @@ final class ModeloEntity extends Entity
 
     /**
      * @throws Excecao
-     * @throws Erro
      */
     protected function regraPosBuscar(): void
     {
@@ -142,21 +141,22 @@ final class ModeloEntity extends Entity
         $this->procedimento = new TipoProcedimento($Parceiro['tipo_procedimento'] ?? '');
         $this->texto_procedimento = $Parceiro['texto_procedimento'] ?? '';
         $this->parceiro = [
-            'id'     => $Parceiro['uuid'],
+            'id' => $Parceiro['uuid'],
             'titulo' => $Parceiro['titulo']
         ];
     }
 
     /**
      * @throws Excecao
-     * @throws Erro
      */
     private function pegarListaVersao(): void
     {
+        $ormHelper = new OrmHelper(TABELA_PARCEIRO_LOJA);
         $VersaoModel = new VersaoModel(
             new Pagina(1),
             new Quantidade(50),
-            modelo: $this->prop('id')
+            parceiro: $ormHelper->pegarUuidPeloId($this->id_parceiro_loja),
+            modelo: $this->url
         );
         $this->versao = $VersaoModel->listarDados()->lista ?? [];
     }
