@@ -1,10 +1,10 @@
 <?php
 
-use App\Classes\Parceiro\Externo\Helper;
-use App\Middlewares\Api\MarktClubMiddleware;
-use App\Middlewares\Api\TokenMiddleware;
-use App\Middlewares\Api\TokenProvMiddleware;
 use Route\Route;
+use App\Classes\Parceiro\Externo\Helper;
+use App\Middlewares\Api\TokenMiddleware;
+use App\Middlewares\Api\MarktClubMiddleware;
+use App\Middlewares\Api\TokenProvMiddleware;
 
 Route
     ::nome('downloadRestrito')
@@ -383,6 +383,11 @@ Route
             ::middleware(TokenMiddleware::class, 'scope', ['usuario_cliente:alterar_senha'])
             ::request(['senha_atual', 'senha_nova'])
             ::put('/usuario-cliente/alterar-senha');
+        route
+            ::nome('hash')
+            ::middleware(TokenMiddleware::class, 'scope', ['usuario_cliente:hash'])
+            ::request(['hash', 'usuario', 'tipo'])
+            ::post('/usuario-cliente/hash');
     });
 
 Route
