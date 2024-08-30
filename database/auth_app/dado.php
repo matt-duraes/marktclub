@@ -235,7 +235,10 @@ $scope = [
     'votacao_usuario:validar',
     'votacao_voto:salvar',
 
-    'painel_historico:download'
+    'painel_historico:download',
+
+    'view_pagina:listar', 'view_pagina:buscar', 'view_pagina:salvar', 'view_pagina:atualizar', 'view_pagina:deletar',
+    'view_lista:listar', 'view_lista:salvar', 'view_lista:atualizar', 'view_lista:deletar'
 ];
 
 return [

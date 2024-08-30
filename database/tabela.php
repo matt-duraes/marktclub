@@ -1,4 +1,4 @@
-<?php 
+<?php
 
 define('TABELA_ALBUM_DADO', 'album_dado');
 define('TABELA_ALBUM_FOTO', 'album_foto');
@@ -65,6 +65,7 @@ define('TABELA_PARCEIRO_EASYLIVE', 'parceiro_easylive');
 define('TABELA_PARCEIRO_FAVORITO', 'parceiro_favorito');
 define('TABELA_PARCEIRO_LOJA', 'parceiro_loja');
 define('TABELA_PARCEIRO_SUBCATEGORIA', 'tag_novo');
+define('TABELA_PARCEIRO_TURISMO', 'parceiro_turismo');
 define('TABELA_PONTO_CVS', 'ponto_cvs');
 define('TABELA_PUBLICACAO_ARQUIVO', 'publicacao_arquivo');
 define('TABELA_PUBLICACAO_DIRETORIA', 'publicacao_diretoria');
@@ -108,6 +109,8 @@ define('TABELA_USUARIO_INDICACAO', 'usuario_indicacao');
 define('TABELA_USUARIO_LEAD', 'usuario_lead');
 define('TABELA_USUARIO_PAGAMENTO', 'usuario_pagamento');
 define('TABELA_USUARIO_RELATORIO', 'usuario_relatorio');
+define('TABELA_VIEW_LISTA', 'view_lista');
+define('TABELA_VIEW_PAGINA', 'view_pagina');
 define('TABELA_VOTACAO_DADO', 'votacao_dado');
 define('TABELA_VOTACAO_PERGUNTA', 'votacao_pergunta');
 define('TABELA_VOTACAO_RESPOSTA', 'votacao_resposta');

@@ -106,6 +106,7 @@
 <a class="botao {!!MENU_HOVER == 'turismo' ? 'cor_bg pagina_atual' : ''!!}" href="@route(turismo.index)">
     <i>@iconeTurismoHomeOutline</i>
     Turismo
+    <div class="novo">novo</div>
 </a>
 @ endif;
 
