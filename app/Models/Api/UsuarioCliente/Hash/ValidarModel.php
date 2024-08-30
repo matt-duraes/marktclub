@@ -1,11 +1,11 @@
 <?php
 
-namespace App\Models\Api\UsuarioCliente\Validar;
+namespace App\Models\Api\UsuarioCliente\Hash;
 
 use ORM\ORM;
 use stdClass;
 
-final class HashModel extends ORM
+final class ValidarModel extends ORM
 {
     protected string $ormTabela = TABELA_USUARIO_CLIENTE;
 

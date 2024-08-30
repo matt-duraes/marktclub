@@ -24,7 +24,6 @@ use App\Models\Api\UsuarioCliente\DownloadModel;
 use System\Interface\ControllerDeletarInterface;
 use App\Models\Api\DownloadPrivado\ArquivoEntity;
 use System\Interface\ControllerAtualizarInterface;
-use App\Models\Api\UsuarioCliente\Validar\HashModel;
 use App\Models\Api\UsuarioCliente\Ativar\AtivarModel;
 use App\Models\Api\UsuarioCliente\Ativar\BuscarModel;
 use App\Models\Api\UsuarioCliente\Validar\ValidarModel;
@@ -32,6 +31,8 @@ use App\Models\Api\UsuarioCliente\Senha\AlterarSenhaModel;
 use App\Models\Api\UsuarioCliente\Senha\EnviarCodigoModel;
 use App\Models\Api\UsuarioCliente\Senha\ValidarCodigoModel;
 use App\Models\Api\UsuarioCliente\Ativar\AtivarIndicadoModel;
+use App\Models\Api\UsuarioCliente\Hash\SalvarModel as SalvarHashModel;
+use App\Models\Api\UsuarioCliente\Hash\ValidarModel as ValidarHashModel;
 
 final class UsuarioClienteController extends Controller implements
     ControllerBuscarInterface,
@@ -337,11 +338,20 @@ final class UsuarioClienteController extends Controller implements
 
     public function postHash(Request $request)
     {
-        $Usuario = new HashModel(
+        $Hash = new SalvarHashModel(
+            usuario: $request->usuario,
+            tipo: $request->tipo
+        );
+        return mensagemSucesso($Hash->retorno);
+    }
+
+    public function getHash(Request $request)
+    {
+        $Hash = new ValidarHashModel(
             usuario: $request->usuario,
             hash: $request->hash,
             tipo: $request->tipo
         );
-        return mensagemSucesso($Usuario->retorno);
+        return mensagemSucesso($Hash->retorno);
     }
 }

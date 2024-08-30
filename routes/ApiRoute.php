@@ -386,8 +386,13 @@ Route
         route
             ::nome('hash')
             ::middleware(TokenMiddleware::class, 'scope', ['usuario_cliente:hash'])
-            ::request(['hash', 'usuario', 'tipo'])
+            ::request(['usuario', 'tipo'])
             ::post('/usuario-cliente/hash');
+        route
+            ::nome('hash')
+            ::middleware(TokenMiddleware::class, 'scope', ['usuario_cliente:hash'])
+            ::request(['hash', 'usuario', 'tipo'])
+            ::get('/usuario-cliente/hash');
     });
 
 Route
