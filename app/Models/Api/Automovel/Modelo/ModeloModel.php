@@ -7,6 +7,7 @@ use App\Classes\Geral\Publicado;
 use App\Classes\Geral\Status;
 use App\Classes\ParceiroLoja\Status as ParceiroStatus;
 use App\Models\Api\Trait\ValidarEmpresaTrait;
+use App\Models\Api\Trait\ValidarRequestListar;
 use Erro\Excecao;
 use Helpers\OrmHelper;
 use Modules\Botao;
@@ -24,6 +25,7 @@ final class ModeloModel extends ORM implements
     ModelListarInterface
 {
     use ValidarEmpresaTrait;
+    use ValidarRequestListar;
     use PaginaTrait;
     use QuantidadeTrait;
     use OrdemTrait;
@@ -35,6 +37,7 @@ final class ModeloModel extends ORM implements
      * @param Quantidade      $quantidade
      * @param Ordem           $ordem
      * @param string|int|null $parceiro
+     * @param string|int|null $modelo
      * @param string|null     $pesquisa
      * @param string|null     $titulo
      * @param Botao           $publicado
@@ -49,6 +52,7 @@ final class ModeloModel extends ORM implements
         private readonly Quantidade $quantidade = new Quantidade(),
         private readonly Ordem $ordem = new Ordem(),
         private string|int|null $parceiro = null,
+        private string|int|null $modelo = null,
         private readonly ?string $pesquisa = null,
         private readonly ?string $titulo = null,
         private readonly Botao $publicado = new Botao(),
@@ -56,48 +60,10 @@ final class ModeloModel extends ORM implements
         private readonly Data $dataFinal = new Data(),
         private readonly Status $status = new Status()
     ) {
-        $this->validarDados();
-        $this->validarEmpresa();
-        $this->pegarParceiro();
+        $this->validarRequestListar();
+        $this->validarEmpresa(json: true);
+        //$this->pegarParceiro();
         parent::__construct();
-    }
-
-    /**
-     * @throws Excecao
-     */
-    private function validarDados(): void
-    {
-        if (!$this->ordem->vazio() && !$this->ordem->valido()) {
-            mensagemErro('Campo inválido!', 'A Ordem informada não é válida.');
-        }
-        if (!$this->publicado->vazio() && !$this->publicado->valido()) {
-            mensagemErro('Campo inválido!', 'O campo publicado não é valido.');
-        }
-        if (!$this->dataInicio->vazio() && !$this->dataInicio->eDate()) {
-            mensagemErro('Campo inválido!', 'A Data de início não está no formato válido.');
-        }
-        if (!$this->dataFinal->vazio() && !$this->dataFinal->eDate()) {
-            mensagemErro('Campo inválido!', 'A Data final não está no formato válido.');
-        }
-        if (!$this->status->vazio() && !$this->status->valido()) {
-            mensagemErro('Campo inválido!', 'O Status informado não é válido.');
-        }
-    }
-
-    /**
-     * @throws Excecao
-     */
-    private function pegarParceiro(): void
-    {
-        if (empty($this->parceiro)) {
-            return;
-        }
-        $Loja = new OrmHelper(TABELA_PARCEIRO_LOJA);
-        if (validarUuid($this->parceiro, false)) {
-            $this->parceiro = $Loja->pegarIdPeloUuid($this->parceiro);
-            return;
-        }
-        $this->parceiro = $Loja->pegarCampoPor('id', ['url', $this->parceiro]);
     }
 
     /**
@@ -120,7 +86,6 @@ final class ModeloModel extends ORM implements
             ], 'parceiro')
             ->join('id', 'id_parceiro_loja')
             ->read();
-
         $modelos->lista = $this->montarRetorno($modelos->lista);
         return $modelos;
     }
@@ -132,8 +97,8 @@ final class ModeloModel extends ORM implements
     {
         $where = [];
 
-        if (is_numeric($this->parceiro)) {
-            $where[] = ['id_parceiro_loja', $this->parceiro];
+        if (!empty($this->modelo)) {
+            $where[] = ['url', $this->modelo];
         }
 
         if (!empty($this->pesquisa)) {
@@ -179,18 +144,28 @@ final class ModeloModel extends ORM implements
 
     /**
      * @return array
+     * @throws Excecao
      */
     private function pegarWhereLoja(): array
     {
-        $where = [];
+        $where = $this->ormWherePadrao;
         $status = (new ParceiroStatus(ParceiroStatus::CONCLUIDO))->numero();
+
+        if (!empty($this->parceiro) && is_numeric($this->parceiro)) {
+            $where[] = ['id', $this->parceiro];
+        }
+        if (!empty($this->parceiro) && !validarUuid($this->parceiro, false)) {
+            $where[] = ['url', $this->parceiro];
+        }
         if (!$this->publicado->valido()) {
             return $where;
         }
         if ($this->publicado->valor() === Botao::SIM) {
-            return ['status', $status];
+            $where[] = ['status', $status];
+        } else {
+            $where[] = ['status', '!=', $status];
         }
-        return ['status', '!=', $status];
+        return $where;
     }
 
     /**
@@ -227,5 +202,24 @@ final class ModeloModel extends ORM implements
             ];
         }
         return $retorno;
+    }
+
+    /**
+     * @throws Excecao
+     */
+    private function pegarParceiro(): void
+    {
+        if (empty($this->parceiro)) {
+            return;
+        }
+        $where = $this->ormWherePadrao;
+        $Loja = new OrmHelper(TABELA_PARCEIRO_LOJA);
+        if (validarUuid($this->parceiro, false)) {
+            $where[] = ['uuid', $this->parceiro];
+            $this->parceiro = $Loja->pegarCampoPor('id', $where);
+            return;
+        }
+        $where[] = ['url', $this->parceiro];
+        $this->parceiro = $Loja->pegarCampoPor('id', $where);
     }
 }
