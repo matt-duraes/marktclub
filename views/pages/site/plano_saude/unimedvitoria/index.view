@@ -7,11 +7,8 @@
         </figure>
         <header class="bloco_conteudo">
             <h1>Unimed Vitória</h1>
-            <p>Este plano é administrado pela BENEVIX ADMINISTRADORA DE BENEFÍCIOS LTDA, registrada na ANS sob o n° .41771-8, pessoa jurídica de
-            direito privado, com sede na Avenida Nossa Senhora dos Navegantes, n° 495, salas 702 a 704, Ed. Centro Empresarial Enseada
-            do Suá, Vitória -ES, CEP 29050-335, inscrita no CNPJ sob o n° 11.073058/0001-81 em contrato particular assinado diretamente com sua
-            entidade de classe, conforme regulamentações vigentes da ANS. O aniversário desta apólice para reajuste anual é o mês de Julho
-            </p>
+            <!-- <p>Este plano é administrado pela ALLCARE GESTORA DE SAUDE, registrada na ANS sob o n° .41771-8, pessoa jurídica de direito privado, com sede na Avenida Nossa Senhora dos Navegantes, n° 495, salas 702 a 704, Ed. Centro Empresarial Enseada do Suá, Vitória-ES, CEP 29050-335, inscrita no CNPJ sob o n° 11.073058/0001-81 em contrato particular assinado diretamente com sua entidade de classe, conforme regulamentações vigentes da ANS. O aniversário desta apólice para reajuste anual é o mês de Julho</p> -->
+            <p>Este plano é administrado pela Allcare Administradora de Benefícios São Paulo Ltda (CNPJ 07674593/0001-10) e Allcare Administradora de Benefícios em Saúde Ltda (CNPJ 11165556/0001-54) em contrato particular assinado diretamente com sua entidade de classe, conforme regulamentações vigentes da ANS. O aniversário desta apólice para reajuste anual é o mês de Julho</p>
         </header>
         <div class="bloco_beneficio">
             <header>
@@ -33,6 +30,7 @@
             </div>
         </div>
     </div>
+
     <div class="bloco_plano_saude">
         <header>
             <h1>Explore a rede credenciada</h1>
@@ -49,9 +47,22 @@
         </div>
         <div class="display_flex">
             <a href="https://www.unimed.coop.br/guia-medico" class="botao_geral_cor cor_bg" target="_blank">Consultar rede credenciada</a>
-            @if(CLUBE_ID == 'federal'):
-            <a href="https://www.benevix.com.br/boletos" class="botao botao_geral_cor_auto_height botao_link_underline">Pedir 2° via do Boleto</a>
-            @endif;
+        </div>
+    </div>
+
+    <div class="bloco_plano_saude">
+        <header>
+            <h1>Pegue a 2° via do boleto</h1>
+        </header>
+        <div class="lista_passo_a_passo">
+            <ul class="bloco_geral_ul">
+                <li>Clique no botão "Pedir 2° via do Boleto"</li>
+                <li>Na página que abrirá, escolha a opção de Pessoa Física</li>
+                <li>Agora basta fazer login ou cadastro caso não tenha cadatro ainda</li>
+            </ul>
+        </div>
+        <div class="display_flex">
+            <a href="https://www.allcare.com.br/segunda-via-boleto" class="botao_geral_cor cor_bg" target="_blank">Pedir 2° via do Boleto</a>
         </div>
     </div>
 
