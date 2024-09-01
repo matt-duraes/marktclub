@@ -1177,7 +1177,7 @@ Route
             ::nome('listar')
             ::middleware(TokenMiddleware::class, 'scope', ['parceiro_turismo:listar'])
             ::request([
-                'pagina', '!quantidade'
+                'pagina', '!quantidade', '!pesquisa', '!titulo', '!data_inicio', '!data_final', '!publicado', '!status'
             ], 'json')
             ::get('/parceiro-turismo');
         Route

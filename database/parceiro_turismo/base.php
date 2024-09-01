@@ -8,6 +8,6 @@ return (new \DataBase\DataBase())
     ->imagem('imagem')->null()
     ->dataCriacao()
     ->dataAtualizacao()
-    ->datetime('data_inicio')
-    ->datetime('data_final')->null()
+    ->date('data_inicio')
+    ->date('data_final')->null()
     ->status();
