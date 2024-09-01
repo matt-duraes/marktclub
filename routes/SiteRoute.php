@@ -299,8 +299,17 @@ Route
             ::nome('index')
             ::view('/turismo');
         Route
+            ::nome('hotel')
+            ::post('/turismo/hotel');
+        Route
+            ::nome('promocao')
+            ::post('/turismo/promocao');
+        Route
             ::nome('redirecionar')
             ::view('/turismo/redirecionar');
+        Route
+            ::nome('redirecionarCampanha')
+            ::view('/turismo/redirecionar-campanha/{id}');
     });
 Route
     ::nome('cinema')

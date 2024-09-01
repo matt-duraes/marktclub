@@ -1,1 +1,0 @@
-{"id":"id_5a140c551b8874aed97dc5adb14936a7","token":"painel","metodo":"DELETE","nome":"\/parceiro-turismo\/:id","uri":"{{LINK}}\/parceiro-turismo\/$ID_PARCEIRO_TURISMO","parametro":[],"body":[],"header":[],"variavel":[],"json":[],"documentacao":{"status":false,"descricao":"","requisicao":"","resposta":"","scope":"parceiro_turismo:deletar"}}

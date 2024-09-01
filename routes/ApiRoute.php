@@ -1169,39 +1169,40 @@ Route
     });
 
 Route
-    ::nome('turismo')
-    ::controller(App\Controllers\Api\Parceiro\TurismoController::class)
+    ::nome('parceiro_campanha')
+    ::controller(App\Controllers\Api\Parceiro\CampanhaController::class)
     ::middleware(TokenMiddleware::class, 'token')
     ::grupo(function () {
         Route
             ::nome('listar')
-            ::middleware(TokenMiddleware::class, 'scope', ['parceiro_turismo:listar'])
+            ::middleware(TokenMiddleware::class, 'scope', ['parceiro_campanha:listar'])
             ::request([
-                'pagina', '!quantidade', '!pesquisa', '!titulo', '!data_inicio', '!data_final', '!publicado', '!status'
+                'pagina', '!quantidade', '!parceiro', '!pesquisa', '!titulo', '!data_inicio', '!data_final',
+                '!publicado', '!status'
             ], 'json')
-            ::get('/parceiro-turismo');
+            ::get('/parceiro-campanha');
         Route
             ::nome('buscar')
-            ::middleware(TokenMiddleware::class, 'scope', ['parceiro_turismo:buscar'])
-            ::get('/parceiro-turismo/{id}');
+            ::middleware(TokenMiddleware::class, 'scope', ['parceiro_campanha:buscar'])
+            ::get('/parceiro-campanha/{id}');
         Route
             ::nome('salvar')
-            ::middleware(TokenMiddleware::class, 'scope', ['parceiro_turismo:salvar'])
+            ::middleware(TokenMiddleware::class, 'scope', ['parceiro_campanha:salvar'])
             ::request([
-                'titulo', 'texto', 'data_inicio', 'data_final', 'imagem', 'status'
+                'parceiro', 'titulo', 'texto', 'data_inicio', 'data_final', 'imagem_desktop', 'imagem_mobile', 'link', 'status'
             ])
-            ::post('/parceiro-turismo');
+            ::post('/parceiro-campanha');
         Route
             ::nome('atualizar')
-            ::middleware(TokenMiddleware::class, 'scope', ['parceiro_turismo:atualizar'])
+            ::middleware(TokenMiddleware::class, 'scope', ['parceiro_campanha:atualizar'])
             ::request([
-                '!titulo', '!texto', '!data_inicio', '!data_final', '!imagem', '!status'
+                '!parceiro', '!titulo', '!texto', '!data_inicio', '!data_final', '!imagem_desktop', '!imagem_mobile', '!link', '!status'
             ])
-            ::put('/parceiro-turismo/{id}');
+            ::put('/parceiro-campanha/{id}');
         Route
             ::nome('deletar')
-            ::middleware(TokenMiddleware::class, 'scope', ['parceiro_turismo:deletar'])
-            ::delete('/parceiro-turismo/{id}');
+            ::middleware(TokenMiddleware::class, 'scope', ['parceiro_campanha:deletar'])
+            ::delete('/parceiro-campanha/{id}');
     });
 
 Route

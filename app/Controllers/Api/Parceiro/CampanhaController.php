@@ -9,11 +9,11 @@ use System\Interface\ControllerBuscarInterface;
 use System\Interface\ControllerListarInterface;
 use System\Interface\ControllerSalvarInterface;
 use System\Interface\ControllerDeletarInterface;
-use App\Models\Api\Parceiro\Turismo\TurismoModel;
-use App\Models\Api\Parceiro\Turismo\TurismoEntity;
 use System\Interface\ControllerAtualizarInterface;
+use App\Models\Api\Parceiro\Campanha\CampanhaModel;
+use App\Models\Api\Parceiro\Campanha\CampanhaEntity;
 
-final class TurismoController extends Controller implements
+final class CampanhaController extends Controller implements
     ControllerBuscarInterface,
     ControllerListarInterface,
     ControllerSalvarInterface,
@@ -22,36 +22,37 @@ final class TurismoController extends Controller implements
 {
     public function getListar(Request $request): Response
     {
-        $Turismo = new TurismoModel();
-        $Turismo->set(lista: $request->dado());
+        $Campanha = new CampanhaModel();
+        $Campanha->set(lista: $request->dado());
 
-        return mensagemSucesso($Turismo->listarDados());
+        return mensagemSucesso($Campanha->listarDados());
     }
 
     public function getBuscar(string $id): Response
     {
-        $Turismo = new TurismoEntity();
-        $Turismo->uuid($id);
+        $Campanha = new CampanhaEntity();
+        $Campanha->uuid($id);
 
-        return $this->retornoPadrao($Turismo, 200);
+        return $this->retornoPadrao($Campanha, 200);
     }
 
     public function postSalvar(Request $request): Response
     {
-        $Turismo = new TurismoEntity();
-        $Turismo->set(lista: $request->dado());
-        $Turismo->salvar();
+        $Campanha = new CampanhaEntity();
+        $Campanha->set(lista: $request->dado());
+        $Campanha->salvar();
 
-        return $this->retornoPadrao($Turismo, 201);
+        return $this->retornoPadrao($Campanha, 201);
     }
 
-    private function retornoPadrao(TurismoEntity $Turismo, int $status)
+    private function retornoPadrao(CampanhaEntity $Campanha, int $status)
     {
         return mensagemSucesso(
             dado: pegarPropriedadeDaEntity(
-                Entity: $Turismo,
+                Entity: $Campanha,
                 lista: [
-                    'titulo', 'texto', 'data_inicio', 'data_final', 'imagem', 'status'
+                    'parceiro', 'titulo', 'texto', 'data_inicio', 'data_final',
+                    'link', 'imagem_desktop', 'imagem_mobile', 'status'
                 ]
             ),
             status: $status
@@ -60,19 +61,19 @@ final class TurismoController extends Controller implements
 
     public function putAtualizar(Request $request, string $id): Response
     {
-        $Turismo = new TurismoEntity();
-        $Turismo->uuid($id);
-        $Turismo->set(lista: $request->dado());
-        $Turismo->salvar();
+        $Campanha = new CampanhaEntity();
+        $Campanha->uuid($id);
+        $Campanha->set(lista: $request->dado());
+        $Campanha->salvar();
 
         return new Response(status: 204);
     }
 
     public function deleteDeletar(string $id): Response
     {
-        $Turismo = new TurismoEntity();
-        $Turismo->uuid($id);
-        $Turismo->destruir();
+        $Campanha = new CampanhaEntity();
+        $Campanha->uuid($id);
+        $Campanha->destruir();
 
         return new Response(status: 204);
     }

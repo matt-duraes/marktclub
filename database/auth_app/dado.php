@@ -53,8 +53,8 @@ $scope = [
     'parceiro_relatorio:salvar', 'parceiro_relatorio:atualizar', 'parceiro_relatorio:listar',
     'parceiro_relatorio:buscar', 'parceiro_relatorio:deletar',
 
-    'parceiro_turismo:salvar', 'parceiro_turismo:atualizar', 'parceiro_turismo:listar',
-    'parceiro_turismo:buscar', 'parceiro_turismo:deletar',
+    'parceiro_campanha:salvar', 'parceiro_campanha:atualizar', 'parceiro_campanha:listar',
+    'parceiro_campanha:buscar', 'parceiro_campanha:deletar',
 
     'parceiro_easylive:salvar', 'parceiro_easylive:atualizar', 'parceiro_easylive:listar',
     'parceiro_easylive:buscar', 'parceiro_easylive:deletar',

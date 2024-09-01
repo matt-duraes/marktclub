@@ -25,7 +25,7 @@ return [
         'menu_loja'                 => 1,
         'menu_mapa'                 => 1,
         'menu_cinema'               => 1,
-        'menu_turismo'              => null,
+        'menu_turismo'              => 1,
         'menu_historico'            => 1,
         'menu_credito_sicoob'       => 1,
         'menu_farmacia'             => 1,

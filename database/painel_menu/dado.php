@@ -281,7 +281,7 @@ return [
         'titulo'           => 'PARCEIROS',
         'ordem'            => '++',
         'status'           => 1,
-        'permissao'        => '["parceiro_relatorio_index","parceiro_turismo_index","parceiro_loja_index","parceiro_externo_index","parceiro_equipe_index","parceiro_easylive_index","parceiro_automovel_index"]'
+        'permissao'        => '["parceiro_relatorio_index","parceiro_campanha_index","parceiro_loja_index","parceiro_externo_index","parceiro_equipe_index","parceiro_easylive_index","parceiro_automovel_index"]'
     ],
     [
         'id'               => '++',
@@ -335,13 +335,13 @@ return [
         'id'               => '++',
         'id_admin_empresa' => 1,
         'tipo'             => 3,
-        'titulo'           => 'Turismo',
-        'url'              => '/app/parceiro-turismo',
-        'icone'            => '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 30 30"><path d="M10.4,10.6c-1.1,1.2-1.8,2.7-1.8,4.4,0,3.5,2.9,6.4,6.4,6.4s1.7-.2,2.4-.5c0-.6-.1-1.2-.2-1.4-.2-.4-.8-1.2-1.8-2.3-.3-.3-.3-.5-.2-1.1h0c0-.5.2-.8,1.7-1,.8-.1,1,.2,1.2.6,0,0,0,0,0,.1.3.4.5.5.8.6.1,0,.3.1.5.3.5.3.5.6.5,1.4h0c0,.4,0,.7,0,.9.9-1.1,1.4-2.5,1.4-4,0-2.6-1.6-4.9-3.9-5.9-.4.3-1,.7-1.3,1-.1.1-.3.9-.8,1-.1,0-.3,0-.5,0-.5,0-1.2,0-1.4.5-.1.4-.2,1.4.3,1.9,0,0,0,.2,0,.4,0,.2-.2.4-.2.4,0,0-.2-.2-.3-.3-.3-.3-.6-.7-1-.8-.1,0-.3,0-.5-.1-.4,0-.9-.2-1.1-.4,0-.2,0-.4,0-.7,0-.3,0-.7-.2-1.1,0-.1-.1-.3-.2-.3ZM15,23c-4.4,0-8-3.6-8-8s3.6-8,8-8,8,3.6,8,8-3.6,8-8,8Z"/></svg>',
+        'titulo'           => 'Campanha',
+        'url'              => '/app/parceiro-campanha',
+        'icone'            => '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 30 30"><path d="M12.8,19.1s5.5.8,7.9,3.2h.8c.4,0,.8-.4.8-.8v-4.8c.7-.2,1.2-.8,1.2-1.5s-.5-1.4-1.2-1.5v-4.8c0-.4-.4-.8-.8-.8h-.8c-2.4,2.4-7.9,3.2-7.9,3.2h-3.2c-.9,0-1.6.7-1.6,1.6v4.7c0,.9.7,1.6,1.6,1.6h.8l.8,3.9h1.6v-3.9ZM14.4,12.5c.5-.1,1.2-.3,1.9-.5,1.3-.4,3-1,4.4-1.9v10.1c-1.4-.9-3.1-1.6-4.4-1.9-.7-.2-1.4-.4-1.9-.5v-5.3ZM9.6,12.7h3.2v4.7h-3.2v-4.7Z"/></svg>',
         'ordem'            => '++',
-        'menu'             => ['parceiro-turismo'],
+        'menu'             => ['parceiro-campanha'],
         'status'           => 1,
-        'permissao'        => '["parceiro_turismo_index"]'
+        'permissao'        => '["parceiro_campanha_index"]'
     ],
     [
         'id'               => '++',
