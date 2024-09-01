@@ -377,13 +377,13 @@ final class ConfiguracoesPadrao
                 'parceiro_loja_historico_download' => 'Download do histórico'
             ]
         ],
-        'parceiro_turismo'         => [
-            'titulo'    => 'Turismo',
+        'parceiro_campanha'         => [
+            'titulo'    => 'Parceiro campanha',
             'permissao' => [
-                'parceiro_turismo_index'         => 'Listar',
-                'parceiro_turismo_add'           => 'Salvar',
-                'parceiro_turismo_editar'        => 'Editar',
-                'parceiro_turismo_deletar'       => 'Deletar',
+                'parceiro_campanha_index'         => 'Listar',
+                'parceiro_campanha_add'           => 'Salvar',
+                'parceiro_campanha_editar'        => 'Editar',
+                'parceiro_campanha_deletar'       => 'Deletar',
             ]
         ],
         'parceiro_externo'         => [

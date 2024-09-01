@@ -1,9 +1,9 @@
 <?php
 
 use App\Classes\Geral\Status;
-use App\Classes\Parceiro\Turismo\Ordem;
+use App\Classes\Parceiro\Campanha\Ordem;
 
-$Painel = new PainelConfig\Index('parceiro_turismo', new Ordem());
+$Painel = new PainelConfig\Index('parceiro_campanha', new Ordem());
 
 $Painel
     ->campo('titulo', 'Título', 'grande')

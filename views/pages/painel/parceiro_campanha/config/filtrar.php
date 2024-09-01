@@ -3,7 +3,7 @@
 use App\Classes\Geral\Status;
 use App\Classes\Geral\Publicado;
 
-$Painel = new PainelConfig\Filtrar('parceiro_turismo');
+$Painel = new PainelConfig\Filtrar('parceiro_campanha');
 
 $Painel
     ->input(name: 'titulo', titulo: 'Título', label: 'Título', placeholder: 'Digite um título')

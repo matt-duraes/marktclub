@@ -1,1 +1,0 @@
-{"id":"id_723b1c6f41f87183c53d8f235a193452","token":"painel","metodo":"PUT","nome":"\/parceiro-turismo\/:id","uri":"{{LINK}}\/parceiro-turismo\/$ID_PARCEIRO_TURISMO","parametro":[],"body":[["texto",true,"titulo","Novo titulo",""]],"header":[],"variavel":[],"json":[],"documentacao":{"status":false,"descricao":"","requisicao":"","resposta":"","scope":"parceiro_turismo:atualizar"}}

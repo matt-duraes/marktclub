@@ -1,7 +1,7 @@
 <?php
 
 return [
-    'titulo'    => 'Turismo',
+    'titulo'    => 'Campanha',
     'buscar'    => true,
     'filtrar'   => true,
     'ordem'     => true,
@@ -10,7 +10,7 @@ return [
     'deletar'   => true,
     'historico' => false,
     'api'       => [
-        'scope' => 'parceiro_turismo',
-        'uri'   => '/parceiro-turismo'
+        'scope' => 'parceiro_campanha',
+        'uri'   => '/parceiro-campanha'
     ]
 ];

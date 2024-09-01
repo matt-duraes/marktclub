@@ -15,7 +15,14 @@
         @endif
     </div>
 
-    @ if( object_key_exists('lista', $lista) && $lista->lista ):
+    <aside class="bloco_campanha" id="bloco_campanha">
+        <header>
+            <h1>Promoções especiais</h1>
+        </header>
+        <div class="conteudo">
+
+        </div>
+    </aside>
+
     @view site/geral/relacionado.view
-    @ endif;
 </div>

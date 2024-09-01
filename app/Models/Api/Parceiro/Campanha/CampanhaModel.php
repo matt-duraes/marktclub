@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Models\Api\Parceiro\Turismo;
+namespace App\Models\Api\Parceiro\Campanha;
 
 use ORM\ORM;
 use Where\Where;
@@ -13,16 +13,18 @@ use App\Classes\Geral\Status;
 use App\Classes\Geral\Publicado;
 use System\Trait\Model\OrdemTrait;
 use System\Trait\Model\PaginaTrait;
-use App\Classes\Parceiro\Turismo\Ordem;
 use System\Trait\Model\QuantidadeTrait;
+use App\Classes\Parceiro\Campanha\Ordem;
+use App\Models\Api\Parceiro\Loja\LojaHelper;
 
-final class TurismoModel extends ORM
+final class CampanhaModel extends ORM
 {
     use PaginaTrait;
     use QuantidadeTrait;
     use OrdemTrait;
 
-    protected string $ormTabela = TABELA_PARCEIRO_TURISMO;
+    protected string $ormTabela = TABELA_PARCEIRO_CAMPANHA;
+    public string $parceiro;
     public string $titulo;
     public string $pesquisa;
     public Data $data_inicio;
@@ -36,7 +38,9 @@ final class TurismoModel extends ORM
     public function listarDados()
     {
         $dado = $this
-            ->campo(['uuid', 'titulo', 'data_inicio', 'data_final', 'imagem', 'status'])
+            ->campo([
+                'uuid', 'titulo', 'texto', 'data_inicio', 'data_final', 'imagem_desktop', 'imagem_mobile', 'link', 'status'
+            ])
             ->where($this->pegarWhere(), obrigatorio: false)
             ->pagina($this->pegarPagina(), $this->pegarQuantidade())
             ->order($this->pegarOrdem())
@@ -56,12 +60,15 @@ final class TurismoModel extends ORM
         $Status = new Status();
         foreach ($dado as $r) {
             $retorno[] = (object)[
-                'id'          => $r->uuid,
-                'titulo'      => $r->titulo,
-                'data_inicio' => $r->data_inicio,
-                'data_final'  => $r->data_final,
-                'imagem'      => arquivoPrivado($r->imagem),
-                'publicado'   => (new Publicado(
+                'id'             => $r->uuid,
+                'titulo'         => $r->titulo,
+                'texto'          => $r->texto,
+                'data_inicio'    => $r->data_inicio,
+                'data_final'     => $r->data_final,
+                'imagem_desktop' => arquivoPrivado($r->imagem_desktop),
+                'imagem_mobile'  => arquivoPrivado($r->imagem_mobile),
+                'link'           => $r->link,
+                'publicado'      => (new Publicado(
                     new Data($r->data_inicio),
                     new Data($r->data_final),
                     ativo: $r->status == 1
@@ -76,6 +83,13 @@ final class TurismoModel extends ORM
     {
         $Where = new Where($this);
         $Where
+            ->seVazio(propriedade: 'parceiro', vazio: false, callback: function () use ($Where) {
+                $id = (new LojaHelper())->pegarIdPeloUuid($this->parceiro);
+                if (empty($id)) {
+                    return;
+                }
+                $Where->manual(['id_parceiro_loja', $id]);
+            })
             ->linha('titulo', 'like%%')
             ->seVazio(propriedade: 'pesquisa', vazio: false, callback: function () use ($Where) {
                 $pesquisa = '%' . $this->pesquisa . '%';
