@@ -8,7 +8,7 @@
             <a class="cor_color botao_contar_click" data-botao="Ver mais" href="@route('loja.index')">Veja mais</a>
         @ elseif( $tipo == 'turismo' ):
             <h1>Veja nossos parceiros direto de hotéis</h1>
-            <a class="cor_color botao_contar_click" data-botao="Ver mais" href="">Veja mais</a>
+            <a class="cor_color botao_contar_click" data-botao="Ver mais" href="@route('loja.index')?categoria=outros&subcategoria=2a13da6ab3ac2b233bb0dc7f57e3ac49">Veja mais</a>
         @ elseif( $tipo == 'farmacia' ):
             <h1>Veja outras farmácias</h1>
             <a class="cor_color botao_contar_click" data-botao="Ver mais" href="@route('farmacia.index')">Veja mais</a>
@@ -22,4 +22,5 @@
         </div>
     </div>
 </aside>
+
 @view site/geral/parceiro_clone.view

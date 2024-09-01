@@ -4,21 +4,18 @@
     @view site/geral/banner.view
 
     <div class="bloco_chamada">
-        <h1>123 Milhas com 5% de desconto</h1>
-        <p>Agora você tem desconto no maior portal de vendas de passagem aéreas e hotéis do Brasil</p>
+        <h1>Turismo com descontos especiais</h1>
+        <p>Agora você tem desconto no maior portal de turismo do Brasil</p>
         @if(TIPO_USUARIO != 'indicado'):
-            <a href="" class="botao_geral_cor cor_bg">ACESSAR SITE</a>
+        <a href="@route('turismo.redirecionar')" target="_blank" rel="noopener noreferrer" class="botao_geral_cor cor_bg">ACESSAR SITE</a>
         @else:
-            <div class="bloco_atencao_geral">
-                <p>Apenas associados possuem acesso a esse recurso</p>
-            </div>
+        <div class="bloco_atencao_geral">
+            <p>Apenas associados possuem acesso a esse recurso</p>
+        </div>
         @endif
     </div>
 
-    @php $banner = $carro
-    @view site/geral/banner.view
-
-    @ if( $lista ):
+    @ if( object_key_exists('lista', $lista) && $lista->lista ):
     @view site/geral/relacionado.view
     @ endif;
 </div>
