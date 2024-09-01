@@ -281,7 +281,7 @@ return [
         'titulo'           => 'PARCEIROS',
         'ordem'            => '++',
         'status'           => 1,
-        'permissao'        => '["parceiro_relatorio_index","parceiro_loja_index","parceiro_externo_index","parceiro_equipe_index","parceiro_easylive_index","parceiro_automovel_index"]'
+        'permissao'        => '["parceiro_relatorio_index","parceiro_turismo_index","parceiro_loja_index","parceiro_externo_index","parceiro_equipe_index","parceiro_easylive_index","parceiro_automovel_index"]'
     ],
     [
         'id'               => '++',
@@ -330,6 +330,18 @@ return [
         'menu'             => ['parceiro-externo'],
         'status'           => 1,
         'permissao'        => '["parceiro_externo_index"]'
+    ],
+    [
+        'id'               => '++',
+        'id_admin_empresa' => 1,
+        'tipo'             => 3,
+        'titulo'           => 'Turismo',
+        'url'              => '/app/parceiro-turismo',
+        'icone'            => '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 30 30"><path d="M10.4,10.6c-1.1,1.2-1.8,2.7-1.8,4.4,0,3.5,2.9,6.4,6.4,6.4s1.7-.2,2.4-.5c0-.6-.1-1.2-.2-1.4-.2-.4-.8-1.2-1.8-2.3-.3-.3-.3-.5-.2-1.1h0c0-.5.2-.8,1.7-1,.8-.1,1,.2,1.2.6,0,0,0,0,0,.1.3.4.5.5.8.6.1,0,.3.1.5.3.5.3.5.6.5,1.4h0c0,.4,0,.7,0,.9.9-1.1,1.4-2.5,1.4-4,0-2.6-1.6-4.9-3.9-5.9-.4.3-1,.7-1.3,1-.1.1-.3.9-.8,1-.1,0-.3,0-.5,0-.5,0-1.2,0-1.4.5-.1.4-.2,1.4.3,1.9,0,0,0,.2,0,.4,0,.2-.2.4-.2.4,0,0-.2-.2-.3-.3-.3-.3-.6-.7-1-.8-.1,0-.3,0-.5-.1-.4,0-.9-.2-1.1-.4,0-.2,0-.4,0-.7,0-.3,0-.7-.2-1.1,0-.1-.1-.3-.2-.3ZM15,23c-4.4,0-8-3.6-8-8s3.6-8,8-8,8,3.6,8,8-3.6,8-8,8Z"/></svg>',
+        'ordem'            => '++',
+        'menu'             => ['parceiro-turismo'],
+        'status'           => 1,
+        'permissao'        => '["parceiro_turismo_index"]'
     ],
     [
         'id'               => '++',

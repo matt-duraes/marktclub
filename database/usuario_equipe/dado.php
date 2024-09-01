@@ -43,6 +43,8 @@ $permissao = [
 
     'parceiro_equipe_index', 'parceiro_equipe_visualizar',
 
+    'parceiro_turismo_index', 'parceiro_turismo_add', 'parceiro_turismo_editar', 'parceiro_turismo_deletar',
+
     'parceiro_easylive_index', 'parceiro_easylive_add', 'parceiro_easylive_editar', 'parceiro_easylive_deletar',
 
     'parceiro_cupom_index', 'parceiro_cupom_status',
