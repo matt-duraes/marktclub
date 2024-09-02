@@ -8,18 +8,18 @@ final class HashModel extends ApiHelper
 {
     public string $hash = '';
 
-    public function __construct()
+    public function __construct(string $tipo)
     {
         parent::__construct(token: true);
-        $this->pegarHash();
+        $this->pegarHash($tipo);
     }
 
-    private function pegarHash()
+    private function pegarHash(string $tipo)
     {
         $dado = $this
             ->body([
                 'usuario' => sessao('USUARIO.id'),
-                'tipo'    => 'campanha'
+                'tipo'    => $tipo
             ])
             ->post('/usuario-cliente/hash')
             ->object();
