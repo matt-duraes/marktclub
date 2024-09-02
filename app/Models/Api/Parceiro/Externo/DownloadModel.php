@@ -41,7 +41,6 @@ class DownloadModel extends ORM
     }
 
     /**
-     * @return void
      * @throws Excecao
      */
     private function validarCampoAceito(): void
@@ -125,7 +124,6 @@ class DownloadModel extends ORM
     }
 
     /**
-     * @return void
      * @throws Excecao
      */
     private function salvarLogDownload(): void
@@ -140,7 +138,6 @@ class DownloadModel extends ORM
     }
 
     /**
-     * @return void
      */
     protected function montarRetornoDownload(): void
     {
@@ -168,7 +165,6 @@ class DownloadModel extends ORM
     }
 
     /**
-     * @return void
      * @throws Excecao
      */
     private function salvarArquivo(): void

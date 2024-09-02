@@ -20,7 +20,15 @@
             <h1>Promoções especiais</h1>
         </header>
         <div class="conteudo">
-
+            @laco(3)
+            <article class="parceiro_esqueleto">
+                <figure class="esqueleto"></figure>
+                <header>
+                    <h1 class="esqueleto"></h1>
+                    <p class="esqueleto"></p>
+                </header>
+            </article>
+            @endlaco
         </div>
     </aside>
 

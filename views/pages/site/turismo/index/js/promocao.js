@@ -3,7 +3,7 @@ window.addEventListener('load', async () => {
     const conteudo = $('#bloco_campanha .conteudo');
     const resposta = await ajaxPost(LINK + '/turismo/promocao', undefined, '');
 
-    if (false == resposta) {
+    if (false == resposta || resposta.dado.length == 0) {
         bloco.remove();
         return;
     }
