@@ -82,7 +82,7 @@ final class ExternoEntity extends Entity
         $this->dono = (new OrmHelper(TABELA_USUARIO_EQUIPE))->pegarUuidPeloId($this->id_dono_equipe);
         $contatos = $OrmHelperContato->listar(['nome', 'cpf', 'tipo', 'valor'], ['id_vinculo', $this->id]);
 
-        if (!empty($this->id_usuario_equipe)) {
+        /*if (!empty($this->id_usuario_equipe)) {
             $captador = (new OrmHelper(TABELA_USUARIO_EQUIPE))->pegarUltimoRegistro([
                 'uuid', $this->id_usuario_equipe
             ], ['nome_real'], 'object');
@@ -90,7 +90,7 @@ final class ExternoEntity extends Entity
                 'id'   => $this->id_usuario_equipe,
                 'nome' => is_array($captador->nome_real) ? '' : $captador->nome_real
             ];
-        }
+        }*/
 
         $this->contato = [];
         foreach ($contatos as $contato) {
