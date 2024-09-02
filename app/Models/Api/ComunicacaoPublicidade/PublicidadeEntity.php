@@ -25,7 +25,7 @@ final class PublicidadeEntity extends Entity
         titulo|Titulo|obrigatorio|vazio
         data_inicio|Data de início|obrigatorio|vazio|valido
         data_final|Data final|obrigatorio|vazio|valido
-        imagem_desktop|Imagem Desktop|obrigatorio|vazio
+        imagem_desktop|Imagem Desktop
         tipo|Tipo|obrigatorio|vazio|valido
         status|Status|obrigatorio|vazio|valido
     ';
@@ -47,6 +47,7 @@ final class PublicidadeEntity extends Entity
         $this->id_parceiro_loja = (new OrmHelper(TABELA_PARCEIRO_LOJA))->pegarIdPeloUuid($idParceiro);
         $this->imagem_desktop = arquivoPrivadoId($this->imagem_desktop);
         $this->imagem_mobile = arquivoPrivadoId($this->imagem_mobile);
+        $this->validarImagens();
         $this->validarDataInicioMenorQueFinal();
     }
 
@@ -80,6 +81,13 @@ final class PublicidadeEntity extends Entity
     {
         if ($this->data_inicio->date() > $this->data_final->date()) {
             mensagemErro('Data Inválida!', 'A data de inicio não pode ser maior que a data final.');
+        }
+    }
+
+    private function validarImagens(): void
+    {
+        if (empty($this->imagem_desktop) && empty($this->imagem_mobile)) {
+            mensagemErro('Falta imagem!', 'Pelo menos uma imagem (desktop ou mobile) deve ser fornecida.');
         }
     }
 }
