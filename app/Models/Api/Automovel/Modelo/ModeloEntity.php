@@ -91,8 +91,9 @@ final class ModeloEntity extends Entity
      */
     protected function regraSalvar(): void
     {
+        $where = $this->ormWherePadrao;
         if (is_string($this->parceiro) && !empty($this->parceiro)) {
-            $where = array_keys([$this->ormWherePadrao], ['uuid', $this->parceiro]);
+            $where[] = ['uuid', $this->parceiro];
             $id = $this->ormParceiro->pegarCampoPor('id', $where);
             if (empty($id)) {
                 mensagemErro('Não encontrado!', 'Parceiro não encontrado.');
