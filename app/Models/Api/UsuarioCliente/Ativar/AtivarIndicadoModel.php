@@ -2,25 +2,25 @@
 
 namespace App\Models\Api\UsuarioCliente\Ativar;
 
-use ORM\ORM;
-use stdClass;
-use Modules\Cpf;
-use Http\Request;
-use Modules\Data;
-use Modules\Nome;
-use Modules\Botao;
-use Modules\Email;
-use Modules\Senha;
-use Modules\Genero;
-use Modules\Telefone;
-use Helpers\OrmHelper;
-use Modules\EnderecoCep;
-use Modules\EstadoCivil;
-use Modules\EnderecoEstado;
 use App\Classes\UsuarioCliente\Status;
 use App\Classes\UsuarioCliente\TipoUsuario;
 use App\Classes\UsuarioIndicacao\Status as IndicacaoStatus;
 use App\Models\Api\UsuarioCliente\Ativar\Trait\AtivarTrait;
+use Helpers\OrmHelper;
+use Http\Request;
+use Modules\Botao;
+use Modules\Cpf;
+use Modules\Data;
+use Modules\Email;
+use Modules\EnderecoCep;
+use Modules\EnderecoEstado;
+use Modules\EstadoCivil;
+use Modules\Genero;
+use Modules\Nome;
+use Modules\Senha;
+use Modules\Telefone;
+use ORM\ORM;
+use stdClass;
 
 final class AtivarIndicadoModel extends ORM
 {
@@ -50,6 +50,8 @@ final class AtivarIndicadoModel extends ORM
     private EnderecoEstado $endereco_estado;
     private string $endereco_cidade;
     private TipoUsuario $tipo_usuario;
+    private mixed $trabalho_cargo;
+    private mixed $trabalho_empresa;
     private string $empresa;
 
     public function __construct(
@@ -61,6 +63,12 @@ final class AtivarIndicadoModel extends ORM
         $this->validarDado();
         $this->validarUsuarioRepetido();
         $this->salvarUsuario();
+    }
+
+    private function setarPropriedadeIndicacao()
+    {
+        $this->tipo_usuario = new TipoUsuario($this->request->tipo_usuario);
+        $this->empresa = (new OrmHelper(TABELA_COMERCIAL_EMPRESA))->pegarIdPeloUuid($this->request->empresa);
     }
 
     private function validarUsuarioRepetido()
@@ -87,12 +95,6 @@ final class AtivarIndicadoModel extends ORM
         ) {
             return mensagemErro('Erro!', 'Já existe um usuário com esse e-mail.');
         }
-    }
-
-    private function setarPropriedadeIndicacao()
-    {
-        $this->tipo_usuario = new TipoUsuario($this->request->tipo_usuario);
-        $this->empresa = (new OrmHelper(TABELA_COMERCIAL_EMPRESA))->pegarIdPeloUuid($this->request->empresa);
     }
 
     private function salvarUsuario()

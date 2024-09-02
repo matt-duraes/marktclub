@@ -77,21 +77,20 @@ final class ExternoEntity extends Entity
 
     protected function regraPosBuscar(): void
     {
-        $OrmHelperEquipe = new OrmHelper(TABELA_USUARIO_EQUIPE);
         $OrmHelperContato = new OrmHelper(TABELA_SISTEMA_CONTATO);
 
-        $this->dono = $OrmHelperEquipe->pegarUuidPeloId($this->id_dono_equipe);
+        $this->dono = (new OrmHelper(TABELA_USUARIO_EQUIPE))->pegarUuidPeloId($this->id_dono_equipe);
         $contatos = $OrmHelperContato->listar(['nome', 'cpf', 'tipo', 'valor'], ['id_vinculo', $this->id]);
 
-        if (!empty($this->id_usuario_equipe)) {
-            $captador = $OrmHelperEquipe->pegarUltimoRegistro([
+        /*if (!empty($this->id_usuario_equipe)) {
+            $captador = (new OrmHelper(TABELA_USUARIO_EQUIPE))->pegarUltimoRegistro([
                 'uuid', $this->id_usuario_equipe
             ], ['nome_real'], 'object');
             $this->captador = [
                 'id'   => $this->id_usuario_equipe,
-                'nome' => $captador->nome_real
+                'nome' => is_array($captador->nome_real) ? '' : $captador->nome_real
             ];
-        }
+        }*/
 
         $this->contato = [];
         foreach ($contatos as $contato) {

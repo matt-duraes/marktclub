@@ -211,15 +211,16 @@ final class DownloadModel extends ORM
                     $val = (new Status($val))->indice();
                 } elseif ($ind == 'trabalho_orgao') {
                     $ind = 'trabalho_empresa';
-                    if ((new TrabalhoEmpresa($val, true))->valido()) {
-                        $val = (new TrabalhoEmpresa($val, true))->indice();
-                    }
                     $locacao = (new OrmHelper(TABELA_SITE_LOTACAO))->pegarSelect(
                         'id',
                         'titulo',
                         ['id_admin_empresa', $this->idEmpresa]
                     );
-                    $val = !empty($locacao) && !empty($val) ? $locacao[$val] : '';
+                    if (!empty($locacao) && !empty($val)) {
+                        $val = $locacao[$val] ?? 'Não encontrado';
+                    } elseif (!empty($val) && (new TrabalhoEmpresa($val, true))->valido()) {
+                        $val = (new TrabalhoEmpresa($val, true))->indice();
+                    }
                 } elseif ($ind == 'trabalho_cargo') {
                     $val = (new TrabalhoCargo($val, true))->indice();
                 } elseif ($ind == 'tipo_pagamento') {

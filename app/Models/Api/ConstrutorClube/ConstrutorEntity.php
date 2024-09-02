@@ -166,11 +166,4 @@ final class ConstrutorEntity extends Entity
         $this->logo_footer = arquivoPrivado($this->logo_footer);
         $this->logo_marktclub = LINK_ARQUIVO . '/construtor/a2ca966d45780803f2497bd2a77b0e3b.png';
     }
-
-    protected function regraPosInsert()
-    {
-        /*if ($this->copiar_padrao->valor() == Botao::SIM) {
-            new CopiaClube(TOKEN['empresa']->id);
-        }*/
-    }
 }
