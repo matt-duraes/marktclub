@@ -8,7 +8,6 @@ use stdClass;
 final class ValidarModel extends ORM
 {
     protected string $ormTabela = TABELA_USUARIO_CLIENTE;
-
     private stdClass $dado;
     public array $retorno;
 
@@ -16,21 +15,20 @@ final class ValidarModel extends ORM
         private ?string $usuario = null,
         private ?string $hash = null,
         private ?string $tipo = null
-    )
-    {
+    ) {
         parent::__construct();
         $this->validarClasse();
         $this->buscarUsuario();
         $this->validarHash();
         $this->retorno = [
-            'id' => uuid(),
+            'id'         => uuid(),
             'autorizado' => 'sim'
         ];
     }
 
     private function validarClasse()
     {
-        if(empty($this->usuario) || empty($this->hash) || empty($this->tipo)) {
+        if (empty($this->usuario) || empty($this->hash) || empty($this->tipo)) {
             $this->naoAutorizado('Dados inválidos para validar hash.');
         }
     }
@@ -38,7 +36,7 @@ final class ValidarModel extends ORM
     private function buscarUsuario()
     {
         $usuario = $this->campo(['hash', 'hash_data', 'hash_tipo'])->where(['uuid', $this->usuario])->primeiro();
-        if(vazio($usuario)) {
+        if (vazio($usuario)) {
             $this->naoAutorizado('Usuário não encontrado pelo código enviado.');
         }
         $this->dado = $usuario;
@@ -48,9 +46,9 @@ final class ValidarModel extends ORM
     {
         $dado = $this->dado;
         $dataVencimento = dataRemover(data: agora(), numero: 5, tempo: 'minutos', formato: 'Y-m-d H:i:s');
-        if($dado->hash != $this->hash || $dado->hash_tipo != $this->tipo) {
+        if ($dado->hash != $this->hash || $dado->hash_tipo != $this->tipo) {
             $this->naoAutorizado('Hash inválido.');
-        } elseif($dado->hash_data < $dataVencimento) {
+        } elseif ($dado->hash_data < $dataVencimento) {
             $this->naoAutorizado('Hash vencido.');
         }
     }

@@ -28,7 +28,7 @@ final class HashModel extends ApiHelper
         }
         $this->hash = base64_encode(jsonEncode([
             'usuario' => sessao('USUARIO.id'),
-            'hash'    => $this->hash
+            'hash'    => $dado->dado->hash
         ]));
     }
 }
