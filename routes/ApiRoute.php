@@ -1,10 +1,10 @@
 <?php
 
-use App\Classes\Parceiro\Externo\Helper;
-use App\Middlewares\Api\MarktClubMiddleware;
-use App\Middlewares\Api\TokenMiddleware;
-use App\Middlewares\Api\TokenProvMiddleware;
 use Route\Route;
+use App\Classes\Parceiro\Externo\Helper;
+use App\Middlewares\Api\TokenMiddleware;
+use App\Middlewares\Api\MarktClubMiddleware;
+use App\Middlewares\Api\TokenProvMiddleware;
 
 Route
     ::nome('downloadRestrito')
@@ -383,6 +383,16 @@ Route
             ::middleware(TokenMiddleware::class, 'scope', ['usuario_cliente:alterar_senha'])
             ::request(['senha_atual', 'senha_nova'])
             ::put('/usuario-cliente/alterar-senha');
+        route
+            ::nome('hash')
+            ::middleware(TokenMiddleware::class, 'scope', ['usuario_cliente:hash'])
+            ::request(['usuario', 'tipo'])
+            ::post('/usuario-cliente/hash');
+        route
+            ::nome('hash')
+            ::middleware(TokenMiddleware::class, 'scope', ['usuario_cliente:hash'])
+            ::request(['hash', 'usuario', 'tipo'])
+            ::get('/usuario-cliente/hash');
     });
 
 Route
@@ -905,28 +915,6 @@ Route
     });
 
 Route
-    ::nome('turismo')
-    ::controller(App\Controllers\Api\TurismoController::class)
-    ::grupo(function () {
-        Route
-            ::nome('token')
-            ::request(['usuario', 'ip', 'memoria', 'user_agent'])
-            ::post('/turismo/token');
-
-        Route
-            ::nome('validarUsuario')
-            ::get('/turismo/validar-usuario/{usuario}');
-
-        Route
-            ::nome('redirecionar')
-            ::view('/turismo/redirecionar/{usuario}');
-
-        Route
-            ::nome('abrir')
-            ::view('/turismo/abrir/{usuario}/{memoria}');
-    });
-
-Route
     ::nome('pagina')
     ::middleware(TokenProvMiddleware::class, 'token')
     ::controller(App\Controllers\Api\PaginaController::class)
@@ -943,6 +931,69 @@ Route
             ::nome('samsung')
             ::request(['usuario'])
             ::get('/pagina/samsung');
+    });
+
+Route
+    ::nome('view_pagina')
+    ::middleware(TokenMiddleware::class, 'token')
+    ::controller(App\Controllers\Api\View\PaginaController::class)
+    ::grupo(function () {
+        Route
+            ::nome('listar')
+            ::middleware(TokenMiddleware::class, 'scope', ['view_pagina:listar'])
+            ::request(['pagina', '!quantidade'])
+            ::get('/view-pagina');
+
+        Route
+            ::nome('buscar')
+            ::middleware(TokenMiddleware::class, 'scope', ['view_pagina:buscar'])
+            ::get('/view-pagina/{id}');
+
+        Route
+            ::nome('salvar')
+            ::middleware(TokenMiddleware::class, 'scope', ['view_pagina:salvar'])
+            ::request(['titulo', 'url'])
+            ::post('/view-pagina');
+
+        Route
+            ::nome('atualizar')
+            ::middleware(TokenMiddleware::class, 'scope', ['view_pagina:atualizar'])
+            ::request(['!titulo', '!url'])
+            ::put('/view-pagina/{id}');
+
+        Route
+            ::nome('deletar')
+            ::middleware(TokenMiddleware::class, 'scope', ['view_pagina:deletar'])
+            ::delete('/view-pagina/{id}');
+    });
+
+Route
+    ::nome('view_lista')
+    ::middleware(TokenMiddleware::class, 'token')
+    ::controller(App\Controllers\Api\View\ListaController::class)
+    ::grupo(function () {
+        Route
+            ::nome('listar')
+            ::middleware(TokenMiddleware::class, 'scope', ['view_lista:listar'])
+            ::request(['pagina'])
+            ::get('/view-lista');
+
+        Route
+            ::nome('salvar')
+            ::middleware(TokenMiddleware::class, 'scope', ['view_lista:salvar'])
+            ::request(['titulo', 'url'])
+            ::post('/view-lista');
+
+        Route
+            ::nome('atualizar')
+            ::middleware(TokenMiddleware::class, 'scope', ['view_lista:atualizar'])
+            ::request(['!titulo', '!url'])
+            ::put('/view-lista/{id}');
+
+        Route
+            ::nome('deletar')
+            ::middleware(TokenMiddleware::class, 'scope', ['view_lista:deletar'])
+            ::delete('/view-lista/{id}');
     });
 
 Route
@@ -1115,6 +1166,43 @@ Route
                 '!status', '!auditado'
             ])
             ::put('/parceiro-cupom/{id}');
+    });
+
+Route
+    ::nome('parceiro_campanha')
+    ::controller(App\Controllers\Api\Parceiro\CampanhaController::class)
+    ::middleware(TokenMiddleware::class, 'token')
+    ::grupo(function () {
+        Route
+            ::nome('listar')
+            ::middleware(TokenMiddleware::class, 'scope', ['parceiro_campanha:listar'])
+            ::request([
+                'pagina', '!quantidade', '!parceiro', '!pesquisa', '!titulo', '!data_inicio', '!data_final',
+                '!publicado', '!status'
+            ], 'json')
+            ::get('/parceiro-campanha');
+        Route
+            ::nome('buscar')
+            ::middleware(TokenMiddleware::class, 'scope', ['parceiro_campanha:buscar'])
+            ::get('/parceiro-campanha/{id}');
+        Route
+            ::nome('salvar')
+            ::middleware(TokenMiddleware::class, 'scope', ['parceiro_campanha:salvar'])
+            ::request([
+                'parceiro', 'titulo', 'texto', 'data_inicio', 'data_final', 'imagem_desktop', 'imagem_mobile', 'link', 'status'
+            ])
+            ::post('/parceiro-campanha');
+        Route
+            ::nome('atualizar')
+            ::middleware(TokenMiddleware::class, 'scope', ['parceiro_campanha:atualizar'])
+            ::request([
+                '!parceiro', '!titulo', '!texto', '!data_inicio', '!data_final', '!imagem_desktop', '!imagem_mobile', '!link', '!status'
+            ])
+            ::put('/parceiro-campanha/{id}');
+        Route
+            ::nome('deletar')
+            ::middleware(TokenMiddleware::class, 'scope', ['parceiro_campanha:deletar'])
+            ::delete('/parceiro-campanha/{id}');
     });
 
 Route

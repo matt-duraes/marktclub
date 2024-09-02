@@ -1,4 +1,6 @@
 @template "site"
+@system "Esqueleto"
+@system "Banner"
 @resource "site/variavel"
 @resource "site/banner"
 @resource "site/loja/parceiro"
@@ -20,8 +22,74 @@
         max-width: 400px
         text-align: center
         margin-bottom: 30px
-.bloco_atencao_geral
-    border: 1px solid $corClube
-    flexCenter()
-    p
-        padding-top: 27px
+#bloco_turismo .bloco_relacionado:not(.sem_borda)
+    margin-top: 40px
+    padding-top: 40px
+    border-top: 1px solid #DDD
+
+.bloco_campanha
+    maxWidth()
+    flexCol()
+    margin-top: 50px
+    > header
+        width: 100%
+        flexRow()
+        align-items: center
+        margin-bottom: 10px
+    > header h1
+        flexGrow()
+        titulo()
+    .conteudo
+        width: 100%
+        flexRow()
+        flex-wrap: wrap
+        justify-content: space-between
+    .conteudo article
+    .conteudo .article_fake
+        width: calc((100% / 3) - (40px / 3))
+    .conteudo article
+        boxShadow()
+        background-color: #FFF
+        margin-bottom: 20px
+        borderRadius()
+        overflow: hidden
+        position: relative
+    .conteudo article a
+        width: 100%
+        height: 100%
+        position: absolute
+        top: 0
+        left: 0
+        z-index: 2
+    .conteudo article figure
+        width: 100%
+        height: 180px
+        background-size: cover
+        background-position: center center
+    .conteudo article header
+        width: 100%
+        text-align: center
+        padding: 20px
+    .conteudo article header h1
+        texto()
+        font-weight: bold
+    .conteudo article header p
+        texto()
+
+@media screen and (max-width:900px)
+    .bloco_campanha .conteudo
+        article
+        .article_fake
+            width: calc(50% - 10px)
+@media screen and (max-width:600px)
+    .bloco_campanha .conteudo
+        article
+        .article_fake
+            width: calc(50% - 5px)
+            margin-bottom: 10px
+@media screen and (max-width:420px)
+    .bloco_campanha .conteudo
+        article
+        .article_fake
+            width: 100%
+            margin-bottom: 20px

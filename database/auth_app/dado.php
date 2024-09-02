@@ -7,6 +7,7 @@ $scope = [
     'usuario_cliente:buscar', 'usuario_cliente:deletar', 'usuario_cliente:deletar_cpf',
     'usuario_cliente:download', 'usuario_cliente:apple', 'usuario_cliente:ativar', 'usuario_cliente:senha',
     'usuario_cliente:validar_senha', 'usuario_cliente:alterar_senha', 'usuario_cliente:validar',
+    'usuario_cliente:hash',
 
     'usuario_dependente:listar', 'usuario_dependente:salvar', 'usuario_dependente:atualizar',
     'usuario_dependente:deletar', 'usuario_dependente:email',
@@ -51,6 +52,9 @@ $scope = [
 
     'parceiro_relatorio:salvar', 'parceiro_relatorio:atualizar', 'parceiro_relatorio:listar',
     'parceiro_relatorio:buscar', 'parceiro_relatorio:deletar',
+
+    'parceiro_campanha:salvar', 'parceiro_campanha:atualizar', 'parceiro_campanha:listar',
+    'parceiro_campanha:buscar', 'parceiro_campanha:deletar',
 
     'parceiro_easylive:salvar', 'parceiro_easylive:atualizar', 'parceiro_easylive:listar',
     'parceiro_easylive:buscar', 'parceiro_easylive:deletar',
@@ -234,7 +238,10 @@ $scope = [
     'votacao_usuario:validar',
     'votacao_voto:salvar',
 
-    'painel_historico:download'
+    'painel_historico:download',
+
+    'view_pagina:listar', 'view_pagina:buscar', 'view_pagina:salvar', 'view_pagina:atualizar', 'view_pagina:deletar',
+    'view_lista:listar', 'view_lista:salvar', 'view_lista:atualizar', 'view_lista:deletar'
 ];
 
 return [

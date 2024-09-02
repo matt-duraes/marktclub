@@ -1,0 +1,1 @@
+{"id":"id_5a140c551b8874aed97dc5adb14936a7","token":"painel","metodo":"DELETE","nome":"\/parceiro-campanha\/:id","uri":"{{LINK}}\/parceiro-campanha\/$ID_PARCEIRO_campanha","parametro":[],"body":[],"header":[],"variavel":[],"json":[],"documentacao":{"status":false,"descricao":"","requisicao":"","resposta":"","scope":"parceiro_campanha:deletar"}}

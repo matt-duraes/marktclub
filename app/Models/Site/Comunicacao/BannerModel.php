@@ -12,11 +12,21 @@ final class BannerModel extends ClubeApiHelper
 
     public function home()
     {
+        return $this->buscarBanner(Tipo::HOME);
+    }
+
+    public function turismo()
+    {
+        return $this->buscarBanner(Tipo::TURISMO);
+    }
+
+    private function buscarBanner(string $tipo)
+    {
         $dado = $this
             ->json([
                 'pagina'     => 1,
                 'quantidade' => 50,
-                'tipo'       => Tipo::HOME,
+                'tipo'       => $tipo,
                 'publicado'  => Botao::SIM
             ])
             ->get('/comunicacao-publicidade')

@@ -54,8 +54,8 @@ final class Where implements WhereInterface
         if ($publicado->valor() == 'nao') {
             $this->manual([
                 'OR',
-                ['data_inicio', '>', hoje()],
-                ['data_final', '<', hoje()],
+                ['data_inicio', '>', agora()],
+                ['data_final', '<', agora()],
                 ['status', 'notin', $status]
             ]);
             return $this;
@@ -66,13 +66,13 @@ final class Where implements WhereInterface
                 'OR',
                 ['data_inicio', 'null'],
                 ['data_inicio', ''],
-                ['data_inicio', '<=', hoje() . ' 23:59:59'],
+                ['data_inicio', '<=', agora()],
             ],
             [
                 'OR',
                 ['data_final', 'null'],
                 ['data_final', ''],
-                ['data_final', '>=', hoje()],
+                ['data_final', '>=', agora()],
             ],
             ['status', 'in', $status]
         ]);
