@@ -13,6 +13,7 @@ if (!function_exists('mensagemErro')) {
      * @param  null|int       $status    Status de erro que deseja retornar podendo ser 400, 401, 403, 404 ou 500
      * @param  null|Throwable $error     Throwable do erro original para debugar em localhost
      * @param  null|string    $localhost Mensagem para ser exibida em localhost
+     * @param  null|array     $dado      Dado a mais para o retorno
      * @throws Excecao        Gera uma excecao do sistema
      */
     function mensagemErro(
@@ -21,7 +22,8 @@ if (!function_exists('mensagemErro')) {
         ?int $status = null,
         ?Throwable $error = null,
         ?string $localhost = null,
-        int $codigo = 0
+        int $codigo = 0,
+        ?array $dado = []
     ): void {
         $eLocalhost = defined('SISTEMA') && SISTEMA == 'LOCALHOST';
         if ($eLocalhost && !empty($localhost)) {
@@ -45,7 +47,7 @@ if (!function_exists('mensagemErro')) {
         }
         $status = is_int($status) && in_array($status, [400, 401, 403, 404]) ? $status : 400;
 
-        throw new Excecao(titulo: $titulo, mensagem: $mensagem, status: $status, codigo: $codigo);
+        throw new Excecao(titulo: $titulo, mensagem: $mensagem, status: $status, codigo: $codigo, dado: $dado);
     }
 }
 if (!function_exists('mensagemErroVazio')) {

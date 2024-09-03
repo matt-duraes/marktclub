@@ -11,7 +11,7 @@
     </a>
     @ endif;
 @endif;
-@ if( MENU_LOJA || MENU_MAPA || MENU_FARMACIA || MENU_AUTOMOVEL || MENU_CUPOM || MENU_CASHBACK || MENU_PREMIUM):
+@ if( MENU_LOJA || MENU_MAPA || MENU_TURISMO || MENU_FARMACIA || MENU_AUTOMOVEL || MENU_CUPOM || MENU_CASHBACK || MENU_PREMIUM):
 <div class="categoria">DESCONTOS</div>
 
 @ if( MENU_PREMIUM ):
@@ -33,6 +33,14 @@
     <i>@iconeLojaProximaHome</i>
     Lojas próximas
 </div>
+@ endif;
+
+@ if( MENU_TURISMO ):
+<a class="botao {!!MENU_HOVER == 'turismo' ? 'cor_bg pagina_atual' : ''!!}" href="@route(turismo.index)">
+    <i>@iconeTurismoHomeOutline</i>
+    Turismo
+    <div class="novo">novo</div>
+</a>
 @ endif;
 
 @ if( MENU_SAMSUNG ):
@@ -73,7 +81,7 @@
 
 @ endif;
 
-@ if( MENU_CINEMA || MENU_TURISMO || MENU_CORRIDA || MENU_SHOW_NACIONAL || MENU_SHOW_INTERNACIONAL):
+@ if( MENU_CINEMA || MENU_CORRIDA || MENU_SHOW_NACIONAL || MENU_SHOW_INTERNACIONAL):
 <div class="categoria">DIVERSÃO</div>
 
 @ if( MENU_CINEMA ):
@@ -99,13 +107,6 @@
 <a class="botao {!!MENU_HOVER == 'easylive-show-internacional' ? 'cor_bg pagina_atual' : ''!!}" href="@route(easylive.internacional)">
     <i>@iconeShow</i>
     Show Internacional
-</a>
-@ endif;
-
-@ if( MENU_TURISMO ):
-<a class="botao {!!MENU_HOVER == 'turismo' ? 'cor_bg pagina_atual' : ''!!}" href="@route(turismo.index)">
-    <i>@iconeTurismoHomeOutline</i>
-    Turismo
 </a>
 @ endif;
 

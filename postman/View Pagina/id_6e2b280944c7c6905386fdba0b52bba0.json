@@ -1,0 +1,1 @@
+{"id":"id_6e2b280944c7c6905386fdba0b52bba0","token":"token","metodo":"GET","nome":"\/view-pagina\/:id","uri":"{{LINK}}\/view-pagina\/$ID_VIEW_PAGINA","parametro":[],"body":[],"header":[],"variavel":[],"json":[],"documentacao":{"status":false,"descricao":"","requisicao":"","resposta":"","scope":"view_pagina:buscar"}}

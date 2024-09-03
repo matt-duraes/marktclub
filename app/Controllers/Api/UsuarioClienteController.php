@@ -31,6 +31,8 @@ use App\Models\Api\UsuarioCliente\Senha\AlterarSenhaModel;
 use App\Models\Api\UsuarioCliente\Senha\EnviarCodigoModel;
 use App\Models\Api\UsuarioCliente\Senha\ValidarCodigoModel;
 use App\Models\Api\UsuarioCliente\Ativar\AtivarIndicadoModel;
+use App\Models\Api\UsuarioCliente\Hash\SalvarModel as SalvarHashModel;
+use App\Models\Api\UsuarioCliente\Hash\ValidarModel as ValidarHashModel;
 
 final class UsuarioClienteController extends Controller implements
     ControllerBuscarInterface,
@@ -332,5 +334,24 @@ final class UsuarioClienteController extends Controller implements
         $Usuario->salvar();
 
         return new Response(status: 204);
+    }
+
+    public function postHash(Request $request)
+    {
+        $Hash = new SalvarHashModel(
+            usuario: $request->usuario,
+            tipo: $request->tipo
+        );
+        return mensagemSucesso($Hash->retorno);
+    }
+
+    public function getHash(Request $request)
+    {
+        $Hash = new ValidarHashModel(
+            usuario: $request->usuario,
+            hash: $request->hash,
+            tipo: $request->tipo
+        );
+        return mensagemSucesso($Hash->retorno);
     }
 }

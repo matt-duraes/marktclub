@@ -1,0 +1,1 @@
+{"id":"id_fa364ec8955a452a12d340940aae28f2","token":"token","metodo":"DELETE","nome":"\/view-pagina\/:id","uri":"{{LINK}}\/view-pagina\/$ID_VIEW_PAGINA","parametro":[],"body":[],"header":[],"variavel":[],"json":[],"documentacao":{"status":false,"descricao":"","requisicao":"","resposta":"","scope":"view_pagina:deletar"}}

@@ -377,6 +377,15 @@ final class ConfiguracoesPadrao
                 'parceiro_loja_historico_download' => 'Download do histórico'
             ]
         ],
+        'parceiro_campanha'         => [
+            'titulo'    => 'Parceiro campanha',
+            'permissao' => [
+                'parceiro_campanha_index'         => 'Listar',
+                'parceiro_campanha_add'           => 'Salvar',
+                'parceiro_campanha_editar'        => 'Editar',
+                'parceiro_campanha_deletar'       => 'Deletar',
+            ]
+        ],
         'parceiro_externo'         => [
             'titulo'    => 'Loja externo',
             'permissao' => [

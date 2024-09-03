@@ -2,19 +2,22 @@
 
 namespace App\Models\Api\Parceiro\Externo;
 
+use App\Classes\ParceiroLoja\CancelarMotivo;
 use App\Classes\ParceiroLoja\Categoria;
 use App\Classes\ParceiroLoja\Indicador;
 use App\Classes\ParceiroLoja\Status;
 use App\Models\Api\DownloadPrivado\ArquivoEntity;
 use App\Models\Api\Painel\LogDownloadEntity;
+use App\Models\Api\Trait\ValidarEmpresaDownloadTrait;
 use Erro\Excecao;
-use Helpers\OrmHelper;
 use Http\Request;
 use Modules\Data;
 use ORM\ORM;
 
 class DownloadModel extends ORM
 {
+    use ValidarEmpresaDownloadTrait;
+
     public string|int $id;
     protected string $ormTabela = TABELA_PARCEIRO_LOJA;
     protected array $campoAceito = [
@@ -33,8 +36,9 @@ class DownloadModel extends ORM
     ) {
         $this->validarCampoAceito();
         parent::__construct();
+        $this->validarEmpresa($this->request->usuario);
         $this->buscarRegistro();
-        //$this->validarDados();
+        $this->validarDados();
         $this->salvarLogDownload();
         $this->montarRetornoDownload();
         $this->salvarArquivo();
@@ -69,6 +73,12 @@ class DownloadModel extends ORM
         $this->dados = $this
             ->campo($this->request->campo)
             ->where($this->pegarWhere(), false)
+            ->tabela(TABELA_USUARIO_EQUIPE)
+            ->where($this->pegarWhereEquipe(), false)
+            ->join('id', 'id_dono_equipe')
+            ->campo([
+                'nome_real'
+            ], 'equipe')
             /*->tabela(TABELA_SISTEMA_CONTATO)
             ->join('id_vinculo', 'uuid')
             ->campo([
@@ -82,7 +92,7 @@ class DownloadModel extends ORM
      */
     public function pegarWhere(): array
     {
-        $where = [];
+        $where = $this->ormWherePadrao;
         if (!empty($this->request->pesquisa)) {
             $where[] = [
                 'OR',
@@ -91,12 +101,12 @@ class DownloadModel extends ORM
                 ['titulo_interno', 'like', '%' . $this->request->pesquisa . '%']
             ];
         }
-        if (!empty($this->request->equipe)) {
+        /*if (!empty($this->request->equipe)) {
             $id_dono_equipe = (new OrmHelper(TABELA_USUARIO_EQUIPE))->pegarIdPeloUuid($this->request->equipe);
             $where[] = ['id_dono_equipe', $id_dono_equipe];
         } else {
             $where[] = ['id_dono_equipe', '!=', 'null'];
-        }
+        }*/
         if ((new Categoria($this->request->categoria))->valido()) {
             $where[] = ['categoria_principal', (new Categoria($this->request->categoria))->numero()];
         }
@@ -124,6 +134,32 @@ class DownloadModel extends ORM
     }
 
     /**
+     * @return array
+     */
+    protected function pegarWhereEquipe(): array
+    {
+        $where = [];
+        if (!empty($this->request->equipe)) {
+            $where[] = ['uuid', $this->request->equipe];
+        }
+        return $where;
+    }
+
+    /**
+     * @throws Excecao
+     */
+    private function validarDados(): void
+    {
+        if (empty($this->dados)) {
+            mensagemErro(
+                'Não encontrado registros',
+                'Não há registros com essa filtragem',
+                400
+            );
+        }
+    }
+
+    /**
      * @throws Excecao
      */
     private function salvarLogDownload(): void
@@ -148,17 +184,20 @@ class DownloadModel extends ORM
                 /*if ($ind == 'contato_tipo') {
                     $val = (new Tipo($val))->indice();
                 }*/
-                if ($ind == 'id_dono_equipe') {
+                /*if ($ind == 'id_dono_equipe') {
                     $val = (new OrmHelper(TABELA_USUARIO_EQUIPE))->pegarCampoPor('nome_real', ['id', $val]);
+                }*/
+                if ($ind == 'cancelar_motivo') {
+                    $val = (new CancelarMotivo($val))->nome();
                 }
                 if ($ind == 'categoria_principal') {
-                    $val = (new Categoria($val))->indice();
+                    $val = (new Categoria($val))->nome();
                 }
                 if ($ind == 'tipo_indicador') {
-                    $val = (new Indicador($val))->indice();
+                    $val = (new Indicador($val))->nome();
                 }
                 if ($ind == 'status') {
-                    $val = (new Status($val))->indice();
+                    $val = (new Status($val))->nome();
                 }
                 $retorno[$i][$ind] = $val;
             }
@@ -175,19 +214,5 @@ class DownloadModel extends ORM
         $Download = new ArquivoEntity($this->dados, $this->request->usuario);
         $Download->salvar();
         $this->id = $Download->id;
-    }
-
-    /**
-     * @throws Excecao
-     */
-    private function validarDados(): void
-    {
-        if (empty($this->dados)) {
-            mensagemErro(
-                'Não encontrado registros',
-                'Não há registros com essa filtragem',
-                400
-            );
-        }
     }
 }

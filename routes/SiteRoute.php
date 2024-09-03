@@ -299,21 +299,17 @@ Route
             ::nome('index')
             ::view('/turismo');
         Route
-            ::nome('aeroporto')
-            ::request(['pesquisa'])
-            ::get('/turismo/listar-aeroporto');
-        Route
             ::nome('hotel')
-            ::request(['pesquisa'])
-            ::get('/turismo/listar-hotel');
+            ::post('/turismo/hotel');
         Route
-            ::nome('solicitaVoo')
-            ::request(['origem', 'destino', 'data_ida', 'data_volta', 'adulto', '!crianca', '!bebe', 'tipo'])
-            ::post('/turismo/solicitar-voo');
+            ::nome('promocao')
+            ::post('/turismo/promocao');
         Route
-            ::nome('solicitaHotel')
-            ::request(['cidade', 'checkin', 'checkout', 'quantidade_quarto', 'adulto', '!crianca'])
-            ::post('/turismo/solicitar-hotel');
+            ::nome('redirecionar')
+            ::view('/turismo/redirecionar');
+        Route
+            ::nome('redirecionarCampanha')
+            ::view('/turismo/redirecionar-campanha/{id}');
     });
 Route
     ::nome('cinema')

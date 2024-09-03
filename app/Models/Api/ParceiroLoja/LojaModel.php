@@ -2,22 +2,22 @@
 
 namespace App\Models\Api\ParceiroLoja;
 
+use ORM\ORM;
+use stdClass;
+use Modules\Pagina;
+use Modules\Quantidade;
 use ApiModel\Endereco\RaioModel;
+use System\Trait\Model\OrdemTrait;
 use App\Classes\ParceiroLoja\Ordem;
+use System\Trait\Model\PaginaTrait;
+use System\Trait\Model\QuantidadeTrait;
+use System\Interface\ModelListarInterface;
+use App\Models\Api\Trait\ValidarEmpresaTrait;
 use App\Models\Api\Demanda\Trait\EmpresaTrait;
+use App\Models\Api\ParceiroLoja\Trait\WhereTrait;
 use App\Models\Api\ParceiroLoja\Trait\ListarCampoTrait;
 use App\Models\Api\ParceiroLoja\Trait\MontarRetornoTrait;
 use App\Models\Api\ParceiroLoja\Trait\PropriedadeModelTrait;
-use App\Models\Api\ParceiroLoja\Trait\WhereTrait;
-use App\Models\Api\Trait\ValidarEmpresaTrait;
-use Modules\Pagina;
-use Modules\Quantidade;
-use ORM\ORM;
-use stdClass;
-use System\Interface\ModelListarInterface;
-use System\Trait\Model\OrdemTrait;
-use System\Trait\Model\PaginaTrait;
-use System\Trait\Model\QuantidadeTrait;
 
 class LojaModel extends ORM implements ModelListarInterface
 {
