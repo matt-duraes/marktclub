@@ -1,4 +1,5 @@
-@ if( $banner->desktop ?? [] || $banner->mobile ?? []):
+
+@if ( $banner->desktop || $banner->mobile):
 <div class="bloco_geral_banner banner">
     <div class="conteudo">
         @ if( count($banner->desktop ?? []) > 1 ):
