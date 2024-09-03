@@ -2,22 +2,26 @@
 
 namespace App\Models\Api\Automovel\Versao;
 
+use App\Classes\Automovel\Versao\Ordem;
+use App\Classes\Geral\Status;
+use App\Models\Api\Trait\ValidarEmpresaTrait;
+use App\Models\Api\Trait\ValidarRequestListar;
+use Erro\Excecao;
+use Helpers\OrmHelper;
+use Modules\Pagina;
+use Modules\Quantidade;
 use ORM\ORM;
 use stdClass;
-use Erro\Excecao;
-use Modules\Pagina;
-use Helpers\OrmHelper;
-use Modules\Quantidade;
-use App\Classes\Geral\Status;
+use System\Interface\ModelListarInterface;
 use System\Trait\Model\OrdemTrait;
 use System\Trait\Model\PaginaTrait;
-use App\Classes\Automovel\Versao\Ordem;
 use System\Trait\Model\QuantidadeTrait;
-use System\Interface\ModelListarInterface;
 
 final class VersaoModel extends ORM implements
     ModelListarInterface
 {
+    use ValidarEmpresaTrait;
+    use ValidarRequestListar;
     use PaginaTrait;
     use QuantidadeTrait;
     use OrdemTrait;
@@ -25,10 +29,10 @@ final class VersaoModel extends ORM implements
     protected string $ormTabela = TABELA_AUTOMOVEL_VERSAO;
 
     /**
-     * @param Pagina     $pagina
-     * @param Quantidade $quantidade
-     * @param Ordem      $ordem
-     *
+     * @param Pagina          $pagina
+     * @param Quantidade      $quantidade
+     * @param Ordem           $ordem
+     * @param string|int|null $parceiro
      * @param string|int|null $modelo
      * @param Status          $status
      *
@@ -38,34 +42,60 @@ final class VersaoModel extends ORM implements
         private readonly Pagina $pagina = new Pagina(),
         private readonly Quantidade $quantidade = new Quantidade(),
         private readonly Ordem $ordem = new Ordem(),
+        private string|int|null $parceiro = null,
         private string|int|null $modelo = null,
         private readonly Status $status = new Status(),
     ) {
-        $this->validarDados();
+        $this->validarRequestListar();
+        $this->validarEmpresa(json: true);
+        $this->pegarParceiro();
         $this->pegarModelo();
         parent::__construct();
     }
 
     /**
+     * @return void
      * @throws Excecao
      */
-    private function validarDados(): void
+    private function pegarParceiro(): void
     {
-        if (!$this->ordem->vazio() && !$this->ordem->valido()) {
-            mensagemErro('Campo inválido!', 'A Ordem informada não é válida.');
-        }
-        if (!$this->status->vazio() && !$this->status->valido()) {
-            mensagemErro('Campo inválido!', 'O Status informado não é válido.');
-        }
-    }
-
-    private function pegarModelo(): void
-    {
-        if (!empty($this->modelo) && is_int($this->modelo)) {
+        if (empty($this->parceiro)) {
             return;
         }
-        $this->modelo = (new OrmHelper(TABELA_AUTOMOVEL_MODELO))
-            ->pegarIdPeloUuid($this->modelo);
+
+        $where = $this->ormWherePadrao;
+        $ormHelper = new OrmHelper(TABELA_PARCEIRO_LOJA);
+        if (validarUuid($this->parceiro, false)) {
+            $where[] = ['uuid', $this->parceiro];
+            $this->parceiro = $ormHelper->pegarCampoPor('id', $where);
+            return;
+        }
+        $where[] = ['url', $this->parceiro];
+        $this->parceiro = $ormHelper->pegarCampoPor('id', $where);
+    }
+
+    /**
+     * @return void
+     * @throws Excecao
+     */
+    private function pegarModelo(): void
+    {
+        if (empty($this->modelo)) {
+            return;
+        }
+
+        $ormHelper = new OrmHelper(TABELA_AUTOMOVEL_MODELO);
+        if (validarUuid($this->modelo, false)) {
+            $this->modelo = $ormHelper->pegarCampoPor('id', [
+                ['id_parceiro_loja', $this->parceiro],
+                ['uuid', $this->modelo]
+            ]);
+            return;
+        }
+        $this->modelo = $ormHelper->pegarCampoPor('id', [
+            ['id_parceiro_loja', $this->parceiro],
+            ['url', $this->modelo]
+        ]);
     }
 
     /**
@@ -81,7 +111,6 @@ final class VersaoModel extends ORM implements
             ->pagina($this->pegarPagina(), $this->pegarQuantidade())
             ->order($this->pegarOrdem(new Ordem()))
             ->read();
-
         $versoes->lista = $this->montarRetorno($versoes->lista);
         return $versoes;
     }
@@ -91,9 +120,10 @@ final class VersaoModel extends ORM implements
      */
     private function pegarWhere(): array
     {
-        $where = [
-            ['id_automovel_modelo', $this->modelo]
-        ];
+        $where = [];
+        if (!empty($this->modelo) && is_numeric($this->modelo)) {
+            $where[] = ['id_automovel_modelo', $this->modelo];
+        }
         if ($this->status->valido()) {
             $where[] = ['status', $this->status->numero()];
         }
@@ -141,7 +171,6 @@ final class VersaoModel extends ORM implements
                 ['status', (new Status(Status::ATIVO))->numero()]
             ])
             ->read();
-
         return $this->montarRetorno($versoes);
     }
 }

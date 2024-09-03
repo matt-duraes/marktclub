@@ -2553,7 +2553,7 @@ Route
             ::nome('listar')
             ::middleware(TokenMiddleware::class, 'scope', ['automovel_modelo:listar'])
             ::request([
-                'pagina', '!quantidade', '!ordem', '!parceiro', '!pesquisa', '!titulo',
+                'pagina', '!quantidade', '!ordem', '!parceiro', '!modelo', '!pesquisa', '!titulo',
                 '!publicado', '!data_inicio', '!data_final', '!status'
             ], 'json')
             ::get('/automovel-modelo');
@@ -2596,7 +2596,7 @@ Route
             ::nome('listar')
             ::middleware(TokenMiddleware::class, 'scope', ['automovel_versao:listar'])
             ::request([
-                'pagina', '!quantidade', '!ordem', '!modelo', '!status'
+                'pagina', '!quantidade', '!ordem', '!parceiro', '!modelo', '!status'
             ], 'json')
             ::get('/automovel-versao');
 
