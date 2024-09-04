@@ -719,6 +719,16 @@ final class ConfiguracoesPadrao
                 'site_lotacao_empresa' => 'Todas as Empresas'
             ]
         ],
+        'view_pagina' => [
+            'titulo'    => 'View Página',
+            'permissao' => [
+                'view_pagina_index'      => 'Listar',
+                'view_pagina_visualizar' => 'Visualizar',
+                'view_pagina_add'        => 'Salvar',
+                'view_pagina_editar'     => 'Editar',
+                'view_pagina_deletar'    => 'Deletar',
+            ]
+        ],
         'silium_comissao'          => [
             'titulo'    => 'Comissões do Silium (Cashback)',
             'permissao' => [

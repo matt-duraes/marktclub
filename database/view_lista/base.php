@@ -15,5 +15,6 @@ return (new \DataBase\DataBase())
     ->varchar('api_scope')->tamanho(100)->null()
     ->varchar('api_uri')->tamanho(100)->null()
     ->varchar('api_metodo')->tamanho(4)->null()
-    ->varchar('api_body')
+    ->json('api_body')->null()
+    ->int('ordem')->tamanho(4)->padrao(1)
     ->status();

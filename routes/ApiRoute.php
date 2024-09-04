@@ -941,7 +941,7 @@ Route
         Route
             ::nome('listar')
             ::middleware(TokenMiddleware::class, 'scope', ['view_pagina:listar'])
-            ::request(['pagina', '!quantidade'])
+            ::request(['pagina', '!quantidade'], 'json')
             ::get('/view-pagina');
 
         Route
@@ -975,19 +975,30 @@ Route
         Route
             ::nome('listar')
             ::middleware(TokenMiddleware::class, 'scope', ['view_lista:listar'])
-            ::request(['pagina'])
+            ::request(['pagina'], 'json')
             ::get('/view-lista');
+
+        Route
+            ::nome('buscar')
+            ::middleware(TokenMiddleware::class, 'scope', ['view_lista:buscar'])
+            ::get('/view-lista/{id}');
 
         Route
             ::nome('salvar')
             ::middleware(TokenMiddleware::class, 'scope', ['view_lista:salvar'])
-            ::request(['titulo', 'url'])
+            ::request([
+                'pagina', 'tipo', 'local', 'titulo', 'texto', 'link', 'target', 'arquivo',
+                'api_status', 'api_scope', 'api_uri', 'api_metodo', 'api_body', 'status'
+            ])
             ::post('/view-lista');
 
         Route
             ::nome('atualizar')
             ::middleware(TokenMiddleware::class, 'scope', ['view_lista:atualizar'])
-            ::request(['!titulo', '!url'])
+            ::request([
+                '!pagina', '!tipo', '!local', '!titulo', '!texto', '!link', '!target', '!arquivo',
+                '!api_status', '!api_scope', '!api_uri', '!api_metodo', '!api_body', '!status'
+            ])
             ::put('/view-lista/{id}');
 
         Route

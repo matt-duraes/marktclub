@@ -1,0 +1,1 @@
+{"id":"id_bed58213c5fcf1af8da0d09c7cda9276","token":"token","metodo":"GET","nome":"\/view-lista\/:id","uri":"{{LINK}}\/view-lista\/$ID_VIEW_LISTA","parametro":[],"body":[],"header":[],"variavel":[],"json":[],"documentacao":{"status":false,"descricao":"","requisicao":"","resposta":"","scope":"view_lista:buscar"}}
