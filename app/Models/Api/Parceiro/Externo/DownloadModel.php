@@ -146,7 +146,8 @@ class DownloadModel extends ORM
     private function pegarPermissoesUsuario(string $usuario): array
     {
         $ormHelper = new OrmHelper(TABELA_USUARIO_EQUIPE);
-        return $ormHelper->pegarCampoPor('permissao', ['uuid', $usuario], []);
+        $permissoes = $ormHelper->pegarCampoPor('permissao', ['uuid', $usuario], []);
+        return jsonDecode($permissoes, true, true);
     }
 
     /**
