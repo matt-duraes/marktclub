@@ -2,6 +2,7 @@
 
 namespace App\Models\Api\UsuarioCliente\Trait;
 
+use App\Classes\UsuarioCliente\TrabalhoEmpresa;
 use Helpers\UploadHelper;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
 
@@ -14,7 +15,9 @@ trait EntityUpdateTrait
             mensagemErro('Erro!', 'Você não pode mudar o CPF desse usuário.');
         }
         $this->validarCamposObrigatorioNoUpdate();
-
+        if (!empty($this->trabalho_empresa) && (new TrabalhoEmpresa($this->trabalho_empresa))->valido()) {
+            $this->trabalho_empresa = (new TrabalhoEmpresa($this->trabalho_empresa))->numero();
+        }
         if ($this->imagem_arquivo instanceof UploadedFile) {
             $this->imagem_arquivo = (new UploadHelper(
                 $this->imagem_arquivo,
