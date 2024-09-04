@@ -92,7 +92,10 @@ class DownloadModel extends ORM
      */
     public function pegarWhere(): array
     {
-        $where = $this->ormWherePadrao;
+        $where = [];
+        if (!empty($this->idEmpresa)) {
+            $where[] = ['id_dono_empresa', $this->idEmpresa];
+        }
         if (!empty($this->request->pesquisa)) {
             $where[] = [
                 'OR',
