@@ -10,6 +10,7 @@ use App\Models\Api\DownloadPrivado\ArquivoEntity;
 use App\Models\Api\Painel\LogDownloadEntity;
 use App\Models\Api\Trait\ValidarEmpresaDownloadTrait;
 use Erro\Excecao;
+use Helpers\OrmHelper;
 use Http\Request;
 use Modules\Data;
 use ORM\ORM;
@@ -93,7 +94,9 @@ class DownloadModel extends ORM
     public function pegarWhere(): array
     {
         $where = [];
-        if (!empty($this->idEmpresa)) {
+
+        $permissao = $this->pegarPermissoesUsuario($this->request->usuario);
+        if (!in_array('parceiro_externo_empresa', $permissao)) {
             $where[] = ['id_dono_empresa', $this->idEmpresa];
         }
         if (!empty($this->request->pesquisa)) {
@@ -134,6 +137,16 @@ class DownloadModel extends ORM
             $where[] = ['status', (new Status($this->request->status))->numero()];
         }
         return $where;
+    }
+
+    /**
+     * @param string $usuario
+     * @return array
+     */
+    private function pegarPermissoesUsuario(string $usuario): array
+    {
+        $ormHelper = new OrmHelper(TABELA_USUARIO_EQUIPE);
+        return $ormHelper->pegarCampoPor('permissao', ['uuid', $usuario], []);
     }
 
     /**
@@ -187,9 +200,9 @@ class DownloadModel extends ORM
                 /*if ($ind == 'contato_tipo') {
                     $val = (new Tipo($val))->indice();
                 }*/
-                /*if ($ind == 'id_dono_equipe') {
-                    $val = (new OrmHelper(TABELA_USUARIO_EQUIPE))->pegarCampoPor('nome_real', ['id', $val]);
-                }*/
+                if ($ind == 'id_dono_equipe') {
+                    continue;
+                }
                 if ($ind == 'cancelar_motivo') {
                     $val = (new CancelarMotivo($val))->nome();
                 }
