@@ -35,8 +35,8 @@ final class LoginController extends Controller
             'banner'             => $dado->lista,
             'quantidade_banners' => $dado->quantidade,
             'location'           => base64Decode($request->chave('location', ''), true),
-            'num_lojas'          => $numLojas ?? 2000,
-            'num_parcerias'      => $numParcerias ?? 23.000,
+            'num_lojas'          => $numLojas ?? 23.000,
+            'num_parcerias'      => $numParcerias ?? 2.000,
         ]);
     }
 
