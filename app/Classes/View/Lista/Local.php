@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Classes\Webview\Lista;
+namespace App\Classes\View\Lista;
 
 use Status\Status as StatusStatus;
 

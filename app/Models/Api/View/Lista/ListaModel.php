@@ -7,8 +7,8 @@ use Http\Request;
 use Modules\Botao;
 use App\Classes\Geral\Status;
 use App\Classes\Geral\Target;
-use App\Classes\Webview\Lista\Tipo;
-use App\Classes\Webview\Lista\Local;
+use App\Classes\View\Lista\Tipo;
+use App\Classes\View\Lista\Local;
 use App\Models\Api\View\Pagina\PaginaHelper;
 
 final class ListaModel extends ORM

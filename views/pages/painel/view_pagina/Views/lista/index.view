@@ -1,0 +1,84 @@
+<div class="bloco_fieldset" id="bloco_view">
+    <header class="header_fieldset">
+        <h2>HTML</h2>
+    </header>
+    <div class="lista_dado">
+        <div class="botao_link" id="botao_view_abrir">Adicionar item</div>
+    </div>
+    <div id="bloco_html_loading" class="loading zero">Buscando dados</div>
+    <div class="bloco_conteudo" id="bloco_view_conteudo">
+        <article>
+            <header>
+                <i class="drag">@iconeDrag</i>
+                <h1>Teste aqui</h1>
+                <div class="status ativo"><span></span></div>
+                <i class="deletar icone">@iconeDeletar(14)</i>
+                <i class="editar icone">@iconeEditar(10)</i>
+                <i class="mais icone">+</i>
+            </header>
+        </article>
+        <article>
+            <header>
+                <i class="drag">@iconeDrag</i>
+                <h1>Teste aqui</h1>
+                <div class="status"><span></span></div>
+                <i class="deletar icone">@iconeDeletar(14)</i>
+                <i class="editar icone">@iconeEditar(10)</i>
+                <i class="mais icone">+</i>
+            </header>
+            <div class="lista">
+                <article>
+                    <header>
+                        <i class="drag">@iconeDrag</i>
+                        <h1>Teste aqui</h1>
+                        <div class="status"><span></span></div>
+                        <i class="deletar icone">@iconeDeletar(14)</i>
+                        <i class="editar icone">@iconeEditar(10)</i>
+                        <i class="mais icone">+</i>
+                    </header>
+                    <div class="lista"></div>
+                </article>
+                <article>
+                    <header>
+                        <i class="drag">@iconeDrag</i>
+                        <h1>Teste aqui</h1>
+                        <div class="status"><span></span></div>
+                        <i class="deletar icone">@iconeDeletar(14)</i>
+                        <i class="editar icone">@iconeEditar(10)</i>
+                        <i class="mais icone">+</i>
+                    </header>
+                    <div class="lista"></div>
+                </article>
+            </div>
+        </article>
+    </div>
+</div>
+
+<div id="bloco_view_add">
+    <div class="bloco_pagina_popup conteudo">
+        <header class="header_pagina_popup">
+            <h1>ITEM</h1>
+            <i class="fechar" id="botao_dependente_fechar">@iconeFechar</i>
+        </header>
+        <div class="conteudo_pagina_popup">
+            <form action="/" class="form_geral">
+                @? formSelect(name: 'local', label: 'Local', placeholder: 'Onde vai aparecer?', lista: (new \App\Classes\View\Lista\Local())->select('Escolha um local'), obrigatorio: true)
+                @? formSelect(name: 'tipo', label: 'Tipo de item', placeholder: 'Escolha um tipo', lista: (new \App\Classes\View\Lista\Tipo())->select('Escolha um tipo'), obrigatorio: true)
+                @? formInput(name: 'titulo_interno', label: 'Título interno', placeholder: 'Digite um título interno', obrigatorio: true)
+                @? formInput(name: 'titulo', label: 'Título', placeholder: 'Digite um titulo', obrigatorio: true, class: 'bloco_titulo display_none')
+                @? formInput(name: 'texto', label: 'Texto', placeholder: 'Digite um texto', obrigatorio: true, class: 'bloco_texto display_none')
+                @? formUrl(name: 'link', label: 'Link', placeholder: 'Digite um link', obrigatorio: true, class: 'bloco_link display_none')
+                @? formSelect(name: 'target', label: 'Target', placeholder: 'Escolha um target', lista: (new \App\Classes\Geral\Target())->select('Escolha um target'), obrigatorio: true, class: 'bloco_target display_none')
+                @? formSwitch(name: 'status', label: 'Status', check: false)
+                <h2>API</h2>
+                @? formSwitch(name: 'api_status', label: 'Vai usar API?', class: 'bloco_api_status')
+                @? formUri(name: 'api_uri', label: 'URI', placeholder: 'Digite a URI', class: 'display_none bloco_api_sim')
+                @? formSelect(name: 'api_metodo', label: 'Método da API', placeholder: 'Escolha o método', lista: (new \App\Classes\Geral\Metodo())->select('Escolha um método'), obrigatorio: true, class: 'display_none bloco_api_sim')
+                @? formIndiceValor(name: 'api_body', placeholder: ['Indice', 'Valor'], class: 'display_none bloco_api_sim')
+                <div class="bloco_botao_direita">
+                    <div class="botao" id="botao_html_salvar">Salvar</div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
