@@ -27,16 +27,16 @@ final class LoginController extends Controller
         $dado = (new ComunicacaoModel())->buscarBanner() ?? '';
 
         if ($quantidadeParceiros) {
-            $numLojas =  $quantidadeParceiros->lojas;
-            $numParcerias = $quantidadeParceiros->parcerias;
+            $numLojas = (int)str_replace('.', '', $quantidadeParceiros->lojas);
+            $numParcerias = (int)str_replace('.', '', $quantidadeParceiros->parcerias);
         }
 
         return view('login.index', [
             'banner'             => $dado->lista,
             'quantidade_banners' => $dado->quantidade,
             'location'           => base64Decode($request->chave('location', ''), true),
-            'num_lojas'          => $numLojas ?? 2000,
-            'num_parcerias'      => $numParcerias ?? 23000,
+            'num_lojas'          => $numLojas ?? 23000,
+            'num_parcerias'      => $numParcerias ?? 2000,
         ]);
     }
 
