@@ -27,8 +27,8 @@ final class LoginController extends Controller
         $dado = (new ComunicacaoModel())->buscarBanner() ?? '';
 
         if ($quantidadeParceiros) {
-            $numLojas =  $quantidadeParceiros->lojas;
-            $numParcerias = $quantidadeParceiros->parcerias;
+            $numLojas = (int)str_replace('.', '', $quantidadeParceiros->lojas);
+            $numParcerias = (int)str_replace('.', '', $quantidadeParceiros->parcerias);
         }
 
         return view('login.index', [
