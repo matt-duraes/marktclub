@@ -34,8 +34,8 @@
         <div class="conteudo_pagina_popup">
             <form action="/" class="form_geral">
                 <input type="hidden" id="input_id">
-                @? formSelect(name: 'local', label: 'Local', placeholder: 'Onde vai aparecer?', lista: (new \App\Classes\View\Lista\Local())->select('Escolha um local'), obrigatorio: true)
                 @? formSelect(name: 'tipo', label: 'Tipo de item', placeholder: 'Escolha um tipo', lista: (new \App\Classes\View\Lista\Tipo())->select('Escolha um tipo'), obrigatorio: true)
+                @? formSelect(name: 'local', label: 'Local', placeholder: 'Onde vai aparecer?', lista: (new \App\Classes\View\Lista\Local())->select('Escolha um local'), obrigatorio: true)
                 @? formInput(name: 'titulo_interno', label: 'Título interno', placeholder: 'Digite um título interno', obrigatorio: true)
                 @? formInput(name: 'titulo', label: 'Título', placeholder: 'Digite um titulo', obrigatorio: true, class: 'bloco_titulo display_none')
                 @? formInput(name: 'texto', label: 'Texto', placeholder: 'Digite um texto', obrigatorio: true, class: 'bloco_texto display_none')

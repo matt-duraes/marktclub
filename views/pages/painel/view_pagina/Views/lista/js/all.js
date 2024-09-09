@@ -4,7 +4,7 @@ window.addEventListener('load', () => {
     const inputLimpar = $$(`
         #input_local, input_tipo, #input_titulo_interno, #input_titulo, #input_texto,
         #input_link, #input_target, #input_status, #input_api_status, #input_api_uri,
-        #input_api_metodo, .bloco_api_body .input_geral
+        #input_api_metodo, .bloco_api_body .input_geral, #input_id
     `);
 
     const inputId = $('#input_id');
@@ -43,6 +43,7 @@ window.addEventListener('load', () => {
     const blocoBodyLista = $('.bloco_api_body .fw_form_indice_valor_lista');
 
     const botaoAdicionar = $('#botao_view_abrir');
+    const botaoAddHtml = $('#botao_html_salvar');
     const PopupAdd = new Popup('Adicionar', 'bloco_view_add', true, false);
 
     botaoAdicionar.evento('click', () => {
@@ -57,6 +58,7 @@ window.addEventListener('load', () => {
 
         limparObrigatorio();
         setarTipo(item.tipo);
+        inputId.valor(id);
         inputTipo.valor(item.tipo);
         inputLocal.valor(item.local);
         inputTituloInterno.valor(item.titulo_interno);
@@ -114,6 +116,61 @@ window.addEventListener('load', () => {
         montarArticle(blocoLista, item);
     }
 
+    botaoAddHtml.evento('click', async () => {
+        const add = vazio(inputId.valor());
+        const id = !add ? inputId.valor() : uuid();
+        const item = {
+            id: id,
+            tipo: inputTipo.valor(),
+            local: inputLocal.valor(),
+            titulo: inputTitulo.valor(),
+            texto: inputTexto.valor(),
+            link: inputLink.valor(),
+            target: inputTarget.valor(),
+            margem: inputMargem.valor(),
+            status: inputStatus.valor(),
+            /* eslint-disable */
+            titulo_interno: inputTituloInterno.valor(),
+            api_status: inputApiStatus.valor(),
+            api_metodo: inputApiMetodo.valor(),
+            api_uri: inputApiUri.valor(),
+            /* eslint-enable */
+        };
+        htmlLinha[id] = item;
+
+        if (add) {
+            //
+        } else {
+            //
+        }
+
+        Loading.show();
+        const resposta = await ajaxPost(
+            LINK + '/app/ajax/view-pagina',
+            {
+                indice: 'html',
+                html: pegarHtml(),
+            },
+            'Erro ao salvar html, por favor, tente novamente.'
+        );
+
+        Loading.hide();
+        if (false === resposta) {
+            return;
+        }
+
+        PopupAdd.fechar();
+    });
+
+    const pegarHtml = () => {
+        const lista = $('article', blocoLista);
+        const body = {};
+        for (const item of lista) {
+            const id = item.attr('data-id');
+            body.push(htmlLinha[id]);
+        }
+    };
+
     inputTipo.evento('formChange', () => {
         limparObrigatorio();
         const valor = inputTipo.valor();
@@ -144,9 +201,9 @@ window.addEventListener('load', () => {
         if (valor == 'titulo_texto') {
             blocoTitulo.aparecer();
             blocoTexto.aparecer();
-        } else if (valor == 'titulo') {
+        } else if (valor == 'titulo' || valor == 'subtitulo') {
             blocoTitulo.aparecer();
-        } else if (valor == 'botao' || valor == 'botao_destaque') {
+        } else if (valor == 'botao' || valor == 'botao-destaque' || valor == 'campanha' || valor == 'relacionado') {
             blocoTitulo.aparecer();
             blocoLink.aparecer();
             blocoTarget.aparecer();
