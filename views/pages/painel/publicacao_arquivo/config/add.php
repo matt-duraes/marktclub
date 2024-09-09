@@ -4,9 +4,9 @@ use App\Classes\Geral\Status;
 use App\Classes\PublicacaoArquivo\Tipo;
 
 $Painel = new PainelConfig\Add(app: 'publicidade_arquivo', acao: $acao);
+
 $diretorioImagem = sessao('PAINEL.upload_grupo')['imagem'] ?? '';
 $diretorioArquivo = sessao('PAINEL.upload_grupo')['arquivo'] ?? '';
-
 $Painel->coluna(callback: function () use ($Painel) {
     $Painel->fieldset('Dados principais', function () use ($Painel) {
         $Painel
@@ -14,16 +14,22 @@ $Painel->coluna(callback: function () use ($Painel) {
                 name: 'titulo',
                 label: 'Título',
                 placeholder: 'Digite um título',
-                contador: 191,
-                obrigatorio: true
+                obrigatorio: true,
+                contador: 191
             )
-            ->input(name: 'texto', label: 'Texto', placeholder: 'Digite um texto', contador: 250, obrigatorio: true)
+            ->input(
+                name: 'texto',
+                label: 'Texto',
+                placeholder: 'Digite um texto',
+                obrigatorio: true,
+                contador: 250
+            )
             ->select(
                 name: 'tipo',
+                lista: (new Tipo())->select('Escolha uma opção'),
                 label: 'Tipo',
                 placeholder: 'Tipo de arquivo',
-                obrigatorio: true,
-                lista: (new Tipo())->select('Escolha uma opção')
+                obrigatorio: true
             );
     });
     $Painel->fieldset('Dados de publicação', function () use ($Painel) {
@@ -38,7 +44,7 @@ $Painel->coluna(callback: function () use ($Painel) {
                 name: 'data_final',
                 label: 'Data de remoção',
                 placeholder: 'Digite a data de remoção',
-                ajuda: 'Colocar uma data caso queira que essa notícia saia do site no dia e hora desejado.'
+                ajuda: 'Colocar uma data caso queira que esse arquivo saia do site no dia e hora desejado.'
             );
     });
     $Painel->fieldset('Permissões', function () use ($Painel) {
@@ -47,9 +53,9 @@ $Painel->coluna(callback: function () use ($Painel) {
             ->switch(name: 'permissao_site', label: 'Aparecer no site')
             ->select(
                 name: 'status',
+                lista: (new Status())->select('Escolha uma opção'),
                 label: 'Status',
-                placeholder: 'Escolha um status',
-                lista: (new Status())->select('Escolha uma opção')
+                placeholder: 'Escolha um status'
             );
     });
 });
