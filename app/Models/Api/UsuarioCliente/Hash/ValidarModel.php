@@ -20,6 +20,7 @@ final class ValidarModel extends ORM
         $this->validarClasse();
         $this->buscarUsuario();
         $this->validarHash();
+        $this->atualizarUsuario();
         $this->retorno = [
             'id'         => uuid(),
             'autorizado' => 'sim'
@@ -50,6 +51,21 @@ final class ValidarModel extends ORM
             $this->naoAutorizado('Hash inválido.');
         } elseif ($dado->hash_data < $dataVencimento) {
             $this->naoAutorizado('Hash vencido.');
+        }
+    }
+
+    private function atualizarUsuario()
+    {
+        try {
+            $this
+                ->dado([
+                    'hash' => null,
+                    'hash_data' => null,
+                    'hash_tipo' => null
+                ])
+                ->where(['uuid', $this->usuario])
+                ->update();
+        } catch (\Throwable) {
         }
     }
 
