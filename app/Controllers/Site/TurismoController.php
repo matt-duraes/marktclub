@@ -29,13 +29,13 @@ final class TurismoController extends Controller
 
     public function redirecionar()
     {
-        $Hash = new HashModel();
-        return new Response(url: env('LINK_INTEGRACAO', '') . '/loja/zarpo/' . $Hash->hash);
+        $Hash = new HashModel('loja');
+        return new Response(url: env('LINK_INTEGRACAO', '') . '/loja/64616b205573748269a95cd3c9dc8553/' . $Hash->hash);
     }
 
     public function redirecionarCampanha(string $id)
     {
-        $Hash = new HashModel();
+        $Hash = new HashModel('campanha');
         return new Response(url: env('LINK_INTEGRACAO', '') . '/campanha/' . $id . '/' . $Hash->hash);
     }
 

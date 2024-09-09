@@ -15,21 +15,20 @@ final class SalvarModel extends ORM
     public function __construct(
         private ?string $usuario = null,
         private ?string $tipo = null
-    )
-    {
+    ) {
         parent::__construct();
         $this->validarClasse();
         $this->criarHash();
 
         $this->retorno = [
-            'id' => uuid(),
+            'id'     => uuid(),
             'hash' => $this->hash
         ];
     }
 
     private function validarClasse()
     {
-        if(empty($this->usuario) || empty($this->tipo)) {
+        if (empty($this->usuario) || empty($this->tipo)) {
             mensagemErro('Erro!', 'Não foi possível criar o hash.');
         }
     }
@@ -39,7 +38,7 @@ final class SalvarModel extends ORM
         $hash = uuid();
         try {
             $this->dado([
-                'hash' => $hash,
+                'hash'      => $hash,
                 'hash_data' => agora(),
                 'hash_tipo' => $this->tipo
             ])
