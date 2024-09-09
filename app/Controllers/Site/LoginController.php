@@ -2,19 +2,19 @@
 
 namespace App\Controllers\Site;
 
-use Http\Request;
-use Http\Response;
-use Helpers\ApiHelper;
-use Helpers\CurlHelper;
-use Helpers\CryptHelper;
-use Controller\Controller;
+use App\Classes\ConstrutorClube\TipoAtivacao;
 use App\Classes\TextoClube\Tipo;
-use App\Models\Site\Login\LogarModel;
 use App\Models\Site\Ativar\GrupoModel;
 use App\Models\Site\Ativar\SalvarModel;
-use App\Models\Site\Login\LoginApiModel;
 use App\Models\Site\Login\ComunicacaoModel;
-use App\Classes\ConstrutorClube\TipoAtivacao;
+use App\Models\Site\Login\LogarModel;
+use App\Models\Site\Login\LoginApiModel;
+use Controller\Controller;
+use Helpers\ApiHelper;
+use Helpers\CryptHelper;
+use Helpers\CurlHelper;
+use Http\Request;
+use Http\Response;
 
 final class LoginController extends Controller
 {
@@ -23,12 +23,14 @@ final class LoginController extends Controller
         if (!TELA_LOGIN) {
             return new Response(url: LINK_LOGIN);
         }
-        $quantidadeParceiros = (new CurlHelper())->headerjson()->get('https://arquivo.youhuul.com/construtor/loja.json')->object();
+        $quantidadeParceiros = (new CurlHelper())->headerjson()->get(
+            'https://arquivo.youhuul.com/construtor/loja.json'
+        )->object();
         $dado = (new ComunicacaoModel())->buscarBanner() ?? '';
 
         if ($quantidadeParceiros) {
-            $numLojas = $quantidadeParceiros->lojas;
-            $numParcerias = $quantidadeParceiros->parcerias;
+            $numLojas = $quantidadeParceiros->lojas ?? '';
+            $numParcerias = $quantidadeParceiros->parcerias ?? '';
         }
 
         return view('login.index', [
@@ -83,6 +85,16 @@ final class LoginController extends Controller
         );
     }
 
+    private function loginBaixarApp(
+        string $titulo = '',
+        string $texto = ''
+    ) {
+        return view('login.basico', [
+            'titulo' => $titulo,
+            'texto'  => $texto
+        ]);
+    }
+
     public function uber()
     {
         return $this->loginBaixarApp(
@@ -91,21 +103,12 @@ final class LoginController extends Controller
         );
     }
 
-    private function loginBaixarApp(
-        string $titulo = '',
-        string $texto = ''
-    ) {
-        return view('login.basico', [
-            'titulo'  => $titulo,
-            'texto'   => $texto
-        ]);
-    }
-
     /*
     |--------------------------------------------------------------------------
     | LOGIN
     |--------------------------------------------------------------------------
     */
+
     public function login()
     {
         return view('login.youhuul', [
@@ -120,6 +123,11 @@ final class LoginController extends Controller
         return $this->loginRealizado();
     }
 
+    private function loginRealizado(): Response
+    {
+        return mensagemSucesso(['id' => uuid()], status: 201);
+    }
+
     public function api(string $hash)
     {
         try {
@@ -130,23 +138,19 @@ final class LoginController extends Controller
         return new Response(url: LINK);
     }
 
-    private function loginRealizado(): Response
-    {
-        return mensagemSucesso(['id' => uuid()], status: 201);
-    }
-
     /*
     |--------------------------------------------------------------------------
     | ATIVAR
     |--------------------------------------------------------------------------
     */
+
     public function ativarBuscar()
     {
         (new GrupoModel())->buscarSlug();
         $TipoAtivacao = new TipoAtivacao();
         return view('login.ativar.buscar', [
-            'tipoSiape'      => $TipoAtivacao::SIAPE == TIPO_ATIVACAO,
-            'tipoMatricula'  => $TipoAtivacao::MATRICULA == TIPO_ATIVACAO,
+            'tipoSiape'     => $TipoAtivacao::SIAPE == TIPO_ATIVACAO,
+            'tipoMatricula' => $TipoAtivacao::MATRICULA == TIPO_ATIVACAO,
         ]);
     }
 
@@ -182,9 +186,22 @@ final class LoginController extends Controller
         }
 
         return mensagemSucesso([
-            'hash'  => $buscar->dado->hash ?? '',
-            'cpf'   => $buscar->dado->cpf ?? '',
+            'hash' => $buscar->dado->hash ?? '',
+            'cpf'  => $buscar->dado->cpf ?? '',
         ], status: 201);
+    }
+
+    private function crypt()
+    {
+        $Api = new ApiHelper('admin:chave_publica admin:chave_privada');
+        $publica = $Api
+            ->get('/admin/chave-publica')
+            ->object()->dado->chave ?? '';
+        $privada = $Api
+            ->get('/admin/chave-privada')
+            ->object()->dado->chave ?? '';
+
+        return new CryptHelper(chavePublica: $publica, chavePrivada: $privada);
     }
 
     public function ativarSalvar(Request $request): Response
@@ -193,10 +210,10 @@ final class LoginController extends Controller
             mensagemStatus(404);
         }
         return view('login.ativar.salvar', [
-            'hash'           => $request->hash,
-            'cpf'            => $request->cpf,
-            'tipo_usuario'   => $request->tipo_usuario,
-            'grupo'          => (new GrupoModel())->buscarGrupos(),
+            'hash'         => $request->hash,
+            'cpf'          => $request->cpf,
+            'tipo_usuario' => $request->tipo_usuario,
+            'grupo'        => (new GrupoModel())->buscarGrupos(),
         ]);
     }
 
@@ -205,7 +222,7 @@ final class LoginController extends Controller
         $dado = (new ApiHelper('usuario_indicacao:ativar'))
             ->validar('Ocorreu um erro ao validar seu código, por favor, tente novamente.')
             ->body([
-                'hash'   => $request->hash,
+                'hash' => $request->hash,
             ])
             ->post('/usuario-indicacao/ativar')
             ->object();
@@ -226,18 +243,24 @@ final class LoginController extends Controller
         return $this->loginRealizado();
     }
 
+    /*
+    |--------------------------------------------------------------------------
+    | SENHA
+    |--------------------------------------------------------------------------
+    */
+
     public function faq(): Response
     {
         try {
             $lista = (new ApiHelper(scope: 'texto_clube:listar'))
-            ->json([
-                'empresa' => CLUBE_EMPRESA,
-                'pagina'  => 1,
-                'tipo'    => Tipo::FAQ,
-                'status'  => 'ativo'
-            ])
-            ->get('/texto-clube')
-            ->object()->dado->lista;
+                ->json([
+                    'empresa' => CLUBE_EMPRESA,
+                    'pagina'  => 1,
+                    'tipo'    => Tipo::FAQ,
+                    'status'  => 'ativo'
+                ])
+                ->get('/texto-clube')
+                ->object()->dado->lista;
         } catch (\Throwable) {
             $lista = [];
         }
@@ -245,11 +268,6 @@ final class LoginController extends Controller
         return view('login.faq', ['faq' => $lista]);
     }
 
-    /*
-    |--------------------------------------------------------------------------
-    | SENHA
-    |--------------------------------------------------------------------------
-    */
     public function senha()
     {
         return view('login.senha');
@@ -290,6 +308,12 @@ final class LoginController extends Controller
         ]);
     }
 
+    /*
+    |--------------------------------------------------------------------------
+    | APP
+    |--------------------------------------------------------------------------
+    */
+
     public function postSenhaAlterar(Request $request)
     {
         $Crypt = $this->crypt();
@@ -309,9 +333,10 @@ final class LoginController extends Controller
 
     /*
     |--------------------------------------------------------------------------
-    | APP
+    | CONTATO
     |--------------------------------------------------------------------------
     */
+
     public function app()
     {
         if (!MENU_BAIXAR_APP) {
@@ -324,26 +349,8 @@ final class LoginController extends Controller
         return view('login.app');
     }
 
-    /*
-    |--------------------------------------------------------------------------
-    | CONTATO
-    |--------------------------------------------------------------------------
-    */
     public function contato()
     {
         return view('login.contato');
-    }
-
-    private function crypt()
-    {
-        $Api = new ApiHelper('admin:chave_publica admin:chave_privada');
-        $publica = $Api
-            ->get('/admin/chave-publica')
-            ->object()->dado->chave ?? '';
-        $privada = $Api
-            ->get('/admin/chave-privada')
-            ->object()->dado->chave ?? '';
-
-        return new CryptHelper(chavePublica: $publica, chavePrivada: $privada);
     }
 }
