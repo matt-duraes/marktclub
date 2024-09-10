@@ -2,19 +2,19 @@
 
 namespace App\Models\Api\PublicacaoNoticia;
 
-use ORM\ORM;
-use Modules\Data;
-use App\Classes\Geral\Status;
 use App\Classes\Geral\Publicado;
+use App\Classes\Geral\Status;
+use Modules\Data;
+use ORM\ORM;
 
 abstract class GeralModel extends ORM
 {
-    protected string $ormTabela = TABELA_PUBLICACAO_NOTICIA;
-
     public const CAMPO = [
         'uuid', 'titulo_grande', 'titulo_pequeno', 'texto_grande', 'texto_pequeno',
-        'data_inicio', 'data_final', 'imagem_grande', 'imagem_pequena', 'url', 'status'
+        'data_inicio', 'data_final', 'imagem_grande', 'imagem_pequena', 'url', 'status',
+        'autor_noticia', 'fonte_noticia', 'fonte_link'
     ];
+    protected string $ormTabela = TABELA_PUBLICACAO_NOTICIA;
 
     protected function montardado($lista)
     {
@@ -49,14 +49,17 @@ abstract class GeralModel extends ORM
             );
 
             $retorno[] = [
-                'id'          => $r->uuid,
-                'titulo'      => $titulo,
-                'texto'       => $texto,
-                'imagem'      => !empty($imagem) ? arquivoPrivado($imagem) : '',
-                'data_inicio' => $r->data_inicio,
-                'url'         => $r->url,
-                'publicado'   => $publicado->indice(),
-                'status'      => $statusIndice
+                'id'            => $r->uuid,
+                'titulo'        => $titulo,
+                'texto'         => $texto,
+                'imagem'        => !empty($imagem) ? arquivoPrivado($imagem) : '',
+                'data_inicio'   => $r->data_inicio,
+                'url'           => $r->url,
+                'autor_noticia' => $r->autor_noticia,
+                'fonte_noticia' => $r->fonte_noticia,
+                'fonte_link'    => $r->fonte_link,
+                'publicado'     => $publicado->indice(),
+                'status'        => $statusIndice
             ];
         }
         return $retorno;
