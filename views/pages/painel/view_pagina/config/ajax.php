@@ -3,10 +3,10 @@
 $Painel = new PainelConfig\Ajax();
 
 return $Painel
-    ->grupo('lista', function () use ($Painel) {
+    ->grupo('html', function () use ($Painel) {
         $Painel
-            ->request(['pagina'])
+            ->request(['html'])
             ->permissao('view_pagina_index')
-            ->metodo('get')
-            ->rota('/view-lista');
+            ->metodo('put')
+            ->rota('/view-pagina/{id}');
     });

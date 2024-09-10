@@ -8,7 +8,7 @@ final class Tipo extends StatusStatus
 {
     public const BLOCO = 'bloco';
     public const BANNER = 'banner';
-    public const TITULO_TEXTO = 'titulo_texto';
+    public const TITULO_TEXTO = 'titulo-texto';
     public const TITULO = 'titulo';
     public const SUBTITULO = 'subtitulo';
     public const BOTAO = 'botao';

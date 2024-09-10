@@ -3,13 +3,13 @@
     flexCol()
     article
         width: calc(100% - 20px)
-        border-left: 4px solid #CCC
         margin: 10px 0 0 10px
         background-color: #F6F6F6
+        border-left: 2px solid $cor
+        padding-left: 2px
+        position: relative
     article article
         background-color: rgba(0,0,0,.05)
-        &:last-child
-            margin-bottom: 10px
     article header
         flexRow()
         align-items: center
@@ -25,22 +25,23 @@
         padding-right: 20px
     article header .status
         width: 40px
-        height: 20px
-        background-color: #DDD
+        height: 12px
+        background-color: #FFF
         border-radius: 15px
         position: relative
-        padding: 2px
         position: relative
+        border: 1px solid #CCC
         flexRow()
         cursor: pointer
         margin-right: 10px
     article header .status span
-        width: 16px
-        height: 16px
+        width: 22px
+        height: 22px
         position: relative
         background-color: #999
         border-radius: 50%
-        left: 2px
+        top: -6px
+        left: 0
         transition: left .3s ease-out
     article header .status.ativo span
         background-color: $cor
@@ -55,6 +56,25 @@
             background-color: rgba(0, 0, 0, .05)
     article header:hover .icone
         display: flex
+    article .lista
+        flexCol()
+        padding-bottom: 10px
+        position: relative
+
+#bloco_view .bloco_botao_direita
+    flexRow()
+    justify-content: flex-end
+    margin-right: 10px
+    .botao
+        bgDegradeVerde()
+        height: 50px
+        line-height: 50px
+        margin-top: 20px
+        padding: 0 20px
+        border-radius: 25px
+        color: #FFF
+        textoFontSize()
+        cursor: pointer
 
 #bloco_view_add
     width: 100%

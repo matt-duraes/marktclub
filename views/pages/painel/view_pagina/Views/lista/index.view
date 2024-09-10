@@ -9,6 +9,9 @@
     </div>
     <div class="bloco_conteudo" id="bloco_view_conteudo">
     </div>
+    <div class="bloco_botao_direita">
+        <div class="botao display_none" id="botao_salvar_html">Salvar HTML</div>
+    </div>
 </div>
 
 <div class="display_none">
@@ -51,7 +54,7 @@
                 </div>
                 @? formIndiceValor(name: 'api_body', placeholder: ['Indice', 'Valor'], class: 'display_none bloco_api_sim bloco_api_body')
                 <div class="bloco_botao_direita">
-                    <div class="botao" id="botao_html_salvar">Salvar</div>
+                    <div class="botao" id="botao_add_html">Salvar</div>
                 </div>
             </form>
         </div>

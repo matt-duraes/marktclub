@@ -2,10 +2,12 @@
 
 window.addEventListener('load', () => {
     const inputLimpar = $$(`
-        #input_local, input_tipo, #input_titulo_interno, #input_titulo, #input_texto,
+        #input_local, #input_titulo_interno, #input_titulo, #input_texto,
         #input_link, #input_target, #input_status, #input_api_status, #input_api_uri,
-        #input_api_metodo, .bloco_api_body .input_geral, #input_id
+        #input_api_metodo, .bloco_api_body .input_geral, #input_id, #input_margem
     `);
+
+    const id = $('#input_visualizar_id').valor();
 
     const inputId = $('#input_id');
     const inputLocal = $('#input_local');
@@ -42,14 +44,22 @@ window.addEventListener('load', () => {
     const blocoTarget = $('.bloco_target');
     const blocoBodyLista = $('.bloco_api_body .fw_form_indice_valor_lista');
 
-    const botaoAdicionar = $('#botao_view_abrir');
-    const botaoAddHtml = $('#botao_html_salvar');
+    const botaoPopupAbrir = $('#botao_view_abrir');
+    const botaoPopupSalvar = $('#botao_add_html');
+    const botaoSalvarHtml = $('#botao_salvar_html');
     const PopupAdd = new Popup('Adicionar', 'bloco_view_add', true, false);
 
-    botaoAdicionar.evento('click', () => {
-        PopupAdd.abrir();
-        limparObrigatorio();
+    let blocoListaAtual;
+    botaoPopupAbrir.evento('click', () => {
+        addSubGrupo(blocoLista);
     });
+
+    const addSubGrupo = bloco => {
+        inputTipo.valor('');
+        PopupAdd.abrir();
+        blocoListaAtual = bloco;
+        limparObrigatorio();
+    };
 
     const abrirEditar = article => {
         const id = article.attr('data-id');
@@ -87,41 +97,61 @@ window.addEventListener('load', () => {
                 `);
             }
         }
+        blocoListaAtual = $('.lista', article);
         PopupAdd.abrir();
     };
 
     const colocarDragDrop = bloco => {
-        new DragDrop().bloco(bloco).botao('.drag').item('article').iniciar();
+        new DragDrop()
+            .bloco(bloco)
+            .botao('.drag')
+            .item('article')
+            .eventoMover(() => {
+                mostrarBotaoSalvar();
+            })
+            .iniciar();
     };
 
     const montarArticle = (bloco, item) => {
         htmlLinha[item.id] = item;
         const clone = blocoLinhaPadrao.clonar();
-        clone.attr('data-id', item.id);
+        clone.attr({
+            'data-id': item.id,
+            id: 'bloco_item_' + item.id,
+        });
         if (item.status == 'sim') {
             $('.status', clone).classe('ativo', true);
         }
         if (typeof item['lista'] === 'object') {
             const blocoNovo = $('.lista', clone);
             blocoNovo.aparecer();
-            for (const itemNovo of item['lista']) {
+            for (const [chave, itemNovo] of Object.entries(item['lista'])) {
                 montarArticle(blocoNovo, itemNovo);
             }
         }
         $('header h1', clone).texto(item.titulo_interno);
+        bloco.aparecer();
         bloco.final(clone);
         colocarDragDrop(bloco);
     };
-    for (const item of html) {
+
+    for (const [chave, item] of Object.entries(html)) {
         montarArticle(blocoLista, item);
     }
 
-    botaoAddHtml.evento('click', async () => {
+    botaoPopupSalvar.evento('click', async () => {
+        const tipo = inputTipo.valor();
+        if (!(await validarDadoPopup(tipo))) {
+            return;
+        }
         const add = vazio(inputId.valor());
         const id = !add ? inputId.valor() : uuid();
+        const tituloInterno = inputTituloInterno.valor();
+        const status = inputStatus.valor();
+
         const item = {
             id: id,
-            tipo: inputTipo.valor(),
+            tipo,
             local: inputLocal.valor(),
             titulo: inputTitulo.valor(),
             texto: inputTexto.valor(),
@@ -130,7 +160,7 @@ window.addEventListener('load', () => {
             margem: inputMargem.valor(),
             status: inputStatus.valor(),
             /* eslint-disable */
-            titulo_interno: inputTituloInterno.valor(),
+            titulo_interno: tituloInterno,
             api_status: inputApiStatus.valor(),
             api_metodo: inputApiMetodo.valor(),
             api_uri: inputApiUri.valor(),
@@ -139,16 +169,66 @@ window.addEventListener('load', () => {
         htmlLinha[id] = item;
 
         if (add) {
-            //
+            montarArticle(blocoListaAtual, item);
         } else {
-            //
+            $('#bloco_item_' + id + ' header h1').texto(tituloInterno);
+            $('#bloco_item_' + id + ' .status').classe('ativo', status == 'sim');
         }
 
+        mostrarBotaoSalvar();
+        PopupAdd.fechar();
+    });
+
+    const validarDadoPopup = tipo => {
+        return new Promise(resolve => {
+            const apiStatus = inputApiStatus.valor();
+
+            let mensagem = '';
+            if (vazio(tipo)) {
+                mensagem = 'Escolha um tipo para continuar.';
+            } else if (vazio(inputLocal.valor())) {
+                mensagem = 'Escolha um local para continuar.';
+            } else if (apiStatus && vazio(inputApiMetodo.valor())) {
+                mensagem = 'Escolha o método da requisição para continuar.';
+            } else if (apiStatus && vazio(inputApiUri.valor())) {
+                mensagem = 'Digite a URI da requisição para continuar.';
+            } else if (
+                (tipo == 'titulo-texto' ||
+                    tipo == 'titulo' ||
+                    tipo == 'subtitulo' ||
+                    tipo == 'botao' ||
+                    tipo == 'botao-destaque' ||
+                    tipo == 'campanha' ||
+                    tipo == 'relacionado') &&
+                vazio(inputTitulo.valor())
+            ) {
+                mensagem = 'Digite um título para continuar.';
+            } else if ((tipo == 'titulo-texto' || tipo == 'texto') && vazio(inputTexto.valor())) {
+                mensagem = 'Digite um texto para continuar.';
+            } else if (tipo == 'magem') {
+                mensagem = 'Digite uma margem para continuar.';
+            }
+            ppe(mensagem);
+            if (mensagem != '') {
+                Alerta.notificacao(mensagem, false);
+                resolve(false);
+                return;
+            }
+            resolve(true);
+        });
+    };
+
+    const mostrarBotaoSalvar = () => {
+        botaoSalvarHtml.aparecer();
+    };
+
+    botaoSalvarHtml.evento('click', async () => {
         Loading.show();
         const resposta = await ajaxPost(
             LINK + '/app/ajax/view-pagina',
             {
                 indice: 'html',
+                id,
                 html: pegarHtml(),
             },
             'Erro ao salvar html, por favor, tente novamente.'
@@ -158,17 +238,27 @@ window.addEventListener('load', () => {
         if (false === resposta) {
             return;
         }
-
-        PopupAdd.fechar();
+        botaoSalvarHtml.sumir();
     });
 
     const pegarHtml = () => {
-        const lista = $('article', blocoLista);
-        const body = {};
+        const lista = Array.from(blocoLista.children).filter(el => el.tagName.toLowerCase() === 'article');
+        return JSON.stringify(montarBody(lista));
+    };
+
+    montarBody = lista => {
+        const bodyTemp = {};
+        let i = 1;
         for (const item of lista) {
             const id = item.attr('data-id');
-            body.push(htmlLinha[id]);
+            bodyTemp[i] = htmlLinha[id];
+            const filho = $$('.lista > article', item);
+            if (filho.length > 0) {
+                bodyTemp[i].lista = montarBody(filho);
+            }
+            i++;
         }
+        return bodyTemp;
     };
 
     inputTipo.evento('formChange', () => {
@@ -181,24 +271,37 @@ window.addEventListener('load', () => {
         blocoApiSim.classe('display_none', !inputApiStatus.checked);
     });
 
+    const mudarStatus = bloco => {
+        const ativo = bloco.classe('ativo', '?');
+        const valor = ativo ? 'nao' : 'sim';
+        const id = bloco.closest('article').attr('data-id');
+        htmlLinha[id].status = valor;
+        bloco.classe('ativo', !ativo);
+        mostrarBotaoSalvar();
+    };
+
     blocoLista.evento('click', e => {
         if (e.target.classe('status', '?') || e.target.closest('.status')) {
             const bloco = e.target.classe('status', '?') ? e.target : e.target.closest('.status');
-            bloco.classe('ativo');
+            mudarStatus(bloco);
         } else if (e.target.classe('editar', '?') || e.target.closest('.editar')) {
             const bloco = e.target.closest('article');
             abrirEditar(bloco);
+        } else if (e.target.classe('mais', '?') || e.target.closest('.mais')) {
+            const bloco = e.target.closest('article');
+            addSubGrupo($('.lista', bloco));
         }
     });
     blocoLista.evento('dblclick', e => {
         if (e.target.classe('deletar', '?') || e.target.closest('.deletar')) {
             const bloco = e.target.closest('article');
             bloco.remove();
+            mostrarBotaoSalvar();
         }
     });
 
     const setarTipo = valor => {
-        if (valor == 'titulo_texto') {
+        if (valor == 'titulo-texto') {
             blocoTitulo.aparecer();
             blocoTexto.aparecer();
         } else if (valor == 'titulo' || valor == 'subtitulo') {
