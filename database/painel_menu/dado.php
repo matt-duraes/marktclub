@@ -461,6 +461,27 @@ return [
         'id'               => '++',
         'id_admin_empresa' => 1,
         'tipo'             => 1,
+        'titulo'           => 'VIEW',
+        'ordem'            => '++',
+        'status'           => 1,
+        'permissao'        => '["view_pagina_index"]'
+    ],
+    [
+        'id'               => '++',
+        'id_admin_empresa' => 1,
+        'tipo'             => 3,
+        'titulo'           => 'Página',
+        'url'              => '/app/view_pagina',
+        'icone'            => '<svg xmlns="http://www.w3.org/2000/svg" version="1.1" viewBox="0 0 30 30"><path d="M9.5,11.9v9.4h11v-9.4h-11ZM9.5,10.3h11v-1.6h-11v1.6ZM21.3,22.9h-12.6c-.4,0-.8-.4-.8-.8V7.9c0-.4.4-.8.8-.8h12.6c.4,0,.8.4.8.8v14.2c0,.4-.4.8-.8.8ZM11.1,13.4h3.1v3.1h-3.1v-3.1ZM11.1,18.1h7.9v1.6h-7.9v-1.6ZM15.8,14.2h3.1v1.6h-3.1v-1.6Z"/></svg>',
+        'ordem'            => '++',
+        'menu'             => ['view-pagina'],
+        'status'           => 1,
+        'permissao'        => '["view_pagina_index"]'
+    ],
+    [
+        'id'               => '++',
+        'id_admin_empresa' => 1,
+        'tipo'             => 1,
         'titulo'           => 'PUBLICAÇÕES',
         'ordem'            => '++',
         'status'           => 1,

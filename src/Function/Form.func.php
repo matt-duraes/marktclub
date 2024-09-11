@@ -1771,7 +1771,7 @@ if (!function_exists('formTag')) {
         }
         $input = formInput(
             name: '',
-            label: $label,
+            label: is_string($label) ? $label : '',
             placeholder: $placeholder,
             focus: $focus = false,
             attr: ['autocomplete' => 'off']
@@ -1982,6 +1982,7 @@ if (!function_exists('formImagem')) {
         ';
     }
 }
+
 if (!function_exists('formArquivoLista')) {
     /**
      * Gera um bloco de arquivos em lista
@@ -2066,7 +2067,44 @@ if (!function_exists('formArquivoLista')) {
             </div>
         ';
     }
+}
 
+if (!function_exists('formArquivo')) {
+    /**
+     * Gera um input de arquivo
+     *
+     * @param  string      $name        Name do input
+     * @param  string      $diretorio   Diretório do arquivo
+     * @param  string      $value       Valor do input
+     * @param  null|string $class       Class para o bloco geral
+     * @param  null|string $id          ID para o bloco geral
+     * @param  bool|array  $obrigatorio Se o input vai ser obrigatório
+     * @return string      HTML com o código do bloco
+     */
+    function formArquivo(
+        string $name,
+        string $diretorio,
+        string $value = '',
+        ?string $class = null,
+        ?string $id = null,
+        bool $obrigatorio = false
+    ) {
+        $blocoId = empty($id) ? 'id_' . md5(uniqid(time())) : $id;
+        $blocoClass = empty($class) ? '' : $class;
+
+        if (!empty($value)) {
+            $arquivo = arquivoPrivadoDado($value);
+        }
+
+        return '
+            <div class="fw_form fw_form_arquivo ' . $blocoClass . '" id="' . $blocoId . '" data-name="' . $name . '" data-diretorio="' . $diretorio . '">
+
+            </div>
+        ';
+    }
+}
+
+if (!function_exists('formDinheiro')) {
     function formDinheiro(
         string|array $name,
         string $label = '',

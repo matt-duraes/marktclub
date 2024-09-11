@@ -941,7 +941,7 @@ Route
         Route
             ::nome('listar')
             ::middleware(TokenMiddleware::class, 'scope', ['view_pagina:listar'])
-            ::request(['pagina', '!quantidade'])
+            ::request(['pagina', '!quantidade'], 'json')
             ::get('/view-pagina');
 
         Route
@@ -958,42 +958,13 @@ Route
         Route
             ::nome('atualizar')
             ::middleware(TokenMiddleware::class, 'scope', ['view_pagina:atualizar'])
-            ::request(['!titulo', '!url'])
+            ::request(['!titulo', '!url', '!html'])
             ::put('/view-pagina/{id}');
 
         Route
             ::nome('deletar')
             ::middleware(TokenMiddleware::class, 'scope', ['view_pagina:deletar'])
             ::delete('/view-pagina/{id}');
-    });
-
-Route
-    ::nome('view_lista')
-    ::middleware(TokenMiddleware::class, 'token')
-    ::controller(App\Controllers\Api\View\ListaController::class)
-    ::grupo(function () {
-        Route
-            ::nome('listar')
-            ::middleware(TokenMiddleware::class, 'scope', ['view_lista:listar'])
-            ::request(['pagina'])
-            ::get('/view-lista');
-
-        Route
-            ::nome('salvar')
-            ::middleware(TokenMiddleware::class, 'scope', ['view_lista:salvar'])
-            ::request(['titulo', 'url'])
-            ::post('/view-lista');
-
-        Route
-            ::nome('atualizar')
-            ::middleware(TokenMiddleware::class, 'scope', ['view_lista:atualizar'])
-            ::request(['!titulo', '!url'])
-            ::put('/view-lista/{id}');
-
-        Route
-            ::nome('deletar')
-            ::middleware(TokenMiddleware::class, 'scope', ['view_lista:deletar'])
-            ::delete('/view-lista/{id}');
     });
 
 Route

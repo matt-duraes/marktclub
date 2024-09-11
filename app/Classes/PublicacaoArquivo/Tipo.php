@@ -19,9 +19,10 @@ class Tipo extends StatusStatus
                 'estatuto'             => 'Estatuto',
                 'notas-juridicas'      => 'Notas Jurídicas',
                 'pareceres'            => 'Pareceres',
-                'relatorios-processos' => 'Relatórios Processos'
+                'relatorios-processos' => 'Relatórios Processos',
+                'informativos'         => 'Informativos'
             ],
-            'numero' => [1, 2, 3, 4, 5]
+            'numero' => [1, 2, 3, 4, 5, 6]
         ]
     ];
 

@@ -47,7 +47,7 @@ final class PaginaController extends Controller implements
         return mensagemSucesso(
             dado: pegarPropriedadeDaEntity(
                 Entity: $View,
-                lista: ['id', 'titulo', 'url']
+                lista: ['id', 'titulo', 'url', 'html']
             ),
             status: $status
         );
