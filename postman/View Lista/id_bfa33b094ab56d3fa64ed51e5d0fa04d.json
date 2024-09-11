@@ -1,1 +1,0 @@
-{"id":"id_bfa33b094ab56d3fa64ed51e5d0fa04d","token":"token","metodo":"POST","nome":"\/view-lista","uri":"{{LINK}}\/view-lista","parametro":[],"body":[],"header":[],"variavel":[["texto",true,"$ID_VIEW_LISTA","dado.id",""]],"json":[],"documentacao":{"status":false,"descricao":"","requisicao":"","resposta":"","scope":"web_lista:salvar"}}
