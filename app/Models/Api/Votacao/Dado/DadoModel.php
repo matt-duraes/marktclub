@@ -2,21 +2,21 @@
 
 namespace App\Models\Api\Votacao\Dado;
 
+use App\Classes\Geral\Publicado;
+use App\Classes\Votacao\Dado\Status;
+use App\Classes\Votacao\Dado\Tipo;
+use App\Models\Api\Trait\ValidarEmpresaTrait;
+use Modules\Botao;
+use Modules\DataHora;
+use Modules\Pagina;
+use Modules\Quantidade;
 use ORM\ORM;
 use stdClass;
-use Where\Where;
-use Modules\Botao;
-use Modules\Pagina;
-use Modules\DataHora;
-use Modules\Quantidade;
-use App\Classes\Geral\Publicado;
-use App\Classes\Votacao\Dado\Tipo;
+use System\Interface\ModelListarInterface;
 use System\Trait\Model\OrdemTrait;
 use System\Trait\Model\PaginaTrait;
-use App\Classes\Votacao\Dado\Status;
 use System\Trait\Model\QuantidadeTrait;
-use System\Interface\ModelListarInterface;
-use App\Models\Api\Trait\ValidarEmpresaTrait;
+use Where\Where;
 
 final class DadoModel extends ORM implements ModelListarInterface
 {
@@ -25,11 +25,11 @@ final class DadoModel extends ORM implements ModelListarInterface
     use QuantidadeTrait;
     use OrdemTrait;
 
-    protected string $ormTabela = TABELA_VOTACAO_DADO;
     public Tipo $tipo;
     public Pagina $pagina;
     public Quantidade $quantidade;
     public Botao $publicado;
+    protected string $ormTabela = TABELA_VOTACAO_DADO;
 
     public function listarDados(): stdClass
     {
@@ -45,6 +45,15 @@ final class DadoModel extends ORM implements ModelListarInterface
 
         $dado->lista = $this->montarRetorno($dado->lista);
         return $dado;
+    }
+
+    private function pegarWhere(): Where
+    {
+        $Where = new Where($this, $this->ormWherePadrao);
+        $Where
+            ->linha('tipo')
+            ->publicado();
+        return $Where;
     }
 
     private function montarRetorno($dado): array
@@ -66,18 +75,11 @@ final class DadoModel extends ORM implements ModelListarInterface
                 'publicado'   => $publicado->indice(),
                 'data_inicio' => $r->data_inicio,
                 'data_final'  => $r->data_final,
-                'status'      => $statusIndice,
+                'status'      => date('Y-m-d H:i:s') > (new DataHora($r->data_final))->date()
+                    ? Status::INATIVO
+                    : $statusIndice
             ];
         }
         return $retorno;
-    }
-
-    private function pegarWhere(): Where
-    {
-        $Where = new Where($this, $this->ormWherePadrao);
-        $Where
-            ->linha('tipo')
-            ->publicado();
-        return $Where;
     }
 }
