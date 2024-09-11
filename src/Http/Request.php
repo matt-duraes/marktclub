@@ -4,17 +4,17 @@ namespace Http;
 
 use Erro\Erro;
 use Erro\Excecao;
-use HTMLPurifier;
 use Helpers\CryptHelper;
-use HTMLPurifier_Config;
+use HTMLPurifier;
 use HTMLPurifier_AttrDef_Enum;
+use HTMLPurifier_Config;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Symfony\Component\HttpFoundation\Request as Psr7Request;
 
 final class Request extends Psr7Request
 {
-    private Psr7Request $psr7Request;
     public bool $criptografar = true;
+    private Psr7Request $psr7Request;
     private string $metodo;
     private array $dados = [];
 
@@ -76,19 +76,6 @@ final class Request extends Psr7Request
         $this->dados = $this->converterJson($lista);
     }
 
-    private function converterJson($dado)
-    {
-        $retorno = [];
-        foreach ($dado as $ind => $val) {
-            if (!empty($val) && is_string($val) && preg_match('/^\[|\{/', $val) && json_validate($val)) {
-                $val = jsonDecode($val, true, true);
-            }
-            $retorno[$ind] = $val;
-        }
-        return $retorno;
-    }
-
-    // doc
     /**
      * Pega os dados da request quando eles foream enviados via JSON
      *
@@ -108,6 +95,7 @@ final class Request extends Psr7Request
     }
 
     // doc
+
     /**
      * Pega o body da request
      *
@@ -119,6 +107,7 @@ final class Request extends Psr7Request
     }
 
     // doc
+
     /**
      * @param array  $lista
      * @param string $indice
@@ -156,6 +145,9 @@ final class Request extends Psr7Request
             return $this->purifier($lista[$indice], purifier: $purifier, html: $html);
         } elseif (!empty($indice)) {
             $valor = $lista[$indice];
+            if (empty($valor)) {
+                return '';
+            }
             if ($html) {
                 $valor = strip_tags($valor);
             }
@@ -183,6 +175,7 @@ final class Request extends Psr7Request
     }
 
     // doc
+
     /**
      * @return array
      */
@@ -201,6 +194,7 @@ final class Request extends Psr7Request
     }
 
     // doc
+
     /**
      * @param string $input
      *
@@ -239,6 +233,21 @@ final class Request extends Psr7Request
     }
 
     // doc
+
+    private function converterJson($dado)
+    {
+        $retorno = [];
+        foreach ($dado as $ind => $val) {
+            if (!empty($val) && is_string($val) && preg_match('/^\[|\{/', $val) && json_validate($val)) {
+                $val = jsonDecode($val, true, true);
+            }
+            $retorno[$ind] = $val;
+        }
+        return $retorno;
+    }
+
+    // doc
+
     /**
      * @param string $propriedade
      *
@@ -253,13 +262,6 @@ final class Request extends Psr7Request
         return $dados[$propriedade];
     }
 
-    public function __isset($propriedade)
-    {
-        $dados = $this->dado();
-        return array_key_exists($propriedade, $dados);
-    }
-
-    //doc
     /**
      * Pega a lista de dados enviado na request limpando os valores usados apenas pelo sistema
      *
@@ -284,6 +286,15 @@ final class Request extends Psr7Request
     }
 
     //doc
+
+    public function __isset($propriedade)
+    {
+        $dados = $this->dado();
+        return array_key_exists($propriedade, $dados);
+    }
+
+    //doc
+
     /**
      * Retorna a classe origin Symfony\Component\HttpFoundation\Request
      *
@@ -295,6 +306,7 @@ final class Request extends Psr7Request
     }
 
     // doc
+
     /**
      * Verifica se um parâmetro foi enviado na request
      *
@@ -318,6 +330,7 @@ final class Request extends Psr7Request
     }
 
     // doc
+
     /**
      * Verifica que um parâmetro não foi enviado ou se ele está vazio
      *
@@ -342,6 +355,7 @@ final class Request extends Psr7Request
     }
 
     // doc
+
     /**
      * Verifica que um parâmetro é uma data valida
      *
@@ -366,6 +380,7 @@ final class Request extends Psr7Request
     }
 
     // doc
+
     /**
      * Verifica que um parâmetro é uma date valida
      *
@@ -390,6 +405,7 @@ final class Request extends Psr7Request
     }
 
     //doc
+
     /**
      * Pega uma chave específica da request
      *
@@ -413,6 +429,7 @@ final class Request extends Psr7Request
     }
 
     // doc
+
     /**
      * Pega a lista de dados selecionada pelo usuário
      *
@@ -448,6 +465,7 @@ final class Request extends Psr7Request
     }
 
     // doc
+
     /**
      * O contrário da lista, aqui você indica os dados que não quer achar
      *
@@ -477,6 +495,7 @@ final class Request extends Psr7Request
     }
 
     // doc
+
     /**
      * Pega todos os dados recebidos pela request, mesmo os que são usados apenas pelo sistema
      *
@@ -488,6 +507,7 @@ final class Request extends Psr7Request
     }
 
     // doc
+
     /**
      * Pegar o mesmo valor do $_GET
      *
@@ -503,6 +523,7 @@ final class Request extends Psr7Request
     }
 
     // doc
+
     /**
      * Pega o mesmo valor do $_POST
      *
@@ -533,6 +554,7 @@ final class Request extends Psr7Request
     }
 
     // doc
+
     /**
      * Pegar a request igual o $_POST mas quando for usado o método PUT
      *
@@ -569,6 +591,7 @@ final class Request extends Psr7Request
     }
 
     // doc
+
     /**
      * Pegar o mesmo valor do $_FILES
      *
@@ -588,6 +611,7 @@ final class Request extends Psr7Request
     }
 
     // doc
+
     /**
      * Pegar o headers recebidos pelo request
      *

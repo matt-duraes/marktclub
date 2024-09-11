@@ -175,7 +175,7 @@ final class DownloadModel extends ORM
                     $val = $val == 1 ? 'sim' : 'nao';
                 } elseif ($ind == 'lead_origem') {
                     $ind = 'origem';
-                    $val = (new Origem($val, true))->indice();
+                    $val = (new Origem($val, true))->nome();
                 } elseif ($ind == 'aniversario') {
                     $ind = 'data_nascimento';
                     $val = dataBr($val);
@@ -208,7 +208,7 @@ final class DownloadModel extends ORM
                 } elseif ($ind == 'tipo') {
                     $val = [1 => 'titular', 2 => 'dependente', 3 => 'admin'][$val] ?? '';
                 } elseif ($ind == 'status') {
-                    $val = (new Status($val))->indice();
+                    $val = (new Status($val))->nome();
                 } elseif ($ind == 'trabalho_orgao') {
                     $ind = 'trabalho_empresa';
                     $locacao = (new OrmHelper(TABELA_SITE_LOTACAO))->pegarSelect(
@@ -219,12 +219,12 @@ final class DownloadModel extends ORM
                     if (!empty($locacao) && !empty($val)) {
                         $val = $locacao[$val] ?? 'Não encontrado';
                     } elseif (!empty($val) && (new TrabalhoEmpresa($val, true))->valido()) {
-                        $val = (new TrabalhoEmpresa($val, true))->indice();
+                        $val = (new TrabalhoEmpresa($val, true))->nome();
                     }
                 } elseif ($ind == 'trabalho_cargo') {
-                    $val = (new TrabalhoCargo($val, true))->indice();
+                    $val = (new TrabalhoCargo($val, true))->nome();
                 } elseif ($ind == 'tipo_pagamento') {
-                    $val = (new TipoPagamento($val, true))->indice();
+                    $val = (new TipoPagamento($val, true))->nome();
                 } else {
                     $val = strNull($val);
                 }

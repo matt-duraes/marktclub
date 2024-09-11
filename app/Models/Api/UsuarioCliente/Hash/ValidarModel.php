@@ -8,6 +8,7 @@ use stdClass;
 final class ValidarModel extends ORM
 {
     protected string $ormTabela = TABELA_USUARIO_CLIENTE;
+
     private stdClass $dado;
     public array $retorno;
 

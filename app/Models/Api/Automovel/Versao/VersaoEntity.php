@@ -2,10 +2,10 @@
 
 namespace App\Models\Api\Automovel\Versao;
 
-use ORM\Entity;
-use Modules\Dinheiro;
-use Helpers\OrmHelper;
 use App\Classes\Geral\Status;
+use Helpers\OrmHelper;
+use Modules\Dinheiro;
+use ORM\Entity;
 
 final class VersaoEntity extends Entity
 {
