@@ -60,7 +60,7 @@ final class ValidarModel extends ORM
         try {
             $this
                 ->dado([
-                    'hash' => null,
+                    'hash'      => null,
                     'hash_data' => null,
                     'hash_tipo' => null
                 ])

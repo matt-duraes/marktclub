@@ -17,6 +17,8 @@ window.addEventListener('load', () => {
     const inputTexto = $('#input_texto');
     const inputLink = $('#input_link');
     const inputTarget = $('#input_target');
+    const inputDivDirecao = $('#input_div_direcao');
+    const inputDivPosicao = $('#input_div_posicao');
     const inputMargem = $('#input_margem');
     const inputStatus = $('#input_status');
     const inputApiStatus = $('#input_api_status');
@@ -42,6 +44,8 @@ window.addEventListener('load', () => {
     const blocoLink = $('.bloco_link');
     const blocoMargem = $('.bloco_margem');
     const blocoTarget = $('.bloco_target');
+    const blocoDivPosicao = $('.bloco_div_posicao');
+    const blocoDivDirecao = $('.bloco_div_direcao');
     const blocoBodyLista = $('.bloco_api_body .fw_form_indice_valor_lista');
 
     const botaoPopupAbrir = $('#botao_view_abrir');
@@ -76,6 +80,8 @@ window.addEventListener('load', () => {
         inputTexto.valor(item.texto || '');
         inputLink.valor(item.link || '');
         inputTarget.valor(item.target || '');
+        inputDivDirecao.valor(item.div_direcao || '');
+        inputDivPosicao.valor(item.div_posicao || '');
         inputMargem.valor(item.margem || '');
         inputStatus.valor(item.status || 'nao');
         inputApiStatus.valor(item.api_status || 'nao');
@@ -160,6 +166,8 @@ window.addEventListener('load', () => {
             margem: inputMargem.valor(),
             status: inputStatus.valor(),
             /* eslint-disable */
+            div_direcao: inputDivDirecao.valor(),
+            div_posicao: inputDivPosicao.valor(),
             titulo_interno: tituloInterno,
             api_status: inputApiStatus.valor(),
             api_metodo: inputApiMetodo.valor(),
@@ -207,8 +215,12 @@ window.addEventListener('load', () => {
                 mensagem = 'Digite um texto para continuar.';
             } else if (tipo == 'magem') {
                 mensagem = 'Digite uma margem para continuar.';
+            } else if (tipo == 'div' && vazio(inputDivDirecao.valor())) {
+                mensagem = 'Escolha a direção do conteudo da div para continuar.';
+            } else if (tipo == 'div' && vazio(inputDivPosicao.valor())) {
+                mensagem = 'Escolha a posição do conteudo da div para continuar.';
             }
-            ppe(mensagem);
+
             if (mensagem != '') {
                 Alerta.notificacao(mensagem, false);
                 resolve(false);
@@ -238,6 +250,7 @@ window.addEventListener('load', () => {
         if (false === resposta) {
             return;
         }
+        Alerta.notificacao('HTML salvo com sucesso.', true);
         botaoSalvarHtml.sumir();
     });
 
@@ -252,9 +265,10 @@ window.addEventListener('load', () => {
         for (const item of lista) {
             const id = item.attr('data-id');
             bodyTemp[i] = htmlLinha[id];
-            const filho = $$('.lista > article', item);
-            if (filho.length > 0) {
-                bodyTemp[i].lista = montarBody(filho);
+            const filho = Array.from(item.children).filter(el => el.classList.contains('lista') === true);
+            if (filho.length == 1) {
+                const articleFilho = Array.from(filho[0].children).filter(el => el.tagName.toLowerCase() === 'article');
+                bodyTemp[i].lista = montarBody(articleFilho);
             }
             i++;
         }
@@ -312,6 +326,9 @@ window.addEventListener('load', () => {
             blocoTarget.aparecer();
         } else if (valor == 'margem') {
             blocoMargem.aparecer();
+        } else if (valor == 'div') {
+            blocoDivDirecao.aparecer();
+            blocoDivPosicao.aparecer();
         }
     };
     const limparObrigatorio = () => {
@@ -319,6 +336,8 @@ window.addEventListener('load', () => {
         blocoTexto.sumir();
         blocoLink.sumir();
         blocoTarget.sumir();
+        blocoDivPosicao.sumir();
+        blocoDivDirecao.sumir();
         blocoMargem.sumir();
         blocoApiSim.sumir();
         inputLimpar.valor('');

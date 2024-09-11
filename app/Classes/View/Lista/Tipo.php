@@ -7,6 +7,8 @@ use Status\Status as StatusStatus;
 final class Tipo extends StatusStatus
 {
     public const BLOCO = 'bloco';
+    public const DIV = 'div';
+    public const RESTO = 'resto';
     public const BANNER = 'banner';
     public const TITULO_TEXTO = 'titulo-texto';
     public const TITULO = 'titulo';
@@ -24,6 +26,8 @@ final class Tipo extends StatusStatus
     ) {
         parent::__construct([
             self::BLOCO          => 'Bloco',
+            self::DIV            => 'Div',
+            self::RESTO          => 'Resto (grow)',
             self::BANNER         => 'Banner',
             self::TITULO_TEXTO   => 'Título e texto',
             self::TITULO         => 'Titulo',
