@@ -45,6 +45,8 @@
                 @? formNumero(name: 'margem', label: 'Margem', placeholder: 'Digite uma margem', obrigatorio: true, class: 'bloco_margem display_none')
                 @? formUrl(name: 'link', label: 'Link', placeholder: 'Digite um link', obrigatorio: true, class: 'bloco_link display_none')
                 @? formSelect(name: 'target', label: 'Target', placeholder: 'Escolha um target', lista: (new \App\Classes\Geral\Target())->select('Escolha um target'), obrigatorio: true, class: 'bloco_target display_none')
+                @? formSelect(name: 'div_direcao', label: 'Direção', placeholder: 'Qual direção?', lista: ['linha' => 'Linha (row)', 'coluna' => 'Coluna (column)'], obrigatorio: true, class: 'bloco_div_direcao display_none')
+                @? formSelect(name: 'div_posicao', label: 'Posição', placeholder: 'Qual posicao?', lista: ['esquerda' => 'Esquerda (flex-start)', 'direita' => 'Direita (flex-end)', 'centralizado' => 'Centralizado (center)', 'entre' => 'Entre (between)'], obrigatorio: true, class: 'bloco_div_posicao display_none')
                 @? formSwitch(name: 'status', label: 'Status', check: false)
                 <h2>API</h2>
                 @? formSwitch(name: 'api_status', label: 'Vai usar API?', class: 'bloco_api_status')
