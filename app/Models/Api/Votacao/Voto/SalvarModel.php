@@ -2,11 +2,13 @@
 
 namespace App\Models\Api\Votacao\Voto;
 
-use ORM\ORM;
-use Modules\DataHora;
-use Helpers\OrmHelper;
 use App\Classes\Geral\Publicado;
+use App\Classes\Votacao\Pergunta\Tipo as TipoPergunta;
 use App\Models\Api\Votacao\Usuario\VotouModel;
+use Erro\Excecao;
+use Helpers\OrmHelper;
+use Modules\DataHora;
+use ORM\ORM;
 
 final class SalvarModel extends ORM
 {
@@ -16,10 +18,17 @@ final class SalvarModel extends ORM
     private array $votacaoDado = [];
     private array $usuarioDado = [];
 
+    /**
+     * @param string $votacao
+     * @param string $usuario
+     * @param array  $resposta
+     *
+     * @throws Excecao
+     */
     public function __construct(
-        private string $votacao,
-        private string $usuario,
-        private array $resposta
+        private readonly string $votacao,
+        private readonly string $usuario,
+        private readonly array $resposta
     ) {
         parent::__construct();
         $this->buscarVotacao();
@@ -30,28 +39,36 @@ final class SalvarModel extends ORM
         $this->salvarVoto();
     }
 
-    private function buscarVotacao()
+    private function buscarVotacao(): void
     {
         $this->votacaoDado = (new OrmHelper(TABELA_VOTACAO_DADO))->pegarPrimeiroRegistro(
-            where: ['uuid', $this->votacao],
-            campo: ['id', 'voto_unico', 'identificar_usuario', 'data_inicio', 'data_final', 'status']
+            ['uuid', $this->votacao],
+            ['id', 'voto_unico', 'identificar_usuario', 'data_inicio', 'data_final', 'status']
         );
     }
 
-    private function validarVotacaoExiste()
+    /**
+     * @return void
+     * @throws Excecao
+     */
+    private function validarVotacaoExiste(): void
     {
         if (empty($this->votacaoDado) || !array_key_exists('id', $this->votacaoDado)) {
             mensagemErro('Erro!', 'Não foi possível encontrar a votação.');
         }
     }
 
-    private function verificarVotacaoPublicada()
+    /**
+     * @return void
+     * @throws Excecao
+     */
+    private function verificarVotacaoPublicada(): void
     {
         $dado = $this->votacaoDado;
         $publicado = new Publicado(
-            inicio: new DataHora($dado['data_inicio']),
-            final: new DataHora($dado['data_final']),
-            ativo: $dado['status'] == 1
+            new DataHora($dado['data_inicio']),
+            new DataHora($dado['data_final']),
+            $dado['status'] == 1
         );
         if ($publicado->indice() != 'sim') {
             mensagemErro('Erro!', 'A votação não está mais ativa.');
@@ -59,22 +76,30 @@ final class SalvarModel extends ORM
         $this->idVotacao = $this->votacaoDado['id'];
     }
 
-    private function buscarUsuario()
+    private function buscarUsuario(): void
     {
         $usuario = (new OrmHelper(TABELA_USUARIO_CLIENTE))->pegarPrimeiroRegistro(
-            campo: ['id', 'nome', 'cpf'],
-            where: ['uuid', $this->usuario]
+            ['uuid', $this->usuario],
+            ['id', 'nome', 'cpf']
         );
         $this->idUsuario = $usuario['id'];
         $this->usuarioDado = $usuario;
     }
 
-    private function validarDados()
+    /**
+     * @return void
+     * @throws Excecao
+     */
+    private function validarDados(): void
     {
         $usuario = $this->usuarioDado;
         if (empty($usuario) || !array_key_exists('id', $usuario)) {
             mensagemErro('Erro!', 'Não foi possível achar o usuário do voto.');
-        } elseif (!array_key_exists('nome', $usuario) || !array_key_exists('cpf', $usuario) || !validarCpf($usuario['cpf'])) {
+        } elseif (
+            !array_key_exists('nome', $usuario)
+            || !array_key_exists('cpf', $usuario)
+            || !validarCpf($usuario['cpf'])
+        ) {
             mensagemErro('Erro!', 'Seu nome e/ou CPF estão inválidos, atualize seus dados para votar.');
         } elseif (empty($this->votacao)) {
             mensagemErro('Erro!', 'Não foi possível achar a votação.');
@@ -83,14 +108,20 @@ final class SalvarModel extends ORM
         }
     }
 
-    private function salvarVoto()
+    /**
+     * @return void
+     * @throws Excecao
+     */
+    private function salvarVoto(): void
     {
         $ormPergunta = new OrmHelper(TABELA_VOTACAO_PERGUNTA);
         $ormResposta = new OrmHelper(TABELA_VOTACAO_RESPOSTA);
         foreach ($this->resposta as $pergunta => $resposta) {
             $idPergunta = $ormPergunta->pegarIdPeloUuid($pergunta);
+            $this->validarPerguntaObrigatoria($ormPergunta, $idPergunta, $resposta);
             foreach ($resposta as $uuid) {
                 $idResposta = $ormResposta->pegarIdPeloUuid($uuid);
+                $this->validarRespostaBloqueada($ormResposta, $idResposta);
                 $dado = [
                     'id_votacao_dado'     => $this->idVotacao,
                     'id_votacao_pergunta' => $idPergunta,
@@ -106,5 +137,83 @@ final class SalvarModel extends ORM
             }
         }
         (new VotouModel($this->usuarioDado, $this->idVotacao));
+    }
+
+    /**
+     * @param OrmHelper  $ormHelper
+     * @param int|string $idPergunta
+     * @param array|null $idResposta
+     *
+     * @return void
+     * @throws Excecao
+     */
+    private function validarPerguntaObrigatoria(
+        OrmHelper $ormHelper,
+        int|string $idPergunta,
+        array $idResposta = null
+    ): void {
+        $pergunta = $ormHelper->pegarUltimoRegistro(
+            ['id', $idPergunta],
+            ['titulo', 'tipo', 'pode_nulo'],
+            'object'
+        );
+        if (empty($pergunta)) {
+            mensagemErro(
+                'Pergunta não encontrada/inexistente!!',
+                'Não encontramos a pergunta. Por favor tente novamente.'
+            );
+        }
+
+        $tipoPergunta = new TipoPergunta($pergunta->tipo);
+        if (
+            $tipoPergunta->indice() === TipoPergunta::UMA_ESCOLHA
+            && (empty($pergunta->pode_nulo))
+            && empty($idResposta)
+        ) {
+            mensagemErro(
+                'Resposta obrigatória!!',
+                "Você deve escolher uma alternativa para `$pergunta->titulo`"
+            );
+        } elseif (
+            $tipoPergunta->indice() === TipoPergunta::MULTIPLA_ESCOLHA
+            && (empty($pergunta->pode_nulo))
+            && empty($idResposta)
+        ) {
+            mensagemErro(
+                'Resposta obrigatória!!',
+                "Você deve escolher pelo menos uma alternativa para `$pergunta->titulo`"
+            );
+        }
+    }
+
+    /**
+     * @param OrmHelper  $ormHelper
+     * @param int|string $idResposta
+     *
+     * @return void
+     * @throws Excecao
+     */
+    private function validarRespostaBloqueada(
+        OrmHelper $ormHelper,
+        int|string $idResposta
+    ): void {
+        $resposta = $ormHelper->pegarUltimoRegistro(
+            ['id', $idResposta],
+            ['titulo', 'escrever_voto', 'voto_nulo'],
+            'object'
+        );
+        if (empty($resposta)) {
+            mensagemErro(
+                'Resposta não encontrada/inexistente!!',
+                'Não encontramos a resposta. Por favor tente novamente.'
+            );
+        }
+
+        if (!empty($resposta->voto_nulo) && $resposta->voto_nulo == '1') {
+            mensagemErro(
+                'Resposta invalida!!',
+                'Resposta bloqueada. Por favor tente novamente.'
+            );
+        }
     }
 }
