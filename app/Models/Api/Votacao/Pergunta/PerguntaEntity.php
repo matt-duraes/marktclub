@@ -19,7 +19,7 @@ final class PerguntaEntity extends Entity
     public string $titulo;
     public string $texto;
     public Tipo $tipo;
-    public Botao $pode_nulo;
+    public Botao|string $pode_nulo;
     public int $ordem;
     protected string $ormTabela = TABELA_VOTACAO_PERGUNTA;
     protected array $ormBuscar = [
@@ -38,6 +38,11 @@ final class PerguntaEntity extends Entity
         pode_nulo|Não é obrigatório|valido
     ';
     protected int $id_votacao_dado;
+
+    protected function regraPosBuscar(): void
+    {
+        $this->pode_nulo = !empty($this->pode_nulo) && $this->pode_nulo == 1 ? Botao::SIM : Botao::NAO;
+    }
 
     protected function regraSalvar(): void
     {
