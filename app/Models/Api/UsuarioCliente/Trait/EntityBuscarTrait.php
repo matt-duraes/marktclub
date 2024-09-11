@@ -2,6 +2,7 @@
 
 namespace App\Models\Api\UsuarioCliente\Trait;
 
+use App\Classes\UsuarioCliente\TrabalhoEmpresa;
 use App\Models\Api\ComercialEmpresa\EmpresaEntity;
 use App\Models\Api\UsuarioPagamento\PagamentoModel;
 use Helpers\OrmHelper;
@@ -14,6 +15,10 @@ trait EntityBuscarTrait
         $this->contratoSiape = '';
         if (!empty($this->trabalho_empresa) && !empty($this->siape) && $this->id_admin_empresa == 19) {
             $this->contratoSiape = $this->trabalho_empresa . $this->siape . '341201';
+        }
+
+        if (!empty($this->trabalho_empresa) && (new TrabalhoEmpresa($this->trabalho_empresa))->valido()) {
+            $this->trabalho_empresa = (new TrabalhoEmpresa($this->trabalho_empresa))->indice();
         }
 
         if ($this->imagem_arquivo) {

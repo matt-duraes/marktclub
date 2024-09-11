@@ -2,14 +2,14 @@
 
 namespace App\Controllers\Site;
 
-use Erro\Excecao;
-use Http\Request;
-use Http\Response;
-use Controller\Controller;
-use App\Models\Site\BannerModel;
 use App\Models\Site\Automovel\BuscarModel;
 use App\Models\Site\Automovel\ListarModel;
 use App\Models\Site\Automovel\SolicitacaoModel;
+use App\Models\Site\BannerModel;
+use Controller\Controller;
+use Erro\Excecao;
+use Http\Request;
+use Http\Response;
 
 final class AutomovelController extends Controller
 {
@@ -27,36 +27,42 @@ final class AutomovelController extends Controller
     }
 
     /**
-     * @param string $url
+     * @param string $url Slug (URI) do Modelo
      *
      * @return Response
      * @throws Excecao
      */
     public function modelo(string $url): Response
     {
-        return view(
-            'automovel.modelo',
-            [
-                'menu'  => 'automovel',
-                'lista' => (new ListarModel($url))->listarDados(),
-            ]
-        );
+        return view('automovel.modelo', [
+            'menu'  => 'automovel',
+            'lista' => (new ListarModel($url))->listarDados()
+        ]);
     }
 
-    public function versao(string $loja, string $url): Response
+    /**
+     * @param string $loja   Slug (URI) da Loja/Parceiro
+     * @param string $modelo Slug (URI) do Modelo
+     *
+     * @return Response
+     * @throws Excecao
+     */
+    public function versao(string $loja, string $modelo): Response
     {
-        $Buscar = new BuscarModel($url);
-        return view(
-            arquivo: 'automovel.versao',
-            var: [
-                'menu'     => 'automovel',
-                'dado'     => $Buscar->buscarDados(),
-                'loja'     => $loja,
-                'endereco' => []
-            ]
-        );
+        return view('automovel.versao', [
+            'menu'     => 'automovel',
+            'dado'     => (new BuscarModel($loja, $modelo))->buscarDados(),
+            'loja'     => $loja,
+            'endereco' => []
+        ]);
     }
 
+    /**
+     * @param Request $request
+     *
+     * @return Response
+     * @throws Excecao
+     */
     public function postSolicitacao(Request $request): Response
     {
         $Solicitacao = new SolicitacaoModel(
@@ -69,7 +75,6 @@ final class AutomovelController extends Controller
             mensagem: $request->mensagem
         );
         $Solicitacao->salvar();
-
         return mensagemSucesso([], status: 201);
     }
 }
