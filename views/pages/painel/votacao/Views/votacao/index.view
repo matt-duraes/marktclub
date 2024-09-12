@@ -152,7 +152,6 @@
                     @? formInput(name: 'resposta_titulo', label: 'Título', placeholder: 'Digite um título', contador: 50, obrigatorio: true)
                     @? formInput(name: 'resposta_texto', label: 'Descrição', placeholder: 'Digite uma descricão', contador: 250)
                     <div class="bloco_metade">
-                        @? formSwitch(name: 'resposta_escrever', label: 'Usuário pode escrever a resposta')
                         @? formSwitch(name: 'resposta_bloqueada', label: 'Usuário não pode escolher essa resposta')
                     </div>
 

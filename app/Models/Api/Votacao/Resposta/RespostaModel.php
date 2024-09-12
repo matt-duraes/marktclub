@@ -2,16 +2,16 @@
 
 namespace App\Models\Api\Votacao\Resposta;
 
-use ORM\ORM;
-use stdClass;
-use Where\Where;
+use App\Models\Api\Votacao\Trait\idPerguntaTrait;
 use Modules\Botao;
 use Modules\Pagina;
 use Modules\Quantidade;
+use ORM\ORM;
+use stdClass;
+use System\Interface\ModelListarInterface;
 use System\Trait\Model\PaginaTrait;
 use System\Trait\Model\QuantidadeTrait;
-use System\Interface\ModelListarInterface;
-use App\Models\Api\Votacao\Trait\idPerguntaTrait;
+use Where\Where;
 
 final class RespostaModel extends ORM implements ModelListarInterface
 {
@@ -19,10 +19,10 @@ final class RespostaModel extends ORM implements ModelListarInterface
     use PaginaTrait;
     use QuantidadeTrait;
 
-    protected string $ormTabela = TABELA_VOTACAO_RESPOSTA;
     public string $pergunta;
     public Pagina $pagina;
     public Quantidade $quantidade;
+    protected string $ormTabela = TABELA_VOTACAO_RESPOSTA;
 
     public function listarDados(): stdClass
     {
@@ -41,21 +41,6 @@ final class RespostaModel extends ORM implements ModelListarInterface
         return $dado;
     }
 
-    private function montarRetorno($dado): array
-    {
-        $retorno = [];
-        foreach ($dado as $r) {
-            $retorno[] = [
-                'id'            => $r->uuid,
-                'titulo'        => $r->titulo,
-                'texto'         => $r->texto,
-                'escrever_voto' => (new Botao($r->escrever_voto))->valor(),
-                'voto_nulo'     => (new Botao($r->voto_nulo))->valor(),
-            ];
-        }
-        return $retorno;
-    }
-
     private function pegarWhere(): Where
     {
         $Where = new Where($this, $this->ormWherePadrao);
@@ -64,5 +49,20 @@ final class RespostaModel extends ORM implements ModelListarInterface
         });
 
         return $Where;
+    }
+
+    private function montarRetorno($dado): array
+    {
+        $retorno = [];
+        foreach ($dado as $r) {
+            $retorno[] = [
+                'id'            => $r->uuid,
+                'titulo'        => $r->titulo,
+                'texto'         => $r->texto,
+                'escrever_voto' => !empty($r->escrever_voto) && $r->escrever_voto == '1' ? Botao::SIM : Botao::NAO,
+                'voto_nulo'     => !empty($r->voto_nulo) && $r->voto_nulo == '1' ? Botao::SIM : Botao::NAO,
+            ];
+        }
+        return $retorno;
     }
 }

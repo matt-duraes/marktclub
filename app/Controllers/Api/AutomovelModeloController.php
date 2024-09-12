@@ -49,14 +49,11 @@ class AutomovelModeloController extends Controller implements
      */
     private function retornoSucesso(ModeloEntity $Modelo, int $status = 200): Response
     {
-        return mensagemSucesso(
-            pegarPropriedadeDaEntity($Modelo, lista: [
-                'parceiro', 'titulo', 'procedimento', 'texto_procedimento',
-                'imagem', 'versao', 'data_inicio', 'data_final', 'url',
-                'status', 'data_criacao', 'data_atualizacao'
-            ]),
-            $status
-        );
+        return mensagemSucesso(pegarPropriedadeDaEntity($Modelo, lista: [
+            'parceiro', 'titulo', 'procedimento', 'texto_procedimento',
+            'imagem', 'versao', 'data_inicio', 'data_final', 'url',
+            'status', 'data_criacao', 'data_atualizacao'
+        ]), $status);
     }
 
     /**
@@ -68,17 +65,17 @@ class AutomovelModeloController extends Controller implements
     public function getListar(Request $request): Response
     {
         $Modelo = new ModeloModel(
-            new Pagina($request->pagina),
-            new Quantidade($request->quantidade),
-            new Ordem($request->ordem),
-            $request->parceiro,
-            $request->modelo,
-            $request->pesquisa,
-            $request->titulo,
-            new Botao($request->publicado),
-            new Data($request->data_inicio),
-            new Data($request->data_final),
-            new Status($request->status)
+            new Pagina($request->getJson('pagina')),
+            new Quantidade($request->getJson('quantidade')),
+            new Ordem($request->getJson('ordem')),
+            $request->getJson('parceiro'),
+            $request->getJson('modelo'),
+            $request->getJson('pesquisa'),
+            $request->getJson('titulo'),
+            new Botao($request->getJson('publicado')),
+            new Data($request->getJson('data_inicio')),
+            new Data($request->getJson('data_final')),
+            new Status($request->getJson('status')),
         );
         return mensagemSucesso($Modelo->listarDados());
     }

@@ -2,42 +2,21 @@
 
 namespace App\Models\Api\Votacao\Dado;
 
-use ORM\Entity;
-use Modules\Botao;
-use Modules\DataHora;
 use App\Classes\Geral\Publicado;
-use App\Classes\Votacao\Dado\Tipo;
 use App\Classes\Votacao\Dado\Status;
+use App\Classes\Votacao\Dado\Tipo;
 use App\Models\Api\Trait\ValidarEmpresaTrait;
 use App\Models\Api\Votacao\Trait\MensagemTrait;
+use Erro\Excecao;
+use Modules\Botao;
+use Modules\DataHora;
+use ORM\Entity;
 
 final class DadoEntity extends Entity
 {
     use ValidarEmpresaTrait;
     use MensagemTrait;
 
-    protected string $ormTabela = TABELA_VOTACAO_DADO;
-    protected string $ormValidar = '
-        titulo|Título|obrigatorio|vazio
-        texto|Texto|obrigatorio|vazio
-        tipo|Tipo|obrigatorio|vazio|valido
-        voto_unico|Voto único|valido
-        indentificar_usuario|Identificar usuário|valido
-        data_inicio|Data de início da publicação|obrigatorio|vazio|valido
-        data_final|Data final da publicação|valido
-        status|Status|obrigatorio|vazio|valido
-    ';
-    protected array $ormInsert = [
-        'id_admin_empresa' => '->idEmpresa'
-    ];
-    protected array $ormSalvar = [
-        'titulo', 'texto', 'tipo', 'voto_unico', 'identificar_usuario', 'data_inicio',
-        'data_final', 'bloqueado', 'status'
-    ];
-    protected array $ormBuscar = [
-        'titulo', 'texto', 'tipo', 'voto_unico', 'identificar_usuario', 'data_inicio',
-        'data_final', 'bloqueado', 'status'
-    ];
     public string $titulo;
     public string $texto;
     public Tipo $tipo;
@@ -50,21 +29,39 @@ final class DadoEntity extends Entity
     public Publicado $publicado;
     public Status $status;
     public bool $estaBloqueado = false;
+    protected string $ormTabela = TABELA_VOTACAO_DADO;
+    protected array $ormBuscar = [
+        'titulo', 'texto', 'tipo', 'voto_unico', 'identificar_usuario', 'data_inicio',
+        'data_final', 'bloqueado', 'status'
+    ];
+    protected array $ormInsert = [
+        'id_admin_empresa' => '->idEmpresa'
+    ];
+    protected array $ormSalvar = [
+        'titulo', 'texto', 'tipo', 'voto_unico', 'identificar_usuario', 'data_inicio',
+        'data_final', 'bloqueado', 'status'
+    ];
+    protected string $ormValidar = '
+        titulo|Título|obrigatorio|vazio
+        texto|Texto|obrigatorio|vazio
+        tipo|Tipo|obrigatorio|vazio|valido
+        voto_unico|Voto único|valido
+        indentificar_usuario|Identificar usuário|valido
+        data_inicio|Data de início da publicação|obrigatorio|vazio|valido
+        data_final|Data final da publicação|valido
+        status|Status|obrigatorio|vazio|valido
+    ';
 
+    /**
+     * @throws Excecao
+     */
     public function __construct()
     {
-        parent::__construct();
         $this->validarEmpresa();
+        parent::__construct();
     }
 
-    protected function regraUpdate()
-    {
-        if ($this->estaBloqueado) {
-            $this->mensagemBloqueado();
-        }
-    }
-
-    protected function regraPosBuscar()
+    protected function regraPosBuscar(): void
     {
         $this->publicado = new Publicado(
             inicio: $this->data_inicio,
@@ -77,14 +74,20 @@ final class DadoEntity extends Entity
         $this->validarStatusVotacao();
     }
 
-    private function validarStatusVotacao()
+    private function bloquear(): void
+    {
+        $this->bloqueado = new Botao(Botao::SIM);
+        $this->estaBloqueado = true;
+    }
+
+    private function validarStatusVotacao(): void
     {
         $votacao = 'aguardando';
         $agora = agora();
         if (
-            $this->data_inicio->date() <= $agora &&
-            $this->data_final->date() >= $agora &&
-            $this->publicado == Publicado::SIM
+            $this->data_inicio->date() <= $agora
+            && $this->data_final->date() >= $agora
+            && $this->publicado == Publicado::SIM
         ) {
             $this->bloquear();
             $votacao = 'andamento';
@@ -95,9 +98,10 @@ final class DadoEntity extends Entity
         $this->status_votacao = $votacao;
     }
 
-    private function bloquear()
+    protected function regraUpdate(): void
     {
-        $this->bloqueado = new Botao(Botao::SIM);
-        $this->estaBloqueado = true;
+        if ($this->estaBloqueado) {
+            $this->mensagemBloqueado();
+        }
     }
 }

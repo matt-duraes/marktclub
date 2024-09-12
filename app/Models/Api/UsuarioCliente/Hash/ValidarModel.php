@@ -7,9 +7,9 @@ use stdClass;
 
 final class ValidarModel extends ORM
 {
+    public array $retorno;
     protected string $ormTabela = TABELA_USUARIO_CLIENTE;
     private stdClass $dado;
-    public array $retorno;
 
     public function __construct(
         private ?string $usuario = null,
@@ -32,6 +32,11 @@ final class ValidarModel extends ORM
         if (empty($this->usuario) || empty($this->hash) || empty($this->tipo)) {
             $this->naoAutorizado('Dados inválidos para validar hash.');
         }
+    }
+
+    private function naoAutorizado(string $mensagem)
+    {
+        mensagemErro(titulo: 'Sem permissão!', mensagem: $mensagem, dado: ['autorizado' => 'nao'], status: 404);
     }
 
     private function buscarUsuario()
@@ -59,18 +64,13 @@ final class ValidarModel extends ORM
         try {
             $this
                 ->dado([
-                    'hash'      => null,
-                    'hash_data' => null,
-                    'hash_tipo' => null
+                    'hash'      => '',
+                    'hash_data' => '',
+                    'hash_tipo' => ''
                 ])
                 ->where(['uuid', $this->usuario])
                 ->update();
         } catch (\Throwable) {
         }
-    }
-
-    private function naoAutorizado(string $mensagem)
-    {
-        mensagemErro(titulo: 'Sem permissão!', mensagem: $mensagem, dado: ['autorizado' => 'nao'], status: 404);
     }
 }
