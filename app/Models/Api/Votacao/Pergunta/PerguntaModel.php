@@ -2,17 +2,17 @@
 
 namespace App\Models\Api\Votacao\Pergunta;
 
-use ORM\ORM;
-use stdClass;
-use Where\Where;
+use App\Classes\Votacao\Pergunta\Tipo;
+use App\Models\Api\Votacao\Trait\idVotacaoTrait;
 use Modules\Botao;
 use Modules\Pagina;
 use Modules\Quantidade;
-use System\Trait\Model\PaginaTrait;
-use App\Classes\Votacao\Pergunta\Tipo;
-use System\Trait\Model\QuantidadeTrait;
+use ORM\ORM;
+use stdClass;
 use System\Interface\ModelListarInterface;
-use App\Models\Api\Votacao\Trait\idVotacaoTrait;
+use System\Trait\Model\PaginaTrait;
+use System\Trait\Model\QuantidadeTrait;
+use Where\Where;
 
 final class PerguntaModel extends ORM implements ModelListarInterface
 {
@@ -20,10 +20,10 @@ final class PerguntaModel extends ORM implements ModelListarInterface
     use PaginaTrait;
     use QuantidadeTrait;
 
-    protected string $ormTabela = TABELA_VOTACAO_PERGUNTA;
     public string $votacao;
     public Pagina $pagina;
     public Quantidade $quantidade;
+    protected string $ormTabela = TABELA_VOTACAO_PERGUNTA;
 
     public function listarDados(): stdClass
     {
@@ -42,6 +42,15 @@ final class PerguntaModel extends ORM implements ModelListarInterface
         return $dado;
     }
 
+    private function pegarWhere(): Where
+    {
+        $Where = new Where($this, $this->ormWherePadrao);
+        $Where->naoVazio('votacao', function () use ($Where) {
+            $Where->manual(['id_votacao_dado', $this->idVotacao($this->votacao)]);
+        });
+        return $Where;
+    }
+
     private function montarRetorno($dado): array
     {
         $retorno = [];
@@ -52,18 +61,9 @@ final class PerguntaModel extends ORM implements ModelListarInterface
                 'titulo'    => $r->titulo,
                 'texto'     => $r->texto,
                 'tipo'      => $Tipo->indice($r->tipo),
-                'pode_nulo' => (new Botao($r->pode_nulo))->valor()
+                'pode_nulo' => !empty($r->pode_nulo) && $r->pode_nulo == '1' ? Botao::SIM : Botao::NAO
             ];
         }
         return $retorno;
-    }
-
-    private function pegarWhere(): Where
-    {
-        $Where = new Where($this, $this->ormWherePadrao);
-        $Where->naoVazio('votacao', function () use ($Where) {
-            $Where->manual(['id_votacao_dado', $this->idVotacao($this->votacao)]);
-        });
-        return $Where;
     }
 }

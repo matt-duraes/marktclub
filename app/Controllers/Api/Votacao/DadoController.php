@@ -2,70 +2,94 @@
 
 namespace App\Controllers\Api\Votacao;
 
+use App\Models\Api\Votacao\Dado\CancelarModel;
+use App\Models\Api\Votacao\Dado\DadoEntity;
+use App\Models\Api\Votacao\Dado\DadoModel;
+use App\Models\Api\Votacao\Resultado\RetornoModel;
+use Controller\Controller;
+use Erro\Excecao;
 use Http\Request;
 use Http\Response;
 use Modules\Botao;
-use Controller\Controller;
-use App\Models\Api\Votacao\Dado\DadoModel;
-use App\Models\Api\Votacao\Dado\DadoEntity;
-use App\Models\Api\Votacao\Dado\CancelarModel;
+use System\Interface\ControllerAtualizarInterface;
 use System\Interface\ControllerBuscarInterface;
+use System\Interface\ControllerDeletarInterface;
 use System\Interface\ControllerListarInterface;
 use System\Interface\ControllerSalvarInterface;
-use System\Interface\ControllerDeletarInterface;
-use App\Models\Api\Votacao\Resultado\RetornoModel;
-use System\Interface\ControllerAtualizarInterface;
 
 final class DadoController extends Controller implements
-    ControllerListarInterface,
     ControllerBuscarInterface,
+    ControllerListarInterface,
     ControllerSalvarInterface,
     ControllerAtualizarInterface,
     ControllerDeletarInterface
 {
-    public function getListar(Request $request): Response
-    {
-        $Votacao = new DadoModel();
-        $Votacao->set(lista: $request->dado());
-
-        return mensagemSucesso($Votacao->listarDados());
-    }
-
+    /**
+     * @param string $id
+     *
+     * @return Response
+     * @throws Excecao
+     */
     public function getBuscar(string $id): Response
     {
-        $Votacao = new DadoEntity();
-        $Votacao->idSlug($id);
-
-        return $this->retornoPadrao(Votacao: $Votacao, status: 200);
+        $VotacaoEntity = new DadoEntity();
+        $VotacaoEntity->idSlug($id);
+        return $this->retornoPadrao($VotacaoEntity);
     }
 
+    /**
+     * @param DadoEntity $votacaoEntity
+     * @param int        $status
+     *
+     * @return Response
+     * @throws Excecao
+     */
+    private function retornoPadrao(DadoEntity $votacaoEntity, int $status = 200): Response
+    {
+        return mensagemSucesso(pegarPropriedadeDaEntity($votacaoEntity, lista: [
+            'titulo', 'texto', 'tipo', 'voto_unico', 'data_inicio', 'data_final',
+            'publicado', 'bloqueado', 'status_votacao', 'identificar_usuario', 'status'
+        ]), $status);
+    }
+
+    /**
+     * @param Request $request
+     *
+     * @return Response
+     * @throws Excecao
+     */
+    public function getListar(Request $request): Response
+    {
+        $VotacaoModel = new DadoModel();
+        $VotacaoModel->set(lista: $request->dado());
+        return mensagemSucesso($VotacaoModel->listarDados());
+    }
+
+    /**
+     * @param Request $request
+     *
+     * @return Response
+     * @throws Excecao
+     */
     public function postSalvar(Request $request): Response
     {
         $dado = $request->dado();
         if (!$request->vazio('texto')) {
             $dado['texto'] = $request->getPost('texto', html: false);
         }
-        $Votacao = new DadoEntity();
-        $Votacao->set(lista: $dado);
-        $Votacao->salvar();
-
-        return $this->retornoPadrao(Votacao: $Votacao, status: 201);
+        $VotacaoEntity = new DadoEntity();
+        $VotacaoEntity->set(lista: $dado);
+        $VotacaoEntity->salvar();
+        return $this->retornoPadrao($VotacaoEntity, 201);
     }
 
-    private function retornoPadrao(DadoEntity $Votacao, int $status): Response
-    {
-        return mensagemSucesso(
-            dado: pegarPropriedadeDaEntity(
-                Entity: $Votacao,
-                lista: [
-                    'titulo', 'texto', 'tipo', 'voto_unico', 'data_inicio', 'data_final',
-                    'publicado', 'bloqueado', 'status_votacao', 'identificar_usuario', 'status'
-                ]
-            ),
-            status: $status
-        );
-    }
-
+    /**
+     * @param Request $request
+     * @param string  $id
+     *
+     * @return Response
+     * @throws Excecao
+     */
     public function putAtualizar(Request $request, string $id): Response
     {
         $dado = $request->dado();
@@ -76,20 +100,30 @@ final class DadoController extends Controller implements
         $Votacao->uuid($id);
         $Votacao->set(lista: $dado);
         $Votacao->salvar();
-
         return new Response(status: 204);
     }
 
+    /**
+     * @param string $id
+     *
+     * @return Response
+     * @throws Excecao
+     */
     public function deleteDeletar(string $id): Response
     {
-        $Votacao = new DadoEntity();
-        $Votacao->uuid($id);
-        $Votacao->destruir();
-
+        $VotacaoEntity = new DadoEntity();
+        $VotacaoEntity->uuid($id);
+        $VotacaoEntity->destruir();
         return new Response(status: 204);
     }
 
-    public function postCancelar(Request $request)
+    /**
+     * @param Request $request
+     *
+     * @return Response
+     * @throws Excecao
+     */
+    public function postCancelar(Request $request): Response
     {
         new CancelarModel($request->id);
         return mensagemSucesso([
@@ -97,19 +131,30 @@ final class DadoController extends Controller implements
         ]);
     }
 
-    public function postBloquear(Request $request)
+    /**
+     * @param Request $request
+     *
+     * @return Response
+     * @throws Excecao
+     */
+    public function postBloquear(Request $request): Response
     {
-        $Votacao = new DadoEntity();
-        $Votacao->uuid($request->id);
-        $Votacao->bloqueado = new Botao(Botao::SIM);
-        $Votacao->salvar();
-
+        $VotacaoEntity = new DadoEntity();
+        $VotacaoEntity->uuid($request->id);
+        $VotacaoEntity->bloqueado = new Botao(Botao::SIM);
+        $VotacaoEntity->salvar();
         return mensagemSucesso([
-            'id' => $Votacao->id
+            'id' => $VotacaoEntity->id
         ]);
     }
 
-    public function postResultado(Request $request)
+    /**
+     * @param Request $request
+     *
+     * @return Response
+     * @throws Excecao
+     */
+    public function postResultado(Request $request): Response
     {
         $Resultado = new RetornoModel($request->id);
         return mensagemSucesso($Resultado->retorno);

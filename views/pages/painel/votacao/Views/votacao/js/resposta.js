@@ -12,7 +12,6 @@ window.addEventListener('load', () => {
 
     const inputRespostaTitulo = $('input[name="resposta_titulo"]');
     const inputRespostaTexto = $('input[name="resposta_texto"]');
-    const inputRespostaEscrever = $('input[name="resposta_escrever"]');
     const inputRespostaNulo = $('input[name="resposta_bloqueada"]');
 
     let pergunta = '';
@@ -39,7 +38,7 @@ window.addEventListener('load', () => {
                 quantidade: 40,
                 id: listaIdResposta,
             },
-            'Ocorreu um erro ao ordenar respostas.'
+            'Ocorreu um erro ao ordenar respostas.',
         );
     };
     new DragDrop()
@@ -67,7 +66,7 @@ window.addEventListener('load', () => {
                 pagina: 1,
                 quantidade: 40,
             },
-            'Ocorreu um erro ao listar respostas, recarregue a página e tente novamente.'
+            'Ocorreu um erro ao listar respostas, recarregue a página e tente novamente.',
         );
 
         blocoRespostaLoading.sumir();
@@ -109,7 +108,7 @@ window.addEventListener('load', () => {
         const requisicao = await ajaxPost(
             LINK + '/app/ajax/votacao',
             pegarBodySalvar(),
-            'Erro ao salvar resposta, por favor, tente novamente.'
+            'Erro ao salvar resposta, por favor, tente novamente.',
         );
         Loading.hide();
 
@@ -136,8 +135,8 @@ window.addEventListener('load', () => {
             titulo: inputRespostaTitulo.valor(),
             texto: inputRespostaTexto.valor(),
             /* eslint-disable */
-            escrever_voto: inputRespostaNulo.checked ? 'sim' : 'nao',
-            voto_nulo: inputRespostaEscrever.checked ? 'sim' : 'nao',
+            escrever_voto: 'nao',
+            voto_nulo: inputRespostaNulo.checked ? 'sim' : 'nao',
             /* eslint-enable */
         };
 
@@ -176,7 +175,7 @@ window.addEventListener('load', () => {
                 indice: 'resposta-buscar',
                 id,
             },
-            'Erro ao buscar resposta.'
+            'Erro ao buscar resposta.',
         );
         Loading.hide();
         if (false === resposta) {
@@ -195,7 +194,7 @@ window.addEventListener('load', () => {
             !(await Alerta.confirmar(
                 'Deletar resposta',
                 'Tem certeza que deseja deletar essa resposta? Essa ação não poderá ser desfeita.',
-                '!'
+                '!',
             ))
         ) {
             return;
@@ -208,7 +207,7 @@ window.addEventListener('load', () => {
                 indice: 'resposta-deletar',
                 id,
             },
-            'Erro ao deletar resposta.'
+            'Erro ao deletar resposta.',
         );
         Loading.hide();
         if (false === requisicao) {
@@ -234,7 +233,6 @@ window.addEventListener('load', () => {
         resposta = item.id;
         inputRespostaTitulo.valor(item.titulo);
         inputRespostaTexto.valor(item.texto);
-        inputRespostaEscrever.valor(item.escrever_voto);
         inputRespostaNulo.valor(item.voto_nulo);
     };
     const resetarResposta = limparHtml => {
@@ -244,7 +242,6 @@ window.addEventListener('load', () => {
         }
         inputRespostaTitulo.valor('');
         inputRespostaTexto.valor('');
-        inputRespostaEscrever.valor(false);
         inputRespostaNulo.valor(false);
     };
     const adicionarHtmlResposta = item => {

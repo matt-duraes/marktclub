@@ -2,16 +2,17 @@
 
 namespace App\Models\Api\UsuarioCliente\Ativar;
 
-use ORM\ORM;
-use Throwable;
-use Modules\Cpf;
-use Erro\Excecao;
-use Helpers\OrmHelper;
+use App\Classes\ConstrutorClube\TipoAtivacao;
 use App\Classes\UsuarioCliente\Hash;
 use App\Classes\UsuarioCliente\Status;
 use App\Classes\UsuarioCliente\TipoUsuario;
-use App\Classes\ConstrutorClube\TipoAtivacao;
 use App\Helpers\Cvs\AtivarHelper as CvsHelper;
+use Erro\Excecao;
+use Helpers\OrmHelper;
+use Modules\Cpf;
+use ORM\ORM;
+use stdClass;
+use Throwable;
 
 final class BuscarModel extends ORM
 {
@@ -19,6 +20,7 @@ final class BuscarModel extends ORM
     private string $erroGeral = 'Não foi possível ativar seu usuário, procure o atendimento para verificar o motivo.';
     private Cpf $cpf;
     private string $hash;
+    private stdClass $usuario;
 
     /**
      * @throws Excecao
@@ -79,16 +81,19 @@ final class BuscarModel extends ORM
      */
     private function buscarUsuario(): void
     {
-        $usuario = $this->pegarUsuarioBase();
-
-        $this->validarUsuario($usuario);
-        $this->criarHash($usuario->id);
-        $this->setarCpf($usuario->cpf);
+        $this->usuario = $this->pegarUsuarioBase();
+        $this->validarUsuario($this->usuario);
+        $this->criarHash($this->usuario->id);
+        $this->setarCpf($this->usuario->cpf);
     }
 
     private function pegarUsuarioBase()
     {
-        $campo = ['id', 'cpf', 'status'];
+        $campo = [
+            'id', 'cpf', 'nome', 'estado_civil', 'email_pessoal',
+            'email_trabalho', 'telefone_celular', 'telefone_fixo',
+            'endereco_cep', 'status'
+        ];
         $empresa = (new OrmHelper(TABELA_COMERCIAL_EMPRESA))->pegarIdPeloUuid($this->empresa);
         $titular = $this->tipoUsuario->indice() === TipoUsuario::TITULAR;
         if ($empresa == 198 && $titular) {
@@ -208,6 +213,14 @@ final class BuscarModel extends ORM
     private function setarCpf(?string $cpf): void
     {
         $this->cpf = new Cpf($cpf);
+    }
+
+    /**
+     * @return stdClass
+     */
+    public function pegarUsuario(): stdClass
+    {
+        return $this->usuario;
     }
 
     /**
