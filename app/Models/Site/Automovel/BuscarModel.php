@@ -33,7 +33,6 @@ final class BuscarModel extends ClubeApiHelper
     }
 
     /**
-     * @return void
      * @throws Excecao
      */
     private function buscarParceiro(): void
@@ -60,7 +59,6 @@ final class BuscarModel extends ClubeApiHelper
     }
 
     /**
-     * @return void
      * @throws Excecao
      */
     private function buscarModelo(): void
@@ -94,7 +92,6 @@ final class BuscarModel extends ClubeApiHelper
     }
 
     /**
-     * @return void
      * @throws Excecao
      */
     public function buscarVersoes(): void

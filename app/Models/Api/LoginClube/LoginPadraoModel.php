@@ -8,8 +8,6 @@ abstract class LoginPadraoModel
 
     abstract protected function buscarUsuarioPeloLoginSenha(): void;
 
-    abstract protected function pegarWhere(): array;
-
     protected function usuarioNaoEncontrado(): void
     {
         mensagemErro(

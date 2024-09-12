@@ -4,6 +4,7 @@ namespace App\Controllers\Api;
 
 use Http\Request;
 use Http\Response;
+use Modules\Botao;
 use Controller\Controller;
 use App\Classes\ApiToken\Tipo;
 use App\Classes\UsuarioCliente\Helper;
@@ -74,7 +75,9 @@ final class LoginController extends Controller
             senha: $request->senha,
             redirectUri: $request->redirect_uri,
             state: $request->state,
-            tipo: new LoginClubeTipo($request->tipo)
+            tipo: new LoginClubeTipo($request->tipo),
+            cadastro: new Botao($request->cadastro),
+            termo: new Botao($request->termo)
         );
 
         return mensagemSucesso([

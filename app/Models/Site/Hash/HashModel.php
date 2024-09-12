@@ -8,7 +8,6 @@ final class HashModel extends ApiHelper
 {
     public string $hash = '';
 
-
     public function __construct(string $tipo)
     {
         parent::__construct(token: true);

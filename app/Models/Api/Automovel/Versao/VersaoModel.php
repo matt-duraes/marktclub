@@ -54,7 +54,6 @@ final class VersaoModel extends ORM implements
     }
 
     /**
-     * @return void
      * @throws Excecao
      */
     private function pegarParceiro(): void
@@ -75,7 +74,6 @@ final class VersaoModel extends ORM implements
     }
 
     /**
-     * @return void
      * @throws Excecao
      */
     private function pegarModelo(): void
