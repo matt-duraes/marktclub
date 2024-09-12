@@ -157,6 +157,9 @@ final class ModeloModel extends ORM implements
         if (!empty($this->parceiro) && !validarUuid($this->parceiro, false)) {
             $where[] = ['url', $this->parceiro];
         }
+        if (!empty($this->parceiro) && validarUuid($this->parceiro, false)) {
+            $where[] = ['uuid', $this->parceiro];
+        }
         if (!$this->publicado->valido()) {
             return $where;
         }
