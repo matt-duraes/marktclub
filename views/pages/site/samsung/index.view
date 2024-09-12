@@ -71,14 +71,10 @@
     </div>
     <div class="bloco_atencao_geral atencao">
         <p>Desconto já aplicado no site de parceria. Não perca tempo, aproveite e boas compras!</p>
-        <p>O e-mail informado no site da Samsung deve ser o mesmo e-mail do seu cadastro.</p>
+        <p class="{!! !empty($email) ? '' : 'display_none' !!}">O e-mail informado no site da Samsung deve ser o mesmo e-mail do seu cadastro.</p>
+        <p class="{!! empty($email) ? '' : 'display_none' !!}">Você não tem e-mail cadastrado, cadastre um e-mail antes de continuar.</p>
     </div>
     <div class="atualizar bloco_titulo_texto">
-
-        <div class="bloco_atencao_geral atencao {!! empty($email) ? '' : 'display_none' !!} zero" id="bloco_email_zero">
-            <p>Você não tem e-mail cadastrado, cadastre um e-mail antes de continuar.</p>
-        </div>
-
         <p class="{!! empty($email) ? 'display_none' : '' !!}" id="bloco_email_lista">
             Seus e-mails cadastrados são:<br>
             <span id="bloco_email_novo">
