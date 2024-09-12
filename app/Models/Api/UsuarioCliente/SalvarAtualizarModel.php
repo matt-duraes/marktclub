@@ -4,6 +4,7 @@ namespace App\Models\Api\UsuarioCliente;
 
 use ORM\ORM;
 use Modules\Cpf;
+use Modules\Data;
 use Modules\Nome;
 use Modules\Email;
 use Status\StatusInterface;
@@ -22,6 +23,7 @@ final class SalvarAtualizarModel extends ORM
     public Email $email_pessoal;
     public Email $email_trabalho;
     public Cpf $cpf;
+    public Data $data_termo;
     public Status $status;
 
     public const CADASTRAR_USUARIO = 'cadastrar-usuario';
@@ -119,14 +121,19 @@ final class SalvarAtualizarModel extends ORM
         if (!array_key_exists('status', $dado) || !in_array($dado['status'], [1, 2])) {
             $dado['status'] = 2;
         }
+        if ($this->pExiste('data_termo') && $this->data_termo->valido()) {
+            $dado['data_termo'] = $this->data_termo;
+        }
+
         $dado['id_admin_empresa'] = $this->empresa;
         $salvar = $this
             ->dado($dado)
             ->insert();
+
         if (!empty($salvar)) {
+            $this->id = $salvar['id'];
             return;
         }
-        $this->id = $salvar['id'];
         mensagemErro('Erro!', 'Ocorreu um erro ao atualizar o usuário, por favor, tente novamente.');
     }
 

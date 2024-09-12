@@ -846,7 +846,7 @@ Route
             ::nome('loginClube')
             ::middleware(TokenMiddleware::class, 'scope', ['login:clube'])
             ::criptografia(['login', 'senha'])
-            ::request(['login', 'senha', 'scope', 'redirect_uri', 'state', 'tipo'])
+            ::request(['login', 'senha', 'scope', 'redirect_uri', 'state', 'tipo', '!cadastro', '!termo'])
             ::post('/login/clube');
         Route
             ::nome('loginHash')

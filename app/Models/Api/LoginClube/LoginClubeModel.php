@@ -4,6 +4,7 @@ namespace App\Models\Api\LoginClube;
 
 use stdClass;
 use Http\Request;
+use Modules\Botao;
 use App\Classes\LoginClube\Tipo;
 use App\Models\Api\ApiToken\PayloadModel;
 use App\Classes\ApiToken\Tipo as TokenTipo;
@@ -34,7 +35,9 @@ final class LoginClubeModel
         private ?string $redirectUri = null,
         private ?string $state = null,
         private ?string $hash = null,
-        private Tipo $tipo = new Tipo(null)
+        private Tipo $tipo = new Tipo(null),
+        private Botao $cadastro = new Botao(null),
+        private Botao $termo = new Botao(null)
     ) {
         $this->listaUriHomologacao = env('API_REDIRECT_URI_HOMOLOGACAO', []);
         $this->pegarConstrutor();
@@ -66,16 +69,19 @@ final class LoginClubeModel
 
     private function fazerLogin()
     {
-        if ($this->idEmpresa == 153) {
+        if ($this->idEmpresa == 153) { // FENAE
+            return;
+        } elseif ($this->idEmpresa == 2114 && $this->tipo == Tipo::TITULAR) { // CLUBE POUPY
+            $this->Usuario = (new LoginClubePoupyModel(
+                login: soNumero($this->login),
+                senha: $this->senha,
+                empresa: $this->idEmpresa,
+                cadastro: $this->cadastro,
+                termo: new Botao($this->termo)
+            ))->Usuario;
             return;
         }
-        // elseif ($this->idEmpresa == 2009 and $this->tipo->indice() == Tipo::TITULAR) {
-        //     $this->Usuario = (new LoginGeapModel(
-        //         login: $this->login,
-        //         senha: $this->senha
-        //     ))->Usuario;
-        //     return;
-        // }
+
         $this->Usuario = (new LoginMarktClubModel(
             login: $this->login,
             senha: $this->senha,

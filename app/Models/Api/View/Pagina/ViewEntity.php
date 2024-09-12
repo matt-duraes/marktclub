@@ -14,7 +14,6 @@ final class ViewEntity extends Entity
         url|URL|obrigatorio|vazio
         html|HTML|obrigatorio|vazio
     ';
-
     public string $titulo;
     public string $url;
     public array $html;
