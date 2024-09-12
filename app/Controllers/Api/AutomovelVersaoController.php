@@ -47,13 +47,10 @@ class AutomovelVersaoController extends Controller implements
      */
     private function retornoSucesso(VersaoEntity $Versao, int $status = 200): Response
     {
-        return mensagemSucesso(
-            pegarPropriedadeDaEntity($Versao, lista: [
-                'titulo', 'imagem', 'imagemUrl', 'cor', 'valor_de', 'valor_por', 'status',
-                'data_criacao', 'data_atualizacao'
-            ]),
-            $status
-        );
+        return mensagemSucesso(pegarPropriedadeDaEntity($Versao, lista: [
+            'titulo', 'imagem', 'imagemUrl', 'cor', 'valor_de', 'valor_por',
+            'status', 'data_criacao', 'data_atualizacao'
+        ]), $status);
     }
 
     /**
@@ -65,12 +62,12 @@ class AutomovelVersaoController extends Controller implements
     public function getListar(Request $request): Response
     {
         $Versao = new VersaoModel(
-            new Pagina($request->pagina),
-            new Quantidade($request->quantidade),
-            new Ordem($request->ordem),
-            $request->parceiro,
-            $request->modelo,
-            new Status($request->status)
+            new Pagina($request->getJson('pagina')),
+            new Quantidade($request->getJson('quantidade')),
+            new Ordem($request->getJson('ordem')),
+            $request->getJson('parceiro'),
+            $request->getJson('modelo'),
+            new Status($request->getJson('status'))
         );
         return mensagemSucesso($Versao->listarDados());
     }
