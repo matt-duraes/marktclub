@@ -3,12 +3,10 @@
 namespace App\Models\Api\UsuarioCliente\Hash;
 
 use ORM\ORM;
-use stdClass;
 
 final class SalvarModel extends ORM
 {
     protected string $ormTabela = TABELA_USUARIO_CLIENTE;
-
     private string $hash;
     public array $retorno;
 
@@ -22,7 +20,7 @@ final class SalvarModel extends ORM
 
         $this->retorno = [
             'id'     => uuid(),
-            'hash' => $this->hash
+            'hash'   => $this->hash
         ];
     }
 

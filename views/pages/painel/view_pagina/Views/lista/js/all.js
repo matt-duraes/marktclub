@@ -128,7 +128,7 @@ window.addEventListener('load', () => {
         if (item.status == 'sim') {
             $('.status', clone).classe('ativo', true);
         }
-        if (typeof item['lista'] === 'object') {
+        if (typeof item['lista'] === 'object' && Object.keys(item['lista']).length > 0) {
             const blocoNovo = $('.lista', clone);
             blocoNovo.aparecer();
             for (const [chave, itemNovo] of Object.entries(item['lista'])) {
