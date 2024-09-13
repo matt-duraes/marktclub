@@ -20,7 +20,7 @@ final class BuscarModel extends ORM
     private string $erroGeral = 'Não foi possível ativar seu usuário, procure o atendimento para verificar o motivo.';
     private Cpf $cpf;
     private string $hash;
-    private stdClass $usuario;
+    private stdClass|array $usuario;
 
     /**
      * @throws Excecao
