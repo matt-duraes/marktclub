@@ -30,7 +30,6 @@ trait MontarRetornoTrait
                 'desconto'        => $desconto,
                 'imagem_logo'     => arquivoPrivado($r->imagem_logo),
                 'url'             => $r->url,
-                'app'             => $r->app,
                 'tipo_loja'       => $tipo,
                 'data_criacao'    => $r->data_criacao,
                 'data_publicacao' => $r->data_publicacao,

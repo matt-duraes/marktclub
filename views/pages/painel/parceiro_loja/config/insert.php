@@ -49,8 +49,7 @@ $Painel->coluna(callback: function () use ($Painel) {
                 placeholder: 'Escolha um tipo de loja',
                 lista: (new TipoLoja())->select('Escolha uma opção')
             )
-            ->uri(name: 'url', label: 'URI do clube', placeholder: 'URI do clube', class: 'bloco_uri_normal')
-            ->uri(name: 'app', label: 'Página no APP', placeholder: 'Página do APP', class: 'bloco_uri_pagina display_none')
+            ->uri(name: 'url', label: 'URI do clube', placeholder: 'URI do clube')
             ->switch(name: 'convenio_direto', label: 'É um convênio direto?');
     });
 

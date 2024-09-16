@@ -2,10 +2,10 @@
 
 namespace App\Models\Api\ParceiroLoja\Trait;
 
+use Where\Where;
+use Helpers\OrmHelper;
 use App\Classes\ParceiroLoja\TipoLoja;
 use App\Models\Api\ParceiroLoja\MaisAcessadoModel;
-use Helpers\OrmHelper;
-use Where\Where;
 
 trait WhereTrait
 {

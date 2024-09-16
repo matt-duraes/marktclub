@@ -91,7 +91,7 @@ final class ParceiroLojaController extends Controller implements
                     'titulo_interno', 'tipo_loja', 'equipe', 'responsavel_nome', 'responsavel_cpf',
                     'responsavel_email', 'responsavel_telefone', 'responsavel_cargo', 'imagem_logo',
                     'imagem_capa_desktop', 'imagem_capa_mobile', 'titulo', 'tipo_estabelecimento', 'origem_lead',
-                    'url', 'app', 'delivery', 'convenio_direto', 'data_contrato_inicio', 'data_contrato_vencimento',
+                    'url', 'delivery', 'convenio_direto', 'data_contrato_inicio', 'data_contrato_vencimento',
                     'precisa_aditivo', 'data_auditoria', 'email_contato', 'tipo_procedimento', 'limite_voucher',
                     'prazo_voucher', 'prazo_voucher_fixo', 'contato_whatsapp', 'link_site', 'link_alias',
                     'link_bloqueado', 'texto_descricao', 'texto_desconto', 'texto_procedimento', 'texto_voucher',
