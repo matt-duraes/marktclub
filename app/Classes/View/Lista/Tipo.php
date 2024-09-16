@@ -14,6 +14,7 @@ final class Tipo extends StatusStatus
     public const TITULO = 'titulo';
     public const SUBTITULO = 'subtitulo';
     public const BOTAO = 'botao';
+    public const BOTAO_EMPRESA = 'botao-empresa';
     public const BOTAO_DESTAQUE = 'botao-destaque';
     public const CAMPANHA = 'campanha';
     public const LINHA = 'linha';
@@ -33,6 +34,7 @@ final class Tipo extends StatusStatus
             self::TITULO         => 'Titulo',
             self::SUBTITULO      => 'Subtitulo',
             self::BOTAO          => 'Botão',
+            self::BOTAO_EMPRESA => 'Botão empresa',
             self::BOTAO_DESTAQUE => 'Botão em destaque',
             self::CAMPANHA       => 'Campanha',
             self::LINHA          => 'Linha',

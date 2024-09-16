@@ -1343,3 +1343,51 @@ body.fw_body_hidden
         display: flex
     .fw_form_indice_valor_lista .fw_form_indice_valor_linha p
         width: 180px
+
+
+.fw_form_select_input_tag
+    flexRow()
+    flex-wrap: wrap
+    .fw_form_select_input_tag_botao
+        width: 80px
+        height: 45px
+        line-height: 45px
+        border-radius: 25px
+        bgDegradeVerde()
+        textoFontSize()
+        color: #FFF
+        padding: 0 20px
+        margin: 20px 0 0 10px
+        cursor: pointer
+        text-align: center
+    .fw_form_select_input_tag_lista
+        width: 100%
+        flexCol()
+        margin-top: 10px
+    .fw_form_select_input_tag_lista .fw_form_select_input_tag_linha
+        width: 100%
+        flexRow()
+        align-items: center
+        border: 1px solid #ddd
+        border-bottom: none
+        &:last-child
+            border-bottom: 1px solid #ddd
+    .fw_form_select_input_tag_lista .fw_form_select_input_tag_linha .fw_form_select_input_tag_indice
+        width: 100px
+        border-right: 1px solid #ddd
+    .fw_form_select_input_tag_lista .fw_form_select_input_tag_linha .fw_form_select_input_tag_valor
+        width: calc(100% - 100px)
+    .fw_form_select_input_tag_lista .fw_form_select_input_tag_linha .fw_form_select_input_tag_indice
+    .fw_form_select_input_tag_lista .fw_form_select_input_tag_linha .fw_form_select_input_tag_valor
+        padding: 5px 10px
+        texto()
+    .fw_form_select_input_tag_lista .fw_form_select_input_tag_linha .fw_form_select_input_tag_remover
+        width: 20px
+        height: 20px
+        background-color: $deletar
+        fill: #FFF
+        cursor: pointer
+        flexCenter()
+        background-color: #ff6c60
+        border-radius: 4px
+        margin: 0 10px
