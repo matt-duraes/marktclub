@@ -6,6 +6,7 @@ use Http\Request;
 use Http\Response;
 use Modules\Quantidade;
 use Controller\Controller;
+use App\Classes\ParceiroLoja\Ordem;
 use App\Classes\ParceiroLoja\TipoLoja;
 use App\Classes\ParceiroLoja\Categoria;
 use App\Models\Api\ParceiroLoja\LojaModel;
@@ -52,7 +53,8 @@ final class ParceiroLojaController extends Controller implements
         $Parceiro = new DestaqueModel(
             categoria: new Categoria($request->categoria),
             subcategoria: $request->subcategoria,
-            quantidade: new Quantidade($request->quantidade)
+            quantidade: new Quantidade($request->quantidade),
+            ordem: new Ordem($request->ordem)
         );
         return mensagemSucesso($Parceiro->listarDados());
     }

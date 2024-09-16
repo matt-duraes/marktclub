@@ -35,7 +35,6 @@ final class ValidarModel extends ORM
     }
 
     /**
-     * @return void
      * @throws Excecao
      */
     private function validarCampo(): void
@@ -46,7 +45,6 @@ final class ValidarModel extends ORM
     }
 
     /**
-     * @return void
      */
     private function setarId(): void
     {
@@ -55,7 +53,6 @@ final class ValidarModel extends ORM
     }
 
     /**
-     * @return void
      * @throws Excecao
      */
     private function buscar(): void
