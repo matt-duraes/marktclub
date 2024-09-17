@@ -1446,7 +1446,7 @@ Route
         Route
             ::nome('destaque')
             ::middleware(TokenMiddleware::class, 'scope', ['parceiro_loja:destaque'])
-            ::request(['categoria', 'subcategoria', 'quantidade'], 'json')
+            ::request(['categoria', 'subcategoria', 'quantidade', '!ordem'], 'json')
             ::get('/parceiro-loja/destaque');
         Route
             ::nome('relacionado')
