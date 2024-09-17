@@ -159,13 +159,19 @@ const manipularRetornoLoja = (bloco, parceiro) => {
     listaFake.forEach(item => {
         item.remove();
     });
+
     if (carregarMapa) {
+        verificarWebView();
         carregarPontoMapa(parceiro.mapa);
     }
     parceiro.lista.forEach(item => {
         adicionarParceiro(bloco, item, tipo);
     });
     bloco.insertAdjacentHTML('beforeend', `<div class="article_fake"></div><div class="article_fake"></div>`);
+};
+
+const removerMenuWebView = () => {
+    document.querySelector('#bloco_especial').classList.add('display_none');
 };
 
 window.addEventListener('load', () => {
@@ -271,6 +277,14 @@ window.addEventListener('load', () => {
         buscarParceiro();
     });
 });
+
+const verificarWebView = () => {
+    let userAgent = navigator.userAgent || navigator.vendor || window.opera;
+    let expressaoValidadora = /wv|WebView|iPhone|iPod|iPad|Android/.test(userAgent);
+    if (expressaoValidadora == true) {
+        removerMenuWebView();
+    }
+};
 
 const carregarPontoMapa = async loja => {
     const { AdvancedMarkerElement } = await google.maps.importLibrary('marker');
