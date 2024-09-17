@@ -2,11 +2,11 @@
 
 namespace PainelController;
 
-use Http\Request;
-use Http\Response;
+use Controller\Controller;
 use Helpers\ApiHelper;
 use Helpers\DataHelper;
-use Controller\Controller;
+use Http\Request;
+use Http\Response;
 
 final class HistoricoController extends Controller
 {
@@ -76,39 +76,6 @@ final class HistoricoController extends Controller
         ]);
     }
 
-    public function postDownload(Request $request)
-    {
-        $Api = new ApiHelper(token: true);
-
-        $payload = [
-            'campo' => [
-                'usuario_nome',
-                'mensagem',
-                'data_criacao',
-                'parceiro_nome'
-            ],
-            'app'           => 'painel_historico',
-            'usuario'       => sessao('USUARIO.id'),
-            'data_de'       => $request->data_de,
-            'data_ate'      => $request->data_ate,
-            'relacionado'   => $request->relacionado,
-            'historico_app' => $request->app,
-            'pesquisa'      => $request->pesquisa
-        ];
-        $dado = $Api
-            ->validar('Ocorreu um erro ao salvar o seu pedido, por favor, tente novamente.')
-            ->body([
-                'payload' => base64Encode($payload),
-                'tipo'    => 'download.privado'
-            ])
-            ->post('/mensageria')
-            ->array();
-
-        return mensagemSucesso([
-            'id' => $dado['dado']['id']
-        ], 201);
-    }
-
     private function montarDado(array $dado): array
     {
         $retorno = [];
@@ -140,9 +107,42 @@ final class HistoricoController extends Controller
                 'minha_mensagem' => $r->minha_mensagem,
                 'mensagem'       => nl2br($mensagem),
                 'arquivo'        => $r->arquivo,
-                'hora'           => $DataHelper->valor($r->data_criacao)->formato('H:i')
+                'hora'           => $DataHelper->valor($r->data_criacao)->formato('d/m/Y H:i')
             ];
         }
         return $retorno;
+    }
+
+    public function postDownload(Request $request)
+    {
+        $Api = new ApiHelper(token: true);
+
+        $payload = [
+            'campo'         => [
+                'usuario_nome',
+                'mensagem',
+                'data_criacao',
+                'parceiro_nome'
+            ],
+            'app'           => 'painel_historico',
+            'usuario'       => sessao('USUARIO.id'),
+            'data_de'       => $request->data_de,
+            'data_ate'      => $request->data_ate,
+            'relacionado'   => $request->relacionado,
+            'historico_app' => $request->app,
+            'pesquisa'      => $request->pesquisa
+        ];
+        $dado = $Api
+            ->validar('Ocorreu um erro ao salvar o seu pedido, por favor, tente novamente.')
+            ->body([
+                'payload' => base64Encode($payload),
+                'tipo'    => 'download.privado'
+            ])
+            ->post('/mensageria')
+            ->array();
+
+        return mensagemSucesso([
+            'id' => $dado['dado']['id']
+        ], 201);
     }
 }
