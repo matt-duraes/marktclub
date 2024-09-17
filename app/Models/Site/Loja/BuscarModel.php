@@ -2,11 +2,11 @@
 
 namespace App\Models\Site\Loja;
 
-use stdClass;
-use Helpers\MarkdownHelper;
-use App\Helpers\ClubeApiHelper;
 use App\Classes\ParceiroLoja\Status;
 use App\Classes\ParceiroLoja\TipoLoja;
+use App\Helpers\ClubeApiHelper;
+use Helpers\MarkdownHelper;
+use stdClass;
 
 final class BuscarModel extends ClubeApiHelper
 {
@@ -29,17 +29,6 @@ final class BuscarModel extends ClubeApiHelper
         return $this->montarRetorno($dado->dado);
     }
 
-    /**
-     * Busca o parceiro samsung do clube especifico e retorna apenas o link
-     * do arquivo
-     *
-     */
-    public function buscarSamsung()
-    {
-        $dado = $this->get('/parceiro-loja/' . $this->url)->object();
-        return $dado->dado->arquivo_clube ?? '';
-    }
-
     private function montarRetorno($r): stdClass
     {
         $tipo = (new TipoLoja($r->tipo_loja))->indice();
@@ -58,7 +47,7 @@ final class BuscarModel extends ClubeApiHelper
             'procedimento'       => $r->tipo_procedimento,
             'capa_desktop'       => $r->imagem_capa_desktop,
             'capa_mobile'        => $r->imagem_capa_mobile,
-            'link'               => $this->gerarLink($tipo, $r->link_site),
+            'link'               => $this->gerarLink($tipo, $r->link_integracao),
             'url'                => $r->url,
             'desconto'           => $r->desconto,
             'comissao'           => $r->comissao_minima,
@@ -72,10 +61,13 @@ final class BuscarModel extends ClubeApiHelper
 
     private function gerarLink(string $tipo, string $link = null)
     {
-        if ($tipo != TipoLoja::CASHBACK || empty($link)) {
-            return $link;
+        if (empty($link)) {
+            return '';
         }
-        return $link . '&clickref=' . sessao('USUARIO.id');
+        if ($tipo == TipoLoja::CASHBACK) {
+            return $link . '&clickref=' . sessao('USUARIO.id');
+        }
+        return $link;
     }
 
     private function buscarArquivo($tipo, $arquivo): array
@@ -103,5 +95,16 @@ final class BuscarModel extends ClubeApiHelper
             ];
         }
         return $retorno;
+    }
+
+    /**
+     * Busca o parceiro samsung do clube especifico e retorna apenas o link
+     * do arquivo
+     *
+     */
+    public function buscarSamsung()
+    {
+        $dado = $this->get('/parceiro-loja/' . $this->url)->object();
+        return $dado->dado->arquivo_clube ?? '';
     }
 }
