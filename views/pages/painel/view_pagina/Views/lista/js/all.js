@@ -4,7 +4,8 @@ window.addEventListener('load', () => {
     const inputLimpar = $$(`
         #input_local, #input_titulo_interno, #input_titulo, #input_texto,
         #input_link, #input_target, #input_status, #input_api_status, #input_api_uri,
-        #input_api_metodo, .bloco_api_body .input_geral, #input_id, #input_margem
+        #input_api_metodo, .bloco_api_body .input_geral, #input_id, #input_margem,
+        #input_link_empresa
     `);
 
     const id = $('#input_visualizar_id').valor();
@@ -16,6 +17,7 @@ window.addEventListener('load', () => {
     const inputTitulo = $('#input_titulo');
     const inputTexto = $('#input_texto');
     const inputLink = $('#input_link');
+    const inputLinkEmpresa = $('#input_link_empresa');
     const inputTarget = $('#input_target');
     const inputDivDirecao = $('#input_div_direcao');
     const inputDivPosicao = $('#input_div_posicao');
@@ -42,6 +44,7 @@ window.addEventListener('load', () => {
     const blocoTitulo = $('.bloco_titulo');
     const blocoTexto = $('.bloco_texto');
     const blocoLink = $('.bloco_link');
+    const blocoLinkTag = $('.bloco_link_tag');
     const blocoMargem = $('.bloco_margem');
     const blocoTarget = $('.bloco_target');
     const blocoDivPosicao = $('.bloco_div_posicao');
@@ -79,6 +82,7 @@ window.addEventListener('load', () => {
         inputTitulo.valor(item.titulo || '');
         inputTexto.valor(item.texto || '');
         inputLink.valor(item.link || '');
+        inputLinkEmpresa.valor(item.link_empresa || '');
         inputTarget.valor(item.target || '');
         inputDivDirecao.valor(item.div_direcao || '');
         inputDivPosicao.valor(item.div_posicao || '');
@@ -166,6 +170,7 @@ window.addEventListener('load', () => {
             margem: inputMargem.valor(),
             status: inputStatus.valor(),
             /* eslint-disable */
+            link_empresa: inputLinkEmpresa.valor(),
             div_direcao: inputDivDirecao.valor(),
             div_posicao: inputDivPosicao.valor(),
             titulo_interno: tituloInterno,
@@ -189,7 +194,7 @@ window.addEventListener('load', () => {
 
     const validarDadoPopup = tipo => {
         return new Promise(resolve => {
-            const apiStatus = inputApiStatus.valor();
+            const apiStatus = inputApiStatus.valor() == 'sim';
 
             let mensagem = '';
             if (vazio(tipo)) {
@@ -324,6 +329,10 @@ window.addEventListener('load', () => {
             blocoTitulo.aparecer();
             blocoLink.aparecer();
             blocoTarget.aparecer();
+        } else if (valor == 'botao-empresa') {
+            blocoTitulo.aparecer();
+            blocoLinkTag.aparecer();
+            blocoTarget.aparecer();
         } else if (valor == 'margem') {
             blocoMargem.aparecer();
         } else if (valor == 'div') {
@@ -335,6 +344,7 @@ window.addEventListener('load', () => {
         blocoTitulo.sumir();
         blocoTexto.sumir();
         blocoLink.sumir();
+        blocoLinkTag.sumir();
         blocoTarget.sumir();
         blocoDivPosicao.sumir();
         blocoDivDirecao.sumir();

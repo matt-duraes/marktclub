@@ -21,5 +21,9 @@ class LoadingSistema {
         if (typeof fwFormArquivoLoading === 'function') {
             fwFormArquivoLoading(bloco);
         }
+        // FORM SELECT INPUT TAG
+        if (typeof fwFormSelectInputTagLoading === 'function') {
+            fwFormSelectInputTagLoading(bloco);
+        }
     }
 }

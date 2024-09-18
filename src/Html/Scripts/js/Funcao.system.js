@@ -156,8 +156,22 @@ Object.defineProperty(Object.prototype, 'valor', {
         }
 
         let retorno = [];
-        for (item of elemento) {
-            if (valor == undefined) {
+        for (const item of elemento) {
+            if (valor == undefined && item.classList.contains('fw_form_select_input_tag')) {
+                const listaTag = $$('.fw_form_select_input_tag_linha', item);
+                const retornoTag = {};
+                for (const itemTag of listaTag) {
+                    const indiceTag = $('.fw_form_select_input_tag_indice', itemTag).attr('data-id');
+                    const valorTag = $('.fw_form_select_input_tag_valor', itemTag).texto();
+                    retornoTag[indiceTag] = valorTag;
+                }
+                retorno.push(retornoTag);
+                continue;
+            } else if (valor == undefined && item.classList.contains('input_url')) {
+                const valorTemp = item.value;
+                retorno.push(valorTemp == '' ? '' : 'https://' + valorTemp);
+                continue;
+            } else if (valor == undefined) {
                 retorno.push(item.value);
                 continue;
             }

@@ -2231,21 +2231,21 @@ if (!function_exists('formSelectInpuTag')) {
         string $input,
         array $value = [],
         string $class = '',
-        array $id = []
+        string $id = ''
     ) {
-        $blocoId = empty($id) ? 'id_' . md5(uniqid(time())) : $id;
+        $blocoId = empty($id) ? md5(uniqid(time())) : $id;
         $valorHtml = '';
         foreach ($value as $ind => $val) {
-            $valorHtml = '
+            $valorHtml .= '
                 <div class="fw_form_select_input_tag_linha">
                     <div class="fw_form_select_input_tag_indice">' . $ind . '</div>
                     <div class="fw_form_select_input_tag_valor">' . $val . '</div>
-                    <i class="fw_form_select_input_tag_remover">@iconeFechar(8)</i>
+                    <i class="fw_form_select_input_tag_remover"> ' . iconeFechar(8) . '</i>
                 </div>
             ';
         }
-        $html = '
-            <div class="fw_form_select_input_tag ' . $class . '" ' . $blocoId . '>
+        return '
+            <div class="fw_form_select_input_tag ' . $class . '" id="' . $blocoId . '">
                 ' . $select . '
                 ' . $input . '
                 <div class="fw_form_select_input_tag_botao">Add</div>
@@ -2254,53 +2254,5 @@ if (!function_exists('formSelectInpuTag')) {
                 </div>
             </div>
         ';
-        // ;
-        // $blocoClass = empty($class) ? '' : $class;
-        // if ($ordem) {
-        //     $blocoClass .= ' fw_form_indice_valor_ordenar';
-        // }
-        // if ($obrigatorio) {
-        //     $blocoClass .= ' fw_form_input_obrigatorio';
-        // }
-
-        // $place1 = $placeholder[0] ?? 'Digite um indice';
-        // $place2 = $placeholder[1] ?? 'Digite um valor';
-        // $listaValor = '';
-        // foreach ($value as $r) {
-        //     $ind = $r[0] ?? '';
-        //     $val = $r[1] ?? '';
-        //     $listaValor .= '
-        //         <div class="fw_form_indice_valor_linha">
-        //             <div class="fw_form_indice_valor_ordem">' . iconeDrag(8) . '</div>
-        //             <p><strong class="fw_form_indice_valor_indice">' . $ind . '</strong></p>
-        //             <p class="fw_form_indice_valor_valor"> ' . $val . ' </p>
-        //             <i class="fw_form_indice_valor_remover">' . iconeFechar(8) . '</i>
-        //         </div>
-        //     ';
-        // }
-        // return '
-        //     <div class="fw_form_indice_valor ' . $blocoClass . '" id="' . $blocoId . '" data-name="' . $name . '">
-        //         <div class="bloco_input input_input bloco_separador">
-        //             <input class="input_geral input_separador_1" type="text" autocomplete="off" placeholder="' . $place1 . '">
-        //             <span class="input_separador_2"><p>|</p></span>
-        //             <input class="input_geral input_separador_3" type="text" autocomplete="off" placeholder="' . $place2 . '">
-        //             <div class="borda"></div>
-        //             <i class="input_icone_erro"></i>
-        //             <div class="bloco_input_footer"><div class="input_mensagem"></div></div>
-        //         </div>
-        //         <div class="fw_form_indice_valor_botao">Add</div>
-        //         <div class="fw_form_indice_valor_lista">
-        //             ' . $listaValor . '
-        //         </div>
-        //         <div class="display_none">
-        //             <div class="fw_form_indice_valor_linha fw_form_indice_valor_linha_padrao">
-        //                 <div class="fw_form_indice_valor_ordem">' . iconeDrag(8) . '</div>
-        //                 <p><strong class="fw_form_indice_valor_indice"></strong></p>
-        //                 <p class="fw_form_indice_valor_valor"></p>
-        //                 <i class="fw_form_indice_valor_remover">' . iconeFechar(8) . '</i>
-        //             </div>
-        //         </div>
-        //     </div>
-        // ';
     }
 }
