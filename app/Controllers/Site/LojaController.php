@@ -82,12 +82,8 @@ final class LojaController extends Controller
         $Dado = new BuscarModel(url: $url);
         $dado = $Dado->buscarDados();
 
-        if ($this->verificaSeSamsung($dado->id)) {
-            return new Response(url: route('samsung.index'));
-        } elseif ($dado->id == '48381d99-672c-4f49-be01-4114e9876ffb' && MENU_SAUDE) {
-            return new Response(url: route('planosaude.index'));
-        } elseif ($dado->id == '48381d99-672c-4f49-be01-4114e9876ffb') {
-            mensagemStatus(404);
+        if ($dado->tipo == TipoLoja::PAGINA) {
+            return new Response(url: LINK . $dado->url);
         }
 
         return view('loja.detalhe', [
@@ -96,17 +92,6 @@ final class LojaController extends Controller
             'tipo'         => $dado->tipo,
             'procedimento' => new TipoProcedimento()
         ]);
-    }
-
-    private function verificaSeSamsung(string $uuid)
-    {
-        return in_array(
-            $uuid,
-            [
-                '56e660e57971ece155e37a9a86bd32b7', '6857d871f6f0f11b5b866872f0612b99',
-                '53e78ad604c8df17b89d3f38921c66d4'
-            ]
-        );
     }
 
     public function postRelacionado(Request $request)

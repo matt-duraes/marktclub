@@ -140,7 +140,7 @@ class DownloadModel extends ORM
     }
 
     /**
-     * @param string $usuario
+     * @param  string $usuario
      * @return array
      */
     private function pegarPermissoesUsuario(string $usuario): array

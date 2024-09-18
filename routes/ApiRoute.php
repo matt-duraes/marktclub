@@ -846,7 +846,7 @@ Route
             ::nome('loginClube')
             ::middleware(TokenMiddleware::class, 'scope', ['login:clube'])
             ::criptografia(['login', 'senha'])
-            ::request(['login', 'senha', 'scope', 'redirect_uri', 'state', 'tipo'])
+            ::request(['login', 'senha', 'scope', 'redirect_uri', 'state', 'tipo', '!cadastro', '!termo'])
             ::post('/login/clube');
         Route
             ::nome('loginHash')
@@ -1399,7 +1399,7 @@ Route
             ::nome('salvar')
             ::request([
                 'equipe', 'titulo_interno', 'tipo_loja', 'categoria_principal', 'convenio_direto', 'responsavel_nome',
-                'responsavel_cpf', 'responsavel_email', 'responsavel_telefone', 'responsavel_cargo', 'url', 'app',
+                'responsavel_cpf', 'responsavel_email', 'responsavel_telefone', 'responsavel_cargo', 'url',
                 '!nome_fantasia', '!razao_social', '!tipo_juridico', '!documento_cpf', '!documento_cnpj',
                 '!imagem_logo',
                 '!imagem_capa_desktop', '!imagem_capa_mobile', '!titulo', '!tipo_estabelecimento', '!origem_lead',
@@ -1420,7 +1420,7 @@ Route
                 '!titulo_interno', '!tipo_loja', '!equipe', '!responsavel_nome', '!responsavel_cpf',
                 '!responsavel_email',
                 '!responsavel_telefone', '!responsavel_cargo', '!imagem_logo', '!imagem_capa_desktop',
-                '!imagem_capa_mobile', '!titulo', '!tipo_estabelecimento', '!origem_lead', '!url', '!app', '!desconto',
+                '!imagem_capa_mobile', '!titulo', '!tipo_estabelecimento', '!origem_lead', '!url', '!desconto',
                 '!delivery', '!convenio_direto', '!data_contrato_inicio', '!data_contrato_vencimento',
                 '!precisa_aditivo',
                 '!email_contato', '!tipo_procedimento', '!limite_voucher', '!prazo_voucher', '!prazo_voucher_fixo',

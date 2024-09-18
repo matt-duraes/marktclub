@@ -89,8 +89,8 @@ final class ClienteEntity extends Entity
     protected string $ormTabela = TABELA_USUARIO_CLIENTE;
 
     /**
-     * @param null|Request $request Request para salvar um novo usuário
-     * @param bool $validarToken Se vai validar o token e a empresa
+     * @param null|Request $request      Request para salvar um novo usuário
+     * @param bool         $validarToken Se vai validar o token e a empresa
      *
      * @throws Excecao
      */

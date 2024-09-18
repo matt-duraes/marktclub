@@ -106,19 +106,4 @@ window.addEventListener('load', () => {
         blocoConfirmarTexto.sumir();
     };
     mudarConfirmarTexto();
-
-    if (inputTipoLoja) {
-        const blocoUriNormal = $('.bloco_uri_normal');
-        const blocoUriPagina = $('.bloco_uri_pagina');
-        inputTipoLoja.evento('formChange', () => {
-            const valor = inputTipoLoja.valor();
-            if (valor == 'pagina') {
-                blocoUriNormal.sumir();
-                blocoUriPagina.aparecer();
-                return;
-            }
-            blocoUriNormal.aparecer();
-            blocoUriPagina.sumir();
-        });
-    }
 });

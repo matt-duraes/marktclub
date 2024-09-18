@@ -20,7 +20,6 @@ trait ValidarRequestListar
     ];
 
     /**
-     * @return void
      * @throws Excecao
      */
     protected function validarRequestListar(): void

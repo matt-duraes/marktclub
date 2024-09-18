@@ -142,7 +142,7 @@ final class ModeloEntity extends Entity
         $this->procedimento = new TipoProcedimento($Parceiro['tipo_procedimento'] ?? '');
         $this->texto_procedimento = $Parceiro['texto_procedimento'] ?? '';
         $this->parceiro = [
-            'id' => $Parceiro['uuid'],
+            'id'     => $Parceiro['uuid'],
             'titulo' => $Parceiro['titulo']
         ];
     }
