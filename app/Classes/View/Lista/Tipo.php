@@ -34,7 +34,7 @@ final class Tipo extends StatusStatus
             self::TITULO         => 'Titulo',
             self::SUBTITULO      => 'Subtitulo',
             self::BOTAO          => 'Botão',
-            self::BOTAO_EMPRESA => 'Botão empresa',
+            self::BOTAO_EMPRESA  => 'Botão empresa',
             self::BOTAO_DESTAQUE => 'Botão em destaque',
             self::CAMPANHA       => 'Campanha',
             self::LINHA          => 'Linha',
