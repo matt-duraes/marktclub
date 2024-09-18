@@ -260,6 +260,7 @@ function pegarListaImports(conteudo, path) {
                 retorno.push('src/Html/Scripts/js/Form.tag.js');
                 retorno.push('src/Html/Scripts/js/Form.select.js');
                 retorno.push('src/Html/Scripts/js/Form.cor.js');
+                retorno.push('src/Html/Scripts/js/Form.selectinputtag.js');
             } else if (arquivo == 'src/Html/Scripts/js/DragDrop.system.js') {
                 retorno.push('src/Html/Scripts/js/DragDrop.interno.js');
             } else if (arquivo == 'src/Html/Scripts/js/Alerta.system.js') {

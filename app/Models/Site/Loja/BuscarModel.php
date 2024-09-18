@@ -61,13 +61,19 @@ final class BuscarModel extends ClubeApiHelper
 
     private function gerarLink(string $tipo, string $link = null)
     {
-        if (empty($link)) {
-            return '';
+        if ($tipo == TipoLoja::CASHBACK && empty($link)) {
+            $link .= '&clickref=' . sessao('USUARIO.id');
         }
-        if ($tipo == TipoLoja::CASHBACK) {
-            return $link . '&clickref=' . sessao('USUARIO.id');
-        }
-        return $link;
+        return str_replace(
+            [
+                'http://clube.marktclub.com.br',
+                'https://clube.marktclub.com.br',
+                'http://clube.youhuul.com.br',
+                'https://clube.youhuul.com.br',
+            ],
+            LINK,
+            $link
+        );
     }
 
     private function buscarArquivo($tipo, $arquivo): array

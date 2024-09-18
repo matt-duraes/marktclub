@@ -14,6 +14,7 @@ abstract class GeralModel extends ORM
         'data_inicio', 'data_final', 'imagem_grande', 'imagem_pequena', 'url', 'status',
         'autor_noticia', 'fonte_noticia', 'fonte_link'
     ];
+
     protected string $ormTabela = TABELA_PUBLICACAO_NOTICIA;
 
     protected function montardado($lista)

@@ -43,7 +43,6 @@ trait PropriedadeTrait
     public TipoEstabelecimento $tipo_estabelecimento;
     public int $pontuacao;
     public string $url;
-    public string $app;
     public Botao $delivery;
     public Botao $convenio_direto;
     public Data $data_contrato_inicio;

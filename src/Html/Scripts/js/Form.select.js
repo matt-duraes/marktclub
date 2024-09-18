@@ -6,6 +6,10 @@ let fwFormSelectAbertoAtual, fwFormSelectListaTexto, fwFormSelectValorAtual;
 const fwFormBlocoGeralSelect = document.getElementById('fw_form_select');
 
 const formValue = (input, valor, obrigatorio) => {
+    if (input.classList.contains('fw_form_select_input_tag')) {
+        fwFormValueSelectInputTagValor(input, valor);
+        return;
+    }
     obrigatorio = obrigatorio == undefined ? false : true;
     const bloco = input.closest('.bloco_input, .bloco_editor');
     const eInput = typeof input === 'object' && input.tagName === 'INPUT';
@@ -52,6 +56,7 @@ const formValue = (input, valor, obrigatorio) => {
         input.style.height = input.scrollHeight < 45 ? 45 + 'px' : input.scrollHeight + 'px';
     }
 };
+
 /**
  * Mudar o valor do select
  *

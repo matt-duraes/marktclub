@@ -9,7 +9,7 @@ return [
         'titulo_interno', 'tipo_loja', 'equipe', 'responsavel_nome', 'responsavel_cpf', 'responsavel_email',
         'responsavel_telefone', 'responsavel_cargo', 'destaque', 'endereco_estado', 'pontuacao',
         'imagem_logo', 'imagem_capa_desktop', 'imagem_capa_mobile', 'titulo', 'tipo_estabelecimento', 'origem_lead',
-        'url', 'app', 'delivery', 'data_contrato_inicio', 'data_contrato_vencimento', 'precisa_aditivo', 'desconto',
+        'url', 'delivery', 'data_contrato_inicio', 'data_contrato_vencimento', 'precisa_aditivo', 'desconto',
         'email_contato', 'tipo_procedimento', 'limite_voucher', 'prazo_voucher', 'prazo_voucher_fixo',
         'contato_whatsapp', 'link_site', 'link_alias', 'link_bloqueado', 'texto_descricao', 'texto_desconto',
         'texto_procedimento', 'texto_voucher', 'texto_restricao', 'texto_outro', 'categoria_principal',

@@ -2224,3 +2224,35 @@ if (!function_exists('formIndiceValor')) {
         ';
     }
 }
+
+if (!function_exists('formSelectInpuTag')) {
+    function formSelectInputTag(
+        string $select,
+        string $input,
+        array $value = [],
+        string $class = '',
+        string $id = ''
+    ) {
+        $blocoId = empty($id) ? md5(uniqid(time())) : $id;
+        $valorHtml = '';
+        foreach ($value as $ind => $val) {
+            $valorHtml .= '
+                <div class="fw_form_select_input_tag_linha">
+                    <div class="fw_form_select_input_tag_indice">' . $ind . '</div>
+                    <div class="fw_form_select_input_tag_valor">' . $val . '</div>
+                    <i class="fw_form_select_input_tag_remover"> ' . iconeFechar(8) . '</i>
+                </div>
+            ';
+        }
+        return '
+            <div class="fw_form_select_input_tag ' . $class . '" id="' . $blocoId . '">
+                ' . $select . '
+                ' . $input . '
+                <div class="fw_form_select_input_tag_botao">Add</div>
+                <div class="fw_form_select_input_tag_lista">
+                ' . $valorHtml . '
+                </div>
+            </div>
+        ';
+    }
+}

@@ -48,7 +48,6 @@ final class SalvarModel extends ORM
     }
 
     /**
-     * @return void
      * @throws Excecao
      */
     private function validarVotacaoExiste(): void
@@ -59,7 +58,6 @@ final class SalvarModel extends ORM
     }
 
     /**
-     * @return void
      * @throws Excecao
      */
     private function verificarVotacaoPublicada(): void
@@ -87,7 +85,6 @@ final class SalvarModel extends ORM
     }
 
     /**
-     * @return void
      * @throws Excecao
      */
     private function validarDados(): void
@@ -109,7 +106,6 @@ final class SalvarModel extends ORM
     }
 
     /**
-     * @return void
      * @throws Excecao
      */
     private function salvarVoto(): void
@@ -144,7 +140,6 @@ final class SalvarModel extends ORM
      * @param int|string $idPergunta
      * @param array|null $idResposta
      *
-     * @return void
      * @throws Excecao
      */
     private function validarPerguntaObrigatoria(
@@ -190,7 +185,6 @@ final class SalvarModel extends ORM
      * @param OrmHelper  $ormHelper
      * @param int|string $idResposta
      *
-     * @return void
      * @throws Excecao
      */
     private function validarRespostaBloqueada(
