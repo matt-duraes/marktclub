@@ -12,7 +12,7 @@ final class LinkSiteModel
         private LojaEntity $Loja
     ) {
         $this->link = $Loja->link_site;
-        if ($Loja->id == '814b9d1792724316417c96b8fc33aacb') {
+        if (in_array($Loja->id, ['814b9d1792724316417c96b8fc33aacb', '62be1dcb9faaa2bfd139b91646a34f0e'])) {
             $this->link = 'https://api.marktclub.net.br/integracao/link/' . $this->criarHash();
         } elseif ($Loja->id == '75f36834053439727abd97d4003af9cc') {
             $this->link = LINK . '/solicitacao-link/confirmar/' . $this->criarHashOld();
@@ -51,10 +51,10 @@ final class LinkSiteModel
                 'limite' => $this->Loja->limite_voucher,
                 'link'   => $this->Loja->link_site
             ],
-            'usuario' => TOKEN['usuario']->id,
-            'empresa' => TOKEN['empresa']->id,
-            'data'    => dataAdicionar(agora(), 5, 'minutos', 'Y-m-d H:i:s'),
-            'clube'   => [
+            'usuario'  => TOKEN['usuario']->id,
+            'empresa'  => TOKEN['empresa']->id,
+            'data'     => dataAdicionar(agora(), 5, 'minutos', 'Y-m-d H:i:s'),
+            'clube'    => [
                 'id'         => $clube->uuid,
                 'titulo'     => $clube->titulo,
                 'cor'        => $clube->cor_principal,
