@@ -3,6 +3,7 @@
 namespace App\Controllers\Api;
 
 use App\Classes\ParceiroLoja\Categoria;
+use App\Classes\ParceiroLoja\Ordem;
 use App\Classes\ParceiroLoja\TipoLoja;
 use App\Models\Api\ParceiroLoja\Auditoria\OptionModel;
 use App\Models\Api\ParceiroLoja\Auditoria\SalvarModel;
