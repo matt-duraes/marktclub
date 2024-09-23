@@ -29,11 +29,13 @@
             <div class="bloco_logo">
                 <button class="menu_mobile" id="menu_principal">@iconeMenu</button>
                 @ if( EMPRESA_SLUG != 'marktclub' && sessao('USUARIO.empresa')->id ?? '' == '14afa776394ada4be23be6acf7e3259e'):
-                <div class="nome" data-ajuda="{{EMPRESA_NOME}}">{{EMPRESA_NOME}}</div>
+                    <div class="nome" data-ajuda="{{EMPRESA_NOME}}">{{EMPRESA_NOME}}</div>
                 @ else:
-                <a href="@LINK"><figure class="logo"><img src="{!!LINK_PADRAO!!}/images/painel/logo.png" alt="LOGO"></figure></a>
+                    <a href="@LINK"><figure class="logo"><img src="{!!LINK_PADRAO!!}/images/painel/logo.png" alt="LOGO"></figure></a>
                 @ endif;
-                <h1 id="painel_local_acesso">{{AMBIENTE_ACESSO}}</h1>
+                @if(AMBIENTE_ACESSO != ''):
+                    <h1 id="painel_local_acesso">{{AMBIENTE_ACESSO}}</h1>
+                @endif;
             </div>
             <div class="bloco_app">
                 <h1>{!!$appTitulo!!}</h1>
