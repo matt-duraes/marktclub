@@ -84,78 +84,73 @@
                 </div>
             @endif;
         @endif;
-        <div class="bloco_extrato">
-            <h1>ACOMPANHE SEUS EXTRATOS</h1>
-            <div class="bloco_tab_geral bloco_procedimento">
-                <div class="bloco_botao">
-                    <button class="botao ativo" data-id="bloco_nome_01">
-                        <span class="texto_inativo">Compra</span>
-                        <span class="texto_ativo">Compra</span>
-                    </button>
-                    <button class="botao" data-id="bloco_nome_02">
-                        <span class="texto_inativo">Saque</span>
-                        <span class="texto_ativo">Saque</span>
-                    </button>
-                </div>
-
-                <div id="bloco_nome_01" class="conteudo">
-                    <div class="bloco_tabela_geral">
-                        <table>
-                            <thead>
-                                <tr>
-                                    <th>Empresa Parceira</th>
-                                    <th>Valor da Compra</th>
-                                    <th>Pontos Adquiridos</th>
-                                    <th>Status</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                            @if(!empty($extratoCompra)):
-                                @foreach ($extratoCompra as $r) :
-                                <tr>
-                                    <td>{{$r->parceiro}}</td>
-                                    <td>R$ {{$r->valor_compra}}</td>
-                                    <td>{{$r->pontuacao}}</td>
-                                    <td class="cashback_status">
-                                        {{$r->status}}
-                                    </td>
-                                </tr>
-                                @endforeach
-                            @else:
-                                <tr class="vazio">
-                                    <td colspan="12">SEM EXTRATO NO MOMENTO</td>
-                                </tr>
-                            @endif;
-                            </tbody>
-                        </table>
-                    </div>
-                </div>
-                <div id="bloco_nome_02" class="conteudo display_none">
-                    <div class="bloco_tabela_geral">
-                        <table>
-                            <thead>
-                                <tr>
-                                    <th>Pontos Trocados</th>
-                                    <th>Status</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                            @if(!empty($extratoSaque)):
-                                @foreach ($extratoSaque as $r):
-                                    <tr>
-                                        <td>{{$r->saque->pontuacao}}</td>
-                                        <td class="cashback_status">{{$r->status}}</td>
-                                    </tr>
-                                @endforeach
-                            @else
-                            <tr class="vazio">
-                                <td colspan="12">SEM EXTRATO NO MOMENTO</td>
+        <div class="bloco_tab_geral bloco_procedimento">
+            <div class="bloco_botao">
+                <button class="botao ativo" data-id="bloco_nome_01">
+                    <span class="texto_inativo">Compra</span>
+                    <span class="texto_ativo">Compra</span>
+                </button>
+                <button class="botao" data-id="bloco_nome_02">
+                    <span class="texto_inativo">Saque</span>
+                    <span class="texto_ativo">Saque</span>
+                </button>
+            </div>
+        <div id="bloco_nome_01" class="conteudo">
+            <div class="bloco_tabela_geral">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Empresa Parceira</th>
+                            <th>Valor da Compra</th>
+                            <th>Pontos Adquiridos</th>
+                            <th>Status</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                    @if(!empty($extratoCompra)):
+                        @foreach ($extratoCompra as $r) :
+                        <tr>
+                            <td>{{$r->parceiro}}</td>
+                            <td>R$ {{$r->valor_compra}}</td>
+                            <td>{{$r->pontuacao}}</td>
+                            <td class="cashback_status">
+                                {{$r->status}}
+                            </td>
+                        </tr>
+                        @endforeach
+                    @else:
+                        <tr class="vazio">
+                            <td colspan="12">SEM EXTRATO NO MOMENTO</td>
+                        </tr>
+                    @endif;
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <div id="bloco_nome_02" class="conteudo display_none">
+            <div class="bloco_tabela_geral">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Pontos Trocados</th>
+                            <th>Status</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                    @if(!empty($extratoSaque)):
+                        @foreach ($extratoSaque as $r):
+                            <tr>
+                                <td>{{$r->saque->pontuacao}}</td>
+                                <td class="cashback_status">{{$r->status}}</td>
                             </tr>
-                            @endif
-                            </tbody>
-                        </table>
-                    </div>
-                </div>
+                        @endforeach
+                    @else
+                    <tr class="vazio">
+                        <td colspan="12">SEM EXTRATO NO MOMENTO</td>
+                    </tr>
+                    @endif
+                    </tbody>
+                </table>
             </div>
         </div>
     </div>
