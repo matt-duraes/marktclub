@@ -39,7 +39,7 @@ $scope = [
 
     'relatorio_loja_venda:listar',
 
-    'login:painel', 'login:api', 'login:clube', 'login:token', 'login:digio',
+    'login:painel', 'login:api', 'login:clube', 'login:token', 'login:digio', 'login:naval',
 
     'admin:chave_publica', 'admin:chave_privada', 'admin:permissao', 'admin:configuracao',
     'admin:upload_grupo', 'admin:menu', 'admin:campo_obrigatorio', 'admin:campo_permitido',
