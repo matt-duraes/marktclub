@@ -33,6 +33,7 @@
                 @ else:
                 <a href="@LINK"><figure class="logo"><img src="{!!LINK_PADRAO!!}/images/painel/logo.png" alt="LOGO"></figure></a>
                 @ endif;
+                <h1 id="painel_local_acesso">{{AMBIENTE_ACESSO}}</h1>
             </div>
             <div class="bloco_app">
                 <h1>{!!$appTitulo!!}</h1>
