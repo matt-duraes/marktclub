@@ -33,21 +33,21 @@ class AutomovelVersaoController extends Controller implements
      */
     public function getBuscar(string $id): Response
     {
-        $Versao = new VersaoEntity();
-        $Versao->uuid($id);
-        return $this->retornoSucesso($Versao);
+        $VersaoEntity = new VersaoEntity();
+        $VersaoEntity->uuid($id);
+        return $this->retornoSucesso($VersaoEntity);
     }
 
     /**
-     * @param VersaoEntity $Versao
+     * @param VersaoEntity $versaoEntity
      * @param int          $status
      *
      * @return Response
      * @throws Excecao
      */
-    private function retornoSucesso(VersaoEntity $Versao, int $status = 200): Response
+    private function retornoSucesso(VersaoEntity $versaoEntity, int $status = 200): Response
     {
-        return mensagemSucesso(pegarPropriedadeDaEntity($Versao, lista: [
+        return mensagemSucesso(pegarPropriedadeDaEntity($versaoEntity, lista: [
             'titulo', 'imagem', 'imagemUrl', 'cor', 'valor_de', 'valor_por',
             'status', 'data_criacao', 'data_atualizacao'
         ]), $status);
@@ -61,15 +61,15 @@ class AutomovelVersaoController extends Controller implements
      */
     public function getListar(Request $request): Response
     {
-        $Versao = new VersaoModel(
-            new Pagina($request->getJson('pagina')),
-            new Quantidade($request->getJson('quantidade')),
-            new Ordem($request->getJson('ordem')),
-            $request->getJson('parceiro'),
-            $request->getJson('modelo'),
-            new Status($request->getJson('status'))
+        $VersaoModel = new VersaoModel(
+            new Pagina($request->pagina),
+            new Quantidade($request->quantidade),
+            new Ordem($request->ordem),
+            $request->parceiro,
+            $request->modelo,
+            new Status($request->status)
         );
-        return mensagemSucesso($Versao->listarDados());
+        return mensagemSucesso($VersaoModel->listarDados());
     }
 
     /**
@@ -80,10 +80,10 @@ class AutomovelVersaoController extends Controller implements
      */
     public function postSalvar(Request $request): Response
     {
-        $Versao = new VersaoEntity();
-        $Versao->set(lista: $request->dado());
-        $Versao->salvar();
-        return $this->retornoSucesso($Versao, 201);
+        $VersaoEntity = new VersaoEntity();
+        $VersaoEntity->set(lista: $request->dado());
+        $VersaoEntity->salvar();
+        return $this->retornoSucesso($VersaoEntity, 201);
     }
 
     /**
@@ -95,10 +95,10 @@ class AutomovelVersaoController extends Controller implements
      */
     public function putAtualizar(Request $request, string $id): Response
     {
-        $Versao = new VersaoEntity();
-        $Versao->uuid($id);
-        $Versao->set(lista: $request->dado());
-        $Versao->salvar();
+        $VersaoEntity = new VersaoEntity();
+        $VersaoEntity->uuid($id);
+        $VersaoEntity->set(lista: $request->dado());
+        $VersaoEntity->salvar();
         return new Response(status: 204);
     }
 
@@ -110,9 +110,9 @@ class AutomovelVersaoController extends Controller implements
      */
     public function deleteDeletar(string $id): Response
     {
-        $Versao = new VersaoEntity();
-        $Versao->uuid($id);
-        $Versao->destruir();
+        $VersaoEntity = new VersaoEntity();
+        $VersaoEntity->uuid($id);
+        $VersaoEntity->destruir();
         return new Response(status: 204);
     }
 }
