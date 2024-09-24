@@ -19,7 +19,7 @@ const blocoMapa = $('#bloco_loja_mapa');
 const blocoCarregarMais = $('#bloco_carregar_mais');
 const botaoAtualizar = $('#botao_atualizar_mapa');
 const blocoPrevia = $('#bloco_parceiro_previa');
-const blocoPreviaFechar = $('#bloco_parceiro_previa .fechar');
+const blocoPreviaFechar = $$('#bloco_parceiro_previa .fechar');
 const blocoPreviaFigure = $('#bloco_parceiro_previa figure');
 const blocoPreviaTitulo = $('#bloco_parceiro_previa h1');
 const blocoPreviaDesconto = $('#bloco_parceiro_previa .desconto');
@@ -327,7 +327,9 @@ const fecharPreviaMapa = () => {
     }, 300);
 };
 if (blocoPreviaFechar) {
-    blocoPreviaFechar.addEventListener('click', () => {
-        fecharPreviaMapa();
+    blocoPreviaFechar.forEach(element => {
+        element.addEventListener('click', () => {
+            fecharPreviaMapa();
+        });
     });
 }
