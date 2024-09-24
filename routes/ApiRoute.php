@@ -884,6 +884,12 @@ Route
             ::post('/login/digio');
 
         Route
+            ::nome('loginNaval')
+            ::middleware(TokenMiddleware::class, 'scope', ['login:naval'])
+            ::request(['login', 'senha'])
+            ::post('/login/naval');
+
+        Route
             ::nome('loginToken')
             ::middleware(TokenMiddleware::class, 'scope', ['login:token'])
             ::request(['clube', 'usuario'])
