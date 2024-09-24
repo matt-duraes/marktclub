@@ -90,6 +90,8 @@ final class AuthMiddleware
             $titulo = 'DEV';
         }
 
-        define('AMBIENTE_ACESSO', $titulo);
+        if(!defined('AMBIENTE_ACESSO')) {
+            define('AMBIENTE_ACESSO', $titulo);
+        }
     }
 }

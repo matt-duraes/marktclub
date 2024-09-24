@@ -24,6 +24,7 @@ final class RelatorioController extends Controller
 
     public function usuario()
     {
+        $this->validarAmbiente();
         return view(arquivo: 'painel.relatorio.usuario', var: [
             'appTitulo' => 'Relatório de usuário',
             'app'       => 'relatorio-usuario',
@@ -35,6 +36,8 @@ final class RelatorioController extends Controller
 
     public function lojaVenda()
     {
+        $this->validarAmbiente();
+
         return view(arquivo: 'painel.relatorio.venda', var: [
             'appTitulo'         => 'Relatório de venda',
             'app'               => 'relatorio-loja-venda',
@@ -66,6 +69,23 @@ final class RelatorioController extends Controller
         return in_array($app . '_parceiro', $usuarioPermissao) && sessao('EMPRESA.id') == '14afa776394ada4be23be6acf7e3259e';
     }
 
+    private function validarAmbiente()
+    {
+        $titulo = '';
+        $url = (new Request())->url();
+        if (strpos($url, 'painelhmlprod') !== false) {
+            $titulo = 'HMLPROD';
+        } else if (strpos($url, 'painelhml') !== false) {
+            $titulo = 'HML';
+        } else if (strpos($url, 'localhost') !== false) {
+            $titulo = 'DEV';
+        }
+
+        if(!defined('AMBIENTE_ACESSO')) {
+            define('AMBIENTE_ACESSO', $titulo);
+        }
+
+    }
     /*
     |--------------------------------------------------------------------------
     | GRAFICO DE ACESSO
