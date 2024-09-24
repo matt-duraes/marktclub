@@ -411,8 +411,11 @@ body.body_scroll_hidden #bloco_loja_mapa .parceiro_previa
 @media screen and (max-width: 425px)
     #bloco_parceiro_previa .conteudo
         flex-direction: column
-        figure
-            text-align: center
+        .bloco_imagem_mobile_mapa
+            display: flex
+            flex-direction: row
+            justify-content: space-between
+            margin-bottom: 20px
         .dado
             padding: 0px
             header

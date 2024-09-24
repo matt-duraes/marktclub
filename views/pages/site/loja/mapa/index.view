@@ -23,11 +23,14 @@
 </div>
 <div class="parceiro_previa display_none" id="bloco_parceiro_previa">
     <div class="conteudo">
-        <figure></figure>
+        <div class="bloco_imagem_mobile_mapa">
+            <figure></figure>
+            <i class="fechar mobile">@iconeFechar</i>
+        </div>
         <div class="dado">
             <header>
                 <h1></h1>
-                <i class="fechar">@iconeFechar</i>
+                <i class="fechar desktop">@iconeFechar</i>
             </header>
             <p class="desconto"></p>
             <a href="">Acessar loja</a>
