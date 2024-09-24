@@ -161,7 +161,6 @@ const manipularRetornoLoja = (bloco, parceiro) => {
     });
 
     if (carregarMapa) {
-        verificarWebView();
         carregarPontoMapa(parceiro.mapa);
     }
     parceiro.lista.forEach(item => {
