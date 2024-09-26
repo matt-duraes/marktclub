@@ -2,16 +2,16 @@
 
 namespace App\Models\Api\Analytics;
 
-use ORM\ORM;
+use App\Classes\UsuarioCliente\TipoUsuario;
+use App\Models\Api\Analytics\Trait\WhereTrait;
+use App\Models\Api\Trait\ValidarEmpresaTrait;
+use App\Models\Api\UsuarioCliente\ClienteEntity;
+use Helpers\CryptHelper;
 use Http\Request;
 use Modules\Data;
-use Helpers\CryptHelper;
+use ORM\ORM;
 use System\Trait\Model\PaginaTrait;
 use System\Trait\Model\QuantidadeTrait;
-use App\Classes\UsuarioCliente\TipoUsuario;
-use App\Models\Api\Trait\ValidarEmpresaTrait;
-use App\Models\Api\Analytics\Trait\WhereTrait;
-use App\Models\Api\UsuarioCliente\ClienteEntity;
 
 final class AnalyticsModel extends ORM
 {
@@ -21,17 +21,57 @@ final class AnalyticsModel extends ORM
     use QuantidadeTrait;
 
     protected string $ormTabela = TABELA_ANALYTICS;
-    private int $idEmpresa;
-    private ?int $idUsuario = null;
+    //private int $idEmpresa;
+    //private ?int $idUsuario = null;
 
     public function __construct(
         private Request $request
     ) {
         parent::__construct();
         $this->validarEmpresa('empresa');
+        $this->validarSubempresa();
         $this->validarRequest();
         $this->setarUsuarioSeExistir($request->usuario);
     }
+
+    private function validarRequest()
+    {
+        $de = new Data($this->request->de);
+        $ate = new Data($this->request->ate);
+        $pagina = $this->request->pagina;
+        $diasDiferenca = dataDiferencaDia($de->date(), $ate->date());
+
+        if ($de->vazio() && (!$ate->vazio() || empty($pagina))) {
+            mensagemErro('Data obrigatória!', 'A data de começo da busca é obrigatória.');
+        } elseif (!$de->vazio() && !$de->valido()) {
+            mensagemErro('Data inválida!', 'A data de começo da busca não está em um formato válido.');
+        } elseif ($ate->vazio() && (!$de->vazio() || empty($pagina))) {
+            mensagemErro('Data obrigatória!', 'A data final da busca é obrigatória.');
+        } elseif (!$ate->vazio() && !$ate->valido()) {
+            mensagemErro('Data inválida!', 'A data final da busca não está em um formato válido.');
+        } elseif (!$de->vazio() && $diasDiferenca > 7) {
+            mensagemErro('Datas inválidas!', 'Você deve fazer uma busca com no máximo 7 dias de diferênça.');
+        } elseif ($ate->date() < $de->date()) {
+            mensagemErro('Datas inválidas!', 'A data final da busca deve ser maior ou igual a data de começo.');
+        }
+    }
+
+    private function setarUsuarioSeExistir(?string $usuario)
+    {
+        if (empty($usuario)) {
+            return;
+        }
+
+        $Cliente = new ClienteEntity(validarToken: false);
+        $Cliente->uuid($usuario, mensagem: 'Usuario buscado não foi encontrado.');
+        $this->idUsuario = $Cliente->get('id');
+    }
+
+    /*
+    |--------------------------------------------------------------------------
+    | MÉTODOS PRIVADOS
+    |--------------------------------------------------------------------------
+    */
 
     public function pegarRelatorio()
     {
@@ -51,6 +91,18 @@ final class AnalyticsModel extends ORM
 
         $dado = $dado->read();
         return $this->montarRetorno($dado);
+    }
+
+    private function montarWhere()
+    {
+        $where = $this->idEmpresa == 1 ? [] : $this->ormWherePadrao;
+        if (!empty($this->idUsuario)) {
+            $where[] = ['usuario', $this->idUsuario];
+        }
+        if (!empty($this->request->de)) {
+            $where[] = ['data_criacao', 'between', [$this->request->de, $this->request->ate . ' 23:59:59']];
+        }
+        return $where;
     }
 
     private function montarRetorno($dado)
@@ -77,55 +129,5 @@ final class AnalyticsModel extends ORM
         }
 
         return $retorno;
-    }
-
-    /*
-    |--------------------------------------------------------------------------
-    | MÉTODOS PRIVADOS
-    |--------------------------------------------------------------------------
-    */
-    private function setarUsuarioSeExistir(?string $usuario)
-    {
-        if (empty($usuario)) {
-            return;
-        }
-
-        $Cliente = new ClienteEntity(validarToken: false);
-        $Cliente->uuid($usuario, mensagem: 'Usuario buscado não foi encontrado.');
-        $this->idUsuario = $Cliente->get('id');
-    }
-
-    private function validarRequest()
-    {
-        $de = new Data($this->request->de);
-        $ate = new Data($this->request->ate);
-        $pagina = $this->request->pagina;
-        $diasDiferenca = dataDiferencaDia($de->date(), $ate->date());
-
-        if ($de->vazio() && (!$ate->vazio() || empty($pagina))) {
-            mensagemErro('Data obrigatória!', 'A data de começo da busca é obrigatória.');
-        } elseif (!$de->vazio() && !$de->valido()) {
-            mensagemErro('Data inválida!', 'A data de começo da busca não está em um formato válido.');
-        } elseif ($ate->vazio() && (!$de->vazio() || empty($pagina))) {
-            mensagemErro('Data obrigatória!', 'A data final da busca é obrigatória.');
-        } elseif (!$ate->vazio() && !$ate->valido()) {
-            mensagemErro('Data inválida!', 'A data final da busca não está em um formato válido.');
-        } elseif (!$de->vazio() && $diasDiferenca > 7) {
-            mensagemErro('Datas inválidas!', 'Você deve fazer uma busca com no máximo 7 dias de diferênça.');
-        } elseif ($ate->date() < $de->date()) {
-            mensagemErro('Datas inválidas!', 'A data final da busca deve ser maior ou igual a data de começo.');
-        }
-    }
-
-    private function montarWhere()
-    {
-        $where = $this->idEmpresa == 1 ? [] : $this->ormWherePadrao;
-        if (!empty($this->idUsuario)) {
-            $where[] = ['usuario', $this->idUsuario];
-        }
-        if (!empty($this->request->de)) {
-            $where[] = ['data_criacao', 'between', [$this->request->de, $this->request->ate . ' 23:59:59']];
-        }
-        return $where;
     }
 }
