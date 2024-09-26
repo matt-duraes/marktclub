@@ -1,8 +1,10 @@
 @template "site"
+<div class="bloco_buscar_loja {!!$webview ? 'display_none_webview' : ''!!}">
+    @ if( $tipo == 'loja'):
+        @view site/loja/busca/loja/index.view
+    @ endif;
+</div>
 
-@ if( $tipo == 'loja' ):
-@view site/loja/busca/loja/index.view
-@ endif;
 
 @ if($dado):
 <div id="bloco_loja_detalhe" class="bloco_loja_detalhe">
