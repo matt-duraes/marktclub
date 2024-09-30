@@ -6,46 +6,83 @@
 #bloco_sos_mulher
     width: 100%
     max-width: 1130px
-    .atencao
+    .bloco_atencao_geral
         margin-top: 20px
-    .bloco_logo
-        width: 100%
-        flexRow()
-        justify-content: center
-        margin: 30px 0 20px
-    .bloco_logo a
-        blocoShadow()
-        margin: 0 10px
-    .bloco_whatsapp
+
+#bloco_sos_mulher .bloco_quer_conversar
+    blocoShadow()
+    margin: 20px 0px
+    padding-bottom: 20px
+    h1
+        titulo()
+    p
         texto()
-        flexRow()
-        align-items: center
+
+#bloco_sos_mulher .bloco_numeros
+    display: flex
+    margin-top: 20px
+    align-items: center
+    gap: 20px
+    a
+        height: 40px
+        figure img
+            height: 45px
+    .bloco_whatsapp
         background: $corClube
-        border-radius: 4px
+        color: #fff
+        fill: #fff
+        texto()
+        flexCenter()
+        gap: 10px
+        height: 40px
+        width: 220px
+        border-radius: 5px
+        i
+            height: 20px
+
+#bloco_sos_mulher .bloco_orientacao
+    blocoShadow()
+    margin-top: 20px
+    h1
+        titulo()
+        margin-bottom: 5px
+    p
+        texto()
+    .botao_loja
+        background: $corClube
         padding: 10px 20px
         color: #FFF
-        fill: #FFF
-        margin-bottom: 40px
-    .bloco_whatsapp i
-        width: 40px
-        height: 40px
-        flexCenter()
-        margin-right: 15px
-    .bloco_whatsapp p
-        texto()
-        max-width: 350px
-    .botao_loja
-        botaoPadraoDestaque()
-        background: $corClube
-        color: #FFF
-        margin: 30px 0 80px
+        margin-top: 20px
         fill: #FFF
     .botao_loja svg
         margin-right: 10px
+    .botao_encontrar_loja
+        margin-top: 20px
+        background: $corClube
+        color: #fff
+        fill: #fff
+        texto()
+        flexCenter()
+        gap: 10px
+        height: 40px
+        width: 220px
+        border-radius: 5px
+@media screen and (max-width: 425px)
+    #bloco_sos_mulher .bloco_orientacao .botao_encontrar_loja
+        width: 170px
+    #bloco_sos_mulher .bloco_quer_conversar .bloco_numeros
+        flex-wrap: wrap
+        .bloco_whatsapp
+            flex: 1
+    #bloco_sos_mulher .bloco_orientacao .botao_encontrar_loja
+        width: 100%
 
-@media screen and (max-width: 375px)
-    #bloco_sos_mulher .bloco_logo
-        flex-direction: column
-        a
-            margin: 10px 0px
-            text-align: center
+
+@media screen and (max-width: 768px)
+    .bloco_parceiro_header .logo
+        border: 1px solid $corBorda
+    header.bloco_header
+        margin: 0px
+    .bloco_parceiro_header .bloco_header
+        padding: 0px
+        margin: 0px
