@@ -4,6 +4,7 @@ namespace App\Helpers\Painel;
 
 final class ConfiguracoesPadrao
 {
+    public const VERSAO = 'v4.0.0';
     public const RECURSOS = [
         'perfil'      => 'Perfil',
         'agenda'      => 'Agenda',
@@ -377,13 +378,13 @@ final class ConfiguracoesPadrao
                 'parceiro_loja_historico_download' => 'Download do histórico'
             ]
         ],
-        'parceiro_campanha'         => [
+        'parceiro_campanha'        => [
             'titulo'    => 'Parceiro campanha',
             'permissao' => [
-                'parceiro_campanha_index'         => 'Listar',
-                'parceiro_campanha_add'           => 'Salvar',
-                'parceiro_campanha_editar'        => 'Editar',
-                'parceiro_campanha_deletar'       => 'Deletar',
+                'parceiro_campanha_index'   => 'Listar',
+                'parceiro_campanha_add'     => 'Salvar',
+                'parceiro_campanha_editar'  => 'Editar',
+                'parceiro_campanha_deletar' => 'Deletar',
             ]
         ],
         'parceiro_externo'         => [
@@ -719,7 +720,7 @@ final class ConfiguracoesPadrao
                 'site_lotacao_empresa' => 'Todas as Empresas'
             ]
         ],
-        'view_pagina' => [
+        'view_pagina'              => [
             'titulo'    => 'View Página',
             'permissao' => [
                 'view_pagina_index'      => 'Listar',
