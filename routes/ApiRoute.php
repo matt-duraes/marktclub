@@ -770,7 +770,7 @@ Route
         Route
             ::nome('dadoUsuario')
             ::middleware(TokenMiddleware::class, 'scope', ['relatorio_usuario:listar'])
-            ::request(['!empresa'], 'json')
+            ::request(['!empresa', '!subempresa'], 'json')
             ::get('/relatorio/dado-usuario');
 
         Route
