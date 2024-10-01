@@ -407,3 +407,20 @@ body.body_scroll_hidden #bloco_loja_mapa .parceiro_previa
     body.body_scroll_hidden #bloco_loja_mapa .parceiro_previa
         width: calc(100% - 10px)
         right: 10px
+
+@media screen and (max-width: 425px)
+    #bloco_parceiro_previa .conteudo
+        flex-direction: column
+        .bloco_imagem_mobile_mapa
+            display: flex
+            flex-direction: row
+            justify-content: space-between
+            margin-bottom: 20px
+        .dado
+            padding: 0px
+            header
+                align-items: center
+            a
+                width: 100%
+            p
+                margin-top: 5px

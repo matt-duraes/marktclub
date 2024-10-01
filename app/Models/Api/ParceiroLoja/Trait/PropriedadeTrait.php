@@ -2,28 +2,26 @@
 
 namespace App\Models\Api\ParceiroLoja\Trait;
 
-use Modules\Cpf;
-use Modules\Cnpj;
-use Modules\Data;
-use Modules\Nome;
-use Modules\Botao;
-use Modules\Email;
-use Modules\Telefone;
-use Modules\ArquivoPrivado;
-use Modules\ArquivoPrivadoLista;
-use App\Classes\ParceiroLoja\Status;
-use App\Classes\ParceiroLoja\TipoLoja;
+use App\Classes\ParceiroLoja\CancelarMotivo;
 use App\Classes\ParceiroLoja\Categoria;
 use App\Classes\ParceiroLoja\OrigemLead;
-use App\Classes\ParceiroLoja\TipoJuridico;
-use App\Classes\ParceiroLoja\CancelarMotivo;
-use App\Classes\ParceiroLoja\TipoProcedimento;
+use App\Classes\ParceiroLoja\Status;
 use App\Classes\ParceiroLoja\TipoEstabelecimento;
+use App\Classes\ParceiroLoja\TipoJuridico;
+use App\Classes\ParceiroLoja\TipoLoja;
+use App\Classes\ParceiroLoja\TipoProcedimento;
+use Modules\ArquivoPrivado;
+use Modules\ArquivoPrivadoLista;
+use Modules\Botao;
+use Modules\Cnpj;
+use Modules\Cpf;
+use Modules\Data;
+use Modules\Email;
+use Modules\Nome;
+use Modules\Telefone;
 
 trait PropriedadeTrait
 {
-    protected int $id_usuario_equipe;
-    protected array $id_admin_empresa;
     public OrigemLead $origem_lead;
     public string $nome_fantasia;
     public string $razao_social;
@@ -56,6 +54,7 @@ trait PropriedadeTrait
     public int $prazo_voucher;
     public Data $prazo_voucher_fixo;
     public Telefone $contato_whatsapp;
+    public string $link_integracao;
     public string $link_site;
     public array $link_alias;
     public array $link_bloqueado;
@@ -91,4 +90,6 @@ trait PropriedadeTrait
     public Botao $existe_email;
     public Botao $existe_telefone;
     public CancelarMotivo $cancelar_motivo;
+    protected int $id_usuario_equipe;
+    protected array $id_admin_empresa;
 }

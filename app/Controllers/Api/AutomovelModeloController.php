@@ -35,21 +35,21 @@ class AutomovelModeloController extends Controller implements
      */
     public function getBuscar(string $id): Response
     {
-        $Modelo = new ModeloEntity();
-        $Modelo->idSlug($id);
-        return $this->retornoSucesso($Modelo);
+        $ModeloEntity = new ModeloEntity();
+        $ModeloEntity->idSlug($id);
+        return $this->retornoSucesso($ModeloEntity);
     }
 
     /**
-     * @param ModeloEntity $Modelo
+     * @param ModeloEntity $modeloEntity
      * @param int          $status
      *
      * @return Response
      * @throws Excecao
      */
-    private function retornoSucesso(ModeloEntity $Modelo, int $status = 200): Response
+    private function retornoSucesso(ModeloEntity $modeloEntity, int $status = 200): Response
     {
-        return mensagemSucesso(pegarPropriedadeDaEntity($Modelo, lista: [
+        return mensagemSucesso(pegarPropriedadeDaEntity($modeloEntity, lista: [
             'parceiro', 'titulo', 'procedimento', 'texto_procedimento',
             'imagem', 'versao', 'data_inicio', 'data_final', 'url',
             'status', 'data_criacao', 'data_atualizacao'
@@ -64,20 +64,20 @@ class AutomovelModeloController extends Controller implements
      */
     public function getListar(Request $request): Response
     {
-        $Modelo = new ModeloModel(
-            new Pagina($request->getJson('pagina')),
-            new Quantidade($request->getJson('quantidade')),
-            new Ordem($request->getJson('ordem')),
-            $request->getJson('parceiro'),
-            $request->getJson('modelo'),
-            $request->getJson('pesquisa'),
-            $request->getJson('titulo'),
-            new Botao($request->getJson('publicado')),
-            new Data($request->getJson('data_inicio')),
-            new Data($request->getJson('data_final')),
-            new Status($request->getJson('status')),
+        $ModeloModel = new ModeloModel(
+            new Pagina($request->pagina),
+            new Quantidade($request->quantidade),
+            new Ordem($request->ordem),
+            $request->parceiro,
+            $request->modelo,
+            $request->pesquisa,
+            $request->titulo,
+            new Botao($request->publicado),
+            new Data($request->data_inicio),
+            new Data($request->data_final),
+            new Status($request->status)
         );
-        return mensagemSucesso($Modelo->listarDados());
+        return mensagemSucesso($ModeloModel->listarDados());
     }
 
     /**
@@ -88,10 +88,10 @@ class AutomovelModeloController extends Controller implements
      */
     public function postSalvar(Request $request): Response
     {
-        $Modelo = new ModeloEntity();
-        $Modelo->set(lista: $request->dado());
-        $Modelo->salvar();
-        return $this->retornoSucesso($Modelo, 201);
+        $ModeloEntity = new ModeloEntity();
+        $ModeloEntity->set(lista: $request->dado());
+        $ModeloEntity->salvar();
+        return $this->retornoSucesso($ModeloEntity, 201);
     }
 
     /**
@@ -103,10 +103,10 @@ class AutomovelModeloController extends Controller implements
      */
     public function putAtualizar(Request $request, string $id): Response
     {
-        $Modelo = new ModeloEntity();
-        $Modelo->uuid($id);
-        $Modelo->set(lista: $request->dado());
-        $Modelo->salvar();
+        $ModeloEntity = new ModeloEntity();
+        $ModeloEntity->uuid($id);
+        $ModeloEntity->set(lista: $request->dado());
+        $ModeloEntity->salvar();
         return new Response(status: 204);
     }
 
@@ -118,9 +118,9 @@ class AutomovelModeloController extends Controller implements
      */
     public function deleteDeletar(string $id): Response
     {
-        $Modelo = new ModeloEntity();
-        $Modelo->uuid($id);
-        $Modelo->destruir();
+        $ModeloEntity = new ModeloEntity();
+        $ModeloEntity->uuid($id);
+        $ModeloEntity->destruir();
         return new Response(status: 204);
     }
 }

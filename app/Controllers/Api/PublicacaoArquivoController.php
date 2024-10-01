@@ -65,17 +65,17 @@ final class PublicacaoArquivoController extends Controller implements
     public function getListar(Request $request): Response
     {
         $ArquivoModel = new ArquivoModel(
-            new Pagina($request->getJson('pagina')),
-            new Quantidade($request->getJson('quantidade')),
-            new Ordem($request->getJson('ordem')),
-            $request->getJson('pesquisa'),
-            new Tipo($request->getJson('tipo')),
-            new Botao($request->getJson('site')),
-            new Botao($request->getJson('restrita')),
-            new Botao($request->getJson('publicado')),
-            new Data($request->getJson('data_inicio')),
-            new Data($request->getJson('data_final')),
-            new Status($request->getJson('status'))
+            new Pagina($request->pagina),
+            new Quantidade($request->quantidade),
+            new Ordem($request->ordem),
+            $request->pesquisa,
+            new Tipo($request->tipo),
+            new Botao($request->site),
+            new Botao($request->restrita),
+            new Botao($request->publicado),
+            new Data($request->data_inicio),
+            new Data($request->data_final),
+            new Status($request->status)
         );
         return mensagemSucesso($ArquivoModel->listarDados());
     }
@@ -96,7 +96,7 @@ final class PublicacaoArquivoController extends Controller implements
 
     /**
      * @param Request $request
-     * @param string  $id      UUID
+     * @param string  $id UUID
      *
      * @return Response
      * @throws Excecao
