@@ -1006,6 +1006,12 @@
     #bloco_login .bloco_calculadora .container .conteudo form fieldset input
         max-width: 110px
 
+@media screen and (max-width: 320px)
+    #bloco_login .bloco_calculadora .container .conteudo form fieldset
+        flex-direction: column
+        input
+            width: 100%
+            max-width: 100%
 @-webkit-keyframes abrirCalculadora
     from
         max-height: 0px
