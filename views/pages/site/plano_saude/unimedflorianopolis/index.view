@@ -532,7 +532,7 @@
     </div>
     <section class="bloco_simulacao container_scroll">
         <h1>GOSTARIA DE FAZER UMA SIMULAÇÃO?</h1>
-        <p>Faça uma simulação sua e seus dependentes e veja os valores.</p>
+        <p>Faça uma simulação sua e dos seus dependentes e veja os valores.</p>
         @if(TIPO_USUARIO != 'indicado')
             <a class="botao_geral_cor cor_bg" href="@route(planosaude.simulacao)/cnu-florianopolis">Fazer Simulação</a>
         @endif
