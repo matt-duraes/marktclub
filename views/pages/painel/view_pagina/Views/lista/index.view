@@ -62,6 +62,54 @@ $empresa = array_merge([
                         input: formUrl(name: 'link_empresa_url', label: 'Link', placeholder: 'Digite um link', class: 'bloco_link_url')
                     );
                 @end
+                <div class="fw_form_tabela">
+                    <div class="fw_form_tabela_row">
+                        <div class="fw_form_tabela_botao">Adicionar linha</div>
+                        <div class="fw_form_tabela_botao">Adicionar coluna</div>
+                    </div>
+                    <div class="fw_form_tabela_scroll">
+                        <div class="fw_form_tabela_conteudo">
+                            <div class="fw_form_tabela_linha header">
+                                <div class="fw_form_tabela_drag">@iconeDrag</div>
+                                <div class="fw_form_tabela_linha_conteudo">
+                                    <div class="fw_form_tabela_coluna">
+                                        <input placeholder="texto" class="fw_form_tabela_texto" value="Título 01">
+                                        <input class="fw_form_tabela_tamanho" placeholder="000">
+                                    </div>
+                                    <div class="fw_form_tabela_coluna">
+                                        <input placeholder="texto" class="fw_form_tabela_texto" value="Título 02">
+                                        <input class="fw_form_tabela_tamanho" placeholder="000">
+                                    </div>
+                                    <div class="fw_form_tabela_coluna">
+                                        <input placeholder="texto" class="fw_form_tabela_texto" value="Título 03">
+                                        <input class="fw_form_tabela_tamanho" placeholder="000">
+                                    </div>
+                                </div>
+                                <div class="fw_form_tabela_remover">@iconeFechar(8)</div>
+                            </div>
+                            @laco(3)
+                            <div class="fw_form_tabela_linha header">
+                                <div class="fw_form_tabela_drag">@iconeDrag</div>
+                                <div class="fw_form_tabela_linha_conteudo">
+                                    <div class="fw_form_tabela_coluna">
+                                        <input placeholder="texto" class="fw_form_tabela_texto" value="Texto 01">
+                                        <input class="fw_form_tabela_tamanho" placeholder="000">
+                                    </div>
+                                    <div class="fw_form_tabela_coluna">
+                                        <input placeholder="texto" class="fw_form_tabela_texto" value="Texto 02">
+                                        <input class="fw_form_tabela_tamanho" placeholder="000">
+                                    </div>
+                                    <div class="fw_form_tabela_coluna">
+                                        <input placeholder="texto" class="fw_form_tabela_texto" value="Texto 03">
+                                        <input class="fw_form_tabela_tamanho" placeholder="000">
+                                    </div>
+                                </div>
+                                <div class="fw_form_tabela_remover">@iconeFechar(8)</div>
+                            </div>
+                            @endlaco
+                        </div>
+                    </div>
+                </div>
                 @? formSelect(name: 'target', label: 'Target', placeholder: 'Escolha um target', lista: (new \App\Classes\Geral\Target())->select('Escolha um target'), obrigatorio: true, class: 'bloco_target display_none')
                 @? formSelect(name: 'div_direcao', label: 'Direção', placeholder: 'Qual direção?', lista: ['linha' => 'Linha (row)', 'coluna' => 'Coluna (column)'], obrigatorio: true, class: 'bloco_div_direcao display_none')
                 @? formSelect(name: 'div_posicao', label: 'Posição', placeholder: 'Qual posicao?', lista: ['esquerda' => 'Esquerda (flex-start)', 'direita' => 'Direita (flex-end)', 'centralizado' => 'Centralizado (center)', 'entre' => 'Entre (between)'], obrigatorio: true, class: 'bloco_div_posicao display_none')
