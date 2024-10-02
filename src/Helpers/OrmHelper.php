@@ -16,7 +16,7 @@ class OrmHelper extends ORM
      */
     public function __construct(string $tabela, bool $livre = false)
     {
-        if ((!defined('ROUTE_DIRETORIO') || ROUTE_DIRETORIO != 'Api') && false === $livre) {
+        if ((!defined('ROUTE_DIRETORIO') || !in_array(ROUTE_DIRETORIO, ['Api', 'Cdn'])) && false === $livre) {
             mensagemStatus(401);
         }
         $this->ormTabela = $tabela;
