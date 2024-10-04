@@ -2,12 +2,12 @@
 
 namespace App\Models\Api\Analytics;
 
-use App\Classes\UsuarioCliente\TipoUsuario;
-use App\Models\Api\Trait\ValidarEmpresaTrait;
-use Helpers\OrmHelper;
+use ORM\ORM;
 use Http\Request;
 use Modules\Botao;
-use ORM\ORM;
+use Helpers\OrmHelper;
+use App\Classes\UsuarioCliente\TipoUsuario;
+use App\Models\Api\Trait\ValidarEmpresaTrait;
 
 final class SalvarModel extends ORM
 {
@@ -15,8 +15,8 @@ final class SalvarModel extends ORM
 
     protected string $ormTabela = TABELA_ANALYTICS;
     private array $dado = [];
-    //private ?int $idUsuario = null;
-    //private int $idEmpresa;
+    private ?int $idUsuario = null;
+    private int $idEmpresa;
 
     public function __construct(
         private Request $request
@@ -41,7 +41,6 @@ final class SalvarModel extends ORM
         $this->dado['uf'] = $this->request->estado;
         $this->dado['usuario'] = $this->idUsuario;
         $this->dado['empresa'] = $this->idEmpresa;
-        $this->dado['id_admin_subempresa'] = TOKEN['usuario']->id_admin_subempresa ?? null;
 
         if (!empty($this->request->vinculo)) {
             $this->pegarVinculo();
