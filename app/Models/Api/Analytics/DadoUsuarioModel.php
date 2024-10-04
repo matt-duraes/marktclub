@@ -2,11 +2,10 @@
 
 namespace App\Models\Api\Analytics;
 
-use App\Models\Api\Trait\ValidarEmpresaTrait;
-use Erro\Excecao;
 use Helpers\OrmHelper;
 use Http\Request;
 use ORM\ORM;
+use App\Models\Api\Trait\ValidarEmpresaTrait;
 use stdClass;
 
 final class DadoUsuarioModel extends ORM
@@ -14,27 +13,20 @@ final class DadoUsuarioModel extends ORM
     use ValidarEmpresaTrait;
 
     protected string $ormTabela = TABELA_ANALYTICS_DADO_USUARIO;
+    private int $idEmpresa;
 
-    /**
-     * @param Request $request
-     *
-     * @throws Excecao
-     */
     public function __construct(
-        private readonly Request $request
+        private Request $request
     ) {
-        $this->setarIdEmpresa();
-        $this->idSubempresa = TOKEN['usuario']->id_admin_subempresa ?? 0;
         parent::__construct();
-        /*$this->idEmpresa = TOKEN['empresa']->id;
-        $this->idSubempresa = TOKEN['subempresa']->id;*/
+        $this->idEmpresa = TOKEN['empresa']->id;
     }
 
     public function listarDados(): array
     {
         $dado = $this
             ->where($this->pegarWhere(), false)
-            ->order('data_criacao')
+            ->order('data_criacao', 'DESC')
             ->read();
 
         if (!$dado) {
@@ -51,11 +43,6 @@ final class DadoUsuarioModel extends ORM
         $empresaUuid = $this->request->empresa;
         if (empty($empresaUuid)) {
             return ['id_admin_empresa', $this->idEmpresa];
-        }
-
-        $subempresaUuid = $this->request->subempresa;
-        if (empty($subempresaUuid) && !empty($this->idSubempresa)) {
-            return ['id_admin_subempresa', $this->idSubempresa];
         }
 
         $this->setarIdUsuario();
@@ -75,23 +62,6 @@ final class DadoUsuarioModel extends ORM
         }
 
         return ['id_admin_empresa', 'in', $empresaId];
-    }
-
-    private function retornarListaZerada()
-    {
-        $zero = [
-            'total' => 0,
-            'lista' => []
-        ];
-        return [
-            'status'         => $zero,
-            'estado'         => $zero,
-            'genero'         => $zero,
-            'situacao'       => $zero,
-            'estado_civil'   => $zero,
-            'atualizar_dado' => $zero,
-            'faixa_etaria'   => $zero,
-        ];
     }
 
     private function pegarPrimerioDasEmpresas($dado)
@@ -127,6 +97,23 @@ final class DadoUsuarioModel extends ORM
         }
 
         return $somaChaves;
+    }
+
+    private function retornarListaZerada()
+    {
+        $zero = [
+            'total' => 0,
+            'lista' => []
+        ];
+        return [
+            'status'         => $zero,
+            'estado'         => $zero,
+            'genero'         => $zero,
+            'situacao'       => $zero,
+            'estado_civil'   => $zero,
+            'atualizar_dado' => $zero,
+            'faixa_etaria'   => $zero,
+        ];
     }
 
     public function montarDado($r): array
