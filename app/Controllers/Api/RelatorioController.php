@@ -2,24 +2,23 @@
 
 namespace App\Controllers\Api;
 
-use App\Classes\ParceiroLoja\TipoEstabelecimento;
+use Http\Request;
+use Modules\Data;
+use Http\Response;
+use Controller\Controller;
+use App\Models\Api\Analytics\OsModel;
+use App\Models\Api\Analytics\SalvarModel;
 use App\Models\Api\Analytics\AcessoDiaModel;
 use App\Models\Api\Analytics\AnalyticsModel;
-use App\Models\Api\Analytics\DadoUsuarioModel;
-use App\Models\Api\Analytics\DispositivoModel;
-use App\Models\Api\Analytics\LojaEquipe\DiaModel;
-use App\Models\Api\Analytics\LojaMaisAcessadaModel;
 use App\Models\Api\Analytics\LojaVendaModel;
 use App\Models\Api\Analytics\NavegadorModel;
-use App\Models\Api\Analytics\OsModel;
-use App\Models\Api\Analytics\PaginaMaisAcessadaModel;
-use App\Models\Api\Analytics\SalvarModel;
+use App\Models\Api\Analytics\DadoUsuarioModel;
+use App\Models\Api\Analytics\DispositivoModel;
+use App\Classes\ParceiroLoja\TipoEstabelecimento;
+use App\Models\Api\Analytics\LojaEquipe\DiaModel;
+use App\Models\Api\Analytics\LojaMaisAcessadaModel;
 use App\Models\Api\Analytics\UsuarioMaisAcessoModel;
-use Controller\Controller;
-use Erro\Excecao;
-use Http\Request;
-use Http\Response;
-use Modules\Data;
+use App\Models\Api\Analytics\PaginaMaisAcessadaModel;
 
 final class RelatorioController extends Controller
 {
@@ -36,16 +35,12 @@ final class RelatorioController extends Controller
         return mensagemSucesso($dado);
     }
 
-    /**
-     * @param Request $request
-     *
-     * @return Response
-     * @throws Excecao
-     */
-    public function getDadoUsuario(Request $request): Response
+    public function getDadoUsuario(Request $request)
     {
-        $RelatorioUsuario = new DadoUsuarioModel($request->empresa, $request->subempresa);
-        return mensagemSucesso($RelatorioUsuario->listarDados());
+        $Relatorio = new DadoUsuarioModel($request);
+        $dado = $Relatorio->listarDados();
+
+        return mensagemSucesso($dado);
     }
 
     public function getAcessoDia(Request $request)
@@ -60,17 +55,6 @@ final class RelatorioController extends Controller
         $dado = $Relatorio->listarDado($request->de, $request->ate);
 
         return mensagemSucesso($dado);
-    }
-
-    private function validarData(Request $request)
-    {
-        $request->vazio('de', mensagem: 'A data de início da busca é obrigatória');
-        $request->vazio('ate', mensagem: 'A data de final da busca é obrigatória');
-        if (!validarDate($request->de)) {
-            mensagemErro('Campo inválido!', 'A data de começo da busca não é válida.');
-        } elseif (!validarDate($request->ate)) {
-            mensagemErro('Campo inválido!', 'A data de final da busca não é válida.');
-        }
     }
 
     public function getUsuarioMaisAcesso(Request $request)
@@ -150,12 +134,6 @@ final class RelatorioController extends Controller
         return mensagemSucesso($Relatorio->listarDado());
     }
 
-    /*
-    |--------------------------------------------------------------------------
-    | ANALYTICS EXTERNO
-    |--------------------------------------------------------------------------
-    */
-
     public function getLojaEquipeDia(Request $request)
     {
         $this->validarData($request);
@@ -168,6 +146,11 @@ final class RelatorioController extends Controller
         return mensagemSucesso($Relatorio->retorno);
     }
 
+    /*
+    |--------------------------------------------------------------------------
+    | ANALYTICS EXTERNO
+    |--------------------------------------------------------------------------
+    */
     public function postAnalytics(Request $request)
     {
         new SalvarModel($request);
@@ -181,12 +164,6 @@ final class RelatorioController extends Controller
         return mensagemSucesso($dado);
     }
 
-    /*
-    |--------------------------------------------------------------------------
-    | MÉTODOS PRIVADOS
-    |--------------------------------------------------------------------------
-    */
-
     public function postAnalyticsDownload()
     {
         $arquivo = DIRETORIO_PRIVADO . '/analytics/dump_' . TOKEN['app']->id . '.sql.zip';
@@ -194,5 +171,21 @@ final class RelatorioController extends Controller
             mensagemStatus(404, localhost: 'O arquivo buscado não existe.');
         }
         return new Response(download: $arquivo);
+    }
+
+    /*
+    |--------------------------------------------------------------------------
+    | MÉTODOS PRIVADOS
+    |--------------------------------------------------------------------------
+    */
+    private function validarData(Request $request)
+    {
+        $request->vazio('de', mensagem: 'A data de início da busca é obrigatória');
+        $request->vazio('ate', mensagem: 'A data de final da busca é obrigatória');
+        if (!validarDate($request->de)) {
+            mensagemErro('Campo inválido!', 'A data de começo da busca não é válida.');
+        } elseif (!validarDate($request->ate)) {
+            mensagemErro('Campo inválido!', 'A data de final da busca não é válida.');
+        }
     }
 }
