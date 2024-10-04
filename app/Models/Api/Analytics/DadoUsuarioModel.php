@@ -2,10 +2,10 @@
 
 namespace App\Models\Api\Analytics;
 
-use App\Models\Api\Trait\ValidarEmpresaTrait;
-use Erro\Excecao;
 use Helpers\OrmHelper;
+use Http\Request;
 use ORM\ORM;
+use App\Models\Api\Trait\ValidarEmpresaTrait;
 use stdClass;
 
 final class DadoUsuarioModel extends ORM
@@ -13,89 +13,55 @@ final class DadoUsuarioModel extends ORM
     use ValidarEmpresaTrait;
 
     protected string $ormTabela = TABELA_ANALYTICS_DADO_USUARIO;
+    private int $idEmpresa;
 
-    /**
-     * @param array|string|null $empresa
-     * @param array|string|null $subempresa
-     *
-     * @throws Excecao
-     */
     public function __construct(
-        private readonly array|string|null $empresa = null,
-        private readonly array|string|null $subempresa = null
+        private Request $request
     ) {
-        $this->setarIdEmpresa();
-        $this->idSubempresa = TOKEN['usuario']->id_admin_subempresa ?? 0;
-        $this->setarIdUsuario();
-
-        if (!$this->verificarSePodeMudarEmpresa()) {
-            mensagemErro(
-                'Empresa inválida!',
-                'Você não tem permissão para acessar essa empresa.'
-            );
-        }
         parent::__construct();
+        $this->idEmpresa = TOKEN['empresa']->id;
     }
 
-    /**
-     * @return array|array[]
-     * @throws Excecao
-     */
     public function listarDados(): array
     {
-        $dados = $this
+        $dado = $this
             ->where($this->pegarWhere(), false)
-            ->order('data_criacao')
+            ->order('data_criacao', 'DESC')
             ->read();
 
-        if (empty($dados)) {
+        if (!$dado) {
             return $this->retornarListaZerada();
         }
 
-        $dados = $this->pegarPrimerioDasEmpresas($dados);
-        $dados = $this->somarAsEmpresas($dados);
-        return $this->montarDado($dados);
+        $dado = $this->pegarPrimerioDasEmpresas($dado);
+        $dado = $this->somarAsEmpresas($dado);
+        return $this->montarDado($dado);
     }
 
-    /**
-     * @return array
-     */
-    private function pegarWhere(): array
+    private function pegarWhere()
     {
-        $where = [];
+        $empresaUuid = $this->request->empresa;
+        if (empty($empresaUuid)) {
+            return ['id_admin_empresa', $this->idEmpresa];
+        }
+
+        $this->setarIdUsuario();
+        if (!$this->verificarSePodeMudarEmpresa()) {
+            mensagemErro('Empresa inválida!', 'Você não tem permissão para acessar essa empresa.');
+        }
+
         $ormHelper = new OrmHelper(TABELA_COMERCIAL_EMPRESA);
-        if (empty($this->empresa)) {
-            $where[] = ['id_admin_empresa', $this->idEmpresa];
-        } elseif (is_string($this->empresa)) {
-            $where[] = ['id_admin_empresa', $ormHelper->pegarIdPeloUuid($this->empresa)];
-        } elseif (is_array($this->empresa)) {
-            $where[] = ['id_admin_empresa', 'in', $ormHelper->mudarListaUuidParaId($this->empresa)];
-        }
-        if (empty($this->subempresa)) {
-            $where[] = ['id_admin_subempresa', $this->idSubempresa];
-        } elseif (is_string($this->subempresa)) {
-            $where[] = ['id_admin_subempresa', $ormHelper->pegarIdPeloUuid($this->subempresa)];
-        } elseif (is_array($this->subempresa)) {
-            $where[] = ['id_admin_subempresa', 'in', $ormHelper->mudarListaUuidParaId($this->subempresa)];
-        }
-        return $where;
-    }
 
-    private function retornarListaZerada()
-    {
-        $zero = [
-            'total' => 0,
-            'lista' => []
-        ];
-        return [
-            'status'         => $zero,
-            'estado'         => $zero,
-            'genero'         => $zero,
-            'situacao'       => $zero,
-            'estado_civil'   => $zero,
-            'atualizar_dado' => $zero,
-            'faixa_etaria'   => $zero,
-        ];
+        if (!is_array($empresaUuid)) {
+            return ['id_admin_empresa', $ormHelper->pegarIdPeloUuid($empresaUuid)];
+        }
+
+        $empresaId = [];
+        foreach ($empresaUuid as $e) {
+            $empresaId[] = $ormHelper->pegarIdPeloUuid($e);
+        }
+
+        return ['id_admin_empresa', 'in', $empresaId];
     }
 
     private function pegarPrimerioDasEmpresas($dado)
@@ -131,6 +97,23 @@ final class DadoUsuarioModel extends ORM
         }
 
         return $somaChaves;
+    }
+
+    private function retornarListaZerada()
+    {
+        $zero = [
+            'total' => 0,
+            'lista' => []
+        ];
+        return [
+            'status'         => $zero,
+            'estado'         => $zero,
+            'genero'         => $zero,
+            'situacao'       => $zero,
+            'estado_civil'   => $zero,
+            'atualizar_dado' => $zero,
+            'faixa_etaria'   => $zero,
+        ];
     }
 
     public function montarDado($r): array
