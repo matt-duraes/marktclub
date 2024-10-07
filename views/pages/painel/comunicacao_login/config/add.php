@@ -1,7 +1,7 @@
 <?php
 
-use Helpers\ApiHelper;
 use App\Classes\Geral\Status;
+use Helpers\ApiHelper;
 
 $Painel = new PainelConfig\Add(app: 'comunicacao_login', acao: $acao);
 
@@ -23,20 +23,21 @@ $Painel->coluna(callback: function () use ($Painel) {
 $Painel->coluna(callback: function () use ($Painel) {
     $Painel->fieldset('Dados', function () use ($Painel) {
         $Painel
-            ->input(name: 'titulo', label: 'Título do banner');
-        $Painel
+            ->input(name: 'titulo', label: 'Título do banner')
             ->data(name: 'data_inicio', label: 'Data de início', obrigatorio: true)
-            ->data(name: 'data_fim', label: 'Data de fim', obrigatorio: true);
-        $Painel
-            ->select(name: 'status', label: 'Status', lista: (new Status())->select('Selecione um status'), obrigatorio: true);
+            ->data(name: 'data_fim', label: 'Data de fim', obrigatorio: true)
+            ->select(
+                name: 'status',
+                lista: (new Status())->select('Selecione um status'),
+                label: 'Status',
+                acao: 'editar'
+            );
     });
 });
 
 $Painel->coluna(callback: function () use ($Painel) {
     $Painel->fieldsetCheckbox(
         titulo: 'Empresas',
-        todos: 'Marcar todas as empresas',
-        mais: true,
         callback: function () use ($Painel) {
             $empresa = (new ApiHelper(token: true))
                 ->get('/comercial-empresa/select')
@@ -44,7 +45,9 @@ $Painel->coluna(callback: function () use ($Painel) {
             foreach ($empresa as $id => $nome) {
                 $Painel->checkbox(name: 'empresa[]', label: $nome, value: $id);
             }
-        }
+        },
+        todos: 'Marcar todas as empresas',
+        mais: true
     );
     $Painel->hidden(name: 'padrao');
 });
