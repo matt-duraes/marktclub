@@ -1,5 +1,4 @@
 @template "site"
-
 <div id="bloco_sos_mulher" class="bloco_loja_detalhe">
     <div class="bloco_parceiro_header">
         <section class="bloco_banner">
@@ -13,7 +12,8 @@
         </header>
     </div>
 
-    <div class="bloco bloco_titulo_texto">
+
+    <div class="bloco_quer_conversar">
         <h1>Quer conversar agora?</h1>
         <p>
             Utilize um dos canais de comunicação disponíveis abaixo para ser redirecionada
@@ -22,6 +22,18 @@
             contato por esses campos você encontrará uma forma mais silenciosa e segura
             para conversar.
         </p>
+        <div class="bloco_numeros">
+            <a href="tel:180" target="_blank" rel="nofollow noopener">
+                <figure><img src="{{LINK_PADRAO}}/images/site/sos_180.png" alt="Ligue 180"></figure>
+            </a>
+            <a href="tel:180" target="_blank" rel="nofollow noopener">
+                <figure><img src="{{LINK_PADRAO}}/images/site/sos_100.png" alt="Ligue 100"></figure>
+            </a>
+            <a href="https://wa.me/5561996565008" target="_blank" rel="noopener noreferrer" class="bloco_whatsapp">
+                <i>@iconeWhatsapp(20)</i>
+                <p>Direitos humanos</p>
+            </a>
+        </div>
     </div>
 
     <div class="atencao bloco_atencao_geral">
@@ -31,29 +43,17 @@
         </p>
     </div>
 
-    <div class="bloco_logo">
-        <a href="tel:180" target="_blank" rel="nofollow noopener">
-            <figure><img src="{{LINK_PADRAO}}/images/site/sos_180.png" alt="Ligue 180"></figure>
-        </a>
-        <a href="tel:180" target="_blank" rel="nofollow noopener">
-            <figure><img src="{{LINK_PADRAO}}/images/site/sos_100.png" alt="Ligue 100"></figure>
-        </a>
-    </div>
-    <a href="https://wa.me/5561996565008" target="_blank" rel="noopener noreferrer" class="bloco_whatsapp">
-        <i>@iconeWhatsapp(30)</i>
-        <p>Caso prefira, clique aqui para abrir o WhatsApp dos direitos humanos</p>
-    </a>
-
-    <div class="bloco bloco_titulo_texto">
+    <div class="bloco_orientacao">
         <h1>Busque orientação</h1>
         <p>
             Utilize o botão ENCONTRAR PARCEIROS para visualizar empresas parceiras que disponibilizam
             serviço de atendimento psicológico on-line com valores mais acessíveis.
         </p>
-    </div>
 
-    <a class="botao_loja" href="@route('loja.index')?subcategoria=sos-mulher">
-        @iconeBuscar(20)
-        ENCONTRAR PARCEIROS
-    </a>
+        <a class="botao_encontrar_loja" href="@route('loja.index')?subcategoria=sos-mulher">
+            @iconeBuscar(20)
+            Encontrar parceiros
+        </a>
+    </div>
 </div>
+
