@@ -2884,7 +2884,7 @@ Route
             ::nome('salvar')
             ::middleware(TokenMiddleware::class, 'scope', ['comunicacao_login:salvar'])
             ::request([
-                'arquivo_1', 'arquivo_2', 'arquivo_3', 'empresa', 'titulo', 'data_fim', 'data_inicio'
+                'arquivo_1', 'arquivo_2', 'arquivo_3', 'empresa', 'titulo', 'data_fim', 'data_inicio', '!status'
             ])
             ::post('/comunicacao-login');
 
@@ -2892,7 +2892,7 @@ Route
             ::nome('atualizar')
             ::middleware(TokenMiddleware::class, 'scope', ['comunicacao_login:atualizar'])
             ::request([
-                '!arquivo_1', '!arquivo_2', '!arquivo_3', '!empresa', '!titulo', '!data_fim', '!data_inicio'
+                '!arquivo_1', '!arquivo_2', '!arquivo_3', '!empresa', '!titulo', '!data_fim', '!data_inicio', '!status'
             ])
             ::put('/comunicacao-login/{id}');
 
