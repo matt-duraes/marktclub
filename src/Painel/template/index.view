@@ -33,7 +33,6 @@
                 @ else:
                     <a href="@LINK"><figure class="logo"><img src="{!!LINK_PADRAO!!}/images/painel/logo.png" alt="LOGO"></figure></a>
                 @ endif;
-                <sub style="margin: 0 0 0 6px;">{{\App\Helpers\Painel\ConfiguracoesPadrao::VERSAO}}</sub>
                 @if(AMBIENTE_ACESSO != ''):
                     <h1 id="painel_local_acesso">{{AMBIENTE_ACESSO}}</h1>
                 @endif;
@@ -130,7 +129,6 @@
         <input type="hidden" name="USUARIO_NOME" id="USUARIO_NOME" value="{{sessao('USUARIO.nome')}}">
         <input type="hidden" name="USUARIO_EMAIL" id="USUARIO_EMAIL" value="{{sessao('USUARIO.email')}}">
         <input type="hidden" name="USUARIO_IMAGEM" id="USUARIO_IMAGEM" value="{{sessao('USUARIO.imagem')}}">
-        <input type="hidden" name="API_VERSAO" id="API_VERSAO" value="{{\App\Helpers\Painel\ConfiguracoesPadrao::VERSAO}}">
     </form>
 
     <script src="https://apis.google.com/js/platform.js" async defer></script>
