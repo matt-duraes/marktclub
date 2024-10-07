@@ -39,6 +39,24 @@
     <div class="bloco_plano_saude">
         <header>
             <h1>Explore a rede credenciada</h1>
+        </header>
+        <div class="lista_passo_a_passo">
+            <ul class="bloco_geral_ul">
+                <li>Clique no botão "Conheça Sobre o Programa"</li>
+                <li>Na página que abrirá, clique em "Busca detalhada"</li>
+                <li>Em seguida selecione o estado (UF) que deseja consultar</li>
+                <li>Observação: os demais campos não são obrigatórios para realizar a busca da rede credenciada,
+                    <br> mas caso queira é possível selecionar a cidade e especialidade que desejar.
+                </li>
+            </ul>
+        </div>
+        <div class="display_flex">
+            <a class="botao_geral_cor cor_bg" target="_blank" href="http://www.segurosunimed.com.br/institucional/servicos/guiamedico">Conheça Sobre o Programa</a>
+        </div>
+    </div>
+    <div class="bloco_plano_saude">
+        <header class="titulo_rede">
+            <h1>Conheça o Cuidando de Perto</h1>
             <p>Você conhece as iniciativas do programa Cuidando de Perto da Seguros Unimed para cuidar integralmente da sua saúde?</p>
         </header>
         <div class="lista_passo_a_passo">
@@ -54,25 +72,7 @@
             </ul>
         </div>
         <div class="display_flex">
-            <a class="botao_geral_cor cor_bg" target="_blank" href="http://www.segurosunimed.com.br/institucional/servicos/guiamedico">Consultar rede credenciada</a>
-        </div>
-    </div>
-    <div class="bloco_plano_saude">
-        <header class="titulo_rede">
-            <h1>Conheça o Cuidando de Perto</h1>
-        </header>
-        <div class="lista_passo_a_passo">
-            <ul class="bloco_geral_ul">
-                <li>Clique no botão "Conheça Sobre o Programa"</li>
-                <li>Na página que abrirá, clique em "Busca detalhada"</li>
-                <li>Em seguida selecione o estado (UF) que deseja consultar</li>
-                <li>Observação: os demais campos não são obrigatórios para realizar a busca da rede credenciada,
-                    <br> mas caso queira é possível selecionar a cidade e especialidade que desejar.
-                </li>
-            </ul>
-        </div>
-        <div class="display_flex">
-            <a class="botao_geral_cor cor_bg" href="{{LINK_ARQUIVO}}/download/manual_cuidando_de_perto.pdf">Conheça Sobre o Programa</a>
+            <a class="botao_geral_cor cor_bg" href="{{LINK_ARQUIVO}}/download/manual_cuidando_de_perto.pdf">Conheça o Cuidando de Perto</a>
         </div>
     </div>
     <div class="bloco_plano_saude">
@@ -386,7 +386,7 @@
     </section>
     <section class="bloco_simulacao container_scroll">
         <h1>GOSTARIA DE FAZER UMA SIMULAÇÃO?</h1>
-        <p>Faça uma simulação sua e seus dependentes e veja os valores.</p>
+        <p>Faça uma simulação sua e dos seus dependentes e veja os valores.</p>
         @if(TIPO_USUARIO != 'indicado'):
             <a class="botao_geral_cor cor_bg" href="@route(planosaude.simulacao)/unimed-seguros">Fazer Simulação</a>
         @else

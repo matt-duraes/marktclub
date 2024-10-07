@@ -12,6 +12,7 @@ if (loadingLista.length > 0) {
 async function buscarDados() {
     const loading = $$('.bloco_loading');
     const conteudos = $$('.bloco_coluna .conteudo article, .bloco_coluna .conteudo div');
+    const demandas = $('#total_demandas');
 
     conteudos.forEach(conteudo => {
         if (!conteudo.classList.contains('bloco_loading')) {
@@ -34,7 +35,6 @@ async function buscarDados() {
 
     for (const coluna of listaColuna) {
         const status = coluna.getAttribute('data-status');
-
         ajaxPost(
             LINK + '/demanda/listar',
             {
@@ -43,6 +43,7 @@ async function buscarDados() {
             },
             ''
         ).then(resposta => {
+            adicionarTotalDemandas(resposta.dado.length);
             if (eQuadro) {
                 carregarBuscarQuadro(coluna, resposta);
                 return;
@@ -50,6 +51,13 @@ async function buscarDados() {
             carregarBuscarListar(coluna, resposta);
         });
     }
+
+    const adicionarTotalDemandas = totalDemandas => {
+        Loading.show();
+        demandas.innerText = `Total de demandas: ${totalDemandas}`;
+        demandas.classList.remove('display_none');
+        Loading.hide();
+    };
 
     const carregarBuscarListar = (coluna, resposta) => {
         loadingLista.sumir();
@@ -90,6 +98,48 @@ async function buscarDados() {
         }
         contarTarefaDemanda(coluna);
     };
+
+    const pegarDemandaForaSprint = () => {
+        let containerDemandas = document.querySelector('#bloco_app_lista_detalhe');
+
+        let demandasForaSprint = Array.from(containerDemandas.querySelectorAll('.linha.bloco_kambam_item')).filter(
+            elemento => {
+                return elemento.classList.length === 2;
+            }
+        );
+        adicionarTotalDemandas(demandasForaSprint.length);
+    };
+
+    const pegarDemandaNaSprint = () => {
+        let containerDemandas = document.querySelector('#bloco_app_lista_detalhe');
+        let demandasNaSprint = containerDemandas.querySelectorAll('.bloco_kambam_item.na_sprint');
+        adicionarTotalDemandas(demandasNaSprint.length);
+    };
+
+    demandas.addEventListener('click', () => {
+        ajaxPost(
+            LINK + '/demanda/listar',
+            {
+                area: 'tecnologia',
+                status: 'geral',
+            },
+            ''
+        ).then(resposta => {
+            let respostaDemandas = resposta.dado.length;
+            // classe que os elementos possuem 'na_sprint'
+            const botaoNaSprint = $('#botao_na_sprint');
+            const botaoForaSprint = $('#botao_fora_sprint');
+            if (botaoForaSprint.classList.contains('hover') == true) {
+                pegarDemandaForaSprint();
+                return;
+            }
+            if (botaoNaSprint.classList.contains('hover') == true) {
+                pegarDemandaNaSprint();
+                return;
+            }
+            adicionarTotalDemandas(respostaDemandas);
+        });
+    });
 }
 
 const cloneErro = $('#clone_item_erro');
