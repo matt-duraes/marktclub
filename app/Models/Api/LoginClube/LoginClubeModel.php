@@ -2,26 +2,26 @@
 
 namespace App\Models\Api\LoginClube;
 
-use stdClass;
-use Http\Request;
-use Modules\Botao;
+use App\Classes\ApiToken\Tipo as TokenTipo;
 use App\Classes\LoginClube\Tipo;
 use App\Models\Api\ApiToken\PayloadModel;
-use App\Classes\ApiToken\Tipo as TokenTipo;
-use App\Models\Api\ConstrutorClube\ClubeModel;
-use App\Models\Api\ApiToken\Trait\PegarAppTrait;
-use App\Models\Api\ConstrutorClube\ConstrutorEntity;
 use App\Models\Api\ApiToken\TokenAuthorizationEntity;
+use App\Models\Api\ApiToken\Trait\PegarAppTrait;
+use App\Models\Api\ConstrutorClube\ClubeModel;
+use App\Models\Api\ConstrutorClube\ConstrutorEntity;
 use App\Models\Api\UsuarioCliente\UsuarioLogadoModel;
+use Http\Request;
+use Modules\Botao;
+use stdClass;
 
 final class LoginClubeModel
 {
     use PegarAppTrait;
 
-    private stdClass $Usuario;
-    private int $idEmpresa;
     public array $token;
     public array $construtor;
+    private stdClass $Usuario;
+    private int $idEmpresa;
     private array $listaUriHomologacao;
 
     /**
@@ -71,7 +71,7 @@ final class LoginClubeModel
     {
         if ($this->idEmpresa == 153) { // FENAE
             return;
-        } elseif ($this->idEmpresa == 2114 && $this->tipo == Tipo::TITULAR) { // CLUBE POUPY
+        } elseif ($this->idEmpresa == 2114 && $this->tipo->indice() == Tipo::TITULAR) { // CLUBE POUPY
             $this->Usuario = (new LoginClubePoupyModel(
                 login: soNumero($this->login),
                 senha: $this->senha,
