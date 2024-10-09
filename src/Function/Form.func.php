@@ -2256,3 +2256,102 @@ if (!function_exists('formSelectInpuTag')) {
         ';
     }
 }
+if (!function_exists('formTabela')) {
+    function formTabela(
+        string $name,
+        string $label,
+        array $value = [],
+        string $class = '',
+        string $id = ''
+    ) {
+        $blocoId = empty($id) ? md5(uniqid(time())) : $id;
+
+        $header = [];
+        if (array_key_exists(0, $value)) {
+            $header = $value[0];
+            unset($value[0]);
+        };
+        $headerHtml = '';
+        foreach ($header as $r) {
+            $checked = $r->auto ? 'checked' : '';
+            $headerHtml .= '
+                <div class="fw_form_tabela_coluna">
+                    <div class="fw_form_tabela_drag">' . iconeDrag() . '</div>
+                    <input placeholder="texto..." class="fw_form_tabela_texto" value="' . $r->valor . '">
+                    <label class="fw_form_tabela_grow">
+                        <input type="checkbox">
+                        <div class="fw_form_tabela_grow_check" ' . $checked . '></div>
+                    </label>
+                    <input class="fw_form_tabela_tamanho" placeholder="000" value="' . $r->tamanho . '">
+                    <div class="fw_form_tabela_remover fw_form_tabela_coluna_remover">' . iconeFechar(8) . '</div>
+                </div>
+            ';
+        }
+
+        $valorHtml = '';
+        foreach ($value as $linha) {
+            $colunaHtml = '';
+            foreach ($linha as $ind => $r) {
+                $colunaHtml .= '
+                    <div class="fw_form_tabela_coluna" data-posicao="' . $ind . '">
+                        <input placeholder="texto..." class="fw_form_tabela_texto" value="' . $r->valor . '">
+                    </div>
+                ';
+            }
+            $valorHtml .= '
+                <div class="fw_form_tabela_linha">
+                    <div class="fw_form_tabela_drag">' . iconeDrag() . '</div>
+                    <div class="fw_form_tabela_linha_conteudo"> ' . $colunaHtml . '</div>
+                    <div class="fw_form_tabela_remover fw_form_tabela_linha_remover">' . iconeFechar(8) . '</div>
+                </div>
+            ';
+        }
+
+        $label = !empty($label) ? '<div class="fw_tabela_label">' . $label . '</div>' : '';
+        $class = explode(' ', $class);
+        $class[] = 'fw_form_tabela';
+        return '
+            <div class="' . implode(' ', $class) . '">
+                ' . $label . '
+                <div class="fw_form_tabela_row fw_form_botao_linha_conula">
+                    <div class="fw_form_tabela_botao fw_form_tabela_add_linha">Adicionar linha</div>
+                    <div class="fw_form_tabela_botao fw_form_tabela_add_coluna">Adicionar coluna</div>
+                </div>
+                <div class="fw_form_tabela_scroll">
+                    <div class="fw_form_tabela_header">
+                        <div class="fw_form_tabela_linha">
+                            <div class="fw_form_tabela_drag"></div>
+                            <div class="fw_form_tabela_linha_conteudo">
+                                ' . $headerHtml . '
+                            </div>
+                            <div class="fw_form_tabela_remover"></div>
+                        </div>
+                    </div>
+                    <div class="fw_form_tabela_conteudo">
+                        ' . $valorHtml . '
+                    </div>
+                </div>
+            </div>
+            <div class="display_none">
+                <div class="fw_form_tabela_linha fw_form_tabela_linha_padrao">
+                    <div class="fw_form_tabela_drag">' . iconeDrag() . '</div>
+                    <div class="fw_form_tabela_linha_conteudo"></div>
+                    <div class="fw_form_tabela_remover fw_form_tabela_linha_remover">' . iconeFechar(8) . '</div>
+                </div>
+                <div class="fw_form_tabela_coluna fw_form_tabela_coluna_padrao">
+                    <input placeholder="texto..." class="fw_form_tabela_texto">
+                </div>
+                <div class="fw_form_tabela_coluna fw_form_tabela_coluna_header_padrao">
+                    <div class="fw_form_tabela_drag">' . iconeDrag() . '</div>
+                    <input placeholder="texto..." class="fw_form_tabela_texto">
+                    <label class="fw_form_tabela_grow">
+                        <input type="checkbox">
+                        <div class="fw_form_tabela_grow_check"></div>
+                    </label>
+                    <input class="fw_form_tabela_tamanho" placeholder="000">
+                    <div class="fw_form_tabela_remover fw_form_tabela_coluna_remover">' . iconeFechar(8) . '</div>
+                </div>
+            </div>
+        ';
+    }
+}

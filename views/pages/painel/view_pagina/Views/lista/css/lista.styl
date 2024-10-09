@@ -78,7 +78,7 @@
 
 #bloco_view_add
     width: 100%
-    max-width: 600px
+    max-width: 1200px
     .linha
         width: 100%
         height: 1px
@@ -177,7 +177,7 @@
         height: 40px
         padding: 0 10px
     .fw_form_tabela_header .fw_form_tabela_linha .fw_form_tabela_coluna .fw_form_tabela_texto
-        width: calc(100% - 90px)
+        width: calc(100% - 115px)
     .fw_form_tabela_linha .fw_form_tabela_coluna .fw_form_tabela_tamanho
         width: 40px
         height: 30px
@@ -185,6 +185,22 @@
         text-align: center
         margin-right: 5px
         border-radius: 4px
+    .fw_form_tabela_linha .fw_form_tabela_coluna .fw_form_tabela_grow
+        width: 15px
+        height: 15px
+        flexCenter()
+        margin-right: 10px
+    .fw_form_tabela_linha .fw_form_tabela_coluna .fw_form_tabela_grow input
+        display: none
+    .fw_form_tabela_linha .fw_form_tabela_coluna .fw_form_tabela_grow .fw_form_tabela_grow_check
+        width: 15px
+        height: 15px
+        border-radius: 50%
+        background-color: #DDD
+        cursor: pointer
+    .fw_form_tabela_linha .fw_form_tabela_coluna .fw_form_tabela_grow input:checked + .fw_form_tabela_grow_check
+        background: $cor url(/images/plugins/form/check.svg) no-repeat center center
+        background-size: 8px
     .fw_form_tabela_header .fw_form_tabela_linha .fw_form_tabela_coluna .fw_form_tabela_remover
         margin-right: 5px
     .fw_form_tabela_header .fw_form_tabela_linha .fw_form_tabela_coluna .fw_form_tabela_drag

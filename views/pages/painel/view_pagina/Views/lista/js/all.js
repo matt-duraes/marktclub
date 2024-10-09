@@ -380,6 +380,50 @@ const fwTabelaTamanhoColuna = tabela => {
         linha.css('width', tamanho + 'px');
     }
 };
+const fwTabelaColocaNumeroColuna = tabela => {
+    const lista = $$('.fw_form_tabela_linha', tabela);
+    for (const item of lista) {
+        const coluna = $$('.fw_form_tabela_coluna', item);
+        const quantidade = coluna.length;
+        let i = 0;
+        for (; i < quantidade; ++i) {
+            coluna[i].attr('data-posicao', i);
+        }
+    }
+};
+const fwTabelaReordenarColuna = tabela => {
+    const header = $$('.fw_form_tabela_header .fw_form_tabela_coluna', tabela);
+    const quantidade = header.length;
+    const posicao = {};
+    let i = 0;
+    for (; i < quantidade; ++i) {
+        posicao[i] = header[i].attr('data-posicao');
+    }
+    const linhaLista = $$('.fw_form_tabela_conteudo .fw_form_tabela_linha', tabela);
+    for (const linha of linhaLista) {
+        const colunaLista = $$('.fw_form_tabela_coluna', linha);
+        i = 0;
+        let novoHtml = [];
+        for (; i < quantidade; ++i) {
+            const posicaoNova = posicao[i];
+            novoHtml[i] = colunaLista[posicaoNova];
+        }
+        const conteudo = $('.fw_form_tabela_linha_conteudo', linha);
+        conteudo.html('');
+        i = 0;
+        for (; i < quantidade; ++i) {
+            conteudo.final(novoHtml[i]);
+        }
+    }
+    fwTabelaColocaNumeroColuna(tabela);
+};
+const fwTabelaMarcarGrow = (linha, input) => {
+    const lista = $$('.fw_form_tabela_grow input', linha);
+    for (const item of lista) {
+        item.checked = false;
+    }
+    input.checked = true;
+};
 const fwTabelaRemoverColuna = async (tabela, linha, coluna) => {
     if (
         !(await Alerta.confirmar(
@@ -407,6 +451,7 @@ const fwTabelaRemoverColuna = async (tabela, linha, coluna) => {
         remover.remove();
     }
     fwTabelaTamanhoColuna(tabela);
+    fwTabelaColocaNumeroColuna(tabela);
 };
 const fwTabelaRemoverLinha = async linha => {
     if (
@@ -427,6 +472,16 @@ const fwTabelaItem = tabela => {
     const conteudoHeader = $('.fw_form_tabela_header .fw_form_tabela_linha_conteudo', tabela);
     const conteudoLista = $('.fw_form_tabela_conteudo', tabela);
     fwTabelaTamanhoColuna(tabela);
+
+    new DragDrop().bloco(conteudoLista).botao('.fw_form_tabela_drag').item('.fw_form_tabela_linha').iniciar();
+    new DragDrop()
+        .bloco(conteudoHeader)
+        .botao('.fw_form_tabela_drag')
+        .item('.fw_form_tabela_coluna')
+        .eventoFim(() => {
+            fwTabelaReordenarColuna(tabela);
+        })
+        .iniciar();
 
     botaoAddLinha.evento('click', () => {
         const tamanho = parseInt(tabela.attr('data-tamanho'));
@@ -449,6 +504,7 @@ const fwTabelaItem = tabela => {
         }
         conteudoHeader.inicio(fwTabelaColunaHeaderPadrao.clonar());
         fwTabelaTamanhoColuna(tabela);
+        fwTabelaColocaNumeroColuna(tabela);
     });
     tabela.evento('click', e => {
         const target = e.target;
@@ -463,6 +519,9 @@ const fwTabelaItem = tabela => {
             target.closest('.fw_form_tabela_linha_remover')
         ) {
             fwTabelaRemoverLinha(target.closest('.fw_form_tabela_linha'));
+        } else if (target.classe('fw_form_tabela_grow', '?') || target.closest('.fw_form_tabela_grow')) {
+            const bloco = target.classe('fw_form_tabela_grow', '?') ? target : target.closest('.fw_form_tabela_grow');
+            fwTabelaMarcarGrow(target.closest('.fw_form_tabela_linha'), $('input', bloco));
         }
     });
 };
