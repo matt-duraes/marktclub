@@ -2,17 +2,17 @@
 
 namespace Helpers;
 
-use Box\Spout\Common\Entity\Style\Border;
+use JetBrains\PhpStorm\NoReturn;
+use Box\Spout\Writer\WriterInterface;
 use Box\Spout\Common\Entity\Style\Color;
 use Box\Spout\Common\Entity\Style\Style;
-use Box\Spout\Common\Exception\InvalidArgumentException;
+use Box\Spout\Common\Entity\Style\Border;
 use Box\Spout\Common\Exception\IOException;
-use Box\Spout\Writer\Common\Creator\Style\BorderBuilder;
 use Box\Spout\Writer\Common\Creator\Style\StyleBuilder;
+use Box\Spout\Common\Exception\InvalidArgumentException;
+use Box\Spout\Writer\Common\Creator\Style\BorderBuilder;
 use Box\Spout\Writer\Common\Creator\WriterEntityFactory;
 use Box\Spout\Writer\Exception\WriterNotOpenedException;
-use Box\Spout\Writer\WriterInterface;
-use JetBrains\PhpStorm\NoReturn;
 
 final class ExcelHelper
 {
@@ -33,9 +33,12 @@ final class ExcelHelper
         private readonly bool $bold = false,
         private readonly bool $italic = false,
         private readonly bool $quebrarTexto = false,
-        private readonly string $path = DIRETORIO_PUBLICO,
+        private string $path = '',
     ) {
         $this->Writer = WriterEntityFactory::createXLSXWriter();
+        if(empty($path) && defined('DIRETORIO_PUBLICO')) {
+            $this->path = DIRETORIO_PUBLICO;
+        }
         $this->setarStylePadrao();
     }
 
@@ -144,7 +147,6 @@ final class ExcelHelper
      * @throws InvalidArgumentException
      * @throws WriterNotOpenedException
      */
-    #[NoReturn]
     public function download(string $nome = null): void
     {
         if (empty($nome)) {
