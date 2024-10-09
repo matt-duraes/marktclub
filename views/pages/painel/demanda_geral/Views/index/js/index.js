@@ -43,7 +43,9 @@ async function buscarDados() {
             },
             ''
         ).then(resposta => {
-            adicionarTotalDemandas(resposta.dado.length);
+            if (demandas) {
+                adicionarTotalDemandas(resposta.dado.length);
+            }
             if (eQuadro) {
                 carregarBuscarQuadro(coluna, resposta);
                 return;
@@ -115,31 +117,32 @@ async function buscarDados() {
         let demandasNaSprint = containerDemandas.querySelectorAll('.bloco_kambam_item.na_sprint');
         adicionarTotalDemandas(demandasNaSprint.length);
     };
-
-    demandas.addEventListener('click', () => {
-        ajaxPost(
-            LINK + '/demanda/listar',
-            {
-                area: 'tecnologia',
-                status: 'geral',
-            },
-            ''
-        ).then(resposta => {
-            let respostaDemandas = resposta.dado.length;
-            // classe que os elementos possuem 'na_sprint'
-            const botaoNaSprint = $('#botao_na_sprint');
-            const botaoForaSprint = $('#botao_fora_sprint');
-            if (botaoForaSprint.classList.contains('hover') == true) {
-                pegarDemandaForaSprint();
-                return;
-            }
-            if (botaoNaSprint.classList.contains('hover') == true) {
-                pegarDemandaNaSprint();
-                return;
-            }
-            adicionarTotalDemandas(respostaDemandas);
+    if (demandas) {
+        demandas.addEventListener('click', () => {
+            ajaxPost(
+                LINK + '/demanda/listar',
+                {
+                    area: 'tecnologia',
+                    status: 'geral',
+                },
+                ''
+            ).then(resposta => {
+                let respostaDemandas = resposta.dado.length;
+                // classe que os elementos possuem 'na_sprint'
+                const botaoNaSprint = $('#botao_na_sprint');
+                const botaoForaSprint = $('#botao_fora_sprint');
+                if (botaoForaSprint.classList.contains('hover') == true) {
+                    pegarDemandaForaSprint();
+                    return;
+                }
+                if (botaoNaSprint.classList.contains('hover') == true) {
+                    pegarDemandaNaSprint();
+                    return;
+                }
+                adicionarTotalDemandas(respostaDemandas);
+            });
         });
-    });
+    }
 }
 
 const cloneErro = $('#clone_item_erro');
