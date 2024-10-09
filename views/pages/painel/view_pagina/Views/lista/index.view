@@ -63,51 +63,37 @@ $empresa = array_merge([
                     );
                 @end
                 <div class="fw_form_tabela">
-                    <div class="fw_form_tabela_row">
-                        <div class="fw_form_tabela_botao">Adicionar linha</div>
-                        <div class="fw_form_tabela_botao">Adicionar coluna</div>
+                    <div class="fw_form_tabela_row fw_form_botao_linha_conula">
+                        <div class="fw_form_tabela_botao fw_form_tabela_add_linha">Adicionar linha</div>
+                        <div class="fw_form_tabela_botao fw_form_tabela_add_coluna">Adicionar coluna</div>
                     </div>
                     <div class="fw_form_tabela_scroll">
-                        <div class="fw_form_tabela_conteudo">
-                            <div class="fw_form_tabela_linha header">
-                                <div class="fw_form_tabela_drag">@iconeDrag</div>
+                        <div class="fw_form_tabela_header">
+                            <div class="fw_form_tabela_linha">
+                                <div class="fw_form_tabela_drag"></div>
                                 <div class="fw_form_tabela_linha_conteudo">
-                                    <div class="fw_form_tabela_coluna">
-                                        <input placeholder="texto" class="fw_form_tabela_texto" value="Título 01">
-                                        <input class="fw_form_tabela_tamanho" placeholder="000">
-                                    </div>
-                                    <div class="fw_form_tabela_coluna">
-                                        <input placeholder="texto" class="fw_form_tabela_texto" value="Título 02">
-                                        <input class="fw_form_tabela_tamanho" placeholder="000">
-                                    </div>
-                                    <div class="fw_form_tabela_coluna">
-                                        <input placeholder="texto" class="fw_form_tabela_texto" value="Título 03">
-                                        <input class="fw_form_tabela_tamanho" placeholder="000">
-                                    </div>
                                 </div>
-                                <div class="fw_form_tabela_remover">@iconeFechar(8)</div>
+                                <div class="fw_form_tabela_remover"></div>
                             </div>
-                            @laco(3)
-                            <div class="fw_form_tabela_linha header">
-                                <div class="fw_form_tabela_drag">@iconeDrag</div>
-                                <div class="fw_form_tabela_linha_conteudo">
-                                    <div class="fw_form_tabela_coluna">
-                                        <input placeholder="texto" class="fw_form_tabela_texto" value="Texto 01">
-                                        <input class="fw_form_tabela_tamanho" placeholder="000">
-                                    </div>
-                                    <div class="fw_form_tabela_coluna">
-                                        <input placeholder="texto" class="fw_form_tabela_texto" value="Texto 02">
-                                        <input class="fw_form_tabela_tamanho" placeholder="000">
-                                    </div>
-                                    <div class="fw_form_tabela_coluna">
-                                        <input placeholder="texto" class="fw_form_tabela_texto" value="Texto 03">
-                                        <input class="fw_form_tabela_tamanho" placeholder="000">
-                                    </div>
-                                </div>
-                                <div class="fw_form_tabela_remover">@iconeFechar(8)</div>
-                            </div>
-                            @endlaco
                         </div>
+                        <div class="fw_form_tabela_conteudo">
+                        </div>
+                    </div>
+                </div>
+                <div class="display_none">
+                    <div class="fw_form_tabela_linha fw_form_tabela_linha_padrao">
+                        <div class="fw_form_tabela_drag">@iconeDrag</div>
+                        <div class="fw_form_tabela_linha_conteudo"></div>
+                        <div class="fw_form_tabela_remover fw_form_tabela_linha_remover">@iconeFechar(8)</div>
+                    </div>
+                    <div class="fw_form_tabela_coluna fw_form_tabela_coluna_padrao">
+                        <input placeholder="texto..." class="fw_form_tabela_texto">
+                    </div>
+                    <div class="fw_form_tabela_coluna fw_form_tabela_coluna_header_padrao">
+                        <div class="fw_form_tabela_drag">@iconeDrag</div>
+                        <input placeholder="texto..." class="fw_form_tabela_texto">
+                        <input class="fw_form_tabela_tamanho" placeholder="000">
+                        <div class="fw_form_tabela_remover fw_form_tabela_coluna_remover">@iconeFechar(8)</div>
                     </div>
                 </div>
                 @? formSelect(name: 'target', label: 'Target', placeholder: 'Escolha um target', lista: (new \App\Classes\Geral\Target())->select('Escolha um target'), obrigatorio: true, class: 'bloco_target display_none')

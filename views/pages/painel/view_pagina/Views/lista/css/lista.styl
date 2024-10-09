@@ -121,15 +121,73 @@
 .fw_form_tabela
     width: 100%
     flexCol()
+    margin-top: 20px
     .fw_form_tabela_botao
         height: 30px
         line-height: 30px
         padding: 0 20px
         border-radius: 4px
         border: 1px solid $cor
+        cursor: pointer
+    .fw_form_botao_linha_conula
+        margin-bottom: 10px
+    .fw_form_botao_linha_conula .fw_form_tabela_botao
+        margin-right: 10px
     .fw_form_tabela_row
-        width: 100px
+        width: 100%
         flexRow()
     .fw_form_tabela_scroll
+        max-width: 100%
+        overflow-x: auto
+        border-bottom: 1px solid #CCC
+    .fw_form_tabela_header
+    .fw_form_tabela_conteudo
         width: 100%
-        overflow: auto
+        flexCol()
+    .fw_form_tabela_linha
+        width: 100%
+        flexRow()
+        align-items: center
+        position: relative
+        border: 1px solid #CCC
+        border-bottom: none
+        padding: 0 10px
+    .fw_form_tabela_linha .fw_form_tabela_drag
+        cursor: pointer
+        width: 30px
+        height: 30px
+        flexCenter()
+        fill: #999
+    .fw_form_tabela_linha .fw_form_tabela_remover
+        cursor: pointer
+        width: 30px
+        height: 30px
+        flexCenter()
+        fill: #999
+    .fw_form_tabela_linha .fw_form_tabela_linha_conteudo
+        width: calc(100% - 60px)
+        flexRow()
+    .fw_form_tabela_linha .fw_form_tabela_coluna
+        width: 350px
+        flexRow()
+        border-right: 1px solid #CCC
+        align-items: center
+    .fw_form_tabela_linha .fw_form_tabela_coluna .fw_form_tabela_texto
+        width: 100%
+        height: 40px
+        padding: 0 10px
+    .fw_form_tabela_header .fw_form_tabela_linha .fw_form_tabela_coluna .fw_form_tabela_texto
+        width: calc(100% - 90px)
+    .fw_form_tabela_linha .fw_form_tabela_coluna .fw_form_tabela_tamanho
+        width: 40px
+        height: 30px
+        border: 1px solid #CCC
+        text-align: center
+        margin-right: 5px
+        border-radius: 4px
+    .fw_form_tabela_header .fw_form_tabela_linha .fw_form_tabela_coluna .fw_form_tabela_remover
+        margin-right: 5px
+    .fw_form_tabela_header .fw_form_tabela_linha .fw_form_tabela_coluna .fw_form_tabela_drag
+        margin-left: 10px
+        transform: rotate(90deg)
+

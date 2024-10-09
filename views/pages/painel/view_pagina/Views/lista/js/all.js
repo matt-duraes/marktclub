@@ -355,4 +355,121 @@ window.addEventListener('load', () => {
             blocoBodyLista.html('');
         }
     };
+
+    // REMOVER
+    addSubGrupo(blocoLista);
 });
+
+const fwTabelaLinhaPadrao = $('.fw_form_tabela_linha_padrao');
+fwTabelaLinhaPadrao.classe('fw_form_tabela_linha_padrao', false);
+const fwTabelaColunaPadrao = $('.fw_form_tabela_coluna_padrao');
+fwTabelaColunaPadrao.classe('fw_form_tabela_coluna_padrao', false);
+const fwTabelaColunaHeaderPadrao = $('.fw_form_tabela_coluna_header_padrao');
+fwTabelaColunaHeaderPadrao.classe('fw_form_tabela_coluna_header_padrao', false);
+
+const fwTabelaTamanhoColuna = tabela => {
+    const colunaLista = $$('.fw_form_tabela_header .fw_form_tabela_coluna', tabela);
+    if (colunaLista.length == 0) {
+        return;
+    }
+    const tamanho = colunaLista.length * 350;
+    tabela.attr('data-tamanho', tamanho);
+
+    const linhaLista = $$('.fw_form_tabela_linha', tabela);
+    for (const linha of linhaLista) {
+        linha.css('width', tamanho + 'px');
+    }
+};
+const fwTabelaRemoverColuna = async (tabela, linha, coluna) => {
+    if (
+        !(await Alerta.confirmar(
+            'Deletar coluna',
+            'Tem certeza que deseja remover essa coluna? Essa ação não poderá ser desfeita.',
+            '!'
+        ))
+    ) {
+        return;
+    }
+
+    const colunaLista = $$('.fw_form_tabela_coluna', linha);
+    const quantidade = colunaLista.length;
+    let colunaRemover = 0;
+    let i = 0;
+    for (; i < quantidade; ++i) {
+        if (colunaLista[i] === coluna) {
+            colunaRemover = i;
+            break;
+        }
+    }
+    const linhaLista = $$('.fw_form_tabela_linha', tabela);
+    for (const item of linhaLista) {
+        const remover = $$('.fw_form_tabela_coluna', item)[colunaRemover];
+        remover.remove();
+    }
+    fwTabelaTamanhoColuna(tabela);
+};
+const fwTabelaRemoverLinha = async linha => {
+    if (
+        !(await Alerta.confirmar(
+            'Deletar linha',
+            'Tem certeza que deseja remover essa linha? Essa ação não poderá ser desfeita.',
+            '!'
+        ))
+    ) {
+        return;
+    }
+    linha.remove();
+};
+const fwTabelaItem = tabela => {
+    const botaoAddLinha = $('.fw_form_tabela_add_linha', tabela);
+    const botaoAddColuna = $('.fw_form_tabela_add_coluna', tabela);
+
+    const conteudoHeader = $('.fw_form_tabela_header .fw_form_tabela_linha_conteudo', tabela);
+    const conteudoLista = $('.fw_form_tabela_conteudo', tabela);
+    fwTabelaTamanhoColuna(tabela);
+
+    botaoAddLinha.evento('click', () => {
+        const tamanho = parseInt(tabela.attr('data-tamanho'));
+        const linha = fwTabelaLinhaPadrao.clonar();
+        linha.css('width', tamanho + 'px');
+        const conteudo = $('.fw_form_tabela_linha_conteudo', linha);
+        const quantidade = $$('.fw_form_tabela_header .fw_form_tabela_coluna').length;
+        let i = 0;
+        for (; i < quantidade; ++i) {
+            const coluna = fwTabelaColunaPadrao.clonar();
+            conteudo.final(coluna);
+        }
+        conteudoLista.inicio(linha);
+    });
+    botaoAddColuna.evento('click', () => {
+        const linhaLista = $$('.fw_form_tabela_conteudo .fw_form_tabela_linha_conteudo', tabela);
+        for (const linha of linhaLista) {
+            const coluna = fwTabelaColunaPadrao.clonar();
+            linha.inicio(coluna);
+        }
+        conteudoHeader.inicio(fwTabelaColunaHeaderPadrao.clonar());
+        fwTabelaTamanhoColuna(tabela);
+    });
+    tabela.evento('click', e => {
+        const target = e.target;
+        if (target.classe('fw_form_tabela_coluna_remover', '?') || target.closest('.fw_form_tabela_coluna_remover')) {
+            fwTabelaRemoverColuna(
+                tabela,
+                target.closest('.fw_form_tabela_linha'),
+                target.closest('.fw_form_tabela_coluna')
+            );
+        } else if (
+            target.classe('fw_form_tabela_linha_remover', '?') ||
+            target.closest('.fw_form_tabela_linha_remover')
+        ) {
+            fwTabelaRemoverLinha(target.closest('.fw_form_tabela_linha'));
+        }
+    });
+};
+const loadingFwTabela = bloco => {
+    const lista = $$('.fw_form_tabela', bloco);
+    for (const tabela of lista) {
+        fwTabelaItem(tabela);
+    }
+};
+loadingFwTabela(document);
