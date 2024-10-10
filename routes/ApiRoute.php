@@ -315,11 +315,13 @@ Route
                 '!trabalho_data_inicio', '!grupo', '!empresa', '!subempresa', '!federacao', '!tipo_usuario'
             ])
             ::post('/usuario-cliente');
+
         Route
             ::nome('validarSenha')
             ::middleware(TokenMiddleware::class, 'scope', ['usuario_cliente:validar_senha'])
             ::request(['senha', '!usuario'])
             ::post('/usuario-cliente/validar-senha');
+
         Route
             ::nome('atualizar')
             ::middleware(TokenMiddleware::class, 'scope', ['usuario_cliente:atualizar'])
@@ -332,12 +334,14 @@ Route
                 '!trabalho_data_inicio', '!grupo', '!federacao', '!imagem_google', '!subempresa'
             ])
             ::put('/usuario-cliente/{id}');
+
         Route
             ::nome('imagem')
             ::middleware(TokenMiddleware::class, 'scope', ['usuario_cliente:atualizar'])
             ::request(['!usuario'])
             ::request(['arquivo'], 'files')
             ::post('/usuario-cliente/imagem');
+
         Route
             ::nome('deletar')
             ::middleware(TokenMiddleware::class, 'scope', ['usuario_cliente:deletar'])
@@ -347,11 +351,13 @@ Route
             ::nome('apple')
             ::middleware(TokenMiddleware::class, 'scope', ['usuario_cliente:apple'])
             ::post('/usuario-cliente/apple');
+
         Route
             ::nome('ativar')
             ::middleware(TokenMiddleware::class, 'scope', ['usuario_cliente:ativar'])
             ::request(['valor', '!empresa', '!tipo_usuario', '!chave'])
             ::post('/usuario-cliente/ativar');
+
         Route
             ::nome('ativar')
             ::middleware(TokenMiddleware::class, 'scope', ['usuario_cliente:ativar'])
@@ -363,36 +369,50 @@ Route
                 'endereco_estado', 'endereco_cidade', '!tipo_usuario', '!empresa', '!grupo'
             ])
             ::put('/usuario-cliente/ativar');
+
         Route
             ::nome('senha')
             ::middleware(TokenMiddleware::class, 'scope', ['usuario_cliente:senha'])
             ::request(['empresa', '!cpf', '!usuario'], 'json')
             ::get('/usuario-cliente/senha');
+
         Route
             ::nome('senha')
             ::middleware(TokenMiddleware::class, 'scope', ['usuario_cliente:senha'])
             ::request(['usuario', 'codigo'])
             ::post('/usuario-cliente/senha');
+
         Route
             ::nome('senha')
             ::middleware(TokenMiddleware::class, 'scope', ['usuario_cliente:senha'])
             ::request(['senha', 'usuario', 'hash'])
             ::put('/usuario-cliente/senha');
+
         Route
             ::nome('alterarSenha')
             ::middleware(TokenMiddleware::class, 'scope', ['usuario_cliente:alterar_senha'])
             ::request(['senha_atual', 'senha_nova'])
             ::put('/usuario-cliente/alterar-senha');
+
         route
             ::nome('hash')
             ::middleware(TokenMiddleware::class, 'scope', ['usuario_cliente:hash'])
             ::request(['usuario', 'tipo'])
             ::post('/usuario-cliente/hash');
+
         route
             ::nome('hash')
             ::middleware(TokenMiddleware::class, 'scope', ['usuario_cliente:hash'])
             ::request(['hash', 'usuario', 'tipo'])
             ::get('/usuario-cliente/hash');
+
+        route
+            ::nome('deletarApp')
+            ::middleware(TokenMiddleware::class, 'scope', ['usuario_cliente:atualizar'])
+            ::request([
+                'empresa', 'subempresa', 'usuario'
+            ])
+            ::post('/usuario-cliente/delete');
     });
 
 Route
