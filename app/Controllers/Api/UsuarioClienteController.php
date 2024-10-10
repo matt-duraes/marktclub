@@ -2,37 +2,38 @@
 
 namespace App\Controllers\Api;
 
-use Modules\Cpf;
-use Erro\Excecao;
-use Http\Request;
-use Http\Response;
-use Modules\Senha;
-use Modules\Inteiro;
-use Controller\Controller;
+use App\Classes\ConstrutorClube\TipoAtivacao;
 use App\Classes\UsuarioCliente\Helper;
 use App\Classes\UsuarioCliente\TipoUsuario;
-use App\Classes\ConstrutorClube\TipoAtivacao;
+use App\Models\Api\DownloadPrivado\ArquivoEntity;
 use App\Models\Api\Trait\ValidarUsuarioTrait;
 use App\Models\Api\UsuarioCliente\AppleModel;
-use App\Models\Api\UsuarioCliente\ClienteModel;
-use App\Models\Api\UsuarioCliente\DeletarModel;
-use System\Interface\ControllerBuscarInterface;
-use System\Interface\ControllerListarInterface;
-use System\Interface\ControllerSalvarInterface;
-use App\Models\Api\UsuarioCliente\ClienteEntity;
-use App\Models\Api\UsuarioCliente\DownloadModel;
-use System\Interface\ControllerDeletarInterface;
-use App\Models\Api\DownloadPrivado\ArquivoEntity;
-use System\Interface\ControllerAtualizarInterface;
+use App\Models\Api\UsuarioCliente\Ativar\AtivarIndicadoModel;
 use App\Models\Api\UsuarioCliente\Ativar\AtivarModel;
 use App\Models\Api\UsuarioCliente\Ativar\BuscarModel;
-use App\Models\Api\UsuarioCliente\Validar\ValidarModel;
+use App\Models\Api\UsuarioCliente\ClienteEntity;
+use App\Models\Api\UsuarioCliente\ClienteModel;
+use App\Models\Api\UsuarioCliente\DeletarAppModel;
+use App\Models\Api\UsuarioCliente\DeletarModel;
+use App\Models\Api\UsuarioCliente\DownloadModel;
+use App\Models\Api\UsuarioCliente\Hash\SalvarModel as SalvarHashModel;
+use App\Models\Api\UsuarioCliente\Hash\ValidarModel as ValidarHashModel;
 use App\Models\Api\UsuarioCliente\Senha\AlterarSenhaModel;
 use App\Models\Api\UsuarioCliente\Senha\EnviarCodigoModel;
 use App\Models\Api\UsuarioCliente\Senha\ValidarCodigoModel;
-use App\Models\Api\UsuarioCliente\Ativar\AtivarIndicadoModel;
-use App\Models\Api\UsuarioCliente\Hash\SalvarModel as SalvarHashModel;
-use App\Models\Api\UsuarioCliente\Hash\ValidarModel as ValidarHashModel;
+use App\Models\Api\UsuarioCliente\Validar\ValidarModel;
+use Controller\Controller;
+use Erro\Excecao;
+use Http\Request;
+use Http\Response;
+use Modules\Cpf;
+use Modules\Inteiro;
+use Modules\Senha;
+use System\Interface\ControllerAtualizarInterface;
+use System\Interface\ControllerBuscarInterface;
+use System\Interface\ControllerDeletarInterface;
+use System\Interface\ControllerListarInterface;
+use System\Interface\ControllerSalvarInterface;
 
 final class UsuarioClienteController extends Controller implements
     ControllerBuscarInterface,
@@ -353,5 +354,22 @@ final class UsuarioClienteController extends Controller implements
             tipo: $request->tipo
         );
         return mensagemSucesso($Hash->retorno);
+    }
+
+    /**
+     * @param Request $request
+     *
+     * @return Response
+     * @throws Excecao
+     */
+    public function postDeletarApp(Request $request): Response
+    {
+        $DeletarAppModel = new DeletarAppModel(
+            $request->empresa,
+            $request->subempresa,
+            $request->usuario
+        );
+        $DeletarAppModel->bloquearUsuario();
+        return mensagemSucesso($DeletarAppModel->success);
     }
 }
