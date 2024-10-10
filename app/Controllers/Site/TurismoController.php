@@ -6,11 +6,12 @@ use Erro\Excecao;
 use Http\Response;
 use Controller\Controller;
 use App\Models\Site\Hash\HashModel;
+use App\Models\Site\Pagina\ApiModel;
 use App\Models\Site\Loja\FiltroModel;
 use App\Models\Site\Loja\ListarModel;
 use App\Classes\ParceiroLoja\TipoLoja;
+use App\Models\Site\Pagina\BuscarModel;
 use App\Models\Site\Turismo\PromocaoModel;
-use App\Models\Site\Comunicacao\BannerModel;
 
 final class TurismoController extends Controller
 {
@@ -20,10 +21,13 @@ final class TurismoController extends Controller
      */
     public function index(): Response
     {
-        return view('turismo.index', [
-            'menu'         => 'turismo',
-            'banner'       => (new BannerModel())->turismo(),
-            'tipo'         => 'turismo',
+        $Buscar = new ApiModel('turismo', 'a2c7ef20-da4e-4496-9772-900092dd0811');
+        $Pagina = new BuscarModel('turismo');
+        // ppe($Pagina->html);
+        return view('pagina', [
+            'menu'    => 'turismo',
+            'html'    => $Pagina->html,
+            'url'     => 'turismo'
         ]);
     }
 

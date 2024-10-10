@@ -12,6 +12,7 @@ Route
             ::nome('undefined')
             ::view('/undefined');
     });
+
 Route
     ::nome('thema')
     ::controller(App\Controllers\Site\TemaController::class)
@@ -255,6 +256,18 @@ Route
         Route
             ::nome('index')
             ::view('/samsung');
+    });
+
+Route
+    ::nome('componente')
+    ::middleware(ClubeMiddleware::class, 'buscar')
+    ::middleware(AuthMiddleware::class, 'logado')
+    ::controller(App\Controllers\Site\Componente\ComponenteController::class)
+    ::grupo(function () {
+        Route
+            ::nome('buscar')
+            ::request(['id', 'url'])
+            ::post('/componente');
     });
 
 Route

@@ -1,0 +1,12 @@
+@template "site"
+
+<form action="">
+    <input type="hidden" id="input_url" value="{{$url}}">
+</form>
+<div id="bloco_pagina">
+    @ foreach( $html as $r ):
+        @ if( $r->tipo == 'banner' ):
+        @view 'site/pagina/componente/banner'
+        @ endif;
+    @ endforeach;
+</div>
