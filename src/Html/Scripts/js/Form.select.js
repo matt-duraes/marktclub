@@ -6,6 +6,13 @@ let fwFormSelectAbertoAtual, fwFormSelectListaTexto, fwFormSelectValorAtual;
 const fwFormBlocoGeralSelect = document.getElementById('fw_form_select');
 
 const formValue = (input, valor, obrigatorio) => {
+    if (input.classList.contains('fw_form_tabela')) {
+        if (valor === undefined) {
+            return fwFormTabelaPegarValor(input);
+        }
+        fwFormTabelaSetarValor(input, valor);
+        return;
+    }
     if (input.classList.contains('fw_form_select_input_tag')) {
         fwFormValueSelectInputTagValor(input, valor);
         return;

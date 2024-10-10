@@ -171,6 +171,9 @@ Object.defineProperty(Object.prototype, 'valor', {
                 const valorTemp = item.value;
                 retorno.push(valorTemp == '' ? '' : 'https://' + valorTemp);
                 continue;
+            } else if (valor === undefined && item.classList.contains('fw_form_tabela')) {
+                retorno.push(formValue(item));
+                continue;
             } else if (valor == undefined) {
                 retorno.push(item.value);
                 continue;

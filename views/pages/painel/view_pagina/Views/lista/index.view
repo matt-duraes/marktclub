@@ -53,7 +53,6 @@ $empresa = array_merge([
                 @? formInput(name: 'titulo', label: 'Título', placeholder: 'Digite um titulo', obrigatorio: true, class: 'bloco_titulo display_none')
                 @? formInput(name: 'texto', label: 'Texto', placeholder: 'Digite um texto', obrigatorio: true, class: 'bloco_texto display_none')
                 @? formNumero(name: 'margem', label: 'Margem', placeholder: 'Digite uma margem', obrigatorio: true, class: 'bloco_margem display_none')
-                @? formUrl(name: 'link', label: 'Link', placeholder: 'Digite um link', obrigatorio: true, class: 'bloco_link display_none')
                 @php
                     echo formSelectInputTag(
                         id: 'input_link_empresa',
@@ -62,7 +61,8 @@ $empresa = array_merge([
                         input: formUrl(name: 'link_empresa_url', label: 'Link', placeholder: 'Digite um link', class: 'bloco_link_url')
                     );
                 @end
-                @? formTabela(name: 'tabela', label: 'Tabela')
+                @? formTabela(name: 'tabela', label: 'Tabela:', class: 'bloco_tabela', id: 'input_tabela')
+                @? formUrl(name: 'link', label: 'Link', placeholder: 'Digite um link', obrigatorio: true, class: 'bloco_link display_none')
                 @? formSelect(name: 'target', label: 'Target', placeholder: 'Escolha um target', lista: (new \App\Classes\Geral\Target())->select('Escolha um target'), obrigatorio: true, class: 'bloco_target display_none')
                 @? formSelect(name: 'div_direcao', label: 'Direção', placeholder: 'Qual direção?', lista: ['linha' => 'Linha (row)', 'coluna' => 'Coluna (column)'], obrigatorio: true, class: 'bloco_div_direcao display_none')
                 @? formSelect(name: 'div_posicao', label: 'Posição', placeholder: 'Qual posicao?', lista: ['esquerda' => 'Esquerda (flex-start)', 'direita' => 'Direita (flex-end)', 'centralizado' => 'Centralizado (center)', 'entre' => 'Entre (between)'], obrigatorio: true, class: 'bloco_div_posicao display_none')

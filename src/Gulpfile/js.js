@@ -254,12 +254,14 @@ function pegarListaImports(conteudo, path) {
                 if (!inArray('src/Html/Scripts/js/ArquivoUpload.system.js', retorno)) {
                     retorno.push('src/Html/Scripts/js/ArquivoUpload.system.js');
                 }
+                retorno.push('src/Html/Scripts/js/Alerta.system.js');
                 retorno.push('src/Html/Scripts/js/Galeria.system.js');
                 retorno.push('src/Html/Scripts/js/Form.init.js');
                 retorno.push('src/Html/Scripts/js/Form.indice.js');
                 retorno.push('src/Html/Scripts/js/Form.tag.js');
                 retorno.push('src/Html/Scripts/js/Form.select.js');
                 retorno.push('src/Html/Scripts/js/Form.cor.js');
+                retorno.push('src/Html/Scripts/js/Form.tabela.js');
                 retorno.push('src/Html/Scripts/js/Form.selectinputtag.js');
             } else if (arquivo == 'src/Html/Scripts/js/DragDrop.system.js') {
                 retorno.push('src/Html/Scripts/js/DragDrop.interno.js');
