@@ -25,6 +25,7 @@ window.addEventListener('load', () => {
     const inputStatus = $('#input_status');
     const inputApiStatus = $('#input_api_status');
     const inputApiMetodo = $('#input_api_metodo');
+    const inputApiBody = $('#input_api_body');
     const inputApiUri = $('#input_api_uri');
     const inputHtml = $('#input_html');
     const inputTabela = $('#input_tabela');
@@ -92,23 +93,9 @@ window.addEventListener('load', () => {
         inputApiStatus.valor(item.api_status || 'nao');
         blocoApiSim.classe('display_none', apiStatus != 'sim');
         inputApiMetodo.valor(item.api_metodo || '');
+        inputApiBody.valor(item.api_body || '');
         inputApiUri.valor((item.api_uri || '').replace(/^\//, ''));
         inputTabela.valor(item.tabela || '');
-
-        const bodyAtual = item.api_body || [];
-        const bodyQuantidade = Object.keys(bodyAtual).length;
-        if (bodyQuantidade > 0) {
-            for (const [chave, valor] of Object.entries(bodyAtual)) {
-                blocoBodyLista.final(`
-                    <div class="fw_form_indice_valor_linha fw_form_indice_valor_linha_padrao">
-                        <div class="fw_form_indice_valor_ordem"><svg height="8" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 40 21" style="enable-background:new 0 0 40 21;" xml:space="preserve"><g><path class="st0" d="M37.1,21H2.9C1.3,21,0,19.7,0,18.1s1.3-2.9,2.9-2.9h34.3c1.6,0,2.9,1.3,2.9,2.9S38.7,21,37.1,21z M37.1,5.7 H2.9C1.3,5.7,0,4.4,0,2.9S1.3,0,2.9,0h34.3C38.7,0,40,1.3,40,2.9S38.7,5.7,37.1,5.7z"></path></g></svg></div>
-                        <p><strong class="fw_form_indice_valor_indice">${chave}</strong></p>
-                        <p class="fw_form_indice_valor_valor">${valor}</p>
-                        <i class="fw_form_indice_valor_remover"><svg height="8" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 50 50" xml:space="preserve"><path d="M28.9,25L49.2,4.7c1.1-1.1,1.1-2.8,0-3.9c-1.1-1.1-2.8-1.1-3.9,0L25,21.1L4.7,0.8c-1.1-1.1-2.8-1.1-3.9,0s-1.1,2.8,0,3.9 L21.1,25L0.8,45.3c-1.1,1.1-1.1,2.8,0,3.9C1.4,49.8,2,50,2.8,50s1.4-0.3,1.9-0.8L25,28.9l20.3,20.3c0.6,0.6,1.2,0.8,1.9,0.8 c0.7,0,1.4-0.3,1.9-0.8c1.1-1.1,1.1-2.8,0-3.9L28.9,25z"></path></svg></i>
-                    </div>
-                `);
-            }
-        }
         blocoListaAtual = $('.lista', article);
         PopupAdd.abrir();
     };
@@ -160,6 +147,7 @@ window.addEventListener('load', () => {
         const id = !add ? inputId.valor() : uuid();
         const tituloInterno = inputTituloInterno.valor();
         const status = inputStatus.valor();
+
         const item = {
             id: id,
             tipo,
@@ -178,6 +166,7 @@ window.addEventListener('load', () => {
             titulo_interno: tituloInterno,
             api_status: inputApiStatus.valor(),
             api_metodo: inputApiMetodo.valor(),
+            api_body: inputApiBody.valor(),
             api_uri: inputApiUri.valor(),
             /* eslint-enable */
         };

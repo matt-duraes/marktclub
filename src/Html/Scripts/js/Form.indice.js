@@ -1,3 +1,37 @@
+const fwFormIndiceValorPadrao = $('.fw_form_indice_valor_linha_padrao');
+if (fwFormIndiceValorPadrao) {
+    fwFormIndiceValorPadrao.classe('fwFormIndiceValorPadrao', false);
+}
+fwFormIndiceValorPegarValor = input => {
+    const lista = $$('.fw_form_indice_valor_lista .fw_form_indice_valor_linha', input);
+    let retorno = {};
+    lista.forEach((item, i) => {
+        retorno[i] = {};
+        retorno[i][$('.fw_form_indice_valor_indice', item).texto()] = $('.fw_form_indice_valor_valor', item).texto();
+    });
+    return retorno;
+};
+fwFormIndiceValorSetarValor = (input, valor) => {
+    if (typeof valor !== 'object' || !input) {
+        return;
+    }
+    const quantidade = Object.keys(valor).length;
+    if (quantidade == 0) {
+        return;
+    }
+    const conteudo = $('.fw_form_indice_valor_lista', input);
+    let i = 0;
+    for (; i < quantidade; ++i) {
+        const item = valor[i];
+        const indice = Object.keys(item);
+        const texto = item[indice];
+        const clone = fwFormIndiceValorPadrao.clonar();
+        $('.fw_form_indice_valor_indice', clone).texto(indice);
+        $('.fw_form_indice_valor_valor', clone).texto(texto);
+        conteudo.final(clone);
+    }
+};
+
 window.addEventListener('load', () => {
     const listaIndiceValor = document.querySelectorAll('.fw_form_indice_valor');
     listaIndiceValor.forEach(item => {

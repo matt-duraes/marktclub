@@ -13,6 +13,13 @@ const formValue = (input, valor, obrigatorio) => {
         fwFormTabelaSetarValor(input, valor);
         return;
     }
+    if (input.classList.contains('fw_form_indice_valor')) {
+        if (valor === undefined) {
+            return fwFormIndiceValorPegarValor(input);
+        }
+        fwFormIndiceValorSetarValor(input, valor);
+        return;
+    }
     if (input.classList.contains('fw_form_select_input_tag')) {
         fwFormValueSelectInputTagValor(input, valor);
         return;

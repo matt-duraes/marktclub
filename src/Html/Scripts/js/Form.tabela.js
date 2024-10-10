@@ -185,6 +185,9 @@ fwFormTabelaPegarValor = tabela => {
     const headerLista = $$('.fw_form_tabela_header .fw_form_tabela_coluna', tabela);
     const linhaLista = $$('.fw_form_tabela_conteudo .fw_form_tabela_linha .fw_form_tabela_linha_conteudo', tabela);
     const quantidade = headerLista.length;
+    if (quantidade == 0) {
+        return {};
+    }
     const retorno = {
         header: {},
         linha: {},

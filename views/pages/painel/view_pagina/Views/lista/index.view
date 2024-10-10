@@ -73,7 +73,7 @@ $empresa = array_merge([
                     @? formSelect(name: 'api_metodo', label: 'Método', placeholder: 'Método', lista: (new \App\Classes\Geral\Metodo())->select('Escolha um método'), obrigatorio: true, class: 'bloco_api_metodo')
                     @? formUri(name: 'api_uri', label: 'URI', placeholder: 'Digite a URI')
                 </div>
-                @? formIndiceValor(name: 'api_body', placeholder: ['Indice', 'Valor'], class: 'display_none bloco_api_sim bloco_api_body')
+                @? formIndiceValor(name: 'api_body', placeholder: ['Indice', 'Valor'], id: 'input_api_body', class: 'display_none bloco_api_sim bloco_api_body')
                 <div class="bloco_botao_direita">
                     <div class="botao" id="botao_add_html">Salvar</div>
                 </div>
