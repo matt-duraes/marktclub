@@ -2,19 +2,51 @@
 
 namespace App\Models\Site\Pagina;
 
+use stdClass;
 use App\Helpers\ClubeApiHelper;
 
-final class ApiModel extends ClubeApiHelper
+final class ApiModel
 {
     private array $componente = [];
+    public stdClass $retorno;
 
     public function __construct(
         private string $url,
         private string $id
     ) {
-        parent::__construct();
+        $this->retorno = object([]);
         $this->pegarComponente();
-        ppe($this->componente);
+        $this->fazerRequisicao();
+    }
+
+    private function fazerRequisicao()
+    {
+        $com = $this->componente;
+        if (!array_key_exists('status', $com) || $com['status'] != 'sim') {
+            return [];
+        }
+
+        $metodo = $com['metodo'];
+        $body = $com['body'];
+        $uri = $com['uri'];
+
+        $Api = new ClubeApiHelper();
+
+        $get = $metodo == 'GET';
+        $post = $metodo == 'POST';
+
+        if ($body && $post) {
+            $Api->body($body);
+        } elseif ($body && $get) {
+            $Api->json($body);
+        }
+
+        if ($get) {
+            $Api->get($uri);
+        } elseif ($post) {
+            $Api->post($uri);
+        }
+        $this->retorno = $Api->object();
     }
 
     private function pegarComponente()
@@ -37,7 +69,7 @@ final class ApiModel extends ClubeApiHelper
                 $this->componente = [
                     'uri'    => '/' . $r->api_uri,
                     'metodo' => $r->api_metodo,
-                    // 'parametro' => $r->api_parametro,
+                    'body'   => $this->montarBody($r->api_body),
                     'status' => $r->api_status,
                 ];
                 break;
@@ -46,5 +78,14 @@ final class ApiModel extends ClubeApiHelper
                 $this->selecionarComponente($lista);
             }
         }
+    }
+
+    private function montarBody($body): array
+    {
+        $retorno = [];
+        foreach ($body as $r) {
+            $retorno[$r->indice] = $r->valor;
+        }
+        return $retorno;
     }
 }

@@ -6,7 +6,6 @@ use Erro\Excecao;
 use Http\Response;
 use Controller\Controller;
 use App\Models\Site\Hash\HashModel;
-use App\Models\Site\Pagina\ApiModel;
 use App\Models\Site\Loja\FiltroModel;
 use App\Models\Site\Loja\ListarModel;
 use App\Classes\ParceiroLoja\TipoLoja;
@@ -21,9 +20,7 @@ final class TurismoController extends Controller
      */
     public function index(): Response
     {
-        $Buscar = new ApiModel('turismo', 'a2c7ef20-da4e-4496-9772-900092dd0811');
         $Pagina = new BuscarModel('turismo');
-        // ppe($Pagina->html);
         return view('pagina', [
             'menu'    => 'turismo',
             'html'    => $Pagina->html,
