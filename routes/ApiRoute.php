@@ -410,7 +410,7 @@ Route
             ::nome('deletarApp')
             ::middleware(TokenMiddleware::class, 'scope', ['usuario_cliente:atualizar'])
             ::request([
-                'empresa', 'subempresa', 'usuario'
+                'empresa', '!subempresa', 'usuario'
             ])
             ::post('/usuario-cliente/delete');
     });
