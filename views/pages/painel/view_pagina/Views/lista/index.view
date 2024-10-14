@@ -39,7 +39,7 @@ $empresa = array_merge([
     </article>
 </div>
 <div id="bloco_view_add" class="display_none">
-    <div class="bloco_pagina_popup conteudo">
+    <div class="bloco_pagina_popup conteudo sem_footer">
         <header class="header_pagina_popup">
             <h1>ITEM</h1>
             <i class="fechar popup_fechar">@iconeFechar</i>

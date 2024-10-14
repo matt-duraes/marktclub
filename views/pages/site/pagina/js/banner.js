@@ -23,6 +23,7 @@ window.addEventListener('load', () => {
             ''
         );
         EsqueletoItem.hide();
+        banner.classe('banner_loading', false);
         if (false == resposta || resposta.dado.lista.length == 0) {
             banner.remove();
             return;
@@ -43,6 +44,14 @@ window.addEventListener('load', () => {
             if (item.tipo == 'home') {
                 blocoLinkDesktop.attr('href', item.link);
                 blocoLinkMobile.attr('href', item.link);
+                if ('target' in item) {
+                    blocoLinkDesktop.attr('target', item.target);
+                    blocoLinkMobile.attr('target', item.target);
+                }
+                if ('rel' in item) {
+                    blocoLinkDesktop.attr('rel', item.rel);
+                    blocoLinkMobile.attr('rel', item.rel);
+                }
             } else {
                 blocoLinkDesktop.remove();
                 blocoLinkMobile.remove();

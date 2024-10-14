@@ -1,9 +1,20 @@
 @template "site"
+
+@php
+if(!function_exists('componenteLoading')) {
+    function componenteLoading($lista) {
+        foreach($lista as $r) {
+            include ROOT . '/files/build/views/site_pagina_componente_funcao.php';
+        }
+    }
+}
+@end
+
 <form action="">
     <input type="hidden" id="input_url" value="{{$url}}">
 </form>
 <div id="bloco_pagina">
-    @ foreach( $html as $r ):
-        @view 'site/pagina/componente/funcao'
-    @ endforeach;
+    @php
+        componenteLoading($html);
+    @end
 </div>

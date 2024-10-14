@@ -2,8 +2,11 @@ const comCampanha = async bloco => {
     const padrao = $('.com_campanha_padrao', bloco);
     const conteudo = $('.conteudo', bloco);
 
-    const EsqueletoItem = new Esqueleto(bloco, '.esqueleto');
-    EsqueletoItem.show();
+    const esqueletoLista = $$('.com_esqueleto', bloco);
+    for (const esqueleto of esqueletoLista) {
+        const EsqueletoItem = new Esqueleto(esqueleto, '.esqueleto');
+        EsqueletoItem.show();
+    }
 
     const resposta = await ajaxPost(
         LINK + '/componente',
@@ -19,7 +22,6 @@ const comCampanha = async bloco => {
         bloco.remove();
         return;
     }
-    EsqueletoItem.hide();
 
     conteudo.innerHTML = '';
     bloco.classe('com_campanha_numero_' + resposta.dado.lista.length, true);
@@ -45,7 +47,14 @@ const comCampanha = async bloco => {
             texto.aparecer();
             $('.lang_br', texto).texto(item.texto);
         }
-        $('a', clone).attr('href', item.link);
+        const link = $('a', clone);
+        link.attr('href', item.link);
+        if ('target' in item) {
+            link.attr('target', item.target);
+        }
+        if ('rel' in item) {
+            link.attr('rel', item.rel);
+        }
         conteudo.final(clone);
     }
     conteudo.final(`<div class="article_fake"></div><div class="article_fake"></div>`);

@@ -74,7 +74,6 @@ window.addEventListener('load', () => {
         const id = article.attr('data-id');
         const item = htmlLinha[id];
         const apiStatus = item.api_status || '';
-
         limparObrigatorio();
         setarTipo(item.tipo);
         inputId.valor(id);

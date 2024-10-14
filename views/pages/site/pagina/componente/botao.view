@@ -1,1 +1,1 @@
-<a href="{{$r->link}}" target="{{$r->target}}" {!!$r->target == '_blank' ? 'rel="noopener noreferrer"' : ''!!} class="botao_geral_cor">{{$r->titulo}}</a>
+@? (new \ResourcesSite\Componente\Botao())->botao(texto: $r->titulo, link: $r->link, attr: ['target' => $r->target ?? ''])

@@ -1,4 +1,7 @@
 <div class="com_campanha" data-id="{{$r->id}}">
+    @php
+        componenteLoading($r->lista);
+    @end
     <header>
         <h1>
             <span class="lang_br esqueleto">{{$r->titulo}}</span>

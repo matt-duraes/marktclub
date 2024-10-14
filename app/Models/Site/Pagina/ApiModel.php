@@ -4,6 +4,7 @@ namespace App\Models\Site\Pagina;
 
 use stdClass;
 use App\Helpers\ClubeApiHelper;
+use App\Models\Site\Loja\RetornoModel;
 
 final class ApiModel
 {
@@ -49,39 +50,45 @@ final class ApiModel
         } elseif ($post) {
             $Api->post($uri);
         }
-        $this->retorno = $this->montarRetorno($Api->object());
+        $this->retorno = $this->montarRetorno($Api->object(), $metodo, $uri);
     }
 
-    private function montarRetorno($dado)
+    private function montarRetorno($dado, $metodo, $uri)
     {
         if (!object_key_exists('dado', $dado) || !object_key_exists('lista', $dado->dado) || empty($dado->dado->lista)) {
             return $dado;
         }
+
         $retorno = [];
-        $campo = $this->campo;
-        foreach ($dado->dado->lista as $item) {
-            $r = [];
-            foreach ($item as $ind => $val) {
-                if (!in_array($ind, $campo)) {
-                    continue;
-                } elseif ($ind == 'target' && array_key_exists('target', $r)) {
-                    continue;
-                }
+        if ($metodo == 'GET' && $uri == '/parceiro-loja') {
+            $Retorno = new RetornoModel($dado->dado->lista);
+            $retorno = $Retorno->retorno;
+        } else {
+            $campo = $this->campo;
+            foreach ($dado->dado->lista as $item) {
+                $r = [];
+                foreach ($item as $ind => $val) {
+                    if (!in_array($ind, $campo)) {
+                        continue;
+                    } elseif ($ind == 'target' && array_key_exists('target', $r)) {
+                        continue;
+                    }
 
-                $eLink = !empty($valor) && is_string($valor) && (
-                    str_starts_with($valor, 'http://') || str_starts_with($valor, 'https://')
-                );
-                if ($eLink) {
-                    $val = strLink($val);
-                }
+                    $eLink = !empty($val) && is_string($val) && (
+                        str_starts_with($val, 'http://') || str_starts_with($val, 'https://')
+                    );
+                    if ($eLink) {
+                        $val = strLink($val);
+                    }
 
-                if (!empty($val) && is_string($val) && $ind == 'link' && str_starts_with($val, LINK)) {
-                    $r['target'] = '_blank';
-                    $r['rel'] = 'noopener noreferrer';
+                    if ($eLink && $ind == 'link' && !str_starts_with($val, LINK)) {
+                        $r['target'] = '_blank';
+                        $r['rel'] = 'noopener noreferrer';
+                    }
+                    $r[$ind] = $val;
                 }
-                $r[$ind] = $val;
+                $retorno[] = $r;
             }
-            $retorno[] = $r;
         }
         $dado->dado->lista = $retorno;
         return $dado;
@@ -106,10 +113,10 @@ final class ApiModel
             }
             if ($r->id == $this->id) {
                 $this->componente = [
-                    'uri'    => '/' . $r->api_uri,
-                    'metodo' => $r->api_metodo,
-                    'body'   => $this->montarBody($r->api_body),
-                    'status' => $r->api_status,
+                    'uri'    => '/' . $r->api_uri ?? '',
+                    'metodo' => $r->api_metodo ?? '',
+                    'body'   => $this->montarBody($r->api_body ?? []),
+                    'status' => $r->api_status ?? 'nao',
                 ];
                 break;
             }

@@ -59,6 +59,7 @@ final class Botao extends Componente
         string $class = null,
         array $attr = [],
     ) {
+        $link = strLink($link);
         $this->resetar();
         $texto = !empty($texto) ? '<div class="com_texto">' . $texto . '</div>' : '[[TEXTO]]';
         $tag = 'div';
