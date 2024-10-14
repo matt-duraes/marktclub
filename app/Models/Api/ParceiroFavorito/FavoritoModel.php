@@ -4,7 +4,7 @@ namespace App\Models\Api\ParceiroFavorito;
 
 use ORM\ORM;
 
-final class FavoritoModel extends ORM
+class FavoritoModel extends ORM
 {
     protected string $ormTabela = TABELA_PARCEIRO_FAVORITO;
 
