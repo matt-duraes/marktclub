@@ -266,7 +266,7 @@ Route
     ::grupo(function () {
         Route
             ::nome('buscar')
-            ::request(['id', 'url'])
+            ::request(['id', 'url', 'campo', '!relacionado'])
             ::post('/componente');
     });
 

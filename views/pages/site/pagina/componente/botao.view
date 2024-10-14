@@ -1,0 +1,1 @@
+<a href="{{$r->link}}" target="{{$r->target}}" {!!$r->target == '_blank' ? 'rel="noopener noreferrer"' : ''!!} class="botao_geral_cor">{{$r->titulo}}</a>

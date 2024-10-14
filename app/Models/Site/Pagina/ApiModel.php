@@ -12,7 +12,8 @@ final class ApiModel
 
     public function __construct(
         private string $url,
-        private string $id
+        private string $id,
+        private array $campo
     ) {
         $this->retorno = object([]);
         $this->pegarComponente();
@@ -23,7 +24,7 @@ final class ApiModel
     {
         $com = $this->componente;
         if (!array_key_exists('status', $com) || $com['status'] != 'sim') {
-            return [];
+            return mensagemStatus(403, localhost: 'Status não existe ou ele não é sim');
         }
 
         $metodo = $com['metodo'];
@@ -34,6 +35,8 @@ final class ApiModel
 
         $get = $metodo == 'GET';
         $post = $metodo == 'POST';
+
+        $Api->validar(status: 403);
 
         if ($body && $post) {
             $Api->body($body);
@@ -46,14 +49,49 @@ final class ApiModel
         } elseif ($post) {
             $Api->post($uri);
         }
-        $this->retorno = $Api->object();
+        $this->retorno = $this->montarRetorno($Api->object());
+    }
+
+    private function montarRetorno($dado)
+    {
+        if (!object_key_exists('dado', $dado) || !object_key_exists('lista', $dado->dado) || empty($dado->dado->lista)) {
+            return $dado;
+        }
+        $retorno = [];
+        $campo = $this->campo;
+        foreach ($dado->dado->lista as $item) {
+            $r = [];
+            foreach ($item as $ind => $val) {
+                if (!in_array($ind, $campo)) {
+                    continue;
+                } elseif ($ind == 'target' && array_key_exists('target', $r)) {
+                    continue;
+                }
+
+                $eLink = !empty($valor) && is_string($valor) && (
+                    str_starts_with($valor, 'http://') || str_starts_with($valor, 'https://')
+                );
+                if ($eLink) {
+                    $val = strLink($val);
+                }
+
+                if (!empty($val) && is_string($val) && $ind == 'link' && str_starts_with($val, LINK)) {
+                    $r['target'] = '_blank';
+                    $r['rel'] = 'noopener noreferrer';
+                }
+                $r[$ind] = $val;
+            }
+            $retorno[] = $r;
+        }
+        $dado->dado->lista = $retorno;
+        return $dado;
     }
 
     private function pegarComponente()
     {
         $sessao = 'PAGINA_' . strCaixaAlta(str_replace('/', '_', $this->url));
         if (!sessaoExiste($sessao)) {
-            mensagemStatus(404);
+            mensagemStatus(403, localhost: 'Sessão não existe.');
         }
         $this->selecionarComponente(sessao($sessao)->html);
     }
@@ -61,6 +99,7 @@ final class ApiModel
     private function selecionarComponente($html)
     {
         foreach ($html as $r) {
+            $lista = [];
             if (object_key_exists('lista', $r)) {
                 $lista = $r->lista;
                 unset($r->lista);

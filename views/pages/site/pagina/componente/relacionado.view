@@ -1,0 +1,46 @@
+<aside class="com_relacionado" data-id="{{$r->id}}">
+    <header>
+        <h1>{{$r->titulo}}</h1>
+        @ if( !empty($r->link) ):
+        <a href="{!!strLink($r->link)!!}">Veja mais</a>
+        @ endif;
+    </header>
+    <div class="bloco_parceiro_scroll">
+        <div class="bloco_parceiro bloco_geral_article parceiro_numero_3 ">
+            @ laco(3)
+            <article class="parceiro">
+                <figure class="logo item_logo"><div class="esqueleto"></div></figure>
+                <header>
+                    <h1 class="item_titulo esqueleto"></h1>
+                </header>
+                <p class="item_desconto esqueleto"></p>
+                <div class="bloco_estado esqueleto"></div>
+                <div class="bloco_favorito esqueleto"></div>
+            </article>
+            @ endlaco;
+        </div>
+    </div>
+    <div class="display_none">
+        <article class="parceiro parceiro_loja_padrao">
+            <a href="" class="item_link"></a>
+            <figure class="logo item_logo"></figure>
+            <header>
+                <h1 class="item_titulo"></h1>
+            </header>
+            <p class="item_volta"></p>
+            <p class="item_desconto destaque"></p>
+            <p class="item_pontos"></p>
+            <div class="bloco_estado display_none">
+                <p><i>@iconeMapa(15)</i><span class="item_estado"></span></p>
+            </div>
+            <div class="bloco_novo display_none item_novo"><i>@iconeNovo(20)</i></div>
+            <div class="bloco_favorito botao_favorito display_none">
+                <i class="marcado">@iconeFavoritoMarcado</i>
+                <i class="desmarcado">@iconeFavorito</i>
+            </div>
+            <div class="linha"></div>
+        </article>
+    </div>
+</aside>
+
+@view site/geral/parceiro_clone.view

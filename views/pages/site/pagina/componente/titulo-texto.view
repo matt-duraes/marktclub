@@ -1,0 +1,4 @@
+<div class="com_titulo_texto">
+    <h1>{{$r->titulo}}</h1>
+    <p>{{$r->texto}}</p>
+</div>

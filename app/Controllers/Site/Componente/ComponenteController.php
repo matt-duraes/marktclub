@@ -13,8 +13,9 @@ final class ComponenteController extends Controller
     {
         $Api = new ApiModel(
             url: $request->url,
-            id: $request->id
+            id: $request->id,
+            campo: $request->campo
         );
-        return new Response(json: $Api->retorno);
+        return new Response(json: $Api->retorno, status: 201);
     }
 }

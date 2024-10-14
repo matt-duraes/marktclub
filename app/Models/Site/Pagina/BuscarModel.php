@@ -28,7 +28,7 @@ final class BuscarModel extends ClubeApiHelper
     private function buscarPagina()
     {
         $sessao = 'PAGINA_' . strCaixaAlta(str_replace('/', '_', $this->url));
-        if (sessaoExiste($sessao)) {
+        if (sessaoExiste($sessao) && eProducao()) {
             $this->busca = sessao($sessao);
             return;
         }

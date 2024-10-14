@@ -1,0 +1,5 @@
+<div class="com_div direcao_{{$r->div_direcao}} posicao_{{$r->div_posicao}}">
+    @ foreach( $r->lista as $r ):
+        @view 'site/pagina/componente/funcao'
+    @ endforeach;
+</div>
