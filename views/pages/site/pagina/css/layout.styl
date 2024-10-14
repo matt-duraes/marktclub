@@ -1,6 +1,7 @@
 @template "site"
 @system "Esqueleto"
 @system "Banner"
+@system "Documento"
 @resource "site/banner"
 @import "banner"
 @import "margem"
@@ -10,8 +11,12 @@
 @import "linha"
 @import "relacionado"
 @import "parceiro"
+@import "bloco"
+@import "tabela"
+@import "botao"
 
 #bloco_pagina
     width: 100%
+    max-width: $maxWidth
     flexCol()
     align-items: center

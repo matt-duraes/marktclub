@@ -1,0 +1,6 @@
+<p class="com_texto">
+    @php
+        componenteLoading($r->lista);
+    @end
+    {{$r->texto}}
+</p>

@@ -5,37 +5,42 @@
     cursor: pointer
     background-color: $corClube
     flexRow()
-    .com_texto
+    &.com_botao_destaque
+        height: 55px
+        line-height: 55px
+    .com_botao_texto
         textoFontSize()
         padding: 0 20px
         color: #FFF
-    .com_icone
+    &.com_botao_destaque .com_botao_texto
+        padding: 0 30px
+    .com_botao_icone
         fill: #FFF
         height: 45px
         flexCenter()
         padding: 0 15px
-    &.com_botao_icone_esquerda .com_texto
+    &.com_botao_icone_esquerda .com_botao_texto
         padding-left: 0
-    &.com_botao_icone_direita .com_texto
+    &.com_botao_icone_direita .com_botao_texto
         padding-right: 0
     &.com_botao_borda
         background-color: rgba(255,255,255,0)
         border: 1px solid $corClube
-    &.com_botao_borda .com_texto
+    &.com_botao_borda .com_botao_texto
         color: $corClube
-    &.com_botao_borda .com_icone
+    &.com_botao_borda .com_botao_icone
         fill: $corClube
     &.com_botao_cinza
         background-color: #DDD
         border: none
-    &.com_botao_cinza .com_texto
+    &.com_botao_cinza .com_botao_texto
         color: #333
-    &.com_botao_cinza .com_icone
+    &.com_botao_cinza .com_botao_icone
         fill: #333
     &.com_botao_borda.com_botao_cinza
         background-color: rgba(255,255,255,0)
         border: 1px solid #CCC
-    &.com_botao_borda.com_botao_cinza .com_texto
+    &.com_botao_borda.com_botao_cinza .com_botao_texto
         color: $corCinzaCinza
-    &.com_botao_borda.com_botao_cinza .com_icone
+    &.com_botao_borda.com_botao_cinza .com_botao_icone
         fill: $corCinzaCinza

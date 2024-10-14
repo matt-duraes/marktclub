@@ -45,7 +45,7 @@ final class Botao extends Componente
 
     public function icone(string $icone, $posicao = self::ICONE_ESQUERDA)
     {
-        $icone = '<div class="com_icone">' . $icone . '</div>';
+        $icone = '<div class="com_botao_icone">' . $icone . '</div>';
         $replace = $posicao === self::ICONE_ESQUERDA ? '[[ICONE_ESQUERDA]]' : '[[ICONE_DIREITA]]';
         $this->html = str_replace($replace, $icone, $this->html);
         $this->classe[] = $posicao === self::ICONE_ESQUERDA ? 'com_botao_icone_esquerda' : 'com_botao_icone_direita';
@@ -61,7 +61,7 @@ final class Botao extends Componente
     ) {
         $link = strLink($link);
         $this->resetar();
-        $texto = !empty($texto) ? '<div class="com_texto">' . $texto . '</div>' : '[[TEXTO]]';
+        $texto = !empty($texto) ? '<div class="com_botao_texto">' . $texto . '</div>' : '[[TEXTO]]';
         $tag = 'div';
         if (validarUrl($link)) {
             $tag = 'a';
@@ -82,6 +82,12 @@ final class Botao extends Componente
 
         $this->html = '<' . $tag . ' ' . $this->attr($attr) . ' '
             . $id . ' class="[[CLASSE_PADRAO]]">[[ICONE_ESQUERDA]]' . $texto . '[[ICONE_DIREITA]]</' . $tag . '>';
+        return $this;
+    }
+
+    public function destaque()
+    {
+        $this->classe[] = 'com_botao_destaque';
         return $this;
     }
 
@@ -126,7 +132,7 @@ final class Botao extends Componente
         if (empty($texto)) {
             return $this;
         }
-        $this->texto = '<div class="com_texto">' . $texto . '</div>';
+        $this->texto = '<div class="com_botao_texto">' . $texto . '</div>';
         return $this;
     }
 }

@@ -7,7 +7,12 @@ $empresa = array_merge([
     '' => 'Escolha uma empresa',
     'geral' => 'Geral'
 ], $empresa);
+
+$diretorioImagem = sessao('PAINEL.upload_grupo')['imagem'] ?? '';
+$diretorioArquivo = sessao('PAINEL.upload_grupo')['arquivo'] ?? '';
+
 @end
+
 <div class="bloco_fieldset" id="bloco_view">
     <input type="hidden" id="input_html" value="{{jsonEncode($dado->html)}}">
     <input type="text">
@@ -66,6 +71,7 @@ $empresa = array_merge([
                 @? formSelect(name: 'target', label: 'Target', placeholder: 'Escolha um target', lista: (new \App\Classes\Geral\Target())->select('Escolha um target'), obrigatorio: true, class: 'bloco_target display_none')
                 @? formSelect(name: 'div_direcao', label: 'Direção', placeholder: 'Qual direção?', lista: ['linha' => 'Linha (row)', 'coluna' => 'Coluna (column)'], obrigatorio: true, class: 'bloco_div_direcao display_none')
                 @? formSelect(name: 'div_posicao', label: 'Posição', placeholder: 'Qual posicao?', lista: ['esquerda' => 'Esquerda (flex-start)', 'direita' => 'Direita (flex-end)', 'centralizado' => 'Centralizado (center)', 'entre' => 'Entre (between)'], obrigatorio: true, class: 'bloco_div_posicao display_none')
+                @? formEditor(name: 'editor', label: 'Editor', placeholder: 'Digite seu texto', diretorioImagem: $diretorioImagem, diretorioArquivo: $diretorioArquivo, obrigatorio: true, bar: 'bold,italic,underline,Strikethrough,fwDestaque,|,fontColor,|,alignment,|,link,removeFormat,|,insertTable,fwImagem,fwArquivo,mediaEmbed,|,horizontalLine,FwObservacao,|,numberedList,bulletedList', barBalao: 'bold,italic,underline,Strikethrough,fwDestaque,|,fontColor,|,link,removeFormat', class: 'bloco_editor display_none')
                 @? formSwitch(name: 'status', label: 'Status', check: false)
                 <h2>API</h2>
                 @? formSwitch(name: 'api_status', label: 'Vai usar API?', class: 'bloco_api_status')

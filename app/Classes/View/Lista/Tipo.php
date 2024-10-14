@@ -13,14 +13,17 @@ final class Tipo extends StatusStatus
     public const TITULO_TEXTO = 'titulo-texto';
     public const TITULO = 'titulo';
     public const SUBTITULO = 'subtitulo';
+    public const TEXTO = 'texto';
     public const BOTAO = 'botao';
     public const BOTAO_EMPRESA = 'botao-empresa';
     public const BOTAO_DESTAQUE = 'botao-destaque';
+    public const BOTAO_FIXO = 'botao-fixo';
     public const CAMPANHA = 'campanha';
     public const LINHA = 'linha';
     public const RELACIONADO = 'relacionado';
     public const MARGEM = 'margem';
     public const TABELA = 'tabela';
+    public const EDITOR = 'editor';
 
     public function __construct(
         protected string|int|null $valor = null
@@ -33,14 +36,17 @@ final class Tipo extends StatusStatus
             self::TITULO_TEXTO   => 'Título e texto',
             self::TITULO         => 'Titulo',
             self::SUBTITULO      => 'Subtitulo',
+            self::TEXTO          => 'Texto',
             self::BOTAO          => 'Botão',
             self::BOTAO_EMPRESA  => 'Botão empresa',
             self::BOTAO_DESTAQUE => 'Botão em destaque',
+            self::BOTAO_FIXO     => 'Botão fixo',
             self::CAMPANHA       => 'Campanha',
             self::LINHA          => 'Linha',
             self::RELACIONADO    => 'Relacionado',
             self::MARGEM         => 'Margem',
             self::TABELA         => 'Tabela',
+            self::EDITOR         => 'Editor',
         ]);
     }
 }

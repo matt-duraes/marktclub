@@ -1,0 +1,1 @@
+@? (new \ResourcesSite\Componente\Botao())->botao(texto: $r->titulo, link: $r->link, attr: ['target' => $r->target ?? ''])->destaque()

@@ -1,0 +1,6 @@
+<h2 class="com_subtitulo">
+    @php
+        componenteLoading($r->lista);
+    @end
+    {{$r->titulo}}
+</h2>

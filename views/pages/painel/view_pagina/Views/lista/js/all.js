@@ -5,7 +5,7 @@ window.addEventListener('load', () => {
         #input_local, #input_titulo_interno, #input_titulo, #input_texto,
         #input_link, #input_target, #input_status, #input_api_status, #input_api_uri,
         #input_api_metodo, .bloco_api_body .input_geral, #input_id, #input_margem,
-        #input_link_empresa
+        #input_link_empresa, #input_editor
     `);
 
     const id = $('#input_visualizar_id').valor();
@@ -29,6 +29,7 @@ window.addEventListener('load', () => {
     const inputApiUri = $('#input_api_uri');
     const inputHtml = $('#input_html');
     const inputTabela = $('#input_tabela');
+    const inputEditor = $('#input_editor');
 
     const htmlLinha = {};
     let html;
@@ -52,6 +53,7 @@ window.addEventListener('load', () => {
     const blocoDivPosicao = $('.bloco_div_posicao');
     const blocoDivDirecao = $('.bloco_div_direcao');
     const blocoBodyLista = $('.bloco_api_body .fw_form_indice_valor_lista');
+    const blocoEditor = $('.bloco_editor');
 
     const botaoPopupAbrir = $('#botao_view_abrir');
     const botaoPopupSalvar = $('#botao_add_html');
@@ -95,6 +97,7 @@ window.addEventListener('load', () => {
         inputApiBody.valor(item.api_body || '');
         inputApiUri.valor((item.api_uri || '').replace(/^\//, ''));
         inputTabela.valor(item.tabela || '');
+        inputEditor.valor(item.editor || '');
         blocoListaAtual = $('.lista', article);
         PopupAdd.abrir();
     };
@@ -146,7 +149,7 @@ window.addEventListener('load', () => {
         const id = !add ? inputId.valor() : uuid();
         const tituloInterno = inputTituloInterno.valor();
         const status = inputStatus.valor();
-
+        ppe(inputEditor.valor());
         const item = {
             id: id,
             tipo,
@@ -158,6 +161,7 @@ window.addEventListener('load', () => {
             margem: inputMargem.valor(),
             status: inputStatus.valor(),
             tabela: inputTabela.valor(),
+            editor: inputEditor.valor(),
             /* eslint-disable */
             link_empresa: inputLinkEmpresa.valor(),
             div_direcao: inputDivDirecao.valor(),
@@ -315,7 +319,15 @@ window.addEventListener('load', () => {
             blocoTexto.aparecer();
         } else if (valor == 'titulo' || valor == 'subtitulo') {
             blocoTitulo.aparecer();
-        } else if (valor == 'botao' || valor == 'botao-destaque' || valor == 'campanha' || valor == 'relacionado') {
+        } else if (valor == 'texto') {
+            blocoTexto.aparecer();
+        } else if (
+            valor == 'botao' ||
+            valor == 'botao-destaque' ||
+            valor == 'botao-fixo' ||
+            valor == 'campanha' ||
+            valor == 'relacionado'
+        ) {
             blocoTitulo.aparecer();
             blocoLink.aparecer();
             blocoTarget.aparecer();
@@ -330,9 +342,12 @@ window.addEventListener('load', () => {
             blocoDivPosicao.aparecer();
         } else if (valor == 'tabela') {
             inputTabela.aparecer();
+        } else if (valor == 'editor') {
+            blocoEditor.aparecer();
         }
     };
     const limparObrigatorio = () => {
+        blocoEditor.sumir();
         inputTabela.sumir();
         blocoTitulo.sumir();
         blocoTexto.sumir();

@@ -1,0 +1,6 @@
+<h1 class="com_titulo">
+    @php
+        componenteLoading($r->lista);
+    @end
+    {{$r->titulo}}
+</h1>

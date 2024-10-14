@@ -1,0 +1,5 @@
+@php
+$comEmpresa = (array)$r->link_empresa;
+$link = $comEmpresa[CLUBE_EMPRESA] ?? $comEmpresa['geral'] ?? '';
+echo (new \ResourcesSite\Componente\Botao())->botao(texto: $r->titulo, link: $link, attr: ['target' => $r->target ?? ''])
+@end
