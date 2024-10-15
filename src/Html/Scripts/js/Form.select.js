@@ -12,15 +12,19 @@ const formValue = (input, valor, obrigatorio) => {
         }
         fwFormTabelaSetarValor(input, valor);
         return;
-    }
-    if (input.classList.contains('fw_form_indice_valor')) {
+    } else if (input.classList.contains('form_input_traducao')) {
+        if (valor === undefined) {
+            return fwFormTraducaoPegarValor(input);
+        }
+        fwFormTraducaoSetarValor(input, valor);
+        return;
+    } else if (input.classList.contains('fw_form_indice_valor')) {
         if (valor === undefined) {
             return fwFormIndiceValorPegarValor(input);
         }
         fwFormIndiceValorSetarValor(input, valor);
         return;
-    }
-    if (input.classList.contains('fw_form_select_input_tag')) {
+    } else if (input.classList.contains('fw_form_select_input_tag')) {
         fwFormValueSelectInputTagValor(input, valor);
         return;
     }

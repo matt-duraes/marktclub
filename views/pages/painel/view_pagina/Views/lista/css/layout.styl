@@ -1,3 +1,97 @@
 @template "painel"
 @painel "app_geral_visualizar"
 @import "lista"
+
+.form_input_traducao
+    width: 100%
+    position: relative
+    .bloco_input
+        padding: 8px 0 5px 30px
+    .bloco_input input
+        height: 25px
+    .form_input_traducao_lang
+        flexCol()
+        z-index: 2
+        position: absolute
+        left: 10px
+        top: 10px
+    .form_input_traducao_lang span
+        height: 25px
+        line-height: 25px
+        textoFontSize()
+        color: #999
+    .bloco_input label
+        top: -10px
+        opacity: 1
+
+.fw_form_lista_hide
+    display: none !important
+.fw_form_lista
+    width: 100%
+    flexCol()
+    .fw_form_lista_bloco
+        width: 100%
+        flexRow()
+    .fw_form_lista_bloco .form_input_traducao
+        width: calc(100% - 90px)
+    .fw_form_lista_bloco .fw_form_lista_botao
+        width: 80px
+        height: 45px
+        line-height: 45px
+        border-radius: 25px
+        bgDegradeVerde()
+        textoFontSize()
+        color: #FFF
+        padding: 0 20px
+        margin: 20px 0 0 10px
+        cursor: pointer
+        text-align: center
+    .fw_form_lista_conteudo
+        width: 100%
+        flexCol()
+        border-bottom: 1px solid #CCC
+    .fw_form_lista_item
+        width: 100%
+        flexRow()
+        align-items: center
+        border: 1px solid #CCC
+        border-bottom: none
+    .fw_form_lista_item .fw_form_icone
+        cursor: pointer
+        width: 30px
+        height: 30px
+        flexCenter()
+        fill: #999
+        margin-right: 5px
+        &.fw_form_lista_salvar
+            width: 25px
+            height: 25px
+            border: 1px solid #CCC
+            border-radius: 50%
+    .fw_form_lista_item .fw_form_lista_bloco_texto
+        flexGrow()
+        flex-direction: column
+        padding: 5px 10px 5px 0
+    .fw_form_lista_item .fw_form_lista_bloco_texto .fw_form_lista_p
+        width: 100%
+        min-height: 22.5px
+        padding-left: 40px
+        position: relative
+        flexRow()
+        align-items: center
+        &::before
+            width: 10px
+            height: 2px
+            background-color: #CCC
+            content: ""
+            position: absolute
+            left: 25px
+        &::after
+            content: attr(data-lang)
+            position: absolute
+            left: 0
+            texto()
+            color: #666
+    .fw_form_lista_item .fw_form_lista_bloco_texto .fw_form_lista_p input
+        width: 100%
+        textoFontSize()

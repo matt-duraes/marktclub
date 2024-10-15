@@ -69,5 +69,11 @@ return [
         'nome'      => 'Usuario tabela',
         'diretorio' => 'usuario_tabela',
         'extensao'  => ['xls', 'xlsx', 'csv']
+    ],
+    [
+        'uuid'      => 'c0ec7d2f-e3e6-48ea-9159-cbbc3a540896 ',
+        'nome'      => 'Pagina Clube',
+        'diretorio' => 'pagina_clube',
+        'extensao'  => ['png', 'jpg', 'jpeg', 'doc', 'docx', 'pdf', 'xls', 'xlsx', 'csv']
     ]
 ];

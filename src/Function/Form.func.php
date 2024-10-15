@@ -2349,3 +2349,111 @@ if (!function_exists('formTabela')) {
         ';
     }
 }
+
+if (!function_exists('formLista')) {
+    function formLista(
+        string $name,
+        string $label = '',
+        array $value = [],
+        string $class = '',
+        string $id = ''
+    ) {
+        $blocoId = empty($id) ? 'id_' . md5(uniqid(time())) : $id;
+
+        $lista = [];
+        $value = [
+            0 => [
+                'br' => 'Texto 01 BR',
+                'en' => 'Texto 01 EN',
+                'es' => 'Texto 01 ES',
+            ],
+            1 => [
+                'br' => 'Texto 02 BR',
+                'en' => 'Texto 02 EN',
+                'es' => 'Texto 02 ES',
+            ],
+        ];
+        foreach ($value as $r) {
+            $r = (object)$r;
+            $lista[] = '
+                <div class="fw_form_lista_item">
+                    <div class="fw_form_lista_drag fw_form_icone">' . iconeDrag() . '</div>
+                    <div class="fw_form_lista_bloco_texto">
+                        <p class="fw_form_lista_p fw_form_lista_br" data-lang="BR"><input readonly type="text" placeholder="Texto em português" value="' . $r->br . '"></p>
+                        <p class="fw_form_lista_p fw_form_lista_en" data-lang="EN"><input readonly type="text" placeholder="Texto em inglês" value="' . $r->en . '"></p>
+                        <p class="fw_form_lista_p fw_form_lista_es" data-lang="ES"><input readonly type="text" placeholder="Texto em espanhol" value="' . $r->es . '"></p>
+                    </div>
+                    <div class="fw_form_lista_salvar fw_form_lista_hide fw_form_icone">' . iconeCheck(10) . '</div>
+                    <div class="fw_form_lista_editar fw_form_icone">' . iconeEditar(12) . '</div>
+                    <div class="fw_form_lista_remover fw_form_icone">' . iconeFechar(14) . '</div>
+                </div>
+            ';
+        }
+
+        $input = formInputTraducao(label: $label);
+        $name = !empty($name) ? 'data-name="' . $name . '"' : '';
+
+        $class = explode(' ', $class);
+        $class[] = 'fw_form_lista';
+        return '
+            <div class="' . implode(' ', $class) . '" ' . $name . ' id="' . $blocoId . '">
+                <div class="fw_form_lista_bloco">
+                    ' . $input . '
+                    <div class="fw_form_lista_botao">Add</div>
+                </div>
+                <div class="fw_form_lista_conteudo">
+                    ' . implode(PHP_EOL, $lista) . '
+                </div>
+                <div class="display_none">
+                    <div class="fw_form_lista_item fw_form_lista_item_padrao">
+                        <div class="fw_form_lista_drag fw_form_icone">' . iconeDrag() . '</div>
+                        <div class="fw_form_lista_bloco_texto">
+                            <p class="fw_form_lista_p fw_form_lista_br" data-lang="BR"><input readonly type="text" placeholder="Texto em português"></p>
+                            <p class="fw_form_lista_p fw_form_lista_en" data-lang="EN"><input readonly type="text" placeholder="Texto em inglês"></p>
+                            <p class="fw_form_lista_p fw_form_lista_es" data-lang="ES"><input readonly type="text" placeholder="Texto em espanhol"></p>
+                        </div>
+                        <div class="fw_form_lista_salvar fw_form_lista_hide fw_form_icone">' . iconeCheck(10) . '</div>
+                        <div class="fw_form_lista_editar fw_form_icone">' . iconeEditar(12) . '</div>
+                        <div class="fw_form_lista_remover fw_form_icone">' . iconeFechar(14) . '</div>
+                    </div>
+                </div>
+            </div>
+        ';
+    }
+}
+
+if (!function_exists('formInputTraducao')) {
+    function formInputTraducao(
+        string $name = '',
+        string $label = '',
+        bool $obrigatorio = false,
+        string $id = '',
+        string $class = ''
+    ) {
+        $label = !empty($label) ? '<label>' . $label . '</label>' : '';
+        $classObrigatorio = $obrigatorio ? 'input_obrigatorio' : '';
+        $class = explode(' ', $class);
+        $class[] = 'form_input_traducao';
+        $class = implode(' ', $class);
+        $id = !empty($id) ? $id : 'id_' . md5(uniqid(time()));
+        $name = !empty($name) ? 'data-name="' . $name . '"' : '';
+        return <<<EOF
+            <div class="$class" id="$id" $name>
+                <div class="bloco_input input_input">
+                    <div class="form_input_traducao_lang">
+                        <span>BR = </span>
+                        <span>EN = </span>
+                        <span>ES = </span>
+                    </div>
+                    <input class="input_geral form_input_traducao_br $classObrigatorio" type="text" autocomplete="off" placeholder="Texto em português">
+                    <input class="input_geral form_input_traducao_en" type="text" autocomplete="off" placeholder="Texto em inglês">
+                    <input class="input_geral form_input_traducao_es" type="text" autocomplete="off" placeholder="Texto em espanhol">
+                    <div class="borda"></div>
+                    $label
+                    <i class="input_icone_erro"></i>
+                    <div class="bloco_input_footer"><div class="input_mensagem"></div></div>
+                </div>
+            </div>
+        EOF;
+    }
+}

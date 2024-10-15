@@ -24,6 +24,9 @@ final class Tipo extends StatusStatus
     public const MARGEM = 'margem';
     public const TABELA = 'tabela';
     public const EDITOR = 'editor';
+    public const LISTA = 'lista';
+    public const IMAGEM = 'imagem';
+    public const ICONE = 'icone';
 
     public function __construct(
         protected string|int|null $valor = null
@@ -47,6 +50,9 @@ final class Tipo extends StatusStatus
             self::MARGEM         => 'Margem',
             self::TABELA         => 'Tabela',
             self::EDITOR         => 'Editor',
+            self::LISTA         => 'Lista',
+            self::IMAGEM         => 'Imagem',
+            self::ICONE         => 'Ícone',
         ]);
     }
 }

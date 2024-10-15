@@ -173,7 +173,9 @@ Object.defineProperty(Object.prototype, 'valor', {
                 continue;
             } else if (
                 valor === undefined &&
-                (item.classList.contains('fw_form_tabela') || item.classList.contains('fw_form_indice_valor'))
+                (item.classList.contains('fw_form_tabela') ||
+                    item.classList.contains('fw_form_indice_valor') ||
+                    item.classList.contains('form_input_traducao'))
             ) {
                 retorno.push(formValue(item));
                 continue;
