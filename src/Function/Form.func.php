@@ -2089,18 +2089,30 @@ if (!function_exists('formArquivo')) {
         ?string $id = null,
         bool $obrigatorio = false
     ) {
-        $blocoId = empty($id) ? 'id_' . md5(uniqid(time())) : $id;
-        $blocoClass = empty($class) ? '' : $class;
-
-        if (!empty($value)) {
-            $arquivo = arquivoPrivadoDado($value);
+        $id = empty($id) ? 'id_' . md5(uniqid(time())) : $id;
+        $class = !empty($class) ? explode(' ', $class) : [];
+        if ($obrigatorio) {
+            $class[] = 'input_obrigatorio';
         }
+        $class[] = 'fw_form fw_form_arquivo';
+        $class = implode(' ', $class);
+        $arquivo = !empty($value) ? arquivoPrivadoDado($value) : '';
 
-        return '
-            <div class="fw_form fw_form_arquivo ' . $blocoClass . '" id="' . $blocoId . '" data-name="' . $name . '" data-diretorio="' . $diretorio . '">
-
+        return <<<EOF
+            <div class="$class" id="$id" data-name="$name" data-diretorio="$diretorio">
+                <input type="text" value="$value">
+                <i class="fw_form_arquivo_icone fw_form_arquivo_upload">
+                    <svg height="15" xmlns="https://www.w3.org/2000/svg" xmlns:xlink="https://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 34 40" style="enable-background:new 0 0 34 40;" xml:space="preserve"><path d="M18.3,38.7c0-3.1,0-6.2,0-9.3c0-4.9,0-9.9,0-14.8c0-1.1,0-2.2,0-3.4c0-0.7-0.6-1.4-1.3-1.3c-0.7,0-1.3,0.6-1.3,1.3 c0,3.1,0,6.2,0,9.3c0,4.9,0,9.9,0,14.8c0,1.1,0,2.2,0,3.4c0,0.7,0.6,1.4,1.3,1.3C17.7,40,18.3,39.4,18.3,38.7L18.3,38.7z"/><path d="M27.9,21.6c-1.1-1.4-2.3-2.7-3.4-4.1c-1.8-2.2-3.6-4.3-5.4-6.5c-0.4-0.5-0.8-1-1.2-1.5c-0.4-0.5-1.4-0.5-1.9,0 c-1.1,1.4-2.3,2.7-3.4,4.1c-1.8,2.2-3.6,4.3-5.4,6.5c-0.4,0.5-0.8,1-1.2,1.5c-0.5,0.6-0.5,1.4,0,1.9c0.5,0.5,1.4,0.6,1.9,0 c1.1-1.4,2.3-2.7,3.4-4.1c1.8-2.2,3.6-4.3,5.4-6.5c0.4-0.5,0.8-1,1.2-1.5c-0.6,0-1.2,0-1.9,0c1.1,1.4,2.3,2.7,3.4,4.1 c1.8,2.2,3.6,4.3,5.4,6.5c0.4,0.5,0.8,1,1.2,1.5c0.5,0.6,1.4,0.5,1.9,0C28.4,22.9,28.4,22.2,27.9,21.6L27.9,21.6z"/><path d="M32.7,0c-1,0-2.1,0-3.1,0c-2.5,0-5,0-7.5,0c-3,0-6,0-9.1,0c-2.6,0-5.2,0-7.8,0C3.9,0,2.6,0,1.4,0c0,0,0,0-0.1,0 C0.6,0,0,0.6,0,1.4s0.6,1.3,1.3,1.3c1,0,2.1,0,3.1,0c2.5,0,5,0,7.5,0c3,0,6,0,9.1,0c2.6,0,5.2,0,7.8,0c1.3,0,2.5,0,3.8,0 c0,0,0,0,0.1,0c0.7,0,1.3-0.6,1.3-1.3S33.4,0,32.7,0L32.7,0z"/></svg>
+                </i>
+                <i class="fw_form_arquivo_icone fw_form_arquivo_remover">
+                    <svg height="19" xmlns="https://www.w3.org/2000/svg" viewBox="0 0 48 48" x="0px" y="0px"><g data-name="Application, Delete"><path d="M13,37a4,4,0,0,0,4,4H31a4,4,0,0,0,4-4V16H13Zm2-19H33V37a2,2,0,0,1-2,2H17a2,2,0,0,1-2-2Zm7,16H20V23h2Zm6,0H26V23h2Zm3.41-23-4-4H20.59l-4,4H9v2H39V11Zm-10-2h5.18l2,2H19.41Z"/></g></svg>
+                </i>
+                <div class="fw_arquivo_conteudo">
+                    <figure class="fw_form_arquivo_arquivo" style="background-image: url($arquivo)"></figure>
+                    <p class="fw_form_arquivo_zero">Sem arquivos</p>
+                </div>
             </div>
-        ';
+        EOF;
     }
 }
 
@@ -2361,18 +2373,6 @@ if (!function_exists('formLista')) {
         $blocoId = empty($id) ? 'id_' . md5(uniqid(time())) : $id;
 
         $lista = [];
-        $value = [
-            0 => [
-                'br' => 'Texto 01 BR',
-                'en' => 'Texto 01 EN',
-                'es' => 'Texto 01 ES',
-            ],
-            1 => [
-                'br' => 'Texto 02 BR',
-                'en' => 'Texto 02 EN',
-                'es' => 'Texto 02 ES',
-            ],
-        ];
         foreach ($value as $r) {
             $r = (object)$r;
             $lista[] = '
@@ -2435,7 +2435,12 @@ if (!function_exists('formInputTraducao')) {
         $class = explode(' ', $class);
         $class[] = 'form_input_traducao';
         $class = implode(' ', $class);
-        $id = !empty($id) ? $id : 'id_' . md5(uniqid(time()));
+        $id = !empty($id) ? $id : '';
+        if (empty($id) && !empty($name)) {
+            $id = 'input_' . $name;
+        } elseif (empty($id)) {
+            $id = 'id_' . md5(uniqid(time()));
+        }
         $name = !empty($name) ? 'data-name="' . $name . '"' : '';
         return <<<EOF
             <div class="$class" id="$id" $name>

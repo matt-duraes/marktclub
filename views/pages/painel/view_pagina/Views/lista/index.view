@@ -8,6 +8,8 @@ $empresa = array_merge([
     'geral' => 'Geral'
 ], $empresa);
 
+$diretorio = 'c0ec7d2f-e3e6-48ea-9159-cbbc3a540896';
+
 @end
 
 <div class="bloco_fieldset" id="bloco_view">
@@ -52,8 +54,8 @@ $empresa = array_merge([
                 @? formSelect(name: 'tipo', label: 'Tipo de item', placeholder: 'Escolha um tipo', lista: (new \App\Classes\View\Lista\Tipo())->select('Escolha um tipo'), obrigatorio: true)
                 @? formSelect(name: 'local', label: 'Local', placeholder: 'Onde vai aparecer?', lista: (new \App\Classes\View\Lista\Local())->select('Escolha um local'), obrigatorio: true)
                 @? formInput(name: 'titulo_interno', label: 'Título interno', placeholder: 'Digite um título interno', obrigatorio: true)
-                @? formInput(name: 'titulo', label: 'Título', placeholder: 'Digite um titulo', obrigatorio: true, class: 'bloco_titulo display_none')
-                @? formInput(name: 'texto', label: 'Texto', placeholder: 'Digite um texto', obrigatorio: true, class: 'bloco_texto display_none')
+                @? formInputTraducao(name: 'titulo', label: 'Título', obrigatorio: true, class: 'bloco_titulo display_none')
+                @? formInputTraducao(name: 'texto', label: 'Texto', obrigatorio: true, class: 'bloco_texto display_none')
                 @? formNumero(name: 'margem', label: 'Margem', placeholder: 'Digite uma margem', obrigatorio: true, class: 'bloco_margem display_none')
                 @php
                     echo formSelectInputTag(
@@ -68,12 +70,21 @@ $empresa = array_merge([
                 @? formSelect(name: 'target', label: 'Target', placeholder: 'Escolha um target', lista: (new \App\Classes\Geral\Target())->select('Escolha um target'), obrigatorio: true, class: 'bloco_target display_none')
                 @? formSelect(name: 'div_direcao', label: 'Direção', placeholder: 'Qual direção?', lista: ['linha' => 'Linha (row)', 'coluna' => 'Coluna (column)'], obrigatorio: true, class: 'bloco_div_direcao display_none')
                 @? formSelect(name: 'div_posicao', label: 'Posição', placeholder: 'Qual posicao?', lista: ['esquerda' => 'Esquerda (flex-start)', 'direita' => 'Direita (flex-end)', 'centralizado' => 'Centralizado (center)', 'entre' => 'Entre (between)'], obrigatorio: true, class: 'bloco_div_posicao display_none')
-                @? formEditor(name: 'editor', label: 'Editor', placeholder: 'Digite seu texto', diretorioImagem: 'c0ec7d2f-e3e6-48ea-9159-cbbc3a540896', diretorioArquivo: 'c0ec7d2f-e3e6-48ea-9159-cbbc3a540896', obrigatorio: true, bar: 'bold,italic,underline,Strikethrough,fwDestaque,|,fontColor,|,alignment,|,link,removeFormat,|,insertTable,fwImagem,fwArquivo,mediaEmbed,|,horizontalLine,FwObservacao,|,numberedList,bulletedList', barBalao: 'bold,italic,underline,Strikethrough,fwDestaque,|,fontColor,|,link,removeFormat', class: 'bloco_editor display_none')
-                @? formSelect(name: 'lista_tipo', label: 'Tipo', placeholder: 'Escolha um tipo', lista: ['' => 'Escolha uma opção', 'numero' => 'Numerica', 'bola' => 'Bola'])
-                @? formLista(name: 'lista_valor', label: 'Lista', class: 'bloco_lista')
+                @? formEditor(name: 'editor', label: 'Editor', placeholder: 'Digite seu texto', diretorioImagem: $diretorio, diretorioArquivo: $diretorio, obrigatorio: true, bar: 'bold,italic,underline,Strikethrough,fwDestaque,|,fontColor,|,alignment,|,link,removeFormat,|,insertTable,fwImagem,fwArquivo,mediaEmbed,|,horizontalLine,FwObservacao,|,numberedList,bulletedList', barBalao: 'bold,italic,underline,Strikethrough,fwDestaque,|,fontColor,|,link,removeFormat', class: 'bloco_editor display_none')
+                @? formSelect(name: 'lista_tipo', label: 'Tipo', placeholder: 'Escolha um tipo', lista: ['' => 'Escolha uma opção', 'numero' => 'Número', 'bola' => 'Bola'], class: 'bloco_lista display_none')
+                @? formLista(name: 'lista_valor', label: 'Lista', class: 'bloco_lista display_none', id: 'input_lista_valor')
+                @? formImagem(name: 'imagem_arquivo', diretorio: $diretorio, class: 'bloco_imagem display_none')
+                @? formNumero(name: 'imagem_altura', label: 'Altura', placeholder: 'Altura da imagem', class: 'bloco_imagem display_none')
+                <div class="bloco_row bloco_icone display_none">
+                    @? formSelect(name: 'icone_tipo', label: 'Tipo', placeholder: 'Tipo de ícone', lista: ['' => 'Selecione tipo', 'normal' => 'Normal', 'quadrado' => 'Quadrado', 'redondo' => 'Redondo'], class: 'bloco_icone_tipo')
+                    @? formInput(name: 'icone_tamanho', label: 'Tamanho', placeholder: 'Tamanho', class: 'bloco_icone_tamanho display_none')
+
+                    @? formInput(name: 'icone_nome', label: 'Nome', placeholder: 'Nome do ícone', class: 'bloco_icone_nome')
+                    @? formInput(name: 'icone_altura', label: 'Altura', placeholder: 'Altura', class: 'bloco_icone_altura')
+                </div>
                 @? formSwitch(name: 'status', label: 'Status', check: false)
-                <h2>API</h2>
-                @? formSwitch(name: 'api_status', label: 'Vai usar API?', class: 'bloco_api_status')
+                <h2 class="bloco_api_status bloco_api_titulo display_none">API</h2>
+                @? formSwitch(name: 'api_status', label: 'Vai usar API?', class: 'bloco_api_status display_none')
                 <div class="bloco_row bloco_api_sim">
                     @? formSelect(name: 'api_metodo', label: 'Método', placeholder: 'Método', lista: (new \App\Classes\Geral\Metodo())->select('Escolha um método'), obrigatorio: true, class: 'bloco_api_metodo')
                     @? formUri(name: 'api_uri', label: 'URI', placeholder: 'Digite a URI')

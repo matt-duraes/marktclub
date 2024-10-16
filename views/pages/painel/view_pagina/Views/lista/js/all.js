@@ -5,7 +5,7 @@ window.addEventListener('load', () => {
         #input_local, #input_titulo_interno, #input_titulo, #input_texto,
         #input_link, #input_target, #input_status, #input_api_status, #input_api_uri,
         #input_api_metodo, .bloco_api_body .input_geral, #input_id, #input_margem,
-        #input_link_empresa, #input_editor
+        #input_link_empresa, #input_editor, #input_lista_valor, #input_lista_tipo
     `);
 
     const id = $('#input_visualizar_id').valor();
@@ -30,6 +30,14 @@ window.addEventListener('load', () => {
     const inputHtml = $('#input_html');
     const inputTabela = $('#input_tabela');
     const inputEditor = $('#input_editor');
+    const inputListaTipo = $('#input_lista_tipo');
+    const inputListaValor = $('#input_lista_valor');
+    const inputImagemArquivo = $('#input_imagem_arquivo');
+    const inputImagemAltura = $('#input_imagem_altura');
+    const inputIconeTipo = $('#input_icone_tipo');
+    const inputIconeTamanho = $('#input_icone_tamanho');
+    const inputIconeNome = $('#input_icone_nome');
+    const inputIconeAltura = $('#input_icone_altura');
 
     const htmlLinha = {};
     let html;
@@ -39,7 +47,7 @@ window.addEventListener('load', () => {
         html = [];
     }
 
-    const blocoLista = $('#bloco_view_conteudo');
+    const blocoConteudo = $('#bloco_view_conteudo');
     const blocoLinhaPadrao = $('#bloco_linha_padrao');
 
     // Bloco add
@@ -54,6 +62,11 @@ window.addEventListener('load', () => {
     const blocoDivDirecao = $('.bloco_div_direcao');
     const blocoBodyLista = $('.bloco_api_body .fw_form_indice_valor_lista');
     const blocoEditor = $('.bloco_editor');
+    const blocoLista = $$('.bloco_lista');
+    const blocoApiStatus = $$('.bloco_api_status');
+    const blocoImagem = $('.bloco_imagem');
+    const blocoIcone = $('.bloco_icone');
+    const blocoIconeTamanho = $('.icone_tamanho');
 
     const botaoPopupAbrir = $('#botao_view_abrir');
     const botaoPopupSalvar = $('#botao_add_html');
@@ -62,7 +75,7 @@ window.addEventListener('load', () => {
 
     let blocoListaAtual;
     botaoPopupAbrir.evento('click', () => {
-        addSubGrupo(blocoLista);
+        addSubGrupo(blocoConteudo);
     });
 
     const addSubGrupo = bloco => {
@@ -71,6 +84,15 @@ window.addEventListener('load', () => {
         blocoListaAtual = bloco;
         limparObrigatorio();
     };
+
+    inputIconeTipo.evento('formChange', () => {
+        const valor = inputIconeTipo.valor();
+        if (valor != 'quadrado' && valor != 'redondo') {
+            blocoIconeTamanho.sumir();
+            return;
+        }
+        blocoIconeTamanho.aparecer();
+    });
 
     const abrirEditar = article => {
         const id = article.attr('data-id');
@@ -98,6 +120,14 @@ window.addEventListener('load', () => {
         inputApiUri.valor((item.api_uri || '').replace(/^\//, ''));
         inputTabela.valor(item.tabela || '');
         inputEditor.valor(item.editor || '');
+        inputListaTipo.valor(item.lista_tipo || '');
+        inputListaValor.valor(item.lista_valor || '');
+        inputImagemArquivo.valor(item.imagem_arquivo || '');
+        inputImagemAltura.valor(item.imagem_altura || '');
+        inputIconeTipo.valor(item.icone_tipo || '');
+        inputIconeTamanho.valor(item.icone_tamanho || '');
+        inputIconeNome.valor(item.icone_nome || '');
+        inputIconeAltura.valor(item.icone_altura || '');
         blocoListaAtual = $('.lista', article);
         PopupAdd.abrir();
     };
@@ -137,7 +167,7 @@ window.addEventListener('load', () => {
     };
 
     for (const [chave, item] of Object.entries(html)) {
-        montarArticle(blocoLista, item);
+        montarArticle(blocoConteudo, item);
     }
 
     botaoPopupSalvar.evento('click', async () => {
@@ -149,30 +179,9 @@ window.addEventListener('load', () => {
         const id = !add ? inputId.valor() : uuid();
         const tituloInterno = inputTituloInterno.valor();
         const status = inputStatus.valor();
-        ppe(inputEditor.valor());
-        const item = {
-            id: id,
-            tipo,
-            local: inputLocal.valor(),
-            titulo: inputTitulo.valor(),
-            texto: inputTexto.valor(),
-            link: inputLink.valor(),
-            target: inputTarget.valor(),
-            margem: inputMargem.valor(),
-            status: inputStatus.valor(),
-            tabela: inputTabela.valor(),
-            editor: inputEditor.valor(),
-            /* eslint-disable */
-            link_empresa: inputLinkEmpresa.valor(),
-            div_direcao: inputDivDirecao.valor(),
-            div_posicao: inputDivPosicao.valor(),
-            titulo_interno: tituloInterno,
-            api_status: inputApiStatus.valor(),
-            api_metodo: inputApiMetodo.valor(),
-            api_body: inputApiBody.valor(),
-            api_uri: inputApiUri.valor(),
-            /* eslint-enable */
-        };
+        const item = adicionarBody(id, tipo);
+        ppe(item);
+        return;
         htmlLinha[id] = item;
 
         if (add) {
@@ -185,6 +194,48 @@ window.addEventListener('load', () => {
         mostrarBotaoSalvar();
         PopupAdd.fechar();
     });
+
+    const adicionarBody = (id, tipo) => {
+        const completo = {
+            titulo: inputTitulo.valor(),
+            texto: inputTexto.valor(),
+            link: inputLink.valor(),
+            target: inputTarget.valor(),
+            margem: inputMargem.valor(),
+            tabela: inputTabela.valor(),
+            editor: inputEditor.valor(),
+            /* eslint-disable */
+            imagem_arquivo: inputImagemArquivo.valor(),
+            imagem_altura: inputImagemAltura.valor(),
+            icone_tipo: inputIconeTipo.valor(),
+            icone_tamanho: inputIconeTamanho.valor(),
+            icone_nome: inputIconeNome.valor(),
+            icone_altura: inputIconeAltura.valor(),
+            lista_tipo: inputListaTipo.valor(),
+            lista_valor: inputListaValor.valor(),
+            link_empresa: inputLinkEmpresa.valor(),
+            div_direcao: inputDivDirecao.valor(),
+            div_posicao: inputDivPosicao.valor(),
+            api_metodo: inputApiMetodo.valor(),
+            api_body: inputApiBody.valor(),
+            api_uri: inputApiUri.valor(),
+            /* eslint-enable */
+        };
+        const body = {
+            id: id,
+            tipo: tipo,
+            local: inputLocal.valor(),
+            status: inputStatus.valor() == 'sim' ? 'sim' : 'nao',
+            /* eslint-disable */
+            titulo_interno: inputTituloInterno.valor(),
+            api_status: inputApiStatus.valor() == 'sim' ? 'sim' : 'nao',
+            /* eslint-enable */
+        };
+        for (const ind of bodyUsado) {
+            body[ind] = completo[ind];
+        }
+        return body;
+    };
 
     const validarDadoPopup = tipo => {
         return new Promise(resolve => {
@@ -218,6 +269,10 @@ window.addEventListener('load', () => {
                 mensagem = 'Escolha a direção do conteudo da div para continuar.';
             } else if (tipo == 'div' && vazio(inputDivPosicao.valor())) {
                 mensagem = 'Escolha a posição do conteudo da div para continuar.';
+            } else if (tipo == 'lista' && vazio(inputListaTipo.valor())) {
+                mensagem = 'Escolha um tipo para a lista.';
+            } else if (tipo == 'lista' && vazio(inputListaValor.valor())) {
+                mensagem = 'Coloque pelo menos um item na lista.';
             }
 
             if (mensagem != '') {
@@ -254,7 +309,7 @@ window.addEventListener('load', () => {
     });
 
     const pegarHtml = () => {
-        const lista = Array.from(blocoLista.children).filter(el => el.tagName.toLowerCase() === 'article');
+        const lista = Array.from(blocoConteudo.children).filter(el => el.tagName.toLowerCase() === 'article');
         return JSON.stringify(montarBody(lista));
     };
 
@@ -293,7 +348,7 @@ window.addEventListener('load', () => {
         mostrarBotaoSalvar();
     };
 
-    blocoLista.evento('click', e => {
+    blocoConteudo.evento('click', e => {
         if (e.target.classe('status', '?') || e.target.closest('.status')) {
             const bloco = e.target.classe('status', '?') ? e.target : e.target.closest('.status');
             mudarStatus(bloco);
@@ -305,7 +360,7 @@ window.addEventListener('load', () => {
             addSubGrupo($('.lista', bloco));
         }
     });
-    blocoLista.evento('dblclick', e => {
+    blocoConteudo.evento('dblclick', e => {
         if (e.target.classe('deletar', '?') || e.target.closest('.deletar')) {
             const bloco = e.target.closest('article');
             bloco.remove();
@@ -313,37 +368,67 @@ window.addEventListener('load', () => {
         }
     });
 
+    let bodyUsado = [];
     const setarTipo = valor => {
         if (valor == 'titulo-texto') {
             blocoTitulo.aparecer();
             blocoTexto.aparecer();
+            bodyUsado = ['titulo', 'texto'];
         } else if (valor == 'titulo' || valor == 'subtitulo') {
             blocoTitulo.aparecer();
+            bodyUsado = ['titulo'];
         } else if (valor == 'texto') {
             blocoTexto.aparecer();
-        } else if (
-            valor == 'botao' ||
-            valor == 'botao-destaque' ||
-            valor == 'botao-fixo' ||
-            valor == 'campanha' ||
-            valor == 'relacionado'
-        ) {
+            bodyUsado = ['texto'];
+        } else if (valor == 'botao' || valor == 'botao-destaque' || valor == 'botao-fixo') {
             blocoTitulo.aparecer();
             blocoLink.aparecer();
             blocoTarget.aparecer();
+            bodyUsado = ['titulo', 'link', 'target'];
+        } else if (valor == 'relacionado') {
+            blocoTitulo.aparecer();
+            blocoLink.aparecer();
+            blocoTarget.aparecer();
+            blocoApiStatus.aparecer();
+            bodyUsado = ['titulo', 'link', 'target', 'api_metodo', 'api_uri', 'api_body'];
         } else if (valor == 'botao-empresa') {
             blocoTitulo.aparecer();
             blocoLinkTag.aparecer();
             blocoTarget.aparecer();
+            bodyUsado = ['titulo', 'link_empresa', 'target'];
         } else if (valor == 'margem') {
             blocoMargem.aparecer();
+            bodyUsado = ['margem'];
         } else if (valor == 'div') {
             blocoDivDirecao.aparecer();
             blocoDivPosicao.aparecer();
+            bodyUsado = ['div_direcao', 'div_posicao'];
         } else if (valor == 'tabela') {
             inputTabela.aparecer();
+            bodyUsado = ['tabela'];
+        } else if (valor == 'lista') {
+            blocoLista.aparecer();
+            bodyUsado = ['lista'];
+        } else if (valor == 'imagem') {
+            blocoImagem.aparecer();
+            bodyUsado = ['imagem_arquivo', 'imagem_altura'];
+        } else if (valor == 'icone') {
+            blocoIcone.aparecer();
+            bodyUsado = ['icone_tipo', 'icone_tamanho', 'icone_nome', 'icone_altura'];
+        } else if (valor == 'campanha') {
+            blocoTitulo.aparecer();
+            blocoLink.aparecer();
+            blocoTarget.aparecer();
+            blocoApiStatus.aparecer();
+            bodyUsado = ['titulo', 'link', 'target', 'api_metodo', 'api_uri', 'api_body'];
+        } else if (valor == 'banner') {
+            blocoApiStatus.aparecer();
+            bodyUsado = ['api_metodo', 'api_uri', 'api_body'];
+        } else if (valor == 'linha') {
+            bodyUsado = [];
         } else if (valor == 'editor') {
             blocoEditor.aparecer();
+            bodyUsado = ['editor'];
         }
     };
     const limparObrigatorio = () => {
@@ -358,110 +443,13 @@ window.addEventListener('load', () => {
         blocoDivDirecao.sumir();
         blocoMargem.sumir();
         blocoApiSim.sumir();
+        blocoLista.sumir();
+        blocoApiStatus.sumir();
+        blocoImagem.sumir();
+        blocoIcone.sumir();
         inputLimpar.valor('');
         if (blocoBodyLista) {
             blocoBodyLista.html('');
         }
     };
 });
-
-const fwFormListaItemPadrao = $('.fw_form_lista_item_padrao');
-if (fwFormListaItemPadrao) {
-    fwFormListaItemPadrao.classe('fw_form_lista_item_padrao', false);
-}
-
-const fwFormListaAdicionar = (conteudo, input) => {
-    const valor = input.valor();
-    if (vazio(valor.br)) {
-        Alerta.notificacao('Você precisa enviar pelo menos o texto em português.', false);
-        return;
-    }
-    const clone = fwFormListaItemPadrao.clonar();
-    const inputBr = $('.fw_form_lista_br input', clone);
-    inputBr.value = valor.br;
-    $('.fw_form_lista_en input', clone).value = valor.en;
-    $('.fw_form_lista_es input', clone).value = valor.es;
-    conteudo.final(clone);
-    input.valor('');
-
-    inputBr.focus();
-    fwFormListaAdicionarEventoItem(clone);
-};
-
-const fwFormListaEditar = (linha, botaoEditar, botaoSalvar) => {
-    const inputLista = $$('.fw_form_lista_bloco_texto input', linha);
-    for (const input of inputLista) {
-        input.removeAttribute('readonly');
-    }
-    inputLista[0].focus();
-    inputLista[0].select();
-    botaoEditar.classe('fw_form_lista_hide', true);
-    botaoSalvar.classe('fw_form_lista_hide', false);
-};
-const fwFormListaSalvar = (linha, botaoEditar, botaoSalvar) => {
-    const inputLista = $$('.fw_form_lista_bloco_texto input', linha);
-    inputLista.attr('readonly', 1);
-    botaoEditar.classe('fw_form_lista_hide', false);
-    botaoSalvar.classe('fw_form_lista_hide', true);
-};
-
-const fwFormListaAdicionarEventoItem = linha => {
-    const botaoRemover = $('.fw_form_lista_remover', linha);
-    const botaoEditar = $('.fw_form_lista_editar', linha);
-    const botaoSalvar = $('.fw_form_lista_salvar', linha);
-    const inputLista = $$('.fw_form_lista_bloco_texto input', linha);
-    inputLista.evento('enter', (e, item) => {
-        fwFormListaSalvar(linha, botaoEditar, botaoSalvar);
-    });
-    inputLista[0].evento('keydown', e => {
-        if (e.shiftKey && e.key == 'Tab') {
-            e.preventDefault();
-            inputLista[0].blur();
-        }
-    });
-    inputLista[2].evento('keydown', e => {
-        if (e.key == 'Tab') {
-            e.preventDefault();
-            inputLista[2].blur();
-        }
-    });
-    botaoEditar.evento('click', () => {
-        fwFormListaEditar(linha, botaoEditar, botaoSalvar);
-    });
-    botaoSalvar.evento('click', () => {
-        fwFormListaSalvar(linha, botaoEditar, botaoSalvar);
-    });
-    botaoRemover.evento('dblclick', () => {
-        linha.remove();
-    });
-};
-
-const fwFormListaEvento = lista => {
-    if (!lista) {
-        return;
-    }
-    const botao = $('.fw_form_lista_botao', lista);
-    const conteudo = $('.fw_form_lista_conteudo', lista);
-    const input = $('.form_input_traducao');
-    const botaoInput = $$('input', input);
-    const listaValor = $$('.fw_form_lista_item', conteudo);
-
-    for (const item of listaValor) {
-        fwFormListaAdicionarEventoItem(item);
-    }
-
-    botao.evento('click', () => {
-        fwFormListaAdicionar(conteudo, input);
-    });
-    botaoInput.evento('enter', () => {
-        fwFormListaAdicionar(conteudo, input);
-    });
-};
-const fwFormListaLoading = bloco => {
-    const listaLista = $$('.fw_form_lista', bloco);
-
-    for (const lista of listaLista) {
-        fwFormListaEvento(lista);
-    }
-};
-fwFormListaLoading(document);

@@ -18,6 +18,12 @@ const formValue = (input, valor, obrigatorio) => {
         }
         fwFormTraducaoSetarValor(input, valor);
         return;
+    } else if (input.classList.contains('fw_form_lista')) {
+        if (valor === undefined) {
+            return fwFormListaPegarValor(input);
+        }
+        fwFormListaSetarValor(input, valor);
+        return;
     } else if (input.classList.contains('fw_form_indice_valor')) {
         if (valor === undefined) {
             return fwFormIndiceValorPegarValor(input);

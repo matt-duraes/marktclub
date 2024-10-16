@@ -21,3 +21,17 @@ if (!function_exists('strLink')) {
         return $valor;
     }
 }
+
+if (!function_exists('strLang')) {
+    function strLang($r)
+    {
+        $br = $r->br;
+        $en = !empty($r->en) ? $r->en : $br;
+        $es = !empty($r->es) ? $r->es : $br;
+        return <<<EOF
+            <span class="lang_br">$br</span>
+            <span class="lang_en">$en</span>
+            <span class="lang_es">$es</span>
+        EOF;
+    }
+}
