@@ -64,9 +64,9 @@ window.addEventListener('load', () => {
     const blocoEditor = $('.bloco_editor');
     const blocoLista = $$('.bloco_lista');
     const blocoApiStatus = $$('.bloco_api_status');
-    const blocoImagem = $('.bloco_imagem');
+    const blocoImagem = $$('.bloco_imagem');
     const blocoIcone = $('.bloco_icone');
-    const blocoIconeTamanho = $('.icone_tamanho');
+    const blocoIconeTamanho = $('.bloco_icone_tamanho');
 
     const botaoPopupAbrir = $('#botao_view_abrir');
     const botaoPopupSalvar = $('#botao_add_html');
@@ -180,8 +180,7 @@ window.addEventListener('load', () => {
         const tituloInterno = inputTituloInterno.valor();
         const status = inputStatus.valor();
         const item = adicionarBody(id, tipo);
-        ppe(item);
-        return;
+
         htmlLinha[id] = item;
 
         if (add) {
@@ -216,6 +215,7 @@ window.addEventListener('load', () => {
             link_empresa: inputLinkEmpresa.valor(),
             div_direcao: inputDivDirecao.valor(),
             div_posicao: inputDivPosicao.valor(),
+            api_status: inputApiStatus.valor() == 'sim' ? 'sim' : 'nao',
             api_metodo: inputApiMetodo.valor(),
             api_body: inputApiBody.valor(),
             api_uri: inputApiUri.valor(),
@@ -228,7 +228,6 @@ window.addEventListener('load', () => {
             status: inputStatus.valor() == 'sim' ? 'sim' : 'nao',
             /* eslint-disable */
             titulo_interno: inputTituloInterno.valor(),
-            api_status: inputApiStatus.valor() == 'sim' ? 'sim' : 'nao',
             /* eslint-enable */
         };
         for (const ind of bodyUsado) {
@@ -240,7 +239,7 @@ window.addEventListener('load', () => {
     const validarDadoPopup = tipo => {
         return new Promise(resolve => {
             const apiStatus = inputApiStatus.valor() == 'sim';
-
+            const iconeTipo = inputIconeTipo.valor();
             let mensagem = '';
             if (vazio(tipo)) {
                 mensagem = 'Escolha um tipo para continuar.';
@@ -269,10 +268,32 @@ window.addEventListener('load', () => {
                 mensagem = 'Escolha a direção do conteudo da div para continuar.';
             } else if (tipo == 'div' && vazio(inputDivPosicao.valor())) {
                 mensagem = 'Escolha a posição do conteudo da div para continuar.';
+            } else if (tipo == 'tabela' && vazio(inputTabela.valor())) {
+                mensagem = 'Digite pelo menos uma linha para a tabela.';
+            } else if (tipo == 'margem' && vazio(inputMargem.valor())) {
+                mensagem = 'Escolha um tamanho para a margem.';
+            } else if (tipo == 'editor' && vazio(inputEditor.valor())) {
+                mensagem = 'Digite um texto para o editor.';
             } else if (tipo == 'lista' && vazio(inputListaTipo.valor())) {
                 mensagem = 'Escolha um tipo para a lista.';
             } else if (tipo == 'lista' && vazio(inputListaValor.valor())) {
                 mensagem = 'Coloque pelo menos um item na lista.';
+            } else if (tipo == 'imagem' && vazio(inputImagemArquivo.valor())) {
+                mensagem = 'Envie uma imagem para continuar.';
+            } else if (tipo == 'imagem' && vazio(inputImagemAltura.valor())) {
+                mensagem = 'Digite uma altura para a imagem.';
+            } else if (tipo == 'icone' && vazio(iconeTipo)) {
+                mensagem = 'Escolha um tipo de ícone para continuar.';
+            } else if (
+                tipo == 'icone' &&
+                (iconeTipo == 'redondo' || iconeTipo == 'quadrado') &&
+                vazio(inputIconeTamanho.valor())
+            ) {
+                mensagem = 'Digite o tamanho do ícone.';
+            } else if (tipo == 'icone' && vazio(inputIconeNome.valor())) {
+                mensagem = 'Digite o nome do ícone para continuar.';
+            } else if (tipo == 'icone' && vazio(inputIconeAltura.valor())) {
+                mensagem = 'Digite a altura do ícone para continuar.';
             }
 
             if (mensagem != '') {
@@ -390,7 +411,7 @@ window.addEventListener('load', () => {
             blocoLink.aparecer();
             blocoTarget.aparecer();
             blocoApiStatus.aparecer();
-            bodyUsado = ['titulo', 'link', 'target', 'api_metodo', 'api_uri', 'api_body'];
+            bodyUsado = ['titulo', 'link', 'target', 'api_status', 'api_metodo', 'api_uri', 'api_body'];
         } else if (valor == 'botao-empresa') {
             blocoTitulo.aparecer();
             blocoLinkTag.aparecer();
@@ -408,7 +429,7 @@ window.addEventListener('load', () => {
             bodyUsado = ['tabela'];
         } else if (valor == 'lista') {
             blocoLista.aparecer();
-            bodyUsado = ['lista'];
+            bodyUsado = ['lista_tipo', 'lista_valor'];
         } else if (valor == 'imagem') {
             blocoImagem.aparecer();
             bodyUsado = ['imagem_arquivo', 'imagem_altura'];
@@ -420,10 +441,10 @@ window.addEventListener('load', () => {
             blocoLink.aparecer();
             blocoTarget.aparecer();
             blocoApiStatus.aparecer();
-            bodyUsado = ['titulo', 'link', 'target', 'api_metodo', 'api_uri', 'api_body'];
+            bodyUsado = ['titulo', 'link', 'target', 'api_status', 'api_metodo', 'api_uri', 'api_body'];
         } else if (valor == 'banner') {
             blocoApiStatus.aparecer();
-            bodyUsado = ['api_metodo', 'api_uri', 'api_body'];
+            bodyUsado = ['api_status', 'api_metodo', 'api_uri', 'api_body'];
         } else if (valor == 'linha') {
             bodyUsado = [];
         } else if (valor == 'editor') {

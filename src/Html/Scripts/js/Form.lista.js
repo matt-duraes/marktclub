@@ -125,7 +125,7 @@ const fwFormListaEvento = lista => {
     }
     const botao = $('.fw_form_lista_botao', lista);
     const conteudo = $('.fw_form_lista_conteudo', lista);
-    const input = $('.form_input_traducao');
+    const input = $('.form_input_traducao', lista);
     const botaoInput = $$('input', input);
     const listaValor = $$('.fw_form_lista_item', conteudo);
 

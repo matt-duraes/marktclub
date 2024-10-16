@@ -715,6 +715,15 @@ const vazio = item => {
     if (typeof item === 'undefined' || item === null) {
         return true;
     } else if (
+        typeof item === 'object' &&
+        Object.keys(item).length == 3 &&
+        'br' in item &&
+        'en' in item &&
+        'es' in item &&
+        item.br.length == 0
+    ) {
+        return true;
+    } else if (
         (typeof item === 'string' && item.length > 0) ||
         (Array.isArray(item) && item.length > 0) ||
         (typeof item === 'object' && Object.keys(item).length > 0) ||
