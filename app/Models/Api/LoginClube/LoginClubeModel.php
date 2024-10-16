@@ -9,6 +9,7 @@ use App\Models\Api\ApiToken\TokenAuthorizationEntity;
 use App\Models\Api\ApiToken\Trait\PegarAppTrait;
 use App\Models\Api\ConstrutorClube\ClubeModel;
 use App\Models\Api\ConstrutorClube\ConstrutorEntity;
+use App\Models\Api\LoginApi\NavalModel;
 use App\Models\Api\UsuarioCliente\UsuarioLogadoModel;
 use Http\Request;
 use Modules\Botao;
@@ -80,6 +81,15 @@ final class LoginClubeModel
                 termo: new Botao($this->termo)
             ))->Usuario;
             return;
+        } elseif ($this->idEmpresa == 2100) {
+            $this->token = (new NavalModel(
+                soNumero($this->login),
+                $this->senha,
+                $this->idEmpresa,
+                $this->cadastro,
+                new Botao($this->termo)
+            ))->token;
+            return;
         }
 
         $this->Usuario = (new LoginMarktClubModel(
@@ -92,6 +102,10 @@ final class LoginClubeModel
 
     private function criarToken()
     {
+        if ($this->idEmpresa == 2100) {
+            return;
+        }
+
         $App = $this->pegarApp(['uuid', env('API_CLUBE_ID')]);
         $payload = (new PayloadModel($this->Usuario, $App->audience))->payload;
 

@@ -10,6 +10,7 @@ use App\Models\Api\ConstrutorClube\ClubeModel;
 use App\Models\Api\ConstrutorClube\ConstrutorEntity;
 use App\Models\Api\LoginApi\Trait\ConstrutorTrait;
 use Erro\Excecao;
+use Modules\Botao;
 use Throwable;
 
 class NavalModel
@@ -31,11 +32,14 @@ class NavalModel
      */
     public function __construct(
         private readonly ?string $login = null,
-        private readonly ?string $senha = null
+        private readonly ?string $senha = null,
+        private readonly ?int $empresa = null,
+        private readonly Botao $cadastro = new Botao(),
+        private readonly Botao $termo = new Botao()
     ) {
         $this->validarDadosDeLogin();
         $this->buscarUsuarioPeloLoginSenha();
-        $this->pegarConstrutor();
+        //$this->pegarConstrutor();
         $this->criarToken();
     }
 
@@ -75,25 +79,6 @@ class NavalModel
 
     /**
      * @return void
-     * @throws Excecao
-     */
-    private function pegarConstrutor(): void
-    {
-        try {
-            $Construtor = new ConstrutorEntity();
-            $Construtor->buscar([
-                ['id_admin_empresa', 2100],
-                ['status', 'in', [1, 2]]
-            ]);
-        } catch (Throwable $e) {
-            mensagemStatus(404, localhost: 'Erro ao buscar empresa. ' . $e->getMessage());
-        }
-        $this->idEmpresa = $Construtor->id_admin_empresa;
-        $this->construtor = (new ClubeModel($Construtor))->construtor;
-    }
-
-    /**
-     * @return void
      */
     private function criarToken(): void
     {
@@ -110,5 +95,24 @@ class NavalModel
             $this->idEmpresa,
             new TokenTipo(TokenTipo::CLUBE)
         );
+    }
+
+    /**
+     * @return void
+     * @throws Excecao
+     */
+    private function pegarConstrutor(): void
+    {
+        try {
+            $Construtor = new ConstrutorEntity();
+            $Construtor->buscar([
+                ['id_admin_empresa', $this->idEmpresa],
+                ['status', 'in', [1, 2]]
+            ]);
+        } catch (Throwable $e) {
+            mensagemStatus(404, localhost: 'Erro ao buscar empresa. ' . $e->getMessage());
+        }
+        $this->idEmpresa = $Construtor->id_admin_empresa;
+        $this->construtor = (new ClubeModel($Construtor))->construtor;
     }
 }
