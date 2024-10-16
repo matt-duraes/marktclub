@@ -2,31 +2,33 @@
 
 namespace App\Models\Api\LoginApi;
 
-use App\Classes\ApiToken\Tipo as TokenTipo;
+use App\Classes\LoginClube\PegarClienteTrait;
 use App\Helpers\EmporioNaval\UsuarioHelper;
-use App\Models\Api\ApiToken\TokenAuthorizationEntity;
-use App\Models\Api\ApiToken\Trait\PegarAppTrait;
-use App\Models\Api\ConstrutorClube\ClubeModel;
-use App\Models\Api\ConstrutorClube\ConstrutorEntity;
-use App\Models\Api\LoginApi\Trait\ConstrutorTrait;
+use App\Models\Api\UsuarioCliente\SalvarAtualizarModel;
 use Erro\Excecao;
 use Modules\Botao;
-use Throwable;
+use Modules\Cpf;
+use Modules\Data;
+use Modules\Email;
+use Modules\Nome;
+use stdClass;
 
 class NavalModel
 {
-    use PegarAppTrait;
-    use ConstrutorTrait;
+    use PegarClienteTrait;
 
-    public array $token;
-    public array $construtor;
+    public stdClass $Usuario;
     private int $idEmpresa;
     private array $usuarioNaval;
     private string $linkClube;
+    private int $idUsuario;
 
     /**
      * @param string|null $login
      * @param string|null $senha
+     * @param int|null    $empresa
+     * @param Botao       $cadastro
+     * @param Botao       $termo
      *
      * @throws Excecao
      */
@@ -39,8 +41,8 @@ class NavalModel
     ) {
         $this->validarDadosDeLogin();
         $this->buscarUsuarioPeloLoginSenha();
-        //$this->pegarConstrutor();
-        $this->criarToken();
+        $this->buscarUsuarioNaBase();
+        $this->buscarUsuario();
     }
 
     /**
@@ -77,42 +79,45 @@ class NavalModel
         }
     }
 
-    /**
-     * @return void
-     */
-    private function criarToken(): void
+    private function buscarUsuario(): void
     {
-        $App = $this->pegarApp(['uuid', env('API_CLUBE_ID')]);
-
-        $Token = new TokenAuthorizationEntity();
-        $this->token = $Token->criarToken(
-            $App,
-            ['sub' => $this->usuarioNaval['Id']],
-            $App->scope_permitido,
-            $App->audience,
-            $App->redirect_uri,
-            uuid(),
-            $this->idEmpresa,
-            new TokenTipo(TokenTipo::CLUBE)
-        );
+        $this->Usuario = $this->pegarCliente([
+            ['id', $this->idUsuario]
+        ]);
     }
 
     /**
      * @return void
      * @throws Excecao
      */
-    private function pegarConstrutor(): void
+    private function buscarUsuarioNaBase(): void
     {
-        try {
-            $Construtor = new ConstrutorEntity();
-            $Construtor->buscar([
-                ['id_admin_empresa', $this->idEmpresa],
-                ['status', 'in', [1, 2]]
-            ]);
-        } catch (Throwable $e) {
-            mensagemStatus(404, localhost: 'Erro ao buscar empresa. ' . $e->getMessage());
+        $Usuario = new SalvarAtualizarModel(
+            $this->empresa,
+            $this->cadastro->valor() == Botao::SIM,
+            true
+        );
+        $Usuario->cpf = new Cpf($this->login);
+        $Usuario->nome = new Nome($this->usuarioNaval['nome']);
+        $Usuario->email_pessoal = new Email($this->usuarioNaval['email']);
+        $Usuario->data_termo = new Data(hoje());
+        $Usuario->buscar();
+
+        if ($Usuario->acao == SalvarAtualizarModel::CADASTRAR_USUARIO) {
+            mensagemErro(
+                'Cadastrar Usuário!',
+                'Para continuar, aceitar os termo de uso e compartilhamento de dados.',
+                403,
+                dado: [
+                    'cadastro' => 'sim',
+                    'dado'     => [
+                        'Email' => $this->usuarioNaval['email'],
+                        'Nome'  => $this->usuarioNaval['nome'],
+                        'CPF'   => strCpf($this->login)
+                    ]
+                ]
+            );
         }
-        $this->idEmpresa = $Construtor->id_admin_empresa;
-        $this->construtor = (new ClubeModel($Construtor))->construtor;
+        $this->idUsuario = $Usuario->id;
     }
 }

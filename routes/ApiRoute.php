@@ -868,6 +868,7 @@ Route
             ::criptografia(['login', 'senha'])
             ::request(['login', 'senha', 'scope', 'redirect_uri', 'state', 'tipo', '!cadastro', '!termo'])
             ::post('/login/clube');
+
         Route
             ::nome('loginHash')
             ::middleware(TokenMiddleware::class, 'scope', ['login:clube'])
@@ -902,12 +903,6 @@ Route
             ::middleware(TokenMiddleware::class, 'scope', ['login:digio'])
             ::request(['usuario', '!clube'])
             ::post('/login/digio');
-
-        Route
-            ::nome('loginNaval')
-            ::middleware(TokenMiddleware::class, 'scope', ['login:naval'])
-            ::request(['login', 'senha'])
-            ::post('/login/naval');
 
         Route
             ::nome('loginToken')

@@ -11,7 +11,7 @@ use App\Models\Api\ConstrutorClube\ClubeModel;
 use App\Models\Api\ConstrutorClube\ConstrutorEntity;
 use App\Models\Api\LoginApi\NavalModel;
 use App\Models\Api\UsuarioCliente\UsuarioLogadoModel;
-use Http\Request;
+use Erro\Excecao;
 use Modules\Botao;
 use stdClass;
 
@@ -28,7 +28,16 @@ final class LoginClubeModel
     /**
      * Faz o login normal do usuário com usuario e senha
      *
-     * @param Request $request Request da requisição
+     * @param string|null $login
+     * @param string|null $senha
+     * @param string|null $redirectUri
+     * @param string|null $state
+     * @param string|null $hash
+     * @param Tipo        $tipo
+     * @param Botao       $cadastro
+     * @param Botao       $termo
+     *
+     * @throws Excecao
      */
     public function __construct(
         private ?string $login = null,
@@ -47,7 +56,11 @@ final class LoginClubeModel
         new UsuarioLogadoModel($this->Usuario->id);
     }
 
-    private function pegarConstrutor()
+    /**
+     * @return void
+     * @throws Excecao
+     */
+    private function pegarConstrutor(): void
     {
         $redirectUri = explode('/', preg_replace('/^https?\:\/\//', '', $this->redirectUri))[0];
         $this->redirectUri = $redirectUri;
@@ -68,7 +81,11 @@ final class LoginClubeModel
         $this->construtor = (new ClubeModel($Construtor))->construtor;
     }
 
-    private function fazerLogin()
+    /**
+     * @return void
+     * @throws Excecao
+     */
+    private function fazerLogin(): void
     {
         if ($this->idEmpresa == 153) { // FENAE
             return;
@@ -82,13 +99,13 @@ final class LoginClubeModel
             ))->Usuario;
             return;
         } elseif ($this->idEmpresa == 2100) {
-            $this->token = (new NavalModel(
+            $this->Usuario = (new NavalModel(
                 soNumero($this->login),
                 $this->senha,
                 $this->idEmpresa,
                 $this->cadastro,
                 new Botao($this->termo)
-            ))->token;
+            ))->Usuario;
             return;
         }
 
@@ -100,12 +117,8 @@ final class LoginClubeModel
         ))->Usuario;
     }
 
-    private function criarToken()
+    private function criarToken(): void
     {
-        if ($this->idEmpresa == 2100) {
-            return;
-        }
-
         $App = $this->pegarApp(['uuid', env('API_CLUBE_ID')]);
         $payload = (new PayloadModel($this->Usuario, $App->audience))->payload;
 
@@ -117,8 +130,8 @@ final class LoginClubeModel
             audience: $App->audience,
             redirectUri: 'clube.markt.club',
             state: $this->state,
-            tipo: new TokenTipo(TokenTipo::CLUBE),
-            empresa: $this->idEmpresa
+            empresa: $this->idEmpresa,
+            tipo: new TokenTipo(TokenTipo::CLUBE)
         );
     }
 }
