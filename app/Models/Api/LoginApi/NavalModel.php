@@ -98,8 +98,8 @@ class NavalModel
             true
         );
         $Usuario->cpf = new Cpf($this->login);
-        $Usuario->nome = new Nome($this->usuarioNaval['nome']);
-        $Usuario->email_pessoal = new Email($this->usuarioNaval['email']);
+        $Usuario->nome = new Nome($this->usuarioNaval['Nome']);
+        $Usuario->email_pessoal = new Email($this->usuarioNaval['Email']);
         $Usuario->data_termo = new Data(hoje());
         $Usuario->buscar();
 
@@ -111,8 +111,8 @@ class NavalModel
                 dado: [
                     'cadastro' => 'sim',
                     'dado'     => [
-                        'Email' => $this->usuarioNaval['email'],
-                        'Nome'  => $this->usuarioNaval['nome'],
+                        'Email' => $this->usuarioNaval['Email'],
+                        'Nome'  => $this->usuarioNaval['Nome'],
                         'CPF'   => strCpf($this->login)
                     ]
                 ]
