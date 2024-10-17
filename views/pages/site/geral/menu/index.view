@@ -54,7 +54,7 @@
 @if(MENU_FARMACIA):
 <a class="botao {!!MENU_HOVER == 'farmacia' ? 'cor_bg pagina_atual' : ''!!}" href="<?= route('farmacia.index') ?>">
     <i>@iconeMedicamento</i>
-    Farmácia
+    Drogaria
 </a>
 @endif
 
