@@ -57,7 +57,12 @@ $diretorio = 'c0ec7d2f-e3e6-48ea-9159-cbbc3a540896';
                 @? formSelect(name: 'botao_tipo', label: 'Tipo do botão', placeholder: 'Escolha um tipo', lista: ['' => 'Escolha uma opção', 'voltar' => 'Voltar', 'normal' => 'Normal', 'cinza' => 'Cinza', 'borda-normal' => 'Borda normal', 'borda-cinza' => 'Borda cinza'], obrigatorio: true, class: 'bloco_botao_tipo display_none')
                 @? formInputTraducao(name: 'titulo', label: 'Título', obrigatorio: true, class: 'bloco_titulo display_none')
                 @? formInputTraducao(name: 'texto', label: 'Texto', obrigatorio: true, class: 'bloco_texto display_none')
-                @? formNumero(name: 'margem', label: 'Margem', placeholder: 'Digite uma margem', obrigatorio: true, class: 'bloco_margem display_none')
+                <div class="bloco_row bloco_margem display_none">
+                    @? formNumero(name: 'margem_topo', label: 'Topo', placeholder: 'Margem topo')
+                    @? formNumero(name: 'margem_direita', label: 'Topo', placeholder: 'Margem direita')
+                    @? formNumero(name: 'margem_baixo', label: 'Topo', placeholder: 'Margem baixo')
+                    @? formNumero(name: 'margem_esquerda', label: 'Topo', placeholder: 'Margem esquerda')
+                </div>
                 @php
                     echo formSelectInputTag(
                         id: 'input_link_empresa',

@@ -4,9 +4,10 @@ window.addEventListener('load', () => {
     const inputLimpar = $$(`
         #input_local, #input_titulo_interno, #input_titulo, #input_texto,
         #input_link, #input_target, #input_status, #input_api_status, #input_api_uri,
-        #input_api_metodo, .bloco_api_body .input_geral, #input_id, #input_margem,
+        #input_api_metodo, .bloco_api_body .input_geral, #input_id, #input_div_posicao,
         #input_link_empresa, #input_editor, #input_lista_valor, #input_lista_tipo,
-        #input_botao_tipo, #input_imagem_altura, #input_div_direcao, #input_div_posicao
+        #input_botao_tipo, #input_imagem_altura, #input_div_direcao, #input_margem_topo,
+        #input_margem_esquerda, #input_margem_direita, #input_margem_baixo,
     `);
 
     const id = $('#input_visualizar_id').valor();
@@ -22,7 +23,10 @@ window.addEventListener('load', () => {
     const inputTarget = $('#input_target');
     const inputDivDirecao = $('#input_div_direcao');
     const inputDivPosicao = $('#input_div_posicao');
-    const inputMargem = $('#input_margem');
+    const inputMargemTopo = $('#input_margem_topo');
+    const inputMargemDireita = $('#input_margem_direita');
+    const inputMargemEsquerda = $('#input_margem_esquerda');
+    const inputMargemBaixo = $('#input_margem_baixo');
     const inputStatus = $('#input_status');
     const inputApiStatus = $('#input_api_status');
     const inputApiMetodo = $('#input_api_metodo');
@@ -127,7 +131,10 @@ window.addEventListener('load', () => {
         inputTarget.valor(item.target || '');
         inputDivDirecao.valor(item.div_direcao || '');
         inputDivPosicao.valor(item.div_posicao || '');
-        inputMargem.valor(item.margem || '');
+        inputMargemTopo.valor(item.margem_topo || '');
+        inputMargemEsquerda.valor(item.margem_esquerda || '');
+        inputMargemDireita.valor(item.margem_direita || '');
+        inputMargemBaixo.valor(item.margem_baixo || '');
         inputStatus.valor(item.status || 'nao');
         inputApiStatus.valor(item.api_status || 'nao');
         blocoApiSim.classe('display_none', apiStatus != 'sim');
@@ -145,7 +152,6 @@ window.addEventListener('load', () => {
         inputIconeNome.valor(item.icone_nome || '');
         inputIconeAltura.valor(item.icone_altura || '');
         inputBotaoTipo.valor(item.botao_tipo || '');
-        setarBotaoTipo();
         blocoListaAtual = $('.lista', article);
         PopupAdd.abrir();
     };
@@ -219,10 +225,13 @@ window.addEventListener('load', () => {
             texto: inputTexto.valor(),
             link: inputLink.valor(),
             target: inputTarget.valor(),
-            margem: inputMargem.valor(),
             tabela: inputTabela.valor(),
             editor: inputEditor.valor(),
             /* eslint-disable */
+            margem_topo: inputMargemTopo.valor(),
+            margem_esquerda: inputMargemEsquerda.valor(),
+            margem_direita: inputMargemDireita.valor(),
+            margem_baixo: inputMargemBaixo.valor(),
             imagem_link: imagem,
             imagem_arquivo: inputImagemArquivo.valor(),
             imagem_altura: inputImagemAltura.valor(),
@@ -296,8 +305,14 @@ window.addEventListener('load', () => {
                 mensagem = 'Escolha a posição do conteudo da div para continuar.';
             } else if (tipo == 'tabela' && vazio(inputTabela.valor())) {
                 mensagem = 'Digite pelo menos uma linha para a tabela.';
-            } else if (tipo == 'margem' && vazio(inputMargem.valor())) {
-                mensagem = 'Escolha um tamanho para a margem.';
+            } else if (
+                tipo == 'margem' &&
+                vazio(inputMargemTopo.valor()) &&
+                vazio(inputMargemEsquerda.valor()) &&
+                vazio(inputMargemDireita.valor()) &&
+                vazio(inputMargemBaixo.valor())
+            ) {
+                mensagem = 'Escolha pelo menos um tamanho para as margens.';
             } else if (tipo == 'editor' && vazio(inputEditor.valor())) {
                 mensagem = 'Digite um texto para o editor.';
             } else if (tipo == 'lista' && vazio(inputListaTipo.valor())) {
