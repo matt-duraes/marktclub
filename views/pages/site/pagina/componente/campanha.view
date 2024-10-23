@@ -4,9 +4,7 @@
     @end
     <header>
         <h1>
-            <span class="lang_br esqueleto">{{$r->titulo}}</span>
-            <span class="lang_en esqueleto"></span>
-            <span class="lang_es esqueleto"></span>
+            {!!strLang($r->titulo)!!}
         </h1>
     </header>
     <div class="conteudo">

@@ -2,5 +2,5 @@
     @php
         componenteLoading($r->lista);
     @end
-    {{$r->titulo}}
+    {!!strLang($r->titulo)!!}
 </h2>

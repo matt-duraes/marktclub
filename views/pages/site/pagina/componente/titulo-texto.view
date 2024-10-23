@@ -2,6 +2,10 @@
     @php
         componenteLoading($r->lista);
     @end
-    <h1>{{$r->titulo}}</h1>
-    <p>{{$r->texto}}</p>
+    <h1>
+        {!!strLang($r->titulo)!!}
+    </h1>
+    <p>
+        {!!strLang($r->texto)!!}
+    </p>
 </div>

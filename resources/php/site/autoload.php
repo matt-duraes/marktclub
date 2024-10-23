@@ -23,11 +23,17 @@ if (!function_exists('strLink')) {
 }
 
 if (!function_exists('strLang')) {
-    function strLang($r)
+    function strLang($texto)
     {
-        $br = $r->br;
-        $en = !empty($r->en) ? $r->en : $br;
-        $es = !empty($r->es) ? $r->es : $br;
+        if (is_object($texto)) {
+            $br = object_key_exists('br', $texto) ? $texto->br : '';
+            $en = object_key_exists('en', $texto) ? $texto->en : $br;
+            $es = object_key_exists('es', $texto) ? $texto->es : $br;
+        } else {
+            $br = $texto;
+            $en = $texto;
+            $es = $texto;
+        }
         return <<<EOF
             <span class="lang_br">$br</span>
             <span class="lang_en">$en</span>

@@ -2,6 +2,8 @@
 
 namespace ResourcesSite\Componente;
 
+use stdClass;
+
 final class Botao extends Componente
 {
     private string $html = '';
@@ -52,8 +54,26 @@ final class Botao extends Componente
         return $this;
     }
 
+    private function lang(string|stdClass $texto)
+    {
+        if (is_object($texto)) {
+            $br = object_key_exists('br', $texto) ? $texto->br : '';
+            $en = object_key_exists('en', $texto) ? $texto->en : $br;
+            $es = object_key_exists('es', $texto) ? $texto->es : $br;
+        } else {
+            $br = $texto;
+            $en = $texto;
+            $es = $texto;
+        }
+        return <<<EOF
+            <span class="lang_br">$br</span>
+            <span class="lang_en">$en</span>
+            <span class="lang_es">$es</span>
+        EOF;
+    }
+
     public function botao(
-        string $texto = '',
+        string|stdClass $texto = '',
         string $link = null,
         string $id = null,
         string $class = null,
@@ -61,7 +81,7 @@ final class Botao extends Componente
     ) {
         $link = strLink($link);
         $this->resetar();
-        $texto = !empty($texto) ? '<div class="com_botao_texto">' . $texto . '</div>' : '[[TEXTO]]';
+        $texto = !vazio($texto) ? '<div class="com_botao_texto">' . $this->lang($texto) . '</div>' : '[[TEXTO]]';
         $tag = 'div';
         if (validarUrl($link)) {
             $tag = 'a';
@@ -127,12 +147,12 @@ final class Botao extends Componente
         return $this;
     }
 
-    public function texto(string $texto)
+    public function texto(string|stdClass $texto)
     {
-        if (empty($texto)) {
+        if (vazio($texto)) {
             return $this;
         }
-        $this->texto = '<div class="com_botao_texto">' . $texto . '</div>';
+        $this->texto = '<div class="com_botao_texto">' . $this->lang($texto) . '</div>';
         return $this;
     }
 }

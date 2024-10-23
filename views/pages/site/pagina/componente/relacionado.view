@@ -3,7 +3,7 @@
         componenteLoading($r->lista);
     @end
     <header>
-        <h1>{{$r->titulo}}</h1>
+        <h1>{!!strLang($r->titulo)!!}</h1>
         @ if( !empty($r->link) ):
         <a href="{!!strLink($r->link)!!}">Veja mais</a>
         @ endif;

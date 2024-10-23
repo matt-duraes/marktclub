@@ -20,7 +20,8 @@ final class TurismoController extends Controller
      */
     public function index(): Response
     {
-        $Pagina = new BuscarModel('turismo');
+        $Pagina = new BuscarModel('teste');
+        // ppe($Pagina->html);
         return view('pagina', [
             'menu'    => 'turismo',
             'html'    => $Pagina->html,

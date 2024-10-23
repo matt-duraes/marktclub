@@ -6,7 +6,7 @@ window.addEventListener('load', () => {
         #input_link, #input_target, #input_status, #input_api_status, #input_api_uri,
         #input_api_metodo, .bloco_api_body .input_geral, #input_id, #input_margem,
         #input_link_empresa, #input_editor, #input_lista_valor, #input_lista_tipo,
-        #input_botao_tipo, #input_imagem_arquivo, #input_div_direcao, #input_div_posicao
+        #input_botao_tipo, #input_imagem_altura, #input_div_direcao, #input_div_posicao
     `);
 
     const id = $('#input_visualizar_id').valor();
@@ -35,6 +35,7 @@ window.addEventListener('load', () => {
     const inputListaValor = $('#input_lista_valor');
     const inputImagemArquivo = $('#input_imagem_arquivo');
     const inputImagemAltura = $('#input_imagem_altura');
+    const inputImagemLink = $('.bloco_imagem .fw_imagem_figure');
     const inputIconeTipo = $('#input_icone_tipo');
     const inputIconeTamanho = $('#input_icone_tamanho');
     const inputIconeNome = $('#input_icone_nome');
@@ -212,6 +213,7 @@ window.addEventListener('load', () => {
     });
 
     const adicionarBody = (id, tipo) => {
+        const imagem = inputImagemLink.css('background-image').replace('url("', '').replace('")', '');
         const completo = {
             titulo: inputTitulo.valor(),
             texto: inputTexto.valor(),
@@ -221,6 +223,7 @@ window.addEventListener('load', () => {
             tabela: inputTabela.valor(),
             editor: inputEditor.valor(),
             /* eslint-disable */
+            imagem_link: imagem,
             imagem_arquivo: inputImagemArquivo.valor(),
             imagem_altura: inputImagemAltura.valor(),
             icone_tipo: inputIconeTipo.valor(),
@@ -462,7 +465,7 @@ window.addEventListener('load', () => {
             bodyUsado = ['lista_tipo', 'lista_valor'];
         } else if (valor == 'imagem') {
             blocoImagem.aparecer();
-            bodyUsado = ['imagem_arquivo', 'imagem_altura'];
+            bodyUsado = ['imagem_arquivo', 'imagem_link', 'imagem_altura'];
         } else if (valor == 'icone') {
             blocoIcone.aparecer();
             bodyUsado = ['icone_tipo', 'icone_tamanho', 'icone_nome', 'icone_altura'];
