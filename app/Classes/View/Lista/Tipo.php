@@ -50,9 +50,9 @@ final class Tipo extends StatusStatus
             self::MARGEM         => 'Margem',
             self::TABELA         => 'Tabela',
             self::EDITOR         => 'Editor',
-            self::LISTA         => 'Lista',
+            self::LISTA          => 'Lista',
             self::IMAGEM         => 'Imagem',
-            self::ICONE         => 'Ícone',
+            self::ICONE          => 'Ícone',
         ]);
     }
 }

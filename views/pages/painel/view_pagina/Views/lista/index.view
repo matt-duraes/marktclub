@@ -54,6 +54,7 @@ $diretorio = 'c0ec7d2f-e3e6-48ea-9159-cbbc3a540896';
                 @? formSelect(name: 'tipo', label: 'Tipo de item', placeholder: 'Escolha um tipo', lista: (new \App\Classes\View\Lista\Tipo())->select('Escolha um tipo'), obrigatorio: true)
                 @? formSelect(name: 'local', label: 'Local', placeholder: 'Onde vai aparecer?', lista: (new \App\Classes\View\Lista\Local())->select('Escolha um local'), obrigatorio: true)
                 @? formInput(name: 'titulo_interno', label: 'Título interno', placeholder: 'Digite um título interno', obrigatorio: true)
+                @? formSelect(name: 'botao_tipo', label: 'Tipo do botão', placeholder: 'Escolha um tipo', lista: ['' => 'Escolha uma opção', 'voltar' => 'Voltar', 'normal' => 'Normal', 'cinza' => 'Cinza', 'borda-normal' => 'Borda normal', 'borda-cinza' => 'Borda cinza'], obrigatorio: true, class: 'bloco_botao_tipo display_none')
                 @? formInputTraducao(name: 'titulo', label: 'Título', obrigatorio: true, class: 'bloco_titulo display_none')
                 @? formInputTraducao(name: 'texto', label: 'Texto', obrigatorio: true, class: 'bloco_texto display_none')
                 @? formNumero(name: 'margem', label: 'Margem', placeholder: 'Digite uma margem', obrigatorio: true, class: 'bloco_margem display_none')

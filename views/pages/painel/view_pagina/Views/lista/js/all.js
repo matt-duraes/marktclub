@@ -5,7 +5,8 @@ window.addEventListener('load', () => {
         #input_local, #input_titulo_interno, #input_titulo, #input_texto,
         #input_link, #input_target, #input_status, #input_api_status, #input_api_uri,
         #input_api_metodo, .bloco_api_body .input_geral, #input_id, #input_margem,
-        #input_link_empresa, #input_editor, #input_lista_valor, #input_lista_tipo
+        #input_link_empresa, #input_editor, #input_lista_valor, #input_lista_tipo,
+        #input_botao_tipo, #input_imagem_arquivo, #input_div_direcao, #input_div_posicao
     `);
 
     const id = $('#input_visualizar_id').valor();
@@ -38,6 +39,7 @@ window.addEventListener('load', () => {
     const inputIconeTamanho = $('#input_icone_tamanho');
     const inputIconeNome = $('#input_icone_nome');
     const inputIconeAltura = $('#input_icone_altura');
+    const inputBotaoTipo = $('#input_botao_tipo');
 
     const htmlLinha = {};
     let html;
@@ -67,6 +69,7 @@ window.addEventListener('load', () => {
     const blocoImagem = $$('.bloco_imagem');
     const blocoIcone = $('.bloco_icone');
     const blocoIconeTamanho = $('.bloco_icone_tamanho');
+    const blocoBotaoTipo = $('.bloco_botao_tipo');
 
     const botaoPopupAbrir = $('#botao_view_abrir');
     const botaoPopupSalvar = $('#botao_add_html');
@@ -92,6 +95,18 @@ window.addEventListener('load', () => {
             return;
         }
         blocoIconeTamanho.aparecer();
+    });
+
+    const setarBotaoTipo = () => {
+        if (inputBotaoTipo.valor() == 'voltar') {
+            inputTitulo.valor('');
+            blocoTitulo.sumir();
+            return;
+        }
+        blocoTitulo.aparecer();
+    };
+    inputBotaoTipo.evento('formChange', () => {
+        setarBotaoTipo();
     });
 
     const abrirEditar = article => {
@@ -128,6 +143,8 @@ window.addEventListener('load', () => {
         inputIconeTamanho.valor(item.icone_tamanho || '');
         inputIconeNome.valor(item.icone_nome || '');
         inputIconeAltura.valor(item.icone_altura || '');
+        inputBotaoTipo.valor(item.botao_tipo || '');
+        setarBotaoTipo();
         blocoListaAtual = $('.lista', article);
         PopupAdd.abrir();
     };
@@ -219,6 +236,7 @@ window.addEventListener('load', () => {
             api_metodo: inputApiMetodo.valor(),
             api_body: inputApiBody.valor(),
             api_uri: inputApiUri.valor(),
+            botao_tipo: inputBotaoTipo.valor(),
             /* eslint-enable */
         };
         const body = {
@@ -240,6 +258,8 @@ window.addEventListener('load', () => {
         return new Promise(resolve => {
             const apiStatus = inputApiStatus.valor() == 'sim';
             const iconeTipo = inputIconeTipo.valor();
+            const eBotao =
+                tipo == 'botao' || tipo == 'botao-empresa' || tipo == 'botao-destaque' || tipo == 'botao-fixo';
             let mensagem = '';
             if (vazio(tipo)) {
                 mensagem = 'Escolha um tipo para continuar.';
@@ -250,6 +270,7 @@ window.addEventListener('load', () => {
             } else if (apiStatus && vazio(inputApiUri.valor())) {
                 mensagem = 'Digite a URI da requisição para continuar.';
             } else if (
+                inputBotaoTipo.valor() != 'voltar' &&
                 (tipo == 'titulo-texto' ||
                     tipo == 'titulo' ||
                     tipo == 'subtitulo' ||
@@ -260,6 +281,8 @@ window.addEventListener('load', () => {
                 vazio(inputTitulo.valor())
             ) {
                 mensagem = 'Digite um título para continuar.';
+            } else if (eBotao && vazio(inputBotaoTipo.valor())) {
+                mensagem = 'Escolha um tipo para o botão.';
             } else if ((tipo == 'titulo-texto' || tipo == 'texto') && vazio(inputTexto.valor())) {
                 mensagem = 'Digite um texto para continuar.';
             } else if (tipo == 'magem') {
@@ -401,7 +424,13 @@ window.addEventListener('load', () => {
         } else if (valor == 'texto') {
             blocoTexto.aparecer();
             bodyUsado = ['texto'];
-        } else if (valor == 'botao' || valor == 'botao-destaque' || valor == 'botao-fixo') {
+        } else if (valor == 'botao' || valor == 'botao-destaque') {
+            blocoTitulo.aparecer();
+            blocoLink.aparecer();
+            blocoTarget.aparecer();
+            blocoBotaoTipo.aparecer();
+            bodyUsado = ['titulo', 'link', 'target', 'botao_tipo'];
+        } else if (valor == 'botao-fixo') {
             blocoTitulo.aparecer();
             blocoLink.aparecer();
             blocoTarget.aparecer();
@@ -416,7 +445,8 @@ window.addEventListener('load', () => {
             blocoTitulo.aparecer();
             blocoLinkTag.aparecer();
             blocoTarget.aparecer();
-            bodyUsado = ['titulo', 'link_empresa', 'target'];
+            blocoBotaoTipo.aparecer();
+            bodyUsado = ['titulo', 'link_empresa', 'target', 'botao_tipo'];
         } else if (valor == 'margem') {
             blocoMargem.aparecer();
             bodyUsado = ['margem'];
@@ -468,6 +498,7 @@ window.addEventListener('load', () => {
         blocoApiStatus.sumir();
         blocoImagem.sumir();
         blocoIcone.sumir();
+        blocoBotaoTipo.sumir();
         inputLimpar.valor('');
         if (blocoBodyLista) {
             blocoBodyLista.html('');
