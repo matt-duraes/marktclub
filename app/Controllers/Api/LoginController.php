@@ -2,46 +2,27 @@
 
 namespace App\Controllers\Api;
 
-use App\Classes\ApiToken\Tipo;
-use App\Classes\LoginClube\Tipo as LoginClubeTipo;
-use App\Classes\UsuarioCliente\Helper;
-use App\Models\Api\ApiToken\PayloadModel;
-use App\Models\Api\ApiToken\TokenAuthorizationEntity;
-use App\Models\Api\ConstrutorClube\ConstrutorEntity;
-use App\Models\Api\LoginApi\DigioModel;
-use App\Models\Api\LoginApi\LoginModel as LoginApiModel;
-use App\Models\Api\LoginApi\NavalModel;
-use App\Models\Api\LoginClube\LoginClubeModel;
-use App\Models\Api\LoginPainel\LoginFacebookModel;
-use App\Models\Api\LoginPainel\LoginFormModel;
-use App\Models\Api\LoginPainel\LoginGoogleModel;
-use App\Models\Api\UsuarioCliente\ClienteEntity;
-use Controller\Controller;
 use Erro\Excecao;
 use Http\Request;
 use Http\Response;
 use Modules\Botao;
+use Controller\Controller;
+use App\Classes\ApiToken\Tipo;
+use App\Classes\UsuarioCliente\Helper;
+use App\Models\Api\LoginApi\DigioModel;
+use App\Models\Api\ApiToken\PayloadModel;
+use App\Models\Api\LoginClube\LoginClubeModel;
+use App\Models\Api\LoginPainel\LoginFormModel;
+use App\Models\Api\LoginPainel\LoginGoogleModel;
+use App\Models\Api\UsuarioCliente\ClienteEntity;
+use App\Classes\LoginClube\Tipo as LoginClubeTipo;
+use App\Models\Api\LoginPainel\LoginFacebookModel;
+use App\Models\Api\ConstrutorClube\ConstrutorEntity;
+use App\Models\Api\ApiToken\TokenAuthorizationEntity;
+use App\Models\Api\LoginApi\LoginModel as LoginApiModel;
 
 final class LoginController extends Controller
 {
-    /**
-     * @param Request $request
-     *
-     * @return Response
-     * @throws Excecao
-     */
-    public function postLoginNaval(Request $request): Response
-    {
-        $Login = new NavalModel(
-            $request->getPost('login'),
-            $request->getPost('senha')
-        );
-        return mensagemSucesso([
-            'token' => $Login->token,
-            'clube' => $Login->construtor
-        ]);
-    }
-
     /*
     |--------------------------------------------------------------------------
     | LOGIN DIGIO

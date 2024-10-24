@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Models\Api\LoginClube;
+namespace App\Models\Api\LoginClube\ClubePoupy;
 
 use stdClass;
 use Modules\Cpf;
@@ -9,12 +9,16 @@ use Modules\Nome;
 use Modules\Botao;
 use Modules\Email;
 use Helpers\CurlHelper;
+use App\Classes\UsuarioCliente\Status;
 use App\Classes\LoginClube\PegarClienteTrait;
+use App\Models\Api\LoginClube\LoginPadraoModel;
 use App\Models\Api\UsuarioCliente\SalvarAtualizarModel;
+use App\Models\Api\LoginClube\Trait\ValidarDadoNormalTrait;
 
-final class LoginClubePoupyModel extends LoginPadraoModel
+final class LoginModel extends LoginPadraoModel
 {
     use PegarClienteTrait;
+    use ValidarDadoNormalTrait;
 
     public stdClass $Usuario;
     private stdClass $dado;
@@ -33,17 +37,6 @@ final class LoginClubePoupyModel extends LoginPadraoModel
         $this->buscarUsuarioPeloLoginSenha();
         $this->buscarUsuarioNaBase();
         $this->buscarUsuario();
-    }
-
-    protected function validarDadosDeLogin(): void
-    {
-        if (empty($this->login)) {
-            mensagemErro(titulo: 'Campo obrigatório!', mensagem: 'Você deve digitar seu login para continuar.');
-        } elseif (empty($this->senha)) {
-            mensagemErro(titulo: 'Campo obrigatório!', mensagem: 'Você deve digitar sua senha para continuar.');
-        } elseif ($this->cadastro->valor() == Botao::SIM && $this->termo->valor() != Botao::SIM) {
-            mensagemErro(titulo: 'Campo obrigatório!', mensagem: 'Você deve aceitar os termo de uso para continuar.');
-        }
     }
 
     protected function buscarUsuarioPeloLoginSenha(): void
@@ -76,6 +69,7 @@ final class LoginClubePoupyModel extends LoginPadraoModel
         $Usuario->nome = new Nome($this->dado->nome);
         $Usuario->email_pessoal = new Email($this->dado->email);
         $Usuario->data_termo = new Data(hoje());
+        $Usuario->status = new Status(Status::ATIVO);
         $Usuario->buscar();
 
         if ($Usuario->acao == SalvarAtualizarModel::CADASTRAR_USUARIO) {

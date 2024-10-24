@@ -370,4 +370,24 @@ return [
         'cobrar_aposentado'       => 1,
         'status'                  => 1
     ],
+    [
+        'id'                      => 2100,
+        'cod'                     => '9a647774-120d-4a1b-9490-c51fb9a70760',
+        'id_usuario_equipe'       => 1,
+        'titulo'                  => 'EMPÓRIO NAVAL',
+        'razao_social'            => 'EMPÓRIO NAVAL',
+        'nome_fantasia'           => 'EMPÓRIO NAVAL',
+        'cnpj'                    => 28923079000141,
+        'responsavel_nome'        => nomeCompletoAleatorio(),
+        'responsavel_cpf'         => cpfAleatorio(),
+        'responsavel_email'       => emailAleatorio(),
+        'responsavel_telefone'    => telefoneCelularAleatorio(),
+        'slug'                    => 'emporionaval',
+        'tipo_pagamento'          => 1,
+        'contrato_valor'          => 1.2,
+        'contrato_dia_fechamento' => 1,
+        'contrato_dia_pagamento'  => 10,
+        'cobrar_aposentado'       => 1,
+        'status'                  => 1
+    ],
 ];

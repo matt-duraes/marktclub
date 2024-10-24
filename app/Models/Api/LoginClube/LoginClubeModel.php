@@ -2,21 +2,25 @@
 
 namespace App\Models\Api\LoginClube;
 
-use App\Classes\ApiToken\Tipo as TokenTipo;
-use App\Classes\LoginClube\Tipo;
-use App\Models\Api\ApiToken\PayloadModel;
-use App\Models\Api\ApiToken\TokenAuthorizationEntity;
-use App\Models\Api\ApiToken\Trait\PegarAppTrait;
-use App\Models\Api\ConstrutorClube\ClubeModel;
-use App\Models\Api\ConstrutorClube\ConstrutorEntity;
-use App\Models\Api\UsuarioCliente\UsuarioLogadoModel;
+use stdClass;
 use Http\Request;
 use Modules\Botao;
-use stdClass;
+use App\Classes\LoginClube\Tipo;
+use App\Models\Api\ApiToken\PayloadModel;
+use App\Classes\ApiToken\Tipo as TokenTipo;
+use App\Models\Api\ConstrutorClube\ClubeModel;
+use App\Models\Api\ApiToken\Trait\PegarAppTrait;
+use App\Models\Api\ConstrutorClube\ConstrutorEntity;
+use App\Models\Api\ApiToken\TokenAuthorizationEntity;
+use App\Models\Api\UsuarioCliente\UsuarioLogadoModel;
+use App\Models\Api\LoginClube\ClubePoupy\UsuarioTrait as UsuarioClubePoupyTrait;
+use App\Models\Api\LoginClube\EmporioNaval\UsuarioTrait as UsuarioEmporioNavalTrait;
 
 final class LoginClubeModel
 {
     use PegarAppTrait;
+    use UsuarioEmporioNavalTrait;
+    use UsuarioClubePoupyTrait;
 
     public array $token;
     public array $construtor;
@@ -72,13 +76,10 @@ final class LoginClubeModel
         if ($this->idEmpresa == 153) { // FENAE
             return;
         } elseif ($this->idEmpresa == 2114 && $this->tipo->indice() == Tipo::TITULAR) { // CLUBE POUPY
-            $this->Usuario = (new LoginClubePoupyModel(
-                login: soNumero($this->login),
-                senha: $this->senha,
-                empresa: $this->idEmpresa,
-                cadastro: $this->cadastro,
-                termo: new Botao($this->termo)
-            ))->Usuario;
+            $this->Usuario = $this->pegarUsuarioClubePoupy();
+            return;
+        } elseif($this->idEmpresa == 2100 && $this->tipo->indice() == Tipo::TITULAR) { // EMPORIO NAVAL
+            $this->Usuario = $this->pegarUsuarioEmporioNaval();
             return;
         }
 
