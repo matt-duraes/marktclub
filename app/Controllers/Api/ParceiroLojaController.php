@@ -2,27 +2,27 @@
 
 namespace App\Controllers\Api;
 
-use App\Classes\ParceiroLoja\Categoria;
-use App\Classes\ParceiroLoja\Ordem;
-use App\Classes\ParceiroLoja\TipoLoja;
-use App\Models\Api\ParceiroLoja\Auditoria\OptionModel;
-use App\Models\Api\ParceiroLoja\Auditoria\SalvarModel;
-use App\Models\Api\ParceiroLoja\DestaqueModel;
-use App\Models\Api\ParceiroLoja\DownloadModel;
-use App\Models\Api\ParceiroLoja\LojaEntity;
-use App\Models\Api\ParceiroLoja\LojaModel;
-use App\Models\Api\ParceiroLoja\RelacionadoModel;
-use App\Models\Api\ParceiroLoja\SelectModel;
-use Controller\Controller;
 use Http\Request;
 use Http\Response;
 use Modules\Quantidade;
-use System\Interface\ControllerAtualizarInterface;
+use Controller\Controller;
+use App\Classes\ParceiroLoja\Ordem;
+use App\Classes\ParceiroLoja\TipoLoja;
+use App\Classes\ParceiroLoja\Categoria;
+use App\Models\Api\ParceiroLoja\LojaModel;
+use App\Models\Api\ParceiroLoja\LojaEntity;
+use App\Models\Api\ParceiroLoja\SelectModel;
+use App\Models\Api\ParceiroLoja\DestaqueModel;
+use App\Models\Api\ParceiroLoja\DownloadModel;
 use System\Interface\ControllerBuscarInterface;
-use System\Interface\ControllerDeletarInterface;
 use System\Interface\ControllerListarInterface;
 use System\Interface\ControllerSalvarInterface;
 use System\Interface\ControllerSelectInterface;
+use System\Interface\ControllerDeletarInterface;
+use App\Models\Api\ParceiroLoja\RelacionadoModel;
+use System\Interface\ControllerAtualizarInterface;
+use App\Models\Api\ParceiroLoja\Auditoria\OptionModel;
+use App\Models\Api\ParceiroLoja\Auditoria\SalvarModel;
 
 final class ParceiroLojaController extends Controller implements
     ControllerListarInterface,
@@ -90,7 +90,7 @@ final class ParceiroLojaController extends Controller implements
                     'comissao_minima', 'subcategoria_lista', 'comissao_maxima', 'empresa', 'destaque',
                     'confirmar_status', 'confirmar_titulo', 'confirmar_texto', 'endereco_estado', 'pontuacao',
                     'desconto', 'arquivo_clube', 'arquivo_painel', 'cupom_desconto', 'existe_endereco',
-                    'existe_email', 'existe_telefone', 'cancelar_motivo', 'status', 'link_integracao'
+                    'existe_email', 'existe_telefone', 'cancelar_motivo', 'status'
                 ]
             ),
             status: $status

@@ -330,7 +330,7 @@ EwIDAQAB
         'secret_id_fake'     => '76631-L78AuvFlyaQef6keC9%!iIt3Mk*NRSRbFrVeG$H2XwrH5!vboob%hILjidXC4v12tyj!jO4MWR',
         'client_id'          => '6391793193-szIaoukiIh$62SH#mIPPYkrnn$ylHL2Li3*T4SMQyhv1UUeiRxA*%8yOwdSt1BkBEPTI#%ODLU.localhost.com',
         'client_id_fake'     => '6391793193-szIaoukiIh$62SH#mIPPYkrnn$ylHL2Li3*T4SMQyhv1UUeiRxA*%8yOwdSt1BkBEPTI#%ODLU.localhost.com',
-        'audience'           => 'web',
+        'audience'           => 'painel',
         'authorization_code' => '1',
         'client_credentials' => '1',
         'refresh_token'      => '1',

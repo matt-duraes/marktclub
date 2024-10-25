@@ -4,11 +4,12 @@ namespace App\Models\Api\LoginClube\EmporioNaval;
 
 use Modules\Botao;
 
-trait UsuarioEmporioNavalTrait {
+trait UsuarioTrait
+{
     private function pegarUsuarioEmporioNaval()
     {
         $cpf = str_pad(soNumero($this->login), 11, '0', STR_PAD_LEFT);
-        $usuario = (new LoginEmporioNavalModel(
+        $usuario = (new LoginModel(
             login: $cpf,
             senha: $this->senha,
             empresa: $this->idEmpresa,
