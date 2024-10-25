@@ -2089,18 +2089,30 @@ if (!function_exists('formArquivo')) {
         ?string $id = null,
         bool $obrigatorio = false
     ) {
-        $blocoId = empty($id) ? 'id_' . md5(uniqid(time())) : $id;
-        $blocoClass = empty($class) ? '' : $class;
-
-        if (!empty($value)) {
-            $arquivo = arquivoPrivadoDado($value);
+        $id = empty($id) ? 'id_' . md5(uniqid(time())) : $id;
+        $class = !empty($class) ? explode(' ', $class) : [];
+        if ($obrigatorio) {
+            $class[] = 'input_obrigatorio';
         }
+        $class[] = 'fw_form fw_form_arquivo';
+        $class = implode(' ', $class);
+        $arquivo = !empty($value) ? arquivoPrivadoDado($value) : '';
 
-        return '
-            <div class="fw_form fw_form_arquivo ' . $blocoClass . '" id="' . $blocoId . '" data-name="' . $name . '" data-diretorio="' . $diretorio . '">
-
+        return <<<EOF
+            <div class="$class" id="$id" data-name="$name" data-diretorio="$diretorio">
+                <input type="text" value="$value">
+                <i class="fw_form_arquivo_icone fw_form_arquivo_upload">
+                    <svg height="15" xmlns="https://www.w3.org/2000/svg" xmlns:xlink="https://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 34 40" style="enable-background:new 0 0 34 40;" xml:space="preserve"><path d="M18.3,38.7c0-3.1,0-6.2,0-9.3c0-4.9,0-9.9,0-14.8c0-1.1,0-2.2,0-3.4c0-0.7-0.6-1.4-1.3-1.3c-0.7,0-1.3,0.6-1.3,1.3 c0,3.1,0,6.2,0,9.3c0,4.9,0,9.9,0,14.8c0,1.1,0,2.2,0,3.4c0,0.7,0.6,1.4,1.3,1.3C17.7,40,18.3,39.4,18.3,38.7L18.3,38.7z"/><path d="M27.9,21.6c-1.1-1.4-2.3-2.7-3.4-4.1c-1.8-2.2-3.6-4.3-5.4-6.5c-0.4-0.5-0.8-1-1.2-1.5c-0.4-0.5-1.4-0.5-1.9,0 c-1.1,1.4-2.3,2.7-3.4,4.1c-1.8,2.2-3.6,4.3-5.4,6.5c-0.4,0.5-0.8,1-1.2,1.5c-0.5,0.6-0.5,1.4,0,1.9c0.5,0.5,1.4,0.6,1.9,0 c1.1-1.4,2.3-2.7,3.4-4.1c1.8-2.2,3.6-4.3,5.4-6.5c0.4-0.5,0.8-1,1.2-1.5c-0.6,0-1.2,0-1.9,0c1.1,1.4,2.3,2.7,3.4,4.1 c1.8,2.2,3.6,4.3,5.4,6.5c0.4,0.5,0.8,1,1.2,1.5c0.5,0.6,1.4,0.5,1.9,0C28.4,22.9,28.4,22.2,27.9,21.6L27.9,21.6z"/><path d="M32.7,0c-1,0-2.1,0-3.1,0c-2.5,0-5,0-7.5,0c-3,0-6,0-9.1,0c-2.6,0-5.2,0-7.8,0C3.9,0,2.6,0,1.4,0c0,0,0,0-0.1,0 C0.6,0,0,0.6,0,1.4s0.6,1.3,1.3,1.3c1,0,2.1,0,3.1,0c2.5,0,5,0,7.5,0c3,0,6,0,9.1,0c2.6,0,5.2,0,7.8,0c1.3,0,2.5,0,3.8,0 c0,0,0,0,0.1,0c0.7,0,1.3-0.6,1.3-1.3S33.4,0,32.7,0L32.7,0z"/></svg>
+                </i>
+                <i class="fw_form_arquivo_icone fw_form_arquivo_remover">
+                    <svg height="19" xmlns="https://www.w3.org/2000/svg" viewBox="0 0 48 48" x="0px" y="0px"><g data-name="Application, Delete"><path d="M13,37a4,4,0,0,0,4,4H31a4,4,0,0,0,4-4V16H13Zm2-19H33V37a2,2,0,0,1-2,2H17a2,2,0,0,1-2-2Zm7,16H20V23h2Zm6,0H26V23h2Zm3.41-23-4-4H20.59l-4,4H9v2H39V11Zm-10-2h5.18l2,2H19.41Z"/></g></svg>
+                </i>
+                <div class="fw_arquivo_conteudo">
+                    <figure class="fw_form_arquivo_arquivo" style="background-image: url($arquivo)"></figure>
+                    <p class="fw_form_arquivo_zero">Sem arquivos</p>
+                </div>
             </div>
-        ';
+        EOF;
     }
 }
 
@@ -2254,5 +2266,199 @@ if (!function_exists('formSelectInpuTag')) {
                 </div>
             </div>
         ';
+    }
+}
+if (!function_exists('formTabela')) {
+    function formTabela(
+        string $name,
+        string $label = '',
+        array $value = [],
+        string $class = '',
+        string $id = ''
+    ) {
+        $blocoId = empty($id) ? 'id_' . md5(uniqid(time())) : $id;
+        $headerHtml = '';
+        foreach ($value['header'] ?? [] as $r) {
+            $checked = $r->auto ? 'checked' : '';
+            $headerHtml .= '
+                <div class="fw_form_tabela_coluna">
+                    <div class="fw_form_tabela_drag">' . iconeDrag() . '</div>
+                    <input placeholder="texto..." class="fw_form_tabela_texto" value="' . $r->valor . '">
+                    <label class="fw_form_tabela_grow">
+                        <input type="checkbox" ' . $checked . ' class="fw_form_tabela_grow_input">
+                        <div class="fw_form_tabela_grow_check"></div>
+                    </label>
+                    <input class="fw_form_tabela_tamanho" placeholder="000" value="' . $r->tamanho . '">
+                    <div class="fw_form_tabela_remover fw_form_tabela_coluna_remover">' . iconeFechar(8) . '</div>
+                </div>
+            ';
+        }
+
+        $valorHtml = '';
+        foreach ($value['tabela'] ?? [] as $linha) {
+            $colunaHtml = '';
+            foreach ($linha as $ind => $r) {
+                $colunaHtml .= '
+                    <div class="fw_form_tabela_coluna" data-posicao="' . $ind . '">
+                        <input placeholder="texto..." class="fw_form_tabela_texto" value="' . $r->valor . '">
+                    </div>
+                ';
+            }
+            $valorHtml .= '
+                <div class="fw_form_tabela_linha">
+                    <div class="fw_form_tabela_drag">' . iconeDrag() . '</div>
+                    <div class="fw_form_tabela_linha_conteudo"> ' . $colunaHtml . '</div>
+                    <div class="fw_form_tabela_remover fw_form_tabela_linha_remover">' . iconeFechar(8) . '</div>
+                </div>
+            ';
+        }
+
+        $label = !empty($label) ? '<div class="fw_tabela_label">' . preg_replace('/\:$/', '', trim($label)) . ':</div>' : '';
+        $class = explode(' ', $class);
+        $class[] = 'fw_form_tabela';
+        return '
+            <div class="' . implode(' ', $class) . '" data-name="' . $name . '" id="' . $blocoId . '">
+                ' . $label . '
+                <div class="fw_form_tabela_row fw_form_botao_linha_conula">
+                    <div class="fw_form_tabela_botao fw_form_tabela_add_linha">Adicionar linha</div>
+                    <div class="fw_form_tabela_botao fw_form_tabela_add_coluna">Adicionar coluna</div>
+                </div>
+                <div class="fw_form_tabela_scroll">
+                    <div class="fw_form_tabela_header">
+                        <div class="fw_form_tabela_linha">
+                            <div class="fw_form_tabela_drag"></div>
+                            <div class="fw_form_tabela_linha_conteudo">
+                                ' . $headerHtml . '
+                            </div>
+                            <div class="fw_form_tabela_remover"></div>
+                        </div>
+                    </div>
+                    <div class="fw_form_tabela_conteudo">
+                        ' . $valorHtml . '
+                    </div>
+                </div>
+            </div>
+            <div class="display_none">
+                <div class="fw_form_tabela_linha fw_form_tabela_linha_padrao">
+                    <div class="fw_form_tabela_drag">' . iconeDrag() . '</div>
+                    <div class="fw_form_tabela_linha_conteudo"></div>
+                    <div class="fw_form_tabela_remover fw_form_tabela_linha_remover">' . iconeFechar(8) . '</div>
+                </div>
+                <div class="fw_form_tabela_coluna fw_form_tabela_coluna_padrao">
+                    <input placeholder="texto..." class="fw_form_tabela_texto">
+                </div>
+                <div class="fw_form_tabela_coluna fw_form_tabela_coluna_header_padrao">
+                    <div class="fw_form_tabela_drag">' . iconeDrag() . '</div>
+                    <input placeholder="texto..." class="fw_form_tabela_texto">
+                    <label class="fw_form_tabela_grow">
+                        <input type="checkbox" class="fw_form_tabela_grow_input">
+                        <div class="fw_form_tabela_grow_check"></div>
+                    </label>
+                    <input class="fw_form_tabela_tamanho" placeholder="000">
+                    <div class="fw_form_tabela_remover fw_form_tabela_coluna_remover">' . iconeFechar(8) . '</div>
+                </div>
+            </div>
+        ';
+    }
+}
+
+if (!function_exists('formLista')) {
+    function formLista(
+        string $name,
+        string $label = '',
+        array $value = [],
+        string $class = '',
+        string $id = ''
+    ) {
+        $blocoId = empty($id) ? 'id_' . md5(uniqid(time())) : $id;
+
+        $lista = [];
+        foreach ($value as $r) {
+            $r = (object)$r;
+            $lista[] = '
+                <div class="fw_form_lista_item">
+                    <div class="fw_form_lista_drag fw_form_icone">' . iconeDrag() . '</div>
+                    <div class="fw_form_lista_bloco_texto">
+                        <p class="fw_form_lista_p fw_form_lista_br" data-lang="BR"><input readonly type="text" placeholder="Texto em português" value="' . $r->br . '"></p>
+                        <p class="fw_form_lista_p fw_form_lista_en" data-lang="EN"><input readonly type="text" placeholder="Texto em inglês" value="' . $r->en . '"></p>
+                        <p class="fw_form_lista_p fw_form_lista_es" data-lang="ES"><input readonly type="text" placeholder="Texto em espanhol" value="' . $r->es . '"></p>
+                    </div>
+                    <div class="fw_form_lista_salvar fw_form_lista_hide fw_form_icone">' . iconeCheck(10) . '</div>
+                    <div class="fw_form_lista_editar fw_form_icone">' . iconeEditar(12) . '</div>
+                    <div class="fw_form_lista_remover fw_form_icone">' . iconeFechar(14) . '</div>
+                </div>
+            ';
+        }
+
+        $input = formInputTraducao(label: $label);
+        $name = !empty($name) ? 'data-name="' . $name . '"' : '';
+
+        $class = explode(' ', $class);
+        $class[] = 'fw_form_lista';
+        return '
+            <div class="' . implode(' ', $class) . '" ' . $name . ' id="' . $blocoId . '">
+                <div class="fw_form_lista_bloco">
+                    ' . $input . '
+                    <div class="fw_form_lista_botao">Add</div>
+                </div>
+                <div class="fw_form_lista_conteudo">
+                    ' . implode(PHP_EOL, $lista) . '
+                </div>
+                <div class="display_none">
+                    <div class="fw_form_lista_item fw_form_lista_item_padrao">
+                        <div class="fw_form_lista_drag fw_form_icone">' . iconeDrag() . '</div>
+                        <div class="fw_form_lista_bloco_texto">
+                            <p class="fw_form_lista_p fw_form_lista_br" data-lang="BR"><input readonly type="text" placeholder="Texto em português"></p>
+                            <p class="fw_form_lista_p fw_form_lista_en" data-lang="EN"><input readonly type="text" placeholder="Texto em inglês"></p>
+                            <p class="fw_form_lista_p fw_form_lista_es" data-lang="ES"><input readonly type="text" placeholder="Texto em espanhol"></p>
+                        </div>
+                        <div class="fw_form_lista_salvar fw_form_lista_hide fw_form_icone">' . iconeCheck(10) . '</div>
+                        <div class="fw_form_lista_editar fw_form_icone">' . iconeEditar(12) . '</div>
+                        <div class="fw_form_lista_remover fw_form_icone">' . iconeFechar(14) . '</div>
+                    </div>
+                </div>
+            </div>
+        ';
+    }
+}
+
+if (!function_exists('formInputTraducao')) {
+    function formInputTraducao(
+        string $name = '',
+        string $label = '',
+        bool $obrigatorio = false,
+        string $id = '',
+        string $class = ''
+    ) {
+        $label = !empty($label) ? '<label>' . $label . '</label>' : '';
+        $classObrigatorio = $obrigatorio ? 'input_obrigatorio' : '';
+        $class = explode(' ', $class);
+        $class[] = 'form_input_traducao';
+        $class = implode(' ', $class);
+        $id = !empty($id) ? $id : '';
+        if (empty($id) && !empty($name)) {
+            $id = 'input_' . $name;
+        } elseif (empty($id)) {
+            $id = 'id_' . md5(uniqid(time()));
+        }
+        $name = !empty($name) ? 'data-name="' . $name . '"' : '';
+        return <<<EOF
+            <div class="$class" id="$id" $name>
+                <div class="bloco_input input_input">
+                    <div class="form_input_traducao_lang">
+                        <span>BR = </span>
+                        <span>EN = </span>
+                        <span>ES = </span>
+                    </div>
+                    <input class="input_geral form_input_traducao_br $classObrigatorio" type="text" autocomplete="off" placeholder="Texto em português">
+                    <input class="input_geral form_input_traducao_en" type="text" autocomplete="off" placeholder="Texto em inglês">
+                    <input class="input_geral form_input_traducao_es" type="text" autocomplete="off" placeholder="Texto em espanhol">
+                    <div class="borda"></div>
+                    $label
+                    <i class="input_icone_erro"></i>
+                    <div class="bloco_input_footer"><div class="input_mensagem"></div></div>
+                </div>
+            </div>
+        EOF;
     }
 }

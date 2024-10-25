@@ -61,7 +61,6 @@ class DeletarAppModel extends ORM
     }
 
     /**
-     * @return void
      */
     private function converterUuidParaId(): void
     {

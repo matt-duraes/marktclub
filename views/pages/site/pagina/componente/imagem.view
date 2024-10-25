@@ -1,0 +1,3 @@
+<figure class="com_imagem">
+    <img src="{!!$r->imagem_link!!}" height="{!!$r->imagem_altura!!}">
+</figure>

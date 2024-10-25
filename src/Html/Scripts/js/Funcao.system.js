@@ -171,6 +171,15 @@ Object.defineProperty(Object.prototype, 'valor', {
                 const valorTemp = item.value;
                 retorno.push(valorTemp == '' ? '' : 'https://' + valorTemp);
                 continue;
+            } else if (
+                valor === undefined &&
+                (item.classList.contains('fw_form_tabela') ||
+                    item.classList.contains('fw_form_indice_valor') ||
+                    item.classList.contains('fw_form_lista') ||
+                    item.classList.contains('form_input_traducao'))
+            ) {
+                retorno.push(formValue(item));
+                continue;
             } else if (valor == undefined) {
                 retorno.push(item.value);
                 continue;
@@ -704,6 +713,15 @@ const limparFormulario = form => {
 */
 const vazio = item => {
     if (typeof item === 'undefined' || item === null) {
+        return true;
+    } else if (
+        typeof item === 'object' &&
+        Object.keys(item).length == 3 &&
+        'br' in item &&
+        'en' in item &&
+        'es' in item &&
+        item.br.length == 0
+    ) {
         return true;
     } else if (
         (typeof item === 'string' && item.length > 0) ||

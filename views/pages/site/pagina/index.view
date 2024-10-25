@@ -1,0 +1,22 @@
+@template "site"
+
+@php
+if(!function_exists('componenteLoading')) {
+    function componenteLoading($lista) {
+        foreach($lista as $r) {
+            if($r->status == 'sim') {
+                include ROOT . '/files/build/views/site_pagina_componente_' . $r->tipo . '.php';
+            }
+        }
+    }
+}
+@end
+
+<form action="">
+    <input type="hidden" id="input_url" value="{{$url}}">
+</form>
+<div id="bloco_pagina">
+    @php
+        componenteLoading($html);
+    @end
+</div>

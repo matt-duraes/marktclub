@@ -1,0 +1,29 @@
+.com_tabela
+    width: 100%
+    flexCol()
+    background-color: #FFF
+    .com_tabela_scroll
+        width: 100%
+        overflow-x: auto
+        padding-bottom: 10px
+    .com_tabela_conteudo
+        width: 100%
+        flexCol()
+    .tr
+        width: 100%
+        flexRow()
+        border: 1px solid #CCC
+        border-bottom: none
+        border-right: none
+        &:last-child
+            border-bottom: 1px solid #CCC
+    .tr.header
+        background-color: #F6F6F6
+    .tr.header .td
+        font-weight: bold
+    .tr .td
+        padding: 10px
+        texto()
+        border-right: 1px solid #CCC
+    .tr .td_auto
+        flexGrow()

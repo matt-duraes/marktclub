@@ -46,7 +46,6 @@ class NavalModel
     }
 
     /**
-     * @return void
      * @throws Excecao
      */
     private function validarDadosDeLogin(): void
@@ -65,7 +64,6 @@ class NavalModel
     }
 
     /**
-     * @return void
      * @throws Excecao
      */
     private function buscarUsuarioPeloLoginSenha(): void
@@ -87,7 +85,6 @@ class NavalModel
     }
 
     /**
-     * @return void
      * @throws Excecao
      */
     private function buscarUsuarioNaBase(): void

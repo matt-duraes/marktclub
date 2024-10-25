@@ -11,6 +11,17 @@ final class LinkSiteModel
     public function __construct(
         private LojaEntity $Loja
     ) {
+        if (
+            defined('TOKEN') &&
+            array_key_exists('app', TOKEN) &&
+            is_object(TOKEN['app']) &&
+            object_key_exists('audience', TOKEN['app']) &&
+            TOKEN['app']->audience != 'clube'
+        ) {
+            $this->link = $Loja->link_site;
+            return;
+        }
+
         $this->link = $Loja->link_site;
         if (in_array($Loja->id, ['814b9d1792724316417c96b8fc33aacb', '62be1dcb9faaa2bfd139b91646a34f0e'])) {
             $this->link = 'https://api.marktclub.net.br/integracao/link/' . $this->criarHash();

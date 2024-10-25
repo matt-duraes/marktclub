@@ -96,7 +96,7 @@ final class PublicacaoArquivoController extends Controller implements
 
     /**
      * @param Request $request
-     * @param string  $id UUID
+     * @param string  $id      UUID
      *
      * @return Response
      * @throws Excecao

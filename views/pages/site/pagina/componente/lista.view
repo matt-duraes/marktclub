@@ -1,0 +1,15 @@
+<div class="com_lista">
+@php
+    componenteLoading($r->lista);
+@end
+
+@php echo $r->lista_tipo == 'bola' ? '<ul>' : '<ol>';
+
+@ foreach($r->lista_valor as $li):
+    <li>
+        {!!strLang($li)!!}
+    </li>
+@ endforeach;
+
+@php echo $r->lista_tipo == 'bola' ? '</ul>' : '</ol>';
+</div>

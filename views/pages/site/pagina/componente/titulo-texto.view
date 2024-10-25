@@ -1,0 +1,11 @@
+<div class="com_titulo_texto">
+    @php
+        componenteLoading($r->lista);
+    @end
+    <h1>
+        {!!strLang($r->titulo)!!}
+    </h1>
+    <p>
+        {!!strLang($r->texto)!!}
+    </p>
+</div>

@@ -2,22 +2,26 @@
 
 namespace App\Models\Api\LoginClube;
 
-use App\Classes\ApiToken\Tipo as TokenTipo;
+use stdClass;
+use Http\Request;
+use Modules\Botao;
 use App\Classes\LoginClube\Tipo;
 use App\Models\Api\ApiToken\PayloadModel;
-use App\Models\Api\ApiToken\TokenAuthorizationEntity;
-use App\Models\Api\ApiToken\Trait\PegarAppTrait;
+use App\Classes\ApiToken\Tipo as TokenTipo;
 use App\Models\Api\ConstrutorClube\ClubeModel;
+use App\Models\Api\ApiToken\Trait\PegarAppTrait;
 use App\Models\Api\ConstrutorClube\ConstrutorEntity;
-use App\Models\Api\LoginApi\NavalModel;
+use App\Models\Api\ApiToken\TokenAuthorizationEntity;
 use App\Models\Api\UsuarioCliente\UsuarioLogadoModel;
-use Erro\Excecao;
-use Modules\Botao;
-use stdClass;
+use App\Models\Api\LoginClube\Youhuul\LoginModel as LoginMarktClubModel;
+use App\Models\Api\LoginClube\ClubePoupy\UsuarioTrait as UsuarioClubePoupyTrait;
+use App\Models\Api\LoginClube\EmporioNaval\UsuarioTrait as UsuarioEmporioNavalTrait;
 
 final class LoginClubeModel
 {
     use PegarAppTrait;
+    use UsuarioEmporioNavalTrait;
+    use UsuarioClubePoupyTrait;
 
     public array $token;
     public array $construtor;
@@ -28,16 +32,7 @@ final class LoginClubeModel
     /**
      * Faz o login normal do usuário com usuario e senha
      *
-     * @param string|null $login
-     * @param string|null $senha
-     * @param string|null $redirectUri
-     * @param string|null $state
-     * @param string|null $hash
-     * @param Tipo        $tipo
-     * @param Botao       $cadastro
-     * @param Botao       $termo
-     *
-     * @throws Excecao
+     * @param Request $request Request da requisição
      */
     public function __construct(
         private ?string $login = null,
@@ -56,11 +51,7 @@ final class LoginClubeModel
         new UsuarioLogadoModel($this->Usuario->id);
     }
 
-    /**
-     * @return void
-     * @throws Excecao
-     */
-    private function pegarConstrutor(): void
+    private function pegarConstrutor()
     {
         $redirectUri = explode('/', preg_replace('/^https?\:\/\//', '', $this->redirectUri))[0];
         $this->redirectUri = $redirectUri;
@@ -81,31 +72,15 @@ final class LoginClubeModel
         $this->construtor = (new ClubeModel($Construtor))->construtor;
     }
 
-    /**
-     * @return void
-     * @throws Excecao
-     */
-    private function fazerLogin(): void
+    private function fazerLogin()
     {
         if ($this->idEmpresa == 153) { // FENAE
             return;
         } elseif ($this->idEmpresa == 2114 && $this->tipo->indice() == Tipo::TITULAR) { // CLUBE POUPY
-            $this->Usuario = (new LoginClubePoupyModel(
-                login: soNumero($this->login),
-                senha: $this->senha,
-                empresa: $this->idEmpresa,
-                cadastro: $this->cadastro,
-                termo: new Botao($this->termo)
-            ))->Usuario;
+            $this->Usuario = $this->pegarUsuarioClubePoupy();
             return;
-        } elseif ($this->idEmpresa == 2100) {
-            $this->Usuario = (new NavalModel(
-                soNumero($this->login),
-                $this->senha,
-                $this->idEmpresa,
-                $this->cadastro,
-                new Botao($this->termo)
-            ))->Usuario;
+        } elseif ($this->idEmpresa == 2100 && $this->tipo->indice() == Tipo::TITULAR) { // EMPORIO NAVAL
+            $this->Usuario = $this->pegarUsuarioEmporioNaval();
             return;
         }
 
@@ -117,7 +92,7 @@ final class LoginClubeModel
         ))->Usuario;
     }
 
-    private function criarToken(): void
+    private function criarToken()
     {
         $App = $this->pegarApp(['uuid', env('API_CLUBE_ID')]);
         $payload = (new PayloadModel($this->Usuario, $App->audience))->payload;
@@ -130,8 +105,8 @@ final class LoginClubeModel
             audience: $App->audience,
             redirectUri: 'clube.markt.club',
             state: $this->state,
-            empresa: $this->idEmpresa,
-            tipo: new TokenTipo(TokenTipo::CLUBE)
+            tipo: new TokenTipo(TokenTipo::CLUBE),
+            empresa: $this->idEmpresa
         );
     }
 }

@@ -1,0 +1,21 @@
+@php
+    $comEmpresa = (array)$r->link_empresa;
+    $link = $comEmpresa[CLUBE_EMPRESA] ?? $comEmpresa['geral'] ?? '';
+
+    $Botao = new \ResourcesSite\Componente\Botao();
+    $Botao->botao(texto: $r->titulo, link: $link, attr: ['target' => $r->target ?? '']);
+
+    if($r->botao_tipo == 'voltar') {
+        $Botao->voltar();
+    } elseif($r->botao_tipo == 'normal') {
+        $Botao->cor();
+    } elseif($r->botao_tipo == 'borda-normal') {
+        $Botao->borda()->cor();
+    } elseif($r->botao_tipo == 'cinza') {
+        $Botao->cinza();
+    } elseif($r->botao_tipo == 'borda-cinza') {
+        $Botao->cinza()->borda();
+    }
+
+    echo $Botao;
+@end

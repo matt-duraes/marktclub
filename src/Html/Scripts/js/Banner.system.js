@@ -11,6 +11,14 @@ class Banner {
 
         this.lista = banner.querySelectorAll(item);
         this.quantidade = this.lista.length - 1;
+
+        if (this.quantidade < 2 && botaoProximo) {
+            botaoProximo.classList.add('fw_banner_display_none');
+        }
+        if (this.quantidade < 2 && botaoAnterior) {
+            botaoAnterior.classList.add('fw_banner_display_none');
+        }
+
         this.eventoBotaoProximoAnterior();
         this.eventoItem();
     }

@@ -2,15 +2,15 @@
 
 namespace App\Models\Api\ParceiroLoja;
 
-use App\Classes\ParceiroLoja\Categoria;
-use App\Classes\ParceiroLoja\Status;
-use App\Models\Api\ParceiroLoja\Trait\PropriedadeTrait;
-use App\Models\Api\ParceiroLoja\Trait\ValidarTrait;
-use App\Models\Api\Trait\SistemaDataTrait;
-use Helpers\OrmHelper;
-use Modules\Botao;
-use Modules\Data;
 use ORM\Entity;
+use Modules\Data;
+use Modules\Botao;
+use Helpers\OrmHelper;
+use App\Classes\ParceiroLoja\Status;
+use App\Classes\ParceiroLoja\Categoria;
+use App\Models\Api\Trait\SistemaDataTrait;
+use App\Models\Api\ParceiroLoja\Trait\ValidarTrait;
+use App\Models\Api\ParceiroLoja\Trait\PropriedadeTrait;
 
 final class LojaEntity extends Entity
 {
@@ -193,7 +193,7 @@ final class LojaEntity extends Entity
         if (empty($this->prazo_voucher) || !preg_match('/^[1-9]{1}[0-9]{0,}$/', $this->prazo_voucher)) {
             $this->prazo_voucher = 10;
         }
-        $this->link_integracao = (new LinkSiteModel($this))->link;
+        $this->link_site = (new LinkSiteModel($this))->link;
         $this->empresa = $this->EmpresaOrm->mudarListaIdParaUuid($this->id_admin_empresa);
         $this->destaque = $this->EmpresaOrm->mudarListaIdParaUuid($this->destaque);
         $this->equipe = $this->EquipeOrm->pegarUuidPeloId($this->id_usuario_equipe);

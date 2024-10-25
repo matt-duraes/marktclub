@@ -1,0 +1,23 @@
+@php
+    $Botao = new \ResourcesSite\Componente\Botao();
+    $Botao->botao(link: $r->link, attr: ['target' => $r->target ?? '']);
+
+    if(!vazio($r->titulo)) {
+        $Botao->texto($r->titulo);
+    }
+
+    if($r->botao_tipo == 'voltar') {
+        $Botao->voltar();
+    } elseif($r->botao_tipo == 'normal') {
+        $Botao->cor();
+    } elseif($r->botao_tipo == 'borda-normal') {
+        $Botao->borda()->cor();
+    } elseif($r->botao_tipo == 'cinza') {
+        $Botao->cinza();
+    } elseif($r->botao_tipo == 'borda-cinza') {
+        $Botao->cinza()->borda();
+    }
+    $Botao->destaque();
+
+    echo $Botao;
+@end

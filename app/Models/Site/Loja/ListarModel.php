@@ -3,7 +3,6 @@
 namespace App\Models\Site\Loja;
 
 use stdClass;
-use Helpers\ListaHelper;
 use App\Helpers\ClubeApiHelper;
 use App\Classes\ParceiroLoja\Ordem;
 use App\Classes\ParceiroLoja\Status;
@@ -41,7 +40,10 @@ final class ListarModel extends ClubeApiHelper implements ListarInterface
             ->get('/parceiro-loja')
             ->object();
 
-        $lista = $this->montarLista($dado->dado->lista ?? []);
+        $Retorno = new RetornoModel($dado->dado->lista ?? []);
+        $this->mapa = $Retorno->mapa;
+
+        $lista = $Retorno->retorno;
         $paginacao = $dado->dado->pagina ?? [];
         $registro = $dado->dado->registro ?? [];
 
@@ -66,61 +68,10 @@ final class ListarModel extends ClubeApiHelper implements ListarInterface
             ->get('/parceiro-loja/relacionado/' . $this->id)
             ->object();
 
-        return $this->montarLista($dado->dado ?? []);
-    }
+        $Retorno = new RetornoModel($dado->dado ?? []);
 
-    private function montarLista(array $dado): array
-    {
-        $retorno = [];
-        $dataNovo = dataRemover(hoje(), 1, 'mes');
-        $listaEstado = (new ListaHelper())->estado()->r();
-        $Favorito = new FavoritoModel();
-        foreach ($dado as $r) {
-            $link = route('loja.detalhe');
-            if ($r->tipo_loja == TipoLoja::FARMACIA) {
-                $link = route('farmacia.detalhe');
-            } elseif ($r->tipo_loja == TipoLoja::AUTOMOVEL) {
-                $link = route('automovel.modelo');
-            } elseif ($r->tipo_loja == TipoLoja::CASHBACK) {
-                $link = route('cashback.detalhe');
-            } elseif ($r->tipo_loja == TipoLoja::PREMIUM) {
-                $link = route('premium.detalhe');
-            }
-            $link = $link . '/' . $r->url;
-
-            $estadoArray = jsonDecode($r->endereco_estado, true, true);
-            $estadoNumero = count($estadoArray);
-            $estado = '';
-            if (in_array('GR', $estadoArray)) {
-                $estado = 'Internacional';
-            } elseif ($estadoNumero == 27) {
-                $estado = 'Nacional';
-            } elseif ($estadoNumero == 1 && array_key_exists($estadoArray[0], $listaEstado)) {
-                $estado = $listaEstado[$estadoArray[0]];
-            } elseif ($estadoNumero > 1) {
-                $estado = $estadoNumero . ' estados';
-            }
-            $dado = [
-                'id'       => $r->id,
-                'titulo'   => $r->titulo,
-                'link'     => $link,
-                'imagem'   => $r->imagem_logo,
-                'desconto' => $r->desconto,
-                'favorito' => $Favorito->favorito($r->id),
-                'novo'     => !empty($r->data_publicacao) && $r->data_publicacao > $dataNovo ? 'sim' : 'nao',
-                'estado'   => $estado,
-                'tipo'     => $r->tipo_loja,
-            ];
-
-            foreach ($r->geolocalizacao ?? [] as $mapa) {
-                $this->mapa[] = (object)array_merge($dado, [
-                    'latitude'  => $mapa->latitude,
-                    'longitude' => $mapa->longitude
-                ]);
-            }
-            $retorno[] = (object)$dado;
-        }
-        return $retorno;
+        $this->mapa = $Retorno->mapa;
+        return $Retorno->retorno;
     }
 
     private function setarWhere()
