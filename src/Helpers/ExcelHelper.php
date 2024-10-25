@@ -2,7 +2,6 @@
 
 namespace Helpers;
 
-use JetBrains\PhpStorm\NoReturn;
 use Box\Spout\Writer\WriterInterface;
 use Box\Spout\Common\Entity\Style\Color;
 use Box\Spout\Common\Entity\Style\Style;
@@ -36,7 +35,7 @@ final class ExcelHelper
         private string $path = '',
     ) {
         $this->Writer = WriterEntityFactory::createXLSXWriter();
-        if(empty($path) && defined('DIRETORIO_PUBLICO')) {
+        if (empty($path) && defined('DIRETORIO_PUBLICO')) {
             $this->path = DIRETORIO_PUBLICO;
         }
         $this->setarStylePadrao();

@@ -2,7 +2,6 @@
 
 namespace App\Controllers\Api;
 
-use Erro\Excecao;
 use Http\Request;
 use Http\Response;
 use Modules\Botao;

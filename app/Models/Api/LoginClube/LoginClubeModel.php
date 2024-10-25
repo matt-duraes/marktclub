@@ -13,6 +13,7 @@ use App\Models\Api\ApiToken\Trait\PegarAppTrait;
 use App\Models\Api\ConstrutorClube\ConstrutorEntity;
 use App\Models\Api\ApiToken\TokenAuthorizationEntity;
 use App\Models\Api\UsuarioCliente\UsuarioLogadoModel;
+use App\Models\Api\LoginClube\Youhuul\LoginModel as LoginMarktClubModel;
 use App\Models\Api\LoginClube\ClubePoupy\UsuarioTrait as UsuarioClubePoupyTrait;
 use App\Models\Api\LoginClube\EmporioNaval\UsuarioTrait as UsuarioEmporioNavalTrait;
 
@@ -78,7 +79,7 @@ final class LoginClubeModel
         } elseif ($this->idEmpresa == 2114 && $this->tipo->indice() == Tipo::TITULAR) { // CLUBE POUPY
             $this->Usuario = $this->pegarUsuarioClubePoupy();
             return;
-        } elseif($this->idEmpresa == 2100 && $this->tipo->indice() == Tipo::TITULAR) { // EMPORIO NAVAL
+        } elseif ($this->idEmpresa == 2100 && $this->tipo->indice() == Tipo::TITULAR) { // EMPORIO NAVAL
             $this->Usuario = $this->pegarUsuarioEmporioNaval();
             return;
         }

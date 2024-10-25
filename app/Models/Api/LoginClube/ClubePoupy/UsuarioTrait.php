@@ -3,9 +3,9 @@
 namespace App\Models\Api\LoginClube\ClubePoupy;
 
 use Modules\Botao;
-use App\Models\Api\LoginClube\ClubePoupy\LoginModel;
 
-trait UsuarioTrait {
+trait UsuarioTrait
+{
     private function pegarUsuarioClubePoupy()
     {
         $cpf = str_pad(soNumero($this->login), 11, '0', STR_PAD_LEFT);

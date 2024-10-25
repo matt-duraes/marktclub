@@ -390,4 +390,24 @@ return [
         'cobrar_aposentado'       => 1,
         'status'                  => 1
     ],
+    [
+        'id'                      => 2114,
+        'cod'                     => 'f9568f10-019f-4912-8eb8-82b834dc5450',
+        'id_usuario_equipe'       => 1,
+        'titulo'                  => 'Clube Poupy',
+        'razao_social'            => 'Clube Poupy',
+        'nome_fantasia'           => 'Clube Poupy',
+        'cnpj'                    => 54752356000100,
+        'responsavel_nome'        => nomeCompletoAleatorio(),
+        'responsavel_cpf'         => cpfAleatorio(),
+        'responsavel_email'       => emailAleatorio(),
+        'responsavel_telefone'    => telefoneCelularAleatorio(),
+        'slug'                    => 'clubepoupy',
+        'tipo_pagamento'          => 1,
+        'contrato_valor'          => 1.2,
+        'contrato_dia_fechamento' => 1,
+        'contrato_dia_pagamento'  => 10,
+        'cobrar_aposentado'       => 1,
+        'status'                  => 1
+    ],
 ];

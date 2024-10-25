@@ -84,13 +84,13 @@ final class AuthMiddleware
         $url = (new Request())->url();
         if (strpos($url, 'painelhmlprod') !== false) {
             $titulo = 'HMLPROD';
-        } else if (strpos($url, 'painelhml') !== false) {
+        } elseif (strpos($url, 'painelhml') !== false) {
             $titulo = 'HML';
-        } else if (strpos($url, 'localhost') !== false) {
+        } elseif (strpos($url, 'localhost') !== false) {
             $titulo = 'DEV';
         }
 
-        if(!defined('AMBIENTE_ACESSO')) {
+        if (!defined('AMBIENTE_ACESSO')) {
             define('AMBIENTE_ACESSO', $titulo);
         }
     }

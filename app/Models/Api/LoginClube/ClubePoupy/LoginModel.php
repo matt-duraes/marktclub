@@ -32,7 +32,7 @@ final class LoginModel extends LoginPadraoModel
         private Botao $cadastro = new Botao(null),
         private Botao $termo = new Botao(null),
     ) {
-        $this->linkAutenticacao = env('CLUBE_POUPY_LINK_AUTENTICACAO');
+        $this->linkAutenticacao = env('CLUBE_POUPY_LINK_AUTENTICACAO', '');
         $this->validarDadosDeLogin();
         $this->buscarUsuarioPeloLoginSenha();
         $this->buscarUsuarioNaBase();

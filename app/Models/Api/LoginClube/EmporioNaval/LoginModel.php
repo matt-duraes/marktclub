@@ -32,7 +32,7 @@ final class LoginModel extends LoginPadraoModel
         private Botao $cadastro = new Botao(null),
         private Botao $termo = new Botao(null),
     ) {
-        $this->linkAutenticacao = env('EMPORIO_NAVAL_LINK_AUTENTICACAO');
+        $this->linkAutenticacao = env('EMPORIO_NAVAL_LINK_AUTENTICACAO', '');
         $this->validarDadosDeLogin();
         $this->buscarUsuarioPeloLoginSenha();
         $this->buscarUsuarioNaBase();
@@ -42,7 +42,10 @@ final class LoginModel extends LoginPadraoModel
     protected function buscarUsuarioPeloLoginSenha(): void
     {
         $Curl = (new CurlHelper())
-            ->header(['Content-Type' => 'application/json'])
+            ->header([
+                'Content-Type'   => 'application/json',
+                'Content-Length' => '0'
+            ])
             ->parametro([
                 'cpf' => $this->login,
                 'pwd' => urlencode($this->senha)
@@ -66,8 +69,8 @@ final class LoginModel extends LoginPadraoModel
             atualizar: true
         );
         $Usuario->cpf = new Cpf($this->login);
-        $Usuario->nome = new Nome($this->dado->nome);
-        $Usuario->email_pessoal = new Email($this->dado->email);
+        $Usuario->nome = new Nome($this->dado->Nome);
+        $Usuario->email_pessoal = new Email($this->dado->Email);
         $Usuario->data_termo = new Data(hoje());
         $Usuario->status = new Status(Status::ATIVO);
         $Usuario->buscar();

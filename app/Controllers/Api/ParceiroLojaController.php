@@ -136,9 +136,9 @@ final class ParceiroLojaController extends Controller implements
         );
 
         return mensagemSucesso([
-            'id' => $Auditoria->Historico->id,
+            'id'       => $Auditoria->Historico->id,
             'mensagem' => $Auditoria->Historico->mensagem,
-            'status' => $Auditoria->Parceiro->status->indice()
+            'status'   => $Auditoria->Parceiro->status->indice()
         ], 201);
     }
 
