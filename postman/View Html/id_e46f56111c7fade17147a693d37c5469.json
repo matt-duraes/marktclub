@@ -1,0 +1,1 @@
+{"id":"id_e46f56111c7fade17147a693d37c5469","token":"painel","metodo":"POST","nome":"\/view-html","uri":"{{LINK}}\/view-html","parametro":[],"body":[],"header":[],"variavel":[["texto",true,"$ID_VIEW_PAGINA","dado.id",""]],"json":[],"documentacao":{"status":false,"descricao":"","requisicao":"","resposta":"","scope":"view-pagina:salvar"}}

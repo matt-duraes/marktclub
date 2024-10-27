@@ -964,28 +964,54 @@ Route
             ::middleware(TokenMiddleware::class, 'scope', ['view_pagina:listar'])
             ::request(['pagina', '!quantidade'], 'json')
             ::get('/view-pagina');
-
         Route
             ::nome('buscar')
             ::middleware(TokenMiddleware::class, 'scope', ['view_pagina:buscar'])
             ::get('/view-pagina/{id}');
-
         Route
             ::nome('salvar')
             ::middleware(TokenMiddleware::class, 'scope', ['view_pagina:salvar'])
             ::request(['titulo', 'url'])
             ::post('/view-pagina');
-
         Route
             ::nome('atualizar')
             ::middleware(TokenMiddleware::class, 'scope', ['view_pagina:atualizar'])
             ::request(['!titulo', '!url', '!html'])
             ::put('/view-pagina/{id}');
-
         Route
             ::nome('deletar')
             ::middleware(TokenMiddleware::class, 'scope', ['view_pagina:deletar'])
             ::delete('/view-pagina/{id}');
+    });
+
+Route
+    ::nome('view_html')
+    ::middleware(TokenMiddleware::class, 'token')
+    ::controller(App\Controllers\Api\View\HtmlController::class)
+    ::grupo(function () {
+        Route
+            ::nome('listar')
+            ::middleware(TokenMiddleware::class, 'scope', ['view_html:listar'])
+            ::request(['pagina'], 'json')
+            ::get('/view-html');
+        Route
+            ::nome('buscar')
+            ::middleware(TokenMiddleware::class, 'scope', ['view_html:buscar'])
+            ::get('/view-html/{id}');
+        Route
+            ::nome('salvar')
+            ::middleware(TokenMiddleware::class, 'scope', ['view_html:salvar'])
+            ::request(App\Classes\View\Lista\Helper::PARAMETROS_LISTAR)
+            ::post('/view-html');
+        Route
+            ::nome('atualizar')
+            ::middleware(TokenMiddleware::class, 'scope', ['view_html:atualizar'])
+            ::request(App\Classes\View\Lista\Helper::PARAMETROS_LISTAR)
+            ::put('/view-html/{id}');
+        Route
+            ::nome('deletar')
+            ::middleware(TokenMiddleware::class, 'scope', ['view_html:deletar'])
+            ::delete('/view-html/{id}');
     });
 
 Route

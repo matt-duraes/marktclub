@@ -1,13 +1,14 @@
 // @template "painel"
 
 window.addEventListener('load', () => {
+    const app = 'view-pagina';
     const inputLimpar = $$(`
         #input_local, #input_titulo_interno, #input_titulo, #input_texto,
         #input_link, #input_target, #input_status, #input_api_status, #input_api_uri,
         #input_api_metodo, .bloco_api_body .input_geral, #input_id, #input_div_posicao,
         #input_link_empresa, #input_editor, #input_lista_valor, #input_lista_tipo,
         #input_botao_tipo, #input_imagem_altura, #input_div_direcao, #input_margem_topo,
-        #input_margem_esquerda, #input_margem_direita, #input_margem_baixo,
+        #input_margem_esquerda, #input_margem_direita, #input_margem_baixo
     `);
 
     const id = $('#input_visualizar_id').valor();
@@ -32,7 +33,6 @@ window.addEventListener('load', () => {
     const inputApiMetodo = $('#input_api_metodo');
     const inputApiBody = $('#input_api_body');
     const inputApiUri = $('#input_api_uri');
-    const inputHtml = $('#input_html');
     const inputTabela = $('#input_tabela');
     const inputEditor = $('#input_editor');
     const inputListaTipo = $('#input_lista_tipo');
@@ -45,14 +45,6 @@ window.addEventListener('load', () => {
     const inputIconeNome = $('#input_icone_nome');
     const inputIconeAltura = $('#input_icone_altura');
     const inputBotaoTipo = $('#input_botao_tipo');
-
-    const htmlLinha = {};
-    let html;
-    try {
-        html = JSON.parse(inputHtml.valor());
-    } catch (error) {
-        html = [];
-    }
 
     const blocoConteudo = $('#bloco_view_conteudo');
     const blocoLinhaPadrao = $('#bloco_linha_padrao');
@@ -78,8 +70,25 @@ window.addEventListener('load', () => {
 
     const botaoPopupAbrir = $('#botao_view_abrir');
     const botaoPopupSalvar = $('#botao_add_html');
-    const botaoSalvarHtml = $('#botao_salvar_html');
     const PopupAdd = new Popup('Adicionar', 'bloco_view_add', true, false);
+
+    const buscarHtml = async () => {
+        Loading.show();
+        const resposta = await ajaxPost(
+            LINK + '/app/ajax/' + app,
+            {
+                pagina: id,
+                indice: 'listar-html',
+            },
+            'Erro ao buscar HTML, recarregue a página e tente novamente.'
+        );
+
+        Loading.hide();
+        if (false === resposta) {
+            return;
+        }
+    };
+    buscarHtml();
 
     let blocoListaAtual;
     botaoPopupAbrir.evento('click', () => {
@@ -116,7 +125,6 @@ window.addEventListener('load', () => {
 
     const abrirEditar = article => {
         const id = article.attr('data-id');
-        const item = htmlLinha[id];
         const apiStatus = item.api_status || '';
         limparObrigatorio();
         setarTipo(item.tipo);
@@ -156,19 +164,17 @@ window.addEventListener('load', () => {
         PopupAdd.abrir();
     };
 
-    const colocarDragDrop = bloco => {
-        new DragDrop()
-            .bloco(bloco)
-            .botao('.drag')
-            .item('article')
-            .eventoMover(() => {
-                mostrarBotaoSalvar();
-            })
-            .iniciar();
-    };
+    new DragDrop()
+        .grupo('.conteudo_drag')
+        .bloco(blocoConteudo)
+        .botao('.drag')
+        .item('article')
+        .eventoMover(() => {
+            // Atualizar ordem
+        })
+        .iniciar();
 
     const montarArticle = (bloco, item) => {
-        htmlLinha[item.id] = item;
         const clone = blocoLinhaPadrao.clonar();
         clone.attr({
             'data-id': item.id,
@@ -187,12 +193,7 @@ window.addEventListener('load', () => {
         $('header h1', clone).texto(item.titulo_interno);
         bloco.aparecer();
         bloco.final(clone);
-        colocarDragDrop(bloco);
     };
-
-    for (const [chave, item] of Object.entries(html)) {
-        montarArticle(blocoConteudo, item);
-    }
 
     botaoPopupSalvar.evento('click', async () => {
         const tipo = inputTipo.valor();
@@ -203,9 +204,10 @@ window.addEventListener('load', () => {
         const id = !add ? inputId.valor() : uuid();
         const tituloInterno = inputTituloInterno.valor();
         const status = inputStatus.valor();
-        const item = adicionarBody(id, tipo);
+        const item = adicionarBody(tipo);
 
-        htmlLinha[id] = item;
+        // Request salvar
+        const resposta = await ajaxPost(LINK + '/');
 
         if (add) {
             montarArticle(blocoListaAtual, item);
@@ -213,21 +215,23 @@ window.addEventListener('load', () => {
             $('#bloco_item_' + id + ' header h1').texto(tituloInterno);
             $('#bloco_item_' + id + ' .status').classe('ativo', status == 'sim');
         }
-
-        mostrarBotaoSalvar();
         PopupAdd.fechar();
     });
 
-    const adicionarBody = (id, tipo) => {
+    const adicionarBody = tipo => {
         const imagem = inputImagemLink.css('background-image').replace('url("', '').replace('")', '');
-        const completo = {
+        return {
+            tipo: tipo,
+            local: inputLocal.valor(),
             titulo: inputTitulo.valor(),
+            status: inputStatus.valor() == 'sim' ? 'sim' : 'nao',
             texto: inputTexto.valor(),
             link: inputLink.valor(),
             target: inputTarget.valor(),
             tabela: inputTabela.valor(),
             editor: inputEditor.valor(),
             /* eslint-disable */
+            titulo_interno: inputTituloInterno.valor(),
             margem_topo: inputMargemTopo.valor(),
             margem_esquerda: inputMargemEsquerda.valor(),
             margem_direita: inputMargemDireita.valor(),
@@ -251,19 +255,6 @@ window.addEventListener('load', () => {
             botao_tipo: inputBotaoTipo.valor(),
             /* eslint-enable */
         };
-        const body = {
-            id: id,
-            tipo: tipo,
-            local: inputLocal.valor(),
-            status: inputStatus.valor() == 'sim' ? 'sim' : 'nao',
-            /* eslint-disable */
-            titulo_interno: inputTituloInterno.valor(),
-            /* eslint-enable */
-        };
-        for (const ind of bodyUsado) {
-            body[ind] = completo[ind];
-        }
-        return body;
     };
 
     const validarDadoPopup = tipo => {
@@ -346,51 +337,6 @@ window.addEventListener('load', () => {
         });
     };
 
-    const mostrarBotaoSalvar = () => {
-        botaoSalvarHtml.aparecer();
-    };
-
-    botaoSalvarHtml.evento('click', async () => {
-        Loading.show();
-        const resposta = await ajaxPost(
-            LINK + '/app/ajax/view-pagina',
-            {
-                indice: 'html',
-                id,
-                html: pegarHtml(),
-            },
-            'Erro ao salvar html, por favor, tente novamente.'
-        );
-
-        Loading.hide();
-        if (false === resposta) {
-            return;
-        }
-        Alerta.notificacao('HTML salvo com sucesso.', true);
-        botaoSalvarHtml.sumir();
-    });
-
-    const pegarHtml = () => {
-        const lista = Array.from(blocoConteudo.children).filter(el => el.tagName.toLowerCase() === 'article');
-        return JSON.stringify(montarBody(lista));
-    };
-
-    montarBody = lista => {
-        const bodyTemp = {};
-        let i = 1;
-        for (const item of lista) {
-            const id = item.attr('data-id');
-            bodyTemp[i] = htmlLinha[id];
-            const filho = Array.from(item.children).filter(el => el.classList.contains('lista') === true);
-            if (filho.length == 1) {
-                const articleFilho = Array.from(filho[0].children).filter(el => el.tagName.toLowerCase() === 'article');
-                bodyTemp[i].lista = montarBody(articleFilho);
-            }
-            i++;
-        }
-        return bodyTemp;
-    };
-
     inputTipo.evento('formChange', () => {
         limparObrigatorio();
         const valor = inputTipo.valor();
@@ -400,15 +346,6 @@ window.addEventListener('load', () => {
     inputApiStatus.evento('change', () => {
         blocoApiSim.classe('display_none', !inputApiStatus.checked);
     });
-
-    const mudarStatus = bloco => {
-        const ativo = bloco.classe('ativo', '?');
-        const valor = ativo ? 'nao' : 'sim';
-        const id = bloco.closest('article').attr('data-id');
-        htmlLinha[id].status = valor;
-        bloco.classe('ativo', !ativo);
-        mostrarBotaoSalvar();
-    };
 
     blocoConteudo.evento('click', e => {
         if (e.target.classe('status', '?') || e.target.closest('.status')) {
@@ -426,7 +363,6 @@ window.addEventListener('load', () => {
         if (e.target.classe('deletar', '?') || e.target.closest('.deletar')) {
             const bloco = e.target.closest('article');
             bloco.remove();
-            mostrarBotaoSalvar();
         }
     });
 
@@ -435,69 +371,51 @@ window.addEventListener('load', () => {
         if (valor == 'titulo-texto') {
             blocoTitulo.aparecer();
             blocoTexto.aparecer();
-            bodyUsado = ['titulo', 'texto'];
         } else if (valor == 'titulo' || valor == 'subtitulo') {
             blocoTitulo.aparecer();
-            bodyUsado = ['titulo'];
         } else if (valor == 'texto') {
             blocoTexto.aparecer();
-            bodyUsado = ['texto'];
         } else if (valor == 'botao' || valor == 'botao-destaque') {
             blocoTitulo.aparecer();
             blocoLink.aparecer();
             blocoTarget.aparecer();
             blocoBotaoTipo.aparecer();
-            bodyUsado = ['titulo', 'link', 'target', 'botao_tipo'];
         } else if (valor == 'botao-fixo') {
             blocoTitulo.aparecer();
             blocoLink.aparecer();
             blocoTarget.aparecer();
-            bodyUsado = ['titulo', 'link', 'target'];
         } else if (valor == 'relacionado') {
             blocoTitulo.aparecer();
             blocoLink.aparecer();
             blocoTarget.aparecer();
             blocoApiStatus.aparecer();
-            bodyUsado = ['titulo', 'link', 'target', 'api_status', 'api_metodo', 'api_uri', 'api_body'];
         } else if (valor == 'botao-empresa') {
             blocoTitulo.aparecer();
             blocoLinkTag.aparecer();
             blocoTarget.aparecer();
             blocoBotaoTipo.aparecer();
-            bodyUsado = ['titulo', 'link_empresa', 'target', 'botao_tipo'];
         } else if (valor == 'margem') {
             blocoMargem.aparecer();
-            bodyUsado = ['margem'];
         } else if (valor == 'div') {
             blocoDivDirecao.aparecer();
             blocoDivPosicao.aparecer();
-            bodyUsado = ['div_direcao', 'div_posicao'];
         } else if (valor == 'tabela') {
             inputTabela.aparecer();
-            bodyUsado = ['tabela'];
         } else if (valor == 'lista') {
             blocoLista.aparecer();
-            bodyUsado = ['lista_tipo', 'lista_valor'];
         } else if (valor == 'imagem') {
             blocoImagem.aparecer();
-            bodyUsado = ['imagem_arquivo', 'imagem_link', 'imagem_altura'];
         } else if (valor == 'icone') {
             blocoIcone.aparecer();
-            bodyUsado = ['icone_tipo', 'icone_tamanho', 'icone_nome', 'icone_altura'];
         } else if (valor == 'campanha') {
             blocoTitulo.aparecer();
             blocoLink.aparecer();
             blocoTarget.aparecer();
             blocoApiStatus.aparecer();
-            bodyUsado = ['titulo', 'link', 'target', 'api_status', 'api_metodo', 'api_uri', 'api_body'];
         } else if (valor == 'banner') {
             blocoApiStatus.aparecer();
-            bodyUsado = ['api_status', 'api_metodo', 'api_uri', 'api_body'];
-        } else if (valor == 'linha') {
-            bodyUsado = [];
         } else if (valor == 'editor') {
             blocoEditor.aparecer();
-            bodyUsado = ['editor'];
         }
     };
     const limparObrigatorio = () => {

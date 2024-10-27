@@ -13,7 +13,6 @@ $diretorio = 'c0ec7d2f-e3e6-48ea-9159-cbbc3a540896';
 @end
 
 <div class="bloco_fieldset" id="bloco_view">
-    <input type="hidden" id="input_html" value="{{jsonEncode($dado->html)}}">
     <input type="text">
     <header class="header_fieldset">
         <h2>HTML</h2>
@@ -21,10 +20,8 @@ $diretorio = 'c0ec7d2f-e3e6-48ea-9159-cbbc3a540896';
     <div class="lista_dado">
         <div class="botao_link" id="botao_view_abrir">Adicionar item</div>
     </div>
-    <div class="bloco_conteudo" id="bloco_view_conteudo">
-    </div>
-    <div class="bloco_botao_direita">
-        <div class="botao display_none" id="botao_salvar_html">Salvar HTML</div>
+    <div class="bloco_conteudo conteudo_drag" id="bloco_view_conteudo">
+        <div class="loading">Carregando HTML</div>
     </div>
 </div>
 
@@ -38,7 +35,7 @@ $diretorio = 'c0ec7d2f-e3e6-48ea-9159-cbbc3a540896';
             <i class="editar icone">@iconeEditar(10)</i>
             <i class="mais icone">+</i>
         </header>
-        <div class="lista display_none">
+        <div class="lista conteudo_drag display_none">
         </div>
     </article>
 </div>
@@ -54,7 +51,7 @@ $diretorio = 'c0ec7d2f-e3e6-48ea-9159-cbbc3a540896';
                 @? formSelect(name: 'tipo', label: 'Tipo de item', placeholder: 'Escolha um tipo', lista: (new \App\Classes\View\Lista\Tipo())->select('Escolha um tipo'), obrigatorio: true)
                 @? formSelect(name: 'local', label: 'Local', placeholder: 'Onde vai aparecer?', lista: (new \App\Classes\View\Lista\Local())->select('Escolha um local'), obrigatorio: true)
                 @? formInput(name: 'titulo_interno', label: 'Título interno', placeholder: 'Digite um título interno', obrigatorio: true)
-                @? formSelect(name: 'botao_tipo', label: 'Tipo do botão', placeholder: 'Escolha um tipo', lista: ['' => 'Escolha uma opção', 'voltar' => 'Voltar', 'normal' => 'Normal', 'cinza' => 'Cinza', 'borda-normal' => 'Borda normal', 'borda-cinza' => 'Borda cinza'], obrigatorio: true, class: 'bloco_botao_tipo display_none')
+                @? formSelect(name: 'botao_tipo', label: 'Tipo do botão', placeholder: 'Escolha um tipo', lista: (new \App\Classes\View\Lista\BotaoTipo())->select('Escolha uma opção'), obrigatorio: true, class: 'bloco_botao_tipo display_none')
                 @? formInputTraducao(name: 'titulo', label: 'Título', obrigatorio: true, class: 'bloco_titulo display_none')
                 @? formInputTraducao(name: 'texto', label: 'Texto', obrigatorio: true, class: 'bloco_texto display_none')
                 <div class="bloco_row bloco_margem display_none">
@@ -74,15 +71,15 @@ $diretorio = 'c0ec7d2f-e3e6-48ea-9159-cbbc3a540896';
                 @? formTabela(name: 'tabela', label: 'Tabela:', class: 'bloco_tabela', id: 'input_tabela')
                 @? formUrl(name: 'link', label: 'Link', placeholder: 'Digite um link', obrigatorio: true, class: 'bloco_link display_none')
                 @? formSelect(name: 'target', label: 'Target', placeholder: 'Escolha um target', lista: (new \App\Classes\Geral\Target())->select('Escolha um target'), obrigatorio: true, class: 'bloco_target display_none')
-                @? formSelect(name: 'div_direcao', label: 'Direção', placeholder: 'Qual direção?', lista: ['linha' => 'Linha (row)', 'coluna' => 'Coluna (column)'], obrigatorio: true, class: 'bloco_div_direcao display_none')
-                @? formSelect(name: 'div_posicao', label: 'Posição', placeholder: 'Qual posicao?', lista: ['esquerda' => 'Esquerda (flex-start)', 'direita' => 'Direita (flex-end)', 'centralizado' => 'Centralizado (center)', 'entre' => 'Entre (between)'], obrigatorio: true, class: 'bloco_div_posicao display_none')
+                @? formSelect(name: 'div_direcao', label: 'Direção', placeholder: 'Qual direção?', lista: (new \App\Classes\View\Lista\DivDirecao())->select('Escolha uma direção'), obrigatorio: true, class: 'bloco_div_direcao display_none')
+                @? formSelect(name: 'div_posicao', label: 'Posição', placeholder: 'Qual posicao?', lista: (new \App\Classes\View\Lista\DivPosicao())->select('Escolha uma posição'), obrigatorio: true, class: 'bloco_div_posicao display_none')
                 @? formEditor(name: 'editor', label: 'Editor', placeholder: 'Digite seu texto', diretorioImagem: $diretorio, diretorioArquivo: $diretorio, obrigatorio: true, bar: 'bold,italic,underline,Strikethrough,fwDestaque,|,fontColor,|,alignment,|,link,removeFormat,|,insertTable,fwImagem,fwArquivo,mediaEmbed,|,horizontalLine,FwObservacao,|,numberedList,bulletedList', barBalao: 'bold,italic,underline,Strikethrough,fwDestaque,|,fontColor,|,link,removeFormat', class: 'bloco_editor display_none')
-                @? formSelect(name: 'lista_tipo', label: 'Tipo', placeholder: 'Escolha um tipo', lista: ['' => 'Escolha uma opção', 'numero' => 'Número', 'bola' => 'Bola'], class: 'bloco_lista display_none')
+                @? formSelect(name: 'lista_tipo', label: 'Tipo', placeholder: 'Escolha um tipo', lista: (new \App\Classes\View\Lista\ListaTipo())->select('Escolha uma lista'), class: 'bloco_lista display_none')
                 @? formLista(name: 'lista_valor', label: 'Lista', class: 'bloco_lista display_none', id: 'input_lista_valor')
                 @? formImagem(name: 'imagem_arquivo', diretorio: $diretorio, class: 'bloco_imagem display_none')
                 @? formNumero(name: 'imagem_altura', label: 'Altura', placeholder: 'Altura da imagem', class: 'bloco_imagem display_none')
                 <div class="bloco_row bloco_icone display_none">
-                    @? formSelect(name: 'icone_tipo', label: 'Tipo', placeholder: 'Tipo de ícone', lista: ['' => 'Selecione tipo', 'normal' => 'Normal', 'quadrado' => 'Quadrado', 'redondo' => 'Redondo'], class: 'bloco_icone_tipo')
+                    @? formSelect(name: 'icone_tipo', label: 'Tipo', placeholder: 'Tipo de ícone', lista: (new \App\Classes\View\Lista\IconeTipo())->select('Tipo de ícone'), class: 'bloco_icone_tipo')
                     @? formInput(name: 'icone_tamanho', label: 'Tamanho', placeholder: 'Tamanho', class: 'bloco_icone_tamanho display_none')
 
                     @? formInput(name: 'icone_nome', label: 'Nome', placeholder: 'Nome do ícone', class: 'bloco_icone_nome')
