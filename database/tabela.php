@@ -1,4 +1,4 @@
-<?php
+<?php 
 
 define('TABELA_ALBUM_DADO', 'album_dado');
 define('TABELA_ALBUM_FOTO', 'album_foto');
@@ -109,6 +109,7 @@ define('TABELA_USUARIO_INDICACAO', 'usuario_indicacao');
 define('TABELA_USUARIO_LEAD', 'usuario_lead');
 define('TABELA_USUARIO_PAGAMENTO', 'usuario_pagamento');
 define('TABELA_USUARIO_RELATORIO', 'usuario_relatorio');
+define('TABELA_VIEW_HTML', 'view_html');
 define('TABELA_VIEW_PAGINA', 'view_pagina');
 define('TABELA_VOTACAO_DADO', 'votacao_dado');
 define('TABELA_VOTACAO_PERGUNTA', 'votacao_pergunta');

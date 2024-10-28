@@ -17,8 +17,7 @@ $permissao = [
     'usuario_equipe_index', 'usuario_equipe_add', 'usuario_equipe_editar', 'usuario_equipe_permissao',
     'usuario_equipe_deletar', 'usuario_equipe_empresa',
 
-    'view_pagina_index', 'view_pagina_add', 'view_pagina_editar', 'view_pagina_visualizar',
-    'view_pagina_deletar',
+    'view_pagina_index', 'view_pagina_add', 'view_pagina_editar', 'view_pagina_visualizar', 'view_pagina_deletar',
 
     'publicacao_noticia_index', 'publicacao_noticia_add', 'publicacao_noticia_editar', 'publicacao_noticia_deletar',
     'publicacao_noticia_empresa',

@@ -183,6 +183,29 @@ final class Route
     }
 
     /**
+     * Lista de requestes desejados
+     *
+     * @param string|array $request Lista de request podendo ser "*" para qualquer parâmetro
+     *                              ou uma lista em um array
+     * @param null|string  $tipo    Tipo de request podendo ser get, post, put, json
+     *                              ou files, caso null, pega padrão da rota
+     * @param null|array   $lista   Lista com as requisições opcionais ou null para todas
+     */
+    public static function requestOpcional(array $request, ?string $tipo = null, ?array $lista = null)
+    {
+        $retorno = [];
+        foreach($request as $ind) {
+            if(!$lista || ($lista && in_array($ind, $lista))) {
+                $retorno[] = '!' . $ind;
+                continue;
+            }
+            $retorno[] = $ind;
+        }
+        self::request($retorno, $tipo);
+        return __CLASS__;
+    }
+
+    /**
      * Middleware para ser executada antes ou depois da rota
      *
      * @param  string     $classe     Classe do middleware que deseja chamar
