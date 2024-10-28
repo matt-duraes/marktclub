@@ -1,0 +1,40 @@
+<div class="com_campanha" data-id="{{$r->id}}">
+    @php
+        componenteLoading($r->lista);
+    @end
+    <header>
+        <h1>
+            {!!strLang($r->titulo)!!}
+        </h1>
+    </header>
+    <div class="conteudo">
+        @laco(3)
+        <article class="com_esqueleto">
+            <figure class="esqueleto"></figure>
+            <header>
+                <h1 class="esqueleto"></h1>
+                <p class="esqueleto"></p>
+            </header>
+        </article>
+        @endlaco
+    </div>
+    <div class="display_none">
+        <article class="campanha com_campanha_padrao">
+            <a></a>
+            <figure class="desktop"></figure>
+            <figure class="mobile"></figure>
+            <header>
+                <h1 class="display_none">
+                    <span class="lang_br"></span>
+                    <span class="lang_en"></span>
+                    <span class="lang_es"></span>
+                </h1>
+                <p class="display_none">
+                    <span class="lang_br"></span>
+                    <span class="lang_en"></span>
+                    <span class="lang_es"></span>
+                </p>
+            </header>
+        </article>
+    </div>
+</div>

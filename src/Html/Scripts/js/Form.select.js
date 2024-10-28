@@ -6,7 +6,31 @@ let fwFormSelectAbertoAtual, fwFormSelectListaTexto, fwFormSelectValorAtual;
 const fwFormBlocoGeralSelect = document.getElementById('fw_form_select');
 
 const formValue = (input, valor, obrigatorio) => {
-    if (input.classList.contains('fw_form_select_input_tag')) {
+    if (input.classList.contains('fw_form_tabela')) {
+        if (valor === undefined) {
+            return fwFormTabelaPegarValor(input);
+        }
+        fwFormTabelaSetarValor(input, valor);
+        return;
+    } else if (input.classList.contains('form_input_traducao')) {
+        if (valor === undefined) {
+            return fwFormTraducaoPegarValor(input);
+        }
+        fwFormTraducaoSetarValor(input, valor);
+        return;
+    } else if (input.classList.contains('fw_form_lista')) {
+        if (valor === undefined) {
+            return fwFormListaPegarValor(input);
+        }
+        fwFormListaSetarValor(input, valor);
+        return;
+    } else if (input.classList.contains('fw_form_indice_valor')) {
+        if (valor === undefined) {
+            return fwFormIndiceValorPegarValor(input);
+        }
+        fwFormIndiceValorSetarValor(input, valor);
+        return;
+    } else if (input.classList.contains('fw_form_select_input_tag')) {
         fwFormValueSelectInputTagValor(input, valor);
         return;
     }
@@ -47,9 +71,10 @@ const formValue = (input, valor, obrigatorio) => {
         }
         const checked = valor == false || valor == '' || valor == 'nao' ? false : true;
         input.checked = checked;
-    } else if (bloco && bloco.classList.contains('input_url')) {
+    } else if (input && input.classList.contains('input_url')) {
         valor = valor.replace(/^(http:\/\/|https:\/\/)/i, '');
     }
+
     input.value = valor;
     if (input.classList.contains('textarea_resize')) {
         input.style.height = 0;

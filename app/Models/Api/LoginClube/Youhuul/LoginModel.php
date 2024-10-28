@@ -1,14 +1,15 @@
 <?php
 
-namespace App\Models\Api\LoginClube;
+namespace App\Models\Api\LoginClube\Youhuul;
 
 use stdClass;
 use Modules\Senha;
 use App\Classes\UsuarioCliente\Hash;
 use App\Classes\UsuarioCliente\TipoUsuario;
 use App\Classes\LoginClube\PegarClienteTrait;
+use App\Models\Api\LoginClube\LoginPadraoModel;
 
-final class LoginMarktClubModel extends LoginPadraoModel
+final class LoginModel extends LoginPadraoModel
 {
     use PegarClienteTrait;
 

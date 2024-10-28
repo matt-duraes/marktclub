@@ -1,0 +1,1 @@
+{"id":"id_603b10577f91cc2d861bc2cbf6016cfa","token":"painel","metodo":"PUT","nome":"\/view-html\/:id","uri":"{{LINK}}\/view-html\/$ID_VIEW_HTML","parametro":[],"body":[["texto",true,"titulo_interno","Teste de titulo novo",""]],"header":[],"variavel":[],"json":[],"documentacao":{"status":false,"descricao":"","requisicao":"","resposta":"","scope":"view_html:atualizar"}}

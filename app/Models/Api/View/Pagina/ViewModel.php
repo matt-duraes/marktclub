@@ -32,7 +32,7 @@ final class ViewModel extends ORM
     private function buscarRegistro()
     {
         $dado = $this
-            ->campo(['uuid', 'titulo', 'url'])
+            ->campo(['uuid', 'titulo', 'url', 'status'])
             ->pagina($this->pegarPagina(), $this->pegarQuantidade())
             ->read();
         if (existeErro($dado, 'lista') || empty($dado->lista)) {
@@ -49,7 +49,8 @@ final class ViewModel extends ORM
             $retorno[] = (object)[
                 'id'     => $r->uuid,
                 'titulo' => $r->titulo,
-                'url'    => $r->url
+                'url'    => $r->url,
+                'status' => $r->status
             ];
         }
         return $retorno;

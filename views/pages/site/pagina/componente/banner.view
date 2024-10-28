@@ -1,0 +1,19 @@
+<div class="bloco_geral_banner banner banner_loading com_aparecer_{{$r->local}}" data-id="{{$r->id}}">
+    @php
+        componenteLoading($r->lista);
+    @end
+    <div class="conteudo">
+        <div class="seta anterior botao_banner_desktop display_none">@iconeSetaEsquerda(40)</div>
+        <div class="seta proximo botao_banner_desktop display_none">@iconeSetaDireita(40)</div>
+        <div class="imagem banner_desktop display_none">
+        </div>
+        <div class="imagem banner_mobile display_none">
+        </div>
+    </div>
+    <div class="display_none">
+        <figure class="com_banner_figure_padrao">
+            <img src="">
+            <a href=""></a>
+        </figure>
+    </div>
+</div>

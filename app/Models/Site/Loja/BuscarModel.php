@@ -2,11 +2,11 @@
 
 namespace App\Models\Site\Loja;
 
+use stdClass;
+use Helpers\MarkdownHelper;
+use App\Helpers\ClubeApiHelper;
 use App\Classes\ParceiroLoja\Status;
 use App\Classes\ParceiroLoja\TipoLoja;
-use App\Helpers\ClubeApiHelper;
-use Helpers\MarkdownHelper;
-use stdClass;
 
 final class BuscarModel extends ClubeApiHelper
 {
@@ -47,7 +47,7 @@ final class BuscarModel extends ClubeApiHelper
             'procedimento'       => $r->tipo_procedimento,
             'capa_desktop'       => $r->imagem_capa_desktop,
             'capa_mobile'        => $r->imagem_capa_mobile,
-            'link'               => $this->gerarLink($tipo, $r->link_integracao),
+            'link'               => $this->gerarLink($tipo, $r->link_site),
             'url'                => $r->url,
             'desconto'           => $r->desconto,
             'comissao'           => $r->comissao_minima,

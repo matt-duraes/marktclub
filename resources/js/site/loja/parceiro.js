@@ -1,13 +1,9 @@
-const blocoClone = $('#parceiro_padrao_loja');
-if (blocoClone) {
-    blocoClone.removeAttribute('id');
-}
-
+const blocoClone = $('.parceiro_padrao_loja');
 const adicionarParceiro = (bloco, item, tipo) => {
     if (!blocoClone) {
         return;
     }
-    const clone = blocoClone.cloneNode(true);
+    const clone = blocoClone.clonar();
     clone.setAttribute('data-url', item.id);
 
     const favorito = clone.querySelector('.botao_favorito');

@@ -47,7 +47,7 @@ final class PaginaController extends Controller implements
         return mensagemSucesso(
             dado: pegarPropriedadeDaEntity(
                 Entity: $View,
-                lista: ['id', 'titulo', 'url', 'html']
+                lista: ['id', 'titulo', 'url', 'html', 'status']
             ),
             status: $status
         );
@@ -57,7 +57,6 @@ final class PaginaController extends Controller implements
     {
         $View = new ViewEntity();
         $View->uuid($id);
-        $View->set(lista: $request->dado());
         $View->salvar();
         return new Response(status: 204);
     }

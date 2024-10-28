@@ -125,14 +125,26 @@ final class AppController extends PadraoController
             mensagemStatus(400);
         }
         $dado = $request->exeto(['indice'], erro: false);
+        $requestAceita = $config->request;
+        foreach ($requestAceita as $i => $val) {
+            if (str_starts_with($val, '!')) {
+                $ind = substr($val, 1);
+                if ($request->existe($ind)) {
+                    $dado[$ind] = $request->getPost($ind, purifier: false, html: false);
+                }
+                $requestAceita[$i] = $ind;
+            }
+        }
+
         $rotaApi = $config->rota;
         if (preg_match('/\/\{id\}$/', $rotaApi) && array_key_exists('id', $dado)) {
             $rotaApi = preg_replace('/\/\{id\}$/', '/' . $dado['id'], $rotaApi);
             unset($dado['id']);
         }
+
         if ($dado) {
             foreach (array_keys($dado) as $ind) {
-                if (!in_array($ind, $config->request)) {
+                if (!in_array($ind, $requestAceita)) {
                     mensagemStatus(400);
                 }
             }
