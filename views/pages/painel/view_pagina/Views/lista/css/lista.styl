@@ -9,13 +9,15 @@
     article
         width: calc(100% - 20px)
         margin: 10px 0 0 10px
-        background-color: #F6F6F6
+        background-color: #FFF
+        border: 1px solid #CCC
         border-left: 2px solid $cor
         padding-left: 2px
         position: relative
-    article article
-        background-color: rgba(0,0,0,.05)
+        flexCol()
+        align-items: center
     article header
+        width: 100%
         flexRow()
         align-items: center
     article header .drag
@@ -24,33 +26,39 @@
         height: 30px
         flexCenter()
         fill: #999
+    article .margem_input
+        border: 1px solid #CCC
+        text-align: center
+        display: none
+    article .margem_input.margem_ativa
+        display: block
+    article .margem_topo
+    article .margem_baixo
+        width: 100%
+        max-width: 60px
+        height: 20px
+    article .margem_topo
+        margin-top: 5px
+    article .margem_baixo
+        margin: -5px 0 5px
+    article .margem_esquerda
+    article .margem_direita
+        width: 40px
+        height: 20px
+    article .margem_esquerda
+        margin: 0 0 5px 5px
+    article .margem_direita
+        margin: 0 5px 5px 0
+    article .conteudo_margem
+        width: 100%
+        flexRow()
+        padding: 0 2px 0 3px
+    article .conteudo_margem .resto
+        flexGrow()
     article header h1
         texto()
         flexGrow()
         padding-right: 20px
-    article header .status
-        width: 40px
-        height: 12px
-        background-color: #FFF
-        border-radius: 15px
-        position: relative
-        position: relative
-        border: 1px solid #CCC
-        flexRow()
-        cursor: pointer
-        margin-right: 10px
-    article header .status span
-        width: 22px
-        height: 22px
-        position: relative
-        background-color: #999
-        border-radius: 50%
-        top: -6px
-        left: 0
-        transition: left .3s ease-out
-    article header .status.ativo span
-        background-color: $cor
-        left: calc(100% - 18px)
     article header .icone
         height: 30px
         width: 30px
@@ -63,9 +71,16 @@
     article header:hover .icone
         display: flex
     article .lista
+        width: calc(100% - 15px)
+        min-height: 20px
         flexCol()
         padding-bottom: 10px
         position: relative
+        margin: 0 5px 10px 5px
+        border: 1px dashed #CCC
+        background-color: #F6F6F6
+#bloco_view .bloco_conteudo.margem_ativa article .margem_input
+    display: block
 
 #bloco_view .bloco_botao_direita
     flexRow()

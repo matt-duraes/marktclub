@@ -1001,7 +1001,9 @@ Route
         Route
             ::nome('salvar')
             ::middleware(TokenMiddleware::class, 'scope', ['view_html:salvar'])
-            ::request(array_merge(['pagina'], App\Classes\View\Lista\Helper::PARAMETROS_LISTAR))
+            ::requestOpcional(array_merge(['pagina'], App\Classes\View\Lista\Helper::PARAMETROS_LISTAR), lista: [
+                'margem_topo', 'margem_direita', 'margem_baixo', 'margem_esquerda'
+            ])
             ::post('/view-html');
         Route
             ::nome('atualizar')

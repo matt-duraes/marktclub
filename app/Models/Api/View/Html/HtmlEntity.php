@@ -42,7 +42,7 @@ final class HtmlEntity extends Entity
     public Tipo $tipo;
     public Local $local;
     public array $titulo;
-    public string $texto;
+    public array $texto;
     public string $link;
     public Target $target;
     public array $tabela;

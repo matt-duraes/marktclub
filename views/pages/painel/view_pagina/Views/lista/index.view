@@ -16,16 +16,21 @@ $diretorio = 'c0ec7d2f-e3e6-48ea-9159-cbbc3a540896';
     <header class="header_fieldset">
         <h2>HTML</h2>
     </header>
-    <div class="lista_dado">
+    <div class="bloco_row">
         <div class="botao_link" id="botao_view_abrir">Adicionar item</div>
+        <div class="botao_link botao_borda" id="botao_abrir_margem">Ver margem</div>
     </div>
     <div class="bloco_conteudo conteudo_drag" id="bloco_view_conteudo">
         <div class="loading">Carregando HTML</div>
     </div>
+    <div class="bloco_botao_direita">
+        <div class="botao display_none" id="botao_salvar_alteracao">Atualizar</div>
+    </div>
 </div>
 
 <div class="display_none">
-    <article id="bloco_linha_padrao">
+    <article class="item_pai" id="bloco_linha_padrao">
+        <input type="text" class="margem_input margem_topo" inputmode="numeric" placeholder="00">
         <header>
             <i class="drag">@iconeDrag</i>
             <h1></h1>
@@ -33,8 +38,14 @@ $diretorio = 'c0ec7d2f-e3e6-48ea-9159-cbbc3a540896';
             <i class="editar icone">@iconeEditar(10)</i>
             <i class="mais icone">+</i>
         </header>
-        <div class="lista conteudo_drag display_none">
+        <div class="conteudo_margem">
+            <input type="text" class="margem_input margem_esquerda" inputmode="numeric" placeholder="00">
+            <div class="resto"></div>
+            <input type="text" class="margem_input margem_direita" inputmode="numeric" placeholder="00">
         </div>
+        <div class="lista conteudo_drag">
+        </div>
+        <input type="text" class="margem_input margem_baixo" inputmode="numeric" placeholder="00">
     </article>
 </div>
 <div id="bloco_view_add" class="display_none">
@@ -52,12 +63,6 @@ $diretorio = 'c0ec7d2f-e3e6-48ea-9159-cbbc3a540896';
                 @? formSelect(name: 'botao_tipo', label: 'Tipo do botão', placeholder: 'Escolha um tipo', lista: (new \App\Classes\View\Lista\BotaoTipo())->select('Escolha uma opção'), obrigatorio: true, class: 'bloco_botao_tipo display_none')
                 @? formInputTraducao(name: 'titulo', label: 'Título', obrigatorio: true, class: 'bloco_titulo display_none')
                 @? formInputTraducao(name: 'texto', label: 'Texto', obrigatorio: true, class: 'bloco_texto display_none')
-                <div class="bloco_row bloco_margem display_none">
-                    @? formNumero(name: 'margem_topo', label: 'Topo', placeholder: 'Margem topo')
-                    @? formNumero(name: 'margem_direita', label: 'Topo', placeholder: 'Margem direita')
-                    @? formNumero(name: 'margem_baixo', label: 'Topo', placeholder: 'Margem baixo')
-                    @? formNumero(name: 'margem_esquerda', label: 'Topo', placeholder: 'Margem esquerda')
-                </div>
                 @php
                     echo formSelectInputTag(
                         id: 'input_link_empresa',

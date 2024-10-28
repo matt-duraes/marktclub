@@ -21,6 +21,7 @@ return $Painel
         $Painel
             ->permissao('view_pagina_index')
             ->metodo('delete')
+            ->request(['id'])
             ->rota('/view-html/{id}');
     })
     ->grupo('listar-html', function () use ($Painel) {

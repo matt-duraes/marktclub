@@ -125,7 +125,7 @@ final class HtmlModel extends ORM
             'api_uri'         => $r->api_uri,
             'botao_tipo'      => (new BotaoTipo($r->botao_tipo))->indice(),
             'ordem'           => $r->ordem,
-            'status'          => (new Botao($r->status))->valor(),
+            'status'          => (new Botao($r->status ? 'sim' : 'nao'))->valor(),
         ];
     }
 }
