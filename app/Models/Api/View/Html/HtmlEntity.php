@@ -5,7 +5,6 @@ namespace App\Models\Api\View\Html;
 use ORM\Entity;
 use Modules\Botao;
 use App\Classes\Geral\Metodo;
-use App\Classes\Geral\Status;
 use App\Classes\Geral\Target;
 use App\Classes\View\Lista\Tipo;
 use App\Classes\View\Lista\Local;
@@ -42,7 +41,7 @@ final class HtmlEntity extends Entity
     public null|string $pai = null;
     public Tipo $tipo;
     public Local $local;
-    public string $titulo;
+    public array $titulo;
     public string $texto;
     public string $link;
     public Target $target;
@@ -69,7 +68,7 @@ final class HtmlEntity extends Entity
     public array $api_body;
     public string $api_uri;
     public BotaoTipo $botao_tipo;
-    public Status $status;
+    public Botao $status;
     public array $html;
 
     protected function regraSalvar()

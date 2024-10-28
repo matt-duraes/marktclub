@@ -72,6 +72,8 @@ window.addEventListener('load', () => {
     const botaoPopupSalvar = $('#botao_add_html');
     const PopupAdd = new Popup('Adicionar', 'bloco_view_add', true, false);
 
+    const listaAtual = {};
+
     const buscarHtml = async () => {
         Loading.show();
         const resposta = await ajaxPost(
@@ -84,11 +86,37 @@ window.addEventListener('load', () => {
         );
 
         Loading.hide();
+
+        blocoConteudo.html('');
         if (false === resposta) {
             return;
         }
+
+        for (const item of resposta.dado) {
+            montarArticle(blocoConteudo, item);
+        }
     };
     buscarHtml();
+
+    const montarArticle = (bloco, item) => {
+        const clone = blocoLinhaPadrao.clonar();
+        clone.attr({
+            'data-id': item.id,
+            id: 'bloco_item_' + item.id,
+        });
+        if (typeof item['lista'] === 'object' && Object.keys(item['lista']).length > 0) {
+            const blocoNovo = $('.lista', clone);
+            blocoNovo.aparecer();
+            for (const [chave, itemNovo] of Object.entries(item['lista'])) {
+                montarArticle(blocoNovo, itemNovo);
+            }
+        }
+        $('header h1', clone).texto(item.titulo_interno);
+        bloco.aparecer();
+        bloco.final(clone);
+        listaAtual[item.id] = item;
+        adicionarDragDrop(bloco);
+    };
 
     let blocoListaAtual;
     botaoPopupAbrir.evento('click', () => {
@@ -125,6 +153,7 @@ window.addEventListener('load', () => {
 
     const abrirEditar = article => {
         const id = article.attr('data-id');
+        const item = listaAtual[id];
         const apiStatus = item.api_status || '';
         limparObrigatorio();
         setarTipo(item.tipo);
@@ -164,35 +193,16 @@ window.addEventListener('load', () => {
         PopupAdd.abrir();
     };
 
-    new DragDrop()
-        .grupo('.conteudo_drag')
-        .bloco(blocoConteudo)
-        .botao('.drag')
-        .item('article')
-        .eventoMover(() => {
-            // Atualizar ordem
-        })
-        .iniciar();
-
-    const montarArticle = (bloco, item) => {
-        const clone = blocoLinhaPadrao.clonar();
-        clone.attr({
-            'data-id': item.id,
-            id: 'bloco_item_' + item.id,
-        });
-        if (item.status == 'sim') {
-            $('.status', clone).classe('ativo', true);
-        }
-        if (typeof item['lista'] === 'object' && Object.keys(item['lista']).length > 0) {
-            const blocoNovo = $('.lista', clone);
-            blocoNovo.aparecer();
-            for (const [chave, itemNovo] of Object.entries(item['lista'])) {
-                montarArticle(blocoNovo, itemNovo);
-            }
-        }
-        $('header h1', clone).texto(item.titulo_interno);
-        bloco.aparecer();
-        bloco.final(clone);
+    const adicionarDragDrop = bloco => {
+        new DragDrop()
+            .grupo('.conteudo_drag')
+            .bloco(bloco)
+            .botao('.drag')
+            .item('article')
+            .eventoMover(() => {
+                // Atualizar ordem
+            })
+            .iniciar();
     };
 
     botaoPopupSalvar.evento('click', async () => {
@@ -348,10 +358,7 @@ window.addEventListener('load', () => {
     });
 
     blocoConteudo.evento('click', e => {
-        if (e.target.classe('status', '?') || e.target.closest('.status')) {
-            const bloco = e.target.classe('status', '?') ? e.target : e.target.closest('.status');
-            mudarStatus(bloco);
-        } else if (e.target.classe('editar', '?') || e.target.closest('.editar')) {
+        if (e.target.classe('editar', '?') || e.target.closest('.editar')) {
             const bloco = e.target.closest('article');
             abrirEditar(bloco);
         } else if (e.target.classe('mais', '?') || e.target.closest('.mais')) {
