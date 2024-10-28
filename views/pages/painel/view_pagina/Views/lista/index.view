@@ -13,7 +13,6 @@ $diretorio = 'c0ec7d2f-e3e6-48ea-9159-cbbc3a540896';
 @end
 
 <div class="bloco_fieldset" id="bloco_view">
-    <input type="text">
     <header class="header_fieldset">
         <h2>HTML</h2>
     </header>

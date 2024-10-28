@@ -1001,12 +1001,12 @@ Route
         Route
             ::nome('salvar')
             ::middleware(TokenMiddleware::class, 'scope', ['view_html:salvar'])
-            ::request(App\Classes\View\Lista\Helper::PARAMETROS_LISTAR)
+            ::request(array_merge(['pagina'], App\Classes\View\Lista\Helper::PARAMETROS_LISTAR))
             ::post('/view-html');
         Route
             ::nome('atualizar')
             ::middleware(TokenMiddleware::class, 'scope', ['view_html:atualizar'])
-            ::request(App\Classes\View\Lista\Helper::PARAMETROS_LISTAR)
+            ::requestOpcional(App\Classes\View\Lista\Helper::PARAMETROS_LISTAR)
             ::put('/view-html/{id}');
         Route
             ::nome('deletar')

@@ -22,8 +22,8 @@ final class HtmlController extends Controller implements
 {
     public function getListar(Request $request): Response
     {
-        $Html = new HtmlModel();
-        return mensagemSucesso([]);
+        $Html = new HtmlModel(pagina: $request->pagina);
+        return mensagemSucesso($Html->retorno);
     }
 
     public function getBuscar(string $id): Response
@@ -37,6 +37,10 @@ final class HtmlController extends Controller implements
     public function postSalvar(Request $request): Response
     {
         $dado = $request->dado();
+        if (!$request->vazio('editor')) {
+            $dado['editor'] = $request->getPost('editor', html: false);
+        }
+
         $Html = new HtmlEntity();
         $Html->set(lista: $dado);
         $Html->salvar();
@@ -55,6 +59,10 @@ final class HtmlController extends Controller implements
     public function putAtualizar(Request $request, string $id): Response
     {
         $dado = $request->dado();
+        if (!$request->vazio('editor')) {
+            $dado['editor'] = $request->getPut('editor', html: false);
+        }
+
         $Html = new HtmlEntity();
         $Html->uuid($id);
         $Html->set(lista: $dado);

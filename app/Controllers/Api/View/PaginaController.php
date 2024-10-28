@@ -57,7 +57,6 @@ final class PaginaController extends Controller implements
     {
         $View = new ViewEntity();
         $View->uuid($id);
-        $View->html = jsonDecode($request->getPut('html', false, false), true);
         $View->salvar();
         return new Response(status: 204);
     }
