@@ -46,6 +46,7 @@ window.addEventListener('load', () => {
     const blocoLinhaPadrao = $('#bloco_linha_padrao');
 
     // Bloco add
+    const blocoTipo = $('.bloco_tipo');
     const blocoApiSim = $$('.bloco_api_sim');
     const blocoTitulo = $('.bloco_titulo');
     const blocoTexto = $('.bloco_texto');
@@ -107,7 +108,27 @@ window.addEventListener('load', () => {
         });
 
         const blocoNovo = $('.lista', clone);
-        if (typeof item['lista'] === 'object' && Object.keys(item['lista']).length > 0) {
+        const naoPodeTerLista = inArray(item.tipo, [
+            'botao',
+            'botao-empresa',
+            'botao-destaque',
+            'botao-fixo',
+            'linha',
+            'imagem',
+            'icone',
+            'banner',
+            'campanha',
+            'titulo',
+            'subtitulo',
+            'texto',
+            'relacionado',
+            'editor',
+            'tabela',
+            'lista',
+        ]);
+        if (naoPodeTerLista) {
+            blocoNovo.remove();
+        } else if (typeof item['lista'] === 'object' && Object.keys(item['lista']).length > 0) {
             for (const [chave, itemNovo] of Object.entries(item['lista'])) {
                 montarArticle(blocoNovo, itemNovo);
             }
@@ -115,7 +136,7 @@ window.addEventListener('load', () => {
 
         const margemLista = $$('.margem_input', clone);
         const margemTopo = $('.margem_topo', clone);
-        const margemDireita = $('.margem_Direita', clone);
+        const margemDireita = $('.margem_direita', clone);
         const margemBaixo = $('.margem_baixo', clone);
         const margemEsquerda = $('.margem_esquerda', clone);
 
@@ -144,7 +165,9 @@ window.addEventListener('load', () => {
         bloco.aparecer();
         bloco.final(clone);
         listaAtual[item.id] = item;
-        adicionarDragDrop(blocoNovo);
+        if (!naoPodeTerLista) {
+            adicionarDragDrop(blocoNovo);
+        }
     };
 
     let blocoListaAtual;
@@ -153,6 +176,7 @@ window.addEventListener('load', () => {
     });
 
     const addSubGrupo = bloco => {
+        blocoTipo.aparecer();
         inputTipo.valor('');
         PopupAdd.abrir();
         blocoListaAtual = bloco;
@@ -186,6 +210,7 @@ window.addEventListener('load', () => {
         const apiStatus = item.api_status || '';
         limparObrigatorio();
         setarTipo(item.tipo);
+        blocoTipo.sumir();
         inputId.valor(id);
         inputTipo.valor(item.tipo);
         inputLocal.valor(item.local);
@@ -230,6 +255,39 @@ window.addEventListener('load', () => {
     };
     adicionarDragDrop(blocoConteudo);
 
+    botaoAtualizarGeral.evento('click', async () => {
+        // Loading.show();
+        const lista = $$('article', blocoConteudo);
+        const quantidade = lista.length;
+        if (quantidade == 0) {
+            botaoAtualizarGeral.sumir();
+            return;
+        }
+        let i = 1;
+        const html = {};
+        for (const item of lista) {
+            html[i] = {
+                id: item.attr('data-id'),
+                ordem: i,
+                /* eslint-disable */
+                margem_topo: $('.margem_topo', item).valor(),
+                margem_direita: $('.margem_direita', item).valor(),
+                margem_baixo: $('.margem_baixo', item).valor(),
+                margem_esquerda: $('.margem_esquerda', item).valor(),
+                /* eslint-enable */
+            };
+            ++i;
+        }
+        const resposta = await ajaxPost(
+            LINK + '/app/ajax/' + app,
+            {
+                indice: 'ordem-html',
+            },
+            'Erro ao atualizar HTML, recarregue a página e tente novamente.'
+        );
+        // botaoAtualizarGeral.sumir();
+    });
+
     botaoPopupSalvar.evento('click', async () => {
         const tipo = inputTipo.valor();
         if (!(await validarDadoPopup(tipo))) {
@@ -240,13 +298,14 @@ window.addEventListener('load', () => {
         const tituloInterno = inputTituloInterno.valor();
         const blocoPai = add ? blocoListaAtual.closest('.item_pai') : null;
         const pai = blocoPai ? blocoPai.attr('data-id') : '';
-        const bodyReal = adicionarBody(tipo, pai);
+        const bodyReal = adicionarBody(tipo);
         const body = bodyReal;
         body['indice'] = add ? 'salvar-html' : 'atualizar-html';
-        if (!add) {
-            body['id'] = idNovo;
-        } else {
+        if (add) {
             body['pagina'] = id;
+            body['pai'] = pai;
+        } else {
+            body['id'] = idNovo;
         }
 
         Loading.show();
@@ -271,17 +330,23 @@ window.addEventListener('load', () => {
         PopupAdd.fechar();
     });
 
-    const adicionarBody = (tipo, pai) => {
+    const adicionarBody = tipo => {
+        const titulo = inputTitulo.valor();
+        const texto = inputTexto.valor();
+        const tabela = inputTabela.valor();
+        const listaValor = inputListaValor.valor();
+        const linkEmpresa = inputLinkEmpresa.valor();
+        const apiBody = inputApiBody.valor();
+
         return {
-            pai,
             tipo: tipo,
             local: inputLocal.valor(),
-            titulo: JSON.stringify(inputTitulo.valor()),
+            titulo: !vazio(titulo) ? JSON.stringify(titulo) : null,
             status: inputStatus.valor() == 'sim' ? 'sim' : 'nao',
-            texto: JSON.stringify(inputTexto.valor()),
+            texto: !vazio(texto) ? JSON.stringify(texto) : null,
             link: inputLink.valor(),
             target: inputTarget.valor(),
-            tabela: JSON.stringify(inputTabela.valor()),
+            tabela: !vazio(tabela) ? JSON.stringify(inputTabela.valor()) : null,
             editor: inputEditor.valor(),
             /* eslint-disable */
             titulo_interno: inputTituloInterno.valor(),
@@ -292,13 +357,13 @@ window.addEventListener('load', () => {
             icone_nome: inputIconeNome.valor(),
             icone_altura: inputIconeAltura.valor(),
             lista_tipo: inputListaTipo.valor(),
-            lista_valor: JSON.stringify(inputListaValor.valor()),
-            link_empresa: JSON.stringify(inputLinkEmpresa.valor()),
+            lista_valor: !vazio(listaValor) ? JSON.stringify(listaValor) : null,
+            link_empresa: !vazio(linkEmpresa) ? JSON.stringify(linkEmpresa) : null,
             div_direcao: inputDivDirecao.valor(),
             div_posicao: inputDivPosicao.valor(),
             api_status: inputApiStatus.valor() == 'sim' ? 'sim' : 'nao',
             api_metodo: inputApiMetodo.valor(),
-            api_body: JSON.stringify(inputApiBody.valor()),
+            api_body: !vazio(apiBody) ? JSON.stringify(apiBody) : null,
             api_uri: inputApiUri.valor(),
             botao_tipo: inputBotaoTipo.valor(),
             /* eslint-enable */
