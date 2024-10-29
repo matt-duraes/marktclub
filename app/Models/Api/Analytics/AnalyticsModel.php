@@ -60,11 +60,15 @@ final class AnalyticsModel extends ORM
         $Crypt = new CryptHelper(chavePublica: $chave);
 
         $TipoUsuario = new TipoUsuario();
+        $cpfLista = [];
         foreach ($dado as $r) {
+            if(!array_key_exists($r->usuario_cpf, $cpfLista)) {
+                $cpfLista[$r->usuario_cpf] = $Crypt->encode($r->usuario_cpf);
+            }
             $retorno[] = [
                 'id'           => $r->uuid,
                 'usuario_tipo' => $TipoUsuario->indice($r->usuario_tipo),
-                'cpf'          => $Crypt->encode($r->usuario_cpf),
+                'cpf'          => $cpfLista[$r->usuario_cpf],
                 'dispositivo'  => $r->dispositivo,
                 'os'           => $r->os,
                 'browser'      => $r->browser,
