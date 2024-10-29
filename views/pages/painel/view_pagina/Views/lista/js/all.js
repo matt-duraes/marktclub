@@ -8,7 +8,8 @@ window.addEventListener('load', () => {
         #input_api_metodo, .bloco_api_body .input_geral, #input_id, #input_div_posicao,
         #input_link_empresa, #input_editor, #input_lista_valor, #input_lista_tipo,
         #input_botao_tipo, #input_imagem_altura, #input_div_direcao, #input_margem_topo,
-        #input_margem_esquerda, #input_margem_direita, #input_margem_baixo
+        #input_margem_esquerda, #input_margem_direita, #input_margem_baixo, #input_icone_tipo,
+        #input_icone_tamanho, #input_icone_nome, #input_icone_altura
     `);
 
     const id = $('#input_visualizar_id').valor();
@@ -35,7 +36,6 @@ window.addEventListener('load', () => {
     const inputListaValor = $('#input_lista_valor');
     const inputImagemArquivo = $('#input_imagem_arquivo');
     const inputImagemAltura = $('#input_imagem_altura');
-    const inputImagemLink = $('.bloco_imagem .fw_imagem_figure');
     const inputIconeTipo = $('#input_icone_tipo');
     const inputIconeTamanho = $('#input_icone_tamanho');
     const inputIconeNome = $('#input_icone_nome');
@@ -134,16 +134,25 @@ window.addEventListener('load', () => {
             }
         }
 
-        const margemLista = $$('.margem_input', clone);
-        const margemTopo = $('.margem_topo', clone);
-        const margemDireita = $('.margem_direita', clone);
-        const margemBaixo = $('.margem_baixo', clone);
-        const margemEsquerda = $('.margem_esquerda', clone);
+        const filhoLista = clone.children;
+        let margemTopo, margemDireita, margemBaixo, margemEsquerda;
+        for (const filhoItem of filhoLista) {
+            if (filhoItem.classe('margem_topo', '?')) {
+                margemTopo = filhoItem;
+            } else if (filhoItem.classe('margem_baixo', '?')) {
+                margemBaixo = filhoItem;
+            } else if (filhoItem.classe('conteudo_margem', '?')) {
+                margemEsquerda = $('.margem_esquerda', filhoItem);
+                margemDireita = $('.margem_direita', filhoItem);
+            }
+        }
 
-        margemLista.evento('change', (e, item) => {
-            item.classe('margem_ativa', !vazio(item.valor()));
-            botaoAtualizarGeral.aparecer();
-        });
+        for (const margemEvento of [margemTopo, margemBaixo, margemEsquerda, margemDireita]) {
+            margemEvento.evento('change', (e, item) => {
+                item.classe('margem_ativa', !vazio(item.valor()));
+                botaoAtualizarGeral.aparecer();
+            });
+        }
         if (!vazio(item.margem_topo)) {
             margemTopo.valor(item.margem_topo);
             margemTopo.classe('margem_ativa', true);
@@ -210,6 +219,11 @@ window.addEventListener('load', () => {
         const apiStatus = item.api_status || '';
         limparObrigatorio();
         setarTipo(item.tipo);
+
+        if (item.botao_tipo == 'voltar') {
+            blocoTitulo.sumir();
+        }
+
         blocoTipo.sumir();
         inputId.valor(id);
         inputTipo.valor(item.tipo);
@@ -256,36 +270,56 @@ window.addEventListener('load', () => {
     adicionarDragDrop(blocoConteudo);
 
     botaoAtualizarGeral.evento('click', async () => {
-        // Loading.show();
         const lista = $$('article', blocoConteudo);
         const quantidade = lista.length;
         if (quantidade == 0) {
             botaoAtualizarGeral.sumir();
             return;
         }
+        Loading.show();
         let i = 1;
-        const html = {};
+        const grupo = {};
         for (const item of lista) {
-            html[i] = {
+            const filhoLista = item.children;
+            let margemTopo, margemDireita, margemBaixo, margemEsquerda;
+            for (const filhoItem of filhoLista) {
+                if (filhoItem.classe('margem_topo', '?')) {
+                    margemTopo = filhoItem;
+                } else if (filhoItem.classe('margem_baixo', '?')) {
+                    margemBaixo = filhoItem;
+                } else if (filhoItem.classe('conteudo_margem', '?')) {
+                    margemEsquerda = $('.margem_esquerda', filhoItem);
+                    margemDireita = $('.margem_direita', filhoItem);
+                }
+            }
+            const blocoPai = item.parentElement.closest('.item_pai');
+            grupo[i] = {
                 id: item.attr('data-id'),
+                pai: blocoPai ? blocoPai.attr('data-id') : '',
                 ordem: i,
                 /* eslint-disable */
-                margem_topo: $('.margem_topo', item).valor(),
-                margem_direita: $('.margem_direita', item).valor(),
-                margem_baixo: $('.margem_baixo', item).valor(),
-                margem_esquerda: $('.margem_esquerda', item).valor(),
+                margem_topo: margemTopo.valor(),
+                margem_direita: margemDireita.valor(),
+                margem_baixo: margemBaixo.valor(),
+                margem_esquerda: margemEsquerda.valor(),
                 /* eslint-enable */
             };
             ++i;
         }
+
         const resposta = await ajaxPost(
             LINK + '/app/ajax/' + app,
             {
                 indice: 'ordem-html',
+                grupo: JSON.stringify(grupo),
             },
             'Erro ao atualizar HTML, recarregue a página e tente novamente.'
         );
-        // botaoAtualizarGeral.sumir();
+        Loading.hide();
+        if (false === resposta) {
+            return;
+        }
+        botaoAtualizarGeral.sumir();
     });
 
     botaoPopupSalvar.evento('click', async () => {
@@ -397,15 +431,15 @@ window.addEventListener('load', () => {
                 vazio(inputTitulo.valor())
             ) {
                 mensagem = 'Digite um título para continuar.';
-            } else if (eBotao && vazio(inputBotaoTipo.valor())) {
+            } else if (eBotao && tipo != 'botao-fixo' && vazio(inputBotaoTipo.valor())) {
                 mensagem = 'Escolha um tipo para o botão.';
             } else if ((tipo == 'titulo-texto' || tipo == 'texto') && vazio(inputTexto.valor())) {
                 mensagem = 'Digite um texto para continuar.';
             } else if (tipo == 'magem') {
                 mensagem = 'Digite uma margem para continuar.';
-            } else if (tipo == 'div' && vazio(inputDivDirecao.valor())) {
+            } else if ((tipo == 'div' || tipo == 'bloco') && vazio(inputDivDirecao.valor())) {
                 mensagem = 'Escolha a direção do conteudo da div para continuar.';
-            } else if (tipo == 'div' && vazio(inputDivPosicao.valor())) {
+            } else if ((tipo == 'div' || tipo == 'bloco') && vazio(inputDivPosicao.valor())) {
                 mensagem = 'Escolha a posição do conteudo da div para continuar.';
             } else if (tipo == 'tabela' && vazio(inputTabela.valor())) {
                 mensagem = 'Digite pelo menos uma linha para a tabela.';
@@ -512,7 +546,7 @@ window.addEventListener('load', () => {
             blocoLinkTag.aparecer();
             blocoTarget.aparecer();
             blocoBotaoTipo.aparecer();
-        } else if (valor == 'div') {
+        } else if (valor == 'div' || valor == 'bloco') {
             blocoDivDirecao.aparecer();
             blocoDivPosicao.aparecer();
         } else if (valor == 'tabela') {

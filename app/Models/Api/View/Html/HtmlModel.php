@@ -95,10 +95,10 @@ final class HtmlModel extends ORM
     {
         return [
             'id'              => $r->uuid,
-            'titulo'          => $r->titulo,
             'tipo'            => (new Tipo($r->tipo))->indice(),
             'local'           => (new Local($r->local))->indice(),
             'titulo_interno'  => $r->titulo_interno,
+            'titulo'          => $r->titulo,
             'texto'           => $r->texto,
             'link'            => $r->link,
             'target'          => (new Target($r->target))->indice(),

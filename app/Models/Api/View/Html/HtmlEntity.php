@@ -24,7 +24,7 @@ final class HtmlEntity extends Entity
         'imagem_arquivo', 'imagem_altura', 'icone_tipo', 'icone_tamanho',
         'icone_nome', 'icone_altura', 'lista_tipo', 'lista_valor', 'link_empresa',
         'div_direcao', 'div_posicao', 'api_status', 'api_metodo', 'api_body', 'api_uri',
-        'botao_tipo', 'status',
+        'botao_tipo', 'status', 'ordem'
     ];
     protected array $ormInsert = ['id_view_pagina', ];
     protected array $ormSalvar = [
@@ -33,7 +33,7 @@ final class HtmlEntity extends Entity
         'imagem_arquivo', 'imagem_altura', 'icone_tipo', 'icone_tamanho',
         'icone_nome', 'icone_altura', 'lista_tipo', 'lista_valor', 'link_empresa',
         'div_direcao', 'div_posicao', 'api_status', 'api_metodo', 'api_body', 'api_uri',
-        'botao_tipo', 'status', 'id_view_html',
+        'botao_tipo', 'status', 'id_view_html', 'ordem'
     ];
     public int $id_view_pagina;
     public int $id_view_html;
@@ -70,6 +70,12 @@ final class HtmlEntity extends Entity
     public BotaoTipo $botao_tipo;
     public Botao $status;
     public array $html;
+    public int $ordem;
+
+    protected function regraInsert()
+    {
+        $this->ordem = 9999;
+    }
 
     protected function regraSalvar()
     {

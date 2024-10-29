@@ -30,4 +30,11 @@ return $Painel
             ->permissao('view_pagina_index')
             ->metodo('get')
             ->rota('/view-html');
+    })
+    ->grupo('ordem-html', function () use ($Painel) {
+        $Painel
+            ->request(['grupo'])
+            ->permissao('view_pagina_index')
+            ->metodo('put')
+            ->rota('/view-html/grupo');
     });

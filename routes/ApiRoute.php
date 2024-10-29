@@ -1011,6 +1011,11 @@ Route
             ::requestOpcional(App\Classes\View\Lista\Helper::PARAMETROS_LISTAR)
             ::put('/view-html/{id}');
         Route
+            ::nome('grupo')
+            ::middleware(TokenMiddleware::class, 'scope', ['view_html:atualizar'])
+            ::request(['grupo'])
+            ::put('/view-html/grupo');
+        Route
             ::nome('deletar')
             ::middleware(TokenMiddleware::class, 'scope', ['view_html:deletar'])
             ::delete('/view-html/{id}');
