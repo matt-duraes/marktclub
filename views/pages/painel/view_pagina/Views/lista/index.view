@@ -30,22 +30,31 @@ $diretorio = 'c0ec7d2f-e3e6-48ea-9159-cbbc3a540896';
 
 <div class="display_none">
     <article class="item_pai" id="bloco_linha_padrao">
-        <input type="text" class="margem_input margem_topo" inputmode="numeric" placeholder="00">
-        <header>
-            <i class="drag">@iconeDrag</i>
-            <h1></h1>
-            <i class="deletar icone">@iconeDeletar(14)</i>
-            <i class="editar icone">@iconeEditar(10)</i>
-            <i class="mais icone">+</i>
-        </header>
-        <div class="conteudo_margem">
-            <input type="text" class="margem_input margem_esquerda" inputmode="numeric" placeholder="00">
-            <div class="resto"></div>
-            <input type="text" class="margem_input margem_direita" inputmode="numeric" placeholder="00">
+        <div class="margem_topo margem">
+            <input type="text" class="margem_input" inputmode="numeric" placeholder="00">
         </div>
-        <div class="lista conteudo_drag">
+        <div class="conteudo_linha">
+            <div class="margem_esquerda margem">
+                <input type="text" class="margem_input" inputmode="numeric" placeholder="00">
+            </div>
+            <div class="conteudo_geral">
+                <header>
+                    <i class="drag">@iconeDrag</i>
+                    <h1></h1>
+                    <i class="deletar icone">@iconeDeletar(14)</i>
+                    <i class="editar icone">@iconeEditar(10)</i>
+                    <i class="mais icone">+</i>
+                </header>
+                <div class="lista conteudo_drag">
+                </div>
+            </div>
+            <div class="margem_direita margem">
+                <input type="text" class="margem_input margem_direita" inputmode="numeric" placeholder="00">
+            </div>
         </div>
-        <input type="text" class="margem_input margem_baixo" inputmode="numeric" placeholder="00">
+        <div class="margem_baixo margem">
+            <input type="text" class="margem_input" inputmode="numeric" placeholder="00">
+        </div>
     </article>
 </div>
 <div id="bloco_view_add" class="display_none">

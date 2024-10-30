@@ -135,38 +135,76 @@ window.addEventListener('load', () => {
         }
 
         const filhoLista = clone.children;
-        let margemTopo, margemDireita, margemBaixo, margemEsquerda;
+        let margemTopo,
+            margemDireita,
+            margemBaixo,
+            margemEsquerda,
+            margemTopoInput,
+            margemDireitaInput,
+            margemBaixoInput,
+            margemEsquerdaInput;
         for (const filhoItem of filhoLista) {
             if (filhoItem.classe('margem_topo', '?')) {
                 margemTopo = filhoItem;
+                margemTopoInput = $('input', filhoItem);
+            } else if (filhoItem.classe('conteudo_linha', '?')) {
+                const filhoLinhaLista = filhoItem.children;
+                for (const filhoLinha of filhoLinhaLista) {
+                    if (filhoLinha.classe('margem_direita', '?')) {
+                        margemDireita = filhoLinha;
+                        margemDireitaInput = $('input', filhoLinha);
+                    } else if (filhoLinha.classe('margem_esquerda', '?')) {
+                        margemEsquerda = filhoLinha;
+                        margemEsquerdaInput = $('input', filhoLinha);
+                    }
+                }
             } else if (filhoItem.classe('margem_baixo', '?')) {
                 margemBaixo = filhoItem;
-            } else if (filhoItem.classe('conteudo_margem', '?')) {
-                margemEsquerda = $('.margem_esquerda', filhoItem);
-                margemDireita = $('.margem_direita', filhoItem);
+                margemBaixoInput = $('input', filhoItem);
             }
         }
 
-        for (const margemEvento of [margemTopo, margemBaixo, margemEsquerda, margemDireita]) {
+        const conteudoGeral = $('.conteudo_geral', clone);
+        for (const margemEvento of [margemTopoInput, margemBaixoInput, margemEsquerdaInput, margemDireitaInput]) {
             margemEvento.evento('change', (e, item) => {
-                item.classe('margem_ativa', !vazio(item.valor()));
+                const blocoMargemAtual = item.closest('.margem');
+                blocoMargemAtual.classe('margem_ativa', !vazio(item.valor()));
                 botaoAtualizarGeral.aparecer();
+                const margemEsquerdaAtiva = margemEsquerda.classe('margem_ativa', '?');
+                const margemDireitaAtiva = margemDireita.classe('margem_ativa', '?');
+
+                conteudoGeral.classe('margem_esquerda_ativa', false);
+                conteudoGeral.classe('margem_direita_ativa', false);
+                conteudoGeral.classe('margem_tudo_ativa', false);
+
+                if (margemEsquerdaAtiva && margemDireitaAtiva) {
+                    conteudoGeral.classe('margem_tudo_ativa', true);
+                    return;
+                }
+                if (margemEsquerdaAtiva) {
+                    conteudoGeral.classe('margem_esquerda_ativa', true);
+                    conteudoGeral.classe('margem_direita_ativa', false);
+                }
+                if (margemDireitaAtiva) {
+                    conteudoGeral.classe('margem_direita_ativa', true);
+                    conteudoGeral.classe('margem_esquerda_ativa', false);
+                }
             });
         }
         if (!vazio(item.margem_topo)) {
-            margemTopo.valor(item.margem_topo);
+            margemTopoInput.valor(item.margem_topo);
             margemTopo.classe('margem_ativa', true);
         }
         if (!vazio(item.margem_direita)) {
-            margemDireita.valor(item.margem_direita);
+            margemDireitaInput.valor(item.margem_direita);
             margemDireita.classe('margem_ativa', true);
         }
         if (!vazio(item.margem_baixo)) {
-            margemBaixo.valor(item.margem_baixo);
+            margemBaixoInput.valor(item.margem_baixo);
             margemBaixo.classe('margem_ativa', true);
         }
         if (!vazio(item.margem_esquerda)) {
-            margemEsquerda.valor(item.margem_esquerda);
+            margemEsquerdaInput.valor(item.margem_esquerda);
             margemEsquerda.classe('margem_ativa', true);
         }
 
@@ -280,18 +318,19 @@ window.addEventListener('load', () => {
         let i = 1;
         const grupo = {};
         for (const item of lista) {
-            const filhoLista = item.children;
+            const filhoLista = clone.children;
             let margemTopo, margemDireita, margemBaixo, margemEsquerda;
             for (const filhoItem of filhoLista) {
                 if (filhoItem.classe('margem_topo', '?')) {
-                    margemTopo = filhoItem;
+                    margemTopo = $('input', filhoItem);
                 } else if (filhoItem.classe('margem_baixo', '?')) {
-                    margemBaixo = filhoItem;
-                } else if (filhoItem.classe('conteudo_margem', '?')) {
-                    margemEsquerda = $('.margem_esquerda', filhoItem);
-                    margemDireita = $('.margem_direita', filhoItem);
+                    margemBaixo = $('input', filhoItem);
+                } else if (filhoItem.classe('conteudo_linha', '?')) {
+                    margemDireita = $('.margem_direita input', filhoItem);
+                    margemEsquerda = $('.margem_esquerda input', filhoItem);
                 }
             }
+
             const blocoPai = item.parentElement.closest('.item_pai');
             grupo[i] = {
                 id: item.attr('data-id'),

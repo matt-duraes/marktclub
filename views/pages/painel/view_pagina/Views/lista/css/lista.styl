@@ -8,7 +8,44 @@
         color: #666
     article
         width: calc(100% - 20px)
-        margin: 10px 0 0 10px
+        flexCol()
+        margin-top: 10px
+    article .margem
+        background: url(/images/painel/bg_linha.png) repeat
+        flexCenter()
+        display: none
+        padding: 5px
+        &.margem_ativa
+            display: flex
+    article .margem_topo
+    article .margem_baixo
+        width: calc(100% - 20px)
+    article article .margem_topo
+    article article .margem_baixo
+        width: calc(100% - 10px)
+    article .margem_esquerda
+    article .margem_direita
+        width: 40px
+    article .margem_topo
+    article .margem_baixo
+    article .margem_esquerda
+        margin-left: 20px
+    article article .margem_topo
+    article article .margem_baixo
+    article article .margem_esquerda
+        margin-left: 10px
+    article .margem input
+        width: 30px
+        height: 30px
+        background-color: #fff
+        text-align: center
+        textoFontSize()
+    article .conteudo_linha
+        width: 100%
+        flexRow()
+    article .conteudo_geral
+        width: calc(100% - 20px)
+        margin-left: 20px
         background-color: #FFF
         border: 1px solid #CCC
         border-left: 2px solid $cor
@@ -16,8 +53,17 @@
         position: relative
         flexCol()
         align-items: center
+    article .conteudo_geral.margem_esquerda_ativa
+        width: calc(100% - 60px)
+        margin-left: 0
+    article .conteudo_geral.margem_direita_ativa
+        width: calc(100% - 60px)
+    article .conteudo_geral.margem_tudo_ativa
+        width: calc(100% - 100px)
+        margin-left: 0
     article header
         width: 100%
+        min-height: 40px
         flexRow()
         align-items: center
     article header .drag
@@ -26,35 +72,6 @@
         height: 30px
         flexCenter()
         fill: #999
-    article .margem_input
-        border: 1px solid #CCC
-        text-align: center
-        display: none
-    article .margem_input.margem_ativa
-        display: block
-    article .margem_topo
-    article .margem_baixo
-        width: 100%
-        max-width: 60px
-        height: 20px
-    article .margem_topo
-        margin-top: 5px
-    article .margem_baixo
-        margin: -5px 0 5px
-    article .margem_esquerda
-    article .margem_direita
-        width: 40px
-        height: 20px
-    article .margem_esquerda
-        margin: 0 0 5px 5px
-    article .margem_direita
-        margin: 0 5px 5px 0
-    article .conteudo_margem
-        width: 100%
-        flexRow()
-        padding: 0 2px 0 3px
-    article .conteudo_margem .resto
-        flexGrow()
     article header h1
         texto()
         flexGrow()
@@ -68,6 +85,8 @@
         user-select: none
         &:hover
             background-color: rgba(0, 0, 0, .05)
+        &.mais
+            margin-right: 5px
     article header:hover .icone
         display: flex
     article .lista
@@ -79,8 +98,20 @@
         margin: 0 5px 10px 5px
         border: 1px dashed #CCC
         background-color: #F6F6F6
-#bloco_view .bloco_conteudo.margem_ativa article .margem_input
-    display: block
+    article .lista article
+        width: calc(100% - 10px)
+    article .lista .conteudo_geral
+        width: 100%
+        margin-left: 10px
+
+#bloco_view .bloco_conteudo.margem_ativa article
+    .margem
+        display: flex
+    .conteudo_geral
+        width: calc(100% - 100px)
+        margin: 0
+    article .conteudo_geral
+        width: calc(100% - 90px)
 
 #bloco_view .bloco_botao_direita
     flexRow()
