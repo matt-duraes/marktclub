@@ -41,6 +41,7 @@ $diretorio = 'c0ec7d2f-e3e6-48ea-9159-cbbc3a540896';
                 <header>
                     <i class="drag">@iconeDrag</i>
                     <h1></h1>
+                    <span class="status"></span>
                     <i class="deletar icone">@iconeDeletar(14)</i>
                     <i class="editar icone">@iconeEditar(10)</i>
                     <i class="mais icone">+</i>

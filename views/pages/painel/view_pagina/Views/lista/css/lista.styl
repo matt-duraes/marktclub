@@ -17,6 +17,9 @@
         padding: 5px
         &.margem_ativa
             display: flex
+    article.margem_ativa > .margem
+    article.margem_ativa > .conteudo_linha > .margem
+        display: flex
     article .margem_topo
     article .margem_baixo
         width: calc(100% - 20px)
@@ -54,6 +57,7 @@
         flexCol()
         align-items: center
     article .conteudo_geral.margem_esquerda_ativa
+    article.margem_ativa .conteudo_geral
         width: calc(100% - 60px)
         margin-left: 0
     article .conteudo_geral.margem_direita_ativa
@@ -76,6 +80,15 @@
         texto()
         flexGrow()
         padding-right: 20px
+    article header .status
+        width: 8px
+        height: 8px
+        border-radius: 50%
+        margin-right: 5px
+        &.status_sim
+            background-color: $cor
+        &.status_nao
+            background-color: $corDeletar
     article header .icone
         height: 30px
         width: 30px
@@ -103,6 +116,8 @@
     article .lista .conteudo_geral
         width: 100%
         margin-left: 10px
+    article.margem_ativa > .conteudo_linha > .conteudo_geral
+        margin-left: 0
 
 #bloco_view .bloco_conteudo.margem_ativa article
     .margem

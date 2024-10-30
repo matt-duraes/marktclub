@@ -166,9 +166,10 @@ window.addEventListener('load', () => {
 
         const conteudoGeral = $('.conteudo_geral', clone);
         for (const margemEvento of [margemTopoInput, margemBaixoInput, margemEsquerdaInput, margemDireitaInput]) {
-            margemEvento.evento('change', (e, item) => {
-                const blocoMargemAtual = item.closest('.margem');
-                blocoMargemAtual.classe('margem_ativa', !vazio(item.valor()));
+            margemEvento.evento('change', () => {
+                const blocoMargemAtual = margemEvento.closest('.margem');
+                blocoMargemAtual.classe('margem_ativa', !vazio(margemEvento.valor()));
+
                 botaoAtualizarGeral.aparecer();
                 const margemEsquerdaAtiva = margemEsquerda.classe('margem_ativa', '?');
                 const margemDireitaAtiva = margemDireita.classe('margem_ativa', '?');
@@ -209,6 +210,11 @@ window.addEventListener('load', () => {
         }
 
         $('header h1', clone).texto(item.titulo_interno);
+        $('header .status', clone).classe('status_' + item.status);
+        $('header', clone).evento('dblclick', () => {
+            clone.classe('margem_ativa');
+        });
+
         bloco.aparecer();
         bloco.final(clone);
         listaAtual[item.id] = item;
@@ -318,16 +324,22 @@ window.addEventListener('load', () => {
         let i = 1;
         const grupo = {};
         for (const item of lista) {
-            const filhoLista = clone.children;
+            const filhoLista = item.children;
             let margemTopo, margemDireita, margemBaixo, margemEsquerda;
             for (const filhoItem of filhoLista) {
                 if (filhoItem.classe('margem_topo', '?')) {
                     margemTopo = $('input', filhoItem);
+                } else if (filhoItem.classe('conteudo_linha', '?')) {
+                    const filhoLinhaLista = filhoItem.children;
+                    for (const filhoLinha of filhoLinhaLista) {
+                        if (filhoLinha.classe('margem_direita', '?')) {
+                            margemDireita = $('input', filhoLinha);
+                        } else if (filhoLinha.classe('margem_esquerda', '?')) {
+                            margemEsquerda = $('input', filhoLinha);
+                        }
+                    }
                 } else if (filhoItem.classe('margem_baixo', '?')) {
                     margemBaixo = $('input', filhoItem);
-                } else if (filhoItem.classe('conteudo_linha', '?')) {
-                    margemDireita = $('.margem_direita input', filhoItem);
-                    margemEsquerda = $('.margem_esquerda input', filhoItem);
                 }
             }
 
@@ -399,6 +411,10 @@ window.addEventListener('load', () => {
         } else {
             listaAtual[idNovo] = bodyReal;
             $('#bloco_item_' + idNovo + ' header h1').texto(tituloInterno);
+            const status = $('#bloco_item_' + idNovo + ' header .status');
+            status.classe('status_nao', false);
+            status.classe('status_sim', false);
+            status.classe('status_' + body['status'], true);
         }
         PopupAdd.fechar();
     });
@@ -476,9 +492,9 @@ window.addEventListener('load', () => {
                 mensagem = 'Digite um texto para continuar.';
             } else if (tipo == 'magem') {
                 mensagem = 'Digite uma margem para continuar.';
-            } else if ((tipo == 'div' || tipo == 'bloco') && vazio(inputDivDirecao.valor())) {
+            } else if (inArray(tipo, ['div', 'bloco', 'resto']) && vazio(inputDivDirecao.valor())) {
                 mensagem = 'Escolha a direção do conteudo da div para continuar.';
-            } else if ((tipo == 'div' || tipo == 'bloco') && vazio(inputDivPosicao.valor())) {
+            } else if (inArray(tipo, ['div', 'bloco', 'resto']) && vazio(inputDivPosicao.valor())) {
                 mensagem = 'Escolha a posição do conteudo da div para continuar.';
             } else if (tipo == 'tabela' && vazio(inputTabela.valor())) {
                 mensagem = 'Digite pelo menos uma linha para a tabela.';
@@ -585,7 +601,7 @@ window.addEventListener('load', () => {
             blocoLinkTag.aparecer();
             blocoTarget.aparecer();
             blocoBotaoTipo.aparecer();
-        } else if (valor == 'div' || valor == 'bloco') {
+        } else if (inArray(valor, ['div', 'bloco', 'resto'])) {
             blocoDivDirecao.aparecer();
             blocoDivPosicao.aparecer();
         } else if (valor == 'tabela') {
