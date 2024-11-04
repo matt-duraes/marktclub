@@ -21,12 +21,12 @@ final class TurismoController extends Controller
      */
     public function index(): Response
     {
-        // $Pagina = new BuscarModel('turismo');
-        // return view('pagina', [
-        //     'menu'    => 'turismo',
-        //     'html'    => $Pagina->html,
-        //     'url'     => 'turismo'
-        // ]);
+        $Pagina = new BuscarModel('teste');
+        return view('pagina', [
+            'menu'    => 'turismo',
+            'html'    => $Pagina->html,
+            'url'     => 'turismo'
+        ]);
         return view('turismo.index', [
             'menu'         => 'turismo',
             'banner'       => (new BannerModel())->turismo(),

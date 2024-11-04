@@ -3,7 +3,11 @@
     $link = $comEmpresa[CLUBE_EMPRESA] ?? $comEmpresa['geral'] ?? '';
 
     $Botao = new \ResourcesSite\Componente\Botao();
-    $Botao->botao(texto: $r->titulo, link: $link, attr: ['target' => $r->target ?? '']);
+    $Botao->botao(link: $link, attr: ['target' => $r->target ?? '']);
+
+    if($r->botao_tipo != 'voltar' && !vazio($r->titulo)) {
+        $Botao->texto($r->titulo);
+    }
 
     if($r->botao_tipo == 'voltar') {
         $Botao->voltar();

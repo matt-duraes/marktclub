@@ -93,6 +93,7 @@ final class HtmlModel extends ORM
 
     private function montarArrayRetorno($r)
     {
+        $painel = defined('TOKEN') && TOKEN['app']->audience != 'painel';
         return [
             'id'              => $r->uuid,
             'tipo'            => (new Tipo($r->tipo))->indice(),
@@ -108,7 +109,7 @@ final class HtmlModel extends ORM
             'margem_esquerda' => $r->margem_esquerda,
             'margem_direita'  => $r->margem_direita,
             'margem_baixo'    => $r->margem_baixo,
-            'imagem_arquivo'  => $r->imagem_arquivo,
+            'imagem_arquivo'  => $painel ? $r->imagem_arquivo : arquivoPrivado($r->imagem_arquivo),
             'imagem_altura'   => $r->imagem_altura,
             'icone_tipo'      => (new IconeTipo($r->icone_tipo))->indice(),
             'icone_tamanho'   => $r->icone_tamanho,
