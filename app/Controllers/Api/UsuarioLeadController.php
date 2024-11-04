@@ -2,19 +2,19 @@
 
 namespace App\Controllers\Api;
 
-use App\Classes\UsuarioLead\Helper;
-use App\Classes\UsuarioLead\Status;
-use App\Models\Api\UsuarioLead\LeadEntity;
-use App\Models\Api\UsuarioLead\LeadModel;
-use Controller\Controller;
 use Erro\Excecao;
 use Http\Request;
 use Http\Response;
-use System\Interface\ControllerAtualizarInterface;
+use Controller\Controller;
+use App\Classes\UsuarioLead\Helper;
+use App\Classes\UsuarioLead\Status;
+use App\Models\Api\UsuarioLead\LeadModel;
+use App\Models\Api\UsuarioLead\LeadEntity;
 use System\Interface\ControllerBuscarInterface;
-use System\Interface\ControllerDeletarInterface;
 use System\Interface\ControllerListarInterface;
 use System\Interface\ControllerSalvarInterface;
+use System\Interface\ControllerDeletarInterface;
+use System\Interface\ControllerAtualizarInterface;
 
 final class UsuarioLeadController extends Controller implements
     ControllerBuscarInterface,
@@ -61,7 +61,7 @@ final class UsuarioLeadController extends Controller implements
         if (array_key_exists('lista_dependente', $dado)) {
             $dado['lista_dependente'] = criptografarDado(
                 $dado['lista_dependente'],
-                ['nome', 'documento_cpf', 'data_nascimento', 'genero'],
+                ['nome', 'cpf', 'data_nascimento', 'genero'],
                 lista: true
             );
         }
