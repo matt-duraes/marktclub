@@ -24,7 +24,7 @@ window.addEventListener('load', () => {
     };
 
     const blocoMais = $('#bloco_botao_mais');
-    const blocoClone = $('#parceiro_padrao_loja');
+    const blocoClone = $('.parceiro_padrao_loja');
     if (blocoClone) {
         blocoClone.removeAttribute('id');
         blocoClone.querySelector('.bloco_favorito').remove();

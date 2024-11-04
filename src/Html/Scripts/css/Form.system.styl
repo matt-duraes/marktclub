@@ -1344,7 +1344,7 @@ body.fw_body_hidden
     .fw_form_indice_valor_lista .fw_form_indice_valor_linha p
         width: 180px
 
-
+// SELECT INPUT TAG
 .fw_form_select_input_tag
     flexRow()
     flex-wrap: wrap
@@ -1391,3 +1391,194 @@ body.fw_body_hidden
         background-color: #ff6c60
         border-radius: 4px
         margin: 0 10px
+
+// TABELA
+.fw_form_tabela
+    width: 100%
+    flexCol()
+    margin-top: 20px
+    .fw_tabela_label
+        width: 100%
+        texto()
+        margin-bottom: 5px
+    .fw_form_tabela_botao
+        height: 30px
+        line-height: 30px
+        padding: 0 20px
+        border-radius: 4px
+        border: 1px solid $cor
+        cursor: pointer
+    .fw_form_botao_linha_conula
+        margin-bottom: 10px
+    .fw_form_botao_linha_conula .fw_form_tabela_botao
+        margin-right: 10px
+    .fw_form_tabela_row
+        width: 100%
+        flexRow()
+    .fw_form_tabela_scroll
+        max-width: 100%
+        overflow-x: auto
+        border-bottom: 1px solid #CCC
+    .fw_form_tabela_header
+    .fw_form_tabela_conteudo
+        width: 100%
+        flexCol()
+    .fw_form_tabela_linha
+        width: 100%
+        flexRow()
+        align-items: center
+        position: relative
+        border: 1px solid #CCC
+        border-bottom: none
+        padding: 0 10px
+    .fw_form_tabela_linha .fw_form_tabela_drag
+        cursor: pointer
+        width: 30px
+        height: 30px
+        flexCenter()
+        fill: #999
+    .fw_form_tabela_linha .fw_form_tabela_remover
+        cursor: pointer
+        width: 30px
+        height: 30px
+        flexCenter()
+        fill: #999
+    .fw_form_tabela_linha .fw_form_tabela_linha_conteudo
+        width: calc(100% - 60px)
+        flexRow()
+    .fw_form_tabela_linha .fw_form_tabela_coluna
+        width: 350px
+        flexRow()
+        border-right: 1px solid #CCC
+        align-items: center
+    .fw_form_tabela_linha .fw_form_tabela_coluna .fw_form_tabela_texto
+        width: 100%
+        height: 40px
+        padding: 0 10px
+    .fw_form_tabela_header .fw_form_tabela_linha .fw_form_tabela_coluna .fw_form_tabela_texto
+        width: calc(100% - 115px)
+    .fw_form_tabela_linha .fw_form_tabela_coluna .fw_form_tabela_tamanho
+        width: 40px
+        height: 30px
+        border: 1px solid #CCC
+        text-align: center
+        margin-right: 5px
+        border-radius: 4px
+    .fw_form_tabela_linha .fw_form_tabela_coluna .fw_form_tabela_grow
+        width: 15px
+        height: 15px
+        flexCenter()
+        margin-right: 10px
+    .fw_form_tabela_linha .fw_form_tabela_coluna .fw_form_tabela_grow input
+        display: none
+    .fw_form_tabela_linha .fw_form_tabela_coluna .fw_form_tabela_grow .fw_form_tabela_grow_check
+        width: 15px
+        height: 15px
+        border-radius: 50%
+        background-color: #DDD
+        cursor: pointer
+    .fw_form_tabela_linha .fw_form_tabela_coluna .fw_form_tabela_grow input:checked + .fw_form_tabela_grow_check
+        background: $cor url(/images/plugins/form/check.svg) no-repeat center center
+        background-size: 8px
+    .fw_form_tabela_header .fw_form_tabela_linha .fw_form_tabela_coluna .fw_form_tabela_remover
+        margin-right: 5px
+    .fw_form_tabela_header .fw_form_tabela_linha .fw_form_tabela_coluna .fw_form_tabela_drag
+        margin-left: 10px
+        transform: rotate(90deg)
+
+// TRADUÇÃO
+.form_input_traducao
+    width: 100%
+    position: relative
+    .bloco_input
+        padding: 8px 0 5px 30px
+    .bloco_input input
+        height: 25px
+    .form_input_traducao_lang
+        flexCol()
+        z-index: 2
+        position: absolute
+        left: 10px
+        top: 10px
+    .form_input_traducao_lang span
+        height: 25px
+        line-height: 25px
+        textoFontSize()
+        color: #999
+    .bloco_input label
+        top: -10px
+        opacity: 1
+
+// LISTA
+.fw_form_lista_hide
+    display: none !important
+.fw_form_lista
+    width: 100%
+    flexCol()
+    .fw_form_lista_bloco
+        width: 100%
+        flexRow()
+    .fw_form_lista_bloco .form_input_traducao
+        width: calc(100% - 90px)
+    .fw_form_lista_bloco .fw_form_lista_botao
+        width: 80px
+        height: 45px
+        line-height: 45px
+        border-radius: 25px
+        bgDegradeVerde()
+        textoFontSize()
+        color: #FFF
+        padding: 0 20px
+        margin: 20px 0 0 10px
+        cursor: pointer
+        text-align: center
+    .fw_form_lista_conteudo
+        width: 100%
+        flexCol()
+        border-bottom: 1px solid #CCC
+    .fw_form_lista_item
+        width: 100%
+        flexRow()
+        align-items: center
+        border: 1px solid #CCC
+        border-bottom: none
+    .fw_form_lista_item .fw_form_icone
+        cursor: pointer
+        width: 30px
+        height: 30px
+        flexCenter()
+        fill: #999
+        margin-right: 5px
+        &.fw_form_lista_salvar
+            width: 25px
+            height: 25px
+            background-color: $cor
+            fill: #FFF
+            border-radius: 50%
+    .fw_form_lista_item .fw_form_lista_bloco_texto
+        flexGrow()
+        flex-direction: column
+        padding: 5px 10px 5px 0
+    .fw_form_lista_item .fw_form_lista_bloco_texto .fw_form_lista_p
+        width: 100%
+        min-height: 22.5px
+        padding-left: 40px
+        position: relative
+        flexRow()
+        align-items: center
+        &::before
+            width: 10px
+            height: 2px
+            background-color: #CCC
+            content: ""
+            position: absolute
+            left: 25px
+        &::after
+            content: attr(data-lang)
+            position: absolute
+            left: 0
+            texto()
+            color: #666
+    .fw_form_lista_item .fw_form_lista_bloco_texto .fw_form_lista_p input
+        width: 100%
+        textoFontSize()

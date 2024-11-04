@@ -1,0 +1,3 @@
+<div class="com_editor fw_documento">
+    {!!$r->editor!!}
+</div>

@@ -1,0 +1,56 @@
+@php
+
+$tabela = $r->tabela ?? [];
+$tamanho = [];
+$tamanhoTotal = 0;
+$existeHeader = false;
+$auto = 0;
+$header = $tabela->header ?? [];
+$linhaLista = $tabela->linha ?? [];
+
+
+if(!function_exists('comTabelaLinha')) {
+    function comTabelaLinha($lista, $classeTr, $tamanho, $tamanhoTotal, $auto) {
+        $classeTr = !empty($classeTr) ? $classeTr . ' ' : '';
+        echo '<div class="' . $classeTr . 'tr" style="min-width: ' . $tamanhoTotal . 'px">';
+        foreach($lista as $i => $r) {
+            $classe = ['td'];
+            $width = 'style="width: ' . $tamanho[$i] . 'px"';
+            if($i == $auto) {
+                $width = 'style="min-width: ' . $tamanho[$i] . 'px"';
+                $classe[] = "td_auto";
+            }
+            echo '<div class="' . implode(' ', $classe) . '" ' . $width . '>' . $r->valor . '</div>';
+        }
+        echo '</div>';
+    }
+}
+
+foreach($header as $i => $r) {
+    if(!empty($r->valor)) {
+        $existeHeader = true;
+    }
+    if($r->auto) {
+        $auto = $i;
+    }
+    $tamanho[$i] = $r->tamanho;
+    $tamanhoTotal += $r->tamanho > 0 ? $r->tamanho : 0;
+}
+
+echo <<<EOF
+<div class="com_tabela">
+    <div class="com_tabela_scroll">
+        <div class="com_tabela_conteudo">
+EOF;
+if($existeHeader) {
+    comTabelaLinha($header, 'header', $tamanho, $tamanhoTotal, $auto);
+}
+foreach($linhaLista as $linha) {
+    comTabelaLinha($linha, '', $tamanho, $tamanhoTotal, $auto);
+}
+echo <<<EOF
+        </div>
+    </div>
+</div>
+EOF;
+@end

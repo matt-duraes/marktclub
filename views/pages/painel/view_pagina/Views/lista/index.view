@@ -7,20 +7,20 @@ $empresa = array_merge([
     '' => 'Escolha uma empresa',
     'geral' => 'Geral'
 ], $empresa);
+
+$diretorio = 'c0ec7d2f-e3e6-48ea-9159-cbbc3a540896';
+
 @end
+
 <div class="bloco_fieldset" id="bloco_view">
-    <input type="hidden" id="input_html" value="{{jsonEncode($dado->html)}}">
-    <input type="text">
     <header class="header_fieldset">
         <h2>HTML</h2>
     </header>
     <div class="lista_dado">
         <div class="botao_link" id="botao_view_abrir">Adicionar item</div>
     </div>
-    <div class="bloco_conteudo" id="bloco_view_conteudo">
-    </div>
-    <div class="bloco_botao_direita">
-        <div class="botao display_none" id="botao_salvar_html">Salvar HTML</div>
+    <div class="bloco_conteudo conteudo_drag" id="bloco_view_conteudo">
+        <div class="loading">Carregando HTML</div>
     </div>
 </div>
 
@@ -34,12 +34,12 @@ $empresa = array_merge([
             <i class="editar icone">@iconeEditar(10)</i>
             <i class="mais icone">+</i>
         </header>
-        <div class="lista display_none">
+        <div class="lista conteudo_drag display_none">
         </div>
     </article>
 </div>
 <div id="bloco_view_add" class="display_none">
-    <div class="bloco_pagina_popup conteudo">
+    <div class="bloco_pagina_popup conteudo sem_footer">
         <header class="header_pagina_popup">
             <h1>ITEM</h1>
             <i class="fechar popup_fechar">@iconeFechar</i>
@@ -50,10 +50,15 @@ $empresa = array_merge([
                 @? formSelect(name: 'tipo', label: 'Tipo de item', placeholder: 'Escolha um tipo', lista: (new \App\Classes\View\Lista\Tipo())->select('Escolha um tipo'), obrigatorio: true)
                 @? formSelect(name: 'local', label: 'Local', placeholder: 'Onde vai aparecer?', lista: (new \App\Classes\View\Lista\Local())->select('Escolha um local'), obrigatorio: true)
                 @? formInput(name: 'titulo_interno', label: 'Título interno', placeholder: 'Digite um título interno', obrigatorio: true)
-                @? formInput(name: 'titulo', label: 'Título', placeholder: 'Digite um titulo', obrigatorio: true, class: 'bloco_titulo display_none')
-                @? formInput(name: 'texto', label: 'Texto', placeholder: 'Digite um texto', obrigatorio: true, class: 'bloco_texto display_none')
-                @? formNumero(name: 'margem', label: 'Margem', placeholder: 'Digite uma margem', obrigatorio: true, class: 'bloco_margem display_none')
-                @? formUrl(name: 'link', label: 'Link', placeholder: 'Digite um link', obrigatorio: true, class: 'bloco_link display_none')
+                @? formSelect(name: 'botao_tipo', label: 'Tipo do botão', placeholder: 'Escolha um tipo', lista: (new \App\Classes\View\Lista\BotaoTipo())->select('Escolha uma opção'), obrigatorio: true, class: 'bloco_botao_tipo display_none')
+                @? formInputTraducao(name: 'titulo', label: 'Título', obrigatorio: true, class: 'bloco_titulo display_none')
+                @? formInputTraducao(name: 'texto', label: 'Texto', obrigatorio: true, class: 'bloco_texto display_none')
+                <div class="bloco_row bloco_margem display_none">
+                    @? formNumero(name: 'margem_topo', label: 'Topo', placeholder: 'Margem topo')
+                    @? formNumero(name: 'margem_direita', label: 'Topo', placeholder: 'Margem direita')
+                    @? formNumero(name: 'margem_baixo', label: 'Topo', placeholder: 'Margem baixo')
+                    @? formNumero(name: 'margem_esquerda', label: 'Topo', placeholder: 'Margem esquerda')
+                </div>
                 @php
                     echo formSelectInputTag(
                         id: 'input_link_empresa',
@@ -62,65 +67,31 @@ $empresa = array_merge([
                         input: formUrl(name: 'link_empresa_url', label: 'Link', placeholder: 'Digite um link', class: 'bloco_link_url')
                     );
                 @end
-                <div class="fw_form_tabela">
-                    <div class="fw_form_tabela_row">
-                        <div class="fw_form_tabela_botao">Adicionar linha</div>
-                        <div class="fw_form_tabela_botao">Adicionar coluna</div>
-                    </div>
-                    <div class="fw_form_tabela_scroll">
-                        <div class="fw_form_tabela_conteudo">
-                            <div class="fw_form_tabela_linha header">
-                                <div class="fw_form_tabela_drag">@iconeDrag</div>
-                                <div class="fw_form_tabela_linha_conteudo">
-                                    <div class="fw_form_tabela_coluna">
-                                        <input placeholder="texto" class="fw_form_tabela_texto" value="Título 01">
-                                        <input class="fw_form_tabela_tamanho" placeholder="000">
-                                    </div>
-                                    <div class="fw_form_tabela_coluna">
-                                        <input placeholder="texto" class="fw_form_tabela_texto" value="Título 02">
-                                        <input class="fw_form_tabela_tamanho" placeholder="000">
-                                    </div>
-                                    <div class="fw_form_tabela_coluna">
-                                        <input placeholder="texto" class="fw_form_tabela_texto" value="Título 03">
-                                        <input class="fw_form_tabela_tamanho" placeholder="000">
-                                    </div>
-                                </div>
-                                <div class="fw_form_tabela_remover">@iconeFechar(8)</div>
-                            </div>
-                            @laco(3)
-                            <div class="fw_form_tabela_linha header">
-                                <div class="fw_form_tabela_drag">@iconeDrag</div>
-                                <div class="fw_form_tabela_linha_conteudo">
-                                    <div class="fw_form_tabela_coluna">
-                                        <input placeholder="texto" class="fw_form_tabela_texto" value="Texto 01">
-                                        <input class="fw_form_tabela_tamanho" placeholder="000">
-                                    </div>
-                                    <div class="fw_form_tabela_coluna">
-                                        <input placeholder="texto" class="fw_form_tabela_texto" value="Texto 02">
-                                        <input class="fw_form_tabela_tamanho" placeholder="000">
-                                    </div>
-                                    <div class="fw_form_tabela_coluna">
-                                        <input placeholder="texto" class="fw_form_tabela_texto" value="Texto 03">
-                                        <input class="fw_form_tabela_tamanho" placeholder="000">
-                                    </div>
-                                </div>
-                                <div class="fw_form_tabela_remover">@iconeFechar(8)</div>
-                            </div>
-                            @endlaco
-                        </div>
-                    </div>
-                </div>
+                @? formTabela(name: 'tabela', label: 'Tabela:', class: 'bloco_tabela', id: 'input_tabela')
+                @? formUrl(name: 'link', label: 'Link', placeholder: 'Digite um link', obrigatorio: true, class: 'bloco_link display_none')
                 @? formSelect(name: 'target', label: 'Target', placeholder: 'Escolha um target', lista: (new \App\Classes\Geral\Target())->select('Escolha um target'), obrigatorio: true, class: 'bloco_target display_none')
-                @? formSelect(name: 'div_direcao', label: 'Direção', placeholder: 'Qual direção?', lista: ['linha' => 'Linha (row)', 'coluna' => 'Coluna (column)'], obrigatorio: true, class: 'bloco_div_direcao display_none')
-                @? formSelect(name: 'div_posicao', label: 'Posição', placeholder: 'Qual posicao?', lista: ['esquerda' => 'Esquerda (flex-start)', 'direita' => 'Direita (flex-end)', 'centralizado' => 'Centralizado (center)', 'entre' => 'Entre (between)'], obrigatorio: true, class: 'bloco_div_posicao display_none')
+                @? formSelect(name: 'div_direcao', label: 'Direção', placeholder: 'Qual direção?', lista: (new \App\Classes\View\Lista\DivDirecao())->select('Escolha uma direção'), obrigatorio: true, class: 'bloco_div_direcao display_none')
+                @? formSelect(name: 'div_posicao', label: 'Posição', placeholder: 'Qual posicao?', lista: (new \App\Classes\View\Lista\DivPosicao())->select('Escolha uma posição'), obrigatorio: true, class: 'bloco_div_posicao display_none')
+                @? formEditor(name: 'editor', label: 'Editor', placeholder: 'Digite seu texto', diretorioImagem: $diretorio, diretorioArquivo: $diretorio, obrigatorio: true, bar: 'bold,italic,underline,Strikethrough,fwDestaque,|,fontColor,|,alignment,|,link,removeFormat,|,insertTable,fwImagem,fwArquivo,mediaEmbed,|,horizontalLine,FwObservacao,|,numberedList,bulletedList', barBalao: 'bold,italic,underline,Strikethrough,fwDestaque,|,fontColor,|,link,removeFormat', class: 'bloco_editor display_none')
+                @? formSelect(name: 'lista_tipo', label: 'Tipo', placeholder: 'Escolha um tipo', lista: (new \App\Classes\View\Lista\ListaTipo())->select('Escolha uma lista'), class: 'bloco_lista display_none')
+                @? formLista(name: 'lista_valor', label: 'Lista', class: 'bloco_lista display_none', id: 'input_lista_valor')
+                @? formImagem(name: 'imagem_arquivo', diretorio: $diretorio, class: 'bloco_imagem display_none')
+                @? formNumero(name: 'imagem_altura', label: 'Altura', placeholder: 'Altura da imagem', class: 'bloco_imagem display_none')
+                <div class="bloco_row bloco_icone display_none">
+                    @? formSelect(name: 'icone_tipo', label: 'Tipo', placeholder: 'Tipo de ícone', lista: (new \App\Classes\View\Lista\IconeTipo())->select('Tipo de ícone'), class: 'bloco_icone_tipo')
+                    @? formInput(name: 'icone_tamanho', label: 'Tamanho', placeholder: 'Tamanho', class: 'bloco_icone_tamanho display_none')
+
+                    @? formInput(name: 'icone_nome', label: 'Nome', placeholder: 'Nome do ícone', class: 'bloco_icone_nome')
+                    @? formInput(name: 'icone_altura', label: 'Altura', placeholder: 'Altura', class: 'bloco_icone_altura')
+                </div>
                 @? formSwitch(name: 'status', label: 'Status', check: false)
-                <h2>API</h2>
-                @? formSwitch(name: 'api_status', label: 'Vai usar API?', class: 'bloco_api_status')
+                <h2 class="bloco_api_status bloco_api_titulo display_none">API</h2>
+                @? formSwitch(name: 'api_status', label: 'Vai usar API?', class: 'bloco_api_status display_none')
                 <div class="bloco_row bloco_api_sim">
                     @? formSelect(name: 'api_metodo', label: 'Método', placeholder: 'Método', lista: (new \App\Classes\Geral\Metodo())->select('Escolha um método'), obrigatorio: true, class: 'bloco_api_metodo')
                     @? formUri(name: 'api_uri', label: 'URI', placeholder: 'Digite a URI')
                 </div>
-                @? formIndiceValor(name: 'api_body', placeholder: ['Indice', 'Valor'], class: 'display_none bloco_api_sim bloco_api_body')
+                @? formIndiceValor(name: 'api_body', placeholder: ['Indice', 'Valor'], id: 'input_api_body', class: 'display_none bloco_api_sim bloco_api_body')
                 <div class="bloco_botao_direita">
                     <div class="botao" id="botao_add_html">Salvar</div>
                 </div>

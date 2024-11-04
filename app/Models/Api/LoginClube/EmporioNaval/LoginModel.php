@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Models\Api\LoginClube;
+namespace App\Models\Api\LoginClube\EmporioNaval;
 
 use stdClass;
 use Modules\Cpf;
@@ -9,12 +9,16 @@ use Modules\Nome;
 use Modules\Botao;
 use Modules\Email;
 use Helpers\CurlHelper;
+use App\Classes\UsuarioCliente\Status;
 use App\Classes\LoginClube\PegarClienteTrait;
+use App\Models\Api\LoginClube\LoginPadraoModel;
 use App\Models\Api\UsuarioCliente\SalvarAtualizarModel;
+use App\Models\Api\LoginClube\Trait\ValidarDadoNormalTrait;
 
-final class LoginClubePoupyModel extends LoginPadraoModel
+final class LoginModel extends LoginPadraoModel
 {
     use PegarClienteTrait;
+    use ValidarDadoNormalTrait;
 
     public stdClass $Usuario;
     private stdClass $dado;
@@ -28,37 +32,29 @@ final class LoginClubePoupyModel extends LoginPadraoModel
         private Botao $cadastro = new Botao(null),
         private Botao $termo = new Botao(null),
     ) {
-        $this->linkAutenticacao = env('CLUBE_POUPY_LINK_AUTENTICACAO');
+        $this->linkAutenticacao = env('EMPORIO_NAVAL_LINK_AUTENTICACAO', '');
         $this->validarDadosDeLogin();
         $this->buscarUsuarioPeloLoginSenha();
         $this->buscarUsuarioNaBase();
         $this->buscarUsuario();
     }
 
-    protected function validarDadosDeLogin(): void
-    {
-        if (empty($this->login)) {
-            mensagemErro(titulo: 'Campo obrigatório!', mensagem: 'Você deve digitar seu login para continuar.');
-        } elseif (empty($this->senha)) {
-            mensagemErro(titulo: 'Campo obrigatório!', mensagem: 'Você deve digitar sua senha para continuar.');
-        } elseif ($this->cadastro->valor() == Botao::SIM && $this->termo->valor() != Botao::SIM) {
-            mensagemErro(titulo: 'Campo obrigatório!', mensagem: 'Você deve aceitar os termo de uso para continuar.');
-        }
-    }
-
     protected function buscarUsuarioPeloLoginSenha(): void
     {
         $Curl = (new CurlHelper())
-            ->header(['Content-Type' => 'application/json'])
-            ->json([
-                'cpf'   => $this->login,
-                'senha' => $this->senha,
+            ->header([
+                'Content-Type'   => 'application/json',
+                'Content-Length' => '0'
+            ])
+            ->parametro([
+                'cpf' => $this->login,
+                'pwd' => urlencode($this->senha)
             ])
             ->post($this->linkAutenticacao);
 
         $status = $Curl->status();
         $dado = $Curl->object();
-        if ($status !== 200 || (!is_object($dado) || !object_key_exists('success', $dado) || $dado->success !== true)) {
+        if ($status !== 200 || !is_object($dado) || !object_key_exists('Nome', $dado) || !object_key_exists('Email', $dado)) {
             $this->usuarioNaoEncontrado();
             return;
         }
@@ -73,9 +69,10 @@ final class LoginClubePoupyModel extends LoginPadraoModel
             atualizar: true
         );
         $Usuario->cpf = new Cpf($this->login);
-        $Usuario->nome = new Nome($this->dado->nome);
-        $Usuario->email_pessoal = new Email($this->dado->email);
+        $Usuario->nome = new Nome($this->dado->Nome);
+        $Usuario->email_pessoal = new Email($this->dado->Email);
         $Usuario->data_termo = new Data(hoje());
+        $Usuario->status = new Status(Status::ATIVO);
         $Usuario->buscar();
 
         if ($Usuario->acao == SalvarAtualizarModel::CADASTRAR_USUARIO) {
@@ -86,8 +83,8 @@ final class LoginClubePoupyModel extends LoginPadraoModel
                 dado: [
                     'cadastro' => 'sim',
                     'dado'     => [
-                        'Email' => $this->dado->email,
-                        'Nome'  => $this->dado->nome,
+                        'Email' => $this->dado->Email,
+                        'Nome'  => $this->dado->Nome,
                         'CPF'   => strCpf($this->login)
                     ]
                 ]

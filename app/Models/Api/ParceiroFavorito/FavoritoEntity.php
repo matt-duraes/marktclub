@@ -29,7 +29,6 @@ class FavoritoEntity extends Entity
     }
 
     /**
-     * @return void
      * @throws Excecao
      */
     protected function regraSalvar(): void
