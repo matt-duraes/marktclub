@@ -37,8 +37,10 @@ foreach($header as $i => $r) {
     $tamanhoTotal += $r->tamanho > 0 ? $r->tamanho : 0;
 }
 
+$margem = strCssMargem($r->margem_topo, $r->margem_direita, $r->margem_baixo, $r->margem_esquerda);
+
 echo <<<EOF
-<div class="com_tabela">
+<div class="com_tabela" $margem>
     <div class="com_tabela_scroll">
         <div class="com_tabela_conteudo">
 EOF;

@@ -1,1 +1,1 @@
-<div class="com_linha"></div>
+<div class="com_linha" {!!strCssMargem($r->margem_topo, $r->margem_direita, $r->margem_baixo, $r->margem_esquerda)!!}></div>

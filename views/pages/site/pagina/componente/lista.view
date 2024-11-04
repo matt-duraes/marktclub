@@ -1,4 +1,4 @@
-<div class="com_lista">
+<div class="com_lista" {!!strCssMargem($r->margem_topo, $r->margem_direita, $r->margem_baixo, $r->margem_esquerda)!!}>
 @php
     componenteLoading($r->lista);
 @end

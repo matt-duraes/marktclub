@@ -1,4 +1,4 @@
-<div class="bloco_geral_banner banner banner_loading com_aparecer_{{$r->local}}" data-id="{{$r->id}}">
+<div class="bloco_geral_banner banner banner_loading com_aparecer_{{$r->local}}" data-id="{{$r->id}}" {!!strCssMargem($r->margem_topo, $r->margem_direita, $r->margem_baixo, $r->margem_esquerda)!!}>
     @php
         componenteLoading($r->lista);
     @end

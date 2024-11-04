@@ -32,11 +32,34 @@ final class BuscarModel extends ClubeApiHelper
             $this->busca = sessao($sessao);
             return;
         }
-        $this->busca = $this
+        $busca = $this
             ->validar(status: 404)
             ->get('/view-pagina/' . $this->url)
             ->object()->dado;
+        $busca->html = $this->montarRetorno($busca->html);
+        $this->busca = $busca;
+
         sessao($sessao, $this->busca);
+    }
+
+    private function montarRetorno($dado)
+    {
+        $retorno = [];
+        foreach ($dado as $r) {
+            foreach ($r as $ind => $val) {
+                if (
+                    in_array($ind, ['titulo', 'texto', 'tabela', 'lista_valor', 'link_empresa', 'api_body']) &&
+                    !empty($val) && is_string($val)
+                ) {
+                    $r->$ind = jsonDecode($val, true, true);
+                }
+            }
+            if ($r->lista) {
+                $r->lista = $this->montarRetorno($r->lista);
+            }
+            $retorno[] = $r;
+        }
+        return $retorno;
     }
 
     private function setarPropriedade()

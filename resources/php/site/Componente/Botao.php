@@ -54,16 +54,20 @@ final class Botao extends Componente
         return $this;
     }
 
-    private function lang(string|stdClass $texto)
+    private function lang(string|stdClass|array $texto)
     {
         if (is_object($texto)) {
             $br = object_key_exists('br', $texto) ? $texto->br : '';
             $en = object_key_exists('en', $texto) ? $texto->en : $br;
             $es = object_key_exists('es', $texto) ? $texto->es : $br;
+        } elseif (is_array($texto)) {
+            $br = array_key_exists('br', $texto) ? $texto['br'] : '';
+            $en = array_key_exists('en', $texto) ? $texto['en'] : $br;
+            $es = array_key_exists('es', $texto) ? $texto['es'] : $br;
         } else {
-            $br = $texto;
-            $en = $texto;
-            $es = $texto;
+            $br = is_string($texto) ? $texto : '';
+            $en = $br;
+            $es = $br;
         }
         return <<<EOF
             <span class="lang_br">$br</span>
@@ -73,7 +77,7 @@ final class Botao extends Componente
     }
 
     public function botao(
-        string|stdClass $texto = '',
+        string|stdClass|array $texto = '',
         string $link = null,
         string $id = null,
         string $class = null,
@@ -147,7 +151,7 @@ final class Botao extends Componente
         return $this;
     }
 
-    public function texto(string|stdClass $texto)
+    public function texto(string|stdClass|array $texto)
     {
         if (vazio($texto)) {
             return $this;
