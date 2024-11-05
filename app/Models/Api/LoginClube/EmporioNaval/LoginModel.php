@@ -2,18 +2,18 @@
 
 namespace App\Models\Api\LoginClube\EmporioNaval;
 
-use stdClass;
+use App\Classes\LoginClube\PegarClienteTrait;
+use App\Classes\UsuarioCliente\Status;
+use App\Models\Api\LoginClube\LoginPadraoModel;
+use App\Models\Api\LoginClube\Trait\ValidarDadoNormalTrait;
+use App\Models\Api\UsuarioCliente\SalvarAtualizarModel;
+use Helpers\CurlHelper;
+use Modules\Botao;
 use Modules\Cpf;
 use Modules\Data;
-use Modules\Nome;
-use Modules\Botao;
 use Modules\Email;
-use Helpers\CurlHelper;
-use App\Classes\UsuarioCliente\Status;
-use App\Classes\LoginClube\PegarClienteTrait;
-use App\Models\Api\LoginClube\LoginPadraoModel;
-use App\Models\Api\UsuarioCliente\SalvarAtualizarModel;
-use App\Models\Api\LoginClube\Trait\ValidarDadoNormalTrait;
+use Modules\Nome;
+use stdClass;
 
 final class LoginModel extends LoginPadraoModel
 {
@@ -21,9 +21,9 @@ final class LoginModel extends LoginPadraoModel
     use ValidarDadoNormalTrait;
 
     public stdClass $Usuario;
+    public string $linkAutenticacao;
     private stdClass $dado;
     private int $idUsuario;
-    public string $linkAutenticacao;
 
     public function __construct(
         private ?string $login = null,
@@ -43,18 +43,19 @@ final class LoginModel extends LoginPadraoModel
     {
         $Curl = (new CurlHelper())
             ->header([
-                'Content-Type'   => 'application/json',
-                'Content-Length' => '0'
+                'Content-Type' => 'application/json'
             ])
-            ->parametro([
+            ->json([
                 'cpf' => $this->login,
-                'pwd' => urlencode($this->senha)
+                'senha' => $this->senha
             ])
             ->post($this->linkAutenticacao);
-
         $status = $Curl->status();
         $dado = $Curl->object();
-        if ($status !== 200 || !is_object($dado) || !object_key_exists('Nome', $dado) || !object_key_exists('Email', $dado)) {
+        if ($status !== 200 || !is_object($dado) || !object_key_exists('Nome', $dado) || !object_key_exists(
+                'Email',
+                $dado
+            )) {
             $this->usuarioNaoEncontrado();
             return;
         }
