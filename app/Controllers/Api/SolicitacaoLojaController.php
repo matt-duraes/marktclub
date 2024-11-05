@@ -127,7 +127,13 @@ class SolicitacaoLojaController extends Controller implements
         return new Response(status: 204);
     }
 
-    public function postDownload(Request $request)
+    /**
+     * @param Request $request
+     *
+     * @return Response
+     * @throws Excecao
+     */
+    public function postDownload(Request $request): Response
     {
         $Usuario = new DownloadModel($request);
         $Usuario->set(lista: $request->dado());
