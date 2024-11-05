@@ -141,8 +141,6 @@ final class SolicitacaoEntity extends Entity
      */
     private function enviarEmail(): void
     {
-        ppe(1);
-
         if (eLocalhost()) {
             return;
         }
