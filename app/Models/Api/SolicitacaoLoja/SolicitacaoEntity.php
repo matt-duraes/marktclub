@@ -148,7 +148,7 @@ final class SolicitacaoEntity extends Entity
         $ormHelper = new OrmHelper(TABELA_CONSTRUTOR_CLUBE);
         $clube = $ormHelper->pegarUltimoRegistro(
             ['id_admin_empresa', $this->id_admin_empresa],
-            ['id', 'titulo', 'logo_principal', 'cor_principal'],
+            ['id', 'titulo', 'logo_principal', 'cor_principal', 'link_clube'],
             'object'
         );
         $youhuul = $ormHelper->pegarUltimoRegistro(
@@ -156,7 +156,7 @@ final class SolicitacaoEntity extends Entity
             ['id', 'contato_telefone'],
             'object'
         );
-        $contato = !empty($youhuul->contato_telefone) ? $youhuul->contato_telefone : '';
+        $contato = !empty($youhuul->contato_telefone) ? (new Telefone($youhuul->contato_telefone))->telefone() : '';
 
         if (empty($clube->id)) {
             mensagemErro(
@@ -170,7 +170,7 @@ final class SolicitacaoEntity extends Entity
         $mensagem = <<<HTML
             Olá, <strong>$quemIndicouNome!</strong>
             Sua indicação de "$this->nome" foi concluída com sucesso!
-            Agora, ela está disponível no <strong>$clube->titulo</strong>.
+            Agora, ela está disponível no <strong><a href="$clube->link_clube" target="_blank">$clube->titulo</a></strong>.
             Acesse sua conta e aproveite os benefícios dessa parceiria.
         HTML;
         $posMensagem = <<<HTML
