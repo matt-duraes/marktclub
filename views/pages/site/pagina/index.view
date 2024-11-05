@@ -5,6 +5,7 @@ if(!function_exists('componenteLoading')) {
     function componenteLoading($lista) {
         foreach($lista as $r) {
             if($r->status == 'sim') {
+                $View = new ResourcesSite\Componente\View($r);
                 include ROOT . '/files/build/views/site_pagina_componente_' . $r->tipo . '.php';
             }
         }

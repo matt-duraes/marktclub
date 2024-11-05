@@ -1,10 +1,9 @@
 @php
     $icone = 'icone' . strCaixaAltaAlta($r->icone_nome);
-    $tamanho = !empty($r->icone_altura) ? 'style="width: ' . $r->icone_altura . 'px; height: ' . $r->icone_altura . 'px;"' : '';
     $parametro = [
         'tamanho' => (int)$r->icone_tamanho
     ];
 @end
-<div class="com_icone com_icone_tipo{!!$r->icone_tipo!!}" {!!$tamanho!!} {!!strCssMargem($r->margem_topo, $r->margem_direita, $r->margem_baixo, $r->margem_esquerda)!!}>
+<div {!!$View->class()->css()!!}>
 @? call_user_func_array($icone, $parametro);
 </div>
