@@ -54,7 +54,7 @@
         <a class="continuar" href="{!!LINK!!}/solicitacao-link/redirecionar/{!!$hash!!}">continuar</a>
     @ endif;
 
-    <a class="voltar" href="{!!$clube->link_clube!!}">Voltar ao site</a>
+    <a class="voltar" href="https://{!!preg_replace('/^http(s){0,1}\:\/\//', '', $clube->link_clube)!!}">Voltar ao site</a>
 </div>
 
 </body>
