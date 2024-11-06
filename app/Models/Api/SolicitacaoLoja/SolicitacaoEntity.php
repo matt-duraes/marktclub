@@ -171,7 +171,7 @@ final class SolicitacaoEntity extends Entity
             Olá, <strong>$quemIndicouNome!</strong>
             Sua indicação de "$this->nome" foi concluída com sucesso!
             Agora, ela está disponível no <strong><a href="$clube->link_clube" target="_blank">$clube->titulo</a></strong>.
-            Acesse sua conta e aproveite os benefícios dessa parceiria.
+            Acesse sua conta e aproveite os benefícios dessa parceria.
         HTML;
         $posMensagem = <<<HTML
             Se tiver alguma dúvida, não hesite em entrar em contato com nosso atendimento atráves do telefone: $contato
@@ -184,7 +184,7 @@ final class SolicitacaoEntity extends Entity
             'Confirmação de Indicação de Parceria',
             posMensagem: $posMensagem,
             acao: 'Indicação de Parceria',
-            logo: $clube->logo_principal,
+            logo: arquivoPrivado($clube->logo_principal),
             cor: $clube->cor_principal
         );
         $Email->sendGrid(
