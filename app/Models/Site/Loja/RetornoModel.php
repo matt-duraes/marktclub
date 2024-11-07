@@ -18,7 +18,9 @@ final class RetornoModel
         $Favorito = new FavoritoModel();
         foreach ($dado as $r) {
             $link = route('loja.detalhe');
-            if ($r->tipo_loja == TipoLoja::FARMACIA) {
+            if($r->tipo_loja === TipoLoja::PAGINA) {
+                $link = LINK;
+            } elseif ($r->tipo_loja == TipoLoja::FARMACIA) {
                 $link = route('farmacia.detalhe');
             } elseif ($r->tipo_loja == TipoLoja::AUTOMOVEL) {
                 $link = route('automovel.modelo');
