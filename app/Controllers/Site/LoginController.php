@@ -2,19 +2,19 @@
 
 namespace App\Controllers\Site;
 
-use App\Classes\ConstrutorClube\TipoAtivacao;
-use App\Classes\TextoClube\Tipo;
-use App\Models\Site\Ativar\GrupoModel;
-use App\Models\Site\Ativar\SalvarModel;
-use App\Models\Site\Login\ComunicacaoModel;
-use App\Models\Site\Login\LogarModel;
-use App\Models\Site\Login\LoginApiModel;
-use Controller\Controller;
-use Helpers\ApiHelper;
-use Helpers\CryptHelper;
-use Helpers\CurlHelper;
 use Http\Request;
 use Http\Response;
+use Helpers\ApiHelper;
+use Helpers\CurlHelper;
+use Helpers\CryptHelper;
+use Controller\Controller;
+use App\Classes\TextoClube\Tipo;
+use App\Models\Site\Login\LogarModel;
+use App\Models\Site\Ativar\GrupoModel;
+use App\Models\Site\Ativar\SalvarModel;
+use App\Models\Site\Login\LoginApiModel;
+use App\Models\Site\Login\ComunicacaoModel;
+use App\Classes\ConstrutorClube\TipoAtivacao;
 
 final class LoginController extends Controller
 {
@@ -58,7 +58,7 @@ final class LoginController extends Controller
         if (
             is_array($_SERVER) &&
             array_key_exists('HTTP_HOST', $_SERVER) &&
-            $_SERVER['HTTP_HOST'] == 'uberconta.temmaisvantagens.com.br'
+            in_array($_SERVER['HTTP_HOST'], ['uberconta.temmaisvantagens.com.br', 'uberhml.youhuul.com'])
         ) {
             $clube = 'uber';
         }
@@ -68,7 +68,7 @@ final class LoginController extends Controller
                 'clube'   => $clube
             ])
             ->post('/login/digio')
-            ->array() ?? LINK;
+            ->array();
 
         if (!is_array($retorno) || !array_key_exists('dado', $retorno) || !array_key_exists('link', $retorno['dado'])) {
             return mensagemErro('Erro!', 'Ocorreu um erro ao fazer seu login.', status: 403);

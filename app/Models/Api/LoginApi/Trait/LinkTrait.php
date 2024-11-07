@@ -12,8 +12,12 @@ trait LinkTrait
             return $this->mandarParaTermoLgpd();
         }
 
-        $link = 'https://' . str_replace(['https://', 'http://'], '', $this->linkClube) . '/login/api/' . $this->hash;
-        if (SISTEMA == 'HOMOLOGACAO' && !in_array($this->linkClube, ['cfmhml.marktclub.net.br'])) {
+        $dominio = str_replace(['https://', 'http://'], '', $this->linkClube);
+        $link = 'https://' . $dominio . '/login/api/' . $this->hash;
+        if (
+            SISTEMA == 'HOMOLOGACAO' &&
+            !in_array($dominio, ['cfmmais-hom.cfm.org.br', 'digiohml.youhuul.com', 'uberhml.youhuul.com'])
+        ) {
             $link = 'https://apiv4homologacao.marktclub.net.br/login/api-ok/' . base64Encode([
                 'nome' => $this->dadoUsuario['nome'],
                 'data' => agora(),
