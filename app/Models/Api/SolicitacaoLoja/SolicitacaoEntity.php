@@ -2,17 +2,19 @@
 
 namespace App\Models\Api\SolicitacaoLoja;
 
-use Erro\Erro;
-use ORM\Entity;
-use Modules\Cpf;
-use Erro\Excecao;
-use Modules\Email;
-use Modules\Telefone;
-use Helpers\OrmHelper;
-use App\Classes\UsuarioCliente\Helper;
 use App\Classes\SolicitacaoLoja\Status;
+use App\Classes\UsuarioCliente\Helper;
 use App\Models\Api\Trait\ValidarEmpresaTrait;
 use App\Models\Api\UsuarioCliente\ClienteEntity;
+use Erro\Erro;
+use Erro\Excecao;
+use Helpers\EmailHelper;
+use Helpers\OrmHelper;
+use Modules\Cpf;
+use Modules\Email;
+use Modules\Telefone;
+use ORM\Entity;
+use SendGrid\Mail\TypeException;
 
 final class SolicitacaoEntity extends Entity
 {
@@ -59,21 +61,10 @@ final class SolicitacaoEntity extends Entity
         parent::__construct();
     }
 
-    public function regraInsert(): void
-    {
-        $ormHelper = new OrmHelper(TABELA_USUARIO_CLIENTE);
-        if ($this->propriedadeExiste('usuario') && !empty($this->usuario)) {
-            $this->id_usuario_cliente = $ormHelper->pegarIdPeloUuid($this->usuario);
-        } elseif ($this->propriedadeExiste('cpf') && $this->cpf->valido()) {
-            $this->id_usuario_cliente = $ormHelper->pegarCampoPor('id', ['documento', $this->cpf->numero()]);
-        }
-        $this->status = new Status(Status::NOVO);
-    }
-
     /**
      * @throws Excecao|Erro
      */
-    public function regraPosBuscar(): void
+    protected function regraPosBuscar(): void
     {
         $this->setarOrigemClube();
         $this->setarQuemIndicou();
@@ -82,19 +73,18 @@ final class SolicitacaoEntity extends Entity
     private function setarOrigemClube(): void
     {
         $ormHelper = new OrmHelper(TABELA_CONSTRUTOR_CLUBE);
-        $Clube = $ormHelper
-            ->pegarUltimoRegistro(
-                ['id_admin_empresa', $this->id_admin_empresa],
-                ['id', 'titulo'],
-                'object'
-            );
+        $clube = $ormHelper->pegarUltimoRegistro(
+            ['id_admin_empresa', $this->id_admin_empresa],
+            ['id', 'titulo'],
+            'object'
+        );
 
-        if (empty($Clube->id)) {
+        if (empty($clube->id)) {
             return;
         }
 
         $this->origem_clube = [
-            'titulo' => $Clube->titulo
+            'titulo' => $clube->titulo
         ];
     }
 
@@ -119,5 +109,89 @@ final class SolicitacaoEntity extends Entity
             'cpf'   => $Usuario->cpf->cpf(),
             'email' => $Usuario->email->email()
         ];
+    }
+
+    protected function regraInsert(): void
+    {
+        $ormHelper = new OrmHelper(TABELA_USUARIO_CLIENTE);
+        if ($this->propriedadeExiste('usuario') && !empty($this->usuario)) {
+            $this->id_usuario_cliente = $ormHelper->pegarIdPeloUuid($this->usuario);
+        } elseif ($this->propriedadeExiste('cpf') && $this->cpf->valido()) {
+            $this->id_usuario_cliente = $ormHelper->pegarCampoPor('id', ['documento', $this->cpf->numero()]);
+        }
+        $this->status = new Status(Status::NOVO);
+    }
+
+    /**
+     * @return void
+     * @throws Excecao
+     * @throws TypeException
+     */
+    protected function regraPosUpdate(): void
+    {
+        if ($this->status->indice() === Status::CONCLUIDO) {
+            $this->enviarEmail();
+        }
+    }
+
+    /**
+     * @return void
+     * @throws Excecao
+     * @throws TypeException
+     */
+    private function enviarEmail(): void
+    {
+        if (eLocalhost()) {
+            return;
+        }
+
+        $ormHelper = new OrmHelper(TABELA_CONSTRUTOR_CLUBE);
+        $clube = $ormHelper->pegarUltimoRegistro(
+            ['id_admin_empresa', $this->id_admin_empresa],
+            ['id', 'titulo', 'logo_principal', 'cor_principal', 'link_clube'],
+            'object'
+        );
+        $youhuul = $ormHelper->pegarUltimoRegistro(
+            ['id_admin_empresa', 1],
+            ['id', 'contato_telefone'],
+            'object'
+        );
+        $contato = !empty($youhuul->contato_telefone) ? (new Telefone($youhuul->contato_telefone))->telefone() : '';
+
+        if (empty($clube->id)) {
+            mensagemErro(
+                'Não foi possível notificar o usuário',
+                'Houve uma instabilidade ao notificar o usuário'
+            );
+        }
+
+        $quemIndicouNome = $this->quem_indicou['nome'];
+        $quemIndicouEmail = $this->quem_indicou['email'];
+        $mensagem = <<<HTML
+            Olá, <strong>$quemIndicouNome!</strong>
+            Sua indicação de "$this->nome" foi concluída com sucesso!
+            Agora, ela está disponível no <strong><a href="$clube->link_clube" target="_blank">$clube->titulo</a></strong>.
+            Acesse sua conta e aproveite os benefícios dessa parceria.
+        HTML;
+        $posMensagem = <<<HTML
+            Se tiver alguma dúvida, não hesite em entrar em contato com nosso atendimento atráves do telefone: $contato
+        HTML;
+
+        $Email = new EmailHelper();
+        $Email->mensagem(
+            'Indicação de Parceria',
+            $mensagem,
+            'Confirmação de Indicação de Parceria',
+            posMensagem: $posMensagem,
+            acao: 'Indicação de Parceria',
+            logo: arquivoPrivado($clube->logo_principal),
+            cor: $clube->cor_principal
+        );
+        $Email->sendGrid(
+            'Indicação de Parceria',
+            $quemIndicouNome,
+            $quemIndicouEmail,
+            deNome: $clube->titulo
+        );
     }
 }
