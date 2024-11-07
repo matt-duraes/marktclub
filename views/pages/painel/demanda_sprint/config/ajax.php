@@ -5,6 +5,7 @@ $Painel = new PainelConfig\Ajax();
 return $Painel
     ->grupo('demanda_aberta', function () use ($Painel) {
         $Painel
+            ->request([])
             ->permissao('demanda_sprint_status')
             ->metodo('get')
             ->rota('/demanda-sprint/aberta');
