@@ -1,7 +1,7 @@
 @php
     $icone = 'icone' . strCaixaAltaAlta($r->icone_nome);
     $parametro = [
-        'tamanho' => (int)$r->icone_tamanho
+        'tamanho' => (int)$r->icone_altura
     ];
 @end
 <div {!!$View->class()->css()!!}>

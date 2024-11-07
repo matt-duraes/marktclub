@@ -46,6 +46,13 @@ final class BuscarModel extends ClubeApiHelper
     {
         $retorno = [];
         foreach ($dado as $r) {
+            if(
+                $r->status != 'sim' ||
+                (!empty($r->empresa_ativa) && !in_array(EMPRESA_ID, $r->empresa_ativa)) ||
+                (!empty($r->empresa_inativa) && in_array(EMPRESA_ID, $r->empresa_inativa))
+            ) {
+                continue;
+            }
             foreach ($r as $ind => $val) {
                 if (
                     in_array($ind, ['titulo', 'texto', 'tabela', 'lista_valor', 'link_empresa', 'api_body']) &&

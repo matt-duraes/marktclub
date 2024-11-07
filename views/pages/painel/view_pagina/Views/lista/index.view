@@ -93,8 +93,10 @@ $diretorio = 'c0ec7d2f-e3e6-48ea-9159-cbbc3a540896';
                 @? formNumero(name: 'imagem_altura', label: 'Altura', placeholder: 'Altura da imagem', class: 'bloco_imagem display_none')
                 <div class="bloco_row bloco_icone display_none">
                     @? formSelect(name: 'icone_tipo', label: 'Tipo', placeholder: 'Tipo de ícone', lista: (new \App\Classes\View\Lista\IconeTipo())->select('Tipo de ícone'), class: 'bloco_icone_tipo')
-                    @? formInput(name: 'icone_tamanho', label: 'Tamanho', placeholder: 'Tamanho', class: 'bloco_icone_tamanho display_none')
-
+                    @? formInput(name: 'icone_tamanho', label: 'Tamanho', placeholder: 'Tamanho', class: 'bloco_icone_tamanho ')
+                    @? formCor(name: 'icone_borda', local: 'padrao', label: 'Cor da borda', class: 'bloco_icone_borda display_none', padrao: 'Cor do clube')
+                    @? formCor(name: 'icone_cor', label: 'Cor do ícone', class: 'bloco_icone_cor', padrao: 'Cor do clube')
+                    @? formCor(name: 'icone_bg', label: 'Cor do background', class: 'bloco_icone_bg', padrao: 'Cor do clube')
                     @? formInput(name: 'icone_nome', label: 'Nome', placeholder: 'Nome do ícone', class: 'bloco_icone_nome')
                     @? formInput(name: 'icone_altura', label: 'Altura', placeholder: 'Altura', class: 'bloco_icone_altura')
                 </div>

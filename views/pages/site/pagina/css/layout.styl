@@ -16,9 +16,36 @@
 @import "botao"
 @import "lista"
 @import "resto"
+@import "icone"
 
 #bloco_pagina
     width: 100%
     max-width: $maxWidth
     flexCol()
+    align-items: center
+
+.com_aparecer_geral
+.com_aparecer_site
+    display: flex
+.com_aparecer_app
+    display: none
+
+.com_direcao_linha
+    flex-direction: row
+.com_direcao_coluna
+    flex-direction: column
+
+.com_direcao_linha.com_posicao_esquerda
+    justify-content: flex-start
+.com_direcao_linha.com_posicao_direita
+    justify-content: flex-end
+.com_direcao_linha.com_posicao_centro
+    justify-content: center
+.com_posicao_entre
+    justify-content: space-between
+.com_direcao_coluna.com_posicao_esquerda
+    align-items: flex-start
+.com_direcao_coluna.com_posicao_direita
+    align-items: flex-end
+.com_direcao_coluna.com_posicao_centro
     align-items: center

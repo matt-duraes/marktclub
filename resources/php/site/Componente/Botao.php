@@ -18,7 +18,9 @@ final class Botao extends Componente
     {
         $replace = [
             '[[CLASSE_PADRAO]]' => implode(' ', $this->classe),
-            '[[TEXTO]]'         => $this->texto
+            '[[TEXTO]]'         => $this->texto,
+            '[[CSS]]'           => !empty($this->css) ? 'style="' . implode('; ', $this->css) . '"' : '',
+            '[[ATTR]]'          => !empty($this->attr) ? implode(' ', $this->attr) : '',
         ];
         $html = preg_replace(
             '/\[\[[A-Z\_]{1,}\]\]/',
@@ -42,6 +44,7 @@ final class Botao extends Componente
         $this->html = '';
         $this->texto = '';
         $this->classe = [];
+        $this->css = [];
         $this->fixo = false;
     }
 
@@ -82,6 +85,7 @@ final class Botao extends Componente
         string $id = null,
         string $class = null,
         array $attr = [],
+        array $css = []
     ) {
         $link = strLink($link);
         $this->resetar();
@@ -103,8 +107,9 @@ final class Botao extends Componente
             $this->classe[] = $class;
         }
         $this->classe[] = 'com_botao_padrao';
-
-        $this->html = '<' . $tag . ' ' . $this->attr($attr) . ' '
+        $this->css($css);
+        $this->attr($attr);
+        $this->html = '<' . $tag . ' [[CSS]] [[ATTR]] '
             . $id . ' class="[[CLASSE_PADRAO]]">[[ICONE_ESQUERDA]]' . $texto . '[[ICONE_DIREITA]]</' . $tag . '>';
         return $this;
     }

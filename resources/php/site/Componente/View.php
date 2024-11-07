@@ -65,7 +65,7 @@ final class View
             $class[] = 'com_direcao_' . $r->div_direcao;
         }
         if (!empty($r->div_posicao)) {
-            $class[] = 'com_posicao_' . $r->div_direcao;
+            $class[] = 'com_posicao_' . $r->div_posicao;
         }
         if (!empty($r->icone_tipo)) {
             $class[] = 'com_icone_' . $r->icone_tipo;

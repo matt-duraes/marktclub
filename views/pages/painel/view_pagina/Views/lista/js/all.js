@@ -61,7 +61,6 @@ window.addEventListener('load', () => {
     const blocoApiStatus = $$('.bloco_api_status');
     const blocoImagem = $$('.bloco_imagem');
     const blocoIcone = $('.bloco_icone');
-    const blocoIconeTamanho = $('.bloco_icone_tamanho');
     const blocoBotaoTipo = $('.bloco_botao_tipo');
 
     const botaoAtualizarGeral = $('#botao_salvar_alteracao');
@@ -236,15 +235,6 @@ window.addEventListener('load', () => {
         limparObrigatorio();
     };
 
-    inputIconeTipo.evento('formChange', () => {
-        const valor = inputIconeTipo.valor();
-        if (valor != 'quadrado' && valor != 'redondo') {
-            blocoIconeTamanho.sumir();
-            return;
-        }
-        blocoIconeTamanho.aparecer();
-    });
-
     const setarBotaoTipo = () => {
         if (inputBotaoTipo.valor() == 'voltar') {
             inputTitulo.valor('');
@@ -267,7 +257,6 @@ window.addEventListener('load', () => {
         if (item.botao_tipo == 'voltar') {
             blocoTitulo.sumir();
         }
-
         blocoTipo.sumir();
         inputId.valor(id);
         inputTipo.valor(item.tipo);
@@ -280,9 +269,9 @@ window.addEventListener('load', () => {
         inputTarget.valor(item.target || '');
         inputDivDirecao.valor(item.div_direcao || '');
         inputDivPosicao.valor(item.div_posicao || '');
-        inputStatus.valor(item.status == 'sim');
+        inputStatus.valor(inArray(item.status, ['sim', 1]) ? 'sim' : 'nao');
         inputApiStatus.valor(item.api_status || 'nao');
-        blocoApiSim.classe('display_none', apiStatus != 'sim');
+        blocoApiSim.classe('display_none', !inArray(apiStatus, ['sim', 1]));
         inputApiMetodo.valor(item.api_metodo || '');
         inputApiBody.valor(item.api_body || '');
         inputApiUri.valor((item.api_uri || '').replace(/^\//, ''));
@@ -426,12 +415,11 @@ window.addEventListener('load', () => {
         const listaValor = inputListaValor.valor();
         const linkEmpresa = inputLinkEmpresa.valor();
         const apiBody = inputApiBody.valor();
-
         return {
             tipo: tipo,
             local: inputLocal.valor(),
             titulo: !vazio(titulo) ? JSON.stringify(titulo) : null,
-            status: inputStatus.valor() == 'sim' ? 'sim' : 'nao',
+            status: inArray(inputStatus.valor(), ['sim', 1]) ? 'sim' : 'nao',
             texto: !vazio(texto) ? JSON.stringify(texto) : null,
             link: inputLink.valor(),
             target: inputTarget.valor(),
@@ -450,7 +438,7 @@ window.addEventListener('load', () => {
             link_empresa: !vazio(linkEmpresa) ? JSON.stringify(linkEmpresa) : null,
             div_direcao: inputDivDirecao.valor(),
             div_posicao: inputDivPosicao.valor(),
-            api_status: inputApiStatus.valor() == 'sim' ? 'sim' : 'nao',
+            api_status: inArray(inputApiStatus.valor(), ['sim', 1]) ? 'sim' : 'nao',
             api_metodo: inputApiMetodo.valor(),
             api_body: !vazio(apiBody) ? JSON.stringify(apiBody) : null,
             api_uri: inputApiUri.valor(),
@@ -461,7 +449,7 @@ window.addEventListener('load', () => {
 
     const validarDadoPopup = tipo => {
         return new Promise(resolve => {
-            const apiStatus = inputApiStatus.valor() == 'sim';
+            const apiStatus = inArray(inputApiStatus.valor(), ['sim', 1]);
             const iconeTipo = inputIconeTipo.valor();
             const eBotao =
                 tipo == 'botao' || tipo == 'botao-empresa' || tipo == 'botao-destaque' || tipo == 'botao-fixo';
@@ -510,11 +498,7 @@ window.addEventListener('load', () => {
                 mensagem = 'Digite uma altura para a imagem.';
             } else if (tipo == 'icone' && vazio(iconeTipo)) {
                 mensagem = 'Escolha um tipo de ícone para continuar.';
-            } else if (
-                tipo == 'icone' &&
-                (iconeTipo == 'redondo' || iconeTipo == 'quadrado') &&
-                vazio(inputIconeTamanho.valor())
-            ) {
+            } else if (tipo == 'icone' && vazio(inputIconeTamanho.valor())) {
                 mensagem = 'Digite o tamanho do ícone.';
             } else if (tipo == 'icone' && vazio(inputIconeNome.valor())) {
                 mensagem = 'Digite o nome do ícone para continuar.';

@@ -14,6 +14,7 @@ use App\Classes\View\Lista\ListaTipo;
 use App\Classes\View\Lista\DivDirecao;
 use App\Classes\View\Lista\DivPosicao;
 use App\Models\Api\View\Pagina\HelperModel;
+use App\Models\Api\ComercialEmpresa\HelperModel as ComercialEmpresaHelperModel;
 
 final class HtmlEntity extends Entity
 {
@@ -21,22 +22,28 @@ final class HtmlEntity extends Entity
     protected array $ormBuscar = [
         'tipo', 'local', 'titulo', 'texto', 'link', 'target', 'tabela', 'editor',
         'titulo_interno', 'margem_topo', 'margem_esquerda', 'margem_direita', 'margem_baixo',
-        'imagem_arquivo', 'imagem_altura', 'icone_tipo', 'icone_tamanho',
-        'icone_nome', 'icone_altura', 'lista_tipo', 'lista_valor', 'link_empresa',
-        'div_direcao', 'div_posicao', 'api_status', 'api_metodo', 'api_body', 'api_uri',
-        'botao_tipo', 'status', 'ordem'
+        'icone_tipo', 'icone_tamanho', 'icone_cor', 'icone_bg', 'icone_borda', 'icone_nome',
+        'icone_altura', 'lista_tipo', 'lista_valor', 'link_empresa', 'div_direcao',
+        'div_posicao', 'api_status', 'api_metodo', 'api_body', 'api_uri', 'botao_tipo',
+        'status', 'ordem', 'id_admin_empresa_ativa', 'id_admin_empresa_inativa', 'imagem_arquivo',
+        'imagem_altura',
     ];
     protected array $ormInsert = ['id_view_pagina', ];
     protected array $ormSalvar = [
         'tipo', 'local', 'titulo', 'texto', 'link', 'target', 'tabela', 'editor',
         'titulo_interno', 'margem_topo', 'margem_esquerda', 'margem_direita', 'margem_baixo',
-        'imagem_arquivo', 'imagem_altura', 'icone_tipo', 'icone_tamanho',
+        'icone_tipo', 'icone_tamanho', 'icone_cor', 'icone_bg', 'icone_borda',
         'icone_nome', 'icone_altura', 'lista_tipo', 'lista_valor', 'link_empresa',
         'div_direcao', 'div_posicao', 'api_status', 'api_metodo', 'api_body', 'api_uri',
-        'botao_tipo', 'status', 'id_view_html', 'ordem'
+        'botao_tipo', 'status', 'id_view_html', 'ordem', 'id_admin_empresa_ativa',
+        'id_admin_empresa_inativa', 'imagem_arquivo', 'imagem_altura',
     ];
     public int $id_view_pagina;
     public int $id_view_html;
+    public array $id_admin_empresa_ativa;
+    public array $id_admin_empresa_inativa;
+    public array $empresa_ativa;
+    public array $empresa_inativa;
     public string $pagina;
     public null|string $pai = null;
     public Tipo $tipo;
@@ -58,6 +65,9 @@ final class HtmlEntity extends Entity
     public int $icone_tamanho;
     public string $icone_nome;
     public int $icone_altura;
+    public string $icone_cor;
+    public string $icone_bg;
+    public string $icone_borda;
     public ListaTipo $lista_tipo;
     public array $lista_valor;
     public array $link_empresa;
@@ -85,6 +95,24 @@ final class HtmlEntity extends Entity
         }
         if (!empty($this->pai)) {
             $this->id_view_html = $this->campo(['id'])->where(['uuid', $this->pai])->primeiro('id', padrao: null);
+        }
+        $Empresa = new ComercialEmpresaHelperModel();
+        if ($this->pExiste('empresa_ativa')) {
+            $this->id_admin_empresa_ativa = $Empresa->mudarListaUuidParaId($this->empresa_ativa);
+        }
+        if ($this->pExiste('empresa_inativa')) {
+            $this->id_admin_empresa_inativa = $Empresa->mudarListaUuidParaId($this->empresa_inativa);
+        }
+    }
+
+    protected function regraPosBuscar()
+    {
+        $Empresa = new ComercialEmpresaHelperModel();
+        if ($this->pExiste('empresa_ativa')) {
+            $this->empresa_ativa = $Empresa->mudarListaIdParaUuid($this->id_admin_empresa_ativa);
+        }
+        if ($this->pExiste('empresa_inativa')) {
+            $this->empresa_inativa = $Empresa->mudarListaIdParaUuid($this->id_admin_empresa_inativa);
         }
     }
 }

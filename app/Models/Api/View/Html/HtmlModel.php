@@ -14,6 +14,7 @@ use App\Classes\View\Lista\ListaTipo;
 use App\Classes\View\Lista\DivDirecao;
 use App\Classes\View\Lista\DivPosicao;
 use App\Models\Api\View\Pagina\HelperModel;
+use App\Models\Api\ComercialEmpresa\HelperModel as EmpresaModel;
 
 final class HtmlModel extends ORM
 {
@@ -96,6 +97,10 @@ final class HtmlModel extends ORM
         $painel = defined('TOKEN') && TOKEN['app']->audience != 'painel';
         return [
             'id'              => $r->uuid,
+            'empresa_ativa'   => !empty($r->id_admin_empresa_ativa) && is_array($r->id_admin_empresa_ativa)
+                ? $this->converterIdEmpresa($r->id_admin_empresa_ativa) : [],
+            'empresa_inativa' => !empty($r->id_admin_empresa_inativa) && is_array($r->id_admin_empresa_inativa)
+                ? $this->converterIdEmpresa($r->id_admin_empresa_inativa) : [],
             'tipo'            => (new Tipo($r->tipo))->indice(),
             'local'           => (new Local($r->local))->indice(),
             'titulo_interno'  => $r->titulo_interno,
@@ -115,6 +120,9 @@ final class HtmlModel extends ORM
             'icone_tamanho'   => $r->icone_tamanho,
             'icone_altura'    => $r->icone_altura,
             'icone_nome'      => $r->icone_nome,
+            'icone_cor'       => $r->icone_cor,
+            'icone_bg'        => $r->icone_bg,
+            'icone_borda'     => $r->icone_borda,
             'lista_tipo'      => (new ListaTipo($r->lista_tipo))->indice(),
             'lista_valor'     => $r->lista_valor,
             'link_empresa'    => $r->link_empresa,
@@ -128,5 +136,11 @@ final class HtmlModel extends ORM
             'ordem'           => $r->ordem,
             'status'          => (new Botao($r->status ? 'sim' : 'nao'))->valor(),
         ];
+    }
+
+    private function converterIdEmpresa(array $lista)
+    {
+        $Empresa = new EmpresaModel();
+        return $Empresa->mudarListaIdParaUuid($lista);
     }
 }
