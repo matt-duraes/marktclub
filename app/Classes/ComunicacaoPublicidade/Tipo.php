@@ -12,6 +12,7 @@ class Tipo extends Status
     public const HOME = 'home';
     public const SAMSUNG = 'samsung';
     public const TURISMO = 'turismo';
+    public const CARTAOSAMSUNG = 'cartaosamsung';
 
     public function __construct(
         protected string|int|null $valor = null
@@ -22,6 +23,7 @@ class Tipo extends Status
             self::HOME         => 'Home',
             self::SAMSUNG      => 'Samsung',
             self::TURISMO      => 'Turismo',
+            self::CARTAOSAMSUNG => 'Cartão Samsung',
         ]);
     }
 }

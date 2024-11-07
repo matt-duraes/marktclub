@@ -25,6 +25,20 @@ final class BannerModel extends ClubeApiHelper
         return $this->montarRetorno($dado);
     }
 
+    public function samsungCartao()
+    {
+        $dado = $this
+            ->json([
+                'pagina'     => 1,
+                'quantidade' => 50,
+                'tipo'       => Tipo::CARTAOSAMSUNG,
+                'publicado'  => Botao::SIM
+            ])
+            ->get('/comunicacao-publicidade')
+            ->object()->dado->lista ?? [];
+        return $this->montarRetorno($dado);
+    }
+
     private function montarRetorno($dado)
     {
         if (!$dado) {
@@ -67,19 +81,20 @@ final class BannerModel extends ClubeApiHelper
 
     public function samsungFixo(): object
     {
+
         return (object)[
             'desktop' => [
                 (object) [
                     'imagem' => LINK . '/images/site/banner_samsung_fixo_desktop.png',
                     'target' => '',
-                    'link'   => 'https://samsung.com.br/services/cartao-samsung/'
+                    'link'   => ''
                 ]
             ],
             'mobile' => [
                 (object) [
                     'imagem' => LINK . '/images/site/banner_samsung_fixo_mobile.png',
                     'target' => '',
-                    'link'   => 'https://samsung.com.br/services/cartao-samsung/'
+                    'link'   => ''
                 ]
             ]
         ];
