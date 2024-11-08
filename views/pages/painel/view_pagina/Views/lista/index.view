@@ -23,10 +23,9 @@ $diretorio = 'c0ec7d2f-e3e6-48ea-9159-cbbc3a540896';
     <div class="bloco_conteudo conteudo_drag" id="bloco_view_conteudo">
         <div class="loading">Carregando HTML</div>
     </div>
-    <div class="bloco_botao_direita">
-        <div class="botao display_none" id="botao_salvar_alteracao">Atualizar</div>
-    </div>
 </div>
+
+<div class="display_none" id="botao_salvar_alteracao">Atualizar</div>
 
 <div class="display_none">
     <article class="item_pai" id="bloco_linha_padrao">
@@ -94,7 +93,7 @@ $diretorio = 'c0ec7d2f-e3e6-48ea-9159-cbbc3a540896';
                 <div class="bloco_row bloco_icone display_none">
                     @? formSelect(name: 'icone_tipo', label: 'Tipo', placeholder: 'Tipo de ícone', lista: (new \App\Classes\View\Lista\IconeTipo())->select('Tipo de ícone'), class: 'bloco_icone_tipo')
                     @? formInput(name: 'icone_tamanho', label: 'Tamanho', placeholder: 'Tamanho', class: 'bloco_icone_tamanho ')
-                    @? formCor(name: 'icone_borda', local: 'padrao', label: 'Cor da borda', class: 'bloco_icone_borda display_none', padrao: 'Cor do clube')
+                    @? formCor(name: 'icone_borda_cor', label: 'Cor da borda', class: 'bloco_icone_borda_cor display_none', padrao: 'Cor do clube')
                     @? formCor(name: 'icone_cor', label: 'Cor do ícone', class: 'bloco_icone_cor', padrao: 'Cor do clube')
                     @? formCor(name: 'icone_bg', label: 'Cor do background', class: 'bloco_icone_bg', padrao: 'Cor do clube')
                     @? formInput(name: 'icone_nome', label: 'Nome', placeholder: 'Nome do ícone', class: 'bloco_icone_nome')

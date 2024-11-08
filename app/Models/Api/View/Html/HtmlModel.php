@@ -122,7 +122,7 @@ final class HtmlModel extends ORM
             'icone_nome'      => $r->icone_nome,
             'icone_cor'       => $r->icone_cor,
             'icone_bg'        => $r->icone_bg,
-            'icone_borda'     => $r->icone_borda,
+            'icone_borda_cor' => $r->icone_borda_cor,
             'lista_tipo'      => (new ListaTipo($r->lista_tipo))->indice(),
             'lista_valor'     => $r->lista_valor,
             'link_empresa'    => $r->link_empresa,

@@ -1,4 +1,3 @@
-// const $ = document.querySelector.bind(document);
 const $ = (seletor, pai) => {
     const paiElemento = typeof pai === 'string' ? document.querySelector(pai) : pai;
     return (paiElemento || document).querySelector(seletor);

@@ -24,9 +24,11 @@ bodyFormCor.insertAdjacentHTML(
                 <ul class="fw_form_cor_ul">
                     <li class="fw_form_cor_li" style="background-color: #000000" data-value="#000000"></li><li class="fw_form_cor_li" style="background-color: #696969" data-value="#696969"></li><li class="fw_form_cor_li" style="background-color: #DCDCDC" data-value="#DCDCDC"></li><li class="fw_form_cor_li" style="background-color: #6A5ACD" data-value="#6A5ACD"></li><li class="fw_form_cor_li" style="background-color: #483D8B" data-value="#483D8B"></li><li class="fw_form_cor_li" style="background-color: #000080" data-value="#000080"></li><li class="fw_form_cor_li" style="background-color: #0000FF" data-value="#0000FF"></li><li class="fw_form_cor_li" style="background-color: #6495ED" data-value="#6495ED"></li><li class="fw_form_cor_li" style="background-color: #00BFFF" data-value="#00BFFF"></li><li class="fw_form_cor_li" style="background-color: #87CEFA" data-value="#87CEFA"></li><li class="fw_form_cor_li" style="background-color: #ADD8E6" data-value="#ADD8E6"></li><li class="fw_form_cor_li" style="background-color: #00FFFF" data-value="#00FFFF"></li><li class="fw_form_cor_li" style="background-color: #00CED1" data-value="#00CED1"></li><li class="fw_form_cor_li" style="background-color: #40E0D0" data-value="#40E0D0"></li><li class="fw_form_cor_li" style="background-color: #20B2AA" data-value="#20B2AA"></li><li class="fw_form_cor_li" style="background-color: #008B8B" data-value="#008B8B"></li><li class="fw_form_cor_li" style="background-color: #7FFFD4" data-value="#7FFFD4"></li><li class="fw_form_cor_li" style="background-color: #00FA9A" data-value="#00FA9A"></li><li class="fw_form_cor_li" style="background-color: #7CFC00" data-value="#7CFC00"></li><li class="fw_form_cor_li" style="background-color: #9ACD32" data-value="#9ACD32"></li><li class="fw_form_cor_li" style="background-color: #008000" data-value="#008000"></li><li class="fw_form_cor_li" style="background-color: #DAA520" data-value="#DAA520"></li><li class="fw_form_cor_li" style="background-color: #8B4513" data-value="#8B4513"></li><li class="fw_form_cor_li" style="background-color: #A0522D" data-value="#A0522D"></li><li class="fw_form_cor_li" style="background-color: #BC8F8F" data-value="#BC8F8F"></li><li class="fw_form_cor_li" style="background-color: #F4A460" data-value="#F4A460"></li><li class="fw_form_cor_li" style="background-color: #7B68EE" data-value="#7B68EE"></li><li class="fw_form_cor_li" style="background-color: #8A2BE2" data-value="#8A2BE2"></li><li class="fw_form_cor_li" style="background-color: #4B0082" data-value="#4B0082"></li><li class="fw_form_cor_li" style="background-color: #A020F0" data-value="#A020F0"></li><li class="fw_form_cor_li" style="background-color: #FF00FF" data-value="#FF00FF"></li><li class="fw_form_cor_li" style="background-color: #EE82EE" data-value="#EE82EE"></li><li class="fw_form_cor_li" style="background-color: #FF1493" data-value="#FF1493"></li><li class="fw_form_cor_li" style="background-color: #FF69B4" data-value="#FF69B4"></li><li class="fw_form_cor_li" style="background-color: #DB7093" data-value="#DB7093"></li><li class="fw_form_cor_li" style="background-color: #FFB6C1" data-value="#FFB6C1"></li><li class="fw_form_cor_li" style="background-color: #F08080" data-value="#F08080"></li><li class="fw_form_cor_li" style="background-color: #DC143C" data-value="#DC143C"></li><li class="fw_form_cor_li" style="background-color: #800000" data-value="#800000"></li><li class="fw_form_cor_li" style="background-color: #B22222" data-value="#B22222"></li><li class="fw_form_cor_li" style="background-color: #FF6347" data-value="#FF6347"></li><li class="fw_form_cor_li" style="background-color: #FF0000" data-value="#FF0000"></li><li class="fw_form_cor_li" style="background-color: #FF8C00" data-value="#FF8C00"></li><li class="fw_form_cor_li" style="background-color: #FFD700" data-value="#FFD700"></li><li class="fw_form_cor_li" style="background-color: #FFFF00" data-value="#FFFF00"></li><li class="fw_form_cor_li" style="background-color: #F0E68C" data-value="#F0E68C"></li><li class="fw_form_cor_li" style="background-color: #B0E0E6" data-value="#B0E0E6"></li><li class="fw_form_cor_li" style="background-color: #E0FFFF" data-value="#E0FFFF"></li><li class="fw_form_cor_li" style="background-color: #F0FFF0" data-value="#F0FFF0"></li><li class="fw_form_cor_li" style="background-color: #FFFFFF" data-value="#FFFFFF"></li>
                 </ul>
-                <div class="fw_form_cor_padrao" id="fw_form_cor_padrao">
-                    <div class="fw_form_cor_padrao_checkbox"><svg height="10" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 100 100" enable-background="new 0 0 100 100" xml:space="preserve"><path d="M91,12.2c-4.2-3-10-1.9-13,2.3L42.1,65.8L20.9,44.6c-3.6-3.6-9.6-3.6-13.2,0c-3.6,3.6-3.6,9.6,0,13.2l29,29  c1.8,1.8,4.2,2.7,6.6,2.7c0,0,0,0,0.1,0c0,0,0.7,0,0.9,0c2.6-0.2,5.1-1.6,6.8-3.9l42.3-60.4C96.3,20.9,95.2,15.1,91,12.2z"/></svg></div>
-                    <div class="fw_form_cor_padrao_titulo"></div>
+                <div class="fw_form_cor_padrao fw_form_cor_display_none" id="fw_form_cor_padrao">
+                    <div class="fw_form_cor_padrao_botao" id="fw_form_cor_padrao_botao">
+                        <div class="fw_form_cor_padrao_checkbox"></div>
+                        <div class="fw_form_cor_h2" id="fw_form_cor_padrao_titulo">Usar cor padrão</div>
+                    </div>
                 </div>
                 <h2 class="fw_form_cor_h2">Ou digite manualmente em hexadecimal:</h2>
                 <div class="fw_form_cor_bloco_input">
@@ -51,7 +53,8 @@ const fwFormCorBotaoConfirmar = fwFormCor.querySelector('#fw_form_cor_botao_conf
 const fwFormCorBotaoRemover = fwFormCor.querySelector('#fw_form_cor_botao_remover');
 const fwFormCorBlocoRemover = fwFormCor.querySelector('#fw_form_cor_bloco_remover');
 const fwFormCorBotaoFechar = fwFormCor.querySelectorAll('.fw_form_cor_fechar');
-const fwFormCorBotaoPadrao = fwFormCor.querySelector('#fw_form_cor_padrao');
+const fwFormCorPadrao = fwFormCor.querySelector('#fw_form_cor_padrao');
+const fwFormCorPadraoBotao = fwFormCor.querySelector('#fw_form_cor_padrao_botao');
 
 let inputCorAtual;
 fwFormCorBotaoFechar.forEach(botaoFechar => {
@@ -59,6 +62,39 @@ fwFormCorBotaoFechar.forEach(botaoFechar => {
         fwFormCorBoxFechar();
     });
 });
+
+const fwFormCorSetarValor = (elemento, valor) => {
+    let bloco, input;
+    if (elemento.classList.contains('input_cor')) {
+        bloco = elemento;
+        input = elemento.querySelector('.input_cor_input');
+    } else if (elemento.classList.contains('input_cor_input')) {
+        bloco = elemento.closest('.input_cor');
+        input = elemento;
+    } else {
+        return;
+    }
+    const blocoCor = bloco.querySelector('.input_cor_bg');
+    if (vazio(valor)) {
+        input.value = '';
+        blocoCor.style.background = '';
+        return;
+    } else if (valor == 'padrao') {
+        blocoCor.style.background =
+            'linear-gradient(45deg, #ff0000, #ff7f00, #ffff00, #00ff00, #0000ff, #4b0082, #9400d3) 50px 45px';
+    } else {
+        blocoCor.style.background = cor;
+    }
+    input.valor = valor;
+};
+const fwFormCorPegarValor = input => {
+    if (input.classList.contains('input_cor')) {
+        return input.querySelector('input').value;
+    } else if (input.classList.contains('input_cor_input')) {
+        return input.value;
+    }
+    return undefined;
+};
 
 fwFormCorLi.forEach(li => {
     li.addEventListener('click', () => {
@@ -100,21 +136,23 @@ fwFormCorBotaoRemover.addEventListener('click', () => {
     const blocoCor = inputCorAtual.querySelector('.input_cor_bg');
     if (input) {
         input.value = '';
-        blocoCor.style.backgroundColor = '';
+        blocoCor.style.background = '';
     }
     fwFormCorBoxFechar();
 });
 
-fwFormCorBotaoPadrao.addEventListener('click', () => {
-    const checked = fwFormCorBotaoPadrao.classList.contains('fw_form_cor_padrao_checked');
+fwFormCorPadraoBotao.addEventListener('click', () => {
+    const checked = fwFormCorPadrao.classList.contains('fw_form_cor_padrao_checked');
+    if (!checked) {
+        fwFormCorPadrao.classList.add('fw_form_cor_padrao_checked');
+        fwFormCorBoxFechar('padrao');
+        return;
+    }
+    fwFormCorPadrao.classList.remove('fw_form_cor_padrao_checked');
     const input = inputCorAtual.querySelector('input');
     const blocoCor = inputCorAtual.querySelector('.input_cor_bg');
-
-    if (checked) {
-        fwFormCorBotaoPadrao.classList.remove('fw_form_cor_padrao_checked');
-        input.value = '';
-        blocoCor.style.backgroundColor = '';
-    }
+    input.value = '';
+    blocoCor.style.background = '';
 });
 
 const fwFormCorBoxFechar = cor => {
@@ -123,6 +161,8 @@ const fwFormCorBoxFechar = cor => {
     setTimeout(() => {
         fwFormCorInput.value = '';
         fwFormCor.style.display = 'none';
+        fwFormCorPadrao.classList.add('fw_form_cor_display_none');
+        fwFormCorPadrao.classList.remove('fw_form_cor_padrao_checked');
     }, 300);
     if (!cor) {
         return true;
@@ -134,22 +174,31 @@ const fwFormCorBoxFechar = cor => {
     }
     input.value = cor;
     if (cor == 'padrao') {
-        blocoCor.style.backgroundImage =
-            'linear-gradient(45deg, #2c67c7, #2c67c7 25%, #ab1829 50%, #0ec94d 75%, #e07809)';
-        blocoCor.style.backgroundSize = '50px 45px';
+        blocoCor.style.background =
+            'linear-gradient(45deg, #ff0000, #ff7f00, #ffff00, #00ff00, #0000ff, #4b0082, #9400d3) 50px 45px';
         return;
     }
-    blocoCor.style.backgroundColor = cor;
+    blocoCor.style.background = cor;
 };
 const fwFormCorBoxAbrir = bloco => {
     bodyFormCor.classList.add('fw_body_hidden');
     inputCorAtual = bloco;
     const input = bloco.querySelector('input');
     const valor = input.value;
+
     if (valor == '') {
         fwFormCorBlocoRemover.style.display = 'none';
     } else {
         fwFormCorBlocoRemover.style.display = 'flex';
+    }
+
+    fwFormCorPadrao.classList.add('fw_form_cor_display_none');
+    fwFormCorPadrao.classList.remove('fw_form_cor_padrao_checked');
+    if (bloco.getAttribute('data-padrao') != '') {
+        fwFormCorPadrao.classList.remove('fw_form_cor_display_none');
+        if (valor == 'padrao') {
+            fwFormCorPadrao.classList.add('fw_form_cor_padrao_checked');
+        }
     }
 
     fwFormCor.style.display = 'flex';

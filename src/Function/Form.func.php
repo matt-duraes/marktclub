@@ -1722,14 +1722,14 @@ if (!function_exists('formCor')) {
         $id = !empty($id) ? $id : 'id_' . md5(uniqid(time()));
         $label = !empty($label) ? '<label for="input_' . $name . '_texto">' . $label . '</label>' : '';
 
-        $background = 'background-color: ' . $value;
+        $background = 'background: ' . $value;
         if ($value == 'padrao') {
-            $background = 'background-image: linear-gradient(45deg, #2c67c7, #2c67c7 25%, #ab1829 50%, #0ec94d 75%, #e07809); background-size: 50px 45px;';
+            $background = 'background: linear-gradient(45deg, #ff0000, #ff7f00, #ffff00, #00ff00, #0000ff, #4b0082, #9400d3) 50px 45px;';
         }
 
         return '
             <div class="input_cor ' . $class . '" id="' . $id . '" data-padrao="' . $padrao . '">
-                <input type="hidden" name="' . $name . '" id="input_' . $name . '" value="' . $value . '">
+                <input type="hidden" class="input_cor_input" name="' . $name . '" id="input_' . $name . '" value="' . $value . '">
                 <div class="input_cor_conteudo">
                     ' . $label . '
                     <div class="input_cor_bg" style="' . $background . '">

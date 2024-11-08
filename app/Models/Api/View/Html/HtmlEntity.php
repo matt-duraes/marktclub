@@ -22,7 +22,7 @@ final class HtmlEntity extends Entity
     protected array $ormBuscar = [
         'tipo', 'local', 'titulo', 'texto', 'link', 'target', 'tabela', 'editor',
         'titulo_interno', 'margem_topo', 'margem_esquerda', 'margem_direita', 'margem_baixo',
-        'icone_tipo', 'icone_tamanho', 'icone_cor', 'icone_bg', 'icone_borda', 'icone_nome',
+        'icone_tipo', 'icone_tamanho', 'icone_cor', 'icone_bg', 'icone_borda_cor', 'icone_nome',
         'icone_altura', 'lista_tipo', 'lista_valor', 'link_empresa', 'div_direcao',
         'div_posicao', 'api_status', 'api_metodo', 'api_body', 'api_uri', 'botao_tipo',
         'status', 'ordem', 'id_admin_empresa_ativa', 'id_admin_empresa_inativa', 'imagem_arquivo',
@@ -32,7 +32,7 @@ final class HtmlEntity extends Entity
     protected array $ormSalvar = [
         'tipo', 'local', 'titulo', 'texto', 'link', 'target', 'tabela', 'editor',
         'titulo_interno', 'margem_topo', 'margem_esquerda', 'margem_direita', 'margem_baixo',
-        'icone_tipo', 'icone_tamanho', 'icone_cor', 'icone_bg', 'icone_borda',
+        'icone_tipo', 'icone_tamanho', 'icone_cor', 'icone_bg', 'icone_borda_cor',
         'icone_nome', 'icone_altura', 'lista_tipo', 'lista_valor', 'link_empresa',
         'div_direcao', 'div_posicao', 'api_status', 'api_metodo', 'api_body', 'api_uri',
         'botao_tipo', 'status', 'id_view_html', 'ordem', 'id_admin_empresa_ativa',
@@ -67,7 +67,7 @@ final class HtmlEntity extends Entity
     public int $icone_altura;
     public string $icone_cor;
     public string $icone_bg;
-    public string $icone_borda;
+    public string $icone_borda_cor;
     public ListaTipo $lista_tipo;
     public array $lista_valor;
     public array $link_empresa;

@@ -1,3 +1,5 @@
+#bloco_app_visualizar .bloco_fieldset#bloco_view
+    padding-bottom: 60px
 #bloco_view .bloco_conteudo
     width: 100%
     flexCol()
@@ -128,20 +130,18 @@
     article .conteudo_geral
         width: calc(100% - 90px)
 
-#bloco_view .bloco_botao_direita
-    flexRow()
-    justify-content: flex-end
-    margin-right: 10px
-    .botao
-        bgDegradeVerde()
-        height: 50px
-        line-height: 50px
-        margin-top: 20px
-        padding: 0 20px
-        border-radius: 25px
-        color: #FFF
-        textoFontSize()
-        cursor: pointer
+#botao_salvar_alteracao
+    position: fixed
+    bottom: 20px
+    bgDegradeVerde()
+    height: 50px
+    line-height: 50px
+    padding: 0 20px
+    margin-top: 10px
+    border-radius: 25px
+    color: #FFF
+    textoFontSize()
+    cursor: pointer
 
 #bloco_view_add
     width: 100%
