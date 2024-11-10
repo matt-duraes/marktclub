@@ -1605,6 +1605,11 @@ if (!function_exists('arquivoPublico')) {
         if (empty($arquivo)) {
             return $padrao;
         }
+        $cache = env('CACHE_VERSAO', '');
+        if (!empty($cache)) {
+            $parametro['c'] = $cache;
+        }
+
         $query = [];
         foreach ($parametro as $ind => $val) {
             $query[] = $ind . '=' . $val;
@@ -1643,7 +1648,14 @@ if (!function_exists('imagemPublica')) {
         array $parametro = [],
         string $padrao = '',
         bool $privado = false,
+        int $width = 0,
+        int $height = 0,
+        bool $cortar = false
     ) {
+        if (!empty($width) && !empty($height)) {
+            $ind = $cortar ? 'whc' : 'wh';
+            $parametro[$ind] = $width . 'x' . $height;
+        }
         return arquivoPublico($diretorio, $arquivo, $parametro, $padrao, $privado, 'png');
     }
 }
@@ -1692,9 +1704,13 @@ if (!function_exists('arquivoPrivado')) {
             return $padrao;
         }
 
+        $cache = env('CACHE_VERSAO', '');
+        if (!empty($cache)) {
+            $parametro['c'] = $cache;
+        }
         $query = [];
         foreach ($parametro as $ind => $val) {
-            $query[] = [$ind . '=' . $val];
+            $query[] = $ind . '=' . $val;
         }
         $query = !empty($query) ? '?' . implode('&', $query) : '';
 
@@ -1708,8 +1724,18 @@ if (!function_exists('arquivoPrivado')) {
     }
 }
 if (!function_exists('imagemPrivada')) {
-    function imagemPrivada(?string $id, array $parametro = [], string $padrao = '')
-    {
+    function imagemPrivada(
+        ?string $id,
+        array $parametro = [],
+        string $padrao = '',
+        int $width = 0,
+        int $height = 0,
+        bool $cortar = false
+    ) {
+        if (!empty($width) && !empty($height)) {
+            $ind = $cortar ? 'whc' : 'wh';
+            $parametro[$ind] = $width . 'x' . $height;
+        }
         return arquivoPrivado($id, $parametro, $padrao, 'png');
     }
 }
