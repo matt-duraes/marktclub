@@ -80,12 +80,23 @@ const fwFormCorSetarValor = (elemento, valor) => {
         blocoCor.style.background = '';
         return;
     } else if (valor == 'padrao') {
-        blocoCor.style.background =
-            'linear-gradient(45deg, #ff0000, #ff7f00, #ffff00, #00ff00, #0000ff, #4b0082, #9400d3) 50px 45px';
+        blocoCor.style.background = `linear-gradient(to left,
+            #e32746 0px,
+            #e32746 10px,
+            #08c969 10px,
+            #08c969 20px,
+            #272de3 20px,
+            #272de3 30px,
+            #e327da 30px,
+            #e327da 40px,
+            #fcba03 40px,
+            #fcba03 50px
+        )`;
     } else {
-        blocoCor.style.background = cor;
+        blocoCor.style.background = valor;
     }
-    input.valor = valor;
+    input.value = valor;
+    return;
 };
 const fwFormCorPegarValor = input => {
     if (input.classList.contains('input_cor')) {
@@ -174,8 +185,18 @@ const fwFormCorBoxFechar = cor => {
     }
     input.value = cor;
     if (cor == 'padrao') {
-        blocoCor.style.background =
-            'linear-gradient(45deg, #ff0000, #ff7f00, #ffff00, #00ff00, #0000ff, #4b0082, #9400d3) 50px 45px';
+        blocoCor.style.background = `linear-gradient(to left,
+            #e32746 0px,
+            #e32746 10px,
+            #08c969 10px,
+            #08c969 20px,
+            #272de3 20px,
+            #272de3 30px,
+            #e327da 30px,
+            #e327da 40px,
+            #fcba03 40px,
+            #fcba03 50px
+        )`;
         return;
     }
     blocoCor.style.background = cor;

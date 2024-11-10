@@ -9,7 +9,8 @@ window.addEventListener('load', () => {
         #input_link_empresa, #input_editor, #input_lista_valor, #input_lista_tipo,
         #input_botao_tipo, #input_imagem_altura, #input_div_direcao, #input_margem_topo,
         #input_margem_esquerda, #input_margem_direita, #input_margem_baixo, #input_icone_tipo,
-        #input_icone_tamanho, #input_icone_nome, #input_icone_altura
+        #input_icone_tamanho, #input_icone_nome, #input_icone_altura, #input_icone_cor,
+        #input_icone_bg, #input_icone_borda_cor
     `);
 
     const id = $('#input_visualizar_id').valor();
@@ -40,7 +41,12 @@ window.addEventListener('load', () => {
     const inputIconeTamanho = $('#input_icone_tamanho');
     const inputIconeNome = $('#input_icone_nome');
     const inputIconeAltura = $('#input_icone_altura');
+    const inputIconeCor = $('#input_icone_cor');
+    const inputIconeBg = $('#input_icone_bg');
+    const inputIconeBordaCor = $('#input_icone_borda_cor');
     const inputBotaoTipo = $('#input_botao_tipo');
+    const inputEmpresaAtiva = $$('#bloco_empresa_ativa input');
+    const inputEmpresaInativa = $$('#bloco_empresa_inativa input');
 
     const blocoConteudo = $('#bloco_view_conteudo');
     const blocoLinhaPadrao = $('#bloco_linha_padrao');
@@ -61,7 +67,10 @@ window.addEventListener('load', () => {
     const blocoApiStatus = $$('.bloco_api_status');
     const blocoImagem = $$('.bloco_imagem');
     const blocoIcone = $('.bloco_icone');
+    const blocoIconeBordaCor = $('.bloco_icone_borda_cor');
     const blocoBotaoTipo = $('.bloco_botao_tipo');
+    const blocoEmpresaAtiva = $('#bloco_empresa_ativa');
+    const blocoEmpresaInativa = $('#bloco_empresa_inativa');
 
     const botaoAtualizarGeral = $('#botao_salvar_alteracao');
     const botaoPopupAbrir = $('#botao_view_abrir');
@@ -210,7 +219,7 @@ window.addEventListener('load', () => {
 
         $('header h1', clone).texto(item.titulo_interno);
         $('header .status', clone).classe('status_' + item.status);
-        $('header', clone).evento('dblclick', () => {
+        $('header h1', clone).evento('dblclick', () => {
             clone.classe('margem_ativa');
         });
 
@@ -257,6 +266,11 @@ window.addEventListener('load', () => {
         if (item.botao_tipo == 'voltar') {
             blocoTitulo.sumir();
         }
+        if (item.tipo == 'icone') {
+            mudarIconeTipo();
+        }
+        const eBotao = verificarSeBotao(item.tipo);
+        const eDiv = verificarSeDiv(item.tipo);
         blocoTipo.sumir();
         inputId.valor(id);
         inputTipo.valor(item.tipo);
@@ -267,25 +281,30 @@ window.addEventListener('load', () => {
         inputLink.valor(item.link || '');
         inputLinkEmpresa.valor(item.link_empresa || '');
         inputTarget.valor(item.target || '');
-        inputDivDirecao.valor(item.div_direcao || '');
-        inputDivPosicao.valor(item.div_posicao || '');
+        inputDivDirecao.valor(eDiv && item.div_direcao ? item.div_direcao : '');
+        inputDivPosicao.valor(eDiv && item.div_posicao ? item.div_posicao : '');
         inputStatus.valor(inArray(item.status, ['sim', 1]) ? 'sim' : 'nao');
         inputApiStatus.valor(item.api_status || 'nao');
         blocoApiSim.classe('display_none', !inArray(apiStatus, ['sim', 1]));
         inputApiMetodo.valor(item.api_metodo || '');
         inputApiBody.valor(item.api_body || '');
         inputApiUri.valor((item.api_uri || '').replace(/^\//, ''));
-        inputTabela.valor(item.tabela || '');
-        inputEditor.valor(item.editor || '');
-        inputListaTipo.valor(item.lista_tipo || '');
-        inputListaValor.valor(item.lista_valor || '');
-        inputImagemArquivo.valor(item.imagem_arquivo || '');
-        inputImagemAltura.valor(item.imagem_altura || '');
-        inputIconeTipo.valor(item.icone_tipo || '');
-        inputIconeTamanho.valor(item.icone_tamanho || '');
-        inputIconeNome.valor(item.icone_nome || '');
-        inputIconeAltura.valor(item.icone_altura || '');
-        inputBotaoTipo.valor(item.botao_tipo || '');
+        inputTabela.valor(item.tipo == 'tabela' && item.tabela ? item.tabela : '');
+        inputEditor.valor(item.tipo == 'editor' && item.editor ? item.editor : '');
+        inputListaTipo.valor(item.tipo == 'lista' && item.lista_tipo ? item.lista_tipo : '');
+        inputListaValor.valor(item.tipo == 'lista' && item.lista_valor ? item.lista_valor : '');
+        inputImagemArquivo.valor(item.tipo == 'imagem' && item.imagem_arquivo ? item.imagem_arquivo : '');
+        inputImagemAltura.valor(item.tipo == 'imagem' && item.imagem_altura ? item.imagem_altura : '');
+        inputIconeTipo.valor(item.tipo == 'icone' && item.icone_tipo ? item.icone_tipo : '');
+        inputIconeTamanho.valor(item.tipo == 'icone' && item.icone_tamanho ? item.icone_tamanho : '');
+        inputIconeNome.valor(item.tipo == 'icone' && item.icone_nome ? item.icone_nome : '');
+        inputIconeAltura.valor(item.tipo == 'icone' && item.icone_altura ? item.icone_altura : '');
+        inputIconeCor.valor(item.tipo == 'icone' && item.icone_cor ? item.icone_cor : '');
+        inputIconeBg.valor(item.tipo == 'icone' && item.icone_bg ? item.icone_bg : '');
+        inputIconeBordaCor.valor(item.tipo == 'icone' && item.icone_borda_cor ? item.icone_borda_cor : '');
+        inputBotaoTipo.valor(eBotao && item.botao_tipo ? item.botao_tipo : '');
+        setarValorCheckbox(blocoEmpresaAtiva, item.empresa_ativa);
+        setarValorCheckbox(blocoEmpresaInativa, item.empresa_inativa);
         PopupAdd.abrir();
     };
 
@@ -373,6 +392,7 @@ window.addEventListener('load', () => {
         const blocoPai = add ? blocoListaAtual.closest('.item_pai') : null;
         const pai = blocoPai ? blocoPai.attr('data-id') : '';
         const bodyReal = adicionarBody(tipo);
+
         const body = bodyReal;
         body['indice'] = add ? 'salvar-html' : 'atualizar-html';
         if (add) {
@@ -433,6 +453,9 @@ window.addEventListener('load', () => {
             icone_tamanho: inputIconeTamanho.valor(),
             icone_nome: inputIconeNome.valor(),
             icone_altura: inputIconeAltura.valor(),
+            icone_cor: inputIconeCor.valor(),
+            icone_bg: inputIconeBg.valor(),
+            icone_borda_cor: inputIconeBordaCor.valor(),
             lista_tipo: inputListaTipo.valor(),
             lista_valor: !vazio(listaValor) ? JSON.stringify(listaValor) : null,
             link_empresa: !vazio(linkEmpresa) ? JSON.stringify(linkEmpresa) : null,
@@ -443,6 +466,8 @@ window.addEventListener('load', () => {
             api_body: !vazio(apiBody) ? JSON.stringify(apiBody) : null,
             api_uri: inputApiUri.valor(),
             botao_tipo: inputBotaoTipo.valor(),
+            empresa_ativa: pegarValorCheckbox(blocoEmpresaAtiva),
+            empresa_inativa: pegarValorCheckbox(blocoEmpresaInativa),
             /* eslint-enable */
         };
     };
@@ -451,8 +476,7 @@ window.addEventListener('load', () => {
         return new Promise(resolve => {
             const apiStatus = inArray(inputApiStatus.valor(), ['sim', 1]);
             const iconeTipo = inputIconeTipo.valor();
-            const eBotao =
-                tipo == 'botao' || tipo == 'botao-empresa' || tipo == 'botao-destaque' || tipo == 'botao-fixo';
+            const eBotao = verificarSeBotao(tipo);
             let mensagem = '';
             if (vazio(tipo)) {
                 mensagem = 'Escolha um tipo para continuar.';
@@ -480,9 +504,9 @@ window.addEventListener('load', () => {
                 mensagem = 'Digite um texto para continuar.';
             } else if (tipo == 'magem') {
                 mensagem = 'Digite uma margem para continuar.';
-            } else if (inArray(tipo, ['div', 'bloco', 'resto']) && vazio(inputDivDirecao.valor())) {
+            } else if (verificarSeDiv(tipo) && vazio(inputDivDirecao.valor())) {
                 mensagem = 'Escolha a direção do conteudo da div para continuar.';
-            } else if (inArray(tipo, ['div', 'bloco', 'resto']) && vazio(inputDivPosicao.valor())) {
+            } else if (verificarSeDiv(tipo) && vazio(inputDivPosicao.valor())) {
                 mensagem = 'Escolha a posição do conteudo da div para continuar.';
             } else if (tipo == 'tabela' && vazio(inputTabela.valor())) {
                 mensagem = 'Digite pelo menos uma linha para a tabela.';
@@ -515,10 +539,28 @@ window.addEventListener('load', () => {
         });
     };
 
+    const verificarSeBotao = tipo => {
+        return inArray(tipo, ['botao', 'botao-empresa', 'botao-destaque', 'botao-fixo']);
+    };
+    const verificarSeDiv = tipo => {
+        return inArray(tipo, ['div', 'bloco', 'resto']);
+    };
+
     inputTipo.evento('formChange', () => {
         limparObrigatorio();
         const valor = inputTipo.valor();
         setarTipo(valor);
+    });
+
+    const mudarIconeTipo = () => {
+        if (inputIconeTipo.valor() == 'normal') {
+            blocoIconeBordaCor.sumir();
+            return;
+        }
+        blocoIconeBordaCor.aparecer();
+    };
+    inputIconeTipo.evento('formChange', () => {
+        mudarIconeTipo();
     });
 
     inputApiStatus.evento('change', () => {
@@ -585,7 +627,7 @@ window.addEventListener('load', () => {
             blocoLinkTag.aparecer();
             blocoTarget.aparecer();
             blocoBotaoTipo.aparecer();
-        } else if (inArray(valor, ['div', 'bloco', 'resto'])) {
+        } else if (verificarSeDiv(valor)) {
             blocoDivDirecao.aparecer();
             blocoDivPosicao.aparecer();
         } else if (valor == 'tabela') {
@@ -624,8 +666,59 @@ window.addEventListener('load', () => {
         blocoIcone.sumir();
         blocoBotaoTipo.sumir();
         inputLimpar.valor('');
+        inputTabela.valor('');
+        blocoEmpresaAtiva.classe('oculto', true);
+        blocoEmpresaInativa.classe('oculto', true);
+        inputEmpresaAtiva.marcar(false);
+        inputEmpresaInativa.marcar(false);
         if (blocoBodyLista) {
             blocoBodyLista.html('');
         }
+    };
+
+    const blocoCheckboxLista = $$('.bloco_checkbox');
+    for (const bloco of blocoCheckboxLista) {
+        const botaoMais = $('.botao_mais', bloco);
+        const botaoMenos = $('.botao_menos', bloco);
+        botaoMais.evento('click', () => {
+            bloco.classe('oculto', false);
+        });
+        botaoMenos.evento('click', () => {
+            bloco.classe('oculto', true);
+        });
+    }
+
+    const pegarValorCheckbox = bloco => {
+        const lista = $$('input:checked', bloco);
+        if (lista.length == 0) {
+            return null;
+        }
+        const retorno = [];
+        for (const empresa of lista) {
+            retorno.push(empresa.value);
+        }
+        return JSON.stringify(retorno);
+    };
+    const setarValorCheckbox = (bloco, valor) => {
+        valor = typeof valor === 'string' ? jsonParse(valor) : valor;
+        if (vazio(valor) || typeof valor !== 'object') {
+            return;
+        }
+        valor.forEach(id => {
+            $(`input[value="${id}"]`, bloco).marcar(true);
+        });
+    };
+    inputEmpresaAtiva.evento('change', () => {
+        resetarEmpresa(blocoEmpresaAtiva, inputEmpresaInativa);
+    });
+    inputEmpresaInativa.evento('change', () => {
+        resetarEmpresa(blocoEmpresaInativa, inputEmpresaAtiva);
+    });
+    const resetarEmpresa = (ativar, desativar) => {
+        const lista = $$('input:checked', ativar);
+        if (lista.length == 0) {
+            return;
+        }
+        desativar.marcar(false);
     };
 });

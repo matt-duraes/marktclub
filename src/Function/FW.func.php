@@ -1579,9 +1579,9 @@ if (!function_exists('imagemUsuario')) {
             return $google;
         }
         if (!empty($arquivo)) {
-            return arquivoPublico('usuario', $arquivo);
+            return imagemPublica('usuario', $arquivo);
         }
-        return arquivoPublico('usuario', 'padrao.png');
+        return imagemPublica('usuario', 'padrao.png');
     }
 }
 if (!function_exists('arquivoPublico')) {
@@ -1599,7 +1599,8 @@ if (!function_exists('arquivoPublico')) {
         string $arquivo = null,
         array $parametro = [],
         string $padrao = '',
-        bool $privado = false
+        bool $privado = false,
+        string $ext = ''
     ) {
         if (empty($arquivo)) {
             return $padrao;
@@ -1622,7 +1623,28 @@ if (!function_exists('arquivoPublico')) {
         $hash = openssl_encrypt($diretorio . '/' . $arquivo, $cifra, $chave, 0, $iv);
 
         $uri = $privado ? 'aqiornm' : 'aqioulc';
-        return LINK_ARQUIVO_PUBLICO . '/' . $uri . '.' . str_replace(['+', '/', '='], ['-', '_', ':'], $hash) . $query;
+        $ext = !empty($ext) ? '.' . $ext : '';
+        return LINK_ARQUIVO_PUBLICO . '/' . $uri . '.' . str_replace(['+', '/', '='], ['-', '_', ':'], $hash) . $ext . $query;
+    }
+}
+if (!function_exists('imagemPublica')) {
+    /**
+     * Gera um link para um arquivo público
+     *
+     * @param  string $diretorio Diretório que o arquivo pertence
+     * @param  string $arquivo   Arquivo que deseja pegar
+     * @param  array  $parametro Parametro para inserir como GET na URL
+     * @param  string $padrao    Imagem padrão caso não tenha arquivo
+     * @return string Url do arquivo
+     */
+    function imagemPublica(
+        string $diretorio,
+        string $arquivo = null,
+        array $parametro = [],
+        string $padrao = '',
+        bool $privado = false,
+    ) {
+        return arquivoPublico($diretorio, $arquivo, $parametro, $padrao, $privado, 'png');
     }
 }
 if (!function_exists('arquivoPublicoNome')) {
@@ -1661,9 +1683,10 @@ if (!function_exists('arquivoPrivado')) {
      * @param  null|string $id        ID do arquivo no banco (uuid)
      * @param  array       $parametro Parametro para inserir como GET na URL
      * @param  string      $padrao    Arquivo padrão caso não tenha ID
+     * @param  string      $ext       Extensão para coloca no final do nome do arquivo
      * @return string      Url do arquivo
      */
-    function arquivoPrivado(?string $id, array $parametro = [], string $padrao = '')
+    function arquivoPrivado(?string $id, array $parametro = [], string $padrao = '', string $ext = '')
     {
         if (empty($id)) {
             return $padrao;
@@ -1680,7 +1703,14 @@ if (!function_exists('arquivoPrivado')) {
         $chave = '3876b388a5d5a2417af13bc7d6335925c5e82695bf84873a3c1a2b34fb918a5a';
         $hash = openssl_encrypt($id, $cifra, $chave, 0, $iv);
 
-        return LINK_ARQUIVO_PRIVADO . '/aqiorvd.' . str_replace(['+', '/', '='], ['-', '_', ':'], $hash) . $query;
+        $ext = !empty($ext) ? '.' . $ext : '';
+        return LINK_ARQUIVO_PRIVADO . '/aqiorvd.' . str_replace(['+', '/', '='], ['-', '_', ':'], $hash) . $ext . $query;
+    }
+}
+if (!function_exists('imagemPrivada')) {
+    function imagemPrivada(?string $id, array $parametro = [], string $padrao = '')
+    {
+        return arquivoPrivado($id, $parametro, $padrao, 'png');
     }
 }
 if (!function_exists('arquivoPrivadoId')) {

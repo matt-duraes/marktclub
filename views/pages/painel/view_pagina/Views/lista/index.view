@@ -3,7 +3,7 @@ $empresa = (new \Helpers\ApiHelper(token: true))
     ->get('/comercial-empresa/select')
     ->array()['dado'] ?? [];
 
-$empresa = array_merge([
+$linkEmpresa = array_merge([
     '' => 'Escolha uma empresa',
     'geral' => 'Geral'
 ], $empresa);
@@ -76,7 +76,7 @@ $diretorio = 'c0ec7d2f-e3e6-48ea-9159-cbbc3a540896';
                     echo formSelectInputTag(
                         id: 'input_link_empresa',
                         class: 'bloco_link_tag display_none',
-                        select: formSelect(name: 'link_empresa_id', label: 'Empresa', placeholder: 'Empresa', lista: $empresa, class: 'bloco_link_empresa'),
+                        select: formSelect(name: 'link_empresa_id', label: 'Empresa', placeholder: 'Empresa', lista: $linkEmpresa, class: 'bloco_link_empresa'),
                         input: formUrl(name: 'link_empresa_url', label: 'Link', placeholder: 'Digite um link', class: 'bloco_link_url')
                     );
                 @end
@@ -100,6 +100,8 @@ $diretorio = 'c0ec7d2f-e3e6-48ea-9159-cbbc3a540896';
                     @? formInput(name: 'icone_altura', label: 'Altura', placeholder: 'Altura', class: 'bloco_icone_altura')
                 </div>
                 @? formSwitch(name: 'status', label: 'Status', check: false)
+
+                <div class="bloco_api_status bloco_linha display_none"></div>
                 <h2 class="bloco_api_status bloco_api_titulo display_none">API</h2>
                 @? formSwitch(name: 'api_status', label: 'Vai usar API?', class: 'bloco_api_status display_none')
                 <div class="bloco_row bloco_api_sim">
@@ -107,6 +109,28 @@ $diretorio = 'c0ec7d2f-e3e6-48ea-9159-cbbc3a540896';
                     @? formUri(name: 'api_uri', label: 'URI', placeholder: 'Digite a URI')
                 </div>
                 @? formIndiceValor(name: 'api_body', placeholder: ['Indice', 'Valor'], id: 'input_api_body', class: 'display_none bloco_api_sim bloco_api_body')
+                <div class="bloco_linha"></div>
+
+                <div class="bloco_checkbox sim oculto" id="bloco_empresa_ativa">
+                    <div class="titulo">Pode aparecer em:</div>
+                    <div class="conteudo">
+                        @ foreach($empresa as $id => $titulo):
+                        @? formCheckbox(name: 'empresa_ativa[]', label: $titulo, value: $id);
+                        @ endforeach;
+                    </div>
+                    <div class="botao_mais_menos botao_mais">Ver mais</div>
+                    <div class="botao_mais_menos botao_menos">Ver menos</div>
+                </div>
+                <div class="bloco_checkbox nao oculto" id="bloco_empresa_inativa">
+                    <div class="titulo">Não pode aparecer em:</div>
+                    <div class="conteudo">
+                        @ foreach($empresa as $id => $titulo):
+                        @? formCheckbox(name: 'empresa_inativa[]', label: $titulo, value: $id);
+                        @ endforeach;
+                    </div>
+                    <div class="botao_mais_menos botao_mais">Ver mais</div>
+                    <div class="botao_mais_menos botao_menos">Ver menos</div>
+                </div>
                 <div class="bloco_botao_direita">
                     <div class="botao" id="botao_add_html">Salvar</div>
                 </div>

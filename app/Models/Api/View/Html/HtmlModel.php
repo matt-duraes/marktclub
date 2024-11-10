@@ -94,13 +94,11 @@ final class HtmlModel extends ORM
 
     private function montarArrayRetorno($r)
     {
-        $painel = defined('TOKEN') && TOKEN['app']->audience != 'painel';
+        $painel = defined('TOKEN') && TOKEN['app']->audience == 'painel';
         return [
             'id'              => $r->uuid,
-            'empresa_ativa'   => !empty($r->id_admin_empresa_ativa) && is_array($r->id_admin_empresa_ativa)
-                ? $this->converterIdEmpresa($r->id_admin_empresa_ativa) : [],
-            'empresa_inativa' => !empty($r->id_admin_empresa_inativa) && is_array($r->id_admin_empresa_inativa)
-                ? $this->converterIdEmpresa($r->id_admin_empresa_inativa) : [],
+            'empresa_ativa'   => $this->converterIdEmpresa($r->id_admin_empresa_ativa),
+            'empresa_inativa' => $this->converterIdEmpresa($r->id_admin_empresa_inativa),
             'tipo'            => (new Tipo($r->tipo))->indice(),
             'local'           => (new Local($r->local))->indice(),
             'titulo_interno'  => $r->titulo_interno,
@@ -114,7 +112,7 @@ final class HtmlModel extends ORM
             'margem_esquerda' => $r->margem_esquerda,
             'margem_direita'  => $r->margem_direita,
             'margem_baixo'    => $r->margem_baixo,
-            'imagem_arquivo'  => $painel ? $r->imagem_arquivo : arquivoPrivado($r->imagem_arquivo),
+            'imagem_arquivo'  => $painel ? $r->imagem_arquivo : imagemPrivada($r->imagem_arquivo),
             'imagem_altura'   => $r->imagem_altura,
             'icone_tipo'      => (new IconeTipo($r->icone_tipo))->indice(),
             'icone_tamanho'   => $r->icone_tamanho,
@@ -138,9 +136,13 @@ final class HtmlModel extends ORM
         ];
     }
 
-    private function converterIdEmpresa(array $lista)
+    private function converterIdEmpresa($empresa)
     {
+        $empresa = jsonDecode($empresa, true, true);
+        if (empty($empresa)) {
+            return [];
+        }
         $Empresa = new EmpresaModel();
-        return $Empresa->mudarListaIdParaUuid($lista);
+        return $Empresa->mudarListaIdParaUuid($empresa);
     }
 }

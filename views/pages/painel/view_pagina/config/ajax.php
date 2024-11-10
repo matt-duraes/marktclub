@@ -5,14 +5,14 @@ $Painel = new PainelConfig\Ajax();
 return $Painel
     ->grupo('salvar-html', function () use ($Painel) {
         $Painel
-            ->request(App\Classes\View\Lista\Helper::PARAMETROS_LISTAR)
+            ->request(str_replace('editor', '!editor', App\Classes\View\Lista\Helper::PARAMETROS_LISTAR))
             ->permissao('view_pagina_index')
             ->metodo('post')
             ->rota('/view-html');
     })
     ->grupo('atualizar-html', function () use ($Painel) {
         $Painel
-            ->request(App\Classes\View\Lista\Helper::PARAMETROS_LISTAR)
+            ->request(str_replace('editor', '!editor', App\Classes\View\Lista\Helper::PARAMETROS_LISTAR))
             ->permissao('view_pagina_index')
             ->metodo('put')
             ->rota('/view-html/{id}');

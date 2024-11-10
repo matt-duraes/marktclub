@@ -187,19 +187,79 @@
         textoFontSize()
         cursor: pointer
     .bloco_icone_tipo
-        max-width: 180px
+        max-width: 120px
         margin-right: 20px
     .bloco_icone_tamanho
-        max-width: 120px
+        max-width: 80px
         margin-right: 20px
     .bloco_icone_nome
         flexGrow()
         margin-right: 20px
     .bloco_icone_altura
-        max-width: 120px
-    .bloco_icone_borda
+        max-width: 80px
+    .bloco_icone_borda_cor
     .bloco_icone_bg
     .bloco_icone_cor
         margin-right: 20px
-    .bloco_api_titulo
-        margin-top: 30px
+    .bloco_linha
+        width: 100%
+        height: 1px
+        background-color: #CCC
+        margin: 20px 0
+    .bloco_checkbox
+        width: 100%
+        flexCol()
+        margin-bottom: 20px
+        align-items: center
+        position: relative
+        &.nao
+            margin-bottom: 0
+    .bloco_checkbox .titulo
+        width: 100%
+        texto()
+        color: #333
+        padding: 5px 10px
+        border-radius: 5px 5px 0 0
+    .bloco_checkbox.sim .titulo
+        background-color: $cor
+        color: #FFF
+    .bloco_checkbox.nao .titulo
+        background-color: $corDeletar
+        color: #FFF
+    .bloco_checkbox .conteudo
+        width: 100%
+        flexRow()
+        flex-wrap: wrap
+        border: 1px solid #CCC
+        padding: 0 0 20px 20px
+        border-radius: 0 0 5px 5px
+        overflow: hidden
+        padding-bottom: 40px
+    .bloco_checkbox.oculto .conteudo
+        max-height: 90px
+        padding-bottom: 0
+    .bloco_checkbox.sim .conteudo
+        border-color: $cor
+    .bloco_checkbox.nao .conteudo
+        border-color: $corDeletar
+    .bloco_checkbox .conteudo .input_checkbox
+        width: calc((100% / 4) - 20px)
+        margin: 20px 20px 0 0
+    .bloco_checkbox .botao_mais_menos
+        width: calc(100% - 10px)
+        height: 30px
+        line-height: 30px
+        cursor: pointer
+        position: absolute
+        bottom: 1px
+        text-align: center
+        background-image: linear-gradient(to bottom, rgba(0, 0, 0, 0), #fff, #fff);
+        color: #666
+    .bloco_checkbox .botao_mais
+        display: none
+    .bloco_checkbox .botao_menos
+        display: block
+    .bloco_checkbox.oculto .botao_mais
+        display: block
+    .bloco_checkbox.oculto .botao_menos
+        display: none

@@ -38,18 +38,18 @@ final class BuscarModel extends ClubeApiHelper
             ->object()->dado;
         $busca->html = $this->montarRetorno($busca->html);
         $this->busca = $busca;
-
         sessao($sessao, $this->busca);
     }
 
     private function montarRetorno($dado)
     {
+        $empresa = sessao('CLUBE')->empresa;
         $retorno = [];
         foreach ($dado as $r) {
-            if(
+            if (
                 $r->status != 'sim' ||
-                (!empty($r->empresa_ativa) && !in_array(EMPRESA_ID, $r->empresa_ativa)) ||
-                (!empty($r->empresa_inativa) && in_array(EMPRESA_ID, $r->empresa_inativa))
+                (!empty($r->empresa_ativa) && !in_array($empresa, $r->empresa_ativa)) ||
+                (!empty($r->empresa_inativa) && in_array($empresa, $r->empresa_inativa))
             ) {
                 continue;
             }

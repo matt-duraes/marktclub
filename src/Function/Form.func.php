@@ -1724,7 +1724,7 @@ if (!function_exists('formCor')) {
 
         $background = 'background: ' . $value;
         if ($value == 'padrao') {
-            $background = 'background: linear-gradient(45deg, #ff0000, #ff7f00, #ffff00, #00ff00, #0000ff, #4b0082, #9400d3) 50px 45px;';
+            $background = 'background: linear-gradient(to left, #e32746 0px, #e32746 10px, #08c969 10px, #08c969 20px, #272de3 20px, #272de3 30px, #e327da 30px, #e327da 40px, #fcba03 40px, #fcba03 50px);';
         }
 
         return '

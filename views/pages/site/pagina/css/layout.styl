@@ -4,7 +4,6 @@
 @system "Documento"
 @resource "site/banner"
 @import "banner"
-@import "margem"
 @import "titulo_texto"
 @import "div"
 @import "campanha"
@@ -29,6 +28,11 @@
     display: flex
 .com_aparecer_app
     display: none
+
+.com_aparecer_geral.com_pai_editor
+.com_aparecer_site.com_pai_editor
+.com_aparecer_app.com_pai_editor
+    display: block
 
 .com_direcao_linha
     flex-direction: row
