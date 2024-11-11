@@ -1996,18 +1996,18 @@ if (!function_exists('imagem')) {
 
         $parametroAtual = explode('?', $path)[1] ?? '';
         $parametroNovo = [];
-        if(!empty($cache) && (empty($parametroAtual) || !preg_match('/(^c\=[^&]{1,})|\&c=[^&]{1,}/', $parametroAtual))) {
-            $parametroNovo['c'] = $cache;
+        if (!empty($cache) && (empty($parametroAtual) || !preg_match('/(^c\=[^&]{1,})|\&c=[^&]{1,}/', $parametroAtual))) {
+            $parametroNovo[] = 'c=' . $cache;
         }
-        if(!empty($largura) && !empty($altura)) {
+        if (!empty($largura) && !empty($altura)) {
             $redirecionarIndice = $cortar ? 'whc' : 'wh';
-            $parametroNovo[$redirecionarIndice] = $largura . 'x' . $altura;
+            $parametroNovo[] = $redirecionarIndice . '=' . $largura . 'x' . $altura;
         }
 
         $simbolo = str_contains($path, '?') ? '&' : '?';
         $parametroNovo = !empty($parametroNovo) ? $simbolo . implode('&', $parametroNovo) : '';
 
-        $link = preg_match('/^http[s]?\:\/\//', $path) ? $path : LINK_PADRAO . $path;
+        $link = preg_match('/^http[s]?\:\/\//', $path) ? $path : LINK_PADRAO . '/' . $path;
         return $link . $parametroNovo;
     }
 }

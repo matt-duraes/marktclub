@@ -257,16 +257,16 @@ function fazerReplaceNoConteudo(conteudo, path) {
                 if (echoImagem) {
                     htmlTemp =
                         htmlTemp.replace(
-                            /\@ ?imagem ?\(? ?([^\)| |\;|\"|\'|,]{1,}),? ?([0-9]{0,4}),? ?([0-9]{0,4}),? ?(true|false)?(\)| \)| )?/gi,
-                            '<?= imagem("$1", $2, $3, $4); ?>'
+                            /\@ ?imagem ?\(? ?([^\)| |\;|\"|\'|,]{1,})(, ?[0-9]{0,4})?(, ?[0-9]{0,4})?(, ?true|false)?(\)| \)| )?/gi,
+                            '<?= imagem("$1"$2$3$4); ?>'
                         ) + '\n';
                 }
                 // @imagem(imagem.png);
                 if (echoBgImagem) {
                     htmlTemp =
                         htmlTemp.replace(
-                            /\@ ?bgImagem ?\(? ?([^\)| |\;|\"|\'|,]{1,}),? ?([0-9]{0,4}),? ?([0-9]{0,4}),? ?(true|false)?(\)| \)| )?/gi,
-                            'background-image: url(<?= imagem("$1", $2, $3, $4); ?>)'
+                            /\@ ?bgImagem ?\(? ?([^\)| |\;|\"|\'|,]{1,})(, ?[0-9]{0,4})?(, ?[0-9]{0,4})?(, ?true|false)?(\)| \)| )?/gi,
+                            'background-image: url(<?= imagem("$1"$2$3$4); ?>)'
                         ) + '\n';
                 }
                 // @LINK;
