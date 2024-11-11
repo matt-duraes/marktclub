@@ -21,7 +21,7 @@
     <div class="bloco_geral_imagem_esquerda bloco_plano_saude">
         <div class="bloco_plano">
             <figure>
-                <img src="@imagem /images/site/home_saude.jpg, 50, 50, true" alt="">
+                <img src="@imagem /images/site/home_saude.jpg" alt="">
             </figure>
             <header>
                 <h1>Que tal um plano de saúde feito para você?</h1>
