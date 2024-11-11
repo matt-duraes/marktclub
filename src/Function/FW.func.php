@@ -1989,17 +1989,25 @@ if (!function_exists('implodeE')) {
 }
 
 if (!function_exists('imagem')) {
-    function imagem(string $path)
+    function imagem(string $path, int $largura = 0, int $altura = 0, bool $cortar = false): string
     {
         $path = preg_replace('/^\//', '', $path);
         $cache = env('CACHE_VERSAO', '');
-        $parametro = explode('?', $path)[1] ?? '';
-        $cache = !empty($cache) && (empty($parametro) || !preg_match('/(^c\=[^&]{1,})|\&c=[^&]{1,}/', $parametro)) ? 'c=' . $cache : '';
-        $simbolo = '';
-        if (!empty($cache)) {
-            $simbolo = str_contains($path, '?') ? '&' : '?';
+
+        $parametroAtual = explode('?', $path)[1] ?? '';
+        $parametroNovo = [];
+        if(!empty($cache) && (empty($parametroAtual) || !preg_match('/(^c\=[^&]{1,})|\&c=[^&]{1,}/', $parametroAtual))) {
+            $parametroNovo['c'] = $cache;
         }
+        if(!empty($largura) && !empty($altura)) {
+            $redirecionarIndice = $cortar ? 'whc' : 'wh';
+            $parametroNovo[$redirecionarIndice] = $largura . 'x' . $altura;
+        }
+
+        $simbolo = str_contains($path, '?') ? '&' : '?';
+        $parametroNovo = !empty($parametroNovo) ? $simbolo . implode('&', $parametroNovo) : '';
+
         $link = preg_match('/^http[s]?\:\/\//', $path) ? $path : LINK_PADRAO . $path;
-        return $link . $simbolo . $cache;
+        return $link . $parametroNovo;
     }
 }
