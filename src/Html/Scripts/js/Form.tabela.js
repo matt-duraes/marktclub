@@ -218,6 +218,10 @@ fwFormTabelaPegarValor = tabela => {
     return retorno;
 };
 fwFormTabelaSetarValor = (tabela, valor) => {
+    if (typeof valor === 'string' && validarJson(valor)) {
+        valor = JSON.parse(valor);
+    }
+
     const headerConteudo = $('.fw_form_tabela_header .fw_form_tabela_linha_conteudo', tabela);
     const linhaConteudo = $('.fw_form_tabela_conteudo', tabela);
     if (headerConteudo) {

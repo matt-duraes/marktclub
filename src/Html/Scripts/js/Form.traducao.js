@@ -9,6 +9,9 @@ const fwFormTraducaoPegarValor = input => {
     };
 };
 const fwFormTraducaoSetarValor = (input, valor) => {
+    if (typeof valor === 'string' && validarJson(valor)) {
+        valor = JSON.parse(valor);
+    }
     const eObject = typeof valor === 'object';
     $('.form_input_traducao_br', input).value = eObject && 'br' in valor ? valor.br : '';
     $('.form_input_traducao_en', input).value = eObject && 'en' in valor ? valor.en : '';

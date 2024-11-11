@@ -65,6 +65,11 @@ const fwFormValueSelectInputTagValor = (bloco, valor) => {
         blocoInput.valor('');
         return;
     }
+
+    if (typeof valor === 'string' && validarJson(valor)) {
+        valor = JSON.parse(valor);
+    }
+
     blocoSelectValor.valor('');
     blocoInput.valor('');
     for (const indice in valor) {

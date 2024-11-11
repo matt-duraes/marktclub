@@ -65,7 +65,7 @@ final class DiretoriaModel extends ORM implements
                 'cargo'        => $r->cargo,
                 'grupo'        => $Grupo->indice($r->grupo),
                 'data_criacao' => $r->data_criacao,
-                'imagem'       => !empty($r->imagem) ? arquivoPrivado($r->imagem) : '',
+                'imagem'       => !empty($r->imagem) ? imagemPrivada($r->imagem) : '',
                 'status'       => $Status->indice($r->status)
             ];
         }

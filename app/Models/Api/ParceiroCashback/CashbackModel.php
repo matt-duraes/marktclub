@@ -2,16 +2,16 @@
 
 namespace App\Models\Api\ParceiroCashback;
 
-use App\Classes\ParceiroCashback\Categoria;
 use ORM\ORM;
 use stdClass;
 use Modules\Pagina;
 use Modules\Quantidade;
-use System\Trait\Model\OrdemTrait;
 use App\Classes\Geral\Status;
+use System\Trait\Model\OrdemTrait;
 use System\Trait\Model\PaginaTrait;
 use App\Classes\ParceiroCashback\Ordem;
 use System\Trait\Model\QuantidadeTrait;
+use App\Classes\ParceiroCashback\Categoria;
 use App\Models\Api\Trait\ValidarEmpresaTrait;
 
 class CashbackModel extends ORM
@@ -58,7 +58,7 @@ class CashbackModel extends ORM
             $retorno[] = [
                 'id'              => $r->uuid,
                 'titulo'          => $r->titulo,
-                'imagem'          => arquivoPrivado($r->imagem),
+                'imagem'          => imagemPrivada($r->imagem),
                 'url'             => $r->url,
                 'data_criacao'    => $r->data_criacao,
                 'comissao_minima' => $r->comissao_minima,

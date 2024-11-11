@@ -11,7 +11,6 @@ use App\Models\Site\Loja\ListarModel;
 use App\Classes\ParceiroLoja\TipoLoja;
 use App\Models\Site\Pagina\BuscarModel;
 use App\Models\Site\Turismo\PromocaoModel;
-use App\Models\Site\Comunicacao\BannerModel;
 
 final class TurismoController extends Controller
 {
@@ -21,16 +20,11 @@ final class TurismoController extends Controller
      */
     public function index(): Response
     {
-        // $Pagina = new BuscarModel('turismo');
-        // return view('pagina', [
-        //     'menu'    => 'turismo',
-        //     'html'    => $Pagina->html,
-        //     'url'     => 'turismo'
-        // ]);
+        $Pagina = new BuscarModel('turismo');
         return view('turismo.index', [
-            'menu'         => 'turismo',
-            'banner'       => (new BannerModel())->turismo(),
-            'tipo'         => 'turismo',
+            'menu' => 'turismo',
+            'html' => $Pagina->html,
+            'tipo' => 'turismo',
         ]);
     }
 

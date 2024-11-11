@@ -1,7 +1,12 @@
 <?php
 
 if (!function_exists('tema')) {
-    function tema()
+    /**
+     * Verifica qual tema vai ser usado
+     *
+     * @return retorna light para tema claro e dark para tema escuro
+     */
+    function tema(): string
     {
         $tema = cookieExiste('TEMA') ? cookie('TEMA') : 'light';
         $tema = in_array($tema, ['light', 'automatico', 'dark', 'sistema']) ? $tema : 'light';

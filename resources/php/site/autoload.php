@@ -29,10 +29,14 @@ if (!function_exists('strLang')) {
             $br = object_key_exists('br', $texto) ? $texto->br : '';
             $en = object_key_exists('en', $texto) ? $texto->en : $br;
             $es = object_key_exists('es', $texto) ? $texto->es : $br;
+        } elseif (is_array($texto)) {
+            $br = array_key_exists('br', $texto) ? $texto['br'] : '';
+            $en = array_key_exists('en', $texto) ? $texto['en'] : $br;
+            $es = array_key_exists('es', $texto) ? $texto['es'] : $br;
         } else {
-            $br = $texto;
-            $en = $texto;
-            $es = $texto;
+            $br = is_string($texto) ? $texto : '';
+            $en = $br;
+            $es = $br;
         }
         return <<<EOF
             <span class="lang_br">$br</span>

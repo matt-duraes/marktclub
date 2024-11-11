@@ -95,7 +95,7 @@ final class LojaModel extends ORM implements ModelListarInterface
                 'id'            => $r->uuid,
                 'titulo'        => $r->titulo,
                 'tipo'          => $tipo,
-                'imagem'        => arquivoPrivado($r->imagem),
+                'imagem'        => imagemPrivada($r->imagem),
                 'link'          => $link[$tipo],
                 'data_validade' => $r->data_validade,
                 'status'        => $Status->indice($r->status)

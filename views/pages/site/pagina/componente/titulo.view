@@ -1,4 +1,4 @@
-<h1 class="com_titulo">
+<h1 {!!$View->class()->css()!!}>
     @php
         componenteLoading($r->lista);
     @end

@@ -1,4 +1,4 @@
-<aside class="com_relacionado" data-id="{{$r->id}}">
+<aside {!!$View->class()->css()!!} data-id="{{$r->id}}">
     @php
         componenteLoading($r->lista);
     @end

@@ -232,10 +232,12 @@ function fazerReplaceNoConteudo(conteudo, path) {
             const echoHtml = linha.match(/\{\{(.*)\}\}/g);
             const echoPuro = linha.match(/\{\!\!(.*)\!\!\}/g);
             const echoIcone = linha.match(/\@\ ?icone/g);
+            const echoImagem = linha.match(/\@\ ?imagem/g);
+            const echoBgImagem = linha.match(/\@\ ?bgImagem/g);
             const echoLink = linha.match(/\@\ ?LINK/g);
             const echoRoute = linha.match(/\@\ ?route/g);
 
-            if (echoHtml || echoPuro || echoIcone || echoLink || echoRoute) {
+            if (echoHtml || echoPuro || echoIcone || echoLink || echoRoute || echoImagem) {
                 let htmlTemp = linha;
                 // {{ $teste }}
                 if (echoHtml) {
@@ -250,6 +252,22 @@ function fazerReplaceNoConteudo(conteudo, path) {
                     htmlTemp =
                         htmlTemp.replace(/\@\ ?icone([a-zA-Z0-9\_]+)\(?([0-9\.]*)\)?(.*)/, '<?= icone$1($2); ?>$3') +
                         '\n';
+                }
+                // @imagem(imagem.png);
+                if (echoImagem) {
+                    htmlTemp =
+                        htmlTemp.replace(
+                            /\@ ?imagem ?\(? ?([^\)| |\;|\"|\']{1,})(\)| \)| )?/gi,
+                            '<?= imagem("$1"); ?>'
+                        ) + '\n';
+                }
+                // @imagem(imagem.png);
+                if (echoBgImagem) {
+                    htmlTemp =
+                        htmlTemp.replace(
+                            /\@ ?bgImagem ?\(? ?([^\)| |\;|\"|\']{1,})(\)| \)| )?/gi,
+                            'background-image: url(<?= imagem("$1"); ?>)'
+                        ) + '\n';
                 }
                 // @LINK;
                 if (echoLink) {
