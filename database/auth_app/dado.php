@@ -1,6 +1,6 @@
 <?php
 
-$scope = App\Classes\AuthApp\Scope::TUDO;
+use App\Classes\AuthApp\Scope;
 
 return [
     [
@@ -92,15 +92,14 @@ EwIDAQAB
         'authorization_code' => '1',
         'client_credentials' => '1',
         'refresh_token'      => '1',
-        'redirect_uri'       => '["localhost.com:4000","localhost.com:8000","127.0.0.1", "localhost:4000"]',
-        'scope_permitido'    => $scope,
+        'redirect_uri'       => '["painel.local:4000"]',
+        'scope_permitido'    => Scope::TUDO,
         'campo_permitido'    => '{"usuario:salvar":["nome","cpf","email_trabalho","senha","telefone_celular"],"usuario:atualizar":["nome","cpf","email_trabalho","senha","telefone_celular"],"usuario:buscar":["uuid","nome","cpf"],"usuario:listar":["uuid","nome","cpf"]}',
         'tempo_vida'         => '50000',
         'data_criacao'       => '2023-07-04 17:22:05',
         'data_atualizacao'   => '2023-07-04 17:22:05',
         'status'             => '1'
     ],
-
     [
         'id'                 => '2',
         'uuid'               => '5add7e1c-3da1-4c0f-90b4-da17d4f05eca',
@@ -191,11 +190,108 @@ FQIDAQAB
         'client_credentials' => '2',
         'refresh_token'      => '1',
         'redirect_uri'       => '["clube.markt.club"]',
-        'scope_permitido'    => $scope,
+        'scope_permitido'    => Scope::TUDO,
         'campo_permitido'    => '{"usuario:salvar":["nome","cpf","email_trabalho","senha","telefone_celular"],"usuario:atualizar":["nome","cpf","email_trabalho","senha","telefone_celular"],"usuario:buscar":["uuid","nome","cpf"],"usuario:listar":["uuid","nome","cpf"]}',
         'tempo_vida'         => '50000',
-        'data_criacao'       => '2023-07-05 17:22:05',
-        'data_atualizacao'   => '2023-07-05 16:08:51',
+        'data_criacao'       => date('Y-m-d H:i:s'),
+        'data_atualizacao'   => date('Y-m-d H:i:s'),
         'status'             => '1'
-    ]
+    ],
+    [
+        'id'                 => '3',
+        'uuid'               => '39b74f05-f063-4086-ad89-b9fa1cda7ced',
+        'id_admin_empresa'   => '1',
+        'nome'               => 'App Clube Login',
+        'descricao'          => 'App para a pagina de login',
+        'imagem_app'         => null,
+        'chave_privada'      => '-----BEGIN PRIVATE KEY-----
+MIIEvQIBADANBgkqhkiG9w0BAQEFAASCBKcwggSjAgEAAoIBAQChTyeXtF0uiC7Y
+r8WXzgVrx36O1nOg7xRKhX1+4jt5ZcOwZemyfySbthbTzEjCs6X+92P7/s+BuH7B
+ONQbiuezNgtXLb1kAHfa2gXzmgBqqh9XfavGY+OBWzH63MekYZdAiOX9y/gUmKHN
+bJoX3x/3RRCEGG/aJtXv/zZ42ULbQsrfovO9MvXexeiqaKQodjnJ5PK0eHanym+N
+zfr4XyUhrF4F02XFMTsEKRMCK50qQyAs0cwqDAVdRnSfex4z1xbPhLskTLApZHzE
+f7yNbxXZ63rmCadYHOpy54rlYeXUbFvIeM50bgrePiMPqZ7VR5W7G2Qxld08y+Fi
+38Nnhh9jAgMBAAECggEARi7MSSL+T9qMl1aSn+PRU/1uQPNpR6H9sBa4bVY9DiqK
+o9sTfMf4w47MC8ab+ap0FKTKab+JxSTicWsqTfl3qe9fq8SI3FOf0iZ95GkiuUXf
+cQ+Khzy6pXNqIX2hlxGm3zsw5eWywDNQYrJXsP8xR0JTV0XSlJXFCzB9IMNWZVLP
+N4tNNS70KGFRjxWJamVTXKgSibyyLs9M3j0GnoFRKi9Q1C2aVUDaRlgtERarRWwX
+xZtNtKoFq+QEUAH14StJ45a8BCzZB7LutIYYiGzGQnG3RcgyFVj8WbKBJidRP8hG
+haxtao+gQRnOSnpUXz2j4d3IjMYx4zJQSZp9rpfS8QKBgQDUHRFYi+FNOiuT/tB7
+7y9Ky2UekQi+sDe6+MpsNAXCJMm6GlRBn3Y7z6FOddBPyp+8vZMg6MC/Bn5pLTsl
+tr2vlOOYB+WRGsqt5bADhIbSTdxZCHTWVJWwSlbshr2IICHUdfVxDF5lDXMgrZ4Z
+Lv0Tzo59FpKbdUA2Tprq6RpyNwKBgQDCrydRPr+p5+gwXAVlwobcA8P6sR3pUJqg
+fkzmjvv2zo3le23F5/gEFBj75UJ3OnmO1k2Yvhv5tAMi6iiAyIEbrgusl7MVLSBi
+p2RIMax/9VqWGY83Illn7CKO4rkOiz9t0ztZ5WvTtHCWgA/gtXIk/NuHW89ACw8F
+j4fPc8JWNQKBgDHEtDozb+Sf3nO2GRLLNyx0dsBqRUQAssLS9yPWPPeljBN3dAeF
+s8cq220+ZWcjYsF1NZ1GH1ty2Zwx+avKqc0VwST9zVZzk9SjjN32bW/Qxv+45TkY
+1ZpshuKuZrAW4fkoyDMDNO6+7iFfuzWrecP49iPRdQq2wx866Exv7z2XAoGBAJD/
+eS4WqRN3iMRz1QVMU7sMBuvw/JEoGnJMfyP8/IZ+osp3GnQa5+rJuS3rO4ynfZ+3
+1wVbGmTpAKkBc3cvXpFqGIHMXnH4MTWo7JSkgpCvAW/ny3XJ3IL9KWP4UtIVPgGj
+III80AlWS8Cb0rePDFumBC8VXw+Y7PA8TW9iDSy9AoGAJJoMTQLQ9VsNZg9omvWR
+xtfdsB8XwQC++lzWmOWeRc1fsbWbSky/Bu9WestA5Y89dpVc+6i6kWb5o4ep3Qy7
+X81+18MfwgZrCtWh38b2tEOvvm9uyn89/eRG41uzARQgGCU8GPkF8LKtUVcEQocx
+7ma6LIemXeV/H/t7RlvrWz0=
+-----END PRIVATE KEY-----',
+        'chave_privada_fake' => '-----BEGIN PRIVATE KEY-----
+MIIEvQIBADANBgkqhkiG9w0BAQEFAASCBKcwggSjAgEAAoIBAQChTyeXtF0uiC7Y
+r8WXzgVrx36O1nOg7xRKhX1+4jt5ZcOwZemyfySbthbTzEjCs6X+92P7/s+BuH7B
+ONQbiuezNgtXLb1kAHfa2gXzmgBqqh9XfavGY+OBWzH63MekYZdAiOX9y/gUmKHN
+bJoX3x/3RRCEGG/aJtXv/zZ42ULbQsrfovO9MvXexeiqaKQodjnJ5PK0eHanym+N
+zfr4XyUhrF4F02XFMTsEKRMCK50qQyAs0cwqDAVdRnSfex4z1xbPhLskTLApZHzE
+f7yNbxXZ63rmCadYHOpy54rlYeXUbFvIeM50bgrePiMPqZ7VR5W7G2Qxld08y+Fi
+38Nnhh9jAgMBAAECggEARi7MSSL+T9qMl1aSn+PRU/1uQPNpR6H9sBa4bVY9DiqK
+o9sTfMf4w47MC8ab+ap0FKTKab+JxSTicWsqTfl3qe9fq8SI3FOf0iZ95GkiuUXf
+cQ+Khzy6pXNqIX2hlxGm3zsw5eWywDNQYrJXsP8xR0JTV0XSlJXFCzB9IMNWZVLP
+N4tNNS70KGFRjxWJamVTXKgSibyyLs9M3j0GnoFRKi9Q1C2aVUDaRlgtERarRWwX
+xZtNtKoFq+QEUAH14StJ45a8BCzZB7LutIYYiGzGQnG3RcgyFVj8WbKBJidRP8hG
+haxtao+gQRnOSnpUXz2j4d3IjMYx4zJQSZp9rpfS8QKBgQDUHRFYi+FNOiuT/tB7
+7y9Ky2UekQi+sDe6+MpsNAXCJMm6GlRBn3Y7z6FOddBPyp+8vZMg6MC/Bn5pLTsl
+tr2vlOOYB+WRGsqt5bADhIbSTdxZCHTWVJWwSlbshr2IICHUdfVxDF5lDXMgrZ4Z
+Lv0Tzo59FpKbdUA2Tprq6RpyNwKBgQDCrydRPr+p5+gwXAVlwobcA8P6sR3pUJqg
+fkzmjvv2zo3le23F5/gEFBj75UJ3OnmO1k2Yvhv5tAMi6iiAyIEbrgusl7MVLSBi
+p2RIMax/9VqWGY83Illn7CKO4rkOiz9t0ztZ5WvTtHCWgA/gtXIk/NuHW89ACw8F
+j4fPc8JWNQKBgDHEtDozb+Sf3nO2GRLLNyx0dsBqRUQAssLS9yPWPPeljBN3dAeF
+s8cq220+ZWcjYsF1NZ1GH1ty2Zwx+avKqc0VwST9zVZzk9SjjN32bW/Qxv+45TkY
+1ZpshuKuZrAW4fkoyDMDNO6+7iFfuzWrecP49iPRdQq2wx866Exv7z2XAoGBAJD/
+eS4WqRN3iMRz1QVMU7sMBuvw/JEoGnJMfyP8/IZ+osp3GnQa5+rJuS3rO4ynfZ+3
+1wVbGmTpAKkBc3cvXpFqGIHMXnH4MTWo7JSkgpCvAW/ny3XJ3IL9KWP4UtIVPgGj
+III80AlWS8Cb0rePDFumBC8VXw+Y7PA8TW9iDSy9AoGAJJoMTQLQ9VsNZg9omvWR
+xtfdsB8XwQC++lzWmOWeRc1fsbWbSky/Bu9WestA5Y89dpVc+6i6kWb5o4ep3Qy7
+X81+18MfwgZrCtWh38b2tEOvvm9uyn89/eRG41uzARQgGCU8GPkF8LKtUVcEQocx
+7ma6LIemXeV/H/t7RlvrWz0=
+-----END PRIVATE KEY-----',
+        'chave_publica'      => '-----BEGIN PUBLIC KEY-----
+MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAoU8nl7RdLogu2K/Fl84F
+a8d+jtZzoO8USoV9fuI7eWXDsGXpsn8km7YW08xIwrOl/vdj+/7Pgbh+wTjUG4rn
+szYLVy29ZAB32toF85oAaqofV32rxmPjgVsx+tzHpGGXQIjl/cv4FJihzWyaF98f
+90UQhBhv2ibV7/82eNlC20LK36LzvTL13sXoqmikKHY5yeTytHh2p8pvjc36+F8l
+IaxeBdNlxTE7BCkTAiudKkMgLNHMKgwFXUZ0n3seM9cWz4S7JEywKWR8xH+8jW8V
+2et65gmnWBzqcueK5WHl1GxbyHjOdG4K3j4jD6me1UeVuxtkMZXdPMvhYt/DZ4Yf
+YwIDAQAB
+-----END PUBLIC KEY-----',
+        'chave_publica_fake' => '-----BEGIN PUBLIC KEY-----
+MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAoU8nl7RdLogu2K/Fl84F
+a8d+jtZzoO8USoV9fuI7eWXDsGXpsn8km7YW08xIwrOl/vdj+/7Pgbh+wTjUG4rn
+szYLVy29ZAB32toF85oAaqofV32rxmPjgVsx+tzHpGGXQIjl/cv4FJihzWyaF98f
+90UQhBhv2ibV7/82eNlC20LK36LzvTL13sXoqmikKHY5yeTytHh2p8pvjc36+F8l
+IaxeBdNlxTE7BCkTAiudKkMgLNHMKgwFXUZ0n3seM9cWz4S7JEywKWR8xH+8jW8V
+2et65gmnWBzqcueK5WHl1GxbyHjOdG4K3j4jD6me1UeVuxtkMZXdPMvhYt/DZ4Yf
+YwIDAQAB
+-----END PUBLIC KEY-----',
+        'secret_id'          => '30129-sECNjC3Fmbu7u%Amv3WB7qIL6aL!Ox1hmF!kMz7A#vGob8VHY%niGbeeGVARDGoqFU*4anpn%E',
+        'secret_id_fake'     => '30129-sECNjC3Fmbu7u%Amv3WB7qIL6aL!Ox1hmF!kMz7A#vGob8VHY%niGbeeGVARDGoqFU*4anpn%E',
+        'client_id'          => '8019373376-0PIohZFZGh1$Jjn%AVxnik*itnXWiea%CvQQuRm2%TGmmuXsHRGz!Sk7oJYaS0xQzJri8C!xDI.localhost.com',
+        'client_id_fake'     => '8019373376-0PIohZFZGh1$Jjn%AVxnik*itnXWiea%CvQQuRm2%TGmmuXsHRGz!Sk7oJYaS0xQzJri8C!xDI.localhost.com',
+        'audience'           => 'web',
+        'authorization_code' => '1',
+        'client_credentials' => '1',
+        'refresh_token'      => '1',
+        'redirect_uri'       => '["localhost.com:4000","localhost.com:8000","127.0.0.1", "localhost:4000", "localhost:8000]',
+        'scope_permitido'    => Scope::TUDO,
+        'campo_permitido'    => '{"usuario:salvar":["nome","cpf","email_trabalho","senha","telefone_celular"],"usuario:atualizar":["nome","cpf","email_trabalho","senha","telefone_celular"],"usuario:buscar":["uuid","nome","cpf"],"usuario:listar":["uuid","nome","cpf"]}',
+        'tempo_vida'         => '300',
+        'data_criacao'       => date('Y-m-d H:i:s'),
+        'data_atualizacao'   => date('Y-m-d H:i:s'),
+        'status'             => '1'
+    ],
 ];
