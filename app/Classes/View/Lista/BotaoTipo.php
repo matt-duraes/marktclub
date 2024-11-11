@@ -16,11 +16,11 @@ final class BotaoTipo extends StatusStatus
         protected string|int|null $valor = null
     ) {
         parent::__construct([
-            self::VOLTAR => 'Voltar',
-            self::NORMAL => 'Normal',
-            self::CINZA => 'Cinza',
+            self::VOLTAR       => 'Voltar',
+            self::NORMAL       => 'Normal',
+            self::CINZA        => 'Cinza',
             self::BORDA_NORMAL => 'Borda normal',
-            self::BORDA_CINZA => 'Borda cinza',
+            self::BORDA_CINZA  => 'Borda cinza',
         ]);
     }
 }

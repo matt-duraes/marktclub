@@ -1987,3 +1987,19 @@ if (!function_exists('implodeE')) {
         return trim($retorno);
     }
 }
+
+if (!function_exists('imagem')) {
+    function imagem(string $path)
+    {
+        $path = preg_replace('/^\//', '', $path);
+        $cache = env('CACHE_VERSAO', '');
+        $parametro = explode('?', $path)[1] ?? '';
+        $cache = !empty($cache) && (empty($parametro) || !preg_match('/(^c\=[^&]{1,})|\&c=[^&]{1,}/', $parametro)) ? 'c=' . $cache : '';
+        $simbolo = '';
+        if (!empty($cache)) {
+            $simbolo = str_contains($path, '?') ? '&' : '?';
+        }
+        $link = preg_match('/^http[s]?\:\/\//', $path) ? $path : LINK_PADRAO . $path;
+        return $link . $simbolo . $cache;
+    }
+}

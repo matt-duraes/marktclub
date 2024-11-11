@@ -123,7 +123,6 @@ final class SolicitacaoEntity extends Entity
     }
 
     /**
-     * @return void
      * @throws Excecao
      * @throws TypeException
      */
@@ -135,7 +134,6 @@ final class SolicitacaoEntity extends Entity
     }
 
     /**
-     * @return void
      * @throws Excecao
      * @throws TypeException
      */

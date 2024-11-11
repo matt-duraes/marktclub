@@ -790,8 +790,8 @@ return [
         'status'              => 4
     ],
     [
-        'id' => 18138,
-        'uuid' => '53e78ad604c8df17b89d3f38921c66d4',
+        'id'                  => 18138,
+        'uuid'                => '53e78ad604c8df17b89d3f38921c66d4',
         'categoria_principal' => '4',
         'subcategoria_lista'  => [],
         'titulo_interno'      => 'Samsung',
@@ -806,8 +806,8 @@ return [
         'texto_procedimento'  => 'Texto de procedimento do parceiro',
         'texto_voucher'       => 'Texto para o voucher do parceiro',
         'tipo_procedimento'   => 1,
-        'destaque'            => [1,2,3,4,5,6,7,8],
-        'id_admin_empresa'    => [1,2,3,4,5,6,7,8],
+        'destaque'            => [1, 2, 3, 4, 5, 6, 7, 8],
+        'id_admin_empresa'    => [1, 2, 3, 4, 5, 6, 7, 8],
         'data_publicacao'     => dataPassadaAleatorio(),
         'data_auditoria'      => dataPassadaAleatorio(),
         'endereco_estado'     => $estados,
