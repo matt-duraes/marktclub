@@ -3,7 +3,7 @@ $empresa = (new \Helpers\ApiHelper(token: true))
     ->get('/comercial-empresa/select')
     ->array()['dado'] ?? [];
 
-$empresa = array_merge([
+$linkEmpresa = array_merge([
     '' => 'Escolha uma empresa',
     'geral' => 'Geral'
 ], $empresa);
@@ -16,25 +16,44 @@ $diretorio = 'c0ec7d2f-e3e6-48ea-9159-cbbc3a540896';
     <header class="header_fieldset">
         <h2>HTML</h2>
     </header>
-    <div class="lista_dado">
+    <div class="bloco_row">
         <div class="botao_link" id="botao_view_abrir">Adicionar item</div>
+        <div class="botao_link botao_borda" id="botao_abrir_margem">Ver margem</div>
     </div>
     <div class="bloco_conteudo conteudo_drag" id="bloco_view_conteudo">
         <div class="loading">Carregando HTML</div>
     </div>
 </div>
 
+<div class="display_none" id="botao_salvar_alteracao">Atualizar</div>
+
 <div class="display_none">
-    <article id="bloco_linha_padrao">
-        <header>
-            <i class="drag">@iconeDrag</i>
-            <h1></h1>
-            <div class="status"><span></span></div>
-            <i class="deletar icone">@iconeDeletar(14)</i>
-            <i class="editar icone">@iconeEditar(10)</i>
-            <i class="mais icone">+</i>
-        </header>
-        <div class="lista conteudo_drag display_none">
+    <article class="item_pai" id="bloco_linha_padrao">
+        <div class="margem_topo margem">
+            <input type="text" class="margem_input" inputmode="numeric" placeholder="00">
+        </div>
+        <div class="conteudo_linha">
+            <div class="margem_esquerda margem">
+                <input type="text" class="margem_input" inputmode="numeric" placeholder="00">
+            </div>
+            <div class="conteudo_geral">
+                <header>
+                    <i class="drag">@iconeDrag</i>
+                    <h1></h1>
+                    <span class="status"></span>
+                    <i class="deletar icone">@iconeDeletar(14)</i>
+                    <i class="editar icone">@iconeEditar(10)</i>
+                    <i class="mais icone">+</i>
+                </header>
+                <div class="lista conteudo_drag">
+                </div>
+            </div>
+            <div class="margem_direita margem">
+                <input type="text" class="margem_input margem_direita" inputmode="numeric" placeholder="00">
+            </div>
+        </div>
+        <div class="margem_baixo margem">
+            <input type="text" class="margem_input" inputmode="numeric" placeholder="00">
         </div>
     </article>
 </div>
@@ -47,23 +66,17 @@ $diretorio = 'c0ec7d2f-e3e6-48ea-9159-cbbc3a540896';
         <div class="conteudo_pagina_popup">
             <form action="/" class="form_geral">
                 <input type="hidden" id="input_id">
-                @? formSelect(name: 'tipo', label: 'Tipo de item', placeholder: 'Escolha um tipo', lista: (new \App\Classes\View\Lista\Tipo())->select('Escolha um tipo'), obrigatorio: true)
+                @? formSelect(name: 'tipo', label: 'Tipo de item', placeholder: 'Escolha um tipo', lista: (new \App\Classes\View\Lista\Tipo())->select('Escolha um tipo'), obrigatorio: true, class: 'bloco_tipo')
                 @? formSelect(name: 'local', label: 'Local', placeholder: 'Onde vai aparecer?', lista: (new \App\Classes\View\Lista\Local())->select('Escolha um local'), obrigatorio: true)
                 @? formInput(name: 'titulo_interno', label: 'Título interno', placeholder: 'Digite um título interno', obrigatorio: true)
                 @? formSelect(name: 'botao_tipo', label: 'Tipo do botão', placeholder: 'Escolha um tipo', lista: (new \App\Classes\View\Lista\BotaoTipo())->select('Escolha uma opção'), obrigatorio: true, class: 'bloco_botao_tipo display_none')
                 @? formInputTraducao(name: 'titulo', label: 'Título', obrigatorio: true, class: 'bloco_titulo display_none')
                 @? formInputTraducao(name: 'texto', label: 'Texto', obrigatorio: true, class: 'bloco_texto display_none')
-                <div class="bloco_row bloco_margem display_none">
-                    @? formNumero(name: 'margem_topo', label: 'Topo', placeholder: 'Margem topo')
-                    @? formNumero(name: 'margem_direita', label: 'Topo', placeholder: 'Margem direita')
-                    @? formNumero(name: 'margem_baixo', label: 'Topo', placeholder: 'Margem baixo')
-                    @? formNumero(name: 'margem_esquerda', label: 'Topo', placeholder: 'Margem esquerda')
-                </div>
                 @php
                     echo formSelectInputTag(
                         id: 'input_link_empresa',
                         class: 'bloco_link_tag display_none',
-                        select: formSelect(name: 'link_empresa_id', label: 'Empresa', placeholder: 'Empresa', lista: $empresa, class: 'bloco_link_empresa'),
+                        select: formSelect(name: 'link_empresa_id', label: 'Empresa', placeholder: 'Empresa', lista: $linkEmpresa, class: 'bloco_link_empresa'),
                         input: formUrl(name: 'link_empresa_url', label: 'Link', placeholder: 'Digite um link', class: 'bloco_link_url')
                     );
                 @end
@@ -79,12 +92,16 @@ $diretorio = 'c0ec7d2f-e3e6-48ea-9159-cbbc3a540896';
                 @? formNumero(name: 'imagem_altura', label: 'Altura', placeholder: 'Altura da imagem', class: 'bloco_imagem display_none')
                 <div class="bloco_row bloco_icone display_none">
                     @? formSelect(name: 'icone_tipo', label: 'Tipo', placeholder: 'Tipo de ícone', lista: (new \App\Classes\View\Lista\IconeTipo())->select('Tipo de ícone'), class: 'bloco_icone_tipo')
-                    @? formInput(name: 'icone_tamanho', label: 'Tamanho', placeholder: 'Tamanho', class: 'bloco_icone_tamanho display_none')
-
+                    @? formInput(name: 'icone_tamanho', label: 'Tamanho', placeholder: 'Tamanho', class: 'bloco_icone_tamanho ')
+                    @? formCor(name: 'icone_borda_cor', label: 'Cor da borda', class: 'bloco_icone_borda_cor display_none', padrao: 'Cor do clube')
+                    @? formCor(name: 'icone_cor', label: 'Cor do ícone', class: 'bloco_icone_cor', padrao: 'Cor do clube')
+                    @? formCor(name: 'icone_bg', label: 'Cor do background', class: 'bloco_icone_bg', padrao: 'Cor do clube')
                     @? formInput(name: 'icone_nome', label: 'Nome', placeholder: 'Nome do ícone', class: 'bloco_icone_nome')
                     @? formInput(name: 'icone_altura', label: 'Altura', placeholder: 'Altura', class: 'bloco_icone_altura')
                 </div>
                 @? formSwitch(name: 'status', label: 'Status', check: false)
+
+                <div class="bloco_api_status bloco_linha display_none"></div>
                 <h2 class="bloco_api_status bloco_api_titulo display_none">API</h2>
                 @? formSwitch(name: 'api_status', label: 'Vai usar API?', class: 'bloco_api_status display_none')
                 <div class="bloco_row bloco_api_sim">
@@ -92,6 +109,28 @@ $diretorio = 'c0ec7d2f-e3e6-48ea-9159-cbbc3a540896';
                     @? formUri(name: 'api_uri', label: 'URI', placeholder: 'Digite a URI')
                 </div>
                 @? formIndiceValor(name: 'api_body', placeholder: ['Indice', 'Valor'], id: 'input_api_body', class: 'display_none bloco_api_sim bloco_api_body')
+                <div class="bloco_linha"></div>
+
+                <div class="bloco_checkbox sim oculto" id="bloco_empresa_ativa">
+                    <div class="titulo">Pode aparecer em:</div>
+                    <div class="conteudo">
+                        @ foreach($empresa as $id => $titulo):
+                        @? formCheckbox(name: 'empresa_ativa[]', label: $titulo, value: $id);
+                        @ endforeach;
+                    </div>
+                    <div class="botao_mais_menos botao_mais">Ver mais</div>
+                    <div class="botao_mais_menos botao_menos">Ver menos</div>
+                </div>
+                <div class="bloco_checkbox nao oculto" id="bloco_empresa_inativa">
+                    <div class="titulo">Não pode aparecer em:</div>
+                    <div class="conteudo">
+                        @ foreach($empresa as $id => $titulo):
+                        @? formCheckbox(name: 'empresa_inativa[]', label: $titulo, value: $id);
+                        @ endforeach;
+                    </div>
+                    <div class="botao_mais_menos botao_mais">Ver mais</div>
+                    <div class="botao_mais_menos botao_menos">Ver menos</div>
+                </div>
                 <div class="bloco_botao_direita">
                     <div class="botao" id="botao_add_html">Salvar</div>
                 </div>

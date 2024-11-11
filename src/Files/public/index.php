@@ -17,6 +17,12 @@ if (file_exists(__DIR__ . '/../database/tabela.php')) {
     require_once __DIR__ . '/../database/tabela.php';
 }
 
+$__cacheVida = env('CACHE_VIDA', '');
+if (!empty($__cacheVida)) {
+    header('Expires: ' . gmdate('D, d M Y H:i:s', time() + $__cacheVida) . ' GMT');
+    header('Cache-Control: max-age=' . $__cacheVida);
+    header('Pragma: cache');
+}
 header('Strict-Transport-Security: max-age=63072000; includeSubDomains; preload');
 header('X-Frame-Options: DENY');
 

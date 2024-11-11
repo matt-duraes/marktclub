@@ -12,6 +12,12 @@ const formValue = (input, valor, obrigatorio) => {
         }
         fwFormTabelaSetarValor(input, valor);
         return;
+    } else if (input.classList.contains('input_cor') || input.classList.contains('input_cor_input')) {
+        if (valor === undefined) {
+            return fwFormCorPegarValor(input);
+        }
+        fwFormCorSetarValor(input, valor);
+        return;
     } else if (input.classList.contains('form_input_traducao')) {
         if (valor === undefined) {
             return fwFormTraducaoPegarValor(input);

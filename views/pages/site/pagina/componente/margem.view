@@ -1,1 +1,0 @@
-<div class="com_margem" style="margin-top: {{$r->margem}}px"></div>

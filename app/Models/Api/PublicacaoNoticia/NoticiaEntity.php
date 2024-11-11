@@ -82,9 +82,9 @@ final class NoticiaEntity extends Entity
 
     protected function regraPosBuscar()
     {
-        $this->imagem_grande = !empty($this->imagem_grande) ? arquivoPrivado($this->imagem_grande) : '';
-        $this->imagem_pequena = !empty($this->imagem_pequena) ? arquivoPrivado($this->imagem_pequena) : '';
-        $this->imagem_social = !empty($this->imagem_social) ? arquivoPrivado($this->imagem_social) : '';
+        $this->imagem_grande = !empty($this->imagem_grande) ? imagemPrivada($this->imagem_grande) : '';
+        $this->imagem_pequena = !empty($this->imagem_pequena) ? imagemPrivada($this->imagem_pequena) : '';
+        $this->imagem_social = !empty($this->imagem_social) ? imagemPrivada($this->imagem_social) : '';
 
         $this->publicado = new Publicado(
             $this->data_inicio,

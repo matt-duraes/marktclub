@@ -1,4 +1,4 @@
-<p class="com_texto">
+<p {!!$View->class()->css()!!}>
     @php
         componenteLoading($r->lista);
     @end

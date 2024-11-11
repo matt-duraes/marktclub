@@ -1,4 +1,4 @@
-<?php 
+<?php
 
 define('TABELA_ALBUM_DADO', 'album_dado');
 define('TABELA_ALBUM_FOTO', 'album_foto');

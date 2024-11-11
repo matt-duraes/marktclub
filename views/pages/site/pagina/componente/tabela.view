@@ -37,8 +37,10 @@ foreach($header as $i => $r) {
     $tamanhoTotal += $r->tamanho > 0 ? $r->tamanho : 0;
 }
 
+$viewTabela = $View->css()->class();
+
 echo <<<EOF
-<div class="com_tabela">
+<div $viewTabela>
     <div class="com_tabela_scroll">
         <div class="com_tabela_conteudo">
 EOF;

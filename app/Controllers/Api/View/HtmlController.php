@@ -6,6 +6,7 @@ use Http\Request;
 use Http\Response;
 use Controller\Controller;
 use App\Models\Api\View\Html\HtmlModel;
+use App\Models\Api\View\Html\GrupoModel;
 use App\Models\Api\View\Html\HtmlEntity;
 use System\Interface\ControllerBuscarInterface;
 use System\Interface\ControllerListarInterface;
@@ -68,6 +69,12 @@ final class HtmlController extends Controller implements
         $Html->set(lista: $dado);
         $Html->salvar();
 
+        return new Response(status: 204);
+    }
+
+    public function putGrupo(Request $request): Response
+    {
+        new GrupoModel(grupo: $request->grupo);
         return new Response(status: 204);
     }
 
