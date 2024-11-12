@@ -18,8 +18,10 @@ final class RetornoModel
         $Favorito = new FavoritoModel();
         foreach ($dado as $r) {
             $link = route('loja.detalhe');
+            $url = $r->url;
             if ($r->tipo_loja === TipoLoja::PAGINA) {
                 $link = LINK;
+                $url = preg_replace('/\:[a-zA-Z0-9\-\_]{1,}/', '', $r->url);
             } elseif ($r->tipo_loja == TipoLoja::FARMACIA) {
                 $link = route('farmacia.detalhe');
             } elseif ($r->tipo_loja == TipoLoja::AUTOMOVEL) {
@@ -29,7 +31,7 @@ final class RetornoModel
             } elseif ($r->tipo_loja == TipoLoja::PREMIUM) {
                 $link = route('premium.detalhe');
             }
-            $link = $link . '/' . $r->url;
+            $link = $link . '/' . $url;
 
             $estadoArray = jsonDecode($r->endereco_estado, true, true);
             $estadoNumero = count($estadoArray);
