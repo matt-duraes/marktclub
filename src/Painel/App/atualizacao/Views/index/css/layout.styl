@@ -44,14 +44,23 @@
         font-size: 1.2rem
         color: #999
         font-weight: normal
-    .paginacao
-        margin-top: 40px
+    .bloco_paginacao
+        margin-top: 20px
         flexRow()
         align-items: center
         border: 1px solid #CCC
         border-right: none
-    .paginacao a
+    .bloco_paginacao .botao_pagina
         width: 40px
         height: 40px
         border-right: 1px solid #CCC
+        textoFontSize()
         flexCenter()
+        &:hover
+            background-color: $cor
+            color: #FFF
+        &.hover
+        &.hover:hover
+            cursor: default
+            background-color: #CCC
+            color: #666

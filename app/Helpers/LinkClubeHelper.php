@@ -14,7 +14,7 @@ final class LinkClubeHelper
         $this->link = str_replace(
             [
                 'https://clube.markt.club', 'https://clube.marktclub.com.br', 'http://clube.markt.club',
-                'http://clube.marktclub.com.br'
+                'http://clube.marktclub.com.br', 'https://clube.youhuul.com', 'https://clube.youhuul.com.br'
             ],
             LINK,
             $link

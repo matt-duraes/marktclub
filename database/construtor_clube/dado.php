@@ -6,7 +6,7 @@ return [
         'uuid'                      => 'b7ecc8af-25c1-4981-a891-cc60c3464f6c',
         'id_admin_empresa'          => 1,
         'titulo'                    => 'Markt Club',
-        'link_clube'                => 'localhost.com',
+        'link_clube'                => 'clube.local',
         'logo_principal'            => '936c2cff-9944-4818-82ac-d7313193c08c',
         'logo_secundaria'           => '2a2210de-ea43-449a-9d3f-158c24ec3eac',
         'favicon'                   => '2d388efe-bc69-4bd0-bcbb-01084e41b9ad',
