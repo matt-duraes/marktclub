@@ -31,7 +31,7 @@ final class BannerModel extends ClubeApiHelper
             ->json([
                 'pagina'     => 1,
                 'quantidade' => 50,
-                'tipo'       => Tipo::CARTAOSAMSUNG,
+                'tipo'       => Tipo::CARTAO_SAMSUNG,
                 'publicado'  => Botao::SIM
             ])
             ->get('/comunicacao-publicidade')
