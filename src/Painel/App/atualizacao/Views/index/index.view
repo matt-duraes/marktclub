@@ -15,7 +15,11 @@
     @ if( $pagina->total > 1 ):
     <div class="bloco_paginacao">
         @ foreach( $pagina->paginacao as $numero ):
-        <a href="@route('atualizacao.index')?pagina={{$numero}}" class="pagina">{{$numero}}</a>
+            @ if( $pagina->atual == $numero ):
+        <div class="botao_pagina hover">{{$numero}}</div>
+            @ else:
+        <a href="@route('atualizacao.index')?pagina={{$numero}}" class="botao_pagina">{{$numero}}</a>
+            @ endif;
         @ endforeach;
     </div>
     @ endif;
