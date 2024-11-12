@@ -103,7 +103,7 @@ final class LoginClubeModel
             body: $payload,
             scope: [],
             audience: $App->audience,
-            redirectUri: 'clube.markt.club',
+            redirectUri: 'clube.youhuul.com.br',
             state: $this->state,
             tipo: new TokenTipo(TokenTipo::CLUBE),
             empresa: $this->idEmpresa

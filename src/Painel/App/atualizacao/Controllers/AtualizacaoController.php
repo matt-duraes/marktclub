@@ -5,15 +5,19 @@ namespace PainelApp\atualizacao\Controllers;
 use Http\Request;
 use Helpers\ApiHelper;
 use Controller\Controller;
+use App\Classes\PublicacaoNoticia\Tipo;
 
 final class AtualizacaoController extends Controller
 {
     public function index(Request $request)
     {
+        $pagina = $request->pagina;
         $noticia = (new ApiHelper(token: true))
             ->json([
-                'publicado' => 'sim',
-                'pagina'    => 1
+                'tipo' => Tipo::PAINEL,
+                'publicado'  => 'sim',
+                'pagina'     => !empty($pagina) && preg_match('/^[1-9]{1}[0-9]{0,}$/', $pagina) ? $pagina : 1,
+                'quantidade' => 10
             ])
             ->get('/publicacao-noticia')
             ->object();

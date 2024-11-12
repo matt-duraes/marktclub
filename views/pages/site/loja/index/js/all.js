@@ -241,7 +241,8 @@ window.addEventListener('load', () => {
     async function iniciarMapa() {
         const { Map } = await google.maps.importLibrary('maps');
         const option = {
-            scrollwheel: false,
+            scrollwheel: true,
+            gestureHandling: 'greedy',
             zoom: 13,
             center: { lat: MAPA.latitude, lng: MAPA.longitude },
             disableDefaultUI: true,
