@@ -17,10 +17,11 @@ final class SamsungController extends Controller
         $empresa = sessao('CLUBE')->empresa;
         $url = $this->parceiroSamsungPorEmpresa($empresa);
         $dadosParceiro = (new BuscarModelLoja(url: $url))->buscarSamsung();
+
         return view('samsung', [
             'menu'            => 'samsung',
             'banner'          => (new BannerModel())->home(),
-            'bannerFixo'      => (new BannerModel())->samsungFixo(),
+            'bannerFixo'      => (new BannerModel())->samsungCartao(),
             'link'            => $dadosUsuario->link,
             'email'           => $dadosUsuario->email,
             'pessoal'         => $dadosUsuario->pessoal,

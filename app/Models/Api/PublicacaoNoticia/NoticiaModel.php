@@ -61,8 +61,11 @@ final class NoticiaModel extends GeralModel implements
     private function pegarWhere()
     {
         $where = $this->ormWherePadrao;
-        $publicado = $this->publicado->valido();
+        if($this->tipo->valido() && $this->tipo->indice() === Tipo::PAINEL) {
+            $where = [];
+        }
 
+        $publicado = $this->publicado->valido();
         if ($this->status->valido() && !$publicado) {
             $where[] = ['status', $this->status->numero()];
         }
