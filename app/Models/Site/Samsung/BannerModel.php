@@ -81,7 +81,6 @@ final class BannerModel extends ClubeApiHelper
 
     public function samsungFixo(): object
     {
-
         return (object)[
             'desktop' => [
                 (object) [

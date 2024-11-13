@@ -56,7 +56,7 @@ final class TokenAuthorizationEntity extends Entity
                 titulo: 'Erro!',
                 mensagem: 'Redirect Uri não está autorizado a criar token.',
                 status: 403,
-                localhost: 'Redirect Uri ('.$redirectUri.') não está salvo no banco.'
+                localhost: 'Redirect Uri (' . $redirectUri . ') não está salvo no banco.'
             );
         } elseif (empty($audience)) {
             mensagemErro('Campo incorreto!', 'Não foi enviado o audience do app.');

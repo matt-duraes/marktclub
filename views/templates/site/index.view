@@ -51,20 +51,17 @@
 
     <div id="bloco_fw_ajuda"></div>
 
+    @ if( CHAT ):
+    <a id="botao_chat_whatsapp" class="botao_chat {{isset($mapa) && $mapa ? 'chat_mapa' : ''}} {{$webview ? 'display_none_webview' : ''}}" href="https://wa.me/5561993546881" target="_blank" rel="noopener noreferrer">@iconeWhatsapp(30)</a>
+    @ endif;
+
+    <div id="bloco_fw_calendario"></div>
+
     <script src="https://apis.google.com/js/platform.js" async defer></script>
     <script src="https://apis.google.com/js/api.js"></script>
     <script src="https://accounts.google.com/gsi/client" async defer></script>
 
     @JS
-    <div id="bloco_fw_calendario"></div>
-
-    @ if( CHAT ):
-    <a class="
-        botao_chat
-        {{isset($mapa) && $mapa ? 'chat_mapa' : ''}}
-        {{$webview ? 'display_none_webview' : ''}}
-    " href="https://wa.me/5561993546881" target="_blank" rel="noopener noreferrer">@iconeWhatsapp(30)</a>
-    @ endif;
 </body>
 
 </html>

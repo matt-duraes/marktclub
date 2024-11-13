@@ -2,7 +2,7 @@
 
 return [
     [
-        'id_api_app'    => ['1','2','3'],
+        'id_api_app'    => ['1', '2', '3'],
         'nome_usuario'  => 'App de teste',
         'login_usuario' => 'teste',
         'salt'          => password(123456),
