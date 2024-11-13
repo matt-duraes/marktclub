@@ -1,22 +1,22 @@
 <?php
 
-namespace App\Models\Api\SolicitacaoLoja;
+namespace App\Models\Api\SolicitacaoDeclaracao;
 
-use App\Classes\SolicitacaoLoja\Ordem;
-use App\Classes\SolicitacaoLoja\Status;
-use App\Models\Api\Trait\ValidarEmpresaTrait;
+use ORM\ORM;
+use stdClass;
 use Erro\Excecao;
 use Modules\Data;
 use Modules\Pagina;
 use Modules\Quantidade;
-use ORM\ORM;
-use stdClass;
-use System\Interface\ModelListarInterface;
 use System\Trait\Model\OrdemTrait;
+use App\Classes\Solicitacao\Status;
 use System\Trait\Model\PaginaTrait;
 use System\Trait\Model\QuantidadeTrait;
+use System\Interface\ModelListarInterface;
+use App\Classes\SolicitacaoDeclaracao\Ordem;
+use App\Models\Api\Trait\ValidarEmpresaTrait;
 
-class SolicitacaoModel extends ORM implements
+class DeclaracaoModel extends ORM implements
     ModelListarInterface
 {
     use ValidarEmpresaTrait;
@@ -24,13 +24,14 @@ class SolicitacaoModel extends ORM implements
     use QuantidadeTrait;
     use OrdemTrait;
 
-    protected string $ormTabela = TABELA_SOLICITACAO_LOJA;
+    protected string $ormTabela = TABELA_SOLICITACAO_DECLARACAO;
 
     /**
      * @param Pagina      $pagina
      * @param Quantidade  $quantidade
      * @param Ordem       $ordem
-     * @param string|null $nome
+     * @param string|null $titulo
+     * @param string|null $empresa
      * @param Data        $dataInicio
      * @param Data        $dataFinal
      * @param Status      $status
@@ -41,26 +42,27 @@ class SolicitacaoModel extends ORM implements
         private readonly Pagina $pagina = new Pagina(),
         private readonly Quantidade $quantidade = new Quantidade(),
         private readonly Ordem $ordem = new Ordem(),
-        private readonly ?string $nome = null,
+        private readonly ?string $titulo = null,
+        private readonly ?string $empresa = null,
         private readonly Data $dataInicio = new Data(),
         private readonly Data $dataFinal = new Data(),
         private readonly Status $status = new Status()
     ) {
-        $this->validarDado();
         $this->validarEmpresa();
+        $this->validarDados();
         parent::__construct();
     }
 
     /**
      * @throws Excecao
      */
-    private function validarDado(): void
+    private function validarDados(): void
     {
         if (!$this->dataInicio->vazio() && !$this->dataInicio->eDate()) {
-            mensagemErro('Campo inválido!', 'A Data início não está no formato válido.');
+            mensagemErro('Campo inválido!', 'A data início não está no formato válido.');
         }
         if (!$this->dataFinal->vazio() && !$this->dataFinal->eDate()) {
-            mensagemErro('Campo inválido!', 'A Data final não está no formato válido.');
+            mensagemErro('Campo inválido!', 'A data final não está no formato válido.');
         }
         if (!$this->ordem->vazio() && !$this->ordem->valido()) {
             mensagemErro('Campo inválido!', 'A Ordem informada não é válida.');
@@ -78,17 +80,28 @@ class SolicitacaoModel extends ORM implements
     {
         $dado = $this
             ->campo([
-                'uuid', 'id_admin_empresa', 'nome', 'email',
-                'telefone', 'status', 'data_criacao'
+                'uuid', 'status', 'data_criacao', 'data_atualizacao'
             ])
             ->where($this->pegarWhere(), false)
             ->pagina($this->pegarPagina(), $this->pegarQuantidade())
             ->order($this->pegarOrdem(new Ordem()))
-            ->tabela(TABELA_CONSTRUTOR_CLUBE)
-            ->join('id_admin_empresa', 'id_admin_empresa')
+            ->tabela(TABELA_COMERCIAL_EMPRESA)
+            ->join('id', 'id_admin_empresa')
+            ->where($this->pegarWhereEmpresa(), false)
+            ->campo([
+                'nome_fantasia'
+            ], 'empresa')
+            ->tabela(TABELA_USUARIO_CLIENTE)
+            ->join('id', 'id_usuario_cliente')
+            ->campo([
+                'nome'
+            ], 'usuario')
+            ->tabela(TABELA_PARCEIRO_LOJA)
+            ->join('id', 'id_parceiro_loja')
+            ->where($this->pegarWhereParceiro(), false)
             ->campo([
                 'titulo'
-            ], 'clube')
+            ], 'parceiro')
             ->read();
 
         $dado->lista = $this->montarRetorno($dado->lista);
@@ -98,21 +111,14 @@ class SolicitacaoModel extends ORM implements
     /**
      * @return array
      */
-    private function pegarWhere(): array
+    protected function pegarWhere(): array
     {
         $where = $this->ormWherePadrao;
 
-        if (!empty($this->nome)) {
-            $where[] = ['nome', 'LIKE', '%' . $this->nome . '%'];
-        }
-
-        if ($this->dataInicio->valido() && $this->dataFinal->valido()) {
-            $where[] = [
-                'data_criacao', 'between', [$this->dataInicio->date(), $this->dataFinal->date() . ' 23:59:59']
-            ];
-        } elseif ($this->dataInicio->valido()) {
+        if ($this->dataInicio->valido()) {
             $where[] = ['data_criacao', '>=', $this->dataInicio->date()];
-        } elseif ($this->dataFinal->valido()) {
+        }
+        if ($this->dataFinal->valido()) {
             $where[] = ['data_criacao', '<=', $this->dataFinal->date() . ' 23:59:59'];
         }
 
@@ -124,29 +130,58 @@ class SolicitacaoModel extends ORM implements
     }
 
     /**
-     * @param array $solicitacoes
-     *
+     * Pegar parceiro selecionado no filtro
      * @return array
-     */
-    private function montarRetorno(array $solicitacoes): array
+    */
+    private function pegarWhereParceiro(): array
     {
-        if (empty($solicitacoes)) {
-            return $solicitacoes;
+        $where = $this->ormWherePadrao;
+
+        if (!empty($this->titulo)) {
+            $where[] = ['titulo', 'LIKE', '%' . $this->titulo . '%'];
+        }
+
+        return $where;
+    }
+
+    /**
+     * Pegar empresa selecionada no filtro
+     * @return array
+    */
+    private function pegarWhereEmpresa(): array
+    {
+        $where = $this->ormWherePadrao;
+
+        if (!empty($this->empresa)) {
+            $where[] = ['nome_fantasia', 'LIKE', '%' . $this->empresa . '%'];
+        }
+
+        return $where;
+    }
+
+    protected function montarRetorno(array $declaracoes): array
+    {
+        if (empty($declaracoes)) {
+            return $declaracoes;
         }
 
         $Status = new Status();
         $retorno = [];
-        foreach ($solicitacoes as $solicitacao) {
+        foreach ($declaracoes as $declaracao) {
             $retorno[] = [
-                'id'           => $solicitacao->uuid,
-                'clube'        => [
-                    'titulo' => $solicitacao->clube_titulo
+                'id'               => $declaracao->uuid,
+                'empresa'          => [
+                    'nome' => $declaracao->empresa_nome_fantasia
                 ],
-                'nome'         => $solicitacao->nome,
-                'email'        => $solicitacao->email,
-                'telefone'     => $solicitacao->telefone,
-                'status'       => $Status->indice($solicitacao->status),
-                'data_criacao' => $solicitacao->data_criacao
+                'usuario'          => [
+                    'nome' => $declaracao->usuario_nome
+                ],
+                'parceiro'         => [
+                    'nome' => $declaracao->parceiro_titulo
+                ],
+                'status'           => $Status->indice($declaracao->status),
+                'data_criacao'     => $declaracao->data_criacao,
+                'data_atualizacao' => $declaracao->data_atualizacao
             ];
         }
         return $retorno;
