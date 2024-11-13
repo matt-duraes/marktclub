@@ -207,51 +207,6 @@ exports.buildArquivosPublico = () => {
         .pipe(dest('./' + public));
 };
 
-exports.buildBaixandoUpdate = async () => {
-    await fsDeletarDiretorio('./files/upgrade');
-    return src(['./']).pipe(plumber()).pipe(exec('git clone git@github.com:marktclub/framework.git files/upgrade'));
-};
-
-exports.buildCopiandoUpdate = async () => {
-    if (!(await fsVerificarSeArquivoExiste('./files/upgrade/src'))) {
-        mensagemErro('Não foi encontrado o download para fazer upgrade.');
-        mensagemErro('Execute "gulp update" para baixar a atualização.');
-        return Promise.reject();
-    }
-
-    if (config == undefined) {
-        config = JSON.parse(fs.readFileSync('./files/config/gulp.json'));
-    }
-    const public = config.public;
-
-    await fsDeletarDiretorio('./src');
-    await fsCopiar('./files/upgrade/src', './src');
-    await fsCopiar('./files/upgrade/gulpfile.js', './gulpfile.js');
-    await fsDeletarDiretorio('./files/upgrade');
-
-    src('./src/Files/public/index.php')
-        .pipe(plumber())
-        .pipe(dest('./' + public));
-
-    return Promise.resolve();
-};
-
-exports.buildLimparFramework = async () => {
-    if (config == undefined) {
-        config = JSON.parse(fs.readFileSync('./files/config/gulp.json'));
-    }
-
-    const public = config.public;
-    await fsDeletarDiretorio('./app');
-    await fsDeletarDiretorio('./database');
-    await fsDeletarDiretorio('./resources');
-    await fsDeletarDiretorio('./tests');
-    await fsDeletarDiretorio('./routes');
-    await fsDeletarDiretorio('./views');
-    await fsDeletarDiretorio('./composer.json');
-    await fsDeletarDiretorio('./' + public);
-};
-
 exports.buildPaginaExemplo = async () => {
     if (fs.existsSync('./routes/SiteRoute.php')) {
         return Promise.resolve(true);
