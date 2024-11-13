@@ -17,7 +17,6 @@ const {
     buildGit,
     buildArquivosRaiz,
     buildArquivoConfigVsCode,
-    //buildArquivoConfigGithub,
     buildArquivosTeste,
     buildArquivosPublico,
     buildDiretorios,
@@ -31,6 +30,7 @@ const {
     buildCorrigindoComposer,
     buildCopiarIndex,
 } = require('./src/Gulpfile/build.js');
+
 const { limparArquivosDoMac, limparSessao } = require('./src/Gulpfile/clean.js');
 const { dockerComposerUp, dockerComposerDown } = require('./src/Gulpfile/docker.js');
 
@@ -78,7 +78,6 @@ exports.install = series(
     copiandoArquivoParaGit,
     copiandoArquivosDaRaiz,
     copiandoArquivoConfigDoVsCode,
-    //copiandoArquivoConfigDoGithub,
     copiandoArquivosDeteste,
     copiandoArquivosPublicos,
     parallel(
@@ -246,9 +245,6 @@ function copiandoArquivosDaRaiz() {
 function copiandoArquivoConfigDoVsCode() {
     return buildArquivoConfigVsCode();
 }
-//function copiandoArquivoConfigDoGithub() {
-//    return buildArquivoConfigGithub();
-//}
 function copiandoArquivosDeteste() {
     return buildArquivosTeste();
 }
