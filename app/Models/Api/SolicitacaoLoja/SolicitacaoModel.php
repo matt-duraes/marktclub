@@ -2,19 +2,19 @@
 
 namespace App\Models\Api\SolicitacaoLoja;
 
-use App\Classes\SolicitacaoLoja\Ordem;
-use App\Classes\SolicitacaoLoja\Status;
-use App\Models\Api\Trait\ValidarEmpresaTrait;
+use ORM\ORM;
+use stdClass;
 use Erro\Excecao;
 use Modules\Data;
 use Modules\Pagina;
 use Modules\Quantidade;
-use ORM\ORM;
-use stdClass;
-use System\Interface\ModelListarInterface;
 use System\Trait\Model\OrdemTrait;
 use System\Trait\Model\PaginaTrait;
+use App\Classes\SolicitacaoLoja\Ordem;
+use App\Classes\SolicitacaoLoja\Status;
 use System\Trait\Model\QuantidadeTrait;
+use System\Interface\ModelListarInterface;
+use App\Models\Api\Trait\ValidarEmpresaTrait;
 
 class SolicitacaoModel extends ORM implements
     ModelListarInterface
