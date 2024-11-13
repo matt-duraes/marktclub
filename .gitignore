@@ -27,3 +27,5 @@ composer.phar
 /php-cs-fixer.phar
 /cypress.local.json
 /tests/Frontend/config/screenshots
+/chave
+/env
