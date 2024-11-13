@@ -74,6 +74,7 @@ window.addEventListener('load', () => {
         if (false === resposta) {
             return;
         }
+        Alerta.notificacao('E-mail atualizado com sucesso.', true);
         adicionarNovoEmail(inputPessoal.value, inputTrabalho.value);
     };
 
