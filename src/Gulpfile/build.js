@@ -112,7 +112,7 @@ exports.buildEnv = async () => {
     const dbSenha = config.banco.senha;
 
     await fsCriarDiretorio('./env');
-    return src('./src/Files/raiz/.env')
+    return src('./src/Files/env/.env')
         .pipe(plumber())
         .pipe(replace('{{titulo}}', titulo))
         .pipe(replace('{{public}}', public.replace(/\//g, '')))
@@ -128,8 +128,6 @@ exports.buildArquivosRaiz = () => {
         './src/Files/raiz/.eslintignore',
         './src/Files/raiz/.prettierrc',
         './src/Files/raiz/adp.phar',
-        './src/Files/raiz/.chave_publica',
-        './src/Files/raiz/.chave_privada',
         './src/Files/raiz/.editorconfig',
         './src/Files/raiz/.php-cs-fixer.dist.php',
         './src/Files/raiz/php-cs-fixer.phar',
@@ -137,6 +135,11 @@ exports.buildArquivosRaiz = () => {
     ])
         .pipe(plumber())
         .pipe(dest('./'));
+};
+exports.buildArquivoChave = () => {
+    return src(['./src/Files/chave/.chave_publica', './src/Files/chave/.chave_privada'])
+        .pipe(plumber())
+        .pipe(dest('./chave'));
 };
 exports.buildArquivoErro = () => {
     return src('./src/Files/erro/lista.txt').pipe(plumber()).pipe(dest('./files/erro'));
@@ -174,6 +177,7 @@ exports.buildDiretorios = async () => {
     await fsCriarDiretorio('./files/sessions');
     await fsCriarDiretorio('./files/sessions');
     await fsCriarDiretorio('./' + public);
+    await fsCriarDiretorio('./chave');
     await fsCriarDiretorio('./resources');
     await fsCriarDiretorio('./resources/css');
     await fsCriarDiretorio('./resources/js');

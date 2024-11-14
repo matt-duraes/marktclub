@@ -1,6 +1,6 @@
 <?php
 
-namespace  App\Models\Site\Analytics;
+namespace App\Models\Site\Analytics;
 
 use Modules\Botao;
 use App\Helpers\ClubeApiHelper;

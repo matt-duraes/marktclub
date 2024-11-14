@@ -64,15 +64,16 @@ final class EnvConfig
 
         $env = $this->montarEnv($arquivo);
         $arquivoChave = __DIR__ . '/../../env/.env.chave';
-        if(file_exists($arquivoChave) && eLocalhost()) {
+        if (file_exists($arquivoChave) && $env['APP_TIPO'] == 'localhost') {
             $envChave = $this->montarEnv($arquivoChave);
-            foreach($envChave as $ind => $val) {
-                if(array_key_exists($ind, $env)) {
+            foreach ($envChave as $ind => $val) {
+                if (array_key_exists($ind, $env)) {
                     continue;
                 }
                 $env[$ind] = $val;
             }
         }
+
         $this->envUso = $env;
         $this->envProducao = $env;
         $this->setTipoArquivo($env['APP_TIPO'] ?? 'producao');
