@@ -37,7 +37,9 @@ window.addEventListener('load', () => {
     botaoTema.addEventListener('click', () => {
         PaginaThema.abrir();
     });
-    botaoTemaMobile.addEventListener('click', () => {
-        PaginaThema.abrir();
-    });
+    if (botaoTemaMobile) {
+        botaoTemaMobile.addEventListener('click', () => {
+            PaginaThema.abrir();
+        });
+    }
 });
