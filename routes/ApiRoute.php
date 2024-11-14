@@ -2814,7 +2814,7 @@ Route
             ::middleware(TokenMiddleware::class, 'scope', ['solicitacao_loja:listar'])
             ::request([
                 'pagina', '!quantidade', '!ordem', '!nome',
-                '!data_inicio', '!data_final', '!status'
+                '!data_inicio', '!data_final', '!status', '!empresa'
             ], 'json')
             ::get('/solicitacao-loja');
 
