@@ -1,7 +1,6 @@
 const { src } = require('gulp');
-const prop = require('yargs').argv;
 const prompt = require('gulp-prompt');
-const { fsCriarDiretorio } = require('./arquivo.js');
+const { fsCriarDiretorio, fsRemoverArquivoSeExistir, fsCriarArquivo } = require('./arquivo.js');
 const fs = require('fs');
 
 exports.configVerificar = async function () {
@@ -25,15 +24,6 @@ exports.configVerificar = async function () {
                             message: 'Digite o diretório público sem iniciar com "/" (padrão: public):',
                             validate: public => {
                                 return public != '' && !/^\//.test(public);
-                            },
-                        },
-                        {
-                            type: 'input',
-                            name: 'url',
-                            default: 'localhost',
-                            message: 'Digite a URL local sem o protocolo (padrao: localhost):',
-                            validate: url => {
-                                return !/^http(s)?\:\/\//.test(url);
                             },
                         },
                         {
@@ -110,7 +100,7 @@ exports.configVerificar = async function () {
                         {
                             type: 'input',
                             name: 'gitOrigin',
-                            message: 'Digite a url do Origin do GIT:',
+                            message: 'Digite o link ssh do Origin do projeto:',
                             validate: gitOrigin => {
                                 return gitOrigin != '';
                             },
@@ -118,30 +108,47 @@ exports.configVerificar = async function () {
                         {
                             type: 'input',
                             name: 'gitUpstream',
-                            message: 'Digite a url do Upstream do GIT:',
+                            message: 'Digite o link ssh do Upstream do projeto:',
                             validate: gitUpstream => {
                                 return gitUpstream != '';
+                            },
+                        },
+                        {
+                            type: 'input',
+                            name: 'gitEnv',
+                            message: 'Digite o link ssh do repositório ENV: (opcional):',
+                            validate: gitEnv => {
+                                return gitEnv != '';
+                            },
+                        },
+                        {
+                            type: 'input',
+                            name: 'gitFw',
+                            message: 'Digite o link ssh do repositório do Framework: (opcional):',
+                            validate: gitFw => {
+                                return gitFw != '';
                             },
                         },
                     ],
                     response => {
                         respostas = response;
                         console.log('');
-                        console.log('\x1b[1mGostaria de confirmar as respostas?\033[0m');
-                        console.log('Título: \x1b[1m' + response.titulo + '\033[0m');
-                        console.log('Diretório: \x1b[1m' + response.public + '\033[0m');
-                        console.log('Url: \x1b[1m' + response.url + '\033[0m');
-                        console.log('Porta HTTP: \x1b[1m' + response.dockerHttp + '\033[0m');
-                        console.log('Porta HTTPS: \x1b[1m' + response.dockerHttps + '\033[0m');
-                        console.log('Porta Banco: \x1b[1m' + response.dockerDb + '\033[0m');
-                        console.log('Porta PhpMyAdmin: \x1b[1m' + response.dockerPma + '\033[0m');
-                        console.log('Porta LiveServer: \x1b[1m' + response.browserProxy + '\033[0m');
-                        console.log('Nome do Banco: \x1b[1m' + response.dbNome + '\033[0m');
-                        console.log('Senha do Banco: \x1b[1m******\033[0m');
-                        console.log('virustotal.com: \x1b[1m' + response.virus + '\033[0m');
-                        console.log('Google: \x1b[1m' + response.google + '\033[0m');
-                        console.log('Git Origin: \x1b[1m' + response.gitOrigin + '\033[0m');
-                        console.log('Git Upstream: \x1b[1m' + response.gitUpstream + '\033[0m');
+                        console.log('\x1b[1mGostaria de confirmar as respostas?\x1b[0m');
+                        console.log('Título: \x1b[1m' + response.titulo + '\x1b[0m');
+                        console.log('Diretório: \x1b[1m' + response.public + '\x1b[0m');
+                        console.log('Porta HTTP: \x1b[1m' + response.dockerHttp + '\x1b[0m');
+                        console.log('Porta HTTPS: \x1b[1m' + response.dockerHttps + '\x1b[0m');
+                        console.log('Porta Banco: \x1b[1m' + response.dockerDb + '\x1b[0m');
+                        console.log('Porta PhpMyAdmin: \x1b[1m' + response.dockerPma + '\x1b[0m');
+                        console.log('Porta LiveServer: \x1b[1m' + response.browserProxy + '\x1b[0m');
+                        console.log('Nome do Banco: \x1b[1m' + response.dbNome + '\x1b[0m');
+                        console.log('Senha do Banco: \x1b[1m******\x1b[0m');
+                        console.log('virustotal.com: \x1b[1m' + response.virus + '\x1b[0m');
+                        console.log('Google: \x1b[1m' + response.google + '\x1b[0m');
+                        console.log('Git Origin: \x1b[1m' + response.gitOrigin + '\x1b[0m');
+                        console.log('Git Upstream: \x1b[1m' + response.gitUpstream + '\x1b[0m');
+                        console.log('Git Env: \x1b[1m' + response.gitEnv + '\x1b[0m');
+                        console.log('Git FrameWork: \x1b[1m' + response.gitFw + '\x1b[0m');
                     }
                 )
             )
@@ -152,7 +159,6 @@ exports.configVerificar = async function () {
     const titulo = respostas.titulo;
     const nome = titulo.replace(/[^a-zA-Z0-9]/g, '').toLowerCase();
     const public = respostas.public;
-    const url = respostas.url;
     const dockerHttp = respostas.dockerHttp;
     const dockerHttps = respostas.dockerHttps;
     const dockerDb = respostas.dockerDb;
@@ -164,13 +170,14 @@ exports.configVerificar = async function () {
     const google = respostas.google;
     const gitOrigin = respostas.gitOrigin;
     const gitUpstream = respostas.gitUpstream;
+    const gitEnv = respostas.gitEnv;
+    const gitFw = respostas.gitFw;
 
     let configJson = fs
         .readFileSync('./src/Files/gulp.json', 'utf-8')
         .replace(/\{\{titulo\}\}/g, titulo)
         .replace(/\{\{nome\}\}/g, nome)
         .replace(/\{\{public\}\}/g, public)
-        .replace(/\{\{url\}\}/g, url)
         .replace(/\{\{dockerHttps\}\}/g, dockerHttps)
         .replace(/\{\{dockerHttp\}\}/g, dockerHttp)
         .replace(/\{\{dockerDb\}\}/g, dockerDb)
@@ -181,18 +188,18 @@ exports.configVerificar = async function () {
         .replace(/\{\{virus\}\}/g, virus)
         .replace(/\{\{google\}\}/g, google)
         .replace(/\{\{gitOrigin\}\}/g, gitOrigin)
-        .replace(/\{\{gitUpstream\}\}/g, gitUpstream);
+        .replace(/\{\{gitUpstream\}\}/g, gitUpstream)
+        .replace(/\{\{gitEnv\}\}/g, gitEnv)
+        .replace(/\{\{gitFw\}\}/g, gitFw);
 
     await fsCriarDiretorio('./files');
     await fsCriarDiretorio('./files/config');
 
     const pathDest = './files/config/gulp.json';
-    if (await fs.existsSync(pathDest)) {
-        await fs.unlink(pathDest, function (err) {});
-    }
-    await new Promise(resolve => setTimeout(resolve, 500));
-    await fs.appendFile(pathDest, configJson, function (err) {});
-    await new Promise(resolve => setTimeout(resolve, 2000));
+    await fsRemoverArquivoSeExistir(pathDest);
+    await fsCriarArquivo(pathDest, configJson);
+    // await new Promise(resolve => setTimeout(resolve, 500));
+    // await new Promise(resolve => setTimeout(resolve, 2000));
 
     fs.writeFileSync('./files/config/.config', '1');
 
