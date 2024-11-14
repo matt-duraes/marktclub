@@ -67,8 +67,5 @@
         "*.styl": "sass",
         "*.view": "html"
     },
-    "task.problemMatchers.neverPrompt": false,
-    "githubPullRequests.ignoredPullRequestBranches": [
-        "master"
-    ]
+    "task.problemMatchers.neverPrompt": false
 }

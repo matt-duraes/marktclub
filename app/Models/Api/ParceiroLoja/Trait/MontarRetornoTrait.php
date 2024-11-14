@@ -28,7 +28,7 @@ trait MontarRetornoTrait
                 'titulo'          => $r->titulo,
                 'titulo_interno'  => $r->titulo_interno,
                 'desconto'        => $desconto,
-                'imagem_logo'     => arquivoPrivado($r->imagem_logo),
+                'imagem_logo'     => imagemPrivada($r->imagem_logo),
                 'url'             => $r->url,
                 'tipo_loja'       => $tipo,
                 'data_criacao'    => $r->data_criacao,

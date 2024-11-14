@@ -171,12 +171,12 @@ final class PublicidadeModel extends ORM implements ListarInterface
                     'titulo' => $banner->parceiro_titulo,
                     'url'    => $banner->parceiro_url,
                     'tipo'   => $TipoParceiro->indice($banner->parceiro_tipo_loja),
-                    'logo'   => arquivoPrivado($banner->parceiro_imagem_logo)
+                    'logo'   => imagemPrivada($banner->parceiro_imagem_logo)
                 ],
                 'data_inicio'    => $banner->data_inicio,
                 'data_final'     => $banner->data_final,
-                'imagem_desktop' => arquivoPrivado($banner->imagem_desktop),
-                'imagem_mobile'  => arquivoPrivado($banner->imagem_mobile),
+                'imagem_desktop' => imagemPrivada($banner->imagem_desktop),
+                'imagem_mobile'  => imagemPrivada($banner->imagem_mobile),
                 'link'           => $banner->link,
                 'tipo'           => $Tipo->indice($banner->tipo),
                 'publicado'      => $publicado,

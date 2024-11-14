@@ -63,7 +63,7 @@ final class ListaModel extends ORM implements ModelListarInterface
                 'texto_grande'     => $r->texto_grande,
                 'lista'            => jsonDecode($r->lista, true, true),
                 'grupo'            => $Grupo->indice($r->grupo),
-                'imagem'           => arquivoPrivado($r->imagem),
+                'imagem'           => imagemPrivada($r->imagem),
                 'data_criacao'     => (new DataHora($r->data_criacao))->date(),
                 'data_atualizacao' => (new DataHora($r->data_atualizacao))->date(),
                 'url'              => !empty($r->texto_grande) ? $r->url : '',

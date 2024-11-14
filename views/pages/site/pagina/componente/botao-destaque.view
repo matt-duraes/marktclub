@@ -1,8 +1,10 @@
 @php
+    include ROOT . '/files/build/views/site_pagina_componente_botao_margem.php';
+
     $Botao = new \ResourcesSite\Componente\Botao();
     $Botao->botao(link: $r->link, attr: ['target' => $r->target ?? '']);
 
-    if(!vazio($r->titulo)) {
+    if($r->botao_tipo != 'voltar' && !vazio($r->titulo)) {
         $Botao->texto($r->titulo);
     }
 
@@ -18,6 +20,9 @@
         $Botao->cinza()->borda();
     }
     $Botao->destaque();
+    if($css) {
+        $Botao->css($css);
+    }
 
     echo $Botao;
 @end

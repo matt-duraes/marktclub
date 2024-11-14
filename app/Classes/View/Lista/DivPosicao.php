@@ -16,9 +16,9 @@ final class DivPosicao extends StatusStatus
     ) {
         parent::__construct([
             self::ESQUERDA => 'Esquerda (flex-start)',
-            self::DIREITA => 'Direita (flex-end)',
-            self::CENTRO => 'Centro (center)',
-            self::ENTRE => 'Entre (between)',
+            self::DIREITA  => 'Direita (flex-end)',
+            self::CENTRO   => 'Centro (center)',
+            self::ENTRE    => 'Entre (between)',
         ]);
     }
 }

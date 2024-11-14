@@ -189,9 +189,9 @@ final class BannerModel extends ORM implements
                 'id'               => $banner->uuid,
                 'titulo'           => $banner->titulo,
                 'url'              => [
-                    arquivoPrivado($banner->arquivo_1),
-                    arquivoPrivado($banner->arquivo_2),
-                    arquivoPrivado($banner->arquivo_3)
+                    imagemPrivada($banner->arquivo_1),
+                    imagemPrivada($banner->arquivo_2),
+                    imagemPrivada($banner->arquivo_3)
                 ],
                 'data_inicio'      => $banner->data_inicio,
                 'data_fim'         => $banner->data_fim,

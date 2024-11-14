@@ -57,12 +57,22 @@ final class EnvConfig
      */
     private function pegarEnvProducao(): void
     {
-        $arquivo = __DIR__ . '/../../.env';
-
+        $arquivo = __DIR__ . '/../../env/.env';
         if (!file_exists($arquivo)) {
             throw new Exception(message: 'Você precisa criar um arquivo de configuração .env na raiz do seu projeto.');
         }
+
         $env = $this->montarEnv($arquivo);
+        $arquivoChave = __DIR__ . '/../../env/.env.chave';
+        if (file_exists($arquivoChave) && $env['APP_TIPO'] == 'localhost') {
+            $envChave = $this->montarEnv($arquivoChave);
+            foreach ($envChave as $ind => $val) {
+                if (array_key_exists($ind, $env)) {
+                    continue;
+                }
+                $env[$ind] = $val;
+            }
+        }
 
         $this->envUso = $env;
         $this->envProducao = $env;
@@ -120,8 +130,7 @@ final class EnvConfig
      */
     private function pegarEnvLocal(): void
     {
-        $listaEnv = array_diff(scandir($this->root), ['.', '..']);
-        $arquivo = array_filter($listaEnv, function ($valor) {
+        $arquivo = array_filter(array_diff(scandir($this->root . '/env'), ['.', '..']), function ($valor) {
             if (preg_match('/^\.env\./', $valor)) {
                 return $valor;
             }
@@ -131,7 +140,7 @@ final class EnvConfig
         }
 
         foreach ($arquivo as $arquivo) {
-            $env = $this->montarEnv($this->root . '/' . $arquivo);
+            $env = $this->montarEnv($this->root . '/env/' . $arquivo);
             $url = $env['APP_URL'] ?? '';
             if (
                 !empty($url) &&

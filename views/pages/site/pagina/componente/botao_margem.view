@@ -1,0 +1,15 @@
+@php
+
+$css = [];
+if($r->margem_topo > 0) {
+    $css[] = 'margin-top: ' . $r->imagem_topo . 'px';
+}
+if($r->margem_direita > 0) {
+    $css[] = 'margin-right: ' . $r->margem_direita . 'px';
+}
+if($r->margem_baixo > 0) {
+    $css[] = 'margin-bottom: ' . $r->margem_baixo . 'px';
+}
+if($r->margem_esquerda > 0) {
+    $css[] = 'margin-left: ' . $r->margem_esquerda . 'px';
+}

@@ -3,11 +3,17 @@
 use Http\Response;
 use Helpers\OrmHelper;
 
-if (!defined('TABELA_UPLOAD_ARQUIVO') || !defined('TABELA_UPLOAD_GRUPO')) {
+if (!defined('TABELA_UPLOAD_ARQUIVO') || !defined('TABELA_UPLOAD_GRUPO') || empty($requestUri)) {
     exit();
 }
 
-$id = arquivoPrivadoId($requestUri);
+$explode = explode('?', $requestUri);
+if (!array_key_exists(0, $explode) || !is_string($explode[0]) || empty($explode[0])) {
+    exit();
+}
+
+$requestRealArquivo = preg_replace('/\.[a-zAZ]{3,4}$/', '', $explode[0]);
+$id = arquivoPrivadoId($requestRealArquivo);
 
 $Arquivo = (new OrmHelper(TABELA_UPLOAD_ARQUIVO, true))->pegarUltimoRegistro(
     where: ['uuid', $id],

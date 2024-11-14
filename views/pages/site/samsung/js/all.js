@@ -27,8 +27,12 @@ window.addEventListener('load', () => {
     });
 
     const adicionarNovoEmail = (pessoal, trabalho) => {
-        blocoEmailLista.classList.remove('display_none');
-        blocoEmailZero.classList.add('display_none');
+        if (blocoEmailLista) {
+            blocoEmailLista.classList.remove('display_none');
+        }
+        if (blocoEmailZero) {
+            blocoEmailZero.classList.add('display_none');
+        }
         botaoAbrirPopupAtualizar.innerText = 'Atualizar e-mail';
         const email = [];
         if (pessoal != '') {
@@ -70,6 +74,7 @@ window.addEventListener('load', () => {
         if (false === resposta) {
             return;
         }
+        Alerta.notificacao('E-mail atualizado com sucesso.', true);
         adicionarNovoEmail(inputPessoal.value, inputTrabalho.value);
     };
 

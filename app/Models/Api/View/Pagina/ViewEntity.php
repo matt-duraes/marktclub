@@ -4,6 +4,7 @@ namespace App\Models\Api\View\Pagina;
 
 use ORM\Entity;
 use App\Classes\Geral\Status;
+use App\Models\Api\View\Html\HtmlModel;
 
 final class ViewEntity extends Entity
 {
@@ -18,4 +19,12 @@ final class ViewEntity extends Entity
     public string $titulo;
     public string $url;
     public Status $status;
+    public array $html;
+
+    protected function regraPosBuscar()
+    {
+        if (defined('TOKEN') && TOKEN['app']->audience != 'painel') {
+            $this->html = (new HtmlModel($this->id))->retorno;
+        }
+    }
 }

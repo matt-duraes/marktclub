@@ -1713,7 +1713,8 @@ if (!function_exists('formCor')) {
         string $value = '',
         string $class = '',
         string $id = '',
-        mixed $local = ''
+        mixed $local = '',
+        string $padrao = ''
     ) {
         if (eLocalhost() && empty($value)) {
             $value = $local;
@@ -1721,12 +1722,17 @@ if (!function_exists('formCor')) {
         $id = !empty($id) ? $id : 'id_' . md5(uniqid(time()));
         $label = !empty($label) ? '<label for="input_' . $name . '_texto">' . $label . '</label>' : '';
 
+        $background = 'background: ' . $value;
+        if ($value == 'padrao') {
+            $background = 'background: linear-gradient(to left, #e32746 0px, #e32746 10px, #08c969 10px, #08c969 20px, #272de3 20px, #272de3 30px, #e327da 30px, #e327da 40px, #fcba03 40px, #fcba03 50px);';
+        }
+
         return '
-            <div class="input_cor ' . $class . '" id="' . $id . '">
-                <input type="hidden" name="' . $name . '" id="input_' . $name . '" value="' . $value . '">
+            <div class="input_cor ' . $class . '" id="' . $id . '" data-padrao="' . $padrao . '">
+                <input type="hidden" class="input_cor_input" name="' . $name . '" id="input_' . $name . '" value="' . $value . '">
                 <div class="input_cor_conteudo">
                     ' . $label . '
-                    <div class="input_cor_bg" style="background-color: ' . $value . '">
+                    <div class="input_cor_bg" style="' . $background . '">
                     </div>
                     <div class="input_cor_icone">' . iconeCor() . '</div>
                 </div>

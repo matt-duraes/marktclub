@@ -46,16 +46,16 @@ final class LoginModel extends LoginPadraoModel
                 'Content-Type' => 'application/json'
             ])
             ->json([
-                'cpf' => $this->login,
+                'cpf'   => $this->login,
                 'senha' => $this->senha
             ])
             ->post($this->linkAutenticacao);
         $status = $Curl->status();
         $dado = $Curl->object();
         if ($status !== 200 || !is_object($dado) || !object_key_exists('Nome', $dado) || !object_key_exists(
-                'Email',
-                $dado
-            )) {
+            'Email',
+            $dado
+        )) {
             $this->usuarioNaoEncontrado();
             return;
         }

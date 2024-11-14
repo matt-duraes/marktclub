@@ -2,23 +2,23 @@
 
 namespace App\Models\Api\PublicacaoArquivo;
 
-use App\Classes\Geral\Publicado;
-use App\Classes\Geral\Status;
-use App\Classes\PublicacaoArquivo\Ordem;
-use App\Classes\PublicacaoArquivo\Tipo;
-use App\Models\Api\Trait\ValidarEmpresaTrait;
-use App\Models\Api\Trait\ValidarRequestListar;
-use Erro\Excecao;
-use Modules\Botao;
-use Modules\Data;
-use Modules\Pagina;
-use Modules\Quantidade;
 use ORM\ORM;
 use stdClass;
-use System\Interface\ModelListarInterface;
+use Erro\Excecao;
+use Modules\Data;
+use Modules\Botao;
+use Modules\Pagina;
+use Modules\Quantidade;
+use App\Classes\Geral\Status;
+use App\Classes\Geral\Publicado;
 use System\Trait\Model\OrdemTrait;
 use System\Trait\Model\PaginaTrait;
+use App\Classes\PublicacaoArquivo\Tipo;
 use System\Trait\Model\QuantidadeTrait;
+use App\Classes\PublicacaoArquivo\Ordem;
+use System\Interface\ModelListarInterface;
+use App\Models\Api\Trait\ValidarEmpresaTrait;
+use App\Models\Api\Trait\ValidarRequestListar;
 
 final class ArquivoModel extends ORM implements
     ModelListarInterface
@@ -170,8 +170,8 @@ final class ArquivoModel extends ORM implements
                 'id'                 => $arquivo->uuid,
                 'titulo'             => $arquivo->titulo,
                 'texto'              => $arquivo->texto,
-                'imagem'             => arquivoPrivado($arquivo->imagem),
-                'arquivo'            => arquivoPrivado($arquivo->arquivo),
+                'imagem'             => imagemPrivada($arquivo->imagem),
+                'arquivo'            => imagemPrivada($arquivo->arquivo),
                 'url'                => $arquivo->url,
                 'publicado'          => $publicado->indice(),
                 'tipo'               => $Tipo->indice($arquivo->tipo),

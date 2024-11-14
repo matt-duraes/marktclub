@@ -3,6 +3,7 @@
 use Route\Route;
 use App\Middlewares\Site\AuthMiddleware;
 use App\Middlewares\Site\ClubeMiddleware;
+use App\Middlewares\Site\AppTipoMiddleware;
 
 Route
     ::nome('temp')
@@ -191,6 +192,7 @@ Route
             ::nome('buscar')
             ::post('/home/buscar');
     });
+
 Route
     ::nome('analytics')
     ::middleware(ClubeMiddleware::class, 'buscar')
@@ -264,6 +266,11 @@ Route
     ::middleware(AuthMiddleware::class, 'logado')
     ::controller(App\Controllers\Site\Componente\ComponenteController::class)
     ::grupo(function () {
+        Route
+            ::middleware(AppTipoMiddleware::class, 'localhost')
+            ::nome('index')
+            ::view('/componente');
+
         Route
             ::nome('buscar')
             ::request(['id', 'url', 'campo', '!relacionado'])

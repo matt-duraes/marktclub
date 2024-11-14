@@ -1001,13 +1001,20 @@ Route
         Route
             ::nome('salvar')
             ::middleware(TokenMiddleware::class, 'scope', ['view_html:salvar'])
-            ::request(array_merge(['pagina'], App\Classes\View\Lista\Helper::PARAMETROS_LISTAR))
+            ::requestOpcional(array_merge(['pagina'], App\Classes\View\Lista\Helper::PARAMETROS_LISTAR), lista: [
+                'margem_topo', 'margem_direita', 'margem_baixo', 'margem_esquerda'
+            ])
             ::post('/view-html');
         Route
             ::nome('atualizar')
             ::middleware(TokenMiddleware::class, 'scope', ['view_html:atualizar'])
             ::requestOpcional(App\Classes\View\Lista\Helper::PARAMETROS_LISTAR)
             ::put('/view-html/{id}');
+        Route
+            ::nome('grupo')
+            ::middleware(TokenMiddleware::class, 'scope', ['view_html:atualizar'])
+            ::request(['grupo'])
+            ::put('/view-html/grupo');
         Route
             ::nome('deletar')
             ::middleware(TokenMiddleware::class, 'scope', ['view_html:deletar'])

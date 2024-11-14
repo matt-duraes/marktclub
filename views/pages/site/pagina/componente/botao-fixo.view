@@ -1,4 +1,10 @@
-@? (new \ResourcesSite\Componente\Botao())->botao(texto: $r->titulo, link: $r->link, attr: ['target' => $r->target ?? ''])
-<div class="com_botao_fixo">
+@php
+    $botaoFixoId = 'id_botao_fixo_' . $r->id;
+    echo (new \ResourcesSite\Componente\Botao())->botao(class: 'com_botao_fixo_real', texto: $r->titulo, link: $r->link, attr: [
+        'target' => $r->target ?? '',
+        'data-id' => $botaoFixoId
+    ])
+@end
+<div class="com_botao_fixo" id="{!!$botaoFixoId!!}">
     @? (new \ResourcesSite\Componente\Botao())->botao(texto: $r->titulo, link: $r->link, attr: ['target' => $r->target ?? ''])->destaque()
 </div>

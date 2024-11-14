@@ -3,7 +3,18 @@
 namespace App\Models\Api\View\Html;
 
 use ORM\ORM;
+use Modules\Botao;
+use App\Classes\Geral\Metodo;
+use App\Classes\Geral\Target;
+use App\Classes\View\Lista\Tipo;
+use App\Classes\View\Lista\Local;
+use App\Classes\View\Lista\BotaoTipo;
+use App\Classes\View\Lista\IconeTipo;
+use App\Classes\View\Lista\ListaTipo;
+use App\Classes\View\Lista\DivDirecao;
+use App\Classes\View\Lista\DivPosicao;
 use App\Models\Api\View\Pagina\HelperModel;
+use App\Models\Api\ComercialEmpresa\HelperModel as EmpresaModel;
 
 final class HtmlModel extends ORM
 {
@@ -39,7 +50,8 @@ final class HtmlModel extends ORM
             ])
             ->order('ordem', 'ASC')
             ->read();
-        if (existeErro($dado, '0')) {
+
+        if (!array_key_exists(0, $dado)) {
             return;
         }
         $this->dado = $dado;
@@ -47,10 +59,90 @@ final class HtmlModel extends ORM
 
     private function montarRetorno()
     {
-        $retorno = [];
+        $pai = [];
+        $grupo = [];
         foreach ($this->dado as $r) {
-            $retorno[] = $r;
+            if (empty($r->id_view_html)) {
+                $pai[] = $r;
+                continue;
+            }
+            $grupo[$r->id_view_html][] = $r;
+        }
+
+        $retorno = [];
+        foreach ($pai as $r) {
+            $temp = $this->montarArrayRetorno($r);
+            $temp['lista'] = $this->montarLista($r, $grupo);
+            $retorno[] = $temp;
+        }
+        $this->retorno = $retorno;
+    }
+
+    private function montarLista($item, $grupo)
+    {
+        if (!array_key_exists($item->id, $grupo)) {
+            return [];
+        }
+        $retorno = [];
+        foreach ($grupo[$item->id] as $r) {
+            $temp = $this->montarArrayRetorno($r);
+            $temp['lista'] = $this->montarLista($r, $grupo);
+            $retorno[] = $temp;
         }
         return $retorno;
+    }
+
+    private function montarArrayRetorno($r)
+    {
+        $painel = defined('TOKEN') && TOKEN['app']->audience == 'painel';
+        return [
+            'id'              => $r->uuid,
+            'empresa_ativa'   => $this->converterIdEmpresa($r->id_admin_empresa_ativa),
+            'empresa_inativa' => $this->converterIdEmpresa($r->id_admin_empresa_inativa),
+            'tipo'            => (new Tipo($r->tipo))->indice(),
+            'local'           => (new Local($r->local))->indice(),
+            'titulo_interno'  => $r->titulo_interno,
+            'titulo'          => $r->titulo,
+            'texto'           => $r->texto,
+            'link'            => $r->link,
+            'target'          => (new Target($r->target))->indice(),
+            'tabela'          => $r->tabela,
+            'editor'          => $r->editor,
+            'margem_topo'     => $r->margem_topo,
+            'margem_esquerda' => $r->margem_esquerda,
+            'margem_direita'  => $r->margem_direita,
+            'margem_baixo'    => $r->margem_baixo,
+            'imagem_arquivo'  => $painel ? $r->imagem_arquivo : imagemPrivada($r->imagem_arquivo),
+            'imagem_altura'   => $r->imagem_altura,
+            'icone_tipo'      => (new IconeTipo($r->icone_tipo))->indice(),
+            'icone_tamanho'   => $r->icone_tamanho,
+            'icone_altura'    => $r->icone_altura,
+            'icone_nome'      => $r->icone_nome,
+            'icone_cor'       => $r->icone_cor,
+            'icone_bg'        => $r->icone_bg,
+            'icone_borda_cor' => $r->icone_borda_cor,
+            'lista_tipo'      => (new ListaTipo($r->lista_tipo))->indice(),
+            'lista_valor'     => $r->lista_valor,
+            'link_empresa'    => $r->link_empresa,
+            'div_direcao'     => (new DivDirecao($r->div_direcao))->indice(),
+            'div_posicao'     => (new DivPosicao($r->div_posicao))->indice(),
+            'api_status'      => (new Botao($r->api_status))->valor(),
+            'api_metodo'      => (new Metodo($r->api_metodo))->indice(),
+            'api_body'        => $r->api_body,
+            'api_uri'         => $r->api_uri,
+            'botao_tipo'      => (new BotaoTipo($r->botao_tipo))->indice(),
+            'ordem'           => $r->ordem,
+            'status'          => (new Botao($r->status ? 'sim' : 'nao'))->valor(),
+        ];
+    }
+
+    private function converterIdEmpresa($empresa)
+    {
+        $empresa = jsonDecode($empresa, true, true);
+        if (empty($empresa)) {
+            return [];
+        }
+        $Empresa = new EmpresaModel();
+        return $Empresa->mudarListaIdParaUuid($empresa);
     }
 }

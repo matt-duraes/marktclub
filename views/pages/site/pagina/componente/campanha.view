@@ -1,4 +1,4 @@
-<div class="com_campanha" data-id="{{$r->id}}">
+<div {!!$View->class()->css()!!} data-id="{{$r->id}}">
     @php
         componenteLoading($r->lista);
     @end

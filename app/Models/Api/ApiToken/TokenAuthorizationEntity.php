@@ -52,7 +52,12 @@ final class TokenAuthorizationEntity extends Entity
         ?Tipo $tipo = null,
     ) {
         if ($app->id != env('API_CLUBE_ID') && !in_array($redirectUri, (array)$app->redirect_uri)) {
-            mensagemErro('Erro!', 'Redirect Uri não está autorizado a criar token.', 403);
+            mensagemErro(
+                titulo: 'Erro!',
+                mensagem: 'Redirect Uri não está autorizado a criar token.',
+                status: 403,
+                localhost: 'Redirect Uri (' . $redirectUri . ') não está salvo no banco.'
+            );
         } elseif (empty($audience)) {
             mensagemErro('Campo incorreto!', 'Não foi enviado o audience do app.');
         } elseif (empty($state)) {

@@ -24,6 +24,7 @@ const blocoPreviaFigure = $('#bloco_parceiro_previa figure');
 const blocoPreviaTitulo = $('#bloco_parceiro_previa h1');
 const blocoPreviaDesconto = $('#bloco_parceiro_previa .desconto');
 const blocoPreviaLink = $('#bloco_parceiro_previa a');
+const botaoWhatsApp = $('#botao_chat_whatsapp');
 
 const inputAcessado = $('#input_acessado');
 const inputFavorito = $('#input_favorito');
@@ -282,7 +283,6 @@ const carregarPontoMapa = async loja => {
         const link = item.link;
         const titulo = item.titulo;
         const desconto = item.desconto;
-        const botaoWpp = document.querySelector('.botao_chat');
         const icone = document.createElement('figure');
         icone.classList.add('icone_mapa');
         icone.style = `background-image: url(${imagem})`;
@@ -296,7 +296,7 @@ const carregarPontoMapa = async loja => {
         });
 
         marker.addListener('click', () => {
-            abrirPreviaMapa(titulo, desconto, imagem, link, botaoWpp);
+            abrirPreviaMapa(titulo, desconto, imagem, link);
         });
         return marker;
     });
@@ -304,8 +304,10 @@ const carregarPontoMapa = async loja => {
     new markerClusterer.MarkerClusterer({ markers, map: MAPA.mapa });
 };
 
-const abrirPreviaMapa = (titulo, desconto, imagem, link, botaoWpp) => {
-    botaoWpp.classList.add('display_none');
+const abrirPreviaMapa = (titulo, desconto, imagem, link) => {
+    if (botaoWhatsApp) {
+        botaoWhatsApp.sumir();
+    }
     blocoPreviaFigure.innerHTML = `<img src="${imagem}">`;
     blocoPreviaTitulo.innerText = titulo;
     blocoPreviaDesconto.innerText = desconto;
@@ -316,9 +318,11 @@ const abrirPreviaMapa = (titulo, desconto, imagem, link, botaoWpp) => {
     }, 40);
 };
 const fecharPreviaMapa = () => {
-    const botaoWpp = document.querySelector('.botao_chat');
+    if (botaoWhatsApp) {
+        botaoWhatsApp.aparecer();
+    }
+
     blocoPrevia.classList.remove('ativo');
-    botaoWpp.classList.remove('display_none');
     setTimeout(() => {
         blocoPrevia.classList.add('display_none');
         blocoPreviaFigure.innerHTML = '';

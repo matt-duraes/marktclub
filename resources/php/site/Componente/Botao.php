@@ -18,7 +18,9 @@ final class Botao extends Componente
     {
         $replace = [
             '[[CLASSE_PADRAO]]' => implode(' ', $this->classe),
-            '[[TEXTO]]'         => $this->texto
+            '[[TEXTO]]'         => $this->texto,
+            '[[CSS]]'           => !empty($this->css) ? 'style="' . implode('; ', $this->css) . '"' : '',
+            '[[ATTR]]'          => !empty($this->attr) ? implode(' ', $this->attr) : '',
         ];
         $html = preg_replace(
             '/\[\[[A-Z\_]{1,}\]\]/',
@@ -42,6 +44,7 @@ final class Botao extends Componente
         $this->html = '';
         $this->texto = '';
         $this->classe = [];
+        $this->css = [];
         $this->fixo = false;
     }
 
@@ -54,16 +57,20 @@ final class Botao extends Componente
         return $this;
     }
 
-    private function lang(string|stdClass $texto)
+    private function lang(string|stdClass|array $texto)
     {
         if (is_object($texto)) {
             $br = object_key_exists('br', $texto) ? $texto->br : '';
             $en = object_key_exists('en', $texto) ? $texto->en : $br;
             $es = object_key_exists('es', $texto) ? $texto->es : $br;
+        } elseif (is_array($texto)) {
+            $br = array_key_exists('br', $texto) ? $texto['br'] : '';
+            $en = array_key_exists('en', $texto) ? $texto['en'] : $br;
+            $es = array_key_exists('es', $texto) ? $texto['es'] : $br;
         } else {
-            $br = $texto;
-            $en = $texto;
-            $es = $texto;
+            $br = is_string($texto) ? $texto : '';
+            $en = $br;
+            $es = $br;
         }
         return <<<EOF
             <span class="lang_br">$br</span>
@@ -73,11 +80,12 @@ final class Botao extends Componente
     }
 
     public function botao(
-        string|stdClass $texto = '',
+        string|stdClass|array $texto = '',
         string $link = null,
         string $id = null,
         string $class = null,
         array $attr = [],
+        array $css = []
     ) {
         $link = strLink($link);
         $this->resetar();
@@ -99,8 +107,9 @@ final class Botao extends Componente
             $this->classe[] = $class;
         }
         $this->classe[] = 'com_botao_padrao';
-
-        $this->html = '<' . $tag . ' ' . $this->attr($attr) . ' '
+        $this->css($css);
+        $this->attr($attr);
+        $this->html = '<' . $tag . ' [[CSS]] [[ATTR]] '
             . $id . ' class="[[CLASSE_PADRAO]]">[[ICONE_ESQUERDA]]' . $texto . '[[ICONE_DIREITA]]</' . $tag . '>';
         return $this;
     }
@@ -147,7 +156,7 @@ final class Botao extends Componente
         return $this;
     }
 
-    public function texto(string|stdClass $texto)
+    public function texto(string|stdClass|array $texto)
     {
         if (vazio($texto)) {
             return $this;

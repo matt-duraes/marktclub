@@ -62,7 +62,7 @@ final class AnalyticsModel extends ORM
         $TipoUsuario = new TipoUsuario();
         $cpfLista = [];
         foreach ($dado as $r) {
-            if(!array_key_exists($r->usuario_cpf, $cpfLista)) {
+            if (!array_key_exists($r->usuario_cpf, $cpfLista)) {
                 $cpfLista[$r->usuario_cpf] = $Crypt->encode($r->usuario_cpf);
             }
             $retorno[] = [

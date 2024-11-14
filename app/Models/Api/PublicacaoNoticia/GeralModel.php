@@ -2,10 +2,10 @@
 
 namespace App\Models\Api\PublicacaoNoticia;
 
-use App\Classes\Geral\Publicado;
-use App\Classes\Geral\Status;
-use Modules\Data;
 use ORM\ORM;
+use Modules\Data;
+use App\Classes\Geral\Status;
+use App\Classes\Geral\Publicado;
 
 abstract class GeralModel extends ORM
 {
@@ -53,7 +53,7 @@ abstract class GeralModel extends ORM
                 'id'            => $r->uuid,
                 'titulo'        => $titulo,
                 'texto'         => $texto,
-                'imagem'        => !empty($imagem) ? arquivoPrivado($imagem) : '',
+                'imagem'        => !empty($imagem) ? imagemPrivada($imagem) : '',
                 'data_inicio'   => $r->data_inicio,
                 'url'           => $r->url,
                 'autor_noticia' => $r->autor_noticia,

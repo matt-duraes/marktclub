@@ -1,4 +1,4 @@
-<div class="com_div direcao_{{$r->div_direcao}} posicao_{{$r->div_posicao}}">
+<div {!!$View->class()->css()!!}>
     @php
         componenteLoading($r->lista);
     @end

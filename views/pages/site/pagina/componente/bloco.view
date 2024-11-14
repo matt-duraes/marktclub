@@ -1,4 +1,4 @@
-<div class="com_bloco">
+<div {!!$View->class()->css()!!}>
     @php
         componenteLoading($r->lista);
     @end

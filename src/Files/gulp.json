@@ -23,5 +23,7 @@
         "senha": "{{dbSenha}}"
     },
     "gitOrigin": "{{gitOrigin}}",
-    "gitUpstream": "{{gitUpstream}}"
+    "gitUpstream": "{{gitUpstream}}",
+    "gitEnv": "{{gitEnv}}",
+    "gitFw": "{{gitFw}}"
 }

@@ -4,6 +4,10 @@ if (fwFormListaItemPadrao) {
 }
 
 const fwFormListaSetarValor = (bloco, valor) => {
+    if (typeof valor === 'string' && validarJson(valor)) {
+        valor = JSON.parse(valor);
+    }
+
     const traducao = $('.form_input_traducao', bloco);
     if (traducao) {
         traducao.valor('');

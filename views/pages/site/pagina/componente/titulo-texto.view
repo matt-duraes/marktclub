@@ -1,4 +1,4 @@
-<div class="com_titulo_texto">
+<div {!!$View->class()->css()!!}>
     @php
         componenteLoading($r->lista);
     @end

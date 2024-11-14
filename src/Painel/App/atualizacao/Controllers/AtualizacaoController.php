@@ -5,6 +5,7 @@ namespace PainelApp\atualizacao\Controllers;
 use Http\Request;
 use Helpers\ApiHelper;
 use Controller\Controller;
+use App\Classes\PublicacaoNoticia\Tipo;
 
 final class AtualizacaoController extends Controller
 {
@@ -13,7 +14,7 @@ final class AtualizacaoController extends Controller
         $pagina = $request->pagina;
         $noticia = (new ApiHelper(token: true))
             ->json([
-                'tipo' => Tipo::PAINEL,
+                'tipo'       => Tipo::PAINEL,
                 'publicado'  => 'sim',
                 'pagina'     => !empty($pagina) && preg_match('/^[1-9]{1}[0-9]{0,}$/', $pagina) ? $pagina : 1,
                 'quantidade' => 10

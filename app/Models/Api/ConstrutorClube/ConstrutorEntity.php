@@ -2,14 +2,14 @@
 
 namespace App\Models\Api\ConstrutorClube;
 
-use App\Classes\ConstrutorClube\TipoAtivacao;
-use App\Classes\ConstrutorClube\TipoCargo;
-use App\Classes\Geral\Status;
-use Helpers\OrmHelper;
+use ORM\Entity;
 use Modules\Botao;
 use Modules\Email;
 use Modules\Telefone;
-use ORM\Entity;
+use Helpers\OrmHelper;
+use App\Classes\Geral\Status;
+use App\Classes\ConstrutorClube\TipoCargo;
+use App\Classes\ConstrutorClube\TipoAtivacao;
 
 final class ConstrutorEntity extends Entity
 {
@@ -169,10 +169,10 @@ final class ConstrutorEntity extends Entity
     {
         $this->link_clube = 'https://' . $this->link_clube;
         $this->empresa = $this->ormEmpresa->pegarUuidPeloId($this->id_admin_empresa);
-        $this->favicon = arquivoPrivado($this->favicon);
-        $this->logo_principal = arquivoPrivado($this->logo_principal);
-        $this->logo_secundaria = arquivoPrivado($this->logo_secundaria);
-        $this->logo_footer = arquivoPrivado($this->logo_footer);
+        $this->favicon = imagemPrivada($this->favicon);
+        $this->logo_principal = imagemPrivada($this->logo_principal);
+        $this->logo_secundaria = imagemPrivada($this->logo_secundaria);
+        $this->logo_footer = imagemPrivada($this->logo_footer);
         $this->logo_marktclub = LINK_ARQUIVO . '/construtor/a2ca966d45780803f2497bd2a77b0e3b.png';
     }
 }

@@ -41,8 +41,8 @@ final class TokenCredentialEntity extends Entity
                 ['id_api_app', 'like', '%"' . $idApp . '"%'],
                 ['status', 1]
             ]);
-        } catch (\Throwable) {
-            mensagemStatus(403);
+        } catch (\Throwable $e) {
+            mensagemStatus(403, localhost: $e->getMessage());
         }
 
         $payload = [

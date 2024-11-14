@@ -1,1 +1,1 @@
-<div class="com_linha"></div>
+<div {!!$View->class()->css()!!}></div>

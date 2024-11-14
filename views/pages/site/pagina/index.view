@@ -4,9 +4,12 @@
 if(!function_exists('componenteLoading')) {
     function componenteLoading($lista) {
         foreach($lista as $r) {
-            if($r->status == 'sim') {
-                include ROOT . '/files/build/views/site_pagina_componente_' . $r->tipo . '.php';
+            $path = ROOT . '/files/build/views/site_pagina_componente_' . $r->tipo . '.php';
+            if(!file_exists($path)) {
+                continue;
             }
+            $View = new ResourcesSite\Componente\View($r);
+            include $path;
         }
     }
 }

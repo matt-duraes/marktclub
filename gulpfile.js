@@ -17,50 +17,27 @@ const {
     buildGit,
     buildArquivosRaiz,
     buildArquivoConfigVsCode,
-    //buildArquivoConfigGithub,
     buildArquivosTeste,
     buildArquivosPublico,
     buildDiretorios,
     buildDocker,
     buildPhpMussel,
-    buildBaixandoUpdate,
-    buildCopiandoUpdate,
-    buildLimparFramework,
     buildPaginaExemplo,
     buildArquivoErro,
     buildCorrigindoComposer,
     buildCopiarIndex,
 } = require('./src/Gulpfile/build.js');
+
 const { limparArquivosDoMac, limparSessao } = require('./src/Gulpfile/clean.js');
 const { dockerComposerUp, dockerComposerDown } = require('./src/Gulpfile/docker.js');
 
 // Subir e parar desenvolvimento
 exports.default = series(validandoArquivoDeConfiguracao, limpandoSessoes, subindoContainer, monitorarSistema);
 exports.down = parallel(matandoContainer, limpandoSessoes);
-
-// Atualiza o framework
-exports.update = series(fazerDownloadDoProjeto);
-exports.upgrade = series(
-    instalandoDownloadDoProjeto,
-    copiandoArquivoDoComposer,
-    executandoComposerInstall,
-    parallel(
-        corrigindoBugDoComposer,
-        copiandoArquivosDaRaiz,
-        copiandoArquivoConfigDoVsCode,
-        //copiandoArquivoConfigDoGithub,
-        copiandoArquivoDeErro,
-        copiandoArquivosDeteste
-    )
-);
-
 exports.css = series(copiandoArquivosCSS);
 exports.js = series(copiandoArquivosJS);
 exports.html = series(copiandoArquivosHtml);
 exports.tabela = series(copiandoArquivosCSS);
-
-// Limpa o framework
-exports.clearFramework = series(limpandoFramework);
 
 // Deploy em produção
 exports.deploy = series(
@@ -78,7 +55,6 @@ exports.install = series(
     copiandoArquivoParaGit,
     copiandoArquivosDaRaiz,
     copiandoArquivoConfigDoVsCode,
-    //copiandoArquivoConfigDoGithub,
     copiandoArquivosDeteste,
     copiandoArquivosPublicos,
     parallel(
@@ -124,22 +100,12 @@ function validandoArquivoDeConfiguracao() {
 function corrigindoBugDoComposer() {
     return buildCorrigindoComposer();
 }
-async function fazerDownloadDoProjeto() {
-    return buildBaixandoUpdate();
-}
-function instalandoDownloadDoProjeto() {
-    return buildCopiandoUpdate();
-}
 function subindoContainer() {
     return dockerComposerUp();
 }
 
 function matandoContainer() {
     return dockerComposerDown();
-}
-
-function limpandoFramework() {
-    return buildLimparFramework();
 }
 
 function limpandoSessoes() {
@@ -246,9 +212,6 @@ function copiandoArquivosDaRaiz() {
 function copiandoArquivoConfigDoVsCode() {
     return buildArquivoConfigVsCode();
 }
-//function copiandoArquivoConfigDoGithub() {
-//    return buildArquivoConfigGithub();
-//}
 function copiandoArquivosDeteste() {
     return buildArquivosTeste();
 }

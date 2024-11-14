@@ -3,7 +3,11 @@
 use Http\Response;
 
 $explode = explode('?', $requestUri);
-$nome = arquivoPublicoNome($explode[0]);
+if (!array_key_exists(0, $explode) || !is_string($explode[0]) || empty($explode[0])) {
+    exit();
+}
+$requestRealArquivo = preg_replace('/\.[a-zAZ]{3,4}$/', '', $explode[0]);
+$nome = arquivoPublicoNome($requestRealArquivo);
 
 if (empty($nome)) {
     mensagemStatus(404, localhost: 'O arquivo está sem nome.');

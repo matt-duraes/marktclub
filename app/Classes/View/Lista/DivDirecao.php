@@ -13,7 +13,7 @@ final class DivDirecao extends StatusStatus
         protected string|int|null $valor = null
     ) {
         parent::__construct([
-            self::LINHA => 'Linha (row)',
+            self::LINHA  => 'Linha (row)',
             self::COLUNA => 'Coluna (column)',
         ]);
     }

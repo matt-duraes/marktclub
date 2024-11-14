@@ -21,7 +21,6 @@ final class Tipo extends StatusStatus
     public const CAMPANHA = 'campanha';
     public const LINHA = 'linha';
     public const RELACIONADO = 'relacionado';
-    public const MARGEM = 'margem';
     public const TABELA = 'tabela';
     public const EDITOR = 'editor';
     public const LISTA = 'lista';
@@ -47,7 +46,6 @@ final class Tipo extends StatusStatus
             self::CAMPANHA       => 'Campanha',
             self::LINHA          => 'Linha',
             self::RELACIONADO    => 'Relacionado',
-            self::MARGEM         => 'Margem',
             self::TABELA         => 'Tabela',
             self::EDITOR         => 'Editor',
             self::LISTA          => 'Lista',

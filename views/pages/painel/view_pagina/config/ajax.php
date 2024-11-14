@@ -5,14 +5,14 @@ $Painel = new PainelConfig\Ajax();
 return $Painel
     ->grupo('salvar-html', function () use ($Painel) {
         $Painel
-            ->request(App\Classes\View\Lista\Helper::PARAMETROS_LISTAR)
+            ->request(str_replace('editor', '!editor', App\Classes\View\Lista\Helper::PARAMETROS_LISTAR))
             ->permissao('view_pagina_index')
             ->metodo('post')
             ->rota('/view-html');
     })
     ->grupo('atualizar-html', function () use ($Painel) {
         $Painel
-            ->request(App\Classes\View\Lista\Helper::PARAMETROS_LISTAR)
+            ->request(str_replace('editor', '!editor', App\Classes\View\Lista\Helper::PARAMETROS_LISTAR))
             ->permissao('view_pagina_index')
             ->metodo('put')
             ->rota('/view-html/{id}');
@@ -21,6 +21,7 @@ return $Painel
         $Painel
             ->permissao('view_pagina_index')
             ->metodo('delete')
+            ->request(['id'])
             ->rota('/view-html/{id}');
     })
     ->grupo('listar-html', function () use ($Painel) {
@@ -29,4 +30,11 @@ return $Painel
             ->permissao('view_pagina_index')
             ->metodo('get')
             ->rota('/view-html');
+    })
+    ->grupo('ordem-html', function () use ($Painel) {
+        $Painel
+            ->request(['grupo'])
+            ->permissao('view_pagina_index')
+            ->metodo('put')
+            ->rota('/view-html/grupo');
     });

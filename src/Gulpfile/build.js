@@ -1,13 +1,6 @@
 const { src, dest } = require('gulp');
 const fs = require('fs');
-const {
-    fsRemoverArquivoSeExistir,
-    fsVerificarSeArquivoExiste,
-    fsCriarArquivo,
-    fsCriarDiretorio,
-    fsDeletarDiretorio,
-    fsCopiar,
-} = require('./arquivo.js');
+const { fsVerificarSeArquivoExiste, fsCriarDiretorio, fsDeletarDiretorio, fsCopiar } = require('./arquivo.js');
 const exec = require('gulp-exec');
 const replace = require('gulp-replace');
 const plumber = require('gulp-plumber');
@@ -68,18 +61,12 @@ exports.buildArquivoConfigVsCode = async () => {
     await fsCriarDiretorio('./.vscode');
     return src(['./src/Files/vscode/settings.json']).pipe(plumber()).pipe(dest('./.vscode'));
 };
-exports.buildArquivoConfigGithub = async () => {
-    await fsCriarDiretorio('./.github');
-    await fsCriarDiretorio('./.github/ISSUE_TEMPLATE');
-    await fsCopiar('./src/Files/github/pull_request_template.md', './.github/pull_request_template.md');
-    return src(['./src/Files/github/bug_template.yml']).pipe(plumber()).pipe(dest('./.github/ISSUE_TEMPLATE'));
-};
 
 exports.buildComposerInstall = () => {
     return src(['./']).pipe(exec('composer install'));
 };
 
-exports.buildDocker = () => {
+exports.buildDocker = async () => {
     if (config == undefined) {
         config = JSON.parse(fs.readFileSync('./files/config/gulp.json'));
     }
@@ -92,6 +79,9 @@ exports.buildDocker = () => {
     const portaPma = config.docker.pma;
     const dbNome = config.banco.nome;
     const dbSenha = config.banco.senha;
+
+    await fsDeletarDiretorio('./files/docker_host');
+    await fsCriarDiretorio('./files/docker_host');
 
     src('./src/Files/docker_host/default')
         .pipe(plumber())
@@ -116,45 +106,21 @@ exports.buildEnv = async () => {
     }
 
     const titulo = config.titulo;
-    const url = config.url.replace(/http(s)?\:\/\//, '');
     const public = config.public;
-    const dbNome = config.banco.nome;
+    const dbHost = config.nome != '' ? 'db-' + config.nome : '';
+    const dbBanco = config.banco.nome;
     const dbSenha = config.banco.senha;
 
-    const conteudoLocal =
-        'APP_URL=' +
-        url +
-        '\nAPP_TIPO=localhost\n\nSESSION_DIRETORIO={{ROOT}}/files/sessions\n\nDB_STATUS=\nDB_ESCRITA=mysql\nDB_BANCO=' +
-        dbNome +
-        '\nDB_USUARIO=root\nDB_SENHA=' +
-        dbSenha +
-        '\n';
-
-    if (!(await fsVerificarSeArquivoExiste('.env.local'))) {
-        await fsCriarArquivo('.env.local', conteudoLocal);
-    } else {
-        mensagemSucesso('Não foi criado o arquivo .env.local porque ele já existe.');
-    }
-
-    const conteudoAdp =
-        'GIT=' +
-        config.gitOrigin +
-        '\n\nDB_STATUS=\nDB_HOST=0.0.0.0:' +
-        config.docker.db +
-        '\nDB_BANCO=' +
-        dbNome +
-        '\nDB_USUARIO=root\nDB_SENHA=' +
-        dbSenha +
-        '\n';
-
-    await fsRemoverArquivoSeExistir('./files/config/.adp');
-    await fsCriarArquivo('./files/config/.adp', conteudoAdp);
-
-    return src('./src/Files/raiz/.env')
+    await fsCriarDiretorio('./env');
+    return src('./src/Files/env/.env')
         .pipe(plumber())
         .pipe(replace('{{titulo}}', titulo))
         .pipe(replace('{{public}}', public.replace(/\//g, '')))
-        .pipe(dest('./'));
+        .pipe(replace('{{db_host}}', dbHost))
+        .pipe(replace('{{db_banco}}', dbBanco))
+        .pipe(replace('{{db_usuario}}', dbSenha))
+        .pipe(replace('{{db_senha}}', dbSenha))
+        .pipe(dest('./env'));
 };
 
 exports.buildArquivosRaiz = () => {
@@ -162,8 +128,6 @@ exports.buildArquivosRaiz = () => {
         './src/Files/raiz/.eslintignore',
         './src/Files/raiz/.prettierrc',
         './src/Files/raiz/adp.phar',
-        './src/Files/raiz/.chave_publica',
-        './src/Files/raiz/.chave_privada',
         './src/Files/raiz/.editorconfig',
         './src/Files/raiz/.php-cs-fixer.dist.php',
         './src/Files/raiz/php-cs-fixer.phar',
@@ -171,6 +135,11 @@ exports.buildArquivosRaiz = () => {
     ])
         .pipe(plumber())
         .pipe(dest('./'));
+};
+exports.buildArquivoChave = () => {
+    return src(['./src/Files/chave/.chave_publica', './src/Files/chave/.chave_privada'])
+        .pipe(plumber())
+        .pipe(dest('./chave'));
 };
 exports.buildArquivoErro = () => {
     return src('./src/Files/erro/lista.txt').pipe(plumber()).pipe(dest('./files/erro'));
@@ -208,6 +177,7 @@ exports.buildDiretorios = async () => {
     await fsCriarDiretorio('./files/sessions');
     await fsCriarDiretorio('./files/sessions');
     await fsCriarDiretorio('./' + public);
+    await fsCriarDiretorio('./chave');
     await fsCriarDiretorio('./resources');
     await fsCriarDiretorio('./resources/css');
     await fsCriarDiretorio('./resources/js');
@@ -239,51 +209,6 @@ exports.buildArquivosPublico = () => {
     return src(['./src/Files/public/.htaccess', './src/Files/public/robots.txt', './src/Files/public/index.php'])
         .pipe(plumber())
         .pipe(dest('./' + public));
-};
-
-exports.buildBaixandoUpdate = async () => {
-    await fsDeletarDiretorio('./files/upgrade');
-    return src(['./']).pipe(plumber()).pipe(exec('git clone git@github.com:marktclub/framework.git files/upgrade'));
-};
-
-exports.buildCopiandoUpdate = async () => {
-    if (!(await fsVerificarSeArquivoExiste('./files/upgrade/src'))) {
-        mensagemErro('Não foi encontrado o download para fazer upgrade.');
-        mensagemErro('Execute "gulp update" para baixar a atualização.');
-        return Promise.reject();
-    }
-
-    if (config == undefined) {
-        config = JSON.parse(fs.readFileSync('./files/config/gulp.json'));
-    }
-    const public = config.public;
-
-    await fsDeletarDiretorio('./src');
-    await fsCopiar('./files/upgrade/src', './src');
-    await fsCopiar('./files/upgrade/gulpfile.js', './gulpfile.js');
-    await fsDeletarDiretorio('./files/upgrade');
-
-    src('./src/Files/public/index.php')
-        .pipe(plumber())
-        .pipe(dest('./' + public));
-
-    return Promise.resolve();
-};
-
-exports.buildLimparFramework = async () => {
-    if (config == undefined) {
-        config = JSON.parse(fs.readFileSync('./files/config/gulp.json'));
-    }
-
-    const public = config.public;
-    await fsDeletarDiretorio('./app');
-    await fsDeletarDiretorio('./database');
-    await fsDeletarDiretorio('./resources');
-    await fsDeletarDiretorio('./tests');
-    await fsDeletarDiretorio('./routes');
-    await fsDeletarDiretorio('./views');
-    await fsDeletarDiretorio('./composer.json');
-    await fsDeletarDiretorio('./' + public);
 };
 
 exports.buildPaginaExemplo = async () => {
