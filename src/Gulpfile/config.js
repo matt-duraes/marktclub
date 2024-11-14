@@ -117,17 +117,16 @@ exports.configVerificar = async function () {
                             type: 'input',
                             name: 'gitEnv',
                             message: 'Digite o link ssh do repositório ENV: (opcional):',
-                            validate: gitEnv => {
-                                return gitEnv != '';
-                            },
                         },
                         {
                             type: 'input',
                             name: 'gitFw',
                             message: 'Digite o link ssh do repositório do Framework: (opcional):',
-                            validate: gitFw => {
-                                return gitFw != '';
-                            },
+                        },
+                        {
+                            type: 'input',
+                            name: 'gitArquivo',
+                            message: 'Digite o link ssh do repositório de arquivo: (opcional):',
                         },
                     ],
                     response => {
@@ -149,6 +148,7 @@ exports.configVerificar = async function () {
                         console.log('Git Upstream: \x1b[1m' + response.gitUpstream + '\x1b[0m');
                         console.log('Git Env: \x1b[1m' + response.gitEnv + '\x1b[0m');
                         console.log('Git FrameWork: \x1b[1m' + response.gitFw + '\x1b[0m');
+                        console.log('Git Arquivo: \x1b[1m' + response.gitArquivo + '\x1b[0m');
                     }
                 )
             )
@@ -172,6 +172,7 @@ exports.configVerificar = async function () {
     const gitUpstream = respostas.gitUpstream;
     const gitEnv = respostas.gitEnv;
     const gitFw = respostas.gitFw;
+    const gitArquivo = respostas.gitArquivo;
 
     let configJson = fs
         .readFileSync('./src/Files/gulp.json', 'utf-8')
@@ -190,7 +191,8 @@ exports.configVerificar = async function () {
         .replace(/\{\{gitOrigin\}\}/g, gitOrigin)
         .replace(/\{\{gitUpstream\}\}/g, gitUpstream)
         .replace(/\{\{gitEnv\}\}/g, gitEnv)
-        .replace(/\{\{gitFw\}\}/g, gitFw);
+        .replace(/\{\{gitFw\}\}/g, gitFw)
+        .replace(/\{\{gitArquivo\}\}/g, gitArquivo);
 
     await fsCriarDiretorio('./files');
     await fsCriarDiretorio('./files/config');
