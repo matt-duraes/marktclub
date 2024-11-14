@@ -100,7 +100,7 @@ exports.configVerificar = async function () {
                         {
                             type: 'input',
                             name: 'gitOrigin',
-                            message: 'Digite a url do Origin do GIT:',
+                            message: 'Digite o link ssh do Origin do projeto:',
                             validate: gitOrigin => {
                                 return gitOrigin != '';
                             },
@@ -108,7 +108,7 @@ exports.configVerificar = async function () {
                         {
                             type: 'input',
                             name: 'gitUpstream',
-                            message: 'Digite a url do Upstream do GIT:',
+                            message: 'Digite o link ssh do Upstream do projeto:',
                             validate: gitUpstream => {
                                 return gitUpstream != '';
                             },
@@ -116,9 +116,17 @@ exports.configVerificar = async function () {
                         {
                             type: 'input',
                             name: 'gitEnv',
-                            message: 'Digite a url do ENV do GIT (opcional):',
+                            message: 'Digite o link ssh do repositório ENV: (opcional):',
                             validate: gitEnv => {
                                 return gitEnv != '';
+                            },
+                        },
+                        {
+                            type: 'input',
+                            name: 'gitFw',
+                            message: 'Digite o link ssh do repositório do Framework: (opcional):',
+                            validate: gitFw => {
+                                return gitFw != '';
                             },
                         },
                     ],
@@ -140,6 +148,7 @@ exports.configVerificar = async function () {
                         console.log('Git Origin: \x1b[1m' + response.gitOrigin + '\x1b[0m');
                         console.log('Git Upstream: \x1b[1m' + response.gitUpstream + '\x1b[0m');
                         console.log('Git Env: \x1b[1m' + response.gitEnv + '\x1b[0m');
+                        console.log('Git FrameWork: \x1b[1m' + response.gitFw + '\x1b[0m');
                     }
                 )
             )
@@ -162,6 +171,7 @@ exports.configVerificar = async function () {
     const gitOrigin = respostas.gitOrigin;
     const gitUpstream = respostas.gitUpstream;
     const gitEnv = respostas.gitEnv;
+    const gitFw = respostas.gitFw;
 
     let configJson = fs
         .readFileSync('./src/Files/gulp.json', 'utf-8')
@@ -179,7 +189,8 @@ exports.configVerificar = async function () {
         .replace(/\{\{google\}\}/g, google)
         .replace(/\{\{gitOrigin\}\}/g, gitOrigin)
         .replace(/\{\{gitUpstream\}\}/g, gitUpstream)
-        .replace(/\{\{gitEnv\}\}/g, gitEnv);
+        .replace(/\{\{gitEnv\}\}/g, gitEnv)
+        .replace(/\{\{gitFw\}\}/g, gitFw);
 
     await fsCriarDiretorio('./files');
     await fsCriarDiretorio('./files/config');

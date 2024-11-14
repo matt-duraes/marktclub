@@ -24,5 +24,6 @@
     },
     "gitOrigin": "{{gitOrigin}}",
     "gitUpstream": "{{gitUpstream}}",
-    "gitEnv": "{{gitEnv}}"
+    "gitEnv": "{{gitEnv}}",
+    "gitFw": "{{gitFw}}"
 }
