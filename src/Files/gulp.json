@@ -24,7 +24,10 @@
     },
     "gitOrigin": "{{gitOrigin}}",
     "gitUpstream": "{{gitUpstream}}",
-    "gitEnv": "{{gitEnv}}",
-    "gitFw": "{{gitFw}}",
-    "gitArquivo": "{{gitArquivo}}"
+    "gitEnvOrigin": "{{gitEnvOrigin}}",
+    "gitEnvUpstream": "{{gitEnvUpstream}}",
+    "gitFwOrigin": "{{gitFwOrigin}}",
+    "gitFwUpstream": "{{gitFwUpstream}}",
+    "gitArquivoOrigin": "{{gitArquivoOrigin}}",
+    "gitArquivoUpstream": "{{gitArquivoUpstream}}"
 }

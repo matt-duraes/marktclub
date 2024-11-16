@@ -115,18 +115,33 @@ exports.configVerificar = async function () {
                         },
                         {
                             type: 'input',
-                            name: 'gitEnv',
-                            message: 'Digite o link ssh do repositório ENV: (opcional):',
+                            name: 'gitEnvOrigin',
+                            message: 'Digite o link ssh do Origin do repositório ENV: (opcional):',
                         },
                         {
                             type: 'input',
-                            name: 'gitFw',
-                            message: 'Digite o link ssh do repositório do Framework: (opcional):',
+                            name: 'gitEnvUpstream',
+                            message: 'Digite o link ssh do Upstream do repositório ENV: (opcional):',
                         },
                         {
                             type: 'input',
-                            name: 'gitArquivo',
-                            message: 'Digite o link ssh do repositório de arquivo: (opcional):',
+                            name: 'gitFwOrigin',
+                            message: 'Digite o link ssh do Origin do repositório do Framework: (opcional):',
+                        },
+                        {
+                            type: 'input',
+                            name: 'gitFwUpstream',
+                            message: 'Digite o link ssh do Upstream do repositório do Framework: (opcional):',
+                        },
+                        {
+                            type: 'input',
+                            name: 'gitArquivoOrigin',
+                            message: 'Digite o link ssh do Origin do repositório de arquivo: (opcional):',
+                        },
+                        {
+                            type: 'input',
+                            name: 'gitArquivoUpstream',
+                            message: 'Digite o link ssh do Upstream do repositório de arquivo: (opcional):',
                         },
                     ],
                     response => {
@@ -146,9 +161,12 @@ exports.configVerificar = async function () {
                         console.log('Google: \x1b[1m' + response.google + '\x1b[0m');
                         console.log('Git Origin: \x1b[1m' + response.gitOrigin + '\x1b[0m');
                         console.log('Git Upstream: \x1b[1m' + response.gitUpstream + '\x1b[0m');
-                        console.log('Git Env: \x1b[1m' + response.gitEnv + '\x1b[0m');
-                        console.log('Git FrameWork: \x1b[1m' + response.gitFw + '\x1b[0m');
-                        console.log('Git Arquivo: \x1b[1m' + response.gitArquivo + '\x1b[0m');
+                        console.log('Git Env Origin: \x1b[1m' + response.gitEnvOrigin + '\x1b[0m');
+                        console.log('Git Env Upstream: \x1b[1m' + response.gitEnvUpstream + '\x1b[0m');
+                        console.log('Git FrameWork Origin: \x1b[1m' + response.gitFwOrigin + '\x1b[0m');
+                        console.log('Git FrameWork Upstream: \x1b[1m' + response.gitFwUpstream + '\x1b[0m');
+                        console.log('Git Arquivo Origin: \x1b[1m' + response.gitArquivoOrigin + '\x1b[0m');
+                        console.log('Git Arquivo Upstream: \x1b[1m' + response.gitArquivoUpstream + '\x1b[0m');
                     }
                 )
             )
@@ -170,9 +188,12 @@ exports.configVerificar = async function () {
     const google = respostas.google;
     const gitOrigin = respostas.gitOrigin;
     const gitUpstream = respostas.gitUpstream;
-    const gitEnv = respostas.gitEnv;
-    const gitFw = respostas.gitFw;
-    const gitArquivo = respostas.gitArquivo;
+    const gitEnvOrigin = respostas.gitEnvOrigin;
+    const gitEnvUpstream = respostas.gitEnvUpstream;
+    const gitFwOrigin = respostas.gitFwOrigin;
+    const gitFwUpstream = respostas.gitFwUpstream;
+    const gitArquivoOrigin = respostas.gitArquivoOrigin;
+    const gitArquivoUpstream = respostas.gitArquivoUpstream;
 
     let configJson = fs
         .readFileSync('./src/Files/gulp.json', 'utf-8')
@@ -190,9 +211,12 @@ exports.configVerificar = async function () {
         .replace(/\{\{google\}\}/g, google)
         .replace(/\{\{gitOrigin\}\}/g, gitOrigin)
         .replace(/\{\{gitUpstream\}\}/g, gitUpstream)
-        .replace(/\{\{gitEnv\}\}/g, gitEnv)
-        .replace(/\{\{gitFw\}\}/g, gitFw)
-        .replace(/\{\{gitArquivo\}\}/g, gitArquivo);
+        .replace(/\{\{gitEnvOrigin\}\}/g, gitEnvOrigin)
+        .replace(/\{\{gitEnvUpstream\}\}/g, gitEnvUpstream)
+        .replace(/\{\{gitFwOrigin\}\}/g, gitFwOrigin)
+        .replace(/\{\{gitFwUpstream\}\}/g, gitFwUpstream)
+        .replace(/\{\{gitArquivoOrigin\}\}/g, gitArquivoOrigin)
+        .replace(/\{\{gitArquivoUpstream\}\}/g, gitArquivoUpstream);
 
     await fsCriarDiretorio('./files');
     await fsCriarDiretorio('./files/config');
