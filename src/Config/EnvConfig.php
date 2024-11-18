@@ -68,7 +68,6 @@ final class EnvConfig
             $envChave = $this->montarEnv($arquivoChave);
             $env = array_replace($env, $envChave);
         }
-        ppe($env);
         $this->envUso = $env;
         $this->envProducao = $env;
         $this->setTipoArquivo($env['APP_TIPO'] ?? 'producao');
