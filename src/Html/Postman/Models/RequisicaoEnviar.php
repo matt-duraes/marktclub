@@ -30,7 +30,7 @@ final class RequisicaoEnviar
 
         $chaveNome = env('POSTMAN_CHAVE_PUBLICA', '');
         $chaveNome = !empty($chaveNome) ? $chaveNome : '.chave_publica';
-        $chave = file_get_contents(ROOT . '/' . $chaveNome);
+        $chave = file_get_contents(ROOT . '/chave/' . $chaveNome);
         $this->Crypt = new CryptHelper(chavePublica: $chave);
         $this->link = env('POSTMAN_API_LINK', '');
 

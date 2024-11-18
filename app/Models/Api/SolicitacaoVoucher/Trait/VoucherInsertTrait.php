@@ -47,7 +47,9 @@ trait VoucherInsertTrait
         if ($this->Parceiro->prazo_voucher_fixo->valido()) {
             return $this->Parceiro->prazo_voucher_fixo->date();
         }
-        return dataAdicionar(hoje(), $this->Parceiro->prazo_voucher, 'dias');
+        $prazo = $this->Parceiro->prazo_voucher;
+        $prazo--;
+        return empty($prazo) ? hoje() : dataAdicionar(hoje(), $prazo, 'dias');
     }
 
     private function verificarSeJaExisteVoucherComPrazo(): bool

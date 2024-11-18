@@ -2,6 +2,7 @@
 
 namespace App\Models\Api\SolicitacaoVoucher\Trait;
 
+use Modules\Data;
 use Modules\DataHora;
 use App\Classes\SolicitacaoCodigo\Status;
 
@@ -22,6 +23,12 @@ trait CodigoInsertTrait
         $this->id_usuario_cliente = $this->Usuario->get('id');
         $this->id_parceiro_loja = $this->Parceiro->get('id');
         $this->data_emissao = new DataHora(agora());
+        $prazo = $this->Parceiro->prazo_voucher;
+        if (!empty($prazo)) {
+            $prazo--;
+            $vencimento = empty($prazo) ? hoje() : dataAdicionar(hoje(), $prazo, 'dias');
+            $this->data_vencimento = new Data($vencimento);
+        }
         $this->status = new Status(Status::SOLICITADO);
     }
 
