@@ -6,7 +6,7 @@ $explode = explode('?', $requestUri);
 if (!array_key_exists(0, $explode) || !is_string($explode[0]) || empty($explode[0])) {
     exit();
 }
-$requestRealArquivo = preg_replace('/\.[a-zAZ]{3,4}$/', '', $explode[0]);
+$requestRealArquivo = preg_replace('/\.[a-zA-Z]{3,4}$/', '', $explode[0]);
 $nome = arquivoPublicoNome($requestRealArquivo);
 
 if (empty($nome)) {
