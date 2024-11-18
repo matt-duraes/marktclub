@@ -1748,6 +1748,8 @@ if (!function_exists('arquivoPrivadoId')) {
      */
     function arquivoPrivadoId(string $link)
     {
+        $explode = explode('?', $link);
+        $link = array_key_exists(0, $explode) ? $explode[0] : '';
         if (empty($link) || validarUuid($link, false)) {
             return $link;
         }
