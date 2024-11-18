@@ -51,7 +51,7 @@ final class TokenAuthorizationEntity extends Entity
         int $empresa,
         ?Tipo $tipo = null,
     ) {
-        if ($app->id != env('API_CLUBE_ID') && !in_array($redirectUri, (array)$app->redirect_uri)) {
+        if ($app->uuid != env('API_CLUBE_ID') && !in_array($redirectUri, (array)$app->redirect_uri)) {
             mensagemErro(
                 titulo: 'Erro!',
                 mensagem: 'Redirect Uri não está autorizado a criar token.',
