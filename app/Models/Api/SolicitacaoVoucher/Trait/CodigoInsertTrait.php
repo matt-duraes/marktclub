@@ -22,6 +22,9 @@ trait CodigoInsertTrait
         $this->id_usuario_cliente = $this->Usuario->get('id');
         $this->id_parceiro_loja = $this->Parceiro->get('id');
         $this->data_emissao = new DataHora(agora());
+        if(!empty($this->parceiro->prazo_voucher)) {
+            $this->data_vencimento = dataAdicionar(hoje(), $this->parceiro->prazo_voucher, 'dias');
+        }
         $this->status = new Status(Status::SOLICITADO);
     }
 

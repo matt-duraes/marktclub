@@ -66,14 +66,9 @@ final class EnvConfig
         $arquivoChave = __DIR__ . '/../../env/.env.chave';
         if (file_exists($arquivoChave) && $env['APP_TIPO'] == 'localhost') {
             $envChave = $this->montarEnv($arquivoChave);
-            foreach ($envChave as $ind => $val) {
-                if (array_key_exists($ind, $env)) {
-                    continue;
-                }
-                $env[$ind] = $val;
-            }
+            $env = array_replace($env, $envChave);
         }
-
+        ppe($env);
         $this->envUso = $env;
         $this->envProducao = $env;
         $this->setTipoArquivo($env['APP_TIPO'] ?? 'producao');
