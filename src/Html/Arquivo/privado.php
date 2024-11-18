@@ -12,7 +12,7 @@ if (!array_key_exists(0, $explode) || !is_string($explode[0]) || empty($explode[
     exit();
 }
 
-$requestRealArquivo = preg_replace('/\.[a-zAZ]{3,4}$/', '', $explode[0]);
+$requestRealArquivo = preg_replace('/\.[a-zA-Z]{3,4}$/', '', $explode[0]);
 $id = arquivoPrivadoId($requestRealArquivo);
 
 $Arquivo = (new OrmHelper(TABELA_UPLOAD_ARQUIVO, true))->pegarUltimoRegistro(

@@ -1750,6 +1750,7 @@ if (!function_exists('arquivoPrivadoId')) {
     {
         $explode = explode('?', $link);
         $link = array_key_exists(0, $explode) ? $explode[0] : '';
+        $link = preg_replace('/\.[a-zA-Z]{3,4}$/', '', $link);
         if (empty($link) || validarUuid($link, false)) {
             return $link;
         }
