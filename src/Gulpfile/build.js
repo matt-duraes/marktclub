@@ -20,21 +20,26 @@ exports.buildGit = () => {
     if (config == undefined) {
         config = JSON.parse(fs.readFileSync('./files/config/gulp.json'));
     }
+
     if (!fs.existsSync('./.git')) {
         return src('./')
             .pipe(plumber())
             .pipe(exec('git init'))
-            .pipe(exec('git remote remove origin'))
-            .pipe(exec('git remote remove upstream'))
-            .pipe(exec('git remote add origin ' + config.gitOrigin))
-            .pipe(exec('git remote add upstream ' + config.gitUpstream));
+            .pipe(exec('git remote add origin ' + config.gitProjetoOrigin))
+            .pipe(exec('git remote add upstream ' + config.gitProjetoUpstream));
+    }
+    const gitRemote = fs.readFileSync('./.git/config', 'utf-8');
+    const gitRemoveValido = typeof gitRemote === 'string' && gitRemote != '';
+    if (gitRemoveValido && /\[remote \"origin\"\]/gm.test(gitRemote)) {
+        return src('./').pipe(plumber()).pipe(exec('git remote remove origin'));
+    }
+    if (gitRemoveValido && /\[remote \"upstream\"\]/gm.test(gitRemote)) {
+        return src('./').pipe(plumber()).pipe(exec('git remote remove upstream'));
     }
     return src('./')
         .pipe(plumber())
-        .pipe(exec('git remote remove origin'))
-        .pipe(exec('git remote remove upstream'))
-        .pipe(exec('git remote add origin ' + config.gitOrigin))
-        .pipe(exec('git remote add upstream ' + config.gitUpstream));
+        .pipe(exec('git remote add origin ' + config.gitProjetoOrigin))
+        .pipe(exec('git remote add upstream ' + config.gitProjetoUpstream));
 };
 
 exports.buildPhpMussel = () => {
