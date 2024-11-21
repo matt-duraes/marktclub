@@ -87,6 +87,7 @@ class DeclaracaoModel extends ORM implements
             ->order($this->pegarOrdem(new Ordem()))
             ->tabela(TABELA_COMERCIAL_EMPRESA)
             ->join('id', 'id_admin_empresa')
+            ->where($this->pegarWhereEmpresa(), false)
             ->campo([
                 'nome_fantasia'
             ], 'empresa')
@@ -97,6 +98,7 @@ class DeclaracaoModel extends ORM implements
             ], 'usuario')
             ->tabela(TABELA_PARCEIRO_LOJA)
             ->join('id', 'id_parceiro_loja')
+            ->where($this->pegarWhereParceiro(), false)
             ->campo([
                 'titulo'
             ], 'parceiro')
@@ -122,6 +124,36 @@ class DeclaracaoModel extends ORM implements
 
         if ($this->status->valido()) {
             $where[] = ['status', $this->status->numero()];
+        }
+
+        return $where;
+    }
+
+    /**
+     * Pegar parceiro selecionado no filtro
+     * @return array
+    */
+    private function pegarWhereParceiro(): array
+    {
+        $where = $this->ormWherePadrao;
+
+        if (!empty($this->titulo)) {
+            $where[] = ['titulo', 'LIKE', '%' . $this->titulo . '%'];
+        }
+
+        return $where;
+    }
+
+    /**
+     * Pegar empresa selecionada no filtro
+     * @return array
+    */
+    private function pegarWhereEmpresa(): array
+    {
+        $where = $this->ormWherePadrao;
+
+        if (!empty($this->empresa)) {
+            $where[] = ['nome_fantasia', 'LIKE', '%' . $this->empresa . '%'];
         }
 
         return $where;
