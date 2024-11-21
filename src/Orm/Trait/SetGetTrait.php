@@ -21,22 +21,21 @@ trait SetGetTrait
      *
      * @param  string|array $propriedade Propriedade que deseja pegar ou a lista de propriedades
      * @param  bool         $erro        Se a propriedade não existir, vai gerar um erro
-     * @param  bool         $classe      Se false, tenta pegar o retorno em string da classe
      * @return mixed
      */
-    protected function valor(string|array $propriedade, bool $erro = true, bool $classe = true): mixed
+    protected function valor(string|array $propriedade, bool $erro = true): mixed
     {
         if (!is_array($propriedade)) {
-            return $this->ormPegarValorPropriedade($propriedade, $erro, $classe);
+            return $this->pegarValorPropriedade($propriedade, $erro);
         }
         $retorno = [];
         foreach ($propriedade as $ind) {
-            $retorno[$ind] = $this->ormPegarValorPropriedade($ind, $erro, $classe);
+            $retorno[$ind] = $this->pegarValorPropriedade($ind, $erro);
         }
         return $retorno;
     }
 
-    private function ormPegarValorPropriedade(string $propriedade, bool $erro, bool $classe): mixed
+    private function pegarValorPropriedade(string $propriedade, bool $erro): mixed
     {
         $existe = $this->pExiste($propriedade);
         if (!$existe && $erro) {
@@ -205,7 +204,9 @@ trait SetGetTrait
         if (is_null($valorValidacao) && $existe) {
             return;
         } elseif ($existe) {
-            $valor = $this->ormConverterValorSeForUmaClasse($propriedade, $valor);
+            $valor = $this->ormConverterValorSeForUmModule($propriedade, $valor, 1);
+            $valor = $this->ormConverterValorSeForUmStatus($propriedade, $valor);
+            $valor = $this->ormConverterValorSeForUmaOrdem($propriedade, $valor);
             $this->ormSetReal[$propriedade] = $valor;
             if ($valor instanceof Senha && $valor->vazio()) {
                 return;
@@ -225,7 +226,7 @@ trait SetGetTrait
         return null;
     }
 
-    private function ormConverterValorSeForUmModule(string $indice, $valor)
+    private function ormConverterValorSeForUmModule(string $indice, $valor, bool $teste = false)
     {
         if ($valor instanceof ModuleInterface) {
             return $valor;
