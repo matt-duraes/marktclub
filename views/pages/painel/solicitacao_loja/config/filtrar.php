@@ -5,7 +5,15 @@ use App\Classes\SolicitacaoLoja\Status;
 $Painel = new PainelConfig\Filtrar('solicitacao_loja');
 
 $Painel
-    ->input(name: 'nome', titulo: 'Nome indicação', label: 'Nome indicação', placeholder: 'Nome indicação')
+    ->input(name: 'nome', titulo: 'Nome Parceiro', label: 'Nome indicação', placeholder: 'Nome indicação')
+    ->select(
+        name: 'empresa',
+        lista: 'empresa',
+        titulo: 'Empresa',
+        label: 'Empresa',
+        placeholder: 'Empresa',
+        permissao: \App\Classes\SolicitacaoDeclaracao\Helper::PERMISSAO_EMPRESA
+    )
     ->bloco(function () use ($Painel) {
         $Painel
             ->data(
