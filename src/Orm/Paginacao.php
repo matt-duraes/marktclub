@@ -4,10 +4,6 @@ namespace ORM;
 
 use stdClass;
 use Where\Where;
-use Order\OrderInterface;
-use ORM\Order\OrderTrait;
-use Status\StatusInterface;
-use Modules\ModuleInterface;
 use System\Trait\Model\OrdemTrait;
 use System\Trait\Model\PaginaTrait;
 use System\Trait\Model\QuantidadeTrait;
@@ -28,6 +24,7 @@ abstract class Paginacao extends ORM
     {
         parent::__construct();
         $this->iniciarModel();
+        $this->ormMontarCampoBusca();
         $this->validarWhere();
         $this->listarDado();
         if (!$this->validarBusca()) {
@@ -40,16 +37,15 @@ abstract class Paginacao extends ORM
     {
         $this->retorno = $this->paginacaoZero();
         $this->ormResultado = (object)[];
-        $this->ormMontarCampoBusca();
     }
 
     private function ormMontarCampoBusca()
     {
-        if(!$this->pExiste('ormBuscar')) {
+        if (!$this->pExiste('ormBuscar')) {
             return;
         }
         $novo = [];
-        foreach($this->ormBuscar as $ind => $val) {
+        foreach ($this->ormBuscar as $ind => $val) {
             $ind = is_int($ind) ? $val : $ind;
             $novo[$ind] = $val;
         }
@@ -69,7 +65,7 @@ abstract class Paginacao extends ORM
     protected function listarDado(): void
     {
         $campo = $this->ormBuscarFinal;
-        if(empty($campo)) {
+        if (empty($campo)) {
             return;
         }
         $this->ormResultado = $this
@@ -88,14 +84,14 @@ abstract class Paginacao extends ORM
     protected function montarRetorno(): void
     {
         $campo = $this->ormBuscarFinal;
-        if(empty($campo)) {
+        if (empty($campo)) {
             return;
         }
         $resultado = $this->ormResultado;
         $retorno = [];
-        foreach($resultado->lista as $r) {
+        foreach ($resultado->lista as $r) {
             $item = [];
-            foreach($campo as $banco => $real) {
+            foreach ($campo as $banco => $real) {
                 $item[$real] = $this->valor($r->$banco, false, false);
             }
             $retorno[] = $item;

@@ -54,18 +54,18 @@ trait SetGetTrait
     private function ormConverterValorSeForUmaClasse($propriedade, $valor, bool $classe = true)
     {
         $valor = $this->ormConverterValorSeForUmModule($propriedade, $valor);
-        if($valor instanceof ModuleInterface) {
+        if ($valor instanceof ModuleInterface) {
             return $classe ? $valor : $valor->valor();
         }
         $valor = $this->ormConverterValorSeForUmStatus($propriedade, $valor);
-        if($valor instanceof StatusInterface) {
+        if ($valor instanceof StatusInterface) {
             return $classe ? $valor : $valor->indice();
         }
         $valor = $this->ormConverterValorSeForUmaOrdem($propriedade, $valor);
-        if($valor instanceof OrderInterface) {
+        if ($valor instanceof OrderInterface) {
             return $classe ? $valor : $valor->indice();
         }
-        return $classe;
+        return $valor;
     }
 
     /**

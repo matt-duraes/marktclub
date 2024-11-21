@@ -32,12 +32,25 @@ class ApiHelper extends CurlHelper
 
         parent::__construct(env('API_LINK', LINK_API));
         if (!empty($scope)) {
-            $this->autenticar($scope . ' admin:chave_publica admin:chave_privada');
+            $this->autenticar($this->limparScope($scope));
         } elseif (is_bool($token) && $token) {
             $this->header(['Authorization' => 'Bearer ' . sessao('TOKEN')]);
         } elseif (!empty($token)) {
             $this->header(['Authorization' => 'Bearer ' . $token]);
         }
+    }
+
+    private function limparScope(string $scope)
+    {
+        $retorno = ['admin:chave_publica', 'admin:chave_privada'];
+        $scope = explode(' ', trim($scope));
+        foreach ($scope as $item) {
+            if (in_array($item, $retorno)) {
+                continue;
+            }
+            $retorno[] = $item;
+        }
+        return implode(' ', $retorno);
     }
 
     /**
