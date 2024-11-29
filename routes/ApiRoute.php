@@ -3063,7 +3063,7 @@ Route
             ::nome('salvar')
             ::middleware(TokenMiddleware::class, 'scope', ['site_lotacao:salvar'])
             ::request([
-                'titulo', 'status'
+                'titulo', '!principal', 'status'
             ])
             ::post('/site-lotacao');
 
@@ -3071,7 +3071,7 @@ Route
             ::nome('atualizar')
             ::middleware(TokenMiddleware::class, 'scope', ['site_lotacao:atualizar'])
             ::request([
-                '!titulo', '!status'
+                '!titulo', '!principal', '!status'
             ])
             ::put('/site-lotacao/{id}');
 

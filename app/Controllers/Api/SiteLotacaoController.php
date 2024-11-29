@@ -63,7 +63,8 @@ final class SiteLotacaoController extends Controller implements
     {
         return mensagemSucesso(
             pegarPropriedadeDaEntity($lotacaoEntity, lista: [
-                'slug', 'titulo', 'status', 'data_criacao', 'data_atualizacao'
+                'slug', 'titulo', 'principal', 'status',
+                'data_criacao', 'data_atualizacao'
             ]),
             $status
         );
