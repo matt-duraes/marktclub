@@ -233,7 +233,6 @@ function fazerReplaceNoConteudo(conteudo, path) {
             const echoPuro = linha.match(/\{\!\!(.*)\!\!\}/g);
             const echoIcone = linha.match(/\@\ ?icone/g);
             const echoImagem = linha.match(/\@\ ?imagem/g);
-            const echoBgImagem = linha.match(/\@\ ?bgImagem/g);
             const echoLink = linha.match(/\@\ ?LINK/g);
             const echoRoute = linha.match(/\@\ ?route/g);
 
@@ -259,14 +258,6 @@ function fazerReplaceNoConteudo(conteudo, path) {
                         htmlTemp.replace(
                             /\@ ?imagem ?\(? ?([^\)| |\;|\"|\'|,]{1,})(, ?[0-9]{0,4})?(, ?[0-9]{0,4})?(, ?true|false)?(\)| \)| )?/gi,
                             '<?= imagem("$1"$2$3$4); ?>'
-                        ) + '\n';
-                }
-                // @imagem(imagem.png);
-                if (echoBgImagem) {
-                    htmlTemp =
-                        htmlTemp.replace(
-                            /\@ ?bgImagem ?\(? ?([^\)| |\;|\"|\'|,]{1,})(, ?[0-9]{0,4})?(, ?[0-9]{0,4})?(, ?true|false)?(\)| \)| )?/gi,
-                            'background-image: url(<?= imagem("$1"$2$3$4); ?>)'
                         ) + '\n';
                 }
                 // @LINK;

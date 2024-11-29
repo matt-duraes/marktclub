@@ -58,6 +58,7 @@
             "Route\\": "src/Route/",
             "Status\\": "src/Status",
             "System\\": "src/",
+            "Postman\\": "postman/",
             "Tests\\": [
                 "tests/Backend",
                 "src/Tests"

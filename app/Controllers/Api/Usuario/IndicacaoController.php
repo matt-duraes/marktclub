@@ -1,26 +1,26 @@
 <?php
 
-namespace App\Controllers\Api;
+namespace App\Controllers\Api\Usuario;
 
-use App\Classes\UsuarioIndicacao\Helper;
-use App\Classes\UsuarioIndicacao\Ordem;
-use App\Classes\UsuarioIndicacao\Status;
-use App\Models\Api\UsuarioIndicacao\IndicacaoEntity;
-use App\Models\Api\UsuarioIndicacao\IndicacaoModel;
-use Controller\Controller;
-use Helpers\OrmHelper;
 use Http\Request;
-use Http\Response;
 use Modules\Data;
+use Http\Response;
 use Modules\Pagina;
+use Helpers\OrmHelper;
 use Modules\Quantidade;
-use System\Interface\ControllerAtualizarInterface;
+use Controller\Controller;
+use App\Classes\UsuarioIndicacao\Ordem;
+use App\Classes\UsuarioIndicacao\Helper;
+use App\Classes\UsuarioIndicacao\Status;
 use System\Interface\ControllerBuscarInterface;
-use System\Interface\ControllerDeletarInterface;
 use System\Interface\ControllerListarInterface;
 use System\Interface\ControllerSalvarInterface;
+use System\Interface\ControllerDeletarInterface;
+use System\Interface\ControllerAtualizarInterface;
+use App\Models\Api\UsuarioIndicacao\IndicacaoModel;
+use App\Models\Api\UsuarioIndicacao\IndicacaoEntity;
 
-final class UsuarioIndicacaoController extends Controller implements
+final class IndicacaoController extends Controller implements
     ControllerBuscarInterface,
     ControllerListarInterface,
     ControllerSalvarInterface,

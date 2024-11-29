@@ -87,7 +87,6 @@ class DeclaracaoModel extends ORM implements
             ->order($this->pegarOrdem(new Ordem()))
             ->tabela(TABELA_COMERCIAL_EMPRESA)
             ->join('id', 'id_admin_empresa')
-            ->where($this->pegarWhereEmpresa(), false)
             ->campo([
                 'nome_fantasia'
             ], 'empresa')
@@ -139,21 +138,6 @@ class DeclaracaoModel extends ORM implements
 
         if (!empty($this->titulo)) {
             $where[] = ['titulo', 'LIKE', '%' . $this->titulo . '%'];
-        }
-
-        return $where;
-    }
-
-    /**
-     * Pegar empresa selecionada no filtro
-     * @return array
-    */
-    private function pegarWhereEmpresa(): array
-    {
-        $where = $this->ormWherePadrao;
-
-        if (!empty($this->empresa)) {
-            $where[] = ['nome_fantasia', 'LIKE', '%' . $this->empresa . '%'];
         }
 
         return $where;

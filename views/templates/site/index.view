@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
 
-    <meta name="robots" content="noindex,nofollow">
+    <meta name="robots" content="index,follow">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
 
     @ if( !empty(CLUBE_FAVICON) ):
@@ -13,9 +13,6 @@
 
     <title>{{CLUBE_TITULO}}</title>
 
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300;400;500;600;700;800;900&display=swap" rel="stylesheet">
     @CSS
     @dir "/include/css.view"
 
@@ -29,6 +26,8 @@
         @ else :
             @dir "/include/site_header.view"
         @endif;
+
+        @view 'site/indicar_amigo/indicado'
 
         [[VIEW]]
 
@@ -56,6 +55,10 @@
     @ endif;
 
     <div id="bloco_fw_calendario"></div>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300;400;500;600;700;800;900&display=swap">
 
     <script src="https://apis.google.com/js/platform.js" async defer></script>
     <script src="https://apis.google.com/js/api.js"></script>

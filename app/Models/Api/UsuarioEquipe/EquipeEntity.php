@@ -4,6 +4,7 @@ namespace App\Models\Api\UsuarioEquipe;
 
 use ORM\Entity;
 use Modules\Cpf;
+use Http\Request;
 use Modules\Data;
 use Modules\Nome;
 use Modules\Botao;
@@ -96,11 +97,15 @@ final class EquipeEntity extends Entity
     public Tipo $tipo;
 
     public function __construct(
-        private bool $validarToken = true
+        bool $validarToken = true,
+        bool $perfil = false,
     ) {
         parent::__construct();
 
         if (!$validarToken) {
+            return;
+        } elseif ($perfil) {
+            $this->setarIdEmpresa();
             return;
         }
         $this->validarEmpresa();
@@ -291,5 +296,18 @@ final class EquipeEntity extends Entity
         ) {
             mensagemErro('Campo inválido!', 'O perfil informado já está em uso por outro usuário.');
         }
+    }
+
+    public function postImagem(Request $request, string $idUsuario)
+    {
+        $Usuario = new EquipeEntity(validarToken: false);
+        $Usuario->uuid($idUsuario);
+        $Usuario->imagem_arquivo = $request->getFiles('imagem');
+        $Usuario->salvar();
+
+        return mensagemSucesso([
+            'id'     => $Usuario->id,
+            'imagem' => $Usuario->imagem
+        ], status: 201, criptografar: ['imagem']);
     }
 }

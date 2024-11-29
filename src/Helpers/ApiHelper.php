@@ -72,6 +72,13 @@ class ApiHelper extends CurlHelper
             $this->header(['Authorization' => 'Bearer ' . $token['dado']['access_token']]);
             return;
         }
-        throw new Excecao(status: 401);
+        if (!eLocalhost()) {
+            mensagemStatus(status: 401);
+        }
+        if (!array_key_exists('erro', $token) || !is_array($token['erro']) || !array_key_exists('mensagem', $token['erro'])) {
+            print_r($token['texto'] ?? $token);
+            exit();
+        }
+        mensagemStatus(status: 401, localhost: $token['erro']['mensagem']);
     }
 }

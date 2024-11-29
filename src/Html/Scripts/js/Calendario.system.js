@@ -62,8 +62,14 @@ let fwCalendarioCarregarFuncao = function () {
     };
 
     let fwCalendarioTrocarData = function (acao) {
+        const inputAno = fwCalendario.querySelector('.fw_calendario_ano_input');
         let mes = fwCalendario.querySelector('.fw_calendario_mes_select').value;
-        let ano = fwCalendario.querySelector('.fw_calendario_ano_select').value;
+        let ano = inputAno.value;
+        if (!/^[1-9]{1}[0-9]{3}/.test(ano)) {
+            ano = inputAno.attr('data-ano');
+            inputAno.value = ano;
+        }
+        inputAno.attr('data-ano', ano);
 
         if (acao == 'prev') {
             mes--;
@@ -141,12 +147,16 @@ let fwCalendarioCarregarFuncao = function () {
     | CHANGE MES E ANO
     |--------------------------------------------------------------------------
     /*/
-    document
-        .querySelector('#fw_calendario .fw_calendario_mes_select')
-        .addEventListener('change', fwCalendarioTrocarData);
-    document
-        .querySelector('#fw_calendario .fw_calendario_ano_select')
-        .addEventListener('change', fwCalendarioTrocarData);
+    document.querySelector('#fw_calendario .fw_calendario_mes_select').addEventListener('change', () => {
+        fwCalendarioTrocarData();
+    });
+    const inputAnoGeral = $('#fw_calendario .fw_calendario_ano_input');
+    inputAnoGeral.addEventListener('formChange', () => {
+        fwCalendarioTrocarData();
+    });
+    inputAnoGeral.addEventListener('focus', () => {
+        inputAnoGeral.select();
+    });
 };
 
 fwCalendarioInputAtual = '';
@@ -155,44 +165,46 @@ fwCalendarioInputAtual = '';
 | ABRE UM FORMULÁRIO
 |--------------------------------------------------------------------------
 /*/
-fwCalendarioInputListar = function (lista, option) {
-    if (!lista) {
+fwCalendarioInputListar = function (tipo, input, de, ate, option) {
+    if ((tipo == 'normal' && input === undefined) || (tipo == 'deAte' && (de === undefined || ate === undefined))) {
         return false;
     }
 
-    let quantidade = lista.length;
-    if (quantidade == 0) {
-        return false;
+    if (input instanceof NodeList) {
+        for (const item of input) {
+            fwCalendarioInputListarExecutar(tipo, item, undefined, undefined, option);
+        }
+        return;
     }
 
-    let i, id;
-    for (i = 0; i < quantidade; ++i) {
-        if (typeof option.de == 'string' && typeof option.ate == 'string') {
-            lista[i].setAttribute('data-fwcalendariodeate', 1);
-            lista[i].setAttribute('data-fwcalendariode', option.de);
-            lista[i].setAttribute('data-fwcalendarioate', option.ate);
-        }
-        if (typeof option.dataMinima == 'string' && Calendario.validarData(option.dataMinima)) {
-            lista[i].setAttribute('data-fwcalendariominima', option.dataMinima);
-        }
-        if (typeof option.dataMaxima == 'string' && Calendario.validarData(option.dataMaxima)) {
-            lista[i].setAttribute('data-fwcalendariomaxima', option.dataMaxima);
-        }
-        if (typeof option.hora == 'boolean') {
-            lista[i].setAttribute('data-fwcalendariohora', option.hora ? 1 : 0);
-        }
-
-        id = lista[i].getAttribute('id');
-        if (id == null) {
-            id = 'fwcalendario_' + Math.floor(Math.random() * 99999999999);
-            lista[i].setAttribute('id', id);
-        }
-
-        lista[i].addEventListener('focus', fwCalendarioAbrir);
-        lista[i].addEventListener('keydown', fwCalendarioKeyDown);
-        lista[i].addEventListener('keyup', fwCalendarioKeyUp);
+    if (tipo == 'normal') {
+        fwCalendarioInputListarExecutar(tipo, input, undefined, undefined, option);
+        return;
     }
+
+    fwCalendarioInputListarExecutar(tipo, de, de, ate, option);
+    fwCalendarioInputListarExecutar(tipo, ate, de, ate, option);
 };
+fwCalendarioInputListarExecutar = (tipo, item, de, ate, option) => {
+    if (tipo == 'deAte') {
+        item.setAttribute('data-fwcalendariodeate', 1);
+        item.setAttribute('data-fwcalendariode', de.attr('id'));
+        item.setAttribute('data-fwcalendarioate', ate.attr('id'));
+    }
+    if (typeof option.dataMinima == 'string' && Calendario.validarData(option.dataMinima)) {
+        item.setAttribute('data-fwcalendariominima', option.dataMinima);
+    }
+    if (typeof option.dataMaxima == 'string' && Calendario.validarData(option.dataMaxima)) {
+        item.setAttribute('data-fwcalendariomaxima', option.dataMaxima);
+    }
+    if (typeof option.hora == 'boolean') {
+        item.setAttribute('data-fwcalendariohora', option.hora ? 1 : 0);
+    }
+    item.addEventListener('focus', fwCalendarioAbrir);
+    item.addEventListener('keydown', fwCalendarioKeyDown);
+    item.addEventListener('keyup', fwCalendarioKeyUp);
+};
+
 fwCalendarioAbrir = function () {
     if (window.innerWidth <= 1000) {
         this.blur();
@@ -349,16 +361,23 @@ fwCalendarioFecharOk = function () {
             return false;
         }
         if (blocoHora.classList.contains('fw_calendario_hora_minuto_manual_input')) {
-            valorHora = blocoHora.value;
+            valorHora = blocoHora.value.replace(/\:$/, '');
         } else {
             valorHora = blocoHora.getAttribute('data-fwcalendariohora');
         }
 
         if (!Calendario.validarHora(valorHora)) {
+            if (blocoHora.classe('fw_calendario_hora_minuto_manual_input', '?')) {
+                blocoHora.classe('hora_invalida', true);
+                blocoHora.scrollIntoView();
+                Animacao.negar(blocoHora);
+            }
             return false;
         }
-
-        valor += ' ' + valorHora + ':00';
+        if (/^[0-9]{2}\:[0-9]{2}$/.test(valorHora)) {
+            valorHora += ':00';
+        }
+        valor += ' ' + valorHora;
         input.value = valor;
     } else {
         input.value = valor;
@@ -577,6 +596,32 @@ fwCalendarioEventoSelecionarHora = function () {
     for (i = 0; i < quantidade; ++i) {
         botao[i].addEventListener('click', fwCalendarioSelecionarHora);
     }
+
+    const manual = $('#fw_calendario .fw_calendario_hora_minuto_manual_input');
+    manual.evento('click', () => {
+        manual.classe('hora_invalida', false);
+        const marcado = $('#fw_calendario .fw_calendario_hora_minuto.fw_calendario_hora_minuto_marcado');
+        if (marcado) {
+            marcado.classe('fw_calendario_hora_minuto_marcado', false);
+        }
+    });
+    manual.evento('formChange', () => {
+        const valor = manual.value.replace(/\:$/, '');
+        if (vazio(valor)) {
+            manual.classe('fw_calendario_hora_minuto_marcado', false);
+            return;
+        } else if (!Calendario.validarHora(valor)) {
+            manual.classe('fw_calendario_hora_minuto_marcado', false);
+            manual.classe('hora_invalida', true);
+            Animacao.negar(manual);
+        }
+        manual.classe('fw_calendario_hora_minuto_marcado', true);
+    });
+    manual.evento('keydown', e => {
+        if (e.key == 'Tab') {
+            e.preventDefault();
+        }
+    });
 };
 fwCalendarioSelecionarHora = function () {
     if (typeof this === null) {
@@ -588,11 +633,10 @@ fwCalendarioSelecionarHora = function () {
     }
 
     let manualInput = document.getElementById('fw_calendario').querySelector('.fw_calendario_hora_minuto_manual_input');
+    manualInput.classe('hora_invalida', false);
     if (manualInput.classList.contains('fw_calendario_hora_minuto_marcado')) {
         manualInput.classList.remove('fw_calendario_hora_minuto_marcado');
         manualInput.value = '';
-        document.getElementById('fw_calendario').querySelector('.fw_calendario_hora_minuto_manual').style.display =
-            'block';
     }
 
     let marcado = document.getElementById('fw_calendario').querySelectorAll('.fw_calendario_hora_minuto_marcado');
@@ -604,14 +648,7 @@ fwCalendarioSelecionarHora = function () {
             marcado[i].classList.remove('fw_calendario_hora_minuto_marcado');
         }
     }
-
-    if (this.classList.contains('fw_calendario_hora_minuto_manual')) {
-        this.style.display = 'none';
-        manualInput.classList.add('fw_calendario_hora_minuto_marcado');
-        manualInput.focus();
-    } else {
-        this.classList.add('fw_calendario_hora_minuto_marcado');
-    }
+    this.classList.add('fw_calendario_hora_minuto_marcado');
 };
 
 /*/
@@ -758,113 +795,6 @@ for (x = 48; x <= 57; x++) {
 for (x = 96; x <= 105; x++) {
     fwCalendarioKeyNumero.push(x);
 }
-fwCalendarioMascaraHora = function (e) {
-    let input = document.querySelector('.fw_calendario_hora_minuto_manual_input');
-    if (!input) {
-        return false;
-    }
-
-    let tecla = e.keyCode;
-
-    let posicaoInicio = input.selectionStart;
-    let posicaoFinal = input.selectionEnd;
-
-    if (tecla == 8 && posicaoInicio == posicaoFinal && posicaoInicio == 3) {
-        input.setSelectionRange(2, 2);
-        e.preventDefault();
-        return false;
-    } else if (
-        e.ctrlKey ||
-        e.metaKey ||
-        fwCalendarioInArray(tecla, fwCalendarioKeyGeral) ||
-        fwCalendarioInArray(tecla, fwCalendarioKeyCtrl)
-    ) {
-        return false;
-    } else if (!fwCalendarioInArray(tecla, fwCalendarioKeyNumero) && !fwCalendarioInArray(tecla, [8, 46])) {
-        e.preventDefault();
-        return false;
-    }
-
-    e.preventDefault();
-    let valorTemporario = input.value;
-    let valorTemporarioTamanho = valorTemporario.length;
-
-    let valor = '';
-    if (tecla == 8) {
-        if (posicaoInicio != posicaoFinal && posicaoInicio > 0) {
-            valor =
-                valorTemporario.substr(0, posicaoInicio - 1) +
-                valorTemporario.substr(posicaoFinal, valorTemporarioTamanho);
-        } else if (posicaoInicio != posicaoFinal && posicaoInicio == 0) {
-            valor = valorTemporario.substr(posicaoFinal, valorTemporarioTamanho);
-        } else if (posicaoInicio == valorTemporarioTamanho) {
-            posicaoInicio = 99999999;
-            valor = valorTemporario.substr(0, posicaoFinal - 1);
-        } else {
-            valor =
-                valorTemporario.substr(0, posicaoInicio - 1) +
-                valorTemporario.substr(posicaoInicio, valorTemporarioTamanho);
-        }
-    } else {
-        let novoNumero = String.fromCharCode(tecla);
-
-        if (posicaoInicio != posicaoFinal && posicaoInicio > 0) {
-            valor =
-                valorTemporario.substr(0, posicaoInicio) +
-                novoNumero +
-                valorTemporario.substr(posicaoFinal, valorTemporarioTamanho);
-        } else if (posicaoInicio != posicaoFinal && posicaoInicio == 0) {
-            valor = novoNumero + valorTemporario.substr(posicaoFinal, valorTemporarioTamanho);
-        } else if (posicaoInicio == valorTemporarioTamanho) {
-            posicaoInicio = 99999999;
-            valor = valorTemporario + novoNumero;
-        } else {
-            valor =
-                valorTemporario.substr(0, posicaoInicio) +
-                novoNumero +
-                valorTemporario.substr(posicaoInicio, valorTemporarioTamanho);
-        }
-    }
-
-    let valorLimpo = valor.replace(/[^0-9]/g, '');
-    let valorLimpoTamanho = valorLimpo.length;
-
-    let hora = valorLimpo.substr(0, 2);
-    let primeiroNumeroHora = valorLimpo.substr(0, 1);
-    let minuto = valorLimpo.substr(2, 2);
-    let primeiroNumeroMinuto = valorLimpo.substr(2, 1);
-
-    if (valorLimpoTamanho == 0) {
-        input.value = '';
-    } else if (
-        valorLimpoTamanho == 5 ||
-        primeiroNumeroHora > 2 ||
-        primeiroNumeroMinuto > 5 ||
-        hora > 23 ||
-        minuto > 59
-    ) {
-        return false;
-    }
-
-    let i;
-    let valorNovo = '';
-    for (i = 0; i < valorLimpoTamanho; ++i) {
-        if (i == 2) {
-            valorNovo += ':';
-        }
-        if (i == 2 && tecla != 8) {
-            posicaoInicio++;
-        }
-        valorNovo += valorLimpo[i];
-    }
-    input.value = valorNovo;
-
-    if (tecla != 8) {
-        input.setSelectionRange(posicaoInicio + 1, posicaoInicio + 1);
-    } else {
-        input.setSelectionRange(posicaoInicio - 1, posicaoInicio - 1);
-    }
-};
 
 class Calendario {
     constructor() {
@@ -876,36 +806,86 @@ class Calendario {
             typeof option.input == 'undefined' &&
             (typeof option.de == 'undefined' || typeof option.ate == 'undefined')
         ) {
-            this._erro = 'Você deve passar um option.input ou option.de e option.ate.';
+            console.log('Você deve passar um option.input ou option.de e option.ate.');
             return false;
         }
 
-        let lista;
-        if (option.input) {
-            lista = document.querySelectorAll(option.input);
+        this.tipo = 'normal';
+        if (option.ate === undefined) {
+            this.input = typeof option.input === 'string' ? document.querySelectorAll(option.input) : option.input;
+            if (vazio(this.input.attr('id'))) {
+                this.input.attr('id', idAleatorio('fw_calendario'));
+            }
         } else {
-            lista = document.querySelectorAll('#' + option.de + ', ' + '#' + option.ate);
+            this.setarInputDeAte(option);
         }
 
-        let blocoGeral = document.getElementById('bloco_fw_calendario');
+        let blocoGeral = $('#bloco_fw_calendario');
         if (blocoGeral == null) {
-            document.querySelector('body').insertAdjacentHTML('beforeend', '<div id="bloco_fw_calendario"></div>');
-            blocoGeral = document.getElementById('bloco_fw_calendario');
+            document.querySelector('body').inicio('<div id="bloco_fw_calendario"></div>');
+            blocoGeral = $('#bloco_fw_calendario');
         }
         if (option.callback) {
             this._callback = option.callback;
         }
         this._blocoGeral = blocoGeral;
 
-        fwCalendarioInputListar(lista, option);
+        fwCalendarioInputListar(this.tipo, this.input, this.inputDe, this.inputAte, option);
     }
 
-    static init(option) {
-        this._tratarOption(option);
-
-        if (this._erro) {
-            return false;
+    static setarInputDeAte(option) {
+        this.tipo = 'deAte';
+        if (typeof option.de == 'string') {
+            this.inputDe = $(/^\#|\./.test(option.de) ? option.de : '#'.option.de);
+        } else if (option.de instanceof NodeList) {
+            this.inputDe = undefined;
+            console.log('Calendario de/até não pode ser uma lista');
+            return;
+        } else {
+            this.inputDe = option.de;
         }
+        if (typeof option.ate == 'string') {
+            this.inputAte = $(/^\#|\./.test(option.ate) ? option.ate : '#'.option.ate);
+        } else if (option.ate instanceof NodeList) {
+            this.inputAte = undefined;
+            console.log('Calendario de/até não pode ser uma lista');
+            return;
+        } else {
+            this.inputAte = option.ate;
+        }
+        if (vazio(this.inputDe.attr('id'))) {
+            this.inputDe.attr('id', idAleatorio('fw_calendario'));
+        }
+        if (vazio(this.inputAte.attr('id'))) {
+            this.inputAte.attr('id', idAleatorio('fw_calendario'));
+        }
+    }
+
+    static init(data, dataAte, callback, dataMinima, dataMaxima, hora) {
+        if (typeof data === 'object' && !(data instanceof Element)) {
+            this._tratarOption(data);
+            return;
+        }
+        let optionNovo = {};
+        if (dataAte === undefined) {
+            optionNovo.input = data;
+        } else {
+            optionNovo.de = data;
+            optionNovo.ate = dataAte;
+        }
+        if (callback !== undefined && typeof callback === 'object') {
+            optionNovo.callback = callback;
+        }
+        if (dataMinima !== undefined) {
+            optionNovo.dataMinima = dataMinima;
+        }
+        if (dataMaxima !== undefined) {
+            optionNovo.dataMaxima = dataMaxima;
+        }
+        if (hora !== undefined && typeof hora === 'boolean') {
+            optionNovo.hora = hora;
+        }
+        this._tratarOption(optionNovo);
     }
 
     static _abrir(elemento) {
@@ -960,12 +940,12 @@ class Calendario {
 
     static _carregarHtml() {
         if (document.getElementById('fw_calendario') == null) {
-            this._blocoGeral.innerHTML = `
+            this._blocoGeral.html(`
 <div id="fw_calendario">
     <div class="fw_calendario_conteudo">
         <div class="fw_calendario_header">
             <div class="fw_calendario_prev">
-                <svg xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:cc="http://creativecommons.org/ns#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:svg="http://www.w3.org/2000/svg" xmlns="http://www.w3.org/2000/svg" xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd" xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape" version="1.1" x="0px" y="0px" viewBox="0 0 100 100"><g transform="translate(0,-952.36218)"><path style="text-indent:0;text-transform:none;direction:ltr;block-progression:tb;baseline-shift:baseline;color:#000000;enable-background:accumulate;" d="m 29.970314,1002.706 a 4.0004,4.0004 0 0 0 0.9688,2.2812 l 32.00003,37 a 4.0004,4.0004 0 1 0 6.0313,-5.25 l -29.71883,-34.375 29.71883,-34.375 a 4.0004,4.0004 0 1 0 -6.0313,-5.25 l -32.00003,37 a 4.0004,4.0004 0 0 0 -0.9688,2.9688 z" fill-opacity="1" stroke="none" marker="none" visibility="visible" display="inline" overflow="visible"/></g></svg>
+                <svg xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:cc="http://creativecommons.org/ns#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:svg="http://www.w3.org/2000/svg" xmlns="http://www.w3.org/2000/svg" xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd" xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape" version="1.1" x="0px" y="0px" viewBox="0 0 100 100"><g transform="translate(0,-952.36218)"><path d="m 29.970314,1002.706 a 4.0004,4.0004 0 0 0 0.9688,2.2812 l 32.00003,37 a 4.0004,4.0004 0 1 0 6.0313,-5.25 l -29.71883,-34.375 29.71883,-34.375 a 4.0004,4.0004 0 1 0 -6.0313,-5.25 l -32.00003,37 a 4.0004,4.0004 0 0 0 -0.9688,2.9688 z" fill-opacity="1" stroke="none" marker="none" visibility="visible" display="inline" overflow="visible"/></g></svg>
             </div>
             <div class="fw_calendario_mes_ano">
                 <div class="fw_calendario_mes">
@@ -986,13 +966,11 @@ class Calendario {
                     </select>
                 </div>
                 <div class="fw_calendario_ano">
-                    <div class="fw_calendario_ano_texto"></div>
-                    <select class="fw_calendario_ano_select" name="fw_calendario_ano">
-                    </select>
+                    <input class="fw_calendario_ano_input" data-mascara="0000" inputmode="numeric"  name="fw_calendario_ano">
                 </div>
             </div>
             <div class="fw_calendario_next">
-                <svg xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:cc="http://creativecommons.org/ns#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:svg="http://www.w3.org/2000/svg" xmlns="http://www.w3.org/2000/svg" xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd" xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape" version="1.1" x="0px" y="0px" viewBox="0 0 100 100"><g transform="translate(0,-952.36218)"><path style="text-indent:0;text-transform:none;direction:ltr;block-progression:tb;baseline-shift:baseline;color:#000000;enable-background:accumulate;" d="m 70.029671,1002.0184 a 4.0004,4.0004 0 0 0 -0.96875,-2.28122 l -32.00003,-37 a 4.0004,4.0004 0 1 0 -6.0313,5.25 l 29.71883,34.37502 -29.71883,34.375 a 4.0004,4.0004 0 1 0 6.0313,5.25 l 32.00003,-37 a 4.0004,4.0004 0 0 0 0.96875,-2.9688 z" fill-opacity="1" stroke="none" marker="none" visibility="visible" display="inline" overflow="visible"/></g></svg>
+                <svg xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:cc="http://creativecommons.org/ns#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:svg="http://www.w3.org/2000/svg" xmlns="http://www.w3.org/2000/svg" xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd" xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape" version="1.1" x="0px" y="0px" viewBox="0 0 100 100"><g transform="translate(0,-952.36218)"><path d="m 70.029671,1002.0184 a 4.0004,4.0004 0 0 0 -0.96875,-2.28122 l -32.00003,-37 a 4.0004,4.0004 0 1 0 -6.0313,5.25 l 29.71883,34.37502 -29.71883,34.375 a 4.0004,4.0004 0 1 0 6.0313,5.25 l 32.00003,-37 a 4.0004,4.0004 0 0 0 0.96875,-2.9688 z" fill-opacity="1" stroke="none" marker="none" visibility="visible" display="inline" overflow="visible"/></g></svg>
             </div>
         </div>
 
@@ -1007,7 +985,6 @@ class Calendario {
                 <div class="fw_calendario_td"><div class="fw_calendario_semana_texto">Sab</div></div>
             </div>
             <div class="fw_calendario_hora_valor">
-                <input type="text" name="hora" class="fw_calendario_hora_valor_input" placeholder="00:00" inputmode="numeric" value="">
             </div>
         </div>
 
@@ -1035,15 +1012,15 @@ class Calendario {
 
     </div>
 </div>
-            `;
+            `);
 
-            this._fwCalendario = document.getElementById('fw_calendario');
-            this._setarPosicao();
+            this._fwCalendario = $('#fw_calendario');
+            fwMascaraLoading(this._fwCalendario);
         } else {
             fwCalendarioEventoRemoverData();
             this._fwCalendario.style.display = 'flex';
-            this._setarPosicao();
         }
+        this._setarPosicao();
 
         let fwCalendario = this._fwCalendario;
 
@@ -1111,16 +1088,15 @@ class Calendario {
         });
     }
     static async _colocarListaHora() {
-        let blocoExiste = this._fwCalendario.querySelector('.fw_calendario_hora_minuto_manual');
+        let blocoExiste = this._fwCalendario.querySelector('.fw_calendario_hora_minuto_manual_input');
         if (blocoExiste) {
+            blocoExiste.classe('hora_invalida', false);
             return true;
         }
 
         let bloco = this._fwCalendario.querySelector('.fw_calendario_hora');
         let html =
-            '<div class="fw_calendario_hora_minuto fw_calendario_hora_minuto_manual" data-ajuda="Clique aqui para colocar uma data manualmente">MANUAL</div>';
-        html +=
-            '<input class="fw_calendario_hora_minuto fw_calendario_hora_minuto_manual_input" data-ajuda="Clique aqui para editar" placeholder="MANUAL" value="">';
+            '<input class="fw_calendario_hora_minuto_manual_input" data-mascara="00:00:00" data-ajuda="Clique aqui para editar" placeholder="MANUAL" value="">';
 
         let minuto = 0;
         let hora, i;
@@ -1147,11 +1123,8 @@ class Calendario {
             html += '<div class="fw_calendario_hora_minuto" data-fwcalendariohora="' + hora + '">' + hora + '</div>';
         }
 
-        bloco.innerHTML = html;
-
-        document
-            .querySelector('.fw_calendario_hora_minuto_manual_input')
-            .addEventListener('keydown', fwCalendarioMascaraHora);
+        bloco.html(html);
+        fwMascaraLoading(bloco);
 
         fwCalendarioEventoSelecionarHora();
 
@@ -1324,20 +1297,8 @@ class Calendario {
             this._fwCalendario.querySelector('.fw_calendario_mes_texto').textContent =
                 selectMes.children[selectMes.selectedIndex].textContent;
 
-            let selectAnoHtml = '';
-            let anoInicial = ano - 50;
-            let anoFinal = ano + 50;
-            let iAno, anoSelected;
-            for (iAno = anoInicial; iAno <= anoFinal; ++iAno) {
-                anoSelected = '';
-                if (iAno == ano) {
-                    anoSelected = 'selected';
-                }
-                selectAnoHtml += '<option value="' + iAno + '" ' + anoSelected + '>' + iAno + '</option>';
-            }
-
-            this._fwCalendario.querySelector('.fw_calendario_ano_select').innerHTML = selectAnoHtml;
-            this._fwCalendario.querySelector('.fw_calendario_ano_texto').textContent = ano;
+            this._fwCalendario.querySelector('.fw_calendario_ano_input').value = ano;
+            this._fwCalendario.querySelector('.fw_calendario_ano_input').attr('data-ano', ano);
         } else if (local == 'proximo') {
             bloco = this._fwCalendario.querySelector('.fw_calendario_mes_numero:nth-child(3)');
             mes++;
@@ -1376,7 +1337,7 @@ class Calendario {
             }
             html +=
                 '<div class="fw_calendario_td"><div class="fw_calendario_numero fw_calendario_outro_mes">' +
-                (diaUltimoAnterior - 6 + (iAnterior + 1)) +
+                (diaUltimoAnterior - semanaPrimeiro + (iAnterior + 1)) +
                 '</div></div>';
             if (iGeral == 6) {
                 iGeral = 0;
@@ -1477,13 +1438,12 @@ class Calendario {
             }
         }
 
-        bloco.innerHTML = html;
+        bloco.html(html);
     }
 
     static _resetarHora() {
         let fwCalendario = this._fwCalendario;
         let manualInput = fwCalendario.querySelector('.fw_calendario_hora_minuto_manual_input');
-        fwCalendario.querySelector('.fw_calendario_hora_minuto_manual').style.display = 'block';
         manualInput.classList.remove('fw_calendario_hora_minuto_marcado');
         manualInput.value = '';
         fwCalendario.querySelector('.fw_calendario_hora').scrollTop = 0;
@@ -1499,7 +1459,6 @@ class Calendario {
             }
         }
 
-        fwCalendario.querySelector('.fw_calendario_hora_minuto_manual').style.display = 'block';
         fwCalendario.querySelector('.fw_calendario_hora_minuto_manual_input').value = '';
 
         let valor = this._elemento.value;
@@ -1515,7 +1474,8 @@ class Calendario {
 
         let hora = horaCompleta.split(':')[0];
         let minuto = horaCompleta.split(':')[1];
-        if (minuto == '00' || minuto == '15' || minuto == '30' || minuto == '45') {
+        let segundo = horaCompleta.split(':')[2];
+        if ((minuto == '00' || minuto == '15' || minuto == '30' || minuto == '45') && segundo == '00') {
             let blocoHora = fwCalendario.querySelector(
                 '.fw_calendario_hora_minuto[data-fwcalendariohora="' + hora + ':' + minuto + '"]'
             );
@@ -1526,11 +1486,10 @@ class Calendario {
             let scrollTop = blocoHora.offsetTop;
             fwCalendario.querySelector('.fw_calendario_hora').scrollTop = scrollTop - 30;
         } else {
-            fwCalendario.querySelector('.fw_calendario_hora_minuto_manual').style.display = 'none';
             fwCalendario
                 .querySelector('.fw_calendario_hora_minuto_manual_input')
                 .classList.add('fw_calendario_hora_minuto_marcado');
-            fwCalendario.querySelector('.fw_calendario_hora_minuto_manual_input').value = hora + ':' + minuto;
+            fwCalendario.querySelector('.fw_calendario_hora_minuto_manual_input').value = horaCompleta;
             fwCalendario.querySelector('.fw_calendario_hora').scrollTop = 0;
         }
     }

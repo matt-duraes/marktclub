@@ -462,7 +462,7 @@ final class AppController extends PadraoController
 
         $ApiSenha
             ->body($dadoSenha)
-            ->post('/usuario-equipe/validar-senha');
+            ->post('/perfil-dado/validar-senha');
 
         $ApiSenha = $this->validarRetornoApi($ApiSenha);
         if ($ApiSenha instanceof Response) {

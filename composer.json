@@ -55,6 +55,7 @@
             "PainelConfig\\": "src/Painel/Config",
             "PainelController\\": "src/Painel/Controllers",
             "PainelModel\\": "src/Painel/Models",
+            "Postman\\": "postman/",
             "Random\\": "src/Random",
             "ResourcesSite\\": "resources\\php\\site",
             "Route\\": "src/Route/",

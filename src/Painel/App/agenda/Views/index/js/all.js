@@ -20,8 +20,8 @@ window.addEventListener('load', () => {
     const bodyHtml = document.querySelector('body');
 
     Calendario.init({
-        de: 'input_agenda_data_inicial',
-        ate: 'input_agenda_data_final',
+        de: $('#input_agenda_data_inicial'),
+        ate: $('#input_agenda_data_final'),
     });
 
     /*
@@ -561,16 +561,13 @@ window.addEventListener('load', () => {
                 } else if (item.eu && item.status == 'talvez') {
                     botaoDetalheParticiparTalvez.classList.add('hover');
                 }
-                blocoDetalheConvidadoLista.insertAdjacentHTML(
-                    'afterbegin',
-                    `
-                        <div class="linha ${convidadoEu}">
-                            <figure style="background-image: url(${item.imagem})"></figure>
-                            <p>${item.nome}</p>
-                            ${check}
-                        </div>
-                    `
-                );
+                blocoDetalheConvidadoLista.inicio(`
+                    <div class="linha ${convidadoEu}">
+                        <figure data-bgimagem="${item.imagem}"></figure>
+                        <p>${item.nome}</p>
+                        ${check}
+                    </div>
+                `);
             });
         }
 
@@ -731,15 +728,12 @@ window.addEventListener('load', () => {
             classe = 'sou_eu';
             imagem = usuarioImagem;
         }
-        blocoConvidadoLista.insertAdjacentHTML(
-            'beforeend',
-            `
-                <div class="item ${classe}" data-email="${email}">
-                    <figure style="background-image: url(${imagem})"></figure>
-                    <p>${email}</p><i class="botao_remover_convidado">${Icone.fechar()}</i>
-                </div>
-            `
-        );
+        blocoConvidadoLista.final(`
+            <div class="item ${classe}" data-email="${email}">
+                <figure data-bgimagem="${imagem}"></figure>
+                <p>${email}</p><i class="botao_remover_convidado">${Icone.fechar()}</i>
+            </div>
+        `);
         validarBotaoDeNotificar();
     };
     const validarEmail = email => {
@@ -804,16 +798,13 @@ window.addEventListener('load', () => {
                     if (item.eu) {
                         convidadoClasse = 'sou_eu';
                     }
-                    blocoConvidadoLista.insertAdjacentHTML(
-                        'afterbegin',
-                        `
-                            <div class="item ${convidadoClasse}" data-email="${item.email}">
-                                <figure style="background-image: url(${item.imagem})"></figure>
-                                <p>${item.email}</p>
-                                <i class="botao_remover_convidado">${Icone.fechar()}</i>
-                            </div>
-                        `
-                    );
+                    blocoConvidadoLista.inicio(`
+                        <div class="item ${convidadoClasse}" data-email="${item.email}">
+                            <figure data-bgimagem="${item.imagem}"></figure>
+                            <p>${item.email}</p>
+                            <i class="botao_remover_convidado">${Icone.fechar()}</i>
+                        </div>
+                    `);
                 });
                 if (dado.convidado.length > 1 || (dado.convidado.length == 1 && !dado.convidado[0].eu)) {
                     blocoNotificar.classList.add('show');

@@ -1,7 +1,7 @@
 
 <!-- CONTADOR -->
 <section class="bloco_contador" id="bloco_contador">
-    <figure style="background: url({!!LINK!!}/images/site/bg_contador.jpg) no-repeat center center" class="imagem"></figure>
+    <figure class="imagem"></figure>
     <div class="bg"></div>
 
     <h1>O Maior Clube de Vantagens da América Latina</h1>
@@ -9,11 +9,11 @@
     <div class="bloco" id="bloco_contador_numero">
         <div class="item">
             <span>Mais de</span>
-            <p class="loja contar" data_target="{{$num_lojas}}">0</p>
+            <p class="loja contar" data-numero="{{$loja}}" id="contador_loja">0</p>
             <span>lojas</span>
         </div>
         <div class="item">
-            <p class="parceria contar" data_target="{{$num_parcerias}}">0</p>
+            <p class="parceria contar" data-numero="{{$parceiro}}" id="contador_parceiro">0</p>
             <span>parcerias</span>
         </div>
     </div>

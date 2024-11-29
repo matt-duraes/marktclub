@@ -13,7 +13,7 @@
                     @ endif;
                     <div class="bg"></div>
                     <div class="grade"></div>
-                    <figure style="background-image: url({!!$r->imagem!!})"></figure>
+                    <figure data-bgimagem="@imagem $r->imagem"></figure>
                     <a href="@route('galeria.index')/{{$r->id}}"></a>
                 </div>
                 <p>{{$r->titulo}}</p>

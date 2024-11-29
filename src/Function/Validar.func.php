@@ -44,6 +44,88 @@ if (!function_exists('exiteErro')) {
     }
 }
 
+if (!function_exists('validarIndiceExiste')) {
+    // doc
+    // exemplo
+    /**
+     * Verifica se o um campo existe em um array/stdClass
+     *
+     * @param  array|stdClass $dado   Dado a ser conferido
+     * @param  array|string   $indice Indice para validar se existe, pode ser uma string ("indice", "indice.filho")
+     *                                ou uma lista em um array ["indice_1", "indice_2", "indice_3.filho"]
+     *                                ou uma lista de indice valor para validar o valor do retorno
+     *                                ["indice_1" => "sucesso", "indice_2.filho" => "Valor para filho"]
+     * @param  mixed          $valor  Se dado for string, pode validar o valor dele
+     * @return bool           Retorna true caso o valor seja válido, caso tenha algum erro, retorna false
+     */
+    function validarIndiceExiste(array|stdClass $dado, string|array $indice = '', mixed $valor = null): bool
+    {
+        $naoPodeValor = is_array($indice) && !is_null($valor);
+        if (!is_array($dado) && !$dado instanceof stdClass) {
+            return false;
+        } elseif ($naoPodeValor && eLocalhost()) {
+            mensagemErro('Erro!', 'Não pode passar valor quando o indice é array');
+        } elseif ($naoPodeValor) {
+            return false;
+        }
+
+        $eString = is_string($indice);
+        $eArray = is_array($dado);
+        $listaInidice = $eString ? [$indice] : $indice;
+
+        foreach ($listaInidice as $ind => $val) {
+            $indiceTemp = $ind;
+            $valorTemp = $val;
+            if (is_int($ind)) {
+                $indiceTemp = $val;
+                $valorTemp = $eString ? $valor : null;
+            }
+
+            if (
+                ($eArray && !validarIndiceExisteArray($indiceTemp, $dado, $valorTemp)) ||
+                (!$eArray && !validarIndiceExisteStdClass($indiceTemp, $dado, $valorTemp))
+            ) {
+                return false;
+            }
+        }
+        return true;
+    }
+}
+if (!function_exists('validarIndiceExisteArray')) {
+    function validarIndiceExisteArray(string $indice, array $array, string $valor = null): bool
+    {
+        if (!is_array($array)) {
+            return false;
+        }
+        $indice = explode('.', $indice);
+        $arrayAtual = $array;
+        foreach ($indice as $item) {
+            if (!array_key_exists($item, $arrayAtual)) {
+                return false;
+            }
+            $arrayAtual = $arrayAtual[$item];
+        }
+        return is_null($valor) || $valor === $arrayAtual;
+    }
+}
+if (!function_exists('validarIndiceExisteStdClass')) {
+    function validarIndiceExisteStdClass(string $indice, stdClass $object, string $valor = null): bool
+    {
+        if (!$object instanceof stdClass) {
+            return false;
+        }
+        $indice = explode('.', $indice);
+        $objectAtual = $object;
+        foreach ($indice as $item) {
+            if (!object_key_exists($item, $objectAtual)) {
+                return false;
+            }
+            $objectAtual = $objectAtual->$item;
+        }
+        return is_null($valor) || $valor === $objectAtual;
+    }
+}
+
 /*
 |--------------------------------------------------------------------------
 | VALIDA CONTATOS

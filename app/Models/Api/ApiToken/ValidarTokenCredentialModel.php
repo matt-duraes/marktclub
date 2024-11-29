@@ -5,14 +5,14 @@ namespace App\Models\Api\ApiToken;
 use Helpers\JwtHelper;
 use App\Models\Api\ApiToken\Trait\ScopeTrait;
 use App\Models\Api\ApiToken\Trait\TokenTrait;
-use App\Models\Api\ApiToken\Trait\PegarAppTrait;
+use App\Models\Api\ApiApp\Trait\AppParaTokenTrait;
 use App\Models\Api\ApiToken\Trait\PegarEmpresaTrait;
 
 final class ValidarTokenCredentialModel
 {
     use ScopeTrait;
     use TokenTrait;
-    use PegarAppTrait;
+    use AppParaTokenTrait;
     use PegarEmpresaTrait;
 
     public function validar(string $token): bool

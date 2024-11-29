@@ -39,7 +39,7 @@ if (!function_exists('mensagemErro')) {
                 array_values($traducao),
                 $error->getMessage()
             );
-            $mensagem = '<strong style="font-weight: bold; color: red">Erro localhost: </strong>'
+            $mensagem = '<strong data-fwcss="font-weight: bold; color: red">Erro localhost: </strong>'
                 . $mensagem . PHP_EOL
                 . $errorMensagem . PHP_EOL
                 . $error->getFile() . PHP_EOL
@@ -119,7 +119,7 @@ if (!function_exists('mensagemStatus')) {
                 array_values($traducao),
                 $error->getMessage()
             );
-            $mensagem = '<strong style="font-weight: bold; color: red">Erro localhost: </strong>'
+            $mensagem = '<strong data-fwcss="font-weight: bold; color: red">Erro localhost: </strong>'
                 . $mensagem . PHP_EOL
                 . $errorMensagem . PHP_EOL
                 . $error->getFile() . PHP_EOL

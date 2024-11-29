@@ -110,6 +110,7 @@ Object.defineProperty(Object.prototype, 'html', {
                 continue;
             }
             item.innerHTML = html;
+            adicionarBgImagemStyle(item);
         }
         if (html == undefined) {
             return retornoLista ? retorno : retorno[0];
@@ -141,6 +142,29 @@ Object.defineProperty(Object.prototype, 'texto', {
             return retornoLista ? retorno : retorno[0];
         }
         return this;
+    },
+    writable: true,
+    configurable: true,
+});
+
+Object.defineProperty(Object.prototype, 'contar', {
+    value() {
+        let elemento = this;
+        let retornoLista = true;
+        if (!(elemento instanceof NodeList)) {
+            retornoLista = false;
+            elemento = [elemento];
+        }
+
+        let retorno = [];
+        for (item of elemento) {
+            if (Array.isArray(item) || typeof item === 'string') {
+                retorno.push(item.length);
+            } else if (typeof item === 'object') {
+                retorno.push(Object.keys(item).length);
+            }
+        }
+        return retornoLista ? retorno : retorno[0];
     },
     writable: true,
     configurable: true,
@@ -205,6 +229,7 @@ Object.defineProperty(Object.prototype, 'inicio', {
         } else {
             elemento.insertBefore(html, elemento.firstChild);
         }
+        adicionarBgImagemStyle(elemento);
         return this;
     },
     writable: true,
@@ -222,6 +247,7 @@ Object.defineProperty(Object.prototype, 'final', {
         } else {
             elemento.appendChild(html);
         }
+        adicionarBgImagemStyle(elemento);
         return this;
     },
     writable: true,
@@ -252,6 +278,25 @@ Object.defineProperty(Object.prototype, 'css', {
         }
         if (valor == undefined) {
             return retornoLista ? retorno : retorno[0];
+        }
+        return this;
+    },
+    writable: true,
+    configurable: true,
+});
+Object.defineProperty(Object.prototype, 'style', {
+    value() {
+        let elemento = this;
+        if (!(elemento instanceof NodeList)) {
+            elemento = [elemento];
+        }
+        for (const item of elemento) {
+            const style = item.getAttribute('data-fwcss');
+            if (vazio(style)) {
+                continue;
+            }
+            item.attr('data-fwcss', null);
+            item.style = style;
         }
         return this;
     },
@@ -453,6 +498,26 @@ Object.defineProperty(Object.prototype, 'evento', {
     writable: true,
     configurable: true,
 });
+
+Object.defineProperty(Object.prototype, 'bgImagem', {
+    value() {
+        let elemento = this;
+        if (!(elemento instanceof NodeList)) {
+            elemento = [elemento];
+        }
+        for (let item of elemento) {
+            const imagem = item.attr('data-bgimagem');
+            if (vazio(imagem)) {
+                continue;
+            }
+            item.attr('data-bgimagem', null);
+            item.css('background-image', `url(${imagem})`);
+        }
+    },
+    writable: true,
+    configurable: true,
+});
+
 Object.defineProperty(Object.prototype, 'clonar', {
     value() {
         let elemento = this;
@@ -1212,3 +1277,23 @@ const dataBanco = data => {
     const explodeData = explodeHora[0].split('/');
     return explodeData[2] + '-' + explodeData[1] + '-' + explodeData[0] + hora;
 };
+
+const idAleatorio = inicio => {
+    const id = inicio + '_' + Math.floor(Math.random() * 65536);
+    if ($('#' + id)) {
+        return this.idAleatorio(inicio);
+    }
+    return id;
+};
+
+const adicionarBgImagemStyle = elemento => {
+    const imagem = $$('*[data-bgimagem]', elemento);
+    if (imagem.length > 0) {
+        imagem.bgImagem();
+    }
+    const css = $$('*[data-fwcss]', elemento);
+    if (css.length > 0) {
+        css.style();
+    }
+};
+adicionarBgImagemStyle(document);

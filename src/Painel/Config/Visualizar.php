@@ -529,7 +529,7 @@ final class Visualizar
 
     public function margin(int $margin)
     {
-        $this->html('<div class="margin" style="margin-top: ' . $margin . 'px"></div>');
+        $this->html('<div class="margin" data-fwcss="margin-top: ' . $margin . 'px"></div>');
         return $this;
     }
 

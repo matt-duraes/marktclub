@@ -1,10 +1,10 @@
 <?php
 
-namespace App\Models\Api\ApiToken\Trait;
+namespace App\Models\Api\ApiApp\Trait;
 
 use Helpers\OrmHelper;
 
-trait PegarAppTrait
+trait AppParaTokenTrait
 {
     private function pegarApp($where)
     {
@@ -17,6 +17,7 @@ trait PegarAppTrait
             ],
             retorno: 'object'
         );
+
         $App->scope_permitido = jsonDecode($App->scope_permitido, true, true);
         $App->redirect_uri = jsonDecode($App->redirect_uri, true, true);
         return $App;

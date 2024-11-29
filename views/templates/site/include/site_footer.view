@@ -113,8 +113,8 @@
     @ if( MENU_BAIXAR_APP ):
     <p class="texto">Baixe o nosso aplicativo no seu smartphone e leve o {{CLUBE_TITULO}} com você</p>
     <div class="app">
-        <a href="{!!LINK_APP_IOS!!}" target="_blank" rel="noopener noreferer"><img src="{{LINK_PADRAO}}/images/site/app_apple.png" alt="Apple Store"></a>
-        <a href="{!!LINK_APP_ANDROID!!}" target="_blank" rel="noopener noreferer"><img src="{{LINK_PADRAO}}/images/site/app_google.png" alt="Google Play"></a>
+        <a href="{!!LINK_APP_IOS!!}" target="_blank" rel="noopener noreferer"><img src="@imagem/images/site/app_apple.png" alt="Apple Store"></a>
+        <a href="{!!LINK_APP_ANDROID!!}" target="_blank" rel="noopener noreferer"><img src="@imagem/images/site/app_google.png" alt="Google Play"></a>
     </div>
 
     <div class="linha"></div>

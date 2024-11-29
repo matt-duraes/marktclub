@@ -134,7 +134,7 @@
                                 <?php $primeiro = true; ?>
                                 <?php foreach ($config->index->grade as $grade) : ?>
                                     <?php if (array_key_exists('formatar', $grade) && $grade['formatar'] == 'imagem' || array_key_exists('campo', $grade) && $grade['campo'] == 'usuario') : ?>
-                                        <div class="td imagem_usuario imagem"><figure data-ajuda="<?= $r->usuario->nome ?>" style="background-image: url(<?= $r->usuario->imagem ?>)"></figure></div>
+                                        <div class="td imagem_usuario imagem"><figure data-ajuda="<?= $r->usuario->nome ?>" data-bgimagem="@imagem $r->usuario->imagem"></figure></div>
                                     <?php elseif ($grade['tipo'] == 'status') : ?>
                                             <?php
                                                                                                                                                                                                                                             $statusValor = painelValor($r, $grade['campo']);
@@ -150,7 +150,7 @@
                                         </div>
                                         <?php else : ?>
                                         <div class="td status" data-titulo="<?= echoView($texto) ?>" data-ajuda="<?= echoView($texto) ?>">
-                                            <span style="background-color: <?= $cor ?>"></span>
+                                            <span data-fwcss="background-color: {{$cor}}"></span>
                                         </div>
                                         <?php endif; ?>
                                         <div class="barra"></div>

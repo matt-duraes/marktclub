@@ -3,9 +3,8 @@
 namespace App\Models\Site\Cinema;
 
 use stdClass;
-use App\Helpers\ClubeApiHelper;
 
-final class ListarModel extends ClubeApiHelper
+final class ListarModel
 {
     public function listarDados(): stdClass
     {

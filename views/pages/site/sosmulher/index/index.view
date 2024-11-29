@@ -2,10 +2,10 @@
 <div id="bloco_sos_mulher" class="bloco_loja_detalhe">
     <div class="bloco_parceiro_header">
         <section class="bloco_banner">
-            <figure class="banner desktop"><img src="{{LINK_PADRAO}}/images/site/sos_banner_desktop.png"></figure>
-            <figure class="banner mobile"><img src="{{LINK_PADRAO}}/images/site/sos_banner_mobile.png"></figure>
+            <figure class="banner desktop"><img src="@imagem/images/site/sos_banner_desktop.png"></figure>
+            <figure class="banner mobile"><img src="@imagem/images/site/sos_banner_mobile.png"></figure>
         </section>
-        <figure class="logo"><img src="{{LINK_PADRAO}}/images/site/sos_logo.png"></figure>
+        <figure class="logo"><img src="@imagem/images/site/sos_logo.png"></figure>
         <header class="bloco_header">
             <h1>PRECISA DE AJUDA?</h1>
             <p>Atenção! Esta página é voltada ao suporte à mulher. Em caso de emergência, ligue para o 180</p>
@@ -24,10 +24,10 @@
         </p>
         <div class="bloco_numeros">
             <a href="tel:180" target="_blank" rel="nofollow noopener">
-                <figure><img src="{{LINK_PADRAO}}/images/site/sos_180.png" alt="Ligue 180"></figure>
+                <figure><img src="@imagem/images/site/sos_180.png" alt="Ligue 180"></figure>
             </a>
             <a href="tel:180" target="_blank" rel="nofollow noopener">
-                <figure><img src="{{LINK_PADRAO}}/images/site/sos_100.png" alt="Ligue 100"></figure>
+                <figure><img src="@imagem/images/site/sos_100.png" alt="Ligue 100"></figure>
             </a>
             <a href="https://wa.me/5561996565008" target="_blank" rel="noopener noreferrer" class="bloco_whatsapp">
                 <i>@iconeWhatsapp(20)</i>

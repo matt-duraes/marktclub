@@ -11,6 +11,9 @@ use App\Models\Api\ApiToken\ValidarTokenAuthorizationEntity;
 
 final class TokenMiddleware
 {
+    public const TIPO_AUTHORIZARION = 'authorization';
+    public const TIPO_CLIENT_CREDENTIALS = 'client-credentials';
+
     private bool $old = false;
     private string $token;
     private array $body = [];
@@ -88,9 +91,9 @@ final class TokenMiddleware
     private function pegarTipoDeToken()
     {
         if (mb_strlen($this->token) == 36) {
-            return 'authorization';
+            return self::TIPO_AUTHORIZARION;
         } elseif (array_key_exists('gty', $this->body) && $this->body['gty'] == 'client-credentials') {
-            return 'client-credentials';
+            return self::TIPO_CLIENT_CREDENTIALS;
         }
         $this->erroToken('Middleware Token - Token não tem 36 caracteres ou é um JWT.');
     }
@@ -102,10 +105,10 @@ final class TokenMiddleware
     public function token()
     {
         $tipo = $this->tipoToken;
-        if ($tipo == 'client-credentials') {
+        if ($tipo == self::TIPO_CLIENT_CREDENTIALS) {
             $Token = new ValidarTokenCredentialModel();
             return $Token->validar($this->token);
-        } elseif ($tipo == 'authorization') {
+        } elseif ($tipo == self::TIPO_AUTHORIZARION) {
             if ($this->old) {
                 $Token = new ValidarTokenAntigoEntity();
             } else {
@@ -143,10 +146,24 @@ final class TokenMiddleware
                 'Erro de permissão!',
                 'Você não tem permissão para acessar esse scope.',
                 403,
-                localhost: 'Middleware Token - Seu token não tem o scope para essa ação.'
+                localhost: 'Middleware Token - Seu token não tem o scope (' . $scope . ') para essa ação.'
             );
         }
         define('TOKEN_SCOPE', $scope);
+        return true;
+    }
+
+    public function audience(string $audience)
+    {
+        $audience = explode(' ', trim(preg_replace('/ {2,}/', ' ', $audience)));
+        if (
+            !defined('TOKEN') ||
+            !array_key_exists('app', TOKEN) ||
+            !object_key_exists('audience', TOKEN['app']) ||
+            !in_array(TOKEN['app']->audience, $audience)
+        ) {
+            $this->erroToken('Middleware Token - A audiencia do token não existe ou é inválida.');
+        }
         return true;
     }
 
@@ -156,7 +173,7 @@ final class TokenMiddleware
      */
     public function login()
     {
-        if ($this->tipoToken == 'authorization') {
+        if ($this->tipoToken == self::TIPO_AUTHORIZARION) {
             return true;
         }
         $this->erroToken('Middleware Token - Não é um token authorization.');

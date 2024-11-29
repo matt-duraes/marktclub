@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Controllers\Api;
+namespace App\Controllers\Api\Usuario;
 
 use Erro\Excecao;
 use Http\Request;
@@ -16,7 +16,7 @@ use System\Interface\ControllerSalvarInterface;
 use System\Interface\ControllerDeletarInterface;
 use System\Interface\ControllerAtualizarInterface;
 
-final class UsuarioLeadController extends Controller implements
+final class LeadController extends Controller implements
     ControllerBuscarInterface,
     ControllerListarInterface,
     ControllerSalvarInterface,

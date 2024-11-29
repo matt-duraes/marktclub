@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Controllers\Api;
+namespace App\Controllers\Api\Usuario;
 
 use Http\Request;
 use Modules\Data;
@@ -16,7 +16,7 @@ use System\Interface\ControllerAtualizarInterface;
 use App\Models\Api\UsuarioPagamento\PagamentoModel;
 use App\Models\Api\UsuarioPagamento\PagamentoEntity;
 
-final class UsuarioPagamentoController extends Controller implements
+final class PagamentoController extends Controller implements
     ControllerListarInterface,
     ControllerBuscarInterface,
     ControllerSalvarInterface,

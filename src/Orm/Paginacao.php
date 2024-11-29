@@ -10,16 +10,15 @@ use System\Trait\Model\QuantidadeTrait;
 
 abstract class Paginacao extends ORM
 {
-    use OrdemTrait;
     use PaginaTrait;
     use QuantidadeTrait;
+    use OrdemTrait;
 
+    protected array $ormBuscar;
+    private array $ormBuscarFinal;
+    protected stdClass $ormResultado;
     protected bool $ormWhereObrigatorio = true;
-    protected array $ormBuscar = [];
-    private array $ormBuscarFinal = [];
-    protected stdClass $busca;
     public stdClass $retorno;
-    private stdClass $ormResultado;
 
     public function __construct()
     {
@@ -55,6 +54,7 @@ abstract class Paginacao extends ORM
 
     protected function validarWhere(): void
     {
+        return;
     }
 
     protected function pegarWhere(): Where
@@ -78,7 +78,7 @@ abstract class Paginacao extends ORM
 
     private function validarBusca(): bool
     {
-        return !vazio($this->busca) && !existeErro($this->busca, 'lista') && !empty($this->busca->lista);
+        return !vazio($this->ormResultado) && !existeErro($this->ormResultado, 'lista') && !empty($this->busca->lista);
     }
 
     protected function montarRetorno(): void

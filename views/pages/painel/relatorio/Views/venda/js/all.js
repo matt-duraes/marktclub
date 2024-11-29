@@ -32,12 +32,15 @@ window.addEventListener('load', () => {
         const empresa = valoresEmpresa;
         const parceiro = valoresParceiro;
 
-        const resposta = await fetch(LINK + `/relatorio/loja-venda-buscar?de=${de}&ate=${ate}&empresa=${empresa}&parceiro=${parceiro}`, {
-            method: 'GET',
-            headers: {
-                'Content-Type': 'application/json',
-            },
-        });
+        const resposta = await fetch(
+            LINK + `/relatorio/loja-venda-buscar?de=${de}&ate=${ate}&empresa=${empresa}&parceiro=${parceiro}`,
+            {
+                method: 'GET',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+            }
+        );
 
         graficoMes.classList.remove('loading');
         graficoLojaValor.classList.remove('loading');
@@ -70,16 +73,18 @@ window.addEventListener('load', () => {
             html += `
                 <div class="linha">
                     <div class="item">${item[local]}</div>
-                    <div class="porcentagem"><span style="width: ${item.porcentagem}%"></span></div>
+                    <div class="porcentagem"><span data-fwcss="width: ${item.porcentagem}%"></span></div>
                     <div class="valor"><span>(${item.porcentagem}%)</span>R$ ${item.total}</div>
-                    ${item.numero_transacao
-                        ? `
+                    ${
+                        item.numero_transacao
+                            ? `
                             <hr class="divisor"/>
                             <div class="transacao">${item.numero_transacao}</div>
-                        ` : ''
+                        `
+                            : ''
                     }
                 </div>
-            `
+            `;
         });
         html += `</div>`;
         bloco.innerHTML = html;

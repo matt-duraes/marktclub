@@ -7,15 +7,10 @@
     <meta name="robots" content="noindex,nofollow">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
 
-    <link rel="icon" href="{!!LINK_PADRAO!!}/images/painel/favicon.png" type="image/png">
+    <link rel="icon" href="@imagem/images/painel/favicon.png" type="image/png">
 
     <title>PAINEL ADMINISTRATIVO</title>
-
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@100;300;500&display=swap" rel="stylesheet">
     @CSS
-
 </head>
 
 <body>
@@ -31,11 +26,11 @@
                 @ if( EMPRESA_SLUG != 'marktclub' && sessao('USUARIO.empresa')->id ?? '' == '14afa776394ada4be23be6acf7e3259e'):
                     <div class="nome" data-ajuda="{{EMPRESA_NOME}}">{{EMPRESA_NOME}}</div>
                 @ else:
-                    <a href="@LINK"><figure class="logo"><img src="{!!LINK_PADRAO!!}/images/painel/logo.png" alt="LOGO"></figure></a>
+                    <a href="@LINK"><figure class="logo"><img src="@imagem/images/painel/logo.png" alt="LOGO"></figure></a>
                 @ endif;
-                @if(AMBIENTE_ACESSO != ''):
-                    <h1 id="painel_local_acesso">{{AMBIENTE_ACESSO}}</h1>
-                @endif;
+                @ if(!eProducao()):
+                <h1 id="painel_local_acesso">{{env('TITULO_LOCAL', 'DEV')}}</h1>
+                @ endif;
             </div>
             <div class="bloco_app">
                 <h1>{!!$appTitulo!!}</h1>
@@ -76,7 +71,7 @@
                     <div class="numero {{$notificacaoNumeroNova > 0 ? '' : 'display_none'}}" id="bloco_numero_notificao_novas">{{$notificacaoNumeroNova > 9 ? '+9' : $notificacaoNumeroNova}}</div>
                     <i class="notificacao">@iconeNotificacao(20)</i>
                 </dib>
-                <figure class="menu_config" id="botao_menu_config" style="background-image: url({!!USUARIO_IMAGEM!!})"></figure>
+                <figure class="menu_config" id="botao_menu_config" data-bgimagem="{!!imagem(USUARIO_IMAGEM)!!}"></figure>
             </div>
         </header>
 
@@ -130,6 +125,10 @@
         <input type="hidden" name="USUARIO_EMAIL" id="USUARIO_EMAIL" value="{{sessao('USUARIO.email')}}">
         <input type="hidden" name="USUARIO_IMAGEM" id="USUARIO_IMAGEM" value="{{sessao('USUARIO.imagem')}}">
     </form>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Roboto:wght@100;300;500&display=swap">
 
     <script src="https://apis.google.com/js/platform.js" async defer></script>
     <script src="https://apis.google.com/js/api.js"></script>

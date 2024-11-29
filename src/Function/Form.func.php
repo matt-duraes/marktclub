@@ -326,23 +326,7 @@ if (!function_exists('formInput')) {
                                 xmlns:sodipodi="https://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
                                 xmlns:inkscape="https://www.inkscape.org/namespaces/inkscape" viewBox="0 0 10 10"
                                 version="1.1" x="0px" y="0px"><g transform="translate(0,-288.53333)">
-                                    <path style="color:#000000;font-style:normal;font-variant:normal;font-weight:normal;
-                                    font-stretch:normal;font-size:medium;line-height:normal;font-family:sans-serif;
-                                    font-variant-ligatures:normal;font-variant-position:normal;font-variant-caps:normal;
-                                    font-variant-numeric:normal;font-variant-alternates:normal;
-                                    font-feature-settings:normal;text-indent:0;text-align:start;
-                                    text-decoration:none;text-decoration-line:none;text-decoration-style:solid;
-                                    text-decoration-color:#000000;letter-spacing:normal;word-spacing:normal;
-                                    text-transform:none;writing-mode:lr-tb;direction:ltr;text-orientation:mixed;
-                                    dominant-baseline:auto;baseline-shift:baseline;text-anchor:start;white-space:normal;
-                                    shape-padding:0;clip-rule:nonzero;display:inline;overflow:visible;visibility:visible;
-                                    opacity:1;isolation:auto;mix-blend-mode:normal;color-interpolation:sRGB;
-                                    color-interpolation-filters:linearRGB;solid-color:#000000;solid-opacity:1;
-                                    vector-effect:none;fill-opacity:1;fill-rule:nonzero;stroke:none;
-                                    stroke-width:0.5291667;stroke-linecap:round;stroke-linejoin:round;
-                                    stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;
-                                    color-rendering:auto;image-rendering:auto;shape-rendering:auto;
-                                    text-rendering:auto;enable-background:accumulate"
+                                    <path
                                     d="m 4.2324219,289.85742 c -2.6313577,0 -3.8257607,2.43901 -3.88281252,2.55274 -0.11226944,
                                     0.22378 -0.11226944,0.4891 0,0.71289 0.0570534,0.11372 1.25145392,2.55273 3.88281252,
                                     2.55273 2.6313585,0 3.8268388,-2.43726 3.8847656,-2.55273 0.1122691,-0.22379 0.1122691,
@@ -351,22 +335,7 @@ if (!function_exists('formInput')) {
                                     0.16145 0,0.23633 -0.083955,0.16735 -1.1045779,2.26367 -3.4121093,2.26367 -2.3075315,
                                     0 -3.32532785,-2.09458 -3.41015628,-2.26367 -0.037563,-0.0749 -0.037563,-0.16146 0,
                                     -0.23633 0.08483,-0.1691 1.10262728,-2.26367 3.41015628,-2.26367 z"/>
-                                    <path style="color:#000000;font-style:normal;font-variant:normal;font-weight:normal;
-                                    font-stretch:normal;font-size:medium;line-height:normal;font-family:sans-serif;
-                                    font-variant-ligatures:normal;font-variant-position:normal;font-variant-caps:normal;
-                                    font-variant-numeric:normal;font-variant-alternates:normal;font-feature-settings:normal;
-                                    text-indent:0;text-align:start;text-decoration:none;text-decoration-line:none;
-                                    text-decoration-style:solid;text-decoration-color:#000000;letter-spacing:normal;
-                                    word-spacing:normal;text-transform:none;writing-mode:lr-tb;direction:ltr;
-                                    text-orientation:mixed;dominant-baseline:auto;baseline-shift:baseline;
-                                    text-anchor:start;white-space:normal;shape-padding:0;clip-rule:nonzero;
-                                    display:inline;overflow:visible;visibility:visible;opacity:1;isolation:auto;
-                                    mix-blend-mode:normal;color-interpolation:sRGB;color-interpolation-filters:linearRGB;
-                                    solid-color:#000000;solid-opacity:1;vector-effect:none;fill-opacity:1;
-                                    fill-rule:nonzero;stroke:none;stroke-width:0.52916664;stroke-linecap:round;
-                                    stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;
-                                    stroke-dashoffset:0;stroke-opacity:1;color-rendering:auto;image-rendering:auto;
-                                    shape-rendering:auto;text-rendering:auto;enable-background:accumulate"
+                                    <path
                                     d="m 4.2324219,290.91406 c -1.0197435,0 -1.8515625,0.83377 -1.8515625,1.85352 0,
                                     1.01974 0.831819,1.85156 1.8515625,1.85156 1.0197435,0 1.8535156,-0.83182 1.8535156,
                                     -1.85156 0,-1.01975 -0.8337721,-1.85352 -1.8535156,-1.85352 z m 0,0.5293 c 0.7337606,
@@ -382,23 +351,7 @@ if (!function_exists('formInput')) {
                                 xmlns:sodipodi="https://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
                                 xmlns:inkscape="https://www.inkscape.org/namespaces/inkscape"
                                 viewBox="0 0 10 10" version="1.1" x="0px" y="0px">
-                                    <g transform="translate(0,-288.53333)"><path style="color:#000000;font-style:normal;
-                                    font-variant:normal;font-weight:normal;font-stretch:normal;font-size:medium;
-                                    line-height:normal;font-family:sans-serif;font-variant-ligatures:normal;
-                                    font-variant-position:normal;font-variant-caps:normal;font-variant-numeric:normal;
-                                    font-variant-alternates:normal;font-feature-settings:normal;text-indent:0;
-                                    text-align:start;text-decoration:none;text-decoration-line:none;
-                                    text-decoration-style:solid;text-decoration-color:#000000;letter-spacing:normal;
-                                    word-spacing:normal;text-transform:none;writing-mode:lr-tb;direction:ltr;
-                                    text-orientation:mixed;dominant-baseline:auto;baseline-shift:baseline;
-                                    text-anchor:start;white-space:normal;shape-padding:0;clip-rule:nonzero;
-                                    display:inline;overflow:visible;visibility:visible;opacity:1;isolation:auto;
-                                    mix-blend-mode:normal;color-interpolation:sRGB;color-interpolation-filters:linearRGB;
-                                    solid-color:#000000;solid-opacity:1;vector-effect:none;fill-opacity:1;
-                                    fill-rule:nonzero;stroke:none;stroke-width:0.52916664;stroke-linecap:round;
-                                    stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;
-                                    stroke-dashoffset:0;stroke-opacity:1;color-rendering:auto;image-rendering:auto;
-                                    shape-rendering:auto;text-rendering:auto;enable-background:accumulate"
+                                    <g transform="translate(0,-288.53333)"><path
                                     d="m 4.2322998,289.85676 c -0.393179,0 -0.7513653,0.0586 -1.0790039,
                                     0.14987 a 0.26460979,0.26460979 0 1 0 0.1415934,0.50952 c 0.2881961,
                                     -0.0803 0.5964015,-0.13022 0.9374105,-0.13022 2.3075352,0 3.3277042,
@@ -407,23 +360,7 @@ if (!function_exists('formInput')) {
                                     0.36173 c 0.5324186,-0.56727 0.808275,-1.12375 0.837675,-1.18236 0.1122222,
                                     -0.22369 0.1122222,-0.4884 0,-0.7121 -0.057908,-0.11543 -1.2536829,
                                     -2.55385 -3.8850342,-2.55385 z"/>
-                                    <path style="color:#000000;font-style:normal;font-variant:normal;font-weight:normal;
-                                    font-stretch:normal;font-size:medium;line-height:normal;font-family:sans-serif;
-                                    font-variant-ligatures:normal;font-variant-position:normal;font-variant-caps:normal;
-                                    font-variant-numeric:normal;font-variant-alternates:normal;
-                                    font-feature-settings:normal;text-indent:0;text-align:start;text-decoration:none;
-                                    text-decoration-line:none;text-decoration-style:solid;text-decoration-color:#000000;
-                                    letter-spacing:normal;word-spacing:normal;text-transform:none;writing-mode:lr-tb;
-                                    direction:ltr;text-orientation:mixed;dominant-baseline:auto;baseline-shift:baseline;
-                                    text-anchor:start;white-space:normal;shape-padding:0;clip-rule:nonzero;
-                                    display:inline;overflow:visible;visibility:visible;opacity:1;isolation:auto;
-                                    mix-blend-mode:normal;color-interpolation:sRGB;
-                                    color-interpolation-filters:linearRGB;solid-color:#000000;solid-opacity:1;
-                                    vector-effect:none;fill-opacity:1;fill-rule:nonzero;stroke:none;
-                                    stroke-width:1.99999988;stroke-linecap:butt;stroke-linejoin:round;
-                                    stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;
-                                    color-rendering:auto;image-rendering:auto;shape-rendering:auto;text-rendering:auto;
-                                    enable-background:accumulate"
+                                    <path
                                     d="M 5.9863281 4.9902344 A 1.0001001 1.0001001 0 0 0 5.2929688 6.7089844
                                     L 6.7441406 8.1601562 C 3.185028 10.860344 1.4624756 14.370915 1.3203125
                                     14.654297 C 0.89616307 15.499777 0.89616307 16.500261 1.3203125 17.345703
@@ -440,23 +377,7 @@ if (!function_exists('formInput')) {
                                     20.999184 16 21 C 13.226732 21 11 18.773266 11 16 C 11.000792 15.012892
                                     11.295543 14.058853 11.832031 13.248047 z "
                                     transform="matrix(0.26458333,0,0,0.26458333,0,288.53333)"/>
-                                    <path style="color:#000000;font-style:normal;font-variant:normal;font-weight:normal;
-                                    font-stretch:normal;font-size:medium;line-height:normal;font-family:sans-serif;
-                                    font-variant-ligatures:normal;font-variant-position:normal;font-variant-caps:normal;
-                                    font-variant-numeric:normal;font-variant-alternates:normal;
-                                    font-feature-settings:normal;text-indent:0;text-align:start;text-decoration:none;
-                                    text-decoration-line:none;text-decoration-style:solid;text-decoration-color:#000000;
-                                    letter-spacing:normal;word-spacing:normal;text-transform:none;writing-mode:lr-tb;
-                                    direction:ltr;text-orientation:mixed;dominant-baseline:auto;baseline-shift:baseline;
-                                    text-anchor:start;white-space:normal;shape-padding:0;clip-rule:nonzero;
-                                    display:inline;overflow:visible;visibility:visible;opacity:1;isolation:auto;
-                                    mix-blend-mode:normal;color-interpolation:sRGB;
-                                    color-interpolation-filters:linearRGB;solid-color:#000000;solid-opacity:1;
-                                    vector-effect:none;fill-opacity:1;fill-rule:nonzero;stroke:none;
-                                    stroke-width:0.52916664;stroke-linecap:round;stroke-linejoin:round;
-                                    stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;
-                                    color-rendering:auto;image-rendering:auto;shape-rendering:auto;text-rendering:auto;
-                                    enable-background:accumulate" d="m 4.1615032,291.44671 c 0.025705,-0.002 0.049709,
+                                    <path d="m 4.1615032,291.44671 c 0.025705,-0.002 0.049709,
                                     -0.003 0.07183,-0.003 0.7336853,-1.7e-4 1.3233815,0.58936 1.3229166,
                                     1.32291 -1.11e-5,0.0175 -0.00155,0.0401 -0.00362,0.0677 -0.026235,0.35212 0.5018984,
                                     0.39142 0.5281332,0.0393 0.00229,-0.0306 0.00462,-0.0662 0.00465,-0.10697 6.464e-4,
@@ -502,7 +423,7 @@ if (!function_exists('formInput')) {
         $bloqueadoHtml = '';
         if (!empty($bloqueado)) {
             $idInput1 = !empty($name) ? $name : uuid();
-            $bloqueadoHtml = '<div class="input_bloqueado" style="display: none" id="input_' . $idInput1 . '_bloqueado" data-ajuda="' . $bloqueado . '"></div>';
+            $bloqueadoHtml = '<div class="input_bloqueado display_none" id="input_' . $idInput1 . '_bloqueado" data-ajuda="' . $bloqueado . '"></div>';
             $classBloco[] = 'bloco_bloqueado';
             if (empty($value)) {
                 $attrInput[] = 'readonly';
@@ -1722,9 +1643,9 @@ if (!function_exists('formCor')) {
         $id = !empty($id) ? $id : 'id_' . md5(uniqid(time()));
         $label = !empty($label) ? '<label for="input_' . $name . '_texto">' . $label . '</label>' : '';
 
-        $background = 'background: ' . $value;
+        $background = $value;
         if ($value == 'padrao') {
-            $background = 'background: linear-gradient(to left, #e32746 0px, #e32746 10px, #08c969 10px, #08c969 20px, #272de3 20px, #272de3 30px, #e327da 30px, #e327da 40px, #fcba03 40px, #fcba03 50px);';
+            $background = 'linear-gradient(to left, #e32746 0px, #e32746 10px, #08c969 10px, #08c969 20px, #272de3 20px, #272de3 30px, #e327da 30px, #e327da 40px, #fcba03 40px, #fcba03 50px);';
         }
 
         return '
@@ -1732,7 +1653,7 @@ if (!function_exists('formCor')) {
                 <input type="hidden" class="input_cor_input" name="' . $name . '" id="input_' . $name . '" value="' . $value . '">
                 <div class="input_cor_conteudo">
                     ' . $label . '
-                    <div class="input_cor_bg" style="' . $background . '">
+                    <div class="input_cor_bg" data-bgimagem="' . $background . '">
                     </div>
                     <div class="input_cor_icone">' . iconeCor() . '</div>
                 </div>
@@ -1946,7 +1867,7 @@ if (!function_exists('formImagem')) {
             $value = validarUrl($value) ? arquivoPrivadoId($value) : $value;
 
             $imagem = arquivoPrivado($value);
-            $imagemCss = 'style="background-image: url(' . $imagem . ')"';
+            $imagemCss = 'data-bgimagem="' . $imagem . '"';
             $botaoDisplay = '';
             $iconeDisplay = 'fw_imagem_hide';
             $attrGaleria = 'data-galeria-imagem="' . $imagem . '"';
@@ -1972,16 +1893,16 @@ if (!function_exists('formImagem')) {
             <div class="fw_form fw_form_imagem ' . $blocoClass . '" id="' . $blocoId . '" ' . $attrGaleria . ' data-diretorio="' . $diretorio . '">
                 <input type="hidden" name="' . $name . '" id="' . $inputId . '" value="' . $value . '">
                 ' . $label . '
-                <div class="fw_imagem_conteudo" style="width: ' . $widthFinal . '; height: ' . $heightFinal . '">
-                    <div class="fw_imagem_icone ' . $iconeDisplay . '"><svg height="80" xmlns="https://www.w3.org/2000/svg" xmlns:xlink="https://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 40 30" style="enable-background:new 0 0 40 30;" xml:space="preserve"><g transform="translate(0,-952.36218)"><path class="st0" d="M2.7,952.4c-1.5,0-2.7,1.2-2.7,2.6v24.7c0,1.5,1.2,2.6,2.7,2.6h34.7c1.5,0,2.7-1.2,2.7-2.6V955 c0-1.5-1.2-2.6-2.7-2.6H2.7z M2.7,954.1h34.7c0.5,0,0.9,0.4,0.9,0.9v18.5l-7.4-5.9c-0.3-0.2-0.7-0.3-1.1,0l-6.6,4.5l-8.8-7.1 c-0.2-0.1-0.4-0.2-0.7-0.2c-0.1,0-0.3,0.1-0.4,0.2l-11.5,7.9V955C1.8,954.5,2.2,954.1,2.7,954.1L2.7,954.1z M23.1,958.5 c-2,0-3.6,1.6-3.6,3.5s1.6,3.5,3.6,3.5s3.6-1.6,3.6-3.5S25.1,958.5,23.1,958.5z M23.1,960.3c1,0,1.8,0.8,1.8,1.8 c0,1-0.8,1.8-1.8,1.8c-1,0-1.8-0.8-1.8-1.8C21.3,961.1,22.1,960.3,23.1,960.3z M13.7,966.7l8.8,7.1c0.3,0.2,0.7,0.3,1.1,0l6.6-4.5 l8.1,6.4v4c0,0.5-0.4,0.9-0.9,0.9H2.7c-0.5,0-0.9-0.4-0.9-0.9v-4.8L13.7,966.7L13.7,966.7z"/></g></svg></div>
+                <div class="fw_imagem_conteudo" data-fwcss="height: ' . $heightFinal . '; width: ' . $widthFinal . ';">
+                    <div class="fw_imagem_icone ' . $iconeDisplay . '"><svg height="80" xmlns="https://www.w3.org/2000/svg" xmlns:xlink="https://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 40 30" xml:space="preserve"><g transform="translate(0,-952.36218)"><path class="st0" d="M2.7,952.4c-1.5,0-2.7,1.2-2.7,2.6v24.7c0,1.5,1.2,2.6,2.7,2.6h34.7c1.5,0,2.7-1.2,2.7-2.6V955 c0-1.5-1.2-2.6-2.7-2.6H2.7z M2.7,954.1h34.7c0.5,0,0.9,0.4,0.9,0.9v18.5l-7.4-5.9c-0.3-0.2-0.7-0.3-1.1,0l-6.6,4.5l-8.8-7.1 c-0.2-0.1-0.4-0.2-0.7-0.2c-0.1,0-0.3,0.1-0.4,0.2l-11.5,7.9V955C1.8,954.5,2.2,954.1,2.7,954.1L2.7,954.1z M23.1,958.5 c-2,0-3.6,1.6-3.6,3.5s1.6,3.5,3.6,3.5s3.6-1.6,3.6-3.5S25.1,958.5,23.1,958.5z M23.1,960.3c1,0,1.8,0.8,1.8,1.8 c0,1-0.8,1.8-1.8,1.8c-1,0-1.8-0.8-1.8-1.8C21.3,961.1,22.1,960.3,23.1,960.3z M13.7,966.7l8.8,7.1c0.3,0.2,0.7,0.3,1.1,0l6.6-4.5 l8.1,6.4v4c0,0.5-0.4,0.9-0.9,0.9H2.7c-0.5,0-0.9-0.4-0.9-0.9v-4.8L13.7,966.7L13.7,966.7z"/></g></svg></div>
                     <figure class="fw_imagem_figure" ' . $imagemCss . '></figure>
                 </div>
                 <div class="fw_imagem_controle ' . $labelExiste . '">
                     <div class="fw_imagem_icone fw_imagem_upload" data-ajuda="Enviar nova imagem">
-                        <svg height="15" xmlns="https://www.w3.org/2000/svg" xmlns:xlink="https://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 34 40" style="enable-background:new 0 0 34 40;" xml:space="preserve"><path d="M18.3,38.7c0-3.1,0-6.2,0-9.3c0-4.9,0-9.9,0-14.8c0-1.1,0-2.2,0-3.4c0-0.7-0.6-1.4-1.3-1.3c-0.7,0-1.3,0.6-1.3,1.3 c0,3.1,0,6.2,0,9.3c0,4.9,0,9.9,0,14.8c0,1.1,0,2.2,0,3.4c0,0.7,0.6,1.4,1.3,1.3C17.7,40,18.3,39.4,18.3,38.7L18.3,38.7z"/><path d="M27.9,21.6c-1.1-1.4-2.3-2.7-3.4-4.1c-1.8-2.2-3.6-4.3-5.4-6.5c-0.4-0.5-0.8-1-1.2-1.5c-0.4-0.5-1.4-0.5-1.9,0 c-1.1,1.4-2.3,2.7-3.4,4.1c-1.8,2.2-3.6,4.3-5.4,6.5c-0.4,0.5-0.8,1-1.2,1.5c-0.5,0.6-0.5,1.4,0,1.9c0.5,0.5,1.4,0.6,1.9,0 c1.1-1.4,2.3-2.7,3.4-4.1c1.8-2.2,3.6-4.3,5.4-6.5c0.4-0.5,0.8-1,1.2-1.5c-0.6,0-1.2,0-1.9,0c1.1,1.4,2.3,2.7,3.4,4.1 c1.8,2.2,3.6,4.3,5.4,6.5c0.4,0.5,0.8,1,1.2,1.5c0.5,0.6,1.4,0.5,1.9,0C28.4,22.9,28.4,22.2,27.9,21.6L27.9,21.6z"/><path d="M32.7,0c-1,0-2.1,0-3.1,0c-2.5,0-5,0-7.5,0c-3,0-6,0-9.1,0c-2.6,0-5.2,0-7.8,0C3.9,0,2.6,0,1.4,0c0,0,0,0-0.1,0 C0.6,0,0,0.6,0,1.4s0.6,1.3,1.3,1.3c1,0,2.1,0,3.1,0c2.5,0,5,0,7.5,0c3,0,6,0,9.1,0c2.6,0,5.2,0,7.8,0c1.3,0,2.5,0,3.8,0 c0,0,0,0,0.1,0c0.7,0,1.3-0.6,1.3-1.3S33.4,0,32.7,0L32.7,0z"/></svg>
+                        <svg height="15" xmlns="https://www.w3.org/2000/svg" xmlns:xlink="https://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 34 40" xml:space="preserve"><path d="M18.3,38.7c0-3.1,0-6.2,0-9.3c0-4.9,0-9.9,0-14.8c0-1.1,0-2.2,0-3.4c0-0.7-0.6-1.4-1.3-1.3c-0.7,0-1.3,0.6-1.3,1.3 c0,3.1,0,6.2,0,9.3c0,4.9,0,9.9,0,14.8c0,1.1,0,2.2,0,3.4c0,0.7,0.6,1.4,1.3,1.3C17.7,40,18.3,39.4,18.3,38.7L18.3,38.7z"/><path d="M27.9,21.6c-1.1-1.4-2.3-2.7-3.4-4.1c-1.8-2.2-3.6-4.3-5.4-6.5c-0.4-0.5-0.8-1-1.2-1.5c-0.4-0.5-1.4-0.5-1.9,0 c-1.1,1.4-2.3,2.7-3.4,4.1c-1.8,2.2-3.6,4.3-5.4,6.5c-0.4,0.5-0.8,1-1.2,1.5c-0.5,0.6-0.5,1.4,0,1.9c0.5,0.5,1.4,0.6,1.9,0 c1.1-1.4,2.3-2.7,3.4-4.1c1.8-2.2,3.6-4.3,5.4-6.5c0.4-0.5,0.8-1,1.2-1.5c-0.6,0-1.2,0-1.9,0c1.1,1.4,2.3,2.7,3.4,4.1 c1.8,2.2,3.6,4.3,5.4,6.5c0.4,0.5,0.8,1,1.2,1.5c0.5,0.6,1.4,0.5,1.9,0C28.4,22.9,28.4,22.2,27.9,21.6L27.9,21.6z"/><path d="M32.7,0c-1,0-2.1,0-3.1,0c-2.5,0-5,0-7.5,0c-3,0-6,0-9.1,0c-2.6,0-5.2,0-7.8,0C3.9,0,2.6,0,1.4,0c0,0,0,0-0.1,0 C0.6,0,0,0.6,0,1.4s0.6,1.3,1.3,1.3c1,0,2.1,0,3.1,0c2.5,0,5,0,7.5,0c3,0,6,0,9.1,0c2.6,0,5.2,0,7.8,0c1.3,0,2.5,0,3.8,0 c0,0,0,0,0.1,0c0.7,0,1.3-0.6,1.3-1.3S33.4,0,32.7,0L32.7,0z"/></svg>
                     </div>
                     <div class="fw_imagem_linha"></div>
-                    <div class="fw_imagem_icone ' . $botaoDisplay . ' fw_imagem_visualizar" data-ajuda="Visualizar Imagem"><svg height="12" xmlns:cc="hqttp://creativecommons.org/ns#" xmlns:dc="https://purl.org/dc/elements/1.1/" xmlns:inkscape="https://www.inkscape.org/namespaces/inkscape" xmlns:rdf="https://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:sodipodi="https://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd" xmlns:svg="https://www.w3.org/2000/svg" xmlns="https://www.w3.org/2000/svg" xmlns:xlink="https://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 40 29.3" style="enable-background:new 0 0 40 29.3;" xml:space="preserve"><g transform="translate(0,-288.53333)"><path d="M20,288.5c-13.3,0-19.3,12.3-19.6,12.9c-0.6,1.1-0.6,2.5,0,3.6c0.3,0.6,6.3,12.9,19.6,12.9s19.3-12.3,19.6-12.9 c0.6-1.1,0.6-2.5,0-3.6C39.3,300.8,33.3,288.5,20,288.5z M20,291.2c11.6,0,16.8,10.6,17.2,11.4c0.2,0.4,0.2,0.8,0,1.2 c-0.4,0.8-5.6,11.4-17.2,11.4S3.2,304.6,2.8,303.8c-0.2-0.4-0.2-0.8,0-1.2C3.2,301.7,8.4,291.2,20,291.2z"/><path d="M20,293.9c-5.1,0-9.3,4.2-9.3,9.3s4.2,9.3,9.3,9.3s9.3-4.2,9.3-9.3S25.1,293.9,20,293.9z M20,296.5c3.7,0,6.7,3,6.7,6.7 s-3,6.7-6.7,6.7s-6.7-3-6.7-6.7S16.3,296.5,20,296.5z"/></g></svg></div>
+                    <div class="fw_imagem_icone ' . $botaoDisplay . ' fw_imagem_visualizar" data-ajuda="Visualizar Imagem"><svg height="12" xmlns:cc="hqttp://creativecommons.org/ns#" xmlns:dc="https://purl.org/dc/elements/1.1/" xmlns:inkscape="https://www.inkscape.org/namespaces/inkscape" xmlns:rdf="https://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:sodipodi="https://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd" xmlns:svg="https://www.w3.org/2000/svg" xmlns="https://www.w3.org/2000/svg" xmlns:xlink="https://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 40 29.3" xml:space="preserve"><g transform="translate(0,-288.53333)"><path d="M20,288.5c-13.3,0-19.3,12.3-19.6,12.9c-0.6,1.1-0.6,2.5,0,3.6c0.3,0.6,6.3,12.9,19.6,12.9s19.3-12.3,19.6-12.9 c0.6-1.1,0.6-2.5,0-3.6C39.3,300.8,33.3,288.5,20,288.5z M20,291.2c11.6,0,16.8,10.6,17.2,11.4c0.2,0.4,0.2,0.8,0,1.2 c-0.4,0.8-5.6,11.4-17.2,11.4S3.2,304.6,2.8,303.8c-0.2-0.4-0.2-0.8,0-1.2C3.2,301.7,8.4,291.2,20,291.2z"/><path d="M20,293.9c-5.1,0-9.3,4.2-9.3,9.3s4.2,9.3,9.3,9.3s9.3-4.2,9.3-9.3S25.1,293.9,20,293.9z M20,296.5c3.7,0,6.7,3,6.7,6.7 s-3,6.7-6.7,6.7s-6.7-3-6.7-6.7S16.3,296.5,20,296.5z"/></g></svg></div>
                     <div class="fw_imagem_icone ' . $botaoDisplay . ' fw_imagem_remover" data-ajuda="Deletar Imagem"><svg height="19" xmlns="https://www.w3.org/2000/svg" viewBox="0 0 48 48" x="0px" y="0px"><g data-name="Application, Delete"><path d="M13,37a4,4,0,0,0,4,4H31a4,4,0,0,0,4-4V16H13Zm2-19H33V37a2,2,0,0,1-2,2H17a2,2,0,0,1-2-2Zm7,16H20V23h2Zm6,0H26V23h2Zm3.41-23-4-4H20.59l-4,4H9v2H39V11Zm-10-2h5.18l2,2H19.41Z"/></g></svg></div>
                 </div>
             </div>
@@ -2022,18 +1943,18 @@ if (!function_exists('formArquivoLista')) {
             if (!$eUmaImagem) {
                 $arquivoDownloadHtml = '
                 <a class="fw_form_arquivo_lista_icone fw_form_arquivo_lista_download" href="https://docs.google.com/viewer?url=' . $arquivo->link . '" target="_blank" rel="noopener noreferrer">
-                    <svg height="12" xmlns:cc="hqttp://creativecommons.org/ns#" xmlns:dc="https://purl.org/dc/elements/1.1/" xmlns:inkscape="https://www.inkscape.org/namespaces/inkscape" xmlns:rdf="https://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:sodipodi="https://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd" xmlns:svg="https://www.w3.org/2000/svg" xmlns="https://www.w3.org/2000/svg" xmlns:xlink="https://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 40 29.3" style="enable-background:new 0 0 40 29.3;" xml:space="preserve"><g transform="translate(0,-288.53333)"><path d="M20,288.5c-13.3,0-19.3,12.3-19.6,12.9c-0.6,1.1-0.6,2.5,0,3.6c0.3,0.6,6.3,12.9,19.6,12.9s19.3-12.3,19.6-12.9 c0.6-1.1,0.6-2.5,0-3.6C39.3,300.8,33.3,288.5,20,288.5z M20,291.2c11.6,0,16.8,10.6,17.2,11.4c0.2,0.4,0.2,0.8,0,1.2 c-0.4,0.8-5.6,11.4-17.2,11.4S3.2,304.6,2.8,303.8c-0.2-0.4-0.2-0.8,0-1.2C3.2,301.7,8.4,291.2,20,291.2z"/><path d="M20,293.9c-5.1,0-9.3,4.2-9.3,9.3s4.2,9.3,9.3,9.3s9.3-4.2,9.3-9.3S25.1,293.9,20,293.9z M20,296.5c3.7,0,6.7,3,6.7,6.7 s-3,6.7-6.7,6.7s-6.7-3-6.7-6.7S16.3,296.5,20,296.5z"/></g></svg>
+                    <svg height="12" xmlns:cc="hqttp://creativecommons.org/ns#" xmlns:dc="https://purl.org/dc/elements/1.1/" xmlns:inkscape="https://www.inkscape.org/namespaces/inkscape" xmlns:rdf="https://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:sodipodi="https://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd" xmlns:svg="https://www.w3.org/2000/svg" xmlns="https://www.w3.org/2000/svg" xmlns:xlink="https://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 40 29.3" xml:space="preserve"><g transform="translate(0,-288.53333)"><path d="M20,288.5c-13.3,0-19.3,12.3-19.6,12.9c-0.6,1.1-0.6,2.5,0,3.6c0.3,0.6,6.3,12.9,19.6,12.9s19.3-12.3,19.6-12.9 c0.6-1.1,0.6-2.5,0-3.6C39.3,300.8,33.3,288.5,20,288.5z M20,291.2c11.6,0,16.8,10.6,17.2,11.4c0.2,0.4,0.2,0.8,0,1.2 c-0.4,0.8-5.6,11.4-17.2,11.4S3.2,304.6,2.8,303.8c-0.2-0.4-0.2-0.8,0-1.2C3.2,301.7,8.4,291.2,20,291.2z"/><path d="M20,293.9c-5.1,0-9.3,4.2-9.3,9.3s4.2,9.3,9.3,9.3s9.3-4.2,9.3-9.3S25.1,293.9,20,293.9z M20,296.5c3.7,0,6.7,3,6.7,6.7 s-3,6.7-6.7,6.7s-6.7-3-6.7-6.7S16.3,296.5,20,296.5z"/></g></svg>
                 </a>
             ';
             } else {
                 $arquivoDownloadHtml = '
                     <i class="fw_form_arquivo_lista_icone fw_form_arquivo_lista_download fw_imagem_visualizar">
-                        <svg height="12" xmlns:cc="hqttp://creativecommons.org/ns#" xmlns:dc="https://purl.org/dc/elements/1.1/" xmlns:inkscape="https://www.inkscape.org/namespaces/inkscape" xmlns:rdf="https://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:sodipodi="https://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd" xmlns:svg="https://www.w3.org/2000/svg" xmlns="https://www.w3.org/2000/svg" xmlns:xlink="https://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 40 29.3" style="enable-background:new 0 0 40 29.3;" xml:space="preserve"><g transform="translate(0,-288.53333)"><path d="M20,288.5c-13.3,0-19.3,12.3-19.6,12.9c-0.6,1.1-0.6,2.5,0,3.6c0.3,0.6,6.3,12.9,19.6,12.9s19.3-12.3,19.6-12.9 c0.6-1.1,0.6-2.5,0-3.6C39.3,300.8,33.3,288.5,20,288.5z M20,291.2c11.6,0,16.8,10.6,17.2,11.4c0.2,0.4,0.2,0.8,0,1.2 c-0.4,0.8-5.6,11.4-17.2,11.4S3.2,304.6,2.8,303.8c-0.2-0.4-0.2-0.8,0-1.2C3.2,301.7,8.4,291.2,20,291.2z"/><path d="M20,293.9c-5.1,0-9.3,4.2-9.3,9.3s4.2,9.3,9.3,9.3s9.3-4.2,9.3-9.3S25.1,293.9,20,293.9z M20,296.5c3.7,0,6.7,3,6.7,6.7 s-3,6.7-6.7,6.7s-6.7-3-6.7-6.7S16.3,296.5,20,296.5z"/></g></svg>
+                        <svg height="12" xmlns:cc="hqttp://creativecommons.org/ns#" xmlns:dc="https://purl.org/dc/elements/1.1/" xmlns:inkscape="https://www.inkscape.org/namespaces/inkscape" xmlns:rdf="https://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:sodipodi="https://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd" xmlns:svg="https://www.w3.org/2000/svg" xmlns="https://www.w3.org/2000/svg" xmlns:xlink="https://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 40 29.3" xml:space="preserve"><g transform="translate(0,-288.53333)"><path d="M20,288.5c-13.3,0-19.3,12.3-19.6,12.9c-0.6,1.1-0.6,2.5,0,3.6c0.3,0.6,6.3,12.9,19.6,12.9s19.3-12.3,19.6-12.9 c0.6-1.1,0.6-2.5,0-3.6C39.3,300.8,33.3,288.5,20,288.5z M20,291.2c11.6,0,16.8,10.6,17.2,11.4c0.2,0.4,0.2,0.8,0,1.2 c-0.4,0.8-5.6,11.4-17.2,11.4S3.2,304.6,2.8,303.8c-0.2-0.4-0.2-0.8,0-1.2C3.2,301.7,8.4,291.2,20,291.2z"/><path d="M20,293.9c-5.1,0-9.3,4.2-9.3,9.3s4.2,9.3,9.3,9.3s9.3-4.2,9.3-9.3S25.1,293.9,20,293.9z M20,296.5c3.7,0,6.7,3,6.7,6.7 s-3,6.7-6.7,6.7s-6.7-3-6.7-6.7S16.3,296.5,20,296.5z"/></g></svg>
                     </i>
                 ';
             }
 
-            $figureBg = $eUmaImagem ? 'style="background-image: url(' . $arquivo->link . ')"' : '';
+            $figureBg = $eUmaImagem ? 'data-bgimagem="' . $arquivo->link . '"' : '';
             $figureExtensaoHtml = !$eUmaImagem ? '<p>' . $arquivo->extensao . '</p>' : '';
 
             $attrGaleria = '';
@@ -2064,7 +1985,7 @@ if (!function_exists('formArquivoLista')) {
         return '
             <div class="fw_form fw_form_arquivo_lista ' . $blocoClass . '" id="' . $blocoId . '" data-name="' . $name . '" data-diretorio="' . $diretorio . '">
                 <i class="fw_form_arquivo_lista_icone fw_form_arquivo_lista_upload">
-                    <svg height="15" xmlns="https://www.w3.org/2000/svg" xmlns:xlink="https://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 34 40" style="enable-background:new 0 0 34 40;" xml:space="preserve"><path d="M18.3,38.7c0-3.1,0-6.2,0-9.3c0-4.9,0-9.9,0-14.8c0-1.1,0-2.2,0-3.4c0-0.7-0.6-1.4-1.3-1.3c-0.7,0-1.3,0.6-1.3,1.3 c0,3.1,0,6.2,0,9.3c0,4.9,0,9.9,0,14.8c0,1.1,0,2.2,0,3.4c0,0.7,0.6,1.4,1.3,1.3C17.7,40,18.3,39.4,18.3,38.7L18.3,38.7z"/><path d="M27.9,21.6c-1.1-1.4-2.3-2.7-3.4-4.1c-1.8-2.2-3.6-4.3-5.4-6.5c-0.4-0.5-0.8-1-1.2-1.5c-0.4-0.5-1.4-0.5-1.9,0 c-1.1,1.4-2.3,2.7-3.4,4.1c-1.8,2.2-3.6,4.3-5.4,6.5c-0.4,0.5-0.8,1-1.2,1.5c-0.5,0.6-0.5,1.4,0,1.9c0.5,0.5,1.4,0.6,1.9,0 c1.1-1.4,2.3-2.7,3.4-4.1c1.8-2.2,3.6-4.3,5.4-6.5c0.4-0.5,0.8-1,1.2-1.5c-0.6,0-1.2,0-1.9,0c1.1,1.4,2.3,2.7,3.4,4.1 c1.8,2.2,3.6,4.3,5.4,6.5c0.4,0.5,0.8,1,1.2,1.5c0.5,0.6,1.4,0.5,1.9,0C28.4,22.9,28.4,22.2,27.9,21.6L27.9,21.6z"/><path d="M32.7,0c-1,0-2.1,0-3.1,0c-2.5,0-5,0-7.5,0c-3,0-6,0-9.1,0c-2.6,0-5.2,0-7.8,0C3.9,0,2.6,0,1.4,0c0,0,0,0-0.1,0 C0.6,0,0,0.6,0,1.4s0.6,1.3,1.3,1.3c1,0,2.1,0,3.1,0c2.5,0,5,0,7.5,0c3,0,6,0,9.1,0c2.6,0,5.2,0,7.8,0c1.3,0,2.5,0,3.8,0 c0,0,0,0,0.1,0c0.7,0,1.3-0.6,1.3-1.3S33.4,0,32.7,0L32.7,0z"/></svg>
+                    <svg height="15" xmlns="https://www.w3.org/2000/svg" xmlns:xlink="https://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 34 40" xml:space="preserve"><path d="M18.3,38.7c0-3.1,0-6.2,0-9.3c0-4.9,0-9.9,0-14.8c0-1.1,0-2.2,0-3.4c0-0.7-0.6-1.4-1.3-1.3c-0.7,0-1.3,0.6-1.3,1.3 c0,3.1,0,6.2,0,9.3c0,4.9,0,9.9,0,14.8c0,1.1,0,2.2,0,3.4c0,0.7,0.6,1.4,1.3,1.3C17.7,40,18.3,39.4,18.3,38.7L18.3,38.7z"/><path d="M27.9,21.6c-1.1-1.4-2.3-2.7-3.4-4.1c-1.8-2.2-3.6-4.3-5.4-6.5c-0.4-0.5-0.8-1-1.2-1.5c-0.4-0.5-1.4-0.5-1.9,0 c-1.1,1.4-2.3,2.7-3.4,4.1c-1.8,2.2-3.6,4.3-5.4,6.5c-0.4,0.5-0.8,1-1.2,1.5c-0.5,0.6-0.5,1.4,0,1.9c0.5,0.5,1.4,0.6,1.9,0 c1.1-1.4,2.3-2.7,3.4-4.1c1.8-2.2,3.6-4.3,5.4-6.5c0.4-0.5,0.8-1,1.2-1.5c-0.6,0-1.2,0-1.9,0c1.1,1.4,2.3,2.7,3.4,4.1 c1.8,2.2,3.6,4.3,5.4,6.5c0.4,0.5,0.8,1,1.2,1.5c0.5,0.6,1.4,0.5,1.9,0C28.4,22.9,28.4,22.2,27.9,21.6L27.9,21.6z"/><path d="M32.7,0c-1,0-2.1,0-3.1,0c-2.5,0-5,0-7.5,0c-3,0-6,0-9.1,0c-2.6,0-5.2,0-7.8,0C3.9,0,2.6,0,1.4,0c0,0,0,0-0.1,0 C0.6,0,0,0.6,0,1.4s0.6,1.3,1.3,1.3c1,0,2.1,0,3.1,0c2.5,0,5,0,7.5,0c3,0,6,0,9.1,0c2.6,0,5.2,0,7.8,0c1.3,0,2.5,0,3.8,0 c0,0,0,0,0.1,0c0.7,0,1.3-0.6,1.3-1.3S33.4,0,32.7,0L32.7,0z"/></svg>
                 </i>
                 <div class="fw_form_arquivo_lista_lista">
                     <div class="fw_form_arquivo_lista_zero ' . $classZero . '">Sem arquivos no momento</div>
@@ -2108,13 +2029,13 @@ if (!function_exists('formArquivo')) {
             <div class="$class" id="$id" data-name="$name" data-diretorio="$diretorio">
                 <input type="text" value="$value">
                 <i class="fw_form_arquivo_icone fw_form_arquivo_upload">
-                    <svg height="15" xmlns="https://www.w3.org/2000/svg" xmlns:xlink="https://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 34 40" style="enable-background:new 0 0 34 40;" xml:space="preserve"><path d="M18.3,38.7c0-3.1,0-6.2,0-9.3c0-4.9,0-9.9,0-14.8c0-1.1,0-2.2,0-3.4c0-0.7-0.6-1.4-1.3-1.3c-0.7,0-1.3,0.6-1.3,1.3 c0,3.1,0,6.2,0,9.3c0,4.9,0,9.9,0,14.8c0,1.1,0,2.2,0,3.4c0,0.7,0.6,1.4,1.3,1.3C17.7,40,18.3,39.4,18.3,38.7L18.3,38.7z"/><path d="M27.9,21.6c-1.1-1.4-2.3-2.7-3.4-4.1c-1.8-2.2-3.6-4.3-5.4-6.5c-0.4-0.5-0.8-1-1.2-1.5c-0.4-0.5-1.4-0.5-1.9,0 c-1.1,1.4-2.3,2.7-3.4,4.1c-1.8,2.2-3.6,4.3-5.4,6.5c-0.4,0.5-0.8,1-1.2,1.5c-0.5,0.6-0.5,1.4,0,1.9c0.5,0.5,1.4,0.6,1.9,0 c1.1-1.4,2.3-2.7,3.4-4.1c1.8-2.2,3.6-4.3,5.4-6.5c0.4-0.5,0.8-1,1.2-1.5c-0.6,0-1.2,0-1.9,0c1.1,1.4,2.3,2.7,3.4,4.1 c1.8,2.2,3.6,4.3,5.4,6.5c0.4,0.5,0.8,1,1.2,1.5c0.5,0.6,1.4,0.5,1.9,0C28.4,22.9,28.4,22.2,27.9,21.6L27.9,21.6z"/><path d="M32.7,0c-1,0-2.1,0-3.1,0c-2.5,0-5,0-7.5,0c-3,0-6,0-9.1,0c-2.6,0-5.2,0-7.8,0C3.9,0,2.6,0,1.4,0c0,0,0,0-0.1,0 C0.6,0,0,0.6,0,1.4s0.6,1.3,1.3,1.3c1,0,2.1,0,3.1,0c2.5,0,5,0,7.5,0c3,0,6,0,9.1,0c2.6,0,5.2,0,7.8,0c1.3,0,2.5,0,3.8,0 c0,0,0,0,0.1,0c0.7,0,1.3-0.6,1.3-1.3S33.4,0,32.7,0L32.7,0z"/></svg>
+                    <svg height="15" xmlns="https://www.w3.org/2000/svg" xmlns:xlink="https://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 34 40" xml:space="preserve"><path d="M18.3,38.7c0-3.1,0-6.2,0-9.3c0-4.9,0-9.9,0-14.8c0-1.1,0-2.2,0-3.4c0-0.7-0.6-1.4-1.3-1.3c-0.7,0-1.3,0.6-1.3,1.3 c0,3.1,0,6.2,0,9.3c0,4.9,0,9.9,0,14.8c0,1.1,0,2.2,0,3.4c0,0.7,0.6,1.4,1.3,1.3C17.7,40,18.3,39.4,18.3,38.7L18.3,38.7z"/><path d="M27.9,21.6c-1.1-1.4-2.3-2.7-3.4-4.1c-1.8-2.2-3.6-4.3-5.4-6.5c-0.4-0.5-0.8-1-1.2-1.5c-0.4-0.5-1.4-0.5-1.9,0 c-1.1,1.4-2.3,2.7-3.4,4.1c-1.8,2.2-3.6,4.3-5.4,6.5c-0.4,0.5-0.8,1-1.2,1.5c-0.5,0.6-0.5,1.4,0,1.9c0.5,0.5,1.4,0.6,1.9,0 c1.1-1.4,2.3-2.7,3.4-4.1c1.8-2.2,3.6-4.3,5.4-6.5c0.4-0.5,0.8-1,1.2-1.5c-0.6,0-1.2,0-1.9,0c1.1,1.4,2.3,2.7,3.4,4.1 c1.8,2.2,3.6,4.3,5.4,6.5c0.4,0.5,0.8,1,1.2,1.5c0.5,0.6,1.4,0.5,1.9,0C28.4,22.9,28.4,22.2,27.9,21.6L27.9,21.6z"/><path d="M32.7,0c-1,0-2.1,0-3.1,0c-2.5,0-5,0-7.5,0c-3,0-6,0-9.1,0c-2.6,0-5.2,0-7.8,0C3.9,0,2.6,0,1.4,0c0,0,0,0-0.1,0 C0.6,0,0,0.6,0,1.4s0.6,1.3,1.3,1.3c1,0,2.1,0,3.1,0c2.5,0,5,0,7.5,0c3,0,6,0,9.1,0c2.6,0,5.2,0,7.8,0c1.3,0,2.5,0,3.8,0 c0,0,0,0,0.1,0c0.7,0,1.3-0.6,1.3-1.3S33.4,0,32.7,0L32.7,0z"/></svg>
                 </i>
                 <i class="fw_form_arquivo_icone fw_form_arquivo_remover">
                     <svg height="19" xmlns="https://www.w3.org/2000/svg" viewBox="0 0 48 48" x="0px" y="0px"><g data-name="Application, Delete"><path d="M13,37a4,4,0,0,0,4,4H31a4,4,0,0,0,4-4V16H13Zm2-19H33V37a2,2,0,0,1-2,2H17a2,2,0,0,1-2-2Zm7,16H20V23h2Zm6,0H26V23h2Zm3.41-23-4-4H20.59l-4,4H9v2H39V11Zm-10-2h5.18l2,2H19.41Z"/></g></svg>
                 </i>
                 <div class="fw_arquivo_conteudo">
-                    <figure class="fw_form_arquivo_arquivo" style="background-image: url($arquivo)"></figure>
+                    <figure class="fw_form_arquivo_arquivo" data-bgimagem="$arquivo"></figure>
                     <p class="fw_form_arquivo_zero">Sem arquivos</p>
                 </div>
             </div>

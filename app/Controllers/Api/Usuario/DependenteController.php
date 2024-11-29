@@ -1,22 +1,22 @@
 <?php
 
-namespace App\Controllers\Api;
+namespace App\Controllers\Api\Usuario;
 
-use App\Classes\UsuarioDependente\Helper;
-use App\Models\Api\UsuarioCliente\DeletarModel;
-use App\Models\Api\UsuarioDependente\DependenteEntity;
-use App\Models\Api\UsuarioDependente\DependenteModel;
-use Controller\Controller;
 use Erro\Excecao;
 use Http\Request;
 use Http\Response;
+use Controller\Controller;
 use SendGrid\Mail\TypeException;
-use System\Interface\ControllerAtualizarInterface;
-use System\Interface\ControllerDeletarInterface;
+use App\Classes\UsuarioDependente\Helper;
+use App\Models\Api\UsuarioCliente\DeletarModel;
 use System\Interface\ControllerListarInterface;
 use System\Interface\ControllerSalvarInterface;
+use System\Interface\ControllerDeletarInterface;
+use System\Interface\ControllerAtualizarInterface;
+use App\Models\Api\UsuarioDependente\DependenteModel;
+use App\Models\Api\UsuarioDependente\DependenteEntity;
 
-final class UsuarioDependenteController extends Controller implements
+final class DependenteController extends Controller implements
     ControllerListarInterface,
     ControllerSalvarInterface,
     ControllerAtualizarInterface,

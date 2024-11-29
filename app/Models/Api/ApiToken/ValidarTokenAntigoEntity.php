@@ -4,14 +4,14 @@ namespace App\Models\Api\ApiToken;
 
 use ORM\Entity;
 use App\Models\Api\ApiToken\Trait\TokenTrait;
-use App\Models\Api\ApiToken\Trait\PegarAppTrait;
+use App\Models\Api\ApiApp\Trait\AppParaTokenTrait;
 use App\Models\Api\ApiToken\Trait\PegarClienteTrait;
 use App\Models\Api\ApiToken\Trait\PegarEmpresaTrait;
 
 final class ValidarTokenAntigoEntity extends Entity
 {
     use TokenTrait;
-    use PegarAppTrait;
+    use AppParaTokenTrait;
     use PegarEmpresaTrait;
     use PegarClienteTrait;
 

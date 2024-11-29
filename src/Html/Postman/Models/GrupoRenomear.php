@@ -4,7 +4,7 @@ namespace System\Html\Postman\Models;
 
 final class GrupoRenomear
 {
-    private string $path = ROOT . '/postman/';
+    private string $path = ROOT . '/postman/grupo/';
     private string $nomeAtual;
     private string $nomeNovo;
 

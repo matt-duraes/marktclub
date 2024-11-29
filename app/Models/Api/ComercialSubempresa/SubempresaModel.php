@@ -138,8 +138,6 @@ final class SubempresaModel extends ORM implements
         return $where;
     }
 
-
-
     /**
      * @param array $subempresas
      *

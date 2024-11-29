@@ -13,8 +13,8 @@ window.addEventListener('load', async () => {
         conteudo.final(`
             <article class="campanha">
                 <a href="${item.link}" target="_blank" rel="noopener noreferrer"></a>
-                <figure class="desktop" style="background-image: url(${item.imagem_desktop})"></figure>
-                <figure class="mobile" style="background-image: url(${item.imagem_mobile})"></figure>
+                <figure class="desktop" data-bgimagem="${item.imagem_desktop}"></figure>
+                <figure class="mobile" data-bgimagem="${item.imagem_mobile}"></figure>
                 <header>
                     <h1>${item.titulo}</h1>
                     <p>${item.texto}</p>

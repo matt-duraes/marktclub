@@ -1,41 +1,41 @@
 <?php
 
-namespace App\Controllers\Api;
+namespace App\Controllers\Api\Usuario;
 
-use App\Classes\ConstrutorClube\TipoAtivacao;
-use App\Classes\UsuarioCliente\Helper;
-use App\Classes\UsuarioCliente\TipoUsuario;
-use App\Models\Api\DownloadPrivado\ArquivoEntity;
-use App\Models\Api\Trait\ValidarUsuarioTrait;
-use App\Models\Api\UsuarioCliente\AppleModel;
-use App\Models\Api\UsuarioCliente\Ativar\AtivarIndicadoModel;
-use App\Models\Api\UsuarioCliente\Ativar\AtivarModel;
-use App\Models\Api\UsuarioCliente\Ativar\BuscarModel;
-use App\Models\Api\UsuarioCliente\ClienteEntity;
-use App\Models\Api\UsuarioCliente\ClienteModel;
-use App\Models\Api\UsuarioCliente\DeletarAppModel;
-use App\Models\Api\UsuarioCliente\DeletarModel;
-use App\Models\Api\UsuarioCliente\DownloadModel;
-use App\Models\Api\UsuarioCliente\Hash\SalvarModel as SalvarHashModel;
-use App\Models\Api\UsuarioCliente\Hash\ValidarModel as ValidarHashModel;
-use App\Models\Api\UsuarioCliente\Senha\AlterarSenhaModel;
-use App\Models\Api\UsuarioCliente\Senha\EnviarCodigoModel;
-use App\Models\Api\UsuarioCliente\Senha\ValidarCodigoModel;
-use App\Models\Api\UsuarioCliente\Validar\ValidarModel;
-use Controller\Controller;
+use Modules\Cpf;
 use Erro\Excecao;
 use Http\Request;
 use Http\Response;
-use Modules\Cpf;
-use Modules\Inteiro;
 use Modules\Senha;
-use System\Interface\ControllerAtualizarInterface;
+use Modules\Inteiro;
+use Controller\Controller;
+use App\Classes\UsuarioCliente\Helper;
+use App\Classes\UsuarioCliente\TipoUsuario;
+use App\Classes\ConstrutorClube\TipoAtivacao;
+use App\Models\Api\Trait\ValidarUsuarioTrait;
+use App\Models\Api\UsuarioCliente\AppleModel;
+use App\Models\Api\UsuarioCliente\ClienteModel;
+use App\Models\Api\UsuarioCliente\DeletarModel;
 use System\Interface\ControllerBuscarInterface;
-use System\Interface\ControllerDeletarInterface;
 use System\Interface\ControllerListarInterface;
 use System\Interface\ControllerSalvarInterface;
+use App\Models\Api\UsuarioCliente\ClienteEntity;
+use App\Models\Api\UsuarioCliente\DownloadModel;
+use System\Interface\ControllerDeletarInterface;
+use App\Models\Api\DownloadPrivado\ArquivoEntity;
+use App\Models\Api\UsuarioCliente\DeletarAppModel;
+use System\Interface\ControllerAtualizarInterface;
+use App\Models\Api\UsuarioCliente\Ativar\AtivarModel;
+use App\Models\Api\UsuarioCliente\Ativar\BuscarModel;
+use App\Models\Api\UsuarioCliente\Validar\ValidarModel;
+use App\Models\Api\UsuarioCliente\Senha\AlterarSenhaModel;
+use App\Models\Api\UsuarioCliente\Senha\EnviarCodigoModel;
+use App\Models\Api\UsuarioCliente\Senha\ValidarCodigoModel;
+use App\Models\Api\UsuarioCliente\Ativar\AtivarIndicadoModel;
+use App\Models\Api\UsuarioCliente\Hash\SalvarModel as SalvarHashModel;
+use App\Models\Api\UsuarioCliente\Hash\ValidarModel as ValidarHashModel;
 
-final class UsuarioClienteController extends Controller implements
+final class ClienteController extends Controller implements
     ControllerBuscarInterface,
     ControllerListarInterface,
     ControllerSalvarInterface,
@@ -43,6 +43,9 @@ final class UsuarioClienteController extends Controller implements
     ControllerDeletarInterface
 {
     use ValidarUsuarioTrait;
+
+    public array $dadoRetorno = [];
+    public bool $perfil = false;
 
     public function postValidar(Request $request)
     {
@@ -60,7 +63,7 @@ final class UsuarioClienteController extends Controller implements
     {
         validarUuid($id);
 
-        $Usuario = new ClienteEntity();
+        $Usuario = new ClienteEntity(perfil: $this->perfil);
         $Usuario->buscar([
             ['cod', $id],
             ['status', 'in', Helper::STATUS_LIBERADO]
@@ -78,17 +81,18 @@ final class UsuarioClienteController extends Controller implements
      */
     private function retornoSucesso(ClienteEntity $Usuario, int $status = 200): Response
     {
+        $retorno = !empty($this->dadoRetorno) && $status === 200 ? $this->dadoRetorno : [
+            'Empresa' => ['id', 'nome_fantasia'],
+            'subempresa', 'nome', 'siape', 'cpf', 'rg', 'email_trabalho', 'email_pessoal', 'email_funcional',
+            'telefone_trabalho', 'telefone_pessoal', 'estado_civil', 'genero', 'imagem',
+            'data_nascimento', 'matricula', 'federacao', 'endereco_cep', 'endereco_logradouro', 'endereco_numero',
+            'endereco_complemento', 'endereco_bairro', 'endereco_cidade', 'endereco_estado',
+            'primeiro_acesso', 'possui_senha', 'mudar_senha', 'situacao', 'contrato_siape',
+            'trabalho_empresa', 'trabalho_cargo', 'tipo_pagamento', 'pagamento',
+            'trabalho_data_inicio', 'mensagem', 'pagamento', 'grupo', 'lead', 'origem', 'status', 'data_criacao'
+        ];
         return mensagemSucesso(
-            pegarPropriedadeDaEntity($Usuario, lista: [
-                'Empresa' => ['id', 'nome_fantasia'],
-                'subempresa', 'nome', 'siape', 'cpf', 'rg', 'email_trabalho', 'email_pessoal', 'email_funcional',
-                'telefone_trabalho', 'telefone_pessoal', 'estado_civil', 'genero', 'imagem',
-                'data_nascimento', 'matricula', 'federacao', 'endereco_cep', 'endereco_logradouro', 'endereco_numero',
-                'endereco_complemento', 'endereco_bairro', 'endereco_cidade', 'endereco_estado',
-                'primeiro_acesso', 'possui_senha', 'mudar_senha', 'situacao', 'contrato_siape',
-                'trabalho_empresa', 'trabalho_cargo', 'tipo_pagamento', 'pagamento',
-                'trabalho_data_inicio', 'mensagem', 'pagamento', 'grupo', 'lead', 'origem', 'status', 'data_criacao'
-            ]),
+            pegarPropriedadeDaEntity($Usuario, lista: $retorno),
             $status,
             Helper::CRIPTOGRAFAR
         );
@@ -149,7 +153,7 @@ final class UsuarioClienteController extends Controller implements
     {
         validarUuid($id);
 
-        $Usuario = new ClienteEntity($request);
+        $Usuario = new ClienteEntity(request: $request, perfil: $this->perfil);
         $Usuario->buscar([
             ['cod', $id],
             ['status', 'in', Helper::STATUS_LIBERADO]
@@ -158,26 +162,6 @@ final class UsuarioClienteController extends Controller implements
         $Usuario->set(lista: $request->dado());
         $Usuario->salvar();
         return new Response(status: 204);
-    }
-
-    public function postImagem(Request $request): Response
-    {
-        $Usuario = new ClienteEntity();
-        if (!$request->vazio('usuario')) {
-            $Usuario->uuid($request->usuario);
-        } elseif (!empty($this->pegarIdUsuario())) {
-            $Usuario->id($this->pegarIdUsuario());
-        } else {
-            mensagemStatus(status: 404);
-        }
-
-        $Usuario->imagem_arquivo = $request->getFiles('arquivo');
-        $Usuario->salvar();
-
-        return mensagemSucesso([
-            'id'     => $Usuario->id,
-            'imagem' => $Usuario->imagem
-        ], status: 201, criptografar: ['imagem']);
     }
 
     /**
@@ -298,42 +282,6 @@ final class UsuarioClienteController extends Controller implements
             $request->usuario,
             $request->hash,
         );
-        return new Response(status: 204);
-    }
-
-    public function postValidarSenha(Request $request)
-    {
-        $id = $request->existe('usuario') ? $request->usuario : TOKEN['usuario']->id;
-        $senha = $request->senha;
-        if (!defined('TOKEN')) {
-            mensagemStatus(401, localhost: 'Token não foi definido.');
-        } elseif (empty($id)) {
-            mensagemStatus(404);
-        } elseif (empty($senha)) {
-            mensagemErro('Campo obrigatório!', 'O campo senha é obrigatório.');
-        }
-
-        $Usuario = new ClienteEntity();
-        $where = is_int($id) ? [['id', $id]] : [['uuid', $id]];
-        $Usuario->buscar($where);
-
-        return mensagemSucesso([
-            'senha' => $Usuario->senha->validarSenha($senha) ? 'sim' : 'nao'
-        ]);
-    }
-
-    public function putAlterarSenha(Request $request)
-    {
-        $Usuario = new ClienteEntity($request);
-        $Usuario->id($this->pegarIdUsuario());
-
-        if (!$Usuario->senha->validarSenha($request->senha_atual)) {
-            mensagemErro('Senha inválida!', 'A senha atual informada é inválida.');
-        }
-
-        $Usuario->senha->mudarSenha($request->senha_nova);
-        $Usuario->salvar();
-
         return new Response(status: 204);
     }
 

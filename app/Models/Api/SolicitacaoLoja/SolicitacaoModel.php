@@ -4,7 +4,6 @@ namespace App\Models\Api\SolicitacaoLoja;
 
 use ORM\ORM;
 use stdClass;
-use Where\Where;
 use Erro\Excecao;
 use Modules\Data;
 use Modules\Pagina;
@@ -45,7 +44,6 @@ class SolicitacaoModel extends ORM implements
         private readonly Ordem $ordem = new Ordem(),
         private readonly ?string $nome = null,
         private readonly ?string $empresa = null,
-
         private readonly Data $dataInicio = new Data(),
         private readonly Data $dataFinal = new Data(),
         private readonly Status $status = new Status()
@@ -107,13 +105,14 @@ class SolicitacaoModel extends ORM implements
         $where = [];
 
         if (!empty($this->empresa)) {
-            $ormHelper= new OrmHelper(TABELA_COMERCIAL_EMPRESA);
+            $ormHelper = new OrmHelper(TABELA_COMERCIAL_EMPRESA);
             $idEmpresa = $ormHelper->pegarIdPeloUuid($this->empresa);
             $where[] = ['id', '=', $idEmpresa];
         }
 
         return $where;
     }
+
     /**
      * @return array
      */

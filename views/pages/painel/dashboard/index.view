@@ -2,7 +2,7 @@
 
 <div class="bloco_dashboard">
     <div class="bloco_perfil">
-        <figure style="background-image: URL({{USUARIO_IMAGEM}});"></figure>
+        <figure data-bgimagem="{!!imagem(USUARIO_IMAGEM)!!}"></figure>
         <header>
             <h1>Olá <strong>{{USUARIO_NOME}}</strong>,</h1>
             <p>bem-vindo(a) ao painel administrativo</p>

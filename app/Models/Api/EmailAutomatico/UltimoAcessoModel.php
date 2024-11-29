@@ -172,7 +172,7 @@ final class UltimoAcessoModel extends ORM
         ';
         foreach ($loja as $r) {
             // @codingStandardsIgnoreStart
-            $mensagem .= '<a style="padding-top: 5px; text-decoration: none" href="' . $linkSite . '/convenios/' . $r->url . '" target="_blank" rel="noopener noreferrer">' . $r->titulo . ' - ' . $r->desconto . '</a><br>';
+            $mensagem .= '<a data-fwcss="padding-top: 5px; text-decoration: none" href="' . $linkSite . '/convenios/' . $r->url . '" target="_blank" rel="noopener noreferrer">' . $r->titulo . ' - ' . $r->desconto . '</a><br>';
             // @codingStandardsIgnoreEnd
         }
         $mensagem .= '<br>Não perca tempo e venha conferir todas as novidades!';

@@ -72,7 +72,7 @@ if($historico instanceof \PainelConfig\Historico) {
         <input type="hidden" id="input_historico_titulo" value="<?= base64Encode($titulo) ?>">
         <input type="hidden" id="input_historico_link" value="<?= base64Encode(!empty($link) ? $link : LINK . URI) ?>">
         <input type="hidden" id="input_historico_notificar" value="<?= base64Encode($notificar) ?>">
-        <figure class="imagem_usuario" style="background-image: url(<?= sessao('USUARIO.imagem', padrao: '') ?>);"></figure>
+        <figure class="imagem_usuario" data-bgimagem="@imagem sessao('USUARIO.imagem', padrao: '')"></figure>
         <?= formTextarea(
             name: 'historico_novo',
             label: '',
@@ -87,7 +87,7 @@ if($historico instanceof \PainelConfig\Historico) {
         <ul class="bloco_marcar_equipe" id="bloco_historico_marcacao_equipe">
             <?php foreach ((new \PainelModel\Perfil\Equipe())->todos() as $hE) : ?>
                 <li data-usuario="<?= $hE->perfil ?>" class="">
-                    <div class="imagem" style="background-image: url(<?= $hE->imagem ?>);"></div>
+                    <div class="imagem" data-bgimagem="@imagem $hE->imagem"></div>
                     <div class="usuario"><?= $hE->perfil ?></div>
                     <div class="nome"><?= $hE->nome ?></div>
                 </li>

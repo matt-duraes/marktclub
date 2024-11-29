@@ -1,11 +1,12 @@
 <?php
 
-namespace App\Controllers\Api;
+namespace App\Controllers\Api\Usuario;
 
 use Http\Request;
 use Http\Response;
 use Controller\Controller;
 use App\Classes\UsuarioEquipe\Helper;
+use App\Models\Api\Trait\ValidarUsuarioTrait;
 use App\Models\Api\UsuarioEquipe\EquipeModel;
 use App\Models\Api\UsuarioEquipe\SelectModel;
 use App\Models\Api\UsuarioEquipe\EquipeEntity;
@@ -16,16 +17,21 @@ use System\Interface\ControllerDeletarInterface;
 use System\Interface\ControllerAtualizarInterface;
 use App\Models\Api\UsuarioEquipe\MudarEmpresaModel;
 
-final class UsuarioEquipeController extends Controller implements
+final class EquipeController extends Controller implements
     ControllerSalvarInterface,
     ControllerListarInterface,
     ControllerBuscarInterface,
     ControllerAtualizarInterface,
     ControllerDeletarInterface
 {
+    use ValidarUsuarioTrait;
+
+    public array $dadoRetorno = [];
+    public bool $perfil = false;
+
     public function getBuscar(string $id): Response
     {
-        $Usuario = new EquipeEntity();
+        $Usuario = new EquipeEntity(perfil: $this->perfil);
         $Usuario->uuid($id);
 
         return $this->retornoSucesso($Usuario);
@@ -54,16 +60,14 @@ final class UsuarioEquipeController extends Controller implements
 
     private function retornoSucesso(EquipeEntity $Usuario, int $status = 200)
     {
+        $retorno = !empty($this->dadoRetorno) && $status === 200 ? $this->dadoRetorno : [
+            'Empresa' => ['id', 'nome_fantasia'],
+            'subempresa', 'perfil', 'nome', 'cpf', 'imagem', 'email_trabalho', 'email_pessoal', 'tipo',
+            'telefone_pessoal', 'genero', 'data_nascimento', 'primeiro_acesso', 'mudar_senha', 'id_google',
+            'id_facebook', 'marktclub', 'gerente', 'admin', 'telefone_trabalho', 'status', 'permissao'
+        ];
         return mensagemSucesso(
-            pegarPropriedadeDaEntity(
-                $Usuario,
-                lista: [
-                    'Empresa' => ['id', 'nome_fantasia'],
-                    'subempresa', 'perfil', 'nome', 'cpf', 'imagem', 'email_trabalho', 'email_pessoal', 'tipo',
-                    'telefone_pessoal', 'genero', 'data_nascimento', 'primeiro_acesso', 'mudar_senha', 'id_google',
-                    'id_facebook', 'marktclub', 'gerente', 'admin', 'telefone_trabalho', 'status', 'permissao'
-                ],
-            ),
+            pegarPropriedadeDaEntity($Usuario, lista: $retorno),
             status: $status,
             criptografar: Helper::CRIPTOGRAFAR
         );
@@ -71,31 +75,12 @@ final class UsuarioEquipeController extends Controller implements
 
     public function putAtualizar(Request $request, string $id): Response
     {
-        $Usuario = new EquipeEntity();
+        $Usuario = new EquipeEntity(perfil: $this->perfil);
         $Usuario->uuid($id);
         $Usuario->set(lista: $request->dado());
         $Usuario->salvar();
 
         return new Response(status: 204);
-    }
-
-    public function putEmpresa(Request $request): Response
-    {
-        new MudarEmpresaModel($request->empresa);
-        return new Response(status: 204);
-    }
-
-    public function postImagem(Request $request)
-    {
-        $Usuario = new EquipeEntity();
-        $Usuario->uuid($request->id);
-        $Usuario->imagem_arquivo = $request->getFiles('imagem');
-        $Usuario->salvar();
-
-        return mensagemSucesso([
-            'id'     => $Usuario->id,
-            'imagem' => $Usuario->imagem
-        ], status: 201, criptografar: ['imagem']);
     }
 
     public function deleteDeletar(string $id): Response
@@ -105,30 +90,6 @@ final class UsuarioEquipeController extends Controller implements
         $Usuario->destruir();
 
         return new Response(status: 204);
-    }
-
-    public function postValidarSenha(Request $request)
-    {
-        $id = TOKEN['usuario']->id;
-
-        $senha = $request->senha;
-        if (!defined('TOKEN')) {
-            mensagemStatus(401, localhost: 'Token não foi definido.');
-        } elseif (empty($id)) {
-            mensagemStatus(404);
-        } elseif (empty($senha)) {
-            mensagemErro('Campo obrigatório!', 'O campo senha é obrigatório.');
-        }
-
-        $Equipe = new EquipeEntity();
-        $Equipe->buscar([
-            ['id', $id]
-        ]);
-
-        if ($Equipe->senha->validarSenha($senha)) {
-            return mensagemSucesso(['senha' => true]);
-        }
-        mensagemErro('Senha inválida!', 'Verifique a senha digitada e tente novamente.');
     }
 
     public function getSelect(Request $request)
@@ -141,5 +102,11 @@ final class UsuarioEquipeController extends Controller implements
     {
         $Equipe = new SelectModel();
         return mensagemSucesso($Equipe->listarPerfil());
+    }
+
+    public function putEmpresa(Request $request): Response
+    {
+        new MudarEmpresaModel($request->empresa);
+        return new Response(status: 204);
     }
 }

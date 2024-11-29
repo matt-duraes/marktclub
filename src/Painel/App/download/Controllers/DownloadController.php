@@ -42,7 +42,7 @@ final class DownloadController extends Controller
             ->body([
                 'senha' => $Crypt->encode($request->senha)
             ])
-            ->post('/usuario-equipe/validar-senha');
+            ->post('/perfil-dado/validar-senha');
 
         $mensagemErro = 'O arquivo procurado não foi encontrado, já foi baixado ou está vencido.';
 

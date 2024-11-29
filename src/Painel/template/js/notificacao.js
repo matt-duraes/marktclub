@@ -87,8 +87,7 @@ window.addEventListener('load', () => {
 
             blocoNotificacaoAntiga.classList.remove('display_none');
             lista.forEach(item => {
-                blocoNotificacaoAntiga.insertAdjacentHTML(
-                    'beforeend',
+                blocoNotificacaoAntiga.final(
                     montarHtml(
                         item.id,
                         item.nome,
@@ -109,7 +108,7 @@ window.addEventListener('load', () => {
     const montarHtml = (id, nome, imagem, mensagem, dataSocial, dataReal, target, rel, status) => {
         return `
             <a class="item item_novo ${status}" target="${target}" ${rel} href="${LINK}/notificacao/${id}">
-                <figure style="background-image: url(${imagem})"></figure>
+                <figure data-bgImagem="${imagem}"></figure>
                 <div class="dado">
                     <strong>${nome}</strong>
                     <p>${mensagem}</p>

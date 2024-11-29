@@ -2,7 +2,6 @@ const { src, dest } = require('gulp');
 const fs = require('fs');
 const replace = require('gulp-replace');
 const stylus = require('gulp-stylus');
-const concat = require('gulp-concat');
 const autoprefixer = require('gulp-autoprefixer');
 const cssMin = require('gulp-cssmin');
 const plumber = require('gulp-plumber');
