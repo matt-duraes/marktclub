@@ -14,6 +14,10 @@ $Painel->coluna(callback: function () use ($Painel, $Status) {
                 placeholder: 'Nome lotação',
                 obrigatorio: true
             )
+            ->switch(
+                name: 'principal',
+                label: 'Principal'
+            )
             ->select(
                 name: 'status',
                 lista: $Status->select('Selecione um status'),
