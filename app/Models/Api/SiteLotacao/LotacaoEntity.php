@@ -6,6 +6,7 @@ use App\Classes\Geral\Status;
 use App\Models\Api\Trait\ValidarEmpresaTrait;
 use Erro\Excecao;
 use ORM\Entity;
+use Modules\Botao;
 
 class LotacaoEntity extends Entity
 {
