@@ -16,13 +16,8 @@ final class PerfilController extends Controller
 {
     public function index(): Response
     {
-        if (!sessaoExiste('USUARIO.id')) {
-            return new Response(url: LINK . '/sair');
-        }
-
-        $id = sessao('USUARIO.id');
         $Api = new ApiHelper(token: true);
-        $usuario = $Api->get('/usuario-equipe/' . $id)->array();
+        $usuario = $Api->get('/perfil-dado')->array();
         if (existeErro($usuario, 'dado')) {
             mensagemStatus(404, localhost: 'Não foi encontrado o usuário');
         }
@@ -40,7 +35,7 @@ final class PerfilController extends Controller
         $Api = new ApiHelper(token: true);
         $usuario = $Api
             ->validar('Erro ao buscar dados do seu perfil.')
-            ->get('/usuario-equipe/' . $id)
+            ->get('/perfil-dado')
             ->array();
 
         return view(arquivo: 'perfil.dado', var: [
@@ -79,7 +74,7 @@ final class PerfilController extends Controller
             ->body([
                 'senha' => criptografarDado(dado: $senha, chave: $chave)
             ])
-            ->post('/usuario-equipe/validar-senha')
+            ->post('/perfil-dado/validar-senha')
             ->object();
 
         $senha = $dado->dado->senha ?? false;
@@ -113,7 +108,7 @@ final class PerfilController extends Controller
         $Api
             ->validar('Ocorreu um erro ao atualizar seus dados, por favor, tente novamente.')
             ->body($dado)
-            ->put('/usuario-equipe/' . $id);
+            ->put('/perfil-dado');
 
         return new Response(status: 204);
     }
@@ -151,7 +146,7 @@ final class PerfilController extends Controller
             ->body([
                 'senha' => criptografarDado(dado: $request->senha_nova, chave: $chave)
             ])
-            ->put('/usuario-equipe/' . $id);
+            ->put('/perfil-dado');
 
         return new Response(status: 204);
     }
@@ -216,7 +211,7 @@ final class PerfilController extends Controller
             chave: $chave
         );
 
-        $status = $Api->body($dado)->put('/usuario-equipe/' . sessao('USUARIO.id'))->status();
+        $status = $Api->body($dado)->put('/perfil-dado')->status();
 
         if ($status == 204) {
             return;
@@ -237,7 +232,7 @@ final class PerfilController extends Controller
             ->validar('Erro ao fazer o upload da imagem, por favor, tente novamente.')
             ->body(['id' => sessao('USUARIO.id')])
             ->arquivo(['imagem' => $arquivo])
-            ->post('/usuario-equipe/imagem')
+            ->post('/perfil-dado/atualizar-imagem')
             ->object();
 
         $chave = (new ApiHelper(token: true))->get('/admin/chave-privada')->object()->dado->chave ?? '';
@@ -270,7 +265,7 @@ final class PerfilController extends Controller
         (new ApiHelper(token: true))
             ->validar('Erro ao mudar a empresa da equipe.')
             ->body(['empresa' => $request->empresa])
-            ->put('/usuario-equipe/empresa');
+            ->put('/perfil-dado/empresa');
 
         return new Response(status: 204);
     }

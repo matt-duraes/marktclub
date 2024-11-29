@@ -9,7 +9,7 @@ use App\Classes\LoginClube\Tipo;
 use App\Models\Api\ApiToken\PayloadModel;
 use App\Classes\ApiToken\Tipo as TokenTipo;
 use App\Models\Api\ConstrutorClube\ClubeModel;
-use App\Models\Api\ApiToken\Trait\PegarAppTrait;
+use App\Models\Api\ApiApp\Trait\AppParaTokenTrait;
 use App\Models\Api\ConstrutorClube\ConstrutorEntity;
 use App\Models\Api\ApiToken\TokenAuthorizationEntity;
 use App\Models\Api\UsuarioCliente\UsuarioLogadoModel;
@@ -19,7 +19,7 @@ use App\Models\Api\LoginClube\EmporioNaval\UsuarioTrait as UsuarioEmporioNavalTr
 
 final class LoginClubeModel
 {
-    use PegarAppTrait;
+    use AppParaTokenTrait;
     use UsuarioEmporioNavalTrait;
     use UsuarioClubePoupyTrait;
 

@@ -260,7 +260,7 @@ Route
 
 Route
     ::nome('usuario_cliente_direto')
-    ::controller(App\Controllers\Api\UsuarioClienteController::class)
+    ::controller(App\Controllers\Api\Usuario\ClienteController::class)
     ::middleware(TokenMiddleware::class, 'token')
     ::grupo(function () {
         Route
@@ -282,8 +282,47 @@ Route
     });
 
 Route
+    ::nome('perfil_dado')
+    ::controller(App\Controllers\Api\Usuario\PerfilDadoController::class)
+    ::middleware(TokenMiddleware::class, 'token')
+    ::middleware(TokenMiddleware::class, 'login')
+    ::middleware(TokenMiddleware::class, 'audience', ['clube painel'])
+    ::criptografia(App\Classes\PerfilDado\Helper::CRIPTOGRAFAR)
+    ::grupo(function () {
+        Route
+            ::nome('buscar')
+            ::middleware(TokenMiddleware::class, 'scope', ['perfil_dado:buscar'])
+            ::get('/perfil-dado');
+        Route
+            ::nome('atualizar')
+            ::middleware(TokenMiddleware::class, 'scope', ['perfil_dado:atualizar'])
+            ::request([
+                '!nome', '!data_nascimento', '!genero', '!estado_civil', '!email_pessoal', '!email_trabalho',
+                '!telefone_trabalho', '!telefone_pessoal', '!endereco_estado', '!endereco_cep',
+                '!endereco_logradouro', '!endereco_bairro', '!endereco_numero', '!endereco_complemento',
+                '!endereco_cidade',
+            ])
+            ::put('/perfil-dado');
+        Route
+            ::nome('atualizarSenha')
+            ::middleware(TokenMiddleware::class, 'scope', ['perfil_dado:atualizar_senha'])
+            ::request(['senha_atual', 'senha_nova'])
+            ::put('/perfil-dado/atualizar-senha');
+        Route
+            ::nome('validarSenha')
+            ::middleware(TokenMiddleware::class, 'scope', ['perfil_dado:validar_senha'])
+            ::request(['senha'])
+            ::post('/perfil-dado/validar-senha');
+        Route
+            ::nome('atualizarImagem')
+            ::middleware(TokenMiddleware::class, 'scope', ['perfil_dado:alterar_imagem'])
+            ::request(['imagem'], 'files')
+            ::post('/perfil-dado/atualizar-imagem');
+    });
+
+Route
     ::nome('usuario_cliente')
-    ::controller(App\Controllers\Api\UsuarioClienteController::class)
+    ::controller(App\Controllers\Api\Usuario\ClienteController::class)
     ::middleware(TokenMiddleware::class, 'token')
     ::criptografia(App\Classes\UsuarioCliente\Helper::CRIPTOGRAFAR)
     ::grupo(function () {
@@ -317,12 +356,6 @@ Route
             ::post('/usuario-cliente');
 
         Route
-            ::nome('validarSenha')
-            ::middleware(TokenMiddleware::class, 'scope', ['usuario_cliente:validar_senha'])
-            ::request(['senha', '!usuario'])
-            ::post('/usuario-cliente/validar-senha');
-
-        Route
             ::nome('atualizar')
             ::middleware(TokenMiddleware::class, 'scope', ['usuario_cliente:atualizar'])
             ::request([
@@ -334,13 +367,6 @@ Route
                 '!trabalho_data_inicio', '!grupo', '!federacao', '!imagem_google', '!subempresa'
             ])
             ::put('/usuario-cliente/{id}');
-
-        Route
-            ::nome('imagem')
-            ::middleware(TokenMiddleware::class, 'scope', ['usuario_cliente:atualizar'])
-            ::request(['!usuario'])
-            ::request(['arquivo'], 'files')
-            ::post('/usuario-cliente/imagem');
 
         Route
             ::nome('deletar')
@@ -388,12 +414,6 @@ Route
             ::request(['senha', 'usuario', 'hash'])
             ::put('/usuario-cliente/senha');
 
-        Route
-            ::nome('alterarSenha')
-            ::middleware(TokenMiddleware::class, 'scope', ['usuario_cliente:alterar_senha'])
-            ::request(['senha_atual', 'senha_nova'])
-            ::put('/usuario-cliente/alterar-senha');
-
         route
             ::nome('hash')
             ::middleware(TokenMiddleware::class, 'scope', ['usuario_cliente:hash'])
@@ -417,7 +437,7 @@ Route
 
 Route
     ::nome('usuario_grupo')
-    ::controller(App\Controllers\Api\UsuarioGrupoController::class)
+    ::controller(App\Controllers\Api\Usuario\GrupoController::class)
     ::middleware(TokenMiddleware::class, 'token')
     ::grupo(function () {
         Route
@@ -457,7 +477,7 @@ Route
 
 Route
     ::nome('usuario_dependente')
-    ::controller(App\Controllers\Api\UsuarioDependenteController::class)
+    ::controller(App\Controllers\Api\Usuario\DependenteController::class)
     ::middleware(TokenMiddleware::class, 'token')
     ::criptografia(App\Classes\UsuarioCliente\Helper::CRIPTOGRAFAR)
     ::grupo(function () {
@@ -493,7 +513,7 @@ Route
 
 Route
     ::nome('usuario_indicacao')
-    ::controller(App\Controllers\Api\UsuarioIndicacaoController::class)
+    ::controller(App\Controllers\Api\Usuario\IndicacaoController::class)
     ::middleware(TokenMiddleware::class, 'token')
     ::criptografia(App\Classes\UsuarioIndicacao\Helper::CRIPTOGRAFAR)
     ::grupo(function () {
@@ -538,7 +558,7 @@ Route
 
 Route
     ::nome('usuario_lead')
-    ::controller(App\Controllers\Api\UsuarioLeadController::class)
+    ::controller(App\Controllers\Api\Usuario\LeadController::class)
     ::middleware(TokenMiddleware::class, 'token')
     ::criptografia(App\Classes\UsuarioLead\Helper::CRIPTOGRAFAR)
     ::grupo(function () {
@@ -582,7 +602,7 @@ Route
 
 Route
     ::nome('usuario_pagamento')
-    ::controller(App\Controllers\Api\UsuarioPagamentoController::class)
+    ::controller(App\Controllers\Api\Usuario\PagamentoController::class)
     ::middleware(TokenMiddleware::class, 'token')
     ::criptografia(App\Classes\UsuarioPagamento\Helper::CRIPTOGRAFIA)
     ::grupo(function () {
@@ -615,7 +635,7 @@ Route
 
 Route
     ::nome('usuario_equipe')
-    ::controller(App\Controllers\Api\UsuarioEquipeController::class)
+    ::controller(App\Controllers\Api\Usuario\EquipeController::class)
     ::middleware(TokenMiddleware::class, 'token')
     ::criptografia(App\Classes\UsuarioEquipe\Helper::CRIPTOGRAFAR)
     ::grupo(function () {
@@ -667,26 +687,14 @@ Route
 
         Route
             ::nome('empresa')
-            ::middleware(TokenMiddleware::class, 'scope', ['usuario_equipe:atualizar'])
+            ::middleware(TokenMiddleware::class, 'scope', ['usuario_equipe:mudar_empresa'])
             ::request(['empresa'])
             ::put('/usuario-equipe/empresa');
-
-        Route
-            ::nome('imagem')
-            ::middleware(TokenMiddleware::class, 'scope', ['usuario_equipe:atualizar'])
-            ::request(['id'])
-            ::request(['imagem'], 'files')
-            ::post('/usuario-equipe/imagem');
 
         Route
             ::nome('deletar')
             ::middleware(TokenMiddleware::class, 'scope', ['usuario_equipe:deletar'])
             ::delete('/usuario-equipe/{id}');
-        Route
-            ::nome('validarSenha')
-            ::middleware(TokenMiddleware::class, 'scope', ['usuario_equipe:validar_senha'])
-            ::request(['senha'])
-            ::post('/usuario-equipe/validar-senha');
     });
 
 Route
@@ -2821,7 +2829,7 @@ Route
             ::middleware(TokenMiddleware::class, 'scope', ['solicitacao_loja:listar'])
             ::request([
                 'pagina', '!quantidade', '!ordem', '!nome',
-                '!data_inicio', '!data_final', '!status'
+                '!data_inicio', '!data_final', '!status', '!empresa'
             ], 'json')
             ::get('/solicitacao-loja');
 

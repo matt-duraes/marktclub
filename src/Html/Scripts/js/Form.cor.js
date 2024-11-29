@@ -9,20 +9,19 @@ const fwFormCorInArray = function (needle, haystack) {
     return false;
 };
 
-bodyFormCor.insertAdjacentHTML(
-    'beforeend',
+bodyFormCor.inicio(
     `
     <div id="fw_form_cor">
         <div class="fw_form_cor_conteudo">
             <header class="fw_form_cor_header">
-                <button class="fw_form_cor_fechar fw_form_cor_fechar_mobile"><svg height="12" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 50 38" style="enable-background:new 0 0 50 38;" xml:space="preserve"><path d="M48.1,17.1H6.4L20,3.3c0.8-0.7,0.8-1.9,0.1-2.7c-0.7-0.8-1.9-0.8-2.7-0.1c0,0-0.1,0.1-0.1,0.1l-16.8,17 c-0.7,0.7-0.7,1.9,0,2.7l16.8,17c0.7,0.8,1.9,0.8,2.7,0.1c0.8-0.7,0.8-1.9,0.1-2.7c0,0-0.1-0.1-0.1-0.1L6.4,20.9h41.7 c1,0,1.9-0.9,1.9-1.9C50,17.9,49.2,17.1,48.1,17.1z"/></svg></button>
+                <button class="fw_form_cor_fechar fw_form_cor_fechar_mobile"><svg height="12" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 50 38" xml:space="preserve"><path d="M48.1,17.1H6.4L20,3.3c0.8-0.7,0.8-1.9,0.1-2.7c-0.7-0.8-1.9-0.8-2.7-0.1c0,0-0.1,0.1-0.1,0.1l-16.8,17 c-0.7,0.7-0.7,1.9,0,2.7l16.8,17c0.7,0.8,1.9,0.8,2.7,0.1c0.8-0.7,0.8-1.9,0.1-2.7c0,0-0.1-0.1-0.1-0.1L6.4,20.9h41.7 c1,0,1.9-0.9,1.9-1.9C50,17.9,49.2,17.1,48.1,17.1z"/></svg></button>
                 <h1 class="fw_form_cor_h1">Escolha uma cor</h1>
                 <button class="fw_form_cor_fechar"><svg height="12" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 50 50"  xml:space="preserve"><path d="M28.9,25L49.2,4.7c1.1-1.1,1.1-2.8,0-3.9c-1.1-1.1-2.8-1.1-3.9,0L25,21.1L4.7,0.8c-1.1-1.1-2.8-1.1-3.9,0s-1.1,2.8,0,3.9 L21.1,25L0.8,45.3c-1.1,1.1-1.1,2.8,0,3.9C1.4,49.8,2,50,2.8,50s1.4-0.3,1.9-0.8L25,28.9l20.3,20.3c0.6,0.6,1.2,0.8,1.9,0.8 c0.7,0,1.4-0.3,1.9-0.8c1.1-1.1,1.1-2.8,0-3.9L28.9,25z"/></svg></button>
             </header>
             <div class="fw_form_cor_scroll">
                 <h2 class="fw_form_cor_h2">Escolha uma cor:</h2>
                 <ul class="fw_form_cor_ul">
-                    <li class="fw_form_cor_li" style="background-color: #000000" data-value="#000000"></li><li class="fw_form_cor_li" style="background-color: #696969" data-value="#696969"></li><li class="fw_form_cor_li" style="background-color: #DCDCDC" data-value="#DCDCDC"></li><li class="fw_form_cor_li" style="background-color: #6A5ACD" data-value="#6A5ACD"></li><li class="fw_form_cor_li" style="background-color: #483D8B" data-value="#483D8B"></li><li class="fw_form_cor_li" style="background-color: #000080" data-value="#000080"></li><li class="fw_form_cor_li" style="background-color: #0000FF" data-value="#0000FF"></li><li class="fw_form_cor_li" style="background-color: #6495ED" data-value="#6495ED"></li><li class="fw_form_cor_li" style="background-color: #00BFFF" data-value="#00BFFF"></li><li class="fw_form_cor_li" style="background-color: #87CEFA" data-value="#87CEFA"></li><li class="fw_form_cor_li" style="background-color: #ADD8E6" data-value="#ADD8E6"></li><li class="fw_form_cor_li" style="background-color: #00FFFF" data-value="#00FFFF"></li><li class="fw_form_cor_li" style="background-color: #00CED1" data-value="#00CED1"></li><li class="fw_form_cor_li" style="background-color: #40E0D0" data-value="#40E0D0"></li><li class="fw_form_cor_li" style="background-color: #20B2AA" data-value="#20B2AA"></li><li class="fw_form_cor_li" style="background-color: #008B8B" data-value="#008B8B"></li><li class="fw_form_cor_li" style="background-color: #7FFFD4" data-value="#7FFFD4"></li><li class="fw_form_cor_li" style="background-color: #00FA9A" data-value="#00FA9A"></li><li class="fw_form_cor_li" style="background-color: #7CFC00" data-value="#7CFC00"></li><li class="fw_form_cor_li" style="background-color: #9ACD32" data-value="#9ACD32"></li><li class="fw_form_cor_li" style="background-color: #008000" data-value="#008000"></li><li class="fw_form_cor_li" style="background-color: #DAA520" data-value="#DAA520"></li><li class="fw_form_cor_li" style="background-color: #8B4513" data-value="#8B4513"></li><li class="fw_form_cor_li" style="background-color: #A0522D" data-value="#A0522D"></li><li class="fw_form_cor_li" style="background-color: #BC8F8F" data-value="#BC8F8F"></li><li class="fw_form_cor_li" style="background-color: #F4A460" data-value="#F4A460"></li><li class="fw_form_cor_li" style="background-color: #7B68EE" data-value="#7B68EE"></li><li class="fw_form_cor_li" style="background-color: #8A2BE2" data-value="#8A2BE2"></li><li class="fw_form_cor_li" style="background-color: #4B0082" data-value="#4B0082"></li><li class="fw_form_cor_li" style="background-color: #A020F0" data-value="#A020F0"></li><li class="fw_form_cor_li" style="background-color: #FF00FF" data-value="#FF00FF"></li><li class="fw_form_cor_li" style="background-color: #EE82EE" data-value="#EE82EE"></li><li class="fw_form_cor_li" style="background-color: #FF1493" data-value="#FF1493"></li><li class="fw_form_cor_li" style="background-color: #FF69B4" data-value="#FF69B4"></li><li class="fw_form_cor_li" style="background-color: #DB7093" data-value="#DB7093"></li><li class="fw_form_cor_li" style="background-color: #FFB6C1" data-value="#FFB6C1"></li><li class="fw_form_cor_li" style="background-color: #F08080" data-value="#F08080"></li><li class="fw_form_cor_li" style="background-color: #DC143C" data-value="#DC143C"></li><li class="fw_form_cor_li" style="background-color: #800000" data-value="#800000"></li><li class="fw_form_cor_li" style="background-color: #B22222" data-value="#B22222"></li><li class="fw_form_cor_li" style="background-color: #FF6347" data-value="#FF6347"></li><li class="fw_form_cor_li" style="background-color: #FF0000" data-value="#FF0000"></li><li class="fw_form_cor_li" style="background-color: #FF8C00" data-value="#FF8C00"></li><li class="fw_form_cor_li" style="background-color: #FFD700" data-value="#FFD700"></li><li class="fw_form_cor_li" style="background-color: #FFFF00" data-value="#FFFF00"></li><li class="fw_form_cor_li" style="background-color: #F0E68C" data-value="#F0E68C"></li><li class="fw_form_cor_li" style="background-color: #B0E0E6" data-value="#B0E0E6"></li><li class="fw_form_cor_li" style="background-color: #E0FFFF" data-value="#E0FFFF"></li><li class="fw_form_cor_li" style="background-color: #F0FFF0" data-value="#F0FFF0"></li><li class="fw_form_cor_li" style="background-color: #FFFFFF" data-value="#FFFFFF"></li>
+                    <li class="fw_form_cor_li" data-value="#000000"></li><li class="fw_form_cor_li" data-value="#696969"></li><li class="fw_form_cor_li" data-value="#DCDCDC"></li><li class="fw_form_cor_li" data-value="#6A5ACD"></li><li class="fw_form_cor_li" data-value="#483D8B"></li><li class="fw_form_cor_li" data-value="#000080"></li><li class="fw_form_cor_li" data-value="#0000FF"></li><li class="fw_form_cor_li" data-value="#6495ED"></li><li class="fw_form_cor_li" data-value="#00BFFF"></li><li class="fw_form_cor_li" data-value="#87CEFA"></li><li class="fw_form_cor_li" data-value="#ADD8E6"></li><li class="fw_form_cor_li" data-value="#00FFFF"></li><li class="fw_form_cor_li" data-value="#00CED1"></li><li class="fw_form_cor_li" data-value="#40E0D0"></li><li class="fw_form_cor_li" data-value="#20B2AA"></li><li class="fw_form_cor_li" data-value="#008B8B"></li><li class="fw_form_cor_li" data-value="#7FFFD4"></li><li class="fw_form_cor_li" data-value="#00FA9A"></li><li class="fw_form_cor_li" data-value="#7CFC00"></li><li class="fw_form_cor_li" data-value="#9ACD32"></li><li class="fw_form_cor_li" data-value="#008000"></li><li class="fw_form_cor_li" data-value="#DAA520"></li><li class="fw_form_cor_li" data-value="#8B4513"></li><li class="fw_form_cor_li" data-value="#A0522D"></li><li class="fw_form_cor_li" data-value="#BC8F8F"></li><li class="fw_form_cor_li" data-value="#F4A460"></li><li class="fw_form_cor_li" data-value="#7B68EE"></li><li class="fw_form_cor_li" data-value="#8A2BE2"></li><li class="fw_form_cor_li" data-value="#4B0082"></li><li class="fw_form_cor_li" data-value="#A020F0"></li><li class="fw_form_cor_li" data-value="#FF00FF"></li><li class="fw_form_cor_li" data-value="#EE82EE"></li><li class="fw_form_cor_li" data-value="#FF1493"></li><li class="fw_form_cor_li" data-value="#FF69B4"></li><li class="fw_form_cor_li" data-value="#DB7093"></li><li class="fw_form_cor_li" data-value="#FFB6C1"></li><li class="fw_form_cor_li" data-value="#F08080"></li><li class="fw_form_cor_li" data-value="#DC143C"></li><li class="fw_form_cor_li" data-value="#800000"></li><li class="fw_form_cor_li" data-value="#B22222"></li><li class="fw_form_cor_li" data-value="#FF6347"></li><li class="fw_form_cor_li" data-value="#FF0000"></li><li class="fw_form_cor_li" data-value="#FF8C00"></li><li class="fw_form_cor_li" data-value="#FFD700"></li><li class="fw_form_cor_li" data-value="#FFFF00"></li><li class="fw_form_cor_li" data-value="#F0E68C"></li><li class="fw_form_cor_li" data-value="#B0E0E6"></li><li class="fw_form_cor_li" data-value="#E0FFFF"></li><li class="fw_form_cor_li" data-value="#F0FFF0"></li><li class="fw_form_cor_li" data-value="#FFFFFF"></li>
                 </ul>
                 <div class="fw_form_cor_padrao fw_form_cor_display_none" id="fw_form_cor_padrao">
                     <div class="fw_form_cor_padrao_botao" id="fw_form_cor_padrao_botao">
@@ -77,23 +76,26 @@ const fwFormCorSetarValor = (elemento, valor) => {
     const blocoCor = bloco.querySelector('.input_cor_bg');
     if (vazio(valor)) {
         input.value = '';
-        blocoCor.style.background = '';
+        blocoCor.css('background-color', '');
         return;
     } else if (valor == 'padrao') {
-        blocoCor.style.background = `linear-gradient(to left,
-            #e32746 0px,
-            #e32746 10px,
-            #08c969 10px,
-            #08c969 20px,
-            #272de3 20px,
-            #272de3 30px,
-            #e327da 30px,
-            #e327da 40px,
-            #fcba03 40px,
-            #fcba03 50px
-        )`;
+        blocoCor.css(
+            'background',
+            `linear-gradient(to left,
+                #e32746 0px,
+                #e32746 10px,
+                #08c969 10px,
+                #08c969 20px,
+                #272de3 20px,
+                #272de3 30px,
+                #e327da 30px,
+                #e327da 40px,
+                #fcba03 40px,
+                #fcba03 50px
+            )`
+        );
     } else {
-        blocoCor.style.background = valor;
+        blocoCor.css('background', valor);
     }
     input.value = valor;
     return;
@@ -147,7 +149,7 @@ fwFormCorBotaoRemover.addEventListener('click', () => {
     const blocoCor = inputCorAtual.querySelector('.input_cor_bg');
     if (input) {
         input.value = '';
-        blocoCor.style.background = '';
+        blocoCor.css('background', '');
     }
     fwFormCorBoxFechar();
 });
@@ -163,7 +165,7 @@ fwFormCorPadraoBotao.addEventListener('click', () => {
     const input = inputCorAtual.querySelector('input');
     const blocoCor = inputCorAtual.querySelector('.input_cor_bg');
     input.value = '';
-    blocoCor.style.background = '';
+    blocoCor.css('background', '');
 });
 
 const fwFormCorBoxFechar = cor => {
@@ -171,7 +173,7 @@ const fwFormCorBoxFechar = cor => {
     fwFormCor.classList.remove('fw_form_cor_abrir');
     setTimeout(() => {
         fwFormCorInput.value = '';
-        fwFormCor.style.display = 'none';
+        fwFormCor.css('display', 'none');
         fwFormCorPadrao.classList.add('fw_form_cor_display_none');
         fwFormCorPadrao.classList.remove('fw_form_cor_padrao_checked');
     }, 300);
@@ -185,21 +187,24 @@ const fwFormCorBoxFechar = cor => {
     }
     input.value = cor;
     if (cor == 'padrao') {
-        blocoCor.style.background = `linear-gradient(to left,
-            #e32746 0px,
-            #e32746 10px,
-            #08c969 10px,
-            #08c969 20px,
-            #272de3 20px,
-            #272de3 30px,
-            #e327da 30px,
-            #e327da 40px,
-            #fcba03 40px,
-            #fcba03 50px
-        )`;
+        blocoCor.css(
+            'background',
+            `linear-gradient(to left,
+                #e32746 0px,
+                #e32746 10px,
+                #08c969 10px,
+                #08c969 20px,
+                #272de3 20px,
+                #272de3 30px,
+                #e327da 30px,
+                #e327da 40px,
+                #fcba03 40px,
+                #fcba03 50px
+            )`
+        );
         return;
     }
-    blocoCor.style.background = cor;
+    blocoCor.css('background', cor);
 };
 const fwFormCorBoxAbrir = bloco => {
     bodyFormCor.classList.add('fw_body_hidden');
@@ -208,9 +213,9 @@ const fwFormCorBoxAbrir = bloco => {
     const valor = input.value;
 
     if (valor == '') {
-        fwFormCorBlocoRemover.style.display = 'none';
+        fwFormCorBlocoRemover.css('display', 'none');
     } else {
-        fwFormCorBlocoRemover.style.display = 'flex';
+        fwFormCorBlocoRemover.css('display', 'flex');
     }
 
     fwFormCorPadrao.classList.add('fw_form_cor_display_none');
@@ -222,7 +227,7 @@ const fwFormCorBoxAbrir = bloco => {
         }
     }
 
-    fwFormCor.style.display = 'flex';
+    fwFormCor.css('display', 'flex');
     setTimeout(() => {
         fwFormCor.classList.add('fw_form_cor_abrir');
     }, 20);

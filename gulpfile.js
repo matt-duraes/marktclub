@@ -1,12 +1,9 @@
-const browserSync = require('browser-sync').create();
-const open = require('open');
 const fs = require('fs');
 const prop = require('yargs').argv;
 const { watch, parallel, series } = require('gulp');
 const { cssUnico, cssTodos, cssDeploy } = require('./src/Gulpfile/css.js');
 const { jsUnico, jsTodos, jsDeploy } = require('./src/Gulpfile/js.js');
 const { htmlUnico, htmlTodos, htmlDeploy } = require('./src/Gulpfile/html.js');
-const { imagemTodos } = require('./src/Gulpfile/imagem.js');
 const { configVerificar } = require('./src/Gulpfile/config.js');
 const { phpCsFixer } = require('./src/Gulpfile/php.js');
 
@@ -30,9 +27,16 @@ const {
 
 const { limparArquivosDoMac, limparSessao } = require('./src/Gulpfile/clean.js');
 const { dockerComposerUp, dockerComposerDown } = require('./src/Gulpfile/docker.js');
+const { mensagemSucesso } = require('./src/Gulpfile/mensagem.js');
 
 // Subir e parar desenvolvimento
-exports.default = series(validandoArquivoDeConfiguracao, limpandoSessoes, subindoContainer, monitorarSistema);
+exports.default = series(
+    validandoArquivoDeConfiguracao,
+    limpandoSessoes,
+    subindoContainer,
+    monitorarSistema,
+    sistemaInicializado
+);
 exports.down = parallel(matandoContainer, limpandoSessoes);
 exports.css = series(copiandoArquivosCSS);
 exports.js = series(copiandoArquivosJS);
@@ -43,8 +47,7 @@ exports.tabela = series(copiandoArquivosCSS);
 exports.deploy = series(
     parallel(
         series(copiandoArquivosJS, preparandoJSParaProducao),
-        series(copiandoArquivosHtml, preparandoHtmlParaProducao),
-        series(copiandoArquivosDeImagem)
+        series(copiandoArquivosHtml, preparandoHtmlParaProducao)
     ),
     series(copiandoArquivosCSS, preparandoCSSParaProducao)
 );
@@ -66,7 +69,7 @@ exports.install = series(
     ),
     copiandoArquivoDeErro,
     criandoPaginaExemplo,
-    parallel(copiandoArquivosJS, copiandoArquivosHtml, copiandoArquivosDeImagem),
+    parallel(copiandoArquivosJS, copiandoArquivosHtml),
     copiandoArquivosCSS
 );
 
@@ -74,13 +77,7 @@ exports.install = series(
 exports.commit = series(limpandoArquivosDoMac);
 
 // Build projeto em desenvolvimento
-exports.build = parallel(
-    copiandoArquivoIndex,
-    copiandoArquivosJS,
-    copiandoArquivosHtml,
-    copiandoArquivosDeImagem,
-    copiandoArquivosCSS
-);
+exports.build = parallel(copiandoArquivoIndex, copiandoArquivosJS, copiandoArquivosHtml, copiandoArquivosCSS);
 exports.composerBugfix = series(corrigindoBugDoComposer);
 
 /*
@@ -116,22 +113,6 @@ function limpandoSessoes() {
 }
 
 async function monitorarSistema() {
-    const config = JSON.parse(fs.readFileSync('./files/config/gulp.json'));
-
-    // RELOAD
-    const proxyPorta = config.browserSync.porta;
-    const proxyUrl = config.browserSync.proxy + ':' + config.docker.https;
-
-    await browserSync.init({
-        proxy: proxyUrl,
-        open: false,
-        port: proxyPorta,
-    });
-
-    if (prop.open == undefined) {
-        await open(config.browserSync.open + ':' + proxyPorta);
-    }
-
     // PHP CS FIXER
     watch(['**/*.php', '!./files/**/*.php', '!**/*Route.php']).on('change', async path => {
         const time = new Date().getTime();
@@ -141,41 +122,42 @@ async function monitorarSistema() {
     });
 
     // CSS
-    watch(['./views/**/*.styl', './src/Painel/templates/**/*.styl']).on('change', async path => {
-        const time = new Date().getTime();
-        consoleHeader('styl');
-        await cssUnico(path, browserSync);
-        consoleFooter(time);
-    });
+    watch(['./views/**/*.styl', './src/Painel/templates/**/*.styl', './src/Painel/App/**/*.styl']).on(
+        'change',
+        async path => {
+            const time = new Date().getTime();
+            consoleHeader('styl');
+            await cssUnico(path);
+            consoleFooter(time);
+        }
+    );
 
     // JS
-    watch(['./views/**/*.js', './src/Painel/templates/**/*.js']).on('change', async path => {
-        const time = new Date().getTime();
-        consoleHeader('js');
-        await jsUnico(path);
-        browserSync.reload();
-        consoleFooter(time);
-    });
+    watch(['./views/**/*.js', './src/Painel/templates/**/*.js', './src/Painel/App/**/*.js']).on(
+        'change',
+        async path => {
+            const time = new Date().getTime();
+            consoleHeader('js');
+            console.log(path);
+            await jsUnico(path);
+            consoleFooter(time);
+        }
+    );
 
     // HTML
-    watch(['./views/**/*.view', './src/Painel/App/**/*.view', './src/Painel/templates/**/*.view']).on(
+    watch(['./views/**/*.view', './src/Painel/templates/**/*.view', './src/Painel/App/**/*.view']).on(
         'change',
         async path => {
             const time = new Date().getTime();
             consoleHeader('view');
             await htmlUnico(path);
-            browserSync.reload();
             consoleFooter(time);
         }
     );
+}
 
-    // IMAGEM
-    watch(['./views/images/**/*']).on('all', async () => {
-        const time = new Date().getTime();
-        consoleHeader('imagem');
-        await imagemTodos();
-        consoleFooter(time);
-    });
+function sistemaInicializado() {
+    mensagemSucesso('Sistema inicializado com sucesso...');
 }
 
 function consoleHeader(acao) {
@@ -265,9 +247,6 @@ function preparandoHtmlParaProducao() {
     return htmlDeploy();
 }
 
-function copiandoArquivosDeImagem() {
-    return imagemTodos();
-}
 function criandoPaginaExemplo() {
     return buildPaginaExemplo();
 }

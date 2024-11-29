@@ -94,9 +94,9 @@ final class PerfilController extends Controller
 
     public function postSalvarEmail(Request $request)
     {
-        $Salvar = (new DadosModel())->atualizarEmail($request);
+        (new DadosModel())->atualizarEmail($request);
 
-        return new Response($Salvar);
+        return new Response(status: 204);
     }
 
     /*
@@ -117,6 +117,10 @@ final class PerfilController extends Controller
     */
     public function postSocial(Request $request)
     {
-        return (new DadosModel())->postImagem($request);
+        $imagem = (new DadosModel())->postImagem($request->getFiles('imagem'));
+        return mensagemSucesso(
+            dado: ['imagem' => $imagem],
+            status: 201
+        );
     }
 }

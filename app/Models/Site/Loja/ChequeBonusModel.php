@@ -64,7 +64,7 @@ final class ChequeBonusModel extends ClubeApiHelper
                     'endereco_estado'      => $request->endereco_estado,
                     'endereco_cidade'      => $request->endereco_cidade,
                 ])
-                ->put('/usuario-cliente/' . sessao('USUARIO.id'));
+                ->put('/perfil-dado');
         } catch (\Throwable $e) {
             if (eLocalhost()) {
                 mensagemErro('Erro!', $e->getMessage());

@@ -1,7 +1,3 @@
-$ = document.querySelector.bind(document);
-$$ = document.querySelectorAll.bind(document);
-ppe = console.log.bind(console);
-
 const body = document.querySelector('body');
 const variavelLocal = {};
 const blocoMenuLista = $('#bloco_menu');

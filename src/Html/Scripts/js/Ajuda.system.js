@@ -1,15 +1,16 @@
+if (!$('#bloco_fw_ajuda')) {
+    $('body').inicio('<div id="bloco_fw_ajuda"></div>');
+}
+const fwBlocoAjuda = $('#bloco_fw_ajuda');
 class Ajuda {
-
     constructor() {
-
         throw new Error('A class Ajuda não pode ser instanciada.');
-
     }
 
     static posicionarHtml() {
-
         let bloco = this.bloco;
-        let blocoAjuda = document.getElementById('fw_ajuda');
+        let blocoAjuda = $('#fw_ajuda');
+        blocoAjuda.css('position', this.position);
 
         let blocoPosicao = bloco.getBoundingClientRect();
 
@@ -21,22 +22,20 @@ class Ajuda {
 
         let textoWidth = blocoAjuda.offsetWidth;
         let scrollTop = document.querySelector('html').scrollTop;
-        blocoAjuda.style.top = (scrollTop + blocoTop + blocoHeight + 5) + 'px';
-        blocoAjuda.style.left = (blocoLeft - (textoWidth / 2) + (blocoWidth / 2)) + 'px';
-
+        blocoAjuda.css({
+            top: scrollTop + blocoTop + blocoHeight + 5 + 'px',
+            left: blocoLeft - textoWidth / 2 + blocoWidth / 2 + 'px',
+        });
     }
 
     static montarHtml() {
-
         if (this.texto != '' && this.texto != undefined) {
-            document.getElementById('bloco_fw_ajuda').innerHTML = '<div id="fw_ajuda" style="position: ' + this.position + '">' + this.texto + '</div>';
+            fwBlocoAjuda.html(`<div id="fw_ajuda">${this.texto}</div>`);
             this.posicionarHtml();
         }
-
     }
 
     static show(bloco, texto, position) {
-
         if (window.innerWidth <= 1000) {
             return false;
         }
@@ -50,11 +49,9 @@ class Ajuda {
         this.position = position;
 
         this.montarHtml();
-
     }
 
     static hide() {
-        document.getElementById('bloco_fw_ajuda').innerHTML = '';
+        document.getElementById('bloco_fw_ajuda').html('');
     }
-
 }

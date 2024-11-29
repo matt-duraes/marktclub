@@ -85,7 +85,7 @@ final class MontarMenu
 
     private function pegarListaRota()
     {
-        $lista = $this->listarDiretorio(ROOT . '/postman');
+        $lista = $this->listarDiretorio(ROOT . '/postman/grupo');
         $grupo = $this->ordenarMenuGrupo($lista['grupo'] ?? []);
         $requisicao = $this->ordenarMenuRequisicao($lista['requisicao'] ?? []);
         $this->lista = [

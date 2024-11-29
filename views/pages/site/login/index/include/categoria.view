@@ -39,7 +39,7 @@
                         <div class="parceiro">
                             @foreach ($r['parceiro'] as $parceiro) :
                                 <div class="imagem">
-                                    <figure style="background-image: url({{$parceiro->imagem}})"></figure>
+                                    <figure data-bgimagem="{!!$parceiro->imagem!!}}"></figure>
                                 </div>
                             @endforeach;
                         </div>
@@ -102,7 +102,7 @@
                     <div class="parceiro">
                         @foreach ($r['parceiro'] as $parceiro) :
                             <div class="imagem">
-                                <figure style="background-image: url({{$parceiro->imagem}})"></figure>
+                                <figure data-bgimagem="{!!$parceiro->imagem!!}"></figure>
                             </div>
                         @endforeach;
                     </div>

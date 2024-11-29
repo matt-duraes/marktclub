@@ -235,7 +235,7 @@ final class Add
      */
     public function margem(int $tamanho)
     {
-        $this->html('<div class="margem" style="margin-top: ' . $tamanho . 'px"></div>');
+        $this->html('<div class="margem" data-fwcss="margin-top: ' . $tamanho . 'px"></div>');
         return $this;
     }
 

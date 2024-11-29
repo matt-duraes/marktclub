@@ -2,27 +2,6 @@ window.addEventListener('load', () => {
     const googleAppId = document.getElementById('GOOGLE_CLIENT_ID').value;
     const facebookAppId = document.getElementById('FACEBOOK_APP_ID').value;
 
-    window.fbAsyncInit = function () {
-        FB.init({
-            appId: facebookAppId,
-            cookie: true,
-            xfbml: true,
-            version: 'v15.0',
-        });
-        FB.AppEvents.logPageView();
-    };
-    (function (d, s, id) {
-        var js,
-            fjs = d.getElementsByTagName(s)[0];
-        if (d.getElementById(id)) {
-            return;
-        }
-        js = d.createElement(s);
-        js.id = id;
-        js.src = 'https://connect.facebook.net/en_US/sdk.js';
-        fjs.parentNode.insertBefore(js, fjs);
-    })(document, 'script', 'facebook-jssdk');
-
     document.getElementById('botao_login_facebook').addEventListener('click', () => {
         FB.getLoginStatus(function (response) {
             let id, token;
@@ -68,7 +47,7 @@ window.addEventListener('load', () => {
     const loginComRedeSocial = async (id, token, code, rede) => {
         Loading.show();
 
-        const body = new FormData;
+        const body = new FormData();
         body.append('id', id);
         body.append('token', token);
         body.append('code', code);
@@ -78,7 +57,7 @@ window.addEventListener('load', () => {
 
         const resposta = await fetch(LINK + '/login/social', {
             method: 'POST',
-            body
+            body,
         });
 
         let json;
@@ -97,8 +76,7 @@ window.addEventListener('load', () => {
         }
 
         Alerta.notificacao(
-            json.erro != undefined ?
-            json.erro.mensagem : 'Erro ao fazer seu login, por favor, tente novamente.',
+            json.erro != undefined ? json.erro.mensagem : 'Erro ao fazer seu login, por favor, tente novamente.',
             false
         );
     };

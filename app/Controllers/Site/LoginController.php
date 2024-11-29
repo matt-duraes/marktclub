@@ -5,7 +5,6 @@ namespace App\Controllers\Site;
 use Http\Request;
 use Http\Response;
 use Helpers\ApiHelper;
-use Helpers\CurlHelper;
 use Helpers\CryptHelper;
 use Controller\Controller;
 use App\Classes\TextoClube\Tipo;
@@ -13,6 +12,7 @@ use App\Models\Site\Login\LogarModel;
 use App\Models\Site\Ativar\GrupoModel;
 use App\Models\Site\Ativar\SalvarModel;
 use App\Models\Site\Login\LoginApiModel;
+use App\Models\Site\Cache\VersaoClubeModel;
 use App\Models\Site\Login\ComunicacaoModel;
 use App\Classes\ConstrutorClube\TipoAtivacao;
 
@@ -20,26 +20,30 @@ final class LoginController extends Controller
 {
     public function index(Request $request): Response
     {
-        if (!TELA_LOGIN) {
-            return new Response(url: LINK_LOGIN);
-        }
-        $quantidadeParceiros = (new CurlHelper())->headerjson()->get(
-            'https://arquivo.youhuul.com/construtor/loja.json'
-        )->object();
-        $dado = (new ComunicacaoModel())->buscarBanner() ?? '';
-
-        if ($quantidadeParceiros) {
-            $numLojas = $quantidadeParceiros->lojas ?? '';
-            $numParcerias = $quantidadeParceiros->parcerias ?? '';
-        }
+        $Cache = new VersaoClubeModel();
+        $busca = $Cache->cache('busca_home', retorno: VersaoClubeModel::RETORNO_ARRAY);
 
         return view('login.index', [
-            'banner'             => $dado->lista,
-            'quantidade_banners' => $dado->quantidade,
-            'location'           => base64Decode($request->chave('location', ''), true),
-            'num_lojas'          => $numLojas ?? 23000,
-            'num_parcerias'      => $numParcerias ?? 2000,
+            'location'          => base64Decode($request->chave('location', ''), true),
+            'loja'              => $busca['loja'] ?? 0,
+            'parceiro'          => $busca['parceiro'] ?? 0,
+            'banner_lista'      => $busca['banner']->lista ?? [],
+            'banner_quantidade' => $busca['banner']->quantidade ?? 0,
         ]);
+    }
+
+    public function getBuscarHome()
+    {
+        $contador = jsonDecode(file_get_contents('https://arquivo.youhuul.com/construtor/loja.json'), true, true);
+
+        $Cache = new VersaoClubeModel();
+        $retorno = [
+            'loja'     => $contador['lojas'] ?? 23000,
+            'parceiro' => $contador['parcerias'] ?? 2000,
+            'banner'   => (new ComunicacaoModel())->buscarBanner()
+        ];
+        $Cache->cache('busca_home', $retorno);
+        return mensagemSucesso($retorno);
     }
 
     public function youhuul()
@@ -147,10 +151,9 @@ final class LoginController extends Controller
     public function ativarBuscar()
     {
         (new GrupoModel())->buscarSlug();
-        $TipoAtivacao = new TipoAtivacao();
         return view('login.ativar.buscar', [
-            'tipoSiape'     => $TipoAtivacao::SIAPE == TIPO_ATIVACAO,
-            'tipoMatricula' => $TipoAtivacao::MATRICULA == TIPO_ATIVACAO,
+            'tipoSiape'     => TipoAtivacao::SIAPE == TIPO_ATIVACAO,
+            'tipoMatricula' => TipoAtivacao::MATRICULA == TIPO_ATIVACAO,
         ]);
     }
 
@@ -158,7 +161,7 @@ final class LoginController extends Controller
     {
         $valor = $request->busca;
         if (TIPO_ATIVACAO == 'cpf') {
-            $valor = str_replace(['.', '-'], '', $valor);
+            $valor = strCpfNumero($valor);
         }
         if ($request->tipo_usuario == 'indicado') {
             $buscar = (new ApiHelper('usuario_indicacao:ativar'))

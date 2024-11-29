@@ -22,8 +22,9 @@
         "nome": "{{dbNome}}",
         "senha": "{{dbSenha}}"
     },
-    "gitOrigin": "{{gitOrigin}}",
-    "gitUpstream": "{{gitUpstream}}",
+    "gitUsuario": "{{gitUsuario}}",
+    "gitProjetoOrigin": "{{gitProjetoOrigin}}",
+    "gitProjetoUpstream": "{{gitProjetoUpstream}}",
     "gitEnvOrigin": "{{gitEnvOrigin}}",
     "gitEnvUpstream": "{{gitEnvUpstream}}",
     "gitFwOrigin": "{{gitFwOrigin}}",

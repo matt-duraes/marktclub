@@ -3,9 +3,10 @@
 namespace App\Models\Api\ApiToken;
 
 use ORM\Entity;
+use Modules\DataHora;
 use App\Classes\ApiToken\Tipo;
 use App\Models\Api\ApiToken\Trait\TokenTrait;
-use App\Models\Api\ApiToken\Trait\PegarAppTrait;
+use App\Models\Api\ApiApp\Trait\AppParaTokenTrait;
 use App\Models\Api\ApiToken\Trait\PegarEquipeTrait;
 use App\Models\Api\ApiToken\Trait\PegarClienteTrait;
 use App\Models\Api\ApiToken\Trait\PegarEmpresaTrait;
@@ -13,14 +14,15 @@ use App\Models\Api\ApiToken\Trait\PegarEmpresaTrait;
 final class ValidarTokenAuthorizationEntity extends Entity
 {
     use TokenTrait;
-    use PegarAppTrait;
+    use AppParaTokenTrait;
     use PegarEmpresaTrait;
     use PegarClienteTrait;
     use PegarEquipeTrait;
 
     protected string $ormTabela = TABELA_AUTH_TOKEN;
     protected array $ormBuscar = [
-        'id_api_app', 'id_admin_empresa', 'id_usuario', 'access_token', 'scope_permitido', 'grant_type', 'tipo'
+        'id_api_app', 'id_admin_empresa', 'id_usuario', 'access_token', 'scope_permitido',
+        'data_vencimento', 'grant_type', 'tipo', 'status'
     ];
     protected Tipo $tipo;
     protected int $id_admin_empresa;
@@ -29,9 +31,15 @@ final class ValidarTokenAuthorizationEntity extends Entity
     protected string $access_token;
     protected array $scope_permitido;
     protected string $grant_type;
+    protected DataHora $data_vencimento;
+    protected int $status;
 
     protected function regraPosBuscar()
     {
+        if ($this->data_vencimento->date() <= agora() || $this->status != 1) {
+            $this->destruir();
+            mensagemStatus(401);
+        }
         $tipoUsuario = $this->tipo->indice();
         if (!array_key_exists($tipoUsuario, (new Tipo())->select())) {
             mensagemStatus(404);

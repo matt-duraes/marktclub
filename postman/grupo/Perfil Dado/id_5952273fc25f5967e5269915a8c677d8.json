@@ -1,0 +1,1 @@
+{"id":"id_5952273fc25f5967e5269915a8c677d8","token":"painel","metodo":"POST","nome":"\/perfil-dado\/atualizar-imagem","uri":"{{LINK}}\/perfil-dado\/atualizar-imagem","parametro":[["texto",true,"imagem","",""]],"body":[],"header":[],"variavel":[],"json":[],"documentacao":{"status":false,"descricao":"","requisicao":"","resposta":"","scope":""}}

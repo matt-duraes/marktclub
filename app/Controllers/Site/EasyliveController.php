@@ -21,7 +21,7 @@ final class EasyliveController extends Controller
     public function postListar(Request $request)
     {
         try {
-            $lista = (new ClubeApiHelper('parceiro_easylive:listar'))
+            $lista = (new ClubeApiHelper())
                 ->json([
                     'pagina'     => 1,
                     'tipo'       => $request->tipo,

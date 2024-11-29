@@ -3,6 +3,13 @@ const prompt = require('gulp-prompt');
 const { fsCriarDiretorio, fsRemoverArquivoSeExistir, fsCriarArquivo } = require('./arquivo.js');
 const fs = require('fs');
 
+trocarUsuarioGit = (link, usuario) => {
+    if (typeof link !== 'string' || link == '' || typeof usuario !== 'string' || usuario == '') {
+        return '';
+    }
+    const gitRegex = new RegExp(/(((\.[a-z]{2,4})(\.[a-z]{2,4})?(\:|\/))|clone )[^\/]+\//);
+    return link.replace(gitRegex, `$1${usuario}/`);
+};
 exports.configVerificar = async function () {
     await new Promise(resolve => {
         src('./')
@@ -99,49 +106,34 @@ exports.configVerificar = async function () {
                         },
                         {
                             type: 'input',
-                            name: 'gitOrigin',
-                            message: 'Digite o link ssh do Origin do projeto:',
-                            validate: gitOrigin => {
-                                return gitOrigin != '';
+                            name: 'gitUsuario',
+                            message: 'Digite o seu usuário do git:',
+                            validate: gitUsuario => {
+                                return gitUsuario != '';
                             },
                         },
                         {
                             type: 'input',
-                            name: 'gitUpstream',
-                            message: 'Digite o link ssh do Upstream do projeto:',
-                            validate: gitUpstream => {
-                                return gitUpstream != '';
+                            name: 'gitProjeto',
+                            message: 'Digite o link ssh do repositório do projeto (upstream):',
+                            validate: gitProjeto => {
+                                return gitProjeto != '';
                             },
                         },
                         {
                             type: 'input',
-                            name: 'gitEnvOrigin',
-                            message: 'Digite o link ssh do Origin do repositório ENV: (opcional):',
+                            name: 'gitEnv',
+                            message: 'Digite o link ssh do repositório (Upstream) do ENV: (opcional):',
                         },
                         {
                             type: 'input',
-                            name: 'gitEnvUpstream',
-                            message: 'Digite o link ssh do Upstream do repositório ENV: (opcional):',
+                            name: 'gitFw',
+                            message: 'Digite o link ssh do repositório (Upstream) do Framework: (opcional):',
                         },
                         {
                             type: 'input',
-                            name: 'gitFwOrigin',
-                            message: 'Digite o link ssh do Origin do repositório do Framework: (opcional):',
-                        },
-                        {
-                            type: 'input',
-                            name: 'gitFwUpstream',
-                            message: 'Digite o link ssh do Upstream do repositório do Framework: (opcional):',
-                        },
-                        {
-                            type: 'input',
-                            name: 'gitArquivoOrigin',
-                            message: 'Digite o link ssh do Origin do repositório de arquivo: (opcional):',
-                        },
-                        {
-                            type: 'input',
-                            name: 'gitArquivoUpstream',
-                            message: 'Digite o link ssh do Upstream do repositório de arquivo: (opcional):',
+                            name: 'gitArquivo',
+                            message: 'Digite o link ssh do repositório (Upstream) de arquivo: (opcional):',
                         },
                     ],
                     response => {
@@ -159,14 +151,11 @@ exports.configVerificar = async function () {
                         console.log('Senha do Banco: \x1b[1m******\x1b[0m');
                         console.log('virustotal.com: \x1b[1m' + response.virus + '\x1b[0m');
                         console.log('Google: \x1b[1m' + response.google + '\x1b[0m');
-                        console.log('Git Origin: \x1b[1m' + response.gitOrigin + '\x1b[0m');
-                        console.log('Git Upstream: \x1b[1m' + response.gitUpstream + '\x1b[0m');
-                        console.log('Git Env Origin: \x1b[1m' + response.gitEnvOrigin + '\x1b[0m');
-                        console.log('Git Env Upstream: \x1b[1m' + response.gitEnvUpstream + '\x1b[0m');
-                        console.log('Git FrameWork Origin: \x1b[1m' + response.gitFwOrigin + '\x1b[0m');
-                        console.log('Git FrameWork Upstream: \x1b[1m' + response.gitFwUpstream + '\x1b[0m');
-                        console.log('Git Arquivo Origin: \x1b[1m' + response.gitArquivoOrigin + '\x1b[0m');
-                        console.log('Git Arquivo Upstream: \x1b[1m' + response.gitArquivoUpstream + '\x1b[0m');
+                        console.log('Usuário GIT: \x1b[1m' + response.gitUsuario + '\x1b[0m');
+                        console.log('Git do Projeto: \x1b[1m' + response.gitProjeto + '\x1b[0m');
+                        console.log('Git do Env: \x1b[1m' + response.gitEnv + '\x1b[0m');
+                        console.log('Git do FrameWork: \x1b[1m' + response.gitFw + '\x1b[0m');
+                        console.log('Git do Arquivo: \x1b[1m' + response.gitArquivo + '\x1b[0m');
                     }
                 )
             )
@@ -186,14 +175,15 @@ exports.configVerificar = async function () {
     const dbSenha = respostas.dbSenha;
     const virus = respostas.virus;
     const google = respostas.google;
-    const gitOrigin = respostas.gitOrigin;
-    const gitUpstream = respostas.gitUpstream;
-    const gitEnvOrigin = respostas.gitEnvOrigin;
-    const gitEnvUpstream = respostas.gitEnvUpstream;
-    const gitFwOrigin = respostas.gitFwOrigin;
-    const gitFwUpstream = respostas.gitFwUpstream;
-    const gitArquivoOrigin = respostas.gitArquivoOrigin;
-    const gitArquivoUpstream = respostas.gitArquivoUpstream;
+    const gitUsuario = respostas.gitUsuario;
+    const gitProjetoOrigin = trocarUsuarioGit(respostas.gitProjeto, gitUsuario);
+    const gitProjetoUpstream = respostas.gitProjeto;
+    const gitEnvOrigin = trocarUsuarioGit(respostas.gitEnv, gitUsuario);
+    const gitEnvUpstream = respostas.gitEnv;
+    const gitFwOrigin = trocarUsuarioGit(respostas.gitFw, gitUsuario);
+    const gitFwUpstream = respostas.gitFw;
+    const gitArquivoOrigin = trocarUsuarioGit(respostas.gitArquivo, gitUsuario);
+    const gitArquivoUpstream = respostas.gitArquivo;
 
     let configJson = fs
         .readFileSync('./src/Files/gulp.json', 'utf-8')
@@ -209,8 +199,8 @@ exports.configVerificar = async function () {
         .replace(/\{\{dbSenha\}\}/g, dbSenha)
         .replace(/\{\{virus\}\}/g, virus)
         .replace(/\{\{google\}\}/g, google)
-        .replace(/\{\{gitOrigin\}\}/g, gitOrigin)
-        .replace(/\{\{gitUpstream\}\}/g, gitUpstream)
+        .replace(/\{\{gitProjetoOrigin\}\}/g, gitProjetoOrigin)
+        .replace(/\{\{gitProjetoUpstream\}\}/g, gitProjetoUpstream)
         .replace(/\{\{gitEnvOrigin\}\}/g, gitEnvOrigin)
         .replace(/\{\{gitEnvUpstream\}\}/g, gitEnvUpstream)
         .replace(/\{\{gitFwOrigin\}\}/g, gitFwOrigin)
@@ -224,8 +214,6 @@ exports.configVerificar = async function () {
     const pathDest = './files/config/gulp.json';
     await fsRemoverArquivoSeExistir(pathDest);
     await fsCriarArquivo(pathDest, configJson);
-    // await new Promise(resolve => setTimeout(resolve, 500));
-    // await new Promise(resolve => setTimeout(resolve, 2000));
 
     fs.writeFileSync('./files/config/.config', '1');
 

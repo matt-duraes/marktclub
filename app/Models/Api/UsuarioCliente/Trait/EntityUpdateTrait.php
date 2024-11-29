@@ -2,8 +2,8 @@
 
 namespace App\Models\Api\UsuarioCliente\Trait;
 
-use App\Classes\UsuarioCliente\TrabalhoEmpresa;
 use Helpers\UploadHelper;
+use App\Classes\UsuarioCliente\TrabalhoEmpresa;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
 
 trait EntityUpdateTrait

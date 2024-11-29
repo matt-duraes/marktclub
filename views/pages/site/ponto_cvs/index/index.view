@@ -4,7 +4,7 @@
     <input type="hidden" id="input_ponto_saldo" value="{{$r->saldo->saldo ?? 0}}">
     <div class="bloco_texto bloco_titulo_texto">
         <figure>
-            <img src="{!!LINK_PADRAO!!}/images/site/logo_sindicato_bancarios.png" height="50" alt="Logo Ponto Cvs">
+            <img src="@imagem/images/site/logo_sindicato_bancarios.png" height="50" alt="Logo Ponto Cvs">
         </figure>
 
         <h1 class="titulo">PONTO + AÇÃO </h1>
@@ -16,7 +16,7 @@
             #CategoriaUnidaSindicatoForte<br>
             #Sindicato100Anos
         </strong>
-        <a href="{!!LINK_PADRAO!!}/images/regulamento-ponto-acao.docx" target="_blank" rel="noopener noreferrer" class="link_regulamento ">Regulamento Ponto + Ação</a>
+        <a href="@imagem/images/regulamento-ponto-acao.docx" target="_blank" rel="noopener noreferrer" class="link_regulamento ">Regulamento Ponto + Ação</a>
         <strong>Em caso de dúvidas, favor enviar e-mail para: arrecadacao@spbancarios.com.br</strong>
     </div>
     <div class="bloco_atencao_geral atencao">

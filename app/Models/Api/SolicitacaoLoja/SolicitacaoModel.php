@@ -2,19 +2,20 @@
 
 namespace App\Models\Api\SolicitacaoLoja;
 
-use App\Classes\SolicitacaoLoja\Ordem;
-use App\Classes\SolicitacaoLoja\Status;
-use App\Models\Api\Trait\ValidarEmpresaTrait;
+use ORM\ORM;
+use stdClass;
 use Erro\Excecao;
 use Modules\Data;
 use Modules\Pagina;
+use Helpers\OrmHelper;
 use Modules\Quantidade;
-use ORM\ORM;
-use stdClass;
-use System\Interface\ModelListarInterface;
 use System\Trait\Model\OrdemTrait;
 use System\Trait\Model\PaginaTrait;
+use App\Classes\SolicitacaoLoja\Ordem;
+use App\Classes\SolicitacaoLoja\Status;
 use System\Trait\Model\QuantidadeTrait;
+use System\Interface\ModelListarInterface;
+use App\Models\Api\Trait\ValidarEmpresaTrait;
 
 class SolicitacaoModel extends ORM implements
     ModelListarInterface
@@ -42,6 +43,7 @@ class SolicitacaoModel extends ORM implements
         private readonly Quantidade $quantidade = new Quantidade(),
         private readonly Ordem $ordem = new Ordem(),
         private readonly ?string $nome = null,
+        private readonly ?string $empresa = null,
         private readonly Data $dataInicio = new Data(),
         private readonly Data $dataFinal = new Data(),
         private readonly Status $status = new Status()
@@ -89,10 +91,26 @@ class SolicitacaoModel extends ORM implements
             ->campo([
                 'titulo'
             ], 'clube')
+            ->tabela(TABELA_COMERCIAL_EMPRESA)
+            ->join('id', 'id_admin_empresa')
+            ->where($this->pegarWhereEmpresa(), false)
             ->read();
 
         $dado->lista = $this->montarRetorno($dado->lista);
         return $dado;
+    }
+
+    private function pegarWhereEmpresa(): array
+    {
+        $where = [];
+
+        if (!empty($this->empresa)) {
+            $ormHelper = new OrmHelper(TABELA_COMERCIAL_EMPRESA);
+            $idEmpresa = $ormHelper->pegarIdPeloUuid($this->empresa);
+            $where[] = ['id', '=', $idEmpresa];
+        }
+
+        return $where;
     }
 
     /**

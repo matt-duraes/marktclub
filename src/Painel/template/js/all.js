@@ -51,10 +51,10 @@ window.addEventListener('load', () => {
     |--------------------------------------------------------------------------
     */
     Calendario.init({
-        input: '.bloco_input_data .input_data[data-mascara="00/00/0000"]',
+        input: $$('.bloco_input_data .input_data[data-mascara="00/00/0000"]'),
     });
     Calendario.init({
-        input: '.bloco_input_data .input_data[data-mascara="00/00/0000 00:00:00"]',
+        input: $$('.bloco_input_data .input_data[data-mascara="00/00/0000 00:00:00"]'),
         hora: true,
     });
 

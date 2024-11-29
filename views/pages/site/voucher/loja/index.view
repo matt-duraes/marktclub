@@ -5,7 +5,7 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<meta http-equiv="X-UA-Compatible" content="ie=edge">
 	<title>VOUCHER - {!! $dado->voucher->titulo !!}</title>
-    <link rel="shortcut icon" type="image" href="{!!LINK_PADRAO!!}/images/favicon.png" />
+    <link rel="shortcut icon" type="image" href="@imagem/images/favicon.png" />
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
 
     @CSS

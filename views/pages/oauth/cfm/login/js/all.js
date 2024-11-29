@@ -34,7 +34,7 @@ window.addEventListener('load', () => {
     const botaoOutro = $('#botao_outro');
 
     Calendario.init({
-        input: '#input_data_nascimento',
+        input: $('#input_data_nascimento'),
     });
 
     const CB = pegarCookie();

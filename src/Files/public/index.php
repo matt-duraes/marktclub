@@ -26,13 +26,6 @@ if (!empty($__cacheVida)) {
 header('Strict-Transport-Security: max-age=63072000; includeSubDomains; preload');
 header('X-Frame-Options: DENY');
 
-$__securityPolicy = env('SECURITY_POLICY', '');
-if (!empty($__securityPolicy)) {
-    header('Content-Security-Policy: ' . $__securityPolicy);
-    header('X-Content-Security-Policy: ' . $__securityPolicy);
-}
-unset($__securityPolicy);
-
 $__permissionPolicy = env('PERMISSION_POLICY', '');
 if (!empty($__permissionPolicy)) {
     header('Permissions-Policy: ' . $__permissionPolicy);
@@ -78,10 +71,10 @@ require_once __DIR__ . '/../src/Config/Autoload.php';
 $requestUri = array_key_exists('REQUEST_URI', $_SERVER) ? explode('/', $_SERVER['REQUEST_URI']) : [];
 $requestUri = array_key_exists(1, $requestUri) ? $requestUri[1] : '';
 
-if ($requestUri == '__endereco-cep' && $_SERVER['REQUEST_METHOD'] ?? '' == 'POST') {
+if ($requestUri == '__endereco-cep' && METODO == 'POST') {
     require_once __DIR__ . '/../src/Html/Endereco/cep.php';
     exit();
-} elseif ($requestUri == '__endereco-cidade' && $_SERVER['REQUEST_METHOD'] ?? '' == 'POST') {
+} elseif ($requestUri == '__endereco-cidade' && METODO == 'POST') {
     require_once __DIR__ . '/../src/Html/Endereco/cidade.php';
     exit();
 } elseif ($requestUri == '__postman' && SISTEMA == 'LOCALHOST') {
@@ -110,6 +103,9 @@ if ($requestUri == '__endereco-cep' && $_SERVER['REQUEST_METHOD'] ?? '' == 'POST
     exit();
 } elseif (str_starts_with($requestUri, 'aqiornm.') && METODO == 'GET') {
     require_once __DIR__ . '/../src/Html/Arquivo/nome.php';
+    exit();
+} elseif ($requestUri == 'images' && METODO == 'GET') {
+    require_once __DIR__ . '/../src/Html/Arquivo/view.php';
     exit();
 }
 unset($requestUri);

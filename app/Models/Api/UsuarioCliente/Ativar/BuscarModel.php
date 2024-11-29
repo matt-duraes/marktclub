@@ -2,17 +2,17 @@
 
 namespace App\Models\Api\UsuarioCliente\Ativar;
 
-use App\Classes\ConstrutorClube\TipoAtivacao;
-use App\Classes\UsuarioCliente\Hash;
-use App\Classes\UsuarioCliente\Status;
-use App\Classes\UsuarioCliente\TipoUsuario;
-use App\Helpers\Cvs\AtivarHelper as CvsHelper;
-use Erro\Excecao;
-use Helpers\OrmHelper;
-use Modules\Cpf;
 use ORM\ORM;
 use stdClass;
 use Throwable;
+use Modules\Cpf;
+use Erro\Excecao;
+use Helpers\OrmHelper;
+use App\Classes\UsuarioCliente\Hash;
+use App\Classes\UsuarioCliente\Status;
+use App\Classes\UsuarioCliente\TipoUsuario;
+use App\Classes\ConstrutorClube\TipoAtivacao;
+use App\Helpers\Cvs\AtivarHelper as CvsHelper;
 
 final class BuscarModel extends ORM
 {
@@ -154,7 +154,8 @@ final class BuscarModel extends ORM
             mensagemErro(
                 'Usuário não encontrado!',
                 'Não foi possível encontrar o seu usuário com os dados fornecidos. Por favor, verifique as informações inseridas e tente novamente.',
-                codigo: 4040
+                codigo: 4040,
+                status: 404
             );
         }
 
@@ -163,13 +164,15 @@ final class BuscarModel extends ORM
             mensagemErro(
                 'Erro!',
                 'Ocorreu um erro ao achar seus dados, por favor, tente novamente.',
-                codigo: 5000
+                codigo: 5000,
+                status: 500
             );
         } elseif ($status->indice() === Status::ATIVO) {
             mensagemErro(
                 'Usuário ativo!',
                 'Seu usuário já está ativo no sistema, faça seu login para continuar, caso não lembre da sua senha, recupere sua senha ou entre em contato com o atendimento.',
-                codigo: 1000
+                codigo: 1000,
+                status: 403
             );
         } elseif ($status->indice() === Status::BLOQUEADO) {
             mensagemErro('Procure atendimento!', $this->erroGeral, codigo: 4030);
@@ -177,7 +180,8 @@ final class BuscarModel extends ORM
             mensagemErro(
                 'Procure atendimento!',
                 'Não é possível ativar um usuário que foi indicado.',
-                codigo: 4032
+                codigo: 4032,
+                status: 401
             );
         } elseif ($status->indice() !== Status::INATIVO) {
             mensagemErro('Procure atendimento!', $this->erroGeral, codigo: 4033);

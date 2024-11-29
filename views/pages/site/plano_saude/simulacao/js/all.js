@@ -13,7 +13,7 @@ window.addEventListener('load', () => {
     );
 
     Calendario.init({
-        input: '.bloco_input_data .input_data[data-mascara="00/00/0000"]',
+        input: $$('.bloco_input_data .input_data[data-mascara="00/00/0000"]'),
     });
 
     const botaoRegiao = $$('.botao_escolher_regiao');
@@ -79,7 +79,7 @@ window.addEventListener('load', () => {
         const dependente = dependentePadrao.clonar();
         blocoDependenteLista.inicio(dependente);
         Calendario.init({
-            input: '#bloco_lista_dependente .data_dependente input',
+            input: $$('#bloco_lista_dependente .data_dependente input'),
         });
         $('input', dependente).focus();
         fwMascaraLoading(dependente);

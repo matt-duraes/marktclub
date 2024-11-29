@@ -5,7 +5,7 @@ namespace System\Html\Postman\Models;
 final class RequisicaoRenomear
 {
     private Requisicao $Requisicao;
-    private string $path = ROOT . '/postman/';
+    private string $path = ROOT . '/postman/grupo/';
     private string $id;
     private string $pai;
     private string $nome;

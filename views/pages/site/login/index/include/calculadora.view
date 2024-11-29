@@ -1,10 +1,8 @@
 <section class="bloco_calculadora" id="bloco_calculadora_geral">
-    <div class="bg" style="background-color: url({!!LINK_PADRAO!!}/images/login/bg_cashback.png) no-repeat center top"></div>
+    <div class="bg"></div>
     <div class="container">
         <div class="topo">
-            <figure class="img_calculadora"
-            style="mask-image: url({!!LINK_PADRAO!!}/images/login/calculadora.svg);
-            -webkit-mask-image: url({!!LINK_PADRAO!!}/images/login/calculadora.svg)"></figure>
+            <figure class="img_calculadora"></figure>
             <div class="texto">
                 <h2>Economia Familiar</h2>
                 <p>Saiba quanto você pode economizar em média ao ano com nossos descontos</p>

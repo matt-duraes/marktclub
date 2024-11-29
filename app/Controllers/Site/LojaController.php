@@ -127,7 +127,7 @@ final class LojaController extends Controller
 
     public function postSubcategoria(Request $request)
     {
-        $dado = (new ApiHelper(scope: 'parceiro_subcategoria:listar'))
+        $dado = (new ApiHelper(token: true))
             ->json([
                 'categoria' => $request->categoria,
                 'titulo'    => 'Escolha uma categoria',
@@ -145,7 +145,7 @@ final class LojaController extends Controller
             ->validar(mensagem: 'Erro ao salvar favorito, por favor, tente novamente.', retorno: false)
             ->body(['parceiro' => $request->id])
             ->post('/parceiro-favorito')
-            ->object()->dado;
+            ->object();
 
         $Favorito = new FavoritoModel();
         $Favorito->add($request->id);

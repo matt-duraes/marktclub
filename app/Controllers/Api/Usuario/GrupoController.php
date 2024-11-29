@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Controllers\Api;
+namespace App\Controllers\Api\Usuario;
 
 use Http\Request;
 use Http\Response;
@@ -15,7 +15,7 @@ use System\Interface\ControllerSelectInterface;
 use System\Interface\ControllerDeletarInterface;
 use System\Interface\ControllerAtualizarInterface;
 
-final class UsuarioGrupoController extends Controller implements
+final class GrupoController extends Controller implements
     ControllerSalvarInterface,
     ControllerListarInterface,
     ControllerBuscarInterface,

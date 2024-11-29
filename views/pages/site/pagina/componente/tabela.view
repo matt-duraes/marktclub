@@ -12,12 +12,12 @@ $linhaLista = $tabela->linha ?? [];
 if(!function_exists('comTabelaLinha')) {
     function comTabelaLinha($lista, $classeTr, $tamanho, $tamanhoTotal, $auto) {
         $classeTr = !empty($classeTr) ? $classeTr . ' ' : '';
-        echo '<div class="' . $classeTr . 'tr" style="min-width: ' . $tamanhoTotal . 'px">';
+        echo '<div class="' . $classeTr . 'tr" data-fwcss="min-width: ' . $tamanhoTotal . 'px">';
         foreach($lista as $i => $r) {
             $classe = ['td'];
-            $width = 'style="width: ' . $tamanho[$i] . 'px"';
+            $width = 'data-fwcss="width: ' . $tamanho[$i] . 'px"';
             if($i == $auto) {
-                $width = 'style="min-width: ' . $tamanho[$i] . 'px"';
+                $width = 'data-fwcss="min-width: ' . $tamanho[$i] . 'px"';
                 $classe[] = "td_auto";
             }
             echo '<div class="' . implode(' ', $classe) . '" ' . $width . '>' . $r->valor . '</div>';

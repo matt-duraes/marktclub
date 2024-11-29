@@ -9,8 +9,8 @@ window.addEventListener('load', () => {
     const botaoBuscar = document.querySelector('#botao_buscar_relatorio');
 
     Calendario.init({
-        de: 'input_relatorio_data_de',
-        ate: 'input_relatorio_data_ate',
+        de: $('#input_relatorio_data_de'),
+        ate: $('#input_relatorio_data_ate'),
     });
 
     /*
@@ -137,7 +137,7 @@ window.addEventListener('load', () => {
             html += `
                 <div class="linha">
                     <div class="item">${item[local]}</div>
-                    <div class="porcentagem"><span style="width: ${item.porcentagem}%"></span></div>
+                    <div class="porcentagem"><span data-fwcss="width: ${item.porcentagem}%"></span></div>
                     <div class="valor"><span>(${item.porcentagem}%)</span>${item.total}</div>
                 </div>
             `;

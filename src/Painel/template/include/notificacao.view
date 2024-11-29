@@ -8,7 +8,7 @@
             <h2>Novas</h2>
             @ foreach( $notificacaoNova->lista ?? [] as $notificacaoR):
             <a class="item {{$notificacaoR->status}}" target="{{$notificacaoR->target}}" {{$notificacaoR->rel}} data-id="{{$notificacaoR->id}}" href="{{LINK}}/notificacao/{{$notificacaoR->id}}">
-                <figure style="background-image: url({{$notificacaoR->imagem}})"></figure>
+                <figure data-bgImagem="$notificacaoR->imagem"></figure>
                 <div class="dado">
                     <strong>{{$notificacaoR->nome}}</strong>
                     <p>{{$notificacaoR->mensagem}}</p>

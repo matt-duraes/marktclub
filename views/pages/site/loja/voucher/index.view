@@ -47,7 +47,7 @@
     @ endif;
     <div class="administrado">
         <p>Administrado por:</p>
-        <figure><img src="{!!LINK_PADRAO!!}/images/logo_youhuul.png" height="40" alt="Yuhuul"></figure>
+        <figure><img src="@imagem/images/logo_youhuul.png" height="40" alt="Yuhuul"></figure>
         <p>{!!$dado->texto_juridico!!}</p>
     </div>
 </div>

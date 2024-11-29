@@ -16,25 +16,46 @@ exports.buildCopiarIndex = () => {
         .pipe(dest('./' + config.public));
 };
 
-exports.buildGit = () => {
+exports.buildGit = async () => {
     if (config == undefined) {
         config = JSON.parse(fs.readFileSync('./files/config/gulp.json'));
     }
+
     if (!fs.existsSync('./.git')) {
         return src('./')
             .pipe(plumber())
             .pipe(exec('git init'))
+            .pipe(exec('git remote add origin ' + config.gitProjetoOrigin))
+            .pipe(exec('git remote add upstream ' + config.gitProjetoUpstream));
+    }
+    const gitRemote = await fs.readFileSync('./.git/config', 'utf-8');
+    const gitRemoveValido = typeof gitRemote === 'string' && gitRemote != '';
+    const remoteOrigin = gitRemoveValido && /\[remote \"origin\"\]/gm.test(gitRemote);
+    const remoteUpstream = gitRemoveValido && /\[remote \"upstream\"\]/gm.test(gitRemote);
+    if (remoteOrigin && remoteUpstream) {
+        return src('./')
+            .pipe(plumber())
             .pipe(exec('git remote remove origin'))
             .pipe(exec('git remote remove upstream'))
-            .pipe(exec('git remote add origin ' + config.gitOrigin))
-            .pipe(exec('git remote add upstream ' + config.gitUpstream));
+            .pipe(exec('git remote add origin ' + config.gitProjetoOrigin))
+            .pipe(exec('git remote add upstream ' + config.gitProjetoUpstream));
+    } else if (remoteOrigin) {
+        return src('./')
+            .pipe(plumber())
+            .pipe(exec('git remote remove origin'))
+            .pipe(exec('git remote add origin ' + config.gitProjetoOrigin))
+            .pipe(exec('git remote add upstream ' + config.gitProjetoUpstream));
+    } else if (remoteUpstream) {
+        return src('./')
+            .pipe(plumber())
+            .pipe(exec('git remote remove upstream'))
+            .pipe(exec('git remote add origin ' + config.gitProjetoOrigin))
+            .pipe(exec('git remote add upstream ' + config.gitProjetoUpstream));
     }
     return src('./')
         .pipe(plumber())
-        .pipe(exec('git remote remove origin'))
-        .pipe(exec('git remote remove upstream'))
-        .pipe(exec('git remote add origin ' + config.gitOrigin))
-        .pipe(exec('git remote add upstream ' + config.gitUpstream));
+        .pipe(exec('git remote add origin ' + config.gitProjetoOrigin))
+        .pipe(exec('git remote add upstream ' + config.gitProjetoUpstream));
 };
 
 exports.buildPhpMussel = () => {
@@ -112,6 +133,10 @@ exports.buildEnv = async () => {
     const dbSenha = config.banco.senha;
 
     await fsCriarDiretorio('./env');
+    if (await fsVerificarSeArquivoExiste('./env/.env')) {
+        mensagemSucesso('Arquivo ./env/.env não foi copiado porque ele já existe.');
+        return Promise.resolve();
+    }
     return src('./src/Files/env/.env')
         .pipe(plumber())
         .pipe(replace('{{titulo}}', titulo))

@@ -7,10 +7,12 @@ use Http\Response;
 use Modules\Botao;
 use Controller\Controller;
 use App\Classes\ApiToken\Tipo;
+use App\Classes\AuthApp\Audience;
 use App\Classes\UsuarioCliente\Helper;
 use App\Models\Api\LoginApi\DigioModel;
 use App\Models\Api\ApiToken\PayloadModel;
 use App\Models\Api\LoginClube\LoginClubeModel;
+use App\Models\Api\LoginPainel\AppPainelModel;
 use App\Models\Api\LoginPainel\LoginFormModel;
 use App\Models\Api\LoginPainel\LoginGoogleModel;
 use App\Models\Api\UsuarioCliente\ClienteEntity;
@@ -118,7 +120,7 @@ final class LoginController extends Controller
         }
 
         $Usuario = $Login->pegarUsuario();
-        $payload = (new PayloadModel($Usuario, 'web'))->payload;
+        $payload = (new PayloadModel($Usuario, Audience::PAINEL))->payload;
 
         return $this->criarToken(
             body: $payload,
@@ -142,7 +144,7 @@ final class LoginController extends Controller
     ): Response {
         $Token = new TokenAuthorizationEntity();
         $token = $Token->criarToken(
-            TOKEN['app'],
+            (new AppPainelModel())->App,
             $body,
             empty($scope) ? [] : explode(' ', $scope),
             $audience,

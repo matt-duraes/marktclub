@@ -4,17 +4,83 @@ namespace App\Classes\AuthApp;
 
 final class Scope
 {
-    public const LOGIN = [
-
+    public const CLUBE_INTERNO = [
+        'perfil_dado:buscar', 'perfil_dado:atualizar', 'perfil_dado:validar_senha',
+        'perfil_dado:atualizar_senha', 'perfil_dado:alterar_imagem',
+        'usuario_dependente:listar', 'usuario_dependente:salvar', 'usuario_dependente:email', 'usuario_dependente:deletar',
+        'usuario_indicacao:salvar',
+        'admin:chave_publica', 'admin:chave_privada',
+        'relatorio_analytics:salvar',
+        'construtor_clube:buscar', 'site_lotacao:select',
+        'comunicacao_login:buscar',
+        'usuario_cliente:ativar', 'usuario_cliente:senha', 'usuario_indicacao:ativar',
+        'login:digio', 'login:clube',
+        'texto_clube:listar',
+        'parceiro_loja:relacionado', 'parceiro_loja:listar', 'parceiro_loja:buscar',
+        'parceiro_easylive:listar',
+        'parceiro_cashback:listar', 'parceiro_cashback:buscar',
+        'parceiro_cupom:listar', 'parceiro_cupom:buscar',
+        'parceiro_favorito:listar',
+        'parceiro_subcategoria:listar',
+        'parceiro_campanha:listar',
+        'parceiro_favorito:listar', 'parceiro_favorito:salvar', 'parceiro_favorito:deletar',
+        'endereco:listar', 'contato:listar',
+        'comunicacao_publicidade:listar',
+        'silium_comissao:saldo',
+        'automovel_modelo:listar', 'automovel_versao:listar',
+        'solicitacao_contato:salvar',
+        'solicitacao_credito:simular', 'solicitacao_credito:salvar',
+        'solicitacao_voucher:salvar',
+        'solicitacao_loja:salvar', 'solicitacao_loja:listar', 'solicitacao_automovel:listar',
+        'solicitacao_cheque_bonus:salvar',
+        'solicitacao_declaracao:salvar',
+        'solicitacao_credito:salvar',
+        'solicitacao_automovel:salvar',
+        'saude_contratacao:salvar', 'saude_simulacao:salvar',
+        'ponto_cvs:listar', 'ponto_cvs:salvar',
+        'comercial_popup:listar',
+        'carteirinha:listar',
+        'enquete_satisfacao:salvar',
+        'view_pagina:buscar'
     ];
-    public const CLUBE = [
-
+    public const CLUBE_LOGIN = [
+        'admin:chave_publica', 'admin:chave_privada',
+        'construtor_clube:buscar', 'site_lotacao:select',
+        'comunicacao_login:buscar',
+        'usuario_cliente:ativar', 'usuario_cliente:senha', 'usuario_indicacao:ativar',
+        'login:digio', 'login:clube',
+        'texto_clube:listar',
+        'solicitacao_contato:salvar'
     ];
-    public const PAINEL = [
+    public const PAINEL_INTERNO = [
+        'admin:chave_publica', 'admin:chave_privada', 'admin:permissao', 'admin:campo_obrigatorio',
+        'admin:configuracao', 'admin:upload_grupo', 'admin:campo_permitido', 'admin:menu',
 
+        'perfil_dado:buscar', 'perfil_dado:atualizar', 'perfil_dado:validar_senha',
+        'perfil_dado:atualizar_senha', 'perfil_dado:alterar_imagem',
+
+        'construtor_clube:buscar', 'construtor_clube:listar', 'construtor_clube:salvar',
+        'construtor_clube:atualizar', 'construtor_clube:deletar',
+
+        'comunicacao_publicidade:listar', 'comunicacao_publicidade:buscar', 'comunicacao_publicidade:salvar',
+        'comunicacao_publicidade:atualizar', 'comunicacao_publicidade:deletar',
+
+        'comunicacao_login:listar', 'comunicacao_login:buscar', 'comunicacao_login:salvar',
+        'comunicacao_login:atualizar', 'comunicacao_login:deletar',
+
+        'comercial_empresa:buscar',
+
+        'usuario_equipe:mudar_empresa'
+    ];
+    public const PAINEL_LOGIN = [
+        'admin:chave_publica', 'admin:chave_privada',
+        'login:painel', 'usuario_equipe:buscar',
+        'comercial_empresa:buscar',
     ];
     public const TUDO = [
         'token_credential:salvar',
+
+        'perfil:dado',
 
         'usuario_cliente:salvar', 'usuario_cliente:atualizar', 'usuario_cliente:listar',
         'usuario_cliente:buscar', 'usuario_cliente:deletar', 'usuario_cliente:deletar_cpf',

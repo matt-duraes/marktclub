@@ -4,27 +4,32 @@
         <p class="faturamento_mobile">e tenha todos os benefícios<br> na palma da mão</p>
         <br>
         <div class="link_app baixe_app">
+            @if (LINK_APP_IOS && LINK_APP_ANDROID):
             <h2 class="plataforma"> Selecione abaixo a plataforma desejada </h2>
+            @ endif;
+            @if (LINK_APP_IOS):
             <div class="box_link_app">
                 <a href="{!!LINK_APP_IOS!!}" target="_blank">
                     <div class="box_apple"></div>
                 </a>
             </div>
+            @ endif;
+            @if (LINK_APP_ANDROID):
             <div class="box_link_app">
                 <a href="{!!LINK_APP_ANDROID!!}" target="_blank">
                     <div class="box_google"></div>
                 </a>
             </div>
+            @ endif;
         </div>
 
     </div>
 
     <figure>
-        <img class="celularmobile" src="{!!LINK_PADRAO!!}/images/login/celular.png">
+        <img class="celularmobile" src="@imagem /images/login/celular.png">
         <div class="qr_code">
-            <img src="https://qrcode.youhuul.com/link?link=@route('login.app')" width="200">
-            <figure class="img_celular_app" style="-webkit-mask-image: url({!!LINK_PADRAO!!}/images/login/celular-app.svg);
-            mask-image: url({!!LINK_PADRAO!!}/images/login/celular-app.svg);"></figure>
+            <img src="{!!imagem('https://qrcode.youhuul.com/link?link=' . route('login.app'))!!}" width="200">
+            <figure class="img_celular_app"></figure>
             <h1>ESCANEIE</h1>
             <span class="span_baixar">PARA BAIXAR</span>
         </div>

@@ -2,21 +2,21 @@
 
 namespace App\Models\Api\ComercialSubempresa;
 
-use App\Classes\ComercialEmpresa\Ordem;
-use App\Classes\ComercialEmpresa\Status;
-use App\Models\Api\Trait\ValidarEmpresaTrait;
+use ORM\ORM;
+use stdClass;
 use Erro\Excecao;
-use Helpers\OrmHelper;
 use Modules\Cnpj;
 use Modules\Data;
 use Modules\Pagina;
+use Helpers\OrmHelper;
 use Modules\Quantidade;
-use ORM\ORM;
-use stdClass;
-use System\Interface\ModelListarInterface;
 use System\Trait\Model\OrdemTrait;
 use System\Trait\Model\PaginaTrait;
+use App\Classes\ComercialEmpresa\Ordem;
 use System\Trait\Model\QuantidadeTrait;
+use App\Classes\ComercialEmpresa\Status;
+use System\Interface\ModelListarInterface;
+use App\Models\Api\Trait\ValidarEmpresaTrait;
 
 final class SubempresaModel extends ORM implements
     ModelListarInterface
@@ -69,7 +69,7 @@ final class SubempresaModel extends ORM implements
         if (!$this->status->vazio() && !$this->status->valido()) {
             mensagemErro('Campo inválido!', 'O Status informado não é válido.');
         }
-        if (!empty($this->empresa) && validarUuid($this->empresa, false)) {
+        if (!empty($this->empresa) && !validarUuid($this->empresa, false)) {
             mensagemErro('Campo inválido!', 'A Empresa informada não é válida.');
         }
     }
@@ -128,6 +128,12 @@ final class SubempresaModel extends ORM implements
         }
         if ($this->status->valido()) {
             $where[] = ['status', $this->status->numero()];
+        }
+        if (!empty($this->empresa)) {
+            $ormHelper = new OrmHelper(TABELA_COMERCIAL_EMPRESA);
+            $idEmpresa = $ormHelper->pegarIdPeloUuid($this->empresa);
+
+            $where[] = ['id_admin_empresa', '=', $idEmpresa];
         }
         return $where;
     }

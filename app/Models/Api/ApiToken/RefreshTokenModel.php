@@ -5,11 +5,12 @@ namespace App\Models\Api\ApiToken;
 use ORM\ORM;
 use stdClass;
 use App\Classes\ApiToken\Tipo;
+use App\Classes\AuthApp\Audience;
 use App\Classes\LoginClube\PegarClienteTrait;
 use App\Classes\LoginPainel\PegarEquipeTrait;
 use App\Models\Api\ApiToken\Trait\TokenTrait;
 use App\Models\Api\ConstrutorClube\ClubeModel;
-use App\Models\Api\ApiToken\Trait\PegarAppTrait;
+use App\Models\Api\ApiApp\Trait\AppParaTokenTrait;
 use App\Models\Api\ConstrutorClube\ConstrutorEntity;
 
 final class RefreshTokenModel extends ORM implements TokenInterface
@@ -17,7 +18,7 @@ final class RefreshTokenModel extends ORM implements TokenInterface
     use TokenTrait;
     use PegarEquipeTrait;
     use PegarClienteTrait;
-    use PegarAppTrait;
+    use AppParaTokenTrait;
 
     protected string $ormTabela = TABELA_AUTH_TOKEN;
     private stdClass $tokenAtual;
@@ -37,7 +38,7 @@ final class RefreshTokenModel extends ORM implements TokenInterface
             mensagemStatus(403);
         }
         $this->pegarTokenAtual();
-        $this->pegarAppRealOuClube();
+        $this->pegarAppRealOuFixo();
         $this->validaSeTokenDoApp();
         $this->pegarUsuarioParaToken();
 
@@ -79,11 +80,14 @@ final class RefreshTokenModel extends ORM implements TokenInterface
         $this->tokenAtual = $token;
     }
 
-    private function pegarAppRealOuClube()
+    private function pegarAppRealOuFixo()
     {
         $AppToken = $this->pegarApp(['id', $this->tokenAtual->id_api_app]);
         if ($AppToken->uuid == env('API_CLUBE_ID')) {
             $this->pegarAppDoClube($AppToken);
+            return;
+        } elseif ($AppToken->uuid == env('API_PAINEL_ID')) {
+            $this->App = $AppToken;
             return;
         }
         $this->pegarAppNormal();
@@ -117,9 +121,9 @@ final class RefreshTokenModel extends ORM implements TokenInterface
     private function pegarUsuarioParaToken()
     {
         $where = ['uuid', $this->tokenAtual->id_usuario];
-        if ($this->App->audience == 'web') {
+        if ($this->App->audience == Audience::PAINEL) {
             $Usuario = $this->pegarEquipe($where);
-        } elseif ($this->App->audience == 'clube') {
+        } elseif ($this->App->audience == Audience::CLUBE) {
             $Usuario = $this->pegarCliente($where);
         }
         if (vazio($Usuario)) {

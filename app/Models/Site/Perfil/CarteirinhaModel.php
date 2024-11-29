@@ -2,8 +2,8 @@
 
 namespace App\Models\Site\Perfil;
 
-use App\Helpers\ClubeApiHelper;
 use Erro\Excecao;
+use App\Helpers\ClubeApiHelper;
 
 final class CarteirinhaModel extends ClubeApiHelper
 {
@@ -29,7 +29,7 @@ final class CarteirinhaModel extends ClubeApiHelper
     {
         $dado = $this
             ->validar('Usuário não encontrado!', status: 404)
-            ->get('/usuario-cliente/' . sessao('USUARIO.id'))
+            ->get('/perfil-dado')
             ->object();
         return $this->montarRetorno($dado->dado);
     }

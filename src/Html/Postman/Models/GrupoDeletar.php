@@ -4,7 +4,7 @@ namespace System\Html\Postman\Models;
 
 final class GrupoDeletar
 {
-    private string $path = ROOT . '/postman/';
+    private string $path = ROOT . '/postman/grupo/';
 
     public function __construct($post)
     {

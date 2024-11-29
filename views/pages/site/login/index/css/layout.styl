@@ -2,6 +2,7 @@
 @system "Form"
 @system "Alerta"
 @system "Loading"
+@system "Esqueleto"
 @resource "site/pagina_popup"
 
 // BANNER
@@ -21,16 +22,18 @@
         grid-template-rows: 310px 20px 310px
         z-index: 3
         overflow: hidden
-    .banners_1
+        &.banner_loading
+            grid-template-rows: 400px
+    .banner_1
         grid-template-columns: 1300px
         figure:nth-child(1)
             grid-column-start: 1
             grid-column-end: 1
             grid-row-start: 1
             grid-row-end: 4
-    .banners_2, .banners_3
+    .banner_2, .banner_3
         grid-template-columns: 1fr 20px 1fr
-    .banners_2
+    .banner_2
         figure:nth-child(1),
         figure:nth-child(2)
             grid-row-start: 1
@@ -41,7 +44,7 @@
         figure:nth-child(2)
             grid-column-start: 3
             grid-column-end: 3
-    .banners_3
+    .banner_3
         figure:nth-child(1)
             grid-column-start: 1
             grid-column-end: 1
@@ -440,6 +443,9 @@
     figure
         background-size: cover
         background-attachment: fixed
+        background-position: center center
+        background-repeat: no-repeat
+        background-image: url(/images/site/bg_contador.jpg)
     .bg
         opacity: 0.6
     h1
@@ -772,6 +778,9 @@
         position: absolute
         top: 0px
         background-size: contain
+        background-position: center top
+        background-repeat: no-repeat
+        background-image: url(/images/login/bg_cashback.png)
     .botao
         width: 150px
         height: 40px
@@ -811,6 +820,8 @@
         mask-size: contain
         -webkit-mask-size: contain
         background-color: $corClube
+        mask-image: url(/images/login/calculadora.svg)
+        -webkit-mask-image: url(/images/login/calculadora.svg)
     .container .topo .texto
         width: 100%
         max-width: 400px
@@ -1205,6 +1216,8 @@
         mask-size: contain
         -webkit-mask-size: contain
         background-color: $corClube
+        mask-image: url(/images/login/extensao.svg)
+        -webkit-mask-image: url(/images/login/extensao.svg)
     .box_quebra_cabeca .texto_quebra_cabeca
         max-width: 480px
         text-align: center
@@ -1273,6 +1286,8 @@
         mask-position: center
         -webkit-mask-position: center
         background-color: $corClube
+        mask-image: url(/images/login/celular-app.svg)
+        -webkit-mask-image: url(/images/login/celular-app.svg)
     .qr_code img
         margin-top: 50px
     .qr_code h1

@@ -133,6 +133,24 @@ if (!function_exists('strCpf')) {
         return (new \Helpers\TextoHelper())->valor($string)->cpf()->r();
     }
 }
+if (!function_exists('strCpfNumero')) {
+    // doc
+    // exemplo
+    // echo strCpf 012.345.678-90
+    /**
+     * Converte um CPF para o padrão sem pontos
+     *
+     * @param  null|string $string String a ser convertida
+     * @return string      String convertida
+     */
+    function strCpfNumero(?string $string): string
+    {
+        if (is_null($string)) {
+            return '';
+        }
+        return str_pad(preg_replace('/[^0-9]/', '', $string), 11, '0', STR_PAD_LEFT);
+    }
+}
 
 if (!function_exists('strCnpj')) {
     // doc
