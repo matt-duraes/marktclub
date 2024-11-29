@@ -13,15 +13,16 @@ class LotacaoEntity extends Entity
 
     public string $slug;
     public string $titulo;
+    public Botao $principal;
     public Status $status;
     protected string $ormTabela = TABELA_SITE_LOTACAO;
     protected array $ormBuscar = [
-        'id_admin_empresa', 'slug', 'titulo', 'status',
+        'id_admin_empresa', 'slug', 'titulo', 'principal', 'status',
         'data_criacao', 'data_atualizacao'
     ];
     protected array $ormSalvar = [
         'id_admin_empresa' => '->idEmpresa',
-        'slug', 'titulo', 'status'
+        'slug', 'titulo', 'principal', 'status'
     ];
     protected string $ormValidarSalvar = '
         titulo|Título|obrigatorio|vazio
