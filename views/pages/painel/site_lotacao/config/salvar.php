@@ -2,6 +2,6 @@
 
 return [
     'salvar' => [
-        'titulo', 'status'
+        'titulo', 'principal', 'status'
     ]
 ];
