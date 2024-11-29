@@ -779,4 +779,68 @@ final class ConfiguracoesPadrao
             ]
         ]
     ];
+
+    private const SCOPE_FIXO = [];
+
+    public function permissao()
+    {
+        $retorno = [];
+        foreach(self::PERMISSOES as $item) {
+            foreach($item['permissao'] as $ind => $val) {
+                $retorno[] = $ind;
+            }
+        }
+        return $retorno;
+    }
+
+    public function scope(array $equipe)
+    {
+        $lista = [];
+        foreach(self::PERMISSOES as $indice => $permissao) {
+            $prefixScope = $permissao['scope'] ?? $indice;
+            if(empty($prefixScope)) {
+                continue;
+            }
+            foreach($permissao['permissao'] as $subindice => $acao) {
+                if(!in_array($subindice, $equipe)) {
+                    continue;
+                }
+                $indiceFixo = $this->pegarScopeFixo($subindice);
+                if($indiceFixo) {
+                    $lista[] = $indiceFixo;
+                }
+
+                $scope = $this->pegarScope($prefixScope, $acao);
+                if(empty($scope)) {
+                    continue;
+                }
+                $lista[] = $scope;
+            }
+        }
+
+        return array_values(arrayRemoverValorDuplicado($lista));
+    }
+
+    private function pegarScopeFixo($subindice)
+    {
+        return self::SCOPE_FIXO[$subindice] ?? '';
+    }
+
+    private function pegarScope($prefix, $acao) {
+        if(is_array($acao)) {
+            return $acao[1] ?? '';
+        }
+        $acao = [
+            'listar' => 'listar',
+            'visualizar' => 'buscar',
+            'salvar' => 'salvar',
+            'editar' => 'atualizar',
+            'status' => 'atualizar',
+            'deletar' => 'deletar'
+        ][strCaixaBaixa($acao)] ?? '';
+        if(empty($acao)) {
+            return '';
+        }
+        return $prefix . ':' . $acao;
+    }
 }

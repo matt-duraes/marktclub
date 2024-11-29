@@ -2,7 +2,7 @@
 
 namespace App\Controllers\Api\Usuario\Trait;
 
-use App\Classes\AuthApp\Audience;
+use App\Classes\ApiApp\Audience;
 use App\Models\Api\UsuarioEquipe\EquipeEntity;
 use App\Models\Api\UsuarioCliente\ClienteEntity;
 use App\Controllers\Api\Usuario\EquipeController;

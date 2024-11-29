@@ -1,6 +1,6 @@
 <?php
 
-use App\Classes\AuthApp\Scope;
+use App\Classes\ApiApp\Scope;
 use App\Helpers\Painel\ConfiguracoesPadrao;
 
 return [
@@ -94,7 +94,7 @@ AQIDAQAB
         'client_credentials' => null,
         'refresh_token'      => 1,
         'redirect_uri'       => '["painel.yh"]',
-        'scope_permitido'    => array_values(arrayRemoverValorDuplicado(Scope::PAINEL_INTERNO)),
+        'scope_permitido'    => [],
         'campo_permitido'    => ConfiguracoesPadrao::CAMPOS_OBRIGATORIOS,
         'tempo_vida'         => '300',
         'data_criacao'       => '2023-07-04 17:22:05',

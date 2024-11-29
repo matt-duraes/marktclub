@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Classes\AuthApp;
+namespace App\Classes\ApiApp;
 
 final class Scope
 {
@@ -52,30 +52,8 @@ final class Scope
         'texto_clube:listar',
         'solicitacao_contato:salvar'
     ];
-    public const PAINEL_INTERNO = [
-        'admin:chave_publica', 'admin:chave_privada', 'admin:permissao', 'admin:campo_obrigatorio',
-        'admin:configuracao', 'admin:upload_grupo', 'admin:campo_permitido', 'admin:menu',
-
-        'perfil_dado:buscar', 'perfil_dado:atualizar', 'perfil_dado:validar_senha',
-        'perfil_dado:atualizar_senha', 'perfil_dado:alterar_imagem',
-
-        'construtor_clube:buscar', 'construtor_clube:listar', 'construtor_clube:salvar',
-        'construtor_clube:atualizar', 'construtor_clube:deletar',
-
-        'comunicacao_publicidade:listar', 'comunicacao_publicidade:buscar', 'comunicacao_publicidade:salvar',
-        'comunicacao_publicidade:atualizar', 'comunicacao_publicidade:deletar',
-
-        'comunicacao_login:listar', 'comunicacao_login:buscar', 'comunicacao_login:salvar',
-        'comunicacao_login:atualizar', 'comunicacao_login:deletar',
-
-        'comercial_empresa:buscar',
-
-        'usuario_equipe:mudar_empresa'
-    ];
     public const PAINEL_LOGIN = [
-        'admin:chave_publica', 'admin:chave_privada',
-        'login:painel', 'usuario_equipe:buscar',
-        'comercial_empresa:buscar',
+        'admin:chave_publica', 'login:painel'
     ];
     public const TUDO = [
         'token_credential:salvar',

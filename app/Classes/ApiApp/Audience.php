@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Classes\AuthApp;
+namespace App\Classes\ApiApp;
 
 final class Audience
 {

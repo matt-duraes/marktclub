@@ -7,7 +7,7 @@ use Http\Response;
 use Modules\Botao;
 use Controller\Controller;
 use App\Classes\ApiToken\Tipo;
-use App\Classes\AuthApp\Audience;
+use App\Classes\ApiApp\Audience;
 use App\Classes\UsuarioCliente\Helper;
 use App\Models\Api\LoginApi\DigioModel;
 use App\Models\Api\ApiToken\PayloadModel;
