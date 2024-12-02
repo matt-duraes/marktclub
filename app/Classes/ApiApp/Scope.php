@@ -7,7 +7,8 @@ final class Scope
     public const CLUBE_INTERNO = [
         'perfil_dado:buscar', 'perfil_dado:atualizar', 'perfil_dado:validar_senha',
         'perfil_dado:atualizar_senha', 'perfil_dado:alterar_imagem',
-        'usuario_dependente:listar', 'usuario_dependente:salvar', 'usuario_dependente:email', 'usuario_dependente:deletar',
+        'usuario_dependente:listar', 'usuario_dependente:salvar', 'usuario_dependente:email',
+        'usuario_dependente:deletar',
         'usuario_indicacao:salvar',
         'admin:chave_publica', 'admin:chave_privada',
         'relatorio_analytics:salvar',
@@ -116,7 +117,7 @@ final class Scope
         'enquete:listar', 'enquete:buscar', 'enquete:salvar', 'enquete:atualizar', 'enquete:deletar',
 
         'enquete_satisfacao:listar', 'enquete_satisfacao:buscar', 'enquete_satisfacao:deletar',
-        'enquete_satisfacao:status',
+        'enquete_satisfacao:status', 'enquete_satisfacao:atualizar',
 
         'log_erro:listar', 'log_erro:buscar', 'log_erro:status',
 
@@ -132,7 +133,8 @@ final class Scope
         'parceiro_campanha:atualizar', 'parceiro_campanha:buscar', 'parceiro_campanha:deletar',
         'parceiro_campanha:listar', 'parceiro_campanha:salvar',
 
-        'parceiro_cupom:listar', 'parceiro_cupom:status',
+        'parceiro_cupom:listar', 'parceiro_cupom:status', 'parceiro_cupom:atualizar',
+        'parceiro_cupom:buscar',
 
         'parceiro_externo:download', 'parceiro_externo:buscar', 'parceiro_externo:listar',
         'parceiro_externo:salvar',
@@ -147,7 +149,8 @@ final class Scope
 
         'parceiro_subcategoria:listar', 'parceiro_subcategoria:select',
 
-        'parceiro_easylive:atualizar', 'parceiro_easylive:buscar', 'parceiro_easylive:deletar', 'parceiro_easylive:listar',
+        'parceiro_easylive:atualizar', 'parceiro_easylive:buscar', 'parceiro_easylive:deletar',
+        'parceiro_easylive:listar',
         'parceiro_easylive:salvar',
 
         'publicacao_arquivo:atualizar', 'publicacao_arquivo:buscar', 'publicacao_arquivo:deletar',
@@ -172,7 +175,8 @@ final class Scope
         'publicacao_youtube:atualizar', 'publicacao_youtube:buscar', 'publicacao_youtube:salvar',
         'publicacao_youtube:deletar', 'publicacao_youtube:listar',
 
-        'relatorio_acesso:listar', 'relatorio_analytics:listar', 'relatorio_loja_venda:listar', 'relatorio_usuario:listar',
+        'relatorio_acesso:listar', 'relatorio_analytics:listar', 'relatorio_loja_venda:listar',
+        'relatorio_usuario:listar',
 
         'saude_contratacao:listar', 'saude_contratacao:buscar', 'saude_contratacao:status',
 
@@ -224,7 +228,7 @@ final class Scope
 
         'solicitacao_voucher:listar', 'solicitacao_voucher:buscar',
 
-        'tabela_usuario:salvar',
+        'tabela_usuario:salvar', 'tabela_usuario:listar',
 
         'texto_clube:atualizar', 'texto_clube:buscar', 'texto_clube:deletar', 'texto_clube:listar',
         'texto_clube:salvar',
@@ -315,7 +319,7 @@ final class Scope
         'demanda_tarefa:atualizar', 'demanda_tarefa:deletar', 'demanda_tarefa:like',
         'demanda_tarefa:salvar', 'demanda_tarefa:buscar',
 
-        'enquete_satisfacao:listar', 'enquete_satisfacao:buscar',
+        'enquete_satisfacao:listar', 'enquete_satisfacao:buscar', 'enquete_satisfacao:atualizar',
 
         'login:api', 'login:clube', 'login:painel', 'login:digio', 'login:token',
 
@@ -341,7 +345,8 @@ final class Scope
 
         'parceiro_subcategoria:listar',
 
-        'parceiro_easylive:atualizar', 'parceiro_easylive:buscar', 'parceiro_easylive:deletar', 'parceiro_easylive:listar',
+        'parceiro_easylive:atualizar', 'parceiro_easylive:buscar', 'parceiro_easylive:deletar',
+        'parceiro_easylive:listar',
         'parceiro_easylive:salvar',
 
         'publicacao_arquivo:atualizar', 'publicacao_arquivo:buscar', 'publicacao_arquivo:deletar',
