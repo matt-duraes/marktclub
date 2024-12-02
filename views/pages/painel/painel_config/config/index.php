@@ -1,7 +1,7 @@
 <?php
 
-use App\Classes\PainelConfiguracoes\Ordem;
 use PainelConfig\Index;
+use App\Classes\PainelConfiguracao\Ordem;
 
 $Painel = new Index('painel_config', new Ordem());
 

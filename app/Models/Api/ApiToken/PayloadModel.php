@@ -3,7 +3,7 @@
 namespace App\Models\Api\ApiToken;
 
 use stdClass;
-use App\Classes\AuthApp\Audience;
+use App\Classes\ApiApp\Audience;
 use App\Classes\UsuarioCliente\TipoUsuario;
 
 final class PayloadModel

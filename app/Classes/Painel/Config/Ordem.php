@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Classes\PainelConfiguracoes;
+namespace App\Classes\PainelConfiguracao;
 
 use Order\Order;
 

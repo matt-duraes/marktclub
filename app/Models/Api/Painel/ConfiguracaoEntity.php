@@ -47,7 +47,6 @@ final class ConfiguracaoEntity extends Entity
                 ['titulo', 'permissao', 'configuracao', 'campo_obrigatorio', 'campo_permitido', 'upload_grupo'],
                 'object'
             );
-
         if (empty($configs)) {
             $configs = (new OrmHelper(TABELA_PAINEL_CONFIG))
                 ->pegarUltimoRegistro(

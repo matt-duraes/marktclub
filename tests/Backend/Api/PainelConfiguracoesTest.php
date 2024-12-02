@@ -2,8 +2,8 @@
 
 namespace Tests\Api;
 
-use App\Helpers\Painel\ConfiguracoesPadrao;
 use Tests\Token\Clube;
+use App\Classes\Painel\Config\Padrao;
 
 class PainelConfiguracoesTest extends Clube
 {
@@ -25,8 +25,8 @@ class PainelConfiguracoesTest extends Clube
         $retorno = $this->montarPermissoes();
         return [
             'empresa'           => $this->idEmpresa,
-            'configuracao'      => ConfiguracoesPadrao::RECURSOS,
-            'campo_obrigatorio' => ConfiguracoesPadrao::CAMPOS_OBRIGATORIOS,
+            'configuracao'      => Padrao::RECURSOS,
+            'campo_obrigatorio' => Padrao::CAMPOS_OBRIGATORIOS,
             'permissao'         => $retorno['permissoes'],
             'titulo'            => $retorno['titulos']
         ];
@@ -36,7 +36,7 @@ class PainelConfiguracoesTest extends Clube
     {
         $titulos = [];
         $permissoes = [];
-        foreach (ConfiguracoesPadrao::PERMISSOES as $nomeApp => $permissoesApp) {
+        foreach (Padrao::PERMISSOES as $nomeApp => $permissoesApp) {
             $titulos[$nomeApp] = $permissoesApp['titulo'] ?? '';
             /*if (array_key_exists('acao', $permissoesApp) && !empty($permissoesApp['acao'])) {
                 foreach ($permissoesApp['acao'] as $permissao) {

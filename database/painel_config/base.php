@@ -5,7 +5,7 @@ use DataBase\DataBase;
 return (new DataBase())
     ->id()
     ->uuid()
-    ->int('id_admin_empresa')->tamanho(9)->relacionado(TABELA_COMERCIAL_EMPRESA, 'id')
+    ->int('id_admin_empresa')->tamanho(9)->null()
     ->varchar('titulo')->tamanho(100)->null()
     ->text('permissao')
     ->text('configuracao')->null()

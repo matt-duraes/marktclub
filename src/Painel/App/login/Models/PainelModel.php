@@ -9,66 +9,60 @@ final class PainelModel
     public function __construct()
     {
         $this->pegandoPermissaoDoPainel();
-        $this->pegandoCampoObrigatorio();
-        $this->pegandoConfiguracaoDoPainel();
-        $this->pegandoUploadGrupoDoPainel();
-        $this->pegandoCampoPermitidos();
         $this->pegandoListaMenu();
     }
 
     private function pegandoPermissaoDoPainel()
     {
         $Api = new ApiHelper(token: true);
-        $permissao = $Api->headerJson()->get('/admin/permissao')->array()['dado'] ?? [];
-        sessao('PAINEL.permissao', $permissao);
+        $dado = $Api
+            ->headerJson()
+            ->get('/admin/painel')
+            ->object();
+        if (!object_key_exists('dado', $dado)) {
+            $dado = (object)[
+                'dado' => (object)[
+                    'permissao'         => [],
+                    'upload_grupo'      => [],
+                    'configuracao'      => [],
+                    'campo_permitido'   => [],
+                    'campo_obrigatorio' => [],
+                ]
+            ];
+        }
+        $dado = $dado->dado;
+        sessao('PAINEL.permissao', $dado->permissao);
+        sessao('PAINEL.obrigatorio', $this->setarCampoObrigatorio($dado->campo_obrigatorio));
+        sessao('PAINEL.configuracao', $this->setarConfiguracao($dado->configuracao));
+        sessao('PAINEL.upload_grupo', $dado->upload_grupo);
+        sessao('PAINEL.campo', $this->setarCampoPermitido($dado->campo_permitido));
     }
 
-    private function pegandoCampoObrigatorio()
+    private function setarCampoObrigatorio($dado)
     {
-        $Api = new ApiHelper(token: true);
-        $obrigatorio = $Api->headerJson()->get('/admin/campo-obrigatorio')->array();
-        $obrigatorio = array_key_exists('dado', $obrigatorio) ? $obrigatorio['dado'] : [
+        return !empty($dado) ? $dado : [
             'usuario_cliente' => [
                 'cpf',
                 'email',
                 'status'
             ]
         ];
-
-        sessao('PAINEL.obrigatorio', $obrigatorio);
     }
 
-    private function pegandoConfiguracaoDoPainel()
+    private function setarConfiguracao($dado)
     {
-        $Api = new ApiHelper(token: true);
-        $configuracao = $Api->headerJson()->get('/admin/configuracao')->array();
-        $configuracao = array_key_exists('dado', $configuracao) ? $configuracao['dado'] : ['perfil', 'bloquear'];
-
-        sessao('PAINEL.configuracao', $configuracao);
+        return !empty($dado) ? $dado : ['perfil', 'bloquear'];
     }
 
-    private function pegandoUploadGrupoDoPainel()
+    private function setarCampoPermitido($dado)
     {
-        $Api = new ApiHelper(token: true);
-        $grupo = $Api->headerJson()->get('/admin/upload-grupo')->array();
-        $grupo = array_key_exists('dado', $grupo) ? $grupo['dado'] : [];
-
-        sessao('PAINEL.upload_grupo', $grupo);
-    }
-
-    private function pegandoCampoPermitidos()
-    {
-        $Api = new ApiHelper(token: true);
-        $campo = $Api->headerJson()->get('/admin/campo-permitido')->array();
-        $campo = array_key_exists('dado', $campo) ? $campo['dado'] : [
+        return !empty($dado) ? $dado : [
             'usuario_cliente' => [
                 'nome', 'cpf', 'matricula', 'siape', 'genero', 'data_nascimento',
                 'email', 'telefone', 'endereco_estado',
                 'endereco_cidade', 'senha', 'status', 'primeiro_acesso', 'mudar_senha', 'estado_civil'
             ]
         ];
-
-        sessao('PAINEL.campo', $campo);
     }
 
     private function pegandoListaMenu()

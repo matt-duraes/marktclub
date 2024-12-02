@@ -1,7 +1,7 @@
 <?php
 
-use App\Classes\AuthApp\Scope;
-use App\Helpers\Painel\ConfiguracoesPadrao;
+use App\Classes\ApiApp\Scope;
+use App\Classes\Painel\Config\Padrao;
 
 return [
     [
@@ -95,7 +95,7 @@ AQIDAQAB
         'refresh_token'      => 1,
         'redirect_uri'       => '["painel.yh"]',
         'scope_permitido'    => array_values(arrayRemoverValorDuplicado(Scope::PAINEL_INTERNO)),
-        'campo_permitido'    => ConfiguracoesPadrao::CAMPOS_OBRIGATORIOS,
+        'campo_permitido'    => Padrao::CAMPOS_OBRIGATORIOS,
         'tempo_vida'         => '300',
         'data_criacao'       => '2023-07-04 17:22:05',
         'data_atualizacao'   => '2023-07-04 17:22:05',
@@ -483,7 +483,7 @@ fQIDAQAB
         'refresh_token'      => 1,
         'redirect_uri'       => '["sistema.yh","painel.yh","clube.yh"]',
         'scope_permitido'    => array_values(arrayRemoverValorDuplicado(Scope::TUDO)),
-        'campo_permitido'    => ConfiguracoesPadrao::CAMPOS_PERMITIDOS,
+        'campo_permitido'    => Padrao::CAMPOS_PERMITIDOS,
         'tempo_vida'         => '5000',
         'data_criacao'       => date('Y-m-d H:i:s'),
         'data_atualizacao'   => date('Y-m-d H:i:s'),

@@ -5,7 +5,7 @@ namespace App\Models\Api\ApiToken;
 use ORM\ORM;
 use stdClass;
 use App\Classes\ApiToken\Tipo;
-use App\Classes\AuthApp\Audience;
+use App\Classes\ApiApp\Audience;
 use App\Classes\LoginClube\PegarClienteTrait;
 use App\Classes\LoginPainel\PegarEquipeTrait;
 use App\Models\Api\ApiToken\Trait\TokenTrait;

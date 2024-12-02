@@ -63,6 +63,7 @@ final class TokenAuthorizationEntity extends Entity
         } elseif (empty($state)) {
             mensagemErro('Campo incorreto!', 'Não foi enviado o state do usuário.');
         }
+
         $tempoVida = $app->tempo_vida ?? 3600;
         $scope = $this->pegarScope($scope, $app->scope_permitido);
         $jwt = $this->criarJwt($body, $app, $audience, $scope, $tempoVida);

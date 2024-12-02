@@ -6,6 +6,10 @@ final class MenuModel
 {
     public function montarMenu(string $menu)
     {
+        if (!sessaoExiste('PAINEL.menu')) {
+            return [];
+        }
+
         $lista = sessao('PAINEL.menu');
 
         $permissaoUsuario = sessao('USUARIO.permissao');

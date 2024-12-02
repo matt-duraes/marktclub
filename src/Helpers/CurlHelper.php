@@ -18,6 +18,7 @@ class CurlHelper
     private $retornoValor;
     private $retornoStatus;
     private $retornoErro;
+    private $debugRetorno = false;
     private $debug = false;
     private string $urlUsada = '';
     private string $metodoUsado = '';
@@ -352,7 +353,10 @@ class CurlHelper
         $this->retornoValor = $retornoValor;
         $this->retornoStatus = $retornoStatus;
 
-        if ($this->debug) {
+        if ($this->debug && $this->debugRetorno) {
+            print_r($retornoValor);
+            exit();
+        } elseif ($this->debug) {
             print_r([
                 'requisicao' => $this->requisicao,
                 'retorno'    => [
@@ -551,8 +555,10 @@ class CurlHelper
      *
      * @return self
      */
-    public function debug(): self
-    {
+    public function debug(
+        bool $retorno = false
+    ): self {
+        $this->debugRetorno = $retorno;
         $this->debug = true;
         return $this;
     }
