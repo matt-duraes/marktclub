@@ -71,6 +71,7 @@ final class Scope
         'admin:painel', 'admin:menu', 'admin:chave_publica', 'admin:chave_privada',
 
         'album_dado:listar', 'album_dado:salvar', 'album_dado:atualizar', 'album_dado:deletar',
+        'album_dado:buscar', 'album_dado:foto',
 
         'carteirinha:atualizar', 'carteirinha:buscar', 'carteirinha:deletar', 'carteirinha:listar',
         'carteirinha:salvar', 'carteirinha:status',
@@ -96,9 +97,13 @@ final class Scope
         'comercial_subempresa:salvar', 'comercial_subempresa:select',
 
         'comunicacao_login:atualizar', 'comunicacao_login:buscar', 'comunicacao_login:deletar',
-        'comunicacao_login:listar', 'comunicacao_login:salvar', 'comunicacao_publicidade:atualizar',
-        'comunicacao_publicidade:buscar', 'comunicacao_publicidade:deletar', 'comunicacao_publicidade:listar',
+        'comunicacao_login:listar', 'comunicacao_login:salvar',
+
+        'comunicacao_publicidade:atualizar', 'comunicacao_publicidade:buscar',
+        'comunicacao_publicidade:deletar', 'comunicacao_publicidade:listar',
         'comunicacao_publicidade:salvar',
+
+        'comercial_atendimento:listar',
 
         'construtor_clube:listar', 'construtor_clube:buscar', 'construtor_clube:salvar',
         'construtor_clube:atualizar', 'construtor_clube:deletar',
@@ -106,8 +111,8 @@ final class Scope
         'demanda_dado:atualizar', 'demanda_dado:buscar', 'demanda_dado:cancelar',
         'demanda_dado:listar', 'demanda_dado:salvar',
 
-        'demanda_sprint:atualizar', 'demanda_sprint:buscar', 'demanda_sprint:demanda', 'demanda_sprint:listar',
-        'demanda_sprint:salvar', 'demanda_sprint:status',
+        'demanda_sprint:atualizar', 'demanda_sprint:buscar', 'demanda_sprint:demanda',
+        'demanda_sprint:listar', 'demanda_sprint:salvar', 'demanda_sprint:status',
 
         'demanda_trabalho:atualizar', 'demanda_trabalho:salvar',
 
@@ -179,6 +184,7 @@ final class Scope
         'relatorio_usuario:listar',
 
         'saude_contratacao:listar', 'saude_contratacao:buscar', 'saude_contratacao:status',
+        'saude_contratacao:atualizar',
 
         'silium_deposito:atualizar', 'silium_deposito:buscar', 'silium_deposito:deletar',
         'silium_deposito:listar', 'silium_deposito:salvar', 'silium_deposito:status',
@@ -226,7 +232,7 @@ final class Scope
 
         'solicitacao_salavip:download', 'solicitacao_salavip:listar',
 
-        'solicitacao_voucher:listar', 'solicitacao_voucher:buscar',
+        'solicitacao_voucher:listar', 'solicitacao_voucher:buscar', 'solicitacao_voucher:download',
 
         'tabela_usuario:salvar', 'tabela_usuario:listar',
 
