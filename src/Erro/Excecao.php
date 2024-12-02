@@ -187,13 +187,10 @@ final class Excecao extends \Exception
         }
 
         $diretorio = defined('ROUTE_DIRETORIO') ? ROUTE_DIRETORIO : 'Site';
-        if (
-            file_exists(
-                ROOT . '/html/views/' . mb_strtolower($diretorio, 'UTF-8') . '/erro_geral/' . $status . '.php'
-            )
-        ) {
+        $pathErroProjeto = ROOT . '/files/build/views/views_status_' . mb_strtolower($diretorio, 'UTF-8') . '_' . $status . '.php';
+        if (file_exists($pathErroProjeto)) {
             ob_start();
-            require_once ROOT . '/html/views/' . mb_strtolower($diretorio, 'UTF-8') . '/erro_geral/' . $status . '.php';
+            require_once $pathErroProjeto;
             return ob_get_clean();
         }
 
@@ -239,9 +236,10 @@ final class Excecao extends \Exception
         }
 
         $diretorio = defined('ROUTE_DIRETORIO') ? ROUTE_DIRETORIO : 'Site';
-        if (file_exists(ROOT . '/html/views/' . mb_strtolower($diretorio, 'UTF-8') . '/erro_geral/excecao.php')) {
+        $pathErroProjeto = ROOT . '/files/build/views/views_status_' . mb_strtolower($diretorio, 'UTF-8') . '_excecao.php';
+        if (file_exists($pathErroProjeto)) {
             ob_start();
-            require_once ROOT . '/html/views/' . mb_strtolower($diretorio, 'UTF-8') . '/erro_geral/excecao.php';
+            require_once ROOT . $pathErroProjeto;
             return ob_get_clean();
         }
 
