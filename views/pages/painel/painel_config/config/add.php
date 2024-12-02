@@ -1,9 +1,9 @@
 <?php
 
-use Helpers\ApiHelper;
-use App\Classes\UsuarioCliente\Helper;
-use App\Helpers\Painel\ConfiguracoesPadrao;
 use PainelConfig\Add;
+use Helpers\ApiHelper;
+use App\Classes\Painel\Config\Padrao;
+use App\Classes\UsuarioCliente\Helper;
 
 $Painel = new Add('painel_config', $acao);
 
@@ -53,7 +53,7 @@ $Painel->coluna(callback: function () use ($Painel) {
     $Painel->fieldset('Recursos do Painel', function () use ($Painel) {
         $Painel->fieldsetCheckbox(
             callback: function () use ($Painel) {
-                foreach (ConfiguracoesPadrao::RECURSOS as $recurso => $nomeRecurso) {
+                foreach (Padrao::RECURSOS as $recurso => $nomeRecurso) {
                     $Painel->checkbox(name: 'configuracao[]', label: $nomeRecurso, value: $recurso);
                 }
             }
@@ -82,7 +82,7 @@ $Painel->coluna(callback: function () use ($Painel) {
     $Painel->fieldset('Campos Permitidos', function () use ($Painel) {
         $Painel->fieldsetCheckbox(
             callback: function () use ($Painel) {
-                foreach (ConfiguracoesPadrao::CAMPOS_PERMITIDOS as $app => $dado) {
+                foreach (Padrao::CAMPOS_PERMITIDOS as $app => $dado) {
                     $titulo = $dado['titulo'] ?? '';
                     if (!empty($titulo)) {
                         $Painel->html('<h3>' . $titulo . '</h3>');
@@ -115,7 +115,7 @@ $Painel->coluna(callback: function () use ($Painel) {
     $Painel->fieldset('Permissões', function () use ($Painel) {
         $Painel->fieldsetCheckbox(
             callback: function () use ($Painel) {
-                foreach (ConfiguracoesPadrao::PERMISSOES as $ind => $dado) {
+                foreach (Padrao::PERMISSOES as $ind => $dado) {
                     $titulo = $dado['titulo'] ?? '';
                     if (!empty($titulo)) {
                         $Painel->html('<h3>' . $titulo . '</h3>');

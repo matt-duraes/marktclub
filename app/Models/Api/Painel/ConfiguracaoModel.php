@@ -5,13 +5,13 @@ namespace App\Models\Api\Painel;
 use ORM\ORM;
 use stdClass;
 use Erro\Excecao;
+use Modules\Data;
 use Modules\Pagina;
 use Modules\Quantidade;
 use System\Trait\Model\OrdemTrait;
 use System\Trait\Model\PaginaTrait;
 use System\Trait\Model\QuantidadeTrait;
-use App\Classes\PainelConfiguracoes\Ordem;
-use Modules\Data;
+use App\Classes\PainelConfiguracao\Ordem;
 use System\Interface\ModelListarInterface;
 
 class ConfiguracaoModel extends ORM implements

@@ -7,11 +7,11 @@ use Http\Request;
 use Modules\Senha;
 use App\Classes\LoginPainel\PegarEquipeTrait;
 
-final class LoginFormModel
+final class PegarUsuarioModel
 {
     use PegarEquipeTrait;
 
-    private stdClass $Usuario;
+    public stdClass $retorno;
 
     /**
      * Faz o login normal do usuário com usuario e senha
@@ -20,7 +20,7 @@ final class LoginFormModel
      */
     public function __construct(
         private string $login,
-        private string $senha
+        private string $senha,
     ) {
         $this->validarDadosDeLogin();
         $this->buscarUsuarioPeloLoginSenha();
@@ -28,7 +28,7 @@ final class LoginFormModel
 
     public function pegarUsuario(): stdClass
     {
-        return $this->Usuario;
+        return $this->retorno;
     }
 
     /*
@@ -65,8 +65,8 @@ final class LoginFormModel
         if (!$Senha->validarSenha($this->senha)) {
             $this->UsuarioNaoEncontrado();
         }
-
-        $this->Usuario = $Usuario;
+        $Usuario->permissao = jsonDecode($Usuario->permissao, true, true);
+        $this->retorno = $Usuario;
     }
 
     private function usuarioNaoEncontrado(): void

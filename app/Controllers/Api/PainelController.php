@@ -4,15 +4,15 @@ namespace App\Controllers\Api;
 
 use Erro\Excecao;
 use Http\Request;
+use Modules\Data;
 use Http\Response;
 use Modules\Pagina;
 use Modules\Quantidade;
 use Controller\Controller;
 use App\Models\Api\Painel\MenuModel;
-use App\Classes\PainelConfiguracoes\Ordem;
+use App\Classes\PainelConfiguracao\Ordem;
 use App\Models\Api\Painel\ConfiguracaoModel;
 use App\Models\Api\Painel\ConfiguracaoEntity;
-use Modules\Data;
 use System\Interface\ControllerBuscarInterface;
 use System\Interface\ControllerListarInterface;
 use System\Interface\ControllerSalvarInterface;
@@ -121,6 +121,17 @@ final class PainelController extends Controller implements
         $Configuracoes->uuid($id);
         $Configuracoes->destruir();
         return new Response(status: 204);
+    }
+
+    /**
+     * @return Response
+     * @throws Excecao
+     */
+    public function getPainel(): Response
+    {
+        $Configuracao = new ConfiguracaoEntity();
+        $configuracoes = $Configuracao->pegarConfiguracoes();
+        return mensagemSucesso($configuracoes);
     }
 
     /**

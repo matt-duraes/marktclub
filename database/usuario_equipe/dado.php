@@ -1,8 +1,8 @@
 <?php
 
-use App\Helpers\Painel\ConfiguracoesPadrao;
+use App\Classes\Painel\Config\Padrao;
 
-$permissao = (new ConfiguracoesPadrao)->permissao();
+$permissao = (new Padrao())->permissao();
 
 return [
     [

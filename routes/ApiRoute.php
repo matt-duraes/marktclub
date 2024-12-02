@@ -448,7 +448,7 @@ Route
 
         Route
             ::nome('select')
-            ::middleware(TokenMiddleware::class, 'scope', ['usuario_grupo:listar'])
+            ::middleware(TokenMiddleware::class, 'scope', ['usuario_grupo:select'])
             ::request(['!titulo', '!empresa'], 'json')
             ::get('/usuario-grupo/select');
 
@@ -650,7 +650,7 @@ Route
 
         Route
             ::nome('select')
-            ::middleware(TokenMiddleware::class, 'scope', ['usuario_equipe:listar'])
+            ::middleware(TokenMiddleware::class, 'scope', ['usuario_equipe:select'])
             ::request(['!titulo', '!tipo'], 'json')
             ::get('/usuario-equipe/select');
 
@@ -1086,6 +1086,11 @@ Route
             ::delete('/painel-configuracao/{id}');
 
         Route
+            ::nome('painel')
+            ::middleware(TokenMiddleware::class, 'scope', ['admin:painel'])
+            ::get('/admin/painel');
+
+        Route
             ::nome('permissao')
             ::middleware(TokenMiddleware::class, 'scope', ['admin:permissao'])
             ::get('/admin/permissao');
@@ -1445,7 +1450,7 @@ Route
     ::grupo(function () {
         Route
             ::nome('select')
-            ::middleware(TokenMiddleware::class, 'scope', ['parceiro_loja:listar'])
+            ::middleware(TokenMiddleware::class, 'scope', ['parceiro_loja:select'])
             ::request(['!tipo_loja', '!titulo'], 'json')
             ::get('/parceiro-loja/select');
         Route
@@ -1619,7 +1624,7 @@ Route
     ::grupo(function () {
         Route
             ::nome('select')
-            ::middleware(TokenMiddleware::class, 'scope', ['parceiro_subcategoria:listar'])
+            ::middleware(TokenMiddleware::class, 'scope', ['parceiro_subcategoria:select'])
             ::request(['!titulo', '!categoria', '!clube'], 'json')
             ::get('/parceiro-subcategoria/select');
         Route
@@ -1794,7 +1799,7 @@ Route
     ::grupo(function () {
         Route
             ::nome('select')
-            ::middleware(TokenMiddleware::class, 'scope', ['app_usuario:listar'])
+            ::middleware(TokenMiddleware::class, 'scope', ['app_usuario:select'])
             ::get('/api-usuario/select');
     });
 
@@ -1806,7 +1811,7 @@ Route
     ::grupo(function () {
         Route
             ::nome('select')
-            ::middleware(TokenMiddleware::class, 'scope', ['comercial_empresa:listar'])
+            ::middleware(TokenMiddleware::class, 'scope', ['comercial_empresa:select'])
             ::request(['!titulo'], 'json')
             ::get('/comercial-empresa/select');
     });
@@ -1819,7 +1824,7 @@ Route
     ::grupo(function () {
         Route
             ::nome('select')
-            ::middleware(TokenMiddleware::class, 'scope', ['comercial_subempresa:listar'])
+            ::middleware(TokenMiddleware::class, 'scope', ['comercial_subempresa:select'])
             ::request(['!titulo', '!empresa'], 'json')
             ::get('/comercial-subempresa/select');
     });
@@ -1944,7 +1949,7 @@ Route
     ::grupo(function () {
         Route
             ::nome('select')
-            ::middleware(TokenMiddleware::class, 'scope', ['comercial_restricao:listar'])
+            ::middleware(TokenMiddleware::class, 'scope', ['comercial_restricao:select'])
             ::request(['!titulo'], 'json')
             ::get('/comercial-restricao/select');
     });
