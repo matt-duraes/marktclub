@@ -770,7 +770,7 @@ final class Padrao
             'titulo'    => 'Relatório Acesso',
             'permissao' => [
                 'relatorio_acesso_index'    => 'Relatório de acesso',
-                'relatorio_acesso_empresa'  => 'Todas as empresas',
+                'relatorio_acesso_empresa'  => self::TITULO_EMPRESA,
                 'relatorio_acesso_parceiro' => 'Todos os parceiros'
             ]
         ],
@@ -778,14 +778,14 @@ final class Padrao
             'titulo'    => 'Relatório de usuário',
             'permissao' => [
                 'relatorio_usuario_index'   => 'Relatório de usuário',
-                'relatorio_usuario_empresa' => 'Todas as empresas'
+                'relatorio_usuario_empresa' => self::TITULO_EMPRESA
             ]
         ],
         'relatorio_loja_venda'     => [
             'titulo'    => 'Relatório de vendas',
             'permissao' => [
                 'relatorio_loja_venda_index'    => 'Relatório de vendas',
-                'relatorio_loja_venda_empresa'  => 'Todas as empresas',
+                'relatorio_loja_venda_empresa'  => self::TITULO_EMPRESA,
                 'relatorio_loja_venda_parceiro' => 'Todos os parceiros'
             ]
         ],
@@ -793,7 +793,7 @@ final class Padrao
             'titulo'    => 'Tabela de Usuário',
             'permissao' => [
                 'tabela_usuario_salvar'   => [
-                    'titulo' => 'Salvar',
+                    'titulo' => self::TITULO_SALVAR,
                     'scope'  => ['tabela_usuario:salvar']
                 ],
                 'tabela_usuario_bloquear' => [
@@ -805,55 +805,106 @@ final class Padrao
                     'scope'  => 'tabela_usuario:listar',
                 ],
                 'tabela_usuario_empresa'  => [
-                    'titulo' => 'Todas as empresas'
+                    'titulo' => self::TITULO_EMPRESA
                 ]
             ]
         ],
         'solicitacao_loja'         => [
             'titulo'    => 'Solicitação Loja',
             'permissao' => [
-                'solicitacao_loja_index'      => 'Listar',
-                'solicitacao_loja_visualizar' => 'Visualizar',
-                'solicitacao_loja_add'        => 'Salvar',
-                'solicitacao_loja_deletar'    => 'Deletar',
-                'solicitacao_loja_download'   => 'Download',
-                'solicitacao_loja_status'     => 'Status',
-                'solicitacao_loja_empresa'    => 'Todas as empresas'
+                'solicitacao_loja_index'      => [
+                    'titulo' => self::TITULO_LISTAR,
+                    'scope'  => 'solicitacao_loja:listar'
+                ],
+                'solicitacao_loja_visualizar' => [
+                    'titulo' => self::TITULO_VISUALIZAR,
+                    'scope'  => 'solicitacao_loja:buscar'
+                ],
+                'solicitacao_loja_add'        => [
+                    'titulo' => self::TITULO_SALVAR,
+                    'scope'  => ['solicitacao_loja:salvar', 'solicitacao_loja:buscar']
+                ],
+                'solicitacao_loja_deletar'    => [
+                    'titulo' => self::TITULO_DELETAR,
+                    'scope'  => 'solicitacao_loja:deletar'
+                ],
+                'solicitacao_loja_download'   => [
+                    'titulo' => self::TITULO_DOWNLOAD,
+                    'scope'  => 'solicitacao_loja:download'
+                ],
+                'solicitacao_loja_status'     => [
+                    'titulo' => self::TITULO_STATUS,
+                    'scope'  => ['solicitacao_loja:atualizar', 'solicitacao_loja:buscar']
+                ],
+                'solicitacao_loja_empresa'    => self::TITULO_EMPRESA
             ]
         ],
         'solicitacao_voucher'      => [
             'titulo'    => 'Solicitação Voucher',
             'permissao' => [
-                'solicitacao_voucher_index'      => 'Listar',
-                'solicitacao_voucher_visualizar' => 'Visualizar',
-                'solicitacao_voucher_download'   => 'Download',
-                'solicitacao_voucher_empresa'    => 'Todas as empresas'
+                'solicitacao_voucher_index'      => [
+                    'titulo' => self::TITULO_LISTAR,
+                    'scope'  => 'solicitacao_voucher:listar'
+                ],
+                'solicitacao_voucher_visualizar' => [
+                    'titulo' => self::TITULO_VISUALIZAR,
+                    'scope'  => 'solicitacao_voucher:buscar'
+                ],
+                'solicitacao_voucher_download'   => [
+                    'titulo' => self::TITULO_DOWNLOAD,
+                    'scope'  => 'solicitacao_voucher:download'
+                ],
+                'solicitacao_voucher_empresa'    => self::TITULO_EMPRESA
             ]
         ],
         'solicitacao_premium'      => [
             'titulo'    => 'Solicitacação Voucher Premium',
             'permissao' => [
-                'solicitacao_premium_index'      => 'Listar',
-                'solicitacao_premium_visualizar' => 'Visualizar',
-                'solicitacao_premium_download'   => 'Download',
-                'solicitacao_premium_empresa'    => 'Todas as empresas'
+                'solicitacao_premium_index'      => [
+                    'titulo' => self::TITULO_LISTAR,
+                    'scope'  => 'solicitacao_premium:listar'
+                ],
+                'solicitacao_premium_visualizar' => [
+                    'titulo' => self::TITULO_VISUALIZAR,
+                    'scope'  => 'solicitacao_premium:buscar'
+                ],
+                'solicitacao_premium_download'   => [
+                    'titulo' => self::TITULO_DOWNLOAD,
+                    'scope'  => 'solicitacao_premium:download'
+                ],
+                'solicitacao_premium_empresa'    => self::TITULO_EMPRESA
             ]
         ],
         'solicitacao_salavip'      => [
             'titulo'    => 'Solicitação Salavip',
             'permissao' => [
-                'solicitacao_salavip_index'    => 'Listar',
-                'solicitacao_salavip_download' => 'Download',
-                'solicitacao_salavip_empresa'  => 'Todas as empresas'
+                'solicitacao_salavip_index'    => [
+                    'titulo' => self::TITULO_LISTAR,
+                    'scope'  => 'solicitacao_salavip:listar'
+                ],
+                'solicitacao_salavip_download' => [
+                    'titulo' => self::TITULO_DOWNLOAD,
+                    'scope'  => 'solicitacao_salavip:download'
+                ],
+                'solicitacao_salavip_empresa'  => self::TITULO_EMPRESA
             ]
         ],
         'solicitacao_declaracao'   => [
             'titulo'    => 'Solicitação Declaração',
             'permissao' => [
-                'solicitacao_declaracao_index'      => 'Listar',
-                'solicitacao_declaracao_visualizar' => 'Visualizar',
-                'solicitacao_declaracao_status'     => 'Status',
-                'solicitacao_declaracao_empresa'    => 'Todas as empresas'
+                'solicitacao_declaracao_index'      => [
+                    'titulo' => self::TITULO_LISTAR,
+                    'scope'  => 'solicitacao_declaracao:listar'
+                ],
+                'solicitacao_declaracao_visualizar' => [
+                    'titulo' => self::TITULO_VISUALIZAR,
+                    'scope'  => 'solicitacao_declaracao:buscar'
+                ],
+                'solicitacao_declaracao_status'     => [
+                    'titulo' => self::TITULO_STATUS,
+                    'scope'  => ['solicitacao_declaracao:atualizar', 'solicitacao_declaracao:buscar']
+                ],
+                'solicitacao_declaracao_empresa'    => self::TITULO_EMPRESA
             ]
         ],
         'solicitacao_automovel'    => [
@@ -1266,36 +1317,35 @@ final class Padrao
     ];
     private const SCOPE_FIXO = [];
 
-    public function permissao()
+    public function scope(array $equipe): array
+    {
+        $permissoes = $this->montarPermissoes();
+        $scopes = [];
+        foreach ($equipe as $item) {
+            if (!array_key_exists($item, $permissoes) || empty($permissoes[$item])) {
+                continue;
+            }
+            $scopes = array_merge($scopes, $permissoes[$item]);
+        }
+        return array_values(arrayRemoverValorDuplicado($scopes));
+    }
+
+    /**
+     * @return array
+     */
+    public function montarPermissoes(): array
     {
         $retorno = [];
-        foreach (self::PERMISSOES as $item) {
-            foreach ($item['permissao'] as $ind => $val) {
-                $scope = $val['scope'] ?? '';
+        foreach (self::PERMISSOES as $painelApp) {
+            foreach ($painelApp['permissao'] as $permissao => $apiScope) {
+                $scope = $apiScope['scope'] ?? '';
                 if (empty($scope)) {
-                    $retorno[$ind] = [];
+                    $retorno[$permissao] = [];
                     continue;
                 }
-                $retorno[$ind] = is_string($scope) ? [$scope] : $scope;
+                $retorno[$permissao] = is_string($scope) ? [$scope] : $scope;
             }
         }
         return $retorno;
-    }
-
-    public function scope(array $equipe)
-    {
-        $permissao = $this->permissao();
-        $lista = [];
-        foreach ($equipe as $item) {
-            if (!array_key_exists($item, $permissao) || empty($permissao[$item])) {
-                continue;
-            }
-            foreach ($permissao['permissao'] as $subindice => $acao) {
-                if (!in_array($subindice, $equipe) || !is_array($acao)) {
-                    continue;
-                }
-            }
-        }
-        return array_values(arrayRemoverValorDuplicado($lista));
     }
 }
