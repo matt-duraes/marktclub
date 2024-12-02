@@ -2,7 +2,7 @@
 
 use App\Classes\Painel\Config\Padrao;
 
-$permissao = (new Padrao())->permissao();
+$permissao = array_keys((new Padrao())->permissao());
 
 return [
     [

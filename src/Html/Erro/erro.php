@@ -13,11 +13,7 @@
 </head>
 
 <body>
-    <script id="__bs_script__">
-        //<![CDATA[
-        document.write("<script async src='/browser-sync/browser-sync-client.js?v=2.27.5'><\/script>".replace("HOST", location.hostname));
-        //]]>
-    </script>
+    <div id="bloco_erro_sistema"></div>
     <div id="site" class="erro_<?= $_tipo ?>">
 
         <header>

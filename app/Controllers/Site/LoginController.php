@@ -12,7 +12,6 @@ use App\Models\Site\Login\LogarModel;
 use App\Models\Site\Ativar\GrupoModel;
 use App\Models\Site\Ativar\SalvarModel;
 use App\Models\Site\Login\LoginApiModel;
-use App\Helpers\Painel\ConfiguracaoPadrao;
 use App\Models\Site\Cache\VersaoClubeModel;
 use App\Models\Site\Login\ComunicacaoModel;
 use App\Classes\ConstrutorClube\TipoAtivacao;
