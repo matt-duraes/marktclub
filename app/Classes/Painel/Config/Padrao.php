@@ -156,39 +156,39 @@ final class Padrao
     ];
     public const PERMISSOES = [
         'usuario_cliente' => [
-            'titulo' => 'Usuário Cliente',
+            'titulo'    => 'Usuário Cliente',
             'permissao' => [
                 'usuario_cliente_index'      => [
                     'titulo' => 'Listar',
-                    'scope' => 'usuario_cliente:listar',
+                    'scope'  => 'usuario_cliente:listar',
                 ],
                 'usuario_cliente_visualizar' => [
                     'titulo' => 'Visualizar',
-                    'scope' => 'usuario_cliente:buscar',
+                    'scope'  => 'usuario_cliente:buscar',
                 ],
                 'usuario_cliente_add'        => [
                     'titulo' => 'Salvar',
-                    'scope' => ['usuario_cliente:salvar', 'usuario_cliente:buscar'],
+                    'scope'  => ['usuario_cliente:salvar', 'usuario_cliente:buscar'],
                 ],
                 'usuario_cliente_editar'     => [
                     'titulo' => 'Editar',
-                    'scope' => ['usuario_cliente:atualizar', 'usuario_cliente:buscar'],
+                    'scope'  => ['usuario_cliente:atualizar', 'usuario_cliente:buscar'],
                 ],
                 'usuario_cliente_deletar'    => [
                     'titulo' => 'Deletar',
-                    'scope' => 'usuario_cliente:deletar',
+                    'scope'  => 'usuario_cliente:deletar',
                 ],
                 'usuario_cliente_download'   => [
                     'titulo' => 'Download',
-                    'scope' => 'usuario_cliente:download',
+                    'scope'  => 'usuario_cliente:download',
                 ],
                 'usuario_cliente_analytics'  => [
                     'titulo' => 'Analytics',
-                    'scope' => 'relatorio_analytics:listar',
+                    'scope'  => 'relatorio_analytics:listar',
                 ],
                 'usuario_cliente_apple'      => [
                     'titulo' => 'Apple',
-                    'scope' => 'usuario_cliente:apple'
+                    'scope'  => 'usuario_cliente:apple'
                 ],
                 'usuario_cliente_empresa' => 'Todas as empresas'
             ]
@@ -198,19 +198,19 @@ final class Padrao
             'permissao' => [
                 'usuario_grupo_index'   => [
                     'titulo' => 'Listar',
-                    'scope' => 'usuario_grupo:listar'
+                    'scope'  => 'usuario_grupo:listar'
                 ],
                 'usuario_grupo_add'     => [
                     'titulo' => 'Salvar',
-                    'scope' => ['usuario_grupo:salvar', 'usuario_grupo:buscar'],
+                    'scope'  => ['usuario_grupo:salvar', 'usuario_grupo:buscar'],
                 ],
                 'usuario_grupo_editar'  => [
                     'titulo' => 'Editar',
-                    'scope' => ['usuario_grupo:atualizar', 'usuario_grupo:buscar'],
+                    'scope'  => ['usuario_grupo:atualizar', 'usuario_grupo:buscar'],
                 ],
                 'usuario_grupo_deletar' => [
                     'titulo' => 'Deletar',
-                    'scope' => 'usuario_grupo:deletar'
+                    'scope'  => 'usuario_grupo:deletar'
                 ],
             ]
         ],
@@ -494,18 +494,18 @@ final class Padrao
             'permissao' => [
                 'tabela_usuario_salvar'  => [
                     'titulo' => 'Salvar',
-                    'scope' => ['tabela_usuario:salvar']
+                    'scope'  => ['tabela_usuario:salvar']
                 ],
                 'tabela_usuario_bloquear'=> [
                     'titulo' => 'Bloquear',
-                    'scope' => ['tabela_usuario:salvar']
+                    'scope'  => ['tabela_usuario:salvar']
                 ],
                 'tabela_historico_index' => [
                     'titulo' => 'Histórico',
-                    'scope' => 'tabela_usuario:listar',
+                    'scope'  => 'tabela_usuario:listar',
                 ],
                 'tabela_usuario_empresa' => [
-                    'titulo' =>'Todas as empresas'
+                    'titulo' => 'Todas as empresas'
                 ]
             ]
         ],
@@ -833,7 +833,12 @@ final class Padrao
         $retorno = [];
         foreach (self::PERMISSOES as $item) {
             foreach ($item['permissao'] as $ind => $val) {
-                $retorno[] = $ind;
+                $scope = $val['scope'] ?? '';
+                if (empty($scope)) {
+                    $retorno[$ind] = [];
+                    continue;
+                }
+                $retorno[$ind] = is_string($scope) ? [$scope] : $scope;
             }
         }
         return $retorno;
@@ -841,20 +846,14 @@ final class Padrao
 
     public function scope(array $equipe)
     {
+        $permissao = $this->permissao();
         $lista = [];
-        foreach (self::PERMISSOES as $indice => $permissao) {
-            $prefixScope = $permissao['scope'] ?? $indice;
-            if (empty($prefixScope)) {
+        foreach ($equipe as $item) {
+            if (!array_key_exists($item, $permissao) || empty($permissao[$item])) {
                 continue;
             }
-            foreach ($permissao['permissao'] as $subindice => $acao) {
-                if (!in_array($subindice, $equipe) || !is_array($acao)) {
-                    continue;
-                }
-
-            }
+            $lista = array_merge($lista, $permissao[$item]);
         }
-
         return array_values(arrayRemoverValorDuplicado($lista));
     }
 }
