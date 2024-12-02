@@ -1037,92 +1037,230 @@ final class Padrao
         'site_config'              => [
             'titulo'    => 'Configurações do Site',
             'permissao' => [
-                'site_config_index'      => 'Listar',
-                'site_config_visualizar' => 'Visualizar',
-                'site_config_add'        => 'Salvar',
-                'site_config_editar'     => 'Editar',
-                'site_config_deletar'    => 'Deletar',
-                'site_config_empresa'    => 'Todas as Empresas'
+                'site_config_index' => [
+                    'titulo' => self::TITULO_LISTAR,
+                    'scope' => 'site_config:listar',
+                ],
+                'site_config_visualizar' => [
+                    'titulo' => self::TITULO_VISUALIZAR,
+                    'scope' => 'site_config:buscar'
+                ],
+                'site_config_add' => [
+                    'titulo' => self::TITULO_ADD,
+                    'scope' => ['site_config:salvar', 'site_config:buscar'],
+                ],
+                'site_config_editar' => [
+                    'titulo' => self::TITULO_EDITAR,
+                    'scope' => ['site_config:atualizar', 'site_config:buscar'],
+                ],
+                'site_config_deletar'    => [
+                    'titulo' => self::TITULO_DELETAR,
+                    'scope' => 'site_config:deletar'
+                ],
+                'site_config_empresa' => [
+                    'titulo' => self::TITULO_EMPRESA,
+                    'scope' => ''
+                ],
             ]
         ],
         'site_menu'                => [
             'titulo'    => 'Configurações do Menu (Site)',
             'permissao' => [
-                'site_menu_index'      => 'Listar',
-                'site_menu_visualizar' => 'Visualizar',
-                'site_menu_add'        => 'Salvar',
-                'site_menu_editar'     => 'Editar',
-                'site_menu_deletar'    => 'Deletar',
-                'site_menu_empresa'    => 'Todas as Empresas'
+                'site_menu_index' => [
+                    'titulo' => self::TITULO_LISTAR,
+                    'scope' => 'site_menu:listar',
+                ],
+                'site_menu_visualizar' => [
+                    'titulo' => self::TITULO_VISUALIZAR,
+                    'scope' => 'site_menu:buscar'
+                ],
+                'site_menu_add' => [
+                    'titulo' => self::TITULO_SALVAR,
+                    'scope' => ['site_menu:salvar', 'site_menu:buscar'],
+                ],
+                'site_menu_editar' => [
+                    'titulo' => self::TITULO_EDITAR,
+                    'scope' => ['site_menu:atualizar', 'site_menu:buscar'],
+                ],
+                'site_menu_deletar' => [
+                    'titulo' => self::TITULO_DELETAR,
+                    'scope' => 'site_menu:deletar',
+                ],
+                'site_menu_empresa' => [
+                    'titulo' => self::TITULO_EMPRESA,
+                    'scope' => ''
+                ]
             ]
         ],
-        'site_lotacao'             => [
+        'site_lotacao' => [
             'titulo'    => 'Lotação',
             'permissao' => [
-                'site_lotacao_index'   => 'Listar',
-                'site_lotacao_add'     => 'Salvar',
-                'site_lotacao_editar'  => 'Editar',
-                'site_lotacao_deletar' => 'Deletar',
-                'site_lotacao_empresa' => 'Todas as Empresas'
+                'site_lotacao_index' => [
+                    'titulo' => self::TITULO_LISTAR,
+                    'scope' => 'site_lotacao:listar',
+                ],
+                'site_lotacao_add' => [
+                    'titulo' =>  self::TITULO_SALVAR,
+                    'scope' => ['site_lotacao:salvar', 'site_lotacao:buscar'],
+                ],
+                'site_lotacao_editar' => [
+                    'titulo' => self::TITULO_EDITAR,
+                    'scope' => ['site_lotacao:atualizar', 'site_lotacao:buscar'],
+                ],
+                'site_lotacao_deletar' => [
+                    'titulo' => self::TITULO_DELETAR,
+                    'scope' => 'site_lotacao:deletar',
+                ],
+                'site_lotacao_empresa' => [
+                    'titulo' => self::TITULO_EMPRESA,
+                    'scope' => ''
+                ],
             ]
         ],
         'view_pagina'              => [
             'titulo'    => 'View Página',
             'permissao' => [
-                'view_pagina_index'      => 'Listar',
-                'view_pagina_visualizar' => 'Visualizar',
-                'view_pagina_add'        => 'Salvar',
-                'view_pagina_editar'     => 'Editar',
-                'view_pagina_deletar'    => 'Deletar',
+                'view_pagina_index' => [
+                    'titulo' => self::TITULO_LISTAR,
+                    'scope' => 'view_pagina:listar',
+                ],
+                'view_pagina_visualizar' => [
+                    'titulo' => self::TITULO_VISUALIZAR,
+                    'scope' => 'view_pagina:buscar',
+                ],
+                'view_pagina_add' => [
+                    'titulo' => self::TITULO_SALVAR,
+                    'scope' => ['view_pagina:salvar', 'view_pagina:buscar'],
+                ],
+                'view_pagina_editar' => [
+                    'titulo' => self::TITULO_EDITAR,
+                    'scope' => ['view_pagina:atualizar', 'view_pagina:buscar'],
+                ],
+                'view_pagina_deletar' => [
+                    'titulo' => self::TITULO_DELETAR,
+                    'scope' => 'view_pagina:deletar',
+                ]
             ]
         ],
-        'silium_comissao'          => [
+        'silium_comissao'  => [
             'titulo'    => 'Comissões do Silium (Cashback)',
             'permissao' => [
-                'silium_comissao_index'      => 'Listar',
-                'silium_comissao_visualizar' => 'Visualizar',
-                'silium_comissao_add'        => 'Salvar',
-                'silium_comissao_editar'     => 'Editar',
-                'silium_comissao_status'     => 'Status',
-                'silium_comissao_deletar'    => 'Deletar'
+                'silium_comissao_index' => [
+                    'titulo' => self::TITULO_LISTAR,
+                    'scope'=> 'silium_comissao:listar',
+                ],
+                'silium_comissao_visualizar' => [
+                    'titulo' => self::TITULO_VISUALIZAR,
+                    'scope' => 'silium_comissao:buscar',
+                ],
+                'silium_comissao_add' => [
+                    'titulo' => self::TITULO_SALVAR,
+                    'scope' => ['silium_comissao:salvar', 'silium_comissao:buscar'],
+                ],
+                'silium_comissao_editar' => [
+                    'titulo' => self::TITULO_EDITAR,
+                    'scope' => ['silium_comissao:atualizar', 'silium_comissao:buscar'],
+                ],
+                'silium_comissao_status' => [
+                    'titulo' => self::TITULO_STATUS,
+                    'scope' => 'silium_comissao:atualizar',
+                ],
+                'silium_comissao_deletar' => [
+                    'titulo' => self::TITULO_DELETAR,
+                    'scope'=> 'silium_comissao:deletar',
+                ],
             ]
         ],
-        'silium_deposito'          => [
+        'silium_deposito'  => [
             'titulo'    => 'Depósitos do Silium (Cashback)',
             'permissao' => [
-                'silium_deposito_index'      => 'Listar',
-                'silium_deposito_visualizar' => 'Visualizar',
-                'silium_deposito_add'        => 'Salvar',
-                'silium_deposito_editar'     => 'Editar',
-                'silium_deposito_status'     => 'Status',
-                'silium_deposito_deletar'    => 'Deletar'
+                'silium_deposito_index'=> [
+                    'titulo' => self::TITULO_LISTAR,
+                    'scope' => 'silium_deposito:listar',
+                ],
+                'silium_deposito_visualizar' => [
+                    'titulo' => self::TITULO_VISUALIZAR,
+                    'scope' => 'silium_deposito:buscar',
+                ],
+                'silium_deposito_add' => [
+                    'titulo' => self::TITULO_SALVAR,
+                    'scope' => ['silium_deposito:salvar', 'silium_deposito:buscar']
+                ],
+                'silium_deposito_editar' => [
+                    'titulo' => self::TITULO_EDITAR,
+                    'scope' => ['silium_deposito:atualizar', 'silium_deposito:buscar']
+                ],
+                'silium_deposito_status' => [
+                    'titulo' => self::TITULO_STATUS,
+                    'scope' => 'silium_deposito:status'
+                ],
+                'silium_deposito_deletar' => [
+                    'titulo' => self::TITULO_DELETAR,
+                    'scope' => 'silium_deposito:deletar'
+                ]
             ]
         ],
-        'silium_saque'             => [
+        'silium_saque'  => [
             'titulo'    => 'Solicitações de Saque (Cashback)',
             'permissao' => [
-                'silium_saque_index'      => 'Listar',
-                'silium_saque_visualizar' => 'Visualizar',
-                'silium_saque_add'        => 'Salvar',
-                'silium_saque_editar'     => 'Editar',
-                'silium_saque_status'     => 'Status',
-                'silium_saque_deletar'    => 'Deletar'
+                'silium_saque_index'      => [
+                    'titulo' => self::TITULO_LISTAR,
+                    'scope' => 'silium_saque:listar',
+                ],
+                'silium_saque_visualizar' => [
+                    'titulo' => self::TITULO_VISUALIZAR,
+                    'scope' => 'silium_saque:buscar',
+                ],
+                'silium_saque_add'        => [
+                    'titulo' => self::TITULO_SALVAR,
+                    'scope' => ['silium_saque:salvar', 'silium_saque:buscar'],
+                ],
+                'silium_saque_editar' => [
+                    'titulo' => self::TITULO_EDITAR,
+                    'scope' => ['silium_saque:atualizar', 'silium_saque:buscar'],
+                ],
+                'silium_saque_status' => [
+                    'titulo' => self::TITULO_STATUS,
+                    'scope' => ['silium_deposito:listar', 'silium_deposito:buscar'],
+                ],
+                'silium_saque_deletar' => [
+                    'titulo' => self::TITULO_DELETAR,
+                    'scope' => 'silium_saque:deletar',
+                ]
             ]
         ],
-        'silium_saldo'             => [
+        'silium_saldo' => [
             'titulo'    => 'Ranking de Silium (Cashback)',
             'permissao' => [
-                'silium_saldo_index' => 'Listar'
+                'silium_saldo_index' => [
+                    'titulo'  => self::TITULO_LISTAR,
+                    'scope' => 'silium_saldo:listar',
+                ]
             ]
         ],
-        'silium_config'            => [
+        'silium_config' => [
             'titulo'    => 'Configurações do Silium (Cashback)',
             'permissao' => [
-                'silium_config_index'      => 'Listar',
-                'silium_config_visualizar' => 'Visualizar',
-                'silium_config_add'        => 'Salvar',
-                'silium_config_editar'     => 'Editar',
-                'silium_config_deletar'    => 'Deletar'
+                'silium_config_index' => [
+                    'titulo'  => self::TITULO_LISTAR,
+                    'scope' => 'silium_config:listar',
+                ],
+                'silium_config_visualizar' => [
+                    'titulo' => self::TITULO_VISUALIZAR,
+                    'scope' => 'silium_config:buscar',
+                ],
+                'silium_config_add' => [
+                    'titulo'  => self::TITULO_SALVAR,
+                    'scope' => ['silium_config:salvar', 'silium_config:buscar'],
+                ],
+                'silium_config_editar' => [
+                    'titulo'  => self::TITULO_EDITAR,
+                    'scope' => ['silium_config:atualizar', 'silium_config:buscar'],
+                ],
+                'silium_config_deletar' => [
+                    'titulo'  => self::TITULO_DELETAR,
+                    'scope' => 'silium_config:deletar',
+                ]
             ]
         ]
     ];
