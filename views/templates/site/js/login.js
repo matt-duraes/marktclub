@@ -43,13 +43,11 @@ window.addEventListener('load', () => {
             },
             'Erro ao fazer seu login, por favor, tente novamente'
         );
-        Loading.hide();
         if (false === resposta) {
+            Loading.hide();
             return;
         }
-        blocoLogin.classList.remove('ativo');
-        setTimeout(() => {
-            blocoLogin.classList.add('display_none');
-        }, 300);
+        Alerta.notificacao('Login realizado com sucesso, recarregando página.');
+        window.location.reload();
     };
 });

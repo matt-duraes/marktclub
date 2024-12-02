@@ -53,7 +53,7 @@ final class RequisicaoEnviar
             $this->criarToken($scope);
         } elseif ($token == 'painel') {
             $this->criarTokenPainel($scope);
-        } elseif (!empty($token)) {
+        } elseif (!empty($token) && $token != 'sem_token') {
             $this->verificarClasseExiste($token);
         }
 
@@ -192,7 +192,7 @@ final class RequisicaoEnviar
     {
         $Token = new TokenCriado($nome);
         if (empty($Token->token)) {
-            mensagemErro('Erro!', 'Não foi possível criar o token');
+            mensagemErro('Erro!', 'Não foi possível criar o token para: ' . $nome . '.');
         }
 
         $token = $Token->token;
