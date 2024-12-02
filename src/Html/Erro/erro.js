@@ -1,4 +1,8 @@
 window.addEventListener('load', () => {
+    const erroExiste = document.getElementById('bloco_erro_sistema');
+    if (!erroExiste) {
+        return;
+    }
     const blocoCodigoGeral = document.getElementById('bloco_codigo_geral');
     const menuTrace = document.querySelectorAll('.botao_menu_trace');
     const blocoListaTrace = document.getElementById('bloco_lista_trace');

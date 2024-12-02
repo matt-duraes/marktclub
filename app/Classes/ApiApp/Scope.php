@@ -132,7 +132,7 @@ final class Scope
         'parceiro_campanha:atualizar', 'parceiro_campanha:buscar', 'parceiro_campanha:deletar',
         'parceiro_campanha:listar', 'parceiro_campanha:salvar',
 
-        'parceiro_cupom:listar','parceiro_cupom:status',
+        'parceiro_cupom:listar', 'parceiro_cupom:status',
 
         'parceiro_externo:download', 'parceiro_externo:buscar', 'parceiro_externo:listar',
         'parceiro_externo:salvar',
@@ -216,7 +216,7 @@ final class Scope
         'solicitacao_declaracao:status',
 
         'solicitacao_loja:atualizar', 'solicitacao_loja:buscar', 'solicitacao_loja:deletar',
-        'solicitacao_loja:download', 'solicitacao_loja:listar', 'solicitacao_loja:salvar','solicitacao_loja:status',
+        'solicitacao_loja:download', 'solicitacao_loja:listar', 'solicitacao_loja:salvar', 'solicitacao_loja:status',
 
         'solicitacao_premium:download', 'solicitacao_premium:listar', 'solicitacao_premium:buscar',
 

@@ -1133,7 +1133,12 @@ final class Padrao
         $retorno = [];
         foreach (self::PERMISSOES as $item) {
             foreach ($item['permissao'] as $ind => $val) {
-                $retorno[] = $ind;
+                $scope = $val['scope'] ?? '';
+                if (empty($scope)) {
+                    $retorno[$ind] = [];
+                    continue;
+                }
+                $retorno[$ind] = is_string($scope) ? [$scope] : $scope;
             }
         }
         return $retorno;
@@ -1141,10 +1146,10 @@ final class Padrao
 
     public function scope(array $equipe)
     {
+        $permissao = $this->permissao();
         $lista = [];
-        foreach (self::PERMISSOES as $indice => $permissao) {
-            $prefixScope = $permissao['scope'] ?? $indice;
-            if (empty($prefixScope)) {
+        foreach ($equipe as $item) {
+            if (!array_key_exists($item, $permissao) || empty($permissao[$item])) {
                 continue;
             }
             foreach ($permissao['permissao'] as $subindice => $acao) {
@@ -1153,7 +1158,6 @@ final class Padrao
                 }
             }
         }
-
         return array_values(arrayRemoverValorDuplicado($lista));
     }
 }
