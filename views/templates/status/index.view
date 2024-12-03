@@ -1,0 +1,26 @@
+<!DOCTYPE HTML>
+<html lang="pt-BR" data-theme="{!!tema()!!}">
+
+<head>
+    <meta charset="UTF-8">
+
+    <meta name="robots" content="noindex,nofollow">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+    @ if( !empty(CLUBE_FAVICON) ):
+    <link rel="icon" href="{!!CLUBE_FAVICON!!}" type="image/png">
+    @ endif;
+
+    <title>{{CLUBE_TITULO}}</title>
+
+    @CSS
+    @dir "/include/css.view"
+
+</head>
+
+<body>
+    <figure></figure>
+    [[VIEW]]
+</body>
+
+</html>
