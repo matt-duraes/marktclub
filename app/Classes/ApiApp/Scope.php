@@ -62,7 +62,8 @@ final class Scope
         'admin:painel', 'admin:menu', 'admin:chave_publica', 'admin:chave_privada',
         'comercial_empresa:buscar', 'comercial_empresa:select', 'comercial_subempresa:select',
         'comercial_restricao:select',
-        'usuario_grupo:select', 'usuario_equipe:select', 'parceiro_loja:select', 'parceiro_subcategoria:select',
+        'usuario_grupo:select', 'usuario_equipe:select', 'parceiro_loja:select',
+        'parceiro_subcategoria:select', 'usuario_equipe:mudar_empresa',
     ];
     public const PAINEL_INTERNO = [
         'perfil_dado:buscar', 'perfil_dado:atualizar', 'perfil_dado:validar_senha',
@@ -72,6 +73,9 @@ final class Scope
 
         'album_dado:listar', 'album_dado:salvar', 'album_dado:atualizar', 'album_dado:deletar',
         'album_dado:buscar', 'album_dado:foto',
+
+        'automovel_modelo:atualizar', 'automovel_modelo:buscar', 'automovel_modelo:deletar',
+        'automovel_modelo:listar', 'automovel_modelo:salvar',
 
         'carteirinha:atualizar', 'carteirinha:buscar', 'carteirinha:deletar', 'carteirinha:listar',
         'carteirinha:salvar', 'carteirinha:status',
@@ -262,16 +266,22 @@ final class Scope
         'usuario_indicacao:deletar', 'usuario_indicacao:listar', 'usuario_indicacao:status',
 
         'votacao_dado:atualizar', 'votacao_dado:buscar', 'votacao_dado:deletar', 'votacao_dado:listar',
-        'votacao_dado:resultado', 'votacao_pergunta:atualizar', 'votacao_pergunta:buscar',
-        'votacao_pergunta:deletar', 'votacao_pergunta:listar', 'votacao_pergunta:salvar',
+        'votacao_dado:resultado', 'votacao_dado:salvar',
+
+        'votacao_pergunta:atualizar', 'votacao_pergunta:buscar', 'votacao_pergunta:deletar',
+        'votacao_pergunta:listar', 'votacao_pergunta:salvar',
+
         'votacao_resposta:atualizar', 'votacao_resposta:buscar', 'votacao_resposta:deletar',
-        'votacao_resposta:listar', 'votacao_resposta:salvar', 'votacao_usuario:validar',
-        'votacao_voto:salvar',
+        'votacao_resposta:listar', 'votacao_resposta:salvar',
+
+        'votacao_usuario:validar', 'votacao_voto:salvar',
 
         'votacao:listar', 'votacao:buscar', 'votacao:salvar', 'votacao:atualizar', 'votacao:deletar',
 
         'view_html:atualizar', 'view_html:buscar', 'view_html:deletar', 'view_html:listar',
-        'view_html:salvar', 'view_pagina:atualizar', 'view_pagina:buscar', 'view_pagina:deletar',
+        'view_html:salvar',
+
+        'view_pagina:atualizar', 'view_pagina:buscar', 'view_pagina:deletar',
         'view_pagina:listar', 'view_pagina:salvar'
     ];
     public const TUDO = [
@@ -287,8 +297,10 @@ final class Scope
         'app_api:buscar', 'app_api:listar', 'app_usuario:listar',
 
         'automovel_modelo:atualizar', 'automovel_modelo:buscar', 'automovel_modelo:deletar',
-        'automovel_modelo:listar', 'automovel_modelo:salvar', 'automovel_versao:atualizar',
-        'automovel_versao:buscar', 'automovel_versao:deletar', 'automovel_versao:listar', 'automovel_versao:salvar',
+        'automovel_modelo:listar', 'automovel_modelo:salvar',
+
+        'automovel_versao:atualizar', 'automovel_versao:buscar', 'automovel_versao:deletar',
+        'automovel_versao:listar', 'automovel_versao:salvar',
 
         'campanha_sorteio:buscar', 'campanha_sorteio:resultado', 'campanha_sorteio:sortear',
 

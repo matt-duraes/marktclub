@@ -2,15 +2,15 @@
 
 namespace PainelApp\perfil\Controllers;
 
+use App\Classes\UsuarioEquipe\Helper;
+use Controller\Controller;
 use Erro\Excecao;
-use Http\Request;
-use Http\Response;
 use Helpers\ApiHelper;
 use Helpers\CryptHelper;
 use Helpers\ListaHelper;
 use Helpers\SocialHelper;
-use Controller\Controller;
-use App\Classes\UsuarioEquipe\Helper;
+use Http\Request;
+use Http\Response;
 
 final class PerfilController extends Controller
 {
@@ -23,6 +23,21 @@ final class PerfilController extends Controller
         }
 
         return view(arquivo: 'perfil.index', var: $this->descriptografarUsuario($usuario['dado']));
+    }
+
+    private function descriptografarUsuario($dado): array
+    {
+        $Api = new ApiHelper(token: true);
+        $chave = $Api->get('/admin/chave-privada')->object()->dado->chave ?? '';
+        $crypt = new CryptHelper(chavePrivada: $chave);
+        foreach ($dado as $ind => $val) {
+            if (empty($val) || !in_array($ind, Helper::CRIPTOGRAFAR)) {
+                continue;
+            }
+            $val = $crypt->decode($val);
+            $dado[$ind] = $val;
+        }
+        return $dado;
     }
 
     public function dado(): Response
@@ -44,21 +59,6 @@ final class PerfilController extends Controller
             'genero'    => (new ListaHelper())->add('', 'Escolha uma opção')->genero()->r(),
             'usuario'   => $this->descriptografarUsuario($usuario['dado'])
         ]);
-    }
-
-    private function descriptografarUsuario($dado): array
-    {
-        $Api = new ApiHelper(token: true);
-        $chave = $Api->get('/admin/chave-privada')->object()->dado->chave ?? '';
-        $crypt = new CryptHelper(chavePrivada: $chave);
-        foreach ($dado as $ind => $val) {
-            if (empty($val) || !in_array($ind, Helper::CRIPTOGRAFAR)) {
-                continue;
-            }
-            $val = $crypt->decode($val);
-            $dado[$ind] = $val;
-        }
-        return $dado;
     }
 
     public function postValidarSenha(Request $request)
@@ -113,10 +113,27 @@ final class PerfilController extends Controller
         return new Response(status: 204);
     }
 
+    private function verificarUsuarioLogadoAjax()
+    {
+        if (!sessaoExiste('USUARIO.id')) {
+            throw new Excecao(
+                titulo: 'Usuário deslogado!',
+                mensagem: 'Seu usuário foi deslogado, refaça seu login pra continuar.',
+                status: 401
+            );
+        }
+    }
+
     public function getSenha(): Response
     {
         return view(arquivo: 'perfil.senha');
     }
+
+    /*
+    |--------------------------------------------------------------------------
+    | VINCULANDO CONTA SOCIAL
+    |--------------------------------------------------------------------------
+    */
 
     public function postSenha(Request $request): Response
     {
@@ -151,11 +168,6 @@ final class PerfilController extends Controller
         return new Response(status: 204);
     }
 
-    /*
-    |--------------------------------------------------------------------------
-    | VINCULANDO CONTA SOCIAL
-    |--------------------------------------------------------------------------
-    */
     public function postSocial(Request $request)
     {
         $this->verificarUsuarioLogadoAjax();
@@ -201,6 +213,12 @@ final class PerfilController extends Controller
         ], status: 201);
     }
 
+    /*
+    |--------------------------------------------------------------------------
+    | UPDATE DE IMAGEM
+    |--------------------------------------------------------------------------
+    */
+
     private function atualizarDadoDaEquipe($dado)
     {
         $Api = new ApiHelper(token: true);
@@ -222,9 +240,10 @@ final class PerfilController extends Controller
 
     /*
     |--------------------------------------------------------------------------
-    | UPDATE DE IMAGEM
+    | MUDAR A EMPRESA DA EQUIPE
     |--------------------------------------------------------------------------
     */
+
     public function postImagem(Request $request)
     {
         $arquivo = $request->getFiles('arquivo');
@@ -243,11 +262,6 @@ final class PerfilController extends Controller
         return mensagemSucesso(['imagem' => $imagem . '?cache=' . md5(uniqid(time()))], status: 201);
     }
 
-    /*
-    |--------------------------------------------------------------------------
-    | MUDAR A EMPRESA DA EQUIPE
-    |--------------------------------------------------------------------------
-    */
     public function empresa()
     {
         $empresa = (new ApiHelper(token: true))
@@ -260,29 +274,19 @@ final class PerfilController extends Controller
         ]);
     }
 
-    public function postEmpresa(Request $request)
-    {
-        (new ApiHelper(token: true))
-            ->validar('Erro ao mudar a empresa da equipe.')
-            ->body(['empresa' => $request->empresa])
-            ->put('/perfil-dado/empresa');
-
-        return new Response(status: 204);
-    }
-
     /*
     |--------------------------------------------------------------------------
     | MENSAGEM SE O USUÁRIO NÃO ESTIVER LOGADO
     |--------------------------------------------------------------------------
     */
-    private function verificarUsuarioLogadoAjax()
+
+    public function postEmpresa(Request $request)
     {
-        if (!sessaoExiste('USUARIO.id')) {
-            throw new Excecao(
-                titulo: 'Usuário deslogado!',
-                mensagem: 'Seu usuário foi deslogado, refaça seu login pra continuar.',
-                status: 401
-            );
-        }
+        (new ApiHelper(token: true))
+            ->validar('Erro ao mudar a empresa da equipe.')
+            ->body(['empresa' => $request->empresa])
+            ->put('/usuario-equipe/empresa');
+
+        return new Response(status: 204);
     }
 }

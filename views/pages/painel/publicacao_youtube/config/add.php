@@ -4,8 +4,8 @@ use App\Classes\Geral\Status;
 use App\Classes\PublicacaoYoutube\Local;
 
 $Painel = new PainelConfig\Add(app: 'publicacao_youtube', acao: $acao);
-$diretorioImagem = sessao('PAINEL.upload_grupo')['imagem'] ?? '';
-$diretorioArquivo = sessao('PAINEL.upload_grupo')['arquivo'] ?? '';
+$diretorioImagem = sessao('PAINEL.upload_grupo')->imagem ?? '';
+$diretorioArquivo = sessao('PAINEL.upload_grupo')->arquivo ?? '';
 
 $Painel->coluna(callback: function () use ($Painel) {
     $Painel->fieldset('Dados principais', function () use ($Painel) {
