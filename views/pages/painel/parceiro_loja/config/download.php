@@ -50,6 +50,7 @@ $Painel
         $Painel
             ->campo('categoria_principal', 'Categoria principal')
             ->campo('tipo_loja', 'Tipo de loja')
+            ->campo('email_contato', 'E-mail contato')
             ->campo('status', 'Status');
     });
 
