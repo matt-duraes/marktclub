@@ -7,7 +7,8 @@ final class Scope
     public const CLUBE_INTERNO = [
         'perfil_dado:buscar', 'perfil_dado:atualizar', 'perfil_dado:validar_senha',
         'perfil_dado:atualizar_senha', 'perfil_dado:alterar_imagem',
-        'usuario_dependente:listar', 'usuario_dependente:salvar', 'usuario_dependente:email', 'usuario_dependente:deletar',
+        'usuario_dependente:listar', 'usuario_dependente:salvar', 'usuario_dependente:email',
+        'usuario_dependente:deletar',
         'usuario_indicacao:salvar',
         'admin:chave_publica', 'admin:chave_privada',
         'relatorio_analytics:salvar',
@@ -61,7 +62,8 @@ final class Scope
         'admin:painel', 'admin:menu', 'admin:chave_publica', 'admin:chave_privada',
         'comercial_empresa:buscar', 'comercial_empresa:select', 'comercial_subempresa:select',
         'comercial_restricao:select',
-        'usuario_grupo:select', 'usuario_equipe:select', 'parceiro_loja:select', 'parceiro_subcategoria:select',
+        'usuario_grupo:select', 'usuario_equipe:select', 'parceiro_loja:select',
+        'parceiro_subcategoria:select', 'usuario_equipe:mudar_empresa',
     ];
     public const PAINEL_INTERNO = [
         'perfil_dado:buscar', 'perfil_dado:atualizar', 'perfil_dado:validar_senha',
@@ -70,6 +72,10 @@ final class Scope
         'admin:painel', 'admin:menu', 'admin:chave_publica', 'admin:chave_privada',
 
         'album_dado:listar', 'album_dado:salvar', 'album_dado:atualizar', 'album_dado:deletar',
+        'album_dado:buscar', 'album_dado:foto',
+
+        'automovel_modelo:atualizar', 'automovel_modelo:buscar', 'automovel_modelo:deletar',
+        'automovel_modelo:listar', 'automovel_modelo:salvar',
 
         'carteirinha:atualizar', 'carteirinha:buscar', 'carteirinha:deletar', 'carteirinha:listar',
         'carteirinha:salvar', 'carteirinha:status',
@@ -95,9 +101,13 @@ final class Scope
         'comercial_subempresa:salvar', 'comercial_subempresa:select',
 
         'comunicacao_login:atualizar', 'comunicacao_login:buscar', 'comunicacao_login:deletar',
-        'comunicacao_login:listar', 'comunicacao_login:salvar', 'comunicacao_publicidade:atualizar',
-        'comunicacao_publicidade:buscar', 'comunicacao_publicidade:deletar', 'comunicacao_publicidade:listar',
+        'comunicacao_login:listar', 'comunicacao_login:salvar',
+
+        'comunicacao_publicidade:atualizar', 'comunicacao_publicidade:buscar',
+        'comunicacao_publicidade:deletar', 'comunicacao_publicidade:listar',
         'comunicacao_publicidade:salvar',
+
+        'comercial_atendimento:listar',
 
         'construtor_clube:listar', 'construtor_clube:buscar', 'construtor_clube:salvar',
         'construtor_clube:atualizar', 'construtor_clube:deletar',
@@ -105,8 +115,8 @@ final class Scope
         'demanda_dado:atualizar', 'demanda_dado:buscar', 'demanda_dado:cancelar',
         'demanda_dado:listar', 'demanda_dado:salvar',
 
-        'demanda_sprint:atualizar', 'demanda_sprint:buscar', 'demanda_sprint:demanda', 'demanda_sprint:listar',
-        'demanda_sprint:salvar', 'demanda_sprint:status',
+        'demanda_sprint:atualizar', 'demanda_sprint:buscar', 'demanda_sprint:demanda',
+        'demanda_sprint:listar', 'demanda_sprint:salvar', 'demanda_sprint:status',
 
         'demanda_trabalho:atualizar', 'demanda_trabalho:salvar',
 
@@ -116,7 +126,7 @@ final class Scope
         'enquete:listar', 'enquete:buscar', 'enquete:salvar', 'enquete:atualizar', 'enquete:deletar',
 
         'enquete_satisfacao:listar', 'enquete_satisfacao:buscar', 'enquete_satisfacao:deletar',
-        'enquete_satisfacao:status',
+        'enquete_satisfacao:status', 'enquete_satisfacao:atualizar',
 
         'log_erro:listar', 'log_erro:buscar', 'log_erro:status',
 
@@ -132,7 +142,8 @@ final class Scope
         'parceiro_campanha:atualizar', 'parceiro_campanha:buscar', 'parceiro_campanha:deletar',
         'parceiro_campanha:listar', 'parceiro_campanha:salvar',
 
-        'parceiro_cupom:listar', 'parceiro_cupom:status',
+        'parceiro_cupom:listar', 'parceiro_cupom:status', 'parceiro_cupom:atualizar',
+        'parceiro_cupom:buscar',
 
         'parceiro_externo:download', 'parceiro_externo:buscar', 'parceiro_externo:listar',
         'parceiro_externo:salvar',
@@ -147,7 +158,8 @@ final class Scope
 
         'parceiro_subcategoria:listar', 'parceiro_subcategoria:select',
 
-        'parceiro_easylive:atualizar', 'parceiro_easylive:buscar', 'parceiro_easylive:deletar', 'parceiro_easylive:listar',
+        'parceiro_easylive:atualizar', 'parceiro_easylive:buscar', 'parceiro_easylive:deletar',
+        'parceiro_easylive:listar',
         'parceiro_easylive:salvar',
 
         'publicacao_arquivo:atualizar', 'publicacao_arquivo:buscar', 'publicacao_arquivo:deletar',
@@ -172,9 +184,11 @@ final class Scope
         'publicacao_youtube:atualizar', 'publicacao_youtube:buscar', 'publicacao_youtube:salvar',
         'publicacao_youtube:deletar', 'publicacao_youtube:listar',
 
-        'relatorio_acesso:listar', 'relatorio_analytics:listar', 'relatorio_loja_venda:listar', 'relatorio_usuario:listar',
+        'relatorio_acesso:listar', 'relatorio_analytics:listar', 'relatorio_loja_venda:listar',
+        'relatorio_usuario:listar',
 
         'saude_contratacao:listar', 'saude_contratacao:buscar', 'saude_contratacao:status',
+        'saude_contratacao:atualizar',
 
         'silium_deposito:atualizar', 'silium_deposito:buscar', 'silium_deposito:deletar',
         'silium_deposito:listar', 'silium_deposito:salvar', 'silium_deposito:status',
@@ -222,9 +236,9 @@ final class Scope
 
         'solicitacao_salavip:download', 'solicitacao_salavip:listar',
 
-        'solicitacao_voucher:listar', 'solicitacao_voucher:buscar',
+        'solicitacao_voucher:listar', 'solicitacao_voucher:buscar', 'solicitacao_voucher:download',
 
-        'tabela_usuario:salvar',
+        'tabela_usuario:salvar', 'tabela_usuario:listar',
 
         'texto_clube:atualizar', 'texto_clube:buscar', 'texto_clube:deletar', 'texto_clube:listar',
         'texto_clube:salvar',
@@ -252,16 +266,22 @@ final class Scope
         'usuario_indicacao:deletar', 'usuario_indicacao:listar', 'usuario_indicacao:status',
 
         'votacao_dado:atualizar', 'votacao_dado:buscar', 'votacao_dado:deletar', 'votacao_dado:listar',
-        'votacao_dado:resultado', 'votacao_pergunta:atualizar', 'votacao_pergunta:buscar',
-        'votacao_pergunta:deletar', 'votacao_pergunta:listar', 'votacao_pergunta:salvar',
+        'votacao_dado:resultado', 'votacao_dado:salvar',
+
+        'votacao_pergunta:atualizar', 'votacao_pergunta:buscar', 'votacao_pergunta:deletar',
+        'votacao_pergunta:listar', 'votacao_pergunta:salvar',
+
         'votacao_resposta:atualizar', 'votacao_resposta:buscar', 'votacao_resposta:deletar',
-        'votacao_resposta:listar', 'votacao_resposta:salvar', 'votacao_usuario:validar',
-        'votacao_voto:salvar',
+        'votacao_resposta:listar', 'votacao_resposta:salvar',
+
+        'votacao_usuario:validar', 'votacao_voto:salvar',
 
         'votacao:listar', 'votacao:buscar', 'votacao:salvar', 'votacao:atualizar', 'votacao:deletar',
 
         'view_html:atualizar', 'view_html:buscar', 'view_html:deletar', 'view_html:listar',
-        'view_html:salvar', 'view_pagina:atualizar', 'view_pagina:buscar', 'view_pagina:deletar',
+        'view_html:salvar',
+
+        'view_pagina:atualizar', 'view_pagina:buscar', 'view_pagina:deletar',
         'view_pagina:listar', 'view_pagina:salvar'
     ];
     public const TUDO = [
@@ -277,8 +297,10 @@ final class Scope
         'app_api:buscar', 'app_api:listar', 'app_usuario:listar',
 
         'automovel_modelo:atualizar', 'automovel_modelo:buscar', 'automovel_modelo:deletar',
-        'automovel_modelo:listar', 'automovel_modelo:salvar', 'automovel_versao:atualizar',
-        'automovel_versao:buscar', 'automovel_versao:deletar', 'automovel_versao:listar', 'automovel_versao:salvar',
+        'automovel_modelo:listar', 'automovel_modelo:salvar',
+
+        'automovel_versao:atualizar', 'automovel_versao:buscar', 'automovel_versao:deletar',
+        'automovel_versao:listar', 'automovel_versao:salvar',
 
         'campanha_sorteio:buscar', 'campanha_sorteio:resultado', 'campanha_sorteio:sortear',
 
@@ -315,7 +337,7 @@ final class Scope
         'demanda_tarefa:atualizar', 'demanda_tarefa:deletar', 'demanda_tarefa:like',
         'demanda_tarefa:salvar', 'demanda_tarefa:buscar',
 
-        'enquete_satisfacao:listar', 'enquete_satisfacao:buscar',
+        'enquete_satisfacao:listar', 'enquete_satisfacao:buscar', 'enquete_satisfacao:atualizar',
 
         'login:api', 'login:clube', 'login:painel', 'login:digio', 'login:token',
 
@@ -341,7 +363,8 @@ final class Scope
 
         'parceiro_subcategoria:listar',
 
-        'parceiro_easylive:atualizar', 'parceiro_easylive:buscar', 'parceiro_easylive:deletar', 'parceiro_easylive:listar',
+        'parceiro_easylive:atualizar', 'parceiro_easylive:buscar', 'parceiro_easylive:deletar',
+        'parceiro_easylive:listar',
         'parceiro_easylive:salvar',
 
         'publicacao_arquivo:atualizar', 'publicacao_arquivo:buscar', 'publicacao_arquivo:deletar',

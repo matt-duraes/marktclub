@@ -3,8 +3,8 @@
 use App\Classes\Geral\Status;
 
 $Painel = new PainelConfig\Add(app: isset($enqueteApp) ? $enqueteApp : 'votacao', acao: $acao);
-$diretorioImagem = sessao('PAINEL.upload_grupo')['imagem'] ?? '';
-$diretorioArquivo = sessao('PAINEL.upload_grupo')['arquivo'] ?? '';
+$diretorioImagem = sessao('PAINEL.upload_grupo')->imagem ?? '';
+$diretorioArquivo = sessao('PAINEL.upload_grupo')->arquivo ?? '';
 
 $Painel->coluna(callback: function () use ($Painel, $diretorioArquivo, $diretorioImagem) {
     $Painel->fieldset('Dados principais', function () use ($Painel, $diretorioArquivo, $diretorioImagem) {

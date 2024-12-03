@@ -1,12 +1,12 @@
 <?php
 
-use Modules\Senha;
-use PainelConfig\Add;
-use Helpers\ApiHelper;
-use App\Classes\UsuarioEquipe\Tipo;
 use App\Classes\Painel\Config\Padrao;
 use App\Classes\UsuarioEquipe\Helper;
 use App\Classes\UsuarioEquipe\Status;
+use App\Classes\UsuarioEquipe\Tipo;
+use Helpers\ApiHelper;
+use Modules\Senha;
+use PainelConfig\Add;
 
 $Painel = new Add('usuario_equipe', acao: $acao);
 
@@ -21,8 +21,8 @@ $Painel->coluna(callback: function () use ($Painel) {
         } else {
             $Painel->select(
                 name: 'tipo',
-                label: 'Local de trabalho',
-                lista: (new Tipo())->select('Escolha uma opção')
+                lista: (new Tipo())->select('Escolha uma opção'),
+                label: 'Local de trabalho'
             );
         }
     });
@@ -80,17 +80,23 @@ if (in_array('usuario_equipe_permissao', $permissaoUsuario)) {
             callback: function () use ($Painel) {
                 $permissaoPainel = sessao('PAINEL.permissao');
                 foreach (Padrao::PERMISSOES as $configuracoes) {
-                    $titulo = $configuracoes['titulo'] ?? '';
+                    $tituloApp = $configuracoes['titulo'] ?? '';
                     $temTitulo = false;
-                    foreach ($configuracoes['permissao'] as $permissao => $nomePermissao) {
+                    foreach ($configuracoes['permissao'] as $permissao => $configPermissao) {
                         if (!in_array($permissao, $permissaoPainel)) {
                             continue;
                         }
-                        if (!empty($titulo) && !$temTitulo) {
-                            $Painel->html('<h4>' . $titulo . '</h4>');
+                        if (!empty($tituloApp) && !$temTitulo) {
+                            $Painel->html('<h4>' . $tituloApp . '</h4>');
                         }
                         $temTitulo = true;
-                        $Painel->checkbox(name: 'permissao[]', label: $nomePermissao, value: $permissao);
+                        $Painel->checkbox(
+                            name: 'permissao[]',
+                            label: is_string($configPermissao)
+                                ? $configPermissao
+                                : $configPermissao['titulo'],
+                            value: $permissao
+                        );
                     }
                 }
             },

@@ -4,11 +4,23 @@ namespace App\Classes\Painel\Config;
 
 final class Padrao
 {
+    public const TITULO_LISTAR = 'Listar';
+    public const TITULO_VISUALIZAR = 'Visualizar';
+    public const TITULO_SALVAR = 'Salvar';
+    public const TITULO_EDITAR = 'Editar';
+    public const TITULO_DOWNLOAD = 'Download';
+    public const TITULO_ANALYTICS = 'Analytics';
+    public const TITULO_DELETAR = 'Deletar';
+    public const TITULO_STATUS = 'Status';
+    public const TITULO_APPLE = 'Apple';
+    public const TITULO_EMPRESA = 'Todas as Empresas';
+    public const TITULO_EQUIPE = 'Todos da Equipe';
+    public const TITULO_PERMISSOES = 'Todas as Permissões';
+    public const TITULO_DOWN_HISTORICO = 'Download do Historico';
     public const RECURSOS = [
         'perfil'      => 'Perfil',
         'agenda'      => 'Agenda',
         'google'      => 'Google',
-        'darkMode'    => 'Dark Mode (ALPHA)',
         'assinatura'  => 'Assinatura',
         'atualizacao' => 'Atualizações'
     ];
@@ -155,322 +167,610 @@ final class Padrao
         ]
     ];
     public const PERMISSOES = [
-        'usuario_cliente' => [
+        'usuario_cliente'          => [
             'titulo'    => 'Usuário Cliente',
             'permissao' => [
                 'usuario_cliente_index'      => [
-                    'titulo' => 'Listar',
-                    'scope'  => 'usuario_cliente:listar',
+                    'titulo' => self::TITULO_LISTAR,
+                    'scope'  => 'usuario_cliente:listar'
                 ],
                 'usuario_cliente_visualizar' => [
-                    'titulo' => 'Visualizar',
-                    'scope'  => 'usuario_cliente:buscar',
+                    'titulo' => self::TITULO_VISUALIZAR,
+                    'scope'  => ['usuario_cliente:buscar', 'site_lotacao:select']
                 ],
                 'usuario_cliente_add'        => [
-                    'titulo' => 'Salvar',
-                    'scope'  => ['usuario_cliente:salvar', 'usuario_cliente:buscar'],
+                    'titulo' => self::TITULO_SALVAR,
+                    'scope'  => 'usuario_cliente:salvar'
                 ],
                 'usuario_cliente_editar'     => [
-                    'titulo' => 'Editar',
-                    'scope'  => ['usuario_cliente:atualizar', 'usuario_cliente:buscar'],
+                    'titulo' => self::TITULO_EDITAR,
+                    'scope'  => ['usuario_cliente:atualizar', 'usuario_cliente:buscar']
                 ],
                 'usuario_cliente_deletar'    => [
-                    'titulo' => 'Deletar',
-                    'scope'  => 'usuario_cliente:deletar',
+                    'titulo' => self::TITULO_DELETAR,
+                    'scope'  => 'usuario_cliente:deletar'
                 ],
                 'usuario_cliente_download'   => [
-                    'titulo' => 'Download',
-                    'scope'  => 'usuario_cliente:download',
+                    'titulo' => self::TITULO_DOWNLOAD,
+                    'scope'  => 'usuario_cliente:download'
                 ],
                 'usuario_cliente_analytics'  => [
-                    'titulo' => 'Analytics',
-                    'scope'  => 'relatorio_analytics:listar',
+                    'titulo' => self::TITULO_ANALYTICS,
+                    'scope'  => 'relatorio_analytics:listar'
                 ],
                 'usuario_cliente_apple'      => [
-                    'titulo' => 'Apple',
+                    'titulo' => self::TITULO_APPLE,
                     'scope'  => 'usuario_cliente:apple'
                 ],
-                'usuario_cliente_empresa' => 'Todas as empresas'
+                'usuario_cliente_empresa'    => self::TITULO_EMPRESA
             ]
         ],
         'usuario_grupo'            => [
             'titulo'    => 'Usuário Grupo',
             'permissao' => [
                 'usuario_grupo_index'   => [
-                    'titulo' => 'Listar',
+                    'titulo' => self::TITULO_LISTAR,
                     'scope'  => 'usuario_grupo:listar'
                 ],
                 'usuario_grupo_add'     => [
-                    'titulo' => 'Salvar',
-                    'scope'  => ['usuario_grupo:salvar', 'usuario_grupo:buscar'],
+                    'titulo' => self::TITULO_SALVAR,
+                    'scope'  => 'usuario_grupo:salvar'
                 ],
                 'usuario_grupo_editar'  => [
-                    'titulo' => 'Editar',
-                    'scope'  => ['usuario_grupo:atualizar', 'usuario_grupo:buscar'],
+                    'titulo' => self::TITULO_EDITAR,
+                    'scope'  => ['usuario_grupo:atualizar', 'usuario_grupo:buscar']
                 ],
                 'usuario_grupo_deletar' => [
-                    'titulo' => 'Deletar',
+                    'titulo' => self::TITULO_DELETAR,
                     'scope'  => 'usuario_grupo:deletar'
-                ],
+                ]
             ]
         ],
         'usuario_dependente'       => [
             'titulo'    => 'Usuário Dependente',
             'permissao' => [
-                'usuario_dependente_index'   => 'Listar',
-                'usuario_dependente_add'     => 'Salvar',
-                'usuario_dependente_deletar' => 'Deletar'
+                'usuario_dependente_index'   => [
+                    'titulo' => self::TITULO_LISTAR,
+                    'scope'  => 'usuario_dependente:listar'
+                ],
+                'usuario_dependente_add'     => [
+                    'titulo' => self::TITULO_SALVAR,
+                    'scope'  => 'usuario_dependente:salvar'
+                ],
+                'usuario_dependente_deletar' => [
+                    'titulo' => self::TITULO_DELETAR,
+                    'scope'  => 'usuario_dependente:deletar'
+                ]
             ]
         ],
         'usuario_indicacao'        => [
             'titulo'    => 'Usuário Indicação',
             'permissao' => [
-                'usuario_indicacao_index'      => 'Listar',
-                'usuario_indicacao_visualizar' => 'Visualizar',
-                'usuario_indicacao_status'     => 'Status',
-                'usuario_indicacao_empresa'    => 'Todas as empresas'
+                'usuario_indicacao_index'      => [
+                    'titulo' => self::TITULO_LISTAR,
+                    'scope'  => 'usuario_indicacao:listar'
+                ],
+                'usuario_indicacao_visualizar' => [
+                    'titulo' => self::TITULO_VISUALIZAR,
+                    'scope'  => 'usuario_indicacao:buscar'
+                ],
+                'usuario_indicacao_status'     => [
+                    'titulo' => self::TITULO_STATUS,
+                    'scope'  => ['usuario_indicacao:atualizar', 'usuario_indicacao:buscar']
+                ],
+                'usuario_indicacao_empresa'    => self::TITULO_EMPRESA
             ]
         ],
         'usuario_lead'             => [
             'titulo'    => 'Usuário Lead',
             'permissao' => [
-                'usuario_lead_index'      => 'Listar',
-                'usuario_lead_visualizar' => 'Visualizar',
-                'usuario_lead_status'     => 'Status',
-                'usuario_lead_empresa'    => 'Todas as empresas'
+                'usuario_lead_index'      => [
+                    'titulo' => self::TITULO_LISTAR,
+                    'scope'  => 'usuario_lead:listar'
+                ],
+                'usuario_lead_visualizar' => [
+                    'titulo' => self::TITULO_VISUALIZAR,
+                    'scope'  => 'usuario_lead:buscar'
+                ],
+                'usuario_lead_status'     => [
+                    'titulo' => self::TITULO_STATUS,
+                    'scope'  => ['usuario_lead:atualizar', 'usuario_lead:buscar']
+                ],
+                'usuario_lead_empresa'    => self::TITULO_EMPRESA
             ]
         ],
         'usuario_equipe'           => [
             'titulo'    => 'Usuário Equipe',
             'permissao' => [
-                'usuario_equipe_index'     => 'Listar',
-                'usuario_equipe_add'       => 'Salvar',
-                'usuario_equipe_editar'    => 'Editar',
-                'usuario_equipe_deletar'   => 'Deletar',
-                'usuario_equipe_permissao' => 'Todas as permissões',
-                'usuario_equipe_empresa'   => 'Todas as empresas'
+                'usuario_equipe_index'     => [
+                    'titulo' => self::TITULO_LISTAR,
+                    'scope'  => 'usuario_equipe:listar'
+                ],
+                'usuario_equipe_add'       => [
+                    'titulo' => self::TITULO_SALVAR,
+                    'scope'  => 'usuario_equipe:salvar'
+                ],
+                'usuario_equipe_editar'    => [
+                    'titulo' => self::TITULO_EDITAR,
+                    'scope'  => ['usuario_equipe:atualizar', 'usuario_equipe:buscar']
+                ],
+                'usuario_equipe_deletar'   => [
+                    'titulo' => self::TITULO_DELETAR,
+                    'scope'  => 'usuario_equipe:deletar'
+                ],
+                'usuario_equipe_permissao' => self::TITULO_PERMISSOES,
+                'usuario_equipe_empresa'   => self::TITULO_EMPRESA
             ]
         ],
         'comunicacao_login'        => [
             'titulo'    => 'Banners de Login',
             'permissao' => [
-                'comunicacao_login_index'   => 'Listar',
-                'comunicacao_login_add'     => 'Salvar',
-                'comunicacao_login_editar'  => 'Editar',
-                'comunicacao_login_deletar' => 'Deletar',
-                'comunicacao_login_empresa' => 'Todas as empresas'
+                'comunicacao_login_index'   => [
+                    'titulo' => self::TITULO_LISTAR,
+                    'scope'  => 'comunicacao_login:listar'
+                ],
+                'comunicacao_login_add'     => [
+                    'titulo' => self::TITULO_SALVAR,
+                    'scope'  => 'comunicacao_login:salvar'
+                ],
+                'comunicacao_login_editar'  => [
+                    'titulo' => self::TITULO_EDITAR,
+                    'scope'  => ['comunicacao_login:atualizar', 'comunicacao_login:buscar']
+                ],
+                'comunicacao_login_deletar' => [
+                    'titulo' => self::TITULO_DELETAR,
+                    'scope'  => 'comunicacao_login:deletar'
+                ],
+                'comunicacao_login_empresa' => self::TITULO_EMPRESA
             ]
         ],
         'comunicacao_publicidade'  => [
             'titulo'    => 'Publicidade',
             'permissao' => [
-                'comunicacao_publicidade_index'   => 'Listar',
-                'comunicacao_publicidade_add'     => 'Salvar',
-                'comunicacao_publicidade_editar'  => 'Editar',
-                'comunicacao_publicidade_deletar' => 'Deletar',
-                'comunicacao_publicidade_empresa' => 'Todas as empresas'
+                'comunicacao_publicidade_index'   => [
+                    'titulo' => self::TITULO_LISTAR,
+                    'scope'  => 'comunicacao_publicidade:listar'
+                ],
+                'comunicacao_publicidade_add'     => [
+                    'titulo' => self::TITULO_SALVAR,
+                    'scope'  => 'comunicacao_publicidade:salvar'
+                ],
+                'comunicacao_publicidade_editar'  => [
+                    'titulo' => self::TITULO_EDITAR,
+                    'scope'  => ['comunicacao_publicidade:atualizar', 'comunicacao_publicidade:buscar']
+                ],
+                'comunicacao_publicidade_deletar' => [
+                    'titulo' => self::TITULO_DELETAR,
+                    'scope'  => 'comunicacao_publicidade:deletar'
+                ],
+                'comunicacao_publicidade_empresa' => self::TITULO_EMPRESA
             ]
         ],
         'solicitacao_contato'      => [
             'titulo'    => 'Solicitação Contato',
             'permissao' => [
-                'solicitacao_contato_index'      => 'Listar',
-                'solicitacao_contato_visualizar' => 'Visualizar',
-                'solicitacao_contato_status'     => 'Status',
-                'solicitacao_contato_empresa'    => 'Todas as empresas'
+                'solicitacao_contato_index'      => [
+                    'titulo' => self::TITULO_LISTAR,
+                    'scope'  => 'solicitacao_contato:listar'
+                ],
+                'solicitacao_contato_visualizar' => [
+                    'titulo' => self::TITULO_VISUALIZAR,
+                    'scope'  => 'solicitacao_contato:buscar'
+                ],
+                'solicitacao_contato_status'     => [
+                    'titulo' => self::TITULO_STATUS,
+                    'scope'  => ['solicitacao_contato:atualizar', 'solicitacao_contato:buscar']
+                ],
+                'solicitacao_contato_empresa'    => self::TITULO_EMPRESA
             ]
         ],
         'comercial_popup'          => [
             'titulo'    => 'Popup',
             'permissao' => [
-                'comercial_popup_index'   => 'Listar',
-                'comercial_popup_add'     => 'Salvar',
-                'comercial_popup_editar'  => 'Editar',
-                'comercial_popup_deletar' => 'Deletar',
-                'comercial_popup_empresa' => 'Todas as empresas'
+                'comercial_popup_index'   => [
+                    'titulo' => self::TITULO_LISTAR,
+                    'scope'  => 'comercial_popup:listar'
+                ],
+                'comercial_popup_add'     => [
+                    'titulo' => self::TITULO_SALVAR,
+                    'scope'  => 'comercial_popup:salvar'
+                ],
+                'comercial_popup_editar'  => [
+                    'titulo' => self::TITULO_EDITAR,
+                    'scope'  => ['comercial_popup:atualizar', 'comercial_popup:buscar']
+                ],
+                'comercial_popup_deletar' => [
+                    'titulo' => self::TITULO_DELETAR,
+                    'scope'  => 'comercial_popup:deletar'
+                ],
+                'comercial_popup_empresa' => self::TITULO_EMPRESA
             ]
         ],
         'enquete_satisfacao'       => [
             'titulo'    => 'Pesquisa Satisfação',
             'permissao' => [
-                'enquete_satisfacao_index'      => 'Listar',
-                'enquete_satisfacao_visualizar' => 'Visualizar',
-                'enquete_satisfacao_deletar'    => 'Deletar',
-                'enquete_satisfacao_status'     => 'Status',
-                'enquete_satisfacao_empresa'    => 'Todas as empresas'
+                'enquete_satisfacao_index'      => [
+                    'titulo' => self::TITULO_LISTAR,
+                    'scope'  => 'enquete_satisfacao:listar'
+                ],
+                'enquete_satisfacao_visualizar' => [
+                    'titulo' => self::TITULO_VISUALIZAR,
+                    'scope'  => 'enquete_satisfacao:buscar'
+                ],
+                'enquete_satisfacao_deletar'    => [
+                    'titulo' => self::TITULO_DELETAR,
+                    'scope'  => 'enquete_satisfacao:deletar'
+                ],
+                'enquete_satisfacao_status'     => [
+                    'titulo' => self::TITULO_STATUS,
+                    'scope'  => ['enquete_satisfacao:atualizar', 'enquete_satisfacao:buscar']
+                ],
+                'enquete_satisfacao_empresa'    => self::TITULO_EMPRESA
             ]
         ],
         'construtor_clube'         => [
             'titulo'    => 'Construtor Clube',
             'permissao' => [
-                'construtor_clube_index'   => 'Listar',
-                'construtor_clube_add'     => 'Salvar',
-                'construtor_clube_editar'  => 'Editar',
-                'construtor_clube_deletar' => 'Deletar',
-                'construtor_clube_empresa' => 'Todas as empresas'
+                'construtor_clube_index'   => [
+                    'titulo' => self::TITULO_LISTAR,
+                    'scope'  => 'construtor_clube:listar'
+                ],
+                'construtor_clube_add'     => [
+                    'titulo' => self::TITULO_SALVAR,
+                    'scope'  => 'construtor_clube:salvar'
+                ],
+                'construtor_clube_editar'  => [
+                    'titulo' => self::TITULO_EDITAR,
+                    'scope'  => ['construtor_clube:atualizar', 'construtor_clube:buscar']
+                ],
+                'construtor_clube_deletar' => [
+                    'titulo' => self::TITULO_DELETAR,
+                    'scope'  => 'construtor_clube:deletar'
+                ],
+                'construtor_clube_empresa' => self::TITULO_EMPRESA
             ]
         ],
         'publicacao_noticia'       => [
             'titulo'    => 'Notícias',
             'permissao' => [
-                'publicacao_noticia_index'   => 'Listar',
-                'publicacao_noticia_add'     => 'Salvar',
-                'publicacao_noticia_editar'  => 'Editar',
-                'publicacao_noticia_deletar' => 'Deletar',
-                'publicacao_noticia_empresa' => 'Todas as empresas'
+                'publicacao_noticia_index'   => [
+                    'titulo' => self::TITULO_LISTAR,
+                    'scope'  => 'publicacao_noticia:listar'
+                ],
+                'publicacao_noticia_add'     => [
+                    'titulo' => self::TITULO_SALVAR,
+                    'scope'  => 'publicacao_noticia:salvar'
+                ],
+                'publicacao_noticia_editar'  => [
+                    'titulo' => self::TITULO_EDITAR,
+                    'scope'  => ['publicacao_noticia:atualizar', 'publicacao_noticia:buscar']
+                ],
+                'publicacao_noticia_deletar' => [
+                    'titulo' => self::TITULO_DELETAR,
+                    'scope'  => 'publicacao_noticia:deletar'
+                ],
+                'publicacao_noticia_empresa' => self::TITULO_EMPRESA
             ]
         ],
         'publicacao_lista'         => [
             'titulo'    => 'Lista geral',
             'permissao' => [
-                'publicacao_lista_index'   => 'Listar',
-                'publicacao_lista_add'     => 'Salvar',
-                'publicacao_lista_editar'  => 'Editar',
-                'publicacao_lista_deletar' => 'Deletar',
-                'publicacao_lista_empresa' => 'Todas as empresas',
+                'publicacao_lista_index'   => [
+                    'titulo' => self::TITULO_LISTAR,
+                    'scope'  => 'publicacao_lista:listar'
+                ],
+                'publicacao_lista_add'     => [
+                    'titulo' => self::TITULO_SALVAR,
+                    'scope'  => 'publicacao_lista:salvar'
+                ],
+                'publicacao_lista_editar'  => [
+                    'titulo' => self::TITULO_EDITAR,
+                    'scope'  => ['publicacao_lista:atualizar', 'publicacao_lista:buscar']
+                ],
+                'publicacao_lista_deletar' => [
+                    'titulo' => self::TITULO_DELETAR,
+                    'scope'  => 'publicacao_lista:deletar'
+                ],
+                'publicacao_lista_empresa' => self::TITULO_EMPRESA
             ]
         ],
         'publicacao_home'          => [
             'titulo'    => 'Notícia da Home',
             'permissao' => [
-                'publicacao_home_editar' => 'Editar'
+                'publicacao_home_editar' => [
+                    'titulo' => self::TITULO_EDITAR,
+                    'scope'  => ['publicacao_home:atualizar', 'publicacao_home:buscar']
+                ]
             ]
         ],
         'publicacao_live'          => [
             'titulo'    => 'Sistema de live',
             'permissao' => [
-                'publicacao_live_editar' => 'Editar'
+                'publicacao_live_editar' => [
+                    'titulo' => self::TITULO_EDITAR,
+                    'scope'  => ['publicacao_live:atualizar', 'publicacao_live:buscar']
+                ]
             ]
         ],
         'publicacao_pagina'        => [
             'titulo'    => 'Páginas',
             'permissao' => [
-                'publicacao_pagina_index'   => 'Listar',
-                'publicacao_pagina_editar'  => 'Editar',
-                'publicacao_pagina_empresa' => 'Todas as empresas'
+                'publicacao_pagina_index'   => [
+                    'titulo' => self::TITULO_LISTAR,
+                    'scope'  => 'publicacao_pagina:listar'
+                ],
+                'publicacao_pagina_editar'  => [
+                    'titulo' => self::TITULO_EDITAR,
+                    'scope'  => ['publicacao_pagina:atualizar', 'publicacao_pagina:buscar']
+                ],
+                'publicacao_pagina_empresa' => self::TITULO_EMPRESA
             ]
         ],
         'publicacao_youtube'       => [
             'titulo'    => 'Youtube',
             'permissao' => [
-                'publicacao_youtube_index'   => 'Listar',
-                'publicacao_youtube_add'     => 'Salvar',
-                'publicacao_youtube_editar'  => 'Editar',
-                'publicacao_youtube_deletar' => 'Deletar',
-                'publicacao_youtube_empresa' => 'Todas as empresas'
+                'publicacao_youtube_index'   => [
+                    'titulo' => self::TITULO_LISTAR,
+                    'scope'  => 'publicacao_youtube:listar'
+                ],
+                'publicacao_youtube_add'     => [
+                    'titulo' => self::TITULO_SALVAR,
+                    'scope'  => 'publicacao_youtube:salvar'
+                ],
+                'publicacao_youtube_editar'  => [
+                    'titulo' => self::TITULO_EDITAR,
+                    'scope'  => ['publicacao_youtube:atualizar', 'publicacao_youtube:buscar']
+                ],
+                'publicacao_youtube_deletar' => [
+                    'titulo' => self::TITULO_DELETAR,
+                    'scope'  => 'publicacao_youtube:deletar'
+                ],
+                'publicacao_youtube_empresa' => self::TITULO_EMPRESA
             ]
         ],
         'publicacao_arquivo'       => [
             'titulo'    => 'Arquivo',
             'permissao' => [
-                'publicacao_arquivo_index'   => 'Listar',
-                'publicacao_arquivo_add'     => 'Salvar',
-                'publicacao_arquivo_editar'  => 'Editar',
-                'publicacao_arquivo_deletar' => 'Deletar',
-                'publicacao_arquivo_empresa' => 'Todas as empresas'
+                'publicacao_arquivo_index'   => [
+                    'titulo' => self::TITULO_LISTAR,
+                    'scope'  => 'publicacao_arquivo:listar'
+                ],
+                'publicacao_arquivo_add'     => [
+                    'titulo' => self::TITULO_SALVAR,
+                    'scope'  => 'publicacao_arquivo:salvar'
+                ],
+                'publicacao_arquivo_editar'  => [
+                    'titulo' => self::TITULO_EDITAR,
+                    'scope'  => ['publicacao_arquivo:atualizar', 'publicacao_arquivo:buscar']
+                ],
+                'publicacao_arquivo_deletar' => [
+                    'titulo' => self::TITULO_DELETAR,
+                    'scope'  => 'publicacao_arquivo:deletar'
+                ],
+                'publicacao_arquivo_empresa' => self::TITULO_EMPRESA
             ]
         ],
         'publicacao_diretoria'     => [
             'titulo'    => 'Diretoria',
             'permissao' => [
-                'publicacao_diretoria_index'   => 'Listar',
-                'publicacao_diretoria_add'     => 'Salvar',
-                'publicacao_diretoria_editar'  => 'Editar',
-                'publicacao_diretoria_deletar' => 'Deletar',
-                'publicacao_diretoria_empresa' => 'Todas as empresas'
+                'publicacao_diretoria_index'   => [
+                    'titulo' => self::TITULO_LISTAR,
+                    'scope'  => 'publicacao_diretoria:listar'
+                ],
+                'publicacao_diretoria_add'     => [
+                    'titulo' => self::TITULO_SALVAR,
+                    'scope'  => 'publicacao_diretoria:salvar'
+                ],
+                'publicacao_diretoria_editar'  => [
+                    'titulo' => self::TITULO_EDITAR,
+                    'scope'  => ['publicacao_diretoria:atualizar', 'publicacao_diretoria:buscar']
+                ],
+                'publicacao_diretoria_deletar' => [
+                    'titulo' => self::TITULO_DELETAR,
+                    'scope'  => 'publicacao_diretoria:deletar'
+                ],
+                'publicacao_diretoria_empresa' => self::TITULO_EMPRESA
             ]
         ],
         'texto_clube'              => [
             'titulo'    => 'Texto do clube',
             'permissao' => [
-                'texto_clube_index'   => 'Listar',
-                'texto_clube_add'     => 'Salvar',
-                'texto_clube_editar'  => 'Editar',
-                'texto_clube_deletar' => 'Deletar',
-                'texto_clube_empresa' => 'Todas as empresas'
+                'texto_clube_index'   => [
+                    'titulo' => self::TITULO_LISTAR,
+                    'scope'  => 'texto_clube:listar'
+                ],
+                'texto_clube_add'     => [
+                    'titulo' => self::TITULO_SALVAR,
+                    'scope'  => 'texto_clube:salvar'
+                ],
+                'texto_clube_editar'  => [
+                    'titulo' => self::TITULO_EDITAR,
+                    'scope'  => ['texto_clube:atualizar', 'texto_clube:buscar']
+                ],
+                'texto_clube_deletar' => [
+                    'titulo' => self::TITULO_DELETAR,
+                    'scope'  => 'texto_clube:deletar'
+                ],
+                'texto_clube_empresa' => self::TITULO_EMPRESA
             ]
         ],
         'parceiro_relatorio'       => [
             'titulo'    => 'Relatório do parceiro',
             'permissao' => [
-                'parceiro_relatorio_index'   => 'Listar',
-                'parceiro_relatorio_add'     => 'Salvar',
-                'parceiro_relatorio_editar'  => 'Editar',
-                'parceiro_relatorio_deletar' => 'Deletar'
+                'parceiro_relatorio_index'   => [
+                    'titulo' => self::TITULO_LISTAR,
+                    'scope'  => 'parceiro_relatorio:listar'
+                ],
+                'parceiro_relatorio_add'     => [
+                    'titulo' => self::TITULO_SALVAR,
+                    'scope'  => 'parceiro_relatorio:salvar'
+                ],
+                'parceiro_relatorio_editar'  => [
+                    'titulo' => self::TITULO_EDITAR,
+                    'scope'  => ['parceiro_relatorio:atualizar', 'parceiro_relatorio:buscar']
+                ],
+                'parceiro_relatorio_deletar' => [
+                    'titulo' => self::TITULO_DELETAR,
+                    'scope'  => 'parceiro_relatorio:deletar'
+                ]
             ]
         ],
         'parceiro_loja'            => [
             'titulo'    => 'Loja',
             'permissao' => [
-                'parceiro_loja_index'              => 'Listar',
-                'parceiro_loja_add'                => 'Salvar',
-                'parceiro_loja_visualizar'         => 'Visualizar',
-                'parceiro_loja_editar'             => 'Editar',
-                'parceiro_loja_deletar'            => 'Deletar',
-                'parceiro_loja_download'           => 'Download',
-                'parceiro_loja_status'             => 'Status',
-                'parceiro_loja_empresa'            => 'Todas as empresas',
-                'parceiro_loja_historico_download' => 'Download do histórico'
+                'parceiro_loja_index'              => [
+                    'titulo' => self::TITULO_LISTAR,
+                    'scope'  => 'parceiro_loja:listar'
+                ],
+                'parceiro_loja_add'                => [
+                    'titulo' => self::TITULO_SALVAR,
+                    'scope'  => 'parceiro_loja:salvar'
+                ],
+                'parceiro_loja_visualizar'         => [
+                    'titulo' => self::TITULO_VISUALIZAR,
+                    'scope'  => 'parceiro_loja:buscar'
+                ],
+                'parceiro_loja_editar'             => [
+                    'titulo' => self::TITULO_EDITAR,
+                    'scope'  => ['parceiro_loja:atualizar', 'parceiro_loja:buscar']
+                ],
+                'parceiro_loja_deletar'            => [
+                    'titulo' => self::TITULO_DELETAR,
+                    'scope'  => 'parceiro_loja:deletar'
+                ],
+                'parceiro_loja_download'           => [
+                    'titulo' => self::TITULO_DOWNLOAD,
+                    'scope'  => 'parceiro_loja:download'
+                ],
+                'parceiro_loja_status'             => [
+                    'titulo' => self::TITULO_STATUS,
+                    'scope'  => ['parceiro_loja:atualizar', 'parceiro_loja:buscar']
+                ],
+                'parceiro_loja_empresa'            => self::TITULO_EMPRESA,
+                'parceiro_loja_historico_download' => self::TITULO_DOWN_HISTORICO
             ]
         ],
-        'parceiro_campanha'         => [
+        'parceiro_campanha'        => [
             'titulo'    => 'Parceiro campanha',
             'permissao' => [
-                'parceiro_campanha_index'         => 'Listar',
-                'parceiro_campanha_add'           => 'Salvar',
-                'parceiro_campanha_editar'        => 'Editar',
-                'parceiro_campanha_deletar'       => 'Deletar',
+                'parceiro_campanha_index'   => [
+                    'titulo' => self::TITULO_LISTAR,
+                    'scope'  => 'parceiro_campanha:listar'
+                ],
+                'parceiro_campanha_add'     => [
+                    'titulo' => self::TITULO_SALVAR,
+                    'scope'  => 'parceiro_campanha:salvar'
+                ],
+                'parceiro_campanha_editar'  => [
+                    'titulo' => self::TITULO_EDITAR,
+                    'scope'  => ['parceiro_campanha:atualizar', 'parceiro_campanha:buscar']
+                ],
+                'parceiro_campanha_deletar' => [
+                    'titulo' => self::TITULO_DELETAR,
+                    'scope'  => 'parceiro_campanha:deletar'
+                ]
             ]
         ],
         'parceiro_externo'         => [
             'titulo'    => 'Loja externo',
             'permissao' => [
-                'parceiro_externo_index'      => 'Listar',
-                'parceiro_externo_add'        => 'Salvar',
-                'parceiro_externo_visualizar' => 'Visualizar',
-                'parceiro_externo_equipe'     => 'Todos da equipe',
-                'parceiro_externo_download'   => 'Download',
-                'parceiro_externo_empresa'    => 'Todas as empresas'
+                'parceiro_externo_index'      => [
+                    'titulo' => self::TITULO_LISTAR,
+                    'scope'  => 'parceiro_externo:listar'
+                ],
+                'parceiro_externo_add'        => [
+                    'titulo' => self::TITULO_SALVAR,
+                    'scope'  => 'parceiro_externo:salvar'
+                ],
+                'parceiro_externo_visualizar' => [
+                    'titulo' => self::TITULO_VISUALIZAR,
+                    'scope'  => 'parceiro_externo:buscar'
+                ],
+                'parceiro_externo_download'   => [
+                    'titulo' => self::TITULO_DOWNLOAD,
+                    'scope'  => 'parceiro_externo:download'
+                ],
+                'parceiro_externo_equipe'     => self::TITULO_EQUIPE,
+                'parceiro_externo_empresa'    => self::TITULO_EMPRESA
             ]
         ],
         'parceiro_equipe'          => [
             'titulo'    => 'Sem captador',
             'permissao' => [
-                'parceiro_equipe_index'      => 'Listar',
-                'parceiro_equipe_visualizar' => 'Visualizar',
+                'parceiro_equipe_index'      => [
+                    'titulo' => self::TITULO_LISTAR,
+                    'scope'  => 'parceiro_equipe:listar'
+                ],
+                'parceiro_equipe_visualizar' => [
+                    'titulo' => self::TITULO_VISUALIZAR,
+                    'scope'  => 'parceiro_equipe:buscar'
+                ]
             ]
         ],
         'parceiro_cupom'           => [
             'titulo'    => 'Cupom',
             'permissao' => [
-                'parceiro_cupom_index'  => 'Listar',
-                'parceiro_cupom_status' => 'Status'
+                'parceiro_cupom_index'  => [
+                    'titulo' => self::TITULO_LISTAR,
+                    'scope'  => 'parceiro_cupom:listar'
+                ],
+                'parceiro_cupom_status' => [
+                    'titulo' => self::TITULO_STATUS,
+                    'scope'  => ['parceiro_cupom:atualizar', 'parceiro_cupom:buscar']
+                ]
             ]
         ],
         'parceiro_easylive'        => [
             'titulo'    => 'Easylive',
             'permissao' => [
-                'parceiro_easylive_index'   => 'Listar',
-                'parceiro_easylive_add'     => 'Salvar',
-                'parceiro_easylive_editar'  => 'Editar',
-                'parceiro_easylive_deletar' => 'Deletar'
+                'parceiro_easylive_index'   => [
+                    'titulo' => self::TITULO_LISTAR,
+                    'scope'  => 'parceiro_easylive:listar'
+                ],
+                'parceiro_easylive_add'     => [
+                    'titulo' => self::TITULO_SALVAR,
+                    'scope'  => 'parceiro_easylive:salvar'
+                ],
+                'parceiro_easylive_editar'  => [
+                    'titulo' => self::TITULO_EDITAR,
+                    'scope'  => ['parceiro_easylive:atualizar', 'parceiro_easylive:buscar']
+                ],
+                'parceiro_easylive_deletar' => [
+                    'titulo' => self::TITULO_DELETAR,
+                    'scope'  => 'parceiro_easylive:deletar'
+                ]
             ]
         ],
         'parceiro_automovel'       => [
             'titulo'    => 'Automóvel',
             'permissao' => [
-                'parceiro_automovel_index'      => 'Listar',
-                'parceiro_automovel_visualizar' => 'Visualizar',
-                'parceiro_automovel_add'        => 'Salvar',
-                'parceiro_automovel_editar'     => 'Editar',
-                'parceiro_automovel_deletar'    => 'Deletar'
+                'parceiro_automovel_index'      => [
+                    'titulo' => self::TITULO_LISTAR,
+                    'scope'  => ['parceiro_automovel:listar', 'automovel_modelo:listar']
+                ],
+                'parceiro_automovel_visualizar' => [
+                    'titulo' => self::TITULO_VISUALIZAR,
+                    'scope'  => 'parceiro_automovel:buscar'
+                ],
+                'parceiro_automovel_add'        => [
+                    'titulo' => self::TITULO_SALVAR,
+                    'scope'  => 'parceiro_automovel:salvar'
+                ],
+                'parceiro_automovel_editar'     => [
+                    'titulo' => self::TITULO_EDITAR,
+                    'scope'  => ['parceiro_automovel:atualizar', 'parceiro_automovel:buscar']
+                ],
+                'parceiro_automovel_deletar'    => [
+                    'titulo' => self::TITULO_DELETAR,
+                    'scope'  => 'parceiro_automovel:deletar'
+                ]
             ]
         ],
         'relatorio_acesso'         => [
             'titulo'    => 'Relatório Acesso',
             'permissao' => [
                 'relatorio_acesso_index'    => 'Relatório de acesso',
-                'relatorio_acesso_empresa'  => 'Todas as empresas',
+                'relatorio_acesso_empresa'  => self::TITULO_EMPRESA,
                 'relatorio_acesso_parceiro' => 'Todos os parceiros'
             ]
         ],
@@ -478,199 +778,385 @@ final class Padrao
             'titulo'    => 'Relatório de usuário',
             'permissao' => [
                 'relatorio_usuario_index'   => 'Relatório de usuário',
-                'relatorio_usuario_empresa' => 'Todas as empresas'
+                'relatorio_usuario_empresa' => self::TITULO_EMPRESA
             ]
         ],
         'relatorio_loja_venda'     => [
             'titulo'    => 'Relatório de vendas',
             'permissao' => [
                 'relatorio_loja_venda_index'    => 'Relatório de vendas',
-                'relatorio_loja_venda_empresa'  => 'Todas as empresas',
+                'relatorio_loja_venda_empresa'  => self::TITULO_EMPRESA,
                 'relatorio_loja_venda_parceiro' => 'Todos os parceiros'
             ]
         ],
         'tabela_usuario'           => [
             'titulo'    => 'Tabela de Usuário',
             'permissao' => [
-                'tabela_usuario_salvar'  => [
-                    'titulo' => 'Salvar',
-                    'scope'  => ['tabela_usuario:salvar']
+                'tabela_usuario_salvar'   => [
+                    'titulo' => self::TITULO_SALVAR,
+                    'scope'  => 'tabela_usuario:salvar'
                 ],
-                'tabela_usuario_bloquear'=> [
+                'tabela_usuario_bloquear' => [
                     'titulo' => 'Bloquear',
-                    'scope'  => ['tabela_usuario:salvar']
+                    'scope'  => 'tabela_usuario:salvar'
                 ],
-                'tabela_historico_index' => [
+                'tabela_historico_index'  => [
                     'titulo' => 'Histórico',
                     'scope'  => 'tabela_usuario:listar',
                 ],
-                'tabela_usuario_empresa' => [
-                    'titulo' => 'Todas as empresas'
+                'tabela_usuario_empresa'  => [
+                    'titulo' => self::TITULO_EMPRESA
                 ]
             ]
         ],
         'solicitacao_loja'         => [
             'titulo'    => 'Solicitação Loja',
             'permissao' => [
-                'solicitacao_loja_index'      => 'Listar',
-                'solicitacao_loja_visualizar' => 'Visualizar',
-                'solicitacao_loja_add'        => 'Salvar',
-                'solicitacao_loja_deletar'    => 'Deletar',
-                'solicitacao_loja_download'   => 'Download',
-                'solicitacao_loja_status'     => 'Status',
-                'solicitacao_loja_empresa'    => 'Todas as empresas'
+                'solicitacao_loja_index'      => [
+                    'titulo' => self::TITULO_LISTAR,
+                    'scope'  => 'solicitacao_loja:listar'
+                ],
+                'solicitacao_loja_visualizar' => [
+                    'titulo' => self::TITULO_VISUALIZAR,
+                    'scope'  => 'solicitacao_loja:buscar'
+                ],
+                'solicitacao_loja_add'        => [
+                    'titulo' => self::TITULO_SALVAR,
+                    'scope'  => 'solicitacao_loja:salvar'
+                ],
+                'solicitacao_loja_deletar'    => [
+                    'titulo' => self::TITULO_DELETAR,
+                    'scope'  => 'solicitacao_loja:deletar'
+                ],
+                'solicitacao_loja_download'   => [
+                    'titulo' => self::TITULO_DOWNLOAD,
+                    'scope'  => 'solicitacao_loja:download'
+                ],
+                'solicitacao_loja_status'     => [
+                    'titulo' => self::TITULO_STATUS,
+                    'scope'  => ['solicitacao_loja:atualizar', 'solicitacao_loja:buscar']
+                ],
+                'solicitacao_loja_empresa'    => self::TITULO_EMPRESA
             ]
         ],
         'solicitacao_voucher'      => [
             'titulo'    => 'Solicitação Voucher',
             'permissao' => [
-                'solicitacao_voucher_index'      => 'Listar',
-                'solicitacao_voucher_visualizar' => 'Visualizar',
-                'solicitacao_voucher_download'   => 'Download',
-                'solicitacao_voucher_empresa'    => 'Todas as empresas'
+                'solicitacao_voucher_index'      => [
+                    'titulo' => self::TITULO_LISTAR,
+                    'scope'  => 'solicitacao_voucher:listar'
+                ],
+                'solicitacao_voucher_visualizar' => [
+                    'titulo' => self::TITULO_VISUALIZAR,
+                    'scope'  => 'solicitacao_voucher:buscar'
+                ],
+                'solicitacao_voucher_download'   => [
+                    'titulo' => self::TITULO_DOWNLOAD,
+                    'scope'  => 'solicitacao_voucher:download'
+                ],
+                'solicitacao_voucher_empresa'    => self::TITULO_EMPRESA
             ]
         ],
         'solicitacao_premium'      => [
             'titulo'    => 'Solicitacação Voucher Premium',
             'permissao' => [
-                'solicitacao_premium_index'      => 'Listar',
-                'solicitacao_premium_visualizar' => 'Visualizar',
-                'solicitacao_premium_download'   => 'Download',
-                'solicitacao_premium_empresa'    => 'Todas as empresas'
+                'solicitacao_premium_index'      => [
+                    'titulo' => self::TITULO_LISTAR,
+                    'scope'  => 'solicitacao_premium:listar'
+                ],
+                'solicitacao_premium_visualizar' => [
+                    'titulo' => self::TITULO_VISUALIZAR,
+                    'scope'  => 'solicitacao_premium:buscar'
+                ],
+                'solicitacao_premium_download'   => [
+                    'titulo' => self::TITULO_DOWNLOAD,
+                    'scope'  => 'solicitacao_premium:download'
+                ],
+                'solicitacao_premium_empresa'    => self::TITULO_EMPRESA
             ]
         ],
         'solicitacao_salavip'      => [
             'titulo'    => 'Solicitação Salavip',
             'permissao' => [
-                'solicitacao_salavip_index'    => 'Listar',
-                'solicitacao_salavip_download' => 'Download',
-                'solicitacao_salavip_empresa'  => 'Todas as empresas'
+                'solicitacao_salavip_index'    => [
+                    'titulo' => self::TITULO_LISTAR,
+                    'scope'  => 'solicitacao_salavip:listar'
+                ],
+                'solicitacao_salavip_download' => [
+                    'titulo' => self::TITULO_DOWNLOAD,
+                    'scope'  => 'solicitacao_salavip:download'
+                ],
+                'solicitacao_salavip_empresa'  => self::TITULO_EMPRESA
             ]
         ],
         'solicitacao_declaracao'   => [
             'titulo'    => 'Solicitação Declaração',
             'permissao' => [
-                'solicitacao_declaracao_index'      => 'Listar',
-                'solicitacao_declaracao_visualizar' => 'Visualizar',
-                'solicitacao_declaracao_status'     => 'Status',
-                'solicitacao_declaracao_empresa'    => 'Todas as empresas'
+                'solicitacao_declaracao_index'      => [
+                    'titulo' => self::TITULO_LISTAR,
+                    'scope'  => 'solicitacao_declaracao:listar'
+                ],
+                'solicitacao_declaracao_visualizar' => [
+                    'titulo' => self::TITULO_VISUALIZAR,
+                    'scope'  => 'solicitacao_declaracao:buscar'
+                ],
+                'solicitacao_declaracao_status'     => [
+                    'titulo' => self::TITULO_STATUS,
+                    'scope'  => ['solicitacao_declaracao:atualizar', 'solicitacao_declaracao:buscar']
+                ],
+                'solicitacao_declaracao_empresa'    => self::TITULO_EMPRESA
             ]
         ],
         'solicitacao_automovel'    => [
             'titulo'    => 'Solicitação Automóvel',
             'permissao' => [
-                'solicitacao_automovel_index'      => 'Listar',
-                'solicitacao_automovel_visualizar' => 'Visualizar',
-                'solicitacao_automovel_status'     => 'Status',
-                'solicitacao_automovel_empresa'    => 'Todas as empresas'
+                'solicitacao_automovel_index'      => [
+                    'titulo' => self::TITULO_LISTAR,
+                    'scope'  => 'solicitacao_automovel:listar'
+                ],
+                'solicitacao_automovel_visualizar' => [
+                    'titulo' => self::TITULO_VISUALIZAR,
+                    'scope'  => 'solicitacao_automovel:buscar'
+                ],
+                'solicitacao_automovel_status'     => [
+                    'titulo' => self::TITULO_STATUS,
+                    'scope'  => ['solicitacao_automovel:atualizar', 'solicitacao_automovel:buscar']
+                ],
+                'solicitacao_automovel_empresa'    => self::TITULO_EMPRESA
             ]
         ],
         'solicitacao_cheque_bonus' => [
             'titulo'    => 'Solicitação Cheque Bônus',
             'permissao' => [
-                'solicitacao_cheque_bonus_index'      => 'Listar',
-                'solicitacao_cheque_bonus_visualizar' => 'Visualizar',
-                'solicitacao_cheque_bonus_status'     => 'Status',
-                'solicitacao_cheque_bonus_empresa'    => 'Todas as empresas'
+                'solicitacao_cheque_bonus_index'      => [
+                    'titulo' => self::TITULO_LISTAR,
+                    'scope'  => 'solicitacao_cheque_bonus:listar'
+                ],
+                'solicitacao_cheque_bonus_visualizar' => [
+                    'titulo' => self::TITULO_VISUALIZAR,
+                    'scope'  => 'solicitacao_cheque_bonus:buscar'
+                ],
+                'solicitacao_cheque_bonus_status'     => [
+                    'titulo' => self::TITULO_STATUS,
+                    'scope'  => 'solicitacao_cheque_bonus:atualizar'
+                ],
+                'solicitacao_cheque_bonus_empresa'    => self::TITULO_EMPRESA
             ]
         ],
         'solicitacao_credito'      => [
             'titulo'    => 'Solicitação Crédito',
             'permissao' => [
-                'solicitacao_credito_index'      => 'Listar',
-                'solicitacao_credito_visualizar' => 'Visualizar',
-                'solicitacao_credito_status'     => 'Status',
-                'solicitacao_credito_empresa'    => 'Todas as empresas'
+                'solicitacao_credito_index'      => [
+                    'titulo' => self::TITULO_LISTAR,
+                    'scope'  => 'solicitacao_credito:listar'
+                ],
+                'solicitacao_credito_visualizar' => [
+                    'titulo' => self::TITULO_VISUALIZAR,
+                    'scope'  => 'solicitacao_credito:buscar'
+                ],
+                'solicitacao_credito_status'     => [
+                    'titulo' => self::TITULO_STATUS,
+                    'scope'  => 'solicitacao_credito:atualizar'
+                ],
+                'solicitacao_credito_empresa'    => self::TITULO_EMPRESA
             ]
         ],
         'solicitacao_codigo'       => [
             'titulo'    => 'Solicitação Código',
             'permissao' => [
-                'solicitacao_codigo_index'   => 'Listar',
-                'solicitacao_codigo_empresa' => 'Todas as empresas'
+                'solicitacao_codigo_index'   => [
+                    'titulo' => self::TITULO_LISTAR,
+                    'scope'  => 'solicitacao_codigo:listar'
+                ],
+                'solicitacao_codigo_empresa' => self::TITULO_EMPRESA
             ]
         ],
         'saude_contratacao'        => [
             'titulo'    => 'Saúde Contratação',
             'permissao' => [
-                'saude_contratacao_index'      => 'Listar',
-                'saude_contratacao_visualizar' => 'Visualizar',
-                'saude_contratacao_status'     => 'Status',
-                'saude_contratacao_empresa'    => 'Todas as empresas'
+                'saude_contratacao_index'      => [
+                    'titulo' => self::TITULO_LISTAR,
+                    'scope'  => 'saude_contratacao:listar'
+                ],
+                'saude_contratacao_visualizar' => [
+                    'titulo' => self::TITULO_VISUALIZAR,
+                    'scope'  => 'saude_contratacao:buscar'
+                ],
+                'saude_contratacao_status'     => [
+                    'titulo' => self::TITULO_STATUS,
+                    'scope'  => 'saude_contratacao:atualizar'
+                ],
+                'saude_contratacao_empresa'    => self::TITULO_EMPRESA
             ]
         ],
         'comercial_empresa'        => [
             'titulo'    => 'Comercial Empresa',
             'permissao' => [
-                'comercial_empresa_index'      => 'Listar',
-                'comercial_empresa_visualizar' => 'Visualizar',
-                'comercial_empresa_editar'     => 'Editar'
+                'comercial_empresa_index'      => [
+                    'titulo' => self::TITULO_LISTAR,
+                    'scope'  => 'comercial_empresa:listar'
+                ],
+                'comercial_empresa_visualizar' => [
+                    'titulo' => self::TITULO_VISUALIZAR,
+                    'scope'  => 'comercial_empresa:buscar'
+                ],
+                'comercial_empresa_editar'     => [
+                    'titulo' => self::TITULO_EDITAR,
+                    'scope'  => ['comercial_empresa:atualizar', 'comercial_empresa:buscar']
+                ]
             ]
         ],
         'comercial_subempresa'     => [
             'titulo'    => 'Comercial Subempresa',
             'permissao' => [
-                'comercial_subempresa_index'      => 'Listar',
-                'comercial_subempresa_visualizar' => 'Visualizar',
-                'comercial_subempresa_add'        => 'Salvar',
-                'comercial_subempresa_editar'     => 'Editar',
-                'comercial_subempresa_deletar'    => 'Deletar',
-                'comercial_subempresa_empresa'    => 'Todas as empresas'
+                'comercial_subempresa_index'      => [
+                    'titulo' => self::TITULO_LISTAR,
+                    'scope'  => 'comercial_subempresa:listar'
+                ],
+                'comercial_subempresa_visualizar' => [
+                    'titulo' => self::TITULO_VISUALIZAR,
+                    'scope'  => 'comercial_subempresa:buscar'
+                ],
+                'comercial_subempresa_add'        => [
+                    'titulo' => self::TITULO_SALVAR,
+                    'scope'  => 'comercial_subempresa:salvar'
+                ],
+                'comercial_subempresa_editar'     => [
+                    'titulo' => self::TITULO_EDITAR,
+                    'scope'  => ['comercial_subempresa:atualizar', 'comercial_subempresa:buscar']
+                ],
+                'comercial_subempresa_deletar'    => [
+                    'titulo' => self::TITULO_DELETAR,
+                    'scope'  => 'comercial_subempresa:deletar'
+                ],
+                'comercial_subempresa_empresa'    => self::TITULO_EMPRESA
             ]
         ],
         'comercial_prospeccao'     => [
             'titulo'    => 'Comercial Prospecção',
             'permissao' => [
-                'comercial_prospeccao_index'      => 'Listar',
-                'comercial_prospeccao_visualizar' => 'Visualizar',
-                'comercial_prospeccao_add'        => 'Salvar',
-                'comercial_prospeccao_editar'     => 'Editar'
+                'comercial_prospeccao_index'      => [
+                    'titulo' => self::TITULO_LISTAR,
+                    'scope'  => 'comercial_prospeccao:listar'
+                ],
+                'comercial_prospeccao_visualizar' => [
+                    'titulo' => self::TITULO_VISUALIZAR,
+                    'scope'  => 'comercial_prospeccao:buscar'
+                ],
+                'comercial_prospeccao_add'        => [
+                    'titulo' => self::TITULO_SALVAR,
+                    'scope'  => 'comercial_prospeccao:salvar'
+                ],
+                'comercial_prospeccao_editar'     => [
+                    'titulo' => self::TITULO_EDITAR,
+                    'scope'  => ['comercial_prospeccao:atualizar', 'comercial_prospeccao:buscar']
+                ]
             ]
         ],
         'comercial_perdido'        => [
             'titulo'    => 'Comercial Perdidos',
             'permissao' => [
-                'comercial_perdido_index'      => 'Listar',
-                'comercial_perdido_visualizar' => 'Visualizar',
-                'comercial_perdido_editar'     => 'Editar',
-                'comercial_perdido_status'     => 'Status'
+                'comercial_perdido_index'      => [
+                    'titulo' => self::TITULO_LISTAR,
+                    'scope'  => 'comercial_perdido:listar'
+                ],
+                'comercial_perdido_visualizar' => [
+                    'titulo' => self::TITULO_VISUALIZAR,
+                    'scope'  => 'comercial_perdido:buscar'
+                ],
+                'comercial_perdido_editar'     => [
+                    'titulo' => self::TITULO_EDITAR,
+                    'scope'  => ['comercial_perdido:atualizar', 'comercial_perdido:buscar']
+                ],
+                'comercial_perdido_status'     => [
+                    'titulo' => self::TITULO_STATUS,
+                    'scope'  => 'comercial_perdido:atualizar'
+                ]
             ]
         ],
         'comercial_atendimento'    => [
             'titulo'    => 'Comercial Atendimento',
             'permissao' => [
-                'comercial_atendimento_index' => 'Comercial Atendimento'
+                'comercial_atendimento_index' => [
+                    'titulo' => self::TITULO_LISTAR,
+                    'scope'  => 'comercial_atendimento:listar'
+                ]
             ]
         ],
         'comercial_regra'          => [
             'titulo'    => 'Comercial Regra de Negócio',
             'permissao' => [
-                'comercial_regra_index'      => 'Listar',
-                'comercial_regra_visualizar' => 'Visualizar',
-                'comercial_regra_add'        => 'Salvar',
-                'comercial_regra_editar'     => 'Editar',
-                'comercial_regra_deletar'    => 'Deletar'
+                'comercial_regra_index'      => [
+                    'titulo' => self::TITULO_LISTAR,
+                    'scope'  => 'comercial_regra:listar'
+                ],
+                'comercial_regra_visualizar' => [
+                    'titulo' => self::TITULO_VISUALIZAR,
+                    'scope'  => 'comercial_regra:buscar'
+                ],
+                'comercial_regra_add'        => [
+                    'titulo' => self::TITULO_SALVAR,
+                    'scope'  => 'comercial_regra:salvar'
+                ],
+                'comercial_regra_editar'     => [
+                    'titulo' => self::TITULO_EDITAR,
+                    'scope'  => ['comercial_regra:atualizar', 'comercial_regra:buscar']
+                ],
+                'comercial_regra_deletar'    => [
+                    'titulo' => self::TITULO_DELETAR,
+                    'scope'  => 'comercial_regra:deletar'
+                ]
             ]
         ],
         'carteirinha'              => [
             'titulo'    => 'Carteirinha',
             'permissao' => [
-                'carteirinha_index'   => 'Listar',
-                'carteirinha_add'     => 'Salvar',
-                'carteirinha_editar'  => 'Editar',
-                'carteirinha_deletar' => 'Deletar',
-                'carteirinha_status'  => 'Status',
-                'carteirinha_empresa' => 'Todas as empresas'
+                'carteirinha_index'   => [
+                    'titulo' => self::TITULO_LISTAR,
+                    'scope'  => 'carteirinha:listar'
+                ],
+                'carteirinha_add'     => [
+                    'titulo' => self::TITULO_SALVAR,
+                    'scope'  => 'carteirinha:salvar'
+                ],
+                'carteirinha_editar'  => [
+                    'titulo' => self::TITULO_EDITAR,
+                    'scope'  => ['carteirinha:atualizar', 'carteirinha:buscar']
+                ],
+                'carteirinha_deletar' => [
+                    'titulo' => self::TITULO_DELETAR,
+                    'scope'  => 'carteirinha:deletar'
+                ],
+                'carteirinha_status'  => [
+                    'titulo' => self::TITULO_STATUS,
+                    'scope'  => 'carteirinha:atualizar'
+                ],
+                'carteirinha_empresa' => self::TITULO_EMPRESA
             ]
         ],
         'demanda_sprint'           => [
             'titulo'    => 'Sprint Backlog',
             'permissao' => [
-                'demanda_sprint_index'      => 'Listar',
-                'demanda_sprint_add'        => 'Salvar',
-                'demanda_sprint_visualizar' => 'Visualizar',
-                'demanda_sprint_editar'     => 'Editar',
-                'demanda_sprint_status'     => 'Status',
+                'demanda_sprint_index'      => [
+                    'titulo' => self::TITULO_LISTAR,
+                    'scope'  => 'demanda_sprint:listar'
+                ],
+                'demanda_sprint_add'        => [
+                    'titulo' => self::TITULO_SALVAR,
+                    'scope'  => 'demanda_sprint:salvar'
+                ],
+                'demanda_sprint_visualizar' => [
+                    'titulo' => self::TITULO_VISUALIZAR,
+                    'scope'  => 'demanda_sprint:buscar'
+                ],
+                'demanda_sprint_editar'     => [
+                    'titulo' => self::TITULO_EDITAR,
+                    'scope'  => ['demanda_sprint:atualizar', 'demanda_sprint:buscar']
+                ],
+                'demanda_sprint_status'     => [
+                    'titulo' => self::TITULO_STATUS,
+                    'scope'  => 'demanda_sprint:atualizar'
+                ]
             ]
         ],
         'demanda_quadro'           => [
@@ -698,162 +1184,351 @@ final class Padrao
         'painel_config'            => [
             'titulo'    => 'Painel Configurações',
             'permissao' => [
-                'painel_config_index'   => 'Listar',
-                'painel_config_add'     => 'Salvar',
-                'painel_config_editar'  => 'Editar',
-                'painel_config_deletar' => 'Deletar'
+                'painel_config_index'   => [
+                    'titulo' => self::TITULO_LISTAR,
+                    'scope'  => 'painel_config:listar'
+                ],
+                'painel_config_add'     => [
+                    'titulo' => self::TITULO_SALVAR,
+                    'scope'  => 'painel_config:salvar'
+                ],
+                'painel_config_editar'  => [
+                    'titulo' => self::TITULO_EDITAR,
+                    'scope'  => ['painel_config:atualizar', 'painel_config:buscar']
+                ],
+                'painel_config_deletar' => [
+                    'titulo' => self::TITULO_DELETAR,
+                    'scope'  => 'painel_config:deletar'
+                ]
             ]
         ],
         'album_dado'               => [
             'titulo'    => 'Album de fotos',
             'permissao' => [
-                'album_dado_index'   => 'Listar',
-                'album_dado_add'     => 'Salvar',
-                'album_dado_editar'  => 'Editar',
-                'album_dado_deletar' => 'Deletar',
-                'album_dado_foto'    => 'Gerenciar Foto'
+                'album_dado_index'   => [
+                    'titulo' => self::TITULO_LISTAR,
+                    'scope'  => 'album_dado:listar'
+                ],
+                'album_dado_add'     => [
+                    'titulo' => self::TITULO_SALVAR,
+                    'scope'  => 'album_dado:salvar'
+                ],
+                'album_dado_editar'  => [
+                    'titulo' => self::TITULO_EDITAR,
+                    'scope'  => ['album_dado:atualizar', 'album_dado:buscar']
+                ],
+                'album_dado_deletar' => [
+                    'titulo' => self::TITULO_DELETAR,
+                    'scope'  => 'album_dado:deletar'
+                ],
+                'album_dado_foto'    => [
+                    'titulo' => 'Gerenciar Foto',
+                    'scope'  => 'album_dado:foto'
+                ],
             ]
         ],
         'votacao'                  => [
             'titulo'    => 'Votação',
             'permissao' => [
-                'votacao_index'      => 'Listar',
-                'votacao_visualizar' => 'Visualizar',
-                'votacao_add'        => 'Salvar',
-                'votacao_editar'     => 'Editar',
-                'votacao_deletar'    => 'Deletar'
+                'votacao_index'      => [
+                    'titulo' => self::TITULO_LISTAR,
+                    'scope'  => 'votacao:listar'
+                ],
+                'votacao_visualizar' => [
+                    'titulo' => self::TITULO_VISUALIZAR,
+                    'scope'  => 'votacao:buscar'
+                ],
+                'votacao_add'        => [
+                    'titulo' => self::TITULO_SALVAR,
+                    'scope'  => 'votacao:salvar'
+                ],
+                'votacao_editar'     => [
+                    'titulo' => self::TITULO_EDITAR,
+                    'scope'  => ['votacao:atualizar', 'votacao:buscar']
+                ],
+                'votacao_deletar'    => [
+                    'titulo' => self::TITULO_DELETAR,
+                    'scope'  => 'votacao:deletar'
+                ],
             ]
         ],
         'enquete'                  => [
             'titulo'    => 'Enquete',
             'permissao' => [
-                'enquete_index'      => 'Listar',
-                'enquete_visualizar' => 'Visualizar',
-                'enquete_add'        => 'Salvar',
-                'enquete_editar'     => 'Editar',
-                'enquete_deletar'    => 'Deletar'
+                'enquete_index'      => [
+                    'titulo' => self::TITULO_LISTAR,
+                    'scope'  => 'votacao_dado:listar'
+                ],
+                'enquete_visualizar' => [
+                    'titulo' => self::TITULO_VISUALIZAR,
+                    'scope'  => 'votacao_dado:buscar'
+                ],
+                'enquete_add'        => [
+                    'titulo' => self::TITULO_SALVAR,
+                    'scope'  => 'votacao_dado:salvar'
+                ],
+                'enquete_editar'     => [
+                    'titulo' => self::TITULO_EDITAR,
+                    'scope'  => ['votacao_dado:atualizar', 'votacao_dado:buscar']
+                ],
+                'enquete_deletar'    => [
+                    'titulo' => self::TITULO_DELETAR,
+                    'scope'  => 'votacao_dado:deletar'
+                ],
             ]
         ],
         'site_config'              => [
             'titulo'    => 'Configurações do Site',
             'permissao' => [
-                'site_config_index'      => 'Listar',
-                'site_config_visualizar' => 'Visualizar',
-                'site_config_add'        => 'Salvar',
-                'site_config_editar'     => 'Editar',
-                'site_config_deletar'    => 'Deletar',
-                'site_config_empresa'    => 'Todas as Empresas'
+                'site_config_index'      => [
+                    'titulo' => self::TITULO_LISTAR,
+                    'scope'  => 'site_config:listar'
+                ],
+                'site_config_visualizar' => [
+                    'titulo' => self::TITULO_VISUALIZAR,
+                    'scope'  => 'site_config:buscar'
+                ],
+                'site_config_add'        => [
+                    'titulo' => self::TITULO_SALVAR,
+                    'scope'  => 'site_config:salvar'
+                ],
+                'site_config_editar'     => [
+                    'titulo' => self::TITULO_EDITAR,
+                    'scope'  => ['site_config:atualizar', 'site_config:buscar']
+                ],
+                'site_config_deletar'    => [
+                    'titulo' => self::TITULO_DELETAR,
+                    'scope'  => 'site_config:deletar'
+                ],
+                'site_config_empresa'    => self::TITULO_EMPRESA
             ]
         ],
         'site_menu'                => [
             'titulo'    => 'Configurações do Menu (Site)',
             'permissao' => [
-                'site_menu_index'      => 'Listar',
-                'site_menu_visualizar' => 'Visualizar',
-                'site_menu_add'        => 'Salvar',
-                'site_menu_editar'     => 'Editar',
-                'site_menu_deletar'    => 'Deletar',
-                'site_menu_empresa'    => 'Todas as Empresas'
+                'site_menu_index'      => [
+                    'titulo' => self::TITULO_LISTAR,
+                    'scope'  => 'site_menu:listar',
+                ],
+                'site_menu_visualizar' => [
+                    'titulo' => self::TITULO_VISUALIZAR,
+                    'scope'  => 'site_menu:buscar'
+                ],
+                'site_menu_add'        => [
+                    'titulo' => self::TITULO_SALVAR,
+                    'scope'  => 'site_menu:salvar'
+                ],
+                'site_menu_editar'     => [
+                    'titulo' => self::TITULO_EDITAR,
+                    'scope'  => ['site_menu:atualizar', 'site_menu:buscar']
+                ],
+                'site_menu_deletar'    => [
+                    'titulo' => self::TITULO_DELETAR,
+                    'scope'  => 'site_menu:deletar'
+                ],
+                'site_menu_empresa'    => self::TITULO_EMPRESA
             ]
         ],
         'site_lotacao'             => [
             'titulo'    => 'Lotação',
             'permissao' => [
-                'site_lotacao_index'   => 'Listar',
-                'site_lotacao_add'     => 'Salvar',
-                'site_lotacao_editar'  => 'Editar',
-                'site_lotacao_deletar' => 'Deletar',
-                'site_lotacao_empresa' => 'Todas as Empresas'
+                'site_lotacao_index'   => [
+                    'titulo' => self::TITULO_LISTAR,
+                    'scope'  => 'site_lotacao:listar'
+                ],
+                'site_lotacao_add'     => [
+                    'titulo' => self::TITULO_SALVAR,
+                    'scope'  => 'site_lotacao:salvar'
+                ],
+                'site_lotacao_editar'  => [
+                    'titulo' => self::TITULO_EDITAR,
+                    'scope'  => ['site_lotacao:atualizar', 'site_lotacao:buscar']
+                ],
+                'site_lotacao_deletar' => [
+                    'titulo' => self::TITULO_DELETAR,
+                    'scope'  => 'site_lotacao:deletar'
+                ],
+                'site_lotacao_empresa' => self::TITULO_EMPRESA
             ]
         ],
-        'view_pagina' => [
+        'view_pagina'              => [
             'titulo'    => 'View Página',
             'permissao' => [
-                'view_pagina_index'      => 'Listar',
-                'view_pagina_visualizar' => 'Visualizar',
-                'view_pagina_add'        => 'Salvar',
-                'view_pagina_editar'     => 'Editar',
-                'view_pagina_deletar'    => 'Deletar',
+                'view_pagina_index'      => [
+                    'titulo' => self::TITULO_LISTAR,
+                    'scope'  => 'view_pagina:listar'
+                ],
+                'view_pagina_visualizar' => [
+                    'titulo' => self::TITULO_VISUALIZAR,
+                    'scope'  => ['view_pagina:buscar', 'view_html:listar']
+                ],
+                'view_pagina_add'        => [
+                    'titulo' => self::TITULO_SALVAR,
+                    'scope'  => 'view_pagina:salvar'
+                ],
+                'view_pagina_editar'     => [
+                    'titulo' => self::TITULO_EDITAR,
+                    'scope'  => ['view_pagina:atualizar', 'view_pagina:buscar']
+                ],
+                'view_pagina_deletar'    => [
+                    'titulo' => self::TITULO_DELETAR,
+                    'scope'  => 'view_pagina:deletar'
+                ]
             ]
         ],
         'silium_comissao'          => [
             'titulo'    => 'Comissões do Silium (Cashback)',
             'permissao' => [
-                'silium_comissao_index'      => 'Listar',
-                'silium_comissao_visualizar' => 'Visualizar',
-                'silium_comissao_add'        => 'Salvar',
-                'silium_comissao_editar'     => 'Editar',
-                'silium_comissao_status'     => 'Status',
-                'silium_comissao_deletar'    => 'Deletar'
+                'silium_comissao_index'      => [
+                    'titulo' => self::TITULO_LISTAR,
+                    'scope'  => 'silium_comissao:listar',
+                ],
+                'silium_comissao_visualizar' => [
+                    'titulo' => self::TITULO_VISUALIZAR,
+                    'scope'  => 'silium_comissao:buscar',
+                ],
+                'silium_comissao_add'        => [
+                    'titulo' => self::TITULO_SALVAR,
+                    'scope'  => 'silium_comissao:salvar'
+                ],
+                'silium_comissao_editar'     => [
+                    'titulo' => self::TITULO_EDITAR,
+                    'scope'  => ['silium_comissao:atualizar', 'silium_comissao:buscar']
+                ],
+                'silium_comissao_status'     => [
+                    'titulo' => self::TITULO_STATUS,
+                    'scope'  => 'silium_comissao:atualizar'
+                ],
+                'silium_comissao_deletar'    => [
+                    'titulo' => self::TITULO_DELETAR,
+                    'scope'  => 'silium_comissao:deletar'
+                ],
             ]
         ],
         'silium_deposito'          => [
             'titulo'    => 'Depósitos do Silium (Cashback)',
             'permissao' => [
-                'silium_deposito_index'      => 'Listar',
-                'silium_deposito_visualizar' => 'Visualizar',
-                'silium_deposito_add'        => 'Salvar',
-                'silium_deposito_editar'     => 'Editar',
-                'silium_deposito_status'     => 'Status',
-                'silium_deposito_deletar'    => 'Deletar'
+                'silium_deposito_index'      => [
+                    'titulo' => self::TITULO_LISTAR,
+                    'scope'  => 'silium_deposito:listar',
+                ],
+                'silium_deposito_visualizar' => [
+                    'titulo' => self::TITULO_VISUALIZAR,
+                    'scope'  => 'silium_deposito:buscar',
+                ],
+                'silium_deposito_add'        => [
+                    'titulo' => self::TITULO_SALVAR,
+                    'scope'  => 'silium_deposito:salvar'
+                ],
+                'silium_deposito_editar'     => [
+                    'titulo' => self::TITULO_EDITAR,
+                    'scope'  => ['silium_deposito:atualizar', 'silium_deposito:buscar']
+                ],
+                'silium_deposito_status'     => [
+                    'titulo' => self::TITULO_STATUS,
+                    'scope'  => 'silium_deposito:atualizar'
+                ],
+                'silium_deposito_deletar'    => [
+                    'titulo' => self::TITULO_DELETAR,
+                    'scope'  => 'silium_deposito:deletar'
+                ]
             ]
         ],
         'silium_saque'             => [
             'titulo'    => 'Solicitações de Saque (Cashback)',
             'permissao' => [
-                'silium_saque_index'      => 'Listar',
-                'silium_saque_visualizar' => 'Visualizar',
-                'silium_saque_add'        => 'Salvar',
-                'silium_saque_editar'     => 'Editar',
-                'silium_saque_status'     => 'Status',
-                'silium_saque_deletar'    => 'Deletar'
+                'silium_saque_index'      => [
+                    'titulo' => self::TITULO_LISTAR,
+                    'scope'  => 'silium_saque:listar'
+                ],
+                'silium_saque_visualizar' => [
+                    'titulo' => self::TITULO_VISUALIZAR,
+                    'scope'  => 'silium_saque:buscar'
+                ],
+                'silium_saque_add'        => [
+                    'titulo' => self::TITULO_SALVAR,
+                    'scope'  => 'silium_saque:salvar'
+                ],
+                'silium_saque_editar'     => [
+                    'titulo' => self::TITULO_EDITAR,
+                    'scope'  => ['silium_saque:atualizar', 'silium_saque:buscar']
+                ],
+                'silium_saque_status'     => [
+                    'titulo' => self::TITULO_STATUS,
+                    'scope'  => 'silium_deposito:atualizar'
+                ],
+                'silium_saque_deletar'    => [
+                    'titulo' => self::TITULO_DELETAR,
+                    'scope'  => 'silium_saque:deletar'
+                ]
             ]
         ],
         'silium_saldo'             => [
             'titulo'    => 'Ranking de Silium (Cashback)',
             'permissao' => [
-                'silium_saldo_index' => 'Listar'
+                'silium_saldo_index' => [
+                    'titulo' => self::TITULO_LISTAR,
+                    'scope'  => 'silium_saldo:listar'
+                ]
             ]
         ],
         'silium_config'            => [
             'titulo'    => 'Configurações do Silium (Cashback)',
             'permissao' => [
-                'silium_config_index'      => 'Listar',
-                'silium_config_visualizar' => 'Visualizar',
-                'silium_config_add'        => 'Salvar',
-                'silium_config_editar'     => 'Editar',
-                'silium_config_deletar'    => 'Deletar'
+                'silium_config_index'      => [
+                    'titulo' => self::TITULO_LISTAR,
+                    'scope'  => 'silium_config:listar'
+                ],
+                'silium_config_visualizar' => [
+                    'titulo' => self::TITULO_VISUALIZAR,
+                    'scope'  => 'silium_config:buscar'
+                ],
+                'silium_config_add'        => [
+                    'titulo' => self::TITULO_SALVAR,
+                    'scope'  => 'silium_config:salvar'
+                ],
+                'silium_config_editar'     => [
+                    'titulo' => self::TITULO_EDITAR,
+                    'scope'  => ['silium_config:atualizar', 'silium_config:buscar']
+                ],
+                'silium_config_deletar'    => [
+                    'titulo' => self::TITULO_DELETAR,
+                    'scope'  => 'silium_config:deletar'
+                ]
             ]
         ]
     ];
     private const SCOPE_FIXO = [];
 
-    public function permissao()
+    public function scope(array $equipe): array
+    {
+        $permissoes = $this->montarPermissoes();
+        $scopes = [];
+        foreach ($equipe as $item) {
+            if (!array_key_exists($item, $permissoes) || empty($permissoes[$item])) {
+                continue;
+            }
+            $scopes = array_merge($scopes, $permissoes[$item]);
+        }
+        return array_values(arrayRemoverValorDuplicado($scopes));
+    }
+
+    /**
+     * @return array
+     */
+    public function montarPermissoes(): array
     {
         $retorno = [];
-        foreach (self::PERMISSOES as $item) {
-            foreach ($item['permissao'] as $ind => $val) {
-                $scope = $val['scope'] ?? '';
+        foreach (self::PERMISSOES as $painelApp) {
+            foreach ($painelApp['permissao'] as $permissao => $apiScope) {
+                $scope = $apiScope['scope'] ?? '';
                 if (empty($scope)) {
-                    $retorno[$ind] = [];
+                    $retorno[$permissao] = [];
                     continue;
                 }
-                $retorno[$ind] = is_string($scope) ? [$scope] : $scope;
+                $retorno[$permissao] = is_string($scope) ? [$scope] : $scope;
             }
         }
         return $retorno;
-    }
-
-    public function scope(array $equipe)
-    {
-        $permissao = $this->permissao();
-        $lista = [];
-        foreach ($equipe as $item) {
-            if (!array_key_exists($item, $permissao) || empty($permissao[$item])) {
-                continue;
-            }
-            $lista = array_merge($lista, $permissao[$item]);
-        }
-        return array_values(arrayRemoverValorDuplicado($lista));
     }
 }

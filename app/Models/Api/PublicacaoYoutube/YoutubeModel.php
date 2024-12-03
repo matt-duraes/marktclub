@@ -2,21 +2,21 @@
 
 namespace App\Models\Api\PublicacaoYoutube;
 
-use ORM\ORM;
-use stdClass;
-use Modules\Data;
+use App\Classes\Geral\Publicado;
+use App\Classes\Geral\Status;
+use App\Classes\PublicacaoYoutube\Local;
+use App\Classes\PublicacaoYoutube\Ordem;
+use App\Models\Api\Trait\ValidarEmpresaTrait;
 use Modules\Botao;
+use Modules\Data;
 use Modules\Pagina;
 use Modules\Quantidade;
-use App\Classes\Geral\Status;
-use App\Classes\Geral\Publicado;
+use ORM\ORM;
+use stdClass;
+use System\Interface\ModelListarInterface;
 use System\Trait\Model\OrdemTrait;
 use System\Trait\Model\PaginaTrait;
 use System\Trait\Model\QuantidadeTrait;
-use App\Classes\PublicacaoYoutube\Local;
-use App\Classes\PublicacaoYoutube\Ordem;
-use System\Interface\ModelListarInterface;
-use App\Models\Api\Trait\ValidarEmpresaTrait;
 
 final class YoutubeModel extends ORM implements ModelListarInterface
 {
@@ -25,7 +25,6 @@ final class YoutubeModel extends ORM implements ModelListarInterface
     use QuantidadeTrait;
     use OrdemTrait;
 
-    protected string $ormTabela = TABELA_PUBLICACAO_YOUTUBE;
     public Pagina $pagina;
     public Quantidade $quantidade;
     public string $pesquisa = '';
@@ -35,6 +34,7 @@ final class YoutubeModel extends ORM implements ModelListarInterface
     public Local $local;
     public Botao $restrita;
     public Botao $site;
+    protected string $ormTabela = TABELA_PUBLICACAO_YOUTUBE;
 
     public function __construct()
     {
@@ -52,7 +52,7 @@ final class YoutubeModel extends ORM implements ModelListarInterface
     {
         $dado = $this
             ->campo(['uuid', 'titulo', 'texto', 'url', 'video', 'data_inicio', 'data_final', 'status'])
-            ->where($this->pegarWhere())
+            ->where($this->pegarWhere(), false)
             ->pagina($this->pegarPagina(), $this->pegarQuantidade())
             ->order($this->pegarOrdem())
             ->read();
@@ -63,31 +63,6 @@ final class YoutubeModel extends ORM implements ModelListarInterface
 
         $dado->lista = $this->montarRetorno($dado->lista);
         return $dado;
-    }
-
-    private function montarRetorno($dado): array
-    {
-        $retorno = [];
-        $Status = new Status();
-        foreach ($dado as $r) {
-            $statusIndice = $Status->indice($r->status);
-            $publicado = new Publicado(
-                new Data($r->data_inicio),
-                new Data($r->data_final),
-                $statusIndice == Status::ATIVO
-            );
-            $retorno[] = [
-                'id'          => $r->uuid,
-                'titulo'      => $r->titulo,
-                'texto'       => $r->texto,
-                'url'         => $r->url,
-                'video'       => $r->video,
-                'data_inicio' => $r->data_inicio,
-                'publicado'   => $publicado->indice(),
-                'status'      => $statusIndice
-            ];
-        }
-        return $retorno;
     }
 
     private function pegarWhere()
@@ -136,5 +111,30 @@ final class YoutubeModel extends ORM implements ModelListarInterface
             $where[] = ['titulo', 'like', '%' . $this->pesquisa . '%'];
         }
         return $where;
+    }
+
+    private function montarRetorno($dado): array
+    {
+        $retorno = [];
+        $Status = new Status();
+        foreach ($dado as $r) {
+            $statusIndice = $Status->indice($r->status);
+            $publicado = new Publicado(
+                new Data($r->data_inicio),
+                new Data($r->data_final),
+                $statusIndice == Status::ATIVO
+            );
+            $retorno[] = [
+                'id'          => $r->uuid,
+                'titulo'      => $r->titulo,
+                'texto'       => $r->texto,
+                'url'         => $r->url,
+                'video'       => $r->video,
+                'data_inicio' => $r->data_inicio,
+                'publicado'   => $publicado->indice(),
+                'status'      => $statusIndice
+            ];
+        }
+        return $retorno;
     }
 }
