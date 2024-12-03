@@ -1,1 +1,53 @@
 @template "status"
+
+<div class="bloco_texto">
+    <header>
+        <h1>Página não existe</h1>
+    </header>
+    <p>A página acessada não existe ou mudou de endereço.</p>
+    <p>Para ajudá-lo, que tal usar uma das opções abaixo:</p>
+</div>
+
+@ if( $logado ):
+<div class="bloco_link">
+    <a href="{!!LINK!!}">Voltar para a HOME</a>
+
+    @ if( MENU_LOJA ):
+    <a href="@route(loja.index)">Ver lista de lojas</a>
+    @ endif;
+
+    @ if( MENU_SAMSUNG ):
+    <a href="@route(samsung.index)">Comprar produtos Samsung</a>
+    @ endif;
+
+    @if(MENU_FARMACIA):
+    <a href="@route('farmacia.index')">Comprar remédio com desconto</a>
+    @endif
+
+    @ if( MENU_AUTOMOVEL ):
+    <a href="@route(automovel.index)">Descontos em automóveis</a>
+    @ endif;
+
+    @if(MENU_SAUDE):
+    <a href="<?= route('planosaude.index') ?>">Contratar plano de saúde</a>
+    @endif
+</div>
+@ else:
+<div class="bloco_link">
+    @ if( LOGIN_STATUS ):
+    <a href="{{LINK_LOGIN}}">Fazer login</a>
+    @ endif;
+
+    @ if( ATIVACAO_STATUS ):
+    <a href="{{LINK_ATIVACAO}}">Sua primeira vez aqui? Ative seu cadastro</a>
+    @ endif;
+
+    @ if( !API && RECUPERAR_SENHA_STATUS ):
+    <a href="{{LINK_RECUPERAR_SENHA}}">Não lembra da sua senha?</a>
+    @ endif;
+
+    @ if( MENU_COMO_FUNCIONA ):
+    <a href="@route(comoFunciona.index)">Está com dúvidas, veja nosso guia "Como Funciona"</a>
+    @ endif;
+</div>
+@ endif;

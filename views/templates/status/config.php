@@ -1,5 +1,7 @@
 <?php
 
+include ROOT . '/resources/php/site/tema.php';
+
 $Logado = new App\Middlewares\Site\AuthMiddleware();
 try {
     $logado = $Logado->logado() === true;

@@ -12,15 +12,25 @@
     @ endif;
 
     <title>{{CLUBE_TITULO}}</title>
-
-    @CSS
     @dir "/include/css.view"
-
+    <link rel="stylesheet" href="/css/status_site.css">
 </head>
 
 <body>
-    <figure></figure>
-    [[VIEW]]
+<div id="site">
+    <div id="cabecalho" class="{{CLUBE_LOGO_CLASSE}}">
+        <figure class="tema_branco"><img src="{{CLUBE_LOGO_PRINCIPAL}}" height="60" alt="{{CLUBE_TITULO}}"></figure>
+        <figure class="tema_escuro"><img src="{{CLUBE_LOGO_SECUNDARIA}}" height="60" alt="{{CLUBE_TITULO}}"></figure>
+    </div>
+    <main id="conteudo">
+        [[VIEW]]
+    </main>
+</div>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300;400;500;600;700;800;900&display=swap">
+
 </body>
 
 </html>

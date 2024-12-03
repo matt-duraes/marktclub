@@ -18,7 +18,7 @@ let config;
 | CSS ÚNICO
 |--------------------------------------------------------------------------
 */
-exports.cssUnico = function (path, browser) {
+exports.cssUnico = function (path) {
     return new Promise(async resolve => {
         arquivoConteudo = [];
 
@@ -38,7 +38,7 @@ exports.cssUnico = function (path, browser) {
         await fsRemoverArquivoSeExistir(config.public + '/css/' + nome);
 
         try {
-            await processarCss(pathReal, config.public + '/css', browser);
+            await processarCss(pathReal, config.public + '/css/');
             mensagemSucesso('Arquivo copiado com sucesso: ' + pathReal);
         } catch (error) {
             mensagemErro('Erro ao copiar arquivo: ' + pathReal);
@@ -143,7 +143,7 @@ function pegarNomeArquivo(path) {
             .replace(/_{2,}/g, '_') + '.styl'
     );
 }
-async function processarCss(path, destino, browser) {
+async function processarCss(path, destino) {
     const dirBase = path.replace(/\/layout.styl$/, '') + '/';
     const nome = pegarNomeArquivo(path);
 
@@ -181,26 +181,25 @@ async function processarCss(path, destino, browser) {
     });
 
     await fsCriarArquivo('files/build/css/' + nome, conteudoFinal);
-
-    if (browser != undefined) {
-        return src('files/build/css/' + nome)
-            .pipe(plumber())
-            .pipe(
-                replace(
-                    /(\@template(.*)|\@painel(.*)|\@import(.*)|\@resource(.*)|\@system(.*))/g,
-                    function handleReplace(match) {
-                        return '';
-                    }
-                )
-            )
-            .pipe(
-                stylus({
-                    'include css': true,
-                })
-            )
-            .pipe(dest(destino))
-            .pipe(browser.stream());
+    if (undefined === destino) {
+        return;
     }
+    return src('files/build/css/' + nome)
+        .pipe(plumber())
+        .pipe(
+            replace(
+                /(\@template(.*)|\@painel(.*)|\@import(.*)|\@resource(.*)|\@system(.*))/g,
+                function handleReplace(match) {
+                    return '';
+                }
+            )
+        )
+        .pipe(
+            stylus({
+                'include css': true,
+            })
+        )
+        .pipe(dest(destino));
 }
 // Pegar lista de imports
 function pegarListaImports(conteudo, path) {

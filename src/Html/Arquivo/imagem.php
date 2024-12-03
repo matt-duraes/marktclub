@@ -29,6 +29,39 @@ function pegarTipoImagem($path, $mimeType)
     }
 }
 
+function analisarCorFundo($imagem, $amostra)
+{
+    $largura = imagesx($imagem);
+    $altura = imagesy($imagem);
+
+    $cores = [];
+    for ($x = 0; $x < $amostra; $x++) {
+        for ($y = 0; $y < $amostra; $y++) {
+            $cor = imagecolorat($imagem, $x, $y);
+            $cores[$cor][] = 1;
+        }
+        for ($y = $altura - $amostra; $y < $altura; $y++) {
+            $cor = imagecolorat($imagem, $x, $y);
+            $cores[$cor][] = 1;
+        }
+    }
+    for ($y = 0; $y < $amostra; $y++) {
+        for ($x = 0; $x < $amostra; $x++) {
+            $cor = imagecolorat($imagem, $x, $y);
+            $cores[$cor][] = 1;
+        }
+        for ($x = $largura - $amostra; $x < $largura; $x++) {
+            $cor = imagecolorat($imagem, $x, $y);
+            $cores[$cor][] = 1;
+        }
+    }
+
+    arsort($cores);
+    $corFundo = key($cores);
+
+    return imagecolorsforindex($imagem, $corFundo);
+}
+
 function gerarImagemAvif($path, $mimeType)
 {
     try {
@@ -38,8 +71,10 @@ function gerarImagemAvif($path, $mimeType)
         $alturaImagem = imagesy($imagem);
 
         $imagemNova = imagecreatetruecolor($larguraImagem, $alturaImagem);
-        $white = imagecolorallocate($imagemNova, 255, 255, 255);
-        imagefill($imagemNova, 0, 0, $white);
+        imagesavealpha($imagemNova, true);
+        $corFundo = analisarCorFundo($imagem, 20);
+        $transparencia = imagecolorallocatealpha($imagemNova, $corFundo['red'] ?? 255, $corFundo['green'] ?? 255, $corFundo['blue'] ?? 255, 127);
+        imagefill($imagemNova, 0, 0, $transparencia);
         imagecopyresampled($imagemNova, $imagem, 0, 0, 0, 0, $larguraImagem, $alturaImagem, $larguraImagem, $alturaImagem);
 
         header('Content-Type: image/avif');
@@ -84,8 +119,10 @@ function gerarImagemRedirecionada($path, $mimeType, $largura, $altura, bool $cor
         }
 
         $imagemRedimensionada = imagecreatetruecolor($larguraNova, $alturaNova);
-        $white = imagecolorallocate($imagemRedimensionada, 255, 255, 255);
-        imagefill($imagemRedimensionada, 0, 0, $white);
+        imagesavealpha($imagemRedimensionada, true);
+        $corFundo = analisarCorFundo($imagem, 20);
+        $transparencia = imagecolorallocatealpha($imagemRedimensionada, $corFundo['red'] ?? 255, $corFundo['green'] ?? 255, $corFundo['blue'] ?? 255, 127);
+        imagefill($imagemRedimensionada, 0, 0, $transparencia);
         imagecopyresampled($imagemRedimensionada, $imagem, 0, 0, 0, 0, $larguraNova, $alturaNova, $larguraImagem, $alturaImagem);
 
         if ($cortar) {

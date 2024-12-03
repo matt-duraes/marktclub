@@ -62,7 +62,7 @@ final class ClubeMiddleware extends ApiHelper
             return;
         }
         $host = preg_replace('/^http(s)?\:\/\/(www.)?/', '', LINK);
-        if (eLocalhost()) {
+        if (!eLocalhost()) {
             $host = explode(':', $host)[0];
         }
 
@@ -87,7 +87,10 @@ final class ClubeMiddleware extends ApiHelper
         $dado->api = $dado->api == 'sim';
         $dado->administrado = $dado->administrado == 'sim';
         $dado->chat = $dado->chat == 'sim';
-        $dado->tela_login = $dado->tela_login == 'sim';
+        $dado->ativacao_status = $dado->ativacao_status == 'sim';
+        $dado->login_status = $dado->login_status == 'sim';
+        $dado->login_escolha_status = $dado->login_escolha_status == 'sim';
+        $dado->recuperar_senha_status = $dado->recuperar_senha_status == 'sim';
         return $dado;
     }
 
@@ -96,7 +99,7 @@ final class ClubeMiddleware extends ApiHelper
         $clube = sessao('CLUBE');
         define('CLUBE_LOGO_PRINCIPAL', $clube->logo_principal);
         define('CLUBE_LOGO_SECUNDARIA', !empty($clube->logo_secundaria) ? $clube->logo_secundaria : $clube->logo_principal);
-        define('CLUBE_LOGO_CLASSE', empty($clube->logo_secundaria) ? 'cor_fundo' : '');
+        define('CLUBE_LOGO_CLASSE', empty($clube->logo_secundaria) ? 'logo_secundaria_fundo' : '');
         define('CLUBE_FAVICON', $clube->favicon);
         define('CLUBE_LOGO_FOOTER', $clube->logo_footer);
         define('CLUBE_TITULO', $clube->titulo);
@@ -127,7 +130,9 @@ final class ClubeMiddleware extends ApiHelper
         define('API', $clube->api);
         define('CHAT', $clube->chat);
         define('ADMINISTRADO', $clube->administrado);
-        define('TIPO_ATIVACAO', $clube->tipo_ativacao);
+        define('ATIVACAO_STATUS', $clube->ativacao_status);
+        define('ATIVACAO_TIPO', $clube->ativacao_tipo);
+
         $pagina = $clube->menu;
         define('MENU_ACESSO_RAPIDO', $pagina->acesso_rapido);
         define('MENU_PREMIUM', $pagina->premium);
@@ -167,7 +172,8 @@ final class ClubeMiddleware extends ApiHelper
         define('MENU_PERFIL', !API || MENU_DEPENDENTE || MENU_CASHBACK || MENU_INDICAR_USUARIO);
         define('MENU_PONTO_MAIS_ACAO', $pagina->ponto_mais_acao);
 
-        define('TELA_LOGIN', $clube->tela_login);
+        define('LOGIN_STATUS', $clube->login_status);
+        define('LOGIN_ESCOLHA_STATUS', $clube->login_escolha_status);
 
         define('CAMPOS_PRIMEIRO_ACESSO', $clube->campos_primeiro_acesso ?? []);
         define('INPUT_GRUPO', $clube->input_grupo ?? []);
@@ -185,15 +191,21 @@ final class ClubeMiddleware extends ApiHelper
             !empty($clube->texto_login_funcionario) ? $clube->texto_login_funcionario : 'Sou funcionário'
         );
 
+        $linkLoginRaiz = !empty($clube->link_login) ? preg_replace('/\/$/', '', $clube->link_login) : route('login.index');
+        $linkLogin = API ? $linkLoginRaiz . '#login' : $linkLoginRaiz;
+
         define('LINK_APP_ANDROID', $clube->link_app_android);
         define('LINK_APP_IOS', $clube->link_app_ios);
         define('LINK_BOTAO_SAIR', !empty($clube->link_botao_sair) ? $clube->link_botao_sair : route('login.index'));
-        define('LINK_LOGIN', preg_replace('/\/$/', '', $clube->link_login));
+        define('LINK_LOGIN', $linkLogin);
         define('LINK_FUNCIONARIO', preg_replace('/\/$/', '', $clube->link_funcionario));
         define('LINK_CADASTRO', $clube->link_cadastro);
         define('LINK_ODONTOLOGICO', $clube->link_odontologico);
+        define('LINK_ATIVACAO', $linkLoginRaiz . '#ativar');
+        define('LINK_RECUPERAR_SENHA', $linkLoginRaiz . '#senha');
         define('MENU_BAIXAR_APP', !empty(LINK_APP_ANDROID) || !empty(LINK_APP_IOS));
 
         define('LOGIN_ESCOLHA', API || MENU_FUNCIONARIO);
+        define('RECUPERAR_SENHA_STATUS', $clube->recuperar_senha_status);
     }
 }

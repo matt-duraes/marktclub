@@ -2,8 +2,8 @@
 
 namespace App\Models\Api\ConstrutorClube;
 
-use App\Helpers\PrimeiroAcessoHelper;
 use Modules\Botao;
+use App\Helpers\PrimeiroAcessoHelper;
 
 final class ClubeModel
 {
@@ -19,6 +19,8 @@ final class ClubeModel
     {
         $api = $Construtor->api_status->valor();
         $dependente = $Construtor->menu_dependente->valor();
+        $funcionario = $Construtor->menu_funcionario->valor();
+        $indicarUsuario = $Construtor->menu_indicar_usuario->valor();
         $linkAndroid = $Construtor->link_app_android;
         $linkIos = $Construtor->link_app_ios;
         $corSecundaria = !empty($Construtor->cor_secundaria) ? $Construtor->cor_secundaria : $Construtor->cor_principal;
@@ -77,7 +79,7 @@ final class ClubeModel
                 'saude_florianopolis' => $Construtor->menu_saude_florianopolis->valor(),
                 'cashback'            => $Construtor->menu_cashback->valor(),
                 'indicar_loja'        => $Construtor->menu_indicar_loja->valor(),
-                'indicar_usuario'     => $Construtor->menu_indicar_usuario->valor(),
+                'indicar_usuario'     => $indicarUsuario,
                 'meu_parceiro'        => $Construtor->menu_meu_parceiro->valor(),
                 'cupom'               => $Construtor->menu_cupom->valor(),
                 'odontologico'        => $Construtor->menu_odontologico->valor(),
@@ -88,7 +90,7 @@ final class ClubeModel
                 'show_internacional'  => $Construtor->menu_show_internacional->valor(),
                 'tema'                => $Construtor->menu_tema->valor(),
                 'dependente'          => $dependente,
-                'funcionario'         => $Construtor->menu_funcionario->valor(),
+                'funcionario'         => $funcionario,
                 'carteira'            => $Construtor->menu_carteira->valor(),
                 'salavip'             => $Construtor->menu_salavip->valor(),
                 'ponto_mais_acao'     => $Construtor->menu_ponto_mais_acao->valor(),
@@ -103,9 +105,14 @@ final class ClubeModel
             'texto_login_dependente'  => $Construtor->texto_login_dependente,
             'texto_login_funcionario' => $Construtor->texto_login_funcionario,
             'tipo_ativacao'           => $Construtor->tipo_ativacao->indice(),
+            'ativacao_tipo'           => $Construtor->tipo_ativacao->indice(),
+            'ativacao_status'         => $dependente == 'sim' || $funcionario == 'sim' || $indicarUsuario == 'sim' ? 'sim' : 'nao',
             'tipo_cargo'              => $Construtor->tipo_cargo->indice(),
             'administrado'            => $Construtor->administrado_status->valor(),
             'tela_login'              => $Construtor->tela_login->valor(),
+            'login_status'            => $Construtor->tela_login->valor(),
+            'login_escolha_status'    => $api == 'sim' && ($dependente == 'sim' || $funcionario == 'sim') ? 'sim' : 'nao',
+            'recuperar_senha_status'  => $api == 'nao' || $dependente == 'sim' || $indicarUsuario == 'sim' ? 'sim' : 'nao',
             'chat'                    => $Construtor->chat_status->valor(),
             'api'                     => $api,
         ];
