@@ -8,8 +8,6 @@ use Symfony\Component\HttpFoundation\Session\Storage\NativeSessionStorage;
 
 final class Session
 {
-    /**
-     */
     public function start(): void
     {
         $__SESSION_PRIVACIDADE = env('SESSION_PRIVACIDADE', '');
