@@ -1,9 +1,9 @@
 <?php
 
-use PainelConfig\Add;
-use Helpers\ApiHelper;
 use App\Classes\Painel\Config\Padrao;
 use App\Classes\UsuarioCliente\Helper;
+use Helpers\ApiHelper;
+use PainelConfig\Add;
 
 $Painel = new Add('painel_config', $acao);
 
@@ -92,7 +92,11 @@ $Painel->coluna(callback: function () use ($Painel) {
                         $Painel->margem('10');
                         $Painel->html('<h4>Geral</h4>');
                         foreach ($dado['recursos']['geral'] as $campo => $nomeCampo) {
-                            $Painel->checkbox(name: 'campo_permitido[]', label: $nomeCampo, value: $app . '-geral-' . $campo);
+                            $Painel->checkbox(
+                                name: 'campo_permitido[]',
+                                label: $nomeCampo,
+                                value: $app . '-geral-' . $campo
+                            );
                         }
                     }
 
@@ -100,7 +104,11 @@ $Painel->coluna(callback: function () use ($Painel) {
                         $Painel->margem('10');
                         $Painel->html('<h4>Download</h4>');
                         foreach ($dado['recursos']['download'] as $campo => $nomeCampo) {
-                            $Painel->checkbox(name: 'campo_permitido[]', label: $nomeCampo, value: $app . '-download-' . $campo);
+                            $Painel->checkbox(
+                                name: 'campo_permitido[]',
+                                label: $nomeCampo,
+                                value: $app . '-download-' . $campo
+                            );
                         }
                     }
                 }
@@ -115,14 +123,20 @@ $Painel->coluna(callback: function () use ($Painel) {
     $Painel->fieldset('Permissões', function () use ($Painel) {
         $Painel->fieldsetCheckbox(
             callback: function () use ($Painel) {
-                foreach (Padrao::PERMISSOES as $ind => $dado) {
-                    $titulo = $dado['titulo'] ?? '';
-                    if (!empty($titulo)) {
-                        $Painel->html('<h3>' . $titulo . '</h3>');
+                foreach (Padrao::PERMISSOES as $configuracoes) {
+                    $tituloApp = $configuracoes['titulo'] ?? '';
+                    if (!empty($tituloApp)) {
+                        $Painel->html('<h3>' . $tituloApp . '</h3>');
                     }
-                    if (array_key_exists('permissao', $dado)) {
-                        foreach ($dado['permissao'] as $permissaoFinal => $nomePermissao) {
-                            $Painel->checkbox(name: 'permissao[]', label: $nomePermissao, value: $permissaoFinal);
+                    if (array_key_exists('permissao', $configuracoes)) {
+                        foreach ($configuracoes['permissao'] as $permissao => $configPermissao) {
+                            $Painel->checkbox(
+                                name: 'permissao[]',
+                                label: is_string($configPermissao)
+                                    ? $configPermissao
+                                    : $configPermissao['titulo'],
+                                value: $permissao
+                            );
                         }
                     }
                 }

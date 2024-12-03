@@ -2,22 +2,22 @@
 
 namespace App\Controllers\Api;
 
+use App\Classes\Painel\Config\Ordem;
+use App\Models\Api\Painel\ConfiguracaoEntity;
+use App\Models\Api\Painel\ConfiguracaoModel;
+use App\Models\Api\Painel\MenuModel;
+use Controller\Controller;
 use Erro\Excecao;
 use Http\Request;
-use Modules\Data;
 use Http\Response;
+use Modules\Data;
 use Modules\Pagina;
 use Modules\Quantidade;
-use Controller\Controller;
-use App\Models\Api\Painel\MenuModel;
-use App\Classes\PainelConfiguracao\Ordem;
-use App\Models\Api\Painel\ConfiguracaoModel;
-use App\Models\Api\Painel\ConfiguracaoEntity;
+use System\Interface\ControllerAtualizarInterface;
 use System\Interface\ControllerBuscarInterface;
+use System\Interface\ControllerDeletarInterface;
 use System\Interface\ControllerListarInterface;
 use System\Interface\ControllerSalvarInterface;
-use System\Interface\ControllerDeletarInterface;
-use System\Interface\ControllerAtualizarInterface;
 
 final class PainelController extends Controller implements
     ControllerBuscarInterface,

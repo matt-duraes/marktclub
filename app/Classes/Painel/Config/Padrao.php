@@ -746,7 +746,7 @@ final class Padrao
             'permissao' => [
                 'parceiro_automovel_index'      => [
                     'titulo' => self::TITULO_LISTAR,
-                    'scope'  => 'parceiro_automovel:listar'
+                    'scope'  => ['parceiro_automovel:listar', 'automovel_modelo:listar']
                 ],
                 'parceiro_automovel_visualizar' => [
                     'titulo' => self::TITULO_VISUALIZAR,
@@ -1257,23 +1257,23 @@ final class Padrao
             'permissao' => [
                 'enquete_index'      => [
                     'titulo' => self::TITULO_LISTAR,
-                    'scope'  => 'enquete:listar'
+                    'scope'  => 'votacao_dado:listar'
                 ],
                 'enquete_visualizar' => [
                     'titulo' => self::TITULO_VISUALIZAR,
-                    'scope'  => 'enquete:buscar'
+                    'scope'  => 'votacao_dado:buscar'
                 ],
                 'enquete_add'        => [
                     'titulo' => self::TITULO_SALVAR,
-                    'scope'  => 'enquete:salvar'
+                    'scope'  => 'votacao_dado:salvar'
                 ],
                 'enquete_editar'     => [
                     'titulo' => self::TITULO_EDITAR,
-                    'scope'  => ['enquete:atualizar', 'enquete:buscar']
+                    'scope'  => ['votacao_dado:atualizar', 'votacao_dado:buscar']
                 ],
                 'enquete_deletar'    => [
                     'titulo' => self::TITULO_DELETAR,
-                    'scope'  => 'enquete:deletar'
+                    'scope'  => 'votacao_dado:deletar'
                 ],
             ]
         ],
@@ -1360,7 +1360,7 @@ final class Padrao
                 ],
                 'view_pagina_visualizar' => [
                     'titulo' => self::TITULO_VISUALIZAR,
-                    'scope'  => 'view_pagina:buscar'
+                    'scope'  => ['view_pagina:buscar', 'view_html:listar']
                 ],
                 'view_pagina_add'        => [
                     'titulo' => self::TITULO_SALVAR,

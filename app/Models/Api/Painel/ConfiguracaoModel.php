@@ -2,17 +2,17 @@
 
 namespace App\Models\Api\Painel;
 
-use ORM\ORM;
-use stdClass;
+use App\Classes\Painel\Config\Ordem;
 use Erro\Excecao;
 use Modules\Data;
 use Modules\Pagina;
 use Modules\Quantidade;
+use ORM\ORM;
+use stdClass;
+use System\Interface\ModelListarInterface;
 use System\Trait\Model\OrdemTrait;
 use System\Trait\Model\PaginaTrait;
 use System\Trait\Model\QuantidadeTrait;
-use App\Classes\PainelConfiguracao\Ordem;
-use System\Interface\ModelListarInterface;
 
 class ConfiguracaoModel extends ORM implements
     ModelListarInterface
@@ -24,9 +24,14 @@ class ConfiguracaoModel extends ORM implements
     protected string $ormTabela = TABELA_PAINEL_CONFIG;
 
     /**
-     * @param Pagina     $pagina
-     * @param Quantidade $quantidade
-     * @param Ordem      $ordem
+     * @param Pagina      $pagina
+     * @param Quantidade  $quantidade
+     * @param Ordem       $ordem
+     * @param string|null $pesquisa
+     * @param string|null $empresa
+     * @param string|null $titulo
+     * @param Data        $dataInicio
+     * @param Data        $dataFinal
      *
      * @throws Excecao
      */
