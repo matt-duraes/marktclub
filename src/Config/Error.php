@@ -55,7 +55,6 @@ function exceptionHandler($error): void
         $retorno = (new ThrowableRetorno($error))->html();
     }
     imprimirErro($retorno);
-    ppe(2);
 }
 
 /**
@@ -71,5 +70,4 @@ function errorHandler(int $tipo, string $mensagem, string $arquivo, int $linha):
     $traceString = ob_get_contents();
     ob_end_clean();
     imprimirErro((new ErroLegadoRetorno($tipo, $mensagem, $arquivo, $linha, debug_backtrace(), $traceString))->html());
-    ppe(3);
 }

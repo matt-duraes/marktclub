@@ -20,7 +20,6 @@ final class IndexController extends Controller
      */
     public function index(): Response
     {
-        123
         $Filtro = new FiltroModel([]);
         return view('index', [
             'menu'           => 'home',
