@@ -1066,7 +1066,7 @@ Route
             ::request([
                 'empresa', 'configuracao', 'campo_obrigatorio', 'campo_permitido',
                 'permissao', 'titulo', '!upload_imagem', '!upload_arquivo',
-                '!site_config'
+                '!site_config', '!anexos'
             ])
             ::post('/painel-configuracao');
 
@@ -1076,7 +1076,7 @@ Route
             ::request([
                 '!empresa', '!configuracao', '!campo_obrigatorio', '!campo_permitido',
                 '!permissao', '!titulo', '!upload_imagem', '!upload_arquivo',
-                '!site_config'
+                '!site_config', '!anexos'
             ])
             ::put('/painel-configuracao/{id}');
 
@@ -1477,7 +1477,7 @@ Route
                 '!texto_procedimento', '!texto_voucher', '!categoria_lista', '!subcategoria_tag',
                 '!subcategoria_lista', '!empresa', '!destaque', '!endereco_estado', '!pontuacao', '!confirmar_status',
                 '!confirmar_titulo', '!confirmar_texto', '!arquivo_painel', '!arquivo_clube', '!cupom_desconto',
-                '!comissao_minima', '!comissao_maxima', '!texto_restricao', '!texto_outro'
+                '!comissao_minima', '!comissao_maxima', '!texto_restricao', '!texto_outro', '!anexos'
             ])
             ::post('/parceiro-loja');
         Route
@@ -1498,7 +1498,7 @@ Route
                 '!subcategoria_lista', '!empresa', '!destaque', '!endereco_estado', '!pontuacao', '!confirmar_status',
                 '!confirmar_titulo', '!confirmar_texto', '!arquivo_painel', '!arquivo_clube', '!cupom_desconto',
                 '!status', '!comissao_minima', '!comissao_maxima', '!texto_restricao', '!texto_outro',
-                '!cancelar_motivo'
+                '!cancelar_motivo', '!anexos'
             ])
             ::put('/parceiro-loja/{id}');
         Route

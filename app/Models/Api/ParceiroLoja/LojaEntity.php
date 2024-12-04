@@ -2,15 +2,15 @@
 
 namespace App\Models\Api\ParceiroLoja;
 
-use ORM\Entity;
-use Modules\Data;
-use Modules\Botao;
-use Helpers\OrmHelper;
-use App\Classes\ParceiroLoja\Status;
 use App\Classes\ParceiroLoja\Categoria;
-use App\Models\Api\Trait\SistemaDataTrait;
-use App\Models\Api\ParceiroLoja\Trait\ValidarTrait;
+use App\Classes\ParceiroLoja\Status;
 use App\Models\Api\ParceiroLoja\Trait\PropriedadeTrait;
+use App\Models\Api\ParceiroLoja\Trait\ValidarTrait;
+use App\Models\Api\Trait\SistemaDataTrait;
+use Helpers\OrmHelper;
+use Modules\Botao;
+use Modules\Data;
+use ORM\Entity;
 
 final class LojaEntity extends Entity
 {
@@ -32,7 +32,7 @@ final class LojaEntity extends Entity
         'prazo_voucher', 'prazo_voucher_fixo', 'data_auditoria', 'confirmar_status', 'confirmar_titulo',
         'confirmar_texto', 'arquivo_painel', 'arquivo_clube', 'data_publicacao', 'status', 'data_prospeccao',
         'comissao_minima', 'comissao_maxima', 'texto_restricao', 'texto_outro', 'data_cancelado', 'data_problema',
-        'cancelar_motivo', 'limite_voucher',
+        'cancelar_motivo', 'limite_voucher', 'anexos'
     ];
     protected array $ormSalvar = [
         'nome_fantasia', 'razao_social', 'tipo_juridico', 'documento_cpf', 'documento_cnpj', 'titulo_interno',
@@ -46,7 +46,7 @@ final class LojaEntity extends Entity
         'prazo_voucher', 'prazo_voucher_fixo', 'data_auditoria', 'confirmar_status', 'confirmar_titulo',
         'confirmar_texto', 'arquivo_painel', 'arquivo_clube', 'data_publicacao', 'status', 'data_prospeccao',
         'comissao_minima', 'comissao_maxima', 'texto_restricao', 'texto_outro', 'data_cancelado', 'data_problema',
-        'cancelar_motivo', 'limite_voucher',
+        'cancelar_motivo', 'limite_voucher', 'anexos'
     ];
     private OrmHelper $EmpresaOrm;
     private OrmHelper $EquipeOrm;
@@ -100,6 +100,10 @@ final class LojaEntity extends Entity
 
     protected function regraSalvar()
     {
+        if (empty($this->empresa) && TOKEN['empresa']->id == 235) {
+            $this->empresa = ['e42b2b233a5c5207197510e01cdc985d'];
+            $this->id_dono_empresa = 235;
+        }
         $this->validarSalvar();
         $this->id_admin_empresa = $this->EmpresaOrm->mudarListaUuidParaId($this->empresa);
         if ($this->pExiste('destaque')) {
