@@ -18,13 +18,39 @@
 
 <body>
 <div id="site">
+    @ if( !empty(CLUBE_LOGO_PRINCIPAL) ):
     <div id="cabecalho" class="{{CLUBE_LOGO_CLASSE}}">
         <figure class="tema_branco"><img src="{{CLUBE_LOGO_PRINCIPAL}}" height="60" alt="{{CLUBE_TITULO}}"></figure>
         <figure class="tema_escuro"><img src="{{CLUBE_LOGO_SECUNDARIA}}" height="60" alt="{{CLUBE_TITULO}}"></figure>
     </div>
+    @ else:
+    <i class="atencao">!</i>
+    @ endif;
     <main id="conteudo">
         [[VIEW]]
     </main>
+
+    @ if( (isset($idErro) && !empty($idErro)) || CHAT):
+    <div id="rodape">
+        @ if( CHAT ):
+        <div class="chat">
+            <p>Caso queira, entre em contato com nosso atendiento:</p>
+            <a href="https://wa.me/5561993546881" target="_blank" rel="noopener noreferrer">Abrir WhatsApp</a>
+        </div>
+        @ endif;
+
+        @ if( isset($idErro) && !empty($idErro) && CHAT):
+        <div class="rodape_margem"></div>
+        @ endif;
+
+        @ if( isset($idErro) && !empty($idErro) ):
+        <div class="codigo_erro">
+            <p>Código do erro: <strong>{{$idErro}}</strong></p>
+        </div>
+        @ endif;
+    </div>
+    @ endif;
+
 </div>
 
 <link rel="preconnect" href="https://fonts.googleapis.com">

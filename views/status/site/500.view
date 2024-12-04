@@ -1,13 +1,13 @@
 @template "status"
 
-@dir "/mensagem_500.view"
+@dir "/include/500.view"
 
-@ if( $logado && URI != '/'):
+@ if( $logado):
 <div class="bloco_link">
-    <a href="{!!LINK!!}">Voltar para a HOME</a>
+    @dir "/include/menu.view"
 </div>
-@ elseif( !$logado && !in_array(URI, ['/login', '/']) && LOGIN_STATUS ):
+@ elseif( !$logado && URI != '/login' && LOGIN_STATUS ):
 <div class="bloco_link">
-    <a href="{{LINK_LOGIN}}">Fazer login</a>
+    <a href="{!!LINK_LOGIN!!}">Fazer login</a>
 </div>
 @ endif;

@@ -1,0 +1,10 @@
+<div class="bloco_texto">
+    <div class="status_numero">500</div>
+    <header>
+        <h1 class="erro">Problema temporário</h1>
+    </header>
+    <div class="margem">
+        <p>Ocorreu um problema e essa página não pode ser carregada, já notificamos a equipe de atendimento que acionará o time técnico.</p>
+        <p>Volte em alguns minutos e a página deverá ter voltado ao ar, caso o problema continue, entre em contato com o atendimento.</p>
+    </div>
+</div>

@@ -6,7 +6,6 @@ use Erro\Excecao;
 use Erro\Retorno\ErroRetorno;
 use Erro\Retorno\AlertaRetorno;
 use Erro\Retorno\ExcecaoRetorno;
-use JetBrains\PhpStorm\NoReturn;
 use Erro\Retorno\ThrowableRetorno;
 use Erro\Retorno\ErroLegadoRetorno;
 
@@ -16,7 +15,7 @@ set_error_handler('errorHandler');
 /**
  * @param $retorno
  */
-#[NoReturn] function imprimirErro($retorno): void
+function imprimirErro($retorno): void
 {
     if (is_array($retorno)) {
         echo json_encode($retorno, JSON_PARTIAL_OUTPUT_ON_ERROR);
@@ -44,7 +43,7 @@ set_error_handler('errorHandler');
 /**
  * @param $error
  */
-#[NoReturn] function exceptionHandler($error): void
+function exceptionHandler($error): void
 {
     if ($error instanceof Excecao) {
         $retorno = (new ExcecaoRetorno($error))->html();
@@ -56,6 +55,7 @@ set_error_handler('errorHandler');
         $retorno = (new ThrowableRetorno($error))->html();
     }
     imprimirErro($retorno);
+    ppe(2);
 }
 
 /**
@@ -64,11 +64,12 @@ set_error_handler('errorHandler');
  * @param string $arquivo
  * @param int    $linha
  */
-#[NoReturn] function errorHandler(int $tipo, string $mensagem, string $arquivo, int $linha): void
+function errorHandler(int $tipo, string $mensagem, string $arquivo, int $linha): void
 {
     ob_start();
     debug_print_backtrace();
     $traceString = ob_get_contents();
     ob_end_clean();
     imprimirErro((new ErroLegadoRetorno($tipo, $mensagem, $arquivo, $linha, debug_backtrace(), $traceString))->html());
+    ppe(3);
 }

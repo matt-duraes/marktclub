@@ -48,6 +48,7 @@ exports.htmlUnico = function (path) {
         const nome = arquivo
             .replace(/views\/templates\//, 'templates/')
             .replace(/views\/pages\//, '')
+            .replace(/views\/status\//, 'status/')
             .replace(/\/index\.view$/, '.php')
             .replace(/src\/Painel\/App\//, 'painel/')
             .replace(/.view$/, '.php')
@@ -449,7 +450,7 @@ function fazerReplaceNoConteudo(conteudo, path) {
                     arquivo = arquivo.replace(/\.view$/, '').replace(/\//g, '_');
                     html +=
                         '<?php require ROOT . "/files/build/views/' +
-                        path.replace(/^\/?views\/pages\//, '').replace(/\//g, '_') +
+                        path.replace(/^\/?views\/(pages|status)\//, '$1/').replace(/\//g, '_') +
                         '_' +
                         arquivo +
                         '.php"; ?>';

@@ -6,6 +6,7 @@ $corBrancoPreto = var(--cor-branco-preto)
 $corBrancoCinza = var(--cor-branco-cinza)
 $corPretoBranco = var(--cor-preto-branco)
 $corBoxShadow = var(--cor-box-shadow)
+$corCinzaCinza = var(--cor-cinza-cinza)
 
 .tema_branco
     display: flex
@@ -29,11 +30,16 @@ body
 h1
     font-size: 3rem
     color: $corClube
+    &.erro
+        color: #FF6C60
 p
     font-size: 1.6rem
+    line-height: 1.5em
+    color: $corPretoBranco
 
 #site
     width: 100%
+    min-height: 100vh
     display: flex
     flex-direction: column
     align-items: center
@@ -41,12 +47,63 @@ p
 #cabecalho
     text-align: center
     margin: 20px 20px 0
+.atencao
+    width: calc(100vh - 40px)
+    height: calc(100vh - 40px)
+    max-width: 120px
+    max-height: 120px
+    font-size: 50px
+    font-weight: bold
+    display: flex
+    justify-content: center
+    align-items: center
+    border: 1px solid #FF6C60
+    color: #FF6C60
+    border-radius: 50%
+    margin: 60px 0 10px
 
 #conteudo
     width: 100%
+    flex-grow: 1
+    flex-basis: 0%
     display: flex
     flex-direction: column
     align-items: center
+    margin-bottom: 70px
+#rodape
+    width: 100%
+    background-color: $corBrancoPreto
+    display: flex
+    flex-direction: column
+    align-items: center
+    justify-content: center
+    padding: 20px
+    margin-bottom: 20px
+    .chat
+        width: 100%
+        max-width: 700px
+        display: flex
+        flex-direction: column
+        align-items: flex-start
+    .chat a
+        background-color: #34af23
+        padding: 5px 10px
+        font-size: 1.6rem
+        border-radius: 5px
+        margin-top: 1px
+        color: #FFF
+    .rodape_margem
+        margin-top: 15px
+    .codigo_erro
+        width: calc(100% - 40px)
+        max-width: 700px
+        color: $corCinzaCinza
+    .codigo_erro p
+        font-size: 1.4rem
+    .codigo_erro p strong
+        font-weight: bold
+        font-size: 1.4rem
+        color: #FF6C60
 
 .bloco_texto
     width: calc(100% - 40px)
@@ -57,18 +114,41 @@ p
     margin-top: 40px
     text-align: center
     box-shadow: 0 0 10px $corBoxShadow
+    .icone
+        fill: $corCinzaCinza
+        margin-top: 10px
+        opacity: .3
+    .status_numero
+        color: $corCinzaCinza
+        font-size: 4rem
+        font-weight: bold
+        margin: 20px 0 15px
+        opacity: .3
+    .margem
+        width: 100%
+        display: flex
+        flex-direction: column
+        margin: 30px 0
     h1
-        margin-bottom: 10px
+        margin-bottom: 15px
+        font-weight: bold
     p
         margin: 10px 0
         color: $corPretoBranco
+        padding: 0 30px
 
 .bloco_link
     width: calc(100% - 40px)
     max-width: 400px
     display: flex
     flex-direction: column
-    margin-top: 20px
+    margin-top: 50px
+    &::before
+        content: "Escolha uma das opções abaixo para prosseguir:"
+        width: 100%
+        text-align: center
+        font-size: 1.6em
+        color: $corCinzaCinza
     a
         background-color: $corClube
         color: #FFF

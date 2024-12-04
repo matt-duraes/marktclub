@@ -73,6 +73,6 @@ final class AuthMiddleware
         if (!defined('ROTA_VIEW') || !ROTA_VIEW) {
             return '';
         }
-        return '?location=' . base64Encode(LINK . URI, true);
+        return '?location=' . base64Encode(LINK . URI . QUERY_STRING, true);
     }
 }

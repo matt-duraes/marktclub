@@ -25,4 +25,10 @@
     <p>Você tentou acessar uma página privada, faça seu login para continuar.</p>
     <p>Caso o problema continue após o login, entre em contato com o atendimento</p>
 </div>
+
+<div class="bloco_link">
+    @ if( MENU_SAIR ):
+    <a href="route('sair.index')">Refazer seu login</a>
+    @ endif;
+</div>
 @ endif;

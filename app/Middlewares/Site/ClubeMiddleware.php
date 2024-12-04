@@ -17,10 +17,14 @@ final class ClubeMiddleware extends ApiHelper
 
     public function buscar(): bool
     {
+        if (defined('CLUBE_MIDDLEWARE_STATUS')) {
+            return true;
+        }
         $this->buscarDispositivo();
         $this->montarDispositivo();
         $this->buscarClube();
         $this->montarDefine();
+        define('CLUBE_MIDDLEWARE_STATUS', true);
         return true;
     }
 
@@ -45,6 +49,9 @@ final class ClubeMiddleware extends ApiHelper
     private function montarDispositivo()
     {
         $dispositivo = sessao('DISPOSITIVO');
+        if (defined('DISPOSITIVO_TIPO')) {
+            return;
+        }
         define('DISPOSITIVO_TIPO', $dispositivo->tipo);
         define('DISPOSITIVO_MOBILE', $dispositivo->mobile);
         define('DISPOSITIVO_NAVEGADOR', $dispositivo->navegador);
@@ -96,6 +103,9 @@ final class ClubeMiddleware extends ApiHelper
 
     private function montarDefine()
     {
+        if (!sessaoExiste('CLUBE') || defined('CLUBE_LOGO_PRINCIPAL')) {
+            return;
+        }
         $clube = sessao('CLUBE');
         define('CLUBE_LOGO_PRINCIPAL', $clube->logo_principal);
         define('CLUBE_LOGO_SECUNDARIA', !empty($clube->logo_secundaria) ? $clube->logo_secundaria : $clube->logo_principal);

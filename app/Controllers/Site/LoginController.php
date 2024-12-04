@@ -20,7 +20,6 @@ final class LoginController extends Controller
 {
     public function index(Request $request): Response
     {
-        123
         $Cache = new VersaoClubeModel();
         $busca = $Cache->cache('busca_home', retorno: VersaoClubeModel::RETORNO_ARRAY);
 

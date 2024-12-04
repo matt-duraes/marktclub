@@ -137,7 +137,7 @@ final class SocialHelper
         string $imagem = null,
         string|array $tag = []
     ) {
-        $link = LINK . '/' . URI;
+        $link = LINK . '/' . URI . QUERY_STRING;
         $tagHtml = '';
         if (!empty($tag)) {
             $tag = is_array($tag) ? implode(', ', $tag) : $tag;
