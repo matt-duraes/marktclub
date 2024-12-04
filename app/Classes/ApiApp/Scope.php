@@ -69,7 +69,7 @@ final class Scope
         'perfil_dado:buscar', 'perfil_dado:atualizar', 'perfil_dado:validar_senha',
         'perfil_dado:atualizar_senha', 'perfil_dado:alterar_imagem',
 
-        'admin:painel', 'admin:menu', 'admin:chave_publica', 'admin:chave_privada',
+        'admin:painel', 'admin:menu', 'admin:chave_publica', 'admin:chave_privada', 'login:painel',
 
         'album_dado:listar', 'album_dado:salvar', 'album_dado:atualizar', 'album_dado:deletar',
         'album_dado:buscar', 'album_dado:foto',
