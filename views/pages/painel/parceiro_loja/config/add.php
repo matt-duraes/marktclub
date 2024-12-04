@@ -158,7 +158,7 @@ $Painel->coluna(callback: function () use ($Painel) {
             ->select(
                 name: 'pontuacao',
                 lista: [
-                    '' => 'Escolha uma opção',
+                    ''  => 'Escolha uma opção',
                     '1' => 1,
                     '2' => 2,
                     '3' => 3,
@@ -260,17 +260,17 @@ $Painel->coluna(callback: function () use ($Painel) {
                 id: 'bloco_confirmar_texto',
                 contador: 250
             );
-            if (sessao('USUARIO.empresa')->id != 'e42b2b233a5c5207197510e01cdc985d') {
-                $Painel->titulo('Extensão:');
-            }
-            $Painel
-                ->tag(name: 'link_alias', label: 'Link para extensão ', placeholder: 'Link para extensão', tipo: 'url')
-                ->tag(
-                    name: 'link_bloqueado',
-                    label: 'Link bloqueado para extensão ',
-                    placeholder: 'Link bloqueado para extensão',
-                    tipo: 'url'
-                );
+        if (sessao('USUARIO.empresa')->id != 'e42b2b233a5c5207197510e01cdc985d') {
+            $Painel->titulo('Extensão:');
+        }
+        $Painel
+            ->tag(name: 'link_alias', label: 'Link para extensão ', placeholder: 'Link para extensão', tipo: 'url')
+            ->tag(
+                name: 'link_bloqueado',
+                label: 'Link bloqueado para extensão ',
+                placeholder: 'Link bloqueado para extensão',
+                tipo: 'url'
+            );
     });
 });
 

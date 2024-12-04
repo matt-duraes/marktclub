@@ -3,6 +3,7 @@
     <i>@iconeSiteHome</i>
     Início
 </a>
+
 @ if(!$melhorIdade) :
     @ if( MENU_ACESSO_RAPIDO ):
     <a class="botao {!!MENU_HOVER == 'acesso-rapido' ? 'cor_bg pagina_atual' : ''!!} acesso_rapido_link" href="@route(acessoRapido.index)">

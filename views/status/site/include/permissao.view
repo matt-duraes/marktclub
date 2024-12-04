@@ -1,0 +1,34 @@
+@template "status"
+
+@ if( $logado ):
+<div class="bloco_texto">
+    <header>
+        <h1>Sem permissão</h1>
+    </header>
+    <p>Ocorreu algo e você não tem permissão pra ver essa página, pode ser um erro de permissão temporário ou uma nova função do clube.</p>
+    <p>Para ajudá-lo, que tal usar uma das opções abaixo:</p>
+</div>
+
+<div class="bloco_link">
+    <a href="{!!LINK!!}">Voltar para a HOME</a>
+    @ if( MENU_SAIR ):
+    <a href="route('sair.index')">Refazer seu login</a>
+    @ endif;
+</div>
+@ elseif(in_array(URI, ['/login', '/']):
+@dir "/mensagem_500.view"
+@ else:
+<div class="bloco_texto">
+    <header>
+        <h1>Sem permissão</h1>
+    </header>
+    <p>Você tentou acessar uma página privada, faça seu login para continuar.</p>
+    <p>Caso o problema continue após o login, entre em contato com o atendimento</p>
+</div>
+
+<div class="bloco_link">
+    @ if( MENU_SAIR ):
+    <a href="route('sair.index')">Refazer seu login</a>
+    @ endif;
+</div>
+@ endif;

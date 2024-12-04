@@ -136,7 +136,6 @@ final class ConfiguracaoEntity extends Entity
     }
 
     /**
-     * @return void
      * @throws Excecao
      */
     private function validarRequest(): void

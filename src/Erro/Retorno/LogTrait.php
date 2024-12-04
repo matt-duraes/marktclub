@@ -24,20 +24,26 @@ trait LogTrait
         ];
 
         $mensagem = 'Ocorreu um erro inesperado, clique em retornar para voltar a navegar. Geralmente esse tipo de erro é temporário, mas para os casos ele continue ocorrendo, já sinalizamos para a equipe técnica sobre o ocorrido, mas caso queira, você pode entre em contato com o suporte e informá-lo.';
-
+        $idErro = '';
         try {
             $ch = curl_init();
             curl_setopt($ch, CURLOPT_URL, env('API_LINK') . '/log-erro');
             curl_setopt($ch, CURLOPT_CUSTOMREQUEST, 'POST');
             curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
             curl_setopt($ch, CURLOPT_FOLLOWLOCATION, true);
+            curl_setopt($ch, CURLOPT_HTTPHEADER, [
+                'Authorization: Bearer ' . env('API_LOG_TOKEN', '')
+            ]);
 
             curl_setopt($ch, CURLOPT_POST, true);
             curl_setopt($ch, CURLOPT_POSTFIELDS, $body);
 
-            curl_exec($ch);
+            $retorno = json_decode(curl_exec($ch), true);
+            if (validarIndiceExiste($retorno, 'dado.id')) {
+                $idErro = $retorno['dado']['id'];
+            }
             curl_close($ch);
-        } catch (\Throwable) {
+        } catch (\Throwable $e) {
             $mensagem = 'Ocorreu um erro inesperado, clique em retornar para voltar a navegar. Esse tipo de erro pode ser temporário, e normalmente os reportamos de forma automaticamente para a equipe técnica, infelizmente esse não foi reportado,por isso, caso o erro continue, entre em contato com o suporte e nos informe sobre esse para para ajudar a corrigí-lo o mais rápido possível.';
         }
 
@@ -54,6 +60,19 @@ trait LogTrait
                     'codigo'   => 500
                 ]
             ]);
+            exit();
+        }
+
+        if (defined('FW_LOG_ERRO_EXISTE')) {
+            exit();
+        }
+        define('FW_LOG_ERRO_EXISTE', true);
+
+        $pathErroProjeto = defined('ROUTE_DIRETORIO') && !empty(ROUTE_DIRETORIO) ?
+            ROOT . '/files/build/views/status_' . mb_strtolower(ROUTE_DIRETORIO, 'UTF-8') . '_' . $status . '.php' :
+            '';
+        if (!empty($pathErroProjeto) && file_exists($pathErroProjeto)) {
+            require_once $pathErroProjeto;
             exit();
         }
         require_once ROOT . '/src/Html/Excecao/' . $status . '.php';

@@ -1,0 +1,23 @@
+@ if( URI != '/' ):
+<a href="{!!LINK!!}">Voltar para a HOME</a>
+@ endif;
+
+@ if( MENU_LOJA ):
+<a href="@route(loja.index)">Ver lista de lojas</a>
+@ endif;
+
+@ if( MENU_SAMSUNG ):
+<a href="@route(samsung.index)">Comprar produtos Samsung</a>
+@ endif;
+
+@if(MENU_FARMACIA):
+<a href="@route('farmacia.index')">Comprar remédio com desconto</a>
+@endif
+
+@ if( MENU_AUTOMOVEL ):
+<a href="@route(automovel.index)">Descontos em automóveis</a>
+@ endif;
+
+@if(MENU_SAUDE):
+<a href="<?= route('planosaude.index') ?>">Contratar plano de saúde</a>
+@endif

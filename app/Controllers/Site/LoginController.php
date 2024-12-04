@@ -152,15 +152,15 @@ final class LoginController extends Controller
     {
         (new GrupoModel())->buscarSlug();
         return view('login.ativar.buscar', [
-            'tipoSiape'     => TipoAtivacao::SIAPE == TIPO_ATIVACAO,
-            'tipoMatricula' => TipoAtivacao::MATRICULA == TIPO_ATIVACAO,
+            'tipoSiape'     => TipoAtivacao::SIAPE == ATIVACAO_TIPO,
+            'tipoMatricula' => TipoAtivacao::MATRICULA == ATIVACAO_TIPO,
         ]);
     }
 
     public function postAtivarBuscar(Request $request): Response
     {
         $valor = $request->busca;
-        if (TIPO_ATIVACAO == 'cpf') {
+        if (ATIVACAO_TIPO == 'cpf') {
             $valor = strCpfNumero($valor);
         }
         if ($request->tipo_usuario == 'indicado') {
@@ -176,7 +176,7 @@ final class LoginController extends Controller
             $buscar = (new ApiHelper('usuario_cliente:ativar'))
                 ->body([
                     'tipo_usuario' => $request->tipo_usuario,
-                    'chave'        => TIPO_ATIVACAO,
+                    'chave'        => ATIVACAO_TIPO,
                     'valor'        => $valor,
                     'empresa'      => CLUBE_EMPRESA
                 ])

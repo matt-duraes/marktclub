@@ -21,8 +21,24 @@ final class LogErroController extends Controller implements
     ControllerListarInterface,
     ControllerAtualizarInterface
 {
+    private function validarToken()
+    {
+        $header = getallheaders();
+        $token = $header['Authorization']
+            ?? $header['authorization']
+            ?? $_SERVER['HTTP_AUTHORIZATION']
+            ?? false;
+        $token = !empty($token) ? preg_replace('/^Bearer ?/i', '', $token) : '';
+        if (empty($token)) {
+            mensagemStatus(401);
+        } elseif ($token != env('API_LOG_TOKEN')) {
+            mensagemStatus(403);
+        }
+    }
+
     public function postSalvar(Request $request): Response
     {
+        $this->validarToken();
         try {
             $Error = new ErrorEntity(
                 $request->mensagem,

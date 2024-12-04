@@ -2,19 +2,19 @@
 
 namespace App\Models\Api\ParceiroLoja;
 
-use App\Classes\ParceiroLoja\CancelarMotivo;
-use App\Classes\ParceiroLoja\Categoria;
-use App\Classes\ParceiroLoja\Status;
-use App\Classes\ParceiroLoja\TipoLoja;
-use App\Models\Api\Download\DownloadGeralModel;
-use App\Models\Api\ParceiroLoja\Trait\MontarRetornoTrait;
-use App\Models\Api\ParceiroLoja\Trait\PropriedadeModelTrait;
-use App\Models\Api\ParceiroLoja\Trait\WhereTrait;
-use App\Models\Api\Trait\ValidarEmpresaTrait;
-use Helpers\OrmHelper;
 use Http\Request;
 use Modules\Data;
 use Modules\Telefone;
+use Helpers\OrmHelper;
+use App\Classes\ParceiroLoja\Status;
+use App\Classes\ParceiroLoja\TipoLoja;
+use App\Classes\ParceiroLoja\Categoria;
+use App\Classes\ParceiroLoja\CancelarMotivo;
+use App\Models\Api\Trait\ValidarEmpresaTrait;
+use App\Models\Api\Download\DownloadGeralModel;
+use App\Models\Api\ParceiroLoja\Trait\WhereTrait;
+use App\Models\Api\ParceiroLoja\Trait\MontarRetornoTrait;
+use App\Models\Api\ParceiroLoja\Trait\PropriedadeModelTrait;
 
 final class DownloadModel extends DownloadGeralModel
 {

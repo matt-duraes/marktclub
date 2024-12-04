@@ -945,6 +945,15 @@ if (!function_exists('pegarHtmlEmail')) {
         return ob_get_clean();
     }
 }
+/**
+ * Verifica se a define existe e se ela não é vazia
+ */
+if (!function_exists('definido')) {
+    function definido($nome)
+    {
+        return defined($nome) && !vazio(constant($nome));
+    }
+}
 if (!function_exists('vazio')) {
     function vazio($item)
     {

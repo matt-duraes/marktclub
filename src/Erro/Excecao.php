@@ -186,20 +186,17 @@ final class Excecao extends \Exception
             ];
         }
 
+        $this->verificarSeJaExistePagina();
+
         $diretorio = defined('ROUTE_DIRETORIO') ? ROUTE_DIRETORIO : 'Site';
-        if (
-            file_exists(
-                ROOT . '/html/views/' . mb_strtolower($diretorio, 'UTF-8') . '/erro_geral/' . $status . '.php'
-            )
-        ) {
-            ob_start();
-            require_once ROOT . '/html/views/' . mb_strtolower($diretorio, 'UTF-8') . '/erro_geral/' . $status . '.php';
-            return ob_get_clean();
+        $pathErroProjeto = ROOT . '/files/build/views/status_' . mb_strtolower($diretorio, 'UTF-8') . '_' . $status . '.php';
+        if (file_exists($pathErroProjeto)) {
+            require_once $pathErroProjeto;
+            exit();
         }
 
-        ob_start();
         require_once ROOT . '/src/Html/Excecao/' . $status . '.php';
-        return ob_get_clean();
+        exit();
     }
 
     public function acao(): string
@@ -238,16 +235,24 @@ final class Excecao extends \Exception
             ];
         }
 
-        $diretorio = defined('ROUTE_DIRETORIO') ? ROUTE_DIRETORIO : 'Site';
-        if (file_exists(ROOT . '/html/views/' . mb_strtolower($diretorio, 'UTF-8') . '/erro_geral/excecao.php')) {
-            ob_start();
-            require_once ROOT . '/html/views/' . mb_strtolower($diretorio, 'UTF-8') . '/erro_geral/excecao.php';
-            return ob_get_clean();
-        }
+        $this->verificarSeJaExistePagina();
 
-        ob_start();
+        $diretorio = defined('ROUTE_DIRETORIO') ? ROUTE_DIRETORIO : 'Site';
+        $pathErroProjeto = ROOT . '/files/build/views/status_' . mb_strtolower($diretorio, 'UTF-8') . '_excecao.php';
+        if (file_exists($pathErroProjeto)) {
+            require_once ROOT . $pathErroProjeto;
+            exit();
+        }
         require_once ROOT . '/src/Html/Excecao/excecao.php';
-        return ob_get_clean();
+        exit();
+    }
+
+    private function verificarSeJaExistePagina()
+    {
+        if (defined('FW_LOG_ERRO_EXISTE')) {
+            exit();
+        }
+        define('FW_LOG_ERRO_EXISTE', true);
     }
 
     private function limparLista(): void
