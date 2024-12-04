@@ -15,10 +15,6 @@ trait WhereTrait
             ['id_admin_empresa', 'json', !empty($empresa) ? $empresa : $this->idEmpresa]
         ];
 
-        if ($this->idEmpresa == 235) {
-            $where = [['id_dono_empresa', $this->idEmpresa]];
-        }
-
         $Where = new Where($this, $where);
         $Where
             ->seVazio(propriedade: 'empresas', vazio: false, callback: function () use ($Where) {

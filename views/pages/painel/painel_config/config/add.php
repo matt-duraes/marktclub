@@ -45,11 +45,6 @@ $Painel->coluna(callback: function () use ($Painel, $empresas) {
                 name: 'site_config',
                 label: 'Arquivos do Site (Institucional)',
                 placeholder: 'Insira o UUID do diretório padrão de arquivos do site'
-            )
-            ->input(
-                name: 'anexos',
-                label: 'Arquivos do Parceiro Loja (Ex: ANABB)',
-                placeholder: 'Insira o UUID do diretório padrão de arquivos de loja'
             );
     });
 });
@@ -94,30 +89,6 @@ $Painel->coluna(callback: function () use ($Painel) {
                             name: 'campo_permitido[]',
                             label: $nomeCampo,
                             value: $app . '-geral-' . $campo
-                        );
-                    }
-                }
-
-                if (array_key_exists('add', $dado['recursos']) && !empty($dado['recursos']['add'])) {
-                    $Painel->margem('10');
-                    $Painel->html('<h4>Add</h4>');
-                    foreach ($dado['recursos']['add'] as $campo => $nomeCampo) {
-                        $Painel->checkbox(
-                            name: 'campo_permitido[]',
-                            label: $nomeCampo,
-                            value: $app . '-add-' . $campo
-                        );
-                    }
-                }
-
-                if (array_key_exists('editar', $dado['recursos']) && !empty($dado['recursos']['editar'])) {
-                    $Painel->margem('10');
-                    $Painel->html('<h4>Editar</h4>');
-                    foreach ($dado['recursos']['editar'] as $campo => $nomeCampo) {
-                        $Painel->checkbox(
-                            name: 'campo_permitido[]',
-                            label: $nomeCampo,
-                            value: $app . '-editar-' . $campo
                         );
                     }
                 }

@@ -36,7 +36,6 @@ trait PropriedadeTrait
     public Cpf $responsavel_cpf;
     public Telefone $responsavel_telefone;
     public Email $responsavel_email;
-    public ArquivoPrivadoLista $anexos;
     public ArquivoPrivado $imagem_logo;
     public ArquivoPrivado $imagem_capa_desktop;
     public ArquivoPrivado $imagem_capa_mobile;
