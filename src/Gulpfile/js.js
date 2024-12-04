@@ -66,7 +66,7 @@ exports.jsTodos = function () {
         await fsCriarDiretorio('./files/build/js');
 
         const listaArquivo = glob
-            .sync('views/@(pages|templates)/**/all.js')
+            .sync('views/@(pages|templates|status)/**/all.js')
             .concat(glob.sync('src/Painel/App/**/all.js'))
             .concat(glob.sync('src/Painel/template/**/all.js'));
 

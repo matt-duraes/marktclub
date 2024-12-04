@@ -82,7 +82,7 @@ exports.htmlTodos = function () {
         await fsCriarDiretorio('files/build/views');
 
         const listaArquivo = glob
-            .sync('views/@(pages|templates)/**/*.view')
+            .sync('views/@(pages|templates|status)/**/*.view')
             .concat(glob.sync('src/Painel/App/**/*.view'))
             .concat(glob.sync('src/Painel/template/**/*.view'));
 
