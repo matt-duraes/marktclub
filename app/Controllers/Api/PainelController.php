@@ -41,7 +41,7 @@ final class PainelController extends Controller implements
 
     /**
      * @param ConfiguracaoEntity $configuracaoEntity
-     * @param int                $status
+     * @param int $status
      *
      * @return Response
      * @throws Excecao
@@ -51,7 +51,7 @@ final class PainelController extends Controller implements
         return mensagemSucesso(pegarPropriedadeDaEntity($configuracaoEntity, lista: [
             'empresa', 'titulo', 'permissao', 'configuracao', 'campo_obrigatorio',
             'campo_permitido', 'upload_grupo', 'upload_imagem', 'upload_arquivo',
-            'site_config', 'anexos'
+            'site_config'
         ]), $status);
     }
 
@@ -92,7 +92,7 @@ final class PainelController extends Controller implements
 
     /**
      * @param Request $request
-     * @param string  $id
+     * @param string $id
      *
      * @return Response
      * @throws Excecao

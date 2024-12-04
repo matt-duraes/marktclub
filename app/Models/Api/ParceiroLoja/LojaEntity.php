@@ -32,7 +32,7 @@ final class LojaEntity extends Entity
         'prazo_voucher', 'prazo_voucher_fixo', 'data_auditoria', 'confirmar_status', 'confirmar_titulo',
         'confirmar_texto', 'arquivo_painel', 'arquivo_clube', 'data_publicacao', 'status', 'data_prospeccao',
         'comissao_minima', 'comissao_maxima', 'texto_restricao', 'texto_outro', 'data_cancelado', 'data_problema',
-        'cancelar_motivo', 'limite_voucher', 'anexos'
+        'cancelar_motivo', 'limite_voucher'
     ];
     protected array $ormSalvar = [
         'nome_fantasia', 'razao_social', 'tipo_juridico', 'documento_cpf', 'documento_cnpj', 'titulo_interno',
@@ -46,7 +46,7 @@ final class LojaEntity extends Entity
         'prazo_voucher', 'prazo_voucher_fixo', 'data_auditoria', 'confirmar_status', 'confirmar_titulo',
         'confirmar_texto', 'arquivo_painel', 'arquivo_clube', 'data_publicacao', 'status', 'data_prospeccao',
         'comissao_minima', 'comissao_maxima', 'texto_restricao', 'texto_outro', 'data_cancelado', 'data_problema',
-        'cancelar_motivo', 'limite_voucher', 'anexos'
+        'cancelar_motivo', 'limite_voucher'
     ];
     private OrmHelper $EmpresaOrm;
     private OrmHelper $EquipeOrm;
@@ -100,10 +100,6 @@ final class LojaEntity extends Entity
 
     protected function regraSalvar()
     {
-        if (empty($this->empresa) && TOKEN['empresa']->id == 235) {
-            $this->empresa = ['e42b2b233a5c5207197510e01cdc985d'];
-            $this->id_dono_empresa = 235;
-        }
         $this->validarSalvar();
         $this->id_admin_empresa = $this->EmpresaOrm->mudarListaUuidParaId($this->empresa);
         if ($this->pExiste('destaque')) {
@@ -174,19 +170,19 @@ final class LojaEntity extends Entity
     {
         $statusGeral = $statusInicial . '_' . $statusAtual;
         $mensagem = [
-            Status::PROSPECCAO . '_' . Status::CONCLUIDO     => 'Loja foi publicada',
-            Status::PROBLEMA . '_' . Status::CONCLUIDO       => 'Problema foi corrigido',
-            Status::CONCLUIDO . '_' . Status::PROBLEMA       => 'Loja com problema',
-            Status::CONCLUIDO . '_' . Status::CANCELADO      => 'Loja publicada foi cancelada',
-            Status::PROBLEMA . '_' . Status::CANCELADO       => 'Loja com problema foi cancelada',
+            Status::PROSPECCAO . '_' . Status::CONCLUIDO => 'Loja foi publicada',
+            Status::PROBLEMA . '_' . Status::CONCLUIDO => 'Problema foi corrigido',
+            Status::CONCLUIDO . '_' . Status::PROBLEMA => 'Loja com problema',
+            Status::CONCLUIDO . '_' . Status::CANCELADO => 'Loja publicada foi cancelada',
+            Status::PROBLEMA . '_' . Status::CANCELADO => 'Loja com problema foi cancelada',
             Status::PROSPECCAO . '_' . Status::SEM_INTERESSE => 'Loja não teve interrese',
-            Status::CANCELADO . '_' . Status::PROSPECCAO     => 'Loja cancelada voltou a prospecção',
+            Status::CANCELADO . '_' . Status::PROSPECCAO => 'Loja cancelada voltou a prospecção',
             Status::SEM_INTERESSE . '_' . Status::PROSPECCAO => 'Loja sem interesse voltou a prospecção',
-            Status::CANCELADO                                => 'A loja foi cancelada',
-            Status::CONCLUIDO                                => 'Loja foi publicada',
-            Status::PROBLEMA                                 => 'Houve um problema com a loja',
-            Status::PROSPECCAO                               => 'Foi recolocada em prospecção',
-            Status::SEM_INTERESSE                            => 'Não teve interessem'
+            Status::CANCELADO => 'A loja foi cancelada',
+            Status::CONCLUIDO => 'Loja foi publicada',
+            Status::PROBLEMA => 'Houve um problema com a loja',
+            Status::PROSPECCAO => 'Foi recolocada em prospecção',
+            Status::SEM_INTERESSE => 'Não teve interessem'
         ];
         $indice = $this->status->indice();
         $this->sistemaData($mensagem[$statusGeral] ?? $mensagem[$indice], $statusGeral);

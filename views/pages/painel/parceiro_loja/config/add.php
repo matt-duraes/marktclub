@@ -17,10 +17,6 @@ $Painel = new PainelConfig\Add(app: 'parceiro_loja', acao: $acao);
 $gerente = sessao('USUARIO')['gerente'] ?? '' == 'sim';
 
 $Painel->coluna(callback: function () use ($Painel, $diretorioAnexos) {
-    $Painel->fieldset('Anexos', function () use ($Painel, $diretorioAnexos) {
-        $Painel->imagem(name: 'anexos', diretorio: $diretorioAnexos);
-    });
-
     $Painel->fieldset('Logo', function () use ($Painel) {
         $Painel->imagem(name: 'imagem_logo', diretorio: '0493d060-44ba-470b-a0a2-7211ba138d8c');
     });
@@ -259,11 +255,8 @@ $Painel->coluna(callback: function () use ($Painel) {
                 class: 'display_none',
                 id: 'bloco_confirmar_texto',
                 contador: 250
-            );
-        if (sessao('USUARIO.empresa')->id != 'e42b2b233a5c5207197510e01cdc985d') {
-            $Painel->titulo('Extensão:');
-        }
-        $Painel
+            )
+            ->titulo('Extensão:')
             ->tag(name: 'link_alias', label: 'Link para extensão ', placeholder: 'Link para extensão', tipo: 'url')
             ->tag(
                 name: 'link_bloqueado',
@@ -372,36 +365,30 @@ $Painel->coluna(callback: function () use ($Painel, $tag) {
     });
 });
 
-$campos = sessao('PAINEL.campo', padrao: []);
-$camposExiste = object_key_exists('parceiro_loja', $campos) && !empty($campos->parceiro_loja);
-$Painel->coluna(callback: function () use ($Painel, $empresa, $camposExiste, $campos) {
-    if ($camposExiste && in_array('empresa', $campos->parceiro_loja->add)) {
-        $Painel->fieldsetCheckbox(
-            titulo: 'Empresas',
-            callback: function () use ($Painel, $empresa) {
-                foreach ($empresa as $id => $nome) {
-                    $Painel->checkbox(name: 'empresa[]', label: $nome, value: $id);
-                }
-            },
-            todos: 'Marcar todas as empresas',
-            mais: true
-        );
-    }
+$Painel->coluna(callback: function () use ($Painel, $empresa) {
+    $Painel->fieldsetCheckbox(
+        titulo: 'Empresas',
+        callback: function () use ($Painel, $empresa) {
+            foreach ($empresa as $id => $nome) {
+                $Painel->checkbox(name: 'empresa[]', label: $nome, value: $id);
+            }
+        },
+        todos: 'Marcar todas as empresas',
+        mais: true
+    );
 });
 
-$Painel->coluna(callback: function () use ($Painel, $empresa, $camposExiste, $campos) {
-    if ($camposExiste && in_array('destaque', $campos->parceiro_loja->add)) {
-        $Painel->fieldsetCheckbox(
-            titulo: 'Destaque',
-            callback: function () use ($Painel, $empresa) {
-                foreach ($empresa as $id => $nome) {
-                    $Painel->checkbox(name: 'destaque[]', label: $nome, value: $id);
-                }
-            },
-            todos: 'Marcar todas as empresas',
-            mais: true
-        );
-    }
+$Painel->coluna(callback: function () use ($Painel, $empresa) {
+    $Painel->fieldsetCheckbox(
+        titulo: 'Destaque',
+        callback: function () use ($Painel, $empresa) {
+            foreach ($empresa as $id => $nome) {
+                $Painel->checkbox(name: 'destaque[]', label: $nome, value: $id);
+            }
+        },
+        todos: 'Marcar todas as empresas',
+        mais: true
+    );
 });
 
 $Painel->coluna(callback: function () use ($Painel) {

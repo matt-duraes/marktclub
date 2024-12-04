@@ -13,7 +13,6 @@ final class ConfiguracaoEntity extends Entity
     public string $titulo;
     public string $upload_imagem;
     public string $upload_arquivo;
-    public string $anexos;
     public string $site_config;
     public array $permissao;
     public array $configuracao;
@@ -60,12 +59,12 @@ final class ConfiguracaoEntity extends Entity
                 );
         }
         return object([
-            'titulo'            => $configs->titulo,
-            'permissao'         => jsonDecode($configs->permissao, true, true),
-            'configuracao'      => jsonDecode($configs->configuracao, true, true),
+            'titulo' => $configs->titulo,
+            'permissao' => jsonDecode($configs->permissao, true, true),
+            'configuracao' => jsonDecode($configs->configuracao, true, true),
             'campo_obrigatorio' => jsonDecode($configs->campo_obrigatorio, true, true),
-            'campo_permitido'   => jsonDecode($configs->campo_permitido, true, true),
-            'upload_grupo'      => jsonDecode($configs->upload_grupo, true, true)
+            'campo_permitido' => jsonDecode($configs->campo_permitido, true, true),
+            'upload_grupo' => jsonDecode($configs->upload_grupo, true, true)
         ]);
     }
 
@@ -76,16 +75,6 @@ final class ConfiguracaoEntity extends Entity
             if (array_key_exists('geral', $recurso) && !empty($recurso['geral'])) {
                 foreach ($recurso['geral'] as $campo) {
                     $campoPermitido[] = $nomeApp . '-geral-' . $campo;
-                }
-            }
-            if (array_key_exists('add', $recurso) && !empty($recurso['add'])) {
-                foreach ($recurso['add'] as $campo) {
-                    $campoPermitido[] = $nomeApp . '-add-' . $campo;
-                }
-            }
-            if (array_key_exists('editar', $recurso) && !empty($recurso['editar'])) {
-                foreach ($recurso['editar'] as $campo) {
-                    $campoPermitido[] = $nomeApp . '-editar-' . $campo;
                 }
             }
             if (array_key_exists('download', $recurso) && !empty($recurso['download'])) {
@@ -100,7 +89,6 @@ final class ConfiguracaoEntity extends Entity
         $this->upload_imagem = $this->upload_grupo['imagem'] ?? '';
         $this->upload_arquivo = $this->upload_grupo['arquivo'] ?? '';
         $this->site_config = $this->upload_grupo['site_config'] ?? '';
-        $this->anexos = $this->upload_grupo['anexos'] ?? '';
     }
 
     /**
@@ -151,10 +139,9 @@ final class ConfiguracaoEntity extends Entity
     private function setarUploadGrupo(): array
     {
         return [
-            'imagem'      => $this->pExiste('upload_imagem') ? $this->upload_imagem : '',
-            'arquivo'     => $this->pExiste('upload_arquivo') ? $this->upload_arquivo : '',
-            'site_config' => $this->pExiste('site_config') ? $this->site_config : '',
-            'anexos'      => $this->pExiste('anexos') ? $this->anexos : ''
+            'imagem' => $this->pExiste('upload_imagem') ? $this->upload_imagem : '',
+            'arquivo' => $this->pExiste('upload_arquivo') ? $this->upload_arquivo : '',
+            'site_config' => $this->pExiste('site_config') ? $this->site_config : ''
         ];
     }
 }
