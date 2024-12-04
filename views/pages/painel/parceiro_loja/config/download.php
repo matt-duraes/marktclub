@@ -44,7 +44,8 @@ $Painel
             ->campo('data_contrato_vencimento', 'Data de vencimento')
             ->campo('data_auditoria', 'Data de auditoria')
             ->campo('data_cancelado', 'Data de cancelamento')
-            ->campo('cancelar_motivo', 'Motivo de cancelamento');
+            ->campo('cancelar_motivo', 'Motivo de cancelamento')
+            ->campo('email_contato', 'E-mail de contato');
     })
     ->bloco('Outros', function () use ($Painel) {
         $Painel

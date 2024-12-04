@@ -24,7 +24,8 @@ final class DownloadModel extends DownloadGeralModel
     use PropriedadeModelTrait;
 
     protected array $campoAceito = [
-        'titulo', 'titulo_interno', 'razao_social', 'nome_fantasia', 'documento_cnpj', 'documento_cpf', 'responsavel_nome',
+        'titulo', 'titulo_interno', 'razao_social', 'nome_fantasia', 'documento_cnpj', 'documento_cpf',
+        'responsavel_nome',
         'responsavel_cargo', 'responsavel_cpf', 'responsavel_telefone', 'responsavel_email', 'desconto',
         'texto_descricao', 'texto_desconto', 'texto_procedimento', 'texto_restricao', 'texto_outro',
         'texto_voucher', 'comissao_minima', 'comissao_maxima', 'data_contrato_inicio', 'data_contrato_vencimento',
@@ -57,6 +58,16 @@ final class DownloadModel extends DownloadGeralModel
         $this->busca = $query->read();
     }
 
+    private function pegarEmpresa(): null|int
+    {
+        if (!$this->propriedadeExiste('empresa') || empty($this->empresa)) {
+            return null;
+        }
+
+        return (new OrmHelper(TABELA_COMERCIAL_EMPRESA))
+            ->pegarIdPeloUuid($this->empresa);
+    }
+
     private function converterCampoParaDownload(): array
     {
         $campo = array_flip($this->campo);
@@ -69,16 +80,6 @@ final class DownloadModel extends DownloadGeralModel
         }
 
         return array_keys($campo);
-    }
-
-    private function pegarEmpresa(): null|int
-    {
-        if (!$this->propriedadeExiste('empresa') || empty($this->empresa)) {
-            return null;
-        }
-
-        return (new OrmHelper(TABELA_COMERCIAL_EMPRESA))
-            ->pegarIdPeloUuid($this->empresa);
     }
 
     private function pegarQueryEquipe($query)

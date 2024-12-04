@@ -48,14 +48,11 @@ final class PainelController extends Controller implements
      */
     private function retornoPadrao(ConfiguracaoEntity $configuracaoEntity, int $status = 200): Response
     {
-        return mensagemSucesso(
-            pegarPropriedadeDaEntity($configuracaoEntity, lista: [
-                'empresa', 'titulo', 'permissao', 'configuracao', 'campo_obrigatorio',
-                'campo_permitido', 'upload_grupo', 'upload_imagem', 'upload_arquivo',
-                'site_config'
-            ]),
-            $status
-        );
+        return mensagemSucesso(pegarPropriedadeDaEntity($configuracaoEntity, lista: [
+            'empresa', 'titulo', 'permissao', 'configuracao', 'campo_obrigatorio',
+            'campo_permitido', 'upload_grupo', 'upload_imagem', 'upload_arquivo',
+            'site_config', 'anexos'
+        ]), $status);
     }
 
     /**
