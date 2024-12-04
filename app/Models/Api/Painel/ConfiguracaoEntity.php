@@ -2,10 +2,10 @@
 
 namespace App\Models\Api\Painel;
 
-use stdClass;
-use ORM\Entity;
 use Erro\Excecao;
 use Helpers\OrmHelper;
+use ORM\Entity;
+use stdClass;
 
 final class ConfiguracaoEntity extends Entity
 {
@@ -13,6 +13,7 @@ final class ConfiguracaoEntity extends Entity
     public string $titulo;
     public string $upload_imagem;
     public string $upload_arquivo;
+    public string $anexos;
     public string $site_config;
     public array $permissao;
     public array $configuracao;
@@ -39,6 +40,9 @@ final class ConfiguracaoEntity extends Entity
         parent::__construct();
     }
 
+    /**
+     * @return stdClass
+     */
     public function pegarConfiguracoes(): stdClass
     {
         $configs = (new OrmHelper(TABELA_PAINEL_CONFIG))
@@ -74,6 +78,16 @@ final class ConfiguracaoEntity extends Entity
                     $campoPermitido[] = $nomeApp . '-geral-' . $campo;
                 }
             }
+            if (array_key_exists('add', $recurso) && !empty($recurso['add'])) {
+                foreach ($recurso['add'] as $campo) {
+                    $campoPermitido[] = $nomeApp . '-add-' . $campo;
+                }
+            }
+            if (array_key_exists('editar', $recurso) && !empty($recurso['editar'])) {
+                foreach ($recurso['editar'] as $campo) {
+                    $campoPermitido[] = $nomeApp . '-editar-' . $campo;
+                }
+            }
             if (array_key_exists('download', $recurso) && !empty($recurso['download'])) {
                 foreach ($recurso['download'] as $campo) {
                     $campoPermitido[] = $nomeApp . '-download-' . $campo;
@@ -86,6 +100,7 @@ final class ConfiguracaoEntity extends Entity
         $this->upload_imagem = $this->upload_grupo['imagem'] ?? '';
         $this->upload_arquivo = $this->upload_grupo['arquivo'] ?? '';
         $this->site_config = $this->upload_grupo['site_config'] ?? '';
+        $this->anexos = $this->upload_grupo['anexos'] ?? '';
     }
 
     /**
@@ -120,19 +135,27 @@ final class ConfiguracaoEntity extends Entity
         );
     }
 
-    private function setarUploadGrupo(): array
-    {
-        return [
-            'imagem'        => $this->pExiste('upload_imagem') ? $this->upload_imagem : '',
-            'arquivo'       => $this->pExiste('upload_arquivo') ? $this->upload_arquivo : '',
-            'site_config'   => $this->pExiste('site_config') ? $this->site_config : ''
-        ];
-    }
-
+    /**
+     * @return void
+     * @throws Excecao
+     */
     private function validarRequest(): void
     {
         if (empty($this->permissao)) {
             mensagemErro('Campo inválido!', 'As Permissões não podem ser vazias.');
         }
+    }
+
+    /**
+     * @return array
+     */
+    private function setarUploadGrupo(): array
+    {
+        return [
+            'imagem'      => $this->pExiste('upload_imagem') ? $this->upload_imagem : '',
+            'arquivo'     => $this->pExiste('upload_arquivo') ? $this->upload_arquivo : '',
+            'site_config' => $this->pExiste('site_config') ? $this->site_config : '',
+            'anexos'      => $this->pExiste('anexos') ? $this->anexos : ''
+        ];
     }
 }

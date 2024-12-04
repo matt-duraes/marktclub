@@ -2,10 +2,10 @@
 
 namespace App\Models\Api\ParceiroLoja\Trait;
 
-use Where\Where;
-use Helpers\OrmHelper;
 use App\Classes\ParceiroLoja\TipoLoja;
 use App\Models\Api\ParceiroLoja\MaisAcessadoModel;
+use Helpers\OrmHelper;
+use Where\Where;
 
 trait WhereTrait
 {
@@ -14,6 +14,10 @@ trait WhereTrait
         $where = ($this->idEmpresa == 1) && empty($empresa) ? [] : [
             ['id_admin_empresa', 'json', !empty($empresa) ? $empresa : $this->idEmpresa]
         ];
+
+        if ($this->idEmpresa == 235) {
+            $where = [['id_dono_empresa', $this->idEmpresa]];
+        }
 
         $Where = new Where($this, $where);
         $Where

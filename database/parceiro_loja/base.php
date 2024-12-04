@@ -9,8 +9,14 @@ return (new DataBase())
     ->json('id_usuario_cliente')->null()
     ->json('id_admin_empresa')
     ->json('destaque')->null()
-    ->int('id_dono_empresa')->relacionado(TABELA_COMERCIAL_EMPRESA, 'id', Database::SET_NULL, Database::SET_NULL)->null()
-    ->int('id_dono_subempresa')->relacionado(TABELA_COMERCIAL_EMPRESA, 'id', Database::SET_NULL, Database::SET_NULL)->null()
+    ->int('id_dono_empresa')->relacionado(TABELA_COMERCIAL_EMPRESA, 'id', Database::SET_NULL, Database::SET_NULL)->null(
+    )
+    ->int('id_dono_subempresa')->relacionado(
+        TABELA_COMERCIAL_EMPRESA,
+        'id',
+        Database::SET_NULL,
+        Database::SET_NULL
+    )->null()
     ->int('id_dono_equipe')->relacionado(TABELA_USUARIO_EQUIPE, 'id', Database::SET_NULL, Database::SET_NULL)->null()
     ->int('categoria_principal')->tamanho(2)
     ->varchar('tipo_indicador')->null()
@@ -65,6 +71,7 @@ return (new DataBase())
     ->json('endereco_estado')->null()
     ->json('arquivo_painel')->null()
     ->json('arquivo_clube')->null()
+    ->json('anexos')->null()
     ->json('cupom_desconto')->null()
     ->dataCriacao()
     ->dataAtualizacao()
