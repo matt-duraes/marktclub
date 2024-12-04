@@ -63,7 +63,7 @@ exports.cssTodos = async function () {
     await fsCriarDiretorio('./files/build/css');
 
     const listaArquivo = glob
-        .sync('views/@(pages|templates)/**/layout.styl')
+        .sync('views/@(pages|templates|status)/**/layout.styl')
         .concat(glob.sync('src/Painel/App/**/layout.styl'))
         .concat(glob.sync('src/Painel/template/**/layout.styl'));
 
