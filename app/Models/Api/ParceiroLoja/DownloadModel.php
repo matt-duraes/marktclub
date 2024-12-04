@@ -3,18 +3,18 @@
 namespace App\Models\Api\ParceiroLoja;
 
 use App\Classes\ParceiroLoja\CancelarMotivo;
-use App\Classes\ParceiroLoja\Categoria;
+use Http\Request;
+use Modules\Telefone;
+use Helpers\OrmHelper;
 use App\Classes\ParceiroLoja\Status;
 use App\Classes\ParceiroLoja\TipoLoja;
+use App\Classes\ParceiroLoja\Categoria;
 use App\Models\Api\Download\DownloadGeralModel;
+use App\Models\Api\Trait\ValidarEmpresaTrait;
+use App\Models\Api\ParceiroLoja\Trait\WhereTrait;
 use App\Models\Api\ParceiroLoja\Trait\MontarRetornoTrait;
 use App\Models\Api\ParceiroLoja\Trait\PropriedadeModelTrait;
-use App\Models\Api\ParceiroLoja\Trait\WhereTrait;
-use App\Models\Api\Trait\ValidarEmpresaTrait;
-use Helpers\OrmHelper;
-use Http\Request;
 use Modules\Data;
-use Modules\Telefone;
 
 final class DownloadModel extends DownloadGeralModel
 {
@@ -24,13 +24,12 @@ final class DownloadModel extends DownloadGeralModel
     use PropriedadeModelTrait;
 
     protected array $campoAceito = [
-        'titulo', 'titulo_interno', 'razao_social', 'nome_fantasia', 'documento_cnpj', 'documento_cpf',
-        'responsavel_nome',
+        'titulo', 'titulo_interno', 'razao_social', 'nome_fantasia', 'documento_cnpj', 'documento_cpf', 'responsavel_nome',
         'responsavel_cargo', 'responsavel_cpf', 'responsavel_telefone', 'responsavel_email', 'desconto',
         'texto_descricao', 'texto_desconto', 'texto_procedimento', 'texto_restricao', 'texto_outro',
         'texto_voucher', 'comissao_minima', 'comissao_maxima', 'data_contrato_inicio', 'data_contrato_vencimento',
         'tipo_loja', 'status', 'categoria_principal', 'equipe', 'endereco_estado', 'link_site', 'url',
-        'pontuacao', 'data_auditoria', 'data_cancelado', 'cancelar_motivo', 'data_publicacao', 'email_contato'
+        'pontuacao', 'data_auditoria', 'data_cancelado', 'cancelar_motivo', 'data_publicacao'
     ];
 
     public function __construct(
@@ -58,16 +57,6 @@ final class DownloadModel extends DownloadGeralModel
         $this->busca = $query->read();
     }
 
-    private function pegarEmpresa(): null|int
-    {
-        if (!$this->propriedadeExiste('empresa') || empty($this->empresa)) {
-            return null;
-        }
-
-        return (new OrmHelper(TABELA_COMERCIAL_EMPRESA))
-            ->pegarIdPeloUuid($this->empresa);
-    }
-
     private function converterCampoParaDownload(): array
     {
         $campo = array_flip($this->campo);
@@ -80,6 +69,16 @@ final class DownloadModel extends DownloadGeralModel
         }
 
         return array_keys($campo);
+    }
+
+    private function pegarEmpresa(): null|int
+    {
+        if (!$this->propriedadeExiste('empresa') || empty($this->empresa)) {
+            return null;
+        }
+
+        return (new OrmHelper(TABELA_COMERCIAL_EMPRESA))
+            ->pegarIdPeloUuid($this->empresa);
     }
 
     private function pegarQueryEquipe($query)

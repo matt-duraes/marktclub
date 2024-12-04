@@ -32,8 +32,7 @@ final class Padrao
     public const UPLOAD_GRUPO = [
         'imagem'      => 'e53ae4e0-7b33-4988-99ad-50433a29b544',
         'arquivo'     => '2d978fba-4bd2-4af7-80bf-ebb94d9ac991',
-        'site_config' => '93bb55cb-56fb-4d42-af81-c8100b229348',
-        'anexos'      => '3dde7119-4705-46ca-8deb-0d87e57ba4a5'
+        'site_config' => '93bb55cb-56fb-4d42-af81-c8100b229348'
     ];
     public const CAMPOS_PERMITIDOS = [
         'usuario_cliente' => [
@@ -165,73 +164,6 @@ final class Padrao
                     'status'               => 'Status'
                 ]
             ]
-        ],
-        'parceiro_loja'   => [
-            'titulo'   => 'Parceiro Loja',
-            'recursos' => [
-                'add' => [
-                    'anexos'                   => 'Anexos',
-                    'imagem_logo'              => 'Logo Loja',
-                    'imagem_capa_desktop'      => 'Capa Desktop',
-                    'imagem_capa_mobile'       => 'Capa Mobile',
-                    'nome_fantasia'            => 'Nome Fantasia',
-                    'razao_social'             => 'Razao Social',
-                    'tipo_juridico'            => 'Tipo Juridico',
-                    'documento_cpf'            => 'CPF',
-                    'documento_cnpj'           => 'CNPJ',
-                    'titulo_interno'           => 'Titulo Interno',
-                    'tipo_loja'                => 'Tipo Loja',
-                    'equipe'                   => 'Operador',
-                    'responsavel_nome'         => 'Nome do Responsavel',
-                    'responsavel_cargo'        => 'Cargo do Responsavel',
-                    'responsavel_cpf'          => 'CPF do Responsavel',
-                    'responsavel_telefone'     => 'Telefone do Responsavel',
-                    'responsavel_email'        => 'E-mail do Responsavel',
-                    'titulo'                   => 'Titulo do Clube',
-                    'tipo_estabelecimento'     => 'Tipo de Estabelecimento',
-                    'origem_lead'              => 'Origem do Lead',
-                    'pontuacao'                => 'Pontuação',
-                    'contato_whatsapp'         => 'Contato Whatsapp',
-                    'url'                      => 'URL do Clube',
-                    'delivery'                 => 'Faz Delivery',
-                    'convenio_direto'          => 'Convênio Direto',
-                    'data_contrato_inicio'     => 'Data de Incio Contrato',
-                    'data_contrato_vencimento' => 'Data de Vencimento Contrato',
-                    'precisa_aditivo'          => 'Precisa de Aditivo',
-                    'email_contato'            => 'E-mail do Contato',
-                    'desconto'                 => 'Desconto Curto',
-                    'tipo_procedimento'        => 'Tipo Procedimento',
-                    'limite_voucher'           => 'Limite Voucher',
-                    'prazo_voucher'            => 'Prazo Voucher (em Dias)',
-                    'prazo_voucher_fixo'       => 'Prazo Voucher Fixo',
-                    'link_site'                => 'Link Site',
-                    'confirmar_status'         => 'Confirmar Status',
-                    'confirmar_titulo_tipo'    => 'Confirmar Tipo Titulo',
-                    'confirmar_titulo'         => 'Confirmar Titulo',
-                    'confirmar_texto_tipo'     => 'Confirmar Tipo Texto',
-                    'confirmar_texto'          => 'Confirmar Texto',
-                    'link_alias'               => 'Link Extensão',
-                    'link_bloqueado'           => 'Link Bloqueado Extensão',
-                    'comissao_minima'          => 'Comissão Minima',
-                    'comissao_maxima'          => 'Comissão Maxima',
-                    'texto_restricao'          => 'Texto Restrição',
-                    'texto_outro'              => 'Texto Outro',
-                    'arquivo_clube'            => 'Arquivo Clube',
-                    'arquivo_painel'           => 'Arquivo Painel',
-                    'texto_descricao'          => 'Texto Descrição',
-                    'texto_desconto'           => 'Texto Desconto',
-                    'texto_procedimento'       => 'Texto Procedimento',
-                    'texto_voucher'            => 'Texto Voucher',
-                    'cupom_desconto'           => 'Cupom Desconto',
-                    'categoria_principal'      => 'Categoria Principal',
-                    'categoria_lista'          => 'Lista de Categorias',
-                    'subcategoria_tag'         => 'Tags de Subcategoria',
-                    'subcategoria_lista'       => 'Lista de Subcategorias',
-                    'empresa'                  => 'Empresa',
-                    'destaque'                 => 'Empresa em Destaque',
-                    'endereco_estado'          => 'Estado'
-                ]
-            ]
         ]
     ];
     public const PERMISSOES = [
@@ -260,7 +192,7 @@ final class Padrao
                 ],
                 'usuario_cliente_download'   => [
                     'titulo' => self::TITULO_DOWNLOAD,
-                    'scope'  => ['usuario_cliente:download', 'mensageria:salvar']
+                    'scope'  => 'usuario_cliente:download'
                 ],
                 'usuario_cliente_analytics'  => [
                     'titulo' => self::TITULO_ANALYTICS,
@@ -818,7 +750,7 @@ final class Padrao
                 ],
                 'parceiro_automovel_visualizar' => [
                     'titulo' => self::TITULO_VISUALIZAR,
-                    'scope'  => ['parceiro_automovel:buscar', 'automovel_modelo:buscar']
+                    'scope'  => 'parceiro_automovel:buscar'
                 ],
                 'parceiro_automovel_add'        => [
                     'titulo' => self::TITULO_SALVAR,

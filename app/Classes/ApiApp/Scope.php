@@ -63,7 +63,7 @@ final class Scope
         'comercial_empresa:buscar', 'comercial_empresa:select', 'comercial_subempresa:select',
         'comercial_restricao:select',
         'usuario_grupo:select', 'usuario_equipe:select', 'parceiro_loja:select',
-        'parceiro_subcategoria:select', 'usuario_equipe:mudar_empresa'
+        'parceiro_subcategoria:select', 'usuario_equipe:mudar_empresa',
     ];
     public const PAINEL_INTERNO = [
         'perfil_dado:buscar', 'perfil_dado:atualizar', 'perfil_dado:validar_senha',
@@ -282,9 +282,7 @@ final class Scope
         'view_html:salvar',
 
         'view_pagina:atualizar', 'view_pagina:buscar', 'view_pagina:deletar',
-        'view_pagina:listar', 'view_pagina:salvar',
-
-        'mensageria:salvar'
+        'view_pagina:listar', 'view_pagina:salvar'
     ];
     public const TUDO = [
         'perfil_dado:buscar', 'perfil_dado:atualizar', 'perfil_dado:validar_senha',

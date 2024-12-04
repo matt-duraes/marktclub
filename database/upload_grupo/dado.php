@@ -13,11 +13,6 @@ return [
         'diretorio' => 'geral_arquivo',
     ],
     [
-        'uuid'      => '3dde7119-4705-46ca-8deb-0d87e57ba4a5',
-        'nome'      => 'Anexos',
-        'diretorio' => 'anexos',
-    ],
-    [
         'uuid'      => '0493d060-44ba-470b-a0a2-7211ba138d8c',
         'nome'      => 'Parceiro',
         'diretorio' => 'parceiro',

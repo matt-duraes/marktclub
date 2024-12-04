@@ -13,7 +13,8 @@ $Painel->coluna(callback: function () use ($Painel) {
     $Painel->bloco(titulo: 'Parceiro', callback: function () use ($Painel) {
         $Painel
             ->linha('titulo_interno', 'Título')
-            ->checked('convenio_direto', 'Convênio direto');
+            ->checked('convenio_direto', 'Convênio direto')
+        ;
     });
     $Painel->bloco(titulo: 'Contato', callback: function () use ($Painel) {
         $Painel
@@ -43,66 +44,64 @@ $Painel->coluna(callback: function () use ($Painel) {
     });
 });
 $Painel->coluna(callback: function () use ($Painel) {
-    $Painel->bloco(titulo: 'Endereço no clube', callback: function () use ($Painel) {
+    $Painel->bloco(titulo: 'Endereço no clube', abrir: true, callback: function () use ($Painel) {
         $Painel->endereco('parceiro_loja', 'clube');
-    }, abrir: true);
-    $Painel->bloco(titulo: 'Contato no clube', callback: function () use ($Painel) {
+    });
+    $Painel->bloco(titulo: 'Contato no clube', abrir: true, callback: function () use ($Painel) {
         $Painel->contato('parceiro_loja', 'clube');
-    }, abrir: true);
-    $Painel->bloco(titulo: 'Endereço no painel', callback: function () use ($Painel) {
+    });
+    $Painel->bloco(titulo: 'Endereço no painel', abrir: true, callback: function () use ($Painel) {
         $Painel->endereco('parceiro_loja', 'painel');
-    }, abrir: true);
-    $Painel->bloco(titulo: 'Contato no painel', callback: function () use ($Painel) {
+    });
+    $Painel->bloco(titulo: 'Contato no painel', abrir: true, callback: function () use ($Painel) {
         $Painel->contato('parceiro_loja', 'painel');
-    }, abrir: true);
+    });
 });
 
-if (sessao('USUARIO.empresa')->id != 'e42b2b233a5c5207197510e01cdc985d') {
-    $Painel->coluna(callback: function () use ($Painel) {
-        $Status = new Status();
-        $Painel
-            ->status(
-                campo: 'status',
-                texto: 'Concluir',
-                inArray: [$Status->nome(Status::PROSPECCAO), $Status->nome(Status::PROBLEMA)],
-                status: Status::CONCLUIDO,
-                cor: 'verde',
-                editar: true
-            )
-            ->status(
-                campo: 'status',
-                texto: 'Problema',
-                inArray: [$Status->nome(Status::CONCLUIDO)],
-                status: Status::PROBLEMA,
-                mensagem: 'Tem certeza que deseja colocar essa loja com problema?',
-                cor: 'vermelho'
-            )
-            ->status(
-                campo: 'status',
-                texto: 'Cancelar',
-                inArray: [$Status->nome(Status::CONCLUIDO), $Status->nome(Status::PROBLEMA)],
-                status: Status::CANCELADO,
-                id: 'botao_cancelar_loja',
-                cor: 'cinza',
-            )
-            ->status(
-                campo: 'status',
-                texto: 'Sem interesse',
-                inArray: [$Status->nome(Status::PROSPECCAO)],
-                status: Status::SEM_INTERESSE,
-                id: 'botao_sem_interesse',
-                cor: 'cinza'
-            )
-            ->status(
-                campo: 'status',
-                texto: 'Prospecção',
-                inArray: [$Status->nome(Status::CANCELADO), $Status->nome(Status::SEM_INTERESSE)],
-                status: Status::PROSPECCAO,
-                mensagem: 'Tem certeza que deseja recolocar essa loja em prospecção?',
-                cor: 'cinza'
-            );
-    });
-}
+$Painel->coluna(callback: function () use ($Painel) {
+    $Status = new Status();
+    $Painel
+        ->status(
+            campo: 'status',
+            texto: 'Concluir',
+            inArray: [$Status->nome(Status::PROSPECCAO), $Status->nome(Status::PROBLEMA)],
+            status: Status::CONCLUIDO,
+            cor: 'verde',
+            editar: true
+        )
+        ->status(
+            campo: 'status',
+            texto: 'Problema',
+            inArray: [$Status->nome(Status::CONCLUIDO)],
+            status: Status::PROBLEMA,
+            mensagem: 'Tem certeza que deseja colocar essa loja com problema?',
+            cor: 'vermelho'
+        )
+        ->status(
+            campo: 'status',
+            texto: 'Cancelar',
+            inArray: [$Status->nome(Status::CONCLUIDO), $Status->nome(Status::PROBLEMA)],
+            status: Status::CANCELADO,
+            cor: 'cinza',
+            id: 'botao_cancelar_loja',
+        )
+        ->status(
+            campo: 'status',
+            texto: 'Sem interesse',
+            inArray: [$Status->nome(Status::PROSPECCAO)],
+            status: Status::SEM_INTERESSE,
+            cor: 'cinza',
+            id: 'botao_sem_interesse'
+        )
+        ->status(
+            campo: 'status',
+            texto: 'Prospecção',
+            inArray: [$Status->nome(Status::CANCELADO), $Status->nome(Status::SEM_INTERESSE)],
+            status: Status::PROSPECCAO,
+            mensagem: 'Tem certeza que deseja recolocar essa loja em prospecção?',
+            cor: 'cinza'
+        );
+});
 
 $Painel
     ->replace('status', (new Status())->select())

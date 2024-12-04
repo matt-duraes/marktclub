@@ -2,22 +2,22 @@
 
 namespace App\Controllers\Api;
 
-use App\Classes\Geral\Status;
-use App\Models\Api\SiteLotacao\LotacaoEntity;
-use App\Models\Api\SiteLotacao\LotacaoModel;
-use App\Models\Api\SiteLotacao\SelectModel;
-use Controller\Controller;
 use Erro\Excecao;
 use Http\Request;
 use Http\Response;
 use Modules\Pagina;
 use Modules\Quantidade;
-use System\Interface\ControllerAtualizarInterface;
+use Controller\Controller;
+use App\Classes\Geral\Status;
+use App\Models\Api\SiteLotacao\SelectModel;
+use App\Models\Api\SiteLotacao\LotacaoModel;
+use App\Models\Api\SiteLotacao\LotacaoEntity;
 use System\Interface\ControllerBuscarInterface;
-use System\Interface\ControllerDeletarInterface;
 use System\Interface\ControllerListarInterface;
 use System\Interface\ControllerSalvarInterface;
 use System\Interface\ControllerSelectInterface;
+use System\Interface\ControllerDeletarInterface;
+use System\Interface\ControllerAtualizarInterface;
 
 final class SiteLotacaoController extends Controller implements
     ControllerSelectInterface,
@@ -61,10 +61,13 @@ final class SiteLotacaoController extends Controller implements
      */
     private function retornoPadrao(LotacaoEntity $lotacaoEntity, int $status = 200): Response
     {
-        return mensagemSucesso(pegarPropriedadeDaEntity($lotacaoEntity, lista: [
-            'slug', 'titulo', 'principal', 'status',
-            'data_criacao', 'data_atualizacao'
-        ]), $status);
+        return mensagemSucesso(
+            pegarPropriedadeDaEntity($lotacaoEntity, lista: [
+                'slug', 'titulo', 'principal', 'status',
+                'data_criacao', 'data_atualizacao'
+            ]),
+            $status
+        );
     }
 
     /**
