@@ -143,7 +143,6 @@ abstract class ErrorGeral extends SolucaoGeral
 
         $_server = $this->limparListaHtml($S);
         $_header = $this->limparListaHtml(getallheaders());
-
         ob_start();
         require ROOT . '/src/Html/Erro/erro.php';
         $this->html = ob_get_clean();

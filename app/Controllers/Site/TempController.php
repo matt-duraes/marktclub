@@ -11,4 +11,9 @@ final class TempController extends Controller
     {
         return new Response(url: LINK);
     }
+
+    public function teste()
+    {
+        return view('teste');
+    }
 }

@@ -252,18 +252,14 @@ class Loading {
             botao.style.transition = transition.join(', ');
         }
 
-        botao.insertAdjacentHTML(
-            'beforeend',
-            `
-            <div class="fw_loading_barra"><div class="fw_loading_barra_barra" style="background-color: ` +
-                barraBg +
-                `"></div><div class="fw_loading_barra_barra" style="background-color: ` +
-                barraBg +
-                `"></div><div class="fw_loading_barra_barra" style="background-color: ` +
-                barraBg +
-                `"></div></div>
-        `
-        );
+        botao.final(`
+            <div class="fw_loading_barra">
+                <div class="fw_loading_barra_barra"></div>
+                <div class="fw_loading_barra_barra"></div>
+                <div class="fw_loading_barra_barra"></div>
+            </div>
+        `);
+        $$('.fw_loading_barra_barra', botao).css(background - color, barraBg);
     }
     static _barraHide() {
         let botao = this._botao;

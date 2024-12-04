@@ -1,3 +1,15 @@
+$('body').inicio('<div id="bloco_fw_pagina"></div>');
+const fwPaginaBloco = $('#bloco_fw_pagina');
+fwPaginaBloco.evento('click', e => {
+    if (
+        e.target.classList.contains('fw_pagina_box_fechar') ||
+        e.target.classList.contains('pagina_fechar') ||
+        e.target.closest('.pagina_fechar')
+    ) {
+        Pagina.staticFechar();
+    }
+});
+const fwPaginaListaPopup = {};
 class Pagina {
     /**
      * @param {string} titulo Título para o histório ao abrir
@@ -25,7 +37,6 @@ class Pagina {
         this._callback = callback;
         if (this._historico) {
             this._verificarSeVaiAbrirAoCarregar();
-            this._monitorarTrocaDeUrl();
         }
     }
     _montarRequest(request) {
@@ -55,16 +66,6 @@ class Pagina {
         if (this._ancoraAtual != '' && this._ancoraAtual == this._ancora) {
             this._abrirInterno(false);
         }
-    }
-    _monitorarTrocaDeUrl() {
-        window.onpopstate = e => {
-            const url = window.location.href.split('#');
-            if (url.length == 1) {
-                this.fechar();
-            } else if (this._ancora == url[1]) {
-                this._abrirInterno(false);
-            }
-        };
     }
 
     /**
@@ -116,8 +117,7 @@ class Pagina {
     }
     static async staticFechar() {
         document.querySelector('body').classList.remove('fw_pagina_body');
-        const blocoGeral = document.querySelector('#bloco_fw_pagina');
-        if (!blocoGeral) {
+        if (!fwPaginaBloco) {
             return false;
         }
         let url = window.location.href.split('#');
@@ -125,14 +125,14 @@ class Pagina {
             const titulo = document.querySelector('title') || '';
             history.pushState({}, titulo, url[0]);
         }
-        const time = parseFloat(window.getComputedStyle(blocoGeral).getPropertyValue('transition-duration')) * 1000;
+        const time = parseFloat(window.getComputedStyle(fwPaginaBloco).getPropertyValue('transition-duration')) * 1000;
 
-        blocoGeral.classList.remove('fw_pagina_animacao');
-        blocoGeral.classList.remove('fw_pagina_animacao_conteudo');
-        blocoGeral.classList.remove('fw_pagina_carregar');
+        fwPaginaBloco.classList.remove('fw_pagina_animacao');
+        fwPaginaBloco.classList.remove('fw_pagina_animacao_conteudo');
+        fwPaginaBloco.classList.remove('fw_pagina_carregar');
         await setTimeout(() => {
-            blocoGeral.innerHTML = '';
-            blocoGeral.style.display = 'none';
+            fwPaginaBloco.innerHTML = '';
+            fwPaginaBloco.style.display = 'none';
         }, time);
 
         return true;
@@ -140,14 +140,13 @@ class Pagina {
 
     _abrirAnimacaoInicial() {
         const body = document.querySelector('body');
-        const blocoGeral = document.querySelector('#bloco_fw_pagina');
 
         body.classList.add('fw_pagina_body');
-        blocoGeral.style.display = 'flex';
-        blocoGeral.classList.add('fw_pagina_carregando');
+        fwPaginaBloco.style.display = 'flex';
+        fwPaginaBloco.classList.add('fw_pagina_carregando');
 
         setTimeout(() => {
-            blocoGeral.classList.add('fw_pagina_animacao');
+            fwPaginaBloco.classList.add('fw_pagina_animacao');
         }, 20);
     }
 
@@ -165,8 +164,8 @@ class Pagina {
         }
 
         await this._removePaginaSeExistir(bloco);
-        bloco.innerHTML = '';
-        bloco.insertAdjacentHTML('beforeend', '<div class="fw_pagina_conteudo ' + classFechar + '">' + html + '</div>');
+        bloco.html('');
+        bloco.inicio('<div class="fw_pagina_conteudo ' + classFechar + '">' + html + '</div>');
         bloco.style.display = 'block';
 
         setTimeout(() => {
@@ -188,13 +187,14 @@ class Pagina {
         return new Promise(r => setTimeout(r, time));
     }
 }
-document.querySelector('body').insertAdjacentHTML('afterbegin', '<div id="bloco_fw_pagina"></div>');
-document.getElementById('bloco_fw_pagina').addEventListener('click', e => {
-    if (
-        e.target.classList.contains('fw_pagina_box_fechar') ||
-        e.target.classList.contains('pagina_fechar') ||
-        e.target.closest('.pagina_fechar')
-    ) {
-        Pagina.staticFechar();
+
+window.addEventListener('hashchange', function () {
+    const url = window.location.href.split('#');
+    const ancora = url[1] !== undefined ? url[1].replace('/^#/', '') : '';
+    if (ancora in fwPaginaListaPopup) {
+        const PaginaHashChange = new Pagina();
+        PaginaHashChange.init(fwPaginaListaPopup[ancora]);
+    } else if ($('.fw_pagina_conteudo')) {
+        PaginaHashChange.staticFechar();
     }
 });

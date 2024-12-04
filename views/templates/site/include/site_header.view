@@ -24,7 +24,7 @@
             </a>
         </figure>
         <div class="perfil desktop" id="bloco_perfil">
-            <figure style="background-image: url({{USUARIO_IMAGEM}})"></figure>
+            <figure data-bgimagem="{!!imagem(USUARIO_IMAGEM)!!}"></figure>
             <div class="nome">
                 <p class="dados_usuario_menu">Olá {{USUARIO_NOME}}</p>
             </div>

@@ -2,7 +2,6 @@
 
 namespace App\Middlewares\Painel;
 
-use Http\Request;
 use Http\Response;
 use Helpers\AuthHelper;
 use PainelApp\login\Models\LoginRefreshModel;
@@ -16,7 +15,6 @@ final class AuthMiddleware
     {
         $token = cookieExiste('FWT') ? base64Decode(cookie('FWT')) : [];
         $this->token = is_array($token) ? $token : [];
-        $this->validarAmbiente();
     }
 
     public function logado(): bool|Response
@@ -75,23 +73,6 @@ final class AuthMiddleware
         if (!defined('ROTA_VIEW') || !ROTA_VIEW) {
             return '';
         }
-        return '?location=' . base64Encode(LINK . URI, true);
-    }
-
-    private function validarAmbiente()
-    {
-        $titulo = '';
-        $url = (new Request())->url();
-        if (strpos($url, 'painelhmlprod') !== false) {
-            $titulo = 'HMLPROD';
-        } elseif (strpos($url, 'painelhml') !== false) {
-            $titulo = 'HML';
-        } elseif (strpos($url, 'localhost') !== false) {
-            $titulo = 'DEV';
-        }
-
-        if (!defined('AMBIENTE_ACESSO')) {
-            define('AMBIENTE_ACESSO', $titulo);
-        }
+        return '?location=' . base64Encode(LINK . URI . QUERY_STRING, true);
     }
 }

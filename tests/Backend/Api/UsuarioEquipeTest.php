@@ -348,34 +348,6 @@ final class UsuarioEquipeTest extends Tests
             ->checkIndiceIgual('status', 'sucesso');
     }
 
-    public function verificarSeEstaValidandoSenhaTest()
-    {
-        $this->api('usuario_equipe:validar_senha');
-        $this
-            ->Curl
-            ->loginPainel()
-            ->body(['senha' => $this->cryptEncode('Teste@1324')])
-            ->post('/usuario-equipe/validar-senha');
-
-        return $this
-            ->checkStatus(200)
-            ->checkIndiceIgual('dado.senha', 1);
-    }
-
-    public function verificarSeEstaRetornandoErroAoValidarSenhaErradaTest()
-    {
-        $this->api('usuario_equipe:validar_senha');
-        $this
-            ->Curl
-            ->loginPainel()
-            ->body(['senha' => $this->cryptEncode('SenhaErrada')])
-            ->post('/usuario-equipe/validar-senha');
-
-        return $this
-            ->checkStatus(400)
-            ->checkIndiceIgual('erro.mensagem', 'Verifique a senha digitada e tente novamente.');
-    }
-
     /*
     |--------------------------------------------------------------------------
     | PRIVADOS

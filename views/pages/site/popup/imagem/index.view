@@ -6,7 +6,7 @@
     <div class="conteudo_pagina_popup">
         <div class="conteudo">
             <p>{{$popup->texto}}</p>
-            <figure class="figure_popup" style="background-image: url( {{$popup->imagem}})">
+            <figure class="figure_popup" data-bgimagem="@imagem $popup->imagem">
             </figure>
             <p>{{$popup->regulamento}} </p>
             <a href="{{$popup->botao_link}}" target="{{$popup->botao_target}}">Ler Regulamento</a>

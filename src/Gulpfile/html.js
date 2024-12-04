@@ -48,6 +48,7 @@ exports.htmlUnico = function (path) {
         const nome = arquivo
             .replace(/views\/templates\//, 'templates/')
             .replace(/views\/pages\//, '')
+            .replace(/views\/status\//, 'status/')
             .replace(/\/index\.view$/, '.php')
             .replace(/src\/Painel\/App\//, 'painel/')
             .replace(/.view$/, '.php')
@@ -81,7 +82,7 @@ exports.htmlTodos = function () {
         await fsCriarDiretorio('files/build/views');
 
         const listaArquivo = glob
-            .sync('views/@(pages|templates)/**/*.view')
+            .sync('views/@(pages|templates|status)/**/*.view')
             .concat(glob.sync('src/Painel/App/**/*.view'))
             .concat(glob.sync('src/Painel/template/**/*.view'));
 
@@ -233,7 +234,6 @@ function fazerReplaceNoConteudo(conteudo, path) {
             const echoPuro = linha.match(/\{\!\!(.*)\!\!\}/g);
             const echoIcone = linha.match(/\@\ ?icone/g);
             const echoImagem = linha.match(/\@\ ?imagem/g);
-            const echoBgImagem = linha.match(/\@\ ?bgImagem/g);
             const echoLink = linha.match(/\@\ ?LINK/g);
             const echoRoute = linha.match(/\@\ ?route/g);
 
@@ -259,14 +259,6 @@ function fazerReplaceNoConteudo(conteudo, path) {
                         htmlTemp.replace(
                             /\@ ?imagem ?\(? ?([^\)| |\;|\"|\'|,]{1,})(, ?[0-9]{0,4})?(, ?[0-9]{0,4})?(, ?true|false)?(\)| \)| )?/gi,
                             '<?= imagem("$1"$2$3$4); ?>'
-                        ) + '\n';
-                }
-                // @imagem(imagem.png);
-                if (echoBgImagem) {
-                    htmlTemp =
-                        htmlTemp.replace(
-                            /\@ ?bgImagem ?\(? ?([^\)| |\;|\"|\'|,]{1,})(, ?[0-9]{0,4})?(, ?[0-9]{0,4})?(, ?true|false)?(\)| \)| )?/gi,
-                            'background-image: url(<?= imagem("$1"$2$3$4); ?>)'
                         ) + '\n';
                 }
                 // @LINK;
@@ -458,7 +450,7 @@ function fazerReplaceNoConteudo(conteudo, path) {
                     arquivo = arquivo.replace(/\.view$/, '').replace(/\//g, '_');
                     html +=
                         '<?php require ROOT . "/files/build/views/' +
-                        path.replace(/^\/?views\/pages\//, '').replace(/\//g, '_') +
+                        path.replace(/^\/?views\/(pages|status)\//, '$1/').replace(/\//g, '_') +
                         '_' +
                         arquivo +
                         '.php"; ?>';

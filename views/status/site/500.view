@@ -1,0 +1,13 @@
+@template "status"
+
+@dir "/include/500.view"
+
+@ if( $logado):
+<div class="bloco_link">
+    @dir "/include/menu.view"
+</div>
+@ elseif( !$logado && URI != '/login' && LOGIN_STATUS ):
+<div class="bloco_link">
+    <a href="{!!LINK_LOGIN!!}">Fazer login</a>
+</div>
+@ endif;

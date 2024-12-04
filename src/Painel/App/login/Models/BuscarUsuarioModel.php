@@ -32,10 +32,10 @@ final class BuscarUsuarioModel
     private function buscarDadoUsuario()
     {
         try {
-            $this->usuario = (new ApiHelper(token: true))
-                ->get('/usuario-equipe/' . $this->idUsuario)
-                ->object()
-                ->dado ?? [];
+            $usuario = (new ApiHelper(token: true))
+                ->get('/perfil-dado')
+                ->object();
+            $this->usuario = $usuario->dado ?? [];
         } catch (\Throwable $e) {
             $this->erroGeral('Erro ao buscar usuário.', $e);
         }
@@ -85,10 +85,10 @@ final class BuscarUsuarioModel
     private function buscarDadoEmpresa()
     {
         try {
-            $this->empresa = (new ApiHelper(token: true))
+            $empresa = (new ApiHelper(token: true))
                 ->get('/comercial-empresa/' . sessao('USUARIO.empresa')->id)
-                ->object()
-                ->dado ?? [];
+                ->object();
+            $this->empresa = $empresa->dado ?? [];
         } catch (\Throwable $e) {
             $this->erroGeral('Erro ao buscar empresa.', $e);
         }

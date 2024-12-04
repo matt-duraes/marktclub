@@ -32,6 +32,7 @@ final class Link
         define('LINK_ARQUIVO_PRIVADO', $this->montarLinkParaDefine($link, $linkArquivoPrivado));
         define('LINK_LOCAL', $this->montarLinkParaDefine($link, $linkLocal));
         define('URI', $this->pegarUri());
+        define('QUERY_STRING', $this->pegarQueryString());
     }
 
     /**
@@ -166,13 +167,26 @@ final class Link
         );
     }
 
+    private function pegarRequestUri()
+    {
+        return array_key_exists('REQUEST_URI', $_SERVER) ? explode('?', $_SERVER['REQUEST_URI']) : [];
+    }
+
     /**
      * @return string
      */
     private function pegarUri(): string
     {
-        $rota = preg_replace('/^\//', '', $this->rota());
-        $uri = preg_replace('/^\/?' . $rota . '\/?/', '', $_SERVER['REQUEST_URI']);
-        return !empty($uri) ? '/' . $uri : '';
+        $uri = $this->pegarRequestUri();
+        return !empty($uri[0]) ? '/' . preg_replace('/^\/+/', '', $uri[0]) : '';
+    }
+
+    /**
+     * @return string
+     */
+    private function pegarQueryString(): string
+    {
+        $uri = $this->pegarRequestUri();
+        return array_key_exists(1, $uri) && !empty($uri[1]) ? '?' . $uri[1] : '';
     }
 }

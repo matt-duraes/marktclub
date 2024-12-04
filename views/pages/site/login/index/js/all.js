@@ -1,6 +1,11 @@
+// @import "classe"
 // @template "login"
 // @resource "site/login/slide"
 // @system "Pagina"
+// @system "Esqueleto"
+// @import "buscar"
+// @import "banner"
+// @import "contador"
 
 window.addEventListener('load', () => {
     /*
@@ -108,65 +113,6 @@ window.addEventListener('load', () => {
         }
         eventoCliqueNaCategoria();
     }
-
-    //CONTADOR
-
-    const blocoContador = document.querySelector('#bloco_contador');
-    const blocoContadorNumero = document.querySelector('#bloco_contador_numero');
-    document.addEventListener('scroll', () => {
-        animarContador();
-    });
-
-    const animarContador = () => {
-        const alturaJanela = window.innerHeight;
-        const distanciaBlocoTopo = blocoContador.getBoundingClientRect().top;
-        const distanciaNumeroTopo = blocoContadorNumero.getBoundingClientRect().top;
-
-        if (distanciaBlocoTopo < alturaJanela && window.matchMedia('(min-width: 400px)').matches) {
-            let margin = (alturaJanela - distanciaBlocoTopo) / 3;
-            margin = margin > 200 ? 200 : margin;
-            blocoContador.style.marginTop = '-' + margin + 'px';
-        }
-        if (
-            distanciaNumeroTopo + 200 < alturaJanela &&
-            !blocoContadorNumero.classList.contains('bloco_contador_ativo')
-        ) {
-            fazerNumerosDoContadorCorrer();
-        }
-    };
-
-    const fazerNumerosDoContadorCorrer = () => {
-        /*
-         * Para adicionar o número de lojas e parcerias basta
-         * alterar o data_target no html
-         */
-        blocoContadorNumero.classList.add('bloco_contador_ativo');
-
-        const contadores = document.querySelectorAll('.contar');
-
-        contadores.forEach(contar => {
-            let contador = 0;
-
-            const atualizarContador = () => {
-                const target = +contar.getAttribute('data_target');
-                const c = contador;
-
-                const increment = target / 200;
-
-                if (c < target) {
-                    contador = c + increment;
-                    const stringContador = Math.ceil(c + increment).toString();
-                    contar.innerText = `${stringContador.replace(/(\d)(?=(\d\d\d)+(?!\d))/g, '$1.')}`;
-                    setTimeout(atualizarContador, 1);
-                } else {
-                    contar.innerText = target.toString().replace(/(\d)(?=(\d\d\d)+(?!\d))/g, '$1.');
-                }
-            };
-            atualizarContador();
-        });
-    };
-
-    animarContador();
 
     /*
     |--------------------------------------------------------------------------
@@ -328,6 +274,7 @@ window.addEventListener('load', () => {
                 Alerta.notificacao('Ocorreu um erro, tente novamente.', false);
                 return;
             }
+            paginaContato.fechar();
             Alerta.mensagem('Formulário enviado', 'Seu formulário foi enviado com sucesso!', true);
         });
 

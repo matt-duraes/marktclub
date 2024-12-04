@@ -1,10 +1,14 @@
 
 <div class="bloco_banner">
-    <div class="lista banners_{{$quantidade_banners}}" id="container_banners" >
-        @foreach($banner as $b):
-            @if(!empty($b)):
-                <figure style="background-image: url({{$b}});"> </figure>
-            @endif
-        @endforeach
+    @ if($banner_quantidade == 0):
+    <div class="lista banner_loading" id="bloco_banner">
+        <div class="esqueleto"></div>
     </div>
+    @ else:
+    <div class="lista banner_{{$banner_quantidade}}" id="bloco_banner">
+        @foreach( $banner_lista as $imagem ):
+        <figure data-bgimagem="@imagem $imagem"></figure>
+        @endforeach;
+    </div>
+    @endif;
 </div>

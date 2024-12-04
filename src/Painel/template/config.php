@@ -36,7 +36,7 @@ define('USUARIO_CPF', sessao('USUARIO.cpf'));
 define('USUARIO_IMAGEM', sessao('USUARIO.imagem'));
 define('USUARIO_MARKTCLUB', sessao('USUARIO.marktclub', padrao: 'nao'));
 define('USUARIO_GERENTE', sessao('USUARIO.gerente', padrao: 'nao'));
-define('LINK_VOLTAR', isset($linkVoltar) && !empty($linkVoltar) ? $linkVoltar : LINK . URI);
+define('LINK_VOLTAR', isset($linkVoltar) && !empty($linkVoltar) ? $linkVoltar : LINK . URI . QUERY_STRING);
 define('PAINEL_LOGO', sessao('EMPRESA.imagem'));
 
 try {

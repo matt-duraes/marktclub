@@ -27,7 +27,7 @@ final class Fw
 
     public function margin(int $margin)
     {
-        $this->html[] = '<div style="margin-top: ' . $margin . 'px"></div>';
+        $this->html[] = '<div data-fwcss="margin-top: ' . $margin . 'px"></div>';
         return $this;
     }
 

@@ -97,6 +97,7 @@ class DeclaracaoModel extends ORM implements
             ], 'usuario')
             ->tabela(TABELA_PARCEIRO_LOJA)
             ->join('id', 'id_parceiro_loja')
+            ->where($this->pegarWhereParceiro(), false)
             ->campo([
                 'titulo'
             ], 'parceiro')
@@ -122,6 +123,21 @@ class DeclaracaoModel extends ORM implements
 
         if ($this->status->valido()) {
             $where[] = ['status', $this->status->numero()];
+        }
+
+        return $where;
+    }
+
+    /**
+     * Pegar parceiro selecionado no filtro
+     * @return array
+    */
+    private function pegarWhereParceiro(): array
+    {
+        $where = $this->ormWherePadrao;
+
+        if (!empty($this->titulo)) {
+            $where[] = ['titulo', 'LIKE', '%' . $this->titulo . '%'];
         }
 
         return $where;

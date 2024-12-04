@@ -5,7 +5,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="robots" content="noindex,nofollow">
-    <link rel="shortcut icon" type="image" href="{!!LINK_PADRAO!!}/images/favicon.png" />
+    <link rel="shortcut icon" type="image" href="@imagem/images/favicon.png" />
 
     <title>Documentação - Login</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -15,7 +15,7 @@
 </head>
 <body>
 <div id="site">
-    <figure><img src="@LINK_PADRAO/images/logo_marktclub.png" alt="[Markt Club]" height="75"></figure>
+    <figure><img src="@imagem/images/logo_marktclub.png" alt="[Markt Club]" height="75"></figure>
 
     <form id="form_login" class="form_geral" action="@route('post.documentacao.login')" method="post">
         @hash('DOCUMENTACAO_LOGIN')

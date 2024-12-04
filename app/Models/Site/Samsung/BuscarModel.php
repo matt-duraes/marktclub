@@ -9,7 +9,7 @@ final class BuscarModel extends ClubeApiHelper
     public function buscar()
     {
         $dado = $this
-            ->get('/usuario-cliente/' . sessao('USUARIO.id'))
+            ->get('/perfil-dado')
             ->object()->dado ?? '';
 
         $emailPessoal = !empty($dado->email_pessoal ?? '') ? $this->Crypt->decode($dado->email_pessoal) : '';

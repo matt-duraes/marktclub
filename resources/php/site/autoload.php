@@ -10,10 +10,10 @@ if (!function_exists('strLink')) {
             return $valor;
         }
         if (
-            preg_match('/^http(s){0,1}\:\/\/(youhuul.com|marktclub.com|markt.club|\{\{LINK\}\})/i', $valor)
+            preg_match('/^http(s){0,1}\:\/\/(youhuul.com|marktclub.com.br|markt.club|\{\{LINK\}\})/i', $valor)
         ) {
             $valor = preg_replace(
-                '/^http(s){0,1}\:\/\/(youhuul.com|marktclub.com|markt.club|\{\{LINK\}\})/i',
+                '/^http(s){0,1}\:\/\/(youhuul.com|marktclub.com.br|markt.club|\{\{LINK\}\})/i',
                 LINK,
                 $valor
             );

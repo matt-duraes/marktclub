@@ -17,7 +17,12 @@ trait ScopeTrait
     {
         foreach ($scope as $item) {
             if (!in_array($item, $permitido)) {
-                mensagemErro('Sem permissão!', 'Você não tem permissão para acessar um ou mais scopes.', 403);
+                mensagemErro(
+                    titulo: 'Sem permissão!',
+                    mensagem: 'Você não tem permissão para acessar um ou mais scopes.',
+                    status: 403,
+                    localhost: 'Você não tem permissão para acessar o scope: ' . $item
+                );
             }
         }
         return;

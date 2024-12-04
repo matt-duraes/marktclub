@@ -3,10 +3,9 @@
 namespace App\Models\Site\Saude;
 
 use stdClass;
-use App\Helpers\ClubeApiHelper;
 use App\Models\Site\ListarInterface;
 
-final class OperadoraModel extends ClubeApiHelper implements ListarInterface
+final class OperadoraModel implements ListarInterface
 {
     /**
      * @return stdClass

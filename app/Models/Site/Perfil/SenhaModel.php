@@ -25,6 +25,6 @@ final class SenhaModel extends ClubeApiHelper
                 'senha_atual' => $this->Crypt->encode($request->senha_atual),
                 'senha_nova'  => $this->Crypt->encode($request->senha_nova),
             ])
-            ->put('/usuario-cliente/alterar-senha');
+            ->put('/perfil-dado/atualizar-senha');
     }
 }

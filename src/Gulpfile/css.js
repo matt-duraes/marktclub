@@ -2,7 +2,6 @@ const { src, dest } = require('gulp');
 const fs = require('fs');
 const replace = require('gulp-replace');
 const stylus = require('gulp-stylus');
-const concat = require('gulp-concat');
 const autoprefixer = require('gulp-autoprefixer');
 const cssMin = require('gulp-cssmin');
 const plumber = require('gulp-plumber');
@@ -19,7 +18,7 @@ let config;
 | CSS ÚNICO
 |--------------------------------------------------------------------------
 */
-exports.cssUnico = function (path, browser) {
+exports.cssUnico = function (path) {
     return new Promise(async resolve => {
         arquivoConteudo = [];
 
@@ -39,7 +38,7 @@ exports.cssUnico = function (path, browser) {
         await fsRemoverArquivoSeExistir(config.public + '/css/' + nome);
 
         try {
-            await processarCss(pathReal, config.public + '/css', browser);
+            await processarCss(pathReal, config.public + '/css/');
             mensagemSucesso('Arquivo copiado com sucesso: ' + pathReal);
         } catch (error) {
             mensagemErro('Erro ao copiar arquivo: ' + pathReal);
@@ -64,7 +63,7 @@ exports.cssTodos = async function () {
     await fsCriarDiretorio('./files/build/css');
 
     const listaArquivo = glob
-        .sync('views/@(pages|templates)/**/layout.styl')
+        .sync('views/@(pages|templates|status)/**/layout.styl')
         .concat(glob.sync('src/Painel/App/**/layout.styl'))
         .concat(glob.sync('src/Painel/template/**/layout.styl'));
 
@@ -144,7 +143,7 @@ function pegarNomeArquivo(path) {
             .replace(/_{2,}/g, '_') + '.styl'
     );
 }
-async function processarCss(path, destino, browser) {
+async function processarCss(path, destino) {
     const dirBase = path.replace(/\/layout.styl$/, '') + '/';
     const nome = pegarNomeArquivo(path);
 
@@ -182,26 +181,25 @@ async function processarCss(path, destino, browser) {
     });
 
     await fsCriarArquivo('files/build/css/' + nome, conteudoFinal);
-
-    if (browser != undefined) {
-        return src('files/build/css/' + nome)
-            .pipe(plumber())
-            .pipe(
-                replace(
-                    /(\@template(.*)|\@painel(.*)|\@import(.*)|\@resource(.*)|\@system(.*))/g,
-                    function handleReplace(match) {
-                        return '';
-                    }
-                )
-            )
-            .pipe(
-                stylus({
-                    'include css': true,
-                })
-            )
-            .pipe(dest(destino))
-            .pipe(browser.stream());
+    if (undefined === destino) {
+        return;
     }
+    return src('files/build/css/' + nome)
+        .pipe(plumber())
+        .pipe(
+            replace(
+                /(\@template(.*)|\@painel(.*)|\@import(.*)|\@resource(.*)|\@system(.*))/g,
+                function handleReplace(match) {
+                    return '';
+                }
+            )
+        )
+        .pipe(
+            stylus({
+                'include css': true,
+            })
+        )
+        .pipe(dest(destino));
 }
 // Pegar lista de imports
 function pegarListaImports(conteudo, path) {

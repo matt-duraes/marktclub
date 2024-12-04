@@ -35,7 +35,7 @@
                 Por favor, verifique se o titular já realizou o seu cadastro no clube de vantagens.
             </p>
         </div>
-        <div class="bloco_titular display_none" data-ativacao="{{TIPO_ATIVACAO ? TIPO_ATIVACAO : ''}}">
+        <div class="bloco_titular display_none" data-ativacao="{{ATIVACAO_TIPO ? ATIVACAO_TIPO : ''}}">
             <h1>Insira o dado solicitado:</h1>
             @? formCpf(name: 'buscar_cpf', label: 'Buscar', placeholder: 'Digite seu CPF');
             <div>

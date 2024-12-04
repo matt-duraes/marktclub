@@ -1,9 +1,9 @@
-/* eslint-disable */
 class Banner {
     constructor(banner, item, botaoProximo, botaoAnterior) {
         if (!banner) {
             return false;
         }
+
         this.banner = banner;
         this.banner.classList.add('fw_banner');
         this.botaoProximo = botaoProximo;
@@ -12,10 +12,10 @@ class Banner {
         this.lista = banner.querySelectorAll(item);
         this.quantidade = this.lista.length - 1;
 
-        if (this.quantidade < 2 && botaoProximo) {
+        if (this.quantidade < 1 && botaoProximo) {
             botaoProximo.classList.add('fw_banner_display_none');
         }
-        if (this.quantidade < 2 && botaoAnterior) {
+        if (this.quantidade < 1 && botaoAnterior) {
             botaoAnterior.classList.add('fw_banner_display_none');
         }
 
@@ -112,4 +112,3 @@ class Banner {
         });
     }
 }
-/* eslint-enable */

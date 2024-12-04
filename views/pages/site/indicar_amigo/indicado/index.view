@@ -1,0 +1,5 @@
+@if(TIPO_USUARIO == 'indicado'):
+<div class="bloco_atencao_geral bloco_usuario_indicado">
+    <p>Por ser um usuário indicado, você está utilizando uma versão limitada do clube</p>
+</div>
+@endif

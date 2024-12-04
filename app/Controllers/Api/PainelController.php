@@ -2,22 +2,22 @@
 
 namespace App\Controllers\Api;
 
+use App\Classes\Painel\Config\Ordem;
+use App\Models\Api\Painel\ConfiguracaoEntity;
+use App\Models\Api\Painel\ConfiguracaoModel;
+use App\Models\Api\Painel\MenuModel;
+use Controller\Controller;
 use Erro\Excecao;
 use Http\Request;
 use Http\Response;
+use Modules\Data;
 use Modules\Pagina;
 use Modules\Quantidade;
-use Controller\Controller;
-use App\Models\Api\Painel\MenuModel;
-use App\Classes\PainelConfiguracoes\Ordem;
-use App\Models\Api\Painel\ConfiguracaoModel;
-use App\Models\Api\Painel\ConfiguracaoEntity;
-use Modules\Data;
+use System\Interface\ControllerAtualizarInterface;
 use System\Interface\ControllerBuscarInterface;
+use System\Interface\ControllerDeletarInterface;
 use System\Interface\ControllerListarInterface;
 use System\Interface\ControllerSalvarInterface;
-use System\Interface\ControllerDeletarInterface;
-use System\Interface\ControllerAtualizarInterface;
 
 final class PainelController extends Controller implements
     ControllerBuscarInterface,
@@ -41,21 +41,18 @@ final class PainelController extends Controller implements
 
     /**
      * @param ConfiguracaoEntity $configuracaoEntity
-     * @param int                $status
+     * @param int $status
      *
      * @return Response
      * @throws Excecao
      */
     private function retornoPadrao(ConfiguracaoEntity $configuracaoEntity, int $status = 200): Response
     {
-        return mensagemSucesso(
-            pegarPropriedadeDaEntity($configuracaoEntity, lista: [
-                'empresa', 'titulo', 'permissao', 'configuracao', 'campo_obrigatorio',
-                'campo_permitido', 'upload_grupo', 'upload_imagem', 'upload_arquivo',
-                'site_config'
-            ]),
-            $status
-        );
+        return mensagemSucesso(pegarPropriedadeDaEntity($configuracaoEntity, lista: [
+            'empresa', 'titulo', 'permissao', 'configuracao', 'campo_obrigatorio',
+            'campo_permitido', 'upload_grupo', 'upload_imagem', 'upload_arquivo',
+            'site_config'
+        ]), $status);
     }
 
     /**
@@ -95,7 +92,7 @@ final class PainelController extends Controller implements
 
     /**
      * @param Request $request
-     * @param string  $id
+     * @param string $id
      *
      * @return Response
      * @throws Excecao
@@ -121,6 +118,17 @@ final class PainelController extends Controller implements
         $Configuracoes->uuid($id);
         $Configuracoes->destruir();
         return new Response(status: 204);
+    }
+
+    /**
+     * @return Response
+     * @throws Excecao
+     */
+    public function getPainel(): Response
+    {
+        $Configuracao = new ConfiguracaoEntity();
+        $configuracoes = $Configuracao->pegarConfiguracoes();
+        return mensagemSucesso($configuracoes);
     }
 
     /**

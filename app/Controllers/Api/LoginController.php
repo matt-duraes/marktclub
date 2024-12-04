@@ -9,13 +9,10 @@ use Controller\Controller;
 use App\Classes\ApiToken\Tipo;
 use App\Classes\UsuarioCliente\Helper;
 use App\Models\Api\LoginApi\DigioModel;
-use App\Models\Api\ApiToken\PayloadModel;
 use App\Models\Api\LoginClube\LoginClubeModel;
-use App\Models\Api\LoginPainel\LoginFormModel;
-use App\Models\Api\LoginPainel\LoginGoogleModel;
+use App\Models\Api\LoginPainel\LoginPainelModel;
 use App\Models\Api\UsuarioCliente\ClienteEntity;
 use App\Classes\LoginClube\Tipo as LoginClubeTipo;
-use App\Models\Api\LoginPainel\LoginFacebookModel;
 use App\Models\Api\ConstrutorClube\ConstrutorEntity;
 use App\Models\Api\ApiToken\TokenAuthorizationEntity;
 use App\Models\Api\LoginApi\LoginModel as LoginApiModel;
@@ -107,54 +104,17 @@ final class LoginController extends Controller
     */
     public function postLoginPainel(Request $request)
     {
-        $dado = (object)$request->dado();
-
-        if (!empty($dado->facebook)) {
-            $Login = new LoginFacebookModel($dado->facebook);
-        } elseif (!empty($dado->google)) {
-            $Login = new LoginGoogleModel($dado->google);
-        } else {
-            $Login = new LoginFormModel($dado->login, $dado->senha);
-        }
-
-        $Usuario = $Login->pegarUsuario();
-        $payload = (new PayloadModel($Usuario, 'web'))->payload;
-
-        return $this->criarToken(
-            body: $payload,
+        $Login = new LoginPainelModel(
+            login: $request->login,
+            senha: $request->senha,
             audience: $request->audience,
             redirectUri: $request->redirect_uri,
             state: $request->state,
-            scope: $request->scope,
-            empresa: $Usuario->id_admin_empresa,
-            tipo: new Tipo(Tipo::PAINEL)
-        );
-    }
-
-    private function criarToken(
-        array $body,
-        string $audience,
-        string $redirectUri,
-        string $state,
-        string $scope,
-        int $empresa,
-        Tipo $tipo
-    ): Response {
-        $Token = new TokenAuthorizationEntity();
-        $token = $Token->criarToken(
-            TOKEN['app'],
-            $body,
-            empty($scope) ? [] : explode(' ', $scope),
-            $audience,
-            $redirectUri,
-            $state,
-            $empresa,
-            $tipo,
         );
 
         return new Response(json: [
             'status' => 'sucesso',
-            'dado'   => $token
+            'dado'   => $Login->token
         ], status: 201);
     }
 

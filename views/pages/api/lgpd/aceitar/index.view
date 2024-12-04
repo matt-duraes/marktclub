@@ -91,7 +91,7 @@
 
     <div class="botao_lista">
         <a href="{!!$link!!}" class="botao_sair" target="_self">SAIR</a>
-        <div class="botao_continuar inativo" id="botao_aceitar_termo" style="background-color: {!!$cor!!};">CONTINUAR</div>
+        <div class="botao_continuar inativo" id="botao_aceitar_termo" data-fwcss="background-color: {!!$cor!!};">CONTINUAR</div>
     </div>
 
 </div>

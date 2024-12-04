@@ -2,10 +2,10 @@
 
 namespace App\Models\Api\Painel;
 
-use stdClass;
-use ORM\Entity;
 use Erro\Excecao;
 use Helpers\OrmHelper;
+use ORM\Entity;
+use stdClass;
 
 final class ConfiguracaoEntity extends Entity
 {
@@ -39,6 +39,9 @@ final class ConfiguracaoEntity extends Entity
         parent::__construct();
     }
 
+    /**
+     * @return stdClass
+     */
     public function pegarConfiguracoes(): stdClass
     {
         $configs = (new OrmHelper(TABELA_PAINEL_CONFIG))
@@ -47,7 +50,6 @@ final class ConfiguracaoEntity extends Entity
                 ['titulo', 'permissao', 'configuracao', 'campo_obrigatorio', 'campo_permitido', 'upload_grupo'],
                 'object'
             );
-
         if (empty($configs)) {
             $configs = (new OrmHelper(TABELA_PAINEL_CONFIG))
                 ->pegarUltimoRegistro(
@@ -57,12 +59,12 @@ final class ConfiguracaoEntity extends Entity
                 );
         }
         return object([
-            'titulo'            => $configs->titulo,
-            'permissao'         => jsonDecode($configs->permissao, true, true),
-            'configuracao'      => jsonDecode($configs->configuracao, true, true),
+            'titulo' => $configs->titulo,
+            'permissao' => jsonDecode($configs->permissao, true, true),
+            'configuracao' => jsonDecode($configs->configuracao, true, true),
             'campo_obrigatorio' => jsonDecode($configs->campo_obrigatorio, true, true),
-            'campo_permitido'   => jsonDecode($configs->campo_permitido, true, true),
-            'upload_grupo'      => jsonDecode($configs->upload_grupo, true, true)
+            'campo_permitido' => jsonDecode($configs->campo_permitido, true, true),
+            'upload_grupo' => jsonDecode($configs->upload_grupo, true, true)
         ]);
     }
 
@@ -121,19 +123,25 @@ final class ConfiguracaoEntity extends Entity
         );
     }
 
-    private function setarUploadGrupo(): array
-    {
-        return [
-            'imagem'        => $this->pExiste('upload_imagem') ? $this->upload_imagem : '',
-            'arquivo'       => $this->pExiste('upload_arquivo') ? $this->upload_arquivo : '',
-            'site_config'   => $this->pExiste('site_config') ? $this->site_config : ''
-        ];
-    }
-
+    /**
+     * @throws Excecao
+     */
     private function validarRequest(): void
     {
         if (empty($this->permissao)) {
             mensagemErro('Campo inválido!', 'As Permissões não podem ser vazias.');
         }
+    }
+
+    /**
+     * @return array
+     */
+    private function setarUploadGrupo(): array
+    {
+        return [
+            'imagem' => $this->pExiste('upload_imagem') ? $this->upload_imagem : '',
+            'arquivo' => $this->pExiste('upload_arquivo') ? $this->upload_arquivo : '',
+            'site_config' => $this->pExiste('site_config') ? $this->site_config : ''
+        ];
     }
 }

@@ -13,8 +13,7 @@ $Painel->coluna(callback: function () use ($Painel) {
     $Painel->bloco(titulo: 'Parceiro', callback: function () use ($Painel) {
         $Painel
             ->linha('titulo_interno', 'Título')
-            ->checked('convenio_direto', 'Convênio direto')
-        ;
+            ->checked('convenio_direto', 'Convênio direto');
     });
     $Painel->bloco(titulo: 'Contato', callback: function () use ($Painel) {
         $Painel
@@ -44,18 +43,18 @@ $Painel->coluna(callback: function () use ($Painel) {
     });
 });
 $Painel->coluna(callback: function () use ($Painel) {
-    $Painel->bloco(titulo: 'Endereço no clube', abrir: true, callback: function () use ($Painel) {
+    $Painel->bloco(titulo: 'Endereço no clube', callback: function () use ($Painel) {
         $Painel->endereco('parceiro_loja', 'clube');
-    });
-    $Painel->bloco(titulo: 'Contato no clube', abrir: true, callback: function () use ($Painel) {
+    }, abrir: true);
+    $Painel->bloco(titulo: 'Contato no clube', callback: function () use ($Painel) {
         $Painel->contato('parceiro_loja', 'clube');
-    });
-    $Painel->bloco(titulo: 'Endereço no painel', abrir: true, callback: function () use ($Painel) {
+    }, abrir: true);
+    $Painel->bloco(titulo: 'Endereço no painel', callback: function () use ($Painel) {
         $Painel->endereco('parceiro_loja', 'painel');
-    });
-    $Painel->bloco(titulo: 'Contato no painel', abrir: true, callback: function () use ($Painel) {
+    }, abrir: true);
+    $Painel->bloco(titulo: 'Contato no painel', callback: function () use ($Painel) {
         $Painel->contato('parceiro_loja', 'painel');
-    });
+    }, abrir: true);
 });
 
 $Painel->coluna(callback: function () use ($Painel) {
@@ -82,16 +81,16 @@ $Painel->coluna(callback: function () use ($Painel) {
             texto: 'Cancelar',
             inArray: [$Status->nome(Status::CONCLUIDO), $Status->nome(Status::PROBLEMA)],
             status: Status::CANCELADO,
-            cor: 'cinza',
             id: 'botao_cancelar_loja',
+            cor: 'cinza',
         )
         ->status(
             campo: 'status',
             texto: 'Sem interesse',
             inArray: [$Status->nome(Status::PROSPECCAO)],
             status: Status::SEM_INTERESSE,
-            cor: 'cinza',
-            id: 'botao_sem_interesse'
+            id: 'botao_sem_interesse',
+            cor: 'cinza'
         )
         ->status(
             campo: 'status',

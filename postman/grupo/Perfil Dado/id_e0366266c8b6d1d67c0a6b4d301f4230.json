@@ -1,0 +1,1 @@
+{"id":"id_e0366266c8b6d1d67c0a6b4d301f4230","token":"painel","metodo":"POST","nome":"\/perfil-dado\/validar-senha","uri":"{{LINK}}\/perfil-dado\/validar-senha","parametro":[],"body":[["cript",true,"senha","",""]],"header":[],"variavel":[],"json":[],"documentacao":{"status":false,"descricao":"","requisicao":"","resposta":"","scope":""}}

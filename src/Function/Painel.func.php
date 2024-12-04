@@ -369,7 +369,7 @@ if (!function_exists('painelLinhaLista')) {
             }
 
             if ($acao == 'imagem_redonda') {
-                echo '<figure ' . $attrHtml . ' class="imagem_redonda" style="background-image: url(' . $valor . ')"></figure>';
+                echo '<figure ' . $attrHtml . ' class="imagem_redonda" data-fwcss="background-image: url(' . $valor . ')"></figure>';
             } elseif ($acao == 'equipe') {
                 $Perfil = new \PainelModel\Perfil\Equipe();
                 $equipe = $Perfil->unico($valor);
@@ -377,9 +377,9 @@ if (!function_exists('painelLinhaLista')) {
                     ? 'data-ajuda="' . $equipe->nome . '"' : '';
                 $nome = preg_match('/\:|\!|\?$/', $nome) ? $nome : $nome . ':';
                 echo '<div ' . $attrHtml . ' class="linha linha_equipe bg_hover"><strong class="texto_nome">'
-                    . $nome . '</strong> <figure ' . $equipeNome . ' class="imagem_perfil" style="background-image: url(' . $equipe->imagem . ')"></figure></div>';
+                    . $nome . '</strong> <figure ' . $equipeNome . ' class="imagem_perfil" data-fwcss="background-image: url(' . $equipe->imagem . ')"></figure></div>';
             } elseif ($acao == 'imagem_logo') {
-                echo '<figure ' . $attrHtml . ' class="imagem_logo"><div class="imagem" style="background-image: url(' . $valor . ')"></div></figure>';
+                echo '<figure ' . $attrHtml . ' class="imagem_logo"><div class="imagem" data-fwcss="background-image: url(' . $valor . ')"></div></figure>';
             } elseif ($acao == 'linha' && ($vazio || !empty($valor))) {
                 $valor = !empty($valor) ? $valor : '<span class="vazio">Dado não informado</span>';
                 $nome = preg_match('/\:|\!|\?$/', $nome) ? $nome : $nome . ':';
@@ -547,7 +547,7 @@ if (!function_exists('painelAppAddBotao')) {
                 <div class="botao_salvar" id="' . $id . '">
                     <p>' . $botao . '</p>
                     <span>
-                        <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" height="34" x="0px" y="0px" viewBox="0 0 40 40" style="enable-background:new 0 0 40 40;" xml:space="preserve"><g><g><circle cx="20" cy="3.6" r="3.6"/><circle cx="20" cy="36.4" r="3.6"/></g><g><circle cx="8.4" cy="8.4" r="3.6"/><circle cx="31.6" cy="31.6" r="3.6"/></g><g><circle cx="3.6" cy="20" r="3.6"/><circle cx="36.4" cy="20" r="3.6"/></g><g><circle cx="8.4" cy="31.6" r="3.6"/><circle cx="31.6" cy="8.4" r="3.6"/></g></g></svg>
+                        <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" height="34" x="0px" y="0px" viewBox="0 0 40 40" xml:space="preserve"><g><g><circle cx="20" cy="3.6" r="3.6"/><circle cx="20" cy="36.4" r="3.6"/></g><g><circle cx="8.4" cy="8.4" r="3.6"/><circle cx="31.6" cy="31.6" r="3.6"/></g><g><circle cx="3.6" cy="20" r="3.6"/><circle cx="36.4" cy="20" r="3.6"/></g><g><circle cx="8.4" cy="31.6" r="3.6"/><circle cx="31.6" cy="8.4" r="3.6"/></g></g></svg>
                     </span>
                 </div>
             ';
@@ -582,7 +582,7 @@ if (!function_exists('painelBotao')) {
                 <div class="painel_botao_salvar" id="' . $id . '">
                     <p>' . $botao . '</p>
                     <span>
-                        <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" height="34" x="0px" y="0px" viewBox="0 0 40 40" style="enable-background:new 0 0 40 40;" xml:space="preserve"><g><g><circle cx="20" cy="3.6" r="3.6"/><circle cx="20" cy="36.4" r="3.6"/></g><g><circle cx="8.4" cy="8.4" r="3.6"/><circle cx="31.6" cy="31.6" r="3.6"/></g><g><circle cx="3.6" cy="20" r="3.6"/><circle cx="36.4" cy="20" r="3.6"/></g><g><circle cx="8.4" cy="31.6" r="3.6"/><circle cx="31.6" cy="8.4" r="3.6"/></g></g></svg>
+                        <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" height="34" x="0px" y="0px" viewBox="0 0 40 40" xml:space="preserve"><g><g><circle cx="20" cy="3.6" r="3.6"/><circle cx="20" cy="36.4" r="3.6"/></g><g><circle cx="8.4" cy="8.4" r="3.6"/><circle cx="31.6" cy="31.6" r="3.6"/></g><g><circle cx="3.6" cy="20" r="3.6"/><circle cx="36.4" cy="20" r="3.6"/></g><g><circle cx="8.4" cy="31.6" r="3.6"/><circle cx="31.6" cy="8.4" r="3.6"/></g></g></svg>
                     </span>
                 </div>
             </form>
@@ -899,7 +899,7 @@ if (!function_exists('botaoLoading')) {
             <div class="botao button botao_loading_geral" ' . $id . '>
                 <p>' . $texto . '</p>
                 <span>
-                    <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" height="34" x="0px" y="0px" viewBox="0 0 40 40" style="enable-background:new 0 0 40 40;" xml:space="preserve"><g><g><circle cx="20" cy="3.6" r="3.6"/><circle cx="20" cy="36.4" r="3.6"/></g><g><circle cx="8.4" cy="8.4" r="3.6"/><circle cx="31.6" cy="31.6" r="3.6"/></g><g><circle cx="3.6" cy="20" r="3.6"/><circle cx="36.4" cy="20" r="3.6"/></g><g><circle cx="8.4" cy="31.6" r="3.6"/><circle cx="31.6" cy="8.4" r="3.6"/></g></g></svg>
+                    <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" height="34" x="0px" y="0px" viewBox="0 0 40 40" xml:space="preserve"><g><g><circle cx="20" cy="3.6" r="3.6"/><circle cx="20" cy="36.4" r="3.6"/></g><g><circle cx="8.4" cy="8.4" r="3.6"/><circle cx="31.6" cy="31.6" r="3.6"/></g><g><circle cx="3.6" cy="20" r="3.6"/><circle cx="36.4" cy="20" r="3.6"/></g><g><circle cx="8.4" cy="31.6" r="3.6"/><circle cx="31.6" cy="8.4" r="3.6"/></g></g></svg>
                 </span>
             </div>
         ';

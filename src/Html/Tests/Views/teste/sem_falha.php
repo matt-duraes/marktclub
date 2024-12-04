@@ -1,5 +1,5 @@
 <div class="bloco_mensagem">
-    <i><svg version="1.1" height="50" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 50 50" style="enable-background:new 0 0 50 50;" xml:space="preserve">
+    <i><svg version="1.1" height="50" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 50 50" xml:space="preserve">
             <path d="M43.5,50H6.5c-0.9,0-1.6-0.7-1.6-1.6V1.6C4.8,0.7,5.6,0,6.5,0h37.1c0.9,0,1.6,0.7,1.6,1.6v46.8C45.2,49.3,44.4,50,43.5,50zM6.5,1.6v46.8h37.1V1.6H6.5z" />
             <path d="M21.5,15.1H11.4c-0.4,0-0.8-0.4-0.8-0.8V4.7c0-0.4,0.4-0.8,0.8-0.8h10.1c0.4,0,0.8,0.4,0.8,0.8v9.6C22.3,14.8,21.9,15.1,21.5,15.1L21.5,15.1z M12.2,13.5h8.5l0-8h-8.5L12.2,13.5z" />
             <path d="M16.1,12.3c-0.2,0-0.3,0-0.5-0.1l-1.6-1.1c-0.4-0.3-0.5-0.8-0.2-1.1c0.3-0.4,0.8-0.5,1.1-0.2l1,0.7l2.7-2.8c0.3-0.3,0.8-0.3,1.1,0c0.3,0.3,0.3,0.8,0,1.1l-3.2,3.2C16.5,12.3,16.3,12.3,16.1,12.3L16.1,12.3z" />

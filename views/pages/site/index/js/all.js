@@ -29,7 +29,8 @@ const PaginaFavorito = new Pagina('faq-favorito', LINK + '/faq/favorito', {}, tr
 window.addEventListener('load', () => {
     const botaoProximoHistorico = $('#botao_proximo_historico');
     const botaoAnteriorHistorico = $('#botao_anterior_historico');
-    const blocoHistorico = $('#bloco_historico');
+    const blocoHistoricoPai = $('#bloco_historico');
+    const blocoHistorico = $('#bloco_historico .conteudo');
     botaoAnteriorHistorico.style.display = 'none';
     botaoProximoHistorico.style.display = 'none';
 
@@ -40,7 +41,7 @@ window.addEventListener('load', () => {
         });
     }
 
-    new Historico(blocoHistorico, LINK + '/historico', verificarBotoes);
+    new Historico(blocoHistoricoPai, blocoHistorico, LINK + '/historico', verificarBotoes);
 
     const loading = $$('.parceiro_esqueleto');
     loading.forEach(item => {

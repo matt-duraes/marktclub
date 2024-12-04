@@ -25,9 +25,7 @@ window.addEventListener('load', () => {
     const inputNumero = document.querySelector('#bloco_pagina_perfil form input[name=numero]');
     const inputComplemento = document.querySelector('#bloco_pagina_perfil form input[name=complemento]');
     const inputCidade = document.querySelector('#bloco_pagina_perfil form input[name=cidade]');
-    const fotoPerfil = document.querySelector('#imagem_fundo_perfil');
-    const blocoPerfil = document.querySelector('#bloco_perfil figure');
-    const inputBlocoFoto = document.querySelector('#input_foto_perfil');
+    const fotoPerfil = $$('#imagem_fundo_perfil, #bloco_perfil figure');
     const iconeEditarFoto = document.querySelector('.botao_editar_foto');
 
     buscarEnderecoPeloCep(inputCep, inputLogradouro, inputNumero, inputBairro, inputCidade, inputEstado, true);
@@ -111,16 +109,20 @@ window.addEventListener('load', () => {
     |--------------------------------------------------------------------------
     */
     const setarNovaFoto = imagem => {
-        // Adicionando um parâmetro de consulta aleatório para evitar o cache
-        let linkImagem = imagem + '?' + 'nocache=' + Math.random();
-        fotoPerfil.setAttribute('style', 'background-image: url("' + linkImagem + '")');
-        blocoPerfil.setAttribute('style', 'background-image: url("' + linkImagem + '")');
-        Alerta.mensagem('Foto alterada!', 'Após relogar suas informações serão salvas', true);
+        const linkImagem = imagem + '?' + 'nocache=' + idAleatorio();
+        fotoPerfil.css('background-image', `url(${linkImagem})`);
+        Alerta.notificacao('Imagem de perfil alterada com sucesso.', true);
     };
 
-    const salvarFoto = async imagem => {
-        Loading.show();
+    const arquivoInput = $('#fileInput');
+    arquivoInput.addEventListener('change', async e => {
+        const imagem = arquivoInput.files[0];
+        if (!imagem) {
+            return;
+        }
+        arquivoInput.value = '';
 
+        Loading.show();
         let body = new FormData();
         body.append('imagem', imagem);
         const resposta = await fetch(LINK + '/perfil/vincular-foto', {
@@ -128,9 +130,8 @@ window.addEventListener('load', () => {
             body,
         });
 
-        let json;
         Loading.hide();
-
+        let json;
         try {
             json = await resposta.json();
             if (json.dado && json.dado.imagem) {
@@ -140,26 +141,9 @@ window.addEventListener('load', () => {
             json = {};
         }
         if (resposta.status != 201) {
-            const erro = json.erro;
-            Alerta.notificacao(`${erro.titulo} <br> ${erro.mensagem}`, false);
+            Alerta.notificacao(json.erro.mensagem || 'Erro ao salvar imagem', false);
             return;
         }
-    };
-    const arquivoInput = document.querySelector('#fileInput');
-
-    arquivoInput.addEventListener('change', e => {
-        const inputTarget = e.target;
-        const arquivo = inputTarget.files[0];
-
-        if (!arquivo) {
-            Alerta.mensagem('Erro', 'Não é possível salvar foto', false);
-            return;
-        }
-        const leitor = new FileReader();
-        leitor.addEventListener('load', e => {
-            salvarFoto(arquivo);
-        });
-        leitor.readAsDataURL(arquivo);
     });
 
     iconeEditarFoto.addEventListener('click', () => {

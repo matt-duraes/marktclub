@@ -18,8 +18,8 @@ class CurlHelper
     private $retornoValor;
     private $retornoStatus;
     private $retornoErro;
-    private $retornoHeader;
-    private $retornoInfo;
+    private $debugRetorno = false;
+    private $debug = false;
     private string $urlUsada = '';
     private string $metodoUsado = '';
     private bool $erroValidar = false;
@@ -40,8 +40,6 @@ class CurlHelper
         $this->retornoErro = [];
         $this->retornoStatus = 0;
         $this->retornoValor = '';
-        $this->retornoHeader = [];
-        $this->retornoInfo = [];
 
         $this->parametro = [];
         $this->body = [];
@@ -354,8 +352,23 @@ class CurlHelper
         $this->retornoErro = $retornoErro;
         $this->retornoValor = $retornoValor;
         $this->retornoStatus = $retornoStatus;
-        $this->retornoHeader = $retornoHeader;
-        $this->retornoInfo = $retornoInfo;
+
+        if ($this->debug && $this->debugRetorno) {
+            print_r($retornoValor);
+            exit();
+        } elseif ($this->debug) {
+            print_r([
+                'requisicao' => $this->requisicao,
+                'retorno'    => [
+                    'valor'  => $retornoValor,
+                    'erro'   => $retornoErro,
+                    'status' => $retornoStatus,
+                    'header' => $retornoHeader,
+                    'info'   => $retornoInfo
+                ]
+            ]);
+            exit();
+        }
         curl_close($ch);
 
         $tokenInvalido = $this->erroLogin && in_array($this->status(), [401, 403]) && !empty(route('sair.index'));
@@ -540,19 +553,13 @@ class CurlHelper
     /**
      * Retorna o debug
      *
-     * @return array
+     * @return self
      */
-    public function debug(): array
-    {
-        return [
-            'requisicao' => $this->requisicao,
-            'retorno'    => [
-                'valor'  => $this->retornoValor,
-                'erro'   => $this->retornoErro,
-                'status' => $this->retornoStatus,
-                'header' => $this->retornoHeader,
-                'info'   => $this->retornoInfo
-            ]
-        ];
+    public function debug(
+        bool $retorno = false
+    ): self {
+        $this->debugRetorno = $retorno;
+        $this->debug = true;
+        return $this;
     }
 }

@@ -22,7 +22,7 @@ final class PopupModel extends ClubeApiHelper
                 'pagina'       => 1
             ])
             ->get('/comercial-popup')
-        ->object()->dado->lista ?? [];
+            ->object()->dado->lista ?? [];
         sessao('POPUP_PROMOCAO', $this->montarPopup($dado));
     }
 

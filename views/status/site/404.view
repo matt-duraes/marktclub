@@ -1,0 +1,35 @@
+@template "status"
+
+<div class="bloco_texto">
+    <div class="status_numero">404</div>
+    <header>
+        <h1>Página não existe</h1>
+    </header>
+    <div class="margem">
+        <p>A página acessada não existe ou mudou de endereço, caso tenha certeza que isso é um erro e está página deveria existir, entre em contato com o atendimento.</p>
+    </div>
+</div>
+
+@ if( $logado ):
+<div class="bloco_link">
+    @dir "/include/menu.view"
+</div>
+@ else:
+<div class="bloco_link">
+    @ if( LOGIN_STATUS ):
+    <a href="{{LINK_LOGIN}}">Fazer login</a>
+    @ endif;
+
+    @ if( ATIVACAO_STATUS ):
+    <a href="{{LINK_ATIVACAO}}">Sua primeira vez aqui? Ative seu cadastro</a>
+    @ endif;
+
+    @ if( !API && RECUPERAR_SENHA_STATUS ):
+    <a href="{{LINK_RECUPERAR_SENHA}}">Não lembra da sua senha?</a>
+    @ endif;
+
+    @ if( MENU_COMO_FUNCIONA ):
+    <a href="@route(comoFunciona.index)">Está com dúvidas, veja nosso guia "Como Funciona"</a>
+    @ endif;
+</div>
+@ endif;

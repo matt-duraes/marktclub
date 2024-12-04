@@ -2,9 +2,7 @@
 
 namespace App\Models\Site\Saude;
 
-use App\Helpers\ClubeApiHelper;
-
-final class HomeModel extends ClubeApiHelper
+final class HomeModel
 {
     public string $valor = '';
 

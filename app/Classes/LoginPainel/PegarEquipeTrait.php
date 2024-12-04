@@ -12,7 +12,8 @@ trait PegarEquipeTrait
             where: $where,
             campo: [
                 'id', 'id_admin_empresa', 'uuid', 'salt', 'imagem_tipo', 'imagem_arquivo', 'imagem_facebook',
-                'imagem_google', 'data_criacao', 'data_atualizacao', 'nome_real', 'email_pessoal', 'email_trabalho'
+                'imagem_google', 'data_criacao', 'data_atualizacao', 'nome_real', 'email_pessoal', 'email_trabalho',
+                'permissao'
             ],
             retorno: 'object'
         );

@@ -17,11 +17,13 @@ window.addEventListener('load', () => {
     blocoMenu.addEventListener('swiped-left', () => {
         fecharMenu();
     });
-    blocoMenuBg.addEventListener('click', e => {
-        if (e.target.classList.contains('bg') || e.target.closest('.bg')) {
-            fecharMenu();
-        }
-    });
+    if (blocoMenuBg) {
+        blocoMenuBg.addEventListener('click', e => {
+            if (e.target.classList.contains('bg') || e.target.closest('.bg')) {
+                fecharMenu();
+            }
+        });
+    }
     const abrirMenu = () => {
         blocoMenu.classList.remove('menu_fechado');
         setTimeout(() => {

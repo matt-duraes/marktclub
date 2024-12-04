@@ -2,23 +2,23 @@
 
 namespace App\Models\Api\ParceiroLoja\Trait;
 
-use Modules\Cpf;
-use Modules\Cnpj;
-use Modules\Data;
-use Modules\Nome;
-use Modules\Botao;
-use Modules\Email;
-use Modules\Telefone;
-use Modules\ArquivoPrivado;
-use Modules\ArquivoPrivadoLista;
-use App\Classes\ParceiroLoja\Status;
-use App\Classes\ParceiroLoja\TipoLoja;
+use App\Classes\ParceiroLoja\CancelarMotivo;
 use App\Classes\ParceiroLoja\Categoria;
 use App\Classes\ParceiroLoja\OrigemLead;
-use App\Classes\ParceiroLoja\TipoJuridico;
-use App\Classes\ParceiroLoja\CancelarMotivo;
-use App\Classes\ParceiroLoja\TipoProcedimento;
+use App\Classes\ParceiroLoja\Status;
 use App\Classes\ParceiroLoja\TipoEstabelecimento;
+use App\Classes\ParceiroLoja\TipoJuridico;
+use App\Classes\ParceiroLoja\TipoLoja;
+use App\Classes\ParceiroLoja\TipoProcedimento;
+use Modules\ArquivoPrivado;
+use Modules\ArquivoPrivadoLista;
+use Modules\Botao;
+use Modules\Cnpj;
+use Modules\Cpf;
+use Modules\Data;
+use Modules\Email;
+use Modules\Nome;
+use Modules\Telefone;
 
 trait PropriedadeTrait
 {

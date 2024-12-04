@@ -91,9 +91,7 @@
             <div class="link">
                 <div class="bloco_select bloco_token">
                     <select name="token" class="input_token monitorar_salvar">
-                        <option value="sem_token">Sem token</option>
-                        <option value="token">Token</option>
-                        <option value="painel">Painel</option>
+                        <?= new \System\Html\Postman\Models\TokenSelect() ?>
                     </select>
                     <i><?= iconeSetaBaixo(6) ?></i>
                 </div>
@@ -175,6 +173,7 @@
 </div>
 
 <script>
+    <?php require_once ROOT . '/src/Html/Scripts/js/Funcao.system.js'; ?>
     <?php require_once __DIR__ . '/../js/drag.js'; ?>
     <?php require_once __DIR__ . '/../js/all.js'; ?>
     <?php require_once __DIR__ . '/../js/enviar.js'; ?>

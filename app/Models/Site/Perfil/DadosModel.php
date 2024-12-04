@@ -6,6 +6,7 @@ use Erro\Excecao;
 use Http\Request;
 use Http\Response;
 use App\Helpers\ClubeApiHelper;
+use Symfony\Component\HttpFoundation\File\UploadedFile;
 
 final class DadosModel extends ClubeApiHelper
 {
@@ -19,7 +20,7 @@ final class DadosModel extends ClubeApiHelper
     {
         $dado = $this
             ->validar('Página não encontrada!', status: 404)
-            ->get('/usuario-cliente/' . $this->idUsuario)
+            ->get('/perfil-dado')
             ->object();
         return $this->montarRetorno($dado->dado);
     }
@@ -95,7 +96,7 @@ final class DadosModel extends ClubeApiHelper
                 'endereco_complemento' => $this->Crypt->encode($request->endereco_complemento),
                 'endereco_cidade'      => $this->Crypt->encode($request->endereco_cidade)
             ])
-            ->put('/usuario-cliente/' . $this->idUsuario);
+            ->put('/perfil-dado');
 
         $email = empty($request->email_pessoal)
             ? $request->email_trabalho
@@ -107,7 +108,7 @@ final class DadosModel extends ClubeApiHelper
         return new Response(status: 204);
     }
 
-    public function atualizarEmail(Request $request): Response
+    public function atualizarEmail(Request $request)
     {
         $this
             ->validar('Ocorre um erro ao atualizar seus e-mails, por favor, tente novamente.')
@@ -115,9 +116,7 @@ final class DadosModel extends ClubeApiHelper
                 'email_pessoal'        => $this->Crypt->encode($request->email_pessoal),
                 'email_trabalho'       => $this->Crypt->encode($request->email_trabalho),
             ])
-            ->put('/usuario-cliente/' . $this->idUsuario);
-
-        return new Response(status: 204);
+            ->put('/perfil-dado');
     }
 
     /**
@@ -126,27 +125,20 @@ final class DadosModel extends ClubeApiHelper
      * @return Response
      * @throws Excecao
      */
-    public function postImagem(Request $request): Response
+    public function postImagem(UploadedFile $imagem): string
     {
         $dado = $this
-            ->arquivo(['arquivo' => $request->getFiles('imagem')])
-            ->post('/usuario-cliente/imagem')
+            ->arquivo(['imagem' => $imagem])
+            ->post('/perfil-dado/atualizar-imagem')
             ->object();
 
-        if ($dado->status != 'sucesso') {
-            return mensagemErro(
-                'Imagem inválida!',
-                'Ocorreu um erro ao salvar sua imagem.'
-            );
+        if (!validarIndiceExiste($dado, 'dado.imagem')) {
+            mensagemErro('Imagem inválida!', 'Ocorreu um erro ao salvar sua imagem.');
         }
+
         $urlImagem = $this->Crypt->decode($dado->dado->imagem);
         sessao('USUARIO.imagem', $urlImagem);
 
-        return mensagemSucesso(
-            [
-                'imagem' => $urlImagem
-            ],
-            status: 201
-        );
+        return $urlImagem;
     }
 }

@@ -66,7 +66,7 @@ exports.jsTodos = function () {
         await fsCriarDiretorio('./files/build/js');
 
         const listaArquivo = glob
-            .sync('views/@(pages|templates)/**/all.js')
+            .sync('views/@(pages|templates|status)/**/all.js')
             .concat(glob.sync('src/Painel/App/**/all.js'))
             .concat(glob.sync('src/Painel/template/**/all.js'));
 
@@ -265,6 +265,8 @@ function pegarListaImports(conteudo, path) {
                 retorno.push('src/Html/Scripts/js/Form.lista.js');
                 retorno.push('src/Html/Scripts/js/Form.traducao.js');
                 retorno.push('src/Html/Scripts/js/Form.selectinputtag.js');
+            } else if (arquivo == 'src/Html/Scripts/js/Calendario.system.js') {
+                retorno.push('src/Html/Scripts/js/Animacao.system.js');
             } else if (arquivo == 'src/Html/Scripts/js/DragDrop.system.js') {
                 retorno.push('src/Html/Scripts/js/DragDrop.interno.js');
             } else if (arquivo == 'src/Html/Scripts/js/Alerta.system.js') {
@@ -281,8 +283,6 @@ function pegarListaImports(conteudo, path) {
                 if (!inArray('src/Html/Scripts/js/ArquivoUpload.system.js', retorno)) {
                     retorno.push('src/Html/Scripts/js/ArquivoUpload.system.js');
                 }
-                retorno.push('src/Html/Scripts/js/Editor.init.js');
-                retorno.push('src/Html/Scripts/js/Ckeditor.system.js');
                 retorno.push('src/Html/Scripts/js/Editor.system.js');
             }
         }

@@ -44,8 +44,8 @@ final class LogarModel
                 'state'        => uuid(),
                 'tipo'         => Tipo::TITULAR
             ])
-            ->post('/login/clube')->array()['dado'];
+            ->post('/login/clube')->array();
 
-        $this->token = $dado['token'];
+        $this->token = $dado['dado']['token'];
     }
 }

@@ -106,13 +106,13 @@ class Grafico {
             if (item.length == 3 && item[2] == '<') {
                 icone = `
                     <div class="fw_grafico_footer_item_icone">
-                        <svg height="5" fill="#FF6C60" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 30 16" style="enable-background:new 0 0 30 16;" xml:space="preserve"><g transform="translate(0,-952.36218)"><path d="M15.3,968.3c0.6-0.1,1.1-0.3,1.6-0.7l12.1-10.2c1.2-1,1.4-2.8,0.4-4c-1-1.2-2.8-1.4-4-0.4c0,0-0.1,0.1-0.1,0.1L15,961.8 l-10.2-8.7c-1.2-1.1-3-1-4.1,0.2s-1,3,0.2,4c0.1,0,0.1,0.1,0.1,0.1l12.1,10.2C13.7,968.2,14.5,968.4,15.3,968.3L15.3,968.3z"/></g></svg>
+                        <svg height="5" fill="#FF6C60" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 30 16" xml:space="preserve"><g transform="translate(0,-952.36218)"><path d="M15.3,968.3c0.6-0.1,1.1-0.3,1.6-0.7l12.1-10.2c1.2-1,1.4-2.8,0.4-4c-1-1.2-2.8-1.4-4-0.4c0,0-0.1,0.1-0.1,0.1L15,961.8 l-10.2-8.7c-1.2-1.1-3-1-4.1,0.2s-1,3,0.2,4c0.1,0,0.1,0.1,0.1,0.1l12.1,10.2C13.7,968.2,14.5,968.4,15.3,968.3L15.3,968.3z"/></g></svg>
                     </div>
                 `;
             } else if (item.length == 3 && item[2] == '>') {
                 icone = `
                     <div class="fw_grafico_footer_item_icone">
-                        <svg height="5" fill="#169e91" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 30 16" style="enable-background:new 0 0 30 16;" xml:space="preserve"><g transform="translate(0,-952.36218)"><path d="M14.7,952.4c-0.6,0.1-1.1,0.3-1.6,0.7L1.1,963.3c-1.2,1-1.4,2.8-0.4,4c1,1.2,2.8,1.4,4,0.4c0,0,0.1-0.1,0.1-0.1l10.2-8.7 l10.2,8.7c1.2,1.1,3,1,4.1-0.2s1-3-0.2-4c0,0-0.1-0.1-0.1-0.1L16.9,953C16.3,952.5,15.5,952.3,14.7,952.4L14.7,952.4z"/></g></svg>
+                        <svg height="5" fill="#169e91" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 30 16" xml:space="preserve"><g transform="translate(0,-952.36218)"><path d="M14.7,952.4c-0.6,0.1-1.1,0.3-1.6,0.7L1.1,963.3c-1.2,1-1.4,2.8-0.4,4c1,1.2,2.8,1.4,4,0.4c0,0,0.1-0.1,0.1-0.1l10.2-8.7 l10.2,8.7c1.2,1.1,3,1,4.1-0.2s1-3-0.2-4c0,0-0.1-0.1-0.1-0.1L16.9,953C16.3,952.5,15.5,952.3,14.7,952.4L14.7,952.4z"/></g></svg>
                     </div>
                 `;
             }
@@ -557,9 +557,7 @@ class Grafico {
                 label.forEach(item => {
                     labelHtml += `
                         <div class="fw_grafico_label_botao">
-                            <div class="fw_grafico_label_botao_bola" style="
-                                background-color: ${item[1]};
-                            "></div>
+                            <div class="fw_grafico_label_botao_bola" data-fwcss="background-color: ${item[1]};"></div>
                             <div class="fw_grafico_label_botao_texto">${item[0]}</div>
                         </div>
                     `;
@@ -597,7 +595,7 @@ class Grafico {
                         classeIconeImagem = 'fw_grafico_tabela_icone_imagem';
                     } else if (tabelaDado.imagem != undefined) {
                         tabelaImagem = `
-                            <div class="fw_grafico_tabela_imagem" style="background-image: url(${tabelaDado.imagem[i]})"></div>
+                            <div class="fw_grafico_tabela_imagem" data-fwcss="background-image: url(${tabelaDado.imagem[i]})"></div>
                         `;
                         classeIconeImagem = 'fw_grafico_tabela_icone_imagem';
                     }
@@ -608,7 +606,7 @@ class Grafico {
                             <div class="fw_grafico_tabela_nome">${tabelaNome}</div>
                             <div class="fw_grafico_tabela_valor">${tabelaValor}</div>
                             <div class="fw_grafico_tabela_porcentagem">
-                                <span style="width: ${tabelaPorcentagem}%; background-color: ${tabelaCor};"></span>
+                                <span data-fwcss="width: ${tabelaPorcentagem}%; background-color: ${tabelaCor};"></span>
                             </div>
                         </div>
                     `;
@@ -618,8 +616,7 @@ class Grafico {
             }
 
             this._bloco.innerHTML = '';
-            this._bloco.insertAdjacentHTML(
-                'afterbegin',
+            this._bloco.inicio(
                 `
                 ${this._tituloHtml}
                 <div class="fw_grafico_grafico">

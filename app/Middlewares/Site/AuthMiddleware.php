@@ -35,6 +35,11 @@ final class AuthMiddleware
         return true;
     }
 
+    public function logadoInterno(): bool
+    {
+        return $this->verificarSeEstaLogado();
+    }
+
     private function verificarSeEstaLogado(): bool
     {
         $retorno = (new AuthHelper())->validar();
@@ -83,6 +88,6 @@ final class AuthMiddleware
         if (!defined('ROTA_VIEW') || !ROTA_VIEW) {
             return '';
         }
-        return '?location=' . base64Encode(LINK . URI, true);
+        return '?location=' . base64Encode(LINK . URI . QUERY_STRING, true);
     }
 }

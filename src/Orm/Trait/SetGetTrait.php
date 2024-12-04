@@ -21,21 +21,22 @@ trait SetGetTrait
      *
      * @param  string|array $propriedade Propriedade que deseja pegar ou a lista de propriedades
      * @param  bool         $erro        Se a propriedade não existir, vai gerar um erro
+     * @param  bool         $classe      Se false, tenta pegar o retorno em string da classe
      * @return mixed
      */
-    protected function valor(string|array $propriedade, bool $erro = true): mixed
+    protected function valor(string|array $propriedade, bool $erro = true, bool $classe = true): mixed
     {
         if (!is_array($propriedade)) {
-            return $this->pegarValorPropriedade($propriedade, $erro);
+            return $this->ormPegarValorPropriedade($propriedade, $erro, $classe);
         }
         $retorno = [];
         foreach ($propriedade as $ind) {
-            $retorno[$ind] = $this->pegarValorPropriedade($ind, $erro);
+            $retorno[$ind] = $this->ormPegarValorPropriedade($ind, $erro, $classe);
         }
         return $retorno;
     }
 
-    private function pegarValorPropriedade(string $propriedade, bool $erro): mixed
+    private function ormPegarValorPropriedade(string $propriedade, bool $erro, bool $classe): mixed
     {
         $existe = $this->pExiste($propriedade);
         if (!$existe && $erro) {
@@ -47,7 +48,24 @@ trait SetGetTrait
         } elseif (!$existe) {
             return '';
         }
-        return $this->$propriedade;
+        return $this->ormConverterValorSeForUmaClasse($propriedade, $this->$propriedade);
+    }
+
+    private function ormConverterValorSeForUmaClasse($propriedade, $valor, bool $classe = true)
+    {
+        $valor = $this->ormConverterValorSeForUmModule($propriedade, $valor);
+        if ($valor instanceof ModuleInterface) {
+            return $classe ? $valor : $valor->valor();
+        }
+        $valor = $this->ormConverterValorSeForUmStatus($propriedade, $valor);
+        if ($valor instanceof StatusInterface) {
+            return $classe ? $valor : $valor->indice();
+        }
+        $valor = $this->ormConverterValorSeForUmaOrdem($propriedade, $valor);
+        if ($valor instanceof OrderInterface) {
+            return $classe ? $valor : $valor->indice();
+        }
+        return $valor;
     }
 
     /**
@@ -187,9 +205,7 @@ trait SetGetTrait
         if (is_null($valorValidacao) && $existe) {
             return;
         } elseif ($existe) {
-            $valor = $this->ormConverterValorSeForUmModule($propriedade, $valor, 1);
-            $valor = $this->ormConverterValorSeForUmStatus($propriedade, $valor);
-            $valor = $this->ormConverterValorSeForUmaOrdem($propriedade, $valor);
+            $valor = $this->ormConverterValorSeForUmaClasse($propriedade, $valor);
             $this->ormSetReal[$propriedade] = $valor;
             if ($valor instanceof Senha && $valor->vazio()) {
                 return;
@@ -209,7 +225,7 @@ trait SetGetTrait
         return null;
     }
 
-    private function ormConverterValorSeForUmModule(string $indice, $valor, bool $teste = false)
+    private function ormConverterValorSeForUmModule(string $indice, $valor)
     {
         if ($valor instanceof ModuleInterface) {
             return $valor;

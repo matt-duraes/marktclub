@@ -9,35 +9,35 @@
 
 <body>
     <br>
-    <hr style="height: 2px; background-color: #caaa00; border: none">
+    <hr data-fwcss="height: 2px; background-color: #caaa00; border: none">
     <br>
     <table border="0" cellpadding="0" cellspacing="0" width="100%">
         <tr>
-            <td width="120" style="width: 120px;">
+            <td width="120" data-fwcss="width: 120px;">
                 <img src="https://youhuul.com.br/images/assinatura/youhuul.png?cache=123" width="120"></td>
             </td>
-            <td width="20" style="width: 20px;"></td>
+            <td width="20" data-fwcss="width: 20px;"></td>
 
-            <td style="width: calc(100% - 150px);">
+            <td data-fwcss="width: calc(100% - 150px);">
                 <table border="0" cellpadding="0" cellspacing="0" width="100%">
                     <tr>
-                        <td style="font-family: Arial, Helvetica, sans-serif; color: #666; font-size: 14px">{!!$nome!!}</td>
+                        <td data-fwcss="font-family: Arial, Helvetica, sans-serif; color: #666; font-size: 14px">{!!$nome!!}</td>
                     </tr>
                     <tr>
                         <td height="5"></td>
                     </tr>
                     <tr>
-                        <td style="padding: 3px 0 3px 8px; border-width:0px 0px 0px 3px;border-style:none none none solid;border-color:rgb(187,187,187) rgb(187,187,187) rgb(187,187,187) #caaa00; font-family: Arial, Helvetica, sans-serif; color: #666; font-size: 14px">
+                        <td data-fwcss="padding: 3px 0 3px 8px; border-width:0px 0px 0px 3px;border-style:none none none solid;border-color:rgb(187,187,187) rgb(187,187,187) rgb(187,187,187) #caaa00; font-family: Arial, Helvetica, sans-serif; color: #666; font-size: 14px">
                             {!!$telefone!!}
                         </td>
                     </tr>
                     <tr>
-                        <td style="padding: 3px 0 3px 8px; border-width:0px 0px 0px 3px;border-style:none none none solid;border-color:rgb(187,187,187) rgb(187,187,187) rgb(187,187,187) #caaa00; font-family: Arial, Helvetica, sans-serif; color: #666; font-size: 14px">
+                        <td data-fwcss="padding: 3px 0 3px 8px; border-width:0px 0px 0px 3px;border-style:none none none solid;border-color:rgb(187,187,187) rgb(187,187,187) rgb(187,187,187) #caaa00; font-family: Arial, Helvetica, sans-serif; color: #666; font-size: 14px">
                             {!!$email!!}
                         </td>
                     </tr>
                     <tr>
-                        <td style="padding: 3px 0 3px 8px; border-width:0px 0px 0px 3px;border-style:none none none solid;border-color:rgb(187,187,187) rgb(187,187,187) rgb(187,187,187) #caaa00; font-family: Arial, Helvetica, sans-serif; color: #666; font-size: 14px">
+                        <td data-fwcss="padding: 3px 0 3px 8px; border-width:0px 0px 0px 3px;border-style:none none none solid;border-color:rgb(187,187,187) rgb(187,187,187) rgb(187,187,187) #caaa00; font-family: Arial, Helvetica, sans-serif; color: #666; font-size: 14px">
                             <a href="https://youhuul.com.br">youhuul.com.br</a>
                         </td>
                     </tr>
@@ -52,7 +52,7 @@
         </tr>
         <tr>
             <td>
-                <hr style="height: 1px; background-color: #dddddd; border: none">
+                <hr data-fwcss="height: 1px; background-color: #dddddd; border: none">
             </td>
         </tr>
         <tr>
@@ -62,22 +62,22 @@
 
     <table border="0" cellpadding="0" cellspacing="0" width="100%">
         <tr>
-            <td style="padding: 3px 0; font-family: Arial, Helvetica, sans-serif; color: #333; font-size: 12px">
+            <td data-fwcss="padding: 3px 0; font-family: Arial, Helvetica, sans-serif; color: #333; font-size: 12px">
                 SIG QUADRA 04, LOTE 125/175, Bloco A, Sala 10
             </td>
         </tr>
         <tr>
-            <td style="padding: 3px 0; font-family: Arial, Helvetica, sans-serif; color: #333; font-size: 12px">
+            <td data-fwcss="padding: 3px 0; font-family: Arial, Helvetica, sans-serif; color: #333; font-size: 12px">
                 Capital Financial Center - Asa Sul
             </td>
         </tr>
         <tr>
-            <td style="padding: 3px 0; font-family: Arial, Helvetica, sans-serif; color: #333; font-size: 12px">
+            <td data-fwcss="padding: 3px 0; font-family: Arial, Helvetica, sans-serif; color: #333; font-size: 12px">
                 Brasília/DF - CEP 70610-440
             </td>
         </tr>
         <tr>
-            <td style="padding: 3px 0; font-family: Arial, Helvetica, sans-serif; color: #333; font-size: 11px">
+            <td data-fwcss="padding: 3px 0; font-family: Arial, Helvetica, sans-serif; color: #333; font-size: 11px">
                 <a href="https://www.google.com.br/maps/place/You+Huul/@-15.7873053,-47.9154213,17z/data=!3m1!4b1!4m5!3m4!1s0x935a3afcad18a7af:0xe00941a34d1204a6!8m2!3d-15.7873053!4d-47.9132326" target="_blank"><img src="https://youhuul.com.br/images/assinatura/mapa.png" height="25"></a>
             </td>
         </tr>
@@ -86,7 +86,7 @@
     <table border="0" cellpadding="0" cellspacing="0" width="100%">
         <td height="10"></td>
         <tr>
-            <td style="font-family: Arial, Helvetica, sans-serif; color: #999; font-size: 12px; padding-bottom: 5px">
+            <td data-fwcss="font-family: Arial, Helvetica, sans-serif; color: #999; font-size: 12px; padding-bottom: 5px">
                 Siga o You Huul:
             </td>
         </tr>
@@ -114,13 +114,13 @@
             <td height="20"></td>
         </tr>
         <tr>
-            <td style="padding: 3px 0; font-family: Arial, Helvetica, sans-serif; color: #999; font-size: 12px">Esta mensagem pode conter informação confidencial ou privilegiada, sendo seu sigilo protegido por lei. Se você não for o destinatário ou a pessoa autorizada a receber esta mensagem, não pode usar, copiar ou divulgar as informações nela contidas ou tomar qualquer ação baseada nessas informações. Se você recebeu esta mensagem por engano, por favor, avise imediatamente ao remetente, respondendo o e-mail e em seguida apague-a. Agradecemos sua cooperação.</td>
+            <td data-fwcss="padding: 3px 0; font-family: Arial, Helvetica, sans-serif; color: #999; font-size: 12px">Esta mensagem pode conter informação confidencial ou privilegiada, sendo seu sigilo protegido por lei. Se você não for o destinatário ou a pessoa autorizada a receber esta mensagem, não pode usar, copiar ou divulgar as informações nela contidas ou tomar qualquer ação baseada nessas informações. Se você recebeu esta mensagem por engano, por favor, avise imediatamente ao remetente, respondendo o e-mail e em seguida apague-a. Agradecemos sua cooperação.</td>
         </tr>
         <tr>
             <td height="10"></td>
         </tr>
         <tr>
-            <td style="padding: 3px 0; font-family: Arial, Helvetica, sans-serif; color: #999; font-size: 12px">This message may contain confidential or privileged information and its confidentiality is protected by law. If you are not the addressed or authorized person to receive this message, you must not use, copy, disclose or take any action based on it or any information herein. If you have received this message by mistake, please advise the sender immediately by replying to the email and then deleting it. Thank you for your cooperation.</td>
+            <td data-fwcss="padding: 3px 0; font-family: Arial, Helvetica, sans-serif; color: #999; font-size: 12px">This message may contain confidential or privileged information and its confidentiality is protected by law. If you are not the addressed or authorized person to receive this message, you must not use, copy, disclose or take any action based on it or any information herein. If you have received this message by mistake, please advise the sender immediately by replying to the email and then deleting it. Thank you for your cooperation.</td>
         </tr>
     </table>
 

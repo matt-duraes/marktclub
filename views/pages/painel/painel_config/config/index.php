@@ -1,6 +1,6 @@
 <?php
 
-use App\Classes\PainelConfiguracoes\Ordem;
+use App\Classes\Painel\Config\Ordem;
 use PainelConfig\Index;
 
 $Painel = new Index('painel_config', new Ordem());

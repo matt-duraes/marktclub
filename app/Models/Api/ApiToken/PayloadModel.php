@@ -3,6 +3,7 @@
 namespace App\Models\Api\ApiToken;
 
 use stdClass;
+use App\Classes\ApiApp\Audience;
 use App\Classes\UsuarioCliente\TipoUsuario;
 
 final class PayloadModel
@@ -14,9 +15,9 @@ final class PayloadModel
         string $audience,
         ?string $chavePublica = null
     ) {
-        if ($audience == 'clube') {
+        if ($audience == Audience::CLUBE) {
             $this->montarCliente($Usuario, $chavePublica);
-        } elseif ($audience == 'web') {
+        } elseif ($audience == Audience::PAINEL) {
             $this->montarEquipe($Usuario, $chavePublica);
         }
     }

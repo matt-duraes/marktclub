@@ -12,6 +12,10 @@ Route
         Route
             ::nome('undefined')
             ::view('/undefined');
+        Route
+            ::nome('teste')
+            ::middleware(ClubeMiddleware::class, 'buscar')
+            ::view('/teste');
     });
 
 Route
@@ -94,6 +98,11 @@ Route
         Route
             ::nome('index')
             ::view('/login');
+
+        Route
+            ::nome('buscarHome')
+            ::get('/login/buscar');
+
         Route
             ::nome('login')
             ::view('/login/login');
@@ -197,7 +206,6 @@ Route
     ::nome('analytics')
     ::middleware(ClubeMiddleware::class, 'buscar')
     ::middleware(AuthMiddleware::class, 'logado')
-    ::controller(App\Controllers\Site\IndexController::class)
     ::controller(App\Controllers\Site\AnalyticsController::class)
     ::grupo(function () {
         Route

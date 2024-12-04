@@ -1,0 +1,113 @@
+@system "Resetar"
+@system "Animacao"
+@system "Banner"
+@system "Alerta"
+@system "Ajuda"
+@system "Esqueleto"
+@system "Form"
+@system "Calendario"
+
+body
+    min-height: 100vh
+    font-family: 'Inter', sans-serif
+    background-color: #f6f6f6
+    display: flex
+    align-items: center
+    display: flex
+    flex-direction: column
+
+.row
+    width: 100%
+    display: flex
+    flex-direction: row
+    justify-content: center
+    .botao
+        margin: 0 10px
+hr
+    width: 100%
+    height: 1px
+    background-color: #F00
+    margin: 20px 0
+
+form
+    width: 100%
+    max-width: 500px
+    display: flex
+    flex-direction: column
+    padding: 10px 20px 20px
+    border: 1px solid #CCC
+    background-color: #FFF
+    input.data
+        width: 100%
+        height: 40px
+        line-height: 40px
+        padding: 0 10px
+        font-size: 1.4rem
+        border: 1px solid #CCC
+        margin-top: 20px
+#banner
+    width: calc(100% - 40px)
+    height: 400px
+    position: relative
+    background-color: #FFF
+    overflow: hidden
+    #proximo
+    #anterior
+        background-color: #000
+        color: #fff
+        width: 50px
+        height: 50px
+        top: 0
+        bottom: 0
+        margin: auto
+        display: flex
+        position: absolute
+        align-items: center
+        justify-content: center
+        font-size: 2rem
+        z-index: 2
+        cursor: pointer
+    #proximo
+        right: 0
+    .imagem
+        width: 100%
+        height: 100%
+        position: relative
+        z-index: 1
+    .imagem figure
+        width: 100%
+        height: 100%
+        position: absolute
+        top: 0
+        left: 0
+        text-align: center
+        opacity: 0
+        &:first-child
+            opacity: 1
+
+.botao
+    height: 40px
+    line-height: 40px
+    padding: 0 20px
+    background: green
+    color: #FFF
+    font-size: 1.4rem
+
+.bloco_esqueleto
+    width: 100%
+    max-width: 600px
+    display: flex
+    flex-direction: column
+    justify-content: center
+    padding: 0 10px 10px 10px
+    background-color: #FFF
+    .esqueleto
+        width: 100%
+        height: 30px
+        margin-top: 10px
+        &:nth-child(1)
+            max-width: 40%
+        &:nth-child(2)
+            max-width: 10%
+        &:nth-child(3)
+            max-width: 80%

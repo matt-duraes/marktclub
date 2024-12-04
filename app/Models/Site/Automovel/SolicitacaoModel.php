@@ -20,7 +20,7 @@ final class SolicitacaoModel extends ClubeApiHelper
 
     public function salvar()
     {
-        $dado = $this
+        $this
             ->validar('Ocorreu um erro na sua solicitação, por favor, tente novamente.', login: true)
             ->body([
                 'endereco_estado' => $this->enderecoEstado,

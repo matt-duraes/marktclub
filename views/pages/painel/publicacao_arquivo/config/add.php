@@ -5,8 +5,8 @@ use App\Classes\PublicacaoArquivo\Tipo;
 
 $Painel = new PainelConfig\Add(app: 'publicidade_arquivo', acao: $acao);
 
-$diretorioImagem = sessao('PAINEL.upload_grupo')['imagem'] ?? '';
-$diretorioArquivo = sessao('PAINEL.upload_grupo')['arquivo'] ?? '';
+$diretorioImagem = sessao('PAINEL.upload_grupo')->imagem ?? '';
+$diretorioArquivo = sessao('PAINEL.upload_grupo')->arquivo ?? '';
 $Painel->coluna(callback: function () use ($Painel) {
     $Painel->fieldset('Dados principais', function () use ($Painel) {
         $Painel

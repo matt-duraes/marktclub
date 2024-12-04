@@ -1,31 +1,30 @@
 <?php
 
-use Helpers\ApiHelper;
-use Modules\EnderecoEstado;
-use App\Classes\ParceiroLoja\TipoLoja;
 use App\Classes\ParceiroLoja\Categoria;
 use App\Classes\ParceiroLoja\OrigemLead;
-use App\Classes\ParceiroLoja\TipoJuridico;
-use App\Classes\ParceiroLoja\TipoProcedimento;
 use App\Classes\ParceiroLoja\TipoEstabelecimento;
+use App\Classes\ParceiroLoja\TipoJuridico;
+use App\Classes\ParceiroLoja\TipoLoja;
+use App\Classes\ParceiroLoja\TipoProcedimento;
+use Helpers\ApiHelper;
+use Modules\EnderecoEstado;
 
-$empresa = (new ApiHelper(token: true))
-    ->get('/comercial-empresa/select')
-    ->array()['dado'] ?? [];
-$tag = (new ApiHelper(token: true))
-    ->get('/parceiro-subcategoria')
-    ->array()['dado'] ?? [];
+$empresa = (new ApiHelper(token: true))->get('/comercial-empresa/select')->array()['dado'] ?? [];
+$tag = (new ApiHelper(token: true))->get('/parceiro-subcategoria')->array()['dado'] ?? [];
+$diretorioAnexos = sessao('PAINEL.upload_grupo')->anexos ?? '';
 
 $Painel = new PainelConfig\Add(app: 'parceiro_loja', acao: $acao);
 $gerente = sessao('USUARIO')['gerente'] ?? '' == 'sim';
 
-$Painel->coluna(callback: function () use ($Painel) {
+$Painel->coluna(callback: function () use ($Painel, $diretorioAnexos) {
     $Painel->fieldset('Logo', function () use ($Painel) {
         $Painel->imagem(name: 'imagem_logo', diretorio: '0493d060-44ba-470b-a0a2-7211ba138d8c');
     });
+
     $Painel->fieldset('Capa Desktop', function () use ($Painel) {
         $Painel->imagem(name: 'imagem_capa_desktop', diretorio: '0493d060-44ba-470b-a0a2-7211ba138d8c');
     });
+
     $Painel->fieldset('Capa Mobile', function () use ($Painel) {
         $Painel->imagem(name: 'imagem_capa_mobile', diretorio: '0493d060-44ba-470b-a0a2-7211ba138d8c');
     });
@@ -48,9 +47,9 @@ $Painel->coluna(callback: function () use ($Painel, $gerente) {
             )
             ->select(
                 name: 'tipo_juridico',
+                lista: (new TipoJuridico())->select('Escolha uma opção'),
                 label: 'Pessoal física ou jurídica?',
-                placeholder: 'Pessoal física ou jurídica?',
-                lista: (new TipoJuridico())->select('Escolha uma opção')
+                placeholder: 'Pessoal física ou jurídica?'
             )
             ->cpf(
                 name: 'documento_cpf',
@@ -67,6 +66,7 @@ $Painel->coluna(callback: function () use ($Painel, $gerente) {
                 id: 'bloco_documento_cnpj'
             );
     });
+
     $Painel->fieldset('Dados do painel', function () use ($Painel, $gerente) {
         $Painel
             ->input(
@@ -77,10 +77,11 @@ $Painel->coluna(callback: function () use ($Painel, $gerente) {
             )
             ->select(
                 name: 'tipo_loja',
+                lista: (new TipoLoja())->select('Escolha uma opção'),
                 label: 'Tipo de loja',
-                placeholder: 'Escolha um tipo de loja',
-                lista: (new TipoLoja())->select('Escolha uma opção')
+                placeholder: 'Escolha um tipo de loja'
             );
+
         if ($gerente) {
             $equipe = (new ApiHelper(token: true))
                 ->get('/usuario-equipe/select')
@@ -88,14 +89,15 @@ $Painel->coluna(callback: function () use ($Painel, $gerente) {
                 ->array()['dado'] ?? [];
             $Painel->select(
                 name: 'equipe',
+                lista: $equipe,
                 label: 'Operador',
-                placeholder: 'Escolha um operador',
-                lista: $equipe
+                placeholder: 'Escolha um operador'
             );
         } else {
             $Painel->html('<input name="equipe" id="input_equipe" value="' . sessao('USUARIO.id') . '">', acao: 'add');
         }
     });
+
     $Painel->fieldset('Responsável', function () use ($Painel) {
         $Painel
             ->input(
@@ -138,21 +140,19 @@ $Painel->coluna(callback: function () use ($Painel) {
             )
             ->select(
                 name: 'tipo_estabelecimento',
+                lista: (new TipoEstabelecimento())->select('Escolha uma opção'),
                 label: 'Tipo de estabelecimento',
                 placeholder: 'Tipo de estabelecimento',
-                lista: (new TipoEstabelecimento())->select('Escolha uma opção'),
             )
             ->select(
                 name: 'origem_lead',
+                lista: (new OrigemLead())->select('Escolha uma opção'),
                 label: 'Origem do lead',
                 placeholder: 'Origem do lead',
-                lista: (new OrigemLead())->select('Escolha uma opção'),
                 acao: 'add'
             )
             ->select(
                 name: 'pontuacao',
-                label: 'Pontuação',
-                placeholder: 'Escolha uma pontuação',
                 lista: [
                     ''  => 'Escolha uma opção',
                     '1' => 1,
@@ -163,12 +163,15 @@ $Painel->coluna(callback: function () use ($Painel) {
                     '6' => 6,
                     '7' => 7
                 ],
+                label: 'Pontuação',
+                placeholder: 'Escolha uma pontuação',
             )
             ->telefone(name: 'contato_whatsapp', label: 'WhatsApp', placeholder: 'Número do WhatsApp')
             ->uri(name: 'url', label: 'URI do clube', placeholder: 'URI do clube')
             ->switch(name: 'delivery', label: 'Parceiro faz delivery?')
             ->switch(name: 'convenio_direto', label: 'É um convênio direto?');
     });
+
     $Painel->fieldset('Contrato', function () use ($Painel) {
         $Painel
             ->data(name: 'data_contrato_inicio', label: 'Data do contrato', placeholder: 'Data do contrato')
@@ -177,15 +180,16 @@ $Painel->coluna(callback: function () use ($Painel) {
             ->email(name: 'email_contato', label: 'E-mail de contato', placeholder: 'Digite um e-mail de contato');
     });
 });
+
 $Painel->coluna(callback: function () use ($Painel) {
     $Painel->fieldset('Procedimentos', function () use ($Painel) {
         $Painel
             ->input(name: 'desconto', label: 'Desconto curto', placeholder: 'Digite um desconto curto')
             ->select(
                 name: 'tipo_procedimento',
+                lista: (new TipoProcedimento())->select('Escolha uma opção'),
                 label: 'Tipo de procedimento',
-                placeholder: 'Escolha um procedimento',
-                lista: (new TipoProcedimento())->select('Escolha uma opção')
+                placeholder: 'Escolha um procedimento'
             )
             ->numero(
                 name: 'limite_voucher',
@@ -210,19 +214,20 @@ $Painel->coluna(callback: function () use ($Painel) {
             )
             ->url(name: 'link_site', label: 'Link do site', placeholder: 'Link do site');
     });
+
     $Painel->fieldset('Outros dados', function () use ($Painel) {
         $Painel
             ->switch(name: 'confirmar_status', label: 'Precisa confirmar procedimento?')
             ->select(
                 name: 'confirmar_titulo_tipo',
-                label: 'Título',
-                placeholder: 'Escolha um título',
                 lista: [
                     'padrao' => 'Título padrão',
                     'outro'  => 'Pesonalizadao'
                 ],
-                class: 'display_none',
-                id: 'bloco_confirmar_titulo_tipo'
+                label: 'Título',
+                placeholder: 'Escolha um título',
+                id: 'bloco_confirmar_titulo_tipo',
+                class: 'display_none'
             )
             ->input(
                 name: 'confirmar_titulo',
@@ -234,26 +239,31 @@ $Painel->coluna(callback: function () use ($Painel) {
             )
             ->select(
                 name: 'confirmar_texto_tipo',
-                label: 'Texto',
-                placeholder: 'Escolha um texto',
                 lista: [
                     'padrao' => 'Texto padrão',
                     'outro'  => 'Pesonalizadao'
                 ],
-                class: 'display_none',
-                id: 'bloco_confirmar_texto_tipo'
+                label: 'Texto',
+                placeholder: 'Escolha um texto',
+                id: 'bloco_confirmar_texto_tipo',
+                class: 'display_none'
             )
             ->input(
                 name: 'confirmar_texto',
                 label: 'Mensagem',
                 placeholder: 'Digite uma mensagem',
-                contador: 250,
                 class: 'display_none',
-                id: 'bloco_confirmar_texto'
+                id: 'bloco_confirmar_texto',
+                contador: 250
             )
             ->titulo('Extensão:')
             ->tag(name: 'link_alias', label: 'Link para extensão ', placeholder: 'Link para extensão', tipo: 'url')
-            ->tag(name: 'link_bloqueado', label: 'Link bloqueado para extensão ', placeholder: 'Link bloqueado para extensão', tipo: 'url');
+            ->tag(
+                name: 'link_bloqueado',
+                label: 'Link bloqueado para extensão ',
+                placeholder: 'Link bloqueado para extensão',
+                tipo: 'url'
+            );
     });
 });
 
@@ -266,6 +276,7 @@ $Painel->coluna(callback: function () use ($Painel) {
             ->textarea('texto_outro', label: 'Outro', placeholder: 'Digite um texto com dados opicionais');
     });
 });
+
 $Painel->coluna(callback: function () use ($Painel) {
     $Painel->fieldset('Arquivos do clube', function () use ($Painel) {
         $Painel->arquivoLista(name: 'arquivo_clube', diretorio: '0493d060-44ba-470b-a0a2-7211ba138d8c');
@@ -318,9 +329,9 @@ $Painel->coluna(callback: function () use ($Painel) {
         $Painel
             ->select(
                 name: 'categoria_principal',
+                lista: $Categoria->select('Escolha uma opção'),
                 label: 'Categoria',
-                placeholder: 'Categoria',
-                lista: $Categoria->select('Escolha uma opção')
+                placeholder: 'Categoria'
             )
             ->margem(10)
             ->blocoCheckbox(
@@ -333,6 +344,7 @@ $Painel->coluna(callback: function () use ($Painel) {
             );
     });
 });
+
 $Painel->coluna(callback: function () use ($Painel, $tag) {
     $Painel->fieldset('Subcategoria', function () use ($Painel, $tag) {
         $Painel
@@ -340,7 +352,6 @@ $Painel->coluna(callback: function () use ($Painel, $tag) {
             ->margem(10)
             ->blocoCheckbox(
                 titulo: 'Subcategorias',
-                mais: true,
                 callback: function () use ($Painel, $tag) {
                     foreach ($tag as $titulo => $values) {
                         $Painel->titulo($titulo);
@@ -348,44 +359,48 @@ $Painel->coluna(callback: function () use ($Painel, $tag) {
                             $Painel->checkbox(name: 'subcategoria_lista[]', label: $nome, value: $id);
                         }
                     }
-                }
+                },
+                mais: true
             );
     });
 });
+
 $Painel->coluna(callback: function () use ($Painel, $empresa) {
     $Painel->fieldsetCheckbox(
         titulo: 'Empresas',
-        todos: 'Marcar todas as empresas',
-        mais: true,
         callback: function () use ($Painel, $empresa) {
             foreach ($empresa as $id => $nome) {
                 $Painel->checkbox(name: 'empresa[]', label: $nome, value: $id);
             }
-        }
+        },
+        todos: 'Marcar todas as empresas',
+        mais: true
     );
 });
+
 $Painel->coluna(callback: function () use ($Painel, $empresa) {
     $Painel->fieldsetCheckbox(
         titulo: 'Destaque',
-        todos: 'Marcar todas as empresas',
-        mais: true,
         callback: function () use ($Painel, $empresa) {
             foreach ($empresa as $id => $nome) {
                 $Painel->checkbox(name: 'destaque[]', label: $nome, value: $id);
             }
-        }
+        },
+        todos: 'Marcar todas as empresas',
+        mais: true
     );
 });
+
 $Painel->coluna(callback: function () use ($Painel) {
     $Painel->fieldsetCheckbox(
         titulo: 'Estados',
-        todos: 'Marcar todos os estados',
-        mais: true,
         callback: function () use ($Painel) {
             foreach ((new EnderecoEstado())->select() as $id => $nome) {
                 $Painel->checkbox(name: 'endereco_estado[]', label: $nome, value: $id);
             }
-        }
+        },
+        todos: 'Marcar todos os estados',
+        mais: true
     );
 });
 

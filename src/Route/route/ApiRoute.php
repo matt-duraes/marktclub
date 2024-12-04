@@ -123,11 +123,8 @@ Route
 Route
     ::nome('log')
     ::controller(\ApiController\LogErroController::class)
+    ::middleware(TokenMiddleware::class, 'token')
     ::grupo(function () {
-        Route
-            ::nome('salvar')
-            ::request(['mensagem', 'codigo', 'arquivo', 'linha', 'trace', 'status'])
-            ::post('/log-erro');
         Route
             ::nome('listar')
             ::request(['pagina', '!quantidade'], 'json')
@@ -139,6 +136,15 @@ Route
             ::nome('atualizar')
             ::request(['status'])
             ::put('/log-erro/{id}');
+    });
+Route
+    ::nome('logSalvar')
+    ::controller(\ApiController\LogErroController::class)
+    ::grupo(function () {
+        Route
+            ::nome('salvar')
+            ::request(['mensagem', 'codigo', 'arquivo', 'linha', 'trace', 'status'])
+            ::post('/log-erro');
     });
 
 Route
