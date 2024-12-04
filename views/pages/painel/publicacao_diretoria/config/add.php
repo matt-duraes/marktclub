@@ -4,8 +4,8 @@ use App\Classes\Geral\Status;
 use App\Classes\PublicacaoDiretoria\Grupo;
 
 $Painel = new PainelConfig\Add(app: 'publicidade_diretoria', acao: $acao);
-$diretorioImagem = sessao('PAINEL.upload_grupo')['imagem'] ?? '';
-$diretorioArquivo = sessao('PAINEL.upload_grupo')['arquivo'] ?? '';
+$diretorioImagem = sessao('PAINEL.upload_grupo')->imagem ?? '';
+$diretorioArquivo = sessao('PAINEL.upload_grupo')->arquivo ?? '';
 
 $Painel->coluna(callback: function () use ($Painel, $diretorioImagem) {
     $Painel->fieldset('Imagem', function () use ($Painel, $diretorioImagem) {
