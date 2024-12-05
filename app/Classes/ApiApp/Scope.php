@@ -295,6 +295,8 @@ final class Scope
         'contato:salvar', 'contato:listar', 'contato:buscar', 'contato:atualizar',
 
         'contato:salvar', 'contato:listar', 'contato:buscar', 'contato:atualizar',
+
+        'data:listar'
     ];
     public const TUDO = [
         'perfil_dado:buscar', 'perfil_dado:atualizar', 'perfil_dado:validar_senha',

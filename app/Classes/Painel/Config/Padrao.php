@@ -631,7 +631,7 @@ final class Padrao
                     'scope'  => [
                         'parceiro_loja:buscar', 'endereco:listar', 'endereco:salvar',
                         'endereco:atualizar', 'contato:listar', 'contato:salvar',
-                        'contato:atualizar'
+                        'contato:atualizar', 'data:listar'
                     ]
                 ],
                 'parceiro_loja_editar'             => [
