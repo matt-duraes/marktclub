@@ -27,7 +27,8 @@ final class Scope
         'parceiro_favorito:listar', 'parceiro_favorito:salvar', 'parceiro_favorito:deletar',
         'endereco:listar', 'contato:listar',
         'comunicacao_publicidade:listar',
-        'silium_comissao:saldo',
+        'silium_comissao:saldo', 'silium_config:configuracoes',
+        'silium_comissao:listar', 'silium_deposito:listar',
         'automovel_modelo:listar', 'automovel_versao:listar',
         'solicitacao_contato:salvar',
         'solicitacao_credito:simular', 'solicitacao_credito:salvar',
@@ -63,7 +64,7 @@ final class Scope
         'comercial_empresa:buscar', 'comercial_empresa:select', 'comercial_subempresa:select',
         'comercial_restricao:select',
         'usuario_grupo:select', 'usuario_equipe:select', 'parceiro_loja:select',
-        'parceiro_subcategoria:select', 'usuario_equipe:mudar_empresa'
+        'parceiro_subcategoria:select', 'usuario_equipe:mudar_empresa', 'automovel_modelo:deletar'
     ];
     public const PAINEL_INTERNO = [
         'perfil_dado:buscar', 'perfil_dado:atualizar', 'perfil_dado:validar_senha',
@@ -76,6 +77,9 @@ final class Scope
 
         'automovel_modelo:atualizar', 'automovel_modelo:buscar', 'automovel_modelo:deletar',
         'automovel_modelo:listar', 'automovel_modelo:salvar',
+
+        'automovel_versao:atualizar', 'automovel_versao:buscar', 'automovel_versao:deletar',
+        'automovel_versao:listar', 'automovel_versao:salvar',
 
         'carteirinha:atualizar', 'carteirinha:buscar', 'carteirinha:deletar', 'carteirinha:listar',
         'carteirinha:salvar', 'carteirinha:status',
@@ -113,7 +117,7 @@ final class Scope
         'construtor_clube:atualizar', 'construtor_clube:deletar',
 
         'demanda_dado:atualizar', 'demanda_dado:buscar', 'demanda_dado:cancelar',
-        'demanda_dado:listar', 'demanda_dado:salvar',
+        'demanda_dado:listar', 'demanda_dado:salvar', 'demanda_dado:deletar',
 
         'demanda_sprint:atualizar', 'demanda_sprint:buscar', 'demanda_sprint:demanda',
         'demanda_sprint:listar', 'demanda_sprint:salvar', 'demanda_sprint:status',
@@ -284,7 +288,13 @@ final class Scope
         'view_pagina:atualizar', 'view_pagina:buscar', 'view_pagina:deletar',
         'view_pagina:listar', 'view_pagina:salvar',
 
-        'mensageria:salvar'
+        'mensageria:salvar',
+
+        'endereco:salvar', 'endereco:listar', 'endereco:buscar', 'endereco:atualizar',
+
+        'contato:salvar', 'contato:listar', 'contato:buscar', 'contato:atualizar',
+
+        'contato:salvar', 'contato:listar', 'contato:buscar', 'contato:atualizar',
     ];
     public const TUDO = [
         'perfil_dado:buscar', 'perfil_dado:atualizar', 'perfil_dado:validar_senha',
