@@ -55,7 +55,7 @@ final class LoginClubeModel
     {
         $redirectUri = explode('/', preg_replace('/^https?\:\/\//', '', $this->redirectUri))[0];
         $this->redirectUri = $redirectUri;
-        if (!eProducao() && array_key_exists($redirectUri, $this->listaUriHomologacao)) {
+        if (array_key_exists($redirectUri, $this->listaUriHomologacao)) {
             $redirectUri = $this->listaUriHomologacao[$redirectUri];
         }
 
