@@ -12,10 +12,6 @@ Route
         Route
             ::nome('undefined')
             ::view('/undefined');
-        Route
-            ::nome('teste')
-            ::middleware(ClubeMiddleware::class, 'buscar')
-            ::view('/teste');
     });
 
 Route

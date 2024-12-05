@@ -91,10 +91,16 @@ exports.htmlTodos = function () {
         let i, arquivo;
         for (i = 0; i < quantidade; ++i) {
             arquivo = listaArquivo[i];
-            if (!(/^views\/templates/.test(arquivo) && /\/index\.view$/.test(arquivo))) {
+            if (
+                !(
+                    (/^views\/templates/.test(arquivo) || /^src\/Painel\/template\//.test(arquivo)) &&
+                    /\/index\.view$/.test(arquivo)
+                )
+            ) {
                 let nome = arquivo
                     .replace(/^src\/Painel\/App\//, 'painel_')
                     .replace(/^views\/pages\//, '')
+                    .replace(/^views\/status/, 'status')
                     .replace(/^views\/templates\//, 'templates/')
                     .replace(/^src\/Painel\/template\//, 'templates/painel/')
                     .replace(/\/index\.view$/, '.php')
@@ -102,7 +108,6 @@ exports.htmlTodos = function () {
                     .replace(/\/Views/, '')
                     .replace(/\//g, '_')
                     .replace(/_{2,}/g, '_');
-
                 try {
                     await processarHtml(arquivo, nome, 'files/build/views');
                 } catch (error) {
