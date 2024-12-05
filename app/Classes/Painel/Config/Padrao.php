@@ -746,11 +746,18 @@ final class Padrao
             'permissao' => [
                 'parceiro_automovel_index'      => [
                     'titulo' => self::TITULO_LISTAR,
-                    'scope'  => ['parceiro_automovel:listar', 'automovel_modelo:listar']
+                    'scope'  => [
+                        'parceiro_automovel:listar', 'automovel_modelo:listar',
+                        'parceiro_automovel:deletar'
+                    ]
                 ],
                 'parceiro_automovel_visualizar' => [
                     'titulo' => self::TITULO_VISUALIZAR,
-                    'scope'  => ['parceiro_automovel:buscar', 'automovel_modelo:buscar']
+                    'scope'  => [
+                        'parceiro_automovel:buscar', 'automovel_modelo:buscar',
+                        'automovel_versao:buscar', 'automovel_versao:salvar',
+                        'automovel_versao:atualizar', 'automovel_versao:deletar'
+                    ]
                 ],
                 'parceiro_automovel_add'        => [
                     'titulo' => self::TITULO_SALVAR,
@@ -1164,7 +1171,11 @@ final class Padrao
             'permissao' => [
                 'demanda_quadro' => [
                     'titulo' => 'Quadro',
-                    'scope'  => 'demanda_dado:listar'
+                    'scope'  => [
+                        'demanda_dado:listar', 'demanda_dado:salvar',
+                        'demanda_dado:atualizar', 'demanda_dado:deletar',
+                        'demanda_dado:buscar'
+                    ]
                 ]
             ]
         ],
@@ -1173,15 +1184,27 @@ final class Padrao
             'permissao' => [
                 'demanda_tecnologia' => [
                     'titulo' => 'Tecnoogia',
-                    'scope'  => 'demanda_dado:listar'
+                    'scope'  => [
+                        'demanda_dado:listar', 'demanda_dado:salvar',
+                        'demanda_dado:atualizar', 'demanda_dado:deletar',
+                        'demanda_dado:buscar'
+                    ]
                 ],
                 'demanda_criacao'    => [
                     'titulo' => 'Criação',
-                    'scope'  => 'demanda_dado:listar'
+                    'scope'  => [
+                        'demanda_dado:listar', 'demanda_dado:salvar',
+                        'demanda_dado:atualizar', 'demanda_dado:deletar',
+                        'demanda_dado:buscar'
+                    ]
                 ],
                 'demanda_convenio'   => [
                     'titulo' => 'Convênios',
-                    'scope'  => 'demanda_dado:listar'
+                    'scope'  => [
+                        'demanda_dado:listar', 'demanda_dado:salvar',
+                        'demanda_dado:atualizar', 'demanda_dado:deletar',
+                        'demanda_dado:buscar'
+                    ]
                 ]
             ]
         ],
@@ -1248,7 +1271,12 @@ final class Padrao
                 ],
                 'votacao_visualizar' => [
                     'titulo' => self::TITULO_VISUALIZAR,
-                    'scope'  => 'votacao:buscar'
+                    'scope'  => [
+                        'votacao:buscar', 'votacao:atualizar', 'votacao_pergunta:atualizar',
+                        'votacao_pergunta:buscar', 'votacao_pergunta:deletar',
+                        'votacao_pergunta:listar', 'votacao_pergunta:salvar',
+                        'votacao_resposta:buscar'
+                    ]
                 ],
                 'votacao_add'        => [
                     'titulo' => self::TITULO_SALVAR,
