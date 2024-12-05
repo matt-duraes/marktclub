@@ -403,6 +403,12 @@ Route
             ::get('/usuario-cliente/senha');
 
         Route
+            ::nome('validarSenha')
+            ::middleware(TokenMiddleware::class, 'scope', ['usuario_cliente:validar_senha'])
+            ::request(['senha', '!usuario'])
+            ::post('/usuario-cliente/validar-senha');
+
+        Route
             ::nome('senha')
             ::middleware(TokenMiddleware::class, 'scope', ['usuario_cliente:senha'])
             ::request(['usuario', 'codigo'])
