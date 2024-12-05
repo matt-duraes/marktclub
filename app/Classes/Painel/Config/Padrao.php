@@ -628,7 +628,11 @@ final class Padrao
                 ],
                 'parceiro_loja_visualizar'         => [
                     'titulo' => self::TITULO_VISUALIZAR,
-                    'scope'  => 'parceiro_loja:buscar'
+                    'scope'  => [
+                        'parceiro_loja:buscar', 'endereco:listar', 'endereco:salvar',
+                        'endereco:atualizar', 'contato:listar', 'contato:salvar',
+                        'contato:atualizar'
+                    ]
                 ],
                 'parceiro_loja_editar'             => [
                     'titulo' => self::TITULO_EDITAR,
@@ -811,9 +815,7 @@ final class Padrao
                     'titulo' => 'Histórico',
                     'scope'  => 'tabela_usuario:listar',
                 ],
-                'tabela_usuario_empresa'  => [
-                    'titulo' => self::TITULO_EMPRESA
-                ]
+                'tabela_usuario_empresa'  => self::TITULO_EMPRESA
             ]
         ],
         'solicitacao_loja'         => [
@@ -1187,7 +1189,7 @@ final class Padrao
                     'scope'  => [
                         'demanda_dado:listar', 'demanda_dado:salvar',
                         'demanda_dado:atualizar', 'demanda_dado:deletar',
-                        'demanda_dado:buscar'
+                        'demanda_dado:buscar', 'demanda_sprint:demanda'
                     ]
                 ],
                 'demanda_criacao'    => [

@@ -27,7 +27,8 @@ final class Scope
         'parceiro_favorito:listar', 'parceiro_favorito:salvar', 'parceiro_favorito:deletar',
         'endereco:listar', 'contato:listar',
         'comunicacao_publicidade:listar',
-        'silium_comissao:saldo',
+        'silium_comissao:saldo', 'silium_config:configuracoes',
+        'silium_comissao:listar', 'silium_deposito:listar',
         'automovel_modelo:listar', 'automovel_versao:listar',
         'solicitacao_contato:salvar',
         'solicitacao_credito:simular', 'solicitacao_credito:salvar',
@@ -116,7 +117,7 @@ final class Scope
         'construtor_clube:atualizar', 'construtor_clube:deletar',
 
         'demanda_dado:atualizar', 'demanda_dado:buscar', 'demanda_dado:cancelar',
-        'demanda_dado:listar', 'demanda_dado:salvar',
+        'demanda_dado:listar', 'demanda_dado:salvar', 'demanda_dado:deletar',
 
         'demanda_sprint:atualizar', 'demanda_sprint:buscar', 'demanda_sprint:demanda',
         'demanda_sprint:listar', 'demanda_sprint:salvar', 'demanda_sprint:status',
@@ -287,7 +288,13 @@ final class Scope
         'view_pagina:atualizar', 'view_pagina:buscar', 'view_pagina:deletar',
         'view_pagina:listar', 'view_pagina:salvar',
 
-        'mensageria:salvar'
+        'mensageria:salvar',
+
+        'endereco:salvar', 'endereco:listar', 'endereco:buscar', 'endereco:atualizar',
+
+        'contato:salvar', 'contato:listar', 'contato:buscar', 'contato:atualizar',
+
+        'contato:salvar', 'contato:listar', 'contato:buscar', 'contato:atualizar',
     ];
     public const TUDO = [
         'perfil_dado:buscar', 'perfil_dado:atualizar', 'perfil_dado:validar_senha',
