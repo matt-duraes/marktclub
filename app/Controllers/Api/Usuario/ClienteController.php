@@ -285,6 +285,27 @@ final class ClienteController extends Controller implements
         return new Response(status: 204);
     }
 
+    public function postValidarSenha(Request $request)
+    {
+        $id = $request->existe('usuario') ? $request->usuario : TOKEN['usuario']->id;
+        $senha = $request->senha;
+        if (!defined('TOKEN')) {
+            mensagemStatus(401, localhost: 'Token não foi definido.');
+        } elseif (empty($id)) {
+            mensagemStatus(404);
+        } elseif (empty($senha)) {
+            mensagemErro('Campo obrigatório!', 'O campo senha é obrigatório.');
+        }
+
+        $Usuario = new ClienteEntity();
+        $where = is_int($id) ? [['id', $id]] : [['uuid', $id]];
+        $Usuario->buscar($where);
+
+        return mensagemSucesso([
+            'senha' => $Usuario->senha->validarSenha($senha) ? 'sim' : 'nao'
+        ]);
+    }
+
     public function postHash(Request $request)
     {
         $Hash = new SalvarHashModel(
