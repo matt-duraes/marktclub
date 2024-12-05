@@ -68,13 +68,13 @@ trait LogTrait
         }
         define('FW_LOG_ERRO_EXISTE', true);
 
-        $pathErroProjeto = defined('ROUTE_DIRETORIO') && !empty(ROUTE_DIRETORIO) ?
-            ROOT . '/files/build/views/status_' . mb_strtolower(ROUTE_DIRETORIO, 'UTF-8') . '_' . $status . '.php' :
-            '';
-        if (!empty($pathErroProjeto) && file_exists($pathErroProjeto)) {
-            require_once $pathErroProjeto;
-            exit();
-        }
+        // $pathErroProjeto = defined('ROUTE_DIRETORIO') && !empty(ROUTE_DIRETORIO) ?
+        //     ROOT . '/files/build/views/status_' . mb_strtolower(ROUTE_DIRETORIO, 'UTF-8') . '_' . $status . '.php' :
+        //     '';
+        // if (!empty($pathErroProjeto) && file_exists($pathErroProjeto)) {
+        //     require_once $pathErroProjeto;
+        //     exit();
+        // }
         require_once ROOT . '/src/Html/Excecao/' . $status . '.php';
         exit();
     }

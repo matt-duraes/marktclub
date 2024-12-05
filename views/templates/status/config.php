@@ -7,6 +7,7 @@ try {
 } catch (\Throwable $th) {
     $logado = false;
 }
+ppe(312);
 try {
     $Clube = new App\Middlewares\Site\ClubeMiddleware();
     $define = $Clube->buscar();
