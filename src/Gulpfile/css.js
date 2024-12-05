@@ -136,6 +136,7 @@ function pegarNomeArquivo(path) {
     return (
         path
             .replace(/^src\/Painel\/App\//, 'painel_')
+            .replace(/^src\/Painel\/template\/css\/layout\.styl/, 'templates_painel')
             .replace(/^views\/(pages\/)?/, '')
             .replace(/\/css\/[a-zA-Z0-9\-\_\.]+\.styl/, '')
             .replace(/\/Views/, '')
