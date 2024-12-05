@@ -79,7 +79,7 @@ window.addEventListener('load', () => {
         const dependente = dependentePadrao.clonar();
         blocoDependenteLista.inicio(dependente);
         Calendario.init({
-            input: $$('#bloco_lista_dependente .data_dependente input'),
+            input: $('.bloco_input input', dependente),
         });
         $('input', dependente).focus();
         fwMascaraLoading(dependente);

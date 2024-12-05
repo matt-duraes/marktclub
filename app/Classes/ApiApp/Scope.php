@@ -22,7 +22,7 @@ final class Scope
         'parceiro_cashback:listar', 'parceiro_cashback:buscar',
         'parceiro_cupom:listar', 'parceiro_cupom:buscar',
         'parceiro_favorito:listar',
-        'parceiro_subcategoria:listar',
+        'parceiro_subcategoria:select',
         'parceiro_campanha:listar',
         'parceiro_favorito:listar', 'parceiro_favorito:salvar', 'parceiro_favorito:deletar',
         'endereco:listar', 'contato:listar',
