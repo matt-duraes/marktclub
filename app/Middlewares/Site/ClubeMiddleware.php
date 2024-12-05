@@ -69,7 +69,8 @@ final class ClubeMiddleware extends ApiHelper
             return;
         }
         $host = preg_replace('/^http(s)?\:\/\/(www.)?/', '', LINK);
-        if (!eLocalhost()) {
+        $regexHost = '/\:[0-9]{4}\/?/';
+        if (preg_match($regexHost, $host)) {
             $host = explode(':', $host)[0];
         }
 
