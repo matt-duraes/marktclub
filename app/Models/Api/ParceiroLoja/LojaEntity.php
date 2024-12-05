@@ -170,19 +170,19 @@ final class LojaEntity extends Entity
     {
         $statusGeral = $statusInicial . '_' . $statusAtual;
         $mensagem = [
-            Status::PROSPECCAO . '_' . Status::CONCLUIDO => 'Loja foi publicada',
-            Status::PROBLEMA . '_' . Status::CONCLUIDO => 'Problema foi corrigido',
-            Status::CONCLUIDO . '_' . Status::PROBLEMA => 'Loja com problema',
-            Status::CONCLUIDO . '_' . Status::CANCELADO => 'Loja publicada foi cancelada',
-            Status::PROBLEMA . '_' . Status::CANCELADO => 'Loja com problema foi cancelada',
+            Status::PROSPECCAO . '_' . Status::CONCLUIDO     => 'Loja foi publicada',
+            Status::PROBLEMA . '_' . Status::CONCLUIDO       => 'Problema foi corrigido',
+            Status::CONCLUIDO . '_' . Status::PROBLEMA       => 'Loja com problema',
+            Status::CONCLUIDO . '_' . Status::CANCELADO      => 'Loja publicada foi cancelada',
+            Status::PROBLEMA . '_' . Status::CANCELADO       => 'Loja com problema foi cancelada',
             Status::PROSPECCAO . '_' . Status::SEM_INTERESSE => 'Loja não teve interrese',
-            Status::CANCELADO . '_' . Status::PROSPECCAO => 'Loja cancelada voltou a prospecção',
+            Status::CANCELADO . '_' . Status::PROSPECCAO     => 'Loja cancelada voltou a prospecção',
             Status::SEM_INTERESSE . '_' . Status::PROSPECCAO => 'Loja sem interesse voltou a prospecção',
-            Status::CANCELADO => 'A loja foi cancelada',
-            Status::CONCLUIDO => 'Loja foi publicada',
-            Status::PROBLEMA => 'Houve um problema com a loja',
-            Status::PROSPECCAO => 'Foi recolocada em prospecção',
-            Status::SEM_INTERESSE => 'Não teve interessem'
+            Status::CANCELADO                                => 'A loja foi cancelada',
+            Status::CONCLUIDO                                => 'Loja foi publicada',
+            Status::PROBLEMA                                 => 'Houve um problema com a loja',
+            Status::PROSPECCAO                               => 'Foi recolocada em prospecção',
+            Status::SEM_INTERESSE                            => 'Não teve interessem'
         ];
         $indice = $this->status->indice();
         $this->sistemaData($mensagem[$statusGeral] ?? $mensagem[$indice], $statusGeral);
