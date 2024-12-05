@@ -59,12 +59,12 @@ final class ConfiguracaoEntity extends Entity
                 );
         }
         return object([
-            'titulo' => $configs->titulo,
-            'permissao' => jsonDecode($configs->permissao, true, true),
-            'configuracao' => jsonDecode($configs->configuracao, true, true),
+            'titulo'            => $configs->titulo,
+            'permissao'         => jsonDecode($configs->permissao, true, true),
+            'configuracao'      => jsonDecode($configs->configuracao, true, true),
             'campo_obrigatorio' => jsonDecode($configs->campo_obrigatorio, true, true),
-            'campo_permitido' => jsonDecode($configs->campo_permitido, true, true),
-            'upload_grupo' => jsonDecode($configs->upload_grupo, true, true)
+            'campo_permitido'   => jsonDecode($configs->campo_permitido, true, true),
+            'upload_grupo'      => jsonDecode($configs->upload_grupo, true, true)
         ]);
     }
 
@@ -139,8 +139,8 @@ final class ConfiguracaoEntity extends Entity
     private function setarUploadGrupo(): array
     {
         return [
-            'imagem' => $this->pExiste('upload_imagem') ? $this->upload_imagem : '',
-            'arquivo' => $this->pExiste('upload_arquivo') ? $this->upload_arquivo : '',
+            'imagem'      => $this->pExiste('upload_imagem') ? $this->upload_imagem : '',
+            'arquivo'     => $this->pExiste('upload_arquivo') ? $this->upload_arquivo : '',
             'site_config' => $this->pExiste('site_config') ? $this->site_config : ''
         ];
     }

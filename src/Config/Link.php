@@ -21,6 +21,7 @@ final class Link
         $linkArquivoPublico = env('LINK_ARQUIVO_PUBLICO', '');
         $linkArquivoPrivado = env('LINK_ARQUIVO_PRIVADO', '');
         $linkLocal = env('LINK_LOCAL', '');
+        $linkStatus = env('LINK_STATUS', '');
 
         define('LINK', $link);
         define('LINK_PADRAO', $this->montarLinkPadrao($link, $linkPadrao));
@@ -31,6 +32,7 @@ final class Link
         define('LINK_ARQUIVO_PUBLICO', $this->montarLinkParaDefine($link, $linkArquivoPublico));
         define('LINK_ARQUIVO_PRIVADO', $this->montarLinkParaDefine($link, $linkArquivoPrivado));
         define('LINK_LOCAL', $this->montarLinkParaDefine($link, $linkLocal));
+        define('LINK_STATUS', $this->montarLinkParaDefine($link, $linkStatus));
         define('URI', $this->pegarUri());
         define('QUERY_STRING', $this->pegarQueryString());
     }

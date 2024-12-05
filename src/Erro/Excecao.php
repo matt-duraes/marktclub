@@ -189,14 +189,7 @@ final class Excecao extends \Exception
             ];
         }
 
-        $this->verificarSeJaExistePagina();
-
-        // $diretorio = defined('ROUTE_DIRETORIO') ? ROUTE_DIRETORIO : 'Site';
-        // $pathErroProjeto = ROOT . '/files/build/views/status_' . mb_strtolower($diretorio, 'UTF-8') . '_' . $status . '.php';
-        // if (file_exists($pathErroProjeto)) {
-        //     $this->buscarStatusProjeto($diretorio, $status);
-        // }
-
+        $this->buscarStatusProjeto($status);
         require_once ROOT . '/src/Html/Excecao/' . $status . '.php';
         exit();
     }
@@ -237,23 +230,9 @@ final class Excecao extends \Exception
             ];
         }
 
-        $this->verificarSeJaExistePagina();
-
-        // $diretorio = defined('ROUTE_DIRETORIO') ? ROUTE_DIRETORIO : 'Site';
-        // $pathErroProjeto = ROOT . '/files/build/views/status_' . mb_strtolower($diretorio, 'UTF-8') . '_excecao.php';
-        // if (file_exists($pathErroProjeto)) {
-        //     $this->buscarStatusProjeto($diretorio, 'excecao');
-        // }
+        $this->buscarStatusProjeto('excecao');
         require_once ROOT . '/src/Html/Excecao/excecao.php';
         exit();
-    }
-
-    private function verificarSeJaExistePagina()
-    {
-        if (defined('FW_LOG_ERRO_EXISTE')) {
-            exit();
-        }
-        define('FW_LOG_ERRO_EXISTE', true);
     }
 
     private function limparLista(): void

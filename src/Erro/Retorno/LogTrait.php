@@ -2,8 +2,12 @@
 
 namespace Erro\Retorno;
 
+use Erro\Trait\StatusTrait;
+
 trait LogTrait
 {
+    use StatusTrait;
+
     private function salvarLogErro($mensagem, $codigo, $arquivo, $linha, $trace)
     {
         $uri = parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH);
@@ -68,13 +72,7 @@ trait LogTrait
         }
         define('FW_LOG_ERRO_EXISTE', true);
 
-        // $pathErroProjeto = defined('ROUTE_DIRETORIO') && !empty(ROUTE_DIRETORIO) ?
-        //     ROOT . '/files/build/views/status_' . mb_strtolower(ROUTE_DIRETORIO, 'UTF-8') . '_' . $status . '.php' :
-        //     '';
-        // if (!empty($pathErroProjeto) && file_exists($pathErroProjeto)) {
-        //     require_once $pathErroProjeto;
-        //     exit();
-        // }
+        $this->buscarStatusProjeto($status);
         require_once ROOT . '/src/Html/Excecao/' . $status . '.php';
         exit();
     }
