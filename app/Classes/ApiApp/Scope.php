@@ -63,7 +63,7 @@ final class Scope
         'comercial_empresa:buscar', 'comercial_empresa:select', 'comercial_subempresa:select',
         'comercial_restricao:select',
         'usuario_grupo:select', 'usuario_equipe:select', 'parceiro_loja:select',
-        'parceiro_subcategoria:select', 'usuario_equipe:mudar_empresa'
+        'parceiro_subcategoria:select', 'usuario_equipe:mudar_empresa', 'automovel_modelo:deletar'
     ];
     public const PAINEL_INTERNO = [
         'perfil_dado:buscar', 'perfil_dado:atualizar', 'perfil_dado:validar_senha',
@@ -76,6 +76,9 @@ final class Scope
 
         'automovel_modelo:atualizar', 'automovel_modelo:buscar', 'automovel_modelo:deletar',
         'automovel_modelo:listar', 'automovel_modelo:salvar',
+
+        'automovel_versao:atualizar', 'automovel_versao:buscar', 'automovel_versao:deletar',
+        'automovel_versao:listar', 'automovel_versao:salvar',
 
         'carteirinha:atualizar', 'carteirinha:buscar', 'carteirinha:deletar', 'carteirinha:listar',
         'carteirinha:salvar', 'carteirinha:status',
