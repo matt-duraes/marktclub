@@ -87,7 +87,8 @@ final class Scope
         'carteirinha:salvar', 'carteirinha:status',
 
         'comercial_empresa:atualizar', 'comercial_empresa:buscar', 'comercial_empresa:listar',
-        'comercial_empresa:salvar', 'comercial_popup:atualizar', 'comercial_popup:buscar', 'comercial_empresa:select',
+        'comercial_empresa:salvar', 'comercial_popup:atualizar', 'comercial_popup:buscar',
+        'comercial_empresa:select', 'comercial_empresa:perfil',
 
         'comercial_perdido:listar', 'comercial_perdido:buscar', 'comercial_perdido:atualizar',
         'comercial_perdido:status',
@@ -127,7 +128,7 @@ final class Scope
         'demanda_trabalho:atualizar', 'demanda_trabalho:salvar',
 
         'demanda_tarefa:atualizar', 'demanda_tarefa:deletar', 'demanda_tarefa:like',
-        'demanda_tarefa:salvar', 'demanda_tarefa:buscar',
+        'demanda_tarefa:salvar', 'demanda_tarefa:buscar', 'demanda_tarefa:listar',
 
         'enquete:listar', 'enquete:buscar', 'enquete:salvar', 'enquete:atualizar', 'enquete:deletar',
 
@@ -297,6 +298,8 @@ final class Scope
         'contato:salvar', 'contato:listar', 'contato:buscar', 'contato:atualizar',
 
         'contato:salvar', 'contato:listar', 'contato:buscar', 'contato:atualizar',
+
+        'data:listar'
     ];
     public const TUDO = [
         'perfil_dado:buscar', 'perfil_dado:atualizar', 'perfil_dado:validar_senha',
@@ -326,6 +329,7 @@ final class Scope
 
         'comercial_empresa:atualizar', 'comercial_empresa:buscar', 'comercial_empresa:listar',
         'comercial_empresa:salvar', 'comercial_popup:atualizar', 'comercial_popup:buscar',
+        'comercial_empresa:perfil',
 
         'comercial_popup:deletar', 'comercial_popup:expirado', 'comercial_popup:listar',
         'comercial_popup:ordenar', 'comercial_popup:salvar', 'comercial_restricao:listar',
@@ -349,7 +353,7 @@ final class Scope
         'demanda_sprint:buscar', 'demanda_sprint:demanda', 'demanda_sprint:listar',
         'demanda_sprint:salvar', 'demanda_trabalho:atualizar', 'demanda_trabalho:salvar',
         'demanda_tarefa:atualizar', 'demanda_tarefa:deletar', 'demanda_tarefa:like',
-        'demanda_tarefa:salvar', 'demanda_tarefa:buscar',
+        'demanda_tarefa:salvar', 'demanda_tarefa:buscar', 'demanda_tarefa:listar',
 
         'enquete_satisfacao:listar', 'enquete_satisfacao:buscar', 'enquete_satisfacao:atualizar',
 

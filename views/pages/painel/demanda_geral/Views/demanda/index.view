@@ -27,14 +27,14 @@
     </header>
 
     <div class="bloco_equipe">
-        <figure id="bloco_demanda_empresa" data-bgimagem="@imagem $r->empresa->imagem" data-ajuda="{{$r->empresa->nome}}"></figure>
+        <figure id="bloco_demanda_empresa" data-bgimagem="{!!imagem($r->empresa->imagem)!!}" data-ajuda="{{$r->empresa->nome}}"></figure>
         <div class="linha"></div>
-        <figure id="bloco_demanda_equipe" data-bgimagem="@imagem $r->equipe->imagem" data-ajuda="{{$r->equipe->nome}}"></figure>
+        <figure id="bloco_demanda_equipe" data-bgimagem="{!!imagem($r->equipe->imagem)!!}" data-ajuda="{{$r->equipe->nome}}"></figure>
         @ if( $r->seguindo ):
         <div class="linha"></div>
         <div class="bloco_grupo">
             @ foreach( $r->seguindo as $equipe ):
-            <figure data-bgimagem="@imagem $equipe->imagem" data-ajuda="{{$equipe->nome}}"></figure>
+            <figure data-bgimagem="{!!imagem($equipe->imagem)!!}" data-ajuda="{{$equipe->nome}}"></figure>
             @ endforeach;
         </div>
         @ endif;
