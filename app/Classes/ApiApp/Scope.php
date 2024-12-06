@@ -85,7 +85,8 @@ final class Scope
         'carteirinha:salvar', 'carteirinha:status',
 
         'comercial_empresa:atualizar', 'comercial_empresa:buscar', 'comercial_empresa:listar',
-        'comercial_empresa:salvar', 'comercial_popup:atualizar', 'comercial_popup:buscar', 'comercial_empresa:select',
+        'comercial_empresa:salvar', 'comercial_popup:atualizar', 'comercial_popup:buscar',
+        'comercial_empresa:select', 'comercial_empresa:perfil',
 
         'comercial_perdido:listar', 'comercial_perdido:buscar', 'comercial_perdido:atualizar',
         'comercial_perdido:status',
@@ -125,7 +126,7 @@ final class Scope
         'demanda_trabalho:atualizar', 'demanda_trabalho:salvar',
 
         'demanda_tarefa:atualizar', 'demanda_tarefa:deletar', 'demanda_tarefa:like',
-        'demanda_tarefa:salvar', 'demanda_tarefa:buscar',
+        'demanda_tarefa:salvar', 'demanda_tarefa:buscar', 'demanda_tarefa:listar',
 
         'enquete:listar', 'enquete:buscar', 'enquete:salvar', 'enquete:atualizar', 'enquete:deletar',
 
