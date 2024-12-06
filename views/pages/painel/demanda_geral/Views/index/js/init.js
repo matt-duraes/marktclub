@@ -80,7 +80,7 @@ const adicionarNovaTarefa = item => {
         blocoTipo.aparecer();
         blocoTipoTexto.texto(item.tipo);
     }
-    adicionarTexto(clone, '.item_titulo', item.titulo);
+    adicionarHtml(clone, '.item_titulo', item.titulo);
     adicionarTexto(clone, '.item_status', item.status);
     adicionarHtml(clone, '.item_texto', item.texto);
     adicionarTexto(clone, '.item_data_inicio', item.data_inicio);
@@ -164,7 +164,7 @@ const atualizarTarefaExistente = (id, titulo, texto, tipo, dificuldade) => {
     const bloco = $('#id_tarefa_' + id);
     bloco.setAttribute('data-tipo', tipo);
     bloco.setAttribute('data-dificuldade', dificuldade);
-    adicionarTexto(bloco, '.item_titulo', titulo);
+    adicionarHtml(bloco, '.item_titulo', titulo);
     adicionarHtml(bloco, '.item_texto', texto);
 };
 
