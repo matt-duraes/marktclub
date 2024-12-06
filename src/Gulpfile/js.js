@@ -26,7 +26,8 @@ exports.jsUnico = function (path) {
             config = await JSON.parse(fs.readFileSync('./files/config/gulp.json'));
         }
 
-        const pathReal = path.replace(/\/[a-zA-Z0-9\_\-]+\.js/, '') + '/all.js';
+        const direto = /\/js\/\_all\.js/.test(path);
+        const pathReal = direto ? path : path.replace(/\/[a-zA-Z0-9\_\-]+\.js/, '') + '/all.js';
         const nome = pegarNomeArquivo(pathReal);
 
         if (!(await arquivoExiste(pathReal))) {
@@ -66,9 +67,9 @@ exports.jsTodos = function () {
         await fsCriarDiretorio('./files/build/js');
 
         const listaArquivo = glob
-            .sync('views/@(pages|templates|status)/**/all.js')
-            .concat(glob.sync('src/Painel/App/**/all.js'))
-            .concat(glob.sync('src/Painel/template/**/all.js'));
+            .sync('views/@(pages|templates|status)/**/@(all|_all).js')
+            .concat(glob.sync('src/Painel/App/**/@(all|_all).js'))
+            .concat(glob.sync('src/Painel/template/**/@(all|all).js'));
 
         const quantidade = listaArquivo.length;
         const ultimo = quantidade - 1;
@@ -159,8 +160,9 @@ function pegarNomeArquivo(path) {
 }
 function processarJs(path, destino) {
     return new Promise(async (resolve, reject) => {
-        const dirBase = path.replace(/\/all.js$/, '') + '/';
+        const dirBase = path.replace(/\/_?all.js$/, '') + '/';
         const nome = pegarNomeArquivo(path);
+        const direto = /\/js\/_all.js/.test(path);
 
         let conteudo = '';
         if (arquivoConteudo[path]) {
@@ -169,32 +171,37 @@ function processarJs(path, destino) {
             conteudo = fs.readFileSync(path, 'utf-8');
             arquivoConteudo[path] = conteudo;
         }
-        let listaImport = pegarListaImports(conteudo, dirBase);
-        if (listaImport) {
-            listaImport = listaImport.filter((este, i) => listaImport.indexOf(este) === i);
-            listaImport.unshift('src/Html/Scripts/js/Alerta.system.js', 'src/Html/Scripts/js/Funcao.system.js');
-            listaImport.push(path);
-        } else {
-            listaImport = ['src/Html/Scripts/js/Alerta.system.js', 'src/Html/Scripts/js/Funcao.system.js', path];
-        }
-
-        listaImport = removerImportDuplicado(listaImport);
-
-        if (!(await arquivoExiste(listaImport))) {
-            return;
-        }
 
         let conteudoTemp = '';
         let conteudoFinal = '';
-        [].forEach.call(listaImport, arquivo => {
-            if (arquivoConteudo[arquivo]) {
-                conteudoTemp = arquivoConteudo[arquivo];
+        if (!direto) {
+            let listaImport = pegarListaImports(conteudo, dirBase);
+            if (listaImport) {
+                listaImport = listaImport.filter((este, i) => listaImport.indexOf(este) === i);
+                listaImport.unshift('src/Html/Scripts/js/Alerta.system.js', 'src/Html/Scripts/js/Funcao.system.js');
+                listaImport.push(path);
             } else {
-                conteudoTemp = fs.readFileSync(arquivo, 'utf-8');
-                arquivoConteudo[arquivo] = conteudoTemp;
+                listaImport = ['src/Html/Scripts/js/Alerta.system.js', 'src/Html/Scripts/js/Funcao.system.js', path];
             }
-            conteudoFinal += conteudoTemp + '\n';
-        });
+
+            listaImport = removerImportDuplicado(listaImport);
+
+            if (!(await arquivoExiste(listaImport))) {
+                return;
+            }
+
+            [].forEach.call(listaImport, arquivo => {
+                if (arquivoConteudo[arquivo]) {
+                    conteudoTemp = arquivoConteudo[arquivo];
+                } else {
+                    conteudoTemp = fs.readFileSync(arquivo, 'utf-8');
+                    arquivoConteudo[arquivo] = conteudoTemp;
+                }
+                conteudoFinal += conteudoTemp + '\n';
+            });
+        } else {
+            conteudoFinal = conteudo;
+        }
 
         await fsCriarArquivo('files/build/js/' + nome, conteudoFinal);
 
