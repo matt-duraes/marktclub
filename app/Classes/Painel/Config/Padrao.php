@@ -1176,7 +1176,9 @@ final class Padrao
                     'scope'  => [
                         'demanda_dado:listar', 'demanda_dado:salvar',
                         'demanda_dado:atualizar', 'demanda_dado:deletar',
-                        'demanda_dado:buscar'
+                        'demanda_dado:buscar', 'demanda_sprint:demanda',
+                        'comercial_empresa:perfil', 'demanda_sprint:salvar',
+                        'demanda_tarefa:listar'
                     ]
                 ]
             ]
@@ -1189,7 +1191,9 @@ final class Padrao
                     'scope'  => [
                         'demanda_dado:listar', 'demanda_dado:salvar',
                         'demanda_dado:atualizar', 'demanda_dado:deletar',
-                        'demanda_dado:buscar', 'demanda_sprint:demanda'
+                        'demanda_dado:buscar', 'demanda_sprint:demanda',
+                        'comercial_empresa:perfil', 'demanda_sprint:salvar',
+                        'demanda_tarefa:listar'
                     ]
                 ],
                 'demanda_criacao'    => [
@@ -1197,7 +1201,9 @@ final class Padrao
                     'scope'  => [
                         'demanda_dado:listar', 'demanda_dado:salvar',
                         'demanda_dado:atualizar', 'demanda_dado:deletar',
-                        'demanda_dado:buscar'
+                        'demanda_dado:buscar', 'demanda_sprint:demanda',
+                        'comercial_empresa:perfil', 'demanda_sprint:salvar',
+                        'demanda_tarefa:listar'
                     ]
                 ],
                 'demanda_convenio'   => [
@@ -1205,7 +1211,9 @@ final class Padrao
                     'scope'  => [
                         'demanda_dado:listar', 'demanda_dado:salvar',
                         'demanda_dado:atualizar', 'demanda_dado:deletar',
-                        'demanda_dado:buscar'
+                        'demanda_dado:buscar', 'demanda_sprint:demanda',
+                        'comercial_empresa:perfil', 'demanda_sprint:salvar',
+                        'demanda_tarefa:listar'
                     ]
                 ]
             ]
