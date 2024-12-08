@@ -150,7 +150,7 @@
                                         </div>
                                         <?php else : ?>
                                         <div class="td status" data-titulo="<?= echoView($texto) ?>" data-ajuda="<?= echoView($texto) ?>">
-                                            <span data-fwcss="background-color: {{$cor}}"></span>
+                                            <span data-fwcss="background-color: <?=$cor?>"></span>
                                         </div>
                                         <?php endif; ?>
                                         <div class="barra"></div>

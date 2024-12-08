@@ -1,4 +1,3 @@
-let fwCkeditorLoading;
-if (typeof fwCkeditorLoading === 'function') {
+window.addEventListener('load', () => {
     fwCkeditorLoading(document);
-}
+});
