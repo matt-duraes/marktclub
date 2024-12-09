@@ -2,15 +2,14 @@
 
 namespace PainelApp\perfil\Controllers;
 
-use App\Classes\UsuarioEquipe\Helper;
-use Controller\Controller;
 use Erro\Excecao;
+use Http\Request;
+use Http\Response;
 use Helpers\ApiHelper;
 use Helpers\CryptHelper;
 use Helpers\ListaHelper;
-use Helpers\SocialHelper;
-use Http\Request;
-use Http\Response;
+use Controller\Controller;
+use App\Classes\UsuarioEquipe\Helper;
 
 final class PerfilController extends Controller
 {
@@ -129,12 +128,6 @@ final class PerfilController extends Controller
         return view(arquivo: 'perfil.senha');
     }
 
-    /*
-    |--------------------------------------------------------------------------
-    | VINCULANDO CONTA SOCIAL
-    |--------------------------------------------------------------------------
-    */
-
     public function postSenha(Request $request): Response
     {
         $this->verificarUsuarioLogadoAjax();
@@ -168,88 +161,16 @@ final class PerfilController extends Controller
         return new Response(status: 204);
     }
 
-    public function postSocial(Request $request)
-    {
-        $this->verificarUsuarioLogadoAjax();
-
-        $Social = new SocialHelper(
-            rede: $request->rede,
-            id: $request->id,
-            token: $request->token,
-            code: $request->code
-        );
-
-        if ($request->acao == 'imagem') {
-            return $this->vincularImagem($Social, $request->rede);
-        }
-
-        $campo = $request->rede == 'google' ? 'id_google' : 'id_facebook';
-        $dado = [$campo => $Social->id()];
-
-        $this->atualizarDadoDaEquipe($dado);
-
-        sessao('USUARIO.' . $request->rede, $Social->id());
-        return mensagemSucesso([], status: 201);
-    }
-
-    private function vincularImagem(SocialHelper $Social, $rede)
-    {
-        if ($rede == 'google') {
-            $imagem = $Social->imagem();
-            $campo = 'imagem_google';
-        } elseif ($rede == 'facebook') {
-            $imagem = $Social->imagem();
-            $campo = 'imagem_facebook';
-        }
-
-        $this->atualizarDadoDaEquipe([
-            $campo => $imagem
-        ]);
-
-        sessao('USUARIO.imagem', $imagem);
-
-        return mensagemSucesso([
-            'imagem' => $imagem
-        ], status: 201);
-    }
-
     /*
     |--------------------------------------------------------------------------
     | UPDATE DE IMAGEM
     |--------------------------------------------------------------------------
     */
-
-    private function atualizarDadoDaEquipe($dado)
-    {
-        $Api = new ApiHelper(token: true);
-        $chave = $Api->get('/admin/chave-publica')->object()->dado->chave ?? '';
-        $dado = criptografarDado(
-            dado: $dado,
-            criptografia: ['imagem_google', 'imagem_facebook', 'id_google', 'id_facebook'],
-            chave: $chave
-        );
-
-        $status = $Api->body($dado)->put('/perfil-dado')->status();
-
-        if ($status == 204) {
-            return;
-        }
-
-        mensagemErro('Erro!', 'Ocorreu um erro ao tentar salvar as informações, por favor, tente novamente.');
-    }
-
-    /*
-    |--------------------------------------------------------------------------
-    | MUDAR A EMPRESA DA EQUIPE
-    |--------------------------------------------------------------------------
-    */
-
     public function postImagem(Request $request)
     {
         $arquivo = $request->getFiles('arquivo');
         $dado = (new ApiHelper(token: true))
             ->validar('Erro ao fazer o upload da imagem, por favor, tente novamente.')
-            ->body(['id' => sessao('USUARIO.id')])
             ->arquivo(['imagem' => $arquivo])
             ->post('/perfil-dado/atualizar-imagem')
             ->object();
@@ -257,9 +178,10 @@ final class PerfilController extends Controller
         $chave = (new ApiHelper(token: true))->get('/admin/chave-privada')->object()->dado->chave ?? '';
         $Crypt = new CryptHelper(chavePrivada: $chave);
         $imagem = $Crypt->decode($dado->dado->imagem);
+        $imagem = !empty($imagem) ? imagem($imagem, 200, 200, true, true) : '';
 
         sessao('USUARIO.imagem', $imagem);
-        return mensagemSucesso(['imagem' => $imagem . '?cache=' . md5(uniqid(time()))], status: 201);
+        return mensagemSucesso(['imagem' => $imagem], status: 201);
     }
 
     public function empresa()

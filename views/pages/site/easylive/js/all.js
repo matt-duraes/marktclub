@@ -79,7 +79,7 @@ window.addEventListener('load', () => {
         const clone = blocoClone.cloneNode(true);
         clone.querySelector('.item_link').setAttribute('href', item.link);
         clone.querySelector('.item_logo').innerHTML = `<img src="${item.imagem}">`;
-        clone.querySelector('.item_titulo').innerText = item.titulo;
+        clone.querySelector('.item_titulo').innerHTML = item.titulo;
         clone.querySelector('.item_desconto').innerText = 'Validade: ' + dataBr(item.data_validade);
 
         bloco.appendChild(clone);

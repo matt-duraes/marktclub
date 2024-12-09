@@ -765,7 +765,7 @@ final class Padrao
                 ],
                 'parceiro_automovel_add'        => [
                     'titulo' => self::TITULO_SALVAR,
-                    'scope'  => ['automovel_modelo:salvar']
+                    'scope'  => ['parceiro_automovel:salvar', 'automovel_modelo:buscar', ]
                 ],
                 'parceiro_automovel_editar'     => [
                     'titulo' => self::TITULO_EDITAR,

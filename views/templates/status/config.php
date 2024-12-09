@@ -1,13 +1,8 @@
 <?php
 
 include ROOT . '/resources/php/site/tema.php';
-$Logado = new App\Middlewares\Site\AuthMiddleware();
-try {
-    $logado = $Logado->logadoInterno() === true;
-} catch (\Throwable $th) {
-    $logado = false;
-}
 
+$logado = array_key_exists('logado', $_POST) && $_POST['logado'] == 'sim';
 try {
     $Clube = new App\Middlewares\Site\ClubeMiddleware();
     $define = $Clube->buscar();

@@ -70,7 +70,7 @@ final class BuscarUsuarioModel
             'subempresa' => $body->subempresa,
             'nome'       => $Crypt->decode($body->nome),
             'email'      => $email,
-            'imagem'     => $imagem,
+            'imagem'     => imagem($imagem, 200, 200, true),
             'cpf'        => $cpf,
             'google'     => $Crypt->decode($body->google ?? ''),
             'facebook'   => $Crypt->decode($body->facebook ?? ''),

@@ -2001,15 +2001,26 @@ if (!function_exists('implodeE')) {
 }
 
 if (!function_exists('imagem')) {
-    function imagem(string $path, int $largura = 0, int $altura = 0, bool $cortar = false): string
+    function imagem(string $path, int $largura = 0, int $altura = 0, bool $cortar = false, bool $cache = false): string
     {
+        $cacheLocal = env('CACHE_VERSAO', '');
         $path = preg_replace('/^\//', '', $path);
-        $cache = env('CACHE_VERSAO', '');
+        $pathExplode = explode('?', $path);
+        $path = $pathExplode[0];
 
-        $parametroAtual = explode('?', $path)[1] ?? '';
+        $parametroAtual = array_key_exists(1, $pathExplode) ? $pathExplode[1] : '';
+        $cacheExiste = !empty($parametroAtual) && preg_match('/(^c\=[^&]{1,})|\&c=[^&]{1,}/', $parametroAtual);
         $parametroNovo = [];
-        if (!empty($cache) && (empty($parametroAtual) || !preg_match('/(^c\=[^&]{1,})|\&c=[^&]{1,}/', $parametroAtual))) {
-            $parametroNovo[] = 'c=' . $cache;
+        if (!$cache && !empty($parametroAtual) && $cacheExiste) {
+            preg_match_all('/(^c\=[^&]{1,})|\&c=[^&]{1,}/', $parametroAtual, $cacheOriginal);
+            $cacheOriginal = $cacheOriginal[0][0] ?? '';
+            if (preg_match('/^c\=[^&]{1,}$/', $cacheOriginal)) {
+                $parametroNovo[] = $cacheOriginal;
+            }
+        } elseif (!$cache && !empty($cacheLocal) && !$cacheExiste) {
+            $parametroNovo[] = 'c=' . $cacheLocal;
+        } elseif ($cache) {
+            $parametroNovo[] = 'c=' . uuid();
         }
         if (!empty($largura) && !empty($altura)) {
             $redirecionarIndice = $cortar ? 'whc' : 'wh';
@@ -2018,7 +2029,6 @@ if (!function_exists('imagem')) {
 
         $simbolo = str_contains($path, '?') ? '&' : '?';
         $parametroNovo = !empty($parametroNovo) ? $simbolo . implode('&', $parametroNovo) : '';
-
         $link = preg_match('/^http[s]?\:\/\//', $path) ? $path : LINK_PADRAO . '/' . $path;
         return $link . $parametroNovo;
     }

@@ -25,8 +25,8 @@ exports.cssUnico = function (path) {
         if (config == undefined) {
             config = await JSON.parse(fs.readFileSync('./files/config/gulp.json'));
         }
-
-        const pathReal = path.replace(/\/[a-zA-Z0-9\_\-]+\.styl/, '') + '/layout.styl';
+        const direto = /\/css\/\_layout\.js/.test(path);
+        const pathReal = direto ? direto : path.replace(/\/[a-zA-Z0-9\_\-]+\.styl/, '') + '/layout.styl';
         const nome = pegarNomeArquivo(pathReal);
 
         if (!(await arquivoExiste(pathReal))) {
@@ -63,9 +63,9 @@ exports.cssTodos = async function () {
     await fsCriarDiretorio('./files/build/css');
 
     const listaArquivo = glob
-        .sync('views/@(pages|templates|status)/**/layout.styl')
-        .concat(glob.sync('src/Painel/App/**/layout.styl'))
-        .concat(glob.sync('src/Painel/template/**/layout.styl'));
+        .sync('views/@(pages|templates|status)/**/@(layout|_layout).styl')
+        .concat(glob.sync('src/Painel/App/**/@(layout|_layout).styl'))
+        .concat(glob.sync('src/Painel/template/**/@(layout|_layout).styl'));
 
     const quantidade = listaArquivo.length;
     let i, arquivo;
@@ -147,6 +147,7 @@ function pegarNomeArquivo(path) {
 async function processarCss(path, destino) {
     const dirBase = path.replace(/\/layout.styl$/, '') + '/';
     const nome = pegarNomeArquivo(path);
+    const direto = /\/css\/\_layout\.js/.test(path);
 
     let conteudo = '';
     if (arquivoConteudo[path]) {
@@ -156,30 +157,34 @@ async function processarCss(path, destino) {
         arquivoConteudo[path] = conteudo;
     }
 
-    let listaImport = pegarListaImports(conteudo, dirBase);
-    if (listaImport) {
-        listaImport = listaImport.filter((este, i) => listaImport.indexOf(este) === i);
-        listaImport.unshift('src/Html/Scripts/css/Variavel.system.styl');
-        listaImport.push(path);
-    } else {
-        listaImport = ['src/Html/Scripts/css/Variavel.system.styl', path];
-    }
-
-    if (!(await arquivoExiste(listaImport))) {
-        return;
-    }
-
     let conteudoTemp = '';
     let conteudoFinal = '';
-    [].forEach.call(listaImport, arquivo => {
-        if (arquivoConteudo[arquivo]) {
-            conteudoTemp = arquivoConteudo[arquivo];
+    if (!direto) {
+        let listaImport = pegarListaImports(conteudo, dirBase);
+        if (listaImport) {
+            listaImport = listaImport.filter((este, i) => listaImport.indexOf(este) === i);
+            listaImport.unshift('src/Html/Scripts/css/Variavel.system.styl');
+            listaImport.push(path);
         } else {
-            conteudoTemp = fs.readFileSync(arquivo, 'utf-8');
-            arquivoConteudo[arquivo] = conteudoTemp;
+            listaImport = ['src/Html/Scripts/css/Variavel.system.styl', path];
         }
-        conteudoFinal += conteudoTemp + '\n';
-    });
+
+        if (!(await arquivoExiste(listaImport))) {
+            return;
+        }
+
+        [].forEach.call(listaImport, arquivo => {
+            if (arquivoConteudo[arquivo]) {
+                conteudoTemp = arquivoConteudo[arquivo];
+            } else {
+                conteudoTemp = fs.readFileSync(arquivo, 'utf-8');
+                arquivoConteudo[arquivo] = conteudoTemp;
+            }
+            conteudoFinal += conteudoTemp + '\n';
+        });
+    } else {
+        conteudoFinal = conteudo;
+    }
 
     await fsCriarArquivo('files/build/css/' + nome, conteudoFinal);
     if (undefined === destino) {

@@ -47,7 +47,7 @@ window.addEventListener('load', () => {
             Loading.hide();
             return;
         }
-        Alerta.notificacao('Login realizado com sucesso, recarregando página.');
+        Alerta.notificacao('Login realizado com sucesso, recarregando página.', true);
         window.location.reload();
     };
 });

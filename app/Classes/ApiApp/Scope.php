@@ -7,6 +7,7 @@ final class Scope
     public const CLUBE_INTERNO = [
         'perfil_dado:buscar', 'perfil_dado:atualizar', 'perfil_dado:validar_senha',
         'perfil_dado:atualizar_senha', 'perfil_dado:alterar_imagem',
+        'usuario_cliente:hash',
         'usuario_dependente:listar', 'usuario_dependente:salvar', 'usuario_dependente:email',
         'usuario_dependente:deletar',
         'usuario_indicacao:salvar',
@@ -22,7 +23,7 @@ final class Scope
         'parceiro_cashback:listar', 'parceiro_cashback:buscar',
         'parceiro_cupom:listar', 'parceiro_cupom:buscar',
         'parceiro_favorito:listar',
-        'parceiro_subcategoria:listar',
+        'parceiro_subcategoria:select',
         'parceiro_campanha:listar',
         'parceiro_favorito:listar', 'parceiro_favorito:salvar', 'parceiro_favorito:deletar',
         'endereco:listar', 'contato:listar',
@@ -50,6 +51,7 @@ final class Scope
         'construtor_clube:buscar', 'site_lotacao:select',
         'comunicacao_login:buscar',
         'usuario_cliente:ativar', 'usuario_cliente:senha', 'usuario_indicacao:ativar',
+        'usuario_cliente:hash',
         'login:digio', 'login:clube',
         'texto_clube:listar',
         'solicitacao_contato:salvar'

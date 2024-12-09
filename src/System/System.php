@@ -22,6 +22,7 @@ final class System
         $this->route = new RouteConfig();
         if (!$this->route->rotaUso()) {
             throw new Excecao(status: 404);
+            exit();
         }
         $this->adicionarIncludePadraoRota();
         $this->middleware = new Middleware($this->route);
