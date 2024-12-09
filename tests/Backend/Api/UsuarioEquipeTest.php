@@ -325,7 +325,7 @@ final class UsuarioEquipeTest extends Tests
 
     public function listarTodosOsPerfilTest()
     {
-        $this->api('usuario_equipe:listar');
+        $this->api('usuario_equipe:perfil');
         $this
             ->Curl
             ->get('/usuario-equipe/perfil');
