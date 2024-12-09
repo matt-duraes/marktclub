@@ -18,7 +18,7 @@ trait LinkTrait
             SISTEMA == 'HOMOLOGACAO' &&
             !in_array($dominio, ['cfmmais-hom.cfm.org.br', 'digiohml.youhuul.com', 'uberhml.youhuul.com'])
         ) {
-            $link = 'https://apiv4homologacao.marktclub.net.br/login/api-ok/' . base64Encode([
+            $link = 'https://apiv4hml.youhuul.com/login/api-ok/' . base64Encode([
                 'nome' => $this->dadoUsuario['nome'],
                 'data' => agora(),
                 'hash' => $this->hash
