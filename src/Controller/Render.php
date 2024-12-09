@@ -43,7 +43,7 @@ final class Render
     private function setarPropriedade()
     {
         $this->diretorioView = ROOT . '/files/build/views/';
-        $this->cache = defined('CACHE') && !empty(CACHE) ? '?cache=' . CACHE : '';
+        $this->cache = defined('CACHE_VERSAO') && !empty(CACHE_VERSAO) ? '?c=' . CACHE_VERSAO : '';
         $this->public = env('PUBLIC', 'public');
         $this->securityPolicy = env('SECURITY_POLICY', '');
     }

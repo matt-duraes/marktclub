@@ -37,7 +37,7 @@ final class FenaeController extends Controller
             );
         } catch (\Throwable) {
             $this->limparTemporario();
-            return new Response(url: env('FENAE_CLUBE') . '?erro=login-erro');
+            return new Response(url: env('FENAE_CLUBE') . '?erro=login-erro&numero=100');
         }
         if (!$Token->podeLogar()) {
             $this->limparTemporario();
@@ -56,7 +56,7 @@ final class FenaeController extends Controller
             return new Response(url: $Login->pegarLink());
         } catch (\Throwable) {
             $this->limparTemporario();
-            return new Response(url: env('FENAE_CLUBE') . '?erro=login-erro');
+            return new Response(url: env('FENAE_CLUBE') . '?erro=login-erro&numero=200');
         }
     }
 

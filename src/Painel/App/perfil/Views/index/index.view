@@ -24,21 +24,6 @@
             <p><strong>E-mail pessoal:</strong> {!!$email_pessoal ? $email_pessoal : '<span class="zero">não informado</span>'!!}</p>
             <p><strong>E-mail trabalho:</strong> {!!$email_trabalho ? $email_trabalho : '<span class="zero">não informado</span>'!!}</p>
         </article>
-
-        <div class="social" id="bloco_vinculo_social">
-            @hash('social')
-            <h1>REDES SOCIAIS</h1>
-            <p>Vincule suas redes sociais para fazer login sem precisar de login e senha e para utilizar sua foto de perfil.</p>
-            <div class="linha"></div>
-            <button id="botao_vincular_facebook" class="botao_social facebook">
-                <i>@iconeFacebook()</i>
-                <p>Facebook</p>
-            </button>
-            <button class="botao_social google" id="botao_vincular_google">
-                <i>@iconeGoogle()</i>
-                <p>Google</p>
-            </button>
-        </div>
     </div>
 </div>
 
@@ -56,22 +41,6 @@
                 <i>@iconeUpload</i>
                 <p class="desktop">Clique ou arraste e solte sua imagem aqui</p>
                 <p class="mobile">Faça o upload de uma imagem para perfil</p>
-            </div>
-
-            <div class="ou">
-                <span></span>
-                <p>ou</p>
-            </div>
-
-            <div class="social">
-                <div class="botao_social facebook" id="botao_vincular_imagem_facebook">
-                    <i>@iconeFacebook</i>
-                    <p>Facebook</p>
-                </div>
-                <div class="botao_social google" id="botao_vincular_imagem_google">
-                    <i>@iconeGoogle</i>
-                    <p>Google</p>
-                </div>
             </div>
         </form>
     </div>

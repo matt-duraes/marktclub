@@ -1,30 +1,9 @@
 // @template "painel"
 
 window.addEventListener('load', () => {
-    const googleAppId = document.getElementById('GOOGLE_CLIENT_ID').value;
-    const facebookAppId = document.getElementById('FACEBOOK_APP_ID').value;
-
-    window.fbAsyncInit = function () {
-        FB.init({
-            appId: facebookAppId,
-            cookie: true,
-            xfbml: true,
-            version: 'v15.0',
-        });
-        FB.AppEvents.logPageView();
-    };
-    (function (d, s, id) {
-        var js,
-            fjs = d.getElementsByTagName(s)[0];
-        if (d.getElementById(id)) {
-            return;
-        }
-        js = d.createElement(s);
-        js.id = id;
-        js.src = 'https://connect.facebook.net/en_US/sdk.js';
-        fjs.parentNode.insertBefore(js, fjs);
-    })(document, 'script', 'facebook-jssdk');
-
+    const menuConfig = $('#botao_menu_config');
+    const perfilImagemPrincipal = $('#perfil_imagem_principal');
+    const perfilImagemMenuConfig = $('#menu_config_imagem_perfil');
     /*
     |--------------------------------------------------------------------------
     | MUDAR FOTO
@@ -68,129 +47,6 @@ window.addEventListener('load', () => {
             fecharPopupMudarImagem();
         }
     });
-
-    /*
-    |--------------------------------------------------------------------------
-    | VINCULAR CONTA DO FACEBOOK
-    |--------------------------------------------------------------------------
-    */
-    document.getElementById('botao_vincular_imagem_facebook').addEventListener('click', () => {
-        oauth2Facebook('imagem');
-    });
-    document.getElementById('botao_vincular_facebook').addEventListener('click', () => {
-        oauth2Facebook('vincular');
-    });
-
-    const oauth2Facebook = acao => {
-        FB.getLoginStatus(function (response) {
-            let id, token;
-            if (response.status === 'connected') {
-                id = response.authResponse.userID;
-                token = response.authResponse.accessToken;
-                vincularContaSocial(id, token, '', 'facebook', acao);
-                return;
-            }
-            FB.login(
-                response => {
-                    if (response.status === 'connected') {
-                        id = response.authResponse.userID;
-                        token = response.authResponse.accessToken;
-                        vincularContaSocial(id, token, '', 'facebook', acao);
-                    } else {
-                        Alerta.notificacao(
-                            'Não foi possível validar sua conta do Facebook, por favor, tente novamente.',
-                            false
-                        );
-                    }
-                },
-                { scope: 'public_profile,email' }
-            );
-        });
-    };
-
-    /*
-    |--------------------------------------------------------------------------
-    | GOOGLE
-    |--------------------------------------------------------------------------
-    */
-    document.getElementById('botao_vincular_google').addEventListener('click', async () => {
-        oauth2Google('vincular');
-    });
-    document.getElementById('botao_vincular_imagem_google').addEventListener('click', async () => {
-        oauth2Google('imagem');
-    });
-
-    const oauth2Google = acao => {
-        const client = google.accounts.oauth2.initCodeClient({
-            // eslint-disable-next-line camelcase
-            client_id: googleAppId,
-            scope: 'email profile',
-            // eslint-disable-next-line camelcase
-            ux_mode: 'popup',
-            callback: response => {
-                vincularContaSocial('', '', response.code, 'google', acao);
-            },
-        });
-        client.requestCode();
-    };
-    /*
-    |--------------------------------------------------------------------------
-    | VINCULAR REDE SOCIAL
-    |--------------------------------------------------------------------------
-    */
-    const menuConfig = document.getElementById('botao_menu_config');
-    const perfilImagemPrincipal = document.getElementById('perfil_imagem_principal');
-    const perfilImagemMenuConfig = document.getElementById('menu_config_imagem_perfil');
-    const inputHash = document.querySelector('#bloco_vinculo_social input[name=form_system_hash]').value;
-
-    const vincularContaSocial = async (id, token, code, rede, acao) => {
-        Loading.show();
-
-        let body = new FormData();
-        body.append('id', id);
-        body.append('token', token);
-        body.append('code', code);
-        body.append('rede', rede);
-        body.append('acao', acao);
-        body.append('form_system_hash', inputHash);
-        body.append('form_system_validacao', '');
-
-        const response = await fetch(LINK + '/perfil/social', {
-            method: 'POST',
-            body,
-        });
-
-        let json;
-        try {
-            json = await response.json();
-        } catch (error) {
-            json = {};
-        }
-
-        Loading.hide();
-        if (response.status == 201 && acao == 'imagem') {
-            setarNovaImagem(json.dado.imagem);
-            fecharPopupMudarImagem();
-            return;
-        } else if (response.status != 201) {
-            Alerta.notificacao('Ocorreu um erro ao vincular sua conta, por favor, tente novamente.', false);
-            return;
-        } else if (
-            !(await Alerta.confirmar(
-                'Conta vinculada',
-                'Sua conta foi vinculada com sucesso, gostaria de usar sua foto de perfil da rede social no painel?',
-                true
-            ))
-        ) {
-            return;
-        }
-
-        if (rede == 'facebook') {
-            oauth2Facebook('imagem');
-        } else if (rede == 'google') {
-            oauth2Google('imagem');
-        }
-    };
 
     /*
     |--------------------------------------------------------------------------
