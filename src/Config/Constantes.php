@@ -63,11 +63,11 @@ final class Constantes
     {
         $cacheEnv = env('CACHE_VERSAO', '');
         $path = ROOT . '/.versao';
-        if(!file_exists($path)) {
+        if (!file_exists($path)) {
             return $cacheEnv;
         }
         $id = file_get_contents($path);
-        return validarUuid($id) ? $id : $cacheEnv;
+        return validarUuid($id) ? md5($id) : $cacheEnv;
     }
 
     /**
