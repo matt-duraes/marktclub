@@ -1,4 +1,5 @@
 @template "site"
+
 <div class="bloco_buscar_loja {!!$webview ? 'display_none_webview' : ''!!}">
     @ if( $tipo == 'loja'):
         @view site/loja/busca/loja/index.view

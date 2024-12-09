@@ -84,7 +84,7 @@ $Doc
             ->tr(['GOOGLE_API_KEY', 'Api key do app do Google']);
     })
 
-    ->paragrafo('Alguns envs criam defines padrões que são: TITULO, DESCRICAO, CACHE, DIRETORIO_PRIVADO, DIRETORIO_PUBLICO, LINK, LINK_SITE, LINK_PAINEL, LINK_API, LINK_ARQUIVO, LINK_ARQUIVO_PUBLICO, LINK_ARQUIVO_PRIVADO e LINK_LOCAL')
+    ->paragrafo('Alguns envs criam defines padrões que são: TITULO, DESCRICAO, CACHE_VERSAO, DIRETORIO_PRIVADO, DIRETORIO_PUBLICO, LINK, LINK_SITE, LINK_PAINEL, LINK_API, LINK_ARQUIVO, LINK_ARQUIVO_PUBLICO, LINK_ARQUIVO_PRIVADO e LINK_LOCAL')
     ->paragrafo('Você pode chamar essa define em qualquer lugar do sistema, também pode usar o coringa {{LINK}} nos envs de LINK, ele irá fazer um replace do link padrão, por exemplo:')
     ->codigo('LINK=https://localhost:433' . PHP_EOL . 'LINK_API={{LINK}}/api')
     ->paragrafo('Essa configuração irá resultar em:')

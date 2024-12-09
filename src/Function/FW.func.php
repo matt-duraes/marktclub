@@ -1614,7 +1614,7 @@ if (!function_exists('arquivoPublico')) {
         if (empty($arquivo)) {
             return $padrao;
         }
-        $cache = env('CACHE_VERSAO', '');
+        $cache = defined('CACHE_VERSAO') ? CACHE_VERSAO : '';
         if (!empty($cache)) {
             $parametro['c'] = $cache;
         }
@@ -1713,7 +1713,7 @@ if (!function_exists('arquivoPrivado')) {
             return $padrao;
         }
 
-        $cache = env('CACHE_VERSAO', '');
+        $cache = defined('CACHE_VERSAO') ? CACHE_VERSAO : '';
         if (!empty($cache)) {
             $parametro['c'] = $cache;
         }
@@ -2003,7 +2003,7 @@ if (!function_exists('implodeE')) {
 if (!function_exists('imagem')) {
     function imagem(string $path, int $largura = 0, int $altura = 0, bool $cortar = false, bool $cache = false): string
     {
-        $cacheLocal = env('CACHE_VERSAO', '');
+        $cacheLocal = defined('CACHE_VERSAO') ? CACHE_VERSAO : '';
         $path = preg_replace('/^\//', '', $path);
         $pathExplode = explode('?', $path);
         $path = $pathExplode[0];
