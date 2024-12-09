@@ -11,7 +11,7 @@ trait PegarClienteTrait
         $Usuario = new OrmHelper(TABELA_USUARIO_CLIENTE);
         $Usuario = $Usuario->pegarPrimeiroRegistro(
             where: $where,
-            campo: ['id', 'uuid', 'id_admin_empresa'],
+            campo: ['id', 'uuid', 'id_admin_empresa', 'id_admin_subempresa'],
             retorno: 'object'
         );
         return $Usuario;
