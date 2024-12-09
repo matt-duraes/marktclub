@@ -291,6 +291,8 @@ function pegarListaImports(conteudo, path) {
                 if (!inArray('src/Html/Scripts/js/ArquivoUpload.system.js', retorno)) {
                     retorno.push('src/Html/Scripts/js/ArquivoUpload.system.js');
                 }
+                retorno.push('src/Html/Scripts/js/Editor.init.js');
+                retorno.push('src/Html/Scripts/js/Ckeditor.system.js');
                 retorno.push('src/Html/Scripts/js/Editor.system.js');
             }
         }
