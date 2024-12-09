@@ -29,3 +29,4 @@ composer.phar
 /tests/Frontend/config/screenshots
 /chave
 /env
+/.versao

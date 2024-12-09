@@ -1,9 +1,12 @@
 <div id="bloco_app_lista">
     <?php
-        $URI = preg_replace(['/\&?pagina\=[0-9]+/', '/^\//'], '', URI);
-    $URI = str_contains($URI, '?') ? $URI . '&' : $URI . '?';
-    $appLink = str_replace('_', '-', $app);
-    $replace = $config->index->replace;
+        $URI = preg_replace('/^\//', '', URI);
+        if(!empty(QUERY_STRING)) {
+            $URI .= preg_replace('/\&?pagina\=[0-9]+/', '', QUERY_STRING);
+        }
+        $URI = str_contains($URI, '?') ? $URI . '&' : $URI . '?';
+        $appLink = str_replace('_', '-', $app);
+        $replace = $config->index->replace;
     ?>
     <?php if ($filtro || !empty($busca->ordem)) : ?>
         <div id="bloco_app_filtro" class="bloco_filtro">
