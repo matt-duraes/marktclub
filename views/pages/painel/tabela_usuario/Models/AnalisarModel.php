@@ -41,7 +41,7 @@ final class AnalisarModel
             mensagemErro('Erro no arquivo!', 'Não foi possível ler o arquivo, por favor, tente novamente.');
         }
 
-        $obrigatorio = sessao('PAINEL.obrigatorio')['usuario_cliente'] ?? ['cpf', 'status'];
+        $obrigatorio = sessao('PAINEL.obrigatorio')->usuario_cliente ?? ['cpf', 'status'];
 
         $listaEstado = (new ListaHelper())->uf()->r();
         $listaErro = [];
