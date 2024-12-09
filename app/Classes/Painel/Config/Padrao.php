@@ -769,11 +769,11 @@ final class Padrao
                 ],
                 'parceiro_automovel_editar'     => [
                     'titulo' => self::TITULO_EDITAR,
-                    'scope'  => ['parceiro_automovel:atualizar', 'parceiro_automovel:buscar']
+                    'scope'  => ['automovel_modelo:atualizar', 'automovel_modelo:buscar']
                 ],
                 'parceiro_automovel_deletar'    => [
                     'titulo' => self::TITULO_DELETAR,
-                    'scope'  => 'parceiro_automovel:deletar'
+                    'scope'  => 'automovel_modelo:deletar'
                 ]
             ]
         ],
