@@ -2,10 +2,10 @@
 
 namespace App\Models\Api\Trait;
 
-use Throwable;
 use Erro\Excecao;
-use Http\Request;
 use Helpers\OrmHelper;
+use Http\Request;
+use Throwable;
 
 trait ValidarEmpresaTrait
 {
@@ -66,38 +66,11 @@ trait ValidarEmpresaTrait
         $this->empresaValidada = true;
         $this->campoEmpresaJson = $json;
         $this->setarIdEmpresa();
+        $this->setarIdSubempresa();
         $this->setarIdUsuario();
         $this->setaPropriedadeInicial($campoEmpresa);
         $this->setarValoresReais();
         $this->setarWherePadrao();
-    }
-
-    private function validarEmpresaAuto(): void
-    {
-        return;
-    }
-
-    private function validarSubempresa(bool $json = false)
-    {
-        if (!defined('TOKEN') || !is_array(TOKEN) || !array_key_exists('usuario', TOKEN)) {
-            return;
-        }
-        $id = TOKEN['usuario']->id_admin_subempresa ?? 0;
-        $this->idSubempresa = $id;
-        if (empty($id)) {
-            return;
-        }
-        $where = $this->ormWherePadrao;
-        $whereSubempresa = [['id_admin_subempresa', $id]];
-        if ($json) {
-            $whereSubempresa = [['id_admin_subempresa', 'json', $id]];
-        }
-
-        if (empty($where)) {
-            $this->ormWherePadrao = $whereSubempresa;
-            return;
-        }
-        $this->ormWherePadrao = array_merge($where, $whereSubempresa);
     }
 
     /**
@@ -119,6 +92,21 @@ trait ValidarEmpresaTrait
         if (!defined('TOKEN')) {
             mensagemStatus(401, localhost: 'Token não foi encontrado no Model.');
         }
+    }
+
+    /**
+     * Verifica se existe token e seta a subempresa
+     *
+     * @return void
+     * @throws Excecao
+     */
+    private function setarIdSubempresa(): void
+    {
+        $this->verificarSeExisteToken();
+        $existe = array_key_exists('usuario', TOKEN)
+            && !vazio(TOKEN['usuario'])
+            && !empty(TOKEN['usuario']->id_admin_subempresa);
+        $this->idSubempresa = $existe ? TOKEN['usuario']->id_admin_subempresa : 0;
     }
 
     /**
@@ -164,9 +152,9 @@ trait ValidarEmpresaTrait
 
         if (
             (!property_exists($this, 'request')
-            || !($this->request instanceof Request)
-            || !$this->request->existe('empresa')
-            || $this->request->vazio('empresa')) &&
+                || !($this->request instanceof Request)
+                || !$this->request->existe('empresa')
+                || $this->request->vazio('empresa')) &&
             (
                 !$this->propriedadeExiste('empresa') || empty($this->empresa)
             )
@@ -206,5 +194,33 @@ trait ValidarEmpresaTrait
         } elseif (!empty($this->whereEmpresa)) {
             $this->ormWherePadrao = $wherePadrao;
         }
+    }
+
+    private function validarEmpresaAuto(): void
+    {
+        return;
+    }
+
+    private function validarSubempresa(bool $json = false)
+    {
+        if (!defined('TOKEN') || !is_array(TOKEN) || !array_key_exists('usuario', TOKEN)) {
+            return;
+        }
+        $id = TOKEN['usuario']->id_admin_subempresa ?? 0;
+        $this->idSubempresa = $id;
+        if (empty($id)) {
+            return;
+        }
+        $where = $this->ormWherePadrao;
+        $whereSubempresa = [['id_admin_subempresa', $id]];
+        if ($json) {
+            $whereSubempresa = [['id_admin_subempresa', 'json', $id]];
+        }
+
+        if (empty($where)) {
+            $this->ormWherePadrao = $whereSubempresa;
+            return;
+        }
+        $this->ormWherePadrao = array_merge($where, $whereSubempresa);
     }
 }
