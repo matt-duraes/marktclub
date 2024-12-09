@@ -765,15 +765,15 @@ final class Padrao
                 ],
                 'parceiro_automovel_add'        => [
                     'titulo' => self::TITULO_SALVAR,
-                    'scope'  => ['parceiro_automovel:salvar', 'automovel_modelo:buscar',]
+                    'scope'  => ['automovel_modelo:salvar']
                 ],
                 'parceiro_automovel_editar'     => [
                     'titulo' => self::TITULO_EDITAR,
-                    'scope'  => ['parceiro_automovel:atualizar', 'parceiro_automovel:buscar']
+                    'scope'  => ['automovel_modelo:atualizar', 'automovel_modelo:buscar']
                 ],
                 'parceiro_automovel_deletar'    => [
                     'titulo' => self::TITULO_DELETAR,
-                    'scope'  => 'parceiro_automovel:deletar'
+                    'scope'  => 'automovel_modelo:deletar'
                 ]
             ]
         ],
