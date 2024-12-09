@@ -27,7 +27,7 @@ final class Constantes
             define('IMAGEM_SOCIAL', $imagem);
         }
 
-        define('CACHE', $this->cache());
+        define('CACHE_VERSAO', $this->cache());
         define(
             'DIRETORIO_PRIVADO',
             str_replace(
@@ -61,10 +61,13 @@ final class Constantes
      */
     private function cache(): string
     {
-        if (SISTEMA == 'PRODUCAO') {
-            return env('APP_CACHE', '');
+        $cacheEnv = env('CACHE_VERSAO', '');
+        $path = ROOT . '/.versao';
+        if (!file_exists($path)) {
+            return $cacheEnv;
         }
-        return md5(uniqid(time()));
+        $id = file_get_contents($path);
+        return validarUuid($id) ? md5($id) : $cacheEnv;
     }
 
     /**

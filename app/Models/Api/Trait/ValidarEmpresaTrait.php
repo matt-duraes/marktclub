@@ -97,7 +97,6 @@ trait ValidarEmpresaTrait
     /**
      * Verifica se existe token e seta a subempresa
      *
-     * @return void
      * @throws Excecao
      */
     private function setarIdSubempresa(): void

@@ -34,7 +34,6 @@ final class SalvarModel extends ORM
     }
 
     /**
-     * @return void
      * @throws Excecao
      */
     private function montarDado(): void
@@ -72,7 +71,6 @@ final class SalvarModel extends ORM
     }
 
     /**
-     * @return void
      * @throws Excecao
      */
     private function salvar(): void

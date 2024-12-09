@@ -765,7 +765,7 @@ final class Padrao
                 ],
                 'parceiro_automovel_add'        => [
                     'titulo' => self::TITULO_SALVAR,
-                    'scope'  => ['parceiro_automovel:salvar', 'automovel_modelo:buscar',]
+                    'scope'  => ['parceiro_automovel:salvar', 'automovel_modelo:buscar']
                 ],
                 'parceiro_automovel_editar'     => [
                     'titulo' => self::TITULO_EDITAR,
@@ -782,10 +782,9 @@ final class Padrao
             'permissao' => [
                 'relatorio_acesso_index'    => [
                     'titulo' => 'Relatório de acesso',
-                    'scope'  => 'relatorio_acesso:listar'
+                    'scope'  => ['relatorio_acesso:listar']
                 ],
-                'relatorio_acesso_empresa'  => self::TITULO_EMPRESA,
-                'relatorio_acesso_parceiro' => 'Todos os parceiros'
+                'relatorio_acesso_empresa'  => self::TITULO_EMPRESA
             ]
         ],
         'relatorio_usuario'        => [
@@ -793,7 +792,7 @@ final class Padrao
             'permissao' => [
                 'relatorio_usuario_index'   => [
                     'titulo' => 'Relatório de usuário',
-                    'scope'  => 'relatorio_usuario:listar'
+                    'scope'  => ['relatorio_usuario:listar']
                 ],
                 'relatorio_usuario_empresa' => self::TITULO_EMPRESA
             ]
@@ -803,7 +802,7 @@ final class Padrao
             'permissao' => [
                 'relatorio_loja_venda_index'    => [
                     'titulo' => 'Relatório de vendas',
-                    'scope'  => 'relatorio_loja_venda:listar'
+                    'scope'  => ['relatorio_loja_venda:listar']
                 ],
                 'relatorio_loja_venda_empresa'  => self::TITULO_EMPRESA,
                 'relatorio_loja_venda_parceiro' => 'Todos os parceiros'
