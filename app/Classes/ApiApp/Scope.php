@@ -191,8 +191,8 @@ final class Scope
         'publicacao_youtube:atualizar', 'publicacao_youtube:buscar', 'publicacao_youtube:salvar',
         'publicacao_youtube:deletar', 'publicacao_youtube:listar',
 
-        'relatorio_acesso:listar', 'relatorio_analytics:listar', 'relatorio_loja_venda:listar',
-        'relatorio_usuario:listar',
+        'relatorio_acesso:listar', 'relatorio_analytics:download', 'relatorio_analytics:listar',
+        'relatorio_analytics:salvar', 'relatorio_loja_venda:listar', 'relatorio_usuario:listar',
 
         'saude_contratacao:listar', 'saude_contratacao:buscar', 'saude_contratacao:status',
         'saude_contratacao:atualizar',
