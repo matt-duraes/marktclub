@@ -1,9 +1,9 @@
 <?php
 
-use App\Classes\ComercialPopup\BotaoTarget;
-use App\Classes\ComercialPopup\Status;
-use App\Classes\UsuarioCliente\TipoUsuario;
 use Helpers\ApiHelper;
+use App\Classes\ComercialPopup\Status;
+use App\Classes\ComercialPopup\BotaoTarget;
+use App\Classes\UsuarioCliente\TipoUsuario;
 
 $empresa = (new ApiHelper(token: true))
     ->get('/comercial-empresa/select')
@@ -32,7 +32,7 @@ $Painel->coluna(callback: function () use ($Painel) {
             ->select(
                 name: 'uri',
                 lista: [
-                    ''                    => 'Todas',
+                    '/'                    => 'Todas',
                     '/convenios'          => 'Convenios',
                     '/samsung'            => 'Samsung',
                     '/farmacia'           => 'Farmácia',
