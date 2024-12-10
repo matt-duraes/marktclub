@@ -751,21 +751,21 @@ final class Padrao
                 'parceiro_automovel_index'      => [
                     'titulo' => self::TITULO_LISTAR,
                     'scope'  => [
-                        'parceiro_automovel:listar', 'automovel_modelo:listar',
-                        'parceiro_automovel:deletar'
+                        'automovel_modelo:listar', 'automovel_modelo:listar',
+                        'automovel_modelo:deletar'
                     ]
                 ],
                 'parceiro_automovel_visualizar' => [
                     'titulo' => self::TITULO_VISUALIZAR,
                     'scope'  => [
-                        'parceiro_automovel:buscar', 'automovel_modelo:buscar',
-                        'automovel_versao:buscar', 'automovel_versao:salvar',
-                        'automovel_versao:atualizar', 'automovel_versao:deletar'
+                        'automovel_modelo:buscar', 'automovel_versao:buscar',
+                        'automovel_versao:salvar', 'automovel_versao:atualizar',
+                        'automovel_versao:deletar'
                     ]
                 ],
                 'parceiro_automovel_add'        => [
                     'titulo' => self::TITULO_SALVAR,
-                    'scope'  => ['parceiro_automovel:salvar', 'automovel_modelo:buscar']
+                    'scope'  => ['automovel_modelo:salvar', 'automovel_modelo:buscar']
                 ],
                 'parceiro_automovel_editar'     => [
                     'titulo' => self::TITULO_EDITAR,
@@ -780,11 +780,11 @@ final class Padrao
         'relatorio_acesso'         => [
             'titulo'    => 'Relatório Acesso',
             'permissao' => [
-                'relatorio_acesso_index'    => [
+                'relatorio_acesso_index'   => [
                     'titulo' => 'Relatório de acesso',
                     'scope'  => ['relatorio_acesso:listar']
                 ],
-                'relatorio_acesso_empresa'  => self::TITULO_EMPRESA
+                'relatorio_acesso_empresa' => self::TITULO_EMPRESA
             ]
         ],
         'relatorio_usuario'        => [
@@ -1062,7 +1062,7 @@ final class Padrao
                 ],
                 'comercial_prospeccao_add'        => [
                     'titulo' => self::TITULO_SALVAR,
-                    'scope'  => 'comercial_prospeccao:salvar'
+                    'scope'  => ['comercial_prospeccao:salvar', 'comercial_empresa:salvar']
                 ],
                 'comercial_prospeccao_editar'     => [
                     'titulo' => self::TITULO_EDITAR,
@@ -1186,7 +1186,8 @@ final class Padrao
                         'demanda_dado:atualizar', 'demanda_dado:deletar',
                         'demanda_dado:buscar', 'demanda_sprint:demanda',
                         'comercial_empresa:perfil', 'demanda_sprint:salvar',
-                        'demanda_tarefa:listar'
+                        'demanda_tarefa:listar', 'demanda_tarefa:salvar',
+                        'demanda_tarefa:atualizar', 'demanda_tarefa:deletar'
                     ]
                 ]
             ]
@@ -1201,7 +1202,8 @@ final class Padrao
                         'demanda_dado:atualizar', 'demanda_dado:deletar',
                         'demanda_dado:buscar', 'demanda_sprint:demanda',
                         'comercial_empresa:perfil', 'demanda_sprint:salvar',
-                        'demanda_tarefa:listar'
+                        'demanda_tarefa:listar', 'demanda_tarefa:salvar',
+                        'demanda_tarefa:atualizar', 'demanda_tarefa:deletar'
                     ]
                 ],
                 'demanda_criacao'    => [
@@ -1211,7 +1213,8 @@ final class Padrao
                         'demanda_dado:atualizar', 'demanda_dado:deletar',
                         'demanda_dado:buscar', 'demanda_sprint:demanda',
                         'comercial_empresa:perfil', 'demanda_sprint:salvar',
-                        'demanda_tarefa:listar'
+                        'demanda_tarefa:listar', 'demanda_tarefa:salvar',
+                        'demanda_tarefa:atualizar', 'demanda_tarefa:deletar'
                     ]
                 ],
                 'demanda_convenio'   => [
@@ -1221,7 +1224,8 @@ final class Padrao
                         'demanda_dado:atualizar', 'demanda_dado:deletar',
                         'demanda_dado:buscar', 'demanda_sprint:demanda',
                         'comercial_empresa:perfil', 'demanda_sprint:salvar',
-                        'demanda_tarefa:listar'
+                        'demanda_tarefa:listar', 'demanda_tarefa:salvar',
+                        'demanda_tarefa:atualizar', 'demanda_tarefa:deletar'
                     ]
                 ]
             ]
