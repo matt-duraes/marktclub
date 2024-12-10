@@ -1,9 +1,9 @@
 <?php
 
+use PainelConfig\Add;
+use Helpers\ApiHelper;
 use App\Classes\Painel\Config\Padrao;
 use App\Classes\UsuarioCliente\Helper;
-use Helpers\ApiHelper;
-use PainelConfig\Add;
 
 $Painel = new Add('painel_config', $acao);
 
@@ -112,7 +112,7 @@ $Painel->coluna(callback: function () use ($Painel) {
 $Painel->coluna(callback: function () use ($Painel) {
     $Painel->fieldset('Permissões', function () use ($Painel) {
         $Painel->fieldsetCheckbox(callback: function () use ($Painel) {
-            foreach (Padrao::PERMISSOES as $configuracoes) {
+            foreach ((new Padrao)->PERMISSAO as $configuracoes) {
                 $tituloApp = $configuracoes['titulo'] ?? '';
                 if (!empty($tituloApp)) {
                     $Painel->html('<h3>' . $tituloApp . '</h3>');

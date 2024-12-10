@@ -1,12 +1,12 @@
 <?php
 
+use Modules\Senha;
+use PainelConfig\Add;
+use Helpers\ApiHelper;
+use App\Classes\UsuarioEquipe\Tipo;
 use App\Classes\Painel\Config\Padrao;
 use App\Classes\UsuarioEquipe\Helper;
 use App\Classes\UsuarioEquipe\Status;
-use App\Classes\UsuarioEquipe\Tipo;
-use Helpers\ApiHelper;
-use Modules\Senha;
-use PainelConfig\Add;
 
 $Painel = new Add('usuario_equipe', acao: $acao);
 
@@ -79,7 +79,7 @@ if (in_array('usuario_equipe_permissao', $permissaoUsuario)) {
             titulo: 'Permissões',
             callback: function () use ($Painel) {
                 $permissaoPainel = sessao('PAINEL.permissao');
-                foreach (Padrao::PERMISSOES as $configuracoes) {
+                foreach ((new Padrao)->PERMISSAO as $configuracoes) {
                     $tituloApp = $configuracoes['titulo'] ?? '';
                     $temTitulo = false;
                     foreach ($configuracoes['permissao'] as $permissao => $configPermissao) {
