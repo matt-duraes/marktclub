@@ -16,6 +16,7 @@ trait ChaveTrait
         } else {
             $Api = new ApiHelper('admin:chave_publica admin:chave_privada');
         }
+
         $this->chavePublica = $Api->get('/admin/chave-publica')->object()->dado->chave ?? '';
         $this->chavePrivada = $Api->get('/admin/chave-privada')->object()->dado->chave ?? '';
     }

@@ -32,7 +32,7 @@ $Painel->coluna(callback: function () use ($Painel) {
             ->select(
                 name: 'uri',
                 lista: [
-                    '/'                    => 'Todas',
+                    '/'                    => 'Home',
                     '/convenios'           => 'Convenios',
                     '/samsung'             => 'Samsung',
                     '/farmacia'            => 'Farmácia',
