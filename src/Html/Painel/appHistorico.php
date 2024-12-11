@@ -72,7 +72,7 @@ if($historico instanceof \PainelConfig\Historico) {
         <input type="hidden" id="input_historico_titulo" value="<?= base64Encode($titulo) ?>">
         <input type="hidden" id="input_historico_link" value="<?= base64Encode(!empty($link) ? $link : LINK . URI . QUERY_STRING) ?>">
         <input type="hidden" id="input_historico_notificar" value="<?= base64Encode($notificar) ?>">
-        <figure class="imagem_usuario" data-bgimagem="@imagem sessao('USUARIO.imagem', padrao: '')"></figure>
+        <figure class="imagem_usuario" data-bgimagem="<?= sessao('USUARIO.imagem') ?>"></figure>
         <?= formTextarea(
             name: 'historico_novo',
             label: '',

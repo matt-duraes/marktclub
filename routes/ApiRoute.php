@@ -662,7 +662,7 @@ Route
 
         Route
             ::nome('perfil')
-            ::middleware(TokenMiddleware::class, 'scope', ['usuario_equipe:listar'])
+            ::middleware(TokenMiddleware::class, 'scope', ['usuario_equipe:perfil'])
             ::get('/usuario-equipe/perfil');
 
         Route

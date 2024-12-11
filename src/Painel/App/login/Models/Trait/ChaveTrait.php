@@ -9,9 +9,13 @@ trait ChaveTrait
     private string $chavePublica;
     private string $chavePrivada;
 
-    private function setarChaves()
+    private function setarChaves(bool $token = false)
     {
-        $Api = new ApiHelper('admin:chave_publica admin:chave_privada');
+        if ($token) {
+            $Api = new ApiHelper(token: true);
+        } else {
+            $Api = new ApiHelper('admin:chave_publica admin:chave_privada');
+        }
         $this->chavePublica = $Api->get('/admin/chave-publica')->object()->dado->chave ?? '';
         $this->chavePrivada = $Api->get('/admin/chave-privada')->object()->dado->chave ?? '';
     }
