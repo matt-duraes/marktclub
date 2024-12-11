@@ -3,7 +3,9 @@
 use PainelConfig\Add;
 use Helpers\ApiHelper;
 use App\Classes\Painel\Config\Padrao;
+use App\Classes\Painel\Config\Recurso;
 use App\Classes\UsuarioCliente\Helper;
+use App\Classes\Painel\Config\CampoPermitido;
 
 $Painel = new Add('painel_config', $acao);
 
@@ -52,7 +54,7 @@ $Painel->coluna(callback: function () use ($Painel, $empresas) {
 $Painel->coluna(callback: function () use ($Painel) {
     $Painel->fieldset('Recursos do Painel', function () use ($Painel) {
         $Painel->fieldsetCheckbox(callback: function () use ($Painel) {
-            foreach (Padrao::RECURSOS as $recurso => $nomeRecurso) {
+            foreach (Recurso::LISTA as $recurso => $nomeRecurso) {
                 $Painel->checkbox(name: 'configuracao[]', label: $nomeRecurso, value: $recurso);
             }
         });
@@ -75,7 +77,7 @@ $Painel->coluna(callback: function () use ($Painel) {
 $Painel->coluna(callback: function () use ($Painel) {
     $Painel->fieldset('Campos Permitidos', function () use ($Painel) {
         $Painel->fieldsetCheckbox(callback: function () use ($Painel) {
-            foreach (Padrao::CAMPOS_PERMITIDOS as $app => $dado) {
+            foreach (CampoPermitido::LISTA as $app => $dado) {
                 $titulo = $dado['titulo'] ?? '';
                 if (!empty($titulo)) {
                     $Painel->html('<h3>' . $titulo . '</h3>');

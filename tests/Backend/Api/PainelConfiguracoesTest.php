@@ -4,6 +4,8 @@ namespace Tests\Api;
 
 use Tests\Token\Clube;
 use App\Classes\Painel\Config\Padrao;
+use App\Classes\Painel\Config\Recurso;
+use App\Classes\Painel\Config\CampoObrigatorio;
 
 class PainelConfiguracoesTest extends Clube
 {
@@ -25,8 +27,8 @@ class PainelConfiguracoesTest extends Clube
         $retorno = $this->montarPermissoes();
         return [
             'empresa'           => $this->idEmpresa,
-            'configuracao'      => Padrao::RECURSOS,
-            'campo_obrigatorio' => Padrao::CAMPOS_OBRIGATORIOS,
+            'configuracao'      => Recurso::LISTA,
+            'campo_obrigatorio' => CampoObrigatorio::LISTA,
             'permissao'         => $retorno['permissoes'],
             'titulo'            => $retorno['titulos']
         ];

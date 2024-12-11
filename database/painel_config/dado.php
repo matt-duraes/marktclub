@@ -1,6 +1,9 @@
 <?php
 
 use App\Classes\Painel\Config\Padrao;
+use App\Classes\Painel\Config\Recurso;
+use App\Classes\Painel\Config\UploadGrupo;
+use App\Classes\Painel\Config\CampoObrigatorio;
 
 function pegarPermissao($lista)
 {
@@ -38,7 +41,7 @@ return [
             'usuario_equipe_permissao',
             'usuario_equipe_empresa',
         ],
-        'configuracao'      => array_keys(Padrao::RECURSOS),
+        'configuracao'      => array_keys(Recurso::LISTA),
         'campo_permitido'   => [
             'usuario_cliente' => [
                 'geral'    => [
@@ -69,14 +72,14 @@ return [
                 ]
             ]
         ],
-        'campo_obrigatorio' => Padrao::CAMPOS_OBRIGATORIOS,
-        'upload_grupo'      => Padrao::UPLOAD_GRUPO
+        'campo_obrigatorio' => CampoObrigatorio::LISTA,
+        'upload_grupo'      => UploadGrupo::LISTA
     ],
     [
         'id_admin_empresa'  => 1,
         'titulo'            => 'Markt Club',
         'permissao'         => $permissaoPadrao,
-        'configuracao'      => array_keys(Padrao::RECURSOS),
+        'configuracao'      => array_keys(Recurso::LISTA),
         'campo_permitido'   => [
             'usuario_cliente' => [
                 'geral'    => [
@@ -107,8 +110,8 @@ return [
                 ]
             ]
         ],
-        'campo_obrigatorio' => Padrao::CAMPOS_OBRIGATORIOS,
-        'upload_grupo'      => Padrao::UPLOAD_GRUPO
+        'campo_obrigatorio' => CampoObrigatorio::LISTA,
+        'upload_grupo'      => UploadGrupo::LISTA
     ],
     [
         'id_admin_empresa'  => 2,

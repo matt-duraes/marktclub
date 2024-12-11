@@ -51,7 +51,7 @@ final class TabelaController extends Controller
 
     public function postSalvar(Request $request)
     {
-        $obrigatorio = sessao('PAINEL.obrigatorio')['usuario_cliente'];
+        $obrigatorio = sessao('PAINEL.obrigatorio')->usuario_cliente;
 
         if (empty($obrigatorio)) {
             return mensagemErro('Campo vazio!', 'Campos obrigatórios não preenchidos.');

@@ -1,9 +1,9 @@
 <?php
 
-use App\Classes\ComercialPopup\BotaoTarget;
-use App\Classes\ComercialPopup\Status;
-use App\Classes\UsuarioCliente\TipoUsuario;
 use Helpers\ApiHelper;
+use App\Classes\ComercialPopup\Status;
+use App\Classes\ComercialPopup\BotaoTarget;
+use App\Classes\UsuarioCliente\TipoUsuario;
 
 $empresa = (new ApiHelper(token: true))
     ->get('/comercial-empresa/select')
@@ -32,20 +32,20 @@ $Painel->coluna(callback: function () use ($Painel) {
             ->select(
                 name: 'uri',
                 lista: [
-                    ''                    => 'Todas',
-                    '/convenios'          => 'Convenios',
-                    '/samsung'            => 'Samsung',
-                    '/farmacia'           => 'Farmácia',
-                    '/cupom'              => 'Cupom',
-                    '/cashback'           => 'Cashback',
-                    '/automoveis'         => 'Automóveis',
-                    '/cinema'             => 'Cinema',
-                    '/corrida'            => 'Corrida',
-                    '/show-nacional'      => 'Show Nacional',
-                    '/show-internacional' => 'Show Internacional',
-                    '/credito'            => 'Crédito',
-                    '/plano-odontologico' => 'Plano Odontológico',
-                    '/saude'              => 'Saúde',
+                    '/'                    => 'Todas',
+                    '/convenios'           => 'Convenios',
+                    '/samsung'             => 'Samsung',
+                    '/farmacia'            => 'Farmácia',
+                    '/cupom'               => 'Cupom',
+                    '/cashback'            => 'Cashback',
+                    '/automoveis'          => 'Automóveis',
+                    '/cinema'              => 'Cinema',
+                    '/corrida'             => 'Corrida',
+                    '/show-nacional'       => 'Show Nacional',
+                    '/show-internacional'  => 'Show Internacional',
+                    '/credito'             => 'Crédito',
+                    '/plano-odontologico'  => 'Plano Odontológico',
+                    '/saude'               => 'Saúde',
                 ],
                 label: 'Página'
             );
