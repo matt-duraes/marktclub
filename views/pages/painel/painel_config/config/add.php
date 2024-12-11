@@ -112,7 +112,7 @@ $Painel->coluna(callback: function () use ($Painel) {
 $Painel->coluna(callback: function () use ($Painel) {
     $Painel->fieldset('Permissões', function () use ($Painel) {
         $Painel->fieldsetCheckbox(callback: function () use ($Painel) {
-            foreach ((new Padrao)->PERMISSAO as $configuracoes) {
+            foreach ((new Padrao())->PERMISSAO as $configuracoes) {
                 $tituloApp = $configuracoes['titulo'] ?? '';
                 if (!empty($tituloApp)) {
                     $Painel->html('<h3>' . $tituloApp . '</h3>');

@@ -36,7 +36,7 @@ class PainelConfiguracoesTest extends Clube
     {
         $titulos = [];
         $permissoes = [];
-        foreach ((new Padrao)->PERMISSAO as $nomeApp => $permissoesApp) {
+        foreach ((new Padrao())->PERMISSAO as $nomeApp => $permissoesApp) {
             $titulos[$nomeApp] = $permissoesApp['titulo'] ?? '';
             /*if (array_key_exists('acao', $permissoesApp) && !empty($permissoesApp['acao'])) {
                 foreach ($permissoesApp['acao'] as $permissao) {

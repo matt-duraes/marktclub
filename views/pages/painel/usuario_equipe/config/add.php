@@ -79,7 +79,7 @@ if (in_array('usuario_equipe_permissao', $permissaoUsuario)) {
             titulo: 'Permissões',
             callback: function () use ($Painel) {
                 $permissaoPainel = sessao('PAINEL.permissao');
-                foreach ((new Padrao)->PERMISSAO as $configuracoes) {
+                foreach ((new Padrao())->PERMISSAO as $configuracoes) {
                     $tituloApp = $configuracoes['titulo'] ?? '';
                     $temTitulo = false;
                     foreach ($configuracoes['permissao'] as $permissao => $configPermissao) {

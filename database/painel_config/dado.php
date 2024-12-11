@@ -11,7 +11,7 @@ function pegarPermissao($lista)
     return $retorno;
 }
 
-$permissaoPadrao = pegarPermissao(Padrao::PERMISSOES);
+$permissaoPadrao = pegarPermissao((new Padrao())->PERMISSAO);
 
 return [
     [

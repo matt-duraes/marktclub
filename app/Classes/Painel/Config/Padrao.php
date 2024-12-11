@@ -8,6 +8,17 @@ final class Padrao
 {
     use PermissaoTrait;
 
+    public const TITULO_LISTAR = 'Listar';
+    public const TITULO_VISUALIZAR = 'Visualizar';
+    public const TITULO_SALVAR = 'Salvar';
+    public const TITULO_EDITAR = 'Editar';
+    public const TITULO_DOWNLOAD = 'Download';
+    public const TITULO_DELETAR = 'Deletar';
+    public const TITULO_STATUS = 'Status';
+    public const TITULO_EMPRESA = 'Todas as Empresas';
+    public const TITULO_EQUIPE = 'Todos da Equipe';
+    public const TITULO_PERMISSOES = 'Todas as Permissões';
+    public const TITULO_DOWNLOAD_HISTORICO = 'Download do Historico';
     public const RECURSOS = [
         'perfil'      => 'Perfil',
         'agenda'      => 'Agenda',
@@ -159,6 +170,7 @@ final class Padrao
     ];
 
     public array $PERMISSAO = [];
+
     public function __construct()
     {
         $this->setarPropriedadePermissao();
