@@ -52,7 +52,10 @@ trait PerfilInitTrait
             !defined('TOKEN') ||
             !is_array(TOKEN) ||
             !array_key_exists('usuario', TOKEN) ||
-            !object_key_exists('uuid', TOKEN['usuario'])
+            !object_key_exists('id', TOKEN['usuario']) ||
+            empty(TOKEN['usuario']->id) ||
+            !object_key_exists('uuid', TOKEN['usuario']) ||
+            empty(TOKEN['usuario']->uuid)
         ) {
             mensagemStatus(status: 401, localhost: 'Não foi possível validar a audiencia no controller.');
         }

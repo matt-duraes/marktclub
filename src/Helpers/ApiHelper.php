@@ -59,13 +59,15 @@ class ApiHelper extends CurlHelper
      */
     private function autenticar(string $scope): void
     {
-        $token = $this->body([
-            'client_id'  => $this->clientId,
-            'secret_id'  => $this->secretId,
-            'audience'   => $this->audience,
-            'grant_type' => 'client_credentials',
-            'scope'      => $scope
-        ])->post('/token')->array();
+        $token = $this
+            ->body([
+                'client_id'  => $this->clientId,
+                'secret_id'  => $this->secretId,
+                'audience'   => $this->audience,
+                'grant_type' => 'client_credentials',
+                'scope'      => $scope
+            ])->post('/token')
+            ->array();
 
         $this->resetar();
         if (array_key_exists('status', $token) && $token['status'] === 'sucesso') {
