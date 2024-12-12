@@ -14,6 +14,11 @@ if (!array_key_exists(0, $explode) || !is_string($explode[0]) || empty($explode[
 
 $download = array_key_exists('download', $_GET) && $_GET['download'] == 'sim';
 $path = ROOT . '/views/' . $explode[0];
+require_once 'validar_path.php';
+
+if(!in_array($ext, ['png', 'jpg', 'jpeg', 'gif', 'avif'])) {
+    mensagemStatus(404, localhost: 'Arquivo não é uma imagem.');
+}
 
 include 'imagem.php';
 

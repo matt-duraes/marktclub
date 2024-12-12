@@ -51,12 +51,11 @@ if (!empty($privado) && !array_key_exists($privado, $_SESSION)) {
 }
 
 $path = DIRETORIO_PRIVADO . '/' . $Grupo->diretorio . '/' . $Arquivo->arquivo;
+require_once 'validar_path.php';
 
 include 'imagem.php';
 
-if (!file_exists($path)) {
-    mensagemStatus(404, localhost: 'Esse arquivo não existe.');
-} elseif (!$download) {
+if (!$download) {
     $Response = new Response(arquivo: $path);
     $Response->render();
     exit();
