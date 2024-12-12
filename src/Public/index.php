@@ -74,6 +74,7 @@ require_once __DIR__ . '/../Config/Autoload.php';
 $requestUri = array_key_exists('REQUEST_URI', $_SERVER) ? explode('/', $_SERVER['REQUEST_URI']) : [];
 $requestUri = array_key_exists(1, $requestUri) ? $requestUri[1] : '';
 
+$diretorioStatus = env('DIRETORIO_STATUS', false);
 if ($requestUri == '__endereco-cep' && METODO == 'POST') {
     require_once __DIR__ . '/../Html/Endereco/cep.php';
     exit();
@@ -98,13 +99,13 @@ if ($requestUri == '__endereco-cep' && METODO == 'POST') {
 } elseif ($requestUri == '__random-encode' && METODO == 'POST' && SISTEMA == 'LOCALHOST') {
     require_once __DIR__ . '/../Html/RandomEncode/index.php';
     exit();
-} elseif (str_starts_with($requestUri, 'aqioulc.') && METODO == 'GET') {
+} elseif ($diretorioStatus === true && str_starts_with($requestUri, 'aqioulc.') && METODO == 'GET') {
     require_once __DIR__ . '/../Html/Arquivo/publico.php';
     exit();
-} elseif (str_starts_with($requestUri, 'aqiorvd.') && METODO == 'GET') {
+} elseif ($diretorioStatus === true && str_starts_with($requestUri, 'aqiorvd.') && METODO == 'GET') {
     require_once __DIR__ . '/../Html/Arquivo/privado.php';
     exit();
-} elseif (str_starts_with($requestUri, 'aqiornm.') && METODO == 'GET') {
+} elseif ($diretorioStatus === true && str_starts_with($requestUri, 'aqiornm.') && METODO == 'GET') {
     require_once __DIR__ . '/../Html/Arquivo/nome.php';
     exit();
 } elseif ($requestUri == 'images' && METODO == 'GET') {
