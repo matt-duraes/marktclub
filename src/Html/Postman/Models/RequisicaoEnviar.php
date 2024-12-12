@@ -185,6 +185,7 @@ final class RequisicaoEnviar
             header: ['Authorization' => 'Bearer ' . $header]
         );
         $token = $this->pegarToken($token);
+        $this->buscarChavePorToken($token);
         $this->header[] = ['texto', 'Authorization', 'Bearer ' . $token];
     }
 
@@ -196,6 +197,7 @@ final class RequisicaoEnviar
         }
 
         $token = $Token->token;
+        $this->buscarChavePorToken($token);
         sessao($this->nomeToken, $token);
         $this->header[] = ['texto', 'Authorization', 'Bearer ' . $token];
     }
