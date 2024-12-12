@@ -10,21 +10,32 @@ use App\Controllers\Api\Usuario\ClienteController;
 
 trait PerfilInitTrait
 {
-    private function setarController()
+    private bool $eClube = false;
+
+    private function validarToken()
     {
         if (
             !defined('TOKEN') ||
             !is_array(TOKEN) ||
             !array_key_exists('app', TOKEN) ||
             !object_key_exists('audience', TOKEN['app']) ||
-            !in_array(TOKEN['app']->audience, [Audience::CLUBE, Audience::PAINEL])
+            !in_array(TOKEN['app']->audience, [Audience::CLUBE, Audience::PAINEL]) ||
+            !array_key_exists('usuario', TOKEN) ||
+            !object_key_exists('id', TOKEN['usuario']) ||
+            empty(TOKEN['usuario']->id) ||
+            !object_key_exists('uuid', TOKEN['usuario']) ||
+            empty(TOKEN['usuario']->uuid)
         ) {
             mensagemStatus(status: 401, localhost: 'Não foi possível validar a audiencia no controller.');
         }
-        $eClube = TOKEN['app']->audience == Audience::CLUBE;
-        $this->Controller = $eClube ? new ClienteController() : new EquipeController();
+        $this->eClube = TOKEN['app']->audience == Audience::CLUBE;
+    }
+
+    private function setarController()
+    {
+        $this->Controller = $this->eClube ? new ClienteController() : new EquipeController();
         $this->Controller->perfil = true;
-        $retorno = $eClube ? [
+        $retorno = $this->eClube ? [
             'nome', 'siape', 'cpf', 'rg', 'email_trabalho', 'email_pessoal', 'email_funcional',
             'telefone_trabalho', 'telefone_pessoal', 'estado_civil', 'genero', 'imagem',
             'data_nascimento', 'matricula', 'federacao', 'endereco_cep', 'endereco_logradouro', 'endereco_numero',
@@ -42,23 +53,11 @@ trait PerfilInitTrait
 
     private function setarEntity()
     {
-        $eClube = TOKEN['app']->audience == Audience::CLUBE;
-        $this->Entity = $eClube ? new ClienteEntity(perfil: true) : new EquipeEntity(perfil: true);
+        $this->Entity = $this->eClube ? new ClienteEntity(perfil: true) : new EquipeEntity(perfil: true);
     }
 
     private function setarIdUsuario()
     {
-        if (
-            !defined('TOKEN') ||
-            !is_array(TOKEN) ||
-            !array_key_exists('usuario', TOKEN) ||
-            !object_key_exists('id', TOKEN['usuario']) ||
-            empty(TOKEN['usuario']->id) ||
-            !object_key_exists('uuid', TOKEN['usuario']) ||
-            empty(TOKEN['usuario']->uuid)
-        ) {
-            mensagemStatus(status: 401, localhost: 'Não foi possível validar a audiencia no controller.');
-        }
         $this->idUsuario = TOKEN['usuario']->id;
         $this->uuidUsuario = TOKEN['usuario']->uuid;
     }
