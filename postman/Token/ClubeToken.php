@@ -28,9 +28,10 @@ final class ClubeToken extends TokenPadrao
             header: $header
         );
         $token = jsonDecode($token->retorno, true, true);
-        if (!validarIndiceExiste($token, ['dado.token.access_token', 'status' => 'sucesso'])) {
-            return '';
+        $erro = !validarIndiceExiste($token, ['dado.token.access_token', 'status' => 'sucesso']);
+        if ($erro && validarIndiceExisteArray('erro.mensagem', $token)) {
+            mensagemErro('Erro!', $token['erro']['mensagem']);
         }
-        return $token['dado']['token']['access_token'];
+        return $erro ? '' : $token['dado']['token']['access_token'];
     }
 }

@@ -48,7 +48,11 @@ final class RequisicaoEnviar
         $json = jsonDecode($post['json'], true, true);
 
         if (sessaoExiste($this->nomeToken)) {
-            $this->header[] = ['texto', 'Authorization', 'Bearer ' . sessao($this->nomeToken)];
+            $tokenExistente = sessao($this->nomeToken);
+            if (!empty($token) && $token != 'token') {
+                $this->buscarChavePorToken($tokenExistente);
+            }
+            $this->header[] = ['texto', 'Authorization', 'Bearer ' . $tokenExistente];
         } elseif ($token == 'token') {
             $this->criarToken($scope);
         } elseif ($token == 'painel') {
