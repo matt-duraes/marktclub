@@ -18,7 +18,9 @@ const enviarRequisicao = async e => {
     const blocoRespostaBody = bloco.querySelector('.bloco_resposta_body');
     const blocoRespostaHtml = bloco.querySelector('.bloco_resposta_html');
     const blocoRespostaRequisicao = bloco.querySelector('.bloco_resposta_requisicao');
+    const blocoRespostaHeader = bloco.querySelector('.bloco_resposta_header');
     const blocoStatusHtml = bloco.querySelector('.bloco_codigo_html');
+    const blocoTempoResposta = bloco.querySelector('.bloco_tempo_resposta');
     const blocoBotao = bloco.querySelector('.bloco_resposta_botao');
     const blocoBotaoAtivo = blocoBotao.querySelector('.ativo');
     const blocoRespostaAtivo = bloco.querySelector('ativo');
@@ -35,17 +37,31 @@ const enviarRequisicao = async e => {
     blocoRespostaJson.innerHTML = '';
     blocoRespostaBody.innerHTML = '';
     blocoRespostaRequisicao.innerHTML = '';
+    blocoRespostaHeader.innerHTML = '';
     blocoRespostaHtml.removeAttribute('srcdoc');
     blocoBotao.classList.add('display_none');
     blocoStatusHtml.classList.remove('erro');
     blocoStatusHtml.classList.remove('sucesso');
     blocoStatusHtml.innerText = '';
+    blocoTempoResposta.innerText = '';
     blocoRespostaJson.classList.remove('ativo');
     blocoRespostaBody.classList.remove('ativo');
     blocoRespostaHtml.classList.remove('ativo');
     blocoRespostaRequisicao.classList.remove('ativo');
+    blocoRespostaHeader.classList.remove('ativo');
 
+    const tempoInicio = performance.now();
     const resposta = await mandarRequisicao(bloco, 'requisicao');
+    const tempoFinal = performance.now();
+    let tempoResposta = tempoFinal - tempoInicio;
+    if (tempoResposta >= 60000) {
+        tempoResposta = parseFloat(tempoResposta / 60000).toFixed(2);
+        tempoResposta += 'm';
+    } else if (tempoResposta >= 1000) {
+        tempoResposta = parseFloat(tempoResposta / 1000).toFixed(2) + 's';
+    } else {
+        tempoResposta = parseFloat(tempoResposta).toFixed(2) + 'ms';
+    }
     bloco.classList.remove('loading');
     if (false == resposta) {
         return;
@@ -71,13 +87,20 @@ const enviarRequisicao = async e => {
     if (requisicao != '') {
         requisicao = JSON.stringify(requisicao, null, 2);
     }
+    let headerResposta = resposta.dado.header || '';
+    if (headerResposta != '') {
+        headerResposta = JSON.stringify(headerResposta, null, 2);
+    }
+
     blocoRespostaBody.innerHTML = body;
     blocoRespostaJson.innerHTML = json;
     blocoRespostaRequisicao.innerHTML = requisicao;
+    blocoRespostaHeader.innerHTML = headerResposta;
     blocoRespostaHtml.setAttribute('srcdoc', pegarHtmlIframe(resposta.dado.retorno));
     const erro = resposta.dado.codigo_html >= 400 ? 'erro' : 'sucesso';
     blocoStatusHtml.classList.add(erro);
     blocoStatusHtml.innerText = resposta.dado.codigo_html;
+    blocoTempoResposta.innerText = tempoResposta;
     criarVariaveis(bloco, resposta.dado.retorno);
 };
 const criarVariaveis = (bloco, resposta) => {
@@ -112,7 +135,11 @@ const criarVariaveis = (bloco, resposta) => {
     });
 };
 const pegarHtmlIframe = html => {
-    if (!html.includes('<html') || html.includes('PRE PRINT EXIT') || html.includes('VAR_DUMP EXIT')) {
+    if (
+        typeof html === 'string' &&
+        html &&
+        (!html.includes('<html') || html.includes('PRE PRINT EXIT') || html.includes('VAR_DUMP EXIT'))
+    ) {
         return `<style>* {color: #FFF;}</style> ${html}`;
     }
     return html;
