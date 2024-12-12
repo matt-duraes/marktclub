@@ -20,6 +20,7 @@ final class PerfilDadoController extends Controller
 
     public function __construct()
     {
+        $this->validarToken();
         $this->setarController();
         $this->setarEntity();
         $this->setarIdUsuario();
