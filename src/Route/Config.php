@@ -86,8 +86,10 @@ final class Config
     {
         $rota = mb_strtolower($this->rota, 'UTF-8');
         $rotaBloqueada = env('ROTA_BLOQUEADA', '');
+        $rotaPrincipal = mb_strtolower(env('ROTA_PRINCIPAL', ''), 'UTF-8');
 
         if (
+            ($rotaBloqueada == '*' && $rota != $rotaPrincipal) ||
             (!empty($rotaBloqueada) && is_array($rotaBloqueada) && in_array($rota, $rotaBloqueada)) ||
             (!empty($rotaBloqueada) && is_string($rotaBloqueada) && $rotaBloqueada == $rota)
         ) {
