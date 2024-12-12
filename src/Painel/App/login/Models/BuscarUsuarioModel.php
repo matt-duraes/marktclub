@@ -20,7 +20,7 @@ final class BuscarUsuarioModel
     public function __construct()
     {
         $this->idUsuario = sessao('USUARIO.id');
-        $this->setarChaves();
+        $this->setarChaves(token: true);
         $this->buscarDadoUsuario();
         $this->validarSeUsuarioPodeLogar();
         $this->remontarSessaoUsuario();
@@ -58,15 +58,17 @@ final class BuscarUsuarioModel
         $emailPessoal = $Crypt->decode($body->email_pessoal);
         $emailTrabalho = $Crypt->decode($body->email_trabalho);
         $email = !empty($emailTrabalho) ? $emailTrabalho : $emailPessoal;
-
         $imagem = $Crypt->decode($body->imagem);
+
         if (empty($imagem)) {
             $imagem = LINK_PADRAO . '/images/painel/usuario_padrao_preto.png';
         }
+        $empresa = $body->empresa;
+        $empresa->nome_fantasia = $Crypt->decode($empresa->nome_fantasia);
 
         sessao('USUARIO', [
             'id'         => $body->id,
-            'empresa'    => $body->empresa,
+            'empresa'    => $empresa,
             'subempresa' => $body->subempresa,
             'nome'       => $Crypt->decode($body->nome),
             'email'      => $email,

@@ -70,7 +70,7 @@ final class Scope
     ];
     public const PAINEL_INTERNO = [
         'perfil_dado:buscar', 'perfil_dado:atualizar', 'perfil_dado:validar_senha',
-        'perfil_dado:atualizar_senha', 'perfil_dado:alterar_imagem',
+        'perfil_dado:atualizar_senha', 'perfil_dado:alterar_imagem', 'usuario_equipe:perfil',
 
         'admin:painel', 'admin:menu', 'admin:chave_publica', 'admin:chave_privada', 'login:painel',
 

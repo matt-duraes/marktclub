@@ -7,7 +7,7 @@ $extPermitida = [
     'mp4', 'mov', 'avi', 'webm'
 ];
 
-if(!in_array($ext, $extPermitida)){
+if (!in_array($ext, $extPermitida)) {
     mensagemStatus(404, localhost: 'Extensão não permitida.');
 } elseif (!file_exists($path)) {
     mensagemStatus(404, localhost: 'O arquivo não existe.');

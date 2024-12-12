@@ -1,10 +1,13 @@
 <?php
 
-return (new \DataBase\DataBase())
+use DataBase\DataBase;
+
+return (new DataBase())
     ->id()
     ->uuid()
     ->int('usuario')->tamanho(9)
     ->int('empresa')->tamanho(9)
+    ->int('subempresa')->tamanho(9)->null()
     ->int('vinculo')->tamanho(9)->null()
     ->varchar('vinculo_nome')->tamanho(250)->null()
     ->int('usuario_tipo')->tamanho(9)
