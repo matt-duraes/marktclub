@@ -14,10 +14,10 @@ if (!array_key_exists(0, $explode) || !is_string($explode[0]) || empty($explode[
 
 $download = array_key_exists('download', $_GET) && $_GET['download'] == 'sim';
 $path = ROOT . '/views/' . $explode[0];
-$ext = arquivoExt($path);
+require_once 'validar_path.php';
 
-if(!in_array($ext, ['png', 'jpg', 'jpeg', 'gif', 'avif']) || !file_exists($path) || !is_file($path)) {
-    mensagemStatus(404, localhost: 'Arquivo não é imagem, não existe ou não é um arquivo.');
+if(!in_array($ext, ['png', 'jpg', 'jpeg', 'gif', 'avif'])) {
+    mensagemStatus(404, localhost: 'Arquivo não é uma imagem.');
 }
 
 include 'imagem.php';

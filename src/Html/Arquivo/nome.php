@@ -8,16 +8,10 @@ if (empty($nome)) {
     mensagemStatus(404, localhost: 'O arquivo está sem nome.');
 }
 
-$path = DIRETORIO_PRIVADO . '/' . preg_replace('/^\//', '', $nome);
-if (!file_exists($path)) {
-    mensagemStatus(404, localhost: 'O arquivo não existe.');
-} elseif (!is_file($path)) {
-    mensagemStatus(404, localhost: 'O arquivo não é um arquivo comum.');
-}
-
 $download = array_key_exists('download', $_GET) && $_GET['download'] == 'sim';
-
-include 'imagem.php';
+$path = DIRETORIO_PRIVADO . '/' . preg_replace('/^\//', '', $nome);
+require_once 'validar_path.php';
+require_once 'imagem.php';
 
 if (!$download) {
     $Response = new Response(arquivo: $path);

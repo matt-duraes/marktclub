@@ -51,9 +51,7 @@ if (!empty($privado) && !array_key_exists($privado, $_SESSION)) {
 }
 
 $path = DIRETORIO_PRIVADO . '/' . $Grupo->diretorio . '/' . $Arquivo->arquivo;
-if (!file_exists($path) || !is_file($path)) {
-    mensagemStatus(404, localhost: 'Esse arquivo não existe ou não é um arquivo.');
-}
+require_once 'validar_path.php';
 
 include 'imagem.php';
 
