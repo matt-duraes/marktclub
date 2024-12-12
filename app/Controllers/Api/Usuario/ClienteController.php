@@ -339,6 +339,7 @@ final class ClienteController extends Controller implements
             $request->usuario
         );
         $DeletarAppModel->bloquearUsuario();
+
         return mensagemSucesso($DeletarAppModel->success);
     }
 }
