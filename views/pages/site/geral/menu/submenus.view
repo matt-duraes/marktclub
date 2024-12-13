@@ -8,3 +8,4 @@
     <div class="linha"></div>
     <a href="{{route('sair.index')}}" class="botao sair">Sair do clube</a>
 @ endif;
+
