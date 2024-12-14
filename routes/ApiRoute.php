@@ -6,6 +6,8 @@ use App\Middlewares\Api\TokenMiddleware;
 use App\Middlewares\Api\MarktClubMiddleware;
 use App\Middlewares\Api\TokenProvMiddleware;
 
+Route::noIndex();
+
 Route
     ::nome('downloadRestrito')
     ::controller(App\Controllers\Api\DownloadRestritoController::class)

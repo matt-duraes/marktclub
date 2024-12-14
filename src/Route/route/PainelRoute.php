@@ -14,6 +14,8 @@ use PainelApp\download\Controllers\DownloadController;
 use PainelApp\assinatura\Controllers\AssinaturaController;
 use PainelApp\atualizacao\Controllers\AtualizacaoController;
 
+Route::noIndex();
+
 Route
     ::middleware(
         classe: AuthMiddleware::class,

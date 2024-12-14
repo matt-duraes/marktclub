@@ -4,6 +4,8 @@ use Route\Route;
 use App\Middlewares\Api\TokenMiddleware;
 use System\Classes\PainelHistorico\Helper;
 
+Route::noIndex();
+
 Route
     ::nome('painel_historico')
     ::middleware(TokenMiddleware::class, 'token')
