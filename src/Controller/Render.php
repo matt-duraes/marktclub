@@ -60,13 +60,13 @@ final class Render
     {
         $tempoVida = env('CACHE_VIDA', '');
         if($this->cacheHeader && !empty($tempoVida)) {
-            $this->header[] = ['Expires', gmdate('D, d M Y H:i:s', time() + $tempoVida) . ' GMT'];
-            $this->header[] = ['Cache-Control', 'max-age=' . $tempoVida];
-            $this->header[] = ['Pragma', 'cache'];
+            $this->header[] = ['Expires' => gmdate('D, d M Y H:i:s', time() + $tempoVida) . ' GMT'];
+            $this->header[] = ['Cache-Control' => 'max-age=' . $tempoVida];
+            $this->header[] = ['Pragma' => 'cache'];
         } else {
-            $this->header[] = ['Expires', '0'];
-            $this->header[] = ['Cache-Control', 'no-cache, no-store, must-revalidate'];
-            $this->header[] = ['Pragma', 'no-cache'];
+            $this->header[] = ['Expires' => '0'];
+            $this->header[] = ['Cache-Control' => 'no-cache, no-store, must-revalidate'];
+            $this->header[] = ['Pragma' => 'no-cache'];
         }
         return new Response($this->html, header: $this->header);
     }
