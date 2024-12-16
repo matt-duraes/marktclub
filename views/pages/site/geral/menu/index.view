@@ -57,7 +57,7 @@
     <i>@iconeMedicamento</i>
     Drogaria
 </a>
-@endif
+@endif;
 
 @ if( MENU_CUPOM ):
 <a class="botao {!!MENU_HOVER == 'cupom' ? 'cor_bg pagina_atual' : ''!!}" href="@route(cupom.index)">
@@ -135,11 +135,17 @@
     <i>@iconeSaude</i>
     Plano de Saúde
 </a>
-@endif
-@endif
+@endif;
+@endif;
 
-@ if( DISPOSITIVO_CRHOME ):
 <div class="categoria">OUTROS</div>
+@ if(MENU_INDICAR_LOJA)
+    <a class="botao footer botao_indicar_loja">
+        <i>@iconeIndicacaoLoja(24)</i>
+        Indicar um parceiro
+    </a>
+@ endif;
+@ if( DISPOSITIVO_CRHOME ):
 <a class="botao {!!MENU_HOVER == 'extensao' ? 'cor_bg pagina_atual' : ''!!}" target="_blank" href="https://chrome.google.com/webstore/detail/tem-mais-vantagens/ghhhocjedgofpmjjgkkkibcmjlldolpc">
     <i>@iconeExtensaoHome</i>
     Extensão
