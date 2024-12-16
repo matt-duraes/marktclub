@@ -294,10 +294,10 @@ final class Scope
         'mensageria:salvar',
 
         'endereco:salvar', 'endereco:listar', 'endereco:buscar', 'endereco:atualizar',
+        'endereco:deletar',
 
         'contato:salvar', 'contato:listar', 'contato:buscar', 'contato:atualizar',
-
-        'contato:salvar', 'contato:listar', 'contato:buscar', 'contato:atualizar',
+        'contato:deletar'
 
         'data:listar'
     ];
