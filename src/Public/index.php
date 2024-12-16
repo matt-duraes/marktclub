@@ -102,9 +102,6 @@ if ($requestUri == '__endereco-cep' && METODO == 'POST') {
 } elseif ($diretorioStatus === true && str_starts_with($requestUri, 'aqiornm.') && METODO == 'GET') {
     require_once __DIR__ . '/../Html/Arquivo/nome.php';
     exit();
-} elseif ($requestUri == 'images' && METODO == 'GET') {
-    require_once __DIR__ . '/../Html/Arquivo/view.php';
-    exit();
 } elseif ($requestUri == 'fw-erro-status' && METODO == 'POST') {
     require_once __DIR__ . '/../Html/Erro/projeto.php';
     exit();
