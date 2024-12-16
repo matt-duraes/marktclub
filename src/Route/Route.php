@@ -14,6 +14,7 @@ final class Route
     public const REQUEST_TIPO_JSON = 'json';
     public const REQUEST_TIPO_FILES = 'files';
 
+    private static bool $index = true;
     private static array $Route = [
         'rota' => [
             'GET'    => [],
@@ -47,6 +48,11 @@ final class Route
     private static bool $eGrupo = true;
     private static bool $semGrupo = false;
     private static bool $rotaUnica = true;
+
+    public static function noIndex()
+    {
+        self::$index = false;
+    }
 
     public static function parametroDownload(array $parametro)
     {
@@ -388,7 +394,9 @@ final class Route
             $eView = true;
         }
         define('ROTA_VIEW', $eView);
-
+        if(false === self::$index) {
+            header('X-Robots-Tag: noindex, nofollow, noarchive, nosnippet');
+        }
         return $rotaFinal;
     }
 

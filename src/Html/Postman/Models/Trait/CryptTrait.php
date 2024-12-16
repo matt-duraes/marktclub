@@ -20,15 +20,23 @@ trait CryptTrait
         $privadaNome = !empty($privadaNome) ? $privadaNome : '.chave_privada';
         $pathPrivada = ROOT . '/chave/' . $privadaNome;
         $chavePrivada = file_exists($pathPrivada) ? file_get_contents($pathPrivada) : '';
-        $this->Crypt = new CryptHelper(chavePublica: $chavePublica, chavePrivada: $chavePrivada);
+        $this->setarCryptPelaChave($chavePublica, $chavePrivada);
     }
 
-    private function buscarChavePorToken(string $token)
+    private function setarCryptPorToken(string $token)
     {
-        $Api = new ApiHelper(token: $token);
-        $chavePublica = $Api->get('/admin/chave-publica')->array()['dado']['chave'];
-        $chavePrivada = $Api->get('/admin/chave-privada')->array()['dado']['chave'];
+        $Api = new ApiHelper(token: $token, link: env('POSTMAN_API_LINK'));
+        $chavePublica = $Api->get('/admin/chave-publica')->array()['dado']['chave'] ?? '';
+        $chavePrivada = $Api->get('/admin/chave-privada')->array()['dado']['chave'] ?? '';
+        $this->setarCryptPelaChave($chavePublica, $chavePrivada);
+        return [
+            'publica' => $chavePublica,
+            'privada' => $chavePrivada
+        ];
+    }
 
-        $this->Crypt = new CryptHelper(chavePublica: $chavePublica, chavePrivada: $chavePrivada);
+    private function setarCryptPelaChave($publica, $privada)
+    {
+        $this->Crypt = new CryptHelper(chavePublica: $publica, chavePrivada: $privada);
     }
 }
