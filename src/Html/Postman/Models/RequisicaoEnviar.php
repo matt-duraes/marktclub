@@ -203,7 +203,7 @@ final class RequisicaoEnviar
     {
         $chave = $this->setarCryptPorToken($token);
         sessao($this->nomeToken, [
-            'token' => $token,
+            'token'   => $token,
             'publica' => $chave['publica'],
             'privada' => $chave['privada'],
         ]);

@@ -18,9 +18,9 @@ set_error_handler('errorHandler');
 function imprimirErro($retorno): void
 {
     header('X-Robots-Tag: noindex, nofollow, noarchive, nosnippet');
-    header("Cache-Control: no-cache, no-store, must-revalidate");
-    header("Pragma: no-cache");
-    header("Expires: 0");
+    header('Cache-Control: no-cache, no-store, must-revalidate');
+    header('Pragma: no-cache');
+    header('Expires: 0');
 
     if (is_array($retorno)) {
         echo json_encode($retorno, JSON_PARTIAL_OUTPUT_ON_ERROR);
