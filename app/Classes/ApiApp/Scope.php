@@ -297,7 +297,7 @@ final class Scope
         'endereco:deletar',
 
         'contato:salvar', 'contato:listar', 'contato:buscar', 'contato:atualizar',
-        'contato:deletar'
+        'contato:deletar',
 
         'data:listar'
     ];

@@ -59,7 +59,7 @@ final class Render
     public function response(): Response
     {
         $tempoVida = env('CACHE_VIDA', '');
-        if($this->cacheHeader && !empty($tempoVida)) {
+        if ($this->cacheHeader && !empty($tempoVida)) {
             $this->header[] = ['Expires' => gmdate('D, d M Y H:i:s', time() + $tempoVida) . ' GMT'];
             $this->header[] = ['Cache-Control' => 'max-age=' . $tempoVida];
             $this->header[] = ['Pragma' => 'cache'];

@@ -75,13 +75,13 @@ trait CurlTrait
             'body'   => $requestBody,
             'header' => $header,
             'metodo' => $metodo,
-            'tempo' => $info['total_time'] ?? 'Erro'
+            'tempo'  => $info['total_time'] ?? 'Erro'
         ];
 
         return (object)[
             'retorno' => $retorno,
             'status'  => $status,
-            'header' => $retornoHeader,
+            'header'  => $retornoHeader,
         ];
     }
 }

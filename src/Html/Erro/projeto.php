@@ -1,9 +1,9 @@
 <?php
 
 header('X-Robots-Tag: noindex, nofollow, noarchive, nosnippet');
-header("Cache-Control: no-cache, no-store, must-revalidate");
-header("Pragma: no-cache");
-header("Expires: 0");
+header('Cache-Control: no-cache, no-store, must-revalidate');
+header('Pragma: no-cache');
+header('Expires: 0');
 
 $diretorio = $_POST['diretorio'] ?? '';
 $status = $_POST['status'] ?? '';
