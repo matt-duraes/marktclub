@@ -461,9 +461,10 @@ trait PermissaoTrait
                     'parceiro_loja_visualizar'         => [
                         'titulo' => Titulo::VISUALIZAR,
                         'scope'  => [
-                            'parceiro_loja:buscar', 'endereco:listar', 'endereco:salvar',
-                            'endereco:atualizar', 'contato:listar', 'contato:salvar',
-                            'contato:atualizar', 'data:listar'
+                            'parceiro_loja:buscar', 'endereco:buscar', 'endereco:listar',
+                            'endereco:salvar', 'endereco:atualizar', 'endereco:deletar',
+                            'contato:buscar', 'contato:listar', 'contato:salvar',
+                            'contato:atualizar', 'contato:deletar', 'data:listar'
                         ]
                     ],
                     'parceiro_loja_editar'             => [
@@ -1007,9 +1008,11 @@ trait PermissaoTrait
                         'scope'  => [
                             'demanda_dado:listar', 'demanda_dado:salvar',
                             'demanda_dado:atualizar', 'demanda_dado:deletar',
-                            'demanda_dado:buscar', 'demanda_sprint:demanda',
-                            'comercial_empresa:perfil', 'demanda_sprint:salvar',
-                            'demanda_tarefa:listar'
+                            'demanda_dado:buscar', 'demanda_dado:cancelar',
+                            'demanda_sprint:demanda', 'comercial_empresa:perfil',
+                            'demanda_sprint:salvar', 'demanda_tarefa:listar',
+                            'demanda_tarefa:like', 'demanda_tarefa:atualizar',
+                            'demanda_tarefa:deletar'
                         ]
                     ]
                 ]
@@ -1022,9 +1025,11 @@ trait PermissaoTrait
                         'scope'  => [
                             'demanda_dado:listar', 'demanda_dado:salvar',
                             'demanda_dado:atualizar', 'demanda_dado:deletar',
-                            'demanda_dado:buscar', 'demanda_sprint:demanda',
-                            'comercial_empresa:perfil', 'demanda_sprint:salvar',
-                            'demanda_tarefa:listar'
+                            'demanda_dado:buscar', 'demanda_dado:cancelar',
+                            'demanda_sprint:demanda', 'comercial_empresa:perfil',
+                            'demanda_sprint:salvar', 'demanda_tarefa:listar',
+                            'demanda_tarefa:like', 'demanda_tarefa:atualizar',
+                            'demanda_tarefa:deletar'
                         ]
                     ],
                     'demanda_criacao'    => [
@@ -1032,9 +1037,11 @@ trait PermissaoTrait
                         'scope'  => [
                             'demanda_dado:listar', 'demanda_dado:salvar',
                             'demanda_dado:atualizar', 'demanda_dado:deletar',
-                            'demanda_dado:buscar', 'demanda_sprint:demanda',
-                            'comercial_empresa:perfil', 'demanda_sprint:salvar',
-                            'demanda_tarefa:listar'
+                            'demanda_dado:buscar', 'demanda_dado:cancelar',
+                            'demanda_sprint:demanda', 'comercial_empresa:perfil',
+                            'demanda_sprint:salvar', 'demanda_tarefa:listar',
+                            'demanda_tarefa:like', 'demanda_tarefa:atualizar',
+                            'demanda_tarefa:deletar'
                         ]
                     ],
                     'demanda_convenio'   => [
@@ -1042,9 +1049,11 @@ trait PermissaoTrait
                         'scope'  => [
                             'demanda_dado:listar', 'demanda_dado:salvar',
                             'demanda_dado:atualizar', 'demanda_dado:deletar',
-                            'demanda_dado:buscar', 'demanda_sprint:demanda',
-                            'comercial_empresa:perfil', 'demanda_sprint:salvar',
-                            'demanda_tarefa:listar'
+                            'demanda_dado:buscar', 'demanda_dado:cancelar',
+                            'demanda_sprint:demanda', 'comercial_empresa:perfil',
+                            'demanda_sprint:salvar', 'demanda_tarefa:listar',
+                            'demanda_tarefa:like', 'demanda_tarefa:atualizar',
+                            'demanda_tarefa:deletar'
                         ]
                     ]
                 ]
