@@ -887,19 +887,19 @@ trait PermissaoTrait
                 'permissao' => [
                     'comercial_prospeccao_index'      => [
                         'titulo' => Titulo::LISTAR,
-                        'scope'  => 'comercial_prospeccao:listar'
+                        'scope'  => 'comercial_empresa:listar'
                     ],
                     'comercial_prospeccao_visualizar' => [
                         'titulo' => Titulo::VISUALIZAR,
-                        'scope'  => 'comercial_prospeccao:buscar'
+                        'scope'  => 'comercial_empresa:buscar'
                     ],
                     'comercial_prospeccao_add'        => [
                         'titulo' => Titulo::SALVAR,
-                        'scope'  => 'comercial_prospeccao:salvar'
+                        'scope'  => 'comercial_empresa:salvar'
                     ],
                     'comercial_prospeccao_editar'     => [
                         'titulo' => Titulo::EDITAR,
-                        'scope'  => ['comercial_prospeccao:atualizar', 'comercial_prospeccao:buscar']
+                        'scope'  => ['comercial_empresa:atualizar', 'comercial_empresa:buscar']
                     ]
                 ]
             ],
