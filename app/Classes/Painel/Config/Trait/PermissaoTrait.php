@@ -1012,7 +1012,7 @@ trait PermissaoTrait
                             'demanda_sprint:demanda', 'comercial_empresa:perfil',
                             'demanda_sprint:salvar', 'demanda_tarefa:listar',
                             'demanda_tarefa:like', 'demanda_tarefa:atualizar',
-                            'demanda_tarefa:deletar'
+                            'demanda_tarefa:deletar', 'usuario_equipe:perfil'
                         ]
                     ]
                 ]
@@ -1029,7 +1029,7 @@ trait PermissaoTrait
                             'demanda_sprint:demanda', 'comercial_empresa:perfil',
                             'demanda_sprint:salvar', 'demanda_tarefa:listar',
                             'demanda_tarefa:like', 'demanda_tarefa:atualizar',
-                            'demanda_tarefa:deletar'
+                            'demanda_tarefa:deletar', 'usuario_equipe:perfil'
                         ]
                     ],
                     'demanda_criacao'    => [
@@ -1041,7 +1041,7 @@ trait PermissaoTrait
                             'demanda_sprint:demanda', 'comercial_empresa:perfil',
                             'demanda_sprint:salvar', 'demanda_tarefa:listar',
                             'demanda_tarefa:like', 'demanda_tarefa:atualizar',
-                            'demanda_tarefa:deletar'
+                            'demanda_tarefa:deletar', 'usuario_equipe:perfil'
                         ]
                     ],
                     'demanda_convenio'   => [
@@ -1053,7 +1053,7 @@ trait PermissaoTrait
                             'demanda_sprint:demanda', 'comercial_empresa:perfil',
                             'demanda_sprint:salvar', 'demanda_tarefa:listar',
                             'demanda_tarefa:like', 'demanda_tarefa:atualizar',
-                            'demanda_tarefa:deletar'
+                            'demanda_tarefa:deletar', 'usuario_equipe:perfil'
                         ]
                     ]
                 ]
