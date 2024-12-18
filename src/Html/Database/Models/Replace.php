@@ -38,7 +38,8 @@ try {
 
         $replaceHtml = '<?php' . PHP_EOL . PHP_EOL . 'return [' . PHP_EOL . '    '
             . implode(',' . PHP_EOL . '    ', $replaceTabela) . PHP_EOL . '];' . PHP_EOL;
-        file_put_contents(ROOT . '/database/replace.php', $replaceHtml);
+        $pathReplace = $ROOT . 'database/replace.php';
+        file_put_contents($pathReplace, $replaceHtml);
     }
 } catch (\Throwable $th) {
     echo json_encode(['status' => 'erro', 'mensagem' => 'Erro ao configurar tabelas - ' . $th->getMessage()]);
