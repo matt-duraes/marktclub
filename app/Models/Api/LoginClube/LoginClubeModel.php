@@ -53,7 +53,7 @@ final class LoginClubeModel
 
     private function pegarConstrutor()
     {
-        $redirectUri = explode('/', preg_replace('/^https?\:\/\//', '', $this->redirectUri))[0];
+        $redirectUri = explode('/', preg_replace('/^https?\:\/\/(www.)?/', '', $this->redirectUri))[0];
         $this->redirectUri = $redirectUri;
         if (array_key_exists($redirectUri, $this->listaUriHomologacao)) {
             $redirectUri = $this->listaUriHomologacao[$redirectUri];
@@ -62,7 +62,7 @@ final class LoginClubeModel
         try {
             $Construtor = new ConstrutorEntity();
             $Construtor->buscar([
-                ['link_clube', preg_replace('/^www\./', '', $redirectUri)],
+                ['link_clube', $redirectUri],
                 ['status', 1]
             ]);
         } catch (\Throwable $e) {
