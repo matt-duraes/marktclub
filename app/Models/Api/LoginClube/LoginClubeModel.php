@@ -62,7 +62,7 @@ final class LoginClubeModel
         try {
             $Construtor = new ConstrutorEntity();
             $Construtor->buscar([
-                ['link_clube', $redirectUri],
+                ['link_clube', preg_replace('/^www\./', '', $redirectUri)],
                 ['status', 1]
             ]);
         } catch (\Throwable $e) {
