@@ -553,6 +553,7 @@ class CurlHelper
     /**
      * Retorna o debug
      *
+     * @param  bool $retorno Se true, printa só o retorno e não o debug
      * @return self
      */
     public function debug(

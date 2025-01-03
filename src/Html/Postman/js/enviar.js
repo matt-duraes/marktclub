@@ -135,7 +135,9 @@ const criarVariaveis = (bloco, resposta) => {
     });
 };
 const pegarHtmlIframe = html => {
-    if (
+    if (typeof html === 'string' && html && /^[\s]*array[\s]*(\(|\[)[\s]*/gim.test(html)) {
+        return `<style>* {color: #FFF;}</style><pre>${html}</pre>`;
+    } else if (
         typeof html === 'string' &&
         html &&
         (!html.includes('<html') || html.includes('PRE PRINT EXIT') || html.includes('VAR_DUMP EXIT'))

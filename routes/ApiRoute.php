@@ -3489,3 +3489,18 @@ Route
             ::middleware(TokenMiddleware::class, 'scope', ['publicacao_lista:deletar'])
             ::delete('/publicacao-lista/{id}');
     });
+
+Route
+    ::nome('galapagosLead')
+    ::controller(App\Controllers\Api\Galapagos\LeadController::class)
+    ::middleware(TokenMiddleware::class, 'token')
+    ::grupo(function () {
+        Route
+            ::nome('salvar')
+            ::middleware(TokenMiddleware::class, 'scope', ['galapagos_lead:salvar'])
+            ::request([
+                'nome', 'email', 'celular'
+            ])
+            ::criptografia(['nome', 'email', 'celular'])
+            ::post('/galapagos-lead');
+    });
