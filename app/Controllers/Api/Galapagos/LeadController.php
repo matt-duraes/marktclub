@@ -20,9 +20,11 @@ final class LeadController extends Controller implements ControllerSalvarInterfa
         $Lead = new LeadEntity(
             nome: new Nome($request->nome),
             email: new Email($request->email),
-            celular: new Telefone($request->celular),
+            telefone: new Telefone($request->telefone),
             termo: new Botao($request->termo)
         );
+        $Lead->salvar();
+
         $Redirect = new Redirect(
             Lead: $Lead
         );

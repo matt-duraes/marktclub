@@ -14,26 +14,26 @@ use App\Models\Api\Trait\ValidarEmpresaTrait;
 final class LeadEntity extends Entity
 {
     use ValidarEmpresaTrait;
+
     protected string $ormTabela = TABELA_GALAPAGOS_LEAD;
     protected array $ormInsert = [
-        'data_termo', 'nome', 'email', 'celular', 'status'
+        'id_admin_empresa', 'data_termo', 'nome', 'email', 'telefone', 'status'
     ];
     protected array $ormUpdate = [
         'status'
     ];
     protected array $ormBuscar = [
-        'nome', 'email', 'celular'
+        'nome', 'email', 'telefone'
     ];
     protected string $ormValidarInsert = '
         termo|!Você deve aceitar os termo|obrigatorio|vazio|valido
         nome|Nome|obrigatorio|vazio|valido
         email|E-mail|obrigatorio|vazio|valido
-        celular|Celular|obrigatorio|vazio|valido
+        telefone|Telefone|obrigatorio|vazio|valido
     ';
     protected string $ormValidarUpdate = '
         status|Status|obrigatorio|vazio|valido
     ';
-
     protected Status $status;
     protected DataHora $data_termo;
     protected int $id_admin_empresa;
@@ -42,9 +42,8 @@ final class LeadEntity extends Entity
         public Botao $termo,
         public Nome $nome,
         public Email $email,
-        public Telefone $celular
-    )
-    {
+        public Telefone $telefone
+    ) {
         parent::__construct();
         $this->validarEmpresa();
     }
@@ -59,8 +58,7 @@ final class LeadEntity extends Entity
     /**
      * Atualiza o status do usuário. Obs: Não salva automáticamente
      *
-     * @param  Status $status Novo status
-     * @return void
+     * @param Status $status Novo status
      */
     public function status(Status $status): void
     {

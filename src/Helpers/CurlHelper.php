@@ -353,12 +353,21 @@ class CurlHelper
         $this->retornoValor = $retornoValor;
         $this->retornoStatus = $retornoStatus;
 
+        $requisicaoEnviada = [
+            'url'       => $url,
+            'body'      => $body,
+            'parametro' => $parametro,
+            'json'      => $json,
+            'header'    => $header,
+            'option'    => $option,
+        ];
+
         if ($this->debug && $this->debugRetorno) {
             print_r($retornoValor);
             exit();
         } elseif ($this->debug) {
             print_r([
-                'requisicao' => $this->requisicao,
+                'requisicao' => $requisicaoEnviada,
                 'retorno'    => [
                     'valor'  => $retornoValor,
                     'erro'   => $retornoErro,
@@ -383,14 +392,7 @@ class CurlHelper
             respostaJson($this, $this->erroMensagem, $this->erroTitulo, $this->erroStatus, $this->erroRetorno);
         }
 
-        $this->requisicao = [
-            'url'       => $url,
-            'body'      => $body,
-            'parametro' => $parametro,
-            'json'      => $json,
-            'header'    => $header,
-            'option'    => $option,
-        ];
+        $this->requisicao = $requisicaoEnviada;
 
         $this->parametro = [];
         $this->body = [];

@@ -7,44 +7,50 @@ use Modules\Email;
 use Modules\Telefone;
 use Helpers\CurlHelper;
 
-final class Token extends CurlHelper{
-
-    private string $link;
-    private string $emailValidacao;
-    private string $token1;
-    private string $token2;
+final class Token extends CurlHelper
+{
+    private string $apiLink;
+    private string $apiEmail;
+    private string $apiToken1;
+    private string $apiToken2;
     public string $token;
+
     public function __construct(
         private Nome $nome,
-        private Telefone $celular,
+        private Telefone $telefone,
         private Email $email,
-    )
-    {
+    ) {
         parent::__construct();
-        $this->link = env('GALAPAGOS_API_LINK_TOKEN');
-        $this->emailValidacao = env('GALAPAGOS_API_EMAIL');
-        $this->token1 = env('GALAPAGOS_API_TOKEN_1');
-        $this->token2 = env('GALAPAGOS_API_TOKEN_2');
+        $this->apiLink = env('GALAPAGOS_API_LINK_TOKEN');
+        $this->apiEmail = env('GALAPAGOS_API_EMAIL');
+        $this->apiToken1 = env('GALAPAGOS_API_TOKEN_1');
+        $this->apiToken2 = env('GALAPAGOS_API_TOKEN_2');
         $this->buscarToken();
     }
 
     private function buscarToken()
     {
-        $dado = $this
-            ->debug()
+        $token = $this
+            ->headerJson()
             ->json([
-                'email' => $this->emailValidacao,
-                'token1' => $this->token1,
-                'token2' => $this->token2,
-                'jsonIntegracao' => [
+                'email'          => $this->apiEmail,
+                'token1'         => $this->apiToken1,
+                'token2'         => $this->apiToken2,
+                'jsonIntegracao' => jsonEncode([
                     'tipoIntegracao' => 'inclusaoSiteInstitucional2',
-                    'nomeCliente' => $this->nome->nome(),
-                    'celularCliente' => $this->celular->numero(),
-                    'emailCliente' => $this->email->email(),
-                ]
+                    'nomeCliente'    => $this->nome->nome(),
+                    'celularCliente' => $this->telefone->numero(),
+                    'emailCliente'   => $this->email->email(),
+                ])
             ])
-            ->post($this->link)
-            ->object();
-        ppe($dado);
+            ->post($this->apiLink)
+            ->string();
+
+        $token = str_replace('"', '', $token);
+        if (!validarUuid($token)) {
+            mensagemErro('Erro!', 'Ocorreu um erro ao enviar seus dados, por favor, tente novamente.');
+        }
+
+        $this->token = $token;
     }
 }

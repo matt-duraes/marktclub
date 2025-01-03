@@ -3499,8 +3499,8 @@ Route
             ::nome('salvar')
             ::middleware(TokenMiddleware::class, 'scope', ['galapagos_lead:salvar'])
             ::request([
-                'nome', 'email', 'celular'
+                'nome', 'email', 'telefone', 'termo'
             ])
-            ::criptografia(['nome', 'email', 'celular'])
+            ::criptografia(['nome', 'email', 'telefone'])
             ::post('/galapagos-lead');
     });

@@ -1,22 +1,21 @@
 <?php
 
-$Historico = new \PainelConfig\Historico(app: 'galapagos__lead');
-// $Historico->app('galapagos__lead_extra', 'Galapagos  Lead Extra');
+$Historico = new \PainelConfig\Historico(app: 'galapagos_lead');
 
 return [
-    'titulo'     => 'Galapagos  Lead',
+    'titulo'     => 'Galapagos Lead',
     'buscar'     => true,
     'filtrar'    => true,
     'ordem'      => true,
-    'visualizar' => false,
+    'visualizar' => true,
     'download'   => true,
     'historico'  => $Historico,
-    'add'        => true,
+    'add'        => false,
     'editar'     => false,
     'deletar'    => false,
     'api'        => [
         'scope'        => 'galapagos_lead',
         'uri'          => '/galapagos-lead',
-        'criptografar' => []
+        'criptografar' => ['nome', 'email', 'celular', 'empresa.titulo']
     ]
 ];

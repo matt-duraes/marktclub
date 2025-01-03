@@ -13,10 +13,10 @@ final class Status extends StatusStatus
         protected string|int|null $valor = null
     ) {
         parent::__construct([
-            self::NOVO   => 'Novo',
+            self::NOVO    => 'Novo',
             self::FALHA   => 'Falhou',
         ], [
-            self::NOVO   => 'vermelho',
+            self::NOVO    => 'vermelho',
             self::FALHA   => 'perto',
         ]);
     }
