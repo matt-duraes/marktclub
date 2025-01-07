@@ -2,9 +2,10 @@
 
 namespace App\Models\Api\Analytics;
 
-use ORM\ORM;
-use Modules\Data;
 use App\Models\Api\Analytics\Trait\WhereTrait;
+use Erro\Excecao;
+use Modules\Data;
+use ORM\ORM;
 
 final class NavegadorModel extends ORM
 {
@@ -12,47 +13,89 @@ final class NavegadorModel extends ORM
 
     protected string $ormTabela = TABELA_ANALYTICS_NAVEGADOR;
 
+    /**
+     * @param Data              $dataInicial
+     * @param Data              $dataFinal
+     * @param array|string|null $empresa
+     * @param array|string|null $subempresa
+     *
+     * @throws Excecao
+     */
     public function __construct(
-        protected Data $de,
-        protected Data $ate,
-        private string|array|null $Empresa = null
+        private readonly Data $dataInicial = new Data(),
+        private readonly Data $dataFinal = new Data(),
+        private readonly array|string|null $empresa = null,
+        private readonly array|string|null $subempresa = null
     ) {
+        $this->validarRequest();
+        $this->setarIdEmpresa();
+        $this->setarIdSubempresa();
         parent::__construct();
     }
 
-    public function listarDado(): array
+    /**
+     * @return void
+     * @throws Excecao
+     */
+    private function validarRequest(): void
     {
-        $lista = $this
-            ->campo(['quantidade', 'navegador'])
-            ->where($this->pegarWherePadrao())
-            ->order('quantidade', 'DESC')
-            ->limit(0, 20)
-            ->read();
-
-        return $this->montarDado($lista);
+        if ($this->dataInicial->vazio()) {
+            mensagemErro('Campo inválido!', 'A data de início da busca é obrigatória.');
+        } elseif ($this->dataFinal->vazio()) {
+            mensagemErro('Campo inválido!', 'A data final da busca é obrigatória.');
+        } elseif (!$this->dataInicial->valido()) {
+            mensagemErro('Campo inválido!', 'A data de início da busca não é válida.');
+        } elseif (!$this->dataFinal->valido()) {
+            mensagemErro('Campo inválido!', 'A data final da busca não é válida.');
+        }
     }
 
-    private function montarDado($lista)
+    /**
+     * @return array
+     * @throws Excecao
+     */
+    public function gerarRelatorio(): array
+    {
+        $analytics = $this
+            ->campo([
+                'quantidade', 'navegador'
+            ])
+            ->where($this->pegarWherePadrao())
+            ->order('quantidade')
+            ->limit(0, 20)
+            ->read();
+        return $this->montarRelatorio($analytics);
+    }
+
+    /**
+     * @param array $analytics
+     *
+     * @return array
+     */
+    private function montarRelatorio(array $analytics): array
     {
         $total = 0;
-        foreach ($lista as $r) {
-            $total += $r->quantidade;
+        foreach ($analytics as $item) {
+            $total += $item->quantidade;
         }
 
-        $dado = [];
-        foreach ($lista as $r) {
-            if (array_key_exists($r->navegador, $dado)) {
-                $dado[$r->navegador]['total'] += $r->quantidade;
-                $dado[$r->navegador]['porcentagem'] = porcentagem($dado[$r->navegador]['total'], $total);
+        $relatorio = [];
+        foreach ($analytics as $item) {
+            if (array_key_exists($item->navegador, $relatorio)) {
+                $relatorio[$item->navegador]['total'] += $item->quantidade;
+                $relatorio[$item->navegador]['porcentagem'] = porcentagem(
+                    $relatorio[$item->navegador]['total'],
+                    $total
+                );
                 continue;
             }
 
-            $dado[$r->navegador] = [
-                'navegador'   => $r->navegador,
-                'total'       => $r->quantidade,
-                'porcentagem' => porcentagem($r->quantidade, $total)
+            $relatorio[$item->navegador] = [
+                'navegador'   => $item->navegador,
+                'total'       => $item->quantidade,
+                'porcentagem' => porcentagem($item->quantidade, $total)
             ];
         }
-        return array_values($dado);
+        return array_values($relatorio);
     }
 }

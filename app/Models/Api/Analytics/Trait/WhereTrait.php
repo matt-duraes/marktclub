@@ -3,63 +3,56 @@
 namespace App\Models\Api\Analytics\Trait;
 
 use App\Models\Api\Trait\ValidarEmpresaTrait;
+use Erro\Excecao;
 use Helpers\OrmHelper;
 
 trait WhereTrait
 {
     use ValidarEmpresaTrait;
 
-    private function pegarWherePadrao(bool $dataAcesso = true)
+    /**
+     * @param bool $dataAcesso
+     *
+     * @return array
+     * @throws Excecao
+     */
+    private function pegarWherePadrao(bool $dataAcesso = true): array
     {
-        if ($dataAcesso) {
-            $this->validarData($this->de, $this->ate);
-            $where[] = ['data_acesso', 'between', [$this->de->banco() . ' 00:00:00', $this->ate->banco() . ' 23:59:59']];
-        }
-
-        if (empty($this->Empresa)) {
-            $where[] = ['id_admin_empresa', TOKEN['empresa']->id];
-            return $where;
-        }
-
-        $this->setarIdUsuario();
-        if (!$this->verificarSePodeMudarEmpresa()) {
-            mensagemErro('Empresa inválida!', 'Você não tem permissão para acessar essa empresa.');
-        }
-
+        $where = [];
         $ormHelper = new OrmHelper(TABELA_COMERCIAL_EMPRESA);
-
-        if (!is_array($this->Empresa)) {
-            $empresaId = $ormHelper->pegarIdPeloUuid($this->Empresa);
-            $where[] = ['id_admin_empresa', $empresaId];
-            return $where;
-        }
-
-        $empresaId = [];
-        foreach ($this->Empresa as $e) {
-            $empresaId[] = $ormHelper->pegarIdPeloUuid($e);
-        }
-        $where[] = ['id_admin_empresa', 'in', $empresaId];
-        return $where;
-    }
-
-    private function validarData($de, $ate, int $diaMaximo = 366)
-    {
-        $diasDiferenca = dataDiferencaDia($de, $ate);
-        if (empty($de)) {
-            mensagemErro('Data obrigatória!', 'A data de começo da busca é obrigatória.');
-        } elseif (!validarDate($de)) {
-            mensagemErro('Data inválida!', 'A data de começo da busca não está em um formato válido.');
-        } elseif (empty($ate)) {
-            mensagemErro('Data obrigatória!', 'A data final da busca é obrigatória.');
-        } elseif (!validarDate($ate)) {
-            mensagemErro('Data inválida!', 'A data final da busca não está em um formato válido.');
-        } elseif ($diasDiferenca > $diaMaximo) {
-            mensagemErro(
-                'Datas inválidas!',
-                'Você deve fazer uma busca com no máximo ' . $diaMaximo . ' dia(s) de diferênça.'
+        if (empty($this->empresa)) {
+            $where[] = ['id_admin_empresa', $this->idEmpresa];
+        } elseif (validarUuid($this->empresa, false)) {
+            $idEmpresa = $ormHelper->pegarIdPeloUuid(
+                $this->empresa,
+                'Há empresa informada não foi encontrada',
+                'Empresa inválida!'
             );
-        } elseif ($ate < $de) {
-            mensagemErro('Datas inválidas!', 'A data fianl da busca deve ser maior ou igual a data de começo.');
+            $where[] = ['id_admin_empresa', $idEmpresa];
+        } elseif (is_array($this->empresa)) {
+            $where[] = ['id_admin_empresa', 'in', $ormHelper->mudarListaUuidParaId($this->empresa)];
         }
+
+        if (empty($this->subempresa) && !empty($this->idSubempresa) && $this->idSubempresa != 0) {
+            $where[] = ['id_admin_subempresa', $this->idSubempresa];
+        } elseif (validarUuid($this->subempresa, false)) {
+            $idSubempresa = $ormHelper->pegarIdPeloUuid(
+                $this->subempresa,
+                'Há Subempresa informada não foi encontrada',
+                'Subempresa inválida!'
+            );
+            $where[] = ['id_admin_subempresa', $idSubempresa];
+        } elseif (is_array($this->subempresa)) {
+            $where[] = ['id_admin_subempresa', 'in', $ormHelper->mudarListaUuidParaId($this->subempresa)];
+        }
+
+        if ($dataAcesso) {
+            $where[] = [
+                'data_acesso', 'between', [
+                    $this->dataInicial->banco() . ' 00:00:00', $this->dataFinal->banco() . ' 23:59:59'
+                ]
+            ];
+        }
+        return $where;
     }
 }

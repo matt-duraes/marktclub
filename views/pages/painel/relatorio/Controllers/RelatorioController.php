@@ -2,29 +2,44 @@
 
 namespace Painel\Relatorio\Controllers;
 
+use Erro\Excecao;
 use Http\Request;
 use Helpers\ApiHelper;
 use Controller\Controller;
+use Http\Response;
 use Painel\Relatorio\Models\MontarRelatorioModel;
 
 final class RelatorioController extends Controller
 {
-    public function acesso()
+    /**
+     * @throws Excecao
+     */
+    public function acesso(): Response
     {
-        return view(arquivo: 'painel.relatorio.acesso', var: [
+        $empresas = [];
+        $subempresas = [];
+        if (painelPermissao('relatorio_acesso_empresa', false)) {
+            $empresas = $this->pegarSelectEmpresa();
+            $subempresas = $this->pegarSelectSubempresa();
+        }
+        return view('painel.relatorio.acesso', [
             'appTitulo'         => 'Relatório de acesso',
             'app'               => 'relatorio-acesso',
             'de'                => dataRemover(date('Y-m-d'), 8, 'dias', 'd/m/Y'),
             'ate'               => dataRemover(date('d/m/Y'), 1, 'dia', 'd/m/Y'),
-            'empresa'           => $this->pegarSelectEmpresa(),
+            'empresa'           => $empresas,
+            'subempresa'        => $subempresas,
             'parceiro'          => $this->pegarSelectParceiro(),
             'parceiroPermissao' => $this->pegarPermissaoParceiro('relatorio_acesso')
         ]);
     }
 
-    public function usuario()
+    /**
+     * @throws Excecao
+     */
+    public function usuario(): Response
     {
-        return view(arquivo: 'painel.relatorio.usuario', var: [
+        return view('painel.relatorio.usuario', [
             'appTitulo' => 'Relatório de usuário',
             'app'       => 'relatorio-usuario',
             'de'        => dataRemover(date('Y-m-d'), 7, 'dias', 'd/m/Y'),
@@ -33,9 +48,12 @@ final class RelatorioController extends Controller
         ]);
     }
 
-    public function lojaVenda()
+    /**
+     * @throws Excecao
+     */
+    public function lojaVenda(): Response
     {
-        return view(arquivo: 'painel.relatorio.venda', var: [
+        return view('painel.relatorio.venda', [
             'appTitulo'         => 'Relatório de venda',
             'app'               => 'relatorio-loja-venda',
             'de'                => '01/' . dataRemover(date('Y-m-') . '01', 6, 'meses', 'm/Y'),
@@ -46,6 +64,9 @@ final class RelatorioController extends Controller
         ]);
     }
 
+    /**
+     * @throws Excecao
+     */
     private function pegarSelectEmpresa()
     {
         return (new ApiHelper(token: true))
@@ -53,6 +74,19 @@ final class RelatorioController extends Controller
             ->array()['dado'] ?? [];
     }
 
+    /**
+     * @throws Excecao
+     */
+    private function pegarSelectSubempresa()
+    {
+        return (new ApiHelper(token: true))
+            ->get('/comercial-subempresa/select')
+            ->array()['dado'] ?? [];
+    }
+
+    /**
+     * @throws Excecao
+     */
     private function pegarSelectParceiro()
     {
         return (new ApiHelper(token: true))
@@ -60,30 +94,37 @@ final class RelatorioController extends Controller
             ->array()['dado'] ?? [];
     }
 
+    /**
+     * @throws Excecao
+     */
     private function pegarPermissaoParceiro(string $app): bool
     {
         $usuarioPermissao = sessao('USUARIO.permissao');
-        return in_array($app . '_parceiro', $usuarioPermissao) && sessao('EMPRESA.id') == '14afa776394ada4be23be6acf7e3259e';
+        $isYouhuul = sessao('EMPRESA.id') == '14afa776394ada4be23be6acf7e3259e';
+        return in_array($app . '_parceiro', $usuarioPermissao) && $isYouhuul;
     }
 
-    /*
-    |--------------------------------------------------------------------------
-    | GRAFICO DE ACESSO
-    |--------------------------------------------------------------------------
-    */
-    public function getAcessoDia(Request $request)
+    /**
+     * Busca o relatório de acesso diário
+     *
+     * @param Request $request
+     *
+     * @return Response
+     * @throws Excecao
+     */
+    public function getAcessoDia(Request $request): Response
     {
-        $de = $request->de;
-        $ate = $request->ate;
-
-        $this->validarData($de, $ate);
+        $this->validarData($request->de, $request->ate);
 
         $body = [
-            'de'  => dataBanco($de),
-            'ate' => dataBanco($ate),
+            'de'  => dataBanco($request->de),
+            'ate' => dataBanco($request->ate),
         ];
-        if ($request->empresa) {
+        if (!empty($request->empresa)) {
             $body['empresa'] = explode(',', $request->empresa);
+        }
+        if (!empty($request->subempresa)) {
+            $body['subempresa'] = explode(',', $request->subempresa);
         }
 
         $Api = new ApiHelper(token: true);
@@ -110,9 +151,9 @@ final class RelatorioController extends Controller
         }
 
         $uri = [
-            'usuario'     => 'usuario-mais-acesso',
-            'pagina'      => 'pagina-mais-acessada',
-            'loja'        => 'loja-mais-acessada'
+            'usuario' => 'usuario-mais-acesso',
+            'pagina'  => 'pagina-mais-acessada',
+            'loja'    => 'loja-mais-acessada'
         ];
 
         $body = [

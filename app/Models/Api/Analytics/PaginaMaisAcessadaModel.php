@@ -2,9 +2,10 @@
 
 namespace App\Models\Api\Analytics;
 
-use ORM\ORM;
-use Modules\Data;
 use App\Models\Api\Analytics\Trait\WhereTrait;
+use Erro\Excecao;
+use Modules\Data;
+use ORM\ORM;
 
 final class PaginaMaisAcessadaModel extends ORM
 {
@@ -12,38 +13,77 @@ final class PaginaMaisAcessadaModel extends ORM
 
     protected string $ormTabela = TABELA_ANALYTICS_PAGINA;
 
+    /**
+     * @param Data              $dataInicial
+     * @param Data              $dataFinal
+     * @param array|string|null $empresa
+     * @param array|string|null $subempresa
+     *
+     * @throws Excecao
+     */
     public function __construct(
-        protected Data $de,
-        protected Data $ate,
-        private array|string|null $Empresa = null
+        private readonly Data $dataInicial = new Data(),
+        private readonly Data $dataFinal = new Data(),
+        private readonly array|string|null $empresa = null,
+        private readonly array|string|null $subempresa = null
     ) {
+        $this->validarRequest();
+        $this->setarIdEmpresa();
+        $this->setarIdSubempresa();
         parent::__construct();
     }
 
-    public function listarDado(): array
+    /**
+     * @return void
+     * @throws Excecao
+     */
+    private function validarRequest(): void
     {
-        $lista = $this
-            ->campo(['quantidade', 'url'])
-            ->where($this->pegarWherePadrao())
-            ->order('quantidade', 'DESC')
-            ->read();
-
-        return $this->montarDado($lista);
+        if ($this->dataInicial->vazio()) {
+            mensagemErro('Campo inválido!', 'A data de início da busca é obrigatória.');
+        } elseif ($this->dataFinal->vazio()) {
+            mensagemErro('Campo inválido!', 'A data final da busca é obrigatória.');
+        } elseif (!$this->dataInicial->valido()) {
+            mensagemErro('Campo inválido!', 'A data de início da busca não é válida.');
+        } elseif (!$this->dataFinal->valido()) {
+            mensagemErro('Campo inválido!', 'A data final da busca não é válida.');
+        }
     }
 
-    private function montarDado($lista)
+    /**
+     * @return array
+     * @throws Excecao
+     */
+    public function gerarRelatorio(): array
+    {
+        $analytics = $this
+            ->campo([
+                'quantidade', 'url'
+            ])
+            ->where($this->pegarWherePadrao())
+            ->order('quantidade')
+            ->read();
+        return $this->montarRelatorio($analytics);
+    }
+
+    /**
+     * @param array $analytics
+     *
+     * @return array
+     */
+    private function montarRelatorio(array $analytics): array
     {
         $dado = [];
         $total = 0;
-        foreach ($lista as $r) {
-            $total += $r->quantidade;
-            if (!array_key_exists($r->url, $dado)) {
-                $dado[$r->url] = object([
-                    'url'        => $r->url,
-                    'quantidade' => 0,
+        foreach ($analytics as $item) {
+            $total += $item->quantidade;
+            if (!array_key_exists($item->url, $dado)) {
+                $dado[$item->url] = object([
+                    'url'        => $item->url,
+                    'quantidade' => 0
                 ]);
             }
-            $dado[$r->url]->quantidade += $r->quantidade;
+            $dado[$item->url]->quantidade += $item->quantidade;
         }
 
         usort($dado, function ($a, $b) {

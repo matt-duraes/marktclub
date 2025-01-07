@@ -18,16 +18,28 @@
         <div class="tag_lista" id="lista_parceiro"></div>
         @ endif;
 
-        @ if ( temPermissaoEmpresa('relatorio_acesso') ):
-        <div class="bloco_empresas">
-            <span class="titulo_empresas">Empresas</span>
-            @? formCheckbox(name: "marcar_todos", label: "Marcar/Desmarcar todos", value: "");
-            <div class="bloco_checkbox">
-                @ifforeach($empresa as $k => $e):
-                @? formCheckbox(name: "", label: "{$e}", value: "{$k}");
-                @endifforeach;
+        @ if ( !empty($empresa) ):
+            <div class="bloco_empresas">
+                <span class="titulo_empresas">Empresas</span>
+                @? formCheckbox(name: "marcar_todos", label: "Marcar/Desmarcar todos", value: "");
+                <div class="bloco_checkbox">
+                    @ifforeach($empresa as $k => $e):
+                    @? formCheckbox(name: "", label: "{$e}", value: "{$k}");
+                    @endifforeach;
+                </div>
             </div>
-        </div>
+        @ endif;
+
+        @ if ( !empty($subempresa) ):
+            <div class="bloco_subempresas">
+                <span class="titulo_subempresas">Subempresas</span>
+                @? formCheckbox(name: "marcar_todos", label: "Marcar/Desmarcar todos", value: "");
+                <div class="bloco_checkbox">
+                    @ifforeach($subempresa as $k => $e):
+                    @? formCheckbox(name: "", label: "{$e}", value: "{$k}");
+                    @endifforeach;
+                </div>
+            </div>
         @ endif;
     </div>
 
