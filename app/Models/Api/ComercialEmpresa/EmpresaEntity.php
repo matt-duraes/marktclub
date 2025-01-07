@@ -41,7 +41,7 @@ final class EmpresaEntity extends Entity
         'finalidade_principal' => 'finalidade_empresa',
         'titulo', 'finalidade_secundaria', 'nome_fantasia', 'razao_social', 'imagem_arquivo', 'slug',
         'site', 'responsavel_nome', 'responsavel_cargo', 'responsavel_email', 'responsavel_telefone', 'responsavel_cpf',
-        'id_usuario_equipe', 'tipo_pagamento', 'renda_media', 'produto_clube',
+        'id_usuario_equipe', 'id_usuario_dono', 'tipo_pagamento', 'renda_media', 'produto_clube',
         'produto_ios', 'produto_android', 'produto_site', 'produto_webview', 'produto_api', 'cnpj',
         'estado_principal', 'status', 'data_eleicao', 'email_dia', 'whatsapp_dia', 'rede_social_dia',
         'contrato_prazo', 'contrato_renovacao', 'tipo_site', 'cadastro_usuario', 'comunicacao_email',
@@ -56,7 +56,7 @@ final class EmpresaEntity extends Entity
         'finalidade_empresa' => '->finalidade_principal',
         'titulo', 'finalidade_secundaria', 'nome_fantasia', 'razao_social', 'imagem_arquivo', 'slug',
         'site', 'responsavel_nome', 'responsavel_cargo', 'responsavel_email', 'responsavel_telefone', 'responsavel_cpf',
-        'id_usuario_equipe', 'tipo_pagamento', 'renda_media', 'produto_clube',
+        'id_usuario_equipe', 'id_usuario_dono', 'tipo_pagamento', 'renda_media', 'produto_clube',
         'produto_ios', 'produto_android', 'produto_site', 'produto_webview', 'produto_api', 'cnpj',
         'estado_principal', 'status', 'data_eleicao', 'email_dia', 'whatsapp_dia', 'rede_social_dia',
         'contrato_prazo', 'contrato_renovacao', 'tipo_site', 'cadastro_usuario', 'comunicacao_email',
@@ -70,8 +70,7 @@ final class EmpresaEntity extends Entity
     protected string $ormValidarSalvar = '
         titulo|Título|vazio
         finalidade_principal|Finalidade principal|vazio|valido
-        finalidade_secundaria|Finalidade principal|vazio|valido
-        id_usuario_equipe|Responsável pelo contrato|vazio|int>0
+        finalidade_secundaria|Finalidade secundária|vazio|valido
         responsavel_nome|Nome do responsável|vazio|valido
         responsavel_telefone|Telefone do responsável|vazio|valido
         responsavel_email|E-mail do responsável|vazio|valido
@@ -79,6 +78,7 @@ final class EmpresaEntity extends Entity
     ';
     protected array $ormRetornoPadrao = ['id', 'nome_fantasia', 'imagem', 'slug', 'status'];
     protected int $id_usuario_equipe;
+    protected int $id_usuario_dono;
     public string $titulo;
     public Cnpj $cnpj;
     public string $razao_social;
@@ -111,6 +111,7 @@ final class EmpresaEntity extends Entity
     public Dinheiro $valor_pib;
     public EnderecoEstado $estado_principal;
     public string $equipe;
+    public string $dono;
     public FinalidadePrincipal $finalidade_principal;
     public FinalidadeSecundaria $finalidade_secundaria;
     public Data $data_eleicao;
@@ -169,7 +170,7 @@ final class EmpresaEntity extends Entity
         ) {
             $this->atualizarValor = true;
         }
-        $this->setarUsuarioEquipe();
+        $this->setarUsuarioEquipeDono();
     }
 
     protected function regraPosSalvar()
@@ -179,8 +180,14 @@ final class EmpresaEntity extends Entity
         }
     }
 
-    private function setarUsuarioEquipe()
+    private function setarUsuarioEquipeDono()
     {
+        if (!empty($this->dono)) {
+            $this->id_usuario_dono = (new OrmHelper(TABELA_USUARIO_EQUIPE))->pegarIdPeloUuid($this->dono);
+        }
+        if (!empty($this->dono) && empty($this->equipe)) {
+            return;
+        }
         if (empty($this->equipe)) {
             $this->id_usuario_equipe = array_key_exists('usuario', TOKEN) ? TOKEN['usuario']->id : null;
             return;
@@ -197,6 +204,9 @@ final class EmpresaEntity extends Entity
         $this->valor_pago = new UltimaFaturaModel(Empresa: $this);
 
         $this->equipe = (new OrmHelper(TABELA_USUARIO_EQUIPE))->pegarUuidPeloId($this->id_usuario_equipe);
+        if (!empty($this->id_usuario_dono)) {
+            $this->dono = (new OrmHelper(TABELA_USUARIO_EQUIPE))->pegarUuidPeloId($this->id_usuario_dono);
+        }
     }
 
     protected function getId()

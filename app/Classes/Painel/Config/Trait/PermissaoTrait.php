@@ -35,6 +35,12 @@ trait PermissaoTrait
                 );
             }
         )->montarArrayPermissao(
+            titulo: 'Indique e Concorra - Comercial',
+            indice: 'indique_concorra',
+            index: true,
+            add: true,
+            scope: 'comercial_empresa'
+        )->montarArrayPermissao(
             titulo: 'Comercial Atendimento',
             indice: 'comercial_atendimento',
             index: true,
