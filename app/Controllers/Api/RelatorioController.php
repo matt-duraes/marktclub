@@ -2,138 +2,201 @@
 
 namespace App\Controllers\Api;
 
-use Http\Request;
-use Modules\Data;
-use Http\Response;
-use Controller\Controller;
-use App\Models\Api\Analytics\OsModel;
-use App\Models\Api\Analytics\SalvarModel;
+use App\Classes\ParceiroLoja\TipoEstabelecimento;
 use App\Models\Api\Analytics\AcessoDiaModel;
 use App\Models\Api\Analytics\AnalyticsModel;
-use App\Models\Api\Analytics\LojaVendaModel;
-use App\Models\Api\Analytics\NavegadorModel;
 use App\Models\Api\Analytics\DadoUsuarioModel;
 use App\Models\Api\Analytics\DispositivoModel;
-use App\Classes\ParceiroLoja\TipoEstabelecimento;
 use App\Models\Api\Analytics\LojaEquipe\DiaModel;
 use App\Models\Api\Analytics\LojaMaisAcessadaModel;
-use App\Models\Api\Analytics\UsuarioMaisAcessoModel;
+use App\Models\Api\Analytics\LojaVendaModel;
+use App\Models\Api\Analytics\NavegadorModel;
+use App\Models\Api\Analytics\OsModel;
 use App\Models\Api\Analytics\PaginaMaisAcessadaModel;
+use App\Models\Api\Analytics\SalvarModel;
+use App\Models\Api\Analytics\UsuarioMaisAcessoModel;
+use Controller\Controller;
+use Erro\Excecao;
+use Http\Request;
+use Http\Response;
+use Modules\Data;
 
-final class RelatorioController extends Controller
+class RelatorioController extends Controller
 {
-    /*
-    |--------------------------------------------------------------------------
-    | ANALYTICS DO PAINEL
-    |--------------------------------------------------------------------------
-    */
-    public function getLojaVenda(Request $request)
+    /**
+     * Gera um relatório completo sobre os vendas
+     *
+     * @param Request $request Filtro por Data, Empresa, Subempresa e Parceiro
+     *
+     * @return Response Relatório formatado para visualização
+     * @throws Excecao
+     */
+    public function getLojaVenda(Request $request): Response
     {
-        $Relatorio = new LojaVendaModel($request);
-        $dado = $Relatorio->listarDados();
-
-        return mensagemSucesso($dado);
-    }
-
-    public function getDadoUsuario(Request $request)
-    {
-        $Relatorio = new DadoUsuarioModel($request);
-        $dado = $Relatorio->listarDados();
-
-        return mensagemSucesso($dado);
-    }
-
-    public function getAcessoDia(Request $request)
-    {
-        $this->validarData($request);
-
-        $Relatorio = new AcessoDiaModel(
-            de: new Data($request->de),
-            ate: new Data($request->ate),
-            Empresa: $request->empresa
-        );
-        $dado = $Relatorio->listarDado($request->de, $request->ate);
-
-        return mensagemSucesso($dado);
-    }
-
-    public function getUsuarioMaisAcesso(Request $request)
-    {
-        $this->validarData($request);
-        $Relatorio = new UsuarioMaisAcessoModel(
+        $RelatorioLojaVenda = new LojaVendaModel(
             new Data($request->de),
             new Data($request->ate),
-            Empresa: $request->empresa
+            $request->empresa,
+            $request->subempresa,
+            $request->parceiro
         );
-        return mensagemSucesso(
-            criptografarDado(
-                dado: $Relatorio->listarDado(),
-                criptografia: ['usuario'],
-                lista: true
-            )
-        );
+        return mensagemSucesso($RelatorioLojaVenda->gerarRelatorio());
     }
 
-    public function getLojaMaisAcessada(Request $request)
+    /**
+     * Gera um relatório completo sobre os usuários
+     *
+     * @param Request $request Filtro por Empresa e Subempresa
+     *
+     * @return Response Relatório formatado para visualização
+     * @throws Excecao
+     */
+    public function getDadoUsuario(Request $request): Response
     {
-        $this->validarData($request);
-        $Relatorio = new LojaMaisAcessadaModel(
+        $RelatorioUsuario = new DadoUsuarioModel(
+            $request->empresa,
+            $request->subempresa
+        );
+        return mensagemSucesso($RelatorioUsuario->gerarRelatorio());
+    }
+
+    /**
+     * Gera o relatório de acesso diário
+     *
+     * @param Request $request Filtro por Data, Empresa e Subempresa
+     *
+     * @return Response Relatório formatado para visualização
+     * @throws Excecao
+     */
+    public function getAcessoDia(Request $request): Response
+    {
+        $RelatorioAcessoDia = new AcessoDiaModel(
             new Data($request->de),
             new Data($request->ate),
-            new TipoEstabelecimento($request->estabelecimento),
-            Empresa: $request->empresa,
-            parceiro: $request->parceiro
+            $request->empresa,
+            $request->subempresa
         );
-        return mensagemSucesso($Relatorio->listarDado());
+        return mensagemSucesso($RelatorioAcessoDia->gerarRelatorio());
     }
 
-    public function getPaginaMaisAcessada(Request $request)
+    /**
+     * Gera o relatório de acesso de usuários
+     *
+     * @param Request $request Filtro por Data, Empresa e Subempresa
+     *
+     * @return Response Relatório formatado para visualização
+     * @throws Excecao
+     */
+    public function getUsuarioMaisAcesso(Request $request): Response
     {
-        $this->validarData($request);
-        $Relatorio = new PaginaMaisAcessadaModel(
+        $RelatorioUsuarioAcesso = new UsuarioMaisAcessoModel(
             new Data($request->de),
             new Data($request->ate),
-            Empresa: $request->empresa
+            $request->empresa,
+            $request->subempresa
         );
-        return mensagemSucesso($Relatorio->listarDado());
+        $relatorio = criptografarDado($RelatorioUsuarioAcesso->gerarRelatorio(), ['usuario'], lista: true);
+        return mensagemSucesso($relatorio);
     }
 
-    public function getDispositivo(Request $request)
+    /**
+     * Gera o relatório de lojas mais acessadas
+     *
+     * @param Request $request Filtro por Data, Empresa e Subempresa
+     *
+     * @return Response Relatório formatado para visualização
+     * @throws Excecao
+     */
+    public function getLojaMaisAcessada(Request $request): Response
     {
-        $this->validarData($request);
-        $Relatorio = new DispositivoModel(
+        $RelatorioLojaMaisAcessada = new LojaMaisAcessadaModel(
             new Data($request->de),
             new Data($request->ate),
-            Empresa: $request->empresa
+            $request->empresa,
+            $request->subempresa,
+            $request->parceiro,
+            new TipoEstabelecimento($request->estabelecimento)
         );
-
-        return mensagemSucesso($Relatorio->listarDado());
+        return mensagemSucesso($RelatorioLojaMaisAcessada->gerarRelatorio());
     }
 
-    public function getNavegador(Request $request)
+    /**
+     * Gera o relatório de páginas mais acessadas
+     *
+     * @param Request $request Filtro por Data, Empresa e Subempresa
+     *
+     * @return Response Relatório formatado para visualização
+     * @throws Excecao
+     */
+    public function getPaginaMaisAcessada(Request $request): Response
     {
-        $this->validarData($request);
-        $Relatorio = new NavegadorModel(
+        $RelatorioMaisAcessada = new PaginaMaisAcessadaModel(
             new Data($request->de),
             new Data($request->ate),
-            Empresa: $request->empresa
+            $request->empresa,
+            $request->subempresa
         );
-
-        return mensagemSucesso($Relatorio->listarDado());
+        return mensagemSucesso($RelatorioMaisAcessada->gerarRelatorio());
     }
 
-    public function getOs(Request $request)
+    /**
+     * Gera um relatório completo sobre os dispositivos
+     *
+     * @param Request $request Filtro por Data, Empresa e Subempresa
+     *
+     * @return Response Relatório formatado para visualização
+     * @throws Excecao
+     */
+    public function getDispositivo(Request $request): Response
     {
-        $this->validarData($request);
-        $Relatorio = new OsModel(
+        $RelatorioDispositivo = new DispositivoModel(
             new Data($request->de),
             new Data($request->ate),
-            Empresa: $request->empresa
+            $request->empresa,
+            $request->subempresa
         );
-
-        return mensagemSucesso($Relatorio->listarDado());
+        return mensagemSucesso($RelatorioDispositivo->gerarRelatorio());
     }
 
+    /**
+     * Gera o relatório de acesso de navegadores
+     *
+     * @param Request $request Filtro por Data, Empresa e Subempresa
+     *
+     * @return Response Relatório formatado para visualização
+     * @throws Excecao
+     */
+    public function getNavegador(Request $request): Response
+    {
+        $RelatorioNavegador = new NavegadorModel(
+            new Data($request->de),
+            new Data($request->ate),
+            $request->empresa,
+            $request->subempresa
+        );
+        return mensagemSucesso($RelatorioNavegador->gerarRelatorio());
+    }
+
+    /**
+     * Gera o relatório de acesso de sistemas operacionais
+     *
+     * @param Request $request Filtro por Data, Empresa e Subempresa
+     *
+     * @return Response Relatório formatado para visualização
+     * @throws Excecao
+     */
+    public function getOs(Request $request): Response
+    {
+        $RelatorioSistemaOperacional = new OsModel(
+            new Data($request->de),
+            new Data($request->ate),
+            $request->empresa,
+            $request->subempresa
+        );
+        return mensagemSucesso($RelatorioSistemaOperacional->gerarRelatorio());
+    }
+
+    // TODO: Refatorar essa função
     public function getLojaEquipeDia(Request $request)
     {
         $this->validarData($request);
@@ -146,38 +209,6 @@ final class RelatorioController extends Controller
         return mensagemSucesso($Relatorio->retorno);
     }
 
-    /*
-    |--------------------------------------------------------------------------
-    | ANALYTICS EXTERNO
-    |--------------------------------------------------------------------------
-    */
-    public function postAnalytics(Request $request)
-    {
-        new SalvarModel($request);
-        return mensagemSucesso(['id' => uuid()], status: 201);
-    }
-
-    public function getAnalytics(Request $request)
-    {
-        $Relatorio = new AnalyticsModel($request);
-        $dado = $Relatorio->pegarRelatorio();
-        return mensagemSucesso($dado);
-    }
-
-    public function postAnalyticsDownload()
-    {
-        $arquivo = DIRETORIO_PRIVADO . '/analytics/dump_' . TOKEN['app']->id . '.sql.zip';
-        if (!file_exists($arquivo)) {
-            mensagemStatus(404, localhost: 'O arquivo buscado não existe.');
-        }
-        return new Response(download: $arquivo);
-    }
-
-    /*
-    |--------------------------------------------------------------------------
-    | MÉTODOS PRIVADOS
-    |--------------------------------------------------------------------------
-    */
     private function validarData(Request $request)
     {
         $request->vazio('de', mensagem: 'A data de início da busca é obrigatória');
@@ -187,5 +218,45 @@ final class RelatorioController extends Controller
         } elseif (!validarDate($request->ate)) {
             mensagemErro('Campo inválido!', 'A data de final da busca não é válida.');
         }
+    }
+
+    /**
+     * Função responsável por salvar o analytics completo
+     *
+     * @param Request $request Dados coletados
+     *
+     * @return Response
+     * @throws Excecao
+     */
+    public function postAnalytics(Request $request): Response
+    {
+        new SalvarModel($request);
+        return mensagemSucesso(['id' => uuid()], 201);
+    }
+
+    /**
+     * @param Request $request
+     *
+     * @return Response
+     * @throws Excecao
+     */
+    public function getAnalytics(Request $request): Response
+    {
+        $Relatorio = new AnalyticsModel($request);
+        $dado = $Relatorio->pegarRelatorio();
+        return mensagemSucesso($dado);
+    }
+
+    /**
+     * @return Response
+     * @throws Excecao
+     */
+    public function postAnalyticsDownload(): Response
+    {
+        $arquivo = DIRETORIO_PRIVADO . '/analytics/dump_' . TOKEN['app']->id . '.sql.zip';
+        if (!file_exists($arquivo)) {
+            mensagemStatus(404, localhost: 'O arquivo buscado não existe.');
+        }
+        return new Response(download: $arquivo);
     }
 }

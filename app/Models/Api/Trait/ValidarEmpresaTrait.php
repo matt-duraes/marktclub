@@ -102,10 +102,7 @@ trait ValidarEmpresaTrait
     private function setarIdSubempresa(): void
     {
         $this->verificarSeExisteToken();
-        $existe = array_key_exists('usuario', TOKEN)
-            && !vazio(TOKEN['usuario'])
-            && !empty(TOKEN['usuario']->id_admin_subempresa);
-        $this->idSubempresa = $existe ? TOKEN['usuario']->id_admin_subempresa : 0;
+        $this->idSubempresa = !empty(TOKEN['subempresa']->id) ? TOKEN['subempresa']->id : 0;
     }
 
     /**
