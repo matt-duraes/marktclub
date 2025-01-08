@@ -47,6 +47,7 @@ final class LogErroController extends Controller implements
                 $request->arquivo,
                 $request->linha,
                 $request->trace,
+                $request->url
             );
 
             $Error->salvar();
@@ -83,7 +84,9 @@ final class LogErroController extends Controller implements
                     'trace',
                     'quantidade',
                     'status_http',
+                    'url',
                     'data_criacao',
+                    'data_atualizacao',
                     'status'
                 ]
             ),
