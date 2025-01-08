@@ -44,7 +44,8 @@ final class Scope
         'comercial_popup:listar',
         'carteirinha:listar',
         'enquete_satisfacao:salvar',
-        'view_pagina:buscar'
+        'view_pagina:buscar',
+        'galapagos_lead:salvar'
     ];
     public const CLUBE_LOGIN = [
         'admin:chave_publica', 'admin:chave_privada',
@@ -477,7 +478,9 @@ final class Scope
 
         'view_html:atualizar', 'view_html:buscar', 'view_html:deletar', 'view_html:listar',
         'view_html:salvar', 'view_pagina:atualizar', 'view_pagina:buscar', 'view_pagina:deletar',
-        'view_pagina:listar', 'view_pagina:salvar'
+        'view_pagina:listar', 'view_pagina:salvar',
+
+        'galapagos_lead:salvar'
     ];
 
     public function pegarScope(array $lista)

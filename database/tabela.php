@@ -47,6 +47,7 @@ define('TABELA_DEMANDA_TRABALHO', 'demanda_trabalho');
 define('TABELA_DOWNLOAD_PRIVADO', 'download_privado');
 define('TABELA_EMAIL_AUTOMATICO', 'email_automatico');
 define('TABELA_ENQUETE_SATISFACAO', 'enquete_satisfacao');
+define('TABELA_GALAPAGOS_LEAD', 'galapagos_lead');
 define('TABELA_LOG_ERRO', 'log_erro');
 define('TABELA_MENSAGEM_CARRO_NOVO', 'mensagem_carro_novo');
 define('TABELA_MENSAGEM_INDICACAO_NOVO', 'mensagem_indicacao_novo');

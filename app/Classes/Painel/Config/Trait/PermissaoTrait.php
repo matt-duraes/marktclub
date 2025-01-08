@@ -35,6 +35,12 @@ trait PermissaoTrait
                 );
             }
         )->montarArrayPermissao(
+            titulo: 'Indique e Concorra - Comercial',
+            indice: 'indique_concorra',
+            index: true,
+            add: true,
+            scope: 'comercial_empresa'
+        )->montarArrayPermissao(
             titulo: 'Comercial Atendimento',
             indice: 'comercial_atendimento',
             index: true,
@@ -477,7 +483,7 @@ trait PermissaoTrait
                     ],
                     'parceiro_loja_download'           => [
                         'titulo' => Titulo::DOWNLOAD,
-                        'scope'  => 'parceiro_loja:download'
+                        'scope'  => ['parceiro_loja:download', 'mensageria:salvar']
                     ],
                     'parceiro_loja_status'             => [
                         'titulo' => Titulo::STATUS,
@@ -525,7 +531,7 @@ trait PermissaoTrait
                     ],
                     'parceiro_externo_download'   => [
                         'titulo' => Titulo::DOWNLOAD,
-                        'scope'  => 'parceiro_externo:download'
+                        'scope'  => ['parceiro_externo:download', 'mensageria:salvar']
                     ],
                     'parceiro_externo_equipe'     => Titulo::EQUIPE,
                     'parceiro_externo_empresa'    => Titulo::EMPRESA
@@ -680,7 +686,7 @@ trait PermissaoTrait
                     ],
                     'solicitacao_loja_download'   => [
                         'titulo' => Titulo::DOWNLOAD,
-                        'scope'  => 'solicitacao_loja:download'
+                        'scope'  => ['solicitacao_loja:download', 'mensageria:salvar']
                     ],
                     'solicitacao_loja_status'     => [
                         'titulo' => Titulo::STATUS,
@@ -702,7 +708,7 @@ trait PermissaoTrait
                     ],
                     'solicitacao_voucher_download'   => [
                         'titulo' => Titulo::DOWNLOAD,
-                        'scope'  => 'solicitacao_voucher:download'
+                        'scope'  => ['solicitacao_voucher:download', 'mensageria:salvar']
                     ],
                     'solicitacao_voucher_empresa'    => Titulo::EMPRESA
                 ]
@@ -720,7 +726,7 @@ trait PermissaoTrait
                     ],
                     'solicitacao_premium_download'   => [
                         'titulo' => Titulo::DOWNLOAD,
-                        'scope'  => 'solicitacao_premium:download'
+                        'scope'  => ['solicitacao_premium:download', 'mensageria:salvar']
                     ],
                     'solicitacao_premium_empresa'    => Titulo::EMPRESA
                 ]
@@ -734,7 +740,7 @@ trait PermissaoTrait
                     ],
                     'solicitacao_salavip_download' => [
                         'titulo' => Titulo::DOWNLOAD,
-                        'scope'  => 'solicitacao_salavip:download'
+                        'scope'  => ['solicitacao_salavip:download', 'mensageria:salvar']
                     ],
                     'solicitacao_salavip_empresa'  => Titulo::EMPRESA
                 ]

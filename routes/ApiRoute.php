@@ -1848,7 +1848,7 @@ Route
             ::nome('listar')
             ::middleware(TokenMiddleware::class, 'scope', ['comercial_empresa:listar'])
             ::request([
-                'pagina', '!pesquisa', '!titulo', '!cnpj', '!usuario',
+                'pagina', '!pesquisa', '!titulo', '!cnpj', '!usuario', '!dono',
                 '!prospeccao_status', '!status', '!quantidade', '!ordem'
             ], 'json')
             ::get('/comercial-empresa');
@@ -1872,7 +1872,7 @@ Route
             ::request([
                 '!titulo', '!finalidade_principal', '!finalidade_secundaria', '!nome_fantasia', '!razao_social',
                 '!site', '!responsavel_nome', '!responsavel_cargo', '!responsavel_email', '!responsavel_telefone',
-                '!responsavel_cpf', '!equipe', '!tipo_pagamento', '!contrato_valor', '!renda_media', '!produto_clube',
+                '!responsavel_cpf', '!equipe', '!dono', '!tipo_pagamento', '!contrato_valor', '!renda_media', '!produto_clube',
                 '!produto_ios', '!produto_android', '!produto_site', '!produto_webview', '!produto_api', '!cnpj',
                 '!estado_principal', '!status', '!data_eleicao', '!email_dia', '!whatsapp_dia', '!rede_social_dia',
                 '!contrato_prazo', '!contrato_renovacao', '!tipo_site', '!cadastro_usuario', '!comunicacao_email',
@@ -1892,7 +1892,7 @@ Route
             ::request([
                 '!titulo', '!finalidade_principal', '!finalidade_secundaria', '!nome_fantasia', '!razao_social',
                 '!site', '!responsavel_nome', '!responsavel_cargo', '!responsavel_email', '!responsavel_telefone',
-                '!responsavel_cpf', '!equipe', '!tipo_pagamento', '!contrato_valor', '!renda_media', '!produto_clube',
+                '!responsavel_cpf', '!equipe', '!dono', '!tipo_pagamento', '!contrato_valor', '!renda_media', '!produto_clube',
                 '!produto_ios', '!produto_android', '!produto_site', '!produto_webview', '!produto_api', '!cnpj',
                 '!estado_principal', '!status', '!data_eleicao', '!email_dia', '!whatsapp_dia', '!rede_social_dia',
                 '!contrato_prazo', '!contrato_renovacao', '!tipo_site', '!cadastro_usuario', '!comunicacao_email',
@@ -3488,4 +3488,19 @@ Route
             ::nome('deletar')
             ::middleware(TokenMiddleware::class, 'scope', ['publicacao_lista:deletar'])
             ::delete('/publicacao-lista/{id}');
+    });
+
+Route
+    ::nome('galapagosLead')
+    ::controller(App\Controllers\Api\Galapagos\LeadController::class)
+    ::middleware(TokenMiddleware::class, 'token')
+    ::grupo(function () {
+        Route
+            ::nome('salvar')
+            ::middleware(TokenMiddleware::class, 'scope', ['galapagos_lead:salvar'])
+            ::request([
+                'nome', 'email', 'telefone', 'termo'
+            ])
+            ::criptografia(['nome', 'email', 'telefone'])
+            ::post('/galapagos-lead');
     });
