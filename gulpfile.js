@@ -3,9 +3,10 @@ const prop = require('yargs').argv;
 const { watch, parallel, series } = require('gulp');
 const { cssUnico, cssTodos, cssDeploy } = require('./src/Gulpfile/css.js');
 const { jsUnico, jsTodos, jsDeploy } = require('./src/Gulpfile/js.js');
-const { htmlUnico, htmlTodos, htmlDeploy } = require('./src/Gulpfile/html.js');
+const { htmlUnico, htmlTodos } = require('./src/Gulpfile/html.js');
 const { configVerificar } = require('./src/Gulpfile/config.js');
 const { phpCsFixer } = require('./src/Gulpfile/php.js');
+const { imagemTodos } = require('./src/Gulpfile/imagem.js');
 
 const {
     buildCopiarComposerConfig,
@@ -43,15 +44,6 @@ exports.js = series(copiandoArquivosJS);
 exports.html = series(copiandoArquivosHtml);
 exports.tabela = series(copiandoArquivosCSS);
 
-// Deploy em produção
-exports.deploy = series(
-    parallel(
-        series(copiandoArquivosJS, preparandoJSParaProducao),
-        series(copiandoArquivosHtml, preparandoHtmlParaProducao)
-    ),
-    series(copiandoArquivosCSS, preparandoCSSParaProducao)
-);
-
 // Instalar o framework
 exports.install = series(
     verificarSePrecisaConfigurar,
@@ -77,7 +69,23 @@ exports.install = series(
 exports.commit = series(limpandoArquivosDoMac);
 
 // Build projeto em desenvolvimento
-exports.build = parallel(copiandoArquivoIndex, copiandoArquivosJS, copiandoArquivosHtml, copiandoArquivosCSS);
+exports.build = parallel(
+    copiandoArquivoIndex,
+    copiandoArquivosJS,
+    copiandoArquivosHtml,
+    copiandoArquivosCSS,
+    copiandoArquivosDeImagem
+);
+
+// Deploy em produção
+exports.deploy = parallel(
+    copiandoArquivoIndex,
+    series(copiandoArquivosJS, preparandoJSParaProducao),
+    series(copiandoArquivosHtml),
+    series(copiandoArquivosDeImagem),
+    series(copiandoArquivosCSS, preparandoCSSParaProducao)
+);
+
 exports.composerBugfix = series(corrigindoBugDoComposer);
 
 /*
@@ -154,6 +162,14 @@ async function monitorarSistema() {
             consoleFooter(time);
         }
     );
+
+    // IMAGEM
+    watch(['./views/images/**/*']).on('all', async () => {
+        const time = new Date().getTime();
+        consoleHeader();
+        await imagemTodos();
+        consoleFooter(time);
+    });
 }
 
 function sistemaInicializado() {
@@ -243,10 +259,10 @@ function copiandoArquivosHtml() {
     return htmlTodos();
 }
 
-function preparandoHtmlParaProducao() {
-    return htmlDeploy();
-}
-
 function criandoPaginaExemplo() {
     return buildPaginaExemplo();
+}
+
+function copiandoArquivosDeImagem() {
+    return imagemTodos();
 }

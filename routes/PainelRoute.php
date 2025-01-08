@@ -15,6 +15,8 @@ require_once ROOT . '/views/pages/painel/usuario_apple/Routes/UsuarioAppleRoute.
 |--------------------------------------------------------------------------
 */
 
+Route::noIndex();
+
 Route
     ::middleware(
         classe: App\Middlewares\Painel\AuthMiddleware::class,

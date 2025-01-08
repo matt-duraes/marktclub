@@ -22,15 +22,16 @@ class ApiHelper extends CurlHelper
         string|bool $token = false,
         string $clientId = null,
         string $secretId = null,
-        string $audience = null
+        string $audience = null,
+        string $link = null
     ) {
         $this->clientId = !empty($clientId) ? $clientId : env('API_CLIENT_ID');
         $this->secretId = !empty($secretId) ? $secretId : env('API_SECRET_ID');
         $this->audience = !empty($audience) ? $audience : env('API_AUDIENCE');
-
         $this->apiHelper = true;
 
-        parent::__construct(env('API_LINK', LINK_API));
+        $linkApi = !empty($link) ? $link : env('API_LINK', LINK_API);
+        parent::__construct($linkApi);
         if (!empty($scope)) {
             $this->autenticar($this->limparScope($scope));
         } elseif (is_bool($token) && $token) {

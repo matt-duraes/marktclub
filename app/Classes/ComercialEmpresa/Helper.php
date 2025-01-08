@@ -4,6 +4,7 @@ namespace App\Classes\ComercialEmpresa;
 
 final class Helper
 {
+    public const PERMISSAO_VISUALIZAR = 'comercial_empresa:visualizar';
     public const CRIPTOGRAFAR = [
         'usuario' => ['nome', 'perfil', 'imagem'],
         'titulo', 'nome_fantasia', 'razao_social', 'responsavel_nome', 'responsavel_cargo', 'responsavel_email',

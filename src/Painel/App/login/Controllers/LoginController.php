@@ -8,7 +8,6 @@ use Helpers\AuthHelper;
 use Controller\Controller;
 use PainelApp\login\Models\LoginFormModel;
 use PainelApp\login\Models\LoginInterface;
-use PainelApp\login\Models\LoginSocialModel;
 use PainelApp\login\Models\LoginAutorizadoModel;
 
 final class LoginController extends Controller
@@ -39,30 +38,6 @@ final class LoginController extends Controller
         $Login = new LoginFormModel(
             login: $request->login,
             senha: $request->senha
-        );
-
-        return $this->loginRealizado($Login);
-    }
-
-    /*
-    |--------------------------------------------------------------------------
-    | LOGIN SOCIAL
-    |--------------------------------------------------------------------------
-    */
-    public function postSocial(Request $request)
-    {
-        $mensagemErro = 'Ocorre um erro ao fazer login, por favor, tente novamente.';
-        $request
-            ->vazio('rede', $mensagemErro)
-            ->vazio('id', $mensagemErro)
-            ->vazio('token', $mensagemErro)
-            ->vazio('code', $mensagemErro);
-
-        $Login = new LoginSocialModel(
-            rede: $request->rede,
-            id: $request->id,
-            accessToken: $request->token,
-            code: $request->code
         );
 
         return $this->loginRealizado($Login);

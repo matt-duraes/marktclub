@@ -47,8 +47,10 @@ final class RequisicaoEnviar
         $body = jsonDecode($post['body'], true, true);
         $json = jsonDecode($post['json'], true, true);
 
-        if (sessaoExiste($this->nomeToken)) {
-            $this->header[] = ['texto', 'Authorization', 'Bearer ' . sessao($this->nomeToken)];
+        if (sessaoExiste($this->nomeToken) && is_array(sessao($this->nomeToken)) && validarIndiceExiste(sessao($this->nomeToken), ['token', 'publica', 'privada'])) {
+            $tokenExistente = sessao($this->nomeToken);
+            $this->setarCryptPelaChave($tokenExistente['publica'], $tokenExistente['privada']);
+            $this->header[] = ['texto', 'Authorization', 'Bearer ' . $tokenExistente['token'] ?? ''];
         } elseif ($token == 'token') {
             $this->criarToken($scope);
         } elseif ($token == 'painel') {
@@ -72,6 +74,7 @@ final class RequisicaoEnviar
         $retorno['retorno'] = $dado->retorno;
         $retorno['codigo_html'] = $dado->status;
         $retorno['requisicao'] = $this->requisicao;
+        $retorno['header'] = $dado->header;
         $this->retorno = $retorno;
     }
 
@@ -184,8 +187,7 @@ final class RequisicaoEnviar
             ],
             header: ['Authorization' => 'Bearer ' . $header]
         );
-        $token = $this->pegarToken($token);
-        $this->header[] = ['texto', 'Authorization', 'Bearer ' . $token];
+        $this->setarTokenComLogin($this->pegarToken($token));
     }
 
     private function verificarClasseExiste($nome)
@@ -194,9 +196,17 @@ final class RequisicaoEnviar
         if (empty($Token->token)) {
             mensagemErro('Erro!', 'Não foi possível criar o token para: ' . $nome . '.');
         }
+        $this->setarTokenComLogin($Token->token);
+    }
 
-        $token = $Token->token;
-        sessao($this->nomeToken, $token);
+    private function setarTokenComLogin($token)
+    {
+        $chave = $this->setarCryptPorToken($token);
+        sessao($this->nomeToken, [
+            'token'   => $token,
+            'publica' => $chave['publica'],
+            'privada' => $chave['privada'],
+        ]);
         $this->header[] = ['texto', 'Authorization', 'Bearer ' . $token];
     }
 }

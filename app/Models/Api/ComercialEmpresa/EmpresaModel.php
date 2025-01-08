@@ -126,6 +126,15 @@ final class EmpresaModel extends ORM implements ModelListarInterface
         if (!empty($idEquipe)) {
             $where[] = ['id_usuario_equipe', $idEquipe];
         }
+        // DONO
+        $dono = $this->request->dono;
+        $idDono = '';
+        if (!empty($dono)) {
+            $idDono = (new OrmHelper(TABELA_USUARIO_EQUIPE))->pegarIdPeloUuid($dono);
+        }
+        if (!empty($idDono)) {
+            $where[] = ['id_usuario_dono', $idDono];
+        }
 
         return $where;
     }

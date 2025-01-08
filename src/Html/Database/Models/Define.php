@@ -17,7 +17,7 @@ try {
     }
 
     if ($listaDefine) {
-        file_put_contents(ROOT . '/database/tabela.php', '<?php ' . PHP_EOL . PHP_EOL . implode(PHP_EOL, $listaDefine) . PHP_EOL);
+        file_put_contents(ROOT . '/database/tabela.php', '<?php' . PHP_EOL . PHP_EOL . implode(PHP_EOL, $listaDefine) . PHP_EOL);
     }
 } catch (\Throwable $th) {
     echo json_encode(['status' => 'erro', 'mensagem' => 'Erro ao configurar tabelas - ' . $th->getMessage()]);

@@ -28,6 +28,10 @@ final class TokenCriado
 
     private function pegarToken()
     {
-        $this->token = $this->classe[$this->valor]->retornarToken();
+        $retorno = $this->classe[$this->valor]->retornarToken();
+        if (is_array($retorno) && array_key_exists('erro', $retorno) && array_key_exists('mensagem', $retorno)) {
+            mensagemErro('Erro!', $retorno['mensagem']);
+        }
+        $this->token = is_string($retorno) ? $retorno : '';
     }
 }

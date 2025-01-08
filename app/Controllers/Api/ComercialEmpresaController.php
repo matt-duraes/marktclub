@@ -98,7 +98,7 @@ final class ComercialEmpresaController extends Controller implements
             pegarPropriedadeDaEntity(
                 $Empresa,
                 lista: [
-                    'equipe', 'finalidade_principal', 'finalidade_secundaria', 'imagem',
+                    'equipe', 'dono', 'finalidade_principal', 'finalidade_secundaria', 'imagem',
                     'titulo', 'nome_fantasia', 'razao_social', 'slug', 'valor_pago', 'cobrar_aposentado',
                     'site', 'gerente_contas', 'responsavel_nome', 'responsavel_email', 'responsavel_telefone', 'responsavel_cpf',
                     'responsavel_cargo', 'tipo_pagamento', 'contrato_valor', 'contrato_valor_minimo', 'contrato_usuario_minimo',
