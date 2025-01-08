@@ -4,8 +4,8 @@ namespace Painel\TabelaUsuario\Controllers;
 
 use Http\Request;
 use Http\Response;
-use Controller\Controller;
 use Helpers\ApiHelper;
+use Controller\Controller;
 use Painel\TabelaUsuario\Models\AnalisarModel;
 
 final class TabelaController extends Controller
@@ -51,8 +51,10 @@ final class TabelaController extends Controller
 
     public function postSalvar(Request $request)
     {
-        $obrigatorio = sessao('PAINEL.obrigatorio')->usuario_cliente;
-
+        $obrigatorio = sessao('PAINEL.obrigatorio');
+        if(is_object($obrigatorio) && validarIndiceExiste($obrigatorio, 'usuario_cliente')) {
+            $obrigatorio = $obrigatorio->usuario_cliente;
+        }
         if (empty($obrigatorio)) {
             return mensagemErro('Campo vazio!', 'Campos obrigatórios não preenchidos.');
         }
