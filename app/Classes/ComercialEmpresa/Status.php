@@ -10,20 +10,23 @@ final class Status extends StatusStatus
     public const INATIVO = 'inativo';
     public const PROSPECCAO = 'prospeccao';
     public const STANDBY = 'standby';
+    public const SEM_RESULTADO = 'sem-resultado';
 
     public function __construct(
         protected string|int|null $valor = null
     ) {
         parent::__construct([
-            self::ATIVO      => 'Ativo',
-            self::INATIVO    => 'Inativo',
-            self::PROSPECCAO => 'Em prospecção',
-            self::STANDBY    => 'Stand-by'
+            self::ATIVO         => 'Ativo',
+            self::INATIVO       => 'Inativo',
+            self::PROSPECCAO    => 'Em prospecção',
+            self::STANDBY       => 'Stand-by',
+            self::SEM_RESULTADO => 'Sem resultado'
         ], [
-            self::ATIVO      => 'verde',
-            self::INATIVO    => 'vermelho',
-            self::PROSPECCAO => 'azul',
-            self::STANDBY    => 'amarelo'
+            self::ATIVO         => 'verde',
+            self::INATIVO       => 'vermelho',
+            self::PROSPECCAO    => 'azul',
+            self::STANDBY       => 'amarelo',
+            self::SEM_RESULTADO => 'preto',
         ]);
     }
 }

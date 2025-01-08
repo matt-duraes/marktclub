@@ -27,14 +27,16 @@ if (!function_exists('view')) {
         array $var = [],
         array $header = [],
         ?string $css = null,
-        ?string $js = null
+        ?string $js = null,
+        bool $cache = false
     ): Response {
         $Render = new Render(
             arquivo: $arquivo,
             var: $var,
             header: $header,
             css: $css,
-            js: $js
+            js: $js,
+            cacheHeader: $cache
         );
         return $Render->response();
     }

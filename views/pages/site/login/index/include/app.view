@@ -28,7 +28,7 @@
     <figure>
         <img class="celularmobile" src="@imagem /images/login/celular.png">
         <div class="qr_code">
-            <img src="{!!imagem('https://qrcode.youhuul.com/link?link=' . route('login.app'))!!}" width="200">
+            <img src="https://qrcode.youhuul.com/link?link={!!LINK!!}/login/app" width="200">
             <figure class="img_celular_app"></figure>
             <h1>ESCANEIE</h1>
             <span class="span_baixar">PARA BAIXAR</span>

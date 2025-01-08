@@ -2,6 +2,7 @@ const { src, dest } = require('gulp');
 const htmlMin = require('gulp-htmlmin');
 const glob = require('glob');
 const fs = require('fs');
+const filter = require('gulp-filter');
 const plumber = require('gulp-plumber');
 const { mensagemErro, mensagemSucesso } = require('./mensagem');
 const {
@@ -21,7 +22,13 @@ const {
 exports.htmlDeploy = function () {
     return src('files/build/views/**/*.php')
         .pipe(plumber())
-        .pipe(htmlMin({ collapseWhitespace: true }))
+        .pipe(
+            htmlMin({
+                collapseWhitespace: true,
+                removeComments: true,
+                ignoreCustomFragments: [/<\?php[\s\S]*?(?=\?>)/g, /<\?=[\s\S]*?(?=\?>)/g],
+            })
+        )
         .pipe(dest('files/build/views/'));
 };
 

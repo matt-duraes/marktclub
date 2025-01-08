@@ -20,12 +20,6 @@ if (file_exists(__DIR__ . '/../../database/tabela.php')) {
     require_once __DIR__ . '/../../database/tabela.php';
 }
 
-$__cacheVida = env('CACHE_VIDA', '');
-if (!empty($__cacheVida)) {
-    header('Expires: ' . gmdate('D, d M Y H:i:s', time() + $__cacheVida) . ' GMT');
-    header('Cache-Control: max-age=' . $__cacheVida);
-    header('Pragma: cache');
-}
 header('Strict-Transport-Security: max-age=63072000; includeSubDomains; preload');
 header('X-Frame-Options: DENY');
 
@@ -107,9 +101,6 @@ if ($requestUri == '__endereco-cep' && METODO == 'POST') {
     exit();
 } elseif ($diretorioStatus === true && str_starts_with($requestUri, 'aqiornm.') && METODO == 'GET') {
     require_once __DIR__ . '/../Html/Arquivo/nome.php';
-    exit();
-} elseif ($requestUri == 'images' && METODO == 'GET') {
-    require_once __DIR__ . '/../Html/Arquivo/view.php';
     exit();
 } elseif ($requestUri == 'fw-erro-status' && METODO == 'POST') {
     require_once __DIR__ . '/../Html/Erro/projeto.php';

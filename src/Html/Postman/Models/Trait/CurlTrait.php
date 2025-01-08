@@ -51,6 +51,19 @@ trait CurlTrait
             }
             curl_setopt($ch, CURLOPT_HTTPHEADER, $headerFinal);
         }
+
+        $retornoHeader = [];
+        curl_setopt($ch, CURLOPT_HEADERFUNCTION, function ($ch, $valor) use (&$retornoHeader) {
+            $matches = [];
+
+            if (preg_match('/^([^:]+)\s*:\s*([^\x0D\x0A]*)\x0D?\x0A?$/', $valor, $matches)) {
+                $ind = mb_strtolower($matches[1], 'UTF-8');
+                $retornoHeader[$ind] = $matches[2];
+            }
+
+            return strlen($valor);
+        });
+
         $retorno = curl_exec($ch);
         $status = curl_getinfo($ch, CURLINFO_HTTP_CODE);
         $erro = curl_error($ch);
@@ -61,12 +74,14 @@ trait CurlTrait
             'link'   => $link,
             'body'   => $requestBody,
             'header' => $header,
-            'metodo' => $metodo
+            'metodo' => $metodo,
+            'tempo'  => $info['total_time'] ?? 'Erro'
         ];
 
         return (object)[
             'retorno' => $retorno,
             'status'  => $status,
+            'header'  => $retornoHeader,
         ];
     }
 }

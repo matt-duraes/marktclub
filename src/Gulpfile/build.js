@@ -4,7 +4,7 @@ const { fsVerificarSeArquivoExiste, fsCriarDiretorio, fsDeletarDiretorio, fsCopi
 const exec = require('gulp-exec');
 const replace = require('gulp-replace');
 const plumber = require('gulp-plumber');
-const { mensagemErro, mensagemSucesso } = require('./mensagem.js');
+const { mensagemSucesso } = require('./mensagem.js');
 let config;
 
 exports.buildCopiarIndex = () => {
@@ -92,7 +92,7 @@ exports.buildDocker = async () => {
         config = JSON.parse(fs.readFileSync('./files/config/gulp.json'));
     }
 
-    const public = config.public;
+    const diretorioPublico = config.public;
     const nome = config.nome;
     const portaHttps = config.docker.https;
     const portaHttp = config.docker.http;
@@ -106,7 +106,7 @@ exports.buildDocker = async () => {
 
     src('./src/Files/docker_host/default')
         .pipe(plumber())
-        .pipe(replace('{{public}}', public))
+        .pipe(replace('{{public}}', diretorioPublico))
         .pipe(dest('./files/docker_host'));
 
     return src('./src/Files/raiz/docker-compose.yml')
@@ -127,7 +127,7 @@ exports.buildEnv = async () => {
     }
 
     const titulo = config.titulo;
-    const public = config.public;
+    const diretorioPublico = config.public;
     const dbHost = config.nome != '' ? 'db-' + config.nome : '';
     const dbBanco = config.banco.nome;
     const dbSenha = config.banco.senha;
@@ -140,7 +140,7 @@ exports.buildEnv = async () => {
     return src('./src/Files/env/.env')
         .pipe(plumber())
         .pipe(replace('{{titulo}}', titulo))
-        .pipe(replace('{{public}}', public.replace(/\//g, '')))
+        .pipe(replace('{{public}}', diretorioPublico.replace(/\//g, '')))
         .pipe(replace('{{db_host}}', dbHost))
         .pipe(replace('{{db_banco}}', dbBanco))
         .pipe(replace('{{db_usuario}}', dbSenha))
@@ -177,7 +177,7 @@ exports.buildDiretorios = async () => {
     if (config == undefined) {
         config = JSON.parse(fs.readFileSync('./files/config/gulp.json'));
     }
-    const public = config.public;
+    const diretorioPublico = config.public;
 
     await fsCriarDiretorio('./app');
     await fsCriarDiretorio('./app/Classes');
@@ -201,7 +201,7 @@ exports.buildDiretorios = async () => {
     await fsCriarDiretorio('./files/phpmussel/quarentena');
     await fsCriarDiretorio('./files/sessions');
     await fsCriarDiretorio('./files/sessions');
-    await fsCriarDiretorio('./' + public);
+    await fsCriarDiretorio('./' + diretorioPublico);
     await fsCriarDiretorio('./chave');
     await fsCriarDiretorio('./resources');
     await fsCriarDiretorio('./resources/css');
@@ -229,11 +229,11 @@ exports.buildArquivosPublico = () => {
     if (config == undefined) {
         config = JSON.parse(fs.readFileSync('./files/config/gulp.json'));
     }
-    const public = config.public;
+    const diretorioPublico = config.public;
 
     return src(['./src/Files/public/.htaccess', './src/Files/public/robots.txt', './src/Files/public/index.php'])
         .pipe(plumber())
-        .pipe(dest('./' + public));
+        .pipe(dest('./' + diretorioPublico));
 };
 
 exports.buildPaginaExemplo = async () => {
@@ -244,16 +244,16 @@ exports.buildPaginaExemplo = async () => {
     if (config == undefined) {
         config = JSON.parse(fs.readFileSync('./files/config/gulp.json'));
     }
-    const public = config.public;
+    const diretorioPublico = config.public;
 
     await fsCriarDiretorio('./app/Controllers/Site');
-    await fsCriarDiretorio('./' + public + '/css');
+    await fsCriarDiretorio('./' + diretorioPublico + '/css');
     await fsCriarDiretorio('./views/pages/site');
     await fsCriarDiretorio('./views/pages/site/exemplo');
 
     src(['src/Files/exemplo/pages/css/site_exemplo.css'])
         .pipe(plumber())
-        .pipe(dest('./' + public + '/css'));
+        .pipe(dest('./' + diretorioPublico + '/css'));
     src(['src/Files/exemplo/pages/css/layout.styl']).pipe(plumber()).pipe(dest('./views/pages/site/exemplo/css'));
     src(['src/Files/exemplo/pages/index.view']).pipe(plumber()).pipe(dest('./views/pages/site/exemplo'));
     src(['src/Files/exemplo/ExemploController.php']).pipe(plumber()).pipe(dest('./app/Controllers/Site'));

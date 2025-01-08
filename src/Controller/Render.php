@@ -20,16 +20,17 @@ final class Render
     private string $diretorioView = '';
     private string $viewPath = '';
     private string $viewNome = '';
-    private string $cache;
     private string $public;
     private string $securityPolicy = '';
+    private string $cache = '';
 
     public function __construct(
         private string $arquivo,
         private ?array $var = [],
         private ?array $header = [],
         private ?string $css = '',
-        private ?string $js = ''
+        private ?string $js = '',
+        private bool $cacheHeader = false
     ) {
         $this->setarPropriedade();
         $this->montarNomeArquivo();
@@ -57,6 +58,16 @@ final class Render
 
     public function response(): Response
     {
+        $tempoVida = env('CACHE_VIDA', '');
+        if ($this->cacheHeader && !empty($tempoVida)) {
+            $this->header[] = ['Expires' => gmdate('D, d M Y H:i:s', time() + $tempoVida) . ' GMT'];
+            $this->header[] = ['Cache-Control' => 'max-age=' . $tempoVida];
+            $this->header[] = ['Pragma' => 'cache'];
+        } else {
+            $this->header[] = ['Expires' => '0'];
+            $this->header[] = ['Cache-Control' => 'no-cache, no-store, must-revalidate'];
+            $this->header[] = ['Pragma' => 'no-cache'];
+        }
         return new Response($this->html, header: $this->header);
     }
 }
