@@ -34,7 +34,6 @@ final class AcessoDiaModel extends ORM
     }
 
     /**
-     * @return void
      * @throws Excecao
      */
     private function validarRequest(): void

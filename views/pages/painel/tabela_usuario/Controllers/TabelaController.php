@@ -52,7 +52,7 @@ final class TabelaController extends Controller
     public function postSalvar(Request $request)
     {
         $obrigatorio = sessao('PAINEL.obrigatorio');
-        if(is_object($obrigatorio) && validarIndiceExiste($obrigatorio, 'usuario_cliente')) {
+        if (is_object($obrigatorio) && validarIndiceExiste($obrigatorio, 'usuario_cliente')) {
             $obrigatorio = $obrigatorio->usuario_cliente;
         }
         if (empty($obrigatorio)) {

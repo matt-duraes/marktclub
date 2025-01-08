@@ -128,7 +128,6 @@ final class LojaVendaModel extends ORM
     /**
      * @param array $analytics
      *
-     * @return void
      */
     private function somarTodos(array $analytics): void
     {

@@ -34,7 +34,6 @@ final class UsuarioMaisAcessoModel extends ORM
     }
 
     /**
-     * @return void
      * @throws Excecao
      */
     private function validarRequest(): void

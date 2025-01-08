@@ -2,7 +2,6 @@ const { src, dest } = require('gulp');
 const htmlMin = require('gulp-htmlmin');
 const glob = require('glob');
 const fs = require('fs');
-const filter = require('gulp-filter');
 const plumber = require('gulp-plumber');
 const { mensagemErro, mensagemSucesso } = require('./mensagem');
 const {

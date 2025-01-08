@@ -100,7 +100,7 @@ final class Config
     private function pegarRotaUso(): void
     {
         $path = ROOT . '/routes/' . $this->rota . 'Route.php';
-        if(!file_exists($path)) {
+        if (!file_exists($path)) {
             mensagemStatus(404);
         }
         require_once $path;
