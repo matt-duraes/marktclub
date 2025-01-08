@@ -2,7 +2,7 @@
 
 return [
     'titulo'     => 'Automóvel',
-    'buscar'     => false,
+    'buscar'     => true,
     'filtrar'    => true,
     'ordem'      => true,
     'visualizar' => true,

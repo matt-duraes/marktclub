@@ -2,21 +2,21 @@
 
 namespace App\Controllers\Api;
 
-use App\Classes\Solicitacao\Status;
-use App\Classes\SolicitacaoAutomovel\Ordem;
-use App\Models\Api\SolicitacaoAutomovel\AutomovelEntity;
-use App\Models\Api\SolicitacaoAutomovel\AutomovelModel;
-use Controller\Controller;
 use Erro\Excecao;
 use Http\Request;
-use Http\Response;
 use Modules\Data;
+use Http\Response;
 use Modules\Pagina;
 use Modules\Quantidade;
-use System\Interface\ControllerAtualizarInterface;
+use Controller\Controller;
+use App\Classes\Solicitacao\Status;
+use App\Classes\SolicitacaoAutomovel\Ordem;
 use System\Interface\ControllerBuscarInterface;
 use System\Interface\ControllerListarInterface;
 use System\Interface\ControllerSalvarInterface;
+use System\Interface\ControllerAtualizarInterface;
+use App\Models\Api\SolicitacaoAutomovel\AutomovelModel;
+use App\Models\Api\SolicitacaoAutomovel\AutomovelEntity;
 
 class SolicitacaoAutomovelController extends Controller implements
     ControllerBuscarInterface,
@@ -68,6 +68,8 @@ class SolicitacaoAutomovelController extends Controller implements
             new Pagina($request->pagina),
             new Quantidade($request->quantidade),
             new Ordem($request->ordem),
+            $request->montadora,
+            $request->pesquisa,
             $request->empresa,
             new Data($request->data_inicio),
             new Data($request->data_final),
