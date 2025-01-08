@@ -2,9 +2,10 @@
 
 namespace App\Models\Api\Analytics;
 
-use ORM\ORM;
-use Modules\Data;
 use App\Models\Api\Analytics\Trait\WhereTrait;
+use Erro\Excecao;
+use Modules\Data;
+use ORM\ORM;
 
 final class DispositivoModel extends ORM
 {
@@ -12,46 +13,87 @@ final class DispositivoModel extends ORM
 
     protected string $ormTabela = TABELA_ANALYTICS_DISPOSITIVO;
 
+    /**
+     * @param Data              $dataInicial Filtra por Data Inicial
+     * @param Data              $dataFinal   Filtra por Data Final
+     * @param array|string|null $empresa     Filtra por Empresa. String uma, Array varias
+     * @param array|string|null $subempresa  Filtra por Subempresa. String uma, Array varias
+     *
+     * @throws Excecao
+     */
     public function __construct(
-        protected Data $de,
-        protected Data $ate,
-        private string|array|null $Empresa = null
+        private readonly Data $dataInicial = new Data(),
+        private readonly Data $dataFinal = new Data(),
+        private readonly array|string|null $empresa = null,
+        private readonly array|string|null $subempresa = null
     ) {
+        $this->validarRequest();
+        $this->setarIdEmpresa();
+        $this->setarIdSubempresa();
         parent::__construct();
     }
 
-    public function listarDado(): array
+    /**
+     * @throws Excecao
+     */
+    private function validarRequest(): void
     {
-        $lista = $this
-            ->campo(['quantidade', 'dispositivo'])
-            ->where($this->pegarWherePadrao())
-            ->order('quantidade', 'DESC')
-            ->limit(0, 20)
-            ->read();
-
-        return $this->montarDado($lista);
+        if ($this->dataInicial->vazio()) {
+            mensagemErro('Campo inválido!', 'A data de início da busca é obrigatória.');
+        } elseif ($this->dataFinal->vazio()) {
+            mensagemErro('Campo inválido!', 'A data final da busca é obrigatória.');
+        } elseif (!$this->dataInicial->valido()) {
+            mensagemErro('Campo inválido!', 'A data de início da busca não é válida.');
+        } elseif (!$this->dataFinal->valido()) {
+            mensagemErro('Campo inválido!', 'A data final da busca não é válida.');
+        }
     }
 
-    private function montarDado($lista)
+    /**
+     * @return array
+     * @throws Excecao
+     */
+    public function gerarRelatorio(): array
+    {
+        $analytics = $this
+            ->campo([
+                'quantidade', 'dispositivo'
+            ])
+            ->where($this->pegarWherePadrao())
+            ->order('quantidade')
+            ->limit(0, 20)
+            ->read();
+        return $this->montarRelatorio($analytics);
+    }
+
+    /**
+     * @param array $analytics
+     *
+     * @return array
+     */
+    private function montarRelatorio(array $analytics): array
     {
         $total = 0;
-        foreach ($lista as $r) {
-            $total += $r->quantidade;
+        foreach ($analytics as $item) {
+            $total += $item->quantidade;
         }
 
-        $dado = [];
-        foreach ($lista as $r) {
-            if (array_key_exists($r->dispositivo, $dado)) {
-                $dado[$r->dispositivo]['total'] += $r->quantidade;
-                $dado[$r->dispositivo]['porcentagem'] = porcentagem($dado[$r->dispositivo]['total'], $total);
+        $relatorio = [];
+        foreach ($analytics as $item) {
+            if (array_key_exists($item->dispositivo, $relatorio)) {
+                $relatorio[$item->dispositivo]['total'] += $item->quantidade;
+                $relatorio[$item->dispositivo]['porcentagem'] = porcentagem(
+                    $relatorio[$item->dispositivo]['total'],
+                    $total
+                );
                 continue;
             }
-            $dado[$r->dispositivo] = [
-                'dispositivo' => $r->dispositivo,
-                'total'       => $r->quantidade,
-                'porcentagem' => porcentagem($r->quantidade, $total)
+            $relatorio[$item->dispositivo] = [
+                'dispositivo' => $item->dispositivo,
+                'total'       => $item->quantidade,
+                'porcentagem' => porcentagem($item->quantidade, $total)
             ];
         }
-        return array_values($dado);
+        return array_values($relatorio);
     }
 }

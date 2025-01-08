@@ -8,7 +8,7 @@ trait TokenConstrutorTrait
 {
     private function buscarPathArquivo()
     {
-        $this->arquivo = listarArquivoDiretorio(ROOT . '/postman/token', final: 'Token', ext: ['php']);
+        $this->arquivo = listarArquivoDiretorio(ROOT . '/postman/Token', final: 'Token', ext: ['php']);
     }
 
     private function setarClasse()
@@ -19,7 +19,7 @@ trait TokenConstrutorTrait
             $namespace = '\\Postman\Token\\' . $nomeArquivo;
             if (!class_exists($namespace)) {
                 continue;
-            };
+            }
             $Classe = new $namespace();
             if (!$Classe instanceof TokenInterface) {
                 continue;

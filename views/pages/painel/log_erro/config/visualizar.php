@@ -13,8 +13,10 @@ $Painel->coluna(callback: function () use ($Painel) {
             ->linha('quantidade', 'Quantidade')
             ->linha('status_http', 'Status HTTP')
             ->linha('codigo', 'Código')
+            ->linha('url', 'URL')
             ->array('trace', 'Trace')
-            ->data('data_criacao', 'Data da criação')
+            ->dataHora('data_criacao', 'Data da criação')
+            ->dataHora('data_atualizacao', 'Data de atualização')
             ->linha('status', 'Status');
     });
     $Painel

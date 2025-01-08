@@ -1155,11 +1155,11 @@ if (!function_exists('stringArray')) {
         return $retorno;
     }
 }
-if (!function_exists('inKey')) {
+if (!function_exists('chaveExiste')) {
     /**
      * @param string|array   $lista String ou array com a lista de item a validar. Ex.: data->br
      * @param array|stdClass $item  Item que deseja validar
-     * @param bool           $vazio Se o valor existe mas for fazio, retorna false
+     * @param bool           $vazio Se o valor existe mas for vazio, retorna false
      */
     function chaveExiste(string|array $lista, array|stdClass $item, bool $vazio = false)
     {

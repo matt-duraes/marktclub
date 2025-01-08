@@ -99,7 +99,11 @@ final class Config
 
     private function pegarRotaUso(): void
     {
-        require_once ROOT . '/routes/' . $this->rota . 'Route.php';
+        $path = ROOT . '/routes/' . $this->rota . 'Route.php';
+        if (!file_exists($path)) {
+            mensagemStatus(404);
+        }
+        require_once $path;
         if ($this->rota == 'Painel') {
             require_once __DIR__ . '/route/PainelRoute.php';
         } elseif ($this->rota == 'Api') {

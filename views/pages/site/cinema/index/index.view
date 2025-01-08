@@ -2,8 +2,7 @@
 <div id="bloco_cinema">
 
     @view site/geral/banner.view
-
-    <div class="bloco_atencao_geral">
+    <div class="bloco_atencao_geral" id="bloco_aviso_cinema">
         <p>Agora você pode comprar ingressos para o cinema com até 50% de desconto em vários cinemas do país</p>
     </div>
 

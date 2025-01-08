@@ -2,11 +2,12 @@
 
 namespace App\Models\Api\Analytics;
 
-use Helpers\OrmHelper;
-use ORM\ORM;
-use Modules\Data;
-use App\Models\Api\Analytics\Trait\WhereTrait;
 use App\Classes\ParceiroLoja\TipoEstabelecimento;
+use App\Models\Api\Analytics\Trait\WhereTrait;
+use Erro\Excecao;
+use Helpers\OrmHelper;
+use Modules\Data;
+use ORM\ORM;
 
 final class LojaMaisAcessadaModel extends ORM
 {
@@ -14,33 +15,74 @@ final class LojaMaisAcessadaModel extends ORM
 
     protected string $ormTabela = TABELA_ANALYTICS_LOJA;
 
+    /**
+     * @param Data                $dataInicial
+     * @param Data                $dataFinal
+     * @param array|string|null   $empresa
+     * @param array|string|null   $subempresa
+     * @param array|string|null   $parceiro
+     * @param TipoEstabelecimento $tipoEstabelecimento
+     *
+     * @throws Excecao
+     */
     public function __construct(
-        protected Data $de,
-        protected Data $ate,
-        protected TipoEstabelecimento $estabelecimento,
-        private array|string|null $Empresa = null,
-        private array|string|null $parceiro = null
+        private readonly Data $dataInicial = new Data(),
+        private readonly Data $dataFinal = new Data(),
+        private readonly array|string|null $empresa = null,
+        private readonly array|string|null $subempresa = null,
+        private readonly array|string|null $parceiro = null,
+        private readonly TipoEstabelecimento $tipoEstabelecimento = new TipoEstabelecimento()
     ) {
+        $this->validarRequest();
+        $this->setarIdEmpresa();
+        $this->setarIdSubempresa();
         parent::__construct();
     }
 
-    public function listarDado(): array
+    /**
+     * @throws Excecao
+     */
+    private function validarRequest(): void
     {
-        $lista = $this
-            ->campo(['quantidade', 'parceiro_nome', 'id_parceiro_loja'])
-            ->where($this->pegarWhere(), false)
-            ->order('quantidade', 'DESC')
-            ->read();
-
-        return $this->montarDado($lista);
+        if ($this->dataInicial->vazio()) {
+            mensagemErro('Campo inválido!', 'A data de início da busca é obrigatória.');
+        } elseif ($this->dataFinal->vazio()) {
+            mensagemErro('Campo inválido!', 'A data final da busca é obrigatória.');
+        } elseif (!$this->dataInicial->valido()) {
+            mensagemErro('Campo inválido!', 'A data de início da busca não é válida.');
+        } elseif (!$this->dataFinal->valido()) {
+            mensagemErro('Campo inválido!', 'A data final da busca não é válida.');
+        }
+        if (!$this->tipoEstabelecimento->vazio() && !$this->tipoEstabelecimento->valido()) {
+            mensagemErro('Campo inválido!', 'O tipo de estabelecimento da busca não é válido.');
+        }
     }
 
-    private function pegarWhere()
+    /**
+     * @return array
+     * @throws Excecao
+     */
+    public function gerarRelatorio(): array
+    {
+        $analytics = $this
+            ->campo([
+                'id_parceiro_loja', 'parceiro_nome', 'quantidade'
+            ])
+            ->where($this->pegarWhere(), false)
+            ->order('quantidade')
+            ->read();
+        return $this->montarRelatorio($analytics);
+    }
+
+    /**
+     * @return array
+     * @throws Excecao
+     */
+    private function pegarWhere(): array
     {
         $where = $this->pegarWherePadrao();
-
-        if ($this->estabelecimento->valido()) {
-            $where[] = ['parceiro_estabelecimento', $this->estabelecimento->numero()];
+        if ($this->tipoEstabelecimento->valido()) {
+            $where[] = ['parceiro_estabelecimento', $this->tipoEstabelecimento->numero()];
         }
 
         $whereParceiro = $this->pegarWhereParceiro();
@@ -51,42 +93,41 @@ final class LojaMaisAcessadaModel extends ORM
         return $where;
     }
 
-    private function pegarWhereParceiro()
+    /**
+     * @return array
+     */
+    private function pegarWhereParceiro(): array
     {
         if (empty($this->parceiro)) {
-            return;
+            return [];
         }
 
-        if (!is_array($this->parceiro)) {
-            $ormHelper = new OrmHelper(TABELA_PARCEIRO_LOJA);
+        $ormHelper = new OrmHelper(TABELA_PARCEIRO_LOJA);
+        if (is_string($this->parceiro)) {
             $parceiroId = $ormHelper->pegarIdPeloUuid($this->parceiro);
             return ['id_parceiro_loja', $parceiroId];
         }
-
-        $parceiroUuid = $this->parceiro;
-        $ormHelper = new OrmHelper(TABELA_PARCEIRO_LOJA);
-
-        $parceiroId = [];
-        foreach ($parceiroUuid as $e) {
-            $parceiroId[] = $ormHelper->pegarIdPeloUuid($e);
-        }
-
-        return ['id_parceiro_loja', 'in', $parceiroId];
+        return ['id_parceiro_loja', 'in', $ormHelper->mudarListaUuidParaId($this->parceiro)];
     }
 
-    private function montarDado($lista)
+    /**
+     * @param array $analytics
+     *
+     * @return array
+     */
+    private function montarRelatorio(array $analytics): array
     {
         $dado = [];
         $total = 0;
-        foreach ($lista as $r) {
-            $total += $r->quantidade;
-            if (!array_key_exists($r->id_parceiro_loja, $dado)) {
-                $dado[$r->id_parceiro_loja] = object([
-                    'parceiro_nome' => $r->parceiro_nome,
-                    'quantidade'    => 0,
+        foreach ($analytics as $item) {
+            $total += $item->quantidade;
+            if (!array_key_exists($item->id_parceiro_loja, $dado)) {
+                $dado[$item->id_parceiro_loja] = object([
+                    'parceiro_nome' => $item->parceiro_nome,
+                    'quantidade'    => 0
                 ]);
             }
-            $dado[$r->id_parceiro_loja]->quantidade += $r->quantidade;
+            $dado[$item->id_parceiro_loja]->quantidade += $item->quantidade;
         }
 
         usort($dado, function ($a, $b) {

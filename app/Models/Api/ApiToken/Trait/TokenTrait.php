@@ -2,10 +2,10 @@
 
 namespace App\Models\Api\ApiToken\Trait;
 
-use stdClass;
 use App\Classes\ApiToken\Tipo;
 use App\Models\Api\ApiToken\PayloadModel;
 use App\Models\Api\ApiToken\TokenAuthorizationEntity;
+use stdClass;
 
 trait TokenTrait
 {
@@ -25,15 +25,17 @@ trait TokenTrait
         stdClass $Empresa,
         stdClass $Usuario,
         array $scope,
-        string $tipo
+        string $tipo,
+        stdClass $Subempresa = null
     ) {
         define('TOKEN', [
-            'token'   => $token,
-            'scope'   => $scope,
-            'app'     => $App,
-            'empresa' => $Empresa,
-            'usuario' => $Usuario,
-            'tipo'    => $tipo
+            'token'      => $token,
+            'scope'      => $scope,
+            'app'        => $App,
+            'empresa'    => $Empresa,
+            'subempresa' => $Subempresa ?? [],
+            'usuario'    => $Usuario,
+            'tipo'       => $tipo
         ]);
     }
 

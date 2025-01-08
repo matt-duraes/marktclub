@@ -2,228 +2,148 @@
 
 namespace App\Models\Api\Analytics;
 
-use ORM\ORM;
-use Http\Request;
-use Helpers\OrmHelper;
+use App\Models\Api\Analytics\Trait\WhereTrait;
+use Erro\Excecao;
+use Exception;
 use Helpers\DataHelper;
-use App\Models\Api\Trait\ValidarEmpresaTrait;
+use Helpers\OrmHelper;
+use Modules\Data;
+use ORM\ORM;
 
 final class LojaVendaModel extends ORM
 {
-    use ValidarEmpresaTrait;
+    use WhereTrait;
 
     protected string $ormTabela = TABELA_ANALYTICS_LOJA_VENDA;
-    private int $idEmpresa;
-    private string $de;
-    private string $ate;
+    private string $primeiroDiaMes;
+    private string $ultimoDiaMes;
     private array $somado = [];
     private int|float $total = 0;
 
+    /**
+     * @param Data              $dataInicial
+     * @param Data              $dataFinal
+     * @param array|string|null $empresa
+     * @param array|string|null $subempresa
+     * @param array|string|null $parceiro
+     *
+     * @throws Excecao
+     */
     public function __construct(
-        private Request $request
+        private readonly Data $dataInicial = new Data(),
+        private readonly Data $dataFinal = new Data(),
+        private readonly array|string|null $empresa = null,
+        private readonly array|string|null $subempresa = null,
+        private readonly array|string|null $parceiro = null
     ) {
-        parent::__construct();
-        $this->idEmpresa = TOKEN['empresa']->id;
-        $this->pegarDataBusca();
+        $this->setarIdEmpresa();
+        $this->setarIdSubempresa();
         $this->setarIdUsuario();
+        $this->pegarDiasMes();
+        parent::__construct();
     }
 
-    public function listarDados(): array
+    private function pegarDiasMes(): void
     {
-        $dado = $this
-            ->campo(['id_parceiro_loja', 'numero_transacao', 'valor_venda', 'data_relatorio'])
+        $this->primeiroDiaMes = dataPrimeiroDiaMes($this->dataInicial . ' 00:00:00', 'Y-m-d H:i:s');
+        $this->ultimoDiaMes = dataUltimoDiaMes($this->dataFinal . ' 23:59:59', 'Y-m-d H:i:s');
+    }
+
+    /**
+     * @return array
+     * @throws Excecao
+     */
+    public function gerarRelatorio(): array
+    {
+        $analytics = $this
+            ->campo([
+                'id_parceiro_loja', 'numero_transacao', 'valor_venda', 'data_relatorio'
+            ])
             ->where($this->pegarWhere(), false)
-            ->order('data_criacao', 'DESC')
+            ->order('data_criacao')
             ->tabela(TABELA_PARCEIRO_LOJA)
-            ->campo(['titulo'], 'parceiro')
+            ->campo([
+                'titulo'
+            ], 'parceiro')
             ->join('id', 'id_parceiro_loja')
             ->read();
 
-        if (!$dado) {
+        if (empty($analytics)) {
             return [];
         }
-
-        return $this->montarDado($dado);
+        return $this->montarRelatorio($analytics);
     }
 
-    private function pegarWhere()
+    /**
+     * @return array
+     * @throws Excecao
+     */
+    private function pegarWhere(): array
     {
-        $where = [];
-
-        $where[] = ['data_relatorio', 'between', [$this->de, $this->ate]];
-
-        $whereEmpresa = $this->pegarWhereEmpresa();
-        if (!empty($whereEmpresa)) {
-            $where[] = $whereEmpresa;
-        }
-
+        $where = $this->pegarWherePadrao(false);
         $whereParceiro = $this->pegarWhereParceiro();
         if (!empty($whereParceiro)) {
             $where[] = $whereParceiro;
         }
 
+        if (!empty($this->primeiroDiaMes) && !empty($this->ultimoDiaMes)) {
+            $where[] = ['data_relatorio', 'between', [$this->primeiroDiaMes, $this->ultimoDiaMes]];
+        }
         return $where;
     }
 
-    private function pegarWhereEmpresa()
+    /**
+     * @return array
+     */
+    private function pegarWhereParceiro(): array
     {
-        if (empty($this->request->empresa)) {
-            return ['id_admin_empresa', $this->idEmpresa];
+        if (empty($this->parceiro)) {
+            return [];
         }
 
-        if (!$this->verificarSePodeMudarEmpresa()) {
-            mensagemErro('Empresa inválida!', 'Você não tem permissão para acessar essa empresa.');
-        }
-
-        if (!is_array($this->request->empresa)) {
-            $ormHelper = new OrmHelper(TABELA_COMERCIAL_EMPRESA);
-            $empresaId = $ormHelper->pegarIdPeloUuid($this->request->empresa);
-            return ['id_admin_empresa', $empresaId];
-        }
-
-        $empresaUuid = $this->request->empresa;
-        $ormHelper = new OrmHelper(TABELA_COMERCIAL_EMPRESA);
-
-        $empresaId = [];
-        foreach ($empresaUuid as $e) {
-            $empresaId[] = $ormHelper->pegarIdPeloUuid($e);
-        }
-
-        return ['id_admin_empresa', 'in', $empresaId];
-    }
-
-    private function pegarWhereParceiro()
-    {
-        if (empty($this->request->parceiro)) {
-            return;
-        }
-
-        if (!is_array($this->request->parceiro)) {
-            $ormHelper = new OrmHelper(TABELA_PARCEIRO_LOJA);
-            $parceiroId = $ormHelper->pegarIdPeloUuid($this->request->parceiro);
+        $ormHelper = new OrmHelper(TABELA_PARCEIRO_LOJA);
+        if (is_string($this->parceiro)) {
+            $parceiroId = $ormHelper->pegarIdPeloUuid($this->parceiro);
             return ['id_parceiro_loja', $parceiroId];
         }
-
-        $parceiroUuid = $this->request->parceiro;
-        $ormHelper = new OrmHelper(TABELA_PARCEIRO_LOJA);
-
-        $parceiroId = [];
-        foreach ($parceiroUuid as $e) {
-            $parceiroId[] = $ormHelper->pegarIdPeloUuid($e);
-        }
-
-        return ['id_parceiro_loja', 'in', $parceiroId];
+        return ['id_parceiro_loja', 'in', $ormHelper->mudarListaUuidParaId($this->parceiro)];
     }
 
-    public function montarDado($r): array
+    /**
+     * @param array $analytics
+     *
+     * @return array
+     * @throws Exception
+     */
+    private function montarRelatorio(array $analytics): array
     {
-        $this->somarTodos($r);
-
+        $this->somarTodos($analytics);
         return [
-            'venda_mes'   => $this->montarRelatorioPorMes($r),
+            'venda_mes'   => $this->montarRelatorioPorMes($analytics),
             'venda_loja'  => $this->montarVendaPorLoja(),
             'ticket_loja' => $this->montarTicketPorLoja()
         ];
     }
 
-    private function pegarDataBusca()
-    {
-        $this->de = dataPrimeiroDiaMes($this->request->de . ' 00:00:00', 'Y-m-d H:i:s');
-        $this->ate = dataUltimoDiaMes($this->request->ate . ' 23:59:59', 'Y-m-d H:i:s');
-    }
-
-    private function montarRelatorioPorMes($lista)
-    {
-        $de = dataBanco($this->de);
-        $ateExplode = explode('-', dataBanco($this->ate));
-        $ate = $ateExplode[0] . '-' . $ateExplode[1] . '-01';
-
-        $Data = new DataHelper();
-        $dado = [];
-
-        for ($i = 0; $i < 13; $i++) {
-            $data = $Data->valor($de)->adicionar($i, 'mes')->formato('Y-m-d');
-            $dado[$data] = object([
-                'data'   => $Data->valor($data)->formato('m/Y'),
-                'valor'  => 0,
-                'ticket' => 0,
-                'venda'  => 0
-            ]);
-            if ($data == $ate) {
-                break;
-            }
-        }
-
-        foreach ($lista as $r) {
-            if (!array_key_exists($r->data_relatorio, $dado)) {
-                continue;
-            }
-            $dado[$r->data_relatorio]->valor += $r->valor_venda;
-            $dado[$r->data_relatorio]->venda += $r->numero_transacao;
-        }
-
-        $retorno = [];
-        foreach ($dado as $r) {
-            if (!empty($r->valor) && !empty($r->venda)) {
-                $r->ticket = number_format($r->valor / $r->venda, 2, '.', '');
-            }
-            $retorno[] = $r;
-        }
-        return $retorno;
-    }
-
-    private function montarVendaPorLoja()
-    {
-        $dado = $this->somado;
-
-        $retorno = [];
-        foreach ($dado as $r) {
-            $retorno[] = [
-                'loja'              => $r->parceiro_titulo,
-                'total'             => !empty($r->valor_venda) ? number_format($r->valor_venda, '2', ',', '.') : '0.00',
-                'porcentagem'       => porcentagem($r->valor_venda, $this->total),
-                'numero_transacao'  => !empty($r->numero_transacao) ? $r->numero_transacao : 0
-            ];
-        }
-        return $retorno;
-    }
-
-    private function montarTicketPorLoja()
-    {
-        $dado = [];
-        foreach ($this->somado as $r) {
-            $dado[] = object([
-                'parceiro_titulo' => $r->parceiro_titulo,
-                'ticket'          => !empty($r->valor_venda) && !empty($r->numero_transacao) ? $r->valor_venda / $r->numero_transacao : 0
-            ]);
-        }
-
-        $retorno = [];
-        foreach ($dado as $r) {
-            $retorno[] = [
-                'loja'        => $r->parceiro_titulo,
-                'total'       => !empty($r->ticket) ? number_format($r->ticket, '2', ',', '.') : '0.00',
-                'porcentagem' => porcentagem($r->ticket, $this->total)
-            ];
-        }
-        return $retorno;
-    }
-
-    private function somarTodos($lista)
+    /**
+     * @param array $analytics
+     *
+     */
+    private function somarTodos(array $analytics): void
     {
         $dado = [];
         $total = 0;
-        foreach ($lista as $r) {
-            $total += $r->valor_venda;
-            if (!array_key_exists($r->id_parceiro_loja, $dado)) {
-                $dado[$r->id_parceiro_loja] = object([
-                    'parceiro_titulo'  => $r->parceiro_titulo,
+        foreach ($analytics as $item) {
+            $total += $item->valor_venda;
+            if (!array_key_exists($item->id_parceiro_loja, $dado)) {
+                $dado[$item->id_parceiro_loja] = object([
+                    'parceiro_titulo'  => $item->parceiro_titulo,
                     'numero_transacao' => 0,
-                    'valor_venda'      => 0,
+                    'valor_venda'      => 0
                 ]);
             }
-            $dado[$r->id_parceiro_loja]->valor_venda += $r->valor_venda;
-            $dado[$r->id_parceiro_loja]->numero_transacao += $r->numero_transacao;
+            $dado[$item->id_parceiro_loja]->valor_venda += $item->valor_venda;
+            $dado[$item->id_parceiro_loja]->numero_transacao += $item->numero_transacao;
         }
 
         usort($dado, function ($a, $b) {
@@ -237,5 +157,96 @@ final class LojaVendaModel extends ORM
 
         $this->total = $total;
         $this->somado = $dado;
+    }
+
+    /**
+     * @param array $analytics
+     *
+     * @return array
+     * @throws Exception
+     */
+    private function montarRelatorioPorMes(array $analytics): array
+    {
+        $de = dataBanco($this->primeiroDiaMes);
+        $ateExplode = explode('-', dataBanco($this->ultimoDiaMes));
+        $ate = $ateExplode[0] . '-' . $ateExplode[1] . '-01';
+
+        $dado = [];
+        $Data = new DataHelper();
+        for ($i = 0; $i < 13; $i++) {
+            $data = $Data->valor($de)->adicionar($i, 'mes')->formato('Y-m-d');
+            $dado[$data] = object([
+                'data'   => $Data->valor($data)->formato('m/Y'),
+                'valor'  => 0,
+                'ticket' => 0,
+                'venda'  => 0
+            ]);
+            if ($data == $ate) {
+                break;
+            }
+        }
+
+        foreach ($analytics as $item) {
+            if (!array_key_exists($item->data_relatorio, $dado)) {
+                continue;
+            }
+            $dado[$item->data_relatorio]->valor += $item->valor_venda;
+            $dado[$item->data_relatorio]->venda += $item->numero_transacao;
+        }
+
+        $retorno = [];
+        foreach ($dado as $item) {
+            if (!empty($item->valor) && !empty($item->venda)) {
+                $item->ticket = number_format($item->valor / $item->venda, 2, '.', '');
+            }
+            $retorno[] = $item;
+        }
+        return $retorno;
+    }
+
+    /**
+     * @return array
+     */
+    private function montarVendaPorLoja(): array
+    {
+        $dado = $this->somado;
+        $retorno = [];
+        foreach ($dado as $item) {
+            $total = number_format($item->valor_venda, '2', ',', '.');
+            $retorno[] = [
+                'loja'             => $item->parceiro_titulo,
+                'total'            => !empty($item->valor_venda) ? $total : '0.00',
+                'porcentagem'      => porcentagem($item->valor_venda, $this->total),
+                'numero_transacao' => !empty($item->numero_transacao) ? $item->numero_transacao : 0
+            ];
+        }
+        return $retorno;
+    }
+
+    /**
+     * @return array
+     */
+    private function montarTicketPorLoja(): array
+    {
+        $dado = [];
+        foreach ($this->somado as $item) {
+            $dado[] = object([
+                'parceiro_titulo' => $item->parceiro_titulo,
+                'ticket'          => !empty($item->valor_venda) && !empty($item->numero_transacao)
+                    ? $item->valor_venda / $item->numero_transacao
+                    : 0
+            ]);
+        }
+
+        $retorno = [];
+        foreach ($dado as $item) {
+            $total = number_format($item->ticket, '2', ',', '.');
+            $retorno[] = [
+                'loja'        => $item->parceiro_titulo,
+                'total'       => !empty($item->ticket) ? $total : '0.00',
+                'porcentagem' => porcentagem($item->ticket, $this->total)
+            ];
+        }
+        return $retorno;
     }
 }

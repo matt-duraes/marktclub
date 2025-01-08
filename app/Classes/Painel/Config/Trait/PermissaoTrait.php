@@ -2,8 +2,8 @@
 
 namespace App\Classes\Painel\Config\Trait;
 
-use Closure;
 use App\Classes\Painel\Config\Titulo;
+use Closure;
 
 trait PermissaoTrait
 {
@@ -619,11 +619,11 @@ trait PermissaoTrait
             'relatorio_acesso'         => [
                 'titulo'    => 'Relatório Acesso',
                 'permissao' => [
-                    'relatorio_acesso_index'    => [
+                    'relatorio_acesso_index'   => [
                         'titulo' => 'Relatório de acesso',
                         'scope'  => ['relatorio_acesso:listar']
                     ],
-                    'relatorio_acesso_empresa'  => Titulo::EMPRESA
+                    'relatorio_acesso_empresa' => Titulo::EMPRESA
                 ]
             ],
             'relatorio_usuario'        => [
@@ -1414,17 +1414,18 @@ trait PermissaoTrait
     /**
      * Monta o array de permissao
      *
-     * @param  string       $titulo        Título para a permissão
-     * @param  string       $indice        Indice da permissao ex.: usuario_cliente
-     * @param  boolean      $index         Se vai ter index no painel
-     * @param  boolean      $visualizar    Se vai ter visualizar no painel
-     * @param  boolean      $add           Se vai ter add no painel
-     * @param  boolean      $editar        Se vai ter editar no painel
-     * @param  boolean      $deletar       Se vai ter deletar no painel
-     * @param  boolean      $download      Se vai ter download no painel
-     * @param  boolean      $empresa       Se vai ter empresa no painel
-     * @param  string|null  $scope         Scope que vai usar ex.: usuario_cliente, se não passar, usa o $indice
-     * @param  Closure|null $personalizado Função com montarArrayPersonalizado
+     * @param string       $titulo        Título para a permissão
+     * @param string       $indice        Indice da permissao ex.: usuario_cliente
+     * @param bool         $index         Se vai ter index no painel
+     * @param bool         $visualizar    Se vai ter visualizar no painel
+     * @param bool         $add           Se vai ter add no painel
+     * @param bool         $editar        Se vai ter editar no painel
+     * @param bool         $deletar       Se vai ter deletar no painel
+     * @param bool         $download      Se vai ter download no painel
+     * @param bool         $empresa       Se vai ter empresa no painel
+     * @param string|null  $scope         Scope que vai usar ex.: usuario_cliente, se não passar, usa o $indice
+     * @param Closure|null $personalizado Função com montarArrayPersonalizado
+     *
      * @return self
      */
     private function montarArrayPermissao(
@@ -1473,21 +1474,6 @@ trait PermissaoTrait
         return $this;
     }
 
-    /**
-     * Monta uma permissão personalizada
-     *
-     * @param string $indice Indice completo que deseja usar ex.: usuario_cliente_apple
-     * @param string $titulo Título que irá aparecer no painel
-     * @param array  $scope  Scopes que essa permissão vai usar
-     */
-    private function montarArrayPersonalizado(string $indice, string $titulo, array $scope): void
-    {
-        $this->permissaoPersonalizada[$indice] = [
-            'titulo' => $titulo,
-            'scope'  => $scope
-        ];
-    }
-
     private function montarIndicePermissao(string $acao, string $indice, string $scope, bool|array $scopePadrao)
     {
         $nomePermissao = [
@@ -1511,6 +1497,21 @@ trait PermissaoTrait
                 'titulo' => $nomePermissao[$acao][1],
                 'scope'  => is_array($scopePadrao) && $scopePadrao ? array_merge($scopePadrao, $scopeTemp) : $scopeTemp
             ]
+        ];
+    }
+
+    /**
+     * Monta uma permissão personalizada
+     *
+     * @param string $indice Indice completo que deseja usar ex.: usuario_cliente_apple
+     * @param string $titulo Título que irá aparecer no painel
+     * @param array  $scope  Scopes que essa permissão vai usar
+     */
+    private function montarArrayPersonalizado(string $indice, string $titulo, array $scope): void
+    {
+        $this->permissaoPersonalizada[$indice] = [
+            'titulo' => $titulo,
+            'scope'  => $scope
         ];
     }
 }

@@ -13,6 +13,12 @@ $Painel
         placeholder: 'Empresa',
         permissao: \App\Classes\SolicitacaoAutomovel\Helper::PERMISSAO_EMPRESA
     )
+    ->input(
+        name: 'montadora',
+        titulo: 'Montadora',
+        label: 'Montadora',
+        placeholder: 'Montadora'
+    )
     ->bloco(function () use ($Painel) {
         $Painel
             ->data(
