@@ -35,6 +35,7 @@ final class ErrorEntity extends Entity
         'quantidade',
         'url',
         'data_criacao',
+        'data_atualizacao',
         'status'
     ];
 
