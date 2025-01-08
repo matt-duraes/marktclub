@@ -2,18 +2,18 @@
 
 namespace App\Models\Api\SolicitacaoAutomovel;
 
-use App\Classes\Solicitacao\Status;
-use App\Classes\SolicitacaoAutomovel\Ordem;
-use App\Models\Api\Trait\ValidarEmpresaTrait;
+use ORM\ORM;
+use stdClass;
 use Modules\Data;
 use Modules\Pagina;
 use Modules\Quantidade;
-use ORM\ORM;
-use stdClass;
-use System\Interface\ModelListarInterface;
 use System\Trait\Model\OrdemTrait;
+use App\Classes\Solicitacao\Status;
 use System\Trait\Model\PaginaTrait;
 use System\Trait\Model\QuantidadeTrait;
+use System\Interface\ModelListarInterface;
+use App\Classes\SolicitacaoAutomovel\Ordem;
+use App\Models\Api\Trait\ValidarEmpresaTrait;
 
 final class AutomovelModel extends ORM implements
     ModelListarInterface
@@ -25,11 +25,25 @@ final class AutomovelModel extends ORM implements
 
     protected string $ormTabela = TABELA_SOLICITACAO_AUTOMOVEL;
 
+    /**
+     * Undocumented function
+     *
+     * @param [type] $pagina
+     * @param [type] $quantidade
+     * @param [type] $ordem
+     * @param string|null $empresa
+     * @param string|null $parceiro
+     * @param [type] $dataInicio
+     * @param [type] $dataFinal
+     * @param [type] $status
+     */
     public function __construct(
         private readonly Pagina $pagina = new Pagina(),
         private readonly Quantidade $quantidade = new Quantidade(),
         private readonly Ordem $ordem = new Ordem(),
         private readonly ?string $empresa = null,
+        private readonly ?string $pesquisa = null,
+        private readonly ?string $montadora = null,
         private readonly Data $dataInicio = new Data(),
         private readonly Data $dataFinal = new Data(),
         private readonly Status $status = new Status()
@@ -75,7 +89,8 @@ final class AutomovelModel extends ORM implements
             ->campo([
                 'nome'
             ], 'usuario')
-            ->read();
+            ->read()
+        ;
 
         $dado->lista = $this->montarDado($dado->lista);
         return $dado;
@@ -93,6 +108,18 @@ final class AutomovelModel extends ORM implements
         }
         if ($this->status->valido()) {
             $where[] = ['status', $this->status->numero()];
+        }
+        if (!empty($this->montadora)) {
+            $where[] = ['montadora', 'LIKE', '%' . $this->montadora . '%'];
+        }
+        if (!empty($this->pesquisa)) {
+            $where[] = [
+                'OR',
+                ['montadora', 'LIKE', '%' . $this->pesquisa . '%'],
+                ['modelo', 'LIKE', '%' . $this->pesquisa . '%'],
+                ['versao', 'LIKE', '%' . $this->pesquisa . '%'],
+                ['cor', 'LIKE', '%' . $this->pesquisa . '%'],
+            ];
         }
 
         return $where;
