@@ -1,7 +1,7 @@
 <?php
 
-use App\Classes\SolicitacaoAutomovel\Ordem;
 use App\Classes\Solicitacao\Status;
+use App\Classes\SolicitacaoAutomovel\Ordem;
 
 $Painel = new PainelConfig\Index('solicitacao_automovel', new Ordem());
 
