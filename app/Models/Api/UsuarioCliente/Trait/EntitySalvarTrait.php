@@ -2,20 +2,20 @@
 
 namespace App\Models\Api\UsuarioCliente\Trait;
 
-use App\Classes\UsuarioCliente\TipoUsuario;
-use App\Classes\UsuarioCliente\TrabalhoEmpresa;
-use App\Models\Api\UsuarioGrupo\GrupoEntity;
 use Helpers\OrmHelper;
+use App\Classes\UsuarioCliente\TipoUsuario;
+use App\Models\Api\UsuarioGrupo\GrupoEntity;
+use App\Classes\UsuarioCliente\TrabalhoEmpresa;
 
 trait EntitySalvarTrait
 {
     protected function regraSalvar()
     {
         $this->cpfExiste();
-        $this->emailTrabalhoExiste();
-        $this->emailPessoalExiste();
-        $this->matriculaExiste();
-        $this->siapeExiste();
+        // $this->emailTrabalhoExiste();
+        // $this->emailPessoalExiste();
+        // $this->matriculaExiste();
+        // $this->siapeExiste();
         $this->grupoValido();
         $this->setarSubempresa();
         $this->tipo = new TipoUsuario(TipoUsuario::TITULAR);
