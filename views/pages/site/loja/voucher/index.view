@@ -32,7 +32,7 @@
     <div class="bloco_data">
         <div class="data">
             <span>CRIADO EM</span>
-            <p>{{dataBr($dado->data_criacao)}}</p>
+            <p>{{dataBr($dado->data_emissao)}}</p>
         </div>
         <div class="data">
             <span>VALIDO ATÉ</span>
