@@ -145,7 +145,7 @@ Route
     ::grupo(function () {
         Route
             ::nome('salvar')
-            ::request(['mensagem', 'codigo', 'arquivo', 'linha', 'trace', 'status'])
+            ::request(['mensagem', 'codigo', 'arquivo', 'linha', 'trace', '!url', 'status'])
             ::post('/log-erro');
     });
 

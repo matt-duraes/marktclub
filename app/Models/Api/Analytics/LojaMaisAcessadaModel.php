@@ -40,7 +40,6 @@ final class LojaMaisAcessadaModel extends ORM
     }
 
     /**
-     * @return void
      * @throws Excecao
      */
     private function validarRequest(): void

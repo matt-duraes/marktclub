@@ -592,6 +592,7 @@ if (!function_exists('formUri')) {
         string|array $placeholder = '',
         string $class = '',
         string $id = '',
+        bool $livre = false,
         string $html = '',
         string $icone = '',
         string $iconeCor = '',
@@ -609,6 +610,7 @@ if (!function_exists('formUri')) {
         mixed $local = ''
     ): string {
         $barraHtml = '<span class="form_uri_barra">/</span>';
+        $attr['data-livre'] = $livre ? 'sim' : 'nao';
         return formInput(
             name: $name,
             label: $label,
@@ -616,7 +618,7 @@ if (!function_exists('formUri')) {
             placeholder: $placeholder,
             class: !empty($class) ? 'form_input_uri ' . $class : 'form_input_uri',
             id: $id,
-            html: !empty($html) ? $barraHtml . $$html : $barraHtml,
+            html: !empty($html) ? $barraHtml . $html : $barraHtml,
             icone: $icone,
             iconeCor: $iconeCor,
             obrigatorio: $obrigatorio,

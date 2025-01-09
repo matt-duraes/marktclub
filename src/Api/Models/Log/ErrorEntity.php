@@ -2,8 +2,8 @@
 
 namespace ApiModel\Log;
 
-use Erro\Excecao;
 use ORM\Entity;
+use Erro\Excecao;
 use System\Classes\LogErro\Status;
 
 final class ErrorEntity extends Entity
@@ -20,6 +20,7 @@ final class ErrorEntity extends Entity
         'arquivo',
         'linha',
         'trace',
+        'url',
         'quantidade'
     ];
     protected array $ormSalvar = ['status'];
@@ -32,7 +33,9 @@ final class ErrorEntity extends Entity
         'linha',
         'trace',
         'quantidade',
+        'url',
         'data_criacao',
+        'data_atualizacao',
         'status'
     ];
 
@@ -43,6 +46,7 @@ final class ErrorEntity extends Entity
         public ?string $arquivo = null,
         public ?string $linha = null,
         public null|string|array $trace = null,
+        public ?string $url = null
     ) {
         parent::__construct();
     }

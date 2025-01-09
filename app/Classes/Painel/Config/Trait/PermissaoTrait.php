@@ -1133,9 +1133,10 @@ trait PermissaoTrait
                         'titulo' => Titulo::VISUALIZAR,
                         'scope'  => [
                             'votacao:buscar', 'votacao:atualizar', 'votacao_pergunta:atualizar',
-                            'votacao_pergunta:buscar', 'votacao_pergunta:deletar',
-                            'votacao_pergunta:listar', 'votacao_pergunta:salvar',
-                            'votacao_resposta:buscar', 'votacao_dado:resultado'
+                            'votacao_pergunta:atualizar', 'votacao_pergunta:buscar', 'votacao_pergunta:deletar',
+                            'votacao_pergunta:listar', 'votacao_pergunta:salvar', 'votacao_resposta:atualizar',
+                            'votacao_resposta:buscar', 'votacao_resposta:deletar', 'votacao_resposta:listar',
+                            'votacao_resposta:salvar'
                         ]
                     ],
                     'votacao_add'        => [
@@ -1163,9 +1164,10 @@ trait PermissaoTrait
                         'titulo' => Titulo::VISUALIZAR,
                         'scope'  => [
                             'votacao:buscar', 'votacao:atualizar', 'votacao_pergunta:atualizar',
-                            'votacao_pergunta:buscar', 'votacao_pergunta:deletar',
-                            'votacao_pergunta:listar', 'votacao_pergunta:salvar',
-                            'votacao_resposta:buscar', 'votacao_dado:resultado'
+                            'votacao_pergunta:atualizar', 'votacao_pergunta:buscar', 'votacao_pergunta:deletar',
+                            'votacao_pergunta:listar', 'votacao_pergunta:salvar', 'votacao_resposta:atualizar',
+                            'votacao_resposta:buscar', 'votacao_resposta:deletar', 'votacao_resposta:listar',
+                            'votacao_resposta:salvar'
                         ]
                     ],
                     'enquete_add'        => [

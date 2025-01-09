@@ -24,7 +24,8 @@ trait LogTrait
             'status'   => $status,
             'arquivo'  => $arquivo,
             'linha'    => $linha,
-            'trace'    => json_encode($trace)
+            'trace'    => json_encode($trace),
+            'url'      => LINK . URI . QUERY_STRING
         ];
 
         $mensagem = 'Ocorreu um erro inesperado, clique em retornar para voltar a navegar. Geralmente esse tipo de erro é temporário, mas para os casos ele continue ocorrendo, já sinalizamos para a equipe técnica sobre o ocorrido, mas caso queira, você pode entre em contato com o suporte e informá-lo.';
