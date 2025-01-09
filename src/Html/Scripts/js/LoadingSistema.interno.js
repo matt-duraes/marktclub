@@ -29,6 +29,10 @@ class LoadingSistema {
         if (typeof fwFormTabelaLoading === 'function') {
             fwFormTabelaLoading(bloco);
         }
+        // FORM URI
+        if (typeof fwFormUriLoading === 'function') {
+            fwFormUriLoading(bloco);
+        }
         // FORM LISTA
         if (typeof fwFormListaLoading === 'function') {
             fwFormListaLoading(bloco);
