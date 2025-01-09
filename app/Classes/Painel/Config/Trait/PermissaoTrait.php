@@ -2,8 +2,8 @@
 
 namespace App\Classes\Painel\Config\Trait;
 
-use App\Classes\Painel\Config\Titulo;
 use Closure;
+use App\Classes\Painel\Config\Titulo;
 
 trait PermissaoTrait
 {
@@ -1018,7 +1018,8 @@ trait PermissaoTrait
                             'demanda_sprint:demanda', 'comercial_empresa:perfil',
                             'demanda_sprint:salvar', 'demanda_tarefa:listar',
                             'demanda_tarefa:like', 'demanda_tarefa:atualizar',
-                            'demanda_tarefa:deletar', 'usuario_equipe:perfil'
+                            'demanda_tarefa:deletar', 'usuario_equipe:perfil',
+                            'demanda_tarefa:salvar',
                         ]
                     ]
                 ]
@@ -1035,7 +1036,8 @@ trait PermissaoTrait
                             'demanda_sprint:demanda', 'comercial_empresa:perfil',
                             'demanda_sprint:salvar', 'demanda_tarefa:listar',
                             'demanda_tarefa:like', 'demanda_tarefa:atualizar',
-                            'demanda_tarefa:deletar', 'usuario_equipe:perfil'
+                            'demanda_tarefa:deletar', 'usuario_equipe:perfil',
+                            'demanda_tarefa:salvar',
                         ]
                     ],
                     'demanda_criacao'    => [
@@ -1047,7 +1049,8 @@ trait PermissaoTrait
                             'demanda_sprint:demanda', 'comercial_empresa:perfil',
                             'demanda_sprint:salvar', 'demanda_tarefa:listar',
                             'demanda_tarefa:like', 'demanda_tarefa:atualizar',
-                            'demanda_tarefa:deletar', 'usuario_equipe:perfil'
+                            'demanda_tarefa:deletar', 'usuario_equipe:perfil',
+                            'demanda_tarefa:salvar',
                         ]
                     ],
                     'demanda_convenio'   => [
@@ -1059,7 +1062,8 @@ trait PermissaoTrait
                             'demanda_sprint:demanda', 'comercial_empresa:perfil',
                             'demanda_sprint:salvar', 'demanda_tarefa:listar',
                             'demanda_tarefa:like', 'demanda_tarefa:atualizar',
-                            'demanda_tarefa:deletar', 'usuario_equipe:perfil'
+                            'demanda_tarefa:deletar', 'usuario_equipe:perfil',
+                            'demanda_tarefa:salvar',
                         ]
                     ]
                 ]
@@ -1129,9 +1133,10 @@ trait PermissaoTrait
                         'titulo' => Titulo::VISUALIZAR,
                         'scope'  => [
                             'votacao:buscar', 'votacao:atualizar', 'votacao_pergunta:atualizar',
-                            'votacao_pergunta:buscar', 'votacao_pergunta:deletar',
-                            'votacao_pergunta:listar', 'votacao_pergunta:salvar',
-                            'votacao_resposta:buscar', 'votacao_dado:resultado'
+                            'votacao_pergunta:atualizar', 'votacao_pergunta:buscar', 'votacao_pergunta:deletar',
+                            'votacao_pergunta:listar', 'votacao_pergunta:salvar', 'votacao_resposta:atualizar',
+                            'votacao_resposta:buscar', 'votacao_resposta:deletar', 'votacao_resposta:listar',
+                            'votacao_resposta:salvar'
                         ]
                     ],
                     'votacao_add'        => [
@@ -1159,9 +1164,10 @@ trait PermissaoTrait
                         'titulo' => Titulo::VISUALIZAR,
                         'scope'  => [
                             'votacao:buscar', 'votacao:atualizar', 'votacao_pergunta:atualizar',
-                            'votacao_pergunta:buscar', 'votacao_pergunta:deletar',
-                            'votacao_pergunta:listar', 'votacao_pergunta:salvar',
-                            'votacao_resposta:buscar', 'votacao_dado:resultado'
+                            'votacao_pergunta:atualizar', 'votacao_pergunta:buscar', 'votacao_pergunta:deletar',
+                            'votacao_pergunta:listar', 'votacao_pergunta:salvar', 'votacao_resposta:atualizar',
+                            'votacao_resposta:buscar', 'votacao_resposta:deletar', 'votacao_resposta:listar',
+                            'votacao_resposta:salvar'
                         ]
                     ],
                     'enquete_add'        => [
