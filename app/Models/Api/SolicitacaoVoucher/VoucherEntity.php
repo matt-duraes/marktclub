@@ -28,17 +28,18 @@ final class VoucherEntity extends Entity implements VoucherInterface
         'id_admin_empresa'   => 'empresa',
         'id_vinculo'         => 'vinculo',
         'tipo', 'tipo_usuario', 'codigo', 'data_criacao', 'data_atualizacao', 'data_validacao',
-        'data_vencimento', 'status'
+        'data_emissao', 'data_vencimento', 'status'
     ];
     protected array $ormInsert = [
         'empresa' => '->id_admin_empresa',
         'usuario' => '->id_usuario_cliente',
         'vinculo' => '->id_vinculo',
-        'titulo', 'tipo', 'tipo_usuario', 'codigo', 'data_vencimento', 'status'
+        'titulo', 'tipo', 'tipo_usuario', 'codigo', 'data_emissao', 'data_vencimento', 'status'
     ];
     public string $titulo;
     public string $codigo;
     public Data $data_vencimento;
+    public DataHora $data_emissao;
     public DataHora $data_validacao;
     public Status $status;
     public TipoUsuario $tipo_usuario;
