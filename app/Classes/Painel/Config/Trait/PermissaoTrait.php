@@ -2,8 +2,8 @@
 
 namespace App\Classes\Painel\Config\Trait;
 
-use App\Classes\Painel\Config\Titulo;
 use Closure;
+use App\Classes\Painel\Config\Titulo;
 
 trait PermissaoTrait
 {
@@ -1018,8 +1018,8 @@ trait PermissaoTrait
                             'demanda_sprint:demanda', 'comercial_empresa:perfil',
                             'demanda_sprint:salvar', 'demanda_tarefa:listar',
                             'demanda_tarefa:like', 'demanda_tarefa:atualizar',
-                            'demanda_tarefa:deletar', 'demanda_tarefa:salvar',
-                            'usuario_equipe:perfil'
+                            'demanda_tarefa:deletar', 'usuario_equipe:perfil',
+                            'demanda_tarefa:salvar',
                         ]
                     ]
                 ]
@@ -1036,8 +1036,8 @@ trait PermissaoTrait
                             'demanda_sprint:demanda', 'comercial_empresa:perfil',
                             'demanda_sprint:salvar', 'demanda_tarefa:listar',
                             'demanda_tarefa:like', 'demanda_tarefa:atualizar',
-                            'demanda_tarefa:deletar', 'demanda_tarefa:salvar',
-                            'usuario_equipe:perfil'
+                            'demanda_tarefa:deletar', 'usuario_equipe:perfil',
+                            'demanda_tarefa:salvar',
                         ]
                     ],
                     'demanda_criacao'    => [
@@ -1049,10 +1049,8 @@ trait PermissaoTrait
                             'demanda_sprint:demanda', 'comercial_empresa:perfil',
                             'demanda_sprint:salvar', 'demanda_tarefa:listar',
                             'demanda_tarefa:like', 'demanda_tarefa:atualizar',
-                            'demanda_tarefa:deletar','demanda_tarefa:salvar',
-                            'usuario_equipe:perfil',
-                            
-
+                            'demanda_tarefa:deletar', 'usuario_equipe:perfil',
+                            'demanda_tarefa:salvar',
                         ]
                     ],
                     'demanda_convenio'   => [
@@ -1064,10 +1062,8 @@ trait PermissaoTrait
                             'demanda_sprint:demanda', 'comercial_empresa:perfil',
                             'demanda_sprint:salvar', 'demanda_tarefa:listar',
                             'demanda_tarefa:like', 'demanda_tarefa:atualizar',
-                            'demanda_tarefa:deletar', 'demanda_tarefa:salvar',
-                            'usuario_equipe:perfil',
-                            
-
+                            'demanda_tarefa:deletar', 'usuario_equipe:perfil',
+                            'demanda_tarefa:salvar',
                         ]
                     ]
                 ]

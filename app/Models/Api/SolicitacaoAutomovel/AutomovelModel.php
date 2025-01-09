@@ -41,9 +41,9 @@ final class AutomovelModel extends ORM implements
         private readonly Pagina $pagina = new Pagina(),
         private readonly Quantidade $quantidade = new Quantidade(),
         private readonly Ordem $ordem = new Ordem(),
-        private readonly ?string $empresa = null,
-        private readonly ?string $pesquisa = null,
         private readonly ?string $montadora = null,
+        private readonly ?string $pesquisa = null,
+        private readonly ?string $empresa = null,
         private readonly Data $dataInicio = new Data(),
         private readonly Data $dataFinal = new Data(),
         private readonly Status $status = new Status()
@@ -109,9 +109,7 @@ final class AutomovelModel extends ORM implements
         if ($this->status->valido()) {
             $where[] = ['status', $this->status->numero()];
         }
-        if (!empty($this->montadora)) {
-            $where[] = ['montadora', 'LIKE', '%' . $this->montadora . '%'];
-        }
+
         if (!empty($this->pesquisa)) {
             $where[] = [
                 'OR',
@@ -122,6 +120,9 @@ final class AutomovelModel extends ORM implements
             ];
         }
 
+        if (!empty($this->montadora)) {
+            $where[] = ['montadora', 'LIKE', '%' . $this->montadora . '%'];
+        }
         return $where;
     }
 
