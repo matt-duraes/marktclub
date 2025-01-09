@@ -20,7 +20,7 @@ const fwFormUriLimparString = (input, livre, validar) => {
         valor = valor.replace(/ |_/g, '-');
         valor = valor.replace(/-+/g, '-');
         valor = valor.toLowerCase();
-        valor = valor.replace(/[^a-z\/-]/g, '');
+        valor = valor.replace(/[^a-z\/-\:]/g, '');
     }
     input.valor(valor);
 };
