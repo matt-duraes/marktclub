@@ -2,8 +2,8 @@
 
 namespace App\Classes\Painel\Config\Trait;
 
-use Closure;
 use App\Classes\Painel\Config\Titulo;
+use Closure;
 
 trait PermissaoTrait
 {
@@ -32,6 +32,11 @@ trait PermissaoTrait
                     indice: 'usuario_cliente_apple',
                     titulo: 'Usuário para Apple',
                     scope: ['usuario_cliente:apple']
+                );
+                $this->montarArrayPersonalizado(
+                    indice: 'site_lotacao_select',
+                    titulo: 'Lotação',
+                    scope: ['site_lotacao:select']
                 );
             }
         )->montarArrayPermissao(
