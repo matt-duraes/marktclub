@@ -20,6 +20,8 @@ final class RelatorioController extends Controller
         $subempresas = [];
         if (painelPermissao('relatorio_acesso_empresa', false)) {
             $empresas = $this->pegarSelectEmpresa();
+        }
+        if (painelPermissao('relatorio_acesso_subempresa', false)) {
             $subempresas = $this->pegarSelectSubempresa();
         }
         return view('painel.relatorio.acesso', [
@@ -39,12 +41,21 @@ final class RelatorioController extends Controller
      */
     public function usuario(): Response
     {
+        $empresas = [];
+        $subempresas = [];
+        if (painelPermissao('relatorio_usuario_empresa', false)) {
+            $empresas = $this->pegarSelectEmpresa();
+        }
+        if (painelPermissao('relatorio_usuario_subempresa', false)) {
+            $subempresas = $this->pegarSelectSubempresa();
+        }
         return view('painel.relatorio.usuario', [
-            'appTitulo' => 'Relatório de usuário',
-            'app'       => 'relatorio-usuario',
-            'de'        => dataRemover(date('Y-m-d'), 7, 'dias', 'd/m/Y'),
-            'ate'       => date('d/m/Y'),
-            'empresa'   => $this->pegarSelectEmpresa()
+            'appTitulo'  => 'Relatório de usuário',
+            'app'        => 'relatorio-usuario',
+            'de'         => dataRemover(date('Y-m-d'), 7, 'dias', 'd/m/Y'),
+            'ate'        => date('d/m/Y'),
+            'empresa'    => $empresas,
+            'subempresa' => $subempresas
         ]);
     }
 
@@ -53,13 +64,26 @@ final class RelatorioController extends Controller
      */
     public function lojaVenda(): Response
     {
+        $empresas = [];
+        $subempresas = [];
+        $parceiro = [];
+        if (painelPermissao('relatorio_loja_venda_empresa', false)) {
+            $empresas = $this->pegarSelectEmpresa();
+        }
+        if (painelPermissao('relatorio_loja_venda_subempresa', false)) {
+            $subempresas = $this->pegarSelectSubempresa();
+        }
+        if (painelPermissao('relatorio_loja_venda_parceiro', false)) {
+            $parceiro = $this->pegarSelectParceiro();
+        }
         return view('painel.relatorio.venda', [
             'appTitulo'         => 'Relatório de venda',
             'app'               => 'relatorio-loja-venda',
             'de'                => '01/' . dataRemover(date('Y-m-') . '01', 6, 'meses', 'm/Y'),
             'ate'               => '01/' . date('m/Y'),
-            'empresa'           => $this->pegarSelectEmpresa(),
-            'parceiro'          => $this->pegarSelectParceiro(),
+            'empresa'           => $empresas,
+            'subempresa'        => $subempresas,
+            'parceiro'          => $parceiro,
             'parceiroPermissao' => $this->pegarPermissaoParceiro('relatorio_loja_venda')
         ]);
     }
@@ -160,8 +184,11 @@ final class RelatorioController extends Controller
             'de'  => dataBanco($de),
             'ate' => dataBanco($ate),
         ];
-        if ($request->empresa) {
+        if (!empty($request->empresa)) {
             $body['empresa'] = explode(',', $request->empresa);
+        }
+        if (!empty($request->subempresa)) {
+            $body['subempresa'] = explode(',', $request->subempresa);
         }
         if ($local == 'loja' && !empty($request->estabelecimento)) {
             $body['estabelecimento'] = $request->estabelecimento;
@@ -198,8 +225,11 @@ final class RelatorioController extends Controller
             'de'  => dataBanco($de),
             'ate' => dataBanco($ate),
         ];
-        if ($request->empresa) {
+        if (!empty($request->empresa)) {
             $body['empresa'] = explode(',', $request->empresa);
+        }
+        if (!empty($request->subempresa)) {
+            $body['subempresa'] = explode(',', $request->subempresa);
         }
 
         $Api = new ApiHelper(token: true);
@@ -241,8 +271,11 @@ final class RelatorioController extends Controller
     public function getDadoUsuario(Request $request)
     {
         $body = [];
-        if ($request->empresa) {
+        if (!empty($request->empresa)) {
             $body['empresa'] = explode(',', $request->empresa);
+        }
+        if (!empty($request->subempresa)) {
+            $body['subempresa'] = explode(',', $request->subempresa);
         }
 
         $Api = new ApiHelper(token: true);
@@ -278,10 +311,13 @@ final class RelatorioController extends Controller
             'de'  => dataBanco($de),
             'ate' => dataBanco($ate),
         ];
-        if ($request->empresa) {
+        if (!empty($request->empresa)) {
             $body['empresa'] = explode(',', $request->empresa);
         }
-        if ($request->parceiro) {
+        if (!empty($request->subempresa)) {
+            $body['subempresa'] = explode(',', $request->subempresa);
+        }
+        if (!empty($request->parceiro)) {
             $body['parceiro'] = explode(',', $request->parceiro);
         }
 

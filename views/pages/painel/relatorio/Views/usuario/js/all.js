@@ -9,10 +9,11 @@ window.addEventListener('load', () => {
 
     const buscarGrafico = async () => {
         const valoresMarcados = pegarValoresMarcadosEmpresa();
+        const valoresMarcadosSubempresa = pegarValoresMarcadosSubempresa();
 
         Loading.show();
 
-        const resposta = await fetch(LINK + `/relatorio/dado-usuario?empresa=${valoresMarcados}`, {
+        const resposta = await fetch(LINK + `/relatorio/dado-usuario?empresa=${valoresMarcados}&subempresa=${valoresMarcadosSubempresa}`, {
             method: 'GET',
             headers: {
                 'Content-Type': 'application/json',

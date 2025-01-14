@@ -5,7 +5,7 @@ namespace Painel\Relatorio\Models;
 use Helpers\ApiHelper;
 use Helpers\CryptHelper;
 
-final class MontarRelatorioModel
+class MontarRelatorioModel
 {
     private array $cor = [
 
@@ -130,7 +130,7 @@ final class MontarRelatorioModel
         $relatorio = [
             'total' => [
                 'usuario'   => $dado->total,
-                'bloqueado' => $dado->bloqueado,
+                'bloqueado' => $dado->bloqueado
             ],
             'Ativo' => [
                 'numero'      => 0,

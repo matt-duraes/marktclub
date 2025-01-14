@@ -1,8 +1,10 @@
 // @system "Icone"
 
 const blocoCheckboxEmpresa = document.querySelector('.bloco_checkbox');
+const blocoCheckboxSubempresa = document.querySelector('.bloco_checkbox_subempresas');
 const botaoFiltro = document.querySelector('.botao_empresa');
 const inputMarcarTodos = document.querySelector('#input_marcar_todos');
+const inputMarcarTodosSubempresa = document.querySelector('#input_marcar_todos_subempresa');
 const headerResto = document.querySelector('#header_template .bloco_app .resto');
 const botaoBuscar = document.getElementById('botao_buscar_relatorio');
 
@@ -31,6 +33,14 @@ window.addEventListener('load', () => {
         });
     }
 
+    if (blocoCheckboxSubempresa) {
+        inputMarcarTodosSubempresa.addEventListener('change', lidarMarcarTodosSubempresa);
+
+        blocoCheckboxSubempresa.addEventListener('change', e => {
+            inputMarcarTodosSubempresa.checked = false;
+        });
+    }
+
     if (inputParceiro) {
         inputParceiro.evento('formChange', e => {
             adicionarTagItem(e.target.value, inputParceiroTexto.value);
@@ -46,6 +56,24 @@ window.addEventListener('load', () => {
 
 const lidarMarcarTodos = e => {
     const checkboxes = blocoCheckboxEmpresa.querySelectorAll('input[type=checkbox]');
+
+    checkboxes.forEach(checkbox => {
+        checkbox.checked = e.target.checked;
+        const div = checkbox.parentNode;
+        const label = div.querySelector('label');
+
+        if (e.target.checked) {
+            div.classList.add('checked');
+            label.classList.add('checked');
+        } else {
+            div.classList.remove('checked');
+            label.classList.remove('checked');
+        }
+    });
+};
+
+const lidarMarcarTodosSubempresa = e => {
+    const checkboxes = blocoCheckboxSubempresa.querySelectorAll('input[type=checkbox]');
 
     checkboxes.forEach(checkbox => {
         checkbox.checked = e.target.checked;
@@ -132,6 +160,19 @@ const pegarValoresMarcadosEmpresa = () => {
 
     let valoresMarcados = [];
     let checkboxes = blocoCheckboxEmpresa.getElementsByTagName('input');
+    for (var i = 0; i < checkboxes.length; i++) {
+        if (checkboxes[i].type === 'checkbox' && checkboxes[i].checked) {
+            valoresMarcados.push(checkboxes[i].value);
+        }
+    }
+    return valoresMarcados;
+};
+
+const pegarValoresMarcadosSubempresa = () => {
+    if (!blocoCheckboxSubempresa) return '';
+
+    let valoresMarcados = [];
+    let checkboxes = blocoCheckboxSubempresa.getElementsByTagName('input');
     for (var i = 0; i < checkboxes.length; i++) {
         if (checkboxes[i].type === 'checkbox' && checkboxes[i].checked) {
             valoresMarcados.push(checkboxes[i].value);

@@ -101,7 +101,7 @@ class SolicitacaoContatoEntity extends Entity
                 $NotificacaoEntity = new NotificacaoEntity(
                     'Uma nova solicitação de contato foi registrada.',
                     'O Usuário ' . $this->nome . ' deseja entrar em contato com o clube',
-                    LINK_PAINEL . '/app/visualizar/solicitacao-contato/' . $this->id,
+                    '/app/visualizar/solicitacao-contato/' . $this->id,
                     '_blank',
                     'Ver solicitação de contato',
                     $Equipe,
