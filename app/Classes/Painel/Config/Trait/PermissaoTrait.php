@@ -624,32 +624,35 @@ trait PermissaoTrait
             'relatorio_acesso'         => [
                 'titulo'    => 'Relatório Acesso',
                 'permissao' => [
-                    'relatorio_acesso_index'   => [
+                    'relatorio_acesso_index'      => [
                         'titulo' => 'Relatório de acesso',
                         'scope'  => ['relatorio_acesso:listar']
                     ],
-                    'relatorio_acesso_empresa' => Titulo::EMPRESA
+                    'relatorio_acesso_empresa'    => Titulo::EMPRESA,
+                    'relatorio_acesso_subempresa' => 'Todas as Subempresas'
                 ]
             ],
             'relatorio_usuario'        => [
                 'titulo'    => 'Relatório de usuário',
                 'permissao' => [
-                    'relatorio_usuario_index'   => [
+                    'relatorio_usuario_index'      => [
                         'titulo' => 'Relatório de usuário',
                         'scope'  => ['relatorio_usuario:listar']
                     ],
-                    'relatorio_usuario_empresa' => Titulo::EMPRESA
+                    'relatorio_usuario_empresa'    => Titulo::EMPRESA,
+                    'relatorio_usuario_subempresa' => 'Todas as Subempresas'
                 ]
             ],
             'relatorio_loja_venda'     => [
                 'titulo'    => 'Relatório de vendas',
                 'permissao' => [
-                    'relatorio_loja_venda_index'    => [
+                    'relatorio_loja_venda_index'      => [
                         'titulo' => 'Relatório de vendas',
                         'scope'  => ['relatorio_loja_venda:listar']
                     ],
-                    'relatorio_loja_venda_empresa'  => Titulo::EMPRESA,
-                    'relatorio_loja_venda_parceiro' => 'Todos os parceiros'
+                    'relatorio_loja_venda_empresa'    => Titulo::EMPRESA,
+                    'relatorio_loja_venda_subempresa' => 'Todas as Subempresas',
+                    'relatorio_loja_venda_parceiro'   => 'Todos os parceiros'
                 ]
             ],
             'tabela_usuario'           => [
