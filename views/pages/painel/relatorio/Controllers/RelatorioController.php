@@ -285,14 +285,35 @@ final class RelatorioController extends Controller
             ->object()->dado ?? [];
 
         $Montar = new MontarRelatorioModel();
-        return mensagemSucesso([
+        return mensagemSucesso(empty($dado) ? [
+            'status'         => [
+                'total' => [
+                    'usuario'   => 0,
+                    'bloqueado' => 0
+                ],
+                'ativo' => [
+                    'numero'      => 0,
+                    'porcentagem' => 0
+                ],
+                'anativo' => [
+                    'numero'      => 0,
+                    'porcentagem' => 0
+                ]
+            ],
+            'estado'         => [],
+            'genero'         => [],
+            'faixa_etaria'   => [],
+            'atualizar_dado' => [],
+            'estado_civil'   => [],
+            'situacao'       => []
+        ] : [
             'status'         => $Montar->montarRelatorioStatus($dado->status),
             'estado'         => $Montar->montarRelatorioEstado($dado->estado),
             'genero'         => $Montar->montarPizza($dado->genero->lista, 'genero'),
             'faixa_etaria'   => $Montar->montarPizza($dado->faixa_etaria->lista, 'faixa_etaria'),
             'atualizar_dado' => $Montar->montarPizza($dado->atualizar_dado->lista, 'tempo'),
             'estado_civil'   => $Montar->montarPizza($dado->estado_civil->lista, 'estado_civil'),
-            'situacao'       => $Montar->montarPizza($dado->situacao->lista, 'situacao'),
+            'situacao'       => $Montar->montarPizza($dado->situacao->lista, 'situacao')
         ]);
     }
 

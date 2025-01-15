@@ -127,16 +127,33 @@ class MontarRelatorioModel
 
     public function montarRelatorioStatus($dado)
     {
+        if (empty($dado)) {
+            return [
+                'total' => [
+                    'usuario'   => 0,
+                    'bloqueado' => 0
+                ],
+                'ativo' => [
+                    'numero'      => 0,
+                    'porcentagem' => 0
+                ],
+                'inativo' => [
+                    'numero'      => 0,
+                    'porcentagem' => 0
+                ]
+            ];
+        }
+
         $relatorio = [
             'total' => [
                 'usuario'   => $dado->total,
                 'bloqueado' => $dado->bloqueado
             ],
-            'Ativo' => [
+            'ativo' => [
                 'numero'      => 0,
                 'porcentagem' => 0
             ],
-            'Inativo' => [
+            'inativo' => [
                 'numero'      => 0,
                 'porcentagem' => 0
             ]
