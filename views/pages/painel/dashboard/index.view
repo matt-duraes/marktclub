@@ -1,12 +1,12 @@
 @template "painel"
 
 <div class="bloco_dashboard">
-    <!-- <div class="banner">
+    <div class="banner">
         <a href="{{LINK}}/app/indique-concorra">
             <figure class="desktop"><img src="{{LINK}}/images/painel/campanha_comercial_indicacao_desktop.png" alt="Campanha indique e concorra"></figure>
             <figure class="mobile"><img src="{{LINK}}/images/painel/campanha_comercial_indicacao_mobile.png" alt="Campanha indique e concorra"></figure>
         </a>
-    </div> -->
+    </div>
 
     <div class="bloco_perfil">
         <figure data-bgimagem="{!!imagem(USUARIO_IMAGEM)!!}"></figure>

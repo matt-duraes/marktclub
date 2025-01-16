@@ -95,7 +95,7 @@ abstract class PadraoController extends Controller
                 'filtrar'    => $config['filtrar'] ?? false,
                 'ordem'      => $config['ordem'] ?? false,
                 'drag'       => $Index->pegarDrag(),
-                'index'      => $this->pegarPermissaoUsuario('index', $app, true),
+                'index'      => $this->pegarPermissaoUsuario('index', $app, $config['index'] ?? true),
                 'download'   => $this->pegarPermissaoUsuario('download', $app, $config['download'] ?? false),
                 'visualizar' => $permissaoVisualizar,
                 'add'        => $this->pegarPermissaoUsuario('add', $app, $config['add'] ?? false),
@@ -378,7 +378,7 @@ abstract class PadraoController extends Controller
     {
         if (!$config) {
             return false;
-        } elseif (sessao('USUARIO.dev')) {
+        } elseif ($config == '*' || sessao('USUARIO.dev')) {
             return true;
         }
 
