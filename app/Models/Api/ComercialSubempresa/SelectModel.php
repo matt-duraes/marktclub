@@ -2,9 +2,9 @@
 
 namespace App\Models\Api\ComercialSubempresa;
 
-use ORM\ORM;
-use Http\Request;
 use App\Classes\ComercialEmpresa\Helper;
+use Http\Request;
+use ORM\ORM;
 
 final class SelectModel extends ORM
 {
@@ -16,19 +16,6 @@ final class SelectModel extends ORM
     ) {
         parent::__construct();
         $this->pegarEmpresa();
-    }
-
-    public function listarSelect(): array
-    {
-        return $this->pegarSelect('cod', 'nome_fantasia', $this->pegarWhere(), titulo: $this->request->titulo);
-    }
-
-    private function pegarWhere(): array
-    {
-        return [
-            ['id_admin_empresa', $this->idEmpresa],
-            ['status', 'in', Helper::STATUS_LIBERADO]
-        ];
     }
 
     private function pegarEmpresa()
@@ -50,5 +37,21 @@ final class SelectModel extends ORM
         }
 
         $this->idEmpresa = $idEmpresa;
+    }
+
+    public function listarSelect(): array
+    {
+        return $this->pegarSelect('cod', 'nome_fantasia', $this->pegarWhere(), titulo: $this->request->titulo);
+    }
+
+    private function pegarWhere(): array
+    {
+        if (!empty($this->request->todas) && $this->request->todas == 1) {
+            return ['status', 'in', Helper::STATUS_LIBERADO];
+        }
+        return [
+            ['id_admin_empresa', $this->idEmpresa],
+            ['status', 'in', Helper::STATUS_LIBERADO]
+        ];
     }
 }
