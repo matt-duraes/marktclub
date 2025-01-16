@@ -69,6 +69,7 @@ window.addEventListener('load', () => {
         const de = inputDe.value;
         const ate = inputAte.value;
         const empresa = pegarValoresMarcadosEmpresa();
+        const subempresa = pegarValoresMarcadosSubempresa();
         const parceiro = pegarValoresMarcadosParceiro();
 
         let bloco, loading, newLocal;
@@ -110,8 +111,9 @@ window.addEventListener('load', () => {
                 de,
                 ate,
                 empresa,
+                subempresa,
                 estabelecimento,
-                parceiro,
+                parceiro
             },
             undefined,
             {
