@@ -1859,7 +1859,7 @@ Route
         Route
             ::nome('select')
             ::middleware(TokenMiddleware::class, 'scope', ['comercial_subempresa:select'])
-            ::request(['!titulo', '!empresa'], 'json')
+            ::request(['!titulo', '!empresa', '!todas'], 'json')
             ::get('/comercial-subempresa/select');
     });
 
