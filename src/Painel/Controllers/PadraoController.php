@@ -379,7 +379,7 @@ abstract class PadraoController extends Controller
         if (!$config) {
             return false;
         } elseif ($config == '*' || sessao('USUARIO.dev')) {
-            return true;
+            return $config == '*' ? '*' : true;
         }
 
         $permissaoUsuario = sessao('USUARIO.permissao', padrao: []);
