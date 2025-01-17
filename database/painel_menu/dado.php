@@ -176,7 +176,7 @@ return [
         'titulo'           => 'CAMPANHA',
         'ordem'            => '++',
         'status'           => 1,
-        'permissao'        => '["indique_concorra_index"]'
+        'permissao'        => '["*"]'
     ],
     [
         'id'               => '++',
@@ -188,7 +188,7 @@ return [
         'ordem'            => '++',
         'menu'             => ['indique-concorra'],
         'status'           => 1,
-        'permissao'        => '["indique_concorra_index"]'
+        'permissao'        => '["*"]'
     ],
     [
         'id'               => '++',
