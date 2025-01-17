@@ -57,7 +57,7 @@ final class Scope
         'usuario_dependente:deletar', 'usuario_dependente:listar', 'usuario_dependente:salvar',
         'usuario_dependente:buscar',
         'login:digio', 'login:clube',
-        'texto_clube:listar',
+        'texto_clube:listar', 'texto_clube:buscar',
         'solicitacao_contato:salvar'
     ];
     public const PAINEL_LOGIN = [
