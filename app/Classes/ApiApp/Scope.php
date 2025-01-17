@@ -54,7 +54,7 @@ final class Scope
         'usuario_cliente:hash', 'usuario_cliente:apple',
         'usuario_cliente:atualizar', 'usuario_cliente:buscar',
         'usuario_cliente:salvar',
-        'usuario_dependente:deletar', 'usuario_dependente:listar', 'usuario_dependente:salvar',
+        'usuario_dependente:salvar',
         'usuario_dependente:buscar',
         'login:digio', 'login:clube',
         'texto_clube:listar', 'texto_clube:buscar',
