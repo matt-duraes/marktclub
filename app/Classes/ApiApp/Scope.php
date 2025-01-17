@@ -52,7 +52,11 @@ final class Scope
         'construtor_clube:buscar', 'site_lotacao:select',
         'comunicacao_login:buscar',
         'usuario_cliente:ativar', 'usuario_cliente:senha', 'usuario_indicacao:ativar',
-        'usuario_cliente:hash',
+        'usuario_cliente:hash', 'usuario_cliente:apple', 'usuario_cliente:atualizar', 'usuario_cliente:buscar',
+        'usuario_cliente:deletar', 'usuario_cliente:download', 'usuario_cliente:listar',
+        'usuario_cliente:salvar',
+        'usuario_dependente:deletar', 'usuario_dependente:listar', 'usuario_dependente:salvar',
+        'usuario_dependente:buscar',
         'login:digio', 'login:clube',
         'texto_clube:listar',
         'solicitacao_contato:salvar'
