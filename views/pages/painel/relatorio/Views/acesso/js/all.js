@@ -23,6 +23,7 @@ window.addEventListener('load', () => {
         const de = inputDe.value;
         const ate = inputAte.value;
         const empresa = pegarValoresMarcadosEmpresa();
+        const subempresa = pegarValoresMarcadosSubempresa();
         const parceiro = pegarValoresMarcadosParceiro();
 
         if (parceiro.length > 0) {
@@ -31,7 +32,7 @@ window.addEventListener('load', () => {
         }
 
         graficoAcesso.classList.add('loading');
-        const resposta = await ajaxGet(LINK + `/relatorio/acesso-dia`, { de, ate, empresa }, undefined, {
+        const resposta = await ajaxGet(LINK + `/relatorio/acesso-dia`, { de, ate, empresa, subempresa }, undefined, {
             headers: {
                 'Content-Type': 'application/json',
             },
@@ -68,6 +69,7 @@ window.addEventListener('load', () => {
         const de = inputDe.value;
         const ate = inputAte.value;
         const empresa = pegarValoresMarcadosEmpresa();
+        const subempresa = pegarValoresMarcadosSubempresa();
         const parceiro = pegarValoresMarcadosParceiro();
 
         let bloco, loading, newLocal;
@@ -109,8 +111,9 @@ window.addEventListener('load', () => {
                 de,
                 ate,
                 empresa,
+                subempresa,
                 estabelecimento,
-                parceiro,
+                parceiro
             },
             undefined,
             {
@@ -159,6 +162,7 @@ window.addEventListener('load', () => {
         const de = inputDe.value;
         const ate = inputAte.value;
         const empresa = pegarValoresMarcadosEmpresa();
+        const subempresa = pegarValoresMarcadosSubempresa();
         const parceiro = pegarValoresMarcadosParceiro();
 
         if (parceiro.length > 0) {
@@ -182,6 +186,7 @@ window.addEventListener('load', () => {
                 de,
                 ate,
                 empresa,
+                subempresa
             },
             undefined,
             {
