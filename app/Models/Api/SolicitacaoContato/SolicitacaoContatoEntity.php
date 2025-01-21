@@ -2,18 +2,30 @@
 
 namespace App\Models\Api\SolicitacaoContato;
 
-use ORM\Entity;
-use Modules\Nome;
-use Modules\Email;
-use Modules\Telefone;
-use Helpers\OrmHelper;
+use ApiModel\PainelNotificacao\NotificacaoEntity;
 use App\Classes\SolicitacaoContato\Status;
 use App\Models\Api\Trait\ValidarEmpresaTrait;
+use App\Models\Api\UsuarioEquipe\EquipeEntity;
+use Erro\Excecao;
+use Helpers\OrmHelper;
+use Modules\Email;
+use Modules\Nome;
+use Modules\Telefone;
+use ORM\Entity;
+use Throwable;
 
 class SolicitacaoContatoEntity extends Entity
 {
     use ValidarEmpresaTrait;
 
+    public string $local;
+    public string $tipo;
+    public Nome $nome;
+    public Email $email;
+    public Telefone $telefone;
+    public string $mensagem;
+    public Status $status;
+    public array $empresa;
     protected string $ormTabela = TABELA_SOLICITACAO_CONTATO;
     protected array $ormBuscar = [
         'id_admin_empresa', 'local', 'tipo', 'nome', 'email', 'telefone', 'mensagem',
@@ -36,30 +48,18 @@ class SolicitacaoContatoEntity extends Entity
     protected string $ormValidarUpdate = '
         status|Status|vazio|valido
     ';
-    private int $idEmpresa;
     protected int $id_admin_empresa;
-    public string $local;
-    public string $tipo;
-    public Nome $nome;
-    public Email $email;
-    public Telefone $telefone;
-    public string $mensagem;
-    public Status $status;
-    public array $empresa;
 
+    /**
+     * @throws Excecao
+     */
     public function __construct()
     {
         $this->validarEmpresa();
         parent::__construct();
     }
 
-    public function regraInsert(): void
-    {
-        $this->id_admin_empresa = $this->idEmpresa;
-        $this->status = new Status(Status::NOVO);
-    }
-
-    public function regraPosBuscar(): void
+    protected function regraPosBuscar(): void
     {
         $this->buscarEmpresa();
     }
@@ -74,5 +74,42 @@ class SolicitacaoContatoEntity extends Entity
             'id'   => $empresa['uuid'],
             'nome' => $empresa['nome_fantasia']
         ];
+    }
+
+    protected function regraInsert(): void
+    {
+        $this->id_admin_empresa = $this->idEmpresa;
+        $this->status = new Status(Status::NOVO);
+    }
+
+    protected function regraPosInsert(): void
+    {
+        try {
+            $ormHelper = new OrmHelper(TABELA_USUARIO_EQUIPE);
+            $usuarios = $ormHelper->pegarListaCampo([
+                ['id_admin_empresa', $this->id_admin_empresa],
+                ['permissao', 'json', 'solicitacao_contato_visualizar']
+            ], 'id');
+
+            foreach ($usuarios as $idUsuario) {
+                $Equipe = new EquipeEntity();
+                $Dono = new EquipeEntity();
+
+                $Equipe->buscar(['id', $idUsuario]);
+                $Dono->buscar(['id', $idUsuario]);
+
+                $NotificacaoEntity = new NotificacaoEntity(
+                    'Uma nova solicitação de contato foi registrada.',
+                    'O Usuário ' . $this->nome . ' deseja entrar em contato com o clube',
+                    '/app/visualizar/solicitacao-contato/' . $this->id,
+                    '_blank',
+                    'Ver solicitação de contato',
+                    $Equipe,
+                    $Dono
+                );
+                $NotificacaoEntity->salvar();
+            }
+        } catch (Throwable) {
+        }
     }
 }

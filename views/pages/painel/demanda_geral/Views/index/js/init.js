@@ -356,7 +356,7 @@ function pegarTiposTarefa(id, tipo) {
     const itens = $$('#bloco_tarefa_lista article');
 
     itens.forEach(item => {
-        if (item.id == 'id_tarefa_' + id) {
+        if (item.id !== 'id_tarefa_' + id) {
             return;
         }
 

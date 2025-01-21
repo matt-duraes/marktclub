@@ -52,9 +52,13 @@ final class Scope
         'construtor_clube:buscar', 'site_lotacao:select',
         'comunicacao_login:buscar',
         'usuario_cliente:ativar', 'usuario_cliente:senha', 'usuario_indicacao:ativar',
-        'usuario_cliente:hash',
+        'usuario_cliente:hash', 'usuario_cliente:apple',
+        'usuario_cliente:atualizar', 'usuario_cliente:buscar',
+        'usuario_cliente:salvar',
+        'usuario_dependente:salvar',
+        'usuario_dependente:buscar',
         'login:digio', 'login:clube',
-        'texto_clube:listar',
+        'texto_clube:listar', 'texto_clube:buscar',
         'solicitacao_contato:salvar'
     ];
     public const PAINEL_LOGIN = [
@@ -67,7 +71,8 @@ final class Scope
         'comercial_empresa:buscar', 'comercial_empresa:listar', 'comercial_empresa:salvar', 'comercial_empresa:select', 'comercial_subempresa:select',
         'comercial_restricao:select', 'parceiro_subcategoria:select', 'parceiro_subcategoria:listar',
         'usuario_grupo:select', 'usuario_equipe:select', 'parceiro_loja:select',
-        'usuario_equipe:mudar_empresa', 'automovel_modelo:deletar', 'usuario_equipe:perfil'
+        'usuario_equipe:mudar_empresa', 'automovel_modelo:deletar', 'usuario_equipe:perfil',
+        'site_lotacao:select'
     ];
     public const PAINEL_INTERNO = [
         'perfil_dado:buscar', 'perfil_dado:atualizar', 'perfil_dado:validar_senha',

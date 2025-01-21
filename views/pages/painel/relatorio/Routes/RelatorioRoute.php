@@ -4,7 +4,7 @@ use Route\Route;
 use Painel\Relatorio\Controllers\RelatorioController;
 
 Route
-    ::middleware(classe: App\Middlewares\Painel\AuthMiddleware::class, action: 'logado',)
+    ::middleware(classe: App\Middlewares\Painel\AuthMiddleware::class, action: 'logado')
     ::middleware(
         classe: App\Middlewares\Painel\PermissaoMiddleware::class,
         action: 'validar',
@@ -19,17 +19,17 @@ Route
 
         Route
             ::nome('acessoDia')
-            ::request(['de', 'ate', '!empresa'])
+            ::request(['de', 'ate', '!empresa', '!subempresa'])
             ::get('/relatorio/acesso-dia');
 
         Route
             ::nome('maisAcessado')
-            ::request(['de', 'ate', 'local', '!estabelecimento', '!empresa', '!parceiro'])
+            ::request(['de', 'ate', 'local', '!estabelecimento', '!empresa', '!subempresa', '!parceiro'])
             ::get('/relatorio/mais-acessado');
 
         Route
             ::nome('dispositivo')
-            ::request(['de', 'ate', 'tipo', '!empresa'])
+            ::request(['de', 'ate', 'tipo', '!empresa', '!subempresa'])
             ::get('/relatorio/dispositivo');
     });
 
@@ -53,7 +53,7 @@ Route
 
         Route
             ::nome('dadoUsuario')
-            ::request(['!empresa'])
+            ::request(['!empresa', '!subempresa'])
             ::get('/relatorio/dado-usuario');
     });
 
@@ -72,6 +72,6 @@ Route
 
         Route
             ::nome('lojaVendaBuscar')
-            ::request(['de', 'ate', '!empresa', '!parceiro'])
+            ::request(['de', 'ate', '!empresa', '!subempresa', '!parceiro'])
             ::get('/relatorio/loja-venda-buscar');
     });
