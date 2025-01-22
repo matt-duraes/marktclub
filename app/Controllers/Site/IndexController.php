@@ -41,8 +41,7 @@ final class IndexController extends Controller
             tipo: (new TipoLoja(TipoLoja::LOJA)),
             Filtro: new FiltroModel([
                 'quantidade' => 3,
-                'acessado'   => 'sim',
-                'ordem'      => (new Ordem(Ordem::RANDOMICO))->valor()
+                'acessado'   => 'sim'
             ])
         );
         $LojaNova = new ListarModel(
