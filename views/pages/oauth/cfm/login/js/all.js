@@ -200,7 +200,7 @@ window.addEventListener('load', () => {
             });
             salvarCookie(window.btoa(cookie));
         }
-        // window.location.replace(link);
+        window.location.replace(link);
     };
 
     const mostrarCaptchaV2 = () => {
