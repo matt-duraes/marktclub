@@ -2,10 +2,10 @@
 
 namespace App\Models\Api\ParceiroLoja\Trait;
 
+use Where\Where;
+use Helpers\OrmHelper;
 use App\Classes\ParceiroLoja\TipoLoja;
 use App\Models\Api\ParceiroLoja\MaisAcessadoModel;
-use Helpers\OrmHelper;
-use Where\Where;
 
 trait WhereTrait
 {
@@ -42,11 +42,13 @@ trait WhereTrait
             })
             ->seVazio(propriedade: 'pesquisa', vazio: false, callback: function () use ($Where) {
                 $pesquisa = '%' . $this->pesquisa . '%';
+                $subcategoriaTag = '%' . strSlug($pesquisa, slug: ' ') . '%';
                 $whereTitulo = [
                     'OR',
                     ['titulo', 'like', $pesquisa],
-                    ['subcategoria_tag', 'like', $pesquisa]
+                    ['subcategoria_tag', 'like', $subcategoriaTag]
                 ];
+
                 $idSubcategoria = $this->pegarListaSubCategoria();
                 if ($idSubcategoria) {
                     $whereTitulo[] = ['subcategoria_lista', 'json', $idSubcategoria];
@@ -105,7 +107,7 @@ trait WhereTrait
 
     private function pegarListaSubCategoria()
     {
-        $titulo = $this->pesquisa;
+        $titulo = strSlug($this->pesquisa, ' ');
         return (new OrmHelper(TABELA_PARCEIRO_SUBCATEGORIA))->pegarListaCampo(
             where: ['tag', 'LIKE', '%\"' . $titulo . '%'],
             campo: 'id'

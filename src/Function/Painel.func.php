@@ -970,7 +970,7 @@ if (!function_exists('botaoControle')) {
         $dev = sessao('USUARIO.dev') == 1;
 
         $addHtml = '';
-        if (!empty($add) && !empty($addLink) && $addPermissao && (in_array($app . '_add', $permissao) || $dev)) {
+        if (!empty($add) && !empty($addLink) && !empty($addPermissao) && ($addPermissao == '*' || in_array($app . '_add', $permissao) || $dev)) {
             $addHtml = '
                 <a class="botao add" href="' . $addLink . '" id="' . $add . '">
                     <i>' . iconeAdd(13) . '</i>

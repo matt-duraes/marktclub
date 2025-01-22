@@ -17,7 +17,7 @@ $Painel->coluna(callback: function () use ($Painel) {
             ->cpf(name: 'cpf', label: 'CPF', obrigatorio: 1)
             ->select(name: 'genero', lista: 'genero', label: 'Gênero');
         if (sessao('EMPRESA.slug') != 'marktclub') {
-            $Painel->html('<input name="tipo" value="outro">', acao: 'add');
+            $Painel->html('<input type="hidden" name="tipo" value="outro">', acao: 'add');
         } else {
             $Painel->select(
                 name: 'tipo',
