@@ -13,6 +13,7 @@ window.addEventListener('load', () => {
 
     const blocoNormal = $$('.bloco_normal');
     const blocoCookie = $$('.bloco_cookie');
+    const blocoLoading = $$('.bloco_loading');
 
     const blocoRecaptchaLogin = $('#bloco_recaptcha_v2_login');
     const blocoRecaptchaCadastro = $('#bloco_recaptcha_v2_cadastro');
@@ -38,7 +39,14 @@ window.addEventListener('load', () => {
     });
 
     const CB = pegarCookie();
-    if (!vazio(CB)) {
+    if (
+        !vazio(CB) &&
+        !vazio(CB.cpf) &&
+        !vazio(CB.inscricao) &&
+        !vazio(CB.estado) &&
+        !vazio(CB.dataNascimento) &&
+        !vazio(CB.nomeMae)
+    ) {
         blocoCookie.aparecer();
         inputCpf.valor(CB.cpf);
         inputInscricao.valor(CB.inscricao);
@@ -49,6 +57,7 @@ window.addEventListener('load', () => {
     } else {
         blocoNormal.aparecer();
     }
+    blocoLoading.sumir();
 
     inputLista.focar();
 
@@ -68,6 +77,7 @@ window.addEventListener('load', () => {
         blocoCookie.sumir();
         blocoNormal.aparecer();
         inputCookie.check = false;
+        deletarCookie();
     });
 
     botaoCadastro.evento('click', () => {
@@ -117,7 +127,7 @@ window.addEventListener('load', () => {
         const cpf = inputCpf.valor();
         const inscricao = inputInscricao.valor();
         const estado = inputEstado.valor();
-        const dataNascimento = dataBanco(inputDataNascimento.valor());
+        const dataNascimento = dataBr(inputDataNascimento.valor());
         const nomeMae = inputMae.valor();
 
         const body = new FormData();
@@ -247,7 +257,7 @@ window.addEventListener('load', () => {
 
         let C = cookies.substring(pos);
         try {
-            C = JSON.parse(window.atob(C));
+            C = JSON.parse(window.atob(decodeURIComponent(C)));
         } catch (error) {
             return '';
         }
