@@ -2,15 +2,16 @@
 
 namespace App\Models\Api\Analytics;
 
+use App\Models\Api\Analytics\Trait\WhereTrait;
 use App\Models\Api\Trait\ValidarEmpresaTrait;
 use Erro\Excecao;
-use Helpers\OrmHelper;
 use ORM\ORM;
 use stdClass;
 
 final class DadoUsuarioModel extends ORM
 {
     use ValidarEmpresaTrait;
+    use WhereTrait;
 
     protected string $ormTabela = TABELA_ANALYTICS_DADO_USUARIO;
 
@@ -37,7 +38,7 @@ final class DadoUsuarioModel extends ORM
     public function gerarRelatorio(): array
     {
         $analytics = $this
-            ->where($this->pegarWhere(), false)
+            ->where($this->pegarWherePadrao(false), false)
             ->order('data_criacao')
             ->read();
 
@@ -48,43 +49,6 @@ final class DadoUsuarioModel extends ORM
         $analytics = $this->pegarPrimerioDasEmpresas($analytics);
         $analytics = $this->somarAsEmpresas($analytics);
         return $this->montarRelatorio($analytics);
-    }
-
-    /**
-     * @return array
-     * @throws Excecao
-     */
-    private function pegarWhere(): array
-    {
-        $where = [];
-        $ormHelper = new OrmHelper(TABELA_COMERCIAL_EMPRESA);
-        if (empty($this->empresa)) {
-            $where[] = ['id_admin_empresa', $this->idEmpresa];
-        } elseif (validarUuid($this->empresa, false)) {
-            $idEmpresa = $ormHelper->pegarIdPeloUuid(
-                $this->empresa,
-                'Há empresa informada não foi encontrada',
-                'Empresa inválida!'
-            );
-            $where[] = ['id_admin_empresa', $idEmpresa];
-        } elseif (is_array($this->empresa)) {
-            $where[] = ['id_admin_empresa', 'in', $ormHelper->mudarListaUuidParaId($this->empresa)];
-        }
-
-        if (empty($this->subempresa) && !empty($this->idSubempresa) && $this->idSubempresa != 0) {
-            $where[] = ['id_admin_subempresa', $this->idSubempresa];
-        } elseif (validarUuid($this->subempresa, false)) {
-            $idSubempresa = $ormHelper->pegarIdPeloUuid(
-                $this->subempresa,
-                'Há Subempresa informada não foi encontrada',
-                'Subempresa inválida!'
-            );
-            $where[] = ['id_admin_subempresa', $idSubempresa];
-        } elseif (is_array($this->subempresa)) {
-            $where[] = ['id_admin_subempresa', 'in', $ormHelper->mudarListaUuidParaId($this->subempresa)];
-        }
-
-        return $where;
     }
 
     /**
