@@ -1277,6 +1277,18 @@ const dataBanco = data => {
     const explodeData = explodeHora[0].split('/');
     return explodeData[2] + '-' + explodeData[1] + '-' + explodeData[0] + hora;
 };
+const dataBr = data => {
+    if (!/^[0-9]{4}\-[0-9]{2}\-[0-9]{2}( [0-9]{2}:[0-9]{2}:[0-9]{2})?$/.test(data)) {
+        return data;
+    }
+    const explodeHora = data.split(' ');
+    let hora = '';
+    if (validarDataHora(data)) {
+        hora = ' ' + explodeHora[1];
+    }
+    const explodeData = explodeHora[0].split('-');
+    return explodeData[2] + '/' + explodeData[1] + '/' + explodeData[0] + hora;
+};
 
 const idAleatorio = inicio => {
     const id = inicio + '_' + Math.floor(Math.random() * 65536);

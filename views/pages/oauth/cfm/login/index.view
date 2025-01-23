@@ -17,7 +17,7 @@
         <header>
             <h1>FAÇA SEU LOGIN</h1>
             <p class="display_none bloco_normal">Digite seus dados nos campos abaixo para fazer seu login</p>
-            <p class="bloco_cookie display_none">Ola <strong id="bloco_nome">André</strong>, para refazer seu login, basta clicar no botão abaixo:</p>
+            <p class="bloco_cookie display_none">Olá <strong id="bloco_nome"></strong>, para refazer seu login, basta clicar no botão abaixo:</p>
         </header>
 
         <form action="/" class="form_geral">
@@ -28,8 +28,8 @@
             @? formSelect(name: 'estado', label: 'Conselho', placeholder: 'Conselho de medicina', lista: $conselho, obrigatorio: true, local: 'BR', class: 'bloco_normal display_none')
             @? formData(name: 'data_nascimento', label: 'Data de nascimento', placeholder: 'Data de nascimento', obrigatorio: true, local: '27/07/1987', class: 'bloco_normal display_none')
             @? formInput(name: 'nome_mae', label: 'Primeiro nome da mãe', placeholder: 'Primeiro nome da mãe', obrigatorio: true, local: 'Ana', class: 'bloco_normal display_none')
-            @? formCheckbox(name: 'cookie', label: 'Gostaria de salvar seus dados em cookie para não precisar preenche-los novamente? Só faça isso em um computador pessoal.', check: false, class: 'bloco_cookie bloco_normal display_none')
-
+            @? formCheckbox(name: 'cookie', label: 'Gostaria de salvar seus dados em cookie para não precisar preenche-los novamente? Só faça isso em um computador pessoal.', check: false, class: 'bloco_normal display_none')
+            <div class="loading bloco_loading">Carregando, aguarde...</div>
             <div id="bloco_recaptcha_v2_login" class="recaptcha display_none"></div>
             <div class="botao bloco_normal display_none" id="botao_logar">Logar</div>
 
