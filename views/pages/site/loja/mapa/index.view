@@ -25,7 +25,6 @@
     <div class="conteudo">
         <div class="bloco_imagem_mobile_mapa">
             <figure></figure>
-            <i class="fechar mobile">@iconeFechar</i>
         </div>
         <div class="dado">
             <header>
