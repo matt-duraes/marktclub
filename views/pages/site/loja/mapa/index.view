@@ -25,12 +25,11 @@
     <div class="conteudo">
         <div class="bloco_imagem_mobile_mapa">
             <figure></figure>
-            <i class="fechar mobile">@iconeFechar</i>
         </div>
         <div class="dado">
             <header>
                 <h1></h1>
-                <i class="fechar desktop">@iconeFechar</i>
+                <i class="fechar">@iconeFechar</i>
             </header>
             <p class="desconto"></p>
             <a href="">Acessar loja</a>
