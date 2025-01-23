@@ -29,7 +29,7 @@
         <div class="dado">
             <header>
                 <h1></h1>
-                <i class="fechar desktop">@iconeFechar</i>
+                <i class="fechar">@iconeFechar</i>
             </header>
             <p class="desconto"></p>
             <a href="">Acessar loja</a>
