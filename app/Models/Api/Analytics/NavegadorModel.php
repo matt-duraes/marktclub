@@ -61,7 +61,7 @@ final class NavegadorModel extends ORM
             ])
             ->where($this->pegarWherePadrao())
             ->order('quantidade')
-            ->limit(0, 20)
+            //->limit(0, 20)
             ->read();
         return $this->montarRelatorio($analytics);
     }

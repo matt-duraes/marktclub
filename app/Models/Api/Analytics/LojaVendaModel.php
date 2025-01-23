@@ -52,6 +52,7 @@ final class LojaVendaModel extends ORM
     /**
      * @return array
      * @throws Excecao
+     * @throws Exception
      */
     public function gerarRelatorio(): array
     {

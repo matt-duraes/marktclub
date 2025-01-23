@@ -20,30 +20,30 @@ trait WhereTrait
     {
         $where = [];
         $ormHelper = new OrmHelper(TABELA_COMERCIAL_EMPRESA);
-        if (empty($this->empresa)) {
-            $where[] = ['id_admin_empresa', $this->idEmpresa];
-        } elseif (validarUuid($this->empresa, false)) {
+        if (!empty($this->empresa) && validarUuid($this->empresa, false)) {
             $idEmpresa = $ormHelper->pegarIdPeloUuid(
                 $this->empresa,
                 'Há empresa informada não foi encontrada',
                 'Empresa inválida!'
             );
             $where[] = ['id_admin_empresa', $idEmpresa];
-        } elseif (is_array($this->empresa)) {
+        } elseif (!empty($this->empresa) && is_array($this->empresa)) {
             $where[] = ['id_admin_empresa', 'in', $ormHelper->mudarListaUuidParaId($this->empresa)];
+        } else {
+            $where[] = ['id_admin_empresa', $this->idEmpresa];
         }
 
-        if (empty($this->subempresa) && !empty($this->idSubempresa) && $this->idSubempresa != 0) {
-            $where[] = ['id_admin_subempresa', $this->idSubempresa];
-        } elseif (validarUuid($this->subempresa, false)) {
+        if (!empty($this->subempresa) && validarUuid($this->subempresa, false)) {
             $idSubempresa = $ormHelper->pegarIdPeloUuid(
                 $this->subempresa,
                 'Há Subempresa informada não foi encontrada',
                 'Subempresa inválida!'
             );
             $where[] = ['id_admin_subempresa', $idSubempresa];
-        } elseif (is_array($this->subempresa)) {
+        } elseif (!empty($this->subempresa) && is_array($this->subempresa)) {
             $where[] = ['id_admin_subempresa', 'in', $ormHelper->mudarListaUuidParaId($this->subempresa)];
+        } elseif (empty($this->subempresa) && !empty($this->idSubempresa) && $this->idSubempresa != 0) {
+            $where[] = ['id_admin_subempresa', $this->idSubempresa];
         }
 
         if ($dataAcesso) {
