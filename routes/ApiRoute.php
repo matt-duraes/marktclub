@@ -390,8 +390,8 @@ Route
             ::request([
                 'hash', 'nome', 'cpf', 'genero', 'senha', 'termo', 'data_nascimento', 'estado_civil',
                 'email_pessoal', 'email_trabalho', 'telefone_pessoal', 'telefone_trabalho', 'endereco_cep',
-                'endereco_logradouro', 'endereco_numero', '!trabalho_empresa', '!trabalho_cargo',
-                '!trabalho_cargo_personalizado', 'endereco_complemento', 'endereco_bairro',
+                'endereco_logradouro', 'endereco_numero', '!trabalho_empresa', '!trabalho_origem',
+                '!trabalho_cargo','!trabalho_cargo_personalizado', 'endereco_complemento', 'endereco_bairro',
                 'endereco_estado', 'endereco_cidade', '!tipo_usuario', '!empresa', '!grupo'
             ])
             ::put('/usuario-cliente/ativar');
@@ -466,7 +466,7 @@ Route
         Route
             ::nome('salvar')
             ::middleware(TokenMiddleware::class, 'scope', ['usuario_grupo:salvar'])
-            ::request(['indice', 'titulo', 'status'])
+            ::request(['titulo', 'status'])
             ::post('/usuario-grupo');
 
         Route
@@ -3098,6 +3098,51 @@ Route
             ::nome('deletar')
             ::middleware(TokenMiddleware::class, 'scope', ['site_lotacao:deletar'])
             ::delete('/site-lotacao/{id}');
+    });
+
+Route
+    ::nome('site_origem')
+    ::controller(App\Controllers\Api\SiteOrigemController::class)
+    ::middleware(TokenMiddleware::class, 'token')
+    ::grupo(function () {
+        Route
+            ::nome('select')
+            ::middleware(TokenMiddleware::class, 'scope', ['site_origem:select'])
+            ::get('/site-origem/select');
+
+        Route
+            ::nome('buscar')
+            ::middleware(TokenMiddleware::class, 'scope', ['site_origem:buscar'])
+            ::get('/site-origem/{id}');
+
+        Route
+            ::nome('listar')
+            ::middleware(TokenMiddleware::class, 'scope', ['site_origem:listar'])
+            ::request([
+                'pagina', '!quantidade', '!empresa', '!status'
+            ], 'json')
+            ::get('/site-origem');
+
+        Route
+            ::nome('salvar')
+            ::middleware(TokenMiddleware::class, 'scope', ['site_origem:salvar'])
+            ::request([
+                'titulo', 'status'
+            ])
+            ::post('/site-origem');
+
+        Route
+            ::nome('atualizar')
+            ::middleware(TokenMiddleware::class, 'scope', ['site_origem:atualizar'])
+            ::request([
+                '!titulo', '!status'
+            ])
+            ::put('/site-origem/{id}');
+
+        Route
+            ::nome('deletar')
+            ::middleware(TokenMiddleware::class, 'scope', ['site_origem:deletar'])
+            ::delete('/site-origem/{id}');
     });
 
 Route
