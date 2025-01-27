@@ -15,20 +15,23 @@
 <body>
 
 <div id="site">
-    @ if( $dado ):
+    @ if( $parceiro ):
     <section id="bloco_contador">
-        <figure class="convenio">
-            <img src="<?= $dado['loja_logo'] ?>" alt="<?= $dado['loja_titulo'] ?>">
+        @ if( !empty($parceiro['logo']) ):
+        <figure class="loja">
+            <img src="<?= $parceiro['logo'] ?>" alt="<?= $parceiro['titulo'] ?>" height="100">
         </figure>
-        <h1><?= $dado['loja_titulo'] ?></h1>
+        @ endif;
+
+        <h1><?= $parceiro['titulo'] ?></h1>
         <article>
-            <p>Redirecionamento em <span id="time">10 segundos</span>.</p>
+            <p>Redirecionamento em <span id="tempo">10 segundos</span>.</p>
             <p>Ou clique no botão abaixo:</p>
-            <a href="<?= $dado['link'] ?>">ACESSAR</a>
+            <a href="<?= $parceiro['link'] ?>">Acessar agora</a>
         </article>
     </section>
     <form action="">
-        <input type="hidden" name="LINK" id="LINK" value="{{$dado['link']}}">
+        <input type="hidden" name="LINK" id="LINK" value="{{$parceiro['link']}}">
     </form>
     @ else:
     <section>
@@ -42,5 +45,6 @@
 
 </div>
 
+@JS
 </body>
 </html>
