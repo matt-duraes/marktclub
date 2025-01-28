@@ -3101,51 +3101,6 @@ Route
     });
 
 Route
-    ::nome('site_origem')
-    ::controller(App\Controllers\Api\SiteOrigemController::class)
-    ::middleware(TokenMiddleware::class, 'token')
-    ::grupo(function () {
-        Route
-            ::nome('select')
-            ::middleware(TokenMiddleware::class, 'scope', ['site_origem:select'])
-            ::get('/site-origem/select');
-
-        Route
-            ::nome('buscar')
-            ::middleware(TokenMiddleware::class, 'scope', ['site_origem:buscar'])
-            ::get('/site-origem/{id}');
-
-        Route
-            ::nome('listar')
-            ::middleware(TokenMiddleware::class, 'scope', ['site_origem:listar'])
-            ::request([
-                'pagina', '!quantidade', '!empresa', '!status'
-            ], 'json')
-            ::get('/site-origem');
-
-        Route
-            ::nome('salvar')
-            ::middleware(TokenMiddleware::class, 'scope', ['site_origem:salvar'])
-            ::request([
-                'titulo', 'status'
-            ])
-            ::post('/site-origem');
-
-        Route
-            ::nome('atualizar')
-            ::middleware(TokenMiddleware::class, 'scope', ['site_origem:atualizar'])
-            ::request([
-                '!titulo', '!status'
-            ])
-            ::put('/site-origem/{id}');
-
-        Route
-            ::nome('deletar')
-            ::middleware(TokenMiddleware::class, 'scope', ['site_origem:deletar'])
-            ::delete('/site-origem/{id}');
-    });
-
-Route
     ::nome('publicacao_youtube')
     ::controller(App\Controllers\Api\PublicacaoYoutubeController::class)
     ::middleware(TokenMiddleware::class, 'token')

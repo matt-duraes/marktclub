@@ -1253,19 +1253,19 @@ trait PermissaoTrait
             'usuario_grupo'             => [
                 'titulo'    => 'Grupo',
                 'permissao' => [
-                    'site_origem_index'   => [
+                    'usuario_grupo_index'   => [
                         'titulo' => Titulo::LISTAR,
                         'scope'  => 'usuario_grupo:listar'
                     ],
-                    'site_origem_add'     => [
+                    'usuario_grupo_add'     => [
                         'titulo' => Titulo::SALVAR,
                         'scope'  => 'usuario_grupo:salvar'
                     ],
-                    'site_origem_editar'  => [
+                    'usuario_grupo_editar'  => [
                         'titulo' => Titulo::EDITAR,
                         'scope'  => ['usuario_grupo:atualizar', 'usuario_grupo:buscar']
                     ],
-                    'site_origem_deletar' => [
+                    'usuario_grupo_deletar' => [
                         'titulo' => Titulo::DELETAR,
                         'scope'  => 'usuario_grupo:deletar'
                     ],
