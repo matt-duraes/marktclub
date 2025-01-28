@@ -2,22 +2,22 @@
 
 namespace App\Models\Api\UsuarioCliente\Ativar;
 
-use App\Classes\UsuarioCliente\TrabalhoCargo;
-use App\Models\Api\UsuarioCliente\Ativar\Trait\AtivarTrait;
-use Http\Request;
-use Modules\Botao;
-use Modules\Cpf;
-use Modules\Data;
-use Modules\Email;
-use Modules\EnderecoCep;
-use Modules\EnderecoEstado;
-use Modules\EstadoCivil;
-use Modules\Genero;
-use Modules\Nome;
-use Modules\Senha;
-use Modules\Telefone;
 use ORM\ORM;
 use stdClass;
+use Modules\Cpf;
+use Http\Request;
+use Modules\Data;
+use Modules\Nome;
+use Modules\Botao;
+use Modules\Email;
+use Modules\Senha;
+use Modules\Genero;
+use Modules\Telefone;
+use Modules\EnderecoCep;
+use Modules\EstadoCivil;
+use Modules\EnderecoEstado;
+use App\Classes\UsuarioCliente\TrabalhoCargo;
+use App\Models\Api\UsuarioCliente\Ativar\Trait\AtivarTrait;
 
 final class AtivarModel extends ORM
 {
@@ -59,19 +59,26 @@ final class AtivarModel extends ORM
         $this->validarCpf();
         $this->validarCampoUnico();
         $this->validarHash();
+        $this->validarGrupoUsuario();
         $this->salvarUsuario();
     }
 
     private function buscarUsuario()
     {
         $usuario = $this
-            ->campo(['id', 'id_admin_empresa', 'cpf', 'hash', 'hash_data', 'hash_tipo'])
+            ->campo(['id', 'id_admin_empresa', 'cpf', 'hash', 'hash_data', 'hash_tipo', 'grupo'])
             ->where(['hash', $this->hash])
             ->primeiro();
         if (!$usuario) {
             mensagemErro('Erro!', $this->erroPadrao);
         }
         $this->usuario = $usuario;
+    }
+
+    private function validarGrupoUsuario() {
+        if(!empty($this->usuario->grupo)) {
+            $this->grupo = $this->usuario->grupo;
+        }
     }
 
     private function salvarUsuario()

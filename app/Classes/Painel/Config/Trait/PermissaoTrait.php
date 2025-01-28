@@ -1260,6 +1260,28 @@ trait PermissaoTrait
                     'site_lotacao_empresa' => Titulo::EMPRESA
                 ]
             ],
+            'usuario_grupo'             => [
+                'titulo'    => 'Grupo',
+                'permissao' => [
+                    'usuario_grupo_index'   => [
+                        'titulo' => Titulo::LISTAR,
+                        'scope'  => 'usuario_grupo:listar'
+                    ],
+                    'usuario_grupo_add'     => [
+                        'titulo' => Titulo::SALVAR,
+                        'scope'  => 'usuario_grupo:salvar'
+                    ],
+                    'usuario_grupo_editar'  => [
+                        'titulo' => Titulo::EDITAR,
+                        'scope'  => ['usuario_grupo:atualizar', 'usuario_grupo:buscar']
+                    ],
+                    'usuario_grupo_deletar' => [
+                        'titulo' => Titulo::DELETAR,
+                        'scope'  => 'usuario_grupo:deletar'
+                    ],
+                    'usuario_grupo_empresa' => Titulo::EMPRESA
+                ]
+            ],
             'view_pagina'              => [
                 'titulo'    => 'View Página',
                 'permissao' => [
