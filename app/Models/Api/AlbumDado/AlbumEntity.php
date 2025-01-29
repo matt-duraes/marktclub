@@ -2,75 +2,192 @@
 
 namespace App\Models\Api\AlbumDado;
 
-use ORM\Entity;
+use App\Classes\Geral\Status;
+use App\Models\Api\Trait\ValidarEmpresaTrait;
+use Erro\Erro;
+use Erro\Excecao;
+use Helpers\OrmHelper;
 use Modules\Botao;
 use Modules\DataHora;
-use Helpers\OrmHelper;
-use App\Classes\Geral\Status;
-use App\Classes\Geral\Publicado;
-use App\Models\Api\Trait\ValidarEmpresaTrait;
+use ORM\Entity;
 
-final class AlbumEntity extends Entity
+class AlbumEntity extends Entity
 {
     use ValidarEmpresaTrait;
 
-    protected string $ormTabela = TABELA_ALBUM_DADO;
-    protected array $ormInsert = [
-        'id_admin_empresa', 'id_usuario_equipe'
-    ];
-    protected array $ormSalvar = [
-        'titulo', 'texto', 'imagem', 'data_inicio', 'data_final', 'permissao_restrita', 'permissao_site', 'status'
-    ];
-    protected array $ormBuscar = [
-        'titulo', 'texto', 'data_inicio', 'data_final', 'permissao_restrita', 'permissao_site', 'status'
-    ];
-    protected string $ormValidar = '
-        titulo|Titulo|obrigatorio|vazio
-        data_inicio|Data de início da publicação|obrigatorio|vazio|valido
-        data_final|Data final da publicação|valido
-        status|Status|obrigatorio|vazio|valido
-    ';
     public string $titulo;
     public string $texto;
     public string $imagem;
+    public string $url;
     public DataHora $data_inicio;
     public DataHora $data_final;
     public Botao $permissao_restrita;
     public Botao $permissao_site;
-    public Publicado $publicado;
     public Status $status;
+    protected string $ormTabela = TABELA_ALBUM_DADO;
+    protected array $ormBuscar = [
+        'id_admin_empresa', 'titulo', 'texto', 'imagem', 'url', 'data_inicio',
+        'data_final', 'permissao_restrita', 'permissao_site', 'status'
+    ];
+    protected array $ormInsert = [
+        'id_admin_empresa'  => '->idEmpresa',
+        'id_usuario_equipe' => '->idUsuario', 'url'
+    ];
+    protected array $ormSalvar = [
+        'titulo', 'texto', 'imagem', 'data_inicio', 'data_final',
+        'permissao_restrita', 'permissao_site', 'status'
+    ];
+    protected string $ormValidar = '
+        titulo|Título|obrigatorio|vazio
+        data_inicio|Data de Início da Publicação|obrigatorio|vazio|valido
+        data_final|Data Final da Publicação|valido
+        permissao_restrita|Área Restrita|obrigatorio|vazio
+        permissao_site|Público|obrigatorio|vazio
+        status|Status|obrigatorio|vazio|valido
+    ';
+    protected int $id_admin_empresa;
 
+    /**
+     * @throws Excecao
+     */
     public function __construct()
     {
-        parent::__construct();
         $this->validarEmpresa();
+        parent::__construct();
     }
 
-    public function regraPosBuscar()
+    /**
+     * @return void
+     * @throws Erro
+     * @throws Excecao
+     */
+    protected function regraPosBuscar(): void
     {
         if (empty($this->imagem)) {
             $this->setarImagemCapa();
         }
-        $this->imagem = arquivoPublico('album_foto', $this->imagem, padrao: '');
-        $this->publicado = new Publicado(
-            $this->data_inicio,
-            $this->data_final,
-            $this->status->indice() == $this->status::ATIVO
-        );
+        $this->imagem = arquivoPrivado($this->imagem);
     }
 
-    private function setarImagemCapa()
+    /**
+     * @return void
+     * @throws Erro
+     * @throws Excecao
+     */
+    private function setarImagemCapa(): void
     {
-        $imagem = (new OrmHelper(TABELA_ALBUM_FOTO))->pegarPrimeiroRegistro(
-            where: [
-                ['id_album_dado', $this->prop('id')],
-            ],
-            campo: ['imagem']
-        )['imagem'] ?? '';
-        if (empty($imagem)) {
+        $ormHelper = new OrmHelper(TABELA_ALBUM_FOTO);
+        $albumId = $this->prop('id');
+        $capa = $ormHelper->pegarPrimeiroRegistro([
+            ['id_album_dado', $albumId]
+        ], ['imagem']);
+
+        if (empty($capa['imagem'])) {
             return;
         }
-        $this->dado(['imagem' => $imagem])->where(['id', $this->prop('id')])->update();
-        $this->imagem = $imagem;
+        $this->dado(['imagem' => $capa['imagem']])
+            ->where(['id', $albumId])
+            ->update();
+        $this->imagem = $capa['imagem'];
+    }
+
+    /**
+     * @return void
+     * @throws Excecao
+     */
+    protected function regraInsert(): void
+    {
+        $this->validarDataPassadaInsert();
+        //$this->setarUrl();
+    }
+
+    /**
+     * @throws Excecao
+     */
+    private function validarDataPassadaInsert(): void
+    {
+        $hoje = date('Y-m-d');
+        if ($hoje > $this->data_inicio->date()) {
+            mensagemErro(
+                'Acão recusada',
+                'A Data de início não pode ser antes da data atual ' . dataBr($hoje),
+                localhost: 'A Data de início está no passado. Não existe máquina do tempo ainda. :|'
+            );
+        }
+
+        if (empty($this->data_final)) {
+            return;
+        }
+        if ($hoje > $this->data_final->date()) {
+            mensagemErro(
+                'Acão recusada',
+                'A Data final não pode ser antes da data atual ' . dataBr($hoje),
+                localhost: 'A Data final está no passado. Não existe máquina do tempo ainda. :|'
+            );
+        }
+    }
+
+    /**
+     * @return void
+     * @throws Excecao
+     */
+    protected function regraUpdate(): void
+    {
+        $this->validarDataPassadaUpdate();
+    }
+
+    /**
+     * @throws Excecao
+     */
+    private function validarDataPassadaUpdate(): void
+    {
+        $hoje = date('Y-m-d H:i:s');
+        $ormHelper = new OrmHelper($this->ormTabela);
+        $album = $ormHelper->pegarPrimeiroRegistro(['uuid', $this->id], ['data_inicio', 'data_final']);
+
+        if (($this->data_inicio->date() !== $album['data_inicio']) && ($this->data_inicio->date() < $hoje)) {
+            mensagemErro(
+                'Acão recusada',
+                'A Data de início não pode ser antes da data atual ' . dataBr($hoje),
+                localhost: 'A Data de início não pode ser no passado. Você não é viajante do tempo.'
+            );
+        }
+
+        if ($this->data_final->vazio()) {
+            return;
+        }
+        if (($this->data_final->date() !== $album['data_final']) && ($this->data_final->date() < $hoje)) {
+            mensagemErro(
+                'Acão recusada',
+                'A Data final não pode ser antes da data atual ' . dataBr($hoje),
+                localhost: 'A Data final não pode ser no passado. Você não é viajante do tempo.'
+            );
+        }
+    }
+
+    /**
+     * @return void
+     * @throws Excecao
+     */
+    private function setarUrl(): void
+    {
+        $url = strSlug($this->titulo);
+        if ($this->checarUrl($url)) {
+            $this->url = $url . '-' . uniqid();
+            return;
+        }
+        $this->url = $url;
+    }
+
+    /**
+     * @param string $url
+     *
+     * @return bool
+     * @throws Excecao
+     */
+    private function checarUrl(string $url): bool
+    {
+        $ormHelper = new OrmHelper($this->ormTabela);
+        return $ormHelper->existe(['url', $url]);
     }
 }

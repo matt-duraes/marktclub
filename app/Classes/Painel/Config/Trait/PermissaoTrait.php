@@ -1122,6 +1122,7 @@ trait PermissaoTrait
                         'titulo' => 'Gerenciar Foto',
                         'scope'  => 'album_dado:foto'
                     ],
+                    'album_dado_empresa' => Titulo::EMPRESA
                 ]
             ],
             'votacao'                  => [
