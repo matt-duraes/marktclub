@@ -1,16 +1,16 @@
 <?php
 
 return [
-    'titulo'     => 'Album Dado',
+    'titulo'     => 'Álbuns',
     'buscar'     => true,
     'filtrar'    => true,
     'ordem'      => true,
-    'visualizar' => true,
-    'download'   => true,
+    'visualizar' => false,
+    'download'   => false,
     'add'        => true,
     'editar'     => true,
     'deletar'    => true,
-    'historico'  => true,
+    'historico'  => false,
     'api'        => [
         'scope'        => 'album_dado',
         'uri'          => '/album-dado',

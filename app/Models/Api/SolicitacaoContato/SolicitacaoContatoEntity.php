@@ -87,7 +87,7 @@ class SolicitacaoContatoEntity extends Entity
         try {
             $ormHelper = new OrmHelper(TABELA_USUARIO_EQUIPE);
             $usuarios = $ormHelper->pegarListaCampo([
-                ['id_admin_empresa', $this->id_admin_empresa],
+                ['id_admin_empresa', $this->idEmpresa],
                 ['permissao', 'json', 'solicitacao_contato_visualizar']
             ], 'id');
 

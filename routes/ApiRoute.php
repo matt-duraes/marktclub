@@ -1261,14 +1261,16 @@ Route
             ::nome('salvar')
             ::middleware(TokenMiddleware::class, 'scope', ['parceiro_campanha:salvar'])
             ::request([
-                'parceiro', 'titulo', 'texto', 'data_inicio', 'data_final', 'imagem_desktop', 'imagem_mobile', 'link', 'status'
+                'parceiro', 'titulo', 'texto', 'data_inicio', 'data_final', 'imagem_desktop', 'imagem_mobile', 'link',
+                'status'
             ])
             ::post('/parceiro-campanha');
         Route
             ::nome('atualizar')
             ::middleware(TokenMiddleware::class, 'scope', ['parceiro_campanha:atualizar'])
             ::request([
-                '!parceiro', '!titulo', '!texto', '!data_inicio', '!data_final', '!imagem_desktop', '!imagem_mobile', '!link', '!status'
+                '!parceiro', '!titulo', '!texto', '!data_inicio', '!data_final', '!imagem_desktop', '!imagem_mobile',
+                '!link', '!status'
             ])
             ::put('/parceiro-campanha/{id}');
         Route
@@ -1898,7 +1900,8 @@ Route
             ::request([
                 '!titulo', '!finalidade_principal', '!finalidade_secundaria', '!nome_fantasia', '!razao_social',
                 '!site', '!responsavel_nome', '!responsavel_cargo', '!responsavel_email', '!responsavel_telefone',
-                '!responsavel_cpf', '!equipe', '!dono', '!tipo_pagamento', '!contrato_valor', '!renda_media', '!produto_clube',
+                '!responsavel_cpf', '!equipe', '!dono', '!tipo_pagamento', '!contrato_valor', '!renda_media',
+                '!produto_clube',
                 '!produto_ios', '!produto_android', '!produto_site', '!produto_webview', '!produto_api', '!cnpj',
                 '!estado_principal', '!status', '!data_eleicao', '!email_dia', '!whatsapp_dia', '!rede_social_dia',
                 '!contrato_prazo', '!contrato_renovacao', '!tipo_site', '!cadastro_usuario', '!comunicacao_email',
@@ -1918,7 +1921,8 @@ Route
             ::request([
                 '!titulo', '!finalidade_principal', '!finalidade_secundaria', '!nome_fantasia', '!razao_social',
                 '!site', '!responsavel_nome', '!responsavel_cargo', '!responsavel_email', '!responsavel_telefone',
-                '!responsavel_cpf', '!equipe', '!dono', '!tipo_pagamento', '!contrato_valor', '!renda_media', '!produto_clube',
+                '!responsavel_cpf', '!equipe', '!dono', '!tipo_pagamento', '!contrato_valor', '!renda_media',
+                '!produto_clube',
                 '!produto_ios', '!produto_android', '!produto_site', '!produto_webview', '!produto_api', '!cnpj',
                 '!estado_principal', '!status', '!data_eleicao', '!email_dia', '!whatsapp_dia', '!rede_social_dia',
                 '!contrato_prazo', '!contrato_renovacao', '!tipo_site', '!cadastro_usuario', '!comunicacao_email',
@@ -3268,31 +3272,38 @@ Route
     ::controller(App\Controllers\Api\AlbumDadoController::class)
     ::grupo(function () {
         Route
-            ::nome('listar')
-            ::middleware(TokenMiddleware::class, 'scope', ['album_dado:listar'])
-            ::request([
-                'pagina', '!quantidade', '!pesquisa', '!restrita', '!site', '!publicado', '!data_inicio_de',
-                '!data_inicio_ate', '!ordem', '!status'
-            ], 'json')
-            ::get('/album-dado');
-        Route
             ::nome('buscar')
             ::middleware(TokenMiddleware::class, 'scope', ['album_dado:buscar'])
             ::get('/album-dado/{id}');
+
+        Route
+            ::nome('listar')
+            ::middleware(TokenMiddleware::class, 'scope', ['album_dado:listar'])
+            ::request([
+                'pagina', '!quantidade', '!ordem', '!status', '!pesquisa',
+                '!permissao_restrita', '!permissao_site', '!publicado', '!data_inicio',
+                '!data_final'
+            ], 'json')
+            ::get('/album-dado');
+
         Route
             ::nome('salvar')
             ::middleware(TokenMiddleware::class, 'scope', ['album_dado:salvar'])
             ::request([
-                'titulo', 'texto', 'data_inicio', 'data_final', 'restrita', 'site', 'status'
+                'titulo', '!texto', '!imagem', 'data_inicio', '!data_final',
+                'permissao_restrita', 'permissao_site', 'status'
             ])
             ::post('/album-dado');
+
         Route
             ::nome('atualizar')
             ::middleware(TokenMiddleware::class, 'scope', ['album_dado:atualizar'])
             ::request([
-                '!titulo', '!texto', '!data_inicio', '!data_final', '!restrita', '!site', '!status'
+                '!titulo', '!texto', '!imagem', '!data_inicio', '!data_final',
+                '!permissao_restrita', '!permissao_site', '!status'
             ])
             ::put('/album-dado/{id}');
+
         Route
             ::nome('deletar')
             ::middleware(TokenMiddleware::class, 'scope', ['album_dado:deletar'])
