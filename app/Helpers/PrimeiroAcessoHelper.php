@@ -28,7 +28,6 @@ final class PrimeiroAcessoHelper
         'endereco_estado'      => 'Estado',
         'endereco_cidade'      => 'Cidade',
         'senha'                => 'Senha',
-        'grupo'                => 'Grupo',
         'lotacao'              => 'Lotação',
         'trabalho_cargo'       => 'Cargo'
     ];
