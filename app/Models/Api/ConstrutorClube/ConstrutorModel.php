@@ -15,7 +15,7 @@ use System\Trait\Model\OrdemTrait;
 use System\Trait\Model\PaginaTrait;
 use System\Trait\Model\QuantidadeTrait;
 
-final class ConstrutorModel extends ORM implements
+class ConstrutorModel extends ORM implements
     ModelListarInterface
 {
     use PaginaTrait;
@@ -85,7 +85,8 @@ final class ConstrutorModel extends ORM implements
     {
         $clubes = $this
             ->campo([
-                'uuid', 'titulo', 'status', 'data_criacao', 'data_atualizacao'
+                'uuid', 'titulo', 'app_versao', 'status',
+                'data_criacao', 'data_atualizacao'
             ])
             ->where($this->pegarWhere(), false)
             ->pagina($this->pegarPagina(), $this->pegarQuantidade())
@@ -162,6 +163,7 @@ final class ConstrutorModel extends ORM implements
                     'titulo' => $empresaTitulo
                 ],
                 'titulo'           => $clube->titulo,
+                'app_versao'       => empty($clube->app_versao) ? '' : 'v' . $clube->app_versao,
                 'status'           => $Status->indice($clube->status),
                 'data_criacao'     => $clube->data_criacao,
                 'data_atualizacao' => $clube->data_atualizacao

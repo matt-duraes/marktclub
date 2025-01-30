@@ -2,16 +2,16 @@
 
 namespace App\Models\Api\ConstrutorClube;
 
-use ORM\Entity;
+use App\Classes\ConstrutorClube\TipoAtivacao;
+use App\Classes\ConstrutorClube\TipoCargo;
+use App\Classes\Geral\Status;
+use Helpers\OrmHelper;
 use Modules\Botao;
 use Modules\Email;
 use Modules\Telefone;
-use Helpers\OrmHelper;
-use App\Classes\Geral\Status;
-use App\Classes\ConstrutorClube\TipoCargo;
-use App\Classes\ConstrutorClube\TipoAtivacao;
+use ORM\Entity;
 
-final class ConstrutorEntity extends Entity
+class ConstrutorEntity extends Entity
 {
     public int $id_admin_empresa;
     public string $favicon;
@@ -93,6 +93,7 @@ final class ConstrutorEntity extends Entity
     public string $texto_login_usuario;
     public string $texto_login_dependente;
     public string $texto_login_funcionario;
+    public string $app_versao;
     public TipoCargo $tipo_cargo;
     protected string $ormTabela = TABELA_CONSTRUTOR_CLUBE;
     protected array $ormBuscar = [
@@ -113,7 +114,8 @@ final class ConstrutorEntity extends Entity
         'grupo_label',
         'grupo_placeholder', 'link_facebook', 'link_instagram', 'link_twitter', 'link_linkedin', 'link_youtube',
         'link_tiktok',
-        'link_funcionario', 'texto_login_usuario', 'texto_login_dependente', 'texto_login_funcionario', 'tipo_cargo'
+        'link_funcionario', 'texto_login_usuario', 'texto_login_dependente', 'texto_login_funcionario', 'tipo_cargo',
+        'app_versao'
     ];
     protected array $ormSalvar = [
         'id_admin_empresa', 'link_clube', 'link_cadastro', 'link_salavip', 'link_odontologico',
@@ -132,7 +134,8 @@ final class ConstrutorEntity extends Entity
         'cor_principal', 'cor_secundaria', 'menu_tema', 'administrado_status', 'chat_status',
         'menu_samsung', 'tipo_ativacao', 'status', 'campos_primeiro_acesso', 'grupo_label', 'grupo_placeholder',
         'link_facebook', 'link_instagram', 'link_twitter', 'link_linkedin', 'link_youtube', 'link_tiktok',
-        'link_funcionario', 'texto_login_usuario', 'texto_login_dependente', 'texto_login_funcionario', 'tipo_cargo'
+        'link_funcionario', 'texto_login_usuario', 'texto_login_dependente', 'texto_login_funcionario', 'tipo_cargo',
+        'app_versao'
     ];
     protected array $ormRetornoPadrao = ['id', 'logo_principal', 'logo_marktclub'];
     private OrmHelper $ormEmpresa;
@@ -143,7 +146,7 @@ final class ConstrutorEntity extends Entity
         $this->ormEmpresa = new OrmHelper(TABELA_COMERCIAL_EMPRESA);
     }
 
-    protected function regraSalvar()
+    protected function regraSalvar(): void
     {
         if ($this->propriedadeExiste('link_clube') && !empty($this->link_clube)) {
             $this->link_clube = preg_replace('/^https?\:\/\//', '', $this->link_clube);
@@ -165,7 +168,7 @@ final class ConstrutorEntity extends Entity
         }
     }
 
-    protected function regraPosBuscar()
+    protected function regraPosBuscar(): void
     {
         $this->link_clube = 'https://' . $this->link_clube;
         $this->empresa = $this->ormEmpresa->pegarUuidPeloId($this->id_admin_empresa);
