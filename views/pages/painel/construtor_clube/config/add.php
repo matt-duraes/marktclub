@@ -58,7 +58,8 @@ $Painel->coluna(callback: function () use ($Painel) {
                 label: 'Tipo Cargo',
                 placeholder: 'Qual sistema dos cargos?',
                 lista: (new TipoCargo())->select('Escolha um tipo  de cargo')
-            );
+            )
+            ->input(name: 'app_versao', label: 'Versão do App (caso houver)');
     });
     $Painel->fieldset('SEO e status', function () use ($Painel) {
         $Painel

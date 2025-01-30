@@ -1443,7 +1443,7 @@ Route
                 'campos_primeiro_acesso', 'grupo_label', 'grupo_placeholder', 'link_facebook', 'link_instagram',
                 'link_twitter', 'link_linkedin', 'link_youtube', 'link_tiktok', 'tela_login', '!copiar_padrao',
                 'texto_login_usuario', 'texto_login_dependente', 'texto_login_funcionario', 'link_funcionario',
-                'menu_funcionario'
+                'menu_funcionario', 'app_versao'
             ])
             ::post('/construtor-clube');
         Route
@@ -1466,7 +1466,7 @@ Route
                 '!campos_primeiro_acesso', '!grupo_label', '!grupo_placeholder', '!link_facebook', '!link_instagram',
                 '!link_twitter', '!link_linkedin', '!link_youtube', '!link_tiktok', '!tela_login', '!copiar_padrao',
                 '!texto_login_usuario', '!texto_login_dependente', '!texto_login_funcionario', '!link_funcionario',
-                '!menu_funcionario'
+                '!menu_funcionario', '!app_versao'
             ])
             ::put('/construtor-clube/{id}');
         Route
