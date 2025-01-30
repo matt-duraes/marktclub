@@ -51,10 +51,10 @@ final class LoginModel extends Entity
         $this->idEmpresa = !empty($idEmpresa) ? $idEmpresa : TOKEN['empresa']->id;
 
         $hostLeitura = $this->idEmpresa == 1981 ? env('DB_LEITURA_CFM', '') : env('DB_LEITURA', '');
-        if(empty($hostLeitura)) {
+        if (empty($hostLeitura)) {
             $hostLeitura = env('DB_LEITURA', '');
         }
-        parent::__construct(option: [
+        parent::__construct(conn: [
             'leitura' => $hostLeitura
         ]);
 
