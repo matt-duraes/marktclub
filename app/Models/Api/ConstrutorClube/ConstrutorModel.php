@@ -85,8 +85,8 @@ class ConstrutorModel extends ORM implements
     {
         $clubes = $this
             ->campo([
-                'uuid', 'titulo', 'app_versao', 'status',
-                'data_criacao', 'data_atualizacao'
+                'uuid', 'titulo', 'app_versao_android', 'app_versao_ios',
+                'status', 'data_criacao', 'data_atualizacao'
             ])
             ->where($this->pegarWhere(), false)
             ->pagina($this->pegarPagina(), $this->pegarQuantidade())
@@ -157,16 +157,17 @@ class ConstrutorModel extends ORM implements
         foreach ($clubes as $clube) {
             $empresaTitulo = !empty($clube->empresa_titulo) ? $clube->empresa_titulo : $clube->empresa_nome_fantasia;
             $retorno[] = [
-                'id'               => $clube->uuid,
-                'empresa'          => [
+                'id'                 => $clube->uuid,
+                'empresa'            => [
                     'id'     => $clube->empresa_uuid,
                     'titulo' => $empresaTitulo
                 ],
-                'titulo'           => $clube->titulo,
-                'app_versao'       => empty($clube->app_versao) ? '' : 'v' . $clube->app_versao,
-                'status'           => $Status->indice($clube->status),
-                'data_criacao'     => $clube->data_criacao,
-                'data_atualizacao' => $clube->data_atualizacao
+                'titulo'             => $clube->titulo,
+                'app_versao_android' => empty($clube->app_versao_android) ? '' : 'v' . $clube->app_versao_android,
+                'app_versao_ios'     => empty($clube->app_versao_ios) ? '' : 'v' . $clube->app_versao_ios,
+                'status'             => $Status->indice($clube->status),
+                'data_criacao'       => $clube->data_criacao,
+                'data_atualizacao'   => $clube->data_atualizacao
             ];
         }
         return $retorno;

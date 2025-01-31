@@ -93,7 +93,8 @@ class ConstrutorEntity extends Entity
     public string $texto_login_usuario;
     public string $texto_login_dependente;
     public string $texto_login_funcionario;
-    public string $app_versao;
+    public string $app_versao_android;
+    public string $app_versao_ios;
     public TipoCargo $tipo_cargo;
     protected string $ormTabela = TABELA_CONSTRUTOR_CLUBE;
     protected array $ormBuscar = [
@@ -115,7 +116,7 @@ class ConstrutorEntity extends Entity
         'grupo_placeholder', 'link_facebook', 'link_instagram', 'link_twitter', 'link_linkedin', 'link_youtube',
         'link_tiktok',
         'link_funcionario', 'texto_login_usuario', 'texto_login_dependente', 'texto_login_funcionario', 'tipo_cargo',
-        'app_versao'
+        'app_versao_android', 'app_versao_ios'
     ];
     protected array $ormSalvar = [
         'id_admin_empresa', 'link_clube', 'link_cadastro', 'link_salavip', 'link_odontologico',
@@ -135,7 +136,7 @@ class ConstrutorEntity extends Entity
         'menu_samsung', 'tipo_ativacao', 'status', 'campos_primeiro_acesso', 'grupo_label', 'grupo_placeholder',
         'link_facebook', 'link_instagram', 'link_twitter', 'link_linkedin', 'link_youtube', 'link_tiktok',
         'link_funcionario', 'texto_login_usuario', 'texto_login_dependente', 'texto_login_funcionario', 'tipo_cargo',
-        'app_versao'
+        'app_versao_android', 'app_versao_ios'
     ];
     protected array $ormRetornoPadrao = ['id', 'logo_principal', 'logo_marktclub'];
     private OrmHelper $ormEmpresa;
