@@ -172,6 +172,9 @@ Route
         Route
             ::nome('api')
             ::view('/login/api/{hash}');
+        Route
+            ::nome('apiAcesso')
+            ::view('/login/api-acesso/{hash}');
     });
 
 Route

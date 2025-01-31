@@ -15,6 +15,7 @@ use App\Models\Site\Login\LoginApiModel;
 use App\Models\Site\Cache\VersaoClubeModel;
 use App\Models\Site\Login\ComunicacaoModel;
 use App\Classes\ConstrutorClube\TipoAtivacao;
+use App\Classes\UsuarioCliente\Helper as UsuarioHelper;
 
 final class LoginController extends Controller
 {
@@ -140,6 +141,36 @@ final class LoginController extends Controller
             return new Response(url: LINK);
         }
         return new Response(url: LINK);
+    }
+
+    public function apiAcesso(string $hash)
+    {
+        $dado = base64Decode($hash, true);
+
+        $Api = new ApiHelper(
+            scope: 'login:api',
+            clientId: env('CFM_LOGIN_CLIENT_ID'),
+            secretId: env('CFM_LOGIN_SECRET_ID'),
+            audience: env('CFM_LOGIN_AUDIENCE')
+        );
+        $criptografar = UsuarioHelper::CRIPTOGRAFAR;
+        $chave = file_get_contents(ROOT . '/chave/' . env('CFM_LOGIN_CHAVE'));
+        $Crypt = new CryptHelper(chavePublica: $chave);
+        foreach ($dado as $ind => $val) {
+            if (in_array($ind, $criptografar)) {
+                $dado[$ind] = $Crypt->encode($val);
+            }
+        }
+        $dado['real'] = 'sim';
+
+        $retorno = $Api->body($dado)->post('/login/api')->array();
+        $link = $retorno['dado']['link'] ?? '';
+        if (empty($link)) {
+            $link = LINK;
+        } elseif (str_starts_with($link, 'https://clube.yh/')) {
+            $link = str_replace('https://clube.yh', 'https://clube.yh:4000', $link);
+        }
+        return new Response(url: $link);
     }
 
     /*

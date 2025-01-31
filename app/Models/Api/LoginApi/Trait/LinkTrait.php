@@ -8,6 +8,10 @@ trait LinkTrait
 {
     public function link(): Response
     {
+        $dado = $this->request;
+        if (in_array($this->idEmpresa, [1, 1981]) && !array_key_exists('real', $dado)) {
+            return $this->linkLoginCfm($dado);
+        }
         if ($this->lgpd) {
             return $this->mandarParaTermoLgpd();
         }
@@ -27,6 +31,20 @@ trait LinkTrait
 
         return mensagemSucesso([
             'link' => $link
+        ], status: 201);
+    }
+
+    private function linkLoginCfm($dado)
+    {
+        $retorno = [];
+        foreach ($dado as $ind => $val) {
+            if (!in_array($ind, ['nome', 'cpf', 'email_pessoal', 'email_trabalho', 'crm_numero', 'crm_estado', 'termo_lgpd'])) {
+                continue;
+            }
+            $retorno[$ind] = $val;
+        }
+        return mensagemSucesso([
+            'link' => $this->linkClube . '/login/api-acesso/' . base64Encode($retorno, url: true)
         ], status: 201);
     }
 }
