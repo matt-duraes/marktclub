@@ -85,5 +85,6 @@ return (new DataBase())
     ->varchar('link_youtube')->tamanho(50)->null()
     ->varchar('link_tiktok')->tamanho(50)->null()
     ->varchar('link_linkedin')->tamanho(50)->null()
-    ->varchar('app_versao')->tamanho(50)->null()
+    ->varchar('app_versao_android')->tamanho(50)->null()
+    ->varchar('app_versao_ios')->tamanho(50)->null()
     ->status();

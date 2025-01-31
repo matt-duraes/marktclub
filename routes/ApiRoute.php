@@ -1443,7 +1443,7 @@ Route
                 'campos_primeiro_acesso', 'grupo_label', 'grupo_placeholder', 'link_facebook', 'link_instagram',
                 'link_twitter', 'link_linkedin', 'link_youtube', 'link_tiktok', 'tela_login', '!copiar_padrao',
                 'texto_login_usuario', 'texto_login_dependente', 'texto_login_funcionario', 'link_funcionario',
-                'menu_funcionario', 'app_versao'
+                'menu_funcionario', 'app_versao_android', 'app_versao_ios'
             ])
             ::post('/construtor-clube');
         Route
@@ -1466,7 +1466,7 @@ Route
                 '!campos_primeiro_acesso', '!grupo_label', '!grupo_placeholder', '!link_facebook', '!link_instagram',
                 '!link_twitter', '!link_linkedin', '!link_youtube', '!link_tiktok', '!tela_login', '!copiar_padrao',
                 '!texto_login_usuario', '!texto_login_dependente', '!texto_login_funcionario', '!link_funcionario',
-                '!menu_funcionario', '!app_versao'
+                '!menu_funcionario', '!app_versao_android', '!app_versao_ios'
             ])
             ::put('/construtor-clube/{id}');
         Route
@@ -3309,8 +3309,9 @@ Route
             ::middleware(TokenMiddleware::class, 'scope', ['album_dado:deletar'])
             ::delete('/album-dado/{id}');
     });
+
 Route
-    ::nome('album_dado')
+    ::nome('album_foto')
     ::middleware(TokenMiddleware::class, 'token')
     ::controller(App\Controllers\Api\AlbumFotoController::class)
     ::grupo(function () {
@@ -3318,24 +3319,32 @@ Route
             ::nome('listar')
             ::middleware(TokenMiddleware::class, 'scope', ['album_dado:foto'])
             ::request([
-                'pagina', '!album', '!status'
+                'pagina', '!quantidade', '!ordem', '!album', '!titulo', '!status'
             ], 'json')
             ::get('/album-foto');
+
         Route
             ::nome('salvar')
             ::middleware(TokenMiddleware::class, 'scope', ['album_dado:foto'])
-            ::request([])
+            ::request([
+                'album', 'titulo', 'imagem', 'status'
+            ])
             ::post('/album-foto');
+
         Route
             ::nome('atualizar')
             ::middleware(TokenMiddleware::class, 'scope', ['album_dado:foto'])
-            ::request([])
+            ::request([
+                '!album', '!titulo', '!imagem', '!status'
+            ])
             ::put('/album-foto/{id}');
+
         Route
             ::nome('deletar')
             ::middleware(TokenMiddleware::class, 'scope', ['album_dado:foto'])
             ::delete('/album-foto/{id}');
     });
+
 Route
     ::nome('votacao_dado')
     ::middleware(TokenMiddleware::class, 'token')

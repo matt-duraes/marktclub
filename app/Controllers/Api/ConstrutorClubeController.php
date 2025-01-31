@@ -65,7 +65,7 @@ class ConstrutorClubeController extends Controller implements
             'menu_meu_parceiro', 'administrado_status', 'api_status', 'tipo_ativacao', 'tipo_cargo', 'status',
             'campos_primeiro_acesso', 'grupo_label', 'grupo_placeholder', 'tela_login', 'link_odontologico',
             'link_funcionario', 'texto_login_usuario', 'texto_login_dependente', 'texto_login_funcionario',
-            'tipo_cargo', 'app_versao'
+            'tipo_cargo', 'app_versao_android', 'app_versao_ios',
         ]), $status);
     }
 
