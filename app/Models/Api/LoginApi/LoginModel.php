@@ -59,11 +59,19 @@ final class LoginModel extends Entity
         ]);
 
         $this->hash = uuid();
-        $this->buscarLinkClube();
+        if ($this->idEmpresa == 1981) {
+            $this->linkClube = 'https://cfmmais.cfm.org.br';
+        } else {
+            $this->buscarLinkClube();
+        }
+
         $this->verificarCamposObrigatorio();
         $this->validarRequest();
-
+        if (in_array($this->idEmpresa, [1, 1981]) && !array_key_exists('real', $request)) {
+            return;
+        }
         $this->verificarSeUsuarioJaExiste();
+
         if (!empty($this->idUsuario)) {
             $this->atualizarUsuarioJaExistente();
             return;
