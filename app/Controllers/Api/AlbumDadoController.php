@@ -50,7 +50,8 @@ class AlbumDadoController extends Controller implements
     {
         return mensagemSucesso(pegarPropriedadeDaEntity($albumEntity, lista: [
             'titulo', 'texto', 'url', 'imagem', 'permissao_restrita',
-            'permissao_site', 'data_inicio', 'data_final', 'status'
+            'permissao_site', 'data_inicio', 'data_final', 'foto', 'diretorio',
+            'status', 'data_criacao', 'data_atualizacao'
         ]), $status);
     }
 

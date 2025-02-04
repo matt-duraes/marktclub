@@ -1,0 +1,44 @@
+
+<div class="bloco_fieldset" id="bloco_foto">
+    <h2>Fotos</h2>
+    <div class="bloco_linha_unica" id="bloco_foto_lista">
+        <div class="botao_link botao_add" id="botao_foto_abrir">Adicionar Foto</div>
+        @ ifforeach( $dado->foto as $r )
+        <div class="foto linha_dado" data-id="{{$r->id}}">
+            <div class="linha">{{$r->titulo}}</div>
+            <i class="botao_editar">@iconeEditar(11)</i>
+            <i class="botao_deletar">@iconeFechar(11)</i>
+        </div>
+        @endifforeach;
+    </div>
+</div>
+
+<div class="display_none">
+    <div class="foto linha_dado" id="bloco_linha_album">
+        <div class="linha"></div>
+        <i class="botao_editar">@iconeEditar(11)</i>
+        <i class="botao_deletar">@iconeFechar(11)</i>
+    </div>
+</div>
+
+<div id="bloco_foto_add" class="display_none">
+    <div class="bloco_pagina_popup conteudo">
+        <header class="header_pagina_popup">
+            <h1>FOTOS</h1>
+            <i class="fechar" id="botao_foto_fechar">@iconeFechar</i>
+        </header>
+        <div class="conteudo_pagina_popup">
+            <form action="/" class="form_geral">
+                <figure id="bloco_imagem" class="display_none">
+                    <img src="" alt="" id="imagem_foto_editar">
+                </figure>
+                @? formImagem(name: 'imagem', diretorio: $dado->diretorio, label: 'Imagem', obrigatorio: true)
+                @? formInput(name: 'foto_titulo', label: 'Título', placeholder: 'Título para a foto', obrigatorio: true)
+                @? formSwitch(name: 'foto_status', label: 'Publicar foto:', check: false)
+                <div class="bloco_botao">
+                    <div class="botao" id="botao_foto_salvar">Salvar</div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
