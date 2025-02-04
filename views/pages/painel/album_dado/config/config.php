@@ -5,7 +5,7 @@ return [
     'buscar'     => true,
     'filtrar'    => true,
     'ordem'      => true,
-    'visualizar' => false,
+    'visualizar' => true,
     'download'   => false,
     'add'        => true,
     'editar'     => true,

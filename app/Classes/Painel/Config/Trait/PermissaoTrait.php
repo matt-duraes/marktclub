@@ -1119,7 +1119,7 @@ trait PermissaoTrait
                         'scope'  => 'album_dado:deletar'
                     ],
                     'album_dado_foto'    => [
-                        'titulo' => 'Gerenciar Foto',
+                        'titulo' => 'Gerenciar Fotos',
                         'scope'  => 'album_dado:foto'
                     ],
                     'album_dado_empresa' => Titulo::EMPRESA
@@ -1261,7 +1261,7 @@ trait PermissaoTrait
                     'site_lotacao_empresa' => Titulo::EMPRESA
                 ]
             ],
-            'usuario_grupo'             => [
+            'usuario_grupo'            => [
                 'titulo'    => 'Grupo',
                 'permissao' => [
                     'usuario_grupo_index'   => [
