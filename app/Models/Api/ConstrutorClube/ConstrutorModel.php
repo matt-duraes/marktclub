@@ -15,7 +15,7 @@ use System\Trait\Model\OrdemTrait;
 use System\Trait\Model\PaginaTrait;
 use System\Trait\Model\QuantidadeTrait;
 
-final class ConstrutorModel extends ORM implements
+class ConstrutorModel extends ORM implements
     ModelListarInterface
 {
     use PaginaTrait;
@@ -85,7 +85,8 @@ final class ConstrutorModel extends ORM implements
     {
         $clubes = $this
             ->campo([
-                'uuid', 'titulo', 'status', 'data_criacao', 'data_atualizacao'
+                'uuid', 'titulo', 'app_versao_android', 'app_versao_ios',
+                'status', 'data_criacao', 'data_atualizacao'
             ])
             ->where($this->pegarWhere(), false)
             ->pagina($this->pegarPagina(), $this->pegarQuantidade())
@@ -156,15 +157,17 @@ final class ConstrutorModel extends ORM implements
         foreach ($clubes as $clube) {
             $empresaTitulo = !empty($clube->empresa_titulo) ? $clube->empresa_titulo : $clube->empresa_nome_fantasia;
             $retorno[] = [
-                'id'               => $clube->uuid,
-                'empresa'          => [
+                'id'                 => $clube->uuid,
+                'empresa'            => [
                     'id'     => $clube->empresa_uuid,
                     'titulo' => $empresaTitulo
                 ],
-                'titulo'           => $clube->titulo,
-                'status'           => $Status->indice($clube->status),
-                'data_criacao'     => $clube->data_criacao,
-                'data_atualizacao' => $clube->data_atualizacao
+                'titulo'             => $clube->titulo,
+                'app_versao_android' => empty($clube->app_versao_android) ? '' : 'v' . $clube->app_versao_android,
+                'app_versao_ios'     => empty($clube->app_versao_ios) ? '' : 'v' . $clube->app_versao_ios,
+                'status'             => $Status->indice($clube->status),
+                'data_criacao'       => $clube->data_criacao,
+                'data_atualizacao'   => $clube->data_atualizacao
             ];
         }
         return $retorno;

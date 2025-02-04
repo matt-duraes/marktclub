@@ -2,28 +2,28 @@
 
 namespace App\Controllers\Api;
 
+use App\Classes\ConstrutorClube\Ordem;
+use App\Classes\Geral\Status;
+use App\Models\Api\ConstrutorClube\ClubeModel;
+use App\Models\Api\ConstrutorClube\ConstrutorEntity;
+use App\Models\Api\ConstrutorClube\ConstrutorModel;
+use App\Models\Api\ConstrutorClube\LinkClubeModel;
+use Controller\Controller;
 use Erro\Excecao;
 use Http\Request;
-use Modules\Data;
 use Http\Response;
+use Modules\Data;
 use Modules\Pagina;
 use Modules\Quantidade;
-use Controller\Controller;
-use App\Classes\Geral\Status;
-use App\Classes\ConstrutorClube\Ordem;
-use App\Models\Api\ConstrutorClube\ClubeModel;
+use System\Interface\ControllerAtualizarInterface;
 use System\Interface\ControllerBuscarInterface;
+use System\Interface\ControllerDeletarInterface;
 use System\Interface\ControllerListarInterface;
 use System\Interface\ControllerSalvarInterface;
-use System\Interface\ControllerDeletarInterface;
-use App\Models\Api\ConstrutorClube\LinkClubeModel;
-use System\Interface\ControllerAtualizarInterface;
-use App\Models\Api\ConstrutorClube\ConstrutorModel;
-use App\Models\Api\ConstrutorClube\ConstrutorEntity;
 
-final class ConstrutorClubeController extends Controller implements
-    ControllerListarInterface,
+class ConstrutorClubeController extends Controller implements
     ControllerBuscarInterface,
+    ControllerListarInterface,
     ControllerSalvarInterface,
     ControllerAtualizarInterface,
     ControllerDeletarInterface
@@ -36,43 +36,37 @@ final class ConstrutorClubeController extends Controller implements
      */
     public function getBuscar(string $id): Response
     {
-        $Construtor = new ConstrutorEntity();
-        $Construtor->uuid($id);
-        return $this->retornoPadrao($Construtor);
+        $ConstrutorEntity = new ConstrutorEntity();
+        $ConstrutorEntity->uuid($id);
+        return $this->retornoPadrao($ConstrutorEntity);
     }
 
     /**
-     * @param ConstrutorEntity $Construtor
+     * @param ConstrutorEntity $construtorEntity
      * @param int              $status
      *
      * @return Response
      * @throws Excecao
      */
-    private function retornoPadrao(ConstrutorEntity $Construtor, int $status = 200): Response
+    private function retornoPadrao(ConstrutorEntity $construtorEntity, int $status = 200): Response
     {
-        return mensagemSucesso(
-            pegarPropriedadeDaEntity(
-                $Construtor,
-                lista: [
-                    'empresa', 'titulo', 'logo_principal', 'logo_secundaria', 'favicon', 'logo_footer', 'header_tag',
-                    'cor_principal', 'cor_secundaria', 'link_clube', 'link_botao_sair', 'link_login', 'link_cadastro',
-                    'link_salavip', 'link_app_ios', 'link_app_android', 'contato_telefone', 'contato_whatsapp',
-                    'contato_email', 'contato_horario', 'contato_endereco', 'menu_faq', 'menu_como_funciona',
-                    'menu_sair', 'menu_acesso_rapido', 'menu_loja', 'menu_mapa', 'menu_cinema', 'menu_tema',
-                    'menu_turismo', 'menu_ponto_mais_acao', 'menu_historico', 'menu_farmacia', 'menu_automovel',
-                    'menu_saude_vitoria', 'menu_saude_amil', 'menu_saude_seguro', 'menu_saude_cnu',
-                    'menu_saude_florianopolis', 'menu_cashback', 'menu_indicar_usuario', 'menu_indicar_loja',
-                    'menu_odontologico', 'menu_premium', 'menu_dependente', 'menu_funcionario', 'menu_carteira',
-                    'menu_cupom', 'menu_salavip', 'menu_credito_sicoob', 'menu_primeiro_acesso', 'chat_status',
-                    'header_descricao', 'menu_corrida', 'menu_show_internacional', 'menu_show_nacional', 'menu_samsung',
-                    'menu_meu_parceiro', 'administrado_status', 'api_status', 'tipo_ativacao', 'tipo_cargo', 'status',
-                    'campos_primeiro_acesso', 'grupo_label', 'grupo_placeholder', 'tela_login', 'link_odontologico',
-                    'link_funcionario', 'texto_login_usuario', 'texto_login_dependente', 'texto_login_funcionario',
-                    'tipo_cargo'
-                ]
-            ),
-            $status
-        );
+        return mensagemSucesso(pegarPropriedadeDaEntity($construtorEntity, lista: [
+            'empresa', 'titulo', 'logo_principal', 'logo_secundaria', 'favicon', 'logo_footer', 'header_tag',
+            'cor_principal', 'cor_secundaria', 'link_clube', 'link_botao_sair', 'link_login', 'link_cadastro',
+            'link_salavip', 'link_app_ios', 'link_app_android', 'contato_telefone', 'contato_whatsapp',
+            'contato_email', 'contato_horario', 'contato_endereco', 'menu_faq', 'menu_como_funciona',
+            'menu_sair', 'menu_acesso_rapido', 'menu_loja', 'menu_mapa', 'menu_cinema', 'menu_tema',
+            'menu_turismo', 'menu_ponto_mais_acao', 'menu_historico', 'menu_farmacia', 'menu_automovel',
+            'menu_saude_vitoria', 'menu_saude_amil', 'menu_saude_seguro', 'menu_saude_cnu',
+            'menu_saude_florianopolis', 'menu_cashback', 'menu_indicar_usuario', 'menu_indicar_loja',
+            'menu_odontologico', 'menu_premium', 'menu_dependente', 'menu_funcionario', 'menu_carteira',
+            'menu_cupom', 'menu_salavip', 'menu_credito_sicoob', 'menu_primeiro_acesso', 'chat_status',
+            'header_descricao', 'menu_corrida', 'menu_show_internacional', 'menu_show_nacional', 'menu_samsung',
+            'menu_meu_parceiro', 'administrado_status', 'api_status', 'tipo_ativacao', 'tipo_cargo', 'status',
+            'campos_primeiro_acesso', 'grupo_label', 'grupo_placeholder', 'tela_login', 'link_odontologico',
+            'link_funcionario', 'texto_login_usuario', 'texto_login_dependente', 'texto_login_funcionario',
+            'tipo_cargo', 'app_versao_android', 'app_versao_ios',
+        ]), $status);
     }
 
     /**
@@ -83,7 +77,7 @@ final class ConstrutorClubeController extends Controller implements
      */
     public function getListar(Request $request): Response
     {
-        $Construtor = new ConstrutorModel(
+        $ConstrutorModel = new ConstrutorModel(
             new Pagina($request->pagina),
             new Quantidade($request->quantidade),
             new Ordem($request->ordem),
@@ -94,7 +88,7 @@ final class ConstrutorClubeController extends Controller implements
             new Data($request->data_final),
             new Status($request->status)
         );
-        return mensagemSucesso($Construtor->listarDados());
+        return mensagemSucesso($ConstrutorModel->listarDados());
     }
 
     /**
@@ -105,10 +99,10 @@ final class ConstrutorClubeController extends Controller implements
      */
     public function postSalvar(Request $request): Response
     {
-        $Construtor = new ConstrutorEntity();
-        $Construtor->set(lista: $request->dado());
-        $Construtor->salvar();
-        return $this->retornoPadrao($Construtor, 201);
+        $ConstrutorEntity = new ConstrutorEntity();
+        $ConstrutorEntity->set(lista: $request->dado());
+        $ConstrutorEntity->salvar();
+        return $this->retornoPadrao($ConstrutorEntity, 201);
     }
 
     /**
@@ -120,10 +114,10 @@ final class ConstrutorClubeController extends Controller implements
      */
     public function putAtualizar(Request $request, string $id): Response
     {
-        $Construtor = new ConstrutorEntity();
-        $Construtor->uuid($id);
-        $Construtor->set(lista: $request->dado());
-        $Construtor->salvar();
+        $ConstrutorEntity = new ConstrutorEntity();
+        $ConstrutorEntity->uuid($id);
+        $ConstrutorEntity->set(lista: $request->dado());
+        $ConstrutorEntity->salvar();
         return new Response(status: 204);
     }
 
@@ -135,9 +129,9 @@ final class ConstrutorClubeController extends Controller implements
      */
     public function deleteDeletar(string $id): Response
     {
-        $Construtor = new ConstrutorEntity();
-        $Construtor->uuid($id);
-        $Construtor->destruir();
+        $ConstrutorEntity = new ConstrutorEntity();
+        $ConstrutorEntity->uuid($id);
+        $ConstrutorEntity->destruir();
         return new Response(status: 204);
     }
 
@@ -149,12 +143,12 @@ final class ConstrutorClubeController extends Controller implements
      */
     public function getClube(string $url): Response
     {
-        $Construtor = new ConstrutorEntity();
-        $Construtor->buscar([
+        $ConstrutorEntity = new ConstrutorEntity();
+        $ConstrutorEntity->buscar([
             ['link_clube', (new LinkClubeModel($url))->url],
             ['status', 1]
         ]);
-        $Clube = new ClubeModel($Construtor);
-        return mensagemSucesso($Clube->construtor);
+        $ClubeModel = new ClubeModel($ConstrutorEntity);
+        return mensagemSucesso($ClubeModel->construtor);
     }
 }
