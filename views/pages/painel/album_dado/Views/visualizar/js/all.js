@@ -72,7 +72,7 @@ window.addEventListener('load', () => {
             Alerta.notificacao('Erro ao buscar dados da foto, por favor, tente novamente.', false);
             return;
         }
-        if (resposta.dado.imagemUrl != '') {
+        if (resposta.dado.imagem != '') {
             icone.classList.add('display_none');
             figure.style.backgroundImage = 'url(' + resposta.dado.imagem + ')';
         }
