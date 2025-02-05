@@ -393,7 +393,7 @@ Route
                 'hash', 'nome', 'cpf', 'genero', 'senha', 'termo', 'data_nascimento', 'estado_civil',
                 'email_pessoal', 'email_trabalho', 'telefone_pessoal', 'telefone_trabalho', 'endereco_cep',
                 'endereco_logradouro', 'endereco_numero', '!trabalho_empresa',
-                '!trabalho_cargo','!trabalho_cargo_personalizado', 'endereco_complemento', 'endereco_bairro',
+                '!trabalho_cargo', '!trabalho_cargo_personalizado', 'endereco_complemento', 'endereco_bairro',
                 'endereco_estado', 'endereco_cidade', '!tipo_usuario', '!empresa', '!grupo'
             ])
             ::put('/usuario-cliente/ativar');
@@ -3316,10 +3316,16 @@ Route
     ::controller(App\Controllers\Api\AlbumFotoController::class)
     ::grupo(function () {
         Route
+            ::nome('buscar')
+            ::middleware(TokenMiddleware::class, 'scope', ['album_dado:foto'])
+            ::get('/album-foto/{id}');
+
+        Route
             ::nome('listar')
             ::middleware(TokenMiddleware::class, 'scope', ['album_dado:foto'])
             ::request([
-                'pagina', '!quantidade', '!ordem', '!album', '!titulo', '!status'
+                'pagina', '!quantidade', '!ordem', '!album', '!titulo',
+                '!data_inicio', '!data_final', '!status'
             ], 'json')
             ::get('/album-foto');
 

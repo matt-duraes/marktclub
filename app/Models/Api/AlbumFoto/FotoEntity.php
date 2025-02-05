@@ -2,84 +2,95 @@
 
 namespace App\Models\Api\AlbumFoto;
 
-use ORM\Entity;
-use Helpers\OrmHelper;
-use Helpers\UploadHelper;
 use App\Classes\Geral\Status;
-use App\Models\Api\Trait\ValidarEmpresaTrait;
-use Symfony\Component\HttpFoundation\File\UploadedFile;
+use Erro\Excecao;
+use Helpers\OrmHelper;
+use ORM\Entity;
 
-final class FotoEntity extends Entity
+class FotoEntity extends Entity
 {
-    use ValidarEmpresaTrait;
-
+    public string $album;
+    public string $titulo;
+    public string $imagem;
+    public int $ordem;
+    public Status $status;
     protected string $ormTabela = TABELA_ALBUM_FOTO;
+    protected array $ormBuscar = [
+        'titulo', 'imagem', 'ordem', 'status'
+    ];
     protected array $ormInsert = [
         'id_album_dado', 'imagem'
     ];
     protected array $ormSalvar = [
         'titulo', 'ordem', 'status'
     ];
-    protected array $ormBuscar = [
-        'titulo', 'imagem', 'ordem', 'status'
-    ];
-    private int $idEmpresa;
-    private string $diretorio = 'album_foto';
+    protected string $ormValidarSalvar = '
+        imagem|Imagem|obrigatorio|vazio
+        titulo|Título|obrigatorio|vazio
+        status|Status|obrigatorio|vazio|valido
+    ';
     protected int $id_album_dado;
-    public string $album;
-    public string $titulo;
-    public string|UploadedFile|UploadHelper $imagem;
-    public int $ordem;
-    public Status $status;
 
     public function __construct()
     {
         parent::__construct();
-        $this->validarEmpresa();
     }
 
-    protected function regraPosBuscar()
+    protected function regraPosBuscar(): void
     {
-        $this->imagem = arquivoPublico($this->diretorio, $this->imagem);
+        $this->imagem = arquivoPrivado($this->imagem);
     }
 
-    protected function regraInsert()
+    /**
+     * @return void
+     * @throws Excecao
+     */
+    protected function regraInsert(): void
     {
-        $this->validarInsert();
-        $this->pegarIdAlbum();
-        $this->criarUploadImagem();
+        $this->validarAlbum();
+        $this->pegarAlbum();
     }
 
-    private function validarInsert()
+    /**
+     * @return void
+     * @throws Excecao
+     */
+    private function validarAlbum(): void
     {
-        if (!$this->pExiste('album', vazio: false)) {
-            mensagemErro('Campo obrigatório', 'Você deve passar um album para a foto.');
-        } elseif (!$this->pExiste('imagem') || !($this->imagem instanceof UploadedFile)) {
-            mensagemErro('Campo inválido', 'A imagem enviada não pode ser validada.');
+        if (empty($this->album)) {
+            mensagemErro(
+                'Campo não encontrado!',
+                'O Álbum informado é obrigatorio.'
+            );
+        }
+
+        if (!validarUuid($this->album, false)) {
+            mensagemErro(
+                'Campo inválido!',
+                'O Álbum informado não é válido.'
+            );
         }
     }
 
-    private function pegarIdAlbum()
+    /**
+     * @return void
+     * @throws Excecao
+     */
+    private function pegarAlbum(): void
     {
-        $Album = (new OrmHelper(TABELA_ALBUM_DADO))->pegarPrimeiroRegistro(
-            where: [
-                ['id_admin_empresa', $this->idEmpresa],
-                ['id_album_dado', $this->album]
-            ],
-            campo: ['id'],
-            erroMensagem: 'Não foi possível achar o álbum selecionado, por favor, tente novamente.'
+        $ormHelper = new OrmHelper(TABELA_ALBUM_DADO);
+        $idAlbum = $ormHelper->pegarPrimeiroRegistro(
+            ['uuid', $this->album],
+            ['id'],
+            'object'
         );
-        $this->id_album_dado = $Album['id'];
-    }
 
-    private function criarUploadImagem()
-    {
-        $this->imagem = new UploadHelper(
-            arquivo: $this->imagem,
-            diretorio: $this->diretorio,
-            ext: ['jpg', 'jpeg', 'png'],
-            nome: uuid(),
-        );
-        $this->titulo = $this->imagem->nomeReal();
+        if (empty($idAlbum)) {
+            mensagemErro(
+                'ÁLbum inválido!',
+                'O Álbum informado não é válido ou inexistente.'
+            );
+        }
+        $this->id_album_dado = $idAlbum->id;
     }
 }

@@ -24,10 +24,13 @@ class AlbumEntity extends Entity
     public Botao $permissao_restrita;
     public Botao $permissao_site;
     public Status $status;
+    public array $foto = [];
+    public string $diretorio;
     protected string $ormTabela = TABELA_ALBUM_DADO;
     protected array $ormBuscar = [
         'id_admin_empresa', 'titulo', 'texto', 'imagem', 'url', 'data_inicio',
-        'data_final', 'permissao_restrita', 'permissao_site', 'status'
+        'data_final', 'permissao_restrita', 'permissao_site', 'status',
+        'data_criacao', 'data_atualizacao'
     ];
     protected array $ormInsert = [
         'id_admin_empresa'  => '->idEmpresa',
@@ -67,6 +70,15 @@ class AlbumEntity extends Entity
             $this->setarImagemCapa();
         }
         $this->imagem = arquivoPrivado($this->imagem);
+        $this->foto = $this->pegarFotos();
+
+        $ormHelper = new OrmHelper(TABELA_PAINEL_CONFIG);
+        $diretorio = $ormHelper->pegarUltimoRegistro(
+            ['id_admin_empresa', $this->id_admin_empresa],
+            ['upload_grupo']
+        );
+        $diretorio = jsonDecode($diretorio['upload_grupo'] ?? '', true, true);
+        $this->diretorio = empty($diretorio) ? '' : $diretorio['imagem'];
     }
 
     /**
@@ -89,6 +101,42 @@ class AlbumEntity extends Entity
             ->where(['id', $albumId])
             ->update();
         $this->imagem = $capa['imagem'];
+    }
+
+    /**
+     * @return array
+     * @throws Erro
+     * @throws Excecao
+     */
+    private function pegarFotos(): array
+    {
+        $ormHelper = new OrmHelper(TABELA_ALBUM_FOTO);
+        $fotos = $ormHelper
+            ->campo(['uuid', 'titulo'])
+            ->where(['id_album_dado', $this->prop('id')])
+            ->read();
+        return $this->montarRetorno($fotos);
+    }
+
+    /**
+     * @param array $fotos
+     *
+     * @return array
+     */
+    private function montarRetorno(array $fotos): array
+    {
+        if (empty($fotos)) {
+            return [];
+        }
+
+        $retorno = [];
+        foreach ($fotos as $foto) {
+            $retorno[] = [
+                'id'     => $foto->uuid,
+                'titulo' => $foto->titulo
+            ];
+        }
+        return $retorno;
     }
 
     /**
