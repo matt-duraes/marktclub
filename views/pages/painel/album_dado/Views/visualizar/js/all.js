@@ -74,7 +74,7 @@ window.addEventListener('load', () => {
         }
         if (resposta.dado.imagemUrl != '') {
             icone.classList.add('display_none');
-            figure.style.backgroundImage = 'url(' + resposta.dado.imagemUrl + ')';
+            figure.style.backgroundImage = 'url(' + resposta.dado.imagem + ')';
         }
         formValue(inputTitulo, resposta.dado.titulo);
         formValue(inputImagem, resposta.dado.imagem);
