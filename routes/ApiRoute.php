@@ -466,7 +466,7 @@ Route
         Route
             ::nome('salvar')
             ::middleware(TokenMiddleware::class, 'scope', ['usuario_grupo:salvar'])
-            ::request(['titulo', 'status'])
+            ::request(['!indice','titulo', 'status'])
             ::post('/usuario-grupo');
 
         Route
