@@ -112,6 +112,11 @@ window.addEventListener('load', () => {
         const status = inputStatus.checked ? 'ativo' : 'inativo';
         const imagem = inputImagem.value;
 
+        if (imagem == '') {
+            Alerta.notificacao('O campo imagem é obrigatório.', false);
+            return;
+        }
+
         if (titulo == '') {
             Alerta.notificacao('O campo título é obrigatório.', false);
             return;
