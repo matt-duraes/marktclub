@@ -9,7 +9,7 @@ trait PermissaoTrait
 {
     private array $permissaoPersonalizada;
 
-    private function setarPropriedadePermissao()
+    private function setarPropriedadePermissao(): void
     {
         $this->setarPropriedadePermissaoDepreciada(); // Remover quando zerar as permissões setado direto
         $this->montarArrayPermissao(
@@ -1102,27 +1102,27 @@ trait PermissaoTrait
             'album_dado'               => [
                 'titulo'    => 'Album de fotos',
                 'permissao' => [
-                    'album_dado_index'   => [
+                    'album_dado_index'      => [
                         'titulo' => Titulo::LISTAR,
                         'scope'  => 'album_dado:listar'
                     ],
-                    'album_dado_add'     => [
+                    'album_dado_visualizar' => [
+                        'titulo' => Titulo::VISUALIZAR,
+                        'scope'  => ['album_dado:buscar', 'album_dado:foto']
+                    ],
+                    'album_dado_add'        => [
                         'titulo' => Titulo::SALVAR,
                         'scope'  => 'album_dado:salvar'
                     ],
-                    'album_dado_editar'  => [
+                    'album_dado_editar'     => [
                         'titulo' => Titulo::EDITAR,
                         'scope'  => ['album_dado:atualizar', 'album_dado:buscar']
                     ],
-                    'album_dado_deletar' => [
+                    'album_dado_deletar'    => [
                         'titulo' => Titulo::DELETAR,
                         'scope'  => 'album_dado:deletar'
                     ],
-                    'album_dado_foto'    => [
-                        'titulo' => 'Gerenciar Fotos',
-                        'scope'  => 'album_dado:foto'
-                    ],
-                    'album_dado_empresa' => Titulo::EMPRESA
+                    'album_dado_empresa'    => Titulo::EMPRESA
                 ]
             ],
             'votacao'                  => [
