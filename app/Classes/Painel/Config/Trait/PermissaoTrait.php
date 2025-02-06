@@ -1106,6 +1106,10 @@ trait PermissaoTrait
                         'titulo' => Titulo::LISTAR,
                         'scope'  => 'album_dado:listar'
                     ],
+                    'album_dado_visualizar'     => [
+                        'titulo' => Titulo::VISUALIZAR,
+                        'scope'  => ['album_dado:buscar', 'album_dado:foto']
+                    ],
                     'album_dado_add'     => [
                         'titulo' => Titulo::SALVAR,
                         'scope'  => 'album_dado:salvar'
