@@ -48,16 +48,30 @@ final class LoginModel extends Entity
             mensagemStatus(401);
         }
 
-        parent::__construct();
-
         $this->idEmpresa = !empty($idEmpresa) ? $idEmpresa : TOKEN['empresa']->id;
-        $this->hash = uuid();
 
-        $this->buscarLinkClube();
+        $hostLeitura = $this->idEmpresa == 1981 ? env('DB_LEITURA_CFM', '') : env('DB_LEITURA', '');
+        if (empty($hostLeitura)) {
+            $hostLeitura = env('DB_LEITURA', '');
+        }
+        parent::__construct(conn: [
+            'leitura' => $hostLeitura
+        ]);
+
+        $this->hash = uuid();
+        if ($this->idEmpresa == 1981) {
+            $this->linkClube = 'https://cfmmais.cfm.org.br';
+        } else {
+            $this->buscarLinkClube();
+        }
+
         $this->verificarCamposObrigatorio();
         $this->validarRequest();
-
+        if (in_array($this->idEmpresa, [1, 1981]) && !array_key_exists('real', $request)) {
+            return;
+        }
         $this->verificarSeUsuarioJaExiste();
+
         if (!empty($this->idUsuario)) {
             $this->atualizarUsuarioJaExistente();
             return;

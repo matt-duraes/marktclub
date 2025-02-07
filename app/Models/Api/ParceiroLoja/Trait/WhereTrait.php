@@ -64,9 +64,11 @@ trait WhereTrait
                 ]);
             })
             ->linha('tipo_estabelecimento')
-            ->seBotao('mais_acessao', callback: function () use ($Where) {
+            ->seBotao('mais_acessado', callback: function () use ($Where) {
                 $this->idMaisAcessado = (new MaisAcessadoModel($this->idEmpresa, $this->pegarQuantidade()))->id;
-                $Where->linha(propriedade: 'id', condicao: 'in', valor: $this->idMaisAcessado);
+                if ($this->idMaisAcessado) {
+                    $Where->linha(propriedade: 'id', condicao: 'in', valor: $this->idMaisAcessado);
+                }
             })
             ->seIgual('convenio', 'sim', function () use ($Where) {
                 if (!$this->pExiste('tipo_loja') || !$this->tipo_loja->valido()) {

@@ -59,7 +59,7 @@ final class Scope
         'usuario_dependente:buscar',
         'login:digio', 'login:clube',
         'texto_clube:listar', 'texto_clube:buscar',
-        'solicitacao_contato:salvar'
+        'solicitacao_contato:salvar',
     ];
     public const PAINEL_LOGIN = [
         'admin:chave_publica', 'admin:chave_privada', 'login:painel'
