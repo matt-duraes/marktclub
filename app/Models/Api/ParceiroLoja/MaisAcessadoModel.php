@@ -3,6 +3,7 @@
 namespace App\Models\Api\ParceiroLoja;
 
 use ORM\ORM;
+use App\Classes\ParceiroLoja\Status;
 
 final class MaisAcessadoModel extends ORM
 {
@@ -21,10 +22,16 @@ final class MaisAcessadoModel extends ORM
 
     private function pegarListaId($empresa)
     {
-        $this->lista = $this->campo(['id_parceiro_loja', 'quantidade'])->where([
-            ['id_admin_empresa', $empresa],
-            ['data_acesso', 'between', [dataRemover(hoje(), 20, 'dias'), hoje() . ' 23:59:59']]
-        ])->read();
+        $this->lista = $this
+            ->campo(['id_parceiro_loja', 'quantidade'])
+            ->where([
+                ['id_admin_empresa', $empresa],
+                ['data_acesso', 'between', [dataRemover(hoje(), 20, 'dias'), hoje() . ' 23:59:59']]
+            ])
+            ->tabela(TABELA_PARCEIRO_LOJA)
+            ->join(campo: 'id', relacao: 'id_parceiro_loja')
+            ->where(['status', new Status(Status::CONCLUIDO)])
+            ->read();
     }
 
     private function somarResultados()
@@ -46,7 +53,7 @@ final class MaisAcessadoModel extends ORM
             return;
         }
         $lista = $this->lista;
-        arsort($lista);
+        asort($lista);
         $this->lista = array_keys($lista);
     }
 
@@ -58,7 +65,7 @@ final class MaisAcessadoModel extends ORM
         $retorno = [];
         $i = 0;
         foreach ($this->lista as $id) {
-            if ($i > $quantidade) {
+            if ($i >= $quantidade) {
                 break;
             }
             $retorno[] = $id;
