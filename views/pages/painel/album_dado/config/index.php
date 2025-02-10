@@ -2,7 +2,6 @@
 
 use App\Classes\AlbumDado\Ordem;
 use App\Classes\Geral\Status;
-use Modules\Botao;
 use PainelConfig\Index;
 
 $Painel = new Index('album_dado', new Ordem());

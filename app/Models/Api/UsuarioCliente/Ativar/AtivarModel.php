@@ -75,8 +75,9 @@ final class AtivarModel extends ORM
         $this->usuario = $usuario;
     }
 
-    private function validarGrupoUsuario() {
-        if(!empty($this->usuario->grupo)) {
+    private function validarGrupoUsuario()
+    {
+        if (!empty($this->usuario->grupo)) {
             $this->grupo = $this->usuario->grupo;
         }
     }
