@@ -42,7 +42,6 @@ class FotoEntity extends Entity
     }
 
     /**
-     * @return void
      * @throws Excecao
      */
     protected function regraInsert(): void
@@ -52,7 +51,6 @@ class FotoEntity extends Entity
     }
 
     /**
-     * @return void
      * @throws Excecao
      */
     private function validarAlbum(): void
@@ -73,7 +71,6 @@ class FotoEntity extends Entity
     }
 
     /**
-     * @return void
      * @throws Excecao
      */
     private function pegarAlbum(): void

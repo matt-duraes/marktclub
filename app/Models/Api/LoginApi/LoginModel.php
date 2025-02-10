@@ -47,17 +47,9 @@ final class LoginModel extends Entity
         if (!defined('TOKEN') && empty($idEmpresa)) {
             mensagemStatus(401);
         }
+        parent::__construct();
 
         $this->idEmpresa = !empty($idEmpresa) ? $idEmpresa : TOKEN['empresa']->id;
-
-        $hostLeitura = $this->idEmpresa == 1981 ? env('DB_LEITURA_CFM', '') : env('DB_LEITURA', '');
-        if (empty($hostLeitura)) {
-            $hostLeitura = env('DB_LEITURA', '');
-        }
-        parent::__construct(conn: [
-            'leitura' => $hostLeitura
-        ]);
-
         $this->hash = uuid();
         if ($this->idEmpresa == 1981) {
             $this->linkClube = 'https://cfmmais.cfm.org.br';
