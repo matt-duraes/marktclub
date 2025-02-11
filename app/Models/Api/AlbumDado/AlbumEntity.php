@@ -60,7 +60,6 @@ class AlbumEntity extends Entity
     }
 
     /**
-     * @return void
      * @throws Erro
      * @throws Excecao
      */
@@ -82,7 +81,6 @@ class AlbumEntity extends Entity
     }
 
     /**
-     * @return void
      * @throws Erro
      * @throws Excecao
      */
@@ -140,7 +138,6 @@ class AlbumEntity extends Entity
     }
 
     /**
-     * @return void
      * @throws Excecao
      */
     protected function regraInsert(): void
@@ -176,7 +173,6 @@ class AlbumEntity extends Entity
     }
 
     /**
-     * @return void
      * @throws Excecao
      */
     protected function regraUpdate(): void
@@ -214,7 +210,6 @@ class AlbumEntity extends Entity
     }
 
     /**
-     * @return void
      * @throws Excecao
      */
     private function setarUrl(): void
