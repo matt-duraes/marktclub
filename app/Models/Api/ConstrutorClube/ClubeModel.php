@@ -2,8 +2,8 @@
 
 namespace App\Models\Api\ConstrutorClube;
 
-use Modules\Botao;
 use App\Helpers\PrimeiroAcessoHelper;
+use Modules\Botao;
 
 final class ClubeModel
 {
@@ -42,7 +42,9 @@ final class ClubeModel
             'link_odontologico'       => $Construtor->link_odontologico,
             'link_salavip'            => $Construtor->link_salavip,
             'link_app_android'        => $linkAndroid,
+            'app_versao_android'      => $Construtor->app_versao_android,
             'link_app_ios'            => $linkIos,
+            'app_versao_ios'          => $Construtor->app_versao_ios,
             'contato_endereco'        => $Construtor->contato_endereco,
             'contato_horario'         => $Construtor->contato_horario,
             'contato_telefone'        => $Construtor->contato_telefone->numero(),
