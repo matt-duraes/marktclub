@@ -8,7 +8,7 @@ trait LinkTrait
 {
     public function link(): Response
     {
-        $dado = $this->request;
+        $dado = $this->pExiste('request') ? $this->request : [];
         if (in_array($this->idEmpresa, [1, 1981]) && !array_key_exists('real', $dado)) {
             return $this->linkLoginCfm($dado);
         }
