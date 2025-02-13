@@ -81,7 +81,7 @@ Route
     ::grupo(function() {
         Route
             ::nome('login')
-            ::request(['login', 'senha'])
+            ::request(['login', 'senha', 'hash_validacao_captcha'])
             ::post('/login/login');
     });
 Route
