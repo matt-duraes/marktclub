@@ -146,7 +146,7 @@ Route
             ::view('/login/ativar-buscar');
         Route
             ::nome('ativarBuscar')
-            ::request(['busca', 'tipo_usuario'])
+            ::request(['busca', 'tipo_usuario', 'hash_validacao_captcha'])
             ::post('/login/ativar-buscar');
         Route
             ::nome('ativarSalvar')

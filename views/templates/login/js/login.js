@@ -106,6 +106,9 @@ window.addEventListener('load', () => {
         } else if (inputSenha.value == '') {
             Alerta.notificacao('Digite sua senha para continuar.', false);
             return;
+        } else if (captchaToken == '' && captchaVersao == 2) {
+            Alerta.notificacao('Clique no box do captcha para continuar.', false);
+            return;
         }
 
         Loading.show();
@@ -149,11 +152,5 @@ window.addEventListener('load', () => {
         }
 
         window.location.replace(linkLocation);
-    };
-    const resetarCaptcha = () => {
-        if (captchaVersao != 2) {
-            return;
-        }
-        grecaptcha.reset(captcha2Login);
     };
 });
