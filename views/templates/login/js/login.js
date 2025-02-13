@@ -125,14 +125,16 @@ window.addEventListener('load', () => {
         } catch (error) {
             json = {};
         }
-        Loading.hide();
+
         const respostaJson = json instanceof Object;
         const deuErro = respostaJson && json.status == 'erro';
         if (!respostaJson || json.status === undefined) {
+            Loading.hide();
             resetarCaptcha();
             Alerta.notificacao('Ocorreu um erro ao tentar fazer se login, por favor, tente novamente.', false);
             return;
         } else if (deuErro && json.erro.captcha != undefined && false === json.erro.captcha && captchaVersao == 3) {
+            Loading.hide();
             Alerta.notificacao(
                 'Não foi possível validar seu captcha, por favor, marque o box de "Não sou um robô" para continuar.',
                 false
@@ -140,6 +142,7 @@ window.addEventListener('load', () => {
             mostrarCaptchaV2();
             return;
         } else if (deuErro) {
+            Loading.hide();
             Alerta.notificacao(json.erro.mensagem || 'Erro ao fazer seu login, por favor, tente novamente.', false);
             resetarCaptcha();
             return;
