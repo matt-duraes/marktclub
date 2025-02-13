@@ -2,18 +2,18 @@
 
 namespace App\Controllers\Api;
 
+use App\Classes\ComercialEmpresa\Helper;
+use App\Models\Api\ComercialEmpresa\EmpresaEntity;
+use App\Models\Api\ComercialEmpresa\EmpresaModel;
+use App\Models\Api\ComercialEmpresa\PerfilModel;
+use Controller\Controller;
 use Http\Request;
 use Http\Response;
-use Controller\Controller;
-use App\Classes\ComercialEmpresa\Helper;
+use System\Interface\ControllerAtualizarInterface;
 use System\Interface\ControllerBuscarInterface;
 use System\Interface\ControllerListarInterface;
 use System\Interface\ControllerSalvarInterface;
 use System\Interface\ControllerSelectInterface;
-use App\Models\Api\ComercialEmpresa\PerfilModel;
-use App\Models\Api\ComercialEmpresa\EmpresaModel;
-use App\Models\Api\ComercialEmpresa\EmpresaEntity;
-use System\Interface\ControllerAtualizarInterface;
 
 final class ComercialEmpresaController extends Controller implements
     ControllerBuscarInterface,
@@ -68,6 +68,36 @@ final class ComercialEmpresaController extends Controller implements
         return $this->retornoPadrao($Empresa);
     }
 
+    private function retornoPadrao(EmpresaEntity $Empresa, int $status = 200): Response
+    {
+        return mensagemSucesso(
+            pegarPropriedadeDaEntity(
+                $Empresa,
+                lista: [
+                    'equipe', 'dono', 'finalidade_principal', 'finalidade_secundaria', 'imagem',
+                    'titulo', 'nome_fantasia', 'razao_social', 'slug', 'valor_pago', 'cobrar_aposentado',
+                    'site', 'gerente_contas', 'responsavel_nome', 'responsavel_email', 'responsavel_telefone',
+                    'responsavel_cpf',
+                    'responsavel_cargo', 'tipo_pagamento', 'contrato_valor', 'contrato_valor_minimo',
+                    'contrato_usuario_minimo',
+                    'valor_pib', 'produto_clube', 'produto_ios', 'produto_android', 'produto_site', 'produto_webview',
+                    'produto_api', 'cnpj', 'estado_principal', 'status', 'data_eleicao', 'email_dia', 'whatsapp_dia',
+                    'rede_social_dia', 'contrato_data', 'contrato_prazo', 'contrato_renovacao', 'tipo_site',
+                    'comunicacao_email', 'comunicacao_whatsapp', 'comunicacao_rede_social', 'email_disparo',
+                    'prospeccao_status', 'observacao_ti', 'observacao_comunicacao', 'observacao_financeiro',
+                    'restricao_lista', 'contrato_dia_pagamento', 'cadastro_usuario', 'contrato_dia_fechamento',
+                    'renda_media', 'parceiro_proprio', 'concorrente_status', 'concorrente_nome', 'origem',
+                    'usuario_possivel',
+                    'contato_preferencial', 'data_apresentacao', 'formato_reuniao', 'previsao_retorno',
+                    'motivo_standby', 'motivo_standby',
+                    'motivo_perdido', 'devolutiva', 'etapa_negociacao', 'indicado'
+                ]
+            ),
+            criptografar: Helper::CRIPTOGRAFAR,
+            status: $status
+        );
+    }
+
     public function postSalvar(Request $request): Response
     {
         $Empresa = new EmpresaEntity();
@@ -77,46 +107,11 @@ final class ComercialEmpresaController extends Controller implements
         return $this->retornoPadrao($Empresa, 201);
     }
 
-    public function putAtualizar(Request $request, string $id): Response
-    {
-        $Empresa = new EmpresaEntity();
-        $Empresa->uuid($id);
-        $Empresa->set(lista: $this->pegarDadoRequest($request, 'getPut'));
-        $Empresa->salvar();
-
-        return new Response(status: 204);
-    }
-
     /*
     |--------------------------------------------------------------------------
     | MÉTODOS PRIVADOS
     |--------------------------------------------------------------------------
     */
-    private function retornoPadrao(EmpresaEntity $Empresa, int $status = 200): Response
-    {
-        return mensagemSucesso(
-            pegarPropriedadeDaEntity(
-                $Empresa,
-                lista: [
-                    'equipe', 'dono', 'finalidade_principal', 'finalidade_secundaria', 'imagem',
-                    'titulo', 'nome_fantasia', 'razao_social', 'slug', 'valor_pago', 'cobrar_aposentado',
-                    'site', 'gerente_contas', 'responsavel_nome', 'responsavel_email', 'responsavel_telefone', 'responsavel_cpf',
-                    'responsavel_cargo', 'tipo_pagamento', 'contrato_valor', 'contrato_valor_minimo', 'contrato_usuario_minimo',
-                    'valor_pib', 'produto_clube', 'produto_ios', 'produto_android', 'produto_site', 'produto_webview',
-                    'produto_api', 'cnpj', 'estado_principal', 'status', 'data_eleicao', 'email_dia', 'whatsapp_dia',
-                    'rede_social_dia', 'contrato_data', 'contrato_prazo', 'contrato_renovacao', 'tipo_site',
-                    'comunicacao_email', 'comunicacao_whatsapp', 'comunicacao_rede_social', 'email_disparo',
-                    'prospeccao_status', 'observacao_ti', 'observacao_comunicacao', 'observacao_financeiro',
-                    'restricao_lista', 'contrato_dia_pagamento', 'cadastro_usuario', 'contrato_dia_fechamento',
-                    'renda_media', 'parceiro_proprio', 'concorrente_status', 'concorrente_nome', 'origem', 'usuario_possivel',
-                    'contato_preferencial', 'data_apresentacao', 'formato_reuniao', 'previsao_retorno', 'motivo_standby', 'motivo_standby',
-                    'motivo_perdido', 'devolutiva', 'etapa_negociacao'
-                ]
-            ),
-            criptografar: Helper::CRIPTOGRAFAR,
-            status: $status
-        );
-    }
 
     private function pegarDadoRequest(Request $request, string $metodo): array
     {
@@ -131,5 +126,15 @@ final class ComercialEmpresaController extends Controller implements
             $dado['observacao_financeiro'] = $request->$metodo('observacao_financeiro', html: false);
         }
         return $dado;
+    }
+
+    public function putAtualizar(Request $request, string $id): Response
+    {
+        $Empresa = new EmpresaEntity();
+        $Empresa->uuid($id);
+        $Empresa->set(lista: $this->pegarDadoRequest($request, 'getPut'));
+        $Empresa->salvar();
+
+        return new Response(status: 204);
     }
 }
