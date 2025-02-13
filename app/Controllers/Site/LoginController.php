@@ -190,6 +190,7 @@ final class LoginController extends Controller
 
     public function postAtivarBuscar(Request $request): Response
     {
+        mensagemErro('Erro!', 'Ocorreu um erro no momento, por favor, tente novamente mais tarde.');
         $valor = $request->busca;
         if (ATIVACAO_TIPO == 'cpf') {
             $valor = strCpfNumero($valor);
@@ -240,6 +241,7 @@ final class LoginController extends Controller
 
     public function ativarSalvar(Request $request): Response
     {
+        mensagemErro('Erro!', 'Ocorreu um erro no momento, por favor, tente novamente mais tarde.');
         if ($request->vazio('hash')) {
             mensagemStatus(404);
         }
@@ -253,6 +255,7 @@ final class LoginController extends Controller
 
     public function postAtivarValidar(Request $request): Response
     {
+        mensagemErro('Erro!', 'Ocorreu um erro no momento, por favor, tente novamente mais tarde.');
         $dado = (new ApiHelper('usuario_indicacao:ativar'))
             ->validar('Ocorreu um erro ao validar seu código, por favor, tente novamente.')
             ->body([
@@ -272,6 +275,7 @@ final class LoginController extends Controller
 
     public function postAtivarSalvar(Request $request): Response
     {
+        mensagemErro('Erro!', 'Ocorreu um erro no momento, por favor, tente novamente mais tarde.');
         new SalvarModel($request, $this->crypt());
         new LogarModel($request->cpf, $request->senha);
         return $this->loginRealizado();
