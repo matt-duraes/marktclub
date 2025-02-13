@@ -2,6 +2,7 @@
 
 use App\Classes\ParceiroLoja\Categoria;
 use App\Classes\ParceiroLoja\OrigemLead;
+use App\Classes\ParceiroLoja\PrazoDeclaracao;
 use App\Classes\ParceiroLoja\TipoEstabelecimento;
 use App\Classes\ParceiroLoja\TipoJuridico;
 use App\Classes\ParceiroLoja\TipoLoja;
@@ -190,6 +191,12 @@ $Painel->coluna(callback: function () use ($Painel) {
                 lista: (new TipoProcedimento())->select('Escolha uma opção'),
                 label: 'Tipo de procedimento',
                 placeholder: 'Escolha um procedimento'
+            )
+            ->select(
+                name: 'prazo_declaracao',
+                lista: (new PrazoDeclaracao())->select('Escolha uma opção'),
+                label: 'Prazo da Declaração (se houver)',
+                placeholder: 'Escolha um prazo'
             )
             ->numero(
                 name: 'limite_voucher',

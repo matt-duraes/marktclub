@@ -80,7 +80,7 @@ final class ParceiroLojaController extends Controller implements
             'comissao_minima', 'subcategoria_lista', 'comissao_maxima', 'empresa', 'destaque',
             'confirmar_status', 'confirmar_titulo', 'confirmar_texto', 'endereco_estado', 'pontuacao',
             'desconto', 'arquivo_clube', 'arquivo_painel', 'cupom_desconto', 'existe_endereco',
-            'existe_email', 'existe_telefone', 'cancelar_motivo', 'status'
+            'existe_email', 'existe_telefone', 'cancelar_motivo', 'status', 'prazo_declaracao'
         ]), $status);
     }
 
