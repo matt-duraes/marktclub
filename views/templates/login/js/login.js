@@ -148,11 +148,9 @@ window.addEventListener('load', () => {
         window.location.replace(linkLocation);
     };
     const resetarCaptcha = () => {
-        ppe(captchaVersao);
         if (captchaVersao != 2) {
             return;
         }
-        ppe(captcha2Login);
-        ppe(grecaptcha.reset(captcha2Login));
+        grecaptcha.reset(captcha2Login);
     };
 });
