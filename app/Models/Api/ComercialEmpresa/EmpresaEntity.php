@@ -2,83 +2,40 @@
 
 namespace App\Models\Api\ComercialEmpresa;
 
-use ORM\Entity;
-use Modules\Cpf;
-use Modules\Cnpj;
-use Modules\Data;
-use Modules\Nome;
-use Modules\Botao;
-use Modules\Email;
-use Modules\Inteiro;
-use Modules\Dinheiro;
-use Modules\Telefone;
-use Helpers\OrmHelper;
-use Modules\EnderecoEstado;
-use App\Classes\ComercialEmpresa\Origem;
-use App\Classes\ComercialEmpresa\Status;
-use App\Classes\ComercialEmpresa\TipoSite;
-use App\Classes\ComercialEmpresa\EmailDisparo;
-use App\Classes\ComercialEmpresa\ContratoPrazo;
-use App\Classes\ComercialEmpresa\TipoPagamento;
-use App\Classes\ComercialEmpresa\FormatoReuniao;
 use App\Classes\ComercialEmpresa\CadastroUsuario;
-use App\Classes\ComercialEmpresa\EtapaNegociacao;
 use App\Classes\ComercialEmpresa\CanalPreferencia;
-use App\Classes\ComercialEmpresa\ProspeccaoStatus;
+use App\Classes\ComercialEmpresa\ContratoPrazo;
 use App\Classes\ComercialEmpresa\ContratoRenovacao;
+use App\Classes\ComercialEmpresa\EmailDisparo;
+use App\Classes\ComercialEmpresa\EtapaNegociacao;
 use App\Classes\ComercialEmpresa\FinalidadePrincipal;
-use App\Models\Api\ComercialFatura\UltimaFaturaModel;
 use App\Classes\ComercialEmpresa\FinalidadeSecundaria;
-use App\Models\Api\ComercialPagamento\PagamentoEntity;
+use App\Classes\ComercialEmpresa\FormatoReuniao;
+use App\Classes\ComercialEmpresa\Origem;
+use App\Classes\ComercialEmpresa\ProspeccaoStatus;
+use App\Classes\ComercialEmpresa\Status;
+use App\Classes\ComercialEmpresa\TipoPagamento;
+use App\Classes\ComercialEmpresa\TipoSite;
 use App\Models\Api\ComercialEmpresa\Trait\ValidarEmpresaAtivaTrait;
+use App\Models\Api\ComercialFatura\UltimaFaturaModel;
+use App\Models\Api\ComercialPagamento\PagamentoEntity;
+use Helpers\OrmHelper;
+use Modules\Botao;
+use Modules\Cnpj;
+use Modules\Cpf;
+use Modules\Data;
+use Modules\Dinheiro;
+use Modules\Email;
+use Modules\EnderecoEstado;
+use Modules\Inteiro;
+use Modules\Nome;
+use Modules\Telefone;
+use ORM\Entity;
 
 final class EmpresaEntity extends Entity
 {
     use ValidarEmpresaAtivaTrait;
 
-    protected string $ormTabela = TABELA_COMERCIAL_EMPRESA;
-    protected array $ormBuscar = [
-        'finalidade_principal' => 'finalidade_empresa',
-        'titulo', 'finalidade_secundaria', 'nome_fantasia', 'razao_social', 'imagem_arquivo', 'slug',
-        'site', 'responsavel_nome', 'responsavel_cargo', 'responsavel_email', 'responsavel_telefone', 'responsavel_cpf',
-        'id_usuario_equipe', 'id_usuario_dono', 'tipo_pagamento', 'renda_media', 'produto_clube',
-        'produto_ios', 'produto_android', 'produto_site', 'produto_webview', 'produto_api', 'cnpj',
-        'estado_principal', 'status', 'data_eleicao', 'email_dia', 'whatsapp_dia', 'rede_social_dia',
-        'contrato_prazo', 'contrato_renovacao', 'tipo_site', 'cadastro_usuario', 'comunicacao_email',
-        'comunicacao_whatsapp', 'comunicacao_rede_social', 'email_disparo', 'prospeccao_status',
-        'observacao_ti', 'observacao_comunicacao', 'observacao_financeiro', 'restricao_lista', 'contrato_data',
-        'contrato_dia_pagamento', 'cobrar_aposentado', 'contrato_valor', 'contrato_valor_minimo',
-        'contrato_usuario_minimo', 'contrato_dia_fechamento', 'parceiro_proprio', 'concorrente_status', 'concorrente_nome',
-        'origem', 'usuario_possivel', 'contato_preferencial', 'data_apresentacao', 'formato_reuniao', 'previsao_retorno', 'motivo_standby',
-        'motivo_standby', 'motivo_perdido', 'devolutiva', 'etapa_negociacao'
-    ];
-    protected array $ormSalvar = [
-        'finalidade_empresa' => '->finalidade_principal',
-        'titulo', 'finalidade_secundaria', 'nome_fantasia', 'razao_social', 'imagem_arquivo', 'slug',
-        'site', 'responsavel_nome', 'responsavel_cargo', 'responsavel_email', 'responsavel_telefone', 'responsavel_cpf',
-        'id_usuario_equipe', 'id_usuario_dono', 'tipo_pagamento', 'renda_media', 'produto_clube',
-        'produto_ios', 'produto_android', 'produto_site', 'produto_webview', 'produto_api', 'cnpj',
-        'estado_principal', 'status', 'data_eleicao', 'email_dia', 'whatsapp_dia', 'rede_social_dia',
-        'contrato_prazo', 'contrato_renovacao', 'tipo_site', 'cadastro_usuario', 'comunicacao_email',
-        'comunicacao_whatsapp', 'comunicacao_rede_social', 'email_disparo', 'prospeccao_status',
-        'observacao_ti', 'observacao_comunicacao', 'observacao_financeiro', 'restricao_lista', 'contrato_data',
-        'contrato_dia_pagamento', 'cobrar_aposentado', 'contrato_valor', 'contrato_valor_minimo',
-        'contrato_usuario_minimo', 'contrato_dia_fechamento', 'parceiro_proprio', 'concorrente_status', 'concorrente_nome',
-        'origem', 'usuario_possivel', 'contato_preferencial', 'data_apresentacao', 'formato_reuniao', 'previsao_retorno', 'motivo_standby',
-        'motivo_standby', 'motivo_perdido', 'devolutiva', 'etapa_negociacao'
-    ];
-    protected string $ormValidarSalvar = '
-        titulo|Título|vazio
-        finalidade_principal|Finalidade principal|vazio|valido
-        finalidade_secundaria|Finalidade secundária|vazio|valido
-        responsavel_nome|Nome do responsável|vazio|valido
-        responsavel_telefone|Telefone do responsável|vazio|valido
-        responsavel_email|E-mail do responsável|vazio|valido
-        status|Status|vazio|valido
-    ';
-    protected array $ormRetornoPadrao = ['id', 'nome_fantasia', 'imagem', 'slug', 'status'];
-    protected int $id_usuario_equipe;
-    protected int $id_usuario_dono;
     public string $titulo;
     public Cnpj $cnpj;
     public string $razao_social;
@@ -129,6 +86,7 @@ final class EmpresaEntity extends Entity
     public EmailDisparo $email_disparo;
     public string $observacao_ti;
     public string $observacao_comunicacao;
+    public string $indicado;
     public Botao $parceiro_proprio;
     public Botao $concorrente_status;
     public string $concorrente_nome;
@@ -145,6 +103,53 @@ final class EmpresaEntity extends Entity
     public string $responsavel_cargo;
     public Data $devolutiva;
     public EtapaNegociacao $etapa_negociacao;
+    protected string $ormTabela = TABELA_COMERCIAL_EMPRESA;
+    protected array $ormBuscar = [
+        'finalidade_principal' => 'finalidade_empresa',
+        'titulo', 'finalidade_secundaria', 'nome_fantasia', 'razao_social', 'imagem_arquivo', 'slug',
+        'site', 'responsavel_nome', 'responsavel_cargo', 'responsavel_email', 'responsavel_telefone', 'responsavel_cpf',
+        'id_usuario_equipe', 'id_usuario_dono', 'tipo_pagamento', 'renda_media', 'produto_clube',
+        'produto_ios', 'produto_android', 'produto_site', 'produto_webview', 'produto_api', 'cnpj',
+        'estado_principal', 'status', 'data_eleicao', 'email_dia', 'whatsapp_dia', 'rede_social_dia',
+        'contrato_prazo', 'contrato_renovacao', 'tipo_site', 'cadastro_usuario', 'comunicacao_email',
+        'comunicacao_whatsapp', 'comunicacao_rede_social', 'email_disparo', 'prospeccao_status',
+        'observacao_ti', 'observacao_comunicacao', 'observacao_financeiro', 'restricao_lista', 'contrato_data',
+        'contrato_dia_pagamento', 'cobrar_aposentado', 'contrato_valor', 'contrato_valor_minimo',
+        'contrato_usuario_minimo', 'contrato_dia_fechamento', 'parceiro_proprio', 'concorrente_status',
+        'concorrente_nome',
+        'origem', 'usuario_possivel', 'contato_preferencial', 'data_apresentacao', 'formato_reuniao',
+        'previsao_retorno', 'motivo_standby',
+        'motivo_standby', 'motivo_perdido', 'devolutiva', 'etapa_negociacao'
+    ];
+    protected array $ormSalvar = [
+        'finalidade_empresa' => '->finalidade_principal',
+        'titulo', 'finalidade_secundaria', 'nome_fantasia', 'razao_social', 'imagem_arquivo', 'slug',
+        'site', 'responsavel_nome', 'responsavel_cargo', 'responsavel_email', 'responsavel_telefone', 'responsavel_cpf',
+        'id_usuario_equipe', 'id_usuario_dono', 'tipo_pagamento', 'renda_media', 'produto_clube',
+        'produto_ios', 'produto_android', 'produto_site', 'produto_webview', 'produto_api', 'cnpj',
+        'estado_principal', 'status', 'data_eleicao', 'email_dia', 'whatsapp_dia', 'rede_social_dia',
+        'contrato_prazo', 'contrato_renovacao', 'tipo_site', 'cadastro_usuario', 'comunicacao_email',
+        'comunicacao_whatsapp', 'comunicacao_rede_social', 'email_disparo', 'prospeccao_status',
+        'observacao_ti', 'observacao_comunicacao', 'observacao_financeiro', 'restricao_lista', 'contrato_data',
+        'contrato_dia_pagamento', 'cobrar_aposentado', 'contrato_valor', 'contrato_valor_minimo',
+        'contrato_usuario_minimo', 'contrato_dia_fechamento', 'parceiro_proprio', 'concorrente_status',
+        'concorrente_nome',
+        'origem', 'usuario_possivel', 'contato_preferencial', 'data_apresentacao', 'formato_reuniao',
+        'previsao_retorno', 'motivo_standby',
+        'motivo_standby', 'motivo_perdido', 'devolutiva', 'etapa_negociacao'
+    ];
+    protected string $ormValidarSalvar = '
+        titulo|Título|vazio
+        finalidade_principal|Finalidade principal|vazio|valido
+        finalidade_secundaria|Finalidade secundária|vazio|valido
+        responsavel_nome|Nome do responsável|vazio|valido
+        responsavel_telefone|Telefone do responsável|vazio|valido
+        responsavel_email|E-mail do responsável|vazio|valido
+        status|Status|vazio|valido
+    ';
+    protected array $ormRetornoPadrao = ['id', 'nome_fantasia', 'imagem', 'slug', 'status'];
+    protected int $id_usuario_equipe;
+    protected int $id_usuario_dono;
     private bool $atualizarValor = false;
 
     protected function regraInsert()
@@ -152,6 +157,22 @@ final class EmpresaEntity extends Entity
         $this->prospeccao_status = new ProspeccaoStatus(ProspeccaoStatus::PESQUISA);
         $this->status = new Status(Status::PROSPECCAO);
         $this->validarSeJaExisteCnpj();
+    }
+
+    private function validarSeJaExisteCnpj(?int $id = null)
+    {
+        if (!$this->propriedadeExiste('cnpj') || !$this->cnpj->valido()) {
+            return;
+        }
+
+        $where = [['cnpj', $this->cnpj->numero()]];
+        if (!empty($id)) {
+            $where[] = ['id', '!=', $id];
+        }
+
+        if ($this->existe($where)) {
+            mensagemErro('Campo duplicado!', 'O CNPJ informado já está em uso por outro cliente');
+        }
     }
 
     protected function regraUpdate()
@@ -173,13 +194,6 @@ final class EmpresaEntity extends Entity
         $this->setarUsuarioEquipeDono();
     }
 
-    protected function regraPosSalvar()
-    {
-        if ($this->atualizarValor) {
-            new PagamentoEntity(Empresa: $this, valor: $this->contrato_valor);
-        }
-    }
-
     private function setarUsuarioEquipeDono()
     {
         if (!empty($this->dono)) {
@@ -195,6 +209,13 @@ final class EmpresaEntity extends Entity
         $this->id_usuario_equipe = (new OrmHelper(TABELA_USUARIO_EQUIPE))->pegarIdPeloUuid($this->equipe);
     }
 
+    protected function regraPosSalvar()
+    {
+        if ($this->atualizarValor) {
+            new PagamentoEntity(Empresa: $this, valor: $this->contrato_valor);
+        }
+    }
+
     protected function regraPosBuscar()
     {
         if (empty($this->imagem)) {
@@ -204,29 +225,16 @@ final class EmpresaEntity extends Entity
         $this->valor_pago = new UltimaFaturaModel(Empresa: $this);
 
         $this->equipe = (new OrmHelper(TABELA_USUARIO_EQUIPE))->pegarUuidPeloId($this->id_usuario_equipe);
+        $this->indicado = '';
         if (!empty($this->id_usuario_dono)) {
             $this->dono = (new OrmHelper(TABELA_USUARIO_EQUIPE))->pegarUuidPeloId($this->id_usuario_dono);
+            $this->indicado = (new OrmHelper(TABELA_USUARIO_EQUIPE))
+                ->pegarCampoPor('nome_real', ['id', $this->id_usuario_dono]);
         }
     }
 
     protected function getId()
     {
         return $this->prop('id');
-    }
-
-    private function validarSeJaExisteCnpj(?int $id = null)
-    {
-        if (!$this->propriedadeExiste('cnpj') || !$this->cnpj->valido()) {
-            return;
-        }
-
-        $where = [['cnpj', $this->cnpj->numero()]];
-        if (!empty($id)) {
-            $where[] = ['id', '!=', $id];
-        }
-
-        if ($this->existe($where)) {
-            mensagemErro('Campo duplicado!', 'O CNPJ informado já está em uso por outro cliente');
-        }
     }
 }
