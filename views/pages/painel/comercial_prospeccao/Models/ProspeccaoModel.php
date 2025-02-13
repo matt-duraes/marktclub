@@ -23,7 +23,6 @@ final class ProspeccaoModel
         $dado = $this->Api
             ->json([
                 'pagina'            => 1,
-                'quantidade'        => 50,
                 'prospeccao_status' => $prospeccao,
                 'status'            => $status
             ])
@@ -41,9 +40,13 @@ final class ProspeccaoModel
     {
         $retorno = [];
         foreach ($dado as $r) {
+            $tituloDecoded = $this->Crypt->decode($r['titulo']);
+            $titulo = empty($r['empresa_indicacao'])
+                ? $tituloDecoded
+                : $r['empresa_indicacao'] . ' - ' . $tituloDecoded;
             $retorno[] = (object)[
                 'id'           => $r['id'],
-                'titulo'       => $this->Crypt->decode($r['titulo']),
+                'titulo'       => $titulo,
                 'cnpj'         => strCnpj($this->Crypt->decode($r['cnpj'])),
                 'data_criacao' => dataBr($r['data_criacao']),
                 'status'       => $r['prospeccao_status']

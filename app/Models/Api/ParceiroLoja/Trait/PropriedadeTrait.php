@@ -5,6 +5,7 @@ namespace App\Models\Api\ParceiroLoja\Trait;
 use App\Classes\ParceiroLoja\CancelarMotivo;
 use App\Classes\ParceiroLoja\Categoria;
 use App\Classes\ParceiroLoja\OrigemLead;
+use App\Classes\ParceiroLoja\PrazoDeclaracao;
 use App\Classes\ParceiroLoja\Status;
 use App\Classes\ParceiroLoja\TipoEstabelecimento;
 use App\Classes\ParceiroLoja\TipoJuridico;
@@ -89,6 +90,7 @@ trait PropriedadeTrait
     public Botao $existe_email;
     public Botao $existe_telefone;
     public CancelarMotivo $cancelar_motivo;
+    public PrazoDeclaracao $prazo_declaracao;
     protected int $id_usuario_equipe;
     protected array $id_admin_empresa;
 }

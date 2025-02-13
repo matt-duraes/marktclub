@@ -32,7 +32,7 @@ final class LojaEntity extends Entity
         'prazo_voucher', 'prazo_voucher_fixo', 'data_auditoria', 'confirmar_status', 'confirmar_titulo',
         'confirmar_texto', 'arquivo_painel', 'arquivo_clube', 'data_publicacao', 'status', 'data_prospeccao',
         'comissao_minima', 'comissao_maxima', 'texto_restricao', 'texto_outro', 'data_cancelado', 'data_problema',
-        'cancelar_motivo', 'limite_voucher'
+        'cancelar_motivo', 'limite_voucher', 'prazo_declaracao'
     ];
     protected array $ormSalvar = [
         'nome_fantasia', 'razao_social', 'tipo_juridico', 'documento_cpf', 'documento_cnpj', 'titulo_interno',
@@ -46,7 +46,7 @@ final class LojaEntity extends Entity
         'prazo_voucher', 'prazo_voucher_fixo', 'data_auditoria', 'confirmar_status', 'confirmar_titulo',
         'confirmar_texto', 'arquivo_painel', 'arquivo_clube', 'data_publicacao', 'status', 'data_prospeccao',
         'comissao_minima', 'comissao_maxima', 'texto_restricao', 'texto_outro', 'data_cancelado', 'data_problema',
-        'cancelar_motivo', 'limite_voucher'
+        'cancelar_motivo', 'limite_voucher', 'prazo_declaracao'
     ];
     private OrmHelper $EmpresaOrm;
     private OrmHelper $EquipeOrm;
