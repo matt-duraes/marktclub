@@ -7,6 +7,7 @@ use Helpers\MarkdownHelper;
 use App\Helpers\ClubeApiHelper;
 use App\Classes\ParceiroLoja\Status;
 use App\Classes\ParceiroLoja\TipoLoja;
+use App\Classes\ParceiroLoja\PrazoDeclaracao;
 
 final class BuscarModel extends ClubeApiHelper
 {
@@ -45,7 +46,7 @@ final class BuscarModel extends ClubeApiHelper
             'texto_restrito'     => '',
             'texto_outro'        => '',
             'procedimento'       => $r->tipo_procedimento,
-            'capa_desktop'       => $r->imagem_capa_desktop,
+            'prazo_declaracao'   => (new PrazoDeclaracao($r->prazo_declaracao))->nome(),
             'capa_mobile'        => $r->imagem_capa_mobile,
             'link'               => $this->gerarLink($tipo, $r->link_site),
             'url'                => $r->url,
