@@ -51,6 +51,11 @@ $Painel->coluna(callback: function () use ($Painel) {
             ->linha('formato_reuniao', 'Formato da reunião');
     });
 
+    $Painel->bloco(titulo: 'Dados de indicação', callback: function () use ($Painel) {
+        $Painel
+            ->linha('indicado', 'Quem indicou');
+    });
+
     $Painel->bloco(titulo: 'Standby', callback: function () use ($Painel) {
         $Painel
             ->linha('motivo_standby', 'Motivo do standby')
