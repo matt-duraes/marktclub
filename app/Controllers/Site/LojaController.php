@@ -81,16 +81,16 @@ final class LojaController extends Controller
     {
         $Dado = new BuscarModel(url: $url);
         $dado = $Dado->buscarDados();
-
         if ($dado->tipo == TipoLoja::PAGINA) {
             return new Response(url: LINK . $dado->url);
         }
-
+        $prazoDeclaracao = $dado->prazo_declaracao;
         return view('loja.detalhe', [
             'menu'         => 'loja',
             'dado'         => $dado,
             'tipo'         => $dado->tipo,
-            'procedimento' => new TipoProcedimento()
+            'procedimento' => new TipoProcedimento(),
+            'texto_prazo' => !empty($prazoDeclaracao) ? $prazoDeclaracao : '8h'
         ]);
     }
 
