@@ -24,10 +24,10 @@ final class PrazoDeclaracao extends Status
     ) {
         parent::__construct([
             self::UMA_HORA   => '1h',
-            self::TRES_HORA  => '3hs',
-            self::CINCO_HORA => '5hs',
-            self::OITO_HORA  => '8hs',
-            self::DOZE_HORA  => '12hs',
+            self::TRES_HORA  => '3h',
+            self::CINCO_HORA => '5h',
+            self::OITO_HORA  => '8h',
+            self::DOZE_HORA  => '12h',
             self::UM_DIA     => '1 dia',
             self::TRES_DIA   => '3 dias',
             self::CINCO_DIA  => '5 dias',
