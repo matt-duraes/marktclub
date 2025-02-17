@@ -190,8 +190,8 @@ const loadingAtivarBuscar = () => {
             });
             return;
         }
-        resposta.dado.tipoUsuario = valorData;
-        criarPaginaAtivarSalvar(resposta.dado);
+        json.dado.tipoUsuario = valorData;
+        criarPaginaAtivarSalvar(json.dado);
     });
 };
 
