@@ -16,7 +16,7 @@ window.addEventListener('load', () => {
     const blocoDocumentoCpf = $('#bloco_documento_cpf');
     const blocoDocumentoCnpj = $('#bloco_documento_cnpj');
     const blocoVoucher = $$('#bloco_limite_voucher, #bloco_prazo_voucher, #bloco_prazo_voucher_fixo');
-
+    const blocoPrazoDeclaracao = $('#bloco_prazo_declaracao');
     const blocoConfirmarTitulo = $('#bloco_confirmar_titulo');
     const blocoConfirmarTexto = $('#bloco_confirmar_texto');
 
@@ -47,11 +47,16 @@ window.addEventListener('load', () => {
     });
     const mudarTipoProcedimento = () => {
         const valor = inputTipoProcedimento.valor();
+        blocoPrazoDeclaracao.sumir();
+        blocoVoucher.sumir();
         if (valor == 'voucher') {
             blocoVoucher.aparecer();
             return;
         }
-        blocoVoucher.sumir();
+        if (valor == 'declaracao') {
+            blocoPrazoDeclaracao.aparecer();
+            return;
+        }
     };
     mudarTipoProcedimento();
 
