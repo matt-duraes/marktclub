@@ -1,14 +1,14 @@
 <?php
 
-use App\Classes\ParceiroLoja\Categoria;
-use App\Classes\ParceiroLoja\OrigemLead;
-use App\Classes\ParceiroLoja\PrazoDeclaracao;
-use App\Classes\ParceiroLoja\TipoEstabelecimento;
-use App\Classes\ParceiroLoja\TipoJuridico;
-use App\Classes\ParceiroLoja\TipoLoja;
-use App\Classes\ParceiroLoja\TipoProcedimento;
 use Helpers\ApiHelper;
 use Modules\EnderecoEstado;
+use App\Classes\ParceiroLoja\TipoLoja;
+use App\Classes\ParceiroLoja\Categoria;
+use App\Classes\ParceiroLoja\OrigemLead;
+use App\Classes\ParceiroLoja\TipoJuridico;
+use App\Classes\ParceiroLoja\PrazoDeclaracao;
+use App\Classes\ParceiroLoja\TipoProcedimento;
+use App\Classes\ParceiroLoja\TipoEstabelecimento;
 
 $empresa = (new ApiHelper(token: true))->get('/comercial-empresa/select')->array()['dado'] ?? [];
 $tag = (new ApiHelper(token: true))->get('/parceiro-subcategoria')->array()['dado'] ?? [];
@@ -196,7 +196,9 @@ $Painel->coluna(callback: function () use ($Painel) {
                 name: 'prazo_declaracao',
                 lista: (new PrazoDeclaracao())->select('Escolha uma opção'),
                 label: 'Prazo da Declaração (se houver)',
-                placeholder: 'Escolha um prazo'
+                placeholder: 'Escolha um prazo',
+                class: 'display_none',
+                id: 'bloco_prazo_declaracao'
             )
             ->numero(
                 name: 'limite_voucher',
