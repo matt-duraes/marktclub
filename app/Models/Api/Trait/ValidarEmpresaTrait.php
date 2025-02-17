@@ -2,10 +2,10 @@
 
 namespace App\Models\Api\Trait;
 
-use Erro\Excecao;
-use Helpers\OrmHelper;
-use Http\Request;
 use Throwable;
+use Erro\Excecao;
+use Http\Request;
+use Helpers\OrmHelper;
 
 trait ValidarEmpresaTrait
 {
