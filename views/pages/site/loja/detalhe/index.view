@@ -6,13 +6,16 @@
     @ endif;
 </div>
 
+@if (!empty($texto_prazo)):
+    <input type="hidden" id="texto_prazo" value="{!!$texto_prazo!!}">
+@endif;
 
 @ if($dado):
 <div id="bloco_loja_detalhe" class="bloco_loja_detalhe">
     <input type="hidden" id="input_analytics_vinculo" value="{!!$dado->id!!}">
     <input type="hidden" id="input_loja_id" value="{!!$dado->id!!}">
     <input type="hidden" id="input_loja_url" value="{!!$dado->url!!}">
-    <input type="hidden" id="texto_prazo" value="{!!$texto_prazo!!}">
+
     <div class="bloco_parceiro_header">
         <section class="bloco_banner">
             @ if( !empty($dado->capa_desktop) ):
