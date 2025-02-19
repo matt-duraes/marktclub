@@ -83,6 +83,10 @@ Route
             ::nome('login')
             ::request(['login', 'senha', 'hash_validacao_captcha'])
             ::post('/login/login');
+        Route
+            ::nome('login')
+            ::request(['login', 'senha'])
+            ::post('/login/login-interno');
     });
 Route
     ::nome('login')
