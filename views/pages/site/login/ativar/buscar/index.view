@@ -1,4 +1,5 @@
 <form id="bloco_form_buscar" class="bloco_form_login form_geral" action="/" method="post">
+    @hash(ATIVAR_BUSCAR_USUARIO)
     <div class="conteudo" >
         <header>
             <div class="bloco">
@@ -42,7 +43,7 @@
             @? formInput(name: 'buscar', label: 'Buscar', placeholder: 'Insira seus dados');
             </div>
         </div>
-
+        <div class="bloco_captcha" id="bloco_captcha_ativar"></div>
     </div>
 
         <div class="bloco_botao">

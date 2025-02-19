@@ -152,8 +152,6 @@ window.addEventListener('load', () => {
         const containerConteudo = document.querySelector('.container .conteudo');
         containerConteudo.style.animation = 'fecharCalculadora 1s ease forwards';
 
-        const targetElement = document.querySelector('#bloco_login .bloco_calculadora .container .topo');
-
         const resultado = document.querySelector('.resultado');
         if (resultado) {
             resultado.style.animation = 'fecharResultado 1s ease forwards';

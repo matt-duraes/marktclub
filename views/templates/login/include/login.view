@@ -23,6 +23,7 @@
     </div>
     @ endif;
     <form id="bloco_form_login" class="bloco_form_login form_geral {!!LOGIN_ESCOLHA ? 'display_none' : ''!!}" action="/" method="post">
+        @hash(LOGIN_CLUBE_PRINCIPAL)
         <div class="conteudo">
             <header>
                 <div class="bloco">
@@ -39,6 +40,10 @@
 
             @? formCpf(name: 'login', label: 'Login', placeholder: 'Digite seu CPF')
             @? formSenha(name: 'senha', label: 'Senha', placeholder: 'Digite sua senha')
+
+            <div class="bloco_recaptcha display_none" id="bloco_recaptcha_v2">
+
+            </div>
 
             <div class="bloco_botao">
                 <div class="botao" id="botao_fazer_login">Fazer Login</div>

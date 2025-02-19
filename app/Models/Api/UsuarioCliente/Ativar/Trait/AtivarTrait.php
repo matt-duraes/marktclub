@@ -2,23 +2,23 @@
 
 namespace App\Models\Api\UsuarioCliente\Ativar\Trait;
 
-use App\Classes\ConstrutorClube\TipoCargo;
+use Modules\Cpf;
+use Erro\Excecao;
+use Modules\Data;
+use Modules\Nome;
+use Modules\Botao;
+use Modules\Email;
+use Modules\Senha;
+use Modules\Genero;
+use Modules\Telefone;
+use Helpers\OrmHelper;
+use Modules\EnderecoCep;
+use Modules\EstadoCivil;
+use Modules\EnderecoEstado;
 use App\Classes\UsuarioCliente\Hash;
+use App\Classes\ConstrutorClube\TipoCargo;
 use App\Classes\UsuarioCliente\TrabalhoCargo;
 use App\Classes\UsuarioCliente\TrabalhoEmpresa;
-use Erro\Excecao;
-use Helpers\OrmHelper;
-use Modules\Botao;
-use Modules\Cpf;
-use Modules\Data;
-use Modules\Email;
-use Modules\EnderecoCep;
-use Modules\EnderecoEstado;
-use Modules\EstadoCivil;
-use Modules\Genero;
-use Modules\Nome;
-use Modules\Senha;
-use Modules\Telefone;
 
 trait AtivarTrait
 {
@@ -178,14 +178,17 @@ trait AtivarTrait
     {
         $id = $this->usuario->id;
         $empresa = $this->usuario->id_admin_empresa;
-        $emailPessoal = $this->email_pessoal->email();
-        $emailTrabalho = $this->email_trabalho->email();
         $cpf = $this->cpf->numero();
-        if ($this->existe($this->whereEmail($id, $empresa, $emailPessoal))) {
-            mensagemErro('E-mail inválido!', 'O e-mail pessoal já está em uso por outro usuário.');
-        } elseif ($this->existe($this->whereEmail($id, $empresa, $emailTrabalho))) {
-            mensagemErro('E-mail inválido!', 'O e-mail de trabalho já está em uso por outro usuário.');
-        } elseif ($this->existe([
+
+        // $emailPessoal = $this->email_pessoal->email();
+        // $emailTrabalho = $this->email_trabalho->email();
+        // if ($this->existe($this->whereEmail($id, $empresa, $emailPessoal))) {
+        //     mensagemErro('E-mail inválido!', 'O e-mail pessoal já está em uso por outro usuário.');
+        // } elseif ($this->existe($this->whereEmail($id, $empresa, $emailTrabalho))) {
+        //     mensagemErro('E-mail inválido!', 'O e-mail de trabalho já está em uso por outro usuário.');
+        // }
+
+        if ($this->existe([
             ['id', '!=', $id],
             ['id_admin_empresa', $empresa],
             ['cpf', $cpf],

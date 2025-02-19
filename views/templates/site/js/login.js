@@ -36,7 +36,7 @@ window.addEventListener('load', () => {
 
         Loading.show();
         const resposta = await ajaxPost(
-            LINK + '/login/login',
+            LINK + '/login/login-interno',
             {
                 login: inputLogin.value,
                 senha: inputSenha.value,

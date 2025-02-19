@@ -2,15 +2,15 @@
 
 namespace App\Models\Api\Analytics;
 
+use ORM\ORM;
+use Http\Request;
+use Modules\Data;
+use Helpers\CryptHelper;
+use System\Trait\Model\PaginaTrait;
+use System\Trait\Model\QuantidadeTrait;
 use App\Classes\UsuarioCliente\TipoUsuario;
 use App\Models\Api\Trait\ValidarEmpresaTrait;
 use App\Models\Api\UsuarioCliente\ClienteEntity;
-use Helpers\CryptHelper;
-use Http\Request;
-use Modules\Data;
-use ORM\ORM;
-use System\Trait\Model\PaginaTrait;
-use System\Trait\Model\QuantidadeTrait;
 
 final class AnalyticsModel extends ORM
 {
@@ -20,7 +20,6 @@ final class AnalyticsModel extends ORM
 
     protected string $ormTabela = TABELA_ANALYTICS;
     private int $idEmpresa;
-    private ?int $idSubempresa = null;
     private ?int $idUsuario = null;
 
     public function __construct(

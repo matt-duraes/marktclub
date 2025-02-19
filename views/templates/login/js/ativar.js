@@ -4,9 +4,9 @@ window.addEventListener('load', async () => {
     const queryString = window.location.search;
     const searchParams = new URLSearchParams(queryString);
     const hash = searchParams.get('hash');
-    const tipo_usuario = searchParams.get('tipo_usuario');
+    const tipoUsuario = searchParams.get('tipo_usuario');
 
-    if (!hash || !tipo_usuario) {
+    if (!hash || !tipoUsuario) {
         return;
     }
 
@@ -18,7 +18,10 @@ window.addEventListener('load', async () => {
         return;
     }
 
-    criarPaginaAtivarSalvar({ hash, tipo_usuario: tipo_usuario });
+    criarPaginaAtivarSalvar({
+        hash,
+        tipoUsuario: tipoUsuario,
+    });
 });
 
 const setarTipoInput = (valorData = '') => {
@@ -77,40 +80,125 @@ const loadingAtivarBuscar = () => {
         });
     });
 
+    const RECAPTCHA = $('#RECAPTCHA').value;
+    const RECAPTCHAV2 = $('#RECAPTCHA_V2').value;
+    const formHash = $('#bloco_form_buscar input[name="form_system_hash"]').value;
     const form = $('#bloco_form_buscar');
     const botaoBuscar = $('#botao_buscar_usuario');
     const inputBuscar = $('#input_buscar');
     const inputBuscarCpf = $('#input_buscar_cpf');
+    const blocoRecaptcha = $('#bloco_captcha_ativar');
 
     inputBuscar.focus();
+
+    let captchaVersao = 3;
+    const pegarCaptcha = async () => {
+        if (captchaVersao == 2) {
+            const captcha = grecaptcha.getResponse(0);
+            if (captcha == '') {
+                Alerta.notificacao('Marque o box de "Não sou um Robô" para continuar.', false);
+                return false;
+            }
+            return 'v2.' + captcha;
+        }
+
+        return grecaptcha
+            .execute(RECAPTCHA, { action: 'create_singup' })
+            .then(function (token) {
+                return 'v3.' + token;
+            })
+            .catch(async () => {
+                await Alerta.mensagem('Erro ao carregar recaptcha', 'Recarregue a página e tente novamente.', false);
+                return false;
+            });
+    };
+    let captcha2AtivarBuscar;
+    const mostrarCaptchaV2 = () => {
+        if (captchaVersao == 2) {
+            return;
+        }
+        captchaVersao = 2;
+        blocoRecaptcha.classList.remove('display_none');
+        captcha2AtivarBuscar = grecaptcha.render('bloco_captcha_ativar', {
+            sitekey: RECAPTCHAV2,
+            theme: 'light',
+        });
+    };
+
+    const resetarCaptcha = () => {
+        if (captchaVersao != 2) {
+            return;
+        }
+        grecaptcha.reset(captcha2AtivarBuscar);
+    };
 
     botaoBuscar.addEventListener('click', async () => {
         if (!(await validarInput(form))) {
             return;
         }
+
+        const captchaToken = await pegarCaptcha();
+        if (captchaToken == '' && captchaVersao == 2) {
+            Alerta.notificacao('Clique no box do captcha para continuar.', false);
+            return;
+        }
+
         Loading.show();
-        const resposta = await ajaxPost(LINK + '/login/ativar-buscar', {
-            busca: inputBuscar.value ? inputBuscar.value : inputBuscarCpf.value,
-            tipo_usuario: valorData,
+        const body = new FormData();
+        body.append('busca', inputBuscar.value ? inputBuscar.value : inputBuscarCpf.value);
+        body.append('tipo_usuario', valorData);
+        body.append('form_system_hash', formHash);
+        body.append('form_system_validacao', '');
+        body.append('form_system_captcha', captchaToken);
+        const resposta = await fetch(LINK + '/login/ativar-buscar', {
+            method: 'POST',
+            body,
         });
 
+        let json;
+        try {
+            json = await resposta.json();
+        } catch (error) {
+            json = {};
+        }
+
         Loading.hide();
-        if (false == resposta) {
+
+        const respostaJson = json instanceof Object;
+        const deuErro = respostaJson && json.status == 'erro';
+        if (!respostaJson || json.status === undefined) {
+            resetarCaptcha();
+            Alerta.notificacao('Ocorreu um erro ao tentar buscar seus dados, por favor, tente novamente.', false);
+            return;
+        } else if (deuErro && json.erro.captcha != undefined && false === json.erro.captcha && captchaVersao == 3) {
+            Alerta.notificacao(
+                'Não foi possível validar seu captcha, por favor, marque o box de "Não sou um robô" para continuar.',
+                false
+            );
+            mostrarCaptchaV2();
+            return;
+        } else if (deuErro) {
+            Alerta.notificacao(json.erro.mensagem || 'Erro ao buscar seus dados, por favor, tente novamente.', false);
+            resetarCaptcha();
             return;
         }
+
         if (valorData == 'indicado') {
-            criarPaginaAtivarSalvar({ hash: resposta.dado.hash, tipo_usuario: valorData });
+            criarPaginaAtivarSalvar({
+                hash: resposta.dado.hash,
+                tipoUsuario: valorData,
+            });
             return;
         }
-        resposta.dado.tipo_usuario = valorData;
-        criarPaginaAtivarSalvar(resposta.dado);
+        json.dado.tipoUsuario = valorData;
+        criarPaginaAtivarSalvar(json.dado);
     });
 };
 
 const criarPaginaAtivarSalvar = dado => {
     const PaginaAtivar = new Pagina(
         'ativar-conta',
-        `${LINK}/login/ativar-salvar?hash=${dado.hash}&cpf=${dado.cpf}&tipo_usuario=${dado.tipo_usuario}`,
+        `${LINK}/login/ativar-salvar?hash=${dado.hash}&cpf=${dado.cpf}&tipo_usuario=${dado.tipoUsuario}`,
         undefined,
         true,
         false,
@@ -122,7 +210,7 @@ const criarPaginaAtivarSalvar = dado => {
 const loadingAtivar = () => {
     const hash = $('#input_ativar_hash_busca').value;
     const cpf = $('#input_ativar_cpf_busca').value;
-    const tipo_usuario = $('#input_tipo_usuario').value;
+    const tipoUsuario = $('#input_tipo_usuario').value;
 
     const form = $('#bloco_form_ativar');
 
@@ -211,7 +299,7 @@ const loadingAtivar = () => {
                 endereco_cidade: pegarValorInput(inputEnderecoCidade),
                 trabalho_cargo: pegarValorInput(inputCargo),
                 trabalho_empresa: pegarValorInput(inputLotacao),
-                tipo_usuario: tipo_usuario || '',
+                tipo_usuario: tipoUsuario || '',
                 /* eslint-enable */
             },
             'Erro ao ativar seu usuário, por favor, tente novamente.'

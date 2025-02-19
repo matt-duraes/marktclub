@@ -81,8 +81,12 @@ Route
     ::grupo(function() {
         Route
             ::nome('login')
-            ::request(['login', 'senha'])
+            ::request(['login', 'senha', 'hash_validacao_captcha'])
             ::post('/login/login');
+        Route
+            ::nome('login')
+            ::request(['login', 'senha'])
+            ::post('/login/login-interno');
     });
 Route
     ::nome('login')
@@ -146,7 +150,7 @@ Route
             ::view('/login/ativar-buscar');
         Route
             ::nome('ativarBuscar')
-            ::request(['busca', 'tipo_usuario'])
+            ::request(['busca', 'tipo_usuario', 'hash_validacao_captcha'])
             ::post('/login/ativar-buscar');
         Route
             ::nome('ativarSalvar')
