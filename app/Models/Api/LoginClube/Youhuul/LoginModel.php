@@ -2,12 +2,13 @@
 
 namespace App\Models\Api\LoginClube\Youhuul;
 
-use stdClass;
-use Modules\Senha;
-use App\Classes\UsuarioCliente\Hash;
-use App\Classes\UsuarioCliente\TipoUsuario;
 use App\Classes\LoginClube\PegarClienteTrait;
+use App\Classes\UsuarioCliente\Hash;
+use App\Classes\UsuarioCliente\Status;
+use App\Classes\UsuarioCliente\TipoUsuario;
 use App\Models\Api\LoginClube\LoginPadraoModel;
+use Modules\Senha;
+use stdClass;
 
 final class LoginModel extends LoginPadraoModel
 {
@@ -39,6 +40,16 @@ final class LoginModel extends LoginPadraoModel
     protected function buscarUsuarioPeloLoginSenha(): void
     {
         $Usuario = $this->pegarCliente($this->pegarWhere());
+
+        $Status = new Status();
+        if ($Status->numero($Usuario->status) === $Status->numero(Status::BLOQUEADO)) {
+            mensagemErro(
+                titulo: 'Usuário bloqueado',
+                mensagem: 'O seu usuário está com acesso bloqueado. Entre em contato para mais informações.',
+                status: 400
+            );
+        }
+
         if (vazio($Usuario)) {
             if (empty($this->hash)) {
                 password_verify($this->senha, '$2y$11$gqvgsZOatns5gStLVwaz8uANvVsSvSvq4WS8OH5lz2tJaXcO1h23O');
@@ -58,14 +69,16 @@ final class LoginModel extends LoginPadraoModel
 
     protected function pegarWhere(): array
     {
-        $where = [[
-            'OR',
-            ['empresa', $this->empresa],
+        $where = [
             [
-                ['empresa', 1],
-                ['tipo', (new TipoUsuario())->numero(TipoUsuario::SUPER)]
+                'OR',
+                ['empresa', $this->empresa],
+                [
+                    ['empresa', 1],
+                    ['tipo', (new TipoUsuario())->numero(TipoUsuario::SUPER)]
+                ]
             ]
-        ]];
+        ];
 
         if (!empty($this->hash)) {
             return array_merge([
