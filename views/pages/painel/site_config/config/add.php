@@ -7,7 +7,7 @@ use App\Classes\SiteConfig\TemplateFooter;
 use App\Classes\SiteConfig\TemplateHeader;
 
 $Painel = new PainelConfig\Add(app: 'site_config', acao: $acao);
-$imagem = sessao('PAINEL.upload_grupo')['site_config'] ?? '';
+$imagem = sessao('PAINEL.upload_grupo')->site_config ?? '';
 
 $Painel->coluna(callback: function () use ($Painel) {
     $Painel->fieldset('Dados do site', function () use ($Painel) {
