@@ -2,12 +2,12 @@
 
 namespace App\Controllers\Api\Usuario;
 
+use App\Controllers\Api\Usuario\Trait\PerfilInitTrait;
+use App\Models\Api\UsuarioCliente\ClienteEntity;
+use App\Models\Api\UsuarioEquipe\EquipeEntity;
+use Controller\Controller;
 use Http\Request;
 use Http\Response;
-use Controller\Controller;
-use App\Models\Api\UsuarioEquipe\EquipeEntity;
-use App\Models\Api\UsuarioCliente\ClienteEntity;
-use App\Controllers\Api\Usuario\Trait\PerfilInitTrait;
 
 final class PerfilDadoController extends Controller
 {
@@ -80,7 +80,7 @@ final class PerfilDadoController extends Controller
         ]);
 
         if ($Usuario->senha->validarSenha($request->senha)) {
-            return mensagemSucesso(['senha' => 'sim']);
+            return mensagemSucesso(['senha' => 1]);
         }
         mensagemErro('Senha inválida!', 'Verifique a senha digitada e tente novamente.');
     }

@@ -2,14 +2,14 @@
 
 namespace PainelApp\perfil\Controllers;
 
+use App\Classes\UsuarioEquipe\Helper;
+use Controller\Controller;
 use Erro\Excecao;
-use Http\Request;
-use Http\Response;
 use Helpers\ApiHelper;
 use Helpers\CryptHelper;
 use Helpers\ListaHelper;
-use Controller\Controller;
-use App\Classes\UsuarioEquipe\Helper;
+use Http\Request;
+use Http\Response;
 
 final class PerfilController extends Controller
 {
@@ -154,9 +154,10 @@ final class PerfilController extends Controller
         (new ApiHelper(token: true))
             ->validar('Ocorreu um erro ao atualizar seus dados, por favor, tente novamente.')
             ->body([
-                'senha' => criptografarDado(dado: $request->senha_nova, chave: $chave)
+                'senha_atual' => criptografarDado(dado: $request->senha_atual, chave: $chave),
+                'senha_nova'  => criptografarDado(dado: $request->senha_nova, chave: $chave)
             ])
-            ->put('/perfil-dado');
+            ->put('/perfil-dado/atualizar-senha');
 
         return new Response(status: 204);
     }
