@@ -2,12 +2,12 @@
 
 namespace App\Models\Api\Saude\Contratacao;
 
-use App\Classes\Saude\Ordem;
-use App\Classes\Saude\Status;
 use ORM\ORM;
 use stdClass;
 use Modules\Pagina;
 use Modules\Quantidade;
+use App\Classes\Saude\Ordem;
+use App\Classes\Saude\Status;
 use System\Trait\Model\OrdemTrait;
 use System\Trait\Model\PaginaTrait;
 use System\Trait\Model\QuantidadeTrait;
@@ -28,26 +28,51 @@ final class ContratacaoModel extends ORM implements
         private Pagina $pagina = new Pagina(null),
         private Quantidade $quantidade = new Quantidade(null),
         private Ordem $ordem = new Ordem(null),
-        private ?string $pesquisa = null
+        private ?string $pesquisa = null,
+        private readonly Status $status = new Status()
     ) {
-        parent::__construct();
         $this->validarEmpresa();
+        $this->validarDados();
+        parent::__construct();
     }
 
     public function listarDados(): stdClass
     {
         $dado = $this
             ->campo(['uuid', 'documento_cpf', 'nome', 'data_criacao', 'data_atualizacao', 'status'])
-            ->where($this->pegarWhere(), obrigatorio: false)
+            ->where($this->pegarWhere(), false)
             ->pagina($this->pegarPagina(), $this->pegarQuantidade())
             ->order($this->pegarOrdem())
             ->read();
 
-        $dado->lista = $this->montardado($dado->lista);
+        $dado->lista = $this->montarDado($dado->lista);
         return $dado;
     }
+    /**
+     * Undocumented function
+     *
+     * @return array
+     */
+    private function pegarWhere() : array
+    {
+        $where = $this->ormWherePadrao;
+        if (!empty($this->pesquisa)) {
+            $where[] = ['titulo', 'like', '%' . $this->pesquisa . '%'];
+        }
+        if ($this->status->valido()) {
+            $where[] = ['status', $this->status->numero()];
+        }
+        return $where;
+    }
 
-    private function montardado(array $lista): array
+    private function validarDados()
+    {
+        if (!$this->status->vazio() && !$this->status->valido()) {
+            mensagemErro('Campo inválido!', 'O Status informado não é válido.');
+        }
+    }
+
+    private function montarDado(array $lista): array
     {
         if (empty($lista)) {
             return $lista;
@@ -66,19 +91,5 @@ final class ContratacaoModel extends ORM implements
             ];
         }
         return $retorno;
-    }
-
-    private function pegarWhere()
-    {
-        $where = $this->ormWherePadrao;
-        if (!empty($this->pesquisa)) {
-            $where[] = ['titulo', 'like', '%' . $this->pesquisa . '%'];
-        }
-        return $where;
-    }
-
-    private function validarDado()
-    {
-        //
     }
 }

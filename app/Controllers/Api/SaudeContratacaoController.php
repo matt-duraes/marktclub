@@ -2,17 +2,18 @@
 
 namespace App\Controllers\Api;
 
-use App\Classes\Saude\Ordem;
-use App\Models\Api\Saude\Contratacao\ContratacaoEntity;
-use App\Models\Api\Saude\Contratacao\ContratacaoModel;
-use App\Models\Api\Saude\Simulacao\SimulacaoEntity;
-use Controller\Controller;
 use Http\Request;
 use Http\Response;
 use Modules\Pagina;
 use Modules\Quantidade;
+use Controller\Controller;
+use App\Classes\Saude\Ordem;
+use App\Classes\Saude\Status;
 use System\Interface\ControllerListarInterface;
 use System\Interface\ControllerSalvarInterface;
+use App\Models\Api\Saude\Simulacao\SimulacaoEntity;
+use App\Models\Api\Saude\Contratacao\ContratacaoModel;
+use App\Models\Api\Saude\Contratacao\ContratacaoEntity;
 
 class SaudeContratacaoController extends Controller implements
     ControllerSalvarInterface,
@@ -24,7 +25,8 @@ class SaudeContratacaoController extends Controller implements
             pagina: new Pagina($request->pagina),
             quantidade: new Quantidade($request->quantidade),
             ordem: new Ordem($request->ordem),
-            pesquisa: $request->pesquisa
+            pesquisa: $request->pesquisa,
+            status: new Status($request->status)
         );
         return mensagemSucesso($Contratacao->listarDados(), 200);
     }

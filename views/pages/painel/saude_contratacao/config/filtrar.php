@@ -1,6 +1,6 @@
 <?php
 
-use App\Classes\Geral\Status;
+use App\Classes\Saude\Status;
 
 $Painel = new PainelConfig\Filtrar('publicacao_pagina');
 
