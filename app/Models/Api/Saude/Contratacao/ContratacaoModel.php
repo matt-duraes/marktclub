@@ -49,7 +49,6 @@ final class ContratacaoModel extends ORM implements
         return $dado;
     }
     /**
-     * Undocumented function
      *
      * @return array
      */
