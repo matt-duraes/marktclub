@@ -2,18 +2,19 @@
 
 namespace App\Models\Api\UsuarioLead;
 
-use App\Classes\UsuarioCliente\Origem;
-use App\Classes\UsuarioLead\Ordem;
-use App\Classes\UsuarioLead\Status;
-use App\Models\Api\Trait\ValidarEmpresaTrait;
-use Erro\Excecao;
-use Http\Request;
 use ORM\ORM;
 use stdClass;
-use System\Interface\ModelListarInterface;
+use Erro\Excecao;
+use Http\Request;
+use Modules\Nome;
+use App\Classes\UsuarioLead\Ordem;
 use System\Trait\Model\OrdemTrait;
+use App\Classes\UsuarioLead\Status;
 use System\Trait\Model\PaginaTrait;
+use App\Classes\UsuarioCliente\Origem;
 use System\Trait\Model\QuantidadeTrait;
+use System\Interface\ModelListarInterface;
+use App\Models\Api\Trait\ValidarEmpresaTrait;
 
 final class LeadModel extends ORM implements
     ModelListarInterface
@@ -32,7 +33,11 @@ final class LeadModel extends ORM implements
      * @throws Excecao
      */
     public function __construct(
-        protected Request $request
+        protected Request $request,
+        private ?string $nome = null,
+        private ?string $cpf = null,
+        private ?string $siape = null,
+
     ) {
         $this->validarEmpresa();
         $this->validarCampoDoRequest();
@@ -44,7 +49,6 @@ final class LeadModel extends ORM implements
         $ordem = new Ordem($this->request->ordem);
         $status = new Status($this->request->status);
         $origem = new Origem($this->request->origem);
-
         if (!$ordem->vazio() && !$ordem->valido()) {
             mensagemErro('Campo inválido!', 'A ordem informada não é um valor válido.');
         } elseif (!$status->vazio() && !$status->valido()) {
@@ -52,6 +56,7 @@ final class LeadModel extends ORM implements
         } elseif (!$origem->vazio() && !$origem->valido()) {
             mensagemErro('Campo inválido!', 'O Origem informado não é um valor válido.');
         }
+
     }
 
     /**
@@ -83,9 +88,11 @@ final class LeadModel extends ORM implements
         $where = [['id_admin_empresa', $this->idEmpresa]];
 
         $request = $this->request;
+
+
         $nome = $request->nome;
         if (!empty($nome)) {
-            $where[] = ['nome_completo', $nome];
+            $where[] = ['nome_completo', 'like', '%' . $nome . '%'];
         }
 
         $email = $request->email;
@@ -97,10 +104,9 @@ final class LeadModel extends ORM implements
                 ['email_funcional', $email]
             ];
         }
-
-        $cpf = $request->cpf;
+        $cpf = soNumero($request->cpf);
         if (!empty($cpf)) {
-            $where[] = ['documento_cpf', $cpf];
+            $where[] = ['documento_cpf', 'like', $cpf . '%'];
         }
 
         $siape = $request->siape;

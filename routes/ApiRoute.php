@@ -575,7 +575,7 @@ Route
             ::middleware(TokenMiddleware::class, 'scope', ['usuario_lead:salvar'])
             ::request([
                 '!nome', '!email_trabalho', '!email_pessoal', '!email_funcional', '!telefone_pessoal',
-                '!telefone_trabalho', '!cpf', '!rg', '!siape', '!genero', '!data_nascimento', '!trabalho_empresa',
+                '!telefone_trabalho', '!cpf','!siape', '!rg', '!siape', '!genero', '!data_nascimento', '!trabalho_empresa',
                 '!trabalho_cargo', '!trabalho_data_inicio', '!endereco_cep', '!endereco_logradouro',
                 '!endereco_numero', '!endereco_complemento', '!endereco_bairro', '!endereco_cidade',
                 '!endereco_estado', '!termo_aceitar', '!termo_lgpd', '!lista_dependente', '!origem',
@@ -587,7 +587,7 @@ Route
             ::nome('listar')
             ::middleware(TokenMiddleware::class, 'scope', ['usuario_lead:listar'])
             ::request([
-                'pagina', '!pesquisa', '!nome', '!email', '!cpf', '!status', '!origem', '!ordem'
+                'pagina', '!pesquisa', '!nome', '!email', '!cpf', '!siape','!status', '!origem', '!ordem'
             ], 'json')
             ::get('/usuario-lead');
 
