@@ -62,8 +62,8 @@ const inputOrdem = $('#input_ordem');
 
 const acessadoValor = inputAcessado ? inputAcessado.value : '';
 const favoritoValor = inputFavorito ? inputFavorito.value : '';
-const estadoValor = inputEstado ? inputEstado.value : '';
-const cidadeValor = inputCidade ? inputCidade.value : '';
+let   estadoValor = inputEstado ? inputEstado.value : '';
+let   cidadeValor = inputCidade ? inputCidade.value : '';
 const categoriaValor = inputCategoria ? inputCategoria.value : '';
 const subcategoriaValor = inputSubcategoria ? inputSubcategoria.value : '';
 const estabelecimentoValor = inputEstabelecimento ? inputEstabelecimento.value : '';
@@ -263,6 +263,8 @@ window.addEventListener('load', () => {
     iniciarMapa();
 
     botaoAtualizar.addEventListener('click', () => {
+        estadoValor = '';
+        cidadeValor = '';
         botaoAtualizar.classList.add('display_none');
         const posicao = MAPA.mapa.getCenter();
         MAPA.latitude = posicao.lat();
