@@ -3,19 +3,24 @@
 namespace App\Controllers\Api;
 
 use App\Classes\ComercialEmpresa\Helper;
+use App\Classes\ComercialEmpresa\Ordem;
 use App\Models\Api\ComercialEmpresa\EmpresaEntity;
 use App\Models\Api\ComercialEmpresa\EmpresaModel;
 use App\Models\Api\ComercialEmpresa\PerfilModel;
+use App\Models\Api\ComercialEmpresa\RankingModel;
 use Controller\Controller;
+use Erro\Excecao;
 use Http\Request;
 use Http\Response;
+use Modules\Pagina;
+use Modules\Quantidade;
 use System\Interface\ControllerAtualizarInterface;
 use System\Interface\ControllerBuscarInterface;
 use System\Interface\ControllerListarInterface;
 use System\Interface\ControllerSalvarInterface;
 use System\Interface\ControllerSelectInterface;
 
-final class ComercialEmpresaController extends Controller implements
+class ComercialEmpresaController extends Controller implements
     ControllerBuscarInterface,
     ControllerSelectInterface,
     ControllerListarInterface,
@@ -136,5 +141,22 @@ final class ComercialEmpresaController extends Controller implements
         $Empresa->salvar();
 
         return new Response(status: 204);
+    }
+
+    /**
+     * @param Request $request
+     *
+     * @return Response
+     * @throws Excecao
+     */
+    public function getRanking(Request $request): Response
+    {
+        $RankingModel = new RankingModel(
+            new Pagina($request->pagina),
+            new Quantidade($request->quantidade),
+            new Ordem($request->ordem),
+            $request->empresa
+        );
+        return mensagemSucesso($RankingModel->gerarRanking());
     }
 }

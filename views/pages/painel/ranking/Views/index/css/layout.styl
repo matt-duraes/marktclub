@@ -1,0 +1,37 @@
+@template "painel"
+@system "Esqueleto"
+
+#bloco_app_lista_detalhe
+    width: 100%
+    flexCol()
+    padding: 20px 0 90px
+    .tarefa_zero
+        width: 100%
+        text-align: center
+        padding: 100px 20px
+        texto()
+
+#bloco_app_lista_detalhe
+    .linha
+        width: 100%
+        padding: 5px 20px
+    .lista
+        width: 100%
+        display: flex
+        flex-direction: column
+        &.geral.loading
+            width: calc(100% - 40px)
+            margin: 5px 20px
+    .lista.geral
+        width: 100%
+        background: #fff
+        box-shadow: 0 0 5px rgba(0, 0, 0, 0.1)
+        border-radius: 5px
+        align-items: center
+        border: 1px solid #fff
+        opacity: 1
+        transition: opacity 0.3s ease-out
+    .linha:hover .lista.geral
+        border: 1px solid $cor
+    .linha:hover .lista.geral.loading
+        border: 1px solid #FFF
