@@ -1935,6 +1935,14 @@ Route
                 '!nivel_decisao', '!etapa_negociacao'
             ])
             ::put('/comercial-empresa/{id}');
+
+        Route
+            ::nome('ranking')
+            ::middleware(TokenMiddleware::class, 'scope', ['comercial_empresa:listar'])
+            ::request([
+                '!pagina', '!quantidade', '!ordem', '!empresa'
+            ], 'json')
+            ::get('/comercial-empresa/ranking');
     });
 
 Route

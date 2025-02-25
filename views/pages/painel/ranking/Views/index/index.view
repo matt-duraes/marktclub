@@ -1,0 +1,14 @@
+@template "painel"
+
+<div id="bloco_app_lista_detalhe" class="bloco_coluna_geral bloco_visualizar_lista" data-status="geral">
+    @ laco(20)
+    <div class="lista geral loading display_none">
+        <div class="header">
+            <figure class="esqueleto"></figure>
+            <h1><p class="esqueleto">{{nomeCompletoAleatorio()}}</p></h1>
+            <div class="botao_acao abrir esqueleto"></div>
+        </div>
+    </div>
+    @ endlaco;
+</div>
+
