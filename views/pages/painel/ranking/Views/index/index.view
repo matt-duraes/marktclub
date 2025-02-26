@@ -1,14 +1,21 @@
 @template "painel"
 
-<div id="bloco_app_lista_detalhe" class="bloco_coluna_geral bloco_visualizar_lista" data-status="geral">
-    @ laco(20)
-    <div class="lista geral loading display_none">
-        <div class="header">
-            <figure class="esqueleto"></figure>
-            <h1><p class="esqueleto">{{nomeCompletoAleatorio()}}</p></h1>
-            <div class="botao_acao abrir esqueleto"></div>
+<div id="bloco_app_lista">
+    @ if ( !empty($ranking) ):
+        @php $x = 1
+        <div class="lista header">
+            <h1>Posição</h1>
+            <h3>Nome da Empresa</h3>
+            <p>Rank</p>
         </div>
-    </div>
-    @ endlaco;
+        @ifforeach($ranking as $k => $e):
+            <div class="lista body {{ $e['cor'] }}">
+                <h1>{{ $x }}º</h1>
+                <h3>{{ $e['empresa'] }}</h3>
+                <p>{{ $e['elo'] }}</p>
+            </div>
+            @php $x++
+        @endifforeach;
+    @ endif;
 </div>
 

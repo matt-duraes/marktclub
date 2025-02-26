@@ -2,40 +2,22 @@
 
 namespace App\Models\Api\ComercialEmpresa;
 
-use App\Classes\ComercialEmpresa\Ordem;
 use App\Models\Api\Trait\ValidarEmpresaTrait;
 use Erro\Excecao;
 use Helpers\OrmHelper;
-use Modules\Pagina;
-use Modules\Quantidade;
 use ORM\ORM;
-use System\Trait\Model\OrdemTrait;
-use System\Trait\Model\PaginaTrait;
-use System\Trait\Model\QuantidadeTrait;
 
 class RankingModel extends ORM
 {
     use ValidarEmpresaTrait;
-    use PaginaTrait;
-    use QuantidadeTrait;
-    use OrdemTrait;
 
     protected string $ormTabela = TABELA_COMERCIAL_EMPRESA;
 
     /**
-     * @param Pagina      $pagina
-     * @param Quantidade  $quantidade
-     * @param Ordem       $ordem
-     * @param string|null $empresa
-     *
      * @throws Excecao
      */
-    public function __construct(
-        private readonly Pagina $pagina = new Pagina(),
-        private readonly Quantidade $quantidade = new Quantidade(),
-        private readonly Ordem $ordem = new Ordem(),
-        private readonly ?string $empresa = null
-    ) {
+    public function __construct()
+    {
         $this->setarIdEmpresa();
         parent::__construct();
     }
@@ -96,7 +78,8 @@ class RankingModel extends ORM
                 'empresa'    => $nomeEmpresa,
                 'quantidade' => $quantidade,
                 'elo'        => 'Ferro',
-                'cor'        => 'cinza'
+                'cor'        => 'cinza',
+                'me'         => $this->idEmpresa == $idEmpresa
             ];
         }
         array_multisort(array_column($ranking, 'quantidade'), SORT_DESC, $ranking);

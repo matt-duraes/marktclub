@@ -1,37 +1,67 @@
 @template "painel"
-@system "Esqueleto"
 
-#bloco_app_lista_detalhe
+#bloco_app_lista
     width: 100%
-    flexCol()
-    padding: 20px 0 90px
-    .tarefa_zero
-        width: 100%
-        text-align: center
-        padding: 100px 20px
-        texto()
-
-#bloco_app_lista_detalhe
-    .linha
-        width: 100%
-        padding: 5px 20px
+    display: flex
+    flex-flow: column nowrap
+    margin: 2rem 0 0 0
     .lista
-        width: 100%
         display: flex
-        flex-direction: column
-        &.geral.loading
-            width: calc(100% - 40px)
-            margin: 5px 20px
-    .lista.geral
-        width: 100%
-        background: #fff
-        box-shadow: 0 0 5px rgba(0, 0, 0, 0.1)
-        border-radius: 5px
+        flex-flow: row nowrap
+        justify-content: space-around
         align-items: center
-        border: 1px solid #fff
-        opacity: 1
-        transition: opacity 0.3s ease-out
-    .linha:hover .lista.geral
-        border: 1px solid $cor
-    .linha:hover .lista.geral.loading
-        border: 1px solid #FFF
+        border-radius: .25rem
+        padding: 1.25rem 1.5rem
+        margin: .5rem 1.75rem
+        transition: all 100ms ease-in-out
+        h1
+            width: 100%
+            min-width: 128px
+            font-size: 2.5rem
+            font-weight: 700
+            color: #eee
+
+        h3
+            width: 100%
+            min-width: 512px
+            font-size: 1.5rem
+            font-weight: 500
+            color: #eee
+
+        p
+            width: 100%
+            min-width: 128px
+            font-size: 1.5rem
+            font-weight: 500
+            color: #eee
+
+    .lista.header
+        background-color: #eee
+        border: 1px solid #ddd
+        h1
+            font-size: 2.5rem
+            font-weight: 700
+
+        h3
+            font-size: 2.5rem
+            font-weight: 700
+
+        p
+            font-size: 2.5rem
+            font-weight: 700
+
+    .lista.body.amarelo
+        background-color: #efefbb
+        background-image: linear-gradient( 135deg, #FDEB71 10%, #F8D800 100%);
+
+    .lista.body.vermelho
+        background-color: #efefbb
+        background-image: linear-gradient( 135deg, #FEB692 10%, #EA5455 100%);
+
+    .lista.body.verde
+        background-color: #efefbb
+        background-image: linear-gradient( 135deg, #81FBB8 10%, #28C76F 100%);
+
+    .lista.body.verde
+        background-color: #efefbb
+        linear-gradient(to right, #efefbb, #d4d3dd);
