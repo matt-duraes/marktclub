@@ -17,8 +17,8 @@ echo '
 </div>
 ';
 
-$permissaoEditar = $config->permissao->editar == 1 ? 'sim' : 'nao';
-$permissaoVisualizar = $config->permissao->visualizar == 1 ? 'sim' : 'nao';
+$permissaoEditar = in_array($config->permissao->editar, [1, '*']) ? 'sim' : 'nao';
+$permissaoVisualizar = in_array($config->permissao->visualizar, [1, '*']) ? 'sim' : 'nao';
 echo '<input type="hidden" id="inputinterno_permissao_editar" value="' . $permissaoEditar . '">';
 echo '<input type="hidden" id="inputinterno_permissao_visualizar" value="' . $permissaoVisualizar . '">';
 
