@@ -48,6 +48,7 @@ final class BuscarModel extends ClubeApiHelper
             'procedimento'       => $r->tipo_procedimento,
             'prazo_declaracao'   => (new PrazoDeclaracao($r->prazo_declaracao))->nome(),
             'capa_desktop'       => $r->imagem_capa_desktop,
+            'capa_desktop'       => $r->imagem_capa_desktop,
             'capa_mobile'        => $r->imagem_capa_mobile,
             'link'               => $this->gerarLink($tipo, $r->link_site),
             'url'                => $r->url,
