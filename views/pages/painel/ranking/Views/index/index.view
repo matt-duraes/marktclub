@@ -7,14 +7,12 @@
             <h1>Posição</h1>
             <h3>Nome da Empresa</h3>
             <p>Quantidade</p>
-            <p>Rank</p>
         </div>
         @ifforeach($ranking as $k => $e):
             <div class="lista body {{ $e['cor'] }}">
                 <h1>{{ $x }}º</h1>
                 <h3>{{ $e['empresa'] }}</h3>
                 <p>{{ $e['quantidade'] }}</p>
-                <p>{{ $e['elo'] }}</p>
             </div>
             @php $x++
         @endifforeach;
