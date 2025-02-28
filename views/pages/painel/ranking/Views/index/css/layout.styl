@@ -5,15 +5,27 @@
     display: flex
     flex-flow: column nowrap
     margin: 2rem 0 0 0
+
     .lista
         display: flex
         flex-flow: row nowrap
         justify-content: space-around
         align-items: center
-        border-radius: .25rem
+        border-radius: .5rem
         padding: 1.25rem 1.5rem
         margin: .5rem 1.75rem
         transition: all 100ms ease-in-out
+        &:nth-child(2)
+            background-color: #169e91 !important
+            border: 1px solid #ddd
+            margin-bottom: 1.25rem
+            h1
+                color: #fff
+            h3
+                color: #fff
+            p
+                color: #fff
+
         h1
             width: 100%
             min-width: 128px
@@ -53,18 +65,6 @@
             font-weight: 700
             color: #666
 
-    .lista.body.amarelo
-        background-color: #fdeb71
-        background-image: linear-gradient( 135deg, #fdeb71 10%, #f8d800 100%)
-
-    .lista.body.vermelho
-        background-color: #feb692
-        background-image: linear-gradient( 135deg, #feb692 10%, #ea5455 100%)
-
-    .lista.body.verde
-        background-color: #81fbb8
-        background-image: linear-gradient( 135deg, #81fbb8 10%, #28c76f 100%)
-
-    .lista.body.cinza
-        background-color: #efefbb
-        background-image: linear-gradient( 135deg, #efefbb 10%, #d4d3dd 100%)
+    .lista.body
+        background-color: #fff
+        border: 1px solid #ddd

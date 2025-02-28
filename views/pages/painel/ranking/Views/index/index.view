@@ -2,19 +2,17 @@
 
 <div id="bloco_app_lista">
     @ if ( !empty($ranking) ):
-        @php $x = 1
         <div class="lista header">
             <h1>Posição</h1>
             <h3>Nome da Empresa</h3>
             <p>Quantidade</p>
         </div>
         @ifforeach($ranking as $k => $e):
-            <div class="lista body {{ $e['cor'] }}">
-                <h1>{{ $x }}º</h1>
+            <div class="lista body">
+                <h1>{{ $e['posicao'] }}º</h1>
                 <h3>{{ $e['empresa'] }}</h3>
                 <p>{{ $e['quantidade'] }}</p>
             </div>
-            @php $x++
         @endifforeach;
     @ endif;
 </div>
