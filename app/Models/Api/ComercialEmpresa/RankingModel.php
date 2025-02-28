@@ -75,6 +75,7 @@ class RankingModel extends ORM
                 continue;
             }
             $ranking[$idEmpresa] = [
+                'posicao'    => 0,
                 'empresa'    => $nomeEmpresa,
                 'quantidade' => $quantidade,
                 'elo'        => 'Ferro',
@@ -122,6 +123,10 @@ class RankingModel extends ORM
             );
         }
 
+        $posicao = 1;
+        for ($i = 0; $i < count($ranking); $i++) {
+            $ranking[$i]['posicao'] = $posicao++;
+        }
         return $ranking;
     }
 

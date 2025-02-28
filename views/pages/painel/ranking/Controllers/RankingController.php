@@ -26,7 +26,22 @@ class RankingController extends Controller
         return view('painel.ranking.index', [
             'appTitulo' => 'Ranking de Indicação',
             'app'       => 'ranking',
-            'ranking'   => $ranking['dado'] ?? []
+            'ranking'   => $this->montarColocacao($ranking['dado'] ?? [])
         ]);
+    }
+
+    private function montarColocacao(array $ranking): array
+    {
+        if (empty($ranking)) {
+            return $ranking;
+        }
+
+        foreach ($ranking as $item) {
+            if ($item['me'] == false) {
+                continue;
+            }
+            array_unshift($ranking, $item);
+        }
+        return $ranking;
     }
 }
