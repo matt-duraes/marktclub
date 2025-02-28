@@ -135,7 +135,7 @@ class RankingModel extends ORM
     ): void {
         if ($offset >= 0 && $offset < count($arr)) {
             if ($offset >= $limiteInferior - 1 && $offset <= $limiteSuperior - 1) {
-                $arr[$offset]['elo'] = $novoElo;
+                //$arr[$offset]['elo'] = $novoElo;
                 $arr[$offset]['cor'] = $cor;
             }
         }
