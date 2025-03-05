@@ -2,8 +2,8 @@
 
 namespace App\Models\Api\UsuarioCliente\Trait;
 
-use Helpers\UploadHelper;
 use App\Classes\UsuarioCliente\TrabalhoEmpresa;
+use Helpers\UploadHelper;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
 
 trait EntityUpdateTrait
@@ -37,6 +37,11 @@ trait EntityUpdateTrait
         }
 
         $campoObrigatorio = $this->campoObrigatorio;
+
+        if (empty($this->request)) {
+            return;
+        }
+
         $request = $this->request;
         $emailExiste = $request->existe('email_pessoal') || $request->existe('email_trabalho');
 

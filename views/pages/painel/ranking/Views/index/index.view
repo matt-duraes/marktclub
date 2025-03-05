@@ -1,0 +1,19 @@
+@template "painel"
+
+<div id="bloco_app_lista">
+    @ if ( !empty($ranking) ):
+        <div class="lista header">
+            <h1>Posição</h1>
+            <h3>Nome da Empresa</h3>
+            <p>Quantidade</p>
+        </div>
+        @ifforeach($ranking as $k => $e):
+            <div class="lista body">
+                <h1>{{ $e['posicao'] }}º</h1>
+                <h3>{{ $e['empresa'] }}</h3>
+                <p>{{ $e['quantidade'] }}</p>
+            </div>
+        @endifforeach;
+    @ endif;
+</div>
+

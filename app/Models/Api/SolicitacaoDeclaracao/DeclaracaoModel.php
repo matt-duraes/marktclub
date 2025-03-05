@@ -7,6 +7,7 @@ use stdClass;
 use Erro\Excecao;
 use Modules\Data;
 use Modules\Pagina;
+use Helpers\OrmHelper;
 use Modules\Quantidade;
 use System\Trait\Model\OrdemTrait;
 use App\Classes\Solicitacao\Status;
@@ -48,7 +49,7 @@ class DeclaracaoModel extends ORM implements
         private readonly Data $dataFinal = new Data(),
         private readonly Status $status = new Status()
     ) {
-        $this->validarEmpresa();
+        $this->validarEmpresa('empresa');
         $this->validarDados();
         parent::__construct();
     }
@@ -86,6 +87,7 @@ class DeclaracaoModel extends ORM implements
             ->pagina($this->pegarPagina(), $this->pegarQuantidade())
             ->order($this->pegarOrdem(new Ordem()))
             ->tabela(TABELA_COMERCIAL_EMPRESA)
+            ->where($this->pegarWhereEmpresa(), false)
             ->join('id', 'id_admin_empresa')
             ->campo([
                 'nome_fantasia'
@@ -108,6 +110,7 @@ class DeclaracaoModel extends ORM implements
     }
 
     /**
+     * Adiciona os campos do where e valida os campos do filtro
      * @return array
      */
     protected function pegarWhere(): array
@@ -129,12 +132,28 @@ class DeclaracaoModel extends ORM implements
     }
 
     /**
-     * Pegar parceiro selecionado no filtro
+     * Pega o uuid da empresa selecionada no filtro e converte em id para busca
+     *
+     * @return array
+     */
+    private function pegarWhereEmpresa(): array
+    {
+        $where = [];
+        if (!empty($this->empresa)) {
+            $ormHelper = new OrmHelper(TABELA_COMERCIAL_EMPRESA);
+            $idEmpresa = $ormHelper->pegarIdPeloUuid($this->empresa);
+            $where[] = ['id', $idEmpresa];
+        }
+        return $where;
+    }
+
+    /**
+     * Pega o parceiro selecionado no filtro
      * @return array
     */
     private function pegarWhereParceiro(): array
     {
-        $where = $this->ormWherePadrao;
+        $where = [];
 
         if (!empty($this->titulo)) {
             $where[] = ['titulo', 'LIKE', '%' . $this->titulo . '%'];
