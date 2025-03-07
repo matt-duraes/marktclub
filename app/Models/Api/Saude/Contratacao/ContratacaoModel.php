@@ -48,11 +48,12 @@ final class ContratacaoModel extends ORM implements
         $dado->lista = $this->montarDado($dado->lista);
         return $dado;
     }
+
     /**
      *
      * @return array
      */
-    private function pegarWhere() : array
+    private function pegarWhere(): array
     {
         $where = $this->ormWherePadrao;
         if (!empty($this->pesquisa)) {
