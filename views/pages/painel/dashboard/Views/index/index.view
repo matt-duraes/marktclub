@@ -8,7 +8,7 @@
         </a>
     </div>
 
-    <div class="bloco_perfil">
+    <!-- <div class="bloco_perfil">
         <figure data-bgimagem="{!!imagem(USUARIO_IMAGEM)!!}"></figure>
         <header>
             <h1>Olá <strong>{{USUARIO_NOME}}</strong>,</h1>
@@ -18,7 +18,7 @@
         <a href="{!!route('perfil.index')!!}#mudar-imagem" class="botao botao_pequeno_borda">mudar imagem</a>
         <a href="{!!route('perfil.dado')!!}" class="botao botao_pequeno_borda">editar perfil</a>
         @ endif;
-    </div>
+    </div> -->
 
     <!-- <div class="linha"></div>
 
