@@ -67,7 +67,7 @@ class RankingModel extends ORM
                     'fechado'  => 0
                 ];
             }
-            if ($ProspeccaoStatus->indice($indicacao->prospeccao_status) === ProspeccaoStatus::CONCLUIDO) {
+            if ($ProspeccaoStatus->indice($indicacao->prospeccao_status) === ProspeccaoStatus::MINUTA) {
                 $donoIndicacao[$indicacao->id_usuario_dono]['fechado']++;
             }
             $donoIndicacao[$indicacao->id_usuario_dono]['indicado']++;
