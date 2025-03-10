@@ -1,13 +1,13 @@
 <?php
 
-namespace Painel\Ranking\Controllers;
+namespace Painel\Dashboard\Controllers;
 
 use Controller\Controller;
 use Erro\Excecao;
 use Helpers\ApiHelper;
 use Http\Response;
 
-class RankingController extends Controller
+class DashboardController extends Controller
 {
     private ApiHelper $Api;
 
@@ -20,12 +20,12 @@ class RankingController extends Controller
     /**
      * @throws Excecao
      */
-    public function ranking(): Response
+    public function dashboard(): Response
     {
         $ranking = $this->Api->get('/comercial-empresa/ranking')->array();
-        return view('painel.ranking.index', [
-            'appTitulo' => 'Ranking de Indicação',
-            'app'       => 'ranking',
+        return view('painel.dashboard.index', [
+            'appTitulo' => 'Dashboard',
+            'app'       => 'dashboard',
             'ranking'   => $this->montarColocacao($ranking['dado'] ?? [])
         ]);
     }

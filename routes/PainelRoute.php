@@ -4,7 +4,7 @@ use Route\Route;
 
 require_once ROOT . '/views/pages/painel/demanda_geral/Routes/DemandaRoute.php';
 require_once ROOT . '/views/pages/painel/relatorio/Routes/RelatorioRoute.php';
-require_once ROOT . '/views/pages/painel/ranking/Routes/RankingRoute.php';
+require_once ROOT . '/views/pages/painel/dashboard/Routes/DashboardRoute.php';
 require_once ROOT . '/views/pages/painel/tabela_usuario/Routes/TabelaRoute.php';
 require_once ROOT . '/views/pages/painel/comercial_prospeccao/Routes/ComercialProspeccaoRoute.php';
 require_once ROOT . '/views/pages/painel/usuario_apple/Routes/UsuarioAppleRoute.php';
@@ -29,9 +29,9 @@ Route
     }, true)
 
     // DASHBOARD
-    ::nome('dashboard')::controller(App\Controllers\Painel\DashboardController::class)::grupo(function () {
+    /*::nome('dashboard')::controller(App\Controllers\Painel\DashboardController::class)::grupo(function () {
         Route::nome('index')::view('/dashboard');
-    }, true)
+    }, true)*/
 
     // SISTEMA DE PAGAMENTO USUARIO
     ::controller(App\Controllers\Painel\SolicitacaoVoucherController::class)::grupo(function () {
