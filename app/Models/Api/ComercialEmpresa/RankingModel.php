@@ -2,6 +2,7 @@
 
 namespace App\Models\Api\ComercialEmpresa;
 
+use App\Classes\ComercialEmpresa\ProspeccaoStatus;
 use App\Models\Api\Trait\ValidarEmpresaTrait;
 use Erro\Excecao;
 use Helpers\OrmHelper;
@@ -28,7 +29,12 @@ class RankingModel extends ORM
      */
     public function gerarRanking(): array
     {
-        $indicacoes = $this->campo(['id_usuario_dono'])->where($this->pegarWhere(), false)->read();
+        $indicacoes = $this
+            ->campo([
+                'id_usuario_dono', 'prospeccao_status'
+            ])
+            ->where($this->pegarWhere(), false)
+            ->read();
         return $this->montarRanking($indicacoes);
     }
 
@@ -48,19 +54,25 @@ class RankingModel extends ORM
             return $indicacoes;
         }
 
+        $ProspeccaoStatus = new ProspeccaoStatus();
         $donoIndicacao = [];
         foreach ($indicacoes as $indicacao) {
             if (empty($indicacao->id_usuario_dono)) {
                 continue;
             }
-            if (array_key_exists($indicacao->id_usuario_dono, $donoIndicacao)) {
-                $donoIndicacao[$indicacao->id_usuario_dono]++;
-                continue;
+
+            if (!array_key_exists($indicacao->id_usuario_dono, $donoIndicacao)) {
+                $donoIndicacao[$indicacao->id_usuario_dono] = [
+                    'indicado' => 0,
+                    'fechado'  => 0
+                ];
             }
-            $donoIndicacao[$indicacao->id_usuario_dono] = 1;
+            if ($ProspeccaoStatus->indice($indicacao->prospeccao_status) === ProspeccaoStatus::CONCLUIDO) {
+                $donoIndicacao[$indicacao->id_usuario_dono]['fechado']++;
+            }
+            $donoIndicacao[$indicacao->id_usuario_dono]['indicado']++;
         }
         arsort($donoIndicacao);
-
         $ranking = [];
         $ormHelperEmpresa = new OrmHelper($this->ormTabela);
         $ormHelperEquipe = new OrmHelper(TABELA_USUARIO_EQUIPE);
@@ -70,79 +82,38 @@ class RankingModel extends ORM
             if (empty($idEmpresa)) {
                 continue;
             }
-            if (array_key_exists($idEmpresa, $ranking)) {
-                $ranking[$idEmpresa]['quantidade'] = $ranking[$idEmpresa]['quantidade'] + $quantidade;
-                continue;
+            if (!array_key_exists($idEmpresa, $ranking)) {
+                $ranking[$idEmpresa] = [
+                    'posicao'  => 0,
+                    'empresa'  => $nomeEmpresa,
+                    'indicado' => 0,
+                    'fechado'  => 0,
+                    'me'       => $this->idEmpresa == $idEmpresa
+                ];
             }
-            $ranking[$idEmpresa] = [
-                'posicao'    => 0,
-                'empresa'    => $nomeEmpresa,
-                'quantidade' => $quantidade,
-                'elo'        => 'Ferro',
-                'cor'        => 'cinza',
-                'me'         => $this->idEmpresa == $idEmpresa
-            ];
+            $ranking[$idEmpresa]['indicado'] = $ranking[$idEmpresa]['indicado'] + $quantidade['indicado'];
+            $ranking[$idEmpresa]['fechado'] = $ranking[$idEmpresa]['fechado'] + $quantidade['fechado'];
         }
-        array_multisort(array_column($ranking, 'quantidade'), SORT_DESC, $ranking);
+        array_multisort(
+            array_column($ranking, 'fechado'),
+            SORT_DESC,
+            array_column($ranking, 'indicado'),
+            SORT_DESC,
+            $ranking
+        );
 
-        // RANQUEMENTO POR ELOS
-        usort($ranking, function ($a, $b) {
-            return $b['quantidade'] <=> $a['quantidade'];
-        });
+        /*usort($ranking, function ($a, $b) {
+            if (($b['fechado'] <=> $a['fechado']) != 0) {
+                return $b['fechado'] <=> $a['fechado'];
+            }
 
-        for ($i = 1; $i <= 3; $i++) {
-            $this->mudarElo(
-                $ranking,
-                $i - 1,
-                1,
-                3,
-                'Radiante',
-                'amarelo'
-            );
-        }
-
-        for ($i = 4; $i <= 10; $i++) {
-            $this->mudarElo(
-                $ranking,
-                $i - 1,
-                4,
-                10,
-                'Mestre',
-                'vermelho'
-            );
-        }
-
-        for ($i = 11; $i <= 20; $i++) {
-            $this->mudarElo(
-                $ranking,
-                $i - 1,
-                11,
-                20,
-                'Ascendente',
-                'verde'
-            );
-        }
+            return $b['indicado'] <=> $a['indicado'];
+        });*/
 
         $posicao = 1;
         for ($i = 0; $i < count($ranking); $i++) {
             $ranking[$i]['posicao'] = $posicao++;
         }
         return $ranking;
-    }
-
-    private function mudarElo(
-        array &$arr,
-        int $offset,
-        int $limiteInferior,
-        int $limiteSuperior,
-        string $novoElo,
-        string $cor
-    ): void {
-        if ($offset >= 0 && $offset < count($arr)) {
-            if ($offset >= $limiteInferior - 1 && $offset <= $limiteSuperior - 1) {
-                //$arr[$offset]['elo'] = $novoElo;
-                $arr[$offset]['cor'] = $cor;
-            }
-        }
     }
 }
