@@ -42,7 +42,7 @@ final class LoginModel extends LoginPadraoModel
         $Usuario = $this->pegarCliente($this->pegarWhere());
 
         $Status = new Status();
-        if ($Status->numero($Usuario->status) === $Status->numero(Status::BLOQUEADO)) {
+        if (!vazio($Usuario) && $Status->numero($Usuario->status) === $Status->numero(Status::BLOQUEADO)) {
             mensagemErro(
                 titulo: 'Usuário bloqueado',
                 mensagem: 'O seu usuário está com acesso bloqueado. Entre em contato para mais informações.',
