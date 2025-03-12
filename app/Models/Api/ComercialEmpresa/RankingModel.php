@@ -2,7 +2,7 @@
 
 namespace App\Models\Api\ComercialEmpresa;
 
-use App\Classes\ComercialEmpresa\ProspeccaoStatus;
+use App\Classes\ComercialEmpresa\Status;
 use App\Models\Api\Trait\ValidarEmpresaTrait;
 use Erro\Excecao;
 use Helpers\OrmHelper;
@@ -31,7 +31,7 @@ class RankingModel extends ORM
     {
         $indicacoes = $this
             ->campo([
-                'id_usuario_dono', 'prospeccao_status'
+                'id_usuario_dono', 'prospeccao_status', 'status'
             ])
             ->where($this->pegarWhere(), false)
             ->read();
@@ -40,6 +40,7 @@ class RankingModel extends ORM
 
     private function pegarWhere(): array
     {
+        //return [['id_usuario_dono', '<>', 'null'], ['data_criacao', 'between', ['2025-01-01 00:00:00', '2025-31-12 23:59:59']]];
         return ['id_usuario_dono', '<>', 'null'];
     }
 
@@ -54,7 +55,7 @@ class RankingModel extends ORM
             return $indicacoes;
         }
 
-        $ProspeccaoStatus = new ProspeccaoStatus();
+        $Status = new Status();
         $donoIndicacao = [];
         foreach ($indicacoes as $indicacao) {
             if (empty($indicacao->id_usuario_dono)) {
@@ -67,7 +68,7 @@ class RankingModel extends ORM
                     'fechado'  => 0
                 ];
             }
-            if ($ProspeccaoStatus->indice($indicacao->prospeccao_status) === ProspeccaoStatus::MINUTA) {
+            if ($Status->indice($indicacao->status) === Status::ATIVO) {
                 $donoIndicacao[$indicacao->id_usuario_dono]['fechado']++;
             }
             $donoIndicacao[$indicacao->id_usuario_dono]['indicado']++;
