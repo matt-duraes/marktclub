@@ -79,7 +79,7 @@
             <p>Indicados</p>
         </div>
         @ifforeach($ranking as $k => $e):
-            <div class="lista body">
+            <div class="lista body {{ $e['me'] ? 'me' : '' }}">
                 <h1>{{ $e['posicao'] }}º</h1>
                 <h3>{{ $e['empresa'] }}</h3>
                 <p>{{ $e['fechado'] }}</p>

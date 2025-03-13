@@ -26,22 +26,7 @@ class DashboardController extends Controller
         return view('painel.dashboard.index', [
             'appTitulo' => 'Dashboard',
             'app'       => 'dashboard',
-            'ranking'   => $this->montarColocacao($ranking['dado'] ?? [])
+            'ranking'   => $ranking['dado'] ?? []
         ]);
-    }
-
-    private function montarColocacao(array $ranking): array
-    {
-        if (empty($ranking)) {
-            return $ranking;
-        }
-
-        foreach ($ranking as $item) {
-            if ($item['me'] == false) {
-                continue;
-            }
-            array_unshift($ranking, $item);
-        }
-        return $ranking;
     }
 }
