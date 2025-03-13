@@ -410,4 +410,24 @@ return [
         'cobrar_aposentado'       => 1,
         'status'                  => 1
     ],
+    [
+        'id'                      => 4648,
+        'cod'                     => 'b5653a82-61d6-4d17-ae78-b17ffde5b80a',
+        'id_usuario_equipe'       => 1,
+        'titulo'                  => 'UpClub',
+        'razao_social'            => 'UpClub',
+        'nome_fantasia'           => 'UpClub',
+        'cnpj'                    => 39502023000130,
+        'responsavel_nome'        => 'André Rodrigues',
+        'responsavel_cpf'         => 1495180131,
+        'responsavel_email'       => 'andre@marktclub.com.br',
+        'responsavel_telefone'    => 61981777773,
+        'tipo_pagamento'          => 1,
+        'contrato_valor'          => 1.2,
+        'contrato_dia_fechamento' => 1,
+        'contrato_dia_pagamento'  => 10,
+        'cobrar_aposentado'       => 1,
+        'slug'                    => 'upclub',
+        'status'                  => 1
+    ]
 ];

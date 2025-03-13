@@ -2,10 +2,14 @@
 
 namespace App\Models\Api\LoginClube\Trait;
 
+use Erro\Excecao;
 use Modules\Botao;
 
 trait ValidarDadoNormalTrait
 {
+    /**
+     * @throws Excecao
+     */
     protected function validarDadosDeLogin(): void
     {
         if (empty($this->login)) {
