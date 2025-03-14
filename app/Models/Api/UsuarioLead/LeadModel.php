@@ -6,7 +6,6 @@ use ORM\ORM;
 use stdClass;
 use Erro\Excecao;
 use Http\Request;
-use Modules\Nome;
 use App\Classes\UsuarioLead\Ordem;
 use System\Trait\Model\OrdemTrait;
 use App\Classes\UsuarioLead\Status;
@@ -37,7 +36,6 @@ final class LeadModel extends ORM implements
         private ?string $nome = null,
         private ?string $cpf = null,
         private ?string $siape = null,
-
     ) {
         $this->validarEmpresa();
         $this->validarCampoDoRequest();
@@ -56,7 +54,6 @@ final class LeadModel extends ORM implements
         } elseif (!$origem->vazio() && !$origem->valido()) {
             mensagemErro('Campo inválido!', 'O Origem informado não é um valor válido.');
         }
-
     }
 
     /**
@@ -88,7 +85,6 @@ final class LeadModel extends ORM implements
         $where = [['id_admin_empresa', $this->idEmpresa]];
 
         $request = $this->request;
-
 
         $nome = $request->nome;
         if (!empty($nome)) {
