@@ -78,15 +78,15 @@
 <div id="bloco_app_lista">
     @ if ( !empty($ranking) ):
         <div class="lista header">
-            <h1>Posição</h1>
-            <h3>Nome da Empresa</h3>
+            <p>Posição</p>
+            <p>Nome da Empresa</p>
             <p>Indicados</p>
             <p>Fechados</p>
         </div>
         @ifforeach($ranking as $k => $e):
             <div class="lista body {{ $e['me'] ? 'me' : '' }}">
-                <h1>{{ $e['posicao'] }}º</h1>
-                <h3>{{ $e['empresa'] }}</h3>
+                <p>{{ $e['posicao'] }}º</p>
+                <p>{{ $e['empresa'] }}</p>
                 <p>{{ $e['indicado'] }}</p>
                 <p>{!!$e['fechado']!!}</p>
             </div>
