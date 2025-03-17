@@ -2,20 +2,21 @@
 
 namespace App\Controllers\Site;
 
-use Http\Request;
-use Http\Response;
-use Helpers\ApiHelper;
-use Helpers\CryptHelper;
-use Controller\Controller;
+use App\Classes\ConstrutorClube\TipoAtivacao;
 use App\Classes\TextoClube\Tipo;
-use App\Models\Site\Login\LogarModel;
+use App\Classes\UsuarioCliente\Helper as UsuarioHelper;
 use App\Models\Site\Ativar\GrupoModel;
 use App\Models\Site\Ativar\SalvarModel;
-use App\Models\Site\Login\LoginApiModel;
 use App\Models\Site\Cache\VersaoClubeModel;
 use App\Models\Site\Login\ComunicacaoModel;
-use App\Classes\ConstrutorClube\TipoAtivacao;
-use App\Classes\UsuarioCliente\Helper as UsuarioHelper;
+use App\Models\Site\Login\LogarModel;
+use App\Models\Site\Login\LoginApiModel;
+use Controller\Controller;
+use Helpers\ApiHelper;
+use Helpers\CryptHelper;
+use Http\Request;
+use Http\Response;
+use Throwable;
 
 final class LoginController extends Controller
 {
@@ -23,7 +24,6 @@ final class LoginController extends Controller
     {
         $Cache = new VersaoClubeModel();
         $busca = $Cache->cache('busca_home', retorno: VersaoClubeModel::RETORNO_ARRAY);
-
         return view('login.index', [
             'location'          => base64Decode($request->chave('location', ''), true),
             'loja'              => $busca['loja'] ?? 0,
@@ -137,7 +137,7 @@ final class LoginController extends Controller
     {
         try {
             new LoginApiModel($hash);
-        } catch (\Throwable) {
+        } catch (Throwable) {
             return new Response(url: LINK);
         }
         return new Response(url: LINK);
@@ -299,7 +299,7 @@ final class LoginController extends Controller
                 ])
                 ->get('/texto-clube')
                 ->object()->dado->lista;
-        } catch (\Throwable) {
+        } catch (Throwable) {
             $lista = [];
         }
 

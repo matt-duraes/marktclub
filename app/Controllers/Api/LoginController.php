@@ -2,20 +2,21 @@
 
 namespace App\Controllers\Api;
 
-use Http\Request;
-use Http\Response;
-use Modules\Botao;
-use Controller\Controller;
 use App\Classes\ApiToken\Tipo;
+use App\Classes\LoginClube\Tipo as LoginClubeTipo;
 use App\Classes\UsuarioCliente\Helper;
+use App\Models\Api\ApiToken\TokenAuthorizationEntity;
+use App\Models\Api\ConstrutorClube\ConstrutorEntity;
 use App\Models\Api\LoginApi\DigioModel;
+use App\Models\Api\LoginApi\LoginModel as LoginApiModel;
 use App\Models\Api\LoginClube\LoginClubeModel;
 use App\Models\Api\LoginPainel\LoginPainelModel;
 use App\Models\Api\UsuarioCliente\ClienteEntity;
-use App\Classes\LoginClube\Tipo as LoginClubeTipo;
-use App\Models\Api\ConstrutorClube\ConstrutorEntity;
-use App\Models\Api\ApiToken\TokenAuthorizationEntity;
-use App\Models\Api\LoginApi\LoginModel as LoginApiModel;
+use Controller\Controller;
+use Http\Request;
+use Http\Response;
+use Modules\Botao;
+use Throwable;
 
 final class LoginController extends Controller
 {
@@ -134,7 +135,7 @@ final class LoginController extends Controller
         try {
             $Construtor = new ConstrutorEntity();
             $Construtor->uuid($request->clube);
-        } catch (\Throwable) {
+        } catch (Throwable) {
             mensagemErro('Erro!', 'Clube não encontrado.', status: 404);
         }
 
@@ -154,7 +155,7 @@ final class LoginController extends Controller
                     ]
                 ]
             ]);
-        } catch (\Throwable) {
+        } catch (Throwable) {
             mensagemErro('Erro!', 'Usuário não encontrado.', status: 404);
         }
 

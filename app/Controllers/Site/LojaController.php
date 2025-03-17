@@ -90,7 +90,7 @@ final class LojaController extends Controller
             'dado'         => $dado,
             'tipo'         => $dado->tipo,
             'procedimento' => new TipoProcedimento(),
-            'texto_prazo' => !empty($prazoDeclaracao) ? $prazoDeclaracao : '8h'
+            'texto_prazo'  => !empty($prazoDeclaracao) ? $prazoDeclaracao : '8h'
         ]);
     }
 

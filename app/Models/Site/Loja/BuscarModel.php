@@ -62,11 +62,14 @@ final class BuscarModel extends ClubeApiHelper
         ];
     }
 
-    private function gerarLink(string $tipo, string $link = null)
+    private function gerarLink(string $tipo, ?string $link = null)
     {
-        if ($tipo == TipoLoja::CASHBACK && empty($link)) {
+        if (empty($link)) {
+            return '';
+        } elseif ($tipo == TipoLoja::CASHBACK) {
             $link .= '&clickref=' . sessao('USUARIO.id');
         }
+
         return str_replace(
             [
                 'http://clube.marktclub.com.br',
