@@ -67,7 +67,7 @@ $Painel->coluna(callback: function () use ($Painel) {
             ->checked('comunicacao_whatsapp', 'WhatsApp')
             ->linha('whatsapp_dia', 'Dias para disparo')
             ->checked('comunicacao_rede_social', 'Rede Social')
-            ->linha('rede_social_dia', 'Dias para disparo')
+            ->linha('rede_social_dia', 'Dias para disparo');
         ;
     });
     $Painel->bloco(titulo: 'Outros dados', callback: function () use ($Painel) {
@@ -78,6 +78,23 @@ $Painel->coluna(callback: function () use ($Painel) {
     });
 });
 
+$Painel
+    ->status(
+        campo: 'status',
+        texto: 'Inativar',
+        inArray: ['Ativo'],
+        status: Status::INATIVO,
+        mensagem: 'Tem certeza que deseja alterar o status da empresa?',
+        cor: 'vermelho'
+    )
+    ->status(
+        campo: 'status',
+        texto: 'Voltar para Propecção',
+        inArray: ['Inativo'],
+        status: Status::PROSPECCAO,
+        mensagem: 'Tem certeza que deseja retornar o status da empresa?',
+        cor: 'vermelho'
+    );
 $Painel
     ->replace('finalidade_principal', (new FinalidadePrincipal())->select())
     ->replace('finalidade_secundaria', (new FinalidadeSecundaria())->select())

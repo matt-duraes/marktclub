@@ -2,20 +2,20 @@
 
 namespace App\Controllers\Api;
 
-use App\Classes\ComercialEmpresa\Helper;
-use App\Models\Api\ComercialEmpresa\EmpresaEntity;
-use App\Models\Api\ComercialEmpresa\EmpresaModel;
-use App\Models\Api\ComercialEmpresa\PerfilModel;
-use App\Models\Api\ComercialEmpresa\RankingModel;
-use Controller\Controller;
 use Erro\Excecao;
 use Http\Request;
 use Http\Response;
-use System\Interface\ControllerAtualizarInterface;
+use Controller\Controller;
+use App\Classes\ComercialEmpresa\Helper;
 use System\Interface\ControllerBuscarInterface;
 use System\Interface\ControllerListarInterface;
 use System\Interface\ControllerSalvarInterface;
 use System\Interface\ControllerSelectInterface;
+use App\Models\Api\ComercialEmpresa\PerfilModel;
+use App\Models\Api\ComercialEmpresa\EmpresaModel;
+use App\Models\Api\ComercialEmpresa\RankingModel;
+use App\Models\Api\ComercialEmpresa\EmpresaEntity;
+use System\Interface\ControllerAtualizarInterface;
 
 class ComercialEmpresaController extends Controller implements
     ControllerSelectInterface,
