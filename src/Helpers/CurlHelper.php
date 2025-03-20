@@ -10,10 +10,10 @@ class CurlHelper
     protected $requisicao;
     protected bool $apiHelper = false;
     private bool $ssl = true;
-    private $parametro;
+    private $parametro = [];
     private array $body = [];
     private array $header = [];
-    private $option;
+    private $option = [];
     private array $json = [];
     private $retornoValor;
     private $retornoStatus;
@@ -28,10 +28,12 @@ class CurlHelper
     private int $erroStatus = 400;
     private bool $erroRetorno = true;
     private bool $erroLogin = false;
+    private string $url = '';
 
     public function __construct(
-        private readonly ?string $url = null
+        string $url = ''
     ) {
+        $this->url = $url;
         $this->resetar();
     }
 
