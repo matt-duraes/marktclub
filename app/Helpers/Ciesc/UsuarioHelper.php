@@ -69,7 +69,7 @@ final class UsuarioHelper extends CurlHelper
 
     private function buscarUsuario(Cpf $Cpf, LocalTrabalho $LocalTrabalho)
     {
-        if (eLocalhost() && in_array($Cpf->numero(), ['61209529009', '91851213040', '41834123070', '29848124098'])) {
+        if (!eProducao() && in_array($Cpf->numero(), ['61209529009', '91851213040', '41834123070', '29848124098'])) {
             $uf = estadoAleatorio();
             $this->usuario = [
                 'beneficiosColaborador' => [
@@ -83,7 +83,7 @@ final class UsuarioHelper extends CurlHelper
                 ]
             ];
             return;
-        } elseif(eLocalhost() && $Cpf->numero() == '01234567890') {
+        } elseif(!eProducao() && $Cpf->numero() == '01234567890') {
             return;
         }
         $usuario = $this
