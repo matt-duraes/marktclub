@@ -6,6 +6,7 @@ use Modules\Cpf;
 use Erro\Excecao;
 use Http\Request;
 use Http\Response;
+use Modules\Botao;
 use Modules\Senha;
 use Modules\Inteiro;
 use Controller\Controller;
@@ -25,6 +26,7 @@ use System\Interface\ControllerDeletarInterface;
 use App\Models\Api\DownloadPrivado\ArquivoEntity;
 use App\Models\Api\UsuarioCliente\DeletarAppModel;
 use System\Interface\ControllerAtualizarInterface;
+use App\Classes\Usuario\Ativar\Ciesc\LocalTrabalho;
 use App\Models\Api\UsuarioCliente\Ativar\AtivarModel;
 use App\Models\Api\UsuarioCliente\Ativar\BuscarModel;
 use App\Models\Api\UsuarioCliente\Validar\ValidarModel;
@@ -205,7 +207,9 @@ final class ClienteController extends Controller implements
             $request->valor,
             $request->empresa,
             new TipoAtivacao($request->chave),
-            new TipoUsuario($request->tipo_usuario)
+            new TipoUsuario($request->tipo_usuario),
+            new LocalTrabalho($request->local_trabalho),
+            new Botao($request->termo)
         );
         return mensagemSucesso([
             'id'   => uuid(),
