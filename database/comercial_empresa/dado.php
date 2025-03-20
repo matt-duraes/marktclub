@@ -1,5 +1,8 @@
 <?php
 
+use App\Classes\Comercial\Empresa\ID;
+use App\Classes\Comercial\Empresa\UUID;
+
 return [
     [
         'id'                      => 1,
@@ -428,6 +431,26 @@ return [
         'contrato_dia_pagamento'  => 10,
         'cobrar_aposentado'       => 1,
         'slug'                    => 'upclub',
+        'status'                  => 1
+    ],
+    [
+        'id'                      => ID::CIESC,
+        'cod'                     => UUID::CIESC,
+        'id_usuario_equipe'       => 1,
+        'titulo'                  => 'Ciesc',
+        'razao_social'            => 'Ciesc',
+        'nome_fantasia'           => 'Ciesc',
+        'cnpj'                    => 90536442000140,
+        'responsavel_nome'        => 'André Rodrigues',
+        'responsavel_cpf'         => 1495180131,
+        'responsavel_email'       => 'andre@marktclub.com.br',
+        'responsavel_telefone'    => 61981777773,
+        'tipo_pagamento'          => 1,
+        'contrato_valor'          => 1.2,
+        'contrato_dia_fechamento' => 1,
+        'contrato_dia_pagamento'  => 10,
+        'cobrar_aposentado'       => 1,
+        'slug'                    => 'ciesc',
         'status'                  => 1
     ]
 ];

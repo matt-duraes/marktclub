@@ -12,11 +12,28 @@
         <input type="hidden" id="input_ativar_hash_busca" value="{{$hash}}">
         <input type="hidden" id="input_tipo_usuario" value="{{$tipo_usuario}}">
 
+        @if (ATIVACAO_TIPO === 'ciesc'):
+        <div class="obrigatorio">
+            <h2>Dados obrigatórios</h2>
+            <p>Além dos dados obrigatórios do formulário, os dados abaixo, já preenchidos, não podem ser alterados e serão salvos com os demais dados do formulário.</p>
+            @ if(validarCpf($cpf)):
+            <div class="campo">
+                <p><span>CPF:</span> <strong>{{strCpf($cpf)}}</strong></p>
+            </div>
+            @ endif;
+            @ if(!empty($localTrabalho)):
+            <div class="campo">
+                <p><span>Local de trabalho:</span> <strong>{{$localTrabalho}}</strong></p>
+            </div>
+            @ endif;
+        </div>
+        @ endif;
+
         @if ( array_intersect(['nome', 'cpf', 'data_nascimento', 'genero', 'estado_civil', 'grupo'], CAMPOS_PRIMEIRO_ACESSO)):
         <div class="bloco">
             <h2>Dados pessoais</h2>
             @if ( in_array('nome', CAMPOS_PRIMEIRO_ACESSO) ):
-            @? formInput(name: 'ativar_nome', label: 'Nome', placeholder: 'Nome completo', obrigatorio: true)
+            @? formInput(name: 'ativar_nome', label: 'Nome', placeholder: 'Nome completo', obrigatorio: true, value: $nome)
             @endif;
 
             @ if( !validarCpf($cpf) && in_array('cpf', CAMPOS_PRIMEIRO_ACESSO) ):
@@ -28,7 +45,7 @@
                 @endif;
 
                 @if ( in_array('genero', CAMPOS_PRIMEIRO_ACESSO) ):
-                @? formSelect(name: 'ativar_genero', label: 'Gênero', obrigatorio: true, placeholder: 'Gênero', lista: (new \Modules\Genero)->select('Escolha um gênero'))
+                @? formSelect(name: 'ativar_genero', label: 'Gênero', obrigatorio: true, placeholder: 'Gênero', lista: (new \Modules\Genero)->select('Escolha um gênero'), value: $genero)
                 @endif;
             </div>
             @if ( in_array('estado_civil', CAMPOS_PRIMEIRO_ACESSO) ):
@@ -45,7 +62,7 @@
         <div class="bloco">
             <h2>Dados de contato</h2>
             @if ( in_array('email_pessoal', CAMPOS_PRIMEIRO_ACESSO) ):
-            @? formEmail(name: 'ativar_email_pessoal', label: 'E-mail pessoal', placeholder: 'E-mail pessoal', obrigatorio: true)
+            @? formEmail(name: 'ativar_email_pessoal', label: 'E-mail pessoal', placeholder: 'E-mail pessoal', obrigatorio: true, value: $email)
             @endif;
 
             @if ( in_array('email_trabalho', CAMPOS_PRIMEIRO_ACESSO) ):
@@ -98,11 +115,11 @@
             @endif;
 
             @if ( in_array('endereco_estado', CAMPOS_PRIMEIRO_ACESSO) ):
-            @? formSelect(name: 'ativar_endereco_estado', label: 'Estado', obrigatorio: true, placeholder: 'Estado', lista: (new \Modules\EnderecoEstado())->select('Escolha um estado'), class: 'bloco_estado')
+            @? formSelect(name: 'ativar_endereco_estado', label: 'Estado', obrigatorio: true, placeholder: 'Estado', lista: (new \Modules\EnderecoEstado())->select('Escolha um estado'), class: 'bloco_estado', value: $estado)
             @endif;
 
             @if ( in_array('endereco_cidade', CAMPOS_PRIMEIRO_ACESSO) ):
-            @? formSelect(name: 'ativar_endereco_cidade', label: 'Cidade', obrigatorio: true, placeholder: 'Cidade', lista: ['' => 'Escolha um estado primeiro'], class: 'bloco_cidade')
+            @? formSelect(name: 'ativar_endereco_cidade', label: 'Cidade', obrigatorio: true, placeholder: 'Cidade', lista: ['' => 'Escolha um estado primeiro'], class: 'bloco_cidade', value: $cidade)
             @endif;
         </div>
         @endif;

@@ -2,8 +2,8 @@
 
 namespace App\Models\Api\ConstrutorClube;
 
-use App\Helpers\PrimeiroAcessoHelper;
 use Modules\Botao;
+use App\Helpers\PrimeiroAcessoHelper;
 
 final class ClubeModel
 {
@@ -115,6 +115,15 @@ final class ClubeModel
             'login_status'            => $Construtor->tela_login->valor(),
             'login_escolha_status'    => $api == 'sim' && ($dependente == 'sim' || $funcionario == 'sim') ? 'sim' : 'nao',
             'recuperar_senha_status'  => $api == 'nao' || $dependente == 'sim' || $indicarUsuario == 'sim' ? 'sim' : 'nao',
+            'botao_senha_status'      => $Construtor->botao_senha_status->valor(),
+            'botao_senha_tipo'        => $Construtor->botao_senha_tipo->valido() ? $Construtor->botao_senha_tipo->indice() : '',
+            'botao_senha_link'        => !empty($Construtor->botao_senha_link) ? $Construtor->botao_senha_link : '',
+            'botao_cadastro_status'   => $Construtor->botao_cadastro_status->valor(),
+            'botao_cadastro_tipo'     => $Construtor->botao_cadastro_tipo->valido() ? $Construtor->botao_cadastro_tipo->indice() : '',
+            'botao_cadastro_link'     => !empty($Construtor->botao_cadastro_link) ? $Construtor->botao_cadastro_link : '',
+            'botao_ativar_status'     => $Construtor->botao_ativar_status->valor(),
+            'botao_ativar_tipo'       => $Construtor->botao_ativar_tipo->valido() ? $Construtor->botao_ativar_tipo->indice() : '',
+            'botao_ativar_link'       => !empty($Construtor->botao_ativar_link) ? $Construtor->botao_ativar_link : '',
             'chat'                    => $Construtor->chat_status->valor(),
             'api'                     => $api,
         ];

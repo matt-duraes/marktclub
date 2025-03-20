@@ -10,6 +10,7 @@ class TipoAtivacao extends StatusStatus
     public const MATRICULA = 'matricula';
     public const SIAPE = 'siape';
     public const EMAIL = 'email';
+    public const CIESC = 'ciesc';
 
     public function __construct(
         protected string|int|null $valor = null
@@ -18,7 +19,8 @@ class TipoAtivacao extends StatusStatus
             self::CPF       => 'CPF',
             self::MATRICULA => 'Matricula',
             self::SIAPE     => 'SIAPE',
-            self::EMAIL     => 'E-mail'
+            self::EMAIL     => 'E-mail',
+            self::CIESC     => 'CIESC',
         ]);
     }
 }
