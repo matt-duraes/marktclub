@@ -3,6 +3,7 @@
 use Helpers\ApiHelper;
 use App\Classes\Geral\Status;
 use App\Helpers\PrimeiroAcessoHelper;
+use App\Classes\ConstrutorClube\BotaoTipo;
 use App\Classes\ConstrutorClube\TipoCargo;
 use App\Classes\ConstrutorClube\TipoAtivacao;
 
@@ -90,6 +91,71 @@ $Painel->coluna(callback: function () use ($Painel) {
     });
 });
 
+$Painel->coluna(callback: function () use ($Painel) {
+    $Painel->fieldset('Login - Recuperar senha', function () use ($Painel) {
+        $Painel
+            ->switch(
+                class: 'login_recuperar_senha_botao',
+                name: 'botao_senha_status',
+                label: 'Vai ter botão recuperar senha?'
+            )
+            ->select(
+                class: 'login_recuperar_senha_tipo display_none',
+                name: 'botao_senha_tipo',
+                label: 'Tipo de botão',
+                placeholder: 'Tipo de botão',
+                lista: (new BotaoTipo())->select('Escolha uma opção')
+            )
+            ->url(
+                class: 'login_recuperar_senha_link display_none',
+                name: 'botao_senha_link',
+                label: 'Link do botão',
+                placeholder: 'Link do botão'
+            );
+    });
+    $Painel->fieldset('Login - Primeiro acesso', function () use ($Painel) {
+        $Painel
+            ->switch(
+                class: 'login_ativar_botao',
+                name: 'botao_ativar_status',
+                label: 'Vai ter botão primeiro acesso?'
+            )
+            ->select(
+                class: 'login_ativar_tipo display_none',
+                name: 'botao_ativar_tipo',
+                label: 'Tipo de botão',
+                placeholder: 'Tipo de botão',
+                lista: (new BotaoTipo())->select('Escolha uma opção')
+            )
+            ->url(
+                class: 'login_ativar_link display_none',
+                name: 'botao_ativar_link',
+                label: 'Link do botão',
+                placeholder: 'Link do botão'
+            );
+    });
+    $Painel->fieldset('Login - Cadastro', function () use ($Painel) {
+        $Painel
+            ->switch(
+                class: 'login_cadastro_botao',
+                name: 'botao_cadastro_status',
+                label: 'Vai ter botão primeiro acesso?'
+            )
+            ->select(
+                class: 'login_cadastro_tipo display_none',
+                name: 'botao_cadastro_tipo',
+                label: 'Tipo de botão',
+                placeholder: 'Tipo de botão',
+                lista: (new BotaoTipo())->select('Escolha uma opção')
+            )
+            ->url(
+                class: 'login_cadastro_link display_none',
+                name: 'botao_cadastro_link',
+                label: 'Link do botão',
+                placeholder: 'Link do botão'
+            );
+    });
+});
 $Painel->coluna(callback: function () use ($Painel) {
     $Painel->fieldset('Contato', function () use ($Painel) {
         $Painel
