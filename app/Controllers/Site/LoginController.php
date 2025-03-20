@@ -218,8 +218,10 @@ final class LoginController extends Controller
                 ->object();
         }
 
-        if (!validarIndiceExiste($buscar, 'dado.hash')) {
+        if (validarIndiceExiste($buscar, 'erro.mensagem')) {
             mensagemErro(404, $buscar->erro->mensagem);
+        } elseif (!validarIndiceExiste($buscar, 'dado.hash')) {
+            mensagemErro(404, 'Ocorreu um erro ao buscar seus dados, por favor, tente novamente.');
         }
 
         return mensagemSucesso([
