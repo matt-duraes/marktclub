@@ -2,21 +2,21 @@
 
 namespace App\Controllers\Site;
 
-use App\Classes\ConstrutorClube\TipoAtivacao;
-use App\Classes\TextoClube\Tipo;
-use App\Classes\UsuarioCliente\Helper as UsuarioHelper;
-use App\Models\Site\Ativar\GrupoModel;
-use App\Models\Site\Ativar\SalvarModel;
-use App\Models\Site\Cache\VersaoClubeModel;
-use App\Models\Site\Login\ComunicacaoModel;
-use App\Models\Site\Login\LogarModel;
-use App\Models\Site\Login\LoginApiModel;
-use Controller\Controller;
-use Helpers\ApiHelper;
-use Helpers\CryptHelper;
+use Throwable;
 use Http\Request;
 use Http\Response;
-use Throwable;
+use Helpers\ApiHelper;
+use Helpers\CryptHelper;
+use Controller\Controller;
+use App\Classes\TextoClube\Tipo;
+use App\Models\Site\Login\LogarModel;
+use App\Models\Site\Ativar\GrupoModel;
+use App\Models\Site\Ativar\SalvarModel;
+use App\Models\Site\Login\LoginApiModel;
+use App\Models\Site\Cache\VersaoClubeModel;
+use App\Models\Site\Login\ComunicacaoModel;
+use App\Classes\ConstrutorClube\TipoAtivacao;
+use App\Classes\UsuarioCliente\Helper as UsuarioHelper;
 
 final class LoginController extends Controller
 {
@@ -207,22 +207,30 @@ final class LoginController extends Controller
         } else {
             $buscar = (new ApiHelper('usuario_cliente:ativar'))
                 ->body([
-                    'tipo_usuario' => $request->tipo_usuario,
-                    'chave'        => ATIVACAO_TIPO,
-                    'valor'        => $valor,
-                    'empresa'      => CLUBE_EMPRESA
+                    'tipo_usuario'   => $request->tipo_usuario,
+                    'chave'          => ATIVACAO_TIPO,
+                    'valor'          => $valor,
+                    'empresa'        => CLUBE_EMPRESA,
+                    'local_trabalho' => $request->local_trabalho,
+                    'termo'          => $request->termo
                 ])
                 ->post('/usuario-cliente/ativar')
                 ->object();
         }
 
-        if ($buscar->status == 'erro') {
-            return mensagemErro(404, $buscar->erro->mensagem);
+        if (!validarIndiceExiste($buscar, 'dado.hash')) {
+            mensagemErro(404, $buscar->erro->mensagem);
         }
 
         return mensagemSucesso([
-            'hash' => $buscar->dado->hash ?? '',
-            'cpf'  => $buscar->dado->cpf ?? '',
+            'hash'          => $buscar->dado->hash ?? '',
+            'cpf'           => $buscar->dado->cpf ?? '',
+            'nome'          => $buscar->dado->nome_completo ?? '',
+            'email'         => $buscar->dado->email_pessoal ?? '',
+            'estado'        => $buscar->dado->endereco_estado ?? '',
+            'cidade'        => $buscar->dado->endereco_cidade ?? '',
+            'genero'        => $buscar->dado->genero ?? '',
+            'localTrabalho' => $buscar->dado->local_trabalho ?? ''
         ], status: 201);
     }
 
@@ -239,17 +247,23 @@ final class LoginController extends Controller
         return new CryptHelper(chavePublica: $publica, chavePrivada: $privada);
     }
 
-    public function ativarSalvar(Request $request): Response
+    public function postAtivarSalvarPagina(Request $request): Response
     {
         // mensagemErro('Erro!', 'Ocorreu um erro no momento, por favor, tente novamente mais tarde.');
         if ($request->vazio('hash')) {
             mensagemStatus(404);
         }
         return view('login.ativar.salvar', [
-            'hash'         => $request->hash,
-            'cpf'          => $request->cpf,
-            'tipo_usuario' => $request->tipo_usuario,
-            'grupo'        => (new GrupoModel())->buscarGrupos(),
+            'hash'          => $request->hash,
+            'cpf'           => $request->cpf,
+            'tipo_usuario'  => $request->tipo_usuario,
+            'grupo'         => (new GrupoModel())->buscarGrupos(),
+            'nome'          => $request->nome,
+            'email'         => $request->email,
+            'estado'        => $request->estado,
+            'cidade'        => $request->cidade,
+            'genero'        => $request->genero,
+            'localTrabalho' => $request->local_trabalho
         ]);
     }
 
@@ -265,7 +279,7 @@ final class LoginController extends Controller
             ->object();
 
         if ($dado->status == 'erro' && $dado->erro->titulo == 'Indicação já ativada') {
-            return mensagemErro($dado->erro->titulo, $dado->erro->mensagem);
+            mensagemErro($dado->erro->titulo, $dado->erro->mensagem);
         }
 
         return mensagemSucesso([

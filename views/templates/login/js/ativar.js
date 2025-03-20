@@ -77,6 +77,12 @@ const loadingAtivarBuscar = () => {
             }
             botao.classList.add('cor_bg');
             blocoAviso.classList.toggle('display_none', valorData != 'dependente');
+            const blocoCiesc = $$('.bloco_ciesc');
+            if (valorData == 'titular' && blocoCiesc.length > 0) {
+                blocoCiesc.aparecer();
+            } else if (valorData != 'titular' && blocoCiesc.length > 0) {
+                blocoCiesc.sumir();
+            }
         });
     });
 
@@ -87,6 +93,8 @@ const loadingAtivarBuscar = () => {
     const botaoBuscar = $('#botao_buscar_usuario');
     const inputBuscar = $('#input_buscar');
     const inputBuscarCpf = $('#input_buscar_cpf');
+    const inputLocalTrabalho = $('#input_local_trabalho');
+    const inputTermoAtivarBuscar = $('#input_termo_ativar_buscar');
     const blocoRecaptcha = $('#bloco_captcha_ativar');
 
     inputBuscar.focus();
@@ -135,6 +143,9 @@ const loadingAtivarBuscar = () => {
     botaoBuscar.addEventListener('click', async () => {
         if (!(await validarInput(form))) {
             return;
+        } else if (inputTermoAtivarBuscar && !inputTermoAtivarBuscar.checked) {
+            Alerta.notificacao('Você precisa aceitar os termos para continuar.', false);
+            return;
         }
 
         const captchaToken = await pegarCaptcha();
@@ -143,10 +154,17 @@ const loadingAtivarBuscar = () => {
             return;
         }
 
+        let termo = '';
+        if (inputTermoAtivarBuscar) {
+            termo = inputTermoAtivarBuscar.checked ? 'sim' : 'nao';
+        }
+
         Loading.show();
         const body = new FormData();
         body.append('busca', inputBuscar.value ? inputBuscar.value : inputBuscarCpf.value);
         body.append('tipo_usuario', valorData);
+        body.append('local_trabalho', inputLocalTrabalho ? inputLocalTrabalho.valor() : '');
+        body.append('termo', termo);
         body.append('form_system_hash', formHash);
         body.append('form_system_validacao', '');
         body.append('form_system_captcha', captchaToken);
@@ -196,10 +214,24 @@ const loadingAtivarBuscar = () => {
 };
 
 const criarPaginaAtivarSalvar = dado => {
+    const body = new FormData();
+    body.append('hash', dado.hash);
+    body.append('cpf', dado.cpf);
+    body.append('tipo_usuario', dado.tipoUsuario);
+    body.append('email', dado.email);
+    body.append('nome', dado.nome);
+    body.append('genero', dado.genero);
+    body.append('cidade', dado.cidade);
+    body.append('estado', dado.estado);
+    body.append('local_trabalho', dado.localTrabalho);
+
     const PaginaAtivar = new Pagina(
         'ativar-conta',
-        `${LINK}/login/ativar-salvar?hash=${dado.hash}&cpf=${dado.cpf}&tipo_usuario=${dado.tipoUsuario}`,
-        undefined,
+        `${LINK}/login/ativar-salvar-pagina`,
+        {
+            method: 'POST',
+            body,
+        },
         true,
         false,
         loadingAtivar
@@ -259,6 +291,14 @@ const loadingAtivar = () => {
         inputEnderecoEstado.evento('formChange', () => {
             buscarCidadePeloEstado(inputEnderecoCidade, inputEnderecoEstado.value, '', 'Escolha uma cidade');
         });
+        if (buscarCidadePeloEstado.value != '') {
+            buscarCidadePeloEstado(
+                inputEnderecoCidade,
+                inputEnderecoEstado.value,
+                inputEnderecoCidade.value,
+                'Escolha uma cidade'
+            );
+        }
     }
     const botaoSalvar = $('#botao_ativar_usuario');
     inputNome.focus();

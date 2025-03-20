@@ -49,23 +49,36 @@ final class UsuarioHelper extends CurlHelper
             return;
         }
         $this->Nome = new Nome($this->usuario['nome']);
-        $this->Genero = new Genero($this->usuario['genero']);
+        $this->Genero = new Genero($this->converterGenero($this->usuario['genero']));
         $this->Email = new Email($this->usuario['email']);
         $this->cidade = $this->usuario['municipio'];
         $this->Estado = new EnderecoEstado($this->usuario['estado']);
+    }
+    private function converterGenero($genero)
+    {
+        if(empty($genero)) {
+            return '';
+        }
+        return [
+            'M' => 'masculino',
+            'F' => 'feminino',
+            'Masculino' => 'masculino',
+            'Feminino' => 'feminino',
+        ][$genero] ?? $genero;
     }
 
     private function buscarUsuario(Cpf $Cpf, LocalTrabalho $LocalTrabalho)
     {
         if (eLocalhost() && in_array($Cpf->numero(), ['61209529009', '91851213040', '41834123070', '29848124098'])) {
+            $uf = estadoAleatorio();
             $this->usuario = [
                 'beneficiosColaborador' => [
                     'colaborador' => [
-                        'nome'      => nomeAleatorio(),
+                        'nome'      => nomeCompletoAleatorio(),
                         'genero'    => 'M',
                         'email'     => emailAleatorio(),
-                        'estado'    => estadoAleatorio(),
-                        'municipio' => cidadeAleatorio(),
+                        'estado'    => $uf,
+                        'municipio' => cidadeAleatorio($uf),
                     ]
                 ]
             ];

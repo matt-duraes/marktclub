@@ -214,7 +214,13 @@ final class ClienteController extends Controller implements
         return mensagemSucesso([
             'id'   => uuid(),
             'hash' => $Ativar->pegarHash(),
-            'cpf'  => $Ativar->pegarCpf()->numero()
+            'cpf'  => $Ativar->pegarCpf()->numero(),
+            'nome_completo' => $Ativar->nomeCompleto,
+            'email_pessoal' => $Ativar->emailPessoal,
+            'genero' => $Ativar->genero,
+            'endereco_cidade' => $Ativar->enderecoCidade,
+            'endereco_estado' => $Ativar->enderecoEstado,
+            'local_trabalho' => $request->local_trabalho,
         ], 201);
     }
 

@@ -24,6 +24,11 @@ final class BuscarModel extends ORM
     private Cpf $cpf;
     private string $hash;
     private stdClass|array $usuario;
+    public string $nomeCompleto = '';
+    public string $genero = '';
+    public string $emailPessoal = '';
+    public string $enderecoCidade = '';
+    public string $enderecoEstado = '';
 
     /**
      * @throws Excecao
@@ -60,26 +65,31 @@ final class BuscarModel extends ORM
                 'Não foi encontrado nenhum dado pelo seu CPF na empresa ' . $localTrabalho->indice() . '.'
             );
         }
+        $this->nomeCompleto = $usuario->Nome->nome();
+        $this->genero = $usuario->Genero->valor();
+        $this->emailPessoal = $usuario->Email->email();
+        $this->enderecoCidade = $usuario->cidade;
+        $this->enderecoEstado = $usuario->Estado->uf();
+
         $base = $this->pegarUsuarioBase();
         $this->setarCpf($valor);
         if (!validarIndiceExiste($base, 'status')) {
-            $this->hash = 'ciesc.' . base64Encode([
-                'existe'         => false,
-                'id'             => '',
-                'cpf'            => $this->cpf->numero(),
-                'local_trabalho' => $this->localTrabalho->indice(),
-            ]);
+            $this->hash = $this->gerarHashCiesc(false, '');
             return;
         }
         if ($base->status == 1) {
             mensagemErro('Conta ativa!', 'Sua conta já está ativa, faça seu login para acessar o clube.');
         }
 
-        $this->hash = 'ciesc.' . base64Encode([
-            'existe'         => true,
-            'id'             => $base->id,
+        $this->hash = $this->gerarHashCiesc(true, $base->id);
+    }
+    private function gerarHashCiesc(bool $existe, $id): string
+    {
+        return 'ciesc.' . base64Encode([
+            'existe'         => $existe,
+            'id'             => $id,
+            'cpf'            => $this->cpf->numero(),
             'local_trabalho' => $this->localTrabalho->indice(),
-            'cpf'            => $this->cpf->numero()
         ]);
     }
 
