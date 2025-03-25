@@ -5,6 +5,8 @@ namespace Painel\ComercialProspeccao\Models;
 use Helpers\ApiHelper;
 use Helpers\CryptHelper;
 use App\Classes\ComercialEmpresa\Status;
+use PainelModel\Perfil\Empresa;
+use PainelModel\Perfil\Equipe;
 
 final class ProspeccaoModel
 {
@@ -20,9 +22,12 @@ final class ProspeccaoModel
 
     public function listar($prospeccao = '', $status = Status::PROSPECCAO)
     {
+        $usuario = painelPermissao('comercial_empresa_gerente', false) ? '' : sessao('USUARIO.id');
         $dado = $this->Api
             ->json([
                 'pagina'            => 1,
+                'quantidade'        => 1000,
+                'usuario'           => $usuario,
                 'prospeccao_status' => $prospeccao,
                 'status'            => $status
             ])
@@ -39,14 +44,14 @@ final class ProspeccaoModel
     private function montarLista($dado)
     {
         $retorno = [];
+        $Empresa = new Empresa();
+        $Equipe = new Equipe();
         foreach ($dado as $r) {
-            $tituloDecoded = $this->Crypt->decode($r['titulo']);
-            $titulo = empty($r['empresa_indicacao'])
-                ? $tituloDecoded
-                : $r['empresa_indicacao'] . ' - ' . $tituloDecoded;
             $retorno[] = (object)[
                 'id'           => $r['id'],
-                'titulo'       => $titulo,
+                'titulo'       => $this->Crypt->decode($r['titulo']),
+                'empresa'      => $Empresa->unico($r['empresa_id']),
+                'equipe'       => $Equipe->unico($r['equipe_id']),
                 'cnpj'         => strCnpj($this->Crypt->decode($r['cnpj'])),
                 'data_criacao' => dataBr($r['data_criacao']),
                 'status'       => $r['prospeccao_status']

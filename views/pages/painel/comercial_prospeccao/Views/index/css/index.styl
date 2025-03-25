@@ -93,6 +93,7 @@
         flexRow()
         padding: 10px 10px 10px 5px
         border-top: 1px solid #DDD
+        border-bottom: 1px solid #DDD
         align-items: center
     .conteudo article .bloco .icone
         width: 30px
@@ -143,3 +144,17 @@
     .conteudo article .bloco .seta_inativa
         color: #CCC
         cursor: default
+    .bloco_perfil
+        display: flex
+        flex-flow: row nowrap
+        justify-content: space-evenly
+        align-items: center
+        gap: 8px
+        padding: 10px 10px 10px 5px
+        .bloco_item
+            width: 42px
+            height: 42px
+            imagemRedonda()
+            border: 2px solid #FFF
+            background-color: #EEE
+            transition: margin-right .3s ease-out

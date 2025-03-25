@@ -21,8 +21,6 @@ window.addEventListener('load', () => {
     const labelPopup = inputPopup.parentNode.querySelector('label');
     const botaoPopup = document.getElementById('botao_atualizar_motivo');
 
-    const htmlZero = '<div class="tarefa_zero">Sem itens<br> no momento</div>';
-
     const setEvents = item => {
         const botaoAtendimento = item.querySelector('.botao_item_atendimento');
         const botaoHistorico = item.querySelector('.botao_item_historico');
