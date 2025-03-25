@@ -9,6 +9,7 @@ use App\Classes\UsuarioCliente\TipoUsuario;
 use App\Classes\UsuarioCliente\TrabalhoCargo;
 use App\Classes\UsuarioCliente\TrabalhoEmpresa;
 use Helpers\ListaHelper;
+use Helpers\OrmHelper;
 
 trait WhereTrait
 {
@@ -32,7 +33,11 @@ trait WhereTrait
             $where[] = $whereFederacao;
         }
 
-        if (!empty($this->idSubempresa)) {
+        if (!empty($request->subempresa)) {
+            $where[] = [
+                'id_admin_subempresa', (new OrmHelper(TABELA_COMERCIAL_EMPRESA))->pegarIdPeloUuid($request->subempresa)
+            ];
+        } elseif (!empty($this->idSubempresa)) {
             $where[] = ['id_admin_subempresa', $this->idSubempresa];
         }
 

@@ -8,22 +8,22 @@ final class DownloadPrivadoHelper implements MensageriaInterface
 {
     private string $app;
     private array $dado = [
-        'usuario_cliente' => [
+        'usuario_cliente'     => [
             'uri'    => '/usuario-cliente/download',
             'scope'  => 'usuario_cliente:download',
             'metodo' => 'POST'
         ],
-        'parceiro_loja' => [
+        'parceiro_loja'       => [
             'uri'    => '/parceiro-loja/download',
             'scope'  => 'parceiro_loja:download',
             'metodo' => 'POST'
         ],
-        'solicitacao_loja' => [
+        'solicitacao_loja'    => [
             'uri'    => '/solicitacao-loja/download',
             'scope'  => 'solicitacao_loja:download',
             'metodo' => 'POST'
         ],
-        'painel_historico' => [
+        'painel_historico'    => [
             'uri'    => '/painel-historico/download',
             'scope'  => 'painel_historico:download',
             'metodo' => 'POST'
@@ -43,9 +43,14 @@ final class DownloadPrivadoHelper implements MensageriaInterface
             'scope'  => 'solicitacao_voucher:download',
             'metodo' => 'POST'
         ],
-        'parceiro_externo' => [
+        'parceiro_externo'    => [
             'uri'    => '/parceiro-externo/download',
             'scope'  => 'parceiro_externo:download',
+            'metodo' => 'POST'
+        ],
+        'comercial_contrato'  => [
+            'uri'    => '/comercial-empresa/download',
+            'scope'  => 'comercial_empresa:download',
             'metodo' => 'POST'
         ]
     ];

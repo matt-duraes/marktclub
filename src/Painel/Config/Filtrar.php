@@ -2,6 +2,7 @@
 
 namespace PainelConfig;
 
+use Closure;
 use Helpers\ApiHelper;
 use Helpers\ListaHelper;
 
@@ -22,10 +23,9 @@ final class Filtrar
         }
     }
 
-    public function replace(string $campo, array $lista)
+    public function pegarInput()
     {
-        $this->replace[$campo] = $lista;
-        return $this;
+        return $this->html['input'];
     }
 
     /*
@@ -33,10 +33,6 @@ final class Filtrar
     | RETORNO
     |--------------------------------------------------------------------------
     */
-    public function pegarInput()
-    {
-        return $this->html['input'];
-    }
 
     public function pegarNome()
     {
@@ -51,14 +47,14 @@ final class Filtrar
     /**
      * Cria um bloco para agrupar elementos
      *
-     * @param \Closure|null $callback Callback
-     * @param integer|null  $coluna   Numero de elementos (até 3) por linha, se null, não quebra linha
-     * @param string|null   $titulo   Título para o bloco
-     * @param bool          $mais     Se vai ter botão de abrir
-     * @param string        $todos    Se vai ter campo de marcar todos quando for checkbox
+     * @param Closure|null $callback Callback
+     * @param int|null     $coluna   Numero de elementos (até 3) por linha, se null, não quebra linha
+     * @param string|null  $titulo   Título para o bloco
+     * @param bool         $mais     Se vai ter botão de abrir
+     * @param string       $todos    Se vai ter campo de marcar todos quando for checkbox
      */
     public function bloco(
-        ?\Closure $callback,
+        ?Closure $callback,
         ?int $coluna = null,
         ?string $titulo = null,
         bool $mais = false,
@@ -77,16 +73,20 @@ final class Filtrar
 
         $this->html['input'][] = ['funcao' => 'html', 'html' => '<div class="bloco_row ' . $classeBloco . '">'];
         if (!empty($titulo)) {
-            $this->html['input'][] = ['funcao' => 'html', 'html' => '<h2>' . preg_replace('/\:{1,}$/', '', $titulo) . ':</h2>'];
+            $this->html['input'][] = [
+                'funcao' => 'html', 'html' => '<h2>' . preg_replace('/\:{1,}$/', '', $titulo) . ':</h2>'
+            ];
         }
         if ($todos) {
             $todosId = uuid();
-            $this->html['input'][] = ['funcao' => 'html', 'html' => '
+            $this->html['input'][] = [
+                'funcao' => 'html', 'html' => '
                 <div class="input_checkbox botao_filtrar_marcar_todos">
                     <input type="checkbox" id="input_todos_' . $todosId . '" value="">
                     <label for="input_todos_' . $todosId . '">' . $todos . '</label>
                 </div>
-            '];
+            '
+            ];
         }
 
         $colunaClasse = is_int($coluna) && in_array($coluna, [1, 2, 3]) ? 'bloco_row_lista_' . $coluna : '';
@@ -104,31 +104,51 @@ final class Filtrar
         return $this;
     }
 
+    public function telefone(
+        $name,
+        ?string $titulo = null,
+        string $label = '',
+        string $placeholder = '',
+        bool $obrigatorio = false
+    ) {
+        $this->input(
+            name: $name,
+            titulo: $titulo,
+            label: $label,
+            placeholder: $placeholder,
+            obrigatorio: $obrigatorio,
+            mascara: 'telefone',
+            numero: 1
+        );
+        return $this;
+    }
+
     /*
     |--------------------------------------------------------------------------
     | INPUTS
     |--------------------------------------------------------------------------
     */
+
     public function input(
-        string | array $name,
+        string|array $name,
         ?string $titulo = null,
         string $label = '',
-        string | array $placeholder = '',
+        string|array $placeholder = '',
         string $class = '',
         string $id = '',
         string $html = '',
         string $icone = '',
         string $iconeCor = '',
-        bool | array $obrigatorio = false,
+        bool|array $obrigatorio = false,
         bool $focus = false,
-        null | int | array $contador = null,
-        string | array $type = 'text',
+        null|int|array $contador = null,
+        string|array $type = 'text',
         array $attr = [],
-        string | array $mascara = '',
+        string|array $mascara = '',
         string $ajuda = '',
-        bool | array $numero = false,
-        bool | array $data = false,
-        bool | array $senha = false,
+        bool|array $numero = false,
+        bool|array $data = false,
+        bool|array $senha = false,
         bool $url = false,
         bool $autocomplete = false,
         string $action = '',
@@ -169,23 +189,34 @@ final class Filtrar
         ], $permissao);
     }
 
-    public function telefone(
-        $name,
-        ?string $titulo = null,
-        string $label = '',
-        string $placeholder = '',
-        bool $obrigatorio = false
-    ) {
-        $this->input(
-            name: $name,
-            titulo: $titulo,
-            label: $label,
-            placeholder: $placeholder,
-            obrigatorio: $obrigatorio,
-            mascara: 'telefone',
-            numero: 1
-        );
+    private function adicionarNovoInput($dado, $permissao)
+    {
+        $dado['indice'] = preg_replace('/\[\]$/', '', $dado['name']);
+        $dado['name'] = is_string($dado['name']) ? explode('->', $dado['name'])[0] : $dado['name'];
+        if (!$this->campoAceito($dado['name'], $permissao)) {
+            return $this;
+        }
+
+        if (!empty($dado['nome'])) {
+            $this->html['nome'][$dado['name']] = $dado['nome'];
+        }
+
+        unset($dado['nome']);
+        $this->html['input'][] = $dado;
+
         return $this;
+    }
+
+    private function campoAceito($name, $permissao)
+    {
+        $usuarioPermissao = sessao('USUARIO.permissao');
+        if (
+            (!empty($permissao) && !in_array($permissao, $usuarioPermissao)) ||
+            (!empty($this->camposAceitos) && !in_array($name, $this->camposAceitos))
+        ) {
+            return false;
+        }
+        return true;
     }
 
     public function email(
@@ -316,9 +347,13 @@ final class Filtrar
         bool $obrigatorio = false,
         bool $footer = true,
         string $change = '',
-        ?string $permissao = null
+        ?string $permissao = null,
+        ?string $tipoEquipe = null
     ) {
-        if (is_string($lista) && !in_array($lista, ['genero', 'estado_civil', 'estado', 'empresa', 'usuario'])) {
+        if (is_string($lista) && !in_array(
+                $lista,
+                ['genero', 'estado_civil', 'estado', 'empresa', 'usuario', 'subempresa']
+            )) {
             mensagemErro('Erro', 'Você deve passar um valor de lista aceito.');
         }
         if (is_string($lista) && $lista == 'genero') {
@@ -332,13 +367,17 @@ final class Filtrar
                 ->json(['titulo' => 'Escolha um cliente'])
                 ->get('/comercial-empresa/select')
                 ->array()['dado'] ?? [];
+        } elseif (is_string($lista) && $lista == 'subempresa') {
+            $lista = (new ApiHelper(token: true))
+                ->json(['titulo' => 'Escolha um cliente', 'todas' => '1'])
+                ->get('/comercial-subempresa/select')
+                ->array()['dado'] ?? [];
         } elseif (is_string($lista) && $lista == 'usuario') {
             $lista = (new ApiHelper(token: true))
-                ->json(['titulo' => 'Escolha um usuário'])
+                ->json(['titulo' => 'Escolha um colaborador', 'tipo' => empty($tipoEquipe) ? '' : $tipoEquipe])
                 ->get('/usuario-equipe/select')
                 ->array()['dado'] ?? [];
         }
-
         $this->replace($name, $lista);
 
         return $this->adicionarNovoInput([
@@ -355,6 +394,18 @@ final class Filtrar
             'change'      => $change
         ], $permissao);
     }
+
+    public function replace(string $campo, array $lista)
+    {
+        $this->replace[$campo] = $lista;
+        return $this;
+    }
+
+    /*
+    |--------------------------------------------------------------------------
+    | MÉTODOS PRIVADOS
+    |--------------------------------------------------------------------------
+    */
 
     public function switch(
         $name,
@@ -406,40 +457,5 @@ final class Filtrar
             'html'   => $html,
             'attr'   => $attr,
         ], $permissao);
-    }
-
-    /*
-    |--------------------------------------------------------------------------
-    | MÉTODOS PRIVADOS
-    |--------------------------------------------------------------------------
-    */
-    private function adicionarNovoInput($dado, $permissao)
-    {
-        $dado['indice'] = preg_replace('/\[\]$/', '', $dado['name']);
-        $dado['name'] = is_string($dado['name']) ? explode('->', $dado['name'])[0] : $dado['name'];
-        if (!$this->campoAceito($dado['name'], $permissao)) {
-            return $this;
-        }
-
-        if (!empty($dado['nome'])) {
-            $this->html['nome'][$dado['name']] = $dado['nome'];
-        }
-
-        unset($dado['nome']);
-        $this->html['input'][] = $dado;
-
-        return $this;
-    }
-
-    private function campoAceito($name, $permissao)
-    {
-        $usuarioPermissao = sessao('USUARIO.permissao');
-        if (
-            (!empty($permissao) && !in_array($permissao, $usuarioPermissao)) ||
-            (!empty($this->camposAceitos) && !in_array($name, $this->camposAceitos))
-        ) {
-            return false;
-        }
-        return true;
     }
 }

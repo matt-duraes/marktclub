@@ -2,13 +2,17 @@
 
 namespace PainelConfig;
 
-use Modules\Genero;
+use Closure;
 use Helpers\ApiHelper;
 use Helpers\ListaHelper;
 use Modules\EstadoCivil;
+use Modules\Genero;
 
 final class Add
 {
+    public const TAG_TIPO_TAG = 'tag';
+    public const TAG_TIPO_TEXTO = 'texto';
+    public const TAG_TIPO_URL = 'url';
     private int $coluna;
     private int $fieldset;
     private string|int $numeroColuna;
@@ -21,10 +25,6 @@ final class Add
     private string $css = '';
     private string|array $js = '';
     private string $link = '';
-
-    public const TAG_TIPO_TAG = 'tag';
-    public const TAG_TIPO_TEXTO = 'texto';
-    public const TAG_TIPO_URL = 'url';
 
     public function __construct(
         private string $app,
@@ -40,8 +40,8 @@ final class Add
         $obrigatorio = sessao('PAINEL.obrigatorio', padrao: []);
         $this->camposObrigatorio =
             is_array($obrigatorio) && array_key_exists($this->app, $obrigatorio) ?
-            $obrigatorio[$this->app] :
-            [];
+                $obrigatorio[$this->app] :
+                [];
 
         $this->coluna = -1;
         $this->fieldset = -1;
@@ -100,7 +100,7 @@ final class Add
     | ESTRUTURA
     |--------------------------------------------------------------------------
     */
-    public function coluna(string|int $coluna = '', ?\Closure $callback = null)
+    public function coluna(string|int $coluna = '', ?Closure $callback = null)
     {
         if (is_null($callback)) {
             $this->erroCallback();
@@ -112,7 +112,44 @@ final class Add
         return $this;
     }
 
-    public function fieldset(string $titulo = '', ?\Closure $callback = null, bool $abrir = false, $row = false)
+    private function erroCallback()
+    {
+        mensagemStatus(500, localhost: 'Você deve passar uma callback.');
+    }
+
+    public function endereco(string $titulo = '')
+    {
+        $this->fieldset(titulo: $titulo, callback: function () {
+            $this
+                ->cep(name: 'endereco_cep', label: 'CEP', placeholder: 'CEP', obrigatorio: true)
+                ->input(
+                    name: 'endereco_logradouro',
+                    label: 'Logradouro',
+                    placeholder: 'Digite o logradouro',
+                    contador: 100,
+                    obrigatorio: true
+                )
+                ->input(name: 'endereco_numero', label: 'Número', placeholder: 'Digite o número')
+                ->input(name: 'endereco_complemento', label: 'Complemento', placeholder: 'Digite um complemento')
+                ->input(name: 'endereco_bairro', label: 'Bairro', placeholder: 'Digite um bairro', obrigatorio: true)
+                ->select(
+                    name: 'endereco_estado',
+                    label: 'Estado',
+                    placeholder: 'Escolha um estado',
+                    lista: (new ListaHelper())->add('', 'Escolha um estado')->estado()->r(),
+                    obrigatorio: true
+                )
+                ->select(
+                    name: 'endereco_cidade',
+                    label: 'Cidade',
+                    placeholder: 'Escolha uma cidade',
+                    lista: ['' => 'Escolha um estado primeiro'],
+                    obrigatorio: true
+                );
+        }, row: true);
+    }
+
+    public function fieldset(string $titulo = '', ?Closure $callback = null, bool $abrir = false, $row = false)
     {
         if (is_null($callback)) {
             $this->erroCallback();
@@ -125,167 +162,111 @@ final class Add
         return $this;
     }
 
-    public function endereco(string $titulo = '')
-    {
-        $this->fieldset(titulo: $titulo, callback: function () {
-            $this
-                ->cep(name: 'endereco_cep', label: 'CEP', placeholder: 'CEP', obrigatorio: true)
-                ->input(name: 'endereco_logradouro', label: 'Logradouro', placeholder: 'Digite o logradouro', contador: 100, obrigatorio: true)
-                ->input(name: 'endereco_numero', label: 'Número', placeholder: 'Digite o número')
-                ->input(name: 'endereco_complemento', label: 'Complemento', placeholder: 'Digite um complemento')
-                ->input(name: 'endereco_bairro', label: 'Bairro', placeholder: 'Digite um bairro', obrigatorio: true)
-                ->select(name: 'endereco_estado', label: 'Estado', placeholder: 'Escolha um estado', lista: (new ListaHelper())->add('', 'Escolha um estado')->estado()->r(), obrigatorio: true)
-                ->select(name: 'endereco_cidade', label: 'Cidade', placeholder: 'Escolha uma cidade', lista: ['' => 'Escolha um estado primeiro'], obrigatorio: true);
-        }, row: true);
-    }
-
-    public function blocoCheckbox(
-        string $titulo = null,
-        \Closure $callback,
-        string $todos = null,
-        bool $mais = null,
-        string $class = null,
-        string $id = null
+    public function select(
+        $name,
+        string|array $lista,
+        string $label = '',
+        string $placeholder = '',
+        string $id = '',
+        string $class = '',
+        bool $obrigatorio = false,
+        bool $footer = true,
+        string $change = '',
+        string $acao = null,
+        ?string $permissao = null,
+        ?string $tipoEquipe = null
     ) {
-        $html = '<h3>' . $titulo . '</h3>';
-
-        if ($todos) {
-            $class .= ' bloco_checkbox_marcar_todos';
-            $id = uuid();
-            $html .= '
-                <div class="marcar_todas">
-                    <div class="input_checkbox " id="id_' . $id . '">
-                        <input type="checkbox" id="input_' . $id . '" value="">
-                        <label for="input_' . $id . '">' . $todos . '</label>
-                    </div>
-                </div>
-            ';
+        if (is_string($lista) && !in_array($lista, ['genero', 'estado_civil', 'estado', 'empresa'])) {
+            mensagemErro('Erro', 'Você deve passar um valor de lista aceito.');
         }
-        if ($mais) {
-            $class .= ' bloco_checkbox_mais';
-            $html .= '<div class="botao_mais"><span>Mostrar todos</span></div>';
+        if (is_string($lista) && $lista == 'genero') {
+            $lista = (new Genero())->select('Escolha um gênero');
+        } elseif (is_string($lista) && $lista == 'estado_civil') {
+            $lista = (new EstadoCivil())->select('Escolha um Estado Civil');
+        } elseif (is_string($lista) && $lista == 'estado') {
+            $lista = (new ListaHelper())->add('', 'Escolha um estado')->estado()->r();
+        } elseif (is_string($lista) && $lista == 'empresa') {
+            $lista = (new ApiHelper(token: true))
+                ->json(['titulo' => 'Escolha um cliente'])
+                ->get('/comercial-empresa/select')
+                ->array()['dado'] ?? [];
+        } elseif (is_string($lista) && $lista == 'usuario') {
+            $lista = (new ApiHelper(token: true))
+                ->json(['titulo' => 'Escolha um colaborador', 'tipo' => empty($tipoEquipe) ? '' : $tipoEquipe])
+                ->get('/usuario-equipe/select')
+                ->array()['dado'] ?? [];
         }
 
-        $this->div(
-            callback: $callback,
-            class: !empty($class) ? 'bloco_checkbox_geral ' . $class : 'bloco_checkbox_geral',
-            id: $id,
-            htmlPre: $html
-        );
-        return $this;
+        return $this->adicionarNovoInput([
+            'funcao'      => 'select',
+            'name'        => $name,
+            'lista'       => $lista,
+            'label'       => $label,
+            'placeholder' => $placeholder,
+            'id'          => $id,
+            'class'       => $class,
+            'obrigatorio' => $obrigatorio,
+            'footer'      => $footer,
+            'change'      => $change,
+            'permissao'   => $permissao
+        ], $acao);
     }
 
-    public function fieldsetCheckbox(
-        string $titulo = null,
-        \Closure $callback = null,
-        string $todos = null,
-        bool $mais = null,
-        bool $margin = null,
-        string $id = null,
-        string $class = null
-    ) {
-        if (is_null($callback)) {
-            $this->erroCallback();
-        }
-        $this->fieldset++;
-
-        $classTodos = !empty($todos) ? 'bloco_checkbox_marcar_todos' : '';
-        $classMais = $mais ? 'bloco_checkbox_mais' : '';
-        $classMargin = $margin ? 'bloco_fieldset_margin' : '';
-        $id = !empty($id) ? ' id="' . $id . '"' : '';
-
-        $this->html('
-            <div class="bloco_checkbox_geral '
-            . $class . ' ' . $classTodos . ' ' . $classMais . ' ' . $classMargin . '"' . $id . '>');
-
-        if (!empty($titulo)) {
-            $this->html('<h3>' . $titulo . '</h3>');
-        }
-
-        if (!empty($todos)) {
-            $this->html('<div class="marcar_todas">' . formCheckbox(label: $todos, check: false) . '</div>');
-        }
-
-        call_user_func($callback);
-
-        if (!empty($todos)) {
-            $this->html('<div class="botao_mais"><span>Mostrar todos</span></div>');
-        }
-        $this->html('</div>');
-    }
-
-    /**
-     * Adiciona um titulo
-     *
-     * @param string      $titulo
-     * @param string|null $campo
-     * @param string|null $acao
-     * @param string|null $permissao
-     */
-    public function titulo(string $titulo, string $campo = null, string $acao = null, string $permissao = null)
+    private function adicionarNovoInput($dado, ?string $acao = null, ?string $permissao = null)
     {
-        $this->html('<h4>' . $titulo . '</h4>', $campo, $acao, $permissao);
-        return $this;
-    }
-
-    /**
-     * Adiciona uma margem
-     *
-     * @param string $tamanho
-     */
-    public function margem(int $tamanho)
-    {
-        $this->html('<div class="margem" data-fwcss="margin-top: ' . $tamanho . 'px"></div>');
-        return $this;
-    }
-
-    /**
-     * Adiciona HTML
-     *
-     * @param string      $html
-     * @param string|null $campo
-     * @param string|null $acao
-     * @param string|null $permissao
-     */
-    public function html(string $html, string $campo = null, string $acao = null, string $permissao = null)
-    {
-        if ((!empty($campo) || !empty($permissao)) && !$this->campoAceito($campo, $acao, $permissao)) {
+        $dado['indice'] = preg_replace('/\[\]$/', '', $dado['name']);
+        $dado['name'] = is_string($dado['name']) ? explode('->', $dado['name'])[0] : $dado['name'];
+        $permissao = null;
+        if (array_key_exists('permissao', $dado)) {
+            $permissao = $dado['permissao'];
+            unset($dado['permissao']);
+        }
+        if (!$this->campoAceito($dado['name'], $acao, $permissao)) {
             return $this;
         }
-        $this->html[$this->coluna][$this->fieldset]['lista'][] = [
-            'funcao' => 'html',
-            'html'   => $html
-        ];
+        $this->setarTitulo();
+        $this->setarAbrir();
+        $this->setarRow();
+        $this->setarColuna();
+
+        if (!in_array($dado['funcao'], ['cor', 'checkbox', 'switch', 'tag', 'indiceValor', 'hidden']) && !is_array(
+                $dado['name']
+            )) {
+            $dado['obrigatorio'] = $this->setarCampoObrigatorio($dado['name'], $dado['obrigatorio'] ?? false);
+        }
+
+        $this->html[$this->coluna][$this->fieldset]['lista'][] = $dado;
         return $this;
     }
 
-    public function div(
-        \Closure $callback,
-        string $class = null,
-        string $id = null,
-        array $attr = [],
-        string $htmlPre = null,
-        string $htmlPos = null
-    ) {
-        $class = !empty($class) ? 'class="' . $class . '"' : '';
-        $id = !empty($id) ? 'id="' . $id . '"' : '';
-
-        $attrLista = [];
-        foreach ($attr as $ind => $val) {
-            $attrLista[] = $ind . '="' . $val . '"';
+    private function campoAceito($name, ?string $acao, ?string $permissao)
+    {
+        $usuarioPermissao = sessao('USUARIO.permissao');
+        $name = preg_replace('/\[\]$/', '', $name);
+        if (
+            (!empty($permissao) && !in_array($permissao, $usuarioPermissao)) ||
+            (!empty($this->camposAceitos) && !in_array($name, $this->camposAceitos)) ||
+            (!empty($acao) && !empty($this->acao) && $acao != $this->acao)
+        ) {
+            return false;
         }
+        return true;
+    }
 
-        $this->html('<div ' . $class . ' ' . $id . ' ' . implode(' ', $attrLista) . '>');
-        if (!empty($htmlPre)) {
-            $this->html($htmlPre);
+    private function setarTitulo()
+    {
+        if (!empty($this->titulo)) {
+            $this->html[$this->coluna][$this->fieldset]['titulo'] = $this->titulo;
+            $this->titulo = '';
         }
+    }
 
-        call_user_func($callback);
-
-        if (!empty($htmlPos)) {
-            $this->html($htmlPos);
+    private function setarAbrir()
+    {
+        if (!empty($this->abrir)) {
+            $this->html[$this->coluna][$this->fieldset]['abrir'] = $this->abrir;
+            $this->abrir = false;
         }
-        $this->html('</div>');
     }
 
     /*
@@ -293,41 +274,50 @@ final class Add
     | INPUTS
     |--------------------------------------------------------------------------
     */
-    public function hidden(
-        string | array $name,
-        string $class = '',
-        string $id = '',
-        ?string $acao = null,
-        ?string $permissao = null
-    ) {
-        return $this->adicionarNovoInput([
-            'funcao'    => 'hidden',
-            'name'      => $name,
-            'class'     => $class,
-            'id'        => $id,
-            'permissao' => $permissao
-        ], $acao);
+
+    private function setarRow()
+    {
+        if (!empty($this->row)) {
+            $this->html[$this->coluna][$this->fieldset]['row'] = $this->row;
+            $this->row = false;
+        }
+    }
+
+    private function setarColuna()
+    {
+        if (!empty($this->numeroColuna)) {
+            $this->html[$this->coluna]['coluna'] = $this->numeroColuna;
+            $this->numeroColuna = 0;
+        }
+    }
+
+    private function setarCampoObrigatorio(string $name, bool $obrigatorio): bool
+    {
+        if (in_array($name, $this->camposObrigatorio)) {
+            return true;
+        }
+        return $obrigatorio;
     }
 
     public function input(
-        string | array $name,
+        string|array $name,
         string $label = '',
-        string | array $placeholder = '',
+        string|array $placeholder = '',
         string $class = '',
         string $id = '',
         string $html = '',
         string $icone = '',
         string $iconeCor = '',
-        bool | array $obrigatorio = false,
+        bool|array $obrigatorio = false,
         bool $focus = false,
-        null | int | array $contador = null,
-        string | array $type = 'text',
+        null|int|array $contador = null,
+        string|array $type = 'text',
         array $attr = [],
-        string | array $mascara = '',
+        string|array $mascara = '',
         string $ajuda = '',
-        bool | array $numero = false,
-        bool | array $data = false,
-        bool | array $senha = false,
+        bool|array $numero = false,
+        bool|array $data = false,
+        bool|array $senha = false,
         bool $url = false,
         bool $autocomplete = false,
         string $action = '',
@@ -371,17 +361,202 @@ final class Add
         ], $acao);
     }
 
-    public function uri(
-        string | array $name,
+    public function cep(
+        $name,
         string $label = '',
-        string | array $placeholder = '',
+        string $placeholder = '',
+        bool $obrigatorio = false
+    ) {
+        $this->input(
+            name: $name,
+            label: $label,
+            placeholder: $placeholder,
+            obrigatorio: $obrigatorio,
+            mascara: '00000-000',
+            numero: 1,
+            formatar: 'cep'
+        );
+        return $this;
+    }
+
+    public function blocoCheckbox(
+        string $titulo = null,
+        Closure $callback,
+        string $todos = null,
+        bool $mais = null,
+        string $class = null,
+        string $id = null
+    ) {
+        $html = '<h3>' . $titulo . '</h3>';
+
+        if ($todos) {
+            $class .= ' bloco_checkbox_marcar_todos';
+            $id = uuid();
+            $html .= '
+                <div class="marcar_todas">
+                    <div class="input_checkbox " id="id_' . $id . '">
+                        <input type="checkbox" id="input_' . $id . '" value="">
+                        <label for="input_' . $id . '">' . $todos . '</label>
+                    </div>
+                </div>
+            ';
+        }
+        if ($mais) {
+            $class .= ' bloco_checkbox_mais';
+            $html .= '<div class="botao_mais"><span>Mostrar todos</span></div>';
+        }
+
+        $this->div(
+            callback: $callback,
+            class: !empty($class) ? 'bloco_checkbox_geral ' . $class : 'bloco_checkbox_geral',
+            id: $id,
+            htmlPre: $html
+        );
+        return $this;
+    }
+
+    public function div(
+        Closure $callback,
+        string $class = null,
+        string $id = null,
+        array $attr = [],
+        string $htmlPre = null,
+        string $htmlPos = null
+    ) {
+        $class = !empty($class) ? 'class="' . $class . '"' : '';
+        $id = !empty($id) ? 'id="' . $id . '"' : '';
+
+        $attrLista = [];
+        foreach ($attr as $ind => $val) {
+            $attrLista[] = $ind . '="' . $val . '"';
+        }
+
+        $this->html('<div ' . $class . ' ' . $id . ' ' . implode(' ', $attrLista) . '>');
+        if (!empty($htmlPre)) {
+            $this->html($htmlPre);
+        }
+
+        call_user_func($callback);
+
+        if (!empty($htmlPos)) {
+            $this->html($htmlPos);
+        }
+        $this->html('</div>');
+    }
+
+    /**
+     * Adiciona HTML
+     *
+     * @param string      $html
+     * @param string|null $campo
+     * @param string|null $acao
+     * @param string|null $permissao
+     */
+    public function html(string $html, string $campo = null, string $acao = null, string $permissao = null)
+    {
+        if ((!empty($campo) || !empty($permissao)) && !$this->campoAceito($campo, $acao, $permissao)) {
+            return $this;
+        }
+        $this->html[$this->coluna][$this->fieldset]['lista'][] = [
+            'funcao' => 'html',
+            'html'   => $html
+        ];
+        return $this;
+    }
+
+    public function fieldsetCheckbox(
+        string $titulo = null,
+        Closure $callback = null,
+        string $todos = null,
+        bool $mais = null,
+        bool $margin = null,
+        string $id = null,
+        string $class = null
+    ) {
+        if (is_null($callback)) {
+            $this->erroCallback();
+        }
+        $this->fieldset++;
+
+        $classTodos = !empty($todos) ? 'bloco_checkbox_marcar_todos' : '';
+        $classMais = $mais ? 'bloco_checkbox_mais' : '';
+        $classMargin = $margin ? 'bloco_fieldset_margin' : '';
+        $id = !empty($id) ? ' id="' . $id . '"' : '';
+
+        $this->html(
+            '
+            <div class="bloco_checkbox_geral '
+            . $class . ' ' . $classTodos . ' ' . $classMais . ' ' . $classMargin . '"' . $id . '>'
+        );
+
+        if (!empty($titulo)) {
+            $this->html('<h3>' . $titulo . '</h3>');
+        }
+
+        if (!empty($todos)) {
+            $this->html('<div class="marcar_todas">' . formCheckbox(label: $todos, check: false) . '</div>');
+        }
+
+        call_user_func($callback);
+
+        if (!empty($todos)) {
+            $this->html('<div class="botao_mais"><span>Mostrar todos</span></div>');
+        }
+        $this->html('</div>');
+    }
+
+    /**
+     * Adiciona um titulo
+     *
+     * @param string      $titulo
+     * @param string|null $campo
+     * @param string|null $acao
+     * @param string|null $permissao
+     */
+    public function titulo(string $titulo, string $campo = null, string $acao = null, string $permissao = null)
+    {
+        $this->html('<h4>' . $titulo . '</h4>', $campo, $acao, $permissao);
+        return $this;
+    }
+
+    /**
+     * Adiciona uma margem
+     *
+     * @param string $tamanho
+     */
+    public function margem(int $tamanho)
+    {
+        $this->html('<div class="margem" data-fwcss="margin-top: ' . $tamanho . 'px"></div>');
+        return $this;
+    }
+
+    public function hidden(
+        string|array $name,
+        string $class = '',
+        string $id = '',
+        ?string $acao = null,
+        ?string $permissao = null
+    ) {
+        return $this->adicionarNovoInput([
+            'funcao'    => 'hidden',
+            'name'      => $name,
+            'class'     => $class,
+            'id'        => $id,
+            'permissao' => $permissao
+        ], $acao);
+    }
+
+    public function uri(
+        string|array $name,
+        string $label = '',
+        string|array $placeholder = '',
         string $class = '',
         string $id = '',
         string $icone = '',
         string $iconeCor = '',
-        bool | array $obrigatorio = false,
+        bool|array $obrigatorio = false,
         bool $focus = false,
-        null | int | array $contador = null,
+        null|int|array $contador = null,
         array $attr = [],
         string $ajuda = '',
         string $action = '',
@@ -394,41 +569,41 @@ final class Add
         ?string $permissao = null
     ) {
         return $this->adicionarNovoInput([
-            'funcao'       => 'uri',
-            'name'         => $name,
-            'label'        => $label,
-            'placeholder'  => $placeholder,
-            'class'        => $class,
-            'id'           => $id,
-            'icone'        => $icone,
-            'iconeCor'     => $iconeCor,
-            'obrigatorio'  => $obrigatorio,
-            'focus'        => $focus,
-            'contador'     => $contador,
-            'attr'         => $attr,
-            'ajuda'        => $ajuda,
-            'action'       => $action,
-            'footer'       => $footer,
-            'request'      => $request,
-            'separador'    => $separador,
-            'maximo'       => $maximo,
-            'formatar'     => $formatar,
-            'permissao'    => $permissao
+            'funcao'      => 'uri',
+            'name'        => $name,
+            'label'       => $label,
+            'placeholder' => $placeholder,
+            'class'       => $class,
+            'id'          => $id,
+            'icone'       => $icone,
+            'iconeCor'    => $iconeCor,
+            'obrigatorio' => $obrigatorio,
+            'focus'       => $focus,
+            'contador'    => $contador,
+            'attr'        => $attr,
+            'ajuda'       => $ajuda,
+            'action'      => $action,
+            'footer'      => $footer,
+            'request'     => $request,
+            'separador'   => $separador,
+            'maximo'      => $maximo,
+            'formatar'    => $formatar,
+            'permissao'   => $permissao
         ], $acao);
     }
 
     public function dinheiro(
-        string | array $name,
+        string|array $name,
         string $label = '',
-        string | array $placeholder = '',
+        string|array $placeholder = '',
         string $class = '',
         string $id = '',
         string $html = '',
         string $icone = '',
         string $iconeCor = '',
-        bool | array $obrigatorio = false,
+        bool|array $obrigatorio = false,
         bool $focus = false,
-        null | int | array $contador = null,
+        null|int|array $contador = null,
         array $attr = [],
         string $ajuda = '',
         bool $autocomplete = false,
@@ -470,17 +645,17 @@ final class Add
     }
 
     public function url(
-        string | array $name,
+        string|array $name,
         string $label = '',
-        string | array $placeholder = '',
+        string|array $placeholder = '',
         string $class = '',
         string $id = '',
         string $html = '',
         string $icone = '',
         string $iconeCor = '',
-        bool | array $obrigatorio = false,
+        bool|array $obrigatorio = false,
         bool $focus = false,
-        string | array $attr = [],
+        string|array $attr = [],
         string $ajuda = '',
         bool $autocomplete = false,
         string $action = '',
@@ -523,15 +698,15 @@ final class Add
     }
 
     public function telefone(
-        string | array $name,
+        string|array $name,
         string $label = '',
-        string | array $placeholder = '',
+        string|array $placeholder = '',
         string $class = '',
         string $id = '',
         string $html = '',
         string $icone = '',
         string $iconeCor = '',
-        bool | array $obrigatorio = false,
+        bool|array $obrigatorio = false,
         bool $focus = false,
         array $attr = [],
         string $ajuda = '',
@@ -572,18 +747,18 @@ final class Add
     }
 
     public function email(
-        string | array $name,
+        string|array $name,
         string $label = '',
-        string | array $placeholder = '',
+        string|array $placeholder = '',
         string $class = '',
         string $id = '',
         string $html = '',
         string $icone = '',
         string $iconeCor = '',
-        bool | array $obrigatorio = false,
+        bool|array $obrigatorio = false,
         bool $focus = false,
-        null | int | array $contador = null,
-        string | array $attr = [],
+        null|int|array $contador = null,
+        string|array $attr = [],
         string $ajuda = '',
         bool $autocomplete = false,
         string $action = '',
@@ -800,15 +975,15 @@ final class Add
     }
 
     public function cpf(
-        string | array $name,
+        string|array $name,
         string $label = '',
-        string | array $placeholder = '',
+        string|array $placeholder = '',
         string $class = '',
         string $id = '',
         string $html = '',
         string $icone = '',
         string $iconeCor = '',
-        bool | array $obrigatorio = false,
+        bool|array $obrigatorio = false,
         bool $focus = false,
         array $attr = [],
         string $ajuda = '',
@@ -846,15 +1021,15 @@ final class Add
     }
 
     public function cnpj(
-        string | array $name,
+        string|array $name,
         string $label = '',
-        string | array $placeholder = '',
+        string|array $placeholder = '',
         string $class = '',
         string $id = '',
         string $html = '',
         string $icone = '',
         string $iconeCor = '',
-        bool | array $obrigatorio = false,
+        bool|array $obrigatorio = false,
         bool $focus = false,
         array $attr = [],
         string $ajuda = '',
@@ -899,48 +1074,36 @@ final class Add
         string $permissao = null
     ) {
         $this->adicionarNovoInput([
-            'funcao'       => 'arquivoLista',
-            'name'         => $name,
-            'diretorio'    => $diretorio,
-            'class'        => $class,
-            'id'           => $id,
-            'obrigatorio'  => $obrigatorio,
+            'funcao'      => 'arquivoLista',
+            'name'        => $name,
+            'diretorio'   => $diretorio,
+            'class'       => $class,
+            'id'          => $id,
+            'obrigatorio' => $obrigatorio,
         ], $acao, $permissao);
         return $this;
     }
 
-    public function cep(
-        $name,
-        string $label = '',
-        string $placeholder = '',
-        bool $obrigatorio = false
-    ) {
-        $this->input(
-            name: $name,
-            label: $label,
-            placeholder: $placeholder,
-            obrigatorio: $obrigatorio,
-            mascara: '00000-000',
-            numero: 1,
-            formatar: 'cep'
-        );
-        return $this;
-    }
+    /*
+    |--------------------------------------------------------------------------
+    | MÉTODOS PRIVADOS
+    |--------------------------------------------------------------------------
+    */
 
     public function numero(
-        string | array $name,
+        string|array $name,
         string $label = '',
-        string | array $placeholder = '',
+        string|array $placeholder = '',
         string $class = '',
         string $id = '',
         string $html = '',
         string $icone = '',
         string $iconeCor = '',
-        bool | array $obrigatorio = false,
+        bool|array $obrigatorio = false,
         bool $focus = false,
-        null | int | array $contador = null,
+        null|int|array $contador = null,
         array $attr = [],
-        string | array $mascara = '',
+        string|array $mascara = '',
         string $ajuda = '',
         bool $autocomplete = false,
         string $action = '',
@@ -976,15 +1139,15 @@ final class Add
     }
 
     public function data(
-        string | array $name,
+        string|array $name,
         string $label = '',
-        string | array $placeholder = '00/00/0000',
+        string|array $placeholder = '00/00/0000',
         string $class = '',
         string $id = '',
         string $html = '',
         string $icone = '',
         string $iconeCor = '',
-        bool | array $obrigatorio = false,
+        bool|array $obrigatorio = false,
         bool $focus = false,
         array $attr = [],
         string $ajuda = '',
@@ -1025,15 +1188,15 @@ final class Add
     }
 
     public function dataHora(
-        string | array $name,
+        string|array $name,
         string $label = '',
-        string | array $placeholder = '00/00/0000 00:00:00',
+        string|array $placeholder = '00/00/0000 00:00:00',
         string $class = '',
         string $id = '',
         string $html = '',
         string $icone = '',
         string $iconeCor = '',
-        bool | array $obrigatorio = false,
+        bool|array $obrigatorio = false,
         bool $focus = false,
         array $attr = [],
         string $ajuda = '',
@@ -1074,18 +1237,18 @@ final class Add
     }
 
     public function senha(
-        string | array $name,
+        string|array $name,
         string $label = '',
-        string | array $placeholder = '',
+        string|array $placeholder = '',
         string $class = '',
         string $id = '',
         string $html = '',
         string $icone = '',
         string $iconeCor = '',
-        bool | array $obrigatorio = false,
+        bool|array $obrigatorio = false,
         bool $focus = false,
-        null | int | array $contador = null,
-        string | array $attr = [],
+        null|int|array $contador = null,
+        string|array $attr = [],
         string $ajuda = '',
         bool $footer = true
     ) {
@@ -1120,56 +1283,12 @@ final class Add
         string $permissao = null
     ) {
         return $this->adicionarNovoInput([
-            'funcao'      => 'cor',
-            'name'        => $name,
-            'label'       => $label,
-            'id'          => $id,
-            'class'       => $class,
-            'permissao'   => $permissao
-        ], $acao);
-    }
-
-    public function select(
-        $name,
-        string|array $lista,
-        string $label = '',
-        string $placeholder = '',
-        string $id = '',
-        string $class = '',
-        bool $obrigatorio = false,
-        bool $footer = true,
-        string $change = '',
-        string $acao = null,
-        ?string $permissao = null
-    ) {
-        if (is_string($lista) && !in_array($lista, ['genero', 'estado_civil', 'estado', 'empresa'])) {
-            mensagemErro('Erro', 'Você deve passar um valor de lista aceito.');
-        }
-        if (is_string($lista) && $lista == 'genero') {
-            $lista = (new Genero())->select('Escolha um gênero');
-        } elseif (is_string($lista) && $lista == 'estado_civil') {
-            $lista = (new EstadoCivil())->select('Escolha um Estado Civil');
-        } elseif (is_string($lista) && $lista == 'estado') {
-            $lista = (new ListaHelper())->add('', 'Escolha um estado')->estado()->r();
-        } elseif (is_string($lista) && $lista == 'empresa') {
-            $lista = (new ApiHelper(token: true))
-                ->json(['titulo' => 'Escolha um cliente'])
-                ->get('/comercial-empresa/select')
-                ->array()['dado'] ?? [];
-        }
-
-        return $this->adicionarNovoInput([
-            'funcao'      => 'select',
-            'name'        => $name,
-            'lista'       => $lista,
-            'label'       => $label,
-            'placeholder' => $placeholder,
-            'id'          => $id,
-            'class'       => $class,
-            'obrigatorio' => $obrigatorio,
-            'footer'      => $footer,
-            'change'      => $change,
-            'permissao'   => $permissao
+            'funcao'    => 'cor',
+            'name'      => $name,
+            'label'     => $label,
+            'id'        => $id,
+            'class'     => $class,
+            'permissao' => $permissao
         ], $acao);
     }
 
@@ -1249,94 +1368,5 @@ final class Add
             'attr'      => $attr,
             'permissao' => $permissao
         ], $acao);
-    }
-
-    /*
-    |--------------------------------------------------------------------------
-    | MÉTODOS PRIVADOS
-    |--------------------------------------------------------------------------
-    */
-    private function adicionarNovoInput($dado, ?string $acao = null, ?string $permissao = null)
-    {
-        $dado['indice'] = preg_replace('/\[\]$/', '', $dado['name']);
-        $dado['name'] = is_string($dado['name']) ? explode('->', $dado['name'])[0] : $dado['name'];
-        $permissao = null;
-        if (array_key_exists('permissao', $dado)) {
-            $permissao = $dado['permissao'];
-            unset($dado['permissao']);
-        }
-        if (!$this->campoAceito($dado['name'], $acao, $permissao)) {
-            return $this;
-        }
-        $this->setarTitulo();
-        $this->setarAbrir();
-        $this->setarRow();
-        $this->setarColuna();
-
-        if (!in_array($dado['funcao'], ['cor', 'checkbox', 'switch', 'tag', 'indiceValor', 'hidden']) && !is_array($dado['name'])) {
-            $dado['obrigatorio'] = $this->setarCampoObrigatorio($dado['name'], $dado['obrigatorio'] ?? false);
-        }
-
-        $this->html[$this->coluna][$this->fieldset]['lista'][] = $dado;
-        return $this;
-    }
-
-    private function setarCampoObrigatorio(string $name, bool $obrigatorio): bool
-    {
-        if (in_array($name, $this->camposObrigatorio)) {
-            return true;
-        }
-        return $obrigatorio;
-    }
-
-    private function setarTitulo()
-    {
-        if (!empty($this->titulo)) {
-            $this->html[$this->coluna][$this->fieldset]['titulo'] = $this->titulo;
-            $this->titulo = '';
-        }
-    }
-
-    private function setarAbrir()
-    {
-        if (!empty($this->abrir)) {
-            $this->html[$this->coluna][$this->fieldset]['abrir'] = $this->abrir;
-            $this->abrir = false;
-        }
-    }
-
-    private function setarRow()
-    {
-        if (!empty($this->row)) {
-            $this->html[$this->coluna][$this->fieldset]['row'] = $this->row;
-            $this->row = false;
-        }
-    }
-
-    private function setarColuna()
-    {
-        if (!empty($this->numeroColuna)) {
-            $this->html[$this->coluna]['coluna'] = $this->numeroColuna;
-            $this->numeroColuna = 0;
-        }
-    }
-
-    private function campoAceito($name, ?string $acao, ?string $permissao)
-    {
-        $usuarioPermissao = sessao('USUARIO.permissao');
-        $name = preg_replace('/\[\]$/', '', $name);
-        if (
-            (!empty($permissao) && !in_array($permissao, $usuarioPermissao)) ||
-            (!empty($this->camposAceitos) && !in_array($name, $this->camposAceitos)) ||
-            (!empty($acao) && !empty($this->acao) && $acao != $this->acao)
-        ) {
-            return false;
-        }
-        return true;
-    }
-
-    private function erroCallback()
-    {
-        mensagemStatus(500, localhost: 'Você deve passar uma callback.');
     }
 }
