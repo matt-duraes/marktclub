@@ -1,5 +1,8 @@
 <?php
 
+use App\Classes\Comercial\Empresa\ID;
+use App\Classes\Comercial\Empresa\UUID;
+
 return [
     [
         'id'                      => 1,
@@ -431,12 +434,13 @@ return [
         'status'                  => 1
     ],
     [
-        'cod'                     => '58a361c4-95e2-4c28-98e3-0d3f74b6a8c7',
-        'id_usuario_dono'         => 3,
-        'titulo'                  => 'Empresa 1',
-        'razao_social'            => 'Empresa 1',
-        'nome_fantasia'           => 'Empresa 1',
-        'cnpj'                    => 12345678901234,
+        'id'                      => ID::CIESC,
+        'cod'                     => UUID::CIESC,
+        'id_usuario_equipe'       => 1,
+        'titulo'                  => 'Ciesc',
+        'razao_social'            => 'Ciesc',
+        'nome_fantasia'           => 'Ciesc',
+        'cnpj'                    => 90536442000140,
         'responsavel_nome'        => 'André Rodrigues',
         'responsavel_cpf'         => 1495180131,
         'responsavel_email'       => 'andre@marktclub.com.br',
@@ -446,7 +450,7 @@ return [
         'contrato_dia_fechamento' => 1,
         'contrato_dia_pagamento'  => 10,
         'cobrar_aposentado'       => 1,
-        'slug'                    => 'empresa1',
+        'slug'                    => 'ciesc',
         'status'                  => 1
     ],
     [

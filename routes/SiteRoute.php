@@ -150,12 +150,14 @@ Route
             ::view('/login/ativar-buscar');
         Route
             ::nome('ativarBuscar')
-            ::request(['busca', 'tipo_usuario', 'hash_validacao_captcha'])
+            ::request(['busca', 'tipo_usuario', '!local_trabalho', '!termo', 'hash_validacao_captcha'])
             ::post('/login/ativar-buscar');
         Route
-            ::nome('ativarSalvar')
-            ::request(['hash', 'cpf', '!tipo_usuario'])
-            ::view('/login/ativar-salvar');
+            ::nome('ativarSalvarPagina')
+            ::request([
+                'hash', 'cpf', '!tipo_usuario', '!email', '!nome', '!genero', '!cidade', '!estado', '!local_trabalho'
+            ])
+            ::post('/login/ativar-salvar-pagina');
         Route
             ::nome('ativarSalvar')
             ::request([

@@ -7,12 +7,15 @@ use stdClass;
 use Throwable;
 use Modules\Cpf;
 use Erro\Excecao;
+use Modules\Botao;
 use Helpers\OrmHelper;
 use App\Classes\UsuarioCliente\Hash;
+use App\Helpers\Ciesc\UsuarioHelper;
 use App\Classes\UsuarioCliente\Status;
 use App\Classes\UsuarioCliente\TipoUsuario;
 use App\Classes\ConstrutorClube\TipoAtivacao;
 use App\Helpers\Cvs\AtivarHelper as CvsHelper;
+use App\Classes\Usuario\Ativar\Ciesc\LocalTrabalho;
 
 final class BuscarModel extends ORM
 {
@@ -21,6 +24,11 @@ final class BuscarModel extends ORM
     private Cpf $cpf;
     private string $hash;
     private stdClass|array $usuario;
+    public string $nomeCompleto = '';
+    public string $genero = '';
+    public string $emailPessoal = '';
+    public string $enderecoCidade = '';
+    public string $enderecoEstado = '';
 
     /**
      * @throws Excecao
@@ -30,10 +38,59 @@ final class BuscarModel extends ORM
         private readonly ?string $empresa = null,
         private readonly TipoAtivacao $tipoAtivacao = new TipoAtivacao(),
         private readonly TipoUsuario $tipoUsuario = new TipoUsuario(),
+        private readonly LocalTrabalho $localTrabalho = new LocalTrabalho(),
+        private readonly Botao $Termo = new Botao()
     ) {
         parent::__construct(leitura: false);
         $this->validarDados();
+        if ($this->tipoAtivacao->indice() === TipoAtivacao::CIESC && $tipoUsuario->indice() == TipoUsuario::TITULAR) {
+            if ($this->Termo->valor() != Botao::SIM) {
+                mensagemErro('Campo obrigatório!', 'Você deve aceitar os termo de uso para continuar.');
+            }
+            $this->buscarUsuarioCiesc($valor, $localTrabalho);
+            return;
+        }
         $this->buscarUsuario();
+    }
+
+    private function buscarUsuarioCiesc($valor, $localTrabalho)
+    {
+        $usuario = new UsuarioHelper(
+            Cpf: new Cpf($valor),
+            LocalTrabalho: $localTrabalho
+        );
+        if (!$usuario->existe) {
+            mensagemErro(
+                'Dados não encontrado!',
+                'Não foi encontrado nenhum dado pelo seu CPF na empresa ' . $localTrabalho->indice() . '.'
+            );
+        }
+        $this->nomeCompleto = $usuario->Nome->nome();
+        $this->genero = $usuario->Genero->valor();
+        $this->emailPessoal = $usuario->Email->email();
+        $this->enderecoCidade = $usuario->cidade;
+        $this->enderecoEstado = $usuario->Estado->uf();
+
+        $base = $this->pegarUsuarioBase();
+        $this->setarCpf($valor);
+        if (!validarIndiceExiste($base, 'status')) {
+            $this->hash = $this->gerarHashCiesc(false, '');
+            return;
+        }
+        if ($base->status == 1) {
+            mensagemErro('Conta ativa!', 'Sua conta já está ativa, faça seu login para acessar o clube.');
+        }
+
+        $this->hash = $this->gerarHashCiesc(true, $base->id);
+    }
+    private function gerarHashCiesc(bool $existe, $id): string
+    {
+        return 'ciesc.' . base64Encode([
+            'existe'         => $existe,
+            'id'             => $id,
+            'cpf'            => $this->cpf->numero(),
+            'local_trabalho' => $this->localTrabalho->indice(),
+        ]);
     }
 
     /**
@@ -61,7 +118,9 @@ final class BuscarModel extends ORM
             mensagemErro('Campo inválido!', 'Você deve enviar uma chave válida.');
         }
 
-        if (($this->tipoAtivacao->indice() === TipoAtivacao::CPF) && empty($this->valor)) {
+        if ($this->tipoAtivacao->indice() === TipoAtivacao::CIESC && !$this->localTrabalho->valido()) {
+            mensagemErro('Campo inválido!', 'Escolha seu local de trabalho para continuar.');
+        } elseif (($this->tipoAtivacao->indice() === TipoAtivacao::CPF) && empty($this->valor)) {
             mensagemErro('Campo obrigatorio!', 'Digite seu CPF para continuar.');
         } elseif (($this->tipoAtivacao->indice() === TipoAtivacao::CPF) && !validarCpf($this->valor)) {
             mensagemErro('Campo inválido!', 'Digite um CPF válido para continuar.');
@@ -112,8 +171,8 @@ final class BuscarModel extends ORM
     private function pegarWhere($empresa): array
     {
         if (
-            ($this->tipoUsuario !== null)
-            && ($this->tipoUsuario->indice() === TipoUsuario::DEPENDENTE)
+            (($this->tipoUsuario !== null) && ($this->tipoUsuario->indice() === TipoUsuario::DEPENDENTE)) ||
+            $this->tipoAtivacao->indice() === TipoAtivacao::CIESC
         ) {
             return [
                 ['cpf', soNumero($this->valor)],

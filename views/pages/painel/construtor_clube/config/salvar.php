@@ -17,6 +17,8 @@ return [
         'campos_primeiro_acesso', 'grupo_label', 'grupo_placeholder', 'link_facebook', 'link_instagram',
         'link_twitter', 'link_linkedin', 'link_youtube', 'link_tiktok', 'tela_login',
         'menu_carteira', 'menu_tema', 'copiar_padrao', 'link_funcionario', 'texto_login_usuario',
-        'texto_login_dependente', 'texto_login_funcionario', 'tipo_cargo', 'app_versao_android', 'app_versao_ios'
+        'texto_login_dependente', 'texto_login_funcionario', 'tipo_cargo', 'app_versao_android', 'app_versao_ios',
+        'botao_senha_status', 'botao_senha_tipo', 'botao_senha_link', 'botao_cadastro_status', 'botao_cadastro_tipo',
+        'botao_cadastro_link', 'botao_ativar_status', 'botao_ativar_tipo', 'botao_ativar_link'
     ]
 ];

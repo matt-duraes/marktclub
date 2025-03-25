@@ -88,7 +88,7 @@ trait AtivarTrait
         $this->termo = new Botao($dado['termo']);
         $this->data_nascimento = new Data($dado['data_nascimento']);
         $this->estado_civil = new EstadoCivil($dado['estado_civil']);
-        $this->grupo = $dado['grupo'];
+        $this->grupo = $dado['grupo'] ?? '';
         $this->email_pessoal = new Email($dado['email_pessoal']);
         $this->email_trabalho = new Email($dado['email_trabalho']);
         $this->telefone_pessoal = new Telefone($dado['telefone_pessoal']);
@@ -100,11 +100,11 @@ trait AtivarTrait
         $this->endereco_bairro = $dado['endereco_bairro'];
         $this->endereco_estado = new EnderecoEstado($dado['endereco_estado']);
         $this->endereco_cidade = $dado['endereco_cidade'];
-        $this->trabalho_cargo = new TrabalhoCargo($dado['trabalho_cargo']);
+        $this->trabalho_cargo = new TrabalhoCargo($dado['trabalho_cargo'] ?? '');
 
         $tipoCargo = $this->validarTipoCargo();
         if ($tipoCargo->indice() === TipoCargo::NORMAL) {
-            $trabalhoCargo = new TrabalhoEmpresa($dado['trabalho_empresa']);
+            $trabalhoCargo = new TrabalhoEmpresa($dado['trabalho_empresa'] ?? '');
             $this->trabalho_empresa = $trabalhoCargo->numero();
             return;
         }
@@ -187,12 +187,18 @@ trait AtivarTrait
         // } elseif ($this->existe($this->whereEmail($id, $empresa, $emailTrabalho))) {
         //     mensagemErro('E-mail inválido!', 'O e-mail de trabalho já está em uso por outro usuário.');
         // }
-
-        if ($this->existe([
+        $where = [
             ['id', '!=', $id],
             ['id_admin_empresa', $empresa],
             ['cpf', $cpf],
-        ])) {
+        ];
+        if (empty($id)) {
+            $where = [
+                ['id_admin_empresa', $empresa],
+                ['cpf', $cpf],
+            ];
+        }
+        if ($this->existe($where)) {
             mensagemErro('CPF inválido!', 'O CPF já está em uso por outro usuário.');
         }
     }
