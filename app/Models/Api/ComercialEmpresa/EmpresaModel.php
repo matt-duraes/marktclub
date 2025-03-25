@@ -38,7 +38,7 @@ class EmpresaModel extends ORM implements
      * @param string|null       $titulo
      * @param string|array|null $empresa
      * @param string|null       $subempresa
-     * @param string|null       $usuario
+     * @param string|array|null $usuario
      * @param string|null       $dono
      * @param Botao             $semResponsavel
      * @param ProspeccaoStatus  $prospeccaoStatus
@@ -57,7 +57,7 @@ class EmpresaModel extends ORM implements
         private readonly ?string $titulo = null,
         private readonly string|array|null $empresa = null,
         private readonly ?string $subempresa = null,
-        private readonly ?string $usuario = null,
+        private readonly string|array|null $usuario = null,
         private readonly ?string $dono = null,
         private readonly Botao $semResponsavel = new Botao(),
         private readonly ProspeccaoStatus $prospeccaoStatus = new ProspeccaoStatus(),
@@ -186,7 +186,9 @@ class EmpresaModel extends ORM implements
         $where = [];
         $ormHelper = new OrmHelper(TABELA_USUARIO_EQUIPE);
         if (!empty($this->usuario)) {
-            $where[] = ['id_usuario_equipe', $ormHelper->pegarIdPeloUuid($this->usuario)];
+            $where = is_string($this->usuario)
+                ? ['id_usuario_equipe', $ormHelper->pegarIdPeloUuid($this->usuario)]
+                : ['id_usuario_equipe', 'in', $ormHelper->mudarListaUuidParaId($this->usuario)];
         }
         if ($this->semResponsavel->valor() === Botao::SIM) {
             $where[] = ['id_usuario_equipe', 'null'];
