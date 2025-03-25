@@ -63,7 +63,7 @@ final class LoginController extends Controller
         if (
             is_array($_SERVER) &&
             array_key_exists('HTTP_HOST', $_SERVER) &&
-            in_array($_SERVER['HTTP_HOST'], ['uberconta.temmaisvantagens.com.br', 'uberhml.youhuul.com'])
+            in_array($_SERVER['HTTP_HOST'], ['uber.youhuul.com', 'uberhml.youhuul.com'])
         ) {
             $clube = 'uber';
         }
