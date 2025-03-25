@@ -118,7 +118,7 @@ final class UsuarioHelper
         if (eLocalhost() && in_array($Cpf->numero(), ['61209529009', '91851213040', '41834123070', '29848124098'])) {
             $this->usuario = [
                 'beneficiosColaborador' => [
-                    'colaborador' => [
+                    'item' => [
                         [
                             'nome'      => nomeAleatorio(),
                             'genero'    => 'M',
@@ -139,11 +139,11 @@ final class UsuarioHelper
     private function validarUsuario()
     {
         $usuario = $this->usuario;
-        if (!validarIndiceExiste($usuario, ['beneficiosColaborador.colaborador.0'])) {
+        if (!validarIndiceExiste($usuario, ['beneficiosColaborador.item.0'])) {
             return;
         }
         $this->existe = true;
-        $this->usuario = $usuario['beneficiosColaborador']['colaborador'][0] ?? [];
+        $this->usuario = $usuario['beneficiosColaborador']['item'][0] ?? [];
     }
 
     private function token()
