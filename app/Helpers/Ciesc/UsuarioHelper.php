@@ -6,12 +6,11 @@ use Modules\Cpf;
 use Modules\Nome;
 use Modules\Email;
 use Modules\Genero;
-use Helpers\CurlHelper;
 use Modules\EnderecoEstado;
 use Helpers\LocalizacaoHelper;
 use App\Classes\Usuario\Ativar\Ciesc\LocalTrabalho;
 
-final class UsuarioHelper extends CurlHelper
+final class UsuarioHelper
 {
     private string $apiLinkToken;
     private string $apiLinkUsuario;
@@ -35,7 +34,7 @@ final class UsuarioHelper extends CurlHelper
         $this->apiConsumerSecret = env('CIESC_API_CONSUMER_SECRET');
 
         $Cpf->validar('CPF');
-        if(!in_array($LocalTrabalho->indice(), ['SENAI', 'SESI', 'IEL', 'FIESC', 'CIESC'])) {
+        if (!in_array($LocalTrabalho->indice(), ['SENAI', 'SESI', 'IEL', 'FIESC', 'CIESC'])) {
             mensagemErro('Campo obrigatório!', 'O campo Local de trabalho é obrigatório.');
         }
 
@@ -57,17 +56,18 @@ final class UsuarioHelper extends CurlHelper
         $this->cidade = $this->usuario['municipio'];
         $this->Estado = new EnderecoEstado($uf);
     }
+
     private function converterGenero($genero)
     {
-        if(empty($genero)) {
+        if (empty($genero)) {
             return '';
         }
         $genero = strCaixaBaixa($genero);
         return [
-            'm' => 'masculino',
-            'f' => 'feminino',
+            'm'         => 'masculino',
+            'f'         => 'feminino',
             'masculino' => 'masculino',
-            'feminino' => 'feminino',
+            'feminino'  => 'feminino',
         ][$genero] ?? $genero;
     }
 
@@ -76,12 +76,18 @@ final class UsuarioHelper extends CurlHelper
         if ($this->eUsuarioFake($Cpf)) {
             return;
         }
-        $usuario = $this
-            ->header([
-                'Authorization' => 'Bearer ' . $this->token(),
-                'Accept' => 'application/json'
-            ])
-            ->json([
+
+        $curl = curl_init();
+        curl_setopt_array($curl, [
+            CURLOPT_URL            => $this->apiLinkUsuario,
+            CURLOPT_RETURNTRANSFER => true,
+            CURLOPT_ENCODING       => '',
+            CURLOPT_MAXREDIRS      => 10,
+            CURLOPT_TIMEOUT        => 0,
+            CURLOPT_FOLLOWLOCATION => true,
+            CURLOPT_HTTP_VERSION   => CURL_HTTP_VERSION_1_1,
+            CURLOPT_CUSTOMREQUEST  => 'POST',
+            CURLOPT_POSTFIELDS     => jsonEncode([
                 'beneficiosColaboradorRequest' => [
                     'empresa'    => $LocalTrabalho->indice(),
                     'cpf'        => $Cpf->cpf(),
@@ -93,9 +99,17 @@ final class UsuarioHelper extends CurlHelper
                         'situacao' => ['TRABALHANDO', 'EMPREGADO'],
                     ]
                 ]
-            ])
-            ->post($this->apiLinkUsuario)
-            ->array();
+            ]),
+            CURLOPT_HTTPHEADER => [
+                'Authorization: Bearer ' . $this->token(),
+                'Content-Type: application/json',
+                'Accept: application/json'
+            ],
+        ]);
+
+        $usuario = jsonDecode(curl_exec($curl), true, true);
+        curl_close($curl);
+
         $this->usuario = $usuario;
     }
 
@@ -105,11 +119,13 @@ final class UsuarioHelper extends CurlHelper
             $this->usuario = [
                 'beneficiosColaborador' => [
                     'colaborador' => [
-                        'nome'      => nomeAleatorio(),
-                        'genero'    => 'M',
-                        'email'     => emailAleatorio(),
-                        'estado'    => estadoAleatorio(),
-                        'municipio' => cidadeAleatorio(),
+                        [
+                            'nome'      => nomeAleatorio(),
+                            'genero'    => 'M',
+                            'email'     => emailAleatorio(),
+                            'estado'    => estadoAleatorio(),
+                            'municipio' => cidadeAleatorio(),
+                        ]
                     ]
                 ]
             ];
@@ -123,7 +139,7 @@ final class UsuarioHelper extends CurlHelper
     private function validarUsuario()
     {
         $usuario = $this->usuario;
-        if (!validarIndiceExiste($usuario, ['beneficiosColaborador.colaborador'])) {
+        if (!validarIndiceExiste($usuario, ['beneficiosColaborador.colaborador.0'])) {
             return;
         }
         $this->existe = true;
@@ -154,6 +170,8 @@ final class UsuarioHelper extends CurlHelper
         ]);
 
         $token = jsonDecode(curl_exec($curl), true, true);
+        curl_close($curl);
+
         if (!validarIndiceExiste($token, 'access_token')) {
             mensagemErro('Erro!', 'Ocorreu um erro ao buscar seus dados, por favor, tente novamente.');
         }
