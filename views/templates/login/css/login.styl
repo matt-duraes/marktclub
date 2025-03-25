@@ -102,6 +102,7 @@
         padding: 10px
         border: 1px dashed var(--cor-alerta)
         border-radius: 5px
+        margin-bottom: 20px
     .bloco_input
         width: 100%
         margin-top: 10px
@@ -176,6 +177,34 @@
         cursor: pointer
 
 #bloco_form_ativar
+    .obrigatorio
+        width: 100%
+        flexCol()
+        margin-bottom: 20px
+        padding: 15px 20px
+        border: 1px solid #CCC
+        border-radius: 5px
+    .obrigatorio h2
+        font-size: 1.8rem
+        font-weight: bold
+    .obrigatorio > p
+        width: 100%
+        texto()
+        margin-bottom: 10px
+    .obrigatorio .campo
+        width: 100%
+        margin-top: 5px
+    .obrigatorio .campo p
+        width: 100%
+        flexRow()
+    .obrigatorio .campo span
+    .obrigatorio .campo strong
+        texto()
+    .obrigatorio .campo span
+        color: #666
+    .obrigatorio .campo strong
+        font-weight: bold
+        color: #333
     .bloco_senha
         margin-top: 10px
     .texto_senha
@@ -306,6 +335,9 @@
         cursor: pointer
 .bloco_titular
     width: 100%
-    margin-top: 20px
     h1
         texto()
+    .termo
+        width: 100%
+        flexRow()
+        margin-top: 10px

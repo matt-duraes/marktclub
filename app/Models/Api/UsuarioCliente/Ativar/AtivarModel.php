@@ -16,6 +16,7 @@ use Modules\Telefone;
 use Modules\EnderecoCep;
 use Modules\EstadoCivil;
 use Modules\EnderecoEstado;
+use App\Classes\Comercial\Empresa\ID;
 use App\Classes\UsuarioCliente\TrabalhoCargo;
 use App\Models\Api\UsuarioCliente\Ativar\Trait\AtivarTrait;
 
@@ -26,6 +27,7 @@ final class AtivarModel extends ORM
     protected string $ormTabela = TABELA_USUARIO_CLIENTE;
     private string $erroPadrao = 'Ocorreu um erro ao ativar seu usuário, por favor, tente novamente.';
     private stdClass $usuario;
+    private array $hashCiesc = [];
     private string $hash;
     private Nome $nome;
     private Cpf $cpf;
@@ -48,6 +50,9 @@ final class AtivarModel extends ORM
     private string $endereco_cidade;
     private TrabalhoCargo $trabalho_cargo;
     private string|int|null $trabalho_empresa;
+    private bool $ciesc = false;
+    private bool $ciescInsert = false;
+    private stdClass $usuarioCiescUpdate;
 
     public function __construct(
         private Request $request
@@ -55,19 +60,70 @@ final class AtivarModel extends ORM
         parent::__construct();
         $this->setarPropriedade();
         $this->validarDado();
-        $this->buscarUsuario();
-        $this->validarCpf();
+        $this->verificaCiescPrecisaSalvar();
+        if (!$this->ciesc) {
+            $this->buscarUsuario(['hash', $this->hash]);
+            $this->validarCpf();
+        } elseif ($this->ciesc && !$this->ciescInsert) {
+            $this->buscarUsuario([
+                ['empresa', ID::CIESC],
+                ['documento', $this->usuarioCiescUpdate->cpf]
+            ]);
+        }
         $this->validarCampoUnico();
+        if ($this->ciescInsert) {
+            $this->salvarUsuarioCiesc();
+            return;
+        } elseif ($this->ciesc) {
+            $this->salvarUsuario();
+            return;
+        }
         $this->validarHash();
         $this->validarGrupoUsuario();
         $this->salvarUsuario();
     }
 
-    private function buscarUsuario()
+    private function verificaCiescPrecisaSalvar()
+    {
+        if (!str_starts_with($this->hash, 'ciesc.')) {
+            return;
+        }
+        $hash = base64Decode(explode('.', $this->hash)[1]);
+        if (!validarIndiceExiste($hash, ['existe', 'cpf', 'id', 'local_trabalho'])) {
+            mensagemErro('Erro!', $this->erroPadrao);
+        }
+        $this->ciesc = true;
+        $this->validarCpfCiesc($hash['cpf']);
+        $this->grupo = $hash['local_trabalho'];
+        if ($hash['existe']) {
+            $this->usuarioCiescUpdate = (object)[
+                'cpf'              => $hash['cpf'],
+                'grupo'            => $hash['local_trabalho']
+            ];
+            return;
+        }
+        $this->ciescInsert = true;
+        $this->usuario = (object)[
+            'id'               => $hash['id'],
+            'id_admin_empresa' => ID::CIESC,
+            'cpf'              => $hash['cpf'],
+            'grupo'            => $hash['local_trabalho']
+        ];
+        return;
+    }
+
+    private function validarCpfCiesc($cpf)
+    {
+        if ($this->cpf->numero() != $cpf) {
+            mensagemErro('Erro!', 'O CPF informado está diferente do CPF do seu registro.');
+        }
+    }
+
+    private function buscarUsuario($where)
     {
         $usuario = $this
             ->campo(['id', 'id_admin_empresa', 'cpf', 'hash', 'hash_data', 'hash_tipo', 'grupo'])
-            ->where(['hash', $this->hash])
+            ->where($where)
             ->primeiro();
         if (!$usuario) {
             mensagemErro('Erro!', $this->erroPadrao);
@@ -122,6 +178,52 @@ final class AtivarModel extends ORM
             ])
             ->where(['id', $this->usuario->id])
             ->update();
+        if (!$salvar) {
+            mensagemErro('Erro!', $this->erroPadrao);
+        }
+    }
+
+    private function salvarUsuarioCiesc()
+    {
+        $hoje = hoje();
+        $agora = agora();
+        $salvar = $this
+            ->dado([
+                'cod'                  => uuid(),
+                'empresa'              => ID::CIESC,
+                'tipo'                 => 1,
+                'nome'                 => $this->nome->nome(),
+                'cpf'                  => $this->cpf->numero(),
+                'genero'               => $this->genero->numero(),
+                'salt'                 => $this->senha->senha(),
+                'data_termo'           => $hoje,
+                'data_email'           => $hoje,
+                'data_password'        => $agora,
+                'data_ativacao'        => $agora,
+                'data_dado'            => $hoje,
+                'data_nascimento'      => $this->data_nascimento->date(),
+                'estado_civil'         => $this->estado_civil->numero(),
+                'grupo'                => $this->grupo,
+                'email_pessoal'        => $this->email_pessoal->email(),
+                'email_trabalho'       => $this->email_trabalho->email(),
+                'telefone_celular'     => $this->telefone_pessoal->numero(),
+                'telefone_fixo'        => $this->telefone_trabalho->numero(),
+                'trabalho_cargo'       => $this->trabalho_cargo->numero(),
+                'trabalho_orgao'       => $this->trabalho_empresa,
+                'endereco_cep'         => $this->endereco_cep->numero(),
+                'endereco_logradouro'  => $this->endereco_logradouro,
+                'endereco_numero'      => $this->endereco_numero,
+                'endereco_complemento' => $this->endereco_complemento,
+                'endereco_bairro'      => $this->endereco_bairro,
+                'endereco_estado'      => $this->endereco_estado->valor(),
+                'endereco_cidade'      => $this->endereco_cidade,
+                'mensagem'             => 1,
+                'primeiro_acesso'      => 1,
+                'data_criacao'         => $agora,
+                'data_atualizacao'     => $agora,
+                'status'               => 1,
+            ])
+            ->insert();
         if (!$salvar) {
             mensagemErro('Erro!', $this->erroPadrao);
         }
