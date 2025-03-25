@@ -19,7 +19,7 @@ class LocalTrabalho extends StatusStatus
             self::SENAI => 'SENAI',
             self::SESI  => 'SESI',
             self::IEL   => 'IEL',
-            self::FIESC => 'SIAPE',
+            self::FIESC => 'FIESC',
             self::CIESC => 'CIESC'
         ]);
     }
