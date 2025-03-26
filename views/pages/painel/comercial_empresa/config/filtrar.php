@@ -1,6 +1,7 @@
 <?php
 
 use App\Classes\ComercialEmpresa\Status;
+use App\Classes\UsuarioEquipe\Tipo;
 
 $Painel = new PainelConfig\Filtrar('comercial-empresa');
 
@@ -22,7 +23,8 @@ $Painel
         name: 'usuario',
         lista: 'usuario',
         titulo: 'Gestor do contrato',
-        label: 'Gestor do contrato'
+        label: 'Gestor do contrato',
+        tipoEquipe: Tipo::COMERCIAL
     )
     ->select(
         name: 'status',

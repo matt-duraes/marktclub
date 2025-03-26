@@ -1,6 +1,6 @@
 <?php
 
-use Helpers\ApiHelper;
+use App\Classes\UsuarioEquipe\Tipo;
 use App\Classes\ComercialEmpresa\FinalidadePrincipal;
 use Helpers\ListaHelper;
 use App\Classes\ComercialEmpresa\Origem;
@@ -12,27 +12,24 @@ $Painel = new PainelConfig\Add(app: 'comercial-empresa', acao: $acao);
 
 $Painel->coluna(callback: function () use ($Painel) {
     $Painel->fieldset('Dados do contrato', function () use ($Painel) {
-        $equipe = (new ApiHelper(token: true))
-            ->json(['titulo' => 'Escolha um usuário'])
-            ->get('/usuario-equipe/select')
-            ->array();
         $Painel
             ->select(
                 name: 'equipe',
+                lista: 'usuario',
                 label: 'Responsável pelo contrato',
-                lista: $equipe['dado'] ?? []
+                tipoEquipe: Tipo::COMERCIAL
             )
             ->input(name: 'titulo', label: 'Título para o cliente')
             ->select(
                 name: 'finalidade_principal',
-                label: 'Finalidade da empresa',
                 lista: (new FinalidadePrincipal())->select('Escolha uma opção'),
+                label: 'Finalidade da empresa',
                 change: 'finalidadePrincipal'
             )
             ->select(
                 name: 'finalidade_secundaria',
-                label: 'Finalidade secundária',
-                lista: ['' => 'Escolha uma finalidade principal']
+                lista: ['' => 'Escolha uma finalidade principal'],
+                label: 'Finalidade secundária'
             );
     });
     $Painel->fieldset('Dados da empresa', function () use ($Painel) {
@@ -41,7 +38,7 @@ $Painel->coluna(callback: function () use ($Painel) {
             ->input(name: 'razao_social', label: 'Razão social')
             ->cnpj(name: 'cnpj', label: 'CNPJ', placeholder: 'CNPJ')
             ->url(name: 'site', label: 'Site', placeholder: 'Site')
-            ->select(name: 'estado_principal', label: 'Estado principal', lista: (new ListaHelper())->estado()->r());
+            ->select(name: 'estado_principal', lista: (new ListaHelper())->estado()->r(), label: 'Estado principal');
     });
     $Painel->fieldset('Dados do responsável', function () use ($Painel) {
         $Painel
@@ -67,9 +64,17 @@ $Painel->coluna(callback: function () use ($Painel) {
 $Painel->coluna(callback: function () use ($Painel) {
     $Painel->fieldset('Dados de apresentação', function () use ($Painel) {
         $Painel
-            ->select(name: 'contato_preferencial', label: 'Canal de preferência', lista: (new CanalPreferencia())->select('Escolha uma opção'))
+            ->select(
+                name: 'contato_preferencial',
+                lista: (new CanalPreferencia())->select('Escolha uma opção'),
+                label: 'Canal de preferência'
+            )
             ->data(name: 'data_apresentacao', label: 'Data de apresentação', placeholder: 'Data de apresentação')
-            ->select(name: 'formato_reuniao', label: 'Formato da reunião', lista: (new FormatoReuniao())->select('Escolha uma opção'));
+            ->select(
+                name: 'formato_reuniao',
+                lista: (new FormatoReuniao())->select('Escolha uma opção'),
+                label: 'Formato da reunião'
+            );
     });
 });
 
@@ -77,7 +82,11 @@ $Painel->coluna(callback: function () use ($Painel) {
     $Painel->fieldset('Negociação', function () use ($Painel) {
         $Painel
             ->data(name: 'devolutiva', label: 'Devolutiva', placeholder: 'Devolutiva')
-            ->select(name: 'etapa_negociacao', label: 'Etapa', lista: (new EtapaNegociacao())->select('Escolha uma opção'));
+            ->select(
+                name: 'etapa_negociacao',
+                lista: (new EtapaNegociacao())->select('Escolha uma opção'),
+                label: 'Etapa'
+            );
     });
 });
 
@@ -92,7 +101,7 @@ $Painel->coluna(callback: function () use ($Painel) {
 
 $Painel->coluna(callback: function () use ($Painel) {
     $Painel->fieldset('Contrato perdido', callback: function () use ($Painel) {
-        $Painel->input(id: 'inpust_motivo_perdido', name: 'motivo_perdido', label: 'Motivo de perder');
+        $Painel->input(name: 'motivo_perdido', label: 'Motivo de perder', id: 'inpust_motivo_perdido');
     });
 });
 
