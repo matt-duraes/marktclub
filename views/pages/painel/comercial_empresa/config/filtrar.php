@@ -26,12 +26,22 @@ $Painel
         label: 'Gestor do contrato',
         tipoEquipe: Tipo::COMERCIAL
     )
-    ->select(
-        name: 'status',
-        lista: $Status->select('Escolha uma opção'),
-        titulo: 'Status',
-        label: 'Status'
-    );
+    ->bloco(function () use ($Painel, $Status) {
+        $Painel
+            ->numero(
+                'quantidade',
+                'Quantidade de registros',
+                'Quantidade de registros',
+                'Quantidade de registros'
+            )
+            ->select(
+                'status',
+                $Status->select('Escolha um status'),
+                'Status',
+                'Status',
+                'Status'
+            );
+    });
 
 $Painel->replace('status', $Status->select());
 
