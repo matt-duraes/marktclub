@@ -47,6 +47,10 @@ final class RequisicaoEnviar
         $body = jsonDecode($post['body'], true, true);
         $json = jsonDecode($post['json'], true, true);
 
+        if($token == 'sem_token') {
+            $repetir = false;
+        }
+
         if (sessaoExiste($this->nomeToken) && is_array(sessao($this->nomeToken)) && validarIndiceExiste(sessao($this->nomeToken), ['token', 'publica', 'privada'])) {
             $tokenExistente = sessao($this->nomeToken);
             $this->setarCryptPelaChave($tokenExistente['publica'], $tokenExistente['privada']);
