@@ -948,6 +948,21 @@ Route
             ::post('/login/digio');
 
         Route
+            ::nome('loginOauth')
+            ::middleware(TokenMiddleware::class, 'scope', ['login:oauth'])
+            ::request(['empresa'])
+            ::post('/login/oauth');
+
+        Route
+            ::nome('loginPositivo')
+            ::middleware(TokenMiddleware::class, 'scope', ['login:positivo'])
+            ::request([
+                'empresa', 'tipo_usuario', 'documento_cpf', 'conselho_estado', 'documento_crm',
+                'data_nascimento', 'nome_mae', 'cadastro',
+            ])
+            ::post('/login/positivo');
+
+        Route
             ::nome('loginToken')
             ::middleware(TokenMiddleware::class, 'scope', ['login:token'])
             ::request(['clube', 'usuario'])

@@ -2,21 +2,21 @@
 
 namespace App\Controllers\Api;
 
-use App\Classes\ApiToken\Tipo;
-use App\Classes\LoginClube\Tipo as LoginClubeTipo;
-use App\Classes\UsuarioCliente\Helper;
-use App\Models\Api\ApiToken\TokenAuthorizationEntity;
-use App\Models\Api\ConstrutorClube\ConstrutorEntity;
-use App\Models\Api\LoginApi\DigioModel;
-use App\Models\Api\LoginApi\LoginModel as LoginApiModel;
-use App\Models\Api\LoginClube\LoginClubeModel;
-use App\Models\Api\LoginPainel\LoginPainelModel;
-use App\Models\Api\UsuarioCliente\ClienteEntity;
-use Controller\Controller;
+use Throwable;
 use Http\Request;
 use Http\Response;
 use Modules\Botao;
-use Throwable;
+use Controller\Controller;
+use App\Classes\ApiToken\Tipo;
+use App\Classes\UsuarioCliente\Helper;
+use App\Models\Api\LoginApi\DigioModel;
+use App\Models\Api\LoginClube\LoginClubeModel;
+use App\Models\Api\LoginPainel\LoginPainelModel;
+use App\Models\Api\UsuarioCliente\ClienteEntity;
+use App\Classes\LoginClube\Tipo as LoginClubeTipo;
+use App\Models\Api\ConstrutorClube\ConstrutorEntity;
+use App\Models\Api\ApiToken\TokenAuthorizationEntity;
+use App\Models\Api\LoginApi\LoginModel as LoginApiModel;
 
 final class LoginController extends Controller
 {
@@ -43,6 +43,18 @@ final class LoginController extends Controller
     {
         $Login = new LoginApiModel($request->dado());
         return $Login->link();
+    }
+
+    public function postLoginOauth(Request $request): Response
+    {
+        mensagemErro('Campo obrigatório!', 'Digite seu CPF para continuar.');
+        return new Response(status: 204);
+    }
+
+    public function postLoginPositivo(Request $request): Response
+    {
+        mensagemErro('Campo obrigatório!', 'Digite seu CPF para continuar.');
+        return new Response(status: 204);
     }
 
     public function loginApiOk($hash)

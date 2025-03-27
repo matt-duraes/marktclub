@@ -215,12 +215,16 @@ final class ClienteController extends Controller implements
             'id'   => uuid(),
             'hash' => $Ativar->pegarHash(),
             'cpf'  => $Ativar->pegarCpf()->numero(),
-            'nome_completo' => $Ativar->nomeCompleto,
-            'email_pessoal' => $Ativar->emailPessoal,
-            'genero' => $Ativar->genero,
-            'endereco_cidade' => $Ativar->enderecoCidade,
-            'endereco_estado' => $Ativar->enderecoEstado,
-            'local_trabalho' => $request->local_trabalho,
+            'imutavel' => [
+                'documento_cpf' => [
+                    'nome' => 'CPF',
+                    'valor' => $Ativar->pegarCpf()->cpf()
+                ],
+                'local_trabalho' => [
+                    'nome' => 'Local de trabalho',
+                    'valor' => $request->local_trabalho,
+                ]
+            ]
         ], 201);
     }
 
