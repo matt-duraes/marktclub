@@ -40,12 +40,6 @@ $Painel
             ->campo('data_apresentacao', 'Data de apresentação')
             ->campo('formato_reuniao', 'Formato da reunião');
     })
-    ->bloco('Dados de Indicação', function () use ($Painel) {
-        $Painel->campo('indicado', 'Quem indicou');
-    })
-    ->bloco('Equipe', function () use ($Painel) {
-        $Painel->campo('equipe_nome', 'Responsável pela Prospecção');
-    })
     ->bloco('Standby', function () use ($Painel) {
         $Painel
             ->campo('motivo_standby', 'Motivo do standby')
