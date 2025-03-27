@@ -138,6 +138,15 @@ class EmpresaModel extends ORM implements
         if ($this->cnpj->valido()) {
             $where[] = ['cnpj', $this->cnpj->numero()];
         }
+        if ($this->dataInicio->valido() && $this->dataFinal->valido()) {
+            $where[] = [
+                'data_criacao', 'between', [$this->dataInicio->date(), $this->dataFinal->date()]
+            ];
+        } elseif ($this->dataInicio->valido()) {
+            $where[] = ['data_criacao', $this->dataInicio->date()];
+        } elseif ($this->dataFinal->valido()) {
+            $where[] = ['data_criacao', $this->dataFinal->date()];
+        }
         if ($this->prospeccaoStatus->valido()) {
             $where[] = ['prospeccao_status', $this->prospeccaoStatus->numero()];
         }

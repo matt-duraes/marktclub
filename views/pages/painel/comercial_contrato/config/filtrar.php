@@ -38,21 +38,11 @@ $Painel
                 'Data Final'
             );
     })
-    ->bloco(function () use ($Painel, $Status) {
-        $Painel
-            ->numero(
-                'quantidade',
-                'Quantidade de registros',
-                'Quantidade de registros',
-                'Quantidade de registros'
-            )
-            ->select(
-                'status',
-                $Status->select('Escolha um status'),
-                'Status',
-                'Status',
-                'Status'
-            );
-    });
+    ->numero(
+        'quantidade',
+        'Quantidade de registros',
+        'Quantidade de registros',
+        'Quantidade de registros'
+    );
 
 return $Painel;

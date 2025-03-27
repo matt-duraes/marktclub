@@ -5,6 +5,7 @@ namespace App\Models\Api\ComercialEmpresa;
 use App\Classes\ComercialEmpresa\FinalidadePrincipal;
 use App\Classes\ComercialEmpresa\FinalidadeSecundaria;
 use App\Classes\ComercialEmpresa\Ordem;
+use App\Classes\ComercialEmpresa\Origem;
 use App\Classes\ComercialEmpresa\ProspeccaoStatus;
 use App\Classes\ComercialEmpresa\Status;
 use App\Models\Api\Painel\LogDownloadEntity;
@@ -275,6 +276,8 @@ class DownloadModel extends ORM
                     $valor = (new FinalidadeSecundaria($valor))->nome();
                 } elseif ($campo == 'estado_principal') {
                     $valor = (new EnderecoEstado($valor))->estado();
+                } elseif ($campo == 'origem') {
+                    $valor = (new Origem($valor))->nome();
                 } else {
                     $valor = strNull($valor);
                 }
