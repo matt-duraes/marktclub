@@ -227,12 +227,7 @@ final class LoginController extends Controller
         return mensagemSucesso([
             'hash'          => $buscar->dado->hash ?? '',
             'cpf'           => $buscar->dado->cpf ?? '',
-            'nome'          => $buscar->dado->nome_completo ?? '',
-            'email'         => $buscar->dado->email_pessoal ?? '',
-            'estado'        => $buscar->dado->endereco_estado ?? '',
-            'cidade'        => $buscar->dado->endereco_cidade ?? '',
-            'genero'        => $buscar->dado->genero ?? '',
-            'localTrabalho' => $buscar->dado->local_trabalho ?? ''
+            'imutavel'      => jsonEncode($buscar->dado->imutavel)
         ], status: 201);
     }
 
@@ -255,17 +250,13 @@ final class LoginController extends Controller
         if ($request->vazio('hash')) {
             mensagemStatus(404);
         }
+
         return view('login.ativar.salvar', [
             'hash'          => $request->hash,
             'cpf'           => $request->cpf,
+            'imutavel'      => jsonDecode($request->imutavel, false, true),
             'tipo_usuario'  => $request->tipo_usuario,
             'grupo'         => (new GrupoModel())->buscarGrupos(),
-            'nome'          => $request->nome,
-            'email'         => $request->email,
-            'estado'        => $request->estado,
-            'cidade'        => $request->cidade,
-            'genero'        => $request->genero,
-            'localTrabalho' => $request->local_trabalho
         ]);
     }
 
