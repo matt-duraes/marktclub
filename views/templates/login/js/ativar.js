@@ -218,12 +218,7 @@ const criarPaginaAtivarSalvar = dado => {
     body.append('hash', dado.hash);
     body.append('cpf', dado.cpf);
     body.append('tipo_usuario', dado.tipoUsuario);
-    body.append('email', dado.email);
-    body.append('nome', dado.nome);
-    body.append('genero', dado.genero);
-    body.append('cidade', dado.cidade);
-    body.append('estado', dado.estado);
-    body.append('local_trabalho', dado.localTrabalho);
+    body.append('imutavel', dado.imutavel);
 
     const PaginaAtivar = new Pagina(
         'ativar-conta',

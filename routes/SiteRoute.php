@@ -155,7 +155,7 @@ Route
         Route
             ::nome('ativarSalvarPagina')
             ::request([
-                'hash', 'cpf', '!tipo_usuario', '!email', '!nome', '!genero', '!cidade', '!estado', '!local_trabalho'
+                'hash', 'cpf', '!tipo_usuario', '!imutavel'
             ])
             ::post('/login/ativar-salvar-pagina');
         Route
