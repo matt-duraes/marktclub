@@ -147,8 +147,8 @@ final class EmpresaEntity extends Entity
     ];
     protected string $ormValidarSalvar = '
         titulo|Título|vazio
-        finalidade_principal|Finalidade principal|vazio|valido
-        finalidade_secundaria|Finalidade secundária|vazio|valido
+        finalidade_principal|Finalidade principal|valido
+        finalidade_secundaria|Finalidade secundária|valido
         responsavel_nome|Nome do responsável|vazio|valido
         responsavel_telefone|Telefone do responsável|vazio|valido
         responsavel_email|E-mail do responsável|vazio|valido

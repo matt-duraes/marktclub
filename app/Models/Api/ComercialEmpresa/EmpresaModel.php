@@ -131,7 +131,7 @@ class EmpresaModel extends ORM implements
         ];
         $ormHelper = new OrmHelper(TABELA_COMERCIAL_EMPRESA);
         if (!empty($this->empresa)) {
-            $where = is_string($this->empresa)
+            $where[] = is_string($this->empresa)
                 ? ['id_admin_empresa', $ormHelper->pegarIdPeloUuid($this->empresa)]
                 : ['id_admin_empresa', 'in', $ormHelper->mudarListaUuidParaId($this->empresa)];
         }
@@ -186,11 +186,10 @@ class EmpresaModel extends ORM implements
         $where = [];
         $ormHelper = new OrmHelper(TABELA_USUARIO_EQUIPE);
         if (!empty($this->usuario)) {
-            $where = is_string($this->usuario)
+            $where[] = is_string($this->usuario)
                 ? ['id_usuario_equipe', $ormHelper->pegarIdPeloUuid($this->usuario)]
                 : ['id_usuario_equipe', 'in', $ormHelper->mudarListaUuidParaId($this->usuario)];
-        }
-        if ($this->semResponsavel->valor() === Botao::SIM) {
+        } elseif ($this->semResponsavel->valor() === Botao::SIM) {
             $where[] = ['id_usuario_equipe', 'null'];
         }
         if (!empty($this->dono)) {
