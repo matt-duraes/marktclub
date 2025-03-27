@@ -79,7 +79,7 @@ class DownloadModel extends ORM
         $camposAceito = [
             'titulo', 'nome_fantasia', 'razao_social', 'cnpj', 'responsavel_nome',
             'responsavel_cargo', 'responsavel_cpf', 'responsavel_telefone',
-            'responsavel_email', 'finalidade_empresa', 'finalidade_secundaria',
+            'responsavel_email', 'finalidade_principal', 'finalidade_secundaria',
             'estado_principal', 'parceiro_proprio', 'concorrente_status',
             'concorrente_nome', 'origem', 'usuario_possivel', 'contato_preferencial',
             'data_apresentacao', 'formato_reuniao', 'indicado', 'equipe_nome',
