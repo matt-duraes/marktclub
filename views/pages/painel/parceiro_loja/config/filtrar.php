@@ -121,7 +121,7 @@ $Painel
             foreach ($empresas as $id => $nome) {
                 $Painel->checkbox(
                     name: 'empresas[]',
-                    label: $nome,
+                    label: $nome ?? '',
                     value: $id,
                     permissao: Helper::PERMISSAO_EMPRESA
                 );
