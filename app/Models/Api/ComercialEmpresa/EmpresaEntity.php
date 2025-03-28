@@ -2,35 +2,35 @@
 
 namespace App\Models\Api\ComercialEmpresa;
 
-use ORM\Entity;
-use Modules\Cpf;
-use Modules\Cnpj;
-use Modules\Data;
-use Modules\Nome;
-use Modules\Botao;
-use Modules\Email;
-use Modules\Inteiro;
-use Modules\Dinheiro;
-use Modules\Telefone;
-use Helpers\OrmHelper;
-use Modules\EnderecoEstado;
-use App\Classes\ComercialEmpresa\Origem;
-use App\Classes\ComercialEmpresa\Status;
-use App\Classes\ComercialEmpresa\TipoSite;
-use App\Classes\ComercialEmpresa\EmailDisparo;
-use App\Classes\ComercialEmpresa\ContratoPrazo;
-use App\Classes\ComercialEmpresa\TipoPagamento;
-use App\Classes\ComercialEmpresa\FormatoReuniao;
 use App\Classes\ComercialEmpresa\CadastroUsuario;
-use App\Classes\ComercialEmpresa\EtapaNegociacao;
 use App\Classes\ComercialEmpresa\CanalPreferencia;
-use App\Classes\ComercialEmpresa\ProspeccaoStatus;
+use App\Classes\ComercialEmpresa\ContratoPrazo;
 use App\Classes\ComercialEmpresa\ContratoRenovacao;
+use App\Classes\ComercialEmpresa\EmailDisparo;
+use App\Classes\ComercialEmpresa\EtapaNegociacao;
 use App\Classes\ComercialEmpresa\FinalidadePrincipal;
-use App\Models\Api\ComercialFatura\UltimaFaturaModel;
 use App\Classes\ComercialEmpresa\FinalidadeSecundaria;
-use App\Models\Api\ComercialPagamento\PagamentoEntity;
+use App\Classes\ComercialEmpresa\FormatoReuniao;
+use App\Classes\ComercialEmpresa\Origem;
+use App\Classes\ComercialEmpresa\ProspeccaoStatus;
+use App\Classes\ComercialEmpresa\Status;
+use App\Classes\ComercialEmpresa\TipoPagamento;
+use App\Classes\ComercialEmpresa\TipoSite;
 use App\Models\Api\ComercialEmpresa\Trait\ValidarEmpresaAtivaTrait;
+use App\Models\Api\ComercialFatura\UltimaFaturaModel;
+use App\Models\Api\ComercialPagamento\PagamentoEntity;
+use Helpers\OrmHelper;
+use Modules\Botao;
+use Modules\Cnpj;
+use Modules\Cpf;
+use Modules\Data;
+use Modules\Dinheiro;
+use Modules\Email;
+use Modules\EnderecoEstado;
+use Modules\Inteiro;
+use Modules\Nome;
+use Modules\Telefone;
+use ORM\Entity;
 
 final class EmpresaEntity extends Entity
 {
@@ -145,17 +145,10 @@ final class EmpresaEntity extends Entity
         'formato_reuniao', 'previsao_retorno', 'motivo_standby', 'motivo_standby',
         'motivo_perdido', 'devolutiva', 'etapa_negociacao'
     ];
-    protected string $ormValidarInsert = '
+    protected string $ormValidarSalvar = '
         titulo|Título|vazio
         finalidade_principal|Finalidade principal|valido
         finalidade_secundaria|Finalidade secundária|valido
-        responsavel_nome|Nome do responsável|vazio|valido
-        responsavel_telefone|Telefone do responsável|vazio|valido
-        responsavel_email|E-mail do responsável|vazio|valido
-        status|Status|vazio|valido
-    ';
-    protected string $ormValidarSalvar = '
-        titulo|Título|vazio
         responsavel_nome|Nome do responsável|vazio|valido
         responsavel_telefone|Telefone do responsável|vazio|valido
         responsavel_email|E-mail do responsável|vazio|valido
