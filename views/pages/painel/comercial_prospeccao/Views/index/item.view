@@ -7,10 +7,13 @@
     <div class="bloco">
         <i class="icone botao_item_atendimento" data-ajuda="Dados de contato">@iconeTelefone(19)</i>
         <i class="icone botao_item_historico" data-ajuda="Adicionar histórico">@iconeMensagem(18)</i>
-
         <div class="linha"></div>
         <i class="inativar botao_item_cancelar" data-ajuda="Cancelar contrato">@iconeFechar(10)</i>
         <i class="ativar botao_item_concluir" data-ajuda="Concluir contrato">@iconeCheck(12)</i>
         <i class="standby botao_item_standby" data-ajuda="Stand-by contrato">@iconeRelogio()</i>
+    </div>
+    <div class="bloco_perfil">
+        <figure class="bloco_item" data-bgimagem="{!!imagem($r->empresa->imagem)!!}" data-ajuda="{{$r->empresa->nome}}"></figure>
+        <figure class="bloco_item" data-bgimagem="{!!imagem($r->equipe->imagem)!!}" data-ajuda="{{$r->equipe->nome}}"></figure>
     </div>
 </article>

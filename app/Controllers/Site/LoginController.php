@@ -2,21 +2,21 @@
 
 namespace App\Controllers\Site;
 
-use App\Classes\ConstrutorClube\TipoAtivacao;
-use App\Classes\TextoClube\Tipo;
-use App\Classes\UsuarioCliente\Helper as UsuarioHelper;
-use App\Models\Site\Ativar\GrupoModel;
-use App\Models\Site\Ativar\SalvarModel;
-use App\Models\Site\Cache\VersaoClubeModel;
-use App\Models\Site\Login\ComunicacaoModel;
-use App\Models\Site\Login\LogarModel;
-use App\Models\Site\Login\LoginApiModel;
-use Controller\Controller;
-use Helpers\ApiHelper;
-use Helpers\CryptHelper;
+use Throwable;
 use Http\Request;
 use Http\Response;
-use Throwable;
+use Helpers\ApiHelper;
+use Helpers\CryptHelper;
+use Controller\Controller;
+use App\Classes\TextoClube\Tipo;
+use App\Models\Site\Login\LogarModel;
+use App\Models\Site\Ativar\GrupoModel;
+use App\Models\Site\Ativar\SalvarModel;
+use App\Models\Site\Login\LoginApiModel;
+use App\Models\Site\Cache\VersaoClubeModel;
+use App\Models\Site\Login\ComunicacaoModel;
+use App\Classes\ConstrutorClube\TipoAtivacao;
+use App\Classes\UsuarioCliente\Helper as UsuarioHelper;
 
 final class LoginController extends Controller
 {
@@ -63,7 +63,7 @@ final class LoginController extends Controller
         if (
             is_array($_SERVER) &&
             array_key_exists('HTTP_HOST', $_SERVER) &&
-            in_array($_SERVER['HTTP_HOST'], ['uberconta.temmaisvantagens.com.br', 'uberhml.youhuul.com'])
+            in_array($_SERVER['HTTP_HOST'], ['uber.youhuul.com', 'uberhml.youhuul.com'])
         ) {
             $clube = 'uber';
         }
@@ -207,22 +207,27 @@ final class LoginController extends Controller
         } else {
             $buscar = (new ApiHelper('usuario_cliente:ativar'))
                 ->body([
-                    'tipo_usuario' => $request->tipo_usuario,
-                    'chave'        => ATIVACAO_TIPO,
-                    'valor'        => $valor,
-                    'empresa'      => CLUBE_EMPRESA
+                    'tipo_usuario'   => $request->tipo_usuario,
+                    'chave'          => ATIVACAO_TIPO,
+                    'valor'          => $valor,
+                    'empresa'        => CLUBE_EMPRESA,
+                    'local_trabalho' => $request->local_trabalho,
+                    'termo'          => $request->termo
                 ])
                 ->post('/usuario-cliente/ativar')
                 ->object();
         }
 
-        if ($buscar->status == 'erro') {
-            return mensagemErro(404, $buscar->erro->mensagem);
+        if (validarIndiceExiste($buscar, 'erro.mensagem')) {
+            mensagemErro(404, $buscar->erro->mensagem);
+        } elseif (!validarIndiceExiste($buscar, 'dado.hash')) {
+            mensagemErro(404, 'Ocorreu um erro ao buscar seus dados, por favor, tente novamente.');
         }
 
         return mensagemSucesso([
-            'hash' => $buscar->dado->hash ?? '',
-            'cpf'  => $buscar->dado->cpf ?? '',
+            'hash'          => $buscar->dado->hash ?? '',
+            'cpf'           => $buscar->dado->cpf ?? '',
+            'imutavel'      => jsonEncode($buscar->dado->imutavel)
         ], status: 201);
     }
 
@@ -239,17 +244,19 @@ final class LoginController extends Controller
         return new CryptHelper(chavePublica: $publica, chavePrivada: $privada);
     }
 
-    public function ativarSalvar(Request $request): Response
+    public function postAtivarSalvarPagina(Request $request): Response
     {
         // mensagemErro('Erro!', 'Ocorreu um erro no momento, por favor, tente novamente mais tarde.');
         if ($request->vazio('hash')) {
             mensagemStatus(404);
         }
+
         return view('login.ativar.salvar', [
-            'hash'         => $request->hash,
-            'cpf'          => $request->cpf,
-            'tipo_usuario' => $request->tipo_usuario,
-            'grupo'        => (new GrupoModel())->buscarGrupos(),
+            'hash'          => $request->hash,
+            'cpf'           => $request->cpf,
+            'imutavel'      => jsonDecode($request->imutavel, false, true),
+            'tipo_usuario'  => $request->tipo_usuario,
+            'grupo'         => (new GrupoModel())->buscarGrupos(),
         ]);
     }
 
@@ -265,7 +272,7 @@ final class LoginController extends Controller
             ->object();
 
         if ($dado->status == 'erro' && $dado->erro->titulo == 'Indicação já ativada') {
-            return mensagemErro($dado->erro->titulo, $dado->erro->mensagem);
+            mensagemErro($dado->erro->titulo, $dado->erro->mensagem);
         }
 
         return mensagemSucesso([

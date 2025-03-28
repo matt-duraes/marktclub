@@ -1,9 +1,11 @@
 <?php
 
 use App\Classes\ComercialEmpresa\Status;
+use App\Classes\UsuarioEquipe\Tipo;
 
 $Painel = new PainelConfig\Filtrar('comercial-empresa');
 
+$Status = new Status();
 $Painel
     ->input(
         name: 'titulo',
@@ -11,20 +13,36 @@ $Painel
         label: 'Título',
         placeholder: 'Digite o título, nome fantasia ou razão social'
     )
-    ->cnpj(name: 'cnpj', titulo: 'CNPJ', label: 'CNPJ')
-    ->select(
-        name: 'usuario',
-        titulo: 'Gestor do contrato',
-        label: 'Gestor do contrato',
-        lista: 'usuario'
+    ->cnpj(
+        name: 'cnpj',
+        titulo: 'CNPJ',
+        label: 'CNPJ',
+        placeholder: 'Digite o CNPJ'
     )
     ->select(
-        name: 'status',
-        titulo: 'Status',
-        label: 'Status',
-        lista: (new Status())->select('Escolha uma opção')
-    );
+        name: 'usuario',
+        lista: 'usuario',
+        titulo: 'Gestor do contrato',
+        label: 'Gestor do contrato',
+        tipoEquipe: Tipo::COMERCIAL
+    )
+    ->bloco(function () use ($Painel, $Status) {
+        $Painel
+            ->numero(
+                'quantidade',
+                'Quantidade de registros',
+                'Quantidade de registros',
+                'Quantidade de registros'
+            )
+            ->select(
+                'status',
+                $Status->select('Escolha um status'),
+                'Status',
+                'Status',
+                'Status'
+            );
+    });
 
-$Painel->replace('status', (new Status())->select());
+$Painel->replace('status', $Status->select());
 
 return $Painel;

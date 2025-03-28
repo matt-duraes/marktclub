@@ -2,24 +2,24 @@
 
 namespace App\Controllers\Api;
 
-use App\Classes\ConstrutorClube\Ordem;
-use App\Classes\Geral\Status;
-use App\Models\Api\ConstrutorClube\ClubeModel;
-use App\Models\Api\ConstrutorClube\ConstrutorEntity;
-use App\Models\Api\ConstrutorClube\ConstrutorModel;
-use App\Models\Api\ConstrutorClube\LinkClubeModel;
-use Controller\Controller;
 use Erro\Excecao;
 use Http\Request;
-use Http\Response;
 use Modules\Data;
+use Http\Response;
 use Modules\Pagina;
 use Modules\Quantidade;
-use System\Interface\ControllerAtualizarInterface;
+use Controller\Controller;
+use App\Classes\Geral\Status;
+use App\Classes\ConstrutorClube\Ordem;
+use App\Models\Api\ConstrutorClube\ClubeModel;
 use System\Interface\ControllerBuscarInterface;
-use System\Interface\ControllerDeletarInterface;
 use System\Interface\ControllerListarInterface;
 use System\Interface\ControllerSalvarInterface;
+use System\Interface\ControllerDeletarInterface;
+use App\Models\Api\ConstrutorClube\LinkClubeModel;
+use System\Interface\ControllerAtualizarInterface;
+use App\Models\Api\ConstrutorClube\ConstrutorModel;
+use App\Models\Api\ConstrutorClube\ConstrutorEntity;
 
 class ConstrutorClubeController extends Controller implements
     ControllerBuscarInterface,
@@ -65,7 +65,9 @@ class ConstrutorClubeController extends Controller implements
             'menu_meu_parceiro', 'administrado_status', 'api_status', 'tipo_ativacao', 'tipo_cargo', 'status',
             'campos_primeiro_acesso', 'grupo_label', 'grupo_placeholder', 'tela_login', 'link_odontologico',
             'link_funcionario', 'texto_login_usuario', 'texto_login_dependente', 'texto_login_funcionario',
-            'tipo_cargo', 'app_versao_android', 'app_versao_ios',
+            'tipo_cargo', 'app_versao_android', 'app_versao_ios', 'botao_senha_status', 'botao_senha_tipo',
+            'botao_senha_link', 'botao_cadastro_status', 'botao_cadastro_tipo', 'botao_cadastro_link',
+            'botao_ativar_status', 'botao_ativar_tipo', 'botao_ativar_link',
         ]), $status);
     }
 

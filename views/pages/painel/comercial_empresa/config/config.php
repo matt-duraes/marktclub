@@ -11,7 +11,7 @@ return [
     'add'        => false,
     'editar'     => true,
     'deletar'    => false,
-    'download'   => true,
+    'download'   => false,
     'historico'  => true,
     'api'        => [
         'scope'        => 'comercial_empresa',

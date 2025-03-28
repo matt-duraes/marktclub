@@ -12,6 +12,18 @@
         <input type="hidden" id="input_ativar_hash_busca" value="{{$hash}}">
         <input type="hidden" id="input_tipo_usuario" value="{{$tipo_usuario}}">
 
+        @if (ATIVACAO_TIPO === 'ciesc'):
+        <div class="obrigatorio">
+            <h2>Dados obrigatórios</h2>
+            <p>Além dos dados obrigatórios do formulário, os dados abaixo, já preenchidos, não podem ser alterados e serão salvos com os demais dados do formulário.</p>
+            @ foreach($imutavel ?? [] as $r):
+            <div class="campo">
+                <p><span>{{$r['nome']}}:</span> <strong> {{$r['valor']}}</strong></p>
+            </div>
+            @ endforeach;
+        </div>
+        @ endif;
+
         @if ( array_intersect(['nome', 'cpf', 'data_nascimento', 'genero', 'estado_civil', 'grupo'], CAMPOS_PRIMEIRO_ACESSO)):
         <div class="bloco">
             <h2>Dados pessoais</h2>

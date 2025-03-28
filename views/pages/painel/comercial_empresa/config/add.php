@@ -1,5 +1,6 @@
 <?php
 
+use App\Classes\UsuarioEquipe\Tipo;
 use Helpers\ApiHelper;
 use App\Classes\ComercialEmpresa\TipoSite;
 use App\Classes\ComercialEmpresa\EmailDisparo;
@@ -8,8 +9,9 @@ use App\Classes\ComercialEmpresa\TipoPagamento;
 use App\Classes\ComercialEmpresa\CadastroUsuario;
 use App\Classes\ComercialEmpresa\ContratoRenovacao;
 use App\Classes\ComercialEmpresa\FinalidadePrincipal;
+use PainelConfig\Add;
 
-$Painel = new PainelConfig\Add(app: 'comercial-empresa', acao: $acao);
+$Painel = new Add(app: 'comercial-empresa', acao: $acao);
 
 $Painel->coluna(callback: function () use ($Painel) {
     $Painel->fieldset('Dados do contrato', function () use ($Painel) {
@@ -17,21 +19,21 @@ $Painel->coluna(callback: function () use ($Painel) {
             ->input(name: 'titulo', label: 'Título para o cliente')
             ->select(
                 name: 'finalidade_principal',
-                label: 'Finalidade da empresa',
                 lista: (new FinalidadePrincipal())->select('Escolha uma opção'),
+                label: 'Finalidade da empresa',
                 change: 'finalidadePrincipal'
             )
             ->select(
                 name: 'finalidade_secundaria',
-                label: 'Finalidade secundária',
-                lista: ['' => 'Escolha uma finalidade principal']
+                lista: ['' => 'Escolha uma finalidade principal'],
+                label: 'Finalidade secundária'
             )
             ->data(
                 name: 'data_eleicao',
                 label: 'Data da eleição',
                 placeholder: 'Data da eleição',
-                id: 'bloco_data_eleicao',
-                class: 'display_none'
+                class: 'display_none',
+                id: 'bloco_data_eleicao'
             );
     });
     $Painel->fieldset('Dados da empresa', function () use ($Painel) {
@@ -52,24 +54,20 @@ $Painel->coluna(callback: function () use ($Painel) {
 
 $Painel->coluna(callback: function () use ($Painel) {
     $Painel->fieldset('Dados interno', callback: function () use ($Painel) {
-        $equipe = (new ApiHelper(token: true))
-            ->json(['titulo' => 'Escolha um usuário'])
-            ->get('/usuario-equipe/select')
-            ->array();
-
         $Painel
             ->select(
                 name: 'cadastro_usuario',
-                label: 'Como será o cadastro?',
-                lista: (new CadastroUsuario())->select('Escolha como será o cadastro')
+                lista: (new CadastroUsuario())->select('Escolha como será o cadastro'),
+                label: 'Como será o cadastro?'
             )
             ->select(
                 name: 'equipe',
+                lista: 'usuario',
                 label: 'Responsável pelo contrato',
-                lista: $equipe['dado'] ?? []
+                tipoEquipe: Tipo::COMERCIAL
             )
             ->dinheiro(name: 'renda_media', label: 'Renda média', placeholder: 'Renda média')
-            ->select(name: 'estado_principal', label: 'Estado principal', lista: 'estado');
+            ->select(name: 'estado_principal', lista: 'estado', label: 'Estado principal');
     });
 
     $Painel->fieldset('Dados do contrato', function () use ($Painel) {
@@ -77,8 +75,8 @@ $Painel->coluna(callback: function () use ($Painel) {
             ->switch(name: 'produto_clube', label: 'Clube de vantagens')
             ->select(
                 name: 'tipo_site',
-                label: 'Tipo de site do clube',
                 lista: (new TipoSite())->select('Escolha o tipo do site do clube'),
+                label: 'Tipo de site do clube',
                 id: 'bloco_tipo_site',
                 class: 'display_none'
             )
@@ -101,24 +99,24 @@ $Painel->coluna(callback: function () use ($Painel) {
         $Painel
             ->select(
                 name: 'tipo_pagamento',
-                label: 'Tipo pagamento',
                 lista: (new TipoPagamento())->select('Escolha uma opção'),
+                label: 'Tipo pagamento',
                 change: 'tipoPagamento'
             )
             ->dinheiro(
                 name: 'contrato_valor_minimo',
                 label: 'Valor mínimo do contrato',
                 placeholder: 'Valor mínimo do contrato',
-                id: 'bloco_valor_minimo',
-                class: 'display_none'
+                class: 'display_none',
+                id: 'bloco_valor_minimo'
             )
             ->numero(
                 name: 'contrato_usuario_minimo',
                 label: 'Número minimo de usuário',
                 placeholder: 'Número minimo de usuário',
-                mascara: 'numero',
+                class: 'display_none',
                 id: 'bloco_usuario_minimo',
-                class: 'display_none'
+                mascara: 'numero'
             )
             ->dinheiro(name: 'contrato_valor', label: 'Valor do contrato', placeholder: 'Valor do contrato')
             ->numero(name: 'contrato_dia_pagamento', label: 'Dia do pagamento', placeholder: 'Dia do pagamento', ajuda: 'Dia do Mês que o cliente deve pagar')
@@ -127,13 +125,13 @@ $Painel->coluna(callback: function () use ($Painel) {
             ->data(name: 'contrato_data', label: 'Data do contrato', placeholder: 'Data do início do contrato')
             ->select(
                 name: 'contrato_prazo',
-                label: 'Prazo do contrato',
-                lista: (new ContratoPrazo())->select('Escolha um prazo')
+                lista: (new ContratoPrazo())->select('Escolha um prazo'),
+                label: 'Prazo do contrato'
             )
             ->select(
                 name: 'contrato_renovacao',
-                label: 'Renovação do contrato',
-                lista: (new ContratoRenovacao())->select('Escolha um tipo de renovação')
+                lista: (new ContratoRenovacao())->select('Escolha um tipo de renovação'),
+                label: 'Renovação do contrato'
             );
     });
 });
@@ -142,8 +140,6 @@ $Painel->coluna(callback: function () use ($Painel) {
         $Painel->switch(name: 'comunicacao_email', label: 'Precisa fazer e-mail?');
         $Painel->blocoCheckbox(
             titulo: 'Qual dia será enviado o e-mail?',
-            id: 'bloco_email_dia',
-            class: 'display_none',
             callback: function () use ($Painel) {
                 $Painel
                     ->checkbox(name: 'email_dia[]', label: 'Segunda-Feira', value: 'segunda-feira')
@@ -151,13 +147,15 @@ $Painel->coluna(callback: function () use ($Painel) {
                     ->checkbox(name: 'email_dia[]', label: 'Quarta-Feira', value: 'quarta-feira')
                     ->checkbox(name: 'email_dia[]', label: 'Quinta-Feira', value: 'quinta-feira')
                     ->checkbox(name: 'email_dia[]', label: 'Sexta-Feira', value: 'sexta-feira');
-            }
+            },
+            class: 'display_none',
+            id: 'bloco_email_dia'
         );
         $Painel
             ->select(
                 name: 'email_disparo',
-                label: 'Quem dispara o e-mail?',
                 lista: (new EmailDisparo())->select('Escolha quem enviará os e-mails'),
+                label: 'Quem dispara o e-mail?',
                 id: 'bloco_email_disparo',
                 class: 'display_none'
             );
@@ -166,8 +164,6 @@ $Painel->coluna(callback: function () use ($Painel) {
         $Painel->switch(name: 'comunicacao_whatsapp', label: 'Precisa fazer peça para WhatsApp?');
         $Painel->blocoCheckbox(
             titulo: 'Qual dia será enviado as peças?',
-            id: 'bloco_whatsapp_dia',
-            class: 'display_none',
             callback: function () use ($Painel) {
                 $Painel
                     ->checkbox(name: 'whatsapp_dia[]', label: 'Segunda-Feira', value: 'segunda-feira')
@@ -175,15 +171,15 @@ $Painel->coluna(callback: function () use ($Painel) {
                     ->checkbox(name: 'whatsapp_dia[]', label: 'Quarta-Feira', value: 'quarta-feira')
                     ->checkbox(name: 'whatsapp_dia[]', label: 'Quinta-Feira', value: 'quinta-feira')
                     ->checkbox(name: 'whatsapp_dia[]', label: 'Sexta-Feira', value: 'sexta-feira');
-            }
+            },
+            class: 'display_none',
+            id: 'bloco_whatsapp_dia'
         );
     });
     $Painel->fieldset('Comunicação - Rede Social', function () use ($Painel) {
         $Painel->switch(name: 'comunicacao_rede_social', label: 'Precisa fazer peça para Rede Social?');
         $Painel->blocoCheckbox(
             titulo: 'Qual dia será enviado as peças?',
-            id: 'bloco_rede_social_dia',
-            class: 'display_none',
             callback: function () use ($Painel) {
                 $Painel
                     ->checkbox(name: 'rede_social_dia[]', label: 'Segunda-Feira', value: 'segunda-feira')
@@ -191,7 +187,9 @@ $Painel->coluna(callback: function () use ($Painel) {
                     ->checkbox(name: 'rede_social_dia[]', label: 'Quarta-Feira', value: 'quarta-feira')
                     ->checkbox(name: 'rede_social_dia[]', label: 'Quinta-Feira', value: 'quinta-feira')
                     ->checkbox(name: 'rede_social_dia[]', label: 'Sexta-Feira', value: 'sexta-feira');
-            }
+            },
+            class: 'display_none',
+            id: 'bloco_rede_social_dia'
         );
     });
 });
