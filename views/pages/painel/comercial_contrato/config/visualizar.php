@@ -1,0 +1,100 @@
+<?php
+
+use App\Classes\ComercialEmpresa\FormatoReuniao;
+use Helpers\ListaHelper;
+use App\Classes\ComercialEmpresa\FinalidadePrincipal;
+use App\Classes\ComercialEmpresa\FinalidadeSecundaria;
+use App\Classes\ComercialEmpresa\Origem;
+use App\Classes\ComercialEmpresa\CanalPreferencia;
+use Modules\Botao;
+
+$Painel = new PainelConfig\Visualizar('comercial_contrato');
+
+$Painel->coluna(callback: function () use ($Painel) {
+    $Painel->bloco(titulo: 'Dados do Cliente', callback: function () use ($Painel) {
+        $Painel
+            ->linha('titulo', 'Título')
+            ->linha('nome_fantasia', 'Nome Fantasia')
+            ->linha('razao_social', 'Razão Social')
+            ->cnpj('cnpj', 'CNPJ');
+    });
+
+    $Painel->bloco(titulo: 'Dados do Responsável', callback: function () use ($Painel) {
+        $Painel
+            ->linha('responsavel_nome', 'Nome')
+            ->linha('responsavel_cargo', 'Cargo')
+            ->linha('responsavel_cpf', 'CPF')
+            ->linha('responsavel_telefone', 'Telefone')
+            ->linha('responsavel_email', 'E-mail');
+    });
+
+    $Painel->bloco(titulo: 'Dados da Empresa', callback: function () use ($Painel) {
+        $Painel
+            ->linha('finalidade_principal', 'Finalidade principal')
+            ->linha('finalidade_secundaria', 'Finalidade secundária')
+            ->linha('estado_principal', 'Estado principal');
+    });
+
+    $Painel->bloco(titulo: 'Dados da Pesquisa', callback: function () use ($Painel) {
+        $Painel
+            ->linha('parceiro_proprio', 'Parceiro próprio')
+            ->linha('concorrente_status', 'Contratou concorrente')
+            ->linha('concorrente_nome', 'Qual concorrente')
+            ->linha('origem', 'Origem')
+            ->linha('usuario_possivel', 'Base de usuários');
+    });
+
+    $Painel->bloco(titulo: 'Dados de Apresentação', callback: function () use ($Painel) {
+        $Painel
+            ->linha('contato_preferencial', 'Canal de preferencia')
+            ->data('data_apresentacao', 'Data de apresentação')
+            ->linha('formato_reuniao', 'Formato da reunião');
+    });
+
+    $Painel->bloco(titulo: 'Dados de Indicação', callback: function () use ($Painel) {
+        $Painel
+            ->linha('indicado', 'Quem indicou');
+    });
+
+    $Painel->bloco(titulo: 'Equipe', callback: function () use ($Painel) {
+        $Painel
+            ->linha('equipe_nome', 'Responsável pela Prospecção');
+    });
+
+    $Painel->bloco(titulo: 'Standby', callback: function () use ($Painel) {
+        $Painel
+            ->linha('motivo_standby', 'Motivo do standby')
+            ->data('previsao_retorno', 'Previsão de retorno')
+            ->hidden('status', id: 'hidden_status');
+    });
+
+    $Painel->bloco(titulo: 'Motivo de Perder', callback: function () use ($Painel) {
+        $Painel
+            ->linha('motivo_perdido', 'Motivo de perder')
+            ->hidden('status', id: 'hidden_perdido');
+    });
+
+    $Painel
+        ->status(
+            campo: 'status',
+            texto: 'Voltar para a prospecção',
+            inArray: ['inativo'],
+            status: 'prospeccao',
+            mensagem: 'Tem certeza que deseja voltar para a prospecção?',
+            cor: 'verde'
+        );
+});
+
+$Painel
+    ->replace('parceiro_proprio', (new Botao())->select())
+    ->replace('concorrente_status', (new Botao())->select())
+    ->replace('contato_preferencial', (new CanalPreferencia())->select())
+    ->replace('origem', (new Origem())->select())
+    ->replace('finalidade_principal', (new FinalidadePrincipal())->select())
+    ->replace('finalidade_secundaria', (new FinalidadeSecundaria())->select())
+    ->replace('estado_principal', (new ListaHelper())->estado()->r())
+    ->replace('formato_reuniao', (new FormatoReuniao())->select());
+
+$Painel->js('painel_comercial_prospeccao_visualizar');
+
+return $Painel;

@@ -2,8 +2,10 @@
 
 use App\Classes\ComercialEmpresa\Status;
 use App\Classes\UsuarioEquipe\Tipo;
+use Helpers\ApiHelper;
+use PainelConfig\Filtrar;
 
-$Painel = new PainelConfig\Filtrar('comercial-empresa');
+$Painel = new Filtrar('comercial_responsavel');
 
 $Status = new Status();
 $Painel
@@ -11,21 +13,31 @@ $Painel
         name: 'titulo',
         titulo: 'Título',
         label: 'Título',
-        placeholder: 'Digite o título, nome fantasia ou razão social'
-    )
-    ->cnpj(
-        name: 'cnpj',
-        titulo: 'CNPJ',
-        label: 'CNPJ',
-        placeholder: 'Digite o CNPJ'
+        placeholder: 'Título'
     )
     ->select(
-        name: 'usuario',
+        name: 'equipe',
         lista: 'usuario',
-        titulo: 'Gestor do contrato',
-        label: 'Gestor do contrato',
+        titulo: 'Equipe',
+        label: 'Equipe',
+        placeholder: 'Equipe',
         tipoEquipe: Tipo::COMERCIAL
     )
+    ->bloco(function () use ($Painel) {
+        $Painel
+            ->data(
+                'data_inicio',
+                'Data de Início',
+                'Data de Início',
+                'Data de Início'
+            )
+            ->data(
+                'data_final',
+                'Data Final',
+                'Data Final',
+                'Data Final'
+            );
+    })
     ->bloco(function () use ($Painel, $Status) {
         $Painel
             ->numero(
@@ -42,7 +54,5 @@ $Painel
                 'Status'
             );
     });
-
-$Painel->replace('status', $Status->select());
 
 return $Painel;

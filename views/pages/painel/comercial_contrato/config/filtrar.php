@@ -1,0 +1,48 @@
+<?php
+
+use App\Classes\ComercialEmpresa\Status;
+use App\Classes\UsuarioEquipe\Tipo;
+use Helpers\ApiHelper;
+use PainelConfig\Filtrar;
+
+$Painel = new Filtrar('comercial_contrato');
+
+$Status = new Status();
+$Painel
+    ->input(
+        name: 'titulo',
+        titulo: 'Título',
+        label: 'Título',
+        placeholder: 'Título'
+    )
+    ->select(
+        name: 'usuario',
+        lista: 'usuario',
+        titulo: 'Equipe',
+        label: 'Equipe',
+        placeholder: 'Equipe',
+        tipoEquipe: Tipo::COMERCIAL
+    )
+    ->bloco(function () use ($Painel) {
+        $Painel
+            ->data(
+                'data_inicio',
+                'Data de Início',
+                'Data de Início',
+                'Data de Início'
+            )
+            ->data(
+                'data_final',
+                'Data Final',
+                'Data Final',
+                'Data Final'
+            );
+    })
+    ->numero(
+        'quantidade',
+        'Quantidade de registros',
+        'Quantidade de registros',
+        'Quantidade de registros'
+    );
+
+return $Painel;

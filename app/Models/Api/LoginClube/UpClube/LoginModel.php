@@ -50,7 +50,6 @@ class LoginModel extends LoginPadraoModel
     }
 
     /**
-     * @return void
      * @throws Excecao
      */
     protected function buscarUsuarioPeloLoginSenha(): void
@@ -78,7 +77,6 @@ class LoginModel extends LoginPadraoModel
     }
 
     /**
-     * @return void
      * @throws Excecao
      */
     private function buscarUsuarioNaBase(): void

@@ -5,6 +5,7 @@ use App\Classes\ParceiroLoja\Helper;
 use App\Classes\ParceiroLoja\Status;
 use App\Classes\ParceiroLoja\TipoEstabelecimento;
 use App\Classes\ParceiroLoja\TipoLoja;
+use App\Classes\UsuarioEquipe\Tipo;
 use Helpers\ApiHelper;
 use Modules\EnderecoEstado;
 use PainelConfig\Filtrar;
@@ -27,12 +28,13 @@ $subcategoria = (new ApiHelper(token: true))
 
 $Painel
     ->input(name: 'titulo', label: 'Título', placeholder: 'Digite um título')
-    ->bloco(function () use ($Painel, $equipe, $empresas) {
+    ->bloco(function () use ($Painel, $empresas) {
         $Painel
             ->select(
                 name: 'equipe',
-                lista: $equipe,
-                label: 'Equipe'
+                lista: 'usuario',
+                label: 'Equipe',
+                tipoEquipe: Tipo::CONVENIO
             );
     })
     ->bloco(function () use ($Painel, $subcategoria) {
@@ -119,7 +121,7 @@ $Painel
             foreach ($empresas as $id => $nome) {
                 $Painel->checkbox(
                     name: 'empresas[]',
-                    label: $nome,
+                    label: $nome ?? '',
                     value: $id,
                     permissao: Helper::PERMISSAO_EMPRESA
                 );

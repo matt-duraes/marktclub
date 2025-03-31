@@ -10,6 +10,7 @@ use App\Helpers\DrogariaAraujoHelper;
 use App\Models\Api\Trait\ValidarEmpresaTrait;
 use App\Models\Api\UsuarioCliente\Trait\BuscarUsuarioTrait;
 use Erro\Excecao;
+use Helpers\OrmHelper;
 use Http\Request;
 use Modules\Data;
 use Modules\Email;
@@ -30,6 +31,7 @@ final class ClienteModel extends ORM
 
     /**
      * @param Request|null $request
+     * @param bool         $validarEmpresa
      *
      * @throws Excecao
      */
@@ -92,8 +94,9 @@ final class ClienteModel extends ORM
     public function listarDados(): stdClass
     {
         $dado = $this->buscarUsuario([
-            'cod', 'nome', 'documento', 'email_trabalho', 'email_pessoal',
-            'data_criacao', 'usuario_lead', 'tipo', 'titular', 'federacao', 'status'
+            'id_admin_subempresa', 'cod', 'nome', 'documento', 'email_trabalho',
+            'email_pessoal', 'data_criacao', 'usuario_lead', 'tipo', 'titular',
+            'federacao', 'status'
         ], true);
         $dado->lista = $this->montarRetornoLista($dado->lista);
         return $dado;
@@ -125,6 +128,12 @@ final class ClienteModel extends ORM
                 $tipo = TipoUsuario::FUNCIONARIO;
             }
 
+            $subempresa = '';
+            if (!empty($r->id_admin_subempresa)) {
+                $subempresa = (new OrmHelper(TABELA_COMERCIAL_EMPRESA))
+                    ->pegarCampoPor('nome_fantasia', ['id', $r->id_admin_subempresa]);
+            }
+
             $uuid = $r->cod;
             if ($r->tipo == 2 && empty($r->titular)) {
                 continue;
@@ -142,6 +151,7 @@ final class ClienteModel extends ORM
                     'id'            => $r->empresa_cod,
                     'nome_fantasia' => $r->empresa_nome_fantasia,
                 ],
+                'subempresa'   => $subempresa ?? '',
                 'nome'         => $r->nome,
                 'cpf'          => $r->tipo == 2 ? '' : $r->documento,
                 'email'        => $email,

@@ -47,7 +47,10 @@ final class SelectModel extends ORM
     private function pegarWhere(): array
     {
         if (!empty($this->request->todas) && $this->request->todas == 1) {
-            return ['status', 'in', Helper::STATUS_LIBERADO];
+            return [
+                ['id_admin_empresa', 'notnull'],
+                ['status', 'in', Helper::STATUS_LIBERADO]
+            ];
         }
         return [
             ['id_admin_empresa', $this->idEmpresa],

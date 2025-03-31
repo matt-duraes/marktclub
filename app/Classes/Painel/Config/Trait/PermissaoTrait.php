@@ -861,7 +861,12 @@ trait PermissaoTrait
                     'comercial_empresa_editar'     => [
                         'titulo' => Titulo::EDITAR,
                         'scope'  => ['comercial_empresa:atualizar', 'comercial_empresa:buscar']
-                    ]
+                    ],
+                    'comercial_empresa_download'   => [
+                        'titulo' => Titulo::DOWNLOAD,
+                        'scope'  => ['comercial_empresa:download', 'mensageria:salvar']
+                    ],
+                    'comercial_empresa_gerente'    => 'Gerente'
                 ]
             ],
             'comercial_subempresa'     => [
@@ -890,6 +895,23 @@ trait PermissaoTrait
                     'comercial_subempresa_empresa'    => Titulo::EMPRESA
                 ]
             ],
+            'comercial_contrato'       => [
+                'titulo'    => 'Contratos',
+                'permissao' => [
+                    'comercial_contrato_index'      => [
+                        'titulo' => Titulo::LISTAR,
+                        'scope'  => 'comercial_empresa:listar'
+                    ],
+                    'comercial_contrato_visualizar' => [
+                        'titulo' => Titulo::VISUALIZAR,
+                        'scope'  => 'comercial_empresa:buscar'
+                    ],
+                    'comercial_contrato_download'   => [
+                        'titulo' => Titulo::DOWNLOAD,
+                        'scope'  => ['comercial_empresa:download', 'mensageria:salvar']
+                    ]
+                ]
+            ],
             'comercial_prospeccao'     => [
                 'titulo'    => 'Comercial Prospecção',
                 'permissao' => [
@@ -906,6 +928,19 @@ trait PermissaoTrait
                         'scope'  => 'comercial_empresa:salvar'
                     ],
                     'comercial_prospeccao_editar'     => [
+                        'titulo' => Titulo::EDITAR,
+                        'scope'  => ['comercial_empresa:atualizar', 'comercial_empresa:buscar']
+                    ]
+                ]
+            ],
+            'comercial_responsavel'    => [
+                'titulo'    => 'Contrato s/Responsável',
+                'permissao' => [
+                    'comercial_responsavel_index'  => [
+                        'titulo' => Titulo::LISTAR,
+                        'scope'  => 'comercial_empresa:listar'
+                    ],
+                    'comercial_responsavel_editar' => [
                         'titulo' => Titulo::EDITAR,
                         'scope'  => ['comercial_empresa:atualizar', 'comercial_empresa:buscar']
                     ]

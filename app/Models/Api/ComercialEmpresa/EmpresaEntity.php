@@ -68,6 +68,7 @@ final class EmpresaEntity extends Entity
     public Dinheiro $valor_pib;
     public EnderecoEstado $estado_principal;
     public string $equipe;
+    public string $equipe_nome;
     public string $dono;
     public FinalidadePrincipal $finalidade_principal;
     public FinalidadeSecundaria $finalidade_secundaria;
@@ -106,48 +107,56 @@ final class EmpresaEntity extends Entity
     protected string $ormTabela = TABELA_COMERCIAL_EMPRESA;
     protected array $ormBuscar = [
         'finalidade_principal' => 'finalidade_empresa',
-        'titulo', 'finalidade_secundaria', 'nome_fantasia', 'razao_social', 'imagem_arquivo', 'slug',
-        'site', 'responsavel_nome', 'responsavel_cargo', 'responsavel_email', 'responsavel_telefone', 'responsavel_cpf',
-        'id_usuario_equipe', 'id_usuario_dono', 'tipo_pagamento', 'renda_media', 'produto_clube',
-        'produto_ios', 'produto_android', 'produto_site', 'produto_webview', 'produto_api', 'cnpj',
-        'estado_principal', 'status', 'data_eleicao', 'email_dia', 'whatsapp_dia', 'rede_social_dia',
-        'contrato_prazo', 'contrato_renovacao', 'tipo_site', 'cadastro_usuario', 'comunicacao_email',
-        'comunicacao_whatsapp', 'comunicacao_rede_social', 'email_disparo', 'prospeccao_status',
-        'observacao_ti', 'observacao_comunicacao', 'observacao_financeiro', 'restricao_lista', 'contrato_data',
-        'contrato_dia_pagamento', 'cobrar_aposentado', 'contrato_valor', 'contrato_valor_minimo',
-        'contrato_usuario_minimo', 'contrato_dia_fechamento', 'parceiro_proprio', 'concorrente_status',
-        'concorrente_nome',
-        'origem', 'usuario_possivel', 'contato_preferencial', 'data_apresentacao', 'formato_reuniao',
-        'previsao_retorno', 'motivo_standby',
-        'motivo_standby', 'motivo_perdido', 'devolutiva', 'etapa_negociacao'
+        'titulo', 'finalidade_secundaria', 'nome_fantasia', 'razao_social',
+        'imagem_arquivo', 'slug', 'site', 'responsavel_nome', 'responsavel_cargo',
+        'responsavel_email', 'responsavel_telefone', 'responsavel_cpf',
+        'id_usuario_equipe', 'id_usuario_dono', 'tipo_pagamento', 'renda_media',
+        'produto_clube', 'produto_ios', 'produto_android', 'produto_site',
+        'produto_webview', 'produto_api', 'cnpj', 'estado_principal', 'status',
+        'data_eleicao', 'email_dia', 'whatsapp_dia', 'rede_social_dia',
+        'contrato_prazo', 'contrato_renovacao', 'tipo_site', 'cadastro_usuario',
+        'comunicacao_email', 'comunicacao_whatsapp', 'comunicacao_rede_social',
+        'email_disparo', 'prospeccao_status', 'observacao_ti', 'observacao_comunicacao',
+        'observacao_financeiro', 'restricao_lista', 'contrato_data',
+        'contrato_dia_pagamento', 'cobrar_aposentado', 'contrato_valor',
+        'contrato_valor_minimo', 'contrato_usuario_minimo', 'contrato_dia_fechamento',
+        'parceiro_proprio', 'concorrente_status', 'concorrente_nome',
+        'origem', 'usuario_possivel', 'contato_preferencial', 'data_apresentacao',
+        'formato_reuniao', 'previsao_retorno', 'motivo_standby', 'motivo_standby',
+        'motivo_perdido', 'devolutiva', 'etapa_negociacao'
     ];
     protected array $ormSalvar = [
         'finalidade_empresa' => '->finalidade_principal',
-        'titulo', 'finalidade_secundaria', 'nome_fantasia', 'razao_social', 'imagem_arquivo', 'slug',
-        'site', 'responsavel_nome', 'responsavel_cargo', 'responsavel_email', 'responsavel_telefone', 'responsavel_cpf',
-        'id_usuario_equipe', 'id_usuario_dono', 'tipo_pagamento', 'renda_media', 'produto_clube',
-        'produto_ios', 'produto_android', 'produto_site', 'produto_webview', 'produto_api', 'cnpj',
-        'estado_principal', 'status', 'data_eleicao', 'email_dia', 'whatsapp_dia', 'rede_social_dia',
-        'contrato_prazo', 'contrato_renovacao', 'tipo_site', 'cadastro_usuario', 'comunicacao_email',
-        'comunicacao_whatsapp', 'comunicacao_rede_social', 'email_disparo', 'prospeccao_status',
-        'observacao_ti', 'observacao_comunicacao', 'observacao_financeiro', 'restricao_lista', 'contrato_data',
-        'contrato_dia_pagamento', 'cobrar_aposentado', 'contrato_valor', 'contrato_valor_minimo',
-        'contrato_usuario_minimo', 'contrato_dia_fechamento', 'parceiro_proprio', 'concorrente_status',
-        'concorrente_nome',
-        'origem', 'usuario_possivel', 'contato_preferencial', 'data_apresentacao', 'formato_reuniao',
-        'previsao_retorno', 'motivo_standby',
-        'motivo_standby', 'motivo_perdido', 'devolutiva', 'etapa_negociacao'
+        'titulo', 'finalidade_secundaria', 'nome_fantasia', 'razao_social',
+        'imagem_arquivo', 'slug', 'site', 'responsavel_nome', 'responsavel_cargo',
+        'responsavel_email', 'responsavel_telefone', 'responsavel_cpf',
+        'id_usuario_equipe', 'id_usuario_dono', 'tipo_pagamento', 'renda_media',
+        'produto_clube', 'produto_ios', 'produto_android', 'produto_site',
+        'produto_webview', 'produto_api', 'cnpj', 'estado_principal', 'status',
+        'data_eleicao', 'email_dia', 'whatsapp_dia', 'rede_social_dia',
+        'contrato_prazo', 'contrato_renovacao', 'tipo_site', 'cadastro_usuario',
+        'comunicacao_email', 'comunicacao_whatsapp', 'comunicacao_rede_social',
+        'email_disparo', 'prospeccao_status', 'observacao_ti', 'observacao_comunicacao',
+        'observacao_financeiro', 'restricao_lista', 'contrato_data',
+        'contrato_dia_pagamento', 'cobrar_aposentado', 'contrato_valor',
+        'contrato_valor_minimo', 'contrato_usuario_minimo', 'contrato_dia_fechamento',
+        'parceiro_proprio', 'concorrente_status', 'concorrente_nome', 'origem',
+        'usuario_possivel', 'contato_preferencial', 'data_apresentacao',
+        'formato_reuniao', 'previsao_retorno', 'motivo_standby', 'motivo_standby',
+        'motivo_perdido', 'devolutiva', 'etapa_negociacao'
     ];
     protected string $ormValidarSalvar = '
         titulo|Título|vazio
-        finalidade_principal|Finalidade principal|vazio|valido
-        finalidade_secundaria|Finalidade secundária|vazio|valido
+        finalidade_principal|Finalidade principal|valido
+        finalidade_secundaria|Finalidade secundária|valido
         responsavel_nome|Nome do responsável|vazio|valido
         responsavel_telefone|Telefone do responsável|vazio|valido
         responsavel_email|E-mail do responsável|vazio|valido
         status|Status|vazio|valido
     ';
-    protected array $ormRetornoPadrao = ['id', 'nome_fantasia', 'imagem', 'slug', 'status'];
+    protected array $ormRetornoPadrao = [
+        'id', 'nome_fantasia', 'imagem', 'slug', 'status'
+    ];
     protected int $id_usuario_equipe;
     protected int $id_usuario_dono;
     private bool $atualizarValor = false;
@@ -216,7 +225,7 @@ final class EmpresaEntity extends Entity
         }
     }
 
-    protected function regraPosBuscar()
+    protected function regraPosBuscar(): void
     {
         if (empty($this->imagem)) {
             $this->imagem = arquivoPublico('empresa', 'padrao.png');
@@ -224,12 +233,18 @@ final class EmpresaEntity extends Entity
 
         $this->valor_pago = new UltimaFaturaModel(Empresa: $this);
 
-        $this->equipe = (new OrmHelper(TABELA_USUARIO_EQUIPE))->pegarUuidPeloId($this->id_usuario_equipe);
+        $ormHelper = new OrmHelper(TABELA_USUARIO_EQUIPE);
+        $equipe = $ormHelper->pegarPrimeiroRegistro(
+            ['id', $this->id_usuario_equipe],
+            ['uuid', 'nome_real'],
+            'object'
+        );
+        $this->equipe = !empty($equipe->uuid) ? $equipe->uuid : '';
+        $this->equipe_nome = !empty($equipe->nome_real) ? $equipe->nome_real : '';
         $this->indicado = '';
         if (!empty($this->id_usuario_dono)) {
-            $this->dono = (new OrmHelper(TABELA_USUARIO_EQUIPE))->pegarUuidPeloId($this->id_usuario_dono);
-            $this->indicado = (new OrmHelper(TABELA_USUARIO_EQUIPE))
-                ->pegarCampoPor('nome_real', ['id', $this->id_usuario_dono]);
+            $this->dono = $ormHelper->pegarUuidPeloId($this->id_usuario_dono);
+            $this->indicado = $ormHelper->pegarCampoPor('nome_real', ['id', $this->id_usuario_dono]);
         }
     }
 
