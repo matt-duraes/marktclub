@@ -55,8 +55,7 @@ final class LoginController extends Controller
     public function postLoginPositivo(Request $request): Response
     {
         $Login = new LoginPositivo($request->dado());
-        mensagemErro('Campo obrigatório!', 'Digite seu CPF para continuar.');
-        return new Response(status: 204);
+        return mensagemSucesso(dado: $Login->retorno, status: $Login->status);
     }
 
     public function loginApiOk($hash)
