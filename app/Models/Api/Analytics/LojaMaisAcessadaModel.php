@@ -66,7 +66,7 @@ final class LojaMaisAcessadaModel extends ORM
     {
         $analytics = $this
             ->campo([
-                'id_parceiro_loja', 'parceiro_nome', 'quantidade'
+                'id_parceiro_loja', 'parceiro_nome', 'quantidade', 'id_admin_empresa'
             ])
             ->where($this->pegarWhere(), false)
             ->order('quantidade')
@@ -120,6 +120,9 @@ final class LojaMaisAcessadaModel extends ORM
         $dado = [];
         $total = 0;
         foreach ($analytics as $item) {
+            if ($item->id_admin_empresa == 1) {
+                continue;
+            }
             $total += $item->quantidade;
             if (!array_key_exists($item->id_parceiro_loja, $dado)) {
                 $dado[$item->id_parceiro_loja] = object([

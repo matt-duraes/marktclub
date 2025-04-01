@@ -57,7 +57,7 @@ final class NavegadorModel extends ORM
     {
         $analytics = $this
             ->campo([
-                'quantidade', 'navegador'
+                'quantidade', 'navegador', 'id_admin_empresa'
             ])
             ->where($this->pegarWherePadrao())
             ->order('quantidade')
@@ -75,11 +75,17 @@ final class NavegadorModel extends ORM
     {
         $total = 0;
         foreach ($analytics as $item) {
+            if ($item->id_admin_empresa == 1) {
+                continue;
+            }
             $total += $item->quantidade;
         }
 
         $relatorio = [];
         foreach ($analytics as $item) {
+            if ($item->id_admin_empresa == 1) {
+                continue;
+            }
             if (array_key_exists($item->navegador, $relatorio)) {
                 $relatorio[$item->navegador]['total'] += $item->quantidade;
                 $relatorio[$item->navegador]['porcentagem'] = porcentagem(
