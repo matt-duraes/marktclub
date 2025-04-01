@@ -17,6 +17,7 @@ use App\Classes\LoginClube\Tipo as LoginClubeTipo;
 use App\Models\Api\ConstrutorClube\ConstrutorEntity;
 use App\Models\Api\ApiToken\TokenAuthorizationEntity;
 use App\Models\Api\LoginApi\LoginModel as LoginApiModel;
+use App\Models\Api\LoginApi\PositivoModel as LoginPositivo;
 
 final class LoginController extends Controller
 {
@@ -53,6 +54,7 @@ final class LoginController extends Controller
 
     public function postLoginPositivo(Request $request): Response
     {
+        $Login = new LoginPositivo($request->dado());
         mensagemErro('Campo obrigatório!', 'Digite seu CPF para continuar.');
         return new Response(status: 204);
     }
