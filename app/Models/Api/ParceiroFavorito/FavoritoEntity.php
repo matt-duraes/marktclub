@@ -2,30 +2,68 @@
 
 namespace App\Models\Api\ParceiroFavorito;
 
-use App\Models\Api\ParceiroLoja\LojaEntity;
+use App\Models\Api\Trait\ValidarEmpresaTrait;
 use Erro\Excecao;
 use Helpers\OrmHelper;
 use ORM\Entity;
 
 class FavoritoEntity extends Entity
 {
+    use ValidarEmpresaTrait;
+
     protected string $ormTabela = TABELA_PARCEIRO_FAVORITO;
     protected array $ormSalvar = [
         'id_usuario_cliente', 'id_parceiro_loja'
     ];
     protected int $id_usuario_cliente;
     protected int $id_parceiro_loja;
-    private int $idUsuario;
-    private int $idLoja;
 
+    /**
+     * @param string|null $parceiro
+     *
+     * @throws Excecao
+     */
     public function __construct(
-        private readonly ?LojaEntity $Parceiro = null
+        private readonly ?string $parceiro = null
     ) {
-        if (!empty($this->Parceiro)) {
-            $this->idLoja = $this->Parceiro->get('id');
-        }
-        $this->idUsuario = TOKEN['usuario']->id;
         parent::__construct();
+        if (empty($this->parceiro)) {
+            return;
+        }
+        $this->pegarUsuario();
+        $this->pegarParceiro();
+    }
+
+    /**
+     * @return void
+     * @throws Excecao
+     */
+    private function pegarUsuario(): void
+    {
+        if (!array_key_exists('usuario', TOKEN) || vazio(TOKEN['usuario'])) {
+            mensagemErro(
+                'Usuário não foi encontrado',
+                'Não foi possível econtrar um usuário'
+            );
+        }
+        $this->id_usuario_cliente = TOKEN['usuario']->id;
+    }
+
+    /**
+     * @return void
+     * @throws Excecao
+     */
+    private function pegarParceiro(): void
+    {
+        $ormHelper = new ORMHelper(TABELA_PARCEIRO_LOJA);
+        $idParceiro = $ormHelper->pegarIdPeloUuid($this->parceiro);
+        if (empty($idParceiro)) {
+            mensagemErro(
+                'Parceiro não foi encontrado',
+                'Não foi possível econtrar um parceiro'
+            );
+        }
+        $this->id_parceiro_loja = $idParceiro;
     }
 
     /**
@@ -33,23 +71,23 @@ class FavoritoEntity extends Entity
      */
     protected function regraSalvar(): void
     {
-        if (!$this->verificaFavoritado()) {
-            mensagemErro('Ação duplicada', 'Loja já está favoritada');
-        }
-        $this->id_usuario_cliente = $this->idUsuario;
-        $this->id_parceiro_loja = $this->idLoja;
+        $this->verificaFavoritado();
     }
 
     /**
-     * @return bool
+     * @return void
+     * @throws Excecao
      */
-    private function verificaFavoritado(): bool
+    private function verificaFavoritado(): void
     {
-        $OrmHelper = new ORMHelper($this->ormTabela);
-        $favorito = $OrmHelper->pegarCampoPor('id', [
-            ['id_usuario_cliente', $this->idUsuario],
-            ['id_parceiro_loja', $this->idLoja]
-        ]);
-        return empty($favorito);
+        $ormHelper = new ORMHelper($this->ormTabela);
+        $favorito = $ormHelper->pegarPrimeiroRegistro([
+            ['id_usuario_cliente', $this->id_usuario_cliente],
+            ['id_parceiro_loja', $this->id_usuario_cliente]
+        ], ['id']);
+
+        if (!empty($favorito)) {
+            mensagemErro('Ação duplicada', 'Loja já está favoritada');
+        }
     }
 }

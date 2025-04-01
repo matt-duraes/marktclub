@@ -7,6 +7,7 @@ use App\Models\Api\UsuarioEquipe\PerfilModel;
 use Erro\Excecao;
 use Helpers\EmailHelper;
 use ORM\Entity;
+use SendGrid\Mail\TypeException;
 use System\Classes\PainelNotificacao\Status;
 
 final class NotificacaoEntity extends Entity
@@ -14,24 +15,15 @@ final class NotificacaoEntity extends Entity
     public Status $status;
     public array $dono;
     protected string $ormTabela = TABELA_PAINEL_NOTIFICACAO;
-    protected array $ormInsert = [
-        'titulo',
-        'mensagem',
-        'link',
-        'botao',
-        'id_usuario_equipe',
-        'id_usuario_dono',
-        'target'
-    ];
-    protected array $ormSalvar = ['status'];
     protected array $ormBuscar = [
-        'id_usuario_dono',
-        'titulo',
-        'mensagem',
-        'link',
-        'target',
-        'botao',
-        'target',
+        'id_usuario_dono', 'titulo', 'mensagem', 'link', 'target', 'botao',
+        'target', 'status'
+    ];
+    protected array $ormInsert = [
+        'id_usuario_equipe', 'id_usuario_dono', 'titulo', 'mensagem',
+        'link', 'botao', 'target'
+    ];
+    protected array $ormSalvar = [
         'status'
     ];
     protected int $id_usuario_equipe;
@@ -49,40 +41,43 @@ final class NotificacaoEntity extends Entity
         parent::__construct();
     }
 
-    protected function regraPosBuscar()
+    protected function regraPosBuscar(): void
     {
-        $this->dono = (new PerfilModel())->pegarDado($this->id_usuario_dono, true);
+        $this->dono = (new PerfilModel())->pegarDado($this->id_usuario_dono);
         $this->target = $this->target == '_blank' ? '_blank' : '_self';
     }
 
-    /**
-     * @throws Excecao
-     */
-    protected function regraInsert()
+    protected function regraInsert(): void
     {
         $this->id_usuario_equipe = $this->Equipe->get('id');
         $this->id_usuario_dono = $this->Dono->get('id');
-        $this->status = new Status(1);
+        $this->status = new Status(Status::NOVO);
     }
 
-    protected function regraPosInsert()
+    /**
+     * @return void
+     * @throws Excecao
+     * @throws TypeException
+     */
+    protected function regraPosInsert(): void
     {
-        if (!eProducao()) {
+        if (eLocalhost()) {
             return;
         }
 
-        $Email = new EmailHelper(emailEnvio: ['Markt Club', 'nao-resposta@marktclub.com.br']);
+        $Email = new EmailHelper();
         $Email->mensagem(
             titulo: $this->titulo,
             mensagem: $this->mensagem,
             botaoTexto: $this->botao,
-            botaoLink: $this->link,
-            host: 'markt.club'
+            botaoLink: $this->link
         );
         $Email->sendGrid(
-            titulo: $this->titulo,
-            nome: $this->Equipe->nome,
-            email: $this->Equipe->email_trabalho
+            $this->titulo,
+            $this->Equipe->nome,
+            $this->Equipe->email_trabalho,
+            deNome: 'Painel Administratrivo',
+            deEmail: 'nao-resposta@youhuul.com.br'
         );
     }
 }
