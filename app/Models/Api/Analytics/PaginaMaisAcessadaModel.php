@@ -57,7 +57,7 @@ final class PaginaMaisAcessadaModel extends ORM
     {
         $analytics = $this
             ->campo([
-                'quantidade', 'url'
+                'quantidade', 'url', 'id_admin_empresa'
             ])
             ->where($this->pegarWherePadrao())
             ->order('quantidade')
@@ -75,6 +75,9 @@ final class PaginaMaisAcessadaModel extends ORM
         $dado = [];
         $total = 0;
         foreach ($analytics as $item) {
+            if ($item->id_admin_empresa == 1) {
+                continue;
+            }
             $total += $item->quantidade;
             if (!array_key_exists($item->url, $dado)) {
                 $dado[$item->url] = object([
