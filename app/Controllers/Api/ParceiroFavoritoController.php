@@ -5,7 +5,6 @@ namespace App\Controllers\Api;
 use App\Controllers\Api\Trait\ParceiroTrait;
 use App\Models\Api\ParceiroFavorito\FavoritoEntity;
 use App\Models\Api\ParceiroFavorito\FavoritoModel;
-use App\Models\Api\ParceiroLoja\LojaEntity;
 use Controller\Controller;
 use Erro\Excecao;
 use Http\Request;
@@ -41,27 +40,11 @@ class ParceiroFavoritoController extends Controller implements
      */
     public function postSalvar(Request $request): Response
     {
-        $Parceiro = $this->parceiro($request->parceiro);
-        $FavoritoEntity = new FavoritoEntity($Parceiro);
+        $FavoritoEntity = new FavoritoEntity($request->parceiro);
         $FavoritoEntity->salvar();
         return mensagemSucesso([
             'id' => $FavoritoEntity->id
-        ], status: 201);
-    }
-
-    /**
-     * @param string $id
-     *
-     * @return LojaEntity
-     */
-    private function parceiro(string $id): LojaEntity
-    {
-        return $this->pegarParceiro(
-            $id,
-            true,
-            mensagemVazio: 'Não foi passado um parceiro.',
-            mensagemErro: 'Parceiro não foi encontrado.'
-        );
+        ], 201);
     }
 
     /**
@@ -72,10 +55,10 @@ class ParceiroFavoritoController extends Controller implements
      */
     public function deleteDeletar(string $id): Response
     {
-        $Parceiro = $this->parceiro($id);
+        $parceiro = $this->pegarParceiro($id);
         $FavoritoEntity = new FavoritoEntity();
         $FavoritoEntity->buscar([
-            ['id_parceiro_loja', $Parceiro->get('id')],
+            ['id_parceiro_loja', $parceiro->get('id')],
             ['id_usuario_cliente', TOKEN['usuario']->id]
         ]);
         $FavoritoEntity->destruir();
