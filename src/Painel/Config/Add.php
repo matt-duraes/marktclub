@@ -13,6 +13,7 @@ final class Add
     public const TAG_TIPO_TAG = 'tag';
     public const TAG_TIPO_TEXTO = 'texto';
     public const TAG_TIPO_URL = 'url';
+
     private int $coluna;
     private int $fieldset;
     private string|int $numeroColuna;
@@ -230,8 +231,8 @@ final class Add
         $this->setarColuna();
 
         if (!in_array($dado['funcao'], ['cor', 'checkbox', 'switch', 'tag', 'indiceValor', 'hidden']) && !is_array(
-                $dado['name']
-            )) {
+            $dado['name']
+        )) {
             $dado['obrigatorio'] = $this->setarCampoObrigatorio($dado['name'], $dado['obrigatorio'] ?? false);
         }
 

@@ -71,7 +71,6 @@ class DownloadModel extends ORM
     }
 
     /**
-     * @return void
      * @throws Excecao
      */
     private function validarCamposAceito(): void
@@ -216,7 +215,6 @@ class DownloadModel extends ORM
     }
 
     /**
-     * @return void
      * @throws Excecao
      */
     private function erroDownloadPadrao(): void
@@ -230,7 +228,6 @@ class DownloadModel extends ORM
     /**
      * @param array $empresas
      *
-     * @return void
      * @throws Excecao
      */
     private function salvarLogDownload(array $empresas): void

@@ -364,6 +364,7 @@ final class Scope
         'enquete_satisfacao:listar', 'enquete_satisfacao:buscar', 'enquete_satisfacao:atualizar',
 
         'login:api', 'login:clube', 'login:painel', 'login:digio', 'login:token',
+        'login:positivo', 'login:oauth',
 
         'painel_config:atualizar', 'painel_config:buscar', 'painel_config:deletar',
         'painel_config:listar', 'painel_config:salvar', 'painel_tradutor:traduzir',

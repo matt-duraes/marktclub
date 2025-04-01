@@ -212,16 +212,16 @@ final class ClienteController extends Controller implements
             new Botao($request->termo)
         );
         return mensagemSucesso([
-            'id'   => uuid(),
-            'hash' => $Ativar->pegarHash(),
-            'cpf'  => $Ativar->pegarCpf()->numero(),
+            'id'       => uuid(),
+            'hash'     => $Ativar->pegarHash(),
+            'cpf'      => $Ativar->pegarCpf()->numero(),
             'imutavel' => [
                 'documento_cpf' => [
-                    'nome' => 'CPF',
+                    'nome'  => 'CPF',
                     'valor' => $Ativar->pegarCpf()->cpf()
                 ],
                 'local_trabalho' => [
-                    'nome' => 'Local de trabalho',
+                    'nome'  => 'Local de trabalho',
                     'valor' => $request->local_trabalho,
                 ]
             ]

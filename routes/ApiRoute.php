@@ -957,8 +957,8 @@ Route
             ::nome('loginPositivo')
             ::middleware(TokenMiddleware::class, 'scope', ['login:positivo'])
             ::request([
-                'empresa', 'tipo_usuario', 'documento_cpf', 'conselho_estado', 'documento_crm',
-                'data_nascimento', 'nome_mae', 'cadastro',
+                'empresa', '!tipo_usuario', '!documento_cpf', '!conselho_estado', '!documento_crm',
+                '!data_nascimento', '!nome_mae', '!cadastro',
             ])
             ::post('/login/positivo');
 
