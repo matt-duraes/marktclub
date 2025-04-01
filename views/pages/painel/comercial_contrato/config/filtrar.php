@@ -2,7 +2,6 @@
 
 use App\Classes\ComercialEmpresa\Status;
 use App\Classes\UsuarioEquipe\Tipo;
-use Helpers\ApiHelper;
 use PainelConfig\Filtrar;
 
 $Painel = new Filtrar('comercial_contrato');

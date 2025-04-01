@@ -70,7 +70,6 @@ class EmpresaModel extends ORM implements
     }
 
     /**
-     * @return void
      * @throws Excecao
      */
     private function validarRequest(): void

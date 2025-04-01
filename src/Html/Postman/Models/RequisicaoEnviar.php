@@ -47,7 +47,7 @@ final class RequisicaoEnviar
         $body = jsonDecode($post['body'], true, true);
         $json = jsonDecode($post['json'], true, true);
 
-        if($token == 'sem_token') {
+        if ($token == 'sem_token') {
             $repetir = false;
         }
 

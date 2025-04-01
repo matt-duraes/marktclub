@@ -1,8 +1,6 @@
 <?php
 
-use App\Classes\Geral\Status;
 use App\Classes\UsuarioEquipe\Tipo;
-use Helpers\ApiHelper;
 use PainelConfig\Add;
 
 $Painel = new Add(app: 'comercial_responsavel', acao: $acao);

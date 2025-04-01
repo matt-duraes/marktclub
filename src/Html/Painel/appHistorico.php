@@ -12,20 +12,20 @@ $historicoArquivoHtml = '';
 
 $temPermissaoHistoricoDownload = in_array(str_replace('-', '_', $app) . '_historico_download', sessao('USUARIO.permissao'));
 
-if($historico instanceof \PainelConfig\Historico) {
+if ($historico instanceof \PainelConfig\Historico) {
     $historicoApp = !empty($historico->app) ? $historico->app : $app;
     $historicoLeitura = $historico->leitura;
     $historicoEscrita = $historico->escrita;
     $historicoDownload = $historico->download;
     $historicoAppExtra = $historico->appExtra;
     $historicoArquivo = $historico->arquivo;
-    if($historicoArquivo) {
+    if ($historicoArquivo) {
         $historicoArquivoHtml = '<div class="arquivo_previa display_none" id="bloco_previa_lista"></div> <div class="botao_upload"><input type="file" accept="image/jpeg, image/png, image/gif, image/jpg" multiple id="botao_historico_upload"><i>' . iconeAnexo(18) . '</i></div>';
     }
 
-    if($historicoAppExtra):
+    if ($historicoAppExtra):
         $historicoTextareaHtml .= '<div class="bloco_app_extra"><h2>Salvar em outro APP?</h2>';
-        foreach($historicoAppExtra as $ind => $val):
+        foreach ($historicoAppExtra as $ind => $val):
             $historicoTextareaHtml .= '
                 <div class="checkbox_interno">
                     <input type="checkbox" class="input_app_salvar input_app_salvar_visivel" name="app_salvar[]" value="' . $ind . '">
@@ -44,7 +44,7 @@ if($historico instanceof \PainelConfig\Historico) {
             <div class="fechar pagina_fechar mobile"><?= iconeVoltar(12) ?></div>
         <?php endif; ?>
         <h1>HISTÓRICO</h1>
-        <?php if($historicoLeitura): ?>
+        <?php if ($historicoLeitura): ?>
         <form action="">
             <input type="text" name="pesquisa" id="input_historico_pesquisa" placeholder="Pesquisa">
             <input type="text" data-mascara="00/00/0000" class="input_data input_data_de" id="input_historico_data_de" placeholder="00/00/000">
@@ -60,14 +60,14 @@ if($historico instanceof \PainelConfig\Historico) {
             <div class="fechar pagina_fechar desktop"><?= iconeFechar(12) ?></div>
         <?php endif; ?>
     </header>
-    <?php if($historicoEscrita): ?>
+    <?php if ($historicoEscrita): ?>
     <div class="add_fake" id="bloco_historico_add_fake"></div>
     <?php endif; ?>
 
     <input type="hidden" id="input_historico_relacionado" value="<?= $r->id ?>">
     <input type="hidden" id="input_historico_app" value="<?= $historicoApp ?>">
 
-    <?php if($historicoEscrita): ?>
+    <?php if ($historicoEscrita): ?>
     <form action="" class="add form_geral" id="bloco_historico_add">
         <input type="hidden" id="input_historico_titulo" value="<?= base64Encode($titulo) ?>">
         <input type="hidden" id="input_historico_link" value="<?= base64Encode(!empty($link) ? $link : LINK . URI . QUERY_STRING) ?>">
@@ -96,7 +96,7 @@ if($historico instanceof \PainelConfig\Historico) {
     </form>
     <?php endif; ?>
 
-    <?php if($historicoLeitura): ?>
+    <?php if ($historicoLeitura): ?>
     <div class="lista" id="bloco_historico_lista">
     </div>
     <div class="mais" id="botao_historico_carregar_mais">CARREGAR MAIS</div>

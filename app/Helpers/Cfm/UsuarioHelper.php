@@ -55,7 +55,7 @@ final class UsuarioHelper
 
     private function buscarUsuario()
     {
-        if(eLocalhost()) {
+        if (eLocalhost()) {
             $this->email_pessoal = emailAleatorio();
             $this->email_trabalho = emailAleatorio();
             $this->nome = nomeCompletoAleatorio();

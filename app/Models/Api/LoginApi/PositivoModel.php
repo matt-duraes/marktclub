@@ -43,7 +43,7 @@ final class PositivoModel extends Entity
         $this->verificarSeUsuarioJaExiste();
 
         $cadastro = $dado['cadastro'] == 'sim';
-        if(empty($this->idUsuario) && !$cadastro) {
+        if (empty($this->idUsuario) && !$cadastro) {
             $this->montarRetornoCadastro();
             return;
         } elseif (!empty($this->idUsuario)) {
@@ -67,6 +67,7 @@ final class PositivoModel extends Entity
         $payload = (new PayloadModel($Usuario, $App->audience))->payload;
 
         $Token = new TokenAuthorizationEntity();
+        $this->status = 201;
         $this->retorno = $Token->criarToken(
             app: $App,
             body: $payload,
@@ -92,12 +93,12 @@ final class PositivoModel extends Entity
             nomeMae: $this->dado['nome_mae']
         );
         $this->dadoUsuario = [
-            'nome' => $Usuario->nome,
-            'documento' => $this->Cpf->numero(),
-            'email_pessoal' => $Usuario->email_pessoal,
+            'nome'           => $Usuario->nome,
+            'documento'      => $this->Cpf->numero(),
+            'email_pessoal'  => $Usuario->email_pessoal,
             'email_trabalho' => $Usuario->email_trabalho,
-            'crm_numero' => $crmNumero,
-            'crm_estado' => $crmEstado
+            'crm_numero'     => $crmNumero,
+            'crm_estado'     => $crmEstado
         ];
     }
 
@@ -105,32 +106,32 @@ final class PositivoModel extends Entity
     {
         $tipo = strCaixaBaixa($this->dado['tipo_usuario'] ?? '');
         return [
-            'medico' => 'medico',
+            'medico'      => 'medico',
             'funcionario' => 'funcionario',
-            'm' => 'medico',
-            'f' => 'funcionario'
+            'm'           => 'medico',
+            'f'           => 'funcionario'
         ][$tipo] ?? 'medico';
     }
 
     private function montarRetornoCadastro()
     {
-        $this->retorno =[
+        $this->retorno = [
             'cadastro' => 'sim',
             'imutavel' => [
                 'nome_completo' => [
-                    'nome' => 'Nome completo',
+                    'nome'  => 'Nome completo',
                     'valor' => $this->dadoUsuario['nome'],
                 ],
                 'documento_cpf' => [
-                    'nome' => 'CPF',
+                    'nome'  => 'CPF',
                     'valor' => $this->Cpf->cpf()
                 ],
                 'documento_crm' => [
-                    'nome' => $this->pegarTipo() == 'medico' ? 'CRM' : 'Matrícula',
+                    'nome'  => $this->pegarTipo() == 'medico' ? 'CRM' : 'Matrícula',
                     'valor' => $this->dadoUsuario['crm_numero'] . '/' . $this->dadoUsuario['crm_estado']
                 ],
                 'email_pessoal' => [
-                    'nome' => 'E-mail pessoal',
+                    'nome'  => 'E-mail pessoal',
                     'valor' => $this->dadoUsuario['email_pessoal']
                 ],
             ],
