@@ -15,7 +15,7 @@ $Painel
         placeholder: 'Título'
     )
     ->select(
-        name: 'equipe',
+        name: 'usuario',
         lista: 'usuario',
         titulo: 'Equipe',
         label: 'Equipe',
