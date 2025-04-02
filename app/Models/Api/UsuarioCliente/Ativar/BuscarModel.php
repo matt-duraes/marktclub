@@ -83,6 +83,7 @@ final class BuscarModel extends ORM
 
         $this->hash = $this->gerarHashCiesc(true, $base->id);
     }
+
     private function gerarHashCiesc(bool $existe, $id): string
     {
         return 'ciesc.' . base64Encode([

@@ -90,5 +90,6 @@ trait UsuarioTrait
             mensagemErro('Erro ao salvar!', 'Ocorreu um erro ao criar o usuário.', status: 500);
         }
         $this->idUsuario = $salvar['id'];
+        $this->idRealUsuario = $salvar['id'];
     }
 }

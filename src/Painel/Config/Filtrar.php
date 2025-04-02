@@ -351,9 +351,9 @@ final class Filtrar
         ?string $tipoEquipe = null
     ) {
         if (is_string($lista) && !in_array(
-                $lista,
-                ['genero', 'estado_civil', 'estado', 'empresa', 'usuario', 'subempresa']
-            )) {
+            $lista,
+            ['genero', 'estado_civil', 'estado', 'empresa', 'usuario', 'subempresa']
+        )) {
             mensagemErro('Erro', 'Você deve passar um valor de lista aceito.');
         }
         if (is_string($lista) && $lista == 'genero') {

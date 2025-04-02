@@ -55,6 +55,12 @@ final class UsuarioHelper
 
     private function buscarUsuario()
     {
+        if (eLocalhost()) {
+            $this->email_pessoal = emailAleatorio();
+            $this->email_trabalho = emailAleatorio();
+            $this->nome = nomeCompletoAleatorio();
+            return;
+        }
         $usuario = $this->requisicaoUsuario();
         $this->email_pessoal = $this->pegarEmail($usuario['emails'] ?? []);
         $this->email_trabalho = $this->pegarEmail($usuario['emails'] ?? [], $this->email_pessoal);

@@ -2,7 +2,6 @@
 
 namespace App\Controllers\Api;
 
-
 use App\Classes\ComercialEmpresa\Helper;
 use App\Classes\ComercialEmpresa\Ordem;
 use App\Classes\ComercialEmpresa\ProspeccaoStatus;

@@ -705,8 +705,8 @@ final class ListaHelper
         ];
 
         $array = [];
-        if($pais):
-            foreach($pais as $r):
+        if ($pais):
+            foreach ($pais as $r):
                 $array[$r['codigo']] = $r['codigo'];
             endforeach;
         endif;
