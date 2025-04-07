@@ -224,10 +224,10 @@ final class DependenteEntity extends Entity
 
         $Email = new EmailHelper();
         $Email->mensagem(
-            titulo: 'Cadastro realizado!',
+            titulo: 'Seu titular te cadastrou no Clube!',
             mensagem: 'Olá <strong>' . $this->nome->primeiroNome() . '</strong>, você foi cadastrado no ' . $titulo . '. Para ativar seu
             cadastro, clique no botão abaixo:',
-            assunto: 'Cadastro realizado!',
+            assunto: 'Seu titular te cadastrou no Clube!',
             botaoTexto: 'Ativar cadastro',
             botaoLink: $link . '/login#ativar',
             posMensagem: '',
@@ -235,6 +235,6 @@ final class DependenteEntity extends Entity
             logo: $Construtor->logo_principal,
             cor: $Construtor->cor_principal
         );
-        $Email->sendGrid('Cadastro Realizado', $this->nome->nome(), $this->email->email(), deNome: $titulo);
+        $Email->sendGrid('Seu titular te cadastrou no Clube!', $this->nome->nome(), $this->email->email(), deNome: $titulo);
     }
 }

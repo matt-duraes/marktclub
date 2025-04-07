@@ -12,6 +12,7 @@ final class ID
     public const DIGIO = 223;
     public const UBER = 1982;
     public const CIESC = 4645;
+    public const ABERT = 233;
     public const CEMECARD = 229;
     public const VIVA_FACIL = 178;
 }

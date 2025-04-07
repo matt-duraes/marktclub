@@ -150,7 +150,7 @@ Route
             ::view('/login/ativar-buscar');
         Route
             ::nome('ativarBuscar')
-            ::request(['busca', 'tipo_usuario', '!local_trabalho', '!termo', 'hash_validacao_captcha'])
+            ::request(['busca', 'tipo_usuario', '!local_trabalho', '!codigo', '!termo', 'hash_validacao_captcha'])
             ::post('/login/ativar-buscar');
         Route
             ::nome('ativarSalvarPagina')

@@ -209,22 +209,14 @@ final class ClienteController extends Controller implements
             new TipoAtivacao($request->chave),
             new TipoUsuario($request->tipo_usuario),
             new LocalTrabalho($request->local_trabalho),
-            new Botao($request->termo)
+            new Botao($request->termo),
+            codigo: $request->codigo
         );
         return mensagemSucesso([
             'id'       => uuid(),
             'hash'     => $Ativar->pegarHash(),
             'cpf'      => $Ativar->pegarCpf()->numero(),
-            'imutavel' => [
-                'documento_cpf' => [
-                    'nome'  => 'CPF',
-                    'valor' => $Ativar->pegarCpf()->cpf()
-                ],
-                'local_trabalho' => [
-                    'nome'  => 'Local de trabalho',
-                    'valor' => $request->local_trabalho,
-                ]
-            ]
+            'imutavel' => $Ativar->imutavel()
         ], 201);
     }
 

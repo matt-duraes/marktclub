@@ -12,7 +12,7 @@
         <input type="hidden" id="input_ativar_hash_busca" value="{{$hash}}">
         <input type="hidden" id="input_tipo_usuario" value="{{$tipo_usuario}}">
 
-        @if (ATIVACAO_TIPO === 'ciesc'):
+        @if ($imutavel && in_array(ATIVACAO_TIPO, ['ciesc', 'codigo'])):
         <div class="obrigatorio">
             <h2>Dados obrigatórios</h2>
             <p>Além dos dados obrigatórios do formulário, os dados abaixo, já preenchidos, não podem ser alterados e serão salvos com os demais dados do formulário.</p>
