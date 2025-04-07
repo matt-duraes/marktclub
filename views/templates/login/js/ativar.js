@@ -94,6 +94,7 @@ const loadingAtivarBuscar = () => {
     const inputBuscar = $('#input_buscar');
     const inputBuscarCpf = $('#input_buscar_cpf');
     const inputLocalTrabalho = $('#input_local_trabalho');
+    const inputCodigo = $('#input_codigo');
     const inputTermoAtivarBuscar = $('#input_termo_ativar_buscar');
     const blocoRecaptcha = $('#bloco_captcha_ativar');
 
@@ -164,6 +165,7 @@ const loadingAtivarBuscar = () => {
         body.append('busca', inputBuscar.value ? inputBuscar.value : inputBuscarCpf.value);
         body.append('tipo_usuario', valorData);
         body.append('local_trabalho', inputLocalTrabalho ? inputLocalTrabalho.valor() : '');
+        body.append('local_trabalho', inputCodigo ? inputCodigo.valor() : '');
         body.append('termo', termo);
         body.append('form_system_hash', formHash);
         body.append('form_system_validacao', '');

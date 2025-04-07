@@ -45,6 +45,10 @@
             <div>
                 @? formInput(name: 'buscar', label: 'Buscar', placeholder: 'Insira seus dados');
             </div>
+            @if (ATIVACAO_TIPO === 'codigo'):
+            @? formInput(name: 'codigo', label: 'Código de acesso', placeholder: 'Digite seu código de acesso')
+            @endif;
+
             @if (ATIVACAO_TIPO === 'ciesc'):
             <div class="termo bloco_ciesc display_none">
                 @?formCheckbox(name: 'termo_ativar_buscar', label: 'Aceito buscar meus dados pessoais para continuar com o primeiro acesso. Fique tranquilo, seus dados só serão salvos com sua permissão na próxima tela.')

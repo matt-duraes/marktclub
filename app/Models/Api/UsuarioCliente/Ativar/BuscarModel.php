@@ -39,7 +39,8 @@ final class BuscarModel extends ORM
         private readonly TipoAtivacao $tipoAtivacao = new TipoAtivacao(),
         private readonly TipoUsuario $tipoUsuario = new TipoUsuario(),
         private readonly LocalTrabalho $localTrabalho = new LocalTrabalho(),
-        private readonly Botao $Termo = new Botao()
+        private readonly Botao $Termo = new Botao(),
+        private readonly ?string $codigo = null
     ) {
         parent::__construct(leitura: false);
         $this->validarDados();
@@ -49,8 +50,15 @@ final class BuscarModel extends ORM
             }
             $this->buscarUsuarioCiesc($valor, $localTrabalho);
             return;
+        } elseif ($this->tipoAtivacao->indice() === TipoAtivacao::CODIGO && $tipoUsuario->indice() == TipoUsuario::TITULAR) {
+            $this->buscarUsuarioCodigo($valor, $codigo);
+            return;
         }
         $this->buscarUsuario();
+    }
+
+    private function buscarUsuarioCodigo($valor, $codigo)
+    {
     }
 
     private function buscarUsuarioCiesc($valor, $localTrabalho)

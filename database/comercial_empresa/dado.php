@@ -145,6 +145,26 @@ return [
         'status'                  => 1
     ],
     [
+        'id'                      => 233,
+        'cod'                     => 'aacd8136cfa8c01a95b5b0c8d9ea7c2f',
+        'id_usuario_equipe'       => 1,
+        'titulo'                  => 'Abert',
+        'razao_social'            => 'Abert',
+        'nome_fantasia'           => 'Abert',
+        'cnpj'                    => 34055368000179,
+        'responsavel_nome'        => nomeCompletoAleatorio(),
+        'responsavel_cpf'         => cpfAleatorio(),
+        'responsavel_email'       => emailAleatorio(),
+        'responsavel_telefone'    => telefoneCelularAleatorio(),
+        'slug'                    => 'abert',
+        'tipo_pagamento'          => 1,
+        'contrato_valor'          => 1.2,
+        'contrato_dia_fechamento' => 1,
+        'contrato_dia_pagamento'  => 10,
+        'cobrar_aposentado'       => 1,
+        'status'                  => 1
+    ],
+    [
         'id'                      => 1967,
         'cod'                     => '9954c5edcc9a7b72fed65715f326df81',
         'id_usuario_equipe'       => 1,
