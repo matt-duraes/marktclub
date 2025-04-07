@@ -17,11 +17,11 @@ class TipoAtivacao extends StatusStatus
         protected string|int|null $valor = null
     ) {
         parent::__construct([
-            self::CPF       => 'CPF',
-            self::MATRICULA => 'Matricula',
-            self::SIAPE     => 'SIAPE',
-            self::EMAIL     => 'E-mail',
-            self::CIESC     => 'CIESC',
+            self::CPF        => 'CPF',
+            self::MATRICULA  => 'Matricula',
+            self::SIAPE      => 'SIAPE',
+            self::EMAIL      => 'E-mail',
+            self::CIESC      => 'CIESC',
             self::CODIGO     => 'Código',
         ]);
     }

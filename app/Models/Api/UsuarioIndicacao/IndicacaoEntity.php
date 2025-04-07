@@ -6,16 +6,16 @@ use Throwable;
 use ORM\Entity;
 use Modules\Cpf;
 use Erro\Excecao;
+use Modules\Nome;
 use Modules\Email;
 use Modules\Telefone;
 use Helpers\OrmHelper;
+use Helpers\EmailHelper;
 use App\Classes\UsuarioCliente\Helper;
 use App\Classes\UsuarioIndicacao\Status;
-use App\Models\Api\ConstrutorClube\ConstrutorEntity;
 use App\Models\Api\Trait\ValidarEmpresaTrait;
 use App\Models\Api\UsuarioCliente\ClienteEntity;
-use Helpers\EmailHelper;
-use Modules\Nome;
+use App\Models\Api\ConstrutorClube\ConstrutorEntity;
 
 final class IndicacaoEntity extends Entity
 {
@@ -114,10 +114,10 @@ final class IndicacaoEntity extends Entity
 
         $Email = new EmailHelper();
         $Email->mensagem(
-            titulo: 'Cadastro realizado!',
+            titulo: 'Você foi indicado para o Clube!',
             mensagem: 'Olá <strong>' . $this->nome->primeiroNome() . '</strong>, você foi cadastrado no ' . $titulo . '. Para ativar seu
             cadastro, clique no botão abaixo:',
-            assunto: 'Cadastro realizado!',
+            assunto: 'Você foi indicado para o Clube!',
             botaoTexto: 'Ativar cadastro',
             botaoLink: $link . `/login?hash={$this->hash}&tipo_usuario={$this->status->indice()}`,
             posMensagem: 'Caso fique com alguma dúvida, por favor, entre em contato.',
@@ -125,7 +125,7 @@ final class IndicacaoEntity extends Entity
             logo: $Construtor->logo_principal,
             cor: $Construtor->cor_principal
         );
-        $Email->sendGrid('Cadastro Realizado', $this->nome->nome(), $this->email->email(), deNome: $titulo);
+        $Email->sendGrid('Você foi indicado para o Clube', $this->nome->nome(), $this->email->email(), deNome: $titulo);
     }
 
     protected function regraPosBuscar(): void

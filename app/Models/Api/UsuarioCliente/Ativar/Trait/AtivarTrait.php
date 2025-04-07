@@ -176,7 +176,7 @@ trait AtivarTrait
 
     private function validarCampoUnico()
     {
-        $id = $this->usuario->id;
+        $id = $this->usuario->id ?? '';
         $empresa = $this->usuario->id_admin_empresa;
         $cpf = $this->cpf->numero();
 

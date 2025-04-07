@@ -144,7 +144,7 @@ const loadingAtivarBuscar = () => {
     botaoBuscar.addEventListener('click', async () => {
         if (!(await validarInput(form))) {
             return;
-        } else if (inputTermoAtivarBuscar && !inputTermoAtivarBuscar.checked) {
+        } else if (valorData == 'titular' && inputTermoAtivarBuscar && !inputTermoAtivarBuscar.checked) {
             Alerta.notificacao('Você precisa aceitar os termos para continuar.', false);
             return;
         }
@@ -156,7 +156,7 @@ const loadingAtivarBuscar = () => {
         }
 
         let termo = '';
-        if (inputTermoAtivarBuscar) {
+        if (inputTermoAtivarBuscar && valorData == 'titular') {
             termo = inputTermoAtivarBuscar.checked ? 'sim' : 'nao';
         }
 
@@ -165,7 +165,7 @@ const loadingAtivarBuscar = () => {
         body.append('busca', inputBuscar.value ? inputBuscar.value : inputBuscarCpf.value);
         body.append('tipo_usuario', valorData);
         body.append('local_trabalho', inputLocalTrabalho ? inputLocalTrabalho.valor() : '');
-        body.append('local_trabalho', inputCodigo ? inputCodigo.valor() : '');
+        body.append('codigo', inputCodigo ? inputCodigo.valor() : '');
         body.append('termo', termo);
         body.append('form_system_hash', formHash);
         body.append('form_system_validacao', '');

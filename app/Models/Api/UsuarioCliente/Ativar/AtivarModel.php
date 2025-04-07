@@ -50,9 +50,12 @@ final class AtivarModel extends ORM
     private string $endereco_cidade;
     private TrabalhoCargo $trabalho_cargo;
     private string|int|null $trabalho_empresa;
+    private string $usuarioDiferenteCpf;
     private bool $ciesc = false;
     private bool $ciescInsert = false;
-    private stdClass $usuarioCiescUpdate;
+    private bool $codigo = false;
+    private bool $codigoInsert = false;
+    private int $idSubempresa;
 
     public function __construct(
         private Request $request
@@ -61,26 +64,62 @@ final class AtivarModel extends ORM
         $this->setarPropriedade();
         $this->validarDado();
         $this->verificaCiescPrecisaSalvar();
-        if (!$this->ciesc) {
+        $this->verificaCodigoPrecisaSalvar();
+
+        if (!$this->ciesc && !$this->codigo) {
             $this->buscarUsuario(['hash', $this->hash]);
             $this->validarCpf();
         } elseif ($this->ciesc && !$this->ciescInsert) {
             $this->buscarUsuario([
                 ['empresa', ID::CIESC],
-                ['documento', $this->usuarioCiescUpdate->cpf]
+                ['documento', $this->usuarioDiferenteCpf]
+            ]);
+        } elseif ($this->codigo && !$this->codigoInsert) {
+            $this->buscarUsuario([
+                ['empresa', ID::ABERT],
+                ['documento', $this->usuarioDiferenteCpf]
             ]);
         }
         $this->validarCampoUnico();
         if ($this->ciescInsert) {
-            $this->salvarUsuarioCiesc();
+            $this->salvarUsuarioDiferente(empresa: ID::CIESC);
             return;
-        } elseif ($this->ciesc) {
+        } elseif ($this->codigoInsert) {
+            $this->salvarUsuarioDiferente(empresa: ID::ABERT, subempresa: $this->idSubempresa);
+            return;
+        } elseif ($this->codigo || $this->ciesc) {
             $this->salvarUsuario();
             return;
         }
         $this->validarHash();
         $this->validarGrupoUsuario();
         $this->salvarUsuario();
+    }
+
+    private function verificaCodigoPrecisaSalvar()
+    {
+        if (!str_starts_with($this->hash, 'codigo.')) {
+            return;
+        }
+        $hash = base64Decode(explode('.', $this->hash)[1]);
+
+        if (!validarIndiceExiste($hash, ['existe', 'cpf', 'id', 'subempresa'])) {
+            mensagemErro('Erro!', $this->erroPadrao);
+        }
+        $this->idSubempresa = $hash['subempresa'];
+        $this->codigo = true;
+        $this->validarCpfAtivarDiferente($hash['cpf']);
+        if ($hash['existe']) {
+            $this->usuarioDiferenteCpf = $hash['cpf'];
+            return;
+        }
+        $this->codigoInsert = true;
+        $this->usuario = (object)[
+            'id_admin_empresa'    => ID::ABERT,
+            'id_admin_subempresa' => $hash['subempresa'],
+            'cpf'                 => $hash['cpf']
+        ];
+        return;
     }
 
     private function verificaCiescPrecisaSalvar()
@@ -93,13 +132,10 @@ final class AtivarModel extends ORM
             mensagemErro('Erro!', $this->erroPadrao);
         }
         $this->ciesc = true;
-        $this->validarCpfCiesc($hash['cpf']);
+        $this->validarCpfAtivarDiferente($hash['cpf']);
         $this->grupo = $hash['local_trabalho'];
         if ($hash['existe']) {
-            $this->usuarioCiescUpdate = (object)[
-                'cpf'              => $hash['cpf'],
-                'grupo'            => $hash['local_trabalho']
-            ];
+            $this->usuarioDiferenteCpf = $hash['cpf'];
             return;
         }
         $this->ciescInsert = true;
@@ -112,7 +148,7 @@ final class AtivarModel extends ORM
         return;
     }
 
-    private function validarCpfCiesc($cpf)
+    private function validarCpfAtivarDiferente($cpf)
     {
         if ($this->cpf->numero() != $cpf) {
             mensagemErro('Erro!', 'O CPF informado está diferente do CPF do seu registro.');
@@ -183,14 +219,15 @@ final class AtivarModel extends ORM
         }
     }
 
-    private function salvarUsuarioCiesc()
+    private function salvarUsuarioDiferente(int $empresa, ?int $subempresa = null)
     {
         $hoje = hoje();
         $agora = agora();
         $salvar = $this
             ->dado([
                 'cod'                  => uuid(),
-                'empresa'              => ID::CIESC,
+                'empresa'              => $empresa,
+                'id_admin_subempresa'  => $subempresa,
                 'tipo'                 => 1,
                 'nome'                 => $this->nome->nome(),
                 'cpf'                  => $this->cpf->numero(),
