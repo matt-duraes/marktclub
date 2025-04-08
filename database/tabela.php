@@ -104,6 +104,7 @@ define('TABELA_TEXTO_CLUBE', 'texto_clube');
 define('TABELA_UPLOAD_ARQUIVO', 'upload_arquivo');
 define('TABELA_UPLOAD_GRUPO', 'upload_grupo');
 define('TABELA_USUARIO_CLIENTE', 'usuario_novo');
+define('TABELA_USUARIO_CLUBE_CODIGO', 'usuario_clube_codigo');
 define('TABELA_USUARIO_EQUIPE', 'usuario_equipe');
 define('TABELA_USUARIO_GRUPO', 'usuario_grupo');
 define('TABELA_USUARIO_INDICACAO', 'usuario_indicacao');

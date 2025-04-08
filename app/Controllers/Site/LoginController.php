@@ -192,7 +192,7 @@ final class LoginController extends Controller
     {
         // mensagemErro('Erro!', 'Ocorreu um erro no momento, por favor, tente novamente mais tarde.');
         $valor = $request->busca;
-        if (ATIVACAO_TIPO == 'cpf') {
+        if (in_array(ATIVACAO_TIPO, ['cpf', 'codigo'])) {
             $valor = strCpfNumero($valor);
         }
         if ($request->tipo_usuario == 'indicado') {
@@ -212,6 +212,7 @@ final class LoginController extends Controller
                     'valor'          => $valor,
                     'empresa'        => CLUBE_EMPRESA,
                     'local_trabalho' => $request->local_trabalho,
+                    'codigo'         => $request->codigo,
                     'termo'          => $request->termo
                 ])
                 ->post('/usuario-cliente/ativar')

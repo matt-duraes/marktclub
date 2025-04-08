@@ -383,7 +383,7 @@ Route
         Route
             ::nome('ativar')
             ::middleware(TokenMiddleware::class, 'scope', ['usuario_cliente:ativar'])
-            ::request(['valor', '!empresa', '!tipo_usuario', '!chave', '!local_trabalho', '!termo'])
+            ::request(['valor', '!empresa', '!tipo_usuario', '!chave', '!local_trabalho', '!codigo', '!termo'])
             ::post('/usuario-cliente/ativar');
 
         Route

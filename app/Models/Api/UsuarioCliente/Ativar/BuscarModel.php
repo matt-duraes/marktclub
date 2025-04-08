@@ -11,6 +11,7 @@ use Modules\Botao;
 use Helpers\OrmHelper;
 use App\Classes\UsuarioCliente\Hash;
 use App\Helpers\Ciesc\UsuarioHelper;
+use App\Classes\Comercial\Empresa\ID;
 use App\Classes\UsuarioCliente\Status;
 use App\Classes\UsuarioCliente\TipoUsuario;
 use App\Classes\ConstrutorClube\TipoAtivacao;
@@ -39,7 +40,8 @@ final class BuscarModel extends ORM
         private readonly TipoAtivacao $tipoAtivacao = new TipoAtivacao(),
         private readonly TipoUsuario $tipoUsuario = new TipoUsuario(),
         private readonly LocalTrabalho $localTrabalho = new LocalTrabalho(),
-        private readonly Botao $Termo = new Botao()
+        private readonly Botao $Termo = new Botao(),
+        private readonly ?string $codigo = null
     ) {
         parent::__construct(leitura: false);
         $this->validarDados();
@@ -49,8 +51,50 @@ final class BuscarModel extends ORM
             }
             $this->buscarUsuarioCiesc($valor, $localTrabalho);
             return;
+        } elseif ($this->tipoAtivacao->indice() === TipoAtivacao::CODIGO && $tipoUsuario->indice() == TipoUsuario::TITULAR) {
+            $this->buscarUsuarioCodigo();
+            return;
         }
         $this->buscarUsuario();
+    }
+
+    private function buscarUsuarioCodigo()
+    {
+        $Codigo = new CodigoModel(
+            codigo: $this->codigo,
+            idEmpresa: ID::ABERT
+        );
+
+        $base = $this->pegarUsuarioBase();
+        $this->setarCpf($this->valor);
+
+        if (!validarIndiceExiste($base, 'status')) {
+            $this->hash = $this->gerarHashCodigo(
+                existe: false,
+                id: '',
+                subempresa: $Codigo->idSubempresa
+            );
+            return;
+        }
+        if ($base->status == 1) {
+            mensagemErro('Conta ativa!', 'Sua conta já está ativa, faça seu login para acessar o clube.');
+        }
+
+        $this->hash = $this->gerarHashCodigo(
+            existe: true,
+            id: $base->id,
+            subempresa: $Codigo->idSubempresa
+        );
+    }
+
+    private function gerarHashCodigo(bool $existe, int $subempresa, $id): string
+    {
+        return 'codigo.' . base64Encode([
+            'existe'     => $existe,
+            'id'         => $id,
+            'cpf'        => $this->cpf->numero(),
+            'subempresa' => $subempresa
+        ]);
     }
 
     private function buscarUsuarioCiesc($valor, $localTrabalho)
@@ -82,6 +126,28 @@ final class BuscarModel extends ORM
         }
 
         $this->hash = $this->gerarHashCiesc(true, $base->id);
+    }
+
+    public function imutavel()
+    {
+        if ($this->tipoAtivacao->indice() == TipoAtivacao::CIESC) {
+            return [
+                'documento_cpf' => [
+                    'nome'  => 'CPF',
+                    'valor' => $this->pegarCpf()->cpf()
+                ],
+                'local_trabalho' => [
+                    'nome'  => 'Local de trabalho',
+                    'valor' => $this->localTrabalho->indice(),
+                ]
+            ];
+        }
+        return [
+            'documento_cpf' => [
+                'nome'  => 'CPF',
+                'valor' => $this->pegarCpf()->cpf()
+            ],
+        ];
     }
 
     private function gerarHashCiesc(bool $existe, $id): string
@@ -119,11 +185,15 @@ final class BuscarModel extends ORM
             mensagemErro('Campo inválido!', 'Você deve enviar uma chave válida.');
         }
 
+        $validarCpf = in_array($this->tipoAtivacao->indice(), [TipoAtivacao::CPF, TipoAtivacao::CIESC, TipoAtivacao::CODIGO]);
+
         if ($this->tipoAtivacao->indice() === TipoAtivacao::CIESC && !$this->localTrabalho->valido()) {
             mensagemErro('Campo inválido!', 'Escolha seu local de trabalho para continuar.');
-        } elseif (($this->tipoAtivacao->indice() === TipoAtivacao::CPF) && empty($this->valor)) {
+        } elseif ($this->tipoAtivacao->indice() === TipoAtivacao::CODIGO && empty($this->codigo)) {
+            mensagemErro('Campo obrigatorio!', 'Digite seu código de ativação para continuar.');
+        } elseif ($validarCpf && empty($this->valor)) {
             mensagemErro('Campo obrigatorio!', 'Digite seu CPF para continuar.');
-        } elseif (($this->tipoAtivacao->indice() === TipoAtivacao::CPF) && !validarCpf($this->valor)) {
+        } elseif ($validarCpf && !validarCpf($this->valor)) {
             mensagemErro('Campo inválido!', 'Digite um CPF válido para continuar.');
         } elseif (($this->tipoAtivacao->indice() === TipoAtivacao::MATRICULA) && empty($this->valor)) {
             mensagemErro('Campo obrigatorio!', 'Digite sua matrícula para continuar.');
@@ -179,9 +249,12 @@ final class BuscarModel extends ORM
                 ['cpf', soNumero($this->valor)],
                 ['id_admin_empresa', $empresa]
             ];
-        }
-
-        if ($this->tipoAtivacao->indice() === TipoAtivacao::EMAIL) {
+        } elseif ($this->tipoAtivacao->indice() === TipoAtivacao::CODIGO) {
+            return [
+                ['cpf', soNumero($this->valor)],
+                ['id_admin_empresa', $empresa]
+            ];
+        } elseif ($this->tipoAtivacao->indice() === TipoAtivacao::EMAIL) {
             return [
                 [
                     'OR',
@@ -190,8 +263,7 @@ final class BuscarModel extends ORM
                 ],
                 ['id_admin_empresa', $empresa]
             ];
-        }
-        if (in_array($this->tipoAtivacao->indice(), [TipoAtivacao::CPF, TipoAtivacao::SIAPE], true)) {
+        } elseif (in_array($this->tipoAtivacao->indice(), [TipoAtivacao::CPF, TipoAtivacao::SIAPE], true)) {
             return [
                 ['id_admin_empresa', $empresa],
                 [$this->tipoAtivacao->indice(), soNumero($this->valor)]
