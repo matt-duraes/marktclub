@@ -1,0 +1,11 @@
+@template "site"
+
+<div id="bloco_lg">
+    @view site/geral/banner.view
+
+    <div class="bloco_chamada">
+        <h1>{!! $parceiro->texto_desconto !!}</h1>
+        <p>{!! $parceiro->texto_procedimento !!}</p>
+        <a href="{{ $parceiro->link }}" target="_blank" rel="noopener noreferrer" class="botao_geral_cor cor_bg">ACESSAR SITE</a>
+    </div>
+</div>

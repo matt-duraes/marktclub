@@ -36,14 +36,17 @@ final class ClubeMiddleware extends ApiHelper
 
         $dispositivo = (new UserAgentHelper());
         sessao('DISPOSITIVO_' . $this->id, true);
-        sessao('DISPOSITIVO', (object)[
-            'tipo'      => $dispositivo->dispositivo(),
-            'mobile'    => $dispositivo->mobile(),
-            'navegador' => $dispositivo->navegador(),
-            'os'        => $dispositivo->os(),
-            'tablet'    => $dispositivo->tablet(),
-            'versao'    => $dispositivo->versao(),
-        ]);
+        sessao(
+            'DISPOSITIVO',
+            (object)[
+                'tipo'      => $dispositivo->dispositivo(),
+                'mobile'    => $dispositivo->mobile(),
+                'navegador' => $dispositivo->navegador(),
+                'os'        => $dispositivo->os(),
+                'tablet'    => $dispositivo->tablet(),
+                'versao'    => $dispositivo->versao(),
+            ]
+        );
     }
 
     private function montarDispositivo()
@@ -109,7 +112,10 @@ final class ClubeMiddleware extends ApiHelper
         }
         $clube = sessao('CLUBE');
         define('CLUBE_LOGO_PRINCIPAL', $clube->logo_principal);
-        define('CLUBE_LOGO_SECUNDARIA', !empty($clube->logo_secundaria) ? $clube->logo_secundaria : $clube->logo_principal);
+        define(
+            'CLUBE_LOGO_SECUNDARIA',
+            !empty($clube->logo_secundaria) ? $clube->logo_secundaria : $clube->logo_principal
+        );
         define('CLUBE_LOGO_CLASSE', empty($clube->logo_secundaria) ? 'logo_secundaria_fundo' : '');
         define('CLUBE_FAVICON', $clube->favicon);
         define('CLUBE_LOGO_FOOTER', $clube->logo_footer);
@@ -157,7 +163,10 @@ final class ClubeMiddleware extends ApiHelper
         define('MENU_SALAVIP', $pagina->salavip);
         define('MENU_CREDITO_SICOOB', $pagina->credito_sicoob);
         define('MENU_FARMACIA', $pagina->farmacia);
-        define('MENU_SAUDE', $pagina->saude_vitoria || $pagina->saude_amil || $pagina->saude_seguro || $pagina->saude_cnu || $pagina->saude_florianopolis);
+        define(
+            'MENU_SAUDE',
+            $pagina->saude_vitoria || $pagina->saude_amil || $pagina->saude_seguro || $pagina->saude_cnu || $pagina->saude_florianopolis
+        );
         define('MENU_SAUDE_VITORIA', $pagina->saude_vitoria);
         define('MENU_SAUDE_AMIL', $pagina->saude_amil);
         define('MENU_SAUDE_SEGURO', $pagina->saude_seguro);
@@ -171,6 +180,7 @@ final class ClubeMiddleware extends ApiHelper
         define('MENU_FUNCIONARIO', $pagina->funcionario);
         define('MENU_CARTEIRA', $pagina->carteira);
         define('MENU_SAMSUNG', $pagina->samsung);
+        define('MENU_LG', $pagina->lg);
         define('MENU_CORRIDA', $pagina->corrida);
         define('MENU_SHOW_NACIONAL', $pagina->show_nacional);
         define('MENU_SHOW_INTERNACIONAL', $pagina->show_internacional);
@@ -202,7 +212,9 @@ final class ClubeMiddleware extends ApiHelper
             !empty($clube->texto_login_funcionario) ? $clube->texto_login_funcionario : 'Sou funcionário'
         );
 
-        $linkLoginRaiz = !empty($clube->link_login) ? preg_replace('/\/$/', '', $clube->link_login) : route('login.index');
+        $linkLoginRaiz = !empty($clube->link_login)
+            ? preg_replace('/\/$/', '', $clube->link_login)
+            : route('login.index');
         $linkLogin = API ? $linkLoginRaiz . '#login' : $linkLoginRaiz;
 
         define('LINK_APP_ANDROID', $clube->link_app_android);

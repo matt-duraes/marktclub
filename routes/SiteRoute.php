@@ -26,6 +26,7 @@ Route
             ::request(['tema'])
             ::post('/tema');
     });
+
 Route
     ::nome('faqLogin')
     ::middleware(AuthMiddleware::class, 'deslogado')
@@ -271,6 +272,17 @@ Route
         Route
             ::nome('index')
             ::view('/samsung');
+    });
+
+Route
+    ::nome('lg')
+    ::middleware(ClubeMiddleware::class, 'buscar')
+    ::middleware(AuthMiddleware::class, 'logado')
+    ::controller(App\Controllers\Site\LgController::class)
+    ::grupo(function () {
+        Route
+            ::nome('index')
+            ::view('/lg');
     });
 
 Route

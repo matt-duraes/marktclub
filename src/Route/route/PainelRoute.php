@@ -1,18 +1,19 @@
 <?php
 
-use Route\Route;
 use App\Middlewares\AuthMiddleware;
-use PainelController\AppController;
-use PainelController\DataController;
-use PainelController\UploadController;
-use PainelController\EnderecoController;
-use PainelController\HistoricoController;
-use PainelApp\login\Controllers\LoginController;
 use PainelApp\agenda\Controllers\AgendaController;
-use PainelApp\perfil\Controllers\PerfilController;
-use PainelApp\download\Controllers\DownloadController;
 use PainelApp\assinatura\Controllers\AssinaturaController;
 use PainelApp\atualizacao\Controllers\AtualizacaoController;
+use PainelApp\download\Controllers\DownloadController;
+use PainelApp\login\Controllers\LoginController;
+use PainelApp\perfil\Controllers\PerfilController;
+use PainelController\AppController;
+use PainelController\ContatoController;
+use PainelController\DataController;
+use PainelController\EnderecoController;
+use PainelController\HistoricoController;
+use PainelController\UploadController;
+use Route\Route;
 
 Route::noIndex();
 
@@ -25,9 +26,15 @@ Route
     ::controller(LoginController::class)::nome('login')::grupo(function () {
         Route::nome('index')::rotaNaoUnica()::view('/login');
         Route::nome('login')::rotaNaoUnica()::request(['hash_validacao_captcha', 'login', 'senha'])::post('/login');
-        Route::nome('relogar')::rotaNaoUnica()::request(['hash_validacao_captcha', 'login', 'senha'])::post('/login/relogar');
-        Route::nome('social')::rotaNaoUnica()::request(['hash_validacao', 'id', 'token', 'code', 'rede'])::post('/login/social');
-        Route::nome('desbloquear')::rotaNaoUnica()::request(['hash_validacao', 'login', 'senha', 'logado'])::post('/login/desbloquear');
+        Route::nome('relogar')::rotaNaoUnica()::request(['hash_validacao_captcha', 'login', 'senha'])::post(
+            '/login/relogar'
+        );
+        Route::nome('social')::rotaNaoUnica()::request(['hash_validacao', 'id', 'token', 'code', 'rede'])::post(
+            '/login/social'
+        );
+        Route::nome('desbloquear')::rotaNaoUnica()::request(['hash_validacao', 'login', 'senha', 'logado'])::post(
+            '/login/desbloquear'
+        );
     });
 
 Route
@@ -53,16 +60,21 @@ Route
         Route::nome('index')::rotaNaoUnica()::view('/perfil');
         Route::nome('dado')::rotaNaoUnica()::view('/perfil/dado');
         Route::nome('atualizar_dado')::rotaNaoUnica()::action('dado')::request([
-                'nome', 'data_nascimento', 'genero', 'email_pessoal', 'telefone_trabalho',
-                'telefone_pessoal', 'perfil'
-            ])::post('/perfil/dado');
+            'nome', 'data_nascimento', 'genero', 'email_pessoal', 'telefone_trabalho',
+            'telefone_pessoal', 'perfil'
+        ])::post('/perfil/dado');
         Route::nome('validarSenha')::rotaNaoUnica()::request(['senha'])::post('/perfil/validar-senha');
         Route::nome('senha')::rotaNaoUnica()::get('/perfil/senha');
-        Route::nome('senha')::rotaNaoUnica()::request(['hash_validacao', 'senha_atual', 'senha_nova', 'senha_repetir'])::post('/perfil/senha');
-        Route::nome('social')::rotaNaoUnica()::request(['hash_validacao', 'id', 'token', 'rede', 'code', 'acao'])::post('/perfil/social');
+        Route::nome('senha')::rotaNaoUnica()::request(['hash_validacao', 'senha_atual', 'senha_nova', 'senha_repetir']
+        )::post('/perfil/senha');
+        Route::nome('social')::rotaNaoUnica()::request(['hash_validacao', 'id', 'token', 'rede', 'code', 'acao'])::post(
+            '/perfil/social'
+        );
         Route::nome('empresa')::rotaNaoUnica()::view('/perfil/empresa');
         Route::nome('empresa')::rotaNaoUnica()::request(['hash_validacao', 'empresa'])::post('/perfil/empresa');
-        Route::nome('imagem')::rotaNaoUnica()::request(['hash_validacao'])::request(['arquivo'], 'files')::post('/perfil/imagem');
+        Route::nome('imagem')::rotaNaoUnica()::request(['hash_validacao'])::request(['arquivo'], 'files')::post(
+            '/perfil/imagem'
+        );
     }, true)
 
     // ATUALIZACAO
@@ -98,13 +110,13 @@ Route
         Route::nome('login')::request(['hash_validacao', 'code'])::rotaNaoUnica()::post('/agenda/login');
         Route::nome('buscar')::rotaNaoUnica()::request(['data_inicial', 'data_final'])::post('/agenda/buscar');
         Route::nome('salvar')::rotaNaoUnica()::request([
-                'titulo', 'data_inicial', 'data_final', 'hora_inicial', 'hora_final',
-                'descricao', 'local', 'video', 'convidado'
-            ])::post('/agenda/salvar');
+            'titulo', 'data_inicial', 'data_final', 'hora_inicial', 'hora_final',
+            'descricao', 'local', 'video', 'convidado'
+        ])::post('/agenda/salvar');
         Route::nome('editar')::rotaNaoUnica()::request([
-                'id', 'titulo', 'data_inicial', 'data_final', 'hora_inicial', 'hora_final',
-                'descricao', 'local', 'video', 'convidado', 'notificar'
-            ])::post('/agenda/editar');
+            'id', 'titulo', 'data_inicial', 'data_final', 'hora_inicial', 'hora_final',
+            'descricao', 'local', 'video', 'convidado', 'notificar'
+        ])::post('/agenda/editar');
         Route::nome('confirmar')::rotaNaoUnica()::request(['id', 'confirmar'])::post('/agenda/confirmar');
         Route::nome('deletar')::rotaNaoUnica()::request(['id'])::post('/agenda/deletar');
     }, true)
@@ -121,7 +133,9 @@ Route
         Route::action('salvar')::request('*')::request('*', 'files')::post('/app/salvar/{app}');
         Route::action('filtrar')::request(['!ordem'])::view('/app/filtrar/{app}');
         Route::action('download')::request(['pesquisa', 'filtro', 'ordem'])::view('/app/download/{app}');
-        Route::action('download')::request(['termo', 'senha', 'campo', 'ordem', 'pesquisa', 'filtro'])::post('/app/download/{app}');
+        Route::action('download')::request(['termo', 'senha', 'campo', 'ordem', 'pesquisa', 'filtro'])::post(
+            '/app/download/{app}'
+        );
         Route::action('removerFiltro')::request(['ordem', 'filtro', 'indice'])::view('/app/remover-filtro/{app}');
         Route::action('filtrar')::request('*')::post('/app/filtrar/{app}');
         Route::action('deletar')::request(['id', 'hash_validacao'])::post('/app/deletar/{app}');
@@ -133,15 +147,31 @@ Route
     ::controller(UploadController::class)::grupo(function () {
         Route::action('extensao')::rotaNaoUnica()::request(['grupo'])::post('/upload/extensao');
         Route::action('estruturaDiretorio')::rotaNaoUnica()::request(['grupo'])::post('/upload/estrutura-diretorio');
-        Route::action('criarDiretorio')::rotaNaoUnica()::request(['grupo_inicial', 'grupo_atual', 'nome'])::post('/upload/criar-diretorio');
-        Route::action('renomearDiretorio')::rotaNaoUnica()::request(['grupo_inicial', 'grupo_atual', 'nome'])::post('/upload/renomear-diretorio');
-        Route::action('deletarDiretorio')::rotaNaoUnica()::request(['grupo_inicial', 'grupo_atual'])::post('/upload/deletar-diretorio');
-        Route::action('buscar')::rotaNaoUnica()::request(['pagina', 'pesquisa', 'grupo_inicial', 'grupo_atual'])::post('/upload/buscar');
-        Route::action('salvar')::rotaNaoUnica()::request(['grupo_inicial', 'grupo_atual'])::request(['arquivo'], 'files')::post('/upload/salvar');
-        Route::action('mover')::rotaNaoUnica()::request(['id', 'nome', 'grupo_inicial', 'grupo_atual', 'grupo_destino'])::post('/upload/mover');
-        Route::action('renomear')::rotaNaoUnica()::request(['grupo_atual', 'grupo_inicial', 'id', 'nome'])::post('/upload/renomear');
-        Route::action('editar')::rotaNaoUnica()::request(['id', 'tipo', 'nome', 'largura', 'altura', 'corte_largura', 'corte_altura', 'x', 'y'])::post('/upload/editar');
-        Route::action('deletar')::rotaNaoUnica()::request(['grupo_atual', 'grupo_inicial', 'id'])::post('/upload/deletar');
+        Route::action('criarDiretorio')::rotaNaoUnica()::request(['grupo_inicial', 'grupo_atual', 'nome'])::post(
+            '/upload/criar-diretorio'
+        );
+        Route::action('renomearDiretorio')::rotaNaoUnica()::request(['grupo_inicial', 'grupo_atual', 'nome'])::post(
+            '/upload/renomear-diretorio'
+        );
+        Route::action('deletarDiretorio')::rotaNaoUnica()::request(['grupo_inicial', 'grupo_atual'])::post(
+            '/upload/deletar-diretorio'
+        );
+        Route::action('buscar')::rotaNaoUnica()::request(['pagina', 'pesquisa', 'grupo_inicial', 'grupo_atual'])::post(
+            '/upload/buscar'
+        );
+        Route::action('salvar')::rotaNaoUnica()::request(['grupo_inicial', 'grupo_atual'])::request(['arquivo'],
+            'files')::post('/upload/salvar');
+        Route::action('mover')::rotaNaoUnica()::request(['id', 'nome', 'grupo_inicial', 'grupo_atual', 'grupo_destino']
+        )::post('/upload/mover');
+        Route::action('renomear')::rotaNaoUnica()::request(['grupo_atual', 'grupo_inicial', 'id', 'nome'])::post(
+            '/upload/renomear'
+        );
+        Route::action('editar')::rotaNaoUnica()::request(
+            ['id', 'tipo', 'nome', 'largura', 'altura', 'corte_largura', 'corte_altura', 'x', 'y']
+        )::post('/upload/editar');
+        Route::action('deletar')::rotaNaoUnica()::request(['grupo_atual', 'grupo_inicial', 'id'])::post(
+            '/upload/deletar'
+        );
     }, true)
 
     // DATA
@@ -200,7 +230,8 @@ Route
             ::nome('listarEndereco')
             ::rotaNaoUnica()
             ::request([
-                'local_principal', 'local_secundario', 'vinculo', 'pagina', '!quantidade', '!cidade', '!estado', '!titulo'
+                'local_principal', 'local_secundario', 'vinculo', 'pagina', '!quantidade', '!cidade', '!estado',
+                '!titulo'
             ])
             ::post('/sistema-endereco/buscar-lista');
         Route
@@ -230,7 +261,7 @@ Route
     }, true)
 
     // CONTATO
-    ::controller(\PainelController\ContatoController::class)
+    ::controller(ContatoController::class)
     ::grupo(function () {
         Route
             ::nome('listarContato')
@@ -268,6 +299,7 @@ Route
     ::controller(DownloadController::class)::grupo(function () {
         Route::nome('buscar')::rotaNaoUnica()::view('/download-privado/{id}');
         Route::nome('download')::rotaNaoUnica()::view('/download-privado/download/{id}');
+        Route::nome('downloadforce')::rotaNaoUnica()::request(['hash'])::get('/download-force');
         Route::nome('validar')::rotaNaoUnica()::request(['senha'])::post('/download-privado/{id}');
     }, true)
 

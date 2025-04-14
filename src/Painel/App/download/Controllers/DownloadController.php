@@ -2,11 +2,11 @@
 
 namespace PainelApp\download\Controllers;
 
-use Http\Request;
-use Http\Response;
+use Controller\Controller;
 use Helpers\ApiHelper;
 use Helpers\CryptHelper;
-use Controller\Controller;
+use Http\Request;
+use Http\Response;
 
 final class DownloadController extends Controller
 {
@@ -29,6 +29,11 @@ final class DownloadController extends Controller
         $link = sessao('DOWNLOAD_PRIVADO_' . $id);
         sessaoDeletar('DOWNLOAD_PRIVADO_' . $id);
         return new Response(url: $link);
+    }
+
+    public function getDownloadForce(Request $request)
+    {
+        return new Response(download: base64Decode($request->hash));
     }
 
     public function postValidar(Request $request, string $id)

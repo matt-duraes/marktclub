@@ -2,15 +2,15 @@
 
 namespace App\Models\Api\ConstrutorClube;
 
-use ORM\Entity;
+use App\Classes\ConstrutorClube\BotaoTipo;
+use App\Classes\ConstrutorClube\TipoAtivacao;
+use App\Classes\ConstrutorClube\TipoCargo;
+use App\Classes\Geral\Status;
+use Helpers\OrmHelper;
 use Modules\Botao;
 use Modules\Email;
 use Modules\Telefone;
-use Helpers\OrmHelper;
-use App\Classes\Geral\Status;
-use App\Classes\ConstrutorClube\BotaoTipo;
-use App\Classes\ConstrutorClube\TipoCargo;
-use App\Classes\ConstrutorClube\TipoAtivacao;
+use ORM\Entity;
 
 class ConstrutorEntity extends Entity
 {
@@ -73,6 +73,7 @@ class ConstrutorEntity extends Entity
     public Botao $menu_corrida;
     public Botao $menu_tema;
     public Botao $menu_samsung;
+    public Botao $menu_lg;
     public Botao $menu_sair;
     public Botao $api_status;
     public Botao $chat_status;
@@ -124,7 +125,7 @@ class ConstrutorEntity extends Entity
         'botao_cadastro_tipo', 'botao_cadastro_link', 'botao_ativar_status', 'botao_ativar_tipo', 'botao_ativar_link',
         'grupo_placeholder', 'link_facebook', 'link_instagram', 'link_twitter', 'link_linkedin', 'link_youtube',
         'link_funcionario', 'texto_login_usuario', 'texto_login_dependente', 'texto_login_funcionario', 'tipo_cargo',
-        'app_versao_android', 'app_versao_ios'
+        'app_versao_android', 'app_versao_ios', 'menu_lg'
     ];
     protected array $ormSalvar = [
         'id_admin_empresa', 'link_clube', 'link_cadastro', 'link_salavip', 'link_odontologico',
@@ -144,7 +145,7 @@ class ConstrutorEntity extends Entity
         'menu_samsung', 'tipo_ativacao', 'status', 'campos_primeiro_acesso', 'grupo_label', 'grupo_placeholder',
         'link_facebook', 'link_instagram', 'link_twitter', 'link_linkedin', 'link_youtube', 'link_tiktok',
         'link_funcionario', 'texto_login_usuario', 'texto_login_dependente', 'texto_login_funcionario', 'tipo_cargo',
-        'app_versao_android', 'app_versao_ios'
+        'app_versao_android', 'app_versao_ios', 'menu_lg'
     ];
     protected array $ormRetornoPadrao = ['id', 'logo_principal', 'logo_marktclub'];
     private OrmHelper $ormEmpresa;

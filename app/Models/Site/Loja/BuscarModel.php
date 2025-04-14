@@ -2,12 +2,12 @@
 
 namespace App\Models\Site\Loja;
 
-use stdClass;
-use Helpers\MarkdownHelper;
-use App\Helpers\ClubeApiHelper;
+use App\Classes\ParceiroLoja\PrazoDeclaracao;
 use App\Classes\ParceiroLoja\Status;
 use App\Classes\ParceiroLoja\TipoLoja;
-use App\Classes\ParceiroLoja\PrazoDeclaracao;
+use App\Helpers\ClubeApiHelper;
+use Helpers\MarkdownHelper;
+use stdClass;
 
 final class BuscarModel extends ClubeApiHelper
 {
@@ -67,7 +67,11 @@ final class BuscarModel extends ClubeApiHelper
         if (empty($link)) {
             return '';
         } elseif ($tipo == TipoLoja::CASHBACK) {
-            $link .= '&clickref=' . sessao('USUARIO.id');
+            if (str_contains($link, 's.afilio.com.br')) {
+                $link .= '&xtra1=' . sessao('USUARIO.id');
+            } else {
+                $link .= '&clickref=' . sessao('USUARIO.id');
+            }
         }
 
         return str_replace(
@@ -118,5 +122,16 @@ final class BuscarModel extends ClubeApiHelper
     {
         $dado = $this->get('/parceiro-loja/' . $this->url)->object();
         return $dado->dado->arquivo_clube ?? '';
+    }
+
+    /**
+     * Busca o parceiro LG do clube e retorna apenas o link
+     * do arquivo
+     *
+     */
+    public function buscarLg()
+    {
+        $dado = $this->get('/parceiro-loja/' . $this->url)->object();
+        return $dado->dado->link ?? '';
     }
 }

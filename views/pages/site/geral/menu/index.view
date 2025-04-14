@@ -48,11 +48,18 @@
 <a class="botao {!!MENU_HOVER == 'samsung' ? 'cor_bg pagina_atual' : ''!!}" href="@route(samsung.index)">
     <i>@iconeCelular(16)</i>
     Samsung
+</a>
+@ endif;
+
+@ if( MENU_LG ):
+<a class="botao {!!MENU_HOVER == 'lg' ? 'cor_bg pagina_atual' : ''!!}" href="@route(lg.index)">
+    <i>@iconeCelular(16)</i>
+    LG
     <div class="novo">novo</div>
 </a>
 @ endif;
 
-@if(MENU_FARMACIA):
+@if( MENU_FARMACIA ):
 <a class="botao {!!MENU_HOVER == 'farmacia' ? 'cor_bg pagina_atual' : ''!!}" href="<?= route('farmacia.index') ?>">
     <i>@iconeMedicamento</i>
     Drogaria
