@@ -230,6 +230,7 @@ $Painel->coluna(callback: function () use ($Painel) {
             $Painel->checkbox(name: 'menu_mapa', label: 'Mapa');
             $Painel->checkbox(name: 'menu_samsung', label: 'Samsung');
             $Painel->checkbox(name: 'menu_turismo', label: 'Turismo');
+            $Painel->checkbox(name: 'menu_lg', label: 'LG');
             $Painel->checkbox(name: 'menu_farmacia', label: 'Farmacia');
             $Painel->checkbox(name: 'menu_automovel', label: 'Automovel');
             $Painel->checkbox(name: 'menu_cashback', label: 'Cashback');

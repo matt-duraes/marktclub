@@ -11,9 +11,15 @@
 
 use Erro\Erro;
 use Erro\Excecao;
-use Http\Request;
 use Helpers\ApiHelper;
 use Helpers\CryptHelper;
+use Http\Request;
+use Http\Response;
+use Modules\ModuleInterface;
+use Route\Route;
+use Status\StatusInterface;
+use System\Config\Session;
+use System\Interface\ApiRetornoInterface;
 
 /*/
 |--------------------------------------------------------------------------
@@ -45,9 +51,10 @@ if (!function_exists('jsonDecode')) {
     /**
      * Converter um JSON em array ou objeto
      *
-     * @param  string              $string  Valor que deseja ser convertido
-     * @param  bool                $retorno True para retornar um array ou false para retornar um object
-     * @param  bool                $array   Se true, em caso de erro, retorna um array vazio
+     * @param string $string  Valor que deseja ser convertido
+     * @param bool   $retorno True para retornar um array ou false para retornar um object
+     * @param bool   $array   Se true, em caso de erro, retorna um array vazio
+     *
      * @return array|strClass|bool Array, Object ou false
      */
     function jsonDecode($string, bool $retorno = false, bool $array = false): array|stdClass|bool
@@ -73,7 +80,8 @@ if (!function_exists('jsonEncode')) {
     /**
      * Converte um valor em JSON
      *
-     * @param  mixed  $valor Valor que deseja converter
+     * @param mixed $valor Valor que deseja converter
+     *
      * @return string String JSON ou false em caso de erro
      */
     function jsonEncode($valor): string|bool
@@ -137,7 +145,8 @@ if (!function_exists('hashIpUser')) {
     /**
      * Criar um hash com o IP e UserAgent do usuário
      *
-     * @param  string $prefix Coloca um prefix no inicio do string antes de criptografar
+     * @param string $prefix Coloca um prefix no inicio do string antes de criptografar
+     *
      * @return string String contento o hash MD5
      */
     function hashIpUser(string $prefix = ''): string
@@ -150,13 +159,14 @@ if (!function_exists('hashIpUser')) {
 /**
  * Seta um novo Cookie ou pega um cookie
  *
- * @param  string $nome    Nome do cookie
- * @param  mixed  $valor   Valor para o cookie
- * @param  int    $dia     Quantidade de dias para o token expirar
- * @param  int    $hora    Quantidade de horas para o token expirar
- * @param  int    $minuto  Quantidade de minutos para o token expirar
- * @param  string $path    Path do token
- * @param  string $dominio Domínio do token
+ * @param string $nome    Nome do cookie
+ * @param mixed  $valor   Valor para o cookie
+ * @param int    $dia     Quantidade de dias para o token expirar
+ * @param int    $hora    Quantidade de horas para o token expirar
+ * @param int    $minuto  Quantidade de minutos para o token expirar
+ * @param string $path    Path do token
+ * @param string $dominio Domínio do token
+ *
  * @return string Retorna true ou false
  */
 if (!function_exists('cookie')) {
@@ -217,8 +227,9 @@ if (!function_exists('inteiro')) {
     /**
      * Gera um número inteiro com o intervalo de min e max
      *
-     * @param  int $min Valor mínimo
-     * @param  int $max Valor máximo
+     * @param int $min Valor mínimo
+     * @param int $max Valor máximo
+     *
      * @return int Número inteiro
      */
     function inteiro(int $min = 1000, int $max = 9999): int
@@ -231,9 +242,10 @@ if (!function_exists('qrcode')) {
     /**
      * Gera um QR Code com o dado enviado e retorna uma imagem com o tamanho definido pela largura e altura
      *
-     * @param  string $dado   Dado que será retornado pelo QR Code
-     * @param  int    $width  Largura do QR Code
-     * @param  int    $height Altura do QR Code
+     * @param string $dado   Dado que será retornado pelo QR Code
+     * @param int    $width  Largura do QR Code
+     * @param int    $height Altura do QR Code
+     *
      * @return string Link para a imagem do QR Code
      */
     function qrcode(string $dado, int $width = 200, int $height = 200): string
@@ -253,7 +265,7 @@ if (!function_exists('qrcode')) {
 if (!function_exists('error404')) {
     function error404(): void
     {
-        throw new \Erro\Excecao(status: 404);
+        throw new Excecao(status: 404);
     }
 }
 if (!function_exists('paginaErro')) {
@@ -263,7 +275,7 @@ if (!function_exists('paginaErro')) {
      */
     function paginaErro(int $status): void
     {
-        throw new \Erro\Excecao(status: in_array($status, [400, 401, 403, 404, 500]) ? $status : 400);
+        throw new Excecao(status: in_array($status, [400, 401, 403, 404, 500]) ? $status : 400);
     }
 }
 
@@ -463,9 +475,9 @@ if (!function_exists('location')) {
     /**
      * @param string $link Link para ser redirecionado
      */
-    function location(string $link): \Http\Response
+    function location(string $link): Response
     {
-        return (new \Http\Response())->location(url: $link);
+        return (new Response())->location(url: $link);
     }
 }
 
@@ -481,9 +493,9 @@ if (!function_exists('redirect')) {
     /**
      * @param string $link Link para ser redirecionado
      */
-    function redirect(string $link): \Http\Response
+    function redirect(string $link): Response
     {
-        return (new \Http\Response())->location(url: $link, status: 301);
+        return (new Response())->location(url: $link, status: 301);
     }
 }
 
@@ -501,9 +513,9 @@ if (!function_exists('download')) {
      * @param string       $nome    Nome do arquivo ao ser feito o download
      * @param string|array $ext     Lista de extensões permitidas para fazer downlaod
      */
-    function download(string $arquivo): \Http\Response
+    function download(string $arquivo): Response
     {
-        return (new \Http\Response())->download(arquivo: $arquivo);
+        return (new Response())->download(arquivo: $arquivo);
     }
 }
 
@@ -597,7 +609,7 @@ if (!function_exists('pegarPropriedadeDaEntity')) {
             }
 
             $valor = $Entity->$campo;
-            if ($valor instanceof \System\Interface\ApiRetornoInterface) {
+            if ($valor instanceof ApiRetornoInterface) {
                 $valor = $valor->retorno();
             } elseif ($valor instanceof \ORM\Entity && empty($valor->id)) {
                 $campo = strCaixaBaixa($campo);
@@ -605,9 +617,9 @@ if (!function_exists('pegarPropriedadeDaEntity')) {
             } elseif ($valor instanceof \ORM\Entity) {
                 $campo = strCaixaBaixa($campo);
                 $valor = $valor->retorno();
-            } elseif ($valor instanceof \Status\StatusInterface) {
+            } elseif ($valor instanceof StatusInterface) {
                 $valor = $valor->indice();
-            } elseif ($valor instanceof \Modules\ModuleInterface) {
+            } elseif ($valor instanceof ModuleInterface) {
                 $valor = $valor->valor();
             }
 
@@ -651,9 +663,25 @@ if (!function_exists('stringArray')) {
     function stringArray(string $string, bool $retorno = true)
     {
         if (strstr($string, ':')) {
-            return jsonDecode(str_replace([',""', ':""'], '', preg_replace(['/\t+/', '/\n+/', '/\r+/'], '', '{"' . str_replace(['\\', ':', ','], ['\\\\', '":"', '","'], $string) . '"}')), $retorno);
+            return jsonDecode(
+                str_replace([',""', ':""'],
+                    '',
+                    preg_replace(['/\t+/', '/\n+/', '/\r+/'],
+                        '',
+                        '{"' . str_replace(['\\', ':', ','], ['\\\\', '":"', '","'], $string) . '"}')),
+                $retorno
+            );
         } elseif (strstr($string, ',')) {
-            return jsonDecode(str_replace(',""', '', preg_replace(['/\t+/', '/\n+/', '/\r+/'], '', '["' . str_replace(['\\', ','], ['\\\\', '","'], $string) . '"]')), $retorno);
+            return jsonDecode(
+                str_replace(
+                    ',""',
+                    '',
+                    preg_replace(['/\t+/', '/\n+/', '/\r+/'],
+                        '',
+                        '["' . str_replace(['\\', ','], ['\\\\', '","'], $string) . '"]')
+                ),
+                $retorno
+            );
         }
         return $string;
     }
@@ -673,7 +701,11 @@ if (!function_exists('getallheaders')) {
         $headers = [];
         foreach ($_SERVER as $name => $value) {
             if (substr($name, 0, 5) == 'HTTP_') {
-                $headers[str_replace(' ', '-', ucwords(mb_strtolower(str_replace('_', ' ', substr($name, 5)), 'UTF-8')))] = $value;
+                $headers[str_replace(
+                    ' ',
+                    '-',
+                    ucwords(mb_strtolower(str_replace('_', ' ', substr($name, 5)), 'UTF-8'))
+                )] = $value;
             }
         }
         return $headers;
@@ -710,7 +742,7 @@ if (!function_exists('formHash')) {
             'hash'   => $hash,
             'data'   => strtotime(agora()),
         ];
-        $cookie = (new \Helpers\CryptHelper())->encode($formHash);
+        $cookie = (new CryptHelper())->encode($formHash);
         $validacao = $validacao === null ? md5($cookie) : $validacao;
 
         return '
@@ -734,9 +766,10 @@ if (!function_exists('agora')) {
 }
 if (!function_exists('hoje')) {
     /**
-     * @param  bool   $br    Se a data vai ser no formato BR
-     * @param  int    $mais  Adicionar X dias a data de hoje
-     * @param  int    $menos Remove X dias a data de hoje
+     * @param bool $br    Se a data vai ser no formato BR
+     * @param int  $mais  Adicionar X dias a data de hoje
+     * @param int  $menos Remove X dias a data de hoje
+     *
      * @return string Data de retorno
      */
     function hoje(bool $br = false, int $mais = null, int $menos = null): string
@@ -770,7 +803,7 @@ if (!function_exists('route')) {
         } else {
             return '';
         }
-        $url = \Route\Route::route($metodo . '.' . $controller . '.' . $action);
+        $url = Route::route($metodo . '.' . $controller . '.' . $action);
         return LINK . $url;
     }
 }
@@ -779,14 +812,19 @@ if (!function_exists('listarArquivoDiretorio')) {
     /**
      * Lista dos os arquivos de um diretório
      *
-     * @param  string     $diretorio Diretório que deseja buscar os arquivos
-     * @param  string     $inicio    Somente arquivos que começem com o valor informado
-     * @param  string     $final     Somente arquivos que terminem com o valor informado
-     * @param  null|array $ext       Lista de extensões permitidas
+     * @param string     $diretorio Diretório que deseja buscar os arquivos
+     * @param string     $inicio    Somente arquivos que começem com o valor informado
+     * @param string     $final     Somente arquivos que terminem com o valor informado
+     * @param null|array $ext       Lista de extensões permitidas
+     *
      * @return array      Array com a lista de arquivos encontrado
      */
-    function listarArquivoDiretorio(string $diretorio, string $inicio = '', string $final = '', ?array $ext = null): array
-    {
+    function listarArquivoDiretorio(
+        string $diretorio,
+        string $inicio = '',
+        string $final = '',
+        ?array $ext = null
+    ): array {
         if (!is_dir($diretorio)) {
             mensagemErro(
                 titulo: 'Erro!',
@@ -922,23 +960,23 @@ if (!function_exists('pegarHtmlEmail')) {
         );
 
         $browser = LINK . '/email/browser/' . (new CryptHelper(url: true))->encode([
-            'tipo'      => $tipo,
-            'titulo'    => $titulo,
-            'assunto'   => $assunto,
-            'mensagem'  => $mensagem,
-            'link'      => $link,
-            'botao'     => $botao,
-            'acao'      => $acao,
-            'acaoTexto' => $acaoTexto,
-            'idPublico' => $idPublico,
-            'var'       => $var,
-            'data'      => $data,
-            'ip'        => $ip,
-            'LINK'      => $LINK,
-            'LINK_API'  => $LINK_API,
-            'LINK_SITE' => $LINK_SITE,
-            'HOST'      => $HOST,
-        ], 'hash_email_geral');
+                'tipo'      => $tipo,
+                'titulo'    => $titulo,
+                'assunto'   => $assunto,
+                'mensagem'  => $mensagem,
+                'link'      => $link,
+                'botao'     => $botao,
+                'acao'      => $acao,
+                'acaoTexto' => $acaoTexto,
+                'idPublico' => $idPublico,
+                'var'       => $var,
+                'data'      => $data,
+                'ip'        => $ip,
+                'LINK'      => $LINK,
+                'LINK_API'  => $LINK_API,
+                'LINK_SITE' => $LINK_SITE,
+                'HOST'      => $HOST,
+            ], 'hash_email_geral');
 
         ob_start();
         include ROOT . '/files/php/views/api/email/' . $tipo . '/index.php';
@@ -967,8 +1005,9 @@ if (!function_exists('object_key_exists')) {
     /**
      * Verifica se existe uma chave no objeto
      *
-     * @param  string $chave  Chave que deseja procurar
-     * @param  mixed  $objeto Objeto que deseja validar
+     * @param string $chave  Chave que deseja procurar
+     * @param mixed  $objeto Objeto que deseja validar
+     *
      * @return bool
      */
     function object_key_exists(string $chave, $objeto)
@@ -984,20 +1023,21 @@ if (!function_exists('descriptografarDado')) {
     /**
      * Criptografa um array de dados ou uma string
      *
-     * @param  string|array $valor String com valor a criptografar ou um array ou uma lista de array
-     * @param  array        $lista Lista de campos que devem ser criptografados quando o valor for um array
+     * @param string|array $valor String com valor a criptografar ou um array ou uma lista de array
+     * @param array        $lista Lista de campos que devem ser criptografados quando o valor for um array
+     *
      * @return string|array String quando o valor for uma string ou um array quando o valor for um array
      */
     function descriptografarDado(string|stdClass|array $valor, array $lista = [], ?string $chave = null): array|string
     {
         $chave =
             is_null($chave) && defined('TOKEN') && array_key_exists('app', TOKEN) ?
-            TOKEN['app']->chave_privada :
-            $chave;
+                TOKEN['app']->chave_privada :
+                $chave;
         $Crypt = new CryptHelper(chavePrivada: $chave);
 
         if ($valor instanceof stdClass) {
-            $valor = (array) $valor;
+            $valor = (array)$valor;
         } elseif (!is_array($valor)) {
             return !empty($valor) ? $Crypt->decode($valor) : $valor;
         }
@@ -1039,26 +1079,31 @@ if (!function_exists('criptografarDado')) {
     /**
      * Criptografa um array de dados ou uma string
      *
-     * @param  string|array $valor        String com valor a criptografar ou um array ou uma lista de array
-     * @param  array        $criptografia Lista de campos que devem ser criptografados quando o valor for um array
-     * @param  bool         $lista        Se o valor é uma lista
+     * @param string|array $valor        String com valor a criptografar ou um array ou uma lista de array
+     * @param array        $criptografia Lista de campos que devem ser criptografados quando o valor for um array
+     * @param bool         $lista        Se o valor é uma lista
+     *
      * @return string|array String quando o valor for uma string ou um array quando o valor for um array
      */
-    function criptografarDado(string|stdClass|array $dado, array $criptografia = [], ?string $chave = null, bool $lista = false): array|string
-    {
+    function criptografarDado(
+        string|stdClass|array $dado,
+        array $criptografia = [],
+        ?string $chave = null,
+        bool $lista = false
+    ): array|string {
         if (vazio($dado)) {
             return $dado;
         }
 
         $chave =
             is_null($chave) && defined('TOKEN') && array_key_exists('app', TOKEN) ?
-            TOKEN['app']->chave_publica :
-            $chave;
+                TOKEN['app']->chave_publica :
+                $chave;
 
         $Crypt = new CryptHelper(chavePublica: $chave);
 
         if ($dado instanceof stdClass) {
-            $dado = (array) $dado;
+            $dado = (array)$dado;
         }
 
         if (!is_array($dado)) {
@@ -1096,18 +1141,20 @@ if (!function_exists('_criptografarDadoRodar')) {
 }
 if (!function_exists('base64Encode')) {
     /**
-     * @param  string|array $dado Dado a ser criptografado
-     * @param  null|string  $url  Se deve converter a hash para URL
+     * @param string|array $dado Dado a ser criptografado
+     * @param null|string  $url  Se deve converter a hash para URL
+     *
      * @return string       Criptografia gerada
      */
     function base64Encode(string|array $dado, bool $url = false)
     {
-        return (new \Helpers\CryptHelper(url: $url))->encode($dado);
+        return (new CryptHelper(url: $url))->encode($dado);
     }
 }
 if (!function_exists('base64Decode')) {
     /**
-     * @param  string       $hash Hash que deseja descriptografar
+     * @param string $hash Hash que deseja descriptografar
+     *
      * @return string|array Conteúdo descriptografado
      */
     function base64Decode(?string $hash, bool $url = false): array|string|bool
@@ -1115,12 +1162,13 @@ if (!function_exists('base64Decode')) {
         if (!is_string($hash)) {
             return false;
         }
-        return (new \Helpers\CryptHelper(url: $url))->decode($hash);
+        return (new CryptHelper(url: $url))->decode($hash);
     }
 }
 if (!function_exists('arrayString')) {
     /**
      * Converte um Array para o padrão de string do sistema 1=valor 01|2=valor 02
+     *
      * @param array $array Array a ser convertido
      */
     function arrayString(array $array)
@@ -1135,6 +1183,7 @@ if (!function_exists('arrayString')) {
 if (!function_exists('stringArray')) {
     /**
      * Converte uma string de array para um arrray PHP
+     *
      * @param string $string String a ser convertido
      */
     function arrayString(string $string)
@@ -1202,16 +1251,17 @@ if (!function_exists('sessao')) {
     /**
      * Seta ou pega uma sessão
      *
-     * @param  null|string|array $indice Indice da sessão podendo usar . para pegar mais de um nível (20 no máximo) ou array para setar varios valores
-     * @param  midex             $valor  Valor para a sessão
-     * @param  midex             $padrao Valor padrão caso não exista a sessão
-     * @param  bool              $flash  Se a sessão vai ser permanente ou se vai ser excluida depois de uso ou reload
+     * @param null|string|array $indice Indice da sessão podendo usar . para pegar mais de um nível (20 no máximo) ou array para setar varios valores
+     * @param midex             $valor  Valor para a sessão
+     * @param midex             $padrao Valor padrão caso não exista a sessão
+     * @param bool              $flash  Se a sessão vai ser permanente ou se vai ser excluida depois de uso ou reload
+     *
      * @return mixed
      */
     function sessao(null|string|array $indice = null, $valor = null, $padrao = null)
     {
         $SESSAO = new Symfony\Component\HttpFoundation\Session\Session();
-        $SESSAO->registerBag((new \System\Config\Session(true))->storage());
+        $SESSAO->registerBag((new Session(true))->storage());
 
         if (is_array($indice)) {
             foreach ($indice as $propriedade => $resultado) {
@@ -1251,8 +1301,8 @@ if (!function_exists('sessao')) {
                     throw new Excecao(
                         'Erro!',
                         SISTEMA == 'LOCALHOST' ?
-                        'O indice ' . $subIndice . ' não existe na sessão.' :
-                        'Ocorreu um erro no sistema, por favor, recarregue a página e tente novamente.'
+                            'O indice ' . $subIndice . ' não existe na sessão.' :
+                            'Ocorreu um erro no sistema, por favor, recarregue a página e tente novamente.'
                     );
                 } elseif (!$existe) {
                     return $padrao;
@@ -1307,8 +1357,8 @@ if (!function_exists('sessao')) {
                 throw new Excecao(
                     titulo: 'Erro',
                     mensagem: SISTEMA == 'LOCALHOST' ?
-                    'Você só pode usar no máximo 20 níveis.' :
-                    'Ocorreu um erro no sistema, por favor, recarregue a página e tente novamente.'
+                        'Você só pode usar no máximo 20 níveis.' :
+                        'Ocorreu um erro no sistema, por favor, recarregue a página e tente novamente.'
                 );
             }
             $SESSAO->set($indice, $valorAtual);
@@ -1329,7 +1379,7 @@ if (!function_exists('sessaoFlash')) {
             return;
         }
         $SESSAO = new Symfony\Component\HttpFoundation\Session\Session();
-        $SESSAO->registerBag((new \System\Config\Session(true))->storage());
+        $SESSAO->registerBag((new Session(true))->storage());
 
         if (!empty($valor)) {
             $SESSAO->getFlashBag()->add($indice, $valor);
@@ -1342,12 +1392,13 @@ if (!function_exists('sessaoFlash')) {
 if (!function_exists('sessaoDeletar')) {
     /**
      * Deleta um indice da sessão
+     *
      * @param null|string|array $indice Indice da sessão podendo usar . para pegar mais de um nível (20 no máximo) ou array para deletar varios valores. Caso não passe um indice, será destruido todos os indices
      */
     function sessaoDeletar(null|string|array $indice = null): void
     {
         $SESSAO = new Symfony\Component\HttpFoundation\Session\Session();
-        $SESSAO->registerBag((new \System\Config\Session(true))->storage());
+        $SESSAO->registerBag((new Session(true))->storage());
         if (is_array($indice)) {
             foreach ($indice as $subIndice) {
                 $SESSAO->remove($subIndice);
@@ -1427,13 +1478,15 @@ if (!function_exists('sessaoDeletar')) {
 if (!function_exists('sessaoExiste')) {
     /**
      * Verifica se uma sessão existe
-     * @param  string|array $indice Indice da sessão podendo usar . para pegar mais de um nível ou array para várias
+     *
+     * @param string|array $indice Indice da sessão podendo usar . para pegar mais de um nível ou array para várias
+     *
      * @return bool         True para se a sessão existir ou false
      */
     function sessaoExiste(string|array $indice): bool
     {
         $SESSAO = new Symfony\Component\HttpFoundation\Session\Session();
-        $SESSAO->registerBag((new \System\Config\Session(true))->storage());
+        $SESSAO->registerBag((new Session(true))->storage());
 
         if (is_array($indice)) {
             foreach ($indice as $subIndice) {
@@ -1480,10 +1533,11 @@ if (!function_exists('montarSelect')) {
     /**
      * Conta um array para usar como select no padrão indice => valor
      *
-     * @param  array       $lista  Array com uma lista de itens para ser adicionado no select
-     * @param  null|string $titulo Valor inicial e vazio do select. Ex <option value="">Valor do titulo</option>
-     * @param  null|string $indice Qual campo da $lista será o indice
-     * @param  null|string $valor  Qual campo da $lista será o valor
+     * @param array       $lista  Array com uma lista de itens para ser adicionado no select
+     * @param null|string $titulo Valor inicial e vazio do select. Ex <option value="">Valor do titulo</option>
+     * @param null|string $indice Qual campo da $lista será o indice
+     * @param null|string $valor  Qual campo da $lista será o valor
+     *
      * @return array
      */
     function montarSelect(array $lista, ?string $titulo = null, ?string $indice = null, ?string $valor = null): array
@@ -1521,7 +1575,8 @@ if (!function_exists('echoView')) {
     /**
      * Escapa os valores para impressão
      *
-     * @param  mixed  $valor Valor a ser escapado
+     * @param mixed $valor Valor a ser escapado
+     *
      * @return string Valor escapada
      */
     function echoView($valor): string
@@ -1534,7 +1589,8 @@ if (!function_exists('object')) {
     /**
      * Concerte um Array em Object
      *
-     * @param  array    $array Array que deseja converter
+     * @param array $array Array que deseja converter
+     *
      * @return stdClass
      */
     function object(array $array): stdClass|array
@@ -1566,7 +1622,9 @@ if (!function_exists('caixaCodigo')) {
             'swift', 'yaml', 'xml', 'markdown', 'sql', 'typescript'
         ]) ? 'language-' . $linguagem : '';
 
-        return '<div class="fw_caixa_codigo">' . $arquivoHtml . '<pre><code class="' . $classe . '">' . trim($codigo) . '</code></pre></div>';
+        return '<div class="fw_caixa_codigo">' . $arquivoHtml . '<pre><code class="' . $classe . '">' . trim(
+                $codigo
+            ) . '</code></pre></div>';
     }
 }
 
@@ -1574,14 +1632,19 @@ if (!function_exists('imagemUsuario')) {
     /**
      * Pega a imagem do usuário
      *
-     * @param  null|string $tipo     Tipo de imagem sendo 1 para arquivo, 2 para Google e 3 para Facebook
-     * @param  null|string $arquivo  Arquivo de imagem
-     * @param  null|string $facebook URL da imagem do Facebook
-     * @param  null|string $google   URL da imagem do Google
+     * @param null|string $tipo     Tipo de imagem sendo 1 para arquivo, 2 para Google e 3 para Facebook
+     * @param null|string $arquivo  Arquivo de imagem
+     * @param null|string $facebook URL da imagem do Facebook
+     * @param null|string $google   URL da imagem do Google
+     *
      * @return string      URL da imagem
      */
-    function imagemUsuario(?string $tipo = null, ?string $arquivo = null, ?string $facebook = null, ?string $google = null): string
-    {
+    function imagemUsuario(
+        ?string $tipo = null,
+        ?string $arquivo = null,
+        ?string $facebook = null,
+        ?string $google = null
+    ): string {
         if ($tipo == 3 && !empty($facebook)) {
             return $facebook;
         } elseif ($tipo == 2 && !empty($google)) {
@@ -1597,10 +1660,11 @@ if (!function_exists('arquivoPublico')) {
     /**
      * Gera um link para um arquivo público
      *
-     * @param  string $diretorio Diretório que o arquivo pertence
-     * @param  string $arquivo   Arquivo que deseja pegar
-     * @param  array  $parametro Parametro para inserir como GET na URL
-     * @param  string $padrao    Imagem padrão caso não tenha arquivo
+     * @param string $diretorio Diretório que o arquivo pertence
+     * @param string $arquivo   Arquivo que deseja pegar
+     * @param array  $parametro Parametro para inserir como GET na URL
+     * @param string $padrao    Imagem padrão caso não tenha arquivo
+     *
      * @return string Url do arquivo
      */
     function arquivoPublico(
@@ -1638,17 +1702,20 @@ if (!function_exists('arquivoPublico')) {
 
         $uri = $privado ? 'aqiornm' : 'aqioulc';
         $ext = !empty($ext) ? '.' . $ext : '';
-        return LINK_ARQUIVO_PUBLICO . '/' . $uri . '.' . str_replace(['+', '/', '='], ['-', '_', ':'], $hash) . $ext . $query;
+        return LINK_ARQUIVO_PUBLICO . '/' . $uri . '.' . str_replace(['+', '/', '='],
+                ['-', '_', ':'],
+                $hash) . $ext . $query;
     }
 }
 if (!function_exists('imagemPublica')) {
     /**
      * Gera um link para um arquivo público
      *
-     * @param  string $diretorio Diretório que o arquivo pertence
-     * @param  string $arquivo   Arquivo que deseja pegar
-     * @param  array  $parametro Parametro para inserir como GET na URL
-     * @param  string $padrao    Imagem padrão caso não tenha arquivo
+     * @param string $diretorio Diretório que o arquivo pertence
+     * @param string $arquivo   Arquivo que deseja pegar
+     * @param array  $parametro Parametro para inserir como GET na URL
+     * @param string $padrao    Imagem padrão caso não tenha arquivo
+     *
      * @return string Url do arquivo
      */
     function imagemPublica(
@@ -1672,7 +1739,8 @@ if (!function_exists('arquivoPublicoNome')) {
     /**
      * Pega o nome de um arquivo público
      *
-     * @param  string $link Link do arquivo público
+     * @param string $link Link do arquivo público
+     *
      * @return string Diretório e nome do arquivo
      */
     function arquivoPublicoNome(string $link)
@@ -1692,7 +1760,7 @@ if (!function_exists('arquivoPublicoNome')) {
                 options: 0,
                 iv: $iv
             );
-        } catch (\Throwable) {
+        } catch (Throwable) {
             return '';
         }
     }
@@ -1701,10 +1769,11 @@ if (!function_exists('arquivoPrivado')) {
     /**
      * Gera um link para um arquivo privado
      *
-     * @param  null|string $id        ID do arquivo no banco (uuid)
-     * @param  array       $parametro Parametro para inserir como GET na URL
-     * @param  string      $padrao    Arquivo padrão caso não tenha ID
-     * @param  string      $ext       Extensão para coloca no final do nome do arquivo
+     * @param null|string $id        ID do arquivo no banco (uuid)
+     * @param array       $parametro Parametro para inserir como GET na URL
+     * @param string      $padrao    Arquivo padrão caso não tenha ID
+     * @param string      $ext       Extensão para coloca no final do nome do arquivo
+     *
      * @return string      Url do arquivo
      */
     function arquivoPrivado(?string $id, array $parametro = [], string $padrao = '', string $ext = '')
@@ -1729,7 +1798,9 @@ if (!function_exists('arquivoPrivado')) {
         $hash = openssl_encrypt($id, $cifra, $chave, 0, $iv);
 
         $ext = !empty($ext) ? '.' . $ext : '';
-        return LINK_ARQUIVO_PRIVADO . '/aqiorvd.' . str_replace(['+', '/', '='], ['-', '_', ':'], $hash) . $ext . $query;
+        return LINK_ARQUIVO_PRIVADO . '/aqiorvd.' . str_replace(['+', '/', '='],
+                ['-', '_', ':'],
+                $hash) . $ext . $query;
     }
 }
 if (!function_exists('imagemPrivada')) {
@@ -1752,7 +1823,8 @@ if (!function_exists('arquivoPrivadoId')) {
     /**
      * Pega o ID de um link de arquivo privado
      *
-     * @param  string $link Link do arquivo que deseja pegar o ID
+     * @param string $link Link do arquivo que deseja pegar o ID
+     *
      * @return string ID do arquivo
      */
     function arquivoPrivadoId(string $link)
@@ -1778,7 +1850,7 @@ if (!function_exists('arquivoPrivadoId')) {
                 options: 0,
                 iv: $iv
             );
-        } catch (\Throwable) {
+        } catch (Throwable) {
             return '';
         }
     }
@@ -1787,7 +1859,8 @@ if (!function_exists('arquivoPrivadoDado')) {
     /**
      * Pega os dados básicos de uma imagem privada pelo ID
      *
-     * @param  string        $id ID da imagem que deseja pegar seus dados
+     * @param string $id ID da imagem que deseja pegar seus dados
+     *
      * @return bool|stdClass Array com os dados
      */
     function arquivoPrivadoDado(string $id)
@@ -1797,7 +1870,7 @@ if (!function_exists('arquivoPrivadoDado')) {
             $Api = new ApiHelper(token: true);
             $arquivo = $Api
                 ->get('/upload-arquivo/' . $id)->object();
-        } catch (\Throwable) {
+        } catch (Throwable) {
             return false;
         }
         if (!object_key_exists('dado', $arquivo)) {
@@ -1811,7 +1884,8 @@ if (!function_exists('removerIndiceVazio')) {
     /**
      * Retorna um array apenas com os indices que tenham conteúdo
      *
-     * @param  array $array Array que deseja limpar
+     * @param array $array Array que deseja limpar
+     *
      * @return array
      */
     function removerIndiceVazio(array $array): array
@@ -1889,8 +1963,9 @@ if (!function_exists('porcentagem')) {
     /**
      * Calcula a porcentagem entre 2 número
      *
-     * @param  mixed  $quantidade valor que deseja calcular
-     * @param  mixed  $total      Valor total para tirar a porcentagem
+     * @param mixed $quantidade valor que deseja calcular
+     * @param mixed $total      Valor total para tirar a porcentagem
+     *
      * @return string Valor do calculo com 2 casas decimais
      */
     function porcentagem($valor, $total): string
@@ -1905,8 +1980,9 @@ if (!function_exists('criarArquivo')) {
     /**
      * Cria um arquivo
      *
-     * @param  string $path     Path do diretório completo com o nome do arquivo
-     * @param  string $conteudo Conteudo a ser salvo
+     * @param string $path     Path do diretório completo com o nome do arquivo
+     * @param string $conteudo Conteudo a ser salvo
+     *
      * @return bool
      */
     function criarArquivo($path, $conteudo): bool
@@ -1958,7 +2034,7 @@ if (!function_exists('retornarPaginacao')) {
                     'atual'  => $total,
                     'total'  => $total
                 ],
-                'pagina' => (object)[
+                'pagina'   => (object)[
                     'total'     => 1,
                     'atual'     => 1,
                     'paginacao' => [1],
@@ -2031,5 +2107,15 @@ if (!function_exists('imagem')) {
         $parametroNovo = !empty($parametroNovo) ? $simbolo . implode('&', $parametroNovo) : '';
         $link = preg_match('/^http[s]?\:\/\//', $path) ? $path : LINK_PADRAO . '/' . $path;
         return $link . $parametroNovo;
+    }
+}
+
+if (!function_exists('linkDownloadPainel')) {
+    function linkDownloadPainel(string $link): string
+    {
+        if (empty($link)) {
+            return $link;
+        }
+        return LINK . '/download-force?hash=' . base64Encode($link, true);
     }
 }

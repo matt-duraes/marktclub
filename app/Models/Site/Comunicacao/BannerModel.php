@@ -2,27 +2,33 @@
 
 namespace App\Models\Site\Comunicacao;
 
-use Modules\Botao;
-use App\Helpers\ClubeApiHelper;
 use App\Classes\ComunicacaoPublicidade\Tipo;
+use App\Helpers\ClubeApiHelper;
+use Erro\Excecao;
+use Modules\Botao;
 
 final class BannerModel extends ClubeApiHelper
 {
     use LinkTrait;
 
-    public function home()
+    /**
+     * @return object
+     * @throws Excecao
+     */
+    public function home(): object
     {
         return $this->buscarBanner(Tipo::HOME);
     }
 
-    public function turismo()
+    /**
+     * @param string $tipo
+     *
+     * @return object
+     * @throws Excecao
+     */
+    private function buscarBanner(string $tipo): object
     {
-        return $this->buscarBanner(Tipo::TURISMO);
-    }
-
-    private function buscarBanner(string $tipo)
-    {
-        $dado = $this
+        $banners = $this
             ->json([
                 'pagina'     => 1,
                 'quantidade' => 50,
@@ -31,13 +37,17 @@ final class BannerModel extends ClubeApiHelper
             ])
             ->get('/comunicacao-publicidade')
             ->object()->dado->lista ?? [];
-
-        return $this->montarRetorno($dado);
+        return $this->montarRetorno($banners);
     }
 
-    private function montarRetorno($dado)
+    /**
+     * @param array $banners
+     *
+     * @return object
+     */
+    private function montarRetorno(array $banners): object
     {
-        if (!$dado) {
+        if (!$banners) {
             return (object)[
                 'desktop' => [],
                 'mobile'  => []
@@ -45,7 +55,7 @@ final class BannerModel extends ClubeApiHelper
         }
         $desktop = [];
         $mobile = [];
-        foreach ($dado as $r) {
+        foreach ($banners as $r) {
             $link = $this->pegarLink($r->link, $r->parceiro->url, $r->parceiro->tipo);
             $target = $this->pegarTarget($link);
             if (!empty($r->imagem_desktop)) {
@@ -69,5 +79,21 @@ final class BannerModel extends ClubeApiHelper
             'desktop' => $desktop,
             'mobile'  => $mobile
         ];
+    }
+
+    /**
+     * @return object
+     */
+    public function turismo(): object
+    {
+        return $this->buscarBanner(Tipo::TURISMO);
+    }
+
+    /**
+     * @return object
+     */
+    public function lg(): object
+    {
+        return $this->buscarBanner(Tipo::LG);
     }
 }
