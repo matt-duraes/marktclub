@@ -3,9 +3,35 @@
 <div id="bloco_lg">
     @view site/geral/banner.view
 
-    <div class="bloco_chamada">
-        <h1>{!! $parceiro->texto_desconto !!}</h1>
-        <p>{!! $parceiro->texto_procedimento !!}</p>
-        <a href="{{ $parceiro->link }}" target="_blank" rel="noopener noreferrer" class="botao_geral_cor cor_bg">ACESSAR SITE</a>
+    <div class="bloco_item_lista">
+        <div class="scroll">
+            <div class="conteudo">
+                <div class="descricao_item_lista">
+                    <p>Clique no botão "Acesse o site"</p>
+                    <div class="bola">@iconeSetaDireita(20)</div>
+                </div>
+                <div class="descricao_item_lista">
+                    <p>Faça o cadastro.</p>
+                    <div class="bola">@iconeSetaDireita(20)</div>
+                </div>
+                <div class="descricao_item_lista">
+                    <p>Antes de finalizar o cadastro, verifique o email.</p>
+                    <div class="bola">@iconeSetaDireita(20)</div>
+                </div>
+                <div class="descricao_item_lista">
+                    <p>Logo após, receberá um link no email cadastrado, onde os descontos já estarão sendo aplicados automaticamente</p>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="bloco_atencao_geral atencao">
+        <p>A responsabilidade pela oferta, condições, formas de pagamento, produtos e entrega é da LG</p>
+    </div>
+
+    <div class="bloco_botao" id="bloco_botao">
+        <a href="{{ $parceiro->link }}" target="_blank" rel="noopener noreferrer" class="botao_acessar cor_bg">
+            @iconeExtensaoHome
+            Acessar Site
+        </a>
     </div>
 </div>
