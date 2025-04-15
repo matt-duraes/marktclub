@@ -57,7 +57,7 @@ final class AcessoDiaModel extends ORM
     {
         $analytics = $this
             ->campo([
-                'quantidade_total', 'quantidade_unico', 'data_acesso'
+                'quantidade_total', 'quantidade_unico', 'data_acesso', 'id_admin_empresa'
             ])
             ->where($this->pegarWherePadrao())
             ->read();
@@ -95,6 +95,9 @@ final class AcessoDiaModel extends ORM
 
         $somas_por_data = [];
         foreach ($analytics as $objeto) {
+            if ($objeto->id_admin_empresa == 1) {
+                continue;
+            }
             $data_acesso = $objeto->data_acesso;
             if (!isset($somas_por_data[$data_acesso])) {
                 $somas_por_data[$data_acesso] = [
