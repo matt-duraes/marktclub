@@ -34,7 +34,7 @@
             <div class="bloco_subempresas">
                 <span class="titulo_subempresas">Subempresas</span>
                 @? formCheckbox(name: "marcar_todos_subempresa", label: "Marcar/Desmarcar todos", value: "");
-                <div class="bloco_checkbox_subempresas">
+                <div class="bloco_checkbox">
                     @ifforeach($subempresa as $k => $e):
                     @? formCheckbox(name: "", label: "{$e}", value: "{$k}");
                     @endifforeach;
