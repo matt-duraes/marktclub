@@ -81,6 +81,9 @@ final class DadoUsuarioModel extends ORM
         $resultados = [];
         $idsEncontrados = [];
         foreach ($analytics as $item) {
+            if ($item->id_admin_empresa == 1) {
+                continue;
+            }
             $id = $item->id_admin_empresa;
             if (!in_array($id, $idsEncontrados)) {
                 $idsEncontrados[] = $id;

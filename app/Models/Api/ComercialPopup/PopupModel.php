@@ -2,23 +2,24 @@
 
 namespace App\Models\Api\ComercialPopup;
 
-use App\Classes\UsuarioCliente\TipoUsuario;
-use ORM\ORM;
-use stdClass;
-use Erro\Excecao;
-use Modules\Data;
-use Modules\Link;
-use Modules\Botao;
-use Modules\Pagina;
-use Modules\Quantidade;
-use App\Classes\Geral\Publicado;
-use System\Trait\Model\OrdemTrait;
-use System\Trait\Model\PaginaTrait;
+use App\Classes\ComercialPopup\BotaoTarget;
 use App\Classes\ComercialPopup\Ordem;
 use App\Classes\ComercialPopup\Status;
-use System\Trait\Model\QuantidadeTrait;
-use App\Classes\ComercialPopup\BotaoTarget;
+use App\Classes\ComercialPopup\TipoAlerta;
+use App\Classes\Geral\Publicado;
+use App\Classes\UsuarioCliente\TipoUsuario;
 use App\Models\Api\Trait\ValidarEmpresaTrait;
+use Erro\Excecao;
+use Modules\Botao;
+use Modules\Data;
+use Modules\Link;
+use Modules\Pagina;
+use Modules\Quantidade;
+use ORM\ORM;
+use stdClass;
+use System\Trait\Model\OrdemTrait;
+use System\Trait\Model\PaginaTrait;
+use System\Trait\Model\QuantidadeTrait;
 
 class PopupModel extends ORM
 {

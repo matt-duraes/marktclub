@@ -38,6 +38,11 @@ final class SalvarModel extends ORM
      */
     private function montarDado(): void
     {
+        $ormHelper = new OrmHelper(TABELA_COMERCIAL_EMPRESA);
+        if ($ormHelper->pegarUuidPeloId($this->idEmpresa) === '14afa776394ada4be23be6acf7e3259e') {
+            return;
+        }
+
         $this->dado = $this->request->lista([
             'vinculo', 'usuario_nome', 'usuario_cpf', 'hash', 'dispositivo',
             'os', 'browser', 'versao', 'tablet', 'ip', 'agent', 'pais', 'cidade',

@@ -57,7 +57,7 @@ final class OsModel extends ORM
     {
         $analytics = $this
             ->campo([
-                'quantidade', 'os'
+                'quantidade', 'os', 'id_admin_empresa'
             ])
             ->where($this->pegarWherePadrao())
             ->order('quantidade')
@@ -75,11 +75,17 @@ final class OsModel extends ORM
     {
         $total = 0;
         foreach ($analytics as $item) {
+            if ($item->id_admin_empresa == 1) {
+                continue;
+            }
             $total += $item->quantidade;
         }
 
         $relatorio = [];
         foreach ($analytics as $item) {
+            if ($item->id_admin_empresa == 1) {
+                continue;
+            }
             if (array_key_exists($item->os, $relatorio)) {
                 $relatorio[$item->os]['total'] += $item->quantidade;
                 $relatorio[$item->os]['porcentagem'] = porcentagem(

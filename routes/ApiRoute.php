@@ -300,7 +300,7 @@ Route
             ::middleware(TokenMiddleware::class, 'scope', ['perfil_dado:atualizar'])
             ::request([
                 '!nome', '!data_nascimento', '!genero', '!estado_civil', '!email_pessoal', '!email_trabalho',
-                '!telefone_trabalho', '!telefone_pessoal', '!endereco_estado', '!endereco_cep',
+                '!telefone_trabalho', '!perfil' ,'!telefone_pessoal', '!endereco_estado', '!endereco_cep',
                 '!endereco_logradouro', '!endereco_bairro', '!endereco_numero', '!endereco_complemento',
                 '!endereco_cidade',
             ])
@@ -1460,7 +1460,7 @@ Route
                 'texto_login_usuario', 'texto_login_dependente', 'texto_login_funcionario', 'link_funcionario',
                 'menu_funcionario', 'app_versao_android', 'app_versao_ios', 'botao_senha_status', 'botao_senha_tipo',
                 'botao_senha_link', 'botao_cadastro_status', 'botao_cadastro_tipo', 'botao_cadastro_link',
-                'botao_ativar_status', 'botao_ativar_tipo', 'botao_ativar_link',
+                'botao_ativar_status', 'botao_ativar_tipo', 'botao_ativar_link', 'menu_lg'
             ])
             ::post('/construtor-clube');
         Route
@@ -1485,7 +1485,7 @@ Route
                 '!texto_login_usuario', '!texto_login_dependente', '!texto_login_funcionario', '!link_funcionario',
                 '!menu_funcionario', '!app_versao_android', '!app_versao_ios', '!botao_senha_status',
                 '!botao_senha_tipo', '!botao_senha_link', '!botao_cadastro_status', '!botao_cadastro_tipo',
-                '!botao_cadastro_link', '!botao_ativar_status', '!botao_ativar_tipo', '!botao_ativar_link',
+                '!botao_cadastro_link', '!botao_ativar_status', '!botao_ativar_tipo', '!botao_ativar_link', 'menu_lg'
             ])
             ::put('/construtor-clube/{id}');
         Route

@@ -57,7 +57,7 @@ final class UsuarioMaisAcessoModel extends ORM
     {
         $analytics = $this
             ->campo([
-                'quantidade', 'usuario_nome', 'id_usuario_cliente'
+                'quantidade', 'usuario_nome', 'id_usuario_cliente', 'id_admin_empresa'
             ])
             ->where($this->pegarWherePadrao(), false)
             ->order('quantidade')
@@ -75,6 +75,9 @@ final class UsuarioMaisAcessoModel extends ORM
         $dado = [];
         $total = 0;
         foreach ($analytics as $item) {
+            if ($item->id_admin_empresa == 1) {
+                continue;
+            }
             $total += $item->quantidade;
             if (!array_key_exists($item->id_usuario_cliente, $dado)) {
                 $dado[$item->id_usuario_cliente] = object([
