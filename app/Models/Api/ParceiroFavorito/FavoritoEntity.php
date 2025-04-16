@@ -35,7 +35,6 @@ class FavoritoEntity extends Entity
     }
 
     /**
-     * @return void
      * @throws Excecao
      */
     private function pegarUsuario(): void
@@ -50,7 +49,6 @@ class FavoritoEntity extends Entity
     }
 
     /**
-     * @return void
      * @throws Excecao
      */
     private function pegarParceiro(): void
@@ -75,7 +73,6 @@ class FavoritoEntity extends Entity
     }
 
     /**
-     * @return void
      * @throws Excecao
      */
     private function verificaFavoritado(): void

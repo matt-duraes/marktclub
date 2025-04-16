@@ -55,7 +55,6 @@ final class NotificacaoEntity extends Entity
     }
 
     /**
-     * @return void
      * @throws Excecao
      * @throws TypeException
      */
