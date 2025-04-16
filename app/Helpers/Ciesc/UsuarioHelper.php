@@ -34,7 +34,7 @@ final class UsuarioHelper
         $this->apiConsumerSecret = env('CIESC_API_CONSUMER_SECRET');
 
         $Cpf->validar('CPF');
-        if (!in_array($LocalTrabalho->indice(), ['SENAI', 'SESI', 'IEL', 'FIESC', 'CIESC'])) {
+        if (!in_array($LocalTrabalho->indice(), ['SENAI', 'SESI', 'IEL/SC', 'FIESC', 'CIESC'])) {
             mensagemErro('Campo obrigatório!', 'O campo Local de trabalho é obrigatório.');
         }
 
