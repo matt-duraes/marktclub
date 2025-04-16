@@ -664,11 +664,15 @@ if (!function_exists('stringArray')) {
     {
         if (strstr($string, ':')) {
             return jsonDecode(
-                str_replace([',""', ':""'],
+                str_replace(
+                    [',""', ':""'],
                     '',
-                    preg_replace(['/\t+/', '/\n+/', '/\r+/'],
+                    preg_replace(
+                        ['/\t+/', '/\n+/', '/\r+/'],
                         '',
-                        '{"' . str_replace(['\\', ':', ','], ['\\\\', '":"', '","'], $string) . '"}')),
+                        '{"' . str_replace(['\\', ':', ','], ['\\\\', '":"', '","'], $string) . '"}'
+                    )
+                ),
                 $retorno
             );
         } elseif (strstr($string, ',')) {
@@ -676,9 +680,11 @@ if (!function_exists('stringArray')) {
                 str_replace(
                     ',""',
                     '',
-                    preg_replace(['/\t+/', '/\n+/', '/\r+/'],
+                    preg_replace(
+                        ['/\t+/', '/\n+/', '/\r+/'],
                         '',
-                        '["' . str_replace(['\\', ','], ['\\\\', '","'], $string) . '"]')
+                        '["' . str_replace(['\\', ','], ['\\\\', '","'], $string) . '"]'
+                    )
                 ),
                 $retorno
             );
@@ -817,7 +823,7 @@ if (!function_exists('listarArquivoDiretorio')) {
      * @param string     $final     Somente arquivos que terminem com o valor informado
      * @param null|array $ext       Lista de extensões permitidas
      *
-     * @return array      Array com a lista de arquivos encontrado
+     * @return array Array com a lista de arquivos encontrado
      */
     function listarArquivoDiretorio(
         string $diretorio,
@@ -960,23 +966,23 @@ if (!function_exists('pegarHtmlEmail')) {
         );
 
         $browser = LINK . '/email/browser/' . (new CryptHelper(url: true))->encode([
-                'tipo'      => $tipo,
-                'titulo'    => $titulo,
-                'assunto'   => $assunto,
-                'mensagem'  => $mensagem,
-                'link'      => $link,
-                'botao'     => $botao,
-                'acao'      => $acao,
-                'acaoTexto' => $acaoTexto,
-                'idPublico' => $idPublico,
-                'var'       => $var,
-                'data'      => $data,
-                'ip'        => $ip,
-                'LINK'      => $LINK,
-                'LINK_API'  => $LINK_API,
-                'LINK_SITE' => $LINK_SITE,
-                'HOST'      => $HOST,
-            ], 'hash_email_geral');
+            'tipo'      => $tipo,
+            'titulo'    => $titulo,
+            'assunto'   => $assunto,
+            'mensagem'  => $mensagem,
+            'link'      => $link,
+            'botao'     => $botao,
+            'acao'      => $acao,
+            'acaoTexto' => $acaoTexto,
+            'idPublico' => $idPublico,
+            'var'       => $var,
+            'data'      => $data,
+            'ip'        => $ip,
+            'LINK'      => $LINK,
+            'LINK_API'  => $LINK_API,
+            'LINK_SITE' => $LINK_SITE,
+            'HOST'      => $HOST,
+        ], 'hash_email_geral');
 
         ob_start();
         include ROOT . '/files/php/views/api/email/' . $tipo . '/index.php';
@@ -1144,7 +1150,7 @@ if (!function_exists('base64Encode')) {
      * @param string|array $dado Dado a ser criptografado
      * @param null|string  $url  Se deve converter a hash para URL
      *
-     * @return string       Criptografia gerada
+     * @return string Criptografia gerada
      */
     function base64Encode(string|array $dado, bool $url = false)
     {
@@ -1481,7 +1487,7 @@ if (!function_exists('sessaoExiste')) {
      *
      * @param string|array $indice Indice da sessão podendo usar . para pegar mais de um nível ou array para várias
      *
-     * @return bool         True para se a sessão existir ou false
+     * @return bool True para se a sessão existir ou false
      */
     function sessaoExiste(string|array $indice): bool
     {
@@ -1623,8 +1629,8 @@ if (!function_exists('caixaCodigo')) {
         ]) ? 'language-' . $linguagem : '';
 
         return '<div class="fw_caixa_codigo">' . $arquivoHtml . '<pre><code class="' . $classe . '">' . trim(
-                $codigo
-            ) . '</code></pre></div>';
+            $codigo
+        ) . '</code></pre></div>';
     }
 }
 
@@ -1637,7 +1643,7 @@ if (!function_exists('imagemUsuario')) {
      * @param null|string $facebook URL da imagem do Facebook
      * @param null|string $google   URL da imagem do Google
      *
-     * @return string      URL da imagem
+     * @return string URL da imagem
      */
     function imagemUsuario(
         ?string $tipo = null,
@@ -1702,9 +1708,11 @@ if (!function_exists('arquivoPublico')) {
 
         $uri = $privado ? 'aqiornm' : 'aqioulc';
         $ext = !empty($ext) ? '.' . $ext : '';
-        return LINK_ARQUIVO_PUBLICO . '/' . $uri . '.' . str_replace(['+', '/', '='],
-                ['-', '_', ':'],
-                $hash) . $ext . $query;
+        return LINK_ARQUIVO_PUBLICO . '/' . $uri . '.' . str_replace(
+            ['+', '/', '='],
+            ['-', '_', ':'],
+            $hash
+        ) . $ext . $query;
     }
 }
 if (!function_exists('imagemPublica')) {
@@ -1774,7 +1782,7 @@ if (!function_exists('arquivoPrivado')) {
      * @param string      $padrao    Arquivo padrão caso não tenha ID
      * @param string      $ext       Extensão para coloca no final do nome do arquivo
      *
-     * @return string      Url do arquivo
+     * @return string Url do arquivo
      */
     function arquivoPrivado(?string $id, array $parametro = [], string $padrao = '', string $ext = '')
     {
@@ -1798,9 +1806,11 @@ if (!function_exists('arquivoPrivado')) {
         $hash = openssl_encrypt($id, $cifra, $chave, 0, $iv);
 
         $ext = !empty($ext) ? '.' . $ext : '';
-        return LINK_ARQUIVO_PRIVADO . '/aqiorvd.' . str_replace(['+', '/', '='],
-                ['-', '_', ':'],
-                $hash) . $ext . $query;
+        return LINK_ARQUIVO_PRIVADO . '/aqiorvd.' . str_replace(
+            ['+', '/', '='],
+            ['-', '_', ':'],
+            $hash
+        ) . $ext . $query;
     }
 }
 if (!function_exists('imagemPrivada')) {
