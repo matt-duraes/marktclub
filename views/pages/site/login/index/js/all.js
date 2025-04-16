@@ -297,5 +297,7 @@ window.addEventListener('load', () => {
         paginaContato.abrir();
     };
 
-    botaoPopupContato.addEventListener('click', abrirContato);
+    if (botaoPopupContato) {
+        botaoPopupContato.addEventListener('click', abrirContato);
+    }
 });

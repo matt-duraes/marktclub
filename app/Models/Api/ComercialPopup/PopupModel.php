@@ -5,7 +5,6 @@ namespace App\Models\Api\ComercialPopup;
 use App\Classes\ComercialPopup\BotaoTarget;
 use App\Classes\ComercialPopup\Ordem;
 use App\Classes\ComercialPopup\Status;
-use App\Classes\ComercialPopup\TipoAlerta;
 use App\Classes\Geral\Publicado;
 use App\Classes\UsuarioCliente\TipoUsuario;
 use App\Models\Api\Trait\ValidarEmpresaTrait;
