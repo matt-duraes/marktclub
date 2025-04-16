@@ -203,16 +203,12 @@ final class ClienteController extends Controller implements
      */
     public function postAtivar(Request $request): Response
     {
-        $localTrabalho = $request->local_trabalho;
-        if($localTrabalho == 'IEL') {
-            $localTrabalho = 'IEL/SC';
-        }
         $Ativar = new BuscarModel(
             $request->valor,
             $request->empresa,
             new TipoAtivacao($request->chave),
             new TipoUsuario($request->tipo_usuario),
-            new LocalTrabalho($localTrabalho),
+            new LocalTrabalho($request->local_trabalho),
             new Botao($request->termo),
             codigo: $request->codigo
         );
