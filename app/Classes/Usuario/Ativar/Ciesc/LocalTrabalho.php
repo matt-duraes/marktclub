@@ -8,7 +8,7 @@ class LocalTrabalho extends StatusStatus
 {
     public const SENAI = 'SENAI';
     public const SESI = 'SESI';
-    public const IEL = 'IEL';
+    public const IEL = 'IEL/SC';
     public const FIESC = 'FIESC';
     public const CIESC = 'CIESC';
 
@@ -18,7 +18,7 @@ class LocalTrabalho extends StatusStatus
         parent::__construct([
             self::SENAI => 'SENAI',
             self::SESI  => 'SESI',
-            self::IEL   => 'IEL',
+            self::IEL   => 'IEL/SC',
             self::FIESC => 'FIESC',
             self::CIESC => 'CIESC'
         ]);
