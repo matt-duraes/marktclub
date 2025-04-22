@@ -3,6 +3,7 @@
 namespace Erro\Retorno;
 
 use Erro\Trait\StatusTrait;
+use App\Models\Site\Link\ApiModel;
 
 trait LogTrait
 {
@@ -31,8 +32,9 @@ trait LogTrait
         $mensagem = 'Ocorreu um erro inesperado, clique em retornar para voltar a navegar. Geralmente esse tipo de erro é temporário, mas para os casos ele continue ocorrendo, já sinalizamos para a equipe técnica sobre o ocorrido, mas caso queira, você pode entre em contato com o suporte e informá-lo.';
         $idErro = '';
         try {
+            $linkProd = (new ApiModel())->link;
             $ch = curl_init();
-            curl_setopt($ch, CURLOPT_URL, env('API_LINK') . '/log-erro');
+            curl_setopt($ch, CURLOPT_URL, $linkProd . '/log-erro');
             curl_setopt($ch, CURLOPT_CUSTOMREQUEST, 'POST');
             curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
             curl_setopt($ch, CURLOPT_FOLLOWLOCATION, true);

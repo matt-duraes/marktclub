@@ -3,6 +3,7 @@
 namespace Http;
 
 use Helpers\CurlHelper;
+use App\Models\Site\Link\ApiModel;
 
 class Api
 {
@@ -17,9 +18,10 @@ class Api
 
     public function __construct()
     {
+        $linkProd = (new ApiModel())->link;
         $this->clientId = env('API_CLIENT_ID');
         $this->clientSecret = env('API_CLIENT_SECRET');
-        $this->url = env('API_LINK');
+        $this->url = $linkProd;
         $this->audience = env('API_AUDIENCE');
         $this->parametro = [];
         $this->arquivo = [];

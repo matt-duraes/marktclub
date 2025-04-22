@@ -3,6 +3,7 @@
 namespace App\Models\Site\Login;
 
 use Helpers\CurlHelper;
+use App\Models\Site\Link\ApiModel;
 
 final class LoginRefreshModel
 {
@@ -20,7 +21,8 @@ final class LoginRefreshModel
 
     private function gerarRefreshToken()
     {
-        $dado = (new CurlHelper(env('API_LINK', LINK_API)))
+        $linkProd = (new ApiModel())->link;
+        $dado = (new CurlHelper($linkProd))
             ->body([
                 'grant_type'    => 'refresh_token',
                 'client_id'     => env('API_REFRESH_CLIENT_ID'),

@@ -3,6 +3,7 @@
 namespace Tests\Api;
 
 use Tests\Tests;
+use App\Models\Site\Link\ApiModel;
 
 final class TokenCredentialTest extends Tests
 {
@@ -10,7 +11,8 @@ final class TokenCredentialTest extends Tests
 
     public function __construct()
     {
-        $this->linkApi = env('API_LINK', LINK_API);
+        $linkProd = (new ApiModel())->link;
+        $this->linkApi = $linkProd;
     }
 
     public function criandoTokenComDadosCorretosTest()

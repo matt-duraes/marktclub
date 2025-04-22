@@ -3,6 +3,7 @@
 namespace Helpers;
 
 use Erro\Excecao;
+use App\Models\Site\Link\ApiModel;
 
 class ApiHelper extends CurlHelper
 {
@@ -18,19 +19,20 @@ class ApiHelper extends CurlHelper
      * @throws Excecao
      */
     public function __construct(
-        string $scope = null,
+        ?string $scope = null,
         string|bool $token = false,
-        string $clientId = null,
-        string $secretId = null,
-        string $audience = null,
-        string $link = null
+        ?string $clientId = null,
+        ?string $secretId = null,
+        ?string $audience = null,
+        ?string $link = null
     ) {
         $this->clientId = !empty($clientId) ? $clientId : env('API_CLIENT_ID');
         $this->secretId = !empty($secretId) ? $secretId : env('API_SECRET_ID');
         $this->audience = !empty($audience) ? $audience : env('API_AUDIENCE');
         $this->apiHelper = true;
 
-        $linkApi = !empty($link) ? $link : env('API_LINK', LINK_API);
+        $linkProd = (new ApiModel())->link;
+        $linkApi = !empty($link) ? $link : $linkProd;
         parent::__construct($linkApi);
         if (!empty($scope)) {
             $this->autenticar($this->limparScope($scope));
