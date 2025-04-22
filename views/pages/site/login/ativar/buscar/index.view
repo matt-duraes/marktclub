@@ -39,7 +39,7 @@
         <div class="bloco_titular display_none" data-ativacao="{{ATIVACAO_TIPO ? ATIVACAO_TIPO : ''}}">
             <h1>Insira o dado solicitado:</h1>
             @if (ATIVACAO_TIPO === 'ciesc'):
-            @? formSelect(name: 'local_trabalho', label: 'Local de trabalho', placeholder: 'Local de trabalho', lista: (new \App\Classes\Usuario\Ativar\Ciesc\LocalTrabalho())->select('Escolha seu local de trabalho'), class: 'bloco_ciesc display_none')
+            @? formSelect(name: 'local_trabalho', label: 'Local de trabalho/Lotação', placeholder: 'Local de trabalho/Lotação', lista: (new \App\Classes\Usuario\Ativar\Ciesc\LocalTrabalho())->select('Escolha seu local de trabalho ou lotação'), class: 'bloco_ciesc display_none')
             @endif;
             @? formCpf(name: 'buscar_cpf', label: 'Buscar', placeholder: 'Digite seu CPF');
             <div>
