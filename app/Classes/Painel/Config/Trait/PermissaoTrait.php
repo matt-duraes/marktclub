@@ -682,6 +682,10 @@ trait PermissaoTrait
                         'titulo' => Titulo::SALVAR,
                         'scope'  => 'solicitacao_loja:salvar'
                     ],
+                    'solicitacao_loja_editar'     => [
+                        'titulo' => Titulo::EDITAR,
+                        'scope'  => 'solicitacao_loja:atualizar'
+                    ],
                     'solicitacao_loja_deletar'    => [
                         'titulo' => Titulo::DELETAR,
                         'scope'  => 'solicitacao_loja:deletar'
@@ -1461,6 +1465,19 @@ trait PermissaoTrait
                     'silium_config_deletar'    => [
                         'titulo' => Titulo::DELETAR,
                         'scope'  => 'silium_config:deletar'
+                    ]
+                ]
+            ],
+            'pesquisa'                 => [
+                'titulo'    => 'Pesquisa de Mercado',
+                'permissao' => [
+                    'pesquisa_index'      => [
+                        'titulo' => Titulo::LISTAR,
+                        'scope'  => 'pesquisa:listar'
+                    ],
+                    'pesquisa_visualizar' => [
+                        'titulo' => Titulo::VISUALIZAR,
+                        'scope'  => 'pesquisa:buscar'
                     ]
                 ]
             ]
