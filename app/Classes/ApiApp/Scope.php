@@ -45,7 +45,8 @@ final class Scope
         'carteirinha:listar',
         'enquete_satisfacao:salvar',
         'view_pagina:buscar',
-        'galapagos_lead:salvar'
+        'galapagos_lead:salvar',
+        'pesquisa:salvar'
     ];
     public const CLUBE_LOGIN = [
         'admin:chave_publica', 'admin:chave_privada',
@@ -68,11 +69,13 @@ final class Scope
         'perfil_dado:buscar', 'perfil_dado:atualizar', 'perfil_dado:validar_senha',
         'perfil_dado:atualizar_senha', 'perfil_dado:alterar_imagem',
         'admin:painel', 'admin:menu', 'admin:chave_publica', 'admin:chave_privada',
-        'comercial_empresa:buscar', 'comercial_empresa:listar', 'comercial_empresa:salvar', 'comercial_empresa:select', 'comercial_subempresa:select',
+        'comercial_empresa:buscar', 'comercial_empresa:listar', 'comercial_empresa:salvar',
+        'comercial_empresa:select', 'comercial_empresa:download',
+        'comercial_subempresa:select',
         'comercial_restricao:select', 'parceiro_subcategoria:select', 'parceiro_subcategoria:listar',
         'usuario_grupo:select', 'usuario_equipe:select', 'parceiro_loja:select',
         'usuario_equipe:mudar_empresa', 'automovel_modelo:deletar', 'usuario_equipe:perfil',
-        'site_lotacao:select'
+        'site_lotacao:select', 'pesquisa:listar'
     ];
     public const PAINEL_INTERNO = [
         'perfil_dado:buscar', 'perfil_dado:atualizar', 'perfil_dado:validar_senha',
@@ -94,7 +97,7 @@ final class Scope
 
         'comercial_empresa:atualizar', 'comercial_empresa:buscar', 'comercial_empresa:listar',
         'comercial_empresa:salvar', 'comercial_popup:atualizar', 'comercial_popup:buscar',
-        'comercial_empresa:select', 'comercial_empresa:perfil',
+        'comercial_empresa:select', 'comercial_empresa:perfil', 'comercial_empresa:download',
 
         'comercial_perdido:listar', 'comercial_perdido:buscar', 'comercial_perdido:atualizar',
         'comercial_perdido:status',
@@ -305,7 +308,9 @@ final class Scope
         'contato:salvar', 'contato:listar', 'contato:buscar', 'contato:atualizar',
         'contato:deletar',
 
-        'data:listar'
+        'data:listar',
+
+        'pesquisa:buscar', 'pesquisa:listar', 'pesquisa:salvar',
     ];
     public const TUDO = [
         'perfil_dado:buscar', 'perfil_dado:atualizar', 'perfil_dado:validar_senha',
@@ -335,7 +340,7 @@ final class Scope
 
         'comercial_empresa:atualizar', 'comercial_empresa:buscar', 'comercial_empresa:listar',
         'comercial_empresa:salvar', 'comercial_popup:atualizar', 'comercial_popup:buscar',
-        'comercial_empresa:perfil',
+        'comercial_empresa:perfil', 'comercial_empresa:download',
 
         'comercial_popup:deletar', 'comercial_popup:expirado', 'comercial_popup:listar',
         'comercial_popup:ordenar', 'comercial_popup:salvar', 'comercial_restricao:listar',
@@ -486,7 +491,9 @@ final class Scope
         'view_html:salvar', 'view_pagina:atualizar', 'view_pagina:buscar', 'view_pagina:deletar',
         'view_pagina:listar', 'view_pagina:salvar',
 
-        'galapagos_lead:salvar'
+        'galapagos_lead:salvar',
+
+        'pesquisa:buscar', 'pesquisa:listar', 'pesquisa:salvar',
     ];
 
     public function pegarScope(array $lista)

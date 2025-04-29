@@ -2585,6 +2585,34 @@ Route
     });
 
 Route
+    ::nome('pesquisa')
+    ::controller(App\Controllers\Api\PesquisaController::class)
+    ::middleware(TokenMiddleware::class, 'token')
+    ::grupo(function () {
+        Route
+            ::nome('buscar')
+            ::middleware(TokenMiddleware::class, 'scope', ['pesquisa:buscar'])
+            ::get('/pesquisa/{id}');
+
+        Route
+            ::nome('listar')
+            ::middleware(TokenMiddleware::class, 'scope', ['pesquisa:listar'])
+            ::request([
+                'pagina', '!quantidade', '!ordem'
+            ], 'json')
+            ::get('/pesquisa');
+
+        Route
+            ::nome('salvar')
+            ::middleware(TokenMiddleware::class, 'scope', ['pesquisa:salvar'])
+            ::request([
+                'fidelidade', 'produtos', 'gasto', 'importancia', 'cashback',
+                'frequencia', 'resgate', 'desconto', 'experiencia', 'indicaria'
+            ])
+            ::post('/pesquisa');
+    });
+
+Route
     ::nome('solicitacao_contato')
     ::controller(App\Controllers\Api\SolicitacaoContatoController::class)
     ::middleware(TokenMiddleware::class, 'token')
@@ -2913,31 +2941,20 @@ Route
             ::nome('listar')
             ::middleware(TokenMiddleware::class, 'scope', ['solicitacao_loja:listar'])
             ::request([
-                'pagina', '!quantidade', '!ordem', '!nome',
-                '!data_inicio', '!data_final', '!status', '!empresa'
+                'pagina', '!quantidade', '!ordem', '!pesquisa', '!empresa', '!usuario',
+                '!parceiro', '!indicacao_inicio', '!indicacao_final', '!prospeccao_inicio',
+                '!prospeccao_final', '!status'
             ], 'json')
             ::get('/solicitacao-loja');
-
-        Route
-            ::nome('salvar')
-            ::middleware(TokenMiddleware::class, 'scope', ['solicitacao_loja:salvar'])
-            ::request([
-                'nome', 'email', 'telefone', 'mensagem', '!usuario', '!cpf'
-            ])
-            ::post('/solicitacao-loja');
 
         Route
             ::nome('atualizar')
             ::middleware(TokenMiddleware::class, 'scope', ['solicitacao_loja:atualizar'])
             ::request([
-                '!status'
+                '!parceiro'
             ])
             ::put('/solicitacao-loja/{id}');
 
-        Route
-            ::nome('deletar')
-            ::middleware(TokenMiddleware::class, 'scope', ['solicitacao_loja:deletar'])
-            ::delete('/solicitacao-loja/{id}');
         Route
             ::nome('download')
             ::middleware(TokenMiddleware::class, 'scope', ['solicitacao_loja:download'])

@@ -205,6 +205,18 @@ return [
     [
         'id'               => '++',
         'id_admin_empresa' => 1,
+        'tipo'             => 3,
+        'titulo'           => 'Pesquisa',
+        'url'              => '/app/pesquisa',
+        'icone'            => '<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 30 30" xml:space="preserve"><path d="M22,23.8H8c-0.5,0-0.9-0.4-0.9-0.9V7.1c0-0.5,0.4-0.9,0.9-0.9h14c0.5,0,0.9,0.4,0.9,0.9v15.8C22.9,23.4,22.5,23.8,22,23.8zM21.1,22V8H8.9v14H21.1z M11.5,10.6h7v1.8h-7V10.6z M11.5,14.1h7v1.8h-7V14.1z M11.5,17.6h7v1.8h-7V17.6z"/></svg>',
+        'ordem'            => '++',
+        'menu'             => ['pesquisa'],
+        'status'           => 1,
+        'permissao'        => '["pesquisa_index"]'
+    ],
+    [
+        'id'               => '++',
+        'id_admin_empresa' => 1,
         'tipo'             => 1,
         'titulo'           => 'COMERCIAL',
         'ordem'            => '++',
