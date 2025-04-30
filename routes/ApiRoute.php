@@ -1506,7 +1506,7 @@ Route
         Route
             ::nome('select')
             ::middleware(TokenMiddleware::class, 'scope', ['parceiro_loja:select'])
-            ::request(['!tipo_loja', '!titulo'], 'json')
+            ::request(['!tipo_loja', '!titulo', '!status'], 'json')
             ::get('/parceiro-loja/select');
         Route
             ::nome('listar')
@@ -2610,6 +2610,11 @@ Route
                 'frequencia', 'resgate', 'desconto', 'experiencia', 'indicaria'
             ])
             ::post('/pesquisa');
+
+        Route
+            ::nome('respondeu')
+            ::middleware(TokenMiddleware::class, 'scope', ['pesquisa:buscar'])
+            ::post('/pesquisa-resposta');
     });
 
 Route
@@ -2948,10 +2953,18 @@ Route
             ::get('/solicitacao-loja');
 
         Route
+            ::nome('salvar')
+            ::middleware(TokenMiddleware::class, 'scope', ['solicitacao_loja:salvar'])
+            ::request([
+                'nome', 'email', 'telefone', 'mensagem'
+            ])
+            ::post('/solicitacao-loja');
+
+        Route
             ::nome('atualizar')
             ::middleware(TokenMiddleware::class, 'scope', ['solicitacao_loja:atualizar'])
             ::request([
-                '!parceiro'
+                '!parceiro', '!parceiro_novo'
             ])
             ::put('/solicitacao-loja/{id}');
 

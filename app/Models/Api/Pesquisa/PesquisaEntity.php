@@ -88,7 +88,7 @@ class PesquisaEntity extends Entity
      * @return bool
      * @throws Excecao
      */
-    private function existeResposta(): bool
+    public function existeResposta(): bool
     {
         return $this->existe(['id_usuario_cliente', $this->idUsuario]);
     }
