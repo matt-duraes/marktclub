@@ -78,4 +78,16 @@ class PesquisaController extends Controller implements
         );
         return mensagemSucesso($PesquisaModel->listarDados());
     }
+
+    /**
+     * @return Response
+     * @throws Excecao
+     */
+    public function postRespondeu(): Response
+    {
+        $PesquisaEntity = new PesquisaEntity();
+        return mensagemSucesso([
+            'respondeu' => $PesquisaEntity->existeResposta() ? 'sim' : 'nao'
+        ]);
+    }
 }
