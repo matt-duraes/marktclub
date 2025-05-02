@@ -206,6 +206,16 @@ Route
         route
             ::nome('buscar')
             ::post('/home/buscar');
+        Route
+            ::nome('pesquisaUtilizacao')
+            ::get('/pesquisa-utilizacao');
+        Route
+            ::nome('pesquisaUtilizacao')
+            ::request([
+              'programaFidelidade','produtosProcurados','tvSmart','opcaoProdutoMarca','acreditaEmCashback',
+              'frequenciaCashback','resgateCashback','sobreParcerias','suaExperiencia','voceIndicaria',
+            ])
+            ::post('/pesquisa-utilizacao');
     });
 
 Route
@@ -738,6 +748,7 @@ Route
         Route
             ::nome('indiqueParceiro')
             ::get('/indique-um-parceiro');
+
     });
 
 Route
