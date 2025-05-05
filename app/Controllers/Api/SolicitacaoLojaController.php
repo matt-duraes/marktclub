@@ -2,32 +2,30 @@
 
 namespace App\Controllers\Api;
 
+use App\Classes\SolicitacaoLoja\Helper;
+use App\Classes\SolicitacaoLoja\Ordem;
+use App\Classes\SolicitacaoLoja\Status;
+use App\Models\Api\DownloadPrivado\ArquivoEntity;
+use App\Models\Api\SolicitacaoLoja\DownloadModel;
+use App\Models\Api\SolicitacaoLoja\SolicitacaoEntity;
+use App\Models\Api\SolicitacaoLoja\SolicitacaoModel;
+use Controller\Controller;
 use Erro\Excecao;
 use Http\Request;
-use Modules\Data;
 use Http\Response;
+use Modules\Data;
 use Modules\Pagina;
 use Modules\Quantidade;
-use Controller\Controller;
-use App\Classes\SolicitacaoLoja\Ordem;
-use App\Classes\SolicitacaoLoja\Helper;
-use App\Classes\SolicitacaoLoja\Status;
+use System\Interface\ControllerAtualizarInterface;
 use System\Interface\ControllerBuscarInterface;
 use System\Interface\ControllerListarInterface;
 use System\Interface\ControllerSalvarInterface;
-use System\Interface\ControllerDeletarInterface;
-use App\Models\Api\DownloadPrivado\ArquivoEntity;
-use App\Models\Api\SolicitacaoLoja\DownloadModel;
-use System\Interface\ControllerAtualizarInterface;
-use App\Models\Api\SolicitacaoLoja\SolicitacaoModel;
-use App\Models\Api\SolicitacaoLoja\SolicitacaoEntity;
 
 class SolicitacaoLojaController extends Controller implements
     ControllerBuscarInterface,
     ControllerListarInterface,
     ControllerSalvarInterface,
-    ControllerAtualizarInterface,
-    ControllerDeletarInterface
+    ControllerAtualizarInterface
 {
     /**
      * @param string $id
@@ -37,28 +35,24 @@ class SolicitacaoLojaController extends Controller implements
      */
     public function getBuscar(string $id): Response
     {
-        $Solicitacao = new SolicitacaoEntity();
-        $Solicitacao->uuid($id);
-        return $this->retornoSucesso($Solicitacao);
+        $SolicitacaoEntity = new SolicitacaoEntity();
+        $SolicitacaoEntity->uuid($id);
+        return $this->retornoSucesso($SolicitacaoEntity);
     }
 
     /**
-     * @param SolicitacaoEntity $Solicitacao
+     * @param SolicitacaoEntity $solicitacaoEntity
      * @param int               $status
      *
      * @return Response
      * @throws Excecao
      */
-    private function retornoSucesso(SolicitacaoEntity $Solicitacao, int $status = 200): Response
+    private function retornoSucesso(SolicitacaoEntity $solicitacaoEntity, int $status = 200): Response
     {
-        return mensagemSucesso(
-            pegarPropriedadeDaEntity($Solicitacao, lista: [
-                'nome', 'email', 'telefone', 'mensagem', 'status',
-                'quem_indicou', 'origem_clube', 'data_criacao', 'data_atualizacao'
-            ]),
-            $status,
-            Helper::CRIPTOGRAFAR
-        );
+        return mensagemSucesso(pegarPropriedadeDaEntity($solicitacaoEntity, lista: [
+            'parceiro', 'nome', 'email', 'telefone', 'mensagem', 'status',
+            'quemIndicou', 'origemIndicacao', 'data_criacao', 'data_atualizacao'
+        ]), $status, Helper::CRIPTOGRAFAR);
     }
 
     /**
@@ -69,17 +63,21 @@ class SolicitacaoLojaController extends Controller implements
      */
     public function getListar(Request $request): Response
     {
-        $Solicitacao = new SolicitacaoModel(
+        $SolicitacaoModel = new SolicitacaoModel(
             new Pagina($request->pagina),
             new Quantidade($request->quantidade),
             new Ordem($request->ordem),
-            $request->nome,
+            $request->pesquisa,
             $request->empresa,
-            new Data($request->data_inicio),
-            new Data($request->data_final),
+            $request->usuario,
+            $request->parceiro,
+            new Data($request->indicacao_inicio),
+            new Data($request->indicacao_final),
+            new Data($request->prospeccao_inicio),
+            new Data($request->prospeccao_final),
             new Status($request->status)
         );
-        $solicitacoes = $Solicitacao->listarDados();
+        $solicitacoes = $SolicitacaoModel->listarDados();
         $solicitacoes->lista = criptografarDado($solicitacoes->lista, Helper::CRIPTOGRAFAR, lista: true);
         return mensagemSucesso($solicitacoes);
     }
@@ -92,10 +90,10 @@ class SolicitacaoLojaController extends Controller implements
      */
     public function postSalvar(Request $request): Response
     {
-        $Solicitacao = new SolicitacaoEntity();
-        $Solicitacao->set(lista: $request->dado());
-        $Solicitacao->salvar();
-        return $this->retornoSucesso($Solicitacao, 201);
+        $SolicitacaoEntity = new SolicitacaoEntity();
+        $SolicitacaoEntity->set(lista: $request->dado());
+        $SolicitacaoEntity->salvar();
+        return $this->retornoSucesso($SolicitacaoEntity, 201);
     }
 
     /**
@@ -107,24 +105,10 @@ class SolicitacaoLojaController extends Controller implements
      */
     public function putAtualizar(Request $request, string $id): Response
     {
-        $Solicitacao = new SolicitacaoEntity();
-        $Solicitacao->uuid($id);
-        $Solicitacao->set(lista: $request->dado());
-        $Solicitacao->salvar();
-        return new Response(status: 204);
-    }
-
-    /**
-     * @param string $id
-     *
-     * @return Response
-     * @throws Excecao
-     */
-    public function deleteDeletar(string $id): Response
-    {
-        $Solicitacao = new SolicitacaoEntity();
-        $Solicitacao->uuid($id);
-        $Solicitacao->destruir();
+        $SolicitacaoEntity = new SolicitacaoEntity();
+        $SolicitacaoEntity->uuid($id);
+        $SolicitacaoEntity->set(lista: $request->dado());
+        $SolicitacaoEntity->salvar();
         return new Response(status: 204);
     }
 

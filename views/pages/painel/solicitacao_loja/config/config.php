@@ -3,16 +3,16 @@
 use App\Classes\SolicitacaoLoja\Helper;
 
 return [
-    'titulo'     => 'Loja',
+    'titulo'     => 'Indicações de Lojas',
     'buscar'     => false,
     'filtrar'    => true,
     'ordem'      => true,
     'visualizar' => true,
-    'add'        => true,
-    'editar'     => false,
-    'deletar'    => true,
-    'download'   => true,
-    'historico'  => true,
+    'add'        => false,
+    'editar'     => true,
+    'deletar'    => false,
+    'download'   => false,
+    'historico'  => false,
     'api'        => [
         'scope'        => 'solicitacao_loja',
         'uri'          => '/solicitacao-loja',
