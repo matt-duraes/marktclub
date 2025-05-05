@@ -66,6 +66,169 @@ class SolicitacaoEntity extends Entity
         parent::__construct();
     }
 
+    protected function regraPosBuscar(): void
+    {
+        $this->pegarOrigemIndicacao();
+        $this->pegarQuemIndicou();
+        $this->pegarParceiroVinculado();
+    }
+
+    private function pegarOrigemIndicacao(): void
+    {
+        $ormHelper = new OrmHelper(TABELA_COMERCIAL_EMPRESA);
+        $empresa = $ormHelper->pegarUltimoRegistro(
+            ['id', $this->id_admin_empresa],
+            ['id', 'titulo', 'nome_fantasia'],
+            'object'
+        );
+
+        if (empty($empresa->id)) {
+            return;
+        }
+        $this->origemIndicacao = empty($empresa->titulo) ? $empresa->nome_fantasia : $empresa->titulo;
+    }
+
+    private function pegarQuemIndicou(): void
+    {
+        $ormHelper = new OrmHelper(TABELA_USUARIO_CLIENTE);
+        $usuario = $ormHelper->pegarUltimoRegistro(
+            ['id', $this->id_usuario_cliente],
+            ['uuid', 'nome', 'documento', 'email_pessoal'],
+            'object'
+        );
+
+        if (empty($usuario->uuid)) {
+            return;
+        }
+        $nome = new Nome($usuario->nome);
+        $cpf = new Cpf($usuario->documento);
+        $email = new Email($usuario->email_pessoal);
+        $this->quemIndicou = [
+            'id'    => $usuario->uuid,
+            'nome'  => $nome->valido() ? $nome->nome() : '',
+            'cpf'   => $cpf->valido() ? $cpf->cpf() : '',
+            'email' => $email->valido() ? $email->email() : ''
+        ];
+    }
+
+    private function pegarParceiroVinculado(): void
+    {
+        if (empty($this->id_parceiro_loja)) {
+            return;
+        }
+        $ormHelper = new OrmHelper(TABELA_PARCEIRO_LOJA);
+        $parceiro = $ormHelper->pegarUltimoRegistro(
+            ['id', $this->id_parceiro_loja],
+            ['uuid', 'titulo_interno', 'nome_fantasia', 'razao_social', 'status'],
+            'object'
+        );
+
+        if (empty($parceiro->uuid)) {
+            $this->parceiro = [];
+            return;
+        }
+        $this->parceiro = [
+            'id'             => $parceiro->uuid,
+            'titulo_interno' => $parceiro->titulo_interno,
+            'nome_fantasia'  => $parceiro->nome_fantasia,
+            'razao_social'   => $parceiro->razao_social,
+            'status'         => (new StatusLoja($parceiro->status))->nome()
+        ];
+    }
+
+    protected function regraInsert(): void
+    {
+        $this->status = new Status(Status::SEM_VINCULO);
+    }
+
+    /**
+     * @return void
+     * @throws Erro
+     * @throws Excecao
+     */
+    protected function regraUpdate(): void
+    {
+        $isSemVinculo = $this->status->indice() === Status::SEM_VINCULO;
+        if ($isSemVinculo) {
+            if ($this->propriedadeExiste('parceiro') && !empty($this->parceiro)) {
+                $ormHelper = new OrmHelper(TABELA_PARCEIRO_LOJA);
+                $parceiro = $ormHelper->pegarUltimoRegistro(
+                    ['uuid', $this->parceiro],
+                    ['id', 'status'],
+                    'object'
+                );
+
+                if (empty($parceiro->id)) {
+                    return;
+                }
+
+                $this->id_parceiro_loja = $parceiro->id;
+                $status = new StatusLoja($parceiro->status);
+                if ($status->indice() === StatusLoja::CONCLUIDO) {
+                    $this->status = new Status(Status::CONCLUIDO);
+                } elseif (in_array($status->indice(), [StatusLoja::CANCELADO, StatusLoja::SEM_INTERESSE])) {
+                    $this->status = new Status(Status::CANCELADO);
+                } else {
+                    $this->status = new Status(Status::ANDAMENTO);
+                }
+            } elseif ($this->propriedadeExiste('parceiro_novo') && !empty($this->parceiro_novo)) {
+                $this->id_parceiro_loja = $this->gerarParceiroEmProspeccao($this->parceiro_novo);
+                $this->status = new Status(Status::ANDAMENTO);
+            }
+        }
+    }
+
+    /**
+     * @param string $nome
+     *
+     * @return int
+     * @throws Excecao
+     * @throws Erro
+     */
+    private function gerarParceiroEmProspeccao(string $nome): int
+    {
+        try {
+            $parceiro = new LojaEntity();
+            $parceiro->set('titulo_interno', $nome);
+            $parceiro->set('tipo_loja', TipoLoja::LOJA);
+            $parceiro->set('categoria_principal', Categoria::OUTROS);
+            $parceiro->set('url', strSlug($nome));
+            $parceiro->set('empresa', ['14afa776394ada4be23be6acf7e3259e']);
+            $parceiro->salvar();
+
+            return $parceiro->prop('id');
+        } catch (Excecao) {
+            mensagemErro(
+                'Não foi possível vincular o parceiro',
+                'Ocorreu um erro ao vincular o parceiro.'
+            );
+        }
+    }
+
+    /**
+     * @return void
+     * @throws Excecao
+     * @throws TypeException
+     */
+    protected function regraPosUpdate(): void
+    {
+        $this->pegarQuemIndicou();
+        match ($this->status->indice()) {
+            Status::CONCLUIDO => $this->enviarEmailConcluido(
+                $this->id_admin_empresa,
+                $this->quemIndicou['nome'],
+                $this->quemIndicou['email'],
+                $this->parceiro['nome_fantasia']
+            ),
+            Status::CANCELADO => $this->enviarEmailCancelado(
+                $this->id_admin_empresa,
+                $this->quemIndicou['nome'],
+                $this->quemIndicou['email'],
+                $this->parceiro['nome_fantasia']
+            )
+        };
+    }
+
     /**
      * @throws Excecao
      * @throws TypeException
@@ -187,124 +350,5 @@ class SolicitacaoEntity extends Entity
             $emailIndicou,
             deNome: $clube->titulo
         );
-    }
-
-    protected function regraPosBuscar(): void
-    {
-        $this->pegarOrigemIndicacao();
-        $this->pegarQuemIndicou();
-        $this->pegarParceiroVinculado();
-    }
-
-    private function pegarOrigemIndicacao(): void
-    {
-        $ormHelper = new OrmHelper(TABELA_COMERCIAL_EMPRESA);
-        $empresa = $ormHelper->pegarUltimoRegistro(
-            ['id', $this->id_admin_empresa],
-            ['id', 'titulo', 'nome_fantasia'],
-            'object'
-        );
-
-        if (empty($empresa->id)) {
-            return;
-        }
-        $this->origemIndicacao = empty($empresa->titulo) ? $empresa->nome_fantasia : $empresa->titulo;
-    }
-
-    private function pegarQuemIndicou(): void
-    {
-        $ormHelper = new OrmHelper(TABELA_USUARIO_CLIENTE);
-        $usuario = $ormHelper->pegarUltimoRegistro(
-            ['id', $this->id_usuario_cliente],
-            ['uuid', 'nome', 'documento', 'email_pessoal'],
-            'object'
-        );
-
-        if (empty($usuario->uuid)) {
-            return;
-        }
-        $nome = new Nome($usuario->nome);
-        $cpf = new Cpf($usuario->documento);
-        $email = new Email($usuario->email_pessoal);
-        $this->quemIndicou = [
-            'id'    => $usuario->uuid,
-            'nome'  => $nome->valido() ? $nome->nome() : '',
-            'cpf'   => $cpf->valido() ? $cpf->cpf() : '',
-            'email' => $email->valido() ? $email->email() : ''
-        ];
-    }
-
-    private function pegarParceiroVinculado(): void
-    {
-        if (empty($this->id_parceiro_loja)) {
-            return;
-        }
-        $ormHelper = new OrmHelper(TABELA_PARCEIRO_LOJA);
-        $parceiro = $ormHelper->pegarUltimoRegistro(
-            ['id', $this->id_parceiro_loja],
-            ['uuid', 'titulo_interno', 'nome_fantasia', 'razao_social', 'status'],
-            'object'
-        );
-        $this->parceiro = [
-            'id'             => $parceiro->uuid,
-            'titulo_interno' => $parceiro->titulo_interno,
-            'nome_fantasia'  => $parceiro->nome_fantasia,
-            'razao_social'   => $parceiro->razao_social,
-            'status'         => (new StatusLoja($parceiro->status))->nome()
-        ];
-    }
-
-    protected function regraInsert(): void
-    {
-        $this->status = new Status(Status::SEM_VINCULO);
-    }
-
-    /**
-     * @return void
-     * @throws Erro
-     * @throws Excecao
-     */
-    protected function regraUpdate(): void
-    {
-        $isSemVinculo = $this->status->indice() === Status::SEM_VINCULO;
-        if ($isSemVinculo && $this->propriedadeExiste('parceiro') && !empty($this->parceiro)) {
-            $ormHelper = new OrmHelper(TABELA_PARCEIRO_LOJA);
-            $this->id_parceiro_loja = $ormHelper->pegarIdPeloUuid($this->parceiro);
-            $this->status = new Status(Status::ANDAMENTO);
-        } elseif ($isSemVinculo && $this->propriedadeExiste('parceiro_novo') && !empty($this->parceiro_novo)) {
-            $this->id_parceiro_loja = $this->gerarParceiroEmProspeccao($this->parceiro_novo);
-            $this->status = new Status(Status::ANDAMENTO);
-        }
-    }
-
-    /**
-     * @param string $nome
-     *
-     * @return int
-     * @throws Excecao
-     * @throws Erro
-     */
-    private function gerarParceiroEmProspeccao(string $nome): int
-    {
-        try {
-            $parceiro = new LojaEntity();
-            $parceiro->set('titulo_interno', $nome);
-            $parceiro->set('tipo_loja', TipoLoja::LOJA);
-            $parceiro->set('categoria_principal', Categoria::OUTROS);
-            $parceiro->set('url', strSlug($nome));
-            $parceiro->set('empresa', ['14afa776394ada4be23be6acf7e3259e']);
-            $parceiro->salvar();
-
-            return $parceiro->prop('id');
-        } catch (Excecao) {
-            mensagemErro(
-                'Não foi possível vincular o parceiro',
-                'Ocorreu um erro ao vincular o parceiro.'
-            );
-        }
-    }
-
-    protected function regraPosUpdate(): void
-    {
     }
 }

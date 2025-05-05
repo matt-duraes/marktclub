@@ -25,7 +25,7 @@ $Painel->coluna(callback: function () use ($Painel) {
                 'usuario_link',
                 'Ver usuário',
                 link: LINK . '/app/visualizar/usuario-cliente/->quemIndicou->id',
-                permissao: Helper::PERMISSAO_VISUALIZAR
+                permissao: 'usuario_cliente_visualizar'
             );
     });
 
@@ -34,7 +34,13 @@ $Painel->coluna(callback: function () use ($Painel) {
             ->linha('parceiro->titulo_interno', 'Título Interno')
             ->linha('parceiro->nome_fantasia', 'Nome Fantasia')
             ->email('parceiro->razao_social', 'Razão Social')
-            ->linha('parceiro->status', 'Status');
+            ->linha('parceiro->status', 'Status')
+            ->botao(
+                'parceiro_link',
+                'Ver parceiro',
+                link: LINK . '/app/visualizar/parceiro-loja/->parceiro->id',
+                permissao: 'parceiro_loja_visualizar'
+            );
     });
 
     $Painel->bloco(titulo: 'Dados da solicitação', callback: function () use ($Painel) {
