@@ -4,13 +4,18 @@ namespace App\Models\Api\ParceiroLoja;
 
 use App\Classes\ParceiroLoja\Categoria;
 use App\Classes\ParceiroLoja\Status;
+use App\Classes\SolicitacaoLoja\Status as StatusSolicitacaoLoja;
 use App\Models\Api\ParceiroLoja\Trait\PropriedadeTrait;
 use App\Models\Api\ParceiroLoja\Trait\ValidarTrait;
+use App\Models\Api\SolicitacaoLoja\SolicitacaoEntity;
 use App\Models\Api\Trait\SistemaDataTrait;
+use Erro\Erro;
+use Erro\Excecao;
 use Helpers\OrmHelper;
 use Modules\Botao;
 use Modules\Data;
 use ORM\Entity;
+use SendGrid\Mail\TypeException;
 
 final class LojaEntity extends Entity
 {
@@ -59,7 +64,7 @@ final class LojaEntity extends Entity
         $this->EquipeOrm = new OrmHelper(TABELA_USUARIO_EQUIPE);
     }
 
-    protected function regraInsert()
+    protected function regraInsert(): void
     {
         $this->status = new Status(Status::PROSPECCAO);
         if (!$this->pExiste('equipe') || empty($this->equipe)) {
@@ -70,7 +75,7 @@ final class LojaEntity extends Entity
         $this->data_prospeccao = new Data(hoje());
     }
 
-    protected function regraUpdate()
+    protected function regraUpdate(): void
     {
         $this->id_usuario_equipe = $this->EquipeOrm->pegarIdPeloUuid($this->equipe);
 
@@ -98,7 +103,7 @@ final class LojaEntity extends Entity
         $this->statusInicial = $statusInicial;
     }
 
-    protected function regraSalvar()
+    protected function regraSalvar(): void
     {
         $this->validarSalvar();
         $this->id_admin_empresa = $this->EmpresaOrm->mudarListaUuidParaId($this->empresa);
@@ -140,7 +145,7 @@ final class LojaEntity extends Entity
         return $ormHelper->mudarListaUuidParaId($uuidSubcategorias);
     }
 
-    private function converterComissao($float = true)
+    private function converterComissao($float = true): void
     {
         if ($this->pExiste('comissao_minima') && !empty($this->comissao_minima)) {
             $this->comissao_minima = $float
@@ -152,21 +157,29 @@ final class LojaEntity extends Entity
         }
     }
 
-    protected function regraPosInsert()
+    protected function regraPosInsert(): void
     {
         $this->sistemaData('Loja cadastrada', 'novo');
     }
 
-    protected function regraPosUpdate()
+    /**
+     * @return void
+     * @throws Erro
+     * @throws Excecao
+     * @throws TypeException
+     */
+    protected function regraPosUpdate(): void
     {
         $statusInicial = $this->statusInicial;
         $statusAtual = $this->status->indice();
         if ($statusInicial != $statusAtual) {
             $this->salvarMudancaStatus($statusInicial, $statusAtual);
         }
+        $this->mudarStatusIndicacoes();
+        $this->notificarIndicacoes();
     }
 
-    private function salvarMudancaStatus($statusInicial, $statusAtual)
+    private function salvarMudancaStatus($statusInicial, $statusAtual): void
     {
         $statusGeral = $statusInicial . '_' . $statusAtual;
         $mensagem = [
@@ -188,7 +201,94 @@ final class LojaEntity extends Entity
         $this->sistemaData($mensagem[$statusGeral] ?? $mensagem[$indice], $statusGeral);
     }
 
-    protected function regraPosBuscar()
+    /**
+     * @return void
+     * @throws Erro
+     * @throws Excecao
+     */
+    private function mudarStatusIndicacoes(): void
+    {
+        $indicacoes = $this->pegarIndicacoes();
+        if (empty($indicacoes)) {
+            return;
+        }
+        foreach ($indicacoes as $indicacao) {
+            $solicitacao = new SolicitacaoEntity();
+            $solicitacao->buscar(['id', $indicacao->id], false);
+            if ($this->status->indice() === Status::CONCLUIDO) {
+                $solicitacao->set('status', StatusSolicitacaoLoja::CONCLUIDO);
+            } elseif (in_array($this->status->indice(), [Status::CANCELADO, Status::SEM_INTERESSE])) {
+                $solicitacao->set('status', StatusSolicitacaoLoja::CANCELADO);
+            }
+            $solicitacao->salvar();
+        }
+    }
+
+    /**
+     * @return array
+     * @throws Erro
+     * @throws Excecao
+     */
+    private function pegarIndicacoes(): array
+    {
+        $ormHelper = new OrmHelper(TABELA_SOLICITACAO_LOJA);
+        return $ormHelper
+            ->campo(['id', 'id_admin_empresa', 'id_usuario_cliente'])
+            ->where([
+                ['id_parceiro_loja', $this->getId()],
+                ['status', (new StatusSolicitacaoLoja(StatusSolicitacaoLoja::ANDAMENTO))->numero()]
+            ])
+            ->read();
+    }
+
+    /**
+     * @return mixed
+     * @throws Erro
+     * @throws Excecao
+     */
+    protected function getId(): mixed
+    {
+        return $this->prop('id');
+    }
+
+    /**
+     * @return void
+     * @throws Erro
+     * @throws Excecao|TypeException
+     */
+    private function notificarIndicacoes(): void
+    {
+        $indicacoes = $this->pegarIndicacoes();
+        if (empty($indicacoes)) {
+            return;
+        }
+
+        $ormHelperUsuario = new OrmHelper(TABELA_USUARIO_CLIENTE);
+        foreach ($indicacoes as $indicacao) {
+            $usuario = $ormHelperUsuario->pegarUltimoRegistro([
+                ['id', $indicacao->id_usuario_cliente],
+                ['id_admin_empresa', $indicacao->id_admin_empresa]
+            ], ['nome', 'email_pessoal'], 'object');
+
+            $Solicitacao = new SolicitacaoEntity();
+            match ($this->status->indice()) {
+                Status::CONCLUIDO => $Solicitacao->enviarEmailConcluido(
+                    $indicacao->id_admin_empresa,
+                    $usuario->nome,
+                    $usuario->email_pessoal,
+                    $this->titulo
+                ),
+                Status::CANCELADO, Status::SEM_INTERESSE => $Solicitacao->enviarEmailCancelado(
+                    $indicacao->id_admin_empresa,
+                    $usuario->nome,
+                    $usuario->email_pessoal,
+                    $this->titulo
+                )
+            };
+        }
+    }
+
+    protected function regraPosBuscar(): void
     {
         if (empty($this->prazo_voucher) || !preg_match('/^[1-9]{1}[0-9]{0,}$/', $this->prazo_voucher)) {
             $this->prazo_voucher = 10;
@@ -214,7 +314,7 @@ final class LojaEntity extends Entity
         return $ormHelper->mudarListaIdParaUuid($idSubcategorias);
     }
 
-    private function setarRelacionadoExistem()
+    private function setarRelacionadoExistem(): void
     {
         $this->existe_endereco = new Botao(
             (new OrmHelper(TABELA_SISTEMA_ENDERECO))->existe([
@@ -239,10 +339,5 @@ final class LojaEntity extends Entity
                 ['tipo', 2]
             ]) ? 'sim' : 'nao'
         );
-    }
-
-    protected function getId()
-    {
-        return $this->prop('id');
     }
 }

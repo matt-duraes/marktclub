@@ -2,14 +2,16 @@
 
 use App\Classes\SolicitacaoLoja\Ordem;
 use App\Classes\SolicitacaoLoja\Status;
+use PainelConfig\Index;
 
-$Painel = new PainelConfig\Index('solicitacao_loja', new Ordem());
+$Painel = new Index('solicitacao_loja', new Ordem());
 
 $Painel
-    ->campo('clube.titulo', 'Clube', 'pequeno')
-    ->campo('nome', 'Nome indicação', 'normal')
-    ->campo('telefone', 'Telefone', 'pequeno', 'telefone')
-    ->campo('email', 'E-mail', 'normal')
+    ->campo('empresa', 'Empresa', Index::TIPO_GRANDE, permissao: 'solicitacao_loja_empresa')
+    ->campo('usuario_indicacao', 'Usuário', Index::TIPO_GRANDE, permissao: 'solicitacao_loja_empresa')
+    ->campo('parceiro', 'Parceiro/Loja', Index::TIPO_GRANDE)
+    ->campo('nome_indicacao', 'Nome Indicação', Index::TIPO_NORMAL)
+    ->campo('email_indicacao', 'E-mail Indicação', Index::TIPO_GRANDE)
     ->dataCriacao()
     ->status('status', 'Status', new Status());
 
