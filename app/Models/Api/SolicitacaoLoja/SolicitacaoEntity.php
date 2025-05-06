@@ -85,7 +85,13 @@ class SolicitacaoEntity extends Entity
         if (empty($empresa->id)) {
             return;
         }
-        $this->origemIndicacao = empty($empresa->titulo) ? $empresa->nome_fantasia : $empresa->titulo;
+        if (!empty($empresa->titulo)) {
+            $this->origemIndicacao = $empresa->titulo;
+        } elseif (!empty($empresa->nome_fantasia)) {
+            $this->origemIndicacao = $empresa->nome_fantasia;
+        } else {
+            $this->origemIndicacao = '';
+        }
     }
 
     private function pegarQuemIndicou(): void
