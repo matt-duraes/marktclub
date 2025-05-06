@@ -129,7 +129,7 @@ class SolicitacaoEntity extends Entity
             'object'
         );
 
-        if (empty($parceiro->uuid)) {
+        if (empty($parceiro)) {
             $this->parceiro = [];
             return;
         }

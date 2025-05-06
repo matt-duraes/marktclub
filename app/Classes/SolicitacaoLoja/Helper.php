@@ -5,7 +5,6 @@ namespace App\Classes\SolicitacaoLoja;
 class Helper
 {
     public const CRIPTOGRAFAR = [
-        'quemIndicou' => ['nome', 'cpf', 'email'],
-        'usuario'
+        'quemIndicou' => ['nome', 'cpf', 'email']
     ];
 }

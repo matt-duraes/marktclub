@@ -208,7 +208,13 @@ class SolicitacaoModel extends ORM implements
         $Status = new Status();
         $retorno = [];
         foreach ($indicaoes as $indicacao) {
-            $empresa = empty($indicacao->empresa_titulo) ? $indicacao->empresa_nome_fantasia : $indicacao->empresa_titulo;
+            if (!empty($indicacao->empresa_titulo)) {
+                $empresa = $indicacao->empresa_titulo;
+            } elseif (!empty($indicacao->empresa_nome_fantasia)) {
+                $empresa = $indicacao->empresa_nome_fantasia;
+            } else {
+                $empresa = '';
+            }
             $parceiro = 'Sem Parceiro';
             if (!empty($indicacao->id_parceiro_loja)) {
                 $ormHelper = new OrmHelper(TABELA_PARCEIRO_LOJA);
