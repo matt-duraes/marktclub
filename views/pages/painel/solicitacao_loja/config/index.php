@@ -11,7 +11,7 @@ $Painel
     ->campo('usuario_indicacao', 'Usuário', Index::TIPO_GRANDE, permissao: 'solicitacao_loja_empresa')
     ->campo('parceiro', 'Parceiro/Loja', Index::TIPO_GRANDE)
     ->campo('nome_indicacao', 'Nome Indicação', Index::TIPO_NORMAL)
-    ->campo('email_indicacao', 'E-mail Indicação', Index::TIPO_GRANDE)
+    ->campo('data_prospeccao', 'Data Prospecção', Index::TIPO_PEQUENO, Index::FORMATAR_DATA)
     ->dataCriacao()
     ->status('status', 'Status', new Status());
 

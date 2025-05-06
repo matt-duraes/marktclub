@@ -125,7 +125,10 @@ class SolicitacaoEntity extends Entity
         $ormHelper = new OrmHelper(TABELA_PARCEIRO_LOJA);
         $parceiro = $ormHelper->pegarUltimoRegistro(
             ['id', $this->id_parceiro_loja],
-            ['uuid', 'titulo_interno', 'nome_fantasia', 'razao_social', 'status'],
+            [
+                'uuid', 'titulo_interno', 'nome_fantasia',
+                'razao_social', 'data_prospeccao', 'status'
+            ],
             'object'
         );
 
@@ -134,11 +137,12 @@ class SolicitacaoEntity extends Entity
             return;
         }
         $this->parceiro = [
-            'id'             => $parceiro->uuid,
-            'titulo_interno' => $parceiro->titulo_interno,
-            'nome_fantasia'  => $parceiro->nome_fantasia,
-            'razao_social'   => $parceiro->razao_social,
-            'status'         => (new StatusLoja($parceiro->status))->nome()
+            'id'              => $parceiro->uuid,
+            'titulo_interno'  => $parceiro->titulo_interno,
+            'nome_fantasia'   => $parceiro->nome_fantasia,
+            'razao_social'    => $parceiro->razao_social,
+            'data_prospeccao' => $parceiro->data_prospeccao,
+            'status'          => (new StatusLoja($parceiro->status))->nome()
         ];
     }
 

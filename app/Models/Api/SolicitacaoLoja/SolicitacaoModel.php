@@ -215,16 +215,20 @@ class SolicitacaoModel extends ORM implements
             } else {
                 $empresa = '';
             }
-            $parceiro = 'Sem Parceiro';
             if (!empty($indicacao->id_parceiro_loja)) {
                 $ormHelper = new OrmHelper(TABELA_PARCEIRO_LOJA);
-                $parceiro = $ormHelper->pegarCampoPor('titulo_interno', ['id', $indicacao->id_parceiro_loja]);
+                $parceiro = $ormHelper->pegarUltimoRegistro(
+                    ['id', $indicacao->id_parceiro_loja],
+                    ['titulo_interno', 'data_prospeccao'],
+                    'object'
+                );
             }
             $retorno[] = [
                 'id'                 => $indicacao->uuid,
                 'empresa'            => $empresa,
                 'usuario_indicacao'  => $indicacao->usuario_nome,
-                'parceiro'           => $parceiro,
+                'parceiro'           => empty($parceiro->titulo_interno) ? 'Sem Parceiro' : $parceiro->titulo_interno,
+                'data_prospeccao'    => empty($parceiro->data_prospeccao) ? 'Sem data' : $parceiro->data_prospeccao,
                 'nome_indicacao'     => $indicacao->nome,
                 'email_indicacao'    => $indicacao->email,
                 'telefone_indicacao' => $indicacao->telefone,

@@ -35,6 +35,7 @@ $Painel->coluna(callback: function () use ($Painel) {
             ->linha('parceiro->titulo_interno', 'Título Interno')
             ->linha('parceiro->nome_fantasia', 'Nome Fantasia')
             ->linha('parceiro->razao_social', 'Razão Social')
+            ->data('parceiro->data_prospeccao', 'Data Prospecção')
             ->linha('parceiro->status', 'Status')
             ->botao(
                 'parceiro_link',
