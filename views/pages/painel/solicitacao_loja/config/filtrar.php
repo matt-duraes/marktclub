@@ -15,12 +15,6 @@ $Painel
         permissao: 'solicitacao_loja_empresa'
     )
     ->input(
-        name: 'usuario',
-        titulo: 'Nome Usuário',
-        label: 'Nome Usuário',
-        placeholder: 'Nome Usuário'
-    )
-    ->input(
         name: 'parceiro',
         titulo: 'Nome Indicação',
         label: 'Nome Indicação',
@@ -59,10 +53,10 @@ $Painel
     ->bloco(function () use ($Painel) {
         $Painel
             ->numero(
-                'quantidade',
-                'Quantidade de registros',
-                'Quantidade de registros',
-                'Quantidade de registros'
+                name: 'quantidade',
+                titulo: 'Quantidade de registros',
+                label: 'Quantidade de registros',
+                placeholder: 'Quantidade de registros'
             )
             ->select(
                 name: 'status',
