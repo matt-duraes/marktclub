@@ -19,8 +19,8 @@ $Painel->coluna(callback: function () use ($Painel) {
     $Painel->bloco('Usuário que indicou', callback: function () use ($Painel) {
         $Painel
             ->linha('quemIndicou->nome', 'Nome')
-            ->cpf('quemIndicou->cpf', 'CPF')
-            ->email('quemIndicou->email', 'E-mail')
+            ->linha('quemIndicou->cpf', 'CPF')
+            ->linha('quemIndicou->email', 'E-mail')
             ->botao(
                 'usuario_link',
                 'Ver usuário',
@@ -31,9 +31,10 @@ $Painel->coluna(callback: function () use ($Painel) {
 
     $Painel->bloco(titulo: 'Parceiro (vinculado)', callback: function () use ($Painel) {
         $Painel
+            ->vazioBreak('parceiro', 'Sem parceiro vinculado')
             ->linha('parceiro->titulo_interno', 'Título Interno')
             ->linha('parceiro->nome_fantasia', 'Nome Fantasia')
-            ->email('parceiro->razao_social', 'Razão Social')
+            ->linha('parceiro->razao_social', 'Razão Social')
             ->linha('parceiro->status', 'Status')
             ->botao(
                 'parceiro_link',
