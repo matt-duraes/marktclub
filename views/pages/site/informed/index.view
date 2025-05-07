@@ -1,0 +1,29 @@
+@template "site"
+
+<div id="bloco_informed">
+    <div class="bloco_geral_banner banner">
+        <div class="conteudo">
+            <div class="imagem banner_desktop" id="bloco_banner_desktop">
+                <figure>
+                    <img src="{{LINK_PADRAO}}/images/site/informed_desktop.png">
+                    <a href="https://portalservicos.cfm.org.br/portal/login/pessoa-fisica" target="_blank" rel="noopener noreferrer"></a>
+                </figure>
+            </div>
+            <div class="imagem banner_mobile" id="bloco_banner_mobile">
+                <figure>
+                    <img src="{{LINK_PADRAO}}/images/site/informed_mobile.png">
+                    <a href="https://portalservicos.cfm.org.br/portal/login/pessoa-fisica" target="_blank" rel="noopener noreferrer"></a>
+                </figure>
+            </div>
+        </div>
+    </div>
+
+    <div class="bloco_chamada">
+        <h1>Informed by Manole e InterDrugs</h1>
+        <p>
+            CFM oferece ao médico ferramenta para qualificar suas decisões<br>
+            Atenção! Não precisa baixar aplicativo, o acesso é exclusivo pelo CRM Vitual
+        </p>
+        <a href="https://portalservicos.cfm.org.br/portal/login/pessoa-fisica" target="_blank" rel="noopener noreferrer" class="botao_geral_cor cor_bg">ACESSAR</a>
+    </div>
+</div>

@@ -25,6 +25,12 @@ if (!function_exists('iconeShow')) {
         return '<svg height="17" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 20 18" xml:space="preserve"><path d="M0,6.5V1c0-0.6,0.4-1,1-1h18c0.6,0,1,0.4,1,1v5.5c-1.4,0-2.5,1.1-2.5,2.5s1.1,2.5,2.5,2.5V17c0,0.6-0.4,1-1,1H1c-0.6,0-1-0.4-1-1v-5.5c1.4,0,2.5-1.1,2.5-2.5S1.4,6.5,0,6.5z M2,5c1.5,0.7,2.5,2.3,2.5,4s-1,3.3-2.5,4v3h16v-3c-1.5-0.7-2.5-2.3-2.5-4s1-3.3,2.5-4V2H2V5z M7,6h6v2H7V6z M7,10h6v2H7V10z"/></svg>';
     }
 }
+if (!function_exists('iconeInformed')) {
+    function iconeInformed()
+    {
+        return '<svg height="20" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M8 20V14H16V20H19V4H5V20H8ZM10 20H14V16H10V20ZM21 20H23V22H1V20H3V3C3 2.44772 3.44772 2 4 2H20C20.5523 2 21 2.44772 21 3V20ZM11 8V6H13V8H15V10H13V12H11V10H9V8H11Z"></path></svg>';
+    }
+}
 if (!function_exists('iconeSiteHome')) {
     function iconeSiteHome()
     {

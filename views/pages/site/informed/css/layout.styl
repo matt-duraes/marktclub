@@ -1,0 +1,22 @@
+@template "site"
+@system "Esqueleto"
+@system "Banner"
+@resource "site/variavel"
+@resource "site/banner"
+
+#bloco_informed
+    maxWidth()
+
+#bloco_informed .bloco_chamada
+    width: 100%
+    flexCol()
+    align-items: center
+    margin: 40px 0 60px
+    h1
+        titulo()
+        text-align: center
+    p
+        texto()
+        max-width: 400px
+        text-align: center
+        margin-bottom: 30px

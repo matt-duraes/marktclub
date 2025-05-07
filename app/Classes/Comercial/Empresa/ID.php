@@ -15,4 +15,5 @@ final class ID
     public const ABERT = 233;
     public const CEMECARD = 229;
     public const VIVA_FACIL = 178;
+    public const CFM = 1981;
 }
