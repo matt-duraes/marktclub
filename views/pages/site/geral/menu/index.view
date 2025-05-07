@@ -36,12 +36,21 @@
 </div>
 @ endif;
 
+@ if( in_array(CLUBE_EMPRESA, [\App\Classes\Comercial\Empresa\UUID::CFM, \App\Classes\Comercial\Empresa\UUID::YOUHUUL] )):
+<a class="botao {!!MENU_HOVER == 'informed' ? 'cor_bg pagina_atual' : ''!!}" href="@route(informed.index)">
+    <i>@iconeInformed</i>
+    Informed
+    <div class="novo">novo</div>
+</a>
+@ endif;
+
 @ if( MENU_TURISMO ):
 <a class="botao {!!MENU_HOVER == 'turismo' ? 'cor_bg pagina_atual' : ''!!}" href="@route(turismo.index)">
     <i>@iconeTurismoHomeOutline</i>
     Turismo
     <div class="novo">novo</div>
 </a>
+
 @ endif;
 
 @ if( MENU_SAMSUNG ):
