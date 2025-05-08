@@ -18,25 +18,25 @@ $Painel->coluna(callback: function () use ($Painel) {
 
     $Painel->bloco('Usuário que indicou', callback: function () use ($Painel) {
         $Painel
-            ->linha('quemIndicou->nome', 'Nome')
-            ->linha('quemIndicou->cpf', 'CPF')
-            ->linha('quemIndicou->email', 'E-mail')
+            ->linha('quemIndicou->nome', 'Nome', permissao: 'solicitacao_loja_empresa')
+            ->linha('quemIndicou->cpf', 'CPF', permissao: 'solicitacao_loja_empresa')
+            ->linha('quemIndicou->email', 'E-mail', permissao: 'solicitacao_loja_empresa')
             ->botao(
                 'usuario_link',
                 'Ver usuário',
                 link: LINK . '/app/visualizar/usuario-cliente/->quemIndicou->id',
-                permissao: 'usuario_cliente_visualizar'
+                permissao: 'solicitacao_loja_empresa'
             );
     });
 
     $Painel->bloco(titulo: 'Parceiro (vinculado)', callback: function () use ($Painel) {
         $Painel
-            ->vazioBreak('parceiro', 'Sem parceiro vinculado')
-            ->linha('parceiro->titulo_interno', 'Título Interno')
-            ->linha('parceiro->nome_fantasia', 'Nome Fantasia')
-            ->linha('parceiro->razao_social', 'Razão Social')
-            ->data('parceiro->data_prospeccao', 'Data Prospecção')
-            ->linha('parceiro->status', 'Status')
+            ->vazioBreak('parceiro', 'Sem parceiro vinculado', permissao: 'parceiro_loja_visualizar')
+            ->linha('parceiro->titulo_interno', 'Título Interno', permissao: 'parceiro_loja_visualizar')
+            ->linha('parceiro->nome_fantasia', 'Nome Fantasia', permissao: 'parceiro_loja_visualizar')
+            ->linha('parceiro->razao_social', 'Razão Social', permissao: 'parceiro_loja_visualizar')
+            ->data('parceiro->data_prospeccao', 'Data Prospecção', permissao: 'parceiro_loja_visualizar')
+            ->linha('parceiro->status', 'Status', permissao: 'parceiro_loja_visualizar')
             ->botao(
                 'parceiro_link',
                 'Ver parceiro',
