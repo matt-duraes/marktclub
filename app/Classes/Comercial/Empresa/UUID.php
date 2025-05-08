@@ -14,4 +14,5 @@ final class UUID
     public const CIESC = 'a8a2f754-84f0-448a-bd74-2854527ea444';
     public const CEMECARD = '11f79188d7c10aa8c91521fc80251d7d';
     public const VIVA_FACIL = '57e2742256e60068af655d5a83a1125f';
+    public const CFM = '86957758faf9eedd4f1448f2b3fe087e';
 }

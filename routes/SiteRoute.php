@@ -335,6 +335,17 @@ Route
     });
 
 Route
+    ::nome('informed')
+    ::middleware(ClubeMiddleware::class, 'buscar')
+    ::middleware(AuthMiddleware::class, 'logado')
+    ::controller(App\Controllers\Site\InformedController::class)
+    ::grupo(function () {
+        Route
+            ::nome('index')
+            ::view('/informed');
+    });
+
+Route
     ::nome('turismo')
     ::middleware(ClubeMiddleware::class, 'buscar')
     ::middleware(AuthMiddleware::class, 'logado')

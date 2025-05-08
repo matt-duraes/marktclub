@@ -2,8 +2,8 @@
 
 use App\Classes\Geral\Status;
 
-$diretorioImagem = sessao('PAINEL.upload_grupo')['imagem'] ?? '';
-$diretorioArquivo = sessao('PAINEL.upload_grupo')['arquivo'] ?? '';
+$diretorioImagem = sessao('PAINEL.upload_grupo')->imagem ?? '';
+$diretorioArquivo = sessao('PAINEL.upload_grupo')->arquivo ?? '';
 
 $Painel = new PainelConfig\Add(app: 'publicidade_home', acao: $acao);
 $Painel->coluna(callback: function () use ($Painel, $diretorioImagem, $diretorioArquivo) {
