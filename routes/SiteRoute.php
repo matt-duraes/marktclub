@@ -82,7 +82,7 @@ Route
     ::grupo(function() {
         Route
             ::nome('login')
-            ::request(['login', 'senha', 'hash_validacao_captcha'])
+            ::request(['login', 'senha', 'hash_validacao_captcha', '!tipo_usuario'])
             ::post('/login/login');
         Route
             ::nome('login')

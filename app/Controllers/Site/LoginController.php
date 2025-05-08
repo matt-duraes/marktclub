@@ -124,7 +124,7 @@ final class LoginController extends Controller
 
     public function postLogin(Request $request): Response
     {
-        new LogarModel($request->login, $request->senha);
+        new LogarModel($request->login, $request->senha, $request->tipo_usuario);
         return $this->loginRealizado();
     }
 
