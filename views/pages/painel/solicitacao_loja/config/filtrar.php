@@ -35,7 +35,7 @@ $Painel
                 placeholder: 'Indicado até'
             );
     })
-    ->bloco(function () use ($Painel) {
+    /*->bloco(function () use ($Painel) {
         $Painel
             ->data(
                 name: 'prospeccao_inicio',
@@ -49,7 +49,7 @@ $Painel
                 label: 'Prospectado até',
                 placeholder: 'Prospectado até'
             );
-    })
+    })*/
     ->bloco(function () use ($Painel) {
         $Painel
             ->numero(
