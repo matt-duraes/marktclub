@@ -11,7 +11,9 @@ use App\Models\Api\ConstrutorClube\ClubeModel;
 use App\Models\Api\ConstrutorClube\ConstrutorEntity;
 use App\Models\Api\LoginClube\ClubePoupy\UsuarioTrait as UsuarioClubePoupyTrait;
 use App\Models\Api\LoginClube\EmporioNaval\UsuarioTrait as UsuarioEmporioNavalTrait;
+use App\Models\Api\LoginClube\LeveBeneficios\UsuarioTrait as UsuarioLeveTrait;
 use App\Models\Api\LoginClube\UpClube\UsuarioTrait as UsuarioUpClubeTrait;
+use App\Models\Api\LoginClube\VivaDiversao\UsuarioTrait as UsuarioVivaTrait;
 use App\Models\Api\LoginClube\Youhuul\LoginModel as LoginMarktClubModel;
 use App\Models\Api\UsuarioCliente\UsuarioLogadoModel;
 use Erro\Excecao;
@@ -25,6 +27,8 @@ final class LoginClubeModel
     use UsuarioEmporioNavalTrait;
     use UsuarioClubePoupyTrait;
     use UsuarioUpClubeTrait;
+    use UsuarioLeveTrait;
+    use UsuarioVivaTrait;
 
     public array $token;
     public array $construtor;
@@ -74,8 +78,7 @@ final class LoginClubeModel
         try {
             $Construtor = new ConstrutorEntity();
             $Construtor->buscar([
-                ['link_clube', $redirectUri],
-                ['status', 1]
+                ['link_clube', $redirectUri], ['status', 1]
             ]);
         } catch (Throwable $e) {
             mensagemStatus(404, localhost: 'Erro ao buscar empresa. ' . $e->getMessage());
@@ -91,22 +94,21 @@ final class LoginClubeModel
     {
         if ($this->idEmpresa == 153) { // FENAE
             return;
-        } elseif ($this->idEmpresa == 2114 && $this->tipo->indice() == Tipo::TITULAR) { // CLUBE POUPY
-            $this->Usuario = $this->pegarUsuarioClubePoupy();
-            return;
-        } elseif ($this->idEmpresa == 2100 && $this->tipo->indice() == Tipo::TITULAR) { // EMPORIO NAVAL
-            $this->Usuario = $this->pegarUsuarioEmporioNaval();
-            return;
-        } elseif ($this->idEmpresa == 4648 && $this->tipo->indice() == Tipo::TITULAR) { // UP CLUBE
-            $this->Usuario = $this->pegarUsuarioUpClube();
+        }
+
+        if ($this->tipo->indice() === Tipo::TITULAR) {
+            $this->Usuario = match ($this->idEmpresa) {
+                2100 => $this->pegarUsuarioEmporioNaval(),      //Clube Emporio Naval
+                2114 => $this->pegarUsuarioClubePoupy(),        //Clube Poupy
+                4639 => $this->pegarUsuarioLeveBeneficios(),    //Leve Beneficios
+                4648 => $this->pegarUsuarioUpClube(),           //Up Clube
+                4722 => $this->pegarUsuarioVivaDiversao()       //Viva Diversao
+            };
             return;
         }
 
         $this->Usuario = (new LoginMarktClubModel(
-            login: $this->login,
-            senha: $this->senha,
-            hash: $this->hash,
-            empresa: $this->idEmpresa
+            login: $this->login, senha: $this->senha, hash: $this->hash, empresa: $this->idEmpresa
         ))->Usuario;
     }
 
