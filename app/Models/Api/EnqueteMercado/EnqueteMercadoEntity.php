@@ -1,19 +1,19 @@
 <?php
 
-namespace App\Models\Api\Pesquisa;
+namespace App\Models\Api\EnqueteMercado;
 
-use App\Classes\Pesquisa\Experiencia;
-use App\Classes\Pesquisa\Fidelidade;
-use App\Classes\Pesquisa\Frequencia;
-use App\Classes\Pesquisa\Gasto;
-use App\Classes\Pesquisa\Importancia;
-use App\Classes\Pesquisa\Padrao;
-use App\Classes\Pesquisa\Produtos;
+use App\Classes\EnqueteMercado\Experiencia;
+use App\Classes\EnqueteMercado\Fidelidade;
+use App\Classes\EnqueteMercado\Frequencia;
+use App\Classes\EnqueteMercado\Gasto;
+use App\Classes\EnqueteMercado\Importancia;
+use App\Classes\EnqueteMercado\Padrao;
+use App\Classes\EnqueteMercado\Produtos;
 use App\Models\Api\Trait\ValidarEmpresaTrait;
 use Erro\Excecao;
 use ORM\Entity;
 
-class PesquisaEntity extends Entity
+class EnqueteMercadoEntity extends Entity
 {
     use ValidarEmpresaTrait;
 
@@ -65,6 +65,15 @@ class PesquisaEntity extends Entity
     }
 
     /**
+     * @return bool
+     * @throws Excecao
+     */
+    public function existeResposta(): bool
+    {
+        return $this->existe(['id_usuario_cliente', $this->idUsuario]);
+    }
+
+    /**
      * @return void
      * @throws Excecao
      */
@@ -82,14 +91,5 @@ class PesquisaEntity extends Entity
                 'Você já respondeu a esta pesquisa.'
             );
         }
-    }
-
-    /**
-     * @return bool
-     * @throws Excecao
-     */
-    public function existeResposta(): bool
-    {
-        return $this->existe(['id_usuario_cliente', $this->idUsuario]);
     }
 }

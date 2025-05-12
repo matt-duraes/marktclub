@@ -2,9 +2,9 @@
 
 namespace App\Models\Site\Login;
 
+use App\Classes\LoginClube\Tipo;
 use Helpers\ApiHelper;
 use Helpers\CryptHelper;
-use App\Classes\LoginClube\Tipo;
 
 final class LogarModel
 {
@@ -15,7 +15,8 @@ final class LogarModel
 
     public function __construct(
         private string $login,
-        private string $senha
+        private string $senha,
+        private ?string $tipo_usuario = null
     ) {
         $this->validarDado();
         $this->setarCrypt();
@@ -42,7 +43,7 @@ final class LogarModel
                 'redirect_uri' => strDominio(LINK, www: false),
                 'scope'        => '',
                 'state'        => uuid(),
-                'tipo'         => Tipo::TITULAR
+                'tipo'         => empty($this->tipo_usuario) ? Tipo::TITULAR : $this->tipo_usuario
             ])
             ->post('/login/clube')->array();
 

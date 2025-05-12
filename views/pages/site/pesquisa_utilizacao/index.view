@@ -1,0 +1,53 @@
+<div class="bloco_pagina_popup" id="popup_pesquisa">
+    <div class="conteudo_pagina_popup">
+        <form id="form_indicar_loja" class="form_geral conteudo_popup" method="post">
+            <header>
+                <i class="fechar pagina_fechar">@iconeFechar</i>
+            </header>
+            <header>
+                <p>O que você prefere nesse programa de fidelidade?</p>
+                @? formSelect(name: 'programaFidelidade', placeholder: 'O que você prefere nesse programa de fidelidade?', obrigatorio: 1, lista: $programaFidelidade)
+            </header>
+            <header>
+                <p>Quais produtos você mais procura?</p>
+                @? formSelect(name: 'produtosProcurados', placeholder: 'Escolha uma das opções', obrigatorio: 1, lista: $produtosProcurados)
+            </header>
+            <header>
+                <p>Se você fosse comprar uma smart tv para a sua sala, você estaria disposto a gastar até quanto?</p>
+                @? formSelect(name: 'tvSmart', placeholder: 'Escolha uma das opções', obrigatorio: 1, lista: $tvSmart)
+            </header>
+            <header>
+                <p>Se você precisasse escolher apenas UMA opção, o que mais importa para escolha de um produto/marca?</p>
+                @? formSelect(name: 'opcaoProdutoMarca',placeholder: 'Escolha uma das opções', obrigatorio: 1, lista: $opcaoProdutoMarca)
+            </header>
+            <header>
+                <p>Você acredita que cashback realmente funciona?</p>
+                @? formSelect(name: 'acreditaEmCashback', placeholder: 'Escolha uma das opções',  obrigatorio: 1, lista: $acreditaEmCashback)
+            </header>
+            <header>
+                <p>Você utiliza o cashback aqui com muita frequência?</p>
+                @? formSelect(name: 'frequenciaCashback', placeholder: 'Escolha uma das opções',  obrigatorio: 1, lista: $frequenciaCashback)
+            </header>
+            <header>
+                <p>Você já resgatou seu cashback nesse portal alguma vez?</p>
+                @? formSelect(name: 'resgateCashback', placeholder: 'Escolha uma das opções',  obrigatorio: 1, lista: $resgateCashback)
+            </header>
+            <header>
+                <p>Sobre as parcerias e convênios, você já efetuou alguma compra com desconto?</p>
+                @? formSelect(name: 'sobreParcerias', placeholder: 'Escolha uma das opções',  obrigatorio: 1, lista: $sobreParcerias)
+            </header>
+            <header>
+                <p>Como foi a sua experiência?</p>
+                @? formSelect(name: 'suaExperiencia', placeholder: 'Escolha uma das opções',obrigatorio: 1, lista: $suaExperiencia)
+            </header>
+            <header>
+                <p>Você indicaria para outra pessoa utilizar?</p>
+                @? formSelect(name: 'voceIndicaria', placeholder: 'Escolha uma das opções', obrigatorio: 1, lista: $voceIndicaria)
+            </header>
+            <div class="footer_pagina_popup">
+                <div></div>
+                <div id="botao_enviar_pesquisa_utilizacao" class="botao_enviar_indicacao botao_geral_cor cor_bg">ENVIAR</div>
+            </div>
+      </form>
+  </div>
+</div>

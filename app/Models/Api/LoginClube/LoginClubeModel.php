@@ -102,12 +102,15 @@ final class LoginClubeModel
                 2114 => $this->pegarUsuarioClubePoupy(),        //Clube Poupy
                 4639 => $this->pegarUsuarioLeveBeneficios(),    //Leve Beneficios
                 4648 => $this->pegarUsuarioUpClube(),           //Up Clube
-                4722 => $this->pegarUsuarioVivaDiversao()       //Viva Diversao
+                4722 => $this->pegarUsuarioVivaDiversao(),      //Viva Diversao
+                default => $this->pegarUsuarioYouhuul()
             };
-            return;
         }
+    }
 
-        $this->Usuario = (new LoginMarktClubModel(
+    private function pegarUsuarioYouhuul(): stdClass
+    {
+        return (new LoginMarktClubModel(
             login: $this->login, senha: $this->senha, hash: $this->hash, empresa: $this->idEmpresa
         ))->Usuario;
     }

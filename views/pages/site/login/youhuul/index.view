@@ -10,17 +10,31 @@
 <body>
     <div id="site" class="display_none">
         <form action="">
+            @hash('login')
             <input type="hidden" id="LINK" value="<?=LINK?>">
             <div class="erro" id="bloco_erro"></div>
             <input type="text" id="input_login" placeholder="CPF">
             <input type="password" id="input_senha" placeholder="Senha">
             <div class="botao" id="botao_fazer_login">Login</div>
         </form>
+        <div class="bloco_recaptcha display_none" id="bloco_captcha_ativar"></div>
     </div>
+
+    <form action="/" method="post" class="display_none">
+        <input type="hidden" name="LINK" id="LINK" value="{!!LINK!!}">
+        <input type="hidden" name="LINK_LOCATION" id="LINK_LOCATION" value="{!!$location ?? LINK!!}">
+        <input type="hidden" name="RECAPTCHA" id="RECAPTCHA" value="{!!env('RECAPTCHA_PUBLIC', '')!!}">
+        <input type="hidden" name="RECAPTCHA_V2" id="RECAPTCHA_V2" value="{!!env('RECAPTCHA_V2_PUBLIC', '')!!}">
+    </form>
 
     <div class="voltar">
         <a href="<?=LINK?>">Ir para tela de login</a>
     </div>
+
+    <script src="https://apis.google.com/js/api.js"></script>
+    <script src="https://apis.google.com/js/platform.js" async defer></script>
+    <script src="https://accounts.google.com/gsi/client" async defer></script>
+    <script src="https://www.google.com/recaptcha/api.js?render={!!env('RECAPTCHA_PUBLIC')!!}"></script>
     @JS
 </body>
 </html>
