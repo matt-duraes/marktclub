@@ -1,15 +1,15 @@
 <?php
 
-namespace App\Models\Api\Pesquisa;
+namespace App\Models\Api\EnqueteMercado;
 
-use App\Classes\Pesquisa\Experiencia;
-use App\Classes\Pesquisa\Fidelidade;
-use App\Classes\Pesquisa\Frequencia;
-use App\Classes\Pesquisa\Gasto;
-use App\Classes\Pesquisa\Importancia;
-use App\Classes\Pesquisa\Ordem;
-use App\Classes\Pesquisa\Padrao;
-use App\Classes\Pesquisa\Produtos;
+use App\Classes\EnqueteMercado\Experiencia;
+use App\Classes\EnqueteMercado\Fidelidade;
+use App\Classes\EnqueteMercado\Frequencia;
+use App\Classes\EnqueteMercado\Gasto;
+use App\Classes\EnqueteMercado\Importancia;
+use App\Classes\EnqueteMercado\Ordem;
+use App\Classes\EnqueteMercado\Padrao;
+use App\Classes\EnqueteMercado\Produtos;
 use App\Models\Api\Trait\ValidarEmpresaTrait;
 use Erro\Excecao;
 use Modules\Pagina;
@@ -21,7 +21,7 @@ use System\Trait\Model\OrdemTrait;
 use System\Trait\Model\PaginaTrait;
 use System\Trait\Model\QuantidadeTrait;
 
-class PesquisaModel extends ORM implements
+class EnqueteMercadoModel extends ORM implements
     ModelListarInterface
 {
     use ValidarEmpresaTrait;
@@ -46,23 +46,6 @@ class PesquisaModel extends ORM implements
         $this->validarRequest();
         $this->validarEmpresa();
         parent::__construct();
-    }
-
-    /**
-     * @return void
-     * @throws Excecao
-     */
-    private function validarRequest(): void
-    {
-        if (!$this->pagina->vazio() && !$this->pagina->valido()) {
-            mensagemErro('Campo inválido!', 'A Página informada não é válida.');
-        }
-        if (!$this->quantidade->vazio() && !$this->quantidade->valido()) {
-            mensagemErro('Campo inválido!', 'A Quantidade informada não é válida.');
-        }
-        if (!$this->ordem->vazio() && !$this->ordem->valido()) {
-            mensagemErro('Campo inválido!', 'A Ordem informada não é válida.');
-        }
     }
 
     /**
@@ -128,5 +111,22 @@ class PesquisaModel extends ORM implements
             ];
         }
         return $retorno;
+    }
+
+    /**
+     * @return void
+     * @throws Excecao
+     */
+    private function validarRequest(): void
+    {
+        if (!$this->pagina->vazio() && !$this->pagina->valido()) {
+            mensagemErro('Campo inválido!', 'A Página informada não é válida.');
+        }
+        if (!$this->quantidade->vazio() && !$this->quantidade->valido()) {
+            mensagemErro('Campo inválido!', 'A Quantidade informada não é válida.');
+        }
+        if (!$this->ordem->vazio() && !$this->ordem->valido()) {
+            mensagemErro('Campo inválido!', 'A Ordem informada não é válida.');
+        }
     }
 }

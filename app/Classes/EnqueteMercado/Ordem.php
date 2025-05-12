@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Classes\Pesquisa;
+namespace App\Classes\EnqueteMercado;
 
 use Order\Order;
 
