@@ -2,9 +2,9 @@
 
 namespace App\Classes\SolicitacaoLoja;
 
-final class Helper
+class Helper
 {
     public const CRIPTOGRAFAR = [
-        'quem_indicou' => ['nome', 'cpf', 'email']
+        'quemIndicou' => ['nome', 'cpf', 'email']
     ];
 }

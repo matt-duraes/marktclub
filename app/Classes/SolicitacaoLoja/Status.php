@@ -4,9 +4,9 @@ namespace App\Classes\SolicitacaoLoja;
 
 use Status\Status as StatusStatus;
 
-final class Status extends StatusStatus
+class Status extends StatusStatus
 {
-    public const NOVO = 'novo';
+    public const SEM_VINCULO = 'sem-vinculo';
     public const ANDAMENTO = 'andamento';
     public const CONCLUIDO = 'concluido';
     public const CANCELADO = 'cancelado';
@@ -18,15 +18,15 @@ final class Status extends StatusStatus
         protected string|int|null $valor = null
     ) {
         parent::__construct([
-            self::NOVO      => 'Novo',
-            self::ANDAMENTO => 'Em andamento',
-            self::CONCLUIDO => 'Concluído',
-            self::CANCELADO => 'Cancelado'
+            self::SEM_VINCULO => 'Sem Vínculo',
+            self::ANDAMENTO   => 'Em Prospeccão',
+            self::CONCLUIDO   => 'Concluído',
+            self::CANCELADO   => 'Cancelado'
         ], [
-            self::NOVO      => 'azul',
-            self::ANDAMENTO => 'amarelo',
-            self::CONCLUIDO => 'verde',
-            self::CANCELADO => 'vermelho'
+            self::SEM_VINCULO => 'cinza',
+            self::ANDAMENTO   => 'amarelo',
+            self::CONCLUIDO   => 'verde',
+            self::CANCELADO   => 'vermelho'
         ]);
     }
 }

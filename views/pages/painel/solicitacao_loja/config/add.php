@@ -1,46 +1,37 @@
 <?php
 
-$Painel = new PainelConfig\Add('solicitacao_loja');
+use App\Classes\ParceiroLoja\Status;
+use App\Classes\ParceiroLoja\TipoLoja;
+use Helpers\ApiHelper;
+use PainelConfig\Add;
 
-$Painel->coluna(callback: function () use ($Painel) {
-    $Painel->fieldset('Dados do Solicitante', function () use ($Painel) {
+$Painel = new Add(app: 'solicitacao_loja', acao: $acao);
+
+$parceiro = (new ApiHelper(token: true))
+    ->json(['titulo' => 'Escolha um parceiro', 'tipo_loja' => TipoLoja::LOJA, 'status' => Status::PROSPECCAO])
+    ->get('/parceiro-loja/select')
+    ->array();
+
+$Painel->coluna(callback: function () use ($Painel, $parceiro) {
+    $Painel->fieldset('Víncular Parceiro', function () use ($Painel, $parceiro) {
         $Painel
-            ->cpf(
-                name: 'cpf',
-                label: 'CPF',
-                placeholder: 'CPF do Solicitante'
+            ->select(
+                name: 'parceiro',
+                lista: empty($parceiro['dado']) ? ['' => 'Nenhum parceiro encontrado'] : $parceiro['dado'],
+                label: 'Parceiro'
             );
     });
-});
-
-$Painel->coluna(callback: function () use ($Painel) {
-    $Painel->fieldset('Dados da Loja', function () use ($Painel) {
+    $Painel->fieldset('Prospectar e vincular parceiro', function () use ($Painel) {
         $Painel
             ->input(
-                name: 'nome',
-                label: 'Nome',
-                placeholder: 'Digite o nome',
-                obrigatorio: true,
-                contador: 100
-            )
-            ->email(
-                name: 'email',
-                label: 'E-mail',
-                placeholder: 'Digite o e-mail',
-                obrigatorio: true
-            )
-            ->telefone(
-                name: 'telefone',
-                label: 'Telefone',
-                placeholder: 'Digite o telefone'
-            )
-            ->editor(
-                name: 'mensagem',
-                label: 'Mensagem',
-                placeholder: 'Informe mais detalhes ou informações',
-                obrigatorio: true
+                name: 'parceiro_novo',
+                label: 'Informe o nome do parceiro',
+                placeholder: 'Nome do parceiro',
+                ajuda: 'Informe o nome do parceiro que deseja adicionar e vincular a esta indicação'
             );
     });
 });
+
+$Painel->js('painel_solicitacao_loja_add');
 
 return $Painel;

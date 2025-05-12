@@ -2,6 +2,6 @@
 
 return [
     'salvar' => [
-        'nome', 'email', 'telefone', 'mensagem', 'cpf'
+        'parceiro', 'parceiro_novo'
     ]
 ];
