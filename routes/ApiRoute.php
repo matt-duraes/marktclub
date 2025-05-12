@@ -2586,7 +2586,7 @@ Route
 
 Route
     ::nome('pesquisa')
-    ::controller(App\Controllers\Api\PesquisaController::class)
+    ::controller(App\Controllers\Api\EnqueteMercadoController::class)
     ::middleware(TokenMiddleware::class, 'token')
     ::grupo(function () {
         Route
