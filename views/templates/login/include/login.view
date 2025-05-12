@@ -7,12 +7,12 @@
         <h1>Escolha um tipo de login</h1>
         <p>Escolha entre as opções abaixo para fazer seu login</p>
         @ if( API ):
-        <a href="{{LINK_LOGIN}}" class="botao">{{BOTAO_LOGIN_USUARIO}}</a>
+        <a href="{{LINK_LOGIN}}" class="botao" >{{BOTAO_LOGIN_USUARIO}}</a>
         @ else:
-        <div class="botao botao_abrir_menu_normal">{{BOTAO_LOGIN_USUARIO}}</div>
+        <div class="botao botao_abrir_menu_normal tipo_usuario_selecionado" data-tipo-usuario="titular">{{BOTAO_LOGIN_USUARIO}}</div>
         @ endif;
         @ if( MENU_DEPENDENTE ):
-        <div class="botao botao_abrir_menu_normal">{{BOTAO_LOGIN_DEPENDENTE}}</div>
+        <div class="botao botao_abrir_menu_normal tipo_usuario_selecionado" data-tipo-usuario="dependente"> {{BOTAO_LOGIN_DEPENDENTE}}</div>
         @ endif;
         @ if( MENU_FUNCIONARIO && !empty(LINK_FUNCIONARIO) ):
         <div class="linha_funcionario"></div>

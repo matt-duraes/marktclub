@@ -13,7 +13,7 @@ window.addEventListener('load', () => {
     const formHash = $('#bloco_form_login input[name="form_system_hash"]').value;
     const inputLogin = $('#input_login');
     const inputSenha = $('#input_senha');
-
+    const tipoUsuarioSelecionado = localStorage.getItem('tipoUsuarioSelecionado');
     const botaoAtivar = $('#botao_ativar_conta');
     const botaoFazerLogin = $('#botao_fazer_login');
     const botaoEscolhaLogin = $$('.botao_abrir_menu_normal');
@@ -118,6 +118,7 @@ window.addEventListener('load', () => {
         body.append('form_system_hash', formHash);
         body.append('form_system_validacao', '');
         body.append('form_system_captcha', captchaToken);
+        body.append('tipo_usuario', tipoUsuarioSelecionado);
         const resposta = await fetch(LINK + '/login/login', {
             method: 'POST',
             body,

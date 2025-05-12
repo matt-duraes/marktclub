@@ -8,8 +8,17 @@
 // @import "login"
 // @import "ativar"
 
+
 const PopupLogin = new Popup('login', 'popup_login', true, true, () => {
     $('#input_login').focus();
+    const tipoUsuarioSelecionado = document.querySelectorAll('.tipo_usuario_selecionado');
+    tipoUsuarioSelecionado.forEach(tipo => {
+      tipo.addEventListener('click', dataTipo => {
+        const elementoClicado = dataTipo.target;
+        const tipoUsuario = elementoClicado.getAttribute('data-tipo-usuario');
+        localStorage.setItem("tipoUsuarioSelecionado", tipoUsuario);
+      });
+    });
 });
 const PopupSenha = new Popup('senha', 'popup_senha', true, true, () => {
     $('#bloco_cpf').focus();
@@ -53,7 +62,9 @@ window.addEventListener('load', () => {
             if (blocoMenuMobile.classList.contains('aberto')) {
                 fecharMenu();
             }
+
             PopupLogin.abrir();
+
         };
         botaoLogin.forEach(botao => {
             botao.addEventListener('click', abrirPaginaLogin);

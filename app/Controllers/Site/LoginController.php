@@ -124,7 +124,7 @@ final class LoginController extends Controller
 
     public function postLogin(Request $request): Response
     {
-        new LogarModel($request->login, $request->senha);
+        new LogarModel($request->login, $request->senha, $request->tipo_usuario);
         return $this->loginRealizado();
     }
 
@@ -188,7 +188,7 @@ final class LoginController extends Controller
         ]);
     }
 
-    public function postAtivarBuscar(Request $request): Response
+    public function postAtivarBuscar(Request $request) : Response
     {
         // mensagemErro('Erro!', 'Ocorreu um erro no momento, por favor, tente novamente mais tarde.');
         $valor = $request->busca;
@@ -225,10 +225,21 @@ final class LoginController extends Controller
             mensagemErro(404, 'Ocorreu um erro ao buscar seus dados, por favor, tente novamente.');
         }
 
+        if($request->tipo_usuario == 'indicado') {
+          return mensagemSucesso($buscar->dado);
+        }
+
+        if(in_array(ATIVACAO_TIPO, ['ciesc', 'codigo'], false )) {
+            return mensagemSucesso([
+                'hash'          => $buscar->dado->hash ?? '',
+                'cpf'           => $buscar->dado->cpf ?? '',
+                'imutavel'      => jsonEncode($buscar->dado->imutavel)
+            ], status: 201);
+        };
+
         return mensagemSucesso([
             'hash'          => $buscar->dado->hash ?? '',
             'cpf'           => $buscar->dado->cpf ?? '',
-            'imutavel'      => jsonEncode($buscar->dado->imutavel)
         ], status: 201);
     }
 
@@ -285,7 +296,7 @@ final class LoginController extends Controller
     {
         // mensagemErro('Erro!', 'Ocorreu um erro no momento, por favor, tente novamente mais tarde.');
         new SalvarModel($request, $this->crypt());
-        new LogarModel($request->cpf, $request->senha);
+        new LogarModel($request->cpf, $request->senha, $request->tipo_usuario);
         return $this->loginRealizado();
     }
 

@@ -45,11 +45,13 @@ const setarTipoInput = (valorData = '') => {
         input.setAttribute('placeholder', 'Digite o seu SIAPE');
         return;
     }
+
     if (tipoAtivacao == 'matricula' && valorData != 'dependente') {
         inputCpf.parentNode.classList.add('display_none');
         input.setAttribute('placeholder', 'Digite a sua matrícula');
         return;
     }
+
     input.parentNode.classList.add('display_none');
     inputCpf.parentNode.classList.remove('display_none');
 };
@@ -202,10 +204,9 @@ const loadingAtivarBuscar = () => {
             resetarCaptcha();
             return;
         }
-
-        if (valorData == 'indicado') {
+        if (valorData == 'indicado') {;
             criarPaginaAtivarSalvar({
-                hash: resposta.dado.hash,
+                hash: json.dado.hash,
                 tipoUsuario: valorData,
             });
             return;
