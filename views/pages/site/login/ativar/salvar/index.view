@@ -15,7 +15,7 @@
         @if ($imutavel && in_array(ATIVACAO_TIPO, ['ciesc', 'codigo'])):
         <div class="obrigatorio">
             <h2>Dados obrigatórios</h2>
-            <p>Além dos dados obrigatórios do formulário, os dados abaixo, já preenchidos, não podem ser alterados e serão salvos com os demais dados do formulário.</p>
+            <p>Os dados de CPF e Local de trabalho não podem ser alterados e serão salvos com os demais dados do formulário.</p>
             @ foreach($imutavel ?? [] as $r):
             <div class="campo">
                 <p><span>{{$r['nome']}}:</span> <strong> {{$r['valor']}}</strong></p>
