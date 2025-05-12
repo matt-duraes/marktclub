@@ -262,12 +262,11 @@ final class LoginController extends Controller
         if ($request->vazio('hash')) {
             mensagemStatus(404);
         }
-
         return view('login.ativar.salvar', [
             'hash'          => $request->hash,
             'cpf'           => $request->cpf,
             'imutavel'      => jsonDecode($request->imutavel, false, true),
-            'tipo_usuario'  => $request->tipo_usuario,
+            'tipo_usuario'  => empty($request->tipo_usuario) ? 'titular' : $request->tipo_usuario,
             'grupo'         => (new GrupoModel())->buscarGrupos(),
         ]);
     }

@@ -162,10 +162,13 @@ const loadingAtivarBuscar = () => {
             termo = inputTermoAtivarBuscar.checked ? 'sim' : 'nao';
         }
 
+
         Loading.show();
         const body = new FormData();
+        if (valorData != null){
+            body.append('tipo_usuario', valorData);
+        }
         body.append('busca', inputBuscar.value ? inputBuscar.value : inputBuscarCpf.value);
-        body.append('tipo_usuario', valorData);
         body.append('local_trabalho', inputLocalTrabalho ? inputLocalTrabalho.valor() : '');
         body.append('codigo', inputCodigo ? inputCodigo.valor() : '');
         body.append('termo', termo);

@@ -118,7 +118,9 @@ window.addEventListener('load', () => {
         body.append('form_system_hash', formHash);
         body.append('form_system_validacao', '');
         body.append('form_system_captcha', captchaToken);
-        body.append('tipo_usuario', tipoUsuarioSelecionado);
+        if (tipoUsuarioSelecionado != null){
+          body.append('tipo_usuario', tipoUsuarioSelecionado);
+        }
         const resposta = await fetch(LINK + '/login/login', {
             method: 'POST',
             body,
