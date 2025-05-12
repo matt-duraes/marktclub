@@ -16,7 +16,7 @@ final class LogarModel
     public function __construct(
         private string $login,
         private string $senha,
-        private string $tipo_usuario
+        private string $tipo_usuario = Tipo::TITULAR,
     ) {
         $this->validarDado();
         $this->setarCrypt();
@@ -43,7 +43,7 @@ final class LogarModel
                 'redirect_uri' => strDominio(LINK, www: false),
                 'scope'        => '',
                 'state'        => uuid(),
-                'tipo'         => $tipo_usuario ?? Tipo::TITULAR
+                'tipo'         => $this->tipo_usuario
             ])
             ->post('/login/clube')->array();
 
