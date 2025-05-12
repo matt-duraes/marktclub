@@ -2,25 +2,25 @@
 
 namespace App\Controllers\Site;
 
+use App\Classes\EnqueteMercado\Experiencia;
+use App\Classes\EnqueteMercado\Fidelidade;
+use App\Classes\EnqueteMercado\Frequencia;
+use App\Classes\EnqueteMercado\Gasto;
+use App\Classes\EnqueteMercado\Importancia;
+use App\Classes\EnqueteMercado\Padrao;
+use App\Classes\EnqueteMercado\Produtos;
+use App\Classes\ParceiroLoja\Ordem;
+use App\Classes\ParceiroLoja\TipoLoja;
+use App\Models\Site\Comunicacao\BannerModel;
+use App\Models\Site\Loja\FiltroModel;
+use App\Models\Site\Loja\ListarModel;
+use App\Models\Site\Loja\PesquisaModel;
+use App\Models\Site\Saude\HomeModel;
+use Controller\Controller;
 use Erro\Excecao;
 use Http\Request;
 use Http\Response;
 
-use Controller\Controller;
-use App\Classes\Pesquisa\Gasto;
-use App\Classes\Pesquisa\Padrao;
-use App\Classes\Pesquisa\Produtos;
-use App\Classes\ParceiroLoja\Ordem;
-use App\Classes\Pesquisa\Fidelidade;
-use App\Classes\Pesquisa\Frequencia;
-use App\Models\Site\Saude\HomeModel;
-use App\Classes\Pesquisa\Experiencia;
-use App\Classes\Pesquisa\Importancia;
-use App\Models\Site\Loja\FiltroModel;
-use App\Models\Site\Loja\ListarModel;
-use App\Classes\ParceiroLoja\TipoLoja;
-use App\Models\Site\Loja\PesquisaModel;
-use App\Models\Site\Comunicacao\BannerModel;
 final class IndexController extends Controller
 {
     /**
@@ -31,10 +31,10 @@ final class IndexController extends Controller
     {
         $Filtro = new FiltroModel([]);
         return view('index', [
-            'menu'           => 'home',
-            'Busca'          => $Filtro,
-            'banner'         => (new BannerModel())->home(),
-            'plano_saude'    => (new HomeModel())->valor,
+            'menu'        => 'home',
+            'Busca'       => $Filtro,
+            'banner'      => (new BannerModel())->home(),
+            'plano_saude' => (new HomeModel())->valor,
         ]);
     }
 
@@ -61,43 +61,42 @@ final class IndexController extends Controller
             ])
         );
         return mensagemSucesso([
-            'favorito'   => $LojaFavorita->listarDados()->lista ?? [],
-            'acessado'   => $MaisUtilizada->listarDados()->lista ?? [],
-            'novo'       => $LojaNova->listarDados()->lista ?? [],
+            'favorito' => $LojaFavorita->listarDados()->lista ?? [],
+            'acessado' => $MaisUtilizada->listarDados()->lista ?? [],
+            'novo'     => $LojaNova->listarDados()->lista ?? [],
         ]);
     }
 
     public function getPesquisaUtilizacao(): Response
     {
-      $programaFidelidade =  (new Fidelidade())->select();
-      $produtosProcurados = (new Produtos())->select();
-      $tvSmart = (new Gasto())->select();
-      $opcaoProdutoMarca = (new Importancia())->select();
-      $acreditaEmCashback = (new Padrao())->select();
-      $frequenciaCashback = (new Frequencia())->select();
-      $resgateCashback = (new Padrao())->select();
-      $sobreParcerias = (new Padrao())->select();
-      $suaExperiencia = (new Experiencia())->select();
-      $voceIndicaria = (new Padrao())->select();
+        $programaFidelidade = (new Fidelidade())->select();
+        $produtosProcurados = (new Produtos())->select();
+        $tvSmart = (new Gasto())->select();
+        $opcaoProdutoMarca = (new Importancia())->select();
+        $acreditaEmCashback = (new Padrao())->select();
+        $frequenciaCashback = (new Frequencia())->select();
+        $resgateCashback = (new Padrao())->select();
+        $sobreParcerias = (new Padrao())->select();
+        $suaExperiencia = (new Experiencia())->select();
+        $voceIndicaria = (new Padrao())->select();
 
-
-      return view('pesquisa_utilizacao', [
-        'programaFidelidade' => $programaFidelidade,
-        'produtosProcurados' => $produtosProcurados,
-        'tvSmart'        => $tvSmart,
-        'opcaoProdutoMarca' => $opcaoProdutoMarca,
-        'acreditaEmCashback' => $acreditaEmCashback,
-        'frequenciaCashback' => $frequenciaCashback,
-        'resgateCashback' => $resgateCashback,
-        'sobreParcerias' => $sobreParcerias,
-        'suaExperiencia' => $suaExperiencia,
-        'voceIndicaria' => $voceIndicaria,
-      ]);
+        return view('pesquisa_utilizacao', [
+            'programaFidelidade' => $programaFidelidade,
+            'produtosProcurados' => $produtosProcurados,
+            'tvSmart'            => $tvSmart,
+            'opcaoProdutoMarca'  => $opcaoProdutoMarca,
+            'acreditaEmCashback' => $acreditaEmCashback,
+            'frequenciaCashback' => $frequenciaCashback,
+            'resgateCashback'    => $resgateCashback,
+            'sobreParcerias'     => $sobreParcerias,
+            'suaExperiencia'     => $suaExperiencia,
+            'voceIndicaria'      => $voceIndicaria,
+        ]);
     }
 
     public function postPesquisaUtilizacao(Request $request)
     {
-      $dado = (new PesquisaModel())->salvar($request);
-      return mensagemSucesso([], status: 201);
+        $dado = (new PesquisaModel())->salvar($request);
+        return mensagemSucesso([], status: 201);
     }
 }
