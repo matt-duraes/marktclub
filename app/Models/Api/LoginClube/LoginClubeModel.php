@@ -96,15 +96,19 @@ final class LoginClubeModel
             return;
         }
 
-        if ($this->tipo->indice() === Tipo::TITULAR) {
-            $this->Usuario = match ($this->idEmpresa) {
-                2100 => $this->pegarUsuarioEmporioNaval(),      //Clube Emporio Naval
-                2114 => $this->pegarUsuarioClubePoupy(),        //Clube Poupy
-                4639 => $this->pegarUsuarioLeveBeneficios(),    //Leve Beneficios
-                4648 => $this->pegarUsuarioUpClube(),           //Up Clube
-                4722 => $this->pegarUsuarioVivaDiversao(),      //Viva Diversao
-                default => $this->pegarUsuarioYouhuul()
-            };
+        $isTitular = $this->tipo->indice() === Tipo::TITULAR;
+        if ($isTitular && $this->idEmpresa == 2100) {
+            $this->Usuario = $this->pegarUsuarioEmporioNaval();
+        } elseif ($isTitular && $this->idEmpresa == 2114) {
+            $this->Usuario = $this->pegarUsuarioClubePoupy();
+        } elseif ($isTitular && $this->idEmpresa == 4639) {
+            $this->Usuario = $this->pegarUsuarioLeveBeneficios();
+        } elseif ($isTitular && $this->idEmpresa == 4648) {
+            $this->Usuario = $this->pegarUsuarioUpClube();
+        } elseif ($isTitular && $this->idEmpresa == 4722) {
+            $this->Usuario = $this->pegarUsuarioVivaDiversao();
+        } else {
+            $this->Usuario = $this->pegarUsuarioYouhuul();
         }
     }
 
