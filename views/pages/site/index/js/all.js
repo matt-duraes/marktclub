@@ -187,9 +187,9 @@ window.addEventListener('load', () => {
               true
           );
           localStorage.setItem("pesquisaRespondida", "true")
+          pesquisaUtilizacao.fechar();
       });
     };
-    localStorage.removeItem("pesquisaRespondida");
 
     // PESQUISA UTILIZAÇÃO
     const tempoMinimo = 1;
