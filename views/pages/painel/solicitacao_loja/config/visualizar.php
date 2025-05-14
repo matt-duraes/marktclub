@@ -31,16 +31,16 @@ $Painel->coluna(callback: function () use ($Painel) {
 
     $Painel->bloco(titulo: 'Parceiro (vinculado)', callback: function () use ($Painel) {
         $Painel
-            ->vazioBreak('parceiro', 'Sem parceiro vinculado', permissao: 'parceiro_loja_visualizar')
-            ->linha('parceiro->titulo_interno', 'Título Interno', permissao: 'parceiro_loja_visualizar')
-            ->linha('parceiro->nome_fantasia', 'Nome Fantasia', permissao: 'parceiro_loja_visualizar')
-            ->linha('parceiro->razao_social', 'Razão Social', permissao: 'parceiro_loja_visualizar')
-            ->data('parceiro->data_prospeccao', 'Data Prospecção', permissao: 'parceiro_loja_visualizar')
-            ->linha('parceiro->status', 'Status', permissao: 'parceiro_loja_visualizar')
+            ->vazioBreak('parceiro_info', 'Sem parceiro vinculado', permissao: 'parceiro_loja_visualizar')
+            ->linha('parceiro_info->titulo_interno', 'Título Interno', permissao: 'parceiro_loja_visualizar')
+            ->linha('parceiro_info->nome_fantasia', 'Nome Fantasia', permissao: 'parceiro_loja_visualizar')
+            ->linha('parceiro_info->razao_social', 'Razão Social', permissao: 'parceiro_loja_visualizar')
+            ->data('parceiro_info->data_prospeccao', 'Data Prospecção', permissao: 'parceiro_loja_visualizar')
+            ->linha('parceiro_info->status', 'Status', permissao: 'parceiro_loja_visualizar')
             ->botao(
                 'parceiro_link',
                 'Ver parceiro',
-                link: LINK . '/app/visualizar/parceiro-loja/->parceiro->id',
+                link: LINK . '/app/visualizar/parceiro-loja/->parceiro_info->id',
                 permissao: 'parceiro_loja_visualizar'
             );
     });
