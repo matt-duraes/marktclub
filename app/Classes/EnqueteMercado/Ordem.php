@@ -12,7 +12,7 @@ class Ordem extends Order
     public function __construct(
         protected ?string $valor = null
     ) {
-        $this->tabela(TABELA_PESQUISA);
+        $this->tabela(TABELA_ENQUETE_MERCADO);
         $this->maisNovo();
         $this->maisVelho();
     }
