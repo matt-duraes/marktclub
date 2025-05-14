@@ -1,6 +1,6 @@
 <?php
 
-use App\Classes\Pesquisa\Ordem;
+use App\Classes\EnqueteMercado\Ordem;
 use PainelConfig\Index;
 
 $Painel = new Index('pesquisa', new Ordem());

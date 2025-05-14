@@ -29,7 +29,7 @@ class EnqueteMercadoModel extends ORM implements
     use QuantidadeTrait;
     use OrdemTrait;
 
-    protected string $ormTabela = TABELA_PESQUISA;
+    protected string $ormTabela = TABELA_ENQUETE_MERCADO;
 
     /**
      * @param Pagina     $pagina

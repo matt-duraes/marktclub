@@ -1,12 +1,12 @@
 <?php
 
-use App\Classes\Pesquisa\Experiencia;
-use App\Classes\Pesquisa\Fidelidade;
-use App\Classes\Pesquisa\Frequencia;
-use App\Classes\Pesquisa\Gasto;
-use App\Classes\Pesquisa\Importancia;
-use App\Classes\Pesquisa\Produtos;
-use App\Classes\Pesquisa\Padrao as PesquisaPadrao;
+use App\Classes\EnqueteMercado\Experiencia;
+use App\Classes\EnqueteMercado\Fidelidade;
+use App\Classes\EnqueteMercado\Frequencia;
+use App\Classes\EnqueteMercado\Gasto;
+use App\Classes\EnqueteMercado\Importancia;
+use App\Classes\EnqueteMercado\Produtos;
+use App\Classes\EnqueteMercado\Padrao as PesquisaPadrao;
 use PainelConfig\Visualizar;
 
 $Painel = new Visualizar('pesquisa');
