@@ -27,7 +27,7 @@ class EnqueteMercadoEntity extends Entity
     public Padrao $desconto;
     public Experiencia $experiencia;
     public Padrao $indicaria;
-    protected string $ormTabela = TABELA_PESQUISA;
+    protected string $ormTabela = TABELA_ENQUETE_MERCADO;
     protected array $ormBuscar = [
         'fidelidade', 'produtos', 'gasto', 'importancia', 'cashback',
         'frequencia', 'resgate', 'desconto', 'experiencia', 'indicaria',
