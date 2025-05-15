@@ -7,7 +7,7 @@
           </header>
           <figure class="bloco_imagem">
             <img src="@imagem/images/cinema_desktop.png" class="imagens_popup_pesquisa desktop">
-            <img src="@imagem/images/cinema_mobile.png" class="imagens_popup_pesquisa mobile"|>
+            <img src="@imagem/images/cinema_mobile.png" class="imagens_popup_pesquisa mobile">
           </figure>
           <span id="bloco_texto_pesquisa_regras">
             <p class="vigencia_pesquisa">
