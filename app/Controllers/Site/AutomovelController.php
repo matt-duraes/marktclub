@@ -2,14 +2,14 @@
 
 namespace App\Controllers\Site;
 
-use App\Models\Site\Automovel\BuscarModel;
-use App\Models\Site\Automovel\ListarModel;
-use App\Models\Site\Automovel\SolicitacaoModel;
-use App\Models\Site\BannerModel;
-use Controller\Controller;
 use Erro\Excecao;
 use Http\Request;
 use Http\Response;
+use Controller\Controller;
+use App\Models\Site\BannerModel;
+use App\Models\Site\Automovel\BuscarModel;
+use App\Models\Site\Automovel\ListarModel;
+use App\Models\Site\Automovel\SolicitacaoModel;
 
 final class AutomovelController extends Controller
 {
@@ -34,9 +34,11 @@ final class AutomovelController extends Controller
      */
     public function modelo(string $url): Response
     {
+        $qtdAutomovel = (new ListarModel($url))->listarDados();
         return view('automovel.modelo', [
             'menu'  => 'automovel',
-            'lista' => (new ListarModel($url))->listarDados()
+            'lista' => (new ListarModel($url))->listarDados(),
+            'qtdAutomovel' => $qtdAutomovel->paginacao->total
         ]);
     }
 
