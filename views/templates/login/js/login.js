@@ -21,6 +21,12 @@ window.addEventListener('load', () => {
 
     const botaoEscolhaVoltar = $('#bloco_form_login header .voltar');
 
+    const checkbox = document.getElementById("input_salvar_login");
+
+    if(localStorage.getItem('login_salvo') != null) {
+        inputLogin.value = localStorage.getItem('login_salvo');
+    }
+
     if (botaoRecuperarSenha) {
         botaoRecuperarSenha.addEventListener('click', () => {
             PopupLogin.fechar();
@@ -120,6 +126,11 @@ window.addEventListener('load', () => {
         body.append('form_system_captcha', captchaToken);
         if (tipoUsuarioSelecionado != null){
           body.append('tipo_usuario', tipoUsuarioSelecionado);
+        }
+        if(checkbox.checked == true) {
+          localStorage.setItem('login_salvo',  inputLogin.value);
+        } else {
+          localStorage.removeItem('login_salvo');
         }
         const resposta = await fetch(LINK + '/login/login', {
             method: 'POST',

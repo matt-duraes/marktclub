@@ -41,21 +41,6 @@ class SolicitacaoLojaController extends Controller implements
     }
 
     /**
-     * @param SolicitacaoEntity $solicitacaoEntity
-     * @param int               $status
-     *
-     * @return Response
-     * @throws Excecao
-     */
-    private function retornoSucesso(SolicitacaoEntity $solicitacaoEntity, int $status = 200): Response
-    {
-        return mensagemSucesso(pegarPropriedadeDaEntity($solicitacaoEntity, lista: [
-            'parceiro', 'nome', 'email', 'telefone', 'mensagem', 'status',
-            'quemIndicou', 'origemIndicacao', 'data_criacao', 'data_atualizacao'
-        ]), $status, Helper::CRIPTOGRAFAR);
-    }
-
-    /**
      * @param Request $request
      *
      * @return Response
@@ -128,5 +113,20 @@ class SolicitacaoLojaController extends Controller implements
         return mensagemSucesso([
             'id' => $Download->id
         ], 201);
+    }
+
+    /**
+     * @param SolicitacaoEntity $solicitacaoEntity
+     * @param int               $status
+     *
+     * @return Response
+     * @throws Excecao
+     */
+    private function retornoSucesso(SolicitacaoEntity $solicitacaoEntity, int $status = 200): Response
+    {
+        return mensagemSucesso(pegarPropriedadeDaEntity($solicitacaoEntity, lista: [
+            'parceiro', 'parceiro_info', 'nome', 'email', 'telefone', 'mensagem', 'status',
+            'quemIndicou', 'origemIndicacao', 'data_criacao', 'data_atualizacao'
+        ]), $status, Helper::CRIPTOGRAFAR);
     }
 }

@@ -37,9 +37,9 @@
             <input type="text" autocomplete="username" value="" class="input_hidden">
             <input type="password" autocomplete="current-password" value="" class="input_hidden">
             <input type="password" autocomplete="new-password" value="" class="input_hidden">
-
-            @? formCpf(name: 'login', label: 'Login', placeholder: 'Digite seu CPF')
+            @? formCpf(name: 'login', label: 'Login', placeholder: 'Digite seu CPF', value: '')
             @? formSenha(name: 'senha', label: 'Senha', placeholder: 'Digite sua senha')
+            @? formCheckbox(name: 'salvar_login', label: 'Salvar Login', value: 'salvar_login', id:'salvamento_login')
 
             <div class="bloco_recaptcha display_none" id="bloco_recaptcha_v2">
 
