@@ -6,15 +6,14 @@
               <i class="fechar pagina_fechar">@iconeFechar</i>
           </header>
           <figure class="bloco_imagem">
-            <img src="@imagem/images/cinema_desktop.png" class="imagens_popup_pesquisa desktop"  style="width: 100%; margin-bottom: 20px; border-radius: ;">
-            <img src="@imagem/images/cinema_mobile.png" class="imagens_popup_pesquisa mobile" style="width: 100%; margin-bottom: 20px; border-radius: 5px;" >
+            <img src="@imagem/images/cinema_desktop.png" class="imagens_popup_pesquisa desktop">
+            <img src="@imagem/images/cinema_mobile.png" class="imagens_popup_pesquisa mobile"|>
           </figure>
-          <span>
-            <p style="margin-bottom: 20px;font-size: 12px;font-weight: bold; text-align: center; margin-bottom: 10px;">
+          <span id="bloco_texto_pesquisa_regras">
+            <p class="vigencia_pesquisa">
               Vigência - Até dia 29/05/2025
             </p><br>
-            <p style="text-align: center;border: 1px dashed #ccc;padding: 10px;border-radius: 5px;margin-bottom: 10px;
-            font-size: 12px;line-height: 15px;">
+            <p class="regras_pesquisa">
               Ao participar da pesquisa, o(a) participante concorre automaticamente a um dos 10 pares de ingressos para o
               cinema da sua região. Cada CPF pode participar apenas uma vez. Caso um mesmo CPF seja sorteado mais de uma vez,
               será considerado apenas o primeiro sorteio, e um novo sorteio será realizado para redistribuir o prêmio.
