@@ -50,32 +50,32 @@
                 <tr>
                     <th>Registro ANS</th>
                     <th>476.696/16-2<br><span>(Enfermagem)</span></th>
-                    <th><br><span>(Apartamento)</span></th>
-                    <th><br><span>(Enfermagem)</span></th>
-                    <th><br><span>(Apartamento)</span></th>
+                    <th>476.695/16-4<br><span>(Apartamento)</span></th>
+                    <th>473.126/15-3<br><span>(Enfermagem)</span></th>
+                    <th>473.125/15-5<br><span>(Apartamento)</span></th>
                 </tr>
                 <tr>
                     <th>Faixa Etária</th>
                     <th>Flex Ideal<br><span>(Com coparticipação)</span></th>
-                    <th>Flex Plus<br><span>(Com coparticipação)</span></span></th>
-                    <th>Clássico Ideal<br><span>(Sem coparticipação)</span></span></th>
+                    <th>Flex Plus<br><span>(Com coparticipação)</span></th>
+                    <th>Clássico Ideal<br><span>(Sem coparticipação)</span></th>
                     <th>Clássico Plus<br><span>(Sem coparticipação)</span></th>
                 </tr>
                 </thead>
                 <tbody class="bloco_preco">
                 <tr>
                     <td>0 a 18</td>
-                    <td>176,77 </td>
-                    <td>226,28 </td>
+                    <td>176,77</td>
+                    <td>226,28</td>
                     <td>246,84</td>
                     <td>315,96</td>
                 </tr>
                 <tr>
                     <td>19 a 23</td>
-                    <td>203,27 </td>
+                    <td>203,27</td>
                     <td>260,18</td>
                     <td>283,85</td>
-                    <td>363,33 </td>
+                    <td>363,33</td>
                 </tr>
                 <tr>
                     <td>24 a 28</td>
@@ -135,8 +135,6 @@
                 </tr>
                 </tbody>
             </table>
-            <p>*Obs. A Administradora de Benefícios efetua cobrança de Taxa de Adesão no primeiro pagamento com valor
-                correspondente aos planos contratados.</p>
         </div>
     </div>
 
@@ -201,7 +199,7 @@
             Para obter informações detalhadas sobre co-participação, rede credenciada e outras informações do plano de
             saúde, consulte tabela clicando no botão abaixo:
         </p>
-        <a class="botao_geral_cor cor_bg" download="tabela_unimed_natal.pdf"
+        <a class="botao_geral_cor cor_bg" download="tabela_unimed_jundiai.pdf"
            href="@imagem/images/saude/tabela_unimed_jundiai.pdf">
             Baixar tabela
         </a>

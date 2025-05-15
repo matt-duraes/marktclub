@@ -2,58 +2,78 @@
 
 namespace App\Models\Api\Saude\Simulacao;
 
-use Erro\Erro;
-use Exception;
-use ORM\Entity;
-use Erro\Excecao;
-use Http\Request;
-use Modules\Data;
-use Modules\Dinheiro;
-use Helpers\ValidarHelper;
-use App\Classes\Saude\Operadora;
 use App\Classes\Saude\Acomodacao;
-use App\Classes\Saude\PlanoSaude;
-use App\Classes\SaudeSimulacao\Status;
-use App\Classes\Saude\Operadoras\Amil\Amil;
-use App\Models\Api\Trait\ValidarEmpresaTrait;
 use App\Classes\Saude\Interface\PlanoInterface;
-use App\Classes\Saude\Operadoras\Unimed\Unimed;
 use App\Classes\Saude\Interface\RegiaoInterface;
+use App\Classes\Saude\Operadora;
+use App\Classes\Saude\Operadoras\Amil\Amil;
 use App\Classes\Saude\Operadoras\Amil\Planos as PlanoAmil;
-use App\Classes\Saude\Operadoras\UnimedSeguro\UnimedSeguro;
 use App\Classes\Saude\Operadoras\Amil\Regioes as RegiaoAmil;
 use App\Classes\Saude\Operadoras\CNUFlorianopolis\CNUFlorianopolis;
 use App\Classes\Saude\Operadoras\CNUFlorianopolis\Planos as PlanoCnuFlorianopolis;
+use App\Classes\Saude\Operadoras\Unimed\Jundiai;
+use App\Classes\Saude\Operadoras\Unimed\Natal;
+use App\Classes\Saude\Operadoras\Unimed\Planos\Jundiai as PlanoJundiai;
+use App\Classes\Saude\Operadoras\Unimed\Planos\Natal as PlanoNatal;
+use App\Classes\Saude\Operadoras\Unimed\Unimed;
+use App\Classes\Saude\Operadoras\UnimedSeguro\UnimedSeguro;
+use App\Classes\Saude\PlanoSaude;
+use App\Classes\SaudeSimulacao\Status;
+use App\Models\Api\Trait\ValidarEmpresaTrait;
+use Erro\Erro;
+use Erro\Excecao;
+use Exception;
+use Helpers\ValidarHelper;
+use Http\Request;
+use Modules\Data;
+use Modules\Dinheiro;
+use ORM\Entity;
 
 class SimulacaoEntity extends Entity
 {
     use ValidarEmpresaTrait;
 
-    public Data $titular;
-    public int $quantidade_dependente;
-    public Operadora $operadora;
-    public Acomodacao $acomodacao;
-    public Dinheiro $valor_titular;
-    public array $lista_dependente;
-    public Dinheiro $valor_total;
-    public PlanoInterface|string|int|null $plano = null;
-    public RegiaoInterface|string|int|null $regiao = null;
-    public Status $status;
-    private int $idEmpresa;
-    private ?int $idUsuario = null;
-    protected string $ormTabela = TABELA_SAUDE_SIMULACAO;
-    protected array $ormInsert = [
+    public Data                            $titular;
+    public int                             $quantidade_dependente;
+    public Operadora                       $operadora;
+    public Acomodacao                      $acomodacao;
+    public Dinheiro                        $valor_titular;
+    public array                           $lista_dependente;
+    public Dinheiro                        $valor_total;
+    public PlanoInterface|string|int|null  $plano     = null;
+    public RegiaoInterface|string|int|null $regiao    = null;
+    public Status                          $status;
+    protected string                       $ormTabela = TABELA_SAUDE_SIMULACAO;
+    protected array                        $ormInsert = [
         'id_admin_empresa'   => '->idEmpresa',
-        'id_usuario_cliente' => '->idUsuario'
+        'id_usuario_cliente' => '->idUsuario',
     ];
-    protected array $ormBuscar = [
-        'titular', 'quantidade_dependente', 'operadora', 'acomodacao',
-        'regiao', 'valor_titular', 'lista_dependente', 'valor_total', 'plano', 'status'
+    protected array                        $ormBuscar = [
+        'titular',
+        'quantidade_dependente',
+        'operadora',
+        'acomodacao',
+        'regiao',
+        'valor_titular',
+        'lista_dependente',
+        'valor_total',
+        'plano',
+        'status',
     ];
-    protected array $ormSalvar = [
-        'titular', 'quantidade_dependente', 'operadora', 'acomodacao',
-        'regiao', 'valor_titular', 'lista_dependente', 'valor_total', 'plano', 'status'
+    protected array                        $ormSalvar = [
+        'titular',
+        'quantidade_dependente',
+        'operadora',
+        'acomodacao',
+        'regiao',
+        'valor_titular',
+        'lista_dependente',
+        'valor_total',
+        'plano',
+        'status',
     ];
+    private int                            $idEmpresa;
+    private ?int                           $idUsuario = null;
 
     /**
      * @param Request|null $request
@@ -74,28 +94,6 @@ class SimulacaoEntity extends Entity
     {
         $this->setarPlano($this->prop('plano'));
         $this->setarRegiao($this->prop('regiao'));
-    }
-
-    /**
-     * @param mixed $plano Plano escolhido
-     */
-    private function setarPlano(mixed $plano): void
-    {
-        if ($this->operadora->indice() === Operadora::AMIL) {
-            $this->plano = new PlanoAmil($plano);
-        } elseif ($this->operadora->indice() === Operadora::CNU_FLORIANOPIS) {
-            $this->plano = new PlanoCnuFlorianopolis($plano);
-        }
-    }
-
-    /**
-     * @param mixed $regiao Região escolhida
-     */
-    private function setarRegiao(mixed $regiao): void
-    {
-        if ($this->operadora->indice() === Operadora::AMIL) {
-            $this->regiao = new RegiaoAmil($regiao);
-        }
     }
 
     /**
@@ -143,6 +141,18 @@ class SimulacaoEntity extends Entity
                     regiaoSelecionada: $regiao,
                     planoSelecionado: $plano
                 )
+            ),
+            Operadora::UNIMED_JUNDIAI => new PlanoSaude(
+                new Jundiai(
+                    titular: $this->titular,
+                    planoSelecionado: $plano
+                )
+            ),
+            Operadora::UNIMED_NATAL => new PlanoSaude(
+                new Natal(
+                    titular: $this->titular,
+                    planoSelecionado: $plano
+                )
             )
         };
 
@@ -174,6 +184,42 @@ class SimulacaoEntity extends Entity
     }
 
     /**
+     * @return mixed
+     * @throws Erro
+     * @throws Excecao
+     */
+    protected function getId(): mixed
+    {
+        return $this->prop('id');
+    }
+
+    /**
+     * @param mixed $plano Plano escolhido
+     */
+    private function setarPlano(mixed $plano): void
+    {
+        if ($this->operadora->indice() === Operadora::AMIL) {
+            $this->plano = new PlanoAmil($plano);
+        } elseif ($this->operadora->indice() === Operadora::CNU_FLORIANOPIS) {
+            $this->plano = new PlanoCnuFlorianopolis($plano);
+        } elseif ($this->operadora->indice() === Operadora::UNIMED_JUNDIAI) {
+            $this->plano = new PlanoJundiai($plano);
+        } elseif ($this->operadora->indice() === Operadora::UNIMED_NATAL) {
+            $this->plano = new PlanoNatal($plano);
+        }
+    }
+
+    /**
+     * @param mixed $regiao Região escolhida
+     */
+    private function setarRegiao(mixed $regiao): void
+    {
+        if ($this->operadora->indice() === Operadora::AMIL) {
+            $this->regiao = new RegiaoAmil($regiao);
+        }
+    }
+
+    /**
      * @throws Excecao
      */
     private function validarDataNascimentoDependente(): void
@@ -190,15 +236,5 @@ class SimulacaoEntity extends Entity
                 mensagemErro('Data de Nascimento', $mensagemDataErro);
             }
         }
-    }
-
-    /**
-     * @return mixed
-     * @throws Erro
-     * @throws Excecao
-     */
-    protected function getId(): mixed
-    {
-        return $this->prop('id');
     }
 }
