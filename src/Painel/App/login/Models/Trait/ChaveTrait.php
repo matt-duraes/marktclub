@@ -3,7 +3,6 @@
 namespace PainelApp\login\Models\Trait;
 
 use Helpers\ApiHelper;
-use Throwable;
 
 trait ChaveTrait
 {
@@ -15,11 +14,7 @@ trait ChaveTrait
         if ($token) {
             $Api = new ApiHelper(token: true);
         } else {
-            try {
-                $Api = new ApiHelper('admin:chave_publica admin:chave_privada');
-            } catch (Throwable $th) {
-                ppe($th);
-            }
+            $Api = new ApiHelper('admin:chave_publica admin:chave_privada');
         }
 
         $this->chavePublica = $Api->get('/admin/chave-publica')->object()->dado->chave ?? '';
