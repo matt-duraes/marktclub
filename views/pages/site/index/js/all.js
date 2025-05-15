@@ -206,7 +206,7 @@ window.addEventListener('load', () => {
         pesquisaParceiro
     );
 
-    if (pesquisaRespondida != true && jaPassouTempoSuficiente) {
+    if (pesquisaRespondida !== 'true' && jaPassouTempoSuficiente) {
         pesquisaUtilizacao.abrir();
         localStorage.setItem("ultimaExibicaoPopup", agora.toString());
     }
