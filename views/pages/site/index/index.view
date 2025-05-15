@@ -3,7 +3,9 @@
 @view site/loja/busca/loja/index.view
 
 <div id="bloco_index">
-
+    <input type="hidden" id="bloco_d" value="{!!$emp_d!!}">
+    <input type="hidden" id="bloco_b" value="{!!$emp_b!!}">
+    <input type="hidden" id="bloco_e_u" value="{!!$emp_u!!}">
     <div class="bloco_historico" id="bloco_historico">
         <i class="seta anterior" id="botao_anterior_historico">@iconeSetaEsquerda(18)</i>
         <div class="conteudo scrollbar_hidden bloco_scrollbar_item"></div>
