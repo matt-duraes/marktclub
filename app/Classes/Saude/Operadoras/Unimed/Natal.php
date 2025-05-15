@@ -1,0 +1,7 @@
+<?php
+
+namespace App\Classes\Saude\Operadoras\Unimed;
+
+class Natal
+{
+}

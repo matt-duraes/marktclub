@@ -1,12 +1,12 @@
 const fs = require('fs');
 const prop = require('yargs').argv;
-const { watch, parallel, series } = require('gulp');
-const { cssUnico, cssTodos, cssDeploy } = require('./src/Gulpfile/css.js');
-const { jsUnico, jsTodos, jsDeploy } = require('./src/Gulpfile/js.js');
-const { htmlUnico, htmlTodos } = require('./src/Gulpfile/html.js');
-const { configVerificar } = require('./src/Gulpfile/config.js');
-const { phpCsFixer } = require('./src/Gulpfile/php.js');
-const { imagemTodos } = require('./src/Gulpfile/imagem.js');
+const {watch, parallel, series} = require('gulp');
+const {cssUnico, cssTodos, cssDeploy} = require('./src/Gulpfile/css.js');
+const {jsUnico, jsTodos, jsDeploy} = require('./src/Gulpfile/js.js');
+const {htmlUnico, htmlTodos} = require('./src/Gulpfile/html.js');
+const {configVerificar} = require('./src/Gulpfile/config.js');
+const {phpCsFixer} = require('./src/Gulpfile/php.js');
+const {imagemTodos} = require('./src/Gulpfile/imagem.js');
 
 const {
     buildCopiarComposerConfig,
@@ -26,9 +26,9 @@ const {
     buildCopiarIndex,
 } = require('./src/Gulpfile/build.js');
 
-const { limparArquivosDoMac, limparSessao } = require('./src/Gulpfile/clean.js');
-const { dockerComposerUp, dockerComposerDown } = require('./src/Gulpfile/docker.js');
-const { mensagemSucesso } = require('./src/Gulpfile/mensagem.js');
+const {limparArquivosDoMac, limparSessao} = require('./src/Gulpfile/clean.js');
+const {dockerComposerUp, dockerComposerDown} = require('./src/Gulpfile/docker.js');
+const {mensagemSucesso} = require('./src/Gulpfile/mensagem.js');
 
 // Subir e parar desenvolvimento
 exports.default = series(
@@ -105,6 +105,7 @@ function validandoArquivoDeConfiguracao() {
 function corrigindoBugDoComposer() {
     return buildCorrigindoComposer();
 }
+
 function subindoContainer() {
     return dockerComposerUp();
 }
@@ -122,15 +123,15 @@ function limpandoSessoes() {
 
 async function monitorarSistema() {
     // PHP CS FIXER
-    watch(['**/*.php', '!./files/**/*.php', '!**/*Route.php']).on('change', async path => {
-        const time = new Date().getTime();
-        consoleHeader('php-fix');
-        await phpCsFixer(path);
-        consoleFooter(time);
-    });
+    // watch(['**/*.php', '!./files/**/*.php', '!**/*Route.php']).on('change', async path => {
+    //     const time = new Date().getTime();
+    //     consoleHeader('php-fix');
+    //     await phpCsFixer(path);
+    //     consoleFooter(time);
+    // });
 
     // CSS
-    watch(['./views/**/*.styl', './src/Painel/templates/**/*.styl', './src/Painel/App/**/*.styl']).on(
+    watch(['./views/**/*.styl', './views/**/*.sass', './src/Painel/templates/**/*.styl', './src/Painel/App/**/*.styl']).on(
         'change',
         async path => {
             const time = new Date().getTime();
@@ -194,6 +195,7 @@ function verificarSePrecisaConfigurar() {
 function copiandoArquivoDoComposer() {
     return buildCopiarComposerConfig();
 }
+
 function executandoComposerInstall() {
     return buildComposerInstall();
 }
@@ -201,21 +203,27 @@ function executandoComposerInstall() {
 function copiandoArquivoParaDocker() {
     return buildDocker();
 }
+
 function criandoDiretorios() {
     return buildDiretorios();
 }
+
 function copiandoArquivosDaRaiz() {
     return buildArquivosRaiz();
 }
+
 function copiandoArquivoConfigDoVsCode() {
     return buildArquivoConfigVsCode();
 }
+
 function copiandoArquivosDeteste() {
     return buildArquivosTeste();
 }
+
 function copiandoArquivosPublicos() {
     return buildArquivosPublico();
 }
+
 function copiandoArquivoDeErro() {
     return buildArquivoErro();
 }
@@ -247,6 +255,7 @@ function preparandoCSSParaProducao() {
 function copiandoArquivosJS() {
     return jsTodos();
 }
+
 function copiandoArquivoIndex() {
     return buildCopiarIndex();
 }
