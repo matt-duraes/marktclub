@@ -1,7 +1,7 @@
 <?php
 
 return [
-    'titulo'     => 'Pesquisa de Mercado',
+    'titulo'     => 'Enquete de Mercado',
     'buscar'     => false,
     'filtrar'    => false,
     'ordem'      => true,
@@ -12,7 +12,7 @@ return [
     'download'   => false,
     'historico'  => false,
     'api'        => [
-        'scope' => 'pesquisa',
-        'uri'   => '/pesquisa'
+        'scope' => 'enquete_mercado',
+        'uri'   => '/enquete-mercado'
     ]
 ];
