@@ -1,7 +1,13 @@
 @template "site"
-
 <div id="bloco_veiculo">
-    @view site/geral/parceiro.view
-
+    @if($qtdAutomovel > 0)
+        @view site/geral/parceiro.view
+    @else
+      <div class="bloco_aviso_sem_automovel bloco_aviso">
+          <h1>Estamos atualizando os valores dos automóveis</h1>
+          <p>No momento, nossa tabela de veículos está passando por uma atualização para refletir os novos preços do mês.
+            Em breve, você poderá conferir todas as ofertas atualizadas. Agradecemos a sua compreensão!</p>
+      </div>
+    @endif;
     @view site/automovel/geral/mensagem.view
 </div>
