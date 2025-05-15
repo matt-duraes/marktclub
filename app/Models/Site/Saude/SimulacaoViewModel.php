@@ -4,9 +4,11 @@ namespace App\Models\Site\Saude;
 
 use App\Classes\Saude\Operadora;
 use App\Classes\Saude\Operadoras\Amil\Amil;
+use App\Classes\Saude\Operadoras\CNUFlorianopolis\CNUFlorianopolis;
+use App\Classes\Saude\Operadoras\Unimed\Jundiai;
+use App\Classes\Saude\Operadoras\Unimed\Natal;
 use App\Classes\Saude\Operadoras\Unimed\Unimed;
 use App\Classes\Saude\Operadoras\UnimedSeguro\UnimedSeguro;
-use App\Classes\Saude\Operadoras\CNUFlorianopolis\CNUFlorianopolis;
 
 final class SimulacaoViewModel
 {
@@ -24,10 +26,12 @@ final class SimulacaoViewModel
     public function acomodacao(): array|string
     {
         return match ($this->operadora) {
-            Operadora::UNIMED          => (new Unimed())->pegarAcomodacoes(),
-            Operadora::UNIMED_SEGURO   => (new UnimedSeguro())->pegarAcomodacoes(),
+            Operadora::UNIMED => (new Unimed())->pegarAcomodacoes(),
+            Operadora::UNIMED_SEGURO => (new UnimedSeguro())->pegarAcomodacoes(),
             Operadora::CNU_FLORIANOPIS => (new CNUFlorianopolis())->pegarAcomodacoes(true),
-            default                    => []
+            Operadora::UNIMED_JUNDIAI => (new Jundiai())->pegarAcomodacoes(true),
+            Operadora::UNIMED_NATAL => (new Natal())->pegarAcomodacoes(),
+            default => []
         };
     }
 
@@ -37,11 +41,13 @@ final class SimulacaoViewModel
     public function plano(): array
     {
         return match ($this->operadora) {
-            Operadora::AMIL            => (new Amil())->pegarPlanos(false),
+            Operadora::AMIL => (new Amil())->pegarPlanos(false),
             Operadora::CNU_FLORIANOPIS => (new CNUFlorianopolis())->pegarPlanos(false),
-            Operadora::UNIMED_SEGURO   => (new UnimedSeguro())->pegarPlanos(false),
-            Operadora::UNIMED          => (new Unimed())->pegarPlanos(false),
-            default                    => []
+            Operadora::UNIMED_SEGURO => (new UnimedSeguro())->pegarPlanos(false),
+            Operadora::UNIMED => (new Unimed())->pegarPlanos(false),
+            Operadora::UNIMED_JUNDIAI => (new Jundiai())->pegarPlanos(false),
+            Operadora::UNIMED_NATAL => (new Natal())->pegarPlanos(false),
+            default => []
         };
     }
 
@@ -52,7 +58,7 @@ final class SimulacaoViewModel
     {
         return match ($this->operadora) {
             Operadora::AMIL => (new Amil())->pegarRegioes(),
-            default         => []
+            default => []
         };
     }
 
@@ -62,9 +68,15 @@ final class SimulacaoViewModel
     public function passoPasso(): array
     {
         $passoPasso = match ($this->operadora) {
-            Operadora::AMIL            => ['regiao', 'plano', 'simulacao', 'resultado'],
-            Operadora::CNU_FLORIANOPIS => ['plano', 'acomodacao', 'simulacao', 'resultado'],
+            Operadora::AMIL => ['regiao', 'plano', 'simulacao', 'resultado'],
+            Operadora::CNU_FLORIANOPIS => [
+                'plano',
+                'acomodacao',
+                'simulacao',
+                'resultado',
+            ],
             Operadora::UNIMED, Operadora::UNIMED_SEGURO => ['acomodacao', 'simulacao', 'resultado'],
+            Operadora::UNIMED_JUNDIAI, Operadora::UNIMED_NATAL => ['plano', 'simulacao', 'resultado'],
             default => []
         };
         return $this->montarPassoPasso($passoPasso);
@@ -82,7 +94,7 @@ final class SimulacaoViewModel
         foreach ($lista as $tipo) {
             $retorno[] = (object)[
                 'tipo'   => $tipo,
-                'numero' => $i
+                'numero' => $i,
             ];
             $i++;
         }

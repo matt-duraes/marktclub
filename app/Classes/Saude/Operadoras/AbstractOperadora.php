@@ -9,10 +9,10 @@ use Modules\Data;
 
 abstract class AbstractOperadora implements OperadoraInterface
 {
-    protected array $planos = [];
-    protected array $acomodacoes = [];
-    protected array $acomodacaoCodigo = [];
-    protected int $idade;
+    protected array     $planos           = [];
+    protected array     $acomodacoes      = [];
+    protected array     $acomodacaoCodigo = [];
+    protected int       $idade;
     protected array|int $valores;
 
     /**
@@ -44,17 +44,6 @@ abstract class AbstractOperadora implements OperadoraInterface
     abstract public function pegarAcomodacoes(bool $all = false): array|string;
 
     /**
-     * @param Data $dataNascimento Data de Nascimento
-     *
-     * @return int       Idade
-     * @throws Exception
-     */
-    protected function pegarIdade(Data $dataNascimento): int
-    {
-        return (dataIdade($dataNascimento->valor()) === false) ? 0 : dataIdade($dataNascimento->valor());
-    }
-
-    /**
      * @return array
      */
     #[ArrayShape([
@@ -64,7 +53,7 @@ abstract class AbstractOperadora implements OperadoraInterface
         'plano'       => 'string|null',
         'planos'      => 'array',
         'acomodacao'  => 'string|null',
-        'acomodacoes' => 'array'
+        'acomodacoes' => 'array',
     ])]
     public function pegarDados(): array
     {
@@ -77,7 +66,7 @@ abstract class AbstractOperadora implements OperadoraInterface
             'acomodacao'  => $this->acomodacaoSelecionada,
             'acomodacoes' => is_string($this->pegarAcomodacoes())
                 ? [$this->pegarAcomodacoes()]
-                : $this->pegarAcomodacoes()
+                : $this->pegarAcomodacoes(),
         ];
     }
 
@@ -104,4 +93,15 @@ abstract class AbstractOperadora implements OperadoraInterface
      * @return float|null Valor da simulação, NULL caso error ao simular
      */
     abstract public function simularValor(Data $dataNascimento = null): ?float;
+
+    /**
+     * @param Data $dataNascimento Data de Nascimento
+     *
+     * @return int       Idade
+     * @throws Exception
+     */
+    protected function pegarIdade(Data $dataNascimento): int
+    {
+        return (dataIdade($dataNascimento->valor()) === false) ? 0 : dataIdade($dataNascimento->valor());
+    }
 }
