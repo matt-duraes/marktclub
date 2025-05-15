@@ -10,12 +10,14 @@
             <img src="@imagem/images/cinema_mobile.png" class="imagens_popup_pesquisa mobile" style="width: 100%; margin-bottom: 20px; border-radius: 5px;" >
           </figure>
           <span>
+            <p style="margin-bottom: 20px;font-size: 12px;font-weight: bold; text-align: center; margin-bottom: 10px;">
+              Vigência - Até dia 29/05/2025
+            </p><br>
             <p style="text-align: center;border: 1px dashed #ccc;padding: 10px;border-radius: 5px;margin-bottom: 10px;
             font-size: 12px;line-height: 15px;">
-              A regra é simples. Quem participar da pesquisa concorre automaticamente a um par de ingressos para o cinema
-              da sua região. Serão 10 pares de ingresso. O mesmo CPF só pode participar da pesquisa uma vez e, caso seja um
-              dos ganhadores, ele não pode ser contemplado duas vezes. Se ele for sorteado novamente, será feito um outro
-              sorteio.
+              Ao participar da pesquisa, o(a) participante concorre automaticamente a um dos 10 pares de ingressos para o
+              cinema da sua região. Cada CPF pode participar apenas uma vez. Caso um mesmo CPF seja sorteado mais de uma vez,
+              será considerado apenas o primeiro sorteio, e um novo sorteio será realizado para redistribuir o prêmio.
             </p>
             <br>
           </span>
