@@ -46,7 +46,7 @@ final class Scope
         'enquete_satisfacao:salvar',
         'view_pagina:buscar',
         'galapagos_lead:salvar',
-        'pesquisa:salvar'
+        'enquete_mercado:salvar'
     ];
     public const CLUBE_LOGIN = [
         'admin:chave_publica', 'admin:chave_privada',
@@ -75,7 +75,7 @@ final class Scope
         'comercial_restricao:select', 'parceiro_subcategoria:select', 'parceiro_subcategoria:listar',
         'usuario_grupo:select', 'usuario_equipe:select', 'parceiro_loja:select',
         'usuario_equipe:mudar_empresa', 'automovel_modelo:deletar', 'usuario_equipe:perfil',
-        'site_lotacao:select', 'pesquisa:listar'
+        'site_lotacao:select', 'enquete_mercado:buscar', 'enquete_mercado:listar'
     ];
     public const PAINEL_INTERNO = [
         'perfil_dado:buscar', 'perfil_dado:atualizar', 'perfil_dado:validar_senha',
@@ -310,7 +310,7 @@ final class Scope
 
         'data:listar',
 
-        'pesquisa:buscar', 'pesquisa:listar', 'pesquisa:salvar',
+        'enquete_mercado:buscar', 'enquete_mercado:listar', 'enquete_mercado:salvar',
     ];
     public const TUDO = [
         'perfil_dado:buscar', 'perfil_dado:atualizar', 'perfil_dado:validar_senha',
@@ -493,7 +493,7 @@ final class Scope
 
         'galapagos_lead:salvar',
 
-        'pesquisa:buscar', 'pesquisa:listar', 'pesquisa:salvar',
+        'enquete_mercado:buscar', 'enquete_mercado:listar', 'enquete_mercado:salvar',
     ];
 
     public function pegarScope(array $lista)

@@ -11,18 +11,18 @@ final class PesquisaModel extends ClubeApiHelper
         $dado = $this
             ->validar('Ocorreu um erro ao salvar sua indicação', status: 404)
             ->body([
-              'fidelidade' => $request->programaFidelidade,
-              'produtos' => $request->produtosProcurados,
-              'gasto'        => $request->tvSmart,
-              'importancia' => $request->opcaoProdutoMarca,
-              'cashback' => $request->acreditaEmCashback,
-              'frequencia' => $request->frequenciaCashback,
-              'resgate' => $request->resgateCashback,
-              'desconto' => $request->sobreParcerias,
-              'experiencia' => $request->suaExperiencia,
-              'indicaria' => $request->voceIndicaria,
+                'fidelidade'  => $request->programaFidelidade,
+                'produtos'    => $request->produtosProcurados,
+                'gasto'       => $request->tvSmart,
+                'importancia' => $request->opcaoProdutoMarca,
+                'cashback'    => $request->acreditaEmCashback,
+                'frequencia'  => $request->frequenciaCashback,
+                'resgate'     => $request->resgateCashback,
+                'desconto'    => $request->sobreParcerias,
+                'experiencia' => $request->suaExperiencia,
+                'indicaria'   => $request->voceIndicaria,
             ])
-            ->post('/pesquisa')
+            ->post('/enquete-mercado')
             ->object();
         return $dado;
     }
