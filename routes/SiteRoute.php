@@ -1,9 +1,9 @@
 <?php
 
-use Route\Route;
+use App\Middlewares\Site\AppTipoMiddleware;
 use App\Middlewares\Site\AuthMiddleware;
 use App\Middlewares\Site\ClubeMiddleware;
-use App\Middlewares\Site\AppTipoMiddleware;
+use Route\Route;
 
 Route
     ::nome('temp')
@@ -79,7 +79,7 @@ Route
     ::nome('loginGeral')
     ::middleware(ClubeMiddleware::class, 'buscar')
     ::controller(App\Controllers\Site\LoginController::class)
-    ::grupo(function() {
+    ::grupo(function () {
         Route
             ::nome('login')
             ::request(['login', 'senha', 'hash_validacao_captcha', '!tipo_usuario'])
@@ -156,16 +156,38 @@ Route
         Route
             ::nome('ativarSalvarPagina')
             ::request([
-                'hash', 'cpf', '!tipo_usuario', '!imutavel'
+                'hash',
+                'cpf',
+                '!tipo_usuario',
+                '!imutavel',
             ])
             ::post('/login/ativar-salvar-pagina');
         Route
             ::nome('ativarSalvar')
             ::request([
-                'hash', 'nome', 'cpf', 'genero', 'senha', 'termo', 'data_nascimento', 'estado_civil',
-                'email_pessoal', 'email_trabalho', 'telefone_pessoal', 'telefone_trabalho', 'endereco_cep',
-                'endereco_logradouro', 'endereco_numero','!trabalho_cargo','!trabalho_empresa',
-                'endereco_complemento', 'endereco_bairro','endereco_estado', 'endereco_cidade', '!tipo_usuario', '!grupo'
+                'hash',
+                'nome',
+                'cpf',
+                'genero',
+                'senha',
+                'termo',
+                'data_nascimento',
+                'estado_civil',
+                'email_pessoal',
+                'email_trabalho',
+                'telefone_pessoal',
+                'telefone_trabalho',
+                'endereco_cep',
+                'endereco_logradouro',
+                'endereco_numero',
+                '!trabalho_cargo',
+                '!trabalho_empresa',
+                'endereco_complemento',
+                'endereco_bairro',
+                'endereco_estado',
+                'endereco_cidade',
+                '!tipo_usuario',
+                '!grupo',
             ])
             ::post('/login/ativar-salvar');
         Route
@@ -212,8 +234,16 @@ Route
         Route
             ::nome('pesquisaUtilizacao')
             ::request([
-              'programaFidelidade','produtosProcurados','tvSmart','opcaoProdutoMarca','acreditaEmCashback',
-              'frequenciaCashback','resgateCashback','sobreParcerias','suaExperiencia','voceIndicaria',
+                'programaFidelidade',
+                'produtosProcurados',
+                'tvSmart',
+                'opcaoProdutoMarca',
+                'acreditaEmCashback',
+                'frequenciaCashback',
+                'resgateCashback',
+                'sobreParcerias',
+                'suaExperiencia',
+                'voceIndicaria',
             ])
             ::post('/pesquisa-utilizacao');
     });
@@ -340,7 +370,19 @@ Route
             ::view('/cashback/resgatar');
         Route
             ::nome('resgatarCashback')
-            ::request(['tipoResgate','email','pontos','!titular','!cpf','!banco','!agencia','!contaBancaria','!tipoConta'])
+            ::request(
+                [
+                    'tipoResgate',
+                    'email',
+                    'pontos',
+                    '!titular',
+                    '!cpf',
+                    '!banco',
+                    '!agencia',
+                    '!contaBancaria',
+                    '!tipoConta',
+                ]
+            )
             ::post('/cashback/resgatar');
     });
 
@@ -412,7 +454,7 @@ Route
 Route
     ::nome('webview')
     ::controller(App\Controllers\Site\Webview\LoginController::class)
-    ::grupo(function() {
+    ::grupo(function () {
         Route
             ::nome('mapa')
             ::view('/webview/login-mapa');
@@ -427,8 +469,18 @@ Route
         Route
             ::nome('buscar')
             ::request([
-                '!estado', '!categoria', '!subcategoria', '!estabelecimento', '!pesquisa', '!ordem',
-                '!latitude', '!longitude', '!acessado', '!favorito', '!cidade', '!webview'
+                '!estado',
+                '!categoria',
+                '!subcategoria',
+                '!estabelecimento',
+                '!pesquisa',
+                '!ordem',
+                '!latitude',
+                '!longitude',
+                '!acessado',
+                '!favorito',
+                '!cidade',
+                '!webview',
             ])
             ::get('/convenios/buscar');
         Route
@@ -437,8 +489,19 @@ Route
         Route
             ::nome('listar')
             ::request([
-                '!pagina', 'tipo', '!latitude', '!longitude', '!acessado', '!favorito', '!estado', '!categoria',
-                '!subcategoria', '!estabelecimento', '!pesquisa', '!ordem', '!cidade'
+                '!pagina',
+                'tipo',
+                '!latitude',
+                '!longitude',
+                '!acessado',
+                '!favorito',
+                '!estado',
+                '!categoria',
+                '!subcategoria',
+                '!estabelecimento',
+                '!pesquisa',
+                '!ordem',
+                '!cidade',
             ])
             ::post('/convenios/listar');
         Route
@@ -460,11 +523,29 @@ Route
         Route
             ::nome('chequeBonus')
             ::request([
-                'tipo_usuario', 'dependente_nome', 'dependente_email', 'dependente_cpf', 'dependente_rg',
-                'dependente_grau_parentesco', 'dependente_data_nascimento', 'estado_civil', 'telefone_celular',
-                'data_nascimento', 'endereco_cep', 'endereco_logradouro', 'endereco_numero', 'automovel',
-                'endereco_complemento', 'endereco_bairro', 'endereco_estado', 'endereco_cidade', 'rg',
-                'atualizar', 'data_termo', 'nome', 'email_pessoal'
+                'tipo_usuario',
+                'dependente_nome',
+                'dependente_email',
+                'dependente_cpf',
+                'dependente_rg',
+                'dependente_grau_parentesco',
+                'dependente_data_nascimento',
+                'estado_civil',
+                'telefone_celular',
+                'data_nascimento',
+                'endereco_cep',
+                'endereco_logradouro',
+                'endereco_numero',
+                'automovel',
+                'endereco_complemento',
+                'endereco_bairro',
+                'endereco_estado',
+                'endereco_cidade',
+                'rg',
+                'atualizar',
+                'data_termo',
+                'nome',
+                'email_pessoal',
             ])
             ::post('/convenios/cheque-bonus');
         Route
@@ -486,7 +567,10 @@ Route
         Route
             ::nome('indicar')
             ::request([
-                'nome', 'telefone', 'email', 'mensagem'
+                'nome',
+                'telefone',
+                'email',
+                'mensagem',
             ])
             ::post('/convenios/indicar');
     });
@@ -499,7 +583,10 @@ Route
         Route
             ::nome('listar')
             ::request([
-                'id', 'local', 'tipo', 'pagina'
+                'id',
+                'local',
+                'tipo',
+                'pagina',
             ])
             ::post('/contato/lista');
     });
@@ -536,6 +623,13 @@ Route
             ::nome('index')
             ::view('/saude');
         Route
+            ::nome('escolherEstado')
+            ::view('/saude/escolher-estado');
+        Route
+            ::nome('escolherCidade')
+            ::request(['estado'])
+            ::post('/saude/escolher-cidade');
+        Route
             ::nome('detalhe')
             ::view('/saude/detalhe/{nome-do-plano}');
         Route
@@ -562,11 +656,17 @@ Route
             ::nome('unimedSeguro')
             ::view('/saude/unimed-seguro');
         Route
+            ::nome('unimedNatal')
+            ::view('/saude/unimed-natal');
+        Route
+            ::nome('unimedJundiai')
+            ::view('/saude/unimed-jundiai');
+        Route
             ::nome('simulacao')
             ::view('/saude/plano-simulacao/{url}');
         Route
             ::nome('realizarSimulacao')
-            ::request(['!operadora','!titular','!regiao','!plano','!acomodacao','!dependentes'])
+            ::request(['!operadora', '!titular', '!regiao', '!plano', '!acomodacao', '!dependentes'])
             ::post('/saude/realizar-simulacao');
         Route
             ::nome('contratacao')
@@ -574,16 +674,36 @@ Route
         Route
             ::nome('realizarContratacao')
             ::request([
-                'id_saude_simulacao','nome','naturalidade','cpf','data_nascimento',
-                'genero','estado_civil','peso','altura','rg','orgao_expedidor',
-                'nome_mae','responsavel_nome','responsavel_cpf','responsavel_rg',
-                'responsavel_orgao_expedidor','email_pessoal','telefone_celular',
-                'telefone_residencial','telefone_comercial','telefone_comercial_ramal',
-                'endereco_cep', 'endereco_bairro', 'endereco_logradouro', 'endereco_numero',
-                'endereco_complemento', 'endereco_cidade', 'endereco_estado'
+                'id_saude_simulacao',
+                'nome',
+                'naturalidade',
+                'cpf',
+                'data_nascimento',
+                'genero',
+                'estado_civil',
+                'peso',
+                'altura',
+                'rg',
+                'orgao_expedidor',
+                'nome_mae',
+                'responsavel_nome',
+                'responsavel_cpf',
+                'responsavel_rg',
+                'responsavel_orgao_expedidor',
+                'email_pessoal',
+                'telefone_celular',
+                'telefone_residencial',
+                'telefone_comercial',
+                'telefone_comercial_ramal',
+                'endereco_cep',
+                'endereco_bairro',
+                'endereco_logradouro',
+                'endereco_numero',
+                'endereco_complemento',
+                'endereco_cidade',
+                'endereco_estado',
             ])
             ::post('/saude-contratacao');
-
     });
 Route
     ::nome('farmacia')
@@ -636,13 +756,19 @@ Route
         Route
             ::nome('realizarSimulacao')
             ::request([
-                'tipo', 'valor_total', 'parcela', 'operadora'
+                'tipo',
+                'valor_total',
+                'parcela',
+                'operadora',
             ])
             ::post('/credito/simulacao');
         Route
             ::nome('salvar')
             ::request([
-                'tipo', 'valor_total', 'parcela', 'operadora'
+                'tipo',
+                'valor_total',
+                'parcela',
+                'operadora',
             ])
             ::post('/credito/salvar');
     });
@@ -668,7 +794,13 @@ Route
         Route
             ::nome('solicitacao')
             ::request([
-                'endereco_estado', 'endereco_cidade', 'montadora', 'modelo', 'versao', 'cor', 'mensagem'
+                'endereco_estado',
+                'endereco_cidade',
+                'montadora',
+                'modelo',
+                'versao',
+                'cor',
+                'mensagem',
             ])
             ::post('/automovel/solicitacao');
     });
@@ -735,7 +867,12 @@ Route
         Route
             ::nome('pesquisa')
             ::request([
-                'navegar', 'procura', 'suporte', 'comentario', 'atendimento', 'sistema'
+                'navegar',
+                'procura',
+                'suporte',
+                'comentario',
+                'atendimento',
+                'sistema',
             ])
             ::post('/pesquisa-de-satisfacao');
         Route
@@ -744,7 +881,9 @@ Route
         Route
             ::nome('indicarAmigo')
             ::request([
-                'nome', 'email', 'telefone'
+                'nome',
+                'email',
+                'telefone',
             ])
             ::post('/indicar-amigo');
         Route
@@ -759,7 +898,6 @@ Route
         Route
             ::nome('indiqueParceiro')
             ::get('/indique-um-parceiro');
-
     });
 
 Route
@@ -774,9 +912,21 @@ Route
         Route
             ::nome('salvarDados')
             ::request([
-                '!nome', '!data_nascimento', '!genero', '!estado_civil', '!email_pessoal', '!email_trabalho',
-                '!telefone_trabalho', '!telefone_pessoal', '!endereco_estado', '!endereco_cep', '!endereco_logradouro',
-                '!endereco_bairro', '!endereco_numero', '!endereco_complemento', '!endereco_cidade',
+                '!nome',
+                '!data_nascimento',
+                '!genero',
+                '!estado_civil',
+                '!email_pessoal',
+                '!email_trabalho',
+                '!telefone_trabalho',
+                '!telefone_pessoal',
+                '!endereco_estado',
+                '!endereco_cep',
+                '!endereco_logradouro',
+                '!endereco_bairro',
+                '!endereco_numero',
+                '!endereco_complemento',
+                '!endereco_cidade',
             ])
             ::post('/perfil/salvar-dados');
         Route

@@ -61,6 +61,7 @@
             padding: 15px 0px
         button
             espacoTopPadrao()
+#bloco_download_tabela,
 #bloco_coparticipacao
     flexCol()
     gap: 20px
@@ -132,10 +133,19 @@
     .bloco_saude .bloco_beneficio .bloco_vantagem .icone_vantagem
         height: 130px
 
+.bloco_tabela_geral ul
+    margin-top: 20px
+    list-style: inside disc !important
+    li
+        texto()
+
 .bloco_saude .bloco_auxilio_ressarcimento table tbody td,
 .bloco_tabela_geral table thead th
     text-align: center
     vertical-align: middle
+.bloco_tabela_geral table thead th span
+    pequenoFontSize();
+    color: #666;
 
 /*CSS ESPECIFICO DOS POPUPS PLANO DE SAÚDE*/
 .bloco_tabela_geral table thead tr th
