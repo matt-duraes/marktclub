@@ -1468,16 +1468,16 @@ trait PermissaoTrait
                     ]
                 ]
             ],
-            'pesquisa'                 => [
-                'titulo'    => 'Pesquisa de Mercado',
+            'enquete_mercado'          => [
+                'titulo'    => 'Enquete de Mercado',
                 'permissao' => [
-                    'pesquisa_index'      => [
+                    'enquete_mercado_index'      => [
                         'titulo' => Titulo::LISTAR,
-                        'scope'  => 'pesquisa:listar'
+                        'scope'  => 'enquete_mercado:listar'
                     ],
-                    'pesquisa_visualizar' => [
+                    'enquete_mercado_visualizar' => [
                         'titulo' => Titulo::VISUALIZAR,
-                        'scope'  => 'pesquisa:buscar'
+                        'scope'  => 'enquete_mercado:buscar'
                     ]
                 ]
             ]

@@ -9,7 +9,7 @@ use App\Classes\EnqueteMercado\Produtos;
 use App\Classes\EnqueteMercado\Padrao as PesquisaPadrao;
 use PainelConfig\Visualizar;
 
-$Painel = new Visualizar('pesquisa');
+$Painel = new Visualizar('enquete_mercado');
 
 $Painel->coluna(callback: function () use ($Painel) {
     $Painel->bloco('Respostas', callback: function () use ($Painel) {

@@ -2585,35 +2585,35 @@ Route
     });
 
 Route
-    ::nome('pesquisa')
+    ::nome('enquete_mercado')
     ::controller(App\Controllers\Api\EnqueteMercadoController::class)
     ::middleware(TokenMiddleware::class, 'token')
     ::grupo(function () {
         Route
             ::nome('buscar')
-            ::middleware(TokenMiddleware::class, 'scope', ['pesquisa:buscar'])
-            ::get('/pesquisa/{id}');
+            ::middleware(TokenMiddleware::class, 'scope', ['enquete_mercado:buscar'])
+            ::get('/enquete-mercado/{id}');
 
         Route
             ::nome('listar')
-            ::middleware(TokenMiddleware::class, 'scope', ['pesquisa:listar'])
+            ::middleware(TokenMiddleware::class, 'scope', ['enquete_mercado:listar'])
             ::request([
                 'pagina', '!quantidade', '!ordem'
             ], 'json')
-            ::get('/pesquisa');
+            ::get('/enquete-mercado');
 
         Route
             ::nome('salvar')
-            ::middleware(TokenMiddleware::class, 'scope', ['pesquisa:salvar'])
+            ::middleware(TokenMiddleware::class, 'scope', ['enquete_mercado:salvar'])
             ::request([
                 'fidelidade', 'produtos', 'gasto', 'importancia', 'cashback',
                 'frequencia', 'resgate', 'desconto', 'experiencia', 'indicaria'
             ])
-            ::post('/pesquisa');
+            ::post('/enquete-mercado');
 
         Route
             ::nome('respondeu')
-            ::middleware(TokenMiddleware::class, 'scope', ['pesquisa:buscar'])
+            ::middleware(TokenMiddleware::class, 'scope', ['enquete_mercado:buscar'])
             ::post('/pesquisa-resposta');
     });
 
