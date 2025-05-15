@@ -1,0 +1,13 @@
+@template "site"
+
+<form class="form_geral centralizar" id="bloco_escolher_estado">
+    <header>
+        <h1>Escolha um estado</h1>
+        <p>Para listar os planos de sua região, selecione o seu estado para continuar.</p>
+    </header>
+    @? formSelect(name: 'estado', placeholder: 'Escolha um estado', label: 'Estado', lista: $estado);
+    @? formSelect(name: 'cidade', placeholder: 'Escolha uma cidade', label: 'Cidade', lista: [], class: 'display_none');
+    <div class="bloco_botao">
+        <div class="botao_geral_cor cor_bg display_none" id="botao_escolher_estado">Continuar</div>
+    </div>
+</form>

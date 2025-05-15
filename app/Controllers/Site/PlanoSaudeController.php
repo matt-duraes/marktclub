@@ -2,15 +2,16 @@
 
 namespace App\Controllers\Site;
 
+use App\Classes\Saude\Cidade\Lista;
+use App\Helpers\ClubeApiHelper;
+use App\Models\Site\BannerModel;
+use App\Models\Site\Saude\FazerSimulacaoModel;
+use App\Models\Site\Saude\OperadoraModel;
+use App\Models\Site\Saude\SimulacaoViewModel;
+use Controller\Controller;
 use Erro\Excecao;
 use Http\Request;
 use Http\Response;
-use Controller\Controller;
-use App\Helpers\ClubeApiHelper;
-use App\Models\Site\BannerModel;
-use App\Models\Site\Saude\OperadoraModel;
-use App\Models\Site\Saude\SimulacaoViewModel;
-use App\Models\Site\Saude\FazerSimulacaoModel;
 
 final class PlanoSaudeController extends Controller
 {
@@ -18,9 +19,14 @@ final class PlanoSaudeController extends Controller
      * @return Response
      * @throws Excecao
      */
-    public function index(): Response
+    public function index(Request $request): Response
     {
-        $lista = (new OperadoraModel())->listarDados();
+        $Operadora = new OperadoraModel();
+        if ($Operadora->precisaEscolher($request->estado)) {
+            return new Response(url: route('planosaude.escolherEstado'));
+        }
+        $lista = $Operadora->listarDados($request->estado, $request->cidade);
+
         if (empty($lista->lista)) {
             mensagemStatus(404);
         } elseif (count($lista->lista) == 1) {
@@ -29,8 +35,22 @@ final class PlanoSaudeController extends Controller
 
         return view('plano_saude.index', [
             'menu'  => 'saude',
-            'lista' => $lista
+            'lista' => $lista,
         ]);
+    }
+
+    public function escolherEstado(): Response
+    {
+        return view('plano_saude.escolherEstado', [
+            'estado' => (new Lista())->pegarEstado(),
+        ]);
+    }
+
+    public function postEscolherCidade(Request $request): Response
+    {
+        return mensagemSucesso([
+            'cidade' => (new Lista())->pegarCidade($request->estado),
+        ], status: 201);
     }
 
     /**
@@ -41,7 +61,31 @@ final class PlanoSaudeController extends Controller
     {
         return view('plano_saude.unimedvitoria', [
             'menu'  => 'saude',
-            'lista' => (new OperadoraModel())->listarDados()
+            'lista' => (new OperadoraModel())->listarDados(),
+        ]);
+    }
+
+    /**
+     * @return Response
+     * @throws Excecao
+     */
+    public function unimedNatal(): Response
+    {
+        return view('plano_saude.unimedNatal', [
+            'menu'  => 'saude',
+            'lista' => (new OperadoraModel())->listarDados(),
+        ]);
+    }
+
+    /**
+     * @return Response
+     * @throws Excecao
+     */
+    public function unimedJundiai(): Response
+    {
+        return view('plano_saude.unimedJundiai', [
+            'menu'  => 'saude',
+            'lista' => (new OperadoraModel())->listarDados(),
         ]);
     }
 
@@ -52,7 +96,7 @@ final class PlanoSaudeController extends Controller
     public function unimedflorianopolis(): Response
     {
         return view('plano_saude.unimedflorianopolis', [
-            'menu' => 'saude'
+            'menu' => 'saude',
         ]);
     }
 
@@ -72,7 +116,7 @@ final class PlanoSaudeController extends Controller
     public function centralnacional(): Response
     {
         return view('plano_saude.centralunimed', [
-            'menu' => 'saude'
+            'menu' => 'saude',
         ]);
     }
 
@@ -83,7 +127,7 @@ final class PlanoSaudeController extends Controller
     public function amil(): Response
     {
         return view('plano_saude.amil', [
-            'menu' => 'saude'
+            'menu' => 'saude',
         ]);
     }
 
@@ -106,7 +150,7 @@ final class PlanoSaudeController extends Controller
         }
 
         return view('plano_saude.index', [
-            'menu' => 'saude'
+            'menu' => 'saude',
         ]);
     }
 
@@ -130,7 +174,7 @@ final class PlanoSaudeController extends Controller
     public function unimedSeguro(): Response
     {
         return view('plano_saude.unimedSeguro', [
-            'menu' => 'saude'
+            'menu' => 'saude',
         ]);
     }
 
@@ -165,7 +209,7 @@ final class PlanoSaudeController extends Controller
         return view('plano_saude.simulacao', [
             'menu'      => 'saude',
             'operadora' => $operadora,
-            'Simulacao' => new SimulacaoViewModel($operadora)
+            'Simulacao' => new SimulacaoViewModel($operadora),
         ]);
     }
 
@@ -179,7 +223,7 @@ final class PlanoSaudeController extends Controller
     {
         return view('plano_saude.contratacao', [
             'menu'      => 'saude',
-            'simulacao' => $simulacao
+            'simulacao' => $simulacao,
         ]);
     }
 
@@ -221,7 +265,7 @@ final class PlanoSaudeController extends Controller
                 'endereco_numero'             => $request->endereco_numero,
                 'endereco_complemento'        => $request->endereco_complemento,
                 'endereco_cidade'             => $request->endereco_cidade,
-                'endereco_estado'             => $request->endereco_estado
+                'endereco_estado'             => $request->endereco_estado,
             ])
             ->post('/saude-contratacao')
             ->object();

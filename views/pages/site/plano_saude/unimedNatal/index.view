@@ -1,0 +1,258 @@
+@template "site"
+
+<div class="bloco_saude">
+    <div class="bloco_plano_saude">
+        <figure>
+            <img alt="" src="{!!LINK!!}/images/site/logo_unimed_natal.png">
+        </figure>
+        <header class="bloco_conteudo">
+            <h1>Unimed Natal</h1>
+            <p>Este plano é administrado pela Allcare Administradora de Benefícios São Paulo Ltda (CNPJ
+                07674593/0001-10) e Allcare Administradora de Benefícios em Saúde Ltda (CNPJ 11165556/0001-54) em
+                contrato particular assinado diretamente com sua entidade de classe, conforme regulamentações vigentes
+                da ANS. O aniversário desta apólice para reajuste anual é o mês de Julho</p>
+        </header>
+        <div class="bloco_beneficio">
+            <header>
+                <h1>Benefícios exclusivos</h1>
+            </header>
+            <div class="bloco_vantagem">
+                <div class="icone_vantagem">
+                    @iconeCashbackHome
+                    <p>Menores preços do mercado</p>
+                </div>
+                <div class="icone_vantagem">
+                    @iconeDependenteOutline
+                    <p>Contrate para seus dependentes</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="bloco_atencao_geral atencao">
+        <p>Está plano só pode ser comercializado para residentes no estado do Rio Grande do Norte.</p>
+    </div>
+
+    <div class="bloco_plano_saude">
+        <header>
+            <h1>Plano Essencial Flex Estadual</h1>
+        </header>
+        <div class="bloco_tabela_geral">
+            <p>A linha Essencial Flex Estadual oferece soluções em saúde de qualidade com custo reduzido. Conte com uma
+                ampla rede de atendimento em todo o estado!</p>
+            <ul>
+                <li>Segmentação: ambulatorial + hospitalar com obstetrícia</li>
+                <li>Área de abrangência: estadual (RN)</li>
+                <li>Urgência e emergência: nacional</li>
+                <li>Acomodação: enfermaria</li>
+                <li>Tipo de contratação: coletivo por adesão</li>
+            </ul>
+            <table>
+                <thead>
+                <tr>
+                    <th>Registro ANS</th>
+                    <th>488.670/21-4<br><span>(Enfermagem)</span></th>
+                    <th>488.673/21-9<br><span>(Enfermagem)</span></th>
+                </tr>
+                <tr>
+                    <th>Faixa Etária</th>
+                    <th>Essencial Flex I Estadual AD C-E<br><span>(menos coparticipação)</span></th>
+                    <th>Essencial Flex II Estadual AD C-E<br><span>(mais coparticipação)</span></th>
+                </tr>
+                </thead>
+                <tbody class="bloco_preco">
+                <tr>
+                    <td>0 a 18</td>
+                    <td>223,35</td>
+                    <td>194,23</td>
+                </tr>
+                <tr>
+                    <td>19 a 23</td>
+                    <td>250,16</td>
+                    <td>217,52</td>
+                </tr>
+                <tr>
+                    <td>24 a 28</td>
+                    <td>280,17</td>
+                    <td>243,63</td>
+                </tr>
+                <tr>
+                    <td>29 a 33</td>
+                    <td>322,19</td>
+                    <td>280,17</td>
+                </tr>
+                <tr>
+                    <td>34 a 38</td>
+                    <td>370,53</td>
+                    <td>322,22</td>
+                </tr>
+                <tr>
+                    <td>39 a 43</td>
+                    <td>444,64</td>
+                    <td>386,65</td>
+                </tr>
+                <tr>
+                    <td>44 a 48</td>
+                    <td>560,25</td>
+                    <td>487,19</td>
+                </tr>
+                <tr>
+                    <td>49 a 53</td>
+                    <td>745,13</td>
+                    <td>647,95</td>
+                </tr>
+                <tr>
+                    <td>54 a 58</td>
+                    <td>998,48</td>
+                    <td>868,26</td>
+                </tr>
+                <tr>
+                    <td>59 ou mais</td>
+                    <td>1.337,95</td>
+                    <td>1.163,47</td>
+                </tr>
+                </tbody>
+            </table>
+            <p>*Obs. A Administradora de Benefícios efetua cobrança de Taxa de Adesão no primeiro pagamento com valor
+                correspondente aos planos contratados.</p>
+        </div>
+    </div>
+
+    <div class="bloco_plano_saude">
+        <header>
+            <h1>Plano Green Flex</h1>
+        </header>
+        <div class="bloco_tabela_geral">
+            <p>Com o Green Flex você escolhe o plano que melhor se adequa às suas necessidades, determinando quanto sai
+                do seu bolso. Ainda conta com a maior e mais completa rede de atendimento do Rio Grande do Norte.</p>
+            <ul>
+                <li>Segmentação: ambulatorial + hospitalar com obstetrícia</li>
+                <li>Área de abrangência: estadual (RN)</li>
+                <li>Urgência e emergência: nacional</li>
+                <li>Acomodação: enfermaria e apartamento</li>
+                <li>Tipo de contratação: coletivo por adesão</li>
+            </ul>
+            <table>
+                <thead>
+                <tr>
+                    <th>Registro ANS</th>
+                    <th>486.925/20-7<br><span>(Enfermaria)</span></th>
+                    <th>486.924/20-9<br><span>(Enfermaria)</span></th>
+                    <th>486.926/20-5<br><span>(Apartamento)</span></th>
+                    <th>486.923/20-1<br><span>(Apartamento)</span></th>
+                </tr>
+                <tr>
+                    <th>Faixa Etária</th>
+                    <th>Green Flex I AD C-E<br><span>(menos coparticipação)</span></th>
+                    <th>Green Flex II AD C-E<br><span>(mais coparticipação)</span></th>
+                    <th>Green Flex I AD C-A<br><span>(menos coparticipação)</span></th>
+                    <th>Green Flex II AD C-A<br><span>(mais coparticipação)</span></th>
+                </tr>
+                </thead>
+                <tbody class="bloco_preco">
+                <tr>
+                    <td>0 a 18</td>
+                    <td>299,23</td>
+                    <td>260,20</td>
+                    <td>389,00</td>
+                    <td>338,28</td>
+                </tr>
+                <tr>
+                    <td>19 a 23</td>
+                    <td>353,09</td>
+                    <td>307,04</td>
+                    <td>459,06</td>
+                    <td>399,17</td>
+                </tr>
+                <tr>
+                    <td>24 a 28</td>
+                    <td>416,67</td>
+                    <td>362,33</td>
+                    <td>541,64</td>
+                    <td>471,01</td>
+                </tr>
+                <tr>
+                    <td>29 a 33</td>
+                    <td>483,32</td>
+                    <td>420,28</td>
+                    <td>628,32</td>
+                    <td>546,37</td>
+                </tr>
+                <tr>
+                    <td>34 a 38</td>
+                    <td>560,65</td>
+                    <td>487,53</td>
+                    <td>728,83</td>
+                    <td>633,79</td>
+                </tr>
+                <tr>
+                    <td>39 a 43</td>
+                    <td>650,33</td>
+                    <td>565,53</td>
+                    <td>845,48</td>
+                    <td>735,23</td>
+                </tr>
+                <tr>
+                    <td>44 a 48</td>
+                    <td>819,45</td>
+                    <td>712,57</td>
+                    <td>1.065,28</td>
+                    <td>926,37</td>
+                </tr>
+                <tr>
+                    <td>49 a 53</td>
+                    <td>1.032,50</td>
+                    <td>897,88</td>
+                    <td>1.342,24</td>
+                    <td>1.167,20</td>
+                </tr>
+                <tr>
+                    <td>54 a 58</td>
+                    <td>1.342,25</td>
+                    <td>1.167,19</td>
+                    <td>1.744,94</td>
+                    <td>1.517,42</td>
+                </tr>
+                <tr>
+                    <td>59 ou mais</td>
+                    <td>1.744,93</td>
+                    <td>1.517,37</td>
+                    <td>2.268,40</td>
+                    <td>1.972,61</td>
+                </tr>
+                </tbody>
+            </table>
+            <p>*Obs. A Administradora de Benefícios efetua cobrança de Taxa de Adesão no primeiro pagamento com valor
+                correspondente aos planos contratados.</p>
+        </div>
+    </div>
+
+    <div class="bloco_plano_saude" id="bloco_coparticipacao">
+        <h1>Mais informações</h1>
+        <p>
+            Para obter informações detalhadas sobre co-participação, rede credenciada e outras informações do plano de
+            saúde, consulte tabela clicando no botão abaixo:
+        </p>
+        <a class="botao_geral_cor cor_bg" download="tabela_unimed_natal.pdf"
+           href="@imagem/images/saude/tabela_unimed_natal.pdf">
+            Baixar tabela
+        </a>
+    </div>
+
+    <section class="bloco_simulacao container_scroll">
+        <h1>GOSTARIA DE FAZER UMA SIMULAÇÃO?</h1>
+        <p>Faça uma simulação sua e dos seus dependentes e veja os valores.</p>
+        @if(TIPO_USUARIO != 'indicado'):
+        <a class="botao_geral_cor cor_bg" href="@route(planosaude.simulacao)/unimed-natal">Fazer Simulação</a>
+        @endif
+    </section>
+    @if(TIPO_USUARIO == 'indicado'):
+    <div class="bloco_atencao_geral">
+        <p>Apenas associados possuem acesso a este recurso</p>
+    </div>
+    @endif
+    @if(TIPO_USUARIO != 'indicado'):
+    <a class="botao_geral_cor botao_fixo_bottom cor_bg botao_scroll" href="@route(planosaude.simulacao)/unimed-natal">SIMULAR
+        AGORA</a>
+    @endif
+</div>

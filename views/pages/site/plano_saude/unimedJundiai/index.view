@@ -1,0 +1,226 @@
+@template "site"
+
+<div class="bloco_saude">
+    <div class="bloco_plano_saude">
+        <figure>
+            <img alt="" src="{!!LINK!!}/images/site/logo_unimed_jundiai.png">
+        </figure>
+        <header class="bloco_conteudo">
+            <h1>Unimed Jundiaí</h1>
+            <p>Este plano é administrado pela Allcare Administradora de Benefícios São Paulo Ltda (CNPJ
+                07674593/0001-10) e Allcare Administradora de Benefícios em Saúde Ltda (CNPJ 11165556/0001-54) em
+                contrato particular assinado diretamente com sua entidade de classe, conforme regulamentações vigentes
+                da ANS. O aniversário desta apólice para reajuste anual é o mês de Novembro</p>
+        </header>
+
+        <div class="bloco_beneficio">
+            <header>
+                <h1>Benefícios exclusivos</h1>
+            </header>
+            <div class="bloco_vantagem">
+                <div class="icone_vantagem">
+                    @iconeCashbackHome
+                    <p>Menores preços do mercado</p>
+                </div>
+                <div class="icone_vantagem">
+                    @iconeDependenteOutline
+                    <p>Desconto em exames e vacinas</p>
+                </div>
+                <div class="icone_vantagem">
+                    @iconeMundo
+                    <p>Telemedicina</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="bloco_atencao_geral atencao">
+        <p>Está plano só pode ser comercializado para residentes das cidades de Barueri, Cabreúva, Caieiras,
+            Cajamar, Campo Limpo Paulista, Francisco Morato, Franco Da
+            Rocha, Itupeva, Jarinú, Jundiaí, Louveira, Santana de Parnaíba e Várzea Paulista.</p>
+    </div>
+
+    <div class="bloco_plano_saude">
+        <header>
+            <h1>Preços do Plano de Saúde</h1>
+        </header>
+        <div class="bloco_tabela_geral">
+            <table>
+                <thead>
+                <tr>
+                    <th>Registro ANS</th>
+                    <th>476.696/16-2<br><span>(Enfermagem)</span></th>
+                    <th><br><span>(Apartamento)</span></th>
+                    <th><br><span>(Enfermagem)</span></th>
+                    <th><br><span>(Apartamento)</span></th>
+                </tr>
+                <tr>
+                    <th>Faixa Etária</th>
+                    <th>Flex Ideal<br><span>(Com coparticipação)</span></th>
+                    <th>Flex Plus<br><span>(Com coparticipação)</span></span></th>
+                    <th>Clássico Ideal<br><span>(Sem coparticipação)</span></span></th>
+                    <th>Clássico Plus<br><span>(Sem coparticipação)</span></th>
+                </tr>
+                </thead>
+                <tbody class="bloco_preco">
+                <tr>
+                    <td>0 a 18</td>
+                    <td>176,77 </td>
+                    <td>226,28 </td>
+                    <td>246,84</td>
+                    <td>315,96</td>
+                </tr>
+                <tr>
+                    <td>19 a 23</td>
+                    <td>203,27 </td>
+                    <td>260,18</td>
+                    <td>283,85</td>
+                    <td>363,33 </td>
+                </tr>
+                <tr>
+                    <td>24 a 28</td>
+                    <td>233,31</td>
+                    <td>298,62</td>
+                    <td>325,80</td>
+                    <td>417,02</td>
+                </tr>
+                <tr>
+                    <td>29 a 33</td>
+                    <td>268,66</td>
+                    <td>343,87</td>
+                    <td>375,16</td>
+                    <td>480,22</td>
+                </tr>
+                <tr>
+                    <td>34 a 38</td>
+                    <td>309,33</td>
+                    <td>395,96</td>
+                    <td>431,96</td>
+                    <td>552,90</td>
+                </tr>
+                <tr>
+                    <td>39 a 43</td>
+                    <td>358,83</td>
+                    <td>459,31</td>
+                    <td>501,08</td>
+                    <td>641,38</td>
+                </tr>
+                <tr>
+                    <td>44 a 48</td>
+                    <td>433,08</td>
+                    <td>554,34</td>
+                    <td>604,75</td>
+                    <td>774,07</td>
+                </tr>
+                <tr>
+                    <td>49 a 53</td>
+                    <td>563,91</td>
+                    <td>721,79</td>
+                    <td>787,45</td>
+                    <td>1.007,93</td>
+                </tr>
+                <tr>
+                    <td>54 a 58</td>
+                    <td>761,90</td>
+                    <td>975,23</td>
+                    <td>1.063,91</td>
+                    <td>1.361,80</td>
+                </tr>
+                <tr>
+                    <td>59 ou mais</td>
+                    <td>1.058,88</td>
+                    <td>1.355,36</td>
+                    <td>1.478,62</td>
+                    <td>1.892,63</td>
+                </tr>
+                </tbody>
+            </table>
+            <p>*Obs. A Administradora de Benefícios efetua cobrança de Taxa de Adesão no primeiro pagamento com valor
+                correspondente aos planos contratados.</p>
+        </div>
+    </div>
+
+    <section class="bloco_plano_saude">
+        <header>
+            <h1>Preços de Participação</h1>
+        </header>
+        <div class="bloco_tabela_geral">
+            <table>
+                <thead>
+                <tr>
+                    <th>Procedimentos</th>
+                    <th>Valor Média Por Evento</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr>
+                    <td>Consultas Eletivas</td>
+                    <td>R$ 30,00**</td>
+                </tr>
+                <tr>
+                    <td>Consultas de urgência/emergência</td>
+                    <td>R$ 35,00**</td>
+                </tr>
+                <tr>
+                    <td>exames simples</td>
+                    <td>30% do valor de cada terapia realizada***</td>
+                </tr>
+                <tr>
+                    <td>exames de alta complexidade</td>
+                    <td>30% do valor de cada terapia realizada***</td>
+                </tr>
+                <tr>
+                    <td>Terapias simples</td>
+                    <td>30% do valor de cada terapia realizada***</td>
+                </tr>
+                <tr>
+                    <td>Terapias de alta complexidade</td>
+                    <td>Isento</td>
+                </tr>
+                <tr>
+                    <td>Atendimento ambulatoriais</td>
+                    <td>30% do valor de cada atendimento ambulatorial realizado***</td>
+                </tr>
+                <tr>
+                    <td>Internações (eletivas e de urgência/emergência)*</td>
+                    <td>Isento</td>
+                </tr>
+                </tbody>
+            </table>
+            <p>* Exceto para internações psiquiátricas que observarão a coparticipação de acordo com os incisos da
+                alinea “q”. da cláusula 20ª do contrato.</p>
+            <p>** O referido valor será reajustado conforme disposto na cláusula 84ª do contrato.</p>
+            <p>*** Valor limitador de R$ 30,00 para os exames, terapias simples R$ 50,00 e R$ 150,00 para os exames de
+                alta complexidade e atendimentos ambulatoriais.</p>
+        </div>
+    </section>
+
+    <div class="bloco_plano_saude">
+        <h1>Mais informações</h1>
+        <p>
+            Para obter informações detalhadas sobre co-participação, rede credenciada e outras informações do plano de
+            saúde, consulte tabela clicando no botão abaixo:
+        </p>
+        <a class="botao_geral_cor cor_bg" download="tabela_unimed_natal.pdf"
+           href="@imagem/images/saude/tabela_unimed_jundiai.pdf">
+            Baixar tabela
+        </a>
+    </div>
+
+    <section class="bloco_simulacao container_scroll">
+        <h1>GOSTARIA DE FAZER UMA SIMULAÇÃO?</h1>
+        <p>Faça uma simulação sua e dos seus dependentes e veja os valores.</p>
+        @if(TIPO_USUARIO != 'indicado'):
+        <a class="botao_geral_cor cor_bg" href="@route(planosaude.simulacao)/unimed-jundiai">Fazer Simulação</a>
+        @endif
+    </section>
+    @if(TIPO_USUARIO == 'indicado'):
+    <div class="bloco_atencao_geral">
+        <p>Apenas associados possuem acesso a este recurso</p>
+    </div>
+    @endif
+    @if(TIPO_USUARIO != 'indicado'):
+    <a class="botao_geral_cor botao_fixo_bottom cor_bg botao_scroll" href="@route(planosaude.simulacao)/unimed-jundiai">SIMULAR
+        AGORA</a>
+    @endif
+</div>
