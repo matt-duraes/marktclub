@@ -169,7 +169,6 @@ window.addEventListener('load', () => {
               return;
           }
 
-
           formValue(programaFidelidade, '');
           formValue(produtosProcurados, '');
           formValue(tvSmart, '');
@@ -186,7 +185,7 @@ window.addEventListener('load', () => {
               `Você acabou de responder a pesquisa e irá concorrer a um par de ingressos!`,
               true
           );
-          localStorage.setItem("pesquisaRespondida", "true")
+          localStorage.setItem("pesquisaRespondida", true);
           pesquisaUtilizacao.fechar();
       });
     };
@@ -198,7 +197,6 @@ window.addEventListener('load', () => {
     const jaPassouTempoSuficiente = !ultimaExibicao || agora - parseInt(ultimaExibicao) > tempoMinimo;
 
     const pesquisaRespondida = localStorage.getItem("pesquisaRespondida");
-
     const pesquisaUtilizacao = new Pagina(
         'Pesquisa Utilização',
         LINK + '/pesquisa-utilizacao',
@@ -208,7 +206,7 @@ window.addEventListener('load', () => {
         pesquisaParceiro
     );
 
-    if (!pesquisaRespondida && jaPassouTempoSuficiente) {
+    if (pesquisaRespondida != true && jaPassouTempoSuficiente) {
         pesquisaUtilizacao.abrir();
         localStorage.setItem("ultimaExibicaoPopup", agora.toString());
     }
