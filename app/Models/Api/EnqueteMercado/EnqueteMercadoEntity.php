@@ -11,6 +11,7 @@ use App\Classes\EnqueteMercado\Padrao;
 use App\Classes\EnqueteMercado\Produtos;
 use App\Models\Api\Trait\ValidarEmpresaTrait;
 use Erro\Excecao;
+use Helpers\OrmHelper;
 use ORM\Entity;
 
 class EnqueteMercadoEntity extends Entity
@@ -34,7 +35,7 @@ class EnqueteMercadoEntity extends Entity
         'data_criacao', 'data_atualizacao'
     ];
     protected array $ormSalvar = [
-        'id_admin_empresa'   => '->idEmpresa',
+        'id_admin_empresa' => '->idEmpresa',
         'id_usuario_cliente' => '->idUsuario',
         'fidelidade', 'produtos', 'gasto', 'importancia', 'cashback',
         'frequencia', 'resgate', 'desconto', 'experiencia', 'indicaria'
@@ -79,7 +80,11 @@ class EnqueteMercadoEntity extends Entity
      */
     protected function regraInsert(): void
     {
-        if (in_array($this->idEmpresa, ['223', '1982'])) {
+        $ormHelper = new OrmHelper(TABELA_COMERCIAL_EMPRESA);
+        if (in_array(
+            $ormHelper->pegarUuidPeloId($this->idEmpresa),
+            ['e8e0d371d6d49c712bd9d63e8c875a79', '62c6e14371c10bf6ffb20325af002e7e']
+        )) {
             mensagemErro(
                 'Desculpe a indisponibilidade desta pesquisa!',
                 'Você não pode responder a esta pesquisa.'
