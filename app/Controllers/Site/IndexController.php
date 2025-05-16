@@ -13,8 +13,10 @@ use App\Models\Site\Loja\FiltroModel;
 use App\Models\Site\Loja\ListarModel;
 use App\Classes\EnqueteMercado\Padrao;
 use App\Classes\ParceiroLoja\TipoLoja;
+use App\Classes\Comercial\Empresa\UUID;
 use App\Models\Site\Loja\PesquisaModel;
 use App\Classes\EnqueteMercado\Produtos;
+use App\Models\Site\Pesquisa\Utilizacao;
 use App\Classes\EnqueteMercado\Fidelidade;
 use App\Classes\EnqueteMercado\Frequencia;
 use App\Classes\EnqueteMercado\Experiencia;
@@ -29,19 +31,13 @@ final class IndexController extends Controller
      */
     public function index(): Response
     {
-        $emp_d = '62c6e14371c10bf6ffb20325af002e7e';
-        $emp_b = 'e8e0d371d6d49c712bd9d63e8c875a79';
-        $emp_u = sessao('CLUBE')->empresa;
-
         $Filtro = new FiltroModel([]);
         return view('index', [
-            'menu'        => 'home',
-            'Busca'       => $Filtro,
-            'banner'      => (new BannerModel())->home(),
-            'plano_saude' => (new HomeModel())->valor,
-            'emp_d' => $emp_d,
-            'emp_b' => $emp_b,
-            'emp_u' => $emp_u
+            'menu'            => 'home',
+            'Busca'           => $Filtro,
+            'banner'          => (new BannerModel())->home(),
+            'plano_saude'     => (new HomeModel())->valor,
+            'mostrarPesquisa' => (new Utilizacao())->ativo ? 'sim' : 'nao',
         ]);
     }
 
@@ -50,21 +46,21 @@ final class IndexController extends Controller
         $LojaFavorita = new ListarModel(
             Filtro: new FiltroModel([
                 'quantidade' => 3,
-                'favorito'   => 'sim'
+                'favorito'   => 'sim',
             ])
         );
         $MaisUtilizada = new ListarModel(
             tipo: (new TipoLoja(TipoLoja::LOJA)),
             Filtro: new FiltroModel([
                 'quantidade' => 3,
-                'acessado'   => 'sim'
+                'acessado'   => 'sim',
             ])
         );
         $LojaNova = new ListarModel(
             tipo: (new TipoLoja(TipoLoja::LOJA)),
             Filtro: new FiltroModel([
                 'quantidade' => 3,
-                'ordem'      => (new Ordem(Ordem::MAIS_NOVO))->valor()
+                'ordem'      => (new Ordem(Ordem::MAIS_NOVO))->valor(),
             ])
         );
         return mensagemSucesso([
