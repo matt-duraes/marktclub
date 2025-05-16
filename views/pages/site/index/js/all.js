@@ -199,7 +199,6 @@ window.addEventListener('load', () => {
     );
 
     const mostrarPesquisa = $('#bloco_pesquisa_utilizacao');
-    console.log(mostrarPesquisa);
     if (mostrarPesquisa) {
         console.log(1);
         pesquisaUtilizacao.abrir();

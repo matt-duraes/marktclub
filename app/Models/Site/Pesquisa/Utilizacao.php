@@ -10,7 +10,6 @@ final class Utilizacao extends ApiHelper
     public bool $ativo = false;
     public function __construct()
     {
-        $this->usuarioJaVotou();
         if(sessaoExiste('PESQUISA_UTILIZACAO')) {
             return;
         }
@@ -31,6 +30,8 @@ final class Utilizacao extends ApiHelper
 
     private function usuarioJaVotou()
     {
+        // Remover isso aqui
+        return false;
         try {
             $dado = $this
                 ->post('/pesquisa-resposta')
