@@ -313,15 +313,17 @@ class ContratacaoEntity extends Entity
                 ];
             case Operadora::UNIMED_NATAL:
                 return [
-                    'operadora' => $operadora,
-                    'plano'     => $simulacao->plano,
-                    'regiao'    => $simulacao->regiao,
+                    'operadora'  => $operadora,
+                    'plano'      => $simulacao->plano,
+                    'regiao'     => $simulacao->regiao,
+                    'acomodacao' => '',
                 ];
             case Operadora::UNIMED_JUNDIAI:
                 return [
-                    'operadora' => $operadora,
-                    'plano'     => $simulacao->plano,
-                    'regiao'    => $simulacao->regiao,
+                    'operadora'  => $operadora,
+                    'plano'      => $simulacao->plano,
+                    'regiao'     => $simulacao->regiao,
+                    'acomodacao' => '',
                 ];
             default:
                 return [
