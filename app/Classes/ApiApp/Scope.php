@@ -46,7 +46,7 @@ final class Scope
         'enquete_satisfacao:salvar',
         'view_pagina:buscar',
         'galapagos_lead:salvar',
-        'enquete_mercado:salvar'
+        'enquete_mercado:salvar', 'enquete_mercado:buscar'
     ];
     public const CLUBE_LOGIN = [
         'admin:chave_publica', 'admin:chave_privada',

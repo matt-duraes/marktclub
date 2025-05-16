@@ -2,18 +2,18 @@
 
 namespace App\Controllers\Api;
 
-use App\Classes\EnqueteMercado\Ordem;
-use App\Models\Api\EnqueteMercado\EnqueteMercadoEntity;
-use App\Models\Api\EnqueteMercado\EnqueteMercadoModel;
-use Controller\Controller;
 use Erro\Excecao;
 use Http\Request;
 use Http\Response;
 use Modules\Pagina;
 use Modules\Quantidade;
+use Controller\Controller;
+use App\Classes\EnqueteMercado\Ordem;
 use System\Interface\ControllerBuscarInterface;
 use System\Interface\ControllerListarInterface;
 use System\Interface\ControllerSalvarInterface;
+use App\Models\Api\EnqueteMercado\EnqueteMercadoModel;
+use App\Models\Api\EnqueteMercado\EnqueteMercadoEntity;
 
 class EnqueteMercadoController extends Controller implements
     ControllerBuscarInterface,

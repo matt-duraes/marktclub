@@ -3,9 +3,6 @@
 @view site/loja/busca/loja/index.view
 
 <div id="bloco_index">
-    <input type="hidden" id="bloco_d" value="{!!$emp_d!!}">
-    <input type="hidden" id="bloco_b" value="{!!$emp_b!!}">
-    <input type="hidden" id="bloco_e_u" value="{!!$emp_u!!}">
     <div class="bloco_historico" id="bloco_historico">
         <i class="seta anterior" id="botao_anterior_historico">@iconeSetaEsquerda(18)</i>
         <div class="conteudo scrollbar_hidden bloco_scrollbar_item"></div>
@@ -18,7 +15,7 @@
     <div class="bloco_geral_imagem_esquerda bloco_plano_saude">
         <div class="bloco_plano">
             <figure>
-                <img src="@imagem /images/site/home_saude.jpg" alt="">
+                <img alt="" src="@imagem /images/site/home_saude.jpg">
             </figure>
             <header>
                 <h1>Que tal um plano de saúde feito para você?</h1>
@@ -36,7 +33,7 @@
                 <div class="observacao">*Para pessoas com idade de até 18 anos</div>
             </div>
             @if(TIPO_USUARIO != 'indicado'):
-                <a href="@route('planosaude.index')" class="botao_geral_cor cor_bg">Veja valores</a>
+            <a class="botao_geral_cor cor_bg" href="@route('planosaude.index')">Veja valores</a>
             @endif
         </div>
     </div>
@@ -88,5 +85,9 @@
         </div>
     </div>
 </div>
+
+@if ($mostrarPesquisa === 'sim'):
+<div id="bloco_pesquisa_utilizacao"></div>
+@endif;
 
 @view site/geral/parceiro_clone.view

@@ -11,7 +11,7 @@ use Modules\Data;
 
 class PlanoSaude
 {
-    public ?int $codigoAcomodacao;
+    public ?int   $codigoAcomodacao;
     public ?float $valor;
 
     /**
@@ -25,6 +25,16 @@ class PlanoSaude
         $this->validarDados();
         $this->codigoAcomodacao = $this->operadora->pegarCodigoAcomodacao();
         $this->valor = $this->operadora->simularValor();
+    }
+
+    /**
+     * @param Data $dataNascimento Data de Nascimento do individuo
+     *
+     * @return float|null
+     */
+    public function simularValor(Data $dataNascimento): ?float
+    {
+        return $this->operadora->simularValor($dataNascimento);
     }
 
     /**
@@ -73,15 +83,5 @@ class PlanoSaude
         if ((new DateTime($this->operadora->pegarDados()['titular']->date()))->diff((new DateTime()))->invert === 1) {
             mensagemErro('Data de Nascimento', 'Data de Nascimento não é válida');
         }
-    }
-
-    /**
-     * @param Data $dataNascimento Data de Nascimento do individuo
-     *
-     * @return float|null
-     */
-    public function simularValor(Data $dataNascimento): ?float
-    {
-        return $this->operadora->simularValor($dataNascimento);
     }
 }
