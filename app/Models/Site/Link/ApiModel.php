@@ -19,7 +19,7 @@ final class ApiModel
             $this->link = 'https://apiv4hmlprod.youhuul.com';
             return;
         } elseif ($link != 'https://apiv4.youhuul.com') {
-            return;
+            return $link;
         }
 
         if (!sessaoExiste('LINK_API_PROD')) {

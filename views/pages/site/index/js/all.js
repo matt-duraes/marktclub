@@ -8,7 +8,6 @@
 // @system "Esqueleto"
 // @system "Popup"
 
-
 const bannerDesktop = $('#bloco_banner_desktop');
 const bannerMobile = $('#bloco_banner_mobile');
 if (bannerDesktop) {
@@ -129,93 +128,80 @@ window.addEventListener('load', () => {
     }
 
     const pesquisaParceiro = () => {
-      const form = $('#form_indicar_loja');
-      const programaFidelidade = $('#input_programaFidelidade')
-      const produtosProcurados = $('#input_produtosProcurados')
-      const tvSmart = $('#input_tvSmart')
-      const opcaoProdutoMarca = $('#input_opcaoProdutoMarca')
-      const acreditaEmCashback = $('#input_acreditaEmCashback')
-      const frequenciaCashback = $('#input_frequenciaCashback')
-      const resgateCashback = $('#input_resgateCashback')
-      const sobreParcerias = $('#input_sobreParcerias')
-      const suaExperiencia = $('#input_suaExperiencia')
-      const voceIndicaria = $('#input_voceIndicaria')
+        const form = $('#form_indicar_loja');
+        const programaFidelidade = $('#input_programaFidelidade');
+        const produtosProcurados = $('#input_produtosProcurados');
+        const tvSmart = $('#input_tvSmart');
+        const opcaoProdutoMarca = $('#input_opcaoProdutoMarca');
+        const acreditaEmCashback = $('#input_acreditaEmCashback');
+        const frequenciaCashback = $('#input_frequenciaCashback');
+        const resgateCashback = $('#input_resgateCashback');
+        const sobreParcerias = $('#input_sobreParcerias');
+        const suaExperiencia = $('#input_suaExperiencia');
+        const voceIndicaria = $('#input_voceIndicaria');
 
-      const botaoEnviarPesquisaUtilizacao = document.querySelector('#botao_enviar_pesquisa_utilizacao');
+        const botaoEnviarPesquisaUtilizacao = document.querySelector('#botao_enviar_pesquisa_utilizacao');
 
-      botaoEnviarPesquisaUtilizacao.addEventListener('click', async () => {
-          if (!(await validarInput(form))) {
-              return;
-          }
-          Loading.show();
-          const resposta = await ajaxPost(
-              LINK + '/pesquisa-utilizacao',
-              {
-                  programaFidelidade: programaFidelidade.value,
-                  produtosProcurados: produtosProcurados.value,
-                  tvSmart: tvSmart.value,
-                  opcaoProdutoMarca: opcaoProdutoMarca.value,
-                  acreditaEmCashback: acreditaEmCashback.value,
-                  frequenciaCashback: frequenciaCashback.value,
-                  resgateCashback: resgateCashback.value,
-                  sobreParcerias: sobreParcerias.value,
-                  suaExperiencia: suaExperiencia.value,
-                  voceIndicaria: voceIndicaria.value,
-              },
-              'Ocorre um erro ao responder a pesquisa, por favor, tente novamente.'
-          );
+        botaoEnviarPesquisaUtilizacao.addEventListener('click', async () => {
+            if (!(await validarInput(form))) {
+                return;
+            }
+            Loading.show();
+            const resposta = await ajaxPost(
+                LINK + '/pesquisa-utilizacao',
+                {
+                    programaFidelidade: programaFidelidade.value,
+                    produtosProcurados: produtosProcurados.value,
+                    tvSmart: tvSmart.value,
+                    opcaoProdutoMarca: opcaoProdutoMarca.value,
+                    acreditaEmCashback: acreditaEmCashback.value,
+                    frequenciaCashback: frequenciaCashback.value,
+                    resgateCashback: resgateCashback.value,
+                    sobreParcerias: sobreParcerias.value,
+                    suaExperiencia: suaExperiencia.value,
+                    voceIndicaria: voceIndicaria.value,
+                },
+                'Ocorre um erro ao responder a pesquisa, por favor, tente novamente.'
+            );
 
-          Loading.hide();
-          if (false === resposta) {
-              return;
-          }
+            Loading.hide();
+            if (false === resposta) {
+                return;
+            }
 
-          formValue(programaFidelidade, '');
-          formValue(produtosProcurados, '');
-          formValue(tvSmart, '');
-          formValue(opcaoProdutoMarca, '');
-          formValue(acreditaEmCashback, '');
-          formValue(frequenciaCashback, '');
-          formValue(resgateCashback, '');
-          formValue(sobreParcerias, '');
-          formValue(suaExperiencia, '');
-          formValue(voceIndicaria, '');
+            formValue(programaFidelidade, '');
+            formValue(produtosProcurados, '');
+            formValue(tvSmart, '');
+            formValue(opcaoProdutoMarca, '');
+            formValue(acreditaEmCashback, '');
+            formValue(frequenciaCashback, '');
+            formValue(resgateCashback, '');
+            formValue(sobreParcerias, '');
+            formValue(suaExperiencia, '');
+            formValue(voceIndicaria, '');
 
-          Alerta.mensagem(
-              'Pesquisa realizada',
-              `Você acabou de responder a pesquisa e irá concorrer a um par de ingressos!`,
-              true
-          );
-          localStorage.setItem("pesquisaRespondida", true);
-          pesquisaUtilizacao.fechar();
-      });
+            Alerta.mensagem(
+                'Pesquisa realizada',
+                `Você acabou de responder a pesquisa e irá concorrer a um par de ingressos!`,
+                true
+            );
+            pesquisaUtilizacao.fechar();
+        });
     };
 
-    // PESQUISA UTILIZAÇÃO
-    const tempoMinimo = 60 * 60 * 1000; // 1 hora em milissegundos
-    const ultimaExibicao = localStorage.getItem("ultimaExibicaoPopup");
-    const agora = Date.now();
-    const jaPassouTempoSuficiente = !ultimaExibicao || agora - parseInt(ultimaExibicao) > tempoMinimo;
-
-    let pesquisaRespondida = Boolean(localStorage.getItem("pesquisaRespondida"));
     const pesquisaUtilizacao = new Pagina(
         'Pesquisa Utilização',
         LINK + '/pesquisa-utilizacao',
         {},
         true,
-        true,
+        false,
         pesquisaParceiro
     );
-    const bloco_d = $('#bloco_d').value;
-    const bloco_b = $('#bloco_b').value;
-    const bloco_e_u = $('#bloco_e_u').value;
 
-    if (bloco_e_u != bloco_d && bloco_e_u != bloco_b) {
-        if (pesquisaRespondida == false && jaPassouTempoSuficiente) {
-            pesquisaUtilizacao.abrir();
-            localStorage.setItem("ultimaExibicaoPopup", agora.toString());
-        }
+    const mostrarPesquisa = $('#bloco_pesquisa_utilizacao');
+    console.log(mostrarPesquisa);
+    if (mostrarPesquisa) {
+        console.log(1);
+        pesquisaUtilizacao.abrir();
     }
-
-
 });
