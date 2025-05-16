@@ -4,6 +4,7 @@ namespace App\Middlewares\Site;
 
 use Helpers\ApiHelper;
 use Helpers\UserAgentHelper;
+use App\Classes\Comercial\Empresa\UUID;
 
 final class ClubeMiddleware extends ApiHelper
 {
@@ -165,7 +166,7 @@ final class ClubeMiddleware extends ApiHelper
         define('MENU_FARMACIA', $pagina->farmacia);
         define(
             'MENU_SAUDE',
-            $pagina->saude_vitoria || $pagina->saude_amil || $pagina->saude_seguro || $pagina->saude_cnu || $pagina->saude_florianopolis
+            $pagina->saude_vitoria || $pagina->saude_amil || $pagina->saude_seguro || $pagina->saude_cnu || $pagina->saude_florianopolis || $clube->empresa === UUID::CFM
         );
         define('MENU_SAUDE_VITORIA', $pagina->saude_vitoria);
         define('MENU_SAUDE_AMIL', $pagina->saude_amil);
