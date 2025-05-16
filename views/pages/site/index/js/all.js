@@ -8,6 +8,7 @@
 // @system "Esqueleto"
 // @system "Popup"
 
+
 const bannerDesktop = $('#bloco_banner_desktop');
 const bannerMobile = $('#bloco_banner_mobile');
 if (bannerDesktop) {
@@ -191,14 +192,12 @@ window.addEventListener('load', () => {
     };
 
     // PESQUISA UTILIZAÇÃO
-    const tempoMinimo = 1;
+    const tempoMinimo = 60 * 60 * 1000; // 1 hora em milissegundos
     const ultimaExibicao = localStorage.getItem("ultimaExibicaoPopup");
     const agora = Date.now();
     const jaPassouTempoSuficiente = !ultimaExibicao || agora - parseInt(ultimaExibicao) > tempoMinimo;
 
-
-
-    const pesquisaRespondida = localStorage.getItem("pesquisaRespondida");
+    let pesquisaRespondida = Boolean(localStorage.getItem("pesquisaRespondida"));
     const pesquisaUtilizacao = new Pagina(
         'Pesquisa Utilização',
         LINK + '/pesquisa-utilizacao',
@@ -210,8 +209,9 @@ window.addEventListener('load', () => {
     const bloco_d = $('#bloco_d').value;
     const bloco_b = $('#bloco_b').value;
     const bloco_e_u = $('#bloco_e_u').value;
+
     if (bloco_e_u != bloco_d && bloco_e_u != bloco_b) {
-        if (pesquisaRespondida !== 'true' && jaPassouTempoSuficiente) {
+        if (pesquisaRespondida == false && jaPassouTempoSuficiente) {
             pesquisaUtilizacao.abrir();
             localStorage.setItem("ultimaExibicaoPopup", agora.toString());
         }
