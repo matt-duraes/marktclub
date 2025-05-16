@@ -2,25 +2,21 @@
 
 namespace App\Models\Site\Pesquisa;
 
-use Helpers\ApiHelper;
 use App\Classes\Comercial\Empresa\UUID;
+use Helpers\ApiHelper;
+use Throwable;
 
 final class Utilizacao extends ApiHelper
 {
     public bool $ativo = false;
+
     public function __construct()
     {
-        if(sessaoExiste('PESQUISA_UTILIZACAO')) {
+        if (sessaoExiste('PESQUISA_UTILIZACAO')) {
             return;
         }
         sessao('PESQUISA_UTILIZACAO', true);
-        if(
-            $this->verificarEmpresaBloqueada() ||
-            $this->usuarioJaVotou()
-        ) {
-            return;
-        }
-        $this->ativo = true;
+        $this->ativo = !($this->verificarEmpresaBloqueada() || $this->usuarioJaVotou());
     }
 
     private function verificarEmpresaBloqueada()
@@ -30,17 +26,15 @@ final class Utilizacao extends ApiHelper
 
     private function usuarioJaVotou()
     {
-        // Remover isso aqui
-        return false;
         try {
             $dado = $this
                 ->post('/pesquisa-resposta')
                 ->object();
-            if(!validarIndiceExiste($dado, 'dado.respondeu')) {
+            if (!validarIndiceExiste($dado, 'dado.respondeu')) {
                 return false;
             }
             return $dado->dado->respondeu === 'sim';
-        } catch (\Throwable) {
+        } catch (Throwable) {
             return false;
         }
     }

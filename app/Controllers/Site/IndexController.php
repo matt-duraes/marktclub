@@ -2,26 +2,25 @@
 
 namespace App\Controllers\Site;
 
+use App\Classes\EnqueteMercado\Experiencia;
+use App\Classes\EnqueteMercado\Fidelidade;
+use App\Classes\EnqueteMercado\Frequencia;
+use App\Classes\EnqueteMercado\Gasto;
+use App\Classes\EnqueteMercado\Importancia;
+use App\Classes\EnqueteMercado\Padrao;
+use App\Classes\EnqueteMercado\Produtos;
+use App\Classes\ParceiroLoja\Ordem;
+use App\Classes\ParceiroLoja\TipoLoja;
+use App\Models\Site\Comunicacao\BannerModel;
+use App\Models\Site\Loja\FiltroModel;
+use App\Models\Site\Loja\ListarModel;
+use App\Models\Site\Loja\PesquisaModel;
+use App\Models\Site\Pesquisa\Utilizacao;
+use App\Models\Site\Saude\HomeModel;
+use Controller\Controller;
 use Erro\Excecao;
 use Http\Request;
 use Http\Response;
-use Controller\Controller;
-use App\Classes\ParceiroLoja\Ordem;
-use App\Models\Site\Saude\HomeModel;
-use App\Classes\EnqueteMercado\Gasto;
-use App\Models\Site\Loja\FiltroModel;
-use App\Models\Site\Loja\ListarModel;
-use App\Classes\EnqueteMercado\Padrao;
-use App\Classes\ParceiroLoja\TipoLoja;
-use App\Classes\Comercial\Empresa\UUID;
-use App\Models\Site\Loja\PesquisaModel;
-use App\Classes\EnqueteMercado\Produtos;
-use App\Models\Site\Pesquisa\Utilizacao;
-use App\Classes\EnqueteMercado\Fidelidade;
-use App\Classes\EnqueteMercado\Frequencia;
-use App\Classes\EnqueteMercado\Experiencia;
-use App\Classes\EnqueteMercado\Importancia;
-use App\Models\Site\Comunicacao\BannerModel;
 
 final class IndexController extends Controller
 {
@@ -37,7 +36,7 @@ final class IndexController extends Controller
             'Busca'           => $Filtro,
             'banner'          => (new BannerModel())->home(),
             'plano_saude'     => (new HomeModel())->valor,
-            'mostrarPesquisa' => (new Utilizacao())->ativo ? 'sim' : 'nao',
+            'mostrarPesquisa' => (new Utilizacao())->ativo ? 'nao' : 'sim',
         ]);
     }
 
