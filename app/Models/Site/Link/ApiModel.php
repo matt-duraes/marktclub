@@ -16,7 +16,7 @@ final class ApiModel
         $link = env('API_LINK', LINK_API);
         $this->link = $link;
         if ($link == 'https://apiv4hmlprod.youhuul.com') {
-            $this->link = 'http://apihmlprod.youhuullocal.com';
+            $this->link = 'https://apiv4hmlprod.youhuul.com';
             return;
         } elseif ($link != 'https://apiv4.youhuul.com') {
             return;
@@ -28,3 +28,5 @@ final class ApiModel
         $this->link = sessao('LINK_API_PROD');
     }
 }
+
+
