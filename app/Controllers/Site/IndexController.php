@@ -36,7 +36,7 @@ final class IndexController extends Controller
             'Busca'           => $Filtro,
             'banner'          => (new BannerModel())->home(),
             'plano_saude'     => (new HomeModel())->valor,
-            'mostrarPesquisa' => (new Utilizacao())->ativo ? 'nao' : 'sim',
+            'mostrarPesquisa' => (new Utilizacao())->ativo ? 'sim' : 'nao',
         ]);
     }
 
