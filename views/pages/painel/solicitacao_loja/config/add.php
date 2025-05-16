@@ -32,6 +32,4 @@ $Painel->coluna(callback: function () use ($Painel, $parceiro) {
     });
 });
 
-$Painel->js('painel_solicitacao_loja_add');
-
 return $Painel;
