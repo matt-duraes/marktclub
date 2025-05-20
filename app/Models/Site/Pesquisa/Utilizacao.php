@@ -2,21 +2,22 @@
 
 namespace App\Models\Site\Pesquisa;
 
-use App\Classes\Comercial\Empresa\UUID;
-use Helpers\ApiHelper;
 use Throwable;
+use App\Helpers\ClubeApiHelper;
+use App\Classes\Comercial\Empresa\UUID;
 
-final class Utilizacao extends ApiHelper
+final class Utilizacao extends ClubeApiHelper
 {
-    public bool $ativo = false;
+    public bool $mostrarPesquisa = false;
 
     public function __construct()
     {
         if (sessaoExiste('PESQUISA_UTILIZACAO')) {
             return;
         }
+        parent::__construct();
         sessao('PESQUISA_UTILIZACAO', true);
-        $this->ativo = !($this->verificarEmpresaBloqueada() || $this->usuarioJaVotou());
+        $this->mostrarPesquisa = !$this->verificarEmpresaBloqueada() && !$this->usuarioJaVotou();
     }
 
     private function verificarEmpresaBloqueada()

@@ -2,30 +2,30 @@
 
 namespace App\Controllers\Api;
 
-use App\Classes\ComercialEmpresa\Helper;
-use App\Classes\ComercialEmpresa\Ordem;
-use App\Classes\ComercialEmpresa\ProspeccaoStatus;
-use App\Classes\ComercialEmpresa\Status;
-use App\Models\Api\ComercialEmpresa\DownloadModel;
-use App\Models\Api\ComercialEmpresa\EmpresaEntity;
-use App\Models\Api\ComercialEmpresa\EmpresaModel;
-use App\Models\Api\ComercialEmpresa\PerfilModel;
-use App\Models\Api\ComercialEmpresa\RankingModel;
-use App\Models\Api\DownloadPrivado\ArquivoEntity;
-use Controller\Controller;
 use Erro\Excecao;
 use Http\Request;
-use Http\Response;
-use Modules\Botao;
 use Modules\Cnpj;
 use Modules\Data;
+use Http\Response;
+use Modules\Botao;
 use Modules\Pagina;
 use Modules\Quantidade;
-use System\Interface\ControllerAtualizarInterface;
+use Controller\Controller;
+use App\Classes\ComercialEmpresa\Ordem;
+use App\Classes\ComercialEmpresa\Helper;
+use App\Classes\ComercialEmpresa\Status;
 use System\Interface\ControllerBuscarInterface;
 use System\Interface\ControllerListarInterface;
 use System\Interface\ControllerSalvarInterface;
 use System\Interface\ControllerSelectInterface;
+use App\Models\Api\ComercialEmpresa\PerfilModel;
+use App\Models\Api\ComercialEmpresa\EmpresaModel;
+use App\Models\Api\ComercialEmpresa\RankingModel;
+use App\Models\Api\DownloadPrivado\ArquivoEntity;
+use App\Classes\ComercialEmpresa\ProspeccaoStatus;
+use App\Models\Api\ComercialEmpresa\DownloadModel;
+use App\Models\Api\ComercialEmpresa\EmpresaEntity;
+use System\Interface\ControllerAtualizarInterface;
 
 class ComercialEmpresaController extends Controller implements
     ControllerSelectInterface,
@@ -50,7 +50,7 @@ class ComercialEmpresaController extends Controller implements
                 indice: 'cod',
                 valor: 'nome_fantasia',
                 where: [
-                    ['status', 'in', Helper::STATUS_LIBERADO],
+                    ['status', 1],
                     ['id_admin_empresa', 'null']
                 ],
                 titulo: $request->titulo
