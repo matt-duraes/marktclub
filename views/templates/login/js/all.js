@@ -19,6 +19,13 @@ const PopupLogin = new Popup('login', 'popup_login', true, true, () => {
         localStorage.setItem("tipoUsuarioSelecionado", tipoUsuario);
       });
     });
+    const inputLoginDados = $('#input_login');
+    if(localStorage.getItem('login_salvo') != null) {
+        console.log('123');
+        inputLoginDados.value = localStorage.getItem('login_salvo');
+    }
+
+
 });
 const PopupSenha = new Popup('senha', 'popup_senha', true, true, () => {
     $('#bloco_cpf').focus();
