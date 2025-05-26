@@ -11,6 +11,7 @@ class LocalTrabalho extends StatusStatus
     public const IEL = 'IEL/SC';
     public const FIESC = 'FIESC';
     public const CIESC = 'CIESC';
+    public const ASSOCIADO = 'ASSOCIADO';
 
     public function __construct(
         protected string|int|null $valor = null
@@ -20,7 +21,8 @@ class LocalTrabalho extends StatusStatus
             self::SESI  => 'SESI',
             self::IEL   => 'IEL/SC',
             self::FIESC => 'FIESC',
-            self::CIESC => 'CIESC'
+            self::CIESC => 'CIESC',
+            self::ASSOCIADO => 'ASSOCIADO'
         ]);
     }
 }
