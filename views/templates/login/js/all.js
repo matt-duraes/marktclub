@@ -9,27 +9,39 @@
 // @import "ativar"
 
 
+function pegarCookie(nome) {
+    const cookies = document.cookie.split('; ');
+    for (let c of cookies) {
+        const [chave, valor] = c.split('=');
+        if (chave === nome) return decodeURIComponent(valor);
+    }
+    return null;
+}
+
+const valorSalvo = pegarCookie('login');
+
 const PopupLogin = new Popup('login', 'popup_login', true, true, () => {
     $('#input_login').focus();
     const tipoUsuarioSelecionado = document.querySelectorAll('.tipo_usuario_selecionado');
+
     tipoUsuarioSelecionado.forEach(tipo => {
-      tipo.addEventListener('click', dataTipo => {
-        const elementoClicado = dataTipo.target;
-        const tipoUsuario = elementoClicado.getAttribute('data-tipo-usuario');
-        localStorage.setItem("tipoUsuarioSelecionado", tipoUsuario);
-      });
+        tipo.addEventListener('click', dataTipo => {
+            const elementoClicado = dataTipo.target;
+            const tipoUsuario = elementoClicado.getAttribute('data-tipo-usuario');
+            localStorage.setItem("tipoUsuarioSelecionado", tipoUsuario);
+        });
     });
+
     const inputLoginDados = $('#input_login');
-    if(localStorage.getItem('login_salvo') != null) {
-        console.log('123');
-        inputLoginDados.value = localStorage.getItem('login_salvo');
+    if (valorSalvo) {
+        inputLoginDados.value = valorSalvo;
     }
-
-
 });
+
 const PopupSenha = new Popup('senha', 'popup_senha', true, true, () => {
     $('#bloco_cpf').focus();
 });
+
 const PaginaAtivar = new Pagina('ativar', LINK + '/login/ativar-buscar', undefined, true, true, loadingAtivarBuscar);
 
 window.addEventListener('load', () => {
@@ -69,9 +81,7 @@ window.addEventListener('load', () => {
             if (blocoMenuMobile.classList.contains('aberto')) {
                 fecharMenu();
             }
-
             PopupLogin.abrir();
-
         };
         botaoLogin.forEach(botao => {
             botao.addEventListener('click', abrirPaginaLogin);
@@ -82,7 +92,6 @@ window.addEventListener('load', () => {
     | ATIVAR
     |--------------------------------------------------------------------------
     */
-
     const botaoAtivar = $('#botao_ativar_conta_home');
     if (botaoAtivar) {
         botaoAtivar.addEventListener('click', () => {

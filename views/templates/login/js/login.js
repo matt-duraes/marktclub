@@ -23,9 +23,6 @@ window.addEventListener('load', () => {
 
     const checkbox = document.getElementById("input_salvar_login");
 
-    if(localStorage.getItem('login_salvo') != null) {
-        inputLogin.value = localStorage.getItem('login_salvo');
-    }
 
     if (botaoRecuperarSenha) {
         botaoRecuperarSenha.addEventListener('click', () => {
@@ -125,12 +122,16 @@ window.addEventListener('load', () => {
         body.append('form_system_validacao', '');
         body.append('form_system_captcha', captchaToken);
         if (tipoUsuarioSelecionado != null){
-          body.append('tipo_usuario', tipoUsuarioSelecionado);
+            body.append('tipo_usuario', tipoUsuarioSelecionado);
         }
+
         if(checkbox.checked == true) {
-          localStorage.setItem('login_salvo',  inputLogin.value);
-        } else {
-          localStorage.removeItem('login_salvo');
+            const valorLogin = inputLogin.value;
+            const dias = 30;
+            const dataExpiracao = new Date();
+            dataExpiracao.setTime(dataExpiracao.getTime() + (dias * 24 * 60 * 60 * 1000));
+            const expira = "expires=" + dataExpiracao.toUTCString();
+            document.cookie = "login=" + encodeURIComponent(valorLogin) + ";" + expira + ";path=/";
         }
         const resposta = await fetch(LINK + '/login/login', {
             method: 'POST',
