@@ -1,5 +1,7 @@
 <?php
 
+use App\Classes\Geral\Status;
+
 $Painel = new PainelConfig\Add('comercial_subempresa', $acao);
 
 $Painel->coluna(coluna: 2, callback: function () use ($Painel) {
@@ -8,15 +10,17 @@ $Painel->coluna(coluna: 2, callback: function () use ($Painel) {
             ->select(
                 name: 'empresa->id',
                 lista: 'empresa',
-                label: 'Empresa Matriz'
+                label: 'Empresa Matriz',
+                permissao: 'comercial_subempresa_empresa'
             )
-            ->input(name: 'titulo', label: 'Titulo', placeholder: 'Titulo')
+            ->input(name: 'titulo', label: 'Titulo Interno', placeholder: 'Titulo Interno')
             ->input(name: 'razao_social', label: 'Razão Social', placeholder: 'Razão Social')
             ->input(name: 'nome_fantasia', label: 'Nome Fantasia', placeholder: 'Nome Fantasia')
+            ->input(name: 'responsavel_nome', label: 'Nome do Responsável', placeholder: 'Nome do Responsável')
             ->cnpj(name: 'cnpj', label: 'CNPJ', placeholder: 'CNPJ')
             ->select(
                 name: 'status',
-                lista: ['' => 'Escolha um status', 'ativo' => 'Ativo', 'inativo' => 'Inativo'],
+                lista: (new Status())->select('Escolha uma status'),
                 label: 'Status'
             );
     });
