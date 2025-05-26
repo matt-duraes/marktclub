@@ -10,7 +10,7 @@ use Modules\Cnpj;
 use Modules\Nome;
 use ORM\Entity;
 
-final class SubempresaEntity extends Entity
+class SubempresaEntity extends Entity
 {
     use ValidarEmpresaTrait;
 
@@ -35,6 +35,7 @@ final class SubempresaEntity extends Entity
         titulo|Titulo|obrigatorio|vazio
         razao_social|Razão Social|obrigatorio|vazio
         nome_fantasia|Nome Fantasia|obrigatorio|vazio
+        responsavel_nome|Nome do Responsável|obrigatorio|vazio|valido
         cnpj|CNPJ|obrigatorio|vazio|valido
         status|Status|obrigatorio|vazio|valido
     ';
@@ -55,23 +56,20 @@ final class SubempresaEntity extends Entity
     protected function regraInsert(): void
     {
         $this->id_admin_empresa = $this->idEmpresa;
-        if (is_string($this->empresa) && !empty($this->empresa)) {
-            $this->validarDados();
+        if (!empty($this->empresa) && is_string($this->empresa)) {
+            if (!validarUuid($this->empresa, false)) {
+                mensagemErro(
+                    'Campo inválido!',
+                    'O campo empresa precisa ser valida.'
+                );
+            }
             $this->obterEmpresa();
         }
     }
 
-    /**
-     * @throws Excecao
-     */
-    private function validarDados(): void
+    protected function regraPosBuscar(): void
     {
-        if (!validarUuid($this->empresa, false)) {
-            mensagemErro(
-                'Campo inválido!',
-                'O campo empresa precisa ser valida.'
-            );
-        }
+        $this->setarEmpresa();
     }
 
     private function obterEmpresa(): void
@@ -85,12 +83,6 @@ final class SubempresaEntity extends Entity
                 'Não encontrada!'
             );
         $this->id_admin_empresa = $empresa->id;
-        $this->responsavel_nome = new Nome($empresa->responsavel_nome);
-    }
-
-    protected function regraPosBuscar(): void
-    {
-        $this->setarEmpresa();
     }
 
     private function setarEmpresa(): void

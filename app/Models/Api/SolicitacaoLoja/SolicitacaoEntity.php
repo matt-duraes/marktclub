@@ -190,6 +190,66 @@ class SolicitacaoEntity extends Entity
         );
     }
 
+    /**
+     * @throws Excecao
+     * @throws TypeException
+     */
+    public function enviarEmailAndamento(
+        string $idEmpresa,
+        string $nomeIndicou,
+        string $emailIndicou,
+        string $nomeParceiro
+    ): void {
+        if (eLocalhost()) {
+            return;
+        }
+
+        $ormHelper = new OrmHelper(TABELA_CONSTRUTOR_CLUBE);
+        $clube = $ormHelper->pegarUltimoRegistro(
+            ['id_admin_empresa', $idEmpresa],
+            ['id', 'titulo', 'logo_principal', 'cor_principal', 'link_clube'],
+            'object'
+        );
+        $youhuul = $ormHelper->pegarUltimoRegistro(
+            ['id_admin_empresa', 1],
+            ['id', 'contato_telefone'],
+            'object'
+        );
+        $contato = !empty($youhuul->contato_telefone) ? (new Telefone($youhuul->contato_telefone))->telefone() : '';
+
+        if (empty($clube->id)) {
+            mensagemErro(
+                'Não foi possível notificar o usuário',
+                'Houve uma instabilidade ao notificar o usuário'
+            );
+        }
+
+        $mensagem = <<<HTML
+            Olá, <strong>$nomeIndicou!</strong>
+            Agradecemos por indicar "$nomeParceiro" no <strong><a href="$clube->link_clube" target="_blank">$clube->titulo</a></strong>.
+        HTML;
+        $posMensagem = <<<HTML
+            Se tiver alguma dúvida, não hesite em entrar em contato com nosso atendimento atráves do telefone: $contato
+        HTML;
+
+        $Email = new EmailHelper();
+        $Email->mensagem(
+            'Indicação de Parceria',
+            $mensagem,
+            'Retorno de Indicação de Parceria',
+            posMensagem: $posMensagem,
+            acao: 'Indicação de Parceria',
+            logo: arquivoPrivado($clube->logo_principal),
+            cor: $clube->cor_principal
+        );
+        $Email->sendGrid(
+            'Indicação de Parceria',
+            $nomeIndicou,
+            $emailIndicou,
+            deNome: $clube->titulo
+        );
+    }
+
     protected function regraPosBuscar(): void
     {
         $this->pegarOrigemIndicacao();
@@ -247,7 +307,7 @@ class SolicitacaoEntity extends Entity
     protected function regraPosUpdate(): void
     {
         $this->pegarQuemIndicou();
-        if ($this->status->indice() === Status::CONCLUIDO) {
+        /*if ($this->status->indice() === Status::CONCLUIDO) {
             $this->enviarEmailConcluido(
                 $this->id_admin_empresa,
                 $this->quemIndicou['nome'],
@@ -256,6 +316,15 @@ class SolicitacaoEntity extends Entity
             );
         } elseif ($this->status->indice() === Status::CANCELADO) {
             $this->enviarEmailCancelado(
+                $this->id_admin_empresa,
+                $this->quemIndicou['nome'],
+                $this->quemIndicou['email'],
+                $this->parceiro['nome_fantasia']
+            );
+        }*/
+
+        if ($this->status->indice() === Status::ANDAMENTO) {
+            $this->enviarEmailAndamento(
                 $this->id_admin_empresa,
                 $this->quemIndicou['nome'],
                 $this->quemIndicou['email'],

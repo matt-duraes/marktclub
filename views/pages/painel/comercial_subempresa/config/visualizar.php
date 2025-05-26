@@ -1,8 +1,9 @@
 <?php
 
 use App\Classes\ComercialEmpresa\Status;
+use PainelConfig\Visualizar;
 
-$Painel = new PainelConfig\Visualizar('comercial_subempresa');
+$Painel = new Visualizar('comercial_subempresa');
 
 $Painel->coluna(callback: function () use ($Painel) {
     $Painel->bloco(titulo: 'Dados da Subempresa', callback: function () use ($Painel) {
