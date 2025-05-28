@@ -49,8 +49,8 @@ class SelectModel extends ORM
         }
         if (!empty($this->status) && is_array($this->status)) {
             $status = [];
-            foreach ($this->status as $status) {
-                $Status = new Status($status);
+            foreach ($this->status as $item) {
+                $Status = new Status($item);
                 if ($Status->valido()) {
                     $status[] = $Status->numero();
                 }

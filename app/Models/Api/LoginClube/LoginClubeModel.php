@@ -9,6 +9,7 @@ use App\Models\Api\ApiToken\PayloadModel;
 use App\Models\Api\ApiToken\TokenAuthorizationEntity;
 use App\Models\Api\ConstrutorClube\ClubeModel;
 use App\Models\Api\ConstrutorClube\ConstrutorEntity;
+use App\Models\Api\LoginClube\Anpprev\UsuarioTrait as UsuarioAnpprevTrait;
 use App\Models\Api\LoginClube\ClubePoupy\UsuarioTrait as UsuarioClubePoupyTrait;
 use App\Models\Api\LoginClube\EmporioNaval\UsuarioTrait as UsuarioEmporioNavalTrait;
 use App\Models\Api\LoginClube\LeveBeneficios\UsuarioTrait as UsuarioLeveTrait;
@@ -29,6 +30,7 @@ final class LoginClubeModel
     use UsuarioUpClubeTrait;
     use UsuarioLeveTrait;
     use UsuarioVivaTrait;
+    use UsuarioAnpprevTrait;
 
     public array $token;
     public array $construtor;
@@ -97,7 +99,9 @@ final class LoginClubeModel
         }
 
         $isTitular = $this->tipo->indice() === Tipo::TITULAR;
-        if ($isTitular && $this->idEmpresa == 2100) {
+        if ($isTitular && $this->idEmpresa == 128) {
+            $this->Usuario = $this->pegarUsuarioAnpprev();
+        } elseif ($isTitular && $this->idEmpresa == 2100) {
             $this->Usuario = $this->pegarUsuarioEmporioNaval();
         } elseif ($isTitular && $this->idEmpresa == 2114) {
             $this->Usuario = $this->pegarUsuarioClubePoupy();

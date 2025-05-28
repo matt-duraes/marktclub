@@ -13,7 +13,6 @@ use App\Models\Site\Loja\FiltroModel;
 use App\Models\Site\Loja\ListarModel;
 use App\Classes\EnqueteMercado\Padrao;
 use App\Classes\ParceiroLoja\TipoLoja;
-use App\Classes\Comercial\Empresa\UUID;
 use App\Models\Site\Loja\PesquisaModel;
 use App\Classes\EnqueteMercado\Produtos;
 use App\Models\Site\Pesquisa\Utilizacao;
@@ -37,7 +36,7 @@ final class IndexController extends Controller
             'Busca'           => $Filtro,
             'banner'          => (new BannerModel())->home(),
             'plano_saude'     => (new HomeModel())->valor,
-            'mostrarPesquisa' => (new Utilizacao())->ativo ? 'sim' : 'nao',
+            'mostrarPesquisa' => (new Utilizacao())->mostrarPesquisa ? 'sim' : 'nao',
         ]);
     }
 

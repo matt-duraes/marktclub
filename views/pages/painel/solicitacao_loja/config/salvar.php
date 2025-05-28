@@ -2,6 +2,6 @@
 
 return [
     'salvar' => [
-        'parceiro', 'parceiro_novo'
+        'parceiro', 'parceiro_novo', 'gestor', 'empresas', 'status'
     ]
 ];

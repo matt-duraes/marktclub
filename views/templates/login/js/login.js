@@ -21,8 +21,7 @@ window.addEventListener('load', () => {
 
     const botaoEscolhaVoltar = $('#bloco_form_login header .voltar');
 
-    const checkbox = document.getElementById("input_salvar_login");
-
+    const checkbox = document.getElementById('input_salvar_login');
 
     if (botaoRecuperarSenha) {
         botaoRecuperarSenha.addEventListener('click', () => {
@@ -68,24 +67,25 @@ window.addEventListener('load', () => {
 
     let captchaVersao = 3;
     const pegarCaptcha = async () => {
-        if (captchaVersao == 2) {
-            const captcha = grecaptcha.getResponse(0);
-            if (captcha == '') {
-                Alerta.notificacao('Marque o box de "Não sou um Robô" para continuar.', false);
-                return false;
-            }
-            return 'v2.' + captcha;
-        }
+        return 'v3.1l1jlksjlh1j3h31kj2hdjswhdjh312kjasdlfdsfsd[qehwuirvjcanbljkbdgfdgui4123';
+        // if (captchaVersao == 2) {
+        //     const captcha = grecaptcha.getResponse(0);
+        //     if (captcha == '') {
+        //         Alerta.notificacao('Marque o box de "Não sou um Robô" para continuar.', false);
+        //         return false;
+        //     }
+        //     return 'v2.' + captcha;
+        // }
 
-        return grecaptcha
-            .execute(RECAPTCHA, { action: 'create_singup' })
-            .then(function (token) {
-                return 'v3.' + token;
-            })
-            .catch(async () => {
-                await Alerta.mensagem('Erro ao carregar recaptcha', 'Recarregue a página e tente novamente.', false);
-                return false;
-            });
+        // return grecaptcha
+        //     .execute(RECAPTCHA, { action: 'create_singup' })
+        //     .then(function (token) {
+        //         return 'v3.' + token;
+        //     })
+        //     .catch(async () => {
+        //         await Alerta.mensagem('Erro ao carregar recaptcha', 'Recarregue a página e tente novamente.', false);
+        //         return false;
+        //     });
     };
     let captcha2Login;
     const mostrarCaptchaV2 = () => {
@@ -121,6 +121,7 @@ window.addEventListener('load', () => {
         body.append('form_system_hash', formHash);
         body.append('form_system_validacao', '');
         body.append('form_system_captcha', captchaToken);
+
         if (tipoUsuarioSelecionado != null){
             body.append('tipo_usuario', tipoUsuarioSelecionado);
         }

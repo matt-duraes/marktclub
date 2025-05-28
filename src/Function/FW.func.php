@@ -10,15 +10,15 @@
 /*/
 
 use Erro\Erro;
+use Route\Route;
 use Erro\Excecao;
-use Helpers\ApiHelper;
-use Helpers\CryptHelper;
 use Http\Request;
 use Http\Response;
-use Modules\ModuleInterface;
-use Route\Route;
-use Status\StatusInterface;
+use Helpers\ApiHelper;
+use Helpers\CryptHelper;
 use System\Config\Session;
+use Status\StatusInterface;
+use Modules\ModuleInterface;
 use System\Interface\ApiRetornoInterface;
 
 /*/
@@ -1560,7 +1560,7 @@ if (!function_exists('montarSelect')) {
             return $select;
         }
         foreach ($lista as $ind => $val) {
-            $select[$ind] = $val;
+            $select[$ind] = !empty($val) ? $val : '';
         }
         return $select;
     }
