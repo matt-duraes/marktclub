@@ -45,7 +45,8 @@ final class BuscarModel extends ORM
     ) {
         parent::__construct(leitura: false);
         $this->validarDados();
-        if ($this->tipoAtivacao->indice() === TipoAtivacao::CIESC && $tipoUsuario->indice() == TipoUsuario::TITULAR) {
+        if ($this->tipoAtivacao->indice() === TipoAtivacao::CIESC && $tipoUsuario->indice() == TipoUsuario::TITULAR &&
+            $this->localTrabalho->indice() != LocalTrabalho::ASSOCIADO) {
             if ($this->Termo->valor() != Botao::SIM) {
                 mensagemErro('Campo obrigatório!', 'Você deve aceitar os termo de uso para continuar.');
             }
