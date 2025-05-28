@@ -13,7 +13,11 @@ function pegarCookie(nome) {
     const cookies = document.cookie.split('; ');
     for (let c of cookies) {
         const [chave, valor] = c.split('=');
-        if (chave === nome) return decodeURIComponent(valor);
+        if (chave === nome) {
+          let loginCript = decodeURIComponent(valor)
+          const valorOriginal = atob(loginCript);
+          return decodeURIComponent(valorOriginal);
+        };
     }
     return null;
 }

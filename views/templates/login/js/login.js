@@ -126,13 +126,14 @@ window.addEventListener('load', () => {
         }
 
         if(checkbox.checked == true) {
-            const valorLogin = inputLogin.value;
+            const valorLogin = window.btoa(inputLogin.value);
             const dias = 30;
             const dataExpiracao = new Date();
             dataExpiracao.setTime(dataExpiracao.getTime() + (dias * 24 * 60 * 60 * 1000));
             const expira = "expires=" + dataExpiracao.toUTCString();
             document.cookie = "login=" + encodeURIComponent(valorLogin) + ";" + expira + ";path=/";
         }
+
         const resposta = await fetch(LINK + '/login/login', {
             method: 'POST',
             body,
