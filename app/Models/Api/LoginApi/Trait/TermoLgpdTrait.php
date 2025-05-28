@@ -12,7 +12,7 @@ trait TermoLgpdTrait
         $this->criarArquivoTemporario($arquivo);
 
         return mensagemSucesso([
-            'link' => LINK . '/termo-lgpd/assinar/' . $arquivo
+            'link' => env('LINK_TERMO_LGPD') . '/termo-lgpd/assinar/' . $arquivo
         ], status: 201);
     }
 

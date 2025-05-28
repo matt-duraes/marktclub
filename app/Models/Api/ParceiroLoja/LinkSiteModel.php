@@ -26,7 +26,7 @@ final class LinkSiteModel
         if (in_array($Loja->id, ['814b9d1792724316417c96b8fc33aacb', '62be1dcb9faaa2bfd139b91646a34f0e'])) {
             $this->link = 'https://api.marktclub.net.br/integracao/link/' . $this->criarHash();
         } elseif ($Loja->id == '75f36834053439727abd97d4003af9cc') {
-            $this->link = LINK . '/solicitacao-link/confirmar/' . $this->criarHashOld();
+            $this->link = env('LINK_REAL') . '/solicitacao-link/confirmar/' . $this->criarHashOld();
         } elseif (in_array($Loja->id, ['f3b02301dc3b53c2c51f194d2a2ad00c'])) {
             $this->link = env('LINK_INTEGRACAO') . '/direto/' . $Loja->id . '/' . $this->criarHashNova();
         }
