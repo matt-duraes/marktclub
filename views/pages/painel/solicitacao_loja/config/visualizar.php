@@ -6,7 +6,8 @@ use PainelConfig\Visualizar;
 
 $Painel = new Visualizar('solicitacao_loja');
 
-$Painel->coluna(callback: function () use ($Painel) {
+$Status = new Status();
+$Painel->coluna(callback: function () use ($Painel, $Status) {
     $Painel->bloco(titulo: 'Indicação', callback: function () use ($Painel) {
         $Painel
             ->linha('origemIndicacao', 'Empresa')
@@ -51,8 +52,18 @@ $Painel->coluna(callback: function () use ($Painel) {
             ->dataHora('data_atualizacao', 'Data da última atualização')
             ->linha('status', 'Status');
     });
+
+    $Painel
+        ->status(
+            campo: 'status',
+            texto: 'Sem Interesse',
+            inArray: [$Status->nome(Status::SEM_VINCULO)],
+            status: Status::CANCELADO,
+            mensagem: 'Tem certeza que deseja alterar o status para Sem Interesse?',
+            cor: 'vermelho'
+        );
 });
 
-$Painel->replace(campo: 'status', lista: (new Status())->select());
+$Painel->replace(campo: 'status', lista: $Status->select());
 
 return $Painel;

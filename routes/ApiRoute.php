@@ -2002,7 +2002,7 @@ Route
             ::nome('salvar')
             ::middleware(TokenMiddleware::class, 'scope', ['comercial_subempresa:salvar'])
             ::request([
-                'empresa', 'titulo', 'razao_social', 'nome_fantasia', 'responsavel_nome',
+                '!empresa', 'titulo', 'razao_social', 'nome_fantasia', 'responsavel_nome',
                 'cnpj', 'status'
             ])
             ::post('/comercial-subempresa');
@@ -2972,8 +2972,8 @@ Route
             ::nome('download')
             ::middleware(TokenMiddleware::class, 'scope', ['solicitacao_loja:download'])
             ::request([
-                'campo', 'usuario', '!empresa', '!usuario', '!parceiro',
-                '!indicacao_inicio', '!indicacao_final', '!status'
+                'campo', 'usuario', '!empresa', '!parceiro', '!indicacao_inicio',
+                '!indicacao_final', '!status'
             ])
             ::post('/solicitacao-loja/download');
     });

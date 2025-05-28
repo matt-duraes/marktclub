@@ -2,121 +2,204 @@
 
 namespace App\Models\Api\SolicitacaoLoja;
 
-use App\Models\Api\ParceiroLoja\Trait\MontarRetornoTrait;
-use ORM\ORM;
-use Http\Request;
+use App\Classes\SolicitacaoLoja\Status;
 use App\Models\Api\Painel\LogDownloadEntity;
-use App\Models\Api\ParceiroLoja\Trait\WhereTrait;
 use App\Models\Api\Trait\ValidarEmpresaTrait;
+use Erro\Excecao;
+use Helpers\OrmHelper;
+use Modules\Data;
+use Modules\DataHora;
+use Modules\Email;
+use Modules\Telefone;
+use ORM\ORM;
+use Throwable;
 
-final class DownloadModel extends ORM
+class DownloadModel extends ORM
 {
     use ValidarEmpresaTrait;
-    use MontarRetornoTrait;
-    use WhereTrait;
 
-    public array $campo;
-    public string $usuario;
     protected string $ormTabela = TABELA_SOLICITACAO_LOJA;
 
+    /**
+     * @param array|null                          $campos
+     * @param string|null                         $usuario
+     * @param string|null                         $empresa
+     * @param string|null                         $parceiro
+     * @param \Modules\Data                       $dataIndicacaoInicio
+     * @param \Modules\Data                       $dataIndicacaoFinal
+     * @param \App\Classes\SolicitacaoLoja\Status $status
+     *
+     * @throws \Erro\Excecao
+     */
     public function __construct(
-        private ?Request $request = null
+        private readonly ?array $campos = null,
+        private readonly ?string $usuario = null,
+        private readonly ?string $empresa = null,
+        private readonly ?string $parceiro = null,
+        private readonly Data $dataIndicacaoInicio = new Data(),
+        private readonly Data $dataIndicacaoFinal = new Data(),
+        private readonly Status $status = new Status()
     ) {
-        parent::__construct();
         $this->validarCamposAceito();
+        parent::__construct();
     }
 
-    public function download()
+    /**
+     * @return array
+     * @throws \Erro\Excecao
+     */
+    public function download(): array
     {
-        $campo = $this->campo;
-        $dado = $this->buscarLojas($campo);
+        $campos = $this->converterCampoParaDownload();
+        $indicacoes = $this->buscarIndicacoes($campos);
 
-        if (!array_key_exists('0', $dado)) {
+        if (!array_key_exists('0', $indicacoes)) {
             $this->erroDownloadPadrao();
         }
 
-        $this->salvarLogDownload($dado);
-        return $this->montarRetornoDownload($dado, $campo);
+        $this->salvarLogDownload($indicacoes);
+        return $this->montarRetornoDownload($indicacoes);
     }
 
-    private function buscarLojas(array $campo)
+    /**
+     * @param array $campos
+     *
+     * @return mixed
+     * @throws \Erro\Excecao
+     */
+    private function buscarIndicacoes(array $campos): mixed
     {
-        $novoCampo = $this->converterCampoParaDownload($campo);
         $query = $this
-            ->campo($novoCampo)
+            ->campo($campos)
             ->where($this->pegarWhere(), false);
 
-        $campoUsuario = [];
-        if (in_array('usuario_nome', $campo)) {
-            $campoUsuario[] = 'nome';
-        }
-        if (in_array('usuario_cpf', $campo)) {
-            $campoUsuario[] = 'cpf';
-        }
-        if ($campoUsuario) {
-            $query
-                ->tabela(TABELA_USUARIO_CLIENTE)
-                ->campo($campoUsuario, 'usuario')
-                ->leftJoin('id', 'id_usuario_cliente');
-        }
-
-        $campoEmpresa = [];
-        if (in_array('empresa_titulo', $campo)) {
+        /*$campoEmpresa = [];
+        if (in_array('empresa_titulo', $this->campos)) {
             $campoEmpresa[] = 'titulo';
         }
-        if ($campoEmpresa) {
+        if (!empty($campoEmpresa)) {
             $query
                 ->tabela(TABELA_COMERCIAL_EMPRESA)
                 ->campo($campoEmpresa, 'empresa')
                 ->leftJoin('id', 'id_admin_empresa');
-        }
+        }*/
 
-        $dado = $query->read();
-        return $dado;
+        return $query->read();
     }
 
-    private function salvarLogDownload(array $dado)
+    /**
+     * @return array
+     * @throws Excecao
+     */
+    private function pegarWhere(): array
     {
-        $Log = new LogDownloadEntity(
-            app: 'parceiro_loja',
-            request: $this->request->dado(),
-            quantidade: count($dado),
-            usuario: $this->usuario
-        );
+        $where = $this->ormWherePadrao;
+
+        if (!empty($this->parceiro) && !validarUuid($this->parceiro, false)) {
+            $where[] = ['nome', 'like', '%' . $this->parceiro . '%'];
+        } elseif (!empty($this->parceiro) && validarUuid($this->parceiro, false)) {
+            $ormHelper = new OrmHelper(TABELA_PARCEIRO_LOJA);
+            $where[] = ['id_parceiro_loja', $ormHelper->pegarIdPeloUuid($this->parceiro)];
+        }
+
+        if ($this->dataIndicacaoInicio->valido() && $this->dataIndicacaoFinal->valido()) {
+            $where[] = [
+                'data_criacao', 'between', [$this->dataIndicacaoInicio->date(), $this->dataIndicacaoFinal->date()]
+            ];
+        } elseif ($this->dataIndicacaoInicio->valido()) {
+            $where[] = ['data_criacao', '>=', $this->dataIndicacaoInicio->date()];
+        } elseif ($this->dataIndicacaoFinal->valido()) {
+            $where[] = ['data_criacao', '<=', $this->dataIndicacaoFinal->date()];
+        }
+
+        if ($this->status->valido()) {
+            $where[] = ['status', $this->status->numero()];
+        }
+
+        return $where;
+    }
+
+    /**
+     * @param array $indicacoes
+     *
+     * @return void
+     * @throws \Erro\Excecao
+     */
+    private function salvarLogDownload(array $indicacoes): void
+    {
         try {
-            $Log->salvar();
-        } catch (\Throwable) {
+            $LogDownloadEntity = new LogDownloadEntity(
+                app: 'solicitacao_loja',
+                request: [
+                    'campos'           => $this->campos,
+                    'usuario'          => $this->usuario,
+                    'empresa'          => $this->empresa,
+                    'parceiro'         => $this->parceiro,
+                    'indicacao_inicio' => $this->dataIndicacaoInicio->data(),
+                    'indicacao_final'  => $this->dataIndicacaoFinal->data(),
+                    'status'           => $this->status->indice()
+                ],
+                quantidade: count($indicacoes),
+                usuario: $this->usuario
+            );
+            $LogDownloadEntity->salvar();
+        } catch (Throwable) {
             $this->erroDownloadPadrao();
         }
     }
 
-    private function erroDownloadPadrao()
+    /**
+     * @return void
+     * @throws \Erro\Excecao
+     */
+    private function erroDownloadPadrao(): void
     {
         mensagemErro('Erro!', 'Ocorreu um erro ao fazer o download, por favor, tente novamente.');
     }
 
-    private function montarRetornoDownload(array $dado, array $campo): array
+    /**
+     * @param array $indicacoes
+     *
+     * @return array
+     */
+    private function montarRetornoDownload(array $indicacoes): array
     {
         $i = 0;
         $retorno = [];
-        foreach ($dado as $linha) {
-            foreach ($linha as $ind => $val) {
-                $retorno[$i][$ind] = $val;
+        foreach ($indicacoes as $indicacao) {
+            foreach ($indicacao as $coluna => $valor) {
+                if ($coluna == 'telefone') {
+                    $valor = (new Telefone($valor))->numero();
+                } elseif ($coluna == 'email') {
+                    $valor = (new Email($valor))->email();
+                } elseif ($coluna == 'data_criacao') {
+                    $valor = (new DataHora($valor))->data();
+                } elseif ($coluna == 'data_atualizacao') {
+                    $valor = (new DataHora($valor))->data();
+                } elseif ($coluna == 'status') {
+                    $valor = (new Status($valor))->indice();
+                } else {
+                    $valor = strNull($valor);
+                }
+                $retorno[$i][$coluna] = $valor;
             }
             $i++;
         }
         return $retorno;
     }
 
+    /**
+     * @return void
+     * @throws \Erro\Excecao
+     */
     private function validarCamposAceito(): void
     {
         $camposAceito = [
-            'usuario_nome', 'usuario_cpf', 'empresa_titulo', 'nome',
-            'telefone', 'email', 'mensagem', 'data_criacao',
-            'data_atualizacao', 'status'
+            'empresa_titulo', 'nome', 'telefone', 'email', 'mensagem',
+            'data_criacao', 'data_atualizacao', 'status'
         ];
 
-        $listaCampos = jsonDecode($this->request->campo, true, true);
+        $listaCampos = jsonDecode($this->campos, true, true);
         if (!$listaCampos) {
             mensagemErro('Erro!', 'Você deve enviar pelo menos um campo.');
         }
@@ -131,21 +214,17 @@ final class DownloadModel extends ORM
                 );
             }
         }
-        return;
     }
 
-    private function converterCampoParaDownload(array $campo)
+    /**
+     * @return array
+     */
+    private function converterCampoParaDownload(): array
     {
-        $campo = array_flip($campo);
-        if (array_key_exists('usuario_nome', $campo)) {
-            unset($campo['usuario_nome']);
+        $campos = array_flip($this->campos);
+        if (array_key_exists('empresa_titulo', $campos)) {
+            unset($campos['empresa_titulo']);
         }
-        if (array_key_exists('usuario_cpf', $campo)) {
-            unset($campo['usuario_cpf']);
-        }
-        if (array_key_exists('empresa_titulo', $campo)) {
-            unset($campo['empresa_titulo']);
-        }
-        return array_keys($campo);
+        return array_keys($campos);
     }
 }
