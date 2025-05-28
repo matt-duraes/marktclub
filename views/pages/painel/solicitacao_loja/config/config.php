@@ -11,8 +11,8 @@ return [
     'add'        => false,
     'editar'     => true,
     'deletar'    => false,
-    'download'   => false,
-    'historico'  => false,
+    'download'   => true,
+    'historico'  => true,
     'api'        => [
         'scope'        => 'solicitacao_loja',
         'uri'          => '/solicitacao-loja',
