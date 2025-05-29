@@ -7,7 +7,7 @@ final class LogModel
     public function __construct()
     {
         $dado = [
-            'url'    => LINK . '/' . URI . QUERY_STRING,
+            'url'    => env('LINK_REAL') . '/' . URI . QUERY_STRING,
             'server' => $_SERVER,
             'header' => getallheaders(),
             'get'    => $_GET,
