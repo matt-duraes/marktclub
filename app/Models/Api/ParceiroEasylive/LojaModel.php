@@ -2,15 +2,15 @@
 
 namespace App\Models\Api\ParceiroEasylive;
 
+use App\Classes\Geral\Status;
+use App\Classes\ParceiroEasylive\Ordem;
+use App\Classes\ParceiroEasylive\Tipo;
 use ORM\ORM;
 use stdClass;
-use App\Classes\Geral\Status;
+use System\Interface\ModelListarInterface;
 use System\Trait\Model\OrdemTrait;
 use System\Trait\Model\PaginaTrait;
-use App\Classes\ParceiroEasylive\Tipo;
-use App\Classes\ParceiroEasylive\Ordem;
 use System\Trait\Model\QuantidadeTrait;
-use System\Interface\ModelListarInterface;
 
 final class LojaModel extends ORM implements ModelListarInterface
 {
@@ -88,6 +88,7 @@ final class LojaModel extends ORM implements ModelListarInterface
             $Tipo::SHOW_NACIONAL      => 'https://afiliados.easylive.com.br/?aid=5&category_id=83',
             $Tipo::SHOW_INTERNACIONAL => 'https://afiliados.easylive.com.br/?aid=5&category_id=84',
             $Tipo::CINEMA             => 'https://afiliados.easylive.com.br/?aid=5&category_id=86',
+            $Tipo::PASSEIO_TURISTICO  => 'https://afiliados.easylive.com.br/?aid=5&category_id=210'
         ];
         foreach ($dado as $r) {
             $tipo = $Tipo->indice($r->tipo);
@@ -96,7 +97,7 @@ final class LojaModel extends ORM implements ModelListarInterface
                 'titulo'        => $r->titulo,
                 'tipo'          => $tipo,
                 'imagem'        => imagemPrivada($r->imagem),
-                'link'          => $link[$tipo],
+                'link'          => $link[$tipo] ?? '',
                 'data_validade' => $r->data_validade,
                 'status'        => $Status->indice($r->status)
             ];
