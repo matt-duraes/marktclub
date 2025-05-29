@@ -200,7 +200,6 @@ window.addEventListener('load', () => {
 
     const mostrarPesquisa = $('#bloco_pesquisa_utilizacao');
     if (mostrarPesquisa) {
-        console.log(1);
         pesquisaUtilizacao.abrir();
     }
 });

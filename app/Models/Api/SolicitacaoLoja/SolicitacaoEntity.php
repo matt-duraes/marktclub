@@ -33,6 +33,8 @@ class SolicitacaoEntity extends Entity
     public string|array $parceiro;
     public array $parceiro_info;
     public string $parceiro_novo;
+    public string $gestor;
+    public array $empresas;
     public array $quemIndicou;
     public string $origemIndicacao;
     protected string $ormTabela = TABELA_SOLICITACAO_LOJA;
@@ -190,11 +192,72 @@ class SolicitacaoEntity extends Entity
         );
     }
 
+    /**
+     * @throws Excecao
+     * @throws TypeException
+     */
+    public function enviarEmailAndamento(
+        string $idEmpresa,
+        string $nomeIndicou,
+        string $emailIndicou,
+        string $nomeParceiro
+    ): void {
+        if (eLocalhost()) {
+            return;
+        }
+
+        $ormHelper = new OrmHelper(TABELA_CONSTRUTOR_CLUBE);
+        $clube = $ormHelper->pegarUltimoRegistro(
+            ['id_admin_empresa', $idEmpresa],
+            ['id', 'titulo', 'logo_principal', 'cor_principal', 'link_clube'],
+            'object'
+        );
+        $youhuul = $ormHelper->pegarUltimoRegistro(
+            ['id_admin_empresa', 1],
+            ['id', 'contato_telefone'],
+            'object'
+        );
+        $contato = !empty($youhuul->contato_telefone) ? (new Telefone($youhuul->contato_telefone))->telefone() : '';
+
+        if (empty($clube->id)) {
+            mensagemErro(
+                'Não foi possível notificar o usuário',
+                'Houve uma instabilidade ao notificar o usuário'
+            );
+        }
+
+        $mensagem = <<<HTML
+            Olá, <strong>$nomeIndicou!</strong>
+            Agradecemos por indicar "$nomeParceiro" no <strong><a href="$clube->link_clube" target="_blank">$clube->titulo</a></strong>.
+        HTML;
+        $posMensagem = <<<HTML
+            Se tiver alguma dúvida, não hesite em entrar em contato com nosso atendimento atráves do telefone: $contato
+        HTML;
+
+        $Email = new EmailHelper();
+        $Email->mensagem(
+            'Indicação de Parceria',
+            $mensagem,
+            'Retorno de Indicação de Parceria',
+            posMensagem: $posMensagem,
+            acao: 'Indicação de Parceria',
+            logo: arquivoPrivado($clube->logo_principal),
+            cor: $clube->cor_principal
+        );
+        $Email->sendGrid(
+            'Indicação de Parceria',
+            $nomeIndicou,
+            $emailIndicou,
+            deNome: $clube->titulo
+        );
+    }
+
     protected function regraPosBuscar(): void
     {
         $this->pegarOrigemIndicacao();
         $this->pegarQuemIndicou();
         $this->pegarParceiroVinculado();
+        $this->pegarEmpresaUsuarioIndicando();
     }
 
     protected function regraInsert(): void
@@ -209,8 +272,7 @@ class SolicitacaoEntity extends Entity
      */
     protected function regraUpdate(): void
     {
-        $isSemVinculo = $this->status->indice() === Status::SEM_VINCULO;
-        if ($isSemVinculo) {
+        if ($this->status->indice() === Status::SEM_VINCULO) {
             if ($this->propriedadeExiste('parceiro') && !empty($this->parceiro)) {
                 $ormHelper = new OrmHelper(TABELA_PARCEIRO_LOJA);
                 $parceiro = $ormHelper->pegarUltimoRegistro(
@@ -233,7 +295,11 @@ class SolicitacaoEntity extends Entity
                     $this->status = new Status(Status::ANDAMENTO);
                 }
             } elseif ($this->propriedadeExiste('parceiro_novo') && !empty($this->parceiro_novo)) {
-                $this->id_parceiro_loja = $this->gerarParceiroEmProspeccao($this->parceiro_novo);
+                $this->id_parceiro_loja = $this->gerarParceiroEmProspeccao(
+                    $this->parceiro_novo,
+                    $this->gestor,
+                    $this->empresas
+                );
                 $this->status = new Status(Status::ANDAMENTO);
             }
         }
@@ -247,19 +313,27 @@ class SolicitacaoEntity extends Entity
     protected function regraPosUpdate(): void
     {
         $this->pegarQuemIndicou();
+        $this->pegarOrigemIndicacao();
         if ($this->status->indice() === Status::CONCLUIDO) {
             $this->enviarEmailConcluido(
                 $this->id_admin_empresa,
                 $this->quemIndicou['nome'],
                 $this->quemIndicou['email'],
-                $this->parceiro['nome_fantasia']
+                $this->origemIndicacao
             );
         } elseif ($this->status->indice() === Status::CANCELADO) {
             $this->enviarEmailCancelado(
                 $this->id_admin_empresa,
                 $this->quemIndicou['nome'],
                 $this->quemIndicou['email'],
-                $this->parceiro['nome_fantasia']
+                $this->origemIndicacao
+            );
+        } elseif ($this->status->indice() === Status::ANDAMENTO) {
+            $this->enviarEmailAndamento(
+                $this->id_admin_empresa,
+                $this->quemIndicou['nome'],
+                $this->quemIndicou['email'],
+                $this->origemIndicacao
             );
         }
     }
@@ -339,12 +413,14 @@ class SolicitacaoEntity extends Entity
 
     /**
      * @param string $nome
+     * @param string $gestor
+     * @param array  $empresas
      *
      * @return int
-     * @throws Excecao
-     * @throws Erro
+     * @throws \Erro\Erro
+     * @throws \Erro\Excecao
      */
-    private function gerarParceiroEmProspeccao(string $nome): int
+    private function gerarParceiroEmProspeccao(string $nome, string $gestor, array $empresas): int
     {
         try {
             $parceiro = new LojaEntity();
@@ -352,7 +428,8 @@ class SolicitacaoEntity extends Entity
             $parceiro->set('tipo_loja', TipoLoja::LOJA);
             $parceiro->set('categoria_principal', Categoria::OUTROS);
             $parceiro->set('url', strSlug($nome));
-            $parceiro->set('empresa', ['14afa776394ada4be23be6acf7e3259e']);
+            $parceiro->set('equipe', $gestor);
+            $parceiro->set('empresa', $empresas);
             $parceiro->salvar();
 
             return $parceiro->prop('id');
@@ -362,5 +439,11 @@ class SolicitacaoEntity extends Entity
                 'Ocorreu um erro ao vincular o parceiro.'
             );
         }
+    }
+
+    private function pegarEmpresaUsuarioIndicando(): void
+    {
+        $ormHelper = new OrmHelper(TABELA_COMERCIAL_EMPRESA);
+        $this->empresas[] = $ormHelper->pegarUuidPeloId($this->id_admin_empresa);
     }
 }
