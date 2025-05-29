@@ -313,26 +313,27 @@ class SolicitacaoEntity extends Entity
     protected function regraPosUpdate(): void
     {
         $this->pegarQuemIndicou();
+        $this->pegarOrigemIndicacao();
         if ($this->status->indice() === Status::CONCLUIDO) {
             $this->enviarEmailConcluido(
                 $this->id_admin_empresa,
                 $this->quemIndicou['nome'],
                 $this->quemIndicou['email'],
-                $this->parceiro['nome_fantasia']
+                $this->origemIndicacao
             );
         } elseif ($this->status->indice() === Status::CANCELADO) {
             $this->enviarEmailCancelado(
                 $this->id_admin_empresa,
                 $this->quemIndicou['nome'],
                 $this->quemIndicou['email'],
-                $this->parceiro['nome_fantasia']
+                $this->origemIndicacao
             );
         } elseif ($this->status->indice() === Status::ANDAMENTO) {
             $this->enviarEmailAndamento(
                 $this->id_admin_empresa,
                 $this->quemIndicou['nome'],
                 $this->quemIndicou['email'],
-                $this->parceiro['nome_fantasia']
+                $this->origemIndicacao
             );
         }
     }
@@ -412,10 +413,12 @@ class SolicitacaoEntity extends Entity
 
     /**
      * @param string $nome
+     * @param string $gestor
+     * @param array  $empresas
      *
      * @return int
-     * @throws Excecao
-     * @throws Erro
+     * @throws \Erro\Erro
+     * @throws \Erro\Excecao
      */
     private function gerarParceiroEmProspeccao(string $nome, string $gestor, array $empresas): int
     {

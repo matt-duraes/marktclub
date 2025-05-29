@@ -39,7 +39,7 @@ $Painel->coluna(callback: function () use ($Painel, $parceiro, $empresa) {
                 name: 'gestor',
                 lista: 'usuario',
                 label: 'Responsável',
-                tipoEquipe: Tipo::COMERCIAL
+                tipoEquipe: Tipo::CONVENIO
             )
             ->blocoCheckbox(
                 titulo: 'Empresas',
