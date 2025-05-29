@@ -1,5 +1,6 @@
 <?php
 
+use Helpers\ListaHelper;
 use App\Classes\Comercial\Empresa\ID;
 
 return [
@@ -16,9 +17,9 @@ return [
             'simulacao' => 'Simulação',
             'resultado' => 'Resultado'
         ],
-        'titulo' => 'Unimed Jundiaí',
+        'titulo' => 'Plano SP Cidade',
         'arquivo_imagem' => uuid(),
-        'url' => 'unimed-jundiai',
+        'url' => 'plano-sp-cidade',
         'status' => 1
     ],
     [
@@ -31,9 +32,40 @@ return [
             'simulacao' => 'Simulação',
             'resultado' => 'Resultado'
         ],
-        'titulo' => 'Unimed Natal',
+        'titulo' => 'Plano RN',
         'arquivo_imagem' => uuid(),
-        'url' => 'unimed-natal',
+        'url' => 'plano-rn',
+        'status' => 1
+    ],
+    [
+        'id_admin_empresa' => [ID::YOUHUUL, ID::ANAFECARD, ID::CFM],
+        'endereco_estado' => array_keys((new ListaHelper())->estado()->r()),
+        'endereco_cidade' => [],
+        'sequencia' => [
+            'acomodacao' => 'Acomodação',
+            'plano' => 'Plano',
+            'simulacao' => 'Simulação',
+            'resultado' => 'Resultado'
+        ],
+        'titulo' => 'Plano Nacional',
+        'arquivo_imagem' => uuid(),
+        'url' => 'plano-nacional',
+        'status' => 1
+    ],
+    [
+        'id_admin_empresa' => [ID::YOUHUUL, ID::ANAFECARD, ID::CFM],
+        'endereco_estado' => ['TO', 'DF', 'GO'],
+        'endereco_cidade' => [],
+        'sequencia' => [
+            'estado' => 'Estado',
+            'acomodacao' => 'Acomodação',
+            'plano' => 'Plano',
+            'simulacao' => 'Simulação',
+            'resultado' => 'Resultado'
+        ],
+        'titulo' => 'Plano vários estados',
+        'arquivo_imagem' => uuid(),
+        'url' => 'plano-varios-estados',
         'status' => 1
     ],
 ];
