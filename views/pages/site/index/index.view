@@ -86,8 +86,4 @@
     </div>
 </div>
 
-@if ($mostrarPesquisa === 'sim'):
-<div id="bloco_pesquisa_utilizacao"></div>
-@endif;
-
 @view site/geral/parceiro_clone.view
