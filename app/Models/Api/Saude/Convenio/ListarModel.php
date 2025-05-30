@@ -3,11 +3,11 @@
 namespace App\Models\Api\Saude\Convenio;
 
 use ORM\ORM;
-use Where\Where;
+use Modules\EnderecoEstado;
 use App\Classes\Geral\Status;
 use App\Models\Api\Auth\Token\TokenHelper;
 
-final class ListarModel extends ORM
+final class ListarModel extends PadraoModel
 {
     protected string $ormTabela = TABELA_SAUDE_CONVENIO;
 
@@ -16,11 +16,12 @@ final class ListarModel extends ORM
     private array $busca;
 
     public function __construct(
-        public ?string $enderecoEstado,
+        public EnderecoEstado $EnderecoEstado,
         public ?string $enderecoCidade
     )
     {
         parent::__construct();
+        $this->validarEstado();
         $this->montarWhere();
         $this->buscarLista();
         $this->montarRetorno();
@@ -50,21 +51,19 @@ final class ListarModel extends ORM
 
     private function montarWhere(): void
     {
-        $Token = new TokenHelper();
         $where = [];
-        if($Token->eClube()) {
-            $where = [
-                ['id_admin_empresa', 'json', $Token->pegarEmpresa(erro: true)],
-                ['status', 1]
-            ];
+        if($this->eClube()) {
+            $where = $this->whereClube();
         }
-        if($this->enderecoEstado) {
-            $where[] = ['endereco_estado', 'json', $this->enderecoEstado];
+        if($this->EnderecoEstado->valido()) {
+            $where[] = ['endereco_estado', 'json', $this->EnderecoEstado];
         }
-        if($this->enderecoCidade) {
+        if(empty($this->enderecoCidade) || $this->enderecoCidade == 'outra') {
+            $where[] = ['endereco_cidade', 'null'];
+        } elseif($this->enderecoCidade) {
             $where[] = [
                 'OR',
-                ['endereco_cidade', 'json', $this->enderecoCidade],
+                ['endereco_cidade', 'chave', $this->enderecoCidade],
                 ['endereco_cidade', 'null']
             ];
         }

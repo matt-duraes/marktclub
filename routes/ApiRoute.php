@@ -2437,6 +2437,27 @@ Route
     });
 
 Route
+    ::nome('saude_simulacao')
+    ::controller(App\Controllers\Api\Saude\SimulacaoController::class)
+    ::middleware(TokenMiddleware::class, 'token')
+    ::grupo(function () {
+        Route
+            ::nome('simular')
+            ::middleware(TokenMiddleware::class, 'scope', ['saude_simulacao:simular'])
+            ::request([
+                'convenio', 'escolhido', 'titular', 'dependente'
+            ])
+            ::get('/saude-simulacao/simular');
+        Route
+            ::nome('salvar')
+            ::middleware(TokenMiddleware::class, 'scope', ['saude_simulacao:salvar'])
+            ::request([
+                'convenio', 'escolhido', 'titular', 'dependente'
+            ])
+            ::post('/saude-simulacao');
+    });
+
+Route
     ::nome('saude_convenio')
     ::controller(App\Controllers\Api\Saude\ConvenioController::class)
     ::middleware(TokenMiddleware::class, 'token')
@@ -2447,11 +2468,15 @@ Route
             ::request(['endereco_estado', 'endereco_cidade'])
             ::get('/saude-convenio');
         Route
+            ::nome('buscar')
+            ::middleware(TokenMiddleware::class, 'scope', ['saude_convenio:buscar'])
+            ::get('/saude-convenio/{id}');
+        Route
             ::nome('estado')
             ::middleware(TokenMiddleware::class, 'scope', ['saude_convenio:estado'])
             ::get('/saude-convenio/estado');
         Route
-            ::nome('estado')
+            ::nome('cidade')
             ::middleware(TokenMiddleware::class, 'scope', ['saude_convenio:cidade'])
             ::request(['endereco_estado'])
             ::get('/saude-convenio/cidade');

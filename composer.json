@@ -25,7 +25,8 @@
         "symfony/css-selector": "^6",
         "symfony/http-client": "^6",
         "symfony/http-foundation": "^6",
-        "symfony/mime": "^6"
+        "symfony/mime": "^6",
+        "symfony/yaml": "^7.3"
     },
     "require-dev": {
         "captainhook/captainhook": "^5",

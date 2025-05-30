@@ -32,4 +32,12 @@ final class TokenHelper
         }
         return $existe ? TOKEN['empresa']->id : 0;
     }
+    public function pegarUsuario(bool $erro = false): int
+    {
+        $existe = defined('TOKEN') && array_key_exists('usuario', TOKEN) && object_key_exists('id', TOKEN['usuario']) && !empty(TOKEN['usuario']->id);
+        if(!$existe && $erro) {
+            mensagemStatus(400, localhost: 'Não foi encontrado um token e/ou usuario');
+        }
+        return $existe ? TOKEN['usuario']->id : 0;
+    }
 }

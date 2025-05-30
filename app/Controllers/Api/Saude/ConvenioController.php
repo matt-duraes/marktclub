@@ -5,6 +5,9 @@ namespace App\Controllers\Api\Saude;
 use Http\Request;
 use Http\Response;
 use Controller\Controller;
+use Modules\EnderecoEstado;
+use App\Models\Api\Saude\Convenio\CidadeModel;
+use App\Models\Api\Saude\Convenio\EstadoModel;
 use App\Models\Api\Saude\Convenio\ListarModel;
 
 final class ConvenioController extends Controller
@@ -12,7 +15,7 @@ final class ConvenioController extends Controller
     public function getListar(Request $request): Response
     {
         $Convenio = new ListarModel(
-            enderecoEstado: $request->endereco_estado,
+            EnderecoEstado: new EnderecoEstado($request->endereco_estado),
             enderecoCidade: $request->endereco_cidade
         );
         return mensagemSucesso($Convenio->retorno);
@@ -20,12 +23,16 @@ final class ConvenioController extends Controller
 
     public function getEstado(): Response
     {
-        return mensagemSucesso([]);
+        $Estado = new EstadoModel();
+        return mensagemSucesso($Estado->retorno);
     }
 
     public function getCidade(Request $request): Response
     {
-        return mensagemSucesso([]);
+        $Cidade = new CidadeModel(
+            EnderecoEstado: new EnderecoEstado($request->endereco_estado),
+        );
+        return mensagemSucesso($Cidade->retorno);
     }
 
     public function getHtml(Request $request): Response
