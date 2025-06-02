@@ -63,23 +63,22 @@ window.addEventListener('load', () => {
     const inputLongitude = $('input[name=longitude]', formBuscar);
     const inputOrdem = $('input[name=ordem]', formBuscar);
 
-    formSelectOption(inputCidade, { '': 'Escolha um estado primeiro' });
-    formValue(inputEstabelecimento, '');
-    formValue(inputOrdem, '');
-    formBuscar.classList.toggle('busca_mapa');
-    if (inputMapa.checked && (inputLatitude.value == '' || inputLongitude.value == '')) {
-        buscarGeolocalizacao();
-    }
-    if (inputMapa.checked && inputEstado.value != '') {
-        buscarCidadePeloEstado(inputCidade, inputEstado.value, inputCidade.value, 'Escolha uma cidade');
-    }
-    if (!inputMapa.checked) {
-        inputLatitude.value = '';
-        inputLongitude.value = '';
-    }
-
-
-
+    inputMapa.addEventListener('change', () => {
+        formSelectOption(inputCidade, { '': 'Escolha um estado primeiro' });
+        formValue(inputEstabelecimento, '');
+        formValue(inputOrdem, '');
+        formBuscar.classList.toggle('busca_mapa');
+        if (inputMapa.checked && (inputLatitude.value == '' || inputLongitude.value == '')) {
+            buscarGeolocalizacao();
+        }
+        if (inputMapa.checked && inputEstado.value != '') {
+            buscarCidadePeloEstado(inputCidade, inputEstado.value, inputCidade.value, 'Escolha uma cidade');
+        }
+        if (!inputMapa.checked) {
+            inputLatitude.value = '';
+            inputLongitude.value = '';
+        }
+    });
 
     const buscarGeolocalizacao = () => {
         Loading.show();
