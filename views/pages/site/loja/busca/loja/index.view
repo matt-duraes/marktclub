@@ -23,6 +23,10 @@ $listaOrdem = [
                     <h1>Busque por uma loja</h1>
                     <i class="desktop botao_buscar_fechar">@iconeFechar</i>
                 </header>
+                <div class="bloco_mapa">
+                    <h2>Gostaria de buscar apenas lojas próximas a você? Para isso, basta marcar o botão abaixo:</h2>
+                    @? formSwitch(name: '', id:'input_mapa', label: 'Buscar lojas próximas', check: isset($Busca) && $Busca->mapa)
+                </div>
                 <input type="hidden" id="input_latitude_erro" value="{{$Busca->latitude_erro ?? '' ? 'sim' : 'nao'}}">
                 <input type="hidden" name="latitude" id="input_latitude" value="{{$Busca->latitude ?? ''}}">
                 <input type="hidden" name="longitude" id="input_longitude" value="{{$Busca->longitude ?? ''}}">
