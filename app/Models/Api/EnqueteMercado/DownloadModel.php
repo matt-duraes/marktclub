@@ -94,6 +94,8 @@ class DownloadModel extends ORM
                     $valor = (new Experiencia())->nome($valor);
                 } elseif ($coluna == 'indicaria') {
                     $valor = (new Padrao())->nome($valor);
+                } elseif ($coluna == 'desconto') {
+                    $valor = (new Padrao())->nome($valor);
                 } else {
                     $valor = strNull($valor);
                 }

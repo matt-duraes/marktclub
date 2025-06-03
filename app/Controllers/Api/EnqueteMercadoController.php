@@ -86,7 +86,7 @@ class EnqueteMercadoController extends Controller implements
     public function postDownload(Request $request): Response
     {
         $DownloadModel = new DownloadModel($request->campo);
-        $ArquivoEntity = new ArquivoEntity($DownloadModel->download());
+        $ArquivoEntity = new ArquivoEntity($DownloadModel->download(), $request->usuario);
         $ArquivoEntity->salvar();
         return mensagemSucesso([
             'id' => $ArquivoEntity->id
