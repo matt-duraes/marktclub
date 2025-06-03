@@ -15,7 +15,6 @@ use App\Classes\EnqueteMercado\Padrao;
 use App\Classes\ParceiroLoja\TipoLoja;
 use App\Models\Site\Loja\PesquisaModel;
 use App\Classes\EnqueteMercado\Produtos;
-use App\Models\Site\Pesquisa\Utilizacao;
 use App\Classes\EnqueteMercado\Fidelidade;
 use App\Classes\EnqueteMercado\Frequencia;
 use App\Classes\EnqueteMercado\Experiencia;
@@ -36,7 +35,6 @@ final class IndexController extends Controller
             'Busca'           => $Filtro,
             'banner'          => (new BannerModel())->home(),
             'plano_saude'     => (new HomeModel())->valor,
-            'mostrarPesquisa' => (new Utilizacao())->mostrarPesquisa ? 'sim' : 'nao',
         ]);
     }
 
