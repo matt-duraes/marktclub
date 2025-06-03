@@ -37,7 +37,7 @@ trait WhereTrait
             $where[] = [
                 'id_admin_subempresa', (new OrmHelper(TABELA_COMERCIAL_EMPRESA))->pegarIdPeloUuid($request->subempresa)
             ];
-        } elseif (!empty($this->idSubempresa)) {
+        } elseif (!empty($this->idSubempresa) && $this->idSubempresa != 0) {
             $where[] = ['id_admin_subempresa', $this->idSubempresa];
         }
 
