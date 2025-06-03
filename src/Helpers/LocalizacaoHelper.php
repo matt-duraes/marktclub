@@ -153,14 +153,14 @@ final class LocalizacaoHelper
      * @throws Excecao
      */
     public function pegarGeolocalizacaoPeloEndereco(
-        string $pais = null,
-        string $titulo = null,
-        string $cep = null,
-        string $logradouro = null,
-        string $numero = null,
-        string $bairro = null,
-        string $cidade = null,
-        string $estado = null,
+        ?string $pais = null,
+        ?string $titulo = null,
+        ?string $cep = null,
+        ?string $logradouro = null,
+        ?string $numero = null,
+        ?string $bairro = null,
+        ?string $cidade = null,
+        ?string $estado = null,
     ) {
         $dado = $this->buscarGeolocalizacaoNoGoogle(
             pais: $pais,
@@ -232,14 +232,14 @@ final class LocalizacaoHelper
      * @throws Excecao
      */
     private function buscarGeolocalizacaoNoGoogle(
-        string $pais = null,
-        string $titulo = null,
-        string $cep = null,
-        string $logradouro = null,
-        string $numero = null,
-        string $bairro = null,
-        string $cidade = null,
-        string $estado = null,
+        ?string $pais = null,
+        ?string $titulo = null,
+        ?string $cep = null,
+        ?string $logradouro = null,
+        ?string $numero = null,
+        ?string $bairro = null,
+        ?string $cidade = null,
+        ?string $estado = null,
     ): bool|array {
         $pais = empty($pais) ? 'BR' : $pais;
 

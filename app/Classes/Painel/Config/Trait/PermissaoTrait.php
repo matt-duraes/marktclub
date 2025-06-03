@@ -1478,7 +1478,8 @@ trait PermissaoTrait
                     'enquete_mercado_visualizar' => [
                         'titulo' => Titulo::VISUALIZAR,
                         'scope'  => 'enquete_mercado:buscar'
-                    ]
+                    ],
+                    'enquete_mercado_empresa'    => Titulo::EMPRESA
                 ]
             ]
         ];

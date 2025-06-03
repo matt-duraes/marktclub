@@ -2,23 +2,23 @@
 
 namespace App\Models\Api\ComercialSubempresa;
 
-use ORM\ORM;
-use stdClass;
+use App\Classes\ComercialEmpresa\Ordem;
+use App\Classes\ComercialEmpresa\Status;
+use App\Models\Api\Trait\ValidarEmpresaTrait;
 use Erro\Excecao;
+use Helpers\OrmHelper;
 use Modules\Cnpj;
 use Modules\Data;
 use Modules\Pagina;
-use Helpers\OrmHelper;
 use Modules\Quantidade;
+use ORM\ORM;
+use stdClass;
+use System\Interface\ModelListarInterface;
 use System\Trait\Model\OrdemTrait;
 use System\Trait\Model\PaginaTrait;
-use App\Classes\ComercialEmpresa\Ordem;
 use System\Trait\Model\QuantidadeTrait;
-use App\Classes\ComercialEmpresa\Status;
-use System\Interface\ModelListarInterface;
-use App\Models\Api\Trait\ValidarEmpresaTrait;
 
-final class SubempresaModel extends ORM implements
+class SubempresaModel extends ORM implements
     ModelListarInterface
 {
     use ValidarEmpresaTrait;
@@ -44,6 +44,27 @@ final class SubempresaModel extends ORM implements
         $this->validarDados();
         $this->validarEmpresa();
         parent::__construct();
+    }
+
+    /**
+     * @return stdClass
+     * @throws Excecao
+     */
+    public function listarDados(): stdClass
+    {
+        $subempresas = $this
+            ->campo([
+                'cod', 'id_admin_empresa', 'titulo', 'razao_social',
+                'nome_fantasia', 'responsavel_nome', 'cnpj', 'status',
+                'data_criacao', 'data_atualizacao'
+            ])
+            ->where($this->pegarWhere(), false)
+            ->pagina($this->pegarPagina(), $this->pegarQuantidade())
+            ->order($this->pegarOrdem(new Ordem()))
+            ->read();
+
+        $subempresas->lista = $this->montarRetorno($subempresas->lista);
+        return $subempresas;
     }
 
     /**
@@ -75,27 +96,6 @@ final class SubempresaModel extends ORM implements
     }
 
     /**
-     * @return stdClass
-     * @throws Excecao
-     */
-    public function listarDados(): stdClass
-    {
-        $subempresas = $this
-            ->campo([
-                'cod', 'id_admin_empresa', 'titulo', 'razao_social',
-                'nome_fantasia', 'responsavel_nome', 'cnpj', 'status',
-                'data_criacao', 'data_atualizacao'
-            ])
-            ->where($this->pegarWhere(), false)
-            ->pagina($this->pegarPagina(), $this->pegarQuantidade())
-            ->order($this->pegarOrdem(new Ordem()))
-            ->read();
-
-        $subempresas->lista = $this->montarRetorno($subempresas->lista);
-        return $subempresas;
-    }
-
-    /**
      * @return array
      */
     private function pegarWhere(): array
@@ -103,10 +103,11 @@ final class SubempresaModel extends ORM implements
         $wherePadrao = !empty($this->ormWherePadrao)
             ? $this->ormWherePadrao
             : [['id_admin_empresa', '<>', 'NULL']];
-        $where = array_merge(
+        /*$where = array_merge(
             $wherePadrao,
             [['status', (new Status(Status::ATIVO))->numero()]]
-        );
+        );*/
+        $where = $wherePadrao;
         if (!empty($this->titulo)) {
             $where[] = [
                 'OR',

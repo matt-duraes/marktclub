@@ -105,13 +105,19 @@ class SolicitacaoLojaController extends Controller implements
      */
     public function postDownload(Request $request): Response
     {
-        $Usuario = new DownloadModel($request);
-        $Usuario->set(lista: $request->dado());
-
-        $Download = new ArquivoEntity($Usuario->download(), $request->usuario);
-        $Download->salvar();
+        $DownloadModel = new DownloadModel(
+            $request->campo,
+            $request->usuario,
+            $request->empresa,
+            $request->parceiro,
+            new Data($request->indicacao_inicio),
+            new Data($request->indicacao_final),
+            new Status($request->status)
+        );
+        $ArquivoEntity = new ArquivoEntity($DownloadModel->download(), $request->usuario);
+        $ArquivoEntity->salvar();
         return mensagemSucesso([
-            'id' => $Download->id
+            'id' => $ArquivoEntity->id
         ], 201);
     }
 
@@ -126,7 +132,8 @@ class SolicitacaoLojaController extends Controller implements
     {
         return mensagemSucesso(pegarPropriedadeDaEntity($solicitacaoEntity, lista: [
             'parceiro', 'parceiro_info', 'nome', 'email', 'telefone', 'mensagem', 'status',
-            'quemIndicou', 'origemIndicacao', 'data_criacao', 'data_atualizacao'
+            'quemIndicou', 'origemIndicacao', 'data_criacao', 'data_atualizacao',
+            'empresas', 'gestor'
         ]), $status, Helper::CRIPTOGRAFAR);
     }
 }

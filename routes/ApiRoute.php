@@ -1993,8 +1993,8 @@ Route
             ::nome('listar')
             ::middleware(TokenMiddleware::class, 'scope', ['comercial_subempresa:listar'])
             ::request([
-                'pagina', '!quantidade', '!ordem', '!dataInicio',
-                '!dataFinal', '!titulo', '!empresa', '!status'
+                'pagina', '!quantidade', '!ordem', '!dataInicio', '!dataFinal',
+                '!titulo', '!empresa', '!status'
             ], 'json')
             ::get('/comercial-subempresa');
 
@@ -2002,8 +2002,8 @@ Route
             ::nome('salvar')
             ::middleware(TokenMiddleware::class, 'scope', ['comercial_subempresa:salvar'])
             ::request([
-                'empresa', 'titulo', 'razao_social',
-                'nome_fantasia', 'cnpj', 'status'
+                '!empresa', 'titulo', 'razao_social', 'nome_fantasia', 'responsavel_nome',
+                'cnpj', 'status'
             ])
             ::post('/comercial-subempresa');
 
@@ -2011,8 +2011,8 @@ Route
             ::nome('atualizar')
             ::middleware(TokenMiddleware::class, 'scope', ['comercial_subempresa:atualizar'])
             ::request([
-                '!empresa', '!titulo', '!razao_social',
-                '!nome_fantasia', '!cnpj', '!status'
+                '!empresa', '!titulo', '!razao_social', '!nome_fantasia', 'responsavel_nome',
+                '!cnpj', '!status'
             ])
             ::put('/comercial-subempresa/{id}');
 
@@ -3014,7 +3014,7 @@ Route
             ::nome('atualizar')
             ::middleware(TokenMiddleware::class, 'scope', ['solicitacao_loja:atualizar'])
             ::request([
-                '!parceiro', '!parceiro_novo'
+                '!parceiro', '!parceiro_novo', '!gestor', '!empresas'
             ])
             ::put('/solicitacao-loja/{id}');
 
@@ -3022,7 +3022,8 @@ Route
             ::nome('download')
             ::middleware(TokenMiddleware::class, 'scope', ['solicitacao_loja:download'])
             ::request([
-                'campo', 'usuario', '!nome', '!data_inicio', '!data_final', '!status'
+                'campo', 'usuario', '!empresa', '!parceiro', '!indicacao_inicio',
+                '!indicacao_final', '!status'
             ])
             ::post('/solicitacao-loja/download');
     });
