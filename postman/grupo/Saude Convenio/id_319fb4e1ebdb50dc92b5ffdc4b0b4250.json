@@ -1,0 +1,1 @@
+{"id":"id_319fb4e1ebdb50dc92b5ffdc4b0b4250","token":"clube","metodo":"GET","nome":"\/saude-convenio\/estado","uri":"{{LINK}}\/saude-convenio\/estado","parametro":[],"body":[],"header":[],"variavel":[],"json":[],"documentacao":{"status":false,"descricao":"","requisicao":"","resposta":"","scope":"saude_convenio:estado"}}

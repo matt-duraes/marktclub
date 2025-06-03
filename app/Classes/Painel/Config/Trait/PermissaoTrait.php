@@ -2,8 +2,8 @@
 
 namespace App\Classes\Painel\Config\Trait;
 
-use App\Classes\Painel\Config\Titulo;
 use Closure;
+use App\Classes\Painel\Config\Titulo;
 
 trait PermissaoTrait
 {
@@ -1335,11 +1335,11 @@ trait PermissaoTrait
                     ],
                     'view_pagina_add'        => [
                         'titulo' => Titulo::SALVAR,
-                        'scope'  => 'view_pagina:salvar'
+                        'scope'  => ['view_pagina:salvar', 'view_html:listar', 'view_html:buscar', 'view_html:salvar', 'view_html:atualizar', 'view_html:deletar']
                     ],
                     'view_pagina_editar'     => [
                         'titulo' => Titulo::EDITAR,
-                        'scope'  => ['view_pagina:atualizar', 'view_pagina:buscar']
+                        'scope'  => ['view_pagina:atualizar', 'view_pagina:buscar', 'view_html:listar', 'view_html:buscar', 'view_html:salvar', 'view_html:atualizar', 'view_html:deletar']
                     ],
                     'view_pagina_deletar'    => [
                         'titulo' => Titulo::DELETAR,
