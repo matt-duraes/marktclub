@@ -52,6 +52,11 @@ final class DownloadPrivadoHelper implements MensageriaInterface
             'uri'    => '/comercial-empresa/download',
             'scope'  => 'comercial_empresa:download',
             'metodo' => 'POST'
+        ],
+        'enquete_mercado'     => [
+            'uri'    => '/enquete-mercado/download',
+            'scope'  => 'enquete_mercado:download',
+            'metodo' => 'POST'
         ]
     ];
 
