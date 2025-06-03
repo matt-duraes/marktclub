@@ -12,6 +12,7 @@ trait ValidarEmpresaDownloadTrait
 {
     private string $nomeCampoEmpresa;
     private int $idEmpresa;
+    private int $idSubempresa;
     private int $idUsuario;
     private $whereEmpresa;
 
@@ -24,6 +25,7 @@ trait ValidarEmpresaDownloadTrait
     private function validarEmpresa(string $usuario, string $campoEmpresa = 'id_admin_empresa'): void
     {
         $this->setarIdEmpresa($usuario);
+        $this->setarIdSubempresa($usuario);
         $this->setarIdUsuario($usuario);
         $this->setaPropriedadeInicial($campoEmpresa);
         $this->setarValoresReais();
@@ -39,6 +41,21 @@ trait ValidarEmpresaDownloadTrait
         $this->idEmpresa = (new OrmHelper(TABELA_USUARIO_EQUIPE))
             ->pegarCampoPor(
                 campo: 'id_admin_empresa',
+                where: ['uuid', $usuario],
+                padrao: 0
+            );
+    }
+
+    /**
+     * Seta o id da subempresa pelo uuid do usuário
+     *
+     * @param string $usuario Uuid do usuário
+     */
+    private function setarIdSubempresa(string $usuario): void
+    {
+        $this->idSubempresa = (new OrmHelper(TABELA_USUARIO_EQUIPE))
+            ->pegarCampoPor(
+                campo: 'id_admin_subempresa',
                 where: ['uuid', $usuario],
                 padrao: 0
             );
