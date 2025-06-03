@@ -9,6 +9,7 @@ use Modules\EnderecoEstado;
 use App\Models\Api\Saude\Convenio\CidadeModel;
 use App\Models\Api\Saude\Convenio\EstadoModel;
 use App\Models\Api\Saude\Convenio\ListarModel;
+use App\Models\Api\Saude\Convenio\TabelaModel;
 
 final class ConvenioController extends Controller
 {
@@ -35,8 +36,12 @@ final class ConvenioController extends Controller
         return mensagemSucesso($Cidade->retorno);
     }
 
-    public function getHtml(Request $request): Response
+    public function getTabela(Request $request): Response
     {
-        return mensagemSucesso([]);
+        $Tabela = new TabelaModel(
+            convenio: $request->convenio,
+            plano: $request->plano
+        );
+        return mensagemSucesso($Tabela->retorno);
     }
 }

@@ -2481,10 +2481,10 @@ Route
             ::request(['endereco_estado'])
             ::get('/saude-convenio/cidade');
         Route
-            ::nome('html')
-            ::middleware(TokenMiddleware::class, 'scope', ['saude_convenio:html'])
-            ::request(['endereco_estado', 'endereco_cidade'])
-            ::get('/saude-convenio/html');
+            ::nome('tabela')
+            ::middleware(TokenMiddleware::class, 'scope', ['saude_convenio:tabela'])
+            ::request(['convenio', 'plano'])
+            ::get('/saude-convenio/tabela');
     });
 Route
     ::nome('saude_simulacao')

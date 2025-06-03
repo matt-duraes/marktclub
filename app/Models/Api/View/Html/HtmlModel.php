@@ -95,7 +95,7 @@ final class HtmlModel extends ORM
     private function montarArrayRetorno($r)
     {
         $painel = defined('TOKEN') && TOKEN['app']->audience == 'painel';
-        return [
+        return $this->removerValorVazio([
             'id'              => $r->uuid,
             'empresa_ativa'   => $this->converterIdEmpresa($r->id_admin_empresa_ativa),
             'empresa_inativa' => $this->converterIdEmpresa($r->id_admin_empresa_inativa),
@@ -133,7 +133,19 @@ final class HtmlModel extends ORM
             'botao_tipo'      => (new BotaoTipo($r->botao_tipo))->indice(),
             'ordem'           => $r->ordem,
             'status'          => (new Botao($r->status ? 'sim' : 'nao'))->valor(),
-        ];
+        ]);
+    }
+
+    private function removerValorVazio($array): array
+    {
+        $retorno = [];
+        foreach($array as $ind => $val) {
+            if(empty($val)) {
+                continue;
+            }
+            $retorno[$ind] = $val;
+        }
+        return $retorno;
     }
 
     private function converterIdEmpresa($empresa)
