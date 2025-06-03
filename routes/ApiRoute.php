@@ -2665,6 +2665,14 @@ Route
             ::nome('respondeu')
             ::middleware(TokenMiddleware::class, 'scope', ['enquete_mercado:buscar'])
             ::post('/pesquisa-resposta');
+
+        Route
+            ::nome('download')
+            ::middleware(TokenMiddleware::class, 'scope', ['enquete_mercado:download'])
+            ::request([
+                'campo', 'usuario'
+            ])
+            ::post('/enquete-mercado/download');
     });
 
 Route

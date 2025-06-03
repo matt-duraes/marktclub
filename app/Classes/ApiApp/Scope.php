@@ -78,7 +78,8 @@ final class Scope
         'comercial_restricao:select', 'parceiro_subcategoria:select', 'parceiro_subcategoria:listar',
         'usuario_grupo:select', 'usuario_equipe:select', 'parceiro_loja:select',
         'usuario_equipe:mudar_empresa', 'automovel_modelo:deletar', 'usuario_equipe:perfil',
-        'site_lotacao:select', 'enquete_mercado:buscar', 'enquete_mercado:listar'
+        'site_lotacao:select', 'enquete_mercado:buscar', 'enquete_mercado:listar',
+        'enquete_mercado:download'
     ];
     public const PAINEL_INTERNO = [
         'perfil_dado:buscar', 'perfil_dado:atualizar', 'perfil_dado:validar_senha',
@@ -314,6 +315,7 @@ final class Scope
         'data:listar',
 
         'enquete_mercado:buscar', 'enquete_mercado:listar', 'enquete_mercado:salvar',
+        'enquete_mercado:download'
     ];
     public const TUDO = [
         'perfil_dado:buscar', 'perfil_dado:atualizar', 'perfil_dado:validar_senha',
@@ -497,6 +499,7 @@ final class Scope
         'galapagos_lead:salvar',
 
         'enquete_mercado:buscar', 'enquete_mercado:listar', 'enquete_mercado:salvar',
+        'enquete_mercado:download'
     ];
 
     public function pegarScope(array $lista)

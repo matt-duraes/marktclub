@@ -1479,6 +1479,10 @@ trait PermissaoTrait
                         'titulo' => Titulo::VISUALIZAR,
                         'scope'  => 'enquete_mercado:buscar'
                     ],
+                    'enquete_mercado_download'   => [
+                        'titulo' => Titulo::DOWNLOAD,
+                        'scope'  => ['enquete_mercado:download', 'mensageria:salvar']
+                    ],
                     'enquete_mercado_empresa'    => Titulo::EMPRESA
                 ]
             ]
