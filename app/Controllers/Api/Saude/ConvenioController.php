@@ -47,7 +47,7 @@ final class ConvenioController extends Controller
     {
         $Tabela = new TabelaModel(
             convenio: $request->convenio,
-            plano: $request->plano
+            tabela: $request->tabela
         );
         return mensagemSucesso($Tabela->retorno);
     }

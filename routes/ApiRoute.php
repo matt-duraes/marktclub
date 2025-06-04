@@ -2483,7 +2483,7 @@ Route
         Route
             ::nome('tabela')
             ::middleware(TokenMiddleware::class, 'scope', ['saude_convenio:tabela'])
-            ::request(['convenio', 'plano'])
+            ::request(['convenio', 'tabela'])
             ::get('/saude-convenio/tabela');
     });
 Route

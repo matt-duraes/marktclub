@@ -12,7 +12,7 @@ final class TabelaModel
 
     public function __construct(
         private readonly string $convenio,
-        private readonly string $plano
+        private readonly string $tabela
     )
     {
         $this->pegarArquivo();
@@ -34,7 +34,7 @@ final class TabelaModel
 
     private function pegarArquivo(): void
     {
-        $path = DIRETORIO_PRIVADO . '/saude_tabela/' . $this->convenio . '.' . $this->plano . '.yaml';
+        $path = DIRETORIO_PRIVADO . '/saude_tabela/' . $this->convenio . '.' . $this->tabela . '.yaml';
         if(!file_exists($path)) {
             $this->erroPadrao('Path do arquivo não encontrado');
         }
