@@ -6,6 +6,7 @@ use Http\Request;
 use Http\Response;
 use Controller\Controller;
 use Modules\EnderecoEstado;
+use App\Models\Api\Saude\Convenio\BuscarModel;
 use App\Models\Api\Saude\Convenio\CidadeModel;
 use App\Models\Api\Saude\Convenio\EstadoModel;
 use App\Models\Api\Saude\Convenio\ListarModel;
@@ -20,6 +21,12 @@ final class ConvenioController extends Controller
             enderecoCidade: $request->endereco_cidade
         );
         return mensagemSucesso($Convenio->retorno);
+    }
+
+    public function getBuscar(string $id): Response
+    {
+        $Buscar = new BuscarModel(id: $id);
+        return mensagemSucesso($Buscar->retorno);
     }
 
     public function getEstado(): Response

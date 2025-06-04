@@ -2,136 +2,108 @@
 
 namespace App\Models\Site\Pagina;
 
-use stdClass;
 use App\Helpers\ClubeApiHelper;
-use App\Models\Site\Loja\RetornoModel;
 
-final class ApiModel
+final class ApiModel extends ClubeApiHelper
 {
-    private array $componente = [];
-    public stdClass $retorno;
+    public array $retorno = [];
+    private array $busca = [];
+    private array $body = [];
+    private string $uri = '';
 
     public function __construct(
-        private string $url,
-        private string $id,
-        private array $campo
+        private array $dado,
+        private ?string $tipo = null
     ) {
-        $this->retorno = object([]);
-        $this->pegarComponente();
+        parent::__construct();
+        $this->validarDado();
+        $this->montarBody();
+        $this->setarUri();
         $this->fazerRequisicao();
+        $this->validarBusca();
+        $this->limparCampo();
+    }
+
+    private function limparCampo()
+    {
+        $campo = $this->pegarCampoRetorno();
+        if(empty($campo)) {
+            return;
+        }
+
+        $retorno = [];
+        foreach($this->retorno as $item) {
+            $dado = [];
+            foreach($item as $ind => $val) {
+                if(!in_array($ind, $campo)) {
+                    continue;
+                }
+                $dado[$ind] = $val;
+            }
+            $retorno[] = $dado;
+        }
+        $this->retorno = $retorno;
+    }
+
+    private function pegarCampoRetorno(): array
+    {
+        $tipo = !empty($this->tipo) ? $this->tipo : '';
+        return [
+            'banner' => ['imagem_desktop', 'imagem_mobile', 'link']
+        ][$tipo] ?? [];
+    }
+
+    private function validarBusca()
+    {
+        $busca = $this->busca;
+        if(!validarIndiceExiste($busca, ['status', 'dado']) || $busca['status'] !== 'sucesso') {
+            mensagemStatus(500);
+        }
+        $busca = $busca['dado'];
+        $this->retorno = validarIndiceExiste($busca, ['lista', 'pagina']) ? $busca['lista'] : $busca;
+    }
+
+    private function montarBody()
+    {
+        foreach($this->dado['body'] ?? [] as $r) {
+            if(!validarIndiceExiste($r, ['valor', 'indice'])) {
+                continue;
+            }
+            $this->body[$r['indice']] = $r['valor'];
+        }
+    }
+    private function setarUri()
+    {
+        $uri = $this->dado['uri'] ?? '';
+        $this->uri = !empty($uri) ? '/' . preg_replace('/^\//', '', $uri) : '';
+    }
+
+    private function validarDado()
+    {
+        if(
+            empty($this->dado) ||
+            !validarIndiceExiste($this->dado, ['metodo', 'uri']) ||
+            !in_array($this->dado['metodo'], ['GET', 'POST'])
+        ) {
+            mensagemStatus(403);
+        }
     }
 
     private function fazerRequisicao()
     {
-        $com = $this->componente;
-        if (!array_key_exists('status', $com) || $com['status'] != 'sim') {
-            return mensagemStatus(403, localhost: 'Status não existe ou ele não é sim');
+        $metodo = [
+            'GET' => 'get',
+            'POST' => 'post'
+        ][$this->dado['metodo']];
+        $body = [
+            'get' => 'parametro',
+            'post' => 'body'
+        ][$metodo];
+
+        if($this->body) {
+            $this->busca = $this->$body($this->body)->$metodo($this->uri)->array();
+            return;
         }
-
-        $metodo = $com['metodo'];
-        $body = $com['body'];
-        $uri = $com['uri'];
-
-        $Api = new ClubeApiHelper();
-
-        $get = $metodo == 'GET';
-        $post = $metodo == 'POST';
-
-        $Api->validar(status: 403);
-
-        if ($body && $post) {
-            $Api->body($body);
-        } elseif ($body && $get) {
-            $Api->json($body);
-        }
-
-        if ($get) {
-            $Api->get($uri);
-        } elseif ($post) {
-            $Api->post($uri);
-        }
-        $this->retorno = $this->montarRetorno($Api->object(), $metodo, $uri);
-    }
-
-    private function montarRetorno($dado, $metodo, $uri)
-    {
-        if (!object_key_exists('dado', $dado) || !object_key_exists('lista', $dado->dado) || empty($dado->dado->lista)) {
-            return $dado;
-        }
-
-        $retorno = [];
-        if ($metodo == 'GET' && $uri == '/parceiro-loja') {
-            $Retorno = new RetornoModel($dado->dado->lista);
-            $retorno = $Retorno->retorno;
-        } else {
-            $campo = $this->campo;
-            foreach ($dado->dado->lista as $item) {
-                $r = [];
-                foreach ($item as $ind => $val) {
-                    if (!in_array($ind, $campo)) {
-                        continue;
-                    } elseif ($ind == 'target' && array_key_exists('target', $r)) {
-                        continue;
-                    }
-
-                    $eLink = !empty($val) && is_string($val) && (
-                        str_starts_with($val, 'http://') || str_starts_with($val, 'https://')
-                    );
-                    if ($eLink) {
-                        $val = strLink($val);
-                    }
-
-                    if ($eLink && $ind == 'link' && !str_starts_with($val, LINK)) {
-                        $r['target'] = '_blank';
-                        $r['rel'] = 'noopener noreferrer';
-                    }
-                    $r[$ind] = $val;
-                }
-                $retorno[] = $r;
-            }
-        }
-        $dado->dado->lista = $retorno;
-        return $dado;
-    }
-
-    private function pegarComponente()
-    {
-        $sessao = 'PAGINA_' . strCaixaAlta(str_replace('/', '_', $this->url));
-        if (!sessaoExiste($sessao)) {
-            mensagemStatus(403, localhost: 'Sessão não existe.');
-        }
-        $this->selecionarComponente(sessao($sessao)->html);
-    }
-
-    private function selecionarComponente($html)
-    {
-        foreach ($html as $r) {
-            $lista = [];
-            if (object_key_exists('lista', $r)) {
-                $lista = $r->lista;
-                unset($r->lista);
-            }
-            if ($r->id == $this->id) {
-                $this->componente = [
-                    'uri'    => '/' . $r->api_uri ?? '',
-                    'metodo' => $r->api_metodo ?? '',
-                    'body'   => $this->montarBody($r->api_body ?? []),
-                    'status' => $r->api_status ?? 'nao',
-                ];
-                break;
-            }
-            if ($lista) {
-                $this->selecionarComponente($lista);
-            }
-        }
-    }
-
-    private function montarBody($body): array
-    {
-        $retorno = [];
-        foreach ($body as $r) {
-            $retorno[$r->indice] = $r->valor;
-        }
-        return $retorno;
+        $this->busca = $this->$metodo($this->uri)->array();
     }
 }

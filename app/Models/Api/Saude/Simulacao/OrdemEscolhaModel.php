@@ -14,6 +14,6 @@ final class OrdemEscolhaModel extends ORM
     )
     {
         parent::__construct();
-        $this->ordem = jsonDecode($this->campo(['escolha'])->where(['url', $url])->primeiro('escolha'), true, true);
+        $this->ordem = jsonDecode($this->campo(['simulacao'])->where(['url', $url])->primeiro('simulacao'), true, true);
     }
 }

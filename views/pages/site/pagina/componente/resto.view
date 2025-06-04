@@ -1,1 +1,2 @@
-<div {!!$View->class()->css()!!}></div>
+{!!$View->css()!!}
+<div {!!$View->class()!!}></div>

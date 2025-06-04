@@ -15,7 +15,7 @@ final class SimularModel
     public array $retorno = [];
 
     public function __construct(
-        private array $escolhido,
+        private array $simulacao,
         private string $convenio,
         private Data $titular,
         private array $dependente
@@ -25,8 +25,8 @@ final class SimularModel
         $this->validarCampo();
         $this->pegarArquivo();
         $this->pegarOrdemEscolha();
-        $this->ordenarEscolhido();
-        $this->setarListaValorEscolhido();
+        $this->ordenarSimulacaoEscolhida();
+        $this->setarListaValorSimulacaoEscolhida();
         $this->adicionarValorUsuario();
         $this->montarRetorno();
     }
@@ -87,8 +87,8 @@ final class SimularModel
 
     private function validarCampo()
     {
-        if(empty($this->escolhido) || empty($this->convenio)) {
-            $this->erroPadrao('Escolhido ou convenio vazios.');
+        if(empty($this->simulacao) || empty($this->convenio)) {
+            $this->erroPadrao('Campo simulacao ou convenio vazios.');
         } elseif(!$this->titular->valido()) {
             mensagemErro('Data nascimento inválida!', 'Data de nascimento do titular está inválida.');
         }
@@ -122,15 +122,15 @@ final class SimularModel
         $this->ordem = $ordem;
     }
 
-    private function ordenarEscolhido()
+    private function ordenarSimulacaoEscolhida()
     {
-        $escolhido = $this->escolhido;
+        $simulacao = $this->simulacao;
         $ordem = [];
         foreach($this->ordem as $indice) {
-            if(!array_key_exists($indice, $escolhido)) {
+            if(!array_key_exists($indice, $simulacao)) {
                 $this->erroPadrao('Não foi possível ordenar as escolha do plano.');
             }
-            $ordem[] = $escolhido[$indice];
+            $ordem[] = $simulacao[$indice];
         }
         $this->ordem = $ordem;
     }
@@ -145,7 +145,7 @@ final class SimularModel
         );
     }
 
-    private function setarListaValorEscolhido()
+    private function setarListaValorSimulacaoEscolhida()
     {
         $valor = $this->arquivoValor;
         foreach($this->ordem as $indice) {

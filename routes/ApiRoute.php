@@ -2445,14 +2445,14 @@ Route
             ::nome('simular')
             ::middleware(TokenMiddleware::class, 'scope', ['saude_simulacao:simular'])
             ::request([
-                'convenio', 'escolhido', 'titular', 'dependente'
+                'convenio', 'simulacao', 'titular', 'dependente'
             ])
             ::get('/saude-simulacao/simular');
         Route
             ::nome('salvar')
             ::middleware(TokenMiddleware::class, 'scope', ['saude_simulacao:salvar'])
             ::request([
-                'convenio', 'escolhido', 'titular', 'dependente'
+                'convenio', 'simulacao', 'titular', 'dependente'
             ])
             ::post('/saude-simulacao');
     });

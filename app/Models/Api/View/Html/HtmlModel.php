@@ -126,7 +126,7 @@ final class HtmlModel extends ORM
             'link_empresa'    => $r->link_empresa,
             'div_direcao'     => (new DivDirecao($r->div_direcao))->indice(),
             'div_posicao'     => (new DivPosicao($r->div_posicao))->indice(),
-            'api_status'      => (new Botao($r->api_status))->valor(),
+            'api_status'      => (new Botao($r->api_status ? 'sim' : 'nao'))->valor(),
             'api_metodo'      => (new Metodo($r->api_metodo))->indice(),
             'api_body'        => $r->api_body,
             'api_uri'         => $r->api_uri,

@@ -1,3 +1,4 @@
-<div {!!$View->class('fw_documento')->css()!!}>
+{!!$View->css()!!}
+<div {!!$View->class('fw_documento')!!}>
     {!!$r->editor!!}
 </div>
