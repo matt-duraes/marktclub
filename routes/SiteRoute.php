@@ -1,9 +1,9 @@
 <?php
 
-use App\Middlewares\Site\AppTipoMiddleware;
+use Route\Route;
 use App\Middlewares\Site\AuthMiddleware;
 use App\Middlewares\Site\ClubeMiddleware;
-use Route\Route;
+use App\Middlewares\Site\AppTipoMiddleware;
 
 Route
     ::nome('temp')
@@ -338,7 +338,7 @@ Route
 
         Route
             ::nome('buscar')
-            ::request(['id', 'url', 'campo', '!relacionado'])
+            ::request(['hash', '!tipo'])
             ::post('/componente');
     });
 

@@ -1,4 +1,5 @@
-<div {!!$View->class()->css()!!} data-id="{{$r->id}}">
+{!!$View->css()!!}
+<div {!!$View->class()!!} data-id="{{$r->id}}">
     @php
         componenteLoading($r->lista);
     @end

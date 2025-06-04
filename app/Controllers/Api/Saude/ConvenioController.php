@@ -6,9 +6,11 @@ use Http\Request;
 use Http\Response;
 use Controller\Controller;
 use Modules\EnderecoEstado;
+use App\Models\Api\Saude\Convenio\BuscarModel;
 use App\Models\Api\Saude\Convenio\CidadeModel;
 use App\Models\Api\Saude\Convenio\EstadoModel;
 use App\Models\Api\Saude\Convenio\ListarModel;
+use App\Models\Api\Saude\Convenio\TabelaModel;
 
 final class ConvenioController extends Controller
 {
@@ -19,6 +21,12 @@ final class ConvenioController extends Controller
             enderecoCidade: $request->endereco_cidade
         );
         return mensagemSucesso($Convenio->retorno);
+    }
+
+    public function getBuscar(string $id): Response
+    {
+        $Buscar = new BuscarModel(id: $id);
+        return mensagemSucesso($Buscar->retorno);
     }
 
     public function getEstado(): Response
@@ -35,8 +43,12 @@ final class ConvenioController extends Controller
         return mensagemSucesso($Cidade->retorno);
     }
 
-    public function getHtml(Request $request): Response
+    public function getTabela(Request $request): Response
     {
-        return mensagemSucesso([]);
+        $Tabela = new TabelaModel(
+            convenio: $request->convenio,
+            plano: $request->plano
+        );
+        return mensagemSucesso($Tabela->retorno);
     }
 }

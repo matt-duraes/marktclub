@@ -44,7 +44,7 @@ return [
                 ]
             ]
         ],
-        'escolha' => [
+        'simulacao' => [
             'plano'
         ],
         'titulo' => 'Plano SP Cidade',
@@ -78,7 +78,7 @@ return [
                 ]
             ]
         ],
-        'escolha' => [
+        'simulacao' => [
             'plano'
         ],
         'titulo' => 'Plano RN',
@@ -112,7 +112,7 @@ return [
                 ]
             ]
         ],
-        'escolha' => [
+        'simulacao' => [
             'plano'
         ],
         'titulo' => 'Plano Nacional',
@@ -161,7 +161,7 @@ return [
                 ]
             ]
         ],
-        'escolha' => [
+        'simulacao' => [
             'estado', 'plano'
         ],
         'titulo' => 'Plano vários estados',

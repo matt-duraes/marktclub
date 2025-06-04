@@ -1,0 +1,1 @@
+{"id":"id_bc76c547edab2c0c41928070131fbc7e","token":"clube","metodo":"GET","nome":"\/saude-convenio\/tabela","uri":"{{LINK}}\/saude-convenio\/tabela","parametro":[["texto",true,"convenio","plano-sp-cidade",""],["texto",true,"plano","flex",""]],"body":[],"header":[],"variavel":[],"json":[],"documentacao":{"status":false,"descricao":"","requisicao":"","resposta":"","scope":""}}

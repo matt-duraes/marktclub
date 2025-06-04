@@ -632,6 +632,7 @@ window.addEventListener('load', () => {
             blocoDivPosicao.aparecer();
         } else if (valor == 'tabela') {
             inputTabela.aparecer();
+            blocoApiStatus.aparecer();
         } else if (valor == 'lista') {
             blocoLista.aparecer();
         } else if (valor == 'imagem') {

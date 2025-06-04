@@ -22,7 +22,7 @@ final class SimulacaoController extends Controller
         $Salvar = new SalvarModel(
             Simulacao: $this->simular($request),
             convenio: $request->convenio,
-            escolhido: $request->escolhido
+            simulacao: $request->simulacao
         );
         return mensagemSucesso($Salvar->retorno, status: 201);
     }
@@ -30,7 +30,7 @@ final class SimulacaoController extends Controller
     private function simular(Request $request)
     {
         return new SimularModel(
-            escolhido: $request->escolhido,
+            simulacao: $request->simulacao,
             titular: new Data($request->titular),
             dependente: $request->dependente,
             convenio: $request->convenio

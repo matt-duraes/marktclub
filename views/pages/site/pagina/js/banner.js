@@ -1,47 +1,56 @@
-window.addEventListener('load', () => {
-    const banner = $('#bloco_banner');
-    if (!banner) {
-        return;
-    }
-    const id = banner.attr('data-id');
-    const figurePadrao = $('#com_banner_figure_padrao');
-    const conteudoDesktop = $('#bloco_banner_desktop');
-    const conteudoMobile = $('#bloco_banner_mobile');
-    const aparecer = $$('.seta, .imagem', banner);
+const adicionarNovoBanner = banner => {
+    banner.classe('banner_loading', true);
+    const hash = banner.attr('data-hash');
+    const setaAnterior = $('.seta.anterior', banner);
+    const setaProximo = $('.seta.proximo', banner);
+    const figurePadrao = $('.com_banner_figure_padrao', banner);
+    const conteudoDesktop = $('.banner_desktop', banner);
+    const conteudoMobile = $('.banner_mobile', banner);
+    const aparecer = $$('.imagem, .seta');
 
     const EsqueletoItem = new Esqueleto(banner, '.conteudo');
     EsqueletoItem.show();
 
-    const buscarBanner = async () => {
-        const resposta = await ajaxPost(
-            LINK + '/componente',
-            {
-                id,
-                url: paginaUrl,
-                campo: ['imagem_desktop', 'imagem_mobile', 'tipo', 'link'],
-            },
-            ''
-        );
-        EsqueletoItem.hide();
-        banner.classe('banner_loading', false);
-        if (false == resposta || resposta.dado.lista.length == 0) {
+    const body = new FormData();
+    body.append('hash', hash);
+    body.append('tipo', 'banner');
+
+    fetch(LINK + '/componente', {
+        method: 'POST',
+        body,
+    })
+        .then(resposta => {
+            resposta
+                .json()
+                .then(resposta => {
+                    adicionarImagemBanner(resposta);
+                })
+                .catch(erro => {
+                    //
+                });
+        })
+        .catch(erro => {
+            //
+        });
+
+    const adicionarImagemBanner = lista => {
+        const quantidade = lista.length;
+        if (quantidade === 0) {
             banner.remove();
             return;
         }
         aparecer.aparecer();
-        adicionarImagemBanner(resposta.dado.lista);
-        adicionarPluginBanner();
-    };
-    buscarBanner();
 
-    const adicionarImagemBanner = lista => {
+        EsqueletoItem.hide();
+        banner.classe('banner_loading', false);
+
         for (const item of lista) {
             const cloneDesktop = figurePadrao.clonar();
             const cloneMobile = figurePadrao.clonar();
 
             const blocoLinkDesktop = $('a', cloneDesktop);
             const blocoLinkMobile = $('a', cloneMobile);
-            if (item.tipo == 'home') {
+            if (!vazio(item.link)) {
                 blocoLinkDesktop.attr('href', item.link);
                 blocoLinkMobile.attr('href', item.link);
                 if ('target' in item) {
@@ -65,15 +74,26 @@ window.addEventListener('load', () => {
                 conteudoMobile.final(cloneMobile);
             }
         }
+        adicionarPluginBanner();
     };
     const adicionarPluginBanner = () => {
         const quantidadeDesktop = $$('figure', conteudoDesktop).length;
         const quantidadeMobile = $$('figure', conteudoMobile).length;
         if (quantidadeDesktop > 0) {
-            new Banner(conteudoDesktop, 'figure', $('#botao_banner_proximo'), $('#botao_banner_anterior'));
+            new Banner(conteudoDesktop, 'figure', setaProximo, setaAnterior);
         }
         if (quantidadeMobile > 0) {
             new Banner(conteudoMobile, 'figure');
         }
     };
+};
+
+window.addEventListener('load', () => {
+    const bannerLista = $$('.com_api_banner');
+    if (!bannerLista) {
+        return;
+    }
+    for (const banner of bannerLista) {
+        adicionarNovoBanner(banner);
+    }
 });

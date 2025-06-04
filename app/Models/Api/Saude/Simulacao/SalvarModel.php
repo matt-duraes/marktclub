@@ -16,7 +16,7 @@ final class SalvarModel extends ORM
     public function __construct(
         SimularModel $Simulacao,
         string $convenio,
-        array $escolhido
+        array $simulacao
     )
     {
         parent::__construct();
@@ -30,7 +30,7 @@ final class SalvarModel extends ORM
             'valor_titular' => $Simulacao->valorTitular,
             'valor_dependente' => $Simulacao->valorDependente,
             'valor_total' => $Simulacao->valorTotal,
-            'escolhido' => $escolhido,
+            'simulacao' => $simulacao,
             'status' => new Status(Status::NOVO)
         ])->insert();
 

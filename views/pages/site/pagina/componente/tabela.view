@@ -4,10 +4,9 @@ $tabela = $r->tabela ?? [];
 $tamanho = [];
 $tamanhoTotal = 0;
 $existeHeader = false;
-$auto = 0;
-$header = $tabela->header ?? [];
-$linhaLista = $tabela->linha ?? [];
-
+$auto = [];
+$header = $tabela['header'] ?? [];
+$linhaLista = $tabela['linha'] ?? [];
 
 if(!function_exists('comTabelaLinha')) {
     function comTabelaLinha($lista, $classeTr, $tamanho, $tamanhoTotal, $auto) {
@@ -16,43 +15,45 @@ if(!function_exists('comTabelaLinha')) {
         foreach($lista as $i => $r) {
             $classe = ['td'];
             $width = 'data-fwcss="width: ' . $tamanho[$i] . 'px"';
-            if($i == $auto) {
+            if(in_array($i, $auto)) {
                 $width = 'data-fwcss="min-width: ' . $tamanho[$i] . 'px"';
                 $classe[] = "td_auto";
             }
-            echo '<div class="' . implode(' ', $classe) . '" ' . $width . '>' . $r->valor . '</div>';
+            echo '<div class="' . implode(' ', $classe) . '" ' . $width . '>' . $r['valor'] . '</div>';
         }
         echo '</div>';
     }
 }
 
 foreach($header as $i => $r) {
-    if(!empty($r->valor)) {
+    if(!empty($r['valor'])) {
         $existeHeader = true;
     }
-    if($r->auto) {
-        $auto = $i;
+    if($r['auto']) {
+        $auto[] = $i;
     }
-    $tamanho[$i] = $r->tamanho;
-    $tamanhoTotal += $r->tamanho > 0 ? $r->tamanho : 0;
+    $tamanho[$i] = $r['tamanho'];
+    $tamanhoTotal += $r['tamanho'] > 0 ? $r['tamanho'] : 0;
 }
 
-$viewTabela = $View->css()->class();
+$viewTabela = $View->class();
+$hash = $View->api();
 
-echo <<<EOF
-<div $viewTabela>
+echo $View->css();
+echo <<<HTML
+<div $viewTabela data-hash="$hash">
     <div class="com_tabela_scroll">
         <div class="com_tabela_conteudo">
-EOF;
+HTML;
 if($existeHeader) {
     comTabelaLinha($header, 'header', $tamanho, $tamanhoTotal, $auto);
 }
 foreach($linhaLista as $linha) {
     comTabelaLinha($linha, '', $tamanho, $tamanhoTotal, $auto);
 }
-echo <<<EOF
+echo <<<HTML
         </div>
     </div>
 </div>
-EOF;
+HTML;
 @end

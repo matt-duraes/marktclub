@@ -1,3 +1,4 @@
-<figure {!!$View->class()->css()!!}>
+{!!$View->css()!!}
+<figure {!!$View->class()!!}>
     <img src="{!!$r->imagem_arquivo!!}" height="{!!$r->imagem_altura!!}">
 </figure>

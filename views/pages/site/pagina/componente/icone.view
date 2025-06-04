@@ -4,6 +4,7 @@
         'tamanho' => (int)$r->icone_altura
     ];
 @end
-<div {!!$View->class()->css()!!}>
+{!!$View->css()!!}
+<div {!!$View->class()!!}>
 @? call_user_func_array($icone, $parametro);
 </div>

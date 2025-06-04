@@ -1,4 +1,5 @@
-<div {!!$View->class()->css()!!}>
+{!!$View->css()!!}
+<div {!!$View->class()!!}>
 @php
     componenteLoading($r->lista);
 @end

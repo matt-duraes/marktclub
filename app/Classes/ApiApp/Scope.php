@@ -41,7 +41,7 @@ final class Scope
         'solicitacao_automovel:salvar',
         'saude_contratacao:salvar', 'saude_simulacao:salvar',
         'saude_convenio:listar', 'saude_convenio:estado', 'saude_convenio:cidade', 'saude_convenio:html',
-        'saude_convenio:buscar',
+        'saude_convenio:buscar', 'saude_convenio:tabela',
         'saude_simulacao:simular',
         'ponto_cvs:listar', 'ponto_cvs:salvar',
         'comercial_popup:listar',

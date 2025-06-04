@@ -6,5 +6,6 @@
 // @import "banner"
 // @import "campanha"
 // @import "relacionado"
+// @import "tabela"
 
 const paginaUrl = $('#input_url').valor();
