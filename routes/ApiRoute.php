@@ -3022,7 +3022,7 @@ Route
             ::nome('atualizar')
             ::middleware(TokenMiddleware::class, 'scope', ['solicitacao_loja:atualizar'])
             ::request([
-                '!parceiro', '!parceiro_novo', '!gestor', '!empresas'
+                '!parceiro', '!parceiro_novo', '!gestor', '!empresas', '!status'
             ])
             ::put('/solicitacao-loja/{id}');
 
