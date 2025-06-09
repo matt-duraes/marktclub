@@ -25,12 +25,17 @@ final class GrupoModel extends ORM
             }
             $dado = $this
                 ->dado([
-                    'id_view_html'    => $idLista[$pai],
-                    'margem_topo'     => $r['margem_topo'],
-                    'margem_direita'  => $r['margem_direita'],
-                    'margem_baixo'    => $r['margem_baixo'],
-                    'margem_esquerda' => $r['margem_esquerda'],
-                    'ordem'           => $r['ordem'],
+                    'id_view_html'            => $idLista[$pai],
+                    'margem_topo_desktop'     => $r['margem_topo_desktop'],
+                    'margem_topo_mobile'      => $r['margem_topo_mobile'],
+                    'margem_direita_desktop'  => $r['margem_direita_desktop'],
+                    'margem_direita_mobile'   => $r['margem_direita_mobile'],
+                    'margem_baixo_desktop'    => $r['margem_baixo_desktop'],
+                    'margem_baixo_mobile'     => $r['margem_baixo_mobile'],
+                    'margem_esquerda_desktop' => $r['margem_esquerda_desktop'],
+                    'margem_esquerda_mobile'  => $r['margem_esquerda_mobile'],
+                    'minimizado'              => $r['minimizado'] == 'sim',
+                    'ordem'                   => $r['ordem'],
                 ])
                 ->where(['uuid', $r['id']])
                 ->update();

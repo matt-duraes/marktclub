@@ -1060,7 +1060,8 @@ Route
             ::nome('salvar')
             ::middleware(TokenMiddleware::class, 'scope', ['view_html:salvar'])
             ::requestOpcional(array_merge(['pagina'], App\Classes\View\Lista\Helper::PARAMETROS_LISTAR), lista: [
-                'margem_topo', 'margem_direita', 'margem_baixo', 'margem_esquerda'
+                'margem_topo_desktop', 'margem_direita_desktop', 'margem_baixo_desktop', 'margem_esquerda_desktop',
+                'margem_topo_mobile', 'margem_direita_mobile', 'margem_baixo_mobile', 'margem_esquerda_mobile'
             ])
             ::post('/view-html');
         Route
