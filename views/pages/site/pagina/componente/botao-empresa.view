@@ -1,6 +1,4 @@
 @php
-    include ROOT . '/files/build/views/site_pagina_componente_botao_margem.php';
-
     $comEmpresa = (array)$r->link_empresa;
     $link = $comEmpresa[CLUBE_EMPRESA] ?? $comEmpresa['geral'] ?? '';
 
@@ -21,9 +19,6 @@
         $Botao->cinza();
     } elseif($r->botao_tipo == 'borda-cinza') {
         $Botao->cinza()->borda();
-    }
-    if($css) {
-        $Botao->css($css);
     }
 
     echo $Botao;

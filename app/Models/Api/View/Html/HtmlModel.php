@@ -95,6 +95,12 @@ final class HtmlModel extends ORM
     private function montarArrayRetorno($r)
     {
         $painel = defined('TOKEN') && TOKEN['app']->audience == 'painel';
+
+        $direcaoDesktop = (new DivDirecao($r->div_direcao_desktop))->indice();
+        $direcaoMobile = (new DivDirecao($r->div_direcao_mobile))->indice();
+        $posicaoDesktop = (new DivPosicao($r->div_posicao_desktop))->indice();
+        $posicaoMobile = (new DivPosicao($r->div_posicao_mobile))->indice();
+
         return $this->removerValorVazio([
             'id'              => $r->uuid,
             'empresa_ativa'   => $this->converterIdEmpresa($r->id_admin_empresa_ativa),
@@ -117,8 +123,8 @@ final class HtmlModel extends ORM
             'margem_baixo_desktop'    => $r->margem_baixo_desktop,
             'margem_baixo_mobile'    => $r->margem_baixo_mobile,
             'imagem_arquivo'  => $painel ? $r->imagem_arquivo : imagemPrivada($r->imagem_arquivo),
-            'imagem_altura_desktop'   => $r->imagem_altura_desktop,
-            'imagem_altura_mobile'   => $r->imagem_altura_mobile,
+            'imagem_altura_desktop' => $r->imagem_altura_desktop,
+            'imagem_altura_mobile' => !$painel && empty($r->imagem_altura_mobile) ? $r->imagem_altura_desktop : $r->imagem_altura_mobile,
             'icone_tipo'      => (new IconeTipo($r->icone_tipo))->indice(),
             'icone_tamanho'   => $r->icone_tamanho,
             'icone_altura'    => $r->icone_altura,
@@ -129,10 +135,10 @@ final class HtmlModel extends ORM
             'lista_tipo'      => (new ListaTipo($r->lista_tipo))->indice(),
             'lista_valor'     => $r->lista_valor,
             'link_empresa'    => $r->link_empresa,
-            'div_direcao_desktop'     => (new DivDirecao($r->div_direcao_desktop))->indice(),
-            'div_direcao_mobile'     => (new DivDirecao($r->div_direcao_mobile))->indice(),
-            'div_posicao_desktop'     => (new DivPosicao($r->div_posicao_desktop))->indice(),
-            'div_posicao_mobile'     => (new DivPosicao($r->div_posicao_mobile))->indice(),
+            'div_direcao_desktop' => $direcaoDesktop,
+            'div_direcao_mobile' => !$painel && empty($direcaoMobile) ? $direcaoDesktop : $direcaoMobile,
+            'div_posicao_desktop' => $posicaoDesktop,
+            'div_posicao_mobile' => !$painel && empty($posicaoMobile) ? $posicaoDesktop : $posicaoMobile,
             'api_status'      => (new Botao($r->api_status ? 'sim' : 'nao'))->valor(),
             'api_metodo'      => (new Metodo($r->api_metodo))->indice(),
             'api_body'        => $r->api_body,
@@ -141,14 +147,15 @@ final class HtmlModel extends ORM
             'botao_tipo'      => (new BotaoTipo($r->botao_tipo))->indice(),
             'ordem'           => $r->ordem,
             'status'          => (new Botao($r->status ? 'sim' : 'nao'))->valor(),
-        ]);
+        ], $painel);
     }
 
-    private function removerValorVazio($array): array
+    private function removerValorVazio($array, $painel): array
     {
         $retorno = [];
+        $remover = ['titulo_interno', 'minimizado'];
         foreach($array as $ind => $val) {
-            if(empty($val)) {
+            if(empty($val) || (!$painel && in_array($ind, $remover))) {
                 continue;
             }
             $retorno[$ind] = $val;
