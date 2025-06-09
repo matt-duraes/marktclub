@@ -21,22 +21,24 @@ final class HtmlEntity extends Entity
     protected string $ormTabela = TABELA_VIEW_HTML;
     protected array $ormBuscar = [
         'tipo', 'local', 'titulo', 'texto', 'link', 'target', 'tabela', 'editor',
-        'titulo_interno', 'margem_topo', 'margem_esquerda', 'margem_direita', 'margem_baixo',
+        'titulo_interno', 'div_direcao_desktop', 'div_direcao_mobile', 'div_posicao_desktop', 'div_posicao_mobile',
+        'margem_topo_desktop', 'margem_esquerda_desktop', 'margem_direita_desktop', 'margem_baixo_desktop',
+        'margem_topo_mobile', 'margem_esquerda_mobile', 'margem_direita_mobile', 'margem_baixo_mobile',
         'icone_tipo', 'icone_tamanho', 'icone_cor', 'icone_bg', 'icone_borda_cor', 'icone_nome',
-        'icone_altura', 'lista_tipo', 'lista_valor', 'link_empresa', 'div_direcao',
-        'div_posicao', 'api_status', 'api_metodo', 'api_body', 'api_uri', 'botao_tipo',
-        'status', 'ordem', 'id_admin_empresa_ativa', 'id_admin_empresa_inativa', 'imagem_arquivo',
-        'imagem_altura',
+        'icone_altura', 'lista_tipo', 'lista_valor', 'link_empresa', 'imagem_arquivo', 'imagem_altura_desktop',
+        'imagem_altura_mobile', 'api_status', 'api_metodo', 'api_body', 'api_uri', 'botao_tipo',
+        'status', 'ordem', 'id_admin_empresa_ativa', 'id_admin_empresa_inativa',
     ];
     protected array $ormInsert = ['id_view_pagina', ];
     protected array $ormSalvar = [
         'tipo', 'local', 'titulo', 'texto', 'link', 'target', 'tabela', 'editor',
-        'titulo_interno', 'margem_topo', 'margem_esquerda', 'margem_direita', 'margem_baixo',
-        'icone_tipo', 'icone_tamanho', 'icone_cor', 'icone_bg', 'icone_borda_cor',
-        'icone_nome', 'icone_altura', 'lista_tipo', 'lista_valor', 'link_empresa',
-        'div_direcao', 'div_posicao', 'api_status', 'api_metodo', 'api_body', 'api_uri',
-        'botao_tipo', 'status', 'id_view_html', 'ordem', 'id_admin_empresa_ativa',
-        'id_admin_empresa_inativa', 'imagem_arquivo', 'imagem_altura',
+        'titulo_interno', 'div_direcao_desktop', 'div_direcao_mobile', 'div_posicao_desktop', 'div_posicao_mobile',
+        'margem_topo_desktop', 'margem_esquerda_desktop', 'margem_direita_desktop', 'margem_baixo_desktop',
+        'margem_topo_mobile', 'margem_esquerda_mobile', 'margem_direita_mobile', 'margem_baixo_mobile',
+        'icone_tipo', 'icone_tamanho', 'icone_cor', 'icone_bg', 'icone_borda_cor', 'icone_nome', 'icone_altura',
+        'lista_tipo', 'lista_valor', 'link_empresa', 'api_status', 'api_metodo', 'api_body', 'api_uri', 'botao_tipo',
+        'status', 'id_view_html', 'ordem', 'id_admin_empresa_ativa', 'id_admin_empresa_inativa', 'imagem_arquivo',
+        'imagem_altura_desktop', 'imagem_altura_mobile',
     ];
     public int $id_view_pagina;
     public int $id_view_html;
@@ -55,12 +57,17 @@ final class HtmlEntity extends Entity
     public array $tabela;
     public string $editor;
     public string $titulo_interno;
-    public int $margem_topo;
-    public int $margem_esquerda;
-    public int $margem_direita;
-    public int $margem_baixo;
+    public int $margem_topo_desktop;
+    public int $margem_topo_mobile;
+    public int $margem_esquerda_desktop;
+    public int $margem_esquerda_mobile;
+    public int $margem_direita_desktop;
+    public int $margem_direita_mobile;
+    public int $margem_baixo_desktop;
+    public int $margem_baixo_mobile;
     public string $imagem_arquivo;
-    public int $imagem_altura;
+    public int $imagem_altura_desktop;
+    public int $imagem_altura_mobile;
     public IconeTipo $icone_tipo;
     public int $icone_tamanho;
     public string $icone_nome;
@@ -71,8 +78,10 @@ final class HtmlEntity extends Entity
     public ListaTipo $lista_tipo;
     public array $lista_valor;
     public array $link_empresa;
-    public DivDirecao $div_direcao;
-    public DivPosicao $div_posicao;
+    public DivDirecao $div_direcao_desktop;
+    public DivDirecao $div_direcao_mobile;
+    public DivPosicao $div_posicao_desktop;
+    public DivPosicao $div_posicao_mobile;
     public Botao $api_status;
     public Metodo $api_metodo;
     public array $api_body;

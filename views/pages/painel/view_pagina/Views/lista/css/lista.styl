@@ -19,6 +19,9 @@
         padding: 5px
         &.margem_ativa
             display: flex
+    article.margem_item_abrir > .margem
+    article.margem_item_abrir > .conteudo_linha > .margem
+        display: flex
     article.margem_ativa > .margem
     article.margem_ativa > .conteudo_linha > .margem
         display: flex
@@ -31,6 +34,7 @@
     article .margem_esquerda
     article .margem_direita
         width: 40px
+        flex-direction: column
     article .margem_topo
     article .margem_baixo
     article .margem_esquerda
@@ -45,6 +49,15 @@
         background-color: #fff
         text-align: center
         textoFontSize()
+        border: 1px solid #CCC
+    article .margem input.margem_mobile
+        background-color: #F6F6F6
+    article .margem.margem_esquerda input.margem_mobile
+    article .margem.margem_direita input.margem_mobile
+        margin-top: 5px
+    article .margem.margem_topo input.margem_mobile
+    article .margem.margem_baixo input.margem_mobile
+        margin-left: 5px
     article .conteudo_linha
         width: 100%
         flexRow()
@@ -58,7 +71,24 @@
         position: relative
         flexCol()
         align-items: center
+    article.margem_item_abrir > .conteudo_linha > .conteudo_geral > header .abrir_margem
+        fill: #999
+        transform: rotate(90deg)
+    article > .conteudo_linha > .conteudo_geral > header .minimizar
+        display: flex
+    article > .conteudo_linha > .conteudo_geral > header .maximizar
+        display: none
+    article.minimizar_item > .conteudo_linha > .conteudo_geral > header .minimizar
+        display: none
+    article.minimizar_item > .conteudo_linha > .conteudo_geral > header .maximizar
+        display: flex
+    article.minimizar_item > .conteudo_linha > .conteudo_geral
+        height: 40px
+        overflow: hidden
+    article.margem_item_abrir > .conteudo_linha > .conteudo_geral
+        margin-left: 0
     article .conteudo_geral.margem_esquerda_ativa
+    article.margem_ativa .conteudo_geral
     article.margem_ativa .conteudo_geral
         width: calc(100% - 60px)
         margin-left: 0
@@ -86,7 +116,7 @@
         width: 8px
         height: 8px
         border-radius: 50%
-        margin-right: 5px
+        margin: 0 5px
         &.status_sim
             background-color: $cor
         &.status_nao
@@ -160,6 +190,14 @@
         margin-top: 20px
     .bloco_row
         flexRow()
+    .bloco_row.bloco_div_direcao div:first-child
+    .bloco_row.bloco_div_posicao div:first-child
+    .bloco_row.bloco_imagem div:first-child
+        margin-right: 10px
+    .bloco_row.bloco_div_direcao div:last-child
+    .bloco_row.bloco_div_posicao div:last-child
+    .bloco_row.bloco_imagem div:last-child
+        margin-left: 10px
     .bloco_api_metodo
         max-width: 130px
         margin-right: 20px

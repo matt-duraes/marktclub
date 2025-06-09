@@ -3,14 +3,15 @@
 window.addEventListener('load', () => {
     const app = 'view-pagina';
     const inputLimpar = $$(`
-        #input_local, #input_titulo_interno, #input_titulo, #input_texto,
-        #input_link, #input_target, #input_status, #input_api_status, #input_api_uri,
-        #input_api_metodo, .bloco_api_body .input_geral, #input_id, #input_div_posicao,
-        #input_link_empresa, #input_editor, #input_lista_valor, #input_lista_tipo,
-        #input_botao_tipo, #input_imagem_altura, #input_div_direcao, #input_margem_topo,
-        #input_margem_esquerda, #input_margem_direita, #input_margem_baixo, #input_icone_tipo,
-        #input_icone_tamanho, #input_icone_nome, #input_icone_altura, #input_icone_cor,
-        #input_icone_bg, #input_icone_borda_cor
+        #input_local, #input_titulo_interno, #input_titulo, #input_texto, #input_div_posicao_mobile,
+        #input_link, #input_target, #input_status, #input_api_status, #input_api_uri, #input_icone_tipo,
+        #input_api_metodo, .bloco_api_body .input_geral, #input_id, #input_div_posicao_desktop,
+        #input_link_empresa, #input_editor, #input_lista_valor, #input_lista_tipo, #input_div_direcao_mobile,
+        #input_botao_tipo, #input_imagem_altura_desktop, #input_imagem_altura_mobile, #input_div_direcao_desktop,
+        #input_margem_esquerda_desktop, #input_margem_direita_desktop, #input_margem_baixo_desktop,
+        #input_margem_topo_desktop, #input_margem_esquerda_mobile, #input_margem_direita_mobile,
+        #input_margem_baixo_mobile, #input_margem_topo_mobile, #input_icone_tamanho, #input_icone_nome,
+        #input_icone_altura, #input_icone_cor, #input_icone_bg, #input_icone_borda_cor
     `);
 
     const id = $('#input_visualizar_id').valor();
@@ -24,8 +25,10 @@ window.addEventListener('load', () => {
     const inputLink = $('#input_link');
     const inputLinkEmpresa = $('#input_link_empresa');
     const inputTarget = $('#input_target');
-    const inputDivDirecao = $('#input_div_direcao');
-    const inputDivPosicao = $('#input_div_posicao');
+    const inputDivDirecaoDesktop = $('#input_div_direcao_desktop');
+    const inputDivDirecaoMobile = $('#input_div_direcao_mobile');
+    const inputDivPosicaoDesktop = $('#input_div_posicao_desktop');
+    const inputDivPosicaoMobile = $('#input_div_posicao_mobile');
     const inputStatus = $('#input_status');
     const inputApiStatus = $('#input_api_status');
     const inputApiMetodo = $('#input_api_metodo');
@@ -36,7 +39,8 @@ window.addEventListener('load', () => {
     const inputListaTipo = $('#input_lista_tipo');
     const inputListaValor = $('#input_lista_valor');
     const inputImagemArquivo = $('#input_imagem_arquivo');
-    const inputImagemAltura = $('#input_imagem_altura');
+    const inputImagemAlturaDesktop = $('#input_imagem_altura_desktop');
+    const inputImagemAlturaMobile = $('#input_imagem_altura_mobile');
     const inputIconeTipo = $('#input_icone_tipo');
     const inputIconeTamanho = $('#input_icone_tamanho');
     const inputIconeNome = $('#input_icone_nome');
@@ -114,6 +118,9 @@ window.addEventListener('load', () => {
             'data-id': item.id,
             id: 'bloco_item_' + item.id,
         });
+        if (item.minimizado === 'sim') {
+            clone.classe('minimizar_item', true);
+        }
 
         const blocoNovo = $('.lista', clone);
         const naoPodeTerLista = inArray(item.tipo, [
@@ -147,33 +154,50 @@ window.addEventListener('load', () => {
             margemDireita,
             margemBaixo,
             margemEsquerda,
-            margemTopoInput,
-            margemDireitaInput,
-            margemBaixoInput,
-            margemEsquerdaInput;
+            margemTopoDesktopInput,
+            margemTopoMobileInput,
+            margemDireitaDesktopInput,
+            margemDireitaMobileInput,
+            margemBaixoDesktopInput,
+            margemBaixoMobileInput,
+            margemEsquerdaDesktopInput,
+            margemEsquerdaMobileInput;
         for (const filhoItem of filhoLista) {
             if (filhoItem.classe('margem_topo', '?')) {
                 margemTopo = filhoItem;
-                margemTopoInput = $('input', filhoItem);
+                margemTopoDesktopInput = $('input.margem_desktop', filhoItem);
+                margemTopoMobileInput = $('input.margem_mobile', filhoItem);
             } else if (filhoItem.classe('conteudo_linha', '?')) {
                 const filhoLinhaLista = filhoItem.children;
                 for (const filhoLinha of filhoLinhaLista) {
                     if (filhoLinha.classe('margem_direita', '?')) {
                         margemDireita = filhoLinha;
-                        margemDireitaInput = $('input', filhoLinha);
+                        margemDireitaDesktopInput = $('input.margem_desktop', filhoLinha);
+                        margemDireitaMobileInput = $('input.margem_mobile', filhoLinha);
                     } else if (filhoLinha.classe('margem_esquerda', '?')) {
                         margemEsquerda = filhoLinha;
-                        margemEsquerdaInput = $('input', filhoLinha);
+                        margemEsquerdaDesktopInput = $('input.margem_desktop', filhoLinha);
+                        margemEsquerdaMobileInput = $('input.margem_mobile', filhoLinha);
                     }
                 }
             } else if (filhoItem.classe('margem_baixo', '?')) {
                 margemBaixo = filhoItem;
-                margemBaixoInput = $('input', filhoItem);
+                margemBaixoDesktopInput = $('input.margem_desktop', filhoItem);
+                margemBaixoMobileInput = $('input.margem_mobile', filhoItem);
             }
         }
 
         const conteudoGeral = $('.conteudo_geral', clone);
-        for (const margemEvento of [margemTopoInput, margemBaixoInput, margemEsquerdaInput, margemDireitaInput]) {
+        for (const margemEvento of [
+            margemTopoDesktopInput,
+            margemTopoMobileInput,
+            margemBaixoDesktopInput,
+            margemBaixoMobileInput,
+            margemEsquerdaDesktopInput,
+            margemEsquerdaMobileInput,
+            margemDireitaDesktopInput,
+            margemDireitaMobileInput,
+        ]) {
             margemEvento.evento('change', () => {
                 const blocoMargemAtual = margemEvento.closest('.margem');
                 blocoMargemAtual.classe('margem_ativa', !vazio(margemEvento.valor()));
@@ -200,20 +224,36 @@ window.addEventListener('load', () => {
                 }
             });
         }
-        if (!vazio(item.margem_topo)) {
-            margemTopoInput.valor(item.margem_topo);
+        if (!vazio(item.margem_topo_desktop)) {
+            margemTopoDesktopInput.valor(item.margem_topo_desktop);
+            margemTopo.classe('margem_ativa', true);
+        }
+        if (!vazio(item.margem_topo_mobile)) {
+            margemTopoMobileInput.valor(item.margem_topo_mobile);
             margemTopo.classe('margem_ativa', true);
         }
         if (!vazio(item.margem_direita)) {
-            margemDireitaInput.valor(item.margem_direita);
+            margemDireitaDesktopInput.valor(item.margem_direita_desktop);
+            margemDireita.classe('margem_ativa', true);
+        }
+        if (!vazio(item.margem_direita)) {
+            margemDireitaMobileInput.valor(item.margem_direita_mobile);
             margemDireita.classe('margem_ativa', true);
         }
         if (!vazio(item.margem_baixo)) {
-            margemBaixoInput.valor(item.margem_baixo);
+            margemBaixoDesktopInput.valor(item.margem_baixo_desktop);
+            margemBaixo.classe('margem_ativa', true);
+        }
+        if (!vazio(item.margem_baixo)) {
+            margemBaixoMobileInput.valor(item.margem_baixo_mobile);
             margemBaixo.classe('margem_ativa', true);
         }
         if (!vazio(item.margem_esquerda)) {
-            margemEsquerdaInput.valor(item.margem_esquerda);
+            margemEsquerdaDesktopInput.valor(item.margem_esquerda_desktop);
+            margemEsquerda.classe('margem_ativa', true);
+        }
+        if (!vazio(item.margem_esquerda)) {
+            margemEsquerdaMobileInput.valor(item.margem_esquerda_mobile);
             margemEsquerda.classe('margem_ativa', true);
         }
 
@@ -281,8 +321,10 @@ window.addEventListener('load', () => {
         inputLink.valor(item.link || '');
         inputLinkEmpresa.valor(item.link_empresa || '');
         inputTarget.valor(item.target || '');
-        inputDivDirecao.valor(eDiv && item.div_direcao ? item.div_direcao : '');
-        inputDivPosicao.valor(eDiv && item.div_posicao ? item.div_posicao : '');
+        inputDivDirecaoDesktop.valor(eDiv && item.div_direcao_desktop ? item.div_direcao_desktop : '');
+        inputDivDirecaoMobile.valor(eDiv && item.div_direcao_mobile ? item.div_direcao_mobile : '');
+        inputDivPosicaoDesktop.valor(eDiv && item.div_posicao_desktop ? item.div_posicao_desktop : '');
+        inputDivPosicaoMobile.valor(eDiv && item.div_posicao_mobile ? item.div_posicao_mobile : '');
         inputStatus.valor(inArray(item.status, ['sim', 1]) ? 'sim' : 'nao');
         inputApiStatus.valor(item.api_status || 'nao');
         blocoApiSim.classe('display_none', !inArray(apiStatus, ['sim', 1]));
@@ -294,7 +336,12 @@ window.addEventListener('load', () => {
         inputListaTipo.valor(item.tipo == 'lista' && item.lista_tipo ? item.lista_tipo : '');
         inputListaValor.valor(item.tipo == 'lista' && item.lista_valor ? item.lista_valor : '');
         inputImagemArquivo.valor(item.tipo == 'imagem' && item.imagem_arquivo ? item.imagem_arquivo : '');
-        inputImagemAltura.valor(item.tipo == 'imagem' && item.imagem_altura ? item.imagem_altura : '');
+        inputImagemAlturaDesktop.valor(
+            item.tipo == 'imagem' && item.imagem_altura_desktop ? item.imagem_altura_desktop : ''
+        );
+        inputImagemAlturaMobile.valor(
+            item.tipo == 'imagem' && item.imagem_altura_mobile ? item.imagem_altura_mobile : ''
+        );
         inputIconeTipo.valor(item.tipo == 'icone' && item.icone_tipo ? item.icone_tipo : '');
         inputIconeTamanho.valor(item.tipo == 'icone' && item.icone_tamanho ? item.icone_tamanho : '');
         inputIconeNome.valor(item.tipo == 'icone' && item.icone_nome ? item.icone_nome : '');
@@ -333,21 +380,32 @@ window.addEventListener('load', () => {
         const grupo = {};
         for (const item of lista) {
             const filhoLista = item.children;
-            let margemTopo, margemDireita, margemBaixo, margemEsquerda;
+            let margemTopoDesktop,
+                margemTopoMobile,
+                margemDireitaDesktop,
+                margemDireitaMobile,
+                margemBaixoDesktop,
+                margemBaixoMobile,
+                margemEsquerdaDesktop,
+                margemEsquerdaMobile;
             for (const filhoItem of filhoLista) {
                 if (filhoItem.classe('margem_topo', '?')) {
-                    margemTopo = $('input', filhoItem);
+                    margemTopoDesktop = $('input.margem_desktop', filhoItem);
+                    margemTopoMobile = $('input.margem_mobile', filhoItem);
                 } else if (filhoItem.classe('conteudo_linha', '?')) {
                     const filhoLinhaLista = filhoItem.children;
                     for (const filhoLinha of filhoLinhaLista) {
                         if (filhoLinha.classe('margem_direita', '?')) {
-                            margemDireita = $('input', filhoLinha);
+                            margemDireitaDesktop = $('input.margem_desktop', filhoLinha);
+                            margemDireitaMobile = $('input.margem_mobile', filhoLinha);
                         } else if (filhoLinha.classe('margem_esquerda', '?')) {
-                            margemEsquerda = $('input', filhoLinha);
+                            margemEsquerdaDesktop = $('input.margem_desktop', filhoLinha);
+                            margemEsquerdaMobile = $('input.margem_mobile', filhoLinha);
                         }
                     }
                 } else if (filhoItem.classe('margem_baixo', '?')) {
-                    margemBaixo = $('input', filhoItem);
+                    margemBaixoDesktop = $('input.margem_desktop', filhoItem);
+                    margemBaixoMobile = $('input.margem_mobile', filhoItem);
                 }
             }
 
@@ -356,11 +414,16 @@ window.addEventListener('load', () => {
                 id: item.attr('data-id'),
                 pai: blocoPai ? blocoPai.attr('data-id') : '',
                 ordem: i,
+                minimizado: item.classe('minimizar_item', '?') ? 'sim' : 'nao',
                 /* eslint-disable */
-                margem_topo: margemTopo.valor(),
-                margem_direita: margemDireita.valor(),
-                margem_baixo: margemBaixo.valor(),
-                margem_esquerda: margemEsquerda.valor(),
+                margem_topo_desktop: margemTopoDesktop.valor(),
+                margem_topo_mobile: margemTopoMobile.valor(),
+                margem_direita_desktop: margemDireitaDesktop.valor(),
+                margem_direita_mobile: margemDireitaMobile.valor(),
+                margem_baixo_desktop: margemBaixoDesktop.valor(),
+                margem_baixo_mobile: margemBaixoMobile.valor(),
+                margem_esquerda_desktop: margemEsquerdaDesktop.valor(),
+                margem_esquerda_mobile: margemEsquerdaMobile.valor(),
                 /* eslint-enable */
             };
             ++i;
@@ -448,7 +511,8 @@ window.addEventListener('load', () => {
             /* eslint-disable */
             titulo_interno: inputTituloInterno.valor(),
             imagem_arquivo: inputImagemArquivo.valor(),
-            imagem_altura: inputImagemAltura.valor(),
+            imagem_altura_desktop: inputImagemAlturaDesktop.valor(),
+            imagem_altura_mobile: inputImagemAlturaMobile.valor(),
             icone_tipo: inputIconeTipo.valor(),
             icone_tamanho: inputIconeTamanho.valor(),
             icone_nome: inputIconeNome.valor(),
@@ -459,8 +523,10 @@ window.addEventListener('load', () => {
             lista_tipo: inputListaTipo.valor(),
             lista_valor: !vazio(listaValor) ? JSON.stringify(listaValor) : null,
             link_empresa: !vazio(linkEmpresa) ? JSON.stringify(linkEmpresa) : null,
-            div_direcao: inputDivDirecao.valor(),
-            div_posicao: inputDivPosicao.valor(),
+            div_direcao_desktop: inputDivDirecaoDesktop.valor(),
+            div_direcao_mobile: inputDivDirecaoMobile.valor(),
+            div_posicao_desktop: inputDivPosicaoDesktop.valor(),
+            div_posicao_mobile: inputDivPosicaoMobile.valor(),
             api_status: inArray(inputApiStatus.valor(), ['sim', 1]) ? 'sim' : 'nao',
             api_metodo: inputApiMetodo.valor(),
             api_body: !vazio(apiBody) ? JSON.stringify(apiBody) : null,
@@ -502,11 +568,9 @@ window.addEventListener('load', () => {
                 mensagem = 'Escolha um tipo para o botão.';
             } else if ((tipo == 'titulo-texto' || tipo == 'texto') && vazio(inputTexto.valor())) {
                 mensagem = 'Digite um texto para continuar.';
-            } else if (tipo == 'magem') {
-                mensagem = 'Digite uma margem para continuar.';
-            } else if (verificarSeDiv(tipo) && vazio(inputDivDirecao.valor())) {
+            } else if (verificarSeDiv(tipo) && vazio(inputDivDirecaoDesktop.valor())) {
                 mensagem = 'Escolha a direção do conteudo da div para continuar.';
-            } else if (verificarSeDiv(tipo) && vazio(inputDivPosicao.valor())) {
+            } else if (verificarSeDiv(tipo) && vazio(inputDivPosicaoDesktop.valor())) {
                 mensagem = 'Escolha a posição do conteudo da div para continuar.';
             } else if (tipo == 'tabela' && vazio(inputTabela.valor())) {
                 mensagem = 'Digite pelo menos uma linha para a tabela.';
@@ -518,7 +582,7 @@ window.addEventListener('load', () => {
                 mensagem = 'Coloque pelo menos um item na lista.';
             } else if (tipo == 'imagem' && vazio(inputImagemArquivo.valor())) {
                 mensagem = 'Envie uma imagem para continuar.';
-            } else if (tipo == 'imagem' && vazio(inputImagemAltura.valor())) {
+            } else if (tipo == 'imagem' && vazio(inputImagemAlturaDesktop.valor())) {
                 mensagem = 'Digite uma altura para a imagem.';
             } else if (tipo == 'icone' && vazio(iconeTipo)) {
                 mensagem = 'Escolha um tipo de ícone para continuar.';
@@ -574,6 +638,17 @@ window.addEventListener('load', () => {
         } else if (e.target.classe('mais', '?') || e.target.closest('.mais')) {
             const bloco = e.target.closest('article');
             addSubGrupo($('.lista', bloco));
+        } else if (e.target.classe('abrir_margem', '?') || e.target.closest('.abrir_margem')) {
+            const bloco = e.target.closest('article');
+            bloco.classe('margem_item_abrir');
+        } else if (e.target.classe('minimizar', '?') || e.target.closest('.minimizar')) {
+            const bloco = e.target.closest('article');
+            bloco.classe('minimizar_item', true);
+            botaoAtualizarGeral.aparecer();
+        } else if (e.target.classe('maximizar', '?') || e.target.closest('.maximizar')) {
+            const bloco = e.target.closest('article');
+            bloco.classe('minimizar_item', false);
+            botaoAtualizarGeral.aparecer();
         }
     });
     blocoConteudo.evento('dblclick', e => {
