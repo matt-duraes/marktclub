@@ -25,10 +25,14 @@ final class View
     {
         $this->id = $r->id;
         $obrigatorio = [
-            'margem_topo' => 0,
-            'margem_direita' => 0,
-            'margem_baixo' => 0,
-            'margem_esquerda' => 0
+            'margem_topo_desktop' => 0,
+            'margem_direita_desktop' => 0,
+            'margem_baixo_desktop' => 0,
+            'margem_esquerda_desktop' => 0,
+            'margem_topo_mobile' => 0,
+            'margem_direita_mobile' => 0,
+            'margem_baixo_mobile' => 0,
+            'margem_esquerda_mobile' => 0
         ];
         foreach($obrigatorio as $ind => $val) {
             if(!object_key_exists($ind, $r)) {
@@ -50,19 +54,19 @@ final class View
         $r = $this->r;
         $css = [];
 
-        $topo = $r->margem_topo;
+        $topo = $r->margem_topo_desktop;
         if (!empty($topo)) {
             $css[] = 'margin-top:' . $topo . 'px';
         }
-        $direita = $r->margem_direita;
+        $direita = $r->margem_direita_desktop;
         if (!empty($direita)) {
             $css[] = 'margin-right:' . $direita . 'px';
         }
-        $baixo = $r->margem_baixo;
+        $baixo = $r->margem_baixo_desktop;
         if (!empty($baixo)) {
             $css[] = 'margin-bottom:' . $baixo . 'px';
         }
-        $esquerda = $r->margem_esquerda;
+        $esquerda = $r->margem_esquerda_desktop;
         if (!empty($esquerda)) {
             $css[] = 'margin-left:' . $esquerda . 'px';
         }
@@ -74,7 +78,7 @@ final class View
         $iconeCor = $r->icone_cor ?? '';
         if ($r->tipo == 'icone' && $this->validarCor($iconeCor)) {
             $css[] = 'fill: ' . $this->pegarCor($iconeCor);
-        } else {
+        } elseif($r->tipo == 'icone') {
             $css[] = 'fill: #999999';
         }
         $iconeBg = $r->icone_bg ?? '';
@@ -150,11 +154,17 @@ final class View
         if($api === 'sim') {
             $this->class[] = 'com_api_' . $tipo;
         }
-        if (!empty($r->div_direcao)) {
-            $this->class[] = 'com_direcao_' . $r->div_direcao;
+        if (!empty($r->div_direcao_desktop)) {
+            $this->class[] = 'com_direcao_' . $r->div_direcao_desktop;
         }
-        if (!empty($r->div_posicao)) {
-            $this->class[] = 'com_posicao_' . $r->div_posicao;
+        if (!empty($r->div_direcao_mobile) && $r->div_direcao_desktop != $r->div_direcao_mobile) {
+            $this->class[] = 'com_direcao_' . $r->div_direcao_mobile . '_mobile';
+        }
+        if (!empty($r->div_posicao_desktop)) {
+            $this->class[] = 'com_posicao_' . $r->div_posicao_desktop;
+        }
+        if (!empty($r->div_posicao_mobile) && $r->div_posicao_desktop != $r->div_posicao_mobile) {
+            $this->class[] = 'com_posicao_' . $r->div_posicao_mobile . '_mobile';
         }
         if (!empty($r->icone_tipo)) {
             $this->class[] = 'com_icone_' . $r->icone_tipo;

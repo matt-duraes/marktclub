@@ -1,4 +1,5 @@
 {!!$View->css()!!}
 <figure {!!$View->class()!!}>
-    <img src="{!!$r->imagem_arquivo!!}" height="{!!$r->imagem_altura!!}">
+    <img src="{!!$r->imagem_arquivo!!}" class="com_desktop" height="{!!$r->imagem_altura_desktop!!}">
+    <img src="{!!$r->imagem_arquivo!!}" class="com_mobile" height="{!!$r->imagem_altura_mobile!!}">
 </figure>

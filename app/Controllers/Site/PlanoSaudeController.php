@@ -72,10 +72,10 @@ final class PlanoSaudeController extends Controller
      */
     public function unimedNatal(): Response
     {
-        $Html = new BuscarModel('teste');
+        $Html = new BuscarModel('turismo');
         return view('pagina', [
             'html' => $Html->html,
-            'url' => 'teste'
+            'url'  => 'turismo',
         ]);
     }
 
