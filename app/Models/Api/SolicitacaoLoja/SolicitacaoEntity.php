@@ -298,7 +298,9 @@ class SolicitacaoEntity extends Entity
                 $this->id_parceiro_loja = $this->gerarParceiroEmProspeccao(
                     $this->parceiro_novo,
                     $this->gestor,
-                    $this->empresas
+                    $this->empresas,
+                    $this->telefone,
+                    $this->email
                 );
                 $this->status = new Status(Status::ANDAMENTO);
             }
@@ -415,19 +417,28 @@ class SolicitacaoEntity extends Entity
      * @param string $nome
      * @param string $gestor
      * @param array  $empresas
+     * @param string $telefone
+     * @param string $email
      *
      * @return int
-     * @throws \Erro\Erro
-     * @throws \Erro\Excecao
+     * @throws Erro
+     * @throws Excecao
      */
-    private function gerarParceiroEmProspeccao(string $nome, string $gestor, array $empresas): int
-    {
+    private function gerarParceiroEmProspeccao(
+        string $nome,
+        string $gestor,
+        array $empresas,
+        Telefone $telefone,
+        Email $email
+    ): int {
         try {
             $parceiro = new LojaEntity();
             $parceiro->set('titulo_interno', $nome);
             $parceiro->set('tipo_loja', TipoLoja::LOJA);
             $parceiro->set('categoria_principal', Categoria::OUTROS);
             $parceiro->set('url', strSlug($nome));
+            $parceiro->set('responsavel_telefone', $telefone->banco());
+            $parceiro->set('responsavel_email', $email->banco());
             $parceiro->set('equipe', $gestor);
             $parceiro->set('empresa', $empresas);
             $parceiro->salvar();
