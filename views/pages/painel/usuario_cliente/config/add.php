@@ -79,7 +79,7 @@ $Painel->coluna(callback: function () use ($Painel) {
             $grupoLista = (new ApiHelper(token: true))
                 ->json([
                     'titulo'  => 'Escolha um grupo',
-                    'empresa' => sessao('USUARIO.empresa')
+                    'empresa' => sessao('USUARIO.empresa')->id
                 ])
                 ->get('/usuario-grupo/select')
                 ->array()['dado'] ?? [];
@@ -87,7 +87,7 @@ $Painel->coluna(callback: function () use ($Painel) {
             $subempresaLista = (new ApiHelper(token: true))
                 ->json([
                     'titulo'  => 'Escolha uma subempresa',
-                    'empresa' => sessao('USUARIO.empresa')
+                    'empresa' => sessao('USUARIO.empresa')->id
                 ])
                 ->get('/comercial-subempresa/select')
                 ->array()['dado'] ?? [];
