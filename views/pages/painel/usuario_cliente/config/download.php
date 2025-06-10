@@ -47,6 +47,7 @@ $Painel
     })
     ->bloco('Outros dados', function () use ($Painel) {
         $Painel
+            ->campo('subempresa', 'Subempresa (caso houver)')
             ->campo('tipo', 'Tipo de usuário')
             ->campo('federacao', 'Federação')
             ->campo('status', 'Status')

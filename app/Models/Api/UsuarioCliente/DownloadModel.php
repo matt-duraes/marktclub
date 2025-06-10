@@ -35,6 +35,20 @@ final class DownloadModel extends ORM
         $this->validarCamposAceito();
     }
 
+    public function download()
+    {
+        $campo = $this->converterCampoParaDownload();
+        $campoBusca = in_array('tipo', $campo) ? $campo : array_merge($campo, ['tipo']);
+        $dado = $this->buscarUsuario($campoBusca, false, true);
+
+        if (!array_key_exists('0', $dado)) {
+            $this->erroDownloadPadrao();
+        }
+
+        $this->salvarLogDownload($dado);
+        return $this->montarRetornoDownload($dado, $campo);
+    }
+
     private function validarCamposAceito(): void
     {
         $camposAceito = [
@@ -43,7 +57,7 @@ final class DownloadModel extends ORM
             'endereco_cep', 'endereco_logradouro', 'endereco_numero', 'endereco_complemento',
             'endereco_bairro', 'endereco_cidade', 'endereco_estado', 'data_criacao', 'data_atualizacao',
             'data_acesso', 'tipo', 'federacao', 'grupo', 'status', 'data_upload', 'lead', 'origem',
-            'trabalho_empresa', 'trabalho_cargo', 'tipo_pagamento'
+            'trabalho_empresa', 'trabalho_cargo', 'tipo_pagamento', 'subempresa'
         ];
 
         $listaCampos = jsonDecode($this->request->campo, true, true);
@@ -62,20 +76,6 @@ final class DownloadModel extends ORM
             }
         }
         return;
-    }
-
-    public function download()
-    {
-        $campo = $this->converterCampoParaDownload();
-        $campoBusca = in_array('tipo', $campo) ? $campo : array_merge($campo, ['tipo']);
-        $dado = $this->buscarUsuario($campoBusca, false);
-
-        if (!array_key_exists('0', $dado)) {
-            $this->erroDownloadPadrao();
-        }
-
-        $this->salvarLogDownload($dado);
-        return $this->montarRetornoDownload($dado, $campo);
     }
 
     private function converterCampoParaDownload()
@@ -129,6 +129,10 @@ final class DownloadModel extends ORM
             unset($campo['trabalho_empresa']);
             $campo['trabalho_orgao'] = true;
         }
+        if (array_key_exists('subempresa', $campo)) {
+            unset($campo['subempresa']);
+            $campo['id_admin_subempresa'] = true;
+        }
         return array_keys($campo);
     }
 
@@ -161,7 +165,7 @@ final class DownloadModel extends ORM
                 continue;
             }
             foreach ($linha as $ind => $val) {
-                if (in_array($ind, ['empresa_id', 'empresa_nome_fantasia']) && $this->idEmpresa != 1) {
+                if (in_array($ind, ['empresa_cod', 'empresa_nome_fantasia']) && $this->idEmpresa != 1) {
                     continue;
                 }
                 if ($ind == 'documento') {
