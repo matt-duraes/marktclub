@@ -2,9 +2,10 @@
 
 namespace App\Models\Api\UsuarioCliente\Trait;
 
+use App\Classes\UsuarioCliente\Ordem;
+use Helpers\OrmHelper;
 use stdClass;
 use System\Trait\Model\PaginaTrait;
-use App\Classes\UsuarioCliente\Ordem;
 use System\Trait\Model\QuantidadeTrait;
 
 trait BuscarUsuarioTrait
@@ -16,11 +17,12 @@ trait BuscarUsuarioTrait
     /**
      * Buscar o usuário
      *
-     * @param  array          $campo     Campo que deseja buscar do usuário
-     * @param  bool           $paginacao Se vai ter paginação
+     * @param array $campo     Campo que deseja buscar do usuário
+     * @param bool  $paginacao Se vai ter paginação
+     *
      * @return stdClass|array stdClass se tiver paginacao ou array quando não tiver paginacao
      */
-    private function buscarUsuario(array $campo, bool $paginacao): stdClass|array
+    private function buscarUsuario(array $campo, bool $paginacao, bool $download = false): stdClass|array
     {
         $request = $this->request;
 
@@ -46,6 +48,32 @@ trait BuscarUsuarioTrait
             ->join('id', 'empresa')
             ->campo(['cod', 'nome_fantasia'], 'empresa');
 
+        if ($download) {
+            return $this->pegarSubempresa($query->read());
+        }
         return $query->read();
+    }
+
+    private function pegarSubempresa(stdClass|array $usuarios): stdClass|array
+    {
+        $retorno = [];
+        foreach ($usuarios as $usuario) {
+            if (!empty($usuario->id_admin_subempresa)) {
+                $subempresa = (new OrmHelper(TABELA_COMERCIAL_EMPRESA))
+                    ->pegarPrimeiroRegistro(
+                        ['id', $usuario->id_admin_subempresa],
+                        ['cod', 'nome_fantasia'],
+                        'object'
+                    );
+
+                if (!empty($subempresa)) {
+                    $usuario->subempresa_cod = $subempresa->cod;
+                    $usuario->subempresa_nome_fantasia = $subempresa->nome_fantasia;
+                }
+                unset($usuario->id_admin_subempresa);
+            }
+            $retorno[] = $usuario;
+        }
+        return $retorno;
     }
 }

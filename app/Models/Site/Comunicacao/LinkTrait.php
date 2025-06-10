@@ -17,10 +17,11 @@ trait LinkTrait
             TipoLoja::FARMACIA  => route('farmacia.detalhe'),
             TipoLoja::LOJA      => route('loja.detalhe'),
             TipoLoja::PREMIUM   => route('premium.detalhe'),
+            TipoLoja::PAGINA    => LINK
         ];
         if (!array_key_exists($tipo, $rota)) {
             return '';
-        };
+        }
         return $rota[$tipo] . '/' . $url;
     }
 
