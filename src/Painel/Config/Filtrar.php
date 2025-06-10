@@ -189,36 +189,6 @@ final class Filtrar
         ], $permissao);
     }
 
-    private function adicionarNovoInput($dado, $permissao)
-    {
-        $dado['indice'] = preg_replace('/\[\]$/', '', $dado['name']);
-        $dado['name'] = is_string($dado['name']) ? explode('->', $dado['name'])[0] : $dado['name'];
-        if (!$this->campoAceito($dado['name'], $permissao)) {
-            return $this;
-        }
-
-        if (!empty($dado['nome'])) {
-            $this->html['nome'][$dado['name']] = $dado['nome'];
-        }
-
-        unset($dado['nome']);
-        $this->html['input'][] = $dado;
-
-        return $this;
-    }
-
-    private function campoAceito($name, $permissao)
-    {
-        $usuarioPermissao = sessao('USUARIO.permissao');
-        if (
-            (!empty($permissao) && !in_array($permissao, $usuarioPermissao)) ||
-            (!empty($this->camposAceitos) && !in_array($name, $this->camposAceitos))
-        ) {
-            return false;
-        }
-        return true;
-    }
-
     public function email(
         $name,
         ?string $titulo = null,
@@ -351,9 +321,9 @@ final class Filtrar
         ?string $tipoEquipe = null
     ) {
         if (is_string($lista) && !in_array(
-            $lista,
-            ['genero', 'estado_civil', 'estado', 'empresa', 'usuario', 'subempresa']
-        )) {
+                $lista,
+                ['genero', 'estado_civil', 'estado', 'empresa', 'usuario', 'subempresa']
+            )) {
             mensagemErro('Erro', 'Você deve passar um valor de lista aceito.');
         }
         if (is_string($lista) && $lista == 'genero') {
@@ -369,7 +339,7 @@ final class Filtrar
                 ->array()['dado'] ?? [];
         } elseif (is_string($lista) && $lista == 'subempresa') {
             $lista = (new ApiHelper(token: true))
-                ->json(['titulo' => 'Escolha um cliente', 'todas' => '1'])
+                ->json(['titulo' => 'Escolha um cliente', 'empresa' => sessao('USUARIO.empresa')->id])
                 ->get('/comercial-subempresa/select')
                 ->array()['dado'] ?? [];
         } elseif (is_string($lista) && $lista == 'usuario') {
@@ -400,12 +370,6 @@ final class Filtrar
         $this->replace[$campo] = $lista;
         return $this;
     }
-
-    /*
-    |--------------------------------------------------------------------------
-    | MÉTODOS PRIVADOS
-    |--------------------------------------------------------------------------
-    */
 
     public function switch(
         $name,
@@ -457,5 +421,41 @@ final class Filtrar
             'html'   => $html,
             'attr'   => $attr,
         ], $permissao);
+    }
+
+    /*
+    |--------------------------------------------------------------------------
+    | MÉTODOS PRIVADOS
+    |--------------------------------------------------------------------------
+    */
+
+    private function adicionarNovoInput($dado, $permissao)
+    {
+        $dado['indice'] = preg_replace('/\[\]$/', '', $dado['name']);
+        $dado['name'] = is_string($dado['name']) ? explode('->', $dado['name'])[0] : $dado['name'];
+        if (!$this->campoAceito($dado['name'], $permissao)) {
+            return $this;
+        }
+
+        if (!empty($dado['nome'])) {
+            $this->html['nome'][$dado['name']] = $dado['nome'];
+        }
+
+        unset($dado['nome']);
+        $this->html['input'][] = $dado;
+
+        return $this;
+    }
+
+    private function campoAceito($name, $permissao)
+    {
+        $usuarioPermissao = sessao('USUARIO.permissao');
+        if (
+            (!empty($permissao) && !in_array($permissao, $usuarioPermissao)) ||
+            (!empty($this->camposAceitos) && !in_array($name, $this->camposAceitos))
+        ) {
+            return false;
+        }
+        return true;
     }
 }

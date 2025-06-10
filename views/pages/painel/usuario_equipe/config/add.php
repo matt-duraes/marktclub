@@ -47,7 +47,7 @@ $Painel->coluna(callback: function () use ($Painel) {
             $subempresaLista = (new ApiHelper(token: true))
                 ->json([
                     'titulo'  => 'Escolha uma subempresa',
-                    'empresa' => sessao('USUARIO.empresa')
+                    'empresa' => sessao('USUARIO.empresa')->id
                 ])
                 ->get('/comercial-subempresa/select')
                 ->array()['dado'] ?? [];
