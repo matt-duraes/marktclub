@@ -12,6 +12,7 @@ final class Titulo
     public const DELETAR = 'Deletar';
     public const STATUS = 'Status';
     public const EMPRESA = 'Todas as Empresas';
+    public const SUBEMPRESA = 'Todas as Subempresas';
     public const EQUIPE = 'Todos da Equipe';
     public const PERMISSOES = 'Todas as Permissões';
     public const DOWNLOAD_HISTORICO = 'Download do Historico';

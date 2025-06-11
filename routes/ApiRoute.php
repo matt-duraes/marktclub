@@ -2677,6 +2677,14 @@ Route
             ::nome('respondeu')
             ::middleware(TokenMiddleware::class, 'scope', ['enquete_mercado:buscar'])
             ::post('/pesquisa-resposta');
+
+        Route
+            ::nome('download')
+            ::middleware(TokenMiddleware::class, 'scope', ['enquete_mercado:download'])
+            ::request([
+                'campo', 'usuario'
+            ])
+            ::post('/enquete-mercado/download');
     });
 
 Route
@@ -3026,7 +3034,7 @@ Route
             ::nome('atualizar')
             ::middleware(TokenMiddleware::class, 'scope', ['solicitacao_loja:atualizar'])
             ::request([
-                '!parceiro', '!parceiro_novo', '!gestor', '!empresas'
+                '!parceiro', '!parceiro_novo', '!gestor', '!empresas', '!status'
             ])
             ::put('/solicitacao-loja/{id}');
 
