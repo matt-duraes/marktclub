@@ -1029,12 +1029,12 @@ Route
         Route
             ::nome('salvar')
             ::middleware(TokenMiddleware::class, 'scope', ['view_pagina:salvar'])
-            ::request(['titulo', 'url', 'status'])
+            ::request(['empresa', 'titulo', 'url', 'status'])
             ::post('/view-pagina');
         Route
             ::nome('atualizar')
             ::middleware(TokenMiddleware::class, 'scope', ['view_pagina:atualizar'])
-            ::request(['!titulo', '!url', '!html', '!status'])
+            ::request(['!empresa', '!titulo', '!url', '!html', '!status'])
             ::put('/view-pagina/{id}');
         Route
             ::nome('deletar')
