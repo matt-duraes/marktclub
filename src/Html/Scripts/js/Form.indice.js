@@ -14,7 +14,14 @@ fwFormIndiceValorPegarValor = input => {
     return retorno;
 };
 fwFormIndiceValorSetarValor = (input, valor) => {
-    if (typeof valor !== 'object' || !input) {
+    if (typeof valor === 'string') {
+        try {
+            valor = JSON.parse(valor);
+        } catch (error) {
+            valor = null;
+        }
+    }
+    if (valor === null || valor === undefined || typeof valor !== 'object' || !input) {
         return;
     }
     const quantidade = Object.keys(valor).length;

@@ -1,6 +1,6 @@
 @php
     $Botao = new \ResourcesSite\Componente\Botao();
-    $Botao->botao(link: $r->link, attr: ['target' => $r->target ?? '']);
+    $Botao->botao(link: new \ResourcesSite\Componente\Link($r->link), attr: ['target' => $r->target ?? '']);
 
     if($r->botao_tipo != 'voltar' && !vazio($r->titulo)) {
         $Botao->texto($r->titulo);

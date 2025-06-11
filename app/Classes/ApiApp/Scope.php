@@ -41,13 +41,13 @@ final class Scope
         'solicitacao_automovel:salvar',
         'saude_contratacao:salvar', 'saude_simulacao:salvar',
         'saude_convenio:listar', 'saude_convenio:estado', 'saude_convenio:cidade', 'saude_convenio:html',
-        'saude_convenio:buscar', 'saude_convenio:tabela',
+        'saude_convenio:buscar',
         'saude_simulacao:simular',
         'ponto_cvs:listar', 'ponto_cvs:salvar',
         'comercial_popup:listar',
         'carteirinha:listar',
         'enquete_satisfacao:salvar',
-        'view_pagina:buscar',
+        'view_pagina:buscar', 'view_tabela:buscar',
         'galapagos_lead:salvar',
         'enquete_mercado:salvar', 'enquete_mercado:buscar'
     ];
@@ -298,7 +298,7 @@ final class Scope
         'votacao:listar', 'votacao:buscar', 'votacao:salvar', 'votacao:atualizar', 'votacao:deletar',
 
         'view_html:atualizar', 'view_html:buscar', 'view_html:deletar', 'view_html:listar',
-        'view_html:salvar',
+        'view_html:salvar', 'view_html:grupo', 'view_html:clonar',
 
         'view_pagina:atualizar', 'view_pagina:buscar', 'view_pagina:deletar',
         'view_pagina:listar', 'view_pagina:salvar',

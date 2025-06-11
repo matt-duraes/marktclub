@@ -8,6 +8,7 @@ use Controller\Controller;
 use App\Models\Api\View\Html\HtmlModel;
 use App\Models\Api\View\Html\GrupoModel;
 use App\Models\Api\View\Html\HtmlEntity;
+use App\Models\Api\View\Html\ClonarModel;
 use System\Interface\ControllerBuscarInterface;
 use System\Interface\ControllerListarInterface;
 use System\Interface\ControllerSalvarInterface;
@@ -85,5 +86,11 @@ final class HtmlController extends Controller implements
         $Html->destruir();
 
         return new Response(status: 204);
+    }
+
+    public function postClonar(Request $request)
+    {
+        $Html = new ClonarModel(id: $request->id);
+        return mensagemSucesso($Html->retorno);
     }
 }

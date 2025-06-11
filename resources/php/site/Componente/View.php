@@ -93,6 +93,26 @@ final class View
         } elseif ($r->tipo == 'icone' && !$iconBgValido && in_array($r->icone_tipo, [IconeTipo::QUADRADO, IconeTipo::REDONTO])) {
             $css[] = 'border: 1px solid #CCC';
         }
+        $divMinimoDesktop = $r->div_minimo_desktop ?? '';
+        if($divMinimoDesktop) {
+            $css[] = 'min-width: ' . $divMinimoDesktop . 'px';
+        }
+        $divMaximoDesktop = $r->div_maximo_desktop ?? '';
+        if($divMaximoDesktop) {
+            $css[] = 'max-width: ' . $divMaximoDesktop . 'px';
+        }
+
+        $listaTextoAlinhamento = [
+            'esquerda' => 'left',
+            'diretira' => 'right',
+            'centro' => 'center',
+            'justificado' => 'justify'
+        ];
+
+        $textoAlinhamentoDesktop = $listaTextoAlinhamento[$r->texto_alinhamento_desktop ?? ''] ?? '';
+        if($textoAlinhamentoDesktop) {
+            $css[] = 'text-align: ' . $textoAlinhamentoDesktop;
+        }
 
         if(empty($css)) {
             return '';
@@ -152,6 +172,7 @@ final class View
         $tipo = $r->tipo;
 
         if($api === 'sim') {
+            $this->class[] = 'com_api_geral';
             $this->class[] = 'com_api_' . $tipo;
         }
         if (!empty($r->div_direcao_desktop)) {

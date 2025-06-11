@@ -10,7 +10,6 @@ use App\Models\Api\Saude\Convenio\BuscarModel;
 use App\Models\Api\Saude\Convenio\CidadeModel;
 use App\Models\Api\Saude\Convenio\EstadoModel;
 use App\Models\Api\Saude\Convenio\ListarModel;
-use App\Models\Api\Saude\Convenio\TabelaModel;
 
 final class ConvenioController extends Controller
 {
@@ -41,14 +40,5 @@ final class ConvenioController extends Controller
             EnderecoEstado: new EnderecoEstado($request->endereco_estado),
         );
         return mensagemSucesso($Cidade->retorno);
-    }
-
-    public function getTabela(Request $request): Response
-    {
-        $Tabela = new TabelaModel(
-            convenio: $request->convenio,
-            tabela: $request->tabela
-        );
-        return mensagemSucesso($Tabela->retorno);
     }
 }

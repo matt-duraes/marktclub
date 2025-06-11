@@ -23,9 +23,10 @@ final class ViewEntity extends Entity
 
     protected function regraPosBuscar()
     {
-        $this->html = (new HtmlModel($this->id))->retorno;
         if (defined('TOKEN') && TOKEN['app']->audience != 'painel') {
             $this->html = (new HtmlModel($this->id))->retorno;
+            return;
         }
+        $this->html = (new HtmlModel($this->id))->retorno;
     }
 }

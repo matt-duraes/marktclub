@@ -57,7 +57,7 @@ final class ApiModel extends ClubeApiHelper
     {
         $busca = $this->busca;
         if(!validarIndiceExiste($busca, ['status', 'dado']) || $busca['status'] !== 'sucesso') {
-            mensagemStatus(500);
+            mensagemStatus(500, localhost: 'Não foi possível validar a busca.');
         }
         $busca = $busca['dado'];
         $this->retorno = validarIndiceExiste($busca, ['lista', 'pagina']) ? $busca['lista'] : $busca;

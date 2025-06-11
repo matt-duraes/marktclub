@@ -1,6 +1,6 @@
 @php
     $comEmpresa = (array)$r->link_empresa;
-    $link = $comEmpresa[CLUBE_EMPRESA] ?? $comEmpresa['geral'] ?? '';
+    $link = new \ResourcesSite\Componente\Link($comEmpresa[CLUBE_EMPRESA] ?? $comEmpresa['geral'] ?? '');
 
     $Botao = new \ResourcesSite\Componente\Botao();
     $Botao->botao(link: $link, attr: ['target' => $r->target ?? '']);

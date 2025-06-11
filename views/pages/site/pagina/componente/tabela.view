@@ -19,7 +19,7 @@ if(!function_exists('comTabelaLinha')) {
                 $width = 'data-fwcss="min-width: ' . $tamanho[$i] . 'px"';
                 $classe[] = "td_auto";
             }
-            echo '<div class="' . implode(' ', $classe) . '" ' . $width . '>' . $r['valor'] . '</div>';
+            echo '<div class="' . implode(' ', $classe) . '" ' . $width . '>' . strLang($r['valor']) . '</div>';
         }
         echo '</div>';
     }
