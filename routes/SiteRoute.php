@@ -614,6 +614,24 @@ Route
     });
 
 Route
+    ::nome('pagina')
+    ::middleware(ClubeMiddleware::class, 'buscar')
+    ::middleware(AuthMiddleware::class, 'logado')
+    ::controller(App\Controllers\Site\Pagina\BuscarController::class)
+    ::grupo(function () {
+        Route
+            ::nome('buscar')
+            ::view([
+                '/saude/{uri}'
+            ]);
+        Route
+            ::nome('index')
+            ::view([
+                '/turismo2'
+            ]);
+    });
+
+Route
     ::nome('planosaude')
     ::middleware(ClubeMiddleware::class, 'buscar')
     ::middleware(AuthMiddleware::class, 'logado')
@@ -630,78 +648,24 @@ Route
             ::request(['estado'])
             ::post('/saude/escolher-cidade');
         Route
-            ::nome('detalhe')
-            ::view('/saude/detalhe/{nome-do-plano}');
-        Route
-            ::nome('unimedVitoria')
-            ::view('/saude/unimed-vitoria');
-        Route
-            ::nome('unimedflorianopolis')
-            ::view('/saude/cnu-florianopolis');
-        Route
-            ::nome('tabela')
-            ::request(['id'])
-            ::view('/saude/abrirtabela');
-        Route
-            ::nome('centralnacional')
-            ::view('/saude/central-nacional-unimed');
-        Route
-            ::nome('amil')
-            ::view('/saude/amil');
-        Route
-            ::nome('precoAmil')
-            ::request(['id', '!local'])
-            ::view('/saude/abrir-tabela-preco');
-        Route
-            ::nome('unimedSeguro')
-            ::view('/saude/unimed-seguro');
-        Route
-            ::nome('unimedNatal')
-            ::view('/saude/unimed-natal');
-        Route
-            ::nome('unimedJundiai')
-            ::view('/saude/unimed-jundiai');
+            ::nome('simulacao')
+            ::view('/saude/plano-simulacao/{uri}');
         Route
             ::nome('simulacao')
-            ::view('/saude/plano-simulacao/{url}');
-        Route
-            ::nome('realizarSimulacao')
             ::request(['!operadora', '!titular', '!regiao', '!plano', '!acomodacao', '!dependentes'])
             ::post('/saude/realizar-simulacao');
         Route
-            ::nome('contratacao')
-            ::view('/saude/simulacao/{simulacao}');
+            ::nome('contratar')
+            ::view('/saude/contratar/{simulacao}');
         Route
-            ::nome('realizarContratacao')
+            ::nome('contratar')
             ::request([
-                'id_saude_simulacao',
-                'nome',
-                'naturalidade',
-                'cpf',
-                'data_nascimento',
-                'genero',
-                'estado_civil',
-                'peso',
-                'altura',
-                'rg',
-                'orgao_expedidor',
-                'nome_mae',
-                'responsavel_nome',
-                'responsavel_cpf',
-                'responsavel_rg',
-                'responsavel_orgao_expedidor',
-                'email_pessoal',
-                'telefone_celular',
-                'telefone_residencial',
-                'telefone_comercial',
-                'telefone_comercial_ramal',
-                'endereco_cep',
-                'endereco_bairro',
-                'endereco_logradouro',
-                'endereco_numero',
-                'endereco_complemento',
-                'endereco_cidade',
-                'endereco_estado',
+                'id_saude_simulacao', 'nome', 'naturalidade', 'cpf', 'data_nascimento', 'genero', 'estado_civil',
+                'peso', 'altura', 'rg', 'orgao_expedidor', 'nome_mae', 'responsavel_nome', 'responsavel_cpf',
+                'responsavel_rg', 'responsavel_orgao_expedidor', 'email_pessoal', 'telefone_celular',
+                'telefone_residencial', 'telefone_comercial', 'telefone_comercial_ramal', 'endereco_cep',
+                'endereco_bairro', 'endereco_logradouro', 'endereco_numero', 'endereco_complemento',
+                'endereco_cidade', 'endereco_estado',
             ])
             ::post('/saude-contratacao');
     });

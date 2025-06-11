@@ -1,5 +1,5 @@
 <?php
 
 return [
-    'salvar' => ['titulo', 'url']
+    'salvar' => ['titulo', 'url', 'status']
 ];

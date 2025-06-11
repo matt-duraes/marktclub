@@ -2209,10 +2209,34 @@ if (!function_exists('formTabela')) {
         $headerHtml = '';
         foreach ($value['header'] ?? [] as $r) {
             $checked = $r->auto ? 'checked' : '';
+            $valorLinha = $r->valor ?? '';
+            $json = json_decode($valorLinha, true);
+            $valorLinha = (json_last_error() === JSON_ERROR_NONE) && is_array($valorLinha) ? $json : $valorLinha;
+            $br = '';
+            $en = '';
+            $es = '';
+            if(is_string($valorLinha)) {
+                $br = $valorLinha;
+            } elseif(is_array($valorLinha) || is_object($valorLinha)) {
+                $valorLinha = is_object($valorLinha) ? (array)$valorLinha : $valorLinha;
+                $br = $valorLinha['br'] ?? '';
+                $en = $valorLinha['en'] ?? '';
+                $es = $valorLinha['es'] ?? '';
+            }
             $headerHtml .= '
                 <div class="fw_form_tabela_coluna">
                     <div class="fw_form_tabela_drag">' . iconeDrag() . '</div>
-                    <input placeholder="texto..." class="fw_form_tabela_texto" value="' . $r->valor . '">
+                    <div class="fw_form_tabela_coluna_bloco_input">
+                        <div class="fw_form_tabela_coluna_input" data-lang="BR = ">
+                            <input placeholder="Texto BR" class="fw_form_tabela_texto_br" value="' . $br . '">
+                        </div>
+                        <div class="fw_form_tabela_coluna_input" data-lang="EN = ">
+                            <input placeholder="Texto EN" class="fw_form_tabela_texto_en" value="' . $en . '">
+                        </div>
+                        <div class="fw_form_tabela_coluna_input" data-lang="ES = ">
+                            <input placeholder="Texto ES" class="fw_form_tabela_texto_es" value="' . $es . '">
+                        </div>
+                    </div>
                     <label class="fw_form_tabela_grow">
                         <input type="checkbox" ' . $checked . ' class="fw_form_tabela_grow_input">
                         <div class="fw_form_tabela_grow_check"></div>
@@ -2225,11 +2249,35 @@ if (!function_exists('formTabela')) {
 
         $valorHtml = '';
         foreach ($value['tabela'] ?? [] as $linha) {
-            $colunaHtml = '';
-            foreach ($linha as $ind => $r) {
+                $colunaHtml = '';
+                foreach ($linha as $ind => $r) {
+                    $valorLinha = $r->valor ?? '';
+                $json = json_decode($valorLinha, true);
+                $valorLinha = (json_last_error() === JSON_ERROR_NONE) && is_array($valorLinha) ? $json : $valorLinha;
+                $br = '';
+                $en = '';
+                $es = '';
+                if(is_string($valorLinha)) {
+                    $br = $valorLinha;
+                } elseif(is_array($valorLinha) || is_object($valorLinha)) {
+                    $valorLinha = is_object($valorLinha) ? (array)$valorLinha : $valorLinha;
+                    $br = $valorLinha['br'] ?? '';
+                    $en = $valorLinha['en'] ?? '';
+                    $es = $valorLinha['es'] ?? '';
+                }
                 $colunaHtml .= '
                     <div class="fw_form_tabela_coluna" data-posicao="' . $ind . '">
-                        <input placeholder="texto..." class="fw_form_tabela_texto" value="' . $r->valor . '">
+                        <div class="fw_form_tabela_coluna_bloco_input">
+                            <div class="fw_form_tabela_coluna_input" data-lang="BR = ">
+                                <input placeholder="Texto BR" class="fw_form_tabela_texto_br" value="' . $br . '">
+                            </div>
+                            <div class="fw_form_tabela_coluna_input" data-lang="EN = ">
+                                <input placeholder="Texto EN" class="fw_form_tabela_texto_en" value="' . $en . '">
+                            </div>
+                            <div class="fw_form_tabela_coluna_input" data-lang="ES = ">
+                                <input placeholder="Texto ES" class="fw_form_tabela_texto_es" value="' . $es . '">
+                            </div>
+                        </div>
                     </div>
                 ';
             }
@@ -2274,11 +2322,31 @@ if (!function_exists('formTabela')) {
                     <div class="fw_form_tabela_remover fw_form_tabela_linha_remover">' . iconeFechar(8) . '</div>
                 </div>
                 <div class="fw_form_tabela_coluna fw_form_tabela_coluna_padrao">
-                    <input placeholder="texto..." class="fw_form_tabela_texto">
+                    <div class="fw_form_tabela_coluna_bloco_input">
+                        <div class="fw_form_tabela_coluna_input" data-lang="BR = ">
+                            <input placeholder="Texto BR" class="fw_form_tabela_texto_br">
+                        </div>
+                        <div class="fw_form_tabela_coluna_input" data-lang="EN = ">
+                            <input placeholder="Texto EN" class="fw_form_tabela_texto_en">
+                        </div>
+                        <div class="fw_form_tabela_coluna_input" data-lang="ES = ">
+                            <input placeholder="Texto ES" class="fw_form_tabela_texto_es">
+                        </div>
+                    </div>
                 </div>
                 <div class="fw_form_tabela_coluna fw_form_tabela_coluna_header_padrao">
                     <div class="fw_form_tabela_drag">' . iconeDrag() . '</div>
-                    <input placeholder="texto..." class="fw_form_tabela_texto">
+                    <div class="fw_form_tabela_coluna_bloco_input">
+                        <div class="fw_form_tabela_coluna_input" data-lang="BR = ">
+                            <input placeholder="Texto BR" class="fw_form_tabela_texto_br">
+                        </div>
+                        <div class="fw_form_tabela_coluna_input" data-lang="EN = ">
+                            <input placeholder="Texto EN" class="fw_form_tabela_texto_en">
+                        </div>
+                        <div class="fw_form_tabela_coluna_input" data-lang="ES = ">
+                            <input placeholder="Texto ES" class="fw_form_tabela_texto_es">
+                        </div>
+                    </div>
                     <label class="fw_form_tabela_grow">
                         <input type="checkbox" class="fw_form_tabela_grow_input">
                         <div class="fw_form_tabela_grow_check"></div>

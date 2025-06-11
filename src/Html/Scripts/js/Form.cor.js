@@ -76,7 +76,7 @@ const fwFormCorSetarValor = (elemento, valor) => {
     const blocoCor = bloco.querySelector('.input_cor_bg');
     if (vazio(valor)) {
         input.value = '';
-        blocoCor.css('background-color', '');
+        blocoCor.css('background', '');
         return;
     } else if (valor == 'padrao') {
         blocoCor.css(

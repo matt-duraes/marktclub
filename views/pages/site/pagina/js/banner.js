@@ -10,28 +10,29 @@ const adicionarNovoBanner = banner => {
 
     const EsqueletoItem = new Esqueleto(banner, '.conteudo');
     EsqueletoItem.show();
+    Buscar.add(hash);
 
-    const body = new FormData();
-    body.append('hash', hash);
-    body.append('tipo', 'banner');
+    // const body = new FormData();
+    // body.append('hash', hash);
+    // body.append('tipo', 'banner');
 
-    fetch(LINK + '/componente', {
-        method: 'POST',
-        body,
-    })
-        .then(resposta => {
-            resposta
-                .json()
-                .then(resposta => {
-                    adicionarImagemBanner(resposta);
-                })
-                .catch(erro => {
-                    //
-                });
-        })
-        .catch(erro => {
-            //
-        });
+    // fetch(LINK + '/componente', {
+    //     method: 'POST',
+    //     body,
+    // })
+    //     .then(resposta => {
+    //         resposta
+    //             .json()
+    //             .then(resposta => {
+    //                 adicionarImagemBanner(resposta);
+    //             })
+    //             .catch(erro => {
+    //                 //
+    //             });
+    //     })
+    //     .catch(erro => {
+    //         //
+    //     });
 
     const adicionarImagemBanner = lista => {
         const quantidade = lista.length;

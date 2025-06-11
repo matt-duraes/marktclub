@@ -9,7 +9,6 @@ use Controller\Controller;
 use App\Helpers\ClubeApiHelper;
 use App\Models\Site\BannerModel;
 use App\Classes\Saude\Cidade\Lista;
-use App\Models\Site\Pagina\BuscarModel;
 use App\Models\Site\Saude\OperadoraModel;
 use App\Models\Site\Saude\SimulacaoViewModel;
 use App\Models\Site\Saude\FazerSimulacaoModel;
@@ -52,31 +51,6 @@ final class PlanoSaudeController extends Controller
         return mensagemSucesso([
             'cidade' => (new Lista())->pegarCidade($request->estado),
         ], status: 201);
-    }
-
-    /**
-     * @return Response
-     * @throws Excecao
-     */
-    public function unimedVitoria(): Response
-    {
-        return view('plano_saude.unimedvitoria', [
-            'menu'  => 'saude',
-            'lista' => (new OperadoraModel())->listarDados(),
-        ]);
-    }
-
-    /**
-     * @return Response
-     * @throws Excecao
-     */
-    public function unimedNatal(): Response
-    {
-        $Html = new BuscarModel('turismo');
-        return view('pagina', [
-            'html' => $Html->html,
-            'url'  => 'turismo',
-        ]);
     }
 
     /**

@@ -14,6 +14,7 @@ use App\Classes\View\Lista\ListaTipo;
 use App\Classes\View\Lista\DivDirecao;
 use App\Classes\View\Lista\DivPosicao;
 use App\Models\Api\View\Pagina\HelperModel;
+use App\Classes\View\Lista\TextoAlinhamento;
 use App\Models\Api\ComercialEmpresa\HelperModel as ComercialEmpresaHelperModel;
 
 final class HtmlEntity extends Entity
@@ -27,7 +28,9 @@ final class HtmlEntity extends Entity
         'icone_tipo', 'icone_tamanho', 'icone_cor', 'icone_bg', 'icone_borda_cor', 'icone_nome',
         'icone_altura', 'lista_tipo', 'lista_valor', 'link_empresa', 'imagem_arquivo', 'imagem_altura_desktop',
         'imagem_altura_mobile', 'api_status', 'api_metodo', 'api_body', 'api_uri', 'botao_tipo',
-        'status', 'ordem', 'id_admin_empresa_ativa', 'id_admin_empresa_inativa',
+        'status', 'ordem', 'id_admin_empresa_ativa', 'id_admin_empresa_inativa', 'div_minimo_desktop',
+        'div_minimo_mobile', 'div_maximo_desktop', 'div_maximo_mobile', 'texto_alinhamento_desktop',
+        'texto_alinhamento_mobile'
     ];
     protected array $ormInsert = ['id_view_pagina', ];
     protected array $ormSalvar = [
@@ -38,7 +41,8 @@ final class HtmlEntity extends Entity
         'icone_tipo', 'icone_tamanho', 'icone_cor', 'icone_bg', 'icone_borda_cor', 'icone_nome', 'icone_altura',
         'lista_tipo', 'lista_valor', 'link_empresa', 'api_status', 'api_metodo', 'api_body', 'api_uri', 'botao_tipo',
         'status', 'id_view_html', 'ordem', 'id_admin_empresa_ativa', 'id_admin_empresa_inativa', 'imagem_arquivo',
-        'imagem_altura_desktop', 'imagem_altura_mobile',
+        'imagem_altura_desktop', 'imagem_altura_mobile', 'div_minimo_desktop', 'div_minimo_mobile',
+        'div_maximo_desktop', 'div_maximo_mobile', 'texto_alinhamento_desktop', 'texto_alinhamento_mobile'
     ];
     public int $id_view_pagina;
     public int $id_view_html;
@@ -52,6 +56,8 @@ final class HtmlEntity extends Entity
     public Local $local;
     public array $titulo;
     public array $texto;
+    public TextoAlinhamento $texto_alinhamento_desktop;
+    public TextoAlinhamento $texto_alinhamento_mobile;
     public string $link;
     public Target $target;
     public array $tabela;
@@ -78,6 +84,10 @@ final class HtmlEntity extends Entity
     public ListaTipo $lista_tipo;
     public array $lista_valor;
     public array $link_empresa;
+    public int $div_minimo_desktop;
+    public int $div_minimo_mobile;
+    public int $div_maximo_desktop;
+    public int $div_maximo_mobile;
     public DivDirecao $div_direcao_desktop;
     public DivDirecao $div_direcao_mobile;
     public DivPosicao $div_posicao_desktop;

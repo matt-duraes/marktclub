@@ -15,7 +15,6 @@ final class RequisicaoEnviar
     use CryptTrait;
     use TokenCredentialEntityTrait;
 
-    private string $nomeToken;
     private $retorno = '';
     private array $header;
     private array $variavel = [];
@@ -32,12 +31,11 @@ final class RequisicaoEnviar
 
         $this->setarCrypt();
         $this->link = env('POSTMAN_API_LINK', '');
-        $this->nomeToken = strCaixaAlta('POSTMAN_TOKEN_' . $token);
 
         $this->iniciarRequest($post);
     }
 
-    private function iniciarRequest($post, bool $repetir = true)
+    private function iniciarRequest($post)
     {
         $token = $post['token'];
         $metodo = $post['metodo'];
@@ -51,11 +49,7 @@ final class RequisicaoEnviar
             $repetir = false;
         }
 
-        if (sessaoExiste($this->nomeToken) && is_array(sessao($this->nomeToken)) && validarIndiceExiste(sessao($this->nomeToken), ['token', 'publica', 'privada'])) {
-            $tokenExistente = sessao($this->nomeToken);
-            $this->setarCryptPelaChave($tokenExistente['publica'], $tokenExistente['privada']);
-            $this->header[] = ['texto', 'Authorization', 'Bearer ' . $tokenExistente['token'] ?? ''];
-        } elseif ($token == 'token') {
+        if ($token == 'token') {
             $this->criarToken($scope);
         } elseif ($token == 'painel') {
             $this->criarTokenPainel($scope);
@@ -69,11 +63,6 @@ final class RequisicaoEnviar
         $this->header = $this->montarParametro($this->header);
 
         $dado = $this->enviarCurl($metodo, $uri, $body, $parametro, $json, $this->header);
-        if (in_array($dado->status, [401, 403]) && true === $repetir) {
-            sessaoDeletar($this->nomeToken);
-            $this->iniciarRequest($post, false);
-            return;
-        }
 
         $retorno['retorno'] = $dado->retorno;
         $retorno['codigo_html'] = $dado->status;
@@ -205,12 +194,6 @@ final class RequisicaoEnviar
 
     private function setarTokenComLogin($token)
     {
-        $chave = $this->setarCryptPorToken($token);
-        sessao($this->nomeToken, [
-            'token'   => $token,
-            'publica' => $chave['publica'],
-            'privada' => $chave['privada'],
-        ]);
         $this->header[] = ['texto', 'Authorization', 'Bearer ' . $token];
     }
 }

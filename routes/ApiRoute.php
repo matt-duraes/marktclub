@@ -1029,17 +1029,28 @@ Route
         Route
             ::nome('salvar')
             ::middleware(TokenMiddleware::class, 'scope', ['view_pagina:salvar'])
-            ::request(['titulo', 'url'])
+            ::request(['titulo', 'url', 'status'])
             ::post('/view-pagina');
         Route
             ::nome('atualizar')
             ::middleware(TokenMiddleware::class, 'scope', ['view_pagina:atualizar'])
-            ::request(['!titulo', '!url', '!html'])
+            ::request(['!titulo', '!url', '!html', '!status'])
             ::put('/view-pagina/{id}');
         Route
             ::nome('deletar')
             ::middleware(TokenMiddleware::class, 'scope', ['view_pagina:deletar'])
             ::delete('/view-pagina/{id}');
+    });
+
+Route
+    ::nome('view_tabela')
+    ::middleware(TokenMiddleware::class, 'token')
+    ::controller(App\Controllers\Api\View\TabelaController::class)
+    ::grupo(function () {
+        Route
+            ::nome('buscar')
+            ::middleware(TokenMiddleware::class, 'scope', ['view_tabela:buscar'])
+            ::get('/view-tabela/{tabela}');
     });
 
 Route
@@ -1071,9 +1082,14 @@ Route
             ::put('/view-html/{id}');
         Route
             ::nome('grupo')
-            ::middleware(TokenMiddleware::class, 'scope', ['view_html:atualizar'])
+            ::middleware(TokenMiddleware::class, 'scope', ['view_html:grupo'])
             ::request(['grupo'])
             ::put('/view-html/grupo');
+        Route
+            ::nome('clonar')
+            ::middleware(TokenMiddleware::class, 'scope', ['view_html:clonar'])
+            ::request(['id'])
+            ::post('/view-html/clonar');
         Route
             ::nome('deletar')
             ::middleware(TokenMiddleware::class, 'scope', ['view_html:deletar'])
@@ -2481,11 +2497,6 @@ Route
             ::middleware(TokenMiddleware::class, 'scope', ['saude_convenio:cidade'])
             ::request(['endereco_estado'])
             ::get('/saude-convenio/cidade');
-        Route
-            ::nome('tabela')
-            ::middleware(TokenMiddleware::class, 'scope', ['saude_convenio:tabela'])
-            ::request(['convenio', 'tabela'])
-            ::get('/saude-convenio/tabela');
     });
 Route
     ::nome('saude_simulacao')

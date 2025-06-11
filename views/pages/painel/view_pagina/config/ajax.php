@@ -31,6 +31,13 @@ return $Painel
             ->metodo('get')
             ->rota('/view-html');
     })
+    ->grupo('clonar-html', function () use ($Painel) {
+        $Painel
+            ->request(['id'])
+            ->permissao('view_pagina_index')
+            ->metodo('post')
+            ->rota('/view-html/clonar');
+    })
     ->grupo('ordem-html', function () use ($Painel) {
         $Painel
             ->request(['grupo'])

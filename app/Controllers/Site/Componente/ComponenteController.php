@@ -5,7 +5,7 @@ namespace App\Controllers\Site\Componente;
 use Http\Request;
 use Http\Response;
 use Controller\Controller;
-use App\Models\Site\Pagina\ApiModel;
+use App\Models\Site\Pagina\HashModel;
 use App\Models\Site\Pagina\BuscarModel;
 
 final class ComponenteController extends Controller
@@ -22,11 +22,9 @@ final class ComponenteController extends Controller
 
     public function postBuscar(Request $request)
     {
-        $dado = base64Decode(hash: $request->hash, url: true);
-        $Api = new ApiModel(
-            dado: is_array($dado) ? $dado : [],
-            tipo: $request->tipo
+        $Api = new HashModel(
+            hash: $request->hash
         );
-        return new Response(json: $Api->retorno, status: 201);
+        return mensagemSucesso(dado: $Api->retorno, status: 201);
     }
 }

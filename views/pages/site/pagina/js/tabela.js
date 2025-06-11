@@ -26,40 +26,11 @@ window.addEventListener('load', () => {
         tabela.final(cloneEsqueleto);
 
         Loading.show();
-        const body = new FormData();
-        body.append('hash', hash);
-        fetch(LINK + '/componente', {
-            method: 'POST',
-            body,
-        })
-            .then(resposta => {
-                const json = resposta.json();
-                json.then(resposta => {
-                    cloneEsqueleto.remove();
-                    adicionarListaTabela(resposta, modelo, tabela);
-                }).catch(erro => {
-                    cloneEsqueleto.remove();
-                    erroBuscarTabela(erro);
-                });
-            })
-            .catch(erro => {
-                cloneEsqueleto.remove();
-                erroBuscarTabela(erro);
-            });
+        Buscar.add(hash, 'tabela', {
+            esqueleto: Loading,
+            modelo: modelo,
+            tabela: tabela,
+            remover: [cloneEsqueleto],
+        });
     }
-
-    const adicionarListaTabela = (lista, modelo, tabela) => {
-        for (const linha of lista) {
-            const tr = modelo.clonar();
-            const td = $$('.td', tr);
-            linha.forEach((valor, i) => {
-                td[i].texto(valor);
-            });
-            tabela.final(tr);
-        }
-    };
-
-    const erroBuscarTabela = bloco => {
-        bloco.final(`<div class="com_pai_tabela_erro">Ocorreu um erro ao buscar lista da tabela</div>`);
-    };
 });

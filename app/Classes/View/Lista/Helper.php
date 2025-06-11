@@ -12,6 +12,7 @@ final class Helper
         'icone_tipo', 'icone_tamanho', 'icone_nome', 'icone_cor', 'icone_bg', 'icone_borda_cor',
         'icone_altura', 'lista_tipo', 'lista_valor', 'link_empresa', 'api_status', 'api_metodo',
         'api_body', 'api_uri', 'botao_tipo', 'empresa_ativa', 'empresa_inativa', 'imagem_arquivo',
-        'imagem_altura_desktop', 'imagem_altura_mobile'
+        'imagem_altura_desktop', 'imagem_altura_mobile', 'div_minimo_desktop', 'div_minimo_mobile',
+        'div_maximo_desktop', 'div_maximo_mobile', 'texto_alinhamento_desktop', 'texto_alinhamento_mobile'
     ];
 }

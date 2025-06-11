@@ -57,6 +57,7 @@ final class PaginaController extends Controller implements
     {
         $View = new ViewEntity();
         $View->uuid($id);
+        $View->set(lista: $request->dado());
         $View->salvar();
         return new Response(status: 204);
     }
