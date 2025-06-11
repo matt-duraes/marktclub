@@ -104,7 +104,7 @@ final class RelatorioController extends Controller
     private function pegarSelectSubempresa()
     {
         return (new ApiHelper(token: true))
-            ->json(['todas' => sessao('EMPRESA.id') == '14afa776394ada4be23be6acf7e3259e'])
+            ->json(['empresa' => sessao('EMPRESA.id')])
             ->get('/comercial-subempresa/select')
             ->array()['dado'] ?? [];
     }
