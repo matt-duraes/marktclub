@@ -7,8 +7,10 @@
 // @import "campanha"
 // @import "relacionado"
 // @import "tabela"
+// @import "loja"
 
 const paginaUrl = $('#input_url').valor();
+const paginaDado = $('#input_dado').valor();
 
 class ComponenteBuscar {
     constructor(quantidade) {
@@ -32,15 +34,16 @@ class ComponenteBuscar {
             tipo,
             dado,
         };
-        this.id++;
         if (this.quantidade === this.id) {
-            await new Promise(resolve => setTimeout(resolve, 1000));
             this.enviar();
+            return;
         }
+        this.id++;
     }
 
     enviar() {
         const body = this.body;
+        body.append('dado', paginaDado);
         fetch(LINK + '/componente', {
             method: 'POST',
             body,
@@ -62,7 +65,7 @@ class ComponenteBuscar {
             });
     }
 
-    erro(numero) {
+    erro() {
         const dado = this.retorno;
         for (let i = 1; i <= this.quantidade; ++i) {
             const id = 'id-' + i;
@@ -77,6 +80,12 @@ class ComponenteBuscar {
     }
 
     removerLista(lista) {
+        if (lista instanceof Element) {
+            lista.remove();
+            return;
+        } else if (!lista instanceof NodeList && !lista instanceof Array) {
+            return;
+        }
         for (const item of lista) {
             item.remove();
         }
@@ -90,19 +99,69 @@ class ComponenteBuscar {
             const dado = retorno.dado;
             if (tipo === 'tabela') {
                 this.adicionarTabela(item.dado, dado);
+            } else if (tipo === 'loja') {
+                this.adicionarLoja(item.dado, dado);
             }
         }
     }
 
-    adicionarTabela(lista, dado) {
+    tratarItemDado(dado) {
         dado = 'dado' in dado ? dado : dado;
         if ('esqueleto' in dado) {
             dado.esqueleto.hide();
         }
-        dado.esqueleto.hide();
         if ('remover' in dado) {
             this.removerLista(dado.remover);
         }
+        return dado;
+    }
+
+    adicionarLoja(lista, dado) {
+        dado = this.tratarItemDado(dado);
+        for (const item of lista) {
+            if (!'tipo_loja' in item) {
+                continue;
+            }
+
+            const tipo = item.tipo_loja;
+            const clone = dado.modelo.clonar();
+            clone.classe('padrao_loja', false);
+            clone.setAttribute('data-url', item.id);
+            $('.item_titulo', clone).html(item.titulo);
+
+            if (!vazio(item.link)) {
+                $('.item_link', clone).setAttribute('href', item.link);
+            }
+            if (!vazio(item.imagem)) {
+                $('.item_logo', clone).html(`<img src="${item.imagem}">`);
+            }
+            if (!vazio(item.desconto)) {
+                $('.item_desconto', clone).html(tipo == 'cashback' ? item.desconto + '%' : item.desconto);
+            }
+            if (tipo == 'cashback') {
+                $('.item_pontos', clone).text('Revertido em pontos SILIUM');
+                $('.item_volta', clone).text('Receba de volta');
+            }
+            if (!vazio(item.estado) && !['cashback', 'plano-saude'].includes(tipo)) {
+                $('.bloco_estado', clone).classe('display_none', false);
+                $('.item_estado', clone).texto(item.estado);
+            }
+
+            // Favorito
+            if (['loja'].includes(tipo)) {
+                const favorito = $('.botao_favorito', clone);
+                favorito.classe('display_none', false);
+                if (item.favorito == 'sim') {
+                    favorito.classe('favorito_marcado', true);
+                }
+            }
+
+            dado.bloco.final(clone);
+        }
+    }
+
+    adicionarTabela(lista, dado) {
+        dado = this.tratarItemDado(dado);
 
         if (lista.length === 0) {
             dado.tabela.closest('.com_tabela_scroll').depois(`

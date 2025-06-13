@@ -326,23 +326,6 @@ Route
     });
 
 Route
-    ::nome('componente')
-    ::middleware(ClubeMiddleware::class, 'buscar')
-    ::middleware(AuthMiddleware::class, 'logado')
-    ::controller(App\Controllers\Site\Componente\ComponenteController::class)
-    ::grupo(function () {
-        Route
-            ::middleware(AppTipoMiddleware::class, 'localhost')
-            ::nome('index')
-            ::view('/componente');
-
-        Route
-            ::nome('buscar')
-            ::request(['hash', '!tipo'])
-            ::post('/componente');
-    });
-
-Route
     ::nome('cashback')
     ::middleware(ClubeMiddleware::class, 'buscar')
     ::middleware(AuthMiddleware::class, 'logado')
@@ -621,13 +604,18 @@ Route
     ::grupo(function () {
         Route
             ::nome('buscar')
+            ::request(['hash', '!tipo', '!dado'])
+            ::post('/componente');
+
+        Route
+            ::nome('buscar')
             ::view([
                 '/saude/{uri}'
             ]);
         Route
             ::nome('index')
             ::view([
-                '/turismo2'
+                '/saude'
             ]);
     });
 
@@ -637,9 +625,6 @@ Route
     ::middleware(AuthMiddleware::class, 'logado')
     ::controller(App\Controllers\Site\PlanoSaudeController::class)
     ::grupo(function () {
-        Route
-            ::nome('index')
-            ::view('/saude');
         Route
             ::nome('escolherEstado')
             ::view('/saude/escolher-estado');

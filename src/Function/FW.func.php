@@ -290,14 +290,13 @@ if (!function_exists('paginaErro')) {
 /*/
 if (!function_exists('vd')) {
     /**
-     * @param mixed $conteudo Conteudo a ser impresso
+     * @param mixed $lista Conteudo a ser impresso
      */
-    function vd($conteudo, bool $view = false)
+    function vd(...$lista)
     {
-        if ($view) {
-            echo '-->';
+        foreach($lista as $conteudo) {
+            var_dump($conteudo) . PHP_EOL;
         }
-        var_dump($conteudo);
     }
 }
 
@@ -311,14 +310,10 @@ if (!function_exists('vd')) {
 /*/
 if (!function_exists('vde')) {
     /**
-     * @param mixed $conteudo Conteudo a ser impresso
+     * @param mixed $lista Conteudo a ser impresso
      */
-    function vde($conteudo, bool $view = false)
+    function vde(...$lista)
     {
-        if ($view) {
-            echo '-->';
-        }
-
         $header = getallheaders();
         $contentType = array_key_exists('Content-Type', $header) ? explode(';', $header['Content-Type'])[0] : '';
         $metodo = $_SERVER['REQUEST_METHOD'] ?? '';
@@ -326,7 +321,9 @@ if (!function_exists('vde')) {
         if ($addHtml) {
             echo '<html><head><title>VAR_DUMP EXIT</title></head><body>';
         }
-        var_dump($conteudo);
+        foreach($lista as $conteudo) {
+            var_dump($conteudo) . PHP_EOL;
+        }
         if ($addHtml) {
             echo '</body></html>';
         }
@@ -352,18 +349,17 @@ if (!function_exists('printView')) {
 /*/
 if (!function_exists('pp')) {
     /**
-     * @param mixed $conteudo Conteudo a ser impresso
+     * @param mixed $lista Conteudo a ser impresso
      */
-    function pp($conteudo, $view = false)
+    function pp(...$lista)
     {
-        if ($view) {
-            echo '-->';
-        }
-        if (is_object($conteudo) || is_array($conteudo)) {
-            echo '<pre>';
-            print_r($conteudo);
-        } else {
-            echo $conteudo . '<br>' . PHP_EOL;
+        foreach($lista as $conteudo) {
+            if (is_object($conteudo) || is_array($conteudo)) {
+                echo '<pre>';
+                print_r($conteudo) . '<br>' . PHP_EOL;
+            } else {
+                echo $conteudo . '<br>' . PHP_EOL;
+            }
         }
     }
 }
@@ -379,35 +375,33 @@ if (!function_exists('pp')) {
 /*/
 if (!function_exists('ppe')) {
     /**
-     * @param mixed $conteudo Conteudo a ser impresso
+     * @param mixed $lista Conteudo a ser impresso
      */
-    function ppe($conteudo, bool $view = false)
+    function ppe(...$lista)
     {
-        if ($view) {
-            echo '-->';
-        }
-
-        $eObjecto = is_object($conteudo) || is_array($conteudo);
-
         $header = getallheaders();
         $contentType = array_key_exists('Content-Type', $header) ? explode(';', $header['Content-Type'])[0] : '';
         $metodo = $_SERVER['REQUEST_METHOD'] ?? '';
-
-        if ($contentType == 'application/json' && $eObjecto) {
-            header('Content-Type: application/json');
-            echo json_encode($conteudo);
-            exit();
-        }
 
         $addHtml = $metodo == 'GET' && $contentType != 'application/json';
         if ($addHtml) {
             echo '<html><head><title>PRE PRINT EXIT</title></head><body>';
         }
 
-        if ($eObjecto) {
-            echo '<pre>';
-            print_r($conteudo);
-        } else {
+        echo '<pre>';
+        foreach($lista as $conteudo) {
+            $eObjecto = is_object($conteudo) || is_array($conteudo);
+
+            if ($contentType == 'application/json' && $eObjecto) {
+                header('Content-Type: application/json');
+                echo json_encode($conteudo) . PHP_EOL;
+                continue;
+            }
+
+            if ($eObjecto) {
+                print_r($conteudo) . PHP_EOL;
+                continue;
+            }
             echo $conteudo . PHP_EOL;
         }
 

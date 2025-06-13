@@ -13,7 +13,8 @@ final class ApiModel extends ClubeApiHelper
 
     public function __construct(
         private array $dado,
-        private ?string $tipo = null
+        private ?string $tipo = null,
+        private null|string|array $replace = null
     ) {
         parent::__construct();
         $this->validarDado();
@@ -65,11 +66,14 @@ final class ApiModel extends ClubeApiHelper
 
     private function montarBody()
     {
+        $replace = $this->replace;
         foreach($this->dado['body'] ?? [] as $r) {
             if(!validarIndiceExiste($r, ['valor', 'indice'])) {
                 continue;
             }
-            $this->body[$r['indice']] = $r['valor'];
+            $indice = $r['indice'];
+            $valor = $r['valor'];
+            $this->body[$indice] = $replace[$valor] ?? $valor;
         }
     }
     private function setarUri()

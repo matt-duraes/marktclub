@@ -58,6 +58,14 @@ trait PermissaoTrait
             add: true,
             editar: true,
             deletar: true
+        )
+        ->montarArrayPermissao(
+            titulo: 'Saúde Convênio',
+            indice: 'saude_convenio',
+            index: true,
+            add: true,
+            editar: true,
+            deletar: true
         );
     }
 
@@ -1519,7 +1527,7 @@ trait PermissaoTrait
         bool|array $download = false,
         bool|array $empresa = false,
         bool|array $subempresa = false,
-        string $scope = null,
+        ?string $scope = null,
         ?Closure $personalizado = null
     ): self {
         $scope = !empty($scope) ? $scope : $indice;

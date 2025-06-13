@@ -3,17 +3,27 @@
 namespace App\Models\Api\Saude\Convenio;
 
 use ORM\ORM;
+use stdClass;
 use Modules\EnderecoEstado;
 use App\Models\Api\Auth\Token\TokenHelper;
 
 abstract class PadraoModel extends ORM
 {
     public EnderecoEstado $EnderecoEstado;
-    public array $retorno = [];
+    public array|stdClass $retorno = [];
+    protected bool $painel;
+    protected bool $clube;
+
+    public function __construct()
+    {
+        parent::__construct();
+        $this->eClube();
+        $this->ePainel();
+    }
 
     protected function validarEstado()
     {
-        $this->EnderecoEstado->validar(campo: 'Estado do endereço', vazio: $this->eClube());
+        $this->EnderecoEstado->validar(campo: 'Estado do endereço', vazio: $this->clube);
     }
 
     protected function ordenarRetorno(string $titulo)
@@ -37,10 +47,15 @@ abstract class PadraoModel extends ORM
         return $Token->pegarEmpresa();
     }
 
-    protected function eClube(): bool
+    protected function ePainel(): void
     {
         $Token = new TokenHelper();
-        return $Token->eClube();
+        $this->painel = $Token->ePainel();
+    }
+    protected function eClube(): void
+    {
+        $Token = new TokenHelper();
+        $this->clube = $Token->eClube();
     }
 
     protected function whereClube(): array

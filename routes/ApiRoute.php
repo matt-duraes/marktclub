@@ -1,10 +1,11 @@
 <?php
 
-use Route\Route;
 use App\Classes\Parceiro\Externo\Helper;
-use App\Middlewares\Api\TokenMiddleware;
 use App\Middlewares\Api\MarktClubMiddleware;
+use App\Middlewares\Api\TokenMiddleware;
 use App\Middlewares\Api\TokenProvMiddleware;
+use App\Middlewares\DrogariaAraujoMiddleware;
+use Route\Route;
 
 Route::noIndex();
 
@@ -141,7 +142,7 @@ Route
             ::middleware(TokenMiddleware::class, 'scope', ['publicacao_noticia:listar'])
             ::request([
                 'pagina', '!quantidade', '!ordem', '!pesquisa', '!home', '!tipo', '!publicado',
-                '!data_inicio_de', '!data_inicio_ate', '!site', '!restrita', '!status'
+                '!data_inicio_de', '!data_inicio_ate', '!site', '!restrita', '!status',
             ], 'json')
             ::get('/publicacao-noticia');
         Route
@@ -160,7 +161,7 @@ Route
                 'imagem_grande', 'imagem_pequena', '!imagem_galeria', 'imagem_social', '!arquivo',
                 'fonte_noticia', 'fonte_link', 'autor_noticia', 'data_inicio', 'data_final',
                 'data_atualizada', 'permissao_restrita', 'permissao_site', 'header_titulo',
-                'header_descricao', 'header_tag', 'home', 'tipo', 'status'
+                'header_descricao', 'header_tag', 'home', 'tipo', 'status',
             ])
             ::post('/publicacao-noticia');
         Route
@@ -171,7 +172,7 @@ Route
                 '!imagem_grande', '!imagem_pequena', '!imagem_galeria', '!imagem_social', '!arquivo',
                 '!fonte_noticia', '!fonte_link', '!autor_noticia', '!data_inicio', '!data_final',
                 '!data_atualizada', '!permissao_restrita', '!permissao_site', '!header_titulo',
-                '!header_descricao', '!header_tag', '!home', '!tipo', '!status'
+                '!header_descricao', '!header_tag', '!home', '!tipo', '!status',
             ])
             ::put('/publicacao-noticia/{id}');
         Route
@@ -194,7 +195,7 @@ Route
             ::nome('listar')
             ::middleware(TokenMiddleware::class, 'scope', ['publicacao_pagina:listar'])
             ::request([
-                'pagina', '!quantidade', '!ordem', '!pesquisa'
+                'pagina', '!quantidade', '!ordem', '!pesquisa',
             ], 'json')
             ::get('/publicacao-pagina');
 
@@ -202,7 +203,7 @@ Route
             ::nome('salvar')
             ::middleware(TokenMiddleware::class, 'scope', ['publicacao_pagina:salvar'])
             ::request([
-                'titulo', 'texto', '!header_titulo', '!header_descricao', '!header_tag'
+                'titulo', 'texto', '!header_titulo', '!header_descricao', '!header_tag',
             ])
             ::post('/publicacao-pagina');
 
@@ -210,7 +211,7 @@ Route
             ::nome('atualizar')
             ::middleware(TokenMiddleware::class, 'scope', ['publicacao_pagina:atualizar'])
             ::request([
-                '!titulo', '!texto', '!header_titulo', '!header_descricao', '!header_tag'
+                '!titulo', '!texto', '!header_titulo', '!header_descricao', '!header_tag',
             ])
             ::put('/publicacao-pagina/{id}');
     });
@@ -224,7 +225,7 @@ Route
             ::nome('listar')
             ::middleware(TokenMiddleware::class, 'scope', ['publicacao_diretoria:listar'])
             ::request([
-                'pagina', '!quantidade', '!pesquisa', '!status'
+                'pagina', '!quantidade', '!pesquisa', '!status',
             ], 'json')
             ::get('/publicacao-diretoria');
 
@@ -237,7 +238,7 @@ Route
             ::nome('salvar')
             ::middleware(TokenMiddleware::class, 'scope', ['publicacao_diretoria:salvar'])
             ::request([
-                'nome', 'cargo', 'texto', 'grupo', 'imagem', 'status'
+                'nome', 'cargo', 'texto', 'grupo', 'imagem', 'status',
             ])
             ::post('/publicacao-diretoria');
 
@@ -245,7 +246,7 @@ Route
             ::nome('atualizar')
             ::middleware(TokenMiddleware::class, 'scope', ['publicacao_diretoria:atualizar'])
             ::request([
-                '!nome', '!cargo', '!texto', '!grupo', '!imagem', '!status'
+                '!nome', '!cargo', '!texto', '!grupo', '!imagem', '!status',
             ])
             ::put('/publicacao-diretoria/{id}');
 
@@ -278,7 +279,7 @@ Route
                 'campo', 'usuario', '!pesquisa', '!pagamento', '!nome', '!email', '!cpf', '!data_upload',
                 '!data_criacao_de', '!data_criacao_ate', '!matricula', '!status', '!ordem', '!dependente',
                 '!empresa', '!trabalho_empresa', '!trabalho_cargo', '!tipo', '!endereco_estado', '!federacao',
-                '!siape', '!origem', '!subempresa'
+                '!siape', '!origem', '!subempresa',
             ])
             ::post('/usuario-cliente/download');
     });
@@ -300,7 +301,7 @@ Route
             ::middleware(TokenMiddleware::class, 'scope', ['perfil_dado:atualizar'])
             ::request([
                 '!nome', '!data_nascimento', '!genero', '!estado_civil', '!email_pessoal', '!email_trabalho',
-                '!telefone_trabalho', '!perfil' ,'!telefone_pessoal', '!endereco_estado', '!endereco_cep',
+                '!telefone_trabalho', '!perfil', '!telefone_pessoal', '!endereco_estado', '!endereco_cep',
                 '!endereco_logradouro', '!endereco_bairro', '!endereco_numero', '!endereco_complemento',
                 '!endereco_cidade',
             ])
@@ -335,7 +336,7 @@ Route
                 'pagina', '!quantidade', '!pesquisa', '!pagamento', '!nome', '!email', '!cpf', '!data_upload',
                 '!data_criacao_de', '!data_criacao_ate', '!matricula', '!status', '!lead', '!ordem',
                 '!origem', '!dependente', '!empresa', '!trabalho_empresa', '!trabalho_cargo', '!tipo',
-                '!endereco_estado', '!federacao', '!siape', '!subempresa'
+                '!endereco_estado', '!federacao', '!siape', '!subempresa',
             ], 'json')
             ::get('/usuario-cliente');
 
@@ -353,7 +354,7 @@ Route
                 '!primeiro_acesso', '!mudar_senha', '!estado_civil', '!endereco_estado', '!endereco_cidade',
                 '!endereco_cep', '!endereco_logradouro', '!endereco_numero', '!endereco_complemento',
                 '!endereco_bairro', '!situacao', '!trabalho_empresa', '!trabalho_cargo', '!tipo_pagamento',
-                '!trabalho_data_inicio', '!grupo', '!empresa', '!subempresa', '!federacao', '!tipo_usuario'
+                '!trabalho_data_inicio', '!grupo', '!empresa', '!subempresa', '!federacao', '!tipo_usuario',
             ])
             ::post('/usuario-cliente');
 
@@ -366,7 +367,7 @@ Route
                 '!primeiro_acesso', '!mudar_senha', '!estado_civil', '!endereco_estado', '!endereco_cidade',
                 '!endereco_cep', '!endereco_logradouro', '!endereco_numero', '!endereco_complemento',
                 '!endereco_bairro', '!situacao', '!trabalho_empresa', '!trabalho_cargo', '!tipo_pagamento',
-                '!trabalho_data_inicio', '!grupo', '!federacao', '!imagem_google', '!subempresa'
+                '!trabalho_data_inicio', '!grupo', '!federacao', '!imagem_google', '!subempresa',
             ])
             ::put('/usuario-cliente/{id}');
 
@@ -394,7 +395,7 @@ Route
                 'email_pessoal', 'email_trabalho', 'telefone_pessoal', 'telefone_trabalho', 'endereco_cep',
                 'endereco_logradouro', 'endereco_numero', '!trabalho_empresa',
                 '!trabalho_cargo', '!trabalho_cargo_personalizado', 'endereco_complemento', 'endereco_bairro',
-                'endereco_estado', 'endereco_cidade', '!tipo_usuario', '!empresa', '!grupo'
+                'endereco_estado', 'endereco_cidade', '!tipo_usuario', '!empresa', '!grupo',
             ])
             ::put('/usuario-cliente/ativar');
 
@@ -438,7 +439,7 @@ Route
             ::nome('deletarApp')
             ::middleware(TokenMiddleware::class, 'scope', ['usuario_cliente:atualizar'])
             ::request([
-                'empresa', '!subempresa', 'usuario'
+                'empresa', '!subempresa', 'usuario',
             ])
             ::post('/usuario-cliente/delete');
     });
@@ -534,21 +535,21 @@ Route
             ::middleware(TokenMiddleware::class, 'scope', ['usuario_indicacao:listar'])
             ::request([
                 'pagina', '!quantidade', '!ordem', '!pesquisa', '!empresa',
-                '!nome', '!email', '!data_inicio', '!data_final', '!status'
+                '!nome', '!email', '!data_inicio', '!data_final', '!status',
             ], 'json')
             ::get('/usuario-indicacao');
         Route
             ::nome('salvar')
             ::middleware(TokenMiddleware::class, 'scope', ['usuario_indicacao:salvar'])
             ::request([
-                'usuario', 'nome', 'email', 'telefone'
+                'usuario', 'nome', 'email', 'telefone',
             ])
             ::post('/usuario-indicacao');
         Route
             ::nome('atualizar')
             ::middleware(TokenMiddleware::class, 'scope', ['usuario_indicacao:atualizar'])
             ::request([
-                '!status'
+                '!status',
             ])
             ::put('/usuario-indicacao/{id}');
         Route
@@ -559,7 +560,7 @@ Route
             ::nome('ativar')
             ::middleware(TokenMiddleware::class, 'scope', ['usuario_indicacao:ativar'])
             ::request([
-                '!hash', '!email', '!empresa'
+                '!hash', '!email', '!empresa',
             ])
             ::post('/usuario-indicacao/ativar');
     });
@@ -580,7 +581,7 @@ Route
                 '!trabalho_cargo', '!trabalho_data_inicio', '!endereco_cep', '!endereco_logradouro',
                 '!endereco_numero', '!endereco_complemento', '!endereco_bairro', '!endereco_cidade',
                 '!endereco_estado', '!termo_aceitar', '!termo_lgpd', '!lista_dependente', '!origem',
-                '!cnpj_trabalho'
+                '!cnpj_trabalho',
             ])
             ::post('/usuario-lead');
 
@@ -588,7 +589,7 @@ Route
             ::nome('listar')
             ::middleware(TokenMiddleware::class, 'scope', ['usuario_lead:listar'])
             ::request([
-                'pagina', '!pesquisa', '!nome', '!email', '!cpf', '!siape', '!status', '!origem', '!ordem'
+                'pagina', '!pesquisa', '!nome', '!email', '!cpf', '!siape', '!status', '!origem', '!ordem',
             ], 'json')
             ::get('/usuario-lead');
 
@@ -620,7 +621,7 @@ Route
             ::middleware(TokenMiddleware::class, 'scope', ['usuario_pagamento:listar'])
             ::request([
                 'pagina', '!pesquisa', '!nome', '!cpf', '!data_cobranca_de', '!data_cobranca_ate',
-                '!data_pagamento_de', '!data_pagamento_ate', '!status', '!ordem'
+                '!data_pagamento_de', '!data_pagamento_ate', '!status', '!ordem',
             ], 'json')
             ::get('/usuario-pagamento');
 
@@ -653,7 +654,7 @@ Route
             ::middleware(TokenMiddleware::class, 'scope', ['usuario_equipe:listar'])
             ::request([
                 'pagina', '!quantidade', '!pesquisa', '!nome', '!email', '!cpf',
-                '!status', '!ordem', '!empresa', '!subempresa', '!tipo'
+                '!status', '!ordem', '!empresa', '!subempresa', '!tipo',
             ], 'json')
             ::get('/usuario-equipe');
 
@@ -679,7 +680,7 @@ Route
             ::request([
                 '!nome', '!cpf', '!genero', '!data_nascimento', '!email_trabalho', '!tipo',
                 '!email_pessoal', '!telefone_trabalho', '!telefone_pessoal', '!permissao',
-                '!senha', '!status', '!primeiro_acesso', '!mudar_senha', '!empresa', '!subempresa'
+                '!senha', '!status', '!primeiro_acesso', '!mudar_senha', '!empresa', '!subempresa',
             ])
             ::post('/usuario-equipe');
 
@@ -690,7 +691,7 @@ Route
                 '!nome', '!cpf', '!genero', '!data_nascimento', '!email_trabalho', '!tipo',
                 '!email_pessoal', '!telefone_trabalho', '!telefone_pessoal', '!permissao',
                 '!senha', '!status', '!primeiro_acesso', '!mudar_senha', '!imagem_facebook',
-                '!imagem_google', '!id_facebook', '!id_google', '!perfil', '!subempresa'
+                '!imagem_google', '!id_facebook', '!id_google', '!perfil', '!subempresa',
             ])
             ::put('/usuario-equipe/{id}');
 
@@ -716,7 +717,7 @@ Route
             ::middleware(TokenMiddleware::class, 'scope', ['tabela_usuario:listar'])
             ::request([
                 'pagina', '!quantidade', '!ordem', '!pesquisa', '!tipo', '!empresa', '!status',
-                '!data_de', '!data_ate'
+                '!data_de', '!data_ate',
             ], 'json')
             ::get('/tabela-usuario');
         Route
@@ -747,7 +748,7 @@ Route
             ::middleware(TokenMiddleware::class, 'scope', ['comunicacao_publicidade:listar'])
             ::request([
                 'pagina', '!quantidade', '!ordem', '!pesquisa', '!titulo', '!tipo',
-                '!data_inicio', '!data_final', '!publicado', '!status'
+                '!data_inicio', '!data_final', '!publicado', '!status',
             ], 'json')
             ::get('/comunicacao-publicidade');
 
@@ -756,7 +757,7 @@ Route
             ::middleware(TokenMiddleware::class, 'scope', ['comunicacao_publicidade:salvar'])
             ::request([
                 'titulo', 'link', 'data_inicio', 'data_final', 'parceiro', 'status',
-                'imagem_desktop', 'imagem_mobile', 'tipo', '!ordem'
+                'imagem_desktop', 'imagem_mobile', 'tipo', '!ordem',
             ])
             ::post('/comunicacao-publicidade');
 
@@ -765,7 +766,7 @@ Route
             ::middleware(TokenMiddleware::class, 'scope', ['comunicacao_publicidade:atualizar'])
             ::request([
                 '!titulo', '!link', '!data_inicio', '!data_final', '!parceiro', '!status',
-                '!imagem_desktop', '!imagem_mobile', '!tipo', '!ordem'
+                '!imagem_desktop', '!imagem_mobile', '!tipo', '!ordem',
             ])
             ::put('/comunicacao-publicidade/{id}');
 
@@ -790,7 +791,7 @@ Route
             ::nome('lojaEquipeDia')
             ::middleware(TokenMiddleware::class, 'scope', ['relatorio_acesso:listar'])
             ::request([
-                '!de', '!ate', '!equipe'
+                '!de', '!ate', '!equipe',
             ], 'json')
             ::get('/relatorio/loja-equipe-dia');
 
@@ -798,7 +799,7 @@ Route
             ::nome('lojaEquipeMes')
             ::middleware(TokenMiddleware::class, 'scope', ['relatorio_acesso:listar'])
             ::request([
-                '!de', '!ate', '!equipe'
+                '!de', '!ate', '!equipe',
             ], 'json')
             ::get('/relatorio/loja-equipe-mes');
 
@@ -806,7 +807,7 @@ Route
             ::nome('lojaVenda')
             ::middleware(TokenMiddleware::class, 'scope', ['relatorio_loja_venda:listar'])
             ::request([
-                'de', 'ate', '!empresa', '!subempresa', '!parceiro'
+                'de', 'ate', '!empresa', '!subempresa', '!parceiro',
             ], 'json')
             ::get('/relatorio/loja-venda');
 
@@ -814,7 +815,7 @@ Route
             ::nome('dadoUsuario')
             ::middleware(TokenMiddleware::class, 'scope', ['relatorio_usuario:listar'])
             ::request([
-                '!empresa', '!subempresa'
+                '!empresa', '!subempresa',
             ], 'json')
             ::get('/relatorio/dado-usuario');
 
@@ -822,7 +823,7 @@ Route
             ::nome('acessoDia')
             ::middleware(TokenMiddleware::class, 'scope', ['relatorio_acesso:listar'])
             ::request([
-                'de', 'ate', '!empresa', '!subempresa'
+                'de', 'ate', '!empresa', '!subempresa',
             ], 'json')
             ::get('/relatorio/acesso-dia');
 
@@ -830,7 +831,7 @@ Route
             ::nome('usuarioMaisAcesso')
             ::middleware(TokenMiddleware::class, 'scope', ['relatorio_acesso:listar'])
             ::request([
-                'de', 'ate', '!empresa', '!subempresa'
+                'de', 'ate', '!empresa', '!subempresa',
             ], 'json')
             ::get('/relatorio/usuario-mais-acesso');
 
@@ -838,7 +839,7 @@ Route
             ::nome('paginaMaisAcessada')
             ::middleware(TokenMiddleware::class, 'scope', ['relatorio_acesso:listar'])
             ::request([
-                'de', 'ate', '!empresa', '!subempresa'
+                'de', 'ate', '!empresa', '!subempresa',
             ], 'json')
             ::get('/relatorio/pagina-mais-acessada');
 
@@ -846,7 +847,7 @@ Route
             ::nome('lojaMaisAcessada')
             ::middleware(TokenMiddleware::class, 'scope', ['relatorio_acesso:listar'])
             ::request([
-                'de', 'ate', '!empresa', '!subempresa', '!parceiro', '!estabelecimento'
+                'de', 'ate', '!empresa', '!subempresa', '!parceiro', '!estabelecimento',
             ], 'json')
             ::get('/relatorio/loja-mais-acessada');
 
@@ -854,7 +855,7 @@ Route
             ::nome('dispositivo')
             ::middleware(TokenMiddleware::class, 'scope', ['relatorio_acesso:listar'])
             ::request([
-                'de', 'ate', '!empresa', '!subempresa'
+                'de', 'ate', '!empresa', '!subempresa',
             ], 'json')
             ::get('/relatorio/dispositivo');
 
@@ -862,14 +863,14 @@ Route
             ::nome('os')
             ::middleware(TokenMiddleware::class, 'scope', ['relatorio_acesso:listar'])
             ::request([
-                'de', 'ate', '!empresa', '!subempresa'
+                'de', 'ate', '!empresa', '!subempresa',
             ], 'json')
             ::get('/relatorio/os');
         Route
             ::nome('navegador')
             ::middleware(TokenMiddleware::class, 'scope', ['relatorio_acesso:listar'])
             ::request([
-                'de', 'ate', '!empresa', '!subempresa'
+                'de', 'ate', '!empresa', '!subempresa',
             ], 'json')
             ::get('/relatorio/navegador');
 
@@ -879,7 +880,7 @@ Route
             ::request([
                 'vinculo', 'usuario_tipo', 'usuario_nome', 'usuario_cpf', 'hash', 'dispositivo',
                 'os', 'browser', 'versao', 'mobile', 'tablet', 'ip', 'agent', 'pais', 'estado',
-                'cidade', 'latitude', 'longitude', 'url'
+                'cidade', 'latitude', 'longitude', 'url',
             ])
             ::post('/relatorio/analytics');
 
@@ -887,10 +888,10 @@ Route
             ::nome('analytics')
             ::middleware(TokenMiddleware::class, 'scope', ['relatorio_analytics:listar'])
             ::request([
-                '!pagina', '!quantidade', '!usuario', '!de', '!ate'
+                '!pagina', '!quantidade', '!usuario', '!de', '!ate',
             ], 'json')
             ::request([
-                '!de', '!ate'
+                '!de', '!ate',
             ], 'get')
             ::get('/relatorio/analytics');
 
@@ -925,7 +926,7 @@ Route
             ::criptografia(['login', 'senha', 'google', 'facebook'])
             ::request([
                 '!login', '!senha', '!facebook', '!google', 'scope',
-                'audience', 'redirect_uri', 'state'
+                'audience', 'redirect_uri', 'state',
             ])
             ::post('/login/painel');
 
@@ -937,7 +938,7 @@ Route
                 'nome', 'cpf', '!matricula', '!siape', '!genero', '!data_nascimento', '!email_trabalho',
                 '!email_pessoal', '!telefone_trabalho', '!telefone_pessoal', '!estado_civil',
                 '!endereco_estado', '!endereco_cidade', '!federacao', '!salavip', '!grupo',
-                '!crm_numero', '!crm_estado', '!termo_lgpd', '!real'
+                '!crm_numero', '!crm_estado', '!termo_lgpd', '!real',
             ])
             ::post('/login/api');
 
@@ -1072,7 +1073,7 @@ Route
             ::middleware(TokenMiddleware::class, 'scope', ['view_html:salvar'])
             ::requestOpcional(array_merge(['pagina'], App\Classes\View\Lista\Helper::PARAMETROS_LISTAR), lista: [
                 'margem_topo_desktop', 'margem_direita_desktop', 'margem_baixo_desktop', 'margem_esquerda_desktop',
-                'margem_topo_mobile', 'margem_direita_mobile', 'margem_baixo_mobile', 'margem_esquerda_mobile'
+                'margem_topo_mobile', 'margem_direita_mobile', 'margem_baixo_mobile', 'margem_esquerda_mobile',
             ])
             ::post('/view-html');
         Route
@@ -1123,7 +1124,7 @@ Route
             ::middleware(TokenMiddleware::class, 'scope', ['painel_config:listar'])
             ::request([
                 'pagina', '!quantidade', '!ordem', '!pesquisa', '!empresa', '!titulo',
-                '!data_inicio', '!data_final'
+                '!data_inicio', '!data_final',
             ], 'json')
             ::get('/painel-configuracao');
 
@@ -1133,7 +1134,7 @@ Route
             ::request([
                 'empresa', 'configuracao', 'campo_obrigatorio', 'campo_permitido',
                 'permissao', 'titulo', '!upload_imagem', '!upload_arquivo',
-                '!site_config'
+                '!site_config',
             ])
             ::post('/painel-configuracao');
 
@@ -1143,7 +1144,7 @@ Route
             ::request([
                 '!empresa', '!configuracao', '!campo_obrigatorio', '!campo_permitido',
                 '!permissao', '!titulo', '!upload_imagem', '!upload_arquivo',
-                '!site_config'
+                '!site_config',
             ])
             ::put('/painel-configuracao/{id}');
 
@@ -1208,7 +1209,7 @@ Route
             ::nome('salvar')
             ::request([
                 'client_id', '!secret_id', '!audience',
-                'grant_type', 'scope', '!refresh_token'
+                'grant_type', 'scope', '!refresh_token',
             ])
             ::post('/token');
 
@@ -1268,7 +1269,7 @@ Route
             ::nome('atualizar')
             ::middleware(TokenMiddleware::class, 'scope', ['parceiro_cupom:atualizar'])
             ::request([
-                '!status', '!auditado'
+                '!status', '!auditado',
             ])
             ::put('/parceiro-cupom/{id}');
     });
@@ -1283,7 +1284,7 @@ Route
             ::middleware(TokenMiddleware::class, 'scope', ['parceiro_campanha:listar'])
             ::request([
                 'pagina', '!quantidade', '!parceiro', '!pesquisa', '!titulo', '!data_inicio', '!data_final',
-                '!publicado', '!status'
+                '!publicado', '!status',
             ], 'json')
             ::get('/parceiro-campanha');
         Route
@@ -1295,7 +1296,7 @@ Route
             ::middleware(TokenMiddleware::class, 'scope', ['parceiro_campanha:salvar'])
             ::request([
                 'parceiro', 'titulo', 'texto', 'data_inicio', 'data_final', 'imagem_desktop', 'imagem_mobile', 'link',
-                'status'
+                'status',
             ])
             ::post('/parceiro-campanha');
         Route
@@ -1303,7 +1304,7 @@ Route
             ::middleware(TokenMiddleware::class, 'scope', ['parceiro_campanha:atualizar'])
             ::request([
                 '!parceiro', '!titulo', '!texto', '!data_inicio', '!data_final', '!imagem_desktop', '!imagem_mobile',
-                '!link', '!status'
+                '!link', '!status',
             ])
             ::put('/parceiro-campanha/{id}');
         Route
@@ -1321,7 +1322,7 @@ Route
             ::nome('listar')
             ::middleware(TokenMiddleware::class, 'scope', ['parceiro_cashback:listar'])
             ::request([
-                'pagina', '!quantidade', '!ordem', '!pesquisa', '!categoria', '!empresa', '!status'
+                'pagina', '!quantidade', '!ordem', '!pesquisa', '!categoria', '!empresa', '!status',
             ], 'json')
             ::get('/parceiro-cashback');
 
@@ -1336,7 +1337,7 @@ Route
             ::request([
                 'titulo', 'texto_descricao', 'texto_restricao', 'texto_outro',
                 'comissao_minima', 'comissao_maxima', 'status', 'empresa',
-                'link_site', 'imagem', 'categoria'
+                'link_site', 'imagem', 'categoria',
             ])
             ::post('/parceiro-cashback');
 
@@ -1346,7 +1347,7 @@ Route
             ::request([
                 '!titulo', '!texto_descricao', '!texto_restricao', '!texto_outro',
                 '!comissao_minima', '!comissao_maxima', '!status', '!empresa',
-                '!link_site', '!imagem', '!categoria'
+                '!link_site', '!imagem', '!categoria',
             ])
             ::put('/parceiro-cashback/{id}');
 
@@ -1365,7 +1366,7 @@ Route
             ::nome('listar')
             ::middleware(TokenMiddleware::class, 'scope', ['parceiro_relatorio:listar'])
             ::request([
-                'pagina', '!ordem', '!data_relatorio_de', '!data_relatorio_ate'
+                'pagina', '!ordem', '!data_relatorio_de', '!data_relatorio_ate',
             ], 'json')
             ::get('/parceiro-relatorio');
 
@@ -1378,7 +1379,7 @@ Route
             ::nome('salvar')
             ::middleware(TokenMiddleware::class, 'scope', ['parceiro_relatorio:salvar'])
             ::request([
-                'empresa', 'parceiro', 'numero_transacao', 'valor_venda', 'data_relatorio'
+                'empresa', 'parceiro', 'numero_transacao', 'valor_venda', 'data_relatorio',
             ])
             ::post('/parceiro-relatorio');
 
@@ -1386,7 +1387,7 @@ Route
             ::nome('atualizar')
             ::middleware(TokenMiddleware::class, 'scope', ['parceiro_relatorio:atualizar'])
             ::request([
-                '!empresa', '!parceiro', '!numero_transacao', '!valor_venda', '!data_relatorio'
+                '!empresa', '!parceiro', '!numero_transacao', '!valor_venda', '!data_relatorio',
             ])
             ::put('/parceiro-relatorio/{id}');
 
@@ -1415,7 +1416,7 @@ Route
             ::middleware(TokenMiddleware::class, 'scope', ['texto_clube:salvar'])
             ::request([
                 'empresa', 'titulo_painel', 'titulo', 'texto', 'header_titulo',
-                'header_descricao', 'header_tag', 'tipo', 'empresa', '!ordem', 'status'
+                'header_descricao', 'header_tag', 'tipo', 'empresa', '!ordem', 'status',
             ])
             ::post('/texto-clube');
         Route
@@ -1423,7 +1424,7 @@ Route
             ::middleware(TokenMiddleware::class, 'scope', ['texto_clube:atualizar'])
             ::request([
                 '!empresa', '!titulo_painel', '!titulo', '!texto', '!header_titulo',
-                '!header_descricao', '!header_tag', '!tipo', '!empresa', '!ordem', '!status'
+                '!header_descricao', '!header_tag', '!tipo', '!empresa', '!ordem', '!status',
             ])
             ::put('/texto-clube/{id}');
         Route
@@ -1434,7 +1435,7 @@ Route
             ::nome('ordenar')
             ::middleware(TokenMiddleware::class, 'scope', ['texto_clube:atualizar'])
             ::request([
-                'id', 'pagina', '!quantidade'
+                'id', 'pagina', '!quantidade',
             ])
             ::put('/texto-clube/ordenar');
     });
@@ -1453,7 +1454,7 @@ Route
             ::middleware(TokenMiddleware::class, 'scope', ['construtor_clube:listar'])
             ::request([
                 'pagina', '!quantidade', '!ordem', '!pesquisa', '!titulo_clube', '!empresa',
-                '!status', '!data_inicio', '!data_final'
+                '!status', '!data_inicio', '!data_final',
             ], 'json')
             ::get('/construtor-clube');
         Route
@@ -1477,7 +1478,7 @@ Route
                 'texto_login_usuario', 'texto_login_dependente', 'texto_login_funcionario', 'link_funcionario',
                 'menu_funcionario', 'app_versao_android', 'app_versao_ios', 'botao_senha_status', 'botao_senha_tipo',
                 'botao_senha_link', 'botao_cadastro_status', 'botao_cadastro_tipo', 'botao_cadastro_link',
-                'botao_ativar_status', 'botao_ativar_tipo', 'botao_ativar_link', 'menu_lg'
+                'botao_ativar_status', 'botao_ativar_tipo', 'botao_ativar_link', 'menu_lg',
             ])
             ::post('/construtor-clube');
         Route
@@ -1502,7 +1503,7 @@ Route
                 '!texto_login_usuario', '!texto_login_dependente', '!texto_login_funcionario', '!link_funcionario',
                 '!menu_funcionario', '!app_versao_android', '!app_versao_ios', '!botao_senha_status',
                 '!botao_senha_tipo', '!botao_senha_link', '!botao_cadastro_status', '!botao_cadastro_tipo',
-                '!botao_cadastro_link', '!botao_ativar_status', '!botao_ativar_tipo', '!botao_ativar_link', 'menu_lg'
+                '!botao_cadastro_link', '!botao_ativar_status', '!botao_ativar_tipo', '!botao_ativar_link', 'menu_lg',
             ])
             ::put('/construtor-clube/{id}');
         Route
@@ -1549,7 +1550,7 @@ Route
                 '!texto_procedimento', '!texto_voucher', '!categoria_lista', '!subcategoria_tag',
                 '!subcategoria_lista', '!empresa', '!destaque', '!endereco_estado', '!pontuacao', '!confirmar_status',
                 '!confirmar_titulo', '!confirmar_texto', '!arquivo_painel', '!arquivo_clube', '!cupom_desconto',
-                '!comissao_minima', '!comissao_maxima', '!texto_restricao', '!texto_outro', '!prazo_declaracao'
+                '!comissao_minima', '!comissao_maxima', '!texto_restricao', '!texto_outro', '!prazo_declaracao',
             ])
             ::post('/parceiro-loja');
         Route
@@ -1571,7 +1572,7 @@ Route
                 '!confirmar_titulo', '!confirmar_texto', '!arquivo_painel', '!arquivo_clube', '!cupom_desconto',
                 '!status', '!comissao_minima', '!comissao_maxima', '!texto_restricao', '!texto_outro',
                 '!prazo_declaracao',
-                '!cancelar_motivo'
+                '!cancelar_motivo',
             ])
             ::put('/parceiro-loja/{id}');
         Route
@@ -1621,7 +1622,7 @@ Route
                 'titulo_interno', 'nome', 'email', 'telefone', 'tipo_indicador',
                 'categoria_principal', 'endereco_cep', 'endereco_logradouro',
                 'endereco_numero', 'endereco_complemento', 'endereco_bairro',
-                'endereco_cidade', 'endereco_estado', 'mensagem'
+                'endereco_cidade', 'endereco_estado', 'mensagem',
             ])
             ::post('/parceiro-externo');
 
@@ -1631,7 +1632,7 @@ Route
             ::request([
                 'campo', 'usuario', '!pesquisa', '!empresa', '!equipe',
                 '!categoria', '!indicador', '!estado', '!data_inicio',
-                '!data_final', '!status'
+                '!data_final', '!status',
             ])
             ::post('/parceiro-externo/download');
     });
@@ -1715,7 +1716,7 @@ Route
             ::nome('listar')
             ::middleware(TokenMiddleware::class, 'scope', ['solicitacao_premium:listar'])
             ::request([
-                'pagina', '!data_de', '!data_ate', '!empresa'
+                'pagina', '!data_de', '!data_ate', '!empresa',
             ], 'json')
             ::get('/solicitacao-premium');
 
@@ -1723,7 +1724,7 @@ Route
             ::nome('download')
             ::middleware(TokenMiddleware::class, 'scope', ['solicitacao_premium:download'])
             ::request([
-                'campo', 'usuario', '!data_de', '!data_ate', '!empresa'
+                'campo', 'usuario', '!data_de', '!data_ate', '!empresa',
             ])
             ::post('/solicitacao-premium/download');
     });
@@ -1737,7 +1738,7 @@ Route
             ::nome('salvar')
             ::middleware(TokenMiddleware::class, 'scope', ['solicitacao_voucher:salvar'])
             ::request([
-                'id', '!usuario', '!tipo'
+                'id', '!usuario', '!tipo',
             ])
             ::post('/solicitacao-voucher');
 
@@ -1751,7 +1752,7 @@ Route
             ::middleware(TokenMiddleware::class, 'scope', ['solicitacao_voucher:listar'])
             ::request([
                 'pagina', '!ordem', '!empresa', '!status', '!data_criacao_de', '!data_criacao_ate',
-                '!data_validacao_de', '!data_validacao_ate', '!tipo', '!tipo_usuario'
+                '!data_validacao_de', '!data_validacao_ate', '!tipo', '!tipo_usuario',
             ], 'json')
             ::get('/solicitacao-voucher');
 
@@ -1760,7 +1761,7 @@ Route
             ::middleware(TokenMiddleware::class, 'scope', ['solicitacao_voucher:download'])
             ::request([
                 'campo', 'usuario', '!empresa', '!status', '!data_criacao_de', '!data_criacao_ate',
-                '!data_validacao_de', '!data_validacao_ate', '!tipo', '!tipo_usuario'
+                '!data_validacao_de', '!data_validacao_ate', '!tipo', '!tipo_usuario',
             ])
             ::post('/solicitacao-voucher/download');
     });
@@ -1775,7 +1776,7 @@ Route
             ::middleware(TokenMiddleware::class, 'scope', ['solicitacao_codigo:listar'])
             ::request([
                 'pagina', '!quantidade', '!ordem', '!empresa', '!usuario', '!parceiro',
-                '!data_emissao', '!data_vencimento', '!status'
+                '!data_emissao', '!data_vencimento', '!status',
             ], 'json')
             ::get('/solicitacao-codigo');
     });
@@ -1789,14 +1790,14 @@ Route
             ::nome('listar')
             ::middleware(TokenMiddleware::class, 'scope', ['solicitacao_salavip:listar'])
             ::request([
-                'pagina', '!ordem', '!empresa', '!data_de', '!data_ate'
+                'pagina', '!ordem', '!empresa', '!data_de', '!data_ate',
             ], 'json')
             ::get('/solicitacao-salavip');
         Route
             ::nome('download')
             ::middleware(TokenMiddleware::class, 'scope', ['solicitacao_salavip:download'])
             ::request([
-                'campo', 'usuario', '!ordem', '!empresa', '!data_de', '!data_ate'
+                'campo', 'usuario', '!ordem', '!empresa', '!data_de', '!data_ate',
             ])
             ::post('/solicitacao-salavip/download');
         Route
@@ -1818,7 +1819,7 @@ Route
             ::nome('listar')
             ::middleware(TokenMiddleware::class, 'scope', ['ponto_cvs:listar'])
             ::request([
-                '!pagina', '!quantidade', '!ordem', '!cpf', '!status'
+                '!pagina', '!quantidade', '!ordem', '!cpf', '!status',
             ], 'json')
             ::get('/ponto-cvs');
 
@@ -1831,7 +1832,7 @@ Route
             ::nome('salvar')
             ::middleware(TokenMiddleware::class, 'scope', ['ponto_cvs:salvar'])
             ::request([
-                'ponto_solicitado', 'cpf', 'email', '!nome'
+                'ponto_solicitado', 'cpf', 'email', '!nome',
             ])
             ::post('/ponto-cvs');
 
@@ -1839,7 +1840,7 @@ Route
             ::nome('atualizar')
             ::middleware(TokenMiddleware::class, 'scope', ['ponto_cvs:atualizar'])
             ::request([
-                '!voucher', '!mensagem', 'status'
+                '!voucher', '!mensagem', 'status',
             ])
             ::put('/ponto-cvs/{id}');
     });
@@ -1854,7 +1855,7 @@ Route
             ::nome('listar')
             ::middleware(TokenMiddleware::class, 'scope', ['app_api:listar'])
             ::request([
-                'pagina', '!pesquisa', '!nome', '!id_admin_empresa', '!status', '!ordem'
+                'pagina', '!pesquisa', '!nome', '!id_admin_empresa', '!status', '!ordem',
             ], 'json')
             ::get('/api-app');
 
@@ -1921,7 +1922,7 @@ Route
                 'pagina', '!quantidade', '!ordem', '!cnpj', '!pesquisa',
                 '!titulo', '!empresa', '!subempresa', '!usuario', '!dono',
                 '!sem_responsavel', '!prospeccao_status', '!status',
-                '!data_inicio', '!data_final'
+                '!data_inicio', '!data_final',
             ], 'json')
             ::get('/comercial-empresa');
 
@@ -1942,7 +1943,7 @@ Route
                 '!contrato_usuario_minimo', '!cobrar_aposentado', '!parceiro_proprio', '!concorrente_status',
                 '!concorrente_nome', '!origem', '!usuario_possivel', '!contato_preferencial', '!data_apresentacao',
                 '!formato_reuniao', '!previsao_retorno', '!motivo_standby', '!motivo_perdido', '!devolutiva',
-                '!nivel_decisao', '!etapa_negociacao'
+                '!nivel_decisao', '!etapa_negociacao',
             ])
             ::post('/comercial-empresa');
 
@@ -1963,7 +1964,7 @@ Route
                 '!contrato_usuario_minimo', '!cobrar_aposentado', '!parceiro_proprio', '!concorrente_status',
                 '!concorrente_nome', '!origem', '!usuario_possivel', '!contato_preferencial', '!data_apresentacao',
                 '!formato_reuniao', '!previsao_retorno', '!motivo_standby', '!motivo_perdido', '!devolutiva',
-                '!nivel_decisao', '!etapa_negociacao'
+                '!nivel_decisao', '!etapa_negociacao',
             ])
             ::put('/comercial-empresa/{id}');
 
@@ -1981,7 +1982,7 @@ Route
             ::nome('ranking')
             ::middleware(TokenMiddleware::class, 'scope', ['comercial_empresa:listar'])
             ::request([
-                '!pagina', '!quantidade', '!ordem', '!empresa'
+                '!pagina', '!quantidade', '!ordem', '!empresa',
             ], 'json')
             ::get('/comercial-empresa/ranking');
 
@@ -1991,7 +1992,7 @@ Route
             ::request([
                 'campo', 'usuario', '!ordem', '!cnpj', '!pesquisa', '!titulo',
                 '!empresa', '!subempresa', '!dono', '!sem_responsavel',
-                '!prospeccao_status', '!status', '!data_inicio', '!data_final'
+                '!prospeccao_status', '!status', '!data_inicio', '!data_final',
             ])
             ::post('/comercial-empresa/download');
     });
@@ -2011,7 +2012,7 @@ Route
             ::middleware(TokenMiddleware::class, 'scope', ['comercial_subempresa:listar'])
             ::request([
                 'pagina', '!quantidade', '!ordem', '!dataInicio', '!dataFinal',
-                '!titulo', '!empresa', '!status'
+                '!titulo', '!empresa', '!status',
             ], 'json')
             ::get('/comercial-subempresa');
 
@@ -2020,7 +2021,7 @@ Route
             ::middleware(TokenMiddleware::class, 'scope', ['comercial_subempresa:salvar'])
             ::request([
                 '!empresa', 'titulo', 'razao_social', 'nome_fantasia', 'responsavel_nome',
-                'cnpj', 'status'
+                'cnpj', 'status',
             ])
             ::post('/comercial-subempresa');
 
@@ -2029,7 +2030,7 @@ Route
             ::middleware(TokenMiddleware::class, 'scope', ['comercial_subempresa:atualizar'])
             ::request([
                 '!empresa', '!titulo', '!razao_social', '!nome_fantasia', 'responsavel_nome',
-                '!cnpj', '!status'
+                '!cnpj', '!status',
             ])
             ::put('/comercial-subempresa/{id}');
 
@@ -2060,7 +2061,7 @@ Route
             ::nome('listar')
             ::middleware(TokenMiddleware::class, 'scope', ['comercial_regra:listar'])
             ::request([
-                'pagina', '!titulo', '!empresa'
+                'pagina', '!titulo', '!empresa',
             ], 'json')
             ::get('/comercial-regra');
 
@@ -2073,7 +2074,7 @@ Route
             ::nome('salvar')
             ::middleware(TokenMiddleware::class, 'scope', ['comercial_regra:salvar'])
             ::request([
-                'titulo', 'texto', 'empresa'
+                'titulo', 'texto', 'empresa',
             ])
             ::post('/comercial-regra');
 
@@ -2081,7 +2082,7 @@ Route
             ::nome('atualizar')
             ::middleware(TokenMiddleware::class, 'scope', ['comercial_regra:atualizar'])
             ::request([
-                '!titulo', '!texto', '!empresa'
+                '!titulo', '!texto', '!empresa',
             ])
             ::put('/comercial-regra/{id}');
 
@@ -2100,7 +2101,7 @@ Route
             ::nome('listar')
             ::middleware(TokenMiddleware::class, 'scope', ['demanda_sprint:listar'])
             ::request([
-                'pagina', '!quantidade', '!titulo', '!data_inicio', '!data_final', '!publicado', '!status'
+                'pagina', '!quantidade', '!titulo', '!data_inicio', '!data_final', '!publicado', '!status',
             ], 'json')
             ::get('/demanda-sprint');
 
@@ -2123,7 +2124,7 @@ Route
             ::nome('salvar')
             ::middleware(TokenMiddleware::class, 'scope', ['demanda_sprint:salvar'])
             ::request([
-                'titulo', 'data_inicio', 'data_final'
+                'titulo', 'data_inicio', 'data_final',
             ])
             ::post('/demanda-sprint');
 
@@ -2131,7 +2132,7 @@ Route
             ::nome('atualizar')
             ::middleware(TokenMiddleware::class, 'scope', ['demanda_sprint:atualizar'])
             ::request([
-                '!titulo', '!data_inicio', '!data_final', '!texto_inicio', '!texto_final', '!status'
+                '!titulo', '!data_inicio', '!data_final', '!texto_inicio', '!texto_final', '!status',
             ])
             ::put('/demanda-sprint/{id}');
 
@@ -2139,7 +2140,7 @@ Route
             ::nome('demandaAdicionar')
             ::middleware(TokenMiddleware::class, 'scope', ['demanda_sprint:demanda'])
             ::request([
-                'demanda', 'sprint', '!texto'
+                'demanda', 'sprint', '!texto',
             ])
             ::post('/demanda-sprint/demanda-adicionar');
 
@@ -2147,7 +2148,7 @@ Route
             ::nome('demandaRemover')
             ::middleware(TokenMiddleware::class, 'scope', ['demanda_sprint:demanda'])
             ::request([
-                'demanda', 'sprint', '!texto'
+                'demanda', 'sprint', '!texto',
             ])
             ::post('/demanda-sprint/demanda-remover');
     });
@@ -2161,7 +2162,7 @@ Route
             ::nome('listar')
             ::middleware(TokenMiddleware::class, 'scope', ['demanda_dado:listar'])
             ::request([
-                'status', 'area', 'ordem', '!data_entrega_de', '!data_entrega_ate', '!sprint'
+                'status', 'area', 'ordem', '!data_entrega_de', '!data_entrega_ate', '!sprint',
             ], 'json')
             ::get('/demanda-dado');
 
@@ -2174,7 +2175,7 @@ Route
             ::nome('salvar')
             ::middleware(TokenMiddleware::class, 'scope', ['demanda_dado:salvar'])
             ::request([
-                'empresa', 'titulo', 'texto', 'tipo', 'area', '!data_entrega', '!com_prazo'
+                'empresa', 'titulo', 'texto', 'tipo', 'area', '!data_entrega', '!com_prazo',
             ])
             ::post('/demanda-dado');
 
@@ -2221,14 +2222,14 @@ Route
             ::nome('salvar')
             ::middleware(TokenMiddleware::class, 'scope', ['demanda_tarefa:salvar'])
             ::request([
-                'demanda', 'titulo', 'texto', 'tipo', '!minuto_producao_estimada', '!dificuldade', '!equipe'
+                'demanda', 'titulo', 'texto', 'tipo', '!minuto_producao_estimada', '!dificuldade', '!equipe',
             ])
             ::post('/demanda-tarefa');
         Route
             ::nome('atualizar')
             ::middleware(TokenMiddleware::class, 'scope', ['demanda_tarefa:atualizar'])
             ::request([
-                '!titulo', '!texto', '!tipo', '!minuto_producao_estimada', '!equipe', '!dificuldade', '!status'
+                '!titulo', '!texto', '!tipo', '!minuto_producao_estimada', '!equipe', '!dificuldade', '!status',
             ])
             ::put('/demanda-tarefa/{id}');
         Route
@@ -2292,7 +2293,7 @@ Route
             ::nome('listar')
             ::middleware(TokenMiddleware::class, 'scope', ['carteirinha:listar'])
             ::request([
-                'pagina', '!quantidade', '!ordem', '!empresa', '!status'
+                'pagina', '!quantidade', '!ordem', '!empresa', '!status',
             ], 'json')
             ::get('/carteirinha');
 
@@ -2301,7 +2302,7 @@ Route
             ::middleware(TokenMiddleware::class, 'scope', ['carteirinha:salvar'])
             ::request([
                 'empresa', 'bg_frente', 'titulo', 'nome', 'cpf', 'matricula',
-                'data_nascimento', 'status', 'estado'
+                'data_nascimento', 'status', 'estado',
             ])
             ::post('/carteirinha');
 
@@ -2310,7 +2311,7 @@ Route
             ::middleware(TokenMiddleware::class, 'scope', ['carteirinha:atualizar'])
             ::request([
                 '!bg_frente', '!empresa', '!titulo', '!bg_fundo', '!nome',
-                '!cpf', '!matricula', '!data_nascimento', '!status', '!estado'
+                '!cpf', '!matricula', '!data_nascimento', '!status', '!estado',
             ])
             ::put('/carteirinha/{id}');
 
@@ -2335,7 +2336,7 @@ Route
             ::middleware(TokenMiddleware::class, 'scope', ['comercial_popup:listar'])
             ::request([
                 'pagina', '!quantidade', '!ordem', '!titulo', '!empresa', '!uri',
-                '!data_inicio', '!data_final', '!status', '!publicado', '!usuario_tipo'
+                '!data_inicio', '!data_final', '!status', '!publicado', '!usuario_tipo',
             ], 'json')
             ::get('/comercial-popup');
 
@@ -2345,7 +2346,7 @@ Route
             ::request([
                 'empresa', 'titulo', 'titulo_painel', '!usuario_tipo', '!texto', '!imagem',
                 '!regulamento', '!data_inicio', '!data_final', '!atualizar_dado', '!botao_texto',
-                '!botao_link', '!botao_target', '!status', '!uri'
+                '!botao_link', '!botao_target', '!status', '!uri',
             ])
             ::post('/comercial-popup');
 
@@ -2355,7 +2356,7 @@ Route
             ::request([
                 '!empresa', '!titulo_painel', '!usuario_tipo', '!titulo', '!texto', '!imagem',
                 '!regulamento', '!data_inicio', '!data_final', '!atualizar_dado', '!botao_texto',
-                '!botao_link', '!botao_target', '!status', '!uri'
+                '!botao_link', '!botao_target', '!status', '!uri',
             ])
             ::put('/comercial-popup/{id}');
 
@@ -2368,7 +2369,7 @@ Route
             ::nome('ordenar')
             ::middleware(TokenMiddleware::class, 'scope', ['comercial_popup:ordenar'])
             ::request([
-                'id', 'pagina', '!quantidade'
+                'id', 'pagina', '!quantidade',
             ])
             ::put('/comercial-popup/ordenar');
 
@@ -2393,7 +2394,7 @@ Route
             ::middleware(TokenMiddleware::class, 'scope', ['solicitacao_declaracao:listar'])
             ::request([
                 'pagina', '!quantidade', '!ordem', '!titulo', '!empresa',
-                '!data_inicio', '!data_final', '!status'
+                '!data_inicio', '!data_final', '!status',
             ], 'json')
             ::get('/solicitacao-declaracao');
 
@@ -2401,7 +2402,7 @@ Route
             ::nome('salvar')
             ::middleware(TokenMiddleware::class, 'scope', ['solicitacao_declaracao:salvar'])
             ::request([
-                'parceiro', '!modelo', '!versao'
+                'parceiro', '!modelo', '!versao',
             ])
             ::post('/solicitacao-declaracao');
 
@@ -2409,7 +2410,7 @@ Route
             ::nome('atualizar')
             ::middleware(TokenMiddleware::class, 'scope', ['solicitacao_declaracao:atualizar'])
             ::request([
-                '!status'
+                '!status',
             ])
             ::put('/solicitacao-declaracao/{id}');
     });
@@ -2428,7 +2429,7 @@ Route
             ::middleware(TokenMiddleware::class, 'scope', ['solicitacao_cheque_bonus:listar'])
             ::request([
                 'pagina', '!quantidade', '!ordem', '!nome', '!tipo_usuario',
-                '!empresa', '!data_inicio', '!data_final', '!status'
+                '!empresa', '!data_inicio', '!data_final', '!status',
             ], 'json')
             ::get('/solicitacao-cheque-bonus');
 
@@ -2440,7 +2441,7 @@ Route
                 'rg', 'data_nascimento', 'endereco_cep', 'endereco_logradouro', 'endereco_numero',
                 'endereco_complemento', 'endereco_bairro', 'endereco_cidade', 'endereco_estado', 'dependente_nome',
                 'dependente_email_pessoal', 'dependente_rg', 'dependente_cpf', 'dependente_grau_parentesco',
-                'dependente_data_nascimento', 'data_termo'
+                'dependente_data_nascimento', 'data_termo',
             ])
             ::post('/solicitacao-cheque-bonus');
 
@@ -2448,7 +2449,7 @@ Route
             ::nome('atualizar')
             ::middleware(TokenMiddleware::class, 'scope', ['solicitacao_cheque_bonus:atualizar'])
             ::request([
-                '!status'
+                '!status',
             ])
             ::put('/solicitacao-cheque-bonus/{id}');
     });
@@ -2462,14 +2463,14 @@ Route
             ::nome('simular')
             ::middleware(TokenMiddleware::class, 'scope', ['saude_simulacao:simular'])
             ::request([
-                'convenio', 'simulacao', 'titular', 'dependente'
+                'convenio', 'simulacao', 'titular', 'dependente',
             ])
             ::get('/saude-simulacao/simular');
         Route
             ::nome('salvar')
             ::middleware(TokenMiddleware::class, 'scope', ['saude_simulacao:salvar'])
             ::request([
-                'convenio', 'simulacao', 'titular', 'dependente'
+                'convenio', 'simulacao', 'titular', 'dependente',
             ])
             ::post('/saude-simulacao');
     });
@@ -2482,12 +2483,27 @@ Route
         Route
             ::nome('listar')
             ::middleware(TokenMiddleware::class, 'scope', ['saude_convenio:listar'])
-            ::request(['endereco_estado', 'endereco_cidade'])
+            ::request(['!endereco_estado', '!endereco_cidade', '!pagina', '!quantiadade'], 'json')
             ::get('/saude-convenio');
         Route
             ::nome('buscar')
             ::middleware(TokenMiddleware::class, 'scope', ['saude_convenio:buscar'])
             ::get('/saude-convenio/{id}');
+        Route
+            ::nome('salvar')
+            ::request([
+                'titulo', 'arquivo_imagem', 'url', 'status', 'empresa', 'endereco_estado',
+            ])
+            ::post('/saude-convenio');
+        Route
+            ::nome('atualizar')
+            ::request([
+                '!titulo', '!arquivo_imagem', '!url', '!status', '!empresa', '!endereco_estado',
+            ])
+            ::put('/saude-convenio/{id}');
+        Route
+            ::nome('deletar')
+            ::delete('/saude-convenio/{id}');
         Route
             ::nome('estado')
             ::middleware(TokenMiddleware::class, 'scope', ['saude_convenio:estado'])
@@ -2526,7 +2542,7 @@ Route
             ::nome('listar')
             ::middleware(TokenMiddleware::class, 'scope', ['saude_contratacao:listar'])
             ::request([
-                'pagina', '!quantidade', '!ordem', '!status', '!data_criacao_de', '!data_criacao_ate'
+                'pagina', '!quantidade', '!ordem', '!status', '!data_criacao_de', '!data_criacao_ate',
             ], 'json')
             ::get('/saude-contratacao');
         Route
@@ -2537,7 +2553,7 @@ Route
             ::nome('atualizar')
             ::middleware(TokenMiddleware::class, 'scope', ['saude_contratacao:atualizar'])
             ::request([
-                '!status'
+                '!status',
             ])
             ::put('/saude-contratacao/{id}');
         Route
@@ -2549,7 +2565,7 @@ Route
                 'nome_mae', 'responsavel_cpf', 'responsavel_rg', 'responsavel_nome', 'responsavel_orgao_expedidor',
                 'email_pessoal', 'telefone_celular', 'telefone_residencial', 'telefone_comercial',
                 'telefone_comercial_ramal', 'endereco_logradouro', 'endereco_cep', 'endereco_estado',
-                'endereco_cidade', 'endereco_bairro', 'endereco_numero', 'endereco_complemento'
+                'endereco_cidade', 'endereco_bairro', 'endereco_numero', 'endereco_complemento',
             ])
             ::post('/saude-contratacao');
     });
@@ -2569,7 +2585,7 @@ Route
             ::middleware(TokenMiddleware::class, 'scope', ['solicitacao_credito:listar'])
             ::request([
                 'pagina', '!quantidade', '!ordem', '!nome', '!empresa',
-                '!operadora', '!tipo', '!data_inicio', '!data_final', '!status'
+                '!operadora', '!tipo', '!data_inicio', '!data_final', '!status',
             ], 'json')
             ::get('/solicitacao-credito');
 
@@ -2577,7 +2593,7 @@ Route
             ::nome('salvar')
             ::middleware(TokenMiddleware::class, 'scope', ['solicitacao_credito:salvar'])
             ::request([
-                'operadora', 'tipo', 'valor_total', 'parcela'
+                'operadora', 'tipo', 'valor_total', 'parcela',
             ])
             ::post('/solicitacao-credito');
 
@@ -2585,7 +2601,7 @@ Route
             ::nome('atualizar')
             ::middleware(TokenMiddleware::class, 'scope', ['solicitacao_credito:atualizar'])
             ::request([
-                '!status'
+                '!status',
             ])
             ::put('/solicitacao-credito/{id}');
 
@@ -2593,7 +2609,7 @@ Route
             ::nome('simulacao')
             ::middleware(TokenMiddleware::class, 'scope', ['solicitacao_credito:simular'])
             ::request([
-                'operadora', 'tipo', 'valor_total', 'parcela'
+                'operadora', 'tipo', 'valor_total', 'parcela',
             ], 'json')
             ::get('/solicitacao-credito/simulacao');
 
@@ -2601,7 +2617,7 @@ Route
             ::nome('parcela')
             ::middleware(TokenMiddleware::class, 'scope', ['solicitacao_credito:simular'])
             ::request([
-                'operadora', 'tipo', 'titulo'
+                'operadora', 'tipo', 'titulo',
             ], 'json')
             ::get('/solicitacao-credito/parcela');
     });
@@ -2620,7 +2636,7 @@ Route
             ::nome('listar')
             ::middleware(TokenMiddleware::class, 'scope', ['enquete_satisfacao:listar'])
             ::request([
-                'pagina', '!quantidade', '!ordem', '!status', '!empresa', '!data_inicio', '!data_fim'
+                'pagina', '!quantidade', '!ordem', '!status', '!empresa', '!data_inicio', '!data_fim',
             ], 'json')
             ::get('/enquete-satisfacao');
 
@@ -2628,7 +2644,7 @@ Route
             ::nome('salvar')
             ::middleware(TokenMiddleware::class, 'scope', ['enquete_satisfacao:salvar'])
             ::request([
-                'navegar', 'procura', 'suporte', 'atendimento', 'sistemas_clube', '!comentario'
+                'navegar', 'procura', 'suporte', 'atendimento', 'sistemas_clube', '!comentario',
             ])
             ::post('/enquete-satisfacao');
 
@@ -2636,7 +2652,7 @@ Route
             ::nome('atualizar')
             ::middleware(TokenMiddleware::class, 'scope', ['enquete_satisfacao:atualizar'])
             ::request([
-                '!status'
+                '!status',
             ])
             ::put('/enquete-satisfacao/{id}');
 
@@ -2660,7 +2676,7 @@ Route
             ::nome('listar')
             ::middleware(TokenMiddleware::class, 'scope', ['enquete_mercado:listar'])
             ::request([
-                'pagina', '!quantidade', '!ordem'
+                'pagina', '!quantidade', '!ordem',
             ], 'json')
             ::get('/enquete-mercado');
 
@@ -2669,7 +2685,7 @@ Route
             ::middleware(TokenMiddleware::class, 'scope', ['enquete_mercado:salvar'])
             ::request([
                 'fidelidade', 'produtos', 'gasto', 'importancia', 'cashback',
-                'frequencia', 'resgate', 'desconto', 'experiencia', 'indicaria'
+                'frequencia', 'resgate', 'desconto', 'experiencia', 'indicaria',
             ])
             ::post('/enquete-mercado');
 
@@ -2682,7 +2698,7 @@ Route
             ::nome('download')
             ::middleware(TokenMiddleware::class, 'scope', ['enquete_mercado:download'])
             ::request([
-                'campo', 'usuario'
+                'campo', 'usuario',
             ])
             ::post('/enquete-mercado/download');
     });
@@ -2702,7 +2718,7 @@ Route
             ::middleware(TokenMiddleware::class, 'scope', ['solicitacao_contato:listar'])
             ::request([
                 'pagina', '!quantidade', '!ordem', '!nome', '!empresa',
-                '!data_inicio', '!data_final', '!status'
+                '!data_inicio', '!data_final', '!status',
             ], 'json')
             ::get('/solicitacao-contato');
 
@@ -2710,7 +2726,7 @@ Route
             ::nome('salvar')
             ::middleware(TokenMiddleware::class, 'scope', ['solicitacao_contato:salvar'])
             ::request([
-                'local', 'tipo', 'nome', 'email', 'telefone', 'mensagem'
+                'local', 'tipo', 'nome', 'email', 'telefone', 'mensagem',
             ])
             ::post('/solicitacao-contato');
 
@@ -2718,7 +2734,7 @@ Route
             ::nome('atualizar')
             ::middleware(TokenMiddleware::class, 'scope', ['solicitacao_contato:atualizar'])
             ::request([
-                '!status'
+                '!status',
             ])
             ::put('/solicitacao-contato/{id}');
     });
@@ -2747,7 +2763,7 @@ Route
             ::middleware(TokenMiddleware::class, 'scope', ['solicitacao_automovel:salvar'])
             ::request([
                 'endereco_estado', 'endereco_cidade', 'montadora',
-                'modelo', 'versao', 'cor', 'mensagem'
+                'modelo', 'versao', 'cor', 'mensagem',
             ])
             ::post('/solicitacao-automovel');
 
@@ -2755,7 +2771,7 @@ Route
             ::nome('atualizar')
             ::middleware(TokenMiddleware::class, 'scope', ['solicitacao_automovel:atualizar'])
             ::request([
-                '!status'
+                '!status',
             ])
             ::put('/solicitacao-automovel/{id}');
     });
@@ -2775,7 +2791,7 @@ Route
             ::middleware(TokenMiddleware::class, 'scope', ['automovel_modelo:listar'])
             ::request([
                 'pagina', '!quantidade', '!ordem', '!parceiro', '!modelo', '!pesquisa', '!titulo',
-                '!publicado', '!data_inicio', '!data_final', '!status'
+                '!publicado', '!data_inicio', '!data_final', '!status',
             ], 'json')
             ::get('/automovel-modelo');
 
@@ -2784,7 +2800,7 @@ Route
             ::middleware(TokenMiddleware::class, 'scope', ['automovel_modelo:salvar'])
             ::request([
                 'titulo', 'parceiro', 'imagem', 'data_inicio',
-                'data_final', 'status'
+                'data_final', 'status',
             ])
             ::post('/automovel-modelo');
 
@@ -2793,7 +2809,7 @@ Route
             ::middleware(TokenMiddleware::class, 'scope', ['automovel_modelo:atualizar'])
             ::request([
                 '!titulo', '!parceiro', '!imagem', '!data_inicio',
-                '!data_final', '!status'
+                '!data_final', '!status',
             ])
             ::put('/automovel-modelo/{id}');
 
@@ -2817,7 +2833,7 @@ Route
             ::nome('listar')
             ::middleware(TokenMiddleware::class, 'scope', ['automovel_versao:listar'])
             ::request([
-                'pagina', '!quantidade', '!ordem', '!parceiro', '!modelo', '!status'
+                'pagina', '!quantidade', '!ordem', '!parceiro', '!modelo', '!status',
             ], 'json')
             ::get('/automovel-versao');
 
@@ -2825,7 +2841,7 @@ Route
             ::nome('salvar')
             ::middleware(TokenMiddleware::class, 'scope', ['automovel_versao:salvar'])
             ::request([
-                'modelo', 'titulo', 'imagem', 'cor', 'valor_de', 'valor_por', 'status'
+                'modelo', 'titulo', 'imagem', 'cor', 'valor_de', 'valor_por', 'status',
             ])
             ::post('/automovel-versao');
 
@@ -2833,7 +2849,7 @@ Route
             ::nome('atualizar')
             ::middleware(TokenMiddleware::class, 'scope', ['automovel_versao:atualizar'])
             ::request([
-                '!titulo', '!imagem', '!cor', '!valor_de', '!valor_por', '!status'
+                '!titulo', '!imagem', '!cor', '!valor_de', '!valor_por', '!status',
             ])
             ::put('/automovel-versao/{id}');
 
@@ -2858,7 +2874,7 @@ Route
             ::middleware(TokenMiddleware::class, 'scope', ['silium_comissao:listar'])
             ::request([
                 'pagina', '!quantidade', '!ordem', '!usuario', '!parceiro', '!data_inicio',
-                '!data_final', '!status'
+                '!data_final', '!status',
             ], 'json')
             ::get('/silium-comissao');
 
@@ -2867,7 +2883,7 @@ Route
             ::middleware(TokenMiddleware::class, 'scope', ['silium_comissao:salvar'])
             ::request([
                 'usuario', 'parceiro', 'valor_compra', 'comissao_usuario',
-                '!pontuacao', 'data_compra', 'status'
+                '!pontuacao', 'data_compra', 'status',
             ])
             ::post('/silium-comissao');
 
@@ -2876,7 +2892,7 @@ Route
             ::middleware(TokenMiddleware::class, 'scope', ['silium_comissao:atualizar'])
             ::request([
                 '!usuario', '!parceiro', '!valor_compra', '!comissao_usuario',
-                '!pontuacao', '!data_compra', '!status'
+                '!pontuacao', '!data_compra', '!status',
             ])
             ::put('/silium-comissao/{id}');
 
@@ -2907,7 +2923,7 @@ Route
             ::request([
                 'pagina', '!quantidade', '!ordem', '!usuario', '!tipo_conta',
                 '!tipo_operacao', '!tipo_resgate', '!data_inicio', '!data_final',
-                '!status'
+                '!status',
             ], 'json')
             ::get('/silium-deposito');
 
@@ -2918,7 +2934,7 @@ Route
                 '!usuario', '!saque', '!nome_titular', '!documento_cpf', '!email',
                 '!tipo_conta', '!tipo_operacao', '!tipo_resgate', '!banco',
                 '!agencia', '!conta', '!pontuacao', '!valor', '!data_deposito',
-                '!documento_anexo', '!status'
+                '!documento_anexo', '!status',
             ])
             ::post('/silium-deposito');
 
@@ -2929,7 +2945,7 @@ Route
                 '!saque', '!nome_titular', '!documento_cpf', '!email', '!tipo_conta',
                 '!tipo_operacao', '!tipo_resgate', '!banco', '!agencia', '!conta',
                 '!pontuacao', '!valor', '!data_deposito', '!documento_anexo',
-                '!status'
+                '!status',
             ])
             ::put('/silium-deposito/{id}');
 
@@ -2949,7 +2965,7 @@ Route
             ::middleware(TokenMiddleware::class, 'scope', ['silium_saldo:listar'])
             ::request([
                 'pagina', '!quantidade', '!ordem', '!usuario', '!data_inicio',
-                '!data_final'
+                '!data_final',
             ], 'json')
             ::get('/silium-saldo');
     });
@@ -2968,7 +2984,7 @@ Route
             ::nome('listar')
             ::middleware(TokenMiddleware::class, 'scope', ['silium_config:listar'])
             ::request([
-                'pagina'
+                'pagina',
             ], 'json')
             ::get('/silium-config');
 
@@ -2977,7 +2993,7 @@ Route
             ::middleware(TokenMiddleware::class, 'scope', ['silium_config:salvar'])
             ::request([
                 'empresa', '!regra_conversao', 'pontuacao_dinheiro',
-                'pontuacao_mensalidade', 'validade_pontuacao', 'desconto'
+                'pontuacao_mensalidade', 'validade_pontuacao', 'desconto',
             ])
             ::post('/silium-config');
 
@@ -2986,7 +3002,7 @@ Route
             ::middleware(TokenMiddleware::class, 'scope', ['silium_config:atualizar'])
             ::request([
                 '!empresa', '!regra_conversao', '!pontuacao_dinheiro',
-                '!pontuacao_mensalidade', '!validade_pontuacao', '!desconto'
+                '!pontuacao_mensalidade', '!validade_pontuacao', '!desconto',
             ])
             ::put('/silium-config/{id}');
 
@@ -3018,7 +3034,7 @@ Route
             ::request([
                 'pagina', '!quantidade', '!ordem', '!pesquisa', '!empresa', '!usuario',
                 '!parceiro', '!indicacao_inicio', '!indicacao_final', '!prospeccao_inicio',
-                '!prospeccao_final', '!status'
+                '!prospeccao_final', '!status',
             ], 'json')
             ::get('/solicitacao-loja');
 
@@ -3026,7 +3042,7 @@ Route
             ::nome('salvar')
             ::middleware(TokenMiddleware::class, 'scope', ['solicitacao_loja:salvar'])
             ::request([
-                'nome', 'email', 'telefone', 'mensagem'
+                'nome', 'email', 'telefone', 'mensagem',
             ])
             ::post('/solicitacao-loja');
 
@@ -3034,7 +3050,7 @@ Route
             ::nome('atualizar')
             ::middleware(TokenMiddleware::class, 'scope', ['solicitacao_loja:atualizar'])
             ::request([
-                '!parceiro', '!parceiro_novo', '!gestor', '!empresas', '!status'
+                '!parceiro', '!parceiro_novo', '!gestor', '!empresas', '!status',
             ])
             ::put('/solicitacao-loja/{id}');
 
@@ -3043,7 +3059,7 @@ Route
             ::middleware(TokenMiddleware::class, 'scope', ['solicitacao_loja:download'])
             ::request([
                 'campo', 'usuario', '!empresa', '!parceiro', '!indicacao_inicio',
-                '!indicacao_final', '!status'
+                '!indicacao_final', '!status',
             ])
             ::post('/solicitacao-loja/download');
     });
@@ -3057,7 +3073,7 @@ Route
             ::nome('listar')
             ::middleware(TokenMiddleware::class, 'scope', ['chatbot_perguntas:listar'])
             ::request([
-                '!pagina', '!quantiade', '!status', '!ordem', '!categoria'
+                '!pagina', '!quantiade', '!status', '!ordem', '!categoria',
             ], 'json')
             ::get('/chatbot-perguntas');
         Route
@@ -3068,21 +3084,21 @@ Route
             ::nome('salvar')
             ::middleware(TokenMiddleware::class, 'scope', ['chatbot_perguntas:salvar'])
             ::request([
-                'categoria', 'pergunta', 'resposta', 'status'
+                'categoria', 'pergunta', 'resposta', 'status',
             ])
             ::post('/chatbot-perguntas');
         Route
             ::nome('atualizar')
             ::middleware(TokenMiddleware::class, 'scope', ['chatbot_perguntas:atualizar'])
             ::request([
-                'categoria', 'pergunta', 'resposta', 'status'
+                'categoria', 'pergunta', 'resposta', 'status',
             ])
             ::put('/chatbot-perguntas/{id}');
         Route
             ::nome('perguntar')
             ::middleware(TokenMiddleware::class, 'scope', ['chatbot_perguntas:perguntar'])
             ::request([
-                'categoria', 'pergunta'
+                'categoria', 'pergunta',
             ])
             ::post('/chatbot-perguntas/perguntar');
     });
@@ -3090,7 +3106,7 @@ Route
 Route
     ::nome('drogaria_araujo')
     ::controller(App\Controllers\Api\DrogariaAraujoController::class)
-    ::middleware(\App\Middlewares\DrogariaAraujoMiddleware::class, 'token')
+    ::middleware(DrogariaAraujoMiddleware::class, 'token')
     ::grupo(function () {
         Route
             ::nome('buscar')
@@ -3118,7 +3134,7 @@ Route
             ::request([
                 'pagina', '!quantidade', '!ordem', '!publicado',
                 '!titulo_banner', '!data_inicio', '!data_final', '!status',
-                '!empresa'
+                '!empresa',
             ], 'json')
             ::get('/comunicacao-login');
 
@@ -3126,7 +3142,7 @@ Route
             ::nome('salvar')
             ::middleware(TokenMiddleware::class, 'scope', ['comunicacao_login:salvar'])
             ::request([
-                'arquivo_1', 'arquivo_2', 'arquivo_3', 'empresa', 'titulo', 'data_fim', 'data_inicio', '!status'
+                'arquivo_1', 'arquivo_2', 'arquivo_3', 'empresa', 'titulo', 'data_fim', 'data_inicio', '!status',
             ])
             ::post('/comunicacao-login');
 
@@ -3134,7 +3150,7 @@ Route
             ::nome('atualizar')
             ::middleware(TokenMiddleware::class, 'scope', ['comunicacao_login:atualizar'])
             ::request([
-                '!arquivo_1', '!arquivo_2', '!arquivo_3', '!empresa', '!titulo', '!data_fim', '!data_inicio', '!status'
+                '!arquivo_1', '!arquivo_2', '!arquivo_3', '!empresa', '!titulo', '!data_fim', '!data_inicio', '!status',
             ])
             ::put('/comunicacao-login/{id}');
 
@@ -3157,7 +3173,7 @@ Route
             ::nome('listar')
             ::middleware(TokenMiddleware::class, 'scope', ['site_config:listar'])
             ::request([
-                'pagina', '!empresa'
+                'pagina', '!empresa',
             ], 'json')
             ::get('/site-config');
         Route
@@ -3171,7 +3187,7 @@ Route
                 'contato_chat', 'home_noticia_principal', 'home_noticia_lista', 'home_parceiro', 'status',
                 'login_texto', 'login_link', 'clube_link', 'rede_header', 'rede_footer', 'rss', 'cor_texto',
                 'cor_header', 'cor_footer', 'imagem_header', 'altura_header', 'noticia_imagem', 'imagem_social',
-                'diretoria_tipo', 'rede_linkedin', 'mensagem_topo', 'home_video', 'home_galeria'
+                'diretoria_tipo', 'rede_linkedin', 'mensagem_topo', 'home_video', 'home_galeria',
             ])
             ::post('/site-config');
         Route
@@ -3185,7 +3201,7 @@ Route
                 '!home_noticia_principal', '!home_noticia_lista', '!home_parceiro', '!status', '!login_texto',
                 '!login_link', '!clube_link', '!rede_header', '!rede_footer', '!rss', '!cor_texto', '!cor_header',
                 '!cor_footer', '!imagem_header', '!altura_header', '!noticia_imagem', '!imagem_social',
-                '!diretoria_tipo', '!rede_spotify', '!rede_linkedin', '!mensagem_topo', '!home_video', '!home_galeria'
+                '!diretoria_tipo', '!rede_spotify', '!rede_linkedin', '!mensagem_topo', '!home_video', '!home_galeria',
             ])
             ::put('/site-config/{id}');
         Route
@@ -3207,21 +3223,21 @@ Route
             ::nome('listar')
             ::middleware(TokenMiddleware::class, 'scope', ['site_menu:listar'])
             ::request([
-                '!empresa', '!status'
+                '!empresa', '!status',
             ], 'json')
             ::get('/site-menu');
         Route
             ::nome('salvar')
             ::middleware(TokenMiddleware::class, 'scope', ['site_menu:salvar'])
             ::request([
-                'menu', '!empresa', 'tipo', 'titulo', 'link', 'target', 'ordem', 'status'
+                'menu', '!empresa', 'tipo', 'titulo', 'link', 'target', 'ordem', 'status',
             ])
             ::post('/site-menu');
         Route
             ::nome('atualizar')
             ::middleware(TokenMiddleware::class, 'scope', ['site_menu:atualizar'])
             ::request([
-                'menu', 'tipo', 'titulo', 'link', 'target', 'ordem', 'status'
+                'menu', 'tipo', 'titulo', 'link', 'target', 'ordem', 'status',
             ])
             ::put('/site-menu/{id}');
         Route
@@ -3249,7 +3265,7 @@ Route
             ::nome('listar')
             ::middleware(TokenMiddleware::class, 'scope', ['site_lotacao:listar'])
             ::request([
-                'pagina', '!quantidade', '!empresa', '!status'
+                'pagina', '!quantidade', '!empresa', '!status',
             ], 'json')
             ::get('/site-lotacao');
 
@@ -3257,7 +3273,7 @@ Route
             ::nome('salvar')
             ::middleware(TokenMiddleware::class, 'scope', ['site_lotacao:salvar'])
             ::request([
-                'titulo', '!principal', 'status'
+                'titulo', '!principal', 'status',
             ])
             ::post('/site-lotacao');
 
@@ -3265,7 +3281,7 @@ Route
             ::nome('atualizar')
             ::middleware(TokenMiddleware::class, 'scope', ['site_lotacao:atualizar'])
             ::request([
-                '!titulo', '!principal', '!status'
+                '!titulo', '!principal', '!status',
             ])
             ::put('/site-lotacao/{id}');
 
@@ -3285,7 +3301,7 @@ Route
             ::middleware(TokenMiddleware::class, 'scope', ['publicacao_youtube:listar'])
             ::request([
                 'pagina', '!quantidade', '!pesquisa', '!status', '!ordem', '!local',
-                '!site', '!restrita', '!publicado'
+                '!site', '!restrita', '!publicado',
             ], 'json')
             ::get('/publicacao-youtube');
         Route
@@ -3298,7 +3314,7 @@ Route
             ::request([
                 '!empresa', 'titulo', 'texto', 'video', 'data_inicio', 'data_final',
                 'header_titulo', 'header_descricao', 'header_tag', 'permissao_restrita',
-                'permissao_site', 'local', 'status'
+                'permissao_site', 'local', 'status',
             ])
             ::post('/publicacao-youtube');
         Route
@@ -3307,7 +3323,7 @@ Route
             ::request([
                 '!titulo', '!texto', '!video', '!data_inicio', '!data_final',
                 '!header_titulo', '!header_descricao', '!header_tag', '!permissao_restrita',
-                '!permissao_site', '!local', '!status'
+                '!permissao_site', '!local', '!status',
             ])
             ::put('/publicacao-youtube/{id}');
         Route
@@ -3331,7 +3347,7 @@ Route
             ::middleware(TokenMiddleware::class, 'scope', ['publicacao_arquivo:listar'])
             ::request([
                 'pagina', '!quantidade', '!ordem', '!pesquisa', '!tipo', '!site',
-                '!restrita', '!publicado', '!data_inicio', '!data_final', '!status'
+                '!restrita', '!publicado', '!data_inicio', '!data_final', '!status',
             ], 'json')
             ::get('/publicacao-arquivo');
 
@@ -3340,7 +3356,7 @@ Route
             ::middleware(TokenMiddleware::class, 'scope', ['publicacao_arquivo:salvar'])
             ::request([
                 '!empresa', 'titulo', 'texto', 'imagem', 'arquivo', 'data_inicio',
-                'data_final', 'permissao_restrita', 'permissao_site', 'tipo', 'status'
+                'data_final', 'permissao_restrita', 'permissao_site', 'tipo', 'status',
             ])
             ::post('/publicacao-arquivo');
 
@@ -3349,7 +3365,7 @@ Route
             ::middleware(TokenMiddleware::class, 'scope', ['publicacao_arquivo:atualizar'])
             ::request([
                 '!empresa', '!titulo', '!texto', '!imagem', '!arquivo', '!data_inicio',
-                '!data_final', '!permissao_restrita', '!permissao_site', '!tipo', '!status'
+                '!data_final', '!permissao_restrita', '!permissao_site', '!tipo', '!status',
             ])
             ::put('/publicacao-arquivo/{id}');
 
@@ -3368,7 +3384,7 @@ Route
             ::nome('traduzir')
             ::middleware(TokenMiddleware::class, 'scope', ['painel_tradutor:traduzir'])
             ::request([
-                'texto'
+                'texto',
             ], 'json')
             ::get('/traduzir');
     });
@@ -3404,7 +3420,7 @@ Route
             ::request([
                 'titulo', 'titulo_interno', 'texto', 'imagem_site_desktop', 'imagem_site_mobile',
                 'imagem_restrito_desktop', 'imagem_restrito_mobile', 'link', 'incorporar', 'permissao_restrita',
-                'permissao_site', 'link_restrito', 'data_inicio', 'data_final', 'botao_texto', 'status'
+                'permissao_site', 'link_restrito', 'data_inicio', 'data_final', 'botao_texto', 'status',
             ])
             ::put('/publicacao-live/{id}');
     });
@@ -3425,7 +3441,7 @@ Route
             ::request([
                 'pagina', '!quantidade', '!ordem', '!status', '!pesquisa',
                 '!permissao_restrita', '!permissao_site', '!publicado', '!data_inicio',
-                '!data_final'
+                '!data_final',
             ], 'json')
             ::get('/album-dado');
 
@@ -3434,7 +3450,7 @@ Route
             ::middleware(TokenMiddleware::class, 'scope', ['album_dado:salvar'])
             ::request([
                 'titulo', '!texto', '!imagem', 'data_inicio', '!data_final',
-                'permissao_restrita', 'permissao_site', 'status'
+                'permissao_restrita', 'permissao_site', 'status',
             ])
             ::post('/album-dado');
 
@@ -3443,7 +3459,7 @@ Route
             ::middleware(TokenMiddleware::class, 'scope', ['album_dado:atualizar'])
             ::request([
                 '!titulo', '!texto', '!imagem', '!data_inicio', '!data_final',
-                '!permissao_restrita', '!permissao_site', '!status'
+                '!permissao_restrita', '!permissao_site', '!status',
             ])
             ::put('/album-dado/{id}');
 
@@ -3468,7 +3484,7 @@ Route
             ::middleware(TokenMiddleware::class, 'scope', ['album_dado:foto'])
             ::request([
                 'pagina', '!quantidade', '!ordem', '!album', '!titulo',
-                '!data_inicio', '!data_final', '!status'
+                '!data_inicio', '!data_final', '!status',
             ], 'json')
             ::get('/album-foto');
 
@@ -3476,7 +3492,7 @@ Route
             ::nome('salvar')
             ::middleware(TokenMiddleware::class, 'scope', ['album_dado:foto'])
             ::request([
-                'album', 'titulo', 'imagem', 'status'
+                'album', 'titulo', 'imagem', 'status',
             ])
             ::post('/album-foto');
 
@@ -3484,7 +3500,7 @@ Route
             ::nome('atualizar')
             ::middleware(TokenMiddleware::class, 'scope', ['album_dado:foto'])
             ::request([
-                '!album', '!titulo', '!imagem', '!status'
+                '!album', '!titulo', '!imagem', '!status',
             ])
             ::put('/album-foto/{id}');
 
@@ -3503,7 +3519,7 @@ Route
             ::nome('listar')
             ::middleware(TokenMiddleware::class, 'scope', ['votacao_dado:listar'])
             ::request([
-                'pagina', '!quantidade', '!tipo', '!publicado', '!data_inicio', '!data_final', '!status'
+                'pagina', '!quantidade', '!tipo', '!publicado', '!data_inicio', '!data_final', '!status',
             ], 'json')
             ::get('/votacao-dado');
         Route
@@ -3514,14 +3530,14 @@ Route
             ::nome('salvar')
             ::middleware(TokenMiddleware::class, 'scope', ['votacao_dado:salvar'])
             ::request([
-                'titulo', 'texto', 'tipo', 'voto_unico', 'identificar_usuario', 'data_inicio', 'data_final', 'status'
+                'titulo', 'texto', 'tipo', 'voto_unico', 'identificar_usuario', 'data_inicio', 'data_final', 'status',
             ])
             ::post('/votacao-dado');
         Route
             ::nome('atualizar')
             ::middleware(TokenMiddleware::class, 'scope', ['votacao_dado:atualizar'])
             ::request([
-                '!titulo', '!texto', '!voto_unico', '!identificar_usuario', '!data_inicio', '!data_final', '!status'
+                '!titulo', '!texto', '!voto_unico', '!identificar_usuario', '!data_inicio', '!data_final', '!status',
             ])
             ::put('/votacao-dado/{id}');
         Route
@@ -3553,7 +3569,7 @@ Route
             ::nome('listar')
             ::middleware(TokenMiddleware::class, 'scope', ['votacao_pergunta:listar'])
             ::request([
-                'pagina', '!quantidade', '!votacao'
+                'pagina', '!quantidade', '!votacao',
             ], 'json')
             ::get('/votacao-pergunta');
         Route
@@ -3564,14 +3580,14 @@ Route
             ::nome('salvar')
             ::middleware(TokenMiddleware::class, 'scope', ['votacao_pergunta:salvar'])
             ::request([
-                'votacao', 'titulo', 'texto', 'tipo', 'pode_nulo', '!ordem'
+                'votacao', 'titulo', 'texto', 'tipo', 'pode_nulo', '!ordem',
             ])
             ::post('/votacao-pergunta');
         Route
             ::nome('atualizar')
             ::middleware(TokenMiddleware::class, 'scope', ['votacao_pergunta:atualizar'])
             ::request([
-                '!titulo', '!texto', '!tipo', '!pode_nulo', '!ordem'
+                '!titulo', '!texto', '!tipo', '!pode_nulo', '!ordem',
             ])
             ::put('/votacao-pergunta/{id}');
         Route
@@ -3593,7 +3609,7 @@ Route
             ::nome('listar')
             ::middleware(TokenMiddleware::class, 'scope', ['votacao_resposta:listar'])
             ::request([
-                'pagina', '!quantidade', '!pergunta'
+                'pagina', '!quantidade', '!pergunta',
             ], 'json')
             ::get('/votacao-resposta');
         Route
@@ -3604,14 +3620,14 @@ Route
             ::nome('salvar')
             ::middleware(TokenMiddleware::class, 'scope', ['votacao_resposta:salvar'])
             ::request([
-                'pergunta', 'titulo', 'texto', 'escrever_voto', 'voto_nulo', '!ordem'
+                'pergunta', 'titulo', 'texto', 'escrever_voto', 'voto_nulo', '!ordem',
             ])
             ::post('/votacao-resposta');
         Route
             ::nome('atualizar')
             ::middleware(TokenMiddleware::class, 'scope', ['votacao_resposta:atualizar'])
             ::request([
-                '!titulo', '!texto', '!escrever_voto', '!voto_nulo', '!ordem'
+                '!titulo', '!texto', '!escrever_voto', '!voto_nulo', '!ordem',
             ])
             ::put('/votacao-resposta/{id}');
         Route
@@ -3633,7 +3649,7 @@ Route
             ::nome('validar')
             ::middleware(TokenMiddleware::class, 'scope', ['votacao_usuario:validar'])
             ::request([
-                'votacao', 'usuario'
+                'votacao', 'usuario',
             ])
             ::post('/votacao-usuario/validar');
     });
@@ -3646,7 +3662,7 @@ Route
             ::nome('salvar')
             ::middleware(TokenMiddleware::class, 'scope', ['votacao_voto:salvar'])
             ::request([
-                'votacao', 'usuario', 'resposta'
+                'votacao', 'usuario', 'resposta',
             ])
             ::post('/votacao-voto');
     });
@@ -3669,14 +3685,14 @@ Route
             ::nome('salvar')
             ::middleware(TokenMiddleware::class, 'scope', ['publicacao_lista:salvar'])
             ::request([
-                'titulo', 'texto_pequeno', 'texto_grande', '!lista', '!imagem', 'grupo', 'status'
+                'titulo', 'texto_pequeno', 'texto_grande', '!lista', '!imagem', 'grupo', 'status',
             ])
             ::post('/publicacao-lista');
         Route
             ::nome('atualizar')
             ::middleware(TokenMiddleware::class, 'scope', ['publicacao_lista:atualizar'])
             ::request([
-                '!titulo', '!texto_pequeno', '!texto_grande', '!lista', '!imagem', '!grupo', '!ordem', '!status'
+                '!titulo', '!texto_pequeno', '!texto_grande', '!lista', '!imagem', '!grupo', '!ordem', '!status',
             ])
             ::put('/publicacao-lista/{id}');
         Route
@@ -3694,7 +3710,7 @@ Route
             ::nome('salvar')
             ::middleware(TokenMiddleware::class, 'scope', ['galapagos_lead:salvar'])
             ::request([
-                'nome', 'email', 'telefone', 'termo'
+                'nome', 'email', 'telefone', 'termo',
             ])
             ::criptografia(['nome', 'email', 'telefone'])
             ::post('/galapagos-lead');

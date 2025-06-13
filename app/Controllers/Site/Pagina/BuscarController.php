@@ -2,26 +2,42 @@
 
 namespace App\Controllers\Site\Pagina;
 
+use Http\Request;
 use Controller\Controller;
+use App\Models\Site\Pagina\HashModel;
 use App\Models\Site\Pagina\BuscarModel;
 
 final class BuscarController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
-        $uri = explode('/', preg_replace('/^\//', '', $_SERVER['REQUEST_URI']))[0];
-        return $this->buscarApi($uri);
+        $uri = explode('/', preg_replace('/^\//', '', URI))[0];
+        return $this->buscarApi($uri, $request);
     }
-    public function buscar(string $uri)
+
+    public function buscar(Request $request, string $uri)
     {
-        return $this->buscarApi($uri);
+        return $this->buscarApi($uri, $request);
     }
-    private function buscarApi(string $uri)
+
+    private function buscarApi(string $uri, $request)
     {
-        $Html = new BuscarModel($uri);
+        $Html = new BuscarModel(
+            uri: $uri
+        );
         return view('pagina', [
             'html' => $Html->html,
+            'dado' => base64Encode($request->dado(), url: true),
             'url'  => 'unimed-natal',
         ]);
+    }
+
+    public function postBuscar(Request $request)
+    {
+        $Api = new HashModel(
+            hash: $request->hash,
+            replace: $request->dado
+        );
+        return mensagemSucesso(dado: $Api->retorno, status: 201);
     }
 }

@@ -26,54 +26,60 @@ return [
         'uuid'      => '118e10b2-58cf-4708-9c1f-3e4392d2e675',
         'nome'      => 'Clube',
         'diretorio' => 'clube',
-        'extensao'  => ['png']
+        'extensao'  => ['png'],
     ],
     [
         'uuid'      => '4a813b55-cc1b-4d48-8368-091ea31926b2',
         'nome'      => 'Texto do Clube',
         'diretorio' => 'texto_clube',
-        'extensao'  => ['png', 'jpg', 'jpeg', 'gif']
+        'extensao'  => ['png', 'jpg', 'jpeg', 'gif'],
     ],
     [
         'uuid'      => '3828fc5c-51cf-44b1-b8f0-6f8d1d3def19',
         'nome'      => 'Carteirinha',
         'diretorio' => 'carteirinha',
-        'extensao'  => ['png']
+        'extensao'  => ['png'],
     ],
     [
         'uuid'      => '00a9c7ca-7dd9-43a1-9dc7-20297a26d49d',
         'nome'      => 'Popup',
         'diretorio' => 'popup',
-        'extensao'  => ['png', 'jpg', 'jpeg', 'gif']
+        'extensao'  => ['png', 'jpg', 'jpeg', 'gif'],
     ],
     [
         'uuid'      => '420e3bb0-4142-40a0-8fcb-b78c9678c5bd',
         'nome'      => 'Banners',
         'diretorio' => 'banners',
-        'extensao'  => ['png', 'jpg', 'jpeg', 'gif']
+        'extensao'  => ['png', 'jpg', 'jpeg', 'gif'],
     ],
     [
         'uuid'      => '93bb55cb-56fb-4d42-af81-c8100b229348',
         'nome'      => 'Site Config',
         'diretorio' => 'site_config',
-        'extensao'  => ['png']
+        'extensao'  => ['png'],
     ],
     [
         'id'        => 233,
         'uuid'      => '2b3aa41e-f8cc-4fdc-b955-56fd8d5890d7',
         'nome'      => 'Sinpefrs',
-        'diretorio' => 'sinpefrs'
+        'diretorio' => 'sinpefrs',
     ],
     [
         'uuid'      => '915be25b-7742-45b6-8871-1f62ef6870d3',
         'nome'      => 'Usuario tabela',
         'diretorio' => 'usuario_tabela',
-        'extensao'  => ['xls', 'xlsx', 'csv']
+        'extensao'  => ['xls', 'xlsx', 'csv'],
     ],
     [
-        'uuid'      => 'c0ec7d2f-e3e6-48ea-9159-cbbc3a540896 ',
+        'uuid'      => 'c0ec7d2f-e3e6-48ea-9159-cbbc3a540896',
         'nome'      => 'Pagina Clube',
         'diretorio' => 'pagina_clube',
-        'extensao'  => ['png', 'jpg', 'jpeg', 'doc', 'docx', 'pdf', 'xls', 'xlsx', 'csv']
-    ]
+        'extensao'  => ['png', 'jpg', 'jpeg', 'doc', 'docx', 'pdf', 'xls', 'xlsx', 'csv'],
+    ],
+    [
+        'uuid'      => '78172eda-8afa-467d-9ee3-7947cb6674d4',
+        'nome'      => 'Plano saúde',
+        'diretorio' => 'plano_saude',
+        'extensao'  => ['png', 'jpg', 'jpeg'],
+    ],
 ];
