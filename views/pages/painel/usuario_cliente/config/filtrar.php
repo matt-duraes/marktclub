@@ -73,6 +73,12 @@ $Painel
                 label: 'Matrícula',
                 placeholder: 'Digite uma matrícula'
             )
+            ->select(
+              name: 'estado_crm',
+              lista: (new ListaHelper())->add('', 'Escolha um estado')->estadoCrm()->r(),
+              label: 'CRM',
+              permissao: 'usuario_cliente_crm'
+            )
             ->input(
                 name: 'siape',
                 titulo: 'SIAPE',

@@ -2,14 +2,14 @@
 
 namespace App\Models\Api\UsuarioCliente\Trait;
 
+use Helpers\OrmHelper;
+use Helpers\ListaHelper;
 use App\Classes\UsuarioCliente\Helper;
 use App\Classes\UsuarioCliente\Origem;
 use App\Classes\UsuarioCliente\Status;
 use App\Classes\UsuarioCliente\TipoUsuario;
 use App\Classes\UsuarioCliente\TrabalhoCargo;
 use App\Classes\UsuarioCliente\TrabalhoEmpresa;
-use Helpers\ListaHelper;
-use Helpers\OrmHelper;
 
 trait WhereTrait
 {
@@ -67,6 +67,12 @@ trait WhereTrait
             $where[] = ['uf', $enderecoEstado];
         }
 
+
+        // crm
+        $crmEstado = $request->estado_crm;
+        if (!empty($crmEstado)) {
+            $where[] = ['crm_estado', $crmEstado];
+        }
         // nome
         $nome = $request->nome;
         if (!empty($nome)) {
