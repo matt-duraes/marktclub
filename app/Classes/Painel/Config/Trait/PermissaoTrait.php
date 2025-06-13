@@ -39,12 +39,6 @@ trait PermissaoTrait
                     titulo: 'Lotação',
                     scope: ['site_lotacao:select']
                 );
-                $this->montarArrayPersonalizado(
-                  indice: 'usuario_cliente_crm',
-                  titulo: 'Filtro CRM',
-                  scope: ['usuario_cliente:listar']
-                );
-
             }
         )->montarArrayPermissao(
             titulo: 'Comercial Atendimento',

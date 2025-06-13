@@ -2,6 +2,7 @@
 
 use Helpers\ApiHelper;
 use Helpers\ListaHelper;
+use App\Helpers\Cfm\ConselhoHelper;
 use App\Classes\UsuarioCliente\Helper;
 use App\Classes\UsuarioCliente\Origem;
 use App\Classes\UsuarioCliente\Status;
@@ -75,9 +76,8 @@ $Painel
             )
             ->select(
               name: 'estado_crm',
-              lista: (new ListaHelper())->add('', 'Escolha um estado')->estadoCrm()->r(),
+              lista: (new ConselhoHelper())->lista(),
               label: 'CRM',
-              permissao: 'usuario_cliente_crm'
             )
             ->input(
                 name: 'siape',

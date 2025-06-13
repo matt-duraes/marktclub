@@ -27,6 +27,7 @@ final class CampoPermitido
                     'endereco_complemento' => 'Complemento',
                     'endereco_numero'      => 'Número Residencial/Lote',
                     'endereco_logradouro'  => 'Logradouro',
+                    'crm_estado'           => 'Filtro CRM',
                     'pagamento'            => 'Pagamento',
                     'tipo_pagamento'       => 'Metódo de Pagamento',
                     'analytics'            => 'Analytics',
