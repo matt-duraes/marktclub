@@ -335,7 +335,7 @@ Route
                 'pagina', '!quantidade', '!pesquisa', '!pagamento', '!nome', '!email', '!cpf', '!data_upload',
                 '!data_criacao_de', '!data_criacao_ate', '!matricula', '!status', '!lead', '!ordem',
                 '!origem', '!dependente', '!empresa', '!trabalho_empresa', '!trabalho_cargo', '!tipo',
-                '!endereco_estado', '!federacao', '!siape', '!subempresa', '!estado_crm'
+                '!endereco_estado', '!federacao', '!siape', '!subempresa', '!crm_estado'
             ], 'json')
             ::get('/usuario-cliente');
 

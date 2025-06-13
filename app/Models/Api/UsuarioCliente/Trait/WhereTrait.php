@@ -69,7 +69,7 @@ trait WhereTrait
 
 
         // crm
-        $crmEstado = $request->estado_crm;
+        $crmEstado = $request->crm_estado;
         if (!empty($crmEstado)) {
             $where[] = ['crm_estado', $crmEstado];
         }

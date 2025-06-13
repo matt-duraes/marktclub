@@ -95,7 +95,7 @@ final class ClienteModel extends ORM
         $dado = $this->buscarUsuario([
             'id_admin_subempresa', 'cod', 'nome', 'documento', 'email_trabalho',
             'email_pessoal', 'data_criacao', 'usuario_lead', 'tipo', 'titular',
-            'federacao', 'status' , 'crm_estado'
+            'federacao', 'status'
         ], true);
         $dado->lista = $this->montarRetornoLista($dado->lista);
         return $dado;
