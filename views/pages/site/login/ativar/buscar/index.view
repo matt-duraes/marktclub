@@ -46,7 +46,7 @@
                 @? formInput(name: 'buscar', label: 'Buscar', placeholder: 'Insira seus dados');
             </div>
             @if (ATIVACAO_TIPO === 'codigo'):
-            @? formInput(name: 'codigo', label: 'Código de acesso', placeholder: 'Digite seu código de acesso')
+              @? formInput(name: 'codigo', label: 'Código de acesso', placeholder: 'Digite seu código de acesso', class: 'bloco_codigo display_none')
             @endif;
 
             @if (ATIVACAO_TIPO === 'ciesc'):

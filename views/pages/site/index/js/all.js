@@ -126,5 +126,4 @@ window.addEventListener('load', () => {
             botaoAnteriorHistorico.style.display = '';
         }
     }
-
 });

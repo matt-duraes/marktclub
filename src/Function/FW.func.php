@@ -19,6 +19,7 @@ use Helpers\CryptHelper;
 use System\Config\Session;
 use Status\StatusInterface;
 use Modules\ModuleInterface;
+use Symfony\Component\Yaml\Yaml;
 use System\Interface\ApiRetornoInterface;
 
 /*/
@@ -2127,5 +2128,11 @@ if (!function_exists('linkDownloadPainel')) {
             return $link;
         }
         return LINK . '/download-force?hash=' . base64Encode($link, true);
+    }
+}
+
+if(!function_exists('yaml_parse')) {
+    function yaml_parse(string $yamlString): array {
+        return Yaml::parse($yamlString);
     }
 }

@@ -1533,6 +1533,7 @@ body.fw_body_hidden
         border-radius: 4px
         border: 1px solid $cor
         cursor: pointer
+        user-select: none
     .fw_form_botao_linha_conula
         margin-bottom: 10px
     .fw_form_botao_linha_conula .fw_form_tabela_botao
@@ -1555,7 +1556,6 @@ body.fw_body_hidden
         position: relative
         border: 1px solid #CCC
         border-bottom: none
-        padding: 0 10px
     .fw_form_tabela_linha .fw_form_tabela_drag
         cursor: pointer
         width: 30px
@@ -1568,8 +1568,9 @@ body.fw_body_hidden
         height: 30px
         flexCenter()
         fill: #999
+        user-select: none
     .fw_form_tabela_linha .fw_form_tabela_linha_conteudo
-        width: calc(100% - 60px)
+        width: calc(100% - 59px)
         flexRow()
     .fw_form_tabela_linha .fw_form_tabela_coluna
         width: 350px
@@ -1580,7 +1581,7 @@ body.fw_body_hidden
         width: 100%
         height: 40px
         padding: 0 10px
-    .fw_form_tabela_header .fw_form_tabela_linha .fw_form_tabela_coluna .fw_form_tabela_texto
+    .fw_form_tabela_header .fw_form_tabela_linha .fw_form_tabela_coluna .fw_form_tabela_coluna_bloco_input
         width: calc(100% - 115px)
     .fw_form_tabela_linha .fw_form_tabela_coluna .fw_form_tabela_tamanho
         width: 40px
@@ -1599,7 +1600,7 @@ body.fw_body_hidden
     .fw_form_tabela_linha .fw_form_tabela_coluna .fw_form_tabela_grow .fw_form_tabela_grow_check
         width: 15px
         height: 15px
-        border-radius: 50%
+        border-radius: 4px
         background-color: #DDD
         cursor: pointer
     .fw_form_tabela_linha .fw_form_tabela_coluna .fw_form_tabela_grow input:checked + .fw_form_tabela_grow_check
@@ -1610,6 +1611,27 @@ body.fw_body_hidden
     .fw_form_tabela_header .fw_form_tabela_linha .fw_form_tabela_coluna .fw_form_tabela_drag
         margin-left: 10px
         transform: rotate(90deg)
+    .fw_form_tabela_linha .fw_form_tabela_coluna .fw_form_tabela_coluna_bloco_input
+        width: 100%
+        display: flex
+        flex-direction: column
+        padding: 5px 10px
+    .fw_form_tabela_linha .fw_form_tabela_coluna .fw_form_tabela_coluna_bloco_input .fw_form_tabela_coluna_input
+        position: relative
+        display: flex
+        flex-direction: row
+        align-items: center
+        &::before
+            width: 32px
+            height: 25px;
+            line-height: 25px;
+            font-size: 1.5rem;
+            color: #999;
+            content: attr(data-lang)
+    .fw_form_tabela_linha .fw_form_tabela_coluna .fw_form_tabela_coluna_bloco_input .fw_form_tabela_coluna_input input
+        font-size: 1.5rem
+        flex-grow: 1
+        flex-basis: 0%
 
 // TRADUÇÃO
 .form_input_traducao

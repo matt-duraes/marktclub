@@ -1,4 +1,5 @@
-<div {!!$View->class('bloco_geral_banner banner banner_loading')->css()!!} data-id="{{$r->id}}">
+{!!$View->css()!!}
+<div {!!$View->class('bloco_geral_banner banner banner_loading')!!} data-id="{{$r->id}}" data-hash="{{$View->api()}}">
     @php
         componenteLoading($r->lista);
     @end

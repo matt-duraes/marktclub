@@ -335,7 +335,7 @@ Route
                 'pagina', '!quantidade', '!pesquisa', '!pagamento', '!nome', '!email', '!cpf', '!data_upload',
                 '!data_criacao_de', '!data_criacao_ate', '!matricula', '!status', '!lead', '!ordem',
                 '!origem', '!dependente', '!empresa', '!trabalho_empresa', '!trabalho_cargo', '!tipo',
-                '!endereco_estado', '!federacao', '!siape', '!subempresa'
+                '!endereco_estado', '!federacao', '!siape', '!subempresa', '!crm_estado'
             ], 'json')
             ::get('/usuario-cliente');
 
@@ -1029,17 +1029,28 @@ Route
         Route
             ::nome('salvar')
             ::middleware(TokenMiddleware::class, 'scope', ['view_pagina:salvar'])
-            ::request(['titulo', 'url'])
+            ::request(['empresa', 'titulo', 'url', 'status'])
             ::post('/view-pagina');
         Route
             ::nome('atualizar')
             ::middleware(TokenMiddleware::class, 'scope', ['view_pagina:atualizar'])
-            ::request(['!titulo', '!url', '!html'])
+            ::request(['!empresa', '!titulo', '!url', '!html', '!status'])
             ::put('/view-pagina/{id}');
         Route
             ::nome('deletar')
             ::middleware(TokenMiddleware::class, 'scope', ['view_pagina:deletar'])
             ::delete('/view-pagina/{id}');
+    });
+
+Route
+    ::nome('view_tabela')
+    ::middleware(TokenMiddleware::class, 'token')
+    ::controller(App\Controllers\Api\View\TabelaController::class)
+    ::grupo(function () {
+        Route
+            ::nome('buscar')
+            ::middleware(TokenMiddleware::class, 'scope', ['view_tabela:buscar'])
+            ::get('/view-tabela/{tabela}');
     });
 
 Route
@@ -1060,7 +1071,8 @@ Route
             ::nome('salvar')
             ::middleware(TokenMiddleware::class, 'scope', ['view_html:salvar'])
             ::requestOpcional(array_merge(['pagina'], App\Classes\View\Lista\Helper::PARAMETROS_LISTAR), lista: [
-                'margem_topo', 'margem_direita', 'margem_baixo', 'margem_esquerda'
+                'margem_topo_desktop', 'margem_direita_desktop', 'margem_baixo_desktop', 'margem_esquerda_desktop',
+                'margem_topo_mobile', 'margem_direita_mobile', 'margem_baixo_mobile', 'margem_esquerda_mobile'
             ])
             ::post('/view-html');
         Route
@@ -1070,9 +1082,14 @@ Route
             ::put('/view-html/{id}');
         Route
             ::nome('grupo')
-            ::middleware(TokenMiddleware::class, 'scope', ['view_html:atualizar'])
+            ::middleware(TokenMiddleware::class, 'scope', ['view_html:grupo'])
             ::request(['grupo'])
             ::put('/view-html/grupo');
+        Route
+            ::nome('clonar')
+            ::middleware(TokenMiddleware::class, 'scope', ['view_html:clonar'])
+            ::request(['id'])
+            ::post('/view-html/clonar');
         Route
             ::nome('deletar')
             ::middleware(TokenMiddleware::class, 'scope', ['view_html:deletar'])
@@ -2438,6 +2455,51 @@ Route
 
 Route
     ::nome('saude_simulacao')
+    ::controller(App\Controllers\Api\Saude\SimulacaoController::class)
+    ::middleware(TokenMiddleware::class, 'token')
+    ::grupo(function () {
+        Route
+            ::nome('simular')
+            ::middleware(TokenMiddleware::class, 'scope', ['saude_simulacao:simular'])
+            ::request([
+                'convenio', 'simulacao', 'titular', 'dependente'
+            ])
+            ::get('/saude-simulacao/simular');
+        Route
+            ::nome('salvar')
+            ::middleware(TokenMiddleware::class, 'scope', ['saude_simulacao:salvar'])
+            ::request([
+                'convenio', 'simulacao', 'titular', 'dependente'
+            ])
+            ::post('/saude-simulacao');
+    });
+
+Route
+    ::nome('saude_convenio')
+    ::controller(App\Controllers\Api\Saude\ConvenioController::class)
+    ::middleware(TokenMiddleware::class, 'token')
+    ::grupo(function () {
+        Route
+            ::nome('listar')
+            ::middleware(TokenMiddleware::class, 'scope', ['saude_convenio:listar'])
+            ::request(['endereco_estado', 'endereco_cidade'])
+            ::get('/saude-convenio');
+        Route
+            ::nome('buscar')
+            ::middleware(TokenMiddleware::class, 'scope', ['saude_convenio:buscar'])
+            ::get('/saude-convenio/{id}');
+        Route
+            ::nome('estado')
+            ::middleware(TokenMiddleware::class, 'scope', ['saude_convenio:estado'])
+            ::get('/saude-convenio/estado');
+        Route
+            ::nome('cidade')
+            ::middleware(TokenMiddleware::class, 'scope', ['saude_convenio:cidade'])
+            ::request(['endereco_estado'])
+            ::get('/saude-convenio/cidade');
+    });
+Route
+    ::nome('saude_simulacao')
     ::controller(App\Controllers\Api\SaudeSimulacaoController::class)
     ::middleware(TokenMiddleware::class, 'token')
     ::grupo(function () {
@@ -2615,6 +2677,14 @@ Route
             ::nome('respondeu')
             ::middleware(TokenMiddleware::class, 'scope', ['enquete_mercado:buscar'])
             ::post('/pesquisa-resposta');
+
+        Route
+            ::nome('download')
+            ::middleware(TokenMiddleware::class, 'scope', ['enquete_mercado:download'])
+            ::request([
+                'campo', 'usuario'
+            ])
+            ::post('/enquete-mercado/download');
     });
 
 Route

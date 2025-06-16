@@ -264,6 +264,14 @@ function fazerReplaceNoConteudo(conteudo, path) {
                         htmlTemp.replace(/\@\ ?icone([a-zA-Z0-9\_]+)\(?([0-9\.]*)\)?(.*)/, '<?= icone$1($2); ?>$3') +
                         '\n';
                 }
+                // @icone(nome, numero);
+                if (echoIcone) {
+                    htmlTemp =
+                        htmlTemp.replace(
+                            /@ ?icone\((("|')[a-z0-9]+("|')(, ?[1-9][0-9]*)?)\)(.*)/,
+                            '<?= icone($1); ?>$5'
+                        ) + '\n';
+                }
                 // @imagem(imagem.png);
                 if (echoImagem) {
                     htmlTemp =

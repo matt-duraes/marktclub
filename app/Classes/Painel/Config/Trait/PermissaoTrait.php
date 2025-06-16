@@ -2,8 +2,8 @@
 
 namespace App\Classes\Painel\Config\Trait;
 
-use App\Classes\Painel\Config\Titulo;
 use Closure;
+use App\Classes\Painel\Config\Titulo;
 
 trait PermissaoTrait
 {
@@ -22,6 +22,7 @@ trait PermissaoTrait
             deletar: true,
             download: true,
             empresa: true,
+            subempresa: true,
             personalizado: function () {
                 $this->montarArrayPersonalizado(
                     indice: 'usuario_cliente_analytics',
@@ -46,10 +47,10 @@ trait PermissaoTrait
         )->montarArrayPermissao(
             titulo: 'Comercial Indicação',
             indice: 'comercial_indicacao',
-            scope: 'comercial_empresa',
             index: true,
+            visualizar: true,
             add: true,
-            visualizar: true
+            scope: 'comercial_empresa'
         )->montarArrayPermissao(
             titulo: 'Grupo do usuário',
             indice: 'usuario_grupo',
@@ -623,7 +624,7 @@ trait PermissaoTrait
                         'scope'  => ['relatorio_acesso:listar']
                     ],
                     'relatorio_acesso_empresa'    => Titulo::EMPRESA,
-                    'relatorio_acesso_subempresa' => 'Todas as Subempresas'
+                    'relatorio_acesso_subempresa' => Titulo::SUBEMPRESA
                 ]
             ],
             'relatorio_usuario'        => [
@@ -634,7 +635,7 @@ trait PermissaoTrait
                         'scope'  => ['relatorio_usuario:listar']
                     ],
                     'relatorio_usuario_empresa'    => Titulo::EMPRESA,
-                    'relatorio_usuario_subempresa' => 'Todas as Subempresas'
+                    'relatorio_usuario_subempresa' => Titulo::SUBEMPRESA
                 ]
             ],
             'relatorio_loja_venda'     => [
@@ -645,7 +646,7 @@ trait PermissaoTrait
                         'scope'  => ['relatorio_loja_venda:listar']
                     ],
                     'relatorio_loja_venda_empresa'    => Titulo::EMPRESA,
-                    'relatorio_loja_venda_subempresa' => 'Todas as Subempresas',
+                    'relatorio_loja_venda_subempresa' => Titulo::SUBEMPRESA,
                     'relatorio_loja_venda_parceiro'   => 'Todos os parceiros'
                 ]
             ],
@@ -1335,11 +1336,11 @@ trait PermissaoTrait
                     ],
                     'view_pagina_add'        => [
                         'titulo' => Titulo::SALVAR,
-                        'scope'  => 'view_pagina:salvar'
+                        'scope'  => ['view_pagina:salvar', 'view_html:listar', 'view_html:buscar', 'view_html:salvar', 'view_html:atualizar', 'view_html:deletar', 'view_html:grupo', 'view_html:clonar']
                     ],
                     'view_pagina_editar'     => [
                         'titulo' => Titulo::EDITAR,
-                        'scope'  => ['view_pagina:atualizar', 'view_pagina:buscar']
+                        'scope'  => ['view_pagina:atualizar', 'view_pagina:buscar', 'view_html:listar', 'view_html:buscar', 'view_html:salvar', 'view_html:atualizar', 'view_html:deletar', 'view_html:grupo', 'view_html:clonar']
                     ],
                     'view_pagina_deletar'    => [
                         'titulo' => Titulo::DELETAR,
@@ -1479,6 +1480,10 @@ trait PermissaoTrait
                         'titulo' => Titulo::VISUALIZAR,
                         'scope'  => 'enquete_mercado:buscar'
                     ],
+                    'enquete_mercado_download'   => [
+                        'titulo' => Titulo::DOWNLOAD,
+                        'scope'  => ['enquete_mercado:download', 'mensageria:salvar']
+                    ],
                     'enquete_mercado_empresa'    => Titulo::EMPRESA
                 ]
             ]
@@ -1497,6 +1502,7 @@ trait PermissaoTrait
      * @param bool         $deletar       Se vai ter deletar no painel
      * @param bool         $download      Se vai ter download no painel
      * @param bool         $empresa       Se vai ter empresa no painel
+     * @param bool         $subempresa    Se vai ter subempresa no painel
      * @param string|null  $scope         Scope que vai usar ex.: usuario_cliente, se não passar, usa o $indice
      * @param Closure|null $personalizado Função com montarArrayPersonalizado
      *
@@ -1512,6 +1518,7 @@ trait PermissaoTrait
         bool|array $deletar = false,
         bool|array $download = false,
         bool|array $empresa = false,
+        bool|array $subempresa = false,
         string $scope = null,
         ?Closure $personalizado = null
     ): self {
@@ -1531,6 +1538,14 @@ trait PermissaoTrait
                 $indice . '_empresa' => [
                     'titulo' => Titulo::EMPRESA,
                     'scope'  => is_array($empresa) ? $empresa : []
+                ]
+            ]);
+        }
+        if ($subempresa) {
+            $lista = array_merge($lista, [
+                $indice . '_subempresa' => [
+                    'titulo' => Titulo::SUBEMPRESA,
+                    'scope'  => is_array($subempresa) ? $subempresa : []
                 ]
             ]);
         }

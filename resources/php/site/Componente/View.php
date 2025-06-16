@@ -10,11 +10,36 @@ final class View
     private array $class = [];
     private array $css = [];
     private string $tema = '';
+    private stdClass $r;
+    private int $classNumero = 0;
+    private string $id;
 
     public function __construct(
-        private stdClass $r
+        stdClass $r
     ) {
+        $this->setarValor($r);
         $this->tema = tema();
+    }
+
+    private function setarValor(stdClass $r)
+    {
+        $this->id = $r->id;
+        $obrigatorio = [
+            'margem_topo_desktop' => 0,
+            'margem_direita_desktop' => 0,
+            'margem_baixo_desktop' => 0,
+            'margem_esquerda_desktop' => 0,
+            'margem_topo_mobile' => 0,
+            'margem_direita_mobile' => 0,
+            'margem_baixo_mobile' => 0,
+            'margem_esquerda_mobile' => 0
+        ];
+        foreach($obrigatorio as $ind => $val) {
+            if(!object_key_exists($ind, $r)) {
+                $r->$ind = $val;
+            }
+        }
+        $this->r = $r;
     }
 
     public function __toString()
@@ -29,51 +54,82 @@ final class View
         $r = $this->r;
         $css = [];
 
-        $topo = $r->margem_topo;
+        $topo = $r->margem_topo_desktop;
         if (!empty($topo)) {
             $css[] = 'margin-top:' . $topo . 'px';
         }
-        $direita = $r->margem_direita;
+        $direita = $r->margem_direita_desktop;
         if (!empty($direita)) {
             $css[] = 'margin-right:' . $direita . 'px';
         }
-        $baixo = $r->margem_baixo;
+        $baixo = $r->margem_baixo_desktop;
         if (!empty($baixo)) {
             $css[] = 'margin-bottom:' . $baixo . 'px';
         }
-        $esquerda = $r->margem_esquerda;
+        $esquerda = $r->margem_esquerda_desktop;
         if (!empty($esquerda)) {
             $css[] = 'margin-left:' . $esquerda . 'px';
         }
-        $iconeTamanho = $r->icone_tamanho;
+        $iconeTamanho = $r->icone_tamanho ?? '';
         if ($r->tipo == 'icone' && !empty($iconeTamanho)) {
             $css[] = 'width: ' . $iconeTamanho . 'px';
             $css[] = 'height: ' . $iconeTamanho . 'px';
         }
-        $iconeCor = $r->icone_cor;
+        $iconeCor = $r->icone_cor ?? '';
         if ($r->tipo == 'icone' && $this->validarCor($iconeCor)) {
             $css[] = 'fill: ' . $this->pegarCor($iconeCor);
-        } else {
+        } elseif($r->tipo == 'icone') {
             $css[] = 'fill: #999999';
         }
-        $iconeBg = $r->icone_bg;
+        $iconeBg = $r->icone_bg ?? '';
         $iconBgValido = $this->validarCor($iconeBg);
         if ($r->tipo == 'icone' && $iconBgValido) {
             $css[] = 'background-color: ' . $this->pegarCor($iconeBg);
         }
 
-        $iconeBordaCor = $r->icone_borda_cor;
+        $iconeBordaCor = $r->icone_borda_cor ?? '';
         if ($r->tipo == 'icone' && $this->validarCor($iconeBordaCor)) {
             $css[] = 'border: 1px solid ' . $this->pegarCor($iconeBordaCor);
         } elseif ($r->tipo == 'icone' && !$iconBgValido && in_array($r->icone_tipo, [IconeTipo::QUADRADO, IconeTipo::REDONTO])) {
             $css[] = 'border: 1px solid #CCC';
         }
-
-        if (empty($css)) {
-            return $this;
+        $divMinimoDesktop = $r->div_minimo_desktop ?? '';
+        if($divMinimoDesktop) {
+            $css[] = 'min-width: ' . $divMinimoDesktop . 'px';
         }
-        $this->css = $css;
-        return $this;
+        $divMaximoDesktop = $r->div_maximo_desktop ?? '';
+        if($divMaximoDesktop) {
+            $css[] = 'max-width: ' . $divMaximoDesktop . 'px';
+        }
+
+        $listaTextoAlinhamento = [
+            'esquerda' => 'left',
+            'diretira' => 'right',
+            'centro' => 'center',
+            'justificado' => 'justify'
+        ];
+
+        $textoAlinhamentoDesktop = $listaTextoAlinhamento[$r->texto_alinhamento_desktop ?? ''] ?? '';
+        if($textoAlinhamentoDesktop) {
+            $css[] = 'text-align: ' . $textoAlinhamentoDesktop;
+        }
+
+        if(empty($css)) {
+            return '';
+        }
+        $classe = 'item_css_' . $this->id . '_' . $this->classNumero;
+        $this->classNumero++;
+        $this->class[] = $classe;
+        $classe = '.' . $classe;
+        $css = implode(';' . PHP_EOL, $css);
+
+        return <<<HTML
+            <style>
+                $classe {
+                    $css
+                }
+            </style>
+            HTML;
     }
 
     private function validarCor($cor)
@@ -89,26 +145,51 @@ final class View
         return $this->tema === 'light' ? CLUBE_COR_PRINCIPAL : CLUBE_COR_SECUNDARIA;
     }
 
+    public function api()
+    {
+        $r = $this->r;
+        $apiStatus = $r->api_status ?? 'nao';
+        $api = [
+            'metodo' => $r->api_metodo ?? '',
+            'body' => $r->api_body ?? [],
+            'uri' => $r->api_uri ?? ''
+        ];
+        return $apiStatus === 'sim' ? base64Encode(dado: $api, url: true) : '';
+    }
+
     public function class(string $class = '')
     {
         $r = $this->r;
-        $class = !empty($class) ? [$class] : [];
-        $class[] = 'com_pai_' . $r->tipo;
-        $class[] = 'com_aparecer_' . $r->local;
-
-        if (!empty($r->div_direcao)) {
-            $class[] = 'com_direcao_' . $r->div_direcao;
+        $class = explode(' ', $class);
+        if(!empty($class)) {
+            foreach($class as $val) {
+                $this->class[] = $val;
+            }
         }
-        if (!empty($r->div_posicao)) {
-            $class[] = 'com_posicao_' . $r->div_posicao;
+        $this->class[] = 'com_pai_' . $r->tipo;
+        $this->class[] = 'com_aparecer_' . $r->local;
+        $api = $r->api_status ?? '';
+        $tipo = $r->tipo;
+
+        if($api === 'sim') {
+            $this->class[] = 'com_api_geral';
+            $this->class[] = 'com_api_' . $tipo;
+        }
+        if (!empty($r->div_direcao_desktop)) {
+            $this->class[] = 'com_direcao_' . $r->div_direcao_desktop;
+        }
+        if (!empty($r->div_direcao_mobile) && $r->div_direcao_desktop != $r->div_direcao_mobile) {
+            $this->class[] = 'com_direcao_' . $r->div_direcao_mobile . '_mobile';
+        }
+        if (!empty($r->div_posicao_desktop)) {
+            $this->class[] = 'com_posicao_' . $r->div_posicao_desktop;
+        }
+        if (!empty($r->div_posicao_mobile) && $r->div_posicao_desktop != $r->div_posicao_mobile) {
+            $this->class[] = 'com_posicao_' . $r->div_posicao_mobile . '_mobile';
         }
         if (!empty($r->icone_tipo)) {
-            $class[] = 'com_icone_' . $r->icone_tipo;
+            $this->class[] = 'com_icone_' . $r->icone_tipo;
         }
-        if (empty($class)) {
-            return $this;
-        }
-        $this->class = $class;
         return $this;
     }
 }

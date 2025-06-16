@@ -7,10 +7,10 @@ use App\Helpers\ClubeApiHelper;
 
 final class BuscarModel extends ClubeApiHelper
 {
-    public array $html = [];
-    public string $titulo = '';
-    public string $descricao = '';
-    public string $imagem = '';
+    public array     $html      = [];
+    public string    $titulo    = '';
+    public string    $descricao = '';
+    public string    $imagem    = '';
     private stdClass $busca;
 
     public function __construct(
@@ -36,6 +36,7 @@ final class BuscarModel extends ClubeApiHelper
             ->validar(status: 404)
             ->get('/view-pagina/' . $this->url)
             ->object()->dado;
+
         $busca->html = $this->montarRetorno($busca->html);
         $this->busca = $busca;
         sessao($sessao, $this->busca);

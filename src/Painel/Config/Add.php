@@ -13,7 +13,6 @@ final class Add
     public const TAG_TIPO_TAG = 'tag';
     public const TAG_TIPO_TEXTO = 'texto';
     public const TAG_TIPO_URL = 'url';
-
     private int $coluna;
     private int $fieldset;
     private string|int $numeroColuna;
@@ -113,11 +112,6 @@ final class Add
         return $this;
     }
 
-    private function erroCallback()
-    {
-        mensagemStatus(500, localhost: 'Você deve passar uma callback.');
-    }
-
     public function endereco(string $titulo = '')
     {
         $this->fieldset(titulo: $titulo, callback: function () {
@@ -175,7 +169,8 @@ final class Add
         string $change = '',
         string $acao = null,
         ?string $permissao = null,
-        ?string $tipoEquipe = null
+        ?string $tipoEquipe = null,
+        ?bool $todasSubempresa = null,
     ) {
         if (is_string($lista) && !in_array($lista, ['genero', 'estado_civil', 'estado', 'empresa', 'usuario'])) {
             mensagemErro('Erro', 'Você deve passar um valor de lista aceito.');
@@ -190,6 +185,20 @@ final class Add
             $lista = (new ApiHelper(token: true))
                 ->json(['titulo' => 'Escolha um cliente'])
                 ->get('/comercial-empresa/select')
+                ->array()['dado'] ?? [];
+        } elseif (is_string($lista) && $lista == 'subempresa') {
+            $lista = (new ApiHelper(token: true))
+                ->json(
+                    array_merge(
+                        ['titulo' => 'Escolha uma subempresa'],
+                        (!empty($todasSubempresa) && $todasSubempresa === true) ? ['todas' => '1'] : [
+                            'empresa' => sessao(
+                                'USUARIO.empresa'
+                            )
+                        ]
+                    )
+                )
+                ->get('/comercial-subempresa/select')
                 ->array()['dado'] ?? [];
         } elseif (is_string($lista) && $lista == 'usuario') {
             $lista = (new ApiHelper(token: true))
@@ -211,93 +220,6 @@ final class Add
             'change'      => $change,
             'permissao'   => $permissao
         ], $acao);
-    }
-
-    private function adicionarNovoInput($dado, ?string $acao = null, ?string $permissao = null)
-    {
-        $dado['indice'] = preg_replace('/\[\]$/', '', $dado['name']);
-        $dado['name'] = is_string($dado['name']) ? explode('->', $dado['name'])[0] : $dado['name'];
-        $permissao = null;
-        if (array_key_exists('permissao', $dado)) {
-            $permissao = $dado['permissao'];
-            unset($dado['permissao']);
-        }
-        if (!$this->campoAceito($dado['name'], $acao, $permissao)) {
-            return $this;
-        }
-        $this->setarTitulo();
-        $this->setarAbrir();
-        $this->setarRow();
-        $this->setarColuna();
-
-        if (!in_array($dado['funcao'], ['cor', 'checkbox', 'switch', 'tag', 'indiceValor', 'hidden']) && !is_array(
-            $dado['name']
-        )) {
-            $dado['obrigatorio'] = $this->setarCampoObrigatorio($dado['name'], $dado['obrigatorio'] ?? false);
-        }
-
-        $this->html[$this->coluna][$this->fieldset]['lista'][] = $dado;
-        return $this;
-    }
-
-    private function campoAceito($name, ?string $acao, ?string $permissao)
-    {
-        $usuarioPermissao = sessao('USUARIO.permissao');
-        $name = preg_replace('/\[\]$/', '', $name);
-        if (
-            (!empty($permissao) && !in_array($permissao, $usuarioPermissao)) ||
-            (!empty($this->camposAceitos) && !in_array($name, $this->camposAceitos)) ||
-            (!empty($acao) && !empty($this->acao) && $acao != $this->acao)
-        ) {
-            return false;
-        }
-        return true;
-    }
-
-    private function setarTitulo()
-    {
-        if (!empty($this->titulo)) {
-            $this->html[$this->coluna][$this->fieldset]['titulo'] = $this->titulo;
-            $this->titulo = '';
-        }
-    }
-
-    private function setarAbrir()
-    {
-        if (!empty($this->abrir)) {
-            $this->html[$this->coluna][$this->fieldset]['abrir'] = $this->abrir;
-            $this->abrir = false;
-        }
-    }
-
-    /*
-    |--------------------------------------------------------------------------
-    | INPUTS
-    |--------------------------------------------------------------------------
-    */
-
-    private function setarRow()
-    {
-        if (!empty($this->row)) {
-            $this->html[$this->coluna][$this->fieldset]['row'] = $this->row;
-            $this->row = false;
-        }
-    }
-
-    private function setarColuna()
-    {
-        if (!empty($this->numeroColuna)) {
-            $this->html[$this->coluna]['coluna'] = $this->numeroColuna;
-            $this->numeroColuna = 0;
-        }
-    }
-
-    private function setarCampoObrigatorio(string $name, bool $obrigatorio): bool
-    {
-        if (in_array($name, $this->camposObrigatorio)) {
-            return true;
-        }
-        return $obrigatorio;
     }
 
     public function input(
@@ -464,6 +386,12 @@ final class Add
         ];
         return $this;
     }
+
+    /*
+    |--------------------------------------------------------------------------
+    | INPUTS
+    |--------------------------------------------------------------------------
+    */
 
     public function fieldsetCheckbox(
         string $titulo = null,
@@ -1085,12 +1013,6 @@ final class Add
         return $this;
     }
 
-    /*
-    |--------------------------------------------------------------------------
-    | MÉTODOS PRIVADOS
-    |--------------------------------------------------------------------------
-    */
-
     public function numero(
         string|array $name,
         string $label = '',
@@ -1369,5 +1291,97 @@ final class Add
             'attr'      => $attr,
             'permissao' => $permissao
         ], $acao);
+    }
+
+    /*
+    |--------------------------------------------------------------------------
+    | MÉTODOS PRIVADOS
+    |--------------------------------------------------------------------------
+    */
+
+    private function erroCallback()
+    {
+        mensagemStatus(500, localhost: 'Você deve passar uma callback.');
+    }
+
+    private function adicionarNovoInput($dado, ?string $acao = null, ?string $permissao = null)
+    {
+        $dado['indice'] = preg_replace('/\[\]$/', '', $dado['name']);
+        $dado['name'] = is_string($dado['name']) ? explode('->', $dado['name'])[0] : $dado['name'];
+        $permissao = null;
+        if (array_key_exists('permissao', $dado)) {
+            $permissao = $dado['permissao'];
+            unset($dado['permissao']);
+        }
+        if (!$this->campoAceito($dado['name'], $acao, $permissao)) {
+            return $this;
+        }
+        $this->setarTitulo();
+        $this->setarAbrir();
+        $this->setarRow();
+        $this->setarColuna();
+
+        if (!in_array($dado['funcao'], ['cor', 'checkbox', 'switch', 'tag', 'indiceValor', 'hidden']) && !is_array(
+                $dado['name']
+            )) {
+            $dado['obrigatorio'] = $this->setarCampoObrigatorio($dado['name'], $dado['obrigatorio'] ?? false);
+        }
+
+        $this->html[$this->coluna][$this->fieldset]['lista'][] = $dado;
+        return $this;
+    }
+
+    private function campoAceito($name, ?string $acao, ?string $permissao)
+    {
+        $usuarioPermissao = sessao('USUARIO.permissao');
+        $name = preg_replace('/\[\]$/', '', $name);
+        if (
+            (!empty($permissao) && !in_array($permissao, $usuarioPermissao)) ||
+            (!empty($this->camposAceitos) && !in_array($name, $this->camposAceitos)) ||
+            (!empty($acao) && !empty($this->acao) && $acao != $this->acao)
+        ) {
+            return false;
+        }
+        return true;
+    }
+
+    private function setarTitulo()
+    {
+        if (!empty($this->titulo)) {
+            $this->html[$this->coluna][$this->fieldset]['titulo'] = $this->titulo;
+            $this->titulo = '';
+        }
+    }
+
+    private function setarAbrir()
+    {
+        if (!empty($this->abrir)) {
+            $this->html[$this->coluna][$this->fieldset]['abrir'] = $this->abrir;
+            $this->abrir = false;
+        }
+    }
+
+    private function setarRow()
+    {
+        if (!empty($this->row)) {
+            $this->html[$this->coluna][$this->fieldset]['row'] = $this->row;
+            $this->row = false;
+        }
+    }
+
+    private function setarColuna()
+    {
+        if (!empty($this->numeroColuna)) {
+            $this->html[$this->coluna]['coluna'] = $this->numeroColuna;
+            $this->numeroColuna = 0;
+        }
+    }
+
+    private function setarCampoObrigatorio(string $name, bool $obrigatorio): bool
+    {
+        if (in_array($name, $this->camposObrigatorio)) {
+            return true;
+        }
+        return $obrigatorio;
     }
 }

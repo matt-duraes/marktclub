@@ -253,6 +253,42 @@ Object.defineProperty(Object.prototype, 'final', {
     writable: true,
     configurable: true,
 });
+Object.defineProperty(Object.prototype, 'antes', {
+    value(html) {
+        let elemento = this;
+        if (elemento instanceof NodeList) {
+            elemento = elemento[0];
+        }
+
+        if (typeof html === 'string') {
+            elemento.insertAdjacentHTML('beforebegin', html);
+        } else {
+            elemento.parentNode.insertBefore(html, elemento);
+        }
+        adicionarBgImagemEstilo(elemento);
+        return this;
+    },
+    writable: true,
+    configurable: true,
+});
+Object.defineProperty(Object.prototype, 'depois', {
+    value(html) {
+        let elemento = this;
+        if (elemento instanceof NodeList) {
+            elemento = elemento[0];
+        }
+
+        if (typeof html === 'string') {
+            elemento.insertAdjacentHTML('afterend', html);
+        } else {
+            elemento.parentNode.insertBefore(html, elemento.nextSibling);
+        }
+        adicionarBgImagemEstilo(elemento);
+        return this;
+    },
+    writable: true,
+    configurable: true,
+});
 Object.defineProperty(Object.prototype, 'css', {
     value(propriedade, valor) {
         let elemento = this;

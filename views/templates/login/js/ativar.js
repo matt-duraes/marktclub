@@ -27,6 +27,7 @@ window.addEventListener('load', async () => {
 const setarTipoInput = (valorData = '') => {
     const blocoTitular = document.querySelector('.bloco_titular');
     const tipoAtivacao = blocoTitular.getAttribute('data-ativacao');
+    const blocoCodigo = document.querySelector('.bloco_codigo');
     const input = document.querySelector('#input_buscar');
     const inputCpf = document.querySelector('#input_buscar_cpf');
     blocoTitular.classList.remove('display_none');
@@ -35,6 +36,7 @@ const setarTipoInput = (valorData = '') => {
 
     if ((tipoAtivacao == 'email' && valorData != 'dependente') || valorData == 'indicado') {
         inputCpf.parentNode.classList.add('display_none');
+        blocoCodigo.sumir();
         input.setAttribute('placeholder', 'Digite o seu e-mail');
         input.setAttribute('type', 'email');
         return;
@@ -52,6 +54,11 @@ const setarTipoInput = (valorData = '') => {
         return;
     }
 
+    if (tipoAtivacao == 'codigo' && valorData == 'titular') {
+        blocoCodigo.aparecer();
+    } else if (tipoAtivacao == 'codigo' && valorData != 'titular') {
+        blocoCodigo.sumir();
+    }
     input.parentNode.classList.add('display_none');
     inputCpf.parentNode.classList.remove('display_none');
 };

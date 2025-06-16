@@ -3,13 +3,13 @@
 return [
     'titulo'     => 'Enquete de Mercado',
     'buscar'     => false,
-    'filtrar'    => false,
+    'filtrar'    => true,
     'ordem'      => true,
     'visualizar' => true,
     'add'        => false,
     'editar'     => false,
     'deletar'    => false,
-    'download'   => false,
+    'download'   => true,
     'historico'  => false,
     'api'        => [
         'scope' => 'enquete_mercado',

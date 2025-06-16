@@ -30,16 +30,22 @@ $diretorio = 'c0ec7d2f-e3e6-48ea-9159-cbbc3a540896';
 <div class="display_none">
     <article class="item_pai" id="bloco_linha_padrao">
         <div class="margem_topo margem">
-            <input type="text" class="margem_input" inputmode="numeric" placeholder="00">
+            <input type="text" class="margem_desktop margem_input" inputmode="numeric" placeholder="00">
+            <input type="text" class="margem_mobile margem_input" inputmode="numeric" placeholder="00">
         </div>
         <div class="conteudo_linha">
             <div class="margem_esquerda margem">
-                <input type="text" class="margem_input" inputmode="numeric" placeholder="00">
+                <input type="text" class="margem_desktop margem_input" inputmode="numeric" placeholder="00">
+                <input type="text" class="margem_mobile margem_input" inputmode="numeric" placeholder="00">
             </div>
             <div class="conteudo_geral">
                 <header>
                     <i class="drag">@iconeDrag</i>
                     <h1></h1>
+                    <i class="clonar icone">@icone("copiar", 14)</i>
+                    <i class="abrir_margem icone">@icone("margem", 14)</i>
+                    <i class="minimizar icone">@icone("minimizar", 14)</i>
+                    <i class="maximizar icone">@icone("maximizar", 14)</i>
                     <span class="status"></span>
                     <i class="deletar icone">@iconeDeletar(14)</i>
                     <i class="editar icone">@iconeEditar(10)</i>
@@ -49,11 +55,13 @@ $diretorio = 'c0ec7d2f-e3e6-48ea-9159-cbbc3a540896';
                 </div>
             </div>
             <div class="margem_direita margem">
-                <input type="text" class="margem_input margem_direita" inputmode="numeric" placeholder="00">
+                <input type="text" class="margem_desktop margem_input margem_direita" inputmode="numeric" placeholder="00">
+                <input type="text" class="margem_mobile margem_input margem_direita" inputmode="numeric" placeholder="00">
             </div>
         </div>
         <div class="margem_baixo margem">
-            <input type="text" class="margem_input" inputmode="numeric" placeholder="00">
+            <input type="text" class="margem_desktop margem_input" inputmode="numeric" placeholder="00">
+            <input type="text" class="margem_mobile margem_input" inputmode="numeric" placeholder="00">
         </div>
     </article>
 </div>
@@ -72,6 +80,10 @@ $diretorio = 'c0ec7d2f-e3e6-48ea-9159-cbbc3a540896';
                 @? formSelect(name: 'botao_tipo', label: 'Tipo do botão', placeholder: 'Escolha um tipo', lista: (new \App\Classes\View\Lista\BotaoTipo())->select('Escolha uma opção'), obrigatorio: true, class: 'bloco_botao_tipo display_none')
                 @? formInputTraducao(name: 'titulo', label: 'Título', obrigatorio: true, class: 'bloco_titulo display_none')
                 @? formInputTraducao(name: 'texto', label: 'Texto', obrigatorio: true, class: 'bloco_texto display_none')
+                <div class="bloco_row bloco_texto_alinhamento display_none">
+                    @? formSelect(name: 'texto_alinhamento_desktop', label: 'Alinhamento Desktop', placeholder: 'Alinhamento Desktop', lista: (new \App\Classes\View\Lista\TextoAlinhamento())->select('Escolha uma opção'))
+                    @? formSelect(name: 'texto_alinhamento_mobile', label: 'Alinhamento Mobile', placeholder: 'Alinhamento Mobile', lista: (new \App\Classes\View\Lista\TextoAlinhamento())->select('Escolha uma opção'))
+                </div>
                 @php
                     echo formSelectInputTag(
                         id: 'input_link_empresa',
@@ -83,13 +95,35 @@ $diretorio = 'c0ec7d2f-e3e6-48ea-9159-cbbc3a540896';
                 @? formTabela(name: 'tabela', label: 'Tabela:', class: 'bloco_tabela', id: 'input_tabela')
                 @? formUrl(name: 'link', label: 'Link', placeholder: 'Digite um link', obrigatorio: true, class: 'bloco_link display_none')
                 @? formSelect(name: 'target', label: 'Target', placeholder: 'Escolha um target', lista: (new \App\Classes\Geral\Target())->select('Escolha um target'), obrigatorio: true, class: 'bloco_target display_none')
-                @? formSelect(name: 'div_direcao', label: 'Direção', placeholder: 'Qual direção?', lista: (new \App\Classes\View\Lista\DivDirecao())->select('Escolha uma direção'), obrigatorio: true, class: 'bloco_div_direcao display_none')
-                @? formSelect(name: 'div_posicao', label: 'Posição', placeholder: 'Qual posicao?', lista: (new \App\Classes\View\Lista\DivPosicao())->select('Escolha uma posição'), obrigatorio: true, class: 'bloco_div_posicao display_none')
+
+                <div class="bloco_row bloco_div_direcao display_none">
+                    @? formSelect(name: 'div_direcao_desktop', label: 'Direção Desktop', placeholder: 'Qual direção no desktop?', lista: (new \App\Classes\View\Lista\DivDirecao())->select('Escolha uma direção'), obrigatorio: true)
+                    @? formSelect(name: 'div_direcao_mobile', label: 'Direção Mobile', placeholder: 'Qual direção mobile?', lista: (new \App\Classes\View\Lista\DivDirecao())->select('Escolha uma direção'))
+                </div>
+                <div class="bloco_row bloco_div_posicao display_none">
+                    @? formSelect(name: 'div_posicao_desktop', label: 'Posição Desktop', placeholder: 'Qual posicao no desktop?', lista: (new \App\Classes\View\Lista\DivPosicao())->select('Escolha uma posição'), obrigatorio: true)
+                    @? formSelect(name: 'div_posicao_mobile', label: 'Posição Mobile', placeholder: 'Qual posicao no mobile?', lista: (new \App\Classes\View\Lista\DivPosicao())->select('Escolha uma posição'))
+                </div>
+
+                <div class="bloco_row bloco_div_tamanho bloco_div_minimo display_none">
+                    @? formNumero(name: 'div_minimo_desktop', label: 'Tamanho mínimo Desktop', placeholder: 'Tamanho mínimo desktop')
+                    @? formNumero(name: 'div_minimo_mobile', label: 'Tamanho mínimo Mobile', placeholder: 'Tamanho mínimo mobile')
+                </div>
+                <div class="bloco_row bloco_div_tamanho bloco_div_maximo display_none">
+                    @? formNumero(name: 'div_maximo_desktop', label: 'Tamanho máximo Desktop', placeholder: 'Tamanho máximo desktop')
+                    @? formNumero(name: 'div_maximo_mobile', label: 'Tamanho máximo Mobile', placeholder: 'Tamanho máximo mobile')
+                </div>
+
                 @? formEditor(name: 'editor', label: 'Editor', placeholder: 'Digite seu texto', diretorioImagem: $diretorio, diretorioArquivo: $diretorio, obrigatorio: true, bar: 'bold,italic,underline,Strikethrough,fwDestaque,|,fontColor,|,alignment,|,link,removeFormat,|,insertTable,fwImagem,fwArquivo,mediaEmbed,|,horizontalLine,FwObservacao,|,numberedList,bulletedList', barBalao: 'bold,italic,underline,Strikethrough,fwDestaque,|,fontColor,|,link,removeFormat', class: 'bloco_editor display_none')
                 @? formSelect(name: 'lista_tipo', label: 'Tipo', placeholder: 'Escolha um tipo', lista: (new \App\Classes\View\Lista\ListaTipo())->select('Escolha uma lista'), class: 'bloco_lista display_none')
                 @? formLista(name: 'lista_valor', label: 'Lista', class: 'bloco_lista display_none', id: 'input_lista_valor')
+
                 @? formImagem(name: 'imagem_arquivo', diretorio: $diretorio, class: 'bloco_imagem display_none')
-                @? formNumero(name: 'imagem_altura', label: 'Altura', placeholder: 'Altura da imagem', class: 'bloco_imagem display_none')
+                <div class="bloco_row bloco_imagem display_none">
+                    @? formNumero(name: 'imagem_altura_desktop', label: 'Altura Desktop', placeholder: 'Altura da imagem no desktop')
+                    @? formNumero(name: 'imagem_altura_mobile', label: 'Altura Mobile', placeholder: 'Altura da imagem no mobile')
+                </div>
+
                 <div class="bloco_row bloco_icone display_none">
                     @? formSelect(name: 'icone_tipo', label: 'Tipo', placeholder: 'Tipo de ícone', lista: (new \App\Classes\View\Lista\IconeTipo())->select('Tipo de ícone'), class: 'bloco_icone_tipo')
                     @? formInput(name: 'icone_tamanho', label: 'Tamanho', placeholder: 'Tamanho', class: 'bloco_icone_tamanho ')

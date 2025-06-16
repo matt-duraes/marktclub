@@ -1,0 +1,1 @@
+{"id":"id_b98ac6a0c3f51f87c4a6003427ec085c","token":"clube","metodo":"GET","nome":"\/saude-convenio\/cidade","uri":"{{LINK}}\/saude-convenio\/cidade","parametro":[["texto",true,"endereco_estado","SP",""]],"body":[],"header":[],"variavel":[],"json":[],"documentacao":{"status":false,"descricao":"","requisicao":"","resposta":"","scope":"saude_convenio:cidade"}}

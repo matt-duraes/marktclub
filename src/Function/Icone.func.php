@@ -1,5 +1,20 @@
 <?php
 
+if(!function_exists('icone')) {
+    function icone(string $nome, int $tamanho = 20)
+    {
+        if($nome === 'margem') {
+            return '<svg height="' . $tamanho . '" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M11.9498 7.94975L10.5356 9.36396L8.00079 6.828L8.00004 20H6.00004L6.00079 6.828L3.46451 9.36396L2.05029 7.94975L7.00004 3L11.9498 7.94975ZM21.9498 16.0503L17 21L12.0503 16.0503L13.4645 14.636L16.0008 17.172L16 4H18L18.0008 17.172L20.5356 14.636L21.9498 16.0503Z"></path></svg>';
+        } elseif($nome === 'maximizar') {
+            return '<svg height="' . $tamanho . '" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M8 3V5H4V9H2V3H8ZM2 21V15H4V19H8V21H2ZM22 21H16V19H20V15H22V21ZM22 9H20V5H16V3H22V9Z"></path></svg>';
+        } elseif($nome === 'minimizar') {
+            return '<svg height="' . $tamanho . '" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M18 7H22V9H16V3H18V7ZM8 9H2V7H6V3H8V9ZM18 17V21H16V15H22V17H18ZM8 15V21H6V17H2V15H8Z"></path></svg>';
+        } elseif($nome === 'copiar') {
+            return '<svg height="' . $tamanho . '" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M6.9998 6V3C6.9998 2.44772 7.44752 2 7.9998 2H19.9998C20.5521 2 20.9998 2.44772 20.9998 3V17C20.9998 17.5523 20.5521 18 19.9998 18H16.9998V20.9991C16.9998 21.5519 16.5499 22 15.993 22H4.00666C3.45059 22 3 21.5554 3 20.9991L3.0026 7.00087C3.0027 6.44811 3.45264 6 4.00942 6H6.9998ZM5.00242 8L5.00019 20H14.9998V8H5.00242ZM8.9998 6H16.9998V16H18.9998V4H8.9998V6Z"></path></svg>';
+        }
+    }
+}
+
 if (!function_exists('iconeTv')) {
     // doc
     // exemplo
