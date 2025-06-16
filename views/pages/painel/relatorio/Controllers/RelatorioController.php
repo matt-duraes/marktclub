@@ -296,7 +296,7 @@ final class RelatorioController extends Controller
                     'numero'      => 0,
                     'porcentagem' => 0
                 ],
-                'anativo' => [
+                'inativo' => [
                     'numero'      => 0,
                     'porcentagem' => 0
                 ]

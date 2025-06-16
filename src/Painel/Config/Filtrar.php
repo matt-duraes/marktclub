@@ -18,6 +18,7 @@ final class Filtrar
         $this->app = $app;
 
         $campo = sessao('PAINEL.campo', padrao: []);
+        $campo = is_object($campo) ? json_decode(json_encode($campo), true) : [];
         if (is_array($campo) && array_key_exists($this->app, $campo) && $campo[$this->app]) {
             $this->camposAceitos = $campo[$this->app]['filtrar'] ?? $campo[$this->app]['geral'] ?? [];
         }

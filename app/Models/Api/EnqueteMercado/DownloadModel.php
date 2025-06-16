@@ -46,13 +46,13 @@ class DownloadModel extends ORM
     private function buscarEnquete(array $campos): mixed
     {
         return $this
-            /*->campo($campos)
+            ->campo($campos)
             ->tabela(TABELA_COMERCIAL_EMPRESA)
             ->campo(['titulo'], 'empresa')
             ->leftJoin('id', 'id_admin_empresa')
             ->tabela(TABELA_USUARIO_CLIENTE)
             ->campo(['nome'], 'usuario')
-            ->leftJoin('id', 'id_usuario_cliente')*/
+            ->leftJoin('id', 'id_usuario_cliente')
             ->read();
     }
 
