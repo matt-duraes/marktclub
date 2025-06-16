@@ -17,7 +17,7 @@ trait LinkTrait
             TipoLoja::FARMACIA  => route('farmacia.detalhe'),
             TipoLoja::LOJA      => route('loja.detalhe'),
             TipoLoja::PREMIUM   => route('premium.detalhe'),
-            TipoLoja::PAGINA    => LINK
+            TipoLoja::PAGINA    => LINK . '/convenios'
         ];
         if (!array_key_exists($tipo, $rota)) {
             return '';
