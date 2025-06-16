@@ -2,21 +2,21 @@
 
 namespace App\Models\Api\UsuarioCliente;
 
-use App\Classes\UsuarioCliente\Ordem;
-use App\Classes\UsuarioCliente\Status;
-use App\Classes\UsuarioCliente\TipoUsuario;
-use App\Classes\UsuarioCliente\TrabalhoCargo;
-use App\Helpers\DrogariaAraujoHelper;
-use App\Models\Api\Trait\ValidarEmpresaTrait;
-use App\Models\Api\UsuarioCliente\Trait\BuscarUsuarioTrait;
+use ORM\ORM;
+use stdClass;
 use Erro\Excecao;
-use Helpers\OrmHelper;
 use Http\Request;
 use Modules\Data;
 use Modules\Email;
 use Modules\Genero;
-use ORM\ORM;
-use stdClass;
+use Helpers\OrmHelper;
+use App\Classes\UsuarioCliente\Ordem;
+use App\Helpers\DrogariaAraujoHelper;
+use App\Classes\UsuarioCliente\Status;
+use App\Classes\UsuarioCliente\TipoUsuario;
+use App\Classes\UsuarioCliente\TrabalhoCargo;
+use App\Models\Api\Trait\ValidarEmpresaTrait;
+use App\Models\Api\UsuarioCliente\Trait\BuscarUsuarioTrait;
 
 final class ClienteModel extends ORM
 {
@@ -57,7 +57,6 @@ final class ClienteModel extends ORM
         if (is_null($this->request)) {
             return;
         }
-
         $ordem = new Ordem($this->request->ordem);
         $dataUpload = new Data($this->request->data_upload);
         $dataCriacaoDe = new Data($this->request->data_criacao_de);
@@ -158,6 +157,7 @@ final class ClienteModel extends ORM
                 'tipo'         => $tipo,
                 'data_criacao' => $r->data_criacao,
                 'status'       => (new Status($r->status))->indice(),
+                'crm_estado'   => $r->crm_estado ?? '',
             ];
         }
         return $lista;

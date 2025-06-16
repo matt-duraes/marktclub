@@ -2,6 +2,7 @@
 
 use Helpers\ApiHelper;
 use Helpers\ListaHelper;
+use App\Helpers\Cfm\ConselhoHelper;
 use App\Classes\UsuarioCliente\Helper;
 use App\Classes\UsuarioCliente\Origem;
 use App\Classes\UsuarioCliente\Status;
@@ -72,6 +73,11 @@ $Painel
                 titulo: 'Matrícula',
                 label: 'Matrícula',
                 placeholder: 'Digite uma matrícula'
+            )
+            ->select(
+              name: 'crm_estado',
+              lista: (new ConselhoHelper())->lista(),
+              label: 'CRM',
             )
             ->input(
                 name: 'siape',
