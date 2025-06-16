@@ -172,7 +172,12 @@ final class Add
         ?string $tipoEquipe = null,
         ?bool $todasSubempresa = null,
     ) {
-        if (is_string($lista) && !in_array($lista, ['genero', 'estado_civil', 'estado', 'empresa', 'usuario'])) {
+        if (
+            is_string($lista)
+            && !in_array(
+                $lista,
+                ['genero', 'estado_civil', 'estado', 'empresa', 'subempresa', 'usuario']
+            )) {
             mensagemErro('Erro', 'Você deve passar um valor de lista aceito.');
         }
         if (is_string($lista) && $lista == 'genero') {

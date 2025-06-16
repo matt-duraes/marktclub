@@ -106,6 +106,18 @@ return [
     [
         'id'               => '++',
         'id_admin_empresa' => 1,
+        'tipo'             => 3,
+        'titulo'           => 'Código (Primeiro Acesso)',
+        'url'              => '/app/usuario-cliente-codigo',
+        'icone'            => '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 30 30"><path d="M7.78428 14L8.2047 10H4V8H8.41491L8.94043 3H10.9514L10.4259 8H14.4149L14.9404 3H16.9514L16.4259 8H20V10H16.2157L15.7953 14H20V16H15.5851L15.0596 21H13.0486L13.5741 16H9.58509L9.05957 21H7.04855L7.57407 16H4V14H7.78428ZM9.7953 14H13.7843L14.2047 10H10.2157L9.7953 14Z"></path></svg>',
+        'ordem'            => '++',
+        'menu'             => ['usuario-cliente-codigo'],
+        'status'           => 1,
+        'permissao'        => '["usuario_cliente_codigo_index"]'
+    ],
+    [
+        'id'               => '++',
+        'id_admin_empresa' => 1,
         'tipo'             => 1,
         'titulo'           => 'COMUNICAÇÃO',
         'ordem'            => '++',

@@ -2,8 +2,8 @@
 
 namespace App\Classes\Painel\Config\Trait;
 
-use Closure;
 use App\Classes\Painel\Config\Titulo;
+use Closure;
 
 trait PermissaoTrait
 {
@@ -138,6 +138,29 @@ trait PermissaoTrait
                     ],
                     'usuario_equipe_permissao' => Titulo::PERMISSOES,
                     'usuario_equipe_empresa'   => Titulo::EMPRESA
+                ]
+            ],
+            'usuario_cliente_codigo'   => [
+                'titulo'    => 'Usuário Cliente Código (Primeiro Acesso)',
+                'permissao' => [
+                    'usuario_cliente_codigo_index'      => [
+                        'titulo' => Titulo::LISTAR,
+                        'scope'  => 'usuario_cliente_codigo:listar'
+                    ],
+                    'usuario_cliente_codigo_add'        => [
+                        'titulo' => Titulo::SALVAR,
+                        'scope'  => 'usuario_cliente_codigo:salvar'
+                    ],
+                    'usuario_cliente_codigo_editar'     => [
+                        'titulo' => Titulo::EDITAR,
+                        'scope'  => ['usuario_cliente_codigo:atualizar', 'usuario_cliente_codigo:buscar']
+                    ],
+                    'usuario_cliente_codigo_deletar'    => [
+                        'titulo' => Titulo::DELETAR,
+                        'scope'  => 'usuario_cliente_codigo:deletar'
+                    ],
+                    'usuario_cliente_codigo_empresa'    => Titulo::EMPRESA,
+                    'usuario_cliente_codigo_subempresa' => Titulo::SUBEMPRESA,
                 ]
             ],
             'comunicacao_login'        => [
@@ -1336,11 +1359,18 @@ trait PermissaoTrait
                     ],
                     'view_pagina_add'        => [
                         'titulo' => Titulo::SALVAR,
-                        'scope'  => ['view_pagina:salvar', 'view_html:listar', 'view_html:buscar', 'view_html:salvar', 'view_html:atualizar', 'view_html:deletar', 'view_html:grupo', 'view_html:clonar']
+                        'scope'  => [
+                            'view_pagina:salvar', 'view_html:listar', 'view_html:buscar', 'view_html:salvar',
+                            'view_html:atualizar', 'view_html:deletar', 'view_html:grupo', 'view_html:clonar'
+                        ]
                     ],
                     'view_pagina_editar'     => [
                         'titulo' => Titulo::EDITAR,
-                        'scope'  => ['view_pagina:atualizar', 'view_pagina:buscar', 'view_html:listar', 'view_html:buscar', 'view_html:salvar', 'view_html:atualizar', 'view_html:deletar', 'view_html:grupo', 'view_html:clonar']
+                        'scope'  => [
+                            'view_pagina:atualizar', 'view_pagina:buscar', 'view_html:listar', 'view_html:buscar',
+                            'view_html:salvar', 'view_html:atualizar', 'view_html:deletar', 'view_html:grupo',
+                            'view_html:clonar'
+                        ]
                     ],
                     'view_pagina_deletar'    => [
                         'titulo' => Titulo::DELETAR,
