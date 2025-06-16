@@ -26,6 +26,10 @@ class CodigoEntity extends Entity
         'id_admin_subempresa' => '->idSubempresa',
         'codigo', 'status'
     ];
+    protected string $ormValidarSalvar = '
+        codigo|Código|obrigatorio|vazio
+        status|Status|obrigatorio|vazio|valido
+    ';
     protected int $id_admin_empresa;
     protected int $id_admin_subempresa;
     private OrmHelper $ormHelper;
