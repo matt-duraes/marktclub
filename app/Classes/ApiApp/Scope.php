@@ -282,6 +282,9 @@ final class Scope
         'usuario_equipe:atualizar', 'usuario_equipe:buscar', 'usuario_equipe:deletar', 'usuario_equipe:select',
         'usuario_equipe:listar', 'usuario_equipe:mudar_empresa', 'usuario_equipe:salvar',
 
+        'usuario_cliente_codigo:buscar', 'usuario_cliente_codigo:listar', 'usuario_cliente_codigo:salvar',
+        'usuario_cliente_codigo:atualizar', 'usuario_cliente_codigo:deletar',
+
         'usuario_indicacao:ativar', 'usuario_indicacao:atualizar', 'usuario_indicacao:buscar',
         'usuario_indicacao:deletar', 'usuario_indicacao:listar', 'usuario_indicacao:status',
 
@@ -480,6 +483,9 @@ final class Scope
 
         'usuario_equipe:atualizar', 'usuario_equipe:buscar', 'usuario_equipe:deletar', 'usuario_equipe:select',
         'usuario_equipe:listar', 'usuario_equipe:mudar_empresa', 'usuario_equipe:salvar',
+
+        'usuario_cliente_codigo:buscar', 'usuario_cliente_codigo:listar', 'usuario_cliente_codigo:salvar',
+        'usuario_cliente_codigo:atualizar', 'usuario_cliente_codigo:deletar',
 
         'usuario_indicacao:ativar', 'usuario_indicacao:atualizar', 'usuario_indicacao:buscar',
         'usuario_indicacao:deletar', 'usuario_indicacao:listar', 'usuario_indicacao:salvar',
