@@ -23,7 +23,7 @@ $Painel
         name: 'subempresa',
         lista: 'subempresa',
         label: 'Subempresa',
-        todasSubempresa: true
+        todasSubempresa: painelPermissao(Helper::PERMISSAO_SUBEMPRESA, false)
     )
     ->input(
         name: 'nome',
