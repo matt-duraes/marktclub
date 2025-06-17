@@ -347,7 +347,7 @@ final class Filtrar
                         (!empty($todasSubempresa) && $todasSubempresa === true) ? ['todas' => '1'] : [
                             'empresa' => sessao(
                                 'USUARIO.empresa'
-                            )
+                            )->id
                         ]
                     )
                 )
