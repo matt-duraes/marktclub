@@ -57,6 +57,30 @@ final class PlanoSaudeController extends Controller
      * @return Response
      * @throws Excecao
      */
+    public function unimedVitoria(): Response
+    {
+        return view('plano_saude.unimedvitoria', [
+            'menu'  => 'saude',
+            'lista' => (new OperadoraModel())->listarDados(),
+        ]);
+    }
+
+    /**
+     * @return Response
+     * @throws Excecao
+     */
+    public function unimedNatal(): Response
+    {
+        return view('plano_saude.unimedNatal', [
+            'menu'  => 'saude',
+            'lista' => (new OperadoraModel())->listarDados(),
+        ]);
+    }
+
+    /**
+     * @return Response
+     * @throws Excecao
+     */
     public function unimedJundiai(): Response
     {
         return view('plano_saude.unimedJundiai', [
