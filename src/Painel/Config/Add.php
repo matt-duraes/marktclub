@@ -740,11 +740,37 @@ final class Add
         array $placeholder = [],
         ?string $acao = null,
         ?string $permissao = null,
-        bool $ordem = false
+        bool $ordem = false,
+        string $separador = '|'
     ) {
         return $this->adicionarNovoInput([
             'funcao'      => 'indiceValor',
             'name'        => $name,
+            'class'       => $class,
+            'id'          => $id,
+            'placeholder' => $placeholder,
+            'obrigatorio' => $obrigatorio,
+            'ordem'       => $ordem,
+            'separador'   => $separador,
+            'permissao'   => $permissao
+        ], $acao);
+    }
+
+    public function condicao(
+        string $name,
+        string $titulo = '',
+        string|array $class = [],
+        ?string $id = null,
+        bool $obrigatorio = false,
+        array $placeholder = [],
+        bool $ordem = false,
+        ?string $permissao = null,
+        ?string $acao = null,
+    ) {
+        return $this->adicionarNovoInput([
+            'funcao'      => 'condicao',
+            'name'        => $name,
+            'titulo'      => $titulo,
             'class'       => $class,
             'id'          => $id,
             'placeholder' => $placeholder,
@@ -762,7 +788,7 @@ final class Add
         bool $obrigatorio = false,
         string $tipo = 'quadrado',
         int $height = 200,
-        string $label = null,
+        ?string $label = null,
         ?string $acao = null,
         ?string $permissao = null
     ) {

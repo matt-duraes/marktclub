@@ -2109,19 +2109,24 @@ if (!function_exists('formIndiceValor')) {
     function formIndiceValor(
         string $name,
         array $value = [],
-        ?string $class = null,
+        string|array $class = [],
         ?string $id = null,
         bool $obrigatorio = false,
         array $placeholder = [],
-        bool $ordem = false
+        bool $ordem = false,
+        string $separador = '|'
     ) {
         $blocoId = empty($id) ? 'id_' . md5(uniqid(time())) : $id;
-        $blocoClass = empty($class) ? '' : $class;
+        if(is_string($class)) {
+            $class = !empty($class) ? [$class] : [];
+        }
+        $blocoClass = $class;
+        $blocoClass[] = 'fw_form_indice_valor';
         if ($ordem) {
-            $blocoClass .= ' fw_form_indice_valor_ordenar';
+            $blocoClass[] = 'fw_form_indice_valor_ordenar';
         }
         if ($obrigatorio) {
-            $blocoClass .= ' fw_form_input_obrigatorio';
+            $blocoClass[] = 'fw_form_input_obrigatorio';
         }
 
         $place1 = $placeholder[0] ?? 'Digite um indice';
@@ -2140,10 +2145,10 @@ if (!function_exists('formIndiceValor')) {
             ';
         }
         return '
-            <div class="fw_form_indice_valor ' . $blocoClass . '" id="' . $blocoId . '" data-name="' . $name . '">
+            <div class="' . implode(' ', $blocoClass) . '" id="' . $blocoId . '" data-name="' . $name . '">
                 <div class="bloco_input input_input bloco_separador">
                     <input class="input_geral input_separador_1" type="text" autocomplete="off" placeholder="' . $place1 . '">
-                    <span class="input_separador_2"><p>|</p></span>
+                    <span class="input_separador_2"><p>' . $separador . '</p></span>
                     <input class="input_geral input_separador_3" type="text" autocomplete="off" placeholder="' . $place2 . '">
                     <div class="borda"></div>
                     <i class="input_icone_erro"></i>
@@ -2159,6 +2164,106 @@ if (!function_exists('formIndiceValor')) {
                         <p><strong class="fw_form_indice_valor_indice"></strong></p>
                         <p class="fw_form_indice_valor_valor"></p>
                         <i class="fw_form_indice_valor_remover">' . iconeFechar(8) . '</i>
+                    </div>
+                </div>
+            </div>
+        ';
+    }
+}
+
+if (!function_exists('formCondicao')) {
+    function formCondicao(
+        string $name,
+        array $value = [],
+        string $titulo = '',
+        string|array $class = [],
+        ?string $id = null,
+        bool $obrigatorio = false,
+        array $placeholder = [],
+        bool $ordem = false
+    ) {
+        $blocoId = empty($id) ? 'id_' . md5(uniqid(time())) : $id;
+        if(is_string($class)) {
+            $class = !empty($class) ? [$class] : [];
+        }
+        $blocoClass = $class;
+        $blocoClass[] = 'fw_form_condicao';
+        if ($obrigatorio) {
+            $blocoClass[] = 'fw_form_input_obrigatorio';
+        }
+        if ($ordem) {
+            $blocoClass[] = ' fw_form_condicao_ordem';
+        }
+
+        $titulo = !empty($titulo) ? '<div class="fw_form_condicao_titulo">' . $titulo . '</div>' : '';
+
+        $place1 = $placeholder[0] ?? 'Valor 1';
+        $place2 = $placeholder[1] ?? 'Condição';
+        $place3 = $placeholder[2] ?? 'Valor 2';
+        $listaValor = '';
+        foreach ($value as $r) {
+            $valor1 = $r[0] ?? '';
+            $condicao = $r[1] ?? '';
+            $valor2 = $r[1] ?? '';
+            $listaValor .= '
+
+            ';
+        }
+        return '
+            <div class="' . implode(' ', $blocoClass) . '" id="' . $blocoId . '" data-name="' . $name . '">
+                ' . $titulo . '
+                ' . $listaValor . '
+                <div class="display_none">
+                    <div class="fw_form_condicao_grupo fw_form_condicao_grupo_padrao">
+                        <div class="fw_form_condicao_grupo_lista"></div>
+                        <div class="bloco_input input_select fw_form_condicao_and_grupo fw_form_condicao_add_id">
+                            <input class="input_select_value" type="hidden">
+                            <input autocomplete="off" class="input_geral input_select_texto " type="text" placeholder="...">
+                            <div class="borda"></div>
+                            <ul class="option">
+                                <li class="lista" data-value=""></li>
+                                <li class="lista" data-value="and">AND</li>
+                                <li class="lista" data-value="or">OR</li>
+                            </ul>
+                        </div>
+                        <i class="fw_form_condicao_remover">' . iconeFechar(8) . '</i>
+                    </div>
+                    <div class="fw_form_condicao_linha fw_form_condicao_linha_padrao">
+                        <div class="fw_form_condicao_ordem">' . iconeDrag(8) . '</div>
+                        <div class="bloco_input input_input bloco_separador">
+                            <input class="input_geral fw_form_condicao_valor" type="text" autocomplete="off" placeholder="' . $place1 . '">
+                            <div class="bloco_input input_select fw_form_condicao_add_id fw_form_condicao_tipo">
+                                <input class="input_select_value" type="hidden">
+                                <input autocomplete="off" class="input_geral input_select_texto " type="text" placeholder="'.$place2.'">
+                                <div class="borda"></div>
+                                <ul class="option">
+                                    <li class="lista" data-value="">Escolha uma condição</li>
+                                    <li class="lista" data-value="igual">Igual (===)</li>
+                                    <li class="lista" data-value="diferente">Diferente (!==)</li>
+                                    <li class="lista" data-value="maior">Maior (>)</li>
+                                    <li class="lista" data-value="menor">Menor (<)</li>
+                                    <li class="lista" data-value="maior-igual">Maior ou igual (>=)</li>
+                                    <li class="lista" data-value="menor-igual">Menor ou igual (<=)</li>
+                                    <li class="lista" data-value="chave">Contém chave (Array)</li>
+                                    <li class="lista" data-value="chave">Contém valor (Array)</li>
+                                </ul>
+                            </div>
+                            <input class="input_geral fw_form_condicao_valor" type="text" autocomplete="off" placeholder="' . $place3 . '">
+                            <div class="borda"></div>
+                            <i class="input_icone_erro"></i>
+                            <div class="bloco_input_footer"><div class="input_mensagem"></div></div>
+                        </div>
+                        <div class="bloco_input input_select fw_form_condicao_and_linha fw_form_condicao_add_id">
+                            <input class="input_select_value" type="hidden">
+                            <input autocomplete="off" class="input_geral input_select_texto " type="text" placeholder="...">
+                            <div class="borda"></div>
+                            <ul class="option">
+                                <li class="lista" data-value=""></li>
+                                <li class="lista" data-value="and">AND</li>
+                                <li class="lista" data-value="or">OR</li>
+                            </ul>
+                        </div>
+                        <i class="fw_form_condicao_remover">' . iconeFechar(8) . '</i>
                     </div>
                 </div>
             </div>

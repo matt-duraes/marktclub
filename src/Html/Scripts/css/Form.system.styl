@@ -1469,6 +1469,63 @@ body.fw_body_hidden
     .fw_form_indice_valor_lista .fw_form_indice_valor_linha p
         width: 180px
 
+.fw_form_condicao
+    width: 100%
+    flexRow()
+    flex-wrap: wrap
+    margin-top: 10px
+    .fw_form_condicao_titulo
+        width: 100%
+        textoFontSize()
+        color: #999
+        font-weight: bold
+        margin-top: 10px
+    .fw_form_condicao_grupo
+        width: 100%
+        flexRow()
+        align-items: center
+        margin-top: 10px
+    .fw_form_condicao_grupo .fw_form_condicao_grupo_lista
+        width: calc(100% - 170px)
+        flexCol()
+        border: 1px dashed #CCC
+        padding-bottom: 10px
+    .fw_form_condicao_grupo .fw_form_condicao_grupo_lista .fw_form_condicao_linha
+        width: 100%
+        flexRow()
+        align-items: center
+        margin-top: 10px
+    .fw_form_condicao_grupo .fw_form_condicao_grupo_lista .fw_form_condicao_linha .bloco_separador
+        width: calc(100% - 220px)
+        margin: 0
+    .fw_form_condicao_grupo .fw_form_condicao_grupo_lista .fw_form_condicao_linha .fw_form_condicao_tipo
+        margin: 0
+    .fw_form_condicao_grupo .fw_form_condicao_grupo_lista .fw_form_condicao_linha .fw_form_condicao_valor
+        flexGrow()
+    .fw_form_condicao_grupo .fw_form_condicao_grupo_lista .fw_form_condicao_linha .fw_form_condicao_tipo
+        width: 200px
+    .fw_form_condicao_grupo .fw_form_condicao_and_grupo
+    .fw_form_condicao_grupo .fw_form_condicao_and_linha
+        width: 100px
+        margin: 0 0 0 20px
+    .fw_form_condicao_grupo .fw_form_condicao_grupo_lista .fw_form_condicao_linha .fw_form_condicao_ordem
+        width: 30px
+        height: 30px
+        flexCenter()
+        cursor: pointer
+        margin: 0 10px
+        fill: #999
+    .fw_form_condicao_grupo .fw_form_condicao_remover
+        width: 30px
+        height: 30px
+        flexCenter()
+        fill: #FFF
+        background-color: $corDeletar
+        border-radius: 4px
+        cursor: pointer
+        margin: 0 10px
+        user-select: none
+
 // SELECT INPUT TAG
 .fw_form_select_input_tag
     flexRow()

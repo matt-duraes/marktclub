@@ -145,6 +145,15 @@ $diretorio = 'c0ec7d2f-e3e6-48ea-9159-cbbc3a540896';
                 @? formIndiceValor(name: 'api_body', placeholder: ['Indice', 'Valor'], id: 'input_api_body', class: 'display_none bloco_api_sim bloco_api_body')
                 <div class="bloco_linha"></div>
 
+                <div class="bloco_css">
+                    <div class="titulo">CSS</div>
+                    @? formIndiceValor(name: 'css', placeholder: ['Propriedade', 'Valor'], separador: '=');
+                </div>
+
+                <div class="bloco_condicao">
+                    <div class="titulo">Condição</div>
+                </div>
+
                 <div class="bloco_checkbox sim oculto" id="bloco_empresa_ativa">
                     <div class="titulo">Pode aparecer em:</div>
                     <div class="conteudo">

@@ -12,7 +12,8 @@ $Painel->coluna(callback: function () use ($Painel) {
         $Painel
             ->input(name: 'titulo', label: 'Título', placeholder: 'Digite um título')
             ->uri(name: 'url', label: 'URL', placeholder: 'Digite a url do clube')
-            ->select(name: 'status', label: 'Status', lista: (new Status())->select('Escolha um status'));
+            ->select(name: 'status', label: 'Status', lista: (new Status())->select('Escolha um status'))
+            ->condicao('condicao', titulo: 'Condições:');
     });
 });
 
