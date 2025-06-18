@@ -1,8 +1,8 @@
 <?php
 
+use App\Classes\TabelaUsuario\Tipo;
 use App\Classes\TabelaUsuario\Helper;
 use App\Classes\TabelaUsuario\Status;
-use App\Classes\TabelaUsuario\Tipo;
 
 $Painel = new PainelConfig\Filtrar('tabela_historico');
 

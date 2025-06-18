@@ -18,6 +18,7 @@ final class Filtrar
         $this->app = $app;
 
         $campo = sessao('PAINEL.campo', padrao: []);
+        $campo = is_object($campo) ? json_decode(json_encode($campo), true) : [];
         if (is_array($campo) && array_key_exists($this->app, $campo) && $campo[$this->app]) {
             $this->camposAceitos = $campo[$this->app]['filtrar'] ?? $campo[$this->app]['geral'] ?? [];
         }
@@ -318,7 +319,8 @@ final class Filtrar
         bool $footer = true,
         string $change = '',
         ?string $permissao = null,
-        ?string $tipoEquipe = null
+        ?string $tipoEquipe = null,
+        ?bool $todasSubempresa = null,
     ) {
         if (is_string($lista) && !in_array(
                 $lista,
@@ -339,7 +341,16 @@ final class Filtrar
                 ->array()['dado'] ?? [];
         } elseif (is_string($lista) && $lista == 'subempresa') {
             $lista = (new ApiHelper(token: true))
-                ->json(['titulo' => 'Escolha um cliente', 'empresa' => sessao('USUARIO.empresa')->id])
+                ->json(
+                    array_merge(
+                        ['titulo' => 'Escolha uma subempresa'],
+                        (!empty($todasSubempresa) && $todasSubempresa === true) ? ['todas' => '1'] : [
+                            'empresa' => sessao(
+                                'USUARIO.empresa'
+                            )->id
+                        ]
+                    )
+                )
                 ->get('/comercial-subempresa/select')
                 ->array()['dado'] ?? [];
         } elseif (is_string($lista) && $lista == 'usuario') {

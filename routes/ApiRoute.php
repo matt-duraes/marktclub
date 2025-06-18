@@ -336,7 +336,7 @@ Route
                 'pagina', '!quantidade', '!pesquisa', '!pagamento', '!nome', '!email', '!cpf', '!data_upload',
                 '!data_criacao_de', '!data_criacao_ate', '!matricula', '!status', '!lead', '!ordem',
                 '!origem', '!dependente', '!empresa', '!trabalho_empresa', '!trabalho_cargo', '!tipo',
-                '!endereco_estado', '!federacao', '!siape', '!subempresa',
+                '!endereco_estado', '!federacao', '!siape', '!subempresa', '!crm_estado'
             ], 'json')
             ::get('/usuario-cliente');
 
@@ -442,6 +442,47 @@ Route
                 'empresa', '!subempresa', 'usuario',
             ])
             ::post('/usuario-cliente/delete');
+    });
+
+Route
+    ::nome('usuario_cliente_codigo')
+    ::controller(App\Controllers\Api\Usuario\ClienteCodigoController::class)
+    ::middleware(TokenMiddleware::class, 'token')
+    ::grupo(function () {
+        Route
+            ::nome('buscar')
+            ::middleware(TokenMiddleware::class, 'scope', ['usuario_cliente_codigo:buscar'])
+            ::get('/usuario-cliente-codigo/{id}');
+
+        Route
+            ::nome('listar')
+            ::middleware(TokenMiddleware::class, 'scope', ['usuario_cliente_codigo:listar'])
+            ::request([
+                'pagina', '!quantidade', '!ordem', '!empresa', '!subempresa',
+                '!data_inicio', '!data_final', '!status'
+            ], 'json')
+            ::get('/usuario-cliente-codigo');
+
+        Route
+            ::nome('salvar')
+            ::middleware(TokenMiddleware::class, 'scope', ['usuario_cliente_codigo:salvar'])
+            ::request([
+                '!empresa', '!subempresa', '!codigo', '!status'
+            ])
+            ::post('/usuario-cliente-codigo');
+
+        Route
+            ::nome('atualizar')
+            ::middleware(TokenMiddleware::class, 'scope', ['usuario_cliente_codigo:atualizar'])
+            ::request([
+                '!empresa', '!subempresa', '!codigo', '!status'
+            ])
+            ::put('/usuario-cliente-codigo/{id}');
+
+        Route
+            ::nome('deletar')
+            ::middleware(TokenMiddleware::class, 'scope', ['usuario_cliente_codigo:deletar'])
+            ::delete('/usuario-cliente-codigo/{id}');
     });
 
 Route
