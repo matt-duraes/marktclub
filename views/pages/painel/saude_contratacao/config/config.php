@@ -1,7 +1,7 @@
 <?php
 
 return [
-    'titulo'     => 'Páginas',
+    'titulo'     => 'Plano contratado',
     'buscar'     => false,
     'filtrar'    => true,
     'ordem'      => true,

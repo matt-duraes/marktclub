@@ -356,7 +356,8 @@ class CurlHelper
         $this->retornoStatus = $retornoStatus;
 
         $requisicaoEnviada = [
-            'url'       => $url,
+            'link'      => $this->url,
+            'uri'       => $url,
             'body'      => $body,
             'parametro' => $parametro,
             'json'      => $json,

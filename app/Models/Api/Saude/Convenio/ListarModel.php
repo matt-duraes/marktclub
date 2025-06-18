@@ -2,22 +2,30 @@
 
 namespace App\Models\Api\Saude\Convenio;
 
-use ORM\ORM;
+use stdClass;
+use Modules\Pagina;
+use Modules\Quantidade;
 use Modules\EnderecoEstado;
 use App\Classes\Geral\Status;
-use App\Models\Api\Auth\Token\TokenHelper;
+use System\Trait\Model\PaginaTrait;
+use System\Trait\Model\QuantidadeTrait;
 
 final class ListarModel extends PadraoModel
 {
+    use PaginaTrait;
+    use QuantidadeTrait;
+
     protected string $ormTabela = TABELA_SAUDE_CONVENIO;
 
-    public array $retorno = [];
+    public array|stdClass $retorno = [];
     private array $where;
-    private array $busca;
+    private array|stdClass $busca;
 
     public function __construct(
         public EnderecoEstado $EnderecoEstado,
-        public ?string $enderecoCidade
+        public ?string $enderecoCidade,
+        public Pagina $pagina,
+        public Quantidade $quantidade,
     )
     {
         parent::__construct();
@@ -30,29 +38,39 @@ final class ListarModel extends PadraoModel
     private function montarRetorno()
     {
         $Status = new Status();
-        foreach($this->busca as $r) {
-            $this->retorno[] = [
+        $retorno = [];
+        $busca = $this->busca;
+        foreach($busca->lista as $r) {
+            $retorno[] = $this->painel ? [
                 'id' => $r->uuid,
                 'titulo' => $r->titulo,
-                'arquivo_imagem' => arquivoPrivado($r->arquivo_imagem),
-                'url' => $r->url,
+                'data_criacao' => $r->data_criacao,
                 'status' => $Status->indice($r->status)
+            ] : [
+                'id' => $r->uuid,
+                'titulo' => $r->titulo,
+                'imagem' => arquivoPrivado($r->arquivo_imagem),
+                'tipo_loja' => 'plano-saude',
+                'url' => $r->url
             ];
         }
+        $busca->lista = $retorno;
+        $this->retorno = $busca;
     }
 
     private function buscarLista()
     {
         $this->busca = $this
-            ->campo(['uuid', 'titulo', 'arquivo_imagem', 'url', 'status'])
+            ->campo(['uuid', 'titulo', 'arquivo_imagem', 'url', 'data_criacao', 'status'])
             ->where($this->where)
+            ->pagina($this->pegarPagina(), $this->pegarQuantidade())
             ->read();
     }
 
     private function montarWhere(): void
     {
         $where = [];
-        if($this->eClube()) {
+        if($this->clube) {
             $where = $this->whereClube();
         }
         if($this->EnderecoEstado->valido()) {

@@ -148,11 +148,16 @@ window.addEventListener('load', () => {
             'texto',
             'relacionado',
             'editor',
+            'loja',
+            'titulo-texto',
             'tabela',
             'lista',
         ]);
         if (naoPodeTerLista) {
             blocoNovo.remove();
+            $('.icone.mais', clone).sumir();
+            $('.icone.minimizar', clone).sumir();
+            $('.icone.maximizar', clone).sumir();
         } else if (typeof item['lista'] === 'object' && Object.keys(item['lista']).length > 0) {
             for (const [chave, itemNovo] of Object.entries(item['lista'])) {
                 montarArticle(blocoNovo, itemNovo);
@@ -786,6 +791,8 @@ window.addEventListener('load', () => {
             blocoApiStatus.aparecer();
         } else if (valor == 'editor') {
             blocoEditor.aparecer();
+        } else if (valor == 'loja') {
+            blocoApiStatus.aparecer();
         }
     };
     const limparObrigatorio = () => {

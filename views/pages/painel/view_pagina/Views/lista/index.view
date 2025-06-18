@@ -42,11 +42,11 @@ $diretorio = 'c0ec7d2f-e3e6-48ea-9159-cbbc3a540896';
                 <header>
                     <i class="drag">@iconeDrag</i>
                     <h1></h1>
+                    <span class="status"></span>
                     <i class="clonar icone">@icone("copiar", 14)</i>
                     <i class="abrir_margem icone">@icone("margem", 14)</i>
                     <i class="minimizar icone">@icone("minimizar", 14)</i>
                     <i class="maximizar icone">@icone("maximizar", 14)</i>
-                    <span class="status"></span>
                     <i class="deletar icone">@iconeDeletar(14)</i>
                     <i class="editar icone">@iconeEditar(10)</i>
                     <i class="mais icone">+</i>
@@ -140,7 +140,7 @@ $diretorio = 'c0ec7d2f-e3e6-48ea-9159-cbbc3a540896';
                 @? formSwitch(name: 'api_status', label: 'Vai usar API?', class: 'bloco_api_status display_none')
                 <div class="bloco_row bloco_api_sim">
                     @? formSelect(name: 'api_metodo', label: 'Método', placeholder: 'Método', lista: (new \App\Classes\Geral\Metodo())->select('Escolha um método'), obrigatorio: true, class: 'bloco_api_metodo')
-                    @? formUri(name: 'api_uri', label: 'URI', placeholder: 'Digite a URI')
+                    @? formUri(name: 'api_uri', label: 'URI', placeholder: 'Digite a URI', livre: true)
                 </div>
                 @? formIndiceValor(name: 'api_body', placeholder: ['Indice', 'Valor'], id: 'input_api_body', class: 'display_none bloco_api_sim bloco_api_body')
                 <div class="bloco_linha"></div>

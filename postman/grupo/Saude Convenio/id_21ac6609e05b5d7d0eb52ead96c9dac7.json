@@ -1,0 +1,1 @@
+{"id":"id_21ac6609e05b5d7d0eb52ead96c9dac7","token":"painel","metodo":"PUT","nome":"\/saude-convenio\/:id","uri":"{{LINK}}\/saude-convenio\/$ID_SAUDE_CONVENIO","parametro":[],"body":[["texto",true,"titulo","T\u00edtulo atualizado",""]],"header":[],"variavel":[],"json":[],"documentacao":{"status":false,"descricao":"","requisicao":"","resposta":"","scope":""}}

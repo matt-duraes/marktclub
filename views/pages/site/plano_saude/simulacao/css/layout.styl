@@ -10,55 +10,42 @@
 
 #bloco_simulacao_saude
     maxWidth()
+    flexCol()
+    align-items: center
     .conteudo
-        padding: 20px
-        position: relative
-        padding-top: 80px
-        flexCenter()
-#bloco_simulacao_saude .conteudo
-    header
+        blocoShadow()
+    .conteudo header
         width: 100%
-        height: 60px
-        position: absolute
-        top: 0
-        padding-top: 20px
-        overflow: hidden
-    header h1
-        titulo()
-        text-align: center
-    .botao_selecao
-        width: 100%
-        justify-content: center
-        flexRow()
-        flex-wrap: wrap
-        padding: 30px 0
-    .botao_selecao .com_botao_padrao
-        margin: 10px
-    .conteudo_menor
-        width: 100%
-        max-width: 500px
+        margin-bottom: 20px
+    .conteudo header h1
+        tituloFontSize()
+        color: $corClube
+        margin-bottom: 5px
+    .conteudo h2
+        textoFontSize()
+        font-weight: bold
+    .conteudo h3
+        textoPequeno()
+        font-weight: bold
+    .conteudo p
+        texto()
     .bloco_botao
         width: 100%
-        flexRow()
-        justify-content: space-between
-        margin-top: 40px
-    .bloco_botao .cinza
-        background-color: #DDD
-
-@media screen and (max-width: 600px)
-    #bloco_simulacao_saude .conteudo .botao_selecao
         flexCol()
-        .botao
-            margin: 10px 0
+        align-items: center
+
 #bloco_simulacao_saude .bloco_simulacao
+    max-width: 500px
     h2
-        subTitulo()
-        margin-top: 20px
-    p
-        texto()
-        &.pequeno
-            font-size: 1.2rem
-            line-height: 1.5em
+        margin-bottom: 10px
+    .bloco_dado
+        width: 100%
+        flexCol()
+        padding-left: 10px
+        border-left: 3px solid $corClube
+        margin-bottom: 20px
+    .bloco_dado.titular .bloco_input
+        margin-bottom: 0
     .botao
         textoFontSize()
         border: 2px dashed $corClube
@@ -66,15 +53,26 @@
         padding: 10px 20px
         text-align: center
         color: $corClube
-        margin-top: 20px
+        margin-top: 10px
         cursor: pointer
+    .bloco_dependente
+        width: 100%
+        border: 1px dashed #CCC
+        margin-top: 10px
+        border-radius: 5px
+        overflow: hidden
+    .bloco_dependente .zero
+        texto()
+        color: #999
+        text-align: center
+        padding: 20px
     .linha_dependente
         flexRow()
-        border: 1px solid #CCC
-        border-radius: 5px
-        padding: 10px 20px
-        margin-top: 20px
+        padding: 0 10px
         align-items: center
+        border-bottom: 1px dashed #CCC
+        &:last-child
+            border-bottom: none
     .linha_dependente .bloco_input
         margin: 10px 0
     .linha_dependente .remover
@@ -97,51 +95,106 @@
             margin-top: 25px
 
 #bloco_simulacao_saude .bloco_resultado
-    .bloco_valor
+    width: 100%
+    flexCol()
+    .bloco_escolher
         width: 100%
-        flexCol()
-    .resultado
-        width: 100%
-        flexCol()
-        margin-top: 15px
-        &:first-child
-            margin-top: 30px
-        &.total
-            margin: 30px 0
-            padding-top: 30px
-            border-top: 1px solid #CCC
-    .resultado h2
-        texto()
-        width: 100%
-        color: #000
-    .resultado .dado
-        width: 100%
+        overflow-y: hidden
+        overflow-x: auto
+        margin-bottom: 15px
+        position: relative
+    .plano_lista
         flexRow()
-        align-items: center
-    .resultado .dado p
-        texto()
-    .resultado .dado p.valor
-        background-color: $corVermelho
-        color: #FFF
-        padding: 5px
-        border-radius: 5px
-    .resultado .dado .linha
-        width: 100%
-        border-top: 2px dashed #DDD
-        flexGrow()
-        margin: 0 10px
-    .resultado.total .dado .data
-        font-weight: bold
-    .atencao h2
-        color: $corClube
         margin-bottom: 5px
-
-.titulo_resultado_simulacao
-    color: $corPretoBranco !important
-
-@media screen and ( max-width: 425px )
-    #bloco_simulacao_saude .conteudo
-        justify-content: flex-start
-        header
-            overflow: initial
-
+    .plano_lista .plano
+        max-width: 350px
+        border: 1px solid #CCC
+        flexCol()
+        flex-basis: 0%
+        flex-grow: 1
+        margin-right: 20px
+        margin-top: 30px
+        border-radius: 4px
+        position: relative
+        padding: 10px
+        &.melhor
+            border-color: $corClube
+            border-radius: 0 0 4px 4px
+        &:last-child
+            margin-right: 0
+    .plano_lista .plano.melhor::before
+        width: calc(100% + 2px)
+        height: 30px
+        line-height: 30px
+        position: absolute
+        top: -30px
+        left: -1px
+        content: "melhor escolha"
+        background-color: $corClube
+        border-radius: 10px 10px 0 0
+        text-align: center
+        textoFontSize()
+        color: #FFF
+    .plano_lista .plano h3
+        margin-top: 20px
+    .plano_lista .plano .dinheiro
+        position: relative
+        flexRow()
+    .plano_lista .plano .dinheiro .sifrao
+        color: #666
+        display: flex
+        padding: 4px 5px 0 0
+    .plano_lista .plano .dinheiro .valor
+        font-size: 4rem
+        font-weight: bold
+        color: $corClube
+    .plano_lista .plano .dinheiro .virgula
+        color: #999
+        font-size: 3rem
+        padding-top: 7px
+    .plano_lista .plano .dinheiro .centavo
+        textoFontSize()
+        color: $corClube
+        display: flex
+        align-items: flex-end
+        padding: 0 0 3px 3px
+    .plano_lista .plano .botao
+        margin: 20px 0 15px
+    .plano_lista .plano .botao .com_botao_texto
+        width: 100%
+        flexCenter()
+    .plano_lista .plano table
+        width: 100%
+    .plano_lista .plano table.borda tr
+        border-bottom: 1px solid #CCC
+    .plano_lista .plano table.borda tr:last-child
+        border-bottom: none
+    .plano_lista .plano table tr td
+        pequenoFontSize()
+        padding: 5px
+        line-height: 1.2em
+        color: #666
+    .plano_lista .plano table tr td span
+        pequenoFontSize()
+        background-color: #FFF
+        z-index: 2
+        position: relative
+        padding-right: 3px
+    .plano_lista .plano table.data tr td:first-child
+        width: 80px
+        padding-left: 0
+        position: relative
+        &::after
+            content: ""
+            width: 100%
+            position: absolute
+            top: 50%
+            left: 0
+            border-top: 1px dashed #CCC
+            z-index: 1
+    .plano_lista .plano table.borda tr td:first-child
+        text-align: right
+    .plano_lista .plano table tr td:last-child
+        font-weight: bold
+    .plano_lista .plano table.detalhe
+        margin-bottom: 10px
