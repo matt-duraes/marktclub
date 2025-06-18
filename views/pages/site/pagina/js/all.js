@@ -20,7 +20,7 @@ class ComponenteBuscar {
         this.retorno = {};
     }
 
-    async add(hash, tipo, dado) {
+    add(hash, tipo, dado) {
         const id = 'id-' + this.id;
         this.body.append(
             'hash[]',
@@ -118,6 +118,11 @@ class ComponenteBuscar {
 
     adicionarLoja(lista, dado) {
         dado = this.tratarItemDado(dado);
+        const fake = $$('.article_fake', dado.bloco);
+        for (const remover of fake) {
+            remover.remove();
+        }
+
         for (const item of lista) {
             if (!'tipo_loja' in item) {
                 continue;
@@ -133,12 +138,12 @@ class ComponenteBuscar {
                 $('.item_link', clone).setAttribute('href', item.link);
             }
             if (!vazio(item.imagem)) {
-                $('.item_logo', clone).html(`<img src="${item.imagem}">`);
+                $('.item_logo', clone).html(`<img src="${item.imagem}" alt="">`);
             }
             if (!vazio(item.desconto)) {
-                $('.item_desconto', clone).html(tipo == 'cashback' ? item.desconto + '%' : item.desconto);
+                $('.item_desconto', clone).html(tipo === 'cashback' ? item.desconto + '%' : item.desconto);
             }
-            if (tipo == 'cashback') {
+            if (tipo === 'cashback') {
                 $('.item_pontos', clone).text('Revertido em pontos SILIUM');
                 $('.item_volta', clone).text('Receba de volta');
             }
@@ -148,16 +153,20 @@ class ComponenteBuscar {
             }
 
             // Favorito
-            if (['loja'].includes(tipo)) {
+            if (!['plano-saude', 'cashback'].includes(tipo)) {
                 const favorito = $('.botao_favorito', clone);
                 favorito.classe('display_none', false);
-                if (item.favorito == 'sim') {
+                if (item.favorito === 'sim') {
                     favorito.classe('favorito_marcado', true);
                 }
             }
 
             dado.bloco.final(clone);
         }
+
+        dado.bloco.final(
+            `<div class="article_fake"></div><div class="article_fake"></div><div class="article_fake"></div>`
+        );
     }
 
     adicionarTabela(lista, dado) {

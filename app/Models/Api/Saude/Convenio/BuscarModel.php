@@ -2,10 +2,10 @@
 
 namespace App\Models\Api\Saude\Convenio;
 
+use stdClass;
+use Helpers\OrmHelper;
 use App\Classes\Geral\Status;
 use App\Models\Api\Auth\Token\TokenHelper;
-use Helpers\OrmHelper;
-use stdClass;
 
 final class BuscarModel extends AbstractOrm
 {
@@ -30,24 +30,17 @@ final class BuscarModel extends AbstractOrm
     private function montarRetorno(): void
     {
         $busca = $this->busca;
-        $this->retorno = $this->clube
-            ? [
-                'id'        => $busca->uuid,
-                'sequencia' => $busca->sequencia,
-                'item'      => $busca->item,
-                'simulacao' => $busca->simulacao,
-            ]
-            : [
-                'id'              => $busca->uuid,
-                'titulo'          => $busca->titulo,
-                'arquivo_imagem'  => $busca->arquivo_imagem,
-                'url'             => $busca->url,
-                'status'          => (new Status())->indice($busca->status),
-                'empresa'         => (new OrmHelper(TABELA_COMERCIAL_EMPRESA))->mudarListaIdParaUuid(
-                    jsonDecode($busca->id_admin_empresa, true, true)
-                ),
-                'endereco_estado' => jsonDecode($busca->endereco_estado, true, true),
-            ];
+        $this->retorno = [
+            'id'              => $busca->uuid,
+            'titulo'          => $busca->titulo,
+            'arquivo_imagem'  => $busca->arquivo_imagem,
+            'url'             => $busca->url,
+            'status'          => (new Status())->indice($busca->status),
+            'empresa'         => (new OrmHelper(TABELA_COMERCIAL_EMPRESA))->mudarListaIdParaUuid(
+                jsonDecode($busca->id_admin_empresa, true, true)
+            ),
+            'endereco_estado' => jsonDecode($busca->endereco_estado, true, true),
+        ];
     }
 
     private function buscarConvenio(string $id): void
@@ -56,8 +49,7 @@ final class BuscarModel extends AbstractOrm
             ->where($this->montarWhere($id))
             ->campo(
                 [
-                    'uuid', 'sequencia', 'item', 'simulacao', 'titulo', 'arquivo_imagem', 'url', 'status',
-                    'id_admin_empresa', 'endereco_estado',
+                    'uuid', 'titulo', 'arquivo_imagem', 'url', 'status', 'id_admin_empresa', 'endereco_estado',
                 ]
             )
             ->primeiro();

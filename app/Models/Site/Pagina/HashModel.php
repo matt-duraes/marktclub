@@ -2,53 +2,58 @@
 
 namespace App\Models\Site\Pagina;
 
+use Throwable;
+
 final class HashModel
 {
     public array $retorno = [];
+
     public function __construct(
-        private array $hash,
+        array $hash,
         ?string $replace
-    )
-    {
+    ) {
         $replace = $this->converterReplace($replace);
         $this->rodarRequisicao($hash, $replace);
     }
 
-    private function rodarRequisicao(array $hash, array $replace)
+    private function rodarRequisicao(array $hash, array $replace): void
     {
-        foreach($hash as $item) {
+        foreach ($hash as $item) {
             $dado = jsonDecode($item, true, true);
             $hash = base64Decode($dado['hash'], url: true);
 
-            // try {
+            try {
                 $Api = new ApiModel(
                     dado: $hash,
                     tipo: $dado['tipo'],
                     replace: $replace
                 );
                 $retorno = $Api->retorno;
-            // } catch (\Throwable $th) {
-            //     $retorno = [];
-            // }
+                $pagina = $Api->pagina;
+            } catch (Throwable) {
+                $retorno = [];
+                $pagina = 0;
+            }
 
             $this->retorno[] = [
-                'id' => $dado['id'],
-                'dado' => $retorno
+                'id'     => $dado['id'],
+                'dado'   => $retorno,
+                'pagina' => $pagina,
             ];
         }
     }
 
-    private function converterReplace(?string $replace)
+    private function converterReplace(?string $replace): array
     {
-        if(empty($replace)) {
+        if (empty($replace)) {
             return [];
         }
         $replace = base64Decode($replace, url: true);
-        if(!is_array($replace)) {
+        if (!is_array($replace)) {
             return [];
         }
         $retorno = [];
-        foreach($replace as $ind => $val) {
+        foreach ($replace as $ind => $val) {
             $retorno['{{' . strCaixaAlta($ind) . '}}'] = $val;
         }
         return $retorno;

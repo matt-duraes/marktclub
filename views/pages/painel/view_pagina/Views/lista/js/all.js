@@ -156,7 +156,6 @@ window.addEventListener('load', () => {
         if (naoPodeTerLista) {
             blocoNovo.remove();
             $('.icone.mais', clone).sumir();
-            $('.icone.clonar', clone).sumir();
             $('.icone.minimizar', clone).sumir();
             $('.icone.maximizar', clone).sumir();
         } else if (typeof item['lista'] === 'object' && Object.keys(item['lista']).length > 0) {

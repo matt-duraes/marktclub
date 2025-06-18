@@ -3,10 +3,10 @@
 namespace PainelConfig;
 
 use Closure;
+use Modules\Genero;
 use Helpers\ApiHelper;
 use Helpers\ListaHelper;
 use Modules\EstadoCivil;
-use Modules\Genero;
 
 final class Add
 {
@@ -514,7 +514,7 @@ final class Add
      * @param string|null $acao
      * @param string|null $permissao
      */
-    public function titulo(string $titulo, string $campo = null, string $acao = null, string $permissao = null)
+    public function titulo(string $titulo, ?string $campo = null, ?string $acao = null, ?string $permissao = null)
     {
         $this->html('<h4>' . $titulo . '</h4>', $campo, $acao, $permissao);
         return $this;
@@ -567,7 +567,8 @@ final class Add
         null|int|array $maximo = null,
         string $formatar = '',
         ?string $acao = null,
-        ?string $permissao = null
+        ?string $permissao = null,
+        bool $livre = false
     ) {
         return $this->adicionarNovoInput([
             'funcao'      => 'uri',
@@ -589,7 +590,8 @@ final class Add
             'separador'   => $separador,
             'maximo'      => $maximo,
             'formatar'    => $formatar,
-            'permissao'   => $permissao
+            'permissao'   => $permissao,
+            'livre' => $livre
         ], $acao);
     }
 

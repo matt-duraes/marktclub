@@ -1,13 +1,15 @@
 {!!$View->css()!!}
 <div {!!$View->class()!!} data-hash="{!!$View->api()!!}">
-// LOJA
+
 </div>
 
 @ if(!defined('VIEW_PARCEIRO_LOJA')):
 @php define('VIEW_PARCEIRO_LOJA', true);
 <div class="display_none">
     <article class="parceiro padrao_esqueleto">
-        <figure class="logo item_logo"><div class="esqueleto"></div></figure>
+        <figure class="logo item_logo">
+            <div class="esqueleto"></div>
+        </figure>
         <header>
             <h1 class="item_titulo esqueleto"></h1>
         </header>
@@ -21,7 +23,7 @@
     </article>
 
     <article class="parceiro padrao_loja">
-        <a href="" class="item_link"></a>
+        <a class="item_link" href=""></a>
         <figure class="logo item_logo"></figure>
         <header>
             <h1 class="item_titulo"></h1>

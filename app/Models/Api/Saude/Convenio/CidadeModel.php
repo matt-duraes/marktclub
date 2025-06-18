@@ -2,6 +2,7 @@
 
 namespace App\Models\Api\Saude\Convenio;
 
+use stdClass;
 use Helpers\ListaHelper;
 use Modules\EnderecoEstado;
 
@@ -9,7 +10,7 @@ final class CidadeModel extends PadraoModel
 {
     protected string $ormTabela = TABELA_SAUDE_CONVENIO;
 
-    public array $retorno = [];
+    public array|stdClass $retorno = [];
     private array $where;
     private array $busca;
     private bool $outra = false;

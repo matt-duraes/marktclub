@@ -1,11 +1,11 @@
 <?php
 
+use Route\Route;
 use App\Classes\Parceiro\Externo\Helper;
-use App\Middlewares\Api\MarktClubMiddleware;
 use App\Middlewares\Api\TokenMiddleware;
+use App\Middlewares\Api\MarktClubMiddleware;
 use App\Middlewares\Api\TokenProvMiddleware;
 use App\Middlewares\DrogariaAraujoMiddleware;
-use Route\Route;
 
 Route::noIndex();
 
@@ -2463,14 +2463,15 @@ Route
             ::nome('simular')
             ::middleware(TokenMiddleware::class, 'scope', ['saude_simulacao:simular'])
             ::request([
-                'convenio', 'simulacao', 'titular', 'dependente',
+                'plano', 'titular', 'dependente',
             ])
-            ::get('/saude-simulacao/simular');
+            ::post('/saude-simulacao/simular');
+
         Route
             ::nome('salvar')
             ::middleware(TokenMiddleware::class, 'scope', ['saude_simulacao:salvar'])
             ::request([
-                'convenio', 'simulacao', 'titular', 'dependente',
+                'plano', 'titular', 'dependente',
             ])
             ::post('/saude-simulacao');
     });

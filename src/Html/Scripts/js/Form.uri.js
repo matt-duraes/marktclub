@@ -15,7 +15,7 @@ const fwFormUriLimparString = (input, livre, validar) => {
     }
 
     if (livre) {
-        valor = valor.replace(/[^a-zA-Z0-9\-._~!$&'()*+,;=/?%:@]/g, '');
+        valor = valor.replace(/[^a-zA-Z0-9\-.\{\}_~!$&'()*+,;=/?%:@]/g, '');
     } else {
         valor = valor.replace(/ |_/g, '-');
         valor = valor.replace(/-+/g, '-');

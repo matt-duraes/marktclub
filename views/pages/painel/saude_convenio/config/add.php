@@ -1,8 +1,8 @@
 <?php
 
-use App\Classes\Geral\Status;
 use Helpers\ApiHelper;
 use Modules\EnderecoEstado;
+use App\Classes\Geral\Status;
 
 $empresa = (new ApiHelper(token: true))->get('/comercial-empresa/select')->array()['dado'] ?? [];
 
@@ -24,7 +24,7 @@ $Painel->coluna(callback: function () use ($Painel) {
                 obrigatorio: true,
                 contador: 200
             )
-            ->uri(name: 'url', label: 'URI do plano', placeholder: 'URI do plano')
+            ->uri(name: 'url', label: 'URI do plano', placeholder: 'URI do plano', livre: true)
             ->select(
                 name: 'status',
                 lista: (new Status())->select('Escolha um estado'),

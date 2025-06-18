@@ -2,13 +2,14 @@
 
 namespace App\Models\Api\Saude\Convenio;
 
+use stdClass;
 use Helpers\ListaHelper;
 
 final class EstadoModel extends PadraoModel
 {
     protected string $ormTabela = TABELA_SAUDE_CONVENIO;
 
-    public array $retorno = [];
+    public array|stdClass $retorno = [];
     private array $where;
     private array $busca;
 

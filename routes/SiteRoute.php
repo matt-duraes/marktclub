@@ -634,11 +634,11 @@ Route
             ::post('/saude/escolher-cidade');
         Route
             ::nome('simulacao')
-            ::view('/saude/plano-simulacao/{uri}');
+            ::view('/saude/simulacao/{uri}');
         Route
             ::nome('simulacao')
-            ::request(['!operadora', '!titular', '!regiao', '!plano', '!acomodacao', '!dependentes'])
-            ::post('/saude/realizar-simulacao');
+            ::request(['titular', 'plano', '!dependente'])
+            ::post('/saude/simulacao');
         Route
             ::nome('contratar')
             ::view('/saude/contratar/{simulacao}');
