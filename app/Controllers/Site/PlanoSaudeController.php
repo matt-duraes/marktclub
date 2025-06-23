@@ -2,132 +2,32 @@
 
 namespace App\Controllers\Site;
 
+use App\Helpers\ClubeApiHelper;
+use App\Models\Site\BannerModel;
+use App\Models\Site\Saude\endereco\CidadeModel;
+use App\Models\Site\Saude\endereco\EstadoModel;
+use App\Models\Site\Saude\simulacao\BuscarModel;
+use Controller\Controller;
 use Erro\Excecao;
 use Http\Request;
 use Http\Response;
-use Controller\Controller;
-use App\Helpers\ClubeApiHelper;
-use App\Models\Site\BannerModel;
-use App\Classes\Saude\Cidade\Lista;
-use App\Models\Site\Saude\OperadoraModel;
-use App\Models\Site\Saude\SimulacaoViewModel;
-use App\Models\Site\Saude\FazerSimulacaoModel;
+use Modules\Data;
+use Modules\EnderecoEstado;
 
 final class PlanoSaudeController extends Controller
 {
-    /**
-     * @return Response
-     * @throws Excecao
-     */
-    public function index(Request $request): Response
-    {
-        $Operadora = new OperadoraModel();
-        if ($Operadora->precisaEscolher($request->estado)) {
-            return new Response(url: route('planosaude.escolherEstado'));
-        }
-        $lista = $Operadora->listarDados($request->estado, $request->cidade);
-
-        if (empty($lista->lista)) {
-            mensagemStatus(404);
-        } elseif (count($lista->lista) == 1) {
-            return new Response(url: $lista->lista[0]->link);
-        }
-
-        return view('plano_saude.index', [
-            'menu'  => 'saude',
-            'lista' => $lista,
-        ]);
-    }
-
     public function escolherEstado(): Response
     {
         return view('plano_saude.escolherEstado', [
-            'estado' => (new Lista())->pegarEstado(),
+            'estado' => (new EstadoModel())->retorno,
         ]);
     }
 
     public function postEscolherCidade(Request $request): Response
     {
         return mensagemSucesso([
-            'cidade' => (new Lista())->pegarCidade($request->estado),
+            'cidade' => (new CidadeModel(new EnderecoEstado($request->estado)))->retorno,
         ], status: 201);
-    }
-
-    /**
-     * @return Response
-     * @throws Excecao
-     */
-    public function unimedJundiai(): Response
-    {
-        return view('plano_saude.unimedJundiai', [
-            'menu'  => 'saude',
-            'lista' => (new OperadoraModel())->listarDados(),
-        ]);
-    }
-
-    /**
-     * @return Response
-     * @throws Excecao
-     */
-    public function unimedflorianopolis(): Response
-    {
-        return view('plano_saude.unimedflorianopolis', [
-            'menu' => 'saude',
-        ]);
-    }
-
-    /**
-     * @return Response
-     * @throws Excecao
-     */
-    public function tabela(): Response
-    {
-        return view('plano_saude.geral.modal');
-    }
-
-    /**
-     * @return Response
-     * @throws Excecao
-     */
-    public function centralnacional(): Response
-    {
-        return view('plano_saude.centralunimed', [
-            'menu' => 'saude',
-        ]);
-    }
-
-    /**
-     * @return Response
-     * @throws Excecao
-     */
-    public function amil(): Response
-    {
-        return view('plano_saude.amil', [
-            'menu' => 'saude',
-        ]);
-    }
-
-    /**
-     * @param Request $request
-     *
-     * @return Response
-     * @throws Excecao
-     */
-    public function precoAmil(Request $request): Response
-    {
-        $views = [
-            'rio_de_janeiro'   => 'plano_saude.geral.modalrio',
-            'sao_paulo'        => 'plano_saude.geral.modalsp',
-            'distrito_federal' => 'plano_saude.geral.modaldf',
-        ];
-
-        if (isset($views[$request->local])) {
-            return view($views[$request->local]);
-        }
-
-        return view('plano_saude.index', [
-            'menu' => 'saude',
-        ]);
     }
 
     /**
@@ -144,26 +44,19 @@ final class PlanoSaudeController extends Controller
     }
 
     /**
-     * @return Response
-     * @throws Excecao
-     */
-    public function unimedSeguro(): Response
-    {
-        return view('plano_saude.unimedSeguro', [
-            'menu' => 'saude',
-        ]);
-    }
-
-    /**
      * @param Request $request
      *
      * @return Response
      * @throws Excecao
      */
-    public function postRealizarSimulacao(Request $request): Response
+    public function postSimulacao(Request $request): Response
     {
-        $Simulacao = new FazerSimulacaoModel($request);
-        return mensagemSucesso($Simulacao->simulacao, 201);
+        $Simular = new BuscarModel(
+            plano: $request->plano,
+            titular: new Data($request->titular),
+            dependente: jsonDecode($request->dependente, true, true)
+        );
+        return mensagemSucesso($Simular->retorno);
     }
 
     /**
@@ -172,17 +65,11 @@ final class PlanoSaudeController extends Controller
      * @return Response
      * @throws Excecao
      */
-    public function simulacao($url = null): Response
+    public function simulacao($uri = null): Response
     {
-        $operadora = ($url == 'unimed-vitoria') ? 'unimed' : $url;
-        if (in_array($operadora, ['cnu-florianopolis', 'unimed-seguros', 'unimed-jundiai', 'unimed-natal'])) {
-            $operadora = str_replace('-', '_', $url);
-        }
-
         return view('plano_saude.simulacao', [
-            'menu'      => 'saude',
-            'operadora' => $operadora,
-            'Simulacao' => new SimulacaoViewModel($operadora),
+            'menu'  => 'saude',
+            'plano' => $uri
         ]);
     }
 

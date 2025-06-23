@@ -14,7 +14,7 @@ final class BuscarModel extends ClubeApiHelper
     private stdClass $busca;
 
     public function __construct(
-        private string $url
+        private string $uri
     ) {
         parent::__construct();
         $this->busca = (object)[];
@@ -27,14 +27,14 @@ final class BuscarModel extends ClubeApiHelper
 
     private function buscarPagina()
     {
-        $sessao = 'PAGINA_' . strCaixaAlta(str_replace('/', '_', $this->url));
+        $sessao = 'PAGINA_' . strCaixaAlta(str_replace('/', '_', $this->uri));
         if (sessaoExiste($sessao) && eProducao()) {
             $this->busca = sessao($sessao);
             return;
         }
         $busca = $this
             ->validar(status: 404)
-            ->get('/view-pagina/' . $this->url)
+            ->get('/view-pagina/' . $this->uri)
             ->object()->dado;
 
         $busca->html = $this->montarRetorno($busca->html);

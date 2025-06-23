@@ -2,62 +2,77 @@
 
 namespace App\Models\Api\Saude\Convenio;
 
-use ORM\ORM;
 use stdClass;
+use Helpers\OrmHelper;
+use App\Classes\Geral\Status;
+use App\Models\Api\Auth\Token\TokenHelper;
 
 final class BuscarModel extends AbstractOrm
 {
-    private stdClass $busca;
-    public array $retorno = [];
+    public array        $retorno = [];
+    private stdClass    $busca;
+    private bool        $clube;
+    private TokenHelper $TokenHelper;
 
     public function __construct(
         string $id
-    )
-    {
+    ) {
         parent::__construct();
-        if(empty($id)) {
+        if (empty($id)) {
             mensagemStatus(404);
         }
+        $this->TokenHelper = new TokenHelper();
+        $this->clube = $this->TokenHelper->eClube();
         $this->buscarConvenio($id);
         $this->montarRetorno();
     }
 
-    private function montarRetorno()
+    private function montarRetorno(): void
     {
         $busca = $this->busca;
         $this->retorno = [
-            'id' => $busca->uuid,
-            'sequencia' => $busca->sequencia,
-            'item' => $busca->item,
-            'simulacao' => $busca->simulacao
+            'id'              => $busca->uuid,
+            'titulo'          => $busca->titulo,
+            'arquivo_imagem'  => $busca->arquivo_imagem,
+            'url'             => $busca->url,
+            'status'          => (new Status())->indice($busca->status),
+            'empresa'         => (new OrmHelper(TABELA_COMERCIAL_EMPRESA))->mudarListaIdParaUuid(
+                jsonDecode($busca->id_admin_empresa, true, true)
+            ),
+            'endereco_estado' => jsonDecode($busca->endereco_estado, true, true),
         ];
     }
 
-    private function buscarConvenio(string $id)
+    private function buscarConvenio(string $id): void
     {
         $dado = $this
             ->where($this->montarWhere($id))
-            ->campo(['uuid', 'sequencia', 'item', 'simulacao'])
+            ->campo(
+                [
+                    'uuid', 'titulo', 'arquivo_imagem', 'url', 'status', 'id_admin_empresa', 'endereco_estado',
+                ]
+            )
             ->primeiro();
 
-        if(!validarIndiceExiste($dado, 'uuid')) {
+        if (!validarIndiceExiste($dado, 'uuid')) {
             mensagemStatus(404, localhost: 'Não foi encontrado convênio pelo ID informado.');
-            return;
         }
 
         $this->busca = $dado;
     }
 
-    private function montarWhere(string $id) {
-        if(validarUuid($id, false)) {
-            return [
+    private function montarWhere(string $id): array
+    {
+        $where = [
+            [validarUuid($id, false) ? 'uuid' : 'url', $id],
+        ];
+
+        if ($this->clube) {
+            $where[] = [
                 ['status', 1],
-                ['uuid', $id]
+                ['id_admin_empresa', 'json', $this->TokenHelper->pegarEmpresa()],
             ];
         }
-        return [
-            ['status', 1],
-            ['url', $id]
-        ];
+        return $where;
     }
 }

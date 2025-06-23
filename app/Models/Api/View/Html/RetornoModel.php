@@ -126,13 +126,59 @@ abstract class RetornoModel extends ORM
     {
         $retorno = [];
         $remover = ['titulo_interno', 'minimizado'];
+        $obrigatorio = $this->pegarIndiceObrigatorio($array['tipo'] ?? '');
         foreach($array as $ind => $val) {
             if(empty($val) || (!$painel && in_array($ind, $remover))) {
                 continue;
             }
             $retorno[$ind] = $val;
         }
+        foreach($obrigatorio as $ind => $val) {
+            if(!array_key_exists($ind, $retorno)) {
+                $retorno[$ind] = $val;
+            }
+        }
         return $retorno;
+    }
+
+    private function pegarIndiceObrigatorio(string $tipo): array
+    {
+        if(empty($tipo)) {
+            return [
+                'lista' => []
+            ];
+        }
+        $api = [
+            'api_status' => 'nao',
+            'api_metodo' => '',
+            'api_body' => [],
+            'api_uri' => ''
+        ];
+        $obrigatorio = [
+            'lista' => [
+                'lista_tipo' => 'bola',
+                'lista_valor' => []
+            ],
+            'titulo-texto' => [
+                'titulo' => ''
+            ],
+            'imagem' => [
+                'imagem_altura_desktop' => '',
+                'imagem_altura_mobile' => '',
+                'imagem_arquivo' => ''
+            ],
+            'editor' => [
+                'editor' => ''
+            ],
+            'banner' => array_merge([
+                'id' => '',
+            ], $api),
+            'relacionado' => [
+                'titulo' => ''
+            ]
+        ][$tipo] ?? [];
+        $obrigatorio['lista'] = [];
+        return $obrigatorio;
     }
 
     private function converterIdEmpresa($empresa)

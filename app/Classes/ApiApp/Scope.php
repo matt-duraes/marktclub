@@ -210,6 +210,9 @@ final class Scope
         'saude_contratacao:listar', 'saude_contratacao:buscar', 'saude_contratacao:status',
         'saude_contratacao:atualizar',
 
+        'saude_convenio:listar', 'saude_convenio:buscar', 'saude_convenio:salvar', 'saude_convenio:atualizar',
+        'saude_convenio:deletar',
+
         'silium_deposito:atualizar', 'silium_deposito:buscar', 'silium_deposito:deletar',
         'silium_deposito:listar', 'silium_deposito:salvar', 'silium_deposito:status',
 

@@ -770,6 +770,39 @@ return [
         'id'               => '++',
         'id_admin_empresa' => 1,
         'tipo'             => 1,
+        'titulo'           => 'Saúde',
+        'ordem'            => '++',
+        'status'           => 1,
+        'permissao'        => '["saude_contratacao_index", "saude_convenio_index"]'
+    ],
+    [
+        'id'               => '++',
+        'id_admin_empresa' => 1,
+        'tipo'             => 3,
+        'titulo'           => 'Plano de saúde',
+        'url'              => '/app/saude-convenio',
+        'icone'            => '<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 30 30" xml:space="preserve"><path d="M11.7,21.5v-4.9h6.5v4.9h2.5V8.5H9.3v13.1H11.7z M13.4,21.5h3.3v-3.3h-3.3V21.5z M22.4,21.5H24v1.6H6v-1.6h1.6V7.6c0-0.5,0.4-0.8,0.8-0.8h13.1c0.5,0,0.8,0.4,0.8,0.8V21.5z M14.2,11.7v-1.6h1.6v1.6h1.6v1.6h-1.6V15h-1.6v-1.6h-1.6v-1.6H14.2z"></path></svg>',
+        'ordem'            => '++',
+        'menu'             => ['saude-convenio'],
+        'status'           => 1,
+        'permissao'        => '["solicitacao_loja_index"]'
+    ],
+    [
+        'id'               => '++',
+        'id_admin_empresa' => 1,
+        'tipo'             => 3,
+        'titulo'           => 'Plano contratado',
+        'url'              => '/app/saude-contratacao',
+        'icone'            => '<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 30 30" xml:space="preserve"><path d="M14.9,6.7c0.8-0.6,2-0.6,2.8,0L21.3,9h1.5c0.5,0,0.9,0.4,0.9,0.9v7.7c0,0.5-0.4,0.9-0.9,0.9h-1.3c0.1,0.8-0.3,1.6-1.1,2.1l-4.4,2.6c-0.6,0.3-1.2,0.3-1.8,0c-0.6,0.5-1.5,0.6-2.2,0.1l-4.4-3.5c-0.7-0.5-0.8-1.4-0.5-2.1c-0.4-0.3-0.7-0.8-0.7-1.4V9.8C6.4,9.4,6.8,9,7.3,9h4.3L14.9,6.7z M8.3,16.4l0.6-0.5c1.1-0.9,2.7-0.8,3.6,0.2l2.3,2.6c0.7,0.8,0.9,2,0.3,3l4.3-2.6c0.2-0.1,0.3-0.4,0.2-0.7l-3.8-5.3c-0.2-0.3-0.6-0.4-0.9-0.3l-2.1,0.6c-0.9,0.3-1.9,0-2.6-0.6L10,12.5c-0.5-0.5-0.6-1.2-0.4-1.8H8.1v5.6L8.3,16.4z M16.8,8.2c-0.3-0.2-0.7-0.2-0.9,0l-4.6,3.1l0.3,0.3c0.2,0.2,0.6,0.3,0.9,0.2l2.1-0.6c1.1-0.3,2.2,0.1,2.8,1l3.3,4.7h1.3v-6h-0.6c-0.3,0-0.6-0.1-0.9-0.3L16.8,8.2z M10,17.2l-1.4,1.2l4.4,3.5l0.6-1.1c0.2-0.3,0.1-0.7-0.1-1l-2.3-2.6C10.9,16.9,10.4,16.9,10,17.2z"></path></svg>',
+        'ordem'            => '++',
+        'menu'             => ['saude-contratacao'],
+        'status'           => 1,
+        'permissao'        => '["saude_contratacao_index"]'
+    ],
+    [
+        'id'               => '++',
+        'id_admin_empresa' => 1,
+        'tipo'             => 1,
         'titulo'           => 'Solicitações',
         'ordem'            => '++',
         'status'           => 1,
@@ -882,18 +915,6 @@ return [
         'menu'             => ['solicitacao-cheque-bonus'],
         'status'           => 1,
         'permissao'        => '["solicitacao_cheque_bonus_index"]'
-    ],
-    [
-        'id'               => '++',
-        'id_admin_empresa' => 1,
-        'tipo'             => 3,
-        'titulo'           => 'Plano de Saúde',
-        'url'              => '/app/saude-contratacao',
-        'icone'            => '<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 30 30" xml:space="preserve"><path d="M11.7,21.5v-4.9h6.5v4.9h2.5V8.5H9.3v13.1H11.7z M13.4,21.5h3.3v-3.3h-3.3V21.5z M22.4,21.5H24v1.6H6v-1.6h1.6V7.6c0-0.5,0.4-0.8,0.8-0.8h13.1c0.5,0,0.8,0.4,0.8,0.8V21.5z M14.2,11.7v-1.6h1.6v1.6h1.6v1.6h-1.6V15h-1.6v-1.6h-1.6v-1.6H14.2z"/></svg>',
-        'ordem'            => '++',
-        'menu'             => ['saude-contratacao'],
-        'status'           => 1,
-        'permissao'        => '["saude_contratacao_index"]'
     ],
     [
         'id'               => '++',

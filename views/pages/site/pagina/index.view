@@ -17,6 +17,7 @@ if(!function_exists('componenteLoading')) {
 
 <form action="">
     <input type="hidden" id="input_url" value="{{$url}}">
+    <input type="hidden" id="input_dado" value="{{$dado}}">
 </form>
 <div id="bloco_pagina">
     @php

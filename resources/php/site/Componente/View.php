@@ -149,6 +149,9 @@ final class View
     {
         $r = $this->r;
         $apiStatus = $r->api_status ?? 'nao';
+        if($apiStatus !== 'sim') {
+            return '';
+        }
         $api = [
             'metodo' => $r->api_metodo ?? '',
             'body' => $r->api_body ?? [],
