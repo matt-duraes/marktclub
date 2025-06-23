@@ -13,6 +13,7 @@ use App\Models\Site\BannerModel;
 use App\Models\Site\Saude\endereco\CidadeModel;
 use App\Models\Site\Saude\endereco\EstadoModel;
 use App\Models\Site\Saude\simulacao\BuscarModel;
+use App\Models\Site\Saude\simulacao\EscolhidaModel;
 
 final class PlanoSaudeController extends Controller
 {
@@ -57,6 +58,17 @@ final class PlanoSaudeController extends Controller
             dependente: jsonDecode($request->dependente, true, true)
         );
         return mensagemSucesso($Simular->retorno);
+    }
+
+    public function postSimulacaoEscolhida(Request $request)
+    {
+        $Simulacao = new EscolhidaModel(
+            plano: $request->plano,
+            dado: $request->dado
+        );
+        return mensagemSucesso([
+            'id' => $Simulacao->id
+        ]);
     }
 
     /**

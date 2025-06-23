@@ -640,8 +640,12 @@ Route
             ::request(['titular', 'plano', '!dependente'])
             ::post('/saude/simulacao');
         Route
+            ::nome('simulacaoEscolhida')
+            ::request(['plano', 'dado'])
+            ::post('/saude/simulacao-escolhida');
+        Route
             ::nome('contratacao')
-            ::view('/saude/simulacao/{simulacao}');
+            ::view('/saude/contratar/{simulacao}');
         Route
             ::nome('realizarContratacao')
             ::request([

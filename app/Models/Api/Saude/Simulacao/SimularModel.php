@@ -17,7 +17,7 @@ final class SimularModel
     public array $valorDependente = [];
 
     public function __construct(
-        private string $plano,
+        private string $convenio,
         private Data $titular,
         private array $dependente
     )
@@ -57,8 +57,8 @@ final class SimularModel
                 'titulo' => $r['titulo'] ?? '',
                 'plano' => $plano,
                 'item' => $r['item'] ?? [],
-                'link' => '',
-                'target' => '',
+                'link' => $r['link'] ?? '',
+                'target' => $r['target'] ?? '',
                 'valor_total' => $valor['total'],
                 'valor_lista' => $valor['lista'],
                 'valor_detalhe' => $valor['detalhe']
@@ -69,28 +69,40 @@ final class SimularModel
 
     private function pegarValor(array $valor): array
     {
-        $total = $valor[$this->indiceTitular];
+        $total = number_format($valor[$this->indiceTitular], 2, '.', '');
+        $lista = [
+            [
+                'nome' => 'Titular',
+                'data' => dataBr($this->titular),
+                'valor' => $total
+            ]
+        ];
         $titular = $total;
         $dependente = 0;
-        $lista['Titular'] = $total;
-
+        $dependenteNumero = 0;
         foreach($this->indiceDependente as $data => $indice)
         {
             if(!array_key_exists($indice, $valor)) {
                 continue;
             }
+            $dependenteNumero++;
             $valorDependente = $valor[$indice];
-            $lista[$data] = $valorDependente;
+            $lista[] = [
+                'nome' => 'Dependente ' . $dependenteNumero,
+                'data' => dataBr($data),
+                'valor' => number_format($valorDependente, 2, '.', '')
+            ];
+
             $dependente += $valorDependente;
             $total += $valorDependente;
         }
 
         return [
-            'total' => $total,
+            'total' => number_format($total, 2, '.', ''),
             'lista' => $lista,
             'detalhe' => [
                 'titular' => $titular,
-                'dependente' => $dependente
+                'dependente' => number_format($dependente, 2, '.', '')
             ]
         ];
     }
@@ -110,7 +122,7 @@ final class SimularModel
 
     private function validarCampo(): void
     {
-        if(empty($this->plano)) {
+        if(empty($this->convenio)) {
             $this->erroPadrao('Não foi passado um plano para simular.');
         } elseif(!$this->titular->valido()) {
             mensagemErro('Data nascimento inválida!', 'Data de nascimento do titular está inválida.');
@@ -125,7 +137,7 @@ final class SimularModel
 
     private function pegarArquivo(): void
     {
-        $path = DIRETORIO_PRIVADO . '/plano_valor/' . $this->plano . '.yaml';
+        $path = DIRETORIO_PRIVADO . '/plano_valor/' . $this->convenio . '.yaml';
         if(!file_exists($path)) {
             $this->erroPadrao('path do arquivo não encontrado');
         }

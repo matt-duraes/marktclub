@@ -12,6 +12,21 @@ final class CidadeModel extends ClubeApiHelper
         EnderecoEstado $Estado
     )
     {
+        parent::__construct();
+        $this->buscarCidade($Estado->valor());
+    }
 
+    private function buscarCidade(string $uf)
+    {
+        $busca = $this
+            ->parametro([
+                'endereco_estado' => $uf
+            ])
+            ->get('/saude-convenio/cidade')
+            ->array();
+        if(!validarIndiceExiste($busca, 'dado') || empty($busca['dado'])) {
+            return;
+        }
+        $this->retorno = $busca['dado'];
     }
 }
