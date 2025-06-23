@@ -2,17 +2,17 @@
 
 namespace App\Controllers\Site;
 
+use Erro\Excecao;
+use Http\Request;
+use Modules\Data;
+use Http\Response;
+use Controller\Controller;
+use Modules\EnderecoEstado;
 use App\Helpers\ClubeApiHelper;
 use App\Models\Site\BannerModel;
 use App\Models\Site\Saude\endereco\CidadeModel;
 use App\Models\Site\Saude\endereco\EstadoModel;
 use App\Models\Site\Saude\simulacao\BuscarModel;
-use Controller\Controller;
-use Erro\Excecao;
-use Http\Request;
-use Http\Response;
-use Modules\Data;
-use Modules\EnderecoEstado;
 
 final class PlanoSaudeController extends Controller
 {
