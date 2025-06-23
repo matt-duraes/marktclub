@@ -1485,8 +1485,15 @@ body.fw_body_hidden
         flexRow()
         align-items: center
         margin-top: 10px
+    .fw_form_condicao_grupo .fw_form_condicao_ordem
+        width: 30px
+        height: 30px
+        flexCenter()
+        cursor: pointer
+        margin: 0 10px
+        fill: #999
     .fw_form_condicao_grupo .fw_form_condicao_grupo_lista
-        width: calc(100% - 170px)
+        width: calc(100% - 220px)
         flexCol()
         border: 1px dashed #CCC
         padding-bottom: 10px
@@ -1508,13 +1515,6 @@ body.fw_body_hidden
     .fw_form_condicao_grupo .fw_form_condicao_and_linha
         width: 100px
         margin: 0 0 0 20px
-    .fw_form_condicao_grupo .fw_form_condicao_grupo_lista .fw_form_condicao_linha .fw_form_condicao_ordem
-        width: 30px
-        height: 30px
-        flexCenter()
-        cursor: pointer
-        margin: 0 10px
-        fill: #999
     .fw_form_condicao_grupo .fw_form_condicao_remover
         width: 30px
         height: 30px
@@ -1525,6 +1525,15 @@ body.fw_body_hidden
         cursor: pointer
         margin: 0 10px
         user-select: none
+    .fw_form_condicao_grupo .fw_form_condicao_remover_fake
+        width: 30px
+        height: 30px
+        margin: 0 10px
+        display: none
+    .fw_form_condicao_grupo .fw_form_condicao_grupo_lista .fw_form_condicao_linha:last-child .fw_form_condicao_remover
+        display: none
+    .fw_form_condicao_grupo .fw_form_condicao_grupo_lista .fw_form_condicao_linha:last-child .fw_form_condicao_remover_fake
+        display: flex
 
 // SELECT INPUT TAG
 .fw_form_select_input_tag

@@ -42,9 +42,12 @@ window.addEventListener('load', () => {
             if (botaoSalvar.classList.contains('aguarde')) {
                 return;
             }
-            botaoSalvar.classList.add('aguarde');
-
             const body = pegarDadosDosInputs();
+            if (false === body) {
+                return;
+            }
+
+            botaoSalvar.classList.add('aguarde');
 
             let editar = false;
             if (idInicial != null) {
@@ -124,13 +127,16 @@ window.addEventListener('load', () => {
     }
 
     const pegarDadosDosInputs = retorno => {
-        const listaInput = form.querySelectorAll('input[name], textarea[name], .fw_form_tag, .fw_form_indice_valor');
+        const listaInput = form.querySelectorAll(`
+            input[name], textarea[name], .fw_form_tag, .fw_form_indice_valor, .fw_form_condicao
+        `);
         let body;
         if (retorno == 'array') {
             body = [];
         } else {
             body = new FormData();
         }
+        let erro = false;
         let tipo, isArray, name, mascara, value, lista;
         let ArrayLista = [];
         listaInput.forEach(input => {
@@ -153,6 +159,18 @@ window.addEventListener('load', () => {
                     }
                 });
                 return;
+            } else if (input.classList.contains('fw_form_condicao')) {
+                name = input.getAttribute('data-name');
+                value = input.valor();
+                if (false === value) {
+                    erro = true;
+                    Alerta.notificacao('O campo de condição está inválido!', false);
+                    return;
+                } else if (retorno == 'array') {
+                    body.push(value);
+                } else {
+                    body.append(name, JSON.stringify(value));
+                }
             } else if (input.classList.contains('fw_form_indice_valor')) {
                 name = input.getAttribute('data-name');
                 lista = input.querySelectorAll('.fw_form_indice_valor_lista .fw_form_indice_valor_linha');
@@ -228,6 +246,6 @@ window.addEventListener('load', () => {
                 }
             }
         }
-        return body;
+        return erro ? false : body;
     };
 });
