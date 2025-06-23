@@ -97,6 +97,11 @@
 #bloco_simulacao_saude .bloco_resultado
     width: 100%
     flexCol()
+    h2
+        subTituloFontSize()
+    h3
+        textoFontSize()
+        margin-top: 20px
     .bloco_escolher
         width: 100%
         overflow-y: hidden
@@ -163,6 +168,41 @@
     .plano_lista .plano .botao .com_botao_texto
         width: 100%
         flexCenter()
+    .plano_lista .plano .valor_lista .valor_linha
+        width: 100%
+        flexRow()
+        margin: 5px 0
+        padding-bottom: 5px
+        border-bottom: 1px solid #DDD
+        &:last-child
+            border-bottom: none
+    .plano_lista .plano .valor_lista .valor_linha .indice
+        flexGrow()
+        padding-left: 0
+        position: relative
+        flexRow()
+        align-items: center
+    .plano_lista .plano .valor_lista .valor_linha .indice .ponto
+        flexGrow()
+        border-top: 1px dashed #999
+        z-index: 1
+    .plano_lista .plano .valor_lista .valor_linha .dado
+        flexCol()
+        background-color: #FFF
+        padding-right: 5px
+    .plano_lista .plano .valor_lista .valor_linha .dado .nome
+        color: #000
+    .plano_lista .plano .valor_lista .valor_linha .dado .data
+        color: #666
+    .plano_lista .plano .valor_lista .valor_linha .valor
+        flexCol()
+        justify-content: center
+        padding-left: 10px
+        font-weight: bold
+    .plano_lista .plano .valor_lista .valor_linha .nome
+    .plano_lista .plano .valor_lista .valor_linha .data
+    .plano_lista .plano .valor_lista .valor_linha .valor
+        texto()
     .plano_lista .plano table
         width: 100%
     .plano_lista .plano table.borda tr
@@ -170,28 +210,17 @@
     .plano_lista .plano table.borda tr:last-child
         border-bottom: none
     .plano_lista .plano table tr td
-        pequenoFontSize()
+        textoFontSize()
         padding: 5px
         line-height: 1.2em
         color: #666
-    .plano_lista .plano table tr td span
-        pequenoFontSize()
-        background-color: #FFF
+    .plano_lista .plano table tr td .indice
         z-index: 2
         position: relative
+    .plano_lista .plano table tr td .indice div
+        textoFontSize()
+        background-color: #FFF
         padding-right: 3px
-    .plano_lista .plano table.data tr td:first-child
-        width: 80px
-        padding-left: 0
-        position: relative
-        &::after
-            content: ""
-            width: 100%
-            position: absolute
-            top: 50%
-            left: 0
-            border-top: 1px dashed #CCC
-            z-index: 1
     .plano_lista .plano table.borda tr td:first-child
         text-align: right
     .plano_lista .plano table tr td:last-child

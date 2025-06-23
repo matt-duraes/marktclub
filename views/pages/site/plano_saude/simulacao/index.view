@@ -62,22 +62,29 @@
         </div>
 
         <h3>Valor detalhado:</h3>
-        <table class="data">
-        </table>
+        <div class="valor_lista">
+        </div>
 
         <div class="botao">
-            @? $Botao->botao(texto: 'Escolher plano', class: 'botao_escolher_plano')
+            @? $Botao->botao(texto: 'Escolher plano')->destaque()
         </div>
 
         <table class="borda detalhe">
         </table>
     </div>
 
+    <div class="valor_linha" id="bloco_plano_valor_padrao">
+        <div class="indice">
+            <div class="dado">
+                <div class="nome"></div>
+                <div class="data"></div>
+            </div>
+            <div class="ponto"></div>
+        </div>
+        <div class="valor"></div>
+    </div>
+
     <table>
-        <tr id="bloco_plano_valor_padrao">
-            <td><span class="indice"></span></td>
-            <td class="valor"></td>
-        </tr>
         <tr id="bloco_plano_item_padrao">
             <td class="indice"></td>
             <td class="valor">Enfermagem</td>

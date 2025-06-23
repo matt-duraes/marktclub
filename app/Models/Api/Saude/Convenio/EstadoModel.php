@@ -26,7 +26,7 @@ final class EstadoModel extends PadraoModel
     {
         $estado = [];
         foreach($this->busca as $r) {
-            $estado += jsonDecode($r->endereco_estado, true);
+            $estado = array_merge($estado, jsonDecode($r->endereco_estado, true));
         }
         $lista = (new ListaHelper())->estado()->r();
         foreach($lista as $ind => $val) {

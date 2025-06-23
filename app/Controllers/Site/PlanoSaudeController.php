@@ -2,17 +2,18 @@
 
 namespace App\Controllers\Site;
 
+use Erro\Excecao;
+use Http\Request;
+use Modules\Data;
+use Http\Response;
+use Controller\Controller;
+use Modules\EnderecoEstado;
 use App\Helpers\ClubeApiHelper;
 use App\Models\Site\BannerModel;
 use App\Models\Site\Saude\endereco\CidadeModel;
 use App\Models\Site\Saude\endereco\EstadoModel;
 use App\Models\Site\Saude\simulacao\BuscarModel;
-use Controller\Controller;
-use Erro\Excecao;
-use Http\Request;
-use Http\Response;
-use Modules\Data;
-use Modules\EnderecoEstado;
+use App\Models\Site\Saude\simulacao\EscolhidaModel;
 
 final class PlanoSaudeController extends Controller
 {
@@ -57,6 +58,17 @@ final class PlanoSaudeController extends Controller
             dependente: jsonDecode($request->dependente, true, true)
         );
         return mensagemSucesso($Simular->retorno);
+    }
+
+    public function postSimulacaoEscolhida(Request $request)
+    {
+        $Simulacao = new EscolhidaModel(
+            plano: $request->plano,
+            dado: $request->dado
+        );
+        return mensagemSucesso([
+            'id' => $Simulacao->id
+        ]);
     }
 
     /**

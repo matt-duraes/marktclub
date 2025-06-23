@@ -13,7 +13,7 @@ window.addEventListener('load', () => {
         #input_margem_baixo_mobile, #input_margem_topo_mobile, #input_icone_tamanho, #input_icone_nome,
         #input_icone_altura, #input_icone_cor, #input_icone_bg, #input_icone_borda_cor,
         #input_div_minimo_desktop, #div_minimo_mobile, #input_div_maximo_desktop, #div_maximo_mobile,
-        #input_texto_alinhamento_desktop, #input_texto_alinhamento_mobile
+        #input_texto_alinhamento_desktop, #input_texto_alinhamento_mobile, #input_css, #input_condicao
     `);
 
     const id = $('#input_visualizar_id').valor();
@@ -37,6 +37,8 @@ window.addEventListener('load', () => {
     const inputDivDirecaoMobile = $('#input_div_direcao_mobile');
     const inputDivPosicaoDesktop = $('#input_div_posicao_desktop');
     const inputDivPosicaoMobile = $('#input_div_posicao_mobile');
+    const inputCss = $('#input_css');
+    const inputCondicao = $('#input_condicao');
     const inputStatus = $('#input_status');
     const inputApiStatus = $('#input_api_status');
     const inputApiMetodo = $('#input_api_metodo');
@@ -351,6 +353,8 @@ window.addEventListener('load', () => {
         inputDivDirecaoMobile.valor(eDiv && item.div_direcao_mobile ? item.div_direcao_mobile : '');
         inputDivPosicaoDesktop.valor(eDiv && item.div_posicao_desktop ? item.div_posicao_desktop : '');
         inputDivPosicaoMobile.valor(eDiv && item.div_posicao_mobile ? item.div_posicao_mobile : '');
+        inputCss.valor(item.css || []);
+        inputCondicao.valor(item.condicao || []);
         inputStatus.valor(inArray(item.status, ['sim', 1]) ? 'sim' : 'nao');
         inputApiStatus.valor(item.api_status || 'nao');
         blocoApiSim.classe('display_none', !inArray(apiStatus, ['sim', 1]));
@@ -481,6 +485,9 @@ window.addEventListener('load', () => {
         const blocoPai = add ? blocoListaAtual.closest('.item_pai') : null;
         const pai = blocoPai ? blocoPai.attr('data-id') : '';
         const bodyReal = adicionarBody(tipo);
+        if (false === bodyReal) {
+            return;
+        }
 
         const body = bodyReal;
         body['indice'] = add ? 'salvar-html' : 'atualizar-html';
@@ -525,6 +532,12 @@ window.addEventListener('load', () => {
         const linkEmpresa = inputLinkEmpresa.valor();
         const apiBody = inputApiBody.valor();
 
+        const condicao = inputCondicao.valor();
+        if (false === condicao) {
+            Alerta.notificacao('Condição inválida.', false);
+            return false;
+        }
+
         return {
             tipo: tipo,
             local: inputLocal.valor(),
@@ -560,6 +573,8 @@ window.addEventListener('load', () => {
             div_direcao_mobile: inputDivDirecaoMobile.valor(),
             div_posicao_desktop: inputDivPosicaoDesktop.valor(),
             div_posicao_mobile: inputDivPosicaoMobile.valor(),
+            css: JSON.stringify(inputCss.valor()),
+            condicao: JSON.stringify(condicao),
             api_status: inArray(inputApiStatus.valor(), ['sim', 1]) ? 'sim' : 'nao',
             api_metodo: inputApiMetodo.valor(),
             api_body: !vazio(apiBody) ? JSON.stringify(apiBody) : null,

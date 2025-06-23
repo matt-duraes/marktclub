@@ -2109,19 +2109,24 @@ if (!function_exists('formIndiceValor')) {
     function formIndiceValor(
         string $name,
         array $value = [],
-        ?string $class = null,
+        string|array $class = [],
         ?string $id = null,
         bool $obrigatorio = false,
         array $placeholder = [],
-        bool $ordem = false
+        bool $ordem = false,
+        string $separador = '|'
     ) {
-        $blocoId = empty($id) ? 'id_' . md5(uniqid(time())) : $id;
-        $blocoClass = empty($class) ? '' : $class;
+        $blocoId = empty($id) ? 'input_' . $name : $id;
+        if(is_string($class)) {
+            $class = !empty($class) ? [$class] : [];
+        }
+        $blocoClass = $class;
+        $blocoClass[] = 'fw_form_indice_valor';
         if ($ordem) {
-            $blocoClass .= ' fw_form_indice_valor_ordenar';
+            $blocoClass[] = 'fw_form_indice_valor_ordenar';
         }
         if ($obrigatorio) {
-            $blocoClass .= ' fw_form_input_obrigatorio';
+            $blocoClass[] = 'fw_form_input_obrigatorio';
         }
 
         $place1 = $placeholder[0] ?? 'Digite um indice';
@@ -2140,10 +2145,10 @@ if (!function_exists('formIndiceValor')) {
             ';
         }
         return '
-            <div class="fw_form_indice_valor ' . $blocoClass . '" id="' . $blocoId . '" data-name="' . $name . '">
+            <div class="' . implode(' ', $blocoClass) . '" id="' . $blocoId . '" data-name="' . $name . '">
                 <div class="bloco_input input_input bloco_separador">
                     <input class="input_geral input_separador_1" type="text" autocomplete="off" placeholder="' . $place1 . '">
-                    <span class="input_separador_2"><p>|</p></span>
+                    <span class="input_separador_2"><p>' . $separador . '</p></span>
                     <input class="input_geral input_separador_3" type="text" autocomplete="off" placeholder="' . $place2 . '">
                     <div class="borda"></div>
                     <i class="input_icone_erro"></i>
@@ -2160,6 +2165,198 @@ if (!function_exists('formIndiceValor')) {
                         <p class="fw_form_indice_valor_valor"></p>
                         <i class="fw_form_indice_valor_remover">' . iconeFechar(8) . '</i>
                     </div>
+                </div>
+            </div>
+        ';
+    }
+}
+
+if (!function_exists('formCondicao')) {
+    function formCondicao(
+        string $name,
+        array $value = [],
+        string $titulo = '',
+        string|array $class = [],
+        bool $obrigatorio = false,
+        array $placeholder = [],
+        bool $ordem = false
+    ) {
+        $blocoId = 'input_' . $name;
+        if(is_string($class)) {
+            $class = !empty($class) ? [$class] : [];
+        }
+        $blocoClass = $class;
+        $blocoClass[] = 'fw_form_condicao';
+        if ($obrigatorio) {
+            $blocoClass[] = 'fw_form_input_obrigatorio';
+        }
+        if ($ordem) {
+            $blocoClass[] = ' fw_form_condicao_ordem';
+        }
+
+        $titulo = !empty($titulo) ? '<div class="fw_form_condicao_titulo">' . $titulo . '</div>' : '';
+
+        $place1 = $placeholder[0] ?? 'Valor 1';
+        $place2 = $placeholder[1] ?? 'Condição';
+        $place3 = $placeholder[2] ?? 'Valor 2';
+
+        $iconeDrag = iconeDrag(8);
+        $iconeFechar = iconeFechar(8);
+
+        $grupoHtml = <<<HTML
+            <div class="{{CLASSE}}">
+                <div class="fw_form_condicao_ordem fw_form_condicao_drag_grupo">$iconeDrag</div>
+                <div class="fw_form_condicao_grupo_lista">{{LINHA}}</div>
+                <div class="bloco_input input_select fw_form_condicao_and_grupo {{CLASS_ID}}" id="{{ID_1}}">
+                    <input class="input_select_value" type="hidden">
+                    <input autocomplete="off" class="input_geral input_select_texto " type="text" placeholder="...">
+                    <div class="borda"></div>
+                    <ul class="option">
+                        {{ESCOLHA_TIPO}}
+                        <li class="lista" data-local="grupo" data-value="and">AND</li>
+                        <li class="lista" data-local="grupo" data-value="or">OR</li>
+                    </ul>
+                </div>
+                <i class="fw_form_condicao_remover fw_form_condicao_remover_grupo">$iconeFechar</i>
+                <i class="fw_form_condicao_remover_fake"></i>
+            </div>
+        HTML;
+        $linhaHtml = <<<HTML
+            <div class="{{CLASSE}}">
+                <div class="fw_form_condicao_ordem fw_form_condicao_drag_linha">$iconeDrag</div>
+                <div class="bloco_input input_input bloco_separador">
+                    <input class="input_geral fw_form_condicao_valor fw_form_condicao_valor_1" type="text" autocomplete="off" placeholder="$place1" VALUE="{{VALOR_1}}">
+                    <div class="bloco_input input_select {{CLASS_ID}} fw_form_condicao_tipo" id="{{ID_2}}">
+                        <input class="input_select_value" type="hidden" value="{{VALOR_CONDICAO}}">
+                        <input autocomplete="off" class="input_geral input_select_texto " type="text" placeholder="$place2" value="{{VALOR_2}}">
+                        <div class="borda"></div>
+                        <ul class="option">
+                            {{ESCOLHA_CONDICAO}}
+                            <li class="lista" data-local="tipo" data-value="igual">Igual</li>
+                            <li class="lista" data-local="tipo" data-value="diferente">Diferente</li>
+                            <li class="lista" data-local="tipo" data-value="maior">Maior</li>
+                            <li class="lista" data-local="tipo" data-value="menor">Menor</li>
+                            <li class="lista" data-local="tipo" data-value="maior-igual">Maior ou igual</li>
+                            <li class="lista" data-local="tipo" data-value="menor-igual">Menor ou igual</li>
+                            <li class="lista" data-local="tipo" data-value="chave">Contém chave</li>
+                            <li class="lista" data-local="tipo" data-value="chave">Contém valor</li>
+                        </ul>
+                    </div>
+                    <input class="input_geral fw_form_condicao_valor fw_form_condicao_valor_2" type="text" autocomplete="off" placeholder="$place3">
+                    <div class="borda"></div>
+                    <i class="input_icone_erro"></i>
+                    <div class="bloco_input_footer"><div class="input_mensagem"></div></div>
+                </div>
+                <div class="bloco_input input_select fw_form_condicao_and_linha {{CLASS_ID}}" id="{{ID_3}}">
+                    <input class="input_select_value" type="hidden">
+                    <input autocomplete="off" class="input_geral input_select_texto " type="text" placeholder="...">
+                    <div class="borda"></div>
+                    <ul class="option">
+                        {{ESCOLHA_TIPO}}
+                        <li class="lista" data-local="linha" data-value="and">AND</li>
+                        <li class="lista" data-local="linha" data-value="or">OR</li>
+                    </ul>
+                </div>
+                <i class="fw_form_condicao_remover fw_form_condicao_remover_linha">$iconeFechar</i>
+                <i class="fw_form_condicao_remover_fake"></i>
+            </div>
+        HTML;
+
+        $quantidadeGrupo = count($value);
+        $id = 1;
+        $iGrupo = 1;
+        $valorFinal = [];
+        if($value) {
+            foreach ($value as $grupo) {
+                $blocoGrupo = $grupoHtml;
+                $quantidadeLinha = count($grupo['grupo']);
+                $id1 = $id;
+                $id++;
+                $iLinha = 1;
+                $linha = [];
+                foreach($grupo['grupo'] as $linha) {
+                    $id2 = $id;
+                    $id++;
+                    $id3 = $id;
+                    $id++;
+                    $blocoLinha = $linhaHtml;
+                    $replace = [
+                        '{{CLASSE}}' => 'fw_form_condicao_linha',
+                        '{{VALOR_1}}' => $linha['condicao'][0] ?? '',
+                        '{{CONDICAO}}' => $linha['condicao'][1] ?? '',
+                        '{{VALOR_2}}' => $linha['condicao'][2] ?? '',
+                        '{{SEPARADOR}}' => $quantidadeLinha === $iLinha ? '' : $linha['separador'] ?? '',
+                        '{{ID_2}}' => $id2,
+                        '{{ID_3}}' => $id3,
+                    ];
+                    $iLinha++;
+                    $linha[] = str_replace(array_keys($replace), array_values($replace), $blocoLinha);
+                }
+                $replace = [
+                    '{{CLASSE}}' => 'fw_form_condicao_grupo',
+                    '{{LINHA}}' => $linha ? implode(PHP_EOL, $linha) : '',
+                    '{{SEPARADOR}}' => $quantidadeGrupo === $iGrupo ?  '' : $grupo['separador'] ?? '',
+                    '{{ID_1}}' => 'fw_form_condicao_'. $id1
+                ];
+                $valorFinal[] = str_replace(array_keys($replace), array_values($replace), $blocoGrupo);
+                $iGrupo++;
+            }
+        } else {
+            $id1 = $id;
+            $id++;
+            $id2 = $id;
+            $id++;
+            $id3 = $id;
+            $id++;
+            $replace = [
+                '{{CLASSE}}' => 'fw_form_condicao_linha',
+                '{{VALOR_1}}' => '',
+                '{{CONDICAO}}' => '',
+                '{{VALOR_2}}' => '',
+                '{{SEPARADOR}}' => '',
+                '{{ID_2}}' => $id2,
+                '{{ID_3}}' => $id3,
+                '{{ESCOLHA_TIPO}}' => '<li class="lista" data-value=""></li>',
+                '{{VALOR_CONDICAO}}' => '',
+                '{{CLASS_ID}}' => ''
+            ];
+            $linha = str_replace(array_keys($replace), array_values($replace), $linhaHtml);
+            $replace = [
+                '{{CLASSE}}' => 'fw_form_condicao_grupo',
+                '{{LINHA}}' => $linha,
+                '{{SEPARADOR}}' => '',
+                '{{ID_1}}' => 'fw_form_condicao_'. $id1,
+                '{{ESCOLHA_CONDICAO}}' => '<li class="lista" data-value="">Escolha uma condição</li>',
+                '{{ESCOLHA_TIPO}}' => '<li class="lista" data-value=""></li>',
+                '{{CLASS_ID}}' => ''
+            ];
+            $valorFinal[] = str_replace(array_keys($replace), array_values($replace), $grupoHtml);
+        }
+        $replaceGrupo = [
+            '{{CLASSE}}' => 'fw_form_condicao_grupo_padrao',
+            '{{CLASS_ID}}' => 'fw_form_condicao_add_id',
+            '{{ID_1}}' => '',
+            '{{LINHA}}' => '',
+            '{{ESCOLHA_CONDICAO}}' => '<li class="lista" data-value="">Escolha uma condição</li>',
+            '{{ESCOLHA_TIPO}}' => '<li class="lista" data-value=""></li>'
+        ];
+        $replaceLinha = [
+            '{{CLASSE}}' => 'fw_form_condicao_linha_padrao',
+            '{{CLASS_ID}}' => 'fw_form_condicao_add_id',
+            '{{ID_2}}' => '',
+            '{{ID_3}}' => '',
+            '{{VALOR_CONDICAO}}' => '',
+            '{{VALOR_1}}' => '',
+            '{{VALOR_2}}' => '',
+            '{{ESCOLHA_TIPO}}' => '<li class="lista" data-value=""></li>'
+        ];
+        return '
+            <div class="' . implode(' ', $blocoClass) . '" id="' . $blocoId . '" data-name="' . $name . '">
+                ' . $titulo . '
+                ' . implode(PHP_EOL, $valorFinal) . '
+                <div class="display_none">
+                    ' . str_replace(array_keys($replaceGrupo), array_values($replaceGrupo), $grupoHtml) . '
+                    ' . str_replace(array_keys($replaceLinha), array_values($replaceLinha), $linhaHtml) . '
                 </div>
             </div>
         ';

@@ -30,6 +30,12 @@ const formValue = (input, valor, obrigatorio) => {
         }
         fwFormListaSetarValor(input, valor);
         return;
+    } else if (input.classList.contains('fw_form_condicao')) {
+        if (valor === undefined) {
+            return fwFormCondicaoPegarValor(input);
+        }
+        fwFormCondicaoSetarValor(input, valor);
+        return;
     } else if (input.classList.contains('fw_form_indice_valor')) {
         if (valor === undefined) {
             return fwFormIndiceValorPegarValor(input);
