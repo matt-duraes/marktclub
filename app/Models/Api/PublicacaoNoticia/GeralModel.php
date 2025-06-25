@@ -2,10 +2,10 @@
 
 namespace App\Models\Api\PublicacaoNoticia;
 
-use ORM\ORM;
-use Modules\Data;
-use App\Classes\Geral\Status;
 use App\Classes\Geral\Publicado;
+use App\Classes\Geral\Status;
+use Modules\DataHora;
+use ORM\ORM;
 
 abstract class GeralModel extends ORM
 {
@@ -14,7 +14,6 @@ abstract class GeralModel extends ORM
         'data_inicio', 'data_final', 'imagem_grande', 'imagem_pequena', 'url', 'status',
         'autor_noticia', 'fonte_noticia', 'fonte_link'
     ];
-
     protected string $ormTabela = TABELA_PUBLICACAO_NOTICIA;
 
     protected function montardado($lista)
@@ -44,8 +43,8 @@ abstract class GeralModel extends ORM
 
             $statusIndice = $Status->indice($r->status);
             $publicado = new Publicado(
-                new Data($r->data_inicio),
-                new Data($r->data_final),
+                new DataHora($r->data_inicio),
+                new DataHora($r->data_final),
                 $statusIndice == Status::ATIVO
             );
 
