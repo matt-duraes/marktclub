@@ -76,9 +76,7 @@ final class ListarModel extends PadraoModel
         if($this->EnderecoEstado->valido()) {
             $where[] = ['endereco_estado', 'json', $this->EnderecoEstado];
         }
-        if(empty($this->enderecoCidade) || $this->enderecoCidade == 'outra') {
-            $where[] = ['endereco_cidade', 'null'];
-        } elseif($this->enderecoCidade) {
+        if(!empty($this->enderecoCidade) && $this->enderecoCidade !== 'outra') {
             $where[] = [
                 'OR',
                 ['endereco_cidade', 'chave', $this->enderecoCidade],
