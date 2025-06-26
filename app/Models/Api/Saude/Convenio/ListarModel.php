@@ -62,7 +62,7 @@ final class ListarModel extends PadraoModel
     {
         $this->busca = $this
             ->campo(['uuid', 'titulo', 'arquivo_imagem', 'url', 'data_criacao', 'status'])
-            ->where($this->where)
+            ->where($this->where, obrigatorio: false)
             ->pagina($this->pegarPagina(), $this->pegarQuantidade())
             ->read();
     }
