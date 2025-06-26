@@ -2,8 +2,9 @@
 
 namespace App\Models\Api\ConstrutorClube;
 
-use App\Helpers\PrimeiroAcessoHelper;
 use Modules\Botao;
+use App\Helpers\PrimeiroAcessoHelper;
+use App\Models\Api\Saude\Convenio\MenuModel as SaudeMenuModel;
 
 final class ClubeModel
 {
@@ -79,6 +80,7 @@ final class ClubeModel
                 'saude_seguro'        => $Construtor->menu_saude_seguro->valor(),
                 'saude_cnu'           => $Construtor->menu_saude_cnu->valor(),
                 'saude_florianopolis' => $Construtor->menu_saude_florianopolis->valor(),
+                'saude'               => (new SaudeMenuModel())->existe,
                 'cashback'            => $Construtor->menu_cashback->valor(),
                 'indicar_loja'        => $Construtor->menu_indicar_loja->valor(),
                 'indicar_usuario'     => $indicarUsuario,
