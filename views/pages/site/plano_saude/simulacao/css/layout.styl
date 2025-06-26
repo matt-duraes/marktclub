@@ -146,7 +146,7 @@
         position: relative
         flexRow()
     .plano_lista .plano .dinheiro .sifrao
-        color: #666
+        color: $corCinzaCinza
         display: flex
         padding: 4px 5px 0 0
     .plano_lista .plano .dinheiro .valor
@@ -154,7 +154,7 @@
         font-weight: bold
         color: $corClube
     .plano_lista .plano .dinheiro .virgula
-        color: #999
+        color: $corCinzaCinza
         font-size: 3rem
         padding-top: 7px
     .plano_lista .plano .dinheiro .centavo
@@ -173,7 +173,7 @@
         flexRow()
         margin: 5px 0
         padding-bottom: 5px
-        border-bottom: 1px solid #DDD
+        border-bottom: 1px solid $corCinzaCinza
         &:last-child
             border-bottom: none
     .plano_lista .plano .valor_lista .valor_linha .indice
@@ -184,16 +184,12 @@
         align-items: center
     .plano_lista .plano .valor_lista .valor_linha .indice .ponto
         flexGrow()
-        border-top: 1px dashed #999
+        border-top: 1px dashed $corCinzaCinza
         z-index: 1
     .plano_lista .plano .valor_lista .valor_linha .dado
         flexCol()
-        background-color: #FFF
+        background-color: $corBrancoCinza
         padding-right: 5px
-    .plano_lista .plano .valor_lista .valor_linha .dado .nome
-        color: #000
-    .plano_lista .plano .valor_lista .valor_linha .dado .data
-        color: #666
     .plano_lista .plano .valor_lista .valor_linha .valor
         flexCol()
         justify-content: center
@@ -206,20 +202,19 @@
     .plano_lista .plano table
         width: 100%
     .plano_lista .plano table.borda tr
-        border-bottom: 1px solid #CCC
+        border-bottom: 1px solid $corCinzaCinza
     .plano_lista .plano table.borda tr:last-child
         border-bottom: none
     .plano_lista .plano table tr td
         textoFontSize()
         padding: 5px
         line-height: 1.2em
-        color: #666
     .plano_lista .plano table tr td .indice
         z-index: 2
         position: relative
     .plano_lista .plano table tr td .indice div
         textoFontSize()
-        background-color: #FFF
+        background-color: $corBrancoCinza
         padding-right: 3px
     .plano_lista .plano table.borda tr td:first-child
         text-align: right

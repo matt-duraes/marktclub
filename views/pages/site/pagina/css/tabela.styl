@@ -1,7 +1,7 @@
 .com_pai_tabela
     width: 100%
     flexCol()
-    background-color: #FFF
+    background-color: $corBrancoPreto
     .com_tabela_scroll
         width: 100%
         overflow-x: auto
@@ -11,18 +11,18 @@
     .tr
         width: 100%
         flexRow()
-        border: 1px solid #CCC
+        border: 1px solid $corBorda
         border-bottom: none
         border-right: none
         &:last-child
-            border-bottom: 1px solid #CCC
+            border-bottom: 1px solid $corBorda
     .tr.header
-        background-color: #F6F6F6
+        background-color: $corHeader
     .tr.header .td
         font-weight: bold
     .tr .td
         padding: 10px
-        border-right: 1px solid #CCC
+        border-right: 1px solid $corBorda
     .tr .td span
         texto()
     .tr .td .esqueleto
@@ -35,3 +35,6 @@
     .com_pai_tabela_erro span
         texto()
         color: $corVermelho
+
+.com_pai_bloco .com_pai_tabela
+    background-color: $corBrancoCinza
