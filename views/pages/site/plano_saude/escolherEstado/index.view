@@ -1,6 +1,6 @@
 @template "site"
 
-<form class="form_geral centralizar" id="bloco_escolher_estado">
+<form class="form_geral cinza centralizar" id="bloco_escolher_estado">
     <header>
         <h1>Escolha um estado</h1>
         <p>Para listar os planos de sua região, selecione o seu estado para continuar.</p>

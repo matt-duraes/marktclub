@@ -94,7 +94,7 @@
         min-height: 40px
         border-radius: 5px
         background: $corClube
-        color: #fff
+        color: $corBrancoPreto
         flexCenter()
         texto()
     .bloco_novo
@@ -109,7 +109,7 @@
         flexRow()
         align-items: center
     texto()
-        border: 1px solid #DDD
+        border: 1px solid $corBorda
         border-radius: 3px
         padding-right: 10px
     .bloco_estado i
@@ -120,7 +120,7 @@
     .bloco_favorito
         width: 40px
         height: 40px
-    flexCenter()
+        flexCenter()
         position: absolute
         top: 15px
         right: 15px
@@ -128,12 +128,12 @@
         cursor: pointer
         border-radius: 50%
         &:hover
-            background-color: #EEE
+            background-color: $corCinzaCinza
     .bloco_favorito .marcado
         display: none
         fill: #FF6C60
     .bloco_favorito .desmarcado
-        fill: #999
+        fill: $corCinzaCinza
     .bloco_favorito.favorito_marcado .desmarcado
         display: none
     .bloco_favorito.favorito_marcado .marcado
