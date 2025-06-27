@@ -155,53 +155,53 @@
                 <tbody class="bloco_preco">
                     <tr>
                         <td>0 a 18</td>
-                        <td>299,72</td>
-                        <td>361,03</td>
+                        <td>337,27</td>
+                        <td>406,27</td>
                     </tr>
                     <tr>
                         <td>19 a 23</td>
-                        <td>323,13</td>
-                        <td>388,90</td>
+                        <td>363,62</td>
+                        <td>437,63</td>
                     </tr>
                     <tr>
                         <td>24 a 28</td>
-                        <td>348,96</td>
-                        <td>420,00</td>
+                        <td>392,68</td>
+                        <td>472,63</td>
                     </tr>
                     <tr>
                         <td>29 a 33</td>
-                        <td>402,41</td>
-                        <td>478,39</td>
+                        <td>452,83</td>
+                        <td>538,33</td>
                     </tr>
                     <tr>
                         <td>34 a 38</td>
-                        <td>434,58</td>
-                        <td>516,61</td>
+                        <td>489,03</td>
+                        <td>518,34</td>
                     </tr>
                     <tr>
                         <td>39 a 43</td>
-                        <td>460,88</td>
-                        <td>553,53</td>
+                        <td>518,63</td>
+                        <td>622,89</td>
                     </tr>
                     <tr>
                         <td>44 a 48</td>
-                        <td>734,38</td>
-                        <td>884,80</td>
+                        <td>826,40</td>
+                        <td>995,67</td>
                     </tr>
                     <tr>
                         <td>49 a 53</td>
-                        <td>765,94</td>
-                        <td>922,79</td>
+                        <td>861,91</td>
+                        <td>1038.42</td>
                     </tr>
                     <tr>
                         <td>54 a 58</td>
-                        <td>797,42</td>
-                        <td>960,81</td>
+                        <td>897,34</td>
+                        <td>1081.20</td>
                     </tr>
                     <tr>
                         <td>59 ou mais</td>
-                        <td>1.660,77</td>
-                        <td>1.901,49</td>
+                        <td>1.868,86</td>
+                        <td>2.139,75</td>
                     </tr>
                 </tbody>
             </table>
