@@ -2,20 +2,20 @@
 
 namespace App\Controllers\Api\Votacao;
 
-use App\Models\Api\Votacao\Dado\CancelarModel;
-use App\Models\Api\Votacao\Dado\DadoEntity;
-use App\Models\Api\Votacao\Dado\DadoModel;
-use App\Models\Api\Votacao\Resultado\RetornoModel;
-use Controller\Controller;
 use Erro\Excecao;
 use Http\Request;
 use Http\Response;
 use Modules\Botao;
-use System\Interface\ControllerAtualizarInterface;
+use Controller\Controller;
+use App\Models\Api\Votacao\Dado\DadoModel;
+use App\Models\Api\Votacao\Dado\DadoEntity;
+use App\Models\Api\Votacao\Dado\CancelarModel;
 use System\Interface\ControllerBuscarInterface;
-use System\Interface\ControllerDeletarInterface;
 use System\Interface\ControllerListarInterface;
 use System\Interface\ControllerSalvarInterface;
+use System\Interface\ControllerDeletarInterface;
+use App\Models\Api\Votacao\Resultado\RetornoModel;
+use System\Interface\ControllerAtualizarInterface;
 
 final class DadoController extends Controller implements
     ControllerBuscarInterface,
@@ -156,7 +156,7 @@ final class DadoController extends Controller implements
      */
     public function postResultado(Request $request): Response
     {
-        $Resultado = new RetornoModel($request->id);
+        $dado = $Resultado = new RetornoModel($request->id);
         return mensagemSucesso($Resultado->retorno);
     }
 }

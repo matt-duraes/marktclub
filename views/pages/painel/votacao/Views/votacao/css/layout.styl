@@ -225,10 +225,10 @@
         margin-top: 20px
     .table .subtitulo
         min-width: 420px
-    .table .resultado_titulo
+    .table .resultado_titulo, .titulo_descricao
         flexGrow()
         min-width: 300px
-    .table .resultado_quantidade
+    .table .resultado_quantidade, .table #bloco_descricao_pergunta
         min-width: 120px
     .table .voto_nome
         min-width: 160px
@@ -246,7 +246,11 @@
         min-width: 200px
     .table .usuario_cpf
         min-width: 140px
-
+    .h1.texto_destaque_pergunta
+        titulo()
+        font-weight: bold
+        font-size: 1.6rem
+        padding: 10px
 .bloco_tabela_geral
     width: 100%
     flexCol()
@@ -296,3 +300,7 @@
         padding: 0 10px
         border-left: 4px solid $cor
         border-bottom: 1px solid #DDD
+
+.descricao_pergunta
+    font-size: 1.4rem !important
+    padding-left: 20px !important

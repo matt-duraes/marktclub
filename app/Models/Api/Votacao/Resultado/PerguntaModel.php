@@ -27,17 +27,19 @@ final class PerguntaModel extends ORM
     {
         $this->banco = (new OrmHelper(TABELA_VOTACAO_PERGUNTA))->listar(
             where: ['id_votacao_dado', $this->id],
-            campo: ['id', 'titulo'],
+            campo: ['id', 'titulo', 'texto'],
         );
     }
 
     private function montarPergunta()
     {
         $pergunta = [];
+
         foreach ($this->banco as $r) {
             $this->idPergunta[] = $r->id;
             $pergunta[$r->id] = $r->titulo;
+            $pergunta[$r->id . '-descricao'] = $r->texto;
         }
-        $this->lista = $pergunta;
+        return $this->lista = $pergunta;
     }
 }
