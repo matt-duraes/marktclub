@@ -62,7 +62,7 @@ final class ListarModel extends PadraoModel
     {
         $this->busca = $this
             ->campo(['uuid', 'titulo', 'arquivo_imagem', 'url', 'data_criacao', 'status'])
-            ->where($this->where)
+            ->where($this->where, obrigatorio: false)
             ->pagina($this->pegarPagina(), $this->pegarQuantidade())
             ->read();
     }
@@ -76,9 +76,7 @@ final class ListarModel extends PadraoModel
         if($this->EnderecoEstado->valido()) {
             $where[] = ['endereco_estado', 'json', $this->EnderecoEstado];
         }
-        if(empty($this->enderecoCidade) || $this->enderecoCidade == 'outra') {
-            $where[] = ['endereco_cidade', 'null'];
-        } elseif($this->enderecoCidade) {
+        if(!empty($this->enderecoCidade) && $this->enderecoCidade !== 'outra') {
             $where[] = [
                 'OR',
                 ['endereco_cidade', 'chave', $this->enderecoCidade],

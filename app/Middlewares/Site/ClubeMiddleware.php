@@ -164,10 +164,7 @@ final class ClubeMiddleware extends ApiHelper
         define('MENU_SALAVIP', $pagina->salavip);
         define('MENU_CREDITO_SICOOB', $pagina->credito_sicoob);
         define('MENU_FARMACIA', $pagina->farmacia);
-        define(
-            'MENU_SAUDE',
-            $pagina->saude_vitoria || $pagina->saude_amil || $pagina->saude_seguro || $pagina->saude_cnu || $pagina->saude_florianopolis || $clube->empresa === UUID::CFM
-        );
+        define('MENU_SAUDE', $pagina->saude);
         define('MENU_SAUDE_VITORIA', $pagina->saude_vitoria);
         define('MENU_SAUDE_AMIL', $pagina->saude_amil);
         define('MENU_SAUDE_SEGURO', $pagina->saude_seguro);

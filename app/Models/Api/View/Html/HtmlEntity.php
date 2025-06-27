@@ -25,9 +25,9 @@ final class HtmlEntity extends Entity
         'titulo_interno', 'div_direcao_desktop', 'div_direcao_mobile', 'div_posicao_desktop', 'div_posicao_mobile',
         'margem_topo_desktop', 'margem_esquerda_desktop', 'margem_direita_desktop', 'margem_baixo_desktop',
         'margem_topo_mobile', 'margem_esquerda_mobile', 'margem_direita_mobile', 'margem_baixo_mobile',
-        'icone_tipo', 'icone_tamanho', 'icone_cor', 'icone_bg', 'icone_borda_cor', 'icone_nome',
+        'icone_tipo', 'icone_tamanho', 'icone_cor', 'icone_bg', 'icone_borda_cor', 'icone_nome', 'css',
         'icone_altura', 'lista_tipo', 'lista_valor', 'link_empresa', 'imagem_arquivo', 'imagem_altura_desktop',
-        'imagem_altura_mobile', 'api_status', 'api_metodo', 'api_body', 'api_uri', 'botao_tipo',
+        'imagem_altura_mobile', 'api_status', 'api_metodo', 'api_body', 'api_uri', 'botao_tipo', 'condicao',
         'status', 'ordem', 'id_admin_empresa_ativa', 'id_admin_empresa_inativa', 'div_minimo_desktop',
         'div_minimo_mobile', 'div_maximo_desktop', 'div_maximo_mobile', 'texto_alinhamento_desktop',
         'texto_alinhamento_mobile'
@@ -36,8 +36,8 @@ final class HtmlEntity extends Entity
     protected array $ormSalvar = [
         'tipo', 'local', 'titulo', 'texto', 'link', 'target', 'tabela', 'editor',
         'titulo_interno', 'div_direcao_desktop', 'div_direcao_mobile', 'div_posicao_desktop', 'div_posicao_mobile',
-        'margem_topo_desktop', 'margem_esquerda_desktop', 'margem_direita_desktop', 'margem_baixo_desktop',
-        'margem_topo_mobile', 'margem_esquerda_mobile', 'margem_direita_mobile', 'margem_baixo_mobile',
+        'margem_topo_desktop', 'margem_esquerda_desktop', 'margem_direita_desktop', 'margem_baixo_desktop', 'css',
+        'margem_topo_mobile', 'margem_esquerda_mobile', 'margem_direita_mobile', 'margem_baixo_mobile', 'condicao',
         'icone_tipo', 'icone_tamanho', 'icone_cor', 'icone_bg', 'icone_borda_cor', 'icone_nome', 'icone_altura',
         'lista_tipo', 'lista_valor', 'link_empresa', 'api_status', 'api_metodo', 'api_body', 'api_uri', 'botao_tipo',
         'status', 'id_view_html', 'ordem', 'id_admin_empresa_ativa', 'id_admin_empresa_inativa', 'imagem_arquivo',
@@ -61,6 +61,8 @@ final class HtmlEntity extends Entity
     public string $link;
     public Target $target;
     public array $tabela;
+    public array $condicao;
+    public array $css;
     public string $editor;
     public string $titulo_interno;
     public int $margem_topo_desktop;

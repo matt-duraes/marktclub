@@ -640,20 +640,47 @@ Route
             ::request(['titular', 'plano', '!dependente'])
             ::post('/saude/simulacao');
         Route
-            ::nome('contratar')
+            ::nome('simulacaoEscolhida')
+            ::request(['plano', 'dado'])
+            ::post('/saude/simulacao-escolhida');
+        Route
+            ::nome('contratacao')
             ::view('/saude/contratar/{simulacao}');
         Route
-            ::nome('contratar')
+            ::nome('realizarContratacao')
             ::request([
-                'id_saude_simulacao', 'nome', 'naturalidade', 'cpf', 'data_nascimento', 'genero', 'estado_civil',
-                'peso', 'altura', 'rg', 'orgao_expedidor', 'nome_mae', 'responsavel_nome', 'responsavel_cpf',
-                'responsavel_rg', 'responsavel_orgao_expedidor', 'email_pessoal', 'telefone_celular',
-                'telefone_residencial', 'telefone_comercial', 'telefone_comercial_ramal', 'endereco_cep',
-                'endereco_bairro', 'endereco_logradouro', 'endereco_numero', 'endereco_complemento',
-                'endereco_cidade', 'endereco_estado',
+                'id_saude_simulacao',
+                'nome',
+                'naturalidade',
+                'cpf',
+                'data_nascimento',
+                'genero',
+                'estado_civil',
+                'peso',
+                'altura',
+                'rg',
+                'orgao_expedidor',
+                'nome_mae',
+                'responsavel_nome',
+                'responsavel_cpf',
+                'responsavel_rg',
+                'responsavel_orgao_expedidor',
+                'email_pessoal',
+                'telefone_celular',
+                'telefone_residencial',
+                'telefone_comercial',
+                'telefone_comercial_ramal',
+                'endereco_cep',
+                'endereco_bairro',
+                'endereco_logradouro',
+                'endereco_numero',
+                'endereco_complemento',
+                'endereco_cidade',
+                'endereco_estado',
             ])
             ::post('/saude-contratacao');
     });
+
 Route
     ::nome('farmacia')
     ::middleware(ClubeMiddleware::class, 'buscar')

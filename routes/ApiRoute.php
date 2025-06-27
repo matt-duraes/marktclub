@@ -2504,7 +2504,7 @@ Route
             ::nome('simular')
             ::middleware(TokenMiddleware::class, 'scope', ['saude_simulacao:simular'])
             ::request([
-                'plano', 'titular', 'dependente',
+                'convenio', 'titular', 'dependente',
             ])
             ::post('/saude-simulacao/simular');
 
@@ -2512,7 +2512,7 @@ Route
             ::nome('salvar')
             ::middleware(TokenMiddleware::class, 'scope', ['saude_simulacao:salvar'])
             ::request([
-                'plano', 'titular', 'dependente',
+                'convenio', 'simulacao'
             ])
             ::post('/saude-simulacao');
     });
