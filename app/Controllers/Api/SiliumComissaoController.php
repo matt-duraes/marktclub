@@ -4,6 +4,8 @@ namespace App\Controllers\Api;
 
 use App\Classes\SiliumComissao\Ordem;
 use App\Classes\SiliumComissao\Status;
+use App\Models\Api\DownloadPrivado\ArquivoEntity;
+use App\Models\Api\SiliumComissao\DownloadModel;
 use App\Models\Api\SiliumComissao\SiliumComissaoEntity;
 use App\Models\Api\SiliumComissao\SiliumComissaoModel;
 use App\Models\Api\SiliumSaldo\SiliumSaldoEntity;
@@ -22,9 +24,9 @@ use System\Interface\ControllerListarInterface;
 use System\Interface\ControllerSalvarInterface;
 
 final class SiliumComissaoController extends Controller implements
+    ControllerBuscarInterface,
     ControllerListarInterface,
     ControllerSalvarInterface,
-    ControllerBuscarInterface,
     ControllerAtualizarInterface,
     ControllerDeletarInterface
 {
@@ -153,5 +155,30 @@ final class SiliumComissaoController extends Controller implements
                 'saldo_silium'
             ])
         );
+    }
+
+    /**
+     * @param Request $request
+     *
+     * @return Response
+     * @throws Excecao
+     */
+    public function postDownload(Request $request): Response
+    {
+        $DownloadModel = new DownloadModel(
+            $request->campo,
+            $request->usuario,
+            new Ordem($request->ordem),
+            $request->cliente,
+            $request->parceiro,
+            new Data($request->data_inicio),
+            new Data($request->data_final),
+            new Status($request->status)
+        );
+        $ArquivoEntity = new ArquivoEntity($DownloadModel->download(), $request->usuario);
+        $ArquivoEntity->salvar();
+        return mensagemSucesso([
+            'id' => $ArquivoEntity->id
+        ], 201);
     }
 }

@@ -9,7 +9,7 @@ return [
     'add'        => true,
     'editar'     => false,
     'deletar'    => false,
-    'download'   => false,
+    'download'   => true,
     'historico'  => true,
     'api'        => [
         'scope' => 'silium_comissao',

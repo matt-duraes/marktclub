@@ -79,7 +79,7 @@ final class Scope
         'usuario_grupo:select', 'usuario_equipe:select', 'parceiro_loja:select',
         'usuario_equipe:mudar_empresa', 'automovel_modelo:deletar', 'usuario_equipe:perfil',
         'site_lotacao:select', 'enquete_mercado:buscar', 'enquete_mercado:listar',
-        'enquete_mercado:download'
+        'enquete_mercado:download', 'silium_comissao:download'
     ];
     public const PAINEL_INTERNO = [
         'perfil_dado:buscar', 'perfil_dado:atualizar', 'perfil_dado:validar_senha',
@@ -218,6 +218,7 @@ final class Scope
 
         'silium_comissao:atualizar', 'silium_comissao:buscar', 'silium_comissao:deletar',
         'silium_comissao:listar', 'silium_comissao:salvar', 'silium_comissao:status',
+        'silium_comissao:download',
 
         'silium_config:atualizar', 'silium_config:buscar', 'silium_config:deletar',
         'silium_config:listar', 'silium_config:salvar',
@@ -431,10 +432,13 @@ final class Scope
         'relatorio_analytics:salvar', 'relatorio_loja_venda:listar', 'relatorio_usuario:listar',
 
         'silium_comissao:atualizar', 'silium_comissao:buscar', 'silium_comissao:deletar',
-        'silium_comissao:listar', 'silium_comissao:saldo', 'silium_deposito:atualizar',
-        'silium_deposito:buscar', 'silium_deposito:deletar', 'silium_deposito:listar', 'silium_deposito:salvar',
-        'silium_config:atualizar', 'silium_config:buscar', 'silium_config:configuracoes', 'silium_config:deletar',
-        'silium_config:listar', 'silium_config:salvar',
+        'silium_comissao:listar', 'silium_comissao:saldo', 'silium_comissao:download',
+
+        'silium_deposito:atualizar', 'silium_deposito:buscar', 'silium_deposito:deletar',
+        'silium_deposito:listar', 'silium_deposito:salvar',
+
+        'silium_config:atualizar', 'silium_config:buscar', 'silium_config:configuracoes',
+        'silium_config:deletar', 'silium_config:listar', 'silium_config:salvar',
 
         'site_config:atualizar', 'site_config:buscar', 'site_config:deletar', 'site_config:listar',
         'site_config:salvar',

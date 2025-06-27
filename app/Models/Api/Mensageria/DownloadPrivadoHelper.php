@@ -57,6 +57,11 @@ final class DownloadPrivadoHelper implements MensageriaInterface
             'uri'    => '/enquete-mercado/download',
             'scope'  => 'enquete_mercado:download',
             'metodo' => 'POST'
+        ],
+        'silium_comissao'     => [
+            'uri'    => '/silium-comissao/download',
+            'scope'  => 'silium_comissao:download',
+            'metodo' => 'POST'
         ]
     ];
 
