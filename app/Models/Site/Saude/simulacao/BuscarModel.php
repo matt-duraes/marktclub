@@ -54,12 +54,13 @@ final class BuscarModel extends ClubeApiHelper
     {
         $busca = $this
             ->body([
-                'plano' => $this->plano,
+                'convenio' => $this->plano,
                 'titular' => $this->titular->date(),
                 'dependente' => $this->dependente
             ])
             ->post('/saude-simulacao/simular')
             ->array();
+
         if(!validarIndiceExiste($busca, 'status', valor: 'sucesso')) {
             $this->erroPadrao('Erro na busca da API.');
         }
@@ -70,7 +71,7 @@ final class BuscarModel extends ClubeApiHelper
     {
         mensagemErro(
             titulo: 'Erro!',
-            mensagem: 'Ocorreu um erro ao fazer a simulação, por favor, tente novamente.',
+            mensagem: 'Ocorreu um erro ao fazer a simulação, por favor, tente novamente, caso o erro continue, refaça seu login.',
             localhost: $mensagem
         );
     }

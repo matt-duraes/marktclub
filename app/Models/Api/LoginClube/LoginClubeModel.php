@@ -2,25 +2,25 @@
 
 namespace App\Models\Api\LoginClube;
 
-use App\Classes\ApiToken\Tipo as TokenTipo;
-use App\Classes\LoginClube\Tipo;
-use App\Models\Api\ApiApp\Trait\AppParaTokenTrait;
-use App\Models\Api\ApiToken\PayloadModel;
-use App\Models\Api\ApiToken\TokenAuthorizationEntity;
-use App\Models\Api\ConstrutorClube\ClubeModel;
-use App\Models\Api\ConstrutorClube\ConstrutorEntity;
-use App\Models\Api\LoginClube\Anpprev\UsuarioTrait as UsuarioAnpprevTrait;
-use App\Models\Api\LoginClube\ClubePoupy\UsuarioTrait as UsuarioClubePoupyTrait;
-use App\Models\Api\LoginClube\EmporioNaval\UsuarioTrait as UsuarioEmporioNavalTrait;
-use App\Models\Api\LoginClube\LeveBeneficios\UsuarioTrait as UsuarioLeveTrait;
-use App\Models\Api\LoginClube\UpClube\UsuarioTrait as UsuarioUpClubeTrait;
-use App\Models\Api\LoginClube\VivaDiversao\UsuarioTrait as UsuarioVivaTrait;
-use App\Models\Api\LoginClube\Youhuul\LoginModel as LoginMarktClubModel;
-use App\Models\Api\UsuarioCliente\UsuarioLogadoModel;
-use Erro\Excecao;
-use Modules\Botao;
 use stdClass;
 use Throwable;
+use Erro\Excecao;
+use Modules\Botao;
+use App\Classes\LoginClube\Tipo;
+use App\Models\Api\ApiToken\PayloadModel;
+use App\Classes\ApiToken\Tipo as TokenTipo;
+use App\Models\Api\ConstrutorClube\ClubeModel;
+use App\Models\Api\ApiApp\Trait\AppParaTokenTrait;
+use App\Models\Api\ConstrutorClube\ConstrutorEntity;
+use App\Models\Api\ApiToken\TokenAuthorizationEntity;
+use App\Models\Api\UsuarioCliente\UsuarioLogadoModel;
+use App\Models\Api\LoginClube\Youhuul\LoginModel as LoginMarktClubModel;
+use App\Models\Api\LoginClube\Anpprev\UsuarioTrait as UsuarioAnpprevTrait;
+use App\Models\Api\LoginClube\UpClube\UsuarioTrait as UsuarioUpClubeTrait;
+use App\Models\Api\LoginClube\VivaDiversao\UsuarioTrait as UsuarioVivaTrait;
+use App\Models\Api\LoginClube\LeveBeneficios\UsuarioTrait as UsuarioLeveTrait;
+use App\Models\Api\LoginClube\ClubePoupy\UsuarioTrait as UsuarioClubePoupyTrait;
+use App\Models\Api\LoginClube\EmporioNaval\UsuarioTrait as UsuarioEmporioNavalTrait;
 
 final class LoginClubeModel
 {
@@ -125,7 +125,7 @@ final class LoginClubeModel
 
     private function criarToken(): void
     {
-        $App = $this->pegarApp(['uuid', env('API_CLUBE_ID')]);
+        $App = $this->pegarApp(['uuid', $this->pegarIdApp()]);
         $payload = (new PayloadModel($this->Usuario, $App->audience))->payload;
 
         $Token = new TokenAuthorizationEntity();
@@ -139,5 +139,10 @@ final class LoginClubeModel
             empresa: $this->idEmpresa,
             tipo: new TokenTipo(TokenTipo::CLUBE)
         );
+    }
+
+    private function pegarIdApp()
+    {
+        return 'app' === TOKEN['app']->audience ? env('API_APP_ID', '') : env('API_CLUBE_ID', '');
     }
 }

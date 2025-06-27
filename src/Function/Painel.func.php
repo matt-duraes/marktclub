@@ -798,13 +798,13 @@ if (!function_exists('painelInputLista')) {
             } elseif ($funcao == 'checkbox') {
                 $input['check'] = (is_array($valor) && !empty($valor) && !empty($input['value'])
                     && in_array($input['value'], $valor)) || (is_string($valor) && $valor == 'sim');
-            } elseif (in_array($funcao, ['indiceValor', 'arquivoLista'])) {
+            } elseif (in_array($funcao, ['indiceValor', 'arquivoLista', 'condicao'])) {
                 $input['value'] = jsonDecode($valor, true, true);
             } else {
                 $input['value'] = $valor;
             }
 
-            if (array_key_exists('placeholder', $input) && empty($input['placeholder'])) {
+            if (array_key_exists('placeholder', $input) && empty($input['placeholder']) && array_key_exists('label', $input)) {
                 $input['placeholder'] = $input['label'];
             }
             if (!array_key_exists('class', $input)) {

@@ -20,9 +20,8 @@ final class SimulacaoController extends Controller
     public function postSalvar(Request $request)
     {
         $Salvar = new SalvarModel(
-            Simulacao: $this->simular($request),
             convenio: $request->convenio,
-            simulacao: $request->simulacao
+            simulacao: jsonDecode($request->simulacao, true, true)
         );
         return mensagemSucesso($Salvar->retorno, status: 201);
     }
@@ -30,7 +29,7 @@ final class SimulacaoController extends Controller
     private function simular(Request $request)
     {
         return new SimularModel(
-            plano: $request->plano,
+            convenio: $request->convenio,
             titular: new Data($request->titular),
             dependente: jsonDecode($request->dependente, true, true)
         );

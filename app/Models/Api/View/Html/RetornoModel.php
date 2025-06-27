@@ -111,6 +111,8 @@ abstract class RetornoModel extends ORM
             'div_direcao_mobile' => !$painel && empty($direcaoMobile) ? $direcaoDesktop : $direcaoMobile,
             'div_posicao_desktop' => $posicaoDesktop,
             'div_posicao_mobile' => !$painel && empty($posicaoMobile) ? $posicaoDesktop : $posicaoMobile,
+            'css'             => jsonDecode($r->css, true, true),
+            'condicao'        => jsonDecode($r->condicao, true, true),
             'api_status'      => (new Botao($r->api_status ? 'sim' : 'nao'))->valor(),
             'api_metodo'      => (new Metodo($r->api_metodo))->indice(),
             'api_body'        => $r->api_body,
