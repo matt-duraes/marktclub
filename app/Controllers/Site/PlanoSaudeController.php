@@ -10,10 +10,10 @@ use Controller\Controller;
 use Modules\EnderecoEstado;
 use App\Helpers\ClubeApiHelper;
 use App\Models\Site\BannerModel;
-use App\Models\Site\Saude\endereco\CidadeModel;
-use App\Models\Site\Saude\endereco\EstadoModel;
-use App\Models\Site\Saude\simulacao\BuscarModel;
-use App\Models\Site\Saude\simulacao\EscolhidaModel;
+use App\Models\Site\Saude\Endereco\CidadeModel;
+use App\Models\Site\Saude\Endereco\EstadoModel;
+use App\Models\Site\Saude\Simulacao\BuscarModel;
+use App\Models\Site\Saude\Simulacao\EscolhidaModel;
 
 final class PlanoSaudeController extends Controller
 {
