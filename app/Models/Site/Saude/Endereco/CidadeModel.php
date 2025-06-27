@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Models\Site\Saude\endereco;
+namespace App\Models\Site\Saude\Endereco;
 
 use Modules\EnderecoEstado;
 use App\Helpers\ClubeApiHelper;
