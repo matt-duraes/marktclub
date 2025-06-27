@@ -1,11 +1,11 @@
 <?php
 
-use Route\Route;
 use App\Classes\Parceiro\Externo\Helper;
-use App\Middlewares\Api\TokenMiddleware;
 use App\Middlewares\Api\MarktClubMiddleware;
+use App\Middlewares\Api\TokenMiddleware;
 use App\Middlewares\Api\TokenProvMiddleware;
 use App\Middlewares\DrogariaAraujoMiddleware;
+use Route\Route;
 
 Route::noIndex();
 
@@ -2527,29 +2527,35 @@ Route
             ::middleware(TokenMiddleware::class, 'scope', ['saude_convenio:listar'])
             ::request(['!endereco_estado', '!endereco_cidade', '!pagina', '!quantiadade'], 'json')
             ::get('/saude-convenio');
+
         Route
             ::nome('buscar')
             ::middleware(TokenMiddleware::class, 'scope', ['saude_convenio:buscar'])
             ::get('/saude-convenio/{id}');
+
         Route
             ::nome('salvar')
             ::request([
                 'titulo', 'arquivo_imagem', 'url', 'status', 'empresa', 'endereco_estado',
             ])
             ::post('/saude-convenio');
+
         Route
             ::nome('atualizar')
             ::request([
                 '!titulo', '!arquivo_imagem', '!url', '!status', '!empresa', '!endereco_estado',
             ])
             ::put('/saude-convenio/{id}');
+
         Route
             ::nome('deletar')
             ::delete('/saude-convenio/{id}');
+
         Route
             ::nome('estado')
             ::middleware(TokenMiddleware::class, 'scope', ['saude_convenio:estado'])
             ::get('/saude-convenio/estado');
+
         Route
             ::nome('cidade')
             ::middleware(TokenMiddleware::class, 'scope', ['saude_convenio:cidade'])
@@ -2915,8 +2921,8 @@ Route
             ::nome('listar')
             ::middleware(TokenMiddleware::class, 'scope', ['silium_comissao:listar'])
             ::request([
-                'pagina', '!quantidade', '!ordem', '!usuario', '!parceiro', '!data_inicio',
-                '!data_final', '!status',
+                'pagina', '!quantidade', '!ordem', '!cliente', '!parceiro', '!data_inicio',
+                '!data_final', '!status'
             ], 'json')
             ::get('/silium-comissao');
 
@@ -2925,7 +2931,7 @@ Route
             ::middleware(TokenMiddleware::class, 'scope', ['silium_comissao:salvar'])
             ::request([
                 'usuario', 'parceiro', 'valor_compra', 'comissao_usuario',
-                '!pontuacao', 'data_compra', 'status',
+                '!pontuacao', 'data_compra', 'status'
             ])
             ::post('/silium-comissao');
 
@@ -2934,7 +2940,7 @@ Route
             ::middleware(TokenMiddleware::class, 'scope', ['silium_comissao:atualizar'])
             ::request([
                 '!usuario', '!parceiro', '!valor_compra', '!comissao_usuario',
-                '!pontuacao', '!data_compra', '!status',
+                '!pontuacao', '!data_compra', '!status'
             ])
             ::put('/silium-comissao/{id}');
 
@@ -2947,6 +2953,15 @@ Route
             ::nome('saldo')
             ::middleware(TokenMiddleware::class, 'scope', ['silium_comissao:saldo'])
             ::get('/silium-saldo/{id}');
+
+        Route
+            ::nome('download')
+            ::middleware(TokenMiddleware::class, 'scope', ['silium_comissao:download'])
+            ::request([
+                'campo', 'usuario', '!ordem', '!cliente', '!parceiro',
+                '!data_inicio', '!data_final', '!status'
+            ])
+            ::post('/silium-comissao/download');
     });
 
 Route

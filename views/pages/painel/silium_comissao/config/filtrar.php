@@ -7,7 +7,7 @@ $Painel = new Filtrar('silium_comissao');
 
 $Painel
     ->input(
-        name: 'usuario',
+        name: 'cliente',
         titulo: 'Nome do Usuário',
         label: 'Nome do Usuário',
         placeholder: 'Nome do Usuário'
@@ -22,15 +22,15 @@ $Painel
         $Painel
             ->data(
                 name: 'data_inicio',
-                titulo: 'Comissão de',
-                label: 'Comissão de',
-                placeholder: 'Comissão de'
+                titulo: 'Compra de',
+                label: 'Compra de',
+                placeholder: 'Compra de'
             )
             ->data(
                 name: 'data_final',
-                titulo: 'Comissão até',
-                label: 'Comissão até',
-                placeholder: 'Comissão até'
+                titulo: 'Compra até',
+                label: 'Compra até',
+                placeholder: 'Compra até'
             );
     })
     ->numero(

@@ -52,31 +52,6 @@ class SiliumComissaoModel extends ORM implements
     }
 
     /**
-     * @throws Excecao
-     */
-    private function validarRequest(): void
-    {
-        if (!$this->pagina->vazio() && !$this->pagina->valido()) {
-            mensagemErro('Campo inválido!', 'A Página informada não é válida.');
-        }
-        if (!$this->quantidade->vazio() && !$this->quantidade->valido()) {
-            mensagemErro('Campo inválido!', 'A Quantidade informada não é válida.');
-        }
-        if (!$this->ordem->vazio() && !$this->ordem->valido()) {
-            mensagemErro('Campo inválido!', 'A Ordem informada não é válida.');
-        }
-        if (!$this->dataInicio->vazio() && !$this->dataInicio->eDate()) {
-            mensagemErro('Campo inválido!', 'A Data de início não está no formato válido.');
-        }
-        if (!$this->dataFinal->vazio() && !$this->dataFinal->eDate()) {
-            mensagemErro('Campo inválido!', 'A Data final não está no formato válido.');
-        }
-        if (!$this->status->vazio() && !$this->status->valido()) {
-            mensagemErro('Campo inválido!', 'O Status informado não é válido.');
-        }
-    }
-
-    /**
      * @return stdClass
      * @throws Excecao
      */
@@ -105,6 +80,31 @@ class SiliumComissaoModel extends ORM implements
             ->read();
         $comissoes->lista = $this->montarRetorno($comissoes->lista);
         return $comissoes;
+    }
+
+    /**
+     * @throws Excecao
+     */
+    private function validarRequest(): void
+    {
+        if (!$this->pagina->vazio() && !$this->pagina->valido()) {
+            mensagemErro('Campo inválido!', 'A Página informada não é válida.');
+        }
+        if (!$this->quantidade->vazio() && !$this->quantidade->valido()) {
+            mensagemErro('Campo inválido!', 'A Quantidade informada não é válida.');
+        }
+        if (!$this->ordem->vazio() && !$this->ordem->valido()) {
+            mensagemErro('Campo inválido!', 'A Ordem informada não é válida.');
+        }
+        if (!$this->dataInicio->vazio() && !$this->dataInicio->eDate()) {
+            mensagemErro('Campo inválido!', 'A Data de início da compra não está no formato válido.');
+        }
+        if (!$this->dataFinal->vazio() && !$this->dataFinal->eDate()) {
+            mensagemErro('Campo inválido!', 'A Data final da compra não está no formato válido.');
+        }
+        if (!$this->status->vazio() && !$this->status->valido()) {
+            mensagemErro('Campo inválido!', 'O Status informado não é válido.');
+        }
     }
 
     /**
