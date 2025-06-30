@@ -28,6 +28,7 @@ final class ResultadoModel extends ORM
             if (!array_key_exists($r->id_votacao_pergunta, $retorno)) {
                 $retorno[$r->id_votacao_pergunta] = [
                     'pergunta' => $pergunta[$r->id_votacao_pergunta],
+                    'descricao' => $pergunta[$r->id_votacao_pergunta . '-descricao'],
                     'resposta' => []
                 ];
             }

@@ -99,7 +99,9 @@
         </div>
     </div>
     <div class="display_none">
-        <div class="subtitulo" id="tr_subtitulo">Pergunta 01</div>
+        <div class="subtitulo" id="tr_subtitulo">Pergunta 01
+        </div>
+        <div class="subtitulo descricao_pergunta" id="tr_descricao">Descricao 01</div>
         <div class="tr" id="tr_resposta">
             <div class="td resultado_titulo">Resposta 01</div>
             <div class="td resultado_quantidade">100</div>

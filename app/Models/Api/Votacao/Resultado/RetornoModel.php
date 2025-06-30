@@ -33,11 +33,11 @@ final class RetornoModel extends ORM
         $usuario = $this->Usuario->lista;
         $pergunta = $this->Pergunta->lista;
         $resposta = $this->Resposta->lista;
-
         $votoLista = [];
         foreach ($voto as $r) {
             $dado = [
                 'pergunta' => $pergunta[$r->id_votacao_pergunta],
+                'descricao' => $pergunta[$r->id_votacao_pergunta . '-descricao'],
                 'resposta' => $this->montarResposta(
                     $resposta[$r->id_votacao_resposta],
                     $r->resposta_outro,

@@ -10,6 +10,8 @@ window.addEventListener('load', () => {
     const menu = $$('#bloco_resultado_menu .item');
 
     const cloneTrSubtitulo = $('#tr_subtitulo');
+    const cloneTrDescricao = $('#tr_descricao');
+
     const cloneTrResposta = $('#tr_resposta');
     const cloneTrVoto = $('#tr_voto');
     const cloneTrUsuario = $('#tr_usuario');
@@ -44,6 +46,7 @@ window.addEventListener('load', () => {
     });
 
     const buscarResultado = async () => {
+
         Loading.show();
         const resposta = await ajaxPost(
             LINK + '/app/ajax/votacao',
@@ -53,6 +56,7 @@ window.addEventListener('load', () => {
             },
             'Ocorreu um erro ao buscar resultado.'
         );
+
         Loading.hide();
         if (false === resposta) {
             return;
@@ -64,10 +68,13 @@ window.addEventListener('load', () => {
         adicionarTrUsuario(resposta.dado.usuario);
     };
 
+
     const adicionarTrResultado = lista => {
         for (const pergunta of lista) {
             const titulo = cloneTrSubtitulo.clonar();
+            const descricao = cloneTrDescricao.clonar();
             blocoResultadoConteudo.final(titulo.texto(pergunta.pergunta));
+            blocoResultadoConteudo.final(descricao.texto(pergunta.descricao));
             textoResultado += pergunta.pergunta + `\n`;
             for (const resposta of pergunta.resposta) {
                 const tr = cloneTrResposta.clonar();
