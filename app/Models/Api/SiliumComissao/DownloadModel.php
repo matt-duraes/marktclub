@@ -136,8 +136,12 @@ class DownloadModel extends ORM
         return array_keys($campos);
     }
 
+    /**
+     * @return array
+     */
     private function pegarWhere(): array
     {
+        $where = [];
         if (!empty($this->parceiro)) {
             $where[] = ['parceiro', 'LIKE', "%$this->parceiro%"];
         }
