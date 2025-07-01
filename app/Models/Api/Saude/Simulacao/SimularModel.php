@@ -7,15 +7,16 @@ use Modules\Data;
 
 final class SimularModel
 {
-    private array $ordem;
-    private array $arquivoValor = [];
-    public array $valorDependente = [];
-    public array $valorTitular = [];
-    public float $valorTotal = 0;
+    private array $arquivo = [];
+    private int $indiceTitular = 0;
+    private array $indiceDependente = [];
+
     public array $retorno = [];
+    public float $valorTitular = 0;
+    public float $valorTotal = 0;
+    public array $valorDependente = [];
 
     public function __construct(
-        private array $simulacao,
         private string $convenio,
         private Data $titular,
         private array $dependente
@@ -24,48 +25,19 @@ final class SimularModel
         $this->montarDependente();
         $this->validarCampo();
         $this->pegarArquivo();
-        $this->pegarOrdemEscolha();
-        $this->ordenarSimulacaoEscolhida();
-        $this->setarListaValorSimulacaoEscolhida();
-        $this->adicionarValorUsuario();
+        $this->setarIdade();
         $this->montarRetorno();
     }
 
-    private function montarRetorno()
+    private function setarIdade(): void
     {
-        $this->retorno = [
-            'id' => uuid(),
-            'titular' => $this->valorTitular,
-            'dependente' => $this->valorDependente,
-            'total' => number_format($this->valorTotal, 2),
-            'status' => 'novo'
-        ];
-    }
-
-    private function adicionarValorUsuario()
-    {
-        $this->valorTitular = $this->pegarValor($this->titular);
+        $this->indiceTitular = $this->pegarIndicePorIdade($this->titular->date());
         foreach($this->dependente as $Data) {
-            $this->valorDependente[] = $this->pegarValor($Data);
+            $this->indiceDependente[$Data->data()] = $this->pegarIndicePorIdade($Data->date());
         }
     }
 
-    private function pegarValor(Data $Data)
-    {
-        $dataNascimento = $Data->date();
-        $indice = $this->pegarIndicePorIdade($dataNascimento);
-        if(!array_key_exists($indice, $this->arquivoValor)) {
-            $this->erroPadrao('A idade não existe na lista de preços.');
-        }
-        $valor = $this->arquivoValor[$indice];
-        $this->valorTotal += $valor;
-        return [
-            'valor' => number_format($valor, 2),
-            'data_nascimento' => $dataNascimento
-        ];
-    }
-
-    private function pegarIndicePorIdade(string $data)
+    private function pegarIndicePorIdade(string $data): int
     {
         $data = new DateTime($data);
         $hoje = new DateTime();
@@ -76,19 +48,82 @@ final class SimularModel
         return min(intdiv($idade - 19, 5) + 1, 9);
     }
 
-    private function montarDependente()
+    private function montarRetorno(): void
+    {
+        $retorno = [];
+        foreach($this->arquivo as $plano => $r) {
+            $valor = $this->pegarValor($r['valor']);
+            $retorno[] = [
+                'titulo' => $r['titulo'] ?? '',
+                'plano' => $plano,
+                'item' => $r['item'] ?? [],
+                'link' => $r['link'] ?? '',
+                'target' => $r['target'] ?? '',
+                'valor_total' => $valor['total'],
+                'valor_lista' => $valor['lista'],
+                'valor_detalhe' => $valor['detalhe']
+            ];
+        }
+        $this->retorno = $retorno;
+    }
+
+    private function pegarValor(array $valor): array
+    {
+        $total = number_format($valor[$this->indiceTitular], 2, '.', '');
+        $lista = [
+            [
+                'nome' => 'Titular',
+                'data' => dataBr($this->titular),
+                'valor' => $total
+            ]
+        ];
+        $titular = $total;
+        $dependente = 0;
+        $dependenteNumero = 0;
+        foreach($this->indiceDependente as $data => $indice)
+        {
+            if(!array_key_exists($indice, $valor)) {
+                continue;
+            }
+            $dependenteNumero++;
+            $valorDependente = $valor[$indice];
+            $lista[] = [
+                'nome' => 'Dependente ' . $dependenteNumero,
+                'data' => dataBr($data),
+                'valor' => number_format($valorDependente, 2, '.', '')
+            ];
+
+            $dependente += $valorDependente;
+            $total += $valorDependente;
+        }
+
+        return [
+            'total' => number_format($total, 2, '.', ''),
+            'lista' => $lista,
+            'detalhe' => [
+                'titular' => $titular,
+                'dependente' => number_format($dependente, 2, '.', '')
+            ]
+        ];
+    }
+
+    private function montarDependente(): void
     {
         $retorno = [];
         foreach($this->dependente as $data) {
-            $retorno[] = new Data($data);
+            $Valor = new Data($data);
+            if($Valor->vazio()) {
+                continue;
+            }
+            $retorno[] = $Valor;
         }
         $this->dependente = $retorno;
     }
 
-    private function validarCampo()
+    private function validarCampo(): void
     {
-        if(empty($this->simulacao) || empty($this->convenio)) {
-            $this->erroPadrao('Campo simulacao ou convenio vazios.');
+        if(empty($this->convenio)) {
+            $this->erroPadrao('Não foi passado um plano para simular.');
         } elseif(!$this->titular->valido()) {
             mensagemErro('Data nascimento inválida!', 'Data de nascimento do titular está inválida.');
         }
@@ -100,9 +135,9 @@ final class SimularModel
         }
     }
 
-    private function pegarArquivo()
+    private function pegarArquivo(): void
     {
-        $path = DIRETORIO_PRIVADO . '/saude_valor/' . $this->convenio . '.yaml';
+        $path = DIRETORIO_PRIVADO . '/plano_valor/' . $this->convenio . '.yaml';
         if(!file_exists($path)) {
             $this->erroPadrao('path do arquivo não encontrado');
         }
@@ -110,32 +145,10 @@ final class SimularModel
         if(!is_array($valor) || empty($valor)) {
             $this->erroPadrao('erro ao ler arquivo');
         }
-        $this->arquivoValor = $valor;
+        $this->arquivo = $valor;
     }
 
-    private function pegarOrdemEscolha()
-    {
-        $ordem = (new OrdemEscolhaModel($this->convenio))->ordem;
-        if(empty($ordem)) {
-            $this->erroPadrao('Erro ao pegar ordem escolhida');
-        }
-        $this->ordem = $ordem;
-    }
-
-    private function ordenarSimulacaoEscolhida()
-    {
-        $simulacao = $this->simulacao;
-        $ordem = [];
-        foreach($this->ordem as $indice) {
-            if(!array_key_exists($indice, $simulacao)) {
-                $this->erroPadrao('Não foi possível ordenar as escolha do plano.');
-            }
-            $ordem[] = $simulacao[$indice];
-        }
-        $this->ordem = $ordem;
-    }
-
-    private function erroPadrao(string $localhost)
+    private function erroPadrao(string $localhost): void
     {
         mensagemErro(
             'Erro na simulação!',
@@ -143,17 +156,5 @@ final class SimularModel
             status: 500,
             localhost: $localhost
         );
-    }
-
-    private function setarListaValorSimulacaoEscolhida()
-    {
-        $valor = $this->arquivoValor;
-        foreach($this->ordem as $indice) {
-            if(!array_key_exists($indice, $valor)) {
-                $this->erroPadrao('Não foi possível achar indice na lista de preços.');
-            }
-            $valor = $valor[$indice];
-        }
-        $this->arquivoValor = $valor;
     }
 }

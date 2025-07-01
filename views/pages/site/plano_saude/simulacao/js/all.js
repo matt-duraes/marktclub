@@ -3,164 +3,225 @@
 // @system "Form"
 // @system "Loading"
 // @system "Mascara"
-// @system "PassoPasso"
 // @system "Calendario"
 
 window.addEventListener('load', () => {
-    const PassoSimular = new PassoPasso(
-        '#bloco_simulacao_saude .bloco_conteudo .conteudo',
-        '#bloco_simulacao_saude .bloco_progresso'
-    );
+    const convenio = $('#input_plano_saude').valor();
 
     Calendario.init({
-        input: $$('.bloco_input_data .input_data[data-mascara="00/00/0000"]'),
+        input: $('#input_data_titular'),
     });
 
-    const botaoRegiao = $$('.botao_escolher_regiao');
-    const botaoAcomodacao = $$('.botao_escolher_acomodacao');
-    const botaoPlano = $$('.botao_escolher_plano');
-    const botaoVoltar = $$('.botao_voltar');
-    const operadora = $('#input_operadora').valor();
+    const botaoSimular = $('#botao_fazer_simulacao');
+    const botaoRefazerSimulacao = $('#botao_refazer_simulacao');
 
-    const botaoSimular = $('#botao_simulacao_continuar');
-    const botaoContratar = $('#botao_contratar');
-    const blocoDependenteLista = $('#bloco_lista_dependente');
-    const dependentePadrao = $('#bloco_dependente_padrao');
-    const inputTitular = $('#input_data_titular');
+    const inputDataTitular = $('#input_data_titular');
+
+    const blocoSimulacao = $('#bloco_simulacao');
+    const blocoResultado = $('#bloco_resultado');
+
     const botaoDependente = $('#botao_adicionar_dependente');
-    const blocoValorTotal = $('#bloco_valor_total');
-    const blocoResultadoTitular = $('#bloco_resultado_titular_padrao');
-    const blocoResultadoDependente = $('#bloco_resultado_dependente_padrao');
-    const blocoResultadoLista = $('#bloco_valor_lista');
-    const blocoEscolherPlano = $$('.bloco_escolher_plano');
-    const botaoCnuFlorianopolisRegional = $$('.botao_acomodacao_enfermaria-50, .botao_acomodacao_enfermaria-30');
-    const botaoCnuFlorianopolisNacional = $$('.botao_acomodacao_enfermaria, .botao_acomodacao_apartamento');
+    const blocoDependenteLista = $('#bloco_lista_dependente');
+    const blocoDependentePadrao = $('#bloco_dependente_padrao');
+    const blocoSemDependente = $('#bloco_sem_dependente');
 
-    let regiao = '';
-    let plano = '';
-    let acomodacao = '';
-
-    botaoRegiao.evento('click', (e, item) => {
-        botaoRegiao.classe('ativo', false);
-        regiao = item.attr('data-regiao');
-        PassoSimular.proximo(item);
-        blocoEscolherPlano.sumir();
-        $('.bloco_escolher_plano.' + regiao).aparecer();
-    });
-
-    botaoAcomodacao.evento('click', (e, item) => {
-        botaoAcomodacao.classe('ativo', false);
-        acomodacao = item.attr('data-acomodacao');
-        PassoSimular.proximo(item);
-    });
-
-    botaoPlano.evento('click', (e, item) => {
-        botaoPlano.classe('ativo', false);
-        plano = item.attr('data-plano');
-        PassoSimular.proximo(item);
-
-        if (operadora == 'cnu_florianopolis') {
-            setarTipoAcomodacaoCnuFlorianopolis();
-        }
-    });
-    const setarTipoAcomodacaoCnuFlorianopolis = () => {
-        botaoAcomodacao.sumir();
-        if (plano == 'regional') {
-            botaoCnuFlorianopolisRegional.aparecer();
-            return;
-        }
-        botaoCnuFlorianopolisNacional.aparecer();
-    };
-    botaoVoltar.evento('click', (e, item) => {
-        PassoSimular.anterior(item);
-    });
+    const blocoPlanoLista = $('#bloco_plano_lista');
+    const blocoPlanoPadrao = $('#bloco_plano_padrao');
+    const blocoPlanoValorPadrao = $('#bloco_plano_valor_padrao');
+    const blocoPlanoItemPadrao = $('#bloco_plano_item_padrao');
 
     botaoDependente.evento('click', () => {
-        const dependente = dependentePadrao.clonar();
-        blocoDependenteLista.inicio(dependente);
+        blocoSemDependente.sumir();
+        const dependente = blocoDependentePadrao.clonar();
+        blocoDependenteLista.final(dependente);
         Calendario.init({
             input: $('.bloco_input input', dependente),
         });
         $('input', dependente).focus();
         fwMascaraLoading(dependente);
     });
+
     blocoDependenteLista.evento('click', e => {
         if (!e.target.classe('remover', '?') && !e.target.closest('.remover')) {
             return;
         }
         e.target.closest('.linha_dependente').remove();
+        if ($$('.linha_dependente', blocoDependenteLista).length === 0) {
+            blocoSemDependente.aparecer();
+        }
     });
 
+    let simulacaoLista;
     botaoSimular.evento('click', async () => {
-        blocoResultadoLista.html('');
-        const dependente = $$('.linha_dependente', blocoDependenteLista);
-        const titular = inputTitular.valor();
-
-        if (vazio(titular) || !validarData(titular)) {
-            Alerta.notificacao('Digite a data de nascimento do titular para continuar.', false);
-            return;
-        } else if (!(await validarDataDependente())) {
-            Alerta.notificacao(
-                'Digite a data de nascimento de todos os dependentes, caso não queira mais algum dependente, basta remover da simulação.',
+        const dependenteLista = $$('.linha_dependente input', blocoDependenteLista);
+        const titular = inputDataTitular.valor();
+        if (vazio(titular)) {
+            Alerta.mensagem(
+                'Campo obrigatório',
+                'Você precisa enviar a data de nascimento do titular para continuar.',
                 false
             );
             return;
         } else if (
-            dependente.length == 0 &&
-            !(await Alerta.confirmar('Continuar', 'Você vai fazer a simulação sem dependentes, deseja confirmar?', '!'))
+            dependenteLista.length === 0 &&
+            !(await Alerta.confirmar('Dependente', 'Não foi cadastrado nenhum dependente, deseja continuar?', '!'))
         ) {
             return;
         }
 
-        Loading.show();
-        const resposta = await ajaxPost(
-            LINK + '/saude/realizar-simulacao',
-            {
-                operadora,
-                titular,
-                regiao,
-                plano,
-                acomodacao,
-                dependentes: JSON.stringify($$('.linha_dependente input', blocoDependenteLista).valor()),
-            },
-            'Ocorreu um erro ao fazer sua simulação, por favor, tente novamente.'
-        );
-        Loading.hide();
+        const dependenteValor = [];
+        let dependenteVazio = 0;
+        for (const dependente of dependenteLista) {
+            const data = dependente.valor();
+            if (vazio(data)) {
+                dependenteVazio++;
+                continue;
+            }
+            dependenteValor.push(data);
+        }
+        const dependenteVazioMensagem =
+            dependenteVazio > 1
+                ? `Existem ${dependenteVazio} dependentes sem a data de nascimento, deseja continuar?`
+                : 'Existe 1 dependente sem a data de nascimento, deseja continuar?';
+        if (dependenteVazio && !(await Alerta.confirmar('Dependente', dependenteVazioMensagem, '!'))) {
+            return;
+        }
 
+        Loading.show();
+        const resposta = await ajaxPost(LINK + '/saude/simulacao', {
+            dependente: dependenteValor,
+            titular: titular,
+            plano: convenio,
+        });
+
+        Loading.hide();
         if (false === resposta) {
             return;
         }
-        adicionarValorSimulacao(resposta.dado);
-        PassoSimular.proximo(botaoSimular);
+        blocoSimulacao.sumir();
+        blocoResultado.aparecer();
+        adicionarPlano(resposta.dado);
     });
 
-    const adicionarValorSimulacao = dado => {
-        botaoContratar.attr('href', LINK + '/saude/simulacao/' + dado.id);
-        blocoValorTotal.texto('R$ ' + dado.valor_total);
-        const titular = blocoResultadoTitular.clonar();
-        adicionarValor(titular, dado.titular.data, dado.titular.valor);
-        for (const item of dado.dependente) {
-            const dependente = blocoResultadoDependente.clonar();
-            adicionarValor(dependente, item.data, item.valor);
+    const pegarTamanhoBloco = tamanho => {
+        const larguraBloco =
+            blocoResultado.getBoundingClientRect().width -
+            parseInt(blocoResultado.css('padding-left')) -
+            parseInt(blocoResultado.css('padding-right'));
+
+        if (larguraBloco <= 300) {
+            return 300;
+        } else if (larguraBloco < 350) {
+            return larguraBloco - 30;
+        } else if (larguraBloco < 500) {
+            return larguraBloco - 60;
         }
-    };
-    const adicionarValor = (bloco, data, valor) => {
-        $('.data', bloco).texto(data);
-        $('.valor', bloco).texto('R$ ' + valor);
-        blocoResultadoLista.final(bloco);
+        const tamanhoAtual = tamanho === undefined ? 350 : tamanho;
+        const quantidade = Math.floor(larguraBloco / tamanhoAtual);
+        const larguraReal = quantidade * tamanhoAtual;
+        const resto = larguraBloco - larguraReal;
+        const restoCondicao = 60 + quantidade * 20;
+        if (resto < restoCondicao) {
+            return pegarTamanhoBloco(tamanhoAtual - 10);
+        }
+        return tamanhoAtual;
     };
 
-    const validarDataDependente = () => {
-        const lista = $$('.linha_dependente input', blocoDependenteLista);
-        if (lista.length == 0) {
-            return true;
-        }
-        for (const input of lista) {
-            const data = input.valor();
-            if (vazio(data) || !validarData(data)) {
-                return false;
+    const adicionarPlano = resposta => {
+        const tamanho = pegarTamanhoBloco();
+        simulacaoLista = {};
+        for (const item of resposta) {
+            simulacaoLista[item.plano] = item;
+            const clonar = blocoPlanoPadrao.clonar();
+            clonar.attr('data-plano', item.plano);
+            clonar.css('width', `${tamanho}px`);
+            $('header h2', clonar).texto(item.titulo);
+            const total = montarValor(item.valor_total);
+            $('.dinheiro .valor', clonar).texto(total[0]);
+            $('.dinheiro .centavo', clonar).texto(total[1]);
+
+            const blocoValor = $('.valor_lista', clonar);
+            for (const valor of item.valor_lista) {
+                const valorClone = blocoPlanoValorPadrao.clonar();
+                $('.indice .nome', valorClone).texto(valor.nome);
+                $('.indice .data', valorClone).texto(`(${valor.data})`);
+                $('.valor', valorClone).texto(`R$ ${valor.valor}`);
+                blocoValor.final(valorClone);
             }
+
+            $('.botao', clonar).classe('botao_escolher_plano', true);
+
+            const valorDetalhe = item.item;
+            const blocoDetalhe = $('.detalhe', clonar);
+            for (const valor in valorDetalhe) {
+                const detalheClone = blocoPlanoItemPadrao.clonar();
+                $('.indice', detalheClone).texto(valor);
+                $('.valor', detalheClone).texto(valorDetalhe[valor].toString().replace('.', ','));
+                blocoDetalhe.final(detalheClone);
+            }
+            blocoPlanoLista.final(clonar);
         }
-        return true;
+        blocoPlanoLista.css('width', tamanho * resposta.length + 20 * (resposta.length - 1) + 'px');
     };
+
+    const montarValor = valor => {
+        const total = valor.toString().split('.');
+        let centavo = total[1] || '';
+
+        if (centavo.length === 0) {
+            centavo = '00';
+        } else if (centavo.length === 1) {
+            centavo = centavo + '0';
+        } else if (centavo.length > 2) {
+            centavo = centavo.slice(0, 2);
+        }
+        return [total[0], centavo];
+    };
+
+    botaoRefazerSimulacao.evento('click', () => {
+        blocoSimulacao.aparecer();
+        blocoResultado.sumir();
+    });
+    blocoPlanoLista.evento('click', async e => {
+        const clicado = e.target.classe('botao_escolher_plano', '?') || e.target.closest('.botao_escolher_plano');
+        if (!clicado) {
+            return;
+        }
+        e.preventDefault();
+
+        const plano = e.target.closest('.plano').attr('data-plano');
+        if (!plano in simulacaoLista) {
+            Alerta.notificacao('Erro ao salvar simulação, por favor, tente novamente.', false);
+            return;
+        }
+        const item = simulacaoLista[plano];
+        const dado = JSON.stringify({
+            plano: item.plano,
+            valor: item.valor_lista,
+            total: item.valor_total,
+            item: item.item,
+        });
+
+        const novaJanela = item.link !== '' ? window.open('', '_blank') : false;
+
+        Loading.show();
+        const resposta = await ajaxPost(LINK + '/saude/simulacao-escolhida', {
+            plano: convenio,
+            dado,
+        });
+
+        if (false === resposta) {
+            Loading.hide();
+            if (novaJanela) {
+                novaJanela.close();
+            }
+            return;
+        } else if (novaJanela) {
+            novaJanela.location.href = item.link;
+            Loading.hide();
+            return;
+        }
+
+        window.location.assign(LINK + '/saude/contratar/' + resposta.dado.id);
+    });
 });

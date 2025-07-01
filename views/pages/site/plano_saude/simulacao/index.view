@@ -1,121 +1,46 @@
 @template "site"
-<div id="bloco_simulacao_saude" class="bloco_passo_passo_geral">
-    <div class="scroll">
-        <div class="bloco_progresso">
+<div id="bloco_simulacao_saude">
+    <input type="hidden" value="{{$plano}}" id="input_plano_saude">
+    <form class="form_geral cinza bloco_simulacao conteudo" id="bloco_simulacao">
+        <header>
+            <h1>PREENCHA AS INFORMAÇÕES</h1>
+            <p>Preencha os dados abaixo e clique em "Fazer Simulação" para comparar os preços dos planos</p>
+        </header>
+        <div class="bloco_dado titular">
+            <h2>Titular</h2>
+            <p>Digite a data de nascimento do titular</p>
+            @? formData(name: 'data_titular', placeholder: 'Data de nascimento do titular', label: 'Nascido em', obrigatorio: true)
         </div>
-    </div>
-    <input type="hidden" value="{{$operadora}}" id="input_operadora">
 
-    <div class="bloco_conteudo" id="operadora">
-        @ foreach($Simulacao->passoPasso() as $passo)
-            @ if( $passo->tipo == 'regiao' ):
-        <div class="conteudo display_none" id="bloco_regiao" data-titulo="Região">
-            <header>
-                <h1>ESCOLHA A REGIÃO</h1>
-            </header>
-            <div class="botao_selecao">
-                @ foreach( $Simulacao->regiao() as $ind => $val ):
-                    @? $Botao->botao(class: 'botao_escolher_regiao', texto: $val, attr:['data-regiao' => $ind])->borda()
-                @ endforeach;
-            </div>
-        </div>
-            @ elseif( $passo->tipo == 'acomodacao'):
-        <div class="conteudo display_none" id="bloco_acomodacao" data-titulo="Acomodação">
-            <header>
-                <h1>ESCOLHA A ACOMODAÇÃO</h1>
-            </header>
-            <div class="botao_selecao">
-                @ foreach( $Simulacao->acomodacao() as $val ):
-                    @php $classe = $operadora == 'cnu_florianopolis' ? 'botao_acomodacao_' . $val : '';
-                    @? $Botao->botao(class: 'botao_escolher_acomodacao ' . $classe, texto: $val, attr:['data-acomodacao' => $val])->borda()
-                @ endforeach;
-            </div>
-            @if (in_array($operadora, ['amil', 'cnu_florianopolis'])):
-            <div class="bloco_botao">
-                @? $Botao->botao(class: 'botao_voltar')->voltar()
-            </div>
-            @ endif;
-        </div>
-            @ elseif( $passo->tipo == 'plano' ):
-        <div class="conteudo display_none" id="bloco_plano" data-titulo="Plano">
-            <header>
-                <h1>ESCOLHA SEU PLANO</h1>
-            </header>
-            <div class="bloco_escolhas">
-                @if ($operadora == 'amil'):
-                    @ foreach( $Simulacao->plano() as $regiao => $lista ):
-                    <div class="bloco_escolher_plano {{$regiao}} botao_selecao display_none">
-                            @ foreach( $lista as $ind => $val ):
-                                @? $Botao->botao(class: 'botao_escolher_plano', texto: $val, attr:['data-plano' => $ind])->borda()
-                            @ endforeach;
-                    </div>
-                    @ endforeach;
-                @else
-                <div class="bloco_escolher_plano botao_selecao">
-                    @ foreach( $Simulacao->plano() as $regiao => $lista ):
-                        @? $Botao->botao(class: 'botao_escolher_plano', texto: $lista, attr:['data-plano' => $regiao])->borda()
-                    @ endforeach;
-                </div>
-                @endif
-
-            </div>
-            @ if( $operadora == 'amil' ):
-            <div class="bloco_botao">
-                @? $Botao->botao(class: 'botao_voltar')->voltar()
-            </div>
-            @ endif;
-        </div>
-            @ elseif( $passo->tipo == 'simulacao' ):
-        <form class="form_geral cinza bloco_simulacao conteudo display_none" id="bloco_simulacao" data-titulo="simulacao">
-            <header>
-                <h1>PREENCHA AS INFORMAÇÕES</h1>
-            </header>
-            <div class="conteudo_menor">
-                <h2>Titular</h2>
-                @? formData(name: 'data_titular', placeholder: 'Data de nascimento do titular', label: 'Nascido em', obrigatorio: true)
-                <h2>Dependentes</h2>
-                <p class="pequeno">
-                    Todo associado (a) pode aderir ao convênio e incluir como dependentes: esposo (a), filhos (as) solteiros (as) com até 28 anos, netos (as) com até 18 anos, filhos (as) maiores de 28 anos comprovadamente inválidos, pai e mãe desde que dependente no Imposto de Renda (IR).
-                </p>
-                <div class="botao" id="botao_adicionar_dependente">Adicionar Dependente</div>
-                <div class="bloco_dependente" id="bloco_lista_dependente">
-                </div>
-            </div>
-            <div class="bloco_botao">
-                @? $Botao->botao(class: 'botao_voltar')->voltar()
-                @? $Botao->botao(texto: 'Continuar', id: 'botao_simulacao_continuar')
-            </div>
-        </form>
-            @ elseif( $passo->tipo == 'resultado' ):
-        <div class="conteudo bloco_resultado display_none" id="bloco_resultado" data-titulo="Resultado">
-            <header>
-                <h1>RESULTADO DA SIMULAÇÃO</h1>
-            </header>
-            <div class="conteudo_menor">
-                <div class="bloco_valor" id="bloco_valor_lista">
-
-                </div>
-
-                <div class="resultado total">
-                    <div class="dado">
-                        <p class="data">Total</p>
-                        <div class="linha"></div>
-                        <p class="valor" id="bloco_valor_total"></p>
-                    </div>
-                </div>
-
-                <div class="atencao bloco_atencao_geral">
-                    <h2>Gostou dos valores?</h2>
-                    <p>Preencha nosso formulário e um especialista entrará em contato. Fique tranquilo, porque o preenchimento do formulário não implica na contratação, sendo apenas uma ferramenta para tirar eventuais dúvidas e o atendimento acontecer da melhor forma possível.</p>
-                </div>
-            </div>
-            <div class="bloco_botao">
-                @? $Botao->botao(class: 'botao_voltar')->voltar()
-                @? $Botao->botao(texto: 'Prosseguir', id: 'botao_contratar', link: LINK . '/#')
+        <div class="bloco_dado">
+            <h2 class="dependente">Dependentes</h2>
+            <p class="pequeno">
+                Todo associado (a) pode aderir ao convênio e incluir como dependentes: esposo (a), filhos (as) solteiros (as) com até 28 anos, netos (as) com até 18 anos, filhos (as) maiores de 28 anos comprovadamente inválidos, pai e mãe desde que dependente no Imposto de Renda (IR).
+            </p>
+            <div class="botao" id="botao_adicionar_dependente">Adicionar Dependente</div>
+            <div class="bloco_dependente" id="bloco_lista_dependente">
+                <div class="zero" id="bloco_sem_dependente">Sem dependentes no momento</div>
             </div>
         </div>
-            @ endif;
-        @ endforeach;
+
+        <div class="bloco_botao">
+            @? $Botao->botao(texto: 'Fazer simulação', id: 'botao_fazer_simulacao')
+        </div>
+    </form>
+    <div class="conteudo bloco_resultado display_none" id="bloco_resultado">
+        <header>
+            <h1>RESULTADO</h1>
+            <p>Compare os planos abaixo e escolha o ideal para fazer sua solicitação</p>
+        </header>
+
+        <div class="bloco_escolher">
+            <div class="plano_lista" id="bloco_plano_lista">
+            </div>
+        </div>
+
+        <div class="bloco_botao">
+            @? $Botao->botao(class: 'botao_voltar', texto: 'Refazer simulação', id: 'botao_refazer_simulacao')->voltar()
+        </div>
     </div>
 </div>
 
@@ -125,20 +50,44 @@
         <div class="remover">@iconeFechar()</div>
     </div>
 
-    <div class="resultado" id="bloco_resultado_titular_padrao">
-        <h2 class="titulo_resultado_simulacao">Titular</h2>
-        <div class="dado">
-            <p class="data"></p>
-            <div class="linha"></div>
-            <p class="valor"></p>
+    <div class="plano" id="bloco_plano_padrao">
+        <header>
+            <h2></h2>
+        </header>
+        <div class="dinheiro">
+            <span class="sifrao">R$</span>
+            <span class="valor"></span>
+            <span class="virgula">,</span>
+            <span class="centavo"></span>
         </div>
-    </div>
-    <div class="resultado" id="bloco_resultado_dependente_padrao">
-        <h2 class="titulo_resultado_simulacao">Dependente</h2>
-        <div class="dado">
-            <p class="data"></p>
-            <div class="linha"></div>
-            <p class="valor"></p>
+
+        <h3>Valor detalhado:</h3>
+        <div class="valor_lista">
         </div>
+
+        <div class="botao">
+            @? $Botao->botao(texto: 'Escolher plano')->destaque()
+        </div>
+
+        <table class="borda detalhe">
+        </table>
     </div>
+
+    <div class="valor_linha" id="bloco_plano_valor_padrao">
+        <div class="indice">
+            <div class="dado">
+                <div class="nome"></div>
+                <div class="data"></div>
+            </div>
+            <div class="ponto"></div>
+        </div>
+        <div class="valor"></div>
+    </div>
+
+    <table>
+        <tr id="bloco_plano_item_padrao">
+            <td class="indice"></td>
+            <td class="valor">Enfermagem</td>
+        </tr>
+    </table>
 </div>

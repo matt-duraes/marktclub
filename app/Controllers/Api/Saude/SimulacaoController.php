@@ -10,7 +10,7 @@ use App\Models\Api\Saude\Simulacao\SimularModel;
 
 final class SimulacaoController extends Controller
 {
-    public function getSimular(Request $request)
+    public function postSimular(Request $request)
     {
         $Simulacao = $this->simular($request);
 
@@ -20,9 +20,8 @@ final class SimulacaoController extends Controller
     public function postSalvar(Request $request)
     {
         $Salvar = new SalvarModel(
-            Simulacao: $this->simular($request),
             convenio: $request->convenio,
-            simulacao: $request->simulacao
+            simulacao: jsonDecode($request->simulacao, true, true)
         );
         return mensagemSucesso($Salvar->retorno, status: 201);
     }
@@ -30,10 +29,9 @@ final class SimulacaoController extends Controller
     private function simular(Request $request)
     {
         return new SimularModel(
-            simulacao: $request->simulacao,
+            convenio: $request->convenio,
             titular: new Data($request->titular),
-            dependente: $request->dependente,
-            convenio: $request->convenio
+            dependente: jsonDecode($request->dependente, true, true)
         );
     }
 }

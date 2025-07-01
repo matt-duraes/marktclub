@@ -199,6 +199,7 @@ Object.defineProperty(Object.prototype, 'valor', {
                 (item.classList.contains('fw_form_tabela') ||
                     item.classList.contains('fw_form_indice_valor') ||
                     item.classList.contains('fw_form_lista') ||
+                    item.classList.contains('fw_form_condicao') ||
                     item.classList.contains('form_input_traducao'))
             ) {
                 retorno.push(formValue(item));

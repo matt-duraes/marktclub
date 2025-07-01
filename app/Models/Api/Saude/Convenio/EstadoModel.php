@@ -2,13 +2,14 @@
 
 namespace App\Models\Api\Saude\Convenio;
 
+use stdClass;
 use Helpers\ListaHelper;
 
 final class EstadoModel extends PadraoModel
 {
     protected string $ormTabela = TABELA_SAUDE_CONVENIO;
 
-    public array $retorno = [];
+    public array|stdClass $retorno = [];
     private array $where;
     private array $busca;
 
@@ -25,7 +26,7 @@ final class EstadoModel extends PadraoModel
     {
         $estado = [];
         foreach($this->busca as $r) {
-            $estado += jsonDecode($r->endereco_estado, true);
+            $estado = array_merge($estado, jsonDecode($r->endereco_estado, true));
         }
         $lista = (new ListaHelper())->estado()->r();
         foreach($lista as $ind => $val) {

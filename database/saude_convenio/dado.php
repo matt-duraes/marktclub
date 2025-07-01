@@ -1,172 +1,52 @@
 <?php
 
-use Helpers\ListaHelper;
-use App\Classes\Comercial\Empresa\ID;
-
 return [
     [
-        'id_admin_empresa' => [ID::YOUHUUL, ID::ANAFECARD, ID::CFM],
-        'endereco_estado' => ['SP'],
-        'endereco_cidade' => [
-            'barueri' => 'Barueri',
-            'cabreuva' => 'Cabreúva',
-            'caieiras' => 'Caieiras',
-            'cajamar' => 'Cajamar',
-            'campo-limpo-paulista' => 'Campo Limpo Paulista',
-            'francisco-morato' => 'Francisco Morato',
-            'franco-da-rocha' => 'Franco Da Rocha',
-            'itupeva' => 'Itupeva',
-            'jarinu' => 'Jarinú',
-            'jundiai' => 'Jundiaí',
-            'louveira' => 'Louveira',
-            'santana-de-parnaiba' => 'Santana de Parnaíba',
-            'varzea-paulista' => 'Várzea Paulista',
-        ],
-        'sequencia' => [
-            'acomodacao' => 'Acomodação',
-            'plano' => 'Plano',
-            'simulacao' => 'Simulação',
-            'resultado' => 'Resultado'
-        ],
-        'item' => [
-            'acomodacao' => [
-                'enfermagem' => 'Enfermagem',
-                'apartamento' => 'Apartamento'
-            ],
-            'plano' => [
-                'enfermagem' => [
-                    'flex-ideal' => 'Flex Ideal',
-                    'classico-ideal' => 'Clássico Ideal'
-                ],
-                'apartamento' => [
-                    'flex-plus' => 'Flex Plus',
-                    'classico-plus' => 'Clássico Plus'
-                ]
-            ]
-        ],
-        'simulacao' => [
-            'plano'
-        ],
-        'titulo' => 'Plano SP Cidade',
-        'arquivo_imagem' => uuid(),
-        'url' => 'plano-sp-cidade',
-        'status' => 1
-    ],
+        'id' => '1',
+        'uuid' => 'bb50aec0-5ff6-4db2-99a3-642596198067',
+        'id_admin_empresa' => '[1]',
+        'endereco_estado' => '["AC", "AL", "AP", "AM", "BA", "CE", "DF", "ES", "GO", "MA", "MT", "MS", "MG", "PA", "PB", "PR", "PE", "PI", "RJ", "RN", "RS", "RO", "RR", "SC", "SP", "SE", "TO"]',
+        'endereco_cidade' => NULL,
+        'titulo' => 'Unimed Vitória',
+        'arquivo_imagem' => '76ec9fea-62e9-4c4e-bdbc-6dc98cf07c1c',
+        'url' => 'unimed-vitoria',
+        'data_criacao' => '2025-06-13 12:30:37',
+        'data_atualizacao' => '2025-06-13 16:52:30',
+        'status' => '1'],
     [
-        'id_admin_empresa' => [ID::YOUHUUL, ID::ANAFECARD, ID::CFM],
-        'endereco_estado' => ['RN'],
-        'endereco_cidade' => [],
-        'sequencia' => [
-            'acomodacao' => 'Acomodação',
-            'plano' => 'Plano',
-            'simulacao' => 'Simulação',
-            'resultado' => 'Resultado'
-        ],
-        'item' => [
-            'acomodacao' => [
-                'enfermagem' => 'Enfermagem',
-                'apartamento' => 'Apartamento'
-            ],
-            'plano' => [
-                'enfermagem' => [
-                    'flex-ideal' => 'Flex Ideal',
-                    'classico-ideal' => 'Clássico Ideal'
-                ],
-                'apartamento' => [
-                    'flex-plus' => 'Flex Plus',
-                    'classico-plus' => 'Clássico Plus'
-                ]
-            ]
-        ],
-        'simulacao' => [
-            'plano'
-        ],
-        'titulo' => 'Plano RN',
-        'arquivo_imagem' => uuid(),
-        'url' => 'plano-rn',
-        'status' => 1
-    ],
+        'id' => '2',
+        'uuid' => '2e61b24f-9e4d-44bd-a3bb-3571100d3676',
+        'id_admin_empresa' => '[1]',
+        'endereco_estado' => '["RN"]',
+        'endereco_cidade' => NULL,
+        'titulo' => 'Unimed Natal',
+        'arquivo_imagem' => '475e74c0-24b6-4842-85ff-828bdfebe77f',
+        'url' => 'unimed-natal',
+        'data_criacao' => '2025-06-13 12:35:06',
+        'data_atualizacao' => '2025-06-13 12:35:06',
+        'status' => '1'],
     [
-        'id_admin_empresa' => [ID::YOUHUUL, ID::ANAFECARD, ID::CFM],
-        'endereco_estado' => array_keys((new ListaHelper())->estado()->r()),
-        'endereco_cidade' => [],
-        'sequencia' => [
-            'acomodacao' => 'Acomodação',
-            'plano' => 'Plano',
-            'simulacao' => 'Simulação',
-            'resultado' => 'Resultado'
-        ],
-        'item' => [
-            'acomodacao' => [
-                'enfermagem' => 'Enfermagem',
-                'apartamento' => 'Apartamento'
-            ],
-            'plano' => [
-                'enfermagem' => [
-                    'flex-ideal' => 'Flex Ideal',
-                    'classico-ideal' => 'Clássico Ideal'
-                ],
-                'apartamento' => [
-                    'flex-plus' => 'Flex Plus',
-                    'classico-plus' => 'Clássico Plus'
-                ]
-            ]
-        ],
-        'simulacao' => [
-            'plano'
-        ],
-        'titulo' => 'Plano Nacional',
-        'arquivo_imagem' => uuid(),
-        'url' => 'plano-nacional',
-        'status' => 1
-    ],
+        'id' => '3',
+        'uuid' => '5d29bf93-0a2e-42a1-b068-ef2b88c89af5',
+        'id_admin_empresa' => '[1]',
+        'endereco_estado' => '["SP"]',
+        'endereco_cidade' => '{"jarinu": "Jarinú", "barueri": "Barueri", "cajamar": "Cajamar", "itupeva": "Itupeva", "jundiai": "Jundiaí", "cabreuva": "Cabreúva", "caieiras": "Caieiras", "louveira": "Louveira", "franco-da-rocha": "Franco Da Rocha", "varzea-paulista": "Várzea Paulista", "francisco-morato": "Francisco Morato", "santana-de-parnaiba": "Santana de Parnaíba", "campo-limpo-paulista": "Campo Limpo Paulista"}',
+        'titulo' => 'Unimed Jundiaí',
+        'arquivo_imagem' => 'de485d45-93e0-4f31-ae42-5c8985db0a49',
+        'url' => 'unimed-jundiai',
+        'data_criacao' => '2025-06-13 12:35:38',
+        'data_atualizacao' => '2025-06-13 16:32:26',
+        'status' => '1'],
     [
-        'id_admin_empresa' => [ID::YOUHUUL, ID::ANAFECARD, ID::CFM],
-        'endereco_estado' => ['TO', 'DF', 'GO'],
-        'endereco_cidade' => [],
-        'sequencia' => [
-            'estado' => 'Estado',
-            'acomodacao' => 'Acomodação',
-            'plano' => 'Plano',
-            'simulacao' => 'Simulação',
-            'resultado' => 'Resultado'
-        ],
-        'item' => [
-            'estado' => [
-                'DF' => 'Distrito Federal',
-                'GO' => 'Goiás',
-                'TO' => 'Tocantins'
-            ],
-            'acomodacao' => [
-                'DF' => [
-                    'enfermagem' => 'Enfermagem',
-                    'apartamento' => 'Apartamento'
-                ],
-                'GO' => [
-                    'enfermagem' => 'Enfermagem',
-                ],
-                'TO' => [
-                    'enfermagem' => 'Enfermagem',
-                    'apartamento' => 'Apartamento'
-                ]
-            ],
-            'plano' => [
-                'enfermagem' => [
-                    'flex-ideal' => 'Flex Ideal',
-                    'classico-ideal' => 'Clássico Ideal'
-                ],
-                'apartamento' => [
-                    'flex-plus' => 'Flex Plus',
-                    'classico-plus' => 'Clássico Plus'
-                ]
-            ]
-        ],
-        'simulacao' => [
-            'estado', 'plano'
-        ],
-        'titulo' => 'Plano vários estados',
-        'arquivo_imagem' => uuid(),
-        'url' => 'plano-varios-estados',
-        'status' => 1
-    ],
+        'id' => '4',
+        'uuid' => 'df5bf95c-2230-429c-9bdc-49bf9ec9c54c',
+        'id_admin_empresa' => '[1]',
+        'endereco_estado' => '["AC", "AL", "AP", "AM", "BA", "CE", "DF", "ES", "GO", "MA", "MT", "MS", "MG", "PA", "PB", "PR", "PE", "PI", "RJ", "RN", "RS", "RO", "RR", "SC", "SP", "SE", "TO"]',
+        'endereco_cidade' => NULL,
+        'titulo' => 'Unimed Florianópolis',
+        'arquivo_imagem' => '8ed510a8-cf17-4992-8290-fa1ac7270306',
+        'url' => 'unimed-florianopolis',
+        'data_criacao' => '2025-06-16 14:28:28',
+        'data_atualizacao' => '2025-06-16 14:28:28',
+        'status' => '1']
 ];

@@ -326,23 +326,6 @@ Route
     });
 
 Route
-    ::nome('componente')
-    ::middleware(ClubeMiddleware::class, 'buscar')
-    ::middleware(AuthMiddleware::class, 'logado')
-    ::controller(App\Controllers\Site\Componente\ComponenteController::class)
-    ::grupo(function () {
-        Route
-            ::middleware(AppTipoMiddleware::class, 'localhost')
-            ::nome('index')
-            ::view('/componente');
-
-        Route
-            ::nome('buscar')
-            ::request(['hash', '!tipo'])
-            ::post('/componente');
-    });
-
-Route
     ::nome('cashback')
     ::middleware(ClubeMiddleware::class, 'buscar')
     ::middleware(AuthMiddleware::class, 'logado')
@@ -621,13 +604,18 @@ Route
     ::grupo(function () {
         Route
             ::nome('buscar')
+            ::request(['hash', '!tipo', '!dado'])
+            ::post('/componente');
+
+        Route
+            ::nome('buscar')
             ::view([
                 '/saude/{uri}'
             ]);
         Route
             ::nome('index')
             ::view([
-                '/turismo2'
+                '/saude'
             ]);
     });
 
@@ -638,9 +626,6 @@ Route
     ::controller(App\Controllers\Site\PlanoSaudeController::class)
     ::grupo(function () {
         Route
-            ::nome('index')
-            ::view('/saude');
-        Route
             ::nome('escolherEstado')
             ::view('/saude/escolher-estado');
         Route
@@ -648,47 +633,19 @@ Route
             ::request(['estado'])
             ::post('/saude/escolher-cidade');
         Route
-            ::nome('detalhe')
-            ::view('/saude/detalhe/{nome-do-plano}');
-        Route
-            ::nome('unimedVitoria')
-            ::view('/saude/unimed-vitoria');
-        Route
-            ::nome('unimedflorianopolis')
-            ::view('/saude/cnu-florianopolis');
-        Route
-            ::nome('tabela')
-            ::request(['id'])
-            ::view('/saude/abrirtabela');
-        Route
-            ::nome('centralnacional')
-            ::view('/saude/central-nacional-unimed');
-        Route
-            ::nome('amil')
-            ::view('/saude/amil');
-        Route
-            ::nome('precoAmil')
-            ::request(['id', '!local'])
-            ::view('/saude/abrir-tabela-preco');
-        Route
-            ::nome('unimedSeguro')
-            ::view('/saude/unimed-seguro');
-        Route
-            ::nome('unimedNatal')
-            ::view('/saude/unimed-natal');
-        Route
-            ::nome('unimedJundiai')
-            ::view('/saude/unimed-jundiai');
+            ::nome('simulacao')
+            ::view('/saude/simulacao/{uri}');
         Route
             ::nome('simulacao')
-            ::view('/saude/plano-simulacao/{url}');
+            ::request(['titular', 'plano', '!dependente'])
+            ::post('/saude/simulacao');
         Route
-            ::nome('realizarSimulacao')
-            ::request(['!operadora', '!titular', '!regiao', '!plano', '!acomodacao', '!dependentes'])
-            ::post('/saude/realizar-simulacao');
+            ::nome('simulacaoEscolhida')
+            ::request(['plano', 'dado'])
+            ::post('/saude/simulacao-escolhida');
         Route
             ::nome('contratacao')
-            ::view('/saude/simulacao/{simulacao}');
+            ::view('/saude/contratar/{simulacao}');
         Route
             ::nome('realizarContratacao')
             ::request([

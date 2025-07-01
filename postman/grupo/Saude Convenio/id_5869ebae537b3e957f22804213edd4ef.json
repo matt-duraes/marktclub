@@ -1,0 +1,1 @@
+{"id":"id_5869ebae537b3e957f22804213edd4ef","token":"painel","metodo":"DELETE","nome":"\/saude-convenio\/:id","uri":"{{LINK}}\/saude-convenio\/$ID_SAUDE_CONVENIO","parametro":[],"body":[],"header":[],"variavel":[],"json":[],"documentacao":{"status":false,"descricao":"","requisicao":"","resposta":"","scope":""}}

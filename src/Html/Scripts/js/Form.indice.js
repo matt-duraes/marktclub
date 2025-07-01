@@ -14,6 +14,7 @@ fwFormIndiceValorPegarValor = input => {
     return retorno;
 };
 fwFormIndiceValorSetarValor = (input, valor) => {
+    $('.fw_form_indice_valor_lista', input).html('');
     if (typeof valor === 'string') {
         try {
             valor = JSON.parse(valor);
@@ -29,6 +30,8 @@ fwFormIndiceValorSetarValor = (input, valor) => {
         return;
     }
     const conteudo = $('.fw_form_indice_valor_lista', input);
+    conteudo.html('');
+
     let i = 0;
     for (; i < quantidade; ++i) {
         const item = valor[i];

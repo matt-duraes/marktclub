@@ -102,6 +102,7 @@
         min-height: 40px
         flexRow()
         align-items: center
+        padding-right: 5px
     article header .drag
         cursor: pointer
         width: 30px
@@ -116,7 +117,7 @@
         width: 8px
         height: 8px
         border-radius: 50%
-        margin: 0 5px
+        margin-right: 10px
         &.status_sim
             background-color: $cor
         &.status_nao
@@ -130,8 +131,6 @@
         user-select: none
         &:hover
             background-color: rgba(0, 0, 0, .05)
-        &.mais
-            margin-right: 5px
     article header:hover .icone
         display: flex
     article .lista
@@ -307,3 +306,18 @@
         display: block
     .bloco_checkbox.oculto .botao_menos
         display: none
+    .bloco_condicao
+        margin-bottom: 20px
+    .bloco_css .titulo
+    .bloco_condicao .titulo
+        width: 100%
+        texto()
+        color: #333
+    .bloco_condicao .fw_form_condicao
+        margin-top: 0
+    .bloco_css .fw_form_indice_valor .bloco_input
+        margin: 0
+    .bloco_css .fw_form_indice_valor .fw_form_indice_valor_botao
+        margin: 0 0 0 10px
+    .bloco_css .fw_form_indice_valor .fw_form_indice_valor_lista
+        margin: 10px 0 20px
