@@ -59,14 +59,14 @@ trait PermissaoTrait
             editar: true,
             deletar: true
         )
-        ->montarArrayPermissao(
-            titulo: 'Saúde Convênio',
-            indice: 'saude_convenio',
-            index: true,
-            add: true,
-            editar: true,
-            deletar: true
-        );
+            ->montarArrayPermissao(
+                titulo: 'Saúde Convênio',
+                indice: 'saude_convenio',
+                index: true,
+                add: true,
+                editar: true,
+                deletar: true
+            );
     }
 
     private function setarPropriedadePermissaoDepreciada()
@@ -1413,6 +1413,10 @@ trait PermissaoTrait
                         'titulo' => Titulo::DELETAR,
                         'scope'  => 'silium_comissao:deletar'
                     ],
+                    'silium_comissao_download'   => [
+                        'titulo' => Titulo::DOWNLOAD,
+                        'scope'  => ['silium_comissao:download', 'mensageria:salvar']
+                    ]
                 ]
             ],
             'silium_deposito'          => [

@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Models\Site\Saude\simulacao;
+namespace App\Models\Site\Saude\Simulacao;
 
 use App\Helpers\ClubeApiHelper;
 
