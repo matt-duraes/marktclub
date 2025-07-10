@@ -321,7 +321,7 @@ $Painel->coluna(callback: function () use ($Painel) {
     });
 });
 
-$Painel->coluna(callback: function () use ($Painel) {
+/*$Painel->coluna(callback: function () use ($Painel) {
     $Painel->fieldset('Cupom', function () use ($Painel) {
         $Painel
             ->indiceValor(
@@ -330,7 +330,7 @@ $Painel->coluna(callback: function () use ($Painel) {
                 ordem: true
             );
     });
-});
+});*/
 
 $Painel->coluna(callback: function () use ($Painel) {
     $Painel->fieldset('Categoria', function () use ($Painel) {

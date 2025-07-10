@@ -1,0 +1,18 @@
+@template "painel"
+@painel "app_relatorio"
+@system "Grafico"
+@system "Popup"
+@resource "site/pagina_popup"
+@painel 'relatorio_empresas'
+
+@media print
+    #grafico_genero
+        break-before: page
+
+    #grafico_genero
+    #grafico_situacao
+    #grafico_estado_civil
+        margin-top: 70px
+
+.bloco_app_relatorio .lista .bloco_quadro_colorido .quadro.amarelo
+    background-color: #fbbc04;

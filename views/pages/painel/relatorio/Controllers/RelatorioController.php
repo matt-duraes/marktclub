@@ -39,6 +39,29 @@ final class RelatorioController extends Controller
     /**
      * @throws Excecao
      */
+    public function indicacao(): Response
+    {
+        $empresas = [];
+        $subempresas = [];
+        if (painelPermissao('relatorio_acesso_empresa', false)) {
+            $empresas = $this->pegarSelectEmpresa();
+        }
+        if (painelPermissao('relatorio_acesso_subempresa', false)) {
+            $subempresas = $this->pegarSelectSubempresa();
+        }
+        return view('painel.relatorio.indicacao', [
+            'appTitulo'         => 'Relatório de Indicação',
+            'app'               => 'relatorio-indicacao',
+            'de'                => dataRemover(date('Y-m-d'), 8, 'dias', 'd/m/Y'),
+            'ate'               => dataRemover(date('d/m/Y'), 1, 'dia', 'd/m/Y'),
+            'empresa'           => $empresas,
+            'subempresa'        => $subempresas
+        ]);
+    }
+
+    /**
+     * @throws Excecao
+     */
     public function usuario(): Response
     {
         $empresas = [];
@@ -271,7 +294,14 @@ final class RelatorioController extends Controller
     */
     public function getDadoUsuario(Request $request)
     {
-        $body = [];
+        $de = $request->de;
+        $ate = $request->ate;
+
+        $this->validarData($de, $ate);
+        $body = [
+            'de'  => dataBanco($de),
+            'ate' => dataBanco($ate),
+        ];
         if (!empty($request->empresa)) {
             $body['empresa'] = explode(',', $request->empresa);
         }
@@ -316,6 +346,60 @@ final class RelatorioController extends Controller
             'estado_civil'   => $Montar->montarPizza($dado->estado_civil->lista, 'estado_civil'),
             'situacao'       => $Montar->montarPizza($dado->situacao->lista, 'situacao')
         ]);
+    }
+
+    /*
+    |--------------------------------------------------------------------------
+    | GRÁFICO DE INDICAÇÃO
+    |--------------------------------------------------------------------------
+    */
+    public function getIndicacao(Request $request)
+    {
+        $de = $request->de;
+        $ate = $request->ate;
+
+        $this->validarData($de, $ate);
+        $body = [
+            'de'  => dataBanco($de),
+            'ate' => dataBanco($ate),
+        ];
+        if (!empty($request->empresa)) {
+            $body['empresa'] = explode(',', $request->empresa);
+        }
+        if (!empty($request->subempresa)) {
+            $body['subempresa'] = explode(',', $request->subempresa);
+        }
+
+        $Api = new ApiHelper(token: true);
+        $dado = $Api
+            ->json($body)
+            ->get('/relatorio/indicacao')
+            ->object()->dado ?? [];
+
+        return mensagemSucesso(empty($dado) ? [
+            'status'         => [
+                'total' => [
+                    'numero'      => 0,
+                    'porcentagem' => 0
+                ],
+                'concluido' => [
+                    'numero'      => 0,
+                    'porcentagem' => 0
+                ],
+                'cancelado' => [
+                    'numero'      => 0,
+                    'porcentagem' => 0
+                ],
+                'prospeccao' => [
+                    'numero'      => 0,
+                    'porcentagem' => 0
+                ],
+                'semVinculo' => [
+                    'numero'      => 0,
+                    'porcentagem' => 0
+                ]
+            ]
+        ] : $dado);
     }
 
     /*
