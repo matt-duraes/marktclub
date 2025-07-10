@@ -856,9 +856,17 @@ Route
             ::nome('dadoUsuario')
             ::middleware(TokenMiddleware::class, 'scope', ['relatorio_usuario:listar'])
             ::request([
-                '!empresa', '!subempresa',
+                'de', 'ate', '!empresa', '!subempresa',
             ], 'json')
             ::get('/relatorio/dado-usuario');
+
+        Route
+            ::nome('indicacao')
+            ::middleware(TokenMiddleware::class, 'scope', ['relatorio_usuario:listar'])
+            ::request([
+                'de', 'ate', '!empresa', '!subempresa',
+            ], 'json')
+            ::get('/relatorio/indicacao');
 
         Route
             ::nome('acessoDia')

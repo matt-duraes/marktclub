@@ -31,6 +31,15 @@ Route
             ::nome('dispositivo')
             ::request(['de', 'ate', 'tipo', '!empresa', '!subempresa'])
             ::get('/relatorio/dispositivo');
+
+        Route
+            ::action('indicacao')
+            ::view('/relatorio/indicacao');
+
+        Route
+            ::nome('indicacao')
+            ::request(['de', 'ate', '!empresa', '!subempresa'])
+            ::get('/relatorio/indicacoes');
     });
 
 Route
@@ -53,7 +62,7 @@ Route
 
         Route
             ::nome('dadoUsuario')
-            ::request(['!empresa', '!subempresa'])
+            ::request(['de', 'ate', '!empresa', '!subempresa'])
             ::get('/relatorio/dado-usuario');
     });
 

@@ -11,12 +11,13 @@ trait WhereTrait
     use ValidarEmpresaTrait;
 
     /**
-     * @param bool $dataAcesso
+     * @param bool   $dataAcesso
+     * @param string $colunaTabela
      *
      * @return array
      * @throws Excecao
      */
-    private function pegarWherePadrao(bool $dataAcesso = true): array
+    private function pegarWherePadrao(bool $dataAcesso = true, string $colunaTabela = 'data_acesso'): array
     {
         $where = [];
         $ormHelper = new OrmHelper(TABELA_COMERCIAL_EMPRESA);
@@ -48,7 +49,7 @@ trait WhereTrait
 
         if ($dataAcesso) {
             $where[] = [
-                'data_acesso', 'between', [
+                $colunaTabela, 'between', [
                     $this->dataInicial->banco() . ' 00:00:00', $this->dataFinal->banco() . ' 23:59:59'
                 ]
             ];

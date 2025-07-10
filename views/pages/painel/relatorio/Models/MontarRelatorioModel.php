@@ -129,11 +129,11 @@ class MontarRelatorioModel
     {
         if (empty($dado)) {
             return [
-                'total' => [
+                'total'   => [
                     'usuario'   => 0,
                     'bloqueado' => 0
                 ],
-                'ativo' => [
+                'ativo'   => [
                     'numero'      => 0,
                     'porcentagem' => 0
                 ],
@@ -145,11 +145,11 @@ class MontarRelatorioModel
         }
 
         $relatorio = [
-            'total' => [
+            'total'   => [
                 'usuario'   => $dado->total ?? 0,
                 'bloqueado' => $dado->bloqueado ?? 0
             ],
-            'ativo' => [
+            'ativo'   => [
                 'numero'      => 0,
                 'porcentagem' => 0
             ],

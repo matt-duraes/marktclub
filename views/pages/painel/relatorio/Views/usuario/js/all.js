@@ -5,37 +5,41 @@
 
 
 window.addEventListener('load', () => {
+    const inputDe = document.querySelector('#input_relatorio_data_de');
+    const inputAte = document.querySelector('#input_relatorio_data_ate');
     const botaoBuscar = document.querySelector('#botao_buscar_relatorio');
 
+    Calendario.init({
+        de: $('#input_relatorio_data_de'),
+        ate: $('#input_relatorio_data_ate'),
+    });
+
     const buscarGrafico = async () => {
-        const valoresMarcados = pegarValoresMarcadosEmpresa();
-        const valoresMarcadosSubempresa = pegarValoresMarcadosSubempresa();
+        const de = inputDe.value;
+        const ate = inputAte.value;
+        const empresa = pegarValoresMarcadosEmpresa();
+        const subempresa = pegarValoresMarcadosSubempresa();
 
         Loading.show();
 
-        const resposta = await fetch(LINK + `/relatorio/dado-usuario?empresa=${valoresMarcados}&subempresa=${valoresMarcadosSubempresa}`, {
-            method: 'GET',
+        const resposta = await ajaxGet(LINK + `/relatorio/dado-usuario`, { de, ate, empresa, subempresa }, undefined, {
             headers: {
                 'Content-Type': 'application/json',
             },
         });
-        const json = await respostaJson(
-            resposta,
-            'Ocorreu um erro ao buscar gráficos, por favor, recarregue a página e tente novamente.'
-        );
 
         Loading.hide();
 
-        if (false === json) {
+        if (resposta.dado == undefined) {
             return;
         }
-        carregarGraficoPorStatus(json.dado.status);
-        carregarGraficoPorEstado(json.dado.estado);
-        carregarGraficoRosca('Gênero', '#grafico_genero', json.dado.genero);
-        carregarGraficoRosca('Faixa etária', '#grafico_faixa_etaria', json.dado.faixa_etaria);
-        carregarGraficoRosca('Situação', '#grafico_situacao', json.dado.situacao);
-        carregarGraficoRosca('Estado Civil', '#grafico_estado_civil', json.dado.estado_civil);
-        carregarGraficoRosca('Sem atualizar dados', '#grafico_atualizar_dado', json.dado.atualizar_dado);
+        carregarGraficoPorStatus(resposta.dado.status);
+        carregarGraficoPorEstado(resposta.dado.estado);
+        carregarGraficoRosca('Gênero', '#grafico_genero', resposta.dado.genero);
+        carregarGraficoRosca('Faixa etária', '#grafico_faixa_etaria', resposta.dado.faixa_etaria);
+        carregarGraficoRosca('Situação', '#grafico_situacao', resposta.dado.situacao);
+        carregarGraficoRosca('Estado Civil', '#grafico_estado_civil', resposta.dado.estado_civil);
+        carregarGraficoRosca('Sem atualizar dados', '#grafico_atualizar_dado', resposta.dado.atualizar_dado);
     };
     buscarGrafico();
     if (botaoBuscar) {
