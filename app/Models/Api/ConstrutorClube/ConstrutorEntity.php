@@ -2,15 +2,15 @@
 
 namespace App\Models\Api\ConstrutorClube;
 
-use App\Classes\ConstrutorClube\BotaoTipo;
-use App\Classes\ConstrutorClube\TipoAtivacao;
-use App\Classes\ConstrutorClube\TipoCargo;
-use App\Classes\Geral\Status;
-use Helpers\OrmHelper;
+use ORM\Entity;
 use Modules\Botao;
 use Modules\Email;
 use Modules\Telefone;
-use ORM\Entity;
+use Helpers\OrmHelper;
+use App\Classes\Geral\Status;
+use App\Classes\ConstrutorClube\BotaoTipo;
+use App\Classes\ConstrutorClube\TipoCargo;
+use App\Classes\ConstrutorClube\TipoAtivacao;
 
 class ConstrutorEntity extends Entity
 {
@@ -52,6 +52,7 @@ class ConstrutorEntity extends Entity
     public Botao $menu_farmacia;
     public Botao $menu_automovel;
     public Botao $menu_saude_vitoria;
+    public Botao $menu_manole;
     public Botao $menu_saude_amil;
     public Botao $menu_saude_seguro;
     public Botao $menu_saude_cnu;
@@ -114,7 +115,7 @@ class ConstrutorEntity extends Entity
         'titulo', 'contato_telefone', 'contato_email', 'contato_whatsapp', 'contato_endereco', 'contato_horario',
         'link_app_android', 'link_app_ios', 'header_tag', 'header_descricao', 'menu_loja', 'menu_saude_cnu',
         'menu_mapa', 'menu_cinema', 'menu_historico', 'menu_acesso_rapido', 'menu_saude_florianopolis', 'tela_login',
-        'menu_farmacia', 'menu_automovel', 'menu_saude_vitoria', 'menu_saude_amil', 'menu_saude_seguro',
+        'menu_farmacia', 'menu_automovel', 'menu_saude_vitoria', 'menu_manole','menu_saude_amil', 'menu_saude_seguro',
         'menu_cashback', 'menu_indicar_usuario', 'menu_indicar_loja', 'menu_ponto_mais_acao', 'menu_cupom',
         'menu_premium', 'menu_dependente', 'menu_funcionario', 'menu_carteira', 'menu_salavip', 'menu_faq',
         'menu_como_funciona', 'menu_odontologico', 'menu_primeiro_acesso', 'menu_tema', 'link_tiktok',
@@ -135,7 +136,7 @@ class ConstrutorEntity extends Entity
         'link_app_android', 'link_app_ios', 'header_tag', 'header_descricao', 'menu_loja', 'menu_saude_cnu',
         'menu_mapa', 'menu_cinema', 'menu_show_internacional', 'menu_historico',
         'menu_acesso_rapido', 'menu_ponto_mais_acao', 'menu_saude_florianopolis',
-        'menu_farmacia', 'menu_automovel', 'menu_saude_vitoria', 'menu_saude_amil', 'menu_saude_seguro',
+        'menu_farmacia', 'menu_automovel', 'menu_saude_vitoria','menu_manole' ,'menu_saude_amil', 'menu_saude_seguro',
         'menu_cashback', 'menu_indicar_usuario', 'menu_indicar_loja', 'menu_ponto_mais_acao', 'menu_cupom',
         'menu_carteira', 'menu_salavip', 'menu_faq', 'menu_como_funciona', 'api_status', 'link_botao_sair',
         'link_login', 'botao_senha_status', 'botao_senha_tipo', 'botao_senha_link', 'botao_cadastro_status',

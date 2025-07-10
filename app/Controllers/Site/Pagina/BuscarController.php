@@ -20,11 +20,26 @@ final class BuscarController extends Controller
         return $this->buscarApi($uri, $request);
     }
 
+    public function manole()
+    {
+        $uri = 'manole';
+        $dado = [''];
+        $Html = new BuscarModel(
+            uri: $uri
+        );
+        return view('pagina', [
+            'html' => $Html->html,
+            'dado' => base64Encode($dado, url: true),
+            'url'  => 'manole',
+        ]);
+    }
+
     private function buscarApi(string $uri, $request)
     {
         $Html = new BuscarModel(
             uri: $uri
         );
+
         return view('pagina', [
             'html' => $Html->html,
             'dado' => base64Encode($request->dado(), url: true),
