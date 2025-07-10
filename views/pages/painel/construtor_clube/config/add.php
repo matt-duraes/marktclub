@@ -139,7 +139,7 @@ $Painel->coluna(callback: function () use ($Painel) {
             ->switch(
                 class: 'login_cadastro_botao',
                 name: 'botao_cadastro_status',
-                label: 'Vai ter botão primeiro acesso?'
+                label: 'Vai ter botão de cadastro?'
             )
             ->select(
                 class: 'login_cadastro_tipo display_none',
@@ -218,6 +218,7 @@ $Painel->coluna(callback: function () use ($Painel) {
             $Painel->checkbox(name: 'menu_saude_seguro', label: 'Unimed Seguros');
             $Painel->checkbox(name: 'menu_saude_cnu', label: 'Central Nacional Unimed');
             $Painel->checkbox(name: 'menu_saude_florianopolis', label: 'Unimed Florianopolis');
+            $Painel->checkbox(name: 'menu_manole', label: 'Manole');
         }
     );
 });
