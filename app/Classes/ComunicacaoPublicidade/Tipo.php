@@ -14,6 +14,7 @@ class Tipo extends Status
     public const LG = 'lg';
     public const TURISMO = 'turismo';
     public const CARTAO_SAMSUNG = 'cartao-samsung';
+    public const MANOLE = 'manole';
 
     /**
      * @param string|int|null $valor
@@ -28,7 +29,8 @@ class Tipo extends Status
             self::SAMSUNG        => 'Samsung',
             self::TURISMO        => 'Turismo',
             self::CARTAO_SAMSUNG => 'Cartão Samsung',
-            self::LG             => 'LG'
+            self::LG             => 'LG',
+            self::MANOLE => 'Manole'
         ]);
     }
 }
