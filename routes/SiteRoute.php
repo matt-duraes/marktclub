@@ -606,7 +606,6 @@ Route
             ::nome('buscar')
             ::request(['hash', '!tipo', '!dado'])
             ::post('/componente');
-
         Route
             ::nome('buscar')
             ::view([
@@ -616,6 +615,12 @@ Route
             ::nome('index')
             ::view([
                 '/saude'
+            ]);
+        Route
+            ::nome('manole')
+            ::request(['hash', '!tipo', '!dado'])
+            ::view([
+                '/saude/manole'
             ]);
     });
 

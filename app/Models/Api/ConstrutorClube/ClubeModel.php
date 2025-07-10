@@ -76,6 +76,7 @@ final class ClubeModel
                 'farmacia'            => $Construtor->menu_farmacia->valor(),
                 'automovel'           => $Construtor->menu_automovel->valor(),
                 'saude_vitoria'       => $Construtor->menu_saude_vitoria->valor(),
+                'manole'              => $Construtor->menu_manole->valor(),
                 'saude_amil'          => $Construtor->menu_saude_amil->valor(),
                 'saude_seguro'        => $Construtor->menu_saude_seguro->valor(),
                 'saude_cnu'           => $Construtor->menu_saude_cnu->valor(),
