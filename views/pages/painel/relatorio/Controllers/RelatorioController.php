@@ -43,10 +43,10 @@ final class RelatorioController extends Controller
     {
         $empresas = [];
         $subempresas = [];
-        if (painelPermissao('relatorio_acesso_empresa', false)) {
+        if (painelPermissao('relatorio_indicacao_empresa', false)) {
             $empresas = $this->pegarSelectEmpresa();
         }
-        if (painelPermissao('relatorio_acesso_subempresa', false)) {
+        if (painelPermissao('relatorio_indicacao_subempresa', false)) {
             $subempresas = $this->pegarSelectSubempresa();
         }
         return view('painel.relatorio.indicacao', [
