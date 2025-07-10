@@ -658,6 +658,17 @@ trait PermissaoTrait
                     'relatorio_acesso_subempresa' => Titulo::SUBEMPRESA
                 ]
             ],
+            'relatorio_indicacao'      => [
+                'titulo'    => 'Relatório Indicação',
+                'permissao' => [
+                    'relatorio_indicacao_index'      => [
+                        'titulo' => 'Relatório de indicação',
+                        'scope'  => ['relatorio_indicacao:listar']
+                    ],
+                    'relatorio_indicacao_empresa'    => Titulo::EMPRESA,
+                    'relatorio_indicacao_subempresa' => Titulo::SUBEMPRESA
+                ]
+            ],
             'relatorio_usuario'        => [
                 'titulo'    => 'Relatório de usuário',
                 'permissao' => [
