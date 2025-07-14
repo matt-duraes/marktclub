@@ -46,7 +46,7 @@ final class DadoUsuarioModel extends ORM
             ->where($this->pegarWherePadrao(colunaTabela: 'data_criacao'), false)
             ->order('data_criacao')
             ->read();
-        ppe($analytics);
+
         if (empty($analytics)) {
             return $this->retornarListaZerada();
         }
