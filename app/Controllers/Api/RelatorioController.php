@@ -7,6 +7,7 @@ use App\Models\Api\Analytics\AcessoDiaModel;
 use App\Models\Api\Analytics\AnalyticsModel;
 use App\Models\Api\Analytics\DadoUsuarioModel;
 use App\Models\Api\Analytics\DispositivoModel;
+use App\Models\Api\Analytics\IndicacaoModel;
 use App\Models\Api\Analytics\LojaEquipe\DiaModel;
 use App\Models\Api\Analytics\LojaMaisAcessadaModel;
 use App\Models\Api\Analytics\LojaVendaModel;
@@ -54,6 +55,8 @@ class RelatorioController extends Controller
     public function getDadoUsuario(Request $request): Response
     {
         $RelatorioUsuario = new DadoUsuarioModel(
+            new Data($request->de),
+            new Data($request->ate),
             $request->empresa,
             $request->subempresa
         );
@@ -77,6 +80,25 @@ class RelatorioController extends Controller
             $request->subempresa
         );
         return mensagemSucesso($RelatorioAcessoDia->gerarRelatorio());
+    }
+
+    /**
+     * Gera o relatório de indicações
+     *
+     * @param Request $request Filtro por Data, Empresa e Subempresa
+     *
+     * @return Response Relatório formatado para visualização
+     * @throws Excecao
+     */
+    public function getIndicacao(Request $request): Response
+    {
+        $RelatorioIndicacao = new IndicacaoModel(
+            new Data($request->de),
+            new Data($request->ate),
+            $request->empresa,
+            $request->subempresa
+        );
+        return mensagemSucesso($RelatorioIndicacao->gerarRelatorio());
     }
 
     /**
@@ -209,17 +231,6 @@ class RelatorioController extends Controller
         return mensagemSucesso($Relatorio->retorno);
     }
 
-    private function validarData(Request $request)
-    {
-        $request->vazio('de', mensagem: 'A data de início da busca é obrigatória');
-        $request->vazio('ate', mensagem: 'A data de final da busca é obrigatória');
-        if (!validarDate($request->de)) {
-            mensagemErro('Campo inválido!', 'A data de começo da busca não é válida.');
-        } elseif (!validarDate($request->ate)) {
-            mensagemErro('Campo inválido!', 'A data de final da busca não é válida.');
-        }
-    }
-
     /**
      * Função responsável por salvar o analytics completo
      *
@@ -258,5 +269,16 @@ class RelatorioController extends Controller
             mensagemStatus(404, localhost: 'O arquivo buscado não existe.');
         }
         return new Response(download: $arquivo);
+    }
+
+    private function validarData(Request $request)
+    {
+        $request->vazio('de', mensagem: 'A data de início da busca é obrigatória');
+        $request->vazio('ate', mensagem: 'A data de final da busca é obrigatória');
+        if (!validarDate($request->de)) {
+            mensagemErro('Campo inválido!', 'A data de começo da busca não é válida.');
+        } elseif (!validarDate($request->ate)) {
+            mensagemErro('Campo inválido!', 'A data de final da busca não é válida.');
+        }
     }
 }

@@ -5,6 +5,7 @@ namespace App\Models\Api\Analytics;
 use App\Models\Api\Analytics\Trait\WhereTrait;
 use App\Models\Api\Trait\ValidarEmpresaTrait;
 use Erro\Excecao;
+use Modules\Data;
 use ORM\ORM;
 use stdClass;
 
@@ -16,12 +17,16 @@ final class DadoUsuarioModel extends ORM
     protected string $ormTabela = TABELA_ANALYTICS_DADO_USUARIO;
 
     /**
+     * @param Data              $dataInicial
+     * @param Data              $dataFinal
      * @param array|string|null $empresa    Filtra por Empresa
      * @param array|string|null $subempresa Filtra por Subempresa
      *
      * @throws Excecao
      */
     public function __construct(
+        private readonly Data $dataInicial = new Data(),
+        private readonly Data $dataFinal = new Data(),
         private readonly array|string|null $empresa = null,
         private readonly array|string|null $subempresa = null
     ) {
@@ -38,7 +43,7 @@ final class DadoUsuarioModel extends ORM
     public function gerarRelatorio(): array
     {
         $analytics = $this
-            ->where($this->pegarWherePadrao(false), false)
+            ->where($this->pegarWherePadrao(colunaTabela: 'data_criacao'), false)
             ->order('data_criacao')
             ->read();
 
@@ -49,6 +54,24 @@ final class DadoUsuarioModel extends ORM
         $analytics = $this->pegarPrimerioDasEmpresas($analytics);
         $analytics = $this->somarAsEmpresas($analytics);
         return $this->montarRelatorio($analytics);
+    }
+
+    /**
+     * @param stdClass $analytics
+     *
+     * @return array
+     */
+    public function montarRelatorio(stdClass $analytics): array
+    {
+        return [
+            'status'         => $this->montarStatus($analytics),
+            'estado'         => $this->montarEstado($analytics),
+            'genero'         => $this->montarGenero($analytics),
+            'situacao'       => $this->montarSituacao($analytics),
+            'estado_civil'   => $this->montarEstadoCivil($analytics),
+            'atualizar_dado' => $this->montarAtualizarDado($analytics),
+            'faixa_etaria'   => $this->montarFaixaEtaria($analytics)
+        ];
     }
 
     /**
@@ -81,9 +104,9 @@ final class DadoUsuarioModel extends ORM
         $resultados = [];
         $idsEncontrados = [];
         foreach ($analytics as $item) {
-            if ($item->id_admin_empresa == 1) {
+            /*if ($item->id_admin_empresa == 1) {
                 continue;
-            }
+            }*/
             $id = $item->id_admin_empresa;
             if (!in_array($id, $idsEncontrados)) {
                 $idsEncontrados[] = $id;
@@ -114,24 +137,6 @@ final class DadoUsuarioModel extends ORM
             }
         }
         return $somaChaves;
-    }
-
-    /**
-     * @param stdClass $analytics
-     *
-     * @return array
-     */
-    public function montarRelatorio(stdClass $analytics): array
-    {
-        return [
-            'status'         => $this->montarStatus($analytics),
-            'estado'         => $this->montarEstado($analytics),
-            'genero'         => $this->montarGenero($analytics),
-            'situacao'       => $this->montarSituacao($analytics),
-            'estado_civil'   => $this->montarEstadoCivil($analytics),
-            'atualizar_dado' => $this->montarAtualizarDado($analytics),
-            'faixa_etaria'   => $this->montarFaixaEtaria($analytics)
-        ];
     }
 
     /**

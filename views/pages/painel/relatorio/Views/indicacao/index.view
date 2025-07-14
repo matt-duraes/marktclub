@@ -1,0 +1,73 @@
+@template "painel"
+
+<div class="bloco_pagina_popup display_none" id="popup_filtros">
+    <header class="header_pagina_popup">
+        <h1>Filtros</h1>
+        <i class="popup_fechar fechar botao_fechar">@iconeFechar</i>
+    </header>
+
+    <div class="form_geral conteudo_pagina_popup" id="bloco_filtros">
+        <div class="bloco_linha">
+            @? formData(name: ['relatorio_data_de', 'relatorio_data_ate'], label: 'Data', value: [$de, $ate], separador: 'até');
+        </div>
+
+        @ if ( !empty($empresa) ):
+            <div class="bloco_empresas">
+                <span class="titulo_empresas">Empresas</span>
+                @? formCheckbox(name: "marcar_todos", label: "Marcar/Desmarcar todos", value: "");
+                <div class="bloco_checkbox">
+                    @ifforeach($empresa as $k => $e):
+                    @? formCheckbox(name: "", label: "{$e}", value: "{$k}");
+                    @endifforeach;
+                </div>
+            </div>
+        @ endif;
+    </div>
+
+    <div class="footer_pagina_popup">
+        <div class="flex"></div>
+        <div class="button salvar" id="botao_buscar_relatorio">BUSCAR</div>
+    </div>
+</div>
+
+<div class="bloco_app_relatorio">
+    <div class="lista">
+
+        <div class="bloco_quadro_colorido" id="bloco_status">
+            <div class="scroll bloco_2">
+                <div class="quadro verde" id="grafico_status_total">
+                    <div class="numero"><span class="loading">0</span></div>
+                    <p>Indicações</p>
+                </div>
+                <div class="quadro azul" id="grafico_status_concluido">
+                    <div class="numero"><span class="loading">0</span></div>
+                    <p>Indicações concluidas</p>
+                    <div class="porcentagem"><span class="loading">0</span></div>
+                    <div class="barra"><span></span></div>
+                    <p class="porcentagem_texto">do total de indicações</p>
+                </div>
+                <div class="quadro vermelho" id="grafico_status_cancelado">
+                    <div class="numero"><span class="loading">-</span></div>
+                    <p>Indicações canceladas</p>
+                    <div class="porcentagem"><span class="loading">0</span></div>
+                    <div class="barra"><span></span></div>
+                    <p class="porcentagem_texto">do total de indicações</p>
+                </div>
+                <div class="quadro amarelo" id="grafico_status_vinculo">
+                    <div class="numero"><span class="loading">-</span></div>
+                    <p>Indicações sem vinculo</p>
+                    <div class="porcentagem"><span class="loading">0</span></div>
+                    <div class="barra"><span></span></div>
+                    <p class="porcentagem_texto">do total de indicações</p>
+                </div>
+                <div class="quadro roxo" id="grafico_status_prospeccao">
+                    <div class="numero"><span class="loading">0</span></div>
+                    <p>Indicações prospecção</p>
+                    <div class="porcentagem"><span class="loading">0</span></div>
+                    <div class="barra"><span></span></div>
+                    <p class="porcentagem_texto">do total de indicações</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

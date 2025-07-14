@@ -12,12 +12,17 @@ trait WhereTrait
 
     /**
      * @param bool $dataAcesso
+     * @param string $colunaTabela
+     * @param bool $subempresa
      *
      * @return array
      * @throws Excecao
      */
-    private function pegarWherePadrao(bool $dataAcesso = true): array
-    {
+    private function pegarWherePadrao(
+        bool $dataAcesso = true,
+        string $colunaTabela = 'data_acesso',
+        bool $subempresa = true
+    ): array {
         $where = [];
         $ormHelper = new OrmHelper(TABELA_COMERCIAL_EMPRESA);
         if (!empty($this->empresa) && validarUuid($this->empresa, false)) {
@@ -33,22 +38,24 @@ trait WhereTrait
             $where[] = ['id_admin_empresa', $this->idEmpresa];
         }
 
-        if (!empty($this->subempresa) && validarUuid($this->subempresa, false)) {
-            $idSubempresa = $ormHelper->pegarIdPeloUuid(
-                $this->subempresa,
-                'Há Subempresa informada não foi encontrada',
-                'Subempresa inválida!'
-            );
-            $where[] = ['id_admin_subempresa', $idSubempresa];
-        } elseif (!empty($this->subempresa) && is_array($this->subempresa)) {
-            $where[] = ['id_admin_subempresa', 'in', $ormHelper->mudarListaUuidParaId($this->subempresa)];
-        } elseif (empty($this->subempresa) && !empty($this->idSubempresa) && $this->idSubempresa != 0) {
-            $where[] = ['id_admin_subempresa', $this->idSubempresa];
+        if ($subempresa) {
+            if (!empty($this->subempresa) && validarUuid($this->subempresa, false)) {
+                $idSubempresa = $ormHelper->pegarIdPeloUuid(
+                    $this->subempresa,
+                    'Há Subempresa informada não foi encontrada',
+                    'Subempresa inválida!'
+                );
+                $where[] = ['id_admin_subempresa', $idSubempresa];
+            } elseif (!empty($this->subempresa) && is_array($this->subempresa)) {
+                $where[] = ['id_admin_subempresa', 'in', $ormHelper->mudarListaUuidParaId($this->subempresa)];
+            } elseif (empty($this->subempresa) && !empty($this->idSubempresa) && $this->idSubempresa != 0) {
+                $where[] = ['id_admin_subempresa', $this->idSubempresa];
+            }
         }
 
         if ($dataAcesso) {
             $where[] = [
-                'data_acesso', 'between', [
+                $colunaTabela, 'between', [
                     $this->dataInicial->banco() . ' 00:00:00', $this->dataFinal->banco() . ' 23:59:59'
                 ]
             ];
