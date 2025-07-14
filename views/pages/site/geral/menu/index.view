@@ -153,7 +153,7 @@
 </a>
 @endif;
 @if(MENU_MANOLE):
-<a class="botao {!!MENU_HOVER == 'manole' ? 'cor_bg pagina_atual' : ''!!}" href="<?= route('pagina.index') ?>">
+<a class="botao {!!MENU_HOVER == 'manole' ? 'cor_bg pagina_atual' : ''!!}" href="<?= route('pagina.manole') ?>">
     <i id="icone_mais_acao">@iconeCvs(22)</i>
     Manole
 </a>
