@@ -73,14 +73,16 @@ class ComponenteBuscar {
             if ('dado' in item && 'esqueleto' in item.dado) {
                 item.dado.esqueleto.hide();
             }
-            if ('dado' in item && 'remover' in item.dado) {
+            if ('dado' in item && 'removerBloco' in item.dado) {
                 this.removerLista(item.dado.remover);
             }
         }
     }
 
     removerLista(lista) {
-        if (lista instanceof Element) {
+        if (lista === undefined || lista === null) {
+            return;
+        } else if (lista instanceof Element) {
             lista.remove();
             return;
         } else if (!lista instanceof NodeList && !lista instanceof Array) {
@@ -101,6 +103,8 @@ class ComponenteBuscar {
                 this.adicionarTabela(item.dado, dado);
             } else if (tipo === 'loja') {
                 this.adicionarLoja(item.dado, dado);
+            } else if (tipo === 'banner') {
+                this.adicionarBanner(item.dado, dado);
             }
         }
     }
@@ -110,7 +114,7 @@ class ComponenteBuscar {
         if ('esqueleto' in dado) {
             dado.esqueleto.hide();
         }
-        if ('remover' in dado) {
+        if ('removerBloco' in dado) {
             this.removerLista(dado.remover);
         }
         return dado;
@@ -167,6 +171,43 @@ class ComponenteBuscar {
         dado.bloco.final(
             `<div class="article_fake"></div><div class="article_fake"></div><div class="article_fake"></div>`
         );
+    }
+
+    adicionarBanner(lista, dado) {
+        const bloco = dado.banner;
+        const padrao = dado.padrao;
+        const blocoDesktop = $('.banner_desktop', bloco);
+        const blocoMobile = $('.banner_mobile', bloco);
+        const setaProximo = $('.seta.proximo', bloco);
+        const setaAnterior = $('.seta.anterior', bloco);
+        for (const item of lista) {
+            if (item.imagem_desktop !== '') {
+                const imagemDesktop = this.montarImagem(padrao, item.imagem_desktop, item.link);
+                blocoDesktop.final(imagemDesktop);
+            } else if (item.imagem_mobile !== '') {
+                const imagemMobile = this.montarImagem(padrao, item.imagem_mobile, item.link);
+                blocoMobile.final(imagemMobile);
+            }
+        }
+        if ($$('figure', blocoDesktop).length > 0) {
+            new Banner(blocoDesktop, 'figure', setaProximo, setaAnterior);
+            blocoDesktop.aparecer();
+        }
+        if ($$('figure', blocoMobile).length > 0) {
+            new Banner(blocoMobile, 'figure', setaProximo, setaAnterior);
+            blocoMobile.aparecer();
+        }
+    }
+    montarImagem(padrao, imagem, link) {
+        const clone = padrao.clonar();
+        const blocoLink = $('a', clone);
+        $('img', clone).attr('src', imagem);
+        if (link === '' || link === null) {
+            blocoLink.remove();
+            return clone;
+        }
+        blocoLink.attr('href', link);
+        return clone;
     }
 
     adicionarTabela(lista, dado) {

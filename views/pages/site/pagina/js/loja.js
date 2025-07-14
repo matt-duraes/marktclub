@@ -23,7 +23,7 @@ window.addEventListener('load', () => {
         Buscar.add(hash, 'loja', {
             bloco,
             modelo,
-            remover,
+            removerBloco: remover,
         });
     }
 });

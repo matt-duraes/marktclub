@@ -30,7 +30,7 @@ window.addEventListener('load', () => {
             esqueleto: Loading,
             modelo: modelo,
             tabela: tabela,
-            remover: [cloneEsqueleto],
+            removerBloco: [cloneEsqueleto],
         });
     }
 });

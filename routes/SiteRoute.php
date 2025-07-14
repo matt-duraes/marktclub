@@ -614,13 +614,8 @@ Route
         Route
             ::nome('index')
             ::view([
-                '/saude'
-            ]);
-        Route
-            ::nome('manole')
-            ::request(['hash', '!tipo', '!dado'])
-            ::view([
-                '/saude/manole'
+                '/saude',
+                '/manole'
             ]);
     });
 
