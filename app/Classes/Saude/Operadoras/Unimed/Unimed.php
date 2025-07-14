@@ -2,10 +2,10 @@
 
 namespace App\Classes\Saude\Operadoras\Unimed;
 
-use App\Classes\Saude\Acomodacao;
-use App\Classes\Saude\Operadoras\AbstractOperadora;
 use Exception;
 use Modules\Data;
+use App\Classes\Saude\Acomodacao;
+use App\Classes\Saude\Operadoras\AbstractOperadora;
 
 class Unimed extends AbstractOperadora
 {
@@ -42,53 +42,53 @@ class Unimed extends AbstractOperadora
 
         if ($this->idade <= 18) {
             $this->valores = [
-                Acomodacao::ACOMODACAO_ENFERMARIA  => 299.72,
-                Acomodacao::ACOMODACAO_APARTAMENTO => 361.03
+                Acomodacao::ACOMODACAO_ENFERMARIA  => 337.27,
+                Acomodacao::ACOMODACAO_APARTAMENTO => 406.27
             ];
         } elseif ($this->idade >= 19 && $this->idade <= 23) {
             $this->valores = [
-                Acomodacao::ACOMODACAO_ENFERMARIA  => 323.13,
-                Acomodacao::ACOMODACAO_APARTAMENTO => 388.90
+                Acomodacao::ACOMODACAO_ENFERMARIA  => 363.62,
+                Acomodacao::ACOMODACAO_APARTAMENTO => 437.63
             ];
         } elseif ($this->idade >= 24 && $this->idade <= 28) {
             $this->valores = [
-                Acomodacao::ACOMODACAO_ENFERMARIA  => 348.96,
-                Acomodacao::ACOMODACAO_APARTAMENTO => 420.00
+                Acomodacao::ACOMODACAO_ENFERMARIA  => 392.68,
+                Acomodacao::ACOMODACAO_APARTAMENTO => 472.63
             ];
         } elseif ($this->idade >= 29 && $this->idade <= 33) {
             $this->valores = [
-                Acomodacao::ACOMODACAO_ENFERMARIA  => 402.41,
-                Acomodacao::ACOMODACAO_APARTAMENTO => 478.39
+                Acomodacao::ACOMODACAO_ENFERMARIA  => 452.83,
+                Acomodacao::ACOMODACAO_APARTAMENTO => 538.33
             ];
         } elseif ($this->idade >= 34 && $this->idade <= 38) {
             $this->valores = [
-                Acomodacao::ACOMODACAO_ENFERMARIA  => 434.58,
-                Acomodacao::ACOMODACAO_APARTAMENTO => 516.61
+                Acomodacao::ACOMODACAO_ENFERMARIA  => 489.03,
+                Acomodacao::ACOMODACAO_APARTAMENTO => 581.34
             ];
         } elseif ($this->idade >= 39 && $this->idade <= 43) {
             $this->valores = [
-                Acomodacao::ACOMODACAO_ENFERMARIA  => 460.88,
-                Acomodacao::ACOMODACAO_APARTAMENTO => 553.53
+                Acomodacao::ACOMODACAO_ENFERMARIA  => 518.63,
+                Acomodacao::ACOMODACAO_APARTAMENTO => 622.89
             ];
         } elseif ($this->idade >= 44 && $this->idade <= 48) {
             $this->valores = [
-                Acomodacao::ACOMODACAO_ENFERMARIA  => 734.38,
-                Acomodacao::ACOMODACAO_APARTAMENTO => 884.80
+                Acomodacao::ACOMODACAO_ENFERMARIA  => 826.40,
+                Acomodacao::ACOMODACAO_APARTAMENTO => 995.67
             ];
         } elseif ($this->idade >= 49 && $this->idade <= 53) {
             $this->valores = [
-                Acomodacao::ACOMODACAO_ENFERMARIA  => 765.94,
-                Acomodacao::ACOMODACAO_APARTAMENTO => 922.79
+                Acomodacao::ACOMODACAO_ENFERMARIA  => 861.91,
+                Acomodacao::ACOMODACAO_APARTAMENTO => 1038.42
             ];
         } elseif ($this->idade >= 54 && $this->idade <= 58) {
             $this->valores = [
-                Acomodacao::ACOMODACAO_ENFERMARIA  => 797.42,
-                Acomodacao::ACOMODACAO_APARTAMENTO => 960.81
+                Acomodacao::ACOMODACAO_ENFERMARIA  => 897.34,
+                Acomodacao::ACOMODACAO_APARTAMENTO => 1081.20
             ];
         } elseif ($this->idade >= 59) {
             $this->valores = [
-                Acomodacao::ACOMODACAO_ENFERMARIA  => 1660.77,
-                Acomodacao::ACOMODACAO_APARTAMENTO => 1901.49
+                Acomodacao::ACOMODACAO_ENFERMARIA  => 1868.86,
+                Acomodacao::ACOMODACAO_APARTAMENTO => 2139.75
             ];
         }
 

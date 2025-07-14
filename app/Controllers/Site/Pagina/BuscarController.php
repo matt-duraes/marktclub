@@ -43,7 +43,7 @@ final class BuscarController extends Controller
         return view('pagina', [
             'html' => $Html->html,
             'dado' => base64Encode($request->dado(), url: true),
-            'url'  => 'unimed-natal',
+            'url'  => $uri,
         ]);
     }
 

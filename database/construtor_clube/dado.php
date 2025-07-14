@@ -40,6 +40,7 @@ return [
         'menu_show_nacional'       => 1,
         'menu_show_internacional'  => 1,
         'menu_saude_cnu'           => 1,
+        'menu_manole'              => 1,
         'menu_saude_florianopolis' => 1,
         'menu_cashback'            => 1,
         'menu_indicar_usuario'     => 1,

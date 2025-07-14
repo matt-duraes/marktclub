@@ -614,7 +614,8 @@ Route
         Route
             ::nome('index')
             ::view([
-                '/saude'
+                '/saude',
+                '/manole'
             ]);
         Route
             ::nome('manole')
