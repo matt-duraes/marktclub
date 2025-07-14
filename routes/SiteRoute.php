@@ -617,12 +617,6 @@ Route
                 '/saude',
                 '/manole'
             ]);
-        Route
-            ::nome('manole')
-            ::request(['hash', '!tipo', '!dado'])
-            ::view([
-                '/saude/manole'
-            ]);
     });
 
 Route
