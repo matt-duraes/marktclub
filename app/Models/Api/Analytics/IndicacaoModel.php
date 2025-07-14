@@ -43,14 +43,14 @@ class IndicacaoModel extends ORM
     public function gerarRelatorio(): array
     {
         $analytics = $this
-            ->where($this->pegarWherePadrao(colunaTabela: 'data_criacao'), false)
+            ->where($this->pegarWherePadrao(colunaTabela: 'data_criacao', subempresa: false), false)
             ->order('data_criacao')
             ->read();
 
         if (empty($analytics)) {
             return $this->retornarListaZerada();
         }
-
+        
         return $this->montarRelatorio($analytics);
     }
 
@@ -68,9 +68,6 @@ class IndicacaoModel extends ORM
         $total = 0;
         $Status = new Status();
         foreach ($analytics as $item) {
-            /*if ($item->id_admin_empresa == 1) {
-                continue;
-            }*/
             $total++;
             if ($Status->indice($item->status) === Status::CONCLUIDO) {
                 $concluido++;
