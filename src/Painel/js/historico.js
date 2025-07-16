@@ -683,7 +683,6 @@ const historicoLoad = () => {
                 delete arquivoSalvar[indice];
             }
             bloco.remove();
-            console.log(arquivoSalvar);
         });
     }
     const adicionarArquivoPrevio = arquivo => {

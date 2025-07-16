@@ -3,7 +3,6 @@
 // @system "Popup"
 // @painel 'relatorio_empresas'
 
-
 window.addEventListener('load', () => {
     const inputDe = document.querySelector('#input_relatorio_data_de');
     const inputAte = document.querySelector('#input_relatorio_data_ate');
@@ -25,11 +24,8 @@ window.addEventListener('load', () => {
         const resposta = await ajaxGet(LINK + `/relatorio/indicacoes`, { de, ate, empresa, subempresa }, undefined, {
             headers: {
                 'Content-Type': 'application/json',
-            }
+            },
         });
-
-        console.log(resposta);
-
         Loading.hide();
 
         if (resposta.dado == undefined) {
