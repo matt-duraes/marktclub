@@ -1,11 +1,11 @@
 <?php
 
+use Route\Route;
 use App\Classes\Parceiro\Externo\Helper;
-use App\Middlewares\Api\MarktClubMiddleware;
 use App\Middlewares\Api\TokenMiddleware;
+use App\Middlewares\Api\MarktClubMiddleware;
 use App\Middlewares\Api\TokenProvMiddleware;
 use App\Middlewares\DrogariaAraujoMiddleware;
-use Route\Route;
 
 Route::noIndex();
 
@@ -277,9 +277,9 @@ Route
             ::middleware(TokenMiddleware::class, 'scope', ['usuario_cliente:download'])
             ::request([
                 'campo', 'usuario', '!pesquisa', '!pagamento', '!nome', '!email', '!cpf', '!data_upload',
-                '!data_criacao_de', '!data_criacao_ate', '!matricula', '!status', '!ordem', '!dependente',
-                '!empresa', '!trabalho_empresa', '!trabalho_cargo', '!tipo', '!endereco_estado', '!federacao',
-                '!siape', '!origem', '!subempresa',
+                '!data_criacao_de', '!data_criacao_ate', '!matricula', '!status', '!lead', '!ordem',
+                '!origem', '!dependente','!empresa', '!trabalho_empresa', '!trabalho_cargo', '!tipo',
+                '!endereco_estado', '!federacao', '!siape', '!subempresa', '!crm_estado',
             ])
             ::post('/usuario-cliente/download');
     });

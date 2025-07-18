@@ -74,7 +74,7 @@ class ComponenteBuscar {
                 item.dado.esqueleto.hide();
             }
             if ('dado' in item && 'removerBloco' in item.dado) {
-                this.removerLista(item.dado.remover);
+                this.removerLista(item.dado.removerBloco);
             }
         }
     }
@@ -115,7 +115,7 @@ class ComponenteBuscar {
             dado.esqueleto.hide();
         }
         if ('removerBloco' in dado) {
-            this.removerLista(dado.remover);
+            this.removerLista(dado.removerBloco);
         }
         return dado;
     }

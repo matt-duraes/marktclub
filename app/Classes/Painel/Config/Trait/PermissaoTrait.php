@@ -635,7 +635,10 @@ trait PermissaoTrait
                     ],
                     'parceiro_automovel_add'        => [
                         'titulo' => Titulo::SALVAR,
-                        'scope'  => ['parceiro_automovel:salvar', 'automovel_modelo:buscar']
+                        'scope'  => [
+                            'parceiro_automovel:salvar', 'automovel_modelo:buscar',
+                            'automovel_modelo:salvar'
+                        ]
                     ],
                     'parceiro_automovel_editar'     => [
                         'titulo' => Titulo::EDITAR,
