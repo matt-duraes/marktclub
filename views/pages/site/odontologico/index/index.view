@@ -48,7 +48,7 @@
     <div class="preco">
         <h2>Valor por usuário:</h2>
         <p class="apenas">Apenas</p>
-        <div class="valor">R$ <b class="cor_color">24</b><span class="cor_color">,90</span></div>
+        <div class="valor">R$ <b class="cor_color">26</b><span class="cor_color">,30</span></div>
         <p>mensal</p>
     </div>
     <div class="aviso_preco">
