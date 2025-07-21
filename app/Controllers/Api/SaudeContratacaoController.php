@@ -11,7 +11,7 @@ use App\Classes\Saude\Ordem;
 use App\Classes\Saude\Status;
 use System\Interface\ControllerListarInterface;
 use System\Interface\ControllerSalvarInterface;
-use App\Models\Api\Saude\Simulacao\SimulacaoEntity;
+use App\Models\Api\Saude\Simulacao\ContratarModel;
 use App\Models\Api\Saude\Contratacao\ContratacaoModel;
 use App\Models\Api\Saude\Contratacao\ContratacaoEntity;
 
@@ -33,21 +33,17 @@ class SaudeContratacaoController extends Controller implements
 
     public function getBuscar(Request $request, string $id): Response
     {
-        $Contratacao = new ContratacaoEntity();
-        $Contratacao->uuid($id);
-        return $this->retornoPadrao($Contratacao);
+        // $Contratacao = new ContratacaoEntity();
+        // $Contratacao->uuid($id);
+        // return $this->retornoPadrao($Contratacao);
+        return mensagemSucesso([]);
     }
 
     public function postSalvar(Request $request): Response
     {
-        $SimulacaoEntity = new SimulacaoEntity();
-        $SimulacaoEntity->uuid(
-            $request->getPost('id_saude_simulacao'),
-            mensagem: 'A contratação não foi possível devido a falta do codígo da simulação',
-            titulo: 'Contratação inválidada'
+        $ContratacaoEntity = new ContratacaoEntity(
+            Simulacao: new ContratarModel(uuid: $request->getPost('id_saude_simulacao'))
         );
-
-        $ContratacaoEntity = new ContratacaoEntity($SimulacaoEntity);
         $ContratacaoEntity->set(lista: $request->dado());
         $ContratacaoEntity->salvar();
 
@@ -69,10 +65,11 @@ class SaudeContratacaoController extends Controller implements
 
     public function putAtualizar(Request $request, string $id): Response
     {
-        $ContratacaoEntity = new ContratacaoEntity();
-        $ContratacaoEntity->uuid($id);
-        $ContratacaoEntity->set(lista: $request->dado());
-        $ContratacaoEntity->salvar();
+        mensagemErro('Erro!', 'Ocorreu um erro ao tentar atualizar o item', status: 500);
+        // $ContratacaoEntity = new ContratacaoEntity();
+        // $ContratacaoEntity->uuid($id);
+        // $ContratacaoEntity->set(lista: $request->dado());
+        // $ContratacaoEntity->salvar();
         return new Response(status: 204);
     }
 }
