@@ -2,27 +2,27 @@
 
 namespace App\Models\Api\Saude\Contratacao;
 
-use App\Classes\Saude\Acomodacao;
-use App\Classes\Saude\Operadora;
-use App\Classes\Saude\Operadoras\Amil\Planos as PlanoAmil;
-use App\Classes\Saude\Operadoras\Amil\Regioes;
-use App\Classes\Saude\Operadoras\CNUFlorianopolis\Planos as PlanoCNU;
-use App\Classes\Saude\Status;
-use App\Classes\SaudeSimulacao\Status as SaudeSimulacaoStatus;
-use App\Models\Api\Saude\Simulacao\SimulacaoEntity;
-use App\Models\Api\Trait\ValidarEmpresaTrait;
-use Erro\Excecao;
-use Helpers\OrmHelper;
-use Modules\Cpf;
-use Modules\Data;
-use Modules\Email;
-use Modules\EnderecoCep;
-use Modules\EnderecoEstado;
-use Modules\EstadoCivil;
-use Modules\Genero;
-use Modules\Nome;
-use Modules\Telefone;
 use ORM\Entity;
+use Modules\Cpf;
+use Erro\Excecao;
+use Modules\Data;
+use Modules\Nome;
+use Modules\Email;
+use Modules\Genero;
+use Modules\Telefone;
+use Helpers\OrmHelper;
+use Modules\EnderecoCep;
+use Modules\EstadoCivil;
+use Modules\EnderecoEstado;
+use App\Classes\Saude\Status;
+use App\Classes\Saude\Operadora;
+use App\Classes\Saude\Acomodacao;
+use App\Models\Api\Trait\ValidarEmpresaTrait;
+use App\Classes\Saude\Operadoras\Amil\Regioes;
+use App\Models\Api\Saude\Simulacao\ContratarModel;
+use App\Models\Api\Saude\Simulacao\SimulacaoEntity;
+use App\Classes\Saude\Operadoras\Amil\Planos as PlanoAmil;
+use App\Classes\Saude\Operadoras\CNUFlorianopolis\Planos as PlanoCNU;
 
 class ContratacaoEntity extends Entity
 {
@@ -170,7 +170,7 @@ class ContratacaoEntity extends Entity
      * @throws Excecao
      */
     public function __construct(
-        private readonly ?SimulacaoEntity $Simulacao = null
+        private readonly ContratarModel $Simulacao
     ) {
         $this->validarEmpresa();
         parent::__construct();
@@ -181,7 +181,7 @@ class ContratacaoEntity extends Entity
      */
     protected function regraInsert(): void
     {
-        $this->id_saude_simulacao = $this->Simulacao->get('id');
+        $this->id_saude_simulacao = $this->Simulacao->id;
     }
 
     /**
@@ -189,15 +189,14 @@ class ContratacaoEntity extends Entity
      */
     protected function regraPosInsert(): void
     {
-        $this->Simulacao->status = new SaudeSimulacaoStatus(SaudeSimulacaoStatus::ENVIADO);
-        $this->Simulacao->salvar();
+        $this->Simulacao->contratado();
     }
 
     protected function regraPosBuscar(): void
     {
         $this->buscarUsuario();
         $this->buscarEmpresa();
-        $this->buscarSimulacao();
+        // $this->buscarSimulacao();
     }
 
     private function buscarUsuario(): void
