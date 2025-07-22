@@ -249,25 +249,20 @@ class ContratacaoEntity extends Entity
         $this->simulacao = $this->montarRetornoSimulacao($simulacao);
     }
 
-    private function montarRetornoSimulacao($simulacao): array
+    private function montarRetornoSimulacao($dado): array
     {
         $convenio = (new OrmHelper(TABELA_SAUDE_CONVENIO))->pegarUltimoRegistro(
-            where: ['id', $simulacao->id_saude_convenio],
+            where: ['id', $dado->id_saude_convenio],
             campo: ['titulo']
         );
-        ppe($simulacao);
-
-        return array_merge(
-            [
-                'convenio' => $convenio['titulo'],
-                'plano' => $simulacao->plano,
-            ],
-            $this->montarItemSimulacao($simulacao->item),
-            $this->montarValorSimulacao($simulacao->valor),
-            [
-                'total' => $simulacao->total
-            ]
-        );
+        $simulacao = jsonDecode($dado->simulacao, true, true);
+        return [
+            'convenio' => $convenio['titulo'],
+            'plano' => $simulacao['plano'],
+            'item' => $this->montarItemSimulacao($simulacao['item'] ?? []),
+            'valor' => $this->montarValorSimulacao($simulacao['valor'] ?? []),
+            'total' => $simulacao['total']
+        ];
     }
 
     private function montarItemSimulacao($item): array
@@ -283,8 +278,8 @@ class ContratacaoEntity extends Entity
     {
         $retorno = [];
         foreach($valor as $r) {
-            $indice = $r->nome . '('. $r->data . ')';
-            $retorno[$indice] = $r->valor;
+            $indice = $r['nome'] . ' ('. $r['data'] . ')';
+            $retorno[$indice] = $r['valor'];
         }
         return $retorno;
     }
