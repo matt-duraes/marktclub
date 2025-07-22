@@ -83,7 +83,7 @@ final class RefreshTokenModel extends ORM implements TokenInterface
     private function pegarAppRealOuFixo()
     {
         $AppToken = $this->pegarApp(['id', $this->tokenAtual->id_api_app]);
-        if ($AppToken->uuid == env('API_CLUBE_ID')) {
+        if (in_array($AppToken->uuid, [env('API_CLUBE_ID'), env('API_APP_ID')])) {
             $this->pegarAppDoClube($AppToken);
             return;
         } elseif ($AppToken->uuid == env('API_PAINEL_ID')) {
