@@ -1,14 +1,14 @@
 <?php
 
-use App\Classes\Saude\Operadora;
-use App\Classes\Saude\Operadoras\Amil\Planos as PlanoAmil;
-use App\Classes\Saude\Operadoras\Amil\Regioes;
-use App\Classes\Saude\Operadoras\CNUFlorianopolis\Planos as PlanoCNU;
+use Modules\Genero;
+use Modules\EstadoCivil;
 use App\Classes\Saude\Status;
+use App\Classes\Saude\Operadora;
 use App\Classes\Saude\Acomodacao;
 use App\Classes\UsuarioCliente\Helper;
-use Modules\EstadoCivil;
-use Modules\Genero;
+use App\Classes\Saude\Operadoras\Amil\Regioes;
+use App\Classes\Saude\Operadoras\Amil\Planos as PlanoAmil;
+use App\Classes\Saude\Operadoras\CNUFlorianopolis\Planos as PlanoCNU;
 
 $Painel = new PainelConfig\Visualizar('saude_contratacao');
 
@@ -38,15 +38,11 @@ $Painel->coluna(callback: function () use ($Painel) {
 
     $Painel->bloco('Simulação', callback: function () use ($Painel) {
         $Painel
-            ->data('simulacao->titular', 'Data de nascimento')
-            ->linha('simulacao->quantidade_dependente', 'Qtd. Dependentes')
-            ->linha('simulacao->operadora', 'Operadora')
-            ->linha('simulacao->acomodacao', 'Acomodação')
+            ->linha('simulacao->convenio', 'Convênio')
             ->linha('simulacao->plano', 'Plano')
-            ->linha('simulacao->regiao', 'Região')
-            ->dinheiro('simulacao->valor_titular', 'Valor p/ titular')
-            ->dinheiro('simulacao->valor_total', 'Valor total')
-            ->data('simulacao->data_criacao', 'Data de criação');
+            ->array('simulacao->item', 'Detalhes')
+            ->array('simulacao->valor', 'Valores')
+            ->dinheiro('simulacao->total', 'Total');
     });
 
     $Painel->bloco('Contratação', callback: function () use ($Painel) {
