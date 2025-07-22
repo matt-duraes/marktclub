@@ -615,7 +615,8 @@ Route
             ::nome('index')
             ::view([
                 '/saude',
-                '/manole'
+                '/manole',
+                '/cinema-pagina',
             ]);
     });
 
