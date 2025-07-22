@@ -7,26 +7,22 @@ use App\Models\Api\Auth\Token\TokenHelper;
 final class MenuModel extends AbstractOrm
 {
     public string $existe = 'nao';
-    public function __construct()
+    public function __construct(
+        int $idEmpresa
+    )
     {
         parent::__construct();
-        $this->verificarSeExiste();
+        $this->verificarSeExiste($idEmpresa);
     }
 
-    private function verificarSeExiste()
+    private function verificarSeExiste($idEmpresa)
     {
-        if(!$this->existe($this->pegarWhere())) {
+        if(!$this->existe([
+            ['id_admin_empresa', 'json', $idEmpresa],
+            ['status', 1]
+        ])) {
             return;
         }
         $this->existe = 'sim';
-    }
-
-    private function pegarWhere(): array
-    {
-        $Token = new TokenHelper();
-        return [
-            ['id_admin_empresa', 'json', $Token->pegarEmpresa(erro: true)],
-            ['status', 1]
-        ];
     }
 }
