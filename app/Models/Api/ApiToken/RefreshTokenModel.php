@@ -123,7 +123,7 @@ final class RefreshTokenModel extends ORM implements TokenInterface
         $where = ['uuid', $this->tokenAtual->id_usuario];
         if ($this->App->audience == Audience::PAINEL) {
             $Usuario = $this->pegarEquipe($where);
-        } elseif ($this->App->audience == Audience::CLUBE) {
+        } elseif (in_array($this->App->audience, [Audience::CLUBE, Audience::APP])) {
             $Usuario = $this->pegarCliente($where);
         }
         if (vazio($Usuario)) {
