@@ -33,10 +33,9 @@ class SaudeContratacaoController extends Controller implements
 
     public function getBuscar(Request $request, string $id): Response
     {
-        // $Contratacao = new ContratacaoEntity();
-        // $Contratacao->uuid($id);
-        // return $this->retornoPadrao($Contratacao);
-        return mensagemSucesso([]);
+        $Contratacao = new ContratacaoEntity();
+        $Contratacao->uuid($id);
+        return $this->retornoPadrao($Contratacao);
     }
 
     public function postSalvar(Request $request): Response

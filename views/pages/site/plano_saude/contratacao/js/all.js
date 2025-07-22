@@ -173,7 +173,7 @@ botaoContratarEnviar.addEventListener('click', async () => {
         'Seus dados foram enviados com sucesso. Em média, o tempo de retorno do parceiro está sendo em 72 horas.',
         true
     );
-    window.location.assign(LINK + '/saude');
+    window.location.assign(LINK + '/saude/escolher-estado');
 });
 
 $$('.tirar_tab input').evento('keydown', (e, item) => {
