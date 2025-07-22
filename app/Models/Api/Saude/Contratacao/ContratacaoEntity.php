@@ -170,7 +170,7 @@ class ContratacaoEntity extends Entity
      * @throws Excecao
      */
     public function __construct(
-        private readonly ContratarModel $Simulacao
+        private readonly ?ContratarModel $Simulacao = null
     ) {
         $this->validarEmpresa();
         parent::__construct();
@@ -181,6 +181,12 @@ class ContratacaoEntity extends Entity
      */
     protected function regraInsert(): void
     {
+        if(is_null($this->Simulacao)) {
+            mensagemErro(
+                titulo: 'Erro!',
+                mensagem: 'Não foi possível achar sua simulação, por favor, tente novamente.'
+            );
+        }
         $this->id_saude_simulacao = $this->Simulacao->id;
     }
 
@@ -196,7 +202,7 @@ class ContratacaoEntity extends Entity
     {
         $this->buscarUsuario();
         $this->buscarEmpresa();
-        // $this->buscarSimulacao();
+        $this->buscarSimulacao();
     }
 
     private function buscarUsuario(): void
@@ -231,106 +237,55 @@ class ContratacaoEntity extends Entity
     private function buscarSimulacao(): void
     {
         $simulacao = (new OrmHelper(TABELA_SAUDE_SIMULACAO))->pegarUltimoRegistro(
-            ['id', $this->id_saude_simulacao],
-            [
+            where: ['id', $this->id_saude_simulacao],
+            campo: [
                 'uuid',
-                'titular',
-                'quantidade_dependente',
-                'operadora',
-                'acomodacao',
-                'plano',
-                'regiao',
-                'valor_titular',
-                'lista_dependente',
-                'valor_total',
-                'data_criacao',
-                'status',
+                'id_saude_convenio',
+                'simulacao'
             ],
-            'object'
+            retorno: 'object'
         );
 
-        $this->simulacao = array_merge([
-            'id'                    => $simulacao->uuid,
-            'titular'               => $simulacao->titular,
-            'quantidade_dependente' => $simulacao->quantidade_dependente,
-            'valor_titular'         => $simulacao->valor_titular,
-            'lista_dependente'      => $this->pegarListaDependente(jsonDecode($simulacao->lista_dependente)),
-            'valor_total'           => $simulacao->valor_total,
-            'data_criacao'          => $simulacao->data_criacao,
-        ], $this->pegarIndicesPlano($simulacao));
+        $this->simulacao = $this->montarRetornoSimulacao($simulacao);
     }
 
-    private function pegarListaDependente($listaDependente)
+    private function montarRetornoSimulacao($simulacao): array
     {
-        $lista = [];
+        $convenio = (new OrmHelper(TABELA_SAUDE_CONVENIO))->pegarUltimoRegistro(
+            where: ['id', $simulacao->id_saude_convenio],
+            campo: ['titulo']
+        );
+        ppe($simulacao);
 
-        if (!$listaDependente) {
-            return $lista;
-        }
-
-        foreach ($listaDependente as $dependente) {
-            $lista[] = [
-                'data_nascimento' => $dependente->data_nascimento,
-                'valor'           => $dependente->valor,
-            ];
-        }
-        return $lista;
+        return array_merge(
+            [
+                'convenio' => $convenio['titulo'],
+                'plano' => $simulacao->plano,
+            ],
+            $this->montarItemSimulacao($simulacao->item),
+            $this->montarValorSimulacao($simulacao->valor),
+            [
+                'total' => $simulacao->total
+            ]
+        );
     }
 
-    private function pegarIndicesPlano($simulacao)
+    private function montarItemSimulacao($item): array
     {
-        $operadora = (new Operadora($simulacao->operadora))->indice();
-
-        switch ($operadora) {
-            case Operadora::AMIL:
-                return [
-                    'operadora'  => $operadora,
-                    'plano'      => (new PlanoAmil($simulacao->plano))->indice(),
-                    'regiao'     => (new Regioes($simulacao->regiao))->indice(),
-                    'acomodacao' => (new Acomodacao($simulacao->acomodacao))->indice(),
-                ];
-            case Operadora::CNU_FLORIANOPIS:
-                return [
-                    'operadora'  => $operadora,
-                    'plano'      => (new PlanoCNU($simulacao->plano))->indice(),
-                    'regiao'     => $simulacao->regiao,
-                    'acomodacao' => (new Acomodacao($simulacao->acomodacao))->indice(),
-                ];
-            case Operadora::UNIMED:
-                return [
-                    'operadora'  => $operadora,
-                    'plano'      => $simulacao->plano,
-                    'regiao'     => $simulacao->regiao,
-                    'acomodacao' => (new Acomodacao($simulacao->acomodacao))->indice(),
-                ];
-            case Operadora::UNIMED_SEGURO:
-                return [
-                    'operadora'  => $operadora,
-                    'plano'      => $simulacao->plano,
-                    'regiao'     => $simulacao->regiao,
-                    'acomodacao' => (new Acomodacao($simulacao->acomodacao))->indice(),
-                ];
-            case Operadora::UNIMED_NATAL:
-                return [
-                    'operadora'  => $operadora,
-                    'plano'      => $simulacao->plano,
-                    'regiao'     => $simulacao->regiao,
-                    'acomodacao' => '',
-                ];
-            case Operadora::UNIMED_JUNDIAI:
-                return [
-                    'operadora'  => $operadora,
-                    'plano'      => $simulacao->plano,
-                    'regiao'     => $simulacao->regiao,
-                    'acomodacao' => '',
-                ];
-            default:
-                return [
-                    'operadora'  => '',
-                    'plano'      => '',
-                    'regiao'     => '',
-                    'acomodacao' => '',
-                ];
+        $retorno = [];
+        foreach($item as $ind => $val) {
+            $retorno[$ind] = $val;
         }
+        return $retorno;
+    }
+
+    private function montarValorSimulacao($valor): array
+    {
+        $retorno = [];
+        foreach($valor as $r) {
+            $indice = $r->nome . '('. $r->data . ')';
+            $retorno[$indice] = $r->valor;
+        }
+        return $retorno;
     }
 }

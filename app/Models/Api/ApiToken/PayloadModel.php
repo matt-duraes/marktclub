@@ -15,7 +15,7 @@ final class PayloadModel
         string $audience,
         ?string $chavePublica = null
     ) {
-        if ($audience == Audience::CLUBE) {
+        if (in_array($audience, [Audience::CLUBE, Audience::APP])) {
             $this->montarCliente($Usuario, $chavePublica);
         } elseif ($audience == Audience::PAINEL) {
             $this->montarEquipe($Usuario, $chavePublica);
