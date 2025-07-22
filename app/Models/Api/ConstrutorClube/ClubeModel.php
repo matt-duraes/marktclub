@@ -81,7 +81,7 @@ final class ClubeModel
                 'saude_seguro'        => $Construtor->menu_saude_seguro->valor(),
                 'saude_cnu'           => $Construtor->menu_saude_cnu->valor(),
                 'saude_florianopolis' => $Construtor->menu_saude_florianopolis->valor(),
-                'saude'               => (new SaudeMenuModel())->existe,
+                'saude'               => (new SaudeMenuModel(idEmpresa: $Construtor->id_admin_empresa))->existe,
                 'cashback'            => $Construtor->menu_cashback->valor(),
                 'indicar_loja'        => $Construtor->menu_indicar_loja->valor(),
                 'indicar_usuario'     => $indicarUsuario,
