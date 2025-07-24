@@ -152,15 +152,13 @@
     Plano de Saúde
 </a>
 @endif;
+@endif;
 @if(MENU_MANOLE):
 <a class="botao {!!MENU_HOVER == 'manole' ? 'cor_bg pagina_atual' : ''!!}" href="{{LINK}}/manole">
     <i id="icone_mais_acao">@iconeCvs(22)</i>
     Manole
 </a>
 @endif;
-
-@endif;
-
 <div class="categoria">OUTROS</div>
 @ if(MENU_INDICAR_LOJA)
 <a class="botao footer botao_indicar_loja">
