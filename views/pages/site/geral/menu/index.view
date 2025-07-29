@@ -100,7 +100,6 @@
 
 @ if( MENU_CINEMA || MENU_CORRIDA || MENU_SHOW_NACIONAL || MENU_SHOW_INTERNACIONAL):
 <div class="categoria">DIVERSÃO</div>
-
 @ if( MENU_CINEMA ):
 <a class="botao {!!MENU_HOVER == 'cinema' ? 'cor_bg pagina_atual' : ''!!}" href="{{LINK}}/cinema">
     <i>@iconeCinemaHome</i>
@@ -152,13 +151,6 @@
     Plano de Saúde
 </a>
 @endif;
-
-@if(MENU_MANOLE):
-<a class="botao {!!MENU_HOVER == 'manole' ? 'cor_bg pagina_atual' : ''!!}" href="{{LINK}}/manole">
-    <i id="icone_mais_acao">@iconeCvs(22)</i>
-    Manole
-</a>
-@endif;
 <div class="categoria">OUTROS</div>
 @ if(MENU_INDICAR_LOJA)
 <a class="botao footer botao_indicar_loja">
@@ -166,6 +158,13 @@
     Indicar um parceiro
 </a>
 @ endif;
+
+@if(MENU_MANOLE):
+<a class="botao {!!MENU_HOVER == 'manole' ? 'cor_bg pagina_atual' : ''!!}" href="{{LINK}}/manole">
+    <i id="icone_mais_acao">@iconeCvs(22)</i>
+    Manole
+</a>
+@endif;
 
 <!-- <a class="botao {!!MENU_HOVER == 'extensao' ? 'cor_bg pagina_atual' : ''!!}" target="_blank" href="https://chrome.google.com/webstore/detail/tem-mais-vantagens/ghhhocjedgofpmjjgkkkibcmjlldolpc"> -->
 <!-- <i>@iconeExtensaoHome</i> -->
