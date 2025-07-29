@@ -46,7 +46,6 @@ class LoginModel extends LoginPadraoModel
     ) {
         $this->linkAutenticacao = 'https://api.cemecard.com.br/api/auth/login';
         $this->validarDadosDeLogin();
-
         $this->buscarUsuarioPeloLoginSenha();
         $this->buscarUsuarioNaBase();
         $this->buscarUsuario();
@@ -58,21 +57,18 @@ class LoginModel extends LoginPadraoModel
     {
         $Curl = (new CurlHelper())
             ->header([
-                'Content-Type'    => 'application/json',
-                'Accept'          => 'application/json',
+                'Content-Type'    =>  'application/json',
+                'Accept'          =>  'application/json',
             ])
             ->json([
-                'document'      => $this->login,
+                'document' => $this->login,
                 'password' => $this->senha
             ])
             ->post($this->linkAutenticacao);
 
         $status = $Curl->status();
         $dado = $Curl->object();
-        if (
-            $status !== 200
-            || (!is_object($dado) || !object_key_exists('status', $dado) || $dado->status !== 'sucesso')
-        ) {
+        if ($status !== 200) {
             $this->usuarioNaoEncontrado();
             return;
         }
@@ -84,18 +80,18 @@ class LoginModel extends LoginPadraoModel
      */
     private function buscarUsuarioNaBase(): void
     {
+        $resposta = $this->dado->data->user;
         $Usuario = new SalvarAtualizarModel(
             empresa: $this->empresa,
             salvar: $this->cadastro->valor() == Botao::SIM,
             atualizar: true
         );
         $Usuario->cpf = new Cpf($this->login);
-        $Usuario->nome = new Nome($this->dado->data->user->name);
-        $Usuario->email_pessoal = new Email($this->dado->data->user->email);
+        $Usuario->nome = new Nome($resposta->name);
+        $Usuario->email_pessoal = new Email($resposta->contact->email);
         $Usuario->data_termo = new Data(hoje());
         $Usuario->status = new Status(Status::ATIVO);
         $Usuario->buscar();
-
         if ($Usuario->acao == SalvarAtualizarModel::CADASTRAR_USUARIO) {
             mensagemErro(
                 titulo: 'Cadastrar Usuário!',
@@ -104,8 +100,8 @@ class LoginModel extends LoginPadraoModel
                 dado: [
                     'cadastro' => 'sim',
                     'dado'     => [
-                        'Email' => $this->dado->data->user->email,
-                        'Nome'  => $this->dado->data->user->name,
+                        'Email' => $resposta->contact->email,
+                        'Nome'  => $resposta->name,
                         'CPF'   => strCpf($this->login)
                     ]
                 ]

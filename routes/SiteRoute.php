@@ -402,16 +402,6 @@ Route
             ::nome('redirecionarCampanha')
             ::view('/turismo/redirecionar-campanha/{id}');
     });
-Route
-    ::nome('cinema')
-    ::middleware(ClubeMiddleware::class, 'buscar')
-    ::middleware(AuthMiddleware::class, 'logado')
-    ::controller(App\Controllers\Site\CinemaController::class)
-    ::grupo(function () {
-        Route
-            ::nome('index')
-            ::view('/cinema');
-    });
 
 Route
     ::nome('easylive')
@@ -616,7 +606,7 @@ Route
             ::view([
                 '/saude',
                 '/manole',
-                '/cinema-pagina',
+                '/cinema',
             ]);
     });
 
