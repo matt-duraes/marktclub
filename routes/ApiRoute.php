@@ -289,7 +289,7 @@ Route
     ::controller(App\Controllers\Api\Usuario\PerfilDadoController::class)
     ::middleware(TokenMiddleware::class, 'token')
     ::middleware(TokenMiddleware::class, 'login')
-    ::middleware(TokenMiddleware::class, 'audience', ['clube painel'])
+    ::middleware(TokenMiddleware::class, 'audience', ['clube painel app'])
     ::criptografia(App\Classes\PerfilDado\Helper::CRIPTOGRAFAR)
     ::grupo(function () {
         Route

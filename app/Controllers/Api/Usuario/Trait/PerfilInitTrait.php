@@ -19,7 +19,7 @@ trait PerfilInitTrait
             !is_array(TOKEN) ||
             !array_key_exists('app', TOKEN) ||
             !object_key_exists('audience', TOKEN['app']) ||
-            !in_array(TOKEN['app']->audience, [Audience::CLUBE, Audience::PAINEL]) ||
+            !in_array(TOKEN['app']->audience, [Audience::CLUBE, Audience::APP, Audience::PAINEL]) ||
             !array_key_exists('usuario', TOKEN) ||
             !object_key_exists('id', TOKEN['usuario']) ||
             empty(TOKEN['usuario']->id) ||
@@ -28,7 +28,7 @@ trait PerfilInitTrait
         ) {
             mensagemStatus(status: 401, localhost: 'Não foi possível validar a audiencia no controller.');
         }
-        $this->eClube = TOKEN['app']->audience == Audience::CLUBE;
+        $this->eClube = in_array(TOKEN['app']->audience, [Audience::CLUBE, Audience::APP]);
     }
 
     private function setarController()

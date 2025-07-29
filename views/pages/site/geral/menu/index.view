@@ -151,9 +151,6 @@
     Plano de Saúde
 </a>
 @endif;
-
-@endif;
-
 <div class="categoria">OUTROS</div>
 @ if(MENU_INDICAR_LOJA)
 <a class="botao footer botao_indicar_loja">
