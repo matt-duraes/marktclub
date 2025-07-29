@@ -102,7 +102,7 @@
 <div class="categoria">DIVERSÃO</div>
 
 @ if( MENU_CINEMA ):
-<a class="botao {!!MENU_HOVER == 'cinema' ? 'cor_bg pagina_atual' : ''!!}" href="@route(cinema.index)">
+<a class="botao {!!MENU_HOVER == 'cinema' ? 'cor_bg pagina_atual' : ''!!}" href="{{LINK}}/cinema">
     <i>@iconeCinemaHome</i>
     Cinema
 </a>
@@ -152,7 +152,7 @@
     Plano de Saúde
 </a>
 @endif;
-@endif;
+
 @if(MENU_MANOLE):
 <a class="botao {!!MENU_HOVER == 'manole' ? 'cor_bg pagina_atual' : ''!!}" href="{{LINK}}/manole">
     <i id="icone_mais_acao">@iconeCvs(22)</i>

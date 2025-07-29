@@ -107,8 +107,8 @@ final class LoginClubeModel
             $this->Usuario = $this->pegarUsuarioEmporioNaval();
         } elseif ($isTitular && $this->idEmpresa == 2114) {
             $this->Usuario = $this->pegarUsuarioClubePoupy();
-        // elseif ($isTitular && $this->idEmpresa == 229) {
-        //     $this->Usuario = $this->pegarUsuarioCemecard();
+        } elseif ($isTitular && $this->idEmpresa == 229) {
+            $this->Usuario = $this->pegarUsuarioCemecard();
         } elseif ($isTitular && $this->idEmpresa == 4639) {
             $this->Usuario = $this->pegarUsuarioLeveBeneficios();
         } elseif ($isTitular && $this->idEmpresa == 4648) {
