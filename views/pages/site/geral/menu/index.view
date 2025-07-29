@@ -5,169 +5,164 @@
 </a>
 
 @ if(!$melhorIdade) :
-@ if( MENU_ACESSO_RAPIDO ):
-<a class="botao {!!MENU_HOVER == 'acesso-rapido' ? 'cor_bg pagina_atual' : ''!!} acesso_rapido_link" href="@route(acessoRapido.index)">
-    <i>@iconeAcessoRapido(25)</i>
-    Acesso Rápido
-</a>
-@ endif;
+    @ if( MENU_ACESSO_RAPIDO ):
+        <a class="botao {!!MENU_HOVER == 'acesso-rapido' ? 'cor_bg pagina_atual' : ''!!} acesso_rapido_link" href="@route(acessoRapido.index)">
+            <i>@iconeAcessoRapido(25)</i>
+            Acesso Rápido
+        </a>
+    @ endif;
 @endif;
+
 @ if( MENU_LOJA || MENU_MAPA || MENU_TURISMO || MENU_FARMACIA || MENU_AUTOMOVEL || MENU_CUPOM || MENU_CASHBACK || MENU_PREMIUM):
-<div class="categoria">DESCONTOS</div>
+    <div class="categoria">DESCONTOS</div>
+    @ if( MENU_PREMIUM ):
+        <a class="botao {!!MENU_HOVER == 'premium' ? 'cor_bg pagina_atual' : ''!!}" href="@route(geral.premium)">
+            <i>@iconePremium</i>
+            Premium
+        </a>
+    @ endif;
 
-@ if( MENU_PREMIUM ):
-<a class="botao {!!MENU_HOVER == 'premium' ? 'cor_bg pagina_atual' : ''!!}" href="@route(geral.premium)">
-    <i>@iconePremium</i>
-    Premium
-</a>
-@ endif;
+    @ if( MENU_LOJA ):
+        <a class="botao {!!MENU_HOVER == 'loja' ? 'cor_bg pagina_atual' : ''!!}" href="@route(loja.index)">
+            <i>@iconeLojaHome</i>
+            Lojas
+        </a>
+    @ endif;
 
-@ if( MENU_LOJA ):
-<a class="botao {!!MENU_HOVER == 'loja' ? 'cor_bg pagina_atual' : ''!!}" href="@route(loja.index)">
-    <i>@iconeLojaHome</i>
-    Lojas
-</a>
-@ endif;
+    @ if( MENU_MAPA ):
+        <div class="botao botao_loja_proxima {!!MENU_HOVER == 'loja-proxima' ? 'cor_bg pagina_atual' : ''!!}">
+            <i>@iconeLojaProximaHome</i>
+            Lojas próximas
+        </div>
+    @ endif;
 
-@ if( MENU_MAPA ):
-<div class="botao botao_loja_proxima {!!MENU_HOVER == 'loja-proxima' ? 'cor_bg pagina_atual' : ''!!}">
-    <i>@iconeLojaProximaHome</i>
-    Lojas próximas
-</div>
-@ endif;
+    @ if( in_array(CLUBE_EMPRESA, [\App\Classes\Comercial\Empresa\UUID::CFM, \App\Classes\Comercial\Empresa\UUID::YOUHUUL] )):
+        <a class="botao {!!MENU_HOVER == 'informed' ? 'cor_bg pagina_atual' : ''!!}" href="@route(informed.index)">
+            <i>@iconeInformed</i>
+            Informed
+            <div class="novo">novo</div>
+        </a>
+    @ endif;
 
-@ if( in_array(CLUBE_EMPRESA, [\App\Classes\Comercial\Empresa\UUID::CFM, \App\Classes\Comercial\Empresa\UUID::YOUHUUL] )):
-<a class="botao {!!MENU_HOVER == 'informed' ? 'cor_bg pagina_atual' : ''!!}" href="@route(informed.index)">
-    <i>@iconeInformed</i>
-    Informed
-    <div class="novo">novo</div>
-</a>
-@ endif;
+    @ if( MENU_TURISMO ):
+        <a class="botao {!!MENU_HOVER == 'turismo' ? 'cor_bg pagina_atual' : ''!!}" href="@route(turismo.index)">
+            <i>@iconeTurismoHomeOutline</i>
+            Turismo
+            <div class="novo">novo</div>
+        </a>
+    @ endif;
 
-@ if( MENU_TURISMO ):
-<a class="botao {!!MENU_HOVER == 'turismo' ? 'cor_bg pagina_atual' : ''!!}" href="@route(turismo.index)">
-    <i>@iconeTurismoHomeOutline</i>
-    Turismo
-    <div class="novo">novo</div>
-</a>
+    @ if( MENU_SAMSUNG ):
+        <a class="botao {!!MENU_HOVER == 'samsung' ? 'cor_bg pagina_atual' : ''!!}" href="@route(samsung.index)">
+            <i>@iconeCelular(16)</i>
+            Samsung
+        </a>
+    @ endif;
 
-@ endif;
+    @ if( MENU_LG ):
+        <a class="botao {!!MENU_HOVER == 'lg' ? 'cor_bg pagina_atual' : ''!!}" href="@route(lg.index)">
+            <i>@iconeCelular(16)</i>
+            LG
+            <div class="novo">novo</div>
+        </a>
+    @ endif;
 
-@ if( MENU_SAMSUNG ):
-<a class="botao {!!MENU_HOVER == 'samsung' ? 'cor_bg pagina_atual' : ''!!}" href="@route(samsung.index)">
-    <i>@iconeCelular(16)</i>
-    Samsung
-</a>
-@ endif;
+    @if( MENU_FARMACIA ):
+        <a class="botao {!!MENU_HOVER == 'farmacia' ? 'cor_bg pagina_atual' : ''!!}" href="<?= route('farmacia.index') ?>">
+            <i>@iconeMedicamento</i>
+            Drogaria
+        </a>
+    @endif;
 
-@ if( MENU_LG ):
-<a class="botao {!!MENU_HOVER == 'lg' ? 'cor_bg pagina_atual' : ''!!}" href="@route(lg.index)">
-    <i>@iconeCelular(16)</i>
-    LG
-    <div class="novo">novo</div>
-</a>
-@ endif;
+    @ if( MENU_CUPOM ):
+        <a class="botao {!!MENU_HOVER == 'cupom' ? 'cor_bg pagina_atual' : ''!!}" href="@route(cupom.index)">
+            <i>@iconeCupomHome</i>
+            Cupons de desconto
+        </a>
+    @ endif;
 
-@if( MENU_FARMACIA ):
-<a class="botao {!!MENU_HOVER == 'farmacia' ? 'cor_bg pagina_atual' : ''!!}" href="<?= route('farmacia.index') ?>">
-    <i>@iconeMedicamento</i>
-    Drogaria
-</a>
-@endif;
+    @ if( MENU_CASHBACK ):
+        <a class="botao {!!MENU_HOVER == 'cashback' ? 'cor_bg pagina_atual' : ''!!}" href="@route(cashback.index)">
+            <i>@iconeCashbackHome</i>
+            Cashback Silium
+        </a>
+    @ endif;
 
-@ if( MENU_CUPOM ):
-<a class="botao {!!MENU_HOVER == 'cupom' ? 'cor_bg pagina_atual' : ''!!}" href="@route(cupom.index)">
-    <i>@iconeCupomHome</i>
-    Cupons de desconto
-</a>
-@ endif;
-
-@ if( MENU_CASHBACK ):
-<a class="botao {!!MENU_HOVER == 'cashback' ? 'cor_bg pagina_atual' : ''!!}" href="@route(cashback.index)">
-    <i>@iconeCashbackHome</i>
-    Cashback Silium
-</a>
-@ endif;
-
-@ if( MENU_AUTOMOVEL ):
-<a class="botao {!!MENU_HOVER == 'automovel' ? 'cor_bg pagina_atual' : ''!!}" href="@route(automovel.index)">
-    <i>@iconeAutomovelHome</i>
-    Automóvel
-</a>
-@ endif;
-
+    @ if( MENU_AUTOMOVEL ):
+        <a class="botao {!!MENU_HOVER == 'automovel' ? 'cor_bg pagina_atual' : ''!!}" href="@route(automovel.index)">
+            <i>@iconeAutomovelHome</i>
+            Automóvel
+        </a>
+    @ endif;
 @ endif;
 
 @ if( MENU_CINEMA || MENU_CORRIDA || MENU_SHOW_NACIONAL || MENU_SHOW_INTERNACIONAL):
-<div class="categoria">DIVERSÃO</div>
-@ if( MENU_CINEMA ):
-<a class="botao {!!MENU_HOVER == 'cinema' ? 'cor_bg pagina_atual' : ''!!}" href="{{LINK}}/cinema">
-    <i>@iconeCinemaHome</i>
-    Cinema
-</a>
-@ endif;
+    <div class="categoria">DIVERSÃO</div>
+    @ if( MENU_CINEMA ):
+        <a class="botao {!!MENU_HOVER == 'cinema' ? 'cor_bg pagina_atual' : ''!!}" href="{{LINK}}/cinema">
+            <i>@iconeCinemaHome</i>
+            Cinema
+        </a>
+    @ endif;
 
-@ if( MENU_CORRIDA ):
-<a class="botao {!!MENU_HOVER == 'easylive-corrida' ? 'cor_bg pagina_atual' : ''!!}" href="@route(easylive.corrida)">
-    <i>@iconeCorrida</i>
-    Corrida
-</a>
-@ endif;
-@ if( MENU_SHOW_NACIONAL ):
-<a class="botao {!!MENU_HOVER == 'easylive-show-nacional' ? 'cor_bg pagina_atual' : ''!!}" href="@route(easylive.nacional)">
-    <i>@iconeShow</i>
-    Show Nacional
-</a>
-@ endif;
-@ if( MENU_SHOW_INTERNACIONAL ):
-<a class="botao {!!MENU_HOVER == 'easylive-show-internacional' ? 'cor_bg pagina_atual' : ''!!}" href="@route(easylive.internacional)">
-    <i>@iconeShow</i>
-    Show Internacional
-</a>
-@ endif;
+    @ if( MENU_CORRIDA ):
+        <a class="botao {!!MENU_HOVER == 'easylive-corrida' ? 'cor_bg pagina_atual' : ''!!}" href="@route(easylive.corrida)">
+            <i>@iconeCorrida</i>
+            Corrida
+        </a>
+    @ endif;
 
+    @ if( MENU_SHOW_NACIONAL ):
+        <a class="botao {!!MENU_HOVER == 'easylive-show-nacional' ? 'cor_bg pagina_atual' : ''!!}" href="@route(easylive.nacional)">
+            <i>@iconeShow</i>
+            Show Nacional
+        </a>
+    @ endif;
+
+    @ if( MENU_SHOW_INTERNACIONAL ):
+        <a class="botao {!!MENU_HOVER == 'easylive-show-internacional' ? 'cor_bg pagina_atual' : ''!!}" href="@route(easylive.internacional)">
+            <i>@iconeShow</i>
+            Show Internacional
+        </a>
+    @ endif;
 @ endif;
 
 @ if( MENU_CREDITO_SICOOB ):
-<div class="categoria">CRÉDITO</div>
-<a class="botao {!!MENU_HOVER == 'sicoob' ? 'cor_bg pagina_atual' : ''!!}" href="@route(sicoob.index)">
-    <i>@iconeSicoobHome</i>
-    Crédito
-</a>
+    <div class="categoria">CRÉDITO</div>
+    <a class="botao {!!MENU_HOVER == 'sicoob' ? 'cor_bg pagina_atual' : ''!!}" href="@route(sicoob.index)">
+        <i>@iconeSicoobHome</i>
+        Crédito
+    </a>
 @ endif;
 
 @if(MENU_ODONTOLOGICO ||MENU_SAUDE):
-<div class="categoria">SAÚDE</div>
-@if(MENU_ODONTOLOGICO):
-<a class="botao {!!MENU_HOVER == 'odontologico' ? 'cor_bg pagina_atual' : ''!!}" href="<?= route('odontologico.index') ?>">
-    <i>@iconeDentista</i>
-    Plano Odontológico
-</a>
-@endif
+    <div class="categoria">SAÚDE</div>
+    @if(MENU_ODONTOLOGICO):
+        <a class="botao {!!MENU_HOVER == 'odontologico' ? 'cor_bg pagina_atual' : ''!!}" href="<?= route('odontologico.index') ?>">
+            <i>@iconeDentista</i>
+            Plano Odontológico
+        </a>
+    @endif
 
-@if(MENU_SAUDE):
-<a class="botao {!!MENU_HOVER == 'saude' ? 'cor_bg pagina_atual' : ''!!}" href="<?= route('planosaude.escolherEstado') ?>">
-    <i>@iconeSaude</i>
-    Plano de Saúde
-</a>
+    @if(MENU_SAUDE):
+        <a class="botao {!!MENU_HOVER == 'saude' ? 'cor_bg pagina_atual' : ''!!}" href="<?= route('planosaude.escolherEstado') ?>">
+            <i>@iconeSaude</i>
+            Plano de Saúde
+        </a>
+    @endif;
 @endif;
+
 <div class="categoria">OUTROS</div>
 @ if(MENU_INDICAR_LOJA)
-<a class="botao footer botao_indicar_loja">
-    <i>@iconeIndicacaoLoja(24)</i>
-    Indicar um parceiro
-</a>
+    <a class="botao footer botao_indicar_loja">
+        <i>@iconeIndicacaoLoja(24)</i>
+        Indicar um parceiro
+    </a>
 @ endif;
 
 @if(MENU_MANOLE):
-<a class="botao {!!MENU_HOVER == 'manole' ? 'cor_bg pagina_atual' : ''!!}" href="{{LINK}}/manole">
-    <i id="icone_mais_acao">@iconeCvs(22)</i>
-    Manole
-</a>
+    <a class="botao {!!MENU_HOVER == 'manole' ? 'cor_bg pagina_atual' : ''!!}" href="{{LINK}}/manole">
+        <i id="icone_mais_acao">@iconeCvs(22)</i>
+        Manole
+    </a>
 @endif;
-
-<!-- <a class="botao {!!MENU_HOVER == 'extensao' ? 'cor_bg pagina_atual' : ''!!}" target="_blank" href="https://chrome.google.com/webstore/detail/tem-mais-vantagens/ghhhocjedgofpmjjgkkkibcmjlldolpc"> -->
-<!-- <i>@iconeExtensaoHome</i> -->
-<!-- Extensão -->
-<!-- </a> -->
-
