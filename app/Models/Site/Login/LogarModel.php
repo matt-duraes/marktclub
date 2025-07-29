@@ -2,9 +2,9 @@
 
 namespace App\Models\Site\Login;
 
-use App\Classes\LoginClube\Tipo;
 use Helpers\ApiHelper;
 use Helpers\CryptHelper;
+use App\Classes\LoginClube\Tipo;
 
 final class LogarModel
 {
@@ -46,7 +46,6 @@ final class LogarModel
                 'tipo'         => empty($this->tipo_usuario) ? Tipo::TITULAR : $this->tipo_usuario
             ])
             ->post('/login/clube')->array();
-
         $this->token = $dado['dado']['token'];
     }
 }

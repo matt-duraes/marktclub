@@ -17,11 +17,11 @@ use App\Models\Api\UsuarioCliente\UsuarioLogadoModel;
 use App\Models\Api\LoginClube\Youhuul\LoginModel as LoginMarktClubModel;
 use App\Models\Api\LoginClube\Anpprev\UsuarioTrait as UsuarioAnpprevTrait;
 use App\Models\Api\LoginClube\UpClube\UsuarioTrait as UsuarioUpClubeTrait;
+use App\Models\Api\LoginClube\Cemecard\UsuarioTrait as UsuarioCemecardTrait;
 use App\Models\Api\LoginClube\VivaDiversao\UsuarioTrait as UsuarioVivaTrait;
 use App\Models\Api\LoginClube\LeveBeneficios\UsuarioTrait as UsuarioLeveTrait;
 use App\Models\Api\LoginClube\ClubePoupy\UsuarioTrait as UsuarioClubePoupyTrait;
 use App\Models\Api\LoginClube\EmporioNaval\UsuarioTrait as UsuarioEmporioNavalTrait;
-
 final class LoginClubeModel
 {
     use AppParaTokenTrait;
@@ -31,6 +31,7 @@ final class LoginClubeModel
     use UsuarioLeveTrait;
     use UsuarioVivaTrait;
     use UsuarioAnpprevTrait;
+    use UsuarioCemecardTrait;
 
     public array $token;
     public array $construtor;
@@ -83,6 +84,7 @@ final class LoginClubeModel
                 ['link_clube', $redirectUri], ['status', 1]
             ]);
         } catch (Throwable $e) {
+
             mensagemStatus(404, localhost: 'Erro ao buscar empresa. ' . $e->getMessage());
         }
         $this->idEmpresa = $Construtor->id_admin_empresa;
@@ -105,6 +107,8 @@ final class LoginClubeModel
             $this->Usuario = $this->pegarUsuarioEmporioNaval();
         } elseif ($isTitular && $this->idEmpresa == 2114) {
             $this->Usuario = $this->pegarUsuarioClubePoupy();
+        } elseif ($isTitular && $this->idEmpresa == 229) {
+            $this->Usuario = $this->pegarUsuarioCemecard();
         } elseif ($isTitular && $this->idEmpresa == 4639) {
             $this->Usuario = $this->pegarUsuarioLeveBeneficios();
         } elseif ($isTitular && $this->idEmpresa == 4648) {
