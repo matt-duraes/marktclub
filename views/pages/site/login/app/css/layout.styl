@@ -18,6 +18,7 @@ body
     background: #F6F6F6
     font-family: 'Inter', sans-serif
     color: #495057
+    font-size: 62.5%
 
 #site
     width: 100%
@@ -25,10 +26,20 @@ body
     display: flex
     flex-direction: column
     align-items: center
+    figure
+        width: 100%
+        max-height: 50px
+        margin-bottom: 50px
+        display: flex
+        align-items: center
+        justify-content: center
+    figure img
+        max-width: 100%
+        max-height: 50px
     h1
         font-size: 2rem
         color: #666
-        margin: 80px 0 20px
+        margin-bottom: 20px
         text-align: center
     .lista
         width: 100%
@@ -36,10 +47,22 @@ body
         flex-direction: row
         justify-content: center
         align-items: center
-    a
+    .bloco
         margin: 0 10px
+        display: flex
+        flex-direction: column
+        align-items: center
+        background-color: #FFF
+        box-shadow: 0 5px 5px rgba(0,0,0,.1)
+        border-radius: 5px
+        padding: 20px
+    .bloco p
+        color: #666
+        font-size: 1.4rem
+        margin-top: 20px
+        text-align: center
 @media screen and (max-width: 700px)
     #site .lista
         flex-direction: column
-        a
+        .bloco
             margin: 10px 0

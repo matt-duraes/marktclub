@@ -15,14 +15,9 @@ use Modules\EnderecoCep;
 use Modules\EstadoCivil;
 use Modules\EnderecoEstado;
 use App\Classes\Saude\Status;
-use App\Classes\Saude\Operadora;
-use App\Classes\Saude\Acomodacao;
 use App\Models\Api\Trait\ValidarEmpresaTrait;
-use App\Classes\Saude\Operadoras\Amil\Regioes;
 use App\Models\Api\Saude\Simulacao\ContratarModel;
 use App\Models\Api\Saude\Simulacao\SimulacaoEntity;
-use App\Classes\Saude\Operadoras\Amil\Planos as PlanoAmil;
-use App\Classes\Saude\Operadoras\CNUFlorianopolis\Planos as PlanoCNU;
 
 class ContratacaoEntity extends Entity
 {
