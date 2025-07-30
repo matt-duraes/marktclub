@@ -15,6 +15,7 @@ class Tipo extends Status
     public const TURISMO = 'turismo';
     public const CARTAO_SAMSUNG = 'cartao-samsung';
     public const MANOLE = 'manole';
+    public const CINEMA = 'cinema';
 
     /**
      * @param string|int|null $valor
@@ -30,7 +31,8 @@ class Tipo extends Status
             self::TURISMO        => 'Turismo',
             self::CARTAO_SAMSUNG => 'Cartão Samsung',
             self::LG             => 'LG',
-            self::MANOLE => 'Manole'
+            self::MANOLE         => 'Manole',
+            self::CINEMA         => 'Cinema',
         ]);
     }
 }

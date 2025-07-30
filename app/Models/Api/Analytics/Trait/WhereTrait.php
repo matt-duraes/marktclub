@@ -2,9 +2,9 @@
 
 namespace App\Models\Api\Analytics\Trait;
 
-use App\Models\Api\Trait\ValidarEmpresaTrait;
 use Erro\Excecao;
 use Helpers\OrmHelper;
+use App\Models\Api\Trait\ValidarEmpresaTrait;
 
 trait WhereTrait
 {
@@ -48,8 +48,14 @@ trait WhereTrait
                 $where[] = ['id_admin_subempresa', $idSubempresa];
             } elseif (!empty($this->subempresa) && is_array($this->subempresa)) {
                 $where[] = ['id_admin_subempresa', 'in', $ormHelper->mudarListaUuidParaId($this->subempresa)];
-            } elseif (empty($this->subempresa) && !empty($this->idSubempresa) && $this->idSubempresa != 0) {
+            } elseif (empty($this->subempresa) && !empty($this->idSubempresa) && $this->idSubempresa !== 0) {
                 $where[] = ['id_admin_subempresa', $this->idSubempresa];
+            } elseif (empty($this->subempresa)) {
+                $where[] = [
+                    'OR',
+                    ['id_admin_subempresa', 'null'],
+                    ['id_admin_subempresa', '=', '0']
+                ];
             }
         }
 
