@@ -38,9 +38,10 @@ final class Grupo extends Status
         ],
         'sinpefes' => [
             'lista'  => [
-                'evento' => 'Eventos'
+                'evento'     => 'Eventos',
+                'sindicatos' => 'Sindicatos'
             ],
-            'numero' => [10]
+            'numero' => [10, 11]
         ]
     ];
 
