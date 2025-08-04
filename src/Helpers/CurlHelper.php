@@ -89,9 +89,9 @@ class CurlHelper
      * @return CurlHelper
      */
     public function validar(
-        string $mensagem = null,
-        string $titulo = null,
-        int $status = null,
+        ?string $mensagem = null,
+        ?string $titulo = null,
+        ?int $status = null,
         bool $retorno = true,
         bool $login = false
     ): self {
@@ -116,7 +116,7 @@ class CurlHelper
      * @param  string|array|null       $parametro Parâmetro que deve ser enviado
      * @return CurlHelper|string|array
      */
-    public function parametro(string|array $parametro = null): self|string|array
+    public function parametro(null|string|array $parametro = null): self|string|array
     {
         if (is_null($parametro)) {
             return !empty($this->parametro) ? $this->parametro : $this->requisicao['parametro'];
@@ -160,7 +160,7 @@ class CurlHelper
      * @param  string|array|null       $json Json para ser enviado no body
      * @return CurlHelper|string|array
      */
-    public function json(string|array $json = null): self|string|array
+    public function json(null|string|array $json = null): self|string|array
     {
         if (is_null($json)) {
             return !empty($this->json) ? $this->json : $this->requisicao['json'];

@@ -1,9 +1,10 @@
-@template "site"
-
 @php
 if(!function_exists('componenteLoading')) {
-    function componenteLoading($lista) {
+    function componenteLoading($lista, $request) {
         foreach($lista as $r) {
+            if(object_key_exists('condicao', $r) && !componenteCondicao($r->condicao, $request)) {
+                continue;
+            }
             $path = ROOT . '/files/build/views/site_pagina_componente_' . $r->tipo . '.php';
             if(!file_exists($path)) {
                 continue;
@@ -13,7 +14,48 @@ if(!function_exists('componenteLoading')) {
         }
     }
 }
+
+if(!function_exists('componenteCondicao')) {
+    function componenteCondicao($lista, $request): bool {
+        $passou = true;
+        foreach($lista as $grupo) {
+            $grupoPassou = true;
+            foreach($grupo->grupo as $r) {
+                $indice = $r->condicao[0] ?? '';
+                $condicao = $r->condicao[1] ?? '';
+                $valor = $r->condicao[2] ?? '';
+                if(empty($indice) || empty($condicao)) {
+                    continue;
+                }
+                $separador = $r->separador;
+                $valorFinal = array_key_exists($indice, $request) ? $request[$indice] : '';
+                $validacao =
+                    ($condicao === 'igual' && $valorFinal === $valor) ||
+                    ($condicao === 'diferente' && $valorFinal !== $valor) ||
+                    ($condicao === 'maior' && $valorFinal > $valor) ||
+                    ($condicao === 'menor' && $valorFinal < $valor) ||
+                    ($condicao === 'maior-igual' && $valorFinal >= $valor) ||
+                    ($condicao === 'menor-igual' && $valorFinal <= $valor);
+                if(!$validacao) {
+                    $grupoPassou = false;
+                }
+
+                if($separador === 'OR' && !$validacao) {
+                    break;
+                }
+            }
+            $separador = $r->separador;
+            if($separador !== 'OR' && !$grupoPassou) {
+                return false;
+            }
+            $passou = $grupoPassou;
+        }
+        return $passou;
+    }
+}
 @end
+
+@template "site"
 
 <form action="">
     <input type="hidden" id="input_url" value="{{$url}}">
@@ -21,6 +63,6 @@ if(!function_exists('componenteLoading')) {
 </form>
 <div id="bloco_pagina">
     @php
-        componenteLoading($html);
+        componenteLoading($html, $request);
     @end
 </div>
