@@ -30,6 +30,8 @@ final class RetornoModel
                 $link = route('cashback.detalhe');
             } elseif ($r->tipo_loja == TipoLoja::PREMIUM) {
                 $link = route('premium.detalhe');
+            } elseif ($r->tipo_loja == TipoLoja::CINEMA) {
+                $link = 'https://afiliados.easylive.com.br/?aid=5&category_id=86';
             }
             $link = $link . '/' . $url;
 
