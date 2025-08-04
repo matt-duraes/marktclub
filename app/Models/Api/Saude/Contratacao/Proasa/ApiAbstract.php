@@ -1,6 +1,6 @@
 <?php
 
-namespace app\Models\Api\Saude\Contratacao\Proasa;
+namespace App\Models\Api\Saude\Contratacao\Proasa;
 
 use Helpers\CurlHelper;
 
@@ -26,6 +26,13 @@ abstract class ApiAbstract extends CurlHelper {
     {
         return [
             'accept' => 'application/json'
+        ];
+    }
+    protected function headerAcceptJson()
+    {
+        return [
+            'accept' => 'application/json',
+            'content-type' => 'application/json',
         ];
     }
 

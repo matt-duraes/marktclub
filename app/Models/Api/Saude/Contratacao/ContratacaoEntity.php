@@ -18,6 +18,7 @@ use App\Classes\Saude\Status;
 use App\Models\Api\Trait\ValidarEmpresaTrait;
 use App\Models\Api\Saude\Simulacao\ContratarModel;
 use App\Models\Api\Saude\Simulacao\SimulacaoEntity;
+use App\Models\Api\Saude\Contratacao\Proasa\Salvar as ProasaSalvar;
 
 class ContratacaoEntity extends Entity
 {
@@ -191,6 +192,23 @@ class ContratacaoEntity extends Entity
     protected function regraPosInsert(): void
     {
         $this->Simulacao->contratado();
+        if($this->Simulacao->proasa) {
+            $this->enviarLeadProasa();
+        }
+    }
+
+    private function enviarLeadProasa()
+    {
+        $Proasa = new ProasaSalvar(
+            Email: $this->email_pessoal,
+            Nome: $this->nome,
+            Telefone: $this->telefone_celular
+        );
+
+        if($Proasa->salvou && $this->status->indice() === Status::NOVO) {
+            $this->status = new Status(Status::ENVIADO);
+            $this->salvar();
+        }
     }
 
     protected function regraPosBuscar(): void
