@@ -29,6 +29,7 @@ final class BuscarController extends Controller
             'html' => $Html->html,
             'dado' => base64Encode($request->dado(), url: true),
             'url'  => $uri,
+            'request' => $request->dado()
         ]);
     }
 

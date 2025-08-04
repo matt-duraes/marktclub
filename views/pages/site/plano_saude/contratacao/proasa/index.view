@@ -1,0 +1,23 @@
+@template "site"
+
+<div id="bloco_contratacao">
+    <input type="hidden" value="{{$simulacao}}" id="input_id_simulacao">
+    <form class="form_geral cinza conteudo">
+        <header>
+            <h1>CONTRATAR PLANO</h1>
+            <p>Preencha os dados abaixo e clique em "Tenho interesse" para solicitar contato.</p>
+        </header>
+
+        @? formInput(name: 'nome', label: 'Nome completo', placeholder: 'Digite seu nome', obrigatorio: true)
+        @? formTelefone(name: 'telefone_celular', label: 'Telefone celular', placeholder: 'Digite seu telefone celular', obrigatorio: true)
+        @? formEmail(name: 'email_pessoal', label: 'E-mail pessoal', placeholder: 'Digite seu e-mail pessoal', obrigatorio: true)
+
+        <div class="termo">
+            @? formCheckbox(name: 'termo', label: 'Termo - Aceito compartilhar meus dados com o PROASA para que possam finalizar a contratação.')
+        </div>
+
+        <div class="bloco_botao">
+            @? $Botao->botao(texto: 'Tenho interesse', id: 'botao_contratar')
+        </div>
+    </form>
+</div>

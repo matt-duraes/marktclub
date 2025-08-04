@@ -2512,7 +2512,7 @@ Route
             ::nome('simular')
             ::middleware(TokenMiddleware::class, 'scope', ['saude_simulacao:simular'])
             ::request([
-                'convenio', 'titular', 'dependente',
+                'convenio', 'titular', 'dependente', '!estado', '!cidade'
             ])
             ::post('/saude-simulacao/simular');
 

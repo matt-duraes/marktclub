@@ -184,6 +184,13 @@ class ContratacaoEntity extends Entity
             );
         }
         $this->id_saude_simulacao = $this->Simulacao->id;
+        if($this->Simulacao->proasa) {
+            $this->ormValidarInsert = '
+                nome|Nome|obrigatorio|vazio|valido
+                email_pessoal|E-mail|obrigatorio|vazio|valido
+                telefone_celular|Telefone Celular|obrigatorio|vazio|valido
+            ';
+        }
     }
 
     /**

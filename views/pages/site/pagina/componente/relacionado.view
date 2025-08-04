@@ -1,7 +1,7 @@
 {!!$View->css()!!}
 <aside {!!$View->class()!!} data-id="{{$r->id}}">
     @php
-        componenteLoading($r->lista);
+        componenteLoading($r->lista, $request);
     @end
     <header>
         <h1>{!!strLang($r->titulo)!!}</h1>

@@ -1,0 +1,30 @@
+@system "Form"
+@system "Alerta"
+@system "Loading"
+@template "site"
+@resource "site/mixim"
+@resource "site/variavel"
+
+#bloco_contratacao
+    max-width: 600px
+    flexCol()
+    align-items: center
+    .conteudo
+        blocoShadow()
+    .conteudo header
+        width: 100%
+        margin-bottom: 20px
+    .conteudo header h1
+        tituloFontSize()
+        color: $corClube
+        margin-bottom: 5px
+    .conteudo p
+        texto()
+    .termo
+        width: 100%
+        flexCol()
+        margin-bottom: 20px
+    .bloco_botao
+        width: 100%
+        flexCol()
+        align-items: center
