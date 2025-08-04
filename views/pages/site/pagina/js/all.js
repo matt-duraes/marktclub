@@ -138,7 +138,9 @@ class ComponenteBuscar {
             clone.setAttribute('data-url', item.id);
             $('.item_titulo', clone).html(item.titulo);
 
-            if (!vazio(item.link)) {
+            if (!vazio(item.link) && tipo === 'plano-saude') {
+                $('.item_link', clone).setAttribute('href', item.link + this.setarEstadoCidade());
+            } else if (!vazio(item.link)) {
                 $('.item_link', clone).setAttribute('href', item.link);
             }
             if (!vazio(item.imagem)) {
@@ -171,6 +173,54 @@ class ComponenteBuscar {
         dado.bloco.final(
             `<div class="article_fake"></div><div class="article_fake"></div><div class="article_fake"></div>`
         );
+    }
+
+    setarEstadoCidade() {
+        const parametro = new URLSearchParams(window.location.search);
+        const estado = parametro.get('estado');
+        const cidade = parametro.get('cidade');
+        const estadoValido = [
+            'AC',
+            'AL',
+            'AP',
+            'AM',
+            'BA',
+            'CE',
+            'DF',
+            'ES',
+            'GO',
+            'MA',
+            'MT',
+            'MS',
+            'MG',
+            'PA',
+            'PB',
+            'PR',
+            'PE',
+            'PI',
+            'RJ',
+            'RN',
+            'RS',
+            'RO',
+            'RR',
+            'SC',
+            'SP',
+            'SE',
+            'TO',
+        ].includes(estado);
+        const cidadeValida = /^[a-z-]+$/.test(cidade);
+        const query = [];
+        if (estadoValido) {
+            query.push('estado=' + estado);
+        }
+        if (cidadeValida) {
+            query.push('cidade=' + cidade);
+        }
+        if (query.length === 0) {
+            return '';
+        }
+
+        return '?' + query.join('&');
     }
 
     adicionarBanner(lista, dado) {

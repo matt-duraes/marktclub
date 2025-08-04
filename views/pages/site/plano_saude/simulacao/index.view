@@ -91,3 +91,8 @@
         </tr>
     </table>
 </div>
+
+<form action="">
+    <input type="hidden" name="estado" id="input-estado" value="{!!$estado!!}">
+    <input type="hidden" name="cidade" id="input-cidade" value="{!!$cidade!!}">
+</form>

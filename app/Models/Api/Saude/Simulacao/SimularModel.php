@@ -4,6 +4,7 @@ namespace App\Models\Api\Saude\Simulacao;
 
 use DateTime;
 use Modules\Data;
+use Modules\EnderecoEstado;
 
 final class SimularModel
 {
@@ -19,7 +20,9 @@ final class SimularModel
     public function __construct(
         private string $convenio,
         private Data $titular,
-        private array $dependente
+        private array $dependente,
+        private EnderecoEstado $estado,
+        private ?string $cidade
     )
     {
         $this->montarDependente();
@@ -52,6 +55,9 @@ final class SimularModel
     {
         $retorno = [];
         foreach($this->arquivo as $plano => $r) {
+            if(array_key_exists('filtro', $r) && !$this->validarFiltro($r['filtro'])) {
+                continue;
+            }
             $valor = $this->pegarValor($r['valor']);
             $retorno[] = [
                 'titulo' => $r['titulo'] ?? '',
@@ -65,6 +71,30 @@ final class SimularModel
             ];
         }
         $this->retorno = $retorno;
+    }
+    private function validarFiltro($filtro): bool {
+        foreach($filtro as $r) {
+            $indice = $r[0] ?? '';
+            $condicao = $r[1] ?? '';
+            $valor = $r[2] ?? '';
+            if(empty($indice) || empty($condicao) || !in_array($indice, ['estado', 'cidade'])) {
+                return false;
+            }
+            $valorComparar = '';
+            if($indice === 'cidade') {
+                $valorComparar = $this->cidade;
+            } elseif($indice === 'estado') {
+                $valorComparar = $this->estado->uf();
+            }
+            $validar =
+                $condicao === 'igual' && $valor === $valorComparar ||
+                $condicao === 'diferente' && $valor !== $valorComparar;
+            if($validar) {
+                continue;
+            }
+            return false;
+        }
+        return true;
     }
 
     private function pegarValor(array $valor): array

@@ -1,6 +1,6 @@
 {!!$View->css()!!}
 <div {!!$View->class()!!}>
     @php
-        componenteLoading($r->lista);
+        componenteLoading($r->lista, $request);
     @end
 </div>
