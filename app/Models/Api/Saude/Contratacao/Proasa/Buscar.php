@@ -27,7 +27,6 @@ final class Buscar extends ApiAbstract
             ])
             ->get($this->uri('/contacts'))
             ->array();
-            ppe($busca);
         $this->existe = $this->validarExiste($busca);
     }
 
