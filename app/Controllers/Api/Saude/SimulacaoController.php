@@ -5,6 +5,7 @@ namespace App\Controllers\Api\Saude;
 use Http\Request;
 use Modules\Data;
 use Controller\Controller;
+use Modules\EnderecoEstado;
 use App\Models\Api\Saude\Simulacao\SalvarModel;
 use App\Models\Api\Saude\Simulacao\SimularModel;
 
@@ -31,7 +32,9 @@ final class SimulacaoController extends Controller
         return new SimularModel(
             convenio: $request->convenio,
             titular: new Data($request->titular),
-            dependente: jsonDecode($request->dependente, true, true)
+            dependente: jsonDecode($request->dependente, true, true),
+            estado: new EnderecoEstado($request->estado),
+            cidade: $request->cidade
         );
     }
 }

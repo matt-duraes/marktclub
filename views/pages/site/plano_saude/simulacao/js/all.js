@@ -7,6 +7,8 @@
 
 window.addEventListener('load', () => {
     const convenio = $('#input_plano_saude').valor();
+    const estado = $('#input-estado').valor();
+    const cidade = $('#input-cidade').valor();
 
     Calendario.init({
         input: $('#input_data_titular'),
@@ -92,6 +94,8 @@ window.addEventListener('load', () => {
             dependente: dependenteValor,
             titular: titular,
             plano: convenio,
+            estado,
+            cidade,
         });
 
         Loading.hide();
@@ -222,6 +226,6 @@ window.addEventListener('load', () => {
             return;
         }
 
-        window.location.assign(LINK + '/saude/contratar/' + resposta.dado.id);
+        window.location.assign(LINK + '/saude/contratar/' + convenio + '/' + resposta.dado.id);
     });
 });

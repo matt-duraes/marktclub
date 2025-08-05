@@ -10,13 +10,14 @@ final class ContratarModel extends ORM
     protected string $ormTabela = TABELA_SAUDE_SIMULACAO;
 
     public int $id;
+    public bool $proasa = false;
 
     public function __construct(
         ?string $uuid = null
     )
     {
         parent::__construct();
-        $this->pegarIdPeloUuid($uuid);
+        $this->buscarRegistro($uuid);
     }
 
     public function contratado()
@@ -29,17 +30,20 @@ final class ContratarModel extends ORM
             ->update();
     }
 
-    private function pegarIdPeloUuid(?string $uuid)
+    private function buscarRegistro(?string $uuid)
     {
         if(empty($uuid)) {
             $this->erroPadrao();
         }
-        $id = $this->where(['uuid', $uuid])->primeiro('id');
-        if(empty($id)) {
+        $busca = $this->campo(['id', 'id_saude_convenio'])->where(['uuid', $uuid])->primeiro();
+        if(!validarIndiceExiste($busca, 'id')) {
             $this->erroPadrao();
         }
-        $this->id = $id;
+        $this->id = $busca->id;
+        $proasa = env('PROASA_CONVENIO_ID', []);
+        $this->proasa = in_array($busca->id_saude_convenio, $proasa);
     }
+
 
     private function erroPadrao()
     {

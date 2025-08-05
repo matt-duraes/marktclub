@@ -19,14 +19,24 @@
 </head>
 <body>
 <div id="site">
-    <figure><img src="{!!CLUBE_LOGO_PRINCIPAL!!}" alt=""></figure>
-    <h1 class="plataforma"> Selecione abaixo a plataforma desejada</h1>
+    <figure><img src="{!!CLUBE_LOGO_PRINCIPAL!!}" alt="{{TITULO}}"></figure>
+    @ if( !empty(LINK_APP_IOS) && !empty(LINK_APP_ANDROID)):
+    <h1 class="plataforma"> Selecione abaixo a plataforma desejada:</h1>
+    @ endif;
     <div class="lista">
         @ if( !empty(LINK_APP_IOS) ):
-        <a href="{!!LINK_APP_IOS!!}" target="_blank" rel="noopener noreferrer"><img src="{!!LINK!!}/images/login/apple.png" height="60" alt=""></a>
+        <div class="bloco">
+            <a href="{!!LINK_APP_IOS!!}" target="_blank" rel="noopener noreferrer"><img src="{!!LINK!!}/images/login/apple.png" height="40" alt="Download APP IOS"></a>
+            <p>ou leia o QR Code abaixo</p>
+            <img src="https://qrcode.youhuul.com/link?link={!!LINK_APP_IOS!!}" height="120" alt="QR Code para download">
+        </div>
         @ endif;
         @ if( !empty(LINK_APP_ANDROID) ):
-        <a href="{!!LINK_APP_ANDROID!!}" target="_blank" rel="noopener noreferrer"><img src="{!!LINK!!}/images/login/google.png" height="60" alt=""></a></a>
+        <div class="bloco">
+            <a href="{!!LINK_APP_ANDROID!!}" target="_blank" rel="noopener noreferrer"><img src="{!!LINK!!}/images/login/google.png" height="40" alt="Download APP Android"></a>
+            <p>ou leia o QR Code abaixo</p>
+            <img src="https://qrcode.youhuul.com/link?link={!!LINK_APP_ANDROID!!}" height="120" alt="QR Code para download">
+        </div>
         @ endif;
     </div>
 </div>
