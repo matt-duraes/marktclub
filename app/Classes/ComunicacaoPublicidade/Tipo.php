@@ -16,6 +16,7 @@ class Tipo extends Status
     public const CARTAO_SAMSUNG = 'cartao-samsung';
     public const MANOLE = 'manole';
     public const CINEMA = 'cinema';
+    public const NETSHOES_VOUCHER = 'netshoes-voucher';
 
     /**
      * @param string|int|null $valor
@@ -33,6 +34,7 @@ class Tipo extends Status
             self::LG             => 'LG',
             self::MANOLE         => 'Manole',
             self::CINEMA         => 'Cinema',
+            self::NETSHOES_VOUCHER => 'Netshoes Voucher',
         ]);
     }
 }

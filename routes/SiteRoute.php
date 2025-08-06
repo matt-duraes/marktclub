@@ -607,6 +607,7 @@ Route
                 '/saude',
                 '/manole',
                 '/cinema',
+                '/netshoes-voucher'
             ]);
     });
 

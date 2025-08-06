@@ -159,6 +159,12 @@
         Indicar um parceiro
     </a>
 @ endif;
+@ if(NETSHOES_VOUCHER):
+    <a class="botao {!!MENU_HOVER == 'netshoes' ? 'cor_bg pagina_atual' : ''!!}" href="{{LINK}}/netshoes-voucher">
+        <i>@iconePremium</i>
+        Voucher Netshoes
+    </a>
+@endif;
 
 @if(MENU_MANOLE):
     <a class="botao {!!MENU_HOVER == 'manole' ? 'cor_bg pagina_atual' : ''!!}" href="{{LINK}}/manole">
