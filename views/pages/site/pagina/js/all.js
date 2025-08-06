@@ -140,9 +140,12 @@ class ComponenteBuscar {
 
             if (!vazio(item.link) && tipo === 'plano-saude') {
                 $('.item_link', clone).setAttribute('href', item.link + this.setarEstadoCidade());
+            } else if (item.tipo_loja == 'cinema') {
+                $('.item_link', clone).setAttribute('href', 'https://afiliados.easylive.com.br/?aid=5&category_id=86');
             } else if (!vazio(item.link)) {
                 $('.item_link', clone).setAttribute('href', item.link);
             }
+
             if (!vazio(item.imagem)) {
                 $('.item_logo', clone).html(`<img src="${item.imagem}" alt="">`);
             }
