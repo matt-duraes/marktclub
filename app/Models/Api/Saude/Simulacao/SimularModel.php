@@ -88,7 +88,8 @@ final class SimularModel
             }
             $validar =
                 $condicao === 'igual' && $valor === $valorComparar ||
-                $condicao === 'diferente' && $valor !== $valorComparar;
+                $condicao === 'diferente' && $valor !== $valorComparar ||
+                $condicao === 'valor' && in_array($valorComparar, $valor);
             if($validar) {
                 continue;
             }

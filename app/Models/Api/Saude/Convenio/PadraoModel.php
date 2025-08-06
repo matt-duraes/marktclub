@@ -38,6 +38,10 @@ abstract class PadraoModel extends ORM
         foreach($this->retorno as $ind => $val) {
             $retorno[$ind] = $val;
         }
+        if(array_key_exists('outra', $retorno)) {
+            unset($retorno['outra']);
+            $retorno['outra'] = 'Outras cidades';
+        }
         $this->retorno = $retorno;
     }
 

@@ -266,7 +266,8 @@ trait CondicaoTrait
         if (is_int($valor)) {
             return $valor;
         }
-        return '"' . str_replace('"', '', $valor) . '"';
+        $valor = explode('.', str_replace('"', '', $valor));
+        return '"' . implode('"."', $valor) . '"';
     }
 
     private function ormPegarIndiceJson($indice)
