@@ -21,15 +21,15 @@ class DownloadModel extends ORM
     protected string $ormTabela = TABELA_SOLICITACAO_LOJA;
 
     /**
-     * @param array|null                          $campos
-     * @param string|null                         $usuario
-     * @param string|null                         $empresa
-     * @param string|null                         $parceiro
-     * @param \Modules\Data                       $dataIndicacaoInicio
-     * @param \Modules\Data                       $dataIndicacaoFinal
-     * @param \App\Classes\SolicitacaoLoja\Status $status
+     * @param array|null  $campos
+     * @param string|null $usuario
+     * @param string|null $empresa
+     * @param string|null $parceiro
+     * @param Data        $dataIndicacaoInicio
+     * @param Data        $dataIndicacaoFinal
+     * @param Status      $status
      *
-     * @throws \Erro\Excecao
+     * @throws Excecao
      */
     public function __construct(
         private readonly ?array $campos = null,
@@ -46,7 +46,7 @@ class DownloadModel extends ORM
 
     /**
      * @return array
-     * @throws \Erro\Excecao
+     * @throws Excecao
      */
     public function download(): array
     {
@@ -65,7 +65,7 @@ class DownloadModel extends ORM
      * @param array $campos
      *
      * @return mixed
-     * @throws \Erro\Excecao
+     * @throws Excecao
      */
     private function buscarIndicacoes(array $campos): mixed
     {
@@ -123,7 +123,7 @@ class DownloadModel extends ORM
      * @param array $indicacoes
      *
      * @return void
-     * @throws \Erro\Excecao
+     * @throws Excecao
      */
     private function salvarLogDownload(array $indicacoes): void
     {
@@ -150,7 +150,7 @@ class DownloadModel extends ORM
 
     /**
      * @return void
-     * @throws \Erro\Excecao
+     * @throws Excecao
      */
     private function erroDownloadPadrao(): void
     {
@@ -190,7 +190,7 @@ class DownloadModel extends ORM
 
     /**
      * @return void
-     * @throws \Erro\Excecao
+     * @throws Excecao
      */
     private function validarCamposAceito(): void
     {
