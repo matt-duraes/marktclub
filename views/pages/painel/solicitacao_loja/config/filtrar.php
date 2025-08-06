@@ -14,6 +14,14 @@ $Painel
         placeholder: 'Empresa',
         permissao: 'solicitacao_loja_empresa'
     )
+    ->select(
+        name: 'subempresa',
+        lista: 'subempresa',
+        titulo: 'Subempresa',
+        label: 'Subempresa',
+        placeholder: 'Subempresa',
+        todasSubempresa: painelPermissao('solicitacao_loja_subempresa', false)
+    )
     ->input(
         name: 'parceiro',
         titulo: 'Nome Indicação',
