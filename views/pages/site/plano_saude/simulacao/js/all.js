@@ -185,6 +185,7 @@ window.addEventListener('load', () => {
     botaoRefazerSimulacao.evento('click', () => {
         blocoSimulacao.aparecer();
         blocoResultado.sumir();
+        blocoPlanoLista.html('');
     });
     blocoPlanoLista.evento('click', async e => {
         const clicado = e.target.classe('botao_escolher_plano', '?') || e.target.closest('.botao_escolher_plano');

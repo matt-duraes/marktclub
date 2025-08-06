@@ -15,42 +15,58 @@ if(!function_exists('componenteLoading')) {
     }
 }
 
-if(!function_exists('componenteCondicao')) {
+if (!function_exists('componenteCondicao')) {
     function componenteCondicao($lista, $request): bool {
-        $passou = true;
-        foreach($lista as $grupo) {
-            $grupoPassou = true;
-            foreach($grupo->grupo as $r) {
-                $indice = $r->condicao[0] ?? '';
-                $condicao = $r->condicao[1] ?? '';
-                $valor = $r->condicao[2] ?? '';
-                if(empty($indice) || empty($condicao)) {
-                    continue;
-                }
-                $separador = $r->separador;
-                $valorFinal = array_key_exists($indice, $request) ? $request[$indice] : '';
-                $validacao =
-                    ($condicao === 'igual' && $valorFinal === $valor) ||
-                    ($condicao === 'diferente' && $valorFinal !== $valor) ||
-                    ($condicao === 'maior' && $valorFinal > $valor) ||
-                    ($condicao === 'menor' && $valorFinal < $valor) ||
-                    ($condicao === 'maior-igual' && $valorFinal >= $valor) ||
-                    ($condicao === 'menor-igual' && $valorFinal <= $valor);
-                if(!$validacao) {
-                    $grupoPassou = false;
-                }
+        $resultadoFinal = null;
 
-                if($separador === 'OR' && !$validacao) {
-                    break;
+        foreach ($lista as $i => $grupo) {
+            $condicoes = $grupo->grupo;
+            $resultadoGrupo = null;
+
+            foreach ($condicoes as $j => $cond) {
+                $indice = $cond->condicao[0] ?? '';
+                $operador = $cond->condicao[1] ?? '';
+                $valor = $cond->condicao[2] ?? '';
+
+                if (empty($indice) || empty($operador)) continue;
+
+                $valorFinal = array_key_exists($indice, $request) ? $request[$indice] : null;
+
+                $validacao =
+                    ($operador === 'igual' && $valorFinal === $valor) ||
+                    ($operador === 'diferente' && $valorFinal !== $valor) ||
+                    ($operador === 'maior' && $valorFinal > $valor) ||
+                    ($operador === 'menor' && $valorFinal < $valor) ||
+                    ($operador === 'maior-igual' && $valorFinal >= $valor) ||
+                    ($operador === 'menor-igual' && $valorFinal <= $valor);
+
+                if ($j === 0) {
+                    $resultadoGrupo = $validacao;
+                } else {
+                    $separadorAnterior = strtolower(trim($condicoes[$j - 1]->separador ?? ''));
+
+                    if ($separadorAnterior === 'or') {
+                        $resultadoGrupo = $resultadoGrupo || $validacao;
+                    } else { // and ou vazio
+                        $resultadoGrupo = $resultadoGrupo && $validacao;
+                    }
                 }
             }
-            $separador = $r->separador;
-            if($separador !== 'OR' && !$grupoPassou) {
-                return false;
+
+            if ($i === 0) {
+                $resultadoFinal = $resultadoGrupo;
+            } else {
+                $separadorAnteriorGrupo = strtolower(trim($lista[$i - 1]->separador ?? ''));
+
+                if ($separadorAnteriorGrupo === 'or') {
+                    $resultadoFinal = $resultadoFinal || $resultadoGrupo;
+                } else { // and ou vazio
+                    $resultadoFinal = $resultadoFinal && $resultadoGrupo;
+                }
             }
-            $passou = $grupoPassou;
         }
-        return $passou;
+
+        return (bool) $resultadoFinal;
     }
 }
 @end

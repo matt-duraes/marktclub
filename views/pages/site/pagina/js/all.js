@@ -138,8 +138,9 @@ class ComponenteBuscar {
             clone.setAttribute('data-url', item.id);
             $('.item_titulo', clone).html(item.titulo);
 
-
-            if (item.tipo_loja == 'cinema') {
+            if (!vazio(item.link) && tipo === 'plano-saude') {
+                $('.item_link', clone).setAttribute('href', item.link + this.setarEstadoCidade());
+            } else if (item.tipo_loja == 'cinema') {
                 $('.item_link', clone).setAttribute('href', 'https://afiliados.easylive.com.br/?aid=5&category_id=86');
             } else if (!vazio(item.link)) {
                 $('.item_link', clone).setAttribute('href', item.link);
