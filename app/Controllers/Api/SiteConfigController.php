@@ -2,16 +2,16 @@
 
 namespace App\Controllers\Api;
 
+use App\Models\Api\SiteConfig\ConfigEntity;
+use App\Models\Api\SiteConfig\ConfigModel;
+use Controller\Controller;
 use Http\Request;
 use Http\Response;
-use Controller\Controller;
-use App\Models\Api\SiteConfig\ConfigModel;
-use App\Models\Api\SiteConfig\ConfigEntity;
+use System\Interface\ControllerAtualizarInterface;
 use System\Interface\ControllerBuscarInterface;
+use System\Interface\ControllerDeletarInterface;
 use System\Interface\ControllerListarInterface;
 use System\Interface\ControllerSalvarInterface;
-use System\Interface\ControllerDeletarInterface;
-use System\Interface\ControllerAtualizarInterface;
 
 final class SiteConfigController extends Controller implements
     ControllerListarInterface,
@@ -35,21 +35,10 @@ final class SiteConfigController extends Controller implements
         if (validarUuid($id, false)) {
             $Config->uuid($id);
         } else {
-            $Config->buscar([
-                ['link_site', 'json', $id]
-            ]);
+            $Config->buscar(['link_site', 'like', $id]);
         }
 
         return $this->retornoPadrao($Config);
-    }
-
-    public function postSalvar(Request $request): Response
-    {
-        $Config = new ConfigEntity();
-        $Config->set(lista: $request->dado());
-        $Config->salvar();
-
-        return $this->retornoPadrao($Config, 201);
     }
 
     private function retornoPadrao(ConfigEntity $Config, int $status = 200)
@@ -71,6 +60,15 @@ final class SiteConfigController extends Controller implements
             ),
             status: $status
         );
+    }
+
+    public function postSalvar(Request $request): Response
+    {
+        $Config = new ConfigEntity();
+        $Config->set(lista: $request->dado());
+        $Config->salvar();
+
+        return $this->retornoPadrao($Config, 201);
     }
 
     public function putAtualizar(Request $request, string $id): Response
