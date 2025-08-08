@@ -126,6 +126,7 @@ class SolicitacaoLojaController extends Controller implements
             $request->campo,
             $request->usuario,
             $request->empresa,
+            $request->subempresa,
             $request->parceiro,
             new Data($request->indicacao_inicio),
             new Data($request->indicacao_final),
