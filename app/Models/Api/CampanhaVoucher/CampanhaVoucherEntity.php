@@ -71,7 +71,7 @@ class CampanhaVoucherEntity extends Entity
             ->campo(['id', 'voucher', 'data_vencimento', 'status'])
             ->where([
                 ['id_admin_empresa', $this->idEmpresa],
-                ['id_usuario_cliente', $this->idUsuario ?? 3]
+                ['id_usuario_cliente', $this->idUsuario]
             ])->primeiro();
 
         if (empty($voucher)) {
@@ -93,5 +93,22 @@ class CampanhaVoucherEntity extends Entity
             ], $voucher->id);
         }
         return $voucher->voucher;
+    }
+
+    /**
+     * @return bool
+     * @throws Excecao
+     */
+    public function verificaVoucher(): bool
+    {
+        $ormHelper = new OrmHelper($this->ormTabela);
+        $voucher = $ormHelper
+            ->campo(['id'])
+            ->where([
+                ['id_admin_empresa', $this->idEmpresa],
+                ['id_usuario_cliente', $this->idUsuario]
+            ])->primeiro();
+
+        return !empty($voucher);
     }
 }
