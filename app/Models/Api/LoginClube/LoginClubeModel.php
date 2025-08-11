@@ -96,10 +96,6 @@ final class LoginClubeModel
      */
     private function fazerLogin(): void
     {
-        if ($this->idEmpresa == 153) { // FENAE
-            return;
-        }
-
         $isTitular = $this->tipo->indice() === Tipo::TITULAR;
         if ($isTitular && $this->idEmpresa == 128) {
             $this->Usuario = $this->pegarUsuarioAnpprev();
