@@ -10,6 +10,7 @@ use Controller\Controller;
 use Erro\Excecao;
 use Http\Request;
 use Http\Response;
+use Modules\Botao;
 use Modules\Pagina;
 use Modules\Quantidade;
 use System\Interface\ControllerAtualizarInterface;
@@ -100,7 +101,7 @@ class CampanhaVoucherController extends Controller implements
     {
         $CampanhaVoucherEntity = new CampanhaVoucherEntity();
         return mensagemSucesso([
-            'temVoucher' => $CampanhaVoucherEntity->verificaVoucher() ? 'sim' : 'nao'
+            'temVoucher' => $CampanhaVoucherEntity->verificaVoucher() ? Botao::SIM : Botao::NAO
         ]);
     }
 }

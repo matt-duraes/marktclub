@@ -68,7 +68,7 @@ class DownloadModel extends ORM
                 mensagemErro(
                     'Erro!',
                     'Um ou mais campos não tem permissão para serem buscados.',
-                    status: 403,
+                    403,
                     localhost: 'O campo ' . $campo . ' não está na lista de campos permitidos'
                 );
             }

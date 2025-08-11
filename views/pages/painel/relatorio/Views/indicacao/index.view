@@ -22,6 +22,18 @@
                 </div>
             </div>
         @ endif;
+
+        @ if ( !empty($subempresa) ):
+            <div class="bloco_subempresas">
+                <span class="titulo_subempresas">Subempresas</span>
+                @? formCheckbox(name: "marcar_todos_subempresa", label: "Marcar/Desmarcar todos", value: "");
+                <div class="bloco_checkbox_subempresas">
+                    @ifforeach($subempresa as $k => $e):
+                    @? formCheckbox(name: "", label: "{$e}", value: "{$k}");
+                    @endifforeach;
+                </div>
+            </div>
+        @ endif;
     </div>
 
     <div class="footer_pagina_popup">
