@@ -33,8 +33,9 @@ class SolicitacaoModel extends ORM implements
      * @param Ordem       $ordem
      * @param string|null $pesquisa
      * @param string|null $empresa
-     * @param string|null $parceiro
+     * @param string|null $subempresa
      * @param string|null $usuario
+     * @param string|null $parceiro
      * @param Data        $dataIndicacaoInicio
      * @param Data        $dataIndicacaoFinal
      * @param Data        $dataProspeccaoInicio
