@@ -1353,6 +1353,11 @@ Route
             ::nome('resgatar')
             ::middleware(TokenMiddleware::class, 'scope', ['campanha_voucher:buscar'])
             ::get('/campanha-voucher-resgatar');
+
+        Route
+            ::nome('disponivel')
+            ::middleware(TokenMiddleware::class, 'scope', ['campanha_voucher:buscar'])
+            ::get('/campanha-voucher-disponivel');
     });
 
 Route

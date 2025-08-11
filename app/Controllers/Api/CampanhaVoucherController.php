@@ -92,4 +92,15 @@ class CampanhaVoucherController extends Controller implements
             'voucher' => $CampanhaVoucherEntity->resgatarVoucher()
         ]);
     }
+
+    /**
+     * @throws Excecao
+     */
+    public function getDisponivel(): Response
+    {
+        $CampanhaVoucherEntity = new CampanhaVoucherEntity();
+        return mensagemSucesso([
+            'temVoucher' => $CampanhaVoucherEntity->verificaVoucher() ? 'sim' : 'nao'
+        ]);
+    }
 }
