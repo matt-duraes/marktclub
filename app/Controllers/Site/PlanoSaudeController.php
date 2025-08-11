@@ -55,7 +55,9 @@ final class PlanoSaudeController extends Controller
         $Simular = new BuscarModel(
             plano: $request->plano,
             titular: new Data($request->titular),
-            dependente: jsonDecode($request->dependente, true, true)
+            dependente: jsonDecode($request->dependente, true, true),
+            estado: new EnderecoEstado($request->estado),
+            cidade: $request->cidade
         );
         return mensagemSucesso($Simular->retorno);
     }
@@ -77,11 +79,13 @@ final class PlanoSaudeController extends Controller
      * @return Response
      * @throws Excecao
      */
-    public function simulacao($uri = null): Response
+    public function simulacao(Request $request, $uri = null): Response
     {
         return view('plano_saude.simulacao', [
             'menu'  => 'saude',
-            'plano' => $uri
+            'plano' => $uri,
+            'estado' => $request->estado,
+            'cidade' => $request->cidade
         ]);
     }
 
@@ -91,9 +95,15 @@ final class PlanoSaudeController extends Controller
      * @return Response
      * @throws Excecao
      */
-    public function contratacao(string $simulacao): Response
+    public function contratacao(string $plano, string $simulacao): Response
     {
-        return view('plano_saude.contratacao', [
+        if(str_starts_with($plano, 'proasa-')) {
+            return view('plano_saude.contratacao.proasa', [
+                'menu'      => 'saude',
+                'simulacao' => $simulacao,
+            ]);
+        }
+        return view('plano_saude.contratacao.geral', [
             'menu'      => 'saude',
             'simulacao' => $simulacao,
         ]);

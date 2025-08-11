@@ -629,7 +629,7 @@ Route
             ::view('/saude/simulacao/{uri}');
         Route
             ::nome('simulacao')
-            ::request(['titular', 'plano', '!dependente'])
+            ::request(['titular', 'plano', '!dependente', '!estado', '!cidade'])
             ::post('/saude/simulacao');
         Route
             ::nome('simulacaoEscolhida')
@@ -637,38 +637,38 @@ Route
             ::post('/saude/simulacao-escolhida');
         Route
             ::nome('contratacao')
-            ::view('/saude/contratar/{simulacao}');
+            ::view('/saude/contratar/{plano}/{simulacao}');
         Route
             ::nome('realizarContratacao')
             ::request([
                 'id_saude_simulacao',
                 'nome',
-                'naturalidade',
-                'cpf',
-                'data_nascimento',
-                'genero',
-                'estado_civil',
-                'peso',
-                'altura',
-                'rg',
-                'orgao_expedidor',
-                'nome_mae',
-                'responsavel_nome',
-                'responsavel_cpf',
-                'responsavel_rg',
-                'responsavel_orgao_expedidor',
                 'email_pessoal',
                 'telefone_celular',
-                'telefone_residencial',
-                'telefone_comercial',
-                'telefone_comercial_ramal',
-                'endereco_cep',
-                'endereco_bairro',
-                'endereco_logradouro',
-                'endereco_numero',
-                'endereco_complemento',
-                'endereco_cidade',
-                'endereco_estado',
+                '!naturalidade',
+                '!cpf',
+                '!data_nascimento',
+                '!genero',
+                '!estado_civil',
+                '!peso',
+                '!altura',
+                '!rg',
+                '!orgao_expedidor',
+                '!nome_mae',
+                '!responsavel_nome',
+                '!responsavel_cpf',
+                '!responsavel_rg',
+                '!responsavel_orgao_expedidor',
+                '!telefone_residencial',
+                '!telefone_comercial',
+                '!telefone_comercial_ramal',
+                '!endereco_cep',
+                '!endereco_bairro',
+                '!endereco_logradouro',
+                '!endereco_numero',
+                '!endereco_complemento',
+                '!endereco_cidade',
+                '!endereco_estado',
             ])
             ::post('/saude-contratacao');
     });

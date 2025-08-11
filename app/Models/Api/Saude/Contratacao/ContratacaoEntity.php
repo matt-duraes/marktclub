@@ -15,14 +15,10 @@ use Modules\EnderecoCep;
 use Modules\EstadoCivil;
 use Modules\EnderecoEstado;
 use App\Classes\Saude\Status;
-use App\Classes\Saude\Operadora;
-use App\Classes\Saude\Acomodacao;
 use App\Models\Api\Trait\ValidarEmpresaTrait;
-use App\Classes\Saude\Operadoras\Amil\Regioes;
 use App\Models\Api\Saude\Simulacao\ContratarModel;
 use App\Models\Api\Saude\Simulacao\SimulacaoEntity;
-use App\Classes\Saude\Operadoras\Amil\Planos as PlanoAmil;
-use App\Classes\Saude\Operadoras\CNUFlorianopolis\Planos as PlanoCNU;
+use App\Models\Api\Saude\Contratacao\Proasa\Salvar as ProasaSalvar;
 
 class ContratacaoEntity extends Entity
 {
@@ -188,6 +184,13 @@ class ContratacaoEntity extends Entity
             );
         }
         $this->id_saude_simulacao = $this->Simulacao->id;
+        if($this->Simulacao->proasa) {
+            $this->ormValidarInsert = '
+                nome|Nome|obrigatorio|vazio|valido
+                email_pessoal|E-mail|obrigatorio|vazio|valido
+                telefone_celular|Telefone Celular|obrigatorio|vazio|valido
+            ';
+        }
     }
 
     /**
@@ -196,6 +199,23 @@ class ContratacaoEntity extends Entity
     protected function regraPosInsert(): void
     {
         $this->Simulacao->contratado();
+        if($this->Simulacao->proasa) {
+            $this->enviarLeadProasa();
+        }
+    }
+
+    private function enviarLeadProasa()
+    {
+        $Proasa = new ProasaSalvar(
+            Email: $this->email_pessoal,
+            Nome: $this->nome,
+            Telefone: $this->telefone_celular
+        );
+
+        if($Proasa->salvou && $this->status->indice() === Status::NOVO) {
+            $this->status = new Status(Status::ENVIADO);
+            $this->salvar();
+        }
     }
 
     protected function regraPosBuscar(): void

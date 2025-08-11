@@ -744,7 +744,8 @@ trait PermissaoTrait
                         'titulo' => Titulo::STATUS,
                         'scope'  => ['solicitacao_loja:atualizar', 'solicitacao_loja:buscar']
                     ],
-                    'solicitacao_loja_empresa'    => Titulo::EMPRESA
+                    'solicitacao_loja_empresa'    => Titulo::EMPRESA,
+                    'solicitacao_loja_subempresa' => Titulo::SUBEMPRESA
                 ]
             ],
             'solicitacao_voucher'      => [
@@ -1542,6 +1543,23 @@ trait PermissaoTrait
                     ],
                     'enquete_mercado_empresa'    => Titulo::EMPRESA
                 ]
+            ],
+            'campanha_voucher'         => [
+                'titulo'    => 'Campanha Voucher',
+                'permissao' => [
+                    'campanha_voucher_index'      => [
+                        'titulo' => Titulo::LISTAR,
+                        'scope'  => 'campanha_voucher:listar'
+                    ],
+                    'campanha_voucher_visualizar' => [
+                        'titulo' => Titulo::VISUALIZAR,
+                        'scope'  => 'campanha_voucher:buscar'
+                    ],
+                    'campanha_voucher_download'   => [
+                        'titulo' => Titulo::DOWNLOAD,
+                        'scope'  => ['campanha_voucher:download', 'mensageria:salvar']
+                    ]
+                ]
             ]
         ];
     }
@@ -1619,6 +1637,21 @@ trait PermissaoTrait
         return $this;
     }
 
+    /**
+     * Monta uma permissão personalizada
+     *
+     * @param string $indice Indice completo que deseja usar ex.: usuario_cliente_apple
+     * @param string $titulo Título que irá aparecer no painel
+     * @param array  $scope  Scopes que essa permissão vai usar
+     */
+    private function montarArrayPersonalizado(string $indice, string $titulo, array $scope): void
+    {
+        $this->permissaoPersonalizada[$indice] = [
+            'titulo' => $titulo,
+            'scope'  => $scope
+        ];
+    }
+
     private function montarIndicePermissao(string $acao, string $indice, string $scope, bool|array $scopePadrao)
     {
         $nomePermissao = [
@@ -1642,21 +1675,6 @@ trait PermissaoTrait
                 'titulo' => $nomePermissao[$acao][1],
                 'scope'  => is_array($scopePadrao) && $scopePadrao ? array_merge($scopePadrao, $scopeTemp) : $scopeTemp
             ]
-        ];
-    }
-
-    /**
-     * Monta uma permissão personalizada
-     *
-     * @param string $indice Indice completo que deseja usar ex.: usuario_cliente_apple
-     * @param string $titulo Título que irá aparecer no painel
-     * @param array  $scope  Scopes que essa permissão vai usar
-     */
-    private function montarArrayPersonalizado(string $indice, string $titulo, array $scope): void
-    {
-        $this->permissaoPersonalizada[$indice] = [
-            'titulo' => $titulo,
-            'scope'  => $scope
         ];
     }
 }

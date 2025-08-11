@@ -21,32 +21,63 @@ class DownloadModel extends ORM
     protected string $ormTabela = TABELA_SOLICITACAO_LOJA;
 
     /**
-     * @param array|null                          $campos
-     * @param string|null                         $usuario
-     * @param string|null                         $empresa
-     * @param string|null                         $parceiro
-     * @param \Modules\Data                       $dataIndicacaoInicio
-     * @param \Modules\Data                       $dataIndicacaoFinal
-     * @param \App\Classes\SolicitacaoLoja\Status $status
+     * @param array|null  $campos
+     * @param string|null $usuario
+     * @param string|null $empresa
+     * @param string|null $subempresa
+     * @param string|null $parceiro
+     * @param Data        $dataIndicacaoInicio
+     * @param Data        $dataIndicacaoFinal
+     * @param Status      $status
      *
-     * @throws \Erro\Excecao
+     * @throws Excecao
      */
     public function __construct(
         private readonly ?array $campos = null,
         private readonly ?string $usuario = null,
         private readonly ?string $empresa = null,
+        private readonly ?string $subempresa = null,
         private readonly ?string $parceiro = null,
         private readonly Data $dataIndicacaoInicio = new Data(),
         private readonly Data $dataIndicacaoFinal = new Data(),
         private readonly Status $status = new Status()
     ) {
         $this->validarCamposAceito();
+        $this->validarEmpresa();
         parent::__construct();
     }
 
     /**
+     * @return void
+     * @throws Excecao
+     */
+    private function validarCamposAceito(): void
+    {
+        $camposAceito = [
+            'empresa_titulo', 'subempresa_titulo', 'nome', 'telefone', 'email',
+            'mensagem', 'data_criacao', 'data_atualizacao', 'status'
+        ];
+
+        $listaCampos = jsonDecode($this->campos, true, true);
+        if (!$listaCampos) {
+            mensagemErro('Erro!', 'Você deve enviar pelo menos um campo.');
+        }
+
+        foreach ($listaCampos as $campo) {
+            if (!in_array($campo, $camposAceito)) {
+                mensagemErro(
+                    'Erro!',
+                    'Um ou mais campos não tem permissão para serem buscados.',
+                    status: 403,
+                    localhost: 'O campo ' . $campo . ' não está na lista de campos permitidos'
+                );
+            }
+        }
+    }
+
+    /**
      * @return array
-     * @throws \Erro\Excecao
+     * @throws Excecao
      */
     public function download(): array
     {
@@ -62,10 +93,25 @@ class DownloadModel extends ORM
     }
 
     /**
+     * @return array
+     */
+    private function converterCampoParaDownload(): array
+    {
+        $campos = array_flip($this->campos);
+        if (array_key_exists('empresa_titulo', $campos)) {
+            unset($campos['empresa_titulo']);
+        }
+        if (array_key_exists('subempresa_titulo', $campos)) {
+            unset($campos['subempresa_titulo']);
+        }
+        return array_keys($campos);
+    }
+
+    /**
      * @param array $campos
      *
      * @return mixed
-     * @throws \Erro\Excecao
+     * @throws Excecao
      */
     private function buscarIndicacoes(array $campos): mixed
     {
@@ -73,57 +119,34 @@ class DownloadModel extends ORM
             ->campo($campos)
             ->where($this->pegarWhere(), false);
 
-        /*$campoEmpresa = [];
-        if (in_array('empresa_titulo', $this->campos)) {
-            $campoEmpresa[] = 'titulo';
+        $campoSubempresa = [];
+        if (in_array('subempresa_titulo', $this->campos)) {
+            $campoSubempresa[] = 'titulo';
         }
-        if (!empty($campoEmpresa)) {
+        if (!empty($campoSubempresa)) {
             $query
                 ->tabela(TABELA_COMERCIAL_EMPRESA)
-                ->campo($campoEmpresa, 'empresa')
-                ->leftJoin('id', 'id_admin_empresa');
-        }*/
+                ->campo($campoSubempresa, 'subempresa')
+                ->leftJoin('id', 'id_admin_subempresa');
+        }
 
         return $query->read();
     }
 
     /**
-     * @return array
+     * @return void
      * @throws Excecao
      */
-    private function pegarWhere(): array
+    private function erroDownloadPadrao(): void
     {
-        $where = $this->ormWherePadrao;
-
-        if (!empty($this->parceiro) && !validarUuid($this->parceiro, false)) {
-            $where[] = ['nome', 'like', '%' . $this->parceiro . '%'];
-        } elseif (!empty($this->parceiro) && validarUuid($this->parceiro, false)) {
-            $ormHelper = new OrmHelper(TABELA_PARCEIRO_LOJA);
-            $where[] = ['id_parceiro_loja', $ormHelper->pegarIdPeloUuid($this->parceiro)];
-        }
-
-        if ($this->dataIndicacaoInicio->valido() && $this->dataIndicacaoFinal->valido()) {
-            $where[] = [
-                'data_criacao', 'between', [$this->dataIndicacaoInicio->date(), $this->dataIndicacaoFinal->date()]
-            ];
-        } elseif ($this->dataIndicacaoInicio->valido()) {
-            $where[] = ['data_criacao', '>=', $this->dataIndicacaoInicio->date()];
-        } elseif ($this->dataIndicacaoFinal->valido()) {
-            $where[] = ['data_criacao', '<=', $this->dataIndicacaoFinal->date()];
-        }
-
-        if ($this->status->valido()) {
-            $where[] = ['status', $this->status->numero()];
-        }
-
-        return $where;
+        mensagemErro('Erro!', 'Ocorreu um erro ao fazer o download, por favor, tente novamente.');
     }
 
     /**
      * @param array $indicacoes
      *
      * @return void
-     * @throws \Erro\Excecao
+     * @throws Excecao
      */
     private function salvarLogDownload(array $indicacoes): void
     {
@@ -134,6 +157,7 @@ class DownloadModel extends ORM
                     'campos'           => $this->campos,
                     'usuario'          => $this->usuario,
                     'empresa'          => $this->empresa,
+                    'subempresa'       => $this->subempresa,
                     'parceiro'         => $this->parceiro,
                     'indicacao_inicio' => $this->dataIndicacaoInicio->data(),
                     'indicacao_final'  => $this->dataIndicacaoFinal->data(),
@@ -146,15 +170,6 @@ class DownloadModel extends ORM
         } catch (Throwable) {
             $this->erroDownloadPadrao();
         }
-    }
-
-    /**
-     * @return void
-     * @throws \Erro\Excecao
-     */
-    private function erroDownloadPadrao(): void
-    {
-        mensagemErro('Erro!', 'Ocorreu um erro ao fazer o download, por favor, tente novamente.');
     }
 
     /**
@@ -189,42 +204,46 @@ class DownloadModel extends ORM
     }
 
     /**
-     * @return void
-     * @throws \Erro\Excecao
-     */
-    private function validarCamposAceito(): void
-    {
-        $camposAceito = [
-            'empresa_titulo', 'nome', 'telefone', 'email', 'mensagem',
-            'data_criacao', 'data_atualizacao', 'status'
-        ];
-
-        $listaCampos = jsonDecode($this->campos, true, true);
-        if (!$listaCampos) {
-            mensagemErro('Erro!', 'Você deve enviar pelo menos um campo.');
-        }
-
-        foreach ($listaCampos as $campo) {
-            if (!in_array($campo, $camposAceito)) {
-                mensagemErro(
-                    'Erro!',
-                    'Um ou mais campos não tem permissão para serem buscados.',
-                    status: 403,
-                    localhost: 'O campo ' . $campo . ' não está na lista de campos permitidos'
-                );
-            }
-        }
-    }
-
-    /**
      * @return array
+     * @throws Excecao
      */
-    private function converterCampoParaDownload(): array
+    private function pegarWhere(): array
     {
-        $campos = array_flip($this->campos);
-        if (array_key_exists('empresa_titulo', $campos)) {
-            unset($campos['empresa_titulo']);
+        $where = [];
+        $ormHelper = new OrmHelper(TABELA_COMERCIAL_EMPRESA);
+        if (!empty($this->empresa) && validarUuid($this->empresa, false)) {
+            $where[] = ['id_admin_empresa', $ormHelper->pegarIdPeloUuid($this->empresa)];
+        } elseif (!in_array('solicitacao_loja_empresa', TOKEN['usuario']->permissao ?? [])) {
+            $where[] = ['id_admin_empresa', $this->idEmpresa];
         }
-        return array_keys($campos);
+
+        if (!empty($this->subempresa) && validarUuid($this->subempresa, false)) {
+            $where[] = ['id_admin_subempresa', $ormHelper->pegarIdPeloUuid($this->subempresa)];
+        } elseif (empty($this->subempresa) && !empty($this->idSubempresa) && $this->idSubempresa !== 0) {
+            $where[] = ['id_admin_subempresa', $this->idSubempresa];
+        }
+
+        if (!empty($this->parceiro) && !validarUuid($this->parceiro, false)) {
+            $where[] = ['nome', 'like', '%' . $this->parceiro . '%'];
+        } elseif (!empty($this->parceiro) && validarUuid($this->parceiro, false)) {
+            $ormHelper = new OrmHelper(TABELA_PARCEIRO_LOJA);
+            $where[] = ['id_parceiro_loja', $ormHelper->pegarIdPeloUuid($this->parceiro)];
+        }
+
+        if ($this->dataIndicacaoInicio->valido() && $this->dataIndicacaoFinal->valido()) {
+            $where[] = [
+                'data_criacao', 'between', [$this->dataIndicacaoInicio->date(), $this->dataIndicacaoFinal->date()]
+            ];
+        } elseif ($this->dataIndicacaoInicio->valido()) {
+            $where[] = ['data_criacao', '>=', $this->dataIndicacaoInicio->date()];
+        } elseif ($this->dataIndicacaoFinal->valido()) {
+            $where[] = ['data_criacao', '<=', $this->dataIndicacaoFinal->date()];
+        }
+
+        if ($this->status->valido()) {
+            $where[] = ['status', $this->status->numero()];
+        }
+
+        return $where;
     }
 }
