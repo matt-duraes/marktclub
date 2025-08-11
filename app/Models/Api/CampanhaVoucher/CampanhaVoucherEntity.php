@@ -60,19 +60,30 @@ class CampanhaVoucherEntity extends Entity
     }
 
     /**
+     * @param bool $cpf
+     *
      * @return string
      * @throws Excecao
      */
-    public function resgatarVoucher(): string
+    public function resgatarVoucher(bool $cpf = false): string
     {
+        if ($cpf) {
+            $where = [
+                ['documento_cpf', $this->pegarCpfUsuario()]
+            ];
+        } else {
+            $where = [
+                ['id_admin_empresa', $this->idEmpresa],
+                ['id_usuario_cliente', $this->idUsuario]
+            ];
+        }
+
         $ormHelper = new OrmHelper($this->ormTabela);
         $Status = new Status();
         $voucher = $ormHelper
             ->campo(['id', 'voucher', 'data_vencimento', 'status'])
-            ->where([
-                ['id_admin_empresa', $this->idEmpresa],
-                ['id_usuario_cliente', $this->idUsuario]
-            ])->primeiro();
+            ->where($where)
+            ->primeiro();
 
         if (empty($voucher)) {
             mensagemErro(
@@ -93,6 +104,24 @@ class CampanhaVoucherEntity extends Entity
             ], $voucher->id);
         }
         return $voucher->voucher;
+    }
+
+    /**
+     * @return string
+     * @throws Excecao
+     */
+    private function pegarCpfUsuario(): string
+    {
+        $ormHelper = new OrmHelper(TABELA_USUARIO_CLIENTE);
+        $cpfUsuario = $ormHelper->campo(['documento'])->where(['id', $this->idUsuario])->primeiro();
+
+        if (empty($cpfUsuario)) {
+            mensagemErro(
+                'Usuário sem CPF!',
+                'Contate o suporte para que possa resgatar o voucher!'
+            );
+        }
+        return $cpfUsuario->documento;
     }
 
     /**
