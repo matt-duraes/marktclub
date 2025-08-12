@@ -251,7 +251,7 @@ class SolicitacaoModel extends ORM implements
      *
      * @return string
      */
-    private function pegarSubempresa(string $idSubempresa): string
+    private function pegarSubempresa(?string $idSubempresa = null): string
     {
         $strSubempresa = '';
         if (!empty($idSubempresa)) {
