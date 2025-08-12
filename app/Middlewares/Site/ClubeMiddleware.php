@@ -179,6 +179,7 @@ final class ClubeMiddleware extends ApiHelper
         define('MENU_FUNCIONARIO', $pagina->funcionario);
         define('MENU_CARTEIRA', $pagina->carteira);
         define('MENU_SAMSUNG', $pagina->samsung);
+        define('MENU_NETSHOES_VOUCHER', $pagina->netshoes_voucher);
         define('MENU_LG', $pagina->lg);
         define('MENU_CORRIDA', $pagina->corrida);
         define('MENU_SHOW_NACIONAL', $pagina->show_nacional);

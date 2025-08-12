@@ -2,10 +2,10 @@
 
 namespace App\Models\Site\Cashback;
 
+use Erro\Excecao;
+use App\Helpers\ClubeApiHelper;
 use App\Classes\SiliumComissao\Ordem;
 use App\Classes\SiliumDeposito\TipoOperacao;
-use App\Helpers\ClubeApiHelper;
-use Erro\Excecao;
 
 final class SiliumModel extends ClubeApiHelper
 {
