@@ -2,21 +2,32 @@
 
 namespace App\Models\Api\ConstrutorClube;
 
-use Modules\Botao;
 use App\Helpers\PrimeiroAcessoHelper;
 use App\Models\Api\Saude\Convenio\MenuModel as SaudeMenuModel;
+use Erro\Excecao;
+use Helpers\OrmHelper;
+use Modules\Botao;
 
 final class ClubeModel
 {
     public array $construtor;
 
+    /**
+     * @throws Excecao
+     */
     public function __construct(
-        private ConstrutorEntity $Construtor
+        ConstrutorEntity $Construtor
     ) {
         $this->montarClube($Construtor);
     }
 
-    private function montarClube(ConstrutorEntity $Construtor)
+    /**
+     * @param ConstrutorEntity $Construtor
+     *
+     * @return void
+     * @throws Excecao
+     */
+    private function montarClube(ConstrutorEntity $Construtor): void
     {
         $api = $Construtor->api_status->valor();
         $dependente = $Construtor->menu_dependente->valor();
@@ -100,6 +111,7 @@ final class ClubeModel
                 'carteira'            => $Construtor->menu_carteira->valor(),
                 'salavip'             => $Construtor->menu_salavip->valor(),
                 'ponto_mais_acao'     => $Construtor->menu_ponto_mais_acao->valor(),
+                'netshoes_voucher'    => $this->montarMenu($Construtor) ? Botao::SIM : Botao::NAO,
                 'sair'                => $Construtor->menu_sair->valor()
             ],
             'campos_primeiro_acesso'  => $camposPrimeiroAcesso,
@@ -120,19 +132,44 @@ final class ClubeModel
             'login_escolha_status'    => $api == 'sim' && ($dependente == 'sim' || $funcionario == 'sim') ? 'sim' : 'nao',
             'recuperar_senha_status'  => $api == 'nao' || $dependente == 'sim' || $indicarUsuario == 'sim' ? 'sim' : 'nao',
             'botao_senha_status'      => $Construtor->botao_senha_status->valor(),
-            'botao_senha_tipo'        => $Construtor->botao_senha_tipo->valido(
-            ) ? $Construtor->botao_senha_tipo->indice() : '',
-            'botao_senha_link'        => !empty($Construtor->botao_senha_link) ? $Construtor->botao_senha_link : '',
+            'botao_senha_tipo'        => $Construtor->botao_senha_tipo->valido()
+                ? $Construtor->botao_senha_tipo->indice()
+                : '',
+            'botao_senha_link'        => !empty($Construtor->botao_senha_link)
+                ? $Construtor->botao_senha_link
+                : '',
             'botao_cadastro_status'   => $Construtor->botao_cadastro_status->valor(),
-            'botao_cadastro_tipo'     => $Construtor->botao_cadastro_tipo->valido(
-            ) ? $Construtor->botao_cadastro_tipo->indice() : '',
+            'botao_cadastro_tipo'     => $Construtor->botao_cadastro_tipo->valido()
+                ? $Construtor->botao_cadastro_tipo->indice()
+                : '',
             'botao_cadastro_link'     => !empty($Construtor->botao_cadastro_link) ? $Construtor->botao_cadastro_link : '',
             'botao_ativar_status'     => $Construtor->botao_ativar_status->valor(),
-            'botao_ativar_tipo'       => $Construtor->botao_ativar_tipo->valido(
-            ) ? $Construtor->botao_ativar_tipo->indice() : '',
+            'botao_ativar_tipo'       => $Construtor->botao_ativar_tipo->valido()
+                ? $Construtor->botao_ativar_tipo->indice()
+                : '',
             'botao_ativar_link'       => !empty($Construtor->botao_ativar_link) ? $Construtor->botao_ativar_link : '',
             'chat'                    => $Construtor->chat_status->valor(),
-            'api'                     => $api,
+            'api'                     => $api
         ];
+    }
+
+    /**
+     * @throws Excecao
+     */
+    private function montarMenu(ConstrutorEntity $Construtor): bool
+    {
+        $ormHelper = new OrmHelper(TABELA_CAMPANHA_VOUCHER);
+        $idUsuario = array_key_exists('usuario', TOKEN) && !vazio(TOKEN['usuario'])
+            ? TOKEN['usuario']->id
+            : null;
+
+        if (empty($idUsuario)) {
+            return false;
+        }
+
+        return $ormHelper->existe([
+            ['id_admin_empresa', $Construtor->id_admin_empresa],
+            ['id_usuario_cliente', $idUsuario]
+        ]);
     }
 }
