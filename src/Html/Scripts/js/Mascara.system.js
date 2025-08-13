@@ -1,5 +1,5 @@
 let fwMascaraValorAtual = '';
-window.addEventListener('load', function () {
+window.addEventListener('load', function() {
     fwMascaraPadrao = undefined;
     fwMascaraKeyNumero = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9'];
     fwMascaraKeyGeral = [
@@ -45,7 +45,7 @@ fwMascaraLoading = bloco => {
     });
 };
 
-fwMascaraInArray = function (needle, haystack) {
+fwMascaraInArray = function(needle, haystack) {
     let tamanho = haystack.length;
     let i;
     for (i = 0; i < tamanho; i++) {
@@ -53,7 +53,7 @@ fwMascaraInArray = function (needle, haystack) {
     }
     return false;
 };
-fwMascaraKeyUpEvento = function (e) {
+fwMascaraKeyUpEvento = function(e) {
     const input = this;
     const mascara = input.getAttribute('data-mascara');
     if (!mascara) {
@@ -76,7 +76,7 @@ fwMascaraKeyUpEvento = function (e) {
         return fwMascaraMontarNormal(input, 'focus');
     }
 };
-fwMascaraKeyDownEvento = function (e) {
+fwMascaraKeyDownEvento = function(e) {
     let input = this;
     let mascara = input.getAttribute('data-mascara');
     if (!mascara) {
@@ -104,6 +104,8 @@ fwMascaraKeyDownEvento = function (e) {
         mascaraTamanho = 15;
     } else if (mascara == 'telefone' && valorLimpo[2] == 9) {
         mascaraTamanho = 15;
+    } else if (mascara == 'telefone' && valorLimpo[1] == 8) {
+        mascaraTamanho = 13;
     } else if (mascara == 'telefone') {
         mascaraTamanho = 14;
     }
@@ -161,7 +163,7 @@ fwMascaraKeyDownEvento = function (e) {
         e.preventDefault();
     }
 };
-fwMascaraAcaoNormal = function (input, tecla) {
+fwMascaraAcaoNormal = function(input, tecla) {
     let posicaoInicio = input.selectionStart;
     let posicaoFinal = input.selectionEnd;
 
@@ -205,6 +207,8 @@ fwMascaraAcaoNormal = function (input, tecla) {
         mascara = '(00) 00000-0000';
     } else if (mascara == 'telefone' && valorLimpo[2] == 9) {
         mascara = '(00) 00000-0000';
+    } else if (mascara == 'telefone' && valorLimpo[1] == 8) {
+        mascara = '0000 000 0000';
     } else if (mascara == 'telefone') {
         mascara = '(00) 0000-0000';
     }
@@ -237,7 +241,7 @@ fwMascaraAcaoNormal = function (input, tecla) {
 
     return false;
 };
-fwMascaraAcaoDinheiro = function (input, tecla) {
+fwMascaraAcaoDinheiro = function(input, tecla) {
     let posicaoInicio = input.selectionStart;
     let posicaoFinal = input.selectionEnd;
 
@@ -296,17 +300,17 @@ fwMascaraAcaoDinheiro = function (input, tecla) {
     return true;
 };
 
-fwMascaraFocusEvento = function () {
+fwMascaraFocusEvento = function() {
     fwMascaraValorAtual = this.value;
     fwMascaraMascaraEvento(this, 'focus');
 };
-fwMascaraBlurEvento = function () {
+fwMascaraBlurEvento = function() {
     if (this.value != fwMascaraValorAtual) {
         this.dispatchEvent(new Event('formChange'));
     }
     fwMascaraMascaraEvento(this, 'blur');
 };
-fwMascaraMascaraEvento = function (input, tipo) {
+fwMascaraMascaraEvento = function(input, tipo) {
     input.classList.remove('mascara_erro');
 
     let montar = fwMascaraMontar(input, tipo);
@@ -336,7 +340,8 @@ async function fwMascaraMontar(input, tipo) {
         return fwMascaraMontarNormal(input, tipo);
     }
 }
-fwMascaraValidarNumeroVirgula = function (input) {
+
+fwMascaraValidarNumeroVirgula = function(input) {
     const valor = input.value;
     const testarInteiro = /^[0-9]$/.test(valor);
     const testarDecimal = /^([0-9]{1,})\,([0-9]{1,})$/.test(valor);
@@ -345,7 +350,7 @@ fwMascaraValidarNumeroVirgula = function (input) {
     }
     return false;
 };
-fwMascaraValidarNumeroPonto = function (input) {
+fwMascaraValidarNumeroPonto = function(input) {
     const valor = input.value;
     const testarInteiro = /^[0-9]$/.test(valor);
     const testarDecimal = /^([0-9]{1,})\.([0-9]{1,})$/.test(valor);
@@ -354,7 +359,7 @@ fwMascaraValidarNumeroPonto = function (input) {
     }
     return false;
 };
-fwMascaraValidarNumero = function (input, tipo) {
+fwMascaraValidarNumero = function(input, tipo) {
     mascaraTamanho = input.getAttribute('data-mascara-tamanho') || false;
     if (false === mascaraTamanho || tipo == 'focus') {
         return true;
@@ -375,7 +380,7 @@ fwMascaraValidarNumero = function (input, tipo) {
 
     return true;
 };
-fwMascaraMontarNormal = function (input, tipo) {
+fwMascaraMontarNormal = function(input, tipo) {
     let posicaoCursor = input.selectionStart;
 
     let valor = input.value;
@@ -392,6 +397,8 @@ fwMascaraMontarNormal = function (input, tipo) {
         mascara = '(00) 00000-0000';
     } else if (mascara == 'telefone' && valorLimpo[2] == 9) {
         mascara = '(00) 00000-0000';
+    } else if (mascara == 'telefone' && valorLimpo[1] == 8) {
+        mascara = '0000 000 0000';
     } else if (mascara == 'telefone') {
         mascara = '(00) 0000-0000';
     }
@@ -429,7 +436,7 @@ fwMascaraMontarNormal = function (input, tipo) {
 
     return false;
 };
-fwMascaraMontarDinheiro = function (input, tipo) {
+fwMascaraMontarDinheiro = function(input, tipo) {
     let posicaoCursor = input.selectionStart;
     let valor = input.value;
     let valorLimpo = valor.replace(/[^0-9]/g, '');
@@ -474,7 +481,7 @@ fwMascaraMontarDinheiro = function (input, tipo) {
     return false;
 };
 
-fwMascaraErro = function (input, tipo) {
+fwMascaraErro = function(input, tipo) {
     if (input && tipo == 'blur' && input.value != '') {
         input.classList.add('mascara_erro');
     }
