@@ -4,17 +4,12 @@ namespace App\Models\Api\ConstrutorClube;
 
 use App\Helpers\PrimeiroAcessoHelper;
 use App\Models\Api\Saude\Convenio\MenuModel as SaudeMenuModel;
-use Erro\Excecao;
-use Helpers\OrmHelper;
 use Modules\Botao;
 
 final class ClubeModel
 {
     public array $construtor;
 
-    /**
-     * @throws Excecao
-     */
     public function __construct(
         ConstrutorEntity $Construtor
     ) {
@@ -25,7 +20,6 @@ final class ClubeModel
      * @param ConstrutorEntity $Construtor
      *
      * @return void
-     * @throws Excecao
      */
     private function montarClube(ConstrutorEntity $Construtor): void
     {
@@ -111,7 +105,6 @@ final class ClubeModel
                 'carteira'            => $Construtor->menu_carteira->valor(),
                 'salavip'             => $Construtor->menu_salavip->valor(),
                 'ponto_mais_acao'     => $Construtor->menu_ponto_mais_acao->valor(),
-                'netshoes_voucher'    => $this->montarMenu($Construtor) ? Botao::SIM : Botao::NAO,
                 'sair'                => $Construtor->menu_sair->valor()
             ],
             'campos_primeiro_acesso'  => $camposPrimeiroAcesso,
@@ -151,25 +144,5 @@ final class ClubeModel
             'chat'                    => $Construtor->chat_status->valor(),
             'api'                     => $api
         ];
-    }
-
-    /**
-     * @throws Excecao
-     */
-    private function montarMenu(ConstrutorEntity $Construtor): bool
-    {
-        $ormHelper = new OrmHelper(TABELA_CAMPANHA_VOUCHER);
-        $idUsuario = array_key_exists('usuario', TOKEN) && !vazio(TOKEN['usuario'])
-            ? TOKEN['usuario']->id
-            : null;
-
-        if (empty($idUsuario)) {
-            return false;
-        }
-
-        return $ormHelper->existe([
-            ['id_admin_empresa', $Construtor->id_admin_empresa],
-            ['id_usuario_cliente', $idUsuario]
-        ]);
     }
 }

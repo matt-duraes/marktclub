@@ -246,6 +246,9 @@ Route
                 'voceIndicaria',
             ])
             ::post('/pesquisa-utilizacao');
+        Route
+            ::nome('campanhaVoucher')
+            ::get('/campanha-voucher-disponivel');
     });
 
 Route
