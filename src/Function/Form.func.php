@@ -2109,7 +2109,7 @@ if (!function_exists('formIndiceValor')) {
     function formIndiceValor(
         string $name,
         array $value = [],
-        string|array $class = [],
+        null|string|array $class = [],
         ?string $id = null,
         bool $obrigatorio = false,
         array $placeholder = [],

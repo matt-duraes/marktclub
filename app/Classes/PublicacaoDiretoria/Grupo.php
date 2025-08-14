@@ -47,6 +47,14 @@ final class Grupo extends Status
                 'presidencia' => 'Presidência'
             ],
             'numero' => [1]
+        ],
+        'sinpefes'  => [
+            'lista'  => [
+                'presidencia'            => 'Presidência',
+                'conselho-fiscal'        => 'Conselho Fiscal',
+                'representante-estadual' => 'Representantes Estaduais'
+            ],
+            'numero' => [1, 2, 3]
         ]
     ];
 

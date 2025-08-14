@@ -38,12 +38,16 @@ final class CidadeModel extends PadraoModel
 
     private function montarRetorno()
     {
+        $uf = $this->EnderecoEstado->uf();
         foreach($this->busca as $r) {
             if(is_null($r->endereco_cidade)) {
                 $this->outra = true;
                 continue;
             }
             $valor = jsonDecode($r->endereco_cidade, true);
+            if(array_key_exists($uf, $valor)) {
+                $valor = $valor[$uf];
+            }
             if(!is_array($valor)) {
                 continue;
             }

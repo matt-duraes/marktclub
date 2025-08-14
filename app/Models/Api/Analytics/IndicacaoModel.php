@@ -43,14 +43,14 @@ class IndicacaoModel extends ORM
     public function gerarRelatorio(): array
     {
         $analytics = $this
-            ->where($this->pegarWherePadrao(colunaTabela: 'data_criacao', subempresa: false), false)
+            ->where($this->pegarWherePadrao(colunaTabela: 'data_criacao'), false)
             ->order('data_criacao')
             ->read();
 
         if (empty($analytics)) {
             return $this->retornarListaZerada();
         }
-        
+
         return $this->montarRelatorio($analytics);
     }
 

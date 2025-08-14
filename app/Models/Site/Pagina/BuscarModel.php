@@ -36,7 +36,6 @@ final class BuscarModel extends ClubeApiHelper
             ->validar(status: 404)
             ->get('/view-pagina/' . $this->uri)
             ->object()->dado;
-
         $busca->html = $this->montarRetorno($busca->html);
         $this->busca = $busca;
         sessao($sessao, $this->busca);

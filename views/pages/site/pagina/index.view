@@ -1,9 +1,10 @@
-@template "site"
-
 @php
 if(!function_exists('componenteLoading')) {
-    function componenteLoading($lista) {
+    function componenteLoading($lista, $request) {
         foreach($lista as $r) {
+            if(object_key_exists('condicao', $r) && !componenteCondicao($r->condicao, $request)) {
+                continue;
+            }
             $path = ROOT . '/files/build/views/site_pagina_componente_' . $r->tipo . '.php';
             if(!file_exists($path)) {
                 continue;
@@ -13,7 +14,64 @@ if(!function_exists('componenteLoading')) {
         }
     }
 }
+
+if (!function_exists('componenteCondicao')) {
+    function componenteCondicao($lista, $request): bool {
+        $resultadoFinal = null;
+
+        foreach ($lista as $i => $grupo) {
+            $condicoes = $grupo->grupo;
+            $resultadoGrupo = null;
+
+            foreach ($condicoes as $j => $cond) {
+                $indice = $cond->condicao[0] ?? '';
+                $operador = $cond->condicao[1] ?? '';
+                $valor = $cond->condicao[2] ?? '';
+
+                if (empty($indice) || empty($operador)) continue;
+
+                $valorFinal = array_key_exists($indice, $request) ? $request[$indice] : null;
+
+                $validacao =
+                    ($operador === 'igual' && $valorFinal === $valor) ||
+                    ($operador === 'diferente' && $valorFinal !== $valor) ||
+                    ($operador === 'maior' && $valorFinal > $valor) ||
+                    ($operador === 'menor' && $valorFinal < $valor) ||
+                    ($operador === 'maior-igual' && $valorFinal >= $valor) ||
+                    ($operador === 'menor-igual' && $valorFinal <= $valor);
+
+                if ($j === 0) {
+                    $resultadoGrupo = $validacao;
+                } else {
+                    $separadorAnterior = strtolower(trim($condicoes[$j - 1]->separador ?? ''));
+
+                    if ($separadorAnterior === 'or') {
+                        $resultadoGrupo = $resultadoGrupo || $validacao;
+                    } else { // and ou vazio
+                        $resultadoGrupo = $resultadoGrupo && $validacao;
+                    }
+                }
+            }
+
+            if ($i === 0) {
+                $resultadoFinal = $resultadoGrupo;
+            } else {
+                $separadorAnteriorGrupo = strtolower(trim($lista[$i - 1]->separador ?? ''));
+
+                if ($separadorAnteriorGrupo === 'or') {
+                    $resultadoFinal = $resultadoFinal || $resultadoGrupo;
+                } else { // and ou vazio
+                    $resultadoFinal = $resultadoFinal && $resultadoGrupo;
+                }
+            }
+        }
+
+        return (bool) $resultadoFinal;
+    }
+}
 @end
+
+@template "site"
 
 <form action="">
     <input type="hidden" id="input_url" value="{{$url}}">
@@ -21,6 +79,6 @@ if(!function_exists('componenteLoading')) {
 </form>
 <div id="bloco_pagina">
     @php
-        componenteLoading($html);
+        componenteLoading($html, $request);
     @end
 </div>

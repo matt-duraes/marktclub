@@ -176,7 +176,16 @@ class MontarRelatorioModel
     {
         $lista = $dado->lista;
         if (!$lista) {
-            return [];
+            return [
+                'data' => [],
+                'label' => [],
+                'header' => [
+                    ['Usuários sem Estado', 0],
+                    ['Ativos sem Estado', 0],
+                    ['Inativos sem Estado', 0],
+                    ['Bloqueados sem Estado', 0]
+                ]
+            ];
         }
 
         $outro = [];

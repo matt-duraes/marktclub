@@ -1,52 +1,15 @@
 <?php
 
-return [
-    [
-        'id' => '1',
-        'uuid' => 'bb50aec0-5ff6-4db2-99a3-642596198067',
-        'id_admin_empresa' => '[1]',
-        'endereco_estado' => '["AC", "AL", "AP", "AM", "BA", "CE", "DF", "ES", "GO", "MA", "MT", "MS", "MG", "PA", "PB", "PR", "PE", "PI", "RJ", "RN", "RS", "RO", "RR", "SC", "SP", "SE", "TO"]',
-        'endereco_cidade' => NULL,
-        'titulo' => 'Unimed Vitória',
-        'arquivo_imagem' => '76ec9fea-62e9-4c4e-bdbc-6dc98cf07c1c',
-        'url' => 'unimed-vitoria',
-        'data_criacao' => '2025-06-13 12:30:37',
-        'data_atualizacao' => '2025-06-13 16:52:30',
-        'status' => '1'],
-    [
-        'id' => '2',
-        'uuid' => '2e61b24f-9e4d-44bd-a3bb-3571100d3676',
-        'id_admin_empresa' => '[1]',
-        'endereco_estado' => '["RN"]',
-        'endereco_cidade' => NULL,
-        'titulo' => 'Unimed Natal',
-        'arquivo_imagem' => '475e74c0-24b6-4842-85ff-828bdfebe77f',
-        'url' => 'unimed-natal',
-        'data_criacao' => '2025-06-13 12:35:06',
-        'data_atualizacao' => '2025-06-13 12:35:06',
-        'status' => '1'],
-    [
-        'id' => '3',
-        'uuid' => '5d29bf93-0a2e-42a1-b068-ef2b88c89af5',
-        'id_admin_empresa' => '[1]',
-        'endereco_estado' => '["SP"]',
-        'endereco_cidade' => '{"jarinu": "Jarinú", "barueri": "Barueri", "cajamar": "Cajamar", "itupeva": "Itupeva", "jundiai": "Jundiaí", "cabreuva": "Cabreúva", "caieiras": "Caieiras", "louveira": "Louveira", "franco-da-rocha": "Franco Da Rocha", "varzea-paulista": "Várzea Paulista", "francisco-morato": "Francisco Morato", "santana-de-parnaiba": "Santana de Parnaíba", "campo-limpo-paulista": "Campo Limpo Paulista"}',
-        'titulo' => 'Unimed Jundiaí',
-        'arquivo_imagem' => 'de485d45-93e0-4f31-ae42-5c8985db0a49',
-        'url' => 'unimed-jundiai',
-        'data_criacao' => '2025-06-13 12:35:38',
-        'data_atualizacao' => '2025-06-13 16:32:26',
-        'status' => '1'],
-    [
-        'id' => '4',
-        'uuid' => 'df5bf95c-2230-429c-9bdc-49bf9ec9c54c',
-        'id_admin_empresa' => '[1]',
-        'endereco_estado' => '["AC", "AL", "AP", "AM", "BA", "CE", "DF", "ES", "GO", "MA", "MT", "MS", "MG", "PA", "PB", "PR", "PE", "PI", "RJ", "RN", "RS", "RO", "RR", "SC", "SP", "SE", "TO"]',
-        'endereco_cidade' => NULL,
-        'titulo' => 'Unimed Florianópolis',
-        'arquivo_imagem' => '8ed510a8-cf17-4992-8290-fa1ac7270306',
-        'url' => 'unimed-florianopolis',
-        'data_criacao' => '2025-06-16 14:28:28',
-        'data_atualizacao' => '2025-06-16 14:28:28',
-        'status' => '1']
-];
+return array(
+    array('id' => '1','uuid' => 'bb50aec0-5ff6-4db2-99a3-642596198067','id_admin_empresa' => '[1, 3, 19, 41, 42, 52, 55, 59, 80, 92, 94, 98, 102]','endereco_estado' => '["AC", "AL", "AP", "AM", "BA", "CE", "DF", "ES", "GO", "MA", "MT", "MS", "MG", "PA", "PB", "PR", "PE", "PI", "RJ", "RN", "RS", "RO", "RR", "SC", "SP", "SE", "TO"]','endereco_cidade' => NULL,'titulo' => 'Unimed Vitória','arquivo_imagem' => '408f35b7-e211-4149-be1c-097cd9a327e9','url' => 'unimed-vitoria','data_criacao' => '2025-06-13 12:30:37','data_atualizacao' => '2025-07-02 11:58:03','status' => '1'),
+    array('id' => '2','uuid' => '2e61b24f-9e4d-44bd-a3bb-3571100d3676','id_admin_empresa' => '[1]','endereco_estado' => '["RN"]','endereco_cidade' => NULL,'titulo' => 'Unimed Natal','arquivo_imagem' => 'f6344239-206b-494c-aa32-24f0dbcb8bb1','url' => 'unimed-natal','data_criacao' => '2025-06-13 12:35:06','data_atualizacao' => '2025-07-02 11:58:20','status' => '1'),
+    array('id' => '3','uuid' => '5d29bf93-0a2e-42a1-b068-ef2b88c89af5','id_admin_empresa' => '[1]','endereco_estado' => '["SP"]','endereco_cidade' => '{"jarinu": "Jarinú", "barueri": "Barueri", "cajamar": "Cajamar", "itupeva": "Itupeva", "jundiai": "Jundiaí", "cabreuva": "Cabreúva", "caieiras": "Caieiras", "louveira": "Louveira", "franco-da-rocha": "Franco Da Rocha", "varzea-paulista": "Várzea Paulista", "francisco-morato": "Francisco Morato", "santana-de-parnaiba": "Santana de Parnaíba", "campo-limpo-paulista": "Campo Limpo Paulista"}','titulo' => 'Unimed Jundiaí','arquivo_imagem' => '69bb00d3-c689-44de-a012-f18796b40c34','url' => 'unimed-jundiai','data_criacao' => '2025-06-13 12:35:38','data_atualizacao' => '2025-07-02 11:58:36','status' => '1'),
+    array('id' => '4','uuid' => 'df5bf95c-2230-429c-9bdc-49bf9ec9c54c','id_admin_empresa' => '[1, 52]','endereco_estado' => '["AC", "AL", "AP", "AM", "BA", "CE", "DF", "ES", "GO", "MA", "MT", "MS", "MG", "PA", "PB", "PR", "PE", "PI", "RJ", "RN", "RS", "RO", "RR", "SC", "SP", "SE", "TO"]','endereco_cidade' => NULL,'titulo' => 'Unimed Florianópolis','arquivo_imagem' => 'c50ced1b-db11-4bd4-a4f8-6d1286398e06','url' => 'unimed-florianopolis','data_criacao' => '2025-06-16 14:28:28','data_atualizacao' => '2025-07-02 11:58:52','status' => '1'),
+    array('id' => '5','uuid' => '94aea6ff-ce47-41d7-ae70-dd077dc1a3fd','id_admin_empresa' => '[1]','endereco_estado' => '["DF", "GO"]','endereco_cidade' => '{"DF": {"brasilia": "Brasília"}, "GO": {"outra": "Outras cidades", "valparaiso": "Valparaiso"}}','titulo' => 'ProAsa DF/GO','arquivo_imagem' => '04fef1af-a276-4cf1-9c18-87efceb330b6','url' => 'proasa-df','data_criacao' => '2025-07-02 14:16:45','data_atualizacao' => '2025-07-04 11:44:19','status' => '1'),
+    array('id' => '6','uuid' => 'b3eb504f-12b9-45c9-b6ff-3fda0c75ff30','id_admin_empresa' => '[1]','endereco_estado' => '["AM"]','endereco_cidade' => '{"outra": "Outras cidades", "manaus": "Manaus"}','titulo' => 'ProAsa AM','arquivo_imagem' => '04fef1af-a276-4cf1-9c18-87efceb330b6','url' => 'proasa-am','data_criacao' => '2025-07-03 15:24:41','data_atualizacao' => '2025-07-03 15:27:12','status' => '1'),
+    array('id' => '7','uuid' => '09cb35c1-894b-41b0-9a45-5e7120c3d025','id_admin_empresa' => '[1]','endereco_estado' => '["BA"]','endereco_cidade' => '{"salvador": "Salvador", "lauro-de-freitas": "Lauro de Freitas"}','titulo' => 'ProAsa BA','arquivo_imagem' => '04fef1af-a276-4cf1-9c18-87efceb330b6','url' => 'proasa-ba','data_criacao' => '2025-07-03 15:25:01','data_atualizacao' => '2025-07-03 15:27:20','status' => '1'),
+    array('id' => '8','uuid' => '8dbed6e8-ab50-4b64-9c48-ec7c4f5cfa93','id_admin_empresa' => '[1]','endereco_estado' => '["MS"]','endereco_cidade' => '{"outra": "Outras cidades", "rochedo": "Rochedo", "terenos": "Terenos", "anastacio": "Anastácio", "corguinho": "Corguinho", "jaraguari": "Jaraguari", "aquidauana": "Aquidauana", "sidrolandia": "Sidrolândia", "tres-lagoas": "Três Lagoas", "bandeirantes": "Bandeirantes", "campo-grande": "Campo Grande", "ribas-do-rio-pardo": "Ribas do Rio Pardo", "nova-alvorada-do-sul": "Nova Alvorada do Sul", "sao-gabriel-do-oeste": "São Gabriel do Oeste", "dois-irmaos-do-buriti": "Dois Irmãos do Buriti"}','titulo' => 'ProAsa MS','arquivo_imagem' => '04fef1af-a276-4cf1-9c18-87efceb330b6','url' => 'proasa-ms','data_criacao' => '2025-07-03 15:25:20','data_atualizacao' => '2025-07-03 15:27:25','status' => '1'),
+    array('id' => '9','uuid' => '3c6da648-0636-48a2-8bbb-86b38e03817b','id_admin_empresa' => '[1]','endereco_estado' => '["PA"]','endereco_cidade' => '{"moju": "Moju", "acara": "Acará", "belem": "Belém", "muana": "Muaná", "outra": "Outras cidades", "bujaru": "Bujaru", "curuca": "Curuçá", "marituba": "Marituba", "barcarena": "Barcarena", "benevides": "Benevides", "castanhal": "Castanhal", "marapanim": "Marapanim", "abaetetuba": "Abaetetuba", "ananindeua": "Ananindeua", "igarape-acu": "Igarapé Açu", "igarape-miri": "Igarapé Miri", "soure-e-vigia": "Soure e Vigia", "ponta-de-pedras": "Ponta de Pedras", "limoeiro-do-ajuru": "Limoeiro do Ajuru", "santa-maria-do-para": "Santa Maria do Pará", "sao-miguel-do-guama": "São Miguel do Guamá", "santa-barbara-do-para": "Santa Bárbara do Pará", "santo-antonio-do-taua": "Santo Antônio do Tauá", "sao-caetano-de-odivelas": "São Caetano de Odivelas"}','titulo' => 'ProAsa PA','arquivo_imagem' => '04fef1af-a276-4cf1-9c18-87efceb330b6','url' => 'proasa-pa','data_criacao' => '2025-07-03 15:25:50','data_atualizacao' => '2025-07-03 15:27:30','status' => '1'),
+    array('id' => '10','uuid' => 'a4cb1955-83c6-4c06-9e4f-68e24d4002fd','id_admin_empresa' => '[1]','endereco_estado' => '["SP"]','endereco_cidade' => '{"poa": "Poá", "maua": "Mauá", "cotia": "Cotia", "outra": "Outras cidades", "osasco": "Osasco", "suzano": "Suzano", "barueri": "Barueri", "diadema": "Diadema", "itapevi": "Itapevi", "jandira": "Jandira", "caieiras": "Caieiras", "guararema": "Guararema", "guarulhos": "Guarulhos", "juquitiba": "Juquitiba", "mairipora": "Mairiporã", "sao-paulo": "São Paulo", "embu-guacu": "Embu-Guaçu", "carapicuiba": "Carapicuíba", "salesopolis": "Salesópolis", "santo-andre": "Santo André", "biritibaMirim": "BiritibaMirim", "embu-das-artes": "Embu das Artes", "ribeirao-pires": "Ribeirão Pires", "mogi-das-cruzes": "Mogi das Cruzes", "sao-caetano-do-sul": "São Caetano do Sul", "rio-grande-da-serra": "Rio Grande da Serra", "santana-de-parnaiba": "Santana de Parnaíba", "itapecerica-da-serra": "Itapecerica da Serra", "pirapora-de-bom-jesus": "Pirapora de Bom Jesus", "sao-bernardo-do-campo": "São Bernardo do Campo", "sao-lourenço-da-serra": "São Lourenço da Serra"}','titulo' => 'ProAsa SP','arquivo_imagem' => '04fef1af-a276-4cf1-9c18-87efceb330b6','url' => 'proasa-sp','data_criacao' => '2025-07-03 15:26:14','data_atualizacao' => '2025-07-03 15:27:35','status' => '1'),
+    array('id' => '11','uuid' => 'b4e31677-8783-405f-a76a-c27d25369156','id_admin_empresa' => '[1, 92]','endereco_estado' => '["AC", "AL", "AP", "AM", "BA", "CE", "DF", "ES", "GO", "MA", "MT", "MS", "MG", "PA", "PB", "PR", "PE", "PI", "RJ", "RN", "RS", "RO", "RR", "SC", "SP", "SE", "TO"]','endereco_cidade' => NULL,'titulo' => 'Seguros Unimed','arquivo_imagem' => 'e33fa749-6606-4bce-bcff-676ae7744473','url' => 'seguros-unimed','data_criacao' => '2025-07-30 15:12:59','data_atualizacao' => '2025-07-30 15:55:45','status' => '1')
+);

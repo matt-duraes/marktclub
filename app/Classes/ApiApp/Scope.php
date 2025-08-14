@@ -96,6 +96,8 @@ final class Scope
         'automovel_versao:atualizar', 'automovel_versao:buscar', 'automovel_versao:deletar',
         'automovel_versao:listar', 'automovel_versao:salvar',
 
+        'campanha_voucher:buscar', 'campanha_voucher:listar', 'campanha_voucher:atualizar',
+
         'carteirinha:atualizar', 'carteirinha:buscar', 'carteirinha:deletar', 'carteirinha:listar',
         'carteirinha:salvar', 'carteirinha:status',
 
@@ -344,6 +346,8 @@ final class Scope
         'automovel_versao:listar', 'automovel_versao:salvar',
 
         'campanha_sorteio:buscar', 'campanha_sorteio:resultado', 'campanha_sorteio:sortear',
+
+        'campanha_voucher:buscar', 'campanha_voucher:listar', 'campanha_voucher:atualizar',
 
         'carteirinha:atualizar', 'carteirinha:buscar', 'carteirinha:deletar', 'carteirinha:listar',
         'carteirinha:salvar',

@@ -28,6 +28,7 @@ define('TABELA_AUTH_USUARIO', 'auth_usuario');
 define('TABELA_AUTOMOVEL_MODELO', 'automovel_modelo');
 define('TABELA_AUTOMOVEL_VERSAO', 'automovel_versao');
 define('TABELA_CAMPANHA_SORTEIO', 'campanha_sorteio');
+define('TABELA_CAMPANHA_VOUCHER', 'campanha_voucher');
 define('TABELA_CARTEIRINHA', 'carteirinha');
 define('TABELA_CHATBOT_PERGUNTAS', 'chatbot_perguntas');
 define('TABELA_COMERCIAL_CONTRATO', 'comercial_contrato');

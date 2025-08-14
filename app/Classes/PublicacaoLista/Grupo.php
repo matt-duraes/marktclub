@@ -7,7 +7,7 @@ use Status\Status;
 final class Grupo extends Status
 {
     public const EMPRESA = [
-        'geral'  => [
+        'geral'    => [
             'lista'  => [
                 'geral' => 'Geral'
             ],
@@ -35,6 +35,13 @@ final class Grupo extends Status
                 'campanhas'  => 'Campanhas'
             ],
             'numero' => [4, 5, 6, 7, 8, 9]
+        ],
+        'sinpefes' => [
+            'lista'  => [
+                'evento'     => 'Eventos',
+                'sindicatos' => 'Sindicatos'
+            ],
+            'numero' => [10, 11]
         ]
     ];
 

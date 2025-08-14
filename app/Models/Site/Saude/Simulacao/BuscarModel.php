@@ -4,6 +4,7 @@ namespace App\Models\Site\Saude\Simulacao;
 
 use stdClass;
 use Modules\Data;
+use Modules\EnderecoEstado;
 use App\Helpers\ClubeApiHelper;
 
 final class BuscarModel extends ClubeApiHelper
@@ -13,7 +14,9 @@ final class BuscarModel extends ClubeApiHelper
     public function __construct(
         private string $plano,
         private Data $titular,
-        private array $dependente = []
+        private array $dependente = [],
+        private ?EnderecoEstado $estado = null,
+        private ?string $cidade = null
     )
     {
         parent::__construct();
@@ -56,7 +59,9 @@ final class BuscarModel extends ClubeApiHelper
             ->body([
                 'convenio' => $this->plano,
                 'titular' => $this->titular->date(),
-                'dependente' => $this->dependente
+                'dependente' => $this->dependente,
+                'estado' => $this->estado->uf(),
+                'cidade' => $this->cidade ? $this->cidade : ''
             ])
             ->post('/saude-simulacao/simular')
             ->array();

@@ -1,7 +1,7 @@
 {!!$View->css()!!}
 <div {!!$View->class('bloco_geral_banner banner banner_loading')!!} data-id="{{$r->id}}" data-hash="{{$View->api()}}">
     @php
-        componenteLoading($r->lista);
+        componenteLoading($r->lista, $request);
     @end
     <div class="conteudo">
         <div class="seta anterior botao_banner_desktop display_none">@iconeSetaEsquerda(40)</div>

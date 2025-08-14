@@ -1324,6 +1324,43 @@ Route
     });
 
 Route
+    ::nome('campanha_voucher')
+    ::controller(App\Controllers\Api\CampanhaVoucherController::class)
+    ::middleware(TokenMiddleware::class, 'token')
+    ::grupo(function () {
+        Route
+            ::nome('buscar')
+            ::middleware(TokenMiddleware::class, 'scope', ['campanha_voucher:buscar'])
+            ::get('/campanha-voucher/{id}');
+
+        Route
+            ::nome('listar')
+            ::middleware(TokenMiddleware::class, 'scope', ['campanha_voucher:listar'])
+            ::request([
+                'pagina', '!quantidade', '!ordem', '!status'
+            ], 'json')
+            ::get('/campanha-voucher');
+
+        Route
+            ::nome('atualizar')
+            ::middleware(TokenMiddleware::class, 'scope', ['campanha_voucher:atualizar'])
+            ::request([
+                '!data_vencimento', '!status'
+            ])
+            ::post('/campanha-voucher');
+
+        Route
+            ::nome('resgatar')
+            ::middleware(TokenMiddleware::class, 'scope', ['campanha_voucher:buscar'])
+            ::get('/campanha-voucher-resgatar');
+
+        Route
+            ::nome('disponivel')
+            ::middleware(TokenMiddleware::class, 'scope', ['campanha_voucher:buscar'])
+            ::get('/campanha-voucher-disponivel');
+    });
+
+Route
     ::nome('parceiro_campanha')
     ::controller(App\Controllers\Api\Parceiro\CampanhaController::class)
     ::middleware(TokenMiddleware::class, 'token')
@@ -2512,7 +2549,7 @@ Route
             ::nome('simular')
             ::middleware(TokenMiddleware::class, 'scope', ['saude_simulacao:simular'])
             ::request([
-                'convenio', 'titular', 'dependente',
+                'convenio', 'titular', 'dependente', '!estado', '!cidade'
             ])
             ::post('/saude-simulacao/simular');
 
@@ -3097,9 +3134,9 @@ Route
             ::nome('listar')
             ::middleware(TokenMiddleware::class, 'scope', ['solicitacao_loja:listar'])
             ::request([
-                'pagina', '!quantidade', '!ordem', '!pesquisa', '!empresa', '!usuario',
-                '!parceiro', '!indicacao_inicio', '!indicacao_final', '!prospeccao_inicio',
-                '!prospeccao_final', '!status',
+                'pagina', '!quantidade', '!ordem', '!pesquisa', '!empresa', '!subempresa',
+                '!usuario', '!parceiro', '!indicacao_inicio', '!indicacao_final',
+                '!prospeccao_inicio', '!prospeccao_final', '!status',
             ], 'json')
             ::get('/solicitacao-loja');
 

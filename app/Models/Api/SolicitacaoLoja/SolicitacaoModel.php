@@ -33,8 +33,9 @@ class SolicitacaoModel extends ORM implements
      * @param Ordem       $ordem
      * @param string|null $pesquisa
      * @param string|null $empresa
-     * @param string|null $parceiro
+     * @param string|null $subempresa
      * @param string|null $usuario
+     * @param string|null $parceiro
      * @param Data        $dataIndicacaoInicio
      * @param Data        $dataIndicacaoFinal
      * @param Data        $dataProspeccaoInicio
@@ -49,6 +50,7 @@ class SolicitacaoModel extends ORM implements
         private readonly Ordem $ordem = new Ordem(),
         private readonly ?string $pesquisa = null,
         private readonly ?string $empresa = null,
+        private readonly ?string $subempresa = null,
         private readonly ?string $usuario = null,
         private readonly ?string $parceiro = null,
         private readonly Data $dataIndicacaoInicio = new Data(),
@@ -101,15 +103,14 @@ class SolicitacaoModel extends ORM implements
     {
         $indicacoes = $this
             ->campo([
-                'uuid', 'id_admin_empresa', 'id_usuario_cliente',
-                'id_parceiro_loja', 'nome', 'email', 'telefone', 'status',
-                'data_criacao', 'data_atualizacao'
+                'uuid', 'id_admin_empresa', 'id_admin_subempresa',
+                'id_usuario_cliente', 'id_parceiro_loja', 'nome', 'email',
+                'telefone', 'status', 'data_criacao', 'data_atualizacao'
             ])
             ->where($this->pegarWhere(), false)
             ->pagina($this->pegarPagina(), $this->pegarQuantidade())
             ->order($this->pegarOrdem(new Ordem()))
             ->tabela(TABELA_COMERCIAL_EMPRESA)
-            ->where($this->pegarWhereEmpresa(), false)
             ->join('id', 'id_admin_empresa')
             ->campo([
                 'id', 'titulo', 'nome_fantasia'
@@ -132,7 +133,7 @@ class SolicitacaoModel extends ORM implements
      */
     private function pegarWhere(): array
     {
-        $where = $this->ormWherePadrao;
+        $where = $this->pegarWhereEmpresa();
 
         if (!empty($this->parceiro) && !validarUuid($this->parceiro, false)) {
             $where[] = ['nome', 'like', '%' . $this->parceiro . '%'];
@@ -155,26 +156,6 @@ class SolicitacaoModel extends ORM implements
             $where[] = ['status', $this->status->numero()];
         }
 
-        return $where;
-    }
-
-    /**
-     * @return array
-     * @throws Excecao
-     */
-    private function pegarWhereEmpresa(): array
-    {
-        $where = [];
-        if (!empty($this->empresa) && !validarUuid($this->empresa, false)) {
-            $where[] = [
-                ['titulo', 'like', '%' . $this->empresa . '%'],
-                ['nome_fantasia', 'like', '%' . $this->empresa . '%'],
-                ['razao_social', 'like', '%' . $this->empresa . '%']
-            ];
-        } elseif (!empty($this->empresa) && validarUuid($this->empresa, false)) {
-            $ormHelper = new OrmHelper(TABELA_COMERCIAL_EMPRESA);
-            $where[] = ['id', $ormHelper->pegarIdPeloUuid($this->empresa)];
-        }
         return $where;
     }
 
@@ -208,27 +189,16 @@ class SolicitacaoModel extends ORM implements
         $Status = new Status();
         $retorno = [];
         foreach ($indicaoes as $indicacao) {
-            if (!empty($indicacao->empresa_titulo)) {
-                $empresa = $indicacao->empresa_titulo;
-            } elseif (!empty($indicacao->empresa_nome_fantasia)) {
-                $empresa = $indicacao->empresa_nome_fantasia;
-            } else {
-                $empresa = '';
-            }
-            if (!empty($indicacao->id_parceiro_loja)) {
-                $ormHelper = new OrmHelper(TABELA_PARCEIRO_LOJA);
-                $parceiro = $ormHelper->pegarUltimoRegistro(
-                    ['id', $indicacao->id_parceiro_loja],
-                    ['titulo_interno', 'data_prospeccao'],
-                    'object'
-                );
-            }
+            $empresa = $this->tratarNomeEmpresa($indicacao);
+            $subempresa = $this->pegarSubempresa($indicacao->id_admin_subempresa);
+            $parceiro = $this->pegarParceiro($indicacao->id_parceiro_loja);
             $retorno[] = [
                 'id'                 => $indicacao->uuid,
                 'empresa'            => $empresa,
+                'subempresa'         => $subempresa,
                 'usuario_indicacao'  => $indicacao->usuario_nome,
-                'parceiro'           => empty($parceiro->titulo_interno) ? 'Sem Parceiro' : $parceiro->titulo_interno,
-                'data_prospeccao'    => empty($parceiro->data_prospeccao) ? 'Sem data' : $parceiro->data_prospeccao,
+                'parceiro'           => $parceiro['titulo_interno'],
+                'data_prospeccao'    => $parceiro['data_prospeccao'],
                 'nome_indicacao'     => $indicacao->nome,
                 'email_indicacao'    => $indicacao->email,
                 'telefone_indicacao' => $indicacao->telefone,
@@ -238,5 +208,107 @@ class SolicitacaoModel extends ORM implements
             ];
         }
         return $retorno;
+    }
+
+    /**
+     * @return array
+     * @throws Excecao
+     */
+    private function pegarWhereEmpresa(): array
+    {
+        $where = [];
+        $ormHelper = new OrmHelper(TABELA_COMERCIAL_EMPRESA);
+        if (!empty($this->empresa) && validarUuid($this->empresa, false)) {
+            $where[] = ['id_admin_empresa', $ormHelper->pegarIdPeloUuid($this->empresa)];
+        } elseif (!in_array('solicitacao_loja_empresa', TOKEN['usuario']->permissao ?? [])) {
+            $where[] = ['id_admin_empresa', $this->idEmpresa];
+        }
+        if (!empty($this->subempresa) && validarUuid($this->subempresa, false)) {
+            $where[] = ['id_admin_subempresa', $ormHelper->pegarIdPeloUuid($this->subempresa)];
+        } elseif (empty($this->subempresa) && !empty($this->idSubempresa) && $this->idSubempresa !== 0) {
+            $where[] = ['id_admin_subempresa', $this->idSubempresa];
+        }
+        return $where;
+    }
+
+    /**
+     * @param object $indicacao
+     *
+     * @return string
+     */
+    private function tratarNomeEmpresa(object $indicacao): string
+    {
+        if (!empty($indicacao->empresa_titulo)) {
+            return $indicacao->empresa_titulo;
+        } elseif (!empty($indicacao->empresa_nome_fantasia)) {
+            return $indicacao->empresa_nome_fantasia;
+        }
+        return '';
+    }
+
+    /**
+     * @param string $idSubempresa
+     *
+     * @return string
+     */
+    private function pegarSubempresa(?string $idSubempresa = null): string
+    {
+        $strSubempresa = '';
+        if (!empty($idSubempresa)) {
+            $ormHelper = new OrmHelper(TABELA_COMERCIAL_EMPRESA);
+            $subempresa = $ormHelper->pegarUltimoRegistro(
+                ['id', $idSubempresa],
+                ['id', 'titulo', 'nome_fantasia'],
+                'object'
+            );
+
+            if (empty($subempresa->id)) {
+                return $strSubempresa;
+            }
+
+            if (!empty($subempresa->titulo)) {
+                $subempresa = $subempresa->titulo;
+            } elseif (!empty($subempresa->nome_fantasia)) {
+                $subempresa = $subempresa->nome_fantasia;
+            } else {
+                $subempresa = '';
+            }
+
+            return $subempresa;
+        }
+        return $strSubempresa;
+    }
+
+    /**
+     * @param string|null $idParceiroLoja
+     *
+     * @return string[]
+     */
+    private function pegarParceiro(?string $idParceiroLoja = null): array
+    {
+        $arrParceiro = [
+            'titulo_interno'  => 'Sem Parceiro',
+            'data_prospeccao' => 'Sem data'
+        ];
+        if (!empty($idParceiroLoja)) {
+            $ormHelper = new OrmHelper(TABELA_PARCEIRO_LOJA);
+            $parceiro = $ormHelper->pegarUltimoRegistro(
+                ['id', $idParceiroLoja],
+                ['titulo_interno', 'data_prospeccao'],
+                'object'
+            );
+
+            if (empty($parceiro->id)) {
+                return $arrParceiro;
+            }
+
+            if (!empty($parceiro->titulo_interno)) {
+                $arrParceiro['titulo_interno'] = $parceiro->titulo_interno;
+            } elseif (!empty($parceiro->data_prospeccao)) {
+                $arrParceiro['data_prospeccao'] = $parceiro->data_prospeccao;
+            }
+            return $arrParceiro;
+        }
+        return $arrParceiro;
     }
 }
