@@ -171,6 +171,7 @@ final class ClubeMiddleware extends ApiHelper
         define('MENU_SAIR', $pagina->sair);
         define('MENU_PERFIL', !API || MENU_DEPENDENTE || MENU_CASHBACK || MENU_INDICAR_USUARIO);
         define('MENU_PONTO_MAIS_ACAO', $pagina->ponto_mais_acao);
+        define('MENU_CAMPANHA_VOUCHER', $pagina->campanha_voucher);
 
         define('LOGIN_STATUS', $clube->login_status);
         define('LOGIN_ESCOLHA_STATUS', $clube->login_escolha_status);
