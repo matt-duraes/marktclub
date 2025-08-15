@@ -7,7 +7,7 @@ use Status\Status as StatusStatus;
 class Status extends StatusStatus
 {
     public const NAO_RESGATADO = 'nao_resgatado';
-    public const RESGATADO = 'resgado';
+    public const RESGATADO = 'resgatado';
     public const VENCIDO = 'vencido';
 
     public function __construct(
