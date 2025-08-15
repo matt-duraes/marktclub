@@ -7,10 +7,8 @@ use PainelConfig\Index;
 $Painel = new Index('campanha_voucher', new Ordem());
 
 $Painel
-    ->campo('documento_cpf', 'CPF', Index::TIPO_NORMAL, Index::FORMATAR_CPF)
-    ->campo('data_validade', 'Data Validade', Index::TIPO_NORMAL, Index::FORMATAR_DATAHORA)
-    ->dataCriacao()
-    ->dataAtualizacao()
+    ->campo('data_validade', 'Data Validade', Index::TIPO_NORMAL, Index::FORMATAR_DATA)
+    ->campo('data_resgate', 'Data Resgate', Index::TIPO_NORMAL, Index::FORMATAR_DATAHORA)
     ->status('status', 'Status', new Status());
 
 return $Painel;
