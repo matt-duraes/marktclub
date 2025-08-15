@@ -5,7 +5,6 @@ namespace App\Models\Api\ConstrutorClube;
 use Modules\Botao;
 use App\Helpers\PrimeiroAcessoHelper;
 use App\Models\Api\Saude\Convenio\MenuModel as SaudeMenuModel;
-use App\Models\Api\CampanhaVoucher\ValidarUsuarioTemVoucherModel;
 
 final class ClubeModel
 {
@@ -88,7 +87,6 @@ final class ClubeModel
                 'saude_cnu'           => $Construtor->menu_saude_cnu->valor(),
                 'saude_florianopolis' => $Construtor->menu_saude_florianopolis->valor(),
                 'saude'               => (new SaudeMenuModel(idEmpresa: $Construtor->id_admin_empresa))->existe,
-                'campanha_voucher'    => (new ValidarUsuarioTemVoucherModel())->existe,
                 'cashback'            => $Construtor->menu_cashback->valor(),
                 'indicar_loja'        => $Construtor->menu_indicar_loja->valor(),
                 'indicar_usuario'     => $indicarUsuario,

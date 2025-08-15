@@ -24,6 +24,8 @@ final class ValidarUsuarioTemVoucherModel extends ORM
         ) {
             return;
         }
+        parent::__construct();
+
         $idEmpresa = TOKEN['empresa']->id;
         $idUsuario = TOKEN['usuario']->id;
         $this->validarUsuarioExiste($idEmpresa, $idUsuario);

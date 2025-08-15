@@ -42,6 +42,7 @@ final class Scope
         'saude_contratacao:salvar', 'saude_simulacao:salvar',
         'saude_convenio:listar', 'saude_convenio:estado', 'saude_convenio:cidade', 'saude_convenio:html',
         'saude_convenio:buscar',
+        'campanha_voucher:buscar', 'campanha_voucher:atualizar',
         'saude_simulacao:simular',
         'ponto_cvs:listar', 'ponto_cvs:salvar',
         'comercial_popup:listar',

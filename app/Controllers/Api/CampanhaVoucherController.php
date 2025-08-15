@@ -16,6 +16,7 @@ use System\Interface\ControllerListarInterface;
 use System\Interface\ControllerAtualizarInterface;
 use App\Models\Api\CampanhaVoucher\CampanhaVoucherModel;
 use App\Models\Api\CampanhaVoucher\CampanhaVoucherEntity;
+use App\Models\Api\CampanhaVoucher\ValidarUsuarioTemVoucherModel;
 
 class CampanhaVoucherController extends Controller implements
     ControllerBuscarInterface,
@@ -99,9 +100,9 @@ class CampanhaVoucherController extends Controller implements
      */
     public function getDisponivel(): Response
     {
-        $CampanhaVoucherEntity = new CampanhaVoucherEntity();
+        $Existe = new ValidarUsuarioTemVoucherModel();
         return mensagemSucesso([
-            'temVoucher' => $CampanhaVoucherEntity->verificaVoucher() ? Botao::SIM : Botao::NAO
+            'temVoucher' => $Existe->existe ? Botao::SIM : Botao::NAO
         ]);
     }
 }
