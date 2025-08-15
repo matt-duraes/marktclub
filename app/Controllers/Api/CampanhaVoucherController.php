@@ -2,20 +2,21 @@
 
 namespace App\Controllers\Api;
 
-use App\Classes\CampanhaVoucher\Ordem;
-use App\Classes\CampanhaVoucher\Status;
-use App\Models\Api\CampanhaVoucher\CampanhaVoucherEntity;
-use App\Models\Api\CampanhaVoucher\CampanhaVoucherModel;
-use Controller\Controller;
 use Erro\Excecao;
 use Http\Request;
 use Http\Response;
 use Modules\Botao;
 use Modules\Pagina;
 use Modules\Quantidade;
-use System\Interface\ControllerAtualizarInterface;
+use Controller\Controller;
+use App\Classes\CampanhaVoucher\Ordem;
+use App\Classes\CampanhaVoucher\Status;
 use System\Interface\ControllerBuscarInterface;
 use System\Interface\ControllerListarInterface;
+use System\Interface\ControllerAtualizarInterface;
+use App\Models\Api\CampanhaVoucher\CampanhaVoucherModel;
+use App\Models\Api\CampanhaVoucher\CampanhaVoucherEntity;
+use App\Models\Api\CampanhaVoucher\ValidarUsuarioTemVoucherModel;
 
 class CampanhaVoucherController extends Controller implements
     ControllerBuscarInterface,
@@ -45,7 +46,7 @@ class CampanhaVoucherController extends Controller implements
     private function retornoSucesso(CampanhaVoucherEntity $campanhaVoucherEntity, int $status = 200): Response
     {
         return mensagemSucesso(pegarPropriedadeDaEntity($campanhaVoucherEntity, lista: [
-            'documento_cpf', 'voucher', 'data_vencimento', 'status',
+            'voucher', 'data_vencimento', 'status',
             'data_criacao', 'data_atualizacao'
         ]), $status);
     }
@@ -99,9 +100,9 @@ class CampanhaVoucherController extends Controller implements
      */
     public function getDisponivel(): Response
     {
-        $CampanhaVoucherEntity = new CampanhaVoucherEntity();
+        $Existe = new ValidarUsuarioTemVoucherModel();
         return mensagemSucesso([
-            'temVoucher' => $CampanhaVoucherEntity->verificaVoucher() ? Botao::SIM : Botao::NAO
+            'temVoucher' => $Existe->existe ? Botao::SIM : Botao::NAO
         ]);
     }
 }

@@ -16,4 +16,5 @@ final class ID
     public const CEMECARD = 229;
     public const VIVA_FACIL = 178;
     public const CFM = 1981;
+    public const GEAP = 2009;
 }

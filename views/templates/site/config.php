@@ -1,6 +1,9 @@
 <?php
 
+use Modules\Botao;
+use Helpers\ApiHelper;
 use App\Models\Site\Popup\PopupModel;
+use App\Classes\Comercial\Empresa\UUID;
 
 $USUARIO = sessao('USUARIO');
 
@@ -20,3 +23,18 @@ $popupPromocao = (new PopupModel())->listar();
 $Botao = new \ResourcesSite\Componente\Botao();
 
 $webview = isset($webview) && $webview;
+
+// VOUCHER GEAP
+$voucher = false;
+if(in_array(CLUBE_EMPRESA, [UUID::GEAP, UUID::YOUHUUL])) {
+    if(sessaoExiste('VOUCHER_GEAP') && eProducao()) {
+        $voucher = sessao('VOUCHER_GEAP');
+    }
+    try {
+        $buscarVoucher = (new ApiHelper(token: true))->get('/campanha-voucher-disponivel')->object();
+        $voucher = validarIndiceExiste($buscarVoucher, 'dado.temVoucher') && $buscarVoucher->dado->temVoucher === Botao::SIM;
+    } catch (\Throwable $th) {
+        $voucher = false;
+    }
+    sessao('VOUCHER_GEAP', $voucher);
+}

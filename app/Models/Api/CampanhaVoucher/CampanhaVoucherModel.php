@@ -2,18 +2,18 @@
 
 namespace App\Models\Api\CampanhaVoucher;
 
-use App\Classes\CampanhaVoucher\Ordem;
-use App\Classes\CampanhaVoucher\Status;
-use App\Models\Api\Trait\ValidarEmpresaTrait;
+use ORM\ORM;
+use stdClass;
 use Erro\Excecao;
 use Modules\Pagina;
 use Modules\Quantidade;
-use ORM\ORM;
-use stdClass;
-use System\Interface\ModelListarInterface;
 use System\Trait\Model\OrdemTrait;
 use System\Trait\Model\PaginaTrait;
+use App\Classes\CampanhaVoucher\Ordem;
+use App\Classes\CampanhaVoucher\Status;
 use System\Trait\Model\QuantidadeTrait;
+use System\Interface\ModelListarInterface;
+use App\Models\Api\Trait\ValidarEmpresaTrait;
 
 class CampanhaVoucherModel extends ORM implements
     ModelListarInterface
@@ -71,8 +71,7 @@ class CampanhaVoucherModel extends ORM implements
     {
         $vouchers = $this
             ->campo([
-                'uuid', 'id_admin_empresa', 'id_usuario_cliente', 'documento_cpf', 'voucher',
-                'data_vencimento', 'status', 'data_criacao', 'data_atualizacao'
+                'uuid', 'data_resgate', 'data_vencimento', 'status', 'data_criacao', 'data_atualizacao'
             ])
             ->where($this->pegarWhere(), false)
             ->pagina($this->pegarPagina(), $this->pegarQuantidade())
@@ -111,7 +110,7 @@ class CampanhaVoucherModel extends ORM implements
         foreach ($vouchers as $voucher) {
             $retorno[] = [
                 'id'               => $voucher->uuid,
-                'documento_cpf'    => $voucher->documento_cpf,
+                'data_resgate'     => $voucher->data_resgate,
                 'data_validade'    => $voucher->data_vencimento,
                 'data_criacao'     => $voucher->data_criacao,
                 'data_atualizacao' => $voucher->data_atualizacao,

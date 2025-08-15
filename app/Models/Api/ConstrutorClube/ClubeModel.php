@@ -2,9 +2,9 @@
 
 namespace App\Models\Api\ConstrutorClube;
 
+use Modules\Botao;
 use App\Helpers\PrimeiroAcessoHelper;
 use App\Models\Api\Saude\Convenio\MenuModel as SaudeMenuModel;
-use Modules\Botao;
 
 final class ClubeModel
 {
