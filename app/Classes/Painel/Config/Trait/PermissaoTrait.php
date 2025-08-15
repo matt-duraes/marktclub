@@ -695,6 +695,16 @@ trait PermissaoTrait
                     'relatorio_loja_venda_parceiro'   => 'Todos os parceiros'
                 ]
             ],
+            'relatorio_campanha'       => [
+                'titulo'    => 'Relatório Campanha Voucher',
+                'permissao' => [
+                    'relatorio_campanha_index'   => [
+                        'titulo' => 'Relatório de indicação',
+                        'scope'  => ['relatorio_campanha:listar']
+                    ],
+                    'relatorio_campanha_empresa' => Titulo::EMPRESA
+                ]
+            ],
             'tabela_usuario'           => [
                 'titulo'    => 'Tabela de Usuário',
                 'permissao' => [
@@ -1554,10 +1564,6 @@ trait PermissaoTrait
                     'campanha_voucher_visualizar' => [
                         'titulo' => Titulo::VISUALIZAR,
                         'scope'  => 'campanha_voucher:buscar'
-                    ],
-                    'campanha_voucher_download'   => [
-                        'titulo' => Titulo::DOWNLOAD,
-                        'scope'  => ['campanha_voucher:download', 'mensageria:salvar']
                     ]
                 ]
             ]

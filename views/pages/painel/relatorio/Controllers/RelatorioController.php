@@ -50,12 +50,30 @@ final class RelatorioController extends Controller
             $subempresas = $this->pegarSelectSubempresa();
         }
         return view('painel.relatorio.indicacao', [
-            'appTitulo'         => 'Relatório de Indicação',
-            'app'               => 'relatorio-indicacao',
-            'de'                => dataRemover(date('Y-m-d'), 8, 'dias', 'd/m/Y'),
-            'ate'               => dataRemover(date('d/m/Y'), 1, 'dia', 'd/m/Y'),
-            'empresa'           => $empresas,
-            'subempresa'        => $subempresas
+            'appTitulo'  => 'Relatório de Indicação',
+            'app'        => 'relatorio-indicacao',
+            'de'         => dataRemover(date('Y-m-d'), 8, 'dias', 'd/m/Y'),
+            'ate'        => dataRemover(date('d/m/Y'), 1, 'dia', 'd/m/Y'),
+            'empresa'    => $empresas,
+            'subempresa' => $subempresas
+        ]);
+    }
+
+    /**
+     * @throws Excecao
+     */
+    public function campanha(): Response
+    {
+        $empresas = [];
+        if (painelPermissao('relatorio_campanha_empresa', false)) {
+            $empresas = $this->pegarSelectEmpresa();
+        }
+        return view('painel.relatorio.campanha', [
+            'appTitulo' => 'Relatório de Campanha Voucher',
+            'app'       => 'relatorio-campanha',
+            'de'        => dataRemover(date('Y-m-d'), 8, 'dias', 'd/m/Y'),
+            'ate'       => dataRemover(date('d/m/Y'), 1, 'dia', 'd/m/Y'),
+            'empresa'   => $empresas
         ]);
     }
 
@@ -127,7 +145,11 @@ final class RelatorioController extends Controller
     private function pegarSelectSubempresa()
     {
         return (new ApiHelper(token: true))
-            ->json(painelPermissao('relatorio_indicacao_subempresa', false) ? ['todas' => '1'] : ['empresa' => sessao('EMPRESA.id')])
+            ->json(
+                painelPermissao('relatorio_indicacao_subempresa', false) ? ['todas' => '1'] : [
+                    'empresa' => sessao('EMPRESA.id')
+                ]
+            )
             ->get('/comercial-subempresa/select')
             ->array()['dado'] ?? [];
     }
@@ -316,36 +338,38 @@ final class RelatorioController extends Controller
             ->object()->dado ?? [];
 
         $Montar = new MontarRelatorioModel();
-        return mensagemSucesso(empty($dado) ? [
-            'status'         => [
-                'total' => [
-                    'usuario'   => 0,
-                    'bloqueado' => 0
+        return mensagemSucesso(
+            empty($dado) ? [
+                'status'         => [
+                    'total'   => [
+                        'usuario'   => 0,
+                        'bloqueado' => 0
+                    ],
+                    'ativo'   => [
+                        'numero'      => 0,
+                        'porcentagem' => 0
+                    ],
+                    'inativo' => [
+                        'numero'      => 0,
+                        'porcentagem' => 0
+                    ]
                 ],
-                'ativo' => [
-                    'numero'      => 0,
-                    'porcentagem' => 0
-                ],
-                'inativo' => [
-                    'numero'      => 0,
-                    'porcentagem' => 0
-                ]
-            ],
-            'estado'         => [],
-            'genero'         => [],
-            'faixa_etaria'   => [],
-            'atualizar_dado' => [],
-            'estado_civil'   => [],
-            'situacao'       => []
-        ] : [
-            'status'         => $Montar->montarRelatorioStatus($dado->status),
-            'estado'         => $Montar->montarRelatorioEstado($dado->estado),
-            'genero'         => $Montar->montarPizza($dado->genero->lista, 'genero'),
-            'faixa_etaria'   => $Montar->montarPizza($dado->faixa_etaria->lista, 'faixa_etaria'),
-            'atualizar_dado' => $Montar->montarPizza($dado->atualizar_dado->lista, 'tempo'),
-            'estado_civil'   => $Montar->montarPizza($dado->estado_civil->lista, 'estado_civil'),
-            'situacao'       => $Montar->montarPizza($dado->situacao->lista, 'situacao')
-        ]);
+                'estado'         => [],
+                'genero'         => [],
+                'faixa_etaria'   => [],
+                'atualizar_dado' => [],
+                'estado_civil'   => [],
+                'situacao'       => []
+            ] : [
+                'status'         => $Montar->montarRelatorioStatus($dado->status),
+                'estado'         => $Montar->montarRelatorioEstado($dado->estado),
+                'genero'         => $Montar->montarPizza($dado->genero->lista, 'genero'),
+                'faixa_etaria'   => $Montar->montarPizza($dado->faixa_etaria->lista, 'faixa_etaria'),
+                'atualizar_dado' => $Montar->montarPizza($dado->atualizar_dado->lista, 'tempo'),
+                'estado_civil'   => $Montar->montarPizza($dado->estado_civil->lista, 'estado_civil'),
+                'situacao'       => $Montar->montarPizza($dado->situacao->lista, 'situacao')
+            ]
+        );
     }
 
     /*
@@ -376,30 +400,79 @@ final class RelatorioController extends Controller
             ->get('/relatorio/indicacao')
             ->object()->dado ?? [];
 
-        return mensagemSucesso(empty($dado) ? [
-            'status'         => [
-                'total' => [
+        return mensagemSucesso(
+            empty($dado) ? [
+                'status' => [
+                    'total'      => [
+                        'numero'      => 0,
+                        'porcentagem' => 0
+                    ],
+                    'concluido'  => [
+                        'numero'      => 0,
+                        'porcentagem' => 0
+                    ],
+                    'cancelado'  => [
+                        'numero'      => 0,
+                        'porcentagem' => 0
+                    ],
+                    'prospeccao' => [
+                        'numero'      => 0,
+                        'porcentagem' => 0
+                    ],
+                    'semVinculo' => [
+                        'numero'      => 0,
+                        'porcentagem' => 0
+                    ]
+                ]
+            ] : $dado
+        );
+    }
+
+    /*
+    |--------------------------------------------------------------------------
+    | GRÁFICO DE CAMPANHA
+    |--------------------------------------------------------------------------
+    */
+    public function getCampanhaVouchers(Request $request)
+    {
+        $de = $request->de;
+        $ate = $request->ate;
+
+        $this->validarData($de, $ate);
+        $body = [
+            'de'  => dataBanco($de),
+            'ate' => dataBanco($ate),
+        ];
+        if (!empty($request->empresa)) {
+            $body['empresa'] = explode(',', $request->empresa);
+        }
+
+        $Api = new ApiHelper(token: true);
+        $dado = $Api
+            ->json($body)
+            ->get('/relatorio/campanha-voucher')
+            ->object()->dado ?? [];
+
+        return mensagemSucesso(
+            empty($dado) ? [
+                'total'      => [
                     'numero'      => 0,
                     'porcentagem' => 0
                 ],
-                'concluido' => [
+                'resgatado'  => [
                     'numero'      => 0,
                     'porcentagem' => 0
                 ],
-                'cancelado' => [
+                'vencido'    => [
                     'numero'      => 0,
                     'porcentagem' => 0
                 ],
-                'prospeccao' => [
-                    'numero'      => 0,
-                    'porcentagem' => 0
-                ],
-                'semVinculo' => [
+                'disponivel' => [
                     'numero'      => 0,
                     'porcentagem' => 0
                 ]
-            ]
-        ] : $dado);
+            ] : $dado
+        );
     }
 
     /*
