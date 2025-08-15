@@ -699,7 +699,7 @@ trait PermissaoTrait
                 'titulo'    => 'Relatório Campanha Voucher',
                 'permissao' => [
                     'relatorio_campanha_index'   => [
-                        'titulo' => 'Relatório de indicação',
+                        'titulo' => 'Relatório de Campanha Voucher',
                         'scope'  => ['relatorio_campanha:listar']
                     ],
                     'relatorio_campanha_empresa' => Titulo::EMPRESA
