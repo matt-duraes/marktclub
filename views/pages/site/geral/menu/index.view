@@ -13,6 +13,14 @@
     @ endif;
 @endif;
 
+@ if (MENU_CAMPANHA_VOUCHER):
+<a class="botao" href="{{LINK}}/netshoes-voucher">
+    <i>@iconePremium</i>
+    Voucher Netshoes
+    <div class="novo">brinde</div>
+</a>
+@ endif;
+
 @ if( MENU_LOJA || MENU_MAPA || MENU_TURISMO || MENU_FARMACIA || MENU_AUTOMOVEL || MENU_CUPOM || MENU_CASHBACK || MENU_PREMIUM):
     <div class="categoria">DESCONTOS</div>
     @ if( MENU_PREMIUM ):
@@ -159,11 +167,6 @@
         Indicar um parceiro
     </a>
 @ endif;
-
-<a id="voucher_netshoes" class="botao display_none" href="{{LINK}}/netshoes-voucher">
-    <i>@iconePremium</i>
-    Voucher Netshoes
-</a>
 
 @if(MENU_MANOLE):
     <a class="botao {!!MENU_HOVER == 'manole' ? 'cor_bg pagina_atual' : ''!!}" href="{{LINK}}/manole">
