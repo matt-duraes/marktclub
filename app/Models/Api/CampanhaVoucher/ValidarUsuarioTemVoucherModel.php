@@ -16,7 +16,8 @@ final class ValidarUsuarioTemVoucherModel extends ORM
         if(
             !defined('TOKEN') ||
             !array_key_exists('empresa', TOKEN) ||
-            !in_array(TOKEN['empresa'], [ID::GEAP, ID::YOUHUUL]) ||
+            !object_key_exists('id', TOKEN['empresa']) ||
+            !in_array(TOKEN['empresa']->id, [ID::GEAP, ID::YOUHUUL]) ||
             !array_key_exists('usuario', TOKEN) ||
             !object_key_exists('id', TOKEN['usuario']) ||
             empty(TOKEN['usuario'])
