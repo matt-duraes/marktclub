@@ -222,8 +222,12 @@ final class LojaController extends Controller
             ->get('/campanha-voucher-resgatar')
             ->object();
 
-        $url = $dado->dado->voucher ? $dado->dado->voucher : route('loja.index');
-
-        header("Location: " . $url);
+        if ($dado->status == 'sucesso') {
+            header("Location: " . $dado->dado->voucher);
+        }
+        mensagemErro(
+            'Voucher Indisponível',
+            'Não encontramos nenhum voucher disponível para o seu usuário.'
+        );
     }
 }
