@@ -222,7 +222,7 @@ final class LojaController extends Controller
             ->get('/campanha-voucher-resgatar')
             ->object();
 
-        $url = $dado->dado->voucher;
+        $url = $dado->dado->voucher ? $dado->dado->voucher : route('loja.index');
 
         header("Location: " . $url);
     }
