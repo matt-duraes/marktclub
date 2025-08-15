@@ -13,7 +13,8 @@
     @ endif;
 @endif;
 
-@ if (MENU_CAMPANHA_VOUCHER):
+@ if (sessaoExiste('VOUCHER_GEAP') && sessao('VOUCHER_GEAP')):
+<div class="categoria">PROMOÇÃO</div>
 <a class="botao" href="{{LINK}}/netshoes-voucher">
     <i>@iconePremium</i>
     Voucher Netshoes
