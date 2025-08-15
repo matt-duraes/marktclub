@@ -2,25 +2,24 @@
 
 namespace App\Models\Api\CampanhaVoucher;
 
+use ORM\Entity;
+use Modules\Cpf;
+use Erro\Excecao;
+use Modules\DataHora;
+use Helpers\OrmHelper;
 use App\Classes\CampanhaVoucher\Status;
 use App\Models\Api\Trait\ValidarEmpresaTrait;
-use Erro\Excecao;
-use Helpers\OrmHelper;
-use Modules\Cpf;
-use Modules\DataHora;
-use ORM\Entity;
 
 class CampanhaVoucherEntity extends Entity
 {
     use ValidarEmpresaTrait;
 
-    public Cpf $documento_cpf;
     public string $voucher;
     public DataHora $data_vencimento;
     public Status $status;
     protected string $ormTabela = TABELA_CAMPANHA_VOUCHER;
     protected array $ormBuscar = [
-        'id_admin_empresa', 'id_usuario_cliente', 'documento_cpf', 'voucher',
+        'id_admin_empresa', 'id_usuario_cliente', 'voucher',
         'data_vencimento', 'status', 'data_criacao', 'data_atualizacao'
     ];
     protected array $ormUpdate = [
@@ -65,18 +64,12 @@ class CampanhaVoucherEntity extends Entity
      * @return string
      * @throws Excecao
      */
-    public function resgatarVoucher(bool $cpf = false): string
+    public function resgatarVoucher(): string
     {
-        if ($cpf) {
-            $where = [
-                ['documento_cpf', $this->pegarCpfUsuario()]
-            ];
-        } else {
-            $where = [
-                ['id_admin_empresa', $this->idEmpresa],
-                ['id_usuario_cliente', $this->idUsuario]
-            ];
-        }
+        $where = [
+            ['id_admin_empresa', $this->idEmpresa],
+            ['id_usuario_cliente', $this->idUsuario]
+        ];
 
         $ormHelper = new OrmHelper($this->ormTabela);
         $Status = new Status();
@@ -100,28 +93,11 @@ class CampanhaVoucherEntity extends Entity
         } elseif ($Status->indice($voucher->status) === Status::NAO_RESGATADO) {
             $ormHelper->atualizar([
                 'data_atualizacao' => date('Y-m-d H:i:s'),
+                'data_resgate'     => date('Y-m-d H:i:s'),
                 'status'           => $Status->numero(Status::RESGATADO)
             ], $voucher->id);
         }
         return $voucher->voucher;
-    }
-
-    /**
-     * @return string
-     * @throws Excecao
-     */
-    private function pegarCpfUsuario(): string
-    {
-        $ormHelper = new OrmHelper(TABELA_USUARIO_CLIENTE);
-        $cpfUsuario = $ormHelper->campo(['documento'])->where(['id', $this->idUsuario])->primeiro();
-
-        if (empty($cpfUsuario)) {
-            mensagemErro(
-                'Usuário sem CPF!',
-                'Contate o suporte para que possa resgatar o voucher!'
-            );
-        }
-        return $cpfUsuario->documento;
     }
 
     /**
