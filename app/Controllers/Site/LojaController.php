@@ -215,4 +215,15 @@ final class LojaController extends Controller
 
         return mensagemSucesso([], status: 201);
     }
+
+    public function resgateGeap()
+    {
+        $dado = (new ClubeApiHelper())
+            ->get('/campanha-voucher-resgatar')
+            ->object();
+
+        $url = $dado->dado->voucher;
+
+        header("Location: " . $url);
+    }
 }

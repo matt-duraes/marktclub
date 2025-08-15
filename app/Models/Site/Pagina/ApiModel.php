@@ -95,7 +95,7 @@ final class ApiModel extends ClubeApiHelper
         $tipo = !empty($this->tipo) ? $this->tipo : '';
         return [
             'banner' => ['imagem_desktop', 'imagem_mobile', 'link'],
-            'loja' => ['imagem', 'id', 'tipo_loja', 'url', 'titulo']
+            'loja' => ['imagem', 'imagem_logo', 'id', 'tipo_loja', 'url', 'titulo']
         ][$tipo] ?? [];
     }
 

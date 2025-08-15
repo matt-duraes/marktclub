@@ -246,6 +246,9 @@ Route
                 'voceIndicaria',
             ])
             ::post('/pesquisa-utilizacao');
+        Route
+            ::nome('campanhaVoucher')
+            ::get('/campanha-voucher-disponivel');
     });
 
 Route
@@ -607,9 +610,20 @@ Route
                 '/saude',
                 '/manole',
                 '/cinema',
+                '/netshoes-voucher'
             ]);
     });
+Route
+    ::nome('geap')
+    ::middleware(ClubeMiddleware::class, 'buscar')
+    ::middleware(AuthMiddleware::class, 'logado')
+    ::controller(App\Controllers\Site\LojaController::class)
+    ::grupo(function () {
+        Route
+            ::nome('resgateGeap')
+            ::view('/resgate-geap');
 
+    });
 Route
     ::nome('planosaude')
     ::middleware(ClubeMiddleware::class, 'buscar')

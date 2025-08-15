@@ -2,25 +2,67 @@
 
 namespace App\Models\Site\Cashback;
 
+use Erro\Excecao;
 use App\Helpers\ClubeApiHelper;
+use App\Classes\SiliumComissao\Ordem;
 use App\Classes\SiliumDeposito\TipoOperacao;
 
 final class SiliumModel extends ClubeApiHelper
 {
-    public function buscarDados()
+    /**
+     * @return array
+     * @throws Excecao
+     */
+    public function buscarDados(): array
     {
-        $extratoCompra = $this->extratoCompra();
-        $extratoSaque = $this->extratoSaque();
-        $saldo = $this->saldo();
-        $dados = [
-            'extrato_compra' => $extratoCompra,
-            'extrato_saque'  => $extratoSaque,
-            'saldo'          => $saldo
+        return [
+            'extrato_compra' => $this->extratoCompra(),
+            'extrato_saque'  => $this->extratoSaque(),
+            'saldo'          => $this->saldo()
         ];
-        return $dados;
     }
 
-    public function saldo()
+    /**
+     * @return mixed
+     * @throws Excecao
+     */
+    public function extratoCompra(): mixed
+    {
+        $dado = $this
+            ->validar('Não foi possível pegar extrato!', status: 404)
+            ->json([
+                'pagina'  => 1,
+                'cliente' => sessao('USUARIO.id'),
+                'ordem'   => Ordem::MAIS_NOVO
+            ])
+            ->get('/silium-comissao')
+            ->object();
+        return $dado->dado->lista;
+    }
+
+    /**
+     * @return mixed
+     * @throws Excecao
+     */
+    public function extratoSaque(): mixed
+    {
+        $dado = $this
+            ->json([
+                'pagina'        => 1,
+                'usuario'       => sessao('USUARIO.id'),
+                'tipo_operacao' => TipoOperacao::SAQUE,
+                'ordem'         => Ordem::MAIS_NOVO
+            ])
+            ->get('/silium-deposito')
+            ->object();
+        return $dado->dado->lista;
+    }
+
+    /**
+     * @return mixed
+     * @throws Excecao
+     */
+    public function saldo(): mixed
     {
         $dado = $this
             ->validar('Não foi possível resgatar saldo!', status: 404)
@@ -29,21 +71,11 @@ final class SiliumModel extends ClubeApiHelper
         return $dado->dado->saldo_silium;
     }
 
-    public function extratoCompra()
-    {
-        $dado = $this
-            ->validar('Não foi possível pegar extrato!', status: 404)
-            ->json([
-                'pagina'  => 1,
-                'usuario' => sessao('USUARIO.id'),
-                'ordem'   => 'mais-novo'
-            ])
-            ->get('/silium-comissao')
-            ->object();
-        return $dado->dado->lista;
-    }
-
-    public function pontosResgate()
+    /**
+     * @return mixed
+     * @throws Excecao
+     */
+    public function pontosResgate(): mixed
     {
         $dado = $this
             ->validar('Não foi possível pegar os pontos necessários!', status: 404)
@@ -52,23 +84,15 @@ final class SiliumModel extends ClubeApiHelper
         return $dado->dado;
     }
 
-    public function extratoSaque()
+    /**
+     * @param $dados
+     *
+     * @return object|bool|array
+     * @throws Excecao
+     */
+    public function solicitarDeposito($dados): object|bool|array
     {
-        $dado = $this
-            ->json([
-                'pagina'        => 1,
-                'usuario'       => sessao('USUARIO.id'),
-                'tipo_operacao' => TipoOperacao::SAQUE,
-                'ordem'         => 'mais-novo'
-            ])
-            ->get('/silium-deposito')
-            ->object();
-        return $dado->dado->lista;
-    }
-
-    public function solicitarDeposito($dados)
-    {
-        $dado = $this
+        return $this
             ->validar('Ocorreu um erro ao fazer a solicitação')
             ->body([
                 'tipo_operacao' => TipoOperacao::SAQUE,
@@ -85,6 +109,5 @@ final class SiliumModel extends ClubeApiHelper
             ])
             ->post('/silium-deposito')
             ->object();
-        return $dado;
     }
 }

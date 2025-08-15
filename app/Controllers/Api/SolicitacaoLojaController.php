@@ -41,6 +41,22 @@ class SolicitacaoLojaController extends Controller implements
     }
 
     /**
+     * @param SolicitacaoEntity $solicitacaoEntity
+     * @param int               $status
+     *
+     * @return Response
+     * @throws Excecao
+     */
+    private function retornoSucesso(SolicitacaoEntity $solicitacaoEntity, int $status = 200): Response
+    {
+        return mensagemSucesso(pegarPropriedadeDaEntity($solicitacaoEntity, lista: [
+            'parceiro', 'parceiro_info', 'nome', 'email', 'telefone', 'mensagem', 'status',
+            'quemIndicou', 'origemIndicacao', 'data_criacao', 'data_atualizacao',
+            'empresas', 'gestor'
+        ]), $status, Helper::CRIPTOGRAFAR);
+    }
+
+    /**
      * @param Request $request
      *
      * @return Response
@@ -54,6 +70,7 @@ class SolicitacaoLojaController extends Controller implements
             new Ordem($request->ordem),
             $request->pesquisa,
             $request->empresa,
+            $request->subempresa,
             $request->usuario,
             $request->parceiro,
             new Data($request->indicacao_inicio),
@@ -109,6 +126,7 @@ class SolicitacaoLojaController extends Controller implements
             $request->campo,
             $request->usuario,
             $request->empresa,
+            $request->subempresa,
             $request->parceiro,
             new Data($request->indicacao_inicio),
             new Data($request->indicacao_final),
@@ -119,21 +137,5 @@ class SolicitacaoLojaController extends Controller implements
         return mensagemSucesso([
             'id' => $ArquivoEntity->id
         ], 201);
-    }
-
-    /**
-     * @param SolicitacaoEntity $solicitacaoEntity
-     * @param int               $status
-     *
-     * @return Response
-     * @throws Excecao
-     */
-    private function retornoSucesso(SolicitacaoEntity $solicitacaoEntity, int $status = 200): Response
-    {
-        return mensagemSucesso(pegarPropriedadeDaEntity($solicitacaoEntity, lista: [
-            'parceiro', 'parceiro_info', 'nome', 'email', 'telefone', 'mensagem', 'status',
-            'quemIndicou', 'origemIndicacao', 'data_criacao', 'data_atualizacao',
-            'empresas', 'gestor'
-        ]), $status, Helper::CRIPTOGRAFAR);
     }
 }

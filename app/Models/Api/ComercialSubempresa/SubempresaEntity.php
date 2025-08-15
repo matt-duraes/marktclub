@@ -53,7 +53,7 @@ class SubempresaEntity extends Entity
     /**
      * @throws Excecao
      */
-    protected function regraInsert(): void
+    protected function regraSalvar(): void
     {
         $this->id_admin_empresa = $this->idEmpresa;
         if (!empty($this->empresa) && is_string($this->empresa)) {
@@ -67,11 +67,6 @@ class SubempresaEntity extends Entity
         }
     }
 
-    protected function regraPosBuscar(): void
-    {
-        $this->setarEmpresa();
-    }
-
     private function obterEmpresa(): void
     {
         $empresa = (new OrmHelper($this->ormTabela))
@@ -83,6 +78,11 @@ class SubempresaEntity extends Entity
                 'Não encontrada!'
             );
         $this->id_admin_empresa = $empresa->id;
+    }
+
+    protected function regraPosBuscar(): void
+    {
+        $this->setarEmpresa();
     }
 
     private function setarEmpresa(): void

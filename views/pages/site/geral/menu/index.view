@@ -160,6 +160,11 @@
     </a>
 @ endif;
 
+<a id="voucher_netshoes" class="botao display_none" href="{{LINK}}/netshoes-voucher">
+    <i>@iconePremium</i>
+    Voucher Netshoes
+</a>
+
 @if(MENU_MANOLE):
     <a class="botao {!!MENU_HOVER == 'manole' ? 'cor_bg pagina_atual' : ''!!}" href="{{LINK}}/manole">
         <i id="icone_mais_acao">@iconeCvs(22)</i>

@@ -4,7 +4,6 @@ namespace App\Middlewares\Site;
 
 use Helpers\ApiHelper;
 use Helpers\UserAgentHelper;
-use App\Classes\Comercial\Empresa\UUID;
 
 final class ClubeMiddleware extends ApiHelper
 {
@@ -85,25 +84,6 @@ final class ClubeMiddleware extends ApiHelper
 
         sessao('CLUBE_' . $this->id, true);
         sessao('CLUBE', $this->montarClube($dado->dado));
-    }
-
-    private function montarClube($dado)
-    {
-        $dado->contato_telefone = strTelefone($dado->contato_telefone);
-        $dado->contato_whatsapp = strTelefone($dado->contato_whatsapp);
-        $menu = [];
-        foreach ($dado->menu as $ind => $val) {
-            $menu[$ind] = $val == 'sim';
-        }
-        $dado->menu = (object)$menu;
-        $dado->api = $dado->api == 'sim';
-        $dado->administrado = $dado->administrado == 'sim';
-        $dado->chat = $dado->chat == 'sim';
-        $dado->ativacao_status = $dado->ativacao_status == 'sim';
-        $dado->login_status = $dado->login_status == 'sim';
-        $dado->login_escolha_status = $dado->login_escolha_status == 'sim';
-        $dado->recuperar_senha_status = $dado->recuperar_senha_status == 'sim';
-        return $dado;
     }
 
     private function montarDefine()
@@ -229,5 +209,24 @@ final class ClubeMiddleware extends ApiHelper
 
         define('LOGIN_ESCOLHA', API || MENU_FUNCIONARIO);
         define('RECUPERAR_SENHA_STATUS', $clube->recuperar_senha_status);
+    }
+
+    private function montarClube($dado)
+    {
+        $dado->contato_telefone = strTelefone($dado->contato_telefone);
+        $dado->contato_whatsapp = strTelefone($dado->contato_whatsapp);
+        $menu = [];
+        foreach ($dado->menu as $ind => $val) {
+            $menu[$ind] = $val == 'sim';
+        }
+        $dado->menu = (object)$menu;
+        $dado->api = $dado->api == 'sim';
+        $dado->administrado = $dado->administrado == 'sim';
+        $dado->chat = $dado->chat == 'sim';
+        $dado->ativacao_status = $dado->ativacao_status == 'sim';
+        $dado->login_status = $dado->login_status == 'sim';
+        $dado->login_escolha_status = $dado->login_escolha_status == 'sim';
+        $dado->recuperar_senha_status = $dado->recuperar_senha_status == 'sim';
+        return $dado;
     }
 }

@@ -1,0 +1,1 @@
+{"id":"id_3ea777b7fab4698124ed26041855253d","token":"token","metodo":"GET","nome":"\/campanha-voucher-disponivel","uri":"{{LINK}}\/campanha-voucher-disponivel","parametro":[],"body":[],"header":[],"variavel":[],"json":[],"documentacao":{"status":false,"descricao":"","requisicao":"","resposta":"","scope":"campanha_voucher:buscar"}}

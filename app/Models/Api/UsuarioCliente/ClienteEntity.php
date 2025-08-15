@@ -2,21 +2,21 @@
 
 namespace App\Models\Api\UsuarioCliente;
 
-use Erro\Erro;
-use ORM\Entity;
-use Erro\Excecao;
-use Http\Request;
-use Helpers\UploadHelper;
+use App\Models\Api\ComercialEmpresa\EmpresaEntity;
 use App\Models\Api\Painel\ConfiguracaoEntity;
 use App\Models\Api\Trait\ValidarEmpresaTrait;
-use App\Models\Api\ComercialEmpresa\EmpresaEntity;
-use Symfony\Component\HttpFoundation\File\UploadedFile;
 use App\Models\Api\UsuarioCliente\Trait\CampoUnicoTrait;
 use App\Models\Api\UsuarioCliente\Trait\EntityBuscarTrait;
 use App\Models\Api\UsuarioCliente\Trait\EntityInsertTrait;
 use App\Models\Api\UsuarioCliente\Trait\EntitySalvarTrait;
 use App\Models\Api\UsuarioCliente\Trait\EntityUpdateTrait;
 use App\Models\Api\UsuarioCliente\Trait\PropriedadeEntityTrait;
+use Erro\Erro;
+use Erro\Excecao;
+use Helpers\UploadHelper;
+use Http\Request;
+use ORM\Entity;
+use Symfony\Component\HttpFoundation\File\UploadedFile;
 
 final class ClienteEntity extends Entity
 {
@@ -80,7 +80,7 @@ final class ClienteEntity extends Entity
         email_funcional|E-mail funcional|email
         telefone_pessoal|Telefone pessoal|telefone
         telefone_trabalho|Telefone de trabalho|telefone
-        trabalho_cargo|Cargo|valido
+        trabalho_cargo|Cargo
         tipo_pagamento|Tipo de pagamento|valido
         senha|Senha|senha
         status|Status|valido
