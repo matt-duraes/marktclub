@@ -82,7 +82,7 @@ final class AtivarModel extends ORM
         }
         $this->validarCampoUnico();
         if ($this->ciescInsert) {
-            $this->salvarUsuarioDiferente(empresa: ID::CIESC);
+            $this->salvarUsuarioDiferente(empresa: ID::CIESC, subempresa: ID::CIESC_SUBEMPRESA);
             return;
         } elseif ($this->codigoInsert) {
             $this->salvarUsuarioDiferente(empresa: ID::ABERT, subempresa: $this->idSubempresa);
