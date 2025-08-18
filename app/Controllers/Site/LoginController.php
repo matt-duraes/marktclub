@@ -35,12 +35,10 @@ final class LoginController extends Controller
 
     public function getBuscarHome()
     {
-        $contador = jsonDecode(file_get_contents('https://arquivo.youhuul.com/construtor/loja.json'), true, true);
-
         $Cache = new VersaoClubeModel();
         $retorno = [
-            'loja'     => $contador['lojas'] ?? 23000,
-            'parceiro' => $contador['parcerias'] ?? 2000,
+            'loja'     => env('LOJA_LOJA', 25000),
+            'parceiro' => env('LOJA_PARCEIRO', 2500),
             'banner'   => (new ComunicacaoModel())->buscarBanner()
         ];
         $Cache->cache('busca_home', $retorno);
