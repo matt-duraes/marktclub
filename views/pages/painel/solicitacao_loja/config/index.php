@@ -8,7 +8,7 @@ $Painel = new Index('solicitacao_loja', new Ordem());
 
 $Painel
     ->campo('empresa', 'Empresa', Index::TIPO_GRANDE, permissao: 'solicitacao_loja_empresa')
-    ->campo('subempresa', 'Subempresa', Index::TIPO_GRANDE, permissao: 'solicitacao_loja_subempresa')
+    ->campo('subempresa', 'Subempresa', Index::TIPO_GRANDE)
     ->campo('usuario_indicacao', 'Usuário', Index::TIPO_GRANDE)
     ->campo('parceiro', 'Parceiro/Loja', Index::TIPO_GRANDE)
     ->campo('nome_indicacao', 'Nome Indicação', Index::TIPO_NORMAL)
