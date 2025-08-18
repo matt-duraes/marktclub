@@ -266,7 +266,7 @@ trait CondicaoTrait
         if (is_int($valor)) {
             return $valor;
         }
-        $valor = explode('.', str_replace('"', '', $valor));
+        $valor = explode('->', str_replace('"', '', $valor));
         return '"' . implode('"."', $valor) . '"';
     }
 
