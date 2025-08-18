@@ -145,8 +145,9 @@ class ComponenteBuscar {
             } else if (!vazio(item.link)) {
                 $('.item_link', clone).setAttribute('href', item.link);
             }
-
-            if (!vazio(item.imagem)) {
+            if (!vazio(item.imagem_logo) && item.tipo_loja == 'cinema') {
+                $('.item_logo', clone).html(`<img src="${item.imagem_logo}" alt="">`);
+            } else if (!vazio(item.imagem)) {
                 $('.item_logo', clone).html(`<img src="${item.imagem}" alt="">`);
             }
             if (!vazio(item.desconto)) {
