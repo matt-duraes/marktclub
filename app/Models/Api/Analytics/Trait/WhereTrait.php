@@ -50,7 +50,11 @@ trait WhereTrait
         } elseif ($subempresa && empty($this->subempresa) && !empty($this->idSubempresa) && $this->idSubempresa !== 0) {
             $where[] = ['id_admin_subempresa', $this->idSubempresa];
         } else {
-            $where[] = ['id_admin_subempresa', 'null'];
+            $where[] = [
+                'OR',
+                ['id_admin_subempresa', 'null'],
+                ['id_admin_subempresa', '0']
+            ];
         }
 
         if ($dataAcesso && $this->dataInicial->valido() && $this->dataFinal->valido()) {
