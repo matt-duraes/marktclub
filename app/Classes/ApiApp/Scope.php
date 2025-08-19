@@ -42,6 +42,7 @@ final class Scope
         'saude_contratacao:salvar', 'saude_simulacao:salvar',
         'saude_convenio:listar', 'saude_convenio:estado', 'saude_convenio:cidade', 'saude_convenio:html',
         'saude_convenio:buscar',
+        'campanha_voucher:buscar', 'campanha_voucher:atualizar',
         'saude_simulacao:simular',
         'ponto_cvs:listar', 'ponto_cvs:salvar',
         'comercial_popup:listar',
@@ -208,7 +209,7 @@ final class Scope
 
         'relatorio_acesso:listar', 'relatorio_analytics:download', 'relatorio_analytics:listar',
         'relatorio_analytics:salvar', 'relatorio_loja_venda:listar', 'relatorio_usuario:listar',
-        'relatorio_indicacao:listar',
+        'relatorio_indicacao:listar', 'relatorio_campanha:listar',
 
         'saude_contratacao:listar', 'saude_contratacao:buscar', 'saude_contratacao:status',
         'saude_contratacao:atualizar',
@@ -435,7 +436,7 @@ final class Scope
 
         'relatorio_acesso:listar', 'relatorio_analytics:download', 'relatorio_analytics:listar',
         'relatorio_analytics:salvar', 'relatorio_loja_venda:listar', 'relatorio_usuario:listar',
-        'relatorio_indicacao:listar',
+        'relatorio_indicacao:listar', 'relatorio_campanha:listar',
 
         'silium_comissao:atualizar', 'silium_comissao:buscar', 'silium_comissao:deletar',
         'silium_comissao:listar', 'silium_comissao:saldo', 'silium_comissao:download',

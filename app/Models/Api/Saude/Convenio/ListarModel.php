@@ -79,7 +79,7 @@ final class ListarModel extends PadraoModel
         if(!empty($this->enderecoCidade)) {
             $where[] = [
                 'OR',
-                ['endereco_cidade', 'chave', $this->EnderecoEstado->uf() . '.' . $this->enderecoCidade],
+                ['endereco_cidade', 'chave', $this->EnderecoEstado->uf() . '->' . $this->enderecoCidade],
                 ['endereco_cidade', 'chave', $this->enderecoCidade],
                 ['endereco_cidade', 'null']
             ];

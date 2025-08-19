@@ -2,24 +2,25 @@
 
 namespace App\Controllers\Site;
 
+use App\Classes\EnqueteMercado\Experiencia;
+use App\Classes\EnqueteMercado\Fidelidade;
+use App\Classes\EnqueteMercado\Frequencia;
+use App\Classes\EnqueteMercado\Gasto;
+use App\Classes\EnqueteMercado\Importancia;
+use App\Classes\EnqueteMercado\Padrao;
+use App\Classes\EnqueteMercado\Produtos;
+use App\Classes\ParceiroLoja\Ordem;
+use App\Classes\ParceiroLoja\TipoLoja;
+use App\Models\Site\Comunicacao\BannerModel;
+use App\Models\Site\Loja\FiltroModel;
+use App\Models\Site\Loja\ListarModel;
+use App\Models\Site\Loja\PesquisaModel;
+use App\Models\Site\Saude\HomeModel;
+use App\Models\Site\Site\CampanhaVoucherModel;
+use Controller\Controller;
 use Erro\Excecao;
 use Http\Request;
 use Http\Response;
-use Controller\Controller;
-use App\Classes\ParceiroLoja\Ordem;
-use App\Models\Site\Saude\HomeModel;
-use App\Classes\EnqueteMercado\Gasto;
-use App\Models\Site\Loja\FiltroModel;
-use App\Models\Site\Loja\ListarModel;
-use App\Classes\EnqueteMercado\Padrao;
-use App\Classes\ParceiroLoja\TipoLoja;
-use App\Models\Site\Loja\PesquisaModel;
-use App\Classes\EnqueteMercado\Produtos;
-use App\Classes\EnqueteMercado\Fidelidade;
-use App\Classes\EnqueteMercado\Frequencia;
-use App\Classes\EnqueteMercado\Experiencia;
-use App\Classes\EnqueteMercado\Importancia;
-use App\Models\Site\Comunicacao\BannerModel;
 
 final class IndexController extends Controller
 {
@@ -31,10 +32,10 @@ final class IndexController extends Controller
     {
         $Filtro = new FiltroModel([]);
         return view('index', [
-            'menu'            => 'home',
-            'Busca'           => $Filtro,
-            'banner'          => (new BannerModel())->home(),
-            'plano_saude'     => (new HomeModel())->valor,
+            'menu'        => 'home',
+            'Busca'       => $Filtro,
+            'banner'      => (new BannerModel())->home(),
+            'plano_saude' => (new HomeModel())->valor,
         ]);
     }
 
@@ -94,9 +95,23 @@ final class IndexController extends Controller
         ]);
     }
 
-    public function postPesquisaUtilizacao(Request $request)
+    /**
+     * @throws Excecao
+     */
+    public function postPesquisaUtilizacao(Request $request): Response
     {
-        $dado = (new PesquisaModel())->salvar($request);
-        return mensagemSucesso([], status: 201);
+        (new PesquisaModel())->salvar($request);
+        return mensagemSucesso([], 201);
+    }
+
+    /**
+     * @param Request $request
+     *
+     * @return Response
+     * @throws Excecao
+     */
+    public function getCampanhaVoucher(Request $request): Response
+    {
+        return mensagemSucesso((new CampanhaVoucherModel())->verificar());
     }
 }

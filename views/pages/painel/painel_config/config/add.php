@@ -116,8 +116,9 @@ $Painel->coluna(callback: function () use ($Painel) {
         $Painel->fieldsetCheckbox(callback: function () use ($Painel) {
             foreach ((new Padrao())->PERMISSAO as $configuracoes) {
                 $tituloApp = $configuracoes['titulo'] ?? '';
+                $Painel->html('<div style="width: 100%; padding: 7px 10px 10px; border: 1px solid #CCC; display: flex; flex-direction: row; flex-wrap: wrap; border-radius: 5px; margin-bottom: 10px;">');
                 if (!empty($tituloApp)) {
-                    $Painel->html('<h3>' . $tituloApp . '</h3>');
+                    $Painel->html('<h3 style="margin: 0">' . $tituloApp . '</h3>');
                 }
                 if (array_key_exists('permissao', $configuracoes)) {
                     foreach ($configuracoes['permissao'] as $permissao => $configPermissao) {
@@ -130,6 +131,7 @@ $Painel->coluna(callback: function () use ($Painel) {
                         );
                     }
                 }
+                $Painel->html('</div>');
             }
         }, todos: 'Marcar todas as permissões', mais: 1);
     });

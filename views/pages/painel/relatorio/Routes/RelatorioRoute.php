@@ -43,6 +43,26 @@ Route
     });
 
 Route
+    ::middleware(classe: App\Middlewares\Painel\AuthMiddleware::class, action: 'logado')
+    ::middleware(
+        classe: App\Middlewares\Painel\PermissaoMiddleware::class,
+        action: 'validar',
+        parametro: ['relatorio_campanha_index']
+    )
+    ::controller(RelatorioController::class)
+    ::nome('relatorio_campanha')
+    ::grupo(function () {
+        Route
+            ::action('campanha')
+            ::view('/relatorio/campanha-voucher');
+
+        Route
+            ::nome('campanhaVouchers')
+            ::request(['de', 'ate', '!empresa'])
+            ::get('/relatorio/campanha-vouchers');
+    });
+
+Route
     ::middleware(
         classe: App\Middlewares\AuthMiddleware::class,
         action: 'logado',

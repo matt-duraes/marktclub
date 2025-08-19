@@ -869,6 +869,14 @@ Route
             ::get('/relatorio/indicacao');
 
         Route
+            ::nome('campanhaVoucher')
+            ::middleware(TokenMiddleware::class, 'scope', ['relatorio_campanha:listar'])
+            ::request([
+                'de', 'ate', '!empresa',
+            ], 'json')
+            ::get('/relatorio/campanha-voucher');
+
+        Route
             ::nome('acessoDia')
             ::middleware(TokenMiddleware::class, 'scope', ['relatorio_acesso:listar'])
             ::request([
