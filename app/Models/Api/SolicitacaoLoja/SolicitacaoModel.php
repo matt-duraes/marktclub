@@ -247,7 +247,7 @@ class SolicitacaoModel extends ORM implements
     }
 
     /**
-     * @param string $idSubempresa
+     * @param string|null $idSubempresa
      *
      * @return string
      */

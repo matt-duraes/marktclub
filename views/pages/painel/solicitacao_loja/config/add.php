@@ -13,7 +13,10 @@ $parceiro = (new ApiHelper(token: true))
     ->json([
         'titulo'    => 'Escolha um parceiro',
         'tipo_loja' => TipoLoja::LOJA,
-        'status'    => [Status::PROSPECCAO, Status::CONCLUIDO, Status::CANCELADO]
+        'status'    => [
+            Status::PROSPECCAO, Status::CONCLUIDO, Status::CANCELADO,
+            Status::SEM_INTERESSE, Status::PROBLEMA
+        ]
     ])
     ->get('/parceiro-loja/select')
     ->array();
