@@ -223,11 +223,11 @@ class SolicitacaoEntity extends Entity
     }
 
     /**
-     * @param string $nome
-     * @param string $gestor
-     * @param array  $empresas
-     * @param string $telefone
-     * @param string $email
+     * @param string   $nome
+     * @param string   $gestor
+     * @param array    $empresas
+     * @param Telefone $telefone
+     * @param Email    $email
      *
      * @return int
      * @throws Erro
