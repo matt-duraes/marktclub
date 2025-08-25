@@ -568,6 +568,19 @@ trait PermissaoTrait
                     'parceiro_externo_empresa'    => Titulo::EMPRESA
                 ]
             ],
+            'parceiro_clube'           => [
+                'titulo'    => 'Parceiros Clube',
+                'permissao' => [
+                    'parceiro_clube_index'      => [
+                        'titulo' => Titulo::LISTAR,
+                        'scope'  => 'parceiro_loja:listar'
+                    ],
+                    'parceiro_clube_visualizar' => [
+                        'titulo' => Titulo::VISUALIZAR,
+                        'scope'  => 'parceiro_loja:buscar'
+                    ]
+                ]
+            ],
             'parceiro_equipe'          => [
                 'titulo'    => 'Sem captador',
                 'permissao' => [
