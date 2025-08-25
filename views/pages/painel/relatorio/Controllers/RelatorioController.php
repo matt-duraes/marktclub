@@ -21,9 +21,7 @@ final class RelatorioController extends Controller
         if (painelPermissao('relatorio_acesso_empresa', false)) {
             $empresas = $this->pegarSelectEmpresa();
         }
-        if (painelPermissao('relatorio_acesso_subempresa', false)) {
-            $subempresas = $this->pegarSelectSubempresa();
-        }
+        $subempresas = $this->pegarSelectSubempresa();
         return view('painel.relatorio.acesso', [
             'appTitulo'         => 'Relatório de acesso',
             'app'               => 'relatorio-acesso',
@@ -46,9 +44,7 @@ final class RelatorioController extends Controller
         if (painelPermissao('relatorio_indicacao_empresa', false)) {
             $empresas = $this->pegarSelectEmpresa();
         }
-        if (painelPermissao('relatorio_indicacao_subempresa', false)) {
-            $subempresas = $this->pegarSelectSubempresa();
-        }
+        $subempresas = $this->pegarSelectSubempresa();
         return view('painel.relatorio.indicacao', [
             'appTitulo'  => 'Relatório de Indicação',
             'app'        => 'relatorio-indicacao',
@@ -87,9 +83,7 @@ final class RelatorioController extends Controller
         if (painelPermissao('relatorio_usuario_empresa', false)) {
             $empresas = $this->pegarSelectEmpresa();
         }
-        if (painelPermissao('relatorio_usuario_subempresa', false)) {
-            $subempresas = $this->pegarSelectSubempresa();
-        }
+        $subempresas = $this->pegarSelectSubempresa();
         return view('painel.relatorio.usuario', [
             'appTitulo'  => 'Relatório de usuário',
             'app'        => 'relatorio-usuario',
@@ -111,9 +105,7 @@ final class RelatorioController extends Controller
         if (painelPermissao('relatorio_loja_venda_empresa', false)) {
             $empresas = $this->pegarSelectEmpresa();
         }
-        if (painelPermissao('relatorio_loja_venda_subempresa', false)) {
-            $subempresas = $this->pegarSelectSubempresa();
-        }
+        $subempresas = $this->pegarSelectSubempresa();
         if (painelPermissao('relatorio_loja_venda_parceiro', false)) {
             $parceiro = $this->pegarSelectParceiro();
         }
@@ -146,9 +138,7 @@ final class RelatorioController extends Controller
     {
         return (new ApiHelper(token: true))
             ->json(
-                painelPermissao('relatorio_indicacao_subempresa', false) ? ['todas' => '1'] : [
-                    'empresa' => sessao('EMPRESA.id')
-                ]
+                painelPermissao('relatorio_indicacao_subempresa', false) ? ['todas' => '1'] : ['empresa' => sessao('EMPRESA.id')]
             )
             ->get('/comercial-subempresa/select')
             ->array()['dado'] ?? [];
