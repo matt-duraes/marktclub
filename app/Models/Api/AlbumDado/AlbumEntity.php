@@ -160,7 +160,7 @@ class AlbumEntity extends Entity
             );
         }
 
-        if (empty($this->data_final)) {
+        if ($this->data_final->vazio()) {
             return;
         }
         if ($hoje > $this->data_final->date()) {

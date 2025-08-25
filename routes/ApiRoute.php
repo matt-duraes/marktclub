@@ -1732,6 +1732,23 @@ Route
     });
 
 Route
+    ::nome('parceiro_clube')
+    ::middleware(TokenMiddleware::class, 'token')
+    ::controller(App\Controllers\Api\ParceiroClubeController::class)
+    ::grupo(function () {
+        Route
+            ::nome('buscar')
+            ::middleware(TokenMiddleware::class, 'scope', ['parceiro_loja:buscar'])
+            ::get('/parceiro-clube/{id}');
+
+        Route
+            ::nome('listar')
+            ::middleware(TokenMiddleware::class, 'scope', ['parceiro_loja:listar'])
+            ::request(App\Classes\ParceiroLoja\Helper::PARAMETROS_LISTAR, 'json')
+            ::get('/parceiro-clube');
+    });
+
+Route
     ::nome('parceiro_easylive')
     ::middleware(TokenMiddleware::class, 'token')
     ::controller(App\Controllers\Api\ParceiroEasyliveController::class)
