@@ -58,7 +58,8 @@ final class Salvar extends ApiAbstract {
             $retorno[] = [
                 'amount' => 1,
                 'name' => $nome,
-                'total' => $valor
+                'price' => (float)$valor,
+                'total' => (float)$valor
             ];
         }
         return $retorno;
