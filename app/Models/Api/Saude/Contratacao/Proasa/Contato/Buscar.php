@@ -1,14 +1,14 @@
 <?php
 
-namespace App\Models\Api\Saude\Contratacao\Proasa;
+namespace App\Models\Api\Saude\Contratacao\Proasa\Contato;
 
-use Modules\Email;
 use Modules\Telefone;
 use App\Models\Api\Saude\Contratacao\Proasa\ApiAbstract;
 
 final class Buscar extends ApiAbstract
 {
     public bool $existe = false;
+    public string $id = '';
 
     public function __construct(
         Telefone $Telefone,
@@ -27,16 +27,6 @@ final class Buscar extends ApiAbstract
             ])
             ->get($this->uri('/contacts'))
             ->array();
-        $this->existe = $this->validarExiste($busca);
-    }
-
-    private function validarExiste(array $busca): bool
-    {
-        if(!validarIndiceExiste($busca, 'total') || $busca['total'] === 0) {
-            return false;
-        }
-        $data = $busca['contacts'][0]['created_at'] ?? '';
-        $hoje = date('Y-m-d');
-        return str_starts_with($data, $hoje);
+        $this->validarBuscaExiste($busca, 'contacts');
     }
 }
