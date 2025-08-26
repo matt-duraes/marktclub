@@ -2974,7 +2974,7 @@ Route
             ::nome('listar')
             ::middleware(TokenMiddleware::class, 'scope', ['silium_comissao:listar'])
             ::request([
-                'pagina', '!quantidade', '!ordem', '!cliente', '!parceiro', '!data_inicio',
+                'pagina', '!quantidade', '!ordem', '!usuario', '!parceiro', '!data_inicio',
                 '!data_final', '!status'
             ], 'json')
             ::get('/silium-comissao');

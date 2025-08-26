@@ -32,7 +32,7 @@ final class SiliumModel extends ClubeApiHelper
             ->validar('Não foi possível pegar extrato!', status: 404)
             ->json([
                 'pagina'  => 1,
-                'cliente' => sessao('USUARIO.id'),
+                'usuario' => sessao('USUARIO.id'),
                 'ordem'   => Ordem::MAIS_NOVO
             ])
             ->get('/silium-comissao')

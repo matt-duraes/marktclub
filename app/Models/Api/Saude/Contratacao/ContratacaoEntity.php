@@ -206,10 +206,14 @@ class ContratacaoEntity extends Entity
 
     private function enviarLeadProasa()
     {
+        $this->buscarEmpresa();
+        $this->buscarSimulacao();
         $Proasa = new ProasaSalvar(
             Email: $this->email_pessoal,
             Nome: $this->nome,
-            Telefone: $this->telefone_celular
+            Telefone: $this->telefone_celular,
+            empresa: $this->empresa['nome'],
+            simulacao: $this->simulacao
         );
 
         if($Proasa->salvou && $this->status->indice() === Status::NOVO) {
@@ -265,7 +269,6 @@ class ContratacaoEntity extends Entity
             ],
             retorno: 'object'
         );
-
         $this->simulacao = $this->montarRetornoSimulacao($simulacao);
     }
 

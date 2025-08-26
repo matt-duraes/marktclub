@@ -2,26 +2,26 @@
 
 namespace App\Controllers\Api;
 
+use Erro\Excecao;
+use Http\Request;
+use Modules\Data;
+use Http\Response;
+use Modules\Pagina;
+use Helpers\OrmHelper;
+use Modules\Quantidade;
+use Controller\Controller;
 use App\Classes\SiliumComissao\Ordem;
 use App\Classes\SiliumComissao\Status;
-use App\Models\Api\DownloadPrivado\ArquivoEntity;
-use App\Models\Api\SiliumComissao\DownloadModel;
-use App\Models\Api\SiliumComissao\SiliumComissaoEntity;
-use App\Models\Api\SiliumComissao\SiliumComissaoModel;
-use App\Models\Api\SiliumSaldo\SiliumSaldoEntity;
-use Controller\Controller;
-use Erro\Excecao;
-use Helpers\OrmHelper;
-use Http\Request;
-use Http\Response;
-use Modules\Data;
-use Modules\Pagina;
-use Modules\Quantidade;
-use System\Interface\ControllerAtualizarInterface;
 use System\Interface\ControllerBuscarInterface;
-use System\Interface\ControllerDeletarInterface;
 use System\Interface\ControllerListarInterface;
 use System\Interface\ControllerSalvarInterface;
+use App\Models\Api\SiliumComissao\DownloadModel;
+use System\Interface\ControllerDeletarInterface;
+use App\Models\Api\DownloadPrivado\ArquivoEntity;
+use App\Models\Api\SiliumSaldo\SiliumSaldoEntity;
+use System\Interface\ControllerAtualizarInterface;
+use App\Models\Api\SiliumComissao\SiliumComissaoModel;
+use App\Models\Api\SiliumComissao\SiliumComissaoEntity;
 
 final class SiliumComissaoController extends Controller implements
     ControllerBuscarInterface,
@@ -74,14 +74,14 @@ final class SiliumComissaoController extends Controller implements
     public function getListar(Request $request): Response
     {
         $SiliumComissaoModel = new SiliumComissaoModel(
-            new Pagina($request->pagina),
-            new Quantidade($request->quantidade),
-            new Ordem($request->ordem),
-            $request->usuario,
-            $request->parceiro,
-            new Data($request->data_inicio),
-            new Data($request->data_final),
-            new Status($request->status)
+            pagina: new Pagina($request->pagina),
+            quantidade: new Quantidade($request->quantidade),
+            ordem: new Ordem($request->ordem),
+            usuario: $request->usuario,
+            parceiro: $request->parceiro,
+            dataInicio: new Data($request->data_inicio),
+            dataFinal: new Data($request->data_final),
+            status: new Status($request->status)
         );
         return mensagemSucesso($SiliumComissaoModel->listarDados());
     }
