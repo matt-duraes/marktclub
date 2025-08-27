@@ -6,6 +6,8 @@ use Helpers\CurlHelper;
 
 abstract class ApiAbstract extends CurlHelper {
     private string $token;
+    public bool $existe = false;
+    public string $id = '';
 
     public function __construct()
     {
@@ -39,5 +41,21 @@ abstract class ApiAbstract extends CurlHelper {
     protected function uri(string $uri)
     {
         return '/' . preg_replace('/^\/+/', '', $uri) . '?token=' . $this->token;
+    }
+
+    protected function validarBuscaExiste(array $busca, string $campo): void
+    {
+        if(!validarIndiceExiste($busca, ['total', $campo]) || $busca['total'] === 0) {
+            return;
+        }
+        $this->existe = true;
+        $this->id = $busca[$campo][0]['id'];
+    }
+
+    protected function validarDadoSalvo(array $salvar) {
+        if(!validarIndiceExiste($salvar, 'id') && !empty($salvar['id'])) {
+            mensagemErro('Erro!', 'Ocorreu um erro ao tentar salvar sua solicitação, por favor, tente novamente.');
+        }
+        $this->id = $salvar['id'];
     }
 }

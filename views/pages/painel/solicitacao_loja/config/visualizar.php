@@ -19,14 +19,14 @@ $Painel->coluna(callback: function () use ($Painel, $Status) {
 
     $Painel->bloco('Usuário que indicou', callback: function () use ($Painel) {
         $Painel
-            ->linha('quemIndicou->nome', 'Nome', permissao: 'solicitacao_loja_empresa')
-            ->linha('quemIndicou->cpf', 'CPF', permissao: 'solicitacao_loja_empresa')
-            ->linha('quemIndicou->email', 'E-mail', permissao: 'solicitacao_loja_empresa')
+            ->linha('quemIndicou->nome', 'Nome', permissao: 'usuario_cliente_visualizar')
+            ->linha('quemIndicou->cpf', 'CPF', permissao: 'usuario_cliente_visualizar')
+            ->linha('quemIndicou->email', 'E-mail', permissao: 'usuario_cliente_visualizar')
             ->botao(
                 'usuario_link',
                 'Ver usuário',
                 link: LINK . '/app/visualizar/usuario-cliente/->quemIndicou->id',
-                permissao: 'solicitacao_loja_empresa'
+                permissao: 'usuario_cliente_visualizar'
             );
     });
 
@@ -52,17 +52,41 @@ $Painel->coluna(callback: function () use ($Painel, $Status) {
             ->dataHora('data_atualizacao', 'Data da última atualização')
             ->linha('status', 'Status');
     });
-
-    $Painel
-        ->status(
-            campo: 'status',
-            texto: 'Sem Interesse',
-            inArray: [$Status->nome(Status::SEM_VINCULO)],
-            status: Status::CANCELADO,
-            mensagem: 'Tem certeza que deseja alterar o status para Sem Interesse?',
-            cor: 'vermelho'
-        );
 });
+
+$Painel->status(
+    campo: 'status',
+    texto: 'Sem Interesse',
+    inArray: [
+        $Status->nome(Status::SEM_VINCULO),
+        $Status->nome(Status::ANDAMENTO),
+        $Status->nome(Status::CONCLUIDO)
+    ],
+    status: Status::CANCELADO,
+    mensagem: 'Tem certeza que deseja alterar o status para Sem Interesse?',
+    cor: 'vermelho'
+);
+
+$Painel->status(
+    campo: 'status',
+    texto: 'Concluido',
+    inArray: [
+        $Status->nome(Status::SEM_VINCULO),
+        $Status->nome(Status::ANDAMENTO)
+    ],
+    status: Status::CONCLUIDO,
+    mensagem: 'Tem certeza que deseja alterar o status para Concluido?',
+    cor: 'verde'
+);
+
+$Painel->status(
+    campo: 'status',
+    texto: 'Andamento',
+    inArray: [$Status->nome(Status::CANCELADO)],
+    status: Status::ANDAMENTO,
+    mensagem: 'Tem certeza que deseja alterar o status para Andamento?',
+    cor: 'amarelo'
+);
 
 $Painel->replace(campo: 'status', lista: $Status->select());
 

@@ -14,5 +14,6 @@ return array(
   array('id' => '13','uuid' => '29760e6a-f8d1-4b5c-bcc2-25341539ba65','id_admin_empresa' => '[1]','titulo' => 'Proasa PA','url' => 'proasa-pa','status' => '1'),
   array('id' => '14','uuid' => '3e80f3d6-88b4-4cd3-b86a-77725390b59b','id_admin_empresa' => '[1, 1981]','titulo' => 'Manole','url' => 'manole','status' => '1'),
   array('id' => '15','uuid' => 'c03ce79e-6339-4443-878e-a93af895c77b','id_admin_empresa' => '[1]','titulo' => 'Cinema','url' => 'cinema','status' => '1'),
-  array('id' => '17','uuid' => '2fc1c54e-6186-401b-a0da-24da6b5233ce','id_admin_empresa' => '[1, 92]','titulo' => 'Seguros Unimed','url' => 'seguros-unimed','status' => '1')
+  array('id' => '17','uuid' => '2fc1c54e-6186-401b-a0da-24da6b5233ce','id_admin_empresa' => '[1, 92]','titulo' => 'Seguros Unimed','url' => 'seguros-unimed','status' => '1'),
+  array('id' => '19','uuid' => '06de2492-cf40-482e-8f91-a5c0b6088e57','id_admin_empresa' => '[1]','titulo' => 'Netshoes Voucher','url' => 'netshoes-voucher','status' => '1')
 );

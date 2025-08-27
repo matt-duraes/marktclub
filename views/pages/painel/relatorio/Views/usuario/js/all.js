@@ -3,20 +3,17 @@
 // @system "Popup"
 // @painel 'relatorio_empresas'
 
-
 window.addEventListener('load', () => {
     const inputDe = document.querySelector('#input_relatorio_data_de');
-    const inputAte = document.querySelector('#input_relatorio_data_ate');
     const botaoBuscar = document.querySelector('#botao_buscar_relatorio');
 
     Calendario.init({
-        de: $('#input_relatorio_data_de'),
-        ate: $('#input_relatorio_data_ate'),
+        input: '#input_relatorio_data_de',
     });
 
     const buscarGrafico = async () => {
         const de = inputDe.value;
-        const ate = inputAte.value;
+        const ate = inputDe.value;
         const empresa = pegarValoresMarcadosEmpresa();
         const subempresa = pegarValoresMarcadosSubempresa();
 

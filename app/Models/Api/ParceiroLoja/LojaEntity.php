@@ -121,53 +121,6 @@ final class LojaEntity extends Entity
         $this->converterComissao();
     }
 
-    protected function regraPosInsert(): void
-    {
-        $this->sistemaData('Loja cadastrada', 'novo');
-    }
-
-    /**
-     * @return void
-     * @throws Erro
-     * @throws Excecao
-     * @throws TypeException
-     */
-    protected function regraPosUpdate(): void
-    {
-        $statusInicial = $this->statusInicial;
-        $statusAtual = $this->status->indice();
-        if ($statusInicial != $statusAtual) {
-            $this->salvarMudancaStatus($statusInicial, $statusAtual);
-        }
-        $this->mudarStatusIndicacoes();
-        $this->notificarIndicacoes();
-    }
-
-    /**
-     * @return mixed
-     * @throws Erro
-     * @throws Excecao
-     */
-    protected function getId(): mixed
-    {
-        return $this->prop('id');
-    }
-
-    protected function regraPosBuscar(): void
-    {
-        if (empty($this->prazo_voucher) || !preg_match('/^[1-9]{1}[0-9]{0,}$/', $this->prazo_voucher)) {
-            $this->prazo_voucher = 10;
-        }
-        $this->link_site = (new LinkSiteModel($this))->link;
-        $this->empresa = $this->EmpresaOrm->mudarListaIdParaUuid($this->id_admin_empresa);
-        $this->destaque = $this->EmpresaOrm->mudarListaIdParaUuid($this->destaque);
-        $this->equipe = $this->EquipeOrm->pegarUuidPeloId($this->id_usuario_equipe);
-        $this->categoria_lista = $this->converterCategoriaEm('indice');
-        $this->subcategoria_lista = $this->converterIdParaUuid($this->subcategoria_lista);
-        $this->setarRelacionadoExistem();
-        $this->converterComissao(false);
-    }
-
     private function converterCategoriaEm(string $tipo): array
     {
         if (!$this->pExiste('categoria_lista') || empty($this->categoria_lista)) {
@@ -204,6 +157,28 @@ final class LojaEntity extends Entity
         }
     }
 
+    protected function regraPosInsert(): void
+    {
+        $this->sistemaData('Loja cadastrada', 'novo');
+    }
+
+    /**
+     * @return void
+     * @throws Erro
+     * @throws Excecao
+     * @throws TypeException
+     */
+    protected function regraPosUpdate(): void
+    {
+        $statusInicial = $this->statusInicial;
+        $statusAtual = $this->status->indice();
+        if ($statusInicial != $statusAtual) {
+            $this->salvarMudancaStatus($statusInicial, $statusAtual);
+        }
+        $this->mudarStatusIndicacoes();
+        //$this->notificarIndicacoes();
+    }
+
     private function salvarMudancaStatus($statusInicial, $statusAtual): void
     {
         $statusGeral = $statusInicial . '_' . $statusAtual;
@@ -223,7 +198,7 @@ final class LojaEntity extends Entity
             Status::SEM_INTERESSE                            => 'Não teve interessem'
         ];
         $indice = $this->status->indice();
-        $this->sistemaData($mensagem[$statusGeral] ?? $mensagem[$indice], $statusGeral);
+        $this->sistemaData($mensagem[$statusGeral] ?? $mensagem[$indice], $statusGeral, $this->id);
     }
 
     /**
@@ -242,6 +217,8 @@ final class LojaEntity extends Entity
             $solicitacao->buscar(['id', $indicacao->id], false);
             if ($this->status->indice() === Status::CONCLUIDO) {
                 $solicitacao->set('status', StatusSolicitacaoLoja::CONCLUIDO);
+            } elseif ($this->status->indice() === Status::PROSPECCAO) {
+                $solicitacao->set('status', StatusSolicitacaoLoja::ANDAMENTO);
             } elseif (in_array($this->status->indice(), [Status::CANCELADO, Status::SEM_INTERESSE])) {
                 $solicitacao->set('status', StatusSolicitacaoLoja::CANCELADO);
             }
@@ -267,41 +244,28 @@ final class LojaEntity extends Entity
     }
 
     /**
-     * @return void
+     * @return mixed
      * @throws Erro
-     * @throws Excecao|TypeException
+     * @throws Excecao
      */
-    private function notificarIndicacoes(): void
+    protected function getId(): mixed
     {
-        $indicacoes = $this->pegarIndicacoes();
-        if (empty($indicacoes)) {
-            return;
-        }
+        return $this->prop('id');
+    }
 
-        $ormHelperUsuario = new OrmHelper(TABELA_USUARIO_CLIENTE);
-        foreach ($indicacoes as $indicacao) {
-            $usuario = $ormHelperUsuario->pegarUltimoRegistro([
-                ['id', $indicacao->id_usuario_cliente],
-                ['id_admin_empresa', $indicacao->id_admin_empresa]
-            ], ['nome', 'email_pessoal'], 'object');
-
-            $Solicitacao = new SolicitacaoEntity();
-            if ($this->status->indice() === Status::CONCLUIDO) {
-                $Solicitacao->enviarEmailConcluido(
-                    $indicacao->id_admin_empresa,
-                    $usuario->nome,
-                    $usuario->email_pessoal,
-                    $this->titulo
-                );
-            } elseif (in_array($this->status->indice(), [Status::CANCELADO, Status::SEM_INTERESSE])) {
-                $Solicitacao->enviarEmailCancelado(
-                    $indicacao->id_admin_empresa,
-                    $usuario->nome,
-                    $usuario->email_pessoal,
-                    $this->titulo
-                );
-            }
+    protected function regraPosBuscar(): void
+    {
+        if (empty($this->prazo_voucher) || !preg_match('/^[1-9]{1}[0-9]{0,}$/', $this->prazo_voucher)) {
+            $this->prazo_voucher = 10;
         }
+        $this->link_site = (new LinkSiteModel($this))->link;
+        $this->empresa = $this->EmpresaOrm->mudarListaIdParaUuid($this->id_admin_empresa);
+        $this->destaque = $this->EmpresaOrm->mudarListaIdParaUuid($this->destaque);
+        $this->equipe = $this->EquipeOrm->pegarUuidPeloId($this->id_usuario_equipe);
+        $this->categoria_lista = $this->converterCategoriaEm('indice');
+        $this->subcategoria_lista = $this->converterIdParaUuid($this->subcategoria_lista);
+        $this->setarRelacionadoExistem();
+        $this->converterComissao(false);
     }
 
     /**
@@ -340,5 +304,43 @@ final class LojaEntity extends Entity
                 ['tipo', 2]
             ]) ? 'sim' : 'nao'
         );
+    }
+
+    /**
+     * @return void
+     * @throws Erro
+     * @throws Excecao|TypeException
+     */
+    private function notificarIndicacoes(): void
+    {
+        $indicacoes = $this->pegarIndicacoes();
+        if (empty($indicacoes)) {
+            return;
+        }
+
+        $ormHelperUsuario = new OrmHelper(TABELA_USUARIO_CLIENTE);
+        foreach ($indicacoes as $indicacao) {
+            $usuario = $ormHelperUsuario->pegarUltimoRegistro([
+                ['id', $indicacao->id_usuario_cliente],
+                ['id_admin_empresa', $indicacao->id_admin_empresa]
+            ], ['nome', 'email_pessoal'], 'object');
+
+            $Solicitacao = new SolicitacaoEntity();
+            if ($this->status->indice() === Status::CONCLUIDO) {
+                $Solicitacao->enviarEmailConcluido(
+                    $indicacao->id_admin_empresa,
+                    $usuario->nome,
+                    $usuario->email_pessoal,
+                    $this->titulo
+                );
+            } elseif (in_array($this->status->indice(), [Status::CANCELADO, Status::SEM_INTERESSE])) {
+                $Solicitacao->enviarEmailCancelado(
+                    $indicacao->id_admin_empresa,
+                    $usuario->nome,
+                    $usuario->email_pessoal,
+                    $this->titulo
+                );
+            }
+        }
     }
 }
