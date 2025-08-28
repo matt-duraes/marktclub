@@ -579,17 +579,6 @@ Route
     });
 
 Route
-    ::nome('odontologico')
-    ::middleware(ClubeMiddleware::class, 'buscar')
-    ::middleware(AuthMiddleware::class, 'logado')
-    ::controller(App\Controllers\Site\OdontologicoController::class)
-    ::grupo(function () {
-        Route
-            ::nome('index')
-            ::view('/plano-odontologico');
-    });
-
-Route
     ::nome('pagina')
     ::middleware(ClubeMiddleware::class, 'buscar')
     ::middleware(AuthMiddleware::class, 'logado')
@@ -610,7 +599,8 @@ Route
                 '/saude',
                 '/manole',
                 '/cinema',
-                '/netshoes-voucher'
+                '/netshoes-voucher',
+                '/odontologico'
             ]);
     });
 Route
