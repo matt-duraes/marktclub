@@ -600,7 +600,8 @@ Route
                 '/manole',
                 '/cinema',
                 '/netshoes-voucher',
-                '/odontologico'
+                '/odontologico',
+                '/sos-mulher'
             ]);
     });
 Route
@@ -793,17 +794,6 @@ Route
         Route
             ::nome('excluir')
             ::view('/excluir-conta');
-    });
-
-Route
-    ::nome('sosmulher')
-    ::middleware(ClubeMiddleware::class, 'buscar')
-    ::middleware(AuthMiddleware::class, 'logado')
-    ::controller(App\Controllers\Site\SosMulherController::class)
-    ::grupo(function () {
-        Route
-            ::nome('index')
-            ::view('/sos-mulher');
     });
 
 Route
