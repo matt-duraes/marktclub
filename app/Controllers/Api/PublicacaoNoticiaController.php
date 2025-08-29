@@ -56,11 +56,7 @@ final class PublicacaoNoticiaController extends Controller implements
     public function getBuscar(string $id): Response
     {
         $Noticia = new NoticiaEntity();
-        if (validarUuid($id, false)) {
-            $Noticia->uuid($id);
-        } else {
-            $Noticia->idSlug($id);
-        }
+        $Noticia->idSlug($id);
         return $this->retornoSucesso($Noticia);
     }
 
