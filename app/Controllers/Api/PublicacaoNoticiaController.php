@@ -2,24 +2,24 @@
 
 namespace App\Controllers\Api;
 
+use App\Classes\Geral\Status;
+use App\Classes\PublicacaoNoticia\Ordem;
+use App\Classes\PublicacaoNoticia\Tipo;
+use App\Models\Api\PublicacaoNoticia\HomeModel;
+use App\Models\Api\PublicacaoNoticia\NoticiaEntity;
+use App\Models\Api\PublicacaoNoticia\NoticiaModel;
+use Controller\Controller;
 use Http\Request;
-use Modules\Data;
 use Http\Response;
 use Modules\Botao;
+use Modules\Data;
 use Modules\Pagina;
 use Modules\Quantidade;
-use Controller\Controller;
-use App\Classes\Geral\Status;
-use App\Classes\PublicacaoNoticia\Tipo;
-use App\Classes\PublicacaoNoticia\Ordem;
-use App\Models\Api\PublicacaoNoticia\HomeModel;
+use System\Interface\ControllerAtualizarInterface;
 use System\Interface\ControllerBuscarInterface;
+use System\Interface\ControllerDeletarInterface;
 use System\Interface\ControllerListarInterface;
 use System\Interface\ControllerSalvarInterface;
-use System\Interface\ControllerDeletarInterface;
-use App\Models\Api\PublicacaoNoticia\NoticiaModel;
-use System\Interface\ControllerAtualizarInterface;
-use App\Models\Api\PublicacaoNoticia\NoticiaEntity;
 
 final class PublicacaoNoticiaController extends Controller implements
     ControllerBuscarInterface,
@@ -56,19 +56,12 @@ final class PublicacaoNoticiaController extends Controller implements
     public function getBuscar(string $id): Response
     {
         $Noticia = new NoticiaEntity();
-        $Noticia->idSlug($id);
+        if (validarUuid($id, false)) {
+            $Noticia->uuid($id);
+        } else {
+            $Noticia->idSlug($id);
+        }
         return $this->retornoSucesso($Noticia);
-    }
-
-    public function postSalvar(Request $request): Response
-    {
-        $dado = $request->dado();
-        $dado['texto_grande'] = $request->getPost('texto_grande', html: false);
-        $Noticia = new NoticiaEntity();
-        $Noticia->set(lista: $dado);
-        $Noticia->salvar();
-
-        return $this->retornoSucesso($Noticia, 201);
     }
 
     private function retornoSucesso(NoticiaEntity $Noticia, int $status = 200)
@@ -87,6 +80,17 @@ final class PublicacaoNoticiaController extends Controller implements
             ),
             status: $status
         );
+    }
+
+    public function postSalvar(Request $request): Response
+    {
+        $dado = $request->dado();
+        $dado['texto_grande'] = $request->getPost('texto_grande', html: false);
+        $Noticia = new NoticiaEntity();
+        $Noticia->set(lista: $dado);
+        $Noticia->salvar();
+
+        return $this->retornoSucesso($Noticia, 201);
     }
 
     public function putAtualizar(Request $request, string $id): Response
