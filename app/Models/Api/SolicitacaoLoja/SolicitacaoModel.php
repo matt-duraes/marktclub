@@ -301,7 +301,7 @@ class SolicitacaoModel extends ORM implements
             if (empty($parceiro)) {
                 return $arrParceiro;
             }
-            
+
             if (!empty($parceiro->titulo_interno)) {
                 $arrParceiro['titulo_interno'] = $parceiro->titulo_interno;
             } elseif (!empty($parceiro->nome_fantasia)) {
