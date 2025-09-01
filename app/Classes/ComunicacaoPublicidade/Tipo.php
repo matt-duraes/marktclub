@@ -17,6 +17,7 @@ class Tipo extends Status
     public const MANOLE = 'manole';
     public const CINEMA = 'cinema';
     public const NETSHOES_VOUCHER = 'netshoes-voucher';
+    public const ODONTOLOGICO = 'odontologico';
 
     /**
      * @param string|int|null $valor
@@ -35,6 +36,7 @@ class Tipo extends Status
             self::MANOLE         => 'Manole',
             self::CINEMA         => 'Cinema',
             self::NETSHOES_VOUCHER => 'Netshoes Voucher',
+            self::ODONTOLOGICO   => 'Odontológico',
         ]);
     }
 }
