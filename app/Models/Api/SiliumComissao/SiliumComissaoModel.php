@@ -2,19 +2,19 @@
 
 namespace App\Models\Api\SiliumComissao;
 
-use App\Classes\SiliumComissao\Ordem;
-use App\Classes\SiliumComissao\Status;
-use Erro\Excecao;
-use Modules\Data;
-use Modules\Dinheiro;
-use Modules\Pagina;
-use Modules\Quantidade;
 use ORM\ORM;
 use stdClass;
-use System\Interface\ModelListarInterface;
+use Erro\Excecao;
+use Modules\Data;
+use Modules\Pagina;
+use Modules\Dinheiro;
+use Modules\Quantidade;
 use System\Trait\Model\OrdemTrait;
 use System\Trait\Model\PaginaTrait;
+use App\Classes\SiliumComissao\Ordem;
+use App\Classes\SiliumComissao\Status;
 use System\Trait\Model\QuantidadeTrait;
+use System\Interface\ModelListarInterface;
 
 class SiliumComissaoModel extends ORM implements
     ModelListarInterface
@@ -142,8 +142,6 @@ class SiliumComissaoModel extends ORM implements
         $where = [];
         if (!empty($this->usuario) && validarUuid($this->usuario, false)) {
             $where[] = ['uuid', $this->usuario];
-        } else {
-            $where[] = ['nome', 'LIKE', "%$this->usuario%"];
         }
         return $where;
     }
