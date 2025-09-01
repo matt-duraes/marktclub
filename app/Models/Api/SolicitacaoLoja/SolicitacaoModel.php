@@ -247,7 +247,7 @@ class SolicitacaoModel extends ORM implements
     }
 
     /**
-     * @param string $idSubempresa
+     * @param string|null $idSubempresa
      *
      * @return string
      */
@@ -294,17 +294,23 @@ class SolicitacaoModel extends ORM implements
             $ormHelper = new OrmHelper(TABELA_PARCEIRO_LOJA);
             $parceiro = $ormHelper->pegarUltimoRegistro(
                 ['id', $idParceiroLoja],
-                ['titulo_interno', 'data_prospeccao'],
+                ['titulo_interno', 'nome_fantasia', 'razao_social', 'data_prospeccao'],
                 'object'
             );
 
-            if (empty($parceiro->id)) {
+            if (empty($parceiro)) {
                 return $arrParceiro;
             }
 
             if (!empty($parceiro->titulo_interno)) {
                 $arrParceiro['titulo_interno'] = $parceiro->titulo_interno;
-            } elseif (!empty($parceiro->data_prospeccao)) {
+            } elseif (!empty($parceiro->nome_fantasia)) {
+                $arrParceiro['titulo_interno'] = $parceiro->nome_fantasia;
+            } elseif (!empty($parceiro->razao_social)) {
+                $arrParceiro['titulo_interno'] = $parceiro->razao_social;
+            }
+
+            if (!empty($parceiro->data_prospeccao)) {
                 $arrParceiro['data_prospeccao'] = $parceiro->data_prospeccao;
             }
             return $arrParceiro;

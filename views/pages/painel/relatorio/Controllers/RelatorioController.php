@@ -105,9 +105,7 @@ final class RelatorioController extends Controller
         if (painelPermissao('relatorio_loja_venda_empresa', false)) {
             $empresas = $this->pegarSelectEmpresa();
         }
-        if (painelPermissao('relatorio_loja_venda_subempresa', false)) {
-            $subempresas = $this->pegarSelectSubempresa();
-        }
+        $subempresas = $this->pegarSelectSubempresa();
         if (painelPermissao('relatorio_loja_venda_parceiro', false)) {
             $parceiro = $this->pegarSelectParceiro();
         }

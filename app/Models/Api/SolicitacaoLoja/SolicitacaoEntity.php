@@ -187,47 +187,45 @@ class SolicitacaoEntity extends Entity
      */
     protected function regraUpdate(): void
     {
-        if ($this->status->indice() === Status::SEM_VINCULO) {
-            if ($this->propriedadeExiste('parceiro') && !empty($this->parceiro)) {
-                $ormHelper = new OrmHelper(TABELA_PARCEIRO_LOJA);
-                $parceiro = $ormHelper->pegarUltimoRegistro(
-                    ['uuid', $this->parceiro],
-                    ['id', 'status'],
-                    'object'
-                );
+        if ($this->propriedadeExiste('parceiro') && !empty($this->parceiro)) {
+            $ormHelper = new OrmHelper(TABELA_PARCEIRO_LOJA);
+            $parceiro = $ormHelper->pegarUltimoRegistro(
+                ['uuid', $this->parceiro],
+                ['id', 'status'],
+                'object'
+            );
 
-                if (empty($parceiro->id)) {
-                    return;
-                }
+            if (empty($parceiro->id)) {
+                return;
+            }
 
-                $this->id_parceiro_loja = $parceiro->id;
-                $status = new StatusLoja($parceiro->status);
-                if ($status->indice() === StatusLoja::CONCLUIDO) {
-                    $this->status = new Status(Status::CONCLUIDO);
-                } elseif (in_array($status->indice(), [StatusLoja::CANCELADO, StatusLoja::SEM_INTERESSE])) {
-                    $this->status = new Status(Status::CANCELADO);
-                } else {
-                    $this->status = new Status(Status::ANDAMENTO);
-                }
-            } elseif ($this->propriedadeExiste('parceiro_novo') && !empty($this->parceiro_novo)) {
-                $this->id_parceiro_loja = $this->gerarParceiroEmProspeccao(
-                    $this->parceiro_novo,
-                    $this->gestor,
-                    $this->empresas,
-                    $this->telefone,
-                    $this->email
-                );
+            $this->id_parceiro_loja = $parceiro->id;
+            $status = new StatusLoja($parceiro->status);
+            if ($status->indice() === StatusLoja::CONCLUIDO) {
+                $this->status = new Status(Status::CONCLUIDO);
+            } elseif (in_array($status->indice(), [StatusLoja::CANCELADO, StatusLoja::SEM_INTERESSE])) {
+                $this->status = new Status(Status::CANCELADO);
+            } else {
                 $this->status = new Status(Status::ANDAMENTO);
             }
+        } elseif ($this->propriedadeExiste('parceiro_novo') && !empty($this->parceiro_novo)) {
+            $this->id_parceiro_loja = $this->gerarParceiroEmProspeccao(
+                $this->parceiro_novo,
+                $this->gestor,
+                $this->empresas,
+                $this->telefone,
+                $this->email
+            );
+            $this->status = new Status(Status::ANDAMENTO);
         }
     }
 
     /**
-     * @param string $nome
-     * @param string $gestor
-     * @param array  $empresas
-     * @param string $telefone
-     * @param string $email
+     * @param string   $nome
+     * @param string   $gestor
+     * @param array    $empresas
+     * @param Telefone $telefone
+     * @param Email    $email
      *
      * @return int
      * @throws Erro

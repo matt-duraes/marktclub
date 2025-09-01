@@ -27,6 +27,7 @@ trait MontarRetornoTrait
                 'id'              => $r->uuid,
                 'titulo'          => $r->titulo,
                 'titulo_interno'  => $r->titulo_interno,
+                'razao_social'    => $r->razao_social,
                 'desconto'        => $desconto,
                 'imagem_logo'     => imagemPrivada($r->imagem_logo),
                 'url'             => $r->url,
@@ -36,7 +37,7 @@ trait MontarRetornoTrait
                 'data_prospeccao' => $r->data_prospeccao,
                 'data_auditoria'  => $r->data_auditoria,
                 'data_problema'   => $r->data_problema,
-                'endereco_estado' => $r->endereco_estado,
+                'endereco_estado' => $this->tratarEstados($r->endereco_estado),
                 'status'          => $Status->indice($r->status)
             ];
         }
@@ -44,5 +45,32 @@ trait MontarRetornoTrait
             $retorno = $this->montarListaGeolocalizacao($retorno, $lista);
         }
         return array_values($retorno);
+    }
+
+    private function tratarEstados($estadosParceiro): string
+    {
+        $estados = [
+            'AC', 'AL', 'AP', 'AM', 'BA', 'CE', 'DF', 'ES', 'GO', 'MA',
+            'MT', 'MS', 'MG', 'PA', 'PB', 'PR', 'PE', 'PI', 'RJ', 'RN',
+            'RS', 'RO', 'RR', 'SC', 'SP', 'SE', 'TO'
+        ];
+        $estadosParceiro = jsonDecode($estadosParceiro, true, true);
+
+        if (!is_array($estadosParceiro)) {
+            return '';
+        }
+
+        $estadosFaltantes = array_diff($estados, $estadosParceiro);
+        $quantidadeFaltante = count($estadosFaltantes);
+
+        if ($quantidadeFaltante === 0) {
+            return 'Todos os estados';
+        }
+
+        if ($quantidadeFaltante <= 5) {
+            return 'Todos exceto ' . implode(', ', $estadosFaltantes);
+        }
+
+        return implode(', ', $estadosParceiro);
     }
 }
