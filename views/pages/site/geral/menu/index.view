@@ -147,7 +147,7 @@
 @if(MENU_ODONTOLOGICO ||MENU_SAUDE):
     <div class="categoria">SAÚDE</div>
     @if(MENU_ODONTOLOGICO):
-        <a class="botao {!!MENU_HOVER == 'odontologico' ? 'cor_bg pagina_atual' : ''!!}" href="<?= route('odontologico.index') ?>">
+        <a class="botao {!!MENU_HOVER == 'odontologico' ? 'cor_bg pagina_atual' : ''!!}" href="{{LINK}}/odontologico">
             <i>@iconeDentista</i>
             Plano Odontológico
         </a>

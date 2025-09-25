@@ -2,7 +2,6 @@
 
 use App\Classes\ParceiroLoja\Ordem;
 use App\Classes\ParceiroLoja\Status;
-use App\Classes\ParceiroLoja\TipoLoja;
 use Modules\EnderecoEstado;
 use PainelConfig\Index;
 
